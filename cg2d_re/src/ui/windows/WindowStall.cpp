@@ -1106,11 +1106,11 @@ static std::int32_t WindowStall_DrawPetDetails(
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, L"", 0, 0));
-    const char* const title = pet.name6AC.data();
+    const wchar_t* const title = pet.name6AC.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 60), static_cast<std::int16_t>(y + 11),
-            5, 12, 0, cg::text::FromGbkWide(title).c_str(), 0, 0));
+            5, 12, 0, title, 0, 0));
     }
     const std::int32_t shortY = static_cast<std::int16_t>(y);
     std::wstring buffer;
@@ -1180,7 +1180,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         return 0;
     }
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(pet->name6AC.data()).c_str());
+    cg::text::FormatTo(buffer, L"{}", pet->name6AC.data());
     {
         WindowInstance* const window = gCurrentWindow;
         const auto x = static_cast<std::int16_t>(window->x + 77);
@@ -1365,7 +1365,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         const auto x = static_cast<std::int16_t>(window->x + dx);
         static_cast<void>(render::DrawText_456780(x, y, 3, 12, 0, buffer, 0, 0));
     };
-    cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(initialPet->name6AC.data()).c_str());
+    cg::text::FormatTo(buffer, L"{}", initialPet->name6AC.data());
     drawText(298, 132);
     cg::text::FormatTo(buffer, L"{:3}", world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
@@ -1934,7 +1934,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
                 static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
                 4, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), details, 0, 0));
         };
-        cg::text::FormatTo(details, L"{}", cg::text::FromGbkWide(pet->name6AC.data()).c_str());
+        cg::text::FormatTo(details, L"{}", pet->name6AC.data());
         drawPetText(75, 61);
         cg::text::FormatTo(details, L"{:4}", static_cast<std::int32_t>(pet->values0C[1]));
         drawPetText(225, 61);
@@ -2421,12 +2421,12 @@ static void WindowStall_OpenBrowse(
         network::ExtractDelimitedField_52CED0(petPayload, '|', field++, 255, petName);
         input::UnescapeLegacyTextAndNotify_52D2F0(petName);
         if (std::strlen(petName) <= 16) {
-            std::strcpy(pet.name6AC.data(), petName);
+            pet.name6AC = cg::text::FromGbkWide(petName);
         }
         network::ExtractDelimitedField_52CED0(petPayload, '|', field++, 255, petSecondName);
         input::UnescapeLegacyTextAndNotify_52D2F0(petSecondName);
         if (std::strlen(petSecondName) <= 16) {
-            std::strcpy(pet.name6BD.data(), petSecondName);
+            pet.name6BD = cg::text::FromGbkWide(petSecondName);
         }
         const auto flags = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(petPayload, '|', field++));

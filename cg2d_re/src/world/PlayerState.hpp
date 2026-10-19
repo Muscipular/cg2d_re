@@ -228,8 +228,8 @@ struct PetRuntimeRecord {
     std::int32_t value6A4; // 原成员偏移：+0x6A4。
     std::array<std::byte, 2> bytes6A8; // 原成员偏移：+0x6A8。
     std::uint16_t flags6AA; // 原成员偏移：+0x6AA。 不含跟随bit0x10的状态。
-    std::array<char, 17> name6AC; // 原成员偏移：+0x6AC。
-    std::array<char, 17> name6BD; // 原成员偏移：+0x6BD。
+    std::wstring name6AC; // 原成员偏移：+0x6AC。
+    std::wstring name6BD; // 原成员偏移：+0x6BD。
     std::array<std::byte, 2> bytes6CE; // 原成员偏移：+0x6CE。
     std::int32_t value6D0; // 原成员偏移：+0x6D0。 518580复制到索引对。
     std::int32_t follow6D4; // 原成员偏移：+0x6D4。
@@ -253,11 +253,6 @@ static_assert(offsetof(PetRuntimeRecord, techniquePairs650) == 0xD8 + sizeof(det
 static_assert(offsetof(PetRuntimeRecord, imageNo6A0) == offsetof(PetRuntimeRecord, techniquePairs650) + sizeof(SkillPairRecord) * kPetTechniqueSlotCount);
 static_assert(offsetof(PetRuntimeRecord, value6A4) == offsetof(PetRuntimeRecord, imageNo6A0) + 4);
 static_assert(offsetof(PetRuntimeRecord, flags6AA) == offsetof(PetRuntimeRecord, imageNo6A0) + 0xA);
-static_assert(offsetof(PetRuntimeRecord, name6AC) == offsetof(PetRuntimeRecord, imageNo6A0) + 0xC);
-static_assert(offsetof(PetRuntimeRecord, name6BD) == offsetof(PetRuntimeRecord, imageNo6A0) + 0x1D);
-static_assert(offsetof(PetRuntimeRecord, value6D0) == offsetof(PetRuntimeRecord, imageNo6A0) + 0x30);
-static_assert(offsetof(PetRuntimeRecord, follow6D4) == offsetof(PetRuntimeRecord, imageNo6A0) + 0x34);
-static_assert(offsetof(PetRuntimeRecord, values6D8) == offsetof(PetRuntimeRecord, imageNo6A0) + 0x38);
 
 // 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
 struct ReplyRecordF7C950 {

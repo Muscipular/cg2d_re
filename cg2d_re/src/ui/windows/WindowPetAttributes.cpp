@@ -135,14 +135,14 @@ static std::uint32_t WindowPetAttributes_Refresh()
                 copyTextAfterScan(14, gLoginWindowRuntime.petNameDraftD45E74);
             }
             const auto& compared = selectedPet();
-            const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
-            const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(cg::text::FromGbkWide(name)) != 0;
+            const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
+            const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
             auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
             data->style.color = changed ? std::byte{6} : std::byte{0};
         }
         const auto& compared = selectedPet();
-        const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
-        const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(cg::text::FromGbkWide(name)) != 0;
+        const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
+        const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
         gCurrentWindow->elements[5].visible = changed ? 1 : 0;
 
         writeNumber(15, selectedPet().value08);
@@ -273,10 +273,10 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             WindowChat_RestoreInput();
             if (text.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
-                const char* const name = world::gPetRuntimeRecords[selected].name6AC.data();
-                gLoginWindowRuntime.petNameDraftD45E74 = cg::text::FromGbkWide(name);
+                const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();
+                gLoginWindowRuntime.petNameDraftD45E74 = name;
                 auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
-                data->text = cg::text::FromGbkWide(name);
+                data->text = name;
             }
             consumed = 1;
         }
@@ -343,8 +343,8 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             const std::int16_t selected = petIndex(position);
             gLoginWindowRuntime.selectedPetCC3E5C = position;
             const auto& pet = world::gPetRuntimeRecords[selected];
-            const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            gPetNameInputPrototype57DCF8.text = cg::text::FromGbkWide(name);
+            const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+            gPetNameInputPrototype57DCF8.text = name;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;

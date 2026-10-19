@@ -8104,13 +8104,28 @@ void PlayerRuntimeSlots::ClearRaw() noexcept
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
 void PetRuntimeRecord::ClearRaw() noexcept
 {
-    auto* const bytes = reinterpret_cast<std::byte*>(this);
-    std::memset(bytes, 0, offsetof(PetRuntimeRecord, values0C));
+    used = 0;
+    value02 = 0;
+    value04 = 0;
+    bytes06.fill(std::byte{0});
+    value08 = 0;
     for (platform::LegacyCryptInt& value : values0C) {
         value.RestoreRaw(platform::LegacyCryptInt::RawPayload{});
     }
-    constexpr std::size_t tail = offsetof(PetRuntimeRecord, lvFlag6C);
-    std::memset(bytes + tail, 0, offsetof(PetRuntimeRecord, items6E4) - tail);
+    lvFlag6C = 0;
+    values70.fill(0);
+    techniquesD8.fill({});
+    techniquePairs650.fill({});
+    imageNo6A0 = 0;
+    value6A4 = 0;
+    bytes6A8.fill(std::byte{0});
+    flags6AA = 0;
+    name6AC.clear();
+    name6BD.clear();
+    bytes6CE.fill(std::byte{0});
+    value6D0 = 0;
+    follow6D4 = 0;
+    values6D8.fill(0);
     for (auto& item : items6E4) { item = {}; }
     updated510C = 0;
     bytes510D.fill(std::byte{0});
@@ -9654,7 +9669,7 @@ void HandlePetPrimaryStatsReply_50A6B0(
             network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
             input::UnescapeLegacyTextAndNotify_52D2F0(name);
             if (std::strlen(name) <= 16) {
-                std::strcpy(record.name6AC.data(), name);
+                record.name6AC = cg::text::FromGbkWide(name);
             }
             ++field;
         }
@@ -9663,7 +9678,7 @@ void HandlePetPrimaryStatsReply_50A6B0(
             network::ExtractDelimitedField_52CED0(payload, '|', field, 255, name);
             input::UnescapeLegacyTextAndNotify_52D2F0(name);
             if (std::strlen(name) <= 16) {
-                std::strcpy(record.name6BD.data(), name);
+                record.name6BD = cg::text::FromGbkWide(name);
             }
             ++field;
         }
@@ -9702,8 +9717,8 @@ void HandlePetSecondaryStatsReply_50AC20(
     PetRuntimeRecord& record = gPetRuntimeRecords[index];
     if (flags == 0) {
         record.used = 0;
-        record.name6AC[0] = '\0';
-        record.name6BD[0] = '\0';
+        record.name6AC.clear();
+        record.name6BD.clear();
     } else {
         record.used = 1;
         const std::array<std::int32_t*, 19> targets {{

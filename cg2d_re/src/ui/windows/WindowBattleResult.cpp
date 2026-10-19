@@ -187,11 +187,11 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             gCurrentWindow->elements[row + 9].visible = 1;
             gCurrentWindow->elements[row + 13].visible = 1;
             const std::uint16_t target = result->value00;
-            const char* name;
+            std::wstring name;
             if (target == 0xFFFEu) {
                 const std::int32_t health = WindowItem_HealthImageLevel(world::gPlayerRuntimeSlots.valueF4);
                 WindowInstance* const window = gCurrentWindow;
-                name = world::GetPlayerDisplayText(1);
+                name = cg::text::FromGbkWide(world::GetPlayerDisplayText(1));
                 auto* const graphic = static_cast<WindowGraphicData*>(window->elements[row + 5].data);
                 graphic->imageNo = gHealthImages57E6A4[health];
             } else {
@@ -204,7 +204,7 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
                 const auto& pet = world::gPetRuntimeRecords[nameSlot];
                 name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             }
-            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = cg::text::FromGbkWide(name);
+            static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->text = name;
             if (result->value02 != 0) {
                 gCurrentWindow->elements[row + 1].visible = 1;
             }

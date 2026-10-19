@@ -248,12 +248,12 @@ void WindowBank_DrawOwnPetTooltip(
     static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
     static_cast<void>(render::DrawText_456780(
         0, 0, textLayer, 13, 0, L"", 0, 0));
-    const char* const name =
-        std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
+    const wchar_t* const name =
+        !pet.name6BD.empty() ? pet.name6BD.data() : pet.name6AC.data();
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 45)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 5)),
-        textLayer, 13, color, cg::text::FromGbkWide(name).c_str(), 0, 0));
+        textLayer, 13, color, name, 0, 0));
     std::wstring buffer;
     const auto drawNumber = [&](const std::int32_t value, const std::wstring_view format,
                                 const std::int32_t dx, const std::int32_t dy) {

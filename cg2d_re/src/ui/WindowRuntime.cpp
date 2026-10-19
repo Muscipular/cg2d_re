@@ -1066,9 +1066,9 @@ static std::int32_t WindowPet_DrawTooltip(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(originY + dy)),
                 textLayer, 12, 0, text, 0, 0));
         };
-        const char* const name =
-            std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
-        drawText(cg::text::FromGbkWide(name), 8, 6);
+        const wchar_t* const name =
+            !pet.name6BD.empty() ? pet.name6BD.data() : pet.name6AC.data();
+        drawText(name, 8, 6);
         std::wstring buffer;
         cg::text::FormatTo(buffer, L"{:3}", pet.value08);
         drawText(buffer, 141, 6);
@@ -1963,8 +1963,8 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     pet->updated510C = 0;
     WindowElement* const nameElement = state->elements00[7];
     auto* const nameData = static_cast<WindowTextData*>(nameElement->data);
-    const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
-    nameData->text = cg::text::FromGbkWide(name);
+    const wchar_t* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
+    nameData->text = name;
     const std::uint8_t nameFont = std::to_integer<std::uint8_t>(nameData->style.font);
     const std::wstring& nameText = nameData->text;
     const std::int32_t nameWidth = cg::render::TextMeasure(nameText, nameFont);

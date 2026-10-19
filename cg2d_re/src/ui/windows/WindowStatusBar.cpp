@@ -505,9 +505,9 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                     const std::int16_t petIndex =
                         std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[candidate].index);
                     const auto& pet = world::gPetRuntimeRecords[petIndex];
-                    const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+                    const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
-                    cg::text::FormatTo(buffer, L"现在{}拥有{}点的能力点数。" /* 原常量参考：0x00586314。 */, cg::text::FromGbkWide(name).c_str(), points);
+                    cg::text::FormatTo(buffer, L"现在{}拥有{}点的能力点数。" /* 原常量参考：0x00586314。 */, name, points);
                 } else {
                     const std::int32_t points = world::gPlayerUnspentAttributePoints_D2F788;
                     cg::text::FormatTo(buffer, L"现在有增加点数{}点。" /* 原常量参考：0x00556D50。 */, points);
@@ -600,7 +600,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             } else {
                 const auto& pet = world::gPetRuntimeRecords[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
-                const char* name;
+                const wchar_t* name;
                 const wchar_t* format;
                 if (petInjury <= 25) {
                     format = L"现在{}受到擦伤。" /* 原常量参考：0x00556DB4。 */;
@@ -609,12 +609,12 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                     format = L"现在{}受到轻伤。" /* 原常量参考：0x00556DA0。 */;
                     name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                 } else {
-                    const char nameFirst = pet.name6BD[0];
+                    const wchar_t nameFirst = pet.name6BD[0];
                     const bool critical = petInjury > 75;
                     name = nameFirst != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     format = critical ? L"现在{}濒临死亡。" /* 原常量参考：0x00556D78。 */ : L"现在{}受了重伤。" /* 原常量参考：0x00556D8C。 */;
                 }
-                cg::text::FormatTo(buffer, format, cg::text::FromGbkWide(name).c_str());
+                cg::text::FormatTo(buffer, format, name);
                 gHoverTextD68AE8 = buffer;
                 injury = world::gPlayerRuntimeSlots.valueF4;
                 static_cast<void>(0);

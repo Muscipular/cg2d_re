@@ -2457,12 +2457,12 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     static_cast<void>(render::ClearTextQueueTail_456D50(5));
     static_cast<void>(render::DrawText_456780(
         0, 0, 5, 1, 0, L"", 0, 0));
-    const char* const title = pet.name6AC.data();
+    const wchar_t* const title = pet.name6AC.data();
     if (title != nullptr) {
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 60)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 11)),
-            5, 12, 0, cg::text::FromGbkWide(title).c_str(), 0, 0));
+            5, 12, 0, title, 0, 0));
     }
     const std::int32_t shortY =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
@@ -2774,10 +2774,10 @@ static void WindowTrade_CopyOwnPet(const std::int32_t side)
         auto* const record = &gTradePetsC9C108[index + side * 5];
         const bool hasUserName = source.name6BD[0] != '\0';
         record->used = std::uint16_t{1};
-        record->name = cg::text::FromGbkWide(hasUserName ? source.name6BD.data() : source.name6AC.data());
+        record->name = (hasUserName ? source.name6BD : source.name6AC);
         const std::int32_t imageNo = source.imageNo6A0;
         const std::int32_t value08 = source.value08;
-        record->speciesName = cg::text::FromGbkWide(source.name6AC.data());
+        record->speciesName = source.name6AC.data();
         record->tribe = source.value04;
         record->imageNo = imageNo;
         record->level = value08;

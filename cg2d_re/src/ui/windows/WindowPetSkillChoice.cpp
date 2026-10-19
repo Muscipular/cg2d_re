@@ -925,8 +925,8 @@ static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (used) {
-            const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            static_cast<WindowTextData*>(window->elements[row + 34].data)->text = cg::text::FromGbkWide(name);
+            const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+            static_cast<WindowTextData*>(window->elements[row + 34].data)->text = name;
             const std::int32_t tribe = std::bit_cast<std::int16_t>(pet.value04);
             static_cast<WindowTextData*>(window->elements[row + 44].data)->text = gTribeNames57CB54[tribe];
         }

@@ -411,9 +411,9 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
                 gLoginWindowRuntime.valueD673D0 = 5;
                 if (detailsWindow != nullptr || gWindowStates[WindowId_PetAttributes].window != nullptr
                     || gWindowStates[WindowId_PetSkills].window != nullptr) {
-                    const char* const name =
+                    const wchar_t* const name =
                         pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-                    gPetNameInputPrototype57DCF8.text = cg::text::FromGbkWide(name);
+                    gPetNameInputPrototype57DCF8.text = name;
                     WindowInstance* const window = gCurrentWindow;
                     const std::int32_t y = window->y;
                     const std::int32_t x = window->x;
@@ -701,11 +701,11 @@ static void WindowPetList_Refresh()
         gCurrentWindow->elements[241 + row].visible = canSelect ? 1 : 0;
 
         const auto& namePet = world::gPetRuntimeRecords[petIndex()];
-        const char* const name =
+        const wchar_t* const name =
             namePet.name6BD[0] != '\0' ? namePet.name6BD.data() : namePet.name6AC.data();
         WindowElement* const nameElements = gCurrentWindow->elements;
         auto* const nameData = static_cast<WindowTextData*>(nameElements[textBase].data);
-        nameData->text = cg::text::FromGbkWide(name);
+        nameData->text = name;
 
         const std::int16_t colorIndex = petIndex();
         WindowInstance* const colorWindow = gCurrentWindow;

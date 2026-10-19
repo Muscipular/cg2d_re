@@ -274,8 +274,8 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
             if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
                 continue;
             }
-            const char* const petName = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            gItemUseStatusRecordsCB10D8[count].name = cg::text::FromGbkWide(petName);
+            const wchar_t* const petName = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+            gItemUseStatusRecordsCB10D8[count].name = petName;
             const std::int32_t petInjury = pet.values70[25];
             gItemUseStatusRecordsCB10D8[count].level = pet.value08;
             gItemUseStatusRecordsCB10D8[count].injury = petInjury;

@@ -344,9 +344,9 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     const std::int32_t namePosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t namePet = gLoginWindowRuntime.choicesCC4CA0.values04[namePosition];
     const auto& pet = world::gPetRuntimeRecords[namePet];
-    const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+    const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
-    nameData->text = cg::text::FromGbkWide(name);
+    nameData->text = name;
     const std::int32_t firstPosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t firstPet = gLoginWindowRuntime.choicesCC4CA0.values04[firstPosition];
     bool unavailable = WindowPetMailCompose_HasGiftPet(firstPet) != 0;

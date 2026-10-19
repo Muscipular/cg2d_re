@@ -107,7 +107,7 @@ static void WindowBattlePets_Refresh(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
                 textLayer, 8, 0, text, 0, 0));
         };
-        drawText(cg::text::FromGbkWide(pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data()), 10, 5);
+        drawText((pet.name6BD.empty() ? pet.name6AC : pet.name6BD), 10, 5);
         std::wstring buffer;
         cg::text::FormatTo(buffer, L"{:3}", pet.value08);
         drawText(buffer, 140, 5);

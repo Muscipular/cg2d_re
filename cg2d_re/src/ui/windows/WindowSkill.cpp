@@ -604,8 +604,8 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
             if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
                 continue;
             }
-            const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            gSkillStatusNamesCC4670[count] = cg::text::FromGbkWide(name);
+            const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+            gSkillStatusNamesCC4670[count] = name;
             gSkillStatusInjuriesD67600[count] = pet.values70[25];
             gSkillStatusLevelsCC31C0[count] = pet.value08;
             const std::int32_t hp = static_cast<std::int32_t>(pet.values0C[0]);
@@ -1481,11 +1481,11 @@ static void WindowSkill_ShowPetSkills(WindowInstance* const window)
         return;
     }
     const auto* const pet = &world::gPetRuntimeRecords[petIndex];
-    const char* name = pet->name6BD.data();
+    const wchar_t* name = pet->name6BD.data();
     if (name[0] == '\0') {
         name = pet->name6AC.data();
     }
-    static_cast<WindowTextData*>(window->elements[2].data)->text = cg::text::FromGbkWide(name);
+    static_cast<WindowTextData*>(window->elements[2].data)->text = name;
     std::int32_t index = 0;
     std::int32_t count = std::min(pet->value6A4, world::kPetTechniqueSlotCount);
     while (index < count) {

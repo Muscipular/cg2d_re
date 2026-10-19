@@ -306,6 +306,8 @@ static std::int32_t DecodeCompressedProtocolFrame(CompressedReceiveState& state)
         if (static_cast<std::size_t>(decodedSize) > kLz4FrameDecodedCapacity - used) {
             return -1;
         }
+        m_log("[network][recv][lz4] compressed=%d decoded=%d bytes\n",
+            compressedSize, decodedSize);
         used += decodedSize;
     }
     return static_cast<std::int32_t>(used);

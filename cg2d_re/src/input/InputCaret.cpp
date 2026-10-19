@@ -76,16 +76,16 @@ static void DrawImeCaret()
 
 static void AdvanceCaretPhase()
 {
-    const std::int32_t nextPhase = input::gValue626C0C + 1;
+    const std::int32_t nextPhase = input::gInputCaretBlinkPhase_626C0C + 1;
     const bool resetPhase = nextPhase >= 40;
-    input::gValue626C0C = nextPhase;
+    input::gInputCaretBlinkPhase_626C0C = nextPhase;
     if (resetPhase) {
-        input::gValue626C0C = 0;
+        input::gInputCaretBlinkPhase_626C0C = 0;
     }
 }
 
 // 原 sub_44A410@[0x44A410,0x44A535)。
-void Sub_44A410()
+void DrawAndAdvanceInputCaret_44A410()
 {
     input::InputContext* const initialContext = input::gCurrentInputData;
     if (initialContext == nullptr) {
@@ -96,7 +96,7 @@ void Sub_44A410()
         return;
     }
 
-    if (input::gValue626C0C >= 20) {
+    if (input::gInputCaretBlinkPhase_626C0C >= 20) {
         const std::int32_t isIme = platform::IsImeKeyboardLayout_459090();
         if (isIme == 0) {
             DrawBasicCaret();

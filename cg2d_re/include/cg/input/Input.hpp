@@ -112,7 +112,7 @@ extern InputContext gInputContexts1050F18[3]; // 原全局：0x01050F18。 旧95
 extern std::int32_t gValueC9A96C;
 
 // 下列状态只保留当前已取证的读写语义，不扩展业务命名。
-extern std::int32_t gValue626C0C; // 原全局：0x00626C0C。 输入相位计数；接受字符后写 20。
+extern std::int32_t gInputCaretBlinkPhase_626C0C; // 原全局：0x00626C0C。 输入相位计数；接受字符后写 20。
 extern std::int32_t gValue626C14; // 原全局：0x00626C14。 聊天回复跳过日志/名字处理的共享门禁，UI与协议写者共用。
 extern std::int32_t gValue626C20; // 原全局：0x00626C20。 超过 maxLine 时选择截断或回滚分支。
 extern std::int32_t gValue626C28; // 原全局：0x00626C28。 特定回滚路径写 1。
@@ -141,12 +141,12 @@ void InitializeContext_449CF0(
 
 // 原45D720：清154/158，按Y/X/render/color写入；第四参数不消费。
 // WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
-InputContext* Sub_45D720(
+InputContext* ConfigureInputLayoutAndResetScroll_45D720(
     InputContext* context, std::int32_t x, std::int32_t y,
     std::int32_t unused, std::int32_t color, std::int32_t renderMode);
 // 原45D760：按X/Y/color/render/font写入，不清154/158。
 // WIC01：原坐标颜色模式字体发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
-InputContext* Sub_45D760(
+InputContext* SetInputPositionAndStyle_45D760(
     InputContext* context, std::int32_t x, std::int32_t y,
     std::int32_t color, std::int32_t renderMode, std::int32_t fontType);
 
@@ -156,9 +156,9 @@ void AppendChar_44ADB0(wchar_t character);
 void BrowseChatHistory_44A1B0(); // 同源64条历史，Ctrl/Shift门禁差异及输入滚动尾；由场景调用。 // HBN01：见历史浏览/字节滚动完整合同。
 
 // 原476740：拒绝单字节逗号/竖线/反斜杠及全空白，80..FF按双字节扫描。
-std::int32_t Sub_476740(std::wstring_view text);
+std::int32_t IsValidDelimitedFieldText_476740(std::wstring_view text);
 // 原45E770：只在81..FF后跳过一字节，命中单字节竖线/反斜杠返回1。
-std::int32_t Sub_45E770(std::wstring_view text);
+std::int32_t ContainsPipeOrBackslash_45E770(std::wstring_view text);
 
 // 原 sub_52D1B0：旧文本字节转义，始终返回目标缓冲指针。
 // 旧GBK协议／存档域的字节转义，容量仍按GBK字节计算。
@@ -197,6 +197,6 @@ char RemoveLegacyBytes_52D570(std::wstring& text, std::wstring_view excluded);
 void ProcessKeyInput_4596D0();
 
 // 原44A410：输入光标及IME光标绘制。
-void Sub_44A410();
+void DrawAndAdvanceInputCaret_44A410();
 
 } // namespace cg::input

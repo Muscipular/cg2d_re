@@ -77,3 +77,25 @@
 本组九份源／头完成九函数的全部引用迁移。完整正文反向替换后与提交前一致，旧符号及新名称冲突、UTF-8无BOM／LF、差异静态检查通过，未编译、测试或运行。
 
 补查未知值：IDA对9A4A50的直接引用只有45751E初始化和45B380读取；9A4A48除45B385写入，另在45B752作为缓存槽循环的边界地址出现，不能据地址引用推断业务值消费。45B370／45B380及两个gValue继续保留。
+
+## BSR01-C 输入编辑与校验
+
+本组依据当前Input.cpp／InputCaret.cpp正文、InputKeyDispatch的键码分派和既有地址注释；当前UTF-16编辑及GBK保存边界保持，不用原端ANSI类型覆盖当前实现。
+
+| 旧符号 | 新名称 | 证据 |
+|---|---|---|
+| `Sub_44A410` | `DrawAndAdvanceInputCaret_44A410` | 按相位绘制普通／IME光标后推进相位。 |
+| `Sub_44A540` | `MoveInputCaretLeft_44A540` | 键码37；text::Previous移动光标，保留混合返回合同。 |
+| `Sub_44A580` | `MoveInputCaretRight_44A580` | 键码39；text::Next移动光标。 |
+| `Sub_44A5D0` | `MoveInputCaretUp_44A5D0` | 键码38；MoveCaretLine(-1)。 |
+| `Sub_44A7D0` | `MoveInputCaretDown_44A7D0` | 键码40；MoveCaretLine(1)。 |
+| `Sub_44A990` | `DeleteCharacterBeforeInputCaret_44A990` | 键码8；删除前一字符并将光标移到前边界。 |
+| `Sub_44AA90` | `DeleteCharacterAtInputCaret_44AA90` | 键码46；删除光标处字符。 |
+| `Sub_44AB60` | `HandleInputEnterKey_44AB60` | 键码13；按上下文分别提交聊天、插入换行或加入黑名单，不简化为仅发送聊天。 |
+| `Sub_45D720` | `ConfigureInputLayoutAndResetScroll_45D720` | 清滚动字段，再写位置、绘制模式及颜色。 |
+| `Sub_45D760` | `SetInputPositionAndStyle_45D760` | 写位置、颜色、绘制模式和字体，不清滚动。 |
+| `Sub_476740` | `IsValidDelimitedFieldText_476740` | 拒绝逗号／竖线／反斜杠并要求存在非半角／全角空格字符；公会及对话字段消费。 |
+| `Sub_45E770` | `ContainsPipeOrBackslash_45E770` | 仅检测竖线／反斜杠，命中返回1，不命名为校验通过。 |
+| `gValue626C0C` | `gInputCaretBlinkPhase_626C0C` | InputCaret中0—39循环、20开始显示；编辑及IME写20。 |
+
+十三份源／头全部引用同步，完整正文反向替换与提交前一致，旧符号零残留、新名无冲突、UTF-8无BOM／LF及差异静态检查通过。未编译、测试或运行；其他输入gValue和未证字段保持。

@@ -723,10 +723,10 @@ static std::int32_t WindowDialog_Reply(
         } else if (gDialogReply.type == 35) {
             if ((button & 1) != 0) {
                 if (texts[0].empty() && texts[1].empty()) { return 0; }
-                if (input::Sub_476740(texts[0]) == 0) { return 0; }
-                if (input::Sub_476740(texts[1]) == 0) { return 0; }
-                if (input::Sub_45E770(texts[0]) == 1) { return 0; }
-                if (input::Sub_45E770(texts[1]) == 1) { return 0; }
+                if (input::IsValidDelimitedFieldText_476740(texts[0]) == 0) { return 0; }
+                if (input::IsValidDelimitedFieldText_476740(texts[1]) == 0) { return 0; }
+                if (input::ContainsPipeOrBackslash_45E770(texts[0]) == 1) { return 0; }
+                if (input::ContainsPipeOrBackslash_45E770(texts[1]) == 1) { return 0; }
             }
             cg::core::NullSub_509080();
             const std::wstring first = input::EscapeText(texts[0]);

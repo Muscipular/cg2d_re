@@ -16,30 +16,30 @@ void ProcessKeyInput_4596D0()
         if ((platform::gKeyStates[17] & 0x02u) == 0
             && (platform::gKeyStates[16] & 0x02u) == 0) {
             if ((platform::gKeyStates[38] & 0x10u) != 0) {
-                detail::Sub_44A5D0();
+                detail::MoveInputCaretUp_44A5D0();
             }
             if ((platform::gKeyStates[40] & 0x10u) != 0) {
-                detail::Sub_44A7D0();
+                detail::MoveInputCaretDown_44A7D0();
             }
             if ((platform::gKeyStates[37] & 0x10u) != 0) {
-                detail::Sub_44A540();
+                detail::MoveInputCaretLeft_44A540();
             }
             if ((platform::gKeyStates[39] & 0x10u) != 0) {
-                detail::Sub_44A580();
+                detail::MoveInputCaretRight_44A580();
             }
         }
 
         if ((platform::gKeyStates[8] & 0x10u) != 0) {
-            detail::Sub_44A990();
+            detail::DeleteCharacterBeforeInputCaret_44A990();
         }
         if ((platform::gKeyStates[46] & 0x10u) != 0) {
-            detail::Sub_44AA90();
+            detail::DeleteCharacterAtInputCaret_44AA90();
         }
         if ((platform::gKeyStates[9] & 0x10u) != 0) {
             cg::core::NullSub_509080();
         }
         if ((platform::gKeyStates[13] & 0x10u) != 0) {
-            detail::Sub_44AB60();
+            detail::HandleInputEnterKey_44AB60();
         }
 
     } catch (const cg::text::GbkStorageError&) {

@@ -77,7 +77,7 @@ void Update()
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         return;
     }
     case 2: {
@@ -103,7 +103,7 @@ void Update()
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         return;
     case 5:
         platform::gValue73ECC0 = 0;
@@ -203,7 +203,7 @@ void Update()
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         return;
     default:
         return;

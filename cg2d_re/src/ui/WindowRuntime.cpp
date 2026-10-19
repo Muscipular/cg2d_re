@@ -4236,7 +4236,7 @@ std::uint8_t WindowInput_ActivateElement(
         const std::int32_t maxCharPerLine = prototype->maxCharPerLine;
         const std::int32_t inputY = prototype->y + y;
         const std::int32_t inputX = prototype->x + x;
-        input::Sub_45D720(context, inputX, inputY, maxCharPerLine, color, renderMode);
+        input::ConfigureInputLayoutAndResetScroll_45D720(context, inputX, inputY, maxCharPerLine, color, renderMode);
         [[fallthrough]];
     }
     case 2: {
@@ -4252,7 +4252,7 @@ std::uint8_t WindowInput_ActivateElement(
         const std::int32_t color = context->field140;
         const std::int32_t inputY = prototype->y + y;
         const std::int32_t inputX = prototype->x + x;
-        input::Sub_45D760(context, inputX, inputY, color, renderMode, fontType);
+        input::SetInputPositionAndStyle_45D760(context, inputX, inputY, color, renderMode, fontType);
         break;
     }
     default:

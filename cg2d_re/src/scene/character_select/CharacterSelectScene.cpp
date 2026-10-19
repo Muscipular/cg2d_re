@@ -925,7 +925,7 @@ std::int32_t Sub_4631D0()
                                 || std::strstr(name, "\x81\x40") != nullptr
                                 || input::IsRejectedInputText_404060(utf16Name)) {
                                 state::gValue9A5AFC = 108;
-                            } else if (input::Sub_45E770(utf16Name) == 1) {
+                            } else if (input::ContainsPipeOrBackslash_45E770(utf16Name) == 1) {
                                 state::gValue9A5AFC = 110;
                             } else {
                                 state::gValue9A5AFC = 10;

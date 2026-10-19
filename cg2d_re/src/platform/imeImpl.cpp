@@ -153,7 +153,7 @@ char Sub_459580(const std::int16_t flags)
         const LONG cursor = ::ImmGetCompositionStringW(reinterpret_cast<HIMC>(gImeContext), GCS_CURSORPOS, nullptr, 0);
         if (cursor >= 0) {
             gImeCompositionCursorPosition = static_cast<std::int32_t>(text::Prefix(gImeComposition, static_cast<std::size_t>(cursor)));
-            input::gValue626C0C = 20;
+            input::gInputCaretBlinkPhase_626C0C = 20;
             returnByte = static_cast<std::uint8_t>(gImeCompositionCursorPosition);
         }
     }

@@ -704,11 +704,11 @@ static std::int32_t WindowGuildDetails_SubmitName()
     if (result == 0) {
         return result;
     }
-    result = input::Sub_476740(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()));
+    result = input::IsValidDelimitedFieldText_476740(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()));
     if (result == 0) {
         return result;
     }
-    result = input::Sub_45E770(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()));
+    result = input::ContainsPipeOrBackslash_45E770(cg::text::FromGbkWide(gGuildDraftCF4018.name604.data()));
     if (result == 1) {
         return result;
     }
@@ -727,11 +727,11 @@ static std::int32_t WindowGuildDetails_SubmitDescription()
     if (result == 0) {
         return result;
     }
-    result = input::Sub_476740(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()));
+    result = input::IsValidDelimitedFieldText_476740(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()));
     if (result == 0) {
         return result;
     }
-    result = input::Sub_45E770(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()));
+    result = input::ContainsPipeOrBackslash_45E770(cg::text::FromGbkWide(gGuildDraftCF4018.secondText634.data()));
     if (result == 1) {
         return result;
     }
@@ -748,11 +748,11 @@ static std::int32_t WindowGuildDetails_SubmitRanks()
     for (std::int32_t index = 0; index < 32; ++index) {
         char* const text = gGuildDraftCF4018.ranks[index].text.data();
         if (WindowGuildDetails_HasChangedRank(index) != 0) {
-            const std::int32_t valid = input::Sub_476740(cg::text::FromGbkWide(text));
+            const std::int32_t valid = input::IsValidDelimitedFieldText_476740(cg::text::FromGbkWide(text));
             if (valid == 0) {
                 return valid;
             }
-            const std::int32_t rejected = input::Sub_45E770(cg::text::FromGbkWide(text));
+            const std::int32_t rejected = input::ContainsPipeOrBackslash_45E770(cg::text::FromGbkWide(text));
             if (rejected == 1) {
                 return rejected;
             }

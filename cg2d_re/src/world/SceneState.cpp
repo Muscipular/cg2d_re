@@ -3708,7 +3708,7 @@ void DrawNormalScene_51C7D0()
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         Sub_458F00();
         return;
     case 252: {
@@ -3847,7 +3847,7 @@ void DrawNormalScene_51C7D0()
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         Sub_51D6F0();
         ++gCurrentSceneState;
         return;
@@ -3862,7 +3862,7 @@ void DrawNormalScene_51C7D0()
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         Sub_51D6F0();
         return;
     }
@@ -3891,7 +3891,7 @@ void DrawNormalScene_51C7D0()
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         Sub_458F00();
         if (gValue5ABFC4 != 1) {
             return;
@@ -3952,7 +3952,7 @@ inputTail:
     input::ProcessKeyInput_4596D0();
     render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
     RenderInput_4590E0();
-    cg::input::Sub_44A410();
+    cg::input::DrawAndAdvanceInputCaret_44A410();
 }
 
 // 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。
@@ -4146,7 +4146,7 @@ void DrawBattleScene_43CBB0()
             input::BrowseChatHistory_44A1B0();
             static_cast<void>(ui::WindowRuntime_Render());
             RenderInput_4590E0();
-            cg::input::Sub_44A410();
+            cg::input::DrawAndAdvanceInputCaret_44A410();
             cg::core::NullSub_509080();
             ui::WindowRuntime_ProcessScene();
             ++gCurrentSceneState;
@@ -4158,7 +4158,7 @@ void DrawBattleScene_43CBB0()
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         break;
     case 2: {
         input::ProcessKeyInput_4596D0();
@@ -4166,7 +4166,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -4227,7 +4227,7 @@ void DrawBattleScene_43CBB0()
         RenderChara_521F20();
         cg::yobi::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -4248,7 +4248,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         cg::yobi::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -4263,7 +4263,7 @@ void DrawBattleScene_43CBB0()
         RenderChara_521F20();
         cg::yobi::Sub_43CA80();
         input::BrowseChatHistory_44A1B0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -4294,7 +4294,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
@@ -4331,7 +4331,7 @@ void DrawBattleScene_43CBB0()
         input::ProcessKeyInput_4596D0();
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
-        cg::input::Sub_44A410();
+        cg::input::DrawAndAdvanceInputCaret_44A410();
         const std::int32_t selector = gValueD67E78 == 1 ? 14 : 12;
         if (Sub_51FDE0(selector, 8, 0x40000000U) != 1) {
             break;

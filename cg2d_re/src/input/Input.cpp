@@ -104,7 +104,7 @@ InputContext gInputContext1051348 {}; // 原全局：0x01051348。
 InputContext gInputContexts1050F18[3] {}; // 原全局：0x01050F18。
 InputContext* gCurrentInputData = nullptr; // 原全局：0x00626C04。
 std::int32_t gValueC9A96C = 0; // 原全局：0x00C9A96C。
-std::int32_t gValue626C0C = 0; // 原全局：0x00626C0C。
+std::int32_t gInputCaretBlinkPhase_626C0C = 0; // 原全局：0x00626C0C。
 std::int32_t gValue626C14 = 0; // 原全局：0x00626C14。
 std::int32_t gValue626C20 = 0; // 原全局：0x00626C20。
 std::int32_t gValue626C28 = 0; // 原全局：0x00626C28。
@@ -182,7 +182,7 @@ void MoveCaretLine(const std::int32_t direction)
     if (context == nullptr || platform::gImeComposition[0] != '\0') {
         return;
     }
-    gValue626C0C = 20;
+    gInputCaretBlinkPhase_626C0C = 20;
     if (context->maxLine <= 1) {
         return;
     }
@@ -252,13 +252,13 @@ void AppendText(const std::wstring_view utf16)
                 gValue626C28 = 1;
             }
         }
-        gValue626C0C = 20;
+        gInputCaretBlinkPhase_626C0C = 20;
     }
 }
 
 // WIC01：原滚动零/坐标模式颜色发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
 // 原函数：0x0045D720。
-InputContext* Sub_45D720(
+InputContext* ConfigureInputLayoutAndResetScroll_45D720(
     InputContext* const context, const std::int32_t x, const std::int32_t y,
     [[maybe_unused]] const std::int32_t unused,
     const std::int32_t color, const std::int32_t renderMode)
@@ -274,7 +274,7 @@ InputContext* Sub_45D720(
 
 // WIC01：原坐标颜色模式字体发布序与真实context返回，见doc/cg2d_window_input_context_dispatch_spec.md。
 // 原函数：0x0045D760。
-InputContext* Sub_45D760(
+InputContext* SetInputPositionAndStyle_45D760(
     InputContext* const context, const std::int32_t x, const std::int32_t y,
     const std::int32_t color, const std::int32_t renderMode,
     const std::int32_t fontType)
@@ -363,13 +363,13 @@ char* FindLegacyByte_44B4A0(char* const text, const char* const target)
 namespace detail {
 
 // 原 [0x44A5D0,0x44A7CD)：按 CR 和最大字节宽度扫描行后上移光标。
-void Sub_44A5D0()
+void MoveInputCaretUp_44A5D0()
 {
     MoveCaretLine(-1);
 }
 
 // 原 [0x44A540,0x44A580)：未移动时返回上下文指针，移动时返回边界分类。
-std::uintptr_t Sub_44A540()
+std::uintptr_t MoveInputCaretLeft_44A540()
 {
     InputContext* const context = gCurrentInputData;
     if (context == nullptr || platform::gImeComposition[0] != '\0') {
@@ -383,12 +383,12 @@ std::uintptr_t Sub_44A540()
     const std::size_t width = edit.caret - next;
     edit.caret = next;
     static_cast<void>(edit.commit());
-    gValue626C0C = 20;
+    gInputCaretBlinkPhase_626C0C = 20;
     return width;
 }
 
 // 原 [0x44A580,0x44A5C8)：按光标处字节的最高位移动一或两字节。
-std::uintptr_t Sub_44A580()
+std::uintptr_t MoveInputCaretRight_44A580()
 {
     InputContext* const context = gCurrentInputData;
     if (context == nullptr || platform::gImeComposition[0] != '\0') {
@@ -402,18 +402,18 @@ std::uintptr_t Sub_44A580()
     const std::size_t width = next - edit.caret;
     edit.caret = next;
     static_cast<void>(edit.commit());
-    gValue626C0C = 20;
+    gInputCaretBlinkPhase_626C0C = 20;
     return width;
 }
 
 // 原 [0x44A7D0,0x44A989)：按 CR 和最大字节宽度扫描行后下移光标。
-void Sub_44A7D0()
+void MoveInputCaretDown_44A7D0()
 {
     MoveCaretLine(1);
 }
 
 // 原 [0x44A990,0x44AA8D)：删除光标前一个旧 ANSI 单元。
-void Sub_44A990()
+void DeleteCharacterBeforeInputCaret_44A990()
 {
     InputContext* const context = gCurrentInputData;
     if (context == nullptr || context->caretByteOffset <= 0) {
@@ -424,11 +424,11 @@ void Sub_44A990()
     edit.contents.erase(previous, edit.caret - previous);
     edit.caret = previous;
     static_cast<void>(edit.commit());
-    gValue626C0C = 20;
+    gInputCaretBlinkPhase_626C0C = 20;
 }
 
 // 原 [0x44AA90,0x44AB59)：删除光标处一个旧 ANSI 单元，返回当前上下文。
-InputContext* Sub_44AA90()
+InputContext* DeleteCharacterAtInputCaret_44AA90()
 {
     InputContext* const context = gCurrentInputData;
     if (context == nullptr || context->caretByteOffset >= context->totalByteLength) {
@@ -437,7 +437,7 @@ InputContext* Sub_44AA90()
     EditText edit(*context);
     edit.contents.erase(edit.caret, text::Next(edit.contents, edit.caret) - edit.caret);
     static_cast<void>(edit.commit());
-    gValue626C0C = 20;
+    gInputCaretBlinkPhase_626C0C = 20;
     return context;
 }
 
@@ -500,7 +500,7 @@ bool IsRejectedInputText_404060(const std::wstring_view text)
 }
 
 // 原函数：0x00476740。
-std::int32_t Sub_476740(const std::wstring_view text)
+std::int32_t IsValidDelimitedFieldText_476740(const std::wstring_view text)
 {
     const std::wstring_view contents(text);
     bool hasText = false;
@@ -515,7 +515,7 @@ std::int32_t Sub_476740(const std::wstring_view text)
 }
 
 // 原函数：0x0045E770。
-std::int32_t Sub_45E770(const std::wstring_view text)
+std::int32_t ContainsPipeOrBackslash_45E770(const std::wstring_view text)
 {
     const std::wstring_view contents(text);
     for (std::size_t offset = 0; offset < contents.size(); offset = cg::text::Next(contents, offset)) {
@@ -1019,7 +1019,7 @@ void BrowseChatHistory_44A1B0()
 namespace detail {
 
 // 原函数：0x0044AB60。
-void Sub_44AB60()
+void HandleInputEnterKey_44AB60()
 {
     if (platform::gImeComposition[0] != '\0') {
         return;
@@ -1113,7 +1113,7 @@ void Sub_44AB60()
         world::Sub_44B050(message, 4, 3);
         SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     }
-    gValue626C0C = 20;
+    gInputCaretBlinkPhase_626C0C = 20;
 }
 
 } // namespace detail

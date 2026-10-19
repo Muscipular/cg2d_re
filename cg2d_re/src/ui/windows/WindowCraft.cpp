@@ -1729,7 +1729,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             std::int32_t notice = -1;
             const auto flags = world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].flags;
             if ((flags & 0x400u) != 0) {
-                if (input::Sub_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
+                if (input::ContainsPipeOrBackslash_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
                     notice = 0;
                 } else {
                     trimInput();
@@ -1744,7 +1744,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 trimInput();
                 if (trimmed.empty()) {
                     notice = 1;
-                } else if (input::Sub_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
+                } else if (input::ContainsPipeOrBackslash_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
                     notice = 0;
                 } else {
                     send = true;

@@ -25,20 +25,12 @@ YobiAction::YobiAction(RawFields)
       mapX200(platform::LegacyCryptInt::RawPayload{}),
       mapY210(platform::LegacyCryptInt::RawPayload{})
 {
-    // 原calloc的其余零字节直接落到普通字段，不覆盖已开始寿命的CryptInt。
-    auto* const bytes = reinterpret_cast<std::byte*>(this);
-    std::memset(bytes, 0, offsetof(YobiAction, readiness));
-    constexpr std::size_t middle = offsetof(YobiAction, barMaximum1C0) + sizeof(barMaximum1C0);
-    std::memset(bytes + middle, 0, offsetof(YobiAction, mapX1E0) - middle);
-    constexpr std::size_t tail = offsetof(YobiAction, mapY210) + sizeof(mapY210);
-    std::memset(bytes + tail, 0, sizeof(YobiAction) - tail);
-    payload.raw = nullptr;
-    payloadKind = YobiPayloadKind::None;
+    // 普通字段使用成员初始化，字符串正常构造；不覆盖对象，也不触发CryptInt默认构造。
 }
 
 // 原函数：0x0041EB10。
 // 原41EB10逐成员复制；三个联合槽按原生宽度复制，CryptInt不改目标token/保留字节。
-YobiAction& YobiAction::operator=(const YobiAction& source) noexcept
+YobiAction& YobiAction::operator=(const YobiAction& source)
 {
     this->prev = source.prev;
     this->next = source.next;

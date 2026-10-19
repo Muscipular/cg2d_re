@@ -508,7 +508,7 @@ void RenderChara_521F20()
         }
 
         // 原测内嵌地址；有效action的空名也入队，参数按原读取序取样。
-        const char* const name = action->displayName.data();
+        const std::wstring& name = action->displayName;
         const std::int32_t nameValue = action->nameValueC0;
         const std::int8_t nameFontType = action->nameFontType;
         const std::int8_t nameLayer = action->nameLayer;
@@ -521,7 +521,7 @@ void RenderChara_521F20()
             nameLayer,
             nameFontType,
             nameColor,
-            cg::text::FromGbkWide(name),
+            name,
             static_cast<std::int8_t>(nameValue)));
 
         // 原名称调用后重定位实际槽，再独立重读容量判断用的S16计数。

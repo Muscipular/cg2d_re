@@ -16,7 +16,8 @@
 | WindowStorageItem/Pet/PetSummary、WindowTradeItem/Pet | 内部展示文本；银行/交易回复或玩家记录生产，窗口/提示消费 | 已宽化；尚未宽化的原宠物名称临时读取链待合并 |
 | WindowShopItem/Detail、WindowCrystalItem、WindowConfirmationItem | 内部商品名称/描述/附文；三商店回复生产、提示/确认消费 | 已宽化；旧gbkLines/stride绘制重载已移除 |
 | 玩家自身名称/称号、TitleRecord、ReplyRecordF7C950、宠物自身名称 | 内部业务文本 | 待迁移完整生产、查询、UI/网络发送链 |
-| WorldObjectState、Yobi名称/头顶文字、聊天气泡 | 内部业务文本 | 待迁移所有写入、查询及生命周期 |
+| YobiAction::displayName及对象构造 | 内部绘制文本；克隆、RenderChara消费 | 已宽化；删除覆盖对象的memset，普通字段成员初始化 |
+| WorldObjectState、Yobi名称/头顶文字、聊天气泡 | 内部业务文本 | 待迁移其余写入、查询 |
 | MailState联系人/邮件 | 内部业务文本与固定文件记录 | 待拆分文件记录并迁移内部存储 |
 | BattleState、场景其它显示文本 | 业务显示文本或尚未解析的网络指令 | 待逐字段分类并迁移 |
 | 其余UI目标名单/学习技能选项/输入辅助 | 内部文本；回复和Lua生产 | 待迁移 |

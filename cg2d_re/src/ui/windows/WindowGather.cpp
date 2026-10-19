@@ -598,10 +598,10 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
     }
     auto* animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[1].data);
     std::uint32_t stop = animation->value04;
-    static_cast<void>(cg::yobi::Sub_517880(animation->action, 100, stop != 0, 0));
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(animation->action, 100, stop != 0, 0));
     animation = static_cast<WindowAnimationData*>(gCurrentWindow->elements[3].data);
     stop = animation->value04;
-    static_cast<void>(cg::yobi::Sub_517880(animation->action, 100, stop != 0, 0));
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(animation->action, 100, stop != 0, 0));
     WindowElement* elements = gCurrentWindow->elements;
     if (elements[1].visible != 0) {
         cg::yobi::YobiAction* const action = static_cast<WindowAnimationData*>(elements[1].data)->action;
@@ -640,7 +640,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
         cg::yobi::SetYobiActionField309(action, 0);
     }
     stop = static_cast<WindowAnimationData*>(gCurrentWindow->elements[2].data)->value04;
-    static_cast<void>(cg::yobi::Sub_517880(action, 100, stop != 0, 0));
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(action, 100, stop != 0, 0));
     const std::int32_t graphic = cg::yobi::GetYobiActionField20(action);
     if (graphic != 0) {
         const render::GraphicDescriptor16* const descriptor = cg::yobi::ApplyWindowAnimationDrawMode(action);

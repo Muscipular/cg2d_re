@@ -66,10 +66,10 @@ void Update()
             login::ProcessOuterScene_45C2D0();
             break;
         case 3:
-            Sub_45F190();
+            UpdateCapability3LoginScene_45F190();
             break;
         case 4:
-            Sub_464840();
+            UpdateCapability4LoginScene_464840();
             break;
         default:
             break;

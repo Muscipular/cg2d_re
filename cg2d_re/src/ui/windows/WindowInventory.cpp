@@ -662,7 +662,7 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
-            static_cast<void>(cg::yobi::Sub_48AC60(
+            static_cast<void>(cg::yobi::CreateQuantityWindowOpeningAnimation_48AC60(
                 14, index, 244310, amount, amount, 0, WindowInventory_DropMoney, 1, 0, 0));
         }
         consumed = 1;

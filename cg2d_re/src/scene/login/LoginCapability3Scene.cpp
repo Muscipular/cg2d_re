@@ -45,7 +45,7 @@ static std::int32_t ComposeWhiteAlpha(const std::int32_t alpha) noexcept
 }
 
 // 原函数：0x0045EF80。
-static bool Sub_45EF80()
+static bool HasLoginIntroFrameDeadlineElapsed_45EF80()
 {
     const double deadline = cg::platform::gLastRenderDt + kFrameGateIncrement;
     const std::uint64_t tick = cg::platform::ReadTickCount64();
@@ -172,7 +172,7 @@ static std::int32_t DispatchCapability3FromCurrentState()
 }
 
 // 原函数：0x0045F190。
-std::int32_t Sub_45F190()
+std::int32_t UpdateCapability3LoginScene_45F190()
 {
     const std::uint32_t state =
         std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
@@ -194,7 +194,7 @@ std::int32_t Sub_45F190()
 
     case 1: {
         DrawFiveCapability3Images();
-        if (Sub_45EF80()) {
+        if (HasLoginIntroFrameDeadlineElapsed_45EF80()) {
             return DispatchCapability3FromCurrentState();
         }
 
@@ -240,7 +240,7 @@ std::int32_t Sub_45F190()
             cg::yobi::SetYobiActionField30C(
                 gLeftAction9A50C0,
                 kWhiteColor);
-            static_cast<void>(cg::yobi::Sub_517880(
+            static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(
                 gLeftAction9A50C0,
                 100,
                 0,
@@ -265,7 +265,7 @@ std::int32_t Sub_45F190()
         cg::yobi::SetYobiActionField30C(
             gRightAction9A50C4,
             kWhiteColor);
-        static_cast<void>(cg::yobi::Sub_517880(
+        static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(
             gRightAction9A50C4,
             100,
             0,

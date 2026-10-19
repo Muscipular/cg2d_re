@@ -1639,7 +1639,7 @@ void Sub_46F1D0()
                 const auto actionY = record->y;
                 cg::yobi::SetYobiActionField34(
                     gMapCharaSceneSlots.actionC8A764, actionY + 150);
-                cg::yobi::Sub_517880(
+                cg::yobi::AdvanceYobiAnimationFrame_517880(
                     gMapCharaSceneSlots.actionC8A764, 100, 0, 0);
                 cg::yobi::YobiAction* const action = gMapCharaSceneSlots.actionC8A764;
                 const std::int32_t imageNo = cg::yobi::GetYobiActionField20(action);

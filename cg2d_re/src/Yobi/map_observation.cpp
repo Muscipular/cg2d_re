@@ -328,7 +328,7 @@ static void Sub_43F910(YobiAction* const action)
     if (source != nullptr) {
         action->imageNo = world::Sub_51C0D0(source->imageNo);
         action->direction = parent->direction;
-        static_cast<void>(Sub_517880(action, 100, 0, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
     } else {
         action->graphicIndex = -1;
     }
@@ -390,9 +390,9 @@ static void Sub_43F910(YobiAction* const action)
                 shiftY = (action->y - parentY) * remaining / 15;
             }
         }
-        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
         action->deltaX = offsetX + shiftX + relativeX + parentX;
-        const std::int32_t offsetY = Sub_5182B0(action, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
         action->deltaY = offsetY + shiftY + relativeY + parentY;
     }
     ++action->value1D4;
@@ -414,7 +414,7 @@ static void Sub_440440(YobiAction* const action)
         if (action->phase == 4) {
             action->direction = source->direction;
         }
-        static_cast<void>(Sub_517880(action, 100, 0, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
     } else {
         action->graphicIndex = -1;
     }
@@ -506,8 +506,8 @@ static void Sub_440440(YobiAction* const action)
         const std::int32_t drawSlot = action->field1D0;
         Sub_43FD90(drawImageNo, drawSlot, drawDirection, &slotX, &slotY);
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-        const std::int32_t drawY = Sub_5182B0(action, 1) + shiftY + relativeY + parentY;
-        const std::int32_t offsetX = Sub_5182B0(action, 0);
+        const std::int32_t drawY = GetYobiGraphicOriginOffset_5182B0(action, 1) + shiftY + relativeY + parentY;
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
         const std::int32_t primaryIndex = parent->value1D4;
         const std::int32_t drawX = offsetX + shiftX + relativeX + parentX;
         const std::int32_t graphicIndex = action->graphicIndex;
@@ -586,12 +586,12 @@ static void Sub_43F520(YobiAction* const action)
     const std::int32_t initialPhase = action->phase;
     action->counter1DC = -1;
     if (initialPhase == 1) {
-        static_cast<void>(Sub_517880(action, 100, 0, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
     } else if (initialPhase == 2) {
         const std::int32_t frame = payload->frame;
         if (frame < 0) {
             action->characterAction = 2;
-            if (Sub_517880(action, 100, 1, 0) == 1) {
+            if (AdvanceYobiAnimationFrame_517880(action, 100, 1, 0) == 1) {
                 payload->frame = 0;
             }
             action->counter1DC = 0;
@@ -612,7 +612,7 @@ static void Sub_43F520(YobiAction* const action)
             platform::detail::Cg2dMapActorSpiralOffset(frame, angle, offset);
             x += static_cast<std::int32_t>(offset[0]);
             y += static_cast<std::int32_t>(offset[1]);
-            static_cast<void>(Sub_517880(action, 100, 0, 0));
+            static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
             if (Sub_43F1F0(world::gPlayerRuntimeSlots.objectIndex) == nullptr
                 && frame > 300 && (x < -300 || x > 940)) {
                 Sub_43F1B0(action);
@@ -629,9 +629,9 @@ static void Sub_43F520(YobiAction* const action)
     action->x = x;
     action->y = y;
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
     const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
     const std::int32_t drawX = offsetX + action->x;
     const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::uint32_t worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
@@ -732,13 +732,13 @@ static void Sub_440070(YobiAction* const action)
         }
         MarkDeath(action);
     }
-    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
     action->x = x;
     action->y = y;
-    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
     const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
     const std::int32_t drawX = offsetX + action->x;
     const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::int32_t graphicIndex = action->graphicIndex;
@@ -838,7 +838,7 @@ static void Sub_440C50(YobiAction* const action)
     platform::detail::MapObserverProjection projection;
     platform::detail::Cg2dMapObserverProjection(
         initialFrame, &gMapDuration5F9744, initialDirection, &projection);
-    Sub_517880(action, 100, 0, 0);
+    AdvanceYobiAnimationFrame_517880(action, 100, 0, 0);
     action->x = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(projection.x)) + 320;
     const auto arc = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(
@@ -856,18 +856,18 @@ static void Sub_440C50(YobiAction* const action)
         }
         std::int32_t offsetX = 0;
         std::int32_t offsetY = 0;
-        Sub_517880(payload->partyActions[index], 100, 0, 0);
+        AdvanceYobiAnimationFrame_517880(payload->partyActions[index], 100, 0, 0);
         YobiAction* const child = payload->partyActions[index];
         const std::int32_t direction = child->direction;
         const std::int32_t slot = child->field1D0;
         Sub_43FD90(action->imageNo, slot, direction, &offsetX, &offsetY);
-        const std::int32_t graphicX = Sub_5182B0(payload->partyActions[index], 0);
+        const std::int32_t graphicX = GetYobiGraphicOriginOffset_5182B0(payload->partyActions[index], 0);
         const std::int32_t frameX = action->frameX;
         const std::int32_t parentX = action->x;
         const std::int32_t frameOffsetX = graphicX + frameX;
         const std::int32_t slotOffsetX = offsetX;
         drawX[index] = frameOffsetX + parentX + slotOffsetX;
-        const std::int32_t graphicY = Sub_5182B0(payload->partyActions[index], 1);
+        const std::int32_t graphicY = GetYobiGraphicOriginOffset_5182B0(payload->partyActions[index], 1);
         const std::int32_t frameY = action->frameY;
         const std::int32_t parentY = action->y;
         const std::int32_t frameOffsetY = graphicY + frameY;
@@ -915,9 +915,9 @@ static void Sub_440C50(YobiAction* const action)
     }
     const std::int32_t graphicIndex = action->graphicIndex;
     const render::GraphicDescriptor16* const mode = &action->drawMode;
-    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
     const std::int32_t y = offsetY + action->y;
-    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
     const std::int32_t x = offsetX + action->x;
     render::DrawGraphic2_521DD0(x, y, 10, graphicIndex, 0, 0, mode);
     ++payload->frame;
@@ -1120,7 +1120,7 @@ void Sub_46DD90(YobiAction* const action)
         (action->mapX1E0 * 64));
     const auto worldY = static_cast<float>(
         (action->mapY1F0 * 64));
-    static_cast<void>(Sub_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
     const std::int32_t offsetY = action->mapOffsetY;
     const std::int32_t offsetX = action->mapOffsetX;
     const std::int32_t drawY = offsetY + action->y;

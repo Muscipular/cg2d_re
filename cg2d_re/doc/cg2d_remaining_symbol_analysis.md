@@ -4,14 +4,14 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：226／636。已重命名：221。保留／未决：5。待分析：410。
+已分析：244／636。已重命名：239。保留／未决：5。待分析：392。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
 | 原符号 | 初始定义位置 | 状态／新名称 | 行为证据与未决项 |
 |---|---|---|---|
-| `Sub_404A40` | src/Yobi/base.cpp:200 | 待分析 | — |
-| `Sub_404D60` | src/Yobi/base.cpp:379 | 待分析 | — |
+| `Sub_404A40` | src/Yobi/base.cpp:200 | 已重命名：`InitializeYobiActionList_404A40` | 分配构造头尾哨兵，建立双向链并设置优先级0/255与无效图号，返回尾哨兵。 |
+| `Sub_404D60` | src/Yobi/base.cpp:379 | 已重命名：`ShutdownYobiActionList_404D60` | 标记清理全部动作并执行更新回收，再析构释放头尾哨兵。 |
 | `Sub_405CB0` | src/Yobi/battle_base.cpp:215 | 待分析 | — |
 | `Sub_406260` | src/Yobi/battle_base.cpp:462 | 待分析 | — |
 | `Sub_423640` | src/platform/MainLoopSupport.cpp:151 | 已重命名：`ApplyScreenShake_423640` | 按Yobi门禁复用/随机生成偏移，增减幅度并裁剪Temp回拷Back；不改RNG消费序。 |
@@ -182,8 +182,8 @@
 | `Sub_45ED80` | src/world/SceneState.cpp:8096 | 待分析 | — |
 | `Sub_45ED90` | src/world/SceneState.cpp:8102 | 待分析 | — |
 | `Sub_45EEE0` | src/world/SceneState.cpp:6713 | 待分析 | — |
-| `Sub_45EF80` | src/scene/login/LoginCapability3Scene.cpp:48 | 待分析 | — |
-| `Sub_45F190` | src/scene/login/LoginCapability3Scene.cpp:175 | 待分析 | — |
+| `Sub_45EF80` | src/scene/login/LoginCapability3Scene.cpp:48 | 已重命名：`HasLoginIntroFrameDeadlineElapsed_45EF80` | 比较当前tick与最近渲染时刻加1000/60，超过即返回true，登录片头据此跳过本轮淡入累加。 |
+| `Sub_45F190` | src/scene/login/LoginCapability3Scene.cpp:175 | 已重命名：`UpdateCapability3LoginScene_45F190` | 登录能力3场景0至10状态分发：片头渐变、双动画合流、输入处理、错误提示与进入服务器场景；共用尾负责绘制。 |
 | `Sub_462870` | src/scene/character_select/CharacterSelectScene.cpp:394 | 已重命名：`AdvanceCharacterCreationScene_462870` | 清Yobi动作后将当前场景子状态加一，角色创建场景分发调用。 |
 | `Sub_462880` | src/scene/character_select/CharacterSelectScene.cpp:401 | 已重命名：`InitializeCharacterAppearanceSelection_462880` | 可选重置版本族、角色和变体索引，创建两组方向5的预览动作并解除输入上下文。 |
 | `Sub_462930` | src/scene/character_select/CharacterSelectScene.cpp:434 | 已重命名：`UpdateCharacterAppearanceSelection_462930` | 处理14角色选择、版本切换、四种变体与预览旋转，绘制选择界面及双预览动画，确认1取消2。 |
@@ -192,7 +192,7 @@
 | `Sub_464290` | src/scene/character_select/CharacterSelectScene.cpp:1201 | 已重命名：`HitTestCharacterCreationControl_464290` | 将建角控件左上宽高转换为边界，调用鼠标矩形命中接口并返回结果。 |
 | `Sub_4642C0` | src/scene/character_select/CharacterSelectScene.cpp:1129 | 已重命名：`SaveCharacterCreationDraftSnapshot_4642C0` | 依原顺序复制已发布属性、元素及当前外观选项、剩余点数和姓名输入至建角快照。 |
 | `Sub_464380` | src/scene/character_select/CharacterSelectScene.cpp:1164 | 已重命名：`RestoreCharacterCreationDraftSnapshot_464380` | 将建角快照低字节恢复到属性／元素编辑存储、选项与姓名输入，保留逐字节写入顺序。 |
-| `Sub_464840` | src/scene/login/LoginCapability4Scene.cpp:48 | 待分析 | — |
+| `Sub_464840` | src/scene/login/LoginCapability4Scene.cpp:48 | 已重命名：`UpdateCapability4LoginScene_464840` | 登录能力4场景分发：四层图片淡入、账号输入、保存槽选择／删除、错误提示及进入服务器场景。 |
 | `Sub_467F30` | src/world/SceneState.cpp:3230 | 待分析 | — |
 | `Sub_4681B0` | src/world/SceneState.cpp:10024 | 待分析 | — |
 | `Sub_468200` | src/world/SceneState.cpp:3134 | 待分析 | — |
@@ -302,20 +302,20 @@
 | `Sub_472FD0` | src/world/SceneState.cpp:8714 | 待分析 | — |
 | `Sub_473000` | src/world/SceneState.cpp:8720 | 待分析 | — |
 | `Sub_473030` | src/world/SceneState.cpp:8726 | 待分析 | — |
-| `Sub_4758D0` | src/Yobi/window.cpp:515 | 待分析 | — |
-| `Sub_475950` | src/Yobi/window.cpp:668 | 待分析 | — |
+| `Sub_4758D0` | src/Yobi/window.cpp:515 | 已重命名：`UpdateWindowOpeningAnimation_4758D0` | 绘制并扩张窗口轮廓，计数达到10后打开目标窗口、标记动作死亡并清完成槽，最后仍递增计数。 |
+| `Sub_475950` | src/Yobi/window.cpp:668 | 已重命名：`CreateWindowOpeningAnimation_475950` | 定位弹窗后创建十步展开轮廓动作，支持仅高度或宽高同时展开；分配失败直接打开目标窗口。 |
 | `Sub_476680` | src/world/SceneState.cpp:8287 | 待分析 | — |
-| `Sub_48ABC0` | src/Yobi/window.cpp:546 | 待分析 | — |
-| `Sub_48AC60` | src/Yobi/window.cpp:723 | 待分析 | — |
+| `Sub_48ABC0` | src/Yobi/window.cpp:546 | 已重命名：`UpdateQuantityWindowOpeningAnimation_48ABC0` | 扩张轮廓完成后读取来源控件、图号、数量限制与回调，打开数量窗口并标记死亡。 |
+| `Sub_48AC60` | src/Yobi/window.cpp:723 | 已重命名：`CreateQuantityWindowOpeningAnimation_48AC60` | 发布数量窗口动作标志、关闭既有窗口，再按保存位置或默认位置创建展开动作，失败直接打开数量窗口。 |
 | `Sub_492250` | src/world/SceneState.cpp:1975 | 待分析 | — |
 | `Sub_4990A0` | src/Yobi/battle_scene.cpp:304 | 待分析 | — |
-| `Sub_49C5C0` | src/Yobi/window.cpp:905 | 待分析 | — |
-| `Sub_49C5E0` | src/Yobi/window.cpp:911 | 待分析 | — |
+| `Sub_49C5C0` | src/Yobi/window.cpp:905 | 已重命名：`CalculateDialogTextColumns_49C5C0` | 对话与外观窗口按有符号宽度以(width-48)/9+2计算文本列数。 |
+| `Sub_49C5E0` | src/Yobi/window.cpp:911 | 已重命名：`CalculateDialogVisibleLines_49C5E0` | 对话窗口高度扣边框32和可选按钮区24，再除实际行高，供可见行数计算。 |
 | `Sub_4A76E0` | src/world/ChatHistory.cpp:201 | 已重命名：`IncrementChatRecordCount_4A76E0` | 聊天追加调用，记录数加一并将存储值封顶512，返回未封顶加一值；聊天窗口用该数计算滚动范围。 |
-| `Sub_4ABE60` | src/Yobi/window.cpp:583 | 待分析 | — |
-| `Sub_4ABEF0` | src/Yobi/window.cpp:790 | 待分析 | — |
-| `Sub_4ACDF0` | src/Yobi/window.cpp:615 | 待分析 | — |
-| `Sub_4ACE80` | src/Yobi/window.cpp:847 | 待分析 | — |
+| `Sub_4ABE60` | src/Yobi/window.cpp:583 | 已重命名：`UpdateBankWindowOpeningAnimation_4ABE60` | 扩张轮廓完成后按原顺序读取用户状态、参数和类别，打开银行窗口并标记死亡。 |
+| `Sub_4ABEF0` | src/Yobi/window.cpp:790 | 已重命名：`CreateBankWindowOpeningAnimation_4ABEF0` | 借银行窗口原型和保存位置创建展开动作，保存类别及上下文；失败同步打开银行窗口。 |
+| `Sub_4ACDF0` | src/Yobi/window.cpp:615 | 已重命名：`UpdateItemStorageWindowOpeningAnimation_4ACDF0` | 扩张轮廓完成后传递类别、参数、用户状态及阶段打开物品仓库窗口，再标记死亡。 |
+| `Sub_4ACE80` | src/Yobi/window.cpp:847 | 已重命名：`CreateItemStorageWindowOpeningAnimation_4ACE80` | 借仓库窗口原型和保存位置创建展开动作，保存类别／上下文／阶段，失败同步打开仓库窗口。 |
 | `Sub_4C5650` | src/scene/character_select/CharacterSelectPreview.cpp:434 | 已重命名：`ComposeCharacterAppearanceGraphic_4C5650` | 按资源代组合基图与三个外观分量，旧代先逆映射并使用1000/10/1步距。 |
 | `Sub_4C56E0` | src/scene/character_select/CharacterSelectPreview.cpp:403 | 已重命名：`DecomposeCharacterAppearanceGraphic_4C56E0` | 将角色图号归一现代布局，输出资源代、基图及4×5×5变体分量，供外观窗口编辑。 |
 | `Sub_4C9490` | src/world/MailState.cpp:678 | 已重命名：`ResetMiniMailSequenceAndSelection_4C9490` | 将迷你邮件序号清零、共享发信目标选择写-1。 |
@@ -502,9 +502,9 @@
 | `Sub_5171B0` | src/network/NetworkRuntime.cpp:1491 | 已重命名：`DecodeOptionalProtocolText_5171B0` | 非空调协议文本反转义，空值写空串并返回共用token缓冲。 |
 | `Sub_5176B0` | src/network/NetworkRuntime.cpp:470 | 已重命名：`DecodeProtocolBase62_5176B0` | 逐字乘62，0—9/a—z/A—Z映射0—61，支持负号；非法字节返回0。 |
 | `Sub_517730` | src/network/NetworkRuntime.cpp:514 | 已重命名：`EncodeProtocolBase62_517730` | 同字符表按除62余数逆序输出，保负号、单字符忽略容量及容量不足不补NUL的既有行为。 |
-| `Sub_517880` | src/Yobi/animation.cpp:283 | 待分析 | — |
-| `Sub_5182B0` | src/Yobi/animation.cpp:263 | 待分析 | — |
-| `Sub_518300` | src/Yobi/animation.cpp:125 | 待分析 | — |
+| `Sub_517880` | src/Yobi/animation.cpp:283 | 已重命名：`AdvanceYobiAnimationFrame_517880` | 动作／方向／图号变化重置帧状态；静态图加载偏移与翻转，动画按动作方向选帧、倍率等待和循环／末帧停留更新。 |
+| `Sub_5182B0` | src/Yobi/animation.cpp:263 | 已重命名：`GetYobiGraphicOriginOffset_5182B0` | 查询当前图形XY原点，返回动作图形偏移与资源原点之差，无效轴返回0但仍先查询资源。 |
+| `Sub_518300` | src/Yobi/animation.cpp:125 | 已重命名：`GetScaledYobiGraphicOriginOffset_518300` | 查询当前图形原点，按kind3/4/5乘1.75/1.5/1.25后从动作图形偏移减去，轴0/1返回对应分量。 |
 | `Sub_5183B0` | src/world/WorldActor.cpp:32 | 待分析 | — |
 | `Sub_518580` | src/world/SceneState.cpp:1962 | 待分析 | — |
 | `Sub_5185C0` | src/world/SceneState.cpp:9886 | 待分析 | — |

@@ -141,7 +141,7 @@ cg::yobi::YobiAction* WindowMiniMap_Open(
         x = gWindowStates[WindowId_MiniMap].x;
         y = gWindowStates[WindowId_MiniMap].y;
     }
-    return cg::yobi::Sub_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
+    return cg::yobi::CreateWindowOpeningAnimation_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
 }
 
 } // namespace detail

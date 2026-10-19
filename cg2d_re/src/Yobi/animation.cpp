@@ -122,7 +122,7 @@ static void ApplyYobiAnimeFrame(
 
 // YGOS01：先确定原F32系数再查询；保正常S64向零转换/窄化及当前偏移，沿1252宿主边界。
 // 原函数：0x00518300。
-std::int32_t Sub_518300(
+std::int32_t GetScaledYobiGraphicOriginOffset_518300(
     YobiAction* const action, const std::uint8_t axis, const std::int32_t kind)
 {
     float scale = 0.0F;
@@ -260,7 +260,7 @@ std::int32_t PlayFrame_517DA0(YobiAction* const action, const std::int32_t stopA
 } // namespace detail
 
 // YGOS01：完整5182B0正常查询；S16输出先取、当前S32偏移后取，低BYTE轴无效仍先查询。
-std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
+std::int32_t GetYobiGraphicOriginOffset_5182B0(YobiAction* const action, const std::uint8_t axis)
 {
     std::int16_t x;
     std::int16_t y;
@@ -280,7 +280,7 @@ std::int32_t Sub_5182B0(YobiAction* const action, const std::uint8_t axis)
 }
 
 // 原函数：0x00517880。
-std::int32_t Sub_517880(
+std::int32_t AdvanceYobiAnimationFrame_517880(
     YobiAction* const action,
     const std::int32_t rate,
     const std::int32_t stopAtEnd,

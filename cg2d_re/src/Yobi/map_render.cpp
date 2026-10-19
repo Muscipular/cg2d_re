@@ -73,7 +73,7 @@ static void Sub_4441A0(YobiAction* const action)
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    if (Sub_517880(action, 100, 1, 0) != 0) {
+    if (AdvanceYobiAnimationFrame_517880(action, 100, 1, 0) != 0) {
         YobiAction** const slot = action->completionSlot10;
         if (slot != nullptr) {
             *slot = nullptr;
@@ -82,9 +82,9 @@ static void Sub_4441A0(YobiAction* const action)
         return;
     }
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-    const std::int32_t offsetY = Sub_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
     const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t offsetX = Sub_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
     const std::int32_t x = action->x;
     const std::int32_t graphicIndex = action->graphicIndex;
     const std::int32_t drawX = offsetX + x;
@@ -287,9 +287,9 @@ void DrawGear_441570(
         }
         if (kind >= 3 && kind <= 5) {
             const render::GraphicDescriptor16* const descriptor = &child->drawMode;
-            const std::int32_t childY = Sub_518300(child, 1, kind);
+            const std::int32_t childY = GetScaledYobiGraphicOriginOffset_518300(child, 1, kind);
             const std::int32_t drawY = childY + action->y + offsetY;
-            const std::int32_t childX = Sub_518300(child, 0, kind);
+            const std::int32_t childX = GetScaledYobiGraphicOriginOffset_518300(child, 0, kind);
             const std::int32_t drawX = childX + action->x + offsetX;
             const std::int32_t graphicIndex = child->graphicIndex;
             world::DrawGearNormal_46C060(
@@ -299,9 +299,9 @@ void DrawGear_441570(
                 descriptor, static_cast<std::uint8_t>(kind + 7));
         } else if (kind == 1 || kind == 2 || kind == 6) {
             const render::GraphicDescriptor16* const descriptor = &child->drawMode;
-            const std::int32_t childY = Sub_5182B0(child, 1);
+            const std::int32_t childY = GetYobiGraphicOriginOffset_5182B0(child, 1);
             const std::int32_t drawY = childY + action->y;
-            const std::int32_t childX = Sub_5182B0(child, 0);
+            const std::int32_t childX = GetYobiGraphicOriginOffset_5182B0(child, 0);
             const std::int32_t drawX = childX + action->x;
             const std::int32_t graphicIndex = child->graphicIndex;
             world::DrawGearNormal_46C060(
@@ -408,16 +408,16 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
             const float worldY = action->worldY;
             worldYChild->worldY = worldY;
             YobiAction* const animatedChild = payload->action04;
-            Sub_517880(animatedChild, 100, 0, 0);
+            AdvanceYobiAnimationFrame_517880(animatedChild, 100, 0, 0);
             const std::int32_t imageNo = action->imageNo;
             const std::int32_t height = Sub_4417A0(imageNo);
             YobiAction* const yOffsetChild = payload->action04;
-            const std::int32_t offsetY = Sub_5182B0(yOffsetChild, 1);
+            const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(yOffsetChild, 1);
             const std::int32_t currentY = action->y;
             const std::int32_t heightOffsetY = height + offsetY;
             YobiAction* const xOffsetChild = payload->action04;
             const std::int32_t drawY = heightOffsetY + currentY;
-            const std::int32_t offsetX = Sub_5182B0(xOffsetChild, 0);
+            const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(xOffsetChild, 0);
             const std::int32_t currentX = action->x;
             YobiAction* const graphicChild = payload->action04;
             const std::int32_t drawX = offsetX + currentX;
@@ -538,19 +538,19 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 
     // 三图标的共同定位按每个原取槽点重读，不捕获一份子指针跨越查询调用。
     const auto positionStatus = [&](YobiAction*& slot) {
-        const std::int32_t offsetX = Sub_5182B0(slot, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(slot, 0);
         slot->x = offsetX + action->x;
         const std::int32_t height = Sub_4417A0(action->imageNo);
-        const std::int32_t offsetY = Sub_5182B0(slot, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(slot, 1);
         slot->y = height + offsetY + action->y - 20;
-        const std::int32_t worldX = Sub_5182B0(slot, 0);
+        const std::int32_t worldX = GetYobiGraphicOriginOffset_5182B0(slot, 0);
         slot->worldX = static_cast<float>(static_cast<double>(worldX) + action->worldX);
-        const std::int32_t worldY = Sub_5182B0(slot, 1);
+        const std::int32_t worldY = GetYobiGraphicOriginOffset_5182B0(slot, 1);
         slot->worldY = static_cast<float>(
             static_cast<double>(worldY) + action->worldY + 0.1F);
     };
     const auto drawStatus = [&](YobiAction*& slot) {
-        Sub_517880(slot, 100, 0, 0);
+        AdvanceYobiAnimationFrame_517880(slot, 100, 0, 0);
         slot->drawMode.mixFlags |= cg::render::GraphicMixFlag_OriginalPalette;
         YobiAction* const child = slot;
         const std::int32_t y = child->y;
@@ -665,11 +665,11 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if (payload->action30 != nullptr) {
         payload->action30->characterAction = action->characterAction == 8 ? 3 : 0;
         payload->action30->direction = action->direction;
-        if (Sub_517880(payload->action30, 100, 0, 0) == 0) {
+        if (AdvanceYobiAnimationFrame_517880(payload->action30, 100, 0, 0) == 0) {
             const render::GraphicDescriptor16* const descriptor = &payload->action30->drawMode;
-            const std::int32_t offsetY = Sub_5182B0(payload->action30, 1);
+            const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(payload->action30, 1);
             const std::int32_t y = offsetY + action->y + frameY;
-            const std::int32_t offsetX = Sub_5182B0(payload->action30, 0);
+            const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(payload->action30, 0);
             const std::int32_t x = offsetX + action->x + frameX;
             const std::int32_t graphicIndex = payload->action30->graphicIndex;
             world::DrawGearNormal_46C060(

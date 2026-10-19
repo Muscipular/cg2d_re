@@ -72,7 +72,7 @@ extern volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude; // 原全局：
 
 // 原 sub_404A40@[0x404A40,0x404AD1)；初始化首尾哨兵并返回尾哨兵。
 // 与原端相同，调用前提是尚未初始化，且不注册进程退出析构。
-YobiAction* Sub_404A40();
+YobiAction* InitializeYobiActionList_404A40();
 
 // 原 YobiAction::new@[0x404AE0,0x404C42)。priority 的有效范围为 [0, 0xFE]。
 // payloadKind只标记本机指针类型；默认Raw保留原按字节分配的调用形式。
@@ -91,13 +91,13 @@ void ConfigureWindowPetPreview(YobiAction*& slot, std::int32_t imageNo);
 YobiAction* ConstructWindowSelectorPreview(std::int32_t index, std::uint32_t& flags); // 固定预览原位置原生构造，返回真实对象及flags|2快照。
 void FinishWindowSelectorPreview(YobiAction* action, std::uint32_t flags); // SIC01：同预览flags/callback/固定技能源图号/layer/direction原序发布，不补影子值或读负宠物槽。
 // 原475950完整展开动画创建，失败仍调用真实窗口打开；完成槽为非拥有T**。
-YobiAction* Sub_475950(
+YobiAction* CreateWindowOpeningAnimation_475950(
     std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::int32_t id, std::uint32_t flags, std::uint32_t mode,
     YobiAction** completionSlot);
 
 // 原48AC60完整数量展开；maximum为S32，callback为非拥有原生函数指针。
-YobiAction* Sub_48AC60(
+YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
     void (*callback)(std::int32_t), std::uint32_t flags, std::uint32_t mode,
@@ -105,11 +105,11 @@ YobiAction* Sub_48AC60(
 
 // 原窗口41/38的完整展开创建；失败仍发布，kind成功路径按低S16传递。
 // 原函数：0x004ABEF0。
-YobiAction* Sub_4ABEF0(
+YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
     std::int32_t kind, std::int32_t value14, std::int32_t userState,
     std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开41并返空，低BYTE和临时CryptInt原序保持。
 // 原函数：0x004ACE80。
-YobiAction* Sub_4ACE80(
+YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
     std::int32_t kind, std::int32_t value14, std::int32_t userState,
     std::int32_t phase, std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开38并返空，低BYTE和临时CryptInt原序保持。
 
@@ -226,7 +226,7 @@ std::int32_t ReadMapObservationDirection() noexcept;
 // 原 440FE0：创建地图观察节点、更新 BGM 状态并返回 0x25。
 std::int32_t Sub_440FE0();
 // 原5182B0：先查询，再按低BYTE轴先取S16输出/后取当前S32偏移；完整合同沿YGOS01。
-std::int32_t Sub_5182B0(YobiAction* action, std::uint8_t axis);
+std::int32_t GetYobiGraphicOriginOffset_5182B0(YobiAction* action, std::uint8_t axis);
 
 // 原 YobiGear::new@[0x4410F0,0x441128)：分配零载荷 action 并设置五个字段。
 YobiAction* NewYobiGear_4410F0(std::int32_t imageNo);
@@ -283,7 +283,7 @@ YobiAction* const* FindBattleRiderSlot(const YobiAction* action) noexcept;
 // 原 YobiClearUp@[0x404D30,0x404D5B) 与 sub_404D60@[0x404D60,0x404D85)。
 void YobiClearUp_404D30();
 // 原函数：0x00404D60。
-void Sub_404D60();
+void ShutdownYobiActionList_404D60();
 
 // 原449700：PVfz五参数的三路对象生产，复用唯一Yobi链及回调。
 // mode>=100且余数0时，floor实参改作已过秒数，duration写总时长槽。
@@ -294,9 +294,9 @@ void Sub_449700(
 void Sub_449160(); // 主循环效果生产，计时回调注册后按64次间隔生成漂移对象。
 
 // 原 49C5C0/49C5E0：dialog 尺寸的有符号整数分量计算。
-std::int32_t Sub_49C5C0(std::int16_t width);
+std::int32_t CalculateDialogTextColumns_49C5C0(std::int16_t width);
 // 原函数：0x0049C5E0。
-std::int32_t Sub_49C5E0(
+std::int32_t CalculateDialogVisibleLines_49C5E0(
     std::int16_t height,
     std::int32_t marginFlag,
     std::int32_t divisor);
@@ -380,7 +380,7 @@ void SetYobiActionField30F(YobiAction* action, std::uint8_t value);
 std::int32_t AdvanceCharacterPreviewAnimation(YobiAction* action);
 
 // 原 Yobi::FrameMove@[0x517880,0x517D9D)：参数速率、严格 ==1 停播及低 W8 静图翻转开关；取样沿YFPS01 SPEC。
-std::int32_t Sub_517880(
+std::int32_t AdvanceYobiAnimationFrame_517880(
     YobiAction* action,
     std::int32_t rate,
     std::int32_t stopAtEnd,

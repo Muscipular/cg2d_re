@@ -45,7 +45,7 @@ static std::int32_t ProcessCapability4CommonTail()
 }
 
 // 原函数：0x00464840。
-std::int32_t Sub_464840()
+std::int32_t UpdateCapability4LoginScene_464840()
 {
     const std::int32_t sampledState = world::gCurrentSceneState;
     const std::uint32_t state =

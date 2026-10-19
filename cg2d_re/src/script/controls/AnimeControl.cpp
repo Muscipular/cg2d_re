@@ -55,7 +55,7 @@ bool UIAnimeControl::render(short ox, short oy) {
 
     action->characterAction = data.action;
     action->direction = data.dir;
-    yobi::Sub_517880(action, 100, data.revertPlay != 0, 0);
+    yobi::AdvanceYobiAnimationFrame_517880(action, 100, data.revertPlay != 0, 0);
     int graphicNo = action->graphicIndex;
     if (!graphicNo) {
         return true;

@@ -1006,7 +1006,7 @@ void WindowItem_RequestTransfer(
     } else {
         gItemMoveTargetD2DBF8 = target;
         gItemMoveSourceCF46B0 = source;
-        static_cast<void>(cg::yobi::Sub_48AC60(
+        static_cast<void>(cg::yobi::CreateQuantityWindowOpeningAnimation_48AC60(
             sourceWindow, sourceElement, 244309, count, count, 0,
             [](const std::int32_t amount) { static_cast<void>(WindowItem_RequestTransferQuantity(amount)); },
             1, 0, 0));
@@ -2095,7 +2095,7 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* cons
     cg::yobi::YobiAction* const preview = state->preview;
     const std::int32_t imageNo = world::gPetRuntimeRecords[selected].imageNo6A0;
     cg::yobi::SetYobiActionField2A8(preview, imageNo);
-    const std::int32_t result = cg::yobi::Sub_517880(preview, 100, 0, 0);
+    const std::int32_t result = cg::yobi::AdvanceYobiAnimationFrame_517880(preview, 100, 0, 0);
     const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(preview);
     if (graphicIndex == 0) {
         return result;
@@ -2103,9 +2103,9 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* cons
     const render::GraphicDescriptor16* const descriptor =
         cg::yobi::ApplyWindowAnimationDrawMode(preview, true);
     const std::uint8_t layer = cg::yobi::GetYobiActionField15(preview);
-    const std::int32_t offsetY = cg::yobi::Sub_5182B0(preview, 1);
+    const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, 1);
     const std::int32_t y = offsetY + gCurrentWindow->y + 163;
-    const std::int32_t offsetX = cg::yobi::Sub_5182B0(preview, 0);
+    const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, 0);
     const std::int32_t elementX = state->elements00[1]->x;
     const std::int32_t x = elementX + offsetX + gCurrentWindow->x + 101;
     return render::DrawGraphic2_521DD0(x, y, layer, graphicIndex, 0, 0, descriptor);
@@ -4667,7 +4667,7 @@ cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     // 展开矩形计入实际分页区；位置由Sub_475950与创建入口共用的规则确定。
     const std::int32_t openingHeight = height
         + ((id == WindowId_Inventory || id == WindowId_BattleItems || id == WindowId_Craft) ? 30 : 0);
-    return cg::yobi::Sub_475950(x, y, width, openingHeight, id, flags, mode, completionSlot);
+    return cg::yobi::CreateWindowOpeningAnimation_475950(x, y, width, openingHeight, id, flags, mode, completionSlot);
 }
 
 // 原函数：0x00477160。
@@ -5021,18 +5021,18 @@ void WindowRuntime_DrawCurrent()
                 const auto* const data = static_cast<const WindowAnimationData*>(element->data);
                 const std::uint32_t stop = data->value04;
                 cg::yobi::YobiAction* const action = data->action;
-                static_cast<void>(cg::yobi::Sub_517880(action, 100, stop != 0, 0));
+                static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(action, 100, stop != 0, 0));
                 const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
                 if (graphicIndex == 0) {
                     break;
                 }
                 const render::GraphicDescriptor16* const mode =
                     cg::yobi::ApplyWindowAnimationDrawMode(action);
-                const std::int32_t offsetY = cg::yobi::Sub_5182B0(action, 1);
+                const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, 1);
                 WindowInstance* const verticalWindow = gCurrentWindow;
                 const std::int32_t animationElementY = element->y;
                 const std::int32_t drawY = offsetY + verticalWindow->y + animationElementY;
-                const std::int32_t offsetX = cg::yobi::Sub_5182B0(action, 0);
+                const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, 0);
                 WindowInstance* const horizontalWindow = gCurrentWindow;
                 const std::int32_t animationElementX = element->x;
                 const std::int32_t drawX = offsetX + horizontalWindow->x + animationElementX;

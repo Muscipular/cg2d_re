@@ -427,8 +427,8 @@ cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
     std::array<char, 3000> buffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 1000, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    const std::int32_t columns = cg::yobi::Sub_49C5C0(448);
-    const std::int32_t count = cg::yobi::Sub_49C5E0(240, buttons, 16);
+    const std::int32_t columns = cg::yobi::CalculateDialogTextColumns_49C5C0(448);
+    const std::int32_t count = cg::yobi::CalculateDialogVisibleLines_49C5E0(240, buttons, 16);
     gImageDialogLinesD2F7B0[0].text.clear();
     gImageDialogLinesD2F7B0[1].text.clear();
     gImageDialogLinesD2F7B0[2].text.clear();

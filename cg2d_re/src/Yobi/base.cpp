@@ -197,7 +197,7 @@ static bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 } // namespace detail
 
 // 原函数：0x00404A40。
-YobiAction* Sub_404A40()
+YobiAction* InitializeYobiActionList_404A40()
 {
     detail::gYobiActionStart = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
@@ -376,7 +376,7 @@ void YobiClearUp_404D30()
 }
 
 // 原函数：0x00404D60。
-void Sub_404D60()
+void ShutdownYobiActionList_404D60()
 {
     YobiClearUp_404D30();
     YobiUpdateAll_404C50();

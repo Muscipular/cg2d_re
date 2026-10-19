@@ -512,7 +512,7 @@ static void UpdateModalAction_5046D0(YobiAction* const action)
 }
 
 // 原函数：0x004758D0。
-static void Sub_4758D0(YobiAction* const action)
+static void UpdateWindowOpeningAnimation_4758D0(YobiAction* const action)
 {
     auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
@@ -543,7 +543,7 @@ static void Sub_4758D0(YobiAction* const action)
 }
 
 // QIP01：原48ABC0完整59条；描边后更新半宽/半高，S16计数>=10发布/标死，再无条件W16自增。
-static void Sub_48ABC0(YobiAction* const action)
+static void UpdateQuantityWindowOpeningAnimation_48ABC0(YobiAction* const action)
 {
     auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
@@ -580,7 +580,7 @@ static void Sub_48ABC0(YobiAction* const action)
 }
 
 // SOA01：原4ABE60完整51条；半尺寸原取样、S16计数完成时Y-X读值开41/标死，末W16递增保持。
-static void Sub_4ABE60(YobiAction* const action)
+static void UpdateBankWindowOpeningAnimation_4ABE60(YobiAction* const action)
 {
     auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
@@ -612,7 +612,7 @@ static void Sub_4ABE60(YobiAction* const action)
 }
 
 // SOA01：原4ACDF0完整53条；半尺寸原取样、phase先持值再Y-X读值开38/标死，末W16递增保持。
-static void Sub_4ACDF0(YobiAction* const action)
+static void UpdateItemStorageWindowOpeningAnimation_4ACDF0(YobiAction* const action)
 {
     auto* const payload = action->payload.windowOpening;
     const std::int32_t halfHeight = payload->halfHeight;
@@ -665,7 +665,7 @@ void DrawNineGrid_49BE00(
 }
 
 // 原函数：0x00475950。
-YobiAction* Sub_475950(
+YobiAction* CreateWindowOpeningAnimation_475950(
     std::int32_t x, std::int32_t y,
     const std::int32_t width, const std::int32_t height,
     const std::int32_t id, const std::uint32_t flags, const std::uint32_t mode,
@@ -682,7 +682,7 @@ YobiAction* Sub_475950(
     }
     static_cast<void>(ui::CenterPopupWindowPosition(id, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
-    action->callback = &detail::Sub_4758D0;
+    action->callback = &detail::UpdateWindowOpeningAnimation_4758D0;
     action->displayPriority = 0xDF;
     action->flags |= 6u;
     payload->value1C = 0;
@@ -720,7 +720,7 @@ YobiAction* Sub_475950(
 }
 
 // QIP01：原48AC60完整186条；actionFlags先发布，旧窗关闭与失败直发布保，低BYTE flags/两CryptInt原序。
-YobiAction* Sub_48AC60(
+YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
     const std::int32_t sourceWindow, const std::int32_t sourceElement,
     const std::int32_t imageNo, const std::int32_t maximum, const std::int32_t value14,
     const std::int32_t initialValue, const ui::WindowValueCallback callback,
@@ -751,7 +751,7 @@ YobiAction* Sub_48AC60(
     }
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Quantity, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
-    action->callback = detail::Sub_48ABC0;
+    action->callback = detail::UpdateQuantityWindowOpeningAnimation_48ABC0;
     action->flags |= 6u;
     action->graphicIndex = imageNo;
     action->displayPriority = 0xDF;
@@ -787,7 +787,7 @@ YobiAction* Sub_48AC60(
 }
 
 // SOA01：原4ABEF0完整154条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，失败同步开41保持。
-YobiAction* Sub_4ABEF0(
+YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::uint32_t flags, const std::uint32_t mode)
 {
@@ -811,7 +811,7 @@ YobiAction* Sub_4ABEF0(
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Bank, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
     action->flags |= 6u;
-    action->callback = detail::Sub_4ABE60;
+    action->callback = detail::UpdateBankWindowOpeningAnimation_4ABE60;
     action->displayPriority = 0xDF;
     payload->value1C = 0;
     payload->flag20 = 0;
@@ -844,7 +844,7 @@ YobiAction* Sub_4ABEF0(
 }
 
 // SOA01：原4ACE80完整158条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，phase及失败同步开38保持。
-YobiAction* Sub_4ACE80(
+YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)
 {
@@ -868,7 +868,7 @@ YobiAction* Sub_4ACE80(
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_ItemStorage, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
     action->flags |= 6u;
-    action->callback = detail::Sub_4ACDF0;
+    action->callback = detail::UpdateItemStorageWindowOpeningAnimation_4ACDF0;
     action->displayPriority = 0xDF;
     payload->value1C = 0;
     payload->flag20 = 0;
@@ -902,13 +902,13 @@ YobiAction* Sub_4ACE80(
 }
 
 // 原 [0x49C5C0,0x49C5DB)：S16 宽度先减 48，再按有符号商加 2。
-std::int32_t Sub_49C5C0(const std::int16_t width)
+std::int32_t CalculateDialogTextColumns_49C5C0(const std::int16_t width)
 {
     return (static_cast<std::int32_t>(width) - 48) / 9 + 2;
 }
 
 // 原 [0x49C5E0,0x49C5FD)：非零标志扣 24，再扣 32 并用 idiv 求商。
-std::int32_t Sub_49C5E0(
+std::int32_t CalculateDialogVisibleLines_49C5E0(
     const std::int16_t height,
     const std::int32_t marginFlag,
     const std::int32_t divisor)

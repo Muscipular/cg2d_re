@@ -2285,7 +2285,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
     cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(gPreviewActionD67B84, 100, 0, 0));
     cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
@@ -2410,7 +2410,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
     cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(gPreviewActionD67B84, 100, 0, 0));
     cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
@@ -2537,7 +2537,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     }
     const std::int32_t imageNo = pet.imageNo6A0;
     cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(gPreviewActionD67B84, 100, 0, 0));
     cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));

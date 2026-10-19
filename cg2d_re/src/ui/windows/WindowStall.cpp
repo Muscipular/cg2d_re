@@ -1141,7 +1141,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     }
     const std::int32_t imageNo = pet.imageNo6A0;
     cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::Sub_517880(gPreviewActionD67B84, 100, 0, 0));
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(gPreviewActionD67B84, 100, 0, 0));
     cg::yobi::YobiAction* const action = gPreviewActionD67B84;
     const std::int32_t shortX = static_cast<std::int16_t>(x);
     const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);

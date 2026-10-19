@@ -625,7 +625,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
         const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
         const std::int32_t motion = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
         cg::yobi::SetYobiActionField2A8(state::gCreateActions[1], motion);
-        cg::yobi::Sub_517880(state::gCreateActions[1], 100, 1, 0);
+        cg::yobi::AdvanceYobiAnimationFrame_517880(state::gCreateActions[1], 100, 1, 0);
         if (state::gPukVersion >= 5 && state::gCreationCharacterFamily_9A57E0 == 0) {
             const std::int32_t graphic = cg::yobi::GetYobiActionField20(state::gCreateActions[1]);
             render::DrawGraphic2_521DD0(517, 396, 10, graphic, 0, 0, nullptr);
@@ -652,7 +652,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
             motion = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
         }
         cg::yobi::SetYobiActionField2A8(state::gCreateActions[0], motion);
-        if (cg::yobi::Sub_517880(state::gCreateActions[0], 100, 1, 0) != 0) {
+        if (cg::yobi::AdvanceYobiAnimationFrame_517880(state::gCreateActions[0], 100, 1, 0) != 0) {
             cg::yobi::AdvanceCharacterPreviewAnimation(state::gCreateActions[0]);
             cg::yobi::YobiAction* const currentSecond = state::gCreateActions[1];
             if (currentSecond != nullptr) {

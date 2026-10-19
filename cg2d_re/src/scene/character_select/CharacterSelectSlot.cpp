@@ -153,7 +153,7 @@ std::int32_t ProcessCharacterSlot_461B30(
             cg::yobi::SetYobiActionField2B0(actionForFieldWrite, 1);
             cg::yobi::YobiAction* const actionForFrameMove =
                 state::gPreviewActions[static_cast<std::size_t>(slot)];
-            cg::yobi::Sub_517880(actionForFrameMove, 100, 0, 0);
+            cg::yobi::AdvanceYobiAnimationFrame_517880(actionForFrameMove, 100, 0, 0);
         }
     } else {
         cg::ui::DrawUiControl_45EFD0(&uiRecords[0], 5, 0, 0, mode);

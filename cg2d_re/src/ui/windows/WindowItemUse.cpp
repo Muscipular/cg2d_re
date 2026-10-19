@@ -8,7 +8,7 @@ namespace detail {
 
 // 原CB10D8的52B值记录；实际六行存储由本文件私有持有。
 struct ItemUseStatusRecord {
-    std::array<char, 20> name;
+    std::wstring name;
     std::int32_t level; // 原成员偏移：+0x14。
     std::int32_t injury; // 原成员偏移：+0x18。
     std::int32_t hp; // 原成员偏移：+0x1C。
@@ -18,24 +18,17 @@ struct ItemUseStatusRecord {
     std::int32_t kind; // 原成员偏移：+0x2C。
     std::int32_t target; // 原成员偏移：+0x30。
 };
-static_assert(offsetof(ItemUseStatusRecord, level) == 0x14);
-static_assert(offsetof(ItemUseStatusRecord, injury) == 0x18);
-static_assert(offsetof(ItemUseStatusRecord, hp) == 0x1C);
-static_assert(offsetof(ItemUseStatusRecord, maxFp) == 0x28);
-static_assert(offsetof(ItemUseStatusRecord, kind) == 0x2C);
-static_assert(offsetof(ItemUseStatusRecord, target) == 0x30);
-static_assert(sizeof(ItemUseStatusRecord) == 52);
 // 原CB0EA8十条20B名单；与45的借用表及后续物品详情共用，不与交易名单混用。
 struct ItemUseTargetRecord {
     std::int16_t kind;
-    std::array<char, 17> name; // 原成员偏移：+0x02。
+    std::wstring name; // 原成员偏移：+0x02。
     std::byte byte13; // 原成员偏移：+0x13。
 };
 
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048AEA0。
-static std::int32_t WindowItemUse_SelectTextTarget(std::int32_t index, const char* unusedText); // 选择发送/释放计数；-2仅允许关闭。
+static std::int32_t WindowItemUse_SelectTextTarget(std::int32_t index, const wchar_t* unusedText); // 选择发送/释放计数；-2仅允许关闭。
 
 // 原函数：0x0048AF00。
 static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(); // 名称/颜色借用及物品占用计数，创建失败按原条件回滚。
@@ -44,7 +37,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(); // 名称/颜色�
 static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* text); // LY完整目标名单生产，保留原Yobi返回。
 
 // 原函数：0x0048B010。
-static std::int32_t WindowItemUse_SelectAttributeTarget(std::int32_t index, const char* unusedText); // 用物品/请求回退/释放通知。
+static std::int32_t WindowItemUse_SelectAttributeTarget(std::int32_t index, const wchar_t* unusedText); // 用物品/请求回退/释放通知。
 
 // 原函数：0x0048B0A0。
 static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(); // 属性展示源及46创建成功后的引用计数。
@@ -53,10 +46,6 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(); // 属性展�
 static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* text); // nFV完整属性值生产，不清旧表或替换宠物状态owner。
 
 // 控件载荷、窗口状态、组件表与原型。
-
-static_assert(offsetof(ItemUseTargetRecord, name) == 2);
-
-static_assert(sizeof(ItemUseTargetRecord) == 20);
 
 static std::array<ItemUseTargetRecord, 10> gItemUseTargetsCB0EA8 {}; // 原全局：0x00CB0EA8。
 
@@ -68,7 +57,7 @@ static std::int32_t gItemUsePageCountCC3E70 = 0; // 原全局：0x00CC3E70。
 
 static std::int32_t gItemUseTargetCB0A48 = 0; // 原全局：0x00CB0A48。
 
-static std::array<const char*, 10> gItemUseNamesCB0A1C {}; // 原全局：0x00CB0A1C。
+static std::array<const wchar_t*, 10> gItemUseNamesCB0A1C {}; // 原全局：0x00CB0A1C。
 
 static std::array<std::uint8_t, 10> gItemUseColorsD2E91C {}; // 原全局：0x00D2E91C。
 
@@ -82,7 +71,7 @@ static std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 
 // 窗口函数实现。
 
 // 原函数：0x0048AEA0。
-static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const char*)
+static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const wchar_t*)
 {
     if (index >= 0) {
         static_cast<void>(network::SelectItemTextTarget_511D10(platform::gConnectionSocket, index));
@@ -143,11 +132,10 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    std::memset(gItemUseTargetsCB0EA8.data(), 0, sizeof(gItemUseTargetsCB0EA8));
+    gItemUseTargetsCB0EA8.fill({});
     const char* const ownName = world::GetPlayerDisplayText(1);
-    const std::size_t ownNameSize = std::strlen(ownName) + 1;
     const std::uint32_t ownIndex = world::gPlayerRuntimeSlots.objectIndex;
-    std::memcpy(gItemUseTargetsCB0EA8[0].name.data(), ownName, ownNameSize);
+    gItemUseTargetsCB0EA8[0].name = cg::text::FromGbkWide(ownName);
     std::int32_t count = 1;
     gItemUseTargetCountCC40CC = count;
     gItemUseTargetsCB0EA8[0].kind = 0;
@@ -156,7 +144,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
             && world::ReadPetMapObjectIndex(slot) != ownIndex) {
             cg::yobi::YobiAction* const action = world::ReadPetMapAction(slot);
             if (action != nullptr) {
-                std::strcpy(gItemUseTargetsCB0EA8[count].name.data(), cg::yobi::GetYobiName(action));
+                gItemUseTargetsCB0EA8[count].name = cg::yobi::GetYobiName(action);
             }
             const std::int32_t index = count++;
             gItemUseTargetCountCC40CC = count;
@@ -174,7 +162,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
         const std::int32_t flag = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         const std::int32_t index = gItemUseTargetCountCC40CC;
-        std::strcpy(gItemUseTargetsCB0EA8[index].name.data(), name);
+        gItemUseTargetsCB0EA8[index].name = cg::text::FromGbkWide(name);
         gItemUseTargetsCB0EA8[index].kind = flag != 0 ? 3 : 2;
         count = index + 1;
         gItemUseTargetCountCC40CC = count;
@@ -188,7 +176,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
 }
 
 // 原函数：0x0048B010。
-static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index, const char*)
+static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index, const wchar_t*)
 {
     if (index == -3) {
         static_cast<void>(network::RequestItemTargetAttributes_511CD0(platform::gConnectionSocket));
@@ -262,9 +250,8 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
     gItemUseStatusCountCC4D44 = 0;
     if (gItemUseTargetsCB0EA8[selected].kind == 0) {
         const char* const name = world::GetPlayerDisplayText(1);
-        const std::size_t nameSize = std::strlen(name) + 1;
         const std::int32_t level = world::gPlayerRuntimeSlots.level;
-        std::memcpy(gItemUseStatusRecordsCB10D8[0].name.data(), name, nameSize);
+        gItemUseStatusRecordsCB10D8[0].name = cg::text::FromGbkWide(name);
         const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
         gItemUseStatusRecordsCB10D8[0].level = level;
         gItemUseStatusRecordsCB10D8[0].injury = injury;
@@ -288,7 +275,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
                 continue;
             }
             const char* const petName = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            std::strcpy(gItemUseStatusRecordsCB10D8[count].name.data(), petName);
+            gItemUseStatusRecordsCB10D8[count].name = cg::text::FromGbkWide(petName);
             const std::int32_t petInjury = pet.values70[25];
             gItemUseStatusRecordsCB10D8[count].level = pet.value08;
             gItemUseStatusRecordsCB10D8[count].injury = petInjury;
@@ -317,7 +304,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
             break;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        std::strcpy(gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].name.data(), name);
+        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].name = cg::text::FromGbkWide(name);
         std::int32_t value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].level = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);

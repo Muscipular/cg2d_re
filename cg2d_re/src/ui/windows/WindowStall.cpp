@@ -24,9 +24,9 @@ input::InputContext gInputContextCF4E60 {}; // 原全局：0x00CF4E60。
 
 // 原D046D8连续浏览区；仅复用值类型布局，不与玩家或交易区共享存储。
 struct StallBrowseData {
-    std::array<char, 17> sellerName00; // 原成员偏移：+0x00。
-    std::array<char, 17> stallName11; // 原成员偏移：+0x11。
-    std::array<char, 57> description22; // 原成员偏移：+0x22。
+    std::wstring sellerName00; // 原成员偏移：+0x00。
+    std::wstring stallName11; // 原成员偏移：+0x11。
+    std::wstring description22; // 原成员偏移：+0x22。
     std::array<std::byte, 1> bytes5B; // 原成员偏移：+0x5B。
     std::int32_t target5C; // 原成员偏移：+0x5C。 4CED60发布的浏览对象编号，不是地址。
     std::int32_t imageNo60; // 原成员偏移：+0x60。
@@ -186,22 +186,6 @@ static std::int32_t gStallMessageValueD67C38 = 0; // 原全局：0x00D67C38。
 static std::wstring gStallMoneyText57B440 {L"01234567"}; // 原全局：0x0057B440。
 
 static_assert(!std::is_trivially_destructible_v<StallBrowseData>);
-
-static_assert(offsetof(StallBrowseData, sellerName00) == 0);
-
-static_assert(offsetof(StallBrowseData, stallName11) == 0x11);
-
-static_assert(offsetof(StallBrowseData, description22) == 0x22);
-
-static_assert(offsetof(StallBrowseData, bytes5B) == 0x5B);
-
-static_assert(offsetof(StallBrowseData, target5C) == 0x5C);
-
-static_assert(offsetof(StallBrowseData, imageNo60) == 0x60);
-
-static_assert(offsetof(StallBrowseData, action64) == 0x64);
-
-static_assert(offsetof(StallBrowseData, direction68) == 0x68);
 
 static std::int32_t gStallItemPageD67BC8 = 0; // 原全局：0x00D67BC8。
 
@@ -2118,10 +2102,10 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             && gStallModeD67BDC == 1) {
             gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 37, 1);
         }
-        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = cg::text::FromGbkWide(gStallBrowseData->sellerName00.data());
-        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = cg::text::FromGbkWide(gStallBrowseData->stallName11.data());
+        static_cast<WindowTextData*>(gCurrentWindow->elements[4].data)->text = gStallBrowseData->sellerName00;
+        static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text = gStallBrowseData->stallName11;
         for (std::int32_t line = 0; line < 3; ++line) {
-            static_cast<void>(input::ExtractGbkTextLine(lineText, gStallBrowseData->description22.data(), line, 28));
+            static_cast<void>(input::ExtractTextLine(lineText, gStallBrowseData->description22, line, 28));
             WindowInstance* const window = gCurrentWindow;
             WindowElement* const current = window->elements;
             const std::int16_t y = std::bit_cast<std::int16_t>(
@@ -2329,23 +2313,30 @@ static void WindowStall_OpenBrowse(
     }
 
     auto& browse = *gStallBrowseData;
-    auto* const bytes = reinterpret_cast<std::byte*>(&browse);
-    std::memset(bytes, 0, offsetof(StallBrowseData, items));
+    browse.sellerName00.clear();
+    browse.stallName11.clear();
+    browse.description22.clear();
+    browse.bytes5B.fill({});
+    browse.target5C = 0;
+    browse.imageNo60 = 0;
+    browse.action64 = 0;
+    browse.direction68 = 0;
     for (auto& item : browse.items) { item = {}; }
     browse.itemValuesD13E74.fill(0);
     browse.itemValuesD13EC4.fill(0);
     for (world::PetRuntimeRecord& pet : browse.pets) {
         pet.ClearRaw();
     }
-    constexpr std::size_t tail = offsetof(StallBrowseData, petValuesD2D464);
-    std::memset(bytes + tail, 0, sizeof(browse) - tail);
-    std::strncpy(gStallBrowseData->sellerName00.data(), cg::yobi::GetYobiName(action), static_cast<std::uint32_t>(16));
+    browse.petValuesD2D464.fill(0);
+    browse.petValuesD2D478.fill(0);
+    gStallBrowseData->sellerName00 = cg::text::FromGbkWide(
+        cg::text::ToGbk(cg::yobi::GetYobiName(action)).substr(0, 16));
     gStallBrowseData->target5C = target;
     gStallBrowseData->imageNo60 = cg::yobi::GetYobiActionField2A8(action);
     gStallBrowseData->action64 = cg::yobi::GetYobiActionField2B0(action);
     gStallBrowseData->direction68 = cg::yobi::GetYobiActionField2B8(action);
-    std::strncpy(gStallBrowseData->stallName11.data(), stallName, static_cast<std::uint32_t>(16));
-    std::strncpy(gStallBrowseData->description22.data(), description, static_cast<std::uint32_t>(56));
+    gStallBrowseData->stallName11 = cg::text::FromGbkWide(std::string_view(stallName, std::min(std::strlen(stallName), std::size_t{16})));
+    gStallBrowseData->description22 = cg::text::FromGbkWide(std::string_view(description, std::min(std::strlen(description), std::size_t{56})));
 
     char itemName[256];
     char itemDescription[768];

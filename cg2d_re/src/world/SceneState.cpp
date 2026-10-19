@@ -2182,7 +2182,6 @@ std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0 {}; // 原全�
 namespace detail {
 static_assert(sizeof(BattleNamedEffectRecord) == 36);
 static_assert(offsetof(BattleNamedEffectRecord, value) == 32);
-static_assert(sizeof(gBattleNamedEffects5ABCE0) == 720);
 
 } // namespace detail
 cg::yobi::YobiAction* gBattleSceneAction5ABA94 = nullptr; // 原全局：0x005ABA94。
@@ -4085,7 +4084,7 @@ void DrawBattleScene_43CBB0()
     switch (state) {
     case 0: {
         gBattleEntryPending_5ABFC4 = 0;
-        std::memset(gBattleNamedEffects5ABCE0.data(), 0, sizeof(gBattleNamedEffects5ABCE0));
+        gBattleNamedEffects5ABCE0.fill({});
         std::int32_t title = 0;
         while (title < static_cast<std::int32_t>(gSortedTitlesDE03F8.size())
             && gSortedTitlesDE03F8[title].value != 1101) {

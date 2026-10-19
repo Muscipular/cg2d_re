@@ -186,7 +186,7 @@ extern input::InputContext gInputContextCA02E0;
 extern input::InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗口48九个输入原型共用的唯一上下文。
 
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
-using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const char* text); // text借用原GBK名称，取消／关闭时可为nullptr。
+using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const wchar_t* text); // text借用宽文本名称，取消／关闭时可为nullptr。
 // CC4230原回调实际接收技能和等级两个S32，47C7B2/47C7B3压栈，返回不用。
 using SkillWindowSelectionCallback = void (*)(std::int32_t skillIndex, std::int32_t technique);
 // 原函数：0x0047A140。
@@ -292,14 +292,14 @@ std::int32_t WindowSkill_ReadBattlePetImage(); // 重新选取出战宠物并读
 std::int32_t WindowSkill_CheckPetFp(); // 当前宠物FP的单次CryptInt比较。
 // 原函数：0x00479B00。
 std::int32_t WindowSkill_CanUseSpecialSkill(); // 技能/晶石/宠物技术/属性/等级条件链。
-// 原函数：0x0049F000。names借用GBK名单；49F0A0刷新时直接转为宽正文。
+// 原函数：0x0049F000。names借用宽文本名单，刷新时直接设置正文。
 cg::yobi::YobiAction* WindowTextTarget_Open(
-    const char* const* names, const std::uint8_t* colors,
+    const wchar_t* const* names, const std::uint8_t* colors,
     std::int32_t count, WindowTextChoiceCallback callback);
 
 // 原窗口46的28B属性源；仅名称地址扩宽，4874B0/48B0A0分别生产。
 struct WindowStatusChoiceRecord {
-    const char* name; // 原成员偏移：+0x00。
+    const wchar_t* name; // 原成员偏移：+0x00。
     std::int32_t level; // 原成员偏移：+0x04。
     std::int32_t hp; // 原成员偏移：+0x08。
     std::int32_t maxHp; // 原成员偏移：+0x0C。
@@ -658,7 +658,7 @@ extern std::int32_t gUsingSkillIndexD2F32C; // 原全局：0x00D2F32C。 技能�
 extern std::int32_t gUsingSkillLevelCA0AC4; // 原全局：0x00CA0AC4。
 extern std::int32_t gSkillTargetKindCF4A10; // 原全局：0x00CF4A10。
 extern std::int32_t gSkillSendModeC8A970; // 原全局：0x00C8A970。
-extern std::array<char, 20> gSkillTargetNameD2F748; // 原全局：0x00D2F748。 选择发送前复制；后续属性/技能消费者共享。
+extern std::wstring gSkillTargetNameD2F748; // 原全局：0x00D2F748。 选择发送前复制；后续属性/技能消费者共享。
 extern std::int32_t gChatWidthUnitsC9A930; // 原全局：0x00C9A930。 原聊天宽度单位，输入滚动/聊天绘制共用。
 extern std::int32_t gChatHeightUnitsC9A938; // 原全局：0x00C9A938。 原聊天可见高度的字体9行高倍数。
 extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相对共享写指针的回看条数。

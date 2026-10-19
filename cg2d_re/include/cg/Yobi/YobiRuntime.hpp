@@ -352,8 +352,8 @@ void AddYobiActionDrawFlags(YobiAction* action, std::uint8_t flags) noexcept; //
 // 原 +2E4；51A5B0 读取，独立于播放翻转值 +2E0。
 std::int32_t GetYobiActionField2E4(const YobiAction* action) noexcept;
 std::int32_t GetYobiActionField2DC(const YobiAction* action) noexcept; // 窗口12按S32位型比较同源播放圈数。
-const char* GetYobiName(const YobiAction* action) noexcept; // 原+C4名称，只读借用同一对象。
-const char* GetYobiTitle(const YobiAction* action) noexcept; // 原+E1标题，空串回退由调用方决定。
+const wchar_t* GetYobiName(const YobiAction* action) noexcept; // 原+C4名称，只读借用同一对象。
+const wchar_t* GetYobiTitle(const YobiAction* action) noexcept; // 原+E1标题，空串回退由调用方决定。
 std::uint8_t GetYobiActionFlagsLowByte(const YobiAction* action) noexcept; // 原+24低U8，窗口26判bit3。
 std::int32_t GetYobiActionCacheIndex(const YobiAction* action) noexcept; // 原+18数值索引，不是地址。
 std::int32_t GetYobiActionField2A8(YobiAction* action);

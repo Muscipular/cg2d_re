@@ -160,7 +160,7 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
     switch (kind) {
         case 0:
         case 1: {
-            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+            cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
             const wchar_t* text = nullptr;
             if (kind == 0) {
                 text = gWindow13ResultD66E2C != 0 ? L"　变装成功了！" /* 原常量参考：0x00586AF0。 */ : L"　变装失败了！" /* 原常量参考：0x00586AE0。 */;
@@ -172,22 +172,22 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
         }
         case 2:
             if (gWindow13ResultD66E2C != 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
                 cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[5].data)->text, L"　生命值恢复了 {} 。" /* 原常量参考：0x00586A94。 */, gWindow13ValueD2DBF0);
             } else {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
                 static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 0 ? L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */ : L"　治疗失败了！" /* 原常量参考：0x00586A70。 */;
             }
             break;
         case 3:
             if (gWindow13ResultD66E2C != 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
                 static_cast<WindowTextData*>(window->elements[5].data)->text = gWindow13ValueD2DBF0 == 4 ? L"伤势全部恢复了！" /* 原常量参考：0x00586A5C。 */ : L"伤势稍微恢复了。" /* 原常量参考：0x00586A48。 */;
             } else if (gWindow13ValueD2DBF0 == 0) {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
                 static_cast<WindowTextData*>(window->elements[5].data)->text = L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */;
             } else {
-                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗失败了" /* 原常量参考：0x00586A34。 */, cg::text::FromGbkWide(gSkillTargetNameD2F748.data()).c_str());
+                cg::text::FormatTo(static_cast<WindowTextData*>(window->elements[4].data)->text, L"{:<16}的治疗失败了" /* 原常量参考：0x00586A34。 */, gSkillTargetNameD2F748);
                 const std::int32_t value = gWindow13ValueD2DBF0;
                 static_cast<WindowTextData*>(window->elements[5].data)->text = value == 3 ? L"　伤势恶化而掉魂了。" /* 原常量参考：0x00586A1C。 */
                     : value == 2 ? L"　伤势恶化了。" /* 原常量参考：0x00586A0C。 */ : L"";

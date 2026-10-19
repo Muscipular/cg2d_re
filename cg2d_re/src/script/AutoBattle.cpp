@@ -524,7 +524,7 @@ static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
         std::shuffle(list.begin(), list.end(), rnd);
     }
     for (auto id: list) {
-        m_log_i("enemy %d %s\n", id, cg::world::gBattleEntries59E980[id]->nameC4.data());
+        m_log_iw(L"enemy %d %ls\n", id, cg::world::gBattleEntries59E980[id]->nameC4.c_str());
     }
     for (auto ix: list) {
         int t = checkAndGetTarget(attacker, ix, flags);

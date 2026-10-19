@@ -829,7 +829,7 @@ void UpdateBattleAction85_40CDE0(YobiAction* const action)
     if (scaleX >= 2.0) {
         if (payload->castSkill103C == 2002) {
             std::int32_t namedIndex = 0;
-            while (std::strcmp(cg::world::gBattleNamedEffects5ABCE0[namedIndex].name.data(), action->nameC4.data()) != 0) {
+            while (cg::world::gBattleNamedEffects5ABCE0[namedIndex].name != action->nameC4) {
                 ++namedIndex;
             }
             std::int32_t imageNo = 110154;
@@ -1459,17 +1459,17 @@ void UpdateBattleAction104_40DC90(YobiAction* const action)
                     // 原x86按值压入两份CryptInt；两个%d实际消费当前结构前两字，不调用数值解码。
                     std::array<std::uint32_t, 8> arguments;
                     std::memcpy(arguments.data() + 4, &target->maxHp, sizeof(platform::LegacyCryptInt));
-                    const char* const name = target->nameC4.data();
+                    const wchar_t* const name = target->nameC4.data();
                     std::memcpy(arguments.data(), &target->readiness, sizeof(platform::LegacyCryptInt));
-                    cg::text::FormatTo(message, L"{} 的生命为 {} / {}" /* 原常量参考：0x005539E8。 */, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
+                    cg::text::FormatTo(message, L"{} 的生命为 {} / {}" /* 原常量参考：0x005539E8。 */, name, std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
                     world::AppendChatMessage_44B050(message, 4, 3);
                     std::memcpy(arguments.data() + 4, &target->barMaximum1C0, sizeof(platform::LegacyCryptInt));
                     std::memcpy(arguments.data(), &target->barValue1B0, sizeof(platform::LegacyCryptInt));
-                    cg::text::FormatTo(message, L"{} 的魔力为 {} / {}" /* 原常量参考：0x005539D4。 */, cg::text::FromGbkWide(name).c_str(), std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
+                    cg::text::FormatTo(message, L"{} 的魔力为 {} / {}" /* 原常量参考：0x005539D4。 */, name, std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
                     world::AppendChatMessage_44B050(message, 4, 3);
                 }
             } else {
-                cg::text::FormatTo(message, L"无法调查出 {} 的情报" /* 原常量参考：0x005539BC。 */, cg::text::FromGbkWide(target->nameC4.data()).c_str());
+                cg::text::FormatTo(message, L"无法调查出 {} 的情报" /* 原常量参考：0x005539BC。 */, target->nameC4.c_str());
                 world::AppendChatMessage_44B050(message, 4, 3);
             }
             static_cast<void>(AdvanceBattleEffect_439470(action));
@@ -1943,7 +1943,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
         if (payload->effectRunningC9C == 0 && payload->castSkillLevel1044 < 90) {
             std::int32_t namedImage = 110158;
             std::int32_t namedIndex = 0;
-            while (std::strcmp(cg::world::gBattleNamedEffects5ABCE0[namedIndex].name.data(), action->nameC4.data()) != 0) {
+            while (cg::world::gBattleNamedEffects5ABCE0[namedIndex].name != action->nameC4) {
                 ++namedIndex;
                 if (namedIndex >= 20) {
                     break;
@@ -2822,7 +2822,7 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     auto* const copyPayload = copy->payload.battleActor;
     copy->imageNo = 26220;
     std::int32_t namedIndex = 0;
-    while (std::strcmp(cg::world::gBattleNamedEffects5ABCE0[namedIndex].name.data(), action->nameC4.data()) != 0) {
+    while (cg::world::gBattleNamedEffects5ABCE0[namedIndex].name != action->nameC4) {
         ++namedIndex;
     }
     for (std::int32_t index = 0; kBattleNamedEffectImages57E174[index][0] != 0; ++index) {
@@ -2831,7 +2831,7 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
             break;
         }
     }
-    std::strcpy(copy->nameC4.data(), action->nameC4.data());
+    copy->nameC4 = action->nameC4;
     copy->characterAction = 0;
     copy->direction = 0;
     static_cast<void>(PlayFrame_517DA0(copy, 0));

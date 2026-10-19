@@ -188,11 +188,11 @@ static void WindowBattleCommand_Open(
         const std::int32_t namePosition = world::GetBattlePetPosition_405B40(
             world::gBattleCurrentPosition5ABCA4);
         const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[namePosition];
-        const char* name = cg::yobi::GetYobiTitle(action);
+        const wchar_t* name = cg::yobi::GetYobiTitle(action);
         if (name[0] == '\0') {
             name = cg::yobi::GetYobiName(action);
         }
-        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = cg::text::FromGbkWide(name);
+        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = name;
         const std::int32_t maximumPosition = world::GetBattlePetPosition_405B40(
             world::gBattleCurrentPosition5ABCA4);
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
@@ -216,9 +216,9 @@ static void WindowBattleCommand_Open(
         gWindowStates[WindowId_BattleCommand].window->elements[11].visible = 1;
         gWindowStates[WindowId_BattleCommand].window->elements[12].visible = 1;
         const std::int32_t namePosition = world::gBattleCurrentPosition5ABCA4;
-        const char* const name = cg::yobi::GetYobiName(
+        const wchar_t* const name = cg::yobi::GetYobiName(
             world::gBattleEntries59E980[namePosition]);
-        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = cg::text::FromGbkWide(name);
+        static_cast<WindowTextData*>(gWindowStates[WindowId_BattleCommand].window->elements[10].data)->text = name;
         const std::int32_t maximumPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
             world::gBattleEntries59E980[maximumPosition]);
@@ -359,11 +359,11 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
             std::wstring name = L"请选择对象";
             if (selected >= 0) {
                 const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[selected];
-                const char* title = cg::yobi::GetYobiTitle(action);
+                const wchar_t* title = cg::yobi::GetYobiTitle(action);
                 if (title[0] == '\0') {
                     title = cg::yobi::GetYobiName(action);
                 }
-                name = cg::text::FromGbkWide(title);
+                name = title;
             }
             static_cast<void>(render::DrawText_456780(textX, textY, 3, 0, 0, name, 0, 0));
             WindowInstance* const backgroundWindow = gCurrentWindow;

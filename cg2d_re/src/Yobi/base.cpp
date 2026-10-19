@@ -491,12 +491,12 @@ std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept
     return action->field2E4;
 }
 
-const char* GetYobiName(const YobiAction* const action) noexcept
+const wchar_t* GetYobiName(const YobiAction* const action) noexcept
 {
     return action->nameC4.data();
 }
 
-const char* GetYobiTitle(const YobiAction* const action) noexcept
+const wchar_t* GetYobiTitle(const YobiAction* const action) noexcept
 {
     return action->titleE1.data();
 }

@@ -40,12 +40,12 @@
 namespace cg::world::detail {
 
 static void AllocateActorChatText(
-    cg::yobi::detail::MapActorPayload* const payload, const char* const name,
+    cg::yobi::detail::MapActorPayload* const payload, const wchar_t* const name,
     const char* const text, const std::int32_t color,
     const std::int32_t font, const std::int32_t length)
 {
-    // 原聊天源和姓名为GBK；只在气泡私有拥有者处转成动态UTF-16。
-    std::int32_t offset = static_cast<std::int32_t>(std::strlen(name)) + 2;
+    // 聊天源仍为协议GBK；按姓名编码字节数定位正文，气泡内部保存宽文本。
+    std::int32_t offset = static_cast<std::int32_t>(cg::text::ToGbk(name).size()) + 2;
     const std::string familyPrefix = cg::text::ToGbk(L"[家族]" /* 原常量参考：0x00554580。 */);
     if (std::strncmp(text, "[GP]", 4) == 0) { offset += 4; }
     else if (std::strncmp(text, "[MIC]", 5) == 0) { offset += 5; }
@@ -405,7 +405,7 @@ void UpsertGroundItemObject_445D20(
     assignCoordinate(record.coordinate1C, mapY);
     record.direction = direction;
     if (std::strlen(name) <= 60) {
-        std::memmove(record.nameC9.data(), name, std::strlen(name) + 1);
+        record.nameC9 = cg::text::FromGbkWide(name);
     }
     record.flags114 = 0x400u;
     record.value118 = 0;
@@ -416,10 +416,9 @@ void UpsertGroundItemObject_445D20(
     }
     action->imageNo = imageNo;
     if (std::strlen(name) <= 28) {
-        char* const destination = record.action->nameC4.data();
-        std::memmove(destination, name, std::strlen(name) + 1);
+        record.action->nameC4 = cg::text::FromGbkWide(name);
     } else {
-        std::memmove(record.action->nameC4.data(), "???", 4);
+        record.action->nameC4 = L"???";
     }
     record.action->flags |= 0x400u;
     record.action->field1D8 = value48;
@@ -466,7 +465,7 @@ void UpsertGroundGoldObject_445F40(
     record.direction = direction;
     const std::string storedName = cg::text::ToGbk(name);
     if (storedName.size() <= 60) {
-        std::memmove(record.nameC9.data(), storedName.c_str(), storedName.size() + 1);
+        record.nameC9 = name;
     }
     record.flags114 = 0x800u;
     record.value118 = 0;
@@ -476,10 +475,9 @@ void UpsertGroundGoldObject_445F40(
     }
     action->imageNo = imageNo;
     if (storedName.size() <= 16) {
-        char* const destination = record.action->nameC4.data();
-        std::memmove(destination, storedName.c_str(), storedName.size() + 1);
+        record.action->nameC4 = name;
     } else {
-        std::memmove(record.action->nameC4.data(), "???", 4);
+        record.action->nameC4 = L"???";
     }
     record.action->flags |= 0x800u;
 }

@@ -6,6 +6,7 @@
 #include "../world/WorldObjectState.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "cg/input/Input.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -513,7 +514,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         childPayload->index =
             world::gPlayerRuntimeSlots.action == action ? -1 : payload->index;
         payload->action2C->flags |= 0x80100u;
-        std::strcpy(payload->action2C->nameC4.data(), name);
+        payload->action2C->nameC4 = cg::text::FromGbkWide(name);
         payload->action2C->field1D0 = level;
         payload->action2C->field1D8 = value1D8;
     } else if (payload != nullptr && payload->action2C != nullptr) {
@@ -911,7 +912,7 @@ YobiAction* PublishPlayerActionIdentity(
         return nullptr;
     }
     if (originalNameLength <= 16) {
-        std::memmove(action->nameC4.data(), name, std::strlen(name) + 1);
+        action->nameC4 = cg::text::FromGbkWide(name);
     }
 
     // 原对象阶段重新解析四段；不能使用上一轮已写回的共享称号。
@@ -923,25 +924,25 @@ YobiAction* PublishPlayerActionIdentity(
     input::UnescapeLegacyTextAndNotify_52D2F0(first);
     if (std::strlen(first) <= 16) {
         action = world::gPlayerRuntimeSlots.action;
-        std::strcpy(action->titleE1.data(), first);
+        action->titleE1 = cg::text::FromGbkWide(first);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, second);
     input::UnescapeLegacyTextAndNotify_52D2F0(second);
     if (std::strlen(second) <= 32) {
         action = world::gPlayerRuntimeSlots.action;
-        std::strcpy(action->text102.data(), second);
+        action->text102 = cg::text::FromGbkWide(second);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, third);
     input::UnescapeLegacyTextAndNotify_52D2F0(third);
     if (std::strlen(third) <= 32) {
         action = world::gPlayerRuntimeSlots.action;
-        std::strcpy(action->text123.data(), third);
+        action->text123 = cg::text::FromGbkWide(third);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, fourth);
     input::UnescapeLegacyTextAndNotify_52D2F0(fourth);
     if (std::strlen(fourth) <= 16) {
         action = world::gPlayerRuntimeSlots.action;
-        std::strcpy(action->text31C.data(), fourth);
+        action->text31C = cg::text::FromGbkWide(fourth);
     }
     action = world::gPlayerRuntimeSlots.action;
     action->field1D0 = level;
@@ -971,11 +972,11 @@ void CopyInitialPlayerActionIdentity(
         return;
     }
     if (std::strlen(name) <= 16) {
-        std::strcpy(action->nameC4.data(), name);
+        action->nameC4 = cg::text::FromGbkWide(name);
         action = world::gPlayerRuntimeSlots.action;
     }
     if (std::strlen(title) <= 16) {
-        std::strcpy(action->titleE1.data(), title);
+        action->titleE1 = cg::text::FromGbkWide(title);
         action = world::gPlayerRuntimeSlots.action;
     }
     action->field1D0 = *level;

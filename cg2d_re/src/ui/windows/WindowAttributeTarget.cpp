@@ -146,9 +146,9 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text.clear();
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text.clear();
-        const char* const name = gStatusChoiceRecordsCB03D0[offset + row].name;
+        const wchar_t* const name = gStatusChoiceRecordsCB03D0[offset + row].name;
         if (name != nullptr) {
-            cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text, L"           {}", cg::text::FromGbkWide(name).c_str());
+            cg::text::FormatTo(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text, L"           {}", name);
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->style.color =
                 static_cast<std::byte>(gStatusChoiceRecordsCB03D0[offset + row].color);
             gCurrentWindow->elements[row + 4].visible = 1;

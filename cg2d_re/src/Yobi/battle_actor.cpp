@@ -32,7 +32,7 @@ std::int32_t MatchBattleAlbum_423800(const YobiAction* const action)
         if (record->used == 0) {
             continue;
         }
-        if (std::strcmp(record->name.data(), action->nameC4.data()) != 0) {
+        if (record->name != action->nameC4) {
             continue;
         }
         std::size_t field = 0;

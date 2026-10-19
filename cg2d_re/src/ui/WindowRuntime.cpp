@@ -426,7 +426,7 @@ std::int32_t gSkillTargetKindCF4A10 = 0; // 原全局：0x00CF4A10。
 
 std::int32_t gSkillSendModeC8A970 = 0; // 原全局：0x00C8A970。
 
-std::array<char, 20> gSkillTargetNameD2F748 {}; // 原全局：0x00D2F748。
+std::wstring gSkillTargetNameD2F748 {}; // 原全局：0x00D2F748。
 
 std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {}; // 原全局：0x00CF4B78。
 

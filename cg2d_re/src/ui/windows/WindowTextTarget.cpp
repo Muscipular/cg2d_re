@@ -42,7 +42,7 @@ static std::int32_t WindowTextTarget_SelectRow(std::int32_t index, std::int32_t 
 // 控件载荷、窗口状态、组件表与原型。
 
 // 窗口45借用调用者的两张表；待安装回调与当前回调是两个独立原槽。
-static const char* const* gTextChoiceNamesD30130 = nullptr; // 借用原GBK名单，窗口正文在49F0A0转为UTF-16。 // 原全局：0x00D30130。
+static const wchar_t* const* gTextChoiceNamesD30130 = nullptr; // 借用宽文本名单，窗口正文直接读取。 // 原全局：0x00D30130。
 
 static const std::uint8_t* gTextChoiceColorsCB1E18 = nullptr; // 原全局：0x00CB1E18。
 
@@ -106,7 +106,7 @@ WindowPrototype gWindowPrototypeTextTarget {0, 4, 160, 125, 320, 192, 0x80010101
 
 // 原函数：0x0049F000。
 cg::yobi::YobiAction* WindowTextTarget_Open(
-    const char* const* const names, const std::uint8_t* const colors,
+    const wchar_t* const* const names, const std::uint8_t* const colors,
     const std::int32_t count, const WindowTextChoiceCallback callback)
 {
     gTextChoiceNamesD30130 = names;
@@ -141,12 +141,12 @@ static std::int32_t WindowTextTarget_Update(const std::int32_t value)
 // 原函数：0x0049F0A0。
 static void WindowTextTarget_Refresh(const std::int32_t offset)
 {
-    const char* const* names = gTextChoiceNamesD30130;
+    const wchar_t* const* names = gTextChoiceNamesD30130;
     std::int32_t row = 0;
     for (; row < 5 && offset + row < gTextChoiceCountCC4CE4; ++row) {
         if (names != nullptr) {
             auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
-            text->text = cg::text::FromGbkWide(names[offset + row]);
+            text->text = names[offset + row];
             const std::uint8_t color = gTextChoiceColorsCB1E18[offset + row];
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data)->style.color =
                 static_cast<std::byte>(color);

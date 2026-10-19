@@ -862,12 +862,12 @@ void ScanBattleMParticipants_439B30(
                     TakeBattleMPreviewString_439670(text.data(), 29);
                     const std::int32_t value = TakeBattleMPreviewInteger_439600();
                     for (auto& record : cg::world::gBattleNamedEffects5ABCE0) {
-                        if (record.name[0] == '\0') {
-                            std::strcpy(record.name.data(), text.data());
+                        if (record.name.empty()) {
+                            record.name = cg::text::FromGbkWide(text.data());
                             record.value = value;
                             break;
                         }
-                        if (std::strcmp(text.data(), record.name.data()) == 0) {
+                        if (cg::text::FromGbkWide(text.data()) == record.name) {
                             record.value = value;
                             break;
                         }
@@ -2034,8 +2034,12 @@ static void ProcessBattleMMonsterHeader(
         }
         YobiAction* const defender = *defenderSlot;
         auto* const defenderPayload = defender->payload.battleActor;
-        TakeBattleMString_438FE0(scene, defender->nameC4.data(), 29);
-        static_cast<void>(input::UnescapeLegacyText_52D150(defender->nameC4.data()));
+        {
+            char nameBytes[29]{};
+            TakeBattleMString_438FE0(scene, nameBytes, 29);
+            static_cast<void>(input::UnescapeLegacyText_52D150(nameBytes));
+            defender->nameC4 = cg::text::FromGbkWide(nameBytes);
+        }
         defender->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         defender->field1D0 = TakeBattleMInteger_438F70(scene);
         {
@@ -2531,7 +2535,11 @@ static void ProcessBattleMGmnHeader(
     YobiAction* const created = NewBattleActor_438290(position);
     *slot = created;
     auto* const actorPayload = created->payload.battleActor;
-    TakeBattleMString_438FE0(scene, created->nameC4.data(), 29);
+    {
+        char nameBytes[29]{};
+        TakeBattleMString_438FE0(scene, nameBytes, 29);
+        created->nameC4 = cg::text::FromGbkWide(nameBytes);
+    }
     created->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
     created->field1D0 = TakeBattleMInteger_438F70(scene);
     {
@@ -2698,7 +2706,11 @@ static void ProcessBattleMRideHeader(
             }
             YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload), YobiPayloadKind::BattleRideCarrier);
             auto* const carrier = carrierAction->payload.battleRideCarrier;
-            TakeBattleMString_438FE0(scene, carrierAction->nameC4.data(), 29);
+            {
+                char nameBytes[29]{};
+                TakeBattleMString_438FE0(scene, nameBytes, 29);
+                carrierAction->nameC4 = cg::text::FromGbkWide(nameBytes);
+            }
             carrierAction->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
             carrier->gearImage0C = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
             carrierAction->field1D0 = TakeBattleMInteger_438F70(scene);
@@ -2761,7 +2773,11 @@ static void ProcessBattleMRideHeader(
         const std::int32_t firstPosition = gBattleMCasterPosition5AAA64;
         YobiAction* const first = NewBattleActor_438290(firstPosition);
         auto* const firstPayload = first->payload.battleActor;
-        TakeBattleMString_438FE0(scene, first->nameC4.data(), 29);
+        {
+            char nameBytes[29]{};
+            TakeBattleMString_438FE0(scene, nameBytes, 29);
+            first->nameC4 = cg::text::FromGbkWide(nameBytes);
+        }
         first->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         carrier->gearImage0C = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         first->field1D0 = TakeBattleMInteger_438F70(scene);
@@ -2811,7 +2827,7 @@ static void ProcessBattleMRideHeader(
         first->flags |= 2u;
         first->callback = nullptr;
         carrier->first00 = first;
-        std::strcpy(existingPayload->rider13C8->nameC4.data(), first->nameC4.data());
+        existingPayload->rider13C8->nameC4 = first->nameC4;
         existingPayload->rider13C8->field1D0 = first->field1D0;
         existingPayload->rider13C8->readiness = first->readiness;
         existingPayload->rider13C8->maxHp = first->maxHp;
@@ -2828,7 +2844,11 @@ static void ProcessBattleMRideHeader(
 
         YobiAction* const second = NewBattleActor_438290(secondPosition);
         auto* const secondPayload = second->payload.battleActor;
-        TakeBattleMString_438FE0(scene, second->nameC4.data(), 29);
+        {
+            char nameBytes[29]{};
+            TakeBattleMString_438FE0(scene, nameBytes, 29);
+            second->nameC4 = cg::text::FromGbkWide(nameBytes);
+        }
         second->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         second->field1D0 = TakeBattleMInteger_438F70(scene);
         {
@@ -3049,7 +3069,11 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         static_cast<void>(TakeBattleMInteger_438F70(action));
         YobiAction* const firstActor = NewBattleActor_438290(first);
         auto* const firstPayload = firstActor->payload.battleActor;
-        TakeBattleMString_438FE0(action, firstActor->nameC4.data(), 29);
+        {
+            char nameBytes[29]{};
+            TakeBattleMString_438FE0(action, nameBytes, 29);
+            firstActor->nameC4 = cg::text::FromGbkWide(nameBytes);
+        }
         firstActor->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
         const std::int32_t gearImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
         firstActor->field1D0 = TakeBattleMInteger_438F70(action);
@@ -3104,7 +3128,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         firstActor->flags = firstFlags;
         firstActor->callback = nullptr;
 
-        std::strcpy(existingPayload->rider13C8->nameC4.data(), firstActor->nameC4.data());
+        existingPayload->rider13C8->nameC4 = firstActor->nameC4;
         existingPayload->rider13C8->field1D0 = firstActor->field1D0;
         existingPayload->rider13C8->readiness = firstActor->readiness;
         existingPayload->rider13C8->maxHp = firstActor->maxHp;
@@ -3120,7 +3144,11 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
 
         YobiAction* const secondActor = NewBattleActor_438290(second);
         auto* const secondPayload = secondActor->payload.battleActor;
-        TakeBattleMString_438FE0(action, secondActor->nameC4.data(), 29);
+        {
+            char nameBytes[29]{};
+            TakeBattleMString_438FE0(action, nameBytes, 29);
+            secondActor->nameC4 = cg::text::FromGbkWide(nameBytes);
+        }
         secondActor->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
         secondActor->field1D0 = TakeBattleMInteger_438F70(action);
         {
@@ -3321,9 +3349,11 @@ void ParseBattleC_438550()
         }
         YobiAction* const actor = *slot;
         auto* const payload = actor->payload.battleActor;
-        detail::TakeBattleCString_4384C0(actor->nameC4.data(), 29);
+        char nameBytes[29]{};
+        detail::TakeBattleCString_4384C0(nameBytes, 29);
         // 4384C0内部已反转义；原438673仍独立再次执行。
-        input::UnescapeLegacyText_52D150(actor->nameC4.data());
+        input::UnescapeLegacyText_52D150(nameBytes);
+        actor->nameC4 = cg::text::FromGbkWide(nameBytes);
         actor->imageNo = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
         payload->baseImage13AC = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
         actor->field1D0 = detail::TakeBattleCInteger_438450();

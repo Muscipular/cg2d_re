@@ -339,15 +339,13 @@ void RecreateMissingWorldObjectActions_446640()
             action = record.action;
             const std::int32_t level = record.level2C;
             action->field1D0 = level;
-            char* const destination = record.action->nameC4.data();
-            std::memmove(destination, record.name54.data(), std::strlen(record.name54.data()) + 1);
+            record.action->nameC4 = record.name54;
         } else if (category == 2 || category == 4) {
             const std::size_t limit = category == 2 ? 28u : 16u;
-            if (std::strlen(record.nameC9.data()) <= limit) {
-                char* const destination = record.action->nameC4.data();
-                std::memmove(destination, record.nameC9.data(), std::strlen(record.nameC9.data()) + 1);
+            if (cg::text::ToGbk(record.nameC9).size() <= limit) {
+                record.action->nameC4 = record.nameC9;
             } else {
-                std::memmove(record.action->nameC4.data(), "???", 4);
+                record.action->nameC4 = L"???";
             }
         } else {
             continue;
@@ -407,7 +405,7 @@ void UpsertWorldActor_445350(
         *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x80u;
     }
     if (std::strlen(name) <= 16) {
-        std::memmove(record.name54.data(), name, std::strlen(name) + 1);
+        record.name54 = cg::text::FromGbkWide(name);
     }
 
     char text100[256]; // 原var_100：action第4段/type3第1段。
@@ -418,28 +416,28 @@ void UpsertWorldActor_445350(
         network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text300);
         input::UnescapeLegacyTextAndNotify_52D2F0(text300);
         if (std::strlen(text300) <= 16) {
-            std::memmove(record.title65.data(), text300, std::strlen(text300) + 1);
+            record.title65 = cg::text::FromGbkWide(text300);
         }
         network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, text200);
         input::UnescapeLegacyTextAndNotify_52D2F0(text200);
         if (std::strlen(text200) <= 32) {
-            std::memmove(record.text76.data(), text200, std::strlen(text200) + 1);
+            record.text76 = cg::text::FromGbkWide(text200);
         }
         network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, text400);
         input::UnescapeLegacyTextAndNotify_52D2F0(text400);
         if (std::strlen(text400) <= 16) {
-            std::memmove(record.text128.data(), text400, std::strlen(text400) + 1);
+            record.text128 = cg::text::FromGbkWide(text400);
         }
         if (std::strlen(extraText) <= 16) {
-            std::memmove(record.textB8.data(), extraText, std::strlen(extraText) + 1);
+            record.textB8 = cg::text::FromGbkWide(extraText);
         }
     } else {
         network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text400);
         input::UnescapeLegacyTextAndNotify_52D2F0(text400);
         if (std::strlen(text400) <= 16) {
-            std::memmove(record.title65.data(), text400, std::strlen(text400) + 1);
+            record.title65 = cg::text::FromGbkWide(text400);
         }
-        record.textB8[0] = '\0';
+        record.textB8.clear();
     }
     const std::uint32_t flags = MapWorldObjectTypeToDrawFlags_4461E0(type);
     record.flags114 = flags;
@@ -459,8 +457,7 @@ void UpsertWorldActor_445350(
     const std::uint32_t actionFlags = record.flags114;
     action->flags |= actionFlags;
     if (std::strlen(name) <= 16) {
-        char* const destination = record.action->nameC4.data();
-        std::memmove(destination, name, std::strlen(name) + 1);
+        record.action->nameC4 = cg::text::FromGbkWide(name);
     }
 
     // 原action阶段独立重新解析，不能复用记录阶段的文本或补写记录第3段。
@@ -468,37 +465,31 @@ void UpsertWorldActor_445350(
         network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text400);
         input::UnescapeLegacyTextAndNotify_52D2F0(text400);
         if (std::strlen(text400) <= 16) {
-            char* const destination = record.action->titleE1.data();
-            std::memmove(destination, text400, std::strlen(text400) + 1);
+            record.action->titleE1 = cg::text::FromGbkWide(text400);
         }
         network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, text200);
         input::UnescapeLegacyTextAndNotify_52D2F0(text200);
         if (std::strlen(text200) <= 32) {
-            char* const destination = record.action->text102.data();
-            std::memmove(destination, text200, std::strlen(text200) + 1);
+            record.action->text102 = cg::text::FromGbkWide(text200);
         }
         network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, text300);
         input::UnescapeLegacyTextAndNotify_52D2F0(text300);
         if (std::strlen(text300) <= 32) {
-            char* const destination = record.action->text123.data();
-            std::memmove(destination, text300, std::strlen(text300) + 1);
+            record.action->text123 = cg::text::FromGbkWide(text300);
         }
         network::ExtractDelimitedField_52CED0(titles, '|', 4, 255, text100);
         input::UnescapeLegacyTextAndNotify_52D2F0(text100);
         if (std::strlen(text100) <= 16) {
-            char* const destination = record.action->text31C.data();
-            std::memmove(destination, text100, std::strlen(text100) + 1);
+            record.action->text31C = cg::text::FromGbkWide(text100);
         }
         if (std::strlen(extraText) <= 16) {
-            char* const destination = record.action->text144.data();
-            std::memmove(destination, extraText, std::strlen(extraText) + 1);
+            record.action->text144 = cg::text::FromGbkWide(extraText);
         }
     } else {
         network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text100);
         input::UnescapeLegacyTextAndNotify_52D2F0(text100);
         if (std::strlen(text100) <= 16) {
-            char* const destination = record.action->titleE1.data();
-            std::memmove(destination, text100, std::strlen(text100) + 1);
+            record.action->titleE1 = cg::text::FromGbkWide(text100);
         }
     }
     record.action->field1D8 = value40;
@@ -974,10 +965,8 @@ void RecreateWorldObjectAction_4467D0(const std::int32_t objectIndex)
     action = record.action;
     const std::int32_t level = record.level2C;
     action->field1D0 = level;
-    char* const name = record.action->nameC4.data();
-    std::memmove(name, record.name54.data(), std::strlen(record.name54.data()) + 1);
-    char* const title = record.action->titleE1.data();
-    std::memmove(title, record.title65.data(), std::strlen(record.title65.data()) + 1);
+    record.action->nameC4 = record.name54;
+    record.action->titleE1 = record.title65;
     action = record.action;
     const std::uint32_t flags = record.flags114;
     action->flags |= flags;

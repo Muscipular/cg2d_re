@@ -485,14 +485,14 @@ void DrawBattleActorNames_43CA80()
             color = index == position || index == cg::world::GetBattlePetPosition_405B40(position) ? 4 : 0;
         }
         const YobiAction* const action = cg::world::gBattleEntries59E980[index];
-        const char* const name = action->nameC4.data();
+        const wchar_t* const name = action->nameC4.data();
         const std::int32_t y = action->y - 24;
-        const std::int32_t width = cg::render::TextMeasure(cg::text::FromGbkWide(name).c_str(), 1);
+        const std::int32_t width = cg::render::TextMeasure(name, 1);
         const std::int32_t x = cg::world::gBattleEntries59E980[index]->x - width / 2;
         static_cast<void>(render::DrawText2_456670(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)),
-            0, 1, color, cg::text::FromGbkWide(name).c_str(), 0));
+            0, 1, color, name, 0));
     }
 }
 

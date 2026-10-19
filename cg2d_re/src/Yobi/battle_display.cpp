@@ -19,6 +19,7 @@
 #include <cstdio> // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053BFC0、0x0053BE40、0x0053BEC0、0x0053C2F0；原参数／返回合同由直接调用承接。
 #include <cstring>
+#include <cwchar>
 #include <string>
 
 namespace cg::yobi {
@@ -28,14 +29,14 @@ namespace detail {
 // 原4217F0的18H（24B）文本载荷；末4B用途未定，行表/行字节由421750释放。
 struct BattleTextPayload {
     YobiAction* panel00; // 原成员偏移：+0x00。
-    char** lines04; // 原成员偏移：+0x04。
+    std::wstring* lines04; // 原成员偏移：+0x04。
     std::int32_t lineCount08; // 原成员偏移：+0x08。
     std::int32_t fontType0C; // 原成员偏移：+0x0C。
     std::int32_t remaining10; // 原成员偏移：+0x10。
     std::array<std::byte, 4> bytes14; // 原+14..+17H：仅显式保留存储，不猜新状态或地址类型。
 };
 
-static_assert(sizeof(BattleTextPayload) == sizeof(YobiAction*) + sizeof(char**) + 16);
+static_assert(sizeof(BattleTextPayload) == sizeof(YobiAction*) + sizeof(std::wstring*) + 16);
 
 std::int32_t gBattleActionSequenceIndex59F9DC = 0; // 原全局：0x0059F9DC。
 
@@ -69,22 +70,20 @@ void UpdateBattleText_421750(YobiAction* const action)
         return;
     }
     for (std::int32_t index = 0; index < payload->lineCount08; ++index) {
-        char** const lines = payload->lines04;
+        const std::wstring* const lines = payload->lines04;
         YobiAction* const panel = payload->panel00;
-        const char* const line = lines[index];
+        const std::wstring& line = lines[index];
         const std::int32_t y = panel->y + 40;
         const std::int32_t x = panel->x + 40;
         // 原421793各行坐标相同，创建时的fontType只用于测量，不改为带行距绘制。
         static_cast<void>(render::DrawText3_456560(
-            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, cg::text::FromGbkWide(line), 0));
+            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, line, 0));
     }
     const std::int32_t remaining = payload->remaining10 - 1;
     payload->remaining10 = remaining;
     if (remaining < 0) {
-        for (std::int32_t index = 0; index < payload->lineCount08; ++index) {
-            std::free(payload->lines04[index]);
-        }
-        std::free(payload->lines04);
+        delete[] payload->lines04;
+        payload->lines04 = nullptr;
         static_cast<void>(MarkDeath(payload->panel00));
         static_cast<void>(MarkDeath(action));
     }
@@ -92,7 +91,7 @@ void UpdateBattleText_421750(YobiAction* const action)
 
 // 原函数：0x004217F0。
 YobiAction* NewBattleText_4217F0(
-    const std::int8_t style, const char* const text,
+    const std::int8_t style, const wchar_t* const text,
     const std::int32_t fontType, const std::int32_t duration)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleTextPayload), YobiPayloadKind::BattleText);
@@ -104,33 +103,31 @@ YobiAction* NewBattleText_4217F0(
     action->callback = UpdateBattleText_421750;
     action->flags = flags | 0x40000u;
     payload->lineCount08 = 0;
-    const char* current = text;
+    const wchar_t* current = text;
     payload->remaining10 = duration;
     payload->fontType0C = fontType;
-    for (const char* newline = const_cast<char*>(std::strchr(current, '\n')); newline != nullptr;
-         newline = const_cast<char*>(std::strchr(newline + 1, '\n'))) {
+    for (const wchar_t* newline = std::wcschr(current, L'\n'); newline != nullptr;
+         newline = std::wcschr(newline + 1, L'\n')) {
         ++payload->lineCount08;
     }
     ++payload->lineCount08;
-    payload->lines04 = static_cast<char**>(
-        std::calloc(static_cast<std::size_t>(payload->lineCount08), sizeof(char*)));
+    payload->lines04 = new std::wstring[static_cast<std::size_t>(payload->lineCount08)];
     std::int32_t longestLength = 0;
     std::int32_t longestIndex = -1;
     std::int32_t index = 0;
     if (current != nullptr) {
         do {
-            const char* const newline = const_cast<char*>(std::strchr(current, '\n'));
+            const wchar_t* const newline = std::wcschr(current, L'\n');
             const std::int32_t length = newline != nullptr
                 ? static_cast<std::int32_t>(newline - current)
-                : static_cast<std::int32_t>(std::strlen(current));
-            if (longestLength < length) {
-                longestLength = length;
+                : static_cast<std::int32_t>(std::wcslen(current));
+            const auto byteLength = static_cast<std::int32_t>(cg::text::ToGbk(
+                std::wstring_view(current, static_cast<std::size_t>(length))).size());
+            if (longestLength < byteLength) {
+                longestLength = byteLength;
                 longestIndex = index;
             }
-            payload->lines04[index] = static_cast<char*>(
-                std::calloc(static_cast<std::size_t>(length + 1), 1));
-            std::memcpy(payload->lines04[index], current, static_cast<std::size_t>(length));
-            payload->lines04[index][length] = '\0';
+            payload->lines04[index].assign(current, static_cast<std::size_t>(length));
             if (newline == nullptr) {
                 break;
             }
@@ -140,7 +137,7 @@ YobiAction* NewBattleText_4217F0(
     }
     std::int32_t width = 80;
     if (longestIndex >= 0) {
-        width = cg::render::TextMeasure(cg::text::FromGbkWide(payload->lines04[longestIndex]), payload->fontType0C) + 80;
+        width = cg::render::TextMeasure(payload->lines04[longestIndex], payload->fontType0C) + 80;
     }
     const std::int32_t count = payload->lineCount08;
     std::int32_t height = 80;

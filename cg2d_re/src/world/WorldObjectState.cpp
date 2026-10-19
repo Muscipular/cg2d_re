@@ -1,6 +1,7 @@
 #include "WorldObjectState.hpp"
 
 #include "cg/input/Input.hpp"
+#include "cg/text/Encoding.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/world/SceneState.hpp"
@@ -151,7 +152,7 @@ void ResetWorldObjectTable_446470()
         record.flags120 = 0;
         record.objectIndex = 0;
         record.value34 = -1;
-        record.name54[0] = '\0';
+        record.name54.clear();
     }
     gWorldObjectFindCursor = 0;
 }
@@ -255,7 +256,7 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
         *reinterpret_cast<unsigned char*>(&record.flags42) |= 0x80u;
     }
     if (std::strlen(name) <= 16) {
-        std::memmove(record.name54.data(), name, std::strlen(name) + 1);
+        record.name54 = cg::text::FromGbkWide(name);
     }
     // 原var_100/var_200/var_300；ordinal1/2/3分别借100/300/200。
     char text100[256];
@@ -263,17 +264,17 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
     char text300[256];
     network::ExtractDelimitedField_52CED0(titles, '|', 1, 255, text100);
     if (std::strlen(text100) <= 16) {
-        std::memmove(record.title65.data(), text100, std::strlen(text100) + 1);
+        record.title65 = cg::text::FromGbkWide(text100);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 2, 255, text300);
     input::UnescapeLegacyTextAndNotify_52D2F0(text300);
     if (std::strlen(text300) <= 32) {
-        std::memmove(record.text76.data(), text300, std::strlen(text300) + 1);
+        record.text76 = cg::text::FromGbkWide(text300);
     }
     network::ExtractDelimitedField_52CED0(titles, '|', 3, 255, text200);
     input::UnescapeLegacyTextAndNotify_52D2F0(text200);
     if (std::strlen(text200) <= 32) {
-        std::memmove(record.text97.data(), text200, std::strlen(text200) + 1);
+        record.text97 = cg::text::FromGbkWide(text200);
     }
     record.flags114 = detail::MapWorldObjectTypeToDrawFlags_4461E0(type);
     return 1;

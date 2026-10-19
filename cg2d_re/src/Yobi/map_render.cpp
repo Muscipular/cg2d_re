@@ -574,12 +574,14 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
 
     const std::int16_t nameMode = platform::gActorOverheadTextMode_5F974C;
     if (nameMode > 0) {
-        const char* text = nullptr;
+        const wchar_t* text = nullptr;
+        std::wstring playerText;
         std::int8_t color = 0;
         if (action == world::gPlayerRuntimeSlots.action) {
             if (nameMode <= 6) {
                 constexpr std::array<std::int8_t, 6> colors {1, 4, 5, 2, 0, 0};
-                text = world::GetPlayerDisplayText(nameMode);
+                playerText = cg::text::FromGbkWide(world::GetPlayerDisplayText(nameMode));
+                text = playerText.c_str();
                 color = colors[nameMode - 1];
             }
         } else {
@@ -597,13 +599,13 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                     }
                 }
             } else if ((actionFlags & 0x80200u) != 0) {
-                text = (actionFlags & 0x200u) != 0 && std::strlen(action->titleE1.data()) != 0
+                text = (actionFlags & 0x200u) != 0 && !action->titleE1.empty()
                     ? action->titleE1.data() : action->nameC4.data();
             }
         }
         if (text != nullptr) {
             std::wstring buffer;
-            cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(text).c_str());
+            cg::text::FormatTo(buffer, L"{}", text);
             const auto y = static_cast<std::int16_t>(action->y - 98);
             const std::int32_t width = cg::render::TextMeasure(buffer, 1);
             const auto x = static_cast<std::int16_t>(action->x - width / 2);
@@ -904,19 +906,19 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::int32_t fp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.fp);
             const std::int32_t maxHp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxHp);
             const std::int32_t hp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.hp);
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
+            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
         } else if ((flags & 0x80000u) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
             // 原额外字符串实参不被本格式消费，不增加显示内容。
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), cg::text::FromGbkWide(fixed->titleE1.data()).c_str());
+            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
         } else if ((flags & 0x100u) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"等级 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), cg::text::FromGbkWide(fixed->titleE1.data()).c_str());
-            const char* const title = graphic->reference.action->text144.data();
-            if (std::strlen(title) != 0) {
-                cg::ui::detail::gHoverTitleD68BF4 = std::format(L"{:<16}", cg::text::FromGbkWide(title));
+            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"等级 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
+            const wchar_t* const title = graphic->reference.action->text144.data();
+            if (*title != L'\0') {
+                cg::ui::detail::gHoverTitleD68BF4 = std::format(L"{:<16}", title);
                 cg::ui::detail::gHoverTitleValueD69748 = 4;
             }
             const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
@@ -925,54 +927,54 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                     cg::world::AppendChatMessage_44B050(L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
                 }
-                const char* const name = graphic->reference.action->nameC4.data();
+                const wchar_t* const name = graphic->reference.action->nameC4.data();
                 if (name == nullptr) {
                     return;
                 }
                 std::wstring message;
-                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) == 0) {
-                    const std::int8_t added = cg::world::blacklist::AddBlacklistRecord_401270(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
-                    cg::text::FormatTo(message, added != 0 ? L"已将{}加入黑名单" /* 原常量参考：0x005532C4。 */ : L"{}加入黑名单失败" /* 原常量参考：0x005532B0。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(name) == 0) {
+                    const std::int8_t added = cg::world::blacklist::AddBlacklistRecord_401270(graphic->reference.action->nameC4);
+                    cg::text::FormatTo(message, added != 0 ? L"已将{}加入黑名单" /* 原常量参考：0x005532C4。 */ : L"{}加入黑名单失败" /* 原常量参考：0x005532B0。 */, graphic->reference.action->nameC4.c_str());
                 } else {
-                    cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, graphic->reference.action->nameC4.c_str());
                 }
                 cg::world::AppendChatMessage_44B050(message, 4, 3);
             } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
-                const char* const name = graphic->reference.action->nameC4.data();
+                const wchar_t* const name = graphic->reference.action->nameC4.data();
                 if (name == nullptr) {
                     return;
                 }
                 std::wstring message;
-                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(cg::text::FromGbkWide(name)) != 0) {
-                    const std::int8_t removed = cg::world::blacklist::RemoveBlacklistRecord_4012F0(cg::text::FromGbkWide(graphic->reference.action->nameC4.data()));
-                    cg::text::FormatTo(message, removed != 0 ? L"已将{}从黑名单中移除" /* 原常量参考：0x005532EC。 */ : L"从黑名单移除{}失败" /* 原常量参考：0x005532D8。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                if (cg::world::blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
+                    const std::int8_t removed = cg::world::blacklist::RemoveBlacklistRecord_4012F0(graphic->reference.action->nameC4);
+                    cg::text::FormatTo(message, removed != 0 ? L"已将{}从黑名单中移除" /* 原常量参考：0x005532EC。 */ : L"从黑名单移除{}失败" /* 原常量参考：0x005532D8。 */, graphic->reference.action->nameC4.c_str());
                 } else {
-                    cg::text::FormatTo(message, L"{}不在黑名单中" /* 原常量参考：0x0058AD34。 */, cg::text::FromGbkWide(graphic->reference.action->nameC4.data()).c_str());
+                    cg::text::FormatTo(message, L"{}不在黑名单中" /* 原常量参考：0x0058AD34。 */, graphic->reference.action->nameC4.c_str());
                 }
                 cg::world::AppendChatMessage_44B050(message, 4, 3);
             }
         } else if ((flags & 0x200u) != 0) {
-            const char* name = action->titleE1.data();
+            const wchar_t* name = action->titleE1.data();
             if (*name == '\0') {
                 name = action->nameC4.data();
             }
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, cg::text::FromGbkWide(name).c_str());
+            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, name);
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x400u) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
             const std::int32_t count = fixed->payload.mapActor->value18;
             if (count > 0) {
-                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}({})", cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), count);
+                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}({})", fixed->nameC4.c_str(), count);
             } else {
-                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", cg::text::FromGbkWide(fixed->nameC4.data()).c_str());
+                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", fixed->nameC4.c_str());
             }
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x800u) != 0) {
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", cg::text::FromGbkWide(action->nameC4.data()).c_str());
+            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", action->nameC4.c_str());
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x1000u) != 0) {
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", cg::text::FromGbkWide(action->nameC4.data()).c_str());
+            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", action->nameC4.c_str());
         }
         return;
     }
@@ -993,7 +995,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
         } else {
             if ((action->flags & 0x02000000u) == 0) {
-                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, cg::text::FromGbkWide(action->nameC4.data()).c_str());
+                cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, action->nameC4.c_str());
             }
             return;
         }
@@ -1004,7 +1006,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             }
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
             YobiAction* const fixed = graphic->reference.action;
-            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str());
+            cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str());
             return;
         }
         if ((action->flags & 0x02000000u) != 0) {
@@ -1018,7 +1020,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
         }
         YobiAction* const fixed = graphic->reference.action;
-        cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str());
+        cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str());
         return;
     }
 
@@ -1028,7 +1030,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     const std::int32_t fp = static_cast<std::int32_t>(graphic->reference.action->barValue1B0);
     const std::int32_t maxHp = static_cast<std::int32_t>(graphic->reference.action->maxHp);
     const std::int32_t hp = static_cast<std::int32_t>(graphic->reference.action->readiness);
-    cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, cg::text::FromGbkWide(fixed->nameC4.data()).c_str(), hp, maxHp, fp, maxFp);
+    cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
 }
 
 } // namespace cg::yobi

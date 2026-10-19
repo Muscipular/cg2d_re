@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <string>
 #include <cstddef>
 #include <cstdint>
 #include <span>
@@ -73,7 +74,7 @@ extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全
 extern std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48; // 原全局：0x005AAA48。 调度累计、43B290逐槽冲突判定。
 extern std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40; // 原全局：0x005A8A40。 仅映射439B30已消费位置，40F2B1同源读取。
 struct BattleNamedEffectRecord {
-    std::array<char, 32> name; // 原编码名称，首字节0表示空槽。
+    std::wstring name; // 内部名称；空字符串表示空槽。
     std::int32_t value; // 原+20，439B30按名称更新。
 };
 extern std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0; // 原全局：0x005ABCE0。

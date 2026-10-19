@@ -663,7 +663,11 @@ static void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleSce
         YobiAction* const created = NewBattleActor_438290(gBattleMTargetPosition5AAA40);
         cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] = created;
         auto* const actorPayload = created->payload.battleActor;
-        TakeBattleMString_438FE0(scene, created->nameC4.data(), 29);
+        {
+            char nameBytes[29]{};
+            TakeBattleMString_438FE0(scene, nameBytes, 29);
+            created->nameC4 = cg::text::FromGbkWide(nameBytes);
+        }
         created->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
         created->field1D0 = TakeBattleMInteger_438F70(scene);
         {
@@ -2604,7 +2608,11 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
             firstPosition = parsedTargetPosition;
             secondPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             selfFlags = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
-            TakeBattleMString_438FE0(scene, first->nameC4.data(), 29);
+            {
+                char nameBytes[29]{};
+                TakeBattleMString_438FE0(scene, nameBytes, 29);
+                first->nameC4 = cg::text::FromGbkWide(nameBytes);
+            }
             first->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
             for (std::int32_t& image : firstImages) {
                 image = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
@@ -2651,7 +2659,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
             firstPayload->y0C = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][1];
             firstPayload->battlePosition18 = firstPosition;
             UpdateBattleAlbumFlag_4238F0(first);
-            std::strcpy(casterPayload->rider13C8->nameC4.data(), first->nameC4.data());
+            casterPayload->rider13C8->nameC4 = first->nameC4;
             YobiAction* const fieldRider = casterPayload->rider13C8;
             const std::int32_t riderField1D0 = first->field1D0;
             fieldRider->field1D0 = riderField1D0;
@@ -2668,7 +2676,11 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
             YobiAction* const sourceY = cg::world::gBattleAllEntries59E980[riderYSourcePosition];
             riderY->offset44 = sourceY->offset44;
 
-            TakeBattleMString_438FE0(scene, second->nameC4.data(), 29);
+            {
+                char nameBytes[29]{};
+                TakeBattleMString_438FE0(scene, nameBytes, 29);
+                second->nameC4 = cg::text::FromGbkWide(nameBytes);
+            }
             second->imageNo = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(scene));
             second->field1D0 = TakeBattleMInteger_438F70(scene);
             {

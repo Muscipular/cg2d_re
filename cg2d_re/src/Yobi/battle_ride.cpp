@@ -111,7 +111,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             payload->rider13C8->characterAction = 11;
             YobiAction* const nameSource = cg::world::gBattleAllEntries59E980[first];
             YobiAction* const nameRider = payload->rider13C8;
-            std::strcpy(nameRider->nameC4.data(), nameSource->nameC4.data());
+            nameRider->nameC4 = nameSource->nameC4;
             YobiAction* const valueSource = cg::world::gBattleAllEntries59E980[first];
             YobiAction* const valueRider = payload->rider13C8;
             valueRider->field1D0 = valueSource->field1D0;
@@ -140,7 +140,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             coordinateRider = payload->rider13C8;
             coordinateRider->offset44 = coordinateSource->offset44;
             payload->rider13C8->flags |= 0x14u;
-            std::strcpy(action->nameC4.data(), cg::world::gBattleAllEntries59E980[second]->nameC4.data());
+            action->nameC4 = cg::world::gBattleAllEntries59E980[second]->nameC4;
             const std::int32_t nextImage = cg::world::gBattleAllEntries59E980[second]->imageNo;
             action->characterAction = 0;
             action->imageNo = nextImage;
@@ -233,7 +233,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             payload->rider13C8->phase = 0;
             payload->rider13C8->field58 = 0;
             payload->rider13C8->flags &= ~0x14u;
-            std::strcpy(action->nameC4.data(), effect->nameC4.data());
+            action->nameC4 = effect->nameC4;
             action->characterAction = 0;
             action->field1D0 = effect->field1D0;
             action->readiness = effect->readiness;
@@ -366,7 +366,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     }
     if (payload->rider13C8->field58 == 0) {
         ClearBattleRideAttachments(payload);
-        std::strcpy(action->nameC4.data(), carrier->second04->nameC4.data());
+        action->nameC4 = carrier->second04->nameC4;
         action->field1D0 = carrier->second04->field1D0;
         action->readiness = carrier->second04->readiness;
         action->maxHp = carrier->second04->maxHp;
@@ -712,7 +712,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         rider->phase = 1;
         payload->rider13C8->field58 = 0;
         payload->rider13C8->characterAction = 11;
-        std::strcpy(payload->rider13C8->nameC4.data(), action->nameC4.data());
+        payload->rider13C8->nameC4 = action->nameC4;
         YobiAction* const levelRider = payload->rider13C8;
         const std::int32_t level = action->field1D0;
         levelRider->field1D0 = level;

@@ -39,7 +39,7 @@ void MoveBattleSequence_420590(YobiAction* action); // X从F32投影，Y从未�
 void UpdateBattleText_421750(YobiAction* action); // 面板就绪才绘制/扣帧，逐行释放后依次标死。
 // 原函数：0x004217F0。
 YobiAction* NewBattleText_4217F0(
-    std::int8_t style, const char* text, std::int32_t fontType, std::int32_t duration);
+    std::int8_t style, const wchar_t* text, std::int32_t fontType, std::int32_t duration);
 // 原函数：0x004206C0。
 std::int32_t NewBattleTimeNumber_4206C0(std::int32_t x, std::int32_t y, std::int32_t seconds);
 

@@ -125,11 +125,11 @@ struct YobiAction {
     std::int8_t nameFontType{};        // 原 +BD。
     std::int8_t nameLayer{};           // 原 +BE；DrawText2 的 renderMode。
     std::int32_t nameValueC0{};        // 原 +C0；DrawText2 仅消费低 S8。
-    std::array<char, 29> nameC4{}; // 原 +C4..+E0；445D20允许28B及NUL，不是+64绘制文本。
-    std::array<char, 33> titleE1{}; // 原+E1..101；41EB10复制33B，51A090仍最多写16B及NUL。
-    std::array<char, 33> text102{}; // 原成员偏移：+0x102。
-    std::array<char, 33> text123{}; // 原成员偏移：+0x123。
-    std::array<char, 17> text144{}; // 原+144；445350复制长度<=16的独立原字节文本。
+    std::wstring nameC4; // 原 +C4..+E0；445D20允许28B及NUL，不是+64绘制文本。
+    std::wstring titleE1; // 原+E1..101；克隆按值复制；51A090解析入口保留16个GBK字节限制。
+    std::wstring text102; // 原成员偏移：+0x102。
+    std::wstring text123; // 原成员偏移：+0x123。
+    std::wstring text144; // 原+144；445350解析长度<=16个GBK字节的独立文本。
     std::array<std::byte, 25> bytes155{}; // 原+155..16D，41EB10复制原字节，业务用途未定。
     platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
@@ -187,7 +187,7 @@ struct YobiAction {
     std::uint8_t rebirthValue2{}; // 原成员偏移：+0x310。
     std::int32_t mapOffsetX{}; // 原 +314/+318；46CF60 写 .cut 偏移，46DD90 在 FrameMove 后读取。
     std::int32_t mapOffsetY{}; // 原成员偏移：+0x318。
-    std::array<char, 17> text31C{}; // 原 +31C；51A090 第四文本的独立槽。
+    std::wstring text31C; // 原 +31C；51A090 第四文本的独立槽。
 
 private:
     // 原41EB10：仅克隆入口可用，按原顺序赋值字段，不复制独立载荷内容。

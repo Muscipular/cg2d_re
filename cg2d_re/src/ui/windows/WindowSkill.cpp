@@ -23,7 +23,7 @@ static void WindowSkill_ReceiveTextTargets(const char* text); // ysVc完整名�
 static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(); // 技能目标名称/颜色借用及45创建，不回滚失败计数。
 
 // 原函数：0x00487020。
-static std::int32_t WindowSkill_SelectTextTarget(std::int32_t index, const char* text); // 请求属性/发送技能及释放通知。
+static std::int32_t WindowSkill_SelectTextTarget(std::int32_t index, const wchar_t* text); // 请求属性/发送技能及释放通知。
 
 // 原函数：0x00479B80。
 static void WindowSkill_ShowSkillList(WindowInstance* window, std::int32_t skillIndex); // 技能列表定位，不以used过滤索引查找。
@@ -131,7 +131,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* tex
 static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(); // 同源六属性视图与46创建，不回滚计数。
 
 // 原函数：0x004872E0。
-static std::int32_t WindowSkill_SelectAttributeTarget(std::int32_t index, const char* unusedText); // 按属性目标编号发送技能。
+static std::int32_t WindowSkill_SelectAttributeTarget(std::int32_t index, const wchar_t* unusedText); // 按属性目标编号发送技能。
 
 // 原函数：0x00479820。
 static std::int32_t WindowSkill_FindSpecialSkill(); // 技能索引对中查1009，按S16读取槽号。
@@ -186,11 +186,11 @@ static SkillWindowSelectionCallback gSkillSelectionCallbackCC4230 = nullptr; // 
 
 static WindowValueCallback gPetSkillSelectionCallbackCC4D14 = nullptr; // 原全局：0x00CC4D14。
 
-static std::array<std::array<char, 17>, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。 独立原字节名单，非LY表。
+static std::array<std::wstring, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。 独立宽文本名单，非LY表。
 
 static std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {}; // 原全局：0x00D2F75C。
 
-static std::array<const char*, 10> gSkillTargetNameViewsD45F98 {}; // 原全局：0x00D45F98。
+static std::array<const wchar_t*, 10> gSkillTargetNameViewsD45F98 {}; // 原全局：0x00D45F98。
 
 static std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {}; // 原全局：0x00CB1DE4。
 
@@ -199,7 +199,7 @@ static std::uint8_t gSkillTargetPendingC8AF5F = 0; // 原全局：0x00C8AF5F。
 // ND六行属性使用各自原槽，不能与nFV值记录或ysVc名称表混用。
 static std::int32_t gSkillStatusCountC8AA94 = 0; // 原全局：0x00C8AA94。
 
-static std::array<std::array<char, 17>, 6> gSkillStatusNamesCC4670 {}; // 原全局：0x00CC4670。
+static std::array<std::wstring, 6> gSkillStatusNamesCC4670 {}; // 原全局：0x00CC4670。
 
 static std::array<std::int32_t, 6> gSkillStatusLevelsCC31C0 {}; // 原全局：0x00CC31C0。
 
@@ -488,7 +488,7 @@ static std::int32_t WindowSkill_MatchesCrystalLevel()
 }
 
 // 原函数：0x004872E0。
-static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, const char*)
+static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, const wchar_t*)
 {
     if (index == -1) {
         WindowRuntime_DecrementOperationCount();
@@ -519,7 +519,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
     }
     char extra[256];
     extra[0] = '\0';
-    std::strcpy(gSkillTargetNameD2F748.data(), gSkillStatusNamesCC4670[index].data());
+    gSkillTargetNameD2F748 = gSkillStatusNamesCC4670[index];
     // 原509080只有ret；后续三分支均发送此空串，但不清局部其余字节。
     std::int32_t offset = 0;
     if (gSkillRebirthModeEnabled_5F9754 != 0) {
@@ -581,9 +581,8 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
         std::int32_t count = 0;
         if (gSkillTargetKindCF4A10 != 1) {
             const char* const name = world::GetPlayerDisplayText(1);
-            const std::size_t size = std::strlen(name) + 1;
             gSkillStatusLevelsCC31C0[0] = world::gPlayerRuntimeSlots.level;
-            std::memcpy(gSkillStatusNamesCC4670[0].data(), name, size);
+            gSkillStatusNamesCC4670[0] = cg::text::FromGbkWide(name);
             gSkillStatusInjuriesD67600[0] = world::gPlayerRuntimeSlots.valueF4;
             const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
             gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
@@ -606,12 +605,8 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
                 continue;
             }
             const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            const std::size_t size = std::strlen(name) + 1;
-            const std::size_t prefix = size & ~std::size_t{3};
-            char* const destination = gSkillStatusNamesCC4670[count].data();
-            std::memcpy(destination, name, prefix);
+            gSkillStatusNamesCC4670[count] = cg::text::FromGbkWide(name);
             gSkillStatusInjuriesD67600[count] = pet.values70[25];
-            std::memcpy(destination + prefix, name + prefix, size - prefix);
             gSkillStatusLevelsCC31C0[count] = pet.value08;
             const std::int32_t hp = static_cast<std::int32_t>(pet.values0C[0]);
             gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
@@ -643,7 +638,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(const char* con
             continue;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        std::strcpy(gSkillStatusNamesCC4670[gSkillStatusCountC8AA94].data(), name);
+        gSkillStatusNamesCC4670[gSkillStatusCountC8AA94] = cg::text::FromGbkWide(name);
         std::int32_t value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         gSkillStatusLevelsCC31C0[gSkillStatusCountC8AA94] = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
@@ -1536,8 +1531,8 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
     const WindowElement* const elements = window->elements;
     cg::yobi::YobiAction* const displayAction = world::gBattleEntries59E980[position];
     auto* const textData = static_cast<WindowTextData*>(elements[2].data);
-    const char* const name = cg::yobi::GetYobiName(displayAction);
-    textData->text = cg::text::FromGbkWide(name);
+    const wchar_t* const name = cg::yobi::GetYobiName(displayAction);
+    textData->text = name;
     const auto* const pet = &world::gPetRuntimeRecords[petIndex];
     std::int32_t index = 0;
     std::int32_t count = std::min(pet->value6A4, world::kPetTechniqueSlotCount);
@@ -2391,7 +2386,7 @@ void WindowSkill_SyncStates()
 }
 
 // 原函数：0x00487020。
-static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const char* const text)
+static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const wchar_t* const text)
 {
     if (index == -1) {
         WindowRuntime_DecrementOperationCount();
@@ -2417,7 +2412,7 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
         gSkillSendModeC8A970 = 0;
         char extra[256];
         extra[0] = '\0';
-        std::strcpy(gSkillTargetNameD2F748.data(), text);
+        gSkillTargetNameD2F748 = text;
         // 原509080只有ret；保留调用前的文本和状态写入，不伪造文本生产。
         std::int32_t skill;
         std::int32_t level;
@@ -2487,16 +2482,15 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
     gSkillTargetPageC8A974 = 0;
     gSkillTargetPageCountCA0178 = 1;
     for (auto& name : gSkillTargetNamesCB0550) {
-        name[0] = '\0';
+        name.clear();
     }
     std::int32_t count = 0;
     if (kind != 0) {
         const char* const name = world::GetPlayerDisplayText(1);
-        const std::size_t size = std::strlen(name) + 1;
         count = 1;
         gSkillTargetKindsD2F75C[0] = 0;
         gSkillTargetCountCA0004 = count;
-        std::memcpy(gSkillTargetNamesCB0550[0].data(), name, size);
+        gSkillTargetNamesCB0550[0] = cg::text::FromGbkWide(name);
     }
     for (std::int16_t slot = 0; slot < 5; ++slot) {
         if (world::ReadPetMapFlags(slot) == 0) {
@@ -2508,7 +2502,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
         }
         cg::yobi::YobiAction* const action = world::ReadPetMapAction(slot);
         if (action != nullptr) {
-            std::strcpy(gSkillTargetNamesCB0550[count].data(), cg::yobi::GetYobiName(action));
+            gSkillTargetNamesCB0550[count] = cg::yobi::GetYobiName(action);
         }
         gSkillTargetKindsD2F75C[count] = 1;
         gSkillTargetCountCA0004 = ++count;
@@ -2528,7 +2522,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         const std::int32_t index = gSkillTargetCountCA0004;
-        std::strcpy(gSkillTargetNamesCB0550[index].data(), name);
+        gSkillTargetNamesCB0550[index] = cg::text::FromGbkWide(name);
         gSkillTargetKindsD2F75C[index] = flag != 0 ? 3 : 2;
         count = index + 1;
         gSkillTargetCountCA0004 = count;

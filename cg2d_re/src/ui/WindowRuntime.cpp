@@ -4063,6 +4063,7 @@ static void WindowRuntime_AdvanceMousePhase()
 // 原函数：0x00473560。
 static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
 {
+    if (WindowRuntime_PointerDragBlocksMouse()) return;
     WindowInstance* const window = gCurrentWindow;
     WindowElement* const element = &window->elements[index];
     const std::int32_t left = window->x + element->x;
@@ -4117,6 +4118,7 @@ static void WindowRuntime_DispatchElementMouse(const std::int32_t index)
         const auto* live = WindowRuntime_FindInstance(ownerId);
         if (live == window && live->generation == ownerGeneration && window->binding
             && !(window->state & 0x8000u) && !window->scriptHidden) {
+            if (WindowRuntime_BeginPointerDrag(*window, *element, events)) handled |= 1;
             handled |= window->binding->elementEvent(*element, index, events);
             if (!(window->state & 0x8000u) && !window->scriptHidden) handled |= window->binding->event(index, events);
         }
@@ -4322,6 +4324,7 @@ std::int32_t WindowRuntime_Update()
     gWindowHasFocusCA0AB4 = 0;
     WindowRuntime_AdvanceMousePhase();
     PrepareWindowFrame();
+    WindowRuntime_BeginPointerDragFrame();
     const std::int32_t count = WindowRuntime_CompactAndReorder();
     const auto scheduledWindows = MergeWindowOrder(count);
     const bool hasWindows = !scheduledWindows.empty();
@@ -4340,7 +4343,7 @@ std::int32_t WindowRuntime_Update()
             gCurrentWindow = window;
             gCurrentWindowState = extension ? &extension->state : &gWindowStates[window->id];
             gCurrentWindowIdD67A1C = window->id;
-            const std::int32_t focused = WindowDrag_Update();
+            const std::int32_t focused = WindowRuntime_PointerDragBlocksMouse() ? 0 : WindowDrag_Update();
             std::int32_t updateResult;
             if (extension) {
                 updateResult = invoke([&] { return extension->update(carried, focused); });
@@ -4361,6 +4364,7 @@ std::int32_t WindowRuntime_Update()
                         window = gCurrentWindow;
                     }
                 }
+                static_cast<void>(WindowRuntime_ProcessPointerDrag(*window));
             }
             const bool hasFocus = focused != 0;
             gCurrentElementIndex57C12C = -1;

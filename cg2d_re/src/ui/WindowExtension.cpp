@@ -37,6 +37,7 @@ WindowExtension::WindowExtension() {
     WindowRuntime_EnsureIdentity(window);
 }
 void WindowRuntime_ReleaseBindings(WindowInstance& window) {
+    WindowRuntime_CancelPointerDrag(window);
     delete window.binding;
     window.binding = nullptr;
     delete window.components;
@@ -52,6 +53,7 @@ WindowExtension::~WindowExtension() {
     std::free(window.elementsSorted);
 }
 void WindowRuntime_SetVisible(WindowInstance& window, bool visible) {
+    if (!visible) WindowRuntime_CancelPointerDrag(window);
     if (window.id >= 0 && window.id < WIN_MAX) {
         window.scriptHidden = !visible;
         if (!visible) {
@@ -88,7 +90,7 @@ int WindowExtension::update(int, int hasFocused) {
     WindowRuntime_UpdateElementOrder(window);
     const int captured = WindowRuntime_ProcessComponents(window, hasFocused);
     if (!(window.state & WIN_STATE_CLOSE) && (window.state & WIN_STATE_ACTIVE)
-        && dragMove == 1 && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN)) {
+        && dragMove == 1 && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN) && !WindowRuntime_PointerDragBlocksMouse()) {
         if (dragMoving && dragOwner == window.id) {
             window.x += gMouseX - dragMoveLastX; window.y += gMouseY - dragMoveLastY;
             dragMoveLastX = gMouseX; dragMoveLastY = gMouseY;
@@ -132,9 +134,13 @@ void WindowExOpen(std::shared_ptr<WindowExtension>& window)
 void CgWindowClose(int id)
 {
     if (id >= 0 && id < WIN_MAX) {
-        if (auto* window = gWindowState[id].window) window->state |= WIN_STATE_CLOSE;
+        if (auto* window = gWindowState[id].window) {
+            WindowRuntime_CancelPointerDrag(*window);
+            window->state |= WIN_STATE_CLOSE;
+        }
     } else if (auto window = GetExtWindowById(id)) {
         // 回调期间仅标记；当前调度快照持有对象，下一帧统一释放。
+        WindowRuntime_CancelPointerDrag(window->window);
         window->window.state |= WIN_STATE_CLOSE;
     }
 }
@@ -246,6 +252,7 @@ std::vector<ScheduledWindow> MergeWindowOrder(int nativeCount)
 void FinishWindowFrame()
 {
     script::LuaProcessWinMgrKeyPress();
+    WindowRuntime_EndPointerDragFrame();
     WindowConsumeMouseWheelDelta();
     script::AutoBattleProc();
     script::CopilotProc();

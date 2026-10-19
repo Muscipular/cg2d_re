@@ -235,6 +235,10 @@ bool UIControl::process(int index, int hasFocused, int captured) {
 
 bool UIControl::process(int /*index*/, int hasFocused, int captured, const UIClipRect* clipRect, short ox, short oy) {
     if (!attached || (windowOwner && ((windowOwner->state & WIN_STATE_CLOSE) || !(windowOwner->state & WIN_STATE_ACTIVE)))) return false;
+    if (WindowRuntime_PointerDragBlocksMouse()) {
+        mouseState = MOUSE_NONE; // 捕获源的按下状态由统一捕获派发恢复。
+        return false;
+    }
     const int absX = element().x + ox;
     const int absY = element().y + oy;
     const int width = element().width;
@@ -323,8 +327,9 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
 
     WindowControlRef controlRef{winId, generation, id};
     WindowEventBinding callbackCopy = callbacks;
+    const bool pointerCaptured = windowOwner && WindowRuntime_BeginPointerDrag(*windowOwner, element(), eventFlags);
     UIEmitControlLeaveIfNeeded(controlRef, callbackCopy, previousMouseState, mouseState);
-    int result = EmitControlEvents(controlRef, callbackCopy, eventFlags);
+    int result = EmitControlEvents(controlRef, callbackCopy, eventFlags) | (pointerCaptured ? 1 : 0);
     if (result) {
         gMouseEventState = MES_CAPTURED;
         gWindowHasFocus = 1;

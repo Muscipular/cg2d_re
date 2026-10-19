@@ -295,6 +295,9 @@ static int NativeWindowNewIndex(lua_State* L) {
 int CallLuaElementEvent(lua_State* L, ui::WindowInstance& window, ui::WindowElement& element, int flags) {
     const auto call = [&](int callback) {
         if (!flags || (window.state & WIN_STATE_CLOSE) || (element.component && !element.component->attached)) return 0;
+        // 同一批onEvent/onPress/onDrag之间允许隐藏、禁用或清空；每次调用重新检查。
+        // Leave保留隐藏时的退出通知，不要求控件继续可交互。
+        if (flags != MouseFlag_Leave && !ui::WindowRuntime_IsElementInteractive(window, element)) return 0;
         // 旧Lua CallControlCallback在未绑定函数时返回1，hitable控件仍消费命中。
         // 原生旧元素没有这一默认值，脚本监听缺席时不能抢走原业务事件。
         if (callback < 0) return element.component ? 1 : 0;

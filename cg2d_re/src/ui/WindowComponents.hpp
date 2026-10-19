@@ -34,4 +34,13 @@ std::vector<UIControl*> WindowRuntime_Children(WindowInstance& window, int paren
 void WindowRuntime_ResetComponents(WindowInstance& window);
 int WindowRuntime_ProcessComponents(WindowInstance& window, int hasFocused);
 
+// LUP02：按帧捕获控件左键拖动，与原生物品拖放phase隔离。
+void WindowRuntime_BeginPointerDragFrame();
+bool WindowRuntime_PointerDragBlocksMouse();
+bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& element, int events);
+int WindowRuntime_ProcessPointerDrag(WindowInstance& window);
+void WindowRuntime_CancelPointerDrag(WindowInstance& window);
+void WindowRuntime_EndPointerDragFrame();
+bool WindowRuntime_IsElementInteractive(const WindowInstance& window, const WindowElement& element);
+
 } // namespace cg::ui

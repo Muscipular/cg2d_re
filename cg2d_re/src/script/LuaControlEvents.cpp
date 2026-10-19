@@ -53,7 +53,7 @@ struct LuaElementEvents final : ui::WindowElementEvents {
         if (!control) return 0;
         int result = CallLuaElementEvent(pending.owner, *control->windowOwner, control->element(), flags);
         auto* window = control->windowOwner;
-        if (window->binding && control->attached && !(window->state & WIN_STATE_CLOSE)) {
+        if (window->binding && ui::WindowRuntime_IsElementInteractive(*window, control->element())) {
             const int index = control->currentElement == &control->draft ? -1
                 : static_cast<int>(&control->element() - window->elements);
             result |= window->binding->event(index, flags);

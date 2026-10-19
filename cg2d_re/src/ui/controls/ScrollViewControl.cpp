@@ -194,7 +194,7 @@ bool UIScrollViewControl::process(int index, int hasFocused, int captured, const
     const int maxScroll = MaxScrollY();
     bool handled = false;
 
-    if (maxScroll > 0 && hasFocused && !captured) {
+    if (maxScroll > 0 && hasFocused && !captured && !WindowRuntime_PointerDragBlocksMouse()) {
         int wheelDelta = WindowPeekMouseWheelDelta();
         if (wheelDelta != 0 && MouseIsInRect(absX, absY, element().width, element().height) && UIPointInClipRect(gMouseX, gMouseY, &viewClip)) {
             int wheelStep = wheelDelta / 120;

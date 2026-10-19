@@ -437,9 +437,8 @@ struct BigMapWindowState final {
     }
 
     void Text(int x, int y, std::wstring_view value, const UIClipRect& clip, int color = 0) const {
-        const std::string gbk = text::ToGbk(value);
         RendererDrawTextClipped(static_cast<short>(x), static_cast<short>(y), FONT_LAYER_WINDOW,
-            kMapFont, static_cast<std::uint8_t>(color), gbk.c_str(), 0, 0, &clip);
+            kMapFont, static_cast<std::uint8_t>(color), value, 0, 0, &clip);
     }
 
     // 左上角绘制：导入图片带中心偏移，这里明确不叠加GraphicInfo.x/y。

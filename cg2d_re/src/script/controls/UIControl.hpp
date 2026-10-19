@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <string>
+#include <string_view>
 #include <memory>
 #include <vector>
 #include "../LuaHost.hpp"
@@ -71,7 +72,7 @@ struct UIControl {
     struct TextData {
         uint8_t color;
         uint8_t font;
-        std::string text;
+        std::wstring text; // 内部宽文本；仅Lua读写属性时转换GBK。
     };
     struct PngImageState {
         std::string path;
@@ -155,5 +156,5 @@ int RendererDrawSurfaceTextureClipped(PngTexture* texture, int x, int y, int w, 
 int RendererDrawGraphicClipped(int x, int y, uint8_t layer, int imageNo, int w, int h, COLORREF color, const UIClipRect* clipRect);
 int RendererDrawCanvasClipped(int x, int y, int w, int h, uint8_t layer, const std::vector<CanvasShape>& shapes, const UIClipRect* clipRect);
 void RendererBreakWindowTextBatch();
-void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char fontType, uint8_t colorType, const char* msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect);
+void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect);
 } // namespace cg::script

@@ -81,16 +81,16 @@ inline bool MouseIsInRect(int x, int y, int w, int h) {
 }
 inline void InputSetContext(InputContext* context) { input::SetContext_44B330(context); }
 inline void RendererDrawInputText(InputContext* context) { render::DrawInputText_4568A0(context); }
-inline int FontMeasure(const char* value, int font, int length) {
-    return render::TextMeasure(text::FromGbkWide(std::string_view(value, length)), font);
+inline int FontMeasure(std::wstring_view value, int font) {
+    return render::TextMeasure(value, font);
 }
 inline void RendererBreakWindowTextBatch() { render::gGraphicCache4Queue[FONT_LAYER_WINDOW] = 0; }
 inline int RendererDrawRect(std::int16_t x, std::int16_t y, std::int16_t w, std::int16_t h, std::uint8_t layer, COLORREF color) {
     return render::DrawRectangle(x, y, w, h, layer, color);
 }
 inline void YobiMarkDeath(YobiAction* action) { if (action) action->deathFlag = 1; }
-inline void InfoRenderText(std::int16_t x, std::int16_t y, std::uint8_t layer, char font, std::uint8_t color, const char* value, char hover, char frame) {
-    render::DrawColoredText(x, y, layer, font, color, text::FromGbkWide(value), hover, frame);
+inline void InfoRenderText(std::int16_t x, std::int16_t y, std::uint8_t layer, char font, std::uint8_t color, std::wstring_view value, char hover, char frame) {
+    render::DrawColoredText(x, y, layer, font, color, value, hover, frame);
 }
 
 #define LuaFunction(A) int A(lua_State* L)

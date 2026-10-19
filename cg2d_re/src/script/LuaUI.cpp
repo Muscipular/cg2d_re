@@ -1216,7 +1216,7 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
         }
     } else if (control->type == UIControl::TYPE_TEXT && strcmp(key, "text") == 0) {
         const auto* data = control->textData();
-        lua_pushstring(L, data ? data->text.c_str() : "");
+        Push(L, data ? std::wstring_view(data->text) : std::wstring_view{});
     } else if (control->type == UIControl::TYPE_TEXT_INPUT) {
         const auto* data = control->textInputData();
         if (!data) {
@@ -1440,7 +1440,8 @@ LuaFunctionEx(LuaControlRef, Set) {
         }
     } else if (auto textData = control->textData()) {
         if (LuaHasField(L, 2, "text")) {
-            textData->text = LuaGetStringField(L, 2, "text", textData->text.c_str());
+            const auto currentText = text::ToGbk(textData->text);
+            textData->text = text::FromGbkWide(LuaGetStringField(L, 2, "text", currentText.c_str()));
         }
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType")) {
             textData->font = static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textData->font))));
@@ -1751,7 +1752,7 @@ LuaFunctionEx(LuaWindowRef, AddText) {
     UIControl::TextData data{
         static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
         static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
-        LuaGetStringField(L, 2, "text", "")
+        text::FromGbkWide(LuaGetStringField(L, 2, "text", ""))
     };
     auto control = window->AddText(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
     if (!control) {

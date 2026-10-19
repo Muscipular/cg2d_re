@@ -354,3 +354,9 @@ TUE01扩展（用户要求检查其它绘制入口）：连同测宽及局部dra
 地图名称原gText9DAD30字节数组改为唯一std::wstring存储gMapName_9DAD30。沿用用户已命名的GetMapName_9DAD30，返回const std::wstring&；WorldUpdate重置通过ClearMapName_9DAD30调用clear，不再暴露首字节别名。
 
 HandleMapNameReply_509550在原位反转义、字段提取及原24字节超长判断后，统一将选定GBK文本转换为宽字符串。小地图、大地图和地图提示直接复制/测宽宽文本，移除各UI读取端重复GBK转换。原协议字段提取、未知名称回退和调色板字段处理保持；仅此名称存储类型及原分段字节复制被用户要求的宽字符串赋值替代，不扩大到其它协议或全局文字。
+
+## 裁剪文本及Lua文本控件宽字符串（2026-10-19，用户确认实施）
+
+RendererDrawTextClipped、InfoRenderText与FontMeasure使用std::wstring_view，UIControl::TextData持有std::wstring；大地图直接传入宽文本。裁剪与Font::measure共用text::Next，逐完整UTF-16字符测宽与保留，不再按GBK高位字节猜测字符长度，不拆开代理对。保留完整字符裁剪、垂直可见性及半角/全角测宽失败回退，颜色标记仍交由原DrawColoredText处理。
+
+Lua字符串对外仍遵守GBK合同，AddText和text属性设置时转为宽文本，读取时复用Push的GBK输出转换；控件名称、路径及文本输入控件原有边界不变。WindowItem_DrawTooltip的固定步长gbkLines属于旧数据接口，维持其明确GBK边界，不把整段字节记录强转宽字符串。

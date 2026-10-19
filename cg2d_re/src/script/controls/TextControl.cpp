@@ -14,7 +14,7 @@ bool UITextControl::render(short ox, short oy, const UIClipRect* clipRect) {
     if (visible != 1) {
         return true;
     }
-    RendererDrawTextClipped(ox + x, oy + y, FONT_LAYER_WINDOW, data.font, data.color, data.text.c_str(), 0, 0, clipRect);
+    RendererDrawTextClipped(ox + x, oy + y, FONT_LAYER_WINDOW, data.font, data.color, data.text, 0, 0, clipRect);
     return true;
 }
 

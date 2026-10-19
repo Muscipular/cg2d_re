@@ -4374,6 +4374,13 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 已同步文本SPEC具名差异，保留用户其它大地图样式改动。正在静态核对和build.bat Debug验证，不运行或部署客户端。
 - 最终git diff --check及build.bat Debug配置、编译、链接通过（退出码0）。旧gText9DAD30、首字节别名和ReadText9DAD30在源码/头文件中无残留，三个读取端及清空/写入链一致；公共头重编译仍出现其它既有模块C4244/C4701警告，本轮未扩大处理。未运行或部署客户端、未新增测试。
 
+## 491. 裁剪绘制及Lua文本控件宽文本化（2026-10-19）
+
+- 用户确认将已核对的窄文本绘制链改为宽文本。RendererDrawTextClipped/InfoRenderText/FontMeasure参数改为wstring_view，TextData改为wstring，大地图移除ToGbk往返，文本控件直接提交宽文本。
+- 裁剪移除GetAcpCharLength/MeasureAcpChar，沿既有text::Next按完整UTF-16字符测宽，保留原完整字符裁剪及垂直门禁；Lua创建/设置/读取text属性保留GBK对外合同，转换收敛于边界。固定步长物品提示gbkLines接口不改。
+- 已同步文本SPEC，静态核对调用点及边界，正在build.bat Debug验证；用户大地图其它改动保留，不运行或部署客户端。
+- 最终git diff --check及build.bat Debug配置、编译、链接通过（退出码0，本轮构建输出无编译器警告）。调用点均使用宽文本，Lua属性读写与添加入口转换已核对；未运行或部署客户端，未新增测试。用户随后扩大为内部文本统一宽字符串，后续按独立迁移SPEC推进。
+
 ## 490. 网络LZ4解压大小日志（2026-10-19）
 
 - 按用户要求，在DecodeCompressedProtocolFrame每块成功解压并通过容量检查后使用m_log记录compressed与decoded字节数；compressed为实际LZ4块长度，不包含协议帧头及块长度字段，decoded为本块实际解压输出长度。

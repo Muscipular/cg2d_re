@@ -86,28 +86,9 @@ int RendererDrawGraphicClipped(int x, int y, uint8_t layer, int imageNo, int w, 
 
 
 
-static int GetAcpCharLength(const char* text, int offset) {
-    if (!text || !text[offset]) {
-        return 0;
-    }
-    if ((static_cast<unsigned char>(text[offset]) & 0x80) && text[offset + 1]) {
-        return 2;
-    }
-    return 1;
-}
-
-static int MeasureAcpChar(const char* text, int offset, int length, char fontType) {
-    char ch[3] = {};
-    memcpy(ch, text + offset, length);
-    int width = FontMeasure(ch, fontType, length);
-    if (width <= 0) {
-        width = render::GetFontMetrics(fontType).sWidth * length;
-    }
-    return width;
-}
-
-void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char fontType, uint8_t colorType, const char* msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect) {
-    if (!msg || !msg[0]) {
+// 与字体测宽共用UTF-16步进；裁剪仅保留完整字符，不拆开代理对。
+void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char fontType, uint8_t colorType, std::wstring_view msg, char hoverMode, char hoverFrame, const UIClipRect* clipRect) {
+    if (msg.empty()) {
         return;
     }
     if (!clipRect) {
@@ -124,37 +105,28 @@ void RendererDrawTextClipped(__int16 x, __int16 y, unsigned __int8 layer, char f
         return;
     }
 
-    std::string text;
+    std::wstring clippedText;
     int drawX = x;
     int currentX = x;
-    int len = static_cast<int>(strlen(msg));
-    for (int i = 0; i < len;) {
-        int charLen = GetAcpCharLength(msg, i);
-        if (charLen <= 0 || i + charLen > len) {
-            break;
+    for (std::size_t offset = 0; offset < msg.size();) {
+        const std::size_t next = text::Next(msg, offset);
+        const auto glyph = msg.substr(offset, next - offset);
+        int charWidth = FontMeasure(glyph, fontType);
+        if (charWidth <= 0) {
+            // 保留原半角/全角度量回退，不把UTF-16码元数当作GBK字节数。
+            charWidth = font.sWidth * (msg[offset] < 0x80 ? 1 : 2);
         }
-        int charWidth = MeasureAcpChar(msg, i, charLen, fontType);
-        int nextX = currentX + charWidth;
-        if (nextX <= clipRect->left) {
-            currentX = nextX;
-            i += charLen;
-            continue;
+        const int nextX = currentX + charWidth;
+        if (currentX >= clipRect->left && nextX <= clipRect->right) {
+            if (clippedText.empty()) drawX = currentX;
+            clippedText.append(glyph);
         }
-        if (currentX < clipRect->left || nextX > clipRect->right) {
-            currentX = nextX;
-            i += charLen;
-            continue;
-        }
-        if (text.empty()) {
-            drawX = currentX;
-        }
-        text.append(msg + i, charLen);
         currentX = nextX;
-        i += charLen;
+        offset = next;
     }
 
-    if (!text.empty()) {
-        InfoRenderText(static_cast<__int16>(drawX), y, layer, fontType, colorType, text.c_str(), hoverMode, hoverFrame);
+    if (!clippedText.empty()) {
+        InfoRenderText(static_cast<__int16>(drawX), y, layer, fontType, colorType, clippedText, hoverMode, hoverFrame);
     }
 }
 

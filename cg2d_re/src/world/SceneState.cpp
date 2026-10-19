@@ -3497,7 +3497,7 @@ void DrawNormalScene_51C7D0()
         Sub_4D3170();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::Sub_43F220();
-        static_cast<void>(Sub_518DA0());
+        static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         gCurrentSceneState = 101;
         [[fallthrough]];
@@ -3776,7 +3776,7 @@ void DrawNormalScene_51C7D0()
         Sub_4D3170();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::Sub_43F220();
-        static_cast<void>(Sub_518DA0());
+        static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         if (gValueFF0D50 == 1) {
             platform::gPendingGraphicCount = 0;
             platform::gPendingGraphicCount2 = 0;

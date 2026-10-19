@@ -4,7 +4,7 @@
 
 范围固定为BSR01五组提交后的src/include代码标识符集合；636项均已定位唯一当前函数定义；初始提取器遗漏的Sub_520160是函数级try/catch，已人工补核，非缺实现。初始位置用于定位，后续以函数地址／符号查当前源码，不依赖旧行号。每项状态只在读过正文、核相关调用／数据后更新；证据不足须说明具体缺口，不批量标为未知。
 
-已分析：142／636。已重命名：137。保留／未决：5。待分析：494。
+已分析：185／636。已重命名：180。保留／未决：5。待分析：451。
 
 最终沿用户授权执行build.bat Debug，未执行前不记编译通过。IDA只读，单线程；不新增测试、运行客户端或计算摘要。名称、验证与提交规则沿[BSR01](cg2d_business_symbol_rename_spec.md)。
 
@@ -318,12 +318,12 @@
 | `Sub_4ACE80` | src/Yobi/window.cpp:847 | 待分析 | — |
 | `Sub_4C5650` | src/scene/character_select/CharacterSelectPreview.cpp:434 | 待分析 | — |
 | `Sub_4C56E0` | src/scene/character_select/CharacterSelectPreview.cpp:403 | 待分析 | — |
-| `Sub_4C9490` | src/world/MailState.cpp:678 | 待分析 | — |
-| `Sub_4C9E40` | src/world/MailState.cpp:1081 | 待分析 | — |
-| `Sub_4CA330` | src/world/MailState.cpp:1116 | 待分析 | — |
-| `Sub_4CAC60` | src/world/MailState.cpp:1144 | 待分析 | — |
+| `Sub_4C9490` | src/world/MailState.cpp:678 | 已重命名：`ResetMiniMailSequenceAndSelection_4C9490` | 将迷你邮件序号清零、共享发信目标选择写-1。 |
+| `Sub_4C9E40` | src/world/MailState.cpp:1081 | 已重命名：`HandleProfileCategorySelectionReply_4C9E40` | 反转义整串后解析选择掩码，低两位分别写前两组，低位写第三组，不改活动位。 |
+| `Sub_4CA330` | src/world/MailState.cpp:1116 | 已重命名：`HandleProfileSearchResultsReply_4CA330` | 清20条搜索记录活动位，解析搜索头及编号、两段文本，-1哨兵提前结束，文本逐项反转义。 |
+| `Sub_4CAC60` | src/world/MailState.cpp:1144 | 已重命名：`HandleViewedPlayerProfileReply_4CAC60` | 解析14字段至独立查看资料对象，并按分类编号查三项图号，缺失使用246000，返回末次查询结果。 |
 | `Sub_4D3170` | src/world/SceneState.cpp:5369 | 待分析 | — |
-| `Sub_4EC1A0` | src/world/MailState.cpp:283 | 待分析 | — |
+| `Sub_4EC1A0` | src/world/MailState.cpp:283 | 已重命名：`SortContactIndices_4EC1A0` | 重建0至59联系人索引并按CompareContactIndices比较器排序，供联系人列表及未读扫描使用。 |
 | `Sub_4ED670` | src/world/SceneState.cpp:3444 | 待分析 | — |
 | `Sub_4FA8E0` | src/world/SceneState.cpp:11058 | 待分析 | — |
 | `Sub_503990` | src/scene/character_select/CharacterModalButton.cpp:10 | 待分析 | — |
@@ -385,10 +385,10 @@
 | `Sub_50D3C0` | src/world/SceneState.cpp:10167 | 待分析 | — |
 | `Sub_50D500` | src/world/SceneState.cpp:10226 | 待分析 | — |
 | `Sub_50D700` | src/network/NetworkRuntime.cpp:673 | 已重命名：`HandleDuelPointResultReply_50D700` | hB文本两个base62字段写FF0D04/08，结果类型置2；WindowBattleResult明确显示DP变化及总数。 |
-| `Sub_50D740` | src/world/MailState.cpp:295 | 待分析 | — |
-| `Sub_50D8C0` | src/world/MailState.cpp:334 | 待分析 | — |
-| `Sub_50D9E0` | src/world/MailState.cpp:362 | 待分析 | — |
-| `Sub_50DC70` | src/world/MailState.cpp:628 | 待分析 | — |
+| `Sub_50D740` | src/world/MailState.cpp:295 | 已重命名：`HandleContactListReply_50D740` | 逐条解析60个联系人基础七字段，非活动项清姓名文本；长度门禁与提前返回保持。 |
+| `Sub_50D8C0` | src/world/MailState.cpp:334 | 已重命名：`HandleContactExtendedTextReply_50D8C0` | 解析联系人两段扩展文本，反转义并限制32字节，最后排序联系人索引。 |
+| `Sub_50D9E0` | src/world/MailState.cpp:362 | 已重命名：`HandleContactUpdateReply_50D9E0` | 更新指定联系人基础及扩展字段，删除状态清文本，第八字段触发清该联系人邮件，再排序。 |
+| `Sub_50DC70` | src/world/MailState.cpp:628 | 已重命名：`HandleContactMailReply_50DC70` | 解析普通收信内容并反转义，插入邮件、保存mail.dat、更新未读提示和查看位置，播放提示音并显示通知。 |
 | `Sub_50DD80` | src/network/NetworkRuntime.cpp:693 | 已重命名：`HandleMapActorTransitionReply_50DD80` | lDuJ回复按版本转图号，按withRecord解析12字段并创建世界记录，再由mode选择448040过渡动作；保先生产记录后验mode。 |
 | `Sub_50E1A0` | src/world/SceneState.cpp:8805 | 待分析 | — |
 | `Sub_50E210` | src/world/SceneState.cpp:8839 | 待分析 | — |
@@ -408,13 +408,13 @@
 | `Sub_50F130` | src/network/NetworkRuntime.cpp:833 | 已重命名：`HandleGuildMemberRemovalReply_50F130` | 按key查活动公会记录，清其身份/名字并重计活动数，再删除同key公会邮件。 |
 | `Sub_50F190` | src/network/NetworkRuntime.cpp:853 | 已重命名：`HandleGuildMailReply_50F190` | 解析发送名/正文/类型并反转义，写公会邮件、保存guildmail.dat，播63及家族来信提示。 |
 | `Sub_50F280` | src/world/GuildState.cpp:237 | 待分析 | — |
-| `Sub_50F2A0` | src/world/MailState.cpp:1003 | 待分析 | — |
-| `Sub_50F3A0` | src/world/MailState.cpp:1035 | 待分析 | — |
-| `Sub_50F430` | src/world/MailState.cpp:742 | 待分析 | — |
-| `Sub_50F450` | src/world/MailState.cpp:1201 | 待分析 | — |
-| `Sub_50F7F0` | src/world/MailState.cpp:750 | 待分析 | — |
-| `Sub_50F8E0` | src/world/MailState.cpp:1055 | 待分析 | — |
-| `Sub_50F9E0` | src/world/MailState.cpp:778 | 待分析 | — |
+| `Sub_50F2A0` | src/world/MailState.cpp:1003 | 已重命名：`HandlePrimaryProfileCategoriesReply_50F2A0` | 解析类别版本及编号、图号、文本记录，同步写入第一和第二100槽组，更新共享数量。 |
+| `Sub_50F3A0` | src/world/MailState.cpp:1035 | 已重命名：`HandleProfileCategoryVersionsReply_50F3A0` | 记录回复费用及所选资料编号，比较两类版本，按差异位1/2请求更新分类数据。 |
+| `Sub_50F430` | src/world/MailState.cpp:742 | 已重命名：`HandleMiniMailContactRemovalReply_50F430` | 解析联系人键、查迷你槽后调用删除入口，保留查找失败仍传-1的原行为。 |
+| `Sub_50F450` | src/world/MailState.cpp:1201 | 已重命名：`HandlePlayerProfileReply_50F450` | 把回复参数写入独立收到的资料对象，八段文本分别反转义，补三项分类图号后打开资料回复窗口。 |
+| `Sub_50F7F0` | src/world/MailState.cpp:750 | 已重命名：`HandleMiniMailReply_50F7F0` | 按键找到迷你联系人后解析并插入未读消息，更新页提示和查看位置，播放收信音及文本通知。 |
+| `Sub_50F8E0` | src/world/MailState.cpp:1055 | 已重命名：`HandleSecondaryProfileCategoriesReply_50F8E0` | 解析独立类别版本及记录至第三100槽组，反转义文本并更新其数量。 |
+| `Sub_50F9E0` | src/world/MailState.cpp:778 | 已重命名：`HandleMiniMailConversationReply_50F9E0` | 取得空迷你联系人槽，清原20条消息并解析联系人与消息；生成序号及本地时间戳，按本人键判定已读或收信提示。 |
 | `Sub_510150` | src/world/SceneState.cpp:9620 | 待分析 | — |
 | `Sub_510460` | src/network/NetworkRuntime.cpp:875 | 已重命名：`HandleInventorySlotSwapReply_510460` | kiG四字段过门禁后调用51B630，交换玩家28槽或宠物6槽物品。 |
 | `Sub_510490` | src/network/NetworkRuntime.cpp:887 | 已重命名：`HandleItemDetailReply_510490` | TgX回复解两文本/一个标量/24属性至F7C950；物品提示窗按属性表及能减少使用文字展示。 |
@@ -516,17 +516,17 @@
 | `Sub_518A40` | src/world/SceneState.cpp:731 | 待分析 | — |
 | `Sub_518BE0` | src/world/SceneState.cpp:8249 | 待分析 | — |
 | `Sub_518C60` | src/world/SceneState.cpp:10707 | 待分析 | — |
-| `Sub_518C80` | src/world/MailState.cpp:832 | 待分析 | — |
-| `Sub_518CB0` | src/world/MailState.cpp:1360 | 待分析 | — |
-| `Sub_518DA0` | src/world/MailState.cpp:434 | 待分析 | — |
-| `Sub_518F00` | src/world/MailState.cpp:498 | 待分析 | — |
-| `Sub_519090` | src/world/MailState.cpp:563 | 待分析 | — |
-| `Sub_5190F0` | src/world/MailState.cpp:583 | 待分析 | — |
-| `Sub_519170` | src/world/MailState.cpp:609 | 待分析 | — |
-| `Sub_5191C0` | src/world/MailState.cpp:411 | 待分析 | — |
-| `Sub_519290` | src/world/MailState.cpp:1421 | 待分析 | — |
-| `Sub_5192C0` | src/world/MailState.cpp:1439 | 待分析 | — |
-| `Sub_519300` | src/world/MailState.cpp:1387 | 待分析 | — |
+| `Sub_518C80` | src/world/MailState.cpp:832 | 已重命名：`ClearContactAndGuildMailStorage_518C80` | 清零普通与公会两角色邮件内存区及邮件页号，不执行文件删除。 |
+| `Sub_518CB0` | src/world/MailState.cpp:1360 | 已重命名：`LoadContactAndGuildMailFiles_518CB0` | 依次读取mail.dat和guildmail.dat；缺文件调用对应保存入口并立即返回，保留原返回及加载顺序。 |
+| `Sub_518DA0` | src/world/MailState.cpp:434 | 已重命名：`UpdateUnreadMailPageHint_518DA0` | 依普通、公会、迷你联系人扫描未读，写类别1/2/3及每页四人的页号；无未读恢复备用页，迷你消息倒序。 |
+| `Sub_518F00` | src/world/MailState.cpp:498 | 已重命名：`FindFirstUnreadMailContact_518F00` | 扫描三类邮件并输出类别0/1/2与联系人索引，无未读输出两个-1；迷你消息正序。 |
+| `Sub_519090` | src/world/MailState.cpp:563 | 已重命名：`HasUnreadContactMail_519090` | 校验普通联系人范围和活动位，再检查所选角色对应十条邮件未读位。 |
+| `Sub_5190F0` | src/world/MailState.cpp:583 | 已重命名：`HasUnreadGuildMail_5190F0` | 由公会成员键查末个活动邮件槽，保留原查询与成员检查顺序，再扫描十条未读位。 |
+| `Sub_519170` | src/world/MailState.cpp:609 | 已重命名：`HasUnreadMiniMail_519170` | 校验20槽迷你联系人范围和活动位，检查其十条邮件未读位。 |
+| `Sub_5191C0` | src/world/MailState.cpp:411 | 已重命名：`PrependContactMailMessage_5191C0` | 按当前角色和联系人定位十条邮件，倒移九条后写首条未读位、类型、姓名和正文。 |
+| `Sub_519290` | src/world/MailState.cpp:1421 | 已重命名：`ClearCurrentCharacterContactMail_519290` | 按当前角色索引清其60名联系人各十条邮件的内存区，不写文件。 |
+| `Sub_5192C0` | src/world/MailState.cpp:1439 | 已重命名：`ClearContactMailMessages_5192C0` | 按当前角色与联系人编号清其十条邮件内存，不增加范围门禁。 |
+| `Sub_519300` | src/world/MailState.cpp:1387 | 已重命名：`SaveContactMailFile_519300` | 将普通邮件共享区整块写入当前存档目录mail.dat，返回关闭结果。 |
 | `Sub_519370` | src/world/MailState.cpp:1487 | 已重命名：`PrependGuildMailMessage_519370` | 检查公会key，找/建200槽之一，已有槽倒移9条历史，写首消息未读/类型/名字/正文。 |
 | `Sub_5194C0` | src/world/MailState.cpp:1429 | 已重命名：`ClearCurrentCharacterGuildMail_5194C0` | 按选中角色定位200条公会邮件，整组清零。 |
 | `Sub_5194F0` | src/world/MailState.cpp:1472 | 已重命名：`DeleteGuildMailEntry_5194F0` | 5195F0取最后匹配槽，找到后清整C88记录，否则返回-1。 |
@@ -630,19 +630,19 @@
 | `Sub_5336D0` | src/scene/login/LoginSavedState.cpp:1061 | 已重命名：`LoadSelectedLoginRecord_5336D0` | 包装LoadSelectedPhysicalRecord，将selected物理记录复制为当前记录，不混同逻辑槽映射。 |
 | `Sub_533730` | src/scene/login/LoginSavedState.cpp:1239 | 已重命名：`SaveCredentialRecordsWithoutPasswords_533730` | 遍历活动且账号/密码非空槽，复制整记录后只清副本密码，编码写各目录save.dat，失败提前返回。 |
 | `Sub_533860` | src/scene/login/LoginSavedState.cpp:1067 | 已重命名：`DeleteSavedAccountFiles_533860` | 包装DeleteSavedFiles，清自动登录槽标记并删该物理槽save.dat/mail.dat/guildmail.dat。 |
-| `Sub_533910` | src/world/MailState.cpp:841 | 待分析 | — |
-| `Sub_533950` | src/world/MailState.cpp:852 | 待分析 | — |
-| `Sub_533B00` | src/world/MailState.cpp:878 | 待分析 | — |
-| `Sub_533C80` | src/world/MailState.cpp:907 | 待分析 | — |
-| `Sub_534290` | src/world/MailState.cpp:993 | 待分析 | — |
-| `Sub_5342F0` | src/world/MailState.cpp:1099 | 待分析 | — |
-| `Sub_534370` | src/world/MailState.cpp:655 | 待分析 | — |
-| `Sub_5343A0` | src/world/MailState.cpp:667 | 待分析 | — |
-| `Sub_5343C0` | src/world/MailState.cpp:704 | 待分析 | — |
-| `Sub_534480` | src/world/MailState.cpp:725 | 待分析 | — |
-| `Sub_534520` | src/world/MailState.cpp:685 | 待分析 | — |
-| `Sub_5345A0` | src/world/MailState.cpp:1292 | 待分析 | — |
-| `Sub_534770` | src/world/MailState.cpp:1322 | 待分析 | — |
-| `Sub_5347F0` | src/world/MailState.cpp:1339 | 待分析 | — |
-| `Sub_5348A0` | src/world/MailState.cpp:1258 | 待分析 | — |
-| `Sub_534910` | src/world/MailState.cpp:1275 | 待分析 | — |
+| `Sub_533910` | src/world/MailState.cpp:841 | 已重命名：`ClearMiniMailAndProfiles_533910` | 清迷你联系人活动位、迷你消息、双角色资料及当前资料内存。 |
+| `Sub_533950` | src/world/MailState.cpp:852 | 已重命名：`InitializeDefaultProfiles_533950` | 初始化首角色资料的指定文本、公开位及默认分类图号，再复制第二槽及所选当前资料，保留未写字段。 |
+| `Sub_533B00` | src/world/MailState.cpp:878 | 已重命名：`HasProfileDraftChanges_533B00` | 逐项比较当前资料与所选持久资料的三类编号、三段文本及末段正文，有差异返回1。 |
+| `Sub_533C80` | src/world/MailState.cpp:907 | 已重命名：`PublishPlayerProfile_533C80` | mode0补默认文本并发送当前资料后局部写回持久槽；mode1发送已存文本并直接返回发送结果；公开标志决定类别文本是否公开。 |
+| `Sub_534290` | src/world/MailState.cpp:993 | 已重命名：`ResendSavedPlayerProfile_534290` | 先以mode1重发资料，再重取连接发送当前持久资料公开标志，不以第一次失败阻止第二次。 |
+| `Sub_5342F0` | src/world/MailState.cpp:1099 | 已重命名：`FindProfileCategoryImage_5342F0` | 根据模式查第一或第三100槽组中的活动分类编号并返回图号；图号被资料查看及回复窗口绘制使用，无匹配-1。 |
+| `Sub_534370` | src/world/MailState.cpp:655 | 已重命名：`FindMiniMailContactByKey_534370` | 遍历20个迷你联系人，返回活动位严格为1且键相同的首槽，否则-1。 |
+| `Sub_5343A0` | src/world/MailState.cpp:667 | 已重命名：`FindFreeMiniMailContactSlot_5343A0` | 返回首个活动位为0的迷你联系人槽，无空槽返回-1，不提前占用。 |
+| `Sub_5343C0` | src/world/MailState.cpp:704 | 已重命名：`PrependMiniMailMessage_5343C0` | 活动迷你联系人对应十条消息倒移九条，首条写未读位、类型及两段文本。 |
+| `Sub_534480` | src/world/MailState.cpp:725 | 已重命名：`RemoveMiniMailContact_534480` | 清联系人活动位，并按原行为清从该联系人十条起点开始的20条消息文本和标志；不修正原循环次数。 |
+| `Sub_534520` | src/world/MailState.cpp:685 | 已重命名：`FormatMailTimestamp_534520` | 读取本地时间，以年月日和时分格式写入邮件时间文本，返回0。 |
+| `Sub_5345A0` | src/world/MailState.cpp:1292 | 已重命名：`ResetCharacterProfile_5345A0` | 重置指定角色资料的默认字段，再重取所选角色并复制到当前资料，返回所选角色索引。 |
+| `Sub_534770` | src/world/MailState.cpp:1322 | 已重命名：`SavePlayerProfilesFile_534770` | 在当前存档目录写profile.dat，整块保存双角色资料，打开成功返回1。 |
+| `Sub_5347F0` | src/world/MailState.cpp:1339 | 已重命名：`LoadPlayerProfilesFile_5347F0` | 读取profile.dat双角色资料后重取选择角色并复制到当前资料，忽略短读结果。 |
+| `Sub_5348A0` | src/world/MailState.cpp:1258 | 已重命名：`SaveProfileCategoryFile_5348A0` | 以wb+打开bin/category.dat并整块写入分类状态，打开成功即返回1。 |
+| `Sub_534910` | src/world/MailState.cpp:1275 | 已重命名：`LoadProfileCategoryFile_534910` | 以rb+打开bin/category.dat并整块读取分类状态，保留忽略短读的原行为。 |

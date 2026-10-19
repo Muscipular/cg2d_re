@@ -296,7 +296,7 @@ static std::int32_t WindowContacts_Update(const std::int32_t value)
         const std::uint32_t sortMode = platform::gContactSortMode_D67CD0;
         gLoginWindowRuntime.mailSortModeD67B3C = sortMode;
         WindowContacts_SetDisplayMode(mode, category);
-        static_cast<void>(world::detail::Sub_518DA0());
+        static_cast<void>(world::detail::UpdateUnreadMailPageHint_518DA0());
         WindowContacts_ClampScroll();
     }
     return 1;
@@ -321,10 +321,10 @@ static std::int32_t WindowContacts_Refresh()
     sortGraphic->imageNo = kMailSortImages54F4C0[category * 5 + sortMode];
     WindowContacts_Sort();
     if (gValueD67B38 == 0) {
-        const std::uint32_t page = world::detail::gValueCB1384;
+        const std::uint32_t page = world::detail::gMailContactPage_CB1384;
         render::GraphicDescriptor16 descriptor {};
         const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
-        world::detail::gValueCB0354 = page;
+        world::detail::gMailFallbackPage_CB0354 = page;
         if (currentCategory == 1) {
             for (std::int32_t index = 21; index < 27; ++index) {
                 const std::int32_t allowed = WindowGuildDetails_ReadRankPermissions();
@@ -441,7 +441,7 @@ static std::int32_t WindowContacts_Refresh()
             WindowMail_WriteContactStatus(record, statusData, status);
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
-                if (world::detail::Sub_519090(recordIndex) != 0) {
+                if (world::detail::HasUnreadContactMail_519090(recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(27 + row * 8);
                 }
                 break;
@@ -453,12 +453,12 @@ static std::int32_t WindowContacts_Refresh()
                     const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
                     gCurrentWindow->elements[29 + row * 8].visible = memberKey == ownKey ? 1 : 0;
                 }
-                if (world::detail::Sub_5190F0(recordIndex) != 0) {
+                if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(27 + row * 8);
                 }
                 break;
             case 2:
-                if (world::detail::Sub_519170(recordIndex) != 0) {
+                if (world::detail::HasUnreadMiniMail_519170(recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(27 + row * 8);
                 }
                 break;
@@ -525,12 +525,12 @@ static std::int32_t WindowContacts_Refresh()
         WindowMail_WriteContactStatus(record, statusData, status);
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
-            if (world::detail::Sub_519090(recordIndex) != 0) {
+            if (world::detail::HasUnreadContactMail_519090(recordIndex) != 0) {
                 WindowMail_SetUnreadGraphic(54 + row * 5);
             }
             break;
         case 1:
-            if (world::detail::Sub_5190F0(recordIndex) != 0) {
+            if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
                 const std::int32_t blink = gLoginWindowRuntime.mailBlinkFlagD67B60;
                 auto* const graphic = static_cast<WindowGraphicData*>(
                     gCurrentWindow->elements[54 + row * 5].data);
@@ -538,7 +538,7 @@ static std::int32_t WindowContacts_Refresh()
             }
             break;
         case 2:
-            if (world::detail::Sub_519170(recordIndex) != 0) {
+            if (world::detail::HasUnreadMiniMail_519170(recordIndex) != 0) {
                 WindowMail_SetUnreadGraphic(54 + row * 5);
             }
             break;
@@ -988,7 +988,7 @@ static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std:
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         graphic->imageNo = 0x3B548;
-        world::detail::gValueCF4FC0 = WindowContacts_ResolveButtonRecord(index);
+        world::detail::gViewedMailContactId_CF4FC0 = WindowContacts_ResolveButtonRecord(index);
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         gLoginWindowRuntime.mailCategoryD67B64 = category;
         gLoginWindowRuntime.mailCategoryCC4D50 = category;

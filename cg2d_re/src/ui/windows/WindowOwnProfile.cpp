@@ -265,7 +265,7 @@ static void WindowOwnProfile_Refresh()
             static_cast<WindowTextData*>(gCurrentWindow->elements[index].data)->style.color = color;
         }
     }
-    const std::int32_t changed = world::detail::Sub_533B00();
+    const std::int32_t changed = world::detail::HasProfileDraftChanges_533B00();
     gCurrentWindow->elements[29].visible = changed != 0 ? 1 : 0;
 }
 

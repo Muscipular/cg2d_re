@@ -211,8 +211,8 @@ std::int32_t Sub_45E7B0()
 {
     const std::int32_t selected = login::gSelectedCharacterIndex;
     gCreationRequestProgress.phase = 0;
-    world::detail::Sub_5345A0(selected);
-    return world::detail::Sub_534770();
+    world::detail::ResetCharacterProfile_5345A0(selected);
+    return world::detail::SavePlayerProfilesFile_534770();
 }
 
 // 原函数：0x0045E7D0。
@@ -1671,9 +1671,9 @@ std::int32_t ProcessScene_460FF0()
             if (actionIndex == 0u) {
                 login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
                 world::Sub_518BE0();
-                cg::world::detail::Sub_519290();
+                cg::world::detail::ClearCurrentCharacterContactMail_519290();
                 cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
-                cg::world::detail::Sub_519300();
+                cg::world::detail::SaveContactMailFile_519300();
                 cg::world::detail::SaveGuildMailFile_519550();
                 world::SetCurrentSceneType(4);
                 login::detail::PlaySe(53, 320, 240);

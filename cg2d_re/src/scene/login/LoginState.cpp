@@ -381,7 +381,7 @@ std::int32_t ProcessState_45E960()
     if (world::gCurrentSceneState == 1) {
         const std::int32_t result = UpdateLoginProgress();
         if (result == 1) {
-            world::detail::Sub_534290();
+            world::detail::ResendSavedPlayerProfile_534290();
             world::SetCurrentSceneType(9);
         } else if (result == -1) {
             world::gCurrentSceneState = 100;

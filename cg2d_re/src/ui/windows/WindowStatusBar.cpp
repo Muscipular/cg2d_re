@@ -326,7 +326,7 @@ static void WindowStatusBar_Refresh()
     } else {
         gLoginWindowRuntime.statusHasInjuryD046C8 = 1;
     }
-    gLoginWindowRuntime.statusHasMailCC4B5C = world::detail::Sub_518DA0() != 0 ? 1 : 0;
+    gLoginWindowRuntime.statusHasMailCC4B5C = world::detail::UpdateUnreadMailPageHint_518DA0() != 0 ? 1 : 0;
     std::int32_t phase = gLoginWindowRuntime.statusBlinkPhaseCF4FBC + 1;
     gLoginWindowRuntime.statusBlinkPhaseCF4FBC = phase;
     if (phase > 60) {
@@ -570,13 +570,13 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             static_cast<WindowGraphicData*>(hoverWindow->elements[12].data)->imageNo = 0x3B951;
         }
         if ((state & 2) != 0) {
-            world::detail::Sub_518F00(
+            world::detail::FindFirstUnreadMailContact_518F00(
                 &gLoginWindowRuntime.statusMailCategoryD66E34, &gLoginWindowRuntime.statusMailIndexD2E2D8);
             const std::int32_t category = gLoginWindowRuntime.statusMailCategoryD66E34;
             if (category == 0 || category == 1 || category == 2) {
                 const std::int32_t mailIndex = gLoginWindowRuntime.statusMailIndexD2E2D8;
                 gLoginWindowRuntime.mailCategoryD67B64 = category;
-                world::detail::gValueCF4FC0 = mailIndex;
+                world::detail::gViewedMailContactId_CF4FC0 = mailIndex;
                 gLoginWindowRuntime.mailCategoryCC4D50 = category;
                 static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailRead, 1, 0, nullptr));
             }

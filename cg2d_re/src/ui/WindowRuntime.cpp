@@ -2888,9 +2888,9 @@ static void WindowRuntime_RestoreMarkedWindows()
                 gWindowStates[WindowId_Contacts].marker50 = 0;
             }
             if (gWindowStates[WindowId_MailRead].marker50 != 0) {
-                const std::int32_t position = world::detail::gValueD046D4;
+                const std::int32_t position = world::detail::gViewedMailMessageIndex_D046D4;
                 static_cast<void>(WindowRuntime_Open(WindowId_MailRead));
-                world::detail::gValueD046D4 = position;
+                world::detail::gViewedMailMessageIndex_D046D4 = position;
                 gWindowStates[WindowId_MailRead].marker50 = 0;
             }
             if (gWindowStates[WindowId_MailCompose].marker50 != 0) {
@@ -3368,9 +3368,9 @@ static void WindowRuntime_OpenBattleScene()
         gWindowStates[WindowId_Contacts].marker50 = 0;
     }
     if (gWindowStates[WindowId_MailRead].marker50 != 0) {
-        const std::int32_t position = world::detail::gValueD046D4;
+        const std::int32_t position = world::detail::gViewedMailMessageIndex_D046D4;
         static_cast<void>(WindowRuntime_Open(WindowId_MailRead));
-        world::detail::gValueD046D4 = position;
+        world::detail::gViewedMailMessageIndex_D046D4 = position;
         gWindowStates[WindowId_MailRead].marker50 = 0;
     }
     if (gWindowStates[WindowId_MailCompose].marker50 != 0 || gWindowStates[WindowId_PetMailCompose].marker50 != 0) {
@@ -3423,7 +3423,7 @@ std::int32_t WindowRuntime_Initialize()
     static_cast<void>(WindowRuntime_LoadSettings());
     gValueCF4B6C = 0;
     WindowRuntime_ClearSavedWindowMarkers();
-    return world::detail::Sub_534910();
+    return world::detail::LoadProfileCategoryFile_534910();
 }
 
 // 原函数：0x004923D0。
@@ -3453,10 +3453,10 @@ static void WindowRuntime_InitializeLogin()
     static_cast<void>(WindowMail_ResetComposeState());
     static_cast<void>(WindowPetList_ResetSelection());
     static_cast<void>(WindowScroll_ResetPosition());
-    world::detail::Sub_4C9490();
-    world::detail::Sub_533910();
-    if (world::detail::Sub_5347F0() == 0) {
-        world::detail::Sub_533950();
+    world::detail::ResetMiniMailSequenceAndSelection_4C9490();
+    world::detail::ClearMiniMailAndProfiles_533910();
+    if (world::detail::LoadPlayerProfilesFile_5347F0() == 0) {
+        world::detail::InitializeDefaultProfiles_533950();
     }
     static_cast<void>(WindowMail_ResetSelectionState());
     gWindowStates[WindowId_Contacts].marker50 = 0;
@@ -4852,10 +4852,10 @@ void WindowRuntime_ProcessScene()
         static_cast<void>(WindowRuntime_CloseAll());
         static_cast<void>(WindowRuntime_SaveSettings());
         world::SaveAlbumData_5186A0();
-        static_cast<void>(cg::world::detail::Sub_519300());
+        static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
         static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
-        static_cast<void>(world::detail::Sub_534770());
-        static_cast<void>(world::detail::Sub_5348A0());
+        static_cast<void>(world::detail::SavePlayerProfilesFile_534770());
+        static_cast<void>(world::detail::SaveProfileCategoryFile_5348A0());
         return;
     case 9:
         switch (world::gCurrentSceneState) {

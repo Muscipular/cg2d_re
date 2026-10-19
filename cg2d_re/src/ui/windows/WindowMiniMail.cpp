@@ -173,7 +173,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(network::SendDialogResponse_512620(
         platform::gConnectionSocket, x, y, request, target, 8, packet));
-    const std::int32_t contact = world::detail::Sub_534370(gMiniMailCompose105F508.target);
+    const std::int32_t contact = world::detail::FindMiniMailContactByKey_534370(gMiniMailCompose105F508.target);
     if (contact != -1) {
         __time64_t time;
         time = ::_time64(nullptr);
@@ -186,7 +186,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
         char timestamp[64];
         std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d",
             year + 1900, month + 1, day, hour, minute);
-        world::detail::Sub_5343C0(contact, 1, timestamp, storedText.data());
+        world::detail::PrependMiniMailMessage_5343C0(contact, 1, timestamp, storedText.data());
     }
     static_cast<void>(WindowProfileView_RequestCategoryClose(3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(4));

@@ -122,8 +122,8 @@ void Update()
         detail::Sub_504A30();
         detail::Sub_43C8F0();
         detail::ResetSceneUiState_504100();
-        detail::Sub_518C80();
-        detail::Sub_518CB0();
+        detail::ClearContactAndGuildMailStorage_518C80();
+        detail::LoadContactAndGuildMailFiles_518CB0();
         gValueFF0D5C = 0xFFFFFFFFu;
         gValueFF0D58 = 0;
         gValueD67E78 = 0;

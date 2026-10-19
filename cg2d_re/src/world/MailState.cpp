@@ -33,11 +33,11 @@ ProfileSearchRuntimeSlots gProfileSearch105C398 {}; // 原全局：0x0105C398。
 
 std::array<ContactRuntimeRecord, 60> gContactsF19FB0 {}; // 原全局：0x00F19FB0。
 std::array<std::int32_t, 60> gContactIndicesFDA608 {}; // 原全局：0x00FDA608。
-std::uint16_t gValue62B354 = 0; // 原全局：0x0062B354。
-std::uint32_t gValueCB1384 = 0; // 原全局：0x00CB1384。
-std::uint32_t gValueCB0354 = 0; // 原全局：0x00CB0354。
-std::int32_t gValueCF4FC0 = 0; // 原全局：0x00CF4FC0。
-std::int32_t gValueD046D4 = 0; // 原全局：0x00D046D4。
+std::uint16_t gUnreadMailCategory_62B354 = 0; // 原全局：0x0062B354。
+std::uint32_t gMailContactPage_CB1384 = 0; // 原全局：0x00CB1384。
+std::uint32_t gMailFallbackPage_CB0354 = 0; // 原全局：0x00CB0354。
+std::int32_t gViewedMailContactId_CF4FC0 = 0; // 原全局：0x00CF4FC0。
+std::int32_t gViewedMailMessageIndex_D046D4 = 0; // 原全局：0x00D046D4。
 std::int32_t gMiniMailSelectionD673E4 = 0; // 原全局：0x00D673E4。 4C9490清-1，窗口63保存同一发信目标编号。
 static_assert(sizeof(gContactsF19FB0) == 0x1B30);
 static_assert(sizeof(gContactIndicesFDA608) == 0xF0);
@@ -280,7 +280,7 @@ const CategoryRecord& ReadCategoryRecord105FA24(
 }
 
 // 原函数：0x004EC1A0。
-void Sub_4EC1A0()
+void SortContactIndices_4EC1A0()
 {
     for (std::int32_t index = 0; index < 60; ++index) {
         gContactIndicesFDA608[index] = index;
@@ -292,7 +292,7 @@ void Sub_4EC1A0()
 }
 
 // 原函数：0x0050D740。
-void Sub_50D740(const std::uintptr_t, const char* const payload)
+void HandleContactListReply_50D740(const std::uintptr_t, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -331,7 +331,7 @@ void Sub_50D740(const std::uintptr_t, const char* const payload)
 }
 
 // 原函数：0x0050D8C0。
-void Sub_50D8C0(const std::uintptr_t, const char* const payload)
+void HandleContactExtendedTextReply_50D8C0(const std::uintptr_t, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
         return;
@@ -355,11 +355,11 @@ void Sub_50D8C0(const std::uintptr_t, const char* const payload)
         }
         field += 2;
     }
-    Sub_4EC1A0();
+    SortContactIndices_4EC1A0();
 }
 
 // 原函数：0x0050D9E0。
-void Sub_50D9E0(
+void HandleContactUpdateReply_50D9E0(
     const std::uintptr_t, const std::int32_t index, const char* const payload)
 {
     if (gValue9A6E0C != 0) {
@@ -392,7 +392,7 @@ void Sub_50D9E0(
         network::ParseDelimitedInteger_52CFA0(payload, '|', 6)));
     record.value0C = network::ParseDelimitedInteger_52CFA0(payload, '|', 7);
     if (network::ParseDelimitedInteger_52CFA0(payload, '|', 8) == 1) {
-        static_cast<void>(Sub_5192C0(index));
+        static_cast<void>(ClearContactMailMessages_5192C0(index));
     }
     network::ExtractDelimitedField_52CED0(payload, '|', 9, 255, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
@@ -404,11 +404,11 @@ void Sub_50D9E0(
     if (std::strlen(text) <= 32) {
         std::strcpy(record.text53.data(), text);
     }
-    Sub_4EC1A0();
+    SortContactIndices_4EC1A0();
 }
 
 // 原函数：0x005191C0。
-void Sub_5191C0(
+void PrependContactMailMessage_5191C0(
     const std::int32_t index, const std::int32_t kind,
     const char* const name, const char* const text)
 {
@@ -431,7 +431,7 @@ void Sub_5191C0(
 
 // SHP01：原三类未读提示，迷你倒序；U16类别后发布W32页，未命中持有备用页。
 // 原函数：0x00518DA0。
-std::int32_t Sub_518DA0()
+std::int32_t UpdateUnreadMailPageHint_518DA0()
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
     for (std::int32_t position = 0; position < 60; ++position) {
@@ -443,8 +443,8 @@ std::int32_t Sub_518DA0()
             + selected * 60 * 10 + static_cast<std::ptrdiff_t>(index) * 10;
         for (std::ptrdiff_t message = 0; message < 10; ++message) {
             if (entry[message].unread != std::byte{0}) {
-                gValue62B354 = 1;
-                gValueCB1384 = static_cast<std::uint32_t>(position / 4);
+                gUnreadMailCategory_62B354 = 1;
+                gMailContactPage_CB1384 = static_cast<std::uint32_t>(position / 4);
                 return 1;
             }
         }
@@ -467,8 +467,8 @@ std::int32_t Sub_518DA0()
         }
         for (std::ptrdiff_t message = 0; message < 10; ++message) {
             if (entry->messages[message].unread != std::byte{0}) {
-                gValue62B354 = 2;
-                gValueCB1384 = static_cast<std::uint32_t>(position / 4);
+                gUnreadMailCategory_62B354 = 2;
+                gMailContactPage_CB1384 = static_cast<std::uint32_t>(position / 4);
                 return 1;
             }
         }
@@ -481,21 +481,21 @@ std::int32_t Sub_518DA0()
             + static_cast<std::ptrdiff_t>(position) * 10;
         for (std::ptrdiff_t message = 9; message >= 0; --message) {
             if (entry[message].unread != std::byte{0}) {
-                gValue62B354 = 3;
-                gValueCB1384 = static_cast<std::uint32_t>(position / 4);
+                gUnreadMailCategory_62B354 = 3;
+                gMailContactPage_CB1384 = static_cast<std::uint32_t>(position / 4);
                 return 1;
             }
         }
     }
-    const std::uint32_t fallbackPage = gValueCB0354;
-    gValue62B354 = 0;
-    gValueCB1384 = fallbackPage;
+    const std::uint32_t fallbackPage = gMailFallbackPage_CB0354;
+    gUnreadMailCategory_62B354 = 0;
+    gMailContactPage_CB1384 = fallbackPage;
     return 0;
 }
 
 // SHP01：原三类未读定位，迷你正序；先S32类别再索引，公会fresh字符/key，唯一父弃返。
 // 原函数：0x00518F00。
-void Sub_518F00(std::int32_t* const category, std::int32_t* const index)
+void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_t* const index)
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
     for (std::int32_t position = 0; position < 60; ++position) {
@@ -560,7 +560,7 @@ void Sub_518F00(std::int32_t* const category, std::int32_t* const index)
 }
 
 // 原函数：0x00519090。
-std::int32_t Sub_519090(const std::int32_t index)
+std::int32_t HasUnreadContactMail_519090(const std::int32_t index)
 {
     if (index < 0 || index >= 60) {
         return 0;
@@ -580,7 +580,7 @@ std::int32_t Sub_519090(const std::int32_t index)
 }
 
 // 原函数：0x005190F0。
-std::int32_t Sub_5190F0(const std::int32_t index)
+std::int32_t HasUnreadGuildMail_5190F0(const std::int32_t index)
 {
     const auto& record = cg::world::gOrderedRecords1051B14[index];
     const std::int32_t key = record.value0C;
@@ -606,7 +606,7 @@ std::int32_t Sub_5190F0(const std::int32_t index)
 }
 
 // 原函数：0x00519170。
-std::int32_t Sub_519170(const std::int32_t index)
+std::int32_t HasUnreadMiniMail_519170(const std::int32_t index)
 {
     if (index < 0 || index >= 20) {
         return 0;
@@ -625,7 +625,7 @@ std::int32_t Sub_519170(const std::int32_t index)
 }
 
 // 原函数：0x0050DC70。
-void Sub_50DC70(
+void HandleContactMailReply_50DC70(
     const std::uintptr_t, const std::int32_t index,
     const char* const payload, const std::int32_t)
 {
@@ -636,15 +636,15 @@ void Sub_50DC70(
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 299, text);
     const std::int32_t kind = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    Sub_5191C0(index, 0, name, text);
+    PrependContactMailMessage_5191C0(index, 0, name, text);
     const char* const contactName = gContactsF19FB0[index].name10.data();
     cg::text::FormatTo(message, kind == -1 ? L"收到从{}寄来的邮件！" /* 原常量参考：0x0058B07C。 */ : L"由{}送来了宠物邮件！" /* 原常量参考：0x0058B064。 */, cg::text::FromGbkWide(contactName).c_str());
-    static_cast<void>(Sub_519300());
-    static_cast<void>(Sub_518DA0());
-    if (gValueCF4FC0 == index) {
-        const std::int32_t position = gValueD046D4;
+    static_cast<void>(SaveContactMailFile_519300());
+    static_cast<void>(UpdateUnreadMailPageHint_518DA0());
+    if (gViewedMailContactId_CF4FC0 == index) {
+        const std::int32_t position = gViewedMailMessageIndex_D046D4;
         if (position < 9) {
-            gValueD046D4 = position + 1;
+            gViewedMailMessageIndex_D046D4 = position + 1;
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
@@ -652,7 +652,7 @@ void Sub_50DC70(
 }
 
 // 原函数：0x00534370。
-std::int32_t Sub_534370(const std::int32_t key)
+std::int32_t FindMiniMailContactByKey_534370(const std::int32_t key)
 {
     for (std::int32_t index = 0; index < 20; ++index) {
         const MiniMailContactRecord& record = gMiniMailRuntime.contacts[index];
@@ -664,7 +664,7 @@ std::int32_t Sub_534370(const std::int32_t key)
 }
 
 // 原函数：0x005343A0。
-std::int32_t Sub_5343A0()
+std::int32_t FindFreeMiniMailContactSlot_5343A0()
 {
     for (std::int32_t index = 0; index < 20; ++index) {
         if (gMiniMailRuntime.contacts[index].used == 0) {
@@ -675,14 +675,14 @@ std::int32_t Sub_5343A0()
 }
 
 // 原函数：0x004C9490。
-void Sub_4C9490()
+void ResetMiniMailSequenceAndSelection_4C9490()
 {
     gMiniMailSequence1075A88 = 0;
     gMiniMailSelectionD673E4 = -1;
 }
 
 // 原函数：0x00534520。
-std::int32_t Sub_534520(char* const destination)
+std::int32_t FormatMailTimestamp_534520(char* const destination)
 {
     __time64_t timeValue;
     timeValue = ::_time64(nullptr);
@@ -701,7 +701,7 @@ std::int32_t Sub_534520(char* const destination)
 }
 
 // 原函数：0x005343C0。
-void Sub_5343C0(
+void PrependMiniMailMessage_5343C0(
     const std::int32_t index, const std::int32_t kind,
     const char* const name, const char* const text)
 {
@@ -722,7 +722,7 @@ void Sub_5343C0(
 }
 
 // 原函数：0x00534480。
-void Sub_534480(const std::int32_t index)
+void RemoveMiniMailContact_534480(const std::int32_t index)
 {
     gMiniMailRuntime.contacts[index].used = 0;
     MailMessage* const first = gMiniMailRuntime.messages.data()
@@ -739,19 +739,19 @@ void Sub_534480(const std::int32_t index)
 }
 
 // 原函数：0x0050F430。
-void Sub_50F430(const std::uintptr_t, const char* const payload)
+void HandleMiniMailContactRemovalReply_50F430(const std::uintptr_t, const char* const payload)
 {
     const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
-    const std::int32_t index = Sub_534370(key);
-    Sub_534480(index);
+    const std::int32_t index = FindMiniMailContactByKey_534370(key);
+    RemoveMiniMailContact_534480(index);
 }
 
 // 原函数：0x0050F7F0。
-void Sub_50F7F0(
+void HandleMiniMailReply_50F7F0(
     const std::uintptr_t, const std::int32_t key,
     const char* const payload, const std::int32_t)
 {
-    const std::int32_t index = Sub_534370(key);
+    const std::int32_t index = FindMiniMailContactByKey_534370(key);
     if (index == -1) {
         return;
     }
@@ -761,13 +761,13 @@ void Sub_50F7F0(
     network::ExtractDelimitedField_52CED0(payload, '|', 1, 31, name);
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 511, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    Sub_5343C0(index, 0, name, text);
+    PrependMiniMailMessage_5343C0(index, 0, name, text);
     cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, cg::text::FromGbkWide(gMiniMailRuntime.contacts[index].name10.data()).c_str());
-    static_cast<void>(Sub_518DA0());
-    if (gValueCF4FC0 == key) {
-        const std::int32_t position = gValueD046D4;
+    static_cast<void>(UpdateUnreadMailPageHint_518DA0());
+    if (gViewedMailContactId_CF4FC0 == key) {
+        const std::int32_t position = gViewedMailMessageIndex_D046D4;
         if (position < 9) {
-            gValueD046D4 = position + 1;
+            gViewedMailMessageIndex_D046D4 = position + 1;
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
@@ -775,9 +775,9 @@ void Sub_50F7F0(
 }
 
 // 原函数：0x0050F9E0。
-void Sub_50F9E0(const std::uintptr_t, const char* const payload)
+void HandleMiniMailConversationReply_50F9E0(const std::uintptr_t, const char* const payload)
 {
-    const std::int32_t index = Sub_5343A0();
+    const std::int32_t index = FindFreeMiniMailContactSlot_5343A0();
     if (index == -1) {
         return;
     }
@@ -816,29 +816,29 @@ void Sub_50F9E0(const std::uintptr_t, const char* const payload)
     input::UnescapeLegacyTextAndNotify_52D2F0(timestamp);
     network::ExtractDelimitedField_52CED0(payload, '|', 9, 1023, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    static_cast<void>(Sub_534520(timestamp));
+    static_cast<void>(FormatMailTimestamp_534520(timestamp));
     const std::int16_t selected = login::gSelectedCharacterIndex;
     if (gProfiles1074938[selected].value00 == key) {
-        Sub_5343C0(index, 1, timestamp, text);
+        PrependMiniMailMessage_5343C0(index, 1, timestamp, text);
         return;
     }
-    Sub_5343C0(index, 0, timestamp, text);
+    PrependMiniMailMessage_5343C0(index, 0, timestamp, text);
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, cg::text::FromGbkWide(record.name10.data()).c_str());
     Sub_44B050(message, 4, 3);
 }
 
 // 原函数：0x00518C80。
-std::int32_t Sub_518C80()
+std::int32_t ClearContactAndGuildMailStorage_518C80()
 {
     std::memset(gMailStorageF7CA08.data(), 0, sizeof(gMailStorageF7CA08));
     std::memset(gGuildMailStorageDE0B30.data(), 0, sizeof(gGuildMailStorageDE0B30));
-    gValueCB1384 = 0;
+    gMailContactPage_CB1384 = 0;
     return 0;
 }
 
 // 原函数：0x00533910。
-void Sub_533910()
+void ClearMiniMailAndProfiles_533910()
 {
     for (MiniMailContactRecord& record : gMiniMailRuntime.contacts) {
         record.used = 0;
@@ -849,7 +849,7 @@ void Sub_533910()
 }
 
 // 原函数：0x00533950。
-void Sub_533950()
+void InitializeDefaultProfiles_533950()
 {
     ProfileRuntimeRecord& first = gProfiles1074938[0];
     std::strcpy(first.text08.data(), "");
@@ -875,7 +875,7 @@ void Sub_533950()
 }
 
 // 原函数：0x00533B00。
-std::int32_t Sub_533B00()
+std::int32_t HasProfileDraftChanges_533B00()
 {
     const std::int16_t selected = login::gSelectedCharacterIndex;
     const ProfileRuntimeRecord& saved = gProfiles1074938[selected];
@@ -904,7 +904,7 @@ std::int32_t Sub_533B00()
 }
 
 // 原函数：0x00533C80。
-std::int32_t Sub_533C80(const std::int32_t mode)
+std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
 {
     if (mode != 0 && mode != 1) {
         return mode - 1;
@@ -990,17 +990,17 @@ std::int32_t Sub_533C80(const std::int32_t mode)
 }
 
 // 原函数：0x00534290。
-std::int32_t Sub_534290()
+std::int32_t ResendSavedPlayerProfile_534290()
 {
     const std::int16_t selected = login::gSelectedCharacterIndex;
     const std::int32_t enabled = gProfiles1074938[selected].value04;
-    static_cast<void>(Sub_533C80(1));
+    static_cast<void>(PublishPlayerProfile_533C80(1));
     const std::uintptr_t socket = platform::gConnectionSocket;
     return network::SetProfileVisibilityRequest_5118B0(socket, enabled != 0 ? 1 : 0);
 }
 
 // 原函数：0x0050F2A0。
-std::int32_t Sub_50F2A0(const std::uintptr_t, const char* const payload)
+std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(const std::uintptr_t, const char* const payload)
 {
     for (std::int32_t index = 0; index < 100; ++index) {
         gCategory105FA10.records[index].used = 0;
@@ -1032,7 +1032,7 @@ std::int32_t Sub_50F2A0(const std::uintptr_t, const char* const payload)
 }
 
 // 原函数：0x0050F3A0。
-std::int32_t Sub_50F3A0(const std::uintptr_t socket, const char* const payload)
+std::int32_t HandleProfileCategoryVersionsReply_50F3A0(const std::uintptr_t socket, const char* const payload)
 {
     const std::int32_t first = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
     const std::int32_t second = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
@@ -1052,7 +1052,7 @@ std::int32_t Sub_50F3A0(const std::uintptr_t socket, const char* const payload)
 }
 
 // 原函数：0x0050F8E0。
-std::int32_t Sub_50F8E0(const std::uintptr_t, const char* const payload)
+std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(const std::uintptr_t, const char* const payload)
 {
     for (std::int32_t index = 200; index < 300; ++index) {
         gCategory105FA10.records[index].used = 0;
@@ -1078,7 +1078,7 @@ std::int32_t Sub_50F8E0(const std::uintptr_t, const char* const payload)
 }
 
 // 原函数：0x004C9E40。
-void Sub_4C9E40(const std::int32_t, char* const payload)
+void HandleProfileCategorySelectionReply_4C9E40(const std::int32_t, char* const payload)
 {
     input::UnescapeLegacyText_52D150(payload);
     std::int32_t field = 1;
@@ -1096,7 +1096,7 @@ void Sub_4C9E40(const std::int32_t, char* const payload)
 }
 
 // 原函数：0x005342F0。
-std::int32_t Sub_5342F0(const std::int32_t key, const std::int32_t mode)
+std::int32_t FindProfileCategoryImage_5342F0(const std::int32_t key, const std::int32_t mode)
 {
     if (mode != 0 && mode != 1) {
         return -1;
@@ -1113,7 +1113,7 @@ std::int32_t Sub_5342F0(const std::int32_t key, const std::int32_t mode)
 }
 
 // 原函数：0x004CA330。
-void Sub_4CA330(const std::int32_t, char* const payload)
+void HandleProfileSearchResultsReply_4CA330(const std::int32_t, char* const payload)
 {
     for (ProfileSearchRecord& record : gProfileSearch105C398.records) {
         record.used = 0;
@@ -1141,7 +1141,7 @@ void Sub_4CA330(const std::int32_t, char* const payload)
 }
 
 // 原函数：0x004CAC60。
-std::int32_t Sub_4CAC60(const std::int32_t, char* const payload)
+std::int32_t HandleViewedPlayerProfileReply_4CAC60(const std::int32_t, char* const payload)
 {
     input::UnescapeLegacyText_52D150(payload);
     ProfileRuntimeRecord& record = gViewedProfile105ECE0;
@@ -1182,15 +1182,15 @@ std::int32_t Sub_4CAC60(const std::int32_t, char* const payload)
     record.entries410[1].value04 = 246000;
     record.entries410[0].value04 = 246000;
     record.entries410[2].value04 = 246000;
-    const std::int32_t second = Sub_5342F0(record.entries410[1].value00, 0);
+    const std::int32_t second = FindProfileCategoryImage_5342F0(record.entries410[1].value00, 0);
     if (second != -1) {
         record.entries410[1].value04 = second;
     }
-    const std::int32_t first = Sub_5342F0(record.entries410[0].value00, 0);
+    const std::int32_t first = FindProfileCategoryImage_5342F0(record.entries410[0].value00, 0);
     if (first != -1) {
         record.entries410[0].value04 = first;
     }
-    const std::int32_t third = Sub_5342F0(record.entries410[2].value00, 1);
+    const std::int32_t third = FindProfileCategoryImage_5342F0(record.entries410[2].value00, 1);
     if (third != -1) {
         record.entries410[2].value04 = third;
     }
@@ -1198,7 +1198,7 @@ std::int32_t Sub_4CAC60(const std::int32_t, char* const payload)
 }
 
 // 原函数：0x0050F450。
-void Sub_50F450(
+void HandlePlayerProfileReply_50F450(
     const std::uintptr_t, const char* const text1, const std::int32_t value2,
     const char* const text3, const char* const text4, const char* const text5,
     const std::int32_t value6, const std::int32_t value7, const char* const text8,
@@ -1239,15 +1239,15 @@ void Sub_50F450(
     record.entries410[1].value04 = 246000;
     record.entries410[0].value04 = 246000;
     record.entries410[2].value04 = 246000;
-    const std::int32_t second = Sub_5342F0(record.entries410[1].value00, 0);
+    const std::int32_t second = FindProfileCategoryImage_5342F0(record.entries410[1].value00, 0);
     if (second != -1) {
         record.entries410[1].value04 = second;
     }
-    const std::int32_t first = Sub_5342F0(record.entries410[0].value00, 0);
+    const std::int32_t first = FindProfileCategoryImage_5342F0(record.entries410[0].value00, 0);
     if (first != -1) {
         record.entries410[0].value04 = first;
     }
-    const std::int32_t third = Sub_5342F0(record.entries410[2].value00, 1);
+    const std::int32_t third = FindProfileCategoryImage_5342F0(record.entries410[2].value00, 1);
     if (third != -1) {
         record.entries410[2].value04 = third;
     }
@@ -1255,7 +1255,7 @@ void Sub_50F450(
 }
 
 // 原函数：0x005348A0。
-std::int32_t Sub_5348A0()
+std::int32_t SaveProfileCategoryFile_5348A0()
 {
     char path[1024];
     std::sprintf(
@@ -1272,7 +1272,7 @@ std::int32_t Sub_5348A0()
 }
 
 // 原函数：0x00534910。
-std::int32_t Sub_534910()
+std::int32_t LoadProfileCategoryFile_534910()
 {
     char path[1024];
     std::sprintf(
@@ -1289,7 +1289,7 @@ std::int32_t Sub_534910()
 }
 
 // 原函数：0x005345A0。
-std::int32_t Sub_5345A0(const std::int32_t index)
+std::int32_t ResetCharacterProfile_5345A0(const std::int32_t index)
 {
     ProfileRuntimeRecord& record = gProfiles1074938[index];
     std::strcpy(record.text08.data(), "");
@@ -1319,7 +1319,7 @@ std::int32_t Sub_5345A0(const std::int32_t index)
 }
 
 // 原函数：0x00534770。
-std::int32_t Sub_534770()
+std::int32_t SavePlayerProfilesFile_534770()
 {
     char path[1024];
     std::sprintf(
@@ -1336,7 +1336,7 @@ std::int32_t Sub_534770()
 }
 
 // 原函数：0x005347F0。
-std::int32_t Sub_5347F0()
+std::int32_t LoadPlayerProfilesFile_5347F0()
 {
     char path[1024];
     std::sprintf(
@@ -1357,7 +1357,7 @@ std::int32_t Sub_5347F0()
 }
 
 // 原函数：0x00518CB0。
-std::int32_t Sub_518CB0()
+std::int32_t LoadContactAndGuildMailFiles_518CB0()
 {
     char path[128];
     std::sprintf(
@@ -1365,7 +1365,7 @@ std::int32_t Sub_518CB0()
     std::FILE* stream =
         std::fopen(path, "rb");
     if (stream == nullptr) {
-        return Sub_519300();
+        return SaveContactMailFile_519300();
     }
     static_cast<void>(static_cast<std::uint32_t>(std::fread(
         gMailStorageF7CA08.data(), 1, sizeof(gMailStorageF7CA08), stream)));
@@ -1384,7 +1384,7 @@ std::int32_t Sub_518CB0()
 }
 
 // 原函数：0x00519300。
-std::int32_t Sub_519300()
+std::int32_t SaveContactMailFile_519300()
 {
     char path[128];
     std::sprintf(
@@ -1418,7 +1418,7 @@ std::int32_t SaveGuildMailFile_519550()
 }
 
 // 原函数：0x00519290。
-std::int32_t Sub_519290()
+std::int32_t ClearCurrentCharacterContactMail_519290()
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
     std::memset(gMailStorageF7CA08.data() + selected * 60 * 10, 0, kMailGroupBytes);
@@ -1436,7 +1436,7 @@ std::int32_t ClearCurrentCharacterGuildMail_5194C0()
 }
 
 // 原函数：0x005192C0。
-std::int32_t Sub_5192C0(const std::int32_t number)
+std::int32_t ClearContactMailMessages_5192C0(const std::int32_t number)
 {
     const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
     std::memset(

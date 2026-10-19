@@ -310,9 +310,9 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                     static_cast<void>(world::detail::PrependGuildMailMessage_519370(
                         target, 1, timestamp, storedText.data()));
                 } else {
-                    world::detail::Sub_5191C0(target, 1, timestamp, storedText.data());
+                    world::detail::PrependContactMailMessage_5191C0(target, 1, timestamp, storedText.data());
                 }
-                static_cast<void>(cg::world::detail::Sub_519300());
+                static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
                 static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 WindowInstance* const window = gCurrentWindow;

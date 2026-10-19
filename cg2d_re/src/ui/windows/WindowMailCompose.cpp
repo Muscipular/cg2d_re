@@ -263,7 +263,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                             const std::uintptr_t socket = platform::gConnectionSocket;
                             static_cast<void>(network::SendContactMail_510FA0(socket, contact, packet, 0));
                             WindowMail_FormatTimestamp(timestamp);
-                            world::detail::Sub_5191C0(contact, 1, timestamp, storedText.data());
+                            world::detail::PrependContactMailMessage_5191C0(contact, 1, timestamp, storedText.data());
                         } else if (groupMode == 1) {
                             const std::int32_t member = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const std::uintptr_t socket = platform::gConnectionSocket;
@@ -288,7 +288,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                             }
                         }
                     }
-                    static_cast<void>(cg::world::detail::Sub_519300());
+                    static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
                     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
                     static_cast<void>(audio::PlaySe_52C450(78, 320));
                     closeAfterSend = true;
@@ -311,9 +311,9 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                 combined = std::to_wstring(key) + L"|" + escapedName + L"|" + escapedText;
                 packet = input::EscapeTextAndNotify(combined, 1024);
                 static_cast<void>(network::SendMiniMail_511840(platform::gConnectionSocket, packet, 0));
-                static_cast<void>(world::detail::Sub_534520(timestamp));
+                static_cast<void>(world::detail::FormatMailTimestamp_534520(timestamp));
                 const std::int32_t currentContact = gLoginWindowRuntime.prefixD2F0B8.value04;
-                world::detail::Sub_5343C0(currentContact, 1, timestamp, storedText.data());
+                world::detail::PrependMiniMailMessage_5343C0(currentContact, 1, timestamp, storedText.data());
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 closeAfterSend = true;
             } else {
@@ -340,9 +340,9 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                     static_cast<void>(world::detail::PrependGuildMailMessage_519370(
                         target, 1, timestamp, storedText.data()));
                 } else {
-                    world::detail::Sub_5191C0(target, 1, timestamp, storedText.data());
+                    world::detail::PrependContactMailMessage_5191C0(target, 1, timestamp, storedText.data());
                 }
-                static_cast<void>(cg::world::detail::Sub_519300());
+                static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
                 static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
                 closeAfterSend = true;

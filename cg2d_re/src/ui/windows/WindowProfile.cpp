@@ -37,7 +37,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         if ((state & 2) != 0) {
             static_cast<void>(network::SetProfileVisibilityRequest_5118B0(platform::gConnectionSocket, visible ? 0 : 1));
             if (!visible) {
-                static_cast<void>(world::detail::Sub_533C80(1));
+                static_cast<void>(world::detail::PublishPlayerProfile_533C80(1));
             }
             world::detail::SelectedProfileValue04() = visible ? 0 : 1;
         }
@@ -117,7 +117,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         }
         if ((state & 2) != 0) {
             static_cast<void>(WindowChat_RestoreInput());
-            static_cast<void>(world::detail::Sub_533C80(0));
+            static_cast<void>(world::detail::PublishPlayerProfile_533C80(0));
             return 1;
         }
         return consumed;
@@ -197,15 +197,15 @@ static void WindowProfile_RouteReply(
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     switch (type) {
     case 38:
-        world::detail::Sub_4C9E40(value, text);
+        world::detail::HandleProfileCategorySelectionReply_4C9E40(value, text);
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileCategory, 1, 0, nullptr));
         return;
     case 39:
-        world::detail::Sub_4CA330(value, text);
+        world::detail::HandleProfileSearchResultsReply_4CA330(value, text);
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileSearch, 1, 0, nullptr));
         return;
     case 40:
-        static_cast<void>(world::detail::Sub_4CAC60(value, text));
+        static_cast<void>(world::detail::HandleViewedPlayerProfileReply_4CAC60(value, text));
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileView, 1, 0, nullptr));
         return;
     default:

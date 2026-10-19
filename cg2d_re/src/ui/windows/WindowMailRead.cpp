@@ -99,9 +99,9 @@ static std::int32_t WindowMailRead_Update(const std::int32_t value)
 {
     if (value == -1) {
         WindowMailRead_FindUnread();
-        static_cast<void>(cg::world::detail::Sub_519300());
+        static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
         static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
-        static_cast<void>(world::detail::Sub_518DA0());
+        static_cast<void>(world::detail::UpdateUnreadMailPageHint_518DA0());
         cg::core::NullSub_509080();
     }
     return 1;
@@ -127,10 +127,10 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
     }
     if ((state & 2) != 0) {
         graphic->imageNo = 0x3B557;
-        const std::int32_t page = world::detail::gValueD046D4 - 1;
-        world::detail::gValueD046D4 = page;
+        const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 - 1;
+        world::detail::gViewedMailMessageIndex_D046D4 = page;
         if (page < 0) {
-            world::detail::gValueD046D4 = 9;
+            world::detail::gViewedMailMessageIndex_D046D4 = 9;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         cg::core::NullSub_509080();
@@ -154,10 +154,10 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
     }
     if ((state & 2) != 0) {
         graphic->imageNo = 0x3B55A;
-        const std::int32_t page = world::detail::gValueD046D4 + 1;
-        world::detail::gValueD046D4 = page;
+        const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 + 1;
+        world::detail::gViewedMailMessageIndex_D046D4 = page;
         if (page >= 10) {
-            world::detail::gValueD046D4 = 0;
+            world::detail::gViewedMailMessageIndex_D046D4 = 0;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         cg::core::NullSub_509080();
@@ -181,7 +181,7 @@ static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const s
         graphic->imageNo = 0x3BA1B;
     }
     if ((state & 2) != 0) {
-        const std::int32_t contact = world::detail::gValueCF4FC0;
+        const std::int32_t contact = world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
         const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
         gLoginWindowRuntime.prefixD2F0B8.value04 = contact;
@@ -209,44 +209,44 @@ static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const s
 static void WindowMailRead_FindUnread()
 {
     const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
-    cg::world::detail::gValueD046D4 = 0;
+    cg::world::detail::gViewedMailMessageIndex_D046D4 = 0;
     switch (category) {
     case 0: {
         const std::int16_t selected = login::gSelectedCharacterIndex;
-        const std::int32_t contact = cg::world::detail::gValueCF4FC0;
+        const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
         for (std::int32_t page = 9; page >= 0; --page) {
             if (*cg::world::GetMailMessageF7CA08(selected, contact, page).unread00 != std::byte{0}) {
-                cg::world::detail::gValueD046D4 = page;
+                cg::world::detail::gViewedMailMessageIndex_D046D4 = page;
                 break;
             }
         }
         break;
     }
     case 1: {
-        const std::int32_t member = cg::world::detail::gValueCF4FC0;
+        const std::int32_t member = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
         static_cast<void>(cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey));
-        const std::int32_t mailMember = cg::world::detail::gValueCF4FC0;
+        const std::int32_t mailMember = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
         const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
         if (slot == -1) {
-            cg::world::detail::gValueD046D4 = 0;
+            cg::world::detail::gViewedMailMessageIndex_D046D4 = 0;
             return;
         }
         const std::int16_t selected = login::gSelectedCharacterIndex;
         for (std::int32_t page = 9; page >= 0; --page) {
             if (*cg::world::GetGuildMailMessageDE0B30(selected, slot, page).unread00 != std::byte{0}) {
-                cg::world::detail::gValueD046D4 = page;
+                cg::world::detail::gViewedMailMessageIndex_D046D4 = page;
                 break;
             }
         }
         break;
     }
     case 2: {
-        const std::int32_t contact = cg::world::detail::gValueCF4FC0;
+        const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
         for (std::int32_t page = 9; page >= 0; --page) {
             if (*cg::world::GetMiniMailMessage10763A0(contact, page).unread00 != std::byte{0}) {
-                cg::world::detail::gValueD046D4 = page;
+                cg::world::detail::gViewedMailMessageIndex_D046D4 = page;
                 break;
             }
         }
@@ -266,10 +266,10 @@ static std::uint32_t WindowMailRead_Refresh()
     std::int32_t memberIndex = 0;
     std::int32_t mailSlot = 0;
     if (category == 1) {
-        const std::int32_t member = cg::world::detail::gValueCF4FC0;
+        const std::int32_t member = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
         memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey);
-        const std::int32_t mailMember = cg::world::detail::gValueCF4FC0;
+        const std::int32_t mailMember = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
         mailSlot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
     }
@@ -277,17 +277,17 @@ static std::uint32_t WindowMailRead_Refresh()
     const auto readCurrentMessage = [category, mailSlot]() -> cg::world::MailMessageView {
         if (category == 0) {
             const std::int16_t selected = login::gSelectedCharacterIndex;
-            const std::int32_t contact = cg::world::detail::gValueCF4FC0;
-            const std::int32_t page = cg::world::detail::gValueD046D4;
+            const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
+            const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
             return cg::world::GetMailMessageF7CA08(selected, contact, page);
         }
         if (category == 1) {
             const std::int16_t selected = login::gSelectedCharacterIndex;
-            const std::int32_t page = cg::world::detail::gValueD046D4;
+            const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
             return cg::world::GetGuildMailMessageDE0B30(selected, mailSlot, page);
         }
-        const std::int32_t contact = cg::world::detail::gValueCF4FC0;
-        const std::int32_t page = cg::world::detail::gValueD046D4;
+        const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
         return cg::world::GetMiniMailMessage10763A0(contact, page);
     };
     if (category == 1 && mailSlot == -1) {
@@ -318,14 +318,14 @@ static std::uint32_t WindowMailRead_Refresh()
     if (category == 1) {
         name = cg::world::gOrderedRecords1051B14[memberIndex].text18;
     } else {
-        const std::int32_t contact = cg::world::detail::gValueCF4FC0;
+        const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
         name = category == 0 ? cg::world::detail::gContactsF19FB0[contact].name10.data()
             : cg::world::detail::ReadMiniMailContact1075A90(contact).name10.data();
     }
     cg::text::FormatTo(buffer, L"{}", cg::text::FromGbkWide(name).c_str());
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[15].data);
     nameData->text = buffer;
-    const std::int32_t page = cg::world::detail::gValueD046D4 + 1;
+    const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4 + 1;
     cg::text::FormatTo(buffer, L"{:2}/{:2}", page, 10);
     auto* const pageData = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
     const std::uint32_t length = static_cast<std::uint32_t>(buffer.size() + 1);
@@ -346,26 +346,26 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
     switch (category) {
     case 0: {
         const std::int16_t selected = login::gSelectedCharacterIndex;
-        identity = cg::world::detail::gValueCF4FC0;
-        const std::int32_t page = cg::world::detail::gValueD046D4;
+        identity = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
         message = cg::world::GetMailMessageF7CA08(selected, identity, page);
         break;
     }
     case 1: {
-        const std::int32_t member = cg::world::detail::gValueCF4FC0;
+        const std::int32_t member = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[member].value0C;
         identity = cg::world::FindActiveOrderedRecordIndex_5195C0(memberKey);
-        const std::int32_t mailMember = cg::world::detail::gValueCF4FC0;
+        const std::int32_t mailMember = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
         const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
         const std::int16_t selected = login::gSelectedCharacterIndex;
-        const std::int32_t page = cg::world::detail::gValueD046D4;
+        const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
         message = cg::world::GetGuildMailMessageDE0B30(selected, slot, page);
         break;
     }
     case 2: {
-        identity = cg::world::detail::gValueCF4FC0;
-        const std::int32_t page = cg::world::detail::gValueD046D4;
+        identity = cg::world::detail::gViewedMailContactId_CF4FC0;
+        const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
         message = cg::world::GetMiniMailMessage10763A0(identity, page);
         break;
     }

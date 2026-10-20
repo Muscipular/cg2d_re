@@ -8,6 +8,24 @@
 
 namespace cg::platform {
 
+// heldButtons 表示持续按住，pulseButtons 表示当前脉冲；二者共用按钮位。
+enum LegacyMouseButton : std::uint32_t {
+    LegacyMouseButton_None = 0x00, // 无按钮位。
+    LegacyMouseButton_Left = 0x01, // 左键。
+    LegacyMouseButton_Right = 0x02, // 右键。
+};
+
+// edgeButtons 的边沿事件；双击同时包含对应的按下位。
+enum LegacyMouseEdge : std::uint32_t {
+    LegacyMouseEdge_None = 0x00, // 无边沿。
+    LegacyMouseEdge_LDown = 0x01, // 左键按下。
+    LegacyMouseEdge_RDown = 0x02, // 右键按下。
+    LegacyMouseEdge_LUp = 0x04, // 左键抬起。
+    LegacyMouseEdge_RUp = 0x08, // 右键抬起。
+    LegacyMouseEdge_LDblClick = 0x10, // 左键双击。
+    LegacyMouseEdge_RDblClick = 0x20, // 右键双击。
+};
+
 // 原 [0xD68CF8,0xD68DC4) 的旧鼠标状态。末尾 0xD68DC4 由 Startup.hpp
 // 中的既有唯一存储承接，不属于本结构。
 struct LegacyMouseState {
@@ -18,9 +36,9 @@ struct LegacyMouseState {
     LegacyCryptInt mouseX; // 原成员偏移：+0x00。
     LegacyCryptInt mouseY; // 原成员偏移：+0x10。
     LegacyCryptInt buttonCoordinates[8]; // 原成员偏移：+0x20。
-    std::uint32_t heldButtons; // 原成员偏移：+0xA0。
-    std::uint32_t edgeButtons; // 原成员偏移：+0xA4。
-    std::uint32_t pulseButtons; // 原成员偏移：+0xA8。
+    std::uint32_t heldButtons; // 原成员偏移：+0xA0；LegacyMouseButton 持续按住位。
+    std::uint32_t edgeButtons; // 原成员偏移：+0xA4；LegacyMouseEdge 按帧边沿位。
+    std::uint32_t pulseButtons; // 原成员偏移：+0xA8；LegacyMouseButton 按下及重复脉冲位。
     std::uint64_t leftDownTick; // 原成员偏移：+0xAC。
     std::uint64_t leftElapsed; // 原成员偏移：+0xB0。
     std::uint64_t rightDownTick; // 原成员偏移：+0xB4。

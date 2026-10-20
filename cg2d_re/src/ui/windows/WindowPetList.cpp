@@ -655,21 +655,21 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
     if (index >= 253 && index <= 257) {
         const std::int32_t row = index - 253;
         std::uint32_t events = static_cast<std::uint32_t>(state);
-        if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 3) {
+        if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 3) {
             consumed = 1;
-            events &= ~0x60u;
+            events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         }
-        if ((events & 0x40u) != 0) {
+        if ((events & MouseFlag_DragFinish) != 0) {
             const std::int32_t source = WindowDrag_ReadSourceIndex();
             const std::int16_t target = petIndex(row);
             WindowItem_RequestPetTransfer(15, index, source, target);
             WindowDrag_Reset();
         }
-        if ((events & 1u) != 0) {
+        if ((events & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"打开此宠物的能力视窗。" /* 原常量参考：0x00586D0C。 */;
             consumed = 1;
         }
-        if ((events & 2u) != 0) {
+        if ((events & MouseFlag_LDownEvent) != 0) {
             const std::int16_t selected = petIndex(row);
             const auto& pet = world::gPetRuntimeRecords[selected];
             if (pet.used != 0) {
@@ -691,7 +691,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
             }
             static_cast<void>(WindowDrag_ResetMouse());
             consumed = 1;
-        } else if ((events & 1u) != 0 && (events & 4u) != 0) {
+        } else if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_RDownEvent) != 0) {
             const std::int16_t selected = petIndex(row);
             if (world::gPetRuntimeRecords[selected].used != 0) {
                 static_cast<void>(WindowPetDrag_Start(selected, 0));
@@ -717,13 +717,13 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         if (WindowPet_HasSkill25600(petIndex(row)) != 1) {
             return 0;
         }
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B588);
             const std::int32_t follow = world::gPetRuntimeRecords[petIndex(row)].follow6D4;
             gHoverTextD68AE8 = follow != 0 ? L"无法将此宠物带在身后散步。" /* 原常量参考：0x00586CF0。 */ : L"将此宠物带在身后散步。" /* 原常量参考：0x00586CD8。 */;
             consumed = 1;
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
         const std::int16_t selected = petIndex(row);
@@ -755,12 +755,12 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
 
     if (index >= 231 && index <= 235) {
         const std::int32_t row = index - 231;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B58B);
             gHoverTextD68AE8 = states[petIndex(row)] == 1 ? L"这只宠物正处于待命状态。" /* 原常量参考：0x00586C94。 */ : L"使这只宠物处于待命状态。" /* 原常量参考：0x00586C78。 */;
             consumed = 1;
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
         const std::int16_t selected = petIndex(row);
@@ -799,12 +799,12 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
 
     if (index >= 236 && index <= 240) {
         const std::int32_t row = index - 236;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B58E);
             gHoverTextD68AE8 = states[petIndex(row)] == 2 ? L"这只宠物正处于战斗状态。" /* 原常量参考：0x00586C5C。 */ : L"使这只宠物处于战斗状态。" /* 原常量参考：0x00586C40。 */;
             consumed = 1;
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
         const std::int16_t selected = petIndex(row);
@@ -829,12 +829,12 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
 
     if (index >= 241 && index <= 245) {
         const std::int32_t row = index - 241;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B591);
             gHoverTextD68AE8 = states[petIndex(row)] == 3 ? L"无法将此宠物放在地上。" /* 原常量参考：0x00586C28。 */ : kPetPlaceHint586C14;
             consumed = 1;
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
         if (states[petIndex(row)] == 2) {

@@ -835,14 +835,14 @@ static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t imageOffset = index == 14 ? 0 : 3;
         graphic->imageNo = 0x3B592 + imageOffset;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B594 + imageOffset;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B593 + imageOffset;
         }
     }
-    if ((state & 0x400) == 0) {
+    if ((state & MouseFlag_LRepeatDown) == 0) {
         return 0;
     }
 
@@ -881,7 +881,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if (index >= 51 && index <= 53) {
-        if ((state & 4) == 0) {
+        if ((state & MouseFlag_RDownEvent) == 0) {
             return 0;
         }
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
@@ -924,7 +924,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B558 + imageOffset;
             if (index <= 2) {
                 gHoverTextD68AE8 = gContactsPreviewMode_D67B38 != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
@@ -937,7 +937,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     }
 
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (index <= 2) {
             const std::int32_t oldMode = gContactsPreviewMode_D67B38;
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -964,7 +964,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         // 业务调用可能改变当前窗口，按原尾路径重新借用载荷。
         auto* const pressedElement = currentWindow->FindElementById(NativeElementKey(index));
         if (pressedElement) {
@@ -984,12 +984,12 @@ static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 0x3B541;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B543;
             gHoverTextD68AE8 = L"对一群人寄送邮件。" /* 原常量参考：0x0058749C。 */;
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B542;
             WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
             if (window != nullptr) {
@@ -1003,7 +1003,7 @@ static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, con
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B542;
         }
         return consumed;
@@ -1027,7 +1027,7 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = idle + 2;
         const wchar_t* const hint = category == 0 ? L"切换至名片视窗。" /* 原常量参考：0x005874B0。 */
             : (category == 1 ? L"切换至家族名簿视窗。" /* 原常量参考：0x005874C4。 */ : L"切换到迷你邮件群组。" /* 原常量参考：0x005874DC。 */);
@@ -1036,7 +1036,7 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
     } else {
         if (graphic) graphic->imageNo = idle;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (category == 2) {
             auto* const tabCategory_13Element = currentWindow->FindElementById(WindowContactsElementId::TabCategory_13);
             if (tabCategory_13Element) {
@@ -1071,17 +1071,17 @@ static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 0x3B9E5;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B9E7;
             gHoverTextD68AE8 = L"开启家族详细资料视窗。" /* 原常量参考：0x00587544。 */;
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B9E6;
             static_cast<void>(WindowRuntime_CreateAnimation(WindowId_GuildDetails, 1, 0, nullptr));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B9E6;
         }
         return consumed;
@@ -1107,7 +1107,7 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) == 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) == 0) {
         return 0;
     }
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -1153,18 +1153,18 @@ static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, co
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t imageOffset = parity != 0 ? 3 : 0;
         graphic->imageNo = 0x3B556 + imageOffset;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B558 + imageOffset;
             gHoverTextD68AE8 = L"变更此家族成员的称号。" /* 原常量参考：0x00587484。 */;
         }
         std::int32_t consumed = 0;
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             graphic->imageNo = 0x3B557 + imageOffset;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             WindowContacts_OpenRankSelection(index);
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B557 + imageOffset;
         }
         return consumed;
@@ -1198,7 +1198,7 @@ static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std:
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B547;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B549;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
@@ -1213,7 +1213,7 @@ static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std:
         }
     }
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (graphic) graphic->imageNo = 0x3B548;
         world::detail::gViewedMailContactId_CF4FC0 = WindowContacts_ResolveButtonRecord(index);
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -1222,7 +1222,7 @@ static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std:
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailRead, 1, 0, nullptr));
         consumed = 1;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B548;
     }
     return consumed;
@@ -1257,7 +1257,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         if (position < 0 || position > 59) {
             return 0;
         }
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
             const auto& record = world::detail::gContactsF19FB0[recordIndex];
             if (record.used != 0) {
@@ -1272,7 +1272,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         if (position > cg::world::gOrderedRecordCount1051510 - 1) {
             return 0;
         }
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
             const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
             if (record.value08 != 0) {
@@ -1281,7 +1281,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         }
         break;
     case 2:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
             const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
             if (record.used != 0) {
@@ -1327,7 +1327,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         }
         consumed = 1;
     }
-    if ((state & 4) == 0) {
+    if ((state & MouseFlag_RDownEvent) == 0) {
         return consumed;
     }
     switch (gLoginWindowRuntime.valuesD67B40[6]) {
@@ -1370,7 +1370,7 @@ static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    const bool hover = (state & 1) != 0;
+    const bool hover = (state & MouseFlag_Hover) != 0;
     if (graphic) graphic->imageNo = hover ? 0x3B546 : 0x3B544;
     const std::int32_t consumed = hover ? 1 : 0;
     bool nineRows;
@@ -1407,7 +1407,7 @@ static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const
             break;
         }
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return consumed;
     }
     gLoginWindowRuntime.prefixD2F0B8.value10 = 0;
@@ -1426,7 +1426,7 @@ static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B54A;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B54C;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
@@ -1441,7 +1441,7 @@ static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const 
         }
     }
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t recordIndex = WindowContacts_ResolveButtonRecord(index);
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         gLoginWindowRuntime.mailDeleteIndexD2DA8C = recordIndex;
@@ -1453,7 +1453,7 @@ static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const 
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B54B;
     }
     return consumed;

@@ -202,7 +202,7 @@ std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const handleInputElement = window->FindElementById(WindowMailComposeElementId::HandleInput);
         if (handleInputElement) {
@@ -241,7 +241,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
         auto* const handleRecipientsElement = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients);
         if (handleRecipientsElement) {
             auto* const graphic = handleRecipientsElement->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3BA0A;
                 gHoverTextD68AE8 = L"使用宠物邮件。" /* 原常量参考：0x0058774C。 */;
                 consumed = 1;
@@ -249,7 +249,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
                 graphic->imageNo = 0x3BA08;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             cg::text::StoreGbk(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()),
                 gLoginWindowRuntime.mailDraftCF4BC8.bytes14.size(), input::ContextText(cg::ui::detail::gInputContextD66CA8));
             static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PetMailCompose, 1, 0, nullptr));
@@ -257,7 +257,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             if (auto* const handleRecipientsElement2 = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients); handleRecipientsElement2) handleRecipientsElement2->data.graphic->imageNo = 0x3BA09;
         }
         return consumed;
@@ -265,7 +265,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
     auto* const handleRecipients_4Element = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients_4);
     if (handleRecipients_4Element) {
         auto* const graphic = handleRecipients_4Element->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3BA1D;
             gHoverTextD68AE8 = kReplyMailHint587730;
             consumed = 1;
@@ -280,7 +280,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
     bool closeAfterSend = false;
     const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
     if (mode != 0) {
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;
             if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
                 if (cg::ui::detail::gInputContextD66CA8.empty()
@@ -338,7 +338,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
         }
     } else {
         const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
-        if ((category == 0 || category == 1 || category == 2) && (state & 2) != 0) {
+        if ((category == 0 || category == 1 || category == 2) && (state & MouseFlag_LDownEvent) != 0) {
             if (cg::ui::detail::gInputContextD66CA8.empty()) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (category == 2) {
@@ -407,7 +407,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
         cg::ui::detail::gInputContextD66CA8.clearText();
         window->state |= 0x8000u;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (auto* const handleRecipients_4Element2 = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients_4); handleRecipients_4Element2) handleRecipients_4Element2->data.graphic->imageNo = 0x3BA1C;
     }
     return consumed;

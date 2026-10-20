@@ -322,11 +322,11 @@ static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const st
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"请输入关键字";
         consumed = 1;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const editKeywordElement = window->FindElementById(WindowProfileSearchElementId::EditKeyword);
         if (editKeywordElement) {
@@ -372,14 +372,14 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = hoverImages[position];
             gHoverTextD68AE8 = hints[position];
             consumed = 1;
         } else {
             graphic->imageNo = normalImages[position];
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
     }
@@ -405,14 +405,14 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if (!currentWindow) return 0;
     const std::int32_t position = index - 48;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"浏览此名玩家的资料表";
         consumed = 1;
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246059;
     } else {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246060;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const auto& record = world::detail::gProfileSearch105C398.records[position];
         const std::int32_t key = record.value104;
         const std::wstring combined = std::to_wstring(key) + L"|" + record.text04;

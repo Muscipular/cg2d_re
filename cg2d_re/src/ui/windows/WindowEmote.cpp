@@ -178,7 +178,7 @@ static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std:
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hover) {
             graphic->imageNo = 0x3B987 + index * 3;
@@ -193,7 +193,7 @@ static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std:
         if (hover) {
             gHoverTextD68AE8 = kEmoteHints5871B0[index];
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             world::RequestPlayerEmote_4FA8E0(kEmoteButtonActions[index]);
             static_cast<void>(WindowEmote_Select(index));
             static_cast<void>(audio::PlaySe_52C450(51, 320));

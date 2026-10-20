@@ -167,11 +167,11 @@ static std::int32_t WindowConfirmation_HandleButton(
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = idleImage;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = idleImage + 2;
         }
     }
-    if ((state & 2) == 0 || (requiresControl && (platform::gKeyStates[17] & 2) == 0)) {
+    if ((state & MouseFlag_LDownEvent) == 0 || (requiresControl && (platform::gKeyStates[17] & 2) == 0)) {
         return 0;
     }
     static_cast<void>(WindowConfirmation_RequestClose());

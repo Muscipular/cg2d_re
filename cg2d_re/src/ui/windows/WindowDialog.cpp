@@ -444,7 +444,7 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
     }
     gMessageDialog.hoveredButton = 0;
     gMessageDialog.hoveredRow = -1;
-    gMessageDialog.events = 0;
+    gMessageDialog.events = MouseFlag_None;
     return 1;
 }
 
@@ -482,11 +482,11 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
     if (frame != nullptr) {
         const std::int32_t button = gMessageDialog.hoveredButton;
         if (button != 0) {
-            gMessageDialog.events = 0;
+            gMessageDialog.events = MouseFlag_None;
         }
         const std::int32_t row = gMessageDialog.hoveredRow;
         if (row > 0) {
-            gMessageDialog.events = 0;
+            gMessageDialog.events = MouseFlag_None;
         }
         const std::int32_t events = gMessageDialog.events;
         const std::int32_t close = frame(window, button, row, events);
@@ -608,13 +608,13 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
     auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
     if (dataElement) {
         auto* const data = dataElement->data.graphic;
-        const bool hovered = (state & 1) != 0;
+        const bool hovered = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hovered) {
             gMessageDialog.hoveredButton =
                 std::bit_cast<std::int32_t>(1u << (static_cast<std::uint32_t>(index) & 31u));
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (gMessageDialog.reply != nullptr) {
                 const std::int32_t selected = gMessageDialog.selectedInput;
                 if (selected >= 0) {
@@ -635,7 +635,7 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
         if (hovered) {
             data->imageNo = images[index][2];
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             data->imageNo = images[index][1];
         }
         return consumed;
@@ -676,7 +676,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
                 static_cast<std::uint16_t>(inputX), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(inputX + inputWidth), static_cast<std::uint16_t>(top + 16),
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 const std::int32_t previous = gMessageDialog.selectedInput;
                 if (previous >= 0) {
                     gMessageDialog.inputTexts[previous] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
@@ -740,7 +740,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
                     static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top + offset),
                     static_cast<std::uint16_t>(left + width), static_cast<std::uint16_t>(top + offset + 20),
                     223, cg::render::gHoverFramePaletteIndex_D69768, 0);
-                if ((state & 2) != 0) {
+                if ((state & MouseFlag_LDownEvent) != 0) {
                     const std::int32_t previous = gMessageDialog.selectedInput;
                     if (previous >= 0) {
                         gMessageDialog.inputTexts[previous] = input::ContextText(cg::ui::detail::gInputContextCA02E0);

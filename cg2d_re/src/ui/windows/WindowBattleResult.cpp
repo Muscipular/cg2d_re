@@ -238,16 +238,16 @@ static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, co
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
-        if ((state & 2) != 0) {
+        const std::int32_t consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         graphic->imageNo = 0x3B568;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B56A;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B569;
         }
         return consumed;
@@ -413,8 +413,8 @@ static std::int32_t WindowBattleResult_ButtonClose(const std::int32_t, const std
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
-    if ((state & 2) != 0) {
+    std::int32_t consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
+    if ((state & MouseFlag_LDownEvent) != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         consumed = 1;

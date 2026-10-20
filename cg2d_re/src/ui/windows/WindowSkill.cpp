@@ -752,7 +752,7 @@ static void WindowSkill_HandleDrag(
     if (message != 0) {
         return;
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
@@ -760,7 +760,7 @@ static void WindowSkill_HandleDrag(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         static_cast<void>(WindowDrag_StartAtPosition(4, sourceIndex, x, y, WindowSkill_HandleDrag));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -790,11 +790,11 @@ static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const s
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 4) {
-        events &= ~0x60u;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 4) {
+        events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source != pairIndex && world::gSkillReorderPending_DA3B20 == 0) {
             const std::int32_t targetSkill =
@@ -806,23 +806,23 @@ static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const s
         }
         WindowDrag_Reset();
     }
-    const bool clicked = (events & 2u) != 0;
+    const bool clicked = (events & MouseFlag_LDownEvent) != 0;
     if (clicked) {
-        if ((events & 0x21u) != 0) {
+        if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
             WindowSkill_ShowTechniques(currentWindow, pairIndex);
             WindowRuntime_IncrementOperationCount();
             static_cast<void>(WindowDrag_ResetMouse());
             consumed = 1;
         }
-    } else if ((events & 1u) != 0 && (events & 4u) != 0 && gSkillOperationCount_D67AFD == 0) {
+    } else if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_RDownEvent) != 0 && gSkillOperationCount_D67AFD == 0) {
         static_cast<void>(WindowSkill_StartDrag(pairIndex));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if ((events & 1u) != 0) {
+    if ((events & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"打开这个技能的技能视窗。" /* 原常量参考：0x005864C8。 */;
     }
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
     }
@@ -1153,7 +1153,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
     }
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
-    const bool clicked = (state & 2) != 0;
+    const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
         const std::int32_t skillIndex =
             std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
@@ -1172,7 +1172,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
         }
     }
     const std::uint32_t flags = world::gBattleSkillFlags5ABC04;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         const auto skillIndex = *reinterpret_cast<const std::uint8_t*>(
             &world::gSkillPairsF63370[pairIndex].index);
         visualState = 2;
@@ -1229,7 +1229,7 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, 
         const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
         allowed = cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost);
     }
-    const bool clicked = (state & 2) != 0;
+    const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
         if (allowed) {
             const SkillWindowSelectionCallback callback = gSkillSelectionCallbackCC4230;
@@ -1243,7 +1243,7 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, 
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 1u) != 0) {
+    if ((*reinterpret_cast<const std::uint8_t*>(&state) & MouseFlag_Hover) != 0) {
         record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         visualState = 2;
         gSkillWindowHoverD2F744 = technique;
@@ -1423,7 +1423,7 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
         const std::int32_t cost = world::gPetRuntimeRecords[costPet].techniquesD8[technique].fp;
         const std::int32_t position = world::GetBattlePetPosition_405B40(playerPosition);
         if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
-            && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
+            && (reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
             if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
                 const std::int32_t pet = world::FindBattlePetIndex_43C4B0();
                 const auto selected = std::bit_cast<std::int16_t>(
@@ -1434,16 +1434,16 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-    } else if ((reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
+    } else if ((reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     const std::uint8_t visualFlags = reinterpret_cast<const std::uint8_t*>(&state)[0];
-    if ((visualFlags & 1u) != 0) {
+    if ((visualFlags & MouseFlag_Hover) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
         gHoverTextD68AE8 = L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
     }
-    if ((visualFlags & 2u) != 0) {
+    if ((visualFlags & MouseFlag_LDownEvent) != 0) {
         visualState = 1;
     }
     const WindowInstance* const window = currentWindow;
@@ -1487,7 +1487,7 @@ static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, cons
         const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t cost = record->fp;
         if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
-            && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
+            && (reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
             const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
             if (callback != nullptr) {
                 const auto pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
@@ -1499,16 +1499,16 @@ static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, cons
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-    } else if ((reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
+    } else if ((reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     const std::uint8_t visualFlags = reinterpret_cast<const std::uint8_t*>(&state)[0];
-    if ((visualFlags & 1u) != 0) {
+    if ((visualFlags & MouseFlag_Hover) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
         gHoverTextD68AE8 = L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */;
     }
-    if ((visualFlags & 2u) != 0) {
+    if ((visualFlags & MouseFlag_LDownEvent) != 0) {
         visualState = 1;
     }
     const WindowInstance* const window = currentWindow;
@@ -1663,7 +1663,7 @@ static std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::
     auto* const elementPtr = window->FindElementById(NativeElementKey(index));
     if (!elementPtr) { return 0; }
     const WindowElement* const element = elementPtr;
-    const bool hovered = (state & 1) != 0;
+    const bool hovered = (state & MouseFlag_Hover) != 0;
     auto* const graphic = element->data.graphic;
     std::int32_t consumed = 0;
     if (hovered) {
@@ -1674,7 +1674,7 @@ static std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::
             gHoverTextD68AE8 = L"切换回技能等级视窗。" /* 原常量参考：0x00586470。 */;
         }
     }
-    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 2u) != 0) {
+    if ((*reinterpret_cast<const std::uint8_t*>(&state) & MouseFlag_LDownEvent) != 0) {
         switch (gSkillWindowModeD672AC) {
         case 1:
             WindowSkill_ShowSkillList(window, gSkillWindowIndexD2EA60);
@@ -1698,7 +1698,7 @@ static std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::
     if (hovered) {
         graphic->imageNo = 0x3B573;
     }
-    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 8u) != 0) {
+    if ((*reinterpret_cast<const std::uint8_t*>(&state) & MouseFlag_LHoldPhysical) != 0) {
         graphic->imageNo = 0x3B572;
     }
     return consumed;
@@ -1747,17 +1747,17 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
             return 0;
         }
         const std::uint8_t rebirth = gSkillRebirthModeEnabled_5F9754;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = rebirth != 0
                 ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0;
         }
         std::int32_t consumed = 0;
         if (gGatherOperationCount_D67AFC != 0) {
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-        } else if ((state & 2) != 0) {
+        } else if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
@@ -1772,7 +1772,7 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
         if (hover) {
             graphic->imageNo = 0x3B57C;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B57B;
         }
         if (gGatherOperationCount_D67AFC != 0) {
@@ -1826,12 +1826,12 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
         if (auto* const buttonPetSkillBackElement = currentWindow->FindElementById(WindowSkillElementId::ButtonPetSkillBack); buttonPetSkillBackElement) buttonPetSkillBackElement->visible = 0;
         return 0;
     }
-    const bool hovered = (state & 1) != 0;
+    const bool hovered = (state & MouseFlag_Hover) != 0;
     if (hovered) {
         gHoverTextD68AE8 = L"略过此回合。" /* 原常量参考：0x005865A8。 */;
     }
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
         if (callback != nullptr) {
             callback(-1);
@@ -1844,7 +1844,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
     if (hovered) {
         if (graphic) graphic->imageNo = 0x3BE80;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3BE7F;
     }
     return consumed;
@@ -2093,7 +2093,7 @@ static std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, cons
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         if (gSkillWindowScrollD2D648 > 0) {
             --gSkillWindowScrollD2D648;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2110,10 +2110,10 @@ static std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, cons
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B592;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B594;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B593;
     }
     return consumed;
@@ -2127,7 +2127,7 @@ static std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const st
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         const std::int32_t position = gSkillWindowScrollD2D648;
         const std::int32_t maximum = gSkillWindowMaximumCA000C;
         if (position < maximum) {
@@ -2146,10 +2146,10 @@ static std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const st
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B595;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B597;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B596;
     }
     return consumed;
@@ -2163,7 +2163,7 @@ static std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, con
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gSkillWindowScrollD2D648 > 0 ? 51 : 55, 320));
         gSkillWindowScrollD2D648 -= 10;
         if (gSkillWindowScrollD2D648 < 0) {
@@ -2179,10 +2179,10 @@ static std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, con
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B556;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B558;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B557;
     }
     return consumed;
@@ -2196,7 +2196,7 @@ static std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const s
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t initialMaximum = gSkillWindowMaximumCA000C;
         const bool canAdvance = initialMaximum > 0 && gSkillWindowScrollD2D648 < initialMaximum;
         static_cast<void>(audio::PlaySe_52C450(canAdvance ? 51 : 55, 320));
@@ -2215,10 +2215,10 @@ static std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const s
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B559;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B55B;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B55A;
     }
     return consumed;
@@ -2229,7 +2229,7 @@ static std::int32_t WindowSkill_Scroll(const std::int32_t, const std::int32_t st
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t maximum = gSkillWindowMaximumCA000C;
         const std::int32_t position = gSkillWindowScrollD2D648;
@@ -2289,7 +2289,7 @@ static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std
         return 0;
     }
     std::int8_t visualState = 0;
-    const bool clicked = (state & 2) != 0;
+    const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
         bool allowed = (world::ReadPlayerActionFlags() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0;
@@ -2312,7 +2312,7 @@ static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std
         }
         static_cast<void>(audio::PlaySe_52C450(allowed ? 51 : 55, 320));
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = recipe;
         gHoverTextD68AE8 = L"制作此配方内容的物品。" /* 原常量参考：0x00586530。 */;
@@ -2349,7 +2349,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
     }
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = record->techniques3C[technique].value8C != 0 ? L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */ : L"无法使用此一等级的技能。" /* 原常量参考：0x005864FC。 */;
         if (record->canRebirth >= 3 && record->canRebirth <= 4) {
             const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
@@ -2360,7 +2360,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
         visualState = 2;
         gSkillWindowHoverD2F744 = technique;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         if (record->techniques3C[technique].value8C == 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));

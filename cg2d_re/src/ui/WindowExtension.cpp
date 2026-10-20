@@ -89,12 +89,12 @@ int WindowExtension::update(int, int hasFocused) {
     WindowRuntime_UpdateElementOrder(window);
     const int captured = WindowRuntime_ProcessComponents(window, hasFocused);
     if (!(window.state & WIN_STATE_CLOSE) && (window.state & WIN_STATE_ACTIVE)
-        && dragMove == 1 && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN) && !WindowRuntime_PointerDragBlocksMouse()) {
+        && dragMove == 1 && (gMouseBtnDown2 & platform::LegacyMouseButton_Left) && !WindowRuntime_PointerDragBlocksMouse()) {
         if (dragMoving && dragOwner == window.id) {
             window.x += gMouseX - dragMoveLastX; window.y += gMouseY - dragMoveLastY;
             dragMoveLastX = gMouseX; dragMoveLastY = gMouseY;
         } else if (dragMoving) dragMoving = false;
-        else if (hasFocused && !captured && dragOwner == -1 && (gMouseClickState & CG_MBTN_LEFTDOWN)) {
+        else if (hasFocused && !captured && dragOwner == -1 && (gMouseClickState & platform::LegacyMouseEdge_LDown)) {
             dragOwner = window.id; dragMoving = true;
             dragMoveLastX = gMouseX; dragMoveLastY = gMouseY;
         }

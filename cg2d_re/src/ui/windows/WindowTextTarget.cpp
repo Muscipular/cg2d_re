@@ -233,7 +233,7 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index,
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             if (gTextChoiceOffsetD2D9C0 > 0) {
                 --gTextChoiceOffsetD2D9C0;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -251,10 +251,10 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index,
             consumed = 1;
         }
         graphic->imageNo = 243090;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243092;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243091;
         }
         return consumed;
@@ -271,7 +271,7 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             if (gTextChoiceOffsetD2D9C0 < gTextChoiceCountCC4CE4 - 5) {
                 ++gTextChoiceOffsetD2D9C0;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -288,10 +288,10 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, con
             consumed = 1;
         }
         graphic->imageNo = 243093;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243095;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243094;
         }
         return consumed;
@@ -308,7 +308,7 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(audio::PlaySe_52C450(gTextChoiceOffsetD2D9C0 > 0 ? 51 : 55, 320));
             gTextChoiceOffsetD2D9C0 -= 5;
             if (gTextChoiceOffsetD2D9C0 < 0) {
@@ -324,10 +324,10 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index
             consumed = 1;
         }
         graphic->imageNo = 243030;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243032;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243031;
         }
         return consumed;
@@ -344,7 +344,7 @@ static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, co
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t oldMaximum = gTextChoiceCountCC4CE4 - 5;
             static_cast<void>(audio::PlaySe_52C450(
                 oldMaximum > 0 && gTextChoiceOffsetD2D9C0 < oldMaximum ? 51 : 55, 320));
@@ -367,10 +367,10 @@ static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, co
             consumed = 1;
         }
         graphic->imageNo = 243033;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243035;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243034;
         }
         return consumed;
@@ -383,7 +383,7 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = gTextChoiceCountCC4CE4;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
@@ -405,10 +405,10 @@ static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, cons
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"关闭此视窗";
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (gTextChoiceEnabledCA0008 != 0) {
                 const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
                 if (callback != nullptr) {
@@ -422,10 +422,10 @@ static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, cons
             consumed = 1;
         }
         graphic->imageNo = 243042;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243044;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243043;
         }
         return consumed;
@@ -443,14 +443,14 @@ static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const s
     if (index - 14 >= gTextChoiceCountCC4CE4) {
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
         }
         gHoverTextD68AE8 = L"选择此人物。";
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (gTextChoiceEnabledCA0008 != 0) {
             const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
             if (callback != nullptr) {

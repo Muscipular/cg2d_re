@@ -1480,12 +1480,12 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = L"学习此技能。";
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (gWindow54ModeC8AF64 == 0) {
                 std::wstring escaped;
                 escaped = input::EscapeTextAndNotify(L"1", 15);
@@ -1506,7 +1506,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
         if (hover) {
             graphic->imageNo = 243050;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243049;
         }
         return consumed;
@@ -1523,7 +1523,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
-    const bool hover = (state & 1) != 0;
+    const bool hover = (state & MouseFlag_Hover) != 0;
     if (hover) {
         switch (mode) {
         case 0:
@@ -1542,7 +1542,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
         }
     }
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         switch (mode) {
         case 0: {
             std::wstring escaped;
@@ -1610,7 +1610,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
         if (hover) {
             if (graphic) graphic->imageNo = 245322;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             if (graphic) graphic->imageNo = 245321;
         }
         break;
@@ -1621,7 +1621,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
         if (hover) {
             if (graphic) graphic->imageNo = 245334;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             if (graphic) graphic->imageNo = 245333;
         }
         break;
@@ -1639,7 +1639,7 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
         case 0:
         case 1: {
@@ -1712,10 +1712,10 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243090;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243092;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243091;
     }
     return consumed;
@@ -1729,7 +1729,7 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
         case 0:
         case 1: {
@@ -1806,10 +1806,10 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243093;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243095;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243094;
     }
     return consumed;
@@ -1823,7 +1823,7 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
         case 0:
         case 1: {
@@ -1890,10 +1890,10 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243030;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243032;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243031;
     }
     return consumed;
@@ -1907,7 +1907,7 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
         case 0:
         case 1: {
@@ -1998,10 +1998,10 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243033;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243035;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243034;
     }
     return consumed;
@@ -2012,7 +2012,7 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
         case 0:
         case 1: {
@@ -2075,12 +2075,12 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
             graphic->imageNo = 243104;
             return 0;
         }
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = L"遗忘此技能。";
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             std::wstring text;
             std::wstring escaped;
             cg::text::FormatTo(text, L"{}", selected + 1);
@@ -2101,7 +2101,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
         if (hover) {
             graphic->imageNo = 243105;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243104;
         }
         return consumed;
@@ -2137,7 +2137,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
             graphic->imageNo = 243101;
             return 0;
         }
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         const std::int32_t requiredTribe = gWindow54TribeCA0B2C;
         if (requiredTribe >= 0 && option.tribe != requiredTribe) {
             if (hover) {
@@ -2154,7 +2154,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
             gHoverTextD68AE8 = L"让宠物学习此技能。";
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             gWindow54PetChoiceC8AA90 = selected;
             std::wstring text;
             std::wstring escaped;
@@ -2176,7 +2176,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
         if (hover) {
             graphic->imageNo = 243102;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243101;
         }
         return consumed;
@@ -2190,7 +2190,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    const bool hover = (state & 1) != 0;
+    const bool hover = (state & MouseFlag_Hover) != 0;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const std::int32_t slot = gWindow54PetScrollCC31DC + index - 69;
@@ -2198,7 +2198,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
         gHoverTextD68AE8 = L"把要学习的技能放在这一栏。";
     }
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         gWindow54ReplacementC8B08C = slot;
         if (auto* const handleConfirmationElement = window->FindElementById(WindowPetSkillChoiceElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 1;
         currentWindow->state |= 2u;
@@ -2209,7 +2209,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
     if (hover) {
         if (graphic) graphic->imageNo = 243129;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243128;
     }
     return consumed;
@@ -2225,7 +2225,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
     if (record.name[0] == '\0') {
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         WindowInstance* const window = currentWindow;
         const std::int32_t hoverImage = cg::render::gHoverFramePaletteIndex_D69768;
         auto* const elementPtr = window->FindElementById(NativeElementKey(index));
@@ -2244,7 +2244,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
         gWindow54HoverD2DAD8 = selected;
         gHoverTextD68AE8 = L"把此技能让宠物学习。";
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
@@ -2322,7 +2322,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
         acceptImage = 245325;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
-        if ((buttons & 1u) != 0) {
+        if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             std::wstring requestText;
             cg::text::FormatTo(requestText, L"{}", gWindow54ReplacementC8B08C);
@@ -2346,7 +2346,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
         gHoverTextD68AE8 = gConfirmationCancelHintD45D70;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
-        if ((buttons & 1u) != 0) {
+        if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             cancelImage = 245327;
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;

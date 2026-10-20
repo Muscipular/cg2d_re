@@ -216,10 +216,10 @@ static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, con
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 1) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
+    if ((state & MouseFlag_Hover) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
         gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     WindowInstance* const window = currentWindow;
@@ -256,7 +256,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = index == 0 ? 243002 : 244547;
                 const wchar_t* const hint = index == 0
                     ? L"关闭这个视窗。"
@@ -267,7 +267,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
                 graphic->imageNo = index == 0 ? 243001 : 244545;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowMessageBoard_Close());
         }
         return consumed;
@@ -279,7 +279,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 36818;
                 gHoverTextD68AE8 = L"删除此讯息。";
                 consumed = 1;
@@ -287,7 +287,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
                 graphic->imageNo = 36816;
             }
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
         cg::text::FormatTo(text, L"{}", (index - 5) / 7);
@@ -307,7 +307,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         auto* const handleButtons_31Element = currentWindow->FindElementById(WindowMessageBoardElementId::HandleButtons_31);
         if (handleButtons_31Element) {
             auto* const graphic = handleButtons_31Element->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 244544;
                 gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
                 consumed = 1;
@@ -315,7 +315,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
                 graphic->imageNo = 244542;
             }
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
         input::InputContext* const context = gWindow50InputPrototype580618.input.context;
@@ -342,7 +342,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             const std::int32_t baseImage = index == 32 ? 243033 : 243030;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = baseImage + 2;
                 const wchar_t* const hint = index == 32
                     ? L"切换至下一页视窗。"
@@ -352,7 +352,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             } else {
                 graphic->imageNo = baseImage;
             }
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 const std::int32_t target = world::gDialogTargetD2DE6C;
                 const std::int32_t request = world::gDialogRequestCC21E0;
                 escaped.clear();
@@ -365,7 +365,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
                 static_cast<void>(WindowMessageBoard_Close());
                 consumed = 1;
             }
-            if ((state & 8) != 0) {
+            if ((state & MouseFlag_LHoldPhysical) != 0) {
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = baseImage + 1;
             }
         }

@@ -449,11 +449,11 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(const std::int32_t index, c
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if (graphic) graphic->imageNo = 0x3B8BE;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B8C0;
         gHoverTextD68AE8 = L"登出伺服器。" /* 原常量参考：0x00586DE8。 */;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleSideAreaElement = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea);
         if (handleSideAreaElement) {
             const std::int32_t visible = handleSideAreaElement->visible;
@@ -491,11 +491,11 @@ static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, co
     auto* graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if (graphic) graphic->imageNo = 0x3B8C1;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B8C3;
         gHoverTextD68AE8 = L"设定滑鼠与键盘的操作方式。" /* 原常量参考：0x00586DF8。 */;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleSideArea_29Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29);
         if (handleSideArea_29Element) {
             const std::int32_t visible = handleSideArea_29Element->visible;
@@ -549,11 +549,11 @@ static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, co
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if (graphic) graphic->imageNo = 0x3B8C4;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B8C6;
         gHoverTextD68AE8 = L"设定音乐音效。" /* 原常量参考：0x00586E14。 */;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleSideArea_30Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30);
         if (handleSideArea_30Element) {
             const std::int32_t visible = handleSideArea_30Element->visible;
@@ -610,11 +610,11 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, 
     auto* graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if (graphic) graphic->imageNo = 0x3B8C7;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B8C9;
         gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const handleSideArea_31Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31);
         if (handleSideArea_31Element) {
             const std::int32_t visible = handleSideArea_31Element->visible;
@@ -659,18 +659,18 @@ static std::int32_t WindowSettings_ButtonClose(const std::int32_t index, const s
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = kSettingsClose55331C;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
             consumed = 1;
         }
         graphic->imageNo = 0x3B538;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B53A;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B539;
         }
         return consumed;
@@ -688,11 +688,11 @@ static std::int32_t WindowSettings_ButtonHotkeys(const std::int32_t index, const
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         graphic->imageNo = 0x3B8CA;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B8CC;
             gHoverTextD68AE8 = L"开启热键一览表。" /* 原常量参考：0x00586E34。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             WindowInstance* const hotkeys = gWindowStates[WindowId_Hotkeys].window;
             if (hotkeys != nullptr) {
                 hotkeys->state |= 0x8000u;
@@ -720,11 +720,11 @@ static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"登出并回到城内登入点。" /* 原常量参考：0x00586E48。 */;
             window = currentWindow;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             static_cast<void>(network::RequestLogoutToTown_512CF0(platform::gConnectionSocket));
             if (world::gCurrentSceneType == 10) {
@@ -735,10 +735,10 @@ static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const 
             world::gLogoutToTownPending_D67E78 = 1;
         }
         graphic->imageNo = 0x3B8D1;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B8D3;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B8D2;
         }
         return consumed;
@@ -756,12 +756,12 @@ static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B8D6;
             gHoverTextD68AE8 = L"登出后回到伺服器选择画面。" /* 原常量参考：0x00586E60。 */;
             window = currentWindow;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             if (world::gCurrentSceneType == 10) {
                 world::gCurrentSceneState = 9;
@@ -773,10 +773,10 @@ static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, 
             consumed = 1;
         }
         graphic->imageNo = 0x3B8D4;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B8D6;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B8D5;
         }
         return consumed;
@@ -794,10 +794,10 @@ static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"变更物品堆叠视窗的开启方式。" /* 原常量参考：0x00586E7C。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             platform::gInvertItemSplitModifier_D67AE8 = (platform::gInvertItemSplitModifier_D67AE8 - 1u) & 1u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -805,12 +805,12 @@ static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, 
         }
         if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
             graphic->imageNo = 0x3B8DB;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8DD;
             }
         } else {
             graphic->imageNo = 0x3B8DE;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8E0;
             }
         }
@@ -829,10 +829,10 @@ static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"变更滑鼠游标种类。" /* 原常量参考：0x00586E9C。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             platform::gNativeCursorEnabled_D67AE4 = platform::gNativeCursorEnabled_D67AE4 == 0 ? 1u : 0u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -840,7 +840,7 @@ static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const 
         }
         if (platform::gNativeCursorEnabled_D67AE4 != 0) {
             graphic->imageNo = 0x3B8E1;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8E3;
             }
             const std::int32_t y = (platform::gLegacyMouseState.mouseY + 16);
@@ -848,7 +848,7 @@ static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const 
             static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
         } else {
             graphic->imageNo = 0x3B8E4;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8E6;
             }
         }
@@ -867,10 +867,10 @@ static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"变更快速键的型态。" /* 原常量参考：0x00586EB0。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             const std::int32_t mode = gHotkeyLayoutMode_CF4AAC + 1;
             gHotkeyLayoutMode_CF4AAC = mode;
@@ -881,7 +881,7 @@ static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, con
             consumed = 1;
         }
         graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC];
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC + 2];
         }
         return consumed;
@@ -898,12 +898,12 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index,
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = platform::gMusicVolume <= 0
             ? L"无法再降低背景音乐的音量。" /* 原常量参考：0x00586EC4。 */ : L"降低背景音乐的音量。" /* 原常量参考：0x00586EE0。 */;
         gHoverTextD68AE8 = hint;
     }
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         window->state |= 0x2000u;
         const std::int32_t volume = platform::gMusicVolume;
         if (volume <= 0) {
@@ -920,10 +920,10 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index,
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B556;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B558;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B557;
     }
     return consumed;
@@ -938,12 +938,12 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index,
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = platform::gMusicVolume >= 15
             ? L"无法再提高背景音乐的音量。" /* 原常量参考：0x00586EF8。 */ : L"提高背景音乐的音量。" /* 原常量参考：0x00586F14。 */;
         gHoverTextD68AE8 = hint;
     }
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         window->state |= 0x2000u;
         const std::int32_t volume = platform::gMusicVolume;
         if (volume >= 15) {
@@ -960,10 +960,10 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index,
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B559;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B55B;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B55A;
     }
     return consumed;
@@ -978,12 +978,12 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index,
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = platform::gEffectVolume <= 0
             ? L"无法再降低效果音量。" /* 原常量参考：0x00586F2C。 */ : L"降低效果音量。" /* 原常量参考：0x00586F44。 */;
         gHoverTextD68AE8 = hint;
     }
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         window->state |= 0x2000u;
         const std::int32_t volume = platform::gEffectVolume;
         if (volume <= 0) {
@@ -1000,10 +1000,10 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index,
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B556;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B558;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B557;
     }
     return consumed;
@@ -1018,12 +1018,12 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index,
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         const wchar_t* const hint = platform::gEffectVolume >= 15
             ? L"无法再提高效果音量。" /* 原常量参考：0x00586F54。 */ : L"提高效果音量。" /* 原常量参考：0x00586F6C。 */;
         gHoverTextD68AE8 = hint;
     }
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         window->state |= 0x2000u;
         const std::int32_t volume = platform::gEffectVolume;
         if (volume >= 15) {
@@ -1040,10 +1040,10 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index,
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 0x3B559;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B55B;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3B55A;
     }
     return consumed;
@@ -1059,10 +1059,10 @@ static std::int32_t WindowSettings_ToggleChannels(const std::int32_t index, cons
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             platform::gUseStereo = static_cast<std::int32_t>(
                 (static_cast<std::uint32_t>(platform::gUseStereo) - 1u) & 1u);
@@ -1071,12 +1071,12 @@ static std::int32_t WindowSettings_ToggleChannels(const std::int32_t index, cons
         }
         if (platform::gUseStereo != 0) {
             graphic->imageNo = 0x3B8EF;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8F1;
             }
         } else {
             graphic->imageNo = 0x3B8F2;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8F4;
             }
         }
@@ -1095,10 +1095,10 @@ static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             platform::gChatNotificationSoundEnabled_554644 = static_cast<std::int32_t>(
                 (static_cast<std::uint32_t>(platform::gChatNotificationSoundEnabled_554644) - 1u) & 1u);
@@ -1107,12 +1107,12 @@ static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, con
         }
         if (platform::gChatNotificationSoundEnabled_554644 != 0) {
             graphic->imageNo = 0x3BE7B;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3BE7D;
             }
         } else {
             graphic->imageNo = 0x3BE78;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3BE7A;
             }
         }
@@ -1131,10 +1131,10 @@ static std::int32_t WindowSettings_ToggleScanlines(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
             platform::gScanlineSyncMode = static_cast<std::uint16_t>(
                 (static_cast<std::uint8_t>(platform::gScanlineSyncMode) - 1) & 1);
@@ -1143,12 +1143,12 @@ static std::int32_t WindowSettings_ToggleScanlines(const std::int32_t index, con
         }
         if (platform::gScanlineSyncMode != 0) {
             graphic->imageNo = 0x3B8FC;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8FE;
             }
         } else {
             graphic->imageNo = 0x3B8F9;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B8FB;
             }
         }
@@ -1165,7 +1165,7 @@ static std::int32_t WindowSettings_DrawRenderModeButton(const std::int32_t index
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"目前的描绘功能。" /* 原常量参考：0x00586F90。 */;
         }
         graphic->imageNo = 0x3B5A0 + 3 * index;

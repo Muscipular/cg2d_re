@@ -392,10 +392,10 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
     default:
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"请输入描述";
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     WindowInstance* const window = currentWindow;

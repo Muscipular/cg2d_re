@@ -42,9 +42,9 @@ static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t ev
     auto* const element = currentWindow->FindElementById(NativeElementKey(index));
     if (!element) return 0;
     auto* const graphic = element->data.graphic;
-    graphic->imageNo = (events & 1) ? 0x3B53D : 0x3B53B;
-    if (events & 1) gHoverTextD68AE8 = L"打开大地图";
-    if (events & 2) WindowBigMap_Open();
+    graphic->imageNo = (events & MouseFlag_Hover) ? 0x3B53D : 0x3B53B;
+    if (events & MouseFlag_Hover) gHoverTextD68AE8 = L"打开大地图";
+    if (events & MouseFlag_LDownEvent) WindowBigMap_Open();
     return events != 0;
 }
 

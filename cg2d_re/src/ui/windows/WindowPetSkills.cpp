@@ -452,14 +452,14 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
     };
     switch (index) {
     case 5:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B570);
             gHoverTextD68AE8 = kPetRenameHint586D38;
             consumed = 1;
         } else {
             setImage(0x3B56E);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -480,19 +480,19 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B56F);
         }
         return consumed;
     case 6:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAF9);
             gHoverTextD68AE8 = kPetPlaceHint586C14;
             consumed = 1;
         } else {
             setImage(0x3BAF7);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].used != 0
                 && (world::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::IsObservationSceneTransitionActive_440B50() == 0) {
@@ -509,13 +509,13 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3BAF8);
         }
         return consumed;
     case 7:
     case 8: {
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(index == 7 ? 0x3B558 : 0x3B55B);
             gHoverTextD68AE8 = kPetSelectHint586D2C;
             consumed = 1;
@@ -523,9 +523,9 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             setImage(index == 7 ? 0x3B556 : 0x3B559);
         }
         // 下一只按钮即使未点击也检查>=5；上一只只在点击后取选择。
-        if (index == 8 || (state & 2) != 0) {
+        if (index == 8 || (state & MouseFlag_LDownEvent) != 0) {
             std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-            if ((state & 2) != 0 || position >= 5) {
+            if ((state & MouseFlag_LDownEvent) != 0 || position >= 5) {
                 for (std::int32_t attempt = 0; attempt < 6; ++attempt) {
                     if (index == 7) {
                         --position;
@@ -562,19 +562,19 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
                 consumed = 1;
             }
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(index == 7 ? 0x3B557 : 0x3B55A);
         }
         return consumed;
     }
     case 9:
     case 10:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(index == 9 ? 0x3B594 : 0x3B597);
         } else {
             setImage(index == 9 ? 0x3B592 : 0x3B595);
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const auto selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
             const std::int32_t slotCount = std::clamp(world::gPetRuntimeRecords[selected].value6A4, 0, world::kPetTechniqueSlotCount);
             const std::int32_t position = std::clamp(gPetTechniqueScroll + (index == 9 ? -1 : 1), 0, std::max(0, slotCount - 10));
@@ -600,7 +600,7 @@ static void WindowPetSkills_HandleDrag(const std::int32_t mode, const std::int32
         }
         return;
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
@@ -625,15 +625,15 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 11) {
-        events &= ~0x60u;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 11) {
+        events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
     }
     if (index == 37) {
         for (std::int32_t line = 0; line < 4; ++line) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(33 + line)); indexedElement) indexedElement->visible = 0;
         }
     }
-    const bool hover = (events & 1u) != 0;
+    const bool hover = (events & MouseFlag_Hover) != 0;
     if (hover) {
         for (std::int32_t line = 0; line < 4; ++line) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(33 + line)); indexedElement) indexedElement->visible = 1;
@@ -655,7 +655,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
             }
         }
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
         gLoginWindowRuntime.petTechniqueValueD2F784 = gPetTechniqueScroll + index - 37;
@@ -670,7 +670,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
     }
     auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 24));
     if (indexedElement) {
-        if ((events & 4u) != 0 && hover && indexedElement->visible != 0) {
+        if ((events & MouseFlag_RDownEvent) != 0 && hover && indexedElement->visible != 0) {
             static_cast<void>(WindowPetSkills_StartDrag(gPetTechniqueScroll + index - 37));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }

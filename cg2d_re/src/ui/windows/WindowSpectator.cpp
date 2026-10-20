@@ -36,7 +36,7 @@ static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const st
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         WindowInstance* const window = currentWindow;
         const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
         auto* elementsWindow = window;
@@ -65,7 +65,7 @@ static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const st
         }
         gHoverTextD68AE8 = L"结束观战。";
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));

@@ -15,12 +15,12 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hover) {
             gHoverTextD68AE8 = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t target = world::gDialogTargetD2DE6C;
             const std::int32_t request = world::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -37,7 +37,7 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
         if (hover) {
             graphic->imageNo = 245322;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 245321;
         }
         return consumed;
@@ -54,10 +54,10 @@ std::int32_t WindowCrystalTrade_DrawButton(const std::int32_t index, const std::
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 243203;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243205;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243204;
         }
     }

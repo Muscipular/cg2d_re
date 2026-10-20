@@ -179,7 +179,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         switch (gProfileCategory1085DA0) {
         case 0: gHoverTextD68AE8 = L"设定贩卖的目录" /* 原常量参考：0x005884F4。 */; break;
         case 1: gHoverTextD68AE8 = L"设定购买的目录" /* 原常量参考：0x00588504。 */; break;
@@ -201,7 +201,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB03;
         }
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return consumed;
     }
 
@@ -233,17 +233,17 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
     };
     switch (index) {
     case 3: {
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B594);
             consumed = 1;
         } else {
             setImage(0x3B592);
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B593);
             consumed = 1;
         }
-        if ((state & 0x400) == 0) {
+        if ((state & MouseFlag_LRepeatDown) == 0) {
             return consumed;
         }
         const std::int32_t page = gProfileScrollCA0444 - 1;
@@ -274,17 +274,17 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
         return 1;
     }
     case 4: {
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B597);
             consumed = 1;
         } else {
             setImage(0x3B595);
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B596);
             consumed = 1;
         }
-        if ((state & 0x400) == 0) {
+        if ((state & MouseFlag_LRepeatDown) == 0) {
             return consumed;
         }
         const std::int32_t mode = gProfileCategory1085DA0;
@@ -313,8 +313,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
         return 1;
     }
     case 6:
-        setImage((state & 1) != 0 ? 0x3B558 : 0x3B556);
-        if ((state & 2) != 0) {
+        setImage((state & MouseFlag_Hover) != 0 ? 0x3B558 : 0x3B556);
+        if ((state & MouseFlag_LDownEvent) != 0) {
             std::int32_t page = gProfileScrollCA0444 - 10;
             gProfileScrollCA0444 = page;
             if (page < 0) {
@@ -335,13 +335,13 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B557);
         }
         return consumed;
     case 7:
-        setImage((state & 1) != 0 ? 0x3B55B : 0x3B559);
-        if ((state & 2) != 0) {
+        setImage((state & MouseFlag_Hover) != 0 ? 0x3B55B : 0x3B559);
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t mode = gProfileCategory1085DA0;
             if (mode >= 0 && mode <= 2) {
                 const std::int32_t count = mode == 2
@@ -365,7 +365,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B55A);
         }
         return consumed;
@@ -402,7 +402,7 @@ static std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const st
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t mode = gProfileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);

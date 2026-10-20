@@ -248,10 +248,10 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index,
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"关闭此视窗";
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (gStatusChoiceEnabledC9A970 != 0) {
                 const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
                 if (callback != nullptr) {
@@ -265,10 +265,10 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index,
             consumed = 1;
         }
         graphic->imageNo = 245320;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 245322;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 245321;
         }
         return consumed;
@@ -285,10 +285,10 @@ static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, c
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"回到前一页视窗。";
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (gStatusChoiceEnabledC9A970 != 0) {
                 const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
                 if (callback != nullptr) {
@@ -302,10 +302,10 @@ static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, c
             consumed = 1;
         }
         graphic->imageNo = 245332;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 245334;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 245333;
         }
         return consumed;
@@ -322,14 +322,14 @@ static std::int32_t WindowAttributeTarget_SelectRow(const std::int32_t index, co
     if (index - 16 >= gStatusChoiceCountCC2364) {
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
         }
         gHoverTextD68AE8 = L"选择此人物。";
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (gStatusChoiceEnabledC9A970 != 0) {
             const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
             if (callback != nullptr) {

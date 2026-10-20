@@ -462,7 +462,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
         hint = L"快速切换至前10页视窗。" /* 原常量参考：0x00586D88。 */;
         break;
     case 80:
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t direction = gLoginWindowRuntime.valueCF4A00 + 1;
             gLoginWindowRuntime.valueCF4A00 = direction;
             if (direction > 7) {
@@ -470,7 +470,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((state & 0x800) != 0) {
+        if ((state & MouseFlag_RRepeatDown) != 0) {
             const std::int32_t direction = gLoginWindowRuntime.valueCF4A00 - 1;
             gLoginWindowRuntime.valueCF4A00 = direction;
             if (direction < 0) {
@@ -483,14 +483,14 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
         return 0;
     }
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = hint;
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 2;
         consumed = 1;
     } else {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle;
     }
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         const std::int32_t selected = gLoginWindowRuntime.valueCB2200 + delta;
         gLoginWindowRuntime.valueCB2200 = selected;
         if (delta < 0) {
@@ -503,7 +503,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 1;
     }
     return consumed;

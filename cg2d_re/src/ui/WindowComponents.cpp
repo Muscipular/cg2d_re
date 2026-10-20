@@ -69,7 +69,7 @@ bool WindowRuntime_PointerDragBlocksMouse() { return pointerDragReserved; }
 
 bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& element, int events) {
     if (pointerDragReserved || element.refDrag < 0 || !(events & MouseFlag_LDownEvent)
-        || !(gMouseBtnDown2 & CG_MBTN_LEFTDOWN) || WindowDrag_ReadMousePhase() != 0
+        || !(gMouseBtnDown2 & platform::LegacyMouseButton_Left) || WindowDrag_ReadMousePhase() != 0
         || platform::gWindowActiveState != 2) return false;
     pointerDrag.windowId = window.id;
     pointerDrag.generation = window.generation;
@@ -102,8 +102,8 @@ int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     WindowInstance* owner = nullptr;
     auto* element = ResolvePointerDrag(owner);
     if (!element || WindowDrag_ReadMousePhase() != 0) { CancelPointerDrag(); return 1; }
-    const bool released = (gMouseClickState & 4u) != 0;
-    const bool held = (gMouseBtnDown2 & CG_MBTN_LEFTDOWN) != 0;
+    const bool released = (gMouseClickState & platform::LegacyMouseEdge_LUp) != 0;
+    const bool held = (gMouseBtnDown2 & platform::LegacyMouseButton_Left) != 0;
     if (!held && !released) { CancelPointerDrag(); return 1; }
     const int x = released ? static_cast<int>(platform::gLegacyMouseState.buttonCoordinates[2]) : static_cast<int>(gMouseX);
     const int y = released ? static_cast<int>(platform::gLegacyMouseState.buttonCoordinates[3]) : static_cast<int>(gMouseY);
@@ -113,7 +113,7 @@ int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     if (element->component) element->component->mouseState = UIControl::MOUSE_PRESS;
     if (pointerDrag.startedThisFrame && !moved && !released) return 1; // 按下本身已派发onPress。
     if (released) platform::ResetLegacyMousePosition_506890(x, y);
-    int flags = held && !released ? MouseFlag_LHoldPhysical : 0;
+    int flags = held && !released ? MouseFlag_LHoldPhysical : MouseFlag_None;
     if (moved) flags |= MouseFlag_Dragging;
     if (flags) EmitPointerDrag(window, *element, flags);
     // 回调可隐藏、清空、关闭或取消onDrag；重新解析，不持有旧元素地址。

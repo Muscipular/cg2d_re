@@ -154,7 +154,7 @@ static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::in
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const handleInputElement = window->FindElementById(WindowMiniMailElementId::HandleInput);
         if (handleInputElement) {
@@ -194,7 +194,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     if (sendElement) {
         auto* const graphic = sendElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 244253;
             std::wstring hint;
             cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
@@ -203,7 +203,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
         } else {
             graphic->imageNo = 244251;
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
         if (cg::ui::detail::gInputContextCA0180.empty()) {

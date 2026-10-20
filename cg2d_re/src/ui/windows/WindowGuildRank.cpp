@@ -166,12 +166,12 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"选择此称号。" /* 原常量参考：0x005876F4。 */;
         consumed = 1;
     }
     const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         gLoginWindowRuntime.mailRankCF4A14 = scroll + index - 19;
         consumed = 1;
     }
@@ -193,20 +193,20 @@ static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const 
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = kSettingsClose55331C;
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B562;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B564;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B563;
         }
         return consumed;
@@ -223,14 +223,14 @@ static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B570;
             gHoverTextD68AE8 = L"设定已选择的称号。" /* 原常量参考：0x00587704。 */;
             consumed = 1;
         } else {
             graphic->imageNo = 0x3B56E;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t rank = gLoginWindowRuntime.mailRankCF4A14;
             const std::int32_t key = gLoginWindowRuntime.mailMemberKeyD45F88;
             const std::uintptr_t socket = platform::gConnectionSocket;
@@ -254,10 +254,10 @@ static std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index
     }
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    const bool hover = (state & 1) != 0;
+    const bool hover = (state & MouseFlag_Hover) != 0;
     const std::int32_t idle = index == 15 ? 0x3B592 : 0x3B595;
     if (graphic) graphic->imageNo = hover ? idle + 2 : idle;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         std::int32_t position;
         if (index == 15) {
@@ -314,7 +314,7 @@ static std::int32_t WindowGuildRank_Scroll(const std::int32_t, const std::int32_
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         if (wheel != 0) {
             WindowInstance* const window = currentWindow;

@@ -53,17 +53,11 @@ inline constexpr int WIN_NORMAL_END = 100, WIN_LUA_START = 101;
 inline constexpr int WIN_AUTOBATTLE = 80, WIN_AUTOBATTLE_SIMPLE = 81;
 inline constexpr int WIN_STATE_ACTIVE = 2, WIN_STATE_CLOSE = 0x8000, WIN_STATE_FOCUS = 0x2000;
 inline constexpr int SCENE_NORMAL = 9, SCENE_BATTLE = 10;
-inline constexpr int CG_MBTN_LEFTDOWN = 1, KSF_TRIGGER = 0x10;
+inline constexpr int CG_MBTN_LEFTDOWN = platform::LegacyMouseButton_Left; // 兼容脚本侧既有按钮位引用。
+inline constexpr int KSF_TRIGGER = 0x10;
 inline constexpr int KEY_UP_EDGE = 1, KEY_DOWN = 2, KEY_DOWN_EDGE = 4, KEY_DOWN_LATCH = 8, KEY_DOWN_MESSAGE = 16;
 inline constexpr int MES_CAPTURED = 212, MES_CAPTURE_THRESHOLD = 212;
 inline constexpr int MCS_CALLBACK_A_ACTIVE = 1, MCS_CALLBACK_A_ENDING = 2, MCS_CALLBACK_B_ACTIVE = 4, MCS_CALLBACK_B_ENDING = 6;
-enum MouseFlags : std::uint32_t {
-    MouseFlag_None = 0, MouseFlag_Hover = 1, MouseFlag_LDownEvent = 2,
-    MouseFlag_RDownEvent = 4, MouseFlag_LHoldPhysical = 8, MouseFlag_RHoldPhysical = 16,
-    MouseFlag_Dragging = 32, MouseFlag_DragFinish = 64, MouseFlag_Leave = 128,
-    MouseFlag_LDblClickEvent = 256, MouseFlag_RDblClickEvent = 512,
-    MouseFlag_LRepeatDown = 1024, MouseFlag_RRepeatDown = 2048,
-};
 inline auto& gMouseX = platform::gLegacyMouseState.mouseX;
 inline auto& gMouseY = platform::gLegacyMouseState.mouseY;
 inline auto& gMouseBtnDown2 = platform::gLegacyMouseState.heldButtons;

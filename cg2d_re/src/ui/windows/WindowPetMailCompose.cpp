@@ -163,11 +163,11 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
     if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
-        events &= ~0x60u;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+        events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8 && (static_cast<std::uint8_t>(world::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
@@ -178,14 +178,14 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
             auto count = occupancy[source];
             gLoginWindowRuntime.prefixD2F0B8.value0C = source;
             ++count;
-            events &= ~0x40u;
+            events &= ~MouseFlag_DragFinish;
             occupancy[source] = count;
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
         WindowDrag_Reset();
     }
-    if ((events & 2u) != 0) {
+    if ((events & MouseFlag_LDownEvent) != 0) {
         const std::int32_t selected = gLoginWindowRuntime.prefixD2F0B8.value0C;
         if (selected >= 0) {
             static_cast<void>(WindowItemDrag_Start(selected, 1));
@@ -202,7 +202,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
     if (WindowDrag_ReadKind() == 2) {
         static_cast<void>(WindowDrag_ReadSourceIndex());
     }
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const WindowInstance* const window = currentWindow;
         const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
         const std::int32_t windowY = window->y;
@@ -262,7 +262,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = idle + 2;
                 gHoverTextD68AE8 = index == 2 ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
                 consumed = 1;
@@ -270,7 +270,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 graphic->imageNo = idle;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (index == 2) {
                 currentWindow->state |= 0x8000u;
                 static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
@@ -292,7 +292,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 1;
         }
         return consumed;
@@ -307,7 +307,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3BA1D;
                 gHoverTextD68AE8 = kReplyMailHint587730;
                 consumed = 1;
@@ -315,7 +315,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 graphic->imageNo = 0x3BA1B;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             bool allowed = !cg::ui::detail::gInputContextD66CA8.empty();
             if (allowed) {
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
@@ -374,7 +374,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
             consumed = 1;
         }
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BA1C;
     }
     return consumed;

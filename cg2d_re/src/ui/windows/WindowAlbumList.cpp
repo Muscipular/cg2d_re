@@ -308,14 +308,14 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"开启此魔物的图鉴视窗。";
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
         if (records[scroll + index - 58].used != 0) {
@@ -344,17 +344,17 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
     switch (index) {
     case 3:
     case 4:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(index == 3 ? 0x3B594 : 0x3B597);
             consumed = 1;
         } else {
             setImage(index == 3 ? 0x3B592 : 0x3B595);
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(index == 3 ? 0x3B593 : 0x3B596);
             consumed = 1;
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t next = gLoginWindowRuntime.valueC8A95C + (index == 3 ? -1 : 1);
             gLoginWindowRuntime.valueC8A95C = next;
             if (index == 3 ? next < 0 : next > 949) {
@@ -374,9 +374,9 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
         return consumed;
     case 5:
     case 6:
-        setImage(index == 5 ? ((state & 1) != 0 ? 0x3B558 : 0x3B556)
-                           : ((state & 1) != 0 ? 0x3B55B : 0x3B559));
-        if ((state & 2) != 0) {
+        setImage(index == 5 ? ((state & MouseFlag_Hover) != 0 ? 0x3B558 : 0x3B556)
+                           : ((state & MouseFlag_Hover) != 0 ? 0x3B55B : 0x3B559));
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (index == 5) {
                 const std::int32_t next = gLoginWindowRuntime.valueC8A95C - 10;
                 gLoginWindowRuntime.valueC8A95C = next;
@@ -405,7 +405,7 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(index == 5 ? 0x3B557 : 0x3B55A);
         }
         return consumed;
@@ -436,7 +436,7 @@ static std::int32_t WindowAlbumList_Scroll(const std::int32_t, const std::int32_
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = currentWindow;
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;

@@ -30,13 +30,13 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
     switch (index) {
     case 17: {
         const bool visible = world::detail::SelectedProfileValue04() != 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = visible
                 ? L"不公开玩家简介"
                 : L"公开玩家简介";
             consumed = 1;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(network::SetProfileVisibilityRequest_5118B0(platform::gConnectionSocket, visible ? 0 : 1));
             if (!visible) {
                 static_cast<void>(world::detail::PublishPlayerProfile_533C80(1));
@@ -58,7 +58,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = images[position] + 2;
                 gHoverTextD68AE8 = hints[position];
                 consumed = 1;
@@ -67,7 +67,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             }
         }
         const std::int32_t target = index - 12;
-        if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {
+        if ((state & MouseFlag_LDownEvent) != 0 && gWindowStates[target].window == nullptr) {
             currentWindow->state |= 0x8000u;
             static_cast<void>(WindowRuntime_Open(target));
             // 原三切页每轴先取当前/目标指针，再读坐标；见CAC10。
@@ -90,7 +90,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 243035;
                 gHoverTextD68AE8 = L"开启目录视窗";
                 consumed = 1;
@@ -99,7 +99,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             }
         }
         const std::int32_t category = index - 23;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             // 原检查窗口9，却写窗口59记录flags；第二检查仅是固定全局地址非零。
             if (gWindowStates[WindowId_PlayerTitles].window != nullptr) {
                 gWindowStates[WindowId_OwnProfileCategory].flags |= 0x8000u;
@@ -118,7 +118,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 244420;
                 gHoverTextD68AE8 = L"决定玩家简介";
                 consumed = 1;
@@ -126,7 +126,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
                 graphic->imageNo = 244418;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowChat_RestoreInput());
             static_cast<void>(world::detail::PublishPlayerProfile_533C80(0));
             return 1;

@@ -791,31 +791,31 @@ std::int32_t WindowItem_HealthImageLevel(const std::int32_t health)
 static std::int32_t WindowRuntime_AppendMouseEvents(std::int32_t events)
 {
     const auto edge = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
-    if ((edge & 1u) != 0) {
-        events |= 0x02;
+    if ((edge & platform::LegacyMouseEdge_LDown) != 0) {
+        events |= MouseFlag_LDownEvent;
     }
-    if ((edge & 2u) != 0) {
-        events |= 0x04;
+    if ((edge & platform::LegacyMouseEdge_RDown) != 0) {
+        events |= MouseFlag_RDownEvent;
     }
     const auto held = static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons);
-    if ((held & 1u) != 0) {
-        events |= 0x08;
+    if ((held & platform::LegacyMouseButton_Left) != 0) {
+        events |= MouseFlag_LHoldPhysical;
     }
-    if ((held & 2u) != 0) {
-        events |= 0x10;
+    if ((held & platform::LegacyMouseButton_Right) != 0) {
+        events |= MouseFlag_RHoldPhysical;
     }
-    if ((edge & 0x10u) != 0) {
-        events |= 0x100;
+    if ((edge & platform::LegacyMouseEdge_LDblClick) != 0) {
+        events |= MouseFlag_LDblClickEvent;
     }
-    if ((edge & 0x20u) != 0) {
-        events |= 0x200;
+    if ((edge & platform::LegacyMouseEdge_RDblClick) != 0) {
+        events |= MouseFlag_RDblClickEvent;
     }
     const auto pulse = static_cast<std::uint8_t>(platform::gLegacyMouseState.pulseButtons);
-    if ((pulse & 1u) != 0) {
-        events |= 0x400;
+    if ((pulse & platform::LegacyMouseButton_Left) != 0) {
+        events |= MouseFlag_LRepeatDown;
     }
-    if ((pulse & 2u) != 0) {
-        events |= 0x800;
+    if ((pulse & platform::LegacyMouseButton_Right) != 0) {
+        events |= MouseFlag_RRepeatDown;
     }
     return events;
 }
@@ -931,10 +931,10 @@ std::int32_t WindowItem_FindSortedPetIndex(const std::int32_t slot)
 // 原函数：0x00474170。
 std::int32_t WindowElement_HandleSideArea(const std::int32_t, const std::int32_t state)
 {
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         gCurrentWindow->state |= 0x2000u;
     }
-    return (state & 1) != 0 ? 1 : (static_cast<std::uint8_t>(state) >> 5) & 1;
+    return (state & MouseFlag_Hover) != 0 ? 1 : (static_cast<std::uint8_t>(state) & MouseFlag_Dragging) != 0;
 }
 
 // IMT01：原88条，source7短路及41/38转义后状态-Y-X/真实返回；旧格式历史及正确正文保，全owner/运行待。
@@ -1150,7 +1150,7 @@ static void WindowPetDrag_Handle(
     const std::int32_t clickMode = gPetDragModeD2EA1C;
     const auto clicked = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
     if (clickMode == 0) {
-        if ((clicked & 2u) != 0) {
+        if ((clicked & platform::LegacyMouseEdge_RDown) != 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
                 static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
@@ -1159,7 +1159,7 @@ static void WindowPetDrag_Handle(
             static_cast<void>(WindowDrag_StartAtPosition(3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
     } else {
-        if ((clicked & 1u) != 0) {
+        if ((clicked & platform::LegacyMouseEdge_LDown) != 0) {
             static_cast<void>(WindowDrag_ResetMouse());
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
                 static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
@@ -1167,7 +1167,7 @@ static void WindowPetDrag_Handle(
                 static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
             static_cast<void>(WindowDrag_StartAtPosition(3, sourceIndex, x, y, WindowPetDrag_Handle));
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             WindowDrag_Cancel();
         }
     }
@@ -1261,7 +1261,7 @@ static void WindowItemDrag_Handle(
             static_cast<void>(WindowDrag_ResetMouse());
         }
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
@@ -1269,7 +1269,7 @@ static void WindowItemDrag_Handle(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(2, sourceIndex, x, y, WindowItemDrag_Handle));
     }
-    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
+    if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -1348,8 +1348,8 @@ std::uint8_t WindowInput_HandleNumber(
                     std::int32_t imageState = 0;
                     if (hit(left, bottom - 19, left + 21, bottom)) {
                         gHoverTextD68AE8 = hints[0];
-                        imageState = (state & 8) != 0 ? 1 : 2;
-                        if ((state & 2) != 0) {
+                        imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
+                        if ((state & MouseFlag_LDownEvent) != 0) {
                             selected = digit;
                         }
                     }
@@ -1362,8 +1362,8 @@ std::uint8_t WindowInput_HandleNumber(
             std::int32_t imageState = 0;
             if (hit(x, y + 58, x + 21, y + 77)) {
                 gHoverTextD68AE8 = hints[0];
-                imageState = (state & 8) != 0 ? 1 : 2;
-                if ((state & 2) != 0) {
+                imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
+                if ((state & MouseFlag_LDownEvent) != 0) {
                     selected = 0;
                 }
             }
@@ -1375,8 +1375,8 @@ std::uint8_t WindowInput_HandleNumber(
             if (hit(x + 48, y + 58, x + 69, y + 77)) {
                 if ((flags & 1u) != 0) {
                     gHoverTextD68AE8 = hints[1];
-                    imageState = (state & 8) != 0 ? 1 : 2;
-                    if ((state & 2) != 0) {
+                    imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
+                    if ((state & MouseFlag_LDownEvent) != 0) {
                         selected = 13;
                     }
                 } else {
@@ -1385,15 +1385,15 @@ std::uint8_t WindowInput_HandleNumber(
                         const std::int32_t value = std::bit_cast<std::int32_t>(valueElement->state);
                         gHoverTextD68AE8 = hints[value > 0 ? 1 : 2];
                     }
-                    imageState = (state & 8) != 0 ? 1 : 2;
+                    imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
                     auto* const currentElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
                     if (currentElement2) {
                         const std::int32_t current = std::bit_cast<std::int32_t>(currentElement2->state);
                         if (current > 0) {
-                            if ((state & 2) != 0) {
+                            if ((state & MouseFlag_LDownEvent) != 0) {
                                 selected = 13;
                             }
-                        } else if ((state & 2) != 0) {
+                        } else if ((state & MouseFlag_LDownEvent) != 0) {
                             static_cast<void>(audio::PlaySe_52C450(55, 320));
                         }
                     }
@@ -1415,8 +1415,8 @@ std::uint8_t WindowInput_HandleNumber(
                 imageState = 0;
                 if (hit(x + 75, centerY - 10, x + 100, centerY + 9)) {
                     gHoverTextD68AE8 = hints[row + 3];
-                    imageState = (state & 8) != 0 ? 1 : 2;
-                    if ((state & 2) != 0) {
+                    imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : 2;
+                    if ((state & MouseFlag_LDownEvent) != 0) {
                         selected = row + 10;
                     }
                 }
@@ -1502,12 +1502,12 @@ std::int32_t WindowRuntime_ButtonClose(const std::int32_t index, const std::int3
     auto* const graphicElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = L"关闭这个视窗。";
         }
         std::int32_t result = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             result = 1;
@@ -1516,7 +1516,7 @@ std::int32_t WindowRuntime_ButtonClose(const std::int32_t index, const std::int3
         if (hover) {
             graphic->imageNo = 0x3B53A;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B539;
         }
         return result;
@@ -2216,7 +2216,7 @@ bool WindowItemSelector_HandleTab(
     WindowElement* const element = state->elements00[tab + 2].get();
     if (!element) return false;
     auto* const graphic = element->data.graphic;
-    const bool hovered = (events & 1) != 0;
+    const bool hovered = (events & MouseFlag_Hover) != 0;
     bool consumed = false;
     if (hovered) {
         const std::int32_t page = state->value60;
@@ -2236,7 +2236,7 @@ bool WindowItemSelector_HandleTab(
             }
         }
     }
-    if ((events & 2) != 0) {
+    if ((events & MouseFlag_LDownEvent) != 0) {
         currentWindow->state |= 0x2000u;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         const std::int32_t page = state->value60;
@@ -2269,7 +2269,7 @@ bool WindowItemSelector_HandleTab(
         static_cast<void>(cg::render::DrawGraphic(x, y, 223, image, 0, descriptor));
     }
     std::int32_t imageIndex;
-    if ((events & 8) != 0) {
+    if ((events & MouseFlag_LHoldPhysical) != 0) {
         imageIndex = 2;
     } else if (hovered) {
         imageIndex = 3;
@@ -2287,12 +2287,12 @@ bool WindowItemSelector_HandleTab(
 bool WindowItemSelector_TogglePreview(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
-    if ((events & 2) != 0) {
+    if ((events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         state->value3EC = state->value3EC == 0;
         consumed = true;
     }
-    state->imageIndex3F0 = (events & 8) != 0 ? 2 : ((events & 1) != 0 ? 3 : 1);
+    state->imageIndex3F0 = (events & MouseFlag_LHoldPhysical) != 0 ? 2 : ((events & MouseFlag_Hover) != 0 ? 3 : 1);
     return consumed;
 }
 
@@ -2301,7 +2301,7 @@ bool WindowItemSelector_TogglePreview(WindowItemSelectorState* const state, cons
 bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
-    if ((events & 2) != 0) {
+    if ((events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         const std::uint8_t previous = state->value3ED;
         const std::uint8_t* const mode = state->mode68;
@@ -2331,7 +2331,7 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, con
         }
         consumed = true;
     }
-    state->imageIndex3F4 = (events & 8) != 0 ? 2 : ((events & 1) != 0 ? 3 : 1);
+    state->imageIndex3F4 = (events & MouseFlag_LHoldPhysical) != 0 ? 2 : ((events & MouseFlag_Hover) != 0 ? 3 : 1);
     return consumed;
 }
 
@@ -2340,13 +2340,13 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, con
 bool WindowItemSelector_RotatePreview(WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
-    if ((events & 0x402) != 0) {
+    if ((events & (MouseFlag_LDownEvent | MouseFlag_LRepeatDown)) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         const std::int32_t direction = cg::yobi::GetYobiActionField2B8(state->preview);
         cg::yobi::SetYobiActionField2B8(state->preview, (direction + 1) % 8);
         consumed = true;
     }
-    if ((events & 0x804) != 0) {
+    if ((events & (MouseFlag_RDownEvent | MouseFlag_RRepeatDown)) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         const std::int32_t direction = cg::yobi::GetYobiActionField2B8(state->preview) - 1;
         cg::yobi::SetYobiActionField2B8(state->preview, direction);
@@ -2443,7 +2443,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
     if (!currentWindow) return false;
     auto* const panelElement = selector->elements00[1].get();
     if (!panelElement) return false;
-    if ((static_cast<std::uint8_t>(state) & 2u) != 0 || state == 0
+    if ((static_cast<std::uint8_t>(state) & MouseFlag_LDownEvent) != 0 || state == 0
         || selector->value3FC == 0 || world::gReplyRecordF7C950.used == 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         WindowElement* const element = panelElement;
@@ -3805,7 +3805,7 @@ std::int32_t WindowScroll_ApplyWheel(
 void WindowElement_DrawHoverFrame(
     WindowElement* const element, const std::int32_t state, const std::uint32_t imageNo)
 {
-    if ((state & 1) == 0) {
+    if ((state & MouseFlag_Hover) == 0) {
         return;
     }
     WindowInstance* const window = gCurrentWindow;
@@ -3919,7 +3919,7 @@ void WindowDrag_Reset()
     }
     const WindowDragCallback callback = gDragCallback57C118;
     if (callback != nullptr) {
-        callback(3, 0, gDragSourceIndex57C114);
+        callback(3, MouseFlag_None, gDragSourceIndex57C114);
     }
     gMouseValue57C110 = 0;
     gDragSourceIndex57C114 = 0;
@@ -3967,7 +3967,7 @@ static std::int32_t WindowDrag_Update()
         const std::uint32_t state = window->state;
         if ((state & 2u) == 0) {
             if ((state & 0x800u) != 0) {
-                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.heldButtons) & 1u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.heldButtons) & platform::LegacyMouseButton_Left) != 0) {
                     std::int32_t* const x = &window->x;
                     const std::int32_t deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(window->dragMouseX1C));
                     *x += deltaX;
@@ -3984,7 +3984,7 @@ static std::int32_t WindowDrag_Update()
                 }
                 result = 2;
                 window = gCurrentWindow;
-            } else if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+            } else if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
                 std::int32_t count = window->secondaryCount;
                 for (std::int32_t index = 0; index < count; ++index) {
                     const WindowDragRect& rect = window->dragRects40[index];
@@ -4030,7 +4030,7 @@ static std::int32_t WindowDrag_Update()
             const std::int32_t x = window->x;
             if (WindowRuntime_HitTestRect(x, y, width, height) != 0) {
                 result |= 1;
-                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
                     gCurrentWindow->state |= 0x2000u;
                 }
             }
@@ -4100,7 +4100,7 @@ static void WindowRuntime_AdvanceMousePhase()
             *reinterpret_cast<unsigned char*>(&platform::gLegacyMouseState.valueD68DB4) = 5;
             return;
         }
-        const std::int32_t events = WindowRuntime_AppendMouseEvents(0);
+        const std::int32_t events = WindowRuntime_AppendMouseEvents(MouseFlag_None);
         callback(0, events, gDragSourceIndex57C114);
         phase = gMousePhase57C128;
     } else if (phase == 2) {
@@ -4116,7 +4116,7 @@ static void WindowRuntime_AdvanceMousePhase()
     case 4: {
         const WindowDragCallback callback = gDragCallback57C118;
         if (callback != nullptr) {
-            callback(2, 0, gDragSourceIndex57C114);
+            callback(2, MouseFlag_None, gDragSourceIndex57C114);
         }
         gMouseValue57C110 = 0;
         gDragSourceIndex57C114 = 0;
@@ -4156,14 +4156,14 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
     const std::int32_t top = window->y + element->y;
     const std::int32_t width = element->width;
     const std::int32_t height = element->height;
-    std::int32_t events = 0;
+    std::int32_t events = MouseFlag_None;
     std::int32_t phase = gMousePhase57C128;
     if (phase == 1 || phase == 4 || phase == 2 || phase == 6) {
         if (static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 0xD4u) {
             if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
                 phase = gMousePhase57C128;
                 if (phase == 1 || phase == 4) {
-                    events = 0x20;
+                    events = MouseFlag_Dragging;
                 }
                 if (gFocusWindowId57C120 == gCurrentWindowIdD67A1C
                     && gFocusElementIndex57C124 == gCurrentElementIndex57C12C) {
@@ -4175,7 +4175,7 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
         }
     } else if (gWindowHasFocusCA0AB4 == 0) {
         if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
-            events = WindowRuntime_AppendMouseEvents(1);
+            events = WindowRuntime_AppendMouseEvents(MouseFlag_Hover);
             WindowInstance* const currentWindow = gCurrentWindow;
             WindowElement* const currentElement = currentWindow->FindElementById(elementId);
             if (currentElement && currentElement->type == WindowElementType_MouseArea) {
@@ -4192,7 +4192,7 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
         if (dragX >= 0 && dragX < width) {
             const std::int32_t dragY = gDragY57C11E - top;
             if (dragY >= 0 && dragY < height) {
-                events |= 0x40;
+                events |= MouseFlag_DragFinish;
             }
         }
     }
@@ -4219,7 +4219,7 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
         if (phase == 4) {
             const WindowDragCallback callback = gDragCallback57C118;
             if (callback != nullptr) {
-                callback(4, 0, gDragSourceIndex57C114);
+                callback(4, MouseFlag_None, gDragSourceIndex57C114);
             }
             static_cast<void>(WindowDrag_ResetMouse());
         }
@@ -4256,7 +4256,7 @@ std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const 
         : scrollElement->data.mouse->flags;
     std::int32_t result = 0;
     if ((flags & 2u) == 0) flags = 0;
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         flags = 3;
         result = 1;
     }
@@ -4268,7 +4268,7 @@ std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const 
     const std::int32_t bottom = scrollElement->height + scrollElement->y;
     if (previous->y + previous->height > bottom) previous->y = bottom - previous->height;
     const std::int32_t delta = previous->y - scrollElement->y;
-    if ((state & 8) == 0) flags &= ~std::uint32_t{2};
+    if ((state & MouseFlag_LHoldPhysical) == 0) flags &= ~std::uint32_t{2};
     if (scrollElement->type == WindowElementType_Graphic) {
         scrollElement->data.graphic->offsetY = delta;
         scrollElement->data.graphic->imageNo = std::bit_cast<std::int32_t>(flags);
@@ -4454,7 +4454,7 @@ std::int32_t WindowRuntime_Update()
                 if (releaseDrag) {
                     const WindowDragCallback callback = gDragCallback57C118;
                     if (callback != nullptr) {
-                        callback(4, 0, gDragSourceIndex57C114);
+                        callback(4, MouseFlag_None, gDragSourceIndex57C114);
                     }
                     static_cast<void>(WindowDrag_ResetMouse());
                     window = gCurrentWindow;
@@ -4822,7 +4822,7 @@ void WindowDrag_Cancel()
     }
     const WindowDragCallback callback = gDragCallback57C118;
     if (callback != nullptr) {
-        callback(phase == 1 ? 1 : 4, 0, gDragSourceIndex57C114);
+        callback(phase == 1 ? 1 : 4, MouseFlag_None, gDragSourceIndex57C114);
         phase = gMousePhase57C128;
     }
     gMouseValue57C110 = 0;

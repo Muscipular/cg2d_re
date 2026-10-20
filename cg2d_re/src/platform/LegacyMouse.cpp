@@ -40,9 +40,9 @@ void UpdateLegacyMouseLeftDown_506900(
     const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
     const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 1u;
-    gLegacyMouseState.heldButtons = heldButtons | 1u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
+    gLegacyMouseState.edgeButtons = edgeButtons | LegacyMouseEdge_LDown;
+    gLegacyMouseState.heldButtons = heldButtons | LegacyMouseButton_Left;
+    gLegacyMouseState.pulseButtons = pulseButtons | LegacyMouseButton_Left;
 
     gLegacyMouseState.buttonCoordinates[0] = static_cast<std::int32_t>(x);
 
@@ -60,10 +60,10 @@ std::int32_t UpdateLegacyMouseLeftUp_5069E0(
 {
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
     const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.heldButtons = heldButtons & ~1u;
+    gLegacyMouseState.heldButtons = heldButtons & ~LegacyMouseButton_Left;
     const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 4u;
-    gLegacyMouseState.pulseButtons = pulseButtons & ~1u;
+    gLegacyMouseState.edgeButtons = edgeButtons | LegacyMouseEdge_LUp;
+    gLegacyMouseState.pulseButtons = pulseButtons & ~LegacyMouseButton_Left;
 
     gLegacyMouseState.buttonCoordinates[2] = static_cast<std::int32_t>(x);
 
@@ -81,10 +81,10 @@ std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
 {
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
     const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.heldButtons = heldButtons | 1u;
+    gLegacyMouseState.heldButtons = heldButtons | LegacyMouseButton_Left;
     const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 0x11u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
+    gLegacyMouseState.edgeButtons = edgeButtons | (LegacyMouseEdge_LDown | LegacyMouseEdge_LDblClick);
+    gLegacyMouseState.pulseButtons = pulseButtons | LegacyMouseButton_Left;
 
     gLegacyMouseState.buttonCoordinates[0] = static_cast<std::int32_t>(x);
 
@@ -104,9 +104,9 @@ void UpdateLegacyMouseRightDown_506B50(
     const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
     const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    gLegacyMouseState.heldButtons = heldButtons | 2u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
-    gLegacyMouseState.edgeButtons = edgeButtons | 2u;
+    gLegacyMouseState.heldButtons = heldButtons | LegacyMouseButton_Right;
+    gLegacyMouseState.pulseButtons = pulseButtons | LegacyMouseButton_Right;
+    gLegacyMouseState.edgeButtons = edgeButtons | LegacyMouseEdge_RDown;
 
     gLegacyMouseState.buttonCoordinates[4] = static_cast<std::int32_t>(x);
 
@@ -124,10 +124,10 @@ std::int32_t UpdateLegacyMouseRightUp_506C40(
 {
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
     const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.heldButtons = heldButtons & ~2u;
+    gLegacyMouseState.heldButtons = heldButtons & ~LegacyMouseButton_Right;
     const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 8u;
-    gLegacyMouseState.pulseButtons = pulseButtons & ~2u;
+    gLegacyMouseState.edgeButtons = edgeButtons | LegacyMouseEdge_RUp;
+    gLegacyMouseState.pulseButtons = pulseButtons & ~LegacyMouseButton_Right;
 
     gLegacyMouseState.buttonCoordinates[6] = static_cast<std::int32_t>(x);
 
@@ -145,10 +145,10 @@ std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
 {
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
     const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.heldButtons = heldButtons | 2u;
+    gLegacyMouseState.heldButtons = heldButtons | LegacyMouseButton_Right;
     const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 0x22u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
+    gLegacyMouseState.edgeButtons = edgeButtons | (LegacyMouseEdge_RDown | LegacyMouseEdge_RDblClick);
+    gLegacyMouseState.pulseButtons = pulseButtons | LegacyMouseButton_Right;
 
     gLegacyMouseState.buttonCoordinates[4] = static_cast<std::int32_t>(x);
 

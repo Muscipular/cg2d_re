@@ -263,7 +263,7 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
             UIEmitControlLeaveIfNeeded({winId, generation, id}, callbacks, previousMouseState, mouseState);
             return false;
         }
-        if ((gMouseClickState & 0x01) && inputData && inputData->focused && !isMouseInRect) {
+        if ((gMouseClickState & platform::LegacyMouseEdge_LDown) && inputData && inputData->focused && !isMouseInRect) {
             blurTextInput();
         }
     }
@@ -289,15 +289,15 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
             if (isMouseInRect) {
                 eventFlags = MouseFlag_Hover;
 
-                if (gMouseClickState & 0x01) eventFlags = MouseFlag_Hover | MouseFlag_LDownEvent;
-                if (gMouseClickState & 0x02) eventFlags |= MouseFlag_RDownEvent;
-                if (gMouseBtnDown2 & 0x01) eventFlags |= MouseFlag_LHoldPhysical;
-                if (gMouseBtnDown2 & 0x02) eventFlags |= MouseFlag_RHoldPhysical;
+                if (gMouseClickState & platform::LegacyMouseEdge_LDown) eventFlags = MouseFlag_Hover | MouseFlag_LDownEvent;
+                if (gMouseClickState & platform::LegacyMouseEdge_RDown) eventFlags |= MouseFlag_RDownEvent;
+                if (gMouseBtnDown2 & platform::LegacyMouseButton_Left) eventFlags |= MouseFlag_LHoldPhysical;
+                if (gMouseBtnDown2 & platform::LegacyMouseButton_Right) eventFlags |= MouseFlag_RHoldPhysical;
 
-                if (gMouseClickState & 0x10) eventFlags |= MouseFlag_LDblClickEvent;
-                if (gMouseClickState & 0x20) eventFlags |= MouseFlag_RDblClickEvent;
-                if (gMouseBtnDown & 0x01) eventFlags |= MouseFlag_LRepeatDown;
-                if (gMouseBtnDown & 0x02) eventFlags |= MouseFlag_RRepeatDown;
+                if (gMouseClickState & platform::LegacyMouseEdge_LDblClick) eventFlags |= MouseFlag_LDblClickEvent;
+                if (gMouseClickState & platform::LegacyMouseEdge_RDblClick) eventFlags |= MouseFlag_RDblClickEvent;
+                if (gMouseBtnDown & platform::LegacyMouseButton_Left) eventFlags |= MouseFlag_LRepeatDown;
+                if (gMouseBtnDown & platform::LegacyMouseButton_Right) eventFlags |= MouseFlag_RRepeatDown;
             }
         }
 
@@ -317,7 +317,7 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
         if (type == TYPE_TEXT_INPUT) {
             if (eventFlags & MouseFlag_LDownEvent) {
                 focusTextInput();
-            } else if ((gMouseClickState & 0x01) && isTextInputFocused() && !isMouseInRect) {
+            } else if ((gMouseClickState & platform::LegacyMouseEdge_LDown) && isTextInputFocused() && !isMouseInRect) {
                 blurTextInput();
             }
         }

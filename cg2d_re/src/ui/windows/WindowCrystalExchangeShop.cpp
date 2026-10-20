@@ -781,16 +781,16 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    const bool hover = (state & 1) != 0;
+    const bool hover = (state & MouseFlag_Hover) != 0;
     std::int32_t consumed = 0;
     if (hover) {
         gHoverTextD68AE8 = L"买进指定的物品。" /* 原常量参考：0x00587FA8。 */;
     }
     if (gWindow70SlotsCF4E44 <= 0) {
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
-    } else if ((state & 2) != 0) {
+    } else if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t balance = world::CountInventoryItemQuantity_51B5F0(gWindow70ValueD6791C);
         if (balance < gWindow70TotalCB0F74) {
             gWindow70Message580864 = -2;
@@ -851,7 +851,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
     if (hover) {
         if (graphic) graphic->imageNo = 243050;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243049;
     }
     if (gWindow70SlotsCF4E44 <= 0) {
@@ -869,7 +869,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t position = gWindow70ScrollCC4B68;
             if (position > 0) {
                 gWindow70ScrollCC4B68 = position - 1;
@@ -880,10 +880,10 @@ static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32
             consumed = 1;
         }
         graphic->imageNo = 243090;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243092;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243091;
         }
         return consumed;
@@ -900,7 +900,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t i
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t count = gShopItemCountCB1E10;
             const std::int32_t position = gWindow70ScrollCC4B68;
             if (position < count - 5) {
@@ -912,10 +912,10 @@ static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t i
             consumed = 1;
         }
         graphic->imageNo = 243093;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243095;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243094;
         }
         return consumed;
@@ -932,7 +932,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int3
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(audio::PlaySe_52C450(gWindow70ScrollCC4B68 > 0 ? 51 : 55, 320));
             const std::int32_t position = gWindow70ScrollCC4B68 - 5;
             gWindow70ScrollCC4B68 = position;
@@ -942,10 +942,10 @@ static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int3
             consumed = 1;
         }
         graphic->imageNo = 243030;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243032;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243031;
         }
         return consumed;
@@ -962,7 +962,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const std::int32_t 
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
             const bool canAdvance = oldMaximum > 0 && gWindow70ScrollCC4B68 < oldMaximum;
             static_cast<void>(audio::PlaySe_52C450(canAdvance ? 51 : 55, 320));
@@ -979,10 +979,10 @@ static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const std::int32_t 
             consumed = 1;
         }
         graphic->imageNo = 243033;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243035;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243034;
         }
         return consumed;
@@ -995,7 +995,7 @@ static std::int32_t WindowCrystalExchangeShop_Scroll(const std::int32_t index, c
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindow70ScrollCC4B68;
@@ -1017,7 +1017,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         WindowCrystalItem* const item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + index - 46];
         std::int32_t consumed = 0;
         if (hover) {
@@ -1026,7 +1026,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t 
                 : L"无法再减少物品的数量了。";
             gHoverTextD68AE8 = hint;
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t count = item->selectedCount;
             if (count > 0) {
                 item->selectedCount = count - 1;
@@ -1042,7 +1042,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t 
         if (hover) {
             graphic->imageNo = 243008;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243007;
         }
         return consumed;
@@ -1058,7 +1058,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         WindowCrystalItem* const item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + index - 51];
         std::int32_t consumed = 0;
         if (hover) {
@@ -1074,7 +1074,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t 
             }
             gHoverTextD68AE8 = hint;
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             if (item->used != 0) {
                 const std::int32_t count = item->selectedCount;
                 const std::int32_t limit = item->limitC4C;
@@ -1092,7 +1092,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t 
         if (hover) {
             graphic->imageNo = 243005;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243004;
         }
         return consumed;
@@ -1115,12 +1115,12 @@ static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t 
     if (item->used == 0) {
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (gShopRowKeysC9A954[index - 56] != selected) {
             gWindow70TooltipPageD67BA0 = 0;
         }
         gShopRowKeysC9A954[index - 56] = selected;
-        if ((state & 4) != 0) {
+        if ((state & MouseFlag_RDownEvent) != 0) {
             ++gWindow70TooltipPageD67BA0;
             if (gWindow70TooltipPageD67BA0 >= 4) {
                 gWindow70TooltipPageD67BA0 = 0;
@@ -1167,11 +1167,11 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
     auto events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     std::int32_t hovered = -1;
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
-        events &= ~0x60u;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+        events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const WindowInstance* const window = currentWindow;
         auto* elementsWindow = window;
         const std::int32_t windowX = window->x;
@@ -1191,9 +1191,9 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
         gWindow70InventoryHover58086C = hovered;
     }
     const auto& items = world::gPlayerRuntimeSlots.items;
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
-    } else if ((events & 1u) != 0 && hovered >= 0 && (events & 4u) != 0) {
+    } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && (events & MouseFlag_RDownEvent) != 0) {
         if (items[hovered + 8].used != 0) {
             std::int32_t page = gWindow70TooltipPageD67BA0;
             const std::int32_t pages = items[hovered + 8].pages;
@@ -1296,7 +1296,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int3
         acceptImage = 245325;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         gHoverTextD68AE8 = gWindow70ConfirmAcceptD2DD6C;
-        if ((buttons & 1u) != 0) {
+        if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gWindow70ConfirmCallbackCF4AA4;
             if (callback != nullptr) {
@@ -1313,7 +1313,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int3
         gHoverTextD68AE8 = gWindow70ConfirmCancelCC48BC;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
-        if ((buttons & 1u) != 0) {
+        if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gWindow70ConfirmCallbackCF4AA4;
             if (callback != nullptr) {

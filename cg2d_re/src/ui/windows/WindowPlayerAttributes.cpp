@@ -277,14 +277,14 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             std::int32_t consumed = 0;
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = 0x3B53D;
                 gHoverTextD68AE8 = L"分配点数至目前的能力数值。";
                 consumed = 1;
             } else {
                 graphic->imageNo = 0x3B53B;
             }
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 if (values[index - 29] < limit) {
                     static_cast<void>(network::IncreasePlayerAttributeRequest_5123B0(platform::gConnectionSocket, index - 29));
                     static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -333,14 +333,14 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = hoverImage;
             gHoverTextD68AE8 = hint;
             consumed = 1;
         } else {
             graphic->imageNo = idleImage;
         }
-        if ((state & 2) != 0 && gWindowStates[targetWindow].window == nullptr) {
+        if ((state & MouseFlag_LDownEvent) != 0 && gWindowStates[targetWindow].window == nullptr) {
             currentWindow->state |= 0x8000u;
             static_cast<void>(WindowRuntime_Open(targetWindow));
             WindowInstance* const xSource = currentWindow;

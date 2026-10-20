@@ -1021,11 +1021,11 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
     const std::int32_t destination = index - 15;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 10 && WindowDrag_ReadKind() != 2) {
-        events &= ~0x60u;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 10 && WindowDrag_ReadKind() != 2) {
+        events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         if (WindowDrag_ReadKind() == 2) {
             const std::int32_t source = WindowDrag_ReadSourceIndex();
             // 各模式早退汇合到同一次InvDragReset，保留释放与占用写入的不同顺序。
@@ -1254,8 +1254,8 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
             }
         }
     }
-    const bool hovered = (events & 1u) != 0;
-    if (hovered && gSelectedSlotsCA0A90[destination] >= 0 && (events & 2u) != 0) {
+    const bool hovered = (events & MouseFlag_Hover) != 0;
+    if (hovered && gSelectedSlotsCA0A90[destination] >= 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowCraft_StartMaterialDrag(destination));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -1272,7 +1272,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                 static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46), 223, 254, 0);
         }
     }
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(NativeElementKey(index));
         if (elementPtr) {
@@ -1285,7 +1285,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
         }
     }
-    if ((events & 0x20u) != 0) {
+    if ((events & MouseFlag_Dragging) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(NativeElementKey(index));
         if (elementPtr) {
@@ -1310,7 +1310,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
             gMaterialHintPageCF4FD8 = 0;
         }
         gMaterialHoverSlotsCB0A8C[destination] = destination;
-        if ((events & 4u) != 0) {
+        if ((events & MouseFlag_RDownEvent) != 0) {
             ++gMaterialHintPageCF4FD8;
             if (gMaterialHintPageCF4FD8 >= 4) {
                 gMaterialHintPageCF4FD8 = 0;
@@ -1580,7 +1580,7 @@ static void WindowCraft_HandleMaterialDrag(
     if (sourceIndex >= 6 && gSelectedImageCC3ED8 < 0) {
         WindowDrag_Cancel();
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
@@ -1588,7 +1588,7 @@ static void WindowCraft_HandleMaterialDrag(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         static_cast<void>(WindowDrag_StartAtPosition(10, sourceIndex, x, y, WindowCraft_HandleMaterialDrag));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -1748,7 +1748,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     default:
         break;
     }
-    const bool hovered = (state & 1) != 0;
+    const bool hovered = (state & MouseFlag_Hover) != 0;
     if (hovered) {
         if (enabled) {
             gHoverTextD68AE8 = L"执行。" /* 原常量参考：0x005868D8。 */;
@@ -1777,7 +1777,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             gHoverTextD68AE8 = kWindow12NoFp5864F0;
         }
     }
-    if (gSelectionModeD2D650 == 0 && (state & 2) != 0) {
+    if (gSelectionModeD2D650 == 0 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
             static_cast<void>(WindowCraft_WaitCraft(currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1786,7 +1786,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         }
     }
     if (gSelectionModeD2D650 == 3
-        && ((state & 2) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0)) {
+        && ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0)) {
         if (!enabled) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
@@ -1868,7 +1868,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         consumed = 1;
     }
     const std::uint8_t mode = gSelectionModeD2D650;
-    if ((mode == 6 || mode == 15) && (state & 2) != 0) {
+    if ((mode == 6 || mode == 15) && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
             WindowCraft_WaitDecoration(currentWindow);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1876,7 +1876,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if (gSelectionModeD2D650 == 9 && (state & 2) != 0) {
+    if (gSelectionModeD2D650 == 9 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
             static_cast<void>(WindowCraft_WaitRefining(currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1884,7 +1884,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if (gSelectionModeD2D650 == 12 && (state & 2) != 0) {
+    if (gSelectionModeD2D650 == 12 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
             static_cast<void>(WindowCraft_WaitPacking(currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1897,7 +1897,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         if (hovered) {
             graphic->imageNo = 0x8FD5;
         }
-        if ((state & 8) != 0 || !enabled) {
+        if ((state & MouseFlag_LHoldPhysical) != 0 || !enabled) {
             graphic->imageNo = 0x8FD4;
         }
         return consumed;
@@ -1906,7 +1906,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     if (hovered) {
         graphic->imageNo = 0x3BAC4;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         graphic->imageNo = 0x3BAC3;
     }
     if (enabled) {
@@ -1934,11 +1934,11 @@ static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const s
     WindowInstance* window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    const bool hovered = (state & 1) != 0;
+    const bool hovered = (state & MouseFlag_Hover) != 0;
     if (hovered) {
         gHoverTextD68AE8 = L"继续执行。";
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (gSelectionModeD2D650 == 2) {
             const std::int32_t skillId =
                 world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
@@ -1970,7 +1970,7 @@ static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const s
     if (hovered) {
         if (graphic) graphic->imageNo = 0x3BA33;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3BA32;
     }
     return 0;
@@ -1984,11 +1984,11 @@ static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std:
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hovered = (state & 1) != 0;
+        const bool hovered = (state & MouseFlag_Hover) != 0;
         if (hovered) {
             gHoverTextD68AE8 = L"关闭此视窗";
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             gWindowStates[WindowId_Craft].window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
@@ -1996,7 +1996,7 @@ static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std:
         if (hovered) {
             graphic->imageNo = 0x3B567;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B566;
         }
     }
@@ -2019,11 +2019,11 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     auto* const hoverMarks = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
-        events &= ~0x60u;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+        events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
@@ -2049,7 +2049,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         WindowDrag_Reset();
     }
     std::int32_t hovered = -1;
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             if (hoverMarks[position + 8] != 0) {
                 continue;
@@ -2067,10 +2067,10 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
             }
         }
     }
-    if ((events & 1u) != 0 && hovered >= 0) {
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         gHoverTextD68AE8 = L"以滑鼠拖放＆点选方式，来选择物品。";
     }
-    if ((events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
+    if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex() >= 100
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
@@ -2079,7 +2079,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     }
     gCraftBackpackHover57DA24 = hovered;
     if (hovered >= 0 && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0
-        && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0) {
+        && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId() == 11 || WindowDrag_ReadFocusWindowId() == 0) {
             const std::uint8_t mode = gSelectionModeD2D650;
             if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
@@ -2297,15 +2297,15 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
             }
         }
         consumed = 1;
-    } else if ((events & 1u) != 0 && hovered >= 0) {
-        if ((events & 2u) != 0) {
+    } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
+        if ((events & MouseFlag_LDownEvent) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 const std::int32_t page = gMaterialHintPageCF4FD8 + 1;
                 const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
@@ -2419,7 +2419,7 @@ static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, c
     if (indexedElement) {
         WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     if (auto* const handleEngravingInputElement = currentWindow->FindElementById(WindowCraftElementId::HandleEngravingInput); handleEngravingInputElement) handleEngravingInputElement->visible = 0;
@@ -2457,12 +2457,12 @@ static std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hovered = (state & 1) != 0;
+        const bool hovered = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hovered) {
             gHoverTextD68AE8 = L"关闭这个视窗。";
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             gWindowStates[WindowId_Craft].window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
@@ -2471,7 +2471,7 @@ static std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const 
         if (hovered) {
             graphic->imageNo = 0x3B53A;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B539;
         }
         return consumed;
@@ -2491,7 +2491,7 @@ static std::int32_t WindowCraft_DrawInputNotice(
     std::int32_t imageNo = 0x3B568;
     if (cg::ui::HitTestMouseRect_5049A0(287, 268, 353, 285, -1) != 0) {
         imageNo = 0x3B56A;
-        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2539,11 +2539,11 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
-        events &= ~0x60u;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+        events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8 && source < 100) {
             if (gSelectedItemD460C0 >= 0) {
@@ -2627,8 +2627,8 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
             }
         }
     }
-    const bool hovered = (events & 1u) != 0;
-    if (hovered && gSelectedItemD460C0 >= 0 && (events & 2u) != 0) {
+    const bool hovered = (events & MouseFlag_Hover) != 0;
+    if (hovered && gSelectedItemD460C0 >= 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowCraft_StartMaterialDrag(6));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -2645,7 +2645,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
                 static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46), 223, 254, 0);
         }
     }
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(NativeElementKey(index));
         if (elementPtr) {
@@ -2658,7 +2658,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
         }
     }
-    if ((events & 0x20u) != 0) {
+    if ((events & MouseFlag_Dragging) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(NativeElementKey(index));
         if (elementPtr) {
@@ -2683,7 +2683,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
             gMaterialHintPageCF4FD8 = 0;
         }
         gMaterialSingleHoverCB0AA4 = 6;
-        if ((events & 4u) != 0) {
+        if ((events & MouseFlag_RDownEvent) != 0) {
             ++gMaterialHintPageCF4FD8;
             if (gMaterialHintPageCF4FD8 >= 4) {
                 gMaterialHintPageCF4FD8 = 0;
@@ -3304,7 +3304,7 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
     const auto events = static_cast<std::uint8_t>(state);
     const std::int32_t slot = index - 15;
     std::int32_t consumed = 0;
-    if ((events & 0x21) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(NativeElementKey(index));
         if (elementPtr) {
@@ -3322,12 +3322,12 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
     if (selected < 0) {
         return 0;
     }
-    if ((events & 1) != 0) {
+    if ((events & MouseFlag_Hover) != 0) {
         if (gMaterialHoverSlotsCB0A8C[slot] != slot) {
             gMaterialHintPageCF4FD8 = 0;
         }
         gMaterialHoverSlotsCB0A8C[slot] = slot;
-        if ((events & 4) != 0) {
+        if ((events & MouseFlag_RDownEvent) != 0) {
             ++gMaterialHintPageCF4FD8;
             if (gMaterialHintPageCF4FD8 >= 4) {
                 gMaterialHintPageCF4FD8 = 0;
@@ -3539,7 +3539,7 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
-    if ((events & 0x21) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(NativeElementKey(index));
         if (elementPtr) {
@@ -3557,12 +3557,12 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
     if (selected < 0) {
         return 0;
     }
-    if ((events & 1) != 0) {
+    if ((events & MouseFlag_Hover) != 0) {
         if (gMaterialSingleHoverCB0AA4 != 6) {
             gMaterialHintPageCF4FD8 = 0;
         }
         gMaterialSingleHoverCB0AA4 = 6;
-        if ((events & 4) != 0) {
+        if ((events & MouseFlag_RDownEvent) != 0) {
             ++gMaterialHintPageCF4FD8;
             if (gMaterialHintPageCF4FD8 >= 4) {
                 gMaterialHintPageCF4FD8 = 0;

@@ -353,26 +353,26 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
             * world::gSkillsF1BAFC[skill].fpReduce / 100;
         if ((world::gPlayerRuntimeSlots.fp < cost)) {
             graphic->imageNo = 0x3BA32;
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             return 0;
         }
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"继续执行。" /* 原常量参考：0x005868E0。 */;
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t currentSkill = gUsingSkillIndexD2F32C;
             static_cast<void>(network::RequestSkillTargetAttributes_511C30(platform::gConnectionSocket, currentSkill));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3BA31;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3BA33;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3BA32;
         }
         return consumed;
@@ -389,20 +389,20 @@ static std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, cons
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = kWindow13Text5868EC;
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
         }
         graphic->imageNo = 0x3B565;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B567;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B566;
         }
         return consumed;

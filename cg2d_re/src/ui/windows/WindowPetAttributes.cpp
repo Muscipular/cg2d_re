@@ -324,14 +324,14 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
     };
     switch (index) {
     case 5:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B570);
             gHoverTextD68AE8 = kPetRenameHint586D38;
             consumed = 1;
         } else {
             setImage(0x3B56E);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -352,19 +352,19 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B56F);
         }
         return consumed;
     case 6:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAF9);
             gHoverTextD68AE8 = kPetPlaceHint586C14;
             consumed = 1;
         } else {
             setImage(0x3BAF7);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].used != 0
                 && (world::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::IsObservationSceneTransitionActive_440B50() == 0) {
@@ -381,20 +381,20 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3BAF8);
         }
         return consumed;
     case 7:
     case 8:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(index == 7 ? 0x3B558 : 0x3B55B);
             gHoverTextD68AE8 = kPetSelectHint586D2C;
             consumed = 1;
         } else {
             setImage(index == 7 ? 0x3B556 : 0x3B559);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             for (std::int32_t attempt = 0; attempt < 6; ++attempt) {
                 if (index == 7) {
@@ -425,7 +425,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(index == 7 ? 0x3B557 : 0x3B55A);
         }
         return consumed;
@@ -434,14 +434,14 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
     case 11:
     case 12:
     case 13:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B53D);
             gHoverTextD68AE8 = L"分配点数至目前的能力数值。" /* 原常量参考：0x005863A4。 */;
             consumed = 1;
         } else {
             setImage(0x3B53B);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t attribute = index - 9;
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const std::uintptr_t socket = platform::gConnectionSocket;

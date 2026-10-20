@@ -799,18 +799,18 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
         const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
             * world::gSkillsF1BAFC[skill].fpReduce / 100;
         const bool enoughFp = !(world::gPlayerRuntimeSlots.fp < cost);
-        if (!enoughFp && (state & 1) != 0) {
+        if (!enoughFp && (state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = kWindow12NoFp5864F0;
         }
         if (world::CountFreeInventorySlots_518C60() <= 0 || !enoughFp) {
             graphic->imageNo = 0x3B56C;
             return 0;
         }
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"重新再开。" /* 原常量参考：0x005869F4。 */;
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(WindowProfile_SaveOrigin(x, y));
@@ -819,10 +819,10 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
             consumed = 1;
         }
         graphic->imageNo = 0x3B56B;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B56D;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B56C;
         }
         return consumed;
@@ -839,12 +839,12 @@ static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : L"暂时中断。" /* 原常量参考：0x00586A00。 */;
             window = currentWindow;
         }
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (gWindow12ModeCC3E80 == 0) {
                 window->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -855,10 +855,10 @@ static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std
             consumed = 1;
         }
         graphic->imageNo = 0x3B565;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B567;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B566;
         }
         return consumed;

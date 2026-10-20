@@ -266,18 +266,18 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index
         const std::int32_t idle = index == 6 ? 0x3B556 : 0x3B559;
         graphic->imageNo = idle;
         std::int32_t result = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = idle + 2;
             result = 1;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = idle + 1;
             const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
             gLoginWindowRuntime.mailGroupScrollD67B88 = position + (index == 6 ? -7 : 7);
             static_cast<void>(WindowGroupSelect_ClampScroll());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = idle + 1;
         }
         return result;
@@ -299,11 +299,11 @@ static std::int32_t WindowGroupSelect_HandleScrollButtons(const std::int32_t ind
         const std::int32_t idle = index == 1 ? 0x3B592 : 0x3B595;
         graphic->imageNo = idle;
         std::int32_t result = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = idle + 2;
             result = 1;
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             graphic->imageNo = idle + 1;
             std::int32_t sound = 51;
             if (index == 1) {
@@ -430,7 +430,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = idle + 2;
             gHoverTextD68AE8 = L"切换集团邮件。";
             result = 1;
@@ -438,7 +438,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
             graphic->imageNo = idle;
         }
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (index == 8) {
             const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode - 1;
             gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
@@ -459,7 +459,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         result = 1;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         auto* const currentElement = currentWindow->FindElementById(NativeElementKey(index));
         if (currentElement) {
             auto* const current = currentElement->data.graphic;
@@ -478,7 +478,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3BA20;
             const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
             if (mode == 0 || mode == 1 || mode == 2) {
@@ -489,7 +489,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, 
             graphic->imageNo = 0x3BA1E;
         }
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
         if (mode == 0 || mode == 1 || mode == 2) {
             std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
@@ -536,13 +536,13 @@ static std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const 
         graphic->imageNo = selected == 1 ? 0x3BA21 : 0x3BA22;
     }
     std::int32_t result = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = selected == 1
             ? L"对方的邮件寄过来了。"
             : L"准备寄送邮件给对方。";
         result = 1;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t currentScroll = gLoginWindowRuntime.mailGroupScrollD67B88;
         const std::int32_t row = currentScroll + index - 20;
         const std::int32_t current = gLoginWindowRuntime.mailGroupCC1A30.selected[row];
@@ -562,7 +562,7 @@ static std::int32_t WindowGroupSelect_Scroll(const std::int32_t, const std::int3
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t maximum = count - 7;

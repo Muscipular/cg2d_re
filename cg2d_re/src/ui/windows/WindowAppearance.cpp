@@ -280,7 +280,7 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t ones = gWindow56OnesCF4680;
             const std::int32_t fifth = gWindow56FifthCB0F88;
             const std::int32_t quarter = gWindow56QuarterCC3E88;
@@ -301,10 +301,10 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
             consumed = 1;
         }
         graphic->imageNo = 243048;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 243050;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 243049;
         }
         return consumed;
@@ -320,7 +320,7 @@ static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         std::int32_t imageClass = gWindow56ClassCC466C + (index < 4 ? -1 : 1);
         const std::int32_t minimum = gWindow56MinimumCB0F80;
         gWindow56ClassCC466C = imageClass;
@@ -341,10 +341,10 @@ static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const 
         consumed = 1;
     }
     if (graphic) graphic->imageNo = index < 4 ? 243030 : 243033;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = index < 4 ? 243032 : 243035;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = index < 4 ? 243031 : 243034;
     }
     return consumed;
@@ -358,7 +358,7 @@ static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, c
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         std::int32_t fifth = gWindow56FifthCB0F88 + (index < 7 ? -1 : 1);
         gWindow56FifthCB0F88 = fifth;
         if (fifth < 0) {
@@ -378,10 +378,10 @@ static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, c
         consumed = 1;
     }
     if (graphic) graphic->imageNo = index < 7 ? 243030 : 243033;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = index < 7 ? 243032 : 243035;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = index < 7 ? 243031 : 243034;
     }
     return consumed;
@@ -395,7 +395,7 @@ static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, co
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         std::int32_t ones = gWindow56OnesCF4680 + (index < 10 ? -1 : 1);
         gWindow56OnesCF4680 = ones;
         if (ones < 0) {
@@ -415,10 +415,10 @@ static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, co
         consumed = 1;
     }
     if (graphic) graphic->imageNo = index < 10 ? 243030 : 243033;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = index < 10 ? 243032 : 243035;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = index < 10 ? 243031 : 243034;
     }
     return consumed;

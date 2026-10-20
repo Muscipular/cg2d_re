@@ -232,7 +232,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             if (gWindowListOffsetCC3EF4 > 0) {
                 --gWindowListOffsetCC3EF4;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -250,10 +250,10 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index
             result = 1;
         }
         graphic->imageNo = 0x3B592;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B594;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B593;
         }
         return result;
@@ -270,7 +270,7 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, co
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             if (gWindowListOffsetCC3EF4 < gWindowListCountCF46A8 - 5) {
                 ++gWindowListOffsetCC3EF4;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -287,10 +287,10 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, co
             result = 1;
         }
         graphic->imageNo = 0x3B595;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B597;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B596;
         }
         return result;
@@ -307,7 +307,7 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t inde
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(audio::PlaySe_52C450(gWindowListOffsetCC3EF4 > 0 ? 51 : 55, 320));
             gWindowListOffsetCC3EF4 -= 5;
             if (gWindowListOffsetCC3EF4 < 0) {
@@ -323,10 +323,10 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t inde
             result = 1;
         }
         graphic->imageNo = 0x3B556;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B558;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B557;
         }
         return result;
@@ -343,7 +343,7 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, c
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t oldMaximum = gWindowListCountCF46A8 - 5;
             const bool canMove = oldMaximum > 0 && gWindowListOffsetCC3EF4 < oldMaximum;
             static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
@@ -366,10 +366,10 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, c
             result = 1;
         }
         graphic->imageNo = 0x3B559;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B55B;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B55A;
         }
         return result;
@@ -382,7 +382,7 @@ static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = gWindowListCountCF46A8;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindowListOffsetCC3EF4;
@@ -405,19 +405,19 @@ static std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t result = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"中止。";
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             result = 1;
         }
         graphic->imageNo = 0x3B562;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B564;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B563;
         }
         return result;
@@ -433,14 +433,14 @@ static std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const 
     if (index - 14 >= gWindowListCountCF46A8) {
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, state, imageNo);
         }
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     const WindowListSelectionCallback callback = gWindowListCallbackCB1E14;

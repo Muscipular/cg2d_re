@@ -222,7 +222,7 @@ static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const
         return 0;
     }
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (auto* const buttonMailElement = currentWindow->FindElementById(WindowProfileViewElementId::ButtonMail); buttonMailElement) buttonMailElement->data.graphic->imageNo = 244253;
         std::wstring hint;
         cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
@@ -231,7 +231,7 @@ static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const
     } else {
         if (auto* const buttonMailElement = currentWindow->FindElementById(WindowProfileViewElementId::ButtonMail); buttonMailElement) buttonMailElement->data.graphic->imageNo = 244251;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
         if (money >= world::detail::ReadCategoryValue105FA20()) {
             const auto& profile = world::detail::gViewedProfile105ECE0;

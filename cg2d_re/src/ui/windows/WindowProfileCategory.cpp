@@ -450,14 +450,14 @@ static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t inde
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"在此目录中搜寻";
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246042;
         consumed = 1;
     } else {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0;
     }
-    if ((state & 2) == 0 || WindowProfileView_ReadSelection(index) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0 || WindowProfileView_ReadSelection(index) == 0) {
         return consumed;
     }
     std::int32_t group;

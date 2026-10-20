@@ -412,7 +412,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
     std::int32_t imageNo = 243048;
     if (cg::ui::HitTestMouseRect_5049A0(287, 218, 353, 235, -1) != 0) {
         imageNo = 243050;
-        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
+        if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -436,7 +436,7 @@ static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, c
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         if (gWindowLineScrollCF46B8 > 0) {
             --gWindowLineScrollCF46B8;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -454,10 +454,10 @@ static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, c
         result = 1;
     }
     if (graphic) graphic->imageNo = 243090;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243092;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243091;
     }
     return result;
@@ -471,7 +471,7 @@ static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         const std::int32_t last = gWindowLineCountD67B74 - 9;
         if (gWindowLineScrollCF46B8 < (last < 0 ? 0 : last)) {
             ++gWindowLineScrollCF46B8;
@@ -489,10 +489,10 @@ static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const
         result = 1;
     }
     if (graphic) graphic->imageNo = 243093;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243095;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243094;
     }
     return result;
@@ -506,7 +506,7 @@ static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gWindowLineScrollCF46B8 > 0 ? 51 : 55, 320));
         gWindowLineScrollCF46B8 -= 9;
         if (gWindowLineScrollCF46B8 < 0) {
@@ -522,10 +522,10 @@ static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, 
         result = 1;
     }
     if (graphic) graphic->imageNo = 243030;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243032;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243031;
     }
     return result;
@@ -539,7 +539,7 @@ static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, cons
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t last = gWindowLineCountD67B74 - 9;
         static_cast<void>(audio::PlaySe_52C450(
             last > 0 && gWindowLineScrollCF46B8 < last ? 51 : 55, 320));
@@ -558,10 +558,10 @@ static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, cons
         result = 1;
     }
     if (graphic) graphic->imageNo = 243033;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243035;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243034;
     }
     return result;
@@ -572,7 +572,7 @@ static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::i
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = gWindowLineCountD67B74;
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindowLineScrollCF46B8;
@@ -597,10 +597,10 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
     auto* const element5 = elementsWindow->FindElementById(WindowTextListElementId::Element5);
     if (element5) {
         if (element5->visible != 0) {
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 gHoverTextD68AE8 = L"变更家族兽名称。";
             }
-            if ((state & 2) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0) {
                 const std::wstring proposedTitle = input::ContextText(cg::ui::detail::gInputContextCC49C0);
                 const std::wstring name = input::EscapeTextAndNotify(proposedTitle, 255);
                 const std::wstring packet = input::EscapeText(L"N|" + name, 255);
@@ -625,12 +625,12 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 consumed = 1;
             }
-        } else if ((state & 2) != 0) {
+        } else if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
     if (graphic) graphic->imageNo = 244215;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 244217;
     }
     if (input::gCurrentInputData != &cg::ui::detail::gInputContextCC49C0) {
@@ -648,10 +648,10 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"用滑鼠拖放物品至此视窗做为饲料。";
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const auto buffer = std::format(L"I|{}", gSelectedItem57EE0C);
             const std::int32_t target = gWindowRequestCF46AC;
             const std::int32_t request = gWindowRequestD672B0;
@@ -665,10 +665,10 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
             consumed = 1;
         }
         graphic->imageNo = 244332;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 244334;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 244333;
         }
         if (gSelectedItem57EE0C < 0) {
@@ -689,7 +689,7 @@ static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std
     if (indexedElement) {
         WindowElement_DrawHoverFrame(indexedElement, state, imageNo);
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     if (auto* const editTitleElement = currentWindow->FindElementById(WindowTextListElementId::EditTitle); editTitleElement) editTitleElement->visible = 0;
@@ -738,11 +738,11 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2 && WindowDrag_ReadKind() != 8) {
-        events &= 0x9Fu;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2 && WindowDrag_ReadKind() != 8) {
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0
@@ -765,7 +765,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
         }
     }
     std::int32_t selected;
-    if ((events & 1u) != 0 && (events & 2u) != 0) {
+    if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_LDownEvent) != 0) {
         selected = gSelectedItem57EE0C;
         if (selected >= 0) {
             static_cast<void>(WindowItemDrag_Start(selected, 1));
@@ -781,7 +781,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
     } else {
         selected = gSelectedItem57EE0C;
     }
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
             static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
@@ -807,7 +807,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
 // 原函数：0x004AE5B0。
 static std::int32_t WindowTextList_DrawBackgroundTooltip(const std::int32_t, const std::int32_t state)
 {
-    if ((state & 1) != 0 && gHoverTextD68AE8.empty()) {
+    if ((state & MouseFlag_Hover) != 0 && gHoverTextD68AE8.empty()) {
         gHoverTextD68AE8 = L"从物品视窗以滑鼠拖放方式选择要喂的饲料。";
     }
     return 0;

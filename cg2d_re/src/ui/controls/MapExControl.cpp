@@ -880,7 +880,7 @@ void UIMapExControl::UpdateMouseMapPos(short ox, short oy, const UIClipRect* cli
     const auto position = ScreenToMap(gMouseX - absX, gMouseY - absY);
     lastMouseX = position.first;
     lastMouseY = position.second;
-    if (gMouseClickState & 0x01) {
+    if (gMouseClickState & platform::LegacyMouseEdge_LDown) {
         lastClickX = lastMouseX;
         lastClickY = lastMouseY;
     }

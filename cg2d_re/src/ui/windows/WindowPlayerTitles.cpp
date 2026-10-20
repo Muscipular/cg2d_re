@@ -188,10 +188,10 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"设定自己的称号。" /* 原常量参考：0x005863C4。 */;
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     WindowInstance* const window = currentWindow;
@@ -227,14 +227,14 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B59E;
             gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
             consumed = 1;
         } else {
             graphic->imageNo = 0x3B59D;
         }
-        if ((state & 2) == 0) {
+        if ((state & MouseFlag_LDownEvent) == 0) {
             return consumed;
         }
     }
@@ -277,7 +277,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         const std::int32_t target = index == 17 ? 7 : index == 18 ? 8 : 58;
         const std::int32_t idle = index == 17 ? 0x3BAB5 : index == 18 ? 0x3B583 : 0x3C111;
         const std::int32_t hover = index == 17 ? 0x3BAB7 : index == 18 ? 0x3B585 : 0x3C112;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(hover);
             gHoverTextD68AE8 = index == 17 ? L"切换成玩家状态视窗。" /* 原常量参考：0x005858D8。 */
                             : index == 18 ? L"切换成玩家明细视窗。" /* 原常量参考：0x005858C0。 */ : L"切换成玩家简介视窗" /* 原常量参考：0x0058637C。 */;
@@ -285,7 +285,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         } else {
             setImage(idle);
         }
-        if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {
+        if ((state & MouseFlag_LDownEvent) != 0 && gWindowStates[target].window == nullptr) {
             currentWindow->state |= 0x8000u;
             static_cast<void>(WindowRuntime_Open(target));
             WindowInstance* const xSource = currentWindow;
@@ -300,38 +300,38 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         return consumed;
     }
     case 21: {
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAC4);
             gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
             consumed = 1;
         } else {
             setImage(0x3BAC2);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::wstring escapedText = input::EscapeTextAndNotify(gTitleDraftD45FC0, 128);
             static_cast<void>(network::SetCustomPlayerTitleRequest_512360(platform::gConnectionSocket, escapedText));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(WindowChat_RestoreInput());
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3BAC3);
         }
         return consumed;
     }
     case 22:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B576);
             gHoverTextD68AE8 = L"取消所选择的称号。" /* 原常量参考：0x005863FC。 */;
             consumed = 1;
         } else {
             setImage(0x3B574);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(network::SelectPlayerTitleRequest_5122C0(platform::gConnectionSocket, -1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B575);
         }
         return consumed;
@@ -341,7 +341,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             gHoverTextD68AE8 = L"删除所选择的称号。" /* 原常量参考：0x005863E8。 */;
         }
         const std::int32_t mode = gTitleModeCF4E50;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             if (mode == 0) {
                 setImage(0x3B579);
             }
@@ -349,7 +349,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         } else if (mode == 0) {
             setImage(0x3B577);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             gTitleModeCF4E50 = gTitleModeCF4E50 != 1 ? 1 : 0;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -357,13 +357,13 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
     }
     case 3:
     case 4:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(index == 3 ? 0x3B594 : 0x3B597);
             consumed = 1;
         } else {
             setImage(index == 3 ? 0x3B592 : 0x3B595);
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t page = gTitlePageCF4E54;
             if (index == 3 && page > 0) {
                 gTitlePageCF4E54 = page - 1;
@@ -386,19 +386,19 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(index == 3 ? 0x3B593 : 0x3B596);
             consumed = 1;
         }
         return consumed;
     case 24:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B55B);
             consumed = 1;
         } else {
             setImage(0x3B559);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             std::int32_t page = gTitlePageCF4E54 + 6;
             gTitlePageCF4E54 = page;
             if (page > 58) {
@@ -412,18 +412,18 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B55A);
         }
         return consumed;
     case 25:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B558);
             consumed = 1;
         } else {
             setImage(0x3B556);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t previousPage = gTitlePageCF4E54 - 6;
             gTitlePageCF4E54 = previousPage;
             if (previousPage < 0) {
@@ -437,12 +437,12 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B557);
         }
         return consumed;
     case 35:
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             gTitleModeCF4E50 = 0;
             return 1;
         }
@@ -457,7 +457,7 @@ static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = currentWindow;
         const std::int32_t page = gTitlePageCF4E54;

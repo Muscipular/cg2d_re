@@ -144,11 +144,11 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
-        events &= 0x9Fu;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
@@ -179,7 +179,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         WindowDrag_Reset();
     }
     std::int32_t hovered = -1;
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(NativeElementKey(index));
@@ -194,10 +194,10 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
             }
         }
     }
-    if ((events & 1u) != 0 && hovered >= 0) {
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         gHoverTextD68AE8 = L"把身上的物品用滑鼠拖放到饲料箱。";
     }
-    if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() >= 100
+    if (WindowDrag_ReadKind() != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex() >= 100
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
@@ -205,15 +205,15 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         gWindowStates[WindowId_ItemStorage].value20 = 0;
     }
     gStorageOwnHover57EE04 = hovered;
-    if ((events & 1u) != 0 && hovered >= 0) {
-        if ((events & 2u) != 0) {
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
+        if ((events & MouseFlag_LDownEvent) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(gWindowStates[WindowId_ItemStorage].value20);
                 const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
@@ -315,12 +315,12 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if ((events & 0x60u) != 0
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0
         && ((WindowDrag_ReadKind() != 2 && WindowDrag_ReadKind() != 5) || WindowDrag_ReadSourceIndex() < 8)) {
-        events &= 0x9Fu;
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
@@ -353,7 +353,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         WindowDrag_Reset();
     }
     std::int32_t hovered = -1;
-    if ((events & 0x21u) != 0) {
+    if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(NativeElementKey(index));
@@ -372,7 +372,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             }
         }
     }
-    if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
+    if (WindowDrag_ReadKind() != 0 && (events & MouseFlag_Dragging) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source < 100 && (*reinterpret_cast<const unsigned char*>(
                     &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) != 0) {
@@ -383,9 +383,9 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         gWindowStates[WindowId_ItemStorage].value20 = 0;
     }
     gStorageExternalHover57EE08 = hovered;
-    if ((events & 1u) != 0 && hovered >= 0) {
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         const auto* const record = &gItemDetailStorageCC4D58[0].items[hovered];
-        if ((events & 2u) != 0) {
+        if ((events & MouseFlag_LDownEvent) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
@@ -394,7 +394,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             }
             consumed = 1;
         }
-        if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {

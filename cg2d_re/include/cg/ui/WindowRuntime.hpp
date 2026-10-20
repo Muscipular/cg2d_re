@@ -8,6 +8,23 @@ struct YobiAction;
 
 namespace cg::ui {
 
+// 原生窗口、控件及 Lua MouseFlags 共用的事件位；由底层鼠标状态映射产生。
+enum MouseFlags : std::uint32_t {
+    MouseFlag_None = 0x000, // 无事件。
+    MouseFlag_Hover = 0x001, // 悬停。
+    MouseFlag_LDownEvent = 0x002, // 左键按下，驱动 onClick。
+    MouseFlag_RDownEvent = 0x004, // 右键按下。
+    MouseFlag_LHoldPhysical = 0x008, // 左键持续按住。
+    MouseFlag_RHoldPhysical = 0x010, // 右键持续按住。
+    MouseFlag_Dragging = 0x020, // 拖动。
+    MouseFlag_DragFinish = 0x040, // 拖放结束。
+    MouseFlag_Leave = 0x080, // 离开。
+    MouseFlag_LDblClickEvent = 0x100, // 左键双击。
+    MouseFlag_RDblClickEvent = 0x200, // 右键双击。
+    MouseFlag_LRepeatDown = 0x400, // 左键按下及重复脉冲。
+    MouseFlag_RRepeatDown = 0x800, // 右键按下及重复脉冲。
+};
+
 // 现代窗口编号；原57C130／C8B094／C9A9B0按此索引，不能用于旧选择编号。
 enum WindowId : std::int32_t {
     WindowId_None = 0, // 无窗口。

@@ -248,14 +248,14 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
     case 2:
     case 3: {
         const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = index == 2 ? L"往上查看内容。" /* 原常量参考：0x005885EC。 */ : L"往下查看内容。" /* 原常量参考：0x005885DC。 */;
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base;
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
             const bool canMove = index == 2 ? page > 0 : page < gLoginWindowRuntime.logViewerMaximumD67BB4;
             if (canMove) {
@@ -271,7 +271,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base + 1;
             consumed = 1;
         }
@@ -280,14 +280,14 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
     case 6:
     case 7: {
         const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = index == 6 ? L"查看后一天的内容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的内容。" /* 原常量参考：0x005885B4。 */;
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base;
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             std::FILE* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
             if (stream != nullptr) {
                 static_cast<void>(std::fclose(stream));
@@ -353,7 +353,7 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base + 1;
         }
         break;

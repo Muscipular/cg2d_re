@@ -589,7 +589,7 @@ struct BigMapWindowState final {
         if (listDirty || listMapWidth != map.mapWidth || listMapHeight != map.mapHeight) RebuildCoordinateList();
         SyncControls();
         const int mx = static_cast<int>(gMouseX), my = static_cast<int>(gMouseY);
-        const bool held = (gMouseBtnDown2 & 1) != 0;
+        const bool held = (gMouseBtnDown2 & platform::LegacyMouseButton_Left) != 0;
         const bool available = gWindowHasFocus == 0 && ui::WindowDrag_ReadMousePhase() == 0
             && platform::gWindowActiveState == 2 && platform::IsClientWindowForeground();
         acceptsMouse = available && Hit(0, 0, window.width, window.height);
@@ -602,10 +602,10 @@ struct BigMapWindowState final {
             }
         }
         RefreshText();
-        if (!acceptsMouse || (gMouseClickState & 2)) mapClickPending = false;
+        if (!acceptsMouse || (gMouseClickState & platform::LegacyMouseEdge_RDown)) mapClickPending = false;
         if (scrollingList) {
             const bool heldScroll = available && held && listOpen && MaxListFirstRow() > 0;
-            WindowElement_HandleVerticalScroll(ListScrollTrack, heldScroll ? 8 : 0);
+            WindowElement_HandleVerticalScroll(ListScrollTrack, heldScroll ? MouseFlag_LHoldPhysical : MouseFlag_None);
             auto* const indexedElement = window.FindElementById(NativeElementKey(ListScrollTrack));
             if (indexedElement) {
                 SetListFirstRow(WindowScroll_ReadPosition(indexedElement, MaxListFirstRow()));
@@ -620,7 +620,7 @@ struct BigMapWindowState final {
             } else movingWindow = false;
         } else if (dragging) {
             // 原生元素事件的0x100为双击；留给地图元素，优先于第二次按下的拖动捕获。
-            if (acceptsMouse && mapClickPending && (gMouseClickState & 0x10) && MapHit()) {
+            if (acceptsMouse && mapClickPending && (gMouseClickState & platform::LegacyMouseEdge_LDblClick) && MapHit()) {
                 dragging = false;
                 return stage;
             }
@@ -644,9 +644,9 @@ struct BigMapWindowState final {
         auto* const elementPtr = window.FindElementById(NativeElementKey(index));
         if (!elementPtr) { return 0; }
         auto& element = (*elementPtr);
-        element.state = acceptsMouse ? static_cast<std::uint32_t>(events) : 0;
+        element.state = acceptsMouse ? static_cast<std::uint32_t>(events) : MouseFlag_None;
         if (index < ButtonEnd) {
-            const bool hover = (element.state & 1) != 0, pressed = hover && (element.state & 8) != 0;
+            const bool hover = (element.state & MouseFlag_Hover) != 0, pressed = hover && (element.state & MouseFlag_LHoldPhysical) != 0;
             int imageNo = gBigMapElements[index].source.graphic->imageNo;
             switch (static_cast<BigMapButton>(index - ButtonFirst)) {
             case BigMapButton::Toggle:
@@ -662,25 +662,25 @@ struct BigMapWindowState final {
             }
             element.data.graphic->imageNo = imageNo;
         }
-        if (index == ListToggleTextArea && acceptsMouse && (events & 1)) {
+        if (index == ListToggleTextArea && acceptsMouse && (events & MouseFlag_Hover)) {
             const int button = ButtonFirst + static_cast<int>(BigMapButton::CoordinateList);
             auto* const indexedElement = window.FindElementById(NativeElementKey(button));
             if (indexedElement) {
                 indexedElement->data.graphic->imageNo =
-                    (events & 8) ? CenterPressed : CenterHover;
+                    (events & MouseFlag_LHoldPhysical) ? CenterPressed : CenterHover;
             }
         }
         if (index >= ListScrollUp && index <= ListNextPage) {
             const int base = gBigMapElements[index].source.graphic->imageNo;
             auto& graphic = *element.data.graphic;
-            graphic.imageNo = base + ((element.state & 8) ? 1 : (element.state & 1) ? 2 : 0);
+            graphic.imageNo = base + ((element.state & MouseFlag_LHoldPhysical) ? 1 : (element.state & MouseFlag_Hover) ? 2 : 0);
             const bool atEnd = (index == ListScrollUp || index == ListPreviousPage)
                 ? listFirstRow == 0 : listFirstRow == MaxListFirstRow();
             graphic.color = atEnd ? 0x80FFFFFFu : 0xFFFFFFFFu;
         }
-        if (!acceptsMouse || (window.state & WIN_STATE_CLOSE) || !(events & 1)) return 0;
+        if (!acceptsMouse || (window.state & WIN_STATE_CLOSE) || !(events & MouseFlag_Hover)) return 0;
         if (index == ListScrollTrack) {
-            if ((events & 8) && MaxListFirstRow() > 0) {
+            if ((events & MouseFlag_LHoldPhysical) && MaxListFirstRow() > 0) {
                 scrollingList = true;
                 mapClickPending = false;
                 WindowElement_HandleVerticalScroll(index, events);
@@ -689,13 +689,13 @@ struct BigMapWindowState final {
             return 1;
         }
         if (index != MapArea) {
-            if (events & (2 | 4)) mapClickPending = false;
+            if (events & (MouseFlag_LDownEvent | MouseFlag_RDownEvent)) mapClickPending = false;
             if (index >= ListRowFirst && index < ListRowEnd) {
                 const int position = listFirstRow + index - ListRowFirst;
                 if (mapReady && position >= 0 && position < static_cast<int>(coordinateRows.size())
-                    && (events & (2 | 0x100))) {
+                    && (events & (MouseFlag_LDownEvent | MouseFlag_LDblClickEvent))) {
                     const auto& point = *coordinateRows[position];
-                    const bool doubleClick = (events & 0x100) && lastListClickX == point.x && lastListClickY == point.y;
+                    const bool doubleClick = (events & MouseFlag_LDblClickEvent) && lastListClickX == point.x && lastListClickY == point.y;
                     const bool retarget = getAutoCopliotState() && (targetX != point.x || targetY != point.y);
                     targetX = point.x; targetY = point.y;
                     followPlayer = false;
@@ -716,7 +716,7 @@ struct BigMapWindowState final {
                 return 1;
             }
             if (index >= ListScrollUp && index <= ListNextPage) {
-                if (events & 0x400) {
+                if (events & MouseFlag_LRepeatDown) {
                     if (index == ListScrollUp) SetListFirstRow(listFirstRow - 1);
                     else if (index == ListScrollDown) SetListFirstRow(listFirstRow + 1);
                     else if (index == ListPreviousPage) SetListFirstRow(((std::max(1, listFirstRow) - 1) / kCoordinateRows) * kCoordinateRows);
@@ -724,7 +724,7 @@ struct BigMapWindowState final {
                 }
                 return 1;
             }
-            if (events & 2) {
+            if (events & MouseFlag_LDownEvent) {
                 lastListClickX = lastListClickY = -1;
                 if (index < ButtonEnd) {
                     switch (static_cast<BigMapButton>(index - ButtonFirst)) {
@@ -755,27 +755,27 @@ struct BigMapWindowState final {
             RefreshText();
             return 1;
         }
-        if (events & (2 | 4)) lastListClickX = lastListClickY = -1;
+        if (events & (MouseFlag_LDownEvent | MouseFlag_RDownEvent)) lastListClickX = lastListClickY = -1;
         if (!mapReady) return 1;
         const auto point = map.ScreenToMap(static_cast<int>(gMouseX) - window.x - map.x,
             static_cast<int>(gMouseY) - window.y - map.y);
         const bool valid = point.first >= 0 && point.second >= 0
             && point.first < map.mapWidth && point.second < map.mapHeight;
-        if ((events & 0x100) && mapClickPending) {
+        if ((events & MouseFlag_LDblClickEvent) && mapClickPending) {
             mapClickPending = false;
             dragging = false;
             if (valid) {
                 targetX = point.first; targetY = point.second;
                 startCopilot(targetX, targetY);
             }
-        } else if (events & 2) {
+        } else if (events & MouseFlag_LDownEvent) {
             mapClickPending = true;
             dragging = true;
             dragMoved = false;
             dragX = static_cast<int>(gMouseX); dragY = static_cast<int>(gMouseY);
             dragMapX = map.mapX; dragMapY = map.mapY;
         }
-        if ((events & 4) && valid) {
+        if ((events & MouseFlag_RDownEvent) && valid) {
             mapClickPending = false;
             const bool retarget = getAutoCopliotState() && (targetX != point.first || targetY != point.second);
             targetX = point.first; targetY = point.second;
@@ -859,7 +859,7 @@ struct BigMapWindowState final {
                 const int position = listFirstRow + row;
                 if (!element.visible || position >= static_cast<int>(coordinateRows.size())) continue;
                 const auto& point = *coordinateRows[position];
-                if ((element.state & 1) || (targetX == point.x && targetY == point.y))
+                if ((element.state & MouseFlag_Hover) || (targetX == point.x && targetY == point.y))
                     RendererDrawRectClipped(static_cast<short>(window.x + element.x),
                         static_cast<short>(window.y + element.y), static_cast<short>(element.width),
                         static_cast<short>(element.height), LAYER_UI, 0x803F6E83u, &clip);
@@ -966,7 +966,7 @@ struct BigMapWindowState final {
                 auto* const elementPtr = window.FindElementById(NativeElementKey(CategoryFirst + i));
                 if (elementPtr) {
                     const auto& element = (*elementPtr);
-                    if (element.state & 1)
+                    if (element.state & MouseFlag_Hover)
                         RendererDrawRectClipped(static_cast<short>(window.x + element.x),
                             static_cast<short>(window.y + element.y), static_cast<short>(element.width),
                             static_cast<short>(element.height), LAYER_UI, 0x503F6E83u, &clip);

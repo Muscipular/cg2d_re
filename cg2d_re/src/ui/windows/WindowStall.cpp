@@ -530,7 +530,7 @@ static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         if (gStallModeD67BDC == 1) {
             if (gStallPetPageD67BD0 > 0) {
                 --gStallPetPageD67BD0;
@@ -565,10 +565,10 @@ static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, 
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243090;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243092;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243091;
     }
     return consumed;
@@ -582,7 +582,7 @@ static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, cons
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         if (gStallModeD67BDC == 1) {
             const std::int32_t maximum = gStallPetCountD67BD4 - 3;
             const std::int32_t page = gStallPetPageD67BD0;
@@ -621,10 +621,10 @@ static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, cons
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243093;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243095;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243094;
     }
     return consumed;
@@ -635,7 +635,7 @@ static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::in
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const bool own = gStallOwn58111C != 0;
         const std::int32_t mode = gStallModeD67BDC;
         if (mode == 1) {
@@ -669,7 +669,7 @@ static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, cons
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         if (gStallModeD67BDC == 1) {
             if (gStallPetCandidatePageD67BD8 > 0) {
                 --gStallPetCandidatePageD67BD8;
@@ -688,10 +688,10 @@ static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, cons
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243090;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243092;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243091;
     }
     return consumed;
@@ -705,7 +705,7 @@ static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const st
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         if (gStallModeD67BDC == 1) {
             if (gStallPetCandidatePageD67BD8 < 1) {
                 ++gStallPetCandidatePageD67BD8;
@@ -724,10 +724,10 @@ static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const st
         consumed = 1;
     }
     if (graphic) graphic->imageNo = 243093;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243095;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243094;
     }
     return consumed;
@@ -738,7 +738,7 @@ static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const st
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const bool own = gStallOwn58111C != 0;
         const std::int32_t mode = gStallModeD67BDC;
         if (mode == 1) {
@@ -780,13 +780,13 @@ static std::int32_t WindowStall_TabCategory(const std::int32_t index, const std:
     if (category == gStallModeD67BDC) {
         if (graphic) graphic->imageNo = kStallTabImages54EF40[category][0];
     } else {
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             if (graphic) graphic->imageNo = kStallTabImages54EF40[category][2];
             consumed = 1;
         } else {
             if (graphic) graphic->imageNo = kStallTabImages54EF40[category][1];
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const bool own = gStallOwn58111C != 0;
             gStallModeD67BDC = category;
             gStallItemSelection581124 = -1;
@@ -973,7 +973,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
             if ((gStallItemCountD67BCC <= 0 && gStallPetCountD67BD4 <= 0)
                 || gStallPendingD67C31 != 0) {
                 disabled = true;
-            } else if ((state & 2) != 0) {
+            } else if ((state & MouseFlag_LDownEvent) != 0) {
                 const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
                 gStallPendingD67C31 = 1;
                 gOwnStallOpenForBusiness_D67BE0 = gate == 0 ? 1 : 0;
@@ -986,7 +986,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
             imageGroup = 1;
             if (gStallPendingD67C31 != 0) {
                 disabled = true;
-            } else if ((state & 2) != 0) {
+            } else if ((state & MouseFlag_LDownEvent) != 0) {
                 gStallPendingD67C31 = 1;
                 gStallItemSelection581124 = -1;
                 gStallPetSelection581128 = -1;
@@ -1000,14 +1000,14 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
                 const std::int32_t selected = gStallItemSelection581124;
                 if (selected < 20 || selected >= 40) {
                     disabled = true;
-                } else if ((state & 2) != 0) {
+                } else if ((state & MouseFlag_LDownEvent) != 0) {
                     static_cast<void>(WindowStall_RemoveListing());
                 }
             } else if (mode == 1) {
                 const std::int32_t selected = gStallPetSelection581128;
                 if (selected < 5 || selected >= 10) {
                     disabled = true;
-                } else if ((state & 2) != 0) {
+                } else if ((state & MouseFlag_LDownEvent) != 0) {
                     static_cast<void>(WindowStall_RemoveListing());
                 }
             }
@@ -1017,7 +1017,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
             imageGroup = 4;
             if (gOwnStallOpenForBusiness_D67BE0 != 0) {
                 disabled = true;
-            } else if ((state & 2) != 0) {
+            } else if ((state & MouseFlag_LDownEvent) != 0) {
                 window->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
@@ -1029,14 +1029,14 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
                 const std::int32_t selected = gStallItemSelection581124;
                 if (selected < 0 || selected >= 20) {
                     disabled = true;
-                } else if (gStallItemUsedCC31AC[selected] == 0 && (state & 2) != 0) {
+                } else if (gStallItemUsedCC31AC[selected] == 0 && (state & MouseFlag_LDownEvent) != 0) {
                     static_cast<void>(WindowStall_EditItemPrice());
                 }
             } else if (mode == 1) {
                 const std::int32_t selected = gStallPetSelection581128;
                 if (selected < 0 || selected >= 5) {
                     disabled = true;
-                } else if (gStallPetUsedCF400C[selected] == 0 && (state & 2) != 0) {
+                } else if (gStallPetUsedCF400C[selected] == 0 && (state & MouseFlag_LDownEvent) != 0) {
                     WindowStall_EditPetPrice(selected);
                 }
             }
@@ -1058,7 +1058,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
                 const std::int32_t petCount = gStallPetCountD67BD4;
                 if (petCount <= 0 && mode == 1) {
                     disabled = true;
-                } else if ((state & 2) != 0) {
+                } else if ((state & MouseFlag_LDownEvent) != 0) {
                     static_cast<void>(WindowStall_ShowPurchaseConfirmation());
                 }
             }
@@ -1067,7 +1067,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
         imageGroup = 4;
         if (gStallPendingD67C31 != 0) {
             disabled = true;
-        } else if ((state & 2) != 0) {
+        } else if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
@@ -1078,17 +1078,17 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
         return 0;
     }
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = kStallButtonImages54EEE0[imageGroup][2];
         consumed = 1;
     } else {
         if (graphic) graphic->imageNo = kStallButtonImages54EEE0[imageGroup][0];
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = kStallButtonImages54EEE0[imageGroup][1];
         consumed = 1;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         input::InputContext* const context = input::gCurrentInputData;
         if (context == &cg::ui::detail::gInputContextCB0028 || context == &cg::ui::detail::gInputContextCC2378) {
             WindowChat_RestoreInput();
@@ -1186,7 +1186,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
     if (!currentWindow) return 0;
     const std::int32_t mode = gStallMessageModeD67C34;
     if (mode != 0 && mode != 1) {
-        return state & 1;
+        return state & MouseFlag_Hover;
     }
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1209,7 +1209,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
         const std::int32_t buttonX = window->x + window->width / 2;
         static_cast<void>(cg::render::DrawGraphic(
             buttonX, buttonY, 227, hit ? 243050 : 243048, 0, &descriptor));
-        if (hit && (state & 2) != 0) {
+        if (hit && (state & MouseFlag_LDownEvent) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
     }
@@ -1219,7 +1219,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
     cg::yobi::DrawNineGrid_49BE00(
         245300, backgroundX, backgroundY, 220, 92, 226, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    return state & 1;
+    return state & MouseFlag_Hover;
 }
 
 // 原函数：0x004D0990。
@@ -1405,7 +1405,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
                 x, y, 223, mode <= 1 ? 98849 : 98850, 0, 1, 0, &descriptor));
         }
     } else {
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(NativeElementKey(index));
             if (elementPtr) {
@@ -1419,11 +1419,11 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
             }
             consumed = 1;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             gStallPetSelection581128 = gStallPetPageD67BD0 + row + 5;
         }
         const bool currentOwn = gStallOwn58111C != 0;
-        if ((state & 0x100) != 0) {
+        if ((state & MouseFlag_LDblClickEvent) != 0) {
             if (currentOwn) {
                 static_cast<void>(WindowStall_RemoveListing());
             } else {
@@ -1470,7 +1470,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         const std::int32_t x = window->x + 243;
         WindowNumber_Draw(x, y, buffer, 0, priceColor, 1, 223);
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         WindowInstance* const window = currentWindow;
         const std::int32_t windowX = window->x;
         const std::int32_t y = window->y + 20;
@@ -1528,7 +1528,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
     const std::int32_t row = index - (gStallOwn58111C != 0 ? 26 : 24);
     const auto* const initialPet = &world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row];
     if (initialPet->used == 0) {
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             gStallPetSelection581128 = -1;
         }
         return 0;
@@ -1575,12 +1575,12 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         const bool own = gStallOwn58111C != 0;
         const std::int32_t position = gStallPetCandidatePageD67BD8 + row;
         bool offered = gStallPetUsedCF400C[position] != 0;
-        if (own && (state & 2) != 0 && offered) {
+        if (own && (state & MouseFlag_LDownEvent) != 0 && offered) {
             gStallPetSelection581128 = -1;
             offered = gStallPetUsedCF400C[position] != 0;
         }
         if (!offered && own) {
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 WindowInstance* const window = currentWindow;
                 auto* const elementPtr = window->FindElementById(NativeElementKey(index));
                 if (elementPtr) {
@@ -1594,10 +1594,10 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
                 }
                 consumed = 1;
             }
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 gStallPetSelection581128 = gStallPetCandidatePageD67BD8 + row;
             }
-            if ((state & 0x100) != 0) {
+            if ((state & MouseFlag_LDblClickEvent) != 0) {
                 WindowStall_EditPetPrice(gStallPetSelection581128);
             }
         }
@@ -1616,7 +1616,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
             }
         }
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         WindowInstance* const window = currentWindow;
         std::int32_t x = window->x + 20;
         const std::int32_t y = window->y + 20;
@@ -1671,7 +1671,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         if (item->used == 0) {
             return 0;
         }
-        if ((state & 0x21) != 0) {
+        if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
             gStallHover581120 = slot + 8;
         }
     } else {
@@ -1679,11 +1679,11 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         if (item->used == 0) {
             return 0;
         }
-        if ((state & 0x21) != 0) {
+        if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
             gStallHover581120 = position + 200;
         }
     }
-    if ((state & 4) != 0) {
+    if ((state & MouseFlag_RDownEvent) != 0) {
         ++gStallDescriptionPageD67C3C;
         if (gStallDescriptionPageD67C3C >= item->pages) {
             gStallDescriptionPageD67C3C = 0;
@@ -1719,7 +1719,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
                 x, y, 223, mode <= 1 ? 98847 : 98848, 0, 1, 0, &descriptor));
         }
     } else {
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(NativeElementKey(index));
             if (elementPtr) {
@@ -1733,11 +1733,11 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
             }
             consumed = 1;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             gStallItemSelection581124 = gStallItemPageD67BC8 + row + 20;
         }
         const bool currentOwn = gStallOwn58111C != 0;
-        if ((state & 0x100) != 0) {
+        if ((state & MouseFlag_LDblClickEvent) != 0) {
             if (currentOwn) {
                 static_cast<void>(WindowStall_RemoveListing());
             } else {
@@ -1846,7 +1846,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
                     static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46),
                     223, 256, 0);
             }
-            if (hovered < 0 && (state & 0x21) != 0
+            if (hovered < 0 && (state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0
                 && cg::ui::HitTestMouseRect_5049A0(x, y, x + 48, y + 48, -1) != 0) {
                 hovered = slot;
                 if (gStallInventoryHover5817FC != slot) {
@@ -1855,28 +1855,28 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
                 const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
                 gStallInventoryHover5817FC = slot;
                 if (gate == 0) {
-                    if (gStallOwn58111C != 0 && (state & 2) != 0
+                    if (gStallOwn58111C != 0 && (state & MouseFlag_LDownEvent) != 0
                         && (gStallItemUsedCC31AC[slot] != 0 || (item->flags & 0x60u) != 0)) {
                         gStallItemSelection581124 = -1;
                     }
                     if (gStallItemUsedCC31AC[slot] == 0 && (item->flags & 0x60u) == 0) {
-                        if ((state & 1) != 0) {
+                        if ((state & MouseFlag_Hover) != 0) {
                             cg::render::DrawGraphicHover(
                                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                                 static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
                                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
                         }
                         if (gStallOwn58111C != 0) {
-                            if ((state & 2) != 0) {
+                            if ((state & MouseFlag_LDownEvent) != 0) {
                                 gStallItemSelection581124 = slot;
                             }
-                            if ((state & 0x100) != 0) {
+                            if ((state & MouseFlag_LDblClickEvent) != 0) {
                                 static_cast<void>(WindowStall_EditItemPrice());
                             }
                         }
                     }
                 }
-                if ((state & 4) != 0) {
+                if ((state & MouseFlag_RDownEvent) != 0) {
                     const std::int32_t page = gStallDescriptionPageD67C3C + 1;
                     const std::int32_t pages = item->pages;
                     gStallDescriptionPageD67C3C = page;
@@ -1905,7 +1905,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
             static_cast<void>(cg::render::DrawGraphic(x + 24, y + 24, 223, item->imageNo, 0, &descriptor));
         }
     }
-    return (state & 0x21) != 0 ? 1 : 0;
+    return (state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0 ? 1 : 0;
 }
 
 // 原函数：0x004D2260。
@@ -1913,7 +1913,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const bool clicked = (state & 2) != 0;
+    const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
         static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
@@ -1974,7 +1974,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
             if (gStallPriceD67C40 > 9999999) {
                 gStallPriceD67C40 = 9999999;
             }
-            imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+            imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
         }
         if (imageState >= 0) {
             static_cast<void>(cg::render::DrawGraphic(
@@ -1986,7 +1986,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         if (clicked) {
             gStallPriceD67C40 /= 10;
         }
-        imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+        imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
     }
     if (imageState >= 0) {
         static_cast<void>(cg::render::DrawGraphic(
@@ -1997,7 +1997,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         if (clicked) {
             gStallPriceD67C40 = 0;
         }
-        imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+        imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
     }
     if (imageState >= 0) {
         static_cast<void>(cg::render::DrawGraphic(
@@ -2013,7 +2013,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
                 }
                 if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
             }
-            imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+            imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
         } else {
             imageState = 0;
         }
@@ -2026,7 +2026,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
     cg::text::FormatTo(buffer, L"{}", gStallPriceD67C40);
     WindowNumber_Draw(x + 105, y + 29, buffer, 3, 0, 1, 227);
     static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98855, 0, 1, 0, &descriptor));
-    return state & 1;
+    return state & MouseFlag_Hover;
 }
 
 // 原函数：0x004D2840。
@@ -2063,11 +2063,11 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     std::int32_t imageState = 0;
     if (cg::ui::HitTestMouseRect_5049A0(
         acceptLeft, acceptTop, acceptLeft + 49, acceptTop + 17, -1) != 0) {
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowStall_RequestPurchase());
             if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
         }
-        imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+        imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
     }
     if (imageState >= 0) {
         static_cast<void>(render::DrawGraphic3_520970(
@@ -2079,10 +2079,10 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     imageState = 0;
     if (cg::ui::HitTestMouseRect_5049A0(
         cancelLeft, cancelTop, cancelLeft + 49, cancelTop + 17, -1) != 0) {
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
         }
-        imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
+        imageState = (state & MouseFlag_LHoldPhysical) != 0 ? 1 : ((state & MouseFlag_Hover) != 0 ? 2 : -1);
     }
     if (imageState >= 0) {
         static_cast<void>(render::DrawGraphic3_520970(
@@ -2094,10 +2094,10 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     if (gStallModeD67BDC == 0) {
         auto* const item = gStallBrowseData->items.data() + (gStallItemSelection581124 - 20);
         if (cg::ui::HitTestMouseRect_5049A0(x + 22, y + 58, x + 70, y + 106, -1) != 0) {
-            if ((state & 1) != 0) {
+            if ((state & MouseFlag_Hover) != 0) {
                 gStallHover581120 = gStallItemSelection581124 + 180;
             }
-            if ((state & 4) != 0) {
+            if ((state & MouseFlag_RDownEvent) != 0) {
                 ++gStallDescriptionPageD67C3C;
                 if (gStallDescriptionPageD67C3C >= item->pages) {
                     gStallDescriptionPageD67C3C = 0;
@@ -2105,7 +2105,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
             }
         }
         if (cg::ui::HitTestMouseRect_5049A0(x + 133, y + 6, x + 148, y + 19, -1) != 0) {
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
             } else {
                 static_cast<void>(render::DrawGraphic3_520970(
@@ -2137,7 +2137,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98856, 0, 1, 0, &descriptor));
     } else {
         if (cg::ui::HitTestMouseRect_5049A0(x + 254, y + 6, x + 269, y + 19, -1) != 0) {
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 if (auto* const handlePriceInputElement = currentWindow->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 0;
             } else {
                 static_cast<void>(render::DrawGraphic3_520970(
@@ -2188,7 +2188,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
         WindowNumber_Draw(x + 241, y + 131, details, 3, 0, 1, 227);
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98860, 0, 1, 0, &descriptor));
     }
-    return state & 1;
+    return state & MouseFlag_Hover;
 }
 
 // 原函数：0x004CD4F0。
@@ -2397,10 +2397,10 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
     if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"请输入描述" /* 原常量参考：0x00586450。 */;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const editDescriptionElement = window->FindElementById(WindowStallElementId::EditDescription);
         if (editDescriptionElement) {
@@ -2435,10 +2435,10 @@ static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t 
     if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"请输入描述" /* 原常量参考：0x00586450。 */;
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = currentWindow;
         auto* const editNameElement = window->FindElementById(WindowStallElementId::EditName);
         if (editNameElement) {
@@ -2856,12 +2856,12 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hovered = (state & 1) != 0;
+        const bool hovered = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = 0;
         if (hovered) {
             gHoverTextD68AE8 = L"关闭这个视窗。";
         }
-        if ((state & 2) != 0 && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallPendingD67C31 == 0) {
+        if ((state & MouseFlag_LDownEvent) != 0 && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallPendingD67C31 == 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
@@ -2870,7 +2870,7 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
         if (hovered) {
             graphic->imageNo = 243002;
         }
-        if ((state & 8) != 0 || gOwnStallOpenForBusiness_D67BE0 != 0 || gStallPendingD67C31 != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0 || gOwnStallOpenForBusiness_D67BE0 != 0 || gStallPendingD67C31 != 0) {
             graphic->imageNo = 243001;
         }
         return consumed;

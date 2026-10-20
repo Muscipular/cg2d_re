@@ -488,26 +488,26 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     std::int32_t consumed = 0;
     switch (index) {
     case 4:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             if (auto* const handleButtons_5Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_5); handleButtons_5Element) handleButtons_5Element->data.graphic->imageNo = 0x3BDC3;
             gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示行数，点击滑鼠右键减少文字讯息显示行数。";
             consumed = 1;
         } else {
             if (auto* const handleButtons_5Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_5); handleButtons_5Element) handleButtons_5Element->data.graphic->imageNo = 0x3BDC4;
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             WindowChat_RequestHeightIncrease();
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 0x800) != 0) {
+        if ((state & MouseFlag_RRepeatDown) != 0) {
             WindowChat_RequestHeightDecrease();
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
         break;
     case 5:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             const std::int32_t image = platform::gChatRange_554640 * 3 + 0x3BDB1;
             if (auto* const handleButtons_6Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_6); handleButtons_6Element) handleButtons_6Element->data.graphic->imageNo = image;
             gHoverTextD68AE8 = L"切换发话的范围。";
@@ -517,7 +517,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             const std::int32_t range = platform::gChatRange_554640;
             if (auto* const handleButtons_6Element = window->FindElementById(WindowChatElementId::HandleButtons_6); handleButtons_6Element) handleButtons_6Element->data.graphic->imageNo = range * 3 + 0x3BDB2;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t range = platform::gChatRange_554640 + 1;
             platform::gChatRange_554640 = range;
             if (range > 5) {
@@ -527,7 +527,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             world::gChatRangeOverlayFrames_626BFC = 180;
             consumed = 1;
         }
-        if ((state & 4) != 0) {
+        if ((state & MouseFlag_RDownEvent) != 0) {
             const std::int32_t range = platform::gChatRange_554640 - 1;
             platform::gChatRange_554640 = range;
             if (range < 1) {
@@ -540,7 +540,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         break;
     case 6: {
         WindowInstance* const hoverWindow = currentWindow;
-        const bool hovered = (state & 1) != 0;
+        const bool hovered = (state & MouseFlag_Hover) != 0;
         auto* const handleButtons_7Element = hoverWindow->FindElementById(WindowChatElementId::HandleButtons_7);
         if (!handleButtons_7Element) { return 0; }
         auto* const graphic = handleButtons_7Element->data.graphic;
@@ -561,12 +561,12 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             default: break;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowRuntime_CycleNameMode());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 4) != 0) {
+        if ((state & MouseFlag_RDownEvent) != 0) {
             const std::int32_t mode = platform::gChatTextSizeMode_73ECBC + 1;
             platform::gChatTextSizeMode_73ECBC = mode;
             if (mode > 2) {
@@ -579,7 +579,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     }
     case 3: {
         WindowInstance* const hoverWindow = currentWindow;
-        const bool hovered = (state & 1) != 0;
+        const bool hovered = (state & MouseFlag_Hover) != 0;
         auto* hoverElementsWindow = hoverWindow;
         if (hovered) {
             if (auto* const handleButtonsElement = hoverElementsWindow->FindElementById(WindowChatElementId::HandleButtons); handleButtonsElement) handleButtonsElement->data.graphic->imageNo = 0x3BDA9;
@@ -588,12 +588,12 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         } else {
             if (auto* const handleButtonsElement = hoverElementsWindow->FindElementById(WindowChatElementId::HandleButtons); handleButtonsElement) handleButtonsElement->data.graphic->imageNo = 0x3BDAA;
         }
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             WindowChat_RequestWidthIncrease();
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 0x800) != 0) {
+        if ((state & MouseFlag_RRepeatDown) != 0) {
             WindowChat_RequestWidthDecrease();
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -601,12 +601,12 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         break;
     }
     case 7: {
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"变更文字的颜色。";
             consumed = 1;
         }
         std::int32_t color;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t next = cg::ui::detail::gInputContext626AA0.field140 + 1;
             cg::ui::detail::gInputContext626AA0.field140 = next;
             if (next == 4) {
@@ -621,7 +621,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         } else {
             color = cg::ui::detail::gInputContext626AA0.field140;
         }
-        if ((state & 4) != 0) {
+        if ((state & MouseFlag_RDownEvent) != 0) {
             --color;
             cg::ui::detail::gInputContext626AA0.field140 = color;
             if (color == 4) {
@@ -637,14 +637,14 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     }
     case 13: {
         WindowInstance* const hoverWindow = currentWindow;
-        const bool hovered = (state & 1) != 0;
+        const bool hovered = (state & MouseFlag_Hover) != 0;
         auto* const handleButtons_12Element = hoverWindow->FindElementById(WindowChatElementId::HandleButtons_12);
         if (handleButtons_12Element) {
             handleButtons_12Element->data.graphic->imageNo =
                 hovered ? 0x3B594 : 0x3B592;
         }
         consumed = hovered ? 1 : 0;
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t previousScroll = gChatScrollOffsetC9A940;
             const std::int32_t count = world::gChatRecordCount_C9A944;
             const std::int32_t scroll = previousScroll + 1;
@@ -666,10 +666,10 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         auto* const handleButtons_13Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_13);
         if (handleButtons_13Element) {
             handleButtons_13Element->data.graphic->imageNo =
-                (state & 1) != 0 ? 0x3B597 : 0x3B595;
+                (state & MouseFlag_Hover) != 0 ? 0x3B597 : 0x3B595;
         }
-        consumed = (state & 1) != 0 ? 1 : 0;
-        if ((state & 0x400) != 0) {
+        consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t scroll = gChatScrollOffsetC9A940 - 1;
             gChatScrollOffsetC9A940 = scroll;
             if (scroll < 0) {
@@ -686,7 +686,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         break;
     }
     case 10:
-        consumed = (state & 1) != 0 ? 1 : 0;
+        consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
         break;
     default:
         break;
@@ -704,7 +704,7 @@ static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_
         return 0;
     }
     std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
@@ -795,7 +795,7 @@ static std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::i
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         WindowInstance* const window = currentWindow;
         const std::int32_t count = world::gChatRecordCount_C9A944;
         auto* const dragScrollElement = window->FindElementById(WindowChatElementId::DragScroll);
@@ -814,7 +814,7 @@ static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t sta
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    if (window != gWindows[WindowId_None] || (state & 0x21) == 0) {
+    if (window != gWindows[WindowId_None] || (state & (MouseFlag_Hover | MouseFlag_Dragging)) == 0) {
         return 0;
     }
     const std::int32_t count = world::gChatRecordCount_C9A944;

@@ -138,7 +138,7 @@ static std::int32_t WindowQuantity_HandleInput(const std::int32_t, const std::in
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowInput_ActivateElement(&gNumberInputPrototype57DA70, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCB0878);
         WindowInstance* const window = currentWindow;
@@ -217,10 +217,10 @@ static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, cons
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"增加显示数量。";
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
         auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk);
         if (buttonOkElement) {
@@ -234,10 +234,10 @@ static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, cons
         }
     }
     if (graphic) graphic->imageNo = 243090;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243092;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243091;
     }
     return 0;
@@ -252,10 +252,10 @@ static std::int32_t WindowQuantity_ButtonDecrease(const std::int32_t index, cons
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"减少显示数量。";
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk);
         if (buttonOkElement) {
             const std::int32_t value = std::bit_cast<std::int32_t>(buttonOkElement->state);
@@ -268,10 +268,10 @@ static std::int32_t WindowQuantity_ButtonDecrease(const std::int32_t index, cons
         }
     }
     if (graphic) graphic->imageNo = 243093;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 243095;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243094;
     }
     return 0;

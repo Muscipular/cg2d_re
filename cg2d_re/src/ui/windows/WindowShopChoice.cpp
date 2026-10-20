@@ -308,7 +308,7 @@ static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::in
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 1) == 0) {
+    if ((state & MouseFlag_Hover) == 0) {
         return 0;
     }
     for (std::int32_t index = 0;
@@ -331,7 +331,7 @@ static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::in
             }
         }
         gHoverTextD68AE8 = gChoiceDialog.hints[index];
-        if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+        if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;
             if (callback != nullptr) {
                 static_cast<void>(callback(index));

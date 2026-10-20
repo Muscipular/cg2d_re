@@ -77,7 +77,7 @@ static void UpdatePulse(
     }
 
     const std::uint64_t repeatElapsed = elapsed - currentAnchor;
-    if (bit == 0x02u) {
+    if (bit == LegacyMouseButton_Right) {
         // 原右侧 506EE5：先保存 pulse，再判断重复间隔并发布锚点。
         const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         if (repeatElapsed >= 100) {
@@ -184,7 +184,7 @@ void ResetLegacyMouseTail_506DD0()
 void UpdateCursor_506E00()
 {
     const std::uint64_t leftDownTick = gLegacyMouseState.leftDownTick;
-    gLegacyMouseState.edgeButtons = 0;
+    gLegacyMouseState.edgeButtons = LegacyMouseEdge_None;
 
     std::uint64_t leftElapsed;
     if (leftDownTick != 0) {
@@ -206,8 +206,8 @@ void UpdateCursor_506E00()
         rightElapsed = gLegacyMouseState.rightElapsed;
     }
 
-    UpdatePulse(leftElapsed, 0x01u, gLeftMouseRepeatAnchorMs_D68DC8);
-    UpdatePulse(rightElapsed, 0x02u, gRightMouseRepeatAnchorMs_D68BF0);
+    UpdatePulse(leftElapsed, LegacyMouseButton_Left, gLeftMouseRepeatAnchorMs_D68DC8);
+    UpdatePulse(rightElapsed, LegacyMouseButton_Right, gRightMouseRepeatAnchorMs_D68BF0);
 
     if (gNativeCursorEnabled_D67AE4 == 0) {
         if (gLegacyMouseState.drawingSuppression == 0) {

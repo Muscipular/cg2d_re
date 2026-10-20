@@ -216,21 +216,21 @@ bool UIScrollViewControl::process(int index, int hasFocused, int captured, const
         bool inThumb = MouseIsInRect(trackX, thumbY, drawBarWidth, thumbHeight) && UIPointInClipRect(gMouseX, gMouseY, &viewClip);
 
         if (draggingThumb) {
-            if (gMouseBtnDown2 & 0x01) {
+            if (gMouseBtnDown2 & platform::LegacyMouseButton_Left) {
                 int nextThumbY = gMouseY - dragOffsetY - absY;
                 SetScrollY(nextThumbY * maxScroll / thumbRange);
                 handled = true;
             } else {
                 draggingThumb = false;
             }
-        } else if (inTrack && (gMouseClickState & 0x01)) {
+        } else if (inTrack && (gMouseClickState & platform::LegacyMouseEdge_LDown)) {
             draggingThumb = true;
             dragOffsetY = inThumb ? gMouseY - thumbY : thumbHeight / 2;
             int nextThumbY = gMouseY - dragOffsetY - absY;
             SetScrollY(nextThumbY * maxScroll / thumbRange);
             handled = true;
         }
-    } else if (!(gMouseBtnDown2 & 0x01)) {
+    } else if (!(gMouseBtnDown2 & platform::LegacyMouseButton_Left)) {
         draggingThumb = false;
     }
 

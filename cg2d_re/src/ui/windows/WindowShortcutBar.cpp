@@ -114,7 +114,7 @@ static std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const s
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -129,7 +129,7 @@ static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -147,7 +147,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = hover ? 1 : 0;
         if (index == 8) {
             if (hover) {
@@ -156,11 +156,11 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             } else {
                 graphic->imageNo = 0x18225;
             }
-            if ((state & 8) != 0) {
+            if ((state & MouseFlag_LHoldPhysical) != 0) {
                 graphic->imageNo = 0x18223;
                 consumed = 1;
             }
-            if ((state & 2) == 0) {
+            if ((state & MouseFlag_LDownEvent) == 0) {
                 return consumed;
             }
             if (world::gCurrentSceneType != 10) {
@@ -184,7 +184,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
         }
 
         graphic->imageNo = 0x3B90E + index * 3 + (hover ? 2 : 0);
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B90F + index * 3;
         }
         if (static_cast<std::uint32_t>(index) > 7u) {
@@ -203,7 +203,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             if (hover) {
                 gHoverTextD68AE8 = hints[index];
             }
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 requests[index]();
                 return 1;
             }
@@ -220,7 +220,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             if (hover) {
                 gHoverTextD68AE8 = L"邀请对方加入自己的家族。" /* 原常量参考：0x00586284。 */;
             }
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 world::RequestFacingPlayerGuildInvitation_470670();
                 return 1;
             }

@@ -511,14 +511,14 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
     };
     switch (index) {
     case 5:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B570);
             gHoverTextD68AE8 = kPetRenameHint586D38;
             consumed = 1;
         } else {
             setImage(0x3B56E);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -539,19 +539,19 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3B56F);
         }
         return consumed;
     case 6:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAF9);
             gHoverTextD68AE8 = kPetPlaceHint586C14;
             consumed = 1;
         } else {
             setImage(0x3BAF7);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].used != 0
                 && (world::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::IsObservationSceneTransitionActive_440B50() == 0) {
@@ -568,20 +568,20 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             }
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(0x3BAF8);
         }
         return consumed;
     case 7:
     case 8:
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             setImage(index == 7 ? 0x3B558 : 0x3B55B);
             gHoverTextD68AE8 = kPetSelectHint586D2C;
             consumed = 1;
         } else {
             setImage(index == 7 ? 0x3B556 : 0x3B559);
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             for (std::int32_t attempt = 0; attempt < 6; ++attempt) {
                 if (index == 7) {
@@ -612,12 +612,12 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             setImage(index == 7 ? 0x3B557 : 0x3B55A);
         }
         return consumed;
     case 64:
-        if ((state & 0x400) != 0) {
+        if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t direction = gLoginWindowRuntime.valueD673D0 + 1;
             gLoginWindowRuntime.valueD673D0 = direction;
             if (direction > 7) {
@@ -626,7 +626,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 0x800) != 0) {
+        if ((state & MouseFlag_RRepeatDown) != 0) {
             const std::int32_t direction = gLoginWindowRuntime.valueD673D0 - 1;
             gLoginWindowRuntime.valueD673D0 = direction;
             if (direction < 0) {
@@ -646,7 +646,7 @@ std::int32_t WindowPetDetail_EditName(const std::int32_t index, const std::int32
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     gPetNameInputPrototype57DCF8.text = gLoginWindowRuntime.petNameDraftD45E74;
@@ -690,7 +690,7 @@ std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = hover;
             gHoverTextD68AE8 = hint;
             consumed = 1;
@@ -698,7 +698,7 @@ std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int
             graphic->imageNo = idle;
         }
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(WindowRuntime_Open(target));
         WindowInstance* const xSource = currentWindow;

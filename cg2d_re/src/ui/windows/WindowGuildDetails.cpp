@@ -635,10 +635,10 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(const std::int32_t i
     if (row == 0 && gGuildPageD67B78 == 0) {
         return 0;
     }
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = kGuildPermissionHints[column];
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t rank = gGuildPageD67B78 + row;
         if (gGuildDraftCF4018.ranks[rank].text.empty()) {
             return 0;
@@ -658,7 +658,7 @@ static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t ind
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B56E;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B570;
         switch (index) {
         case 64: gHoverTextD68AE8 = L"变更家族名称。" /* 原常量参考：0x00587AC8。 */; break;
@@ -666,7 +666,7 @@ static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t ind
         case 72: gHoverTextD68AE8 = L"变更已设定的家族称号。" /* 原常量参考：0x00587AEC。 */; break;
         }
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (graphic) graphic->imageNo = 0x3B56F;
         switch (index) {
         case 64: static_cast<void>(WindowGuildDetails_SubmitName()); break;
@@ -700,7 +700,7 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         }
     }
     if (auto* const indexedElement2 = elementsWindow->FindElementById(NativeElementKey(index + 9)); indexedElement2) indexedElement2->visible = 1;
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     switch (index) {
@@ -765,14 +765,14 @@ static std::int32_t WindowGuildDetails_HandleScrollButtons(const std::int32_t in
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t offset = index == 66 ? 0 : 3;
         graphic->imageNo = 0x3B592 + offset;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B594 + offset;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B593 + offset;
         }
     }
-    if ((state & 0x400) != 0) {
+    if ((state & MouseFlag_LRepeatDown) != 0) {
         gGuildPageD67B78 += index == 66 ? -1 : 1;
         WindowGuildDetails_ScrollRow();
         static_cast<void>(WindowChat_RestoreInput());
@@ -797,7 +797,7 @@ static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         if (wheel != 0) {
             WindowInstance* const window = currentWindow;
@@ -821,11 +821,11 @@ static std::int32_t WindowGuildDetails_ButtonClose(const std::int32_t index, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 0x3B538;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B53A;
             gHoverTextD68AE8 = L"关闭此视窗" /* 原常量参考：0x005868EC。 */;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B539;
             gWindowStates[WindowId_GuildDetails].window->state = 0x8000;
             return 1;

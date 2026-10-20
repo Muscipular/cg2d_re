@@ -381,7 +381,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = hoverImage;
             gHoverTextD68AE8 = hint;
             consumed = 1;
@@ -389,7 +389,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
             graphic->imageNo = idleImage;
         }
     }
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         if (targetWindow != 0) {
             if (gWindowStates[targetWindow].window == nullptr) {
                 currentWindow->state |= 0x8000u;

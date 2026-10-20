@@ -1031,7 +1031,7 @@ static std::int32_t WindowTrade_HandlePanel(
     std::memcpy(&windowY, &window->y, sizeof(windowY));
     const std::int16_t y = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(elementY + windowY));
-    if ((state & 0x21) != 0) {
+    if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t scrollPosition = *scrollValue;
         auto* const wheelElementElement = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(scrollElement)) : nullptr;
@@ -1054,7 +1054,7 @@ static std::int32_t WindowTrade_HandlePanel(
         {252, 28, 11, 11}, {252, 220, 11, 11},
     }};
     std::int32_t selected = -1;
-    if ((state & 1) != 0) {
+    if ((state & MouseFlag_Hover) != 0) {
         for (std::int32_t part = 0; part < 5; ++part) {
             const auto& rectangle = rectangles54F508[part];
             if (WindowTrade_HitTestOwnPetRow(x + rectangle[0], y + rectangle[1], rectangle[2], rectangle[3])) {
@@ -1062,14 +1062,14 @@ static std::int32_t WindowTrade_HandlePanel(
             }
         }
     }
-    const std::int32_t result = state & 2;
+    const std::int32_t result = state & MouseFlag_LDownEvent;
     if (result != 0 && selected >= 0 && selected <= 2) {
         static_cast<void>(audio::PlaySe_52C450(
             std::bit_cast<std::int8_t>(*tab) == selected ? 55 : 51, 320));
         *tab = static_cast<std::uint8_t>(selected);
         static_cast<void>(WindowTrade_HandleAmountInput(0, 2));
     }
-    if ((state & 0x400) != 0 && *tab == 1) {
+    if ((state & MouseFlag_LRepeatDown) != 0 && *tab == 1) {
         if (selected == 3) {
             if (*scrollValue > 0) {
                 --*scrollValue;
@@ -1148,10 +1148,10 @@ static std::int32_t WindowTrade_HandlePanel(
             static_cast<void>(render::DrawGraphic3_520970(
                 drawX, drawY, 223, 243096, 0, 1, 0, descriptor));
         }
-        imageNo = selected == 3 ? ((state & 8) != 0 ? 243091 : 243092) : 243090;
+        imageNo = selected == 3 ? ((state & MouseFlag_LHoldPhysical) != 0 ? 243091 : 243092) : 243090;
         static_cast<void>(render::DrawGraphic3_520970(
             x + 252, y + 28, 223, imageNo, 0, 1, 0, descriptor));
-        imageNo = selected == 4 ? ((state & 8) != 0 ? 243094 : 243095) : 243093;
+        imageNo = selected == 4 ? ((state & MouseFlag_LHoldPhysical) != 0 ? 243094 : 243095) : 243093;
         static_cast<void>(render::DrawGraphic3_520970(
             x + 252, y + 220, 223, imageNo, 0, 1, 0, descriptor));
         if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr; indexedElement5) indexedElement5->visible = 1;
@@ -1186,13 +1186,13 @@ static void WindowTrade_HandleOwnInventory(
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
-        events &= 0x9Fu;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if (gTradePhaseCAFEC4 != 0) {
-        events &= 0x9Fu;
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
@@ -1216,7 +1216,7 @@ static void WindowTrade_HandleOwnInventory(
         return;
     }
     std::int32_t hovered = -1;
-    const bool hover = (events & 0x21u) != 0;
+    const bool hover = (events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0;
     if (hover) {
         for (std::int32_t position = 0; position < 20; ++position) {
             if (occupancy[position + 8] != 0) {
@@ -1244,7 +1244,7 @@ static void WindowTrade_HandleOwnInventory(
         }
         gTradeHoverSlotCB0A4C = hovered;
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)) {
         if (world::gPlayerRuntimeSlots.items[hovered].used != 0
             && (world::gPlayerRuntimeSlots.items[hovered].flags & 1u) != 0
@@ -1265,14 +1265,14 @@ static void WindowTrade_HandleOwnInventory(
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if ((events & 1u) != 0 && hovered >= 0) {
-        if (gTradePhaseCAFEC4 == 0 && (events & 2u) != 0
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
+        if (gTradePhaseCAFEC4 == 0 && (events & MouseFlag_LDownEvent) != 0
             && world::gPlayerRuntimeSlots.items[hovered].used != 0
             && gTradeItemMarksD2D61C[hovered] == 0) {
             static_cast<void>(WindowItemDrag_Start(hovered, 1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((events & 4u) != 0 && world::gPlayerRuntimeSlots.items[hovered].used != 0) {
+        if ((events & MouseFlag_RDownEvent) != 0 && world::gPlayerRuntimeSlots.items[hovered].used != 0) {
             const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered].pages;
             gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
             if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4) >= pages) {
@@ -1361,13 +1361,13 @@ static void WindowTrade_HandleOwnPets(
 {
     std::int16_t rowY[3] {26, 95, 164};
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 3) {
-        events &= 0x9Fu;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 3) {
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if (gTradePhaseCAFEC4 != 0) {
-        events &= 0x9Fu;
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
@@ -1393,7 +1393,7 @@ static void WindowTrade_HandleOwnPets(
         return;
     }
     std::int32_t hovered = -1;
-    const bool hover = (events & 0x21u) != 0;
+    const bool hover = (events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0;
     if (hover) {
         for (std::int32_t row = 0; row < 3; ++row) {
             const std::int32_t top = y + rowY[row];
@@ -1408,7 +1408,7 @@ static void WindowTrade_HandleOwnPets(
         petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[hovered].index);
         if (petIndex >= 0) {
             gHoverTextD68AE8 = L"用滑鼠拖放方式，登录此笔宠物交易。";
-            if ((platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+            if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
                 && (WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)) {
                 if (world::gPetRuntimeRecords[petIndex].used != 0
                     && gTradePetMarksCF3AFC[petIndex] == 0) {
@@ -1430,8 +1430,8 @@ static void WindowTrade_HandleOwnPets(
             }
         }
     }
-    if ((events & 1u) != 0 && petIndex >= 0 && gTradePhaseCAFEC4 == 0
-        && (events & 2u) != 0 && world::gPetRuntimeRecords[petIndex].used != 0
+    if ((events & MouseFlag_Hover) != 0 && petIndex >= 0 && gTradePhaseCAFEC4 == 0
+        && (events & MouseFlag_LDownEvent) != 0 && world::gPetRuntimeRecords[petIndex].used != 0
         && gTradePetMarksCF3AFC[petIndex] == 0) {
         static_cast<void>(WindowPetDrag_Start(petIndex, 1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1562,7 +1562,7 @@ static void WindowTrade_HandleOwnItemDrag(
         || world::gPlayerRuntimeSlots.items[WindowTrade_ReadSelectedItem(sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
@@ -1570,7 +1570,7 @@ static void WindowTrade_HandleOwnItemDrag(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(6, sourceIndex, x, y, WindowTrade_HandleOwnItemDrag));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -1601,7 +1601,7 @@ static void WindowTrade_HandleOwnPetDrag(
         || world::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse());
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
         static_cast<void>(WindowDrag_ResetMouse());
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
@@ -1609,7 +1609,7 @@ static void WindowTrade_HandleOwnPetDrag(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
         static_cast<void>(WindowDrag_StartAtPosition(7, sourceIndex, x, y, WindowTrade_HandleOwnPetDrag));
     }
-    if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
         WindowDrag_Cancel();
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
@@ -1645,14 +1645,14 @@ static void WindowTrade_HandleSelectedItem(
     const render::GraphicDescriptor16* const descriptor)
 {
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2 && WindowDrag_ReadKind() != 6) {
-        events &= 0x9Fu;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2 && WindowDrag_ReadKind() != 6) {
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if (gTradePhaseCAFEC4 != 0) {
-        events &= 0x9Fu;
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if (*tab != 0) {
-        if ((events & 0x40u) != 0) {
+        if ((events & MouseFlag_DragFinish) != 0) {
             const std::int32_t source = WindowDrag_ReadSourceIndex();
             if (WindowItem_ClassifyItemSlot(source) == 2) {
                 std::int32_t target = 0;
@@ -1667,7 +1667,7 @@ static void WindowTrade_HandleSelectedItem(
             }
             WindowDrag_Reset();
         }
-        if ((events & 0x20u) != 0) {
+        if ((events & MouseFlag_Dragging) != 0) {
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
@@ -1675,7 +1675,7 @@ static void WindowTrade_HandleSelectedItem(
         }
         return;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t kind = WindowDrag_ReadKind();
@@ -1700,7 +1700,7 @@ static void WindowTrade_HandleSelectedItem(
         }
     }
     std::int32_t hovered = -1;
-    const bool hover = (events & 0x21u) != 0;
+    const bool hover = (events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0;
     if (hover) {
         for (std::int32_t slot = 0; slot < 20; ++slot) {
             const std::int32_t left = x + 50 * (slot % 5) + 13;
@@ -1721,17 +1721,17 @@ static void WindowTrade_HandleSelectedItem(
         }
         gTradeHoverSlotC8AA78 = hovered;
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)
                            && WindowTrade_RemoveItem(hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    if ((events & 1u) != 0 && hovered >= 0 && WindowTrade_ReadSelectedItem(hovered) >= 0) {
-        if (gTradePhaseCAFEC4 == 0 && (events & 2u) != 0) {
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && WindowTrade_ReadSelectedItem(hovered) >= 0) {
+        if (gTradePhaseCAFEC4 == 0 && (events & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(WindowTrade_StartOwnItemDrag(hovered));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        if ((events & 4u) != 0) {
+        if ((events & MouseFlag_RDownEvent) != 0) {
             gTradeTooltipPageCB10D4 = static_cast<std::uint8_t>(gTradeTooltipPageCB10D4 + 1);
             const std::int32_t slot = WindowTrade_ReadSelectedItem(hovered);
             if (std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4)
@@ -1820,14 +1820,14 @@ static void WindowTrade_HandleSelectedPet(
 {
     std::int16_t rowY[3] {26, 95, 164};
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 3 && WindowDrag_ReadKind() != 7) {
-        events &= 0x9Fu;
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 3 && WindowDrag_ReadKind() != 7) {
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if (gTradePhaseCAFEC4 != 0) {
-        events &= 0x9Fu;
+        events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if (*tab != 1) {
-        if ((events & 0x40u) != 0) {
+        if ((events & MouseFlag_DragFinish) != 0) {
             const std::int32_t source = WindowDrag_ReadSourceIndex();
             if (WindowItem_ClassifyPetSlot(source) == 1) {
                 std::int32_t target = 0;
@@ -1842,7 +1842,7 @@ static void WindowTrade_HandleSelectedPet(
             }
             WindowDrag_Reset();
         }
-        if ((events & 0x20u) != 0) {
+        if ((events & MouseFlag_Dragging) != 0) {
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
                 static_cast<std::uint16_t>(x + 273), static_cast<std::uint16_t>(y + 280),
@@ -1850,7 +1850,7 @@ static void WindowTrade_HandleSelectedPet(
         }
         return;
     }
-    if ((events & 0x40u) != 0) {
+    if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t kind = WindowDrag_ReadKind();
@@ -1880,7 +1880,7 @@ static void WindowTrade_HandleSelectedPet(
         return;
     }
     std::int32_t hovered = -1;
-    const bool hover = (events & 0x21u) != 0;
+    const bool hover = (events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0;
     if (hover) {
         for (std::int32_t row = 0; row < 3; ++row) {
             const std::int32_t top = y + rowY[row];
@@ -1894,13 +1894,13 @@ static void WindowTrade_HandleSelectedPet(
     if (phase == 0 && hovered >= 0) {
         gHoverTextD68AE8 = L"用滑鼠拖放方式，取消此笔宠物交易。";
     }
-    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & 0x10u) != 0
+    if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
         && (phase != 0 || ((WindowDrag_ReadFocusWindowId() == 43 || WindowDrag_ReadFocusWindowId() == 0)
                            && WindowTrade_RemovePet(hovered) < 0))) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    if ((events & 1u) != 0 && hovered >= 0 && WindowTrade_ReadSelectedPet(hovered) >= 0
-        && gTradePhaseCAFEC4 == 0 && (events & 2u) != 0) {
+    if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && WindowTrade_ReadSelectedPet(hovered) >= 0
+        && gTradePhaseCAFEC4 == 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowTrade_StartOwnPetDrag(hovered));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
@@ -2041,7 +2041,7 @@ static void WindowTrade_HandleRemoteItem(
     std::wstring buffer;
     if (page == 0) {
         std::int32_t hovered = -1;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             for (std::int32_t slot = 0; slot < 20; ++slot) {
                 const std::int32_t left = x + 50 * (slot % 5) + 13;
                 const std::int32_t top = y + 52 * (slot / 5) + 26;
@@ -2062,7 +2062,7 @@ static void WindowTrade_HandleRemoteItem(
             }
             gTradeHoverSlotC8B314 = hovered;
         }
-        if (hovered >= 0 && (state & 4) != 0) {
+        if (hovered >= 0 && (state & MouseFlag_RDownEvent) != 0) {
             const auto* const record = &gTradeItemsD460D0[hovered];
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
@@ -2075,7 +2075,7 @@ static void WindowTrade_HandleRemoteItem(
                 }
             }
         }
-        if ((state & 1) != 0 && hovered >= 0) {
+        if ((state & MouseFlag_Hover) != 0 && hovered >= 0) {
             const std::int32_t left = x + 50 * (hovered % 5) + 13;
             const std::int32_t top = y + 52 * (hovered / 5) + 25;
             cg::render::DrawGraphicHover(
@@ -2143,7 +2143,7 @@ static void WindowTrade_HandleRemoteItem(
         }
     } else if (page == 1) {
         constexpr std::array<std::int16_t, 3> rowY {26, 95, 164};
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             for (std::int32_t row = 0; row < 3; ++row) {
                 const std::int32_t top = y + rowY[row];
                 if (cg::ui::HitTestMouseRect_5049A0(x + 11, top, x + 251, top + 69, -1) != 0) {
@@ -2208,7 +2208,7 @@ static bool WindowTrade_HitTestOwnPetRow(
 static std::int32_t WindowTrade_HandleAmountInput(const std::int32_t, const std::int32_t state)
 {
     if (gTradeValueD6742C == 2) {
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             WindowInstance* const window = gWindowStates[WindowId_Trade].window;
             static_cast<void>(WindowInput_ActivateElement(&gTradeInputPrototype5803D0, 0, -100, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
@@ -2663,12 +2663,12 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    const bool hover = (state & 1) != 0;
+    const bool hover = (state & MouseFlag_Hover) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"向对方公开交易内容。";
     }
     std::int32_t result = 0;
-    if ((state & 2) != 0) {
+    if ((state & MouseFlag_LDownEvent) != 0) {
         std::wstring petSource;
         std::wstring itemSource;
         std::int32_t count = 0;
@@ -2712,7 +2712,7 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
     if (hover) {
         if (graphic) graphic->imageNo = 0x3BA8B;
     }
-    if ((state & 8) != 0) {
+    if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 0x3BA8A;
     }
     return result;
@@ -2726,12 +2726,12 @@ static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const s
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = L"还是算了。";
         }
         std::int32_t result = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
             const std::int32_t previous = gTradeValueCC4224;
             gTradeValueD2E2B0 = 0;
@@ -2746,7 +2746,7 @@ static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const s
         if (hover) {
             graphic->imageNo = 0x3B564;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B563;
         }
         return result;
@@ -2762,12 +2762,12 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = L"确定交易。";
         }
         std::int32_t result = 0;
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t phase = gTradeValueD2E2B0;
             if ((phase == 1 && gTradeValueCC4224 >= 1) || phase == 2) {
                 const std::uint64_t tick = platform::ReadTickCount64();

@@ -107,14 +107,14 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
     std::int32_t consumed = 0;
     switch (index) {
     case 0:
-        gWindow6HoverD2EA70 = static_cast<std::uint8_t>(state) & 1u;
+        gWindow6HoverD2EA70 = static_cast<std::uint8_t>(state) & MouseFlag_Hover;
         return 0;
     case 1: {
         auto* const handleButtons_2Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_2);
         if (handleButtons_2Element) {
             auto* const graphic = handleButtons_2Element->data.graphic;
-            graphic->imageNo = (state & 1) != 0 ? 0x3B960 : 0x3B95F;
-            if ((state & 1) != 0) {
+            graphic->imageNo = (state & MouseFlag_Hover) != 0 ? 0x3B960 : 0x3B95F;
+            if ((state & MouseFlag_Hover) != 0) {
                 consumed = 1;
             }
             WindowInstance* first = gWindowStates[WindowId_PlayerProfile].window;
@@ -130,7 +130,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
                 second = gWindowStates[WindowId_PlayerAttributes].window;
                 first = gWindowStates[WindowId_PlayerProfile].window;
             }
-            if ((state & 2) == 0) {
+            if ((state & MouseFlag_LDownEvent) == 0) {
                 return consumed;
             }
 
@@ -192,8 +192,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         auto* const handleButtons_3Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_3);
         if (!handleButtons_3Element) { return 0; }
         auto* const graphic = handleButtons_3Element->data.graphic;
-        graphic->imageNo = (state & 1) != 0 ? 0x3B963 : 0x3B962;
-        if ((state & 1) != 0) {
+        graphic->imageNo = (state & MouseFlag_Hover) != 0 ? 0x3B963 : 0x3B962;
+        if ((state & MouseFlag_Hover) != 0) {
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
@@ -208,7 +208,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
             default: break;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gCurrentSceneType != 10) {
                 WindowInstance* const window = gWindowStates[WindowId_Skill].window;
                 if (window != nullptr) {
@@ -228,8 +228,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         auto* const handleButtons_4Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_4);
         if (!handleButtons_4Element) { return 0; }
         auto* const graphic = handleButtons_4Element->data.graphic;
-        graphic->imageNo = (state & 1) != 0 ? 0x3B966 : 0x3B965;
-        if ((state & 1) != 0) {
+        graphic->imageNo = (state & MouseFlag_Hover) != 0 ? 0x3B966 : 0x3B965;
+        if ((state & MouseFlag_Hover) != 0) {
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
@@ -244,7 +244,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
             default: break;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gCurrentSceneType != 10) {
                 WindowInstance* const window = gWindowStates[WindowId_Inventory].window;
                 if (window != nullptr) {
@@ -264,8 +264,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         auto* const handleButtons_5Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_5);
         if (!handleButtons_5Element) { return 0; }
         auto* const graphic = handleButtons_5Element->data.graphic;
-        graphic->imageNo = (state & 1) != 0 ? 0x3B969 : 0x3B968;
-        if ((state & 1) != 0) {
+        graphic->imageNo = (state & MouseFlag_Hover) != 0 ? 0x3B969 : 0x3B968;
+        if ((state & MouseFlag_Hover) != 0) {
             consumed = 1;
         }
         if (world::gCurrentSceneType != 10) {
@@ -280,7 +280,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
             default: break;
             }
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::gCurrentSceneType != 10) {
                 WindowInstance* const window = gWindowStates[WindowId_PetList].window;
                 if (window != nullptr) {
@@ -304,8 +304,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
-            graphic->imageNo = (state & 1) != 0 ? normalImage + 1 : normalImage;
-            if ((state & 1) != 0) {
+            graphic->imageNo = (state & MouseFlag_Hover) != 0 ? normalImage + 1 : normalImage;
+            if ((state & MouseFlag_Hover) != 0) {
                 consumed = 1;
             }
             WindowInstance* window = gWindowStates[windowId].window;
@@ -313,7 +313,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
                 graphic->imageNo = normalImage - 1;
                 window = gWindowStates[windowId].window;
             }
-            if ((state & 2) != 0) {
+            if ((state & MouseFlag_LDownEvent) != 0) {
                 if (window == nullptr) {
                     static_cast<void>(WindowRuntime_CreateAnimation(windowId, 1, 0, nullptr));
                 } else {
@@ -333,10 +333,10 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
             auto* const graphic = handleButtons_9Element->data.graphic;
             graphic->imageNo = 0x18666;
         }
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             consumed = 1;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::uint64_t now = platform::ReadSystemSeconds_4589D0();
             const std::uint64_t previous = gWindow6RequestTimeD67AF0;
             const std::int64_t elapsed = std::bit_cast<std::int64_t>(now - previous);

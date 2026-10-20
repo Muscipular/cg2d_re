@@ -152,11 +152,11 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         graphic->imageNo = 0x3B556;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"上一封邮件" /* 原常量参考：0x00587718。 */;
             graphic->imageNo = 0x3B558;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B557;
             const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 - 1;
             world::detail::gViewedMailMessageIndex_D046D4 = page;
@@ -167,7 +167,7 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
             cg::core::NullSub_509080();
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B557;
         }
         return consumed;
@@ -185,11 +185,11 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         graphic->imageNo = 0x3B559;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"下一封邮件" /* 原常量参考：0x00587724。 */;
             graphic->imageNo = 0x3B55B;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B55A;
             const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 + 1;
             world::detail::gViewedMailMessageIndex_D046D4 = page;
@@ -200,7 +200,7 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
             cg::core::NullSub_509080();
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3B55A;
         }
         return consumed;
@@ -217,13 +217,13 @@ static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const s
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = kReplyMailHint587730;
             graphic->imageNo = 0x3BA1D;
         } else {
             graphic->imageNo = 0x3BA1B;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t contact = world::detail::gViewedMailContactId_CF4FC0;
             const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
             const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
@@ -242,7 +242,7 @@ static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const s
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3BA1C;
         }
         return consumed;
@@ -408,7 +408,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
-    if ((state & 1) == 0) {
+    if ((state & MouseFlag_Hover) == 0) {
         return 0;
     }
     const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;

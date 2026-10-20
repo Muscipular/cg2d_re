@@ -296,7 +296,7 @@ std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::in
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3B921;
         window = gWindowStates[WindowId_Emote].window;
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     if (window == nullptr) {
@@ -318,7 +318,7 @@ std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3B924;
         window = gWindowStates[WindowId_MiniMap].window;
     }
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     if (window == nullptr) {
@@ -443,7 +443,7 @@ static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std:
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -458,7 +458,7 @@ static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, co
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -473,7 +473,7 @@ static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, co
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if ((state & 2) == 0) {
+    if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -492,7 +492,7 @@ static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, co
 // 原函数：0x00471DD0。
 static std::int32_t WindowStatusBar_HandleHover(const std::int32_t, const std::int32_t state)
 {
-    return (state & 1) != 0 ? 1 : 0;
+    return (state & MouseFlag_Hover) != 0 ? 1 : 0;
 }
 
 // 原函数：0x00471DF0。
@@ -504,7 +504,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index - 15));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = hover ? 1 : 0;
         graphic->imageNo = 0x3B8FC + index * 3 + (hover ? 1 : 0);
         if (index < 17 || index > 22) {
@@ -539,7 +539,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
         if (enabled) {
             graphic->imageNo = 0x3B92E + slot * 3;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(toggleCallbacks[slot]());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -585,7 +585,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
     switch (index) {
     case 13: {
         const std::int32_t candidate = world::FindAttributeAllocationHintTarget_504B10();
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             if (gLoginWindowRuntime.statusHasPointsD66E24 != 0) {
                 if (candidate <= 4) {
@@ -612,7 +612,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             consumed = 1;
             if (auto* const handleHintButton_14Element = hoverWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_14); handleHintButton_14Element) handleHintButton_14Element->data.graphic->imageNo = 0x3B955;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (candidate <= 4) {
                 WindowInstance* const details = gWindowStates[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = candidate;
@@ -641,7 +641,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
     }
     case 12: {
         const std::int32_t hasMail = gLoginWindowRuntime.statusHasMailCC4B5C;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = hasMail != 0 ? L"现在有新邮件。" /* 原常量参考：0x00556D24。 */ : L"现在没有邮件。" /* 原常量参考：0x00556D14。 */;
             if (hasMail == 0) {
@@ -656,7 +656,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             consumed = 1;
             if (auto* const handleHintButton_13Element = hoverWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_13); handleHintButton_13Element) handleHintButton_13Element->data.graphic->imageNo = 0x3B951;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             world::detail::FindFirstUnreadMailContact_518F00(
                 &gLoginWindowRuntime.statusMailCategoryD66E34, &gLoginWindowRuntime.statusMailIndexD2E2D8);
             const std::int32_t category = gLoginWindowRuntime.statusMailCategoryD66E34;
@@ -674,7 +674,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
     case 11: {
         const std::int32_t target = WindowStatusBar_ReadInjuredPetIndex();
         std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
-        const bool hover = (state & 1) != 0;
+        const bool hover = (state & MouseFlag_Hover) != 0;
         const std::int32_t petIndex = target - 10;
         if (hover) {
             if (injury != 0) {
@@ -729,7 +729,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             if (auto* const handleHintButtonElement = imageWindow->FindElementById(WindowStatusBarElementId::HandleHintButton); handleHintButtonElement) handleHintButtonElement->data.graphic->imageNo = image;
             consumed = 1;
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (target != -1) {
                 if (target == 0) {
                     WindowInstance* const attributes = gWindowStates[WindowId_PlayerAttributes].window;

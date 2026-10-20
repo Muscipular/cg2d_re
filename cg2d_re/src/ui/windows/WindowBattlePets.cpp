@@ -84,10 +84,10 @@ static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, cons
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"让这只宠物归还。";
         }
-        if ((state & 2) != 0) {
+        if ((state & MouseFlag_LDownEvent) != 0) {
             if (world::FindBattlePetIndex_43C4B0() != -1) {
                 std::array<char, 768> buffer;
                 std::sprintf(buffer.data(), "M|%X", 255u);
@@ -99,10 +99,10 @@ static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, cons
             consumed = 1;
         }
         graphic->imageNo = 0x3BA76;
-        if ((state & 1) != 0) {
+        if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3BA78;
         }
-        if ((state & 8) != 0) {
+        if ((state & MouseFlag_LHoldPhysical) != 0) {
             graphic->imageNo = 0x3BA77;
         }
         return consumed;
@@ -221,7 +221,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
         if (pet.used == 1) {
             std::uint16_t flags = pet.flags6AA;
             if (flags == 1 || flags == 2) {
-                if ((state & 1) != 0) {
+                if ((state & MouseFlag_Hover) != 0) {
                     auto* const indexedElement = window->FindElementById(NativeElementKey(index));
                     if (indexedElement) {
                         WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
@@ -234,7 +234,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
                         gHoverTextD68AE8 = hint;
                     }
                 }
-                if ((state & 2) != 0) {
+                if ((state & MouseFlag_LDownEvent) != 0) {
                     if (gBattlePetVitalsCF4B78[selected].hp <= 0 || flags == 2) {
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {

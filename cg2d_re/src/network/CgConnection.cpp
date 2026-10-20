@@ -171,7 +171,8 @@ struct CgConnection::Impl {
     platform::ConnectionSnapshot PollConnection();
     void Close();
     void StopIo();
-    std::int32_t SendPacket(const platform::ConnectionId expectedId, const void* const data, const std::uint32_t size);
+    std::int32_t SendPacket(const platform::ConnectionId expectedId, const void* const data,
+        const std::uint32_t size, bool replacePending = false);
     std::int32_t Initialize();
     ConnectionPumpResult Pump();
     void Shutdown();
@@ -1156,7 +1157,8 @@ void CgConnection::Impl::StopIo()
 std::int32_t CgConnection::Impl::SendPacket(
     const platform::ConnectionId expectedId,
     const void* const data,
-    const std::uint32_t size)
+    const std::uint32_t size,
+    bool replacePending)
 {
     if (!ioEnabled) {
         return -100;
@@ -1177,24 +1179,10 @@ std::int32_t CgConnection::Impl::SendPacket(
         }
     }
 
-    // XCNY作为独立消息提交，成功后才追加登录正文；它不额外触发Hook。
-    constexpr std::string_view loginPrelude = "XCNY \n";
-    const bool startsLogin = packet.starts_with("JFVf");
     if (id != connectionId || !ioEnabled) return -100;
     transport.SetIoEnabled(id, true);
-    if (startsLogin) {
-        // 两次独立提交仍保留原总容量上限；超长登录不先发送孤立的XCNY。
-        if (packet.size() > platform::CgTransport::kQueueCapacity - loginPrelude.size()) return -1;
-        const auto preludeQueued = transport.TryQueueSend(id,
-            {reinterpret_cast<const std::uint8_t*>(loginPrelude.data()), loginPrelude.size()}, true);
-        if (preludeQueued != platform::NetworkQueueResult::Accepted)
-            return preludeQueued == platform::NetworkQueueResult::QueueFull ? -1 : -100;
-        m_logw(L"[network][send queued][%zu] %.*hs", loginPrelude.size(),
-            static_cast<int>(loginPrelude.size()), loginPrelude.data());
-    }
-    // 登录正文只能追加，不能替换掉尚未发完的XCNY。
     const auto queued = transport.TryQueueSend(id,
-        {reinterpret_cast<const std::uint8_t*>(packet.data()), packet.size()}, false);
+        {reinterpret_cast<const std::uint8_t*>(packet.data()), packet.size()}, replacePending);
     if (queued != platform::NetworkQueueResult::Accepted)
         return queued == platform::NetworkQueueResult::QueueFull ? -1 : -100;
     // 成功入队后记录明文；不把队列日志当作socket发送成功，避免按TCP分片重复打印。
@@ -1363,10 +1351,10 @@ void CgConnection::SetIoEnabled(bool enabled)
     impl_->ioEnabled = enabled;
     impl_->transport.SetIoEnabled(impl_->connectionId, enabled);
 }
-std::int32_t CgConnection::SendPacket(const void* data, std::uint32_t size)
+std::int32_t CgConnection::SendPacket(const void* data, std::uint32_t size, bool replacePending)
 {
     const auto session = CaptureSession();
-    return impl_->SendPacket(impl_->contextId, data, size);
+    return impl_->SendPacket(impl_->contextId, data, size, replacePending);
 }
 ConnectionPumpResult CgConnection::Pump() { return impl_->Pump(); }
 void CgConnection::RegisterReceive(const char* header, ProtocolReceiveHandler handler)

@@ -1,6 +1,6 @@
 # CgConnection 全业务网络入口迁移 SPEC
 
-日期：2026-10-20。编号：CTO02。状态：源码实施及XCNY独立提交修正完成，Debug编译与链接通过；运行互通/竞态待验。
+日期：2026-10-20。编号：CTO02。状态：XCNY已移至登录业务并清理前两次多余改动，本轮Debug编译与链接通过；运行互通/竞态待验。
 
 目标：在[CTO01对象封装](cg2d_connection_transport_spec.md)基础上，将登录、Lua、主循环及其他业务模块的网络请求全部交由CgConnection管理，移除旧连接适配入口、协议工作区兼容桥和gConnectionSocket镜像。用户补充的“其他业务点也要迁移”属于本轮必需范围。
 
@@ -62,7 +62,7 @@ connection.SendTradeOffer(items, pets, gold);
 | IoEnabled() | 只读当前业务收发门禁，供登录请求轮询和诊断使用 |
 | SetIoEnabled(bool) | 唯一门禁发布入口，同时更新对象与传输后端 |
 | ResetLoginReply / LoginAccepted | 承接当前登录前清零及回复后判断的W16状态，不公开旧地址字段访问器，不改变原状态重置时机 |
-| SendPacket(data, size) | 完整明文入口，不添加LF、不再要求调用者传ConnectionId；身份在对象内捕获 |
+| SendPacket(data, size, replacePending=false) | 完整明文入口，不添加LF、不识别登录命令；身份在对象内捕获，业务显式选择是否替换旧待发字节 |
 | EncodeInteger / EscapeText / UnescapeText | 供现有Lua编码API调用，返回拥有式字节字符串；保留Base62、GBK、转义、容量及错误合同，不返回私有共享缓冲指针 |
 | MoveItemToBagPage / SelectBagPage / SelectInventoryBankPage | 承接现有UI直接构造的SWITMP、SWITM、rh路径，具体字段编码见第6节 |
 
@@ -81,7 +81,7 @@ connection.SendTradeOffer(items, pets, gold);
 - 接收派发期间由对象保存私有会话上下文；原handler或Hook重入关闭/重连后，旧派发栈发起的后续发送不得流入新会话。上下文随同步调用栈恢复，不通过新的全局变量或UI字段保存。
 - 实施采用CaptureSession返回的SessionScope保存/恢复同步上下文；嵌套作用域继承入口身份，Close/Shutdown不清除尚未退出的调用栈上下文。它不暴露编号，不能跨帧、跨线程或跨Lua异步任务保存；内部连接探测也沿同一作用域运行。
 - 具名业务组包在未初始化或已Shutdown时返回-100，避免旧回调栈继续借用已释放工作区；已初始化但收发门禁关闭的路径保留原组包/RNG顺序，仍由唯一发送入口拒绝。
-- 回调执行时不持传输锁。按2026-10-20后续用户要求及纠正，JFVf回调后先独立提交XCNY并替换旧待发内容，成功后再独立追加登录正文；删除prefix拼接接口，两次提交不再宣称整体原子性，短写保留独立消息边界，详见NTM01§5.2。正常消息追加、部分发送消费、总容量和EOF排空语义不变。
+- 回调执行时不持传输锁。按2026-10-20用户最终明确，登录业务显式先发XCNY、再发账号请求，并通过通用replacePending选择前导替换旧待发内容。通用SendPacket移除登录识别、自动注入及两包总容量预检；撤除前两次新增的底层消息边界和余量状态，恢复既有字节发送循环，详见NTM01§5.2。
 
 CgConnection::SendPacket现有带expectedId的公开形态转为内部入队操作；不再对业务暴露“0表示改用当前连接”的隐式替换规则。Lua及原生回调必须基于当前派发对象校验身份，不通过GetGameConnection重新选择接收者。
 
@@ -90,6 +90,8 @@ CgConnection::SendPacket现有带expectedId的公开形态转为内部入队操�
 ### 登录及人物选择
 
 LoginState直接调用Initialize、BeginConnect、PollConnection、SetIoEnabled、Close和Shutdown；账号/人物请求改调对应成员。保留原步骤0～99、600000ms期限、错误阶段映射、提示文本和账号请求内容。状态快照仍在Close之前取得，错误提示使用该次结果。
+
+71阶段由LoginState显式发送XCNY，成功后才调用SendAccountLoginRequest。两个请求共用同一会话作用域，分别走通用发送Hook和日志；CgConnection只提供通用追加/替换能力，SendAccountLoginRequest只组装账号请求，不隐式补发前导。前导失败沿原queued结果日志及阶段发布路径处理，不新增重试或超时分支。
 
 原Begin/Initialize/Shutdown适配器对gNetworkDisconnectState的清零移到对应登录、返回服务器选择和场景调用位置，保留原成功/失败条件和顺序；不能因删除包装函数漏掉副作用，也不能把场景全局重新塞入CgConnection。
 
@@ -167,7 +169,7 @@ CgConnection继续负责接收字节、LF/压缩解析、参数快照和分发�
 - src/include中无gConnectionSocket、gRequestPollingEnabled及已退休生命周期入口；无宏、类型别名或同义全局替代它们。
 - 81个业务发送全部成员化，调用者不传连接编号；所有普通、Lua、自动战斗和特殊UI报文到对象唯一队列的路径完整，无旧自由函数兜底。
 - 对象公开API不返回可变工作区指针；CgConnectionLegacy物理删除，网络原生资源仍只在CgTransport。
-- 原命令/字段/编码/LF、容量、返回值、日志/Hook顺序、RNG和业务发布时点逐项核对；特别覆盖rh两种编码、JFVf替换和Lua两种发包形式。
+- 原命令/字段/编码/LF、容量、返回值、日志/Hook顺序、RNG和业务发布时点逐项核对；特别覆盖rh两种编码、登录业务前导调用及队列替换和Lua两种发包形式。XCNY业务抽离按NTM01§5.2的最新具名修订执行。
 - 登录成功/失败、人物操作、登出、主动关闭、正常EOF、错误断线、返回服务器选择和最终退出的副作用完整；回调内重连不将旧消息或后续旧派发请求送入新会话。
 - NTM01的IPv4/IPv6、scope、策略DNS、候选次序、取消、部分发送、背压、计时及两阶段关闭合同继续适用。
 
@@ -181,7 +183,7 @@ CgConnection继续负责接收字节、LF/压缩解析、参数快照和分发�
 
 - 81个业务组包及194处调用已迁入对象；三个特殊UI方法、Lua完整明文发送、AutoBattle、登录/人物、主循环/保活和两阶段退出均已接线。
 - 108条接收派发路径保持命令、目标、字段类型及读取掩码顺序；业务handler、原生Hook、Lua收发桥和对话内部路由均承接连接上下文。
-- src/include中已清除两份旧全局、退休自由入口及兼容桥；CgConnectionLegacy.hpp已物理删除。CgTransport和构建配置未改动。
+- src/include中已清除两份旧全局、退休自由入口及兼容桥；CgConnectionLegacy.hpp已物理删除。CTO02基线未修改CgTransport和构建配置，后续XCNY业务抽离及前导接口清理见NTM01§5.2。
 - 静态文本比较确认81个组包本体除对象/上下文替换外相同，194处调用保留业务参数与顺序；三条特殊UI报文、主循环日志及生命周期副作用单列核对。UTF-8、换行一致性和差异空白检查通过。
 - build.bat Debug首轮定位并修正退出模块缺少声明、对话内部路由首参未迁移两项接线问题；第二轮配置、编译和链接成功，退出码0。既有C4701/C4244等业务警告保留，未新增依赖、运行客户端或执行测试；互通和重入竞态仍需运行验收。
 

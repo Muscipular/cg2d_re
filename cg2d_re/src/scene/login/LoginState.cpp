@@ -152,10 +152,18 @@ std::int32_t AdvanceServerLoginConnection_508360()
             passwordCopy = gPassword;
             adapterId = adapterScratch;
             gPassword = passwordCopy;
-            const std::int32_t queued = cg::network::GetGameConnection().SendAccountLoginRequest(gExecutableDigest,
-                passwordCopy,
-                gAccount,
-                adapterId);
+            auto& connection = network::GetGameConnection();
+            const auto networkSession = connection.CaptureSession();
+            // 登录业务先发XCNY并替换旧待发内容，成功后才追加账号登录请求。
+            constexpr char loginPrelude[] = "XCNY \n";
+            std::int32_t queued = connection.SendPacket(loginPrelude,
+                static_cast<std::uint32_t>(sizeof(loginPrelude) - 1), true);
+            if (queued == 0) {
+                queued = connection.SendAccountLoginRequest(gExecutableDigest,
+                    passwordCopy,
+                    gAccount,
+                    adapterId);
+            }
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;
             gRequestStatus = 1;

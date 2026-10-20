@@ -41,8 +41,9 @@ public:
     [[nodiscard]] bool Active() const noexcept;
     [[nodiscard]] std::int32_t Error() const noexcept;
     void SetIoEnabled(bool enabled);
-    // 完整明文消息，不添加LF；会话身份由对象捕获并在回调后校验。
-    [[nodiscard]] std::int32_t SendPacket(const void* data, std::uint32_t size);
+    // 完整明文消息，不添加LF、不识别协议；会话身份由对象捕获并在回调后校验。
+    // replacePending由业务选择是否替换旧待发字节，默认追加。
+    [[nodiscard]] std::int32_t SendPacket(const void* data, std::uint32_t size, bool replacePending = false);
     [[nodiscard]] ConnectionPumpResult Pump();
     void RegisterReceive(const char* header, ProtocolReceiveHandler handler);
     void RegisterSend(const char* header, ProtocolSendHandler handler);

@@ -44,8 +44,7 @@ public:
     [[nodiscard]] ConnectionSnapshot PollConnection(ConnectionId id) const;
     void ContinueAfterPolicy(ConnectionId id);
     void SetIoEnabled(ConnectionId id, bool enabled);
-    // 每次只提交bytes这一条消息；replace原子替换待发内容，并保留本消息的独立send边界。
-    // 普通追加保留队首已有的消息边界；后端不识别任何协议命令。
+    // 只提交bytes；replace原子替换待发内容，普通追加保持字节顺序，不识别协议命令。
     [[nodiscard]] NetworkQueueResult TryQueueSend(ConnectionId id,
         std::span<const std::uint8_t> bytes, bool replace);
     [[nodiscard]] std::size_t DrainReceived(ConnectionId id, std::span<std::uint8_t> destination);

@@ -141,45 +141,56 @@ std::int32_t WindowProfileView_ReadSelection(const std::int32_t index)
 // 原函数：0x004CAFA0。
 static std::uint32_t WindowProfileView_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gViewedProfile105ECE0;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::Element15]))) { return {}; }
-    (*gCurrentWindow)[WindowProfileViewElementId::Element15]->data.graphic->imageNo =
-        profile.value10C;
-    for (std::int32_t index = 0; index < 3; ++index) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 15)]))) { continue; }
-        (*gCurrentWindow)[NativeElementKey(index + 15)]->data.graphic->imageNo =
-            profile.entries410[index].value04;
+    auto* const element15 = currentWindow->FindElementById(WindowProfileViewElementId::Element15);
+    if (element15) {
+        element15->data.graphic->imageNo =
+            profile.value10C;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::Element2])) (*gCurrentWindow)[WindowProfileViewElementId::Element2]->data.text->text = profile.text08;
+    for (std::int32_t index = 0; index < 3; ++index) {
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 15));
+        if (indexedElement) {
+            indexedElement->data.graphic->imageNo =
+                profile.entries410[index].value04;
+        }
+    }
+    if (auto* const element2 = currentWindow->FindElementById(WindowProfileViewElementId::Element2); element2) element2->data.text->text = profile.text08;
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", profile.value108);
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::Element3])) (*gCurrentWindow)[WindowProfileViewElementId::Element3]->data.text->text = number;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::Element4])) (*gCurrentWindow)[WindowProfileViewElementId::Element4]->data.text->text = profile.text110;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::Element5])) (*gCurrentWindow)[WindowProfileViewElementId::Element5]->data.text->text = profile.text210;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::Element6])) (*gCurrentWindow)[WindowProfileViewElementId::Element6]->data.text->text = profile.text310;
+    if (auto* const element3 = currentWindow->FindElementById(WindowProfileViewElementId::Element3); element3) element3->data.text->text = number;
+    if (auto* const element4 = currentWindow->FindElementById(WindowProfileViewElementId::Element4); element4) element4->data.text->text = profile.text110;
+    if (auto* const element5 = currentWindow->FindElementById(WindowProfileViewElementId::Element5); element5) element5->data.text->text = profile.text210;
+    if (auto* const element6 = currentWindow->FindElementById(WindowProfileViewElementId::Element6); element6) element6->data.text->text = profile.text310;
     for (std::int32_t index = 0; index < 3; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 6)])) (*gCurrentWindow)[NativeElementKey(index + 6)]->data.text->text = profile.entries410[index].text08;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 6)); indexedElement) indexedElement->data.text->text = profile.entries410[index].text08;
     }
     std::wstring line;
     for (std::int32_t index = 0; index < 3; ++index) {
         static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), index, 28));
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 9)])) (*gCurrentWindow)[NativeElementKey(index + 9)]->data.text->text = line;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 9)); indexedElement) indexedElement->data.text->text = line;
     }
     static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), 3, 28));
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::Element13]))) { return {}; }
-    std::wstring& destination = (*gCurrentWindow)[WindowProfileViewElementId::Element13]->data.text->text;
-    const auto units = static_cast<std::uint32_t>(line.size() + 1);
-    destination = line;
-    return units;
+    auto* const element13 = currentWindow->FindElementById(WindowProfileViewElementId::Element13);
+    if (element13) {
+        std::wstring& destination = element13->data.text->text;
+        const auto units = static_cast<std::uint32_t>(line.size() + 1);
+        destination = line;
+        return units;
+    }
+    return {};
 }
 
 // 原函数：0x004CAF60。
 // 关联原入口：0x004CAF88（共享尾已并入本函数正文）。
 static std::int32_t WindowProfileView_Update(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (WindowProfile_CheckDistance(2, 2) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowProfileView_Refresh());
     return 1;
@@ -205,18 +216,20 @@ static void WindowProfileView_Release()
 // 原函数：0x004CB2F0。
 static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (index != 0) {
         return 0;
     }
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::ButtonMail])) (*gCurrentWindow)[WindowProfileViewElementId::ButtonMail]->data.graphic->imageNo = 244253;
+        if (auto* const buttonMailElement = currentWindow->FindElementById(WindowProfileViewElementId::ButtonMail); buttonMailElement) buttonMailElement->data.graphic->imageNo = 244253;
         std::wstring hint;
         cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
         gHoverTextD68AE8 = hint;
         consumed = 1;
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileViewElementId::ButtonMail])) (*gCurrentWindow)[WindowProfileViewElementId::ButtonMail]->data.graphic->imageNo = 244251;
+        if (auto* const buttonMailElement = currentWindow->FindElementById(WindowProfileViewElementId::ButtonMail); buttonMailElement) buttonMailElement->data.graphic->imageNo = 244251;
     }
     if ((state & 2) != 0) {
         const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;

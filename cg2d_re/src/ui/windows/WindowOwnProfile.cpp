@@ -193,13 +193,15 @@ static void WindowOwnProfile_RefreshEntry(
     const std::int32_t index, input::InputContext* const context,
     WindowInputPrototype* const prototype)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     auto& current = world::detail::gCurrentProfile10738E8.entries410[index];
     const std::int32_t element = index + 9;
     const bool editing = input::gCurrentInputData == context;
-    auto* elementsWindow = gCurrentWindow;
+    auto* elementsWindow = currentWindow;
     if (editing) {
-        if ((elementsWindow && (*elementsWindow)[NativeElementKey(element)])) (*elementsWindow)[NativeElementKey(element)]->visible = 0;
-        WindowInstance* const window = gCurrentWindow;
+        if (auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
+        WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 1));
@@ -214,15 +216,17 @@ static void WindowOwnProfile_RefreshEntry(
     std::size_t length;
     if (index == 0) {
         length = cg::text::ToGbk(current.text08).size() + 1;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(element)]))) { return; }
-        data = (*elementsWindow)[NativeElementKey(element)]->data.text;
+        auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(element));
+        if (!indexedElement) { return; }
+        data = indexedElement->data.text;
     } else {
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(element)]))) { return; }
-        data = (*elementsWindow)[NativeElementKey(element)]->data.text;
+        auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(element));
+        if (!indexedElement) { return; }
+        data = indexedElement->data.text;
         length = cg::text::ToGbk(current.text08).size() + 1;
     }
     data->text = current.text08;
-    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 1;
+    if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 1;
     const auto& saved = world::detail::ReadSelectedProfile1074938();
     std::byte color {6};
     if (saved.entries410[index].text08 == current.text08) {
@@ -232,55 +236,69 @@ static void WindowOwnProfile_RefreshEntry(
             color = saved.value04 != 0 && currentValue != 0 ? std::byte{0} : std::byte{7};
         }
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->data.text->style.color = color;
+    if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(element)); indexedElement2) indexedElement2->data.text->style.color = color;
 }
 
 // 原478A10完整刷新：保持每个阶段的角色采样和窗口重取，不缓存跨输入调用的data。
 // 原函数：0x00478A10。
 static void WindowOwnProfile_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     auto& current = world::detail::gCurrentProfile10738E8;
-    auto* portraitElementsWindow = gCurrentWindow;
+    auto* portraitElementsWindow = currentWindow;
     const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
-    if ((portraitElementsWindow && (*portraitElementsWindow)[WindowOwnProfileElementId::Element19])) (*portraitElementsWindow)[WindowOwnProfileElementId::Element19]->data.graphic->imageNo = portrait;
+    if (auto* const element19 = portraitElementsWindow->FindElementById(WindowOwnProfileElementId::Element19); element19) element19->data.graphic->imageNo = portrait;
     const std::int32_t publicFlag = world::detail::SelectedProfileValue04();
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileElementId::HandleButtons]))) { return; }
-    (*gCurrentWindow)[WindowOwnProfileElementId::HandleButtons]->data.graphic->imageNo =
-        publicFlag != 0 ? 0 : 0x3C113;
+    auto* const handleButtonsElement = currentWindow->FindElementById(WindowOwnProfileElementId::HandleButtons);
+    if (handleButtonsElement) {
+        handleButtonsElement->data.graphic->imageNo =
+            publicFlag != 0 ? 0 : 0x3C113;
+    }
 
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileElementId::Element1]))) { return; }
-    auto* const nameData = (*gCurrentWindow)[WindowOwnProfileElementId::Element1]->data.text;
-    const wchar_t* const name = world::GetPlayerDisplayText(1);
-    nameData->text = name;
+    auto* const element1 = currentWindow->FindElementById(WindowOwnProfileElementId::Element1);
+    if (element1) {
+        auto* const nameData = element1->data.text;
+        const wchar_t* const name = world::GetPlayerDisplayText(1);
+        nameData->text = name;
+    }
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", world::gPlayerRuntimeSlots.level);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileElementId::Element2]))) { return; }
-    auto* const levelData = (*gCurrentWindow)[WindowOwnProfileElementId::Element2]->data.text;
-    levelData->text = number;
+    auto* const element2 = currentWindow->FindElementById(WindowOwnProfileElementId::Element2);
+    if (element2) {
+        auto* const levelData = element2->data.text;
+        levelData->text = number;
+    }
 
-    auto* titleElementsWindow = gCurrentWindow;
+    auto* titleElementsWindow = currentWindow;
     const wchar_t* const title = world::GetPlayerDisplayText(2);
-    if (!((titleElementsWindow && (*titleElementsWindow)[WindowOwnProfileElementId::Element3]))) { return; }
-    auto* const titleData = (*titleElementsWindow)[WindowOwnProfileElementId::Element3]->data.text;
-    titleData->text = title;
-    auto* jobElementsWindow = gCurrentWindow;
+    auto* const element3 = titleElementsWindow->FindElementById(WindowOwnProfileElementId::Element3);
+    if (element3) {
+        auto* const titleData = element3->data.text;
+        titleData->text = title;
+    }
+    auto* jobElementsWindow = currentWindow;
     const auto& job = world::GetPlayerJobName();
-    if (!((jobElementsWindow && (*jobElementsWindow)[WindowOwnProfileElementId::Element4]))) { return; }
-    auto* const jobData = (*jobElementsWindow)[WindowOwnProfileElementId::Element4]->data.text;
-    jobData->text = job;
+    auto* const element4 = jobElementsWindow->FindElementById(WindowOwnProfileElementId::Element4);
+    if (element4) {
+        auto* const jobData = element4->data.text;
+        jobData->text = job;
+    }
 
-    WindowInstance* const guildWindow = gCurrentWindow;
+    WindowInstance* const guildWindow = currentWindow;
     const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
-    if (!((guildWindow && (*guildWindow)[WindowOwnProfileElementId::Element5]))) { return; }
-    auto* const guildData = (*guildWindow)[WindowOwnProfileElementId::Element5]->data.text;
-    const wchar_t* const guild = guildIndex == -1
-        ? L"" : cg::world::GetGuildName();
-    guildData->text = guild;
+    auto* const element5 = guildWindow->FindElementById(WindowOwnProfileElementId::Element5);
+    if (element5) {
+        auto* const guildData = element5->data.text;
+        const wchar_t* const guild = guildIndex == -1
+            ? L"" : cg::world::GetGuildName();
+        guildData->text = guild;
+    }
 
     for (std::int32_t index = 0; index < 3; ++index) {
-        auto* elementsWindow = gCurrentWindow;
+        auto* elementsWindow = currentWindow;
         const std::int32_t image = current.entries410[index].value04;
-        if ((elementsWindow && (*elementsWindow)[NativeElementKey(index + 26)])) (*elementsWindow)[NativeElementKey(index + 26)]->data.graphic->imageNo = image;
+        if (auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(index + 26)); indexedElement) indexedElement->data.graphic->imageNo = image;
     }
     WindowOwnProfile_RefreshEntry(0, &cg::ui::detail::gInputContextD64CB0, &gOwnProfileInputPrototype57CEE8);
     WindowOwnProfile_RefreshEntry(1, &cg::ui::detail::gInputContextD2D670, &gOwnProfileInputPrototype57D118);
@@ -288,9 +306,9 @@ static void WindowOwnProfile_Refresh()
 
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2D828) {
         for (std::int32_t index = 12; index < 16; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gOwnProfileInputPrototype57D578, x, y, 1));
@@ -303,13 +321,15 @@ static void WindowOwnProfile_Refresh()
         for (std::int32_t index = 0; index < 4; ++index) {
             static_cast<void>(input::ExtractTextLine(
                 line, current.text728.data(), index, 28));
-            auto* elementsWindow = gCurrentWindow;
-            if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index + 12)]))) { continue; }
-            auto* const data = (*elementsWindow)[NativeElementKey(index + 12)]->data.text;
-            data->text = line;
+            auto* elementsWindow = currentWindow;
+            auto* const dataElement = elementsWindow->FindElementById(NativeElementKey(index + 12));
+            if (dataElement) {
+                auto* const data = dataElement->data.text;
+                data->text = line;
+            }
         }
         for (std::int32_t index = 12; index < 16; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
         const auto& saved = world::detail::ReadSelectedProfile1074938();
         std::byte color {6};
@@ -317,11 +337,11 @@ static void WindowOwnProfile_Refresh()
             color = saved.value04 != 0 ? std::byte{0} : std::byte{7};
         }
         for (std::int32_t index = 12; index < 16; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.text->style.color = color;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.text->style.color = color;
         }
     }
     const std::int32_t changed = world::detail::HasProfileDraftChanges_533B00();
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileElementId::HandleButtons_30])) (*gCurrentWindow)[WindowOwnProfileElementId::HandleButtons_30]->visible = changed != 0 ? 1 : 0;
+    if (auto* const handleButtons_30Element = currentWindow->FindElementById(WindowOwnProfileElementId::HandleButtons_30); handleButtons_30Element) handleButtons_30Element->visible = changed != 0 ? 1 : 0;
 }
 
 // 原函数：0x00478320。
@@ -348,6 +368,8 @@ static void WindowOwnProfile_Release()
 // 原函数：0x004792D0。
 static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     WindowInputPrototype* prototype;
     input::InputContext* context;
     switch (index) {
@@ -376,21 +398,25 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
     if ((state & 2) == 0) {
         return 0;
     }
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    if (gFocusedElementDataD45F94 != (*window)[NativeElementKey(index)]->data.input) {
-        const auto& current = world::detail::gCurrentProfile10738E8;
-        const wchar_t* const source =
-            index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
-        prototype->text = source;
-        const std::int32_t y = window->y;
-        const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 0));
-        input::SetContext_44B330(context);
-        WindowInstance* const focused = gCurrentWindow;
-        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
-        gFocusedElementDataD45F94 = (*focused)[NativeElementKey(index)]->data.input;
-        if ((focused && (*focused)[NativeElementKey(index)])) (*focused)[NativeElementKey(index)]->data.input->context = context;
+    WindowInstance* const window = currentWindow;
+    auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+    if (indexedElement) {
+        if (gFocusedElementDataD45F94 != indexedElement->data.input) {
+            const auto& current = world::detail::gCurrentProfile10738E8;
+            const wchar_t* const source =
+                index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
+            prototype->text = source;
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 0));
+            input::SetContext_44B330(context);
+            WindowInstance* const focused = currentWindow;
+            auto* const indexedElement2 = focused->FindElementById(NativeElementKey(index));
+            if (indexedElement2) {
+                gFocusedElementDataD45F94 = indexedElement2->data.input;
+            }
+            if (auto* const indexedElement3 = focused->FindElementById(NativeElementKey(index)); indexedElement3) indexedElement3->data.input->context = context;
+        }
     }
     return 1;
 }

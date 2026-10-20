@@ -158,26 +158,32 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
 // 原函数：0x0049E990。
 static void WindowTradeTarget_Refresh(const std::int32_t offset)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     for (std::int32_t line = 0; line < 5; ++line) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(9 + line)]))) { continue; }
-        auto* const data = (*gCurrentWindow)[NativeElementKey(9 + line)]->data.text;
-        data->text = gWindowListNamesCF3F20[offset + line];
+        auto* const dataElement = currentWindow->FindElementById(NativeElementKey(9 + line));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = gWindowListNamesCF3F20[offset + line];
+        }
     }
 }
 
 // 原函数：0x0049E8F0。
 static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         const std::int32_t visible = gWindowListCountCF46A8 > 5 ? 1 : 0;
         gWindowListOffsetCC3EF4 = 0;
         for (std::int32_t index = 0; index < 6; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = visible;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = visible;
         }
         WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
     }
     if (WindowProfile_CheckDistance(1, 1) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     return 1;
@@ -186,20 +192,26 @@ static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 // 原函数：0x0049EAA0。
 static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 {
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeTargetElementId::Element1])) (*gCurrentWindow)[WindowTradeTargetElementId::Element1]->visible = 1;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    if (auto* const element1 = currentWindow->FindElementById(WindowTradeTargetElementId::Element1); element1) element1->visible = 1;
     if (gWindowListCountCF46A8 - 5 <= 0) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeTargetElementId::Element1])) (*gCurrentWindow)[WindowTradeTargetElementId::Element1]->visible = 0;
+        if (auto* const element12 = currentWindow->FindElementById(WindowTradeTargetElementId::Element1); element12) element12->visible = 0;
     }
-    auto* elementsWindow = gCurrentWindow;
-    if (!((elementsWindow && (*elementsWindow)[WindowTradeTargetElementId::HandleVerticalScroll]))) { return {}; }
-    const auto* const mouse = (*elementsWindow)[WindowTradeTargetElementId::HandleVerticalScroll]->data.mouse;
-    if ((mouse->flags & 1u) != 0) {
-        if (!((elementsWindow && (*elementsWindow)[WindowTradeTargetElementId::HandleVerticalScroll]))) { return {}; }
-        gWindowListOffsetCC3EF4 = WindowScroll_ReadPosition((*elementsWindow)[WindowTradeTargetElementId::HandleVerticalScroll], gWindowListCountCF46A8 - 5);
-        WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+    auto* elementsWindow = currentWindow;
+    auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowTradeTargetElementId::HandleVerticalScroll);
+    if (handleVerticalScrollElement) {
+        const auto* const mouse = handleVerticalScrollElement->data.mouse;
+        if ((mouse->flags & 1u) != 0) {
+            auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowTradeTargetElementId::HandleVerticalScroll);
+            if (handleVerticalScrollElement2) {
+                gWindowListOffsetCC3EF4 = WindowScroll_ReadPosition(handleVerticalScrollElement2, gWindowListCountCF46A8 - 5);
+            }
+            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+        }
     }
     WindowRuntime_DrawCurrent();
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     const auto height = static_cast<std::int16_t>(window->height);
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
@@ -214,139 +226,171 @@ static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 // 原函数：0x0049EB50。
 static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t result = 0;
-    if ((state & 0x400) != 0) {
-        if (gWindowListOffsetCC3EF4 > 0) {
-            --gWindowListOffsetCC3EF4;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
-        } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t result = 0;
+        if ((state & 0x400) != 0) {
+            if (gWindowListOffsetCC3EF4 > 0) {
+                --gWindowListOffsetCC3EF4;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const std::int32_t position = gWindowListOffsetCC3EF4;
+            WindowInstance* const window = currentWindow;
+            const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+            auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+            }
+            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            result = 1;
         }
-        const std::int32_t position = gWindowListOffsetCC3EF4;
-        WindowInstance* const window = gCurrentWindow;
-        const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
-        WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
-        result = 1;
+        graphic->imageNo = 0x3B592;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B594;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B593;
+        }
+        return result;
     }
-    graphic->imageNo = 0x3B592;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B594;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B593;
-    }
-    return result;
+    return {};
 }
 
 // 原函数：0x0049EC00。
 static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t result = 0;
-    if ((state & 0x400) != 0) {
-        if (gWindowListOffsetCC3EF4 < gWindowListCountCF46A8 - 5) {
-            ++gWindowListOffsetCC3EF4;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
-        } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t result = 0;
+        if ((state & 0x400) != 0) {
+            if (gWindowListOffsetCC3EF4 < gWindowListCountCF46A8 - 5) {
+                ++gWindowListOffsetCC3EF4;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const std::int32_t position = gWindowListOffsetCC3EF4;
+            const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, position));
+            }
+            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            result = 1;
         }
-        const std::int32_t position = gWindowListOffsetCC3EF4;
-        const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, position));
-        WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
-        result = 1;
+        graphic->imageNo = 0x3B595;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B597;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B596;
+        }
+        return result;
     }
-    graphic->imageNo = 0x3B595;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B597;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B596;
-    }
-    return result;
+    return {};
 }
 
 // 原函数：0x0049ECC0。
 static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t result = 0;
-    if ((state & 2) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(gWindowListOffsetCC3EF4 > 0 ? 51 : 55, 320));
-        gWindowListOffsetCC3EF4 -= 5;
-        if (gWindowListOffsetCC3EF4 < 0) {
-            gWindowListOffsetCC3EF4 = 0;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t result = 0;
+        if ((state & 2) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(gWindowListOffsetCC3EF4 > 0 ? 51 : 55, 320));
+            gWindowListOffsetCC3EF4 -= 5;
+            if (gWindowListOffsetCC3EF4 < 0) {
+                gWindowListOffsetCC3EF4 = 0;
+            }
+            const std::int32_t position = gWindowListOffsetCC3EF4;
+            const std::int32_t maximum = gWindowListCountCF46A8 - 5;
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+            }
+            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            result = 1;
         }
-        const std::int32_t position = gWindowListOffsetCC3EF4;
-        const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
-        WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
-        result = 1;
+        graphic->imageNo = 0x3B556;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B558;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B557;
+        }
+        return result;
     }
-    graphic->imageNo = 0x3B556;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B558;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B557;
-    }
-    return result;
+    return {};
 }
 
 // 原函数：0x0049ED80。
 static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t result = 0;
-    if ((state & 2) != 0) {
-        const std::int32_t oldMaximum = gWindowListCountCF46A8 - 5;
-        const bool canMove = oldMaximum > 0 && gWindowListOffsetCC3EF4 < oldMaximum;
-        static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
-        std::int32_t position = gWindowListOffsetCC3EF4 + 5;
-        const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-        gWindowListOffsetCC3EF4 = position;
-        if (position > maximum) {
-            position = maximum;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t result = 0;
+        if ((state & 2) != 0) {
+            const std::int32_t oldMaximum = gWindowListCountCF46A8 - 5;
+            const bool canMove = oldMaximum > 0 && gWindowListOffsetCC3EF4 < oldMaximum;
+            static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
+            std::int32_t position = gWindowListOffsetCC3EF4 + 5;
+            const std::int32_t maximum = gWindowListCountCF46A8 - 5;
             gWindowListOffsetCC3EF4 = position;
+            if (position > maximum) {
+                position = maximum;
+                gWindowListOffsetCC3EF4 = position;
+            }
+            if (position < 0) {
+                position = 0;
+                gWindowListOffsetCC3EF4 = position;
+            }
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+            }
+            WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
+            result = 1;
         }
-        if (position < 0) {
-            position = 0;
-            gWindowListOffsetCC3EF4 = position;
+        graphic->imageNo = 0x3B559;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B55B;
         }
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
-        WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
-        result = 1;
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B55A;
+        }
+        return result;
     }
-    graphic->imageNo = 0x3B559;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B55B;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B55A;
-    }
-    return result;
+    return {};
 }
 
 // 原函数：0x0049EE60。
 static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowListCountCF46A8;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindowListOffsetCC3EF4;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        gWindowListOffsetCC3EF4 =
-            WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 5, wheel);
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (indexedElement) {
+            gWindowListOffsetCC3EF4 =
+                WindowScroll_ApplyWheel(indexedElement - 5, position, count - 5, wheel);
+        }
     }
     return 0;
 }
@@ -354,38 +398,47 @@ static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std
 // 原函数：0x0049EEB0。
 static std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t result = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"中止。";
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t result = 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"中止。";
+        }
+        if ((state & 2) != 0) {
+            window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            result = 1;
+        }
+        graphic->imageNo = 0x3B562;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B564;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B563;
+        }
+        return result;
     }
-    if ((state & 2) != 0) {
-        window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
-        result = 1;
-    }
-    graphic->imageNo = 0x3B562;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B564;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B563;
-    }
-    return result;
+    return {};
 }
 
 // 原函数：0x0049EF60。
 static std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (index - 14 >= gWindowListCountCF46A8) {
         return 0;
     }
     if ((state & 1) != 0) {
         const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        WindowElement_DrawHoverFrame((*gCurrentWindow)[NativeElementKey(index)], state, imageNo);
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (indexedElement) {
+            WindowElement_DrawHoverFrame(indexedElement, state, imageNo);
+        }
     }
     if ((state & 2) == 0) {
         return 0;
@@ -395,7 +448,7 @@ static std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const 
         const std::int32_t selected = gWindowListOffsetCC3EF4 + index - 14;
         callback(selected, gWindowListNamesCF3F20[selected].data());
     }
-    gCurrentWindow->state |= 0x8000u;
+    currentWindow->state |= 0x8000u;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
 }

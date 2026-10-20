@@ -206,12 +206,17 @@ void WindowMail_WriteContactStatus(
 
 void WindowMail_SetUnreadGraphic(const std::int32_t index)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    WindowInstance* const window = currentWindow;
     auto* elementsWindow = window;
     const std::int32_t blink = gLoginWindowRuntime.mailBlinkFlagD67B60;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return; }
-    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
-    graphic->imageNo = blink != 0 ? 0x3B549 : 0x3B547;
+    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        graphic->imageNo = blink != 0 ? 0x3B549 : 0x3B547;
+    }
+    return;
 }
 
 // 原函数：0x004A3600。

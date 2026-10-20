@@ -223,27 +223,33 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
 // 原函数：0x0049FD20。
 static std::int32_t WindowShopChoice_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::Element1]))) { return {}; }
-        auto* const title = (*gCurrentWindow)[WindowShopChoiceElementId::Element1]->data.text;
-        title->text = gChoiceDialog.title;
+        auto* const element1 = currentWindow->FindElementById(WindowShopChoiceElementId::Element1);
+        if (element1) {
+            auto* const title = element1->data.text;
+            title->text = gChoiceDialog.title;
+        }
         const std::int32_t measured = cg::render::TextMeasure(gChoiceDialog.title, 1);
-        WindowInstance* const window = gCurrentWindow;
-        if ((window && (*window)[WindowShopChoiceElementId::Element1])) (*window)[WindowShopChoiceElementId::Element1]->x = ((window->width - measured) >> 1) + 6;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::Element2]))) { return {}; }
-        auto* animation = (*gCurrentWindow)[WindowShopChoiceElementId::Element2]->data.animation;
-        cg::yobi::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::Element2]))) { return {}; }
-        animation = (*gCurrentWindow)[WindowShopChoiceElementId::Element2]->data.animation;
-        cg::yobi::SetYobiActionField2B8(animation->action, 5);
+        WindowInstance* const window = currentWindow;
+        if (auto* const element12 = window->FindElementById(WindowShopChoiceElementId::Element1); element12) element12->x = ((window->width - measured) >> 1) + 6;
+        auto* const element2 = currentWindow->FindElementById(WindowShopChoiceElementId::Element2);
+        if (element2) {
+            auto* animation = element2->data.animation;
+            cg::yobi::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
+            cg::yobi::SetYobiActionField2B8(animation->action, 5);
+        }
         const std::uint8_t count = gChoiceDialog.choiceCount;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::SelectRow]))) { return {}; }
-        (*gCurrentWindow)[WindowShopChoiceElementId::SelectRow]->height =
-            count != 0 ? 14 * std::bit_cast<std::int8_t>(count) - 2 : 0;
+        auto* const selectRowElement = currentWindow->FindElementById(WindowShopChoiceElementId::SelectRow);
+        if (selectRowElement) {
+            selectRowElement->height =
+                count != 0 ? 14 * std::bit_cast<std::int8_t>(count) - 2 : 0;
+        }
         gChoiceDialog.closeEnabled = 1;
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         static_cast<void>(gChoiceDialog.callback(-1));
     }
@@ -253,10 +259,12 @@ static std::int32_t WindowShopChoice_Update(const std::int32_t value)
 // 原函数：0x0049FE40。
 static std::int32_t WindowShopChoice_Draw(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     WindowRuntime_DrawCurrent();
     for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.lineCount); ++row) {
         const std::wstring& text = gChoiceDialog.lines[row];
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(window->x + 87),
                 static_cast<std::int16_t>(window->y + 40 + row * 13),
@@ -264,21 +272,23 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
     }
     for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.choiceCount); ++row) {
         const std::wstring& text = gChoiceDialog.choices[row];
-            WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[WindowShopChoiceElementId::SelectRow]))) { continue; }
-            const auto& element = (*(*window)[WindowShopChoiceElementId::SelectRow]);
-            static_cast<void>(render::DrawText_456780(
-                static_cast<std::int16_t>(window->x + element.x),
-                static_cast<std::int16_t>(window->y + element.y + row * 14),
-                3, 12, 0, text, 0, 0));
+            WindowInstance* const window = currentWindow;
+            auto* const selectRowElement = window->FindElementById(WindowShopChoiceElementId::SelectRow);
+            if (selectRowElement) {
+                const auto& element = (*selectRowElement);
+                static_cast<void>(render::DrawText_456780(
+                    static_cast<std::int16_t>(window->x + element.x),
+                    static_cast<std::int16_t>(window->y + element.y + row * 14),
+                    3, 12, 0, text, 0, 0));
+            }
     }
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     cg::yobi::DrawNineGrid_49BE00(245300, static_cast<std::int16_t>(window->x),
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
     if (world::gCurrentDialogType_581800 != gChoiceDialog.type) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -296,24 +306,30 @@ static void WindowShopChoice_Release()
 // 原函数：0x0049FFA0。
 static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 1) == 0) {
         return 0;
     }
     for (std::int32_t index = 0;
          index < std::bit_cast<std::int8_t>(gChoiceDialog.choiceCount); ++index) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowShopChoiceElementId::SelectRow]))) { continue; }
-        const auto& element = (*(*window)[WindowShopChoiceElementId::SelectRow]);
-        const auto x = static_cast<std::int16_t>(window->x + element.x);
-        const auto y = static_cast<std::int16_t>(window->y + element.y + index * 14);
-        if (cg::ui::HitTestMouseRect_5049A0(x, y, x + element.width, y + 12, -1) == 0) {
-            continue;
+        WindowInstance* const window = currentWindow;
+        auto* const selectRowElement = window->FindElementById(WindowShopChoiceElementId::SelectRow);
+        if (selectRowElement) {
+            const auto& element = (*selectRowElement);
+            const auto x = static_cast<std::int16_t>(window->x + element.x);
+            const auto y = static_cast<std::int16_t>(window->y + element.y + index * 14);
+            if (cg::ui::HitTestMouseRect_5049A0(x, y, x + element.width, y + 12, -1) == 0) {
+                continue;
+            }
+            auto* const selectRowElement2 = currentWindow->FindElementById(WindowShopChoiceElementId::SelectRow);
+            if (selectRowElement2) {
+                cg::render::DrawGraphicHover(
+                    static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
+                    static_cast<std::uint16_t>(x + selectRowElement2->width + 2),
+                    static_cast<std::uint16_t>(y + 14), 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+            }
         }
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::SelectRow]))) { continue; }
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
-            static_cast<std::uint16_t>(x + (*gCurrentWindow)[WindowShopChoiceElementId::SelectRow]->width + 2),
-            static_cast<std::uint16_t>(y + 14), 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         gHoverTextD68AE8 = gChoiceDialog.hints[index];
         if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;
@@ -321,7 +337,7 @@ static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::in
                 static_cast<void>(callback(index));
             }
             static_cast<void>(audio::PlaySe_52C450(79, 320));
-            gCurrentWindow->state |= 0x8000u;
+            currentWindow->state |= 0x8000u;
             break;
         }
     }

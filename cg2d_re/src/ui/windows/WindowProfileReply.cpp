@@ -114,36 +114,43 @@ WindowPrototype gWindowPrototypeProfileReply {0, 4, 15, 97, 317, 250, 0x80000080
 // 原函数：0x004CB9F0。
 static std::uint32_t WindowProfileReply_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gReceivedProfile1074110;
     const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(profile.value10C);
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element14])) (*gCurrentWindow)[WindowProfileReplyElementId::Element14]->data.graphic->imageNo = image;
+    if (auto* const element14 = currentWindow->FindElementById(WindowProfileReplyElementId::Element14); element14) element14->data.graphic->imageNo = image;
     for (std::int32_t index = 0; index < 3; ++index) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 14)]))) { continue; }
-        (*gCurrentWindow)[NativeElementKey(index + 14)]->data.graphic->imageNo =
-            profile.entries410[index].value04;
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 14));
+        if (indexedElement) {
+            indexedElement->data.graphic->imageNo =
+                profile.entries410[index].value04;
+        }
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element1])) (*gCurrentWindow)[WindowProfileReplyElementId::Element1]->data.text->text = profile.text08;
+    if (auto* const element1 = currentWindow->FindElementById(WindowProfileReplyElementId::Element1); element1) element1->data.text->text = profile.text08;
     std::wstring number;
     cg::text::FormatTo(number, L"{}", profile.value108);
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element2])) (*gCurrentWindow)[WindowProfileReplyElementId::Element2]->data.text->text = number;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element3])) (*gCurrentWindow)[WindowProfileReplyElementId::Element3]->data.text->text = profile.text110;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element4])) (*gCurrentWindow)[WindowProfileReplyElementId::Element4]->data.text->text = profile.text210;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element5])) (*gCurrentWindow)[WindowProfileReplyElementId::Element5]->data.text->text = profile.text310;
+    if (auto* const element2 = currentWindow->FindElementById(WindowProfileReplyElementId::Element2); element2) element2->data.text->text = number;
+    if (auto* const element3 = currentWindow->FindElementById(WindowProfileReplyElementId::Element3); element3) element3->data.text->text = profile.text110;
+    if (auto* const element4 = currentWindow->FindElementById(WindowProfileReplyElementId::Element4); element4) element4->data.text->text = profile.text210;
+    if (auto* const element5 = currentWindow->FindElementById(WindowProfileReplyElementId::Element5); element5) element5->data.text->text = profile.text310;
     for (std::int32_t index = 0; index < 3; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 5)])) (*gCurrentWindow)[NativeElementKey(index + 5)]->data.text->text = profile.entries410[index].text08;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 5)); indexedElement) indexedElement->data.text->text = profile.entries410[index].text08;
     }
     std::wstring line;
     for (std::int32_t index = 0; index < 3; ++index) {
         static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), index, 28));
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 8)])) (*gCurrentWindow)[NativeElementKey(index + 8)]->data.text->text = line;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 8)); indexedElement) indexedElement->data.text->text = line;
     }
     static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), 3, 28));
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element12]))) { return {}; }
-    std::wstring& destination = (*gCurrentWindow)[WindowProfileReplyElementId::Element12]->data.text->text;
-    const auto units = static_cast<std::uint32_t>(line.size() + 1);
-    destination = line;
-    return units;
+    auto* const element12 = currentWindow->FindElementById(WindowProfileReplyElementId::Element12);
+    if (element12) {
+        std::wstring& destination = element12->data.text->text;
+        const auto units = static_cast<std::uint32_t>(line.size() + 1);
+        destination = line;
+        return units;
+    }
+    return {};
 }
 
 // 原函数：0x004CB9E0。

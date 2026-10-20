@@ -34,18 +34,22 @@ WindowPrototype gWindowPrototypeTimerNotice {3, 3, 196, 180, 256, 96, 0x80010101
 // 原函数：0x0049E750。
 static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowTimerNoticeElementId::Element1]))) { return {}; }
-        auto* const data = (*gCurrentWindow)[WindowTimerNoticeElementId::Element1]->data.text;
-        const std::wstring& text = world::GetMapName_9DAD30();
-        data->text = text;
-        const std::int32_t textWidth = cg::render::TextMeasure(text, 0);
-        WindowInstance* const window = gCurrentWindow;
-        if ((window && (*window)[WindowTimerNoticeElementId::Element1])) (*window)[WindowTimerNoticeElementId::Element1]->x = (window->width - textWidth) >> 1;
+        auto* const element1 = currentWindow->FindElementById(WindowTimerNoticeElementId::Element1);
+        if (element1) {
+            auto* const data = element1->data.text;
+            const std::wstring& text = world::GetMapName_9DAD30();
+            data->text = text;
+            const std::int32_t textWidth = cg::render::TextMeasure(text, 0);
+            WindowInstance* const window = currentWindow;
+            if (auto* const element12 = window->FindElementById(WindowTimerNoticeElementId::Element1); element12) element12->x = (window->width - textWidth) >> 1;
+        }
     } else {
         const std::uint64_t tick = platform::ReadTickCount64();
         if (world::gMapNoticeStartTick_62B5B0 + 2000u <= tick) {
-            gCurrentWindow->state |= 0x8000u;
+            currentWindow->state |= 0x8000u;
             world::gMapNoticeStartTick_62B5B0 = 0;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }

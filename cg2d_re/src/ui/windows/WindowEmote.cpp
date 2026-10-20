@@ -173,30 +173,35 @@ static std::int32_t WindowEmote_ResetSelection()
 // 原函数：0x00495FE0。
 static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const bool hover = (state & 1) != 0;
-    std::int32_t consumed = 0;
-    if (hover) {
-        graphic->imageNo = 0x3B987 + index * 3;
-        consumed = 1;
-    } else {
-        const bool selected = gEmoteSelectionCF4FC4[index] == 1;
-        graphic->imageNo = (selected ? 0x3B985 : 0x3B986) + index * 3;
-    }
-    if (static_cast<std::uint32_t>(index) > 17u) {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hover = (state & 1) != 0;
+        std::int32_t consumed = 0;
+        if (hover) {
+            graphic->imageNo = 0x3B987 + index * 3;
+            consumed = 1;
+        } else {
+            const bool selected = gEmoteSelectionCF4FC4[index] == 1;
+            graphic->imageNo = (selected ? 0x3B985 : 0x3B986) + index * 3;
+        }
+        if (static_cast<std::uint32_t>(index) > 17u) {
+            return consumed;
+        }
+        if (hover) {
+            gHoverTextD68AE8 = kEmoteHints5871B0[index];
+        }
+        if ((state & 2) != 0) {
+            world::RequestPlayerEmote_4FA8E0(kEmoteButtonActions[index]);
+            static_cast<void>(WindowEmote_Select(index));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
         return consumed;
     }
-    if (hover) {
-        gHoverTextD68AE8 = kEmoteHints5871B0[index];
-    }
-    if ((state & 2) != 0) {
-        world::RequestPlayerEmote_4FA8E0(kEmoteButtonActions[index]);
-        static_cast<void>(WindowEmote_Select(index));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    return consumed;
+    return {};
 }
 
 } // namespace detail

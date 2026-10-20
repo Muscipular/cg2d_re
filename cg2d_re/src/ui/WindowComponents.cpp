@@ -35,7 +35,7 @@ static WindowElement* ResolvePointerDrag(WindowInstance*& window) {
     window = WindowRuntime_FindInstance(pointerDrag.windowId);
     if (!window || window->generation != pointerDrag.generation || (window->state & WIN_STATE_CLOSE)
         || window->scriptHidden || platform::gWindowActiveState != 2) return nullptr;
-    WindowElement* element = (*window)[static_cast<ElementId>(pointerDrag.elementIndex)];
+    WindowElement* element = window->FindElementById(static_cast<ElementId>(pointerDrag.elementIndex));
     return element && element->refDrag >= 0 && WindowRuntime_IsElementInteractive(*window, *element) ? element : nullptr;
 }
 
@@ -162,7 +162,7 @@ void UIControl::bindPayload() {
 WindowComponentStore::~WindowComponentStore() = default;
 
 UIControl* WindowComponentStore::find(int id) const {
-    auto* element = window[static_cast<ElementId>(id)];
+    auto* element = window.FindElementById(static_cast<ElementId>(id));
     return element && element->component && element->component->attached ? element->component : nullptr;
 }
 

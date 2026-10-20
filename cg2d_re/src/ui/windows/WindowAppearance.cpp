@@ -171,11 +171,11 @@ cg::yobi::YobiAction* WindowAppearance_Open(
 // 原函数：0x004C5850。
 static std::int32_t WindowAppearance_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value != -1) {
         return 1;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowAppearanceElementId::Element13]))) { return {}; }
-    auto* const animation = (*gCurrentWindow)[WindowAppearanceElementId::Element13]->data.animation;
     std::int32_t version = character_select::state::gGraphicVersionOverride58B6A0;
     if (version == 0xFF) {
         version = character_select::state::gPukVersion;
@@ -201,24 +201,24 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
         gWindow56MinimumCB0F80 = 0;
         gWindow56MaximumC8A958 = 0;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowAppearanceElementId::Element14])) (*gCurrentWindow)[WindowAppearanceElementId::Element14]->data.text->text = gWindow56Texts580870.messages[0];
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowAppearanceElementId::Element15])) (*gCurrentWindow)[WindowAppearanceElementId::Element15]->data.text->text = gWindow56Texts580870.messages[1];
+    if (auto* const element14 = currentWindow->FindElementById(WindowAppearanceElementId::Element14); element14) element14->data.text->text = gWindow56Texts580870.messages[0];
+    if (auto* const element15 = currentWindow->FindElementById(WindowAppearanceElementId::Element15); element15) element15->data.text->text = gWindow56Texts580870.messages[1];
     for (std::int32_t index = 3; index <= 5; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
     }
     if (gWindow56MaximumC8A958 - gWindow56MinimumCB0F80 > 0) {
         for (std::int32_t index = 3; index <= 5; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
     }
     for (std::int32_t index = 6; index <= 11; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
     }
     // 原门禁读取上次分类；本次玩家图号分解在可见性处理之后。
     const std::int32_t previousBase = gWindow56BaseCB0F8C;
     if (previousBase == 33100 || previousBase == 33101) {
         for (std::int32_t index = 3; index <= 11; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
     }
     static_cast<void>(character_select::detail::DecomposeCharacterAppearanceGraphic_4C56E0(
@@ -231,24 +231,29 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
     const std::int32_t base = gWindow56BaseCB0F8C;
     const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
         base, imageClass, quarter, fifth, ones);
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowAppearanceElementId::Element3])) (*gCurrentWindow)[WindowAppearanceElementId::Element3]->data.graphic->imageNo = image;
-    cg::yobi::YobiAction* const action = animation->action;
-    cg::yobi::SetYobiActionField2A8(action, world::gPlayerRuntimeSlots.imageNo);
-    cg::yobi::SetYobiActionField2B0(animation->action, 0);
-    cg::yobi::SetYobiActionField2B8(animation->action, 5);
+    if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
+    if (auto* const element13 = currentWindow->FindElementById(WindowAppearanceElementId::Element13)) {
+        auto* const animation = element13->data.animation;
+        cg::yobi::YobiAction* const action = animation->action;
+        cg::yobi::SetYobiActionField2A8(action, world::gPlayerRuntimeSlots.imageNo);
+        cg::yobi::SetYobiActionField2B0(animation->action, 0);
+        cg::yobi::SetYobiActionField2B8(animation->action, 5);
+    }
     return 1;
 }
 
 // 原函数：0x004C5B70。
 static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     static_cast<void>(unused);
     if (WindowProfile_CheckDistance(2, 2) != 0 || world::gCurrentDialogType_581800 != gWindow56DialogTypeCB1DE0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     WindowRuntime_DrawCurrent();
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     cg::yobi::DrawNineGrid_49BE00(
         245300, static_cast<std::int16_t>(window->x), static_cast<std::int16_t>(window->y),
         static_cast<std::int16_t>(window->width), static_cast<std::int16_t>(window->height),
@@ -269,44 +274,51 @@ static void WindowAppearance_Release()
 // 原函数：0x004C5C30。
 static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        const std::int32_t ones = gWindow56OnesCF4680;
-        const std::int32_t fifth = gWindow56FifthCB0F88;
-        const std::int32_t quarter = gWindow56QuarterCC3E88;
-        const std::int32_t imageClass = gWindow56ClassCC466C;
-        const std::int32_t base = gWindow56BaseCB0F8C;
-        const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
-            base, imageClass, quarter, fifth, ones);
-        const auto buffer = std::to_wstring(image);
-        const std::int32_t target = world::gDialogTargetD2DE6C;
-        const std::int32_t request = world::gDialogRequestCC21E0;
-        const std::int32_t y =
-            static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x =
-            static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::SendDialogResponse_512620(
-            platform::gConnectionSocket, x, y, request, target, 1, buffer));
-        gCurrentWindow->state |= 0x8000u;
-        consumed = 1;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            const std::int32_t ones = gWindow56OnesCF4680;
+            const std::int32_t fifth = gWindow56FifthCB0F88;
+            const std::int32_t quarter = gWindow56QuarterCC3E88;
+            const std::int32_t imageClass = gWindow56ClassCC466C;
+            const std::int32_t base = gWindow56BaseCB0F8C;
+            const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
+                base, imageClass, quarter, fifth, ones);
+            const auto buffer = std::to_wstring(image);
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t y =
+                static_cast<std::int32_t>(world::gPlayerY);
+            const std::int32_t x =
+                static_cast<std::int32_t>(world::gPlayerX);
+            static_cast<void>(network::SendDialogResponse_512620(
+                platform::gConnectionSocket, x, y, request, target, 1, buffer));
+            currentWindow->state |= 0x8000u;
+            consumed = 1;
+        }
+        graphic->imageNo = 243048;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 243050;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243049;
+        }
+        return consumed;
     }
-    graphic->imageNo = 243048;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 243050;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243049;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004C5D00。
 static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         std::int32_t imageClass = gWindow56ClassCC466C + (index < 4 ? -1 : 1);
@@ -325,15 +337,15 @@ static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const 
         const std::int32_t base = gWindow56BaseCB0F8C;
         const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowAppearanceElementId::Element3])) (*gCurrentWindow)[WindowAppearanceElementId::Element3]->data.graphic->imageNo = image;
+        if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
         consumed = 1;
     }
-    graphic->imageNo = index < 4 ? 243030 : 243033;
+    if (graphic) graphic->imageNo = index < 4 ? 243030 : 243033;
     if ((state & 1) != 0) {
-        graphic->imageNo = index < 4 ? 243032 : 243035;
+        if (graphic) graphic->imageNo = index < 4 ? 243032 : 243035;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = index < 4 ? 243031 : 243034;
+        if (graphic) graphic->imageNo = index < 4 ? 243031 : 243034;
     }
     return consumed;
 }
@@ -341,8 +353,10 @@ static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const 
 // 原函数：0x004C5DE0。
 static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         std::int32_t fifth = gWindow56FifthCB0F88 + (index < 7 ? -1 : 1);
@@ -360,15 +374,15 @@ static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, c
         const std::int32_t imageClass = gWindow56ClassCC466C;
         const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowAppearanceElementId::Element3])) (*gCurrentWindow)[WindowAppearanceElementId::Element3]->data.graphic->imageNo = image;
+        if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
         consumed = 1;
     }
-    graphic->imageNo = index < 7 ? 243030 : 243033;
+    if (graphic) graphic->imageNo = index < 7 ? 243030 : 243033;
     if ((state & 1) != 0) {
-        graphic->imageNo = index < 7 ? 243032 : 243035;
+        if (graphic) graphic->imageNo = index < 7 ? 243032 : 243035;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = index < 7 ? 243031 : 243034;
+        if (graphic) graphic->imageNo = index < 7 ? 243031 : 243034;
     }
     return consumed;
 }
@@ -376,8 +390,10 @@ static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, c
 // 原函数：0x004C5EB0。
 static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         std::int32_t ones = gWindow56OnesCF4680 + (index < 10 ? -1 : 1);
@@ -395,15 +411,15 @@ static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, co
         const std::int32_t base = gWindow56BaseCB0F8C;
         const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowAppearanceElementId::Element3])) (*gCurrentWindow)[WindowAppearanceElementId::Element3]->data.graphic->imageNo = image;
+        if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
         consumed = 1;
     }
-    graphic->imageNo = index < 10 ? 243030 : 243033;
+    if (graphic) graphic->imageNo = index < 10 ? 243030 : 243033;
     if ((state & 1) != 0) {
-        graphic->imageNo = index < 10 ? 243032 : 243035;
+        if (graphic) graphic->imageNo = index < 10 ? 243032 : 243035;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = index < 10 ? 243031 : 243034;
+        if (graphic) graphic->imageNo = index < 10 ? 243031 : 243034;
     }
     return consumed;
 }

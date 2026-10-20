@@ -641,13 +641,15 @@ static std::int32_t WindowPetList_SubmitStates()
 // 原函数：0x0048C1E0。
 static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     auto& states = gLoginWindowRuntime.valuesCC1A18;
     const auto petIndex = [](const std::int32_t row) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
     };
-    const auto setImage = [index](const std::int32_t image) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
+    const auto setImage = [index, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
 
     if (index >= 253 && index <= 257) {
@@ -679,7 +681,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
                     const wchar_t* const name =
                         pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     gPetNameInputPrototype57DCF8.text = name;
-                    WindowInstance* const window = gCurrentWindow;
+                    WindowInstance* const window = currentWindow;
                     const std::int32_t y = window->y;
                     const std::int32_t x = window->x;
                     static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
@@ -709,7 +711,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
     if (index >= 226 && index <= 230) {
         const std::int32_t row = index - 226;
         if (character_select::state::gPukVersion < 7u) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             return 0;
         }
         if (WindowPet_HasSkill25600(petIndex(row)) != 1) {
@@ -886,16 +888,18 @@ static void WindowPetList_RefreshAttributeBar(
     const std::int32_t middleImage, const std::int32_t firstImage,
     const std::int32_t lastImage)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     const std::int32_t base = 26 + row * 40 + attribute * 10;
     for (std::int32_t segment = 0; segment < 10; ++segment) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(base + segment)])) (*gCurrentWindow)[NativeElementKey(base + segment)]->visible = 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(base + segment)); indexedElement) indexedElement->visible = 0;
     }
     const std::int16_t petIndex = std::bit_cast<std::int16_t>(pair->index);
     const std::int32_t segments =
         world::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
-    const auto show = [](const std::int32_t element, const std::int32_t image) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->data.graphic->imageNo = image;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 1;
+    const auto show = [currentWindow](const std::int32_t element, const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.graphic->imageNo = image;
+        if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(element)); indexedElement2) indexedElement2->visible = 1;
     };
     if (segments == 1) {
         show(base, singleImage);
@@ -915,15 +919,20 @@ static void WindowPetList_RefreshAttributeBar(
 // 原函数：0x0048C920。
 static void WindowPetList_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     WindowPetList_RefreshStates();
     std::wstring buffer;
-    const auto copyNumber = [&buffer](const std::int32_t element) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)]))) { return; }
-        auto* const data = (*gCurrentWindow)[NativeElementKey(element)]->data.text;
-        data->text = buffer;
+    const auto copyNumber = [&buffer, currentWindow](const std::int32_t element) {
+        auto* const dataElement = currentWindow->FindElementById(NativeElementKey(element));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = buffer;
+        }
+        return;
     };
-    const auto setImage = [](const std::int32_t element, const std::int32_t image) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->data.graphic->imageNo = image;
+    const auto setImage = [currentWindow](const std::int32_t element, const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto* const pair = &world::gPetPairsDE0B08[row];
@@ -932,54 +941,58 @@ static void WindowPetList_Refresh()
             return std::bit_cast<std::int16_t>(pair->index);
         };
         const std::int16_t initialIndex = petIndex();
-        WindowInstance* const initialWindow = gCurrentWindow;
+        WindowInstance* const initialWindow = currentWindow;
         const std::int32_t textBase = 1 + row * 5;
         if (world::gPetRuntimeRecords[initialIndex].used == 0) {
-            if ((initialWindow && (*initialWindow)[NativeElementKey(textBase)])) (*initialWindow)[NativeElementKey(textBase)]->visible = 0;
+            if (auto* const indexedElement = initialWindow->FindElementById(NativeElementKey(textBase)); indexedElement) indexedElement->visible = 0;
             for (std::int32_t column = 1; column < 5; ++column) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textBase + column)])) (*gCurrentWindow)[NativeElementKey(textBase + column)]->visible = 0;
+                if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(textBase + column)); indexedElement2) indexedElement2->visible = 0;
             }
             for (std::int32_t attribute = 0; attribute < 4; ++attribute) {
                 for (std::int32_t segment = 0; segment < 10; ++segment) {
-                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(26 + row * 40 + attribute * 10 + segment)])) (*gCurrentWindow)[NativeElementKey(26 + row * 40 + attribute * 10 + segment)]->visible = 0;
+                    if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(26 + row * 40 + attribute * 10 + segment)); indexedElement2) indexedElement2->visible = 0;
                 }
             }
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(231 + row)])) (*gCurrentWindow)[NativeElementKey(231 + row)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(236 + row)])) (*gCurrentWindow)[NativeElementKey(236 + row)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(226 + row)])) (*gCurrentWindow)[NativeElementKey(226 + row)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(241 + row)])) (*gCurrentWindow)[NativeElementKey(241 + row)]->visible = 0;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(231 + row)); indexedElement2) indexedElement2->visible = 0;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(236 + row)); indexedElement3) indexedElement3->visible = 0;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(226 + row)); indexedElement4) indexedElement4->visible = 0;
+            if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(241 + row)); indexedElement5) indexedElement5->visible = 0;
             continue;
         }
 
-        if ((initialWindow && (*initialWindow)[NativeElementKey(textBase)])) (*initialWindow)[NativeElementKey(textBase)]->visible = 1;
+        if (auto* const indexedElement = initialWindow->FindElementById(NativeElementKey(textBase)); indexedElement) indexedElement->visible = 1;
         for (std::int32_t column = 1; column < 5; ++column) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textBase + column)])) (*gCurrentWindow)[NativeElementKey(textBase + column)]->visible = 1;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(textBase + column)); indexedElement2) indexedElement2->visible = 1;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(226 + row)])) (*gCurrentWindow)[NativeElementKey(226 + row)]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(231 + row)])) (*gCurrentWindow)[NativeElementKey(231 + row)]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(236 + row)])) (*gCurrentWindow)[NativeElementKey(236 + row)]->visible = 1;
+        if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(226 + row)); indexedElement2) indexedElement2->visible = 1;
+        if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(231 + row)); indexedElement3) indexedElement3->visible = 1;
+        if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(236 + row)); indexedElement4) indexedElement4->visible = 1;
         if (WindowPet_HasSkill25600(petIndex()) == 1) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(226 + row)])) (*gCurrentWindow)[NativeElementKey(226 + row)]->visible = 1;
+            if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(226 + row)); indexedElement5) indexedElement5->visible = 1;
         }
         const std::int16_t loyaltyIndex = petIndex();
         const bool canSelect = world::gPetRuntimeRecords[loyaltyIndex].values70[10] == 100
             || gLoginWindowRuntime.valuesCC1A18[loyaltyIndex] == 3;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(241 + row)])) (*gCurrentWindow)[NativeElementKey(241 + row)]->visible = canSelect ? 1 : 0;
+        if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(241 + row)); indexedElement5) indexedElement5->visible = canSelect ? 1 : 0;
 
         const auto& namePet = world::gPetRuntimeRecords[petIndex()];
         const wchar_t* const name =
             namePet.name6BD[0] != '\0' ? namePet.name6BD.data() : namePet.name6AC.data();
-        auto* nameElementsWindow = gCurrentWindow;
-        if (!((nameElementsWindow && (*nameElementsWindow)[NativeElementKey(textBase)]))) { continue; }
-        auto* const nameData = (*nameElementsWindow)[NativeElementKey(textBase)]->data.text;
-        nameData->text = name;
+        auto* nameElementsWindow = currentWindow;
+        auto* const nameDataElement = nameElementsWindow->FindElementById(NativeElementKey(textBase));
+        if (nameDataElement) {
+            auto* const nameData = nameDataElement->data.text;
+            nameData->text = name;
+        }
 
         const std::int16_t colorIndex = petIndex();
-        WindowInstance* const colorWindow = gCurrentWindow;
+        WindowInstance* const colorWindow = currentWindow;
         const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
-        if (!((colorWindow && (*colorWindow)[NativeElementKey(textBase)]))) { continue; }
-        (*colorWindow)[NativeElementKey(textBase)]->data.text->style.color =
-            colorState == 3 ? std::byte{7} : std::byte{0};
+        auto* const indexedElement6 = colorWindow->FindElementById(NativeElementKey(textBase));
+        if (indexedElement6) {
+            indexedElement6->data.text->style.color =
+                colorState == 3 ? std::byte{7} : std::byte{0};
+        }
         cg::text::FormatTo(buffer, L"{:3}", world::gPetRuntimeRecords[petIndex()].value08);
         copyNumber(textBase + 1);
         const std::int32_t maxHp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[1]);
@@ -992,14 +1005,16 @@ static void WindowPetList_Refresh()
         copyNumber(textBase + 3);
 
         const std::int16_t tribeIndex = petIndex();
-        WindowInstance* const tribeWindow = gCurrentWindow;
+        WindowInstance* const tribeWindow = currentWindow;
         const std::int16_t tribe =
             std::bit_cast<std::int16_t>(world::gPetRuntimeRecords[tribeIndex].value04);
         auto* tribeElementsWindow = tribeWindow;
         const wchar_t* const tribeName = gTribeNames57CB54[tribe];
-        if (!((tribeElementsWindow && (*tribeElementsWindow)[NativeElementKey(textBase + 4)]))) { continue; }
-        auto* const tribeData = (*tribeElementsWindow)[NativeElementKey(textBase + 4)]->data.text;
-        tribeData->text = tribeName;
+        auto* const tribeDataElement = tribeElementsWindow->FindElementById(NativeElementKey(textBase + 4));
+        if (tribeDataElement) {
+            auto* const tribeData = tribeDataElement->data.text;
+            tribeData->text = tribeName;
+        }
 
         const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[petIndex()];
         if (state >= 0 && state <= 3) {
@@ -1009,13 +1024,15 @@ static void WindowPetList_Refresh()
         }
         if (WindowPet_HasSkill25600(petIndex()) == 1) {
             const std::int16_t followIndex = petIndex();
-            WindowInstance* const followWindow = gCurrentWindow;
+            WindowInstance* const followWindow = currentWindow;
             const std::int32_t follow = world::gPetRuntimeRecords[followIndex].follow6D4;
-            if (!((followWindow && (*followWindow)[NativeElementKey(226 + row)]))) { continue; }
-            (*followWindow)[NativeElementKey(226 + row)]->data.graphic->imageNo =
-                follow != 0 ? 0x3B586 : 0x3B587;
+            auto* const indexedElement7 = followWindow->FindElementById(NativeElementKey(226 + row));
+            if (indexedElement7) {
+                indexedElement7->data.graphic->imageNo =
+                    follow != 0 ? 0x3B586 : 0x3B587;
+            }
         } else {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(226 + row)])) (*gCurrentWindow)[NativeElementKey(226 + row)]->visible = 0;
+            if (auto* const indexedElement7 = currentWindow->FindElementById(NativeElementKey(226 + row)); indexedElement7) indexedElement7->visible = 0;
         }
         WindowPetList_RefreshAttributeBar(row, pair, 0, 0x3B5D2, 0x3B5D0, 0x3B5CF, 0x3B5D1);
         WindowPetList_RefreshAttributeBar(row, pair, 1, 0x3B5D7, 0x3B5D5, 0x3B5D4, 0x3B5D6);

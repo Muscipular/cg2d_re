@@ -184,6 +184,8 @@ static std::int32_t WindowBattleItems_TabEquipment(const std::int32_t, const std
 // 原函数：0x00499B60。
 static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t ordinal = index - 17;
     std::int32_t remaining = ordinal;
     bool found = false;
@@ -215,7 +217,7 @@ static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         consumed = 1;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 244306;
+    if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 244306;
     return consumed;
 }
 
@@ -235,6 +237,8 @@ static std::int32_t WindowBattleItems_Update(const std::int32_t value)
 // 原函数：0x004999D0。
 static std::int32_t WindowBattleItems_Draw(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t hovered = gBattleItemHoverCF49B0;
     if (hovered >= 0) {
         static_cast<void>(WindowItem_DrawEquipmentTooltip(hovered, gBattleItemPageCB01E0));
@@ -245,34 +249,46 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
                 static_cast<void>(WindowDrag_ResetMouse());
             }
         } else if (kind == 0 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
-            gCurrentWindow->state |= 0x8000u;
+            currentWindow->state |= 0x8000u;
         }
     }
     const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     cg::yobi::YobiAction* const source = world::gBattleEntries59E980[position];
-    if (!((window && (*window)[WindowBattleItemsElementId::Element5]))) { return {}; }
-    auto* const data = (*window)[WindowBattleItemsElementId::Element5]->data.animation;
-    const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(source);
-    cg::yobi::SetYobiActionField2A8(data->action, imageNo);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
-    cg::yobi::SetYobiActionField2B8(
-        (*gCurrentWindow)[WindowBattleItemsElementId::Element5]->data.animation->action, 5);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
-    cg::yobi::SetYobiActionField309(
-        (*gCurrentWindow)[WindowBattleItemsElementId::Element5]->data.animation->action, 0);
-    auto* elementsWindow = gCurrentWindow;
-    if (!((elementsWindow && (*elementsWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
-    if ((*elementsWindow)[WindowBattleItemsElementId::Element5]->visible != 0) {
-        const std::int32_t currentImage = cg::yobi::GetYobiActionField2A8(
-            world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4]);
-        if (currentImage >= 110350 && currentImage <= 110373) {
-            if (!((elementsWindow && (*elementsWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
-            cg::yobi::SetYobiActionField309(
-                (*elementsWindow)[WindowBattleItemsElementId::Element5]->data.animation->action, 4);
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
-            cg::yobi::SetYobiActionField310(
-                (*gCurrentWindow)[WindowBattleItemsElementId::Element5]->data.animation->action, 4);
+    auto* const element5 = window->FindElementById(WindowBattleItemsElementId::Element5);
+    if (element5) {
+        auto* const data = element5->data.animation;
+        const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(source);
+        cg::yobi::SetYobiActionField2A8(data->action, imageNo);
+    }
+    auto* const element52 = currentWindow->FindElementById(WindowBattleItemsElementId::Element5);
+    if (element52) {
+        cg::yobi::SetYobiActionField2B8(
+            element52->data.animation->action, 5);
+    }
+    auto* const element53 = currentWindow->FindElementById(WindowBattleItemsElementId::Element5);
+    if (element53) {
+        cg::yobi::SetYobiActionField309(
+            element53->data.animation->action, 0);
+    }
+    auto* elementsWindow = currentWindow;
+    auto* const element54 = elementsWindow->FindElementById(WindowBattleItemsElementId::Element5);
+    if (element54) {
+        if (element54->visible != 0) {
+            const std::int32_t currentImage = cg::yobi::GetYobiActionField2A8(
+                world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4]);
+            if (currentImage >= 110350 && currentImage <= 110373) {
+                auto* const element55 = elementsWindow->FindElementById(WindowBattleItemsElementId::Element5);
+                if (element55) {
+                    cg::yobi::SetYobiActionField309(
+                        element55->data.animation->action, 4);
+                }
+                auto* const element56 = currentWindow->FindElementById(WindowBattleItemsElementId::Element5);
+                if (element56) {
+                    cg::yobi::SetYobiActionField310(
+                        element56->data.animation->action, 4);
+                }
+            }
         }
     }
     WindowRuntime_DrawCurrent();
@@ -283,6 +299,8 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
 // 原函数：0x00499C30。
 std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     constexpr std::int32_t kBombType = 51;
     constexpr std::int32_t kMedicineType = 43;
     static constexpr std::int32_t levelLimits[] {
@@ -341,54 +359,56 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     std::wstring countText;
     if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) > 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-            const std::int32_t elementX = element.x;
-            const std::int32_t windowX = window->x;
-            const std::int32_t left = elementX + 50 * (position % 5) + windowX + 15;
-            const std::int32_t elementY = element.y;
-            const std::int32_t windowY = window->y;
-            const std::int32_t top = elementY + 50 * (position / 5) + windowY + 48;
-            const auto& item = items[position + 8];
-            if ((events & 0x21u) != 0) {
-                if (occupancy[position + 8] != 0) {
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement& element = (*elementPtr);
+                const std::int32_t elementX = element.x;
+                const std::int32_t windowX = window->x;
+                const std::int32_t left = elementX + 50 * (position % 5) + windowX + 15;
+                const std::int32_t elementY = element.y;
+                const std::int32_t windowY = window->y;
+                const std::int32_t top = elementY + 50 * (position / 5) + windowY + 48;
+                const auto& item = items[position + 8];
+                if ((events & 0x21u) != 0) {
+                    if (occupancy[position + 8] != 0) {
+                        continue;
+                    }
+                    if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0
+                        && item.used != 0) {
+                        const std::int32_t type = item.itemType;
+                        gHoverTextD68AE8 = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
+                                ? cannotEquip : cannotUse;
+                        if ((events & 1u) != 0) {
+                            cg::render::DrawGraphicHover(
+                                static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                                static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+                        }
+                    }
+                    consumed = 1;
+                }
+                if (item.used == 0) {
                     continue;
                 }
-                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0
-                    && item.used != 0) {
-                    const std::int32_t type = item.itemType;
-                    gHoverTextD68AE8 = ((type >= 0 && type <= 7) || (type >= 70 && type <= 79))
-                            ? cannotEquip : cannotUse;
-                    if ((events & 1u) != 0) {
-                        cg::render::DrawGraphicHover(
-                            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-                            static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
-                    }
+                static_cast<void>(cg::render::DrawGraphic(left + 129, top + 118, 223, 22738, 0, nullptr));
+                if (occupancy[position + 8] != 0) {
+                    cg::render::DrawGraphicHover(
+                        static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                        static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                        223, 249, 0);
+                    static_cast<void>(cg::render::DrawGraphic(
+                        left + 24, top + 24, 223, item.imageNo, 0, &dimmed));
+                } else {
+                    static_cast<void>(cg::render::DrawGraphic(
+                        left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
                 }
-                consumed = 1;
-            }
-            if (item.used == 0) {
-                continue;
-            }
-            static_cast<void>(cg::render::DrawGraphic(left + 129, top + 118, 223, 22738, 0, nullptr));
-            if (occupancy[position + 8] != 0) {
-                cg::render::DrawGraphicHover(
-                    static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-                    static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-                    223, 249, 0);
-                static_cast<void>(cg::render::DrawGraphic(
-                    left + 24, top + 24, 223, item.imageNo, 0, &dimmed));
-            } else {
-                static_cast<void>(cg::render::DrawGraphic(
-                    left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
-            }
-            if (item.count > 0) {
-                cg::text::FormatTo(countText, L"{:3}", item.count);
-                static_cast<void>(render::DrawText_456780(
-                    static_cast<std::int16_t>(left + 21), static_cast<std::int16_t>(top + 31),
-                    3, 1, 1, countText, 0, 0));
+                if (item.count > 0) {
+                    cg::text::FormatTo(countText, L"{:3}", item.count);
+                    static_cast<void>(render::DrawText_456780(
+                        static_cast<std::int16_t>(left + 21), static_cast<std::int16_t>(top + 31),
+                        3, 1, 1, countText, 0, 0));
+                }
             }
         }
         return consumed;
@@ -415,7 +435,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 world::AppendChatMessage_44B050(L"没有装备武器！", 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
-                gCurrentWindow->state |= 0x8000u;
+                currentWindow->state |= 0x8000u;
                 world::gBattleSelectionModes5ABC7C[5] = 0;
                 std::sprintf(buffer.data(), "Q|%X|", 255u);
                 static_cast<void>(network::SendBattlePacket_5109B0(
@@ -432,18 +452,20 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             if (occupancy[position + 8] != 0) {
                 continue;
             }
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-            const std::int32_t elementX = element.x;
-            const std::int32_t windowX = window->x;
-            const std::int32_t left = elementX + 50 * (position % 5) + windowX + 15;
-            const std::int32_t elementY = element.y;
-            const std::int32_t windowY = window->y;
-            const std::int32_t top = elementY + 50 * (position / 5) + windowY + 48;
-            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
-                hovered = position;
-                break;
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement& element = (*elementPtr);
+                const std::int32_t elementX = element.x;
+                const std::int32_t windowX = window->x;
+                const std::int32_t left = elementX + 50 * (position % 5) + windowX + 15;
+                const std::int32_t elementY = element.y;
+                const std::int32_t windowY = window->y;
+                const std::int32_t top = elementY + 50 * (position / 5) + windowY + 48;
+                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                    hovered = position;
+                    break;
+                }
             }
         }
         if (hovered >= 0 && items[hovered + 8].used != 0) {
@@ -513,7 +535,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                         world::AppendChatMessage_44B050(unidentified, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
-                        gCurrentWindow->state |= 0x8000u;
+                        currentWindow->state |= 0x8000u;
                         world::gBattleSelectionModes5ABC7C[5] = 0;
                         std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
                         static_cast<void>(network::SendBattlePacket_5109B0(
@@ -534,7 +556,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 }
             }
             if (useItem) {
-                gCurrentWindow->state |= 0x8000u;
+                currentWindow->state |= 0x8000u;
                 const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
                 const auto target = static_cast<std::uint32_t>(
                     static_cast<std::int32_t>(std::bit_cast<std::int16_t>(item.target)));
@@ -600,59 +622,65 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     if (WindowDrag_ReadKind() == 2) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-            const std::int32_t elementX = element.x;
-            const std::int32_t windowX = window->x;
-            const std::int32_t left = elementX + 50 * ((source - 8) % 5) + windowX + 15;
-            const std::int32_t elementY = element.y;
-            const std::int32_t windowY = window->y;
-            const std::int32_t top = elementY + 50 * ((source - 8) / 5) + windowY + 48;
-            cg::render::DrawGraphicHover(
-                static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
-                static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
-                223, 254, 0);
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement& element = (*elementPtr);
+                const std::int32_t elementX = element.x;
+                const std::int32_t windowX = window->x;
+                const std::int32_t left = elementX + 50 * ((source - 8) % 5) + windowX + 15;
+                const std::int32_t elementY = element.y;
+                const std::int32_t windowY = window->y;
+                const std::int32_t top = elementY + 50 * ((source - 8) / 5) + windowY + 48;
+                cg::render::DrawGraphicHover(
+                    static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
+                    static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
+                    223, 254, 0);
+            }
         }
     }
     if ((events & 1u) != 0 && hovered >= 0) {
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t elementX = element.x;
-        const std::int32_t windowX = window->x;
-        const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 15;
-        const std::int32_t elementY = element.y;
-        const std::int32_t windowY = window->y;
-        const std::int32_t top = elementY + 50 * (hovered / 5) + windowY + 48;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-            static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 15;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 50 * (hovered / 5) + windowY + 48;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+        }
         if (items[hovered + 8].used != 0) {
             gBattleItemHoverCF49B0 = hovered + 8;
         }
     }
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() < 8) {
-        const WindowInstance* const window = gCurrentWindow;
+        const WindowInstance* const window = currentWindow;
         const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
         auto* elementsWindow = window;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement& element = (*(*elementsWindow)[NativeElementKey(index)]);
-        const std::int32_t elementX = element.x;
-        const std::int32_t height = element.height;
-        const std::int32_t elementY = element.y;
-        const std::int32_t width = element.width;
-        const std::int32_t right = width + windowX + elementX;
-        const std::int32_t bottom = height + windowY + elementY;
-        const std::int32_t top = windowY + elementY;
-        const std::int32_t left = windowX + elementX;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-            static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
-            223, hoverColor, 0);
+        auto* const elementPtr = elementsWindow->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t elementX = element.x;
+            const std::int32_t height = element.height;
+            const std::int32_t elementY = element.y;
+            const std::int32_t width = element.width;
+            const std::int32_t right = width + windowX + elementX;
+            const std::int32_t bottom = height + windowY + elementY;
+            const std::int32_t top = windowY + elementY;
+            const std::int32_t left = windowX + elementX;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
+                223, hoverColor, 0);
+        }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(
@@ -662,51 +690,53 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         if (item.used == 0) {
             continue;
         }
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t elementX = element.x;
-        const std::int32_t windowX = window->x;
-        const std::int32_t x = elementX + 50 * (position % 5) + windowX + 39;
-        const std::int32_t elementY = element.y;
-        const std::int32_t windowY = window->y;
-        const std::int32_t y = elementY + 50 * (position / 5) + windowY + 73;
-        if (item.itemType == kBombType) {
-            const std::int32_t level = item.level;
-            const std::int32_t cost = readBombCost(level);
-            if (usableLevel < level || items[2].used != 0 || items[3].used != 0
-                || (world::gPlayerRuntimeSlots.fp < cost)
-                || world::gBattleModeFlag5ABFCC == 1) {
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t x = elementX + 50 * (position % 5) + windowX + 39;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t y = elementY + 50 * (position / 5) + windowY + 73;
+            if (item.itemType == kBombType) {
+                const std::int32_t level = item.level;
+                const std::int32_t cost = readBombCost(level);
+                if (usableLevel < level || items[2].used != 0 || items[3].used != 0
+                    || (world::gPlayerRuntimeSlots.fp < cost)
+                    || world::gBattleModeFlag5ABFCC == 1) {
+                    static_cast<void>(cg::render::DrawGraphic(
+                        x + 105, y + 93, 223, 22738, 0, nullptr));
+                }
+            }
+            if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
+                const std::int32_t type = item.itemType;
+                if (!((type >= 0 && type <= 7) || (type >= 70 && type <= 79))) {
+                    static_cast<void>(cg::render::DrawGraphic(
+                        x + 105, y + 93, 223, 22738, 0, nullptr));
+                }
+            }
+            if (item.hasDescription == 0 || (item.itemType == kMedicineType
+                    && (world::gBattlePlayerFlags5ABCAC & 0x40000u) != 0)) {
                 static_cast<void>(cg::render::DrawGraphic(
                     x + 105, y + 93, 223, 22738, 0, nullptr));
             }
-        }
-        if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
-            const std::int32_t type = item.itemType;
-            if (!((type >= 0 && type <= 7) || (type >= 70 && type <= 79))) {
-                static_cast<void>(cg::render::DrawGraphic(
-                    x + 105, y + 93, 223, 22738, 0, nullptr));
+            if (occupancy[position + 8] != 0) {
+                cg::render::DrawGraphicHover(
+                    static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
+                    static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
+                    223, 249, 0);
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+            } else {
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             }
-        }
-        if (item.hasDescription == 0 || (item.itemType == kMedicineType
-                && (world::gBattlePlayerFlags5ABCAC & 0x40000u) != 0)) {
-            static_cast<void>(cg::render::DrawGraphic(
-                x + 105, y + 93, 223, 22738, 0, nullptr));
-        }
-        if (occupancy[position + 8] != 0) {
-            cg::render::DrawGraphicHover(
-                static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
-                static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
-                223, 249, 0);
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
-        } else {
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
-        }
-        if (item.count > 0) {
-            cg::text::FormatTo(countText, L"{:3}", item.count);
-            static_cast<void>(render::DrawText_456780(
-                static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
-                3, 1, 1, countText, 0, 0));
+            if (item.count > 0) {
+                cg::text::FormatTo(countText, L"{:3}", item.count);
+                static_cast<void>(render::DrawText_456780(
+                    static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
+                    3, 1, 1, countText, 0, 0));
+            }
         }
     }
     return consumed;
@@ -722,6 +752,8 @@ static std::int32_t WindowBattleItems_ShowExtraAttributes(const std::int32_t, co
 // 原函数：0x0049AC40。
 std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     static constexpr wchar_t noSpace[] = L"物品栏位不足！";
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -802,7 +834,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                     world::AppendChatMessage_44B050(L"无法装备未鉴定物品！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
-                    gCurrentWindow->state |= 0x8000u;
+                    currentWindow->state |= 0x8000u;
                     world::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
                     static_cast<void>(network::SendBattlePacket_5109B0(
@@ -831,14 +863,14 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
     }
     auto* const item = items + hovered;
     if ((events & 2u) != 0) {
-        gCurrentWindow->state |= 0x2000u;
+        currentWindow->state |= 0x2000u;
     }
     if ((events & 2u) != 0 && hovered == -1) {
         if (world::gReplyRecordF7C950.used != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             gItemSelectorD2F338.value3FC = 1;
-            if ((window && (*window)[WindowBattleItemsElementId::HandleEquipment])) (*window)[WindowBattleItemsElementId::HandleEquipment]->mouseCallback = WindowBattleItems_ShowExtraAttributes;
+            if (auto* const handleEquipmentElement = window->FindElementById(WindowBattleItemsElementId::HandleEquipment); handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowBattleItems_ShowExtraAttributes;
             return consumed;
         }
     } else if (hovered >= 0) {
@@ -873,7 +905,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                     world::AppendChatMessage_44B050(L"没有装备武器！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
-                    gCurrentWindow->state |= 0x8000u;
+                    currentWindow->state |= 0x8000u;
                     world::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", 255u);
                     static_cast<void>(network::SendBattlePacket_5109B0(
@@ -927,25 +959,27 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
         if (source >= count) {
             const std::int32_t type = items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
-                const WindowInstance* const window = gCurrentWindow;
+                const WindowInstance* const window = currentWindow;
                 const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
                 auto* elementsWindow = window;
                 const std::int32_t windowY = window->y;
                 const std::int32_t windowX = window->x;
-                if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-                const WindowElement& element = (*(*elementsWindow)[NativeElementKey(index)]);
-                const std::int32_t elementX = element.x;
-                const std::int32_t height = element.height;
-                const std::int32_t elementY = element.y;
-                const std::int32_t width = element.width;
-                const std::int32_t right = width + windowX + elementX;
-                const std::int32_t bottom = height + windowY + elementY;
-                const std::int32_t top = windowY + elementY;
-                const std::int32_t left = windowX + elementX;
-                cg::render::DrawGraphicHover(
-                    static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-                    static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
-                    223, hoverColor, 0);
+                auto* const elementPtr = elementsWindow->FindElementById(NativeElementKey(index));
+                if (elementPtr) {
+                    const WindowElement& element = (*elementPtr);
+                    const std::int32_t elementX = element.x;
+                    const std::int32_t height = element.height;
+                    const std::int32_t elementY = element.y;
+                    const std::int32_t width = element.width;
+                    const std::int32_t right = width + windowX + elementX;
+                    const std::int32_t bottom = height + windowY + elementY;
+                    const std::int32_t top = windowY + elementY;
+                    const std::int32_t left = windowX + elementX;
+                    cg::render::DrawGraphicHover(
+                        static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                        static_cast<std::uint16_t>(right), static_cast<std::uint16_t>(bottom),
+                        223, hoverColor, 0);
+                }
             }
         }
     }

@@ -202,7 +202,7 @@ static int ElementsIndex(lua_State* L) {
     auto* window = ResolveInstance(ref->window);
     const auto number = luaL_checknumber(L, 2);
     if (number >= 0 && number <= std::numeric_limits<ui::ElementId>::max() && std::trunc(number) == number && window) {
-        if (auto* element = (*window)[static_cast<ui::ElementId>(number)]) { PushLuaElement(L, *window, *element); return 1; }
+        if (auto* element = window->FindElementById(static_cast<ui::ElementId>(number))) { PushLuaElement(L, *window, *element); return 1; }
     }
     lua_pushnil(L); return 1;
 }

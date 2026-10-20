@@ -66,9 +66,11 @@ WindowPrototype gWindowPrototypeBattlePets {0, 4, 100, 100, 356, 223, 0x80010101
 // 原函数：0x0049B630。
 static std::int32_t WindowBattlePets_Update(const std::int32_t)
 {
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowBattlePetsElementId::ButtonReturn])) (*gCurrentWindow)[WindowBattlePetsElementId::ButtonReturn]->visible = 0;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    if (auto* const buttonReturnElement = currentWindow->FindElementById(WindowBattlePetsElementId::ButtonReturn); buttonReturnElement) buttonReturnElement->visible = 0;
     if (world::FindBattlePetIndex_43C4B0() != -1) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattlePetsElementId::ButtonReturn])) (*gCurrentWindow)[WindowBattlePetsElementId::ButtonReturn]->visible = 1;
+        if (auto* const buttonReturnElement2 = currentWindow->FindElementById(WindowBattlePetsElementId::ButtonReturn); buttonReturnElement2) buttonReturnElement2->visible = 1;
     }
     return 1;
 }
@@ -76,31 +78,36 @@ static std::int32_t WindowBattlePets_Update(const std::int32_t)
 // 原函数：0x0049BA10。
 static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"让这只宠物归还。";
-    }
-    if ((state & 2) != 0) {
-        if (world::FindBattlePetIndex_43C4B0() != -1) {
-            std::array<char, 768> buffer;
-            std::sprintf(buffer.data(), "M|%X", 255u);
-            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
-            gCurrentWindow->state |= 0x8000u;
-            world::gBattlePlayerActionState5ABC74 = 1;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"让这只宠物归还。";
         }
-        consumed = 1;
+        if ((state & 2) != 0) {
+            if (world::FindBattlePetIndex_43C4B0() != -1) {
+                std::array<char, 768> buffer;
+                std::sprintf(buffer.data(), "M|%X", 255u);
+                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                currentWindow->state |= 0x8000u;
+                world::gBattlePlayerActionState5ABC74 = 1;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+            }
+            consumed = 1;
+        }
+        graphic->imageNo = 0x3BA76;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3BA78;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3BA77;
+        }
+        return consumed;
     }
-    graphic->imageNo = 0x3BA76;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3BA78;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3BA77;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x0049B670。
@@ -177,69 +184,76 @@ static void WindowBattlePets_Refresh(
 // 原函数：0x0049BB00。
 static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const WindowElement* const element = (*window)[NativeElementKey(index)];
-    const auto x = std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(static_cast<std::uint16_t>(window->x)
-            + static_cast<std::uint16_t>(element->x)));
-    const auto y = std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(static_cast<std::uint16_t>(window->y)
-            + static_cast<std::uint16_t>(element->y)));
-    render::GraphicDescriptor16 descriptor {};
-    const std::uint32_t color = 0xFFFFFFFFu;
-    descriptor.color = color;
-    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    std::int32_t selected = -1;
-    std::int32_t visible = -1;
-    for (const auto& pair : world::gPetPairsDE0B08) {
-        const std::int32_t petIndex = std::bit_cast<std::int16_t>(pair.index);
-        const auto& pet = world::gPetRuntimeRecords[petIndex];
-        if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
-            ++visible;
-        }
-        if (visible == index - 2) {
-            selected = petIndex;
-            break;
-        }
-    }
-    if (selected < 0) {
-        return 0;
-    }
-    std::int32_t consumed = 0;
-    const auto& pet = world::gPetRuntimeRecords[selected];
-    if (pet.used == 1) {
-        std::uint16_t flags = pet.flags6AA;
-        if (flags == 1 || flags == 2) {
-            if ((state & 1) != 0) {
-                if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-                WindowElement_DrawHoverFrame((*window)[NativeElementKey(index)], state, cg::render::gHoverFramePaletteIndex_D69768);
-                flags = pet.flags6AA;
-                if (flags != 2) {
-                    const wchar_t* const hint = gBattlePetVitalsCF4B78[selected].hp > 0
-                        ? L"召唤宠物。"
-                        : L"这只宠物昏倒了。";
-                    gHoverTextD68AE8 = hint;
-                }
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    if (elementPtr) {
+        const WindowElement* const element = elementPtr;
+        const auto x = std::bit_cast<std::int16_t>(
+            static_cast<std::uint16_t>(static_cast<std::uint16_t>(window->x)
+                + static_cast<std::uint16_t>(element->x)));
+        const auto y = std::bit_cast<std::int16_t>(
+            static_cast<std::uint16_t>(static_cast<std::uint16_t>(window->y)
+                + static_cast<std::uint16_t>(element->y)));
+        render::GraphicDescriptor16 descriptor {};
+        const std::uint32_t color = 0xFFFFFFFFu;
+        descriptor.color = color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+        std::int32_t selected = -1;
+        std::int32_t visible = -1;
+        for (const auto& pair : world::gPetPairsDE0B08) {
+            const std::int32_t petIndex = std::bit_cast<std::int16_t>(pair.index);
+            const auto& pet = world::gPetRuntimeRecords[petIndex];
+            if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
+                ++visible;
             }
-            if ((state & 2) != 0) {
-                if (gBattlePetVitalsCF4B78[selected].hp <= 0 || flags == 2) {
-                    static_cast<void>(audio::PlaySe_52C450(55, 320));
-                } else {
-                    std::array<char, 768> buffer;
-                    std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
-                    static_cast<void>(network::SendBattlePacket_5109B0(
-                        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
-                    gCurrentWindow->state |= 0x8000u;
-                    world::gBattlePlayerActionState5ABC74 = 1;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
-                }
-                consumed = 1;
+            if (visible == index - 2) {
+                selected = petIndex;
+                break;
             }
         }
+        if (selected < 0) {
+            return 0;
+        }
+        std::int32_t consumed = 0;
+        const auto& pet = world::gPetRuntimeRecords[selected];
+        if (pet.used == 1) {
+            std::uint16_t flags = pet.flags6AA;
+            if (flags == 1 || flags == 2) {
+                if ((state & 1) != 0) {
+                    auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+                    if (indexedElement) {
+                        WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
+                    }
+                    flags = pet.flags6AA;
+                    if (flags != 2) {
+                        const wchar_t* const hint = gBattlePetVitalsCF4B78[selected].hp > 0
+                            ? L"召唤宠物。"
+                            : L"这只宠物昏倒了。";
+                        gHoverTextD68AE8 = hint;
+                    }
+                }
+                if ((state & 2) != 0) {
+                    if (gBattlePetVitalsCF4B78[selected].hp <= 0 || flags == 2) {
+                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    } else {
+                        std::array<char, 768> buffer;
+                        std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
+                        static_cast<void>(network::SendBattlePacket_5109B0(
+                            platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                        currentWindow->state |= 0x8000u;
+                        world::gBattlePlayerActionState5ABC74 = 1;
+                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    }
+                    consumed = 1;
+                }
+            }
+        }
+        WindowBattlePets_Refresh(x, y, selected, 3, 223, &descriptor);
+        return consumed;
     }
-    WindowBattlePets_Refresh(x, y, selected, 3, 223, &descriptor);
-    return consumed;
+    return {};
 }
 
 } // namespace detail

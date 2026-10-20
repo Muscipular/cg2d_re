@@ -556,7 +556,7 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
     }
     void AddGraphic(int ix, int x, int y, int w, int h, int image, ui::WindowElementCallback callback) {
         graphics[ix] = {image, 0, 0, 0, 0, 0xFFFFFFFFu};
-        auto* element = window[ui::NativeElementKey(ix)];
+        auto* element = window.FindElementById(ui::NativeElementKey(ix));
         if (!element) return;
         element->type = ui::WindowElementType_Graphic;
         element->x = x; element->y = y; element->width = w; element->height = h;
@@ -573,15 +573,18 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
     int render(int) override { ui::WindowRuntime_DrawCurrent(); return 1; }
 };
 
-static ui::WindowGraphicData& CurrentGraphic(int index) {
-    return *(*gCurrentWindow)[ui::NativeElementKey(index)]->data.graphic;
+static ui::WindowGraphicData* CurrentGraphic(int index) {
+    auto* const window = gCurrentWindow;
+    if (!window) return nullptr;
+    auto* const element = window->FindElementById(ui::NativeElementKey(index));
+    return element ? element->data.graphic : nullptr;
 }
 
 static void MakeAutoBattleSimple() {
     if (simpleMode == SIMPLE_MODE_OFF) simpleMode = SIMPLE_MODE_FULL;
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE_SIMPLE,
         simpleMode == SIMPLE_MODE_FULL ? -2 : -70, 77, 20, 2);
-    auto* toggle = panel->window[ui::NativeElementKey(0)];
+    auto* toggle = panel->window.FindElementById(ui::NativeElementKey(0));
     toggle->type = ui::WindowElementType_EventArea; toggle->x = 65; toggle->width = 10;
     toggle->height = 20; toggle->visible = 1;
     toggle->mouseCallback = +[](int, int mouse) {
@@ -614,7 +617,7 @@ static void MakeAutoBattle() {
                 if (check.group) for (auto& other : checkboxList) if (other.group == check.group) other.value = 0;
                 check.value = check.value ? 0 : 1;
             }
-            CurrentGraphic(index).imageNo = check.value ? 641501 : 641502;
+            if (auto* graphic = CurrentGraphic(index)) graphic->imageNo = check.value ? 641501 : 641502;
             return (mouse & 2) ? 1 : 0;
         });
     }
@@ -625,7 +628,7 @@ static void MakeAutoBattle() {
             gCurrentWindow->state |= WIN_STATE_CLOSE;
             return 1;
         }
-        CurrentGraphic(index).imageNo = (mouse & 1) ? 243001 : 243000;
+        if (auto* graphic = CurrentGraphic(index)) graphic->imageNo = (mouse & 1) ? 243001 : 243000;
         return 0;
     });
     panel->graphics[CHK_MAX].offsetX = -2;
@@ -638,7 +641,7 @@ static void MakeAutoBattle() {
             if ((world::gCurrentSceneState == 4 && count == 0) || enableAutoBattle || world::gCurrentSceneState != 4)
                 enableAutoBattle = !enableAutoBattle;
         }
-        CurrentGraphic(index).imageNo = enableAutoBattle ? 640188 : ((mouse & 1) ? 640187 : 640186);
+        if (auto* graphic = CurrentGraphic(index)) graphic->imageNo = enableAutoBattle ? 640188 : ((mouse & 1) ? 640187 : 640186);
         return (mouse & 2) ? 1 : 0;
     });
     panel->AddGraphic(CHK_MAX + 2, 0, 0, 240, 185, 641500, +[](int, int mouse) {

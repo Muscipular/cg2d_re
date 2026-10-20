@@ -241,7 +241,7 @@ void WindowDialog_Reset()
     WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
     if (window != nullptr) {
         for (std::int32_t index = 8; index < 18; ++index) {
-            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
         }
     }
 }
@@ -263,18 +263,20 @@ void WindowDialog_AddImage(
     image.used = used;
     WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
     if (window != nullptr) {
-        if (!((window && (*window)[NativeElementKey(count)]))) { return; }
-        WindowElement* const element = (*window)[NativeElementKey(count)] + 8;
-        cg::yobi::SetYobiActionField2A8(
-            element->data.animation->action, imageNo);
-        cg::yobi::SetYobiActionField2B8(
-            element->data.animation->action,
-            std::bit_cast<std::int8_t>(direction));
-        element->visible = 0;
-        element->x = x;
-        element->y = y;
-        if (used != 0) {
-            element->visible = 1;
+        auto* const elementPtr = window ? window->FindElementById(NativeElementKey(count)) : nullptr;
+        if (elementPtr) {
+            WindowElement* const element = elementPtr + 8;
+            cg::yobi::SetYobiActionField2A8(
+                element->data.animation->action, imageNo);
+            cg::yobi::SetYobiActionField2B8(
+                element->data.animation->action,
+                std::bit_cast<std::int8_t>(direction));
+            element->visible = 0;
+            element->x = x;
+            element->y = y;
+            if (used != 0) {
+                element->visible = 1;
+            }
         }
     }
     ++gMessageDialogImageCountD67B30;
@@ -336,10 +338,12 @@ cg::yobi::YobiAction* WindowDialog_Open(
 // 原函数：0x0049C710。
 static std::int32_t WindowDialog_Update(const std::int32_t value)
 {
-    WindowInstance* const initialWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const initialWindow = currentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (initialWindow->state & 0x8000u) != 0) {
         for (std::int32_t index = 0; index < 19; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
         return 1;
     }
@@ -348,7 +352,7 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
         const std::int32_t buttons = gMessageDialog.buttons;
         initialWindow->width = width;
         const std::int32_t margin = buttons != 0 ? 24 : 0;
-        gCurrentWindow->height = gMessageDialog.height;
+        currentWindow->height = gMessageDialog.height;
         // WindowDialog_Open已按实际请求矩形定位，此处只发布尺寸，避免再次适配。
         const std::uint32_t mask = static_cast<std::uint32_t>(gMessageDialog.buttons);
         std::int32_t buttonCount = 0;
@@ -357,26 +361,26 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
                 ++buttonCount;
             }
         }
-        const std::int32_t spacing = (gCurrentWindow->width - 48) / (buttonCount + 1);
+        const std::int32_t spacing = (currentWindow->width - 48) / (buttonCount + 1);
         std::int32_t x = spacing - 9;
         for (std::int32_t index = 0, bit = 1; index < 6; ++index, bit <<= 1) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             if ((gMessageDialog.buttons & bit) != 0) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->width = 66;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->height = 17;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->x = x;
+                if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->visible = 1;
+                if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement3) indexedElement3->width = 66;
+                if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement4) indexedElement4->height = 17;
+                if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement5) indexedElement5->x = x;
                 x += spacing;
-                WindowInstance* const window = gCurrentWindow;
-                if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->y = window->height + margin / 2 - margin - 25;
+                WindowInstance* const window = currentWindow;
+                if (auto* const indexedElement6 = window->FindElementById(NativeElementKey(index)); indexedElement6) indexedElement6->y = window->height + margin / 2 - margin - 25;
             }
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowDialogElementId::HandleTextSelection])) (*gCurrentWindow)[WindowDialogElementId::HandleTextSelection]->x = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowDialogElementId::HandleTextSelection])) (*gCurrentWindow)[WindowDialogElementId::HandleTextSelection]->y = 0;
-        WindowInstance* window = gCurrentWindow;
-        if ((window && (*window)[WindowDialogElementId::HandleTextSelection])) (*window)[WindowDialogElementId::HandleTextSelection]->width = window->width;
-        window = gCurrentWindow;
-        if ((window && (*window)[WindowDialogElementId::HandleTextSelection])) (*window)[WindowDialogElementId::HandleTextSelection]->height = window->height;
+        if (auto* const handleTextSelectionElement = currentWindow->FindElementById(WindowDialogElementId::HandleTextSelection); handleTextSelectionElement) handleTextSelectionElement->x = 0;
+        if (auto* const handleTextSelectionElement2 = currentWindow->FindElementById(WindowDialogElementId::HandleTextSelection); handleTextSelectionElement2) handleTextSelectionElement2->y = 0;
+        WindowInstance* window = currentWindow;
+        if (auto* const handleTextSelectionElement3 = window->FindElementById(WindowDialogElementId::HandleTextSelection); handleTextSelectionElement3) handleTextSelectionElement3->width = window->width;
+        window = currentWindow;
+        if (auto* const handleTextSelectionElement4 = window->FindElementById(WindowDialogElementId::HandleTextSelection); handleTextSelectionElement4) handleTextSelectionElement4->height = window->height;
         const std::int32_t count = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
         gMessageDialog.selectedInput = -1;
         if (count > 0) {
@@ -384,41 +388,51 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
             try { gMessageDialog.inputTexts.resize(static_cast<std::size_t>(count)); }
             catch (const std::bad_alloc&) { gMessageDialog.inputTexts.clear(); }
             gDialogInputPrototype57E478.maxCharPerLine = gMessageDialog.inputCapacity;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowDialogElementId::Element8])) (*gCurrentWindow)[WindowDialogElementId::Element8]->visible = 1;
+            if (auto* const element8 = currentWindow->FindElementById(WindowDialogElementId::Element8); element8) element8->visible = 1;
             const std::int16_t inputY = gMessageDialog.inputY[0];
-            window = gCurrentWindow;
+            window = currentWindow;
             const std::int32_t y = window->y + inputY;
             const std::int32_t inputX = window->x + 24;
             static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
-            window = gCurrentWindow;
-            if (!((window && (*window)[WindowDialogElementId::Element8]))) { return {}; }
-            gFocusedElementDataD45F94 = (*window)[WindowDialogElementId::Element8]->data.input;
-            if ((window && (*window)[WindowDialogElementId::Element8])) (*window)[WindowDialogElementId::Element8]->data.input->context = &cg::ui::detail::gInputContextCA02E0;
+            window = currentWindow;
+            auto* const element82 = window->FindElementById(WindowDialogElementId::Element8);
+            if (element82) {
+                gFocusedElementDataD45F94 = element82->data.input;
+            }
+            if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &cg::ui::detail::gInputContextCA02E0;
             gMessageDialog.selectedInput = 0;
         }
         gMessageDialog.closeCallbackPending = 1;
         for (std::int32_t index = 8; index < 18; ++index) {
             const auto& image = gMessageDialogImagesCC4B70[index - 8];
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
-            cg::yobi::SetYobiActionField2A8(
-                (*gCurrentWindow)[NativeElementKey(index)]->data.animation->action,
-                image.imageNo);
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
-            cg::yobi::SetYobiActionField2B8(
-                (*gCurrentWindow)[NativeElementKey(index)]->data.animation->action,
-                std::bit_cast<std::int8_t>(image.direction));
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
-            cg::yobi::SetYobiActionField310(
-                (*gCurrentWindow)[NativeElementKey(index)]->data.animation->action, 4);
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
-            cg::yobi::SetYobiActionField309(
-                (*gCurrentWindow)[NativeElementKey(index)]->data.animation->action, 4);
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->x = image.x;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->y = image.y;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                cg::yobi::SetYobiActionField2A8(
+                    indexedElement->data.animation->action,
+                    image.imageNo);
+            }
+            auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement2) {
+                cg::yobi::SetYobiActionField2B8(
+                    indexedElement2->data.animation->action,
+                    std::bit_cast<std::int8_t>(image.direction));
+            }
+            auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement3) {
+                cg::yobi::SetYobiActionField310(
+                    indexedElement3->data.animation->action, 4);
+            }
+            auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement4) {
+                cg::yobi::SetYobiActionField309(
+                    indexedElement4->data.animation->action, 4);
+            }
+            if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement5) indexedElement5->x = image.x;
+            if (auto* const indexedElement6 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement6) indexedElement6->y = image.y;
+            if (auto* const indexedElement7 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement7) indexedElement7->visible = 0;
             if (image.used != 0) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+                if (auto* const indexedElement8 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement8) indexedElement8->visible = 1;
             }
         }
         return 1;
@@ -437,7 +451,9 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
 // 原函数：0x0049CAD0。
 static std::int32_t WindowDialog_Draw(const std::int32_t)
 {
-    WindowInstance* window = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* window = currentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (window->state & 0x8000u) != 0) {
         return 1;
     }
@@ -455,11 +471,11 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
     if ((gMessageDialog.options & 4u) == 0) {
         const std::int32_t distance = std::bit_cast<std::int8_t>(gMessageDialog.distance);
         const std::int32_t close = WindowProfile_CheckDistance(distance, distance);
-        window = gCurrentWindow;
+        window = currentWindow;
         if (close != 0) {
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
-            window = gCurrentWindow;
+            window = currentWindow;
         }
     }
     const WindowDialogFrameCallback frame = gMessageDialog.frame;
@@ -474,10 +490,10 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
         }
         const std::int32_t events = gMessageDialog.events;
         const std::int32_t close = frame(window, button, row, events);
-        window = gCurrentWindow;
+        window = currentWindow;
         if (close != 0) {
             window->state |= 0x8000u;
-            window = gCurrentWindow;
+            window = currentWindow;
             gMessageDialog.closeCallbackPending = 0;
         }
     }
@@ -488,7 +504,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
                 static_cast<std::int16_t>(window->x + 24),
                 static_cast<std::int16_t>(window->y + row * gMessageDialog.lineHeight + 20),
                 3, 0, 0, text, 0, static_cast<std::int8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
-            window = gCurrentWindow;
+            window = currentWindow;
         }
     }
     std::int32_t inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
@@ -498,7 +514,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
         if (selected >= 0 && input::gCurrentInputData != &cg::ui::detail::gInputContextCA02E0) {
             gMessageDialog.inputTexts[selected] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
             selected = -1;
-            window = gCurrentWindow;
+            window = currentWindow;
             inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
             gMessageDialog.selectedInput = -1;
         }
@@ -515,7 +531,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
             }
             inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
             ++row;
-            window = gCurrentWindow;
+            window = currentWindow;
             if (row < inputCount) {
                 selected = gMessageDialog.selectedInput;
             }
@@ -539,18 +555,18 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
                         inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
                         ++input;
                         if (input < inputCount) {
-                            window = gCurrentWindow;
+                            window = currentWindow;
                         }
                     } while (input < inputCount);
                     width = descriptor.sourceWidth;
-                    window = gCurrentWindow;
+                    window = currentWindow;
                 }
                 left += width;
             }
         }
     }
     WindowRuntime_DrawCurrent();
-    window = gCurrentWindow;
+    window = currentWindow;
     cg::yobi::DrawNineGrid_49BE00(
         gMessageDialog.imageNo, static_cast<std::int16_t>(window->x),
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
@@ -579,6 +595,8 @@ static void WindowDialog_Release()
 // 原函数：0x0049CE70。
 static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     static constexpr std::int32_t images[6][3] {
         {243048, 243049, 243050},
         {245320, 245321, 245322},
@@ -587,47 +605,52 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
         {245332, 245333, 245334},
         {245329, 245330, 245331},
     };
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const bool hovered = (state & 1) != 0;
-    std::int32_t consumed = 0;
-    if (hovered) {
-        gMessageDialog.hoveredButton =
-            std::bit_cast<std::int32_t>(1u << (static_cast<std::uint32_t>(index) & 31u));
-    }
-    if ((state & 2) != 0) {
-        if (gMessageDialog.reply != nullptr) {
-            const std::int32_t selected = gMessageDialog.selectedInput;
-            if (selected >= 0) {
-                gMessageDialog.inputTexts[selected] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
-            }
-            const std::uint8_t count = gMessageDialog.inputCount;
-            const std::wstring* const texts = gMessageDialog.inputTexts.data();
-            const auto button =
+    auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (dataElement) {
+        auto* const data = dataElement->data.graphic;
+        const bool hovered = (state & 1) != 0;
+        std::int32_t consumed = 0;
+        if (hovered) {
+            gMessageDialog.hoveredButton =
                 std::bit_cast<std::int32_t>(1u << (static_cast<std::uint32_t>(index) & 31u));
-            if (gMessageDialog.reply(button, -1, texts, count) != 0) {
-                gCurrentWindow->state |= 0x8000u;
-                gMessageDialog.closeCallbackPending = 0;
-            }
         }
-        consumed = 1;
+        if ((state & 2) != 0) {
+            if (gMessageDialog.reply != nullptr) {
+                const std::int32_t selected = gMessageDialog.selectedInput;
+                if (selected >= 0) {
+                    gMessageDialog.inputTexts[selected] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
+                }
+                const std::uint8_t count = gMessageDialog.inputCount;
+                const std::wstring* const texts = gMessageDialog.inputTexts.data();
+                const auto button =
+                    std::bit_cast<std::int32_t>(1u << (static_cast<std::uint32_t>(index) & 31u));
+                if (gMessageDialog.reply(button, -1, texts, count) != 0) {
+                    currentWindow->state |= 0x8000u;
+                    gMessageDialog.closeCallbackPending = 0;
+                }
+            }
+            consumed = 1;
+        }
+        data->imageNo = images[index][0];
+        if (hovered) {
+            data->imageNo = images[index][2];
+        }
+        if ((state & 8) != 0) {
+            data->imageNo = images[index][1];
+        }
+        return consumed;
     }
-    data->imageNo = images[index][0];
-    if (hovered) {
-        data->imageNo = images[index][2];
-    }
-    if ((state & 8) != 0) {
-        data->imageNo = images[index][1];
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x0049CF70。
 static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
     gMessageDialog.events = state;
-    WindowInstance* window = gCurrentWindow;
+    WindowInstance* window = currentWindow;
     const auto inputX = static_cast<std::int16_t>(window->x + 24);
     const auto inputWidth = static_cast<std::int16_t>(window->width - 48);
     std::int32_t consumed = 0;
@@ -641,10 +664,10 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
             inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
             ++selected;
             if (selected < inputCount) {
-                window = gCurrentWindow;
+                window = currentWindow;
             }
         } while (selected < inputCount);
-        window = gCurrentWindow;
+        window = currentWindow;
     }
     if (selected < std::bit_cast<std::int8_t>(gMessageDialog.inputCount)) {
         if (selected != gMessageDialog.selectedInput) {
@@ -658,15 +681,17 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
                 if (previous >= 0) {
                     gMessageDialog.inputTexts[previous] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
                 }
-                if ((gCurrentWindow && (*gCurrentWindow)[WindowDialogElementId::Element8])) (*gCurrentWindow)[WindowDialogElementId::Element8]->visible = 1;
+                if (auto* const element8 = currentWindow->FindElementById(WindowDialogElementId::Element8); element8) element8->visible = 1;
                 const std::int16_t inputY = gMessageDialog.inputY[selected];
-                const std::int32_t y = inputY + gCurrentWindow->y;
+                const std::int32_t y = inputY + currentWindow->y;
                 static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
                 input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
-                window = gCurrentWindow;
-                if (!((window && (*window)[WindowDialogElementId::Element8]))) { return {}; }
-                gFocusedElementDataD45F94 = (*window)[WindowDialogElementId::Element8]->data.input;
-                if ((window && (*window)[WindowDialogElementId::Element8])) (*window)[WindowDialogElementId::Element8]->data.input->context = &cg::ui::detail::gInputContextCA02E0;
+                window = currentWindow;
+                auto* const element82 = window->FindElementById(WindowDialogElementId::Element8);
+                if (element82) {
+                    gFocusedElementDataD45F94 = element82->data.input;
+                }
+                if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &cg::ui::detail::gInputContextCA02E0;
                 const std::wstring* const texts = gMessageDialog.inputTexts.data();
                 gMessageDialog.selectedInput = selected;
                 input::LoadInitialText_44A160(texts[selected]);
@@ -726,7 +751,7 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
                         const std::int32_t first = gMessageDialog.firstSelectableLine;
                         const std::wstring* const texts = gMessageDialog.inputTexts.data();
                         if (reply(0, row - first, texts, count) != 0) {
-                            gCurrentWindow->state |= 0x8000u;
+                            currentWindow->state |= 0x8000u;
                             gMessageDialog.closeCallbackPending = 0;
                         }
                     }

@@ -101,8 +101,10 @@ WindowPrototype gWindowPrototypeCollapsedShortcutBar {0, 5, 626, 0, 14, 33, 0x80
 // 原函数：0x0046FBA0。
 static std::int32_t WindowShortcutBar_Update(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (world::gCurrentSceneType == 10) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     return 1;
 }
@@ -110,11 +112,13 @@ static std::int32_t WindowShortcutBar_Update(const std::int32_t)
 // 原函数：0x0046FBD0。
 static std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 2) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    gCurrentWindow->state |= 0x8000u;
+    currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_CollapsedShortcutBar));
     gShortcutBarCollapsed_CA0440 = 1;
     return 1;
@@ -123,11 +127,13 @@ static std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const s
 // 原函数：0x0046FC10。
 static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 2) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    gCurrentWindow->state |= 0x8000u;
+    currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_ShortcutBar));
     gShortcutBarCollapsed_CA0440 = 0;
     return 1;
@@ -136,95 +142,99 @@ static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std
 // 原函数：0x0046FC60。
 static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const bool hover = (state & 1) != 0;
-    std::int32_t consumed = hover ? 1 : 0;
-    if (index == 8) {
-        if (hover) {
-            gHoverTextD68AE8 = L"进行摆摊" /* 原常量参考：0x005862A0。 */;
-            graphic->imageNo = 0x18224;
-        } else {
-            graphic->imageNo = 0x18225;
-        }
-        if ((state & 8) != 0) {
-            graphic->imageNo = 0x18223;
-            consumed = 1;
-        }
-        if ((state & 2) == 0) {
-            return consumed;
-        }
-        if (world::gCurrentSceneType != 10) {
-            const std::uint64_t now = platform::ReadTickCount64();
-            if (gWindowActionTick62B5AC + 500u < now) {
-                WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
-                if (window == nullptr) {
-                    static_cast<void>(WindowStallBrowse_RequestClose());
-                    static_cast<void>(audio::PlaySe_52C450(56, 320));
-                    static_cast<void>(WindowRuntime_CreateAnimation(WindowId_OwnStall, 1, 0, nullptr));
-                } else {
-                    window->state |= 0x8000u;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
-                }
-                gWindowActionTick62B5AC = platform::ReadTickCount64();
-            } else {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
-            }
-        }
-        return 1;
-    }
-
-    graphic->imageNo = 0x3B90E + index * 3 + (hover ? 2 : 0);
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B90F + index * 3;
-    }
-    if (static_cast<std::uint32_t>(index) > 7u) {
-        return consumed;
-    }
-    if (index < 5) {
-        const wchar_t* const hints[5] {
-            L"要求进行对战。" /* 原常量参考：0x00556C80。 */, L"要求进行观战。" /* 原常量参考：0x00556C90。 */, L"要求加入冒险队伍。" /* 原常量参考：0x00556CA0。 */,
-            L"要求交换名片。" /* 原常量参考：0x00556CB4。 */, L"要求进行交易。" /* 原常量参考：0x00556CD8。 */,
-        };
-        void (*const requests[5])() {
-            &world::RequestDuelWithFacingPlayer_470050, &world::RequestSpectateFacingBattle_470150,
-            &world::RequestPartyJoinOrLeave_470270, &world::RequestFacingPlayerContactCard_4703C0,
-            &world::RequestNearbyPlayerTrade_4704A0,
-        };
-        if (hover) {
-            gHoverTextD68AE8 = hints[index];
-        }
-        if ((state & 2) != 0) {
-            requests[index]();
-            return 1;
-        }
-        return consumed;
-    }
-    if (index == 5) {
-        if (character_select::state::gPukVersion < 7u) {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hover = (state & 1) != 0;
+        std::int32_t consumed = hover ? 1 : 0;
+        if (index == 8) {
             if (hover) {
-                graphic->imageNo = 0x3B91D;
-                gHoverTextD68AE8 = kStatusGuildUnavailable586270;
+                gHoverTextD68AE8 = L"进行摆摊" /* 原常量参考：0x005862A0。 */;
+                graphic->imageNo = 0x18224;
+            } else {
+                graphic->imageNo = 0x18225;
+            }
+            if ((state & 8) != 0) {
+                graphic->imageNo = 0x18223;
+                consumed = 1;
+            }
+            if ((state & 2) == 0) {
+                return consumed;
+            }
+            if (world::gCurrentSceneType != 10) {
+                const std::uint64_t now = platform::ReadTickCount64();
+                if (gWindowActionTick62B5AC + 500u < now) {
+                    WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
+                    if (window == nullptr) {
+                        static_cast<void>(WindowStallBrowse_RequestClose());
+                        static_cast<void>(audio::PlaySe_52C450(56, 320));
+                        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_OwnStall, 1, 0, nullptr));
+                    } else {
+                        window->state |= 0x8000u;
+                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    }
+                    gWindowActionTick62B5AC = platform::ReadTickCount64();
+                } else {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                }
+            }
+            return 1;
+        }
+
+        graphic->imageNo = 0x3B90E + index * 3 + (hover ? 2 : 0);
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B90F + index * 3;
+        }
+        if (static_cast<std::uint32_t>(index) > 7u) {
+            return consumed;
+        }
+        if (index < 5) {
+            const wchar_t* const hints[5] {
+                L"要求进行对战。" /* 原常量参考：0x00556C80。 */, L"要求进行观战。" /* 原常量参考：0x00556C90。 */, L"要求加入冒险队伍。" /* 原常量参考：0x00556CA0。 */,
+                L"要求交换名片。" /* 原常量参考：0x00556CB4。 */, L"要求进行交易。" /* 原常量参考：0x00556CD8。 */,
+            };
+            void (*const requests[5])() {
+                &world::RequestDuelWithFacingPlayer_470050, &world::RequestSpectateFacingBattle_470150,
+                &world::RequestPartyJoinOrLeave_470270, &world::RequestFacingPlayerContactCard_4703C0,
+                &world::RequestNearbyPlayerTrade_4704A0,
+            };
+            if (hover) {
+                gHoverTextD68AE8 = hints[index];
+            }
+            if ((state & 2) != 0) {
+                requests[index]();
+                return 1;
             }
             return consumed;
         }
+        if (index == 5) {
+            if (character_select::state::gPukVersion < 7u) {
+                if (hover) {
+                    graphic->imageNo = 0x3B91D;
+                    gHoverTextD68AE8 = kStatusGuildUnavailable586270;
+                }
+                return consumed;
+            }
+            if (hover) {
+                gHoverTextD68AE8 = L"邀请对方加入自己的家族。" /* 原常量参考：0x00586284。 */;
+            }
+            if ((state & 2) != 0) {
+                world::RequestFacingPlayerGuildInvitation_470670();
+                return 1;
+            }
+            return consumed;
+        }
+        if (index == 6) {
+            if (hover) {
+                gHoverTextD68AE8 = L"打开情绪动作视窗。" /* 原常量参考：0x00556CE8。 */;
+            }
+            return WindowStatusBar_ButtonEmote(6, state);
+        }
         if (hover) {
-            gHoverTextD68AE8 = L"邀请对方加入自己的家族。" /* 原常量参考：0x00586284。 */;
+            gHoverTextD68AE8 = L"打开小地图视窗。" /* 原常量参考：0x0058625C。 */;
         }
-        if ((state & 2) != 0) {
-            world::RequestFacingPlayerGuildInvitation_470670();
-            return 1;
-        }
-        return consumed;
-    }
-    if (index == 6) {
-        if (hover) {
-            gHoverTextD68AE8 = L"打开情绪动作视窗。" /* 原常量参考：0x00556CE8。 */;
-        }
-        return WindowStatusBar_ButtonEmote(6, state);
-    }
-    if (hover) {
-        gHoverTextD68AE8 = L"打开小地图视窗。" /* 原常量参考：0x0058625C。 */;
     }
     return WindowStatusBar_ButtonMiniMap(7, state);
 }

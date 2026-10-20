@@ -485,26 +485,32 @@ std::int32_t WindowCraft_ReadItemSelection()
 // 装饰/精炼无18A26回退，也不在末区间命中后重读玩家图号。
 static void WindowCraft_SetWorkingAction(WindowInstance* const window, const bool specialImageFallback = true)
 {
-    if ((window && (*window)[WindowCraftElementId::Element5])) (*window)[WindowCraftElementId::Element5]->data.animation->value04 = 0;
-    if (!((window && (*window)[WindowCraftElementId::Element5]))) { return; }
-    cg::yobi::SetYobiActionField2B0(
-        (*window)[WindowCraftElementId::Element5]->data.animation->action, 6);
+    if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 0;
+    auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+    if (element52) {
+        cg::yobi::SetYobiActionField2B0(
+            element52->data.animation->action, 6);
+    }
     std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     for (std::size_t index = 0; index < kCraftAlternateActionImages.size(); ++index) {
         const auto& range = kCraftAlternateActionImages[index];
         if (imageNo >= range[0] && imageNo <= range[1]) {
-            if (!((window && (*window)[WindowCraftElementId::Element5]))) { continue; }
-            cg::yobi::SetYobiActionField2B0(
-                (*window)[WindowCraftElementId::Element5]->data.animation->action, 16);
+            auto* const element53 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+            if (element53) {
+                cg::yobi::SetYobiActionField2B0(
+                    element53->data.animation->action, 16);
+            }
             if (specialImageFallback || index + 1 < kCraftAlternateActionImages.size()) {
                 imageNo = world::gPlayerRuntimeSlots.imageNo;
             }
         }
     }
     if (specialImageFallback && imageNo == 0x18A26) {
-        if (!((window && (*window)[WindowCraftElementId::Element5]))) { return; }
-        cg::yobi::SetYobiActionField2B0(
-            (*window)[WindowCraftElementId::Element5]->data.animation->action, 6);
+        auto* const element53 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+        if (element53) {
+            cg::yobi::SetYobiActionField2B0(
+                element53->data.animation->action, 6);
+        }
     }
 }
 
@@ -527,9 +533,9 @@ static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window,
         platform::gConnectionSocket, static_cast<std::int32_t>(duration / 1000u)));
     const std::uint64_t tick = platform::ReadTickCount64();
     gCraftDeadlineCF3B04 = gCraftDeadlineCF3B04 + tick;
-    if ((window && (*window)[WindowCraftElementId::HandleEngravingInput])) (*window)[WindowCraftElementId::HandleEngravingInput]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element8])) (*window)[WindowCraftElementId::Element8]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute])) (*window)[WindowCraftElementId::ButtonExecute]->visible = 0;
+    if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
+    if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
+    if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
     gCraftDisplayImageCB2204 = -1;
     gSkillPreviewTickCF46C8 = platform::ReadTickCount64();
     static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -588,26 +594,28 @@ static void WindowCraft_ResetMaterialMode()
 // 四新增模式共用的元素写序；计时、动作创建与模式发布仍留在各原入口。
 static void WindowCraft_PrepareMaterialElements(WindowInstance* const window)
 {
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA38;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3E;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA38;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3E;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialSlot;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialSlot;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element5])) (*window)[WindowCraftElementId::Element5]->data.animation->value04 = 0;
-    if (!((window && (*window)[WindowCraftElementId::Element5]))) { return; }
-    cg::yobi::SetYobiActionField2B0(
-        (*window)[WindowCraftElementId::Element5]->data.animation->action, 0);
-    if ((window && (*window)[WindowCraftElementId::HandleEngravingInput])) (*window)[WindowCraftElementId::HandleEngravingInput]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element8])) (*window)[WindowCraftElementId::Element8]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute])) (*window)[WindowCraftElementId::ButtonExecute]->visible = 0;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 1;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 0;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 0;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 0;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
+    if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 0;
+    auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+    if (element52) {
+        cg::yobi::SetYobiActionField2B0(
+            element52->data.animation->action, 0);
+    }
+    if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
+    if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
+    if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
     gCraftDisplayImageCB2204 = -1;
 }
 
@@ -619,23 +627,23 @@ static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
         gSkillSendModeC8A970 = 1;
     }
     gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = L"　　　...　作成中　..." /* 原常量参考：0x005865C4。 */;
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　...　作成中　..." /* 原常量参考：0x005865C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->data.text->text = L"";
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA38;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3E;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA38;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3E;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialTooltip;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialTooltip;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 0;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 1;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 1;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 0;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 0;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t skill = gCraftSkillIndexCC2368;
@@ -672,28 +680,28 @@ static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const windo
     default: break;
     }
     if (hint != nullptr) {
-        if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = hint;
+        if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = hint;
     }
     for (std::int32_t index = 10; index <= 13; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->data.text->text = L"";
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA39;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3E;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA39;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3E;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialTooltip;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialTooltip;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->mouseCallback = WindowCraft_HandleItemTooltip;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 1;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 0;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 0;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 1;
+    if (auto* const handleSingleMaterialElement2 = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement2) handleSingleMaterialElement2->mouseCallback = WindowCraft_HandleItemTooltip;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 1;
     if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-        if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
+        if (auto* const drawResultImage_24Element2 = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element2) drawResultImage_24Element2->visible = 0;
     }
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 0;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
@@ -713,24 +721,24 @@ static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window
         gSkillSendModeC8A970 = 1;
     }
     gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = L"　　　…　打包中　…" /* 原常量参考：0x00586830。 */;
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　打包中　…" /* 原常量参考：0x00586830。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->data.text->text = L"";
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA39;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3E;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA39;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3E;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialTooltip;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialTooltip;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->mouseCallback = WindowCraft_HandleItemTooltip;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 0;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 0;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 0;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 1;
+    if (auto* const handleSingleMaterialElement2 = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement2) handleSingleMaterialElement2->mouseCallback = WindowCraft_HandleItemTooltip;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 1;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16() % 6;
     const std::int32_t selected = gSelectedItemD460C0;
@@ -749,23 +757,23 @@ static void WindowCraft_WaitDecoration(WindowInstance* const window)
         gSkillSendModeC8A970 = 1;
     }
     gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = L"　　　…　装饰中　…" /* 原常量参考：0x00586848。 */;
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　装饰中　…" /* 原常量参考：0x00586848。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->data.text->text = L"";
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA38;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3E;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA38;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3E;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialTooltip;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialTooltip;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 0;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 1;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 1;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 0;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 0;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window, false);
     static_cast<void>(WindowCraft_FinishWait(window, 8000));
     const std::uint8_t mode = gSelectionModeD2D650;
@@ -784,23 +792,23 @@ static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const windo
         gSkillSendModeC8A970 = 1;
     }
     gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = L"　　　…　精炼中　…" /* 原常量参考：0x005866C4。 */;
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　精炼中　…" /* 原常量参考：0x005866C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->data.text->text = L"";
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA38;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3E;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA38;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3E;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialTooltip;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialTooltip;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 0;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 1;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 1;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 0;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 0;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window, false);
     const auto duration = static_cast<std::uint32_t>(platform::Rand16() % 6 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
@@ -920,12 +928,16 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(const std::int32_t skill, const 
 static WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* const window)
 {
     WindowCraft_ResetMaterialMode();
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = L"装饰" /* 原常量参考：0x00586784。 */;
-    if (!((window && (*window)[WindowCraftElementId::Element11]))) { return {}; }
-    cg::text::FormatTo((*window)[WindowCraftElementId::Element11]->data.text->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, 100);
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"装饰" /* 原常量参考：0x00586784。 */;
+    auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr;
+    if (element11) {
+        cg::text::FormatTo(element11->data.text->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, 100);
+    }
     for (std::int32_t index = 11; index <= 13; ++index) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-        (*window)[NativeElementKey(index)]->data.text->text.clear();
+        auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+        if (indexedElement) {
+            indexedElement->data.text->text.clear();
+        }
     }
     WindowCraft_PrepareMaterialElements(window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -939,12 +951,16 @@ static WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* con
 static WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* const window)
 {
     WindowCraft_ResetMaterialMode();
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = L"装饰宠物装备" /* 原常量参考：0x005867AC。 */;
-    if (!((window && (*window)[WindowCraftElementId::Element11]))) { return {}; }
-    cg::text::FormatTo((*window)[WindowCraftElementId::Element11]->data.text->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, 100);
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"装饰宠物装备" /* 原常量参考：0x005867AC。 */;
+    auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr;
+    if (element11) {
+        cg::text::FormatTo(element11->data.text->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, 100);
+    }
     for (std::int32_t index = 11; index <= 13; ++index) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-        (*window)[NativeElementKey(index)]->data.text->text.clear();
+        auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+        if (indexedElement) {
+            indexedElement->data.text->text.clear();
+        }
     }
     WindowCraft_PrepareMaterialElements(window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -958,11 +974,11 @@ static WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* 
 static WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* const window)
 {
     WindowCraft_ResetMaterialMode();
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = L"请选择制作材料。" /* 原常量参考：0x0058681C。 */;
-    if ((window && (*window)[WindowCraftElementId::Element11])) (*window)[WindowCraftElementId::Element11]->data.text->text = L"                   料理/药水" /* 原常量参考：0x005867FC。 */;
-    if ((window && (*window)[WindowCraftElementId::Element12])) (*window)[WindowCraftElementId::Element12]->data.text->text = L"                        木材" /* 原常量参考：0x005867DC。 */;
-    if ((window && (*window)[WindowCraftElementId::Element13])) (*window)[WindowCraftElementId::Element13]->data.text->text = L"                        布料" /* 原常量参考：0x005867BC。 */;
-    if ((window && (*window)[WindowCraftElementId::Element14])) (*window)[WindowCraftElementId::Element14]->data.text->text = L"";
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"请选择制作材料。" /* 原常量参考：0x0058681C。 */;
+    if (auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr; element11) element11->data.text->text = L"                   料理/药水" /* 原常量参考：0x005867FC。 */;
+    if (auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr; element12) element12->data.text->text = L"                        木材" /* 原常量参考：0x005867DC。 */;
+    if (auto* const element13 = window ? window->FindElementById(WindowCraftElementId::Element13) : nullptr; element13) element13->data.text->text = L"                        布料" /* 原常量参考：0x005867BC。 */;
+    if (auto* const element14 = window ? window->FindElementById(WindowCraftElementId::Element14) : nullptr; element14) element14->data.text->text = L"";
     WindowCraft_PrepareMaterialElements(window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -975,10 +991,12 @@ static WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* const 
 static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const window)
 {
     WindowCraft_ResetMaterialMode();
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = L"精炼" /* 原常量参考：0x00586860。 */;
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"精炼" /* 原常量参考：0x00586860。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-        (*window)[NativeElementKey(index)]->data.text->text.clear();
+        auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+        if (indexedElement) {
+            indexedElement->data.text->text.clear();
+        }
     }
     WindowCraft_PrepareMaterialElements(window);
     gSkillPreviewTickCF46C8 = platform::ReadTickCount64();
@@ -994,6 +1012,8 @@ static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const
 // 原函数：0x00483EB0。
 static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -1241,36 +1261,42 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
         consumed = 1;
     }
     if (WindowDrag_ReadKind() == 10 && WindowDrag_ReadSourceIndex() == destination) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t y = window->y + element->y;
-        const std::int32_t x = window->x + element->x;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
-            static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46), 223, 254, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t y = window->y + element->y;
+            const std::int32_t x = window->x + element->x;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+                static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46), 223, 254, 0);
+        }
     }
     if ((events & 0x21u) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        const std::int32_t y = window->y + element->y;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
-            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t x = window->x + element->x;
+            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+            const std::int32_t y = window->y + element->y;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
+        }
     }
     if ((events & 0x20u) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        const std::int32_t y = window->y + element->y;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
-            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t x = window->x + element->x;
+            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+            const std::int32_t y = window->y + element->y;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
+        }
     }
     if (hovered) {
         gHoverTextD68AE8 = L"以滑鼠拖放方式，将素材置放于此处。";
@@ -1293,13 +1319,15 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
         }
         gMaterialHoveredItemD67424 = selected + 8;
     }
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     const std::int32_t imageNo = gSelectionImagesCF3FF4[destination];
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const WindowElement* const element = (*window)[NativeElementKey(index)];
-    const std::int32_t y = element->y + window->y + 24;
-    const std::int32_t x = element->x + window->x + 24;
-    static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    if (elementPtr) {
+        const WindowElement* const element = elementPtr;
+        const std::int32_t y = element->y + window->y + 24;
+        const std::int32_t x = element->x + window->x + 24;
+        static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    }
     return consumed;
 }
 
@@ -1333,34 +1361,38 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
         if (count <= 0) {
             row = 1;
         }
-        if ((window && (*window)[NativeElementKey(9 + row)])) (*window)[NativeElementKey(9 + row)]->data.text->text = std::format(L"{:<24}{:3}", requirement->name, count);
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(9 + row)) : nullptr; indexedElement) indexedElement->data.text->text = std::format(L"{:<24}{:3}", requirement->name, count);
         recipe = gCraftRecipeIndexD2D638;
         ++row;
     }
     for (; row < 5; ++row) {
-        if (!((window && (*window)[NativeElementKey(9 + row)]))) { continue; }
-        (*window)[NativeElementKey(9 + row)]->data.text->text.clear();
+        auto* const indexedElement = window ? window->FindElementById(NativeElementKey(9 + row)) : nullptr;
+        if (indexedElement) {
+            indexedElement->data.text->text.clear();
+        }
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA38;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3A;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA38;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3A;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialSlot;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialSlot;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element5])) (*window)[WindowCraftElementId::Element5]->data.animation->value04 = 0;
-    if (!((window && (*window)[WindowCraftElementId::Element5]))) { return {}; }
-    cg::yobi::SetYobiActionField2B0(
-        (*window)[WindowCraftElementId::Element5]->data.animation->action, 0);
-    if ((window && (*window)[WindowCraftElementId::HandleEngravingInput])) (*window)[WindowCraftElementId::HandleEngravingInput]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element8])) (*window)[WindowCraftElementId::Element8]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute])) (*window)[WindowCraftElementId::ButtonExecute]->visible = 0;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 1;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 0;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 0;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 0;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
+    if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 0;
+    auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+    if (element52) {
+        cg::yobi::SetYobiActionField2B0(
+            element52->data.animation->action, 0);
+    }
+    if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
+    if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
+    if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
     gCraftDisplayImageCB2204 = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -1590,8 +1622,11 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 // 原函数：0x00482270。
 static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    WindowElement* const element = (*gCurrentWindow)[NativeElementKey(index)];
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const elementPtr = currentWindow->FindElementById(NativeElementKey(index));
+    if (!elementPtr) { return {}; }
+    WindowElement* const element = elementPtr;
     auto* const graphic = element->data.graphic;
     std::int32_t consumed = 0;
     bool enabled = false;
@@ -1615,7 +1650,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         const std::int32_t selected = gSelectedItemD460C0;
         if (selected < 0) {
             element->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element12])) (*gCurrentWindow)[WindowCraftElementId::Element12]->data.text->text = L"";
+            if (auto* const element12 = currentWindow->FindElementById(WindowCraftElementId::Element12); element12) element12->data.text->text = L"";
             return 0;
         }
         if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
@@ -1624,8 +1659,10 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             enabled = !(world::gPlayerRuntimeSlots.fp <
                 world::gPlayerRuntimeSlots.items[selected].level * 10);
             const std::int32_t level = world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level;
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element12]))) { return {}; }
-            cg::text::FormatTo((*gCurrentWindow)[WindowCraftElementId::Element12]->data.text->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, level * 10);
+            auto* const element12 = currentWindow->FindElementById(WindowCraftElementId::Element12);
+            if (element12) {
+                cg::text::FormatTo(element12->data.text->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, level * 10);
+            }
         }
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
@@ -1742,7 +1779,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     }
     if (gSelectionModeD2D650 == 0 && (state & 2) != 0) {
         if (enabled) {
-            static_cast<void>(WindowCraft_WaitCraft(gCurrentWindow));
+            static_cast<void>(WindowCraft_WaitCraft(currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1753,7 +1790,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
         if (!enabled) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
-            static_cast<void>(WindowCraft_WaitItemWork(gCurrentWindow));
+            static_cast<void>(WindowCraft_WaitItemWork(currentWindow));
             if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
                 static_cast<void>(WindowChat_RestoreInput());
             }
@@ -1795,7 +1832,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 }
             }
             if (notice >= 0) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(notice)])) (*gCurrentWindow)[NativeElementKey(notice)]->visible = 1;
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(notice)); indexedElement) indexedElement->visible = 1;
                 if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
                     static_cast<void>(WindowChat_RestoreInput());
                 }
@@ -1833,7 +1870,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     const std::uint8_t mode = gSelectionModeD2D650;
     if ((mode == 6 || mode == 15) && (state & 2) != 0) {
         if (enabled) {
-            WindowCraft_WaitDecoration(gCurrentWindow);
+            WindowCraft_WaitDecoration(currentWindow);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1841,7 +1878,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     }
     if (gSelectionModeD2D650 == 9 && (state & 2) != 0) {
         if (enabled) {
-            static_cast<void>(WindowCraft_WaitRefining(gCurrentWindow));
+            static_cast<void>(WindowCraft_WaitRefining(currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1849,7 +1886,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     }
     if (gSelectionModeD2D650 == 12 && (state & 2) != 0) {
         if (enabled) {
-            static_cast<void>(WindowCraft_WaitPacking(gCurrentWindow));
+            static_cast<void>(WindowCraft_WaitPacking(currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1874,16 +1911,16 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
     }
     if (enabled) {
         if (gSelectionModeD2D650 == 3) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element10])) (*gCurrentWindow)[WindowCraftElementId::Element10]->data.text->text = L"请输入名称。" /* 原常量参考：0x005868C8。 */;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element11])) (*gCurrentWindow)[WindowCraftElementId::Element11]->data.text->text = L"                     魔力 10" /* 原常量参考：0x005868A8。 */;
+            if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"请输入名称。" /* 原常量参考：0x005868C8。 */;
+            if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"                     魔力 10" /* 原常量参考：0x005868A8。 */;
         }
         if (gSelectionModeD2D650 == 5) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element10])) (*gCurrentWindow)[WindowCraftElementId::Element10]->data.text->text = L"";
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element11])) (*gCurrentWindow)[WindowCraftElementId::Element11]->data.text->text = L"";
+            if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"";
+            if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"";
         }
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element10])) (*gCurrentWindow)[WindowCraftElementId::Element10]->data.text->text = L"目前无法对此物品" /* 原常量参考：0x00586894。 */;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element11])) (*gCurrentWindow)[WindowCraftElementId::Element11]->data.text->text = L"　进行刻印。" /* 原常量参考：0x00586884。 */;
+        if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"目前无法对此物品" /* 原常量参考：0x00586894。 */;
+        if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"　进行刻印。" /* 原常量参考：0x00586884。 */;
         graphic->imageNo = 0x3BAC3;
     }
     return consumed;
@@ -1892,9 +1929,11 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
 // 原函数：0x00482FA0。
 static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hovered = (state & 1) != 0;
     if (hovered) {
         gHoverTextD68AE8 = L"继续执行。";
@@ -1920,19 +1959,19 @@ static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const s
                 static_cast<void>(WindowCraft_InitializeRecipe(window));
                 break;
             }
-            window = gCurrentWindow;
+            window = currentWindow;
         }
         if (gSelectionModeD2D650 == 5) {
             static_cast<void>(WindowCraft_InitializeItemWork(window));
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
-    graphic->imageNo = 0x3BA31;
+    if (graphic) graphic->imageNo = 0x3BA31;
     if (hovered) {
-        graphic->imageNo = 0x3BA33;
+        if (graphic) graphic->imageNo = 0x3BA33;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 0x3BA32;
+        if (graphic) graphic->imageNo = 0x3BA32;
     }
     return 0;
 }
@@ -1940,22 +1979,26 @@ static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const s
 // 原函数：0x004830B0。
 static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const bool hovered = (state & 1) != 0;
-    if (hovered) {
-        gHoverTextD68AE8 = L"关闭此视窗";
-    }
-    if ((state & 2) != 0) {
-        gWindowStates[WindowId_Craft].window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
-    }
-    graphic->imageNo = 0x3B565;
-    if (hovered) {
-        graphic->imageNo = 0x3B567;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B566;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hovered = (state & 1) != 0;
+        if (hovered) {
+            gHoverTextD68AE8 = L"关闭此视窗";
+        }
+        if ((state & 2) != 0) {
+            gWindowStates[WindowId_Craft].window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        graphic->imageNo = 0x3B565;
+        if (hovered) {
+            graphic->imageNo = 0x3B567;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B566;
+        }
     }
     return 0;
 }
@@ -1963,6 +2006,8 @@ static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std:
 // 原函数：0x00483150。
 static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1982,17 +2027,19 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
-        const WindowInstance* const window = gCurrentWindow;
+        const WindowInstance* const window = currentWindow;
         for (std::int32_t position = 0; position < 20; ++position) {
             if (hoverMarks[position + 8] != 0) {
                 continue;
             }
-            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-            const WindowElement* const element = (*window)[NativeElementKey(index)];
-            const std::int32_t left = element->x + 50 * (position % 5) + window->x;
-            const std::int32_t top = element->y + 50 * (position / 5) + window->y;
-            if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
-                continue;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement* const element = elementPtr;
+                const std::int32_t left = element->x + 50 * (position % 5) + window->x;
+                const std::int32_t top = element->y + 50 * (position / 5) + window->y;
+                if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
+                    continue;
+                }
             }
             if (source != position + 8) {
                 WindowItem_RequestTransfer(11, index, source, position + 8);
@@ -2007,14 +2054,16 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
             if (hoverMarks[position + 8] != 0) {
                 continue;
             }
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-            const WindowElement* const element = (*window)[NativeElementKey(index)];
-            const std::int32_t left = element->x + 50 * (position % 5) + window->x;
-            const std::int32_t top = element->y + 50 * (position / 5) + window->y;
-            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
-                hovered = position;
-                break;
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement* const element = elementPtr;
+                const std::int32_t left = element->x + 50 * (position % 5) + window->x;
+                const std::int32_t top = element->y + 50 * (position / 5) + window->y;
+                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                    hovered = position;
+                    break;
+                }
             }
         }
     }
@@ -2183,12 +2232,14 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                         hoverMarks[hovered + 8] = static_cast<unsigned char>(previous + 1);
                         gItemMarksD67290[hovered + 8] = 1;
                         if (currentId == 220) {
-                            WindowInstance* const window = gCurrentWindow;
-                            if (!((window && (*window)[WindowCraftElementId::Element12]))) { return; }
-                            const WindowElement* const inputElement = (*window)[WindowCraftElementId::Element12];
-                            const std::int32_t y = inputElement->y + window->y;
-                            const std::int32_t x = inputElement->x + window->x;
-                            static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 0));
+                            WindowInstance* const window = currentWindow;
+                            auto* const element12 = window->FindElementById(WindowCraftElementId::Element12);
+                            if (element12) {
+                                const WindowElement* const inputElement = element12;
+                                const std::int32_t y = inputElement->y + window->y;
+                                const std::int32_t x = inputElement->x + window->x;
+                                static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 0));
+                            }
                         }
                         return;
                     }
@@ -2269,26 +2320,30 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     if (WindowDrag_ReadKind() == 2) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            const WindowElement* const element = (*window)[NativeElementKey(index)];
-            const std::int32_t left = element->x + 50 * ((source - 8) % 5) + window->x;
-            const std::int32_t top = element->y + 50 * ((source - 8) / 5) + window->y;
-            cg::render::DrawGraphicHover(
-                static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top + 2),
-                static_cast<std::uint16_t>(left + 47), static_cast<std::uint16_t>(top + 46), 223, 254, 0);
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement* const element = elementPtr;
+                const std::int32_t left = element->x + 50 * ((source - 8) % 5) + window->x;
+                const std::int32_t top = element->y + 50 * ((source - 8) / 5) + window->y;
+                cg::render::DrawGraphicHover(
+                    static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top + 2),
+                    static_cast<std::uint16_t>(left + 47), static_cast<std::uint16_t>(top + 46), 223, 254, 0);
+            }
         }
     }
     if (hovered >= 0) {
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t left = element->x + 50 * (hovered % 5) + window->x;
-        const std::int32_t top = element->y + 50 * (hovered / 5) + window->y;
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
-            static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t left = element->x + 50 * (hovered % 5) + window->x;
+            const std::int32_t top = element->y + 50 * (hovered / 5) + window->y;
+            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
+        }
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gMaterialHoveredItemD67424 = hovered + 8;
         }
@@ -2302,25 +2357,27 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         if (item->used == 0) {
             continue;
         }
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t x = element->x + 50 * (position % 5) + window->x + 24;
-        const std::int32_t y = element->y + 50 * (position / 5) + window->y + 24;
-        if (hoverMarks[position + 8] != 0) {
-            cg::render::DrawGraphicHover(
-                static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
-                static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24), 223, 249, 0);
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item->imageNo, 0, &dimmed));
-        } else {
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item->imageNo, 0, &descriptor));
-        }
-        const std::int32_t count = item->count;
-        if (count > 0) {
-            cg::text::FormatTo(countText, L"{:3}", count);
-            static_cast<void>(render::DrawText_456780(
-                static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
-                3, 1, 1, countText, 0, 0));
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t x = element->x + 50 * (position % 5) + window->x + 24;
+            const std::int32_t y = element->y + 50 * (position / 5) + window->y + 24;
+            if (hoverMarks[position + 8] != 0) {
+                cg::render::DrawGraphicHover(
+                    static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
+                    static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24), 223, 249, 0);
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item->imageNo, 0, &dimmed));
+            } else {
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item->imageNo, 0, &descriptor));
+            }
+            const std::int32_t count = item->count;
+            if (count > 0) {
+                cg::text::FormatTo(countText, L"{:3}", count);
+                static_cast<void>(render::DrawText_456780(
+                    static_cast<std::int16_t>(x - 3), static_cast<std::int16_t>(y + 7),
+                    3, 1, 1, countText, 0, 0));
+            }
         }
     }
     return consumed;
@@ -2329,6 +2386,8 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
 // 原函数：0x00484FB0。
 static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t imageNo = gCraftDisplayImageCB2204;
     if (imageNo < 0) {
         return 0;
@@ -2337,41 +2396,55 @@ static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const 
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const WindowElement* const element = (*window)[NativeElementKey(index)];
-    const std::int32_t y = element->y + window->y + 24;
-    const std::int32_t x = element->x + window->x + 24;
-    static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    const WindowInstance* const window = currentWindow;
+    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    if (elementPtr) {
+        const WindowElement* const element = elementPtr;
+        const std::int32_t y = element->y + window->y + 24;
+        const std::int32_t x = element->x + window->x + 24;
+        static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    }
     return 0;
 }
 
 // 原函数：0x00485030。
 static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (gSelectedItemD460C0 < 0) {
         return 0;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    WindowElement_DrawHoverFrame((*gCurrentWindow)[NativeElementKey(index)], state, cg::render::gHoverFramePaletteIndex_D69768);
+    auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (indexedElement) {
+        WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
+    }
     if ((state & 2) == 0) {
         return 0;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::HandleEngravingInput])) (*gCurrentWindow)[WindowCraftElementId::HandleEngravingInput]->visible = 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element8])) (*gCurrentWindow)[WindowCraftElementId::Element8]->visible = 1;
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[WindowCraftElementId::Element12]))) { return {}; }
-    const std::int32_t y = (*window)[WindowCraftElementId::Element12]->y + window->y;
-    if (!((window && (*window)[WindowCraftElementId::Element12]))) { return {}; }
-    const std::int32_t x = (*window)[WindowCraftElementId::Element12]->x + window->x;
-    static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 1));
+    if (auto* const handleEngravingInputElement = currentWindow->FindElementById(WindowCraftElementId::HandleEngravingInput); handleEngravingInputElement) handleEngravingInputElement->visible = 0;
+    if (auto* const element8 = currentWindow->FindElementById(WindowCraftElementId::Element8); element8) element8->visible = 1;
+    WindowInstance* const window = currentWindow;
+    auto* const element12 = window->FindElementById(WindowCraftElementId::Element12);
+    if (element12) {
+        const std::int32_t y = element12->y + window->y;
+        auto* const element122 = window->FindElementById(WindowCraftElementId::Element12);
+        if (element122) {
+            const std::int32_t x = element122->x + window->x;
+            static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 1));
+        }
+    }
     input::SetContext_44B330(&cg::ui::detail::gInputContextD2DE70);
-    WindowInstance* const current = gCurrentWindow;
-    if (!((current && (*current)[WindowCraftElementId::Element8]))) { return {}; }
-    gFocusedElementDataD45F94 = (*current)[WindowCraftElementId::Element8]->data.input;
-    if (!((current && (*current)[WindowCraftElementId::Element8]))) { return {}; }
-    (*current)[WindowCraftElementId::Element8]->data.input->context =
-        &cg::ui::detail::gInputContextD2DE70;
+    WindowInstance* const current = currentWindow;
+    auto* const element82 = current->FindElementById(WindowCraftElementId::Element8);
+    if (element82) {
+        gFocusedElementDataD45F94 = element82->data.input;
+    }
+    auto* const element83 = current->FindElementById(WindowCraftElementId::Element8);
+    if (element83) {
+        element83->data.input->context =
+            &cg::ui::detail::gInputContextD2DE70;
+    }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
 }
@@ -2379,31 +2452,38 @@ static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, c
 // 原函数：0x00485160。
 static std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const bool hovered = (state & 1) != 0;
-    std::int32_t consumed = 0;
-    if (hovered) {
-        gHoverTextD68AE8 = L"关闭这个视窗。";
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hovered = (state & 1) != 0;
+        std::int32_t consumed = 0;
+        if (hovered) {
+            gHoverTextD68AE8 = L"关闭这个视窗。";
+        }
+        if ((state & 2) != 0) {
+            gWindowStates[WindowId_Craft].window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            consumed = 1;
+        }
+        graphic->imageNo = 0x3B538;
+        if (hovered) {
+            graphic->imageNo = 0x3B53A;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B539;
+        }
+        return consumed;
     }
-    if ((state & 2) != 0) {
-        gWindowStates[WindowId_Craft].window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
-        consumed = 1;
-    }
-    graphic->imageNo = 0x3B538;
-    if (hovered) {
-        graphic->imageNo = 0x3B53A;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B539;
-    }
-    return consumed;
+    return {};
 }
 
 static std::int32_t WindowCraft_DrawInputNotice(
     const std::int32_t index, const std::wstring_view first, const std::wstring_view second)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -2412,8 +2492,8 @@ static std::int32_t WindowCraft_DrawInputNotice(
     if (cg::ui::HitTestMouseRect_5049A0(287, 268, 353, 285, -1) != 0) {
         imageNo = 0x3B56A;
         if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
-            gCurrentWindow->state &= ~2u;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
+            currentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             imageNo = 0x3B569;
         }
@@ -2451,6 +2531,8 @@ static std::int32_t WindowCraft_DrawEmptyEngravingNotice(const std::int32_t inde
 // 原函数：0x004847C0。
 static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -2479,12 +2561,14 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
             hover[source] = static_cast<unsigned char>(previous + 1);
             gItemMarksD67290[source] = 1;
             if (skillId == 220) {
-                WindowInstance* const window = gCurrentWindow;
-                if (!((window && (*window)[WindowCraftElementId::Element12]))) { return {}; }
-                const WindowElement* const element = (*window)[WindowCraftElementId::Element12];
-                const std::int32_t y = element->y + window->y;
-                const std::int32_t x = element->x + window->x;
-                static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 0));
+                WindowInstance* const window = currentWindow;
+                auto* const element12 = window->FindElementById(WindowCraftElementId::Element12);
+                if (element12) {
+                    const WindowElement* const element = element12;
+                    const std::int32_t y = element->y + window->y;
+                    const std::int32_t x = element->x + window->x;
+                    static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 0));
+                }
             }
         }
         WindowDrag_Reset();
@@ -2550,36 +2634,42 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         consumed = 1;
     }
     if (WindowDrag_ReadKind() == 10 && WindowDrag_ReadSourceIndex() == 6) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t y = window->y + element->y;
-        const std::int32_t x = window->x + element->x;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
-            static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46), 223, 254, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t y = window->y + element->y;
+            const std::int32_t x = window->x + element->x;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+                static_cast<std::uint16_t>(x + 46), static_cast<std::uint16_t>(y + 46), 223, 254, 0);
+        }
     }
     if ((events & 0x21u) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        const std::int32_t y = window->y + element->y;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
-            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t x = window->x + element->x;
+            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+            const std::int32_t y = window->y + element->y;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
+        }
     }
     if ((events & 0x20u) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        const std::int32_t y = window->y + element->y;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
-            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t x = window->x + element->x;
+            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+            const std::int32_t y = window->y + element->y;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48), 223, imageNo, 0);
+        }
     }
     if (hovered) {
         gHoverTextD68AE8 = L"以滑鼠拖放方式，将素材置放于此处。";
@@ -2602,14 +2692,16 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         }
         gMaterialHoveredItemD67424 = currentSelected;
     }
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const WindowElement* const element = (*window)[NativeElementKey(index)];
-    const std::int32_t windowY = window->y;
-    const std::int32_t imageNo = gSelectedImageCC3ED8;
-    const std::int32_t y = element->y + windowY + 24;
-    const std::int32_t x = element->x + window->x + 24;
-    static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    WindowInstance* const window = currentWindow;
+    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    if (elementPtr) {
+        const WindowElement* const element = elementPtr;
+        const std::int32_t windowY = window->y;
+        const std::int32_t imageNo = gSelectedImageCC3ED8;
+        const std::int32_t y = element->y + windowY + 24;
+        const std::int32_t x = element->x + window->x + 24;
+        static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+    }
     return consumed;
 }
 
@@ -2651,32 +2743,34 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const
         break;
     }
     if (hint != nullptr) {
-        if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = hint;
+        if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = hint;
     }
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3A;
-    if ((window && (*window)[WindowCraftElementId::Element11])) (*window)[WindowCraftElementId::Element11]->data.text->text = L"　请选择。";
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3A;
+    if (auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr; element11) element11->data.text->text = L"　请选择。";
     for (std::int32_t index = 11; index <= 13; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->data.text->text = L"";
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA39;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA39;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->mouseCallback = WindowCraft_HandleSingleMaterial;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element5])) (*window)[WindowCraftElementId::Element5]->data.animation->value04 = 0;
-    if (!((window && (*window)[WindowCraftElementId::Element5]))) { return {}; }
-    cg::yobi::SetYobiActionField2B0(
-        (*window)[WindowCraftElementId::Element5]->data.animation->action, 0);
-    if ((window && (*window)[WindowCraftElementId::HandleEngravingInput])) (*window)[WindowCraftElementId::HandleEngravingInput]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element8])) (*window)[WindowCraftElementId::Element8]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute])) (*window)[WindowCraftElementId::ButtonExecute]->visible = 0;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 0;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 0;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 1;
+    if (auto* const handleSingleMaterialElement2 = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement2) handleSingleMaterialElement2->mouseCallback = WindowCraft_HandleSingleMaterial;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 0;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
+    if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 0;
+    auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+    if (element52) {
+        cg::yobi::SetYobiActionField2B0(
+            element52->data.animation->action, 0);
+    }
+    if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
+    if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
+    if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
     gCraftDisplayImageCB2204 = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -2738,14 +2832,16 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
 // 原函数：0x004810A0。
 static std::int32_t WindowCraft_Update(const std::int32_t value)
 {
-    const auto initializeMode = [](const std::uint8_t mode) {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    const auto initializeMode = [currentWindow](const std::uint8_t mode) {
         switch (mode) {
-        case 0: static_cast<void>(WindowCraft_InitializeRecipe(gCurrentWindow)); break;
-        case 3: static_cast<void>(WindowCraft_InitializeItemWork(gCurrentWindow)); break;
-        case 6: static_cast<void>(WindowCraft_InitializeDecoration(gCurrentWindow)); break;
-        case 15: static_cast<void>(WindowCraft_InitializePetDecoration(gCurrentWindow)); break;
-        case 9: static_cast<void>(WindowCraft_InitializeRefining(gCurrentWindow)); break;
-        case 12: static_cast<void>(WindowCraft_InitializePacking(gCurrentWindow)); break;
+        case 0: static_cast<void>(WindowCraft_InitializeRecipe(currentWindow)); break;
+        case 3: static_cast<void>(WindowCraft_InitializeItemWork(currentWindow)); break;
+        case 6: static_cast<void>(WindowCraft_InitializeDecoration(currentWindow)); break;
+        case 15: static_cast<void>(WindowCraft_InitializePetDecoration(currentWindow)); break;
+        case 9: static_cast<void>(WindowCraft_InitializeRefining(currentWindow)); break;
+        case 12: static_cast<void>(WindowCraft_InitializePacking(currentWindow)); break;
         default: break;
         }
     };
@@ -2764,8 +2860,8 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         gSelectedImageCC3ED8 = -1;
         gSelectedCountCC483C = -1;
         initializeMode(mode);
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::DrawInvalidEngravingNotice])) (*gCurrentWindow)[WindowCraftElementId::DrawInvalidEngravingNotice]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::DrawEmptyEngravingNotice])) (*gCurrentWindow)[WindowCraftElementId::DrawEmptyEngravingNotice]->visible = 0;
+        if (auto* const drawInvalidEngravingNoticeElement = currentWindow->FindElementById(WindowCraftElementId::DrawInvalidEngravingNotice); drawInvalidEngravingNoticeElement) drawInvalidEngravingNoticeElement->visible = 0;
+        if (auto* const drawEmptyEngravingNoticeElement = currentWindow->FindElementById(WindowCraftElementId::DrawEmptyEngravingNotice); drawEmptyEngravingNoticeElement) drawEmptyEngravingNoticeElement->visible = 0;
         return 1;
     }
     if (std::bit_cast<std::int8_t>(gSelectionModeD2D650) <= 2) {
@@ -2779,7 +2875,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
                 for (std::int32_t index = 0;; ++index) {
                     const std::int32_t itemId = record->recipes8E8[index].itemId;
                     if (itemId < 0) {
-                        gCurrentWindow->state |= 0x8000u;
+                        currentWindow->state |= 0x8000u;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));
                         break;
                     }
@@ -2799,11 +2895,11 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
     bool petAvailable = false;
     if (WindowSkill_CanUseSpecialSkill() != 0) {
         petAvailable = true;
-        const auto configureCrystal = [] {
+        const auto configureCrystal = [currentWindow] {
             if (WindowSkill_CheckPetFp() != 0) {
-                static_cast<void>(WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, 3, 5, 1, 0, 5));
+                static_cast<void>(WindowCraft_ConfigurePreviews_47D220(currentWindow, 3, 5, 1, 0, 5));
             } else {
-                static_cast<void>(WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, 3, 5, 0, 10, 5));
+                static_cast<void>(WindowCraft_ConfigurePreviews_47D220(currentWindow, 3, 5, 0, 10, 5));
             }
         };
         if (gSelectionModeD2D650 == 0 && WindowCraft_HasRecipeCrystalLevel() != 0) {
@@ -2828,7 +2924,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             if (matches) {
                 matchingCrystal = true;
                 static_cast<void>(WindowCraft_SetPreviewPositions(
-                    gCurrentWindow, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+                    currentWindow, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
                 configureCrystal();
             }
         }
@@ -2836,19 +2932,19 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         case 0: case 3: case 6: case 9: case 12: case 15:
             if (matchingCrystal) {
                 const std::int32_t imageNo = WindowSkill_ReadBattlePetImage();
-                static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 3, 5, imageNo));
+                static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, imageNo));
                 static_cast<void>(WindowCraft_SetPreviewPositions(
-                    gCurrentWindow, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+                    currentWindow, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
             } else {
-                static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 3, 5, 0));
+                static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, 0));
             }
             break;
         case 1: case 4: case 7: case 10: case 13: case 16:
             if (gSkillSendModeC8A970 != 0) {
                 const std::int32_t imageNo = WindowSkill_ReadBattlePetImage();
-                static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 3, 5, imageNo));
+                static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, imageNo));
             } else {
-                static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 3, 5, 0));
+                static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, 0));
             }
             break;
         case 5:
@@ -2858,19 +2954,19 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             [[fallthrough]];
         case 2:
             static_cast<void>(WindowCraft_SetPreviewImages(
-                gCurrentWindow, 3, 5, gSkillSendModeC8A970 != 0 ? gSkillPetImageCB0A18 : 0));
+                currentWindow, 3, 5, gSkillSendModeC8A970 != 0 ? gSkillPetImageCB0A18 : 0));
             break;
         default:
             break;
         }
     } else {
-        static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 3, 5, 0));
+        static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, 0));
     }
     if (gSkillSendModeC8A970 != 0) {
         const std::uint8_t mode = gSelectionModeD2D650;
         if (mode == 1 || mode == 4 || mode == 7 || mode == 16 || mode == 10 || mode == 13) {
             if (petAvailable && gCraftPetAssistActive_D67B00 != 0) {
-                static_cast<void>(WindowCraft_AnimatePreviewPositions(gCurrentWindow, 4, 3, 5, gCraftDeadlineCF3B04));
+                static_cast<void>(WindowCraft_AnimatePreviewPositions(currentWindow, 4, 3, 5, gCraftDeadlineCF3B04));
             } else {
                 initializeMode(static_cast<std::uint8_t>(mode - 1));
             }
@@ -3012,41 +3108,47 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         const std::uint8_t mode = gSelectionModeD2D650;
         if (mode == 3) {
             if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-                if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element10])) (*gCurrentWindow)[WindowCraftElementId::Element10]->data.text->text = L"刻印的物品";
-                if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element11])) (*gCurrentWindow)[WindowCraftElementId::Element11]->data.text->text = L"　请选择。";
+                if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"刻印的物品";
+                if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"　请选择。";
                 if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DE70) {
-                    if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::ButtonExecute])) (*gCurrentWindow)[WindowCraftElementId::ButtonExecute]->visible = 1;
-                    if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::HandleEngravingInput])) (*gCurrentWindow)[WindowCraftElementId::HandleEngravingInput]->visible = 1;
-                    if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element8])) (*gCurrentWindow)[WindowCraftElementId::Element8]->visible = 0;
+                    if (auto* const buttonExecuteElement = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute); buttonExecuteElement) buttonExecuteElement->visible = 1;
+                    if (auto* const handleEngravingInputElement = currentWindow->FindElementById(WindowCraftElementId::HandleEngravingInput); handleEngravingInputElement) handleEngravingInputElement->visible = 1;
+                    if (auto* const element8 = currentWindow->FindElementById(WindowCraftElementId::Element8); element8) element8->visible = 0;
                 }
             } else {
-                if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::ButtonExecute_26])) (*gCurrentWindow)[WindowCraftElementId::ButtonExecute_26]->visible = 1;
+                if (auto* const buttonExecute_26Element = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute_26); buttonExecute_26Element) buttonExecute_26Element->visible = 1;
             }
         } else if (mode == 0 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::ButtonExecute_26])) (*gCurrentWindow)[WindowCraftElementId::ButtonExecute_26]->visible = 1;
+            if (auto* const buttonExecute_26Element = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute_26); buttonExecute_26Element) buttonExecute_26Element->visible = 1;
         } else {
             hideControls = true;
         }
     }
     if (hideControls) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::ButtonExecute_26])) (*gCurrentWindow)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::ButtonExecute])) (*gCurrentWindow)[WindowCraftElementId::ButtonExecute]->visible = 0;
+        if (auto* const buttonExecute_26Element = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute_26); buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+        if (auto* const buttonExecuteElement = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute); buttonExecuteElement) buttonExecuteElement->visible = 0;
     }
     const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
     const std::int32_t imageNo = WindowSkillResult_ReadPreviewImage(mapped, 0);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element5]))) { return {}; }
-    cg::yobi::SetYobiActionField2A8(
-        (*gCurrentWindow)[WindowCraftElementId::Element5]->data.animation->action, imageNo);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element5]))) { return {}; }
-    cg::yobi::SetYobiActionField2B8(
-        (*gCurrentWindow)[WindowCraftElementId::Element5]->data.animation->action, 5);
+    auto* const element5 = currentWindow->FindElementById(WindowCraftElementId::Element5);
+    if (element5) {
+        cg::yobi::SetYobiActionField2A8(
+            element5->data.animation->action, imageNo);
+    }
+    auto* const element52 = currentWindow->FindElementById(WindowCraftElementId::Element5);
+    if (element52) {
+        cg::yobi::SetYobiActionField2B8(
+            element52->data.animation->action, 5);
+    }
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowCraftElementId::HandleEngravingInput]))) { return {}; }
-        const WindowElement* const element = (*window)[WindowCraftElementId::HandleEngravingInput];
-        const std::int32_t y = element->y + window->y;
-        const std::int32_t x = element->x + window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 2));
+        WindowInstance* const window = currentWindow;
+        auto* const handleEngravingInputElement = window->FindElementById(WindowCraftElementId::HandleEngravingInput);
+        if (handleEngravingInputElement) {
+            const WindowElement* const element = handleEngravingInputElement;
+            const std::int32_t y = element->y + window->y;
+            const std::int32_t x = element->x + window->x;
+            static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 2));
+        }
     }
     gMaterialHoveredItemD67424 = -1;
     return 1;
@@ -3079,51 +3181,63 @@ static void WindowCraft_Release()
 // 原函数：0x00482000。
 static std::int32_t WindowCraft_Draw(const std::int32_t)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element5]))) { return {}; }
-    cg::yobi::YobiAction* const action =
-        (*gCurrentWindow)[WindowCraftElementId::Element5]->data.animation->action;
-    const std::uint8_t mode = gSelectionModeD2D650;
-    const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
-    if (mode == 2 || mode == 5) {
-        const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
-        if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
-            const bool succeeded = actionId == 18 || actionId == 5;
-            const std::int32_t defaultAction = succeeded ? 5 : 10;
-            cg::yobi::SetYobiActionField2B0(action, defaultAction);
-            for (const auto& range : kCraftAlternateActionImages) {
-                if (imageNo >= range[0] && imageNo <= range[1]) {
-                    cg::yobi::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const element5 = currentWindow->FindElementById(WindowCraftElementId::Element5);
+    if (element5) {
+        cg::yobi::YobiAction* const action =
+            element5->data.animation->action;
+        const std::uint8_t mode = gSelectionModeD2D650;
+        const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
+        if (mode == 2 || mode == 5) {
+            const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
+            if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
+                const bool succeeded = actionId == 18 || actionId == 5;
+                const std::int32_t defaultAction = succeeded ? 5 : 10;
+                cg::yobi::SetYobiActionField2B0(action, defaultAction);
+                for (const auto& range : kCraftAlternateActionImages) {
+                    if (imageNo >= range[0] && imageNo <= range[1]) {
+                        cg::yobi::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+                    }
+                }
+                if (imageNo == 0x18A26) {
+                    cg::yobi::SetYobiActionField2B0(action, defaultAction);
                 }
             }
-            if (imageNo == 0x18A26) {
-                cg::yobi::SetYobiActionField2B0(action, defaultAction);
+        }
+        if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
+            auto* const element52 = currentWindow->FindElementById(WindowCraftElementId::Element5);
+            if (element52) {
+                cg::yobi::SetYobiActionField309(
+                    element52->data.animation->action, 4);
+            }
+            auto* const element53 = currentWindow->FindElementById(WindowCraftElementId::Element5);
+            if (element53) {
+                cg::yobi::SetYobiActionField310(
+                    element53->data.animation->action, 4);
+            }
+        } else {
+            auto* const element52 = currentWindow->FindElementById(WindowCraftElementId::Element5);
+            if (element52) {
+                cg::yobi::SetYobiActionField309(
+                    element52->data.animation->action, 0);
             }
         }
-    }
-    if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element5]))) { return {}; }
-        cg::yobi::SetYobiActionField309(
-            (*gCurrentWindow)[WindowCraftElementId::Element5]->data.animation->action, 4);
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element5]))) { return {}; }
-        cg::yobi::SetYobiActionField310(
-            (*gCurrentWindow)[WindowCraftElementId::Element5]->data.animation->action, 4);
-    } else {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowCraftElementId::Element5]))) { return {}; }
-        cg::yobi::SetYobiActionField309(
-            (*gCurrentWindow)[WindowCraftElementId::Element5]->data.animation->action, 0);
     }
     const std::int32_t hovered = gMaterialHoveredItemD67424;
     if (hovered >= 0) {
         static_cast<void>(WindowItem_DrawEquipmentTooltip(hovered, gMaterialHintPageCF4FD8));
     }
     if (gSelectedItemD460C0 >= 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowCraftElementId::Element12]))) { return {}; }
-        const WindowElement* const element = (*window)[WindowCraftElementId::Element12];
-        const auto y = static_cast<std::int16_t>(element->y + window->y);
-        const auto x = static_cast<std::int16_t>(element->x + window->x);
-        static_cast<void>(render::DrawText_456780(
-            x, y, 3, 12, 127, cg::ui::detail::gInputContextD2DE70.text, 0, 0));
+        WindowInstance* const window = currentWindow;
+        auto* const element12 = window->FindElementById(WindowCraftElementId::Element12);
+        if (element12) {
+            const WindowElement* const element = element12;
+            const auto y = static_cast<std::int16_t>(element->y + window->y);
+            const auto x = static_cast<std::int16_t>(element->x + window->x);
+            static_cast<void>(render::DrawText_456780(
+                x, y, 3, 12, 127, cg::ui::detail::gInputContextD2DE70.text, 0, 0));
+        }
     }
     WindowRuntime_DrawCurrent();
     return 1;
@@ -3135,21 +3249,22 @@ std::int32_t WindowCraft_SetPreviewPositions(
     const std::int32_t first, const std::int32_t second,
     const std::int32_t dx, const std::int32_t dy)
 {
-    if ((window && (*window)[NativeElementKey(first)])) (*window)[NativeElementKey(first)]->visible = 0;
+    if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(first)) : nullptr; indexedElement) indexedElement->visible = 0;
     auto* elementsWindow = window;
-    if ((elementsWindow && (*elementsWindow)[NativeElementKey(first)]) && (elementsWindow && (*elementsWindow)[NativeElementKey(anchor)])) (*elementsWindow)[NativeElementKey(first)]->x = (*elementsWindow)[NativeElementKey(anchor)]->x + dx;
+    if (auto* const indexedElement2 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(first)) : nullptr, * const indexedElement3 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(anchor)) : nullptr; indexedElement2 && indexedElement3) indexedElement2->x = indexedElement3->x + dx;
     elementsWindow = window;
-    if ((elementsWindow && (*elementsWindow)[NativeElementKey(first)]) && (elementsWindow && (*elementsWindow)[NativeElementKey(anchor)])) (*elementsWindow)[NativeElementKey(first)]->y = (*elementsWindow)[NativeElementKey(anchor)]->y + dy;
-    if ((window && (*window)[NativeElementKey(second)])) (*window)[NativeElementKey(second)]->visible = 0;
+    if (auto* const indexedElement4 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(first)) : nullptr, * const indexedElement5 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(anchor)) : nullptr; indexedElement4 && indexedElement5) indexedElement4->y = indexedElement5->y + dy;
+    if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(second)) : nullptr; indexedElement6) indexedElement6->visible = 0;
     elementsWindow = window;
-    if ((elementsWindow && (*elementsWindow)[NativeElementKey(second)]) && (elementsWindow && (*elementsWindow)[NativeElementKey(anchor)])) (*elementsWindow)[NativeElementKey(second)]->x = (*elementsWindow)[NativeElementKey(anchor)]->x + dx;
+    if (auto* const indexedElement7 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(second)) : nullptr, * const indexedElement8 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(anchor)) : nullptr; indexedElement7 && indexedElement8) indexedElement7->x = indexedElement8->x + dx;
     elementsWindow = window;
-    if ((elementsWindow && (*elementsWindow)[NativeElementKey(second)]) && (elementsWindow && (*elementsWindow)[NativeElementKey(anchor)])) (*elementsWindow)[NativeElementKey(second)]->y = (*elementsWindow)[NativeElementKey(anchor)]->y + dy;
+    if (auto* const indexedElement9 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(second)) : nullptr, * const indexedElement10 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(anchor)) : nullptr; indexedElement9 && indexedElement10) indexedElement9->y = indexedElement10->y + dy;
     elementsWindow = window;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(first)]))) { return {}; }
-    auto* const data = (*elementsWindow)[NativeElementKey(first)]->data.animation;
+    auto* const dataElement = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(first)) : nullptr;
+    if (!dataElement) { return {}; }
+    auto* const data = dataElement->data.animation;
     if (cg::yobi::GetYobiActionField2A8(data->action) > 0) {
-        if ((elementsWindow && (*elementsWindow)[NativeElementKey(dy > 0 ? first : second)])) (*elementsWindow)[NativeElementKey(dy > 0 ? first : second)]->visible = 1;
+        if (auto* const indexedElement11 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(dy > 0 ? first : second)) : nullptr; indexedElement11) indexedElement11->visible = 1;
     }
     return first * 36;
 }
@@ -3159,25 +3274,29 @@ WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
     WindowInstance* const window, const std::int32_t first, const std::int32_t second,
     const std::int32_t flag, const std::int32_t actionId, const std::int32_t direction)
 {
-    if (!((window && (*window)[NativeElementKey(first)]))) { return {}; }
-    auto* data = (*window)[NativeElementKey(first)]->data.animation;
-    cg::yobi::YobiAction* action = data->action;
+    if (!window) return nullptr;
     const std::uint32_t value = flag == 0 ? 1u : 0u;
-    data->value04 = value;
-    cg::yobi::SetYobiActionField2B0(action, actionId);
-    cg::yobi::SetYobiActionField2B8(action, direction);
-    if (!((window && (*window)[NativeElementKey(second)]))) { return {}; }
-    data = (*window)[NativeElementKey(second)]->data.animation;
-    action = data->action;
-    data->value04 = value;
-    cg::yobi::SetYobiActionField2B0(action, actionId);
-    cg::yobi::SetYobiActionField2B8(action, direction);
-    return data;
+    if (auto* const element = window->FindElementById(NativeElementKey(first))) {
+        auto* const data = element->data.animation;
+        data->value04 = value;
+        cg::yobi::SetYobiActionField2B0(data->action, actionId);
+        cg::yobi::SetYobiActionField2B8(data->action, direction);
+    }
+    if (auto* const element = window->FindElementById(NativeElementKey(second))) {
+        auto* const data = element->data.animation;
+        data->value04 = value;
+        cg::yobi::SetYobiActionField2B0(data->action, actionId);
+        cg::yobi::SetYobiActionField2B8(data->action, direction);
+        return data;
+    }
+    return nullptr;
 }
 
 // 原函数：0x00484D60。
 static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -3186,16 +3305,18 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
     const std::int32_t slot = index - 15;
     std::int32_t consumed = 0;
     if ((events & 0x21) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t x = window->x + element->x;
-        const std::int32_t y = window->y + element->y;
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
-            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            0xDF, imageNo, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t x = window->x + element->x;
+            const std::int32_t y = window->y + element->y;
+            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+                0xDF, imageNo, 0);
+        }
     }
     const std::int32_t selected = gSelectedSlotsCA0A90[slot];
     if (selected < 0) {
@@ -3215,13 +3336,15 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
         }
         gMaterialHoveredItemD67424 = selected + 8;
     }
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const WindowElement* const element = (*window)[NativeElementKey(index)];
-    const std::int32_t imageNo = gSelectionImagesCF3FF4[slot];
-    const std::int32_t y = window->y + element->y + 24;
-    const std::int32_t x = window->x + element->x + 24;
-    static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
+    WindowInstance* const window = currentWindow;
+    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    if (elementPtr) {
+        const WindowElement* const element = elementPtr;
+        const std::int32_t imageNo = gSelectionImagesCF3FF4[slot];
+        const std::int32_t y = window->y + element->y + 24;
+        const std::int32_t x = window->x + element->x + 24;
+        static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
+    }
     return consumed;
 }
 
@@ -3237,79 +3360,91 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
     const std::wstring name = skillId == 255 || skillId == 2026
         ? gCraftNameCF46D4
         : world::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name;
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = name;
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = name;
     const std::int32_t result = gCraftResultCC46D8;
-    if (!((window && (*window)[WindowCraftElementId::Element11]))) { return {}; }
-    auto* const resultText = (*window)[WindowCraftElementId::Element11]->data.text;
-    if (result != 0) {
-        resultText->text = L"　制造成功了。" /* 原常量参考：0x00586638。 */;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
-    } else {
-        resultText->text = L"　制造失败了。" /* 原常量参考：0x00586628。 */;
-        static_cast<void>(audio::PlaySe_52C450(58, 320));
+    auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr;
+    if (element11) {
+        auto* const resultText = element11->data.text;
+        if (result != 0) {
+            resultText->text = L"　制造成功了。" /* 原常量参考：0x00586638。 */;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        } else {
+            resultText->text = L"　制造失败了。" /* 原常量参考：0x00586628。 */;
+            static_cast<void>(audio::PlaySe_52C450(58, 320));
+        }
     }
     if (gCraftLevelUpCF4974 != 0) {
-        if ((window && (*window)[WindowCraftElementId::Element12])) (*window)[WindowCraftElementId::Element12]->data.text->text = kCraftLevelUp58661C;
+        if (auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr; element12) element12->data.text->text = kCraftLevelUp58661C;
     } else {
-        if (!((window && (*window)[WindowCraftElementId::Element12]))) { return {}; }
-        auto* const data = (*window)[WindowCraftElementId::Element12]->data.text;
-        cg::text::FormatTo(data->text, kCraftExperience58660C, gCraftExperienceCC3204);
+        auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr;
+        if (element12) {
+            auto* const data = element12->data.text;
+            cg::text::FormatTo(data->text, kCraftExperience58660C, gCraftExperienceCC3204);
+        }
     }
-    if (!((window && (*window)[WindowCraftElementId::Element13]))) { return {}; }
-    std::wstring& increments = (*window)[WindowCraftElementId::Element13]->data.text->text;
-    increments.clear();
-    if (gCraftEnduranceD2F328 != 0) {
-        increments.append(std::format(kCraftEndurance586600, gCraftEnduranceD2F328));
+    auto* const element13 = window ? window->FindElementById(WindowCraftElementId::Element13) : nullptr;
+    if (element13) {
+        std::wstring& increments = element13->data.text->text;
+        increments.clear();
+        if (gCraftEnduranceD2F328 != 0) {
+            increments.append(std::format(kCraftEndurance586600, gCraftEnduranceD2F328));
+        }
+        if (gCraftDexterityCA0448 != 0) {
+            increments.append(std::format(kCraftDexterity5865F4, gCraftDexterityCA0448));
+        }
+        if (gCraftIntelligenceCB0F84 != 0) {
+            increments.append(std::format(kCraftIntelligence5865E8, gCraftIntelligenceCB0F84));
+        }
     }
-    if (gCraftDexterityCA0448 != 0) {
-        increments.append(std::format(kCraftDexterity5865F4, gCraftDexterityCA0448));
-    }
-    if (gCraftIntelligenceCB0F84 != 0) {
-        increments.append(std::format(kCraftIntelligence5865E8, gCraftIntelligenceCB0F84));
-    }
-    if ((window && (*window)[WindowCraftElementId::Element14])) (*window)[WindowCraftElementId::Element14]->data.text->text = gCraftInjuryD2EA78 != 0 ? L"受伤了！" /* 原常量参考：0x005865DC。 */ : L"";
+    if (auto* const element14 = window ? window->FindElementById(WindowCraftElementId::Element14) : nullptr; element14) element14->data.text->text = gCraftInjuryD2EA78 != 0 ? L"受伤了！" /* 原常量参考：0x005865DC。 */ : L"";
     const std::int32_t imageResult = gCraftResultCC46D8;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
         gCraftDisplayImageCB2204 = gCraftResultImageCF4B60;
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA38;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3A;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA38;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3A;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialTooltip;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialTooltip;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::Element5])) (*window)[WindowCraftElementId::Element5]->data.animation->value04 = 1;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 1;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 1;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 0;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 0;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 1;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 1;
+    if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 1;
     const bool succeeded = gCraftResultCC46D8 != 0;
     const std::int32_t defaultAction = succeeded ? 5 : 10;
     const std::int32_t alternateAction = succeeded ? 18 : 15;
-    if (!((window && (*window)[WindowCraftElementId::Element5]))) { return {}; }
-    cg::yobi::SetYobiActionField2B0(
-        (*window)[WindowCraftElementId::Element5]->data.animation->action, defaultAction);
+    auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+    if (element52) {
+        cg::yobi::SetYobiActionField2B0(
+            element52->data.animation->action, defaultAction);
+    }
     std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
-            if (!((window && (*window)[WindowCraftElementId::Element5]))) { continue; }
-            cg::yobi::SetYobiActionField2B0(
-                (*window)[WindowCraftElementId::Element5]->data.animation->action, alternateAction);
+            auto* const element53 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+            if (element53) {
+                cg::yobi::SetYobiActionField2B0(
+                    element53->data.animation->action, alternateAction);
+            }
             imageNo = world::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
-        if (!((window && (*window)[WindowCraftElementId::Element5]))) { return {}; }
-        cg::yobi::SetYobiActionField2B0(
-            (*window)[WindowCraftElementId::Element5]->data.animation->action, defaultAction);
+        auto* const element53 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+        if (element53) {
+            cg::yobi::SetYobiActionField2B0(
+                element53->data.animation->action, defaultAction);
+        }
     }
-    if ((window && (*window)[WindowCraftElementId::HandleEngravingInput])) (*window)[WindowCraftElementId::HandleEngravingInput]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element8])) (*window)[WindowCraftElementId::Element8]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute])) (*window)[WindowCraftElementId::ButtonExecute]->visible = 0;
+    if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
+    if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
+    if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* last;
@@ -3396,6 +3531,8 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, 
 // 原函数：0x00484E90。
 static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -3403,16 +3540,18 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
     const auto events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
     if ((events & 0x21) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t y = window->y + element->y;
-        const std::int32_t x = window->x + element->x;
-        const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
-            static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
-            0xDF, imageNo, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement* const element = elementPtr;
+            const std::int32_t y = window->y + element->y;
+            const std::int32_t x = window->x + element->x;
+            const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + 48), static_cast<std::uint16_t>(y + 48),
+                0xDF, imageNo, 0);
+        }
     }
     const std::int32_t selected = gSelectedItemD460C0;
     if (selected < 0) {
@@ -3432,13 +3571,15 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
         }
         gMaterialHoveredItemD67424 = selected;
     }
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const WindowElement* const element = (*window)[NativeElementKey(index)];
-    const std::int32_t imageNo = gSelectedImageCC3ED8;
-    const std::int32_t y = window->y + element->y + 24;
-    const std::int32_t x = window->x + element->x + 24;
-    static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
+    WindowInstance* const window = currentWindow;
+    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    if (elementPtr) {
+        const WindowElement* const element = elementPtr;
+        const std::int32_t imageNo = gSelectedImageCC3ED8;
+        const std::int32_t y = window->y + element->y + 24;
+        const std::int32_t x = window->x + element->x + 24;
+        static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
+    }
     return consumed;
 }
 
@@ -3452,7 +3593,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
         static_cast<void>(WindowCraft_ReleaseMaterials(6));
     }
     const auto* const item = &world::gPlayerRuntimeSlots.items[selected];
-    if ((window && (*window)[WindowCraftElementId::Element10])) (*window)[WindowCraftElementId::Element10]->data.text->text = item->name;
+    if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = item->name;
     const std::int32_t skillId = world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
     const wchar_t* message = nullptr;
     switch (skillId) {
@@ -3474,76 +3615,86 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
         break;
     }
     if (message != nullptr) {
-        if ((window && (*window)[WindowCraftElementId::Element11])) (*window)[WindowCraftElementId::Element11]->data.text->text = message;
+        if (auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr; element11) element11->data.text->text = message;
     }
     static_cast<void>(audio::PlaySe_52C450(gItemWorkResultCB05FC != 0 ? 57 : 58, 320));
     if (gItemWorkLevelUpCB03D8 != 0) {
-        if ((window && (*window)[WindowCraftElementId::Element12])) (*window)[WindowCraftElementId::Element12]->data.text->text = kCraftLevelUp58661C;
+        if (auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr; element12) element12->data.text->text = kCraftLevelUp58661C;
     } else {
-        if (!((window && (*window)[WindowCraftElementId::Element12]))) { return {}; }
-        auto* const data = (*window)[WindowCraftElementId::Element12]->data.text;
-        cg::text::FormatTo(data->text, kCraftExperience58660C, gItemWorkExperienceC8A950);
+        auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr;
+        if (element12) {
+            auto* const data = element12->data.text;
+            cg::text::FormatTo(data->text, kCraftExperience58660C, gItemWorkExperienceC8A950);
+        }
     }
-    if (!((window && (*window)[WindowCraftElementId::Element13]))) { return {}; }
-    std::wstring& increments = (*window)[WindowCraftElementId::Element13]->data.text->text;
-    increments.clear();
-    // 原门禁取制造回复，显示值取本次物品回复；不能收敛成同一来源。
-    if (gCraftEnduranceD2F328 != 0) {
-        increments.append(std::format(kCraftEndurance586600, gItemWorkEnduranceCF46B4));
+    auto* const element13 = window ? window->FindElementById(WindowCraftElementId::Element13) : nullptr;
+    if (element13) {
+        std::wstring& increments = element13->data.text->text;
+        increments.clear();
+        // 原门禁取制造回复，显示值取本次物品回复；不能收敛成同一来源。
+        if (gCraftEnduranceD2F328 != 0) {
+            increments.append(std::format(kCraftEndurance586600, gItemWorkEnduranceCF46B4));
+        }
+        if (gCraftDexterityCA0448 != 0) {
+            increments.append(std::format(kCraftDexterity5865F4, gItemWorkDexterityCB0A14));
+        }
+        if (gCraftIntelligenceCB0F84 != 0) {
+            increments.append(std::format(kCraftIntelligence5865E8, gItemWorkIntelligenceD30418));
+        }
     }
-    if (gCraftDexterityCA0448 != 0) {
-        increments.append(std::format(kCraftDexterity5865F4, gItemWorkDexterityCB0A14));
-    }
-    if (gCraftIntelligenceCB0F84 != 0) {
-        increments.append(std::format(kCraftIntelligence5865E8, gItemWorkIntelligenceD30418));
-    }
-    if ((window && (*window)[WindowCraftElementId::Element14])) (*window)[WindowCraftElementId::Element14]->data.text->text = gItemWorkInjuryD2E2A8 != 0 ? L"受伤了！" /* 原常量参考：0x005865DC。 */ : L"";
+    if (auto* const element14 = window ? window->FindElementById(WindowCraftElementId::Element14) : nullptr; element14) element14->data.text->text = gItemWorkInjuryD2E2A8 != 0 ? L"受伤了！" /* 原常量参考：0x005865DC。 */ : L"";
     const std::int32_t imageResult = gItemWorkResultCB05FC;
     gCraftDisplayImageCB2204 = -1;
     if (imageResult != 0) {
         gCraftDisplayImageCB2204 = item->imageNo;
     }
-    if ((window && (*window)[WindowCraftElementId::Element30])) (*window)[WindowCraftElementId::Element30]->data.graphic->imageNo = 0x3BA39;
-    if ((window && (*window)[WindowCraftElementId::Element15])) (*window)[WindowCraftElementId::Element15]->data.graphic->imageNo = 0x3BA3A;
+    if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA39;
+    if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3A;
     for (std::int32_t index = 15; index <= 20; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->mouseCallback = WindowCraft_HandleMaterialTooltip;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->mouseCallback = WindowCraft_HandleMaterialTooltip;
     }
-    if ((window && (*window)[WindowCraftElementId::Element25])) (*window)[WindowCraftElementId::Element25]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage])) (*window)[WindowCraftElementId::DrawResultImage]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::HandleSingleMaterial])) (*window)[WindowCraftElementId::HandleSingleMaterial]->mouseCallback = WindowCraft_HandleItemTooltip;
-    if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 1;
+    if (auto* const element25 = window ? window->FindElementById(WindowCraftElementId::Element25) : nullptr; element25) element25->visible = 0;
+    if (auto* const drawResultImageElement = window ? window->FindElementById(WindowCraftElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 0;
+    if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 1;
+    if (auto* const handleSingleMaterialElement2 = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement2) handleSingleMaterialElement2->mouseCallback = WindowCraft_HandleItemTooltip;
+    if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 1;
     if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
-        if ((window && (*window)[WindowCraftElementId::DrawResultImage_24])) (*window)[WindowCraftElementId::DrawResultImage_24]->visible = 0;
+        if (auto* const drawResultImage_24Element2 = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element2) drawResultImage_24Element2->visible = 0;
     }
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute_26])) (*window)[WindowCraftElementId::ButtonExecute_26]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonContinue])) (*window)[WindowCraftElementId::ButtonContinue]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::ButtonClose])) (*window)[WindowCraftElementId::ButtonClose]->visible = 1;
-    if ((window && (*window)[WindowCraftElementId::Element5])) (*window)[WindowCraftElementId::Element5]->data.animation->value04 = 1;
+    if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
+    if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 1;
+    if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 1;
+    if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 1;
     const bool succeeded = gItemWorkResultCB05FC != 0;
     const std::int32_t defaultAction = succeeded ? 5 : 10;
     const std::int32_t alternateAction = succeeded ? 18 : 15;
-    if (!((window && (*window)[WindowCraftElementId::Element5]))) { return {}; }
-    cg::yobi::SetYobiActionField2B0(
-        (*window)[WindowCraftElementId::Element5]->data.animation->action, defaultAction);
+    auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+    if (element52) {
+        cg::yobi::SetYobiActionField2B0(
+            element52->data.animation->action, defaultAction);
+    }
     std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
-            if (!((window && (*window)[WindowCraftElementId::Element5]))) { continue; }
-            cg::yobi::SetYobiActionField2B0(
-                (*window)[WindowCraftElementId::Element5]->data.animation->action, alternateAction);
+            auto* const element53 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+            if (element53) {
+                cg::yobi::SetYobiActionField2B0(
+                    element53->data.animation->action, alternateAction);
+            }
             imageNo = world::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
-        if (!((window && (*window)[WindowCraftElementId::Element5]))) { return {}; }
-        cg::yobi::SetYobiActionField2B0(
-            (*window)[WindowCraftElementId::Element5]->data.animation->action, defaultAction);
+        auto* const element53 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
+        if (element53) {
+            cg::yobi::SetYobiActionField2B0(
+                element53->data.animation->action, defaultAction);
+        }
     }
-    if ((window && (*window)[WindowCraftElementId::HandleEngravingInput])) (*window)[WindowCraftElementId::HandleEngravingInput]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::Element8])) (*window)[WindowCraftElementId::Element8]->visible = 0;
-    if ((window && (*window)[WindowCraftElementId::ButtonExecute])) (*window)[WindowCraftElementId::ButtonExecute]->visible = 0;
+    if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
+    if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
+    if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* last;
@@ -3623,6 +3774,8 @@ WindowAnimationData* WindowCraft_AnimatePreviewPositions(
     WindowInstance*, const std::int32_t anchor,
     const std::int32_t first, const std::int32_t second, const std::uint64_t deadline)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::uint64_t tick = platform::ReadTickCount64();
     const std::uint64_t start = gSkillPreviewTickCF46C8;
     const std::int64_t interval = std::bit_cast<std::int64_t>(deadline - start) / 11;
@@ -3639,20 +3792,20 @@ WindowAnimationData* WindowCraft_AnimatePreviewPositions(
                 (to[1] - from[1]) * remainder / interval + from[1]);
             const std::int32_t x = static_cast<std::int32_t>(
                 (to[0] - from[0]) * remainder / interval + from[0]);
-            static_cast<void>(WindowCraft_SetPreviewPositions(gCurrentWindow, anchor, first, second, x, y));
-            return WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, first, second, 1, 1, to[2]);
+            static_cast<void>(WindowCraft_SetPreviewPositions(currentWindow, anchor, first, second, x, y));
+            return WindowCraft_ConfigurePreviews_47D220(currentWindow, first, second, 1, 1, to[2]);
         }
         std::int32_t index = static_cast<std::int32_t>(phase / 2 + 1);
         if (index > 7) {
             index = 0;
         }
         const auto& point = kSkillPreviewPoints57D7D0[index];
-        static_cast<void>(WindowCraft_SetPreviewPositions(gCurrentWindow, anchor, first, second, point[0], point[1]));
-        return WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, first, second, 1, 0, 5);
+        static_cast<void>(WindowCraft_SetPreviewPositions(currentWindow, anchor, first, second, point[0], point[1]));
+        return WindowCraft_ConfigurePreviews_47D220(currentWindow, first, second, 1, 0, 5);
     }
     static_cast<void>(WindowCraft_SetPreviewPositions(
-        gCurrentWindow, anchor, first, second, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    return WindowCraft_ConfigurePreviews_47D220(gCurrentWindow, first, second, 1, 0, 5);
+        currentWindow, anchor, first, second, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
+    return WindowCraft_ConfigurePreviews_47D220(currentWindow, first, second, 1, 0, 5);
 }
 
 // 原函数：0x0047D280。
@@ -3660,15 +3813,19 @@ std::int32_t WindowCraft_SetPreviewImages(
     WindowInstance* const window, const std::int32_t first,
     const std::int32_t second, const std::int32_t imageNo)
 {
-    if (!((window && (*window)[NativeElementKey(first)]))) { return {}; }
-    cg::yobi::SetYobiActionField2A8(
-        (*window)[NativeElementKey(first)]->data.animation->action, imageNo);
-    if (!((window && (*window)[NativeElementKey(second)]))) { return {}; }
-    cg::yobi::SetYobiActionField2A8(
-        (*window)[NativeElementKey(second)]->data.animation->action, imageNo);
+    auto* const indexedElement = window ? window->FindElementById(NativeElementKey(first)) : nullptr;
+    if (indexedElement) {
+        cg::yobi::SetYobiActionField2A8(
+            indexedElement->data.animation->action, imageNo);
+    }
+    auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(second)) : nullptr;
+    if (indexedElement2) {
+        cg::yobi::SetYobiActionField2A8(
+            indexedElement2->data.animation->action, imageNo);
+    }
     if (imageNo <= 0) {
-        if ((window && (*window)[NativeElementKey(first)])) (*window)[NativeElementKey(first)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(second)])) (*window)[NativeElementKey(second)]->visible = 0;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(first)) : nullptr; indexedElement3) indexedElement3->visible = 0;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(second)) : nullptr; indexedElement4) indexedElement4->visible = 0;
     }
     return first * 36;
 }

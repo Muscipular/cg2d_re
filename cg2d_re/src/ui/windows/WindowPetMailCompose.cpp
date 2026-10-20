@@ -85,6 +85,8 @@ WindowPrototype gWindowPrototypePetMailCompose {0, 4, 383, 81, 211, 259, 0x80010
 // 原函数：0x004A56F0。
 static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         WindowInstance* const normalWindow = gWindowStates[WindowId_MailCompose].window;
         if (normalWindow != nullptr) {
@@ -106,16 +108,18 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         if (WindowRuntime_MatchesRuntimePrefix(current, previous) != 0) {
             gMailInputPrototype57E740.text = cg::text::FromGbkWide(reinterpret_cast<const char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()));
         }
-        const WindowInstance* const window = gCurrentWindow;
+        const WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
-        WindowInstance* const focused = gCurrentWindow;
+        WindowInstance* const focused = currentWindow;
         gMailInputPrototype57E740.text.clear();
-        if (!((focused && (*focused)[WindowPetMailComposeElementId::HandleInput]))) { return {}; }
-        gFocusedElementDataD45F94 = (*focused)[WindowPetMailComposeElementId::HandleInput]->data.input;
-        if ((focused && (*focused)[WindowPetMailComposeElementId::HandleInput])) (*focused)[WindowPetMailComposeElementId::HandleInput]->data.input->context = &cg::ui::detail::gInputContextD66CA8;
+        auto* const handleInputElement = focused->FindElementById(WindowPetMailComposeElementId::HandleInput);
+        if (handleInputElement) {
+            gFocusedElementDataD45F94 = handleInputElement->data.input;
+        }
+        if (auto* const handleInputElement2 = focused->FindElementById(WindowPetMailComposeElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &cg::ui::detail::gInputContextD66CA8;
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
@@ -137,12 +141,12 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         }
     }
     if (gLoginWindowRuntime.choicesCC4CA0.value00 == 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
     if (world::gPetRuntimeRecords[pet].used == 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowPetMailCompose_RefreshPet());
     WindowInstance* const groupWindow = gWindowStates[WindowId_GroupSelect].window;
@@ -155,6 +159,8 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
 // 原函数：0x004A6300。
 static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
@@ -197,24 +203,32 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
         static_cast<void>(WindowDrag_ReadSourceIndex());
     }
     if ((events & 0x21u) != 0) {
-        const WindowInstance* const window = gCurrentWindow;
+        const WindowInstance* const window = currentWindow;
         const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
         const std::int32_t windowY = window->y;
         auto* elementsWindow = window;
         const std::int32_t windowX = window->x;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t elementX = (*elementsWindow)[NativeElementKey(index)]->x;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t elementY = (*elementsWindow)[NativeElementKey(index)]->y;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t height = (*elementsWindow)[NativeElementKey(index)]->height;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t width = (*elementsWindow)[NativeElementKey(index)]->width;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(windowX + elementX),
-            static_cast<std::uint16_t>(windowY + elementY),
-            static_cast<std::uint16_t>(width + windowX + elementX),
-            static_cast<std::uint16_t>(height + windowY + elementY), 223, image, 0);
+        auto* const elementXElement = elementsWindow->FindElementById(NativeElementKey(index));
+        if (elementXElement) {
+            const std::int32_t elementX = elementXElement->x;
+            auto* const elementYElement = elementsWindow->FindElementById(NativeElementKey(index));
+            if (elementYElement) {
+                const std::int32_t elementY = elementYElement->y;
+                auto* const heightElement = elementsWindow->FindElementById(NativeElementKey(index));
+                if (heightElement) {
+                    const std::int32_t height = heightElement->height;
+                    auto* const widthElement = elementsWindow->FindElementById(NativeElementKey(index));
+                    if (widthElement) {
+                        const std::int32_t width = widthElement->width;
+                        cg::render::DrawGraphicHover(
+                            static_cast<std::uint16_t>(windowX + elementX),
+                            static_cast<std::uint16_t>(windowY + elementY),
+                            static_cast<std::uint16_t>(width + windowX + elementX),
+                            static_cast<std::uint16_t>(height + windowY + elementY), 223, image, 0);
+                    }
+                }
+            }
+        }
     }
     return consumed;
 }
@@ -237,24 +251,28 @@ static std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
 // 原函数：0x004A6450。
 static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     switch (index) {
     case 2:
     case 8:
     case 9: {
         const std::int32_t idle = index == 2 ? 0x3BE54 : index == 8 ? 0x3BE5D : 0x3BE5A;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = idle + 2;
-            gHoverTextD68AE8 = index == 2 ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
-            consumed = 1;
-        } else {
-            graphic->imageNo = idle;
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = idle + 2;
+                gHoverTextD68AE8 = index == 2 ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
+                consumed = 1;
+            } else {
+                graphic->imageNo = idle;
+            }
         }
         if ((state & 2) != 0) {
             if (index == 2) {
-                gCurrentWindow->state |= 0x8000u;
+                currentWindow->state |= 0x8000u;
                 static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
             } else if (index == 8) {
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08 - 1;
@@ -275,7 +293,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = idle + 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 1;
         }
         return consumed;
     }
@@ -286,14 +304,16 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
     }
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 0x3BA1D;
-            gHoverTextD68AE8 = kReplyMailHint587730;
-            consumed = 1;
-        } else {
-            graphic->imageNo = 0x3BA1B;
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3BA1D;
+                gHoverTextD68AE8 = kReplyMailHint587730;
+                consumed = 1;
+            } else {
+                graphic->imageNo = 0x3BA1B;
+            }
         }
         if ((state & 2) != 0) {
             bool allowed = !cg::ui::detail::gInputContextD66CA8.empty();
@@ -345,7 +365,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
                 static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 cg::ui::detail::gInputContextD66CA8.clearText();
                 window->state |= 0x8000u;
             } else if (category == 0) {
@@ -355,7 +375,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
         }
     }
     if ((state & 8) != 0) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BA1C;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BA1C;
     }
     return consumed;
 }
@@ -363,21 +383,27 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
 // 原函数：0x004A6AC0。
 static std::uint8_t WindowPetMailCompose_RefreshPet()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
         const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetMailComposeElementId::Element7]))) { return {}; }
-        auto* const text = (*gCurrentWindow)[WindowPetMailComposeElementId::Element7]->data.text;
-        text->text = category == 0 ? world::detail::gContactsF19FB0[target].name10
-            : cg::world::gOrderedRecords1051B14[target].name18;
+        auto* const element7 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element7);
+        if (element7) {
+            auto* const text = element7->data.text;
+            text->text = category == 0 ? world::detail::gContactsF19FB0[target].name10
+                : cg::world::gOrderedRecords1051B14[target].name18;
+        }
     }
     const std::int32_t namePosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t namePet = gLoginWindowRuntime.choicesCC4CA0.values04[namePosition];
     const auto& pet = world::gPetRuntimeRecords[namePet];
     const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetMailComposeElementId::Element8]))) { return {}; }
-    auto* const nameData = (*gCurrentWindow)[WindowPetMailComposeElementId::Element8]->data.text;
-    nameData->text = name;
+    auto* const element8 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element8);
+    if (element8) {
+        auto* const nameData = element8->data.text;
+        nameData->text = name;
+    }
     const std::int32_t firstPosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t firstPet = gLoginWindowRuntime.choicesCC4CA0.values04[firstPosition];
     bool unavailable = WindowPetMailCompose_HasGiftPet(firstPet) != 0;
@@ -386,15 +412,17 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
         const std::int32_t secondPet = gLoginWindowRuntime.choicesCC4CA0.values04[secondPosition];
         unavailable = WindowPetMailCompose_HasGiftItem(secondPet) != 0;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetMailComposeElementId::Element8]))) { return {}; }
-    auto* const colorData = (*gCurrentWindow)[WindowPetMailComposeElementId::Element8]->data.text;
-    colorData->style.color = unavailable ? std::byte{7} : std::byte{0};
+    auto* const element82 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element8);
+    if (element82) {
+        auto* const colorData = element82->data.text;
+        colorData->style.color = unavailable ? std::byte{7} : std::byte{0};
+    }
     const bool hasItem = gLoginWindowRuntime.prefixD2F0B8.value0C != -1;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowPetMailComposeElementId::Element5])) (*gCurrentWindow)[WindowPetMailComposeElementId::Element5]->visible = 0;
+    if (auto* const element5 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element5); element5) element5->visible = 0;
     if (hasItem) {
         const std::int32_t imageSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
         const std::int32_t image = world::gPlayerRuntimeSlots.items[imageSlot].imageNo;
-        const WindowInstance* const graphicWindow = gCurrentWindow;
+        const WindowInstance* const graphicWindow = currentWindow;
         const std::int32_t y = graphicWindow->y;
         const std::int32_t x = graphicWindow->x;
         static_cast<void>(cg::render::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
@@ -403,13 +431,13 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
         if (count > 0) {
             std::wstring buffer;
             cg::text::FormatTo(buffer, L"{:3}", count);
-            const WindowInstance* const textWindow = gCurrentWindow;
+            const WindowInstance* const textWindow = currentWindow;
             const auto textY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->y + 232));
             const auto textX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->x + 174));
             static_cast<void>(render::DrawText_456780(textX, textY, 3, 1, 1, buffer, 0, 0));
         }
     }
-    const WindowInstance* const window = gCurrentWindow;
+    const WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
     return WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 2);

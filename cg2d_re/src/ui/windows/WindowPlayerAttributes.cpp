@@ -257,6 +257,8 @@ WindowPrototype gWindowPrototypePlayerAttributes {0, 4, 15, 97, 315, 261, 0x8000
 // 原函数：0x00475E00。
 static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::array<std::int32_t, 6> values;
     values[1] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
     values[2] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
@@ -271,24 +273,26 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     const std::int32_t limit = total / 2;
 
     if (index >= 29 && index <= 33) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        std::int32_t consumed = 0;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B53D;
-            gHoverTextD68AE8 = L"分配点数至目前的能力数值。";
-            consumed = 1;
-        } else {
-            graphic->imageNo = 0x3B53B;
-        }
-        if ((state & 2) != 0) {
-            if (values[index - 29] < limit) {
-                static_cast<void>(network::IncreasePlayerAttributeRequest_5123B0(platform::gConnectionSocket, index - 29));
-                static_cast<void>(audio::PlaySe_52C450(78, 320));
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            std::int32_t consumed = 0;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B53D;
+                gHoverTextD68AE8 = L"分配点数至目前的能力数值。";
+                consumed = 1;
+            } else {
+                graphic->imageNo = 0x3B53B;
             }
-            return 1;
+            if ((state & 2) != 0) {
+                if (values[index - 29] < limit) {
+                    static_cast<void>(network::IncreasePlayerAttributeRequest_5123B0(platform::gConnectionSocket, index - 29));
+                    static_cast<void>(audio::PlaySe_52C450(78, 320));
+                }
+                return 1;
+            }
+            return consumed;
         }
-        return consumed;
     }
 
     std::int32_t idleImage;
@@ -310,9 +314,11 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         break;
     case 38:
         if (character_select::state::gPukVersion < 8u) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-            (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo =
-                0x3C111;
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                indexedElement->data.graphic->imageNo =
+                    0x3C111;
+            }
             return 0;
         }
         idleImage = 0x3C111;
@@ -323,47 +329,57 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     default:
         return 0;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        graphic->imageNo = hoverImage;
-        gHoverTextD68AE8 = hint;
-        consumed = 1;
-    } else {
-        graphic->imageNo = idleImage;
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            graphic->imageNo = hoverImage;
+            gHoverTextD68AE8 = hint;
+            consumed = 1;
+        } else {
+            graphic->imageNo = idleImage;
+        }
+        if ((state & 2) != 0 && gWindowStates[targetWindow].window == nullptr) {
+            currentWindow->state |= 0x8000u;
+            static_cast<void>(WindowRuntime_Open(targetWindow));
+            WindowInstance* const xSource = currentWindow;
+            WindowInstance* const xTarget = gWindowStates[targetWindow].window;
+            xTarget->x = xSource->x;
+            WindowInstance* const ySource = currentWindow;
+            WindowInstance* const yTarget = gWindowStates[targetWindow].window;
+            yTarget->y = ySource->y;
+            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            consumed = 1;
+        }
+        return consumed;
     }
-    if ((state & 2) != 0 && gWindowStates[targetWindow].window == nullptr) {
-        gCurrentWindow->state |= 0x8000u;
-        static_cast<void>(WindowRuntime_Open(targetWindow));
-        WindowInstance* const xSource = gCurrentWindow;
-        WindowInstance* const xTarget = gWindowStates[targetWindow].window;
-        xTarget->x = xSource->x;
-        WindowInstance* const ySource = gCurrentWindow;
-        WindowInstance* const yTarget = gWindowStates[targetWindow].window;
-        yTarget->y = ySource->y;
-        static_cast<void>(audio::PlaySe_52C450(56, 320));
-        consumed = 1;
-    }
-    return consumed;
+    return {};
 }
 
 // 原4767E0：逐项格式化后重取元素；点数门槛阶段独立读取，见window_8.md。
 // 原函数：0x004767E0。
 static void WindowPlayerAttributes_Refresh()
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerAttributesElementId::Element1]))) { return; }
-    auto* const nameData = (*gCurrentWindow)[WindowPlayerAttributesElementId::Element1]->data.text;
-    const wchar_t* const name = world::GetPlayerDisplayText(1);
-    nameData->text = name;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    auto* const element1 = currentWindow->FindElementById(WindowPlayerAttributesElementId::Element1);
+    if (element1) {
+        auto* const nameData = element1->data.text;
+        const wchar_t* const name = world::GetPlayerDisplayText(1);
+        nameData->text = name;
+    }
 
     std::wstring buffer;
-    const auto writeNumber = [&buffer](
+    const auto writeNumber = [&buffer, currentWindow](
         const std::int32_t index, const std::int32_t value, const std::wstring_view format) {
         cg::text::FormatTo(buffer, format, value);
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return; }
-        auto* const text = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
-        text->text = buffer;
+        auto* const textElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (textElement) {
+            auto* const text = textElement->data.text;
+            text->text = buffer;
+        }
+        return;
     };
     writeNumber(1, world::gPlayerRuntimeSlots.level, L"{:3}");
     writeNumber(2, world::gPlayerUnspentAttributePoints_D2F788, L"{:5}");
@@ -401,14 +417,14 @@ static void WindowPlayerAttributes_Refresh()
         total += vitality;
         total += remainingPoints;
         const std::int32_t limit = total / 2;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerAttributesElementId::HandleButtons])) (*gCurrentWindow)[WindowPlayerAttributesElementId::HandleButtons]->visible = vitality < limit ? 1 : 0;
+        if (auto* const handleButtonsElement = currentWindow->FindElementById(WindowPlayerAttributesElementId::HandleButtons); handleButtonsElement) handleButtonsElement->visible = vitality < limit ? 1 : 0;
         for (std::int32_t index = 1; index < 5; ++index) {
             const std::int32_t value = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)];
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(29 + index)])) (*gCurrentWindow)[NativeElementKey(29 + index)]->visible = value < limit ? 1 : 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(29 + index)); indexedElement) indexedElement->visible = value < limit ? 1 : 0;
         }
     } else {
         for (std::int32_t index = 29; index < 34; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
     }
 }

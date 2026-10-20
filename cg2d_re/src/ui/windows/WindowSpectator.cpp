@@ -34,25 +34,35 @@ WindowPrototype gWindowPrototypeSpectator {2, 3, 492, 0, 148, 108, 0x80010101u, 
 // 原函数：0x004990F0。
 static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 1) != 0) {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
         auto* elementsWindow = window;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t x = (*elementsWindow)[NativeElementKey(index)]->x;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t y = (*elementsWindow)[NativeElementKey(index)]->y;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t height = (*elementsWindow)[NativeElementKey(index)]->height;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t width = (*elementsWindow)[NativeElementKey(index)]->width;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(windowX + x - 2),
-            static_cast<std::uint16_t>(windowY + y - 2),
-            static_cast<std::uint16_t>(width + windowX + x + 2),
-            static_cast<std::uint16_t>(height + windowY + y + 2), 223, image, 0);
+        auto* const xElement = elementsWindow->FindElementById(NativeElementKey(index));
+        if (xElement) {
+            const std::int32_t x = xElement->x;
+            auto* const yElement = elementsWindow->FindElementById(NativeElementKey(index));
+            if (yElement) {
+                const std::int32_t y = yElement->y;
+                auto* const heightElement = elementsWindow->FindElementById(NativeElementKey(index));
+                if (heightElement) {
+                    const std::int32_t height = heightElement->height;
+                    auto* const widthElement = elementsWindow->FindElementById(NativeElementKey(index));
+                    if (widthElement) {
+                        const std::int32_t width = widthElement->width;
+                        cg::render::DrawGraphicHover(
+                            static_cast<std::uint16_t>(windowX + x - 2),
+                            static_cast<std::uint16_t>(windowY + y - 2),
+                            static_cast<std::uint16_t>(width + windowX + x + 2),
+                            static_cast<std::uint16_t>(height + windowY + y + 2), 223, image, 0);
+                    }
+                }
+            }
+        }
         gHoverTextD68AE8 = L"结束观战。";
     }
     if ((state & 2) == 0) {

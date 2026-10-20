@@ -847,9 +847,9 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* const text)
 // 原函数：0x004BE3F0。
 static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
 {
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244384;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 1;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
+    if (auto* const element105 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element105) : nullptr; element105) element105->data.graphic->imageNo = 244384;
+    if (auto* const buttonLearnElement = window ? window->FindElementById(WindowPetSkillChoiceElementId::ButtonLearn) : nullptr; buttonLearnElement) buttonLearnElement->visible = 1;
+    if (auto* const element6 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element6) element6->visible = 1;
     gWindow54ValueCB01E4 = 0;
     std::int32_t usedSlots = 0;
     std::int32_t count = 0;
@@ -863,8 +863,10 @@ static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
     }
     const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
     gWindow54ValueCB01E4 = count;
-    if (!((window && (*window)[WindowPetSkillChoiceElementId::Element6]))) { return; }
-    cg::text::FormatTo((*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
+    auto* const element62 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr;
+    if (element62) {
+        cg::text::FormatTo(element62->data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
+    }
     std::int32_t freeSlots = world::gPlayerRuntimeSlots.value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
@@ -872,39 +874,41 @@ static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
     const std::int32_t displayed = gWindow54ValueCB01E4 + freeSlots;
     gWindow54ValueCB01E4 = displayed;
     for (std::int32_t index = 9; index <= 16; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = displayed > 10 ? 1 : 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = displayed > 10 ? 1 : 0;
     }
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element25])) (*window)[WindowPetSkillChoiceElementId::Element25]->visible = 1;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element25])) (*window)[WindowPetSkillChoiceElementId::Element25]->data.text->text = gNpcDialogLinesCC24D4[9].text;
+    if (auto* const element25 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element25) : nullptr; element25) element25->visible = 1;
+    if (auto* const element252 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element25) : nullptr; element252) element252->data.text->text = gNpcDialogLinesCC24D4[9].text;
     for (std::int32_t row = 0; row < 8; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 25)])) (*window)[NativeElementKey(row + 25)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 25)])) (*window)[NativeElementKey(row + 25)]->data.text->text = gNpcDialogLinesCC24D4[row + 10].text;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 25)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 25)) : nullptr; indexedElement2) indexedElement2->data.text->text = gNpcDialogLinesCC24D4[row + 10].text;
     }
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 1;
-    if (!((window && (*window)[WindowPetSkillChoiceElementId::Element34]))) { return; }
-    cg::text::FormatTo((*window)[WindowPetSkillChoiceElementId::Element34]->data.text->text, L"所需的技能栏位数量：{:2}栏", gWindow54ValueCC2E68);
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
+    if (auto* const element34 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element34) : nullptr; element34) element34->visible = 1;
+    auto* const element342 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element34) : nullptr;
+    if (element342) {
+        cg::text::FormatTo(element342->data.text->text, L"所需的技能栏位数量：{:2}栏", gWindow54ValueCC2E68);
+    }
+    if (auto* const element7 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element7) : nullptr; element7) element7->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54ValueCF4A3C);
     for (std::int32_t row = 0; row < 10; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowElement_NoOp;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->mouseCallback = &WindowElement_NoOp;
     }
     const std::int32_t currentCount = gWindow54ValueCB01E4;
     const std::int32_t scroll = gWindow54PetScrollCC31DC;
     WindowPetSkillChoice_RefreshLearnRows(window, scroll, currentCount);
     for (std::int32_t index = 17; index <= 23; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
     for (std::int32_t index = 79; index <= 103; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
 }
 
 // 原函数：0x004BE600。
 static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
 {
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244384;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
+    if (auto* const element105 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element105) : nullptr; element105) element105->data.graphic->imageNo = 244384;
+    if (auto* const buttonLearnElement = window ? window->FindElementById(WindowPetSkillChoiceElementId::ButtonLearn) : nullptr; buttonLearnElement) buttonLearnElement->visible = 0;
+    if (auto* const element6 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element6) element6->visible = 1;
     for (std::int32_t row = 0; row < world::kSkillSlotCount; ++row) {
         const world::SkillPairRecord& pair = world::gSkillPairsF63370[row];
         if (pair.used != 0) {
@@ -935,8 +939,10 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
     }
     const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
     gWindow54ValueCB01E4 = count;
-    if (!((window && (*window)[WindowPetSkillChoiceElementId::Element6]))) { return; }
-    cg::text::FormatTo((*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
+    auto* const element62 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr;
+    if (element62) {
+        cg::text::FormatTo(element62->data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
+    }
     std::int32_t freeSlots = world::gPlayerRuntimeSlots.value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
@@ -944,89 +950,93 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
     const std::int32_t displayed = gWindow54ValueCB01E4 + freeSlots;
     gWindow54ValueCB01E4 = displayed;
     for (std::int32_t index = 9; index <= 16; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = displayed > 10 ? 1 : 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = displayed > 10 ? 1 : 0;
     }
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element25])) (*window)[WindowPetSkillChoiceElementId::Element25]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element26])) (*window)[WindowPetSkillChoiceElementId::Element26]->data.text->text = L"请选择";
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element27])) (*window)[WindowPetSkillChoiceElementId::Element27]->data.text->text = L"想遗忘的技能";
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element28])) (*window)[WindowPetSkillChoiceElementId::Element28]->data.text->text = L"";
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element29])) (*window)[WindowPetSkillChoiceElementId::Element29]->data.text->text = L"＊＊＊＊＊＊　注意　＊＊＊＊＊＊";
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element30])) (*window)[WindowPetSkillChoiceElementId::Element30]->data.text->text = L"";
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element31])) (*window)[WindowPetSkillChoiceElementId::Element31]->data.text->text = L"　一旦遗忘技能后";
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element32])) (*window)[WindowPetSkillChoiceElementId::Element32]->data.text->text = L"　就不能再恢复原状了。";
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element33])) (*window)[WindowPetSkillChoiceElementId::Element33]->data.text->text = L"　请特别注意。";
+    if (auto* const element25 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element25) : nullptr; element25) element25->visible = 0;
+    if (auto* const element26 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element26) : nullptr; element26) element26->data.text->text = L"请选择";
+    if (auto* const element27 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element27) : nullptr; element27) element27->data.text->text = L"想遗忘的技能";
+    if (auto* const element28 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element28) : nullptr; element28) element28->data.text->text = L"";
+    if (auto* const element29 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element29) : nullptr; element29) element29->data.text->text = L"＊＊＊＊＊＊　注意　＊＊＊＊＊＊";
+    if (auto* const element30 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element30) : nullptr; element30) element30->data.text->text = L"";
+    if (auto* const element31 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element31) : nullptr; element31) element31->data.text->text = L"　一旦遗忘技能后";
+    if (auto* const element32 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element32) : nullptr; element32) element32->data.text->text = L"　就不能再恢复原状了。";
+    if (auto* const element33 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element33) : nullptr; element33) element33->data.text->text = L"　请特别注意。";
     for (std::int32_t index = 25; index <= 32; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
     }
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
+    if (auto* const element34 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element34) : nullptr; element34) element34->visible = 0;
+    if (auto* const element7 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element7) : nullptr; element7) element7->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", 0);
     for (std::int32_t row = 0; row < 10; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowPetSkillChoice_SubmitForget;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->mouseCallback = &WindowPetSkillChoice_SubmitForget;
     }
     const std::int32_t currentCount = gWindow54ValueCB01E4;
     const std::int32_t scroll = gWindow54PetScrollCC31DC;
     WindowPetSkillChoice_RefreshForgetRows(window, scroll, currentCount);
     for (std::int32_t index = 17; index <= 23; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
     for (std::int32_t index = 79; index <= 103; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
 }
 
 // 原函数：0x004BE930。
 static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
 {
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244385;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text = L"";
+    if (auto* const element105 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element105) : nullptr; element105) element105->data.graphic->imageNo = 244385;
+    if (auto* const buttonLearnElement = window ? window->FindElementById(WindowPetSkillChoiceElementId::ButtonLearn) : nullptr; buttonLearnElement) buttonLearnElement->visible = 0;
+    if (auto* const element6 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element6) element6->visible = 1;
+    if (auto* const element62 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element62) element62->data.text->text = L"";
     for (std::int32_t index = 9; index <= 16; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
     for (std::int32_t index = 24; index <= 32; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
+    if (auto* const element34 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element34) : nullptr; element34) element34->visible = 0;
+    if (auto* const element7 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element7) : nullptr; element7) element7->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", 0);
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t petIndex =
             std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowElement_NoOp;
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->data.graphic->imageNo = 243100;
-        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement2) indexedElement2->mouseCallback = &WindowElement_NoOp;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement3) indexedElement3->data.graphic->imageNo = 243100;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement4) indexedElement4->visible = 1;
+        if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr; indexedElement5) indexedElement5->visible = 0;
         if (gWindow54ModeC8AF64 == 12) {
-            if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 1;
+            if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr; indexedElement6) indexedElement6->visible = 1;
         }
-        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
-        if (!((window && (*window)[NativeElementKey(row + 34)]))) { continue; }
-        (*window)[NativeElementKey(row + 34)]->data.text->text.clear();
-        if (!((window && (*window)[NativeElementKey(row + 44)]))) { continue; }
-        (*window)[NativeElementKey(row + 44)]->data.text->text.clear();
+        if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement6) indexedElement6->visible = 1;
+        if (auto* const indexedElement7 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement7) indexedElement7->visible = 1;
+        auto* const indexedElement8 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr;
+        if (indexedElement8) {
+            indexedElement8->data.text->text.clear();
+        }
+        auto* const indexedElement9 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr;
+        if (indexedElement9) {
+            indexedElement9->data.text->text.clear();
+        }
         const world::PetRuntimeRecord& pet = world::gPetRuntimeRecords[petIndex];
         const bool used = pet.used != 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (used) {
             const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = name;
+            if (auto* const indexedElement10 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement10) indexedElement10->data.text->text = name;
             const std::int32_t tribe = std::bit_cast<std::int16_t>(pet.value04);
-            if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->data.text->text = gTribeNames57CB54[tribe];
+            if (auto* const indexedElement11 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr; indexedElement11) indexedElement11->data.text->text = gTribeNames57CB54[tribe];
         }
     }
     for (std::int32_t row = 5; row < 10; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement2) indexedElement2->visible = 0;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement3) indexedElement3->visible = 0;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement4) indexedElement4->visible = 0;
     }
     for (std::int32_t index = 17; index <= 23; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
     }
     WindowPetSkillChoice_RefreshPetRows(window, gWindow54SkillScrollCC31F4);
 }
@@ -1034,18 +1044,18 @@ static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
 // 原函数：0x004BEC20。
 static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const window)
 {
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244385;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text = L"";
+    if (auto* const element105 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element105) : nullptr; element105) element105->data.graphic->imageNo = 244385;
+    if (auto* const buttonLearnElement = window ? window->FindElementById(WindowPetSkillChoiceElementId::ButtonLearn) : nullptr; buttonLearnElement) buttonLearnElement->visible = 0;
+    if (auto* const element6 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element6) element6->visible = 1;
+    if (auto* const element62 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element62) element62->data.text->text = L"";
     for (std::int32_t index = 9; index <= 16; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
     for (std::int32_t index = 24; index <= 32; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
+    if (auto* const element34 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element34) : nullptr; element34) element34->visible = 0;
+    if (auto* const element7 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element7) : nullptr; element7) element7->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
         const world::PetPairRecord& pair = world::gPetPairsDE0B08[row];
@@ -1066,38 +1076,42 @@ static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const wind
     }
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t selected = gWindow54PetMapCF4AB0[row];
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowPetSkillChoice_SelectPetCandidate;
-        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement2) indexedElement2->mouseCallback = &WindowPetSkillChoice_SelectPetCandidate;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement3) indexedElement3->visible = 1;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr; indexedElement4) indexedElement4->visible = 0;
         if (gWindow54ModeC8AF64 == 13) {
-            if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 1;
+            if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr; indexedElement5) indexedElement5->visible = 1;
         }
-        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
-        if (!((window && (*window)[NativeElementKey(row + 34)]))) { continue; }
-        (*window)[NativeElementKey(row + 34)]->data.text->text.clear();
-        if (!((window && (*window)[NativeElementKey(row + 44)]))) { continue; }
-        (*window)[NativeElementKey(row + 44)]->data.text->text.clear();
+        if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement5) indexedElement5->visible = 1;
+        if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement6) indexedElement6->visible = 1;
+        auto* const indexedElement7 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr;
+        if (indexedElement7) {
+            indexedElement7->data.text->text.clear();
+        }
+        auto* const indexedElement8 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr;
+        if (indexedElement8) {
+            indexedElement8->data.text->text.clear();
+        }
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (selected >= 0 && gWindow54PetOptionsD67448[selected].used != 0) {
             const Window54PetOption& option = gWindow54PetOptionsD67448[selected];
-            if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = option.name;
+            if (auto* const indexedElement9 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement9) indexedElement9->data.text->text = option.name;
             const std::int32_t tribe = option.tribe;
             if (tribe >= 0) {
-                if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->data.text->text = gTribeNames57CB54[tribe];
+                if (auto* const indexedElement10 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr; indexedElement10) indexedElement10->data.text->text = gTribeNames57CB54[tribe];
             }
         }
     }
     for (std::int32_t row = 5; row < 10; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement2) indexedElement2->visible = 0;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement3) indexedElement3->visible = 0;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement4) indexedElement4->visible = 0;
     }
     for (std::int32_t index = 17; index <= 23; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
     }
     WindowPetSkillChoice_RefreshPetRows(window, gWindow54SkillScrollCC31F4);
 }
@@ -1105,9 +1119,9 @@ static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const wind
 // 原函数：0x004BEF30。
 static void WindowPetSkillChoice_RefreshSelectedPetSkills(WindowInstance* const window)
 {
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244385;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
+    if (auto* const element105 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element105) : nullptr; element105) element105->data.graphic->imageNo = 244385;
+    if (auto* const buttonLearnElement = window ? window->FindElementById(WindowPetSkillChoiceElementId::ButtonLearn) : nullptr; buttonLearnElement) buttonLearnElement->visible = 0;
+    if (auto* const element6 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr; element6) element6->visible = 1;
     const std::int32_t capacity = std::min(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots, world::kPetTechniqueSlotCount);
     gWindow54ValueCB01E4 = capacity;
     gWindow54PetScrollCC31DC = std::clamp(gWindow54PetScrollCC31DC, 0, std::max(0, capacity - 10));
@@ -1117,40 +1131,46 @@ static void WindowPetSkillChoice_RefreshSelectedPetSkills(WindowInstance* const 
             ++used;
         }
     }
-    if (!((window && (*window)[WindowPetSkillChoiceElementId::Element6]))) { return; }
-    cg::text::FormatTo((*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text, L"{:2}/{:2}", used, capacity);
+    auto* const element62 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr;
+    if (element62) {
+        cg::text::FormatTo(element62->data.text->text, L"{:2}/{:2}", used, capacity);
+    }
     for (std::int32_t index = 9; index <= 16; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = capacity > 10 ? 1 : 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = capacity > 10 ? 1 : 0;
     }
-    if (!((window && (*window)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return; }
-    static_cast<void>(WindowScroll_SetPosition((*window)[WindowPetSkillChoiceElementId::HandleVerticalScroll], std::max(0, capacity - 10), gWindow54PetScrollCC31DC));
+    auto* const handleVerticalScrollElement = window ? window->FindElementById(WindowPetSkillChoiceElementId::HandleVerticalScroll) : nullptr;
+    if (handleVerticalScrollElement) {
+        static_cast<void>(WindowScroll_SetPosition(handleVerticalScrollElement, std::max(0, capacity - 10), gWindow54PetScrollCC31DC));
+    }
     for (std::int32_t index = 24; index <= 32; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 0;
-    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
+    if (auto* const element34 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element34) : nullptr; element34) element34->visible = 0;
+    if (auto* const element7 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element7) : nullptr; element7) element7->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowPetSkillChoice_SelectPetCandidate;
-        if (!((window && (*window)[NativeElementKey(row + 34)]))) { continue; }
-        (*window)[NativeElementKey(row + 34)]->data.text->text.clear();
-        if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement2) indexedElement2->mouseCallback = &WindowPetSkillChoice_SelectPetCandidate;
+        auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr;
+        if (indexedElement3) {
+            indexedElement3->data.text->text.clear();
+        }
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 44)) : nullptr; indexedElement4) indexedElement4->visible = 0;
         const bool usedOption = gWindow54PetOptionsD67448[row].used != 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (usedOption) {
-            if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = gWindow54PetOptionsD67448[row].name;
+            if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement5) indexedElement5->data.text->text = gWindow54PetOptionsD67448[row].name;
         }
     }
     for (std::int32_t row = 5; row < 10; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement2) indexedElement2->visible = 0;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement3) indexedElement3->visible = 0;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement4) indexedElement4->visible = 0;
     }
     for (std::int32_t index = 17; index <= 23; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
     }
     WindowPetSkillChoice_RefreshPetRows(window, gWindow54SkillScrollCC31F4);
     WindowPetSkillChoice_RefreshSelectedSkillRows(window, gWindow54PetScrollCC31DC);
@@ -1161,22 +1181,22 @@ static void WindowPetSkillChoice_RefreshLearnRows(
     WindowInstance* const window, const std::int32_t scroll, const std::int32_t count)
 {
     for (std::int32_t row = 0; row < 10; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement2) indexedElement2->visible = 0;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement3) indexedElement3->visible = 0;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement4) indexedElement4->visible = 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (scroll + row < count) {
-            if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
+            if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement5) indexedElement5->visible = 1;
             const world::SkillPairRecord& pair = world::gSkillPairsF63370[scroll + row];
             if (pair.used != 0) {
                 const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
-                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
-                if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 1;
-                if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
+                if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement6) indexedElement6->visible = 1;
+                if (auto* const indexedElement7 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement7) indexedElement7->visible = 1;
+                if (auto* const indexedElement8 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement8) indexedElement8->visible = 1;
                 const world::SkillRuntimeRecord& skill = world::gSkillsF1BAFC[index];
-                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = skill.name;
+                if (auto* const indexedElement9 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement9) indexedElement9->data.text->text = skill.name;
                 cg::text::FormatTo(gWindow54ValueTextsCB035C[row], L"{:2}", skill.level);
                 const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:2}", requiredSlots);
@@ -1184,7 +1204,7 @@ static void WindowPetSkillChoice_RefreshLearnRows(
         }
     }
     for (std::int32_t index = 44; index <= 48; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
 }
 
@@ -1193,27 +1213,27 @@ static void WindowPetSkillChoice_RefreshForgetRows(
     WindowInstance* const window, const std::int32_t scroll, const std::int32_t count)
 {
     for (std::int32_t row = 0; row < 10; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement2) indexedElement2->visible = 0;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement3) indexedElement3->visible = 0;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement4) indexedElement4->visible = 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (scroll + row < count) {
-            if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
+            if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement5) indexedElement5->visible = 1;
             const std::int32_t selected = gWindow54SkillMapCC4D04[scroll + row];
             if (selected >= 0 && gWindow54ValuesCB01A4[selected] >= 0) {
-                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
-                if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 1;
-                if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
-                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = gWindow54NamesC8AAA0[selected].text;
+                if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement6) indexedElement6->visible = 1;
+                if (auto* const indexedElement7 = window ? window->FindElementById(NativeElementKey(row + 49)) : nullptr; indexedElement7) indexedElement7->visible = 1;
+                if (auto* const indexedElement8 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement8) indexedElement8->visible = 1;
+                if (auto* const indexedElement9 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement9) indexedElement9->data.text->text = gWindow54NamesC8AAA0[selected].text;
                 cg::text::FormatTo(gWindow54ValueTextsCB035C[row], L"{:2}", gWindow54ValuesCB01A4[selected]);
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:2}", gWindow54ValuesCB09D8[selected]);
             }
         }
     }
     for (std::int32_t index = 44; index <= 48; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
 }
 
@@ -1222,37 +1242,41 @@ static void WindowPetSkillChoice_RefreshPetRows(WindowInstance* const window, co
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         const Window54SkillRecord& record = gWindow54SkillsD2EAB8[scroll + row];
-        if ((window && (*window)[NativeElementKey(row + 94)])) (*window)[NativeElementKey(row + 94)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 79)])) (*window)[NativeElementKey(row + 79)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 84)])) (*window)[NativeElementKey(row + 84)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 89)])) (*window)[NativeElementKey(row + 89)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->visible = 1;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 94)) : nullptr; indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 79)) : nullptr; indexedElement2) indexedElement2->visible = 1;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 84)) : nullptr; indexedElement3) indexedElement3->visible = 1;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 89)) : nullptr; indexedElement4) indexedElement4->visible = 1;
+        if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 99)) : nullptr; indexedElement5) indexedElement5->visible = 1;
         if (gWindow54ModeC8AF64 == 2) {
-            if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->mouseCallback = &WindowPetSkillChoice_SubmitPetSkill;
+            if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 99)) : nullptr; indexedElement6) indexedElement6->mouseCallback = &WindowPetSkillChoice_SubmitPetSkill;
         }
         if (gWindow54ModeC8AF64 == 3) {
-            if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->mouseCallback = &WindowPetSkillChoice_DrawSelectedSkillFrame;
+            if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 99)) : nullptr; indexedElement6) indexedElement6->mouseCallback = &WindowPetSkillChoice_DrawSelectedSkillFrame;
         }
         if (gWindow54ModeC8AF64 == 12) {
-            if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->mouseCallback = &WindowPetSkillChoice_SubmitPetSkill;
+            if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 99)) : nullptr; indexedElement6) indexedElement6->mouseCallback = &WindowPetSkillChoice_SubmitPetSkill;
         }
         if (gWindow54ModeC8AF64 == 13) {
-            if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->mouseCallback = &WindowPetSkillChoice_DrawSelectedSkillFrame;
+            if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 99)) : nullptr; indexedElement6) indexedElement6->mouseCallback = &WindowPetSkillChoice_DrawSelectedSkillFrame;
         }
-        if (!((window && (*window)[NativeElementKey(row + 79)]))) { continue; }
-        (*window)[NativeElementKey(row + 79)]->data.text->text.clear();
+        auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 79)) : nullptr;
+        if (indexedElement6) {
+            indexedElement6->data.text->text.clear();
+        }
         gWindow54SkillValueTextsCF4978[row].clear();
         gWindow54SkillPriceTextsCF493C[row].clear();
         // 原存在性检查不加scroll，显示内容仍取分页后的记录。
         if (gWindow54SkillsD2EAB8[row].name[0] != '\0') {
-            if ((window && (*window)[NativeElementKey(row + 79)])) (*window)[NativeElementKey(row + 79)]->data.text->text = record.name;
+            if (auto* const indexedElement7 = window ? window->FindElementById(NativeElementKey(row + 79)) : nullptr; indexedElement7) indexedElement7->data.text->text = record.name;
             cg::text::FormatTo(gWindow54SkillValueTextsCF4978[row], L"{:5}", record.value04);
             cg::text::FormatTo(gWindow54SkillPriceTextsCF493C[row], L"{:10}", record.price);
             const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
             const std::int32_t price = record.price;
-            if (!((window && (*window)[NativeElementKey(row + 89)]))) { continue; }
-            (*window)[NativeElementKey(row + 89)]->data.number->color =
-                money >= price ? 0 : 6;
+            auto* const indexedElement8 = window ? window->FindElementById(NativeElementKey(row + 89)) : nullptr;
+            if (indexedElement8) {
+                indexedElement8->data.number->color =
+                    money >= price ? 0 : 6;
+            }
         }
     }
 }
@@ -1265,58 +1289,62 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const 
     if (visibleCount > 0) {
         do {
             const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[scroll + row];
-            if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
-            if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
-            if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
-            if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowPetSkillChoice_SelectSkillSlot;
-            if (!((window && (*window)[NativeElementKey(row + 34)]))) { return; }
-            (*window)[NativeElementKey(row + 34)]->data.text->text.clear();
+            if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 1;
+            if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement2) indexedElement2->visible = 1;
+            if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement3) indexedElement3->visible = 1;
+            if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement4) indexedElement4->mouseCallback = &WindowPetSkillChoice_SelectSkillSlot;
+            auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr;
+            if (indexedElement5) {
+                indexedElement5->data.text->text.clear();
+            }
             const bool used = slot.used != 0;
             gWindow54ValueTextsCB035C[row].clear();
             gWindow54ValueTextsC8B318[row].clear();
             if (used) {
-                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = slot.name;
+                if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement6) indexedElement6->data.text->text = slot.name;
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:3}", slot.value04);
             }
             ++row;
         } while (row < visibleCount);
     }
     for (; row < 10; ++row) {
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowElement_NoOp;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 34)) : nullptr; indexedElement2) indexedElement2->visible = 0;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 59)) : nullptr; indexedElement3) indexedElement3->visible = 0;
+        if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement4) indexedElement4->mouseCallback = &WindowElement_NoOp;
     }
     for (std::int32_t index = 44; index <= 48; ++index) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
     }
 }
 
 // 原函数：0x004BF7C0。
 static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::HandleConfirmation])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::HandleConfirmation]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element5])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element5]->data.text->text = gNpcDialogLinesCC24D4[0].text;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element9]))) { return {}; }
-        auto* animation = (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element9]->data.animation;
-        cg::yobi::SetYobiActionField2A8(animation->action, gWindow54ImageCC18C4);
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element9]))) { return {}; }
-        animation = (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element9]->data.animation;
-        cg::yobi::SetYobiActionField2B8(animation->action, 5);
+        if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowPetSkillChoiceElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 0;
+        if (auto* const element5 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element5); element5) element5->data.text->text = gNpcDialogLinesCC24D4[0].text;
+        auto* const element9 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element9);
+        if (element9) {
+            auto* animation = element9->data.animation;
+            cg::yobi::SetYobiActionField2A8(animation->action, gWindow54ImageCC18C4);
+            cg::yobi::SetYobiActionField2B8(animation->action, 5);
+        }
         gWindow54PetScrollCC31DC = 0;
         const auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
         gWindow54SkillScrollCC31F4 = 0;
         switch (mode) {
         case 0:
-            WindowPetSkillChoice_RefreshLearn(gCurrentWindow);
+            WindowPetSkillChoice_RefreshLearn(currentWindow);
             break;
         case 1:
-            WindowPetSkillChoice_RefreshForget(gCurrentWindow);
+            WindowPetSkillChoice_RefreshForget(currentWindow);
             break;
         case 2:
         case 12:
-            WindowPetSkillChoice_RefreshPetNames(gCurrentWindow);
+            WindowPetSkillChoice_RefreshPetNames(currentWindow);
             break;
         default:
             break;
@@ -1325,11 +1353,11 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
         gWindow54HoverD2DAD8 = -1;
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     const std::int32_t dialogType = world::gCurrentDialogType_581800;
     if (dialogType != -2 && gWindow54DialogTypeCB2224 != dialogType) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     cg::text::FormatTo(gWindow54MoneyTextC9A9A4, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     if (gWindow54MessageC9FCE0 >= 0) {
@@ -1341,8 +1369,10 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
 // 原函数：0x004BF950。
 static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     static_cast<void>(unused);
-    WindowInstance* window = gCurrentWindow;
+    WindowInstance* window = currentWindow;
     const auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
     const std::int32_t x = window->x + 297;
     std::int32_t y = window->y + 52;
@@ -1350,22 +1380,26 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
     case 0:
     case 1: {
         if (gWindow54ValueCB01E4 - 10 <= 0) {
-            if ((window && (*window)[WindowPetSkillChoiceElementId::Element10])) (*window)[WindowPetSkillChoiceElementId::Element10]->visible = 0;
-            window = gCurrentWindow;
+            if (auto* const element10 = window->FindElementById(WindowPetSkillChoiceElementId::Element10); element10) element10->visible = 0;
+            window = currentWindow;
         }
         auto* elementsWindow = window;
-        if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return {}; }
-        if (((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]->data.mouse->flags & 1u) != 0) {
-            if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return {}; }
-            const std::int32_t position = WindowScroll_ReadPosition((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll], gWindow54ValueCB01E4 - 10);
-            const std::uint8_t currentMode = gWindow54ModeC8AF64;
-            WindowInstance* const current = gCurrentWindow;
-            gWindow54PetScrollCC31DC = position;
-            const std::int32_t count = gWindow54ValueCB01E4;
-            if (currentMode == 0) {
-                WindowPetSkillChoice_RefreshLearnRows(current, position, count);
-            } else {
-                WindowPetSkillChoice_RefreshForgetRows(current, position, count);
+        auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowPetSkillChoiceElementId::HandleVerticalScroll);
+        if (handleVerticalScrollElement) {
+            if ((handleVerticalScrollElement->data.mouse->flags & 1u) != 0) {
+                auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowPetSkillChoiceElementId::HandleVerticalScroll);
+                if (handleVerticalScrollElement2) {
+                    const std::int32_t position = WindowScroll_ReadPosition(handleVerticalScrollElement2, gWindow54ValueCB01E4 - 10);
+                    const std::uint8_t currentMode = gWindow54ModeC8AF64;
+                    WindowInstance* const current = currentWindow;
+                    gWindow54PetScrollCC31DC = position;
+                    const std::int32_t count = gWindow54ValueCB01E4;
+                    if (currentMode == 0) {
+                        WindowPetSkillChoice_RefreshLearnRows(current, position, count);
+                    } else {
+                        WindowPetSkillChoice_RefreshForgetRows(current, position, count);
+                    }
+                }
             }
         }
         break;
@@ -1375,30 +1409,38 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
     case 4:
     case 12:
     case 13: {
-        if ((window && (*window)[WindowPetSkillChoiceElementId::Element10])) (*window)[WindowPetSkillChoiceElementId::Element10]->visible = 1;
+        if (auto* const element10 = window->FindElementById(WindowPetSkillChoiceElementId::Element10); element10) element10->visible = 1;
         if (gWindow54ValueCB01E4 - 10 <= 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element10])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element10]->visible = 0;
+            if (auto* const element102 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element10); element102) element102->visible = 0;
         }
-        auto* elementsWindow = gCurrentWindow;
-        if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return {}; }
-        if (((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]->data.mouse->flags & 1u) != 0) {
-            if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return {}; }
-            const std::int32_t position = WindowScroll_ReadPosition((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll], gWindow54ValueCB01E4 - 10);
-            WindowInstance* const current = gCurrentWindow;
-            gWindow54PetScrollCC31DC = position;
-            WindowPetSkillChoice_RefreshSelectedSkillRows(current, position);
+        auto* elementsWindow = currentWindow;
+        auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowPetSkillChoiceElementId::HandleVerticalScroll);
+        if (handleVerticalScrollElement) {
+            if ((handleVerticalScrollElement->data.mouse->flags & 1u) != 0) {
+                auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowPetSkillChoiceElementId::HandleVerticalScroll);
+                if (handleVerticalScrollElement2) {
+                    const std::int32_t position = WindowScroll_ReadPosition(handleVerticalScrollElement2, gWindow54ValueCB01E4 - 10);
+                    WindowInstance* const current = currentWindow;
+                    gWindow54PetScrollCC31DC = position;
+                    WindowPetSkillChoice_RefreshSelectedSkillRows(current, position);
+                }
+            }
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element18])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element18]->visible = 1;
+        if (auto* const element18 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element18); element18) element18->visible = 1;
         if (gWindow54ValueCB01E8 - 5 <= 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element18])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element18]->visible = 0;
+            if (auto* const element182 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element18); element182) element182->visible = 0;
         }
-        elementsWindow = gCurrentWindow;
-        if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll_19]))) { return {}; }
-        if (((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll_19]->data.mouse->flags & 1u) != 0) {
-            if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll_19]))) { return {}; }
-            const std::int32_t position = WindowScroll_ReadPosition((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll_19], gWindow54ValueCB01E8 - 5);
-            gWindow54SkillScrollCC31F4 = position;
-            WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, position);
+        elementsWindow = currentWindow;
+        auto* const handleVerticalScroll_19Element = elementsWindow->FindElementById(WindowPetSkillChoiceElementId::HandleVerticalScroll_19);
+        if (handleVerticalScroll_19Element) {
+            if ((handleVerticalScroll_19Element->data.mouse->flags & 1u) != 0) {
+                auto* const handleVerticalScroll_19Element2 = elementsWindow->FindElementById(WindowPetSkillChoiceElementId::HandleVerticalScroll_19);
+                if (handleVerticalScroll_19Element2) {
+                    const std::int32_t position = WindowScroll_ReadPosition(handleVerticalScroll_19Element2, gWindow54ValueCB01E8 - 5);
+                    gWindow54SkillScrollCC31F4 = position;
+                    WindowPetSkillChoice_RefreshPetRows(currentWindow, position);
+                }
+            }
         }
         break;
     }
@@ -1433,46 +1475,53 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
 // 原函数：0x004BFBC0。
 static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const bool hover = (state & 1) != 0;
-    if (hover) {
-        gHoverTextD68AE8 = L"学习此技能。";
-    }
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        if (gWindow54ModeC8AF64 == 0) {
-            std::wstring escaped;
-            escaped = input::EscapeTextAndNotify(L"1", 15);
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
-            const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
-            const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, escaped));
-            gCurrentWindow->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(79, 320));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hover = (state & 1) != 0;
+        if (hover) {
+            gHoverTextD68AE8 = L"学习此技能。";
         }
-        consumed = 1;
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            if (gWindow54ModeC8AF64 == 0) {
+                std::wstring escaped;
+                escaped = input::EscapeTextAndNotify(L"1", 15);
+                const std::int32_t target = world::gDialogTargetD2DE6C;
+                const std::int32_t request = world::gDialogRequestCC21E0;
+                const std::int32_t y =
+                    static_cast<std::int32_t>(world::gPlayerY);
+                const std::int32_t x =
+                    static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<void>(network::SendDialogResponse_512620(
+                    platform::gConnectionSocket, x, y, request, target, 0, escaped));
+                currentWindow->state |= 0x8000u;
+                static_cast<void>(audio::PlaySe_52C450(79, 320));
+            }
+            consumed = 1;
+        }
+        graphic->imageNo = 243048;
+        if (hover) {
+            graphic->imageNo = 243050;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243049;
+        }
+        return consumed;
     }
-    graphic->imageNo = 243048;
-    if (hover) {
-        graphic->imageNo = 243050;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243049;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004BFCB0。
 static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
     const bool hover = (state & 1) != 0;
     if (hover) {
@@ -1506,7 +1555,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
-            gCurrentWindow->state |= 0x8000u;
+            currentWindow->state |= 0x8000u;
             break;
         }
         case 1: {
@@ -1522,7 +1571,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, escaped));
-            gCurrentWindow->state |= 0x8000u;
+            currentWindow->state |= 0x8000u;
             break;
         }
         case 2:
@@ -1557,23 +1606,23 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
     case 1:
     case 2:
     case 12:
-        graphic->imageNo = 245320;
+        if (graphic) graphic->imageNo = 245320;
         if (hover) {
-            graphic->imageNo = 245322;
+            if (graphic) graphic->imageNo = 245322;
         }
         if ((state & 8) != 0) {
-            graphic->imageNo = 245321;
+            if (graphic) graphic->imageNo = 245321;
         }
         break;
     case 3:
     case 4:
     case 13:
-        graphic->imageNo = 245332;
+        if (graphic) graphic->imageNo = 245332;
         if (hover) {
-            graphic->imageNo = 245334;
+            if (graphic) graphic->imageNo = 245334;
         }
         if ((state & 8) != 0) {
-            graphic->imageNo = 245333;
+            if (graphic) graphic->imageNo = 245333;
         }
         break;
     default:
@@ -1585,8 +1634,10 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
 // 原函数：0x004BFF60。
 static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -1599,13 +1650,15 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             const std::int32_t position = gWindow54PetScrollCC31DC;
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
+            auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+            }
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t count = gWindow54ValueCB01E4;
-            WindowInstance* const current = gCurrentWindow;
+            WindowInstance* const current = currentWindow;
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
             if (mode == 0) {
                 WindowPetSkillChoice_RefreshLearnRows(current, scroll, count);
@@ -1627,12 +1680,14 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 }
                 const std::int32_t position = gWindow54PetScrollCC31DC;
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-                if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
+                auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+                if (indexedElement) {
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+                }
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
-                WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
+                WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
             } else {
                 if (gWindow54SkillScrollCC31F4 > 0) {
                     --gWindow54SkillScrollCC31F4;
@@ -1641,12 +1696,14 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 }
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
+                auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+                if (indexedElement) {
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+                }
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
-                WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
+                WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
             }
             break;
         default:
@@ -1654,12 +1711,12 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
         }
         consumed = 1;
     }
-    graphic->imageNo = 243090;
+    if (graphic) graphic->imageNo = 243090;
     if ((state & 1) != 0) {
-        graphic->imageNo = 243092;
+        if (graphic) graphic->imageNo = 243092;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 243091;
+        if (graphic) graphic->imageNo = 243091;
     }
     return consumed;
 }
@@ -1667,8 +1724,10 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
 // 原函数：0x004C0160。
 static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -1683,11 +1742,13 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
             }
             const std::int32_t position = gWindow54PetScrollCC31DC;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, position));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, position));
+            }
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t count = gWindow54ValueCB01E4;
             if (mode == 0) {
                 WindowPetSkillChoice_RefreshLearnRows(window, scroll, count);
@@ -1709,10 +1770,12 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
                 }
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, position));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                if (indexedElement) {
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, position));
+                }
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
-                WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
+                WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
                 break;
             }
             [[fallthrough]];
@@ -1726,13 +1789,15 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             const std::int32_t position = gWindow54PetScrollCC31DC;
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
             // 原4C0314为index-1；模式12/13也不按右侧元素改走另一分支。
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
+            auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+            }
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
-            WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
+            WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
             break;
         }
         default:
@@ -1740,12 +1805,12 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
         }
         consumed = 1;
     }
-    graphic->imageNo = 243093;
+    if (graphic) graphic->imageNo = 243093;
     if ((state & 1) != 0) {
-        graphic->imageNo = 243095;
+        if (graphic) graphic->imageNo = 243095;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 243094;
+        if (graphic) graphic->imageNo = 243094;
     }
     return consumed;
 }
@@ -1753,8 +1818,10 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
 // 原函数：0x004C0380。
 static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -1767,11 +1834,13 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
             }
             const std::int32_t position = gWindow54PetScrollCC31DC;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+            }
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t count = gWindow54ValueCB01E4;
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
             if (mode == 0) {
                 WindowPetSkillChoice_RefreshLearnRows(window, scroll, count);
@@ -1793,10 +1862,12 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
                 }
                 const std::int32_t position = gWindow54PetScrollCC31DC;
                 const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                if (indexedElement) {
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+                }
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
-                WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
+                WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
             } else {
                 static_cast<void>(audio::PlaySe_52C450(gWindow54SkillScrollCC31F4 > 0 ? 51 : 55, 320));
                 gWindow54SkillScrollCC31F4 -= 5;
@@ -1805,10 +1876,12 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
                 }
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                if (indexedElement) {
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+                }
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
-                WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
+                WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
             }
             break;
         default:
@@ -1816,12 +1889,12 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
         }
         consumed = 1;
     }
-    graphic->imageNo = 243030;
+    if (graphic) graphic->imageNo = 243030;
     if ((state & 1) != 0) {
-        graphic->imageNo = 243032;
+        if (graphic) graphic->imageNo = 243032;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 243031;
+        if (graphic) graphic->imageNo = 243031;
     }
     return consumed;
 }
@@ -1829,8 +1902,10 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
 // 原函数：0x004C0590。
 static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -1851,11 +1926,13 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                 position = 0;
                 gWindow54PetScrollCC31DC = position;
             }
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+            }
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t count = gWindow54ValueCB01E4;
             if (mode == 0) {
                 WindowPetSkillChoice_RefreshLearnRows(window, scroll, count);
@@ -1885,10 +1962,12 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                     position = 0;
                     gWindow54PetScrollCC31DC = position;
                 }
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                if (indexedElement) {
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+                }
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
-                WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
+                WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
             } else {
                 const std::int32_t limit = gWindow54ValueCB01E8 - 5;
                 static_cast<void>(audio::PlaySe_52C450(
@@ -1905,10 +1984,12 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                     position = 0;
                     gWindow54SkillScrollCC31F4 = position;
                 }
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                if (indexedElement) {
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+                }
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
-                WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
+                WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
             }
             break;
         default:
@@ -1916,12 +1997,12 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
         }
         consumed = 1;
     }
-    graphic->imageNo = 243033;
+    if (graphic) graphic->imageNo = 243033;
     if ((state & 1) != 0) {
-        graphic->imageNo = 243035;
+        if (graphic) graphic->imageNo = 243035;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 243034;
+        if (graphic) graphic->imageNo = 243034;
     }
     return consumed;
 }
@@ -1929,6 +2010,8 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
 // 原函数：0x004C0800。
 static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 0x21) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
         case 0:
@@ -1936,9 +2019,11 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
             const std::int32_t count = gWindow54ValueCB01E4;
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t position = gWindow54PetScrollCC31DC;
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-            gWindow54PetScrollCC31DC =
-                WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 10, wheel);
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                gWindow54PetScrollCC31DC =
+                    WindowScroll_ApplyWheel(indexedElement - 5, position, count - 10, wheel);
+            }
             break;
         }
         case 2:
@@ -1950,19 +2035,23 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
             if (index <= 17) {
                 const std::int32_t count = gWindow54ValueCB01E4;
                 const std::int32_t position = gWindow54PetScrollCC31DC;
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-                const std::int32_t scroll =
-                    WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 10, wheel);
-                gWindow54PetScrollCC31DC = scroll;
-                WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
+                auto* const scrollElement = currentWindow->FindElementById(NativeElementKey(index));
+                if (scrollElement) {
+                    const std::int32_t scroll =
+                        WindowScroll_ApplyWheel(scrollElement - 5, position, count - 10, wheel);
+                    gWindow54PetScrollCC31DC = scroll;
+                    WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
+                }
             } else {
                 const std::int32_t count = gWindow54ValueCB01E8;
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-                const std::int32_t scroll =
-                    WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 5, wheel);
-                gWindow54SkillScrollCC31F4 = scroll;
-                WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
+                auto* const scrollElement = currentWindow->FindElementById(NativeElementKey(index));
+                if (scrollElement) {
+                    const std::int32_t scroll =
+                        WindowScroll_ApplyWheel(scrollElement - 5, position, count - 5, wheel);
+                    gWindow54SkillScrollCC31F4 = scroll;
+                    WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
+                }
             }
             break;
         }
@@ -1976,122 +2065,134 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
 // 原函数：0x004C0910。
 static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const std::int32_t selected = gWindow54SkillMapCC4D04[gWindow54PetScrollCC31DC + index - 69];
-    if (selected < 0 || gWindow54ValuesCB01A4[selected] < 0) {
-        graphic->imageNo = 243104;
-        return 0;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const std::int32_t selected = gWindow54SkillMapCC4D04[gWindow54PetScrollCC31DC + index - 69];
+        if (selected < 0 || gWindow54ValuesCB01A4[selected] < 0) {
+            graphic->imageNo = 243104;
+            return 0;
+        }
+        const bool hover = (state & 1) != 0;
+        if (hover) {
+            gHoverTextD68AE8 = L"遗忘此技能。";
+        }
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            std::wstring text;
+            std::wstring escaped;
+            cg::text::FormatTo(text, L"{}", selected + 1);
+            escaped = input::EscapeTextAndNotify(text, 15);
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t y =
+                static_cast<std::int32_t>(world::gPlayerY);
+            const std::int32_t x =
+                static_cast<std::int32_t>(world::gPlayerX);
+            static_cast<void>(network::SendDialogResponse_512620(
+                platform::gConnectionSocket, x, y, request, target, 0, escaped));
+            currentWindow->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        graphic->imageNo = 243103;
+        if (hover) {
+            graphic->imageNo = 243105;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243104;
+        }
+        return consumed;
     }
-    const bool hover = (state & 1) != 0;
-    if (hover) {
-        gHoverTextD68AE8 = L"遗忘此技能。";
-    }
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        std::wstring text;
-        std::wstring escaped;
-        cg::text::FormatTo(text, L"{}", selected + 1);
-        escaped = input::EscapeTextAndNotify(text, 15);
-        const std::int32_t target = world::gDialogTargetD2DE6C;
-        const std::int32_t request = world::gDialogRequestCC21E0;
-        const std::int32_t y =
-            static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x =
-            static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::SendDialogResponse_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, escaped));
-        gCurrentWindow->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    graphic->imageNo = 243103;
-    if (hover) {
-        graphic->imageNo = 243105;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243104;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004C0A50。
 static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const std::int32_t selected = gWindow54PetMapCF4AB0[gWindow54PetScrollCC31DC + index - 69];
-    if (selected == 0) {
-        gWindow54MessageC9FCE0 = -1;
-    }
-    // 原4C0A97：候选-1先读D67420的U16，别名为商店价格文本D673EC+34。
-    std::uint16_t used;
-    if (selected == -1) {
-        used = gShopPriceTailD67420;
-    } else {
-        used = gWindow54PetOptionsD67448[selected].used;
-    }
-    if (used == 0) {
-        graphic->imageNo = 243101;
-        return 0;
-    }
-    const Window54PetOption& option = gWindow54PetOptionsD67448[selected];
-    if (option.allowed == 0) {
-        graphic->imageNo = 243101;
-        return 0;
-    }
-    const bool hover = (state & 1) != 0;
-    const std::int32_t requiredTribe = gWindow54TribeCA0B2C;
-    if (requiredTribe >= 0 && option.tribe != requiredTribe) {
-        if (hover) {
-            gWindow54MessageC9FCE0 = -2;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const std::int32_t selected = gWindow54PetMapCF4AB0[gWindow54PetScrollCC31DC + index - 69];
+        if (selected == 0) {
+            gWindow54MessageC9FCE0 = -1;
         }
-        graphic->imageNo = 243101;
-        return 0;
+        // 原4C0A97：候选-1先读D67420的U16，别名为商店价格文本D673EC+34。
+        std::uint16_t used;
+        if (selected == -1) {
+            used = gShopPriceTailD67420;
+        } else {
+            used = gWindow54PetOptionsD67448[selected].used;
+        }
+        if (used == 0) {
+            graphic->imageNo = 243101;
+            return 0;
+        }
+        const Window54PetOption& option = gWindow54PetOptionsD67448[selected];
+        if (option.allowed == 0) {
+            graphic->imageNo = 243101;
+            return 0;
+        }
+        const bool hover = (state & 1) != 0;
+        const std::int32_t requiredTribe = gWindow54TribeCA0B2C;
+        if (requiredTribe >= 0 && option.tribe != requiredTribe) {
+            if (hover) {
+                gWindow54MessageC9FCE0 = -2;
+            }
+            graphic->imageNo = 243101;
+            return 0;
+        }
+        // 此标记只改变悬停消息，原端仍允许下面的点击发送。
+        if (option.hintFlag == 0 && hover) {
+            gWindow54MessageC9FCE0 = -3;
+        }
+        if (hover) {
+            gHoverTextD68AE8 = L"让宠物学习此技能。";
+        }
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            gWindow54PetChoiceC8AA90 = selected;
+            std::wstring text;
+            std::wstring escaped;
+            cg::text::FormatTo(text, L"{}", selected);
+            escaped = input::EscapeTextAndNotify(text, 15);
+            const std::int32_t target = world::gDialogTargetD2DE6C;
+            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t y =
+                static_cast<std::int32_t>(world::gPlayerY);
+            const std::int32_t x =
+                static_cast<std::int32_t>(world::gPlayerX);
+            static_cast<void>(network::SendDialogResponse_512620(
+                platform::gConnectionSocket, x, y, request, target, 0, escaped));
+            world::gCurrentDialogType_581800 = -2;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        graphic->imageNo = 243100;
+        if (hover) {
+            graphic->imageNo = 243102;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243101;
+        }
+        return consumed;
     }
-    // 此标记只改变悬停消息，原端仍允许下面的点击发送。
-    if (option.hintFlag == 0 && hover) {
-        gWindow54MessageC9FCE0 = -3;
-    }
-    if (hover) {
-        gHoverTextD68AE8 = L"让宠物学习此技能。";
-    }
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        gWindow54PetChoiceC8AA90 = selected;
-        std::wstring text;
-        std::wstring escaped;
-        cg::text::FormatTo(text, L"{}", selected);
-        escaped = input::EscapeTextAndNotify(text, 15);
-        const std::int32_t target = world::gDialogTargetD2DE6C;
-        const std::int32_t request = world::gDialogRequestCC21E0;
-        const std::int32_t y =
-            static_cast<std::int32_t>(world::gPlayerY);
-        const std::int32_t x =
-            static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::SendDialogResponse_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, escaped));
-        world::gCurrentDialogType_581800 = -2;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    graphic->imageNo = 243100;
-    if (hover) {
-        graphic->imageNo = 243102;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243101;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004C0BF0。
 static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
     const bool hover = (state & 1) != 0;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const std::int32_t slot = gWindow54PetScrollCC31DC + index - 69;
     if (hover) {
         gHoverTextD68AE8 = L"把要学习的技能放在这一栏。";
@@ -2099,17 +2200,17 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         gWindow54ReplacementC8B08C = slot;
-        if ((window && (*window)[WindowPetSkillChoiceElementId::HandleConfirmation])) (*window)[WindowPetSkillChoiceElementId::HandleConfirmation]->visible = 1;
-        gCurrentWindow->state |= 2u;
+        if (auto* const handleConfirmationElement = window->FindElementById(WindowPetSkillChoiceElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 1;
+        currentWindow->state |= 2u;
         static_cast<void>(audio::PlaySe_52C450(78, 320));
         consumed = 1;
     }
-    graphic->imageNo = 243127;
+    if (graphic) graphic->imageNo = 243127;
     if (hover) {
-        graphic->imageNo = 243129;
+        if (graphic) graphic->imageNo = 243129;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 243128;
+        if (graphic) graphic->imageNo = 243128;
     }
     return consumed;
 }
@@ -2117,22 +2218,26 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
 // 原函数：0x004C0CB0。
 static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t selected = gWindow54SkillScrollCC31F4 + index - 99;
     const Window54SkillRecord& record = gWindow54SkillsD2EAB8[selected];
     if (record.name[0] == '\0') {
         return 0;
     }
     if ((state & 1) != 0) {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const std::int32_t hoverImage = cg::render::gHoverFramePaletteIndex_D69768;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t x = window->x + element.x;
-        const std::int32_t y = window->y + element.y;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
-            static_cast<std::uint16_t>(x + element.width),
-            static_cast<std::uint16_t>(y + element.height), 223, hoverImage, 0);
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t x = window->x + element.x;
+            const std::int32_t y = window->y + element.y;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x), static_cast<std::uint16_t>(y),
+                static_cast<std::uint16_t>(x + element.width),
+                static_cast<std::uint16_t>(y + element.height), 223, hoverImage, 0);
+        }
         if (gWindow54MessageC9FCE0 >= -1 || gWindow54HoverD2DAD8 != selected) {
             gWindow54MessageC9FCE0 = selected;
         }
@@ -2180,18 +2285,22 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
 // 原函数：0x004C0EA0。
 static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(const std::int32_t index, const std::int32_t unusedState)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     static_cast<void>(unusedState);
     const std::int32_t selected = gWindow54SkillScrollCC31F4 + index - 99;
     if (gWindow54SkillsD2EAB8[selected].name[0] != '\0' && gWindow54SelectedD2DC04 == selected) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t x = window->x + element.x;
-        const std::int32_t y = window->y + element.y;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
-            static_cast<std::uint16_t>(x + element.width - 2),
-            static_cast<std::uint16_t>(y + element.height - 2), 223, 254, 0);
+        WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t x = window->x + element.x;
+            const std::int32_t y = window->y + element.y;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(x + 2), static_cast<std::uint16_t>(y + 2),
+                static_cast<std::uint16_t>(x + element.width - 2),
+                static_cast<std::uint16_t>(y + element.height - 2), 223, 254, 0);
+        }
     }
     return 0;
 }
@@ -2199,6 +2308,8 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(const std::int32
 // 原函数：0x004C0F20。
 static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     static_cast<void>(unusedState);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -2212,7 +2323,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
         if ((buttons & 1u) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
             std::wstring requestText;
             cg::text::FormatTo(requestText, L"{}", gWindow54ReplacementC8B08C);
             const std::int32_t target = world::gDialogTargetD2DE6C;
@@ -2223,9 +2334,9 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(network::SendDialogResponse_512620(
                 platform::gConnectionSocket, x, y, request, target, 0, requestText));
-            gCurrentWindow->state &= ~2u;
+            currentWindow->state &= ~2u;
             acceptImage = 245324;
-            gCurrentWindow->state |= 0x8000u;
+            currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     }
@@ -2237,8 +2348,8 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
         static_cast<void>(0);
         if ((buttons & 1u) != 0) {
             cancelImage = 245327;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
-            gCurrentWindow->state &= ~2u;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
+            currentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     }

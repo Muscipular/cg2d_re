@@ -37,12 +37,12 @@ WindowElement* WindowElementCursor::next() {
 
 ElementId WindowRuntime_AllocateElementId(const WindowInstance& window, ElementId requested) {
     if (requested) {
-        if (window[requested]) throw std::runtime_error("elementId already exists");
+        if (window.FindElementById(requested)) throw std::runtime_error("elementId already exists");
         return requested;
     }
     while (nextElementId <= std::numeric_limits<ElementId>::max()) {
         const auto id = static_cast<ElementId>(nextElementId++);
-        if (!window[id]) return id;
+        if (!window.FindElementById(id)) return id;
     }
     throw std::runtime_error("elementId exhausted");
 }
@@ -60,7 +60,7 @@ WindowElement& WindowRuntime_AddElement(WindowInstance& window, ElementId reques
 }
 
 bool WindowRuntime_RemoveElement(WindowInstance& window, ElementId id) {
-    auto* element = window[id];
+    auto* element = window.FindElementById(id);
     if (!element) return false;
     WindowRuntime_CancelPointerDrag(window);
     if (element->component) {

@@ -103,12 +103,12 @@ WindowInstance* WindowQuantity_Open(
     WindowInstance* const positionedWindow = gWindowStates[WindowId_Quantity].window;
     static_cast<void>(CenterPopupWindowPosition(WindowId_Quantity,
         positionedWindow->width, positionedWindow->height, positionedWindow->x, positionedWindow->y));
-    if ((gWindowStates[WindowId_Quantity].window && (*gWindowStates[WindowId_Quantity].window)[WindowQuantityElementId::Element7])) (*gWindowStates[WindowId_Quantity].window)[WindowQuantityElementId::Element7]->data.graphic->imageNo = imageNo;
+    if (auto* const element7 = gWindowStates[WindowId_Quantity].window ? gWindowStates[WindowId_Quantity].window->FindElementById(WindowQuantityElementId::Element7) : nullptr; element7) element7->data.graphic->imageNo = imageNo;
     WindowInstance* const stateWindow = gWindowStates[WindowId_Quantity].window;
     gWindowStates[WindowId_Quantity].value10 = static_cast<std::uint32_t>(maximum);
     gWindowStates[WindowId_Quantity].value14 = static_cast<std::uint32_t>(value14);
     gWindowStates[WindowId_Quantity].userState.callback = callback;
-    if ((stateWindow && (*stateWindow)[WindowQuantityElementId::ButtonOk])) (*stateWindow)[WindowQuantityElementId::ButtonOk]->state = static_cast<std::uint32_t>(initialValue);
+    if (auto* const buttonOkElement = stateWindow ? stateWindow->FindElementById(WindowQuantityElementId::ButtonOk) : nullptr; buttonOkElement) buttonOkElement->state = static_cast<std::uint32_t>(initialValue);
     WindowInstance* const result = gWindowStates[WindowId_Quantity].window;
     gWindowStates[WindowId_Quantity].value20 = static_cast<std::uint32_t>(sourceWindow);
     gWindowStates[WindowId_Quantity].value24 = static_cast<std::uint32_t>(sourceElement);
@@ -119,12 +119,14 @@ WindowInstance* WindowQuantity_Open(
 // 原函数：0x0048A8C0。
 static std::int32_t WindowQuantity_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         gWindowStates[WindowId_Quantity].value10 = 999999999;
         gWindowStates[WindowId_Quantity].value14 = 0;
         gWindowStates[WindowId_Quantity].userState.callback = nullptr;
-        if ((window && (*window)[WindowQuantityElementId::ButtonOk])) (*window)[WindowQuantityElementId::ButtonOk]->state = 0;
+        if (auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk); buttonOkElement) buttonOkElement->state = 0;
         static_cast<void>(WindowQuantity_HandleInput(0, 2));
     }
     return 1;
@@ -134,13 +136,17 @@ static std::int32_t WindowQuantity_Update(const std::int32_t value)
 // 原函数：0x0048A900。
 static std::int32_t WindowQuantity_HandleInput(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 2) != 0) {
         static_cast<void>(WindowInput_ActivateElement(&gNumberInputPrototype57DA70, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCB0878);
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowQuantityElementId::HandleInput]))) { return {}; }
-        gFocusedElementDataD45F94 = (*window)[WindowQuantityElementId::HandleInput]->data.input;
-        if ((window && (*window)[WindowQuantityElementId::HandleInput])) (*window)[WindowQuantityElementId::HandleInput]->data.input->context = &cg::ui::detail::gInputContextCB0878;
+        WindowInstance* const window = currentWindow;
+        auto* const handleInputElement = window->FindElementById(WindowQuantityElementId::HandleInput);
+        if (handleInputElement) {
+            gFocusedElementDataD45F94 = handleInputElement->data.input;
+        }
+        if (auto* const handleInputElement2 = window->FindElementById(WindowQuantityElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &cg::ui::detail::gInputContextCB0878;
     }
     return 0;
 }
@@ -149,46 +155,56 @@ static std::int32_t WindowQuantity_HandleInput(const std::int32_t, const std::in
 // 原函数：0x0048A950。
 static std::int32_t WindowQuantity_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const input::InputContext* const currentInput = input::gCurrentInputData;
     const std::uint8_t flags = reinterpret_cast<const unsigned char*>(
         &gWindowStates[WindowId_Quantity].actionFlags1C)[0]
         | (currentInput == &cg::ui::detail::gInputContextCB0878 ? 2u : 0u);
     const std::int32_t value14 = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value14);
-    WindowInstance* const numericWindow = gCurrentWindow;
+    WindowInstance* const numericWindow = currentWindow;
     const std::uint8_t numeric = WindowInput_HandleNumber(
         numericWindow, index, state, value14,
         223, gNumberWindowHints57DC9C.data(), flags, 0xFFFFFFFFu);
-    WindowInstance* window = gCurrentWindow;
+    WindowInstance* window = currentWindow;
     std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    if (std::bit_cast<std::int32_t>((*window)[NativeElementKey(index)]->state) > maximum) {
-        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->state = static_cast<std::uint32_t>(maximum);
-        maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
-        window = gCurrentWindow;
+    auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+    if (indexedElement) {
+        if (std::bit_cast<std::int32_t>(indexedElement->state) > maximum) {
+            if (auto* const indexedElement2 = window->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->state = static_cast<std::uint32_t>(maximum);
+            maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
+            window = currentWindow;
+        }
     }
     std::int32_t result = 0;
     if ((numeric & 1u) != 0) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        if (std::bit_cast<std::int32_t>((*window)[NativeElementKey(index)]->state) > maximum) {
-            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->state = static_cast<std::uint32_t>(maximum);
-            window = gCurrentWindow;
+        auto* const indexedElement2 = window->FindElementById(NativeElementKey(index));
+        if (indexedElement2) {
+            if (std::bit_cast<std::int32_t>(indexedElement2->state) > maximum) {
+                if (auto* const indexedElement3 = window->FindElementById(NativeElementKey(index)); indexedElement3) indexedElement3->state = static_cast<std::uint32_t>(maximum);
+                window = currentWindow;
+            }
         }
         result = 1;
     }
     if ((numeric & 2u) != 0) {
         const WindowValueCallback callback = gWindowStates[WindowId_Quantity].userState.callback;
         if (callback != nullptr) {
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            callback(std::bit_cast<std::int32_t>((*window)[NativeElementKey(index)]->state));
-            window = gCurrentWindow;
+            auto* const indexedElement2 = window->FindElementById(NativeElementKey(index));
+            if (indexedElement2) {
+                callback(std::bit_cast<std::int32_t>(indexedElement2->state));
+            }
+            window = currentWindow;
         }
         window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
-        window = gCurrentWindow;
+        window = currentWindow;
         result = 1;
     }
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    cg::text::FormatTo(gNumberWindowTextCC4D1C, L"{:9}", std::bit_cast<std::int32_t>((*window)[NativeElementKey(index)]->state));
+    auto* const indexedElement2 = window->FindElementById(NativeElementKey(index));
+    if (indexedElement2) {
+        cg::text::FormatTo(gNumberWindowTextCC4D1C, L"{:9}", std::bit_cast<std::int32_t>(indexedElement2->state));
+    }
     return result;
 }
 
@@ -196,29 +212,33 @@ static std::int32_t WindowQuantity_ButtonOk(const std::int32_t index, const std:
 // 原函数：0x0048AA60。
 static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"增加显示数量。";
     }
     if ((state & 2) != 0) {
         const std::int32_t maximum = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Quantity].value10);
-        if (!((window && (*window)[WindowQuantityElementId::ButtonOk]))) { return {}; }
-        const std::int32_t value = std::bit_cast<std::int32_t>((*window)[WindowQuantityElementId::ButtonOk]->state);
-        if (value < maximum) {
-            if ((window && (*window)[WindowQuantityElementId::ButtonOk])) (*window)[WindowQuantityElementId::ButtonOk]->state = static_cast<std::uint32_t>(value + 1);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
-        } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk);
+        if (buttonOkElement) {
+            const std::int32_t value = std::bit_cast<std::int32_t>(buttonOkElement->state);
+            if (value < maximum) {
+                if (auto* const buttonOkElement2 = window->FindElementById(WindowQuantityElementId::ButtonOk); buttonOkElement2) buttonOkElement2->state = static_cast<std::uint32_t>(value + 1);
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
         }
     }
-    graphic->imageNo = 243090;
+    if (graphic) graphic->imageNo = 243090;
     if ((state & 1) != 0) {
-        graphic->imageNo = 243092;
+        if (graphic) graphic->imageNo = 243092;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 243091;
+        if (graphic) graphic->imageNo = 243091;
     }
     return 0;
 }
@@ -227,28 +247,32 @@ static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, cons
 // 原函数：0x0048AB10。
 static std::int32_t WindowQuantity_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"减少显示数量。";
     }
     if ((state & 2) != 0) {
-        if (!((window && (*window)[WindowQuantityElementId::ButtonOk]))) { return {}; }
-        const std::int32_t value = std::bit_cast<std::int32_t>((*window)[WindowQuantityElementId::ButtonOk]->state);
-        if (value > 0) {
-            if ((window && (*window)[WindowQuantityElementId::ButtonOk])) (*window)[WindowQuantityElementId::ButtonOk]->state = static_cast<std::uint32_t>(value - 1);
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
-        } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk);
+        if (buttonOkElement) {
+            const std::int32_t value = std::bit_cast<std::int32_t>(buttonOkElement->state);
+            if (value > 0) {
+                if (auto* const buttonOkElement2 = window->FindElementById(WindowQuantityElementId::ButtonOk); buttonOkElement2) buttonOkElement2->state = static_cast<std::uint32_t>(value - 1);
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
         }
     }
-    graphic->imageNo = 243093;
+    if (graphic) graphic->imageNo = 243093;
     if ((state & 1) != 0) {
-        graphic->imageNo = 243095;
+        if (graphic) graphic->imageNo = 243095;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 243094;
+        if (graphic) graphic->imageNo = 243094;
     }
     return 0;
 }

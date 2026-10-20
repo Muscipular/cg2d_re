@@ -98,12 +98,14 @@ static void WindowItemStorage_Release()
 // 原函数：0x004AC140。
 static std::int32_t WindowItemStorage_Update(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (WindowProfile_CheckDistance(1, 1) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (world::gCurrentDialogType_581800 != 34) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     gWindowStates[WindowId_ItemStorage].actionFlags1C = 0xFFFFFFFFu;
@@ -130,6 +132,8 @@ static std::int32_t WindowItemStorage_Draw(const std::int32_t)
 // 原函数：0x004AC290。
 static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -149,23 +153,27 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source < 100) {
-            const WindowInstance* const window = gCurrentWindow;
+            const WindowInstance* const window = currentWindow;
             const std::int32_t windowX = window->x;
             const std::int32_t windowY = window->y;
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            const std::int32_t elementX = (*window)[NativeElementKey(index)]->x;
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            const std::int32_t elementY = (*window)[NativeElementKey(index)]->y;
-            for (std::int32_t position = 0; position < 20; ++position) {
-                const std::int32_t left = windowX + 50 * (position % 5) + elementX + 12;
-                const std::int32_t top = windowY + 52 * (position / 5) + elementY + 39;
-                if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
-                    continue;
+            auto* const elementXElement = window->FindElementById(NativeElementKey(index));
+            if (elementXElement) {
+                const std::int32_t elementX = elementXElement->x;
+                auto* const elementYElement = window->FindElementById(NativeElementKey(index));
+                if (elementYElement) {
+                    const std::int32_t elementY = elementYElement->y;
+                    for (std::int32_t position = 0; position < 20; ++position) {
+                        const std::int32_t left = windowX + 50 * (position % 5) + elementX + 12;
+                        const std::int32_t top = windowY + 52 * (position / 5) + elementY + 39;
+                        if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
+                            continue;
+                        }
+                        if (source != position + 8) {
+                            WindowItem_RequestTransfer(38, index, source, position + 8);
+                        }
+                        break;
+                    }
                 }
-                if (source != position + 8) {
-                    WindowItem_RequestTransfer(38, index, source, position + 8);
-                }
-                break;
             }
         }
         WindowDrag_Reset();
@@ -173,14 +181,16 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     std::int32_t hovered = -1;
     if ((events & 0x21u) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-            const std::int32_t left = element.x + 50 * (position % 5) + window->x + 12;
-            const std::int32_t top = element.y + 52 * (position / 5) + window->y + 39;
-            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
-                hovered = position;
-                break;
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement& element = (*elementPtr);
+                const std::int32_t left = element.x + 50 * (position % 5) + window->x + 12;
+                const std::int32_t top = element.y + 52 * (position / 5) + window->y + 39;
+                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                    hovered = position;
+                    break;
+                }
             }
         }
     }
@@ -219,27 +229,31 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     if (WindowDrag_ReadKind() == 2) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-            const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 12;
-            const std::int32_t top = element.y + 52 * ((source - 8) / 5) + window->y + 39;
-            cg::render::DrawGraphicHover(
-                static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
-                static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
-                223, 254, 0);
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement& element = (*elementPtr);
+                const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 12;
+                const std::int32_t top = element.y + 52 * ((source - 8) / 5) + window->y + 39;
+                cg::render::DrawGraphicHover(
+                    static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
+                    static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
+                    223, 254, 0);
+            }
         }
     }
     if (hovered >= 0) {
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 12;
-        const std::int32_t top = element.y + 52 * (hovered / 5) + window->y + 39;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-            static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 12;
+            const std::int32_t top = element.y + 52 * (hovered / 5) + window->y + 39;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+        }
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
             gWindowStates[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
         }
@@ -255,33 +269,35 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         if (item.used == 0) {
             continue;
         }
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t x = element.x + 50 * (position % 5) + window->x + 36;
-        const std::int32_t y = element.y + 52 * (position / 5) + window->y + 64;
-        if ((item.flags & 0x60u) != 0
-            || item.itemType == 38 || item.itemType == 52 || item.itemType == 54) {
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
-        }
-        if (occupancy[position + 8] != 0) {
-            cg::render::DrawGraphicHover(
-                static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
-                static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
-                223, 249, 0);
-            static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
-        } else {
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t x = element.x + 50 * (position % 5) + window->x + 36;
+            const std::int32_t y = element.y + 52 * (position / 5) + window->y + 64;
+            if ((item.flags & 0x60u) != 0
+                || item.itemType == 38 || item.itemType == 52 || item.itemType == 54) {
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, 23040, 0, nullptr));
+            }
+            if (occupancy[position + 8] != 0) {
+                cg::render::DrawGraphicHover(
+                    static_cast<std::uint16_t>(x - 24), static_cast<std::uint16_t>(y - 24),
+                    static_cast<std::uint16_t>(x + 24), static_cast<std::uint16_t>(y + 24),
+                    223, 249, 0);
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &dimmed));
+            } else {
+                static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
+            }
+            // 原4AC80F在两分支后均再次绘制普通图，不合并这次入队。
             static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
-        }
-        // 原4AC80F在两分支后均再次绘制普通图，不合并这次入队。
-        static_cast<void>(cg::render::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
-        const std::int32_t count = item.count;
-        if (count > 0) {
-            cg::text::FormatTo(buffer, L"{:3}", count);
-            static_cast<void>(render::DrawText_456780(
-                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
-                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer, 0, 0));
+            const std::int32_t count = item.count;
+            if (count > 0) {
+                cg::text::FormatTo(buffer, L"{:3}", count);
+                static_cast<void>(render::DrawText_456780(
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
+                    3, 1, 1, buffer, 0, 0));
+            }
         }
     }
     return consumed;
@@ -291,6 +307,8 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
 // 原函数：0x004AC890。
 static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -306,47 +324,51 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         const std::int32_t dropX = WindowDrag_ReadX();
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t elementX = element.x;
-        const std::int32_t windowX = window->x;
-        const std::int32_t windowY = window->y;
-        const std::int32_t elementY = element.y;
-        for (std::int32_t position = 0; position < 20; ++position) {
-            const std::int32_t left = windowX + 50 * (position % 5) + elementX + 12;
-            const std::int32_t top = windowY + 52 * (position / 5) + elementY + 39;
-            if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
-                continue;
-            }
-            if (source != position + 100
-                && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
-                    &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) == 0)) {
-                // 原4AC9E6始终按玩家表取类型；不为外部索引补造另一来源。
-                const std::int32_t itemType = world::gPlayerRuntimeSlots.items[source].itemType;
-                if (itemType != 38 && itemType != 52) {
-                    WindowItem_RequestTransfer(38, index, source, position + 100);
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t windowY = window->y;
+            const std::int32_t elementY = element.y;
+            for (std::int32_t position = 0; position < 20; ++position) {
+                const std::int32_t left = windowX + 50 * (position % 5) + elementX + 12;
+                const std::int32_t top = windowY + 52 * (position / 5) + elementY + 39;
+                if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
+                    continue;
                 }
+                if (source != position + 100
+                    && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
+                        &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) == 0)) {
+                    // 原4AC9E6始终按玩家表取类型；不为外部索引补造另一来源。
+                    const std::int32_t itemType = world::gPlayerRuntimeSlots.items[source].itemType;
+                    if (itemType != 38 && itemType != 52) {
+                        WindowItem_RequestTransfer(38, index, source, position + 100);
+                    }
+                }
+                break;
             }
-            break;
         }
         WindowDrag_Reset();
     }
     std::int32_t hovered = -1;
     if ((events & 0x21u) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-            const std::int32_t elementX = element.x;
-            const std::int32_t windowX = window->x;
-            const std::int32_t left = elementX + 50 * (position % 5) + windowX + 12;
-            const std::int32_t elementY = element.y;
-            const std::int32_t windowY = window->y;
-            const std::int32_t top = elementY + 52 * (position / 5) + windowY + 39;
-            if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
-                hovered = position;
-                break;
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement& element = (*elementPtr);
+                const std::int32_t elementX = element.x;
+                const std::int32_t windowX = window->x;
+                const std::int32_t left = elementX + 50 * (position % 5) + windowX + 12;
+                const std::int32_t elementY = element.y;
+                const std::int32_t windowY = window->y;
+                const std::int32_t top = elementY + 52 * (position / 5) + windowY + 39;
+                if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                    hovered = position;
+                    break;
+                }
             }
         }
     }
@@ -391,35 +413,39 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     if (WindowDrag_ReadKind() == 2 || WindowDrag_ReadKind() == 5) {
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 100) {
-            const WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-            const std::int32_t elementX = element.x;
-            const std::int32_t windowX = window->x;
-            const std::int32_t left = elementX + 50 * ((source - 100) % 5) + windowX + 12;
-            const std::int32_t elementY = element.y;
-            const std::int32_t windowY = window->y;
-            const std::int32_t top = elementY + 52 * ((source - 100) / 5) + windowY + 39;
-            cg::render::DrawGraphicHover(
-                static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
-                static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
-                223, 254, 0);
+            const WindowInstance* const window = currentWindow;
+            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const WindowElement& element = (*elementPtr);
+                const std::int32_t elementX = element.x;
+                const std::int32_t windowX = window->x;
+                const std::int32_t left = elementX + 50 * ((source - 100) % 5) + windowX + 12;
+                const std::int32_t elementY = element.y;
+                const std::int32_t windowY = window->y;
+                const std::int32_t top = elementY + 52 * ((source - 100) / 5) + windowY + 39;
+                cg::render::DrawGraphicHover(
+                    static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
+                    static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
+                    223, 254, 0);
+            }
         }
     }
     if (hovered >= 0) {
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t elementX = element.x;
-        const std::int32_t windowX = window->x;
-        const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 12;
-        const std::int32_t elementY = element.y;
-        const std::int32_t windowY = window->y;
-        const std::int32_t top = elementY + 52 * (hovered / 5) + windowY + 39;
-        cg::render::DrawGraphicHover(
-            static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
-            static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
-            223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 12;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t top = elementY + 52 * (hovered / 5) + windowY + 39;
+            cg::render::DrawGraphicHover(
+                static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
+                223, cg::render::gHoverFramePaletteIndex_D69768, 0);
+        }
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
@@ -438,26 +464,28 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         if (used == 0) {
             continue;
         }
-        const WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
-        const std::int32_t elementX = element.x;
-        const std::int32_t windowX = window->x;
-        const std::int32_t x = elementX + 50 * (position % 5) + windowX + 36;
-        const std::int32_t elementY = element.y;
-        const std::int32_t windowY = window->y;
-        const std::int32_t y = elementY + 52 * (position / 5) + windowY + 64;
-        std::int32_t imageNo;
-        std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-        static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
-        std::int32_t count;
-        std::memcpy(&count, &record->count, sizeof(count));
-        if (count > 0) {
-            cg::text::FormatTo(buffer, L"{:3}", count);
-            static_cast<void>(render::DrawText_456780(
-                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
-                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
-                3, 1, 1, buffer, 0, 0));
+        const WindowInstance* const window = currentWindow;
+        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            const std::int32_t elementX = element.x;
+            const std::int32_t windowX = window->x;
+            const std::int32_t x = elementX + 50 * (position % 5) + windowX + 36;
+            const std::int32_t elementY = element.y;
+            const std::int32_t windowY = window->y;
+            const std::int32_t y = elementY + 52 * (position / 5) + windowY + 64;
+            std::int32_t imageNo;
+            std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
+            static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
+            std::int32_t count;
+            std::memcpy(&count, &record->count, sizeof(count));
+            if (count > 0) {
+                cg::text::FormatTo(buffer, L"{:3}", count);
+                static_cast<void>(render::DrawText_456780(
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
+                    std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
+                    3, 1, 1, buffer, 0, 0));
+            }
         }
     }
     return consumed;

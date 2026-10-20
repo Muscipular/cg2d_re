@@ -100,36 +100,46 @@ WindowPrototype gWindowPrototypeMiniMail {0, 4, 383, 81, 232, 210, 0x80000080u, 
 // 原函数：0x004CB5D0。
 static void WindowMiniMail_Refresh()
 {
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::Element13])) (*gCurrentWindow)[WindowMiniMailElementId::Element13]->data.text->text = gMiniMailCompose105F508.name;
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    if (auto* const element13 = currentWindow->FindElementById(WindowMiniMailElementId::Element13); element13) element13->data.text->text = gMiniMailCompose105F508.name;
+    WindowInstance* const window = currentWindow;
     static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, 2));
     std::int32_t divisor = 1;
     for (std::int32_t index = 0; index < 8; ++index) {
         const std::int32_t cost = world::detail::ReadCategoryValue105FA20();
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 3)]))) { continue; }
-        (*gCurrentWindow)[NativeElementKey(index + 3)]->data.graphic->imageNo =
-            cost < divisor ? 0 : cost / divisor % 10 + 245520;
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 3));
+        if (indexedElement) {
+            indexedElement->data.graphic->imageNo =
+                cost < divisor ? 0 : cost / divisor % 10 + 245520;
+        }
         divisor *= 10;
     }
     if (world::detail::ReadCategoryValue105FA20() == 0) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::Send_4])) (*gCurrentWindow)[WindowMiniMailElementId::Send_4]->data.graphic->imageNo = 245520;
+        if (auto* const send_4Element = currentWindow->FindElementById(WindowMiniMailElementId::Send_4); send_4Element) send_4Element->data.graphic->imageNo = 245520;
     }
 }
 
 // 原函数：0x004CB550。
 static std::int32_t WindowMiniMail_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         const std::int32_t mode =
             gMiniMailCompose105F508.target == world::detail::gMiniMailSelectionD673E4 ? 1 : 0;
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, mode));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]))) { return {}; }
-        gFocusedElementDataD45F94 = (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]->data.input;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]))) { return {}; }
-        (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]->data.input->context =
-            &cg::ui::detail::gInputContextCA0180;
+        auto* const handleInputElement = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
+        if (handleInputElement) {
+            gFocusedElementDataD45F94 = handleInputElement->data.input;
+        }
+        auto* const handleInputElement2 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
+        if (handleInputElement2) {
+            handleInputElement2->data.input->context =
+                &cg::ui::detail::gInputContextCA0180;
+        }
         const std::int32_t target = gMiniMailCompose105F508.target;
         gMiniMailInputPrototype580CB0.text.clear();
         world::detail::gMiniMailSelectionD673E4 = target;
@@ -141,20 +151,28 @@ static std::int32_t WindowMiniMail_Update(const std::int32_t value)
 // 原函数：0x004CB920。
 static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowMiniMailElementId::HandleInput]))) { return {}; }
-        if (gFocusedElementDataD45F94 != (*window)[WindowMiniMailElementId::HandleInput]->data.input) {
-            static_cast<void>(WindowInput_ActivateElement(
-                &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
-            input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]))) { return {}; }
-            gFocusedElementDataD45F94 = (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]->data.input;
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]))) { return {}; }
-            (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]->data.input->context =
-                &cg::ui::detail::gInputContextCA0180;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        WindowInstance* const window = currentWindow;
+        auto* const handleInputElement = window->FindElementById(WindowMiniMailElementId::HandleInput);
+        if (handleInputElement) {
+            if (gFocusedElementDataD45F94 != handleInputElement->data.input) {
+                static_cast<void>(WindowInput_ActivateElement(
+                    &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
+                input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
+                auto* const handleInputElement2 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
+                if (handleInputElement2) {
+                    gFocusedElementDataD45F94 = handleInputElement2->data.input;
+                }
+                auto* const handleInputElement3 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
+                if (handleInputElement3) {
+                    handleInputElement3->data.input->context =
+                        &cg::ui::detail::gInputContextCA0180;
+                }
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
         }
         consumed = 1;
     }
@@ -167,27 +185,31 @@ static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::in
 // 原函数：0x004CB6A0。
 static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (index != 2) {
         return 0;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::Send]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[WindowMiniMailElementId::Send]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 244253;
-        std::wstring hint;
-        cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
-        gHoverTextD68AE8 = hint;
-        consumed = 1;
-    } else {
-        graphic->imageNo = 244251;
-    }
-    if ((state & 2) == 0) {
-        return consumed;
-    }
-    if (cg::ui::detail::gInputContextCA0180.empty()) {
-        static_cast<void>(audio::PlaySe_52C450(55, 320));
-        return consumed;
+    auto* const sendElement = currentWindow->FindElementById(WindowMiniMailElementId::Send);
+    if (sendElement) {
+        auto* const graphic = sendElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 244253;
+            std::wstring hint;
+            cg::text::FormatTo(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+            gHoverTextD68AE8 = hint;
+            consumed = 1;
+        } else {
+            graphic->imageNo = 244251;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        if (cg::ui::detail::gInputContextCA0180.empty()) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            return consumed;
+        }
     }
     const std::wstring text = input::ContextText(cg::ui::detail::gInputContextCA0180);
     std::wstring storedText; // 内部正文；写文件前仍执行原300字节容量预检。

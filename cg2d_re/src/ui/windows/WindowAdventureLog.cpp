@@ -180,16 +180,20 @@ static void WindowAdventureLog_Load()
 // 原函数：0x004CC340。
 static void WindowAdventureLog_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     char buffer[3000] {};
     std::vector<std::wstring> rows;
     if (gLoginWindowRuntime.logViewerFileD67BB8 == nullptr
         && gLoginWindowRuntime.logViewerErrorD67BBC == 0) {
         WindowAdventureLog_Load();
     }
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
-    if (!((window && (*window)[WindowAdventureLogElementId::HandleVerticalScroll]))) { return; }
-    gLoginWindowRuntime.valueD67BB0 = WindowScroll_ReadPosition((*window)[WindowAdventureLogElementId::HandleVerticalScroll], maximum);
+    auto* const handleVerticalScrollElement = window->FindElementById(WindowAdventureLogElementId::HandleVerticalScroll);
+    if (handleVerticalScrollElement) {
+        gLoginWindowRuntime.valueD67BB0 = WindowScroll_ReadPosition(handleVerticalScrollElement, maximum);
+    }
     if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
         static_cast<void>(::_fseeki64(gLoginWindowRuntime.logViewerFileD67BB8, 0, SEEK_SET));
         while (std::fgets(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
@@ -200,21 +204,27 @@ static void WindowAdventureLog_Refresh()
             const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
             const std::size_t index = static_cast<std::size_t>(page + line);
             const std::wstring_view text = index < rows.size() ? std::wstring_view(rows[index]) : std::wstring_view{};
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(11 + line)]))) { continue; }
-            auto* const data = (*gCurrentWindow)[NativeElementKey(11 + line)]->data.text;
-            data->text = text;
+            auto* const dataElement = currentWindow->FindElementById(NativeElementKey(11 + line));
+            if (dataElement) {
+                auto* const data = dataElement->data.text;
+                data->text = text;
+            }
         }
         return;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowAdventureLogElementId::Element12]))) { return; }
-    auto* const first = (*gCurrentWindow)[WindowAdventureLogElementId::Element12]->data.text;
-    first->text = L"无法开启冒险者日志" /* 原常量参考：0x0055358C。 */;
+    auto* const element12 = currentWindow->FindElementById(WindowAdventureLogElementId::Element12);
+    if (element12) {
+        auto* const first = element12->data.text;
+        first->text = L"无法开启冒险者日志" /* 原常量参考：0x0055358C。 */;
+    }
     for (std::int32_t line = 12; line < 25; ++line) {
-        WindowInstance* const current = gCurrentWindow;
+        WindowInstance* const current = currentWindow;
         const char* const text = "";
-        if (!((current && (*current)[NativeElementKey(line)]))) { continue; }
-        auto* const data = (*current)[NativeElementKey(line)]->data.text;
-        data->text = cg::text::FromGbkWide(text);
+        auto* const dataElement = current->FindElementById(NativeElementKey(line));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = cg::text::FromGbkWide(text);
+        }
     }
 }
 
@@ -231,6 +241,8 @@ static std::int32_t WindowAdventureLog_Update(const std::int32_t value)
 // 原函数：0x004CBDB0。
 static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     switch (index) {
     case 2:
@@ -238,10 +250,10 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
         const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = index == 2 ? L"往上查看内容。" /* 原常量参考：0x005885EC。 */ : L"往下查看内容。" /* 原常量参考：0x005885DC。 */;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base + 2;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base;
         }
         if ((state & 0x400) != 0) {
             const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
@@ -251,14 +263,16 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
             }
             static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
             const std::int32_t currentPage = gLoginWindowRuntime.valueD67BB0;
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
-            if (!((window && (*window)[WindowAdventureLogElementId::HandleVerticalScroll]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[WindowAdventureLogElementId::HandleVerticalScroll], maximum, currentPage));
+            auto* const handleVerticalScrollElement = window->FindElementById(WindowAdventureLogElementId::HandleVerticalScroll);
+            if (handleVerticalScrollElement) {
+                static_cast<void>(WindowScroll_SetPosition(handleVerticalScrollElement, maximum, currentPage));
+            }
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base + 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base + 1;
             consumed = 1;
         }
         break;
@@ -268,10 +282,10 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
         const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = index == 6 ? L"查看后一天的内容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的内容。" /* 原常量参考：0x005885B4。 */;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base + 2;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base;
         }
         if ((state & 0x400) != 0) {
             std::FILE* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
@@ -325,18 +339,22 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
                 --gLoginWindowRuntime.dayD67BC0;
             }
             WindowAdventureLog_Load();
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowAdventureLogElementId::Element5]))) { return {}; }
-            auto* const title = (*gCurrentWindow)[WindowAdventureLogElementId::Element5]->data.text;
-            title->text = world::gLogFileName554648;
-            WindowInstance* const window = gCurrentWindow;
+            auto* const element5 = currentWindow->FindElementById(WindowAdventureLogElementId::Element5);
+            if (element5) {
+                auto* const title = element5->data.text;
+                title->text = world::gLogFileName554648;
+            }
+            WindowInstance* const window = currentWindow;
             const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
             gLoginWindowRuntime.valueD67BB0 = 0;
-            if (!((window && (*window)[WindowAdventureLogElementId::HandleVerticalScroll]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[WindowAdventureLogElementId::HandleVerticalScroll], maximum, 0));
+            auto* const handleVerticalScrollElement = window->FindElementById(WindowAdventureLogElementId::HandleVerticalScroll);
+            if (handleVerticalScrollElement) {
+                static_cast<void>(WindowScroll_SetPosition(handleVerticalScrollElement, maximum, 0));
+            }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & 8) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base + 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = base + 1;
         }
         break;
     }

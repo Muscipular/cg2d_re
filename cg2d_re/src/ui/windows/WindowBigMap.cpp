@@ -333,15 +333,16 @@ struct BigMapWindowState final {
     explicit BigMapWindowState(WindowInstance& instance) : window(instance) {
         Layout();
         // 原型保持固定布局；仅初始化时按当前字体度量入口的10px间距。
-        if (!(((&window) && (*(&window))[NativeElementKey(TextToggle)]))) { return; }
-        const auto& label = (*(*(&window))[NativeElementKey(TextToggle)]);
-        const int listButton = ButtonFirst + static_cast<int>(BigMapButton::CoordinateList);
-        const int shift = label.x + render::TextMeasure(gBigMapOptionsText.text, kMapFont) + 10
-            - gBigMapElements[listButton].x;
-        if (((&window) && (*(&window))[NativeElementKey(listButton)])) (*(&window))[NativeElementKey(listButton)]->x += shift;
-        for (int i = ListToggleTextArea; i <= ListPanelArea; ++i) { if (auto* element = window[NativeElementKey(i)]) element->x += shift; }
-        for (int i = ListNameFirst; i < TextEnd; ++i) { if (auto* element = window[NativeElementKey(i)]) element->x += shift; }
-        if (((&window) && (*(&window))[NativeElementKey(ListToggleTextArea)])) (*(&window))[NativeElementKey(ListToggleTextArea)]->width = render::TextMeasure(gBigMapListText.text, kMapFont);
+        auto* const labelElement = window.FindElementById(NativeElementKey(TextToggle));
+        if (labelElement) {
+            const int listButton = ButtonFirst + static_cast<int>(BigMapButton::CoordinateList);
+            const int shift = labelElement->x + render::TextMeasure(gBigMapOptionsText.text, kMapFont) + 10
+                - gBigMapElements[listButton].x;
+            if (auto* const element = window.FindElementById(NativeElementKey(listButton))) element->x += shift;
+            for (int i = ListToggleTextArea; i <= ListPanelArea; ++i) { if (auto* element = window.FindElementById(NativeElementKey(i))) element->x += shift; }
+            for (int i = ListNameFirst; i < TextEnd; ++i) { if (auto* element = window.FindElementById(NativeElementKey(i))) element->x += shift; }
+        }
+        if (auto* const indexedElement2 = window.FindElementById(NativeElementKey(ListToggleTextArea)); indexedElement2) indexedElement2->width = render::TextMeasure(gBigMapListText.text, kMapFont);
     }
 
     int MaxListFirstRow() const {
@@ -352,32 +353,37 @@ struct BigMapWindowState final {
         for (int row = 0; row < kCoordinateRows; ++row) {
             const int position = listFirstRow + row;
             const bool shown = listOpen && position < static_cast<int>(coordinateRows.size());
-            if (((&window) && (*(&window))[NativeElementKey(ListRowFirst + row)])) (*(&window))[NativeElementKey(ListRowFirst + row)]->visible = shown;
-            if (((&window) && (*(&window))[NativeElementKey(ListNameFirst + row)])) (*(&window))[NativeElementKey(ListNameFirst + row)]->visible = shown;
-            if (((&window) && (*(&window))[NativeElementKey(ListCoordinateFirst + row)])) (*(&window))[NativeElementKey(ListCoordinateFirst + row)]->visible = shown;
-            if (!(((&window) && (*(&window))[NativeElementKey(ListNameFirst + row)]))) { continue; }
-            auto& name = *(*(&window))[NativeElementKey(ListNameFirst + row)]->data.text;
-            if (!(((&window) && (*(&window))[NativeElementKey(ListCoordinateFirst + row)]))) { continue; }
-            auto& coordinate = *(*(&window))[NativeElementKey(ListCoordinateFirst + row)]->data.text;
-            if (shown) {
-                const auto& point = *coordinateRows[position];
-                name.text = point.name;
-                coordinate.text = std::format(L"{}, {}", point.x, point.y);
-            } else { name.text.clear(); coordinate.text.clear(); }
+            if (auto* const indexedElement = window.FindElementById(NativeElementKey(ListRowFirst + row)); indexedElement) indexedElement->visible = shown;
+            auto* const nameElement = window.FindElementById(NativeElementKey(ListNameFirst + row));
+            if (nameElement) {
+                nameElement->visible = shown;
+                nameElement->data.text->text = shown ? coordinateRows[position]->name : L"";
+            }
+            auto* const coordinateElement = window.FindElementById(NativeElementKey(ListCoordinateFirst + row));
+            if (coordinateElement) {
+                coordinateElement->visible = shown;
+                auto& coordinate = *coordinateElement->data.text;
+                if (shown) {
+                    const auto& point = *coordinateRows[position];
+                    coordinate.text = std::format(L"{}, {}", point.x, point.y);
+                } else { coordinate.text.clear(); }
+            }
         }
-        if (((&window) && (*(&window))[NativeElementKey(TextListEmpty)])) (*(&window))[NativeElementKey(TextListEmpty)]->visible = listOpen && coordinateRows.empty();
+        if (auto* const indexedElement = window.FindElementById(NativeElementKey(TextListEmpty)); indexedElement) indexedElement->visible = listOpen && coordinateRows.empty();
         const int pages = (static_cast<int>(coordinateRows.size()) + kCoordinateRows - 1) / kCoordinateRows;
         // 末屏允许不足10行时向前补齐；到达尾部显示末页。
         const int page = pages == 0 ? 0 : listFirstRow == MaxListFirstRow() ? pages : listFirstRow / kCoordinateRows + 1;
-        if (((&window) && (*(&window))[NativeElementKey(TextListPage)])) (*(&window))[NativeElementKey(TextListPage)]->data.text->text = std::format(L"{} / {}", page, pages);
+        if (auto* const indexedElement2 = window.FindElementById(NativeElementKey(TextListPage)); indexedElement2) indexedElement2->data.text->text = std::format(L"{} / {}", page, pages);
     }
 
     void SetListFirstRow(int position) {
         const int next = std::clamp(position, 0, MaxListFirstRow());
         if (next != listFirstRow) lastListClickX = lastListClickY = -1;
         listFirstRow = next;
-        if (!(((&window) && (*(&window))[NativeElementKey(ListScrollTrack)]))) { return; }
-        WindowScroll_SetPosition((*(&window))[NativeElementKey(ListScrollTrack)], MaxListFirstRow(), listFirstRow);
+        auto* const indexedElement = window.FindElementById(NativeElementKey(ListScrollTrack));
+        if (indexedElement) {
+            WindowScroll_SetPosition(indexedElement, MaxListFirstRow(), listFirstRow);
+        }
         RefreshListRows();
     }
 
@@ -404,10 +410,13 @@ struct BigMapWindowState final {
         const int screenW = render::GetRendererLogicalWidth(), screenH = render::GetRendererLogicalHeight();
         window.x = std::clamp(window.x, 0, std::max(0, screenW - window.width));
         window.y = std::clamp(window.y, 0, std::max(0, screenH - window.height));
-        if (!(((&window) && (*(&window))[NativeElementKey(MapArea)]))) { return; }
-        const auto& viewport = (*(*(&window))[NativeElementKey(MapArea)]);
-        map.x = viewport.x; map.y = viewport.y;
-        map.w = viewport.width; map.h = viewport.height;
+        auto* const viewportElement = window.FindElementById(NativeElementKey(MapArea));
+        if (viewportElement) {
+            const auto& viewport = (*viewportElement);
+            map.x = viewport.x; map.y = viewport.y;
+            map.w = viewport.width; map.h = viewport.height;
+        }
+        return;
     }
 
     static const resource::GraphicInfo* Graphic(int mapNo) {
@@ -420,9 +429,12 @@ struct BigMapWindowState final {
     }
 
     bool ElementHit(int index) const {
-        if (!(((&window) && (*(&window))[NativeElementKey(index)]))) { return {}; }
-        const auto& element = (*(*(&window))[NativeElementKey(index)]);
-        return element.visible == 1 && Hit(element.x, element.y, element.width, element.height);
+        auto* const elementPtr = window.FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            const auto& element = (*elementPtr);
+            return element.visible == 1 && Hit(element.x, element.y, element.width, element.height);
+        }
+        return false;
     }
 
     bool MapHit() const {
@@ -435,52 +447,56 @@ struct BigMapWindowState final {
         // 固定布局来自原型；这里只维护业务驱动的显隐和居中按钮的动态行。
         const int walk = ButtonFirst + static_cast<int>(BigMapButton::Walk);
         const int center = ButtonFirst + static_cast<int>(BigMapButton::Center);
-        if (((&window) && (*(&window))[NativeElementKey(walk)])) (*(&window))[NativeElementKey(walk)]->visible = targetX >= 0 && mapReady;
-        if (((&window) && (*(&window))[NativeElementKey(center)])) (*(&window))[NativeElementKey(center)]->visible = !followPlayer;
-        if (((&window) && (*(&window))[NativeElementKey(center)])) (*(&window))[NativeElementKey(center)]->y = targetX >= 0 ? 97 : 73;
-        if (((&window) && (*(&window))[NativeElementKey(TextCenter)]) && ((&window) && (*(&window))[NativeElementKey(center)])) (*(&window))[NativeElementKey(TextCenter)]->y = (*(&window))[NativeElementKey(center)]->y + 3;
-        if (((&window) && (*(&window))[NativeElementKey(TextToggle)])) (*(&window))[NativeElementKey(TextToggle)]->visible = 1;
-        if (((&window) && (*(&window))[NativeElementKey(TextWalk)]) && ((&window) && (*(&window))[NativeElementKey(walk)])) (*(&window))[NativeElementKey(TextWalk)]->visible = !options && (*(&window))[NativeElementKey(walk)]->visible;
-        if (((&window) && (*(&window))[NativeElementKey(TextCenter)]) && ((&window) && (*(&window))[NativeElementKey(center)])) (*(&window))[NativeElementKey(TextCenter)]->visible = !options && (*(&window))[NativeElementKey(center)]->visible;
-        if (((&window) && (*(&window))[NativeElementKey(OptionsArea)])) (*(&window))[NativeElementKey(OptionsArea)]->visible = options;
-        if (((&window) && (*(&window))[NativeElementKey(TextTargetCoordinate)])) (*(&window))[NativeElementKey(TextTargetCoordinate)]->visible = targetX >= 0;
-        if (((&window) && (*(&window))[NativeElementKey(TargetCoordinateArea)])) (*(&window))[NativeElementKey(TargetCoordinateArea)]->visible = targetX >= 0;
+        if (auto* const indexedElement = window.FindElementById(NativeElementKey(walk)); indexedElement) indexedElement->visible = targetX >= 0 && mapReady;
+        if (auto* const indexedElement2 = window.FindElementById(NativeElementKey(center)); indexedElement2) indexedElement2->visible = !followPlayer;
+        if (auto* const indexedElement3 = window.FindElementById(NativeElementKey(center)); indexedElement3) indexedElement3->y = targetX >= 0 ? 97 : 73;
+        if (auto* const indexedElement4 = window.FindElementById(NativeElementKey(TextCenter)), * const indexedElement5 = window.FindElementById(NativeElementKey(center)); indexedElement4 && indexedElement5) indexedElement4->y = indexedElement5->y + 3;
+        if (auto* const indexedElement6 = window.FindElementById(NativeElementKey(TextToggle)); indexedElement6) indexedElement6->visible = 1;
+        if (auto* const indexedElement7 = window.FindElementById(NativeElementKey(TextWalk)), * const indexedElement8 = window.FindElementById(NativeElementKey(walk)); indexedElement7 && indexedElement8) indexedElement7->visible = !options && indexedElement8->visible;
+        if (auto* const indexedElement9 = window.FindElementById(NativeElementKey(TextCenter)), * const indexedElement10 = window.FindElementById(NativeElementKey(center)); indexedElement9 && indexedElement10) indexedElement9->visible = !options && indexedElement10->visible;
+        if (auto* const indexedElement11 = window.FindElementById(NativeElementKey(OptionsArea)); indexedElement11) indexedElement11->visible = options;
+        if (auto* const indexedElement12 = window.FindElementById(NativeElementKey(TextTargetCoordinate)); indexedElement12) indexedElement12->visible = targetX >= 0;
+        if (auto* const indexedElement13 = window.FindElementById(NativeElementKey(TargetCoordinateArea)); indexedElement13) indexedElement13->visible = targetX >= 0;
         for (int i : {TextOptions, TextPlayer, TextTarget, TextDisplay,
                 PlayerLegendImage, TargetLegendImage}) {
-            if (auto* element = window[NativeElementKey(i)]) element->visible = options;
+            if (auto* element = window.FindElementById(NativeElementKey(i))) element->visible = options;
         }
         for (int i = 0; i < 7; ++i) {
-            if (((&window) && (*(&window))[NativeElementKey(CategoryFirst + i)])) (*(&window))[NativeElementKey(CategoryFirst + i)]->visible = options;
-            if (((&window) && (*(&window))[NativeElementKey(CategoryTextFirst + i)])) (*(&window))[NativeElementKey(CategoryTextFirst + i)]->visible = options;
-            if (((&window) && (*(&window))[NativeElementKey(CheckedFirst + i)])) (*(&window))[NativeElementKey(CheckedFirst + i)]->visible = options && categories[i];
-            if (((&window) && (*(&window))[NativeElementKey(CheckboxFirst + i)])) (*(&window))[NativeElementKey(CheckboxFirst + i)]->visible = options;
+            if (auto* const indexedElement14 = window.FindElementById(NativeElementKey(CategoryFirst + i)); indexedElement14) indexedElement14->visible = options;
+            if (auto* const indexedElement15 = window.FindElementById(NativeElementKey(CategoryTextFirst + i)); indexedElement15) indexedElement15->visible = options;
+            if (auto* const indexedElement16 = window.FindElementById(NativeElementKey(CheckedFirst + i)); indexedElement16) indexedElement16->visible = options && categories[i];
+            if (auto* const indexedElement17 = window.FindElementById(NativeElementKey(CheckboxFirst + i)); indexedElement17) indexedElement17->visible = options;
         }
-        if (((&window) && (*(&window))[NativeElementKey(ListPanelArea)])) (*(&window))[NativeElementKey(ListPanelArea)]->visible = listOpen;
-        if (((&window) && (*(&window))[NativeElementKey(TextListPage)])) (*(&window))[NativeElementKey(TextListPage)]->visible = listOpen;
-        if (((&window) && (*(&window))[NativeElementKey(ListPreviousPage)])) (*(&window))[NativeElementKey(ListPreviousPage)]->visible = listOpen;
-        if (((&window) && (*(&window))[NativeElementKey(ListNextPage)])) (*(&window))[NativeElementKey(ListNextPage)]->visible = listOpen;
+        if (auto* const indexedElement14 = window.FindElementById(NativeElementKey(ListPanelArea)); indexedElement14) indexedElement14->visible = listOpen;
+        if (auto* const indexedElement15 = window.FindElementById(NativeElementKey(TextListPage)); indexedElement15) indexedElement15->visible = listOpen;
+        if (auto* const indexedElement16 = window.FindElementById(NativeElementKey(ListPreviousPage)); indexedElement16) indexedElement16->visible = listOpen;
+        if (auto* const indexedElement17 = window.FindElementById(NativeElementKey(ListNextPage)); indexedElement17) indexedElement17->visible = listOpen;
         for (int i : {ListScrollThumb, ListScrollTrack, ListScrollUp, ListScrollDown}) {
-            if (auto* element = window[NativeElementKey(i)]) element->visible = listOpen && MaxListFirstRow() > 0;
+            if (auto* element = window.FindElementById(NativeElementKey(i))) element->visible = listOpen && MaxListFirstRow() > 0;
         }
         RefreshListRows();
     }
 
     void RefreshText() {
-        if (((&window) && (*(&window))[NativeElementKey(TextMapName)])) (*(&window))[NativeElementKey(TextMapName)]->data.text->text = world::GetMapName_9DAD30();
-        if (!(((&window) && (*(&window))[NativeElementKey(TextCurrentCoordinate)]))) { return; }
-        (*(&window))[NativeElementKey(TextCurrentCoordinate)]->data.text->text =
-            std::format(L"当前：{}  {}", static_cast<int>(world::gPlayerX), static_cast<int>(world::gPlayerY));
-        if (!(((&window) && (*(&window))[NativeElementKey(TextTargetCoordinate)]))) { return; }
-        (*(&window))[NativeElementKey(TextTargetCoordinate)]->data.text->text = targetX >= 0
-            ? std::format(L"目标：{}  {}", targetX, targetY) : L"";
+        if (auto* const indexedElement = window.FindElementById(NativeElementKey(TextMapName)); indexedElement) indexedElement->data.text->text = world::GetMapName_9DAD30();
+        auto* const indexedElement2 = window.FindElementById(NativeElementKey(TextCurrentCoordinate));
+        if (indexedElement2) {
+            indexedElement2->data.text->text =
+                std::format(L"当前：{}  {}", static_cast<int>(world::gPlayerX), static_cast<int>(world::gPlayerY));
+        }
+        auto* const indexedElement3 = window.FindElementById(NativeElementKey(TextTargetCoordinate));
+        if (indexedElement3) {
+            indexedElement3->data.text->text = targetX >= 0
+                ? std::format(L"目标：{}  {}", targetX, targetY) : L"";
+        }
         std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt" : L"";
         if (missingIcons || failedUiImages)
             status += std::format(L"  缺图：{}  UI资源失败：{}", missingIcons, failedUiImages);
         const auto generation = map.Status();
         if (!generation.empty()) status += L"  " + generation;
-        if (((&window) && (*(&window))[NativeElementKey(TextStatus)])) (*(&window))[NativeElementKey(TextStatus)]->visible = !status.empty();
-        if (((&window) && (*(&window))[NativeElementKey(StatusArea)])) (*(&window))[NativeElementKey(StatusArea)]->visible = !status.empty();
-        if (((&window) && (*(&window))[NativeElementKey(TextStatus)])) (*(&window))[NativeElementKey(TextStatus)]->data.text->text = std::move(status);
+        if (auto* const indexedElement4 = window.FindElementById(NativeElementKey(TextStatus)); indexedElement4) indexedElement4->visible = !status.empty();
+        if (auto* const indexedElement5 = window.FindElementById(NativeElementKey(StatusArea)); indexedElement5) indexedElement5->visible = !status.empty();
+        if (auto* const indexedElement6 = window.FindElementById(NativeElementKey(TextStatus)); indexedElement6) indexedElement6->data.text->text = std::move(status);
     }
 
     UIClipRect Viewport() const {
@@ -590,8 +606,10 @@ struct BigMapWindowState final {
         if (scrollingList) {
             const bool heldScroll = available && held && listOpen && MaxListFirstRow() > 0;
             WindowElement_HandleVerticalScroll(ListScrollTrack, heldScroll ? 8 : 0);
-            if (!(((&window) && (*(&window))[NativeElementKey(ListScrollTrack)]))) { return {}; }
-            SetListFirstRow(WindowScroll_ReadPosition((*(&window))[NativeElementKey(ListScrollTrack)], MaxListFirstRow()));
+            auto* const indexedElement = window.FindElementById(NativeElementKey(ListScrollTrack));
+            if (indexedElement) {
+                SetListFirstRow(WindowScroll_ReadPosition(indexedElement, MaxListFirstRow()));
+            }
             scrollingList = heldScroll;
             acceptsMouse = false; // 捕获帧由上面统一处理，防止其它子控件再次响应。
         } else if (movingWindow) {
@@ -623,8 +641,9 @@ struct BigMapWindowState final {
     }
 
     int OnElement(int index, int events) {
-        if (!(((&window) && (*(&window))[NativeElementKey(index)]))) { return {}; }
-        auto& element = (*(*(&window))[NativeElementKey(index)]);
+        auto* const elementPtr = window.FindElementById(NativeElementKey(index));
+        if (!elementPtr) { return {}; }
+        auto& element = (*elementPtr);
         element.state = acceptsMouse ? static_cast<std::uint32_t>(events) : 0;
         if (index < ButtonEnd) {
             const bool hover = (element.state & 1) != 0, pressed = hover && (element.state & 8) != 0;
@@ -645,9 +664,11 @@ struct BigMapWindowState final {
         }
         if (index == ListToggleTextArea && acceptsMouse && (events & 1)) {
             const int button = ButtonFirst + static_cast<int>(BigMapButton::CoordinateList);
-            if (!(((&window) && (*(&window))[NativeElementKey(button)]))) { return {}; }
-            (*(&window))[NativeElementKey(button)]->data.graphic->imageNo =
-                (events & 8) ? CenterPressed : CenterHover;
+            auto* const indexedElement = window.FindElementById(NativeElementKey(button));
+            if (indexedElement) {
+                indexedElement->data.graphic->imageNo =
+                    (events & 8) ? CenterPressed : CenterHover;
+            }
         }
         if (index >= ListScrollUp && index <= ListNextPage) {
             const int base = gBigMapElements[index].source.graphic->imageNo;
@@ -679,11 +700,13 @@ struct BigMapWindowState final {
                     targetX = point.x; targetY = point.y;
                     followPlayer = false;
                     // 列表保持展开，目标居中到其右侧可见地图，避免标记落在面板后面。
-                    if (!(((&window) && (*(&window))[NativeElementKey(ListPanelArea)]))) { return {}; }
-                    const auto& panel = (*(*(&window))[NativeElementKey(ListPanelArea)]);
-                    const int visibleLeft = std::clamp(panel.x + panel.width, map.x, map.x + map.w);
-                    const int visibleCenterX = (visibleLeft + map.x + map.w) / 2;
-                    map.PanFrom(point.x, point.y, visibleCenterX - (map.x + map.w / 2), 0);
+                    auto* const panelElement = window.FindElementById(NativeElementKey(ListPanelArea));
+                    if (panelElement) {
+                        const auto& panel = (*panelElement);
+                        const int visibleLeft = std::clamp(panel.x + panel.width, map.x, map.x + map.w);
+                        const int visibleCenterX = (visibleLeft + map.x + map.w) / 2;
+                        map.PanFrom(point.x, point.y, visibleCenterX - (map.x + map.w / 2), 0);
+                    }
                     dragging = movingWindow = false;
                     if (doubleClick || retarget) startCopilot(targetX, targetY);
                     lastListClickX = point.x; lastListClickY = point.y;
@@ -830,26 +853,33 @@ struct BigMapWindowState final {
 
     void DrawCoordinateList(const UIClipRect& clip) {
         for (int row = 0; row < kCoordinateRows; ++row) {
-            if (!(((&window) && (*(&window))[NativeElementKey(ListRowFirst + row)]))) { continue; }
-            const auto& element = (*(*(&window))[NativeElementKey(ListRowFirst + row)]);
-            const int position = listFirstRow + row;
-            if (!element.visible || position >= static_cast<int>(coordinateRows.size())) continue;
-            const auto& point = *coordinateRows[position];
-            if ((element.state & 1) || (targetX == point.x && targetY == point.y))
-                RendererDrawRectClipped(static_cast<short>(window.x + element.x),
-                    static_cast<short>(window.y + element.y), static_cast<short>(element.width),
-                    static_cast<short>(element.height), LAYER_UI, 0x803F6E83u, &clip);
+            auto* const elementPtr = window.FindElementById(NativeElementKey(ListRowFirst + row));
+            if (elementPtr) {
+                const auto& element = (*elementPtr);
+                const int position = listFirstRow + row;
+                if (!element.visible || position >= static_cast<int>(coordinateRows.size())) continue;
+                const auto& point = *coordinateRows[position];
+                if ((element.state & 1) || (targetX == point.x && targetY == point.y))
+                    RendererDrawRectClipped(static_cast<short>(window.x + element.x),
+                        static_cast<short>(window.y + element.y), static_cast<short>(element.width),
+                        static_cast<short>(element.height), LAYER_UI, 0x803F6E83u, &clip);
+            }
         }
-        if (!(((&window) && (*(&window))[NativeElementKey(ListScrollTrack)]))) { return; }
-        const auto& track = (*(*(&window))[NativeElementKey(ListScrollTrack)]);
-        if (track.visible)
-            RendererDrawRectClipped(static_cast<short>(window.x + track.x), static_cast<short>(window.y + track.y),
-                static_cast<short>(track.width), static_cast<short>(track.height), LAYER_UI, 0x80000000u, &clip);
-        if (!(((&window) && (*(&window))[NativeElementKey(ListPanelArea)]))) { return; }
-        const auto& panel = (*(*(&window))[NativeElementKey(ListPanelArea)]);
-        yobi::DrawNineGrid_49BE00(245300, static_cast<short>(window.x + panel.x), static_cast<short>(window.y + panel.y),
-            static_cast<short>(panel.width), static_cast<short>(panel.height), LAYER_UI, -1,
-            std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
+        auto* const trackElement = window.FindElementById(NativeElementKey(ListScrollTrack));
+        if (trackElement) {
+            const auto& track = (*trackElement);
+            if (track.visible)
+                RendererDrawRectClipped(static_cast<short>(window.x + track.x), static_cast<short>(window.y + track.y),
+                    static_cast<short>(track.width), static_cast<short>(track.height), LAYER_UI, 0x80000000u, &clip);
+        }
+        auto* const panelElement = window.FindElementById(NativeElementKey(ListPanelArea));
+        if (panelElement) {
+            const auto& panel = (*panelElement);
+            yobi::DrawNineGrid_49BE00(245300, static_cast<short>(window.x + panel.x), static_cast<short>(window.y + panel.y),
+                static_cast<short>(panel.width), static_cast<short>(panel.height), LAYER_UI, -1,
+                std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
+        }
+        return;
     }
 
     void Marker(int gx, int gy, int mapNo, int size, const UIClipRect& clip) {
@@ -922,21 +952,25 @@ struct BigMapWindowState final {
         DrawElements(clip);
         // 同层逆序绘制：底色晚于文字入队。70%不透明度对应Alpha 179。
         for (int index : {CurrentCoordinateArea, TargetCoordinateArea}) {
-            if (!(((&window) && (*(&window))[NativeElementKey(index)]))) { continue; }
-            const auto& element = (*(*(&window))[NativeElementKey(index)]);
-            if (element.visible == 1)
-                RendererDrawRectClipped(static_cast<short>(window.x + element.x),
-                    static_cast<short>(window.y + element.y), static_cast<short>(element.width),
-                    static_cast<short>(element.height), LAYER_UI, 0xB3000000u, &clip);
+            auto* const elementPtr = window.FindElementById(NativeElementKey(index));
+            if (elementPtr) {
+                const auto& element = (*elementPtr);
+                if (element.visible == 1)
+                    RendererDrawRectClipped(static_cast<short>(window.x + element.x),
+                        static_cast<short>(window.y + element.y), static_cast<short>(element.width),
+                        static_cast<short>(element.height), LAYER_UI, 0xB3000000u, &clip);
+            }
         }
         if (options) {
             for (int i = 0; i < 7; ++i) {
-                if (!(((&window) && (*(&window))[NativeElementKey(CategoryFirst + i)]))) { continue; }
-                const auto& element = (*(*(&window))[NativeElementKey(CategoryFirst + i)]);
-                if (element.state & 1)
-                    RendererDrawRectClipped(static_cast<short>(window.x + element.x),
-                        static_cast<short>(window.y + element.y), static_cast<short>(element.width),
-                        static_cast<short>(element.height), LAYER_UI, 0x503F6E83u, &clip);
+                auto* const elementPtr = window.FindElementById(NativeElementKey(CategoryFirst + i));
+                if (elementPtr) {
+                    const auto& element = (*elementPtr);
+                    if (element.state & 1)
+                        RendererDrawRectClipped(static_cast<short>(window.x + element.x),
+                            static_cast<short>(window.y + element.y), static_cast<short>(element.width),
+                            static_cast<short>(element.height), LAYER_UI, 0x503F6E83u, &clip);
+                }
             }
             DrawPanel(clip);
         }

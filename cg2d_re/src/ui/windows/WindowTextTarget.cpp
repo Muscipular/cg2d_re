@@ -166,41 +166,53 @@ static std::int32_t WindowTextTarget_Update(const std::int32_t value)
 // 原函数：0x0049F0A0。
 static void WindowTextTarget_Refresh(const std::int32_t offset)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     const wchar_t* const* names = gTextChoiceNamesD30130;
     std::int32_t row = 0;
     for (; row < 5 && offset + row < gTextChoiceCountCC4CE4; ++row) {
         if (names != nullptr) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)]))) { continue; }
-            auto* const text = (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text;
-            text->text = names[offset + row];
+            auto* const textElement = currentWindow->FindElementById(NativeElementKey(row + 9));
+            if (textElement) {
+                auto* const text = textElement->data.text;
+                text->text = names[offset + row];
+            }
             const std::uint8_t color = gTextChoiceColorsCB1E18[offset + row];
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)]))) { continue; }
-            (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text->style.color =
-                static_cast<std::byte>(color);
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(row + 9));
+            if (indexedElement) {
+                indexedElement->data.text->style.color =
+                    static_cast<std::byte>(color);
+            }
             names = gTextChoiceNamesD30130;
         }
     }
     for (; row < 5; ++row) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)])) (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text->text = L"";
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(row + 9)); indexedElement) indexedElement->data.text->text = L"";
     }
 }
 
 // 原函数：0x0049F1A0。
 static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t visible = gTextChoiceCountCC4CE4 - 5 > 0 ? 1 : 0;
     for (std::int32_t index = 0; index < 6; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = visible;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = visible;
     }
-    auto* elementsWindow = gCurrentWindow;
-    if (!((elementsWindow && (*elementsWindow)[WindowTextTargetElementId::HandleVerticalScroll]))) { return {}; }
-    if (((*elementsWindow)[WindowTextTargetElementId::HandleVerticalScroll]->data.mouse->flags & 1u) != 0) {
-        if (!((elementsWindow && (*elementsWindow)[WindowTextTargetElementId::HandleVerticalScroll]))) { return {}; }
-        gTextChoiceOffsetD2D9C0 = WindowScroll_ReadPosition((*elementsWindow)[WindowTextTargetElementId::HandleVerticalScroll], gTextChoiceCountCC4CE4 - 5);
-        WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+    auto* elementsWindow = currentWindow;
+    auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowTextTargetElementId::HandleVerticalScroll);
+    if (handleVerticalScrollElement) {
+        if ((handleVerticalScrollElement->data.mouse->flags & 1u) != 0) {
+            auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowTextTargetElementId::HandleVerticalScroll);
+            if (handleVerticalScrollElement2) {
+                gTextChoiceOffsetD2D9C0 = WindowScroll_ReadPosition(handleVerticalScrollElement2, gTextChoiceCountCC4CE4 - 5);
+            }
+            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+        }
     }
     WindowRuntime_DrawCurrent();
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     const auto height = static_cast<std::int16_t>(window->height);
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
@@ -215,139 +227,171 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 // 原函数：0x0049F260。
 static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
-        if (gTextChoiceOffsetD2D9C0 > 0) {
-            --gTextChoiceOffsetD2D9C0;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
-        } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 0x400) != 0) {
+            if (gTextChoiceOffsetD2D9C0 > 0) {
+                --gTextChoiceOffsetD2D9C0;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+            WindowInstance* const window = currentWindow;
+            const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+            auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, offset));
+            }
+            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            consumed = 1;
         }
-        const std::int32_t offset = gTextChoiceOffsetD2D9C0;
-        WindowInstance* const window = gCurrentWindow;
-        const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, offset));
-        WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
-        consumed = 1;
+        graphic->imageNo = 243090;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 243092;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243091;
+        }
+        return consumed;
     }
-    graphic->imageNo = 243090;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 243092;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243091;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x0049F310。
 static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
-        if (gTextChoiceOffsetD2D9C0 < gTextChoiceCountCC4CE4 - 5) {
-            ++gTextChoiceOffsetD2D9C0;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
-        } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 0x400) != 0) {
+            if (gTextChoiceOffsetD2D9C0 < gTextChoiceCountCC4CE4 - 5) {
+                ++gTextChoiceOffsetD2D9C0;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+            const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, offset));
+            }
+            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            consumed = 1;
         }
-        const std::int32_t offset = gTextChoiceOffsetD2D9C0;
-        const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, offset));
-        WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
-        consumed = 1;
+        graphic->imageNo = 243093;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 243095;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243094;
+        }
+        return consumed;
     }
-    graphic->imageNo = 243093;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 243095;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243094;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x0049F3D0。
 static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        static_cast<void>(audio::PlaySe_52C450(gTextChoiceOffsetD2D9C0 > 0 ? 51 : 55, 320));
-        gTextChoiceOffsetD2D9C0 -= 5;
-        if (gTextChoiceOffsetD2D9C0 < 0) {
-            gTextChoiceOffsetD2D9C0 = 0;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(gTextChoiceOffsetD2D9C0 > 0 ? 51 : 55, 320));
+            gTextChoiceOffsetD2D9C0 -= 5;
+            if (gTextChoiceOffsetD2D9C0 < 0) {
+                gTextChoiceOffsetD2D9C0 = 0;
+            }
+            const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+            const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, offset));
+            }
+            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            consumed = 1;
         }
-        const std::int32_t offset = gTextChoiceOffsetD2D9C0;
-        const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, offset));
-        WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
-        consumed = 1;
+        graphic->imageNo = 243030;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 243032;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243031;
+        }
+        return consumed;
     }
-    graphic->imageNo = 243030;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 243032;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243031;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x0049F490。
 static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        const std::int32_t oldMaximum = gTextChoiceCountCC4CE4 - 5;
-        static_cast<void>(audio::PlaySe_52C450(
-            oldMaximum > 0 && gTextChoiceOffsetD2D9C0 < oldMaximum ? 51 : 55, 320));
-        std::int32_t offset = gTextChoiceOffsetD2D9C0 + 5;
-        const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-        gTextChoiceOffsetD2D9C0 = offset;
-        if (offset > maximum) {
-            offset = maximum;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            const std::int32_t oldMaximum = gTextChoiceCountCC4CE4 - 5;
+            static_cast<void>(audio::PlaySe_52C450(
+                oldMaximum > 0 && gTextChoiceOffsetD2D9C0 < oldMaximum ? 51 : 55, 320));
+            std::int32_t offset = gTextChoiceOffsetD2D9C0 + 5;
+            const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
             gTextChoiceOffsetD2D9C0 = offset;
+            if (offset > maximum) {
+                offset = maximum;
+                gTextChoiceOffsetD2D9C0 = offset;
+            }
+            if (offset < 0) {
+                offset = 0;
+                gTextChoiceOffsetD2D9C0 = offset;
+            }
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, offset));
+            }
+            WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
+            consumed = 1;
         }
-        if (offset < 0) {
-            offset = 0;
-            gTextChoiceOffsetD2D9C0 = offset;
+        graphic->imageNo = 243033;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 243035;
         }
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, offset));
-        WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
-        consumed = 1;
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243034;
+        }
+        return consumed;
     }
-    graphic->imageNo = 243033;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 243035;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243034;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x0049F570。
 static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 0x21) != 0) {
         const std::int32_t count = gTextChoiceCountCC4CE4;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        gTextChoiceOffsetD2D9C0 =
-            WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, offset, count - 5, wheel);
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (indexedElement) {
+            gTextChoiceOffsetD2D9C0 =
+                WindowScroll_ApplyWheel(indexedElement - 5, offset, count - 5, wheel);
+        }
     }
     return 0;
 }
@@ -355,46 +399,55 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
 // 原函数：0x0049F5C0。
 static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"关闭此视窗";
-    }
-    if ((state & 2) != 0) {
-        if (gTextChoiceEnabledCA0008 != 0) {
-            const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
-            if (callback != nullptr) {
-                if (callback(-2, nullptr) != 0) {
-                    gCurrentWindow->state |= 0x8000u;
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
-                }
-                gTextChoiceEnabledCA0008 = 0;
-            }
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"关闭此视窗";
         }
-        consumed = 1;
+        if ((state & 2) != 0) {
+            if (gTextChoiceEnabledCA0008 != 0) {
+                const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
+                if (callback != nullptr) {
+                    if (callback(-2, nullptr) != 0) {
+                        currentWindow->state |= 0x8000u;
+                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    }
+                    gTextChoiceEnabledCA0008 = 0;
+                }
+            }
+            consumed = 1;
+        }
+        graphic->imageNo = 243042;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 243044;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 243043;
+        }
+        return consumed;
     }
-    graphic->imageNo = 243042;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 243044;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 243043;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x0049F680。
 static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t selected = gTextChoiceOffsetD2D9C0 + index - 14;
     // 原门槛只比较行号，不将滚动偏移并入检查。
     if (index - 14 >= gTextChoiceCountCC4CE4) {
         return 0;
     }
     if ((state & 1) != 0) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        WindowElement_DrawHoverFrame((*gCurrentWindow)[NativeElementKey(index)], state, cg::render::gHoverFramePaletteIndex_D69768);
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (indexedElement) {
+            WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
+        }
         gHoverTextD68AE8 = L"选择此人物。";
     }
     if ((state & 2) != 0) {
@@ -402,7 +455,7 @@ static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const s
             const WindowTextChoiceCallback callback = gTextChoiceCallbackCA0AC0;
             if (callback != nullptr) {
                 if (callback(selected, gTextChoiceNamesD30130[selected]) != 0) {
-                    gCurrentWindow->state |= 0x8000u;
+                    currentWindow->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
                 gTextChoiceEnabledCA0008 = 0;

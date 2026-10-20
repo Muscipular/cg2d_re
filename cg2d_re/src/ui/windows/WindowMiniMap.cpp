@@ -37,7 +37,9 @@ static std::int32_t WindowMiniMap_Update(std::int32_t value);
 // BMUI01：唯一大地图入口，复用属性加点按钮的普通/悬停图态。
 static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t events)
 {
-    auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(NativeElementKey(index)) : nullptr;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const element = currentWindow->FindElementById(NativeElementKey(index));
     if (!element) return 0;
     auto* const graphic = element->data.graphic;
     graphic->imageNo = (events & 1) ? 0x3B53D : 0x3B53B;
@@ -87,15 +89,17 @@ WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 8,
 // 原函数：0x00495D70。
 static std::int32_t WindowMiniMap_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
-        auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(WindowMiniMapElementId::Element4) : nullptr;
+        auto* const element = currentWindow->FindElementById(WindowMiniMapElementId::Element4);
         if (!element) return 0;
         auto* const data = element->data.text;
         data->text.clear();
         return 1;
     }
     if (world::IsObservationSceneTransitionActive_440B50() == 0) {
-        auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(WindowMiniMapElementId::Element4) : nullptr;
+        auto* const element = currentWindow->FindElementById(WindowMiniMapElementId::Element4);
         if (!element) return 0;
         auto* const data = element->data.text;
         std::wstring& destination = data->text;
@@ -103,7 +107,7 @@ static std::int32_t WindowMiniMap_Update(const std::int32_t value)
             const std::wstring& name = world::GetMapName_9DAD30();
             destination = name;
             const std::int32_t measured = cg::render::TextMeasure(name, 12);
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t width = window->width;
             element->x = ((width - measured) >> 1) + 2;
         }
@@ -114,11 +118,13 @@ static std::int32_t WindowMiniMap_Update(const std::int32_t value)
 // 原函数：0x00495E10。
 static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         return 0;
     }
-    WindowInstance* const window = gCurrentWindow;
-    auto* const element = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+    WindowInstance* const window = currentWindow;
+    auto* const element = window->FindElementById(NativeElementKey(index));
     if (!element) return 0;
     const std::int32_t windowY = window->y;
     const std::int32_t elementY = element->y;
@@ -132,7 +138,9 @@ static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::i
 // 原函数：0x00495E60。
 static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const std::int32_t)
 {
-    auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(NativeElementKey(index)) : nullptr;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const element = currentWindow->FindElementById(NativeElementKey(index));
     if (!element) return 0;
     auto* const data = element->data.text;
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
@@ -148,7 +156,9 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const
 // 原函数：0x00495EB0。
 static std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const std::int32_t)
 {
-    auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(NativeElementKey(index)) : nullptr;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const element = currentWindow->FindElementById(NativeElementKey(index));
     if (!element) return 0;
     auto* const data = element->data.text;
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {

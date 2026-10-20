@@ -212,6 +212,8 @@ WindowPrototype gWindowPrototypeAlbumList {0, 4, 38, 95, 225, 220, 0x80010101u, 
 // 原函数：0x00492C80。
 static void* WindowAlbumList_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     void* result = nullptr;
     for (std::int32_t row = 0; row < 10; ++row) {
@@ -219,60 +221,72 @@ static void* WindowAlbumList_Refresh()
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
         const bool used = records[scroll + row].used != 0;
         const std::int32_t firstDigit = 8 + row * 3;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstDigit)])) (*gCurrentWindow)[NativeElementKey(firstDigit)]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstDigit + 1)])) (*gCurrentWindow)[NativeElementKey(firstDigit + 1)]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstDigit + 2)])) (*gCurrentWindow)[NativeElementKey(firstDigit + 2)]->visible = 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(firstDigit)); indexedElement) indexedElement->visible = 0;
+        if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(firstDigit + 1)); indexedElement2) indexedElement2->visible = 0;
+        if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(firstDigit + 2)); indexedElement3) indexedElement3->visible = 0;
         if (used) {
             const std::int32_t number = scroll + row + 1;
             const std::uint32_t color = 0xFFFFFFFFu;
             descriptor.color = color;
             descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
             for (std::int32_t digit = 0; digit < 2; ++digit) {
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 auto* elementsWindow = window;
                 const std::int32_t image = 0x3B6B4
                     + (digit == 0 ? number % 1000 / 100 : number % 100 / 10);
                 const std::int32_t windowY = window->y;
                 const std::int32_t windowX = window->x;
-                if (!((elementsWindow && (*elementsWindow)[NativeElementKey(firstDigit + digit)]))) { continue; }
-                const std::int32_t elementY = (*elementsWindow)[NativeElementKey(firstDigit + digit)]->y;
-                if (!((elementsWindow && (*elementsWindow)[NativeElementKey(firstDigit + digit)]))) { continue; }
-                const std::int32_t elementX = (*elementsWindow)[NativeElementKey(firstDigit + digit)]->x;
-                static_cast<void>(cg::render::DrawGraphic(
-                    elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
+                auto* const elementYElement = elementsWindow->FindElementById(NativeElementKey(firstDigit + digit));
+                if (elementYElement) {
+                    const std::int32_t elementY = elementYElement->y;
+                    auto* const elementXElement = elementsWindow->FindElementById(NativeElementKey(firstDigit + digit));
+                    if (elementXElement) {
+                        const std::int32_t elementX = elementXElement->x;
+                        static_cast<void>(cg::render::DrawGraphic(
+                            elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
+                    }
+                }
             }
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             auto* elementsWindow = window;
             const std::int32_t image = 0x3B6B4 + number % 10;
-            if (!((elementsWindow && (*elementsWindow)[NativeElementKey(firstDigit + 2)]))) { continue; }
-            const std::int32_t elementY = (*elementsWindow)[NativeElementKey(firstDigit + 2)]->y;
-            const std::int32_t windowY = window->y;
-            if (!((elementsWindow && (*elementsWindow)[NativeElementKey(firstDigit + 2)]))) { continue; }
-            const std::int32_t elementX = (*elementsWindow)[NativeElementKey(firstDigit + 2)]->x;
-            const std::int32_t windowX = window->x;
-            static_cast<void>(cg::render::DrawGraphic(
-                elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
+            auto* const elementYElement = elementsWindow->FindElementById(NativeElementKey(firstDigit + 2));
+            if (elementYElement) {
+                const std::int32_t elementY = elementYElement->y;
+                const std::int32_t windowY = window->y;
+                auto* const elementXElement = elementsWindow->FindElementById(NativeElementKey(firstDigit + 2));
+                if (elementXElement) {
+                    const std::int32_t elementX = elementXElement->x;
+                    const std::int32_t windowX = window->x;
+                    static_cast<void>(cg::render::DrawGraphic(
+                        elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
+                }
+            }
 
             const world::AlbumRecord* const nameRecords = world::GetSelectedAlbumRecords();
-            WindowInstance* const nameWindow = gCurrentWindow;
+            WindowInstance* const nameWindow = currentWindow;
             const std::int32_t nameScroll = gLoginWindowRuntime.valueC8A95C;
-            if (!((nameWindow && (*nameWindow)[NativeElementKey(48 + row)]))) { continue; }
-            auto* const text = (*nameWindow)[NativeElementKey(48 + row)]->data.text;
-            const auto& name = nameRecords[nameScroll + row].name;
-            text->text = name;
+            auto* const textElement = nameWindow->FindElementById(NativeElementKey(48 + row));
+            if (textElement) {
+                auto* const text = textElement->data.text;
+                const auto& name = nameRecords[nameScroll + row].name;
+                text->text = name;
+            }
             const world::AlbumRecord* const flagRecords = world::GetSelectedAlbumRecords();
             const std::int32_t flagScroll = gLoginWindowRuntime.valueC8A95C;
             const bool fresh = flagRecords[flagScroll + row].fresh != 0;
-            WindowInstance* const flagWindow = gCurrentWindow;
-            if ((flagWindow && (*flagWindow)[NativeElementKey(38 + row)])) (*flagWindow)[NativeElementKey(38 + row)]->visible = fresh ? 1 : 0;
+            WindowInstance* const flagWindow = currentWindow;
+            if (auto* const indexedElement4 = flagWindow->FindElementById(NativeElementKey(38 + row)); indexedElement4) indexedElement4->visible = fresh ? 1 : 0;
             result = flagWindow;
         } else {
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(48 + row)]))) { continue; }
-            auto* const text = (*gCurrentWindow)[NativeElementKey(48 + row)]->data.text;
-            text->text.clear();
-            auto* elementsWindow = gCurrentWindow;
-            if ((elementsWindow && (*elementsWindow)[NativeElementKey(38 + row)])) (*elementsWindow)[NativeElementKey(38 + row)]->visible = 0;
-            result = (*elementsWindow)[WindowAlbumListElementId::ButtonClose];
+            auto* const textElement = currentWindow->FindElementById(NativeElementKey(48 + row));
+            if (textElement) {
+                auto* const text = textElement->data.text;
+                text->text.clear();
+            }
+            auto* elementsWindow = currentWindow;
+            if (auto* const indexedElement4 = elementsWindow->FindElementById(NativeElementKey(38 + row)); indexedElement4) indexedElement4->visible = 0;
+            result = elementsWindow->FindElementById(WindowAlbumListElementId::ButtonClose);
         }
     }
     return result;
@@ -291,13 +305,15 @@ static std::int32_t WindowAlbumList_Update(const std::int32_t value)
 // 原函数：0x00492430。
 static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"开启此魔物的图鉴视窗。";
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB04;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB02;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
     }
     if ((state & 2) != 0) {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
@@ -319,8 +335,10 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
 // 原函数：0x00492520。
 static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
-    const auto setImage = [index](const std::int32_t image) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    const auto setImage = [index, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     std::int32_t consumed = 0;
     switch (index) {
@@ -345,10 +363,12 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
-            if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[WindowAlbumListElementId::DragScroll], 950, scroll));
+            auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
+            if (dragScrollElement) {
+                static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 950, scroll));
+            }
             consumed = 1;
         }
         return consumed;
@@ -363,10 +383,12 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
                 if (next < 0) {
                     gLoginWindowRuntime.valueC8A95C = 0;
                 }
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
-                if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*window)[WindowAlbumListElementId::DragScroll], 950, scroll));
+                auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
+                if (dragScrollElement) {
+                    static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 950, scroll));
+                }
             } else {
                 std::int32_t next = gLoginWindowRuntime.valueC8A95C + 10;
                 gLoginWindowRuntime.valueC8A95C = next;
@@ -374,9 +396,11 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
                     next = 950;
                     gLoginWindowRuntime.valueC8A95C = next;
                 }
-                WindowInstance* const window = gCurrentWindow;
-                if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*window)[WindowAlbumListElementId::DragScroll], 950, next));
+                WindowInstance* const window = currentWindow;
+                auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
+                if (dragScrollElement) {
+                    static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 950, next));
+                }
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -394,11 +418,15 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
 // 原函数：0x00492800。
 static std::int32_t WindowAlbumList_DragScroll(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result == 1) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
-        gLoginWindowRuntime.valueC8A95C = WindowScroll_ReadPosition((*window)[WindowAlbumListElementId::DragScroll], 950);
+        WindowInstance* const window = currentWindow;
+        auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
+        if (dragScrollElement) {
+            gLoginWindowRuntime.valueC8A95C = WindowScroll_ReadPosition(dragScrollElement, 950);
+        }
     }
     return result;
 }
@@ -406,12 +434,16 @@ static std::int32_t WindowAlbumList_DragScroll(const std::int32_t index, const s
 // 原函数：0x00492840。
 static std::int32_t WindowAlbumList_Scroll(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
-        if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
-        gLoginWindowRuntime.valueC8A95C = WindowScroll_ApplyWheel((*window)[WindowAlbumListElementId::DragScroll], scroll, 950, wheel);
+        auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
+        if (dragScrollElement) {
+            gLoginWindowRuntime.valueC8A95C = WindowScroll_ApplyWheel(dragScrollElement, scroll, 950, wheel);
+        }
     }
     return 0;
 }

@@ -71,6 +71,8 @@ WindowInstance* WindowMailCompose_Open()
 // 原函数：0x004A53F0。
 static std::int32_t WindowMailCompose_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         if (gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
             WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
@@ -101,7 +103,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         if (WindowRuntime_MatchesRuntimePrefix(current, previous) != 0) {
             gMailInputPrototype57E740.text = cg::text::FromGbkWide(reinterpret_cast<const char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()));
         }
-        const WindowInstance* const window = gCurrentWindow;
+        const WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         if (WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 0) == 0) {
@@ -117,11 +119,13 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         cg::ui::detail::gInputContextD66CA8.encrypt = 0;
         gMailInputPrototype57E740.encrypt = 0;
         input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
-        WindowInstance* const focused = gCurrentWindow;
+        WindowInstance* const focused = currentWindow;
         gMailInputPrototype57E740.text.clear();
-        if (!((focused && (*focused)[WindowMailComposeElementId::HandleInput]))) { return {}; }
-        gFocusedElementDataD45F94 = (*focused)[WindowMailComposeElementId::HandleInput]->data.input;
-        if ((focused && (*focused)[WindowMailComposeElementId::HandleInput])) (*focused)[WindowMailComposeElementId::HandleInput]->data.input->context = &cg::ui::detail::gInputContextD66CA8;
+        auto* const handleInputElement = focused->FindElementById(WindowMailComposeElementId::HandleInput);
+        if (handleInputElement) {
+            gFocusedElementDataD45F94 = handleInputElement->data.input;
+        }
+        if (auto* const handleInputElement2 = focused->FindElementById(WindowMailComposeElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &cg::ui::detail::gInputContextD66CA8;
         gLoginWindowRuntime.prefixD2F0B8.value26C = 0;
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
@@ -195,20 +199,26 @@ void WindowMailCompose_Release()
 // 原函数：0x004A58E0。
 std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowMailComposeElementId::HandleInput]))) { return {}; }
-        if (gFocusedElementDataD45F94 != (*window)[WindowMailComposeElementId::HandleInput]->data.input) {
-            const std::int32_t y = window->y;
-            const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 1));
-            input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
-            WindowInstance* const focused = gCurrentWindow;
-            if (!((focused && (*focused)[WindowMailComposeElementId::HandleInput]))) { return {}; }
-            gFocusedElementDataD45F94 = (*focused)[WindowMailComposeElementId::HandleInput]->data.input;
-            if ((focused && (*focused)[WindowMailComposeElementId::HandleInput])) (*focused)[WindowMailComposeElementId::HandleInput]->data.input->context = &cg::ui::detail::gInputContextD66CA8;
-            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        WindowInstance* const window = currentWindow;
+        auto* const handleInputElement = window->FindElementById(WindowMailComposeElementId::HandleInput);
+        if (handleInputElement) {
+            if (gFocusedElementDataD45F94 != handleInputElement->data.input) {
+                const std::int32_t y = window->y;
+                const std::int32_t x = window->x;
+                static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 1));
+                input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
+                WindowInstance* const focused = currentWindow;
+                auto* const handleInputElement2 = focused->FindElementById(WindowMailComposeElementId::HandleInput);
+                if (handleInputElement2) {
+                    gFocusedElementDataD45F94 = handleInputElement2->data.input;
+                }
+                if (auto* const handleInputElement3 = focused->FindElementById(WindowMailComposeElementId::HandleInput); handleInputElement3) handleInputElement3->data.input->context = &cg::ui::detail::gInputContextD66CA8;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
         }
         consumed = 1;
     }
@@ -221,19 +231,23 @@ std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_
 // 原函数：0x004A5970。
 static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (index != 2 && index != 3) {
         return 0;
     }
     std::int32_t consumed = 0;
     if (index == 2) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 0x3BA0A;
-            gHoverTextD68AE8 = L"使用宠物邮件。" /* 原常量参考：0x0058774C。 */;
-            consumed = 1;
-        } else {
-            graphic->imageNo = 0x3BA08;
+        auto* const handleRecipientsElement = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients);
+        if (handleRecipientsElement) {
+            auto* const graphic = handleRecipientsElement->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3BA0A;
+                gHoverTextD68AE8 = L"使用宠物邮件。" /* 原常量参考：0x0058774C。 */;
+                consumed = 1;
+            } else {
+                graphic->imageNo = 0x3BA08;
+            }
         }
         if ((state & 2) != 0) {
             cg::text::StoreGbk(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()),
@@ -244,18 +258,20 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients])) (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients]->data.graphic->imageNo = 0x3BA09;
+            if (auto* const handleRecipientsElement2 = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients); handleRecipientsElement2) handleRecipientsElement2->data.graphic->imageNo = 0x3BA09;
         }
         return consumed;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients_4]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients_4]->data.graphic;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3BA1D;
-        gHoverTextD68AE8 = kReplyMailHint587730;
-        consumed = 1;
-    } else {
-        graphic->imageNo = 0x3BA1B;
+    auto* const handleRecipients_4Element = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients_4);
+    if (handleRecipients_4Element) {
+        auto* const graphic = handleRecipients_4Element->data.graphic;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3BA1D;
+            gHoverTextD68AE8 = kReplyMailHint587730;
+            consumed = 1;
+        } else {
+            graphic->imageNo = 0x3BA1B;
+        }
     }
     std::wstring timestamp;
     std::wstring packet;
@@ -387,12 +403,12 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
         }
     }
     if (closeAfterSend) {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         cg::ui::detail::gInputContextD66CA8.clearText();
         window->state |= 0x8000u;
     }
     if ((state & 8) != 0) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients_4])) (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients_4]->data.graphic->imageNo = 0x3BA1C;
+        if (auto* const handleRecipients_4Element2 = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients_4); handleRecipients_4Element2) handleRecipients_4Element2->data.graphic->imageNo = 0x3BA1C;
     }
     return consumed;
 }
@@ -400,14 +416,18 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
 // 原函数：0x004A6160。
 static std::uint8_t WindowMailCompose_RefreshRecipients()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
     if (mode != 0) {
         const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;
         if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::Element5]))) { return {}; }
-            auto* const text = (*gCurrentWindow)[WindowMailComposeElementId::Element5]->data.text;
-            text->text = L"群组邮件" /* 原常量参考：0x00587780。 */;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients])) (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients]->visible = 0;
+            auto* const element5 = currentWindow->FindElementById(WindowMailComposeElementId::Element5);
+            if (element5) {
+                auto* const text = element5->data.text;
+                text->text = L"群组邮件" /* 原常量参考：0x00587780。 */;
+            }
+            if (auto* const handleRecipientsElement = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients); handleRecipientsElement) handleRecipientsElement->visible = 0;
         }
     } else {
         const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
@@ -425,18 +445,20 @@ static std::uint8_t WindowMailCompose_RefreshRecipients()
             break;
         }
         if (category == 0 || category == 1 || category == 2) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::Element5]))) { return {}; }
-            auto* const text = (*gCurrentWindow)[WindowMailComposeElementId::Element5]->data.text;
-            text->text = name;
+            auto* const element5 = currentWindow->FindElementById(WindowMailComposeElementId::Element5);
+            if (element5) {
+                auto* const text = element5->data.text;
+                text->text = name;
+            }
         }
         if (gLoginWindowRuntime.prefixD2F0B8.value00 == 2) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients])) (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients]->visible = 0;
+            if (auto* const handleRecipientsElement = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients); handleRecipientsElement) handleRecipientsElement->visible = 0;
         } else {
             const std::int32_t count = gLoginWindowRuntime.choicesCC4CA0.value00;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients])) (*gCurrentWindow)[WindowMailComposeElementId::HandleRecipients]->visible = count != 0 ? 1 : 0;
+            if (auto* const handleRecipientsElement = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients); handleRecipientsElement) handleRecipientsElement->visible = count != 0 ? 1 : 0;
         }
     }
-    const WindowInstance* const window = gCurrentWindow;
+    const WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
     return WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 2);

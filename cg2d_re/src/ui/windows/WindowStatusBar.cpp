@@ -234,60 +234,66 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
 // TUC01：两状态栏四位倒计时；首窗口及各位坐标按原取样序，原单位/图号/门槛保持。
 static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     const std::int32_t duration = world::gPlayerRuntimeSlots.timerRemaining0C;
     const std::int32_t hours = duration / 3600000;
     const std::int32_t hoursTens = hours / 10;
     const std::int32_t hoursUnits = hours % 10;
     const std::int32_t minutes = (duration - hours * 3600000) / 60000;
     const std::int32_t digits[4] {hoursTens, hoursUnits, minutes / 10, minutes % 10};
-    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)])) (*gCurrentWindow)[NativeElementKey(firstElement)]->visible = 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + 1)])) (*gCurrentWindow)[NativeElementKey(firstElement + 1)]->visible = 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + 2)])) (*gCurrentWindow)[NativeElementKey(firstElement + 2)]->visible = 0;
+    if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(firstElement)); indexedElement) indexedElement->visible = 0;
+    if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(firstElement + 1)); indexedElement2) indexedElement2->visible = 0;
+    if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(firstElement + 2)); indexedElement3) indexedElement3->visible = 0;
     const std::int32_t mode = world::gPlayerRuntimeSlots.timerMode10;
     WindowInstance* firstWindow = nullptr; // firstElement的互补分支在使用前必定覆盖。
     if (firstElement == 8) {
-        firstWindow = gCurrentWindow;
+        firstWindow = currentWindow;
     }
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor->color = color;
     descriptor->mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (firstElement != 8) {
-        firstWindow = gCurrentWindow;
+        firstWindow = currentWindow;
     }
     const std::int32_t baseImage = mode != 0 ? 0x3B6A0 : 0x3B664;
     for (std::int32_t digit = 0; digit < 4; ++digit) {
-        WindowInstance* const window = digit == 0 ? firstWindow : gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(firstElement + (digit == 0 ? 0 : digit - 1))]))) { continue; }
-        const WindowElement& element = (*(*window)[NativeElementKey(firstElement + (digit == 0 ? 0 : digit - 1))]);
-        std::int32_t elementY;
-        std::int32_t elementX;
-        std::int32_t windowY;
-        if (digit == 0) {
-            elementY = element.y;
-            elementX = element.x;
-            windowY = window->y;
-        } else if (digit < 3) {
-            windowY = window->y;
-            elementY = element.y;
-            elementX = element.x;
-        } else {
-            elementY = element.y;
-            windowY = window->y;
-            elementX = element.x;
+        WindowInstance* const window = digit == 0 ? firstWindow : currentWindow;
+        auto* const elementPtr = window ? window->FindElementById(NativeElementKey(firstElement + (digit == 0 ? 0 : digit - 1))) : nullptr;
+        if (elementPtr) {
+            const WindowElement& element = (*elementPtr);
+            std::int32_t elementY;
+            std::int32_t elementX;
+            std::int32_t windowY;
+            if (digit == 0) {
+                elementY = element.y;
+                elementX = element.x;
+                windowY = window->y;
+            } else if (digit < 3) {
+                windowY = window->y;
+                elementY = element.y;
+                elementX = element.x;
+            } else {
+                elementY = element.y;
+                windowY = window->y;
+                elementX = element.x;
+            }
+            const std::int32_t y = elementY + windowY + 3;
+            const std::int32_t windowX = window->x;
+            const std::int32_t x = elementX + windowX + (digit == 0 ? -6 : 1);
+            static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, baseImage + digits[digit], 0, descriptor));
         }
-        const std::int32_t y = elementY + windowY + 3;
-        const std::int32_t windowX = window->x;
-        const std::int32_t x = elementX + windowX + (digit == 0 ? -6 : 1);
-        static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, baseImage + digits[digit], 0, descriptor));
     }
 }
 
 // 原函数：0x004708A0。
 std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     WindowInstance* window = gWindowStates[WindowId_Emote].window;
     if (window != nullptr) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3B921;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3B921;
         window = gWindowStates[WindowId_Emote].window;
     }
     if ((state & 2) == 0) {
@@ -305,9 +311,11 @@ std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::in
 // 原函数：0x00470910。
 std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     WindowInstance* window = gWindowStates[WindowId_MiniMap].window;
     if (window != nullptr) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3B924;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3B924;
         window = gWindowStates[WindowId_MiniMap].window;
     }
     if ((state & 2) == 0) {
@@ -326,8 +334,10 @@ std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::
 // 关联原入口：0x00470A9F（共享尾已并入本函数正文）。
 static std::int32_t WindowStatusBar_Update(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (world::gCurrentSceneType == 10) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
     }
     WindowStatusBar_Refresh();
@@ -345,22 +355,26 @@ static std::int32_t WindowCompactStatusBar_Update(const std::int32_t)
 // 原函数：0x00470AC0。
 static void WindowStatusBar_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     render::GraphicDescriptor16 descriptor {};
     std::wstring buffer;
     WindowStatusBar_FormatVitals(buffer);
-    WindowInstance* const timeWindow = gCurrentWindow;
+    WindowInstance* const timeWindow = currentWindow;
     gStatusFpTextD45D50 = buffer;
     auto* elementsWindow = timeWindow;
     const std::int32_t hours = std::bit_cast<std::int32_t>(world::gCgTime.hours);
-    if (!((elementsWindow && (*elementsWindow)[WindowStatusBarElementId::Element16]))) { return; }
-    auto* const timeGraphic = (*elementsWindow)[WindowStatusBarElementId::Element16]->data.graphic;
-    const std::int32_t minutes = std::bit_cast<std::int32_t>(world::gCgTime.minutes);
-    const std::int32_t totalMinutes = hours * 60 + minutes;
-    const double offset = totalMinutes * kStatusTimeScale54F638;
-    timeGraphic->offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(offset));
-    timeGraphic->offsetY = 0;
-    timeGraphic->width = 100;
-    timeGraphic->height = 9;
+    auto* const element16 = elementsWindow->FindElementById(WindowStatusBarElementId::Element16);
+    if (element16) {
+        auto* const timeGraphic = element16->data.graphic;
+        const std::int32_t minutes = std::bit_cast<std::int32_t>(world::gCgTime.minutes);
+        const std::int32_t totalMinutes = hours * 60 + minutes;
+        const double offset = totalMinutes * kStatusTimeScale54F638;
+        timeGraphic->offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(offset));
+        timeGraphic->offsetY = 0;
+        timeGraphic->width = 100;
+        timeGraphic->height = 9;
+    }
     WindowStatusBar_DrawTimer(8, &descriptor);
 
     const std::int32_t points = world::FindAttributeAllocationHintTarget_504B10();
@@ -383,9 +397,11 @@ static void WindowStatusBar_Refresh()
         gLoginWindowRuntime.statusBlinkPhaseCF4FBC = phase;
     }
     const bool pointsBlink = gLoginWindowRuntime.statusHasPointsD66E24 != 0 && phase >= 30;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton_14]))) { return; }
-    (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton_14]->data.graphic->imageNo =
-        pointsBlink ? 0x3B953 : 0x3B954;
+    auto* const handleHintButton_14Element = currentWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_14);
+    if (handleHintButton_14Element) {
+        handleHintButton_14Element->data.graphic->imageNo =
+            pointsBlink ? 0x3B953 : 0x3B954;
+    }
 
     bool injuryBlink = false;
     if (gLoginWindowRuntime.statusHasInjuryD046C8 != 0) {
@@ -396,14 +412,19 @@ static void WindowStatusBar_Refresh()
         : injury <= 25 ? 0x3B944
         : injury <= 50 ? 0x3B947
         : injury <= 75 ? 0x3B94A : 0x3B94D;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton]))) { return; }
-    (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton]->data.graphic->imageNo =
-        injuryImage - (injuryBlink ? 1 : 0);
+    auto* const handleHintButtonElement = currentWindow->FindElementById(WindowStatusBarElementId::HandleHintButton);
+    if (handleHintButtonElement) {
+        handleHintButtonElement->data.graphic->imageNo =
+            injuryImage - (injuryBlink ? 1 : 0);
+    }
     const bool mailBlink = gLoginWindowRuntime.statusHasMailCC4B5C != 0
         && gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton_13]))) { return; }
-    (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton_13]->data.graphic->imageNo =
-        mailBlink ? 0x3B94F : 0x3B950;
+    auto* const handleHintButton_13Element = currentWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_13);
+    if (handleHintButton_13Element) {
+        handleHintButton_13Element->data.graphic->imageNo =
+            mailBlink ? 0x3B94F : 0x3B950;
+    }
+    return;
 }
 
 // TUC01：原窗口2完整根；直接FP复制/原零描述符保持，仅消费四位倒计时。
@@ -420,11 +441,13 @@ static void WindowCompactStatusBar_Refresh()
 // 原函数：0x00471CD0。
 static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 2) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    gCurrentWindow->state |= 0x8000u;
+    currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
     gStatusBarLayoutMode_CF4690 = 1;
     return 1;
@@ -433,11 +456,13 @@ static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std:
 // 原函数：0x00471D10。
 static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 2) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    gCurrentWindow->state |= 0x8000u;
+    currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_CollapsedStatusBar));
     gStatusBarLayoutMode_CF4690 = 2;
     return 1;
@@ -446,12 +471,14 @@ static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, co
 // 原函数：0x00471D60。
 static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 2) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     const std::int32_t scene = world::gCurrentSceneType;
-    gCurrentWindow->state |= 0x8000u;
+    currentWindow->state |= 0x8000u;
     if (scene == 10) {
         static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
         gStatusBarLayoutMode_CF4690 = 1;
@@ -471,50 +498,55 @@ static std::int32_t WindowStatusBar_HandleHover(const std::int32_t, const std::i
 // 原函数：0x00471DF0。
 static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index - 15)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index - 15)]->data.graphic;
-    const bool hover = (state & 1) != 0;
-    std::int32_t consumed = hover ? 1 : 0;
-    graphic->imageNo = 0x3B8FC + index * 3 + (hover ? 1 : 0);
-    if (index < 17 || index > 22) {
-        return consumed;
-    }
-    if (index == 22 && character_select::state::gPukVersion < 7u) {
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index - 15));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hover = (state & 1) != 0;
+        std::int32_t consumed = hover ? 1 : 0;
+        graphic->imageNo = 0x3B8FC + index * 3 + (hover ? 1 : 0);
+        if (index < 17 || index > 22) {
+            return consumed;
+        }
+        if (index == 22 && character_select::state::gPukVersion < 7u) {
+            if (hover) {
+                graphic->imageNo = 0x3B93E;
+                gHoverTextD68AE8 = kStatusGuildUnavailable586270;
+            }
+            return consumed;
+        }
+        const std::uint8_t options = world::ReadPlayerOptions194LowByte();
+        constexpr std::uint8_t masks[6] {0x04, 0x08, 0x01, 0x10, 0x20, 0x40};
+        const wchar_t* const hints[6][2] {
+            {L"现在不能跟别人对战。" /* 原常量参考：0x00556E14。 */, L"现在可以跟别人对战。" /* 原常量参考：0x00556E2C。 */},
+            {L"现在进行普通的聊天。" /* 原常量参考：0x00556E44。 */, L"现在进行小队的聊天。" /* 原常量参考：0x00556E5C。 */},
+            {L"现在禁止别人与自己组队。" /* 原常量参考：0x00556E74。 */, L"现在允许别人与自己组队。" /* 原常量参考：0x00556E90。 */},
+            {L"现在禁止别人与自己交换名片。" /* 原常量参考：0x00556EAC。 */, L"现在允许别人与自己交换名片。" /* 原常量参考：0x00556ECC。 */},
+            {L"现在禁止别人与自己交易。" /* 原常量参考：0x00556EEC。 */, L"现在允许别人与自己交易。" /* 原常量参考：0x00556F08。 */},
+            {L"现在禁止别人邀请自己参加家族。" /* 原常量参考：0x005862D4。 */, L"现在允许别人邀请自己参加家族。" /* 原常量参考：0x005862F4。 */},
+        };
+        std::int32_t (*const toggleCallbacks[6])() {
+            &world::ToggleDuelPermission_472F40, &world::TogglePartyChat_472F70, &world::TogglePartyJoinPermission_472FA0,
+            &world::ToggleContactCardExchangePermission_472FD0, &world::ToggleTradePermission_473000, &world::ToggleGuildInvitePermission_473030,
+        };
+        const std::int32_t slot = index - 17;
+        const bool enabled = (options & masks[slot]) != 0;
         if (hover) {
-            graphic->imageNo = 0x3B93E;
-            gHoverTextD68AE8 = kStatusGuildUnavailable586270;
+            gHoverTextD68AE8 = hints[slot][enabled ? 1 : 0];
+        }
+        if (enabled) {
+            graphic->imageNo = 0x3B92E + slot * 3;
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(toggleCallbacks[slot]());
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
         return consumed;
     }
-    const std::uint8_t options = world::ReadPlayerOptions194LowByte();
-    constexpr std::uint8_t masks[6] {0x04, 0x08, 0x01, 0x10, 0x20, 0x40};
-    const wchar_t* const hints[6][2] {
-        {L"现在不能跟别人对战。" /* 原常量参考：0x00556E14。 */, L"现在可以跟别人对战。" /* 原常量参考：0x00556E2C。 */},
-        {L"现在进行普通的聊天。" /* 原常量参考：0x00556E44。 */, L"现在进行小队的聊天。" /* 原常量参考：0x00556E5C。 */},
-        {L"现在禁止别人与自己组队。" /* 原常量参考：0x00556E74。 */, L"现在允许别人与自己组队。" /* 原常量参考：0x00556E90。 */},
-        {L"现在禁止别人与自己交换名片。" /* 原常量参考：0x00556EAC。 */, L"现在允许别人与自己交换名片。" /* 原常量参考：0x00556ECC。 */},
-        {L"现在禁止别人与自己交易。" /* 原常量参考：0x00556EEC。 */, L"现在允许别人与自己交易。" /* 原常量参考：0x00556F08。 */},
-        {L"现在禁止别人邀请自己参加家族。" /* 原常量参考：0x005862D4。 */, L"现在允许别人邀请自己参加家族。" /* 原常量参考：0x005862F4。 */},
-    };
-    std::int32_t (*const toggleCallbacks[6])() {
-        &world::ToggleDuelPermission_472F40, &world::TogglePartyChat_472F70, &world::TogglePartyJoinPermission_472FA0,
-        &world::ToggleContactCardExchangePermission_472FD0, &world::ToggleTradePermission_473000, &world::ToggleGuildInvitePermission_473030,
-    };
-    const std::int32_t slot = index - 17;
-    const bool enabled = (options & masks[slot]) != 0;
-    if (hover) {
-        gHoverTextD68AE8 = hints[slot][enabled ? 1 : 0];
-    }
-    if (enabled) {
-        graphic->imageNo = 0x3B92E + slot * 3;
-    }
-    if ((state & 2) != 0) {
-        static_cast<void>(toggleCallbacks[slot]());
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    return consumed;
+    return {};
 }
 
 // SHP01：原玩家伤势优先返0，否则宠物编号+10或-1。
@@ -546,6 +578,8 @@ static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 // 原函数：0x004723D0。
 static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     std::wstring buffer;
     switch (index) {
@@ -574,9 +608,9 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             return 0;
         }
         if (hover) {
-            WindowInstance* const hoverWindow = gCurrentWindow;
+            WindowInstance* const hoverWindow = currentWindow;
             consumed = 1;
-            if ((hoverWindow && (*hoverWindow)[WindowStatusBarElementId::HandleHintButton_14])) (*hoverWindow)[WindowStatusBarElementId::HandleHintButton_14]->data.graphic->imageNo = 0x3B955;
+            if (auto* const handleHintButton_14Element = hoverWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_14); handleHintButton_14Element) handleHintButton_14Element->data.graphic->imageNo = 0x3B955;
         }
         if ((state & 2) != 0) {
             if (candidate <= 4) {
@@ -618,9 +652,9 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             return 0;
         }
         if (hover) {
-            WindowInstance* const hoverWindow = gCurrentWindow;
+            WindowInstance* const hoverWindow = currentWindow;
             consumed = 1;
-            if ((hoverWindow && (*hoverWindow)[WindowStatusBarElementId::HandleHintButton_13])) (*hoverWindow)[WindowStatusBarElementId::HandleHintButton_13]->data.graphic->imageNo = 0x3B951;
+            if (auto* const handleHintButton_13Element = hoverWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_13); handleHintButton_13Element) handleHintButton_13Element->data.graphic->imageNo = 0x3B951;
         }
         if ((state & 2) != 0) {
             world::detail::FindFirstUnreadMailContact_518F00(
@@ -680,19 +714,19 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
             WindowInstance* imageWindow;
             std::int32_t image;
             if (injury == 0) {
-                imageWindow = gCurrentWindow;
+                imageWindow = currentWindow;
                 image = 0x3B942;
             } else if (injury <= 25) {
-                imageWindow = gCurrentWindow;
+                imageWindow = currentWindow;
                 image = 0x3B945;
             } else if (injury <= 50) {
-                imageWindow = gCurrentWindow;
+                imageWindow = currentWindow;
                 image = 0x3B948;
             } else {
-                imageWindow = gCurrentWindow;
+                imageWindow = currentWindow;
                 image = injury <= 75 ? 0x3B94B : 0x3B94E;
             }
-            if ((imageWindow && (*imageWindow)[WindowStatusBarElementId::HandleHintButton])) (*imageWindow)[WindowStatusBarElementId::HandleHintButton]->data.graphic->imageNo = image;
+            if (auto* const handleHintButtonElement = imageWindow->FindElementById(WindowStatusBarElementId::HandleHintButton); handleHintButtonElement) handleHintButtonElement->data.graphic->imageNo = image;
             consumed = 1;
         }
         if ((state & 2) != 0) {

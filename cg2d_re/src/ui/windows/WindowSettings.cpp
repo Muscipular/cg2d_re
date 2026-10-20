@@ -259,118 +259,144 @@ WindowPrototype gWindowPrototypeSettings {0, 4, 409, 100, 207, 222, 0x80010101u,
 static void WindowSettings_RefreshLogoutPanel(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[WindowId_Settings].window;
-    if ((window && (*window)[WindowSettingsElementId::HandleSideArea])) (*window)[WindowSettingsElementId::HandleSideArea]->x = offset + 16;
+    if (auto* const handleSideAreaElement = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea) : nullptr; handleSideAreaElement) handleSideAreaElement->x = offset + 16;
     auto* elementsWindow = window;
-    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea]))) { return; }
-    const std::int32_t x = (*elementsWindow)[WindowSettingsElementId::HandleSideArea]->x;
-    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea]))) { return; }
-    auto* const graphic = (*elementsWindow)[WindowSettingsElementId::HandleSideArea]->data.graphic;
-    const std::int32_t width = 16 - x;
-    graphic->width = width;
-    if (!((window && (*window)[WindowSettingsElementId::HandleSideArea]))) { return; }
-    const std::int32_t limit = (*window)[WindowSettingsElementId::HandleSideArea]->width;
-    if (width > limit) {
-        graphic->width = limit;
+    auto* const handleSideAreaElement2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea) : nullptr;
+    if (handleSideAreaElement2) {
+        const std::int32_t x = handleSideAreaElement2->x;
+        auto* const handleSideAreaElement3 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea) : nullptr;
+        if (handleSideAreaElement3) {
+            auto* const graphic = handleSideAreaElement3->data.graphic;
+            const std::int32_t width = 16 - x;
+            graphic->width = width;
+            auto* const handleSideAreaElement4 = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea) : nullptr;
+            if (handleSideAreaElement4) {
+                const std::int32_t limit = handleSideAreaElement4->width;
+                if (width > limit) {
+                    graphic->width = limit;
+                }
+            }
+        }
     }
     const std::int32_t visible = offset <= -146 ? 1 : 0;
-    if ((window && (*window)[WindowSettingsElementId::ButtonLogout])) (*window)[WindowSettingsElementId::ButtonLogout]->visible = visible;
-    if ((window && (*window)[WindowSettingsElementId::ButtonServerSelect])) (*window)[WindowSettingsElementId::ButtonServerSelect]->visible = visible;
+    if (auto* const buttonLogoutElement = window ? window->FindElementById(WindowSettingsElementId::ButtonLogout) : nullptr; buttonLogoutElement) buttonLogoutElement->visible = visible;
+    if (auto* const buttonServerSelectElement = window ? window->FindElementById(WindowSettingsElementId::ButtonServerSelect) : nullptr; buttonServerSelectElement) buttonServerSelectElement->visible = visible;
 }
 
 // 原函数：0x00493AF0。
 static void WindowSettings_RefreshInputPanel(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[WindowId_Settings].window;
-    if ((window && (*window)[WindowSettingsElementId::HandleSideArea_29])) (*window)[WindowSettingsElementId::HandleSideArea_29]->x = offset + 16;
+    if (auto* const handleSideArea_29Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_29) : nullptr; handleSideArea_29Element) handleSideArea_29Element->x = offset + 16;
     auto* elementsWindow = window;
-    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_29]))) { return; }
-    const std::int32_t x = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_29]->x;
-    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_29]))) { return; }
-    auto* const graphic = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_29]->data.graphic;
-    const std::int32_t width = 16 - x;
-    graphic->width = width;
-    if (!((window && (*window)[WindowSettingsElementId::HandleSideArea_29]))) { return; }
-    const std::int32_t limit = (*window)[WindowSettingsElementId::HandleSideArea_29]->width;
-    if (width > limit) {
-        graphic->width = limit;
+    auto* const handleSideArea_29Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29) : nullptr;
+    if (handleSideArea_29Element2) {
+        const std::int32_t x = handleSideArea_29Element2->x;
+        auto* const handleSideArea_29Element3 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29) : nullptr;
+        if (handleSideArea_29Element3) {
+            auto* const graphic = handleSideArea_29Element3->data.graphic;
+            const std::int32_t width = 16 - x;
+            graphic->width = width;
+            auto* const handleSideArea_29Element4 = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_29) : nullptr;
+            if (handleSideArea_29Element4) {
+                const std::int32_t limit = handleSideArea_29Element4->width;
+                if (width > limit) {
+                    graphic->width = limit;
+                }
+            }
+        }
     }
     const std::int32_t visible = offset <= -146 ? 1 : 0;
-    if ((window && (*window)[WindowSettingsElementId::ToggleItemStacking])) (*window)[WindowSettingsElementId::ToggleItemStacking]->visible = visible;
-    if ((window && (*window)[WindowSettingsElementId::ToggleCursor])) (*window)[WindowSettingsElementId::ToggleCursor]->visible = visible;
-    if ((window && (*window)[WindowSettingsElementId::CycleHotkeyMode])) (*window)[WindowSettingsElementId::CycleHotkeyMode]->visible = visible;
+    if (auto* const toggleItemStackingElement = window ? window->FindElementById(WindowSettingsElementId::ToggleItemStacking) : nullptr; toggleItemStackingElement) toggleItemStackingElement->visible = visible;
+    if (auto* const toggleCursorElement = window ? window->FindElementById(WindowSettingsElementId::ToggleCursor) : nullptr; toggleCursorElement) toggleCursorElement->visible = visible;
+    if (auto* const cycleHotkeyModeElement = window ? window->FindElementById(WindowSettingsElementId::CycleHotkeyMode) : nullptr; cycleHotkeyModeElement) cycleHotkeyModeElement->visible = visible;
 }
 
 // 原函数：0x00493B70。
 static void WindowSettings_RefreshAudioPanel(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[WindowId_Settings].window;
-    if ((window && (*window)[WindowSettingsElementId::HandleSideArea_30])) (*window)[WindowSettingsElementId::HandleSideArea_30]->x = offset + 16;
+    if (auto* const handleSideArea_30Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_30) : nullptr; handleSideArea_30Element) handleSideArea_30Element->x = offset + 16;
     auto* elementsWindow = window;
-    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_30]))) { return; }
-    const std::int32_t x = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_30]->x;
-    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_30]))) { return; }
-    auto* const graphic = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_30]->data.graphic;
-    const std::int32_t width = 16 - x;
-    graphic->width = width;
-    if (!((window && (*window)[WindowSettingsElementId::HandleSideArea_30]))) { return; }
-    const std::int32_t limit = (*window)[WindowSettingsElementId::HandleSideArea_30]->width;
-    if (width > limit) {
-        graphic->width = limit;
+    auto* const handleSideArea_30Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30) : nullptr;
+    if (handleSideArea_30Element2) {
+        const std::int32_t x = handleSideArea_30Element2->x;
+        auto* const handleSideArea_30Element3 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30) : nullptr;
+        if (handleSideArea_30Element3) {
+            auto* const graphic = handleSideArea_30Element3->data.graphic;
+            const std::int32_t width = 16 - x;
+            graphic->width = width;
+            auto* const handleSideArea_30Element4 = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_30) : nullptr;
+            if (handleSideArea_30Element4) {
+                const std::int32_t limit = handleSideArea_30Element4->width;
+                if (width > limit) {
+                    graphic->width = limit;
+                }
+            }
+        }
     }
     if (offset > -146) {
         for (std::int32_t index = 13; index <= 20; ++index) {
-            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
         }
         return;
     }
-    if ((window && (*window)[WindowSettingsElementId::Element14])) (*window)[WindowSettingsElementId::Element14]->visible = 1;
+    if (auto* const element14 = window ? window->FindElementById(WindowSettingsElementId::Element14) : nullptr; element14) element14->visible = 1;
     const std::int32_t musicWidth = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
-    if ((window && (*window)[WindowSettingsElementId::Element14])) (*window)[WindowSettingsElementId::Element14]->x = ((37 - musicWidth) >> 1) + offset + 69;
-    if ((window && (*window)[WindowSettingsElementId::ButtonMusicDecrease])) (*window)[WindowSettingsElementId::ButtonMusicDecrease]->visible = 1;
-    if ((window && (*window)[WindowSettingsElementId::ButtonMusicIncrease])) (*window)[WindowSettingsElementId::ButtonMusicIncrease]->visible = 1;
-    if ((window && (*window)[WindowSettingsElementId::Element17])) (*window)[WindowSettingsElementId::Element17]->visible = 1;
+    if (auto* const element142 = window ? window->FindElementById(WindowSettingsElementId::Element14) : nullptr; element142) element142->x = ((37 - musicWidth) >> 1) + offset + 69;
+    if (auto* const buttonMusicDecreaseElement = window ? window->FindElementById(WindowSettingsElementId::ButtonMusicDecrease) : nullptr; buttonMusicDecreaseElement) buttonMusicDecreaseElement->visible = 1;
+    if (auto* const buttonMusicIncreaseElement = window ? window->FindElementById(WindowSettingsElementId::ButtonMusicIncrease) : nullptr; buttonMusicIncreaseElement) buttonMusicIncreaseElement->visible = 1;
+    if (auto* const element17 = window ? window->FindElementById(WindowSettingsElementId::Element17) : nullptr; element17) element17->visible = 1;
     const std::int32_t effectWidth = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
-    if ((window && (*window)[WindowSettingsElementId::Element17])) (*window)[WindowSettingsElementId::Element17]->x = ((37 - effectWidth) >> 1) + offset + 69;
-    if ((window && (*window)[WindowSettingsElementId::ButtonSoundDecrease])) (*window)[WindowSettingsElementId::ButtonSoundDecrease]->visible = 1;
-    if ((window && (*window)[WindowSettingsElementId::ButtonSoundIncrease])) (*window)[WindowSettingsElementId::ButtonSoundIncrease]->visible = 1;
-    if ((window && (*window)[WindowSettingsElementId::ToggleChannels])) (*window)[WindowSettingsElementId::ToggleChannels]->visible = 1;
-    if ((window && (*window)[WindowSettingsElementId::ToggleAudioFlag])) (*window)[WindowSettingsElementId::ToggleAudioFlag]->visible = 1;
+    if (auto* const element172 = window ? window->FindElementById(WindowSettingsElementId::Element17) : nullptr; element172) element172->x = ((37 - effectWidth) >> 1) + offset + 69;
+    if (auto* const buttonSoundDecreaseElement = window ? window->FindElementById(WindowSettingsElementId::ButtonSoundDecrease) : nullptr; buttonSoundDecreaseElement) buttonSoundDecreaseElement->visible = 1;
+    if (auto* const buttonSoundIncreaseElement = window ? window->FindElementById(WindowSettingsElementId::ButtonSoundIncrease) : nullptr; buttonSoundIncreaseElement) buttonSoundIncreaseElement->visible = 1;
+    if (auto* const toggleChannelsElement = window ? window->FindElementById(WindowSettingsElementId::ToggleChannels) : nullptr; toggleChannelsElement) toggleChannelsElement->visible = 1;
+    if (auto* const toggleAudioFlagElement = window ? window->FindElementById(WindowSettingsElementId::ToggleAudioFlag) : nullptr; toggleAudioFlagElement) toggleAudioFlagElement->visible = 1;
 }
 
 // 原函数：0x00493CB0。
 static void WindowSettings_RefreshDisplayPanel(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[WindowId_Settings].window;
-    if ((window && (*window)[WindowSettingsElementId::HandleSideArea_31])) (*window)[WindowSettingsElementId::HandleSideArea_31]->x = offset + 16;
+    if (auto* const handleSideArea_31Element = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_31) : nullptr; handleSideArea_31Element) handleSideArea_31Element->x = offset + 16;
     auto* elementsWindow = window;
-    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_31]))) { return; }
-    const std::int32_t x = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_31]->x;
-    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_31]))) { return; }
-    auto* const graphic = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_31]->data.graphic;
-    const std::int32_t width = 16 - x;
-    graphic->width = width;
-    if (!((window && (*window)[WindowSettingsElementId::HandleSideArea_31]))) { return; }
-    const std::int32_t limit = (*window)[WindowSettingsElementId::HandleSideArea_31]->width;
-    if (width > limit) {
-        graphic->width = limit;
+    auto* const handleSideArea_31Element2 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31) : nullptr;
+    if (handleSideArea_31Element2) {
+        const std::int32_t x = handleSideArea_31Element2->x;
+        auto* const handleSideArea_31Element3 = elementsWindow ? elementsWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31) : nullptr;
+        if (handleSideArea_31Element3) {
+            auto* const graphic = handleSideArea_31Element3->data.graphic;
+            const std::int32_t width = 16 - x;
+            graphic->width = width;
+            auto* const handleSideArea_31Element4 = window ? window->FindElementById(WindowSettingsElementId::HandleSideArea_31) : nullptr;
+            if (handleSideArea_31Element4) {
+                const std::int32_t limit = handleSideArea_31Element4->width;
+                if (width > limit) {
+                    graphic->width = limit;
+                }
+            }
+        }
     }
-    if ((window && (*window)[WindowSettingsElementId::ToggleScanlines])) (*window)[WindowSettingsElementId::ToggleScanlines]->visible = 0;
+    if (auto* const toggleScanlinesElement = window ? window->FindElementById(WindowSettingsElementId::ToggleScanlines) : nullptr; toggleScanlinesElement) toggleScanlinesElement->visible = 0;
     if (offset <= -146) {
-        if ((window && (*window)[WindowSettingsElementId::ToggleScanlines])) (*window)[WindowSettingsElementId::ToggleScanlines]->visible = 1;
+        if (auto* const toggleScanlinesElement2 = window ? window->FindElementById(WindowSettingsElementId::ToggleScanlines) : nullptr; toggleScanlinesElement2) toggleScanlinesElement2->visible = 1;
         for (std::int32_t index = 22; index <= 26; ++index) {
-            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 0;
         }
         const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
-        if ((window && (*window)[NativeElementKey(mode + 22)])) (*window)[NativeElementKey(mode + 22)]->visible = 1;
+        if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(mode + 22)) : nullptr; indexedElement) indexedElement->visible = 1;
     }
 }
 
 // 原函数：0x00493D60。
 static std::int32_t WindowSettings_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         for (std::int32_t index = 8; index <= 30; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
         gSettingsPanelCC4234 = -1;
         gSettingsOffsetCA02DC = 0;
@@ -417,35 +443,41 @@ static void WindowSettings_Release()
 // 原函数：0x00493EE0。
 static std::int32_t WindowSettings_ButtonLogoutPanel(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    graphic->imageNo = 0x3B8BE;
+    if (graphic) graphic->imageNo = 0x3B8BE;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B8C0;
+        if (graphic) graphic->imageNo = 0x3B8C0;
         gHoverTextD68AE8 = L"登出伺服器。" /* 原常量参考：0x00586DE8。 */;
     }
     if ((state & 2) != 0) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]))) { return {}; }
-        const std::int32_t visible = (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]->visible;
-        for (std::int32_t element = 8; element <= 30; ++element) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
+        auto* const handleSideAreaElement = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea);
+        if (handleSideAreaElement) {
+            const std::int32_t visible = handleSideAreaElement->visible;
+            for (std::int32_t element = 8; element <= 30; ++element) {
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
+            }
+            gSettingsPanelCC4234 = -1;
+            gSettingsOffsetCA02DC = 0;
+            if (visible == 0) {
+                gSettingsPanelCC4234 = 0;
+                gSettingsStepD2D610 = 17;
+                if (auto* const buttonLogoutElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonLogout); buttonLogoutElement) buttonLogoutElement->visible = 1;
+                if (auto* const buttonServerSelectElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonServerSelect); buttonServerSelectElement) buttonServerSelectElement->visible = 1;
+                if (auto* const handleSideAreaElement2 = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea); handleSideAreaElement2) handleSideAreaElement2->visible = 1;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
-        gSettingsPanelCC4234 = -1;
-        gSettingsOffsetCA02DC = 0;
-        if (visible == 0) {
-            gSettingsPanelCC4234 = 0;
-            gSettingsStepD2D610 = 17;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonLogout])) (*gCurrentWindow)[WindowSettingsElementId::ButtonLogout]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonServerSelect])) (*gCurrentWindow)[WindowSettingsElementId::ButtonServerSelect]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea])) (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]->visible = 1;
-        }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]))) { return {}; }
-    if ((*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]->visible != 0) {
-        graphic->imageNo = 0x3B8BF;
+    auto* const handleSideAreaElement = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea);
+    if (handleSideAreaElement) {
+        if (handleSideAreaElement->visible != 0) {
+            if (graphic) graphic->imageNo = 0x3B8BF;
+        }
     }
     return consumed;
 }
@@ -453,49 +485,57 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(const std::int32_t index, c
 // 原函数：0x00494000。
 static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    graphic->imageNo = 0x3B8C1;
+    if (graphic) graphic->imageNo = 0x3B8C1;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B8C3;
+        if (graphic) graphic->imageNo = 0x3B8C3;
         gHoverTextD68AE8 = L"设定滑鼠与键盘的操作方式。" /* 原常量参考：0x00586DF8。 */;
     }
     if ((state & 2) != 0) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]))) { return {}; }
-        const std::int32_t visible = (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]->visible;
-        for (std::int32_t element = 8; element <= 30; ++element) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
-        }
-        gSettingsPanelCC4234 = -1;
-        gSettingsOffsetCA02DC = 0;
-        if (visible == 0) {
-            gSettingsPanelCC4234 = 1;
-            gSettingsStepD2D610 = 17;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleItemStacking])) (*gCurrentWindow)[WindowSettingsElementId::ToggleItemStacking]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleCursor])) (*gCurrentWindow)[WindowSettingsElementId::ToggleCursor]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::CycleHotkeyMode])) (*gCurrentWindow)[WindowSettingsElementId::CycleHotkeyMode]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29])) (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]->visible = 1;
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleItemStacking]))) { return {}; }
-            auto* const inputGraphic = (*gCurrentWindow)[WindowSettingsElementId::ToggleItemStacking]->data.graphic;
-            inputGraphic->imageNo = 0x3B8DE;
-            if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
-                inputGraphic->imageNo = 0x3B8DB;
+        auto* const handleSideArea_29Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29);
+        if (handleSideArea_29Element) {
+            const std::int32_t visible = handleSideArea_29Element->visible;
+            for (std::int32_t element = 8; element <= 30; ++element) {
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
             }
-            // 原494121改写EBP；末尾选中图也写这个借用载荷。
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleCursor]))) { return {}; }
-            graphic = (*gCurrentWindow)[WindowSettingsElementId::ToggleCursor]->data.graphic;
-            graphic->imageNo = 0x3B8E4;
-            if (platform::gNativeCursorEnabled_D67AE4 != 0) {
-                graphic->imageNo = 0x3B8E1;
+            gSettingsPanelCC4234 = -1;
+            gSettingsOffsetCA02DC = 0;
+            if (visible == 0) {
+                gSettingsPanelCC4234 = 1;
+                gSettingsStepD2D610 = 17;
+                if (auto* const toggleItemStackingElement = currentWindow->FindElementById(WindowSettingsElementId::ToggleItemStacking); toggleItemStackingElement) toggleItemStackingElement->visible = 1;
+                if (auto* const toggleCursorElement = currentWindow->FindElementById(WindowSettingsElementId::ToggleCursor); toggleCursorElement) toggleCursorElement->visible = 1;
+                if (auto* const cycleHotkeyModeElement = currentWindow->FindElementById(WindowSettingsElementId::CycleHotkeyMode); cycleHotkeyModeElement) cycleHotkeyModeElement->visible = 1;
+                if (auto* const handleSideArea_29Element2 = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29); handleSideArea_29Element2) handleSideArea_29Element2->visible = 1;
+                auto* const toggleItemStackingElement2 = currentWindow->FindElementById(WindowSettingsElementId::ToggleItemStacking);
+                if (toggleItemStackingElement2) {
+                    auto* const inputGraphic = toggleItemStackingElement2->data.graphic;
+                    inputGraphic->imageNo = 0x3B8DE;
+                    if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
+                        inputGraphic->imageNo = 0x3B8DB;
+                    }
+                }
+                // 原494121改写EBP；末尾选中图也写这个借用载荷。
+                auto* const toggleCursorElement2 = currentWindow->FindElementById(WindowSettingsElementId::ToggleCursor);
+                graphic = toggleCursorElement2 ? toggleCursorElement2->data.graphic : nullptr;
+                if (graphic) graphic->imageNo = 0x3B8E4;
+                if (platform::gNativeCursorEnabled_D67AE4 != 0) {
+                    if (graphic) graphic->imageNo = 0x3B8E1;
+                }
             }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]))) { return {}; }
-    if ((*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]->visible != 0) {
-        graphic->imageNo = 0x3B8C2;
+    auto* const handleSideArea_29Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_29);
+    if (handleSideArea_29Element) {
+        if (handleSideArea_29Element->visible != 0) {
+            if (graphic) graphic->imageNo = 0x3B8C2;
+        }
     }
     return consumed;
 }
@@ -503,50 +543,60 @@ static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, co
 // 原函数：0x00494180。
 static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    graphic->imageNo = 0x3B8C4;
+    if (graphic) graphic->imageNo = 0x3B8C4;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B8C6;
+        if (graphic) graphic->imageNo = 0x3B8C6;
         gHoverTextD68AE8 = L"设定音乐音效。" /* 原常量参考：0x00586E14。 */;
     }
     if ((state & 2) != 0) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]))) { return {}; }
-        const std::int32_t visible = (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]->visible;
-        for (std::int32_t element = 8; element <= 30; ++element) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
+        auto* const handleSideArea_30Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30);
+        if (handleSideArea_30Element) {
+            const std::int32_t visible = handleSideArea_30Element->visible;
+            for (std::int32_t element = 8; element <= 30; ++element) {
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
+            }
+            gSettingsPanelCC4234 = -1;
+            gSettingsOffsetCA02DC = 0;
+            if (visible == 0) {
+                gSettingsPanelCC4234 = 2;
+                gSettingsStepD2D610 = 17;
+                if (auto* const toggleChannelsElement = currentWindow->FindElementById(WindowSettingsElementId::ToggleChannels); toggleChannelsElement) toggleChannelsElement->visible = 1;
+                if (auto* const element14 = currentWindow->FindElementById(WindowSettingsElementId::Element14); element14) element14->visible = 1;
+                if (auto* const buttonMusicDecreaseElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonMusicDecrease); buttonMusicDecreaseElement) buttonMusicDecreaseElement->visible = 1;
+                if (auto* const buttonMusicIncreaseElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonMusicIncrease); buttonMusicIncreaseElement) buttonMusicIncreaseElement->visible = 1;
+                if (auto* const element17 = currentWindow->FindElementById(WindowSettingsElementId::Element17); element17) element17->visible = 1;
+                if (auto* const buttonSoundDecreaseElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonSoundDecrease); buttonSoundDecreaseElement) buttonSoundDecreaseElement->visible = 1;
+                if (auto* const buttonSoundIncreaseElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonSoundIncrease); buttonSoundIncreaseElement) buttonSoundIncreaseElement->visible = 1;
+                if (auto* const handleSideArea_30Element2 = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30); handleSideArea_30Element2) handleSideArea_30Element2->visible = 1;
+                cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
+                const std::int32_t musicWidth = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
+                auto* const element142 = currentWindow->FindElementById(WindowSettingsElementId::Element14);
+                if (element142) {
+                    element142->x =
+                        ((37 - musicWidth) >> 1) + gSettingsOffsetCA02DC + 69;
+                }
+                cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
+                const std::int32_t effectWidth = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
+                auto* const element172 = currentWindow->FindElementById(WindowSettingsElementId::Element17);
+                if (element172) {
+                    element172->x =
+                        ((37 - effectWidth) >> 1) + gSettingsOffsetCA02DC + 69;
+                }
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
-        gSettingsPanelCC4234 = -1;
-        gSettingsOffsetCA02DC = 0;
-        if (visible == 0) {
-            gSettingsPanelCC4234 = 2;
-            gSettingsStepD2D610 = 17;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleChannels])) (*gCurrentWindow)[WindowSettingsElementId::ToggleChannels]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element14])) (*gCurrentWindow)[WindowSettingsElementId::Element14]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonMusicDecrease])) (*gCurrentWindow)[WindowSettingsElementId::ButtonMusicDecrease]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonMusicIncrease])) (*gCurrentWindow)[WindowSettingsElementId::ButtonMusicIncrease]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element17])) (*gCurrentWindow)[WindowSettingsElementId::Element17]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonSoundDecrease])) (*gCurrentWindow)[WindowSettingsElementId::ButtonSoundDecrease]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonSoundIncrease])) (*gCurrentWindow)[WindowSettingsElementId::ButtonSoundIncrease]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30])) (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]->visible = 1;
-            cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
-            const std::int32_t musicWidth = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element14]))) { return {}; }
-            (*gCurrentWindow)[WindowSettingsElementId::Element14]->x =
-                ((37 - musicWidth) >> 1) + gSettingsOffsetCA02DC + 69;
-            cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
-            const std::int32_t effectWidth = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element17]))) { return {}; }
-            (*gCurrentWindow)[WindowSettingsElementId::Element17]->x =
-                ((37 - effectWidth) >> 1) + gSettingsOffsetCA02DC + 69;
-        }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]))) { return {}; }
-    if ((*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]->visible != 0) {
-        graphic->imageNo = 0x3B8C5;
+    auto* const handleSideArea_30Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_30);
+    if (handleSideArea_30Element) {
+        if (handleSideArea_30Element->visible != 0) {
+            if (graphic) graphic->imageNo = 0x3B8C5;
+        }
     }
     return consumed;
 }
@@ -554,41 +604,47 @@ static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, co
 // 原函数：0x00494370。
 static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
-    graphic->imageNo = 0x3B8C7;
+    if (graphic) graphic->imageNo = 0x3B8C7;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B8C9;
+        if (graphic) graphic->imageNo = 0x3B8C9;
         gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
     }
     if ((state & 2) != 0) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]))) { return {}; }
-        const std::int32_t visible = (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]->visible;
-        for (std::int32_t element = 8; element <= 30; ++element) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
-        }
-        gSettingsPanelCC4234 = -1;
-        gSettingsOffsetCA02DC = 0;
-        if (visible == 0) {
-            gSettingsPanelCC4234 = 3;
-            gSettingsStepD2D610 = 17;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleScanlines])) (*gCurrentWindow)[WindowSettingsElementId::ToggleScanlines]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31])) (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]->visible = 1;
-            // 原49444C改写EBP，后续选中图仍写元素21。
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleScanlines]))) { return {}; }
-            graphic = (*gCurrentWindow)[WindowSettingsElementId::ToggleScanlines]->data.graphic;
-            graphic->imageNo = 0x3B8F9;
-            if (platform::gScanlineSyncMode != 0) {
-                graphic->imageNo = 0x3B8FC;
+        auto* const handleSideArea_31Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31);
+        if (handleSideArea_31Element) {
+            const std::int32_t visible = handleSideArea_31Element->visible;
+            for (std::int32_t element = 8; element <= 30; ++element) {
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
             }
+            gSettingsPanelCC4234 = -1;
+            gSettingsOffsetCA02DC = 0;
+            if (visible == 0) {
+                gSettingsPanelCC4234 = 3;
+                gSettingsStepD2D610 = 17;
+                if (auto* const toggleScanlinesElement = currentWindow->FindElementById(WindowSettingsElementId::ToggleScanlines); toggleScanlinesElement) toggleScanlinesElement->visible = 1;
+                if (auto* const handleSideArea_31Element2 = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31); handleSideArea_31Element2) handleSideArea_31Element2->visible = 1;
+                // 原49444C改写EBP，后续选中图仍写元素21。
+                auto* const toggleScanlinesElement2 = currentWindow->FindElementById(WindowSettingsElementId::ToggleScanlines);
+                graphic = toggleScanlinesElement2 ? toggleScanlinesElement2->data.graphic : nullptr;
+                if (graphic) graphic->imageNo = 0x3B8F9;
+                if (platform::gScanlineSyncMode != 0) {
+                    if (graphic) graphic->imageNo = 0x3B8FC;
+                }
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]))) { return {}; }
-    if ((*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]->visible != 0) {
-        graphic->imageNo = 0x3B8C8;
+    auto* const handleSideArea_31Element = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31);
+    if (handleSideArea_31Element) {
+        if (handleSideArea_31Element->visible != 0) {
+            if (graphic) graphic->imageNo = 0x3B8C8;
+        }
     }
     return consumed;
 }
@@ -596,214 +652,251 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, 
 // 原函数：0x00493E50。
 static std::int32_t WindowSettings_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kSettingsClose55331C;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = kSettingsClose55331C;
+        }
+        if ((state & 2) != 0) {
+            window->state |= 0x8000u;
+            consumed = 1;
+        }
+        graphic->imageNo = 0x3B538;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B53A;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B539;
+        }
+        return consumed;
     }
-    if ((state & 2) != 0) {
-        window->state |= 0x8000u;
-        consumed = 1;
-    }
-    graphic->imageNo = 0x3B538;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B53A;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B539;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004944A0。
 static std::int32_t WindowSettings_ButtonHotkeys(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    graphic->imageNo = 0x3B8CA;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B8CC;
-        gHoverTextD68AE8 = L"开启热键一览表。" /* 原常量参考：0x00586E34。 */;
-    }
-    if ((state & 2) != 0) {
-        WindowInstance* const hotkeys = gWindowStates[WindowId_Hotkeys].window;
-        if (hotkeys != nullptr) {
-            hotkeys->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
-        } else {
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Hotkeys, 1, 0, nullptr));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        graphic->imageNo = 0x3B8CA;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8CC;
+            gHoverTextD68AE8 = L"开启热键一览表。" /* 原常量参考：0x00586E34。 */;
         }
-        consumed = 1;
+        if ((state & 2) != 0) {
+            WindowInstance* const hotkeys = gWindowStates[WindowId_Hotkeys].window;
+            if (hotkeys != nullptr) {
+                hotkeys->state |= 0x8000u;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+            } else {
+                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Hotkeys, 1, 0, nullptr));
+            }
+            consumed = 1;
+        }
+        if (gWindowStates[WindowId_Hotkeys].window != nullptr) {
+            graphic->imageNo = 0x3B8CB;
+        }
+        return consumed;
     }
-    if (gWindowStates[WindowId_Hotkeys].window != nullptr) {
-        graphic->imageNo = 0x3B8CB;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x00494550。
 static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"登出并回到城内登入点。" /* 原常量参考：0x00586E48。 */;
-        window = gCurrentWindow;
-    }
-    if ((state & 2) != 0) {
-        window->state |= 0x2000u;
-        static_cast<void>(network::RequestLogoutToTown_512CF0(platform::gConnectionSocket));
-        if (world::gCurrentSceneType == 10) {
-            world::gCurrentSceneState = 7;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"登出并回到城内登入点。" /* 原常量参考：0x00586E48。 */;
+            window = currentWindow;
         }
-        static_cast<void>(audio::PlaySe_52C450(60, 320));
-        consumed = 1;
-        world::gLogoutToTownPending_D67E78 = 1;
+        if ((state & 2) != 0) {
+            window->state |= 0x2000u;
+            static_cast<void>(network::RequestLogoutToTown_512CF0(platform::gConnectionSocket));
+            if (world::gCurrentSceneType == 10) {
+                world::gCurrentSceneState = 7;
+            }
+            static_cast<void>(audio::PlaySe_52C450(60, 320));
+            consumed = 1;
+            world::gLogoutToTownPending_D67E78 = 1;
+        }
+        graphic->imageNo = 0x3B8D1;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8D3;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B8D2;
+        }
+        return consumed;
     }
-    graphic->imageNo = 0x3B8D1;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B8D3;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B8D2;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x00494620。
 static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B8D6;
-        gHoverTextD68AE8 = L"登出后回到伺服器选择画面。" /* 原常量参考：0x00586E60。 */;
-        window = gCurrentWindow;
-    }
-    if ((state & 2) != 0) {
-        window->state |= 0x2000u;
-        if (world::gCurrentSceneType == 10) {
-            world::gCurrentSceneState = 9;
-        } else {
-            world::gSceneTransitionValue = std::int32_t{0};
-            static_cast<void>(world::SetPendingSceneType(7));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8D6;
+            gHoverTextD68AE8 = L"登出后回到伺服器选择画面。" /* 原常量参考：0x00586E60。 */;
+            window = currentWindow;
         }
-        static_cast<void>(audio::PlaySe_52C450(60, 320));
-        consumed = 1;
+        if ((state & 2) != 0) {
+            window->state |= 0x2000u;
+            if (world::gCurrentSceneType == 10) {
+                world::gCurrentSceneState = 9;
+            } else {
+                world::gSceneTransitionValue = std::int32_t{0};
+                static_cast<void>(world::SetPendingSceneType(7));
+            }
+            static_cast<void>(audio::PlaySe_52C450(60, 320));
+            consumed = 1;
+        }
+        graphic->imageNo = 0x3B8D4;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B8D6;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B8D5;
+        }
+        return consumed;
     }
-    graphic->imageNo = 0x3B8D4;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B8D6;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B8D5;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x00494720。
 static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"变更物品堆叠视窗的开启方式。" /* 原常量参考：0x00586E7C。 */;
-    }
-    if ((state & 2) != 0) {
-        window->state |= 0x2000u;
-        platform::gInvertItemSplitModifier_D67AE8 = (platform::gInvertItemSplitModifier_D67AE8 - 1u) & 1u;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
-        graphic->imageNo = 0x3B8DB;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
         if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B8DD;
+            gHoverTextD68AE8 = L"变更物品堆叠视窗的开启方式。" /* 原常量参考：0x00586E7C。 */;
         }
-    } else {
-        graphic->imageNo = 0x3B8DE;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B8E0;
+        if ((state & 2) != 0) {
+            window->state |= 0x2000u;
+            platform::gInvertItemSplitModifier_D67AE8 = (platform::gInvertItemSplitModifier_D67AE8 - 1u) & 1u;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
+        if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
+            graphic->imageNo = 0x3B8DB;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B8DD;
+            }
+        } else {
+            graphic->imageNo = 0x3B8DE;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B8E0;
+            }
+        }
+        return consumed;
     }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004947F0。
 static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"变更滑鼠游标种类。" /* 原常量参考：0x00586E9C。 */;
-    }
-    if ((state & 2) != 0) {
-        window->state |= 0x2000u;
-        platform::gNativeCursorEnabled_D67AE4 = platform::gNativeCursorEnabled_D67AE4 == 0 ? 1u : 0u;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    if (platform::gNativeCursorEnabled_D67AE4 != 0) {
-        graphic->imageNo = 0x3B8E1;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
         if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B8E3;
+            gHoverTextD68AE8 = L"变更滑鼠游标种类。" /* 原常量参考：0x00586E9C。 */;
         }
-        const std::int32_t y = (platform::gLegacyMouseState.mouseY + 16);
-        const std::int32_t x = (platform::gLegacyMouseState.mouseX + 16);
-        static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
-    } else {
-        graphic->imageNo = 0x3B8E4;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B8E6;
+        if ((state & 2) != 0) {
+            window->state |= 0x2000u;
+            platform::gNativeCursorEnabled_D67AE4 = platform::gNativeCursorEnabled_D67AE4 == 0 ? 1u : 0u;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
+        if (platform::gNativeCursorEnabled_D67AE4 != 0) {
+            graphic->imageNo = 0x3B8E1;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B8E3;
+            }
+            const std::int32_t y = (platform::gLegacyMouseState.mouseY + 16);
+            const std::int32_t x = (platform::gLegacyMouseState.mouseX + 16);
+            static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
+        } else {
+            graphic->imageNo = 0x3B8E4;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B8E6;
+            }
+        }
+        return consumed;
     }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004948F0。
 static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"变更快速键的型态。" /* 原常量参考：0x00586EB0。 */;
-    }
-    if ((state & 2) != 0) {
-        window->state |= 0x2000u;
-        const std::int32_t mode = gHotkeyLayoutMode_CF4AAC + 1;
-        gHotkeyLayoutMode_CF4AAC = mode;
-        if (mode == 2) {
-            gHotkeyLayoutMode_CF4AAC = 0;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"变更快速键的型态。" /* 原常量参考：0x00586EB0。 */;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
+        if ((state & 2) != 0) {
+            window->state |= 0x2000u;
+            const std::int32_t mode = gHotkeyLayoutMode_CF4AAC + 1;
+            gHotkeyLayoutMode_CF4AAC = mode;
+            if (mode == 2) {
+                gHotkeyLayoutMode_CF4AAC = 0;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC];
+        if ((state & 1) != 0) {
+            graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC + 2];
+        }
+        return consumed;
     }
-    graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC];
-    if ((state & 1) != 0) {
-        graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC + 2];
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004949C0。
 static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gMusicVolume <= 0
@@ -821,17 +914,17 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index,
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element14])) (*gCurrentWindow)[WindowSettingsElementId::Element14]->x = x;
+            if (auto* const element14 = currentWindow->FindElementById(WindowSettingsElementId::Element14); element14) element14->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
     }
-    graphic->imageNo = 0x3B556;
+    if (graphic) graphic->imageNo = 0x3B556;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B558;
+        if (graphic) graphic->imageNo = 0x3B558;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B557;
+        if (graphic) graphic->imageNo = 0x3B557;
     }
     return consumed;
 }
@@ -839,9 +932,11 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index,
 // 原函数：0x00494AE0。
 static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gMusicVolume >= 15
@@ -859,17 +954,17 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index,
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element14])) (*gCurrentWindow)[WindowSettingsElementId::Element14]->x = x;
+            if (auto* const element14 = currentWindow->FindElementById(WindowSettingsElementId::Element14); element14) element14->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
     }
-    graphic->imageNo = 0x3B559;
+    if (graphic) graphic->imageNo = 0x3B559;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B55B;
+        if (graphic) graphic->imageNo = 0x3B55B;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B55A;
+        if (graphic) graphic->imageNo = 0x3B55A;
     }
     return consumed;
 }
@@ -877,9 +972,11 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index,
 // 原函数：0x00494C10。
 static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gEffectVolume <= 0
@@ -897,17 +994,17 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index,
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element17])) (*gCurrentWindow)[WindowSettingsElementId::Element17]->x = x;
+            if (auto* const element17 = currentWindow->FindElementById(WindowSettingsElementId::Element17); element17) element17->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
     }
-    graphic->imageNo = 0x3B556;
+    if (graphic) graphic->imageNo = 0x3B556;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B558;
+        if (graphic) graphic->imageNo = 0x3B558;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B557;
+        if (graphic) graphic->imageNo = 0x3B557;
     }
     return consumed;
 }
@@ -915,9 +1012,11 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index,
 // 原函数：0x00494D30。
 static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gEffectVolume >= 15
@@ -935,17 +1034,17 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index,
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element17])) (*gCurrentWindow)[WindowSettingsElementId::Element17]->x = x;
+            if (auto* const element17 = currentWindow->FindElementById(WindowSettingsElementId::Element17); element17) element17->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
     }
-    graphic->imageNo = 0x3B559;
+    if (graphic) graphic->imageNo = 0x3B559;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B55B;
+        if (graphic) graphic->imageNo = 0x3B55B;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B55A;
+        if (graphic) graphic->imageNo = 0x3B55A;
     }
     return consumed;
 }
@@ -953,105 +1052,124 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index,
 // 原函数：0x00494E60。
 static std::int32_t WindowSettings_ToggleChannels(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
-    }
-    if ((state & 2) != 0) {
-        window->state |= 0x2000u;
-        platform::gUseStereo = static_cast<std::int32_t>(
-            (static_cast<std::uint32_t>(platform::gUseStereo) - 1u) & 1u);
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    if (platform::gUseStereo != 0) {
-        graphic->imageNo = 0x3B8EF;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
         if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B8F1;
+            gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
         }
-    } else {
-        graphic->imageNo = 0x3B8F2;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B8F4;
+        if ((state & 2) != 0) {
+            window->state |= 0x2000u;
+            platform::gUseStereo = static_cast<std::int32_t>(
+                (static_cast<std::uint32_t>(platform::gUseStereo) - 1u) & 1u);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
+        if (platform::gUseStereo != 0) {
+            graphic->imageNo = 0x3B8EF;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B8F1;
+            }
+        } else {
+            graphic->imageNo = 0x3B8F2;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B8F4;
+            }
+        }
+        return consumed;
     }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x00494F30。
 static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
-    }
-    if ((state & 2) != 0) {
-        window->state |= 0x2000u;
-        platform::gChatNotificationSoundEnabled_554644 = static_cast<std::int32_t>(
-            (static_cast<std::uint32_t>(platform::gChatNotificationSoundEnabled_554644) - 1u) & 1u);
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    if (platform::gChatNotificationSoundEnabled_554644 != 0) {
-        graphic->imageNo = 0x3BE7B;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
         if ((state & 1) != 0) {
-            graphic->imageNo = 0x3BE7D;
+            gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
         }
-    } else {
-        graphic->imageNo = 0x3BE78;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 0x3BE7A;
+        if ((state & 2) != 0) {
+            window->state |= 0x2000u;
+            platform::gChatNotificationSoundEnabled_554644 = static_cast<std::int32_t>(
+                (static_cast<std::uint32_t>(platform::gChatNotificationSoundEnabled_554644) - 1u) & 1u);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
+        if (platform::gChatNotificationSoundEnabled_554644 != 0) {
+            graphic->imageNo = 0x3BE7B;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3BE7D;
+            }
+        } else {
+            graphic->imageNo = 0x3BE78;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3BE7A;
+            }
+        }
+        return consumed;
     }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x00495000。
 static std::int32_t WindowSettings_ToggleScanlines(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
-    }
-    if ((state & 2) != 0) {
-        window->state |= 0x2000u;
-        platform::gScanlineSyncMode = static_cast<std::uint16_t>(
-            (static_cast<std::uint8_t>(platform::gScanlineSyncMode) - 1) & 1);
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    if (platform::gScanlineSyncMode != 0) {
-        graphic->imageNo = 0x3B8FC;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
         if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B8FE;
+            gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
         }
-    } else {
-        graphic->imageNo = 0x3B8F9;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 0x3B8FB;
+        if ((state & 2) != 0) {
+            window->state |= 0x2000u;
+            platform::gScanlineSyncMode = static_cast<std::uint16_t>(
+                (static_cast<std::uint8_t>(platform::gScanlineSyncMode) - 1) & 1);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
         }
+        if (platform::gScanlineSyncMode != 0) {
+            graphic->imageNo = 0x3B8FC;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B8FE;
+            }
+        } else {
+            graphic->imageNo = 0x3B8F9;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 0x3B8FB;
+            }
+        }
+        return consumed;
     }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004950D0。
 static std::int32_t WindowSettings_DrawRenderModeButton(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"目前的描绘功能。" /* 原常量参考：0x00586F90。 */;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"目前的描绘功能。" /* 原常量参考：0x00586F90。 */;
+        }
+        graphic->imageNo = 0x3B5A0 + 3 * index;
     }
-    graphic->imageNo = 0x3B5A0 + 3 * index;
     return 0;
 }
 

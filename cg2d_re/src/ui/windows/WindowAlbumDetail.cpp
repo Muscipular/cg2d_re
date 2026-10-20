@@ -245,8 +245,10 @@ WindowPrototype gWindowPrototypeAlbumDetail {0, 4, 357, 90, 256, 289, 0x80010101
 // 原函数：0x004939A0。
 static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::int32_t base)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(base + slot)])) (*gCurrentWindow)[NativeElementKey(base + slot)]->visible = 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(base + slot)); indexedElement) indexedElement->visible = 0;
     }
     const std::int32_t count = rating + 1;
     if (count < 1 || count > 10 || count <= 0) {
@@ -255,11 +257,11 @@ static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::i
     for (std::int32_t part = 0; part < count; ++part) {
         if (part % 2 == 0) {
             const std::int32_t element = base + part / 2;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->data.graphic->imageNo = 0x3BB0C;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 1;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(element)); indexedElement2) indexedElement2->data.graphic->imageNo = 0x3BB0C;
         }
         if (part == count - 1 && count % 2 == 1) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(base + part / 2)])) (*gCurrentWindow)[NativeElementKey(base + part / 2)]->data.graphic->imageNo = 0x3BB0D;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(base + part / 2)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB0D;
         }
     }
 }
@@ -268,40 +270,48 @@ static void WindowAlbumDetail_DrawRating(const std::int32_t rating, const std::i
 // 原函数：0x00492F70。
 static void WindowAlbumDetail_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     const auto selectedRecord = []() {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
         const std::int32_t index = gLoginWindowRuntime.valueCB2200;
         return records + index;
     };
-    const auto copyBeforeScan = [](const std::int32_t index, const std::wstring_view source) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return; }
-        auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
-        data->text = source;
+    const auto copyBeforeScan = [currentWindow](const std::int32_t index, const std::wstring_view source) {
+        auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = source;
+        }
+        return;
     };
-    const auto copyAfterScan = [](const std::int32_t index, const std::wstring_view source) {
-        auto* elementsWindow = gCurrentWindow;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return; }
-        auto* const data = (*elementsWindow)[NativeElementKey(index)]->data.text;
-        data->text = source;
+    const auto copyAfterScan = [currentWindow](const std::int32_t index, const std::wstring_view source) {
+        auto* elementsWindow = currentWindow;
+        auto* const dataElement = elementsWindow->FindElementById(NativeElementKey(index));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = source;
+        }
+        return;
     };
     std::wstring buffer;
     if (selectedRecord()->used != 0) {
         constexpr std::int32_t shown[] {2, 1, 3, 4, 5, 7, 8};
         for (const std::int32_t element : shown) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 1;
         }
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(53 + slot)])) (*gCurrentWindow)[NativeElementKey(53 + slot)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(58 + slot)])) (*gCurrentWindow)[NativeElementKey(58 + slot)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(63 + slot)])) (*gCurrentWindow)[NativeElementKey(63 + slot)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(68 + slot)])) (*gCurrentWindow)[NativeElementKey(68 + slot)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(73 + slot)])) (*gCurrentWindow)[NativeElementKey(73 + slot)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(53 + slot)); indexedElement) indexedElement->visible = 1;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(58 + slot)); indexedElement2) indexedElement2->visible = 1;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(63 + slot)); indexedElement3) indexedElement3->visible = 1;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(68 + slot)); indexedElement4) indexedElement4->visible = 1;
+            if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(73 + slot)); indexedElement5) indexedElement5->visible = 1;
         }
         for (std::int32_t slot = 0; slot < 10; ++slot) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(13 + slot)])) (*gCurrentWindow)[NativeElementKey(13 + slot)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(23 + slot)])) (*gCurrentWindow)[NativeElementKey(23 + slot)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(33 + slot)])) (*gCurrentWindow)[NativeElementKey(33 + slot)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(43 + slot)])) (*gCurrentWindow)[NativeElementKey(43 + slot)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(13 + slot)); indexedElement) indexedElement->visible = 1;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(23 + slot)); indexedElement2) indexedElement2->visible = 1;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(33 + slot)); indexedElement3) indexedElement3->visible = 1;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(43 + slot)); indexedElement4) indexedElement4->visible = 1;
         }
         const std::int16_t nameCharacter = login::gSelectedCharacterIndex;
         const std::int32_t nameIndex = gLoginWindowRuntime.valueCB2200;
@@ -310,41 +320,51 @@ static void WindowAlbumDetail_Refresh()
 
         const std::int32_t image = selectedRecord()->imageNo;
         const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(image);
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowAlbumDetailElementId::Element2]))) { return; }
-        auto* const imageData = (*gCurrentWindow)[WindowAlbumDetailElementId::Element2]->data.animation;
-        cg::yobi::SetYobiActionField2A8(imageData->action, mapped);
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowAlbumDetailElementId::Element2]))) { return; }
-        auto* const directionData = (*gCurrentWindow)[WindowAlbumDetailElementId::Element2]->data.animation;
-        const std::int32_t direction = gLoginWindowRuntime.valueCF4A00;
-        cg::yobi::SetYobiActionField2B8(directionData->action, direction);
+        auto* const element2 = currentWindow->FindElementById(WindowAlbumDetailElementId::Element2);
+        if (element2) {
+            auto* const imageData = element2->data.animation;
+            cg::yobi::SetYobiActionField2A8(imageData->action, mapped);
+        }
+        auto* const element22 = currentWindow->FindElementById(WindowAlbumDetailElementId::Element2);
+        if (element22) {
+            auto* const directionData = element22->data.animation;
+            const std::int32_t direction = gLoginWindowRuntime.valueCF4A00;
+            cg::yobi::SetYobiActionField2B8(directionData->action, direction);
+        }
 
         buffer = std::format(L"{:3}", gLoginWindowRuntime.valueCB2200 + 1);
         copyAfterScan(3, buffer);
         buffer = std::format(L"{:2}", selectedRecord()->value30);
         copyAfterScan(4, buffer);
         const world::AlbumRecord* const tribeRecord = selectedRecord();
-        WindowInstance* const tribeWindow = gCurrentWindow;
+        WindowInstance* const tribeWindow = currentWindow;
         const auto tribe = std::bit_cast<std::int8_t>(tribeRecord->tribe);
         auto* tribeElementsWindow = tribeWindow;
         const wchar_t* const tribeName = gTribeNames57CB54[tribe];
-        if (!((tribeElementsWindow && (*tribeElementsWindow)[WindowAlbumDetailElementId::Element6]))) { return; }
-        auto* const tribeData = (*tribeElementsWindow)[WindowAlbumDetailElementId::Element6]->data.text;
-        tribeData->text = tribeName;
+        auto* const element6 = tribeElementsWindow->FindElementById(WindowAlbumDetailElementId::Element6);
+        if (element6) {
+            auto* const tribeData = element6->data.text;
+            tribeData->text = tribeName;
+        }
         buffer = std::format(L"{:3}/{:3}", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
 
         const world::AlbumRecord* const firstMarkRecord = selectedRecord();
-        WindowInstance* const firstMarkWindow = gCurrentWindow;
+        WindowInstance* const firstMarkWindow = currentWindow;
         const auto firstMark = std::bit_cast<std::int8_t>(firstMarkRecord->mark1);
-        if (!((firstMarkWindow && (*firstMarkWindow)[WindowAlbumDetailElementId::Element8]))) { return; }
-        auto* const firstMarkData = (*firstMarkWindow)[WindowAlbumDetailElementId::Element8]->data.graphic;
-        firstMarkData->imageNo = kAlbumMarkImages57DF24[firstMark];
-        WindowInstance* const secondMarkWindow = gCurrentWindow;
+        auto* const element8 = firstMarkWindow->FindElementById(WindowAlbumDetailElementId::Element8);
+        if (element8) {
+            auto* const firstMarkData = element8->data.graphic;
+            firstMarkData->imageNo = kAlbumMarkImages57DF24[firstMark];
+        }
+        WindowInstance* const secondMarkWindow = currentWindow;
         const world::AlbumRecord* const secondMarkRecord = selectedRecord();
         const auto secondMark = std::bit_cast<std::int8_t>(secondMarkRecord->mark2);
-        if (!((secondMarkWindow && (*secondMarkWindow)[WindowAlbumDetailElementId::Element9]))) { return; }
-        auto* const secondMarkData = (*secondMarkWindow)[WindowAlbumDetailElementId::Element9]->data.graphic;
-        secondMarkData->imageNo = kAlbumMarkImages57DF2C[secondMark];
+        auto* const element9 = secondMarkWindow->FindElementById(WindowAlbumDetailElementId::Element9);
+        if (element9) {
+            auto* const secondMarkData = element9->data.graphic;
+            secondMarkData->imageNo = kAlbumMarkImages57DF2C[secondMark];
+        }
 
         const std::int32_t firstRatingIndex = gLoginWindowRuntime.valueCB2200;
         const world::AlbumRecord* const firstRatingRecords = world::GetSelectedAlbumRecords();
@@ -352,14 +372,14 @@ static void WindowAlbumDetail_Refresh()
         for (std::int32_t rating = 1; rating < 5; ++rating) {
             WindowAlbumDetail_DrawRating(selectedRecord()->ratings[rating], 53 + rating * 5);
         }
-        const auto showSegment = [](const std::int32_t element, const std::int32_t graphic) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->data.graphic->imageNo = graphic;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 1;
+        const auto showSegment = [currentWindow](const std::int32_t element, const std::int32_t graphic) {
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.graphic->imageNo = graphic;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(element)); indexedElement2) indexedElement2->visible = 1;
         };
         for (std::int32_t attribute = 0; attribute < 4; ++attribute) {
             const std::int32_t base = 13 + attribute * 10;
             for (std::int32_t slot = 0; slot < 10; ++slot) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(base + slot)])) (*gCurrentWindow)[NativeElementKey(base + slot)]->visible = 0;
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(base + slot)); indexedElement) indexedElement->visible = 0;
             }
             const std::int32_t segments = selectedRecord()->attributes[attribute];
             const auto& graphics = gPetBarImages57E434[attribute];
@@ -380,20 +400,20 @@ static void WindowAlbumDetail_Refresh()
     } else {
         constexpr std::int32_t hidden[] {2, 1, 4, 5, 7, 8};
         for (const std::int32_t element : hidden) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
         }
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(53 + slot)])) (*gCurrentWindow)[NativeElementKey(53 + slot)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(58 + slot)])) (*gCurrentWindow)[NativeElementKey(58 + slot)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(63 + slot)])) (*gCurrentWindow)[NativeElementKey(63 + slot)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(68 + slot)])) (*gCurrentWindow)[NativeElementKey(68 + slot)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(73 + slot)])) (*gCurrentWindow)[NativeElementKey(73 + slot)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(53 + slot)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(58 + slot)); indexedElement2) indexedElement2->visible = 0;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(63 + slot)); indexedElement3) indexedElement3->visible = 0;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(68 + slot)); indexedElement4) indexedElement4->visible = 0;
+            if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(73 + slot)); indexedElement5) indexedElement5->visible = 0;
         }
         for (std::int32_t slot = 0; slot < 10; ++slot) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(13 + slot)])) (*gCurrentWindow)[NativeElementKey(13 + slot)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(23 + slot)])) (*gCurrentWindow)[NativeElementKey(23 + slot)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(33 + slot)])) (*gCurrentWindow)[NativeElementKey(33 + slot)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(43 + slot)])) (*gCurrentWindow)[NativeElementKey(43 + slot)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(13 + slot)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(23 + slot)); indexedElement2) indexedElement2->visible = 0;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(33 + slot)); indexedElement3) indexedElement3->visible = 0;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(43 + slot)); indexedElement4) indexedElement4->visible = 0;
         }
         buffer = std::format(L"{:3}", gLoginWindowRuntime.valueCB2200 + 1);
         copyBeforeScan(3, buffer);
@@ -415,6 +435,8 @@ static std::int32_t WindowAlbumDetail_Update(const std::int32_t value)
 // 原函数：0x00492880。
 static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t delta;
     std::int32_t idle;
     const wchar_t* hint;
@@ -463,10 +485,10 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = hint;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = idle + 2;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 2;
         consumed = 1;
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = idle;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle;
     }
     if ((state & 0x400) != 0) {
         const std::int32_t selected = gLoginWindowRuntime.valueCB2200 + delta;
@@ -482,7 +504,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
         consumed = 1;
     }
     if ((state & 8) != 0) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = idle + 1;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 1;
     }
     return consumed;
 }

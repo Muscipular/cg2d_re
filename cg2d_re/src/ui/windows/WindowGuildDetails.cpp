@@ -320,6 +320,8 @@ WindowPrototype gWindowPrototypeGuildDetails {0, 4, 100, 60, 317, 325, 0x8001010
 // 原函数：0x004AEAE0。
 static std::int32_t WindowGuildDetails_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         gGuildPageD67B78 = 0;
         gGuildEditing57F03C = -1;
@@ -331,12 +333,16 @@ static std::int32_t WindowGuildDetails_Update(const std::int32_t value)
             const wchar_t* const source = cg::world::GetGuildRankText(index);
             gGuildDraftCF4018.ranks[index].text = source;
         }
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]))) { return {}; }
-        auto* const name = (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]->data.text;
-        name->text = cg::world::GetGuildName();
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]))) { return {}; }
-        auto* const second = (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]->data.text;
-        second->text = cg::world::GetGuildSecondText();
+        auto* const element10 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
+        if (element10) {
+            auto* const name = element10->data.text;
+            name->text = cg::world::GetGuildName();
+        }
+        auto* const element11 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
+        if (element11) {
+            auto* const second = element11->data.text;
+            second->text = cg::world::GetGuildSecondText();
+        }
     }
     if (WindowGuildDetails_CommitFocusedInput() == 0) {
         gGuildEditing57F03C = -1;
@@ -356,155 +362,187 @@ static std::int32_t WindowGuildDetails_Draw(const std::int32_t value)
 // 原函数：0x004AF180。
 static void WindowGuildDetails_RefreshReadOnly()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     if (WindowGuildDetails_ReadRankPermissions() != 0) {
         WindowGuildDetails_RefreshEditor();
         return;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton]->visible = 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66]->visible = 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73]->visible = 0;
+    if (auto* const handleActionButtonElement = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton); handleActionButtonElement) handleActionButtonElement->visible = 0;
+    if (auto* const handleActionButton_66Element = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_66); handleActionButton_66Element) handleActionButton_66Element->visible = 0;
+    if (auto* const handleActionButton_73Element = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_73); handleActionButton_73Element) handleActionButton_73Element->visible = 0;
     for (std::int32_t index = 9; index < 18; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->mouseCallback = &WindowElement_NoOp;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->mouseCallback = &WindowElement_NoOp;
     }
     for (std::int32_t index = 18; index < 53; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->height = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->width = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->mouseCallback = &WindowElement_NoOp;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->height = 0;
+        if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->width = 0;
+        if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement3) indexedElement3->mouseCallback = &WindowElement_NoOp;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73]->visible = 0;
+    if (auto* const handleActionButton_73Element2 = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_73); handleActionButton_73Element2) handleActionButton_73Element2->visible = 0;
     static_cast<void>(WindowGuildDetails_RefreshRanks());
 }
 
 // 原函数：0x004AF250。
 static void WindowGuildDetails_RefreshEditor()
 {
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton]->visible = 1;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66]->visible = 1;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73]->visible = 1;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    if (auto* const handleActionButtonElement = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton); handleActionButtonElement) handleActionButtonElement->visible = 1;
+    if (auto* const handleActionButton_66Element = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_66); handleActionButton_66Element) handleActionButton_66Element->visible = 1;
+    if (auto* const handleActionButton_73Element = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_73); handleActionButton_73Element) handleActionButton_73Element->visible = 1;
     for (std::int32_t index = 9; index < 18; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
     }
     for (std::int32_t index = 18; index < 53; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->height = 15;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->width = 15;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->mouseCallback = &WindowGuildDetails_ToggleRankPermission;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->height = 15;
+        if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->width = 15;
+        if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement3) indexedElement3->mouseCallback = &WindowGuildDetails_ToggleRankPermission;
     }
     static_cast<void>(WindowGuildDetails_RefreshRanks());
-    WindowInstance* window = gCurrentWindow;
+    WindowInstance* window = currentWindow;
     auto* elementsWindow = window;
-    if (!((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::HandleInput]))) { return; }
-    if (gFocusedElementDataD45F94 == (*elementsWindow)[WindowGuildDetailsElementId::HandleInput]->data.input) {
-        char fieldBytes[41]{};
-        cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[0].input.context));
-        gGuildDraftCF4018.name604 = input::ContextText(*gGuildInputs57F040[0].input.context);
-        if ((window && (*window)[WindowGuildDetailsElementId::Element10])) (*window)[WindowGuildDetailsElementId::Element10]->visible = 0;
-        WindowInstance* const current = gCurrentWindow;
-        const std::int32_t y = current->y;
-        const std::int32_t x = current->x;
-        static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[0], x, y, 1));
-    } else {
-        if ((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::Element10])) (*elementsWindow)[WindowGuildDetailsElementId::Element10]->visible = 1;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]))) { return; }
-        auto* const text = (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]->data.text;
-        text->text = gGuildDraftCF4018.name604;
-        const bool changed = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]))) { return; }
-        (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]->data.text->style.color =
-            changed ? std::byte{6} : std::byte{0};
+    auto* const handleInputElement = elementsWindow->FindElementById(WindowGuildDetailsElementId::HandleInput);
+    if (handleInputElement) {
+        if (gFocusedElementDataD45F94 == handleInputElement->data.input) {
+            char fieldBytes[41]{};
+            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[0].input.context));
+            gGuildDraftCF4018.name604 = input::ContextText(*gGuildInputs57F040[0].input.context);
+            if (auto* const element10 = window->FindElementById(WindowGuildDetailsElementId::Element10); element10) element10->visible = 0;
+            WindowInstance* const current = currentWindow;
+            const std::int32_t y = current->y;
+            const std::int32_t x = current->x;
+            static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[0], x, y, 1));
+        } else {
+            if (auto* const element10 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element10); element10) element10->visible = 1;
+            auto* const element102 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
+            if (element102) {
+                auto* const text = element102->data.text;
+                text->text = gGuildDraftCF4018.name604;
+            }
+            const bool changed = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
+            auto* const element103 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
+            if (element103) {
+                element103->data.text->style.color =
+                    changed ? std::byte{6} : std::byte{0};
+            }
+        }
     }
     const bool nameChanged = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton]->visible = nameChanged ? 1 : 0;
+    if (auto* const handleActionButtonElement2 = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton); handleActionButtonElement2) handleActionButtonElement2->visible = nameChanged ? 1 : 0;
 
-    window = gCurrentWindow;
+    window = currentWindow;
     elementsWindow = window;
-    if (!((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::HandleInput_2]))) { return; }
-    if (gFocusedElementDataD45F94 == (*elementsWindow)[WindowGuildDetailsElementId::HandleInput_2]->data.input) {
-        if ((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::Element11])) (*elementsWindow)[WindowGuildDetailsElementId::Element11]->visible = 0;
-        char fieldBytes[41]{};
-        cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[1].input.context));
-        gGuildDraftCF4018.secondText634 = input::ContextText(*gGuildInputs57F040[1].input.context);
-        WindowInstance* const current = gCurrentWindow;
-        const std::int32_t y = current->y;
-        const std::int32_t x = current->x;
-        static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 1));
-    } else {
-        if ((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::Element11])) (*elementsWindow)[WindowGuildDetailsElementId::Element11]->visible = 1;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]))) { return; }
-        auto* const text = (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]->data.text;
-        text->text = gGuildDraftCF4018.secondText634;
-        const bool changed = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]))) { return; }
-        (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]->data.text->style.color =
-            changed ? std::byte{6} : std::byte{0};
+    auto* const handleInput_2Element = elementsWindow->FindElementById(WindowGuildDetailsElementId::HandleInput_2);
+    if (handleInput_2Element) {
+        if (gFocusedElementDataD45F94 == handleInput_2Element->data.input) {
+            if (auto* const element11 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element11); element11) element11->visible = 0;
+            char fieldBytes[41]{};
+            cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[1].input.context));
+            gGuildDraftCF4018.secondText634 = input::ContextText(*gGuildInputs57F040[1].input.context);
+            WindowInstance* const current = currentWindow;
+            const std::int32_t y = current->y;
+            const std::int32_t x = current->x;
+            static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 1));
+        } else {
+            if (auto* const element11 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element11); element11) element11->visible = 1;
+            auto* const element112 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
+            if (element112) {
+                auto* const text = element112->data.text;
+                text->text = gGuildDraftCF4018.secondText634;
+            }
+            const bool changed = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
+            auto* const element113 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
+            if (element113) {
+                element113->data.text->style.color =
+                    changed ? std::byte{6} : std::byte{0};
+            }
+        }
     }
     const bool secondChanged = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66]->visible = secondChanged ? 1 : 0;
+    if (auto* const handleActionButton_66Element2 = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_66); handleActionButton_66Element2) handleActionButton_66Element2->visible = secondChanged ? 1 : 0;
 
     for (std::int32_t row = 0; row < 7; ++row) {
-        window = gCurrentWindow;
+        window = currentWindow;
         elementsWindow = window;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(row + 2)]))) { continue; }
-        if (gFocusedElementDataD45F94 == (*elementsWindow)[NativeElementKey(row + 2)]->data.input) {
-            if ((elementsWindow && (*elementsWindow)[NativeElementKey(row + 11)])) (*elementsWindow)[NativeElementKey(row + 11)]->visible = 0;
-            WindowGuildDetails_SaveInputDraft(row + 2);
-            WindowInstance* const current = gCurrentWindow;
-            // 原显示源为row，而草稿写回使用row+2，不合并这两个索引。
-            if (!((current && (*current)[NativeElementKey(row + 11)]))) { continue; }
-            (*current)[NativeElementKey(row + 11)]->data.text->text =
-                input::ContextText(*gGuildInputs57F040[row].input.context);
+        auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(row + 2));
+        if (indexedElement) {
+            if (gFocusedElementDataD45F94 == indexedElement->data.input) {
+                if (auto* const indexedElement2 = elementsWindow->FindElementById(NativeElementKey(row + 11)); indexedElement2) indexedElement2->visible = 0;
+                WindowGuildDetails_SaveInputDraft(row + 2);
+                WindowInstance* const current = currentWindow;
+                // 原显示源为row，而草稿写回使用row+2，不合并这两个索引。
+                auto* const indexedElement3 = current->FindElementById(NativeElementKey(row + 11));
+                if (indexedElement3) {
+                    indexedElement3->data.text->text =
+                        input::ContextText(*gGuildInputs57F040[row].input.context);
+                }
+            }
         }
-        window = gCurrentWindow;
+        window = currentWindow;
         const std::int32_t rank = gGuildPageD67B78 + row;
-        if (!((window && (*window)[NativeElementKey(row + 11)]))) { continue; }
-        auto* const text = (*window)[NativeElementKey(row + 11)]->data.text;
-        const std::int32_t changed = WindowGuildDetails_HasChangedRank(rank);
-        text->style.color = changed != 0 ? std::byte{6} : std::byte{0};
+        auto* const textElement = window->FindElementById(NativeElementKey(row + 11));
+        if (textElement) {
+            auto* const text = textElement->data.text;
+            const std::int32_t changed = WindowGuildDetails_HasChangedRank(rank);
+            text->style.color = changed != 0 ? std::byte{6} : std::byte{0};
+        }
     }
     const std::int32_t changed = WindowGuildDetails_HasChangedRanks();
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73]->visible = changed;
+    if (auto* const handleActionButton_73Element2 = currentWindow->FindElementById(WindowGuildDetailsElementId::HandleActionButton_73); handleActionButton_73Element2) handleActionButton_73Element2->visible = changed;
 }
 
 // 原函数：0x004AF650。
 static std::int32_t WindowGuildDetails_RefreshRanks()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element54])) (*gCurrentWindow)[WindowGuildDetailsElementId::Element54]->visible = 0;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]))) { return {}; }
-    auto* const name = (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]->data.text;
-    name->text = editable != 0 ? gGuildDraftCF4018.name604.data()
-        : cg::world::GetGuildName();
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]))) { return {}; }
-    auto* const second = (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]->data.text;
-    second->text = editable != 0 ? gGuildDraftCF4018.secondText634.data()
-        : cg::world::GetGuildSecondText();
+    if (auto* const element54 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element54) element54->visible = 0;
+    auto* const element10 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
+    if (element10) {
+        auto* const name = element10->data.text;
+        name->text = editable != 0 ? gGuildDraftCF4018.name604.data()
+            : cg::world::GetGuildName();
+    }
+    auto* const element11 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element11);
+    if (element11) {
+        auto* const second = element11->data.text;
+        second->text = editable != 0 ? gGuildDraftCF4018.secondText634.data()
+            : cg::world::GetGuildSecondText();
+    }
     for (std::int32_t index = 0; index < 3; ++index) {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const wchar_t* const source = cg::world::GetGuildAuxText(index);
-        if ((window && (*window)[NativeElementKey(index + 54)])) (*window)[NativeElementKey(index + 54)]->data.text->text = source;
+        if (auto* const indexedElement = window->FindElementById(NativeElementKey(index + 54)); indexedElement) indexedElement->data.text->text = source;
     }
     std::int32_t y = 164;
     for (std::int32_t row = 0; row < 7; ++row) {
         const std::int32_t rank = gGuildPageD67B78 + row;
         const wchar_t* const source = editable != 0 ? gGuildDraftCF4018.ranks[rank].text.data()
             : cg::world::GetGuildRankText(rank);
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 11)]))) { continue; }
-        auto* const text = (*gCurrentWindow)[NativeElementKey(row + 11)]->data.text;
-        text->text = source;
+        auto* const textElement = currentWindow->FindElementById(NativeElementKey(row + 11));
+        if (textElement) {
+            auto* const text = textElement->data.text;
+            text->text = source;
+        }
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t flags = editable != 0 ? gGuildDraftCF4018.ranks[rank].flags
                 : cg::world::ReadGuildRankFlags1051514(rank);
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(18 + row * 5 + column)]))) { continue; }
-            auto* const graphic = (*gCurrentWindow)[NativeElementKey(18 + row * 5 + column)]->data.graphic;
-            graphic->imageNo = (flags & (1 << column)) != 0 ? 0x3B9F6 : 0x3B9FD;
+            auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(18 + row * 5 + column));
+            if (graphicElement) {
+                auto* const graphic = graphicElement->data.graphic;
+                graphic->imageNo = (flags & (1 << column)) != 0 ? 0x3B9F6 : 0x3B9FD;
+            }
         }
         const std::uint8_t flags = editable != 0
             ? *reinterpret_cast<const unsigned char*>(&gGuildDraftCF4018.ranks[rank].flags)
             : cg::world::ReadGuildRankFlagsByte1051514(rank);
         if ((flags & 0x80) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element54])) (*gCurrentWindow)[WindowGuildDetailsElementId::Element54]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element54])) (*gCurrentWindow)[WindowGuildDetailsElementId::Element54]->x = 23;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element54])) (*gCurrentWindow)[WindowGuildDetailsElementId::Element54]->y = y;
+            if (auto* const element542 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element542) element542->visible = 1;
+            if (auto* const element543 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element543) element543->x = 23;
+            if (auto* const element544 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element544) element544->y = y;
         }
         y += 20;
     }
@@ -530,13 +568,17 @@ static void WindowGuildDetails_SaveInputDraft(const std::int32_t index)
 // 原函数：0x004AFED0。
 static std::int32_t WindowGuildDetails_CommitFocusedInput()
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
     void* const focused = gFocusedElementDataD45F94;
     auto* elementsWindow = window;
     for (std::int32_t index = 0; index < 9; ++index) {
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { continue; }
-        if ((*elementsWindow)[NativeElementKey(index)]->data.input == focused) {
-            return 1;
+        auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(index));
+        if (indexedElement) {
+            if (indexedElement->data.input == focused) {
+                return 1;
+            }
         }
     }
     return 0;
@@ -545,18 +587,27 @@ static std::int32_t WindowGuildDetails_CommitFocusedInput()
 // 原函数：0x004AFAE0。
 static void WindowGuildDetails_DragScroll(const std::int32_t)
 {
-    auto* elementsWindow = gCurrentWindow;
-    if (!((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::HandleScrollFocus]))) { return; }
-    auto* const mouse = (*elementsWindow)[WindowGuildDetailsElementId::HandleScrollFocus]->data.mouse;
-    if ((mouse->flags & 1) != 0) {
-        if (!((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::HandleScrollFocus]))) { return; }
-        gGuildPageD67B78 = WindowScroll_ReadPosition((*elementsWindow)[WindowGuildDetailsElementId::HandleScrollFocus], 25);
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    auto* elementsWindow = currentWindow;
+    auto* const handleScrollFocusElement = elementsWindow->FindElementById(WindowGuildDetailsElementId::HandleScrollFocus);
+    if (handleScrollFocusElement) {
+        auto* const mouse = handleScrollFocusElement->data.mouse;
+        if ((mouse->flags & 1) != 0) {
+            auto* const handleScrollFocusElement2 = elementsWindow->FindElementById(WindowGuildDetailsElementId::HandleScrollFocus);
+            if (handleScrollFocusElement2) {
+                gGuildPageD67B78 = WindowScroll_ReadPosition(handleScrollFocusElement2, 25);
+            }
+        }
     }
+    return;
 }
 
 // 原函数：0x004AFA60。
 static void WindowGuildDetails_ScrollRow()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     const std::int32_t page = gGuildPageD67B78;
     std::int32_t sound = 51;
     if (page < 0) {
@@ -567,10 +618,13 @@ static void WindowGuildDetails_ScrollRow()
         sound = 55;
     }
     static_cast<void>(audio::PlaySe_52C450(sound, 320));
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     const std::int32_t position = gGuildPageD67B78;
-    if (!((window && (*window)[WindowGuildDetailsElementId::HandleScrollFocus]))) { return; }
-    static_cast<void>(WindowScroll_SetPosition((*window)[WindowGuildDetailsElementId::HandleScrollFocus], 25, position));
+    auto* const handleScrollFocusElement = window->FindElementById(WindowGuildDetailsElementId::HandleScrollFocus);
+    if (handleScrollFocusElement) {
+        static_cast<void>(WindowScroll_SetPosition(handleScrollFocusElement, 25, position));
+    }
+    return;
 }
 
 // 原函数：0x004AEC30。
@@ -599,11 +653,13 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(const std::int32_t i
 // 原函数：0x004AED40。
 static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    graphic->imageNo = 0x3B56E;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
+    if (graphic) graphic->imageNo = 0x3B56E;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B570;
+        if (graphic) graphic->imageNo = 0x3B570;
         switch (index) {
         case 64: gHoverTextD68AE8 = L"变更家族名称。" /* 原常量参考：0x00587AC8。 */; break;
         case 65: gHoverTextD68AE8 = L"变更家族会馆名称。" /* 原常量参考：0x00587AD8。 */; break;
@@ -611,13 +667,13 @@ static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t ind
         }
     }
     if ((state & 2) != 0) {
-        graphic->imageNo = 0x3B56F;
+        if (graphic) graphic->imageNo = 0x3B56F;
         switch (index) {
         case 64: static_cast<void>(WindowGuildDetails_SubmitName()); break;
         case 65: static_cast<void>(WindowGuildDetails_SubmitDescription()); break;
         case 72: static_cast<void>(WindowGuildDetails_SubmitRanks()); break;
         }
-        graphic->imageNo = 0x3B56F;
+        if (graphic) graphic->imageNo = 0x3B56F;
         return 1;
     }
     return 0;
@@ -626,20 +682,24 @@ static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t ind
 // 原函数：0x004AEE00。
 static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
     if (editable == 0) {
         return editable;
     }
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     auto* elementsWindow = window;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-    if (gFocusedElementDataD45F94 == (*elementsWindow)[NativeElementKey(index)]->data.input) {
-        const std::int32_t y = window->y;
-        const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 2));
-        return 0;
+    auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(index));
+    if (indexedElement) {
+        if (gFocusedElementDataD45F94 == indexedElement->data.input) {
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 2));
+            return 0;
+        }
     }
-    if ((elementsWindow && (*elementsWindow)[NativeElementKey(index + 9)])) (*elementsWindow)[NativeElementKey(index + 9)]->visible = 1;
+    if (auto* const indexedElement2 = elementsWindow->FindElementById(NativeElementKey(index + 9)); indexedElement2) indexedElement2->visible = 1;
     if ((state & 2) == 0) {
         return 0;
     }
@@ -649,35 +709,45 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         break;
     case 1: {
         gGuildInputs57F040[1].text = gGuildDraftCF4018.secondText634;
-        WindowInstance* const current = gCurrentWindow;
+        WindowInstance* const current = currentWindow;
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
-        WindowInstance* const focused = gCurrentWindow;
-        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
-        gFocusedElementDataD45F94 = (*focused)[NativeElementKey(index)]->data.input;
-        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
-        (*focused)[NativeElementKey(index)]->data.input->context =
-            &cg::ui::detail::gInputContextD2E130;
+        WindowInstance* const focused = currentWindow;
+        auto* const indexedElement3 = focused->FindElementById(NativeElementKey(index));
+        if (indexedElement3) {
+            gFocusedElementDataD45F94 = indexedElement3->data.input;
+        }
+        auto* const indexedElement4 = focused->FindElementById(NativeElementKey(index));
+        if (indexedElement4) {
+            indexedElement4->data.input->context =
+                &cg::ui::detail::gInputContextD2E130;
+        }
         gGuildEditing57F03C = 33;
         break;
     }
     case 2: case 3: case 4: case 5: case 6: case 7: case 8: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 9)]))) { return {}; }
-        const std::wstring& source = (*gCurrentWindow)[NativeElementKey(index + 9)]->data.text->text;
-        gGuildInputs57F040[index].text = source;
-        WindowInstance* const current = gCurrentWindow;
+        auto* const sourceElement = currentWindow->FindElementById(NativeElementKey(index + 9));
+        if (sourceElement) {
+            const std::wstring& source = sourceElement->data.text->text;
+            gGuildInputs57F040[index].text = source;
+        }
+        WindowInstance* const current = currentWindow;
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
-        WindowInstance* const focused = gCurrentWindow;
-        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
-        gFocusedElementDataD45F94 = (*focused)[NativeElementKey(index)]->data.input;
-        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
-        (*focused)[NativeElementKey(index)]->data.input->context =
-            &cg::ui::detail::gInputContextD2E130;
+        WindowInstance* const focused = currentWindow;
+        auto* const indexedElement3 = focused->FindElementById(NativeElementKey(index));
+        if (indexedElement3) {
+            gFocusedElementDataD45F94 = indexedElement3->data.input;
+        }
+        auto* const indexedElement4 = focused->FindElementById(NativeElementKey(index));
+        if (indexedElement4) {
+            indexedElement4->data.input->context =
+                &cg::ui::detail::gInputContextD2E130;
+        }
         gGuildEditing57F03C = gGuildPageD67B78 + index - 2;
         break;
     }
@@ -688,15 +758,19 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
 // 原函数：0x004AF000。
 static std::int32_t WindowGuildDetails_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const std::int32_t offset = index == 66 ? 0 : 3;
-    graphic->imageNo = 0x3B592 + offset;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B594 + offset;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B593 + offset;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const std::int32_t offset = index == 66 ? 0 : 3;
+        graphic->imageNo = 0x3B592 + offset;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B594 + offset;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B593 + offset;
+        }
     }
     if ((state & 0x400) != 0) {
         gGuildPageD67B78 += index == 66 ? -1 : 1;
@@ -721,13 +795,17 @@ static std::int32_t WindowGuildDetails_HandleScrollFocus(const std::int32_t inde
 // 原函数：0x004AF0C0。
 static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 0x21) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         if (wheel != 0) {
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t page = gGuildPageD67B78;
-            if (!((window && (*window)[WindowGuildDetailsElementId::HandleScrollFocus]))) { return {}; }
-            gGuildPageD67B78 = WindowScroll_ApplyWheel((*window)[WindowGuildDetailsElementId::HandleScrollFocus], page, 25, wheel);
+            auto* const handleScrollFocusElement = window->FindElementById(WindowGuildDetailsElementId::HandleScrollFocus);
+            if (handleScrollFocusElement) {
+                gGuildPageD67B78 = WindowScroll_ApplyWheel(handleScrollFocusElement, page, 25, wheel);
+            }
             static_cast<void>(WindowChat_RestoreInput());
         }
     }
@@ -737,17 +815,21 @@ static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int
 // 原函数：0x004AF100。
 static std::int32_t WindowGuildDetails_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    graphic->imageNo = 0x3B538;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B53A;
-        gHoverTextD68AE8 = L"关闭此视窗" /* 原常量参考：0x005868EC。 */;
-    }
-    if ((state & 2) != 0) {
-        graphic->imageNo = 0x3B539;
-        gWindowStates[WindowId_GuildDetails].window->state = 0x8000;
-        return 1;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        graphic->imageNo = 0x3B538;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B53A;
+            gHoverTextD68AE8 = L"关闭此视窗" /* 原常量参考：0x005868EC。 */;
+        }
+        if ((state & 2) != 0) {
+            graphic->imageNo = 0x3B539;
+            gWindowStates[WindowId_GuildDetails].window->state = 0x8000;
+            return 1;
+        }
     }
     return 0;
 }

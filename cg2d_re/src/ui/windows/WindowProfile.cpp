@@ -24,6 +24,8 @@ static std::int32_t gWindowInteractionOriginY_CC4D3C = 0; // 原全局：0x00CC4
 // 原函数：0x00478330。
 std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     switch (index) {
     case 17: {
@@ -53,25 +55,27 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             L"切换成玩家称号视窗。",
         };
         const std::int32_t position = index - 19;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = images[position] + 2;
-            gHoverTextD68AE8 = hints[position];
-            consumed = 1;
-        } else {
-            graphic->imageNo = images[position];
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = images[position] + 2;
+                gHoverTextD68AE8 = hints[position];
+                consumed = 1;
+            } else {
+                graphic->imageNo = images[position];
+            }
         }
         const std::int32_t target = index - 12;
         if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {
-            gCurrentWindow->state |= 0x8000u;
+            currentWindow->state |= 0x8000u;
             static_cast<void>(WindowRuntime_Open(target));
             // 原三切页每轴先取当前/目标指针，再读坐标；见CAC10。
-            WindowInstance* const sourceForX = gCurrentWindow;
+            WindowInstance* const sourceForX = currentWindow;
             WindowInstance* const targetForX = gWindowStates[target].window;
             const std::int32_t x = sourceForX->x;
             targetForX->x = x;
-            WindowInstance* const sourceForY = gCurrentWindow;
+            WindowInstance* const sourceForY = currentWindow;
             WindowInstance* const targetForY = gWindowStates[target].window;
             const std::int32_t y = sourceForY->y;
             targetForY->y = y;
@@ -83,14 +87,16 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
     case 23:
     case 24:
     case 25: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 243035;
-            gHoverTextD68AE8 = L"开启目录视窗";
-            consumed = 1;
-        } else {
-            graphic->imageNo = 243033;
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 243035;
+                gHoverTextD68AE8 = L"开启目录视窗";
+                consumed = 1;
+            } else {
+                graphic->imageNo = 243033;
+            }
         }
         const std::int32_t category = index - 23;
         if ((state & 2) != 0) {
@@ -104,19 +110,21 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             consumed = 1;
         }
         if (gWindowStates[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 243034;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 243034;
         }
         return consumed;
     }
     case 29: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 244420;
-            gHoverTextD68AE8 = L"决定玩家简介";
-            consumed = 1;
-        } else {
-            graphic->imageNo = 244418;
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 244420;
+                gHoverTextD68AE8 = L"决定玩家简介";
+                consumed = 1;
+            } else {
+                graphic->imageNo = 244418;
+            }
         }
         if ((state & 2) != 0) {
             static_cast<void>(WindowChat_RestoreInput());

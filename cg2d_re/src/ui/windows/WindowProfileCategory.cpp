@@ -378,6 +378,8 @@ WindowPrototype gWindowPrototypeProfileCategory {0, 4, 5, 20, 634, 424, 0x800000
 // 原函数：0x004C9F20。
 static void WindowProfileCategory_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     constexpr std::array<std::int32_t, 3> counts {32, 32, 15};
     constexpr std::array<std::int32_t, 3> textBases {0, 32, 64};
     for (std::int32_t group = 0; group < 3; ++group) {
@@ -385,15 +387,17 @@ static void WindowProfileCategory_Refresh()
             const auto& record = world::detail::ReadCategoryRecord105FA24(group, index);
             const std::int32_t textIndex = textBases[group] + index - 1;
             if (record.used != 0) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex)])) (*gCurrentWindow)[NativeElementKey(textIndex)]->visible = 1;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 79)])) (*gCurrentWindow)[NativeElementKey(textIndex + 79)]->visible = 1;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex)])) (*gCurrentWindow)[NativeElementKey(textIndex)]->data.text->text = record.text0C;
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex)]))) { continue; }
-                (*gCurrentWindow)[NativeElementKey(textIndex)]->data.text->style.color =
-                    record.selected10C != 0 ? std::byte{0} : std::byte{7};
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(textIndex)); indexedElement) indexedElement->visible = 1;
+                if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(textIndex + 79)); indexedElement2) indexedElement2->visible = 1;
+                if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(textIndex)); indexedElement3) indexedElement3->data.text->text = record.text0C;
+                auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(textIndex));
+                if (indexedElement4) {
+                    indexedElement4->data.text->style.color =
+                        record.selected10C != 0 ? std::byte{0} : std::byte{7};
+                }
             } else {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex)])) (*gCurrentWindow)[NativeElementKey(textIndex)]->visible = 0;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 79)])) (*gCurrentWindow)[NativeElementKey(textIndex + 79)]->visible = 0;
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(textIndex)); indexedElement) indexedElement->visible = 0;
+                if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(textIndex + 79)); indexedElement2) indexedElement2->visible = 0;
             }
         }
     }
@@ -403,11 +407,13 @@ static void WindowProfileCategory_Refresh()
 // 关联原入口：0x004C9F08（共享尾已并入本函数正文）。
 static std::int32_t WindowProfileCategory_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         WindowProfileCategory_Refresh();
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     return 1;
 }
@@ -441,13 +447,15 @@ static std::int32_t WindowProfileCategory_ResolveCategory(
 // 原函数：0x004CA1A0。
 static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"在此目录中搜寻";
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 246042;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246042;
         consumed = 1;
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0;
     }
     if ((state & 2) == 0 || WindowProfileView_ReadSelection(index) == 0) {
         return consumed;

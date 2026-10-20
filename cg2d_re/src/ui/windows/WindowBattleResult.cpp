@@ -232,83 +232,96 @@ WindowPrototype gWindowPrototypeDpResult {3, 3, 245, 170, 150, 140, 0x80010101u,
 // 原函数：0x00499880。
 static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    const std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
-    if ((state & 2) != 0) {
-        window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
+        if ((state & 2) != 0) {
+            window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        graphic->imageNo = 0x3B568;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B56A;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B569;
+        }
+        return consumed;
     }
-    graphic->imageNo = 0x3B568;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B56A;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B569;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004991C0。
 static std::int32_t WindowBattleResult_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         const auto& results = world::gBattleResultsFF0C14;
         for (std::int32_t row = 0; row < 4; ++row) {
             const world::BattleResultRecord* const result = &results[row];
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 5)])) (*gCurrentWindow)[NativeElementKey(row + 5)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)])) (*gCurrentWindow)[NativeElementKey(row + 9)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 13)])) (*gCurrentWindow)[NativeElementKey(row + 13)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 1)])) (*gCurrentWindow)[NativeElementKey(row + 1)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(row + 5)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(row + 9)); indexedElement2) indexedElement2->visible = 0;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(row + 13)); indexedElement3) indexedElement3->visible = 0;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(row + 1)); indexedElement4) indexedElement4->visible = 0;
             if (result->value00 == 0xFFFFu) {
                 continue;
             }
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 5)])) (*gCurrentWindow)[NativeElementKey(row + 5)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)])) (*gCurrentWindow)[NativeElementKey(row + 9)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 13)])) (*gCurrentWindow)[NativeElementKey(row + 13)]->visible = 1;
+            if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(row + 5)); indexedElement5) indexedElement5->visible = 1;
+            if (auto* const indexedElement6 = currentWindow->FindElementById(NativeElementKey(row + 9)); indexedElement6) indexedElement6->visible = 1;
+            if (auto* const indexedElement7 = currentWindow->FindElementById(NativeElementKey(row + 13)); indexedElement7) indexedElement7->visible = 1;
             const std::uint16_t target = result->value00;
             std::wstring name;
             if (target == 0xFFFEu) {
                 const std::int32_t health = WindowItem_HealthImageLevel(world::gPlayerRuntimeSlots.valueF4);
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 name = world::GetPlayerDisplayText(1);
-                if (!((window && (*window)[NativeElementKey(row + 5)]))) { continue; }
-                auto* const graphic = (*window)[NativeElementKey(row + 5)]->data.graphic;
-                graphic->imageNo = gHealthImages57E6A4[health];
+                auto* const graphicElement = window->FindElementById(NativeElementKey(row + 5));
+                if (graphicElement) {
+                    auto* const graphic = graphicElement->data.graphic;
+                    graphic->imageNo = gHealthImages57E6A4[health];
+                }
             } else {
                 const auto slot = static_cast<std::int16_t>(target);
                 const std::int32_t health = WindowItem_HealthImageLevel(world::gPetRuntimeRecords[slot].values70[25]);
-                WindowInstance* const window = gCurrentWindow;
-                if (!((window && (*window)[NativeElementKey(row + 5)]))) { continue; }
-                auto* const graphic = (*window)[NativeElementKey(row + 5)]->data.graphic;
-                graphic->imageNo = gHealthImages57E6A4[health];
+                WindowInstance* const window = currentWindow;
+                auto* const graphicElement = window->FindElementById(NativeElementKey(row + 5));
+                if (graphicElement) {
+                    auto* const graphic = graphicElement->data.graphic;
+                    graphic->imageNo = gHealthImages57E6A4[health];
+                }
                 const auto nameSlot = static_cast<std::int16_t>(result->value00);
                 const auto& pet = world::gPetRuntimeRecords[nameSlot];
                 name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             }
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)])) (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text->text = name;
+            if (auto* const indexedElement8 = currentWindow->FindElementById(NativeElementKey(row + 9)); indexedElement8) indexedElement8->data.text->text = name;
             if (result->value02 != 0) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 1)])) (*gCurrentWindow)[NativeElementKey(row + 1)]->visible = 1;
+                if (auto* const indexedElement9 = currentWindow->FindElementById(NativeElementKey(row + 1)); indexedElement9) indexedElement9->visible = 1;
             }
             const std::uint16_t experienceTarget = result->value00;
             const bool atLimit = experienceTarget == 0xFFFEu
                 ? (world::gPlayerRuntimeSlots.value68 == -1)
                 : (world::gPetRuntimeRecords[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 13)])) (*gCurrentWindow)[NativeElementKey(row + 13)]->data.text->text = L"  ---  ";
+                if (auto* const indexedElement9 = currentWindow->FindElementById(NativeElementKey(row + 13)); indexedElement9) indexedElement9->data.text->text = L"  ---  ";
             } else {
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 const std::int32_t experience = result->value04;
-                if (!((window && (*window)[NativeElementKey(row + 13)]))) { continue; }
-                cg::text::FormatTo((*window)[NativeElementKey(row + 13)]->data.text->text, L"{:+7}", experience);
+                auto* const indexedElement9 = window->FindElementById(NativeElementKey(row + 13));
+                if (indexedElement9) {
+                    cg::text::FormatTo(indexedElement9->data.text->text, L"{:+7}", experience);
+                }
             }
         }
         const auto& names = world::gBattleResultNamesFF0C34;
         for (std::int32_t row = 0; row < 3; ++row) {
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const wchar_t* const name = names[row].data();
-            if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->data.text->text = name;
+            if (auto* const indexedElement = window->FindElementById(NativeElementKey(row + 59)); indexedElement) indexedElement->data.text->text = name;
         }
 
         const auto& skillResults = world::gBattleSkillResultsFF0C8C;
@@ -331,21 +344,23 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             const std::int32_t level = skill->level;
             const std::int32_t maxLevel = skill->maxLevel;
             if (level < maxLevel) {
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 const std::int32_t experience = result->value04;
-                if (!((window && (*window)[NativeElementKey(row + 45)]))) { continue; }
-                cg::text::FormatTo((*window)[NativeElementKey(row + 45)]->data.text->text, L"{:+5}", experience);
+                auto* const indexedElement = window->FindElementById(NativeElementKey(row + 45));
+                if (indexedElement) {
+                    cg::text::FormatTo(indexedElement->data.text->text, L"{:+5}", experience);
+                }
             } else {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 45)])) (*gCurrentWindow)[NativeElementKey(row + 45)]->data.text->text = L" --- ";
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(row + 45)); indexedElement) indexedElement->data.text->text = L" --- ";
             }
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const auto& name = skill->name;
-            if ((window && (*window)[NativeElementKey(row + 31)])) (*window)[NativeElementKey(row + 31)]->data.text->text = name;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 31)])) (*gCurrentWindow)[NativeElementKey(row + 31)]->data.text->style.color = std::byte{0};
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 45)])) (*gCurrentWindow)[NativeElementKey(row + 45)]->data.text->style.color = std::byte{0};
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)])) (*gCurrentWindow)[NativeElementKey(row + 17)]->visible = 0;
+            if (auto* const indexedElement = window->FindElementById(NativeElementKey(row + 31)); indexedElement) indexedElement->data.text->text = name;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(row + 31)); indexedElement2) indexedElement2->data.text->style.color = std::byte{0};
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(row + 45)); indexedElement3) indexedElement3->data.text->style.color = std::byte{0};
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(row + 17)); indexedElement4) indexedElement4->visible = 0;
             if (result->value00 != 0) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)])) (*gCurrentWindow)[NativeElementKey(row + 17)]->visible = 1;
+                if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(row + 17)); indexedElement5) indexedElement5->visible = 1;
             }
             ++row;
             if (row >= 10) {
@@ -353,19 +368,19 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             }
         }
         for (; row < 14; ++row) {
-            WindowInstance* window = gCurrentWindow;
+            WindowInstance* window = currentWindow;
             const char* text = "";
-            if ((window && (*window)[NativeElementKey(row + 31)])) (*window)[NativeElementKey(row + 31)]->data.text->text = cg::text::FromGbkWide(text);
-            window = gCurrentWindow;
+            if (auto* const indexedElement = window->FindElementById(NativeElementKey(row + 31)); indexedElement) indexedElement->data.text->text = cg::text::FromGbkWide(text);
+            window = currentWindow;
             text = "";
-            if ((window && (*window)[NativeElementKey(row + 45)])) (*window)[NativeElementKey(row + 45)]->data.text->text = cg::text::FromGbkWide(text);
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)])) (*gCurrentWindow)[NativeElementKey(row + 17)]->visible = 0;
+            if (auto* const indexedElement2 = window->FindElementById(NativeElementKey(row + 45)); indexedElement2) indexedElement2->data.text->text = cg::text::FromGbkWide(text);
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(row + 17)); indexedElement3) indexedElement3->visible = 0;
         }
         gBattleResultCloseTickCB0F78 = platform::ReadTickCount64() + 5000u;
     }
     const std::uint64_t now = platform::ReadTickCount64();
     if (gBattleResultCloseTickCB0F78 < now) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     return 1;
@@ -374,6 +389,8 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
 // 原函数：0x004996C0。
 static std::int32_t WindowBattleResult_Draw(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
@@ -381,7 +398,7 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t image = graphics[row];
         if (image >= 0) {
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             cg::render::DrawGraphic(x + 39, y + 166 + row * 49, 223, image, 0, &descriptor);
@@ -394,9 +411,11 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
 // 原函数：0x00499750。
 static std::int32_t WindowBattleResult_ButtonClose(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
     if ((state & 2) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         consumed = 1;
     }
@@ -406,21 +425,27 @@ static std::int32_t WindowBattleResult_ButtonClose(const std::int32_t, const std
 // 原函数：0x00499790。
 static std::int32_t WindowDpResult_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         const std::uint64_t now = platform::ReadTickCount64();
-        WindowInstance* window = gCurrentWindow;
+        WindowInstance* window = currentWindow;
         gBattleResultCloseTickCB0F78 = now + 5000u;
         const std::int32_t delta = world::gDpResultDelta_FF0D04;
-        if (!((window && (*window)[WindowBattleResultElementId::Element3]))) { return {}; }
-        cg::text::FormatTo((*window)[WindowBattleResultElementId::Element3]->data.text->text, L"DP   {:+9}", delta);
-        window = gCurrentWindow;
+        auto* const element3 = window->FindElementById(WindowBattleResultElementId::Element3);
+        if (element3) {
+            cg::text::FormatTo(element3->data.text->text, L"DP   {:+9}", delta);
+        }
+        window = currentWindow;
         const std::int32_t total = world::gDpResultTotal_FF0D08;
-        if (!((window && (*window)[WindowBattleResultElementId::Element4]))) { return {}; }
-        cg::text::FormatTo((*window)[WindowBattleResultElementId::Element4]->data.text->text, L"Total{:9}", total);
+        auto* const element4 = window->FindElementById(WindowBattleResultElementId::Element4);
+        if (element4) {
+            cg::text::FormatTo(element4->data.text->text, L"Total{:9}", total);
+        }
     }
     const std::uint64_t now = platform::ReadTickCount64();
     if (gBattleResultCloseTickCB0F78 < now) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     return 1;

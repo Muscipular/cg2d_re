@@ -1320,151 +1320,175 @@ std::uint8_t WindowInput_HandleNumber(
     auto* elementsWindow = window;
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-    const std::int32_t elementX = (*elementsWindow)[NativeElementKey(index)]->x;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-    const std::int32_t elementY = (*elementsWindow)[NativeElementKey(index)]->y;
-    const std::int32_t x = windowX + elementX;
-    const std::int32_t y = windowY + elementY;
-    render::GraphicDescriptor16 descriptor {};
-    descriptor.color = color;
-    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
-    const auto hit = [](const std::int32_t left, const std::int32_t top,
-                       const std::int32_t right, const std::int32_t bottom) {
-        return (static_cast<std::int32_t>(left) <= platform::gLegacyMouseState.mouseX)
-            && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(right))
-            && (static_cast<std::int32_t>(top) <= platform::gLegacyMouseState.mouseY)
-            && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(bottom));
-    };
-    std::int32_t selected = -1;
-    for (std::int32_t row = 0; row < 3; ++row) {
-        const std::int32_t bottom = y + 57 - row * 20;
-        for (std::int32_t column = 0; column < 3; ++column) {
-            const std::int32_t digit = 1 + row * 3 + column;
-            const std::int32_t left = x + column * 24;
+    auto* const elementXElement = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(index)) : nullptr;
+    if (elementXElement) {
+        const std::int32_t elementX = elementXElement->x;
+        auto* const elementYElement = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(index)) : nullptr;
+        if (elementYElement) {
+            const std::int32_t elementY = elementYElement->y;
+            const std::int32_t x = windowX + elementX;
+            const std::int32_t y = windowY + elementY;
+            render::GraphicDescriptor16 descriptor {};
+            descriptor.color = color;
+            descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+            // 每个键独立短路读取四次CryptInt，不能用一次坐标快照替代。
+            const auto hit = [](const std::int32_t left, const std::int32_t top,
+                               const std::int32_t right, const std::int32_t bottom) {
+                return (static_cast<std::int32_t>(left) <= platform::gLegacyMouseState.mouseX)
+                    && (platform::gLegacyMouseState.mouseX < static_cast<std::int32_t>(right))
+                    && (static_cast<std::int32_t>(top) <= platform::gLegacyMouseState.mouseY)
+                    && (platform::gLegacyMouseState.mouseY < static_cast<std::int32_t>(bottom));
+            };
+            std::int32_t selected = -1;
+            for (std::int32_t row = 0; row < 3; ++row) {
+                const std::int32_t bottom = y + 57 - row * 20;
+                for (std::int32_t column = 0; column < 3; ++column) {
+                    const std::int32_t digit = 1 + row * 3 + column;
+                    const std::int32_t left = x + column * 24;
+                    std::int32_t imageState = 0;
+                    if (hit(left, bottom - 19, left + 21, bottom)) {
+                        gHoverTextD68AE8 = hints[0];
+                        imageState = (state & 8) != 0 ? 1 : 2;
+                        if ((state & 2) != 0) {
+                            selected = digit;
+                        }
+                    }
+                    const auto* const digitDescriptor = &descriptor;
+                    const std::int32_t digitImage = gNumericKeyImages54F030[digit][imageState];
+                    static_cast<void>(cg::render::DrawGraphic(
+                        left + 10, bottom - 9, layer, digitImage, 0, digitDescriptor));
+                }
+            }
             std::int32_t imageState = 0;
-            if (hit(left, bottom - 19, left + 21, bottom)) {
+            if (hit(x, y + 58, x + 21, y + 77)) {
                 gHoverTextD68AE8 = hints[0];
                 imageState = (state & 8) != 0 ? 1 : 2;
                 if ((state & 2) != 0) {
-                    selected = digit;
+                    selected = 0;
                 }
             }
-            const auto* const digitDescriptor = &descriptor;
-            const std::int32_t digitImage = gNumericKeyImages54F030[digit][imageState];
+            const std::int32_t zeroImage = gNumericKeyImages54F030[0][imageState];
+            const auto* const zeroDescriptor = &descriptor;
             static_cast<void>(cg::render::DrawGraphic(
-                left + 10, bottom - 9, layer, digitImage, 0, digitDescriptor));
-        }
-    }
-    std::int32_t imageState = 0;
-    if (hit(x, y + 58, x + 21, y + 77)) {
-        gHoverTextD68AE8 = hints[0];
-        imageState = (state & 8) != 0 ? 1 : 2;
-        if ((state & 2) != 0) {
-            selected = 0;
-        }
-    }
-    const std::int32_t zeroImage = gNumericKeyImages54F030[0][imageState];
-    const auto* const zeroDescriptor = &descriptor;
-    static_cast<void>(cg::render::DrawGraphic(
-        x + 10, y + 68, layer, zeroImage, 0, zeroDescriptor));
-    imageState = 0;
-    if (hit(x + 48, y + 58, x + 69, y + 77)) {
-        if ((flags & 1u) != 0) {
-            gHoverTextD68AE8 = hints[1];
-            imageState = (state & 8) != 0 ? 1 : 2;
-            if ((state & 2) != 0) {
-                selected = 13;
-            }
-        } else {
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            const std::int32_t value = std::bit_cast<std::int32_t>((*window)[NativeElementKey(index)]->state);
-            gHoverTextD68AE8 = hints[value > 0 ? 1 : 2];
-            imageState = (state & 8) != 0 ? 1 : 2;
-            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-            const std::int32_t current = std::bit_cast<std::int32_t>((*window)[NativeElementKey(index)]->state);
-            if (current > 0) {
-                if ((state & 2) != 0) {
-                    selected = 13;
+                x + 10, y + 68, layer, zeroImage, 0, zeroDescriptor));
+            imageState = 0;
+            if (hit(x + 48, y + 58, x + 69, y + 77)) {
+                if ((flags & 1u) != 0) {
+                    gHoverTextD68AE8 = hints[1];
+                    imageState = (state & 8) != 0 ? 1 : 2;
+                    if ((state & 2) != 0) {
+                        selected = 13;
+                    }
+                } else {
+                    auto* const valueElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                    if (valueElement) {
+                        const std::int32_t value = std::bit_cast<std::int32_t>(valueElement->state);
+                        gHoverTextD68AE8 = hints[value > 0 ? 1 : 2];
+                    }
+                    imageState = (state & 8) != 0 ? 1 : 2;
+                    auto* const currentElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                    if (currentElement2) {
+                        const std::int32_t current = std::bit_cast<std::int32_t>(currentElement2->state);
+                        if (current > 0) {
+                            if ((state & 2) != 0) {
+                                selected = 13;
+                            }
+                        } else if ((state & 2) != 0) {
+                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                        }
+                    }
                 }
-            } else if ((state & 2) != 0) {
-                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+            if (indexedElement) {
+                if ((flags & 1u) == 0 && selected < 0
+                    && std::bit_cast<std::int32_t>(indexedElement->state) <= 0) {
+                    imageState = 1;
+                }
+            }
+            const std::int32_t confirmImage = gNumericKeyImages54F030[13][imageState];
+            const auto* const confirmDescriptor = &descriptor;
+            static_cast<void>(cg::render::DrawGraphic(
+                x + 58, y + 68, layer, confirmImage, 0, confirmDescriptor));
+            for (std::int32_t row = 0; row < 3; ++row) {
+                const std::int32_t centerY = y + 28 + row * 20;
+                imageState = 0;
+                if (hit(x + 75, centerY - 10, x + 100, centerY + 9)) {
+                    gHoverTextD68AE8 = hints[row + 3];
+                    imageState = (state & 8) != 0 ? 1 : 2;
+                    if ((state & 2) != 0) {
+                        selected = row + 10;
+                    }
+                }
+                const auto* const operationDescriptor = &descriptor;
+                const std::int32_t operationImage = gNumericKeyImages54F030[row + 10][imageState];
+                static_cast<void>(cg::render::DrawGraphic(
+                    x + 87, centerY, layer, operationImage, 0, operationDescriptor));
+            }
+            if ((flags & 2u) != 0) {
+                for (std::int32_t digit = 0; digit < 10; ++digit) {
+                    if (platform::ReadKeyFlag4_4597A0(48 + digit) != 0
+                        || platform::ReadKeyFlag4_4597A0(96 + digit) != 0) {
+                        selected = digit;
+                        break;
+                    }
+                }
+            }
+            if (platform::ReadKeyFlag4_4597A0(8) != 0) {
+                auto* const elementPtr = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                if (elementPtr) {
+                    WindowElement* const element = elementPtr;
+                    const std::int32_t value = std::bit_cast<std::int32_t>(element->state);
+                    element->state = static_cast<std::uint32_t>(value / 10);
+                }
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                return 1;
+            }
+            if (selected >= 0 && selected <= 9) {
+                auto* const multiplyTargetElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                if (multiplyTargetElement) {
+                    WindowElement* const multiplyTarget = multiplyTargetElement;
+                    const std::int32_t previous = std::bit_cast<std::int32_t>(multiplyTarget->state);
+                    multiplyTarget->state = static_cast<std::uint32_t>(previous * 10);
+                }
+                auto* const appendTargetElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                if (appendTargetElement) {
+                    WindowElement* const appendTarget = appendTargetElement;
+                    const std::int32_t multiplied = std::bit_cast<std::int32_t>(appendTarget->state);
+                    appendTarget->state = static_cast<std::uint32_t>(multiplied + selected);
+                }
+                auto* const elementPtr = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                if (elementPtr) {
+                    WindowElement* const element = elementPtr;
+                    if (std::bit_cast<std::int32_t>(element->state) > maximum) {
+                        element->state = static_cast<std::uint32_t>(maximum);
+                    }
+                }
+            }
+            if (selected == 10) {
+                auto* const elementPtr = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                if (elementPtr) {
+                    WindowElement* const element = elementPtr;
+                    const std::int32_t value = std::bit_cast<std::int32_t>(element->state);
+                    element->state = static_cast<std::uint32_t>(value / 10);
+                }
+            } else if (selected == 11) {
+                auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                if (indexedElement2) {
+                    indexedElement2->state = static_cast<std::uint32_t>(maximum);
+                }
+            } else if (selected == 12) {
+                auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+                if (indexedElement2) {
+                    indexedElement2->state = 0;
+                }
+            } else if (selected == 13) {
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                return 3;
+            } else if (selected < 0) {
+                return 0;
             }
         }
-    }
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    if ((flags & 1u) == 0 && selected < 0
-        && std::bit_cast<std::int32_t>((*window)[NativeElementKey(index)]->state) <= 0) {
-        imageState = 1;
-    }
-    const std::int32_t confirmImage = gNumericKeyImages54F030[13][imageState];
-    const auto* const confirmDescriptor = &descriptor;
-    static_cast<void>(cg::render::DrawGraphic(
-        x + 58, y + 68, layer, confirmImage, 0, confirmDescriptor));
-    for (std::int32_t row = 0; row < 3; ++row) {
-        const std::int32_t centerY = y + 28 + row * 20;
-        imageState = 0;
-        if (hit(x + 75, centerY - 10, x + 100, centerY + 9)) {
-            gHoverTextD68AE8 = hints[row + 3];
-            imageState = (state & 8) != 0 ? 1 : 2;
-            if ((state & 2) != 0) {
-                selected = row + 10;
-            }
-        }
-        const auto* const operationDescriptor = &descriptor;
-        const std::int32_t operationImage = gNumericKeyImages54F030[row + 10][imageState];
-        static_cast<void>(cg::render::DrawGraphic(
-            x + 87, centerY, layer, operationImage, 0, operationDescriptor));
-    }
-    if ((flags & 2u) != 0) {
-        for (std::int32_t digit = 0; digit < 10; ++digit) {
-            if (platform::ReadKeyFlag4_4597A0(48 + digit) != 0
-                || platform::ReadKeyFlag4_4597A0(96 + digit) != 0) {
-                selected = digit;
-                break;
-            }
-        }
-    }
-    if (platform::ReadKeyFlag4_4597A0(8) != 0) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t value = std::bit_cast<std::int32_t>(element->state);
-        element->state = static_cast<std::uint32_t>(value / 10);
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        return 1;
-    }
-    if (selected >= 0 && selected <= 9) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        WindowElement* const multiplyTarget = (*window)[NativeElementKey(index)];
-        const std::int32_t previous = std::bit_cast<std::int32_t>(multiplyTarget->state);
-        multiplyTarget->state = static_cast<std::uint32_t>(previous * 10);
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        WindowElement* const appendTarget = (*window)[NativeElementKey(index)];
-        const std::int32_t multiplied = std::bit_cast<std::int32_t>(appendTarget->state);
-        appendTarget->state = static_cast<std::uint32_t>(multiplied + selected);
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        WindowElement* const element = (*window)[NativeElementKey(index)];
-        if (std::bit_cast<std::int32_t>(element->state) > maximum) {
-            element->state = static_cast<std::uint32_t>(maximum);
-        }
-    }
-    if (selected == 10) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        WindowElement* const element = (*window)[NativeElementKey(index)];
-        const std::int32_t value = std::bit_cast<std::int32_t>(element->state);
-        element->state = static_cast<std::uint32_t>(value / 10);
-    } else if (selected == 11) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        (*window)[NativeElementKey(index)]->state = static_cast<std::uint32_t>(maximum);
-    } else if (selected == 12) {
-        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-        (*window)[NativeElementKey(index)]->state = 0;
-    } else if (selected == 13) {
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        return 3;
-    } else if (selected < 0) {
-        return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
@@ -1475,26 +1499,29 @@ std::uint8_t WindowInput_HandleNumber(
 std::int32_t WindowRuntime_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    const bool hover = (state & 1) != 0;
-    if (hover) {
-        gHoverTextD68AE8 = L"关闭这个视窗。";
+    auto* const graphicElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hover = (state & 1) != 0;
+        if (hover) {
+            gHoverTextD68AE8 = L"关闭这个视窗。";
+        }
+        std::int32_t result = 0;
+        if ((state & 2) != 0) {
+            window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            result = 1;
+        }
+        graphic->imageNo = 0x3B538;
+        if (hover) {
+            graphic->imageNo = 0x3B53A;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B539;
+        }
+        return result;
     }
-    std::int32_t result = 0;
-    if ((state & 2) != 0) {
-        window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
-        result = 1;
-    }
-    graphic->imageNo = 0x3B538;
-    if (hover) {
-        graphic->imageNo = 0x3B53A;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B539;
-    }
-    return result;
+    return {};
 }
 
 // 原0x004FBA30：UTF-16色码分段与即时测宽；正文使用动态宽字符串。
@@ -1632,94 +1659,56 @@ std::int32_t WindowItemSelector_ReadSelectedPet(const WindowItemSelectorState* c
 // 原函数：0x004C6EC0。
 void WindowItemSelector_BindElements(WindowItemSelectorState* const state, const std::uint8_t mode)
 {
+    WindowInstance* const window = gCurrentWindow;
+    if (!window) return;
     state->value64 = mode;
     if (mode != 0) {
         state->mode68 = &gBattleItemActorSelectionMode_57E42C;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(3)]))) { return; }
-        state->elements00[0] = (*gCurrentWindow)[NativeElementKey(3)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(20)]))) { return; }
-        state->elements00[1] = (*gCurrentWindow)[NativeElementKey(20)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(16)]))) { return; }
-        state->elements00[2] = (*gCurrentWindow)[NativeElementKey(16)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(17)]))) { return; }
-        state->elements00[3] = (*gCurrentWindow)[NativeElementKey(17)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(18)]))) { return; }
-        state->elements00[4] = (*gCurrentWindow)[NativeElementKey(18)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(19)]))) { return; }
-        state->elements00[5] = (*gCurrentWindow)[NativeElementKey(19)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(4)]))) { return; }
-        state->elements00[6] = (*gCurrentWindow)[NativeElementKey(4)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(5)]))) { return; }
-        state->elements00[7] = (*gCurrentWindow)[NativeElementKey(5)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(10)]))) { return; }
-        state->elements00[9] = (*gCurrentWindow)[NativeElementKey(10)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(11)]))) { return; }
-        state->elements00[10] = (*gCurrentWindow)[NativeElementKey(11)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(12)]))) { return; }
-        state->elements00[11] = (*gCurrentWindow)[NativeElementKey(12)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(13)]))) { return; }
-        state->elements00[12] = (*gCurrentWindow)[NativeElementKey(13)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(14)]))) { return; }
-        state->elements00[13] = (*gCurrentWindow)[NativeElementKey(14)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(15)]))) { return; }
-        state->elements00[14] = (*gCurrentWindow)[NativeElementKey(15)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(6)]))) { return; }
-        state->elements00[8] = (*gCurrentWindow)[NativeElementKey(6)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(7)]))) { return; }
-        state->elements00[15] = (*gCurrentWindow)[NativeElementKey(7)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(8)]))) { return; }
-        state->elements00[16] = (*gCurrentWindow)[NativeElementKey(8)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(9)]))) { return; }
-        state->elements00[17] = (*gCurrentWindow)[NativeElementKey(9)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(21)]))) { return; }
-        WindowElement* const last = (*gCurrentWindow)[NativeElementKey(21)];
+        state->elements00[0] = WindowElementLink{window->id, NativeElementKey(3)};
+        state->elements00[1] = WindowElementLink{window->id, NativeElementKey(20)};
+        state->elements00[2] = WindowElementLink{window->id, NativeElementKey(16)};
+        state->elements00[3] = WindowElementLink{window->id, NativeElementKey(17)};
+        state->elements00[4] = WindowElementLink{window->id, NativeElementKey(18)};
+        state->elements00[5] = WindowElementLink{window->id, NativeElementKey(19)};
+        state->elements00[6] = WindowElementLink{window->id, NativeElementKey(4)};
+        state->elements00[7] = WindowElementLink{window->id, NativeElementKey(5)};
+        state->elements00[9] = WindowElementLink{window->id, NativeElementKey(10)};
+        state->elements00[10] = WindowElementLink{window->id, NativeElementKey(11)};
+        state->elements00[11] = WindowElementLink{window->id, NativeElementKey(12)};
+        state->elements00[12] = WindowElementLink{window->id, NativeElementKey(13)};
+        state->elements00[13] = WindowElementLink{window->id, NativeElementKey(14)};
+        state->elements00[14] = WindowElementLink{window->id, NativeElementKey(15)};
+        state->elements00[8] = WindowElementLink{window->id, NativeElementKey(6)};
+        state->elements00[15] = WindowElementLink{window->id, NativeElementKey(7)};
+        state->elements00[16] = WindowElementLink{window->id, NativeElementKey(8)};
+        state->elements00[17] = WindowElementLink{window->id, NativeElementKey(9)};
         state->callbacks50[0] = WindowBattleItems_HandleInventory;
-        state->elements00[18] = last;
+        state->elements00[18] = WindowElementLink{window->id, NativeElementKey(21)};
         state->callbacks50[1] = WindowElement_NoOp;
         state->callbacks50[2] = WindowBattleItems_HandleEquipment;
         state->callbacks50[3] = WindowElement_NoOp;
     } else {
         state->mode68 = &gInventoryActorSelectionMode_57DA28;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(4)]))) { return; }
-        state->elements00[0] = (*gCurrentWindow)[NativeElementKey(4)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(17)]))) { return; }
-        state->elements00[1] = (*gCurrentWindow)[NativeElementKey(17)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(18)]))) { return; }
-        state->elements00[2] = (*gCurrentWindow)[NativeElementKey(18)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(19)]))) { return; }
-        state->elements00[3] = (*gCurrentWindow)[NativeElementKey(19)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(20)]))) { return; }
-        state->elements00[4] = (*gCurrentWindow)[NativeElementKey(20)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(21)]))) { return; }
-        state->elements00[5] = (*gCurrentWindow)[NativeElementKey(21)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(5)]))) { return; }
-        state->elements00[6] = (*gCurrentWindow)[NativeElementKey(5)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(6)]))) { return; }
-        state->elements00[7] = (*gCurrentWindow)[NativeElementKey(6)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(11)]))) { return; }
-        state->elements00[9] = (*gCurrentWindow)[NativeElementKey(11)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(12)]))) { return; }
-        state->elements00[10] = (*gCurrentWindow)[NativeElementKey(12)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(13)]))) { return; }
-        state->elements00[11] = (*gCurrentWindow)[NativeElementKey(13)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(14)]))) { return; }
-        state->elements00[12] = (*gCurrentWindow)[NativeElementKey(14)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(15)]))) { return; }
-        state->elements00[13] = (*gCurrentWindow)[NativeElementKey(15)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(16)]))) { return; }
-        state->elements00[14] = (*gCurrentWindow)[NativeElementKey(16)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(7)]))) { return; }
-        state->elements00[8] = (*gCurrentWindow)[NativeElementKey(7)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(8)]))) { return; }
-        state->elements00[15] = (*gCurrentWindow)[NativeElementKey(8)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(9)]))) { return; }
-        state->elements00[16] = (*gCurrentWindow)[NativeElementKey(9)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(10)]))) { return; }
-        state->elements00[17] = (*gCurrentWindow)[NativeElementKey(10)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(23)]))) { return; }
-        state->elements00[18] = (*gCurrentWindow)[NativeElementKey(23)];
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(22)]))) { return; }
-        state->elements00[19] = (*gCurrentWindow)[NativeElementKey(22)];
+        state->elements00[0] = WindowElementLink{window->id, NativeElementKey(4)};
+        state->elements00[1] = WindowElementLink{window->id, NativeElementKey(17)};
+        state->elements00[2] = WindowElementLink{window->id, NativeElementKey(18)};
+        state->elements00[3] = WindowElementLink{window->id, NativeElementKey(19)};
+        state->elements00[4] = WindowElementLink{window->id, NativeElementKey(20)};
+        state->elements00[5] = WindowElementLink{window->id, NativeElementKey(21)};
+        state->elements00[6] = WindowElementLink{window->id, NativeElementKey(5)};
+        state->elements00[7] = WindowElementLink{window->id, NativeElementKey(6)};
+        state->elements00[9] = WindowElementLink{window->id, NativeElementKey(11)};
+        state->elements00[10] = WindowElementLink{window->id, NativeElementKey(12)};
+        state->elements00[11] = WindowElementLink{window->id, NativeElementKey(13)};
+        state->elements00[12] = WindowElementLink{window->id, NativeElementKey(14)};
+        state->elements00[13] = WindowElementLink{window->id, NativeElementKey(15)};
+        state->elements00[14] = WindowElementLink{window->id, NativeElementKey(16)};
+        state->elements00[8] = WindowElementLink{window->id, NativeElementKey(7)};
+        state->elements00[15] = WindowElementLink{window->id, NativeElementKey(8)};
+        state->elements00[16] = WindowElementLink{window->id, NativeElementKey(9)};
+        state->elements00[17] = WindowElementLink{window->id, NativeElementKey(10)};
+        state->elements00[18] = WindowElementLink{window->id, NativeElementKey(23)};
+        state->elements00[19] = WindowElementLink{window->id, NativeElementKey(22)};
         state->callbacks50[0] = WindowInventory_HandleItems;
         state->callbacks50[1] = WindowInventory_HandleItemSelection;
         state->callbacks50[2] = WindowInventory_HandleEquipment;
@@ -1767,12 +1756,11 @@ static std::int32_t WindowItemSelector_ReadSlotY(
 // 原函数：0x004C6440。
 static void WindowItemSelector_ShowPlayerPage(WindowItemSelectorState* const state)
 {
-    if (!state->elementsValid()) { return; }
     if (state->value60 == 2) {
-        state->elements00[6]->visible = 1;
+        if (auto* element = state->elements00[6].get()) element->visible = 1;
     }
     if (state->value64 == 0) {
-        state->elements00[19]->visible = 1;
+        if (auto* element = state->elements00[19].get()) element->visible = 1;
     }
 }
 
@@ -1780,22 +1768,21 @@ static void WindowItemSelector_ShowPlayerPage(WindowItemSelectorState* const sta
 // 原函数：0x004C6470。
 static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
 {
-    if (!state->elementsValid()) { return; }
     if (state->value60 == 3) {
-        state->elements00[7]->visible = 1;
-        state->elements00[8]->visible = 1;
+        if (auto* element = state->elements00[7].get()) element->visible = 1;
+        if (auto* element = state->elements00[8].get()) element->visible = 1;
     }
-    state->elements00[15]->visible = 1;
-    state->elements00[16]->visible = 1;
+    if (auto* element = state->elements00[15].get()) element->visible = 1;
+    if (auto* element = state->elements00[16].get()) element->visible = 1;
     const std::int32_t itemSlots =
         state->value3ED != 0 && world::IsValidPetIndex_51C410(state->selectedPet70)
         ? world::gPetRuntimeRecords[state->selectedPet70].values6D8[0] : 0;
     for (std::int32_t position = itemSlots; position < 6; ++position) {
-        state->elements00[9 + position]->visible = 1;
+        if (auto* element = state->elements00[9 + position].get()) element->visible = 1;
     }
-    state->elements00[17]->visible = 1;
+    if (auto* element = state->elements00[17].get()) element->visible = 1;
     if (state->value64 == 0) {
-        state->elements00[19]->visible = 1;
+        if (auto* element = state->elements00[19].get()) element->visible = 1;
     }
 }
 
@@ -1803,18 +1790,17 @@ static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
 // 原函数：0x004C6500。
 static void WindowItemSelector_HidePageElements(WindowItemSelectorState* const state)
 {
-    if (!state->elementsValid()) { return; }
-    state->elements00[6]->visible = 0;
-    state->elements00[7]->visible = 0;
-    state->elements00[8]->visible = 0;
-    state->elements00[15]->visible = 0;
-    state->elements00[16]->visible = 0;
+    if (auto* element = state->elements00[6].get()) element->visible = 0;
+    if (auto* element = state->elements00[7].get()) element->visible = 0;
+    if (auto* element = state->elements00[8].get()) element->visible = 0;
+    if (auto* element = state->elements00[15].get()) element->visible = 0;
+    if (auto* element = state->elements00[16].get()) element->visible = 0;
     for (std::int32_t position = 9; position < 15; ++position) {
-        state->elements00[position]->visible = 0;
+        if (auto* element = state->elements00[position].get()) element->visible = 0;
     }
-    state->elements00[17]->visible = 0;
+    if (auto* element = state->elements00[17].get()) element->visible = 0;
     if (state->value64 == 0) {
-        state->elements00[19]->visible = 0;
+        if (auto* element = state->elements00[19].get()) element->visible = 0;
     }
 }
 
@@ -1822,7 +1808,6 @@ static void WindowItemSelector_HidePageElements(WindowItemSelectorState* const s
 // 原函数：0x004C6550。
 static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, const std::int32_t page)
 {
-    if (!state->elementsValid()) { return; }
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
@@ -1834,8 +1819,8 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
     WindowItemSelector_HidePageElements(state);
     switch (state->value60) {
     case 0:
-        state->elements00[1]->mouseCallback = WindowElement_NoOp;
-        state->elements00[1]->visible = 0;
+        if (auto* element = state->elements00[1].get()) element->mouseCallback = WindowElement_NoOp;
+        if (auto* element = state->elements00[1].get()) element->visible = 0;
         WindowItemSelector_MoveElements(state, 16);
         static_cast<void>(WindowItemSelector_SetMode(state, -1));
         break;
@@ -1843,20 +1828,20 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
         const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
         if (mode == 0) {
             WindowItemSelector_ShowPlayerPage(state);
-            state->elements00[1]->data.graphic->imageNo = 98146;
+            if (auto* element = state->elements00[1].get()) element->data.graphic->imageNo = 98146;
         } else if (mode > 0) {
             WindowItemSelector_ShowPetPage(state);
-            state->elements00[1]->data.graphic->imageNo = 98147;
+            if (auto* element = state->elements00[1].get()) element->data.graphic->imageNo = 98147;
             if (world::IsValidPetIndex_51C410(state->selectedPet70)) {
                 for (std::int32_t position = 0;
                      position < world::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
                      ++position) {
-                    state->elements00[9 + position]->visible = 1;
+                    if (auto* element = state->elements00[9 + position].get()) element->visible = 1;
                 }
             }
         }
-        state->elements00[1]->mouseCallback = WindowElement_NoOp;
-        state->elements00[1]->visible = 1;
+        if (auto* element = state->elements00[1].get()) element->mouseCallback = WindowElement_NoOp;
+        if (auto* element = state->elements00[1].get()) element->visible = 1;
         state->step6C = 21;
         break;
     }
@@ -1867,18 +1852,18 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
             || *reinterpret_cast<const unsigned char*>(&gItemSelectionModeCC40D4) == 0) {
             WindowElement* const element = state->elements00[1];
             const WindowElementCallback callback = state->callbacks50[2];
-            element->mouseCallback = callback;
+            if (element) element->mouseCallback = callback;
         } else {
             WindowElement* const firstElement = state->elements00[0];
             const WindowElementCallback firstCallback = state->callbacks50[1];
-            firstElement->mouseCallback = firstCallback;
+            if (firstElement) firstElement->mouseCallback = firstCallback;
             WindowElement* const secondElement = state->elements00[1];
             const WindowElementCallback secondCallback = state->callbacks50[3];
-            secondElement->mouseCallback = secondCallback;
+            if (secondElement) secondElement->mouseCallback = secondCallback;
         }
         WindowItemSelector_MoveElements(state, -182);
-        state->elements00[1]->visible = 1;
-        state->elements00[1]->data.graphic->imageNo = 98146;
+        if (auto* element = state->elements00[1].get()) element->visible = 1;
+        if (auto* element = state->elements00[1].get()) element->data.graphic->imageNo = 98146;
         break;
     case 3:
         WindowItemSelector_MoveElements(state, -182);
@@ -1887,18 +1872,18 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
         if (state->value3ED == 1) {
             WindowElement* const element = state->elements00[1];
             const WindowElementCallback callback = state->callbacks50[2];
-            element->mouseCallback = callback;
+            if (element) element->mouseCallback = callback;
         } else {
-            state->elements00[1]->mouseCallback = WindowElement_NoOp;
+            if (auto* element = state->elements00[1].get()) element->mouseCallback = WindowElement_NoOp;
         }
-        state->elements00[1]->visible = 1;
-        state->elements00[1]->data.graphic->imageNo = 98147;
+        if (auto* element = state->elements00[1].get()) element->visible = 1;
+        if (auto* element = state->elements00[1].get()) element->data.graphic->imageNo = 98147;
         break;
     case 4:
         state->value60 = 0;
         WindowItemSelector_MoveElements(state, 16);
-        state->elements00[1]->mouseCallback = WindowElement_NoOp;
-        state->elements00[1]->visible = 0;
+        if (auto* element = state->elements00[1].get()) element->mouseCallback = WindowElement_NoOp;
+        if (auto* element = state->elements00[1].get()) element->visible = 0;
         static_cast<void>(WindowItemSelector_SetMode(state, -1));
         break;
     default:
@@ -1910,7 +1895,8 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
 // 原函数：0x004C6790。
 static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
 {
-    if (!state->elementsValid()) { return; }
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     // 原常量参考：0x0054F564。
     static constexpr std::int32_t kPreviewToggleImages[] {98133, 98133, 98135, 98134};
     // 原常量参考：0x0054F574。
@@ -1928,7 +1914,9 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
         if (std::bit_cast<std::int8_t>(*state->mode68) > 0) {
             static_cast<void>(WindowItemSelector_SelectPet(state));
         }
-        const std::int32_t x = state->elements00[1]->x;
+        auto* const panelElement = state->elements00[1].get();
+        if (!panelElement) break;
+        const std::int32_t x = panelElement->x;
         if (x > -182) {
             WindowItemSelector_MoveElements(state, x - state->step6C);
             const std::int32_t step = state->step6C;
@@ -1962,10 +1950,11 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
         WindowItemSelector_DrawTooltip(state);
         WindowItemSelector_RefreshPetHeader(state);
         const std::int32_t firstIndex = state->imageIndex3F0;
-        const WindowElement* const firstElement = state->elements00[1];
+        const WindowElement* const firstElement = state->elements00[1].get();
+        if (!firstElement) break;
         const render::GraphicDescriptor16* const descriptor = &state->descriptors3B8[0];
         const std::int32_t firstImage = kPreviewToggleImages[firstIndex];
-        const WindowInstance* const firstWindow = gCurrentWindow;
+        const WindowInstance* const firstWindow = currentWindow;
         const std::int32_t firstWindowY = firstWindow->y;
         const std::int32_t firstWindowX = firstWindow->x;
         const std::int32_t firstElementY = firstElement->y;
@@ -1977,7 +1966,7 @@ static void WindowItemSelector_UpdatePage(WindowItemSelectorState* const state)
         const std::int32_t secondIndex = state->imageIndex3F4;
         const WindowElement* const secondElement = state->elements00[1];
         const std::int32_t secondImage = kEquipmentToggleImages[secondIndex];
-        const WindowInstance* const secondWindow = gCurrentWindow;
+        const WindowInstance* const secondWindow = currentWindow;
         const std::int32_t secondElementY = secondElement->y;
         const std::int32_t secondWindowY = secondWindow->y;
         const std::int32_t secondElementX = secondElement->x;
@@ -2010,7 +1999,6 @@ static std::int32_t WindowItemSelector_SelectPet(WindowItemSelectorState* const 
 // 原函数：0x004C69B0。
 static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const state)
 {
-    if (!state->elementsValid()) { return; }
     if (state->selectedPet70 == -1 || !world::IsValidPetIndex_51C410(state->selectedPet70)) {
         return;
     }
@@ -2021,36 +2009,37 @@ static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const s
     }
     state->previousPet74 = selected;
     pet->updated510C = 0;
-    WindowElement* const nameElement = state->elements00[7];
-    auto* const nameData = nameElement->data.text;
-    const wchar_t* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
-    nameData->text = name;
-    const std::uint8_t nameFont = std::to_integer<std::uint8_t>(nameData->style.font);
-    const std::wstring& nameText = nameData->text;
-    const std::int32_t nameWidth = cg::render::TextMeasure(nameText, nameFont);
-    nameElement->x = state->elements00[1]->x - nameWidth / 2 + 101;
-    WindowElement* const weightElement = state->elements00[8];
-    const std::int32_t maximumWeight = pet->values6D8[2];
-    const std::int32_t weight = pet->values6D8[1];
-    auto* const weightData = weightElement->data.text;
-    cg::text::FormatTo(weightData->text, L"负重:{:3}/{:3}", weight, maximumWeight);
-    const std::wstring& weightText = weightData->text;
-    const std::uint8_t weightFont = std::to_integer<std::uint8_t>(weightData->style.font);
-    const std::int32_t weightWidth = cg::render::TextMeasure(weightText, weightFont);
-    weightElement->x = state->elements00[1]->x - weightWidth / 2 + 101;
+    auto* const panelElement = state->elements00[1].get();
+    if (auto* const nameElement = state->elements00[7].get()) {
+        auto* const nameData = nameElement->data.text;
+        nameData->text = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
+        if (panelElement) {
+            const auto font = std::to_integer<std::uint8_t>(nameData->style.font);
+            const auto width = cg::render::TextMeasure(nameData->text, font);
+            nameElement->x = panelElement->x - width / 2 + 101;
+        }
+    }
+    if (auto* const weightElement = state->elements00[8].get()) {
+        auto* const weightData = weightElement->data.text;
+        cg::text::FormatTo(weightData->text, L"负重:{:3}/{:3}", pet->values6D8[1], pet->values6D8[2]);
+        if (panelElement) {
+            const auto font = std::to_integer<std::uint8_t>(weightData->style.font);
+            const auto width = cg::render::TextMeasure(weightData->text, font);
+            weightElement->x = panelElement->x - width / 2 + 101;
+        }
+    }
 }
 
 // SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。
 // 原函数：0x004C6AC0。
 static void WindowItemSelector_MoveElements(WindowItemSelectorState* const state, const std::int32_t x)
 {
-    if (!state->elementsValid()) { return; }
-    state->elements00[1]->x = x;
+    if (auto* element = state->elements00[1].get()) element->x = x;
     for (std::int32_t position = 2; position < 6; ++position) {
-        state->elements00[position]->x = x - 15;
+        if (auto* element = state->elements00[position].get()) element->x = x - 15;
     }
     for (std::int32_t position = 0; position < 6; ++position) {
-        state->elements00[9 + position]->x = gSelectorPetX54F5C4[position] + x - 24;
+        if (auto* element = state->elements00[9 + position].get()) element->x = gSelectorPetX54F5C4[position] + x - 24;
     }
 }
 
@@ -2058,20 +2047,23 @@ static void WindowItemSelector_MoveElements(WindowItemSelectorState* const state
 // 原函数：0x004C6B10。
 static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
 {
-    if (!state->elementsValid()) { return; }
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    auto* const panelElement = state->elements00[1].get();
+    if (!panelElement) return;
     if (state->value3ED == 0 || state->hoverIndex3F8 < 0) {
         state->hoverCount3A8 = 0;
         return;
     }
     const std::int32_t localX = WindowItemSelector_ReadSlotX(state, state->hoverIndex3F8);
-    const WindowElement* const horizontalElement = state->elements00[1];
-    const WindowInstance* const horizontalWindow = gCurrentWindow;
+    const WindowElement* const horizontalElement = panelElement;
+    const WindowInstance* const horizontalWindow = currentWindow;
     const std::int32_t windowX = horizontalWindow->x;
     const std::int32_t elementX = horizontalElement->x;
     const std::int32_t left = localX + (windowX + elementX) - 24;
     const std::int32_t localY = WindowItemSelector_ReadSlotY(state, state->hoverIndex3F8);
-    const WindowElement* const verticalElement = state->elements00[1];
-    const WindowInstance* const verticalWindow = gCurrentWindow;
+    const WindowElement* const verticalElement = panelElement;
+    const WindowInstance* const verticalWindow = currentWindow;
     const std::int32_t windowY = verticalWindow->y;
     const std::int32_t elementY = verticalElement->y;
     const std::int32_t top = localY + (windowY + elementY) - 24;
@@ -2137,7 +2129,10 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
 // 原函数：0x004C6D90。
 static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* const state)
 {
-    if (!state->elementsValid()) { return {}; }
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const panelElement = state->elements00[1].get();
+    if (!panelElement) return {};
     const std::int32_t selected = state->selectedPet70;
     if (selected < 0 || state->value3EC == 0) {
         return selected;
@@ -2154,10 +2149,10 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* cons
         cg::yobi::ApplyWindowAnimationDrawMode(preview, true);
     const std::uint8_t layer = cg::yobi::GetYobiActionField15(preview);
     const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, 1);
-    const std::int32_t y = offsetY + gCurrentWindow->y + 163;
+    const std::int32_t y = offsetY + currentWindow->y + 163;
     const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, 0);
-    const std::int32_t elementX = state->elements00[1]->x;
-    const std::int32_t x = elementX + offsetX + gCurrentWindow->x + 101;
+    const std::int32_t elementX = panelElement->x;
+    const std::int32_t x = elementX + offsetX + currentWindow->x + 101;
     return render::DrawGraphic2_521DD0(x, y, layer, graphicIndex, 0, 0, descriptor);
 }
 
@@ -2211,13 +2206,15 @@ static bool WindowItemSelector_SetMode(WindowItemSelectorState* const state, con
 bool WindowItemSelector_HandleTab(
     WindowItemSelectorState* const state, const std::int32_t tab, const std::int32_t events)
 {
-    if (!state->elementsValid()) { return {}; }
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     // 原常量参考：0x0054F5F4。
     static constexpr std::int32_t kEquipmentTabImages[] {
         244294, 244294, 244295, 244296, 98148, 98131, 98148, 98132,
         98142, 98140, 98142, 98141, 98145, 98143, 98145, 98144,
     };
-    WindowElement* const element = state->elements00[tab + 2];
+    WindowElement* const element = state->elements00[tab + 2].get();
+    if (!element) return false;
     auto* const graphic = element->data.graphic;
     const bool hovered = (events & 1) != 0;
     bool consumed = false;
@@ -2240,7 +2237,7 @@ bool WindowItemSelector_HandleTab(
         }
     }
     if ((events & 2) != 0) {
-        gCurrentWindow->state |= 0x2000u;
+        currentWindow->state |= 0x2000u;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         const std::int32_t page = state->value60;
         if (page == 0) {
@@ -2257,7 +2254,7 @@ bool WindowItemSelector_HandleTab(
         consumed = true;
     }
     const std::int32_t width = element->width;
-    const WindowInstance* const window = gCurrentWindow;
+    const WindowInstance* const window = currentWindow;
     const std::int32_t windowX = window->x;
     const std::int32_t elementX = element->x;
     const std::int32_t x = width / 2 + windowX + elementX + 1;
@@ -2303,7 +2300,6 @@ bool WindowItemSelector_TogglePreview(WindowItemSelectorState* const state, cons
 // 原函数：0x004C7910。
 bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, const std::int32_t events)
 {
-    if (!state->elementsValid()) { return {}; }
     bool consumed = false;
     if ((events & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2315,9 +2311,9 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, con
             if (enabled == 1) {
                 WindowElement* const element = state->elements00[1];
                 const WindowElementCallback callback = state->callbacks50[2];
-                element->mouseCallback = callback;
+                if (element) element->mouseCallback = callback;
             } else {
-                state->elements00[1]->mouseCallback = WindowElement_NoOp;
+                if (auto* element = state->elements00[1].get()) element->mouseCallback = WindowElement_NoOp;
             }
             if (!world::IsValidPetIndex_51C410(state->selectedPet70)) {
                 return false;
@@ -2327,7 +2323,7 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, con
             std::int32_t itemSlots = world::gPetRuntimeRecords[selected].values6D8[0];
             while (position < itemSlots) {
                 const std::uint8_t visible = state->value3ED == 0;
-                state->elements00[9 + position]->visible = visible;
+                if (auto* element = state->elements00[9 + position].get()) element->visible = visible;
                 const std::int32_t nextSelected = state->selectedPet70;
                 ++position;
                 itemSlots = world::gPetRuntimeRecords[nextSelected].values6D8[0];
@@ -2381,15 +2377,20 @@ std::int32_t WindowItemSelector_ReadScreenX(
     const WindowItemSelectorState* const state, const std::int32_t element,
     const std::int32_t slot, const std::int32_t offset)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t local = WindowItemSelector_ReadSlotX(state, slot);
     if (local < 0) {
         return -1;
     }
-    const WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(element)]))) { return {}; }
-    const std::int32_t elementX = (*window)[NativeElementKey(element)]->x;
-    const std::int32_t windowX = window->x;
-    return elementX + windowX + local + offset;
+    const WindowInstance* const window = currentWindow;
+    auto* const elementXElement = window->FindElementById(NativeElementKey(element));
+    if (elementXElement) {
+        const std::int32_t elementX = elementXElement->x;
+        const std::int32_t windowX = window->x;
+        return elementX + windowX + local + offset;
+    }
+    return {};
 }
 
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素Y/窗口Y取样累加。
@@ -2398,15 +2399,20 @@ std::int32_t WindowItemSelector_ReadScreenY(
     const WindowItemSelectorState* const state, const std::int32_t element,
     const std::int32_t slot, const std::int32_t offset)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t local = WindowItemSelector_ReadSlotY(state, slot);
     if (local < 0) {
         return -1;
     }
-    const WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(element)]))) { return {}; }
-    const std::int32_t elementY = (*window)[NativeElementKey(element)]->y;
-    const std::int32_t windowY = window->y;
-    return elementY + windowY + local + offset;
+    const WindowInstance* const window = currentWindow;
+    auto* const elementYElement = window->FindElementById(NativeElementKey(element));
+    if (elementYElement) {
+        const std::int32_t elementY = elementYElement->y;
+        const std::int32_t windowY = window->y;
+        return elementY + windowY + local + offset;
+    }
+    return {};
 }
 
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
@@ -2433,11 +2439,14 @@ bool WindowItemSelector_GetItemList_4C72C0(
 // 原函数：0x004C75A0。
 bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const selector, const std::int32_t state)
 {
-    if (!selector->elementsValid()) { return {}; }
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const panelElement = selector->elements00[1].get();
+    if (!panelElement) return false;
     if ((static_cast<std::uint8_t>(state) & 2u) != 0 || state == 0
         || selector->value3FC == 0 || world::gReplyRecordF7C950.used == 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        WindowElement* const element = selector->elements00[1];
+        WindowElement* const element = panelElement;
         const WindowElementCallback callback = selector->callbacks50[2];
         selector->value3FC = 0;
         element->mouseCallback = callback;
@@ -2479,11 +2488,11 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
         {22, L"命中", 0, 8},
         {23, L"回避", 0, 8},
     };
-    const WindowElement* const element = selector->elements00[1];
+    const WindowElement* const element = panelElement;
     const render::GraphicDescriptor16* const descriptor = &selector->descriptors3B8[0];
     const std::int32_t elementY = element->y;
     const std::int32_t elementX = element->x;
-    const WindowInstance* const window = gCurrentWindow;
+    const WindowInstance* const window = currentWindow;
     const std::int32_t windowY = window->y;
     const std::int32_t windowX = window->x;
     static_cast<void>(cg::render::DrawGraphic(
@@ -2495,15 +2504,15 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
         WindowBeforeElements,
         WindowAfterElements,
     };
-    const auto drawText = [selector](
+    const auto drawText = [panelElement, currentWindow](
         const std::int32_t offsetX, const std::int32_t offsetY,
         const std::int32_t textColor, const std::wstring_view text,
         const TextCoordinateOrder order) {
-        const WindowElement* const textElement = selector->elements00[1];
+        const WindowElement* const textElement = panelElement;
         std::int32_t x;
         std::int32_t y;
         if (order == TextCoordinateOrder::Title) {
-            const WindowInstance* const textWindow = gCurrentWindow;
+            const WindowInstance* const textWindow = currentWindow;
             const std::int32_t elementY = textElement->y;
             const std::int32_t windowY = textWindow->y;
             y = elementY + windowY + offsetY;
@@ -2511,7 +2520,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
             const std::int32_t windowX = textWindow->x;
             x = elementX + windowX + offsetX;
         } else if (order == TextCoordinateOrder::WindowBeforeElements) {
-            const WindowInstance* const textWindow = gCurrentWindow;
+            const WindowInstance* const textWindow = currentWindow;
             const std::int32_t elementY = textElement->y;
             const std::int32_t elementX = textElement->x;
             const std::int32_t windowY = textWindow->y;
@@ -2521,7 +2530,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const se
         } else {
             const std::int32_t elementY = textElement->y;
             const std::int32_t elementX = textElement->x;
-            const WindowInstance* const textWindow = gCurrentWindow;
+            const WindowInstance* const textWindow = currentWindow;
             const std::int32_t windowY = textWindow->y;
             const std::int32_t windowX = textWindow->x;
             y = elementY + windowY + offsetY;
@@ -3689,7 +3698,7 @@ std::int32_t WindowRuntime_DrawLargeFrame(const std::int32_t)
 // 原函数：0x00474270。
 std::int32_t WindowScroll_ReadPosition(WindowElement* const element, const std::int32_t maximum)
 {
-    auto* previous = element && element->owner ? (*element->owner)[element->relatedElementId] : nullptr;
+    auto* previous = element && element->owner ? element->owner->FindElementById(element->relatedElementId) : nullptr;
     if (!previous) return 0;
     if (maximum <= 0) {
         return 0;
@@ -3707,7 +3716,7 @@ std::int32_t WindowScroll_ReadPosition(WindowElement* const element, const std::
 std::int32_t WindowScroll_SetPosition(
     WindowElement* const element, const std::int32_t maximum, const std::int32_t position)
 {
-    auto* previous = element && element->owner ? (*element->owner)[element->relatedElementId] : nullptr;
+    auto* previous = element && element->owner ? element->owner->FindElementById(element->relatedElementId) : nullptr;
     if (!previous) return 0;
     std::int32_t y;
     if (maximum <= 0) {
@@ -3738,7 +3747,7 @@ std::int32_t WindowScroll_ApplyWheel(
     if (maximum < 0) {
         maximum = 0;
     }
-    WindowElement* const previous = element && element->owner ? (*element->owner)[element->relatedElementId] : nullptr;
+    WindowElement* const previous = element && element->owner ? element->owner->FindElementById(element->relatedElementId) : nullptr;
     if (!previous) return position;
     const std::int32_t oldY = previous->y;
     static_cast<void>(WindowScroll_SetPosition(element, maximum, position));
@@ -4136,7 +4145,7 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
 {
     if (WindowRuntime_PointerDragBlocksMouse()) return;
     WindowInstance* const window = gCurrentWindow;
-    WindowElement* const element = (*window)[elementId];
+    WindowElement* const element = window->FindElementById(elementId);
     if (!element) return;
     const auto index = element->nativeSlot;
     if (element->component) {
@@ -4168,7 +4177,7 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
         if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
             events = WindowRuntime_AppendMouseEvents(1);
             WindowInstance* const currentWindow = gCurrentWindow;
-            WindowElement* const currentElement = (*currentWindow)[elementId];
+            WindowElement* const currentElement = currentWindow->FindElementById(elementId);
             if (currentElement && currentElement->type == WindowElementType_MouseArea) {
                 auto* const data = currentElement->data.mouse;
                 data->deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
@@ -4194,10 +4203,10 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
         if (element->mouseCallback) handled = element->mouseCallback(index, events);
         const auto* live = WindowRuntime_FindInstance(ownerId);
         if (live == window && live->generation == ownerGeneration && window->binding
-            && (*window)[elementId] == element && !(window->state & 0x8000u) && !window->scriptHidden) {
+            && window->FindElementById(elementId) == element && !(window->state & 0x8000u) && !window->scriptHidden) {
             if (WindowRuntime_BeginPointerDrag(*window, *element, events)) handled |= 1;
             handled |= window->binding->elementEvent(*element, static_cast<int>(elementId), events);
-            if ((*window)[elementId] == element && !(window->state & 0x8000u) && !window->scriptHidden)
+            if (window->FindElementById(elementId) == element && !(window->state & 0x8000u) && !window->scriptHidden)
                 handled |= window->binding->event(static_cast<int>(elementId), events);
         }
     }
@@ -4224,7 +4233,7 @@ void WindowRuntime_UpdateExtendedElements()
     while (auto* element = cursor.next()) {
         const auto id = element->elementId;
         if (gCurrentWindow->binding) gCurrentWindow->binding->elementUpdate(*element);
-        element = (*gCurrentWindow)[id];
+        element = gCurrentWindow->FindElementById(id);
         if (!element || (gCurrentWindow->state & 0x8000u)) continue;
         gCurrentElementIndex57C12C = element->nativeSlot;
         if (element->visible == 1) WindowRuntime_DispatchElementMouse(id);
@@ -4235,9 +4244,13 @@ void WindowRuntime_UpdateExtendedElements()
 // 原函数：0x004741A0。
 std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const window = gCurrentWindow;
+    if (!window) return 0;
     // 窗口49的Graphic与普通MouseArea共享滚动语义，按活动类型读写对应字段。
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    WindowElement* const scrollElement = (*gCurrentWindow)[NativeElementKey(index)];
+    auto* const scrollElement = window->FindElementById(NativeElementKey(index));
+    if (!scrollElement) return 0;
+    auto* const previous = window->FindElementById(scrollElement->relatedElementId);
+    if (!previous) return 0; // 仅取消当前滚动控件操作，调度器继续后续元素。
     std::uint32_t flags = scrollElement->type == WindowElementType_Graphic
         ? std::bit_cast<std::uint32_t>(scrollElement->data.graphic->imageNo)
         : scrollElement->data.mouse->flags;
@@ -4248,34 +4261,13 @@ std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const 
         result = 1;
     }
     if ((flags & 2u) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[NativeElementKey(index - 1)]))) { return {}; }
-        WindowElement* const previous = (*window)[NativeElementKey(index - 1)];
-        const std::int32_t y = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(window->y));
+        const std::int32_t y = platform::gLegacyMouseState.mouseY - window->y;
         previous->y = y - (previous->height >> 1);
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    WindowElement* element = (*gCurrentWindow)[NativeElementKey(index)];
-    const std::int32_t previousTopY = element[-1].y;
-    const std::int32_t topY = element->y;
-    if (previousTopY < topY) {
-        element[-1].y = topY;
-    }
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    element = (*gCurrentWindow)[NativeElementKey(index)];
-    const std::int32_t height = element->height;
-    const std::int32_t bottomY = element->y;
-    const std::int32_t bottom = height + bottomY;
-    const std::int32_t previousHeight = element[-1].height;
-    const std::int32_t previousBottomY = element[-1].y;
-    if (previousBottomY + previousHeight > bottom) {
-        element[-1].y = bottom - previousHeight;
-    }
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    element = (*gCurrentWindow)[NativeElementKey(index)];
-    const std::int32_t currentY = element->y;
-    const std::int32_t previousY = element[-1].y;
-    const std::int32_t delta = previousY - currentY;
+    if (previous->y < scrollElement->y) previous->y = scrollElement->y;
+    const std::int32_t bottom = scrollElement->height + scrollElement->y;
+    if (previous->y + previous->height > bottom) previous->y = bottom - previous->height;
+    const std::int32_t delta = previous->y - scrollElement->y;
     if ((state & 8) == 0) flags &= ~std::uint32_t{2};
     if (scrollElement->type == WindowElementType_Graphic) {
         scrollElement->data.graphic->offsetY = delta;
@@ -4445,7 +4437,7 @@ std::int32_t WindowRuntime_Update()
                     if ((window->state & 0x8000u) || window->scriptHidden) break;
                     if (window->binding) window->binding->elementUpdate(*element);
                     if ((window->state & 0x8000u) || window->scriptHidden) break;
-                    element = (*window)[elementId];
+                    element = window->FindElementById(elementId);
                     if (element && element->visible == 1)
                         static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(elementId); return 0; }));
                 }
@@ -4474,7 +4466,7 @@ std::int32_t WindowRuntime_Update()
                 while (auto* currentElement = cursor.next()) {
                     const auto id = currentElement->elementId;
                     if ((window->state & 0x8000u) || window->scriptHidden) break;
-                    if (auto* element = (*window)[id]; element && !element->component)
+                    if (auto* element = window->FindElementById(id); element && !element->component)
                         window->binding->elementDraw(*element);
                 }
             }
@@ -4577,8 +4569,9 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
         }
         WindowElementPrototype* source = prototype->elements;
         for (std::int32_t index = 0; index < count; ++index, ++source) {
-            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-            WindowElement* const element = (*window)[NativeElementKey(index)];
+            auto* const elementPtr = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+            if (!elementPtr) { continue; }
+            WindowElement* const element = elementPtr;
             element->refUpdate = element->refDraw = element->refEvent = -1;
             element->refClick = element->refPress = element->refHover = element->refLeave = -1;
             element->refDrag = element->refDrop = element->refChange = element->refEnter = -1;
@@ -4718,8 +4711,10 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
         break;
     case WindowId_Bank:
         for (std::int32_t index = 3; index <= 6; ++index) {
-            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-            (*window)[NativeElementKey(index)]->visible = 0;
+            auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+            if (indexedElement) {
+                indexedElement->visible = 0;
+            }
         }
         break;
     default:

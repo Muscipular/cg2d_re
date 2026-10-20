@@ -432,11 +432,15 @@ static std::int32_t WindowContacts_Draw(const std::int32_t value)
 // 原函数：0x004A09E0。
 static std::int32_t WindowContacts_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::uint32_t sortMode = gLoginWindowRuntime.mailSortModeD67B3C;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element9]))) { return {}; }
-    auto* const sortGraphic = (*gCurrentWindow)[WindowContactsElementId::Element9]->data.graphic;
-    sortGraphic->imageNo = kMailSortImages54F4C0[category * 5 + sortMode];
+    auto* const element9 = currentWindow->FindElementById(WindowContactsElementId::Element9);
+    if (element9) {
+        auto* const sortGraphic = element9->data.graphic;
+        sortGraphic->imageNo = kMailSortImages54F4C0[category * 5 + sortMode];
+    }
     WindowContacts_Sort();
     if (gContactsPreviewMode_D67B38 == 0) {
         const std::uint32_t page = world::detail::gMailContactPage_CB1384;
@@ -446,7 +450,7 @@ static std::int32_t WindowContacts_Refresh()
         if (currentCategory == 1) {
             for (std::int32_t index = 21; index < 27; ++index) {
                 const std::int32_t allowed = WindowGuildDetails_ReadRankPermissions();
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = allowed != 0 ? 1 : 0;
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = allowed != 0 ? 1 : 0;
             }
             if (WindowGuildDetails_ReadRankPermissions() != 0) {
                 for (std::int32_t row = 0; row < 3; ++row) {
@@ -455,28 +459,30 @@ static std::int32_t WindowContacts_Refresh()
                     const std::int32_t memberIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
                     const std::int32_t rank = cg::world::gOrderedRecords1051B14[memberIndex].value00;
                     const std::uint8_t flags = cg::world::ReadGuildRankFlagsByte1051514(rank);
-                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(21 + row * 2)])) (*gCurrentWindow)[NativeElementKey(21 + row * 2)]->visible = 0;
-                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(22 + row * 2)])) (*gCurrentWindow)[NativeElementKey(22 + row * 2)]->visible = (flags & 0x80) == 0 ? 1 : 0;
+                    if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(21 + row * 2)); indexedElement) indexedElement->visible = 0;
+                    if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(22 + row * 2)); indexedElement2) indexedElement2->visible = (flags & 0x80) == 0 ? 1 : 0;
                 }
             } else {
                 for (std::int32_t row = 0; row < 3; ++row) {
-                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(21 + row * 2)])) (*gCurrentWindow)[NativeElementKey(21 + row * 2)]->visible = 0;
-                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(22 + row * 2)])) (*gCurrentWindow)[NativeElementKey(22 + row * 2)]->visible = 0;
+                    if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(21 + row * 2)); indexedElement) indexedElement->visible = 0;
+                    if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(22 + row * 2)); indexedElement2) indexedElement2->visible = 0;
                 }
             }
             for (std::int32_t index = 29; index < 46; index += 8) {
                 const std::int32_t allowed = WindowGuildDetails_CanEdit(2);
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = allowed != 0 ? 1 : 0;
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = allowed != 0 ? 1 : 0;
             }
             if (cg::world::ReadGuildStatus10514AC() == -1) {
-                if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 0;
+                if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 0;
             } else {
-                if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 1;
-                WindowInstance* const window = gCurrentWindow;
+                if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 1;
+                WindowInstance* const window = currentWindow;
                 const std::int32_t status = cg::world::ReadGuildStatus10514AC();
-                if (!((window && (*window)[WindowContactsElementId::Element21]))) { return {}; }
-                auto* const data = (*window)[WindowContactsElementId::Element21]->data.text;
-                WindowMail_WriteGuildStatus(data, status);
+                auto* const element212 = window->FindElementById(WindowContactsElementId::Element21);
+                if (element212) {
+                    auto* const data = element212->data.text;
+                    WindowMail_WriteGuildStatus(data, status);
+                }
             }
         }
 
@@ -487,35 +493,37 @@ static std::int32_t WindowContacts_Refresh()
         for (std::int32_t row = 0; row < 3; ++row) {
             const std::int32_t rowCategory = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[rowCategory];
-            WindowInstance* const entryWindow = gCurrentWindow;
+            WindowInstance* const entryWindow = currentWindow;
             auto* entryElementsWindow = entryWindow;
             const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
-            if ((entryElementsWindow && (*entryElementsWindow)[NativeElementKey(29 + row * 8)])) (*entryElementsWindow)[NativeElementKey(29 + row * 8)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(28 + row * 8)])) (*gCurrentWindow)[NativeElementKey(28 + row * 8)]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(27 + row * 8)])) (*gCurrentWindow)[NativeElementKey(27 + row * 8)]->visible = 1;
+            if (auto* const indexedElement = entryElementsWindow->FindElementById(NativeElementKey(29 + row * 8)); indexedElement) indexedElement->visible = 1;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(28 + row * 8)); indexedElement2) indexedElement2->visible = 1;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(27 + row * 8)); indexedElement3) indexedElement3->visible = 1;
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
                 record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(51 + row)])) (*gCurrentWindow)[NativeElementKey(51 + row)]->data.graphic->imageNo = 0x3B9E0;
+                if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement4) indexedElement4->data.graphic->imageNo = 0x3B9E0;
                 break;
             case 1:
                 record = WindowMail_MakeContactView(cg::world::gOrderedRecords1051B14[recordIndex]);
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(51 + row)])) (*gCurrentWindow)[NativeElementKey(51 + row)]->data.graphic->imageNo = 0x3B9E8;
+                if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement5) indexedElement5->data.graphic->imageNo = 0x3B9E8;
                 break;
             case 2:
                 record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(51 + row)])) (*gCurrentWindow)[NativeElementKey(51 + row)]->data.graphic->imageNo = 0x3B9E0;
+                if (auto* const indexedElement6 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement6) indexedElement6->data.graphic->imageNo = 0x3B9E0;
                 break;
             }
             const std::int32_t textIndex = 30 + row * 8;
             if (*record.used == 0) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(29 + row * 8)])) (*gCurrentWindow)[NativeElementKey(29 + row * 8)]->visible = 0;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(28 + row * 8)])) (*gCurrentWindow)[NativeElementKey(28 + row * 8)]->visible = 0;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(27 + row * 8)])) (*gCurrentWindow)[NativeElementKey(27 + row * 8)]->visible = 0;
+                if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(29 + row * 8)); indexedElement4) indexedElement4->visible = 0;
+                if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(28 + row * 8)); indexedElement5) indexedElement5->visible = 0;
+                if (auto* const indexedElement6 = currentWindow->FindElementById(NativeElementKey(27 + row * 8)); indexedElement6) indexedElement6->visible = 0;
                 for (std::int32_t index = textIndex; index < textIndex + 5; ++index) {
-                    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
-                    auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
-                    data->text = L"";
+                    auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
+                    if (dataElement) {
+                        auto* const data = dataElement->data.text;
+                        data->text = L"";
+                    }
                 }
                 continue;
             }
@@ -524,25 +532,31 @@ static std::int32_t WindowContacts_Refresh()
             descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
             const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*record.imageNo);
             const std::int32_t anchorY = kMailImageAnchors56F790[row][1];
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t y = window->y + anchorY - 5;
             const std::int32_t windowX = window->x;
             const std::int32_t anchorX = kMailImageAnchors56F790[row][0];
             static_cast<void>(cg::render::DrawGraphic(
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex)]))) { continue; }
-            auto* const nameData = (*gCurrentWindow)[NativeElementKey(textIndex)]->data.text;
-            nameData->text = record.name;
+            auto* const nameDataElement = currentWindow->FindElementById(NativeElementKey(textIndex));
+            if (nameDataElement) {
+                auto* const nameData = nameDataElement->data.text;
+                nameData->text = record.name;
+            }
             cg::text::FormatTo(numberText, L"{:3}" /* 原常量参考：0x00553FCC。 */, *record.number);
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 1)]))) { continue; }
-            auto* const numberData = (*gCurrentWindow)[NativeElementKey(textIndex + 1)]->data.text;
-            numberData->text = numberText;
+            auto* const numberDataElement = currentWindow->FindElementById(NativeElementKey(textIndex + 1));
+            if (numberDataElement) {
+                auto* const numberData = numberDataElement->data.text;
+                numberData->text = numberText;
+            }
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
             case 2: {
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 2)]))) { continue; }
-                auto* const data = (*gCurrentWindow)[NativeElementKey(textIndex + 2)]->data.text;
-                data->text = record.text32;
+                auto* const dataElement = currentWindow->FindElementById(NativeElementKey(textIndex + 2));
+                if (dataElement) {
+                    auto* const data = dataElement->data.text;
+                    data->text = record.text32;
+                }
                 break;
             }
             case 1: {
@@ -551,20 +565,26 @@ static std::int32_t WindowContacts_Refresh()
                 const std::int32_t rank = member->value00;
                 const wchar_t* const text = rank == -1
                     ? L"" : cg::world::GetGuildRankText(rank);
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 2)]))) { continue; }
-                auto* const data = (*gCurrentWindow)[NativeElementKey(textIndex + 2)]->data.text;
-                data->text = text;
+                auto* const dataElement = currentWindow->FindElementById(NativeElementKey(textIndex + 2));
+                if (dataElement) {
+                    auto* const data = dataElement->data.text;
+                    data->text = text;
+                }
                 break;
             }
             }
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 3)]))) { continue; }
-            auto* const textData = (*gCurrentWindow)[NativeElementKey(textIndex + 3)]->data.text;
-            textData->text = record.text21;
-            auto* statusElementsWindow = gCurrentWindow;
+            auto* const textDataElement = currentWindow->FindElementById(NativeElementKey(textIndex + 3));
+            if (textDataElement) {
+                auto* const textData = textDataElement->data.text;
+                textData->text = record.text21;
+            }
+            auto* statusElementsWindow = currentWindow;
             const std::int16_t status = record.ReadStatus();
-            if (!((statusElementsWindow && (*statusElementsWindow)[NativeElementKey(textIndex + 4)]))) { continue; }
-            auto* const statusData = (*statusElementsWindow)[NativeElementKey(textIndex + 4)]->data.text;
-            WindowMail_WriteContactStatus(record, statusData, status);
+            auto* const statusDataElement = statusElementsWindow->FindElementById(NativeElementKey(textIndex + 4));
+            if (statusDataElement) {
+                auto* const statusData = statusDataElement->data.text;
+                WindowMail_WriteContactStatus(record, statusData, status);
+            }
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
                 if (world::detail::HasUnreadContactMail_519090(recordIndex) != 0) {
@@ -573,11 +593,11 @@ static std::int32_t WindowContacts_Refresh()
                 break;
             case 1:
                 if (WindowGuildDetails_CanEdit(2) != 0) {
-                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(29 + row * 8)])) (*gCurrentWindow)[NativeElementKey(29 + row * 8)]->visible = privileged == 0 ? 1 : 0;
+                    if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(29 + row * 8)); indexedElement4) indexedElement4->visible = privileged == 0 ? 1 : 0;
                 } else {
                     const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8();
                     const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
-                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(29 + row * 8)])) (*gCurrentWindow)[NativeElementKey(29 + row * 8)]->visible = memberKey == ownKey ? 1 : 0;
+                    if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(29 + row * 8)); indexedElement4) indexedElement4->visible = memberKey == ownKey ? 1 : 0;
                 }
                 if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(27 + row * 8);
@@ -594,39 +614,41 @@ static std::int32_t WindowContacts_Refresh()
     }
 
     if (gLoginWindowRuntime.valuesD67B40[6] == 1) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 1;
-        WindowInstance* const window = gCurrentWindow;
+        if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 1;
+        WindowInstance* const window = currentWindow;
         const std::int32_t status = cg::world::ReadGuildStatus10514AC();
-        if (!((window && (*window)[WindowContactsElementId::Element21]))) { return {}; }
-        auto* const data = (*window)[WindowContactsElementId::Element21]->data.text;
-        WindowMail_WriteGuildStatus(data, status);
+        auto* const element212 = window->FindElementById(WindowContactsElementId::Element21);
+        if (element212) {
+            auto* const data = element212->data.text;
+            WindowMail_WriteGuildStatus(data, status);
+        }
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 0;
+        if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 0;
     }
     MailContactView record;
     for (std::int32_t row = 0; row < 9; ++row) {
         const std::int32_t rowCategory = gLoginWindowRuntime.valuesD67B40[6];
         const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[3 + rowCategory];
-        WindowInstance* const entryWindow = gCurrentWindow;
+        WindowInstance* const entryWindow = currentWindow;
         const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
-        if ((entryWindow && (*entryWindow)[NativeElementKey(56 + row * 5)])) (*entryWindow)[NativeElementKey(56 + row * 5)]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(55 + row * 5)])) (*gCurrentWindow)[NativeElementKey(55 + row * 5)]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(54 + row * 5)])) (*gCurrentWindow)[NativeElementKey(54 + row * 5)]->visible = 1;
+        if (auto* const indexedElement = entryWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement) indexedElement->visible = 1;
+        if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(55 + row * 5)); indexedElement2) indexedElement2->visible = 1;
+        if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(54 + row * 5)); indexedElement3) indexedElement3->visible = 1;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
             record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(56 + row * 5)])) (*gCurrentWindow)[NativeElementKey(56 + row * 5)]->visible = 1;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement4) indexedElement4->visible = 1;
             break;
         case 1: {
             const auto* const member = &cg::world::gOrderedRecords1051B14[recordIndex];
             record = WindowMail_MakeContactView(*member);
             if (WindowGuildDetails_CanEdit(2) != 0) {
                 const std::int32_t privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(56 + row * 5)])) (*gCurrentWindow)[NativeElementKey(56 + row * 5)]->visible = privileged == 0 ? 1 : 0;
+                if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement5) indexedElement5->visible = privileged == 0 ? 1 : 0;
             } else {
                 const std::int32_t memberKey = member->value0C;
                 const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8();
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(56 + row * 5)])) (*gCurrentWindow)[NativeElementKey(56 + row * 5)]->visible = memberKey == ownKey ? 1 : 0;
+                if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement5) indexedElement5->visible = memberKey == ownKey ? 1 : 0;
             }
             break;
         }
@@ -636,23 +658,29 @@ static std::int32_t WindowContacts_Refresh()
         }
         const std::int32_t textIndex = 57 + row * 5;
         if (*record.used == 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(56 + row * 5)])) (*gCurrentWindow)[NativeElementKey(56 + row * 5)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(55 + row * 5)])) (*gCurrentWindow)[NativeElementKey(55 + row * 5)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(54 + row * 5)])) (*gCurrentWindow)[NativeElementKey(54 + row * 5)]->visible = 0;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement4) indexedElement4->visible = 0;
+            if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(55 + row * 5)); indexedElement5) indexedElement5->visible = 0;
+            if (auto* const indexedElement6 = currentWindow->FindElementById(NativeElementKey(54 + row * 5)); indexedElement6) indexedElement6->visible = 0;
             for (std::int32_t index = textIndex; index < textIndex + 2; ++index) {
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
-                auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
-                data->text = L"";
+                auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
+                if (dataElement) {
+                    auto* const data = dataElement->data.text;
+                    data->text = L"";
+                }
             }
             continue;
         }
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex)]))) { continue; }
-        auto* const nameData = (*gCurrentWindow)[NativeElementKey(textIndex)]->data.text;
-        nameData->text = record.name;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 1)]))) { continue; }
-        auto* const statusData = (*gCurrentWindow)[NativeElementKey(textIndex + 1)]->data.text;
-        const std::int16_t status = record.ReadStatus();
-        WindowMail_WriteContactStatus(record, statusData, status);
+        auto* const nameDataElement = currentWindow->FindElementById(NativeElementKey(textIndex));
+        if (nameDataElement) {
+            auto* const nameData = nameDataElement->data.text;
+            nameData->text = record.name;
+        }
+        auto* const statusDataElement = currentWindow->FindElementById(NativeElementKey(textIndex + 1));
+        if (statusDataElement) {
+            auto* const statusData = statusDataElement->data.text;
+            const std::int16_t status = record.ReadStatus();
+            WindowMail_WriteContactStatus(record, statusData, status);
+        }
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
             if (world::detail::HasUnreadContactMail_519090(recordIndex) != 0) {
@@ -662,9 +690,11 @@ static std::int32_t WindowContacts_Refresh()
         case 1:
             if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
                 const std::int32_t blink = gLoginWindowRuntime.mailBlinkFlagD67B60;
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(54 + row * 5)]))) { continue; }
-                auto* const graphic = (*gCurrentWindow)[NativeElementKey(54 + row * 5)]->data.graphic;
-                graphic->imageNo = blink != 0 ? 0x3B549 : 0x3B547;
+                auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(54 + row * 5));
+                if (graphicElement) {
+                    auto* const graphic = graphicElement->data.graphic;
+                    graphic->imageNo = blink != 0 ? 0x3B549 : 0x3B547;
+                }
             }
             break;
         case 2:
@@ -687,28 +717,34 @@ static void WindowContacts_SetDisplayMode(const std::int32_t mode, const std::in
 // 原函数：0x004A16B0。
 static void WindowContacts_ApplyDisplayLayout(const std::int32_t mode)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     for (std::int32_t index = 0; index < 21; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
     }
     if (mode == 0) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element8]))) { return; }
-        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::Element8]->data.graphic;
-        graphic->imageNo = 0x3B612;
+        auto* const element8 = currentWindow->FindElementById(WindowContactsElementId::Element8);
+        if (element8) {
+            auto* const graphic = element8->data.graphic;
+            graphic->imageNo = 0x3B612;
+        }
         for (std::int32_t index = 21; index < 54; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
         for (std::int32_t index = 54; index < 108; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
     } else if (mode == 1) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element8]))) { return; }
-        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::Element8]->data.graphic;
-        graphic->imageNo = 0x3B611;
+        auto* const element8 = currentWindow->FindElementById(WindowContactsElementId::Element8);
+        if (element8) {
+            auto* const graphic = element8->data.graphic;
+            graphic->imageNo = 0x3B611;
+        }
         for (std::int32_t index = 21; index < 54; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
         for (std::int32_t index = 54; index < 108; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
     }
 }
@@ -716,83 +752,95 @@ static void WindowContacts_ApplyDisplayLayout(const std::int32_t mode)
 // 原函数：0x004A1780。
 static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     if (category == 0) {
         for (std::int32_t index = 21; index < 27; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element14])) (*gCurrentWindow)[WindowContactsElementId::Element14]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 0;
+        if (auto* const element14 = currentWindow->FindElementById(WindowContactsElementId::Element14); element14) element14->visible = 0;
+        if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 0;
         for (const std::int32_t index : {32, 40, 48}) {
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t x = gWindowElements56DB38[32].x;
-            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->x = x - 24;
+            if (auto* const indexedElement = window->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->x = x - 24;
         }
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::TabCategory]))) { return; }
-        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::TabCategory]->data.graphic;
-        graphic->imageNo = 0x3B57E;
+        auto* const tabCategoryElement = currentWindow->FindElementById(WindowContactsElementId::TabCategory);
+        if (tabCategoryElement) {
+            auto* const graphic = tabCategoryElement->data.graphic;
+            graphic->imageNo = 0x3B57E;
+        }
         for (std::int32_t index = 21; index < 27; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
     } else if (category == 1) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::TabCategory_12]))) { return; }
-        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::TabCategory_12]->data.graphic;
-        graphic->imageNo = 0x3B581;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element14])) (*gCurrentWindow)[WindowContactsElementId::Element14]->visible = 0;
+        auto* const tabCategory_12Element = currentWindow->FindElementById(WindowContactsElementId::TabCategory_12);
+        if (tabCategory_12Element) {
+            auto* const graphic = tabCategory_12Element->data.graphic;
+            graphic->imageNo = 0x3B581;
+        }
+        if (auto* const element14 = currentWindow->FindElementById(WindowContactsElementId::Element14); element14) element14->visible = 0;
         for (const std::int32_t index : {32, 40, 48}) {
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t x = gWindowElements56DB38[32].x;
-            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->x = x;
+            if (auto* const indexedElement = window->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->x = x;
         }
     } else if (category == 2) {
         for (std::int32_t index = 21; index < 27; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element14])) (*gCurrentWindow)[WindowContactsElementId::Element14]->visible = 1;
+        if (auto* const element14 = currentWindow->FindElementById(WindowContactsElementId::Element14); element14) element14->visible = 1;
         for (const std::int32_t index : {34, 42, 50, 58, 63, 68, 73, 78, 83, 88, 93, 98, 20}) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::TabCategory_13]))) { return; }
-        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::TabCategory_13]->data.graphic;
-        graphic->imageNo = 0x3C116;
+        auto* const tabCategory_13Element = currentWindow->FindElementById(WindowContactsElementId::TabCategory_13);
+        if (tabCategory_13Element) {
+            auto* const graphic = tabCategory_13Element->data.graphic;
+            graphic->imageNo = 0x3C116;
+        }
         for (const std::int32_t index : {32, 40, 48}) {
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t x = gWindowElements56DB38[32].x;
-            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->x = x - 24;
+            if (auto* const indexedElement = window->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->x = x - 24;
         }
         for (const std::int32_t index : {34, 42, 50, 0, 3, 4, 8, 19, 20}) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::HandleNavigation_6])) (*gCurrentWindow)[WindowContactsElementId::HandleNavigation_6]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::HandleNavigation_7])) (*gCurrentWindow)[WindowContactsElementId::HandleNavigation_7]->visible = 1;
+        if (auto* const handleNavigation_6Element = currentWindow->FindElementById(WindowContactsElementId::HandleNavigation_6); handleNavigation_6Element) handleNavigation_6Element->visible = 1;
+        if (auto* const handleNavigation_7Element = currentWindow->FindElementById(WindowContactsElementId::HandleNavigation_7); handleNavigation_7Element) handleNavigation_7Element->visible = 1;
         for (std::int32_t index = 21; index < 27; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
     } else {
         return;
     }
 
     for (const std::int32_t index : {1, 2, 7}) {
-        WindowInstance* const xWindow = gCurrentWindow;
+        WindowInstance* const xWindow = currentWindow;
         const std::int32_t x = gWindowElements56DB38[index].x;
-        if ((xWindow && (*xWindow)[NativeElementKey(index)])) (*xWindow)[NativeElementKey(index)]->x = x + (category == 2 ? 110 : 0);
-        WindowInstance* const yWindow = gCurrentWindow;
+        if (auto* const indexedElement = xWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->x = x + (category == 2 ? 110 : 0);
+        WindowInstance* const yWindow = currentWindow;
         const std::int32_t y = gWindowElements56DB38[index].y;
-        if ((yWindow && (*yWindow)[NativeElementKey(index)])) (*yWindow)[NativeElementKey(index)]->y = y + (category == 2 ? 17 : 0);
+        if (auto* const indexedElement2 = yWindow->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->y = y + (category == 2 ? 17 : 0);
     }
 }
 
 // 原函数：0x004A1C30。
 static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const std::int32_t imageOffset = index == 14 ? 0 : 3;
-    graphic->imageNo = 0x3B592 + imageOffset;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B594 + imageOffset;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B593 + imageOffset;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const std::int32_t imageOffset = index == 14 ? 0 : 3;
+        graphic->imageNo = 0x3B592 + imageOffset;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B594 + imageOffset;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B593 + imageOffset;
+        }
     }
     if ((state & 0x400) == 0) {
         return 0;
@@ -830,6 +878,8 @@ static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std
 // 原函数：0x004A1EF0。
 static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (index >= 51 && index <= 53) {
         if ((state & 4) == 0) {
             return 0;
@@ -871,17 +921,19 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     }
 
     const std::int32_t imageOffset = (index & 1) != 0 ? 0 : 3;
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B558 + imageOffset;
-        if (index <= 2) {
-            gHoverTextD68AE8 = gContactsPreviewMode_D67B38 != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
-        } else if (index <= 4) {
-            gHoverTextD68AE8 = L"切换名片的排序方式。" /* 原常量参考：0x0058746C。 */;
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B558 + imageOffset;
+            if (index <= 2) {
+                gHoverTextD68AE8 = gContactsPreviewMode_D67B38 != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
+            } else if (index <= 4) {
+                gHoverTextD68AE8 = L"切换名片的排序方式。" /* 原常量参考：0x0058746C。 */;
+            }
+        } else {
+            graphic->imageNo = 0x3B556 + imageOffset;
         }
-    } else {
-        graphic->imageNo = 0x3B556 + imageOffset;
     }
 
     std::int32_t consumed = 0;
@@ -914,9 +966,11 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     }
     if ((state & 8) != 0) {
         // 业务调用可能改变当前窗口，按原尾路径重新借用载荷。
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const pressed = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        pressed->imageNo = 0x3B557 + imageOffset;
+        auto* const pressedElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (pressedElement) {
+            auto* const pressed = pressedElement->data.graphic;
+            pressed->imageNo = 0x3B557 + imageOffset;
+        }
     }
     return consumed;
 }
@@ -924,37 +978,44 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
 // 原函数：0x004A2610。
 static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    graphic->imageNo = 0x3B541;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B543;
-        gHoverTextD68AE8 = L"对一群人寄送邮件。" /* 原常量参考：0x0058749C。 */;
-    }
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        graphic->imageNo = 0x3B542;
-        WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
-        if (window != nullptr) {
-            window->state |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
-        } else {
-            gLoginWindowRuntime.prefixD2F0B8.value10 = 1;
-            gLoginWindowRuntime.prefixD2F0B8.value00 = 0;
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        graphic->imageNo = 0x3B541;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B543;
+            gHoverTextD68AE8 = L"对一群人寄送邮件。" /* 原常量参考：0x0058749C。 */;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            graphic->imageNo = 0x3B542;
+            WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
+            if (window != nullptr) {
+                window->state |= 0x8000u;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+            } else {
+                gLoginWindowRuntime.prefixD2F0B8.value10 = 1;
+                gLoginWindowRuntime.prefixD2F0B8.value00 = 0;
+                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B542;
+        }
+        return consumed;
     }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B542;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004A2870。
 static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (index < 10 || index > 12) {
         return 0;
     }
@@ -963,29 +1024,33 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
         return 0;
     }
     const std::int32_t idle = category == 0 ? 0x3B57D : (category == 1 ? 0x3B580 : 0x3C115);
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
-        graphic->imageNo = idle + 2;
+        if (graphic) graphic->imageNo = idle + 2;
         const wchar_t* const hint = category == 0 ? L"切换至名片视窗。" /* 原常量参考：0x005874B0。 */
             : (category == 1 ? L"切换至家族名簿视窗。" /* 原常量参考：0x005874C4。 */ : L"切换到迷你邮件群组。" /* 原常量参考：0x005874DC。 */);
         gHoverTextD68AE8 = hint;
         consumed = 1;
     } else {
-        graphic->imageNo = idle;
+        if (graphic) graphic->imageNo = idle;
     }
     if ((state & 2) != 0) {
         if (category == 2) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::TabCategory_13]))) { return {}; }
-            auto* const selected = (*gCurrentWindow)[WindowContactsElementId::TabCategory_13]->data.graphic;
-            selected->imageNo = 0x3C116;
+            auto* const tabCategory_13Element = currentWindow->FindElementById(WindowContactsElementId::TabCategory_13);
+            if (tabCategory_13Element) {
+                auto* const selected = tabCategory_13Element->data.graphic;
+                selected->imageNo = 0x3C116;
+            }
         } else {
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element109]))) { return {}; }
-            auto* const title = (*gCurrentWindow)[WindowContactsElementId::Element109]->data.graphic;
-            title->imageNo = category == 0 ? 0x3B9DE : 0x3B9E3;
+            auto* const element109 = currentWindow->FindElementById(WindowContactsElementId::Element109);
+            if (element109) {
+                auto* const title = element109->data.graphic;
+                title->imageNo = category == 0 ? 0x3B9DE : 0x3B9E3;
+            }
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::ButtonGuildDetails])) (*gCurrentWindow)[WindowContactsElementId::ButtonGuildDetails]->visible = category == 1 ? 1 : 0;
+        if (auto* const buttonGuildDetailsElement = currentWindow->FindElementById(WindowContactsElementId::ButtonGuildDetails); buttonGuildDetailsElement) buttonGuildDetailsElement->visible = category == 1 ? 1 : 0;
         gLoginWindowRuntime.valuesD67B40[6] = category;
         WindowContacts_ClampScroll();
         static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -1000,23 +1065,28 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
 // 原函数：0x004A2BD0。
 static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    graphic->imageNo = 0x3B9E5;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B9E7;
-        gHoverTextD68AE8 = L"开启家族详细资料视窗。" /* 原常量参考：0x00587544。 */;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        graphic->imageNo = 0x3B9E5;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B9E7;
+            gHoverTextD68AE8 = L"开启家族详细资料视窗。" /* 原常量参考：0x00587544。 */;
+        }
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            graphic->imageNo = 0x3B9E6;
+            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_GuildDetails, 1, 0, nullptr));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B9E6;
+        }
+        return consumed;
     }
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        graphic->imageNo = 0x3B9E6;
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_GuildDetails, 1, 0, nullptr));
-        consumed = 1;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B9E6;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004A37E0。
@@ -1035,6 +1105,8 @@ static std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
 // 原函数：0x004A40C0。
 static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 0x21) == 0) {
         return 0;
     }
@@ -1060,37 +1132,44 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
     const std::int32_t mode = gContactsPreviewMode_D67B38;
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return {}; }
-    const std::int32_t result = WindowScroll_ApplyWheel(
-        (*gCurrentWindow)[WindowContactsElementId::HandleVerticalScroll], position, count - (mode == 0 ? 3 : 9), wheel);
-    const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
-    gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + currentCategory] = result;
+    auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowContactsElementId::HandleVerticalScroll);
+    if (handleVerticalScrollElement) {
+        const std::int32_t result = WindowScroll_ApplyWheel(
+            handleVerticalScrollElement, position, count - (mode == 0 ? 3 : 9), wheel);
+        const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
+        gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + currentCategory] = result;
+    }
     return 0;
 }
 
 // 原函数：0x004A2530。
 static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t parity = (index - 21) % 2;
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const std::int32_t imageOffset = parity != 0 ? 3 : 0;
-    graphic->imageNo = 0x3B556 + imageOffset;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B558 + imageOffset;
-        gHoverTextD68AE8 = L"变更此家族成员的称号。" /* 原常量参考：0x00587484。 */;
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const std::int32_t imageOffset = parity != 0 ? 3 : 0;
+        graphic->imageNo = 0x3B556 + imageOffset;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B558 + imageOffset;
+            gHoverTextD68AE8 = L"变更此家族成员的称号。" /* 原常量参考：0x00587484。 */;
+        }
+        std::int32_t consumed = 0;
+        if ((state & 0x400) != 0) {
+            graphic->imageNo = 0x3B557 + imageOffset;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            WindowContacts_OpenRankSelection(index);
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B557 + imageOffset;
+        }
+        return consumed;
     }
-    std::int32_t consumed = 0;
-    if ((state & 0x400) != 0) {
-        graphic->imageNo = 0x3B557 + imageOffset;
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        WindowContacts_OpenRankSelection(index);
-        consumed = 1;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B557 + imageOffset;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004A38C0。
@@ -1114,11 +1193,13 @@ static void WindowContacts_OpenRankSelection(const std::int32_t index)
 // 原函数：0x004A2B00。
 static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    graphic->imageNo = 0x3B547;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
+    if (graphic) graphic->imageNo = 0x3B547;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B549;
+        if (graphic) graphic->imageNo = 0x3B549;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
             gHoverTextD68AE8 = L"察看此名片之主人的邮件纪录" /* 原常量参考：0x005874F4。 */;
@@ -1133,7 +1214,7 @@ static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std:
     }
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
-        graphic->imageNo = 0x3B548;
+        if (graphic) graphic->imageNo = 0x3B548;
         world::detail::gViewedMailContactId_CF4FC0 = WindowContacts_ResolveButtonRecord(index);
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         gLoginWindowRuntime.mailCategoryD67B64 = category;
@@ -1142,7 +1223,7 @@ static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std:
         consumed = 1;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B548;
+        if (graphic) graphic->imageNo = 0x3B548;
     }
     return consumed;
 }
@@ -1165,6 +1246,8 @@ static std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
 // 原函数：0x004A39C0。
 static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const activeWindow = gCurrentWindow;
+    if (!activeWindow) return {};
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category] + index - 99;
     render::GraphicDescriptor16 descriptor {};
@@ -1209,33 +1292,39 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
     }
     std::int32_t consumed = 0;
     if (recordImage != nullptr) {
-        WindowInstance* const firstWindow = gCurrentWindow;
+        WindowInstance* const firstWindow = activeWindow;
         const std::uint32_t color = 0xFFFFFFFFu;
         descriptor.color = color;
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         auto* firstElementsWindow = firstWindow;
         const std::int32_t firstWindowY = firstWindow->y;
-        if (!((firstElementsWindow && (*firstElementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t firstElementY = (*firstElementsWindow)[NativeElementKey(index)]->y;
-        if (!((firstElementsWindow && (*firstElementsWindow)[NativeElementKey(index)]))) { return {}; }
-        const std::int32_t firstElementX = (*firstElementsWindow)[NativeElementKey(index)]->x;
-        const std::int32_t firstY = firstElementY + firstWindowY + 55;
-        const std::int32_t firstWindowX = firstWindow->x;
-        static_cast<void>(cg::render::DrawGraphic(
-            firstElementX + firstWindowX + 182, firstY, 223, 0x3BD32, 0, &descriptor));
+        auto* const firstElementYElement = firstElementsWindow->FindElementById(NativeElementKey(index));
+        if (firstElementYElement) {
+            const std::int32_t firstElementY = firstElementYElement->y;
+            auto* const firstElementXElement = firstElementsWindow->FindElementById(NativeElementKey(index));
+            if (firstElementXElement) {
+                const std::int32_t firstElementX = firstElementXElement->x;
+                const std::int32_t firstY = firstElementY + firstWindowY + 55;
+                const std::int32_t firstWindowX = firstWindow->x;
+                static_cast<void>(cg::render::DrawGraphic(
+                    firstElementX + firstWindowX + 182, firstY, 223, 0x3BD32, 0, &descriptor));
+            }
+        }
 
         // 先固定第一次绘图后的元素；图号转换后仅重取当前窗口，不更换此元素。
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        WindowElement* const element = (*gCurrentWindow)[NativeElementKey(index)];
-        const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*recordImage);
-        const std::int32_t elementY = element->y;
-        WindowInstance* const currentWindow = gCurrentWindow;
-        const std::int32_t windowY = currentWindow->y;
-        const std::int32_t y = elementY + windowY + 55;
-        const std::int32_t elementX = element->x;
-        const std::int32_t windowX = currentWindow->x;
-        static_cast<void>(cg::render::DrawGraphic(
-            elementX + windowX + 182, y, 223, image, 0, &descriptor));
+        auto* const elementPtr = activeWindow->FindElementById(NativeElementKey(index));
+        if (elementPtr) {
+            WindowElement* const element = elementPtr;
+            const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*recordImage);
+            const std::int32_t elementY = element->y;
+            WindowInstance* const currentWindow = activeWindow;
+            const std::int32_t windowY = currentWindow->y;
+            const std::int32_t y = elementY + windowY + 55;
+            const std::int32_t elementX = element->x;
+            const std::int32_t windowX = currentWindow->x;
+            static_cast<void>(cg::render::DrawGraphic(
+                elementX + windowX + 182, y, 223, image, 0, &descriptor));
+        }
         consumed = 1;
     }
     if ((state & 4) == 0) {
@@ -1277,10 +1366,12 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
 // 原函数：0x004A3C70。
 static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hover = (state & 1) != 0;
-    graphic->imageNo = hover ? 0x3B546 : 0x3B544;
+    if (graphic) graphic->imageNo = hover ? 0x3B546 : 0x3B544;
     const std::int32_t consumed = hover ? 1 : 0;
     bool nineRows;
     std::int32_t row;
@@ -1330,11 +1421,13 @@ static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const
 // 原函数：0x004A32E0。
 static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    graphic->imageNo = 0x3B54A;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
+    if (graphic) graphic->imageNo = 0x3B54A;
     if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B54C;
+        if (graphic) graphic->imageNo = 0x3B54C;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
             gHoverTextD68AE8 = L"删除此名片。" /* 原常量参考：0x0058755C。 */;
@@ -1361,7 +1454,7 @@ static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const 
         consumed = 1;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B54B;
+        if (graphic) graphic->imageNo = 0x3B54B;
     }
     return consumed;
 }
@@ -1417,6 +1510,8 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int
 // 原函数：0x004A2700。
 static void WindowContacts_ClampScroll()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。
     std::int32_t maximum;
     std::int32_t position;
@@ -1478,8 +1573,11 @@ static void WindowContacts_ClampScroll()
         }
         position = gLoginWindowRuntime.valuesD67B40[3 + category];
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return; }
-    WindowScroll_SetPosition((*gCurrentWindow)[WindowContactsElementId::HandleVerticalScroll], maximum, position);
+    auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowContactsElementId::HandleVerticalScroll);
+    if (handleVerticalScrollElement) {
+        WindowScroll_SetPosition(handleVerticalScrollElement, maximum, position);
+    }
+    return;
 }
 
 // 原函数：0x004A2C60。
@@ -1731,6 +1829,8 @@ std::int32_t WindowContacts_CompareGuildNumber(
 // 原函数：0x004A3820。
 static std::int32_t WindowContacts_DragScroll(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     // 类别0/1/2均有真实计数；无效类别的入口寄存器值不专项模拟。
     std::int32_t count;
     switch (gLoginWindowRuntime.valuesD67B40[6]) {
@@ -1747,20 +1847,20 @@ static std::int32_t WindowContacts_DragScroll(const std::int32_t)
         count = 20;
         break;
     }
-    auto* elementsWindow = gCurrentWindow;
-    if (!((elementsWindow && (*elementsWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return {}; }
-    auto* const mouse = (*elementsWindow)[WindowContactsElementId::HandleVerticalScroll]->data.mouse;
-    if ((mouse->flags & 1) != 0) {
-        if (gContactsPreviewMode_D67B38 == 0) {
-            if (!((elementsWindow && (*elementsWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return {}; }
-            count = WindowScroll_ReadPosition((*elementsWindow)[WindowContactsElementId::HandleVerticalScroll], count - 3);
-            const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-            gLoginWindowRuntime.valuesD67B40[category] = count;
-        } else {
-            if (!((elementsWindow && (*elementsWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return {}; }
-            count = WindowScroll_ReadPosition((*elementsWindow)[WindowContactsElementId::HandleVerticalScroll], count - 9);
-            const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-            gLoginWindowRuntime.valuesD67B40[3 + category] = count;
+    auto* elementsWindow = currentWindow;
+    auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowContactsElementId::HandleVerticalScroll);
+    if (handleVerticalScrollElement) {
+        auto* const mouse = handleVerticalScrollElement->data.mouse;
+        if ((mouse->flags & 1) != 0) {
+            if (gContactsPreviewMode_D67B38 == 0) {
+                count = WindowScroll_ReadPosition(handleVerticalScrollElement, count - 3);
+                const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+                gLoginWindowRuntime.valuesD67B40[category] = count;
+            } else {
+                count = WindowScroll_ReadPosition(handleVerticalScrollElement, count - 9);
+                const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+                gLoginWindowRuntime.valuesD67B40[3 + category] = count;
+            }
         }
     }
     return count;

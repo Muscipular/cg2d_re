@@ -579,21 +579,21 @@ static void WindowTrade_MovePanel(
 {
     const std::int32_t shortX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const std::int32_t shortY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
-    if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->x = shortX;
-    if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->y = shortY;
-    if ((window && (*window)[NativeElementKey(index - 1)])) (*window)[NativeElementKey(index - 1)]->x = shortX + 252;
-    if ((window && (*window)[NativeElementKey(index - 1)])) (*window)[NativeElementKey(index - 1)]->y = shortY + 37;
-    if ((window && (*window)[NativeElementKey(index - 2)])) (*window)[NativeElementKey(index - 2)]->x = shortX + 252;
+    if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->x = shortX;
+    if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement2) indexedElement2->y = shortY;
+    if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(index - 1)) : nullptr; indexedElement3) indexedElement3->x = shortX + 252;
+    if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(index - 1)) : nullptr; indexedElement4) indexedElement4->y = shortY + 37;
+    if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(index - 2)) : nullptr; indexedElement5) indexedElement5->x = shortX + 252;
 }
 
 // 原函数：0x004B0180。
 static void WindowTrade_SetPanelVisible(
     WindowInstance* const window, const std::int32_t index, const std::int32_t visible)
 {
-    if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = visible;
+    if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = visible;
     if (visible == 0) {
-        if ((window && (*window)[NativeElementKey(index - 1)])) (*window)[NativeElementKey(index - 1)]->visible = 0;
-        if ((window && (*window)[NativeElementKey(index - 2)])) (*window)[NativeElementKey(index - 2)]->visible = 0;
+        if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(index - 1)) : nullptr; indexedElement2) indexedElement2->visible = 0;
+        if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(index - 2)) : nullptr; indexedElement3) indexedElement3->visible = 0;
     }
 }
 
@@ -601,9 +601,12 @@ static void WindowTrade_SetPanelVisible(
 static void WindowTrade_SetPanelColor(
     WindowInstance* const window, const std::int32_t index, const std::uint32_t color)
 {
-    if (!((window && (*window)[NativeElementKey(index)]))) { return; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    graphic->color = color;
+    auto* const graphicElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        graphic->color = color;
+    }
+    return;
 }
 
 // 原函数：0x004AFF30。
@@ -700,63 +703,77 @@ static void WindowTrade_Release()
 // 原函数：0x004B0290。
 static std::int32_t WindowTrade_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
-        WindowInstance* const initialWindow = gCurrentWindow;
+        WindowInstance* const initialWindow = currentWindow;
         gTradeWindowActionD67B7C = nullptr;
         gTradeValueCC4224 = 0;
         gTradeValueD2E2B0 = 0;
         gTradePhaseCAFEC4 = 0;
         WindowTrade_SetPanelVisible(initialWindow, 11, 1);
-        WindowTrade_MovePanel(gCurrentWindow, 11, 287, 28);
-        WindowTrade_SetPanelColor(gCurrentWindow, 11, 0xFFFFFFFFu);
-        WindowTrade_SetPanelVisible(gCurrentWindow, 8, 1);
-        WindowTrade_MovePanel(gCurrentWindow, 8, 15, 28);
-        WindowTrade_SetPanelColor(gCurrentWindow, 8, 0xFFFFFFFFu);
-        WindowTrade_SetPanelVisible(gCurrentWindow, 14, 0);
-        WindowTrade_MovePanel(gCurrentWindow, 14, 15, 28);
-        WindowTrade_SetPanelColor(gCurrentWindow, 14, 0xFFFFFFFFu);
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonPublish])) (*gCurrentWindow)[WindowTradeElementId::ButtonPublish]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm])) (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw])) (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw]->visible = 0;
-        WindowInstance* const scrollWindow = gCurrentWindow;
+        WindowTrade_MovePanel(currentWindow, 11, 287, 28);
+        WindowTrade_SetPanelColor(currentWindow, 11, 0xFFFFFFFFu);
+        WindowTrade_SetPanelVisible(currentWindow, 8, 1);
+        WindowTrade_MovePanel(currentWindow, 8, 15, 28);
+        WindowTrade_SetPanelColor(currentWindow, 8, 0xFFFFFFFFu);
+        WindowTrade_SetPanelVisible(currentWindow, 14, 0);
+        WindowTrade_MovePanel(currentWindow, 14, 15, 28);
+        WindowTrade_SetPanelColor(currentWindow, 14, 0xFFFFFFFFu);
+        if (auto* const buttonPublishElement = currentWindow->FindElementById(WindowTradeElementId::ButtonPublish); buttonPublishElement) buttonPublishElement->visible = 1;
+        if (auto* const buttonConfirmElement = currentWindow->FindElementById(WindowTradeElementId::ButtonConfirm); buttonConfirmElement) buttonConfirmElement->visible = 0;
+        if (auto* const buttonWithdrawElement = currentWindow->FindElementById(WindowTradeElementId::ButtonWithdraw); buttonWithdrawElement) buttonWithdrawElement->visible = 0;
+        WindowInstance* const scrollWindow = currentWindow;
         gTradeValueD2EA20 = 0xFF;
         gTradeValueD6742C = 0;
         gTradeValueC8AF81 = 0;
         gTradeScrollCF3B0C = 0;
         gTradeScrollCC4C90 = 0;
         gTradeScrollD67430 = 0;
-        if (!((scrollWindow && (*scrollWindow)[WindowTradeElementId::HandleVerticalScroll_11]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*scrollWindow)[WindowTradeElementId::HandleVerticalScroll_11], 2, 0));
+        auto* const handleVerticalScroll_11Element = scrollWindow->FindElementById(WindowTradeElementId::HandleVerticalScroll_11);
+        if (handleVerticalScroll_11Element) {
+            static_cast<void>(WindowScroll_SetPosition(handleVerticalScroll_11Element, 2, 0));
+        }
         const std::int32_t firstScroll = gTradeScrollCC4C90;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::HandleVerticalScroll]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowTradeElementId::HandleVerticalScroll], 2, firstScroll));
-        WindowInstance* const lastScrollWindow = gCurrentWindow;
+        auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowTradeElementId::HandleVerticalScroll);
+        if (handleVerticalScrollElement) {
+            static_cast<void>(WindowScroll_SetPosition(handleVerticalScrollElement, 2, firstScroll));
+        }
+        WindowInstance* const lastScrollWindow = currentWindow;
         const std::int32_t lastScroll = gTradeScrollD67430;
-        if (!((lastScrollWindow && (*lastScrollWindow)[WindowTradeElementId::HandleVerticalScroll_14]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*lastScrollWindow)[WindowTradeElementId::HandleVerticalScroll_14], 2, lastScroll));
+        auto* const handleVerticalScroll_14Element = lastScrollWindow->FindElementById(WindowTradeElementId::HandleVerticalScroll_14);
+        if (handleVerticalScroll_14Element) {
+            static_cast<void>(WindowScroll_SetPosition(handleVerticalScroll_14Element, 2, lastScroll));
+        }
         gTradeItemMarksD2D61C.fill(0);
         // 原W32/U8交错写入同一数组，保留4B0424的窗口快照时点。
         std::memset(gTradePetMarksCF3AFC.data(), 0, 4);
         std::memset(gTradeItemSlotsCF3AE8.data(), 0xFF, 4);
         std::memset(gTradeItemSlotsCF3AE8.data() + 4, 0xFF, 4);
         gTradePetMarksCF3AFC[4] = 0;
-        WindowInstance* const textWindow = gCurrentWindow;
+        WindowInstance* const textWindow = currentWindow;
         std::memset(gTradeItemSlotsCF3AE8.data() + 8, 0xFF, 4);
         std::memset(gTradeItemSlotsCF3AE8.data() + 12, 0xFF, 4);
         std::memset(gTradePetSlotsCC4D28.data(), 0xFF, 4);
         std::memset(gTradeItemSlotsCF3AE8.data() + 16, 0xFF, 4);
         gTradePetSlotsCC4D28[4] = 0xFF;
-        if (!((textWindow && (*textWindow)[WindowTradeElementId::Element16]))) { return {}; }
-        auto* const otherName = (*textWindow)[WindowTradeElementId::Element16]->data.text;
-        otherName->text = std::format(L"{:>16}", gTradeNameD2D654);
-        auto* elementsWindow = gCurrentWindow;
+        auto* const element16 = textWindow->FindElementById(WindowTradeElementId::Element16);
+        if (element16) {
+            auto* const otherName = element16->data.text;
+            otherName->text = std::format(L"{:>16}", gTradeNameD2D654);
+        }
+        auto* elementsWindow = currentWindow;
         const wchar_t* const playerName = world::GetPlayerDisplayText(1);
-        if (!((elementsWindow && (*elementsWindow)[WindowTradeElementId::Element17]))) { return {}; }
-        auto* const separator = (*elementsWindow)[WindowTradeElementId::Element17]->data.text;
-        separator->text = L"<=>";
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::Element18]))) { return {}; }
-        auto* const ownName = (*gCurrentWindow)[WindowTradeElementId::Element18]->data.text;
-        ownName->text = std::format(L"{:<16}", playerName);
+        auto* const element17 = elementsWindow->FindElementById(WindowTradeElementId::Element17);
+        if (element17) {
+            auto* const separator = element17->data.text;
+            separator->text = L"<=>";
+        }
+        auto* const element18 = currentWindow->FindElementById(WindowTradeElementId::Element18);
+        if (element18) {
+            auto* const ownName = element18->data.text;
+            ownName->text = std::format(L"{:<16}", playerName);
+        }
         const std::int32_t y =
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
@@ -764,119 +781,123 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
         static_cast<void>(WindowProfile_SaveOrigin(x, y));
     }
     if (WindowProfile_CheckDistance(1, 1) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (gTradeValueD67B80 != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     switch (std::bit_cast<std::int8_t>(gTradePhaseCAFEC4)) {
     case 0:
         if (gTradeValueD2E2B0 > 0) {
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             gTradePhaseCAFEC4 = 1;
             WindowTrade_SetPanelVisible(window, 14, 1);
-            WindowTrade_MovePanel(gCurrentWindow, 14, 15, 28);
-            WindowTrade_SetPanelColor(gCurrentWindow, 14, 0x00FFFFFFu);
+            WindowTrade_MovePanel(currentWindow, 14, 15, 28);
+            WindowTrade_SetPanelColor(currentWindow, 14, 0x00FFFFFFu);
             gTradeStepD3040C = 23;
         }
         break;
     case 1: {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const std::int32_t step = std::bit_cast<std::int8_t>(gTradeStepD3040C);
-        if (!((window && (*window)[WindowTradeElementId::HandleSelectedPanel]))) { return {}; }
-        if ((*window)[WindowTradeElementId::HandleSelectedPanel]->x + step < 287) {
-            WindowTrade_SetPanelVisible(window, 8, 1);
-            WindowInstance* const moveWindow = gCurrentWindow;
-            const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
-            if (!((moveWindow && (*moveWindow)[WindowTradeElementId::HandleSelectedPanel]))) { return {}; }
-            const std::int32_t x = std::bit_cast<std::int16_t>(
-                static_cast<std::uint16_t>((*moveWindow)[WindowTradeElementId::HandleSelectedPanel]->x));
-            WindowTrade_MovePanel(moveWindow, 8, x + moveStep, 28);
-            const std::uint8_t oldStep = gTradeStepD3040C;
-            WindowInstance* const firstWindow = gCurrentWindow;
-            gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
-            if (!((firstWindow && (*firstWindow)[WindowTradeElementId::HandleOwnPanel]))) { return {}; }
-            const auto* first = (*firstWindow)[WindowTradeElementId::HandleOwnPanel]->data.graphic;
-            std::int32_t alpha = static_cast<std::int32_t>(first->color >> 24) - 10;
-            if (alpha < 0) {
-                alpha = 0;
+        auto* const handleSelectedPanelElement = window->FindElementById(WindowTradeElementId::HandleSelectedPanel);
+        if (handleSelectedPanelElement) {
+            if (handleSelectedPanelElement->x + step < 287) {
+                WindowTrade_SetPanelVisible(window, 8, 1);
+                WindowInstance* const moveWindow = currentWindow;
+                const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+                auto* const handleSelectedPanelElement2 = moveWindow->FindElementById(WindowTradeElementId::HandleSelectedPanel);
+                if (handleSelectedPanelElement2) {
+                    const std::int32_t x = std::bit_cast<std::int16_t>(
+                        static_cast<std::uint16_t>(handleSelectedPanelElement2->x));
+                    WindowTrade_MovePanel(moveWindow, 8, x + moveStep, 28);
+                }
+                const std::uint8_t oldStep = gTradeStepD3040C;
+                WindowInstance* const firstWindow = currentWindow;
+                gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
+                auto* const handleOwnPanelElement = firstWindow->FindElementById(WindowTradeElementId::HandleOwnPanel);
+                if (handleOwnPanelElement) {
+                    const auto* first = handleOwnPanelElement->data.graphic;
+                    const auto alpha = std::max(0, static_cast<std::int32_t>(first->color >> 24) - 10);
+                    WindowTrade_SetPanelColor(firstWindow, 11,
+                        (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
+                }
+                WindowInstance* const secondWindow = currentWindow;
+                auto* const handleRemoteSelectionElement = secondWindow->FindElementById(WindowTradeElementId::HandleRemoteSelection);
+                if (handleRemoteSelectionElement) {
+                    const auto* second = handleRemoteSelectionElement->data.graphic;
+                    const auto alpha = std::min(255, static_cast<std::int32_t>(second->color >> 24) + 10);
+                    WindowTrade_SetPanelColor(secondWindow, 14,
+                        (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
+                }
+            } else {
+                WindowTrade_SetPanelColor(window, 14, 0xFFFFFFFFu);
+                WindowTrade_SetPanelVisible(currentWindow, 8, 1);
+                WindowTrade_MovePanel(currentWindow, 8, 287, 28);
+                WindowTrade_SetPanelVisible(currentWindow, 11, 0);
+                if (auto* const buttonPublishElement = currentWindow->FindElementById(WindowTradeElementId::ButtonPublish); buttonPublishElement) buttonPublishElement->visible = 0;
+                if (auto* const buttonConfirmElement = currentWindow->FindElementById(WindowTradeElementId::ButtonConfirm); buttonConfirmElement) buttonConfirmElement->visible = 1;
+                if (auto* const buttonWithdrawElement = currentWindow->FindElementById(WindowTradeElementId::ButtonWithdraw); buttonWithdrawElement) buttonWithdrawElement->visible = 1;
+                gTradePhaseCAFEC4 = 3;
             }
-            WindowTrade_SetPanelColor(firstWindow, 11,
-                (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
-            WindowInstance* const secondWindow = gCurrentWindow;
-            if (!((secondWindow && (*secondWindow)[WindowTradeElementId::HandleRemoteSelection]))) { return {}; }
-            const auto* second = (*secondWindow)[WindowTradeElementId::HandleRemoteSelection]->data.graphic;
-            alpha = static_cast<std::int32_t>(second->color >> 24) + 10;
-            if (alpha > 255) {
-                alpha = 255;
-            }
-            WindowTrade_SetPanelColor(secondWindow, 14,
-                (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
-        } else {
-            WindowTrade_SetPanelColor(window, 14, 0xFFFFFFFFu);
-            WindowTrade_SetPanelVisible(gCurrentWindow, 8, 1);
-            WindowTrade_MovePanel(gCurrentWindow, 8, 287, 28);
-            WindowTrade_SetPanelVisible(gCurrentWindow, 11, 0);
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonPublish])) (*gCurrentWindow)[WindowTradeElementId::ButtonPublish]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm])) (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw])) (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw]->visible = 1;
-            gTradePhaseCAFEC4 = 3;
         }
         break;
     }
     case 2: {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const std::int32_t step = std::bit_cast<std::int8_t>(gTradeStepD3040C);
-        if (!((window && (*window)[WindowTradeElementId::HandleSelectedPanel]))) { return {}; }
-        if ((*window)[WindowTradeElementId::HandleSelectedPanel]->x - step > 15) {
-            WindowTrade_SetPanelVisible(window, 8, 1);
-            WindowInstance* const moveWindow = gCurrentWindow;
-            const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
-            if (!((moveWindow && (*moveWindow)[WindowTradeElementId::HandleSelectedPanel]))) { return {}; }
-            const std::int32_t x = std::bit_cast<std::int16_t>(
-                static_cast<std::uint16_t>((*moveWindow)[WindowTradeElementId::HandleSelectedPanel]->x));
-            WindowTrade_MovePanel(moveWindow, 8, x - moveStep, 28);
-            const std::uint8_t oldStep = gTradeStepD3040C;
-            WindowInstance* const firstWindow = gCurrentWindow;
-            gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
-            if (!((firstWindow && (*firstWindow)[WindowTradeElementId::HandleOwnPanel]))) { return {}; }
-            const auto* first = (*firstWindow)[WindowTradeElementId::HandleOwnPanel]->data.graphic;
-            std::int32_t alpha = static_cast<std::int32_t>(first->color >> 24) + 10;
-            if (alpha > 255) {
-                alpha = 255;
+        auto* const handleSelectedPanelElement = window->FindElementById(WindowTradeElementId::HandleSelectedPanel);
+        if (handleSelectedPanelElement) {
+            if (handleSelectedPanelElement->x - step > 15) {
+                WindowTrade_SetPanelVisible(window, 8, 1);
+                WindowInstance* const moveWindow = currentWindow;
+                const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+                auto* const handleSelectedPanelElement2 = moveWindow->FindElementById(WindowTradeElementId::HandleSelectedPanel);
+                if (handleSelectedPanelElement2) {
+                    const std::int32_t x = std::bit_cast<std::int16_t>(
+                        static_cast<std::uint16_t>(handleSelectedPanelElement2->x));
+                    WindowTrade_MovePanel(moveWindow, 8, x - moveStep, 28);
+                }
+                const std::uint8_t oldStep = gTradeStepD3040C;
+                WindowInstance* const firstWindow = currentWindow;
+                gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
+                auto* const handleOwnPanelElement = firstWindow->FindElementById(WindowTradeElementId::HandleOwnPanel);
+                if (handleOwnPanelElement) {
+                    const auto* first = handleOwnPanelElement->data.graphic;
+                    const auto alpha = std::min(255, static_cast<std::int32_t>(first->color >> 24) + 10);
+                    WindowTrade_SetPanelColor(firstWindow, 11,
+                        (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
+                }
+                WindowInstance* const secondWindow = currentWindow;
+                auto* const handleRemoteSelectionElement = secondWindow->FindElementById(WindowTradeElementId::HandleRemoteSelection);
+                if (handleRemoteSelectionElement) {
+                    const auto* second = handleRemoteSelectionElement->data.graphic;
+                    const auto alpha = std::max(0, static_cast<std::int32_t>(second->color >> 24) - 10);
+                    WindowTrade_SetPanelColor(secondWindow, 14,
+                        (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
+                }
+            } else {
+                WindowTrade_SetPanelColor(window, 11, 0xFFFFFFFFu);
+                WindowTrade_SetPanelVisible(currentWindow, 8, 1);
+                WindowTrade_MovePanel(currentWindow, 8, 15, 28);
+                WindowTrade_SetPanelVisible(currentWindow, 14, 0);
+                if (auto* const buttonPublishElement = currentWindow->FindElementById(WindowTradeElementId::ButtonPublish); buttonPublishElement) buttonPublishElement->visible = 1;
+                if (auto* const buttonConfirmElement = currentWindow->FindElementById(WindowTradeElementId::ButtonConfirm); buttonConfirmElement) buttonConfirmElement->visible = 0;
+                if (auto* const buttonWithdrawElement = currentWindow->FindElementById(WindowTradeElementId::ButtonWithdraw); buttonWithdrawElement) buttonWithdrawElement->visible = 0;
+                gTradePhaseCAFEC4 = 0;
             }
-            WindowTrade_SetPanelColor(firstWindow, 11,
-                (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
-            WindowInstance* const secondWindow = gCurrentWindow;
-            if (!((secondWindow && (*secondWindow)[WindowTradeElementId::HandleRemoteSelection]))) { return {}; }
-            const auto* second = (*secondWindow)[WindowTradeElementId::HandleRemoteSelection]->data.graphic;
-            alpha = static_cast<std::int32_t>(second->color >> 24) - 10;
-            if (alpha < 0) {
-                alpha = 0;
-            }
-            WindowTrade_SetPanelColor(secondWindow, 14,
-                (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
-        } else {
-            WindowTrade_SetPanelColor(window, 11, 0xFFFFFFFFu);
-            WindowTrade_SetPanelVisible(gCurrentWindow, 8, 1);
-            WindowTrade_MovePanel(gCurrentWindow, 8, 15, 28);
-            WindowTrade_SetPanelVisible(gCurrentWindow, 14, 0);
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonPublish])) (*gCurrentWindow)[WindowTradeElementId::ButtonPublish]->visible = 1;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm])) (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw])) (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw]->visible = 0;
-            gTradePhaseCAFEC4 = 0;
         }
         break;
     }
     case 3:
         if (gTradeValueD2E2B0 <= 0) {
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             gTradePhaseCAFEC4 = 2;
             WindowTrade_SetPanelVisible(window, 11, 1);
-            WindowTrade_MovePanel(gCurrentWindow, 11, 287, 28);
-            WindowTrade_SetPanelColor(gCurrentWindow, 11, 0x00FFFFFFu);
+            WindowTrade_MovePanel(currentWindow, 11, 287, 28);
+            WindowTrade_SetPanelColor(currentWindow, 11, 0x00FFFFFFu);
             gTradeStepD3040C = 23;
         }
         break;
@@ -994,15 +1015,16 @@ static std::int32_t WindowTrade_HandlePanel(
     std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,
     render::GraphicDescriptor16* const descriptor, const WindowTradePanelCallback callback)
 {
+    if (!window) return 0;
     auto* elementsWindow = window;
+    auto* const panelElement = window->FindElementById(NativeElementKey(index));
+    if (!panelElement) return 0; // 当前面板没有命中区域，只结束该元素回调。
     std::uint16_t elementX;
     std::uint16_t elementY;
     std::uint16_t windowX;
     std::uint16_t windowY;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-    std::memcpy(&elementX, &(*elementsWindow)[NativeElementKey(index)]->x, sizeof(elementX));
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-    std::memcpy(&elementY, &(*elementsWindow)[NativeElementKey(index)]->y, sizeof(elementY));
+    std::memcpy(&elementX, &panelElement->x, sizeof(elementX));
+    std::memcpy(&elementY, &panelElement->y, sizeof(elementY));
     std::memcpy(&windowX, &window->x, sizeof(windowX));
     const std::int16_t x = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(elementX + windowX));
@@ -1012,16 +1034,20 @@ static std::int32_t WindowTrade_HandlePanel(
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t scrollPosition = *scrollValue;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(scrollElement)]))) { return {}; }
-        WindowElement* const wheelElement = (*elementsWindow)[NativeElementKey(scrollElement)];
-        *scrollValue = WindowScroll_ApplyWheel(wheelElement, scrollPosition, 2, wheel);
+        auto* const wheelElementElement = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(scrollElement)) : nullptr;
+        if (wheelElementElement) {
+            WindowElement* const wheelElement = wheelElementElement;
+            *scrollValue = WindowScroll_ApplyWheel(wheelElement, scrollPosition, 2, wheel);
+        }
     }
-    if (!((window && (*window)[NativeElementKey(scrollElement)]))) { return {}; }
-    WindowElement* const scroll = (*window)[NativeElementKey(scrollElement)];
-    const auto scrollFlags = reinterpret_cast<const unsigned char*>(
-        &scroll->data.mouse->flags)[0];
-    if ((scrollFlags & 1u) != 0) {
-        *scrollValue = WindowScroll_ReadPosition(scroll, 2);
+    auto* const scrollElement2 = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr;
+    if (scrollElement2) {
+        WindowElement* const scroll = scrollElement2;
+        const auto scrollFlags = reinterpret_cast<const unsigned char*>(
+            &scroll->data.mouse->flags)[0];
+        if ((scrollFlags & 1u) != 0) {
+            *scrollValue = WindowScroll_ReadPosition(scroll, 2);
+        }
     }
     static constexpr std::array<std::array<std::int16_t, 4>, 5> rectangles54F508 {{
         {12, 240, 80, 15}, {97, 240, 80, 15}, {182, 240, 80, 15},
@@ -1052,9 +1078,11 @@ static std::int32_t WindowTrade_HandlePanel(
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             const std::int32_t scrollPosition = *scrollValue;
-            if (!((window && (*window)[NativeElementKey(scrollElement)]))) { return {}; }
-            WindowElement* const scrollTarget = (*window)[NativeElementKey(scrollElement)];
-            static_cast<void>(WindowScroll_SetPosition(scrollTarget, 2, scrollPosition));
+            auto* const scrollTargetElement = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr;
+            if (scrollTargetElement) {
+                WindowElement* const scrollTarget = scrollTargetElement;
+                static_cast<void>(WindowScroll_SetPosition(scrollTarget, 2, scrollPosition));
+            }
         } else if (selected == 4) {
             if (*scrollValue < 2) {
                 ++*scrollValue;
@@ -1063,9 +1091,11 @@ static std::int32_t WindowTrade_HandlePanel(
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             const std::int32_t scrollPosition = *scrollValue;
-            if (!((window && (*window)[NativeElementKey(scrollElement)]))) { return {}; }
-            WindowElement* const scrollTarget = (*window)[NativeElementKey(scrollElement)];
-            static_cast<void>(WindowScroll_SetPosition(scrollTarget, 2, scrollPosition));
+            auto* const scrollTargetElement = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr;
+            if (scrollTargetElement) {
+                WindowElement* const scrollTarget = scrollTargetElement;
+                static_cast<void>(WindowScroll_SetPosition(scrollTarget, 2, scrollPosition));
+            }
         }
     }
     std::uint8_t numericResult = 0;
@@ -1081,16 +1111,18 @@ static std::int32_t WindowTrade_HandlePanel(
     std::int32_t displayAmount; // 原回调负责写入，不为无回调的异常路径补零。
     if (callback != nullptr) {
         // 仅适配已证不消费该参数的-1哨兵；正索引仍借用同一W32，见窗口SPEC。
-        if (!((window && (*window)[NativeElementKey(numericElement)]))) { return {}; }
-        std::uint32_t* const valueSlot =
-            numericElement == -1 ? nullptr : &(*window)[NativeElementKey(numericElement)]->state;
-        const std::int32_t scrollSnapshot = *scrollValue;
-        const std::int32_t mouseY =
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
-        const std::int32_t mouseX =
-            static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
-        callback(x, y, mouseX, mouseY, state, tab, scrollSnapshot, numericResult, valueSlot,
-                 &itemCount, &petCount, &amount, &displayAmount, descriptor);
+        auto* const valueSlotElement = window ? window->FindElementById(NativeElementKey(numericElement)) : nullptr;
+        if (valueSlotElement) {
+            std::uint32_t* const valueSlot =
+                numericElement == -1 ? nullptr : &valueSlotElement->state;
+            const std::int32_t scrollSnapshot = *scrollValue;
+            const std::int32_t mouseY =
+                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
+            const std::int32_t mouseX =
+                static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX);
+            callback(x, y, mouseX, mouseY, state, tab, scrollSnapshot, numericResult, valueSlot,
+                     &itemCount, &petCount, &amount, &displayAmount, descriptor);
+        }
     }
     std::int32_t imageNo = *tab == 0 ? 243028 : (selected == 0 ? 243029 : 243027);
     static_cast<void>(render::DrawGraphic3_520970(
@@ -1101,27 +1133,29 @@ static std::int32_t WindowTrade_HandlePanel(
     imageNo = *tab == 2 ? 243025 : (selected == 2 ? 243026 : 243024);
     static_cast<void>(render::DrawGraphic3_520970(
         x + 182, y + 240, 223, imageNo, 0, 1, 0, descriptor));
-    if ((window && (*window)[NativeElementKey(scrollElement)])) (*window)[NativeElementKey(scrollElement)]->visible = 0;
-    if ((window && (*window)[NativeElementKey(scrollElement - 1)])) (*window)[NativeElementKey(scrollElement - 1)]->visible = 0;
+    if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr; indexedElement3) indexedElement3->visible = 0;
+    if (auto* const indexedElement4 = window ? window->FindElementById(NativeElementKey(scrollElement - 1)) : nullptr; indexedElement4) indexedElement4->visible = 0;
     if (*tab == 1) {
-        if (!((window && (*window)[NativeElementKey(scrollElement - 1)]))) { return {}; }
-        WindowElement* const previous = (*window)[NativeElementKey(scrollElement - 1)];
-        const std::int32_t currentWindowY = window->y;
-        const std::int32_t previousY = previous->y;
-        const std::int32_t drawY = currentWindowY + previousY;
-        const std::int32_t previousX = previous->x;
-        const std::int32_t currentWindowX = window->x;
-        const std::int32_t drawX = currentWindowX + previousX;
-        static_cast<void>(render::DrawGraphic3_520970(
-            drawX, drawY, 223, 243096, 0, 1, 0, descriptor));
+        auto* const previousElement = window ? window->FindElementById(NativeElementKey(scrollElement - 1)) : nullptr;
+        if (previousElement) {
+            WindowElement* const previous = previousElement;
+            const std::int32_t currentWindowY = window->y;
+            const std::int32_t previousY = previous->y;
+            const std::int32_t drawY = currentWindowY + previousY;
+            const std::int32_t previousX = previous->x;
+            const std::int32_t currentWindowX = window->x;
+            const std::int32_t drawX = currentWindowX + previousX;
+            static_cast<void>(render::DrawGraphic3_520970(
+                drawX, drawY, 223, 243096, 0, 1, 0, descriptor));
+        }
         imageNo = selected == 3 ? ((state & 8) != 0 ? 243091 : 243092) : 243090;
         static_cast<void>(render::DrawGraphic3_520970(
             x + 252, y + 28, 223, imageNo, 0, 1, 0, descriptor));
         imageNo = selected == 4 ? ((state & 8) != 0 ? 243094 : 243095) : 243093;
         static_cast<void>(render::DrawGraphic3_520970(
             x + 252, y + 220, 223, imageNo, 0, 1, 0, descriptor));
-        if ((window && (*window)[NativeElementKey(scrollElement)])) (*window)[NativeElementKey(scrollElement)]->visible = 1;
-        if ((window && (*window)[NativeElementKey(scrollElement - 1)])) (*window)[NativeElementKey(scrollElement - 1)]->visible = 1;
+        if (auto* const indexedElement5 = window ? window->FindElementById(NativeElementKey(scrollElement)) : nullptr; indexedElement5) indexedElement5->visible = 1;
+        if (auto* const indexedElement6 = window ? window->FindElementById(NativeElementKey(scrollElement - 1)) : nullptr; indexedElement6) indexedElement6->visible = 1;
     }
     std::wstring buffer;
     if (*tab == 2) {
@@ -1452,13 +1486,17 @@ static void WindowTrade_HandleOwnPets(
 // 原函数：0x004B2480。
 static std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    const std::uint32_t color = graphic->color;
-    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    descriptor.color = color;
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        const auto* const graphic = graphicElement->data.graphic;
+        const std::uint32_t color = graphic->color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+        descriptor.color = color;
+    }
     static constexpr std::array<std::int32_t, 3> backgrounds54F530 {243143, 243145, 243144};
     const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
     return WindowTrade_HandlePanel(
@@ -1914,13 +1952,17 @@ static void WindowTrade_HandleSelectedPet(
 // 原函数：0x004B3430。
 static std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    const std::uint32_t color = graphic->color;
-    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    descriptor.color = color;
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        const auto* const graphic = graphicElement->data.graphic;
+        const std::uint32_t color = graphic->color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+        descriptor.color = color;
+    }
     if (gTradeValueD2E2B0 == 2) {
         reinterpret_cast<unsigned char*>(&descriptor.color)[3] >>= 1;
     }
@@ -1966,13 +2008,17 @@ static void WindowTrade_RefreshSelectedPanel(
 // 原函数：0x004B3580。
 static std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    const auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    const std::uint32_t color = graphic->color;
-    descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    descriptor.color = color;
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        const auto* const graphic = graphicElement->data.graphic;
+        const std::uint32_t color = graphic->color;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+        descriptor.color = color;
+    }
     if (gTradeValueCC4224 == 2) {
         reinterpret_cast<unsigned char*>(&descriptor.color)[3] >>= 1;
     }
@@ -2166,11 +2212,15 @@ static std::int32_t WindowTrade_HandleAmountInput(const std::int32_t, const std:
             WindowInstance* const window = gWindowStates[WindowId_Trade].window;
             static_cast<void>(WindowInput_ActivateElement(&gTradeInputPrototype5803D0, 0, -100, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
-            if (!((window && (*window)[WindowTradeElementId::HandleAmountInput]))) { return {}; }
-            gFocusedElementDataD45F94 = (*window)[WindowTradeElementId::HandleAmountInput]->data.input;
-            if (!((window && (*window)[WindowTradeElementId::HandleAmountInput]))) { return {}; }
-            auto* const data = (*window)[WindowTradeElementId::HandleAmountInput]->data.input;
-            data->context = &cg::ui::detail::gInputContextCC21E8;
+            auto* const handleAmountInputElement = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
+            if (handleAmountInputElement) {
+                gFocusedElementDataD45F94 = handleAmountInputElement->data.input;
+            }
+            auto* const handleAmountInputElement2 = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
+            if (handleAmountInputElement2) {
+                auto* const data = handleAmountInputElement2->data.input;
+                data->context = &cg::ui::detail::gInputContextCC21E8;
+            }
         }
     } else if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC21E8) {
         static_cast<void>(WindowChat_RestoreInput());
@@ -2609,8 +2659,10 @@ static std::int32_t WindowTrade_ReadSelectedPet(const std::int32_t index)
 // 原函数：0x004B0A50。
 static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"向对方公开交易内容。";
@@ -2646,20 +2698,22 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
         const std::int32_t amount = gTradeValueD046D0;
         static_cast<void>(network::SendTradeOffer_512040(
             platform::gConnectionSocket, itemCopy, petCopy, amount));
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         gTradeValueD2E2B0 = 1;
         gTradeScrollD67430 = 0;
-        if (!((window && (*window)[WindowTradeElementId::HandleVerticalScroll_14]))) { return {}; }
-        static_cast<void>(WindowScroll_SetPosition((*window)[WindowTradeElementId::HandleVerticalScroll_14], 2, 0));
+        auto* const handleVerticalScroll_14Element = window->FindElementById(WindowTradeElementId::HandleVerticalScroll_14);
+        if (handleVerticalScroll_14Element) {
+            static_cast<void>(WindowScroll_SetPosition(handleVerticalScroll_14Element, 2, 0));
+        }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         result = 1;
     }
-    graphic->imageNo = 0x3BA89;
+    if (graphic) graphic->imageNo = 0x3BA89;
     if (hover) {
-        graphic->imageNo = 0x3BA8B;
+        if (graphic) graphic->imageNo = 0x3BA8B;
     }
     if ((state & 8) != 0) {
-        graphic->imageNo = 0x3BA8A;
+        if (graphic) graphic->imageNo = 0x3BA8A;
     }
     return result;
 }
@@ -2667,78 +2721,88 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
 // 原函数：0x004B0CF0。
 static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const bool hover = (state & 1) != 0;
-    if (hover) {
-        gHoverTextD68AE8 = L"还是算了。";
-    }
-    std::int32_t result = 0;
-    if ((state & 2) != 0) {
-        static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
-        const std::int32_t previous = gTradeValueCC4224;
-        gTradeValueD2E2B0 = 0;
-        if (previous == 2) {
-            gTradeValueCC4224 = 1;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hover = (state & 1) != 0;
+        if (hover) {
+            gHoverTextD68AE8 = L"还是算了。";
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        gTradeStepD3040C = 23;
-        result = 1;
+        std::int32_t result = 0;
+        if ((state & 2) != 0) {
+            static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
+            const std::int32_t previous = gTradeValueCC4224;
+            gTradeValueD2E2B0 = 0;
+            if (previous == 2) {
+                gTradeValueCC4224 = 1;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            gTradeStepD3040C = 23;
+            result = 1;
+        }
+        graphic->imageNo = 0x3B562;
+        if (hover) {
+            graphic->imageNo = 0x3B564;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B563;
+        }
+        return result;
     }
-    graphic->imageNo = 0x3B562;
-    if (hover) {
-        graphic->imageNo = 0x3B564;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B563;
-    }
-    return result;
+    return {};
 }
 
 // 原函数：0x004B0DB0。
 static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    const bool hover = (state & 1) != 0;
-    if (hover) {
-        gHoverTextD68AE8 = L"确定交易。";
-    }
-    std::int32_t result = 0;
-    if ((state & 2) != 0) {
-        const std::int32_t phase = gTradeValueD2E2B0;
-        if ((phase == 1 && gTradeValueCC4224 >= 1) || phase == 2) {
-            const std::uint64_t tick = platform::ReadTickCount64();
-            if (gWindowActionTick62B5AC + 500u < tick) {
-                if (phase == 1) {
-                    static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 1));
-                    gTradeValueD2E2B0 = 2;
-                    gTradeValueD67CB8 = 1;
-                    gTradeValueD67CBC = 1;
-                } else {
-                    static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
-                    const std::int32_t previous = gTradeValueCC4224;
-                    gTradeValueD2E2B0 = 0;
-                    if (previous == 2) {
-                        gTradeValueCC4224 = 1;
-                    }
-                }
-                gWindowActionTick62B5AC = platform::ReadTickCount64();
-                static_cast<void>(audio::PlaySe_52C450(78, 320));
-            }
-        } else {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const bool hover = (state & 1) != 0;
+        if (hover) {
+            gHoverTextD68AE8 = L"确定交易。";
         }
-        result = 1;
+        std::int32_t result = 0;
+        if ((state & 2) != 0) {
+            const std::int32_t phase = gTradeValueD2E2B0;
+            if ((phase == 1 && gTradeValueCC4224 >= 1) || phase == 2) {
+                const std::uint64_t tick = platform::ReadTickCount64();
+                if (gWindowActionTick62B5AC + 500u < tick) {
+                    if (phase == 1) {
+                        static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 1));
+                        gTradeValueD2E2B0 = 2;
+                        gTradeValueD67CB8 = 1;
+                        gTradeValueD67CBC = 1;
+                    } else {
+                        static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
+                        const std::int32_t previous = gTradeValueCC4224;
+                        gTradeValueD2E2B0 = 0;
+                        if (previous == 2) {
+                            gTradeValueCC4224 = 1;
+                        }
+                    }
+                    gWindowActionTick62B5AC = platform::ReadTickCount64();
+                    static_cast<void>(audio::PlaySe_52C450(78, 320));
+                }
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            result = 1;
+        }
+        graphic->imageNo = 0x3BA8C;
+        if (hover) {
+            graphic->imageNo = 0x3BA8E;
+        }
+        if (gTradeValueD2E2B0 == 2) {
+            graphic->imageNo = 0x3BA8D;
+        }
+        return result;
     }
-    graphic->imageNo = 0x3BA8C;
-    if (hover) {
-        graphic->imageNo = 0x3BA8E;
-    }
-    if (gTradeValueD2E2B0 == 2) {
-        graphic->imageNo = 0x3BA8D;
-    }
-    return result;
+    return {};
 }
 
 // 原函数：0x004E5620。

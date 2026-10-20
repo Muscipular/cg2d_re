@@ -227,7 +227,9 @@ std::int32_t WindowPetDetail_ReadDraftFlag()
 // 原函数：0x00492280。
 void WindowPetDetail_InitializeDraft()
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    WindowInstance* const window = currentWindow;
     // 九处caller均属于详情页16/17/18；异常ID的原未写栈下标不专项模拟。
     constexpr std::int32_t nameElements[] {9, 14, 11};
     const std::int32_t element = nameElements[window->id - 16];
@@ -236,7 +238,7 @@ void WindowPetDetail_InitializeDraft()
     const auto& pet = world::gPetRuntimeRecords[selected];
     const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
     gLoginWindowRuntime.petNameDraftD45E74 = name;
-    if ((window && (*window)[NativeElementKey(element)])) (*window)[NativeElementKey(element)]->data.text->text = name;
+    if (auto* const indexedElement = window->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.text->text = name;
 }
 
 // 原函数：0x00492350。
@@ -268,43 +270,51 @@ std::int32_t WindowPetDetail_HasPetSequenceChanges()
 // 原函数：0x0048F8F0。
 static std::uint32_t WindowPetDetail_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const auto selectedPet = []() -> world::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
         return world::gPetRuntimeRecords[index];
     };
     // 保留原复制段对elements或data的取样阶段；正文直接使用UTF-16。
-    const auto copyTextAfterScan = [](const std::int32_t element, const std::wstring_view text) {
-        auto* elementsWindow = gCurrentWindow;
-        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(element)]))) { return; }
-        auto* const data = (*elementsWindow)[NativeElementKey(element)]->data.text;
-        data->text = text;
+    const auto copyTextAfterScan = [currentWindow](const std::int32_t element, const std::wstring_view text) {
+        auto* elementsWindow = currentWindow;
+        auto* const dataElement = elementsWindow->FindElementById(NativeElementKey(element));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = text;
+        }
+        return;
     };
-    const auto copyTextBeforeScan = [](const std::int32_t element, const std::wstring_view text) -> std::size_t {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)]))) { return {}; }
-        auto* const data = (*gCurrentWindow)[NativeElementKey(element)]->data.text;
-        const std::size_t length = text.size() + 1;
-        data->text = text;
-        return length;
+    const auto copyTextBeforeScan = [currentWindow](const std::int32_t element, const std::wstring_view text) -> std::size_t {
+        auto* const dataElement = currentWindow->FindElementById(NativeElementKey(element));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            const std::size_t length = text.size() + 1;
+            data->text = text;
+            return length;
+        }
+        return 0;
     };
     std::wstring buffer;
     if (selectedPet().used != 0) {
         constexpr std::int32_t visibleElements[] {9, 11, 12, 13, 14, 15, 16, 17, 20, 10, 18, 19};
         for (const std::int32_t element : visibleElements) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 1;
         }
         const bool customName = selectedPet().name6BD[0] != '\0';
         input::InputContext* const activeInput = input::gCurrentInputData;
         if (activeInput == &cg::ui::detail::gInputContextD2D4A0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetDetailElementId::Element10])) (*gCurrentWindow)[WindowPetDetailElementId::Element10]->visible = 0;
+            if (auto* const element10 = currentWindow->FindElementById(WindowPetDetailElementId::Element10); element10) element10->visible = 0;
             const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             gLoginWindowRuntime.petNameDraftD45E74 = text;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 1));
         } else {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetDetailElementId::Element10])) (*gCurrentWindow)[WindowPetDetailElementId::Element10]->visible = 1;
+            if (auto* const element10 = currentWindow->FindElementById(WindowPetDetailElementId::Element10); element10) element10->visible = 1;
             if (customName) {
                 static_cast<void>(copyTextBeforeScan(9, gLoginWindowRuntime.petNameDraftD45E74));
             } else {
@@ -313,14 +323,16 @@ static std::uint32_t WindowPetDetail_Refresh()
             const auto& compared = selectedPet();
             const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
             const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetDetailElementId::Element10]))) { return {}; }
-            auto* const data = (*gCurrentWindow)[WindowPetDetailElementId::Element10]->data.text;
-            data->style.color = changed ? std::byte{6} : std::byte{0};
+            auto* const element102 = currentWindow->FindElementById(WindowPetDetailElementId::Element10);
+            if (element102) {
+                auto* const data = element102->data.text;
+                data->style.color = changed ? std::byte{6} : std::byte{0};
+            }
         }
         const auto& compared = selectedPet();
         const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
         const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetDetailElementId::HandleButtons])) (*gCurrentWindow)[WindowPetDetailElementId::HandleButtons]->visible = changed ? 1 : 0;
+        if (auto* const handleButtonsElement = currentWindow->FindElementById(WindowPetDetailElementId::HandleButtons); handleButtonsElement) handleButtonsElement->visible = changed ? 1 : 0;
 
         if ((selectedPet().values0C[5] == -1)) {
             const std::int32_t experience = static_cast<std::int32_t>(selectedPet().values0C[4]);
@@ -341,13 +353,15 @@ static std::uint32_t WindowPetDetail_Refresh()
         copyTextAfterScan(13, buffer);
 
         const auto& tribePet = selectedPet();
-        WindowInstance* const tribeWindow = gCurrentWindow;
+        WindowInstance* const tribeWindow = currentWindow;
         const auto tribe = std::bit_cast<std::int16_t>(tribePet.value04);
         auto* tribeElementsWindow = tribeWindow;
         const wchar_t* const tribeName = gTribeNames57CB54[tribe];
-        if (!((tribeElementsWindow && (*tribeElementsWindow)[WindowPetDetailElementId::Element15]))) { return {}; }
-        auto* const tribeData = (*tribeElementsWindow)[WindowPetDetailElementId::Element15]->data.text;
-        tribeData->text = tribeName;
+        auto* const element15 = tribeElementsWindow->FindElementById(WindowPetDetailElementId::Element15);
+        if (element15) {
+            auto* const tribeData = element15->data.text;
+            tribeData->text = tribeName;
+        }
         buffer = std::format(L"{:>3}", selectedPet().values70[10]);
         static_cast<void>(copyTextBeforeScan(15, buffer));
         buffer = std::format(L"{:>2}", selectedPet().value6A4);
@@ -361,15 +375,19 @@ static std::uint32_t WindowPetDetail_Refresh()
         static_cast<void>(copyTextBeforeScan(19, buffer));
 
         const auto& imagePet = selectedPet();
-        auto* imageElementsWindow = gCurrentWindow;
+        auto* imageElementsWindow = currentWindow;
         const std::int32_t imageNo = imagePet.imageNo6A0;
-        if (!((imageElementsWindow && (*imageElementsWindow)[WindowPetDetailElementId::Element21]))) { return {}; }
-        auto* const imageData = (*imageElementsWindow)[WindowPetDetailElementId::Element21]->data.animation;
-        cg::yobi::SetYobiActionField2A8(imageData->action, imageNo);
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetDetailElementId::Element21]))) { return {}; }
-        auto* const directionData = (*gCurrentWindow)[WindowPetDetailElementId::Element21]->data.animation;
-        const std::int32_t direction = gLoginWindowRuntime.valueD673D0;
-        cg::yobi::SetYobiActionField2B8(directionData->action, direction);
+        auto* const element21 = imageElementsWindow->FindElementById(WindowPetDetailElementId::Element21);
+        if (element21) {
+            auto* const imageData = element21->data.animation;
+            cg::yobi::SetYobiActionField2A8(imageData->action, imageNo);
+        }
+        auto* const element212 = currentWindow->FindElementById(WindowPetDetailElementId::Element21);
+        if (element212) {
+            auto* const directionData = element212->data.animation;
+            const std::int32_t direction = gLoginWindowRuntime.valueD673D0;
+            cg::yobi::SetYobiActionField2B8(directionData->action, direction);
+        }
 
         const std::int32_t injury = selectedPet().values70[25];
         std::int32_t injuryImage;
@@ -384,16 +402,16 @@ static std::uint32_t WindowPetDetail_Refresh()
         } else {
             injuryImage = 0x3B618;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetDetailElementId::Element11])) (*gCurrentWindow)[WindowPetDetailElementId::Element11]->data.graphic->imageNo = injuryImage;
+        if (auto* const element11 = currentWindow->FindElementById(WindowPetDetailElementId::Element11); element11) element11->data.graphic->imageNo = injuryImage;
 
-        const auto showSegment = [](const std::int32_t element, const std::int32_t image) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->data.graphic->imageNo = image;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 1;
+        const auto showSegment = [currentWindow](const std::int32_t element, const std::int32_t image) {
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.graphic->imageNo = image;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(element)); indexedElement2) indexedElement2->visible = 1;
         };
         for (std::int32_t attribute = 0; attribute < 4; ++attribute) {
             const std::int32_t base = 21 + attribute * 10;
             for (std::int32_t segment = 0; segment < 10; ++segment) {
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(base + segment)])) (*gCurrentWindow)[NativeElementKey(base + segment)]->visible = 0;
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(base + segment)); indexedElement) indexedElement->visible = 0;
             }
             const std::int32_t segments = selectedPet().values70[21 + attribute] / 10;
             const auto& images = gPetBarImages57E434[attribute];
@@ -414,15 +432,15 @@ static std::uint32_t WindowPetDetail_Refresh()
     } else {
         constexpr std::int32_t hiddenElements[] {9, 11, 12, 13, 14, 15, 16, 20, 18, 19};
         for (const std::int32_t element : hiddenElements) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
         }
         for (std::int32_t segment = 0; segment < 10; ++segment) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(21 + segment)])) (*gCurrentWindow)[NativeElementKey(21 + segment)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(31 + segment)])) (*gCurrentWindow)[NativeElementKey(31 + segment)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(41 + segment)])) (*gCurrentWindow)[NativeElementKey(41 + segment)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(51 + segment)])) (*gCurrentWindow)[NativeElementKey(51 + segment)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(21 + segment)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(31 + segment)); indexedElement2) indexedElement2->visible = 0;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(41 + segment)); indexedElement3) indexedElement3->visible = 0;
+            if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(51 + segment)); indexedElement4) indexedElement4->visible = 0;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetDetailElementId::Element11])) (*gCurrentWindow)[WindowPetDetailElementId::Element11]->visible = 0;
+        if (auto* const element11 = currentWindow->FindElementById(WindowPetDetailElementId::Element11); element11) element11->visible = 0;
     }
     buffer = std::format(L"{}/{}", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     return static_cast<std::uint32_t>(copyTextBeforeScan(17, buffer));
@@ -432,6 +450,8 @@ static std::uint32_t WindowPetDetail_Refresh()
 // 原函数：0x0048D9A0。
 static std::int32_t WindowPetDetail_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
         static_cast<void>(WindowPetDetail_SavePetSequences());
@@ -450,7 +470,7 @@ static std::int32_t WindowPetDetail_Update(const std::int32_t value)
         WindowPetDetail_InitializeDraft();
         WindowPetDetail_ResetDraftFlag();
         gPetNameInputPrototype57DCF8.text = gLoginWindowRuntime.petNameDraftD45E74;
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
@@ -458,7 +478,7 @@ static std::int32_t WindowPetDetail_Update(const std::int32_t value)
     const auto selected = std::bit_cast<std::int16_t>(
         world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     if (world::gPetRuntimeRecords[selected].used == 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     static_cast<void>(WindowPetDetail_Refresh());
@@ -480,9 +500,11 @@ static void WindowPetDetail_Release()
 // 原函数：0x0048DD80。
 static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
-    const auto setImage = [index](const std::int32_t image) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
+    const auto setImage = [index, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     const auto petIndex = [](const std::int32_t position) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
@@ -509,9 +531,11 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = name;
-                if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetDetailElementId::Element10]))) { return {}; }
-                auto* const data = (*gCurrentWindow)[WindowPetDetailElementId::Element10]->data.text;
-                data->text = name;
+                auto* const element10 = currentWindow->FindElementById(WindowPetDetailElementId::Element10);
+                if (element10) {
+                    auto* const data = element10->data.text;
+                    data->text = name;
+                }
             }
             consumed = 1;
         }
@@ -580,7 +604,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             const auto& pet = world::gPetRuntimeRecords[selected];
             const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             gPetNameInputPrototype57DCF8.text = name;
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
@@ -620,25 +644,31 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
 // 原函数：0x0048F380。
 std::int32_t WindowPetDetail_EditName(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 2) == 0) {
         return 0;
     }
     gPetNameInputPrototype57DCF8.text = gLoginWindowRuntime.petNameDraftD45E74;
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
     static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextD2D4A0);
-    WindowInstance* const focused = gCurrentWindow;
-    if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
-    gFocusedElementDataD45F94 = (*focused)[NativeElementKey(index)]->data.input;
-    if ((focused && (*focused)[NativeElementKey(index)])) (*focused)[NativeElementKey(index)]->data.input->context = &cg::ui::detail::gInputContextD2D4A0;
+    WindowInstance* const focused = currentWindow;
+    auto* const indexedElement = focused->FindElementById(NativeElementKey(index));
+    if (indexedElement) {
+        gFocusedElementDataD45F94 = indexedElement->data.input;
+    }
+    if (auto* const indexedElement2 = focused->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->data.input->context = &cg::ui::detail::gInputContextD2D4A0;
     return 1;
 }
 
 // 原函数：0x0048F410。
 std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t target;
     std::int32_t idle;
     std::int32_t hover;
@@ -657,22 +687,24 @@ std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int
         return 0;
     }
     std::int32_t consumed = 0;
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    if ((state & 1) != 0) {
-        graphic->imageNo = hover;
-        gHoverTextD68AE8 = hint;
-        consumed = 1;
-    } else {
-        graphic->imageNo = idle;
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        if ((state & 1) != 0) {
+            graphic->imageNo = hover;
+            gHoverTextD68AE8 = hint;
+            consumed = 1;
+        } else {
+            graphic->imageNo = idle;
+        }
     }
     if ((state & 2) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
         static_cast<void>(WindowRuntime_Open(target));
-        WindowInstance* const xSource = gCurrentWindow;
+        WindowInstance* const xSource = currentWindow;
         WindowInstance* const xTarget = gWindowStates[target].window;
         xTarget->x = xSource->x;
-        WindowInstance* const ySource = gCurrentWindow;
+        WindowInstance* const ySource = currentWindow;
         WindowInstance* const yTarget = gWindowStates[target].window;
         yTarget->y = ySource->y;
         static_cast<void>(audio::PlaySe_52C450(56, 320));

@@ -133,6 +133,8 @@ WindowPrototype gWindowPrototypeOwnProfileCategory {0, 4, 38, 95, 225, 220, 0x80
 // 原函数：0x004C9C70。
 static void WindowOwnProfileCategory_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     const std::int32_t mode = gProfileCategory1085DA0;
     std::int32_t image;
     switch (mode) {
@@ -141,15 +143,17 @@ static void WindowOwnProfileCategory_Refresh()
     case 2: image = 0x3C385; break;
     default: return;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileCategoryElementId::Element6])) (*gCurrentWindow)[WindowOwnProfileCategoryElementId::Element6]->data.graphic->imageNo = image;
+    if (auto* const element6 = currentWindow->FindElementById(WindowOwnProfileCategoryElementId::Element6); element6) element6->data.graphic->imageNo = image;
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t page = gProfileScrollCA0444;
         const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + row);
         const wchar_t* const source =
             record.used != 0 ? record.text0C.data() : L"";
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)]))) { continue; }
-        auto* const data = (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text;
-        data->text = source;
+        auto* const dataElement = currentWindow->FindElementById(NativeElementKey(row + 9));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = source;
+        }
     }
 }
 
@@ -157,11 +161,13 @@ static void WindowOwnProfileCategory_Refresh()
 // 关联原入口：0x004C94D6（共享尾已并入本函数正文）。
 static std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         gProfileScrollCA0444 = 0;
     }
     if (gWindowStates[WindowId_OwnProfile].window == nullptr) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     WindowOwnProfileCategory_Refresh();
     return 1;
@@ -170,6 +176,8 @@ static std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
 // 原函数：0x004C94F0。
 static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         switch (gProfileCategory1085DA0) {
@@ -178,10 +186,10 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         case 2: gHoverTextD68AE8 = L"设定描述的目录" /* 原常量参考：0x00588514。 */; break;
         default: break;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB04;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB02;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
     }
 
     const std::int32_t selectedMode = gProfileCategory1085DA0;
@@ -190,7 +198,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         const std::int32_t selected =
             world::detail::gCurrentProfile10738E8.entries410[selectedMode].value00;
         if (selected == page + index - 19) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB03;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB03;
         }
     }
     if ((state & 2) == 0) {
@@ -217,9 +225,11 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
 // 原函数：0x004C96F0。
 static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
-    const auto setImage = [index](const std::int32_t image) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
+    const auto setImage = [index, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     switch (index) {
     case 3: {
@@ -250,14 +260,16 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
             WindowInstance* window;
             std::int32_t count;
             if (mode == 2) {
-                window = gCurrentWindow;
+                window = currentWindow;
                 count = world::detail::ReadCategoryCount105FA1C();
             } else {
                 count = world::detail::ReadCategoryCount105FA18();
-                window = gCurrentWindow;
+                window = currentWindow;
             }
-            if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], count - 10, position));
+            auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
+            if (dragScrollElement) {
+                static_cast<void>(WindowScroll_SetPosition(dragScrollElement, count - 10, position));
+            }
         }
         return 1;
     }
@@ -292,9 +304,11 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
             const std::int32_t currentCount = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C()
                 : world::detail::ReadCategoryCount105FA18();
-            WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], currentCount - 10, position));
+            WindowInstance* const window = currentWindow;
+            auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
+            if (dragScrollElement) {
+                static_cast<void>(WindowScroll_SetPosition(dragScrollElement, currentCount - 10, position));
+            }
         }
         return 1;
     }
@@ -312,9 +326,11 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
                 const std::int32_t count = mode == 2
                     ? world::detail::ReadCategoryCount105FA1C()
                     : world::detail::ReadCategoryCount105FA18();
-                WindowInstance* const window = gCurrentWindow;
-                if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], count - 10, page));
+                WindowInstance* const window = currentWindow;
+                auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
+                if (dragScrollElement) {
+                    static_cast<void>(WindowScroll_SetPosition(dragScrollElement, count - 10, page));
+                }
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -341,9 +357,11 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
                 const std::int32_t currentCount = mode == 2
                     ? world::detail::ReadCategoryCount105FA1C()
                     : world::detail::ReadCategoryCount105FA18();
-                WindowInstance* const window = gCurrentWindow;
-                if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], currentCount - 10, position));
+                WindowInstance* const window = currentWindow;
+                auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
+                if (dragScrollElement) {
+                    static_cast<void>(WindowScroll_SetPosition(dragScrollElement, currentCount - 10, position));
+                }
             }
             consumed = 1;
         }
@@ -360,6 +378,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
 // 原函数：0x004C9B80。
 static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result == 1) {
         const std::int32_t mode = gProfileCategory1085DA0;
@@ -367,9 +387,11 @@ static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index
             const std::int32_t count = mode == 2
                 ? world::detail::ReadCategoryCount105FA1C()
                 : world::detail::ReadCategoryCount105FA18();
-            WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
-            gProfileScrollCA0444 = WindowScroll_ReadPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], count - 10);
+            WindowInstance* const window = currentWindow;
+            auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
+            if (dragScrollElement) {
+                gProfileScrollCA0444 = WindowScroll_ReadPosition(dragScrollElement, count - 10);
+            }
         }
     }
     return result;
@@ -378,6 +400,8 @@ static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index
 // 原函数：0x004C9BE0。
 static std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 0x21) != 0) {
         const std::int32_t mode = gProfileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
@@ -386,9 +410,11 @@ static std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const st
                 ? world::detail::ReadCategoryCount105FA1C()
                 : world::detail::ReadCategoryCount105FA18();
             const std::int32_t page = gProfileScrollCA0444;
-            WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
-            gProfileScrollCA0444 = WindowScroll_ApplyWheel((*window)[WindowOwnProfileCategoryElementId::DragScroll], page, count - 10, wheel);
+            WindowInstance* const window = currentWindow;
+            auto* const dragScrollElement = window->FindElementById(WindowOwnProfileCategoryElementId::DragScroll);
+            if (dragScrollElement) {
+                gProfileScrollCA0444 = WindowScroll_ApplyWheel(dragScrollElement, page, count - 10, wheel);
+            }
         }
     }
     return 0;

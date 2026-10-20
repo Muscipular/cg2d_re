@@ -186,26 +186,34 @@ WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080
 // 原函数：0x00477540。
 static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"设定自己的称号。" /* 原常量参考：0x005863C4。 */;
     }
     if ((state & 2) == 0) {
         return 0;
     }
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[WindowPlayerTitlesElementId::EditDraft]))) { return {}; }
-    if (gFocusedElementDataD45F94 != (*window)[WindowPlayerTitlesElementId::EditDraft]->data.input) {
-        gTitleInputPrototype57CCB8.text = gTitleDraftD45FC0;
-        const std::int32_t y = window->y;
-        const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 0));
-        input::SetContext_44B330(&cg::ui::detail::gInputContextD2DC10);
-        WindowInstance* const focused = gCurrentWindow;
-        if (!((focused && (*focused)[WindowPlayerTitlesElementId::EditDraft]))) { return {}; }
-        gFocusedElementDataD45F94 = (*focused)[WindowPlayerTitlesElementId::EditDraft]->data.input;
-        if (!((focused && (*focused)[WindowPlayerTitlesElementId::EditDraft]))) { return {}; }
-        (*focused)[WindowPlayerTitlesElementId::EditDraft]->data.input->context =
-            &cg::ui::detail::gInputContextD2DC10;
+    WindowInstance* const window = currentWindow;
+    auto* const editDraftElement = window->FindElementById(WindowPlayerTitlesElementId::EditDraft);
+    if (editDraftElement) {
+        if (gFocusedElementDataD45F94 != editDraftElement->data.input) {
+            gTitleInputPrototype57CCB8.text = gTitleDraftD45FC0;
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 0));
+            input::SetContext_44B330(&cg::ui::detail::gInputContextD2DC10);
+            WindowInstance* const focused = currentWindow;
+            auto* const editDraftElement2 = focused->FindElementById(WindowPlayerTitlesElementId::EditDraft);
+            if (editDraftElement2) {
+                gFocusedElementDataD45F94 = editDraftElement2->data.input;
+            }
+            auto* const editDraftElement3 = focused->FindElementById(WindowPlayerTitlesElementId::EditDraft);
+            if (editDraftElement3) {
+                editDraftElement3->data.input->context =
+                    &cg::ui::detail::gInputContextD2DC10;
+            }
+        }
     }
     return 1;
 }
@@ -213,18 +221,22 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
 // 原函数：0x00477600。
 static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B59E;
-        gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
-        consumed = 1;
-    } else {
-        graphic->imageNo = 0x3B59D;
-    }
-    if ((state & 2) == 0) {
-        return consumed;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B59E;
+            gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
+            consumed = 1;
+        } else {
+            graphic->imageNo = 0x3B59D;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
     }
     const std::int32_t mode = gTitleModeCF4E50;
     if (mode == 0 || mode == 1) {
@@ -248,9 +260,11 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
 // 原函数：0x00477710。
 static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
-    const auto setImage = [index](const std::int32_t image) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
+    const auto setImage = [index, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     switch (index) {
     case 17:
@@ -272,12 +286,12 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             setImage(idle);
         }
         if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {
-            gCurrentWindow->state |= 0x8000u;
+            currentWindow->state |= 0x8000u;
             static_cast<void>(WindowRuntime_Open(target));
-            WindowInstance* const xSource = gCurrentWindow;
+            WindowInstance* const xSource = currentWindow;
             WindowInstance* const xTarget = gWindowStates[target].window;
             xTarget->x = xSource->x;
-            WindowInstance* const ySource = gCurrentWindow;
+            WindowInstance* const ySource = currentWindow;
             WindowInstance* const yTarget = gWindowStates[target].window;
             yTarget->y = ySource->y;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -353,15 +367,19 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             const std::int32_t page = gTitlePageCF4E54;
             if (index == 3 && page > 0) {
                 gTitlePageCF4E54 = page - 1;
-                WindowInstance* const window = gCurrentWindow;
-                if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58, page - 1));
+                WindowInstance* const window = currentWindow;
+                auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
+                if (dragScrollElement) {
+                    static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page - 1));
+                }
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else if (index == 4 && page < 58) {
-                WindowInstance* const window = gCurrentWindow;
+                WindowInstance* const window = currentWindow;
                 gTitlePageCF4E54 = page + 1;
-                if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
-                static_cast<void>(WindowScroll_SetPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58, page + 1));
+                auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
+                if (dragScrollElement) {
+                    static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page + 1));
+                }
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -387,9 +405,11 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
                 page = 58;
                 gTitlePageCF4E54 = page;
             }
-            WindowInstance* const window = gCurrentWindow;
-            if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58, page));
+            WindowInstance* const window = currentWindow;
+            auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
+            if (dragScrollElement) {
+                static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page));
+            }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & 8) != 0) {
@@ -409,10 +429,12 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             if (previousPage < 0) {
                 gTitlePageCF4E54 = 0;
             }
-            WindowInstance* const window = gCurrentWindow;
+            WindowInstance* const window = currentWindow;
             const std::int32_t page = gTitlePageCF4E54;
-            if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
-            static_cast<void>(WindowScroll_SetPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58, page));
+            auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
+            if (dragScrollElement) {
+                static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page));
+            }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & 8) != 0) {
@@ -433,12 +455,16 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
 // 原函数：0x004782A0。
 static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const std::int32_t page = gTitlePageCF4E54;
-        if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
-        gTitlePageCF4E54 = WindowScroll_ApplyWheel((*window)[WindowPlayerTitlesElementId::DragScroll], page, 58, wheel);
+        auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
+        if (dragScrollElement) {
+            gTitlePageCF4E54 = WindowScroll_ApplyWheel(dragScrollElement, page, 58, wheel);
+        }
     }
     return 0;
 }
@@ -447,11 +473,15 @@ static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int
 // 原函数：0x004782E0。
 static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
-        gTitlePageCF4E54 = WindowScroll_ReadPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58);
+        WindowInstance* const window = currentWindow;
+        auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
+        if (dragScrollElement) {
+            gTitlePageCF4E54 = WindowScroll_ReadPosition(dragScrollElement, 58);
+        }
     }
     return result;
 }
@@ -460,53 +490,67 @@ static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, cons
 // 原函数：0x00478010。
 static void WindowPlayerTitles_Refresh()
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element7]))) { return; }
-    auto* const nameData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element7]->data.text;
-    const wchar_t* const name = world::GetPlayerDisplayText(1);
-    nameData->text = name;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    auto* const element7 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element7);
+    if (element7) {
+        auto* const nameData = element7->data.text;
+        const wchar_t* const name = world::GetPlayerDisplayText(1);
+        nameData->text = name;
+    }
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element8]))) { return; }
-    auto* const levelData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element8]->data.text;
-    levelData->text = buffer;
+    auto* const element8 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element8);
+    if (element8) {
+        auto* const levelData = element8->data.text;
+        levelData->text = buffer;
+    }
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element10]))) { return; }
-    auto* const titleData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element10]->data.text;
-    const wchar_t* const title = world::GetTitleText(titleIndex);
-    titleData->text = title;
+    auto* const element10 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element10);
+    if (element10) {
+        auto* const titleData = element10->data.text;
+        const wchar_t* const title = world::GetTitleText(titleIndex);
+        titleData->text = title;
+    }
 
     if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DC10) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9])) (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]->visible = 1;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]))) { return; }
-        auto* const draftData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]->data.text;
-        draftData->text = gTitleDraftD45FC0;
+        if (auto* const element9 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9); element9) element9->visible = 1;
+        auto* const element92 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9);
+        if (element92) {
+            auto* const draftData = element92->data.text;
+            draftData->text = gTitleDraftD45FC0;
+        }
         const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]))) { return; }
-        auto* const colorData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]->data.text;
-        colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
+        auto* const element93 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9);
+        if (element93) {
+            auto* const colorData = element93->data.text;
+            colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
+        }
     } else {
         gTitleDraftD45FC0 = input::ContextText(*gTitleInputPrototype57CCB8.input.context);
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9])) (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]->visible = 0;
-        WindowInstance* const window = gCurrentWindow;
+        if (auto* const element9 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9); element9) element9->visible = 0;
+        WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 1));
     }
 
     const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::HandleButtons_22])) (*gCurrentWindow)[WindowPlayerTitlesElementId::HandleButtons_22]->visible = unchanged ? 0 : 1;
+    if (auto* const handleButtons_22Element = currentWindow->FindElementById(WindowPlayerTitlesElementId::HandleButtons_22); handleButtons_22Element) handleButtons_22Element->visible = unchanged ? 0 : 1;
 
     const world::TitleRecord* record =
         world::gSortedTitlesDE03F8.data() + gTitlePageCF4E54;
     for (std::int32_t index = 10; index < 16; ++index) {
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         const wchar_t* const text = record->text.data();
         ++record;
-        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
-        auto* const data = (*window)[NativeElementKey(index)]->data.text;
-        data->text = text;
+        auto* const dataElement = window->FindElementById(NativeElementKey(index));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = text;
+        }
     }
 }
 
@@ -514,16 +558,20 @@ static void WindowPlayerTitles_Refresh()
 // 原函数：0x004774C0。
 static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
         gTitlePageCF4E54 = 0;
         gTitleDraftD45FC0 = ownTitle;
 
-        auto* elementsWindow = gCurrentWindow;
+        auto* elementsWindow = currentWindow;
         const wchar_t* const displayTitle = world::GetPlayerDisplayText(2);
-        if (!((elementsWindow && (*elementsWindow)[WindowPlayerTitlesElementId::Element9]))) { return {}; }
-        auto* const data = (*elementsWindow)[WindowPlayerTitlesElementId::Element9]->data.text;
-        data->text = displayTitle;
+        auto* const element9 = elementsWindow->FindElementById(WindowPlayerTitlesElementId::Element9);
+        if (element9) {
+            auto* const data = element9->data.text;
+            data->text = displayTitle;
+        }
     }
     WindowPlayerTitles_Refresh();
     return 1;

@@ -324,7 +324,7 @@ struct WindowElementLink {
     }
     WindowElement* get() const {
         auto* window = WindowRuntime_FindInstance(windowId);
-        return window ? (*window)[elementId] : nullptr;
+        return window ? window->FindElementById(elementId) : nullptr;
     }
     operator WindowElement*() const { return get(); }
     WindowElement* operator->() const { return get(); }
@@ -503,10 +503,6 @@ std::int32_t WindowRuntime_DrawLargeFrame(std::int32_t value); // 31/46共用绘
 // 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
 struct WindowItemSelectorState {
     std::array<WindowElementLink, 20> elements00; // 选择器关联控件身份，非零模式保留槽19。
-    bool elementsValid() const {
-        for (const auto& ref : elements00) if (ref.elementId && !ref.get()) return false;
-        return true;
-    }
     std::array<WindowElementCallback, 4> callbacks50; // 原成员偏移：+0x50。 4C6550写回元素mouseCallback。
     std::int32_t value60; // 原成员偏移：+0x60。 4C6550发布的数值页状态，4C75A0仅在2时绘制。
     std::int32_t value64; // 原成员偏移：+0x64。

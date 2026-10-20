@@ -180,45 +180,61 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
     switch (kind) {
         case 0:
         case 1: {
-            if (!((window && (*window)[WindowSkillResultElementId::Element5]))) { return {}; }
-            cg::text::FormatTo((*window)[WindowSkillResultElementId::Element5]->data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
+            auto* const element5 = window ? window->FindElementById(WindowSkillResultElementId::Element5) : nullptr;
+            if (element5) {
+                cg::text::FormatTo(element5->data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
+            }
             const wchar_t* text = nullptr;
             if (kind == 0) {
                 text = gWindow13ResultD66E2C != 0 ? L"　变装成功了！" /* 原常量参考：0x00586AF0。 */ : L"　变装失败了！" /* 原常量参考：0x00586AE0。 */;
             } else {
                 text = gWindow13ResultD66E2C != 0 ? L"　变身成功了！" /* 原常量参考：0x00586AD0。 */ : L"　变身失败了！" /* 原常量参考：0x00586AC0。 */;
             }
-            if ((window && (*window)[WindowSkillResultElementId::Element6])) (*window)[WindowSkillResultElementId::Element6]->data.text->text = text;
+            if (auto* const element6 = window ? window->FindElementById(WindowSkillResultElementId::Element6) : nullptr; element6) element6->data.text->text = text;
             break;
         }
         case 2:
             if (gWindow13ResultD66E2C != 0) {
-                if (!((window && (*window)[WindowSkillResultElementId::Element5]))) { return {}; }
-                cg::text::FormatTo((*window)[WindowSkillResultElementId::Element5]->data.text->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
-                if (!((window && (*window)[WindowSkillResultElementId::Element6]))) { return {}; }
-                cg::text::FormatTo((*window)[WindowSkillResultElementId::Element6]->data.text->text, L"　生命值恢复了 {} 。" /* 原常量参考：0x00586A94。 */, gWindow13ValueD2DBF0);
+                auto* const element5 = window ? window->FindElementById(WindowSkillResultElementId::Element5) : nullptr;
+                if (element5) {
+                    cg::text::FormatTo(element5->data.text->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
+                }
+                auto* const element6 = window ? window->FindElementById(WindowSkillResultElementId::Element6) : nullptr;
+                if (element6) {
+                    cg::text::FormatTo(element6->data.text->text, L"　生命值恢复了 {} 。" /* 原常量参考：0x00586A94。 */, gWindow13ValueD2DBF0);
+                }
             } else {
-                if (!((window && (*window)[WindowSkillResultElementId::Element5]))) { return {}; }
-                cg::text::FormatTo((*window)[WindowSkillResultElementId::Element5]->data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
-                if ((window && (*window)[WindowSkillResultElementId::Element6])) (*window)[WindowSkillResultElementId::Element6]->data.text->text = gWindow13ValueD2DBF0 == 0 ? L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */ : L"　治疗失败了！" /* 原常量参考：0x00586A70。 */;
+                auto* const element5 = window ? window->FindElementById(WindowSkillResultElementId::Element5) : nullptr;
+                if (element5) {
+                    cg::text::FormatTo(element5->data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
+                }
+                if (auto* const element6 = window ? window->FindElementById(WindowSkillResultElementId::Element6) : nullptr; element6) element6->data.text->text = gWindow13ValueD2DBF0 == 0 ? L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */ : L"　治疗失败了！" /* 原常量参考：0x00586A70。 */;
             }
             break;
         case 3:
             if (gWindow13ResultD66E2C != 0) {
-                if (!((window && (*window)[WindowSkillResultElementId::Element5]))) { return {}; }
-                cg::text::FormatTo((*window)[WindowSkillResultElementId::Element5]->data.text->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
-                if ((window && (*window)[WindowSkillResultElementId::Element6])) (*window)[WindowSkillResultElementId::Element6]->data.text->text = gWindow13ValueD2DBF0 == 4 ? L"伤势全部恢复了！" /* 原常量参考：0x00586A5C。 */ : L"伤势稍微恢复了。" /* 原常量参考：0x00586A48。 */;
+                auto* const element5 = window ? window->FindElementById(WindowSkillResultElementId::Element5) : nullptr;
+                if (element5) {
+                    cg::text::FormatTo(element5->data.text->text, L"{:<16}的治疗成功了" /* 原常量参考：0x00586AAC。 */, gSkillTargetNameD2F748);
+                }
+                if (auto* const element6 = window ? window->FindElementById(WindowSkillResultElementId::Element6) : nullptr; element6) element6->data.text->text = gWindow13ValueD2DBF0 == 4 ? L"伤势全部恢复了！" /* 原常量参考：0x00586A5C。 */ : L"伤势稍微恢复了。" /* 原常量参考：0x00586A48。 */;
             } else if (gWindow13ValueD2DBF0 == 0) {
-                if (!((window && (*window)[WindowSkillResultElementId::Element5]))) { return {}; }
-                cg::text::FormatTo((*window)[WindowSkillResultElementId::Element5]->data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
-                if ((window && (*window)[WindowSkillResultElementId::Element6])) (*window)[WindowSkillResultElementId::Element6]->data.text->text = L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */;
+                auto* const element5 = window ? window->FindElementById(WindowSkillResultElementId::Element5) : nullptr;
+                if (element5) {
+                    cg::text::FormatTo(element5->data.text->text, L"对{:<22}" /* 原常量参考：0x00586B00。 */, gSkillTargetNameD2F748);
+                }
+                if (auto* const element6 = window ? window->FindElementById(WindowSkillResultElementId::Element6) : nullptr; element6) element6->data.text->text = L"　不需进行治疗！" /* 原常量参考：0x00586A80。 */;
             } else {
-                if (!((window && (*window)[WindowSkillResultElementId::Element5]))) { return {}; }
-                cg::text::FormatTo((*window)[WindowSkillResultElementId::Element5]->data.text->text, L"{:<16}的治疗失败了" /* 原常量参考：0x00586A34。 */, gSkillTargetNameD2F748);
+                auto* const element5 = window ? window->FindElementById(WindowSkillResultElementId::Element5) : nullptr;
+                if (element5) {
+                    cg::text::FormatTo(element5->data.text->text, L"{:<16}的治疗失败了" /* 原常量参考：0x00586A34。 */, gSkillTargetNameD2F748);
+                }
                 const std::int32_t value = gWindow13ValueD2DBF0;
-                if (!((window && (*window)[WindowSkillResultElementId::Element6]))) { return {}; }
-                (*window)[WindowSkillResultElementId::Element6]->data.text->text = value == 3 ? L"　伤势恶化而掉魂了。" /* 原常量参考：0x00586A1C。 */
-                    : value == 2 ? L"　伤势恶化了。" /* 原常量参考：0x00586A0C。 */ : L"";
+                auto* const element6 = window ? window->FindElementById(WindowSkillResultElementId::Element6) : nullptr;
+                if (element6) {
+                    element6->data.text->text = value == 3 ? L"　伤势恶化而掉魂了。" /* 原常量参考：0x00586A1C。 */
+                        : value == 2 ? L"　伤势恶化了。" /* 原常量参考：0x00586A0C。 */ : L"";
+                }
             }
             break;
         default:
@@ -226,28 +242,34 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
     }
     static_cast<void>(audio::PlaySe_52C450(gWindow13ResultD66E2C != 0 ? 57 : 58, 320));
     if (gWindow13LevelUpCF468C != 0) {
-        if ((window && (*window)[WindowSkillResultElementId::Element7])) (*window)[WindowSkillResultElementId::Element7]->data.text->text = kCraftLevelUp58661C;
+        if (auto* const element7 = window ? window->FindElementById(WindowSkillResultElementId::Element7) : nullptr; element7) element7->data.text->text = kCraftLevelUp58661C;
     } else {
-        if (!((window && (*window)[WindowSkillResultElementId::Element7]))) { return {}; }
-        cg::text::FormatTo((*window)[WindowSkillResultElementId::Element7]->data.text->text, kCraftExperience58660C, gWindow13ExperienceCC2E5C);
+        auto* const element7 = window ? window->FindElementById(WindowSkillResultElementId::Element7) : nullptr;
+        if (element7) {
+            cg::text::FormatTo(element7->data.text->text, kCraftExperience58660C, gWindow13ExperienceCC2E5C);
+        }
     }
-    if (!((window && (*window)[WindowSkillResultElementId::Element8]))) { return {}; }
-    std::wstring& increments = (*window)[WindowSkillResultElementId::Element8]->data.text->text;
-    increments.clear();
-    if (gWindow13EnduranceCC421C != 0) {
-        increments.append(std::format(kCraftEndurance586600, gWindow13EnduranceCC421C));
+    auto* const element8 = window ? window->FindElementById(WindowSkillResultElementId::Element8) : nullptr;
+    if (element8) {
+        std::wstring& increments = element8->data.text->text;
+        increments.clear();
+        if (gWindow13EnduranceCC421C != 0) {
+            increments.append(std::format(kCraftEndurance586600, gWindow13EnduranceCC421C));
+        }
+        if (gWindow13DexterityD2D644 != 0) {
+            increments.append(std::format(kCraftDexterity5865F4, gWindow13DexterityD2D644));
+        }
+        if (gWindow13IntelligenceCC19FC != 0) {
+            increments.append(std::format(kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC));
+        }
     }
-    if (gWindow13DexterityD2D644 != 0) {
-        increments.append(std::format(kCraftDexterity5865F4, gWindow13DexterityD2D644));
+    if (auto* const element3 = window ? window->FindElementById(WindowSkillResultElementId::Element3) : nullptr; element3) element3->data.animation->value04 = 1;
+    auto* const element32 = window ? window->FindElementById(WindowSkillResultElementId::Element3) : nullptr;
+    if (element32) {
+        cg::yobi::SetYobiActionField2B0(
+            element32->data.animation->action,
+            gWindow13ResultD66E2C != 0 ? 5 : 10);
     }
-    if (gWindow13IntelligenceCC19FC != 0) {
-        increments.append(std::format(kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC));
-    }
-    if ((window && (*window)[WindowSkillResultElementId::Element3])) (*window)[WindowSkillResultElementId::Element3]->data.animation->value04 = 1;
-    if (!((window && (*window)[WindowSkillResultElementId::Element3]))) { return {}; }
-    cg::yobi::SetYobiActionField2B0(
-        (*window)[WindowSkillResultElementId::Element3]->data.animation->action,
-        gWindow13ResultD66E2C != 0 ? 5 : 10);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, gWindow13ResultD66E2C != 0 ? 6 : 8, 5);
@@ -256,21 +278,27 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
 // 原函数：0x00487AE0。
 static std::int32_t WindowSkillResult_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
-        static_cast<void>(WindowSkillResult_RefreshResult(gCurrentWindow));
+        static_cast<void>(WindowSkillResult_RefreshResult(currentWindow));
     }
     const std::int32_t imageNo =
         WindowSkillResult_ReadPreviewImage(character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo), 0);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSkillResultElementId::Element3]))) { return {}; }
-    cg::yobi::SetYobiActionField2A8(
-        (*gCurrentWindow)[WindowSkillResultElementId::Element3]->data.animation->action, imageNo);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSkillResultElementId::Element3]))) { return {}; }
-    cg::yobi::SetYobiActionField2B8(
-        (*gCurrentWindow)[WindowSkillResultElementId::Element3]->data.animation->action, 5);
+    auto* const element3 = currentWindow->FindElementById(WindowSkillResultElementId::Element3);
+    if (element3) {
+        cg::yobi::SetYobiActionField2A8(
+            element3->data.animation->action, imageNo);
+    }
+    auto* const element32 = currentWindow->FindElementById(WindowSkillResultElementId::Element3);
+    if (element32) {
+        cg::yobi::SetYobiActionField2B8(
+            element32->data.animation->action, 5);
+    }
     if (gSkillSendModeC8A970 != 0) {
-        static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 1, 3, gSkillPetImageCB0A18));
+        static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, gSkillPetImageCB0A18));
     } else {
-        static_cast<void>(WindowCraft_SetPreviewImages(gCurrentWindow, 1, 3, 0));
+        static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, 0));
     }
     return 1;
 }
@@ -278,29 +306,33 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
 // 原函数：0x00487B80。
 static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSkillResultElementId::Element3]))) { return {}; }
-    cg::yobi::YobiAction* const action =
-        (*gCurrentWindow)[WindowSkillResultElementId::Element3]->data.animation->action;
-    const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
-    const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
-    if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
-        const bool succeeded = actionId == 18 || actionId == 5;
-        const std::int32_t defaultAction = succeeded ? 5 : 10;
-        cg::yobi::SetYobiActionField2B0(action, defaultAction);
-        for (const auto& range : kCraftAlternateActionImages) {
-            if (imageNo >= range[0] && imageNo <= range[1]) {
-                cg::yobi::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const element3 = currentWindow->FindElementById(WindowSkillResultElementId::Element3);
+    if (element3) {
+        cg::yobi::YobiAction* const action =
+            element3->data.animation->action;
+        const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
+        const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
+        if (actionId == 18 || actionId == 5 || actionId == 15 || actionId == 10) {
+            const bool succeeded = actionId == 18 || actionId == 5;
+            const std::int32_t defaultAction = succeeded ? 5 : 10;
+            cg::yobi::SetYobiActionField2B0(action, defaultAction);
+            for (const auto& range : kCraftAlternateActionImages) {
+                if (imageNo >= range[0] && imageNo <= range[1]) {
+                    cg::yobi::SetYobiActionField2B0(action, succeeded ? 18 : 15);
+                }
+            }
+            if (imageNo == 0x18A26) {
+                cg::yobi::SetYobiActionField2B0(action, defaultAction);
             }
         }
-        if (imageNo == 0x18A26) {
-            cg::yobi::SetYobiActionField2B0(action, defaultAction);
+        if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
+            cg::yobi::SetYobiActionField309(action, 4);
+            cg::yobi::SetYobiActionField310(action, 4);
+        } else {
+            cg::yobi::SetYobiActionField309(action, 0);
         }
-    }
-    if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
-        cg::yobi::SetYobiActionField309(action, 4);
-        cg::yobi::SetYobiActionField310(action, 4);
-    } else {
-        cg::yobi::SetYobiActionField309(action, 0);
     }
     WindowRuntime_DrawCurrent();
     return 1;
@@ -309,63 +341,73 @@ static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 // 原函数：0x00487D60。
 static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
-    auto* elementsWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* elementsWindow = currentWindow;
     const std::int32_t level = gUsingSkillLevelCA0AC4;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
-    const std::int32_t skill = gUsingSkillIndexD2F32C;
-    const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
-        * world::gSkillsF1BAFC[skill].fpReduce / 100;
-    if ((world::gPlayerRuntimeSlots.fp < cost)) {
-        graphic->imageNo = 0x3BA32;
-        if ((state & 2) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(55, 320));
+    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        const std::int32_t skill = gUsingSkillIndexD2F32C;
+        const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
+            * world::gSkillsF1BAFC[skill].fpReduce / 100;
+        if ((world::gPlayerRuntimeSlots.fp < cost)) {
+            graphic->imageNo = 0x3BA32;
+            if ((state & 2) != 0) {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            return 0;
         }
-        return 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"继续执行。" /* 原常量参考：0x005868E0。 */;
+        }
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            const std::int32_t currentSkill = gUsingSkillIndexD2F32C;
+            static_cast<void>(network::RequestSkillTargetAttributes_511C30(platform::gConnectionSocket, currentSkill));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        graphic->imageNo = 0x3BA31;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3BA33;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3BA32;
+        }
+        return consumed;
     }
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"继续执行。" /* 原常量参考：0x005868E0。 */;
-    }
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        const std::int32_t currentSkill = gUsingSkillIndexD2F32C;
-        static_cast<void>(network::RequestSkillTargetAttributes_511C30(platform::gConnectionSocket, currentSkill));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
-    }
-    graphic->imageNo = 0x3BA31;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3BA33;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3BA32;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x00487E80。
 static std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kWindow13Text5868EC;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
+    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = kWindow13Text5868EC;
+        }
+        std::int32_t consumed = 0;
+        if ((state & 2) != 0) {
+            window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+            consumed = 1;
+        }
+        graphic->imageNo = 0x3B565;
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3B567;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B566;
+        }
+        return consumed;
     }
-    std::int32_t consumed = 0;
-    if ((state & 2) != 0) {
-        window->state |= 0x8000u;
-        static_cast<void>(audio::PlaySe_52C450(57, 320));
-        consumed = 1;
-    }
-    graphic->imageNo = 0x3B565;
-    if ((state & 1) != 0) {
-        graphic->imageNo = 0x3B567;
-    }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B566;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004EEA40。

@@ -179,16 +179,22 @@ void WindowMessageBoard_ResetRecords()
 // 原函数：0x004B5AD0。
 static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         gWindow50InputPrototype580618.input.context->clearText();
-        WindowInstance* const window = gCurrentWindow;
+        WindowInstance* const window = currentWindow;
         static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
         input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleInput]))) { return {}; }
-        gFocusedElementDataD45F94 = (*gCurrentWindow)[WindowMessageBoardElementId::HandleInput]->data.input;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleInput]))) { return {}; }
-        (*gCurrentWindow)[WindowMessageBoardElementId::HandleInput]->data.input->context =
-            gWindow50InputPrototype580618.input.context;
+        auto* const handleInputElement = currentWindow->FindElementById(WindowMessageBoardElementId::HandleInput);
+        if (handleInputElement) {
+            gFocusedElementDataD45F94 = handleInputElement->data.input;
+        }
+        auto* const handleInputElement2 = currentWindow->FindElementById(WindowMessageBoardElementId::HandleInput);
+        if (handleInputElement2) {
+            handleInputElement2->data.input->context =
+                gWindow50InputPrototype580618.input.context;
+        }
     }
     WindowMessageBoard_RefreshRecords();
     if (WindowProfile_CheckDistance(2, 2) != 0) {
@@ -208,22 +214,30 @@ static void WindowMessageBoard_Release()
 // 原函数：0x004B5B70。
 static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if ((state & 1) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
         gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
     }
     if ((state & 2) == 0) {
         return 0;
     }
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
-    if (gFocusedElementDataD45F94 != (*window)[NativeElementKey(index)]->data.input) {
-        static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
-        input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        gFocusedElementDataD45F94 = (*gCurrentWindow)[NativeElementKey(index)]->data.input;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        (*gCurrentWindow)[NativeElementKey(index)]->data.input->context =
-            gWindow50InputPrototype580618.input.context;
+    WindowInstance* const window = currentWindow;
+    auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+    if (indexedElement) {
+        if (gFocusedElementDataD45F94 != indexedElement->data.input) {
+            static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
+            input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
+            auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement2) {
+                gFocusedElementDataD45F94 = indexedElement2->data.input;
+            }
+            auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement3) {
+                indexedElement3->data.input->context =
+                    gWindow50InputPrototype580618.input.context;
+            }
+        }
     }
     return 1;
 }
@@ -231,23 +245,27 @@ static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, con
 // 原函数：0x004B5C30。
 static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::wstring escaped;
     std::wstring text;
     std::int32_t consumed = 0;
     switch (index) {
     case 0:
     case 31: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = index == 0 ? 243002 : 244547;
-            const wchar_t* const hint = index == 0
-                ? L"关闭这个视窗。"
-                : kShopHints57E6C4[2];
-            gHoverTextD68AE8 = hint;
-            consumed = 1;
-        } else {
-            graphic->imageNo = index == 0 ? 243001 : 244545;
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = index == 0 ? 243002 : 244547;
+                const wchar_t* const hint = index == 0
+                    ? L"关闭这个视窗。"
+                    : kShopHints57E6C4[2];
+                gHoverTextD68AE8 = hint;
+                consumed = 1;
+            } else {
+                graphic->imageNo = index == 0 ? 243001 : 244545;
+            }
         }
         if ((state & 2) != 0) {
             static_cast<void>(WindowMessageBoard_Close());
@@ -258,14 +276,16 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
     case 12:
     case 19:
     case 26: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 36818;
-            gHoverTextD68AE8 = L"删除此讯息。";
-            consumed = 1;
-        } else {
-            graphic->imageNo = 36816;
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 36818;
+                gHoverTextD68AE8 = L"删除此讯息。";
+                consumed = 1;
+            } else {
+                graphic->imageNo = 36816;
+            }
         }
         if ((state & 2) == 0) {
             return consumed;
@@ -284,14 +304,16 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         return 1;
     }
     case 30: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_31]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_31]->data.graphic;
-        if ((state & 1) != 0) {
-            graphic->imageNo = 244544;
-            gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
-            consumed = 1;
-        } else {
-            graphic->imageNo = 244542;
+        auto* const handleButtons_31Element = currentWindow->FindElementById(WindowMessageBoardElementId::HandleButtons_31);
+        if (handleButtons_31Element) {
+            auto* const graphic = handleButtons_31Element->data.graphic;
+            if ((state & 1) != 0) {
+                graphic->imageNo = 244544;
+                gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
+                consumed = 1;
+            } else {
+                graphic->imageNo = 244542;
+            }
         }
         if ((state & 2) == 0) {
             return consumed;
@@ -316,34 +338,36 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
     }
     case 32:
     case 33: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        const std::int32_t baseImage = index == 32 ? 243033 : 243030;
-        if ((state & 1) != 0) {
-            graphic->imageNo = baseImage + 2;
-            const wchar_t* const hint = index == 32
-                ? L"切换至下一页视窗。"
-                : L"回到上一页视窗。";
-            gHoverTextD68AE8 = hint;
-            consumed = 1;
-        } else {
-            graphic->imageNo = baseImage;
-        }
-        if ((state & 2) != 0) {
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
-            escaped.clear();
-            const std::int32_t y =
-                static_cast<std::int32_t>(world::gPlayerY);
-            const std::int32_t x =
-                static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
-            static_cast<void>(WindowMessageBoard_Close());
-            consumed = 1;
-        }
-        if ((state & 8) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = baseImage + 1;
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            const std::int32_t baseImage = index == 32 ? 243033 : 243030;
+            if ((state & 1) != 0) {
+                graphic->imageNo = baseImage + 2;
+                const wchar_t* const hint = index == 32
+                    ? L"切换至下一页视窗。"
+                    : L"回到上一页视窗。";
+                gHoverTextD68AE8 = hint;
+                consumed = 1;
+            } else {
+                graphic->imageNo = baseImage;
+            }
+            if ((state & 2) != 0) {
+                const std::int32_t target = world::gDialogTargetD2DE6C;
+                const std::int32_t request = world::gDialogRequestCC21E0;
+                escaped.clear();
+                const std::int32_t y =
+                    static_cast<std::int32_t>(world::gPlayerY);
+                const std::int32_t x =
+                    static_cast<std::int32_t>(world::gPlayerX);
+                static_cast<void>(network::SendDialogResponse_512620(
+                    platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
+                static_cast<void>(WindowMessageBoard_Close());
+                consumed = 1;
+            }
+            if ((state & 8) != 0) {
+                if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = baseImage + 1;
+            }
         }
         return consumed;
     }
@@ -355,16 +379,22 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
 // 原函数：0x004B62A0。
 static void WindowMessageBoard_RefreshRecords()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     std::wstring buffer;
     for (std::int32_t index = 0; index < 4; ++index) {
         const auto& record = gLoginWindowRuntime.recordsD3FAD4[index];
         const std::int32_t first = 2 + index * 7;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first)]))) { continue; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(first)]->data.graphic;
-        graphic->imageNo = record.value00;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 1)]))) { continue; }
-        auto* const name = (*gCurrentWindow)[NativeElementKey(first + 1)]->data.text;
-        name->text = record.texts08[0];
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(first));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            graphic->imageNo = record.value00;
+        }
+        auto* const nameElement = currentWindow->FindElementById(NativeElementKey(first + 1));
+        if (nameElement) {
+            auto* const name = nameElement->data.text;
+            name->text = record.texts08[0];
+        }
         __time64_t time = static_cast<std::uint32_t>(record.value04);
         if (time > 0) {
             const std::tm* const calendar = ::_localtime64(&time);
@@ -374,32 +404,41 @@ static void WindowMessageBoard_RefreshRecords()
             const std::int32_t month = calendar->tm_mon;
             const std::int32_t year = calendar->tm_year;
             cg::text::FormatTo(buffer, L"{:4}/{:02}/{:02}/{:02}:{:02}", year + 1900, month + 1, day, hour, minute);
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 2)]))) { continue; }
-            auto* const date = (*gCurrentWindow)[NativeElementKey(first + 2)]->data.text;
-            date->text = buffer;
+            auto* const dateElement = currentWindow->FindElementById(NativeElementKey(first + 2));
+            if (dateElement) {
+                auto* const date = dateElement->data.text;
+                date->text = buffer;
+            }
         } else {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 2)])) (*gCurrentWindow)[NativeElementKey(first + 2)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(first + 2)); indexedElement) indexedElement->visible = 0;
         }
         for (std::int32_t line = 1; line < 4; ++line) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 3 + line)]))) { continue; }
-            auto* const text = (*gCurrentWindow)[NativeElementKey(first + 3 + line)]->data.text;
-            text->text = record.texts08[line];
+            auto* const textElement = currentWindow->FindElementById(NativeElementKey(first + 3 + line));
+            if (textElement) {
+                auto* const text = textElement->data.text;
+                text->text = record.texts08[line];
+            }
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 3)])) (*gCurrentWindow)[NativeElementKey(first + 3)]->visible = record.value408 != 0 ? 1 : 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(first + 3)); indexedElement) indexedElement->visible = record.value408 != 0 ? 1 : 0;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_33])) (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_33]->visible = (gLoginWindowRuntime.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_34])) (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_34]->visible = (gLoginWindowRuntime.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
-    WindowInstance* const window = gCurrentWindow;
-    if (!((window && (*window)[WindowMessageBoardElementId::HandleInput]))) { return; }
-    if (gFocusedElementDataD45F94 == (*window)[WindowMessageBoardElementId::HandleInput]->data.input) {
-        static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 2));
+    if (auto* const handleButtons_33Element = currentWindow->FindElementById(WindowMessageBoardElementId::HandleButtons_33); handleButtons_33Element) handleButtons_33Element->visible = (gLoginWindowRuntime.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
+    if (auto* const handleButtons_34Element = currentWindow->FindElementById(WindowMessageBoardElementId::HandleButtons_34); handleButtons_34Element) handleButtons_34Element->visible = (gLoginWindowRuntime.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
+    WindowInstance* const window = currentWindow;
+    auto* const handleInputElement = window->FindElementById(WindowMessageBoardElementId::HandleInput);
+    if (handleInputElement) {
+        if (gFocusedElementDataD45F94 == handleInputElement->data.input) {
+            static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 2));
+        }
     }
+    return;
 }
 
 // 原函数：0x004B6C20。
 static std::int32_t WindowMessageBoard_Close()
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const window = currentWindow;
     world::gCurrentDialogType_581800 = -1;
     window->state |= 0x8000u;
     return audio::PlaySe_52C450(57, 320);

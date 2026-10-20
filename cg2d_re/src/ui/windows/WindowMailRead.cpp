@@ -145,94 +145,109 @@ static std::int32_t WindowMailRead_Draw(const std::int32_t)
 // 原函数：0x004A4660。
 static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    graphic->imageNo = 0x3B556;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"上一封邮件" /* 原常量参考：0x00587718。 */;
-        graphic->imageNo = 0x3B558;
-    }
-    if ((state & 2) != 0) {
-        graphic->imageNo = 0x3B557;
-        const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 - 1;
-        world::detail::gViewedMailMessageIndex_D046D4 = page;
-        if (page < 0) {
-            world::detail::gViewedMailMessageIndex_D046D4 = 9;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        graphic->imageNo = 0x3B556;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"上一封邮件" /* 原常量参考：0x00587718。 */;
+            graphic->imageNo = 0x3B558;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        cg::core::NullSub_509080();
-        consumed = 1;
+        if ((state & 2) != 0) {
+            graphic->imageNo = 0x3B557;
+            const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 - 1;
+            world::detail::gViewedMailMessageIndex_D046D4 = page;
+            if (page < 0) {
+                world::detail::gViewedMailMessageIndex_D046D4 = 9;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            cg::core::NullSub_509080();
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B557;
+        }
+        return consumed;
     }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B557;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004A4710。
 static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    graphic->imageNo = 0x3B559;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = L"下一封邮件" /* 原常量参考：0x00587724。 */;
-        graphic->imageNo = 0x3B55B;
-    }
-    if ((state & 2) != 0) {
-        graphic->imageNo = 0x3B55A;
-        const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 + 1;
-        world::detail::gViewedMailMessageIndex_D046D4 = page;
-        if (page >= 10) {
-            world::detail::gViewedMailMessageIndex_D046D4 = 0;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        graphic->imageNo = 0x3B559;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = L"下一封邮件" /* 原常量参考：0x00587724。 */;
+            graphic->imageNo = 0x3B55B;
         }
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        cg::core::NullSub_509080();
-        consumed = 1;
+        if ((state & 2) != 0) {
+            graphic->imageNo = 0x3B55A;
+            const std::int32_t page = world::detail::gViewedMailMessageIndex_D046D4 + 1;
+            world::detail::gViewedMailMessageIndex_D046D4 = page;
+            if (page >= 10) {
+                world::detail::gViewedMailMessageIndex_D046D4 = 0;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            cg::core::NullSub_509080();
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3B55A;
+        }
+        return consumed;
     }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3B55A;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004A47C0。
 static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const std::int32_t state)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        gHoverTextD68AE8 = kReplyMailHint587730;
-        graphic->imageNo = 0x3BA1D;
-    } else {
-        graphic->imageNo = 0x3BA1B;
-    }
-    if ((state & 2) != 0) {
-        const std::int32_t contact = world::detail::gViewedMailContactId_CF4FC0;
-        const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
-        const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
-        gLoginWindowRuntime.prefixD2F0B8.value04 = contact;
-        gLoginWindowRuntime.prefixD2F0B8.value10 = 0;
-        gLoginWindowRuntime.prefixD2F0B8.value00 = category;
-        if (oldSlot != -1) {
-            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
-            auto value = occupancy[oldSlot];
-            gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
-            --value;
-            gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
-            occupancy[oldSlot] = value;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            gHoverTextD68AE8 = kReplyMailHint587730;
+            graphic->imageNo = 0x3BA1D;
+        } else {
+            graphic->imageNo = 0x3BA1B;
         }
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
-        static_cast<void>(audio::PlaySe_52C450(51, 320));
-        consumed = 1;
+        if ((state & 2) != 0) {
+            const std::int32_t contact = world::detail::gViewedMailContactId_CF4FC0;
+            const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
+            const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
+            gLoginWindowRuntime.prefixD2F0B8.value04 = contact;
+            gLoginWindowRuntime.prefixD2F0B8.value10 = 0;
+            gLoginWindowRuntime.prefixD2F0B8.value00 = category;
+            if (oldSlot != -1) {
+                auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
+                auto value = occupancy[oldSlot];
+                gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
+                --value;
+                gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
+                occupancy[oldSlot] = value;
+            }
+            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x3BA1C;
+        }
+        return consumed;
     }
-    if ((state & 8) != 0) {
-        graphic->imageNo = 0x3BA1C;
-    }
-    return consumed;
+    return {};
 }
 
 // 原函数：0x004A48A0。
@@ -288,6 +303,8 @@ static void WindowMailRead_FindUnread()
 // 原函数：0x004A49B0。
 static std::uint32_t WindowMailRead_Refresh()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;
     if (category != 0 && category != 1 && category != 2) {
         return static_cast<std::uint32_t>(category) - 2u;
@@ -321,32 +338,42 @@ static std::uint32_t WindowMailRead_Refresh()
         return cg::world::GetMiniMailMessage10763A0(contact, page);
     };
     if (category == 1 && mailSlot == -1) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailReadElementId::Element17]))) { return {}; }
-        auto* const time = (*gCurrentWindow)[WindowMailReadElementId::Element17]->data.text;
-        time->text = L"";
+        auto* const element17 = currentWindow->FindElementById(WindowMailReadElementId::Element17);
+        if (element17) {
+            auto* const time = element17->data.text;
+            time->text = L"";
+        }
         for (std::int32_t row = 0; row < 10; ++row) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)]))) { continue; }
-            auto* const line = (*gCurrentWindow)[NativeElementKey(row + 4)]->data.text;
-            line->text = L"";
+            auto* const lineElement = currentWindow->FindElementById(NativeElementKey(row + 4));
+            if (lineElement) {
+                auto* const line = lineElement->data.text;
+                line->text = L"";
+            }
         }
     } else {
         const cg::world::MailMessageView message = readCurrentMessage();
         *message.unread00 = std::byte{0};
         cg::text::FormatTo(buffer, L"{}", message.text02);
         const std::size_t slash = buffer.find(L'/');
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailReadElementId::Element17]))) { return {}; }
-        auto* const time = (*gCurrentWindow)[WindowMailReadElementId::Element17]->data.text;
-        time->text = slash != std::wstring::npos ? buffer.substr(slash + 1) : L"";
+        auto* const element17 = currentWindow->FindElementById(WindowMailReadElementId::Element17);
+        if (element17) {
+            auto* const time = element17->data.text;
+            time->text = slash != std::wstring::npos ? buffer.substr(slash + 1) : L"";
+        }
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::byte kind = *readCurrentMessage().kind01;
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)]))) { continue; }
-            auto* const color = (*gCurrentWindow)[NativeElementKey(row + 4)]->data.text;
-            color->style.color = kind == std::byte{0} ? std::byte{4} : std::byte{0};
+            auto* const colorElement = currentWindow->FindElementById(NativeElementKey(row + 4));
+            if (colorElement) {
+                auto* const color = colorElement->data.text;
+                color->style.color = kind == std::byte{0} ? std::byte{4} : std::byte{0};
+            }
             const wchar_t* const text = readCurrentMessage().text14;
             static_cast<void>(input::ExtractTextLine(buffer, text, row, 28));
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)]))) { continue; }
-            auto* const line = (*gCurrentWindow)[NativeElementKey(row + 4)]->data.text;
-            line->text = buffer;
+            auto* const lineElement = currentWindow->FindElementById(NativeElementKey(row + 4));
+            if (lineElement) {
+                auto* const line = lineElement->data.text;
+                line->text = buffer;
+            }
         }
     }
     std::wstring name;
@@ -358,21 +385,28 @@ static std::uint32_t WindowMailRead_Refresh()
             : cg::world::detail::ReadMiniMailContact1075A90(contact).name10.data();
     }
     cg::text::FormatTo(buffer, L"{}", name);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailReadElementId::Element16]))) { return {}; }
-    auto* const nameData = (*gCurrentWindow)[WindowMailReadElementId::Element16]->data.text;
-    nameData->text = buffer;
+    auto* const element16 = currentWindow->FindElementById(WindowMailReadElementId::Element16);
+    if (element16) {
+        auto* const nameData = element16->data.text;
+        nameData->text = buffer;
+    }
     const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4 + 1;
     cg::text::FormatTo(buffer, L"{:2}/{:2}", page, 10);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailReadElementId::Element15]))) { return {}; }
-    auto* const pageData = (*gCurrentWindow)[WindowMailReadElementId::Element15]->data.text;
-    const std::uint32_t length = static_cast<std::uint32_t>(buffer.size() + 1);
-    pageData->text = buffer;
-    return length;
+    auto* const element15 = currentWindow->FindElementById(WindowMailReadElementId::Element15);
+    if (element15) {
+        auto* const pageData = element15->data.text;
+        const std::uint32_t length = static_cast<std::uint32_t>(buffer.size() + 1);
+        pageData->text = buffer;
+        return length;
+    }
+    return {};
 }
 
 // 原函数：0x004A4FC0。
 static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     render::GraphicDescriptor16 descriptor {};
     if ((state & 1) == 0) {
         return 0;
@@ -416,7 +450,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const WindowInstance* const firstWindow = gCurrentWindow;
+    const WindowInstance* const firstWindow = currentWindow;
     const std::int32_t firstY = firstWindow->y;
     const std::int32_t firstX = firstWindow->x;
     static_cast<void>(cg::render::DrawGraphic(firstX + 202, firstY + 216, 223, 0x3BD32, 0, &descriptor));
@@ -432,13 +466,13 @@ static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::i
             source = cg::world::detail::ReadMiniMailContact1075A90(identity).value0C;
         }
         image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(source);
-        window = gCurrentWindow;
+        window = currentWindow;
     } else if (category == 2) {
-        window = gCurrentWindow;
+        window = currentWindow;
         image = cg::world::gPlayerRuntimeSlots.value17C;
     } else {
         image = cg::world::gPlayerRuntimeSlots.value17C;
-        window = gCurrentWindow;
+        window = currentWindow;
     }
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;

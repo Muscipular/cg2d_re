@@ -284,33 +284,43 @@ static void WindowPlayerProfile_RefreshAttributeBar(
     const std::int32_t middleImage, const std::int32_t firstImage,
     const std::int32_t lastImage, const std::int32_t singleImage)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     for (std::int32_t index = 0; index < 10; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)])) (*gCurrentWindow)[NativeElementKey(firstElement + index)]->visible = 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(firstElement + index)); indexedElement) indexedElement->visible = 0;
     }
     const std::int32_t count = world::gPlayerRuntimeSlots.valuesE4[static_cast<std::int32_t>(attribute)] / 10;
     if (count == 1) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)]))) { return; }
-        auto* const graphic =
-            (*gCurrentWindow)[NativeElementKey(firstElement)]->data.graphic;
-        graphic->imageNo = singleImage;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)])) (*gCurrentWindow)[NativeElementKey(firstElement)]->visible = 1;
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(firstElement));
+        if (graphicElement) {
+            auto* const graphic =
+                graphicElement->data.graphic;
+            graphic->imageNo = singleImage;
+        }
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(firstElement)); indexedElement) indexedElement->visible = 1;
     } else {
         for (std::int32_t index = 0; index < count; ++index) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)]))) { continue; }
-            auto* const graphic = (*gCurrentWindow)[NativeElementKey(firstElement + index)]->data.graphic;
-            graphic->imageNo = middleImage;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)])) (*gCurrentWindow)[NativeElementKey(firstElement + index)]->visible = 1;
+            auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(firstElement + index));
+            if (graphicElement) {
+                auto* const graphic = graphicElement->data.graphic;
+                graphic->imageNo = middleImage;
+            }
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(firstElement + index)); indexedElement) indexedElement->visible = 1;
             if (index == 0) {
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)]))) { continue; }
-                auto* const first = (*gCurrentWindow)[NativeElementKey(firstElement)]->data.graphic;
-                first->imageNo = firstImage;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)])) (*gCurrentWindow)[NativeElementKey(firstElement)]->visible = 1;
+                auto* const firstElement2 = currentWindow->FindElementById(NativeElementKey(firstElement));
+                if (firstElement2) {
+                    auto* const first = firstElement2->data.graphic;
+                    first->imageNo = firstImage;
+                }
+                if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(firstElement)); indexedElement2) indexedElement2->visible = 1;
             }
             if (index == count - 1) {
-                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)]))) { continue; }
-                auto* const last = (*gCurrentWindow)[NativeElementKey(firstElement + index)]->data.graphic;
-                last->imageNo = lastImage;
-                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)])) (*gCurrentWindow)[NativeElementKey(firstElement + index)]->visible = 1;
+                auto* const lastElement = currentWindow->FindElementById(NativeElementKey(firstElement + index));
+                if (lastElement) {
+                    auto* const last = lastElement->data.graphic;
+                    last->imageNo = lastImage;
+                }
+                if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(firstElement + index)); indexedElement2) indexedElement2->visible = 1;
             }
         }
     }
@@ -320,6 +330,8 @@ static void WindowPlayerProfile_RefreshAttributeBar(
 // 原函数：0x00474BE0。
 static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t idleImage;
     std::int32_t hoverImage;
     std::int32_t targetWindow = 0;
@@ -339,9 +351,11 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
         break;
     case 21:
         if (character_select::state::gPukVersion < 8u) {
-            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-            (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo =
-                0x3C111;
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            if (indexedElement) {
+                indexedElement->data.graphic->imageNo =
+                    0x3C111;
+            }
             return 0;
         }
         idleImage = 0x3C111;
@@ -364,24 +378,26 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
     }
 
     std::int32_t consumed = 0;
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    if ((state & 1) != 0) {
-        graphic->imageNo = hoverImage;
-        gHoverTextD68AE8 = hint;
-        consumed = 1;
-    } else {
-        graphic->imageNo = idleImage;
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        if ((state & 1) != 0) {
+            graphic->imageNo = hoverImage;
+            gHoverTextD68AE8 = hint;
+            consumed = 1;
+        } else {
+            graphic->imageNo = idleImage;
+        }
     }
     if ((state & 2) != 0) {
         if (targetWindow != 0) {
             if (gWindowStates[targetWindow].window == nullptr) {
-                gCurrentWindow->state |= 0x8000u;
+                currentWindow->state |= 0x8000u;
                 static_cast<void>(WindowRuntime_Open(targetWindow));
-                WindowInstance* const xSource = gCurrentWindow;
+                WindowInstance* const xSource = currentWindow;
                 WindowInstance* const xTarget = gWindowStates[targetWindow].window;
                 xTarget->x = xSource->x;
-                WindowInstance* const ySource = gCurrentWindow;
+                WindowInstance* const ySource = currentWindow;
                 WindowInstance* const yTarget = gWindowStates[targetWindow].window;
                 yTarget->y = ySource->y;
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -399,90 +415,113 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
 // 原函数：0x00474FB0。
 static void WindowPlayerProfile_Refresh()
 {
-    auto* portraitElementsWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
+    auto* portraitElementsWindow = currentWindow;
     const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
-    if ((portraitElementsWindow && (*portraitElementsWindow)[WindowPlayerProfileElementId::Element15])) (*portraitElementsWindow)[WindowPlayerProfileElementId::Element15]->data.graphic->imageNo = portrait;
+    if (auto* const element15 = portraitElementsWindow->FindElementById(WindowPlayerProfileElementId::Element15); element15) element15->data.graphic->imageNo = portrait;
     WindowPlayerProfile_RefreshAttributeBar(0, 25, 0x3BAC7, 0x3BACA, 0x3BAC8, 0x3BAC9);
     WindowPlayerProfile_RefreshAttributeBar(1, 35, 0x3BACC, 0x3BACF, 0x3BACD, 0x3BACE);
     WindowPlayerProfile_RefreshAttributeBar(2, 45, 0x3BAD1, 0x3BAD4, 0x3BAD2, 0x3BAD3);
     WindowPlayerProfile_RefreshAttributeBar(3, 55, 0x3BAD6, 0x3BAD9, 0x3BAD7, 0x3BAD8);
 
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element1]))) { return; }
-    auto* const nameData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element1]->data.text;
-    const wchar_t* const name = world::GetPlayerDisplayText(1);
-    nameData->text = name;
+    auto* const element1 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element1);
+    if (element1) {
+        auto* const nameData = element1->data.text;
+        const wchar_t* const name = world::GetPlayerDisplayText(1);
+        nameData->text = name;
+    }
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element2]))) { return; }
-    auto* const levelData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element2]->data.text;
-    levelData->text = buffer;
+    auto* const element2 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element2);
+    if (element2) {
+        auto* const levelData = element2->data.text;
+        levelData->text = buffer;
+    }
 
-    auto* jobElementsWindow = gCurrentWindow;
+    auto* jobElementsWindow = currentWindow;
     const auto& job = world::GetPlayerJobName();
-    if (!((jobElementsWindow && (*jobElementsWindow)[WindowPlayerProfileElementId::Element4]))) { return; }
-    auto* const jobData = (*jobElementsWindow)[WindowPlayerProfileElementId::Element4]->data.text;
-    jobData->text = job;
+    auto* const element4 = jobElementsWindow->FindElementById(WindowPlayerProfileElementId::Element4);
+    if (element4) {
+        auto* const jobData = element4->data.text;
+        jobData->text = job;
+    }
 
-    WindowInstance* const guildWindow = gCurrentWindow;
+    WindowInstance* const guildWindow = currentWindow;
     const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
-    if (!((guildWindow && (*guildWindow)[WindowPlayerProfileElementId::Element5]))) { return; }
-    auto* const guildData = (*guildWindow)[WindowPlayerProfileElementId::Element5]->data.text;
+    auto* const element5 = guildWindow->FindElementById(WindowPlayerProfileElementId::Element5);
     if (guildIndex != -1) {
         const wchar_t* const guild = cg::world::GetGuildName();
-        guildData->text = guild;
+        if (element5) element5->data.text->text = guild;
         const std::int32_t rankIndex = cg::world::ReadGuildTextIndex10514B0();
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element6]))) { return; }
-        auto* const rankData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element6]->data.text;
-        const wchar_t* const rank = cg::world::GetGuildRankText(rankIndex);
-        rankData->text = rank;
+        auto* const element6 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element6);
+        if (element6) {
+            auto* const rankData = element6->data.text;
+            const wchar_t* const rank = cg::world::GetGuildRankText(rankIndex);
+            rankData->text = rank;
+        }
     } else {
         const wchar_t* const guild = L"";
-        guildData->text = guild;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element6]))) { return; }
-        auto* const rankData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element6]->data.text;
-        const wchar_t* const rank = L"";
-        rankData->text = rank;
+        if (element5) element5->data.text->text = guild;
+        auto* const element6 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element6);
+        if (element6) {
+            auto* const rankData = element6->data.text;
+            const wchar_t* const rank = L"";
+            rankData->text = rank;
+        }
     }
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element7]))) { return; }
-    auto* const titleData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element7]->data.text;
-    const wchar_t* const title = world::GetTitleText(titleIndex);
-    titleData->text = title;
+    auto* const element7 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element7);
+    if (element7) {
+        auto* const titleData = element7->data.text;
+        const wchar_t* const title = world::GetTitleText(titleIndex);
+        titleData->text = title;
+    }
 
-    auto* ownTitleElementsWindow = gCurrentWindow;
+    auto* ownTitleElementsWindow = currentWindow;
     const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
-    if (!((ownTitleElementsWindow && (*ownTitleElementsWindow)[WindowPlayerProfileElementId::Element8]))) { return; }
-    auto* const ownTitleData = (*ownTitleElementsWindow)[WindowPlayerProfileElementId::Element8]->data.text;
-    ownTitleData->text = ownTitle;
+    auto* const element8 = ownTitleElementsWindow->FindElementById(WindowPlayerProfileElementId::Element8);
+    if (element8) {
+        auto* const ownTitleData = element8->data.text;
+        ownTitleData->text = ownTitle;
+    }
 
-    WindowInstance* const tribeWindow = gCurrentWindow;
+    WindowInstance* const tribeWindow = currentWindow;
     const std::int16_t tribeIndex = world::ReadPlayerTribe();
     auto* tribeElementsWindow = tribeWindow;
     const wchar_t* const tribe = gTribeNames57CB54[tribeIndex];
-    if (!((tribeElementsWindow && (*tribeElementsWindow)[WindowPlayerProfileElementId::Element9]))) { return; }
-    auto* const tribeData = (*tribeElementsWindow)[WindowPlayerProfileElementId::Element9]->data.text;
-    tribeData->text = tribe;
+    auto* const element9 = tribeElementsWindow->FindElementById(WindowPlayerProfileElementId::Element9);
+    if (element9) {
+        auto* const tribeData = element9->data.text;
+        tribeData->text = tribe;
+    }
 
     cg::text::FormatTo(buffer, L"{:9}", static_cast<std::int32_t>(world::gPlayerRuntimeSlots.value58));
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element10]))) { return; }
-    auto* const experienceData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element10]->data.text;
-    experienceData->text = buffer;
+    auto* const element10 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element10);
+    if (element10) {
+        auto* const experienceData = element10->data.text;
+        experienceData->text = buffer;
+    }
 
     const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
     const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element12]))) { return; }
-    auto* const hpData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element12]->data.text;
-    hpData->text = buffer;
+    auto* const element12 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element12);
+    if (element12) {
+        auto* const hpData = element12->data.text;
+        hpData->text = buffer;
+    }
 
     const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
     const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element13]))) { return; }
-    auto* const fpData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element13]->data.text;
-    fpData->text = buffer;
+    auto* const element13 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element13);
+    if (element13) {
+        auto* const fpData = element13->data.text;
+        fpData->text = buffer;
+    }
 
     std::wstring_view nextExperience;
     if ((world::gPlayerRuntimeSlots.value68 == -1)) {
@@ -491,21 +530,25 @@ static void WindowPlayerProfile_Refresh()
         cg::text::FormatTo(buffer, L"{:9}", static_cast<std::int32_t>(world::gPlayerRuntimeSlots.value68));
         nextExperience = buffer;
     }
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element11]))) { return; }
-    auto* const nextData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element11]->data.text;
-    nextData->text = nextExperience;
+    auto* const element11 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element11);
+    if (element11) {
+        auto* const nextData = element11->data.text;
+        nextData->text = nextExperience;
+    }
 
     cg::text::FormatTo(buffer, L"{:9}", world::gPlayerRuntimeSlots.value104);
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element14]))) { return; }
-    auto* const duelData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element14]->data.text;
-    duelData->text = buffer;
+    auto* const element14 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element14);
+    if (element14) {
+        auto* const duelData = element14->data.text;
+        duelData->text = buffer;
+    }
 
     if (world::gPlayerRuntimeSlots.value1A0 == 1) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element23])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element23]->x = 227;
+        if (auto* const element23 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element23); element23) element23->x = 227;
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element23])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element23]->x = 263;
+        if (auto* const element23 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element23); element23) element23->x = 263;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element23])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element23]->y = 203;
+    if (auto* const element23 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element23); element23) element23->y = 203;
 
     const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
     std::int32_t injuryImage;
@@ -520,20 +563,22 @@ static void WindowPlayerProfile_Refresh()
     } else {
         injuryImage = 0x3B618;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element16])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element16]->data.graphic->imageNo = injuryImage;
+    if (auto* const element16 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element16); element16) element16->data.graphic->imageNo = injuryImage;
 
     const std::int32_t penalty = world::gPlayerRuntimeSlots.valueF8;
     if (penalty > 0) {
         cg::text::FormatTo(buffer, L"x{}", penalty);
-        auto* penaltyElementsWindow = gCurrentWindow;
-        if (!((penaltyElementsWindow && (*penaltyElementsWindow)[WindowPlayerProfileElementId::Element3]))) { return; }
-        auto* const penaltyData = (*penaltyElementsWindow)[WindowPlayerProfileElementId::Element3]->data.text;
-        penaltyData->text = buffer;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element3])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element3]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element17])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element17]->visible = 1;
+        auto* penaltyElementsWindow = currentWindow;
+        auto* const element3 = penaltyElementsWindow->FindElementById(WindowPlayerProfileElementId::Element3);
+        if (element3) {
+            auto* const penaltyData = element3->data.text;
+            penaltyData->text = buffer;
+        }
+        if (auto* const element32 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element3); element32) element32->visible = 1;
+        if (auto* const element17 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element17); element17) element17->visible = 1;
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element3])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element3]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element17])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element17]->visible = 0;
+        if (auto* const element3 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element3); element3) element3->visible = 0;
+        if (auto* const element17 = currentWindow->FindElementById(WindowPlayerProfileElementId::Element17); element17) element17->visible = 0;
     }
 }
 

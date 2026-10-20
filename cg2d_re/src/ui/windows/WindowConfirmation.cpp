@@ -161,11 +161,15 @@ static std::int32_t WindowConfirmation_HandleButton(
     const std::int32_t index, const std::int32_t state, const std::int32_t idleImage,
     WindowElementCallback* const callbackSlot, const std::int32_t sound, const bool requiresControl)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    graphic->imageNo = idleImage;
-    if ((state & 1) != 0) {
-        graphic->imageNo = idleImage + 2;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        graphic->imageNo = idleImage;
+        if ((state & 1) != 0) {
+            graphic->imageNo = idleImage + 2;
+        }
     }
     if ((state & 2) == 0 || (requiresControl && (platform::gKeyStates[17] & 2) == 0)) {
         return 0;
@@ -240,10 +244,14 @@ static WindowInstance* WindowConfirmation_RequestClose()
 // 原函数：0x004AE8D0。
 static wchar_t* WindowConfirmation_RefreshText()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     for (std::int32_t index = 0; index < 11; ++index) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
-        auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
-        data->text = L"";
+        auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = L"";
+        }
     }
     std::wstring text = gWindow47Runtime.textCC426C;
     std::wstring line;
@@ -252,9 +260,11 @@ static wchar_t* WindowConfirmation_RefreshText()
     std::int32_t row = 0;
     while (token != nullptr) {
         static_cast<void>(WindowConfirmation_PadText(line, token));
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
-        auto* const data = (*gCurrentWindow)[NativeElementKey(row)]->data.text;
-        data->text = line;
+        auto* const dataElement = currentWindow->FindElementById(NativeElementKey(row));
+        if (dataElement) {
+            auto* const data = dataElement->data.text;
+            data->text = line;
+        }
         token = std::wcstok(nullptr, L"\n" /* 原常量参考：0x005531C4。 */, &context);
         ++row;
     }
@@ -264,11 +274,13 @@ static wchar_t* WindowConfirmation_RefreshText()
 // 原函数：0x004AE9C0。
 static std::int32_t WindowConfirmation_RefreshButtons()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t mask = gWindow47Runtime.visibleMaskCC4240;
     for (std::int32_t index = 11; index < 17; ++index) {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         if ((mask & 1) != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->visible = 1;
         }
         mask >>= 1;
     }

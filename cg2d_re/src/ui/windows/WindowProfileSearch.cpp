@@ -232,16 +232,18 @@ WindowPrototype gWindowPrototypeProfileSearch {0, 4, 5, 20, 305, 398, 0x80000080
 // 原函数：0x004CA500。
 static void WindowProfileSearch_RefreshResults()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return;
     const auto& search = world::detail::gProfileSearch105C398;
     for (std::int32_t index = 0; index < 20; ++index) {
         const auto& record = search.records[index];
         if (record.used != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 8)])) (*gCurrentWindow)[NativeElementKey(index + 8)]->data.text->text = record.text10C;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 28)])) (*gCurrentWindow)[NativeElementKey(index + 28)]->data.text->text = record.text04;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 8)); indexedElement) indexedElement->data.text->text = record.text10C;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index + 28)); indexedElement2) indexedElement2->data.text->text = record.text04;
         } else {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 8)])) (*gCurrentWindow)[NativeElementKey(index + 8)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 28)])) (*gCurrentWindow)[NativeElementKey(index + 28)]->visible = 0;
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 48)])) (*gCurrentWindow)[NativeElementKey(index + 48)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index + 8)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(index + 28)); indexedElement2) indexedElement2->visible = 0;
+            if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index + 48)); indexedElement3) indexedElement3->visible = 0;
         }
     }
     const std::int32_t group = search.value00;
@@ -250,10 +252,12 @@ static void WindowProfileSearch_RefreshResults()
     case 1:
     case 2: {
         const wchar_t* const title = world::detail::ReadCategoryText105FA24(group, search.value04);
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element2])) (*gCurrentWindow)[WindowProfileSearchElementId::Element2]->data.text->text = title;
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element3]))) { return; }
-        (*gCurrentWindow)[WindowProfileSearchElementId::Element3]->data.graphic->imageNo =
-            group == 0 ? 246045 : (group == 1 ? 0 : 246046);
+        if (auto* const element2 = currentWindow->FindElementById(WindowProfileSearchElementId::Element2); element2) element2->data.text->text = title;
+        auto* const element3 = currentWindow->FindElementById(WindowProfileSearchElementId::Element3);
+        if (element3) {
+            element3->data.graphic->imageNo =
+                group == 0 ? 246045 : (group == 1 ? 0 : 246046);
+        }
         break;
     }
     default:
@@ -264,9 +268,11 @@ static void WindowProfileSearch_RefreshResults()
 // 原函数：0x004CA450。
 static std::uint32_t WindowProfileSearch_DrawKeyword()
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextCB0610) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element7])) (*gCurrentWindow)[WindowProfileSearchElementId::Element7]->visible = 0;
-        WindowInstance* const window = gCurrentWindow;
+        if (auto* const element7 = currentWindow->FindElementById(WindowProfileSearchElementId::Element7); element7) element7->visible = 0;
+        WindowInstance* const window = currentWindow;
         static_cast<void>(WindowInput_ActivateElement(
             &gProfileSearchInputPrototype580A80, window->x, window->y, 1));
         const std::wstring& text = input::ContextText(*gProfileSearchInputPrototype580A80.input.context);
@@ -274,24 +280,29 @@ static std::uint32_t WindowProfileSearch_DrawKeyword()
         gProfileSearchKeyword1075988 = text;
         return length;
     }
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element7])) (*gCurrentWindow)[WindowProfileSearchElementId::Element7]->visible = 1;
-    if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element7]))) { return {}; }
-    std::wstring& text = (*gCurrentWindow)[WindowProfileSearchElementId::Element7]->data.text->text;
-    const auto length = static_cast<std::uint32_t>(
-        gProfileSearchKeyword1075988.size() + 1);
-    text = gProfileSearchKeyword1075988;
-    return length;
+    if (auto* const element7 = currentWindow->FindElementById(WindowProfileSearchElementId::Element7); element7) element7->visible = 1;
+    auto* const element72 = currentWindow->FindElementById(WindowProfileSearchElementId::Element7);
+    if (element72) {
+        std::wstring& text = element72->data.text->text;
+        const auto length = static_cast<std::uint32_t>(
+            gProfileSearchKeyword1075988.size() + 1);
+        text = gProfileSearchKeyword1075988;
+        return length;
+    }
+    return {};
 }
 
 // 原函数：0x004CA410。
 // 关联原入口：0x004CA438（共享尾已并入本函数正文）。
 static std::int32_t WindowProfileSearch_Update(const std::int32_t value)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (value == -1) {
         WindowProfileSearch_RefreshResults();
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowProfileSearch_DrawKeyword());
     return 1;
@@ -308,24 +319,32 @@ static void WindowProfileSearch_Release()
 // 原函数：0x004CAB90。
 static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"请输入关键字";
         consumed = 1;
     }
     if ((state & 2) != 0) {
-        WindowInstance* const window = gCurrentWindow;
-        if (!((window && (*window)[WindowProfileSearchElementId::EditKeyword]))) { return {}; }
-        if (gFocusedElementDataD45F94 != (*window)[WindowProfileSearchElementId::EditKeyword]->data.input) {
-            gProfileSearchInputPrototype580A80.text = gProfileSearchKeyword1075988;
-            static_cast<void>(WindowInput_ActivateElement(
-                &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
-            input::SetContext_44B330(&cg::ui::detail::gInputContextCB0610);
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::EditKeyword]))) { return {}; }
-            gFocusedElementDataD45F94 = (*gCurrentWindow)[WindowProfileSearchElementId::EditKeyword]->data.input;
-            if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::EditKeyword]))) { return {}; }
-            (*gCurrentWindow)[WindowProfileSearchElementId::EditKeyword]->data.input->context =
-                &cg::ui::detail::gInputContextCB0610;
+        WindowInstance* const window = currentWindow;
+        auto* const editKeywordElement = window->FindElementById(WindowProfileSearchElementId::EditKeyword);
+        if (editKeywordElement) {
+            if (gFocusedElementDataD45F94 != editKeywordElement->data.input) {
+                gProfileSearchInputPrototype580A80.text = gProfileSearchKeyword1075988;
+                static_cast<void>(WindowInput_ActivateElement(
+                    &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
+                input::SetContext_44B330(&cg::ui::detail::gInputContextCB0610);
+                auto* const editKeywordElement2 = currentWindow->FindElementById(WindowProfileSearchElementId::EditKeyword);
+                if (editKeywordElement2) {
+                    gFocusedElementDataD45F94 = editKeywordElement2->data.input;
+                }
+                auto* const editKeywordElement3 = currentWindow->FindElementById(WindowProfileSearchElementId::EditKeyword);
+                if (editKeywordElement3) {
+                    editKeywordElement3->data.input->context =
+                        &cg::ui::detail::gInputContextCB0610;
+                }
+            }
         }
         return 1;
     }
@@ -335,6 +354,8 @@ static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const st
 // 原函数：0x004CA6F0。
 static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (index < 3 || index > 5) {
         return 0;
     }
@@ -347,18 +368,20 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
         L"下一页",
     };
     const std::int32_t position = index - 3;
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-    std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
-        graphic->imageNo = hoverImages[position];
-        gHoverTextD68AE8 = hints[position];
-        consumed = 1;
-    } else {
-        graphic->imageNo = normalImages[position];
-    }
-    if ((state & 2) == 0) {
-        return consumed;
+    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (graphicElement) {
+        auto* const graphic = graphicElement->data.graphic;
+        std::int32_t consumed = 0;
+        if ((state & 1) != 0) {
+            graphic->imageNo = hoverImages[position];
+            gHoverTextD68AE8 = hints[position];
+            consumed = 1;
+        } else {
+            graphic->imageNo = normalImages[position];
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
     }
     const std::wstring keyword = input::EscapeText(gProfileSearchKeyword1075988, 256);
     const auto& search = world::detail::gProfileSearch105C398;
@@ -378,14 +401,16 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
 // 原函数：0x004CA9C0。
 static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     const std::int32_t position = index - 48;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"浏览此名玩家的资料表";
         consumed = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 246059;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246059;
     } else {
-        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 246060;
+        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246060;
     }
     if ((state & 2) != 0) {
         const auto& record = world::detail::gProfileSearch105C398.records[position];
@@ -403,7 +428,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if (gWindowStates[WindowId_ProfileView].window != nullptr) {
         const std::int32_t key = world::detail::gViewedProfile105ECE0.value00;
         if (key == world::detail::gProfileSearch105C398.records[position].value104) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 246058;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246058;
         }
     }
     return consumed;

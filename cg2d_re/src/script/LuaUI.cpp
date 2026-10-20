@@ -732,7 +732,7 @@ static std::optional<LuaWindow> ResolveWindow(const LuaWindowRef& ref) {
 }
 ui::WindowElement* ResolveLuaElement(const LuaControlRef& ref) {
     auto* window = ui::WindowRuntime_FindInstance(ref.winId);
-    return window && !(window->state & WIN_STATE_CLOSE) ? (*window)[ref.controlId] : nullptr;
+    return window && !(window->state & WIN_STATE_CLOSE) ? window->FindElementById(ref.controlId) : nullptr;
 }
 UIControl* ResolveControl(const LuaControlRef& ref) {
     auto* element = ResolveLuaElement(ref);

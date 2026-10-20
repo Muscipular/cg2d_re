@@ -46,20 +46,22 @@ void WindowBattleStateNotice_Open()
 // 原函数：0x0049BD40。
 static std::int32_t WindowBattleStateNotice_Update(const std::int32_t)
 {
-    WindowInstance* const initialWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
+    WindowInstance* const initialWindow = currentWindow;
     world::gBattleEntryNoticeAction5ABFB8 = nullptr;
-    if ((initialWindow && (*initialWindow)[WindowBattleStateNoticeElementId::Element1])) (*initialWindow)[WindowBattleStateNoticeElementId::Element1]->visible = 0;
-    if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element2])) (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element2]->visible = 0;
+    if (auto* const element1 = initialWindow->FindElementById(WindowBattleStateNoticeElementId::Element1); element1) element1->visible = 0;
+    if (auto* const element2 = currentWindow->FindElementById(WindowBattleStateNoticeElementId::Element2); element2) element2->visible = 0;
     if (world::gCurrentSceneState != 3) {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     const auto flags = static_cast<std::uint8_t>(world::gBattlePlayerFlags5ABCAC);
     if ((flags & 1u) != 0) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element1])) (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element1]->visible = 1;
+        if (auto* const element12 = currentWindow->FindElementById(WindowBattleStateNoticeElementId::Element1); element12) element12->visible = 1;
     } else if ((flags & 2u) != 0) {
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element2])) (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element2]->visible = 1;
+        if (auto* const element22 = currentWindow->FindElementById(WindowBattleStateNoticeElementId::Element2); element22) element22->visible = 1;
     } else {
-        gCurrentWindow->state |= 0x8000u;
+        currentWindow->state |= 0x8000u;
     }
     return 1;
 }

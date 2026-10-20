@@ -102,91 +102,96 @@ WindowPrototype gWindowPrototypeBottomBar {2, 5, 0, 452, 640, 30, 0x80010101u, 1
 // 原函数：0x00473840。
 static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     std::int32_t consumed = 0;
     switch (index) {
     case 0:
         gWindow6HoverD2EA70 = static_cast<std::uint8_t>(state) & 1u;
         return 0;
     case 1: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_2]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_2]->data.graphic;
-        graphic->imageNo = (state & 1) != 0 ? 0x3B960 : 0x3B95F;
-        if ((state & 1) != 0) {
-            consumed = 1;
-        }
-        WindowInstance* first = gWindowStates[WindowId_PlayerProfile].window;
-        WindowInstance* second;
-        WindowInstance* third;
-        // 短路命中后重取9/8/7；未命中时三个局部均已由条件赋值。
-        if (first != nullptr
-            || (second = gWindowStates[WindowId_PlayerAttributes].window) != nullptr
-            || gWindowStates[WindowId_OwnProfile].window != nullptr
-            || (third = gWindowStates[WindowId_PlayerTitles].window) != nullptr) {
-            graphic->imageNo = 0x3B95E;
-            third = gWindowStates[WindowId_PlayerTitles].window;
-            second = gWindowStates[WindowId_PlayerAttributes].window;
-            first = gWindowStates[WindowId_PlayerProfile].window;
-        }
-        if ((state & 2) == 0) {
-            return consumed;
-        }
-
-        // 到达末尾发布前，各存活窗口路径均覆盖坐标；无窗口路径提前返回。
-        std::int32_t savedX = 0;
-        std::int32_t savedY = 0;
-        if (first != nullptr || second != nullptr) {
-            if (first != nullptr) {
-                first->state |= 0x8000u;
-                WindowInstance* const current = gWindowStates[WindowId_PlayerProfile].window;
-                savedX = current->x;
-                savedY = current->y;
-                static_cast<void>(audio::PlaySe_52C450(57, 320));
+        auto* const handleButtons_2Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_2);
+        if (handleButtons_2Element) {
+            auto* const graphic = handleButtons_2Element->data.graphic;
+            graphic->imageNo = (state & 1) != 0 ? 0x3B960 : 0x3B95F;
+            if ((state & 1) != 0) {
+                consumed = 1;
+            }
+            WindowInstance* first = gWindowStates[WindowId_PlayerProfile].window;
+            WindowInstance* second;
+            WindowInstance* third;
+            // 短路命中后重取9/8/7；未命中时三个局部均已由条件赋值。
+            if (first != nullptr
+                || (second = gWindowStates[WindowId_PlayerAttributes].window) != nullptr
+                || gWindowStates[WindowId_OwnProfile].window != nullptr
+                || (third = gWindowStates[WindowId_PlayerTitles].window) != nullptr) {
+                graphic->imageNo = 0x3B95E;
+                third = gWindowStates[WindowId_PlayerTitles].window;
                 second = gWindowStates[WindowId_PlayerAttributes].window;
+                first = gWindowStates[WindowId_PlayerProfile].window;
             }
-            if (second != nullptr) {
-                second->state |= 0x8000u;
-                WindowInstance* const current = gWindowStates[WindowId_PlayerAttributes].window;
+            if ((state & 2) == 0) {
+                return consumed;
+            }
+
+            // 到达末尾发布前，各存活窗口路径均覆盖坐标；无窗口路径提前返回。
+            std::int32_t savedX = 0;
+            std::int32_t savedY = 0;
+            if (first != nullptr || second != nullptr) {
+                if (first != nullptr) {
+                    first->state |= 0x8000u;
+                    WindowInstance* const current = gWindowStates[WindowId_PlayerProfile].window;
+                    savedX = current->x;
+                    savedY = current->y;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    second = gWindowStates[WindowId_PlayerAttributes].window;
+                }
+                if (second != nullptr) {
+                    second->state |= 0x8000u;
+                    WindowInstance* const current = gWindowStates[WindowId_PlayerAttributes].window;
+                    savedX = current->x;
+                    savedY = current->y;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+                third = gWindowStates[WindowId_PlayerTitles].window;
+            } else if (gWindowStates[WindowId_OwnProfile].window != nullptr) {
+                // 原47397A在仅58路径用完整state暂存坐标，后续关闭仍可覆盖。
+                savedX = state;
+                savedY = state;
+            } else if (third == nullptr) {
+                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PlayerProfile, 1, 0, nullptr));
+                return 1;
+            }
+            if (third != nullptr) {
+                third->state |= 0x8000u;
+                WindowInstance* const current = gWindowStates[WindowId_PlayerTitles].window;
                 savedX = current->x;
                 savedY = current->y;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
-            third = gWindowStates[WindowId_PlayerTitles].window;
-        } else if (gWindowStates[WindowId_OwnProfile].window != nullptr) {
-            // 原47397A在仅58路径用完整state暂存坐标，后续关闭仍可覆盖。
-            savedX = state;
-            savedY = state;
-        } else if (third == nullptr) {
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PlayerProfile, 1, 0, nullptr));
-            return 1;
+            WindowInstance* const last = gWindowStates[WindowId_OwnProfile].window;
+            if (last != nullptr) {
+                last->state |= 0x8000u;
+                WindowInstance* const current = gWindowStates[WindowId_OwnProfile].window;
+                savedX = current->x;
+                savedY = current->y;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+            }
+            gWindowStates[WindowId_PlayerProfile].y = savedY;
+            gWindowStates[WindowId_PlayerAttributes].y = savedY;
+            gWindowStates[WindowId_PlayerTitles].y = savedY;
+            gWindowStates[WindowId_OwnProfile].y = savedY;
+            gWindowStates[WindowId_PlayerProfile].x = savedX;
+            gWindowStates[WindowId_PlayerAttributes].x = savedX;
+            gWindowStates[WindowId_PlayerTitles].x = savedX;
+            gWindowStates[WindowId_OwnProfile].x = savedX;
         }
-        if (third != nullptr) {
-            third->state |= 0x8000u;
-            WindowInstance* const current = gWindowStates[WindowId_PlayerTitles].window;
-            savedX = current->x;
-            savedY = current->y;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
-        }
-        WindowInstance* const last = gWindowStates[WindowId_OwnProfile].window;
-        if (last != nullptr) {
-            last->state |= 0x8000u;
-            WindowInstance* const current = gWindowStates[WindowId_OwnProfile].window;
-            savedX = current->x;
-            savedY = current->y;
-            static_cast<void>(audio::PlaySe_52C450(57, 320));
-        }
-        gWindowStates[WindowId_PlayerProfile].y = savedY;
-        gWindowStates[WindowId_PlayerAttributes].y = savedY;
-        gWindowStates[WindowId_PlayerTitles].y = savedY;
-        gWindowStates[WindowId_OwnProfile].y = savedY;
-        gWindowStates[WindowId_PlayerProfile].x = savedX;
-        gWindowStates[WindowId_PlayerAttributes].x = savedX;
-        gWindowStates[WindowId_PlayerTitles].x = savedX;
-        gWindowStates[WindowId_OwnProfile].x = savedX;
         return 1;
     }
     case 2: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_3]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_3]->data.graphic;
+        auto* const handleButtons_3Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_3);
+        if (!handleButtons_3Element) { return {}; }
+        auto* const graphic = handleButtons_3Element->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B963 : 0x3B962;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -220,8 +225,9 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return consumed;
     }
     case 3: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_4]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_4]->data.graphic;
+        auto* const handleButtons_4Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_4);
+        if (!handleButtons_4Element) { return {}; }
+        auto* const graphic = handleButtons_4Element->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B966 : 0x3B965;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -255,8 +261,9 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return consumed;
     }
     case 4: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_5]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_5]->data.graphic;
+        auto* const handleButtons_5Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_5);
+        if (!handleButtons_5Element) { return {}; }
+        auto* const graphic = handleButtons_5Element->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B969 : 0x3B968;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -294,34 +301,38 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
     case 7: {
         const std::int32_t windowId = index == 5 ? 21 : (index == 6 ? 19 : 24);
         const std::int32_t normalImage = 0x3B96B + (index - 5) * 3;
-        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
-        graphic->imageNo = (state & 1) != 0 ? normalImage + 1 : normalImage;
-        if ((state & 1) != 0) {
-            consumed = 1;
-        }
-        WindowInstance* window = gWindowStates[windowId].window;
-        if (window != nullptr) {
-            graphic->imageNo = normalImage - 1;
-            window = gWindowStates[windowId].window;
-        }
-        if ((state & 2) != 0) {
-            if (window == nullptr) {
-                static_cast<void>(WindowRuntime_CreateAnimation(windowId, 1, 0, nullptr));
-            } else {
-                window->state |= 0x8000u;
-                if (index != 7) {
-                    static_cast<void>(audio::PlaySe_52C450(57, 320));
-                }
+        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        if (graphicElement) {
+            auto* const graphic = graphicElement->data.graphic;
+            graphic->imageNo = (state & 1) != 0 ? normalImage + 1 : normalImage;
+            if ((state & 1) != 0) {
+                consumed = 1;
             }
-            return 1;
+            WindowInstance* window = gWindowStates[windowId].window;
+            if (window != nullptr) {
+                graphic->imageNo = normalImage - 1;
+                window = gWindowStates[windowId].window;
+            }
+            if ((state & 2) != 0) {
+                if (window == nullptr) {
+                    static_cast<void>(WindowRuntime_CreateAnimation(windowId, 1, 0, nullptr));
+                } else {
+                    window->state |= 0x8000u;
+                    if (index != 7) {
+                        static_cast<void>(audio::PlaySe_52C450(57, 320));
+                    }
+                }
+                return 1;
+            }
         }
         return consumed;
     }
     case 8: {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9]))) { return {}; }
-        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9]->data.graphic;
-        graphic->imageNo = 0x18666;
+        auto* const handleButtons_9Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_9);
+        if (handleButtons_9Element) {
+            auto* const graphic = handleButtons_9Element->data.graphic;
+            graphic->imageNo = 0x18666;
+        }
         if ((state & 1) != 0) {
             consumed = 1;
         }
@@ -349,14 +360,16 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
 // 原函数：0x004731E0。
 static std::int32_t WindowBottomBar_Update(const std::int32_t)
 {
+    WindowInstance* const currentWindow = gCurrentWindow;
+    if (!currentWindow) return {};
     if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8.empty()) {
         for (std::int32_t index = 1; index <= 7; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9])) (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element11])) (*gCurrentWindow)[WindowBottomBarElementId::Element11]->visible = 1;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element12])) (*gCurrentWindow)[WindowBottomBarElementId::Element12]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element13])) (*gCurrentWindow)[WindowBottomBarElementId::Element13]->visible = 0;
+        if (auto* const handleButtons_9Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_9); handleButtons_9Element) handleButtons_9Element->visible = 0;
+        if (auto* const element11 = currentWindow->FindElementById(WindowBottomBarElementId::Element11); element11) element11->visible = 1;
+        if (auto* const element12 = currentWindow->FindElementById(WindowBottomBarElementId::Element12); element12) element12->visible = 0;
+        if (auto* const element13 = currentWindow->FindElementById(WindowBottomBarElementId::Element13); element13) element13->visible = 0;
     } else {
         if (gHoverTextD68AE8.find(L"[han]") != std::wstring::npos) {
             if (!gHoverTextD68AE8.empty()) {
@@ -370,32 +383,38 @@ static std::int32_t WindowBottomBar_Update(const std::int32_t)
             gHoverObjectValueD68AC8 = 5;
         }
 
-        auto* mainElementsWindow = gCurrentWindow;
-        if (!((mainElementsWindow && (*mainElementsWindow)[WindowBottomBarElementId::Element12]))) { return {}; }
-        auto* const mainText = (*mainElementsWindow)[WindowBottomBarElementId::Element12]->data.text;
-        mainText->text = gHoverTextD68AE8;
-        mainText->style.color = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
+        auto* mainElementsWindow = currentWindow;
+        auto* const element12 = mainElementsWindow->FindElementById(WindowBottomBarElementId::Element12);
+        if (element12) {
+            auto* const mainText = element12->data.text;
+            mainText->text = gHoverTextD68AE8;
+            mainText->style.color = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
+        }
         if (gHoverTitleD68BF4.size() != 0) {
-            if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element13])) (*gCurrentWindow)[WindowBottomBarElementId::Element13]->visible = 1;
+            if (auto* const element13 = currentWindow->FindElementById(WindowBottomBarElementId::Element13); element13) element13->visible = 1;
         }
-        auto* titleElementsWindow = gCurrentWindow;
-        if (!((titleElementsWindow && (*titleElementsWindow)[WindowBottomBarElementId::Element13]))) { return {}; }
-        auto* const titleText = (*titleElementsWindow)[WindowBottomBarElementId::Element13]->data.text;
-        titleText->text = gHoverTitleD68BF4;
-        titleText->style.color = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
+        auto* titleElementsWindow = currentWindow;
+        auto* const element13 = titleElementsWindow->FindElementById(WindowBottomBarElementId::Element13);
+        if (element13) {
+            auto* const titleText = element13->data.text;
+            titleText->text = gHoverTitleD68BF4;
+            titleText->style.color = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
+        }
         for (std::int32_t index = 1; index <= 7; ++index) {
-            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9])) (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element11])) (*gCurrentWindow)[WindowBottomBarElementId::Element11]->visible = 0;
-        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element12])) (*gCurrentWindow)[WindowBottomBarElementId::Element12]->visible = 1;
+        if (auto* const handleButtons_9Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_9); handleButtons_9Element) handleButtons_9Element->visible = 0;
+        if (auto* const element11 = currentWindow->FindElementById(WindowBottomBarElementId::Element11); element11) element11->visible = 0;
+        if (auto* const element122 = currentWindow->FindElementById(WindowBottomBarElementId::Element12); element122) element122->visible = 1;
     }
 
     const std::wstring_view description = platform::QueryWindowImeDescription_4734F0();
-    auto* elementsWindow = gCurrentWindow;
-    if (!((elementsWindow && (*elementsWindow)[WindowBottomBarElementId::Element10]))) { return {}; }
-    auto* const text = (*elementsWindow)[WindowBottomBarElementId::Element10]->data.text;
-    text->text = description;
+    auto* elementsWindow = currentWindow;
+    auto* const element10 = elementsWindow->FindElementById(WindowBottomBarElementId::Element10);
+    if (element10) {
+        auto* const text = element10->data.text;
+        text->text = description;
+    }
     gHoverTextD68AE8.clear();
     gHoverObjectValueD68AC8 = 0;
     gHoverTitleD68BF4.clear();

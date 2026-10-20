@@ -4758,3 +4758,10 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 集中核对了控制事件锁内复位、DNS取消后等待完成、短写消费、接收满区背压和EOF排空顺序；原探测保持八相位采样，实际收发不再受八次调用节流。进入build.bat Debug编译验证，运行验收仍待进行。
 - 首轮构建发现原NetworkRuntime通过winsock2.h间接取得Windows调试输出/错误常量声明，移除网络头后声明缺失；已补显式Windows.h。新增后端的ASCII窄化警告改为范围确认后的显式转换，正在重新执行build.bat Debug。
 - 最终build.bat Debug配置、编译及链接成功，退出码0，包含Windows头补齐和ASCII显式转换修正。静态调用检索确认原生连接/收发/关闭集中到平台后端；git diff --check通过，本轮18个文件按UTF-8/CRLF保存。旧业务C4701/C4244/C4505警告未扩大处理；未运行客户端或测试，SPEC运行验收保持待完成。
+
+## 548. CgConnection与CgTransport封装设计（2026-10-20）
+
+- 用户提出封装CgConnection、CgTransport，为后续重构准备；已核对现有传输类、主线程静态状态、会话标识和生命周期入口。
+- 新增CTO01：CgConnection组合CgTransport，拥有当前会话及主线程协议状态；传输对象保留线程、DNS、Socket和有界字节队列。旧函数作迁移适配，禁止仅增加外壳而继续依赖原全局owner。
+- 明确临时只读身份镜像、主线程回调与两阶段退出、多连接暂不支持、协议和NTM01行为保持。文档：doc/cg2d_connection_transport_spec.md。
+- 本轮仅形成待确认SPEC并记录进度，未修改运行代码、构建或运行。后续实施待用户确认。

@@ -52,6 +52,7 @@ struct CgTransport::Impl {
     ConnectionSnapshot status;
     std::array<std::uint8_t, kQueueCapacity> sendBytes {}, receiveBytes {};
     std::size_t sendLength {}, receiveLength {};
+    std::size_t sendPrefixRemaining {}; // 独立前置消息余量，发送完毕后才消费其后的正文。
 
     ~Impl()
     {
@@ -91,7 +92,7 @@ struct CgTransport::Impl {
         status.state = state;
         status.phase = phase;
         status.error = error;
-        if (state == ConnectionState::Failed || state == ConnectionState::Closed) sendLength = 0;
+        if (state == ConnectionState::Failed || state == ConnectionState::Closed) sendLength = sendPrefixRemaining = 0;
     }
 
     // 返回时OVERLAPPED已完成，结果与取消句柄不会引用失效栈。
@@ -226,17 +227,20 @@ struct CgTransport::Impl {
                 status.error = error == WSAEWOULDBLOCK ? closeError : error;
                 status.phase = ConnectionPhase::Receive;
                 status.state = status.error ? ConnectionState::Failed : ConnectionState::Closed;
-                sendLength = 0;
+                sendLength = sendPrefixRemaining = 0;
                 return; // 已接收字节留在队列，主线程排空后才消费终止。
             }
             for (std::size_t budget = kQueueCapacity; budget != 0;) {
                 std::lock_guard lock(mutex);
                 if (stopping || cancelled || status.id != request.id) return;
                 if (!ioEnabled || sendLength == 0 || peerClosing) break;
+                // 前置消息独立调用send；短写或暂时不可写时不越过它的边界。
+                const auto messageLength = sendPrefixRemaining != 0 ? sendPrefixRemaining : sendLength;
                 const int count = send(socket, reinterpret_cast<const char*>(sendBytes.data()),
-                    static_cast<int>((std::min)(budget, sendLength)), 0);
+                    static_cast<int>((std::min)(budget, messageLength)), 0);
                 if (count > 0) {
                     const auto sent = static_cast<std::size_t>(count);
+                    if (sendPrefixRemaining != 0) sendPrefixRemaining -= sent;
                     sendLength -= sent;
                     std::memmove(sendBytes.data(), sendBytes.data() + sent, sendLength);
                     budget -= sent;
@@ -248,7 +252,7 @@ struct CgTransport::Impl {
                 status.state = ConnectionState::Failed;
                 status.phase = ConnectionPhase::Send;
                 status.error = error;
-                sendLength = 0;
+                sendLength = sendPrefixRemaining = 0;
                 return;
             }
             const DWORD waited = WSAWaitForMultipleEvents(2, events, FALSE, WSA_INFINITE, FALSE);
@@ -405,7 +409,7 @@ struct CgTransport::Impl {
                 if (status.id == request->id && cancelled) {
                     status.state = ConnectionState::Closed;
                     status.phase = ConnectionPhase::Cancel;
-                    sendLength = receiveLength = 0;
+                    sendLength = sendPrefixRemaining = receiveLength = 0;
                 }
             }
         }
@@ -447,7 +451,7 @@ ConnectionId CgTransport::BeginConnect(std::wstring host, std::uint16_t port,
     impl_->pending.emplace(Impl::Request {id, std::move(host), port, noDelay, std::move(policyQuery)});
     impl_->status = std::move(next);
     impl_->cancelled = impl_->ioEnabled = impl_->policyApproved = false;
-    impl_->sendLength = impl_->receiveLength = 0;
+    impl_->sendLength = impl_->sendPrefixRemaining = impl_->receiveLength = 0;
     WSASetEvent(impl_->control.value);
     return id;
 }
@@ -496,6 +500,7 @@ NetworkQueueResult CgTransport::TryQueueSend(ConnectionId id,
     auto* destination = impl_->sendBytes.data() + previous;
     if (!prefix.empty()) std::memcpy(destination, prefix.data(), prefix.size());
     if (!bytes.empty()) std::memcpy(destination + prefix.size(), bytes.data(), bytes.size());
+    if (replace) impl_->sendPrefixRemaining = prefix.size();
     impl_->sendLength = previous + prefix.size() + bytes.size();
     WSASetEvent(impl_->control.value);
     return NetworkQueueResult::Accepted;
@@ -524,7 +529,7 @@ void CgTransport::CloseConnection(ConnectionId id)
     if (impl_->status.state == ConnectionState::Closed || impl_->status.state == ConnectionState::Failed) return;
     impl_->cancelled = true;
     impl_->status.state = ConnectionState::Closing;
-    impl_->sendLength = impl_->receiveLength = 0;
+    impl_->sendLength = impl_->sendPrefixRemaining = impl_->receiveLength = 0;
     WSASetEvent(impl_->control.value);
 }
 

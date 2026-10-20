@@ -1177,7 +1177,7 @@ std::int32_t CgConnection::Impl::SendPacket(
         }
     }
 
-    // N03：成功入队的JFVf替换待发队列，六字节前导不递归触发发送回调。
+    // N03：JFVf仍原子替换待发队列；先独立发送六字节XCNY，再发送登录正文，不额外触发Hook。
     constexpr std::string_view loginPrelude = "XCNY \n";
     const bool startsLogin = packet.starts_with("JFVf");
     if (id != connectionId || !ioEnabled) return -100;

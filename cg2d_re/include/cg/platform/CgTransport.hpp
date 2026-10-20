@@ -45,6 +45,8 @@ public:
     [[nodiscard]] ConnectionSnapshot PollConnection(ConnectionId id) const;
     void ContinueAfterPolicy(ConnectionId id);
     void SetIoEnabled(ConnectionId id, bool enabled);
+    // replace时prefix作为独立前置消息，全部发送后才发送bytes；容量检查和替换仍原子完成。
+    // 普通追加保留队首已有的前置消息边界；后端不识别任何协议命令。
     [[nodiscard]] NetworkQueueResult TryQueueSend(ConnectionId id,
         std::span<const std::uint8_t> bytes, bool replace, std::string_view prefix = {});
     [[nodiscard]] std::size_t DrainReceived(ConnectionId id, std::span<std::uint8_t> destination);

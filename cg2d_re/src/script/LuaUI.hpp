@@ -56,6 +56,7 @@ struct LuaWindow {
 void RegisterLuaUI(lua_State* L);
 void RegUIConst(lua_State* L);
 void RegLuaIO(lua_State* L);
+void RegLuaAudio(lua_State* L); // LBG01：文件BGM及其userdata，不改旧编号接口。
 void ShutdownLuaUI();
 void LuaBridgeSetAutoBattleState(lua_State* L);
 void LuaProcessWinMgrKeyPress();

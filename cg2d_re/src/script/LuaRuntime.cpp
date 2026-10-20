@@ -2,6 +2,7 @@
 #include "LuaUI.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/core/m_log.hpp"
+#include "cg/audio/FileBgm.hpp"
 #include <luajit.h>
 
 namespace cg::script {
@@ -48,6 +49,7 @@ bool InitializeLua()
 void ShutdownLua()
 {
     shuttingDown = true;
+    audio::ShutdownFileBgm();
     yobi::ShutdownBattleEffects();
     stopCopilot();
     ShutdownAutoBattle();

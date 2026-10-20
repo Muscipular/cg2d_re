@@ -5,6 +5,11 @@
 
 namespace cg::audio {
 
+// LBG01：文件音乐只借旧设备就绪状态、音乐设置及普通BGM输出抑制。
+[[nodiscard]] bool IsFileBgmAudioAvailable() noexcept;
+[[nodiscard]] float GetFileBgmGain() noexcept;
+[[nodiscard]] bool SetSceneBgmSuppressed(bool suppressed) noexcept;
+
 // 原103D1C0的50项记录；52CD40只写+04/+00，后三个S32保留。
 struct SpatialAudioRecord final {
     std::uint32_t value00; // 原成员偏移：+0x00。

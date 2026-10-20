@@ -1,5 +1,6 @@
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/audio/LegacyAudio.hpp"
+#include "cg/audio/FileBgm.hpp"
 
 #include "../scene/login/LoginStateDependencies.hpp"
 #include "../network/NetworkDispatchDependencies.hpp"
@@ -308,6 +309,7 @@ void ResetBgmPlayback_52B940()
 // 原 [0x52B630,0x52B709)：保留禁用门禁与 BGM、通道、样本、设备的释放次序。
 void ShutdownAudio_52B630()
 {
+    ShutdownFileBgm();
     if (gAudioDisabled_10507D4 != 0) {
         return;
     }
@@ -911,6 +913,7 @@ std::int32_t __cdecl ProcessSpatialSoundRequests_52CB50()
 // 原 [0x52CCA0,0x52CCD1) 与独占尾块 [0x52CC40,0x52CC96)。
 void UpdateAudioPlayback_52CCA0()
 {
+    UpdateFileBgm();
     if (gAudioDisabled_10507D4 != 0) {
         return;
     }
@@ -1001,6 +1004,7 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
         audio::StopAndReleaseStreamingBgm_52B8E0();
     }
     if (bgmId == 0xFFFFFFFEu) {
+        OnSceneBgmPlayback();
         gRecordIndex = -2;
         return -1;
     }
@@ -1008,6 +1012,7 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
         return -1;
     }
 
+    OnSceneBgmPlayback();
     const LegacyAudioRecord& record =
         gRecords[static_cast<std::size_t>(bgmId)];
     std::uint32_t dataLength = 0;
@@ -1071,6 +1076,7 @@ std::int32_t LoadAndPlayBGM(const std::uint32_t bgmId)
 // 原52C3D0：先失败标志/当前号/enable，再原0..15钳制；实际缓冲不存在透传level。
 std::int32_t ApplyBgmVolume_52C3D0()
 {
+    UpdateFileBgm();
     std::int32_t result = std::bit_cast<std::int32_t>(gAudioDisabled_10507D4);
     if (result == 0 && gRecordIndex != -1) {
         result = platform::gEnableMusic;
@@ -1187,6 +1193,24 @@ std::int32_t CheckAudioAndInputAvailability_458AE0()
     ::FreeLibrary(input);
     if (!available) { ::OutputDebugStringW(L"Couldn't GetProcAddress DInputCreate\r\n"); return 0x200; }
     return 0x600;
+}
+
+bool IsFileBgmAudioAvailable() noexcept
+{
+    return gAudioDisabled_10507D4 == 0 && gSdlAudioBackend.IsOpen();
+}
+
+float GetFileBgmGain() noexcept
+{
+    const auto level = std::clamp(platform::gMusicVolume, 0, 15);
+    if (platform::gEnableMusic == 0 || level == 0) return 0.0f;
+    const auto db = gSoundVolValue10505D0[static_cast<std::size_t>(level * 127 / 15)];
+    return static_cast<float>(std::pow(10.0, db / 2000.0));
+}
+
+bool SetSceneBgmSuppressed(const bool suppressed) noexcept
+{
+    return gSdlAudioBackend.SetBgmSuppressed(suppressed);
 }
 
 } // namespace cg::audio

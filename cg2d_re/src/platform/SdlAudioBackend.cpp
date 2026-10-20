@@ -53,6 +53,8 @@ struct SdlAudioBackend::Impl {
     std::atomic<std::uint32_t>* bgmReady {};
     std::atomic<bool> bgmAbort {false};
     bool bgmBound {};
+    float bgmGain {1.0f}; // 原音量/淡出的目标增益，独立于文件音乐的前台抑制。
+    bool bgmSuppressed {};
     Sample fixedMusicSample;
     Channel fixedMusic;
     bool fixedMusicPrepared {};
@@ -472,7 +474,8 @@ bool SdlAudioBackend::LoadBgmWav(
         Impl::FreeSample(pending);
         return false;
     }
-    if (!SDL_SetAudioStreamGetCallback(
+    if (!SDL_SetAudioStreamGain(stream, impl_->bgmSuppressed ? 0.0f : 1.0f)
+        || !SDL_SetAudioStreamGetCallback(
             stream, &Impl::FeedChannel, &impl_->bgm)) {
         SDL_DestroyAudioStream(stream);
         Impl::FreeSample(pending);
@@ -480,6 +483,7 @@ bool SdlAudioBackend::LoadBgmWav(
     }
 
     ReleaseBgm();
+    impl_->bgmGain = 1.0f;
     impl_->bgmSample = pending;
     Impl::Channel& channel = impl_->bgm;
     channel.stream = stream;
@@ -517,9 +521,19 @@ bool SdlAudioBackend::SetBgmVolume(
         return false;
     }
     // 流式首段已在设置音量前预填；不将旧音量烘焙进PCM或重复衰减。
-    return SDL_SetAudioStreamGain(
-        impl_->bgm.stream, static_cast<float>(
-            std::pow(10.0, hundredthDb / 2000.0)));
+    const auto gain = static_cast<float>(std::pow(10.0, hundredthDb / 2000.0));
+    if (!SDL_SetAudioStreamGain(impl_->bgm.stream, impl_->bgmSuppressed ? 0.0f : gain)) return false;
+    impl_->bgmGain = gain;
+    return true;
+}
+
+bool SdlAudioBackend::SetBgmSuppressed(const bool suppressed) noexcept
+{
+    if (!impl_) return !suppressed;
+    if (HasBgm() && !SDL_SetAudioStreamGain(impl_->bgm.stream, suppressed ? 0.0f : impl_->bgmGain))
+        return false;
+    impl_->bgmSuppressed = suppressed;
+    return true;
 }
 
 bool SdlAudioBackend::SetBgmFrequency(const std::uint32_t hz) noexcept

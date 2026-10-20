@@ -2583,6 +2583,7 @@ void RegisterLuaUI(lua_State* L)
     RegCBridgeHandle(L);
     RegBridge(L);
     RegWinMgr(L);
+    RegLuaAudio(L);
     RegGraphic(L);
     RegLuaIO(L);
     if (L == GetLuaState()) LuaBridgeSetLuaUIState(L); else LuaBridgeSetAutoBattleState(L);

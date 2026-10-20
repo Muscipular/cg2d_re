@@ -70,6 +70,8 @@ public:
     [[nodiscard]] std::uint32_t ReadBgmDataLength() const noexcept; // 原流式创建先发布实际读取的PCM字节数。
     [[nodiscard]] bool HasBgm() const noexcept;
     [[nodiscard]] bool SetBgmVolume(std::int32_t hundredthDb) noexcept;
+    // LBG01：只抑制普通BGM输出，保留原目标音量与播放位置。
+    [[nodiscard]] bool SetBgmSuppressed(bool suppressed) noexcept;
     [[nodiscard]] bool SetBgmFrequency(std::uint32_t hz) noexcept;
     [[nodiscard]] bool PlayBgm(bool loop) noexcept;
     [[nodiscard]] bool StopBgm() noexcept;

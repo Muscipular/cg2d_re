@@ -1,20 +1,20 @@
 # Lua 文件背景音乐 SPEC（LBG01）
 
-状态：设计稿，待确认；尚未修改运行代码或引入依赖。日期：2026-10-20。
+状态：已按用户要求实施全部三种格式，build.bat Debug配置、编译及链接通过；实际声音验收待进行。日期：2026-10-20。
 
 ## 1. 已确认需求
 
 - Lua 增加 MP3、WAV、OGG 文件播放能力，仅用于背景音乐，不扩展短音效接口。
 - 支持替换当前场景、接管、独立播放三种模式。
 - 每次成功播放返回 handle，通过 handle 停止对应音乐。
-- 本轮先做 SPEC。以下接口名称、模式细则、依赖与资源策略均为具体实施建议，不将未确认的细节视为既定业务。
+- 初稿先做SPEC，随后用户要求“接入进来”“3种格式都接入”及完成后执行build.bat；本轮采用本稿推荐的接口、三模式细则、依赖与资源策略。
 
 ## 2. 当前实现与 SDL 能力
 
 - `src/script/LuaUI.cpp` 已导出 `WinMgr.PlaySe`、`WinMgr.LoadAndPlayBGM`、`WinMgr.PlayFixedBGM`，均通过编号播放，不接受任意音频路径。
 - `src/audio/LegacyAudio.cpp` 管理普通场景 BGM 请求、淡出、音量与生命周期；唯一 `gSdlAudioBackend` 实例也承接旧音效和固定音乐。
 - `src/platform/SdlAudioBackend.cpp` 通过 `SDL_LoadWAV_IO` 整段加载 WAV、转换 PCM，再用 SDL 音频流播放；现有“流式 BGM”没有实现压缩文件的增量解码。
-- 项目本地 SDL 为3.4.8；当前CMake未接入SDL3_mixer，未找到独立MP3/Vorbis解码依赖。
+- 设计时项目本地SDL为3.4.8，尚无SDL3_mixer；本轮新增3.2.4及必要解码依赖。
 - SDL3核心已经提供设备、播放、混音、重采样和WAV读取；MP3、Ogg Vorbis等文件解码可由官方独立扩展库SDL3_mixer提供。[SDL3音频](https://wiki.libsdl.org/SDL3/CategoryAudio)、[SDL3_mixer说明](https://wiki.libsdl.org/SDL3_mixer/FrontPage)
 
 ## 3. 依赖方案与格式边界
@@ -34,7 +34,7 @@
 - 只启用上述解码后端，关闭MIDI、MOD、FLAC、Opus及示例/测试目标；不恢复已停用的MIDI链。
 - Ogg优先采用Vorbis官方解码库，避免轻量stb_vorbis的旧floor0及串接流限制；实际编码覆盖仍按验收样本记录。
 - 保留SDL3_mixer及必要解码依赖的许可文件；锁定发布版及其依赖来源，不在普通CMake配置阶段自动联网下载。
-- 新增目录建议为`cg2d_re/3rd/SDL3_mixer/`及其必要依赖。该项与项目“禁止直接引入外部依赖”的规则存在明确审批边界，当前只提案，不下载、不复制、不修改CMake。
+- 新增目录为`cg2d_re/3rd/SDL3_mixer/`及其external/ogg、external/vorbis；用户本次接入指令授权该依赖方案，覆盖本项“禁止直接引入外部依赖”的默认限制。来源与许可记录见该目录CG2D_DEPENDENCIES.md。
 
 备选为直接封装dr_wav、dr_mp3和Vorbis解码器，继续使用现有SDL输出。但多轨、循环、停止及资源管理需自行完成，维护量更高，本稿不推荐。只有现有SDL核心时不能交付完整MP3/OGG支持，也不能以只完成WAV替代验收。
 
@@ -49,10 +49,10 @@
 ## 4. Lua 接口建议
 
 ```lua
--- path 相对 luaUI/audio；mode 必填，loop 默认 true。
+-- path 相对 luaUI/audio；mode、loop 均必填。
 local music, err = WinMgr.PlayBGMFile("活动主题.mp3", {
     mode = "takeover", -- "replace" / "takeover" / "independent"
-    loop = true,
+    loop = true, -- 必填布尔值：true循环当前文件，false只播放一次
 })
 
 if music then
@@ -69,12 +69,12 @@ end
 | `handle:Stop()` | 停止并释放该播放，返回true；已停止、已结束或已被替换时重复调用仍返回true，不作用于其他handle |
 | `handle:GetState()` | 返回`playing`、`stopped`、`finished`或`replaced`；查询不恢复或重播音乐 |
 
-- 参数类型、mode取值错误使用既有Lua参数错误机制；文件及设备失败以返回值报告，不返回伪成功handle。
+- 参数类型、mode取值错误使用既有Lua参数错误机制；loop必须显式传入布尔值，省略、nil、数字或字符串均报参数错误，不提供自动循环默认值。文件及设备失败以返回值报告，不返回伪成功handle。
 - `loop=false`完整播放一遍，结束后释放音频资源；`loop=true`整曲循环，直到Stop、替换或Lua关闭。自定义循环点、无缝循环质量、暂停/续播、定位、淡入淡出及播放列表不在本轮范围。
 - 新接口在UI及战斗Lua状态注册，与现有WinMgr保持一致；两状态共享同一音频服务，handle由创建它的Lua状态持有。
 - 保留现有三个编号接口的参数、返回值和路径规则，不把整数编号与文件路径重载到同一入口。
 
-## 5. 三种模式与冲突规则（建议确认）
+## 5. 三种模式与冲突规则
 
 这里的“场景BGM”指`LoadAndPlayBGM`及`UpdateBgmRequest_52C910`管理的普通BGM；旧64路音效及`PlayFixedBGM`的独立固定音乐不属于该通道。
 
@@ -96,12 +96,12 @@ end
 
 ## 6. handle 与资源生命周期
 
-- `BGMHandle`使用Lua userdata，内部保存播放身份及代次，不向Lua暴露SDL/MIX指针或数字化指针。
+- `BGMHandle`使用Lua userdata，内部保存单调递增的64位播放身份，身份兼作代次且从不复用（包括Lua关闭再初始化），不向Lua暴露SDL/MIX指针或数字化指针。
 - 原生服务拥有track、音频资源及终止状态。资源结束即释放，仍被脚本持有的handle只保留查询状态所需的轻量记录；不得保留完整音频直到Lua GC。
 - `__gc`停止对应播放并释放handle记录。因此脚本需要保存正在播放的handle；不保存返回值的播放可能在GC时结束。
 - 模块卸载时脚本主动Stop；关闭一个普通窗口不会自动停止无关联handle。不擅自修改模块系统。
 - `ShutdownLua`在关闭两个Lua状态前统一停止其文件BGM。客户端退出时不为恢复场景音乐而重新开设备或加载资源。
-- 自然结束通知只能发布原生状态，由主线程回收资源和释放前台占用；音频线程不能调用Lua或直接改场景全局。主动Stop与自然结束竞态必须幂等。
+- 主线程通过MIX_TrackPlaying轮询结束，回收资源并释放前台占用；无需自定义track停止回调。设备移除事件只发布原子标记，主线程统一终止和清理；音频线程不调用Lua或直接改场景全局。主动Stop与自然结束处理幂等。
 - SDL_mixer停止回调不覆盖“直接销毁track”的全部路径，销毁与关闭也必须显式释放归属，不能只等待回调。[停止回调合同](https://wiki.libsdl.org/SDL3_mixer/MIX_SetTrackStoppedCallback)
 - 实施时核对所选版本对解码失败、设备错误与正常结束的可观测信息；未能区分的底层终止不伪造详细错误原因，记录实际可取得的错误并保证清理。
 
@@ -139,11 +139,13 @@ end
 7. 核对选定加载策略的内存行为：预缓存方案如实记录原文件内存成本，不能验收为恒定缓冲流式方案。
 8. 静态检查、依赖开关与接口核对完成后，按另行授权进行编译/链接及实际声音验收；任何缺项不以局部成功代替。
 
-本轮只提交SPEC与进度；不下载依赖、不修改源码、不编译、不运行、不计算摘要。前一项鼠标枚举任务的build.bat授权不自动沿用。
+本轮按用户新的明确授权实施依赖和源码并执行build.bat Debug；不运行客户端、不新增/执行测试、不计算文件摘要。编译结果不代替第1～7项实际声音验收。
 
-## 10. 待确认
+## 10. 本轮实施决议与验证
 
-1. 是否允许引入SDL3_mixer 3.2.4及必要MP3/Vorbis解码依赖，并采用本稿的接口与三模式细则。
-2. OGG是否仅需Ogg Vorbis；如需Ogg Opus，应同步增加对应解码依赖与验收。
-3. 是否接受首版“原文件缓存、按需解码”的内存策略；若要求真正流式读取，在实施前调整第3.2节。
-4. 确认建议的资源根目录、循环默认值和GC停止规则；这些尚未由用户单独指定。
+1. 按推荐方案接入SDL3_mixer 3.2.4，WAV、dr_mp3、libvorbisfile同时启用，配置阶段及运行初始化均检查三种解码器齐备。OGG范围为Ogg Vorbis，不扩展Opus。
+2. 首版缓存原文件、按需解码；根目录luaUI/audio、GC停止及三模式仲裁均按本稿实施。用户随后明确loop必填，true循环当前文件、false只播一次，覆盖初稿的默认true。路径使用canonical解析并逐组件核对根目录，中文路径仍沿GBK→UTF-16→SDL UTF-8边界。
+3. 旧LoadAndPlayBGM相同编号且不淡出时的提前返回保持原状，不算实际切曲；通过门禁的实际切曲与-2停止通知replace，takeover继续。
+4. 正常终止通过MIX_TrackPlaying回收。该版本内部DecodeMore将解码耗尽与部分解码错误合并为结束，公开轮询没有独立终止原因；因此GetState的finished表示底层已结束，不能据此证明整个文件无损。可取得的加载/启动错误返回nil,error，音量同步错误记录底层错误，设备失效停止并清理；不伪造不可取得的解码错误原因。
+5. 已静态核对Lua参数/栈、userdata身份、旧handle不干扰新owner、准备失败保留旧播放、普通BGM抑制与音量独立、退出清理和依赖格式开关；已知零帧文件在启动前拒绝，恢复场景增益失败由主线程重试。自有代码与文档差异检查通过，第三方发布源码保持原样。
+6. 首轮及包含loop必填修改的最终build.bat Debug均配置、编译和链接成功，退出码0；配置输出确认仅wave/mp3_drmp3/vorbis_vorbisfile启用，SDL3_mixer/ogg/vorbis/vorbisfile全部使用/MT。构建仍报告既有模块C4701/C4244/C4505警告。未运行客户端或测试，三格式实际播放、模式切换、循环、设备故障及音量听感仍按第9节验收，不以构建成功替代。

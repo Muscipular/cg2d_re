@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cg/platform/NetworkTransport.hpp"
+#include "cg/platform/CgTransport.hpp"
 
 #include <cstdint>
 #include <functional>

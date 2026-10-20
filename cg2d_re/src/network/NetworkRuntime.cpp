@@ -157,7 +157,7 @@ struct NetworkRuntimeState {
 };
 
 static NetworkRuntimeState gNetworkRuntimeState {};
-static platform::NetworkTransport gNetworkTransport; // 唯一后台传输owner。
+static platform::CgTransport gNetworkTransport; // 唯一后台传输owner。
 
 // NTM01：初始化失败和重复关闭共用释放路径，清空指针避免重连时二次释放。
 static void ReleaseProtocolWorkspace()

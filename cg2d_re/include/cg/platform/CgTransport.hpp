@@ -29,13 +29,15 @@ struct ConnectionSnapshot {
 };
 
 // 单工作线程拥有所有Socket和DNS请求；主线程API只借短锁访问有界队列。
-class NetworkTransport final {
+class CgTransport final {
 public:
     static constexpr std::size_t kQueueCapacity = 0x4000;
-    NetworkTransport() noexcept;
-    ~NetworkTransport();
-    NetworkTransport(const NetworkTransport&) = delete;
-    NetworkTransport& operator=(const NetworkTransport&) = delete;
+    CgTransport() noexcept;
+    ~CgTransport();
+    CgTransport(const CgTransport&) = delete;
+    CgTransport& operator=(const CgTransport&) = delete;
+    CgTransport(CgTransport&&) = delete;
+    CgTransport& operator=(CgTransport&&) = delete;
 
     [[nodiscard]] bool Open(int& error);
     [[nodiscard]] ConnectionId BeginConnect(std::wstring host, std::uint16_t port,

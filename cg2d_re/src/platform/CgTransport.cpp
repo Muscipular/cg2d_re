@@ -2,7 +2,7 @@
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0602
 #endif
-#include "cg/platform/NetworkTransport.hpp"
+#include "cg/platform/CgTransport.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <winsock2.h>
@@ -20,7 +20,7 @@
 
 namespace cg::platform {
 
-struct NetworkTransport::Impl {
+struct CgTransport::Impl {
     struct Event {
         WSAEVENT value {WSA_INVALID_EVENT};
         ~Event() { Close(); }
@@ -412,10 +412,10 @@ struct NetworkTransport::Impl {
     }
 };
 
-NetworkTransport::NetworkTransport() noexcept = default;
-NetworkTransport::~NetworkTransport() = default;
+CgTransport::CgTransport() noexcept = default;
+CgTransport::~CgTransport() = default;
 
-bool NetworkTransport::Open(int& error)
+bool CgTransport::Open(int& error)
 {
     error = 0;
     if (impl_) return true;
@@ -432,7 +432,7 @@ bool NetworkTransport::Open(int& error)
     } catch (...) { error = WSAENOBUFS; return false; }
 }
 
-ConnectionId NetworkTransport::BeginConnect(std::wstring host, std::uint16_t port,
+ConnectionId CgTransport::BeginConnect(std::wstring host, std::uint16_t port,
     bool noDelay, std::wstring policyQuery)
 {
     if (!impl_ || nextId_ == (std::numeric_limits<ConnectionId>::max)()) return 0;
@@ -452,7 +452,7 @@ ConnectionId NetworkTransport::BeginConnect(std::wstring host, std::uint16_t por
     return id;
 }
 
-ConnectionSnapshot NetworkTransport::PollConnection(ConnectionId id) const
+ConnectionSnapshot CgTransport::PollConnection(ConnectionId id) const
 {
     if (!impl_) return {};
     std::lock_guard lock(impl_->mutex);
@@ -462,7 +462,7 @@ ConnectionSnapshot NetworkTransport::PollConnection(ConnectionId id) const
     return result;
 }
 
-void NetworkTransport::ContinueAfterPolicy(ConnectionId id)
+void CgTransport::ContinueAfterPolicy(ConnectionId id)
 {
     if (!impl_) return;
     std::lock_guard lock(impl_->mutex);
@@ -473,7 +473,7 @@ void NetworkTransport::ContinueAfterPolicy(ConnectionId id)
     WSASetEvent(impl_->control.value);
 }
 
-void NetworkTransport::SetIoEnabled(ConnectionId id, bool enabled)
+void CgTransport::SetIoEnabled(ConnectionId id, bool enabled)
 {
     if (!impl_) return;
     std::lock_guard lock(impl_->mutex);
@@ -482,7 +482,7 @@ void NetworkTransport::SetIoEnabled(ConnectionId id, bool enabled)
     WSASetEvent(impl_->control.value);
 }
 
-NetworkQueueResult NetworkTransport::TryQueueSend(ConnectionId id,
+NetworkQueueResult CgTransport::TryQueueSend(ConnectionId id,
     std::span<const std::uint8_t> bytes, bool replace, std::string_view prefix)
 {
     if (!impl_) return NetworkQueueResult::Stopping;
@@ -501,7 +501,7 @@ NetworkQueueResult NetworkTransport::TryQueueSend(ConnectionId id,
     return NetworkQueueResult::Accepted;
 }
 
-std::size_t NetworkTransport::DrainReceived(ConnectionId id, std::span<std::uint8_t> destination)
+std::size_t CgTransport::DrainReceived(ConnectionId id, std::span<std::uint8_t> destination)
 {
     if (!impl_) return 0;
     std::lock_guard lock(impl_->mutex);
@@ -516,7 +516,7 @@ std::size_t NetworkTransport::DrainReceived(ConnectionId id, std::span<std::uint
     return count;
 }
 
-void NetworkTransport::CloseConnection(ConnectionId id)
+void CgTransport::CloseConnection(ConnectionId id)
 {
     if (!impl_) return;
     std::lock_guard lock(impl_->mutex);
@@ -528,6 +528,6 @@ void NetworkTransport::CloseConnection(ConnectionId id)
     WSASetEvent(impl_->control.value);
 }
 
-void NetworkTransport::Stop() { impl_.reset(); }
+void CgTransport::Stop() { impl_.reset(); }
 
 } // namespace cg::platform

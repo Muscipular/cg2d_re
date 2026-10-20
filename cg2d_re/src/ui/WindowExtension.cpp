@@ -2,6 +2,7 @@
 #include "../script/LuaUI.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include <unordered_map>
+#include <utility>
 
 namespace cg::ui {
 using namespace component_detail;
@@ -11,6 +12,7 @@ static std::unordered_map<int, std::uint64_t> windowOrder;
 static std::uint64_t orderSequence = 0;
 static int focusedWindow = -1;
 static int lastScene = -1, lastSceneState = -1;
+static std::vector<std::pair<int, std::uint32_t>> pendingWindowOpens; // ID和实例代次，不持有窗口。
 
 
 static std::uint32_t nextGeneration = 0;
@@ -129,6 +131,12 @@ void WindowExOpen(std::shared_ptr<WindowExtension>& window)
     windows.push_back(window);
     windowOrder[window->window.id] = ++orderSequence;
     window->window.state |= WIN_STATE_FOCUS;
+    WindowRuntime_QueueWindowOpen(window->window);
+}
+
+void WindowRuntime_QueueWindowOpen(const WindowInstance& window)
+{
+    pendingWindowOpens.emplace_back(window.id, window.generation);
 }
 
 void CgWindowClose(int id)
@@ -212,6 +220,15 @@ void PrepareWindowFrame()
     });
     for (int id : closed) script::LuaProcessWinMgrWindowClose(id);
 
+    // 移走当前批次；打开回调中新建的窗口留到下一次UI更新，避免递归派发。
+    std::vector<std::pair<int, std::uint32_t>> opened;
+    opened.swap(pendingWindowOpens);
+    for (const auto& [id, generation] : opened) {
+        const auto* window = WindowRuntime_FindInstance(id);
+        if (window && window->generation == generation && !(window->state & WIN_STATE_CLOSE))
+            script::LuaProcessWinMgrWindowOpen(id);
+    }
+
     int nextFocus = -1;
     const auto track = [&](UIWindowInstance& window) {
         if (window.state & WIN_STATE_CLOSE) return;
@@ -260,6 +277,7 @@ void FinishWindowFrame()
 
 void ShutdownExtensionWindows()
 {
+    pendingWindowOpens.clear();
     windows.clear(); // UI销毁组件/绑定后，调用方才可关闭Lua state。
     dragOwner = -1;
     mouseWheelDelta = 0;

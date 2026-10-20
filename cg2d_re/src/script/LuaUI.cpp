@@ -104,6 +104,7 @@ enum class WinMgrEventType {
     SceneStateChanged,
     ChatMessage,
     WindowFocusChanged,
+    WindowOpen,
     WindowClose,
 };
 
@@ -2222,6 +2223,29 @@ void LuaProcessWinMgrWindowFocusChanged(int focusWinId, int blurWinId) {
     }
 }
 
+void LuaProcessWinMgrWindowOpen(int winId) {
+    auto* window = ui::WindowRuntime_FindInstance(winId);
+    if (!window || (window->state & WIN_STATE_CLOSE)) return;
+    const auto generation = window->generation;
+    // 快照允许回调新增/注销订阅；新订阅从下一次打开事件开始接收。
+    const auto events = WinMgrEventOptions(WinMgrEventType::WindowOpen);
+    for (const auto& event : events) {
+        window = ui::WindowRuntime_FindInstance(winId);
+        if (!window || window->generation != generation || (window->state & WIN_STATE_CLOSE)) break;
+        if (!event || !event->active || event->callbackRef == LUA_REF_NONE) continue;
+        lua_State* L = event->owner;
+        const int top = lua_gettop(L);
+        lua_rawgeti(L, LUA_REGISTRYINDEX, event->callbackRef);
+        if (lua_isfunction(L, -1)) {
+            lua_pushinteger(L, winId);
+            if (lua_pcall(L, 1, 0, 0) != 0) {
+                m_log_iw(L"[LUA] call lua WinMgr.OnWindowOpen error: %hs\n", lua_tostring(L, -1));
+            }
+        }
+        lua_settop(L, top);
+    }
+}
+
 void LuaProcessWinMgrWindowClose(int winId) {
     auto& options = WinMgrEventOptions(WinMgrEventType::WindowClose);
     if (options.empty()) {
@@ -2293,6 +2317,14 @@ LuaFunction(WinMgr_onWindowFocusChanged) {
     luaL_checktype(L, 1, LUA_TFUNCTION);
     auto event = LuaRefEvent(L, 1);
     WinMgrEventOptions(WinMgrEventType::WindowFocusChanged).push_back(event);
+    PushEventHandle(L, event);
+    return 1;
+}
+
+LuaFunction(WinMgr_onWindowOpen) {
+    luaL_checktype(L, 1, LUA_TFUNCTION);
+    auto event = LuaRefEvent(L, 1);
+    WinMgrEventOptions(WinMgrEventType::WindowOpen).push_back(event);
     PushEventHandle(L, event);
     return 1;
 }
@@ -2554,6 +2586,8 @@ void RegWinMgr(lua_State* L) {
     lua_setfield(L, -2, "GetAutoCopliotRoute");
     lua_pushcfunction(L, SafeLuaCall<WinMgr_onWindowFocusChanged>);
     lua_setfield(L, -2, "OnWindowFocusChanged");
+    lua_pushcfunction(L, SafeLuaCall<WinMgr_onWindowOpen>);
+    lua_setfield(L, -2, "OnWindowOpen");
     lua_pushcfunction(L, SafeLuaCall<WinMgr_onWindowClose>);
     lua_setfield(L, -2, "OnWindowClose");
     lua_pushcfunction(L, SafeLuaCall<WinMgr_onSceneStateChanged>);

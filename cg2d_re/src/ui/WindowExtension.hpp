@@ -43,6 +43,8 @@ void WindowRuntime_EnsureIdentity(WindowInstance& window);
 WindowInstance* WindowRuntime_FindInstance(int id);
 std::shared_ptr<WindowExtension> GetExtWindowById(int id);
 void WindowExOpen(std::shared_ptr<WindowExtension>& window);
+// 创建成功后排队，在下一次UI更新中按实例代次派发打开事件。
+void WindowRuntime_QueueWindowOpen(const WindowInstance& window);
 void CgWindowClose(int id);
 void CloseNonDefaultWindows(int exceptId);
 bool CloseTopmostNonDefaultWindow();

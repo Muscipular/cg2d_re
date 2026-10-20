@@ -4637,6 +4637,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
         window->width, window->height, window->x, window->y));
     WindowRuntime_UpdateElementOrder(*window);
     gCurrentWindow = previous;
+    WindowRuntime_QueueWindowOpen(*window);
     return window;
 }
 

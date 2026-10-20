@@ -12,7 +12,7 @@ namespace cg::network {
 
 class CgConnection;
 
-// SendPacket的本地入队结果；底层值保留Lua及既有S32业务返回合同。
+// 通用与具名业务发包的本地入队结果；底层值保留Lua数字返回合同。
 enum class SendResult : std::int32_t {
     Queued = 0,          // 队列已接收，尚不代表TCP发送完成或服务端处理成功。
     QueueFull = -1,      // 队列剩余容量不足，包含单条消息过大的情形。
@@ -82,15 +82,15 @@ public:
     std::string EncodeInteger(std::int32_t value);
     std::string EscapeText(std::wstring_view text);
     std::string UnescapeText(const char* text);
-    // 业务请求保留原字段/返回；未初始化或已Shutdown时返回-100。
+    // 业务请求保留原字段与入队结果；未初始化或已Shutdown时返回Unavailable。
 
     // 账号、人物选择、登出与保活。
-    std::int32_t SendAccountLoginRequest(const std::wstring_view executableDigest,
+    SendResult SendAccountLoginRequest(const std::wstring_view executableDigest,
         const std::wstring_view password,
         const std::wstring_view account,
         const std::wstring_view adapterId);
-    std::int32_t SendCharacterListRequest();
-    std::int32_t SendCharacterCreationRequest(const std::int32_t field1,
+    SendResult SendCharacterListRequest();
+    SendResult SendCharacterCreationRequest(const std::int32_t field1,
         const std::wstring_view field2,
         const std::int32_t field3,
         const std::int32_t field4,
@@ -103,50 +103,50 @@ public:
         const std::int32_t field11,
         const std::int32_t field12,
         const std::int32_t field13);
-    std::int32_t SendCharacterDeletionRequest(const std::int32_t registNumber);
-    std::int32_t SendCharacterLoginRequest(const std::int32_t field4C,
+    SendResult SendCharacterDeletionRequest(const std::int32_t registNumber);
+    SendResult SendCharacterLoginRequest(const std::int32_t field4C,
         const std::int32_t field50,
         const std::int32_t field18);
-    std::int32_t SendLogoutRequest();
-    std::int32_t RequestLogoutToTown();
-    std::int32_t SendLoginTimestamp(const std::uint32_t tickBits);
-    std::int32_t SendVersionUpgradeRequest(const std::int32_t version,
+    SendResult SendLogoutRequest();
+    SendResult RequestLogoutToTown();
+    SendResult SendLoginTimestamp(const std::uint32_t tickBits);
+    SendResult SendVersionUpgradeRequest(const std::int32_t version,
         const std::wstring_view payload);
-    std::int32_t SendKeepAliveRequest();
+    SendResult SendKeepAliveRequest();
 
     // 地图、移动、队伍与场景交互。
-    std::int32_t SendPlayerMovementPath(const std::int32_t first,
+    SendResult SendPlayerMovementPath(const std::int32_t first,
         const std::int32_t second,
         const std::wstring_view text,
         const std::int32_t fourth);
-    std::int32_t SendMapTransitionRequest(const std::int32_t first,
+    SendResult SendMapTransitionRequest(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third,
         const std::int32_t fourth,
         const std::int32_t fifth);
-    std::int32_t RequestMapRectangle(const std::int32_t first,
+    SendResult RequestMapRectangle(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third,
         const std::int32_t fourth,
         const std::int32_t fifth,
         const std::int32_t sixth);
-    std::int32_t SendPlayerCoordinates(const std::int32_t first,
+    SendResult SendPlayerCoordinates(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t SendPlayerPositionAndDirection(const std::int32_t first,
+    SendResult SendPlayerPositionAndDirection(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third);
-    std::int32_t SendPositionDirectionInteraction(const std::int32_t x,
+    SendResult SendPositionDirectionInteraction(const std::int32_t x,
         const std::int32_t y, const std::int32_t direction);
-    std::int32_t SendTeamJoinLeaveRequest(const std::int32_t first,
+    SendResult SendTeamJoinLeaveRequest(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third);
-    std::int32_t SendWorldActionRequest(const std::int32_t first,
+    SendResult SendWorldActionRequest(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third);
-    std::int32_t SendPlayerMotionRequest(const std::int32_t first,
+    SendResult SendPlayerMotionRequest(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third);
-    std::int32_t SendDialogResponse(const std::int32_t first,
+    SendResult SendDialogResponse(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third,
         const std::int32_t fourth,
@@ -154,140 +154,140 @@ public:
         const std::wstring_view text);
 
     // 聊天、联系人、邮件与人物资料。
-    std::int32_t SendChatMessage(const std::int32_t first,
+    SendResult SendChatMessage(const std::int32_t first,
         const std::int32_t second,
         const std::wstring_view text,
         const std::int32_t fourth,
         const std::int32_t fifth,
         const std::int32_t sixth);
-    std::int32_t RequestAlbumEntries(const std::int32_t* values,
+    SendResult RequestAlbumEntries(const std::int32_t* values,
         const std::int32_t count);
-    std::int32_t RequestContactDeletion(const std::int32_t value);
-    std::int32_t SendContactCardRequest(const std::int32_t first,
+    SendResult RequestContactDeletion(const std::int32_t value);
+    SendResult SendContactCardRequest(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t SendContactMail(const std::int32_t first,
+    SendResult SendContactMail(const std::int32_t first,
         const std::wstring_view text, const std::int32_t third);
-    std::int32_t SendContactPetMail(const std::int32_t first, const std::int32_t second,
+    SendResult SendContactPetMail(const std::int32_t first, const std::int32_t second,
         const std::int32_t third, const std::wstring_view text, const std::int32_t fifth);
-    std::int32_t RequestProfileCategoryUpdates(const std::int32_t value);
-    std::int32_t SendPlayerProfile(const std::int32_t field1,
+    SendResult RequestProfileCategoryUpdates(const std::int32_t value);
+    SendResult SendPlayerProfile(const std::int32_t field1,
         const std::wstring_view text2,
         const std::int32_t field3,
         const std::wstring_view text4,
         const std::int32_t field5,
         const std::wstring_view text6,
         const std::wstring_view text7);
-    std::int32_t RequestPlayerProfile(const std::int32_t first,
+    SendResult RequestPlayerProfile(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t RequestMiniMailContactDeletion(const std::int32_t value,
+    SendResult RequestMiniMailContactDeletion(const std::int32_t value,
         const std::wstring_view text);
-    std::int32_t SendMiniMail(const std::wstring_view text,
+    SendResult SendMiniMail(const std::wstring_view text,
         const std::int32_t value);
-    std::int32_t SetProfileVisibilityRequest(const std::int32_t value);
+    SendResult SetProfileVisibilityRequest(const std::int32_t value);
 
     // 公会信息、成员与邮件。
-    std::int32_t SendGuildTextUpdate(const std::int32_t kind, const std::wstring_view text);
-    std::int32_t SendGuildRankDefinition(const std::int32_t first,
+    SendResult SendGuildTextUpdate(const std::int32_t kind, const std::wstring_view text);
+    SendResult SendGuildRankDefinition(const std::int32_t first,
         const std::int32_t second,
         const std::wstring_view text);
-    std::int32_t SendGuildMemberRankChange(const std::int32_t first,
+    SendResult SendGuildMemberRankChange(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t SendGuildInvitation(const std::int32_t first,
+    SendResult SendGuildInvitation(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t RequestGuildMemberDeletion(const std::int32_t value);
-    std::int32_t SendGuildMail(const std::int32_t first,
+    SendResult RequestGuildMemberDeletion(const std::int32_t value);
+    SendResult SendGuildMail(const std::int32_t first,
         const std::wstring_view text,
         const std::int32_t third);
-    std::int32_t SendGuildPetMail(const std::int32_t first,
+    SendResult SendGuildPetMail(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third,
         const std::wstring_view text,
         const std::int32_t fifth);
 
     // 人物属性、称号与选项。
-    std::int32_t SendPlayerOptions(const std::int32_t value);
-    std::int32_t SelectPlayerTitleRequest(const std::int32_t value);
-    std::int32_t DeletePlayerTitleRequest(const std::int32_t value);
-    std::int32_t SetCustomPlayerTitleRequest(const std::wstring_view text);
-    std::int32_t IncreasePlayerAttributeRequest(const std::int32_t value);
+    SendResult SendPlayerOptions(const std::int32_t value);
+    SendResult SelectPlayerTitleRequest(const std::int32_t value);
+    SendResult DeletePlayerTitleRequest(const std::int32_t value);
+    SendResult SetCustomPlayerTitleRequest(const std::wstring_view text);
+    SendResult IncreasePlayerAttributeRequest(const std::int32_t value);
 
     // 物品、背包与银行；银行两条rh入口保留各自字段编码。
-    std::int32_t RequestItemTargetAttributes();
-    std::int32_t SelectItemTextTarget(const std::int32_t value);
-    std::int32_t SendItemTargetPair(const std::int32_t first,
+    SendResult RequestItemTargetAttributes();
+    SendResult SelectItemTextTarget(const std::int32_t value);
+    SendResult SendItemTargetPair(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t SendItemUseRequest(const std::int32_t x, const std::int32_t y,
+    SendResult SendItemUseRequest(const std::int32_t x, const std::int32_t y,
         const std::int32_t item, const std::int32_t target);
-    std::int32_t BeginItemUseRequest(const std::int32_t x, const std::int32_t y,
+    SendResult BeginItemUseRequest(const std::int32_t x, const std::int32_t y,
         const std::int32_t index, const std::int32_t group);
-    std::int32_t DropItemRequest(const std::int32_t x, const std::int32_t y,
+    SendResult DropItemRequest(const std::int32_t x, const std::int32_t y,
         const std::int32_t group, const std::int32_t index);
-    std::int32_t DropGoldRequest(const std::int32_t x,
+    SendResult DropGoldRequest(const std::int32_t x,
         const std::int32_t y, const std::int32_t amount);
-    std::int32_t MoveItemBetweenOwnersRequest(const std::int32_t sourceGroup, const std::int32_t source,
+    SendResult MoveItemBetweenOwnersRequest(const std::int32_t sourceGroup, const std::int32_t source,
         const std::int32_t targetGroup, const std::int32_t target, const std::int32_t amount);
-    std::int32_t MoveItemStackRequest(const std::int32_t source,
+    SendResult MoveItemStackRequest(const std::int32_t source,
         const std::int32_t target, const std::int32_t amount);
-    std::int32_t SelectBankPageRequest(const std::int32_t value);
-    std::int32_t MoveItemToBagPage(std::int32_t source, std::int32_t page);
-    std::int32_t SelectBagPage(std::int32_t page);
-    std::int32_t SelectInventoryBankPage(std::int32_t page);
+    SendResult SelectBankPageRequest(const std::int32_t value);
+    SendResult MoveItemToBagPage(std::int32_t source, std::int32_t page);
+    SendResult SelectBagPage(std::int32_t page);
+    SendResult SelectInventoryBankPage(std::int32_t page);
 
     // 宠物状态、属性、技能与命名。
-    std::int32_t SendPetStates(const std::int32_t first,
+    SendResult SendPetStates(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third,
         const std::int32_t fourth,
         const std::int32_t fifth);
-    std::int32_t MovePetSlotRequest(const std::int32_t first,
+    SendResult MovePetSlotRequest(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t DropPetRequest(const std::int32_t x,
+    SendResult DropPetRequest(const std::int32_t x,
         const std::int32_t y,
         const std::int32_t pet);
-    std::int32_t IncreasePetAttributeRequest(const std::int32_t first,
+    SendResult IncreasePetAttributeRequest(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t SwapPetSkillOrderRequest(const std::int32_t first,
+    SendResult SwapPetSkillOrderRequest(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third);
-    std::int32_t RenamePetRequest(const std::int32_t value,
+    SendResult RenamePetRequest(const std::int32_t value,
         const std::wstring_view text);
 
     // 技能目标、使用、合成与重生。
-    std::int32_t RequestSkillTargetAttributes(const std::int32_t value);
-    std::int32_t SelectSkillTextTarget(const std::int32_t value);
-    std::int32_t SendSkillUseRequest(const std::int32_t first,
+    SendResult RequestSkillTargetAttributes(const std::int32_t value);
+    SendResult SelectSkillTextTarget(const std::int32_t value);
+    SendResult SendSkillUseRequest(const std::int32_t first,
         const std::int32_t second,
         const std::int32_t third,
         const std::wstring_view text);
-    std::int32_t SwapPlayerSkillOrderRequest(const std::int32_t first,
+    SendResult SwapPlayerSkillOrderRequest(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t SendCraftDuration(const std::int32_t value);
-    std::int32_t SendSkillRebirthSelection(const std::int32_t value);
+    SendResult SendCraftDuration(const std::int32_t value);
+    SendResult SendSkillRebirthSelection(const std::int32_t value);
 
     // 交易与摆摊。
-    std::int32_t SendTradeRequest();
-    std::int32_t SelectTradePartnerRequest(const std::int32_t index);
-    std::int32_t SendTradeOffer(const std::wstring_view first,
+    SendResult SendTradeRequest();
+    SendResult SelectTradePartnerRequest(const std::int32_t index);
+    SendResult SendTradeOffer(const std::wstring_view first,
         const std::wstring_view second,
         const std::int32_t third);
-    std::int32_t SendTradeDecision(const std::int32_t value);
-    std::int32_t WithdrawTradeConfirmation();
-    std::int32_t PublishStallRequest(const std::wstring_view first,
+    SendResult SendTradeDecision(const std::int32_t value);
+    SendResult WithdrawTradeConfirmation();
+    SendResult PublishStallRequest(const std::wstring_view first,
         const std::wstring_view second,
         const std::wstring_view third);
-    std::int32_t CloseStallRequest();
-    std::int32_t RequestStallContents(const std::int32_t value);
-    std::int32_t PurchaseStallOffer(const std::int32_t value);
+    SendResult CloseStallRequest();
+    SendResult RequestStallContents(const std::int32_t value);
+    SendResult PurchaseStallOffer(const std::int32_t value);
 
     // 战斗、观战与退出确认。
-    std::int32_t ToggleBattleRowRequest();
-    std::int32_t SendDuelRequest(const std::int32_t first,
+    SendResult ToggleBattleRowRequest();
+    SendResult SendDuelRequest(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t SendSpectateRequest(const std::int32_t first,
+    SendResult SendSpectateRequest(const std::int32_t first,
         const std::int32_t second);
-    std::int32_t SendIuEPacket();
-    std::int32_t SendBattlePacket(const std::wstring_view text);
-    std::int32_t AcknowledgeBattleExit(const std::int32_t value);
+    SendResult SendIuEPacket();
+    SendResult SendBattlePacket(const std::wstring_view text);
+    SendResult AcknowledgeBattleExit(const std::int32_t value);
 
 private:
     struct Impl;

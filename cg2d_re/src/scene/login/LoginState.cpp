@@ -156,10 +156,9 @@ std::int32_t AdvanceServerLoginConnection_508360()
             const auto networkSession = connection.CaptureSession();
             // 登录业务先发XCNY并替换旧待发内容，成功后才追加账号登录请求。
             constexpr char loginPrelude[] = "XCNY \n";
-            const auto preludeResult = connection.SendPacket(loginPrelude,
+            auto queued = connection.SendPacket(loginPrelude,
                 static_cast<std::uint32_t>(sizeof(loginPrelude) - 1), true);
-            std::int32_t queued = static_cast<std::int32_t>(preludeResult);
-            if (preludeResult == network::SendResult::Queued) {
+            if (queued == network::SendResult::Queued) {
                 queued = connection.SendAccountLoginRequest(gExecutableDigest,
                     passwordCopy,
                     gAccount,
@@ -168,7 +167,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;
             gRequestStatus = 1;
-            const auto diagnostic = std::format(L"LOGIN QUEUE RESULT={}", queued);
+            const auto diagnostic = std::format(L"LOGIN QUEUE RESULT={}", static_cast<std::int32_t>(queued));
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
         }
         else if (gRequestStatus == 2) {

@@ -67,10 +67,10 @@ std::uint32_t StartLoginRequest()
     const std::int32_t field50 = record->previewState;
     const std::int32_t field4C = record->registNumber;
 
-    [[maybe_unused]] const std::int32_t queued = cg::network::GetGameConnection().SendCharacterLoginRequest(field4C,
+    [[maybe_unused]] const auto queued = cg::network::GetGameConnection().SendCharacterLoginRequest(field4C,
         field50,
         field18);
-    m_log_iw(L"CHAR LOGIN QUEUE RESULT=%d POLLING=%u\n", queued,
+    m_log_iw(L"CHAR LOGIN QUEUE RESULT=%d POLLING=%u\n", static_cast<std::int32_t>(queued),
         static_cast<unsigned int>(cg::network::GetGameConnection().IoEnabled()));
     gRequestStatus = 1;
     const std::uint64_t tick = platform::ReadTickCount64();

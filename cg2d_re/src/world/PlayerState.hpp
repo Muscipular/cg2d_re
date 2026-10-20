@@ -1,10 +1,14 @@
 #pragma once
 
-namespace cg::network { class CgConnection; }
+#include <cstdint>
+
+namespace cg::network {
+class CgConnection;
+enum class SendResult : std::int32_t;
+}
 
 #include <array>
 #include <cstddef>
-#include <cstdint>
 #include <string>
 #include <type_traits>
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -322,18 +326,18 @@ std::uint32_t HandlePlayerOptionsReply_50BFA0(cg::network::CgConnection& network
 // 原函数：0x0050BFC0。
 std::uint16_t HandlePlayerBattleRowReply_50BFC0(cg::network::CgConnection& networkConnection, std::int32_t value); // 玩家+1A0低W16写入；原返回仅定义AX。
 // 原函数：0x00472F40。
-std::int32_t ToggleDuelPermission_472F40(); // 同源玩家选项切换04后发送。
+network::SendResult ToggleDuelPermission_472F40(); // 同源玩家选项切换04后发送。
 std::uint8_t ReadPlayerOptions194LowByte() noexcept; // 原FDA894低U8，状态栏提示与图号用同一快照。
 // 原函数：0x00472F70。
-std::int32_t TogglePartyChat_472F70(); // 切换08后发送。
+network::SendResult TogglePartyChat_472F70(); // 切换08后发送。
 // 原函数：0x00472FA0。
-std::int32_t TogglePartyJoinPermission_472FA0(); // 切换01后发送。
+network::SendResult TogglePartyJoinPermission_472FA0(); // 切换01后发送。
 // 原函数：0x00472FD0。
-std::int32_t ToggleContactCardExchangePermission_472FD0(); // 切换10后发送。
+network::SendResult ToggleContactCardExchangePermission_472FD0(); // 切换10后发送。
 // 原函数：0x00473000。
-std::int32_t ToggleTradePermission_473000(); // 切换20后发送。
+network::SendResult ToggleTradePermission_473000(); // 切换20后发送。
 // 原函数：0x00473030。
-std::int32_t ToggleGuildInvitePermission_473030(); // 切换40后发送。
+network::SendResult ToggleGuildInvitePermission_473030(); // 切换40后发送。
 // YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
 std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
 std::uint8_t ReadPlayerActionFlagsByte() noexcept; // 原FDA88E单次W8；读取flags18C第2字节，保留既有W16接口。

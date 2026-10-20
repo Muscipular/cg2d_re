@@ -527,7 +527,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
             {L"现在禁止别人与自己交易。" /* 原常量参考：0x00556EEC。 */, L"现在允许别人与自己交易。" /* 原常量参考：0x00556F08。 */},
             {L"现在禁止别人邀请自己参加家族。" /* 原常量参考：0x005862D4。 */, L"现在允许别人邀请自己参加家族。" /* 原常量参考：0x005862F4。 */},
         };
-        std::int32_t (*const toggleCallbacks[6])() {
+        network::SendResult (*const toggleCallbacks[6])() {
             &world::ToggleDuelPermission_472F40, &world::TogglePartyChat_472F70, &world::TogglePartyJoinPermission_472FA0,
             &world::ToggleContactCardExchangePermission_472FD0, &world::ToggleTradePermission_473000, &world::ToggleGuildInvitePermission_473030,
         };

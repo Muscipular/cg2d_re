@@ -950,7 +950,7 @@ static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount
         target = gItemMoveTargetD2DBF8;
     }
     if (source < 100 && target < 100) {
-        return cg::network::GetGameConnection().MoveItemStackRequest(source, target, amount);
+        return static_cast<std::int32_t>(cg::network::GetGameConnection().MoveItemStackRequest(source, target, amount));
     }
     if (source < 8) {
         return source;
@@ -969,7 +969,8 @@ static std::int32_t WindowItem_RequestTransferQuantity(const std::int32_t amount
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    return cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, escapedReply);
+    return static_cast<std::int32_t>(cg::network::GetGameConnection().SendDialogResponse(
+        x, y, value14, userState, 0, escapedReply));
 }
 
 // IMT01：原97条，Ctrl BYTE/反转开关与count/used门槛、直接source先target/拆分target先source；正确正文保。
@@ -4886,9 +4887,9 @@ std::int32_t WindowRuntime_CloseAll()
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
     const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    const std::int32_t result = cg::network::GetGameConnection().SendWorldActionRequest(x, y, 62);
+    const auto result = cg::network::GetGameConnection().SendWorldActionRequest(x, y, 62);
     gSkillRebirthModeEnabled_5F9754 = 0;
-    return result;
+    return static_cast<std::int32_t>(result);
 }
 
 // 原函数：0x00503E80。

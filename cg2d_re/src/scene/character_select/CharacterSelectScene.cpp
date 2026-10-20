@@ -1749,11 +1749,11 @@ std::int32_t ProcessScene_460FF0()
             const std::uint8_t pukVersion = state::gPukVersion;
             sceneResult = static_cast<std::int32_t>(pukVersion);
             if (pukVersion == 0u || pukVersion == 2u) {
-                sceneResult = cg::network::GetGameConnection().SendVersionUpgradeRequest(2, state::kVersion20);
+                sceneResult = static_cast<std::int32_t>(cg::network::GetGameConnection().SendVersionUpgradeRequest(2, state::kVersion20));
             } else if (pukVersion == 5u || pukVersion == 6u) {
-                sceneResult = cg::network::GetGameConnection().SendVersionUpgradeRequest(4, state::kVersion30);
+                sceneResult = static_cast<std::int32_t>(cg::network::GetGameConnection().SendVersionUpgradeRequest(4, state::kVersion30));
             } else if (pukVersion == 7u) {
-                sceneResult = cg::network::GetGameConnection().SendVersionUpgradeRequest(5, detail::gVersionPayload9A5C10);
+                sceneResult = static_cast<std::int32_t>(cg::network::GetGameConnection().SendVersionUpgradeRequest(5, detail::gVersionPayload9A5C10));
             }
             world::gCurrentSceneState = 0;
         }

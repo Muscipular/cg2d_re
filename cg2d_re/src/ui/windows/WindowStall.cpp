@@ -219,7 +219,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(std::int32_t index, std::int3
 static std::int32_t WindowStall_HandleButtons(std::int32_t index, std::int32_t state); // 自身/浏览主要按钮，禁用与普通收尾分离。
 
 // 原函数：0x004CE8A0。
-static std::int32_t WindowStall_RequestClose(); // 收摊请求，透传原发送返回。
+static network::SendResult WindowStall_RequestClose(); // 收摊请求，透传发送结果。
 
 // 原函数：0x004CED50。
 static WindowInstance* WindowStall_ShowPurchaseConfirmation(); // 显示购买确认，返回入口窗口。
@@ -854,7 +854,7 @@ static std::int32_t WindowStall_AddListing(const std::int32_t value)
 }
 
 // 原函数：0x004CE8A0。
-static std::int32_t WindowStall_RequestClose()
+static network::SendResult WindowStall_RequestClose()
 {
     return cg::network::GetGameConnection().CloseStallRequest();
 }

@@ -181,7 +181,7 @@ static void WindowShopChoice_FillBody(
 }
 
 // 调用者传原连续32B临时区；不缓存跨回复的目标/请求/坐标。
-static std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
+static network::SendResult WindowShopChoice_SendReply(const std::wstring_view buffer)
 {
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
     const std::int32_t target = world::gDialogTargetD2DE6C;
@@ -359,7 +359,8 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    return cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escapedReply);
+    return static_cast<std::int32_t>(cg::network::GetGameConnection().SendDialogResponse(
+        x, y, request, target, 0, escapedReply));
 }
 
 // 原函数：0x004A0140。
@@ -410,7 +411,7 @@ static std::int32_t WindowShopChoice_SendFirstCommandChoice(const std::int32_t i
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
-    return WindowShopChoice_SendReply(buffer);
+    return static_cast<std::int32_t>(WindowShopChoice_SendReply(buffer));
 }
 
 // 原函数：0x004A0420。
@@ -421,7 +422,7 @@ static std::int32_t WindowShopChoice_SendSecondCommandChoice(const std::int32_t 
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
-    return WindowShopChoice_SendReply(buffer);
+    return static_cast<std::int32_t>(WindowShopChoice_SendReply(buffer));
 }
 
 // 原函数：0x004A05C0。
@@ -432,7 +433,7 @@ static std::int32_t WindowShopChoice_SendExchangeChoice(const std::int32_t index
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", index + 1);
-    return WindowShopChoice_SendReply(buffer);
+    return static_cast<std::int32_t>(WindowShopChoice_SendReply(buffer));
 }
 
 // 原函数：0x004A0700。
@@ -443,7 +444,7 @@ static std::int32_t WindowShopChoice_SendGiveReceiveChoice(const std::int32_t in
     }
     std::wstring buffer;
     buffer = L"1";
-    return WindowShopChoice_SendReply(buffer);
+    return static_cast<std::int32_t>(WindowShopChoice_SendReply(buffer));
 }
 
 // 原函数：0x004A0300。

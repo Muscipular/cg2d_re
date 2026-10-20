@@ -277,7 +277,7 @@ namespace detail {
 static std::int32_t WindowPetList_HandleButtons(std::int32_t index, std::int32_t state); // 窗口15完整五组交互。
 
 // 原函数：0x0048D4E0。
-static std::int32_t WindowPetList_SubmitStates(); // 五状态局部快照叠加真实跟随位，透传发送结果。
+static network::SendResult WindowPetList_SubmitStates(); // 五状态局部快照叠加真实跟随位，透传发送结果。
 
 // 原函数：0x0048C1B0。
 // 关联原入口：0x0048C1CF（共享尾已并入本函数正文）。
@@ -612,7 +612,7 @@ std::int32_t WindowPetList_ResetSelection()
 }
 
 // 原511AE0三处调用均先逆序读取五状态，最后读取socket。
-static std::int32_t WindowPetList_SendStates(const std::array<std::int32_t, 5>& values)
+static network::SendResult WindowPetList_SendStates(const std::array<std::int32_t, 5>& values)
 {
     const std::int32_t fifth = values[4];
     const std::int32_t fourth = values[3];
@@ -624,7 +624,7 @@ static std::int32_t WindowPetList_SendStates(const std::array<std::int32_t, 5>& 
 }
 
 // 原函数：0x0048D4E0。
-static std::int32_t WindowPetList_SubmitStates()
+static network::SendResult WindowPetList_SubmitStates()
 {
     std::array<std::int32_t, 5> values;
     for (std::int32_t slot = 0; slot < 5; ++slot) {

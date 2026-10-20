@@ -1,10 +1,14 @@
 #pragma once
 
-namespace cg::network { class CgConnection; }
+#include <cstdint>
+
+namespace cg::network {
+class CgConnection;
+enum class SendResult : std::int32_t;
+}
 
 #include <array>
 #include <cstddef>
-#include <cstdint>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -177,7 +181,7 @@ void InitializeDefaultProfiles_533950(); // 默认首槽后复制到第二槽及
 // 原函数：0x00533C80。
 std::int32_t PublishPlayerProfile_533C80(std::int32_t mode); // 两路profile同步；mode0发送后局部写回，mode1透传发送结果。
 // 原函数：0x00534290。
-std::int32_t ResendSavedPlayerProfile_534290(); // 先同步profile，再重取连接发送lz；第一次失败不抑制第二次。
+network::SendResult ResendSavedPlayerProfile_534290(); // 先同步profile，再重取连接发送lz；第一次失败不抑制第二次。
 // 原函数：0x005345A0。
 std::int32_t ResetCharacterProfile_5345A0(std::int32_t index); // 局部重置指定资料槽，再复制当前角色整条资料，返回当前S16角色。
 // 原函数：0x00534770。

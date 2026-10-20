@@ -798,7 +798,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         if (cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, button,
-                reply) < 0) { return 0; }
+                reply) != network::SendResult::Queued) { return 0; }
         world::gCurrentDialogType_581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -811,7 +811,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         if (cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0,
-                reply) < 0) { return 0; }
+                reply) != network::SendResult::Queued) { return 0; }
         world::gCurrentDialogType_581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }

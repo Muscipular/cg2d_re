@@ -1,10 +1,14 @@
 #pragma once
 
-namespace cg::network { class CgConnection; }
+#include <cstdint>
+
+namespace cg::network {
+class CgConnection;
+enum class SendResult : std::int32_t;
+}
 
 #include <array>
 #include <cstddef>
-#include <cstdint>
 #include <type_traits>
 #include <string>
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -472,7 +476,7 @@ std::int32_t BuildPlayerMovementPath_46B6F0(); // 完整候选/绕行/轴补走�
 std::uint32_t __cdecl EncodeMovementDirectionByte_46BD20(
     std::int32_t value, std::int32_t mode); // 原 [0x46BD20,0x46BD32)，仅改 AL，保留 mode 高 24 位。
 // 原函数：0x0050C8D0。
-std::int32_t __cdecl SendCurrentPlayerMovementPath_50C8D0(
+network::SendResult __cdecl SendCurrentPlayerMovementPath_50C8D0(
     std::int32_t x, std::int32_t y,
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
 void ResetMapFollowersFromPath(cg::yobi::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。
@@ -482,7 +486,7 @@ void PropagatePartyFollowerPath_46AFE0(
 // 原函数：0x0046ADA0。
 void* __cdecl RequestDetectedMapTransition_46ADA0();               // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。
 // 原函数：0x0046AC90。
-std::int32_t __cdecl RequestPlayerCoordinateSynchronization_46AC90();        // 原 [0x46AC90,0x46AD00)，type 2 的真实后继。
+network::SendResult __cdecl RequestPlayerCoordinateSynchronization_46AC90(); // 原 [0x46AC90,0x46AD00)，type 2 的真实后继。
 // 原函数：0x0046AEA0。
 std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0();        // 原 [0x46AEA0,0x46AF24)，type 3 的真实后继。
 // 原函数：0x0046AB60。

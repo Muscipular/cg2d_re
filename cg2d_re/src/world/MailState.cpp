@@ -1078,8 +1078,8 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
         const std::int32_t second = gProfiles1074938[selected].entries410[1].value00;
         const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
         const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-        return cg::network::GetGameConnection().SendPlayerProfile(first, escaped[0], second, escaped[1],
-            third, escaped[2], escaped[3]);
+        return static_cast<std::int32_t>(cg::network::GetGameConnection().SendPlayerProfile(
+            first, escaped[0], second, escaped[1], third, escaped[2], escaped[3]));
     }
 
     const std::int32_t third = gCurrentProfile10738E8.entries410[2].value00;
@@ -1110,7 +1110,7 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
 }
 
 // 原函数：0x00534290。
-std::int32_t ResendSavedPlayerProfile_534290()
+network::SendResult ResendSavedPlayerProfile_534290()
 {
     const std::int16_t selected = login::gSelectedCharacterIndex;
     const std::int32_t enabled = gProfiles1074938[selected].value04;
@@ -1168,7 +1168,7 @@ std::int32_t HandleProfileCategoryVersionsReply_50F3A0(cg::network::CgConnection
         mask |= 2;
     }
     if (mask != 0) {
-        return networkConnection.RequestProfileCategoryUpdates(mask);
+        return static_cast<std::int32_t>(networkConnection.RequestProfileCategoryUpdates(mask));
     }
     return previous;
 }

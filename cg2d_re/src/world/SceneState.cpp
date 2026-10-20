@@ -863,7 +863,7 @@ static void SendNextAlbumBatch(network::CgConnection& connection)
     if (sync.generation != generation) {
         return; // 发送Hook已清理或替换任务，旧调用不再修改状态。
     }
-    if (result != static_cast<std::int32_t>(network::SendResult::Queued)
+    if (result != network::SendResult::Queued
         || sync.connectionId != connection.Id()
         || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
         ResetAlbumSynchronization();
@@ -935,7 +935,7 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
         if (sync.generation != generation) {
             return;
         }
-        if (result != static_cast<std::int32_t>(network::SendResult::Queued)) {
+        if (result != network::SendResult::Queued) {
             ResetAlbumSynchronization();
             return;
         }
@@ -1861,7 +1861,7 @@ std::int32_t DrawObservationTravelBackground_440FF0()
 }
 
 // 原六个入口共享473060发送尾；选项修改后重新读取，不按发送结果回滚。
-static std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
+static network::SendResult TogglePlayerOptionAndSend(const std::uint16_t mask)
 {
     // 六个原入口先读低W8判位；写回仍操作同一options194低W16。
     const std::uint8_t options = *reinterpret_cast<const unsigned char*>(&gPlayerRuntimeSlots.options194);
@@ -5086,7 +5086,7 @@ std::int32_t __cdecl DispatchPendingPathEvent_46AB60()
 }
 
 // 原 [0x46AC90,0x46AD00)：临时 CryptInt 赋值后发送玩家坐标。
-std::int32_t __cdecl RequestPlayerCoordinateSynchronization_46AC90()
+network::SendResult __cdecl RequestPlayerCoordinateSynchronization_46AC90()
 {
     static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
 
@@ -5454,7 +5454,7 @@ std::uint32_t __cdecl EncodeMovementDirectionByte_46BD20(
 }
 
 // 原 [0x50C8D0,0x50C8F5)：先采独立 W32，再传文本、Y、X 与当前 socket。
-std::int32_t __cdecl SendCurrentPlayerMovementPath_50C8D0(
+network::SendResult __cdecl SendCurrentPlayerMovementPath_50C8D0(
     const std::int32_t x, const std::int32_t y,
     const char* const text)
 {
@@ -8732,7 +8732,7 @@ void HandleWorldActorActionsReply_50BCD0(cg::network::CgConnection&, const char*
 }
 
 // 原函数：0x00472F40。
-std::int32_t ToggleDuelPermission_472F40()
+network::SendResult ToggleDuelPermission_472F40()
 {
     return detail::TogglePlayerOptionAndSend(0x04);
 }
@@ -8743,31 +8743,31 @@ std::uint8_t ReadPlayerOptions194LowByte() noexcept
 }
 
 // 原函数：0x00472F70。
-std::int32_t TogglePartyChat_472F70()
+network::SendResult TogglePartyChat_472F70()
 {
     return detail::TogglePlayerOptionAndSend(0x08);
 }
 
 // 原函数：0x00472FA0。
-std::int32_t TogglePartyJoinPermission_472FA0()
+network::SendResult TogglePartyJoinPermission_472FA0()
 {
     return detail::TogglePlayerOptionAndSend(0x01);
 }
 
 // 原函数：0x00472FD0。
-std::int32_t ToggleContactCardExchangePermission_472FD0()
+network::SendResult ToggleContactCardExchangePermission_472FD0()
 {
     return detail::TogglePlayerOptionAndSend(0x10);
 }
 
 // 原函数：0x00473000。
-std::int32_t ToggleTradePermission_473000()
+network::SendResult ToggleTradePermission_473000()
 {
     return detail::TogglePlayerOptionAndSend(0x20);
 }
 
 // 原函数：0x00473030。
-std::int32_t ToggleGuildInvitePermission_473030()
+network::SendResult ToggleGuildInvitePermission_473030()
 {
     return detail::TogglePlayerOptionAndSend(0x40);
 }
@@ -8945,7 +8945,8 @@ std::int32_t SendPlayerChatInput_50C940(
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    return cg::network::GetGameConnection().SendChatMessage(x, y, packet, sendColor, range, mode);
+    return static_cast<std::int32_t>(cg::network::GetGameConnection().SendChatMessage(
+        x, y, packet, sendColor, range, mode));
 }
 
 // 原函数：0x0050CAE0。
@@ -11085,7 +11086,7 @@ std::int8_t RequestPlayerStatusIcon_51BE50(const std::int32_t requested)
     }
     const std::int32_t y = static_cast<std::int32_t>(gPlayerSnapshotY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerSnapshotX);
-    const std::int32_t result =
+    const auto result =
         cg::network::GetGameConnection().SendPlayerMotionRequest(x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
     auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&gPlayerRuntimeSlots.flags18C) + 2;

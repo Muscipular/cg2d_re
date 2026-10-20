@@ -153,8 +153,8 @@ struct CgConnection::Impl {
     std::uint8_t* EscapeProtocolText_5171F0(const std::wstring_view text);
     std::uint8_t* UnescapeProtocolText_5172D0(const char* const text);
     std::uint8_t* DecodeOptionalProtocolText_5171B0(const char* const text);
-    std::int32_t SendProtocolBuffer_517480(const platform::ConnectionId expectedId, char* const buffer);
-    std::int32_t SendConnectionProbe_512C10(const platform::ConnectionId expectedId, const std::wstring_view text);
+    SendResult SendProtocolBuffer_517480(const platform::ConnectionId expectedId, char* const buffer);
+    SendResult SendConnectionProbe_512C10(const platform::ConnectionId expectedId, const std::wstring_view text);
 
     std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size);
 
@@ -620,7 +620,7 @@ std::uint8_t* CgConnection::Impl::DecodeOptionalProtocolText_5171B0(const char* 
     return this->textTokenBuffer;
 }
 
-std::int32_t CgConnection::Impl::SendProtocolBuffer_517480(
+SendResult CgConnection::Impl::SendProtocolBuffer_517480(
     const platform::ConnectionId expectedId,
     char* const buffer)
 {
@@ -639,7 +639,7 @@ std::int32_t CgConnection::Impl::SendProtocolBuffer_517480(
         this->sendObserver58B61C;
     if (observer != nullptr) {
         observer(1U, buffer);
-        if (expectedId != connectionId || !this->active) return -100;
+        if (expectedId != connectionId || !this->active) return SendResult::Unavailable;
     }
 
     std::uint32_t length =
@@ -653,11 +653,10 @@ std::int32_t CgConnection::Impl::SendProtocolBuffer_517480(
         ++length;
     }
 
-    // 既有具名组包仍返回S32，只在此边界转换通用发送结果。
-    return static_cast<std::int32_t>(SendPacket(expectedId, buffer, length));
+    return SendPacket(expectedId, buffer, length);
 }
 
-std::int32_t CgConnection::Impl::SendConnectionProbe_512C10(
+SendResult CgConnection::Impl::SendConnectionProbe_512C10(
     const platform::ConnectionId expectedId,
     const std::wstring_view text)
 {
@@ -1392,37 +1391,37 @@ std::string CgConnection::UnescapeText(const char* text)
 { return reinterpret_cast<const char*>(impl_->UnescapeProtocolText_5172D0(text)); }
 
 // 这三条UI路径保留原十进制字段，不合并到Base62的同名协议。
-std::int32_t CgConnection::MoveItemToBagPage(std::int32_t source, std::int32_t page)
+SendResult CgConnection::MoveItemToBagPage(std::int32_t source, std::int32_t page)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     const auto* encoded = impl_->FormatProtocolInteger_517670(source);
     char packet[64];
     std::snprintf(packet, sizeof(packet), "SWITMP %s %d -1", reinterpret_cast<const char*>(encoded), page);
     return impl_->SendProtocolBuffer_517480(impl_->contextId, packet);
 }
-std::int32_t CgConnection::SelectBagPage(std::int32_t page)
+SendResult CgConnection::SelectBagPage(std::int32_t page)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     char packet[64];
     std::snprintf(packet, sizeof(packet), "SWITM %d", page);
     return impl_->SendProtocolBuffer_517480(impl_->contextId, packet);
 }
-std::int32_t CgConnection::SelectInventoryBankPage(std::int32_t page)
+SendResult CgConnection::SelectInventoryBankPage(std::int32_t page)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     char packet[64];
     std::snprintf(packet, sizeof(packet), "rh %d", page);
     return impl_->SendProtocolBuffer_517480(impl_->contextId, packet);
 }
 
 // 原 [0x512B90,0x512BCC)：列表请求的三次共享缓冲读取保持独立。
-std::int32_t CgConnection::SendCharacterListRequest()
+SendResult CgConnection::SendCharacterListRequest()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Gp"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1437,10 +1436,10 @@ std::int32_t CgConnection::SendCharacterListRequest()
 }
 
 // 原 [0x512BD0,0x512C0C)：登出请求的三次共享缓冲读取保持独立。
-std::int32_t CgConnection::SendLogoutRequest()
+SendResult CgConnection::SendLogoutRequest()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "WA"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1455,10 +1454,10 @@ std::int32_t CgConnection::SendLogoutRequest()
 }
 
 // 原 [0x512C60,0x512C9C)：保活命令后追加 593850 当前文本并发送。
-std::int32_t CgConnection::SendKeepAliveRequest()
+SendResult CgConnection::SendKeepAliveRequest()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "DE"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1473,10 +1472,10 @@ std::int32_t CgConnection::SendKeepAliveRequest()
 }
 
 // 原 [0x511CD0,0x511D0C)：as 请求，追加共享原字节文本。
-std::int32_t CgConnection::RequestItemTargetAttributes()
+SendResult CgConnection::RequestItemTargetAttributes()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "as"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1491,10 +1490,10 @@ std::int32_t CgConnection::RequestItemTargetAttributes()
 }
 
 // 原 [0x511FB0,0x511FEC)：ixH 请求，追加共享原字节文本。
-std::int32_t CgConnection::SendTradeRequest()
+SendResult CgConnection::SendTradeRequest()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "ixH"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1509,10 +1508,10 @@ std::int32_t CgConnection::SendTradeRequest()
 }
 
 // 原 [0x512230,0x51226C)：suI 请求，追加共享原字节文本。
-std::int32_t CgConnection::WithdrawTradeConfirmation()
+SendResult CgConnection::WithdrawTradeConfirmation()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "suI"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1527,10 +1526,10 @@ std::int32_t CgConnection::WithdrawTradeConfirmation()
 }
 
 // 原 [0x512570,0x5125AC)：ih 请求，追加共享原字节文本。
-std::int32_t CgConnection::ToggleBattleRowRequest()
+SendResult CgConnection::ToggleBattleRowRequest()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "ih"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1545,10 +1544,10 @@ std::int32_t CgConnection::ToggleBattleRowRequest()
 }
 
 // 原 [0x512CF0,0x512D2C)：lO 请求，追加共享原字节文本。
-std::int32_t CgConnection::RequestLogoutToTown()
+SendResult CgConnection::RequestLogoutToTown()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "lO"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1563,10 +1562,10 @@ std::int32_t CgConnection::RequestLogoutToTown()
 }
 
 // 原 [0x512DF0,0x512E38)：容量仅在命令构造之后、整数格式化之前采样。
-std::int32_t CgConnection::SendLoginTimestamp(const std::uint32_t tickBits)
+SendResult CgConnection::SendLoginTimestamp(const std::uint32_t tickBits)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "CCL"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1583,11 +1582,11 @@ std::int32_t CgConnection::SendLoginTimestamp(const std::uint32_t tickBits)
 }
 
 // 原 [0x512D30,0x512D9B)：两项分别采样容量，格式化后重读输出缓冲。
-std::int32_t CgConnection::SendVersionUpgradeRequest(const std::int32_t version,
+SendResult CgConnection::SendVersionUpgradeRequest(const std::int32_t version,
     const std::wstring_view payload)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Xoee"));
 
@@ -1613,10 +1612,10 @@ std::int32_t CgConnection::SendVersionUpgradeRequest(const std::int32_t version,
 }
 
 // 原 [0x512DA0,0x512DE8)：命令构造后采一次容量，再格式化和追加整数。
-std::int32_t CgConnection::SendCraftDuration(const std::int32_t value)
+SendResult CgConnection::SendCraftDuration(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "IPy"));
 
@@ -1634,13 +1633,13 @@ std::int32_t CgConnection::SendCraftDuration(const std::int32_t value)
 }
 
 // 原 [0x510570,0x510621)：四项各自采容量、格式化后重读共享输出缓冲。
-std::int32_t CgConnection::SendPlayerMovementPath(const std::int32_t first,
+SendResult CgConnection::SendPlayerMovementPath(const std::int32_t first,
     const std::int32_t second,
     const std::wstring_view text,
     const std::int32_t fourth)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "zA"));
 
@@ -1682,12 +1681,12 @@ std::int32_t CgConnection::SendPlayerMovementPath(const std::int32_t first,
 }
 
 // 原 [0x512B00,0x512B8E)：每项均先读容量，格式化后重新读取输出缓冲。
-std::int32_t CgConnection::SendCharacterLoginRequest(const std::int32_t field4C,
+SendResult CgConnection::SendCharacterLoginRequest(const std::int32_t field4C,
     const std::int32_t field50,
     const std::int32_t field18)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "emRV"));
 
@@ -1721,10 +1720,10 @@ std::int32_t CgConnection::SendCharacterLoginRequest(const std::int32_t field4C,
 }
 
 // 原 [0x512AB0,0x512AF8)：一次容量采样，输出缓冲在各调用点重新读取。
-std::int32_t CgConnection::SendCharacterDeletionRequest(const std::int32_t registNumber)
+SendResult CgConnection::SendCharacterDeletionRequest(const std::int32_t registNumber)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Godf"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -1740,13 +1739,13 @@ std::int32_t CgConnection::SendCharacterDeletionRequest(const std::int32_t regis
 }
 
 // NLD01／原512800：摘要、口令、账号、适配器四轮独立采容量，转义后重读输出缓冲。
-std::int32_t CgConnection::SendAccountLoginRequest(const std::wstring_view executableDigest,
+SendResult CgConnection::SendAccountLoginRequest(const std::wstring_view executableDigest,
     const std::wstring_view password,
     const std::wstring_view account,
     const std::wstring_view adapterId)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "JFVf"));
 
@@ -1791,7 +1790,7 @@ std::int32_t CgConnection::SendAccountLoginRequest(const std::wstring_view execu
 }
 
 // 原 [0x5128C0,0x512AAC)：每项独立读取容量，格式化后重读输出缓冲。
-std::int32_t CgConnection::SendCharacterCreationRequest(const std::int32_t field1,
+SendResult CgConnection::SendCharacterCreationRequest(const std::int32_t field1,
     const std::wstring_view field2,
     const std::int32_t field3,
     const std::int32_t field4,
@@ -1806,7 +1805,7 @@ std::int32_t CgConnection::SendCharacterCreationRequest(const std::int32_t field
     const std::int32_t field13)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "aSEl"));
 
@@ -1846,14 +1845,14 @@ std::int32_t CgConnection::SendCharacterCreationRequest(const std::int32_t field
 }
 
 // 原 [0x510630,0x510704)：五轮各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendMapTransitionRequest(const std::int32_t first,
+SendResult CgConnection::SendMapTransitionRequest(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
     const std::int32_t fourth,
     const std::int32_t fifth)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "pg"));
 
@@ -1903,7 +1902,7 @@ std::int32_t CgConnection::SendMapTransitionRequest(const std::int32_t first,
 }
 
 // 原 [0x510710,0x510807)：六轮各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::RequestMapRectangle(const std::int32_t first,
+SendResult CgConnection::RequestMapRectangle(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
     const std::int32_t fourth,
@@ -1911,7 +1910,7 @@ std::int32_t CgConnection::RequestMapRectangle(const std::int32_t first,
     const std::int32_t sixth)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "UUN"));
 
@@ -1969,11 +1968,11 @@ std::int32_t CgConnection::RequestMapRectangle(const std::int32_t first,
 }
 
 // 原函数：0x00510AC0。
-std::int32_t CgConnection::SendItemUseRequest(const std::int32_t x, const std::int32_t y,
+SendResult CgConnection::SendItemUseRequest(const std::int32_t x, const std::int32_t y,
     const std::int32_t item, const std::int32_t target)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "iVfo"));
     const std::array<std::int32_t, 4> fields {x, y, item, target};
@@ -1991,11 +1990,11 @@ std::int32_t CgConnection::SendItemUseRequest(const std::int32_t x, const std::i
 
 // NFI01：fIM三Base62整数按现明文普通空格发送；保原time/seed/rand与共享缓冲时序。
 // 原函数：0x00510B80。
-std::int32_t CgConnection::SendPositionDirectionInteraction(const std::int32_t x,
+SendResult CgConnection::SendPositionDirectionInteraction(const std::int32_t x,
     const std::int32_t y, const std::int32_t direction)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "fIM"));
     const std::array<std::int32_t, 3> fields {x, y, direction};
@@ -2048,11 +2047,11 @@ std::int32_t CgConnection::SendPositionDirectionInteraction(const std::int32_t x
 }
 
 // 原 [0x510810,0x51087B)：两轮各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendPlayerCoordinates(const std::int32_t first,
+SendResult CgConnection::SendPlayerCoordinates(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "KeOX"));
 
@@ -2078,11 +2077,11 @@ std::int32_t CgConnection::SendPlayerCoordinates(const std::int32_t first,
 }
 
 // 原 [0x511030,0x5110AE)：先追加数量，再逐项读取 W32 并分别采容量。
-std::int32_t CgConnection::RequestAlbumEntries(const std::int32_t* values,
+SendResult CgConnection::RequestAlbumEntries(const std::int32_t* values,
     const std::int32_t count)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "kza"));
 
@@ -2111,10 +2110,10 @@ std::int32_t CgConnection::RequestAlbumEntries(const std::int32_t* values,
 }
 
 // 原 [0x511190,0x5111D8)：FPkR单整数发送；容量先采，输出缓冲独立重取。
-std::int32_t CgConnection::RequestContactDeletion(const std::int32_t value)
+SendResult CgConnection::RequestContactDeletion(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "FPkR"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
@@ -2127,10 +2126,10 @@ std::int32_t CgConnection::RequestContactDeletion(const std::int32_t value)
 }
 
 // 原函数：0x00511250。
-std::int32_t CgConnection::SendGuildTextUpdate(const std::int32_t kind, const std::wstring_view text)
+SendResult CgConnection::SendGuildTextUpdate(const std::int32_t kind, const std::wstring_view text)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Ufm"));
     const std::int32_t kindCapacity = std::bit_cast<std::int32_t>(
@@ -2150,12 +2149,12 @@ std::int32_t CgConnection::SendGuildTextUpdate(const std::int32_t kind, const st
 }
 
 // 原 [0x5112C0,0x51134E)：两整数、文本各自采容量并重读输出缓冲。
-std::int32_t CgConnection::SendGuildRankDefinition(const std::int32_t first,
+SendResult CgConnection::SendGuildRankDefinition(const std::int32_t first,
     const std::int32_t second,
     const std::wstring_view text)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "GY"));
 
@@ -2189,11 +2188,11 @@ std::int32_t CgConnection::SendGuildRankDefinition(const std::int32_t first,
 }
 
 // 原 [0x511350,0x5113BB)：两整数分别采容量并在格式化后重读输出缓冲。
-std::int32_t CgConnection::SendGuildMemberRankChange(const std::int32_t first,
+SendResult CgConnection::SendGuildMemberRankChange(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "uHb"));
 
@@ -2219,11 +2218,11 @@ std::int32_t CgConnection::SendGuildMemberRankChange(const std::int32_t first,
 }
 
 // 原 [0x510880,0x5108EB)：对战请求，发送坐标不是目标格坐标。
-std::int32_t CgConnection::SendDuelRequest(const std::int32_t first,
+SendResult CgConnection::SendDuelRequest(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "ik"));
 
@@ -2249,11 +2248,11 @@ std::int32_t CgConnection::SendDuelRequest(const std::int32_t first,
 }
 
 // 原 [0x510940,0x5109AB)：观战命令原字节为大小写敏感的IMv。
-std::int32_t CgConnection::SendSpectateRequest(const std::int32_t first,
+SendResult CgConnection::SendSpectateRequest(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "IMv"));
 
@@ -2279,11 +2278,11 @@ std::int32_t CgConnection::SendSpectateRequest(const std::int32_t first,
 }
 
 // 原 [0x5111E0,0x51124B)：名片请求，两字段分别采容量并重读共享缓冲。
-std::int32_t CgConnection::SendContactCardRequest(const std::int32_t first,
+SendResult CgConnection::SendContactCardRequest(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "vcAz"));
 
@@ -2309,11 +2308,11 @@ std::int32_t CgConnection::SendContactCardRequest(const std::int32_t first,
 }
 
 // 原 [0x5113C0,0x51142B)：两整数各自采容量并在格式化后重读输出缓冲。
-std::int32_t CgConnection::SendGuildInvitation(const std::int32_t first,
+SendResult CgConnection::SendGuildInvitation(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "npzi"));
 
@@ -2339,10 +2338,10 @@ std::int32_t CgConnection::SendGuildInvitation(const std::int32_t first,
 }
 
 // 原 [0x511430,0x511478)：单次采容量、格式化后重读输出缓冲发送。
-std::int32_t CgConnection::RequestGuildMemberDeletion(const std::int32_t value)
+SendResult CgConnection::RequestGuildMemberDeletion(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "dbQC"));
 
@@ -2360,11 +2359,11 @@ std::int32_t CgConnection::RequestGuildMemberDeletion(const std::int32_t value)
 }
 
 // 原[510FA0,51102E)：三次采容量与格式化后的输出地址重取独立。
-std::int32_t CgConnection::SendContactMail(const std::int32_t first,
+SendResult CgConnection::SendContactMail(const std::int32_t first,
     const std::wstring_view text, const std::int32_t third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "CV"));
     const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
@@ -2387,12 +2386,12 @@ std::int32_t CgConnection::SendContactMail(const std::int32_t first,
 }
 
 // 原 [0x511480,0x51150E)：整数、文本、整数分别采容量并重读输出缓冲。
-std::int32_t CgConnection::SendGuildMail(const std::int32_t first,
+SendResult CgConnection::SendGuildMail(const std::int32_t first,
     const std::wstring_view text,
     const std::int32_t third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "uId"));
 
@@ -2426,11 +2425,11 @@ std::int32_t CgConnection::SendGuildMail(const std::int32_t first,
 }
 
 // 原[5110B0,511184)：五字段各自采容量，格式化后重取输出地址。
-std::int32_t CgConnection::SendContactPetMail(const std::int32_t first, const std::int32_t second,
+SendResult CgConnection::SendContactPetMail(const std::int32_t first, const std::int32_t second,
     const std::int32_t third, const std::wstring_view text, const std::int32_t fifth)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "rMsv"));
     const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
@@ -2463,14 +2462,14 @@ std::int32_t CgConnection::SendContactPetMail(const std::int32_t first, const st
 }
 
 // 原 [0x511510,0x5115E4)：三整数、文本、末整数分别采容量并重读输出缓冲。
-std::int32_t CgConnection::SendGuildPetMail(const std::int32_t first,
+SendResult CgConnection::SendGuildPetMail(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
     const std::wstring_view text,
     const std::int32_t fifth)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "PfqV"));
 
@@ -2520,10 +2519,10 @@ std::int32_t CgConnection::SendGuildPetMail(const std::int32_t first,
 }
 
 // 原 [0x5115F0,0x511638)：单次采容量、整数格式化后重读缓冲发送。
-std::int32_t CgConnection::RequestProfileCategoryUpdates(const std::int32_t value)
+SendResult CgConnection::RequestProfileCategoryUpdates(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "HoW"));
 
@@ -2541,7 +2540,7 @@ std::int32_t CgConnection::RequestProfileCategoryUpdates(const std::int32_t valu
 }
 
 // 原 [0x511640,0x51175A)：七项依次采容量、格式化并重读输出缓冲。
-std::int32_t CgConnection::SendPlayerProfile(const std::int32_t field1,
+SendResult CgConnection::SendPlayerProfile(const std::int32_t field1,
     const std::wstring_view text2,
     const std::int32_t field3,
     const std::wstring_view text4,
@@ -2550,7 +2549,7 @@ std::int32_t CgConnection::SendPlayerProfile(const std::int32_t field1,
     const std::wstring_view text7)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Ot"));
 
@@ -2616,11 +2615,11 @@ std::int32_t CgConnection::SendPlayerProfile(const std::int32_t field1,
 }
 
 // 原 [0x511760,0x5117CB)：两项各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::RequestPlayerProfile(const std::int32_t first,
+SendResult CgConnection::RequestPlayerProfile(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "TLKH"));
 
@@ -2646,11 +2645,11 @@ std::int32_t CgConnection::RequestPlayerProfile(const std::int32_t first,
 }
 
 // 原 [0x5117D0,0x51183B)：整数、文本各自采容量并在格式化后重读输出缓冲。
-std::int32_t CgConnection::RequestMiniMailContactDeletion(const std::int32_t value,
+SendResult CgConnection::RequestMiniMailContactDeletion(const std::int32_t value,
     const std::wstring_view text)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "wD"));
 
@@ -2676,11 +2675,11 @@ std::int32_t CgConnection::RequestMiniMailContactDeletion(const std::int32_t val
 }
 
 // 原 [0x511840,0x5118AB)：文本、整数各自采容量并在格式化后重读输出缓冲。
-std::int32_t CgConnection::SendMiniMail(const std::wstring_view text,
+SendResult CgConnection::SendMiniMail(const std::wstring_view text,
     const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "GH"));
 
@@ -2706,10 +2705,10 @@ std::int32_t CgConnection::SendMiniMail(const std::wstring_view text,
 }
 
 // 原 [0x5118B0,0x5118F8)：单次容量采样、整数格式化后重读缓冲发送。
-std::int32_t CgConnection::SetProfileVisibilityRequest(const std::int32_t value)
+SendResult CgConnection::SetProfileVisibilityRequest(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "lz"));
 
@@ -2728,7 +2727,7 @@ std::int32_t CgConnection::SetProfileVisibilityRequest(const std::int32_t value)
 
 // 原 [0x511900,0x5119F7)：六项各自先读容量，格式化后重读输出缓冲。
 // CTS01：原六字段逐项容量→token→新buffer→append，末发送S32透传。
-std::int32_t CgConnection::SendChatMessage(const std::int32_t first,
+SendResult CgConnection::SendChatMessage(const std::int32_t first,
     const std::int32_t second,
     const std::wstring_view text,
     const std::int32_t fourth,
@@ -2736,7 +2735,7 @@ std::int32_t CgConnection::SendChatMessage(const std::int32_t first,
     const std::int32_t sixth)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "uSr"));
 
@@ -2794,10 +2793,10 @@ std::int32_t CgConnection::SendChatMessage(const std::int32_t first,
 }
 
 // 原 [0x511A00,0x511A48)：构造命令后只采一次容量，追加并发送。
-std::int32_t CgConnection::SendPlayerOptions(const std::int32_t value)
+SendResult CgConnection::SendPlayerOptions(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "dcMv"));
 
@@ -2815,12 +2814,12 @@ std::int32_t CgConnection::SendPlayerOptions(const std::int32_t value)
 }
 
 // 原 [0x511A50,0x511ADE)：三项各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendTeamJoinLeaveRequest(const std::int32_t first,
+SendResult CgConnection::SendTeamJoinLeaveRequest(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "zn"));
 
@@ -2854,14 +2853,14 @@ std::int32_t CgConnection::SendTeamJoinLeaveRequest(const std::int32_t first,
 }
 
 // 原 [0x511AE0,0x511BB4)：五项各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendPetStates(const std::int32_t first,
+SendResult CgConnection::SendPetStates(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
     const std::int32_t fourth,
     const std::int32_t fifth)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "LKQy"));
 
@@ -2911,11 +2910,11 @@ std::int32_t CgConnection::SendPetStates(const std::int32_t first,
 }
 
 // 原 [0x511BC0,0x511C2B)：两项各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::MovePetSlotRequest(const std::int32_t first,
+SendResult CgConnection::MovePetSlotRequest(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Ukuy"));
 
@@ -2941,10 +2940,10 @@ std::int32_t CgConnection::MovePetSlotRequest(const std::int32_t first,
 }
 
 // 原 [0x511C30,0x511C78)：构造命令后只采一次容量，追加并发送。
-std::int32_t CgConnection::RequestSkillTargetAttributes(const std::int32_t value)
+SendResult CgConnection::RequestSkillTargetAttributes(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "iET"));
 
@@ -2962,10 +2961,10 @@ std::int32_t CgConnection::RequestSkillTargetAttributes(const std::int32_t value
 }
 
 // 原 [0x511C80,0x511CC8)：一次容量采样，整数 token 追加后发送。
-std::int32_t CgConnection::SelectSkillTextTarget(const std::int32_t value)
+SendResult CgConnection::SelectSkillTextTarget(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "McVa"));
 
@@ -2983,10 +2982,10 @@ std::int32_t CgConnection::SelectSkillTextTarget(const std::int32_t value)
 }
 
 // 原 [0x511D10,0x511D58)：一次容量采样，整数 token 追加后发送。
-std::int32_t CgConnection::SelectItemTextTarget(const std::int32_t value)
+SendResult CgConnection::SelectItemTextTarget(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "mjCv"));
 
@@ -3004,11 +3003,11 @@ std::int32_t CgConnection::SelectItemTextTarget(const std::int32_t value)
 }
 
 // 原 [0x511D60,0x511DCB)：两项各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendItemTargetPair(const std::int32_t first,
+SendResult CgConnection::SendItemTargetPair(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "BG"));
 
@@ -3034,12 +3033,12 @@ std::int32_t CgConnection::SendItemTargetPair(const std::int32_t first,
 }
 
 // 原 [0x511DD0,0x511E5E)：三项各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendWorldActionRequest(const std::int32_t first,
+SendResult CgConnection::SendWorldActionRequest(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "MIS"));
 
@@ -3073,12 +3072,12 @@ std::int32_t CgConnection::SendWorldActionRequest(const std::int32_t first,
 }
 
 // 原 [0x511E60,0x511EEE)：三项各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendPlayerMotionRequest(const std::int32_t first,
+SendResult CgConnection::SendPlayerMotionRequest(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "klF"));
 
@@ -3112,13 +3111,13 @@ std::int32_t CgConnection::SendPlayerMotionRequest(const std::int32_t first,
 }
 
 // 原 [0x511EF0,0x511FA1)：三个整数及文本各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendSkillUseRequest(const std::int32_t first,
+SendResult CgConnection::SendSkillUseRequest(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
     const std::wstring_view text)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "sM"));
 
@@ -3160,10 +3159,10 @@ std::int32_t CgConnection::SendSkillUseRequest(const std::int32_t first,
 }
 
 // 原 [0x511FF0,0x512038)：容量在格式化前采样，追加和发送各自重读缓冲。
-std::int32_t CgConnection::SelectTradePartnerRequest(const std::int32_t index)
+SendResult CgConnection::SelectTradePartnerRequest(const std::int32_t index)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "QeuC"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -3177,12 +3176,12 @@ std::int32_t CgConnection::SelectTradePartnerRequest(const std::int32_t index)
 }
 
 // 原 [0x512040,0x5120CE)：两段文本和整数各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::SendTradeOffer(const std::wstring_view first,
+SendResult CgConnection::SendTradeOffer(const std::wstring_view first,
     const std::wstring_view second,
     const std::int32_t third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "aiAb"));
 
@@ -3216,12 +3215,12 @@ std::int32_t CgConnection::SendTradeOffer(const std::wstring_view first,
 }
 
 // 原 [0x5120D0,0x51215E)：三段文本各自采容量、格式化后重读输出缓冲。
-std::int32_t CgConnection::PublishStallRequest(const std::wstring_view first,
+SendResult CgConnection::PublishStallRequest(const std::wstring_view first,
     const std::wstring_view second,
     const std::wstring_view third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "ylGN"));
 
@@ -3255,10 +3254,10 @@ std::int32_t CgConnection::PublishStallRequest(const std::wstring_view first,
 }
 
 // 原 [0x512160,0x512185)：建命令后重读缓冲并完整透传发送返回。
-std::int32_t CgConnection::CloseStallRequest()
+SendResult CgConnection::CloseStallRequest()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "JMh"));
     return impl_->SendProtocolBuffer_517480(
@@ -3267,10 +3266,10 @@ std::int32_t CgConnection::CloseStallRequest()
 }
 
 // 原 [0x512190,0x5121D8)：一次容量采样，整数 token 追加后发送。
-std::int32_t CgConnection::RequestStallContents(const std::int32_t value)
+SendResult CgConnection::RequestStallContents(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "ElVN"));
 
@@ -3288,10 +3287,10 @@ std::int32_t CgConnection::RequestStallContents(const std::int32_t value)
 }
 
 // 原 [0x5121E0,0x512228)：容量在格式化前采样，追加及发送时重读缓冲。
-std::int32_t CgConnection::PurchaseStallOffer(const std::int32_t value)
+SendResult CgConnection::PurchaseStallOffer(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "wAo"));
 
@@ -3309,10 +3308,10 @@ std::int32_t CgConnection::PurchaseStallOffer(const std::int32_t value)
 }
 
 // 原函数：0x005127B0。
-std::int32_t CgConnection::SelectBankPageRequest(const std::int32_t value)
+SendResult CgConnection::SelectBankPageRequest(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "rh"));
     const std::int32_t capacity =
@@ -3326,10 +3325,10 @@ std::int32_t CgConnection::SelectBankPageRequest(const std::int32_t value)
 }
 
 // 原 [0x512270,0x5122B8)：格式化前采容量，追加与发送各自重读缓冲。
-std::int32_t CgConnection::SendTradeDecision(const std::int32_t value)
+SendResult CgConnection::SendTradeDecision(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "OU"));
 
@@ -3347,10 +3346,10 @@ std::int32_t CgConnection::SendTradeDecision(const std::int32_t value)
 }
 
 // 原 [0x5122C0,0x512308)：格式化前采容量，追加与发送各自重读缓冲。
-std::int32_t CgConnection::SelectPlayerTitleRequest(const std::int32_t value)
+SendResult CgConnection::SelectPlayerTitleRequest(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "zGp"));
 
@@ -3368,10 +3367,10 @@ std::int32_t CgConnection::SelectPlayerTitleRequest(const std::int32_t value)
 }
 
 // 原 [0x512310,0x512358)：格式化前采容量，追加与发送各自重读缓冲。
-std::int32_t CgConnection::DeletePlayerTitleRequest(const std::int32_t value)
+SendResult CgConnection::DeletePlayerTitleRequest(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "tj"));
 
@@ -3389,10 +3388,10 @@ std::int32_t CgConnection::DeletePlayerTitleRequest(const std::int32_t value)
 }
 
 // 原 [0x512360,0x5123A8)：转义前采容量，追加与发送各自重读缓冲。
-std::int32_t CgConnection::SetCustomPlayerTitleRequest(const std::wstring_view text)
+SendResult CgConnection::SetCustomPlayerTitleRequest(const std::wstring_view text)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "ACwB"));
 
@@ -3410,10 +3409,10 @@ std::int32_t CgConnection::SetCustomPlayerTitleRequest(const std::wstring_view t
 }
 
 // 原 [0x5123B0,0x5123F8)：格式化前采容量，追加与发送各自重读缓冲。
-std::int32_t CgConnection::IncreasePlayerAttributeRequest(const std::int32_t value)
+SendResult CgConnection::IncreasePlayerAttributeRequest(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "IHw"));
 
@@ -3431,11 +3430,11 @@ std::int32_t CgConnection::IncreasePlayerAttributeRequest(const std::int32_t val
 }
 
 // 原 [0x512400,0x51246B)：两轮分别采容量、格式化后重读共享缓冲。
-std::int32_t CgConnection::IncreasePetAttributeRequest(const std::int32_t first,
+SendResult CgConnection::IncreasePetAttributeRequest(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "kjSK"));
 
@@ -3461,11 +3460,11 @@ std::int32_t CgConnection::IncreasePetAttributeRequest(const std::int32_t first,
 }
 
 // 原 [0x512470,0x5124DB)：两轮分别采容量、格式化后重读共享缓冲。
-std::int32_t CgConnection::SwapPlayerSkillOrderRequest(const std::int32_t first,
+SendResult CgConnection::SwapPlayerSkillOrderRequest(const std::int32_t first,
     const std::int32_t second)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Noeb"));
 
@@ -3491,12 +3490,12 @@ std::int32_t CgConnection::SwapPlayerSkillOrderRequest(const std::int32_t first,
 }
 
 // 原 [0x510E30,0x510EBE)：放地请求，容量读取先于格式化，缓冲读取在其后。
-std::int32_t CgConnection::DropPetRequest(const std::int32_t x,
+SendResult CgConnection::DropPetRequest(const std::int32_t x,
     const std::int32_t y,
     const std::int32_t pet)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "FvWm"));
     const std::int32_t xCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
@@ -3519,12 +3518,12 @@ std::int32_t CgConnection::DropPetRequest(const std::int32_t x,
 }
 
 // 原 [0x5124E0,0x51256E)：三轮分别采容量、格式化后重读共享缓冲。
-std::int32_t CgConnection::SwapPetSkillOrderRequest(const std::int32_t first,
+SendResult CgConnection::SwapPetSkillOrderRequest(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "HJQp"));
 
@@ -3558,11 +3557,11 @@ std::int32_t CgConnection::SwapPetSkillOrderRequest(const std::int32_t first,
 }
 
 // 原 [0x5125B0,0x51261B)：两轮各自采容量、格式化后重读共享输出缓冲。
-std::int32_t CgConnection::RenamePetRequest(const std::int32_t value,
+SendResult CgConnection::RenamePetRequest(const std::int32_t value,
     const std::wstring_view text)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "ycX"));
 
@@ -3589,7 +3588,7 @@ std::int32_t CgConnection::RenamePetRequest(const std::int32_t value,
 
 // 原 [0x512620,0x512717)：六轮分别采容量、格式化后重读共享输出缓冲。
 // SDM01：原512620完整77条；xD五S32及文本各先容量再token/fresh输出，当前原字段/LF明文及S32返回保。
-std::int32_t CgConnection::SendDialogResponse(const std::int32_t first,
+SendResult CgConnection::SendDialogResponse(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third,
     const std::int32_t fourth,
@@ -3597,7 +3596,7 @@ std::int32_t CgConnection::SendDialogResponse(const std::int32_t first,
     const std::wstring_view text)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "xD"));
 
@@ -3656,11 +3655,11 @@ std::int32_t CgConnection::SendDialogResponse(const std::int32_t first,
 
 // IMT01：原55条，四S32字段容量先格式/输出重读及S32发送返回，当前原字段/LF明文，正确正文保。
 // 原函数：0x00510CE0。
-std::int32_t CgConnection::DropItemRequest(const std::int32_t x, const std::int32_t y,
+SendResult CgConnection::DropItemRequest(const std::int32_t x, const std::int32_t y,
     const std::int32_t group, const std::int32_t index)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "QpfE"));
 
@@ -3697,11 +3696,11 @@ std::int32_t CgConnection::DropItemRequest(const std::int32_t x, const std::int3
 }
 
 // 原函数：0x00510A00。
-std::int32_t CgConnection::BeginItemUseRequest(const std::int32_t x, const std::int32_t y,
+SendResult CgConnection::BeginItemUseRequest(const std::int32_t x, const std::int32_t y,
     const std::int32_t index, const std::int32_t group)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Ak"));
 
@@ -3738,11 +3737,11 @@ std::int32_t CgConnection::BeginItemUseRequest(const std::int32_t x, const std::
 }
 
 // 原函数：0x00516C90。
-std::int32_t CgConnection::MoveItemBetweenOwnersRequest(const std::int32_t sourceGroup, const std::int32_t source,
+SendResult CgConnection::MoveItemBetweenOwnersRequest(const std::int32_t sourceGroup, const std::int32_t source,
     const std::int32_t targetGroup, const std::int32_t target, const std::int32_t amount)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Cpa"));
 
@@ -3786,10 +3785,10 @@ std::int32_t CgConnection::MoveItemBetweenOwnersRequest(const std::int32_t sourc
 }
 
 // 原函数：0x00516D70。
-std::int32_t CgConnection::SendIuEPacket()
+SendResult CgConnection::SendIuEPacket()
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "iuE"));
     return impl_->SendProtocolBuffer_517480(
@@ -3797,10 +3796,10 @@ std::int32_t CgConnection::SendIuEPacket()
 }
 
 // 原函数：0x005109B0。
-std::int32_t CgConnection::SendBattlePacket(const std::wstring_view text)
+SendResult CgConnection::SendBattlePacket(const std::wstring_view text)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "Rg"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -3814,11 +3813,11 @@ std::int32_t CgConnection::SendBattlePacket(const std::wstring_view text)
 }
 
 // MDR01：原510DA0完整44条；woz三个S32，各容量先token/fresh输出，末真实S32发送结果，原字段/LF明文。
-std::int32_t CgConnection::DropGoldRequest(const std::int32_t x,
+SendResult CgConnection::DropGoldRequest(const std::int32_t x,
     const std::int32_t y, const std::int32_t amount)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "woz"));
 
@@ -3848,11 +3847,11 @@ std::int32_t CgConnection::DropGoldRequest(const std::int32_t x,
 }
 
 // 原函数：0x00510EC0。
-std::int32_t CgConnection::MoveItemStackRequest(const std::int32_t source,
+SendResult CgConnection::MoveItemStackRequest(const std::int32_t source,
     const std::int32_t target, const std::int32_t amount)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "yi"));
 
@@ -3882,10 +3881,10 @@ std::int32_t CgConnection::MoveItemStackRequest(const std::int32_t source,
 }
 
 // 原函数：0x00510F50。
-std::int32_t CgConnection::SendSkillRebirthSelection(const std::int32_t value)
+SendResult CgConnection::SendSkillRebirthSelection(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "fS"));
 
@@ -3902,10 +3901,10 @@ std::int32_t CgConnection::SendSkillRebirthSelection(const std::int32_t value)
 }
 
 // 原函数：0x005108F0。
-std::int32_t CgConnection::AcknowledgeBattleExit(const std::int32_t value)
+SendResult CgConnection::AcknowledgeBattleExit(const std::int32_t value)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "eL"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -3919,12 +3918,12 @@ std::int32_t CgConnection::AcknowledgeBattleExit(const std::int32_t value)
 }
 
 // 原 [0x512720,0x5127AE)：三项各自采容量、格式化后重读共享输出缓冲。
-std::int32_t CgConnection::SendPlayerPositionAndDirection(const std::int32_t first,
+SendResult CgConnection::SendPlayerPositionAndDirection(const std::int32_t first,
     const std::int32_t second,
     const std::int32_t third)
 {
     const auto session = CaptureSession();
-    if (!impl_->active) return -100;
+    if (!impl_->active) return SendResult::Unavailable;
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(impl_->sendMessageBuffer), "cZt"));
 

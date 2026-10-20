@@ -4704,3 +4704,9 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 已形成MEU01：底层按钮位与边沿位分别定义，UI/Lua共用现有MouseFlags并迁至公共WindowRuntime.hpp；保留所有数值、字段类型、双击组合、取样顺序及回调行为。
 - 范围覆盖LegacyMouse、LegacyCursor及ui全目录中的已确认鼠标位与事件组合，保留其他业务位域；Lua导出不变，其他模块不批量清理。未知含义先澄清。
 - 文档：doc/cg2d_mouse_enum_unification_spec.md。待用户确认后实施；本轮仅设计与进度记录，未编译、未运行或执行测试。
+
+## 542. 游戏目录 LuaUI 文档与模块同步（2026-10-20）
+
+- 按用户要求核对游戏luaUI目录规则及编码，以GBK补丁保留CRLF；更新doc/WinMgr.lua、Module.lua、CONST.lua与README.md，覆盖统一窗口/元素引用、elementId、seqNo、查找/增删、回调、字体及画布，并记录当前element.type与组件类型常量的编号差异。
+- 同步ModuleBase.lua的onWindowOpen/OnWindowOpen代理，沿ownEvent接管订阅并在模块卸载时注销；ModuleSystem现有WinMgr代理可直接访问该接口，无需额外修改。保留既有模块配置和业务脚本改动。
+- 已静态比对WinMgr/窗口/控件导出方法与声明，以及ModuleBase实现与声明，未发现方法遗漏；GBK严格解码、CRLF及git diff --check通过。游戏目录5个文件已精确提交，本轮未编译、未运行脚本或客户端。

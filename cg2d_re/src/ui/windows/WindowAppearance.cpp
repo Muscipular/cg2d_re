@@ -172,7 +172,7 @@ cg::yobi::YobiAction* WindowAppearance_Open(
 static std::int32_t WindowAppearance_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value != -1) {
         return 1;
     }
@@ -246,7 +246,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
 static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static_cast<void>(unused);
     if (WindowProfile_CheckDistance(2, 2) != 0 || world::gCurrentDialogType_581800 != gWindow56DialogTypeCB1DE0) {
         currentWindow->state |= 0x8000u;
@@ -275,7 +275,7 @@ static void WindowAppearance_Release()
 static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -309,14 +309,14 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004C5D00。
 static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -354,7 +354,7 @@ static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const 
 static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -391,7 +391,7 @@ static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, c
 static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;

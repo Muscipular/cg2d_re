@@ -642,7 +642,7 @@ static std::int32_t WindowPetList_SubmitStates()
 static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     auto& states = gLoginWindowRuntime.valuesCC1A18;
     const auto petIndex = [](const std::int32_t row) {

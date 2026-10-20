@@ -491,7 +491,7 @@ WindowAnimationData* WindowGather_ReceiveResult(const std::int32_t result, const
 static std::int32_t WindowGather_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         gWindowActionD2E928 = nullptr;
         gWindow12ModeCC3E80 = 0;
@@ -789,7 +789,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
 static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -827,14 +827,14 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x00486E50。
 static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -863,14 +863,14 @@ static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x00486F20。
 static std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t resultImage = gWindow12ValueCF3FF0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;

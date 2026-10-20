@@ -271,7 +271,7 @@ std::int32_t WindowPetDetail_HasPetSequenceChanges()
 static std::uint32_t WindowPetDetail_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const auto selectedPet = []() -> world::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -451,7 +451,7 @@ static std::uint32_t WindowPetDetail_Refresh()
 static std::int32_t WindowPetDetail_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
         static_cast<void>(WindowPetDetail_SavePetSequences());
@@ -501,7 +501,7 @@ static void WindowPetDetail_Release()
 static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [index, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
@@ -645,7 +645,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
 std::int32_t WindowPetDetail_EditName(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 2) == 0) {
         return 0;
     }
@@ -668,7 +668,7 @@ std::int32_t WindowPetDetail_EditName(const std::int32_t index, const std::int32
 std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t target;
     std::int32_t idle;
     std::int32_t hover;

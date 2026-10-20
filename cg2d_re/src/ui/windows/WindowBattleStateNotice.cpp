@@ -47,7 +47,7 @@ void WindowBattleStateNotice_Open()
 static std::int32_t WindowBattleStateNotice_Update(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const initialWindow = currentWindow;
     world::gBattleEntryNoticeAction5ABFB8 = nullptr;
     if (auto* const element1 = initialWindow->FindElementById(WindowBattleStateNoticeElementId::Element1); element1) element1->visible = 0;

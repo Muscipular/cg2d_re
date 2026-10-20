@@ -279,7 +279,7 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* cons
 static std::int32_t WindowSkillResult_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         static_cast<void>(WindowSkillResult_RefreshResult(currentWindow));
     }
@@ -307,7 +307,7 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
 static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const element3 = currentWindow->FindElementById(WindowSkillResultElementId::Element3);
     if (element3) {
         cg::yobi::YobiAction* const action =
@@ -342,7 +342,7 @@ static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     const std::int32_t level = gUsingSkillLevelCA0AC4;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -377,14 +377,14 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x00487E80。
 static std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -407,7 +407,7 @@ static std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, cons
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004EEA40。

@@ -408,7 +408,7 @@ static void WindowProfileCategory_Refresh()
 static std::int32_t WindowProfileCategory_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         WindowProfileCategory_Refresh();
     }
@@ -448,7 +448,7 @@ static std::int32_t WindowProfileCategory_ResolveCategory(
 static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"在此目录中搜寻";

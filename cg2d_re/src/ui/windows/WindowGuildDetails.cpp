@@ -321,7 +321,7 @@ WindowPrototype gWindowPrototypeGuildDetails {0, 4, 100, 60, 317, 325, 0x8001010
 static std::int32_t WindowGuildDetails_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         gGuildPageD67B78 = 0;
         gGuildEditing57F03C = -1;
@@ -497,7 +497,7 @@ static void WindowGuildDetails_RefreshEditor()
 static std::int32_t WindowGuildDetails_RefreshRanks()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
     if (auto* const element54 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element54); element54) element54->visible = 0;
     auto* const element10 = currentWindow->FindElementById(WindowGuildDetailsElementId::Element10);
@@ -569,7 +569,7 @@ static void WindowGuildDetails_SaveInputDraft(const std::int32_t index)
 static std::int32_t WindowGuildDetails_CommitFocusedInput()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     void* const focused = gFocusedElementDataD45F94;
     auto* elementsWindow = window;
@@ -654,7 +654,7 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(const std::int32_t i
 static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B56E;
@@ -683,7 +683,7 @@ static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t ind
 static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
     if (editable == 0) {
         return editable;
@@ -759,7 +759,7 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
 static std::int32_t WindowGuildDetails_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -796,7 +796,7 @@ static std::int32_t WindowGuildDetails_HandleScrollFocus(const std::int32_t inde
 static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         if (wheel != 0) {
@@ -816,7 +816,7 @@ static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int
 static std::int32_t WindowGuildDetails_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;

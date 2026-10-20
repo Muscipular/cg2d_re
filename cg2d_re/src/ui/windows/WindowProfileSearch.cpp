@@ -269,7 +269,7 @@ static void WindowProfileSearch_RefreshResults()
 static std::uint32_t WindowProfileSearch_DrawKeyword()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextCB0610) {
         if (auto* const element7 = currentWindow->FindElementById(WindowProfileSearchElementId::Element7); element7) element7->visible = 0;
         WindowInstance* const window = currentWindow;
@@ -289,7 +289,7 @@ static std::uint32_t WindowProfileSearch_DrawKeyword()
         text = gProfileSearchKeyword1075988;
         return length;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004CA410。
@@ -297,7 +297,7 @@ static std::uint32_t WindowProfileSearch_DrawKeyword()
 static std::int32_t WindowProfileSearch_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         WindowProfileSearch_RefreshResults();
     }
@@ -320,7 +320,7 @@ static void WindowProfileSearch_Release()
 static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"请输入关键字";
@@ -355,7 +355,7 @@ static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const st
 static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (index < 3 || index > 5) {
         return 0;
     }
@@ -402,7 +402,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
 static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t position = index - 48;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {

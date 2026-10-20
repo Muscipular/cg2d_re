@@ -174,7 +174,7 @@ static std::int32_t WindowEmote_ResetSelection()
 static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -201,7 +201,7 @@ static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std:
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 } // namespace detail

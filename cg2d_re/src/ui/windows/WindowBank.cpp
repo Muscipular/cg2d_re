@@ -417,7 +417,7 @@ static void WindowBank_Release()
 static std::int32_t WindowBank_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         auto* const drawCountsElement = currentWindow->FindElementById(WindowBankElementId::DrawCounts);
         if (drawCountsElement) {
@@ -464,7 +464,7 @@ static std::int32_t WindowBank_Update(const std::int32_t value)
 static std::int32_t WindowBank_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:10}", gStorageValueCC4218);
     auto* const element14 = currentWindow->FindElementById(WindowBankElementId::Element14);
@@ -526,7 +526,7 @@ static std::int32_t WindowBank_Draw(const std::int32_t)
 static std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const handleAmountElement = elementsWindow->FindElementById(WindowBankElementId::HandleAmount);
     auto* const handleAmount_32Element = elementsWindow->FindElementById(WindowBankElementId::HandleAmount_32);
@@ -555,7 +555,7 @@ static std::int32_t WindowBank_FocusAmountInput(const std::int32_t, const std::i
 static std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -582,7 +582,7 @@ static std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const s
 static std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -609,7 +609,7 @@ static std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const 
 static std::int32_t WindowBank_DrawFirstPageSelection(const std::int32_t index, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 243174;
     return 0;
 }
@@ -618,7 +618,7 @@ static std::int32_t WindowBank_DrawFirstPageSelection(const std::int32_t index, 
 static std::int32_t WindowBank_DrawSecondPageSelection(const std::int32_t index, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 243177;
     return 0;
 }
@@ -627,7 +627,7 @@ static std::int32_t WindowBank_DrawSecondPageSelection(const std::int32_t index,
 static std::int32_t WindowBank_TabItems(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -669,7 +669,7 @@ static std::int32_t WindowBank_TabItems(const std::int32_t index, const std::int
 static std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -714,7 +714,7 @@ static std::int32_t WindowBank_TabPets(const std::int32_t index, const std::int3
 static std::int32_t WindowBank_TabDeposit(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -760,7 +760,7 @@ static std::int32_t WindowBank_TabDeposit(const std::int32_t index, const std::i
 static std::int32_t WindowBank_TabWithdraw(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -806,7 +806,7 @@ static std::int32_t WindowBank_TabWithdraw(const std::int32_t index, const std::
 static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1003,7 +1003,7 @@ static std::int32_t WindowBank_HandleOwnItems(const std::int32_t index, const st
 static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -1211,7 +1211,7 @@ static std::int32_t WindowBank_HandleStoredItems(const std::int32_t index, const
 static std::int32_t WindowBank_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     WindowState* const windowState = gCurrentWindowState;
@@ -1247,7 +1247,7 @@ static std::int32_t WindowBank_ButtonPreviousPet(const std::int32_t index, const
 static std::int32_t WindowBank_ButtonNextPet(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     WindowState* const windowState = gCurrentWindowState;
@@ -1283,7 +1283,7 @@ static std::int32_t WindowBank_ButtonNextPet(const std::int32_t index, const std
 static std::int32_t WindowBank_ScrollPets(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowState* const windowState = gCurrentWindowState;
     std::uint32_t* const scroll = index >= 25 ? &windowState->value28 : &windowState->value24;
     if ((state & 0x21) != 0) {
@@ -1302,7 +1302,7 @@ static std::int32_t WindowBank_ScrollPets(const std::int32_t index, const std::i
 static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value24);
     const std::int32_t petIndex = std::bit_cast<std::int16_t>(
         world::gPetPairsDE0B08[index + scroll - 14].index);
@@ -1462,7 +1462,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const std::int32_t index, const s
 static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t scroll = std::bit_cast<std::int32_t>(gWindowStates[WindowId_Bank].value28);
     const std::int32_t petIndex = scroll + index - 17;
     std::int32_t consumed = 0;
@@ -1614,7 +1614,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
 static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     // 原未识别kind/side或非30/31元素走未初始化局部路径，不补默认值。
     std::int32_t maximum;
     std::uint8_t result;
@@ -1725,7 +1725,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
 static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::wstring buffer;
     std::int32_t count = 0;
     for (std::int32_t index = 8; index < 28; ++index) {
@@ -1796,7 +1796,7 @@ static std::int32_t WindowBank_DrawCounts(const std::int32_t, const std::int32_t
 std::int32_t WindowBank_ButtonCloseIcon(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -1823,7 +1823,7 @@ std::int32_t WindowBank_ButtonCloseIcon(const std::int32_t index, const std::int
 std::int32_t WindowBank_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {

@@ -103,7 +103,7 @@ WindowPrototype gWindowPrototypeBottomBar {2, 5, 0, 452, 640, 30, 0x80010101u, 1
 static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (index) {
     case 0:
@@ -190,7 +190,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
     }
     case 2: {
         auto* const handleButtons_3Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_3);
-        if (!handleButtons_3Element) { return {}; }
+        if (!handleButtons_3Element) { return 0; }
         auto* const graphic = handleButtons_3Element->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B963 : 0x3B962;
         if ((state & 1) != 0) {
@@ -226,7 +226,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
     }
     case 3: {
         auto* const handleButtons_4Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_4);
-        if (!handleButtons_4Element) { return {}; }
+        if (!handleButtons_4Element) { return 0; }
         auto* const graphic = handleButtons_4Element->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B966 : 0x3B965;
         if ((state & 1) != 0) {
@@ -262,7 +262,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
     }
     case 4: {
         auto* const handleButtons_5Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_5);
-        if (!handleButtons_5Element) { return {}; }
+        if (!handleButtons_5Element) { return 0; }
         auto* const graphic = handleButtons_5Element->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B969 : 0x3B968;
         if ((state & 1) != 0) {
@@ -361,7 +361,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
 static std::int32_t WindowBottomBar_Update(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8.empty()) {
         for (std::int32_t index = 1; index <= 7; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;

@@ -185,7 +185,7 @@ static std::int32_t WindowBattleItems_TabEquipment(const std::int32_t, const std
 static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t ordinal = index - 17;
     std::int32_t remaining = ordinal;
     bool found = false;
@@ -238,7 +238,7 @@ static std::int32_t WindowBattleItems_Update(const std::int32_t value)
 static std::int32_t WindowBattleItems_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t hovered = gBattleItemHoverCF49B0;
     if (hovered >= 0) {
         static_cast<void>(WindowItem_DrawEquipmentTooltip(hovered, gBattleItemPageCB01E0));
@@ -300,7 +300,7 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
 std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     constexpr std::int32_t kBombType = 51;
     constexpr std::int32_t kMedicineType = 43;
     static constexpr std::int32_t levelLimits[] {
@@ -753,7 +753,7 @@ static std::int32_t WindowBattleItems_ShowExtraAttributes(const std::int32_t, co
 std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static constexpr wchar_t noSpace[] = L"物品栏位不足！";
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};

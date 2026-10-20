@@ -72,7 +72,7 @@ WindowInstance* WindowMailCompose_Open()
 static std::int32_t WindowMailCompose_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         if (gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
             WindowInstance* const window = gWindowStates[WindowId_GroupSelect].window;
@@ -200,7 +200,7 @@ void WindowMailCompose_Release()
 std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         WindowInstance* const window = currentWindow;
@@ -232,7 +232,7 @@ std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_
 static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (index != 2 && index != 3) {
         return 0;
     }
@@ -417,7 +417,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index,
 static std::uint8_t WindowMailCompose_RefreshRecipients()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
     if (mode != 0) {
         const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;

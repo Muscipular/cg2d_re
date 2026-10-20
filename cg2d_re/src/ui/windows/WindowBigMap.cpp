@@ -642,7 +642,7 @@ struct BigMapWindowState final {
 
     int OnElement(int index, int events) {
         auto* const elementPtr = window.FindElementById(NativeElementKey(index));
-        if (!elementPtr) { return {}; }
+        if (!elementPtr) { return 0; }
         auto& element = (*elementPtr);
         element.state = acceptsMouse ? static_cast<std::uint32_t>(events) : 0;
         if (index < ButtonEnd) {

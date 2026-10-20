@@ -436,7 +436,7 @@ static std::int32_t WindowAlbumDetail_Update(const std::int32_t value)
 static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t delta;
     std::int32_t idle;
     const wchar_t* hint;

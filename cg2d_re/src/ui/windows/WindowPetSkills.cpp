@@ -212,7 +212,7 @@ std::int32_t WindowPetSkills_GetPreviewPage(const void* const identity, const st
 static WindowElement* WindowPetSkills_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return nullptr;
     const auto selectedPet = []() -> world::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -326,7 +326,7 @@ static WindowElement* WindowPetSkills_Refresh()
 static std::int32_t WindowPetSkills_HandleScroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
     auto* const trackElement = currentWindow->FindElementById(NativeElementKey(index));
     if (trackElement) {
@@ -384,7 +384,7 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
 static std::int32_t WindowPetSkills_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         gPetTechniqueScroll = 0;
         static_cast<void>(WindowPetDetail_SavePetSequences());
@@ -442,7 +442,7 @@ static void WindowPetSkills_Release()
 static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [index, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
@@ -623,7 +623,7 @@ static std::int32_t WindowPetSkills_StartDrag(const std::int32_t source)
 static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 11) {
         events &= ~0x60u;

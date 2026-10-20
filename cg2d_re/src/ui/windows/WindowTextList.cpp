@@ -307,7 +307,7 @@ static void WindowTextList_Release()
 static std::int32_t WindowTextList_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         gSelectedItem57EE0C = -1;
         gWindowLineScrollCF46B8 = 0;
@@ -368,7 +368,7 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
 static std::int32_t WindowTextList_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (auto* const element15 = currentWindow->FindElementById(WindowTextListElementId::Element15); element15) element15->visible = 1;
     if (gWindowLineCountD67B74 - 9 <= 0) {
         if (auto* const element152 = currentWindow->FindElementById(WindowTextListElementId::Element15); element152) element152->visible = 0;
@@ -404,7 +404,7 @@ static std::int32_t WindowTextList_Draw(const std::int32_t)
 static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -432,7 +432,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
 static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
@@ -467,7 +467,7 @@ static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, c
 static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
@@ -502,7 +502,7 @@ static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const
 static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
@@ -535,7 +535,7 @@ static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, 
 static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
@@ -571,7 +571,7 @@ static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, cons
 static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowLineCountD67B74;
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
@@ -589,7 +589,7 @@ static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::i
 static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -643,7 +643,7 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
 static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -676,14 +676,14 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004AE260。
 static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
     auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
     if (indexedElement) {
@@ -721,14 +721,14 @@ static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std
 static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const xElement = window->FindElementById(NativeElementKey(index));
-    if (!xElement) { return {}; }
+    if (!xElement) { return 0; }
     const auto x = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(xElement->x + window->x));
     auto* const yElement = window->FindElementById(NativeElementKey(index));
-    if (!yElement) { return {}; }
+    if (!yElement) { return 0; }
     const auto y = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(yElement->y + window->y));
     render::GraphicDescriptor16 descriptor {};

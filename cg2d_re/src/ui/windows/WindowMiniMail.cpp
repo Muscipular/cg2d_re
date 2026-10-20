@@ -124,7 +124,7 @@ static void WindowMiniMail_Refresh()
 static std::int32_t WindowMiniMail_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         const std::int32_t mode =
             gMiniMailCompose105F508.target == world::detail::gMiniMailSelectionD673E4 ? 1 : 0;
@@ -152,7 +152,7 @@ static std::int32_t WindowMiniMail_Update(const std::int32_t value)
 static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         WindowInstance* const window = currentWindow;
@@ -186,7 +186,7 @@ static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::in
 static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (index != 2) {
         return 0;
     }

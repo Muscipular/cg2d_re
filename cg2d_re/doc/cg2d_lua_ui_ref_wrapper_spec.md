@@ -82,7 +82,7 @@ if window then
     window.x = 100
     window.y = 120
 
-    local element = window.elements[elementId] -- elementId来自创建结果或已保存的元素引用
+    local element = window:FindElementById(elementId) -- elementId来自创建结果或已保存的元素引用
     if element then
         local stableId = element.elementId
         element.seqNo = 10
@@ -95,6 +95,7 @@ end
 - 所有窗口回调中的self也使用同一窗口引用。
 - `window.elements`使用统一集合包装；集合按窗口ID查询当前元素，旧集合允许跟随同ID重开的窗口。
 - `elements[elementId]`改为按ID访问，不再表示第几个元素；找不到返回nil。集合数量由sortedMap的有效元素数量决定，不将ID当连续序号。
+- `window:FindElementById(elementId)`直接执行一次原生ID查询，返回与elements索引相同类型的LuaControlRef；窗口已关闭、元素不存在或已删除时返回nil，不创建元素或Lua回调绑定。沿用统一ID参数解析：0/nil/空字符串查询无效ID并返回nil，不触发自动分配；负数、小数、非空字符串及越界ID报错。
 - 控件回调self、AddXXX返回值和elements访问返回值统一为`LuaControlRef`。
 - 元素`id/controlId`统一作为只读elementId别名；旧脚本中把id当下标或业务槽号的用法须同步迁移，不能保留两套含义。
 - `window.count`统一为有效元素总数，包含容器子元素。旧动态窗口只计根元素的用法须同步迁移。

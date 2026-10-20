@@ -434,7 +434,7 @@ static void WindowChat_RefreshGeometry()
 static std::int32_t WindowChat_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const window = currentWindow;
         // R02：仅当前位置仍在适配后的默认位置±10内时贴右，保留拖动后的位置。
@@ -481,7 +481,7 @@ static std::int32_t WindowChat_Update(const std::int32_t value)
 static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (input::gChatPanelVisible_C9A96C == 0) {
         return 0;
     }
@@ -542,7 +542,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         WindowInstance* const hoverWindow = currentWindow;
         const bool hovered = (state & 1) != 0;
         auto* const handleButtons_7Element = hoverWindow->FindElementById(WindowChatElementId::HandleButtons_7);
-        if (!handleButtons_7Element) { return {}; }
+        if (!handleButtons_7Element) { return 0; }
         auto* const graphic = handleButtons_7Element->data.graphic;
         if (hovered) {
             gHoverTextD68AE8 = L"改变聊天时的文字大小。";
@@ -699,7 +699,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
 static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (input::gChatPanelVisible_C9A96C == 0) {
         return 0;
     }
@@ -754,7 +754,7 @@ static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_
 static std::int32_t WindowCompactChat_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
@@ -793,7 +793,7 @@ static std::int32_t WindowChat_Draw(const std::int32_t)
 static std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
     if ((state & 8) != 0) {
         WindowInstance* const window = currentWindow;
@@ -812,7 +812,7 @@ static std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::i
 static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     if (window != gWindows[WindowId_None] || (state & 0x21) == 0) {
         return 0;

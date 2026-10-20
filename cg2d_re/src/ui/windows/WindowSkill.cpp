@@ -782,7 +782,7 @@ static std::int32_t WindowSkill_StartDrag(const std::int32_t sourceIndex)
 static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t pairIndex = gSkillWindowScrollD2D648 + index - 17;
     if (world::gSkillPairsF63370[pairIndex].used == 0) {
         return 0;
@@ -1146,7 +1146,7 @@ static void WindowSkill_ShowBattleTechniques(
 static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t pairIndex = gBattleSkillRowsD3FABC[gSkillWindowScrollD2D648 + index - 17];
     if (pairIndex < 0 || world::gSkillPairsF63370[pairIndex].used == 0) {
         return 0;
@@ -1213,7 +1213,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const std::int32_t index, c
 static std::int32_t WindowSkill_SelectBattleTechnique(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
     const auto* record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     if (record->techniques3C[technique].name[0] == '\0') {
@@ -1402,7 +1402,7 @@ static void WindowSkill_DrawRidingSkillRow(
 static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t pairIndex = index - 17;
     std::int32_t pairPet = world::FindBattlePetIndex_43C4B0();
     auto technique = std::bit_cast<std::int16_t>(
@@ -1472,7 +1472,7 @@ static std::int32_t WindowSkill_SelectPetSkill(const std::int32_t index, const s
 static std::int32_t WindowSkill_SelectRidingSkill(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const auto petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
     const std::int32_t pairIndex = index - 17;
     const auto technique = std::bit_cast<std::int16_t>(
@@ -1658,10 +1658,10 @@ cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(const WindowValueCallback cal
 static std::int32_t WindowSkill_ButtonBack(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(NativeElementKey(index));
-    if (!elementPtr) { return {}; }
+    if (!elementPtr) { return 0; }
     const WindowElement* const element = elementPtr;
     const bool hovered = (state & 1) != 0;
     auto* const graphic = element->data.graphic;
@@ -1731,7 +1731,7 @@ std::int32_t WindowSkill_Back()
 static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const initialWindow = currentWindow;
     auto* elementsWindow = initialWindow;
     const std::uint8_t actionFlags = world::ReadPlayerActionFlagsByte();
@@ -1780,14 +1780,14 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0047C950。
 static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const std::int32_t mode = gSkillWindowModeD672AC;
@@ -1854,7 +1854,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const std::int32_t index, con
 static std::int32_t WindowSkill_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         const std::int32_t mode = gSkillWindowModeD672AC;
         gSkillWindowScrollD2D648 = 0;
@@ -1911,7 +1911,7 @@ static std::int32_t WindowSkill_Update(const std::int32_t value)
 static std::int32_t WindowSkill_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowSkillElementId::HandleVerticalScroll);
     if (auto* const element11 = elementsWindow->FindElementById(WindowSkillElementId::Element11); element11) element11->visible = 0;
@@ -2089,7 +2089,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
 static std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2123,7 +2123,7 @@ static std::int32_t WindowSkill_ButtonPreviousRow(const std::int32_t index, cons
 static std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2159,7 +2159,7 @@ static std::int32_t WindowSkill_ButtonNextRow(const std::int32_t index, const st
 static std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2192,7 +2192,7 @@ static std::int32_t WindowSkill_ButtonPreviousPage(const std::int32_t index, con
 static std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2228,7 +2228,7 @@ static std::int32_t WindowSkill_ButtonNextPage(const std::int32_t index, const s
 static std::int32_t WindowSkill_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t maximum = gSkillWindowMaximumCA000C;
@@ -2280,7 +2280,7 @@ static void WindowSkill_ShowRecipes(WindowInstance* const window, const std::int
 static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t recipe = gSkillWindowScrollD2D648 + index - 17;
     const auto* const record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
@@ -2341,7 +2341,7 @@ static std::int32_t WindowSkill_SelectRecipe(const std::int32_t index, const std
 static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t technique = gSkillWindowScrollD2D648 + index - 17;
     const auto* record = &world::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     if (record->techniques3C[technique].name[0] == '\0') {

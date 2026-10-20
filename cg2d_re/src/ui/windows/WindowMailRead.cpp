@@ -146,7 +146,7 @@ static std::int32_t WindowMailRead_Draw(const std::int32_t)
 static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -172,14 +172,14 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A4710。
 static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -205,14 +205,14 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A47C0。
 static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -247,7 +247,7 @@ static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const s
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A48A0。
@@ -304,7 +304,7 @@ static void WindowMailRead_FindUnread()
 static std::uint32_t WindowMailRead_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;
     if (category != 0 && category != 1 && category != 2) {
         return static_cast<std::uint32_t>(category) - 2u;
@@ -399,14 +399,14 @@ static std::uint32_t WindowMailRead_Refresh()
         pageData->text = buffer;
         return length;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A4FC0。
 static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     if ((state & 1) == 0) {
         return 0;

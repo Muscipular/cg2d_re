@@ -242,7 +242,7 @@ static std::int32_t WindowAdventureLog_Update(const std::int32_t value)
 static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (index) {
     case 2:

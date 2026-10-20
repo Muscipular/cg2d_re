@@ -115,7 +115,7 @@ WindowPrototype gWindowPrototypeProfileReply {0, 4, 15, 97, 317, 250, 0x80000080
 static std::uint32_t WindowProfileReply_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gReceivedProfile1074110;
     const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(profile.value10C);
@@ -150,7 +150,7 @@ static std::uint32_t WindowProfileReply_Refresh()
         destination = line;
         return units;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004CB9E0。

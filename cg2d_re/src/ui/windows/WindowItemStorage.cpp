@@ -99,7 +99,7 @@ static void WindowItemStorage_Release()
 static std::int32_t WindowItemStorage_Update(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (WindowProfile_CheckDistance(1, 1) != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -133,7 +133,7 @@ static std::int32_t WindowItemStorage_Draw(const std::int32_t)
 static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -308,7 +308,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
 static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;

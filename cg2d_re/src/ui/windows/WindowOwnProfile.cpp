@@ -369,7 +369,7 @@ static void WindowOwnProfile_Release()
 static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInputPrototype* prototype;
     input::InputContext* context;
     switch (index) {

@@ -213,7 +213,7 @@ WindowPrototype gWindowPrototypeAlbumList {0, 4, 38, 95, 225, 220, 0x80010101u, 
 static void* WindowAlbumList_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return nullptr;
     render::GraphicDescriptor16 descriptor {};
     void* result = nullptr;
     for (std::int32_t row = 0; row < 10; ++row) {
@@ -306,7 +306,7 @@ static std::int32_t WindowAlbumList_Update(const std::int32_t value)
 static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"开启此魔物的图鉴视窗。";
@@ -336,7 +336,7 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
 static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const auto setImage = [index, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
@@ -419,7 +419,7 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
 static std::int32_t WindowAlbumList_DragScroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result == 1) {
         WindowInstance* const window = currentWindow;
@@ -435,7 +435,7 @@ static std::int32_t WindowAlbumList_DragScroll(const std::int32_t index, const s
 static std::int32_t WindowAlbumList_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = currentWindow;

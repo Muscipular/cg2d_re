@@ -1521,7 +1521,7 @@ std::int32_t WindowRuntime_ButtonClose(const std::int32_t index, const std::int3
         }
         return result;
     }
-    return {};
+    return 0;
 }
 
 // 原0x004FBA30：UTF-16色码分段与即时测宽；正文使用动态宽字符串。
@@ -2130,9 +2130,9 @@ static void WindowItemSelector_DrawTooltip(WindowItemSelectorState* const state)
 static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* const state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const panelElement = state->elements00[1].get();
-    if (!panelElement) return {};
+    if (!panelElement) return 0;
     const std::int32_t selected = state->selectedPet70;
     if (selected < 0 || state->value3EC == 0) {
         return selected;
@@ -2207,7 +2207,7 @@ bool WindowItemSelector_HandleTab(
     WindowItemSelectorState* const state, const std::int32_t tab, const std::int32_t events)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return false;
     // 原常量参考：0x0054F5F4。
     static constexpr std::int32_t kEquipmentTabImages[] {
         244294, 244294, 244295, 244296, 98148, 98131, 98148, 98132,
@@ -2378,7 +2378,7 @@ std::int32_t WindowItemSelector_ReadScreenX(
     const std::int32_t slot, const std::int32_t offset)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t local = WindowItemSelector_ReadSlotX(state, slot);
     if (local < 0) {
         return -1;
@@ -2390,7 +2390,7 @@ std::int32_t WindowItemSelector_ReadScreenX(
         const std::int32_t windowX = window->x;
         return elementX + windowX + local + offset;
     }
-    return {};
+    return 0;
 }
 
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素Y/窗口Y取样累加。
@@ -2400,7 +2400,7 @@ std::int32_t WindowItemSelector_ReadScreenY(
     const std::int32_t slot, const std::int32_t offset)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t local = WindowItemSelector_ReadSlotY(state, slot);
     if (local < 0) {
         return -1;
@@ -2412,7 +2412,7 @@ std::int32_t WindowItemSelector_ReadScreenY(
         const std::int32_t windowY = window->y;
         return elementY + windowY + local + offset;
     }
-    return {};
+    return 0;
 }
 
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
@@ -2440,7 +2440,7 @@ bool WindowItemSelector_GetItemList_4C72C0(
 bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* const selector, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return false;
     auto* const panelElement = selector->elements00[1].get();
     if (!panelElement) return false;
     if ((static_cast<std::uint8_t>(state) & 2u) != 0 || state == 0

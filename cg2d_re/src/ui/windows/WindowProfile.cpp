@@ -25,7 +25,7 @@ static std::int32_t gWindowInteractionOriginY_CC4D3C = 0; // 原全局：0x00CC4
 std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (index) {
     case 17: {

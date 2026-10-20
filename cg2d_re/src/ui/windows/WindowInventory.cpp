@@ -78,7 +78,7 @@ static void RefreshInventoryPageSelection(
 static std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(NativeElementKey(index));
     if (elementPtr) {
@@ -128,7 +128,7 @@ static std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, cons
 static std::int32_t WindowInventory_SwitchBankPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -421,7 +421,7 @@ static std::int32_t WindowItem_DrawDescriptionLines(
 std::int32_t WindowInventory_DrawBlockedEquipment(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -509,7 +509,7 @@ static std::int32_t WindowInventory_TabEquipment(const std::int32_t, const std::
 static std::int32_t WindowInventory_TabPet(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t ordinal = index - 19;
     std::int32_t remaining = ordinal;
     bool found = false;
@@ -572,7 +572,7 @@ static void WindowInventory_Release()
 static std::int32_t WindowInventory_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t selected;
     if (value == -1) {
         WindowItemSelector_BindElements(&gItemSelectorCF3B10, 0);
@@ -629,7 +629,7 @@ updateSelector:
 static std::int32_t WindowInventory_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static constexpr std::wstring_view selectionText586B14[] { // 原常量参考：0x00586B14。
         L"选好想盖印的物品，", L"单点滑鼠左键，", L"可盖下印记。", L"单点滑鼠右键即结束。",
     };
@@ -682,7 +682,7 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
 static std::int32_t WindowInventory_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -719,7 +719,7 @@ static void WindowInventory_DropMoney(const std::int32_t amount)
 static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -754,7 +754,7 @@ static std::int32_t WindowInventory_HandleMoney(const std::int32_t index, const 
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x00488E60。
@@ -775,7 +775,7 @@ static std::int32_t WindowInventory_RefreshExtraValue(const std::int32_t, const 
 std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static std::int32_t previousHoveredSlot = -2; // 原全局：0x0057DA2C。
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -990,7 +990,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
 std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static std::int32_t previousHoveredSlot = -2; // 原全局：0x0057DA68。
     static constexpr const wchar_t* playerHints[] {
         L"装备头部防具的位置。",
@@ -1223,7 +1223,7 @@ static std::int32_t WindowInventory_TabPlayerAttributes(const std::int32_t, cons
 std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;

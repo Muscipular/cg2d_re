@@ -258,7 +258,7 @@ WindowPrototype gWindowPrototypePlayerAttributes {0, 4, 15, 97, 315, 261, 0x8000
 static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::array<std::int32_t, 6> values;
     values[1] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
     values[2] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
@@ -354,7 +354,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原4767E0：逐项格式化后重取元素；点数门槛阶段独立读取，见window_8.md。

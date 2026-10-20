@@ -1527,7 +1527,7 @@ static void WindowShop_CountDetailItems()
 static std::int32_t WindowShop_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         gShopScrollCC488C = 0;
         gShopAvailableCF4A24 = -1;
@@ -1795,7 +1795,7 @@ static void WindowShop_Submit(const std::int32_t selection)
 static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hover = (state & 1) != 0;
@@ -2067,7 +2067,7 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
 static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -2101,14 +2101,14 @@ static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std:
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004BAA50。
 static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     bool available = false;
@@ -2233,7 +2233,7 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
 static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto events = static_cast<std::uint8_t>(state);
     if ((events & 1u) != 0) {
         const wchar_t* hint;
@@ -2327,7 +2327,7 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
 static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2379,7 +2379,7 @@ static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const
 static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2431,7 +2431,7 @@ static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std
 static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2481,7 +2481,7 @@ static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, cons
 static std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2538,7 +2538,7 @@ static std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const st
 static std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const std::int32_t count = gShopItemCountCB1E10;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
@@ -2574,7 +2574,7 @@ static std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32
 static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const std::int32_t row = gShopScrollCC488C + index - 42;
@@ -2810,7 +2810,7 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
 static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const std::int32_t row = gShopScrollCC488C + index - 47;
@@ -3164,7 +3164,7 @@ static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const st
 static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t item = gShopScrollCC488C + index - 52;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -3231,7 +3231,7 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
 static std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -3274,7 +3274,7 @@ static std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const 
 static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t row = gShopScrollCC488C + index - 52;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -3421,7 +3421,7 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
 static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -3689,7 +3689,7 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
 static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static_cast<void>(unusedState);
     // 原覆盖层矩形(0,35,640,383)接近原画布中心；独立适配，不使用商店窗口位置。
     std::int32_t panelX = 0;
@@ -3787,7 +3787,7 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
 static std::int32_t WindowShop_Draw(const std::int32_t unused)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static_cast<void>(unused);
     const WindowInstance* const window = currentWindow;
     const std::int32_t x = window->x + 298;

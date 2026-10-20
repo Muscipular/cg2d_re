@@ -339,7 +339,7 @@ cg::yobi::YobiAction* WindowDialog_Open(
 static std::int32_t WindowDialog_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const initialWindow = currentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (initialWindow->state & 0x8000u) != 0) {
         for (std::int32_t index = 0; index < 19; ++index) {
@@ -452,7 +452,7 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
 static std::int32_t WindowDialog_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (window->state & 0x8000u) != 0) {
         return 1;
@@ -596,7 +596,7 @@ static void WindowDialog_Release()
 static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static constexpr std::int32_t images[6][3] {
         {243048, 243049, 243050},
         {245320, 245321, 245322},
@@ -640,14 +640,14 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049CF70。
 static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
     gMessageDialog.events = state;
     WindowInstance* window = currentWindow;

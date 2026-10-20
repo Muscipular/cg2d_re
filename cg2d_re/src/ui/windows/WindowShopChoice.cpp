@@ -224,7 +224,7 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
 static std::int32_t WindowShopChoice_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         auto* const element1 = currentWindow->FindElementById(WindowShopChoiceElementId::Element1);
         if (element1) {
@@ -260,7 +260,7 @@ static std::int32_t WindowShopChoice_Update(const std::int32_t value)
 static std::int32_t WindowShopChoice_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowRuntime_DrawCurrent();
     for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.lineCount); ++row) {
         const std::wstring& text = gChoiceDialog.lines[row];
@@ -307,7 +307,7 @@ static void WindowShopChoice_Release()
 static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 1) == 0) {
         return 0;
     }

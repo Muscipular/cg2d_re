@@ -102,7 +102,7 @@ WindowPrototype gWindowPrototypeCollapsedShortcutBar {0, 5, 626, 0, 14, 33, 0x80
 static std::int32_t WindowShortcutBar_Update(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (world::gCurrentSceneType == 10) {
         currentWindow->state |= 0x8000u;
     }
@@ -113,7 +113,7 @@ static std::int32_t WindowShortcutBar_Update(const std::int32_t)
 static std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 2) == 0) {
         return 0;
     }
@@ -128,7 +128,7 @@ static std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const s
 static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 2) == 0) {
         return 0;
     }
@@ -143,7 +143,7 @@ static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std
 static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;

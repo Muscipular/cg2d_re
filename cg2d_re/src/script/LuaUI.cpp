@@ -1417,6 +1417,20 @@ LuaFunctionEx(LuaWindowRef, DrawRect) {
     return 2;
 }
 
+// 统一按ID查找，不创建Lua绑定或元素；失效窗口和缺失元素均返回nil。
+LuaFunctionEx(LuaWindowRef, FindElementById) {
+    auto window = ResolveWindow(*CheckWindowRef(L, 1));
+    const auto id = LuaReadElementId(L, 2);
+    if (window) {
+        if (auto* element = window->window.FindElementById(id)) {
+            PushLuaElement(L, window->window, *element);
+            return 1;
+        }
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
 LuaFunctionEx(LuaWindowRef, RemoveElement) {
     auto window = ResolveWindow(*CheckWindowRef(L, 1));
     const auto id = LuaReadElementId(L, 2);
@@ -1697,7 +1711,9 @@ LuaFunctionEx(LuaWindowRef, Index) {
         return 1;
     }
     if (!std::strcmp(key, "id") || !std::strcmp(key, "winId")) { Push(L, ref->winId); return 1; }
-    if (strcmp(key, "RemoveElement") == 0) {
+    if (strcmp(key, "FindElementById") == 0) {
+        lua_pushcfunction(L, LuaCFunction(LuaWindowRef, FindElementById));
+    } else if (strcmp(key, "RemoveElement") == 0) {
         lua_pushcfunction(L, LuaCFunction(LuaWindowRef, RemoveElement));
     } else if (strcmp(key, "AddImage") == 0) {
         lua_pushcfunction(L, LuaCFunction(LuaWindowRef, AddImage));

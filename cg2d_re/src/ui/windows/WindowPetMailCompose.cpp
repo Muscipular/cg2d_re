@@ -86,7 +86,7 @@ WindowPrototype gWindowPrototypePetMailCompose {0, 4, 383, 81, 211, 259, 0x80010
 static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const normalWindow = gWindowStates[WindowId_MailCompose].window;
         if (normalWindow != nullptr) {
@@ -160,7 +160,7 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
 static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     if ((events & 0x60u) != 0 && WindowDrag_ReadKind() != 2) {
@@ -252,7 +252,7 @@ static std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
 static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (index) {
     case 2:
@@ -384,7 +384,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
 static std::uint8_t WindowPetMailCompose_RefreshPet()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
         const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;

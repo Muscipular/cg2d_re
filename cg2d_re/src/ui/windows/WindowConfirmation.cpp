@@ -162,7 +162,7 @@ static std::int32_t WindowConfirmation_HandleButton(
     WindowElementCallback* const callbackSlot, const std::int32_t sound, const bool requiresControl)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -245,7 +245,7 @@ static WindowInstance* WindowConfirmation_RequestClose()
 static wchar_t* WindowConfirmation_RefreshText()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return nullptr;
     for (std::int32_t index = 0; index < 11; ++index) {
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
         if (dataElement) {
@@ -275,7 +275,7 @@ static wchar_t* WindowConfirmation_RefreshText()
 static std::int32_t WindowConfirmation_RefreshButtons()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t mask = gWindow47Runtime.visibleMaskCC4240;
     for (std::int32_t index = 11; index < 17; ++index) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;

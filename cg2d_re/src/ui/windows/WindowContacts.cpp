@@ -433,7 +433,7 @@ static std::int32_t WindowContacts_Draw(const std::int32_t value)
 static std::int32_t WindowContacts_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::uint32_t sortMode = gLoginWindowRuntime.mailSortModeD67B3C;
     auto* const element9 = currentWindow->FindElementById(WindowContactsElementId::Element9);
@@ -829,7 +829,7 @@ static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
 static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -879,7 +879,7 @@ static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std
 static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (index >= 51 && index <= 53) {
         if ((state & 4) == 0) {
             return 0;
@@ -979,7 +979,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
 static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -1008,14 +1008,14 @@ static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, con
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A2870。
 static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (index < 10 || index > 12) {
         return 0;
     }
@@ -1066,7 +1066,7 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
 static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -1086,7 +1086,7 @@ static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, 
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A37E0。
@@ -1106,7 +1106,7 @@ static std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
 static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) == 0) {
         return 0;
     }
@@ -1146,7 +1146,7 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
 static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t parity = (index - 21) % 2;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -1169,7 +1169,7 @@ static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, co
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A38C0。
@@ -1194,7 +1194,7 @@ static void WindowContacts_OpenRankSelection(const std::int32_t index)
 static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B547;
@@ -1247,7 +1247,7 @@ static std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
 static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
-    if (!activeWindow) return {};
+    if (!activeWindow) return 0;
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category] + index - 99;
     render::GraphicDescriptor16 descriptor {};
@@ -1367,7 +1367,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
 static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hover = (state & 1) != 0;
@@ -1422,7 +1422,7 @@ static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const
 static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B54A;
@@ -1830,7 +1830,7 @@ std::int32_t WindowContacts_CompareGuildNumber(
 static std::int32_t WindowContacts_DragScroll(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     // 类别0/1/2均有真实计数；无效类别的入口寄存器值不专项模拟。
     std::int32_t count;
     switch (gLoginWindowRuntime.valuesD67B40[6]) {

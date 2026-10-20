@@ -311,7 +311,7 @@ static std::int32_t WindowBlacklist_Update(const std::int32_t value)
 static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = gLoginWindowRuntime.blacklistDeleteModeD67BC4 != 0
@@ -353,10 +353,10 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
     void* const focused = gFocusedElementDataD45F94;
     auto* elementsWindow = window;
     auto* const buttonCloseElement = elementsWindow->FindElementById(WindowBlacklistElementId::ButtonClose);
-    if (!buttonCloseElement) { return {}; }
+    if (!buttonCloseElement) { return 0; }
     void* const target = buttonCloseElement->data.graphic;
     auto* const yElement = elementsWindow->FindElementById(NativeElementKey(index));
-    if (!yElement) { return {}; }
+    if (!yElement) { return 0; }
     const std::int32_t y = yElement->y;
     const bool changeFocus = focused != target;
     gBlacklistInputPrototype580EF0.y = y + 1;
@@ -377,7 +377,7 @@ static std::int32_t WindowBlacklist_EditRow(const std::int32_t index, const std:
 static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (index) {
     case 3:
@@ -493,7 +493,7 @@ static std::int32_t WindowBlacklist_HandleButtons(const std::int32_t index, cons
 static std::int32_t WindowBlacklist_DragScroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
     if (consumed == 1) {
         auto* const dragScrollElement = currentWindow->FindElementById(WindowBlacklistElementId::DragScroll);

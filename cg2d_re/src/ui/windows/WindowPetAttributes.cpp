@@ -134,7 +134,7 @@ WindowPrototype gWindowPrototypePetAttributes {0, 4, 365, 83, 245, 306, 0x800101
 static std::uint32_t WindowPetAttributes_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const auto selectedPet = []() -> world::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -267,7 +267,7 @@ static std::uint32_t WindowPetAttributes_Refresh()
 static std::int32_t WindowPetAttributes_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         static_cast<void>(WindowPetDetail_SavePetSequences());
         WindowPetDetail_InitializeDraft();
@@ -314,7 +314,7 @@ static void WindowPetAttributes_Release()
 static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [index, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;

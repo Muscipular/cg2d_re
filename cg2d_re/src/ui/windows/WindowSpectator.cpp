@@ -35,7 +35,7 @@ WindowPrototype gWindowPrototypeSpectator {2, 3, 492, 0, 148, 108, 0x80010101u, 
 static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 1) != 0) {
         WindowInstance* const window = currentWindow;
         const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;

@@ -142,7 +142,7 @@ std::int32_t WindowProfileView_ReadSelection(const std::int32_t index)
 static std::uint32_t WindowProfileView_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gViewedProfile105ECE0;
     auto* const element15 = currentWindow->FindElementById(WindowProfileViewElementId::Element15);
@@ -180,7 +180,7 @@ static std::uint32_t WindowProfileView_Refresh()
         destination = line;
         return units;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004CAF60。
@@ -188,7 +188,7 @@ static std::uint32_t WindowProfileView_Refresh()
 static std::int32_t WindowProfileView_Update(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
@@ -217,7 +217,7 @@ static void WindowProfileView_Release()
 static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (index != 0) {
         return 0;
     }

@@ -704,7 +704,7 @@ static void WindowTrade_Release()
 static std::int32_t WindowTrade_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const initialWindow = currentWindow;
         gTradeWindowActionD67B7C = nullptr;
@@ -1487,7 +1487,7 @@ static void WindowTrade_HandleOwnPets(
 static std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
@@ -1953,7 +1953,7 @@ static void WindowTrade_HandleSelectedPet(
 static std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
@@ -2009,7 +2009,7 @@ static void WindowTrade_RefreshSelectedPanel(
 static std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
@@ -2660,7 +2660,7 @@ static std::int32_t WindowTrade_ReadSelectedPet(const std::int32_t index)
 static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hover = (state & 1) != 0;
@@ -2722,7 +2722,7 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
 static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -2751,14 +2751,14 @@ static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const s
         }
         return result;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004B0DB0。
 static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -2802,7 +2802,7 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
         }
         return result;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004E5620。

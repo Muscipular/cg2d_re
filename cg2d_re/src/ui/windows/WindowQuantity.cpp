@@ -120,7 +120,7 @@ WindowInstance* WindowQuantity_Open(
 static std::int32_t WindowQuantity_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const window = currentWindow;
         gWindowStates[WindowId_Quantity].value10 = 999999999;
@@ -137,7 +137,7 @@ static std::int32_t WindowQuantity_Update(const std::int32_t value)
 static std::int32_t WindowQuantity_HandleInput(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 2) != 0) {
         static_cast<void>(WindowInput_ActivateElement(&gNumberInputPrototype57DA70, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCB0878);
@@ -156,7 +156,7 @@ static std::int32_t WindowQuantity_HandleInput(const std::int32_t, const std::in
 static std::int32_t WindowQuantity_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const input::InputContext* const currentInput = input::gCurrentInputData;
     const std::uint8_t flags = reinterpret_cast<const unsigned char*>(
         &gWindowStates[WindowId_Quantity].actionFlags1C)[0]
@@ -213,7 +213,7 @@ static std::int32_t WindowQuantity_ButtonOk(const std::int32_t index, const std:
 static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -248,7 +248,7 @@ static std::int32_t WindowQuantity_ButtonIncrease(const std::int32_t index, cons
 static std::int32_t WindowQuantity_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;

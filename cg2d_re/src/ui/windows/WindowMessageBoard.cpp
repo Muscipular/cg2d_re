@@ -180,7 +180,7 @@ void WindowMessageBoard_ResetRecords()
 static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         gWindow50InputPrototype580618.input.context->clearText();
         WindowInstance* const window = currentWindow;
@@ -215,7 +215,7 @@ static void WindowMessageBoard_Release()
 static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 1) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
         gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
     }
@@ -246,7 +246,7 @@ static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, con
 static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::wstring escaped;
     std::wstring text;
     std::int32_t consumed = 0;
@@ -437,7 +437,7 @@ static void WindowMessageBoard_RefreshRecords()
 static std::int32_t WindowMessageBoard_Close()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     world::gCurrentDialogType_581800 = -1;
     window->state |= 0x8000u;

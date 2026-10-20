@@ -1322,7 +1322,7 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const 
 static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowPetSkillChoiceElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 0;
         if (auto* const element5 = currentWindow->FindElementById(WindowPetSkillChoiceElementId::Element5); element5) element5->data.text->text = gNpcDialogLinesCC24D4[0].text;
@@ -1370,7 +1370,7 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
 static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static_cast<void>(unused);
     WindowInstance* window = currentWindow;
     const auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
@@ -1476,7 +1476,7 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
 static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -1511,14 +1511,14 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004BFCB0。
 static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -1635,7 +1635,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
 static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -1725,7 +1725,7 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
 static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -1819,7 +1819,7 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
 static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -1903,7 +1903,7 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
 static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -2011,7 +2011,7 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
 static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
         case 0:
@@ -2066,7 +2066,7 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
 static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -2106,14 +2106,14 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004C0A50。
 static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -2181,14 +2181,14 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004C0BF0。
 static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     const bool hover = (state & 1) != 0;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
@@ -2219,7 +2219,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
 static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t selected = gWindow54SkillScrollCC31F4 + index - 99;
     const Window54SkillRecord& record = gWindow54SkillsD2EAB8[selected];
     if (record.name[0] == '\0') {
@@ -2286,7 +2286,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
 static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(const std::int32_t index, const std::int32_t unusedState)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static_cast<void>(unusedState);
     const std::int32_t selected = gWindow54SkillScrollCC31F4 + index - 99;
     if (gWindow54SkillsD2EAB8[selected].name[0] != '\0' && gWindow54SelectedD2DC04 == selected) {
@@ -2309,7 +2309,7 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(const std::int32
 static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static_cast<void>(unusedState);
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;

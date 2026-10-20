@@ -331,7 +331,7 @@ static void WindowPlayerProfile_RefreshAttributeBar(
 static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t idleImage;
     std::int32_t hoverImage;
     std::int32_t targetWindow = 0;

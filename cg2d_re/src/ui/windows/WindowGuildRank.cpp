@@ -142,7 +142,7 @@ static std::int32_t WindowGuildRank_Update(const std::int32_t value)
 static std::int32_t WindowGuildRank_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     static_cast<void>(WindowGuildRank_Refresh());
     WindowRuntime_DrawCurrent();
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowGuildRankElementId::HandleVerticalScroll);
@@ -164,7 +164,7 @@ static std::int32_t WindowGuildRank_Draw(const std::int32_t)
 static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"选择此称号。" /* 原常量参考：0x005876F4。 */;
@@ -188,7 +188,7 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
 static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -211,14 +211,14 @@ static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const 
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A4370。
 static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -241,14 +241,14 @@ static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A4420。
 static std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (index != 15 && index != 16) {
         return 0;
     }
@@ -287,7 +287,7 @@ static std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index
 static std::uint32_t WindowGuildRank_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(row));
@@ -306,14 +306,14 @@ static std::uint32_t WindowGuildRank_Refresh()
         data->text = name;
         return length;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004A45E0。
 static std::int32_t WindowGuildRank_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         if (wheel != 0) {

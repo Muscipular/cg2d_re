@@ -526,7 +526,7 @@ WindowPrototype gWindowPrototypeStallBrowse {0, 4, 10, 30, 549, 366, 0x80000080u
 static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -578,7 +578,7 @@ static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, 
 static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -634,7 +634,7 @@ static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, cons
 static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const bool own = gStallOwn58111C != 0;
         const std::int32_t mode = gStallModeD67BDC;
@@ -665,7 +665,7 @@ static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::in
 static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -701,7 +701,7 @@ static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, cons
 static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -737,7 +737,7 @@ static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const st
 static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const bool own = gStallOwn58111C != 0;
         const std::int32_t mode = gStallModeD67BDC;
@@ -759,7 +759,7 @@ static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const st
 static std::int32_t WindowStall_TabCategory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     const bool ownAtEntry = gStallOwn58111C != 0;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -863,7 +863,7 @@ static std::int32_t WindowStall_RequestClose()
 static WindowInstance* WindowStall_ShowPurchaseConfirmation()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return nullptr;
     WindowInstance* const window = currentWindow;
     if (auto* const handlePriceInputElement = window->FindElementById(WindowStallElementId::HandlePriceInput); handlePriceInputElement) handlePriceInputElement->visible = 1;
     return window;
@@ -873,7 +873,7 @@ static WindowInstance* WindowStall_ShowPurchaseConfirmation()
 static WindowElement* WindowStall_EditItemPrice()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return nullptr;
     gStallPriceD67C40 = 0;
     static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
@@ -960,7 +960,7 @@ static std::int32_t WindowStall_RemoveListing()
 static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -1104,7 +1104,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
 static std::int32_t WindowStall_SubmitListings()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::wstring buffer;
     std::wstring name = L"无名店铺";
     std::wstring description = L"老板没什么可介绍的";
@@ -1183,7 +1183,7 @@ static std::int32_t WindowStall_SubmitListings()
 static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t mode = gStallMessageModeD67C34;
     if (mode != 0 && mode != 1) {
         return state & 1;
@@ -1327,7 +1327,7 @@ static std::int32_t WindowStall_DrawPetDetails(
 static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gStallModeD67BDC != 1) {
         return 0;
     }
@@ -1521,7 +1521,7 @@ static std::int32_t WindowStall_DrawCandidateAttributes(
 static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gStallModeD67BDC != 1) {
         return 0;
     }
@@ -1646,7 +1646,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
 static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0) {
         const std::int32_t petCount = gStallPetCountD67BD4;
         const std::int32_t itemCount = gStallItemCountD67BCC;
@@ -1819,7 +1819,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
 static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gStallModeD67BDC != 0) {
         return 0;
     }
@@ -1912,7 +1912,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
 static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const bool clicked = (state & 2) != 0;
     if (clicked) {
         static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
@@ -2033,7 +2033,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
 static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     std::int32_t y = window->y + 183;
     std::int32_t x = window->x + 274;
@@ -2195,7 +2195,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
 static std::int32_t WindowStall_Update(const std::int32_t value)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
-    if (!activeWindow) return {};
+    if (!activeWindow) return 0;
     if (value == -1) {
         WindowInstance* const initial = activeWindow;
         const std::int32_t id = initial->id;
@@ -2393,7 +2393,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
 static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
     }
@@ -2431,7 +2431,7 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
 static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
     }
@@ -2469,7 +2469,7 @@ static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t 
 static std::int32_t WindowStall_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gStallOwn58111C != 0) {
         {
             auto* const element10 = currentWindow->FindElementById(WindowStallElementId::Element10);
@@ -2822,7 +2822,7 @@ static void WindowStall_BuildItemDescription(world::PlayerItemRecord* const item
 static std::int32_t WindowStall_RequestPurchase()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t mode = gStallModeD67BDC;
     std::int32_t value;
     if (mode == 0) {
@@ -2851,7 +2851,7 @@ static std::int32_t WindowStall_RequestPurchase()
 static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -2875,7 +2875,7 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004CDE00。

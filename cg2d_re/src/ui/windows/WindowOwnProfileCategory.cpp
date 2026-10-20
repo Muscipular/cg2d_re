@@ -162,7 +162,7 @@ static void WindowOwnProfileCategory_Refresh()
 static std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         gProfileScrollCA0444 = 0;
     }
@@ -177,7 +177,7 @@ static std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
 static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         switch (gProfileCategory1085DA0) {
@@ -226,7 +226,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
 static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [index, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
@@ -379,7 +379,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
 static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result == 1) {
         const std::int32_t mode = gProfileCategory1085DA0;
@@ -401,7 +401,7 @@ static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index
 static std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const std::int32_t mode = gProfileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {

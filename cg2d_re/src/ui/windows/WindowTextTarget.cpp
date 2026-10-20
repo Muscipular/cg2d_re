@@ -195,7 +195,7 @@ static void WindowTextTarget_Refresh(const std::int32_t offset)
 static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t visible = gTextChoiceCountCC4CE4 - 5 > 0 ? 1 : 0;
     for (std::int32_t index = 0; index < 6; ++index) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = visible;
@@ -228,7 +228,7 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -259,14 +259,14 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index,
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049F310。
 static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -296,14 +296,14 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, con
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049F3D0。
 static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -332,14 +332,14 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049F490。
 static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -375,14 +375,14 @@ static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, co
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049F570。
 static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const std::int32_t count = gTextChoiceCountCC4CE4;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
@@ -400,7 +400,7 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
 static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -430,14 +430,14 @@ static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, cons
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049F680。
 static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t selected = gTextChoiceOffsetD2D9C0 + index - 14;
     // 原门槛只比较行号，不将滚动偏移并入检查。
     if (index - 14 >= gTextChoiceCountCC4CE4) {

@@ -173,7 +173,7 @@ static void WindowTradeTarget_Refresh(const std::int32_t offset)
 static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         const std::int32_t visible = gWindowListCountCF46A8 > 5 ? 1 : 0;
         gWindowListOffsetCC3EF4 = 0;
@@ -193,7 +193,7 @@ static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (auto* const element1 = currentWindow->FindElementById(WindowTradeTargetElementId::Element1); element1) element1->visible = 1;
     if (gWindowListCountCF46A8 - 5 <= 0) {
         if (auto* const element12 = currentWindow->FindElementById(WindowTradeTargetElementId::Element1); element12) element12->visible = 0;
@@ -227,7 +227,7 @@ static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -258,14 +258,14 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index
         }
         return result;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049EC00。
 static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -295,14 +295,14 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, co
         }
         return result;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049ECC0。
 static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -331,14 +331,14 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t inde
         }
         return result;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049ED80。
 static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -374,14 +374,14 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, c
         }
         return result;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049EE60。
 static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const std::int32_t count = gWindowListCountCF46A8;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
@@ -399,7 +399,7 @@ static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std
 static std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -422,14 +422,14 @@ static std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, con
         }
         return result;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049EF60。
 static std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (index - 14 >= gWindowListCountCF46A8) {
         return 0;
     }

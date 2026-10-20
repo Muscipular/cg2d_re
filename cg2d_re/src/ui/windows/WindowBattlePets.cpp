@@ -67,7 +67,7 @@ WindowPrototype gWindowPrototypeBattlePets {0, 4, 100, 100, 356, 223, 0x80010101
 static std::int32_t WindowBattlePets_Update(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (auto* const buttonReturnElement = currentWindow->FindElementById(WindowBattlePetsElementId::ButtonReturn); buttonReturnElement) buttonReturnElement->visible = 0;
     if (world::FindBattlePetIndex_43C4B0() != -1) {
         if (auto* const buttonReturnElement2 = currentWindow->FindElementById(WindowBattlePetsElementId::ButtonReturn); buttonReturnElement2) buttonReturnElement2->visible = 1;
@@ -79,7 +79,7 @@ static std::int32_t WindowBattlePets_Update(const std::int32_t)
 static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -107,7 +107,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, cons
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049B670。
@@ -185,7 +185,7 @@ static void WindowBattlePets_Refresh(
 static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(NativeElementKey(index));
     if (elementPtr) {
@@ -253,7 +253,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
         WindowBattlePets_Refresh(x, y, selected, 3, 223, &descriptor);
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 } // namespace detail

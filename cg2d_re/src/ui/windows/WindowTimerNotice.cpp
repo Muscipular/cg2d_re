@@ -35,7 +35,7 @@ WindowPrototype gWindowPrototypeTimerNotice {3, 3, 196, 180, 256, 96, 0x80010101
 static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         auto* const element1 = currentWindow->FindElementById(WindowTimerNoticeElementId::Element1);
         if (element1) {

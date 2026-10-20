@@ -1013,7 +1013,7 @@ static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const
 static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -1623,9 +1623,9 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const elementPtr = currentWindow->FindElementById(NativeElementKey(index));
-    if (!elementPtr) { return {}; }
+    if (!elementPtr) { return 0; }
     WindowElement* const element = elementPtr;
     auto* const graphic = element->data.graphic;
     std::int32_t consumed = 0;
@@ -1930,7 +1930,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
 static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -1980,7 +1980,7 @@ static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const s
 static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -2007,7 +2007,7 @@ static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std:
 static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -2387,7 +2387,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
 static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t imageNo = gCraftDisplayImageCB2204;
     if (imageNo < 0) {
         return 0;
@@ -2411,7 +2411,7 @@ static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const 
 static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (gSelectedItemD460C0 < 0) {
         return 0;
     }
@@ -2453,7 +2453,7 @@ static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, c
 static std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -2476,14 +2476,14 @@ static std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const 
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 static std::int32_t WindowCraft_DrawInputNotice(
     const std::int32_t index, const std::wstring_view first, const std::wstring_view second)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -2532,7 +2532,7 @@ static std::int32_t WindowCraft_DrawEmptyEngravingNotice(const std::int32_t inde
 static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -2833,7 +2833,7 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
 static std::int32_t WindowCraft_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const auto initializeMode = [currentWindow](const std::uint8_t mode) {
         switch (mode) {
         case 0: static_cast<void>(WindowCraft_InitializeRecipe(currentWindow)); break;
@@ -3182,7 +3182,7 @@ static void WindowCraft_Release()
 static std::int32_t WindowCraft_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const element5 = currentWindow->FindElementById(WindowCraftElementId::Element5);
     if (element5) {
         cg::yobi::YobiAction* const action =
@@ -3261,7 +3261,7 @@ std::int32_t WindowCraft_SetPreviewPositions(
     if (auto* const indexedElement9 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(second)) : nullptr, * const indexedElement10 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(anchor)) : nullptr; indexedElement9 && indexedElement10) indexedElement9->y = indexedElement10->y + dy;
     elementsWindow = window;
     auto* const dataElement = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(first)) : nullptr;
-    if (!dataElement) { return {}; }
+    if (!dataElement) { return 0; }
     auto* const data = dataElement->data.animation;
     if (cg::yobi::GetYobiActionField2A8(data->action) > 0) {
         if (auto* const indexedElement11 = elementsWindow ? elementsWindow->FindElementById(NativeElementKey(dy > 0 ? first : second)) : nullptr; indexedElement11) indexedElement11->visible = 1;
@@ -3296,7 +3296,7 @@ WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
 static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -3532,7 +3532,7 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, 
 static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -3775,7 +3775,7 @@ WindowAnimationData* WindowCraft_AnimatePreviewPositions(
     const std::int32_t first, const std::int32_t second, const std::uint64_t deadline)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return nullptr;
     const std::uint64_t tick = platform::ReadTickCount64();
     const std::uint64_t start = gSkillPreviewTickCF46C8;
     const std::int64_t interval = std::bit_cast<std::int64_t>(deadline - start) / 11;

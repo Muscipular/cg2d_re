@@ -11,7 +11,7 @@ namespace detail {
 std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -42,14 +42,14 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004C4680。
 std::int32_t WindowCrystalTrade_DrawButton(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;

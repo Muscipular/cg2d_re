@@ -187,7 +187,7 @@ WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080
 static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"设定自己的称号。" /* 原常量参考：0x005863C4。 */;
     }
@@ -222,7 +222,7 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
 static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -261,7 +261,7 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
 static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [index, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
@@ -456,7 +456,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
 static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = currentWindow;
@@ -474,7 +474,7 @@ static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int
 static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result != 0) {
         WindowInstance* const window = currentWindow;
@@ -559,7 +559,7 @@ static void WindowPlayerTitles_Refresh()
 static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
         gTitlePageCF4E54 = 0;

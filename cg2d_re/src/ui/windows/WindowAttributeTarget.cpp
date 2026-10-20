@@ -243,7 +243,7 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
 static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -273,14 +273,14 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index,
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049FB00。
 static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -310,14 +310,14 @@ static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, c
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x0049FBC0。
 static std::int32_t WindowAttributeTarget_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     const std::int32_t selected = gStatusChoiceOffsetD671D4 + index - 16;
     if (index - 16 >= gStatusChoiceCountCC2364) {
         return 0;

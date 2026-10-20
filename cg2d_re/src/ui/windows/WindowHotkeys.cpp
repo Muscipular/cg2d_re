@@ -325,7 +325,7 @@ WindowPrototype gWindowPrototypeHotkeys {0, 4, 15, 117, 286, 233, 0x80010101u, 2
 static std::int32_t WindowHotkeys_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const window = currentWindow;
         gWindowStates[WindowId_Hotkeys].value14 = 0;
@@ -352,7 +352,7 @@ static std::int32_t WindowHotkeys_Update(const std::int32_t value)
 static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const handleVerticalScrollElement = elementsWindow->FindElementById(WindowHotkeysElementId::HandleVerticalScroll);
     auto* const element3 = elementsWindow->FindElementById(WindowHotkeysElementId::Element3);
@@ -443,7 +443,7 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 static std::int32_t WindowHotkeys_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -467,7 +467,7 @@ static std::int32_t WindowHotkeys_ButtonClose(const std::int32_t index, const st
 static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     WindowState* const windowState = gCurrentWindowState;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -505,7 +505,7 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, co
 static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     WindowState* const windowState = gCurrentWindowState;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -546,7 +546,7 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const 
 static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     WindowState* const windowState = gCurrentWindowState;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -587,7 +587,7 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, c
 static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     WindowState* const windowState = gCurrentWindowState;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -633,7 +633,7 @@ static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const
 static std::int32_t WindowHotkeys_Scroll(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowState* const windowState = gCurrentWindowState;
     if ((state & 0x21) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
@@ -654,7 +654,7 @@ static std::int32_t WindowHotkeys_Scroll(const std::int32_t index, const std::in
 static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
-    if (!activeWindow) return {};
+    if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
     WindowState* const windowState = gCurrentWindowState;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -706,7 +706,7 @@ static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, con
 static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
-    if (!activeWindow) return {};
+    if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
     WindowState* const windowState = gCurrentWindowState;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -758,7 +758,7 @@ static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, co
 static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
-    if (!activeWindow) return {};
+    if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
     WindowState* const windowState = gCurrentWindowState;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -810,7 +810,7 @@ static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, con
 static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
-    if (!activeWindow) return {};
+    if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
     WindowState* const windowState = gCurrentWindowState;
     auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -858,7 +858,7 @@ static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const 
 static std::int32_t WindowHotkeys_EditPresetText(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const std::int32_t row = std::bit_cast<std::int32_t>(gCurrentWindowState->value14) + index - 9;

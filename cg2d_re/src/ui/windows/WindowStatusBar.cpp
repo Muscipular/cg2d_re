@@ -290,7 +290,7 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
 std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* window = gWindowStates[WindowId_Emote].window;
     if (window != nullptr) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3B921;
@@ -312,7 +312,7 @@ std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::in
 std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* window = gWindowStates[WindowId_MiniMap].window;
     if (window != nullptr) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3B924;
@@ -335,7 +335,7 @@ std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::
 static std::int32_t WindowStatusBar_Update(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (world::gCurrentSceneType == 10) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
@@ -442,7 +442,7 @@ static void WindowCompactStatusBar_Refresh()
 static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 2) == 0) {
         return 0;
     }
@@ -457,7 +457,7 @@ static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std:
 static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 2) == 0) {
         return 0;
     }
@@ -472,7 +472,7 @@ static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, co
 static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if ((state & 2) == 0) {
         return 0;
     }
@@ -499,7 +499,7 @@ static std::int32_t WindowStatusBar_HandleHover(const std::int32_t, const std::i
 static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index - 15));
     if (graphicElement) {
@@ -546,7 +546,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // SHP01：原玩家伤势优先返0，否则宠物编号+10或-1。
@@ -579,7 +579,7 @@ static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     std::wstring buffer;
     switch (index) {

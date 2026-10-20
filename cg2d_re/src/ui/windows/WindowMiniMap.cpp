@@ -38,7 +38,7 @@ static std::int32_t WindowMiniMap_Update(std::int32_t value);
 static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t events)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const element = currentWindow->FindElementById(NativeElementKey(index));
     if (!element) return 0;
     auto* const graphic = element->data.graphic;
@@ -90,7 +90,7 @@ WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 8,
 static std::int32_t WindowMiniMap_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         auto* const element = currentWindow->FindElementById(WindowMiniMapElementId::Element4);
         if (!element) return 0;
@@ -119,7 +119,7 @@ static std::int32_t WindowMiniMap_Update(const std::int32_t value)
 static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         return 0;
     }
@@ -139,7 +139,7 @@ static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::i
 static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const element = currentWindow->FindElementById(NativeElementKey(index));
     if (!element) return 0;
     auto* const data = element->data.text;
@@ -157,7 +157,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const
 static std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     auto* const element = currentWindow->FindElementById(NativeElementKey(index));
     if (!element) return 0;
     auto* const data = element->data.text;

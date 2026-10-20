@@ -233,7 +233,7 @@ WindowPrototype gWindowPrototypeDpResult {3, 3, 245, 170, 150, 140, 0x80010101u,
 static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(NativeElementKey(index));
     if (graphicElement) {
@@ -252,14 +252,14 @@ static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, co
         }
         return consumed;
     }
-    return {};
+    return 0;
 }
 
 // 原函数：0x004991C0。
 static std::int32_t WindowBattleResult_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         const auto& results = world::gBattleResultsFF0C14;
         for (std::int32_t row = 0; row < 4; ++row) {
@@ -390,7 +390,7 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
 static std::int32_t WindowBattleResult_Draw(const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
@@ -412,7 +412,7 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
 static std::int32_t WindowBattleResult_ButtonClose(const std::int32_t, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
     if ((state & 2) != 0) {
         currentWindow->state |= 0x8000u;
@@ -426,7 +426,7 @@ static std::int32_t WindowBattleResult_ButtonClose(const std::int32_t, const std
 static std::int32_t WindowDpResult_Update(const std::int32_t value)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
-    if (!currentWindow) return {};
+    if (!currentWindow) return 0;
     if (value == -1) {
         const std::uint64_t now = platform::ReadTickCount64();
         WindowInstance* window = currentWindow;

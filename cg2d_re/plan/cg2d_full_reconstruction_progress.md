@@ -4686,3 +4686,9 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 沿用统一ID解析；窗口失效或元素缺失返回nil，查询不创建元素或回调绑定。已同步SPEC示例及参数规则。
 - 用户补充要求显式返回值；按实际函数签名将UI中510处数值空初始化返回改为return 0、2处布尔返回改为false、6处指针返回改为nullptr。既有BigMapSurface的结构体空值返回保留，未误改为数值。
 - 最终build.bat Debug编译及链接通过，退出码0；仍有既有C4701/C4244警告。git diff --check通过，未运行客户端或Lua脚本。
+
+## 538. 其余源码返回值写法核查（2026-10-20）
+
+- 按用户要求扫描src/include中的C++源码和头文件，包含跨行return {}及return {0}/{false}/{nullptr}形式，并逐处核对所属函数签名。
+- 剩余10处return {}均返回对象：AudioPathToWide/Decode等字符串8处、ReadCpuBackPixels空span 1处、BigMapSurface::MakeSprite空Sprite 1处。未发现数值、布尔或指针函数的同类遗漏，不将空对象错误替换为0。
+- 本次只记录核查结果，未修改运行代码、未编译或运行客户端。

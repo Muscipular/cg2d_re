@@ -51,6 +51,7 @@ struct TextureSurface {
     SDL_Renderer* gpuRenderer {}; // 非拥有；销毁 renderer 前清除关联纹理。
     bool gpuDirty = true;
     bool gpuPremultipliedAlpha = false; // 当前GPU像素表示；CPU始终保留普通ARGB。
+    bool pngContentDecoded = false; // GRT05：成功解码的 graphic PNG 像素不依赖调色板。
     std::array<std::int32_t, 4> dirtyRectangle {};
     TextureSurface* nextOwned {};
     TextureSurface* previousOwned {};
@@ -605,6 +606,14 @@ std::int32_t LoadGraphicTexture_520B10(
         paletteVersion = 0;
     }
 
+    if (texture->surface->pngContentDecoded) {
+        // PNG 像素未变；同步元数据供 CompositeGraphicPixels 校验，不触发重读或上传。
+        texture->paletteChoice = static_cast<std::int16_t>(paletteChoice);
+        texture->paletteVersion = static_cast<std::int16_t>(paletteVersion);
+        texture->paletteIndex = graphic->descriptor.paletteIndex;
+        return 1;
+    }
+
     const std::int16_t oldPaletteChoice = texture->paletteChoice;
     if (oldPaletteChoice == paletteChoice
         && texture->paletteVersion == paletteVersion) {
@@ -752,6 +761,7 @@ std::int32_t BuildSurfaceCache_5231A0()
 // 原函数：0x00451310。
 void FillTextureBlack_451310(TextureSurface* const surface) noexcept
 {
+    surface->pngContentDecoded = false;
     MarkTextureSurfaceModified(surface);
     const std::size_t pixelCount =
         static_cast<std::size_t>(surface->width) * static_cast<std::size_t>(surface->height);
@@ -789,6 +799,7 @@ void LoadTextureFromBuffer32_450400(
     const std::uint8_t* const source, const std::int32_t sourceWidth,
     const std::uint8_t* const palette) noexcept
 {
+    surface->pngContentDecoded = false;
     MarkTextureSurfaceModified(surface);
     if (resource::IsPngGraphicData(source)) {
         const auto readBe = [](const std::uint8_t* bytes) {
@@ -812,13 +823,15 @@ void LoadTextureFromBuffer32_450400(
         std::vector<std::uint32_t> pixels(
             static_cast<std::size_t>(copyWidth) * static_cast<std::size_t>(copyHeight));
         const std::size_t length = resource::gGraphicInfo[resource::gGraphicDataBuffer].length;
-        static_cast<void>(ReadPngRectangle({source, length}, x, sourceY, copyWidth, copyHeight, pixels));
+        const bool decoded = ReadPngRectangle({source, length}, x, sourceY, copyWidth, copyHeight, pixels)
+            == pixels.size() * sizeof(std::uint32_t);
         // 参考不以解码返回值改变上传标记；失败区域仍为清零像素。
         FillTextureBlack_451310(surface);
         for (std::int32_t row = 0; row < copyHeight; ++row) {
             std::memcpy(surface->pixels.get() + row * surface->width, pixels.data() + row * copyWidth,
                 static_cast<std::size_t>(copyWidth) * sizeof(std::uint32_t));
         }
+        surface->pngContentDecoded = decoded;
         return;
     }
     if (height <= 0) {

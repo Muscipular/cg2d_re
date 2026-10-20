@@ -37,6 +37,7 @@ static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 // 原函数：0x00457A40。
 int ShutdownClient_457A40()
 {
+    network::StopNetworkIo();
     script::ShutdownLua();
     shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0();
     resource::ReleaseIndependentPalettes_522C50();

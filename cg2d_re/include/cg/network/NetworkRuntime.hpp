@@ -1,10 +1,18 @@
 #pragma once
 
+#include "cg/platform/NetworkTransport.hpp"
+
 #include <cstdint>
 #include <functional>
 #include <string_view>
 
 namespace cg::network {
+
+// NTM01：主线程登录适配；gConnectionSocket只承载会话代次，不再是原生Socket。
+[[nodiscard]] std::uintptr_t BeginServerConnection(std::wstring host, std::uint16_t port, bool noDelay);
+[[nodiscard]] platform::ConnectionSnapshot PollServerConnection();
+void CloseServerConnection();
+void StopNetworkIo(); // Lua/UI销毁前停止后台；协议工作区在ShutdownNetworkRuntime中释放。
 
 // N01：接收参数第0项为头、末项为null；正文借用到回调结束。
 using ProtocolReceiveHandler = std::function<void(const char* header, char** arguments)>;
@@ -13,7 +21,7 @@ using ProtocolSendHandler = std::function<void(
     const char* header, const char* data, std::int32_t length)>;
 
 // 按注册顺序执行首个匹配项；接收匹配完整头，发送匹配前缀。
-// 注册复制消息头并持有回调，重连保留；同网络线程调用。
+// 注册复制消息头并持有回调，重连保留；仅主线程调用，I/O线程不执行回调。
 void RegisterProtocolReceive(const char* header, ProtocolReceiveHandler handler);
 void RegisterProtocolSend(const char* header, ProtocolSendHandler handler);
 // L04：Lua发送沿用唯一明文队列和已有发送观察回调。
@@ -535,10 +543,8 @@ std::uint8_t NetworkLoop_507DF0();
 std::int32_t AppendReceiveQueue_5081E0(
     const void* source, std::uint32_t size);
 
-// 原 0x508230/0x508280：先发布剩余长度，再将队列前移。
+// 原0x508230：主线程消费接收区；发送消费已迁入NetworkTransport唯一队列。
 std::int32_t ConsumeReceiveQueue_508230(std::int32_t size);
-// 原函数：0x00508280。
-std::int32_t ConsumeSendQueue_508280(std::int32_t size);
 
 // 只读原 W8 0xD9F2C8 活动门禁；状态仍由网络运行期唯一持有。
 std::uint8_t ReadNetworkRuntimeActive() noexcept;

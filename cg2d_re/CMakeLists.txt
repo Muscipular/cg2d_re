@@ -189,6 +189,7 @@ set(cg2d_re_startup_sources
     src/platform/platformTool.cpp
     src/platform/SdlAudioBackend.cpp
     src/platform/FileBgmBackend.cpp
+    src/platform/NetworkTransport.cpp
     src/platform/LegacyWavesReverb.cpp
     src/platform/LegacyAudioMath.cpp
     src/platform/RuntimeInitialization.cpp

@@ -1,10 +1,8 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
-#include <winsock2.h>
 #include <string>
 #include <format>
 #include "cg/text/Encoding.hpp"
-#include <ws2tcpip.h>
 
 #include "cg/scene/login/LoginState.hpp"
 
@@ -95,66 +93,9 @@ std::int32_t AdvanceServerLoginConnection_508360()
             return -2;
         }
 
-        const SOCKET connectionSocket = ::socket(AF_INET, SOCK_STREAM, 0);
-        platform::gConnectionSocket =
-            static_cast<std::uintptr_t>(connectionSocket);
-        if (connectionSocket == INVALID_SOCKET) {
+        if (network::BeginServerConnection(serverAddress, port, platform::gNoDelay != 0) == 0) {
             static_cast<void>((gRequestMessage = L"网路通讯协定（TCP）错误。"));
             return -3;
-        }
-
-        u_long nonBlocking = 1;
-        static_cast<void>(
-            ::ioctlsocket(connectionSocket, FIONBIO, &nonBlocking));
-
-        if (platform::gNoDelay != 0) {
-            int noDelay = 1;
-            if (::setsockopt(
-                    static_cast<SOCKET>(platform::gConnectionSocket),
-                    IPPROTO_TCP,
-                    TCP_NODELAY,
-                    reinterpret_cast<const char*>(&noDelay),
-                    4) != 0) {
-                return -100;
-            }
-        }
-
-        const std::string serverBytes = cg::text::ToGbk(serverAddress); // IPv4/DNS窄接口边界。
-        sockaddr_in address;
-        address.sin_family = AF_INET;
-        address.sin_port = ::htons(port);
-        // 保留原IPv4缩写／数值解析及INADDR_NONE回退规则，不替换为解析语义不同的接口。
-#pragma warning(suppress : 4996)
-        address.sin_addr.s_addr = ::inet_addr(serverBytes.c_str());
-        if (address.sin_addr.s_addr == INADDR_NONE) {
-            // 保留原同步IPv4查询、首地址选择及失败处理；弃用告警仅限此调用。
-#pragma warning(suppress : 4996)
-            hostent* const host = ::gethostbyname(serverBytes.c_str());
-            if (host == nullptr) {
-                static_cast<void>(cg::text::FormatTo(gRequestMessage, L"无法取得伺服器的 IP 位址。({})", serverAddress));
-                static_cast<void>(::closesocket(
-                    static_cast<SOCKET>(platform::gConnectionSocket)));
-                return -4;
-            }
-            std::memcpy(
-                &address.sin_addr.s_addr,
-                host->h_addr_list[0],
-                sizeof(address.sin_addr.s_addr));
-        }
-
-        if (::connect(
-                static_cast<SOCKET>(platform::gConnectionSocket),
-                reinterpret_cast<sockaddr*>(&address),
-                0x10) == SOCKET_ERROR) {
-            const int error = ::WSAGetLastError();
-            if (error != 10035) {
-                const auto logMessage = std::format(L"CONNECT ERROR={}", error);
-                static_cast<void>(AppendSystemLog_44B5C0(logMessage));
-                static_cast<void>(::closesocket(
-                    static_cast<SOCKET>(platform::gConnectionSocket)));
-                static_cast<void>((gRequestMessage = L"无法开始处理与伺服器的连接。"));
-                return -5;
-            }
         }
         gConnectionStep = 1;
     }
@@ -165,32 +106,36 @@ std::int32_t AdvanceServerLoginConnection_508360()
             gConnectionStep = 69;
         }
 
-        const SOCKET connectionSocket =
-            static_cast<SOCKET>(platform::gConnectionSocket);
-        fd_set readSet;
-        readSet.fd_count = 1;
-        readSet.fd_array[0] = connectionSocket;
-        fd_set writeSet;
-        writeSet.fd_count = 1;
-        writeSet.fd_array[0] = connectionSocket;
-        fd_set exceptionSet;
-        exceptionSet.fd_count = 1;
-        exceptionSet.fd_array[0] = connectionSocket;
-        timeval timeout {0, 0};
-        static_cast<void>(
-            ::select(2, &readSet, &writeSet, &exceptionSet, &timeout));
-
-        if (::__WSAFDIsSet(
-                static_cast<SOCKET>(platform::gConnectionSocket), &writeSet) != 0) {
+        const auto connection = network::PollServerConnection();
+        if (connection.state == platform::ConnectionState::Connected) {
             gConnectionStep = 71;
             gRequestPollingEnabled = 1;
             static_cast<void>(AppendSystemLog_44B5C0(L"CONNECT OK"));
         }
-        if (::__WSAFDIsSet(
-                static_cast<SOCKET>(platform::gConnectionSocket), &exceptionSet) != 0) {
-            static_cast<void>((gRequestMessage = L"无法连上伺服器。 "));
-            static_cast<void>(::closesocket(
-                static_cast<SOCKET>(platform::gConnectionSocket)));
+        else if (connection.state == platform::ConnectionState::Failed
+            || connection.state == platform::ConnectionState::Closed) {
+            const auto diagnostic = std::format(L"CONNECT ERROR={} PHASE={} ENDPOINT={} ATTEMPT={}",
+                connection.error, static_cast<int>(connection.phase), connection.endpoint, connection.attempt);
+            static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
+            network::CloseServerConnection();
+            if (connection.phase == platform::ConnectionPhase::Resolve) {
+                static_cast<void>(cg::text::FormatTo(gRequestMessage,
+                    L"无法取得伺服器的 IP 位址。({})", connection.host));
+                return -4;
+            }
+            if (connection.phase == platform::ConnectionPhase::Setup) {
+                gRequestMessage = L"网路通讯协定（TCP）错误。";
+                return -3;
+            }
+            if (connection.phase == platform::ConnectionPhase::SocketOptions) {
+                gRequestMessage = L"网路通讯协定（TCP）设置错误。";
+                return -100;
+            }
+            if (connection.phase == platform::ConnectionPhase::ConnectStart) {
+                gRequestMessage = L"无法开始处理与伺服器的连接。";
+                return -5;
+            }
+            gRequestMessage = L"无法连上伺服器。 ";
             return -6;
         }
     }
@@ -221,8 +166,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
             if (network::ReadProtocolModeDA3B22() == 0) {
                 gRequestStatus = 0;
                 static_cast<void>((gRequestMessage = L"无法登入。"));
-                static_cast<void>(::closesocket(
-                    static_cast<SOCKET>(platform::gConnectionSocket)));
+                network::CloseServerConnection();
                 return -7;
             }
             step = 81;
@@ -245,6 +189,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
 
     const std::uint64_t now = platform::ReadTickCount64();
     if (now - gRequestStartTick > 600000U) {
+        network::CloseServerConnection();
         static_cast<void>((gRequestMessage = L"与伺服器的连接逾时。"));
         return -1;
     }

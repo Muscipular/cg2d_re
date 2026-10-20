@@ -1,5 +1,6 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/core/m_log.hpp"
 
 #include "cg/scene/login/LoginScene.hpp"
 #include "cg/scene/login/LoginInput.hpp"
@@ -18,6 +19,7 @@
 #include <cwchar>
 #include <cstring> // 原CRT接口：0x0053BE40、0x0053C2F0；原参数／返回合同由直接调用承接。
 #include <string>
+#include <string_view>
 
 namespace cg::platform {
 
@@ -244,6 +246,39 @@ int ParseIpOptions_507C80(const wchar_t* const commandLine)
         const wchar_t* address = number
             + (index < 10 ? 2 : index <= 99 ? 3 : 4);
         auto& record = login::gLoginServerRecords_D69798[static_cast<std::size_t>(index)];
+        // NTM01：IPv6必须使用[host%数字scope]:port；验证完成后才发布记录。
+        if (*address == L'[') {
+            const std::wstring_view token(address, std::wcscspn(address, L" \t"));
+            const auto close = token.find(L']');
+            if (close == token.npos || close <= 1 || close - 1 > 0x7F
+                || close + 2 >= token.size() || token[close + 1] != L':'
+                || token.substr(1, close - 1).find(L':') == token.npos
+                || token.substr(close + 2).find_first_not_of(L"0123456789") != token.npos
+                || token.size() - close - 2 > 0x3F) {
+                m_log_iw(L"[network] IPv6参数错误，格式应为IP:编号:[地址%%scope]:端口\n");
+                return -1;
+            }
+            std::uint32_t numericPort = 0;
+            for (const auto digit : token.substr(close + 2)) {
+                numericPort = numericPort * 10 + static_cast<std::uint32_t>(digit - L'0');
+                if (numericPort > 65535) {
+                    m_log_iw(L"[network] IPv6端口超出0..65535范围\n");
+                    return -1;
+                }
+            }
+            record.address.assign(token.substr(1, close - 1));
+            record.portText.assign(token.substr(close + 2));
+            record.available = 1;
+            ++login::gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index / 20)];
+            cursor = address + token.size();
+            continue;
+        }
+        const std::wstring_view token(address, std::wcscspn(address, L" \t"));
+        const auto separator = token.find(L':');
+        if (separator != token.npos && token.find(L':', separator + 1) != token.npos) {
+            m_log_iw(L"[network] IPv6地址必须用方括号包围\n");
+            return -1;
+        }
         record.address.clear();
         std::size_t addressLength = 0;
         while (*address != '\0'

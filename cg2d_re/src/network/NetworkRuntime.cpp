@@ -5,6 +5,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/platformTool.hpp"
 
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../scene/login/LoginRequestDependencies.hpp"
@@ -39,7 +40,7 @@
 #include <lz4.h>
 
 #include <ctime>
-#include <winsock2.h>
+#include <Windows.h> // 原调试输出与系统错误常量；网络SDK操作已移至平台后端。
 
 #include <algorithm>
 #include <array>
@@ -138,7 +139,7 @@ struct NetworkRuntimeState {
     std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
     std::uint8_t** workspaceSlots; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
-    // 原 [0xD8F2B8,0xD9F2C0)：发送窗口、接收区与发送长度共享地址别名。
+    // 保留原[0xD8F2B8,0xD9F2C0)布局供主线程分发/接收；待发字节由后端独占。
     std::array<std::uint8_t, kQueueStorageSize> queueBytes; // 原全局：0x00D8F2B8。
     std::int32_t receiveLengthD69790; // 原 0xD69790，独立于连续队列。
     std::uint8_t flagsD9F2C0; // 原全局：0x00D9F2C0。
@@ -156,6 +157,73 @@ struct NetworkRuntimeState {
 };
 
 static NetworkRuntimeState gNetworkRuntimeState {};
+static platform::NetworkTransport gNetworkTransport; // 唯一后台传输owner。
+
+// NTM01：初始化失败和重复关闭共用释放路径，清空指针避免重连时二次释放。
+static void ReleaseProtocolWorkspace()
+{
+    std::free(std::exchange(gNetworkRuntimeState.sendMessageBuffer, nullptr));
+    std::free(std::exchange(gNetworkRuntimeState.reservedProtocolBuffer, nullptr));
+    std::free(std::exchange(gNetworkRuntimeState.textTokenBuffer, nullptr));
+    std::free(std::exchange(gNetworkRuntimeState.integerTokenBuffer, nullptr));
+    std::free(std::exchange(gNetworkRuntimeState.pointerTable58B614, nullptr));
+    std::free(std::exchange(gNetworkRuntimeState.reservedTripleBuffer0, nullptr));
+    std::free(std::exchange(gNetworkRuntimeState.reservedTripleBuffer1, nullptr));
+    std::free(std::exchange(gNetworkRuntimeState.reservedTripleBuffer2, nullptr));
+    std::free(std::exchange(gNetworkRuntimeState.reservedTripleBuffer3, nullptr));
+    if (gNetworkRuntimeState.workspaceSlots) {
+        for (std::size_t index = 0; index < kWorkspaceSlotCount; ++index)
+            std::free(gNetworkRuntimeState.workspaceSlots[index]);
+        std::free(std::exchange(gNetworkRuntimeState.workspaceSlots, nullptr));
+    }
+    gNetworkRuntimeState.bufferLength = 0;
+}
+
+std::uintptr_t BeginServerConnection(std::wstring host, std::uint16_t port, bool noDelay)
+{
+    CloseServerConnection();
+    try {
+        auto policyQuery = platform::PrepareServerAddressPolicy(host, port);
+        gNetworkRuntimeState.frameModuloD9F3C8 = 0;
+        gNetworkRuntimeState.flagsD9F2C0 = 0;
+        gNetworkRuntimeState.errorD9F2CC = 0;
+        world::gNetworkDisconnectState_D9F2CA = 0;
+        const auto id = gNetworkTransport.BeginConnect(std::move(host), port, noDelay, std::move(policyQuery));
+        static_assert(sizeof(std::uintptr_t) == sizeof(platform::ConnectionId));
+        platform::gConnectionSocket = static_cast<std::uintptr_t>(id);
+        return platform::gConnectionSocket;
+    } catch (const std::exception&) {
+        return 0;
+    }
+}
+
+platform::ConnectionSnapshot PollServerConnection()
+{
+    auto snapshot = gNetworkTransport.PollConnection(platform::gConnectionSocket);
+    if (snapshot.state == platform::ConnectionState::PolicyReady) {
+        platform::ApplyServerAddressPolicyResult(snapshot.policyAddress);
+        gNetworkTransport.ContinueAfterPolicy(snapshot.id);
+        snapshot = gNetworkTransport.PollConnection(snapshot.id);
+    }
+    return snapshot;
+}
+
+void CloseServerConnection()
+{
+    gNetworkTransport.CloseConnection(platform::gConnectionSocket);
+    platform::gConnectionSocket = 0;
+    login::gRequestPollingEnabled = 0;
+    gNetworkRuntimeState.receiveLengthD69790 = 0;
+    gNetworkRuntimeState.compressedReceive.frame.clear();
+    gNetworkRuntimeState.compressedReceive.frameBytes = 0;
+    gNetworkRuntimeState.compressedReceive.lineBytes = 0;
+}
+
+void StopNetworkIo()
+{
+    CloseServerConnection();
+    gNetworkTransport.Stop();
+}
 
 struct ProtocolOutputAccess {
     char* data() const noexcept
@@ -168,18 +236,21 @@ struct ProtocolOutputAccess {
 // 现有cgmsv明文合同：原命令/字段和LF原样入唯一发送队列，不包密文帧。
 // 关联原入口：0x004589A0／0x004589B0／0x004589C0，内联承接窗口报告采样与清零。
 static std::int32_t QueuePlaintextProtocolBytes(
-    const std::uintptr_t,
+    const std::uintptr_t connection,
     const void* const data,
     const std::uint32_t size)
 {
     if (login::gRequestPollingEnabled == 0) {
         return -100;
     }
+    const auto id = platform::gConnectionSocket;
+    if (id == 0 || (connection != 0 && connection != id)) return -100;
 
     // L04：回调可重入发送；持有字节快照，避免共享格式化缓冲被覆盖。
     const std::string packet(static_cast<const char*>(data), size);
     script::RecordAutoBattleAction(packet);
     script::LuaSendPacket(packet);
+    if (id != platform::gConnectionSocket || login::gRequestPollingEnabled == 0) return -100;
     for (auto& [header, handler] : gNetworkRuntimeState.sendHandlers) {
         if (packet.starts_with(header)) {
             handler(header.c_str(), packet.data() + header.size(),
@@ -191,22 +262,13 @@ static std::int32_t QueuePlaintextProtocolBytes(
     // N03：成功入队的JFVf替换待发队列，六字节前导不递归触发发送回调。
     constexpr std::string_view loginPrelude = "XCNY \n";
     const bool startsLogin = packet.starts_with("JFVf");
-    std::int32_t sendLength;
-    std::uint8_t* const send = gNetworkRuntimeState.queueBytes.data();
-    std::memcpy(&sendLength, send + kSendLengthOffset, sizeof(sendLength));
-    if (startsLogin) {
-        sendLength = static_cast<std::int32_t>(loginPrelude.size());
-    }
-    const std::int32_t nextLength = sendLength + static_cast<std::int32_t>(size);
-    if (nextLength > static_cast<std::int32_t>(kQueueCapacity)) {
-        return -1;
-    }
-
-    if (startsLogin) {
-        std::memcpy(send, loginPrelude.data(), loginPrelude.size());
-    }
-    std::memcpy(send + sendLength, packet.data(), size);
-    std::memcpy(send + kSendLengthOffset, &nextLength, sizeof(nextLength));
+    if (id != platform::gConnectionSocket || login::gRequestPollingEnabled == 0) return -100;
+    gNetworkTransport.SetIoEnabled(id, true);
+    const auto queued = gNetworkTransport.TryQueueSend(id,
+        {reinterpret_cast<const std::uint8_t*>(packet.data()), packet.size()}, startsLogin,
+        startsLogin ? loginPrelude : std::string_view {});
+    if (queued != platform::NetworkQueueResult::Accepted)
+        return queued == platform::NetworkQueueResult::QueueFull ? -1 : -100;
     // 成功入队后记录明文；不把队列日志当作socket发送成功，避免按TCP分片重复打印。
     if (startsLogin) {
         m_logw(L"[network][send queued][%zu] %.*hs", loginPrelude.size(),
@@ -429,9 +491,11 @@ namespace detail {
 // 原函数：0x005173B0。
 void SplitReceivedBuffer_5173B0(char* const buffer)
 {
+    const auto connection = platform::gConnectionSocket;
     const SendProtocolObserver observer = gNetworkRuntimeState.sendObserver58B61C;
     if (observer != nullptr) {
         observer(0U, buffer);
+        if (connection != platform::gConnectionSocket || !gNetworkRuntimeState.active) return;
     }
     if (gNetworkRuntimeState.receiveLogPathDA3F9C.c_str()[0] != '\0') {
         std::FILE* const file = _wfopen(
@@ -578,24 +642,6 @@ std::uint8_t* EncodeProtocolBase62_517730(
     }
     destination[destinationIndex] = 0;
     return destination;
-}
-
-// 原 sub_5082D0/508310：先记录 Winsock 错误，再过滤 would-block。
-std::int32_t ReadAndLogReceiveError_5082D0()
-{
-    const std::int32_t error = ::WSAGetLastError();
-    const auto message = std::format(L"RECV ERROR={}", error);
-    static_cast<void>(login::detail::AppendSystemLog_44B5C0(message));
-    return error == WSAEWOULDBLOCK ? 0 : error;
-}
-
-// 原函数：0x00508310。
-std::int32_t ReadAndLogSendError_508310()
-{
-    const std::int32_t error = ::WSAGetLastError();
-    const auto message = std::format(L"SNED ERROR={}", error);
-    static_cast<void>(login::detail::AppendSystemLog_44B5C0(message));
-    return error == WSAEWOULDBLOCK ? 0 : error;
 }
 
 // 原 [0x50E6C0,0x50E6D8)：只转发后三个 W32 参数，透传空间音频生产者返回。
@@ -972,7 +1018,7 @@ std::int32_t AllocateProtocolBuffers_516DA0(
 {
     gNetworkRuntimeState.bufferLength = bufferLength;
 
-    // 原函数不释放旧值；重复调用会先丢失旧指针并保留原泄漏行为。
+    // NTM01：仅在旧工作区已释放后调用；分配失败由唯一释放路径回收。
     gNetworkRuntimeState.sendMessageBuffer = nullptr;
     gNetworkRuntimeState.reservedProtocolBuffer = nullptr;
     gNetworkRuntimeState.textTokenBuffer = nullptr;
@@ -1012,6 +1058,14 @@ std::int32_t AllocateProtocolBuffers_516DA0(
     std::uint32_t clearLength = gNetworkRuntimeState.bufferLength;
     std::uint8_t* clearBuffer = gNetworkRuntimeState.sendMessageBuffer;
     gNetworkRuntimeState.reservedTripleBuffer3 = fourthTriple;
+    if (!gNetworkRuntimeState.sendMessageBuffer || !gNetworkRuntimeState.reservedProtocolBuffer
+        || !gNetworkRuntimeState.textTokenBuffer || !gNetworkRuntimeState.integerTokenBuffer
+        || !gNetworkRuntimeState.pointerTable58B614 || !gNetworkRuntimeState.reservedTripleBuffer0
+        || !gNetworkRuntimeState.reservedTripleBuffer1 || !gNetworkRuntimeState.reservedTripleBuffer2
+        || !gNetworkRuntimeState.reservedTripleBuffer3) {
+        ReleaseProtocolWorkspace();
+        return -1;
+    }
     if (clearLength != 0U) {
         std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
@@ -1056,48 +1110,7 @@ std::int32_t AllocateProtocolBuffers_516DA0(
         std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
 
-    // 原16F7E：后置检查和首个失败释放共用同次首指针。
-    std::uint8_t* const firstBuffer = gNetworkRuntimeState.sendMessageBuffer;
-    if (firstBuffer == nullptr) {
-        goto allocationFailure;
-    }
-    if (gNetworkRuntimeState.reservedProtocolBuffer == nullptr) {
-        goto allocationFailure;
-    }
-    if (gNetworkRuntimeState.textTokenBuffer == nullptr) {
-        goto allocationFailure;
-    }
-    if (gNetworkRuntimeState.integerTokenBuffer == nullptr) {
-        goto allocationFailure;
-    }
-    if (gNetworkRuntimeState.pointerTable58B614 == nullptr) {
-        goto allocationFailure;
-    }
-    if (gNetworkRuntimeState.reservedTripleBuffer0 == nullptr) {
-        goto allocationFailure;
-    }
-    if (gNetworkRuntimeState.reservedTripleBuffer1 == nullptr) {
-        goto allocationFailure;
-    }
-    if (gNetworkRuntimeState.reservedTripleBuffer2 == nullptr) {
-        goto allocationFailure;
-    }
-    if (gNetworkRuntimeState.reservedTripleBuffer3 == nullptr) {
-        goto allocationFailure;
-    }
     return 0;
-
-allocationFailure:
-    std::free(firstBuffer);
-    std::free(gNetworkRuntimeState.integerTokenBuffer);
-    std::free(gNetworkRuntimeState.textTokenBuffer);
-    std::free(gNetworkRuntimeState.reservedProtocolBuffer);
-    std::free(gNetworkRuntimeState.pointerTable58B614);
-    std::free(gNetworkRuntimeState.reservedTripleBuffer0);
-    std::free(gNetworkRuntimeState.reservedTripleBuffer1);
-    std::free(gNetworkRuntimeState.reservedTripleBuffer2);
-    std::free(gNetworkRuntimeState.reservedTripleBuffer3);
-    return -1;
 }
 
 // 原函数：0x00517080。
@@ -1531,6 +1544,7 @@ std::int32_t SendProtocolBuffer_517480(
         gNetworkRuntimeState.sendObserver58B61C;
     if (observer != nullptr) {
         observer(1U, buffer);
+        if (socket != platform::gConnectionSocket || !gNetworkRuntimeState.active) return -100;
     }
 
     std::uint32_t length =
@@ -4167,6 +4181,7 @@ std::int32_t NetworkDispatch_512E40(
         reinterpret_cast<const char*>(gNetworkRuntimeState.sendMessageBuffer)) + 1;
     SplitReceivedBuffer_5173B0(
         reinterpret_cast<char*>(gNetworkRuntimeState.sendMessageBuffer));
+    if (socket != platform::gConnectionSocket || !gNetworkRuntimeState.active) return 0;
     const std::vector<std::uint8_t> receivedPacket(gNetworkRuntimeState.sendMessageBuffer,
         gNetworkRuntimeState.sendMessageBuffer + receivedSize);
     std::vector<char*> receivedArguments;
@@ -4182,6 +4197,7 @@ std::int32_t NetworkDispatch_512E40(
     for (auto& [header, handler] : gNetworkRuntimeState.receiveHandlers) {
         if (header == head) {
             handler(head, gNetworkRuntimeState.pointerTable58B614);
+            if (socket != platform::gConnectionSocket || login::gRequestPollingEnabled == 0) return 0;
             break;
         }
     }
@@ -4194,6 +4210,7 @@ std::int32_t NetworkDispatch_512E40(
     };
     restoreArguments();
     script::LuaReceivePacket(head, gNetworkRuntimeState.pointerTable58B614);
+    if (socket != platform::gConnectionSocket || login::gRequestPollingEnabled == 0) return 0;
     restoreArguments();
 
     // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
@@ -4324,11 +4341,13 @@ std::int32_t AllocateNetworkWorkspace_516B60(
         gNetworkRuntimeState.callback = callback;
     }
 
-    static_cast<void>(AllocateProtocolBuffers_516DA0(bufferLength));
+    ReleaseProtocolWorkspace();
+    if (AllocateProtocolBuffers_516DA0(bufferLength) != 0) return -1;
 
     gNetworkRuntimeState.workspaceSlots = static_cast<std::uint8_t**>(
         std::malloc(kWorkspaceSlotCount * sizeof(std::uint8_t*)));
     if (gNetworkRuntimeState.workspaceSlots == nullptr) {
+        ReleaseProtocolWorkspace();
         return -1;
     }
 
@@ -4340,7 +4359,7 @@ std::int32_t AllocateNetworkWorkspace_516B60(
         gNetworkRuntimeState.workspaceSlots[index] = static_cast<std::uint8_t*>(
             std::malloc(static_cast<std::size_t>(bufferLength)));
         if (gNetworkRuntimeState.workspaceSlots[index] == nullptr) {
-            std::free(gNetworkRuntimeState.workspaceSlots[0]);
+            ReleaseProtocolWorkspace();
             return -1;
         }
     }
@@ -4369,15 +4388,20 @@ std::int32_t InitializeNetworkRuntime_508140()
         });
         gNetworkRuntimeState.gameplayHandlersRegistered = true;
     }
-    WSADATA data;
-    if (::WSAStartup(MAKEWORD(1, 1), &data) != 0) {
+    if (gNetworkRuntimeState.active) ShutdownNetworkRuntime_5081A0();
+    int transportError = 0;
+    if (!gNetworkTransport.Open(transportError)) {
+        gNetworkRuntimeState.errorD9F2CC = transportError;
         return 0;
     }
 
-    static_cast<void>(AllocateNetworkWorkspace_516B60(
+    if (AllocateNetworkWorkspace_516B60(
         &QueuePlaintextProtocolBytes,
         0x10000U,
-        platform::gConnectionSocket));
+        platform::gConnectionSocket) != 0) {
+        gNetworkTransport.Stop();
+        return 0;
+    }
     // 新会话复用同一队列owner，仅重置有效数量与轮询状态，避免遗留半包。
     constexpr std::int32_t emptyLength = 0;
     std::memcpy(gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
@@ -4415,76 +4439,44 @@ std::uint8_t NetworkLoop_507DF0()
     if (connectionState != 0) {
         return connectionState;
     }
-    if (login::gRequestPollingEnabled == 0) {
+    const auto id = platform::gConnectionSocket;
+    const auto snapshot = PollServerConnection();
+    gNetworkTransport.SetIoEnabled(id, login::gRequestPollingEnabled != 0);
+    if (login::gRequestPollingEnabled == 0 || id == 0) {
         return 0;
     }
 
     const std::uint32_t frame =
         (gNetworkRuntimeState.frameModuloD9F3C8 + 1U) & 7U;
     gNetworkRuntimeState.frameModuloD9F3C8 = frame;
-    if (frame != 0) {
-        return static_cast<std::uint8_t>(frame);
-    }
-
-    fd_set readSet;
-    fd_set writeSet;
-    const SOCKET socket = static_cast<SOCKET>(platform::gConnectionSocket);
-    readSet.fd_count = 1;
-    writeSet.fd_count = 1;
-    readSet.fd_array[0] = socket;
-    writeSet.fd_array[0] = socket;
-    timeval timeout {0, 0};
-    static_cast<void>(::select(2, &readSet, &writeSet, nullptr, &timeout));
-
-    if (::FD_ISSET(
-            static_cast<SOCKET>(platform::gConnectionSocket), &readSet)) {
-        char received[0x1000];
-        std::memset(received, 0, sizeof(received));
-        const std::int32_t receivedLength = ::recv(
-            static_cast<SOCKET>(platform::gConnectionSocket),
-            received,
-            0xFFF,
-            0);
-        if (receivedLength > 0) {
-            gNetworkRuntimeState.receiveResetD9F3C4 = 0;
-            const std::int32_t queued = AppendReceiveQueue_5081E0(
-                received, static_cast<std::uint32_t>(receivedLength));
-            if (login::gConnectionStep >= 71 && login::gConnectionStep <= 80) {
-                const auto diagnostic = std::format(L"LOGIN RECEIVED BYTES={} QUEUE={}", receivedLength, queued);
-                static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
-            }
-        }
-        else if (receivedLength == 0) {
-            // 对端正常关闭也必须进入既有断线路径，不能继续等待登录回复。
-            static_cast<void>(::closesocket(
-                static_cast<SOCKET>(platform::gConnectionSocket)));
-            world::gNetworkDisconnectState_D9F2CA = 1;
-            gNetworkRuntimeState.errorD9F2CC = 0;
-            static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"NETWORK PEER CLOSED"));
-        }
-        else if (receivedLength == -1) {
-            const std::int32_t error = detail::ReadAndLogReceiveError_5082D0();
-            if (error > 0) {
-                static_cast<void>(::closesocket(
-                    static_cast<SOCKET>(platform::gConnectionSocket)));
-                world::gNetworkDisconnectState_D9F2CA = 1;
-                gNetworkRuntimeState.errorD9F2CC = error;
-            }
-        }
-    }
+    // 后台新到数据留给下一轮，防止持续输入令本帧永远无法结束。
+    std::size_t receiveBudget = snapshot.receivedBytes;
 
     std::uint8_t* const dispatch =
         gNetworkRuntimeState.queueBytes.data() + kDispatchOffset;
     const volatile std::uint32_t* const length =
         &gNetworkRuntimeState.bufferLength;
     for (;;) {
+        const auto previous = static_cast<std::size_t>(gNetworkRuntimeState.receiveLengthD69790);
+        const auto space = kQueueCapacity - previous;
+        if (receiveBudget && space) {
+            const auto count = gNetworkTransport.DrainReceived(id,
+                {gNetworkRuntimeState.queueBytes.data() + kReceiveQueueOffset + previous,
+                    (std::min)(space, receiveBudget)});
+            gNetworkRuntimeState.receiveLengthD69790 += static_cast<std::int32_t>(count);
+            receiveBudget -= count;
+            if (count) gNetworkRuntimeState.receiveResetD9F3C4 = 0;
+        }
+        const auto beforeParse = gNetworkRuntimeState.receiveLengthD69790;
         if (ReceiveProtocolLine(dispatch, static_cast<std::int32_t>(kDispatchSize)) != 0) {
+            if (receiveBudget && gNetworkRuntimeState.receiveLengthD69790 < beforeParse) continue;
             break;
         }
         const bool diagnoseLogin = login::gConnectionStep >= 71
             && login::gConnectionStep <= 80;
         const std::int32_t dispatchResult = detail::NetworkDispatch_512E40(
             platform::gConnectionSocket, dispatch);
+        if (id != platform::gConnectionSocket || !gNetworkRuntimeState.active || login::gRequestPollingEnabled == 0) return 0;
         std::memset(dispatch, 0, kDispatchSize);
         std::memset(gNetworkRuntimeState.sendMessageBuffer, 0, *length);
         std::memset(gNetworkRuntimeState.reservedProtocolBuffer, 0, *length);
@@ -4502,41 +4494,21 @@ std::uint8_t NetworkLoop_507DF0()
         }
     }
 
-    std::int32_t sendLength;
-    std::memcpy(
-        &sendLength,
-        gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
-        sizeof(sendLength));
-    if (sendLength > 0 && world::gNetworkDisconnectState_D9F2CA == 0) {
-        const std::int32_t sent = ::send(
-            static_cast<SOCKET>(platform::gConnectionSocket),
-            reinterpret_cast<const char*>(gNetworkRuntimeState.queueBytes.data()),
-            sendLength,
-            0);
-        if (sent > 0) {
-            gNetworkRuntimeState.lastTickD9F2C4 = platform::ReadTickCount64();
-        }
-        if (sent == -1) {
-            const std::int32_t error = detail::ReadAndLogSendError_508310();
-            if (error > 0) {
-                static_cast<void>(::closesocket(
-                    static_cast<SOCKET>(platform::gConnectionSocket)));
-                world::gNetworkDisconnectState_D9F2CA = 1;
-                gNetworkRuntimeState.errorD9F2CC = error;
-            }
-        }
-        else {
-            static_cast<void>(ConsumeSendQueue_508280(sent));
-            if (sent > 0 && login::gConnectionStep >= 71
-                && login::gConnectionStep <= 80) {
-                const auto diagnostic = std::format(L"LOGIN SENT BYTES={}", sent);
-                static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
-            }
-        }
+    const auto completed = gNetworkTransport.PollConnection(id);
+    if (completed.lastSendTick) gNetworkRuntimeState.lastTickD9F2C4 = completed.lastSendTick;
+    if ((completed.state == platform::ConnectionState::Closed || completed.state == platform::ConnectionState::Failed)
+        && completed.receivedBytes == 0) {
+        gNetworkRuntimeState.errorD9F2CC = completed.error;
+        world::gNetworkDisconnectState_D9F2CA = 1;
+        const auto diagnostic = std::format(L"NETWORK CLOSED PHASE={} ERROR={} ENDPOINT={}",
+            static_cast<int>(completed.phase), completed.error, completed.endpoint);
+        static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
+        CloseServerConnection();
+        return 0;
     }
 
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gNetworkRuntimeState.lastTickD9F2C4 + 30000U < now
+    if (frame == 0 && gNetworkRuntimeState.lastTickD9F2C4 + 30000U < now
         && gNetworkRuntimeState.active == 1) {
         return static_cast<std::uint8_t>(
             SendConnectionProbe_512C10(platform::gConnectionSocket, L"nr"));
@@ -4587,25 +4559,6 @@ std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size)
     return 0;
 }
 
-// 原函数：0x00508280。
-std::int32_t ConsumeSendQueue_508280(const std::int32_t size)
-{
-    if (login::gRequestPollingEnabled == 0) {
-        return -100;
-    }
-    if (size > static_cast<std::int32_t>(kQueueCapacity)) {
-        return -1;
-    }
-
-    std::uint8_t* const send = gNetworkRuntimeState.queueBytes.data();
-    std::int32_t previous;
-    std::memcpy(&previous, send + kSendLengthOffset, sizeof(previous));
-    const std::int32_t remaining = previous - size;
-    std::memcpy(send + kSendLengthOffset, &remaining, sizeof(remaining));
-    std::memmove(send, send + size, static_cast<std::uint32_t>(remaining));
-    return 0;
-}
-
 std::uint8_t ReadNetworkRuntimeActive() noexcept
 {
     return gNetworkRuntimeState.active;
@@ -4629,9 +4582,7 @@ void WriteProtocolModeDA3B22(const std::uint16_t value) noexcept
 // 原函数：0x005081A0。
 void ShutdownNetworkRuntime_5081A0()
 {
-    if (gNetworkRuntimeState.active == 0) {
-        return;
-    }
+    StopNetworkIo();
 
     gNetworkRuntimeState.active = 0;
     std::vector<std::uint8_t>().swap(gNetworkRuntimeState.compressedReceive.frame);
@@ -4639,23 +4590,8 @@ void ShutdownNetworkRuntime_5081A0()
     gNetworkRuntimeState.compressedReceive.lineBytes = 0;
     login::gRequestPollingEnabled = 0;
     world::gNetworkDisconnectState_D9F2CA = 0;
-    static_cast<void>(::closesocket(
-        static_cast<SOCKET>(platform::gConnectionSocket)));
-    static_cast<void>(::WSACleanup());
 
-    std::free(gNetworkRuntimeState.sendMessageBuffer);
-    std::free(gNetworkRuntimeState.reservedProtocolBuffer);
-    std::free(gNetworkRuntimeState.textTokenBuffer);
-    std::free(gNetworkRuntimeState.integerTokenBuffer);
-    std::free(gNetworkRuntimeState.pointerTable58B614);
-    std::free(gNetworkRuntimeState.reservedTripleBuffer0);
-    std::free(gNetworkRuntimeState.reservedTripleBuffer1);
-    std::free(gNetworkRuntimeState.reservedTripleBuffer2);
-    std::free(gNetworkRuntimeState.reservedTripleBuffer3);
-    for (std::size_t index = 0; index < kWorkspaceSlotCount; ++index) {
-        std::free(gNetworkRuntimeState.workspaceSlots[index]);
-    }
-    std::free(gNetworkRuntimeState.workspaceSlots);
+    ReleaseProtocolWorkspace();
 }
 
 } // namespace cg::network

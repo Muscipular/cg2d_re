@@ -40,7 +40,7 @@ std::uint32_t gCatchUpCount = 1; // 原全局：0x005590F8。
 std::uint32_t gFrameCount = 3; // 原全局：0x0058B7E4。
 std::int32_t gPendingPaletteReload = 0; // 原全局：0x0062A65C。
 
-std::uintptr_t gConnectionSocket = 0; // 原全局：0x00D9B2B8。
+std::uintptr_t gConnectionSocket = 0; // NTM01：会话代次；原0x00D9B2B8的上层传递槽。
 
 __declspec(noinline)
 static void UpdateWndTitle(float& fps, std::size_t& frameIndex, std::array<std::uint32_t, 3>& frameCounts)

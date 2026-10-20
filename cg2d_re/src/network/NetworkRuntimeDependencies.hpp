@@ -12,11 +12,6 @@
 
 namespace cg::network::detail {
 
-// 原 [0x5082D0,0x508310) / [0x508310,0x508350)：NetworkLoop 错误日志叶。
-std::int32_t ReadAndLogReceiveError_5082D0();
-// 原函数：0x00508310。
-std::int32_t ReadAndLogSendError_508310();
-
 // 原 [0x50E6C0,0x50E6D8)：忽略 socket 首参，转发后三个 S32 到空间音频生产者。
 std::int32_t __cdecl HandleSpatialSoundSourceReply_50E6C0(
     std::uintptr_t unusedSocket, std::int32_t index,

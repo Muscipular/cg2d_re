@@ -135,51 +135,11 @@ static std::string sha256ToString(std::string_view input)
     return result;
 }
 
-// A10：沿参考ResolveDNS查询系统IPv4地址，临时Winsock引用和结果链均在本次调用内释放。
-static std::string ResolveServerPolicyAddress(const std::string& hostname)
-{
-    WSADATA wsaData;
-    if (::WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        return "";
-    }
-
-    addrinfo hints {};
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_STREAM;
-
-    addrinfo* result = nullptr;
-    if (::getaddrinfo(hostname.c_str(), nullptr, &hints, &result) != 0) {
-        static_cast<void>(::WSACleanup());
-        return "";
-    }
-
-    std::string address;
-    char addressText[INET6_ADDRSTRLEN];
-    for (const addrinfo* entry = result; entry != nullptr; entry = entry->ai_next) {
-        if (entry->ai_family == AF_INET) {
-            const auto* ipv4 = reinterpret_cast<const sockaddr_in*>(entry->ai_addr);
-            if (::inet_ntop(AF_INET, &ipv4->sin_addr, addressText, sizeof(addressText)) != nullptr) {
-                address = addressText;
-                break;
-            }
-        } else if (entry->ai_family == AF_INET6) {
-            const auto* ipv6 = reinterpret_cast<const sockaddr_in6*>(entry->ai_addr);
-            if (::inet_ntop(AF_INET6, &ipv6->sin6_addr, addressText, sizeof(addressText)) != nullptr) {
-                address = addressText;
-                break;
-            }
-        }
-    }
-
-    ::freeaddrinfo(result);
-    static_cast<void>(::WSACleanup());
-    return address;
-}
-
-// A10/SAP01：保留地址映射与校验退出；CUN01将使用提示移至人物选择页。
-void ApplyServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
+// NTM01/A10：只生产策略查询，不在主线程执行同步DNS。
+std::wstring PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
 {
     VM_HARD_START
+    std::wstring query;
 #ifdef TAOMOLI
     if (serverAddress == L"taomoli" && port <= 9)
     {
@@ -189,12 +149,19 @@ void ApplyServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
     else
 #endif
     {
-        const std::string address = ResolveServerPolicyAddress(
-            cg::text::ToGbk(std::format(L"{}.{}.re.cg.qoq.im", serverAddress, port)));
-        if (!address.empty() && sha256ToString(address + "_re.cg.qoq.im") != "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/)
-        {
-            std::_Exit(std::random_device()());
-        }
+        query = std::format(L"{}.{}.re.cg.qoq.im", serverAddress, port);
+    }
+    VM_HARD_END
+    return query;
+}
+
+// 原空结果分支与校验退出保持；只能由主线程消费当前会话的策略结果。
+void ApplyServerAddressPolicyResult(const std::string_view address)
+{
+    VM_HARD_START
+    if (!address.empty() && sha256ToString(std::string(address) + "_re.cg.qoq.im") != "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/)
+    {
+        std::_Exit(std::random_device()());
     }
     VM_HARD_END
 }

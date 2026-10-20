@@ -339,7 +339,7 @@ std::int32_t GetServerAddressInfo_507D90(
     const auto& record = gLoginServerRecords_D69798[static_cast<std::size_t>(serverIndex)];
     serverAddress = record.address;
     *port = static_cast<std::uint16_t>(std::wcstol(record.portText.c_str(), nullptr, 10));
-    platform::ApplyServerAddressPolicy(serverAddress, *port);
+    // NTM01：映射/策略DNS由BeginServerConnection接续，查询本身不再阻塞主线程。
     VM_END
     return 0;
 }

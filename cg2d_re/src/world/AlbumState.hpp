@@ -36,14 +36,14 @@ void SaveAlbumData_5186A0(); // 原相册保存：codec容量4，短写保留文
 // 原函数：0x00518BE0。
 void ClearCurrentCharacterAlbum_518BE0(); // 原所选角色相册组清理及保存。
 // 原函数：0x0050E5B0。
-void HandleAlbumEntryMaskReply_50E5B0(cg::network::CgConnection& networkConnection, std::int32_t version, const char* payload); // 相册同步回复，socket未用。
+void HandleAlbumEntryMaskReply_50E5B0(cg::network::CgConnection& networkConnection, std::int32_t version, const char* payload); // 图鉴掩码回复，绑定连接分批请求。
 // 原函数：0x0050E5D0。
 void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& networkConnection, std::int32_t number, std::int32_t imageNo,
     std::int32_t mark1, std::int32_t mark2, std::int32_t tribe,
     std::int32_t value0C, std::int32_t value10, std::int32_t value14,
     std::int32_t value18, std::int32_t value1C, std::int32_t value20,
     std::int32_t value24, std::int32_t value28, std::int32_t value2C,
-    std::int32_t value30, char* text, const char* name); // 相册记录回复，socket未用。
+    std::int32_t value30, char* text, const char* name); // 图鉴记录回复，更新后按编号确认本批。
 
 namespace detail {
 // 原函数：0x00518780。
@@ -57,7 +57,8 @@ void UpdateAlbumEntry_518870(
     std::int32_t value24, std::int32_t value28, std::int32_t value2C,
     std::int32_t value30, char* text, const char* name); // 同源相册记录逐字段更新。
 // 原函数：0x00518A40。
-void SynchronizeAlbumEntryMask_518A40(std::int32_t version, const char* payload); // 位掩码同步，先请求后发布版本。
+void SynchronizeAlbumEntryMask_518A40(cg::network::CgConnection& networkConnection,
+    std::int32_t version, const char* payload); // 每批最多20项，全部收齐后发布版本。
 
 } // namespace detail
 

@@ -65,6 +65,7 @@
 #include <cstring>
 #include <new>
 #include <optional>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -249,6 +250,29 @@ struct AlbumStorage {
     std::array<AlbumRecord, 2 * 960> records;
 };
 static AlbumStorage gAlbumStorage{};
+
+// ABS01：图鉴业务每批最多20条，收齐本批dM后才发送下一批。
+constexpr std::size_t kAlbumRequestBatchSize = 20;
+struct AlbumSynchronization {
+    network::CgConnection* connection {}; // 非拥有，仅与回调来源核对。
+    platform::ConnectionId connectionId {}; // 绑定本轮会话，重连后不续发。
+    std::int16_t selected {-1}; // 本轮角色槽。
+    std::int32_t version {}; // 全部收齐后才发布的目标版本。
+    std::vector<std::int32_t> requests; // 掩码生成的完整编号列表。
+    std::size_t nextRequest {}; // 下一批起点。
+    std::vector<std::int32_t> waiting; // 本批尚未收到的编号，最多20项。
+    std::optional<std::pair<std::int32_t, std::string>> deferredMask; // 本批收齐后处理最新Ilz。
+    std::uint64_t generation {}; // 清理后递增，旧回调不能修改新任务。
+};
+static AlbumSynchronization gAlbumSynchronization {};
+
+// 初始化、角色图鉴加载/清空及任务结束共用；序号不随状态清空归零。
+static void ResetAlbumSynchronization()
+{
+    const auto generation = gAlbumSynchronization.generation + 1;
+    gAlbumSynchronization = {};
+    gAlbumSynchronization.generation = generation;
+}
 
 static void DecodeAlbumStorage(const AlbumDiskStorage& disk)
 {
@@ -697,6 +721,7 @@ std::int32_t NextRotationValue_455C70()
 // 原函数：0x00518C20。
 std::uint32_t InitializeAlbum_518C20()
 {
+    ResetAlbumSynchronization();
     constexpr char kAlbumSignature[] = "CCA";
     gAlbumStorage.signature = {};
     gAlbumStorage.versions = {};
@@ -729,6 +754,7 @@ namespace detail {
 // 原[518780,518865)：只读4字节；错误先关闭，长度不符调用同源保存。
 void LoadAlbumData_518780()
 {
+    ResetAlbumSynchronization();
     auto* const encoded = static_cast<std::uint8_t*>(
         std::malloc(0x78018));
     auto* const decoded = static_cast<std::uint8_t*>(
@@ -808,9 +834,56 @@ void UpdateAlbumEntry_518870(
     SaveAlbumData_5186A0();
 }
 
-// 原[518A40,518BD5)：掩码扫描后始终发送请求列表，再重读角色写版本。
-void SynchronizeAlbumEntryMask_518A40(const std::int32_t version, const char* const payload)
+// ABS01：仅在上批收齐后调用；最后一批完成才发布同步版本。
+static void SendNextAlbumBatch(network::CgConnection& connection)
 {
+    auto& sync = gAlbumSynchronization;
+    if (sync.connection != &connection || sync.connectionId != connection.Id()
+        || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
+        ResetAlbumSynchronization();
+        return;
+    }
+    if (!sync.waiting.empty()) {
+        return;
+    }
+    if (sync.nextRequest == sync.requests.size()) {
+        gAlbumStorage.versions[sync.selected] = sync.version;
+        ResetAlbumSynchronization();
+        SaveAlbumData_5186A0();
+        return;
+    }
+
+    const auto count = std::min(kAlbumRequestBatchSize, sync.requests.size() - sync.nextRequest);
+    const auto* const first = sync.requests.data() + sync.nextRequest;
+    sync.waiting.assign(first, first + count);
+    sync.nextRequest += count;
+    const auto generation = sync.generation;
+    const auto result = connection.RequestAlbumEntries(sync.waiting.data(),
+        static_cast<std::int32_t>(count));
+    if (sync.generation != generation) {
+        return; // 发送Hook已清理或替换任务，旧调用不再修改状态。
+    }
+    if (result != static_cast<std::int32_t>(network::SendResult::Queued)
+        || sync.connectionId != connection.Id()
+        || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
+        ResetAlbumSynchronization();
+    }
+}
+
+// 原[518A40,518BD5)：保留掩码扫描；ABS01改为每批20条并在全部回复后写版本。
+void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
+    const std::int32_t version, const char* const payload)
+{
+    auto& sync = gAlbumSynchronization;
+    if (sync.connection != &connection || sync.connectionId != connection.Id()
+        || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
+        ResetAlbumSynchronization();
+    }
+    if (!sync.waiting.empty()) {
+        sync.deferredMask = std::make_pair(version, std::string(payload));
+        return; // 持有字节副本，收齐本批后再处理最新掩码。
+    }
+
     std::vector<std::int32_t> requests;
     std::int32_t limit = std::bit_cast<std::int32_t>(resource::gAlbumEntryLimit_D2D5FC);
     std::int32_t groups = limit >> 5;
@@ -848,11 +921,26 @@ void SynchronizeAlbumEntryMask_518A40(const std::int32_t version, const char* co
             bit <<= 1;
         }
     }
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    static_cast<void>(cg::network::GetGameConnection().RequestAlbumEntries(requests.empty() ? nullptr : requests.data(),
-        static_cast<std::int32_t>(requests.size())));
-    const std::int16_t selected = login::gSelectedCharacterIndex;
-    gAlbumStorage.versions[selected] = version;
+    const auto networkSession = connection.CaptureSession();
+    ResetAlbumSynchronization();
+    sync.connection = &connection;
+    sync.connectionId = connection.Id();
+    sync.selected = login::gSelectedCharacterIndex;
+    sync.version = version;
+    sync.requests = std::move(requests);
+    if (sync.requests.empty()) {
+        // 保留空列表kza 0；仅在成功入队后发布版本。
+        const auto generation = sync.generation;
+        const auto result = connection.RequestAlbumEntries(nullptr, 0);
+        if (sync.generation != generation) {
+            return;
+        }
+        if (result != static_cast<std::int32_t>(network::SendResult::Queued)) {
+            ResetAlbumSynchronization();
+            return;
+        }
+    }
+    SendNextAlbumBatch(connection);
 }
 
 } // namespace detail
@@ -8176,28 +8264,55 @@ void SaveAlbumData_5186A0()
 // 原[518BE0,518C12)：固定当前角色，清版本和整组记录后保存。
 void ClearCurrentCharacterAlbum_518BE0()
 {
+    ResetAlbumSynchronization();
     const std::int16_t selected = login::gSelectedCharacterIndex;
     gAlbumStorage.versions[selected] = 0;
     std::fill_n(AlbumRecordAt(0, selected), 960, AlbumRecord{});
     SaveAlbumData_5186A0();
 }
 
-// 原[50E5B0,50E5C3)：相册版本及掩码原序转传，网络首参不消费。
-void HandleAlbumEntryMaskReply_50E5B0(cg::network::CgConnection&, const std::int32_t version, const char* const payload)
+// 原[50E5B0,50E5C3)：ABS01将回调连接一并交给图鉴分批同步。
+void HandleAlbumEntryMaskReply_50E5B0(cg::network::CgConnection& connection,
+    const std::int32_t version, const char* const payload)
 {
-    detail::SynchronizeAlbumEntryMask_518A40(version, payload);
+    detail::SynchronizeAlbumEntryMask_518A40(connection, version, payload);
 }
 
-// 原[50E5D0,50E62E)：十五数值及两文本原序转传，不增加接收门禁。
-void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection&, const std::int32_t number, const std::int32_t imageNo,
+// 原[50E5D0,50E62E)：保留原记录更新；ABS01在更新后按编号确认本批回复。
+void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& connection, const std::int32_t number, const std::int32_t imageNo,
     const std::int32_t mark1, const std::int32_t mark2, const std::int32_t tribe,
     const std::int32_t value0C, const std::int32_t value10, const std::int32_t value14,
     const std::int32_t value18, const std::int32_t value1C, const std::int32_t value20,
     const std::int32_t value24, const std::int32_t value28, const std::int32_t value2C,
     const std::int32_t value30, char* const text, const char* const name)
 {
+    const auto generation = gAlbumSynchronization.generation;
     detail::UpdateAlbumEntry_518870(number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
         value18, value1C, value20, value24, value28, value2C, value30, text, name);
+    auto& sync = gAlbumSynchronization;
+    if (sync.generation != generation || sync.connection == nullptr) {
+        return;
+    }
+    if (sync.connection != &connection || sync.connectionId != connection.Id()
+        || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
+        ResetAlbumSynchronization();
+        return;
+    }
+    const auto entry = std::find(sync.waiting.begin(), sync.waiting.end(), number);
+    if (entry == sync.waiting.end()) {
+        return; // 重复回复及本批之外的编号不推进请求。
+    }
+    sync.waiting.erase(entry);
+    if (!sync.waiting.empty()) {
+        return;
+    }
+    if (sync.deferredMask) {
+        auto deferred = std::move(*sync.deferredMask);
+        ResetAlbumSynchronization();
+        detail::SynchronizeAlbumEntryMask_518A40(connection, deferred.first, deferred.second.c_str());
+        return;
+    }
+    detail::SendNextAlbumBatch(connection);
 }
 
 // 原函数：0x0046E480。

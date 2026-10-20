@@ -4718,3 +4718,10 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 按用户要求核对游戏luaUI目录规则及编码，以GBK补丁保留CRLF；更新doc/WinMgr.lua、Module.lua、CONST.lua与README.md，覆盖统一窗口/元素引用、elementId、seqNo、查找/增删、回调、字体及画布，并记录当前element.type与组件类型常量的编号差异。
 - 同步ModuleBase.lua的onWindowOpen/OnWindowOpen代理，沿ownEvent接管订阅并在模块卸载时注销；ModuleSystem现有WinMgr代理可直接访问该接口，无需额外修改。保留既有模块配置和业务脚本改动。
 - 已静态比对WinMgr/窗口/控件导出方法与声明，以及ModuleBase实现与声明，未发现方法遗漏；GBK严格解码、CRLF及git diff --check通过。游戏目录5个文件已精确提交，本轮未编译、未运行脚本或客户端。
+
+## 543. Lua文件背景音乐设计（2026-10-20，待确认）
+
+- 用户要求先设计Lua的MP3/WAV/OGG播放能力，确认仅用于背景音乐，并要求替换当前场景、接管、独立播放三模式及可停止的handle。
+- 已核对现有WinMgr编号音频接口、SDL3 WAV加载、普通BGM状态机及Lua关闭链，形成LBG01：推荐SDL3_mixer，明确三模式仲裁、handle/GC、音量与旧音效隔离。
+- 已区分SDL核心播放能力与压缩音频解码，以及SDL3_mixer“缓存原文件、按需解码”和真正文件流式读取的差异；依赖引入、OGG编码范围、加载策略和路径/生命周期细则待确认。
+- 文档：doc/cg2d_lua_file_bgm_spec.md。本轮仅新增设计并记录进度，未引入依赖、未改播放代码、未编译或运行。

@@ -318,6 +318,7 @@ set(cg2d_re_startup_sources
     src/ui/windows/WindowWorkResult.cpp
     src/ui/WindowPrototypes.cpp
     src/network/NetworkRuntime.cpp
+    src/network/CgConnection.cpp
     src/render/GraphicPendingQueue.cpp
     src/platform/MouseDispatch.cpp
     src/render/DrawAllQueued.cpp

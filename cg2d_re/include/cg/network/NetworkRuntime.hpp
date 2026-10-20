@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cg/platform/CgTransport.hpp"
+#include "cg/network/CgConnection.hpp"
 
 #include <cstdint>
 #include <functional>
@@ -14,11 +14,8 @@ namespace cg::network {
 void CloseServerConnection();
 void StopNetworkIo(); // Lua/UI销毁前停止后台；协议工作区在ShutdownNetworkRuntime中释放。
 
-// N01：接收参数第0项为头、末项为null；正文借用到回调结束。
-using ProtocolReceiveHandler = std::function<void(const char* header, char** arguments)>;
-// 发送正文位于注册前缀之后，长度包含原LF；不拥有传入字节。
-using ProtocolSendHandler = std::function<void(
-    const char* header, const char* data, std::int32_t length)>;
+// CTO01：进程内唯一主线程连接对象，寿命覆盖初始化、重连及最终退出。
+CgConnection& GetGameConnection() noexcept;
 
 // 按注册顺序执行首个匹配项；接收匹配完整头，发送匹配前缀。
 // 注册复制消息头并持有回调，重连保留；仅主线程调用，I/O线程不执行回调。

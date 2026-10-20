@@ -1,6 +1,5 @@
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
-#include "cg/platform/MainLoop.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "../world/ChatHistory.hpp"
@@ -2591,7 +2590,7 @@ void RegisterLuaUI(lua_State* L)
 }
 void LuaReceivePacket(const char* header, char** arguments)
 {
-    const auto connection = platform::gConnectionSocket;
+    const auto connection = network::GetGameConnection().Id();
     // 先快照注册集合和参数，允许回调注册/注销或重入网络发送。
     const auto options = gWinMgrPacketRecvOptions;
     std::vector<std::string> values;
@@ -2601,13 +2600,13 @@ void LuaReceivePacket(const char* header, char** arguments)
     pointers.push_back(nullptr);
     const std::string packetHeader(header);
     for (const auto& option : options) {
-        if (connection != platform::gConnectionSocket || !network::ReadNetworkRuntimeActive()) break;
+        if (connection != network::GetGameConnection().Id() || !network::ReadNetworkRuntimeActive()) break;
         if (option.header == packetHeader) LuaCallPacketRecvEvent(option.event, packetHeader.c_str(), pointers.data());
     }
 }
 void LuaSendPacket(std::string_view packet)
 {
-    const auto connection = platform::gConnectionSocket;
+    const auto connection = network::GetGameConnection().Id();
     const auto options = gWinMgrPacketSendOptions;
     std::string matched;
     bool found = false;
@@ -2615,7 +2614,7 @@ void LuaSendPacket(std::string_view packet)
     if (!found) return;
     const std::string bytes(packet.substr(matched.size()));
     for (const auto& option : options) {
-        if (connection != platform::gConnectionSocket || !network::ReadNetworkRuntimeActive()) break;
+        if (connection != network::GetGameConnection().Id() || !network::ReadNetworkRuntimeActive()) break;
         if (option.header == matched) LuaCallPacketSendEvent(option.event, matched.c_str(), bytes.data(), static_cast<int>(bytes.size()));
     }
 }

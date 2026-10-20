@@ -1,6 +1,6 @@
 # CgConnection 全业务网络入口迁移 SPEC
 
-日期：2026-10-20。编号：CTO02。状态：XCNY已移至登录业务并清理前两次多余改动，本轮Debug编译与链接通过；运行互通/竞态待验。
+日期：2026-10-20。编号：CTO02。状态：XCNY业务抽离、清理及SendPacket结果枚举化已实施，本轮Debug编译与链接通过；运行互通/竞态待验。
 
 目标：在[CTO01对象封装](cg2d_connection_transport_spec.md)基础上，将登录、Lua、主循环及其他业务模块的网络请求全部交由CgConnection管理，移除旧连接适配入口、协议工作区兼容桥和gConnectionSocket镜像。用户补充的“其他业务点也要迁移”属于本轮必需范围。
 
@@ -62,11 +62,13 @@ connection.SendTradeOffer(items, pets, gold);
 | IoEnabled() | 只读当前业务收发门禁，供登录请求轮询和诊断使用 |
 | SetIoEnabled(bool) | 唯一门禁发布入口，同时更新对象与传输后端 |
 | ResetLoginReply / LoginAccepted | 承接当前登录前清零及回复后判断的W16状态，不公开旧地址字段访问器，不改变原状态重置时机 |
-| SendPacket(data, size, replacePending=false) | 完整明文入口，不添加LF、不识别登录命令；身份在对象内捕获，业务显式选择是否替换旧待发字节 |
+| SendPacket(data, size, replacePending=false) | 返回SendResult的完整明文入口，不添加LF、不识别登录命令；身份在对象内捕获，业务显式选择是否替换旧待发字节 |
 | EncodeInteger / EscapeText / UnescapeText | 供现有Lua编码API调用，返回拥有式字节字符串；保留Base62、GBK、转义、容量及错误合同，不返回私有共享缓冲指针 |
 | MoveItemToBagPage / SelectBagPage / SelectInventoryBankPage | 承接现有UI直接构造的SWITMP、SWITM、rh路径，具体字段编码见第6节 |
 
-普通业务使用具名方法。Lua开放发包和已有自动战斗完整报文使用SendPacket；不得将所有具名业务接口退化成业务侧拼字符串后统一SendPacket。发送仍返回0、-1、-100等既有结果；不得将成功入队当作服务端已处理。
+普通业务使用具名方法。Lua开放发包和已有自动战斗完整报文使用SendPacket；不得将所有具名业务接口退化成业务侧拼字符串后统一SendPacket。
+
+按2026-10-20用户要求，SendPacket公开/私有返回统一为`enum class SendResult : std::int32_t`：`Queued=0`表示本地入队成功，`QueueFull=-1`表示容量不足或报文过大，`Unavailable=-100`表示门禁关闭、连接不可用、会话变化或停止。登录前导判断使用枚举项；Lua边界显式转为整数，保留脚本返回值。既有具名组包的S32合同在SendProtocolBuffer边界显式转换，日志仍记录原数字；不增加错误类别，不将入队成功当作实际发送完成或服务端已处理。
 
 连接探测留作对象私有操作；60秒保活由现有调度器调用对象SendKeepAliveRequest。收发队列、分词、分配、释放及旧NetworkCallback不作为公开业务接口。
 

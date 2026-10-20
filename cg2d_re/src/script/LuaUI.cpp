@@ -2393,14 +2393,14 @@ LuaFunction(WinMgr_sendPacket) {
         size_t len = 0;
         const char* data = luaL_checklstring(L, 1, &len);
         if (len > 0 && data[len - 1] == '\n') {
-            int result = cg::network::GetGameConnection().SendPacket( data, static_cast<int>(len));
-            lua_pushinteger(L, result);
+            const auto result = cg::network::GetGameConnection().SendPacket( data, static_cast<int>(len));
+            lua_pushinteger(L, static_cast<lua_Integer>(result));
             return 1;
         }
         std::string packet(data, len);
         packet.push_back('\n');
-        int result = cg::network::GetGameConnection().SendPacket( packet.c_str(), static_cast<int>(packet.size()));
-        lua_pushinteger(L, result);
+        const auto result = cg::network::GetGameConnection().SendPacket( packet.c_str(), static_cast<int>(packet.size()));
+        lua_pushinteger(L, static_cast<lua_Integer>(result));
         return 1;
     }
 
@@ -2419,8 +2419,8 @@ LuaFunction(WinMgr_sendPacket) {
     }
     packet.push_back('\n');
 
-    int result = cg::network::GetGameConnection().SendPacket( packet.c_str(), static_cast<int>(packet.size()));
-    lua_pushinteger(L, result);
+    const auto result = cg::network::GetGameConnection().SendPacket( packet.c_str(), static_cast<int>(packet.size()));
+    lua_pushinteger(L, static_cast<lua_Integer>(result));
     return 1;
 }
 

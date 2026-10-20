@@ -4814,3 +4814,10 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - XCNY作为普通业务发送参与既有Hook和统一日志；不再用专用两包预检改变失败优先级，逐次采用原队列容量检查。Lua直接发送JFVf不再自动注入前导。原状态发布、超时和失败日志路径保持。
 - 文件编辑遵循file-content，显式UTF-8并保留CRLF。正在按此前要求执行build.bat Debug；不运行客户端、测试或摘要计算。
 - 本次build.bat Debug配置、编译与链接成功，退出码0；保留既有C4701/C4244警告。静态引用确认XCNY只在LoginState业务中定义，通用层无startsLogin和自动前导，传输层无新增消息余量；UTF-8/CRLF与差异检查通过。前两次改动复查及清理完成，精确提交，运行互通仍未验。
+
+## 555. SendPacket返回结果枚举化（2026-10-20）
+
+- 用户要求用enum管理SendPacket返回值。新增cg::network::SendResult，固定S32底层值Queued=0、QueueFull=-1、Unavailable=-100；公开接口和私有发送逻辑均返回枚举，原门禁/回调/入队顺序保持。
+- LoginState按SendResult::Queued判断XCNY结果；Lua三个发包分支只在lua_pushinteger边界转换，保留原数字返回。既有具名组包S32合同在SendProtocolBuffer处转换，登录诊断仍记录数字；自动战斗的显式忽略结果调用保持。
+- SPEC已同步；按file-content显式UTF-8编辑并保留CRLF，准备执行build.bat Debug验证，不新增或执行测试，不运行客户端。
+- 本次build.bat Debug配置、编译及客户端链接成功，退出码0；既有C4701/C4244警告保留。SendPacket直接调用者与私有提交边界已静态核对，数字映射保持0/-1/-100，UTF-8/CRLF及差异检查通过；精确提交，运行互通未验。

@@ -171,7 +171,7 @@ struct CgConnection::Impl {
     platform::ConnectionSnapshot PollConnection();
     void Close();
     void StopIo();
-    std::int32_t SendPacket(const platform::ConnectionId expectedId, const void* const data,
+    SendResult SendPacket(const platform::ConnectionId expectedId, const void* const data,
         const std::uint32_t size, bool replacePending = false);
     std::int32_t Initialize();
     ConnectionPumpResult Pump();
@@ -653,7 +653,8 @@ std::int32_t CgConnection::Impl::SendProtocolBuffer_517480(
         ++length;
     }
 
-    return SendPacket(expectedId, buffer, length);
+    // 既有具名组包仍返回S32，只在此边界转换通用发送结果。
+    return static_cast<std::int32_t>(SendPacket(expectedId, buffer, length));
 }
 
 std::int32_t CgConnection::Impl::SendConnectionProbe_512C10(
@@ -1154,23 +1155,23 @@ void CgConnection::Impl::StopIo()
 }
 
 // 完整明文消息沿原Hook顺序提交；只在传输层的短锁内追加或替换字节。
-std::int32_t CgConnection::Impl::SendPacket(
+SendResult CgConnection::Impl::SendPacket(
     const platform::ConnectionId expectedId,
     const void* const data,
     const std::uint32_t size,
     bool replacePending)
 {
     if (!ioEnabled) {
-        return -100;
+        return SendResult::Unavailable;
     }
     const auto id = connectionId;
-    if (id == 0 || expectedId != id) return -100;
+    if (id == 0 || expectedId != id) return SendResult::Unavailable;
 
     // L04：回调可重入发送；持有字节快照，避免共享格式化缓冲被覆盖。
     const std::string packet(static_cast<const char*>(data), size);
     script::RecordAutoBattleAction(packet);
     script::LuaSendPacket(owner, packet);
-    if (id != connectionId || !ioEnabled) return -100;
+    if (id != connectionId || !ioEnabled) return SendResult::Unavailable;
     for (auto& [header, handler] : this->sendHandlers) {
         if (packet.starts_with(header)) {
             handler(owner, header.c_str(), packet.data() + header.size(),
@@ -1179,16 +1180,16 @@ std::int32_t CgConnection::Impl::SendPacket(
         }
     }
 
-    if (id != connectionId || !ioEnabled) return -100;
+    if (id != connectionId || !ioEnabled) return SendResult::Unavailable;
     transport.SetIoEnabled(id, true);
     const auto queued = transport.TryQueueSend(id,
         {reinterpret_cast<const std::uint8_t*>(packet.data()), packet.size()}, replacePending);
     if (queued != platform::NetworkQueueResult::Accepted)
-        return queued == platform::NetworkQueueResult::QueueFull ? -1 : -100;
+        return queued == platform::NetworkQueueResult::QueueFull ? SendResult::QueueFull : SendResult::Unavailable;
     // 成功入队后记录明文；不把队列日志当作socket发送成功，避免按TCP分片重复打印。
     m_logw(L"[network][send queued][%u] %.*hs%hs", size, static_cast<int>(size),
         packet.data(), packet.ends_with('\n') ? "" : "\n");
-    return 0;
+    return SendResult::Queued;
 }
 
 std::int32_t CgConnection::Impl::Initialize()
@@ -1351,7 +1352,7 @@ void CgConnection::SetIoEnabled(bool enabled)
     impl_->ioEnabled = enabled;
     impl_->transport.SetIoEnabled(impl_->connectionId, enabled);
 }
-std::int32_t CgConnection::SendPacket(const void* data, std::uint32_t size, bool replacePending)
+SendResult CgConnection::SendPacket(const void* data, std::uint32_t size, bool replacePending)
 {
     const auto session = CaptureSession();
     return impl_->SendPacket(impl_->contextId, data, size, replacePending);

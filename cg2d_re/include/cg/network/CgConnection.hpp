@@ -2,6 +2,7 @@
 
 #include "cg/platform/CgTransport.hpp"
 
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <string>
@@ -10,6 +11,13 @@
 namespace cg::network {
 
 class CgConnection;
+
+// SendPacket的本地入队结果；底层值保留Lua及既有S32业务返回合同。
+enum class SendResult : std::int32_t {
+    Queued = 0,          // 队列已接收，尚不代表TCP发送完成或服务端处理成功。
+    QueueFull = -1,      // 队列剩余容量不足，包含单条消息过大的情形。
+    Unavailable = -100,  // 收发未启用、连接不可用、会话变化或正在停止。
+};
 
 // 正文/参数借用到同步回调结束；注册表随连接对象保留，重连不清空。
 using ProtocolReceiveHandler = std::function<void(CgConnection& connection, const char* header, char** arguments)>;
@@ -43,7 +51,7 @@ public:
     void SetIoEnabled(bool enabled);
     // 完整明文消息，不添加LF、不识别协议；会话身份由对象捕获并在回调后校验。
     // replacePending由业务选择是否替换旧待发字节，默认追加。
-    [[nodiscard]] std::int32_t SendPacket(const void* data, std::uint32_t size, bool replacePending = false);
+    [[nodiscard]] SendResult SendPacket(const void* data, std::uint32_t size, bool replacePending = false);
     [[nodiscard]] ConnectionPumpResult Pump();
     void RegisterReceive(const char* header, ProtocolReceiveHandler handler);
     void RegisterSend(const char* header, ProtocolSendHandler handler);

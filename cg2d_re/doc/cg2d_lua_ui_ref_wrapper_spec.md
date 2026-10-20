@@ -150,6 +150,7 @@ if (auto* element = window[static_cast<ElementId>(InventoryElementId::Title)]) {
 ```
 
 - 非const窗口返回可读写指针；const窗口返回只读指针。返回的是sortedMap中的实际元素，不是副本。
+- SortedElementMap和窗口均提供const/非const的`FindElementById(ElementId)`，支持固定枚举ID；operator[]转发到该入口。一次调用只执行一次ID哈希查询，调用方保存返回指针用于判空和后续访问，避免先判空再重复索引。跨回调或结构变更后仍须重新查询。
 - 元素不存在或已逻辑删除时返回nullptr，不抛出查找异常，不返回虚构的空元素，也不自动新增。
 - 0仅在新增参数解析时表示自动分配；索引器查询0返回nullptr，不触发分配。
 - 缺失单个元素时跳过该元素相关操作；多个元素共同完成一个操作时，先查询所需元素，缺任一个就跳过该操作。与它无关的其他更新继续执行。

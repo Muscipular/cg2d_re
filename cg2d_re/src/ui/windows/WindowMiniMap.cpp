@@ -37,8 +37,9 @@ static std::int32_t WindowMiniMap_Update(std::int32_t value);
 // BMUI01：唯一大地图入口，复用属性加点按钮的普通/悬停图态。
 static std::int32_t WindowMiniMap_OpenBigMap(std::int32_t index, std::int32_t events)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
+    auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(NativeElementKey(index)) : nullptr;
+    if (!element) return 0;
+    auto* const graphic = element->data.graphic;
     graphic->imageNo = (events & 1) ? 0x3B53D : 0x3B53B;
     if (events & 1) gHoverTextD68AE8 = L"打开大地图";
     if (events & 2) WindowBigMap_Open();
@@ -87,14 +88,16 @@ WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 8,
 static std::int32_t WindowMiniMap_Update(const std::int32_t value)
 {
     if (value == -1) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMapElementId::Element4]))) { return {}; }
-        auto* const data = (*gCurrentWindow)[WindowMiniMapElementId::Element4]->data.text;
+        auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(WindowMiniMapElementId::Element4) : nullptr;
+        if (!element) return 0;
+        auto* const data = element->data.text;
         data->text.clear();
         return 1;
     }
     if (world::IsObservationSceneTransitionActive_440B50() == 0) {
-        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMapElementId::Element4]))) { return {}; }
-        auto* const data = (*gCurrentWindow)[WindowMiniMapElementId::Element4]->data.text;
+        auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(WindowMiniMapElementId::Element4) : nullptr;
+        if (!element) return 0;
+        auto* const data = element->data.text;
         std::wstring& destination = data->text;
         if (destination.empty()) {
             const std::wstring& name = world::GetMapName_9DAD30();
@@ -102,8 +105,7 @@ static std::int32_t WindowMiniMap_Update(const std::int32_t value)
             const std::int32_t measured = cg::render::TextMeasure(name, 12);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t width = window->width;
-            auto* elementsWindow = window;
-            if ((elementsWindow && (*elementsWindow)[WindowMiniMapElementId::Element4])) (*elementsWindow)[WindowMiniMapElementId::Element4]->x = ((width - measured) >> 1) + 2;
+            element->x = ((width - measured) >> 1) + 2;
         }
     }
     return 1;
@@ -116,12 +118,11 @@ static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::i
         return 0;
     }
     WindowInstance* const window = gCurrentWindow;
-    auto* elementsWindow = window;
+    auto* const element = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+    if (!element) return 0;
     const std::int32_t windowY = window->y;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-    const std::int32_t elementY = (*elementsWindow)[NativeElementKey(index)]->y;
-    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
-    const std::int32_t elementX = (*elementsWindow)[NativeElementKey(index)]->x;
+    const std::int32_t elementY = element->y;
+    const std::int32_t elementX = element->x;
     const std::int32_t y = elementY + windowY - 117;
     const std::int32_t x = elementX + window->x - 14;
     static_cast<void>(render::QueueMap_521AA0(x, y, 0xDF));
@@ -131,8 +132,9 @@ static std::int32_t WindowMiniMap_DrawMap(const std::int32_t index, const std::i
 // 原函数：0x00495E60。
 static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const std::int32_t)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
+    auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(NativeElementKey(index)) : nullptr;
+    if (!element) return 0;
+    auto* const data = element->data.text;
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         data->text.clear();
         return 0;
@@ -146,8 +148,9 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(const std::int32_t index, const
 // 原函数：0x00495EB0。
 static std::int32_t WindowMiniMap_RefreshPlayerY(const std::int32_t index, const std::int32_t)
 {
-    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
-    auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
+    auto* const element = gCurrentWindow ? gCurrentWindow->FindElementById(NativeElementKey(index)) : nullptr;
+    if (!element) return 0;
+    auto* const data = element->data.text;
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         data->text.clear();
         return 0;

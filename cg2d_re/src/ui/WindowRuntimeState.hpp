@@ -213,14 +213,21 @@ public:
     void notifyUpdate();
     void beginTraversal() { ++traversalDepth; }
     void endTraversal() { --traversalDepth; }
-    WindowElement* operator[](ElementId id) noexcept {
+    // 单次ID查询；不存在或已逻辑删除时返回nullptr，不插入元素。
+    WindowElement* FindElementById(ElementId id) noexcept {
         const auto it = byId.find(id);
         return it == byId.end() || it->second->removed ? nullptr : it->second;
     }
-    const WindowElement* operator[](ElementId id) const noexcept {
+    const WindowElement* FindElementById(ElementId id) const noexcept {
         const auto it = byId.find(id);
         return it == byId.end() || it->second->removed ? nullptr : it->second;
     }
+    template<class E> requires std::is_enum_v<E>
+    WindowElement* FindElementById(E id) noexcept { return FindElementById(static_cast<ElementId>(id)); }
+    template<class E> requires std::is_enum_v<E>
+    const WindowElement* FindElementById(E id) const noexcept { return FindElementById(static_cast<ElementId>(id)); }
+    WindowElement* operator[](ElementId id) noexcept { return FindElementById(id); }
+    const WindowElement* operator[](ElementId id) const noexcept { return FindElementById(id); }
     auto try_emplace(const Storage::key_type& key, WindowElement element) {
         auto result = values.try_emplace(key, std::move(element));
         if (result.second) {
@@ -267,12 +274,19 @@ struct WindowInstance {
     std::int32_t refDraw = -1;
     std::int32_t refEvent = -1;
     bool scriptHidden = false; // 旧原生state不含统一visible位，脚本显隐独立门控。
-    WindowElement* operator[](ElementId elementId) noexcept {
-        return sortedMap[elementId];
+    // 返回借用指针；跨回调或结构变更后需重新查询。
+    WindowElement* FindElementById(ElementId elementId) noexcept {
+        return sortedMap.FindElementById(elementId);
     }
-    const WindowElement* operator[](ElementId elementId) const noexcept {
-        return sortedMap[elementId];
+    const WindowElement* FindElementById(ElementId elementId) const noexcept {
+        return sortedMap.FindElementById(elementId);
     }
+    template<class E> requires std::is_enum_v<E>
+    WindowElement* FindElementById(E id) noexcept { return FindElementById(static_cast<ElementId>(id)); }
+    template<class E> requires std::is_enum_v<E>
+    const WindowElement* FindElementById(E id) const noexcept { return FindElementById(static_cast<ElementId>(id)); }
+    WindowElement* operator[](ElementId elementId) noexcept { return FindElementById(elementId); }
+    const WindowElement* operator[](ElementId elementId) const noexcept { return FindElementById(elementId); }
     template<class E> requires std::is_enum_v<E>
     WindowElement* operator[](E id) noexcept { return (*this)[static_cast<ElementId>(id)]; }
     template<class E> requires std::is_enum_v<E>

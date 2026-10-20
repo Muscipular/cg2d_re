@@ -14,9 +14,9 @@ namespace {
 std::string Utf8(const wchar_t* path)
 {
     const int size = ::WideCharToMultiByte(CP_UTF8, 0, path, -1, nullptr, 0, nullptr, nullptr);
-    if (size == 0) { return {}; }
+    if (size == 0) { return ""; }
     std::string result(static_cast<std::size_t>(size), '\0');
-    if (::WideCharToMultiByte(CP_UTF8, 0, path, -1, result.data(), size, nullptr, nullptr) == 0) { return {}; }
+    if (::WideCharToMultiByte(CP_UTF8, 0, path, -1, result.data(), size, nullptr, nullptr) == 0) { return ""; }
     return result;
 }
 bool Word(SDL_IOStream* io, std::uint32_t value)

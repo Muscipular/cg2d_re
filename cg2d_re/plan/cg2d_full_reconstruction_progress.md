@@ -4692,3 +4692,8 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 按用户要求扫描src/include中的C++源码和头文件，包含跨行return {}及return {0}/{false}/{nullptr}形式，并逐处核对所属函数签名。
 - 剩余10处return {}均返回对象：AudioPathToWide/Decode等字符串8处、ReadCpuBackPixels空span 1处、BigMapSurface::MakeSprite空Sprite 1处。未发现数值、布尔或指针函数的同类遗漏，不将空对象错误替换为0。
 - 本次只记录核查结果，未修改运行代码、未编译或运行客户端。
+
+## 539. 空字符串显式返回（2026-10-20）
+
+- 按用户要求将上次核查的8处空字符串返回改为显式字面量：5处std::string使用return ""，3处std::wstring使用return L""；空span及空Sprite保持对象初始化写法。
+- 仅调整返回表达式，保持空字符串语义、原分支及编码转换逻辑；已核对函数返回类型和补丁差异，git diff --check通过。本轮未编译、未运行客户端。

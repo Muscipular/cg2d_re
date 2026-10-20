@@ -96,7 +96,7 @@ static std::string sha256ToString(std::string_view input)
     BCRYPT_ALG_HANDLE algorithm = nullptr;
     if (!BCRYPT_SUCCESS(::BCryptOpenAlgorithmProvider(
             &algorithm, BCRYPT_SHA256_ALGORITHM, nullptr, 0))) {
-        return {};
+        return "";
     }
 
     BCRYPT_HASH_HANDLE hash = nullptr;
@@ -123,7 +123,7 @@ static std::string sha256ToString(std::string_view input)
     }
     static_cast<void>(::BCryptCloseAlgorithmProvider(algorithm, 0));
     if (!BCRYPT_SUCCESS(status)) {
-        return {};
+        return "";
     }
 
     constexpr char digits[] = "0123456789abcdef";

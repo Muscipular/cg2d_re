@@ -22,7 +22,7 @@ static int Win32Length(const std::size_t length)
 static std::wstring Decode(const std::string_view bytes, const UINT codePage, const DWORD flags = MB_ERR_INVALID_CHARS)
 {
     if (bytes.empty()) {
-        return {};
+        return L"";
     }
     const int length = Win32Length(bytes.size());
     const int count = ::MultiByteToWideChar(codePage, flags, bytes.data(), length, nullptr, 0);
@@ -39,7 +39,7 @@ static std::wstring Decode(const std::string_view bytes, const UINT codePage, co
 static std::string Encode(const std::wstring_view text, const UINT codePage)
 {
     if (text.empty()) {
-        return {};
+        return "";
     }
     const int length = Win32Length(text.size());
     const DWORD flags = WC_NO_BEST_FIT_CHARS;

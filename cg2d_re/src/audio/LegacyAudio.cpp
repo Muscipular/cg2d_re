@@ -182,12 +182,12 @@ static std::wstring AudioPathToWide(const char* const path)
     const int wideLength =
         ::MultiByteToWideChar(CP_ACP, 0, path, -1, nullptr, 0);
     if (wideLength <= 0) {
-        return {};
+        return L"";
     }
     std::wstring wide(static_cast<std::size_t>(wideLength), L'\0');
     if (::MultiByteToWideChar(
             CP_ACP, 0, path, -1, wide.data(), wideLength) == 0) {
-        return {};
+        return L"";
     }
     wide.pop_back();
     return wide;

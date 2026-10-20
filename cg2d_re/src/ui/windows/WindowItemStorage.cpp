@@ -5,6 +5,18 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowItemStorageElementId : ElementId {
+    ButtonCloseIcon = 1,
+    ButtonClose = 2,
+    HandleOwnItems = 3,
+    HandleStoredItems = 4,
+    Element5 = 5,
+    HandleSideArea = 6,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -42,12 +54,12 @@ static WindowGraphicData gWindowGraphic571710 {245220, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gWindowGraphic571728 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00571728。
 
 static WindowElementPrototype gWindowElements571740[6] { // 原全局：0x00571740。
-    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic571728}, &WindowBank_ButtonCloseIcon},
-    {WindowElementType_Graphic, 476, 308, 66, 17, 1, {.graphic = &gWindowGraphic5716E0}, &WindowBank_ButtonClose},
-    {WindowElementType_Graphic, 286, 27, 273, 280, 1, {.graphic = &gWindowGraphic5716F8}, &WindowItemStorage_HandleOwnItems},
-    {WindowElementType_Graphic, 14, 27, 273, 280, 1, {.graphic = &gWindowGraphic571710}, &WindowItemStorage_HandleStoredItems},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5716C8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic571728}, &WindowBank_ButtonCloseIcon, -1, static_cast<ElementId>(WindowItemStorageElementId::ButtonCloseIcon)},
+    {WindowElementType_Graphic, 476, 308, 66, 17, 1, {.graphic = &gWindowGraphic5716E0}, &WindowBank_ButtonClose, -1, static_cast<ElementId>(WindowItemStorageElementId::ButtonClose)},
+    {WindowElementType_Graphic, 286, 27, 273, 280, 1, {.graphic = &gWindowGraphic5716F8}, &WindowItemStorage_HandleOwnItems, -1, static_cast<ElementId>(WindowItemStorageElementId::HandleOwnItems)},
+    {WindowElementType_Graphic, 14, 27, 273, 280, 1, {.graphic = &gWindowGraphic571710}, &WindowItemStorage_HandleStoredItems, -1, static_cast<ElementId>(WindowItemStorageElementId::HandleStoredItems)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5716C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowItemStorageElementId::Element5)},
+    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowItemStorageElementId::HandleSideArea)},
 };
 
 // 原型：窗口38；原全局：0x0054EB40。
@@ -140,8 +152,10 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
             const WindowInstance* const window = gCurrentWindow;
             const std::int32_t windowX = window->x;
             const std::int32_t windowY = window->y;
-            const std::int32_t elementX = window->elements[index].x;
-            const std::int32_t elementY = window->elements[index].y;
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const std::int32_t elementX = (*window)[NativeElementKey(index)]->x;
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const std::int32_t elementY = (*window)[NativeElementKey(index)]->y;
             for (std::int32_t position = 0; position < 20; ++position) {
                 const std::int32_t left = windowX + 50 * (position % 5) + elementX + 12;
                 const std::int32_t top = windowY + 52 * (position / 5) + elementY + 39;
@@ -160,7 +174,8 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     if ((events & 0x21u) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t left = element.x + 50 * (position % 5) + window->x + 12;
             const std::int32_t top = element.y + 52 * (position / 5) + window->y + 39;
             if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
@@ -205,7 +220,8 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 12;
             const std::int32_t top = element.y + 52 * ((source - 8) / 5) + window->y + 39;
             cg::render::DrawGraphicHover(
@@ -216,7 +232,8 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     }
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 12;
         const std::int32_t top = element.y + 52 * (hovered / 5) + window->y + 39;
         cg::render::DrawGraphicHover(
@@ -239,7 +256,8 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
             continue;
         }
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = element.x + 50 * (position % 5) + window->x + 36;
         const std::int32_t y = element.y + 52 * (position / 5) + window->y + 64;
         if ((item.flags & 0x60u) != 0
@@ -289,7 +307,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t elementX = element.x;
         const std::int32_t windowX = window->x;
         const std::int32_t windowY = window->y;
@@ -317,7 +336,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     if ((events & 0x21u) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t elementX = element.x;
             const std::int32_t windowX = window->x;
             const std::int32_t left = elementX + 50 * (position % 5) + windowX + 12;
@@ -372,7 +392,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 100) {
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t elementX = element.x;
             const std::int32_t windowX = window->x;
             const std::int32_t left = elementX + 50 * ((source - 100) % 5) + windowX + 12;
@@ -387,7 +408,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     }
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t elementX = element.x;
         const std::int32_t windowX = window->x;
         const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 12;
@@ -417,7 +439,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             continue;
         }
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t elementX = element.x;
         const std::int32_t windowX = window->x;
         const std::int32_t x = elementX + 50 * (position % 5) + windowX + 36;

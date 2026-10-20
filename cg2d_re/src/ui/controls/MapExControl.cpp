@@ -145,7 +145,7 @@ UIMapExControl::MapExTile& UIMapExControl::MapExTile::operator=(MapExTile&& othe
     return *this;
 }
 
-UIMapExControl::UIMapExControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, WindowEventBinding callbacks)
+UIMapExControl::UIMapExControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_MAP_EX, name, x, y, w, h, visible, callbacks), mapX(mapX), mapY(mapY), mapId(mapId), floor(floor) {
 }
 

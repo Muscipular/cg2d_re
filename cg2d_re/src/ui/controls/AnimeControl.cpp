@@ -5,7 +5,7 @@ using namespace component_detail;
 static constexpr uint8_t ANIME_ACTION_PRIO = 2;
 static constexpr char ANIME_DISP_PRIO = -33;
 
-UIAnimeControl::UIAnimeControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, AnimeData data, WindowEventBinding callbacks)
+UIAnimeControl::UIAnimeControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, AnimeData data, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_ANIME, name, x, y, w, h, visible, callbacks), data(data) {
     resetAction();
 }

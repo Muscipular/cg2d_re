@@ -6,6 +6,26 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowBattleCommandElementId : ElementId {
+    ButtonAttack = 1,
+    ButtonDefend = 2,
+    ButtonSkill = 3,
+    ButtonItem = 4,
+    ButtonPet = 5,
+    ButtonFormation = 6,
+    ButtonEscape = 7,
+    ButtonRebirth = 8,
+    ButtonPetSkills = 9,
+    ButtonEscape_10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -122,20 +142,20 @@ static WindowTextPrototype gWindowText56B708 { // 原全局：0x0056B708。
 };
 
 static WindowElementPrototype gWindowElements56B710[14] { // 原全局：0x0056B710。
-    {WindowElementType_Graphic, 13, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B5F8}, &WindowBattleCommand_ButtonAttack},
-    {WindowElementType_Graphic, 13, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B610}, &WindowBattleCommand_ButtonDefend},
-    {WindowElementType_Graphic, 83, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonSkill},
-    {WindowElementType_Graphic, 83, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B640}, &WindowBattleCommand_ButtonItem},
-    {WindowElementType_Graphic, 153, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B658}, &WindowBattleCommand_ButtonPet},
-    {WindowElementType_Graphic, 153, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B670}, &WindowBattleCommand_ButtonFormation},
-    {WindowElementType_Graphic, 223, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape},
-    {WindowElementType_Graphic, 223, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B6A0}, &WindowBattleCommand_ButtonRebirth},
-    {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonPetSkills},
-    {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape},
-    {WindowElementType_Text, 20, 24, 0, 0, 1, {.text = &gWindowText56B6F8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 215, 24, 0, 0, 1, {.text = &gWindowText56B700}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 48, 0, 0, 1, {.text = &gWindowText56B708}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B5E0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 13, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B5F8}, &WindowBattleCommand_ButtonAttack, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonAttack)},
+    {WindowElementType_Graphic, 13, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B610}, &WindowBattleCommand_ButtonDefend, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonDefend)},
+    {WindowElementType_Graphic, 83, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonSkill, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonSkill)},
+    {WindowElementType_Graphic, 83, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B640}, &WindowBattleCommand_ButtonItem, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonItem)},
+    {WindowElementType_Graphic, 153, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B658}, &WindowBattleCommand_ButtonPet, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonPet)},
+    {WindowElementType_Graphic, 153, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B670}, &WindowBattleCommand_ButtonFormation, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonFormation)},
+    {WindowElementType_Graphic, 223, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonEscape)},
+    {WindowElementType_Graphic, 223, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B6A0}, &WindowBattleCommand_ButtonRebirth, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonRebirth)},
+    {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &WindowBattleCommand_ButtonPetSkills, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonPetSkills)},
+    {WindowElementType_Graphic, 216, 46, 64, 20, 1, {.graphic = &gWindowGraphic56B688}, &WindowBattleCommand_ButtonEscape, -1, static_cast<ElementId>(WindowBattleCommandElementId::ButtonEscape_10)},
+    {WindowElementType_Text, 20, 24, 0, 0, 1, {.text = &gWindowText56B6F8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleCommandElementId::Element11)},
+    {WindowElementType_Text, 215, 24, 0, 0, 1, {.text = &gWindowText56B700}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleCommandElementId::Element12)},
+    {WindowElementType_Text, 20, 48, 0, 0, 1, {.text = &gWindowText56B708}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleCommandElementId::Element13)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B5E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleCommandElementId::Element14)},
 };
 
 // 原型：窗口26；原全局：0x0054E720。
@@ -156,35 +176,36 @@ static void WindowBattleCommand_Open(
     } else {
         gWindowStates[WindowId_BattleCommand].window = WindowRuntime_Open(WindowId_BattleCommand);
     }
-    WindowElement* const elements = gWindowStates[WindowId_BattleCommand].window->elements;
+    auto* elementsWindow = gWindowStates[WindowId_BattleCommand].window;
     const auto currentMode = std::bit_cast<std::int8_t>(
         static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C));
-    auto* const graphic = elements[13].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[WindowBattleCommandElementId::Element14]))) { return; }
+    auto* const graphic = (*elementsWindow)[WindowBattleCommandElementId::Element14]->data.graphic;
     switch (currentMode) {
     case 0:
     case 1:
     case 2:
         graphic->imageNo = 0x3B9C0 + currentMode;
         for (std::int32_t index = 0; index < 8; ++index) {
-            gWindowStates[WindowId_BattleCommand].window->elements[index].visible = 1;
+            if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[NativeElementKey(index)])) (*gWindowStates[WindowId_BattleCommand].window)[NativeElementKey(index)]->visible = 1;
         }
-        gWindowStates[WindowId_BattleCommand].window->elements[8].visible = 0;
-        gWindowStates[WindowId_BattleCommand].window->elements[9].visible = 0;
-        gWindowStates[WindowId_BattleCommand].window->elements[10].visible = 0;
-        gWindowStates[WindowId_BattleCommand].window->elements[11].visible = 0;
-        gWindowStates[WindowId_BattleCommand].window->elements[12].visible = 0;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills]->visible = 0;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonEscape_10])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonEscape_10]->visible = 0;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11]->visible = 0;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12]->visible = 0;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element13])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element13]->visible = 0;
         break;
     case 3: {
         graphic->imageNo = 0x3B9C3;
         for (std::int32_t index = 0; index < 8; ++index) {
-            gWindowStates[WindowId_BattleCommand].window->elements[index].visible = 0;
+            if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[NativeElementKey(index)])) (*gWindowStates[WindowId_BattleCommand].window)[NativeElementKey(index)]->visible = 0;
         }
-        gWindowStates[WindowId_BattleCommand].window->elements[8].visible = 1;
-        gWindowStates[WindowId_BattleCommand].window->elements[8].x = 216;
-        gWindowStates[WindowId_BattleCommand].window->elements[9].visible = 0;
-        gWindowStates[WindowId_BattleCommand].window->elements[10].visible = 1;
-        gWindowStates[WindowId_BattleCommand].window->elements[11].visible = 1;
-        gWindowStates[WindowId_BattleCommand].window->elements[12].visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills]->visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills]->x = 216;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonEscape_10])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonEscape_10]->visible = 0;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11]->visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12]->visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element13])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element13]->visible = 1;
         const std::int32_t namePosition = world::GetBattlePetPosition_405B40(
             world::gBattleCurrentPosition5ABCA4);
         const cg::yobi::YobiAction* const action = world::gBattleEntries59E980[namePosition];
@@ -192,7 +213,7 @@ static void WindowBattleCommand_Open(
         if (name[0] == '\0') {
             name = cg::yobi::GetYobiName(action);
         }
-        gWindowStates[WindowId_BattleCommand].window->elements[10].data.text->text = name;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11]->data.text->text = name;
         const std::int32_t maximumPosition = world::GetBattlePetPosition_405B40(
             world::gBattleCurrentPosition5ABCA4);
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
@@ -201,31 +222,33 @@ static void WindowBattleCommand_Open(
             world::gBattleCurrentPosition5ABCA4);
         const std::int32_t current = cg::yobi::ReadYobiActionFpOnce(
             world::gBattleEntries59E980[currentPosition]);
-        cg::text::FormatTo(gWindowStates[WindowId_BattleCommand].window->elements[11].data.text->text, L"{:4}/{:4}", current, maximum);
+        if (!((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12]))) { return; }
+        cg::text::FormatTo((*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12]->data.text->text, L"{:4}/{:4}", current, maximum);
         break;
     }
     case 4: {
         graphic->imageNo = 0x3B9C3;
         for (std::int32_t index = 0; index < 8; ++index) {
-            gWindowStates[WindowId_BattleCommand].window->elements[index].visible = 0;
+            if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[NativeElementKey(index)])) (*gWindowStates[WindowId_BattleCommand].window)[NativeElementKey(index)]->visible = 0;
         }
-        gWindowStates[WindowId_BattleCommand].window->elements[8].visible = 1;
-        gWindowStates[WindowId_BattleCommand].window->elements[8].x = 146;
-        gWindowStates[WindowId_BattleCommand].window->elements[9].visible = 1;
-        gWindowStates[WindowId_BattleCommand].window->elements[10].visible = 1;
-        gWindowStates[WindowId_BattleCommand].window->elements[11].visible = 1;
-        gWindowStates[WindowId_BattleCommand].window->elements[12].visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills]->visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonPetSkills]->x = 146;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonEscape_10])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::ButtonEscape_10]->visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11]->visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12]->visible = 1;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element13])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element13]->visible = 1;
         const std::int32_t namePosition = world::gBattleCurrentPosition5ABCA4;
         const wchar_t* const name = cg::yobi::GetYobiName(
             world::gBattleEntries59E980[namePosition]);
-        gWindowStates[WindowId_BattleCommand].window->elements[10].data.text->text = name;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element11]->data.text->text = name;
         const std::int32_t maximumPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t maximum = cg::yobi::ReadYobiActionMaxFpOnce(
             world::gBattleEntries59E980[maximumPosition]);
         const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
         const std::int32_t current = cg::yobi::ReadYobiActionFpOnce(
             world::gBattleEntries59E980[currentPosition]);
-        cg::text::FormatTo(gWindowStates[WindowId_BattleCommand].window->elements[11].data.text->text, L"{:4}/{:4}", current, maximum);
+        if (!((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12]))) { return; }
+        cg::text::FormatTo((*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element12]->data.text->text, L"{:4}/{:4}", current, maximum);
         break;
     }
     default:
@@ -296,19 +319,19 @@ static std::int32_t WindowBattleCommand_Update(const std::int32_t value)
     }
     auto mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
     if (mode != 3 && mode != 4) {
-        gCurrentWindow->elements[7].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonRebirth])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonRebirth]->visible = 1;
         mode = static_cast<std::uint8_t>(gWindowStates[WindowId_BattleCommand].actionFlags1C);
     }
     if (mode == 2) {
-        gCurrentWindow->elements[2].visible = 1;
-        gCurrentWindow->elements[3].visible = 1;
-        gCurrentWindow->elements[4].visible = 1;
-        gCurrentWindow->elements[5].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonSkill])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonSkill]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonItem])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonItem]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonPet])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonPet]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonFormation])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonFormation]->visible = 1;
         if (world::gBattleSkillUsed5ABC68 != 0) {
-            gCurrentWindow->elements[2].visible = 0;
-            gCurrentWindow->elements[3].visible = 0;
-            gCurrentWindow->elements[4].visible = 0;
-            gCurrentWindow->elements[5].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonSkill])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonSkill]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonItem])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonItem]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonPet])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonPet]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleCommandElementId::ButtonFormation])) (*gCurrentWindow)[WindowBattleCommandElementId::ButtonFormation]->visible = 0;
         }
     }
     return 1;
@@ -330,7 +353,7 @@ static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
                 && technique < world::kPetTechniqueSlotCount)
                 name = world::gPetRuntimeRecords[pet].techniquesD8[technique].name;
         }
-        gWindowStates[WindowId_BattleCommand].window->elements[12].data.text->text = name;
+        if ((gWindowStates[WindowId_BattleCommand].window && (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element13])) (*gWindowStates[WindowId_BattleCommand].window)[WindowBattleCommandElementId::Element13]->data.text->text = name;
     }
     if (gWindowStates[WindowId_BattleCommand].userState.value == 0) {
         std::int32_t first = 0;
@@ -475,7 +498,8 @@ void WindowBattleCommand_FinishAutoAction()
 // 原函数：0x004972B0。
 static std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9C4;
         if (world::gBattleSelectionModes5ABC7C[0] != 0) {
@@ -513,7 +537,8 @@ static std::int32_t WindowBattleCommand_ButtonAttack(const std::int32_t index, c
 // 原函数：0x004973C0。
 static std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9D0;
         if (world::gBattleSelectionModes5ABC7C[1] != 0) {
@@ -550,7 +575,8 @@ static std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, c
 // 原函数：0x00497770。
 static std::int32_t WindowBattleCommand_ButtonItem(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if (world::gBattleSkillUsed5ABC68 != 0) {
         graphic->imageNo = 0x3B9D4;
         return 0;
@@ -604,7 +630,8 @@ static std::int32_t WindowBattleCommand_ButtonItem(const std::int32_t index, con
 // 原函数：0x00497900。
 static std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if (world::gBattleSkillUsed5ABC68 != 0) {
         graphic->imageNo = 0x3B9CB;
         return 0;
@@ -657,7 +684,8 @@ static std::int32_t WindowBattleCommand_ButtonPet(const std::int32_t index, cons
 // 原函数：0x00497A60。
 static std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if (world::gBattleSkillUsed5ABC68 != 0) {
         graphic->imageNo = 0x3B9D7;
         return 0;
@@ -698,7 +726,8 @@ static std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index
 // 原函数：0x00497B80。
 static std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         graphic->imageNo = 0x3B9D9;
         if (world::gBattleSelectionModes5ABC7C[7] != 0) {
@@ -736,7 +765,8 @@ static std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, c
 // 原函数：0x00497C80。
 static std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const element = &gCurrentWindow->elements[index];
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    WindowElement* const element = (*gCurrentWindow)[NativeElementKey(index)];
     auto* const graphic = element->data.graphic;
     if (world::gBattleRebirthDisabled5ABC40 != 0
         || world::gPlayerRuntimeSlots.value08 == 0
@@ -958,7 +988,8 @@ static void WindowBattleCommand_SelectSkill(const std::int32_t skillIndex, const
 // 原函数：0x004975A0。
 static std::int32_t WindowBattleCommand_ButtonSkill(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if (world::gBattleSkillUsed5ABC68 != 0) {
         graphic->imageNo = 0x3B9C8;
         return 0;
@@ -1123,7 +1154,8 @@ static void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
 // 原函数：0x00498160。
 static std::int32_t WindowBattleCommand_ButtonPetSkills(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if (gWindowStates[WindowId_BattleCommand].userState.value != 0) {
         return 0;
     }

@@ -8,6 +8,32 @@
 #include "../../world/WorldMapState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowTradeElementId : ElementId {
+    HandleAmountInput = 1,
+    ButtonClose = 2,
+    ButtonPublish = 3,
+    ButtonConfirm = 4,
+    ButtonWithdraw = 5,
+    Element6 = 6,
+    Element7 = 7,
+    HandleVerticalScroll = 8,
+    HandleSelectedPanel = 9,
+    Element10 = 10,
+    HandleVerticalScroll_11 = 11,
+    HandleOwnPanel = 12,
+    Element13 = 13,
+    HandleVerticalScroll_14 = 14,
+    HandleRemoteSelection = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -388,26 +414,26 @@ static std::uint32_t gWindowMouseFlagsD678C4 = 0; // 原全局：0x00D678C4。
 static std::uint32_t gWindowMouseFlagsD678D0 = 0; // 原全局：0x00D678D0。
 
 static WindowElementPrototype gWindowElements572AF8[20] { // 原全局：0x00572AF8。
-    {WindowElementType_Input, 0, 0, 567, 339, 1, {.unusedValue = 0}, &WindowTrade_HandleAmountInput},
-    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic572958}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 476, 309, 49, 17, 1, {.graphic = &gWindowGraphic572970}, &WindowTrade_ButtonPublish},
-    {WindowElementType_Graphic, 446, 309, 49, 17, 1, {.graphic = &gWindowGraphic572988}, &WindowTrade_ButtonConfirm},
-    {WindowElementType_Graphic, 502, 309, 49, 17, 1, {.graphic = &gWindowGraphic5729A0}, &WindowTrade_ButtonWithdraw},
-    {WindowElementType_EventArea, 376, 136, 106, 85, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678C4}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleSelectedPanel},
-    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678B8}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 297, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleOwnPanel},
-    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678D0}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleRemoteSelection},
-    {WindowElementType_Text, 133, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 281, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 317, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572940}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_NoOp},
+    {WindowElementType_Input, 0, 0, 567, 339, 1, {.unusedValue = 0}, &WindowTrade_HandleAmountInput, -1, static_cast<ElementId>(WindowTradeElementId::HandleAmountInput)},
+    {WindowElementType_Graphic, 547, 9, 11, 11, 1, {.graphic = &gWindowGraphic572958}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowTradeElementId::ButtonClose)},
+    {WindowElementType_Graphic, 476, 309, 49, 17, 1, {.graphic = &gWindowGraphic572970}, &WindowTrade_ButtonPublish, -1, static_cast<ElementId>(WindowTradeElementId::ButtonPublish)},
+    {WindowElementType_Graphic, 446, 309, 49, 17, 1, {.graphic = &gWindowGraphic572988}, &WindowTrade_ButtonConfirm, -1, static_cast<ElementId>(WindowTradeElementId::ButtonConfirm)},
+    {WindowElementType_Graphic, 502, 309, 49, 17, 1, {.graphic = &gWindowGraphic5729A0}, &WindowTrade_ButtonWithdraw, -1, static_cast<ElementId>(WindowTradeElementId::ButtonWithdraw)},
+    {WindowElementType_EventArea, 376, 136, 106, 85, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element6)},
+    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element7)},
+    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678C4}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowTradeElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleSelectedPanel, -1, static_cast<ElementId>(WindowTradeElementId::HandleSelectedPanel)},
+    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element10)},
+    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678B8}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowTradeElementId::HandleVerticalScroll_11)},
+    {WindowElementType_Graphic, 297, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleOwnPanel, -1, static_cast<ElementId>(WindowTradeElementId::HandleOwnPanel)},
+    {WindowElementType_EventArea, 541, 66, 0, 14, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element13)},
+    {WindowElementType_MouseArea, 541, 66, 11, 183, 1, {.mouseFlags = &gWindowMouseFlagsD678D0}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowTradeElementId::HandleVerticalScroll_14)},
+    {WindowElementType_Graphic, 15, 28, 273, 280, 1, {.graphic = &gWindowGraphic572AD8}, &WindowTrade_HandleRemoteSelection, -1, static_cast<ElementId>(WindowTradeElementId::HandleRemoteSelection)},
+    {WindowElementType_Text, 133, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element16)},
+    {WindowElementType_Text, 281, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element17)},
+    {WindowElementType_Text, 317, 310, 0, 0, 1, {.text = &gWindowText572AF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element18)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572940}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element19)},
+    {WindowElementType_EventArea, 571, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeElementId::Element20)},
 };
 
 // 原型：窗口43；原全局：0x0054EBD0。
@@ -553,21 +579,21 @@ static void WindowTrade_MovePanel(
 {
     const std::int32_t shortX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const std::int32_t shortY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y));
-    window->elements[index].x = shortX;
-    window->elements[index].y = shortY;
-    window->elements[index - 1].x = shortX + 252;
-    window->elements[index - 1].y = shortY + 37;
-    window->elements[index - 2].x = shortX + 252;
+    if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->x = shortX;
+    if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->y = shortY;
+    if ((window && (*window)[NativeElementKey(index - 1)])) (*window)[NativeElementKey(index - 1)]->x = shortX + 252;
+    if ((window && (*window)[NativeElementKey(index - 1)])) (*window)[NativeElementKey(index - 1)]->y = shortY + 37;
+    if ((window && (*window)[NativeElementKey(index - 2)])) (*window)[NativeElementKey(index - 2)]->x = shortX + 252;
 }
 
 // 原函数：0x004B0180。
 static void WindowTrade_SetPanelVisible(
     WindowInstance* const window, const std::int32_t index, const std::int32_t visible)
 {
-    window->elements[index].visible = visible;
+    if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = visible;
     if (visible == 0) {
-        window->elements[index - 1].visible = 0;
-        window->elements[index - 2].visible = 0;
+        if ((window && (*window)[NativeElementKey(index - 1)])) (*window)[NativeElementKey(index - 1)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(index - 2)])) (*window)[NativeElementKey(index - 2)]->visible = 0;
     }
 }
 
@@ -575,7 +601,8 @@ static void WindowTrade_SetPanelVisible(
 static void WindowTrade_SetPanelColor(
     WindowInstance* const window, const std::int32_t index, const std::uint32_t color)
 {
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     graphic->color = color;
 }
 
@@ -688,9 +715,9 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
         WindowTrade_SetPanelVisible(gCurrentWindow, 14, 0);
         WindowTrade_MovePanel(gCurrentWindow, 14, 15, 28);
         WindowTrade_SetPanelColor(gCurrentWindow, 14, 0xFFFFFFFFu);
-        gCurrentWindow->elements[2].visible = 1;
-        gCurrentWindow->elements[3].visible = 0;
-        gCurrentWindow->elements[4].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonPublish])) (*gCurrentWindow)[WindowTradeElementId::ButtonPublish]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm])) (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw])) (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw]->visible = 0;
         WindowInstance* const scrollWindow = gCurrentWindow;
         gTradeValueD2EA20 = 0xFF;
         gTradeValueD6742C = 0;
@@ -698,12 +725,15 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
         gTradeScrollCF3B0C = 0;
         gTradeScrollCC4C90 = 0;
         gTradeScrollD67430 = 0;
-        static_cast<void>(WindowScroll_SetPosition(&scrollWindow->elements[10], 2, 0));
+        if (!((scrollWindow && (*scrollWindow)[WindowTradeElementId::HandleVerticalScroll_11]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*scrollWindow)[WindowTradeElementId::HandleVerticalScroll_11], 2, 0));
         const std::int32_t firstScroll = gTradeScrollCC4C90;
-        static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[7], 2, firstScroll));
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::HandleVerticalScroll]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowTradeElementId::HandleVerticalScroll], 2, firstScroll));
         WindowInstance* const lastScrollWindow = gCurrentWindow;
         const std::int32_t lastScroll = gTradeScrollD67430;
-        static_cast<void>(WindowScroll_SetPosition(&lastScrollWindow->elements[13], 2, lastScroll));
+        if (!((lastScrollWindow && (*lastScrollWindow)[WindowTradeElementId::HandleVerticalScroll_14]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*lastScrollWindow)[WindowTradeElementId::HandleVerticalScroll_14], 2, lastScroll));
         gTradeItemMarksD2D61C.fill(0);
         // 原W32/U8交错写入同一数组，保留4B0424的窗口快照时点。
         std::memset(gTradePetMarksCF3AFC.data(), 0, 4);
@@ -716,13 +746,16 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
         std::memset(gTradePetSlotsCC4D28.data(), 0xFF, 4);
         std::memset(gTradeItemSlotsCF3AE8.data() + 16, 0xFF, 4);
         gTradePetSlotsCC4D28[4] = 0xFF;
-        auto* const otherName = textWindow->elements[15].data.text;
+        if (!((textWindow && (*textWindow)[WindowTradeElementId::Element16]))) { return {}; }
+        auto* const otherName = (*textWindow)[WindowTradeElementId::Element16]->data.text;
         otherName->text = std::format(L"{:>16}", gTradeNameD2D654);
-        WindowElement* const elements = gCurrentWindow->elements;
+        auto* elementsWindow = gCurrentWindow;
         const wchar_t* const playerName = world::GetPlayerDisplayText(1);
-        auto* const separator = elements[16].data.text;
+        if (!((elementsWindow && (*elementsWindow)[WindowTradeElementId::Element17]))) { return {}; }
+        auto* const separator = (*elementsWindow)[WindowTradeElementId::Element17]->data.text;
         separator->text = L"<=>";
-        auto* const ownName = gCurrentWindow->elements[17].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::Element18]))) { return {}; }
+        auto* const ownName = (*gCurrentWindow)[WindowTradeElementId::Element18]->data.text;
         ownName->text = std::format(L"{:<16}", playerName);
         const std::int32_t y =
             static_cast<std::int32_t>(world::gPlayerY);
@@ -752,17 +785,20 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
     case 1: {
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t step = std::bit_cast<std::int8_t>(gTradeStepD3040C);
-        if (window->elements[8].x + step < 287) {
+        if (!((window && (*window)[WindowTradeElementId::HandleSelectedPanel]))) { return {}; }
+        if ((*window)[WindowTradeElementId::HandleSelectedPanel]->x + step < 287) {
             WindowTrade_SetPanelVisible(window, 8, 1);
             WindowInstance* const moveWindow = gCurrentWindow;
             const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+            if (!((moveWindow && (*moveWindow)[WindowTradeElementId::HandleSelectedPanel]))) { return {}; }
             const std::int32_t x = std::bit_cast<std::int16_t>(
-                static_cast<std::uint16_t>(moveWindow->elements[8].x));
+                static_cast<std::uint16_t>((*moveWindow)[WindowTradeElementId::HandleSelectedPanel]->x));
             WindowTrade_MovePanel(moveWindow, 8, x + moveStep, 28);
             const std::uint8_t oldStep = gTradeStepD3040C;
             WindowInstance* const firstWindow = gCurrentWindow;
             gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
-            const auto* first = firstWindow->elements[11].data.graphic;
+            if (!((firstWindow && (*firstWindow)[WindowTradeElementId::HandleOwnPanel]))) { return {}; }
+            const auto* first = (*firstWindow)[WindowTradeElementId::HandleOwnPanel]->data.graphic;
             std::int32_t alpha = static_cast<std::int32_t>(first->color >> 24) - 10;
             if (alpha < 0) {
                 alpha = 0;
@@ -770,7 +806,8 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
             WindowTrade_SetPanelColor(firstWindow, 11,
                 (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
             WindowInstance* const secondWindow = gCurrentWindow;
-            const auto* second = secondWindow->elements[14].data.graphic;
+            if (!((secondWindow && (*secondWindow)[WindowTradeElementId::HandleRemoteSelection]))) { return {}; }
+            const auto* second = (*secondWindow)[WindowTradeElementId::HandleRemoteSelection]->data.graphic;
             alpha = static_cast<std::int32_t>(second->color >> 24) + 10;
             if (alpha > 255) {
                 alpha = 255;
@@ -782,9 +819,9 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
             WindowTrade_SetPanelVisible(gCurrentWindow, 8, 1);
             WindowTrade_MovePanel(gCurrentWindow, 8, 287, 28);
             WindowTrade_SetPanelVisible(gCurrentWindow, 11, 0);
-            gCurrentWindow->elements[2].visible = 0;
-            gCurrentWindow->elements[3].visible = 1;
-            gCurrentWindow->elements[4].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonPublish])) (*gCurrentWindow)[WindowTradeElementId::ButtonPublish]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm])) (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw])) (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw]->visible = 1;
             gTradePhaseCAFEC4 = 3;
         }
         break;
@@ -792,17 +829,20 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
     case 2: {
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t step = std::bit_cast<std::int8_t>(gTradeStepD3040C);
-        if (window->elements[8].x - step > 15) {
+        if (!((window && (*window)[WindowTradeElementId::HandleSelectedPanel]))) { return {}; }
+        if ((*window)[WindowTradeElementId::HandleSelectedPanel]->x - step > 15) {
             WindowTrade_SetPanelVisible(window, 8, 1);
             WindowInstance* const moveWindow = gCurrentWindow;
             const std::int32_t moveStep = std::bit_cast<std::int8_t>(gTradeStepD3040C);
+            if (!((moveWindow && (*moveWindow)[WindowTradeElementId::HandleSelectedPanel]))) { return {}; }
             const std::int32_t x = std::bit_cast<std::int16_t>(
-                static_cast<std::uint16_t>(moveWindow->elements[8].x));
+                static_cast<std::uint16_t>((*moveWindow)[WindowTradeElementId::HandleSelectedPanel]->x));
             WindowTrade_MovePanel(moveWindow, 8, x - moveStep, 28);
             const std::uint8_t oldStep = gTradeStepD3040C;
             WindowInstance* const firstWindow = gCurrentWindow;
             gTradeStepD3040C = static_cast<std::uint8_t>(oldStep - 1);
-            const auto* first = firstWindow->elements[11].data.graphic;
+            if (!((firstWindow && (*firstWindow)[WindowTradeElementId::HandleOwnPanel]))) { return {}; }
+            const auto* first = (*firstWindow)[WindowTradeElementId::HandleOwnPanel]->data.graphic;
             std::int32_t alpha = static_cast<std::int32_t>(first->color >> 24) + 10;
             if (alpha > 255) {
                 alpha = 255;
@@ -810,7 +850,8 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
             WindowTrade_SetPanelColor(firstWindow, 11,
                 (static_cast<std::uint32_t>(alpha) << 24) | 0x00FFFFFFu);
             WindowInstance* const secondWindow = gCurrentWindow;
-            const auto* second = secondWindow->elements[14].data.graphic;
+            if (!((secondWindow && (*secondWindow)[WindowTradeElementId::HandleRemoteSelection]))) { return {}; }
+            const auto* second = (*secondWindow)[WindowTradeElementId::HandleRemoteSelection]->data.graphic;
             alpha = static_cast<std::int32_t>(second->color >> 24) - 10;
             if (alpha < 0) {
                 alpha = 0;
@@ -822,9 +863,9 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
             WindowTrade_SetPanelVisible(gCurrentWindow, 8, 1);
             WindowTrade_MovePanel(gCurrentWindow, 8, 15, 28);
             WindowTrade_SetPanelVisible(gCurrentWindow, 14, 0);
-            gCurrentWindow->elements[2].visible = 1;
-            gCurrentWindow->elements[3].visible = 0;
-            gCurrentWindow->elements[4].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonPublish])) (*gCurrentWindow)[WindowTradeElementId::ButtonPublish]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm])) (*gCurrentWindow)[WindowTradeElementId::ButtonConfirm]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw])) (*gCurrentWindow)[WindowTradeElementId::ButtonWithdraw]->visible = 0;
             gTradePhaseCAFEC4 = 0;
         }
         break;
@@ -953,13 +994,15 @@ static std::int32_t WindowTrade_HandlePanel(
     std::int32_t itemCount, std::int32_t petCount, std::int32_t amount,
     render::GraphicDescriptor16* const descriptor, const WindowTradePanelCallback callback)
 {
-    WindowElement* const elements = window->elements;
+    auto* elementsWindow = window;
     std::uint16_t elementX;
     std::uint16_t elementY;
     std::uint16_t windowX;
     std::uint16_t windowY;
-    std::memcpy(&elementX, &elements[index].x, sizeof(elementX));
-    std::memcpy(&elementY, &elements[index].y, sizeof(elementY));
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    std::memcpy(&elementX, &(*elementsWindow)[NativeElementKey(index)]->x, sizeof(elementX));
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    std::memcpy(&elementY, &(*elementsWindow)[NativeElementKey(index)]->y, sizeof(elementY));
     std::memcpy(&windowX, &window->x, sizeof(windowX));
     const std::int16_t x = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(elementX + windowX));
@@ -969,10 +1012,12 @@ static std::int32_t WindowTrade_HandlePanel(
     if ((state & 0x21) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t scrollPosition = *scrollValue;
-        WindowElement* const wheelElement = &elements[scrollElement];
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(scrollElement)]))) { return {}; }
+        WindowElement* const wheelElement = (*elementsWindow)[NativeElementKey(scrollElement)];
         *scrollValue = WindowScroll_ApplyWheel(wheelElement, scrollPosition, 2, wheel);
     }
-    WindowElement* const scroll = &window->elements[scrollElement];
+    if (!((window && (*window)[NativeElementKey(scrollElement)]))) { return {}; }
+    WindowElement* const scroll = (*window)[NativeElementKey(scrollElement)];
     const auto scrollFlags = reinterpret_cast<const unsigned char*>(
         &scroll->data.mouse->flags)[0];
     if ((scrollFlags & 1u) != 0) {
@@ -1007,7 +1052,8 @@ static std::int32_t WindowTrade_HandlePanel(
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             const std::int32_t scrollPosition = *scrollValue;
-            WindowElement* const scrollTarget = &window->elements[scrollElement];
+            if (!((window && (*window)[NativeElementKey(scrollElement)]))) { return {}; }
+            WindowElement* const scrollTarget = (*window)[NativeElementKey(scrollElement)];
             static_cast<void>(WindowScroll_SetPosition(scrollTarget, 2, scrollPosition));
         } else if (selected == 4) {
             if (*scrollValue < 2) {
@@ -1017,7 +1063,8 @@ static std::int32_t WindowTrade_HandlePanel(
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             const std::int32_t scrollPosition = *scrollValue;
-            WindowElement* const scrollTarget = &window->elements[scrollElement];
+            if (!((window && (*window)[NativeElementKey(scrollElement)]))) { return {}; }
+            WindowElement* const scrollTarget = (*window)[NativeElementKey(scrollElement)];
             static_cast<void>(WindowScroll_SetPosition(scrollTarget, 2, scrollPosition));
         }
     }
@@ -1034,8 +1081,9 @@ static std::int32_t WindowTrade_HandlePanel(
     std::int32_t displayAmount; // 原回调负责写入，不为无回调的异常路径补零。
     if (callback != nullptr) {
         // 仅适配已证不消费该参数的-1哨兵；正索引仍借用同一W32，见窗口SPEC。
+        if (!((window && (*window)[NativeElementKey(numericElement)]))) { return {}; }
         std::uint32_t* const valueSlot =
-            numericElement == -1 ? nullptr : &window->elements[numericElement].state;
+            numericElement == -1 ? nullptr : &(*window)[NativeElementKey(numericElement)]->state;
         const std::int32_t scrollSnapshot = *scrollValue;
         const std::int32_t mouseY =
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
@@ -1053,10 +1101,11 @@ static std::int32_t WindowTrade_HandlePanel(
     imageNo = *tab == 2 ? 243025 : (selected == 2 ? 243026 : 243024);
     static_cast<void>(render::DrawGraphic3_520970(
         x + 182, y + 240, 223, imageNo, 0, 1, 0, descriptor));
-    window->elements[scrollElement].visible = 0;
-    window->elements[scrollElement - 1].visible = 0;
+    if ((window && (*window)[NativeElementKey(scrollElement)])) (*window)[NativeElementKey(scrollElement)]->visible = 0;
+    if ((window && (*window)[NativeElementKey(scrollElement - 1)])) (*window)[NativeElementKey(scrollElement - 1)]->visible = 0;
     if (*tab == 1) {
-        WindowElement* const previous = &window->elements[scrollElement - 1];
+        if (!((window && (*window)[NativeElementKey(scrollElement - 1)]))) { return {}; }
+        WindowElement* const previous = (*window)[NativeElementKey(scrollElement - 1)];
         const std::int32_t currentWindowY = window->y;
         const std::int32_t previousY = previous->y;
         const std::int32_t drawY = currentWindowY + previousY;
@@ -1071,8 +1120,8 @@ static std::int32_t WindowTrade_HandlePanel(
         imageNo = selected == 4 ? ((state & 8) != 0 ? 243094 : 243095) : 243093;
         static_cast<void>(render::DrawGraphic3_520970(
             x + 252, y + 220, 223, imageNo, 0, 1, 0, descriptor));
-        window->elements[scrollElement].visible = 1;
-        window->elements[scrollElement - 1].visible = 1;
+        if ((window && (*window)[NativeElementKey(scrollElement)])) (*window)[NativeElementKey(scrollElement)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(scrollElement - 1)])) (*window)[NativeElementKey(scrollElement - 1)]->visible = 1;
     }
     std::wstring buffer;
     if (*tab == 2) {
@@ -1405,7 +1454,8 @@ static std::int32_t WindowTrade_HandleOwnPanel(const std::int32_t index, const s
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
-    const auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     const std::uint32_t color = graphic->color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     descriptor.color = color;
@@ -1866,7 +1916,8 @@ static std::int32_t WindowTrade_HandleSelectedPanel(const std::int32_t index, co
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
-    const auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     const std::uint32_t color = graphic->color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     descriptor.color = color;
@@ -1917,7 +1968,8 @@ static std::int32_t WindowTrade_HandleRemoteSelection(const std::int32_t index, 
 {
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = gCurrentWindow;
-    const auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     const std::uint32_t color = graphic->color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     descriptor.color = color;
@@ -2114,8 +2166,10 @@ static std::int32_t WindowTrade_HandleAmountInput(const std::int32_t, const std:
             WindowInstance* const window = gWindowStates[WindowId_Trade].window;
             static_cast<void>(WindowInput_ActivateElement(&gTradeInputPrototype5803D0, 0, -100, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
-            gFocusedElementDataD45F94 = window->elements[0].data.input;
-            auto* const data = window->elements[0].data.input;
+            if (!((window && (*window)[WindowTradeElementId::HandleAmountInput]))) { return {}; }
+            gFocusedElementDataD45F94 = (*window)[WindowTradeElementId::HandleAmountInput]->data.input;
+            if (!((window && (*window)[WindowTradeElementId::HandleAmountInput]))) { return {}; }
+            auto* const data = (*window)[WindowTradeElementId::HandleAmountInput]->data.input;
             data->context = &cg::ui::detail::gInputContextCC21E8;
         }
     } else if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC21E8) {
@@ -2555,7 +2609,8 @@ static std::int32_t WindowTrade_ReadSelectedPet(const std::int32_t index)
 // 原函数：0x004B0A50。
 static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"向对方公开交易内容。";
@@ -2594,7 +2649,8 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
         WindowInstance* const window = gCurrentWindow;
         gTradeValueD2E2B0 = 1;
         gTradeScrollD67430 = 0;
-        static_cast<void>(WindowScroll_SetPosition(&window->elements[13], 2, 0));
+        if (!((window && (*window)[WindowTradeElementId::HandleVerticalScroll_14]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*window)[WindowTradeElementId::HandleVerticalScroll_14], 2, 0));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         result = 1;
     }
@@ -2611,7 +2667,8 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
 // 原函数：0x004B0CF0。
 static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"还是算了。";
@@ -2641,7 +2698,8 @@ static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const s
 // 原函数：0x004B0DB0。
 static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"确定交易。";
@@ -2805,7 +2863,7 @@ static void WindowTrade_CopyOwnPet(const std::int32_t side)
         record->combatStats[5] = second;
         record->value5C = third;
         for (std::int32_t value = 0; value < 4; ++value) {
-            record->elements[value] = source.values70[21 + value];
+            (*&record->elements[value]) = source.values70[21 + value];
         }
         for (std::int32_t skill = 0; skill < world::kPetTechniqueSlotCount; ++skill) {
             const std::int16_t sourceIndex =

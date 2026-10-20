@@ -2,6 +2,37 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowHotkeysElementId : ElementId {
+    Element1 = 1,
+    ButtonClose = 2,
+    Element3 = 3,
+    HandleVerticalScroll = 4,
+    ButtonPreviousRow = 5,
+    ButtonNextRow = 6,
+    ButtonPreviousPage = 7,
+    ButtonNextPage = 8,
+    Scroll = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    TabFirstCategory = 20,
+    TabSecondCategory = 21,
+    TabThirdCategory = 22,
+    TabPresetText = 23,
+    Element24 = 24,
+    HandleSideArea = 25,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -258,31 +289,31 @@ static WindowGraphicData gWindowGraphic568F60 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu}
 static std::uint32_t gWindowMouseFlagsD677F0 = 0; // 原全局：0x00D677F0。
 
 static WindowElementPrototype gWindowElements568F78[25] { // 原全局：0x00568F78。
-    {WindowElementType_Input, 80, 41, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 265, 9, 11, 11, 1, {.graphic = &gWindowGraphic568E70}, &WindowHotkeys_ButtonClose},
-    {WindowElementType_Graphic, 253, 68, 0, 14, 1, {.graphic = &gWindowGraphic568EA0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 254, 68, 11, 137, 1, {.mouseFlags = &gWindowMouseFlagsD677F0}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 253, 58, 11, 11, 1, {.graphic = &gWindowGraphic568EB8}, &WindowHotkeys_ButtonPreviousRow},
-    {WindowElementType_Graphic, 253, 204, 11, 11, 1, {.graphic = &gWindowGraphic568ED0}, &WindowHotkeys_ButtonNextRow},
-    {WindowElementType_Graphic, 227, 35, 18, 18, 1, {.graphic = &gWindowGraphic568F48}, &WindowHotkeys_ButtonPreviousPage},
-    {WindowElementType_Graphic, 245, 35, 18, 18, 1, {.graphic = &gWindowGraphic568F60}, &WindowHotkeys_ButtonNextPage},
-    {WindowElementType_EventArea, 0, 0, 286, 233, 1, {.unusedValue = 0}, &WindowHotkeys_Scroll},
-    {WindowElementType_Graphic, 25, 56, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 72, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 88, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 104, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 120, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 136, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 152, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 168, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 184, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 200, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 36, 49, 17, 1, {.graphic = &gWindowGraphic568EE8}, &WindowHotkeys_TabFirstCategory},
-    {WindowElementType_Graphic, 75, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F00}, &WindowHotkeys_TabSecondCategory},
-    {WindowElementType_Graphic, 125, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F18}, &WindowHotkeys_TabThirdCategory},
-    {WindowElementType_Graphic, 175, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F18}, &WindowHotkeys_TabPresetText},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic568E88}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 288, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Input, 80, 41, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element1)},
+    {WindowElementType_Graphic, 265, 9, 11, 11, 1, {.graphic = &gWindowGraphic568E70}, &WindowHotkeys_ButtonClose, -1, static_cast<ElementId>(WindowHotkeysElementId::ButtonClose)},
+    {WindowElementType_Graphic, 253, 68, 0, 14, 1, {.graphic = &gWindowGraphic568EA0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element3)},
+    {WindowElementType_MouseArea, 254, 68, 11, 137, 1, {.mouseFlags = &gWindowMouseFlagsD677F0}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowHotkeysElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 253, 58, 11, 11, 1, {.graphic = &gWindowGraphic568EB8}, &WindowHotkeys_ButtonPreviousRow, -1, static_cast<ElementId>(WindowHotkeysElementId::ButtonPreviousRow)},
+    {WindowElementType_Graphic, 253, 204, 11, 11, 1, {.graphic = &gWindowGraphic568ED0}, &WindowHotkeys_ButtonNextRow, -1, static_cast<ElementId>(WindowHotkeysElementId::ButtonNextRow)},
+    {WindowElementType_Graphic, 227, 35, 18, 18, 1, {.graphic = &gWindowGraphic568F48}, &WindowHotkeys_ButtonPreviousPage, -1, static_cast<ElementId>(WindowHotkeysElementId::ButtonPreviousPage)},
+    {WindowElementType_Graphic, 245, 35, 18, 18, 1, {.graphic = &gWindowGraphic568F60}, &WindowHotkeys_ButtonNextPage, -1, static_cast<ElementId>(WindowHotkeysElementId::ButtonNextPage)},
+    {WindowElementType_EventArea, 0, 0, 286, 233, 1, {.unusedValue = 0}, &WindowHotkeys_Scroll, -1, static_cast<ElementId>(WindowHotkeysElementId::Scroll)},
+    {WindowElementType_Graphic, 25, 56, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element10)},
+    {WindowElementType_Graphic, 25, 72, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element11)},
+    {WindowElementType_Graphic, 25, 88, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element12)},
+    {WindowElementType_Graphic, 25, 104, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element13)},
+    {WindowElementType_Graphic, 25, 120, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element14)},
+    {WindowElementType_Graphic, 25, 136, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element15)},
+    {WindowElementType_Graphic, 25, 152, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element16)},
+    {WindowElementType_Graphic, 25, 168, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element17)},
+    {WindowElementType_Graphic, 25, 184, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element18)},
+    {WindowElementType_Graphic, 25, 200, 216, 16, 1, {.graphic = &gWindowGraphic568F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element19)},
+    {WindowElementType_Graphic, 25, 36, 49, 17, 1, {.graphic = &gWindowGraphic568EE8}, &WindowHotkeys_TabFirstCategory, -1, static_cast<ElementId>(WindowHotkeysElementId::TabFirstCategory)},
+    {WindowElementType_Graphic, 75, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F00}, &WindowHotkeys_TabSecondCategory, -1, static_cast<ElementId>(WindowHotkeysElementId::TabSecondCategory)},
+    {WindowElementType_Graphic, 125, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F18}, &WindowHotkeys_TabThirdCategory, -1, static_cast<ElementId>(WindowHotkeysElementId::TabThirdCategory)},
+    {WindowElementType_Graphic, 175, 36, 49, 17, 1, {.graphic = &gWindowGraphic568F18}, &WindowHotkeys_TabPresetText, -1, static_cast<ElementId>(WindowHotkeysElementId::TabPresetText)},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic568E88}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowHotkeysElementId::Element24)},
+    {WindowElementType_EventArea, 288, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowHotkeysElementId::HandleSideArea)},
 };
 
 // 原型：窗口25；原全局：0x0054E690。
@@ -296,15 +327,19 @@ static std::int32_t WindowHotkeys_Update(const std::int32_t value)
     if (value == -1) {
         WindowInstance* const window = gCurrentWindow;
         gWindowStates[WindowId_Hotkeys].value14 = 0;
-        WindowElement* const elements = window->elements;
-        const std::int32_t height = elements[2].height;
-        const std::int32_t y = elements[3].y;
-        elements[2].y = y - (height >> 1);
+        auto* elementsWindow = window;
+        if (!((elementsWindow && (*elementsWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+        const std::int32_t height = (*elementsWindow)[WindowHotkeysElementId::Element3]->height;
+        if (!((elementsWindow && (*elementsWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+        const std::int32_t y = (*elementsWindow)[WindowHotkeysElementId::HandleVerticalScroll]->y;
+        if (!((elementsWindow && (*elementsWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+        (*elementsWindow)[WindowHotkeysElementId::Element3]->y = y - (height >> 1);
         const std::uint32_t category = gWindowStates[WindowId_Hotkeys].value10;
         gHotkeySelectedCC4B20 = -1;
         const WindowElementCallback callback = category == 3 ? &WindowHotkeys_EditPresetText : &WindowElement_NoOp;
         for (std::int32_t index = 9; index <= 18; ++index) {
-            gCurrentWindow->elements[index].mouseCallback = callback;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(index)]->mouseCallback = callback;
         }
     }
     return 1;
@@ -313,22 +348,26 @@ static std::int32_t WindowHotkeys_Update(const std::int32_t value)
 // 原函数：0x004951C0。
 static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
-    auto* const mouse = elements[3].data.mouse;
-    elements[2].visible = 1;
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+    auto* const mouse = (*elementsWindow)[WindowHotkeysElementId::HandleVerticalScroll]->data.mouse;
+    if (!((elementsWindow && (*elementsWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+    (*elementsWindow)[WindowHotkeysElementId::Element3]->visible = 1;
     const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
     const std::uint32_t category = gWindowStates[WindowId_Hotkeys].value10;
     const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
     if (maximum <= 0) {
-        gCurrentWindow->elements[2].visible = 0;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+        (*gCurrentWindow)[WindowHotkeysElementId::Element3]->visible = 0;
     }
     if ((mouse->flags & 1) != 0) {
         const std::uint32_t currentCategory = gWindowStates[WindowId_Hotkeys].value10;
         const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t currentMaximum =
             kHotkeyCounts56AEC4[currentCategory + currentMode * 4] - 10;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
         gWindowStates[WindowId_Hotkeys].value14 = static_cast<std::uint32_t>(
-            WindowScroll_ReadPosition(&gCurrentWindow->elements[3], currentMaximum));
+            WindowScroll_ReadPosition((*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll], currentMaximum));
     }
 
     for (std::int32_t row = 0; row < 10; ++row) {
@@ -393,7 +432,8 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 // 原函数：0x004953B0。
 static std::int32_t WindowHotkeys_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = 0x3B538;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B53A;
@@ -412,9 +452,10 @@ static std::int32_t WindowHotkeys_ButtonClose(const std::int32_t index, const st
 // 原函数：0x00495450。
 static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
@@ -428,7 +469,8 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, co
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
         const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
-        static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[3], maximum, current));
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll], maximum, current));
         consumed = 1;
     }
     graphic->imageNo = 0x3B592;
@@ -444,9 +486,10 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, co
 // 原函数：0x00495500。
 static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
@@ -463,7 +506,8 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const 
         const std::int32_t currentCategory = std::bit_cast<std::int32_t>(windowState->value10);
         const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t currentMaximum = kHotkeyCounts56AEC4[currentCategory + currentMode * 4] - 10;
-        static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[3], currentMaximum, current));
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll], currentMaximum, current));
         consumed = 1;
     }
     graphic->imageNo = 0x3B595;
@@ -479,9 +523,10 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const 
 // 原函数：0x004955C0。
 static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         if (std::bit_cast<std::int32_t>(windowState->value14) > 0) {
@@ -498,7 +543,8 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, c
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
         const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
-        static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[3], maximum, current));
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll], maximum, current));
         consumed = 1;
     }
     graphic->imageNo = 0x3B556;
@@ -514,9 +560,10 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, c
 // 原函数：0x00495670。
 static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
@@ -538,7 +585,8 @@ static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t currentMode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t currentMaximum = kHotkeyCounts56AEC4[limitCategory + currentMode * 4] - 10;
-        static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[3], currentMaximum, current));
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowHotkeysElementId::HandleVerticalScroll], currentMaximum, current));
         consumed = 1;
     }
     graphic->imageNo = 0x3B559;
@@ -561,8 +609,9 @@ static std::int32_t WindowHotkeys_Scroll(const std::int32_t index, const std::in
         const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index - 5)]))) { return {}; }
         windowState->value14 = static_cast<std::uint32_t>(
-            WindowScroll_ApplyWheel(&gCurrentWindow->elements[index - 5], position, maximum, wheel));
+            WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index - 5)], position, maximum, wheel));
     }
     return 0;
 }
@@ -570,9 +619,10 @@ static std::int32_t WindowHotkeys_Scroll(const std::int32_t index, const std::in
 // 原函数：0x004957B0。
 static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"显示游戏功能视窗相关热键。" /* 原常量参考：0x00586FA4。 */;
@@ -581,13 +631,18 @@ static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, con
         if (windowState->value10 != 0) {
             windowState->value14 = 0;
             windowState->value10 = 0;
-            WindowElement* const current = gCurrentWindow->elements;
-            const std::int32_t height = current[2].height;
-            const std::int32_t y = current[3].y;
-            current[2].y = y - (height >> 1);
+            auto* currentWindow = gCurrentWindow;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+            const std::int32_t height = (*currentWindow)[WindowHotkeysElementId::Element3]->height;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+            const std::int32_t y = (*currentWindow)[WindowHotkeysElementId::HandleVerticalScroll]->y;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+            (*currentWindow)[WindowHotkeysElementId::Element3]->y = y - (height >> 1);
             for (std::int32_t row = 9; row <= 18; ++row) {
-                gCurrentWindow->elements[row].mouseCallback = &WindowElement_NoOp;
-                gCurrentWindow->elements[row].data.graphic->imageNo = 0x3B59C;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(row)]->mouseCallback = &WindowElement_NoOp;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(row)]->data.graphic->imageNo = 0x3B59C;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -611,9 +666,10 @@ static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, con
 // 原函数：0x004958D0。
 static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"显示画面左上角状态显示相关热键。" /* 原常量参考：0x00586FC0。 */;
@@ -622,13 +678,18 @@ static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, co
         if (windowState->value10 != 1) {
             windowState->value14 = 0;
             windowState->value10 = 1;
-            WindowElement* const current = gCurrentWindow->elements;
-            const std::int32_t height = current[2].height;
-            const std::int32_t y = current[3].y;
-            current[2].y = y - (height >> 1);
+            auto* currentWindow = gCurrentWindow;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+            const std::int32_t height = (*currentWindow)[WindowHotkeysElementId::Element3]->height;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+            const std::int32_t y = (*currentWindow)[WindowHotkeysElementId::HandleVerticalScroll]->y;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+            (*currentWindow)[WindowHotkeysElementId::Element3]->y = y - (height >> 1);
             for (std::int32_t row = 9; row <= 18; ++row) {
-                gCurrentWindow->elements[row].mouseCallback = &WindowElement_NoOp;
-                gCurrentWindow->elements[row].data.graphic->imageNo = 0x3B59C;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(row)]->mouseCallback = &WindowElement_NoOp;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(row)]->data.graphic->imageNo = 0x3B59C;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -652,9 +713,10 @@ static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, co
 // 原函数：0x004959F0。
 static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"显示画面右上角情绪动作相关热键。" /* 原常量参考：0x00586FE4。 */;
@@ -663,13 +725,18 @@ static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, con
         if (windowState->value10 != 2) {
             windowState->value14 = 0;
             windowState->value10 = 2;
-            WindowElement* const current = gCurrentWindow->elements;
-            const std::int32_t height = current[2].height;
-            const std::int32_t y = current[3].y;
-            current[2].y = y - (height >> 1);
+            auto* currentWindow = gCurrentWindow;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+            const std::int32_t height = (*currentWindow)[WindowHotkeysElementId::Element3]->height;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+            const std::int32_t y = (*currentWindow)[WindowHotkeysElementId::HandleVerticalScroll]->y;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+            (*currentWindow)[WindowHotkeysElementId::Element3]->y = y - (height >> 1);
             for (std::int32_t row = 9; row <= 18; ++row) {
-                gCurrentWindow->elements[row].mouseCallback = &WindowElement_NoOp;
-                gCurrentWindow->elements[row].data.graphic->imageNo = 0x3B59C;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(row)]->mouseCallback = &WindowElement_NoOp;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(row)]->data.graphic->imageNo = 0x3B59C;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -693,9 +760,10 @@ static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, con
 // 原函数：0x00495B10。
 static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"登录常用句。" /* 原常量参考：0x00587008。 */;
@@ -704,12 +772,16 @@ static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const 
         if (windowState->value10 != 3) {
             windowState->value14 = 0;
             windowState->value10 = 3;
-            WindowElement* const current = gCurrentWindow->elements;
-            const std::int32_t height = current[2].height;
-            const std::int32_t y = current[3].y;
-            current[2].y = y - (height >> 1);
+            auto* currentWindow = gCurrentWindow;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+            const std::int32_t height = (*currentWindow)[WindowHotkeysElementId::Element3]->height;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::HandleVerticalScroll]))) { return {}; }
+            const std::int32_t y = (*currentWindow)[WindowHotkeysElementId::HandleVerticalScroll]->y;
+            if (!((currentWindow && (*currentWindow)[WindowHotkeysElementId::Element3]))) { return {}; }
+            (*currentWindow)[WindowHotkeysElementId::Element3]->y = y - (height >> 1);
             for (std::int32_t row = 9; row <= 18; ++row) {
-                gCurrentWindow->elements[row].mouseCallback = &WindowHotkeys_EditPresetText;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(row)]->mouseCallback = &WindowHotkeys_EditPresetText;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -733,7 +805,8 @@ static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const 
 // 原函数：0x00495C20。
 static std::int32_t WindowHotkeys_EditPresetText(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t row = std::bit_cast<std::int32_t>(gCurrentWindowState->value14) + index - 9;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
@@ -746,9 +819,11 @@ static std::int32_t WindowHotkeys_EditPresetText(const std::int32_t index, const
         input::SetContext_44B330(&cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20]);
         input::LoadInitialText_44A160(savedText);
         WindowInstance* const window = gCurrentWindow;
-        gFocusedElementDataD45F94 = window->elements[0].data.input;
+        if (!((window && (*window)[WindowHotkeysElementId::Element1]))) { return {}; }
+        gFocusedElementDataD45F94 = (*window)[WindowHotkeysElementId::Element1]->data.input;
         input::InputContext* const selectedContext = &cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20];
-        window->elements[0].data.input->context = selectedContext;
+        if (!((window && (*window)[WindowHotkeysElementId::Element1]))) { return {}; }
+        (*window)[WindowHotkeysElementId::Element1]->data.input->context = selectedContext;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }

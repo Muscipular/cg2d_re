@@ -3,6 +3,31 @@
 #include "../../world/WorldMapState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowTradeTargetElementId : ElementId {
+    Element1 = 1,
+    HandleVerticalScroll = 2,
+    ButtonPreviousRow = 3,
+    ButtonNextRow = 4,
+    ButtonPreviousPage = 5,
+    ButtonNextPage = 6,
+    Scroll = 7,
+    ButtonCancel = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    SelectRow = 15,
+    SelectRow_16 = 16,
+    SelectRow_17 = 17,
+    SelectRow_18 = 18,
+    SelectRow_19 = 19,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -74,26 +99,26 @@ static WindowTextPrototype gWindowText56CDA8 { // 原全局：0x0056CDA8。
 };
 
 static WindowElementPrototype gWindowElements56CDB0[19] { // 原全局：0x0056CDB0。
-    {WindowElementType_Graphic, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56CCF0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56CCF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeTargetElementId::Element1)},
     {WindowElementType_MouseArea, 270, 60, 11, 85, 1,
-        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56CCF0.imageNo)}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56CD08}, &WindowTradeTarget_ButtonPreviousRow},
-    {WindowElementType_Graphic, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56CD20}, &WindowTradeTarget_ButtonNextRow},
-    {WindowElementType_Graphic, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56CD50}, &WindowTradeTarget_ButtonPreviousPage},
-    {WindowElementType_Graphic, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56CD68}, &WindowTradeTarget_ButtonNextPage},
-    {WindowElementType_EventArea, 0, 0, 320, 192, 1, {.unusedValue = 0}, &WindowTradeTarget_Scroll},
-    {WindowElementType_Graphic, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56CD38}, &WindowTradeTarget_ButtonCancel},
-    {WindowElementType_Text, 70, 25, 0, 0, 1, {.text = &gWindowText56CDA8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 55, 0, 0, 1, {.text = &gWindowTexts56CD80[0]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 75, 0, 0, 1, {.text = &gWindowTexts56CD80[1]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 95, 0, 0, 1, {.text = &gWindowTexts56CD80[2]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 115, 0, 0, 1, {.text = &gWindowTexts56CD80[3]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 135, 0, 0, 1, {.text = &gWindowTexts56CD80[4]}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 40, 55, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 75, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 95, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 115, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 135, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow},
+        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56CCF0.imageNo)}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowTradeTargetElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56CD08}, &WindowTradeTarget_ButtonPreviousRow, -1, static_cast<ElementId>(WindowTradeTargetElementId::ButtonPreviousRow)},
+    {WindowElementType_Graphic, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56CD20}, &WindowTradeTarget_ButtonNextRow, -1, static_cast<ElementId>(WindowTradeTargetElementId::ButtonNextRow)},
+    {WindowElementType_Graphic, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56CD50}, &WindowTradeTarget_ButtonPreviousPage, -1, static_cast<ElementId>(WindowTradeTargetElementId::ButtonPreviousPage)},
+    {WindowElementType_Graphic, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56CD68}, &WindowTradeTarget_ButtonNextPage, -1, static_cast<ElementId>(WindowTradeTargetElementId::ButtonNextPage)},
+    {WindowElementType_EventArea, 0, 0, 320, 192, 1, {.unusedValue = 0}, &WindowTradeTarget_Scroll, -1, static_cast<ElementId>(WindowTradeTargetElementId::Scroll)},
+    {WindowElementType_Graphic, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56CD38}, &WindowTradeTarget_ButtonCancel, -1, static_cast<ElementId>(WindowTradeTargetElementId::ButtonCancel)},
+    {WindowElementType_Text, 70, 25, 0, 0, 1, {.text = &gWindowText56CDA8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeTargetElementId::Element9)},
+    {WindowElementType_Text, 40, 55, 0, 0, 1, {.text = &gWindowTexts56CD80[0]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeTargetElementId::Element10)},
+    {WindowElementType_Text, 40, 75, 0, 0, 1, {.text = &gWindowTexts56CD80[1]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeTargetElementId::Element11)},
+    {WindowElementType_Text, 40, 95, 0, 0, 1, {.text = &gWindowTexts56CD80[2]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeTargetElementId::Element12)},
+    {WindowElementType_Text, 40, 115, 0, 0, 1, {.text = &gWindowTexts56CD80[3]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeTargetElementId::Element13)},
+    {WindowElementType_Text, 40, 135, 0, 0, 1, {.text = &gWindowTexts56CD80[4]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTradeTargetElementId::Element14)},
+    {WindowElementType_EventArea, 40, 55, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow, -1, static_cast<ElementId>(WindowTradeTargetElementId::SelectRow)},
+    {WindowElementType_EventArea, 40, 75, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow, -1, static_cast<ElementId>(WindowTradeTargetElementId::SelectRow_16)},
+    {WindowElementType_EventArea, 40, 95, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow, -1, static_cast<ElementId>(WindowTradeTargetElementId::SelectRow_17)},
+    {WindowElementType_EventArea, 40, 115, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow, -1, static_cast<ElementId>(WindowTradeTargetElementId::SelectRow_18)},
+    {WindowElementType_EventArea, 40, 135, 200, 13, 1, {.unusedValue = 0}, &WindowTradeTarget_SelectRow, -1, static_cast<ElementId>(WindowTradeTargetElementId::SelectRow_19)},
 };
 
 // 原型：窗口44；原全局：0x0054E8D0。
@@ -134,7 +159,8 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
 static void WindowTradeTarget_Refresh(const std::int32_t offset)
 {
     for (std::int32_t line = 0; line < 5; ++line) {
-        auto* const data = gCurrentWindow->elements[9 + line].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(9 + line)]))) { continue; }
+        auto* const data = (*gCurrentWindow)[NativeElementKey(9 + line)]->data.text;
         data->text = gWindowListNamesCF3F20[offset + line];
     }
 }
@@ -146,7 +172,7 @@ static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
         const std::int32_t visible = gWindowListCountCF46A8 > 5 ? 1 : 0;
         gWindowListOffsetCC3EF4 = 0;
         for (std::int32_t index = 0; index < 6; ++index) {
-            gCurrentWindow->elements[index].visible = visible;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = visible;
         }
         WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
     }
@@ -160,14 +186,16 @@ static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 // 原函数：0x0049EAA0。
 static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 {
-    gCurrentWindow->elements[0].visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeTargetElementId::Element1])) (*gCurrentWindow)[WindowTradeTargetElementId::Element1]->visible = 1;
     if (gWindowListCountCF46A8 - 5 <= 0) {
-        gCurrentWindow->elements[0].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTradeTargetElementId::Element1])) (*gCurrentWindow)[WindowTradeTargetElementId::Element1]->visible = 0;
     }
-    WindowElement* const elements = gCurrentWindow->elements;
-    const auto* const mouse = elements[1].data.mouse;
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowTradeTargetElementId::HandleVerticalScroll]))) { return {}; }
+    const auto* const mouse = (*elementsWindow)[WindowTradeTargetElementId::HandleVerticalScroll]->data.mouse;
     if ((mouse->flags & 1u) != 0) {
-        gWindowListOffsetCC3EF4 = WindowScroll_ReadPosition(elements + 1, gWindowListCountCF46A8 - 5);
+        if (!((elementsWindow && (*elementsWindow)[WindowTradeTargetElementId::HandleVerticalScroll]))) { return {}; }
+        gWindowListOffsetCC3EF4 = WindowScroll_ReadPosition((*elementsWindow)[WindowTradeTargetElementId::HandleVerticalScroll], gWindowListCountCF46A8 - 5);
         WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
     }
     WindowRuntime_DrawCurrent();
@@ -186,7 +214,8 @@ static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
 // 原函数：0x0049EB50。
 static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 0x400) != 0) {
         if (gWindowListOffsetCC3EF4 > 0) {
@@ -198,7 +227,8 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index
         const std::int32_t position = gWindowListOffsetCC3EF4;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-        static_cast<void>(WindowScroll_SetPosition(window->elements + index - 1, maximum, position));
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
         WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
         result = 1;
     }
@@ -215,7 +245,8 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index
 // 原函数：0x0049EC00。
 static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 0x400) != 0) {
         if (gWindowListOffsetCC3EF4 < gWindowListCountCF46A8 - 5) {
@@ -226,7 +257,8 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, co
         }
         const std::int32_t position = gWindowListOffsetCC3EF4;
         const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 2, maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, position));
         WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
         result = 1;
     }
@@ -243,7 +275,8 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, co
 // 原函数：0x0049ECC0。
 static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gWindowListOffsetCC3EF4 > 0 ? 51 : 55, 320));
@@ -253,7 +286,8 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t inde
         }
         const std::int32_t position = gWindowListOffsetCC3EF4;
         const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 3, maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
         WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
         result = 1;
     }
@@ -270,7 +304,8 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t inde
 // 原函数：0x0049ED80。
 static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 2) != 0) {
         const std::int32_t oldMaximum = gWindowListCountCF46A8 - 5;
@@ -287,7 +322,8 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, c
             position = 0;
             gWindowListOffsetCC3EF4 = position;
         }
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 4, maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
         WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
         result = 1;
     }
@@ -308,8 +344,9 @@ static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std
         const std::int32_t count = gWindowListCountCF46A8;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindowListOffsetCC3EF4;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
         gWindowListOffsetCC3EF4 =
-            WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, position, count - 5, wheel);
+            WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 5, wheel);
     }
     return 0;
 }
@@ -318,7 +355,8 @@ static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std
 static std::int32_t WindowTradeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"中止。";
@@ -346,7 +384,8 @@ static std::int32_t WindowTradeTarget_SelectRow(const std::int32_t index, const 
     }
     if ((state & 1) != 0) {
         const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-        WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, imageNo);
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        WindowElement_DrawHoverFrame((*gCurrentWindow)[NativeElementKey(index)], state, imageNo);
     }
     if ((state & 2) == 0) {
         return 0;

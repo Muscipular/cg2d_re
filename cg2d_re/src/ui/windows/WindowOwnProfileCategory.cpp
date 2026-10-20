@@ -1,6 +1,44 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowOwnProfileCategoryElementId : ElementId {
+    ButtonClose = 1,
+    Element2 = 2,
+    DragScroll = 3,
+    HandleScrollButtons = 4,
+    HandleScrollButtons_5 = 5,
+    Element6 = 6,
+    HandleScrollButtons_7 = 7,
+    HandleScrollButtons_8 = 8,
+    Scroll = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    SelectCategory = 20,
+    SelectCategory_21 = 21,
+    SelectCategory_22 = 22,
+    SelectCategory_23 = 23,
+    SelectCategory_24 = 24,
+    SelectCategory_25 = 25,
+    SelectCategory_26 = 26,
+    SelectCategory_27 = 27,
+    SelectCategory_28 = 28,
+    SelectCategory_29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    HandleSideArea = 32,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -53,38 +91,38 @@ static WindowTextPrototype gWindowText577290 { // 原全局：0x00577290。
 static std::uint32_t gWindowMouseFlagsD67930 = 0; // 原全局：0x00D67930。
 
 static WindowElementPrototype gWindowElements577298[32] { // 原全局：0x00577298。
-    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic577170}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic5771E8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD67930}, &WindowOwnProfileCategory_DragScroll},
-    {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic577200}, &WindowOwnProfileCategory_HandleScrollButtons},
-    {WindowElementType_Graphic, 206, 174, 11, 11, 1, {.graphic = &gWindowGraphic577218}, &WindowOwnProfileCategory_HandleScrollButtons},
-    {WindowElementType_Graphic, 89, 7, 0, 0, 1, {.graphic = &gWindowGraphic577278}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 40, 189, 20, 20, 1, {.graphic = &gWindowGraphic577248}, &WindowOwnProfileCategory_HandleScrollButtons},
-    {WindowElementType_Graphic, 170, 189, 20, 20, 1, {.graphic = &gWindowGraphic577260}, &WindowOwnProfileCategory_HandleScrollButtons},
-    {WindowElementType_EventArea, 0, 0, 225, 220, 1, {.unusedValue = 0}, &WindowOwnProfileCategory_Scroll},
-    {WindowElementType_Text, 20, 30, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 46, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 62, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 78, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 94, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 110, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 126, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 142, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 158, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 174, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 28, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 44, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 60, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 76, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 92, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 108, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 124, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 140, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 156, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic577188}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5771A0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 225, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic577170}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::ButtonClose)},
+    {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic5771E8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element2)},
+    {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD67930}, &WindowOwnProfileCategory_DragScroll, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::DragScroll)},
+    {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic577200}, &WindowOwnProfileCategory_HandleScrollButtons, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::HandleScrollButtons)},
+    {WindowElementType_Graphic, 206, 174, 11, 11, 1, {.graphic = &gWindowGraphic577218}, &WindowOwnProfileCategory_HandleScrollButtons, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::HandleScrollButtons_5)},
+    {WindowElementType_Graphic, 89, 7, 0, 0, 1, {.graphic = &gWindowGraphic577278}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element6)},
+    {WindowElementType_Graphic, 40, 189, 20, 20, 1, {.graphic = &gWindowGraphic577248}, &WindowOwnProfileCategory_HandleScrollButtons, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::HandleScrollButtons_7)},
+    {WindowElementType_Graphic, 170, 189, 20, 20, 1, {.graphic = &gWindowGraphic577260}, &WindowOwnProfileCategory_HandleScrollButtons, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::HandleScrollButtons_8)},
+    {WindowElementType_EventArea, 0, 0, 225, 220, 1, {.unusedValue = 0}, &WindowOwnProfileCategory_Scroll, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Scroll)},
+    {WindowElementType_Text, 20, 30, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element10)},
+    {WindowElementType_Text, 20, 46, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element11)},
+    {WindowElementType_Text, 20, 62, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element12)},
+    {WindowElementType_Text, 20, 78, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element13)},
+    {WindowElementType_Text, 20, 94, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element14)},
+    {WindowElementType_Text, 20, 110, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element15)},
+    {WindowElementType_Text, 20, 126, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element16)},
+    {WindowElementType_Text, 20, 142, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element17)},
+    {WindowElementType_Text, 20, 158, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element18)},
+    {WindowElementType_Text, 20, 174, 0, 0, 1, {.text = &gWindowText577290}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element19)},
+    {WindowElementType_Graphic, 15, 28, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory)},
+    {WindowElementType_Graphic, 15, 44, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_21)},
+    {WindowElementType_Graphic, 15, 60, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_22)},
+    {WindowElementType_Graphic, 15, 76, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_23)},
+    {WindowElementType_Graphic, 15, 92, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_24)},
+    {WindowElementType_Graphic, 15, 108, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_25)},
+    {WindowElementType_Graphic, 15, 124, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_26)},
+    {WindowElementType_Graphic, 15, 140, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_27)},
+    {WindowElementType_Graphic, 15, 156, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_28)},
+    {WindowElementType_Graphic, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &WindowOwnProfileCategory_SelectCategory, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::SelectCategory_29)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic577188}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element30)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5771A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::Element31)},
+    {WindowElementType_EventArea, 225, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowOwnProfileCategoryElementId::HandleSideArea)},
 };
 
 // 原型：窗口59；原全局：0x0054ED60。
@@ -103,13 +141,14 @@ static void WindowOwnProfileCategory_Refresh()
     case 2: image = 0x3C385; break;
     default: return;
     }
-    gCurrentWindow->elements[5].data.graphic->imageNo = image;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileCategoryElementId::Element6])) (*gCurrentWindow)[WindowOwnProfileCategoryElementId::Element6]->data.graphic->imageNo = image;
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t page = gProfileScrollCA0444;
         const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + row);
         const wchar_t* const source =
             record.used != 0 ? record.text0C.data() : L"";
-        auto* const data = gCurrentWindow->elements[row + 9].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)]))) { continue; }
+        auto* const data = (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text;
         data->text = source;
     }
 }
@@ -139,10 +178,10 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         case 2: gHoverTextD68AE8 = L"设定描述的目录" /* 原常量参考：0x00588514。 */; break;
         default: break;
         }
-        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB04;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
-        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB02;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB02;
     }
 
     const std::int32_t selectedMode = gProfileCategory1085DA0;
@@ -151,7 +190,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         const std::int32_t selected =
             world::detail::gCurrentProfile10738E8.entries410[selectedMode].value00;
         if (selected == page + index - 19) {
-            gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB03;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB03;
         }
     }
     if ((state & 2) == 0) {
@@ -180,7 +219,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
-        gCurrentWindow->elements[index].data.graphic->imageNo = image;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
     };
     switch (index) {
     case 3: {
@@ -217,7 +256,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
                 count = world::detail::ReadCategoryCount105FA18();
                 window = gCurrentWindow;
             }
-            static_cast<void>(WindowScroll_SetPosition(window->elements + 2, count - 10, position));
+            if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], count - 10, position));
         }
         return 1;
     }
@@ -253,7 +293,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
                 ? world::detail::ReadCategoryCount105FA1C()
                 : world::detail::ReadCategoryCount105FA18();
             WindowInstance* const window = gCurrentWindow;
-            static_cast<void>(WindowScroll_SetPosition(window->elements + 2, currentCount - 10, position));
+            if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], currentCount - 10, position));
         }
         return 1;
     }
@@ -272,7 +313,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
                     ? world::detail::ReadCategoryCount105FA1C()
                     : world::detail::ReadCategoryCount105FA18();
                 WindowInstance* const window = gCurrentWindow;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + 2, count - 10, page));
+                if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], count - 10, page));
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -300,7 +342,8 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
                     ? world::detail::ReadCategoryCount105FA1C()
                     : world::detail::ReadCategoryCount105FA18();
                 WindowInstance* const window = gCurrentWindow;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + 2, currentCount - 10, position));
+                if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], currentCount - 10, position));
             }
             consumed = 1;
         }
@@ -325,7 +368,8 @@ static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index
                 ? world::detail::ReadCategoryCount105FA1C()
                 : world::detail::ReadCategoryCount105FA18();
             WindowInstance* const window = gCurrentWindow;
-            gProfileScrollCA0444 = WindowScroll_ReadPosition(window->elements + 2, count - 10);
+            if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
+            gProfileScrollCA0444 = WindowScroll_ReadPosition((*window)[WindowOwnProfileCategoryElementId::DragScroll], count - 10);
         }
     }
     return result;
@@ -343,7 +387,8 @@ static std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const st
                 : world::detail::ReadCategoryCount105FA18();
             const std::int32_t page = gProfileScrollCA0444;
             WindowInstance* const window = gCurrentWindow;
-            gProfileScrollCA0444 = WindowScroll_ApplyWheel(window->elements + 2, page, count - 10, wheel);
+            if (!((window && (*window)[WindowOwnProfileCategoryElementId::DragScroll]))) { return {}; }
+            gProfileScrollCA0444 = WindowScroll_ApplyWheel((*window)[WindowOwnProfileCategoryElementId::DragScroll], page, count - 10, wheel);
         }
     }
     return 0;

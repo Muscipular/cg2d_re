@@ -7,6 +7,33 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowMailReadElementId : ElementId {
+    ButtonClose = 1,
+    ButtonReply = 2,
+    ButtonPrevious = 3,
+    ButtonNext = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    HandleAvatar = 19,
+    Element20 = 20,
+    HandleSideArea = 21,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -66,27 +93,27 @@ static WindowTextPrototype gWindowText56FD60 {{std::byte{0}, std::byte{12}, std:
 static WindowTextPrototype gWindowText56FD68 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"00/00 00:00"}; // 原全局：0x0056FD68。 // 原常量参考：0x00585EB0。
 
 static WindowElementPrototype gWindowElements56FD70[21] { // 原全局：0x0056FD70。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic56FCC0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 154, 27, 49, 17, 1, {.graphic = &gWindowGraphic56FCA8}, &WindowMailRead_ButtonReply},
-    {WindowElementType_Graphic, 15, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCD8}, &WindowMailRead_ButtonPrevious},
-    {WindowElementType_Graphic, 77, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCF0}, &WindowMailRead_ButtonNext},
-    {WindowElementType_Text, 25, 52, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 64, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 76, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 88, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 100, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 112, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 124, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 136, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 148, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 160, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 35, 183, 0, 0, 1, {.text = &gWindowText56FD58}, &WindowElement_NoOp},
-    {WindowElementType_Text, 18, 30, 0, 0, 1, {.text = &gWindowText56FD60}, &WindowElement_NoOp},
-    {WindowElementType_Text, 115, 180, 0, 0, 1, {.text = &gWindowText56FD68}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 45, 0, 0, 1, {.graphic = &gWindowGraphic56FD08}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 230, 210, 1, {.graphic = &gWindowGraphic56FD20}, &WindowMailRead_HandleAvatar},
-    {WindowElementType_Graphic, 13, 25, 0, 0, 1, {.graphic = &gWindowGraphic56FD38}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic56FCC0}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowMailReadElementId::ButtonClose)},
+    {WindowElementType_Graphic, 154, 27, 49, 17, 1, {.graphic = &gWindowGraphic56FCA8}, &WindowMailRead_ButtonReply, -1, static_cast<ElementId>(WindowMailReadElementId::ButtonReply)},
+    {WindowElementType_Graphic, 15, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCD8}, &WindowMailRead_ButtonPrevious, -1, static_cast<ElementId>(WindowMailReadElementId::ButtonPrevious)},
+    {WindowElementType_Graphic, 77, 180, 18, 18, 1, {.graphic = &gWindowGraphic56FCF0}, &WindowMailRead_ButtonNext, -1, static_cast<ElementId>(WindowMailReadElementId::ButtonNext)},
+    {WindowElementType_Text, 25, 52, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element5)},
+    {WindowElementType_Text, 25, 64, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element6)},
+    {WindowElementType_Text, 25, 76, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element7)},
+    {WindowElementType_Text, 25, 88, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element8)},
+    {WindowElementType_Text, 25, 100, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element9)},
+    {WindowElementType_Text, 25, 112, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element10)},
+    {WindowElementType_Text, 25, 124, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element11)},
+    {WindowElementType_Text, 25, 136, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element12)},
+    {WindowElementType_Text, 25, 148, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element13)},
+    {WindowElementType_Text, 25, 160, 0, 0, 1, {.text = &gWindowText56FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element14)},
+    {WindowElementType_Text, 35, 183, 0, 0, 1, {.text = &gWindowText56FD58}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element15)},
+    {WindowElementType_Text, 18, 30, 0, 0, 1, {.text = &gWindowText56FD60}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element16)},
+    {WindowElementType_Text, 115, 180, 0, 0, 1, {.text = &gWindowText56FD68}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element17)},
+    {WindowElementType_Graphic, 16, 45, 0, 0, 1, {.graphic = &gWindowGraphic56FD08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element18)},
+    {WindowElementType_Graphic, 0, 0, 230, 210, 1, {.graphic = &gWindowGraphic56FD20}, &WindowMailRead_HandleAvatar, -1, static_cast<ElementId>(WindowMailReadElementId::HandleAvatar)},
+    {WindowElementType_Graphic, 13, 25, 0, 0, 1, {.graphic = &gWindowGraphic56FD38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMailReadElementId::Element20)},
+    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowMailReadElementId::HandleSideArea)},
 };
 
 // 原型：窗口40；原全局：0x0054E9F0。
@@ -118,7 +145,8 @@ static std::int32_t WindowMailRead_Draw(const std::int32_t)
 // 原函数：0x004A4660。
 static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B556;
     if ((state & 1) != 0) {
@@ -145,7 +173,8 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
 // 原函数：0x004A4710。
 static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B559;
     if ((state & 1) != 0) {
@@ -172,7 +201,8 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
 // 原函数：0x004A47C0。
 static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = kReplyMailHint587730;
@@ -291,10 +321,12 @@ static std::uint32_t WindowMailRead_Refresh()
         return cg::world::GetMiniMailMessage10763A0(contact, page);
     };
     if (category == 1 && mailSlot == -1) {
-        auto* const time = gCurrentWindow->elements[16].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailReadElementId::Element17]))) { return {}; }
+        auto* const time = (*gCurrentWindow)[WindowMailReadElementId::Element17]->data.text;
         time->text = L"";
         for (std::int32_t row = 0; row < 10; ++row) {
-            auto* const line = gCurrentWindow->elements[row + 4].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)]))) { continue; }
+            auto* const line = (*gCurrentWindow)[NativeElementKey(row + 4)]->data.text;
             line->text = L"";
         }
     } else {
@@ -302,15 +334,18 @@ static std::uint32_t WindowMailRead_Refresh()
         *message.unread00 = std::byte{0};
         cg::text::FormatTo(buffer, L"{}", message.text02);
         const std::size_t slash = buffer.find(L'/');
-        auto* const time = gCurrentWindow->elements[16].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailReadElementId::Element17]))) { return {}; }
+        auto* const time = (*gCurrentWindow)[WindowMailReadElementId::Element17]->data.text;
         time->text = slash != std::wstring::npos ? buffer.substr(slash + 1) : L"";
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::byte kind = *readCurrentMessage().kind01;
-            auto* const color = gCurrentWindow->elements[row + 4].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)]))) { continue; }
+            auto* const color = (*gCurrentWindow)[NativeElementKey(row + 4)]->data.text;
             color->style.color = kind == std::byte{0} ? std::byte{4} : std::byte{0};
             const wchar_t* const text = readCurrentMessage().text14;
             static_cast<void>(input::ExtractTextLine(buffer, text, row, 28));
-            auto* const line = gCurrentWindow->elements[row + 4].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)]))) { continue; }
+            auto* const line = (*gCurrentWindow)[NativeElementKey(row + 4)]->data.text;
             line->text = buffer;
         }
     }
@@ -323,11 +358,13 @@ static std::uint32_t WindowMailRead_Refresh()
             : cg::world::detail::ReadMiniMailContact1075A90(contact).name10.data();
     }
     cg::text::FormatTo(buffer, L"{}", name);
-    auto* const nameData = gCurrentWindow->elements[15].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailReadElementId::Element16]))) { return {}; }
+    auto* const nameData = (*gCurrentWindow)[WindowMailReadElementId::Element16]->data.text;
     nameData->text = buffer;
     const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4 + 1;
     cg::text::FormatTo(buffer, L"{:2}/{:2}", page, 10);
-    auto* const pageData = gCurrentWindow->elements[14].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowMailReadElementId::Element15]))) { return {}; }
+    auto* const pageData = (*gCurrentWindow)[WindowMailReadElementId::Element15]->data.text;
     const std::uint32_t length = static_cast<std::uint32_t>(buffer.size() + 1);
     pageData->text = buffer;
     return length;

@@ -9,6 +9,27 @@
 #include "../../world/WorldMapState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowGatherElementId : ElementId {
+    ButtonClose = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    DrawResultImage = 11,
+    ButtonContinue = 12,
+    ButtonClose_13 = 13,
+    Element14 = 14,
+    HandleSideArea = 15,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -103,21 +124,21 @@ static std::int32_t gWindowAnimationImage562618 = 0x1AF16; // 原全局：0x0056
 static std::int32_t gWindowAnimationImage56261C = 0x1AF16; // 原全局：0x0056261C。
 
 static WindowElementPrototype gWindowElements562620[15] { // 原全局：0x00562620。
-    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic562568}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage562618}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 27, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 41, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 55, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 69, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 43, 0, 0, 1, {.graphic = &gWindowGraphic562598}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 40, 0, 0, 1, {.graphic = &gWindowGraphic5625F8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 143, 29, 0, 0, 1, {.unusedValue = 0}, &WindowGather_DrawResultImage},
-    {WindowElementType_Graphic, 29, 203, 49, 17, 1, {.graphic = &gWindowGraphic5625C8}, &WindowGather_ButtonContinue},
-    {WindowElementType_Graphic, 129, 203, 49, 17, 1, {.graphic = &gWindowGraphic5625E0}, &WindowGather_ButtonClose},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic562580}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 201, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 178, 9, 11, 11, 1, {.graphic = &gWindowGraphic562568}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowGatherElementId::ButtonClose)},
+    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element2)},
+    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage562618}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element3)},
+    {WindowElementType_Animation, 107, 204, 0, 0, 0, {.animationImageNo = &gWindowAnimationImage56261C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element4)},
+    {WindowElementType_Text, 16, 27, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element5)},
+    {WindowElementType_Text, 16, 41, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element6)},
+    {WindowElementType_Text, 16, 55, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element7)},
+    {WindowElementType_Text, 16, 69, 0, 0, 1, {.text = &gWindowText562610}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element8)},
+    {WindowElementType_Graphic, 16, 43, 0, 0, 1, {.graphic = &gWindowGraphic562598}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element9)},
+    {WindowElementType_Graphic, 15, 40, 0, 0, 1, {.graphic = &gWindowGraphic5625F8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element10)},
+    {WindowElementType_EventArea, 143, 29, 0, 0, 1, {.unusedValue = 0}, &WindowGather_DrawResultImage, -1, static_cast<ElementId>(WindowGatherElementId::DrawResultImage)},
+    {WindowElementType_Graphic, 29, 203, 49, 17, 1, {.graphic = &gWindowGraphic5625C8}, &WindowGather_ButtonContinue, -1, static_cast<ElementId>(WindowGatherElementId::ButtonContinue)},
+    {WindowElementType_Graphic, 129, 203, 49, 17, 1, {.graphic = &gWindowGraphic5625E0}, &WindowGather_ButtonClose, -1, static_cast<ElementId>(WindowGatherElementId::ButtonClose_13)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic562580}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGatherElementId::Element14)},
+    {WindowElementType_EventArea, 201, 5, 18, 79, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowGatherElementId::HandleSideArea)},
 };
 
 // 原型：窗口12；原全局：0x0054E480。
@@ -230,16 +251,17 @@ static WindowAnimationData* WindowGather_Cancel(WindowInstance* const window)
     }
     gWindow12ModeCC3E80 = 0;
     for (std::int32_t index = 4; index <= 7; ++index) {
-        window->elements[index].data.text->text = L"";
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->data.text->text = L"";
     }
     for (std::int32_t index = 4; index <= 10; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
-    window->elements[11].visible = 1;
-    window->elements[12].visible = 1;
+    if ((window && (*window)[WindowGatherElementId::ButtonContinue])) (*window)[WindowGatherElementId::ButtonContinue]->visible = 1;
+    if ((window && (*window)[WindowGatherElementId::ButtonClose_13])) (*window)[WindowGatherElementId::ButtonClose_13]->visible = 1;
+    if (!((window && (*window)[WindowGatherElementId::Element3]))) { return {}; }
     cg::yobi::SetYobiActionField2B0(
-        window->elements[2].data.animation->action, 0);
-    window->elements[2].data.animation->value04 = 0;
+        (*window)[WindowGatherElementId::Element3]->data.animation->action, 0);
+    if ((window && (*window)[WindowGatherElementId::Element3])) (*window)[WindowGatherElementId::Element3]->data.animation->value04 = 0;
     gWindow12ValueCF3FF0 = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -264,19 +286,20 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
         gSkillPetImageCB0A18 = imageNo;
     }
     for (std::int32_t index = 4; index <= 7; ++index) {
-        window->elements[index].data.text->text = L"";
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->data.text->text = L"";
     }
     for (std::int32_t index = 4; index <= 7; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
-    window->elements[8].visible = 1;
-    window->elements[9].visible = 0;
-    window->elements[10].visible = 0;
-    window->elements[11].visible = 0;
-    window->elements[12].visible = 1;
+    if ((window && (*window)[WindowGatherElementId::Element9])) (*window)[WindowGatherElementId::Element9]->visible = 1;
+    if ((window && (*window)[WindowGatherElementId::Element10])) (*window)[WindowGatherElementId::Element10]->visible = 0;
+    if ((window && (*window)[WindowGatherElementId::DrawResultImage])) (*window)[WindowGatherElementId::DrawResultImage]->visible = 0;
+    if ((window && (*window)[WindowGatherElementId::ButtonContinue])) (*window)[WindowGatherElementId::ButtonContinue]->visible = 0;
+    if ((window && (*window)[WindowGatherElementId::ButtonClose_13])) (*window)[WindowGatherElementId::ButtonClose_13]->visible = 1;
+    if (!((window && (*window)[WindowGatherElementId::Element3]))) { return {}; }
     cg::yobi::SetYobiActionField2B0(
-        window->elements[2].data.animation->action, 0);
-    window->elements[2].data.animation->value04 = 0;
+        (*window)[WindowGatherElementId::Element3]->data.animation->action, 0);
+    if ((window && (*window)[WindowGatherElementId::Element3])) (*window)[WindowGatherElementId::Element3]->data.animation->value04 = 0;
     gWindow12ValueCF3FF0 = -1;
     gWindow12FlagCC4D27 = 0;
     const std::uint64_t tick = platform::ReadTickCount64();
@@ -312,32 +335,35 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
         mode = gWindow12ModeCC3E80;
     }
     gWindow12ModeCC3E80 = mode == 0 ? 4 : 3;
-    window->elements[4].visible = 1;
-    window->elements[5].visible = 1;
-    window->elements[6].visible = 1;
-    window->elements[7].visible = 1;
-    window->elements[8].visible = 0;
-    window->elements[9].visible = 1;
-    window->elements[10].visible = 1;
-    window->elements[11].visible = 0;
-    window->elements[12].visible = 1;
+    if ((window && (*window)[WindowGatherElementId::Element5])) (*window)[WindowGatherElementId::Element5]->visible = 1;
+    if ((window && (*window)[WindowGatherElementId::Element6])) (*window)[WindowGatherElementId::Element6]->visible = 1;
+    if ((window && (*window)[WindowGatherElementId::Element7])) (*window)[WindowGatherElementId::Element7]->visible = 1;
+    if ((window && (*window)[WindowGatherElementId::Element8])) (*window)[WindowGatherElementId::Element8]->visible = 1;
+    if ((window && (*window)[WindowGatherElementId::Element9])) (*window)[WindowGatherElementId::Element9]->visible = 0;
+    if ((window && (*window)[WindowGatherElementId::Element10])) (*window)[WindowGatherElementId::Element10]->visible = 1;
+    if ((window && (*window)[WindowGatherElementId::DrawResultImage])) (*window)[WindowGatherElementId::DrawResultImage]->visible = 1;
+    if ((window && (*window)[WindowGatherElementId::ButtonContinue])) (*window)[WindowGatherElementId::ButtonContinue]->visible = 0;
+    if ((window && (*window)[WindowGatherElementId::ButtonClose_13])) (*window)[WindowGatherElementId::ButtonClose_13]->visible = 1;
     if (gWindow12ResultD2D820 != 0) {
-        window->elements[4].data.text->text = gWindow12NameD2DA94;
-        window->elements[5].data.text->text = L"　发现了。" /* 原常量参考：0x005869D4。 */;
+        if ((window && (*window)[WindowGatherElementId::Element5])) (*window)[WindowGatherElementId::Element5]->data.text->text = gWindow12NameD2DA94;
+        if ((window && (*window)[WindowGatherElementId::Element6])) (*window)[WindowGatherElementId::Element6]->data.text->text = L"　发现了。" /* 原常量参考：0x005869D4。 */;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
-        window->elements[4].data.text->text = L"什么都没发现。" /* 原常量参考：0x005869C4。 */;
-        window->elements[5].data.text->text = L"";
+        if ((window && (*window)[WindowGatherElementId::Element5])) (*window)[WindowGatherElementId::Element5]->data.text->text = L"什么都没发现。" /* 原常量参考：0x005869C4。 */;
+        if ((window && (*window)[WindowGatherElementId::Element6])) (*window)[WindowGatherElementId::Element6]->data.text->text = L"";
         static_cast<void>(audio::PlaySe_52C450(58, 320));
         gWindow12ValueCF3FF0 = -1;
     }
     if (gWindow12LevelUpC9C0FC != 0) {
-        (window->elements[6].data.text->text = kCraftLevelUp58661C);
+        if (!((window && (*window)[WindowGatherElementId::Element7]))) { return {}; }
+        ((*window)[WindowGatherElementId::Element7]->data.text->text = kCraftLevelUp58661C);
     } else {
-        auto* const data = window->elements[6].data.text;
+        if (!((window && (*window)[WindowGatherElementId::Element7]))) { return {}; }
+        auto* const data = (*window)[WindowGatherElementId::Element7]->data.text;
         cg::text::FormatTo(data->text, kCraftExperience58660C, gWindow12ExperienceD2DFCC);
     }
-    std::wstring& increments = window->elements[7].data.text->text;
+    if (!((window && (*window)[WindowGatherElementId::Element8]))) { return {}; }
+    std::wstring& increments = (*window)[WindowGatherElementId::Element8]->data.text->text;
     increments.clear();
     if (gWindow12EnduranceCB0358 != 0) {
         increments.append(std::format(kCraftEndurance586600, gWindow12EnduranceCB0358));
@@ -348,23 +374,26 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
     if (gWindow12IntelligenceCC4B60 != 0) {
         increments.append(std::format(kCraftIntelligence5865E8, gWindow12IntelligenceCC4B60));
     }
-    window->elements[2].data.animation->value04 = 1;
+    if ((window && (*window)[WindowGatherElementId::Element3])) (*window)[WindowGatherElementId::Element3]->data.animation->value04 = 1;
     const bool succeeded = gWindow12ResultD2D820 != 0;
     const std::int32_t defaultAction = succeeded ? 5 : 10;
     const std::int32_t alternateAction = succeeded ? 18 : 15;
+    if (!((window && (*window)[WindowGatherElementId::Element3]))) { return {}; }
     cg::yobi::SetYobiActionField2B0(
-        window->elements[2].data.animation->action, defaultAction);
+        (*window)[WindowGatherElementId::Element3]->data.animation->action, defaultAction);
     std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
+            if (!((window && (*window)[WindowGatherElementId::Element3]))) { continue; }
             cg::yobi::SetYobiActionField2B0(
-                window->elements[2].data.animation->action, alternateAction);
+                (*window)[WindowGatherElementId::Element3]->data.animation->action, alternateAction);
             imageNo = world::gPlayerRuntimeSlots.imageNo;
         }
     }
     if (imageNo == 0x18A26) {
+        if (!((window && (*window)[WindowGatherElementId::Element3]))) { return {}; }
         cg::yobi::SetYobiActionField2B0(
-            window->elements[2].data.animation->action, defaultAction);
+            (*window)[WindowGatherElementId::Element3]->data.animation->action, defaultAction);
     }
     gWindow12FlagCC4D27 = 0;
     const std::uint64_t tick = platform::ReadTickCount64();
@@ -456,10 +485,12 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
     const std::int32_t kind = std::bit_cast<std::int8_t>(gWindow12KindD046CC);
     const std::int32_t offset = kind == 0 ? -2 : kind == 1 ? -1 : kind == 3 ? 1 : 0;
     const std::int32_t previewImage = WindowSkillResult_ReadPreviewImage(mapped, offset);
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
     cg::yobi::SetYobiActionField2A8(
-        gCurrentWindow->elements[2].data.animation->action, previewImage);
+        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action, previewImage);
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
     cg::yobi::SetYobiActionField2B8(
-        gCurrentWindow->elements[2].data.animation->action, 5);
+        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action, 5);
     std::uint8_t mode;
     if (gSkillSendModeC8A970 != 0) {
         const std::int32_t imageNo = WindowSkill_CanUseSpecialSkill() != 0 ? gSkillPetImageCB0A18 : 0;
@@ -480,34 +511,39 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
             std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
             for (const auto& range : kCraftAlternateActionImages) {
                 if (imageNo >= range[0] && imageNo <= range[1]) {
+                    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { continue; }
                     cg::yobi::SetYobiActionField2B0(
-                        gCurrentWindow->elements[2].data.animation->action, 16);
+                        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action, 16);
                     imageNo = world::gPlayerRuntimeSlots.imageNo;
                 }
             }
             if (imageNo == 0x18A26) {
+                if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return; }
                 cg::yobi::SetYobiActionField2B0(
-                    gCurrentWindow->elements[2].data.animation->action, 6);
+                    (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action, 6);
             }
         };
         switch (std::bit_cast<std::int8_t>(gWindow12KindD046CC)) {
             case 0:
             case 1:
                 if (gWindow12FlagCC4D27 == 0) {
+                    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
                     cg::yobi::SetYobiActionField2B0(
-                        gCurrentWindow->elements[2].data.animation->action, 1);
-                    gCurrentWindow->elements[2].data.animation->value04 = 0;
+                        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action, 1);
+                    if ((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3])) (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->value04 = 0;
                     ++gWindow12FlagCC4D27;
                 } else if (gWindow12FlagCC4D27 == 1) {
                     const std::uint64_t tick = platform::ReadTickCount64();
                     if (gWindow12TickD45D4C + 2000u < tick) {
+                        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
                         cg::yobi::SetYobiActionField2B0(
-                            gCurrentWindow->elements[2].data.animation->action, 5);
+                            (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action, 5);
                         ++gWindow12FlagCC4D27;
                     }
                 } else if (gWindow12FlagCC4D27 == 2) {
+                    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
                     cg::yobi::YobiAction* const action =
-                        gCurrentWindow->elements[2].data.animation->action;
+                        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action;
                     if (cg::yobi::GetYobiActionField2DC(action) >= 2) {
                         setWorkingAction(action);
                         ++gWindow12FlagCC4D27;
@@ -516,13 +552,15 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                 break;
             case 2:
                 if (gWindow12FlagCC4D27 == 0) {
+                    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
                     cg::yobi::SetYobiActionField2B0(
-                        gCurrentWindow->elements[2].data.animation->action, 5);
-                    gCurrentWindow->elements[2].data.animation->value04 = 0;
+                        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action, 5);
+                    if ((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3])) (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->value04 = 0;
                     ++gWindow12FlagCC4D27;
                 } else if (gWindow12FlagCC4D27 == 1) {
+                    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
                     cg::yobi::YobiAction* const action =
-                        gCurrentWindow->elements[2].data.animation->action;
+                        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action;
                     if (cg::yobi::GetYobiActionField2DC(action) >= 2) {
                         setWorkingAction(action);
                         ++gWindow12FlagCC4D27;
@@ -531,13 +569,15 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                 [[fallthrough]]; // 原486562递增后落入486568，再检查同一阶段。
             case 3:
                 if (gWindow12FlagCC4D27 == 0) {
+                    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
                     cg::yobi::SetYobiActionField2B0(
-                        gCurrentWindow->elements[2].data.animation->action, 5);
-                    gCurrentWindow->elements[2].data.animation->value04 = 0;
+                        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action, 5);
+                    if ((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3])) (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->value04 = 0;
                     ++gWindow12FlagCC4D27;
                 } else if (gWindow12FlagCC4D27 == 1) {
+                    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
                     cg::yobi::YobiAction* const action =
-                        gCurrentWindow->elements[2].data.animation->action;
+                        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action;
                     if (cg::yobi::GetYobiActionField2DC(action) >= 2) {
                         setWorkingAction(action);
                         ++gWindow12FlagCC4D27;
@@ -596,25 +636,32 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
             static_cast<void>(WindowGather_Cancel(gCurrentWindow));
         }
     }
-    auto* animation = gCurrentWindow->elements[1].data.animation;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element2]))) { return {}; }
+    auto* animation = (*gCurrentWindow)[WindowGatherElementId::Element2]->data.animation;
     std::uint32_t stop = animation->value04;
     static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(animation->action, 100, stop != 0, 0));
-    animation = gCurrentWindow->elements[3].data.animation;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element4]))) { return {}; }
+    animation = (*gCurrentWindow)[WindowGatherElementId::Element4]->data.animation;
     stop = animation->value04;
     static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(animation->action, 100, stop != 0, 0));
-    WindowElement* elements = gCurrentWindow->elements;
-    if (elements[1].visible != 0) {
-        cg::yobi::YobiAction* const action = elements[1].data.animation->action;
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element2]))) { return {}; }
+    if ((*elementsWindow)[WindowGatherElementId::Element2]->visible != 0) {
+        if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element2]))) { return {}; }
+        cg::yobi::YobiAction* const action = (*elementsWindow)[WindowGatherElementId::Element2]->data.animation->action;
         const render::GraphicDescriptor16* const descriptor = cg::yobi::ApplyWindowAnimationDrawMode(action);
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t graphic = cg::yobi::GetYobiActionField20(action);
-        elements = window->elements;
-        const std::int32_t y = elements[1].y + window->y;
-        const std::int32_t x = elements[1].x + window->x;
+        elementsWindow = window;
+        if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element2]))) { return {}; }
+        const std::int32_t y = (*elementsWindow)[WindowGatherElementId::Element2]->y + window->y;
+        if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element2]))) { return {}; }
+        const std::int32_t x = (*elementsWindow)[WindowGatherElementId::Element2]->x + window->x;
         static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, graphic, 0, 0, descriptor));
     }
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
     cg::yobi::YobiAction* const action =
-        gCurrentWindow->elements[2].data.animation->action;
+        (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->action;
     const std::uint8_t currentMode = gWindow12ModeCC3E80;
     const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
     if (currentMode == 4) {
@@ -639,39 +686,47 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
     } else {
         cg::yobi::SetYobiActionField309(action, 0);
     }
-    stop = gCurrentWindow->elements[2].data.animation->value04;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element3]))) { return {}; }
+    stop = (*gCurrentWindow)[WindowGatherElementId::Element3]->data.animation->value04;
     static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(action, 100, stop != 0, 0));
     const std::int32_t graphic = cg::yobi::GetYobiActionField20(action);
     if (graphic != 0) {
         const render::GraphicDescriptor16* const descriptor = cg::yobi::ApplyWindowAnimationDrawMode(action);
         WindowInstance* const window = gCurrentWindow;
-        elements = window->elements;
-        const std::int32_t y = elements[2].y + window->y;
-        const std::int32_t x = elements[2].x + window->x;
+        elementsWindow = window;
+        if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element3]))) { return {}; }
+        const std::int32_t y = (*elementsWindow)[WindowGatherElementId::Element3]->y + window->y;
+        if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element3]))) { return {}; }
+        const std::int32_t x = (*elementsWindow)[WindowGatherElementId::Element3]->x + window->x;
         static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, graphic, 0, 0, descriptor));
     }
-    elements = gCurrentWindow->elements;
-    if (elements[1].visible == 0) {
-        cg::yobi::YobiAction* const back = elements[3].data.animation->action;
+    elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element2]))) { return {}; }
+    if ((*elementsWindow)[WindowGatherElementId::Element2]->visible == 0) {
+        if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element4]))) { return {}; }
+        cg::yobi::YobiAction* const back = (*elementsWindow)[WindowGatherElementId::Element4]->data.animation->action;
         const render::GraphicDescriptor16* const descriptor = cg::yobi::ApplyWindowAnimationDrawMode(back);
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t backGraphic = cg::yobi::GetYobiActionField20(back);
-        elements = window->elements;
-        const std::int32_t y = elements[3].y + window->y;
-        const std::int32_t x = elements[3].x + window->x;
+        elementsWindow = window;
+        if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element4]))) { return {}; }
+        const std::int32_t y = (*elementsWindow)[WindowGatherElementId::Element4]->y + window->y;
+        if (!((elementsWindow && (*elementsWindow)[WindowGatherElementId::Element4]))) { return {}; }
+        const std::int32_t x = (*elementsWindow)[WindowGatherElementId::Element4]->x + window->x;
         static_cast<void>(render::DrawGraphic2_521DD0(x, y, 0xDF, backGraphic, 0, 0, descriptor));
     }
-    gCurrentWindow->elements[1].visible = 0;
-    gCurrentWindow->elements[3].visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element2])) (*gCurrentWindow)[WindowGatherElementId::Element2]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGatherElementId::Element4])) (*gCurrentWindow)[WindowGatherElementId::Element4]->visible = 0;
     return 1;
 }
 
 // 原函数：0x00486CF0。
 static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
     const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
         * world::gSkillsF1BAFC[skill].fpReduce / 100;
@@ -709,7 +764,8 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
 static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : L"暂时中断。" /* 原常量参考：0x00586A00。 */;
         window = gCurrentWindow;
@@ -745,13 +801,15 @@ static std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (resultImage >= 0) {
         WindowInstance* const window = gCurrentWindow;
-        const WindowElement* const element = &window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement* const element = (*window)[NativeElementKey(index)];
         const std::int32_t y = element->y + window->y + 24;
         const std::int32_t x = element->x + window->x + 24;
         static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, resultImage, 0, &descriptor));
     }
     WindowInstance* const window = gCurrentWindow;
-    const WindowElement* const element = &window->elements[index];
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const WindowElement* const element = (*window)[NativeElementKey(index)];
     const std::int32_t y = element->y + window->y + 24;
     const std::int32_t x = element->x + window->x + 24;
     static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, 0x3B5C3, 0, &descriptor));

@@ -2,6 +2,31 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowTextTargetElementId : ElementId {
+    Element1 = 1,
+    HandleVerticalScroll = 2,
+    ButtonPreviousRow = 3,
+    ButtonNextRow = 4,
+    ButtonPreviousPage = 5,
+    ButtonNextPage = 6,
+    Scroll = 7,
+    ButtonCancel = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    SelectRow = 15,
+    SelectRow_16 = 16,
+    SelectRow_17 = 17,
+    SelectRow_18 = 18,
+    SelectRow_19 = 19,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -77,26 +102,26 @@ static WindowTextPrototype gWindowText56D0A8 { // 原全局：0x0056D0A8。
 };
 
 static WindowElementPrototype gWindowElements56D0B0[19] { // 原全局：0x0056D0B0。
-    {WindowElementType_Graphic, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56D010}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 270, 60, 0, 14, 1, {.graphic = &gWindowGraphic56D010}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextTargetElementId::Element1)},
     {WindowElementType_MouseArea, 270, 60, 11, 85, 1,
-        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56D010.imageNo)}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56D028}, &WindowTextTarget_ButtonPreviousRow},
-    {WindowElementType_Graphic, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56D040}, &WindowTextTarget_ButtonNextRow},
-    {WindowElementType_Graphic, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56D070}, &WindowTextTarget_ButtonPreviousPage},
-    {WindowElementType_Graphic, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56D088}, &WindowTextTarget_ButtonNextPage},
-    {WindowElementType_EventArea, 0, 0, 320, 192, 1, {.unusedValue = 0}, &WindowTextTarget_Scroll},
-    {WindowElementType_Graphic, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56D058}, &WindowTextTarget_ButtonCancel},
-    {WindowElementType_Text, 70, 25, 0, 0, 1, {.text = &gWindowText56D0A8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 55, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 75, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 95, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 115, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 135, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 40, 55, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 75, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 95, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 115, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 135, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow},
+        {.mouseFlags = reinterpret_cast<std::uint32_t*>(&gWindowGraphic56D010.imageNo)}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowTextTargetElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 270, 50, 11, 11, 1, {.graphic = &gWindowGraphic56D028}, &WindowTextTarget_ButtonPreviousRow, -1, static_cast<ElementId>(WindowTextTargetElementId::ButtonPreviousRow)},
+    {WindowElementType_Graphic, 270, 144, 11, 11, 1, {.graphic = &gWindowGraphic56D040}, &WindowTextTarget_ButtonNextRow, -1, static_cast<ElementId>(WindowTextTargetElementId::ButtonNextRow)},
+    {WindowElementType_Graphic, 282, 47, 18, 18, 1, {.graphic = &gWindowGraphic56D070}, &WindowTextTarget_ButtonPreviousPage, -1, static_cast<ElementId>(WindowTextTargetElementId::ButtonPreviousPage)},
+    {WindowElementType_Graphic, 282, 140, 18, 18, 1, {.graphic = &gWindowGraphic56D088}, &WindowTextTarget_ButtonNextPage, -1, static_cast<ElementId>(WindowTextTargetElementId::ButtonNextPage)},
+    {WindowElementType_EventArea, 0, 0, 320, 192, 1, {.unusedValue = 0}, &WindowTextTarget_Scroll, -1, static_cast<ElementId>(WindowTextTargetElementId::Scroll)},
+    {WindowElementType_Graphic, 135, 159, 49, 17, 1, {.graphic = &gWindowGraphic56D058}, &WindowTextTarget_ButtonCancel, -1, static_cast<ElementId>(WindowTextTargetElementId::ButtonCancel)},
+    {WindowElementType_Text, 70, 25, 0, 0, 1, {.text = &gWindowText56D0A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextTargetElementId::Element9)},
+    {WindowElementType_Text, 40, 55, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextTargetElementId::Element10)},
+    {WindowElementType_Text, 40, 75, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextTargetElementId::Element11)},
+    {WindowElementType_Text, 40, 95, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextTargetElementId::Element12)},
+    {WindowElementType_Text, 40, 115, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextTargetElementId::Element13)},
+    {WindowElementType_Text, 40, 135, 0, 0, 1, {.text = &gWindowText56D0A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextTargetElementId::Element14)},
+    {WindowElementType_EventArea, 40, 55, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow, -1, static_cast<ElementId>(WindowTextTargetElementId::SelectRow)},
+    {WindowElementType_EventArea, 40, 75, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow, -1, static_cast<ElementId>(WindowTextTargetElementId::SelectRow_16)},
+    {WindowElementType_EventArea, 40, 95, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow, -1, static_cast<ElementId>(WindowTextTargetElementId::SelectRow_17)},
+    {WindowElementType_EventArea, 40, 115, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow, -1, static_cast<ElementId>(WindowTextTargetElementId::SelectRow_18)},
+    {WindowElementType_EventArea, 40, 135, 200, 13, 1, {.unusedValue = 0}, &WindowTextTarget_SelectRow, -1, static_cast<ElementId>(WindowTextTargetElementId::SelectRow_19)},
 };
 
 // 原型：窗口45；原全局：0x0054E900。
@@ -145,16 +170,18 @@ static void WindowTextTarget_Refresh(const std::int32_t offset)
     std::int32_t row = 0;
     for (; row < 5 && offset + row < gTextChoiceCountCC4CE4; ++row) {
         if (names != nullptr) {
-            auto* const text = gCurrentWindow->elements[row + 9].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)]))) { continue; }
+            auto* const text = (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text;
             text->text = names[offset + row];
             const std::uint8_t color = gTextChoiceColorsCB1E18[offset + row];
-            gCurrentWindow->elements[row + 9].data.text->style.color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text->style.color =
                 static_cast<std::byte>(color);
             names = gTextChoiceNamesD30130;
         }
     }
     for (; row < 5; ++row) {
-        gCurrentWindow->elements[row + 9].data.text->text = L"";
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 9)])) (*gCurrentWindow)[NativeElementKey(row + 9)]->data.text->text = L"";
     }
 }
 
@@ -163,11 +190,13 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 {
     const std::int32_t visible = gTextChoiceCountCC4CE4 - 5 > 0 ? 1 : 0;
     for (std::int32_t index = 0; index < 6; ++index) {
-        gCurrentWindow->elements[index].visible = visible;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = visible;
     }
-    WindowElement* const elements = gCurrentWindow->elements;
-    if ((elements[1].data.mouse->flags & 1u) != 0) {
-        gTextChoiceOffsetD2D9C0 = WindowScroll_ReadPosition(elements + 1, gTextChoiceCountCC4CE4 - 5);
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowTextTargetElementId::HandleVerticalScroll]))) { return {}; }
+    if (((*elementsWindow)[WindowTextTargetElementId::HandleVerticalScroll]->data.mouse->flags & 1u) != 0) {
+        if (!((elementsWindow && (*elementsWindow)[WindowTextTargetElementId::HandleVerticalScroll]))) { return {}; }
+        gTextChoiceOffsetD2D9C0 = WindowScroll_ReadPosition((*elementsWindow)[WindowTextTargetElementId::HandleVerticalScroll], gTextChoiceCountCC4CE4 - 5);
         WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
     }
     WindowRuntime_DrawCurrent();
@@ -186,7 +215,8 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 // 原函数：0x0049F260。
 static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gTextChoiceOffsetD2D9C0 > 0) {
@@ -198,7 +228,8 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index,
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-        static_cast<void>(WindowScroll_SetPosition(window->elements + index - 1, maximum, offset));
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, offset));
         WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
         consumed = 1;
     }
@@ -215,7 +246,8 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index,
 // 原函数：0x0049F310。
 static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gTextChoiceOffsetD2D9C0 < gTextChoiceCountCC4CE4 - 5) {
@@ -226,7 +258,8 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, con
         }
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
         const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 2, maximum, offset));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, offset));
         WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
         consumed = 1;
     }
@@ -243,7 +276,8 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, con
 // 原函数：0x0049F3D0。
 static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gTextChoiceOffsetD2D9C0 > 0 ? 51 : 55, 320));
@@ -253,7 +287,8 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index
         }
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
         const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 3, maximum, offset));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, offset));
         WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
         consumed = 1;
     }
@@ -270,7 +305,8 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index
 // 原函数：0x0049F490。
 static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t oldMaximum = gTextChoiceCountCC4CE4 - 5;
@@ -287,7 +323,8 @@ static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, co
             offset = 0;
             gTextChoiceOffsetD2D9C0 = offset;
         }
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 4, maximum, offset));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, offset));
         WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
         consumed = 1;
     }
@@ -308,8 +345,9 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
         const std::int32_t count = gTextChoiceCountCC4CE4;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
         gTextChoiceOffsetD2D9C0 =
-            WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, offset, count - 5, wheel);
+            WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, offset, count - 5, wheel);
     }
     return 0;
 }
@@ -317,7 +355,8 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
 // 原函数：0x0049F5C0。
 static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"关闭此视窗";
@@ -354,7 +393,8 @@ static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const s
         return 0;
     }
     if ((state & 1) != 0) {
-        WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gHoverFramePaletteIndex_D69768);
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        WindowElement_DrawHoverFrame((*gCurrentWindow)[NativeElementKey(index)], state, cg::render::gHoverFramePaletteIndex_D69768);
         gHoverTextD68AE8 = L"选择此人物。";
     }
     if ((state & 2) != 0) {

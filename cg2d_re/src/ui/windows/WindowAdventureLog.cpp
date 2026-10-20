@@ -6,6 +6,37 @@
 #include <cstdio>
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowAdventureLogElementId : ElementId {
+    Element1 = 1,
+    HandleVerticalScroll = 2,
+    HandleNavigation = 3,
+    HandleNavigation_4 = 4,
+    Element5 = 5,
+    ButtonClose = 6,
+    HandleNavigation_7 = 7,
+    HandleNavigation_8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -55,31 +86,31 @@ static WindowTextPrototype gWindowText57AEB8 { // 原全局：0x0057AEB8。
 static std::uint32_t gWindowMouseFlagsD679C8 = 0; // 原全局：0x00D679C8。
 
 static WindowElementPrototype gWindowElements57AEC0[25] { // 原全局：0x0057AEC0。
-    {WindowElementType_Graphic, 419, 54, 0, 14, 1, {.graphic = &gWindowGraphic57AE68}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 419, 54, 11, 221, 1, {.mouseFlags = &gWindowMouseFlagsD679C8}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 419, 43, 11, 11, 1, {.graphic = &gWindowGraphic57AE80}, &WindowAdventureLog_HandleNavigation},
-    {WindowElementType_Graphic, 419, 275, 11, 11, 1, {.graphic = &gWindowGraphic57AE98}, &WindowAdventureLog_HandleNavigation},
-    {WindowElementType_Text, 150, 286, 0, 0, 1, {.text = &gWindowText57AEB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 434, 8, 12, 12, 1, {.graphic = &gWindowGraphic57ADD8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 380, 283, 18, 18, 1, {.graphic = &gWindowGraphic57ADF0}, &WindowAdventureLog_HandleNavigation},
-    {WindowElementType_Graphic, 360, 283, 18, 18, 1, {.graphic = &gWindowGraphic57AE08}, &WindowAdventureLog_HandleNavigation},
-    {WindowElementType_Graphic, 60, 284, 0, 0, 1, {.graphic = &gWindowGraphic57AE20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic57AE38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic57AE50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 45, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 61, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 77, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 93, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 109, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 125, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 141, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 157, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 173, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 189, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 205, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 221, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 237, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 253, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 419, 54, 0, 14, 1, {.graphic = &gWindowGraphic57AE68}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element1)},
+    {WindowElementType_MouseArea, 419, 54, 11, 221, 1, {.mouseFlags = &gWindowMouseFlagsD679C8}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowAdventureLogElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 419, 43, 11, 11, 1, {.graphic = &gWindowGraphic57AE80}, &WindowAdventureLog_HandleNavigation, -1, static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation)},
+    {WindowElementType_Graphic, 419, 275, 11, 11, 1, {.graphic = &gWindowGraphic57AE98}, &WindowAdventureLog_HandleNavigation, -1, static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation_4)},
+    {WindowElementType_Text, 150, 286, 0, 0, 1, {.text = &gWindowText57AEB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element5)},
+    {WindowElementType_Graphic, 434, 8, 12, 12, 1, {.graphic = &gWindowGraphic57ADD8}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowAdventureLogElementId::ButtonClose)},
+    {WindowElementType_Graphic, 380, 283, 18, 18, 1, {.graphic = &gWindowGraphic57ADF0}, &WindowAdventureLog_HandleNavigation, -1, static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation_7)},
+    {WindowElementType_Graphic, 360, 283, 18, 18, 1, {.graphic = &gWindowGraphic57AE08}, &WindowAdventureLog_HandleNavigation, -1, static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation_8)},
+    {WindowElementType_Graphic, 60, 284, 0, 0, 1, {.graphic = &gWindowGraphic57AE20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element9)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic57AE38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element10)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic57AE50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element11)},
+    {WindowElementType_Text, 25, 45, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element12)},
+    {WindowElementType_Text, 25, 61, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element13)},
+    {WindowElementType_Text, 25, 77, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element14)},
+    {WindowElementType_Text, 25, 93, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element15)},
+    {WindowElementType_Text, 25, 109, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element16)},
+    {WindowElementType_Text, 25, 125, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element17)},
+    {WindowElementType_Text, 25, 141, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element18)},
+    {WindowElementType_Text, 25, 157, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element19)},
+    {WindowElementType_Text, 25, 173, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element20)},
+    {WindowElementType_Text, 25, 189, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element21)},
+    {WindowElementType_Text, 25, 205, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element22)},
+    {WindowElementType_Text, 25, 221, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element23)},
+    {WindowElementType_Text, 25, 237, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element24)},
+    {WindowElementType_Text, 25, 253, 0, 0, 1, {.text = &gWindowText57AEB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAdventureLogElementId::Element25)},
 };
 
 // 原型：窗口66；原全局：0x0054EEB0。
@@ -157,7 +188,8 @@ static void WindowAdventureLog_Refresh()
     }
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
-    gLoginWindowRuntime.valueD67BB0 = WindowScroll_ReadPosition(&window->elements[1], maximum);
+    if (!((window && (*window)[WindowAdventureLogElementId::HandleVerticalScroll]))) { return; }
+    gLoginWindowRuntime.valueD67BB0 = WindowScroll_ReadPosition((*window)[WindowAdventureLogElementId::HandleVerticalScroll], maximum);
     if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
         static_cast<void>(::_fseeki64(gLoginWindowRuntime.logViewerFileD67BB8, 0, SEEK_SET));
         while (std::fgets(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
@@ -168,17 +200,20 @@ static void WindowAdventureLog_Refresh()
             const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
             const std::size_t index = static_cast<std::size_t>(page + line);
             const std::wstring_view text = index < rows.size() ? std::wstring_view(rows[index]) : std::wstring_view{};
-            auto* const data = gCurrentWindow->elements[11 + line].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(11 + line)]))) { continue; }
+            auto* const data = (*gCurrentWindow)[NativeElementKey(11 + line)]->data.text;
             data->text = text;
         }
         return;
     }
-    auto* const first = gCurrentWindow->elements[11].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowAdventureLogElementId::Element12]))) { return; }
+    auto* const first = (*gCurrentWindow)[WindowAdventureLogElementId::Element12]->data.text;
     first->text = L"无法开启冒险者日志" /* 原常量参考：0x0055358C。 */;
     for (std::int32_t line = 12; line < 25; ++line) {
         WindowInstance* const current = gCurrentWindow;
         const char* const text = "";
-        auto* const data = current->elements[line].data.text;
+        if (!((current && (*current)[NativeElementKey(line)]))) { continue; }
+        auto* const data = (*current)[NativeElementKey(line)]->data.text;
         data->text = cg::text::FromGbkWide(text);
     }
 }
@@ -203,10 +238,10 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
         const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = index == 2 ? L"往上查看内容。" /* 原常量参考：0x005885EC。 */ : L"往下查看内容。" /* 原常量参考：0x005885DC。 */;
-            gCurrentWindow->elements[index].data.graphic->imageNo = base + 2;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
-            gCurrentWindow->elements[index].data.graphic->imageNo = base;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base;
         }
         if ((state & 0x400) != 0) {
             const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
@@ -218,11 +253,12 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
             const std::int32_t currentPage = gLoginWindowRuntime.valueD67BB0;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
-            static_cast<void>(WindowScroll_SetPosition(&window->elements[1], maximum, currentPage));
+            if (!((window && (*window)[WindowAdventureLogElementId::HandleVerticalScroll]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[WindowAdventureLogElementId::HandleVerticalScroll], maximum, currentPage));
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            gCurrentWindow->elements[index].data.graphic->imageNo = base + 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base + 1;
             consumed = 1;
         }
         break;
@@ -232,10 +268,10 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
         const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = index == 6 ? L"查看后一天的内容。" /* 原常量参考：0x005885C8。 */ : L"查看前一天的内容。" /* 原常量参考：0x005885B4。 */;
-            gCurrentWindow->elements[index].data.graphic->imageNo = base + 2;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base + 2;
             consumed = 1;
         } else {
-            gCurrentWindow->elements[index].data.graphic->imageNo = base;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base;
         }
         if ((state & 0x400) != 0) {
             std::FILE* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
@@ -289,16 +325,18 @@ static std::int32_t WindowAdventureLog_HandleNavigation(const std::int32_t index
                 --gLoginWindowRuntime.dayD67BC0;
             }
             WindowAdventureLog_Load();
-            auto* const title = gCurrentWindow->elements[4].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowAdventureLogElementId::Element5]))) { return {}; }
+            auto* const title = (*gCurrentWindow)[WindowAdventureLogElementId::Element5]->data.text;
             title->text = world::gLogFileName554648;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
             gLoginWindowRuntime.valueD67BB0 = 0;
-            static_cast<void>(WindowScroll_SetPosition(&window->elements[1], maximum, 0));
+            if (!((window && (*window)[WindowAdventureLogElementId::HandleVerticalScroll]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[WindowAdventureLogElementId::HandleVerticalScroll], maximum, 0));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & 8) != 0) {
-            gCurrentWindow->elements[index].data.graphic->imageNo = base + 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = base + 1;
         }
         break;
     }

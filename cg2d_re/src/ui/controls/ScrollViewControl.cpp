@@ -44,7 +44,7 @@ static void ResetChildrenProcessStates(const std::vector<UIControl*>& children) 
     }
 }
 
-UIScrollViewControl::UIScrollViewControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int contentHeight, int scrollY, int barWidth, int scrollStep, WindowEventBinding callbacks)
+UIScrollViewControl::UIScrollViewControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int contentHeight, int scrollY, int barWidth, int scrollStep, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_SCROLL_VIEW, name, x, y, w, h, visible, callbacks), contentHeight(contentHeight), barWidth(barWidth), scrollStep(scrollStep) {
     this->contentHeight = std::max(0, this->contentHeight);
     if (this->barWidth <= 0) {
@@ -86,7 +86,7 @@ std::vector<UIControl*> UIScrollViewControl::children() const {
 }
 UIControl* UIScrollViewControl::FindChild(int controlId) {
     for (auto* child : children()) {
-        if (child->id == controlId) return child;
+        if (child->id == static_cast<std::uint32_t>(controlId)) return child;
         if (child->type == TYPE_SCROLL_VIEW)
             if (auto* nested = static_cast<UIScrollViewControl*>(child)->FindChild(controlId)) return nested;
     }
@@ -265,7 +265,7 @@ bool UIScrollViewControl::process(int index, int hasFocused, int captured, const
             if (child->attached && windowOwner->binding) windowOwner->binding->elementUpdate(child->element());
             if (IsControlAttached({child->winId, child->generation, child->id})
                 && attached && element().visible && (windowOwner->state & WIN_STATE_ACTIVE)
-                && child->process(static_cast<int>(&child->element() - windowOwner->elements), hasFocused, captured || childCaptured, &contentClip, childOx, childOy)) {
+                && child->process(static_cast<int>(child->element().elementId), hasFocused, captured || childCaptured, &contentClip, childOx, childOy)) {
                 childCaptured = true;
             }
         }

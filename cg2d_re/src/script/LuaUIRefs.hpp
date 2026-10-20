@@ -3,17 +3,12 @@
 namespace cg::script {
 struct LuaWindowRef {
     int winId = -1;
-    uint32_t generation = 0;
 };
-struct LuaNativeWindowRef {
-    int winId = -1;
-    uint32_t generation = 0;
-};
+
 
 struct LuaControlRef {
     int winId = -1;
-    uint32_t generation = 0;
-    int controlId = 0;
+    std::uint32_t controlId = 0; // elementId，兼容字段名。
 };
 
 struct LuaCallbackRefs {

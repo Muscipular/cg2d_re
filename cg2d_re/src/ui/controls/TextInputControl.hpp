@@ -9,7 +9,7 @@ int ClampTextInputMaxLength(int maxLength);
 struct UITextInputControl : UIControl {
     TextInputData data;
 
-    UITextInputControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, WindowEventBinding callbacks);
+    UITextInputControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, WindowEventBinding callbacks);
 
     ~UITextInputControl() override;
 

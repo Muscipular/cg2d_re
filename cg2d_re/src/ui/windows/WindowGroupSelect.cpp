@@ -1,6 +1,49 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowGroupSelectElementId : ElementId {
+    ButtonClose = 1,
+    HandleScrollButtons = 2,
+    HandleScrollButtons_3 = 3,
+    Element4 = 4,
+    HandleVerticalScroll = 5,
+    Scroll = 6,
+    HandlePageButtons = 7,
+    HandlePageButtons_8 = 8,
+    TabCategory = 9,
+    TabCategory_10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    ButtonSelectAll = 20,
+    SelectRow = 21,
+    SelectRow_22 = 22,
+    SelectRow_23 = 23,
+    SelectRow_24 = 24,
+    SelectRow_25 = 25,
+    SelectRow_26 = 26,
+    SelectRow_27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+    Element37 = 37,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -125,43 +168,43 @@ static WindowTextPrototype gWindowText572F88 { // 原全局：0x00572F88。
 };
 
 static WindowElementPrototype gWindowElements572F90[37] { // 原全局：0x00572F90。
-    {WindowElementType_Graphic, 239, 9, 11, 11, 1, {.graphic = &gWindowGraphic572E38}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 239, 88, 11, 11, 1, {.graphic = &gWindowGraphic572E50}, &WindowGroupSelect_HandleScrollButtons},
-    {WindowElementType_Graphic, 239, 275, 11, 11, 1, {.graphic = &gWindowGraphic572E80}, &WindowGroupSelect_HandleScrollButtons},
-    {WindowElementType_Graphic, 239, 99, 10, 14, 1, {.graphic = &gWindowGraphic572E68}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 99, 10, 177, 1, {.graphic = &gWindowGraphicD678E0}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_EventArea, 0, 0, 280, 317, 1, {}, &WindowGroupSelect_Scroll},
-    {WindowElementType_Graphic, 20, 288, 18, 18, 1, {.graphic = &gWindowGraphic572E98}, &WindowGroupSelect_HandlePageButtons},
-    {WindowElementType_Graphic, 60, 288, 18, 18, 1, {.graphic = &gWindowGraphic572EB0}, &WindowGroupSelect_HandlePageButtons},
-    {WindowElementType_Graphic, 111, 30, 18, 18, 1, {.graphic = &gWindowGraphic572E98}, &WindowGroupSelect_TabCategory},
-    {WindowElementType_Graphic, 218, 30, 18, 18, 1, {.graphic = &gWindowGraphic572EB0}, &WindowGroupSelect_TabCategory},
-    {WindowElementType_Text, 131, 33, 0, 0, 1, {.text = &gWindowText572F78}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 57, 0, 0, 1, {.text = &gWindowText572F58}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 93, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 122, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 151, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 180, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 209, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 238, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Text, 23, 267, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 214, 55, 19, 19, 1, {.graphic = &gWindowGraphic572F28}, &WindowGroupSelect_ButtonSelectAll},
-    {WindowElementType_Graphic, 214, 91, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 120, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 149, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 178, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 207, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 236, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 214, 265, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow},
-    {WindowElementType_Graphic, 16, 50, 0, 0, 1, {.graphic = &gWindowGraphic572F10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 86, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 115, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 144, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 173, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 202, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 231, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 260, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572E20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 10, 25, 0, 0, 1, {.graphic = &gWindowGraphic572EF8}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 239, 9, 11, 11, 1, {.graphic = &gWindowGraphic572E38}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowGroupSelectElementId::ButtonClose)},
+    {WindowElementType_Graphic, 239, 88, 11, 11, 1, {.graphic = &gWindowGraphic572E50}, &WindowGroupSelect_HandleScrollButtons, -1, static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons)},
+    {WindowElementType_Graphic, 239, 275, 11, 11, 1, {.graphic = &gWindowGraphic572E80}, &WindowGroupSelect_HandleScrollButtons, -1, static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons_3)},
+    {WindowElementType_Graphic, 239, 99, 10, 14, 1, {.graphic = &gWindowGraphic572E68}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element4)},
+    {WindowElementType_Graphic, 239, 99, 10, 177, 1, {.graphic = &gWindowGraphicD678E0}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowGroupSelectElementId::HandleVerticalScroll)},
+    {WindowElementType_EventArea, 0, 0, 280, 317, 1, {}, &WindowGroupSelect_Scroll, -1, static_cast<ElementId>(WindowGroupSelectElementId::Scroll)},
+    {WindowElementType_Graphic, 20, 288, 18, 18, 1, {.graphic = &gWindowGraphic572E98}, &WindowGroupSelect_HandlePageButtons, -1, static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons)},
+    {WindowElementType_Graphic, 60, 288, 18, 18, 1, {.graphic = &gWindowGraphic572EB0}, &WindowGroupSelect_HandlePageButtons, -1, static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons_8)},
+    {WindowElementType_Graphic, 111, 30, 18, 18, 1, {.graphic = &gWindowGraphic572E98}, &WindowGroupSelect_TabCategory, -1, static_cast<ElementId>(WindowGroupSelectElementId::TabCategory)},
+    {WindowElementType_Graphic, 218, 30, 18, 18, 1, {.graphic = &gWindowGraphic572EB0}, &WindowGroupSelect_TabCategory, -1, static_cast<ElementId>(WindowGroupSelectElementId::TabCategory_10)},
+    {WindowElementType_Text, 131, 33, 0, 0, 1, {.text = &gWindowText572F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element11)},
+    {WindowElementType_Text, 23, 57, 0, 0, 1, {.text = &gWindowText572F58}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element12)},
+    {WindowElementType_Text, 23, 93, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element13)},
+    {WindowElementType_Text, 23, 122, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element14)},
+    {WindowElementType_Text, 23, 151, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element15)},
+    {WindowElementType_Text, 23, 180, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element16)},
+    {WindowElementType_Text, 23, 209, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element17)},
+    {WindowElementType_Text, 23, 238, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element18)},
+    {WindowElementType_Text, 23, 267, 0, 0, 1, {.text = &gWindowText572F70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element19)},
+    {WindowElementType_Graphic, 214, 55, 19, 19, 1, {.graphic = &gWindowGraphic572F28}, &WindowGroupSelect_ButtonSelectAll, -1, static_cast<ElementId>(WindowGroupSelectElementId::ButtonSelectAll)},
+    {WindowElementType_Graphic, 214, 91, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow, -1, static_cast<ElementId>(WindowGroupSelectElementId::SelectRow)},
+    {WindowElementType_Graphic, 214, 120, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow, -1, static_cast<ElementId>(WindowGroupSelectElementId::SelectRow_22)},
+    {WindowElementType_Graphic, 214, 149, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow, -1, static_cast<ElementId>(WindowGroupSelectElementId::SelectRow_23)},
+    {WindowElementType_Graphic, 214, 178, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow, -1, static_cast<ElementId>(WindowGroupSelectElementId::SelectRow_24)},
+    {WindowElementType_Graphic, 214, 207, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow, -1, static_cast<ElementId>(WindowGroupSelectElementId::SelectRow_25)},
+    {WindowElementType_Graphic, 214, 236, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow, -1, static_cast<ElementId>(WindowGroupSelectElementId::SelectRow_26)},
+    {WindowElementType_Graphic, 214, 265, 19, 19, 1, {.graphic = &gWindowGraphic572F40}, &WindowGroupSelect_SelectRow, -1, static_cast<ElementId>(WindowGroupSelectElementId::SelectRow_27)},
+    {WindowElementType_Graphic, 16, 50, 0, 0, 1, {.graphic = &gWindowGraphic572F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element28)},
+    {WindowElementType_Graphic, 16, 86, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element29)},
+    {WindowElementType_Graphic, 16, 115, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element30)},
+    {WindowElementType_Graphic, 16, 144, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element31)},
+    {WindowElementType_Graphic, 16, 173, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element32)},
+    {WindowElementType_Graphic, 16, 202, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element33)},
+    {WindowElementType_Graphic, 16, 231, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element34)},
+    {WindowElementType_Graphic, 16, 260, 0, 0, 1, {.graphic = &gWindowGraphic572EC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element35)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic572E20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element36)},
+    {WindowElementType_Graphic, 10, 25, 0, 0, 1, {.graphic = &gWindowGraphic572EF8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGroupSelectElementId::Element37)},
 };
 
 // 原型：窗口49；原全局：0x0054EC00。
@@ -178,7 +221,7 @@ static std::int32_t WindowGroupSelect_Update(const std::int32_t value)
             WindowGroupSelect_ResetRecipients();
             gLoginWindowRuntime.mailGroupCC1A30.mode = 0;
             WindowGroupSelect_BuildRecipients(0);
-            gCurrentWindow->elements[19].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowGroupSelectElementId::ButtonSelectAll])) (*gCurrentWindow)[WindowGroupSelectElementId::ButtonSelectAll]->visible = 1;
         }
         gLoginWindowRuntime.mailGroupCC1A30.initialize = 0;
         return 1;
@@ -213,7 +256,8 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index
     if (index != 6 && index != 7) {
         return 0;
     }
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t idle = index == 6 ? 0x3B556 : 0x3B559;
     graphic->imageNo = idle;
     std::int32_t result = 0;
@@ -240,7 +284,8 @@ static std::int32_t WindowGroupSelect_HandleScrollButtons(const std::int32_t ind
     if (index != 1 && index != 2) {
         return 0;
     }
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t idle = index == 1 ? 0x3B592 : 0x3B595;
     graphic->imageNo = idle;
     std::int32_t result = 0;
@@ -287,7 +332,8 @@ static std::int32_t WindowGroupSelect_ClampScroll()
         position = maximum;
         gLoginWindowRuntime.mailGroupScrollD67B88 = position;
     }
-    return WindowScroll_SetPosition(&gCurrentWindow->elements[4], maximum, position);
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGroupSelectElementId::HandleVerticalScroll]))) { return {}; }
+    return WindowScroll_SetPosition((*gCurrentWindow)[WindowGroupSelectElementId::HandleVerticalScroll], maximum, position);
 }
 
 // 原函数：0x004B4DF0。
@@ -296,7 +342,8 @@ static std::int32_t WindowGroupSelect_DragScroll(const std::int32_t)
     const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t maximum = count - 7;
-    const std::int32_t position = WindowScroll_ReadPosition(&window->elements[4], maximum < 0 ? 0 : maximum);
+    if (!((window && (*window)[WindowGroupSelectElementId::HandleVerticalScroll]))) { return {}; }
+    const std::int32_t position = WindowScroll_ReadPosition((*window)[WindowGroupSelectElementId::HandleVerticalScroll], maximum < 0 ? 0 : maximum);
     gLoginWindowRuntime.mailGroupScrollD67B88 = position;
     return position;
 }
@@ -311,12 +358,14 @@ static void WindowGroupSelect_Refresh()
     WindowInstance* const titleWindow = gCurrentWindow;
     const std::wstring& title = mode == 0 ? gWindowText572F78.text
         : mode == 1 ? gWindowText572F80.text : gWindowText572F88.text;
-    auto* const titleData = titleWindow->elements[10].data.text;
+    if (!((titleWindow && (*titleWindow)[WindowGroupSelectElementId::Element11]))) { return; }
+    auto* const titleData = (*titleWindow)[WindowGroupSelectElementId::Element11]->data.text;
     titleData->text = title;
     WindowInstance* const subtitleWindow = gCurrentWindow;
     const std::wstring& subtitle = mode == 0 ? gWindowText572F58.text
         : mode == 1 ? gWindowText572F60.text : gWindowText572F68.text;
-    auto* const subtitleData = subtitleWindow->elements[11].data.text;
+    if (!((subtitleWindow && (*subtitleWindow)[WindowGroupSelectElementId::Element12]))) { return; }
+    auto* const subtitleData = (*subtitleWindow)[WindowGroupSelectElementId::Element12]->data.text;
     subtitleData->text = subtitle;
     for (std::int32_t row = 0; row < 7; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
@@ -328,12 +377,13 @@ static void WindowGroupSelect_Refresh()
             const std::wstring name = mode == 0 ? world::detail::gContactsF19FB0[source].name10
                 : mode == 1 ? cg::world::gOrderedRecords1051B14[source].name18
                     : cg::world::GetGuildRankText(position);
-            auto* const text = window->elements[12 + row].data.text;
+            if (!((window && (*window)[NativeElementKey(12 + row)]))) { continue; }
+            auto* const text = (*window)[NativeElementKey(12 + row)]->data.text;
             text->text = name;
         }
-        gCurrentWindow->elements[12 + row].visible = visible;
-        gCurrentWindow->elements[20 + row].visible = visible;
-        gCurrentWindow->elements[28 + row].visible = visible;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(12 + row)])) (*gCurrentWindow)[NativeElementKey(12 + row)]->visible = visible;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(20 + row)])) (*gCurrentWindow)[NativeElementKey(20 + row)]->visible = visible;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(28 + row)])) (*gCurrentWindow)[NativeElementKey(28 + row)]->visible = visible;
     }
 }
 
@@ -345,7 +395,8 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
     }
     const std::int32_t idle = index == 8 ? 0x3B556 : 0x3B559;
     std::int32_t result = 0;
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = idle + 2;
         gHoverTextD68AE8 = L"切换集团邮件。";
@@ -375,7 +426,8 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
         result = 1;
     }
     if ((state & 8) != 0) {
-        auto* const current = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const current = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         current->imageNo = idle + 1;
     }
     return result;
@@ -385,7 +437,8 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
 static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, const std::int32_t state)
 {
     std::int32_t result = 0;
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3BA20;
         const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
@@ -421,7 +474,8 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, 
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        auto* const current = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const current = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         current->imageNo = 0x3BA1F;
     }
     return result;
@@ -432,7 +486,8 @@ static std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const 
 {
     const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
     const std::int32_t selected = gLoginWindowRuntime.mailGroupCC1A30.selected[scroll + index - 20];
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = selected == 1 ? 0x3BA21 : 0x3BA22;
     std::int32_t result = 0;
     if ((state & 1) != 0) {
@@ -465,8 +520,9 @@ static std::int32_t WindowGroupSelect_Scroll(const std::int32_t, const std::int3
         const std::int32_t maximum = count - 7;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
+        if (!((window && (*window)[WindowGroupSelectElementId::HandleVerticalScroll]))) { return {}; }
         gLoginWindowRuntime.mailGroupScrollD67B88 =
-            WindowScroll_ApplyWheel(&window->elements[4], position, maximum < 0 ? 0 : maximum, wheel);
+            WindowScroll_ApplyWheel((*window)[WindowGroupSelectElementId::HandleVerticalScroll], position, maximum < 0 ? 0 : maximum, wheel);
     }
     return 0;
 }

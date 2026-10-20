@@ -8,6 +8,53 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowStatusBarElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    HandleHintButton = 12,
+    HandleHintButton_13 = 13,
+    HandleHintButton_14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    ButtonCompact = 17,
+    HandleOptionButtons = 18,
+    HandleOptionButtons_19 = 19,
+    HandleOptionButtons_20 = 20,
+    HandleOptionButtons_21 = 21,
+    HandleOptionButtons_22 = 22,
+    HandleOptionButtons_23 = 23,
+    HandleHover = 24,
+};
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowStatusBarElementId_gWindowElements55F3A0 : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    ButtonCollapse = 7,
+};
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowStatusBarElementId_gWindowElements55F480 : ElementId {
+    Element1 = 1,
+    ButtonExpand = 2,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -99,45 +146,45 @@ static std::uint32_t gWindowMouseFlagsD67650 = 0; // 原全局：0x00D67650。
 WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeStatusBar; // 原全局：0x0054E2A0。
 
 static WindowElementPrototype gWindowElements55F0A0[24] { // 原全局：0x0055F0A0。
-    {WindowElementType_Number, 20, 19, 0, 0, 1, {.number = &gWindowNumber55F090}, &WindowElement_NoOp},
-    {WindowElementType_Number, 20, 29, 0, 0, 1, {.number = &gWindowNumber55F098}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 63, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF18}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 82, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 101, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF48}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 120, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF60}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 139, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 158, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF90}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 145, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F008}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 158, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F020}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F038}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 6, 42, 36, 20, 1, {.graphic = &gWindowGraphic55EFA8}, &WindowStatusBar_HandleHintButton},
-    {WindowElementType_Graphic, 51, 41, 36, 20, 1, {.graphic = &gWindowGraphic55EFC0}, &WindowStatusBar_HandleHintButton},
-    {WindowElementType_Graphic, 83, 41, 36, 20, 1, {.graphic = &gWindowGraphic55EFD8}, &WindowStatusBar_HandleHintButton},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EF00}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 3, 4, 0, 0, 1, {.graphic = &gWindowGraphic55EFF0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 175, 0, 15, 33, 1, {}, &WindowStatusBar_ButtonCompact},
-    {WindowElementType_MouseArea, 63, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 82, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 101, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 120, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 139, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_MouseArea, 158, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons},
-    {WindowElementType_EventArea, 0, 40, 120, 30, 1, {}, &WindowStatusBar_HandleHover},
+    {WindowElementType_Number, 20, 19, 0, 0, 1, {.number = &gWindowNumber55F090}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element1)},
+    {WindowElementType_Number, 20, 29, 0, 0, 1, {.number = &gWindowNumber55F098}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element2)},
+    {WindowElementType_Graphic, 63, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF18}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element3)},
+    {WindowElementType_Graphic, 82, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element4)},
+    {WindowElementType_Graphic, 101, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element5)},
+    {WindowElementType_Graphic, 120, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF60}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element6)},
+    {WindowElementType_Graphic, 139, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element7)},
+    {WindowElementType_Graphic, 158, 3, 14, 14, 1, {.graphic = &gWindowGraphic55EF90}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element8)},
+    {WindowElementType_Graphic, 145, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F008}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element9)},
+    {WindowElementType_Graphic, 158, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element10)},
+    {WindowElementType_Graphic, 165, 25, 0, 0, 1, {.graphic = &gWindowGraphic55F038}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element11)},
+    {WindowElementType_Graphic, 6, 42, 36, 20, 1, {.graphic = &gWindowGraphic55EFA8}, &WindowStatusBar_HandleHintButton, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleHintButton)},
+    {WindowElementType_Graphic, 51, 41, 36, 20, 1, {.graphic = &gWindowGraphic55EFC0}, &WindowStatusBar_HandleHintButton, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleHintButton_13)},
+    {WindowElementType_Graphic, 83, 41, 36, 20, 1, {.graphic = &gWindowGraphic55EFD8}, &WindowStatusBar_HandleHintButton, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleHintButton_14)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EF00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element15)},
+    {WindowElementType_Graphic, 3, 4, 0, 0, 1, {.graphic = &gWindowGraphic55EFF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId::Element16)},
+    {WindowElementType_EventArea, 175, 0, 15, 33, 1, {}, &WindowStatusBar_ButtonCompact, -1, static_cast<ElementId>(WindowStatusBarElementId::ButtonCompact)},
+    {WindowElementType_MouseArea, 63, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons)},
+    {WindowElementType_MouseArea, 82, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_19)},
+    {WindowElementType_MouseArea, 101, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_20)},
+    {WindowElementType_MouseArea, 120, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_21)},
+    {WindowElementType_MouseArea, 139, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_22)},
+    {WindowElementType_MouseArea, 158, 3, 14, 14, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowStatusBar_HandleOptionButtons, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23)},
+    {WindowElementType_EventArea, 0, 40, 120, 30, 1, {}, &WindowStatusBar_HandleHover, -1, static_cast<ElementId>(WindowStatusBarElementId::HandleHover)},
 };
 
 static WindowElementPrototype gWindowElements55F3A0[7] { // 原全局：0x0055F3A0。
-    {WindowElementType_Number, 20, 2, 0, 0, 1, {.number = &gWindowNumber55F090}, &WindowElement_NoOp},
-    {WindowElementType_Number, 20, 12, 0, 0, 1, {.number = &gWindowNumber55F098}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 146, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F008}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 158, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F020}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 165, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F038}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F050}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 181, 0, 16, 37, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowCompactStatusBar_ButtonCollapse},
+    {WindowElementType_Number, 20, 2, 0, 0, 1, {.number = &gWindowNumber55F090}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F3A0::Element1)},
+    {WindowElementType_Number, 20, 12, 0, 0, 1, {.number = &gWindowNumber55F098}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F3A0::Element2)},
+    {WindowElementType_Graphic, 146, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F008}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F3A0::Element3)},
+    {WindowElementType_Graphic, 158, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F3A0::Element4)},
+    {WindowElementType_Graphic, 165, 9, 0, 0, 1, {.graphic = &gWindowGraphic55F038}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F3A0::Element5)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F050}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F3A0::Element6)},
+    {WindowElementType_MouseArea, 181, 0, 16, 37, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowCompactStatusBar_ButtonCollapse, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F3A0::ButtonCollapse)},
 };
 
 static WindowElementPrototype gWindowElements55F480[2] { // 原全局：0x0055F480。
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F068}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 0, 0, 19, 34, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowCollapsedStatusBar_ButtonExpand},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F068}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F480::Element1)},
+    {WindowElementType_MouseArea, 0, 0, 19, 34, 1, {.mouseFlags = &gWindowMouseFlagsD67650}, &WindowCollapsedStatusBar_ButtonExpand, -1, static_cast<ElementId>(WindowStatusBarElementId_gWindowElements55F480::ButtonExpand)},
 };
 
 // 原型：窗口1；原全局：0x0054E2A0。
@@ -193,9 +240,9 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
     const std::int32_t hoursUnits = hours % 10;
     const std::int32_t minutes = (duration - hours * 3600000) / 60000;
     const std::int32_t digits[4] {hoursTens, hoursUnits, minutes / 10, minutes % 10};
-    gCurrentWindow->elements[firstElement].visible = 0;
-    gCurrentWindow->elements[firstElement + 1].visible = 0;
-    gCurrentWindow->elements[firstElement + 2].visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)])) (*gCurrentWindow)[NativeElementKey(firstElement)]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + 1)])) (*gCurrentWindow)[NativeElementKey(firstElement + 1)]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + 2)])) (*gCurrentWindow)[NativeElementKey(firstElement + 2)]->visible = 0;
     const std::int32_t mode = world::gPlayerRuntimeSlots.timerMode10;
     WindowInstance* firstWindow = nullptr; // firstElement的互补分支在使用前必定覆盖。
     if (firstElement == 8) {
@@ -210,7 +257,8 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
     const std::int32_t baseImage = mode != 0 ? 0x3B6A0 : 0x3B664;
     for (std::int32_t digit = 0; digit < 4; ++digit) {
         WindowInstance* const window = digit == 0 ? firstWindow : gCurrentWindow;
-        const WindowElement& element = window->elements[firstElement + (digit == 0 ? 0 : digit - 1)];
+        if (!((window && (*window)[NativeElementKey(firstElement + (digit == 0 ? 0 : digit - 1))]))) { continue; }
+        const WindowElement& element = (*(*window)[NativeElementKey(firstElement + (digit == 0 ? 0 : digit - 1))]);
         std::int32_t elementY;
         std::int32_t elementX;
         std::int32_t windowY;
@@ -239,7 +287,7 @@ std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::in
 {
     WindowInstance* window = gWindowStates[WindowId_Emote].window;
     if (window != nullptr) {
-        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3B921;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3B921;
         window = gWindowStates[WindowId_Emote].window;
     }
     if ((state & 2) == 0) {
@@ -259,7 +307,7 @@ std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::
 {
     WindowInstance* window = gWindowStates[WindowId_MiniMap].window;
     if (window != nullptr) {
-        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3B924;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3B924;
         window = gWindowStates[WindowId_MiniMap].window;
     }
     if ((state & 2) == 0) {
@@ -302,9 +350,10 @@ static void WindowStatusBar_Refresh()
     WindowStatusBar_FormatVitals(buffer);
     WindowInstance* const timeWindow = gCurrentWindow;
     gStatusFpTextD45D50 = buffer;
-    WindowElement* const elements = timeWindow->elements;
+    auto* elementsWindow = timeWindow;
     const std::int32_t hours = std::bit_cast<std::int32_t>(world::gCgTime.hours);
-    auto* const timeGraphic = elements[15].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[WindowStatusBarElementId::Element16]))) { return; }
+    auto* const timeGraphic = (*elementsWindow)[WindowStatusBarElementId::Element16]->data.graphic;
     const std::int32_t minutes = std::bit_cast<std::int32_t>(world::gCgTime.minutes);
     const std::int32_t totalMinutes = hours * 60 + minutes;
     const double offset = totalMinutes * kStatusTimeScale54F638;
@@ -334,7 +383,8 @@ static void WindowStatusBar_Refresh()
         gLoginWindowRuntime.statusBlinkPhaseCF4FBC = phase;
     }
     const bool pointsBlink = gLoginWindowRuntime.statusHasPointsD66E24 != 0 && phase >= 30;
-    gCurrentWindow->elements[13].data.graphic->imageNo =
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton_14]))) { return; }
+    (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton_14]->data.graphic->imageNo =
         pointsBlink ? 0x3B953 : 0x3B954;
 
     bool injuryBlink = false;
@@ -346,11 +396,13 @@ static void WindowStatusBar_Refresh()
         : injury <= 25 ? 0x3B944
         : injury <= 50 ? 0x3B947
         : injury <= 75 ? 0x3B94A : 0x3B94D;
-    gCurrentWindow->elements[11].data.graphic->imageNo =
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton]))) { return; }
+    (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton]->data.graphic->imageNo =
         injuryImage - (injuryBlink ? 1 : 0);
     const bool mailBlink = gLoginWindowRuntime.statusHasMailCC4B5C != 0
         && gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
-    gCurrentWindow->elements[12].data.graphic->imageNo =
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton_13]))) { return; }
+    (*gCurrentWindow)[WindowStatusBarElementId::HandleHintButton_13]->data.graphic->imageNo =
         mailBlink ? 0x3B94F : 0x3B950;
 }
 
@@ -420,7 +472,8 @@ static std::int32_t WindowStatusBar_HandleHover(const std::int32_t, const std::i
 static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const std::int32_t state)
 {
     // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
-    auto* const graphic = gCurrentWindow->elements[index - 15].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index - 15)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index - 15)]->data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = hover ? 1 : 0;
     graphic->imageNo = 0x3B8FC + index * 3 + (hover ? 1 : 0);
@@ -523,7 +576,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
         if (hover) {
             WindowInstance* const hoverWindow = gCurrentWindow;
             consumed = 1;
-            hoverWindow->elements[13].data.graphic->imageNo = 0x3B955;
+            if ((hoverWindow && (*hoverWindow)[WindowStatusBarElementId::HandleHintButton_14])) (*hoverWindow)[WindowStatusBarElementId::HandleHintButton_14]->data.graphic->imageNo = 0x3B955;
         }
         if ((state & 2) != 0) {
             if (candidate <= 4) {
@@ -567,7 +620,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
         if (hover) {
             WindowInstance* const hoverWindow = gCurrentWindow;
             consumed = 1;
-            hoverWindow->elements[12].data.graphic->imageNo = 0x3B951;
+            if ((hoverWindow && (*hoverWindow)[WindowStatusBarElementId::HandleHintButton_13])) (*hoverWindow)[WindowStatusBarElementId::HandleHintButton_13]->data.graphic->imageNo = 0x3B951;
         }
         if ((state & 2) != 0) {
             world::detail::FindFirstUnreadMailContact_518F00(
@@ -639,7 +692,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
                 imageWindow = gCurrentWindow;
                 image = injury <= 75 ? 0x3B94B : 0x3B94E;
             }
-            imageWindow->elements[11].data.graphic->imageNo = image;
+            if ((imageWindow && (*imageWindow)[WindowStatusBarElementId::HandleHintButton])) (*imageWindow)[WindowStatusBarElementId::HandleHintButton]->data.graphic->imageNo = image;
             consumed = 1;
         }
         if ((state & 2) != 0) {

@@ -61,7 +61,7 @@ static void UpdateTextInputLineStart(InputContext& context, int maxLength)
         context.field158 = static_cast<int>(text::Next(context.text, context.field158));
     }
 }
-UITextInputControl::UITextInputControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, WindowEventBinding callbacks)
+UITextInputControl::UITextInputControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_TEXT_INPUT, name, x, y, w, h, visible, callbacks), data(std::move(data)) {
     this->data.maxLength = ClampTextInputMaxLength(this->data.maxLength);
     setTextInputText(this->data.lastText.c_str());

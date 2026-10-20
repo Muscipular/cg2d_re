@@ -3,6 +3,38 @@
 #include "../../world/ChatHistory.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowChatElementId : ElementId {
+    HandleInput = 1,
+    Element2 = 2,
+    Scroll = 3,
+    HandleButtons = 4,
+    HandleButtons_5 = 5,
+    HandleButtons_6 = 6,
+    HandleButtons_7 = 7,
+    HandleButtons_8 = 8,
+    Element9 = 9,
+    DragScroll = 10,
+    HandleButtons_11 = 11,
+    HandleButtons_12 = 12,
+    HandleButtons_13 = 13,
+    HandleButtons_14 = 14,
+    HandleButtons_15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    HandleButtons_20 = 20,
+};
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowChatElementId_gWindowElements570FD8 : ElementId {
+    HandleInput = 1,
+    Element2 = 2,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -101,31 +133,31 @@ static std::uint32_t gWindowMouseFlagsD67870 = 0; // 原全局：0x00D67870。
 
 // 原全局：0x00570CB0。 几何更新所读五按钮原型坐标。
 static WindowElementPrototype gWindowElements570CB0[20] { // 原全局：0x00570CB0。
-    {WindowElementType_Input, 0, 0, 0, 0, 1, {}, &WindowChat_HandleInput},
-    {WindowElementType_InputCaret, 0, 0, 0, 0, 1, {}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 0, 0, 0, 0, 1, {}, &WindowChat_Scroll},
-    {WindowElementType_Graphic, 7, 3, 18, 16, 1, {.graphic = &gWindowGraphic570BA0}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 27, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B40}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 48, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B58}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 68, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B70}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 87, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B88}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 11, 14, 1, {.graphic = &gWindowGraphic570C00}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 239, 104, 11, 100, 1, {.mouseFlags = &gWindowMouseFlagsD67870}, &WindowChat_DragScroll},
-    {WindowElementType_Graphic, 0, 0, 14, 534, 1, {.graphic = &gWindowGraphic570C18}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C78}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C90}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C30}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C48}, &WindowChat_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 454, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, -370, 0, 0, 1, {.graphic = &gWindowGraphic570BD0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, -386, 0, 0, 1, {.graphic = &gWindowGraphic570BE8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 1, 1, 0, 0, 1, {.graphic = &gWindowGraphic570C60}, &WindowChat_HandleButtons},
+    {WindowElementType_Input, 0, 0, 0, 0, 1, {}, &WindowChat_HandleInput, -1, static_cast<ElementId>(WindowChatElementId::HandleInput)},
+    {WindowElementType_InputCaret, 0, 0, 0, 0, 1, {}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowChatElementId::Element2)},
+    {WindowElementType_EventArea, 0, 0, 0, 0, 1, {}, &WindowChat_Scroll, -1, static_cast<ElementId>(WindowChatElementId::Scroll)},
+    {WindowElementType_Graphic, 7, 3, 18, 16, 1, {.graphic = &gWindowGraphic570BA0}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons)},
+    {WindowElementType_Graphic, 27, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B40}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_5)},
+    {WindowElementType_Graphic, 48, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B58}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_6)},
+    {WindowElementType_Graphic, 68, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B70}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_7)},
+    {WindowElementType_Graphic, 87, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B88}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_8)},
+    {WindowElementType_Graphic, 0, 0, 11, 14, 1, {.graphic = &gWindowGraphic570C00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowChatElementId::Element9)},
+    {WindowElementType_MouseArea, 239, 104, 11, 100, 1, {.mouseFlags = &gWindowMouseFlagsD67870}, &WindowChat_DragScroll, -1, static_cast<ElementId>(WindowChatElementId::DragScroll)},
+    {WindowElementType_Graphic, 0, 0, 14, 534, 1, {.graphic = &gWindowGraphic570C18}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_11)},
+    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C78}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_12)},
+    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C90}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_13)},
+    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C30}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_14)},
+    {WindowElementType_Graphic, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C48}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_15)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowChatElementId::Element16)},
+    {WindowElementType_Graphic, 454, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowChatElementId::Element17)},
+    {WindowElementType_Graphic, 0, -370, 0, 0, 1, {.graphic = &gWindowGraphic570BD0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowChatElementId::Element18)},
+    {WindowElementType_Graphic, 0, -386, 0, 0, 1, {.graphic = &gWindowGraphic570BE8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowChatElementId::Element19)},
+    {WindowElementType_Graphic, 1, 1, 0, 0, 1, {.graphic = &gWindowGraphic570C60}, &WindowChat_HandleButtons, -1, static_cast<ElementId>(WindowChatElementId::HandleButtons_20)},
 };
 
 static WindowElementPrototype gWindowElements570FD8[2] { // 原全局：0x00570FD8。
-    {WindowElementType_Input, 0, 0, 0, 0, 1, {}, &WindowChat_HandleInput},
-    {WindowElementType_InputCaret, 0, 0, 0, 0, 1, {}, &WindowElement_NoOp},
+    {WindowElementType_Input, 0, 0, 0, 0, 1, {}, &WindowChat_HandleInput, -1, static_cast<ElementId>(WindowChatElementId_gWindowElements570FD8::HandleInput)},
+    {WindowElementType_InputCaret, 0, 0, 0, 0, 1, {}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowChatElementId_gWindowElements570FD8::Element2)},
 };
 
 // 原型：窗口35；原全局：0x0054EAB0。
@@ -220,22 +252,24 @@ static void WindowChat_SyncScrollThumb()
         return;
     }
     const std::int32_t scroll = gChatScrollOffsetC9A940;
-    WindowElement* const before = window->elements;
+    auto* beforeWindow = window;
     const std::int32_t count = world::gChatRecordCount_C9A944;
-    static_cast<void>(WindowScroll_SetPosition(&before[9], count, scroll));
+    if (!((beforeWindow && (*beforeWindow)[WindowChatElementId::DragScroll]))) { return; }
+    static_cast<void>(WindowScroll_SetPosition((*beforeWindow)[WindowChatElementId::DragScroll], count, scroll));
     const std::int32_t currentCount = world::gChatRecordCount_C9A944;
-    WindowElement* const elements = window->elements;
+    auto* elementsWindow = window;
     if (currentCount == 0) {
-        elements[8].y = elements[14].y - 14;
+        if ((elementsWindow && (*elementsWindow)[WindowChatElementId::Element9]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons_15])) (*elementsWindow)[WindowChatElementId::Element9]->y = (*elementsWindow)[WindowChatElementId::HandleButtons_15]->y - 14;
         return;
     }
     const double currentScroll = gChatScrollOffsetC9A940;
-    const std::int32_t span = elements[10].height - 14;
+    if (!((elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons_11]))) { return; }
+    const std::int32_t span = (*elementsWindow)[WindowChatElementId::HandleButtons_11]->height - 14;
     const double ratio = currentScroll / world::gChatRecordCount_C9A944;
     const double pixels = ratio * span;
     // 原PC53除法/乘法及__ftol取低S32，不能改为整数先乘后除。
     const auto position = static_cast<std::int32_t>(static_cast<std::int64_t>(pixels));
-    elements[8].y = elements[14].y - position - 14;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::Element9]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons_15])) (*elementsWindow)[WindowChatElementId::Element9]->y = (*elementsWindow)[WindowChatElementId::HandleButtons_15]->y - position - 14;
 }
 
 // CWP01：原请求/字体高度各点顺序取样，尺寸环/现场窗口载荷及完整几何保持。
@@ -279,103 +313,107 @@ static void WindowChat_RefreshGeometry()
     const std::int32_t currentWidth = gChatWidthUnitsC9A930;
     WindowInstance* const firstWindow = gCurrentWindow;
     gChatWidthRequestC9A934 = 0;
-    WindowElement* const firstElements = firstWindow->elements;
+    auto* firstElementsWindow = firstWindow;
     const std::int32_t inputWidth = (currentWidth + 1) * render::GetFontMetrics(9).doubleWidth;
-    auto* graphic = firstElements[15].data.graphic;
+    if (!((firstElementsWindow && (*firstElementsWindow)[WindowChatElementId::Element16]))) { return; }
+    auto* graphic = (*firstElementsWindow)[WindowChatElementId::Element16]->data.graphic;
     const std::int32_t dragWidth = inputWidth + 111;
     graphic->width = inputWidth;
     graphic->height = 25;
-    graphic = gCurrentWindow->elements[19].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_20]))) { return; }
+    graphic = (*gCurrentWindow)[WindowChatElementId::HandleButtons_20]->data.graphic;
     graphic->width = inputWidth + 20;
     graphic->height = 25;
-    gCurrentWindow->elements[16].x = inputWidth;
-    graphic = gCurrentWindow->elements[17].data.graphic;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Element17])) (*gCurrentWindow)[WindowChatElementId::Element17]->x = inputWidth;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Element18]))) { return; }
+    graphic = (*gCurrentWindow)[WindowChatElementId::Element18]->data.graphic;
     graphic->width = dragWidth;
     const std::int32_t backgroundRows = gChatHeightUnitsC9A938 - 1;
     const std::int32_t backgroundHeight =
         backgroundRows * render::GetFontMetrics(9).doubleWidth;
     graphic->height = backgroundHeight;
-    gCurrentWindow->elements[17].y = -backgroundHeight;
-    WindowElement* elements = gCurrentWindow->elements;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Element18])) (*gCurrentWindow)[WindowChatElementId::Element18]->y = -backgroundHeight;
+    auto* elementsWindow = gCurrentWindow;
     const std::int32_t backgroundWidth = gChatWidthUnitsC9A930;
-    graphic = elements[18].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[WindowChatElementId::Element19]))) { return; }
+    graphic = (*elementsWindow)[WindowChatElementId::Element19]->data.graphic;
     graphic->width = backgroundWidth * 12 + 111;
     graphic->height = gChatHeightUnitsC9A938 == 0 ? 0 : 12;
-    elements = gCurrentWindow->elements;
-    elements[18].y = elements[17].y - 12;
-    elements = gCurrentWindow->elements;
-    elements[2].x = elements[18].x;
-    elements = gCurrentWindow->elements;
-    elements[2].y = elements[18].y;
-    gCurrentWindow->elements[2].width = inputWidth + 125;
+    elementsWindow = gCurrentWindow;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::Element19]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::Element18])) (*elementsWindow)[WindowChatElementId::Element19]->y = (*elementsWindow)[WindowChatElementId::Element18]->y - 12;
+    elementsWindow = gCurrentWindow;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::Scroll]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::Element19])) (*elementsWindow)[WindowChatElementId::Scroll]->x = (*elementsWindow)[WindowChatElementId::Element19]->x;
+    elementsWindow = gCurrentWindow;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::Scroll]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::Element19])) (*elementsWindow)[WindowChatElementId::Scroll]->y = (*elementsWindow)[WindowChatElementId::Element19]->y;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Scroll])) (*gCurrentWindow)[WindowChatElementId::Scroll]->width = inputWidth + 125;
     const std::int32_t rows = gChatHeightUnitsC9A938 - 1;
     WindowInstance* const hitWindow = gCurrentWindow;
     const std::int32_t hitHeight = rows * render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollX = inputWidth + 97;
-    hitWindow->elements[2].height = hitHeight + 16;
-    gCurrentWindow->elements[9].x = scrollX;
+    if ((hitWindow && (*hitWindow)[WindowChatElementId::Scroll])) (*hitWindow)[WindowChatElementId::Scroll]->height = hitHeight + 16;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::DragScroll])) (*gCurrentWindow)[WindowChatElementId::DragScroll]->x = scrollX;
     const std::int32_t scrollFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollY = 17 - scrollFontWidth * gChatHeightUnitsC9A938;
-    gCurrentWindow->elements[9].y = scrollY;
-    gCurrentWindow->elements[9].width = 14;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::DragScroll])) (*gCurrentWindow)[WindowChatElementId::DragScroll]->y = scrollY;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::DragScroll])) (*gCurrentWindow)[WindowChatElementId::DragScroll]->width = 14;
     const std::int32_t scrollHeightFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollHeight =
         scrollHeightFontWidth * gChatHeightUnitsC9A938 - 28;
-    gCurrentWindow->elements[9].height = scrollHeight;
-    gCurrentWindow->elements[10].x = scrollX;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::DragScroll])) (*gCurrentWindow)[WindowChatElementId::DragScroll]->height = scrollHeight;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_11])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_11]->x = scrollX;
     const std::int32_t trackYFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackY = 17 - trackYFontWidth * gChatHeightUnitsC9A938;
-    gCurrentWindow->elements[10].y = trackY;
-    gCurrentWindow->elements[10].width = 14;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_11])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_11]->y = trackY;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_11])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_11]->width = 14;
     const std::int32_t trackHeightFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackHeight =
         trackHeightFontWidth * gChatHeightUnitsC9A938 - 28;
-    gCurrentWindow->elements[10].height = trackHeight;
-    gCurrentWindow->elements[10].data.graphic->width = 14;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_11])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_11]->height = trackHeight;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_11])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_11]->data.graphic->width = 14;
     const std::int32_t trackGraphicFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackGraphicHeight =
         trackGraphicFontWidth * gChatHeightUnitsC9A938 - 28;
-    gCurrentWindow->elements[10].data.graphic->height = trackGraphicHeight;
-    gCurrentWindow->elements[11].x = scrollX;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_11])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_11]->data.graphic->height = trackGraphicHeight;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_12])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_12]->x = scrollX;
     const std::int32_t upFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t upY = 4 - upFontWidth * gChatHeightUnitsC9A938;
-    gCurrentWindow->elements[11].y = upY;
-    gCurrentWindow->elements[12].x = scrollX;
-    gCurrentWindow->elements[12].y = -12;
-    gCurrentWindow->elements[13].x = scrollX;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_12])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_12]->y = upY;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_13])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_13]->x = scrollX;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_13])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_13]->y = -12;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_14])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_14]->x = scrollX;
     const std::int32_t upHitFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t upHitY = -upHitFontWidth * gChatHeightUnitsC9A938;
-    gCurrentWindow->elements[13].y = upHitY;
-    gCurrentWindow->elements[14].x = scrollX;
-    gCurrentWindow->elements[14].y = -11;
-    gCurrentWindow->elements[8].x = scrollX;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_14])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_14]->y = upHitY;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_15])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_15]->x = scrollX;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_15])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_15]->y = -11;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Element9])) (*gCurrentWindow)[WindowChatElementId::Element9]->x = scrollX;
     WindowChat_SyncScrollThumb();
     gCurrentWindow->dragRects40[0].width = dragWidth;
     const std::int32_t finalWidth = gChatWidthUnitsC9A930;
     gCurrentWindow->width = finalWidth * 12 + 123;
-    gCurrentWindow->elements[0].width = inputWidth;
-    gCurrentWindow->elements[0].height = 25;
-    elements = gCurrentWindow->elements;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleInput])) (*gCurrentWindow)[WindowChatElementId::HandleInput]->width = inputWidth;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleInput])) (*gCurrentWindow)[WindowChatElementId::HandleInput]->height = 25;
+    elementsWindow = gCurrentWindow;
     const std::int32_t button3X = gWindowElements570CB0[3].x;
-    elements[3].x = elements[16].x + button3X;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::Element17])) (*elementsWindow)[WindowChatElementId::HandleButtons]->x = (*elementsWindow)[WindowChatElementId::Element17]->x + button3X;
     WindowInstance* window = gCurrentWindow;
     const std::int32_t button4X = gWindowElements570CB0[4].x;
-    elements = window->elements;
-    elements[4].x = elements[16].x + button4X;
+    elementsWindow = window;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons_5]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::Element17])) (*elementsWindow)[WindowChatElementId::HandleButtons_5]->x = (*elementsWindow)[WindowChatElementId::Element17]->x + button4X;
     window = gCurrentWindow;
     const std::int32_t button5X = gWindowElements570CB0[5].x;
-    elements = window->elements;
-    elements[5].x = elements[16].x + button5X;
+    elementsWindow = window;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons_6]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::Element17])) (*elementsWindow)[WindowChatElementId::HandleButtons_6]->x = (*elementsWindow)[WindowChatElementId::Element17]->x + button5X;
     window = gCurrentWindow;
     const std::int32_t button6X = gWindowElements570CB0[6].x;
-    elements = window->elements;
-    elements[6].x = elements[16].x + button6X;
-    elements = gCurrentWindow->elements;
+    elementsWindow = window;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons_7]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::Element17])) (*elementsWindow)[WindowChatElementId::HandleButtons_7]->x = (*elementsWindow)[WindowChatElementId::Element17]->x + button6X;
+    elementsWindow = gCurrentWindow;
     const std::int32_t button7X = gWindowElements570CB0[7].x;
-    elements[7].x = elements[16].x + button7X;
+    if ((elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons_8]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::Element17])) (*elementsWindow)[WindowChatElementId::HandleButtons_8]->x = (*elementsWindow)[WindowChatElementId::Element17]->x + button7X;
     window = gCurrentWindow;
     const std::int32_t color = cg::ui::detail::gInputContext626AA0.field140;
-    window->elements[7].data.graphic->imageNo = color + 245192;
+    if ((window && (*window)[WindowChatElementId::HandleButtons_8])) (*window)[WindowChatElementId::HandleButtons_8]->data.graphic->imageNo = color + 245192;
 }
 
 // CWC01：原输入创建/可见性/焦点与context接线、现场坐标和返1保持。
@@ -396,18 +434,20 @@ static std::int32_t WindowChat_Update(const std::int32_t value)
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
         WindowInstance* const current = gCurrentWindow;
-        gFocusedElementDataD45F94 = current->elements[0].data.input;
-        current->elements[0].data.input->context =
+        if (!((current && (*current)[WindowChatElementId::HandleInput]))) { return {}; }
+        gFocusedElementDataD45F94 = (*current)[WindowChatElementId::HandleInput]->data.input;
+        if (!((current && (*current)[WindowChatElementId::HandleInput]))) { return {}; }
+        (*current)[WindowChatElementId::HandleInput]->data.input->context =
             &cg::ui::detail::gInputContext626AA0;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         return 1;
     }
     if (render::HasLegacy3DDevice_44B610() == 1) {
-        gCurrentWindow->elements[18].visible = 1;
-        gCurrentWindow->elements[17].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Element19])) (*gCurrentWindow)[WindowChatElementId::Element19]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Element18])) (*gCurrentWindow)[WindowChatElementId::Element18]->visible = 1;
     } else {
-        gCurrentWindow->elements[18].visible = 0;
-        gCurrentWindow->elements[17].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Element19])) (*gCurrentWindow)[WindowChatElementId::Element19]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::Element18])) (*gCurrentWindow)[WindowChatElementId::Element18]->visible = 0;
     }
     WindowChat_RefreshGeometry();
     WindowInstance* const window = gCurrentWindow;
@@ -428,11 +468,11 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     switch (index) {
     case 4:
         if ((state & 1) != 0) {
-            gCurrentWindow->elements[4].data.graphic->imageNo = 0x3BDC3;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_5])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_5]->data.graphic->imageNo = 0x3BDC3;
             gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示行数，点击滑鼠右键减少文字讯息显示行数。";
             consumed = 1;
         } else {
-            gCurrentWindow->elements[4].data.graphic->imageNo = 0x3BDC4;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_5])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_5]->data.graphic->imageNo = 0x3BDC4;
         }
         if ((state & 0x400) != 0) {
             WindowChat_RequestHeightIncrease();
@@ -448,13 +488,13 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     case 5:
         if ((state & 1) != 0) {
             const std::int32_t image = platform::gChatRange_554640 * 3 + 0x3BDB1;
-            gCurrentWindow->elements[5].data.graphic->imageNo = image;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_6])) (*gCurrentWindow)[WindowChatElementId::HandleButtons_6]->data.graphic->imageNo = image;
             gHoverTextD68AE8 = L"切换发话的范围。";
             consumed = 1;
         } else {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t range = platform::gChatRange_554640;
-            window->elements[5].data.graphic->imageNo = range * 3 + 0x3BDB2;
+            if ((window && (*window)[WindowChatElementId::HandleButtons_6])) (*window)[WindowChatElementId::HandleButtons_6]->data.graphic->imageNo = range * 3 + 0x3BDB2;
         }
         if ((state & 2) != 0) {
             const std::int32_t range = platform::gChatRange_554640 + 1;
@@ -480,7 +520,8 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     case 6: {
         WindowInstance* const hoverWindow = gCurrentWindow;
         const bool hovered = (state & 1) != 0;
-        auto* const graphic = hoverWindow->elements[6].data.graphic;
+        if (!((hoverWindow && (*hoverWindow)[WindowChatElementId::HandleButtons_7]))) { return {}; }
+        auto* const graphic = (*hoverWindow)[WindowChatElementId::HandleButtons_7]->data.graphic;
         if (hovered) {
             gHoverTextD68AE8 = L"改变聊天时的文字大小。";
             consumed = 1;
@@ -517,13 +558,13 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     case 3: {
         WindowInstance* const hoverWindow = gCurrentWindow;
         const bool hovered = (state & 1) != 0;
-        WindowElement* const hoverElements = hoverWindow->elements;
+        auto* hoverElementsWindow = hoverWindow;
         if (hovered) {
-            hoverElements[3].data.graphic->imageNo = 0x3BDA9;
+            if ((hoverElementsWindow && (*hoverElementsWindow)[WindowChatElementId::HandleButtons])) (*hoverElementsWindow)[WindowChatElementId::HandleButtons]->data.graphic->imageNo = 0x3BDA9;
             gHoverTextD68AE8 = L"点击滑鼠左键增加文字显示字数，点击滑鼠右键减少文字讯息显示字数。";
             consumed = 1;
         } else {
-            hoverElements[3].data.graphic->imageNo = 0x3BDAA;
+            if ((hoverElementsWindow && (*hoverElementsWindow)[WindowChatElementId::HandleButtons])) (*hoverElementsWindow)[WindowChatElementId::HandleButtons]->data.graphic->imageNo = 0x3BDAA;
         }
         if ((state & 0x400) != 0) {
             WindowChat_RequestWidthIncrease();
@@ -575,7 +616,8 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
     case 13: {
         WindowInstance* const hoverWindow = gCurrentWindow;
         const bool hovered = (state & 1) != 0;
-        hoverWindow->elements[11].data.graphic->imageNo =
+        if (!((hoverWindow && (*hoverWindow)[WindowChatElementId::HandleButtons_12]))) { return {}; }
+        (*hoverWindow)[WindowChatElementId::HandleButtons_12]->data.graphic->imageNo =
             hovered ? 0x3B594 : 0x3B592;
         consumed = hovered ? 1 : 0;
         if ((state & 0x400) != 0) {
@@ -586,7 +628,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             if (scroll > count) {
                 WindowInstance* const window = gCurrentWindow;
                 gChatScrollOffsetC9A940 = count;
-                window->elements[11].data.graphic->imageNo = 0x3B593;
+                if ((window && (*window)[WindowChatElementId::HandleButtons_12])) (*window)[WindowChatElementId::HandleButtons_12]->data.graphic->imageNo = 0x3B593;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -597,7 +639,8 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
         break;
     }
     case 14:
-        gCurrentWindow->elements[12].data.graphic->imageNo =
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowChatElementId::HandleButtons_13]))) { return {}; }
+        (*gCurrentWindow)[WindowChatElementId::HandleButtons_13]->data.graphic->imageNo =
             (state & 1) != 0 ? 0x3B597 : 0x3B595;
         consumed = (state & 1) != 0 ? 1 : 0;
         if ((state & 0x400) != 0) {
@@ -606,7 +649,7 @@ static std::int32_t WindowChat_HandleButtons(const std::int32_t index, const std
             if (scroll < 0) {
                 WindowInstance* const window = gCurrentWindow;
                 gChatScrollOffsetC9A940 = 0;
-                window->elements[12].data.graphic->imageNo = 0x3B596;
+                if ((window && (*window)[WindowChatElementId::HandleButtons_13])) (*window)[WindowChatElementId::HandleButtons_13]->data.graphic->imageNo = 0x3B596;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -658,10 +701,12 @@ static std::int32_t WindowChat_HandleInput(const std::int32_t, const std::int32_
                 }
             }
         }
-        WindowElement* const focusedElements = gWindowStates[WindowId_Chat].window->elements;
+        auto* focusedElementsWindow = gWindowStates[WindowId_Chat].window;
         WindowInstance* const current = gCurrentWindow;
-        gFocusedElementDataD45F94 = focusedElements[0].data.input;
-        current->elements[0].data.input->context =
+        if (!((focusedElementsWindow && (*focusedElementsWindow)[WindowChatElementId::HandleInput]))) { return {}; }
+        gFocusedElementDataD45F94 = (*focusedElementsWindow)[WindowChatElementId::HandleInput]->data.input;
+        if (!((current && (*current)[WindowChatElementId::HandleInput]))) { return {}; }
+        (*current)[WindowChatElementId::HandleInput]->data.input->context =
             &cg::ui::detail::gInputContext626AA0;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         consumed = 1;
@@ -681,8 +726,10 @@ static std::int32_t WindowCompactChat_Update(const std::int32_t value)
     if (value == -1) {
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
         WindowInstance* const current = gCurrentWindow;
-        gFocusedElementDataD45F94 = current->elements[0].data.input;
-        current->elements[0].data.input->context =
+        if (!((current && (*current)[WindowChatElementId::HandleInput]))) { return {}; }
+        gFocusedElementDataD45F94 = (*current)[WindowChatElementId::HandleInput]->data.input;
+        if (!((current && (*current)[WindowChatElementId::HandleInput]))) { return {}; }
+        (*current)[WindowChatElementId::HandleInput]->data.input->context =
             &cg::ui::detail::gInputContext626AA0;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     } else {
@@ -710,7 +757,8 @@ static std::int32_t WindowChat_DragScroll(const std::int32_t index, const std::i
     if ((state & 8) != 0) {
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t count = world::gChatRecordCount_C9A944;
-        const std::int32_t position = WindowScroll_ReadPosition(&window->elements[9], count);
+        if (!((window && (*window)[WindowChatElementId::DragScroll]))) { return {}; }
+        const std::int32_t position = WindowScroll_ReadPosition((*window)[WindowChatElementId::DragScroll], count);
         gChatScrollOffsetC9A940 = world::gChatRecordCount_C9A944 - position;
     }
     return consumed;
@@ -727,14 +775,15 @@ static std::int32_t WindowChat_Scroll(const std::int32_t, const std::int32_t sta
     const std::int32_t count = world::gChatRecordCount_C9A944;
     if (count == 0) {
         if (platform::gLegacyMouseState.tailReset != 0) {
-            WindowElement* const elements = window->elements;
-            elements[8].y = elements[14].y - 14;
+            auto* elementsWindow = window;
+            if ((elementsWindow && (*elementsWindow)[WindowChatElementId::Element9]) && (elementsWindow && (*elementsWindow)[WindowChatElementId::HandleButtons_15])) (*elementsWindow)[WindowChatElementId::Element9]->y = (*elementsWindow)[WindowChatElementId::HandleButtons_15]->y - 14;
         }
         return 0;
     }
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = count - gChatScrollOffsetC9A940;
-    const std::int32_t next = WindowScroll_ApplyWheel(&window->elements[9], position, count, wheel);
+    if (!((window && (*window)[WindowChatElementId::DragScroll]))) { return {}; }
+    const std::int32_t next = WindowScroll_ApplyWheel((*window)[WindowChatElementId::DragScroll], position, count, wheel);
     gChatScrollOffsetC9A940 = world::gChatRecordCount_C9A944 - next;
     return 0;
 }
@@ -904,7 +953,8 @@ std::int32_t WindowChat_RestoreInput()
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
-        gFocusedElementDataD45F94 = gWindowStates[WindowId_CompactChat].window->elements[0].data.input;
+        if (!((gWindowStates[WindowId_CompactChat].window && (*gWindowStates[WindowId_CompactChat].window)[WindowChatElementId::HandleInput]))) { return {}; }
+        gFocusedElementDataD45F94 = (*gWindowStates[WindowId_CompactChat].window)[WindowChatElementId::HandleInput]->data.input;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         return 1;
     }
@@ -939,7 +989,8 @@ std::int32_t WindowChat_RestoreInput()
             }
         }
     }
-    gFocusedElementDataD45F94 = gWindowStates[WindowId_Chat].window->elements[0].data.input;
+    if (!((gWindowStates[WindowId_Chat].window && (*gWindowStates[WindowId_Chat].window)[WindowChatElementId::HandleInput]))) { return {}; }
+    gFocusedElementDataD45F94 = (*gWindowStates[WindowId_Chat].window)[WindowChatElementId::HandleInput]->data.input;
     input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     return 1;
 }

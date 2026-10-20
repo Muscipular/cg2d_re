@@ -1,6 +1,33 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowProfileReplyElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    ButtonClose = 13,
+    Element14 = 14,
+    HandleButtons = 15,
+    HandleButtons_16 = 16,
+    HandleButtons_17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    HandleSideArea = 21,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -56,27 +83,27 @@ static WindowTextPrototype gWindowText57A068 { // 原全局：0x0057A068。
 };
 
 static WindowElementPrototype gWindowElements57A070[21] { // 原全局：0x0057A070。
-    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText57A028}, &WindowElement_NoOp},
-    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText57A030}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 39, 0, 0, 1, {.text = &gWindowText57A038}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 59, 0, 0, 1, {.text = &gWindowText57A040}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 79, 0, 0, 1, {.text = &gWindowText57A048}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 108, 0, 0, 1, {.text = &gWindowText57A058}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 130, 0, 0, 1, {.text = &gWindowText57A060}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 152, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 170, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic579F20}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic579F20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 73, 146, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 15, 36, 0, 0, 1, {.graphic = &gWindowGraphic579F98}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic579FB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic579FC8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText57A028}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element1)},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText57A030}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element2)},
+    {WindowElementType_Text, 140, 39, 0, 0, 1, {.text = &gWindowText57A038}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element3)},
+    {WindowElementType_Text, 140, 59, 0, 0, 1, {.text = &gWindowText57A040}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element4)},
+    {WindowElementType_Text, 140, 79, 0, 0, 1, {.text = &gWindowText57A048}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element5)},
+    {WindowElementType_Text, 97, 108, 0, 0, 1, {.text = &gWindowText57A058}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element6)},
+    {WindowElementType_Text, 97, 130, 0, 0, 1, {.text = &gWindowText57A060}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element7)},
+    {WindowElementType_Text, 97, 152, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element8)},
+    {WindowElementType_Text, 97, 170, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element9)},
+    {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element10)},
+    {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element11)},
+    {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText57A068}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element12)},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic579F20}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowProfileReplyElementId::ButtonClose)},
+    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic579F20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element14)},
+    {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowProfileReplyElementId::HandleButtons)},
+    {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowProfileReplyElementId::HandleButtons_16)},
+    {WindowElementType_Graphic, 73, 146, 20, 20, 1, {.graphic = &gWindowGraphic57A010}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowProfileReplyElementId::HandleButtons_17)},
+    {WindowElementType_Graphic, 15, 36, 0, 0, 1, {.graphic = &gWindowGraphic579F98}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element18)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic579FB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element19)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic579FC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileReplyElementId::Element20)},
+    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowProfileReplyElementId::HandleSideArea)},
 };
 
 // 原型：窗口64；原全局：0x0054EE50。
@@ -90,28 +117,30 @@ static std::uint32_t WindowProfileReply_Refresh()
     const world::detail::ProfileRuntimeRecord& profile =
         world::detail::gReceivedProfile1074110;
     const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(profile.value10C);
-    gCurrentWindow->elements[13].data.graphic->imageNo = image;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element14])) (*gCurrentWindow)[WindowProfileReplyElementId::Element14]->data.graphic->imageNo = image;
     for (std::int32_t index = 0; index < 3; ++index) {
-        gCurrentWindow->elements[index + 14].data.graphic->imageNo =
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 14)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(index + 14)]->data.graphic->imageNo =
             profile.entries410[index].value04;
     }
-    gCurrentWindow->elements[0].data.text->text = profile.text08;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element1])) (*gCurrentWindow)[WindowProfileReplyElementId::Element1]->data.text->text = profile.text08;
     std::wstring number;
     cg::text::FormatTo(number, L"{}", profile.value108);
-    gCurrentWindow->elements[1].data.text->text = number;
-    gCurrentWindow->elements[2].data.text->text = profile.text110;
-    gCurrentWindow->elements[3].data.text->text = profile.text210;
-    gCurrentWindow->elements[4].data.text->text = profile.text310;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element2])) (*gCurrentWindow)[WindowProfileReplyElementId::Element2]->data.text->text = number;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element3])) (*gCurrentWindow)[WindowProfileReplyElementId::Element3]->data.text->text = profile.text110;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element4])) (*gCurrentWindow)[WindowProfileReplyElementId::Element4]->data.text->text = profile.text210;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element5])) (*gCurrentWindow)[WindowProfileReplyElementId::Element5]->data.text->text = profile.text310;
     for (std::int32_t index = 0; index < 3; ++index) {
-        gCurrentWindow->elements[index + 5].data.text->text = profile.entries410[index].text08;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 5)])) (*gCurrentWindow)[NativeElementKey(index + 5)]->data.text->text = profile.entries410[index].text08;
     }
     std::wstring line;
     for (std::int32_t index = 0; index < 3; ++index) {
         static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), index, 28));
-        gCurrentWindow->elements[index + 8].data.text->text = line;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 8)])) (*gCurrentWindow)[NativeElementKey(index + 8)]->data.text->text = line;
     }
     static_cast<void>(input::ExtractTextLine(line, profile.text728.data(), 3, 28));
-    std::wstring& destination = gCurrentWindow->elements[11].data.text->text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileReplyElementId::Element12]))) { return {}; }
+    std::wstring& destination = (*gCurrentWindow)[WindowProfileReplyElementId::Element12]->data.text->text;
     const auto units = static_cast<std::uint32_t>(line.size() + 1);
     destination = line;
     return units;

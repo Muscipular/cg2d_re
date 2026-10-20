@@ -6,6 +6,48 @@
 #include <ctime>
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowMessageBoardElementId : ElementId {
+    HandleButtons = 1,
+    HandleInput = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    HandleButtons_6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    HandleButtons_13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    HandleButtons_20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    HandleButtons_27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    HandleButtons_31 = 31,
+    HandleButtons_32 = 32,
+    HandleButtons_33 = 33,
+    HandleButtons_34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -76,42 +118,42 @@ static WindowTextPrototype gWindowText5735C0 { // 原全局：0x005735C0。
 };
 
 static WindowElementPrototype gWindowElements5735C8[36] { // 原全局：0x005735C8。
-    {WindowElementType_Graphic, 593, 8, 12, 12, 1, {.graphic = &gWindowGraphic573520}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Input, 27, 362, 503, 42, 1, {.unusedValue = 0}, &WindowMessageBoard_HandleInput},
-    {WindowElementType_Graphic, 22, 38, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 135, 46, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 330, 46, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 530, 46, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Text, 100, 73, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 89, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 105, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 22, 114, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 135, 122, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 330, 122, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 530, 122, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Text, 100, 150, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 166, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 182, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 22, 190, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 135, 198, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 330, 198, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 530, 198, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Text, 100, 226, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 242, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 258, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 22, 266, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 135, 274, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 330, 274, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 530, 274, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Text, 100, 302, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 318, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 100, 334, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 538, 364, 49, 17, 1, {.graphic = &gWindowGraphic573550}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Graphic, 538, 386, 49, 17, 1, {.graphic = &gWindowGraphic573568}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Graphic, 576, 342, 17, 17, 1, {.graphic = &gWindowGraphic573580}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Graphic, 536, 342, 17, 17, 1, {.graphic = &gWindowGraphic573598}, &WindowMessageBoard_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5734F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 30, 0, 0, 1, {.graphic = &gWindowGraphic573508}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 593, 8, 12, 12, 1, {.graphic = &gWindowGraphic573520}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons)},
+    {WindowElementType_Input, 27, 362, 503, 42, 1, {.unusedValue = 0}, &WindowMessageBoard_HandleInput, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleInput)},
+    {WindowElementType_Graphic, 22, 38, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element3)},
+    {WindowElementType_Text, 135, 46, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element4)},
+    {WindowElementType_Text, 330, 46, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element5)},
+    {WindowElementType_Graphic, 530, 46, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_6)},
+    {WindowElementType_Text, 100, 73, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element7)},
+    {WindowElementType_Text, 100, 89, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element8)},
+    {WindowElementType_Text, 100, 105, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element9)},
+    {WindowElementType_Graphic, 22, 114, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element10)},
+    {WindowElementType_Text, 135, 122, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element11)},
+    {WindowElementType_Text, 330, 122, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element12)},
+    {WindowElementType_Graphic, 530, 122, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_13)},
+    {WindowElementType_Text, 100, 150, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element14)},
+    {WindowElementType_Text, 100, 166, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element15)},
+    {WindowElementType_Text, 100, 182, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element16)},
+    {WindowElementType_Graphic, 22, 190, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element17)},
+    {WindowElementType_Text, 135, 198, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element18)},
+    {WindowElementType_Text, 330, 198, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element19)},
+    {WindowElementType_Graphic, 530, 198, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_20)},
+    {WindowElementType_Text, 100, 226, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element21)},
+    {WindowElementType_Text, 100, 242, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element22)},
+    {WindowElementType_Text, 100, 258, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element23)},
+    {WindowElementType_Graphic, 22, 266, 0, 0, 1, {.graphic = &gWindowGraphic5734D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element24)},
+    {WindowElementType_Text, 135, 274, 0, 0, 1, {.text = &gWindowText5735B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element25)},
+    {WindowElementType_Text, 330, 274, 0, 0, 1, {.text = &gWindowText5735C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element26)},
+    {WindowElementType_Graphic, 530, 274, 49, 17, 1, {.graphic = &gWindowGraphic573538}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_27)},
+    {WindowElementType_Text, 100, 302, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element28)},
+    {WindowElementType_Text, 100, 318, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element29)},
+    {WindowElementType_Text, 100, 334, 0, 0, 1, {.text = &gWindowText5735B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element30)},
+    {WindowElementType_Graphic, 538, 364, 49, 17, 1, {.graphic = &gWindowGraphic573550}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_31)},
+    {WindowElementType_Graphic, 538, 386, 49, 17, 1, {.graphic = &gWindowGraphic573568}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_32)},
+    {WindowElementType_Graphic, 576, 342, 17, 17, 1, {.graphic = &gWindowGraphic573580}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_33)},
+    {WindowElementType_Graphic, 536, 342, 17, 17, 1, {.graphic = &gWindowGraphic573598}, &WindowMessageBoard_HandleButtons, -1, static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_34)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5734F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element35)},
+    {WindowElementType_Graphic, 15, 30, 0, 0, 1, {.graphic = &gWindowGraphic573508}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMessageBoardElementId::Element36)},
 };
 
 // 原型：窗口50；原全局：0x0054EC30。
@@ -142,8 +184,10 @@ static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
         WindowInstance* const window = gCurrentWindow;
         static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
         input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
-        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data.input;
-        gCurrentWindow->elements[1].data.input->context =
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleInput]))) { return {}; }
+        gFocusedElementDataD45F94 = (*gCurrentWindow)[WindowMessageBoardElementId::HandleInput]->data.input;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleInput]))) { return {}; }
+        (*gCurrentWindow)[WindowMessageBoardElementId::HandleInput]->data.input->context =
             gWindow50InputPrototype580618.input.context;
     }
     WindowMessageBoard_RefreshRecords();
@@ -171,11 +215,14 @@ static std::int32_t WindowMessageBoard_HandleInput(const std::int32_t index, con
         return 0;
     }
     WindowInstance* const window = gCurrentWindow;
-    if (gFocusedElementDataD45F94 != window->elements[index].data.input) {
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    if (gFocusedElementDataD45F94 != (*window)[NativeElementKey(index)]->data.input) {
         static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 0));
         input::SetContext_44B330(gWindow50InputPrototype580618.input.context);
-        gFocusedElementDataD45F94 = gCurrentWindow->elements[index].data.input;
-        gCurrentWindow->elements[index].data.input->context =
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        gFocusedElementDataD45F94 = (*gCurrentWindow)[NativeElementKey(index)]->data.input;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        (*gCurrentWindow)[NativeElementKey(index)]->data.input->context =
             gWindow50InputPrototype580618.input.context;
     }
     return 1;
@@ -190,7 +237,8 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
     switch (index) {
     case 0:
     case 31: {
-        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = index == 0 ? 243002 : 244547;
             const wchar_t* const hint = index == 0
@@ -210,7 +258,8 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
     case 12:
     case 19:
     case 26: {
-        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 36818;
             gHoverTextD68AE8 = L"删除此讯息。";
@@ -235,7 +284,8 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
         return 1;
     }
     case 30: {
-        auto* const graphic = gCurrentWindow->elements[30].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_31]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_31]->data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 244544;
             gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
@@ -266,7 +316,8 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
     }
     case 32:
     case 33: {
-        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         const std::int32_t baseImage = index == 32 ? 243033 : 243030;
         if ((state & 1) != 0) {
             graphic->imageNo = baseImage + 2;
@@ -292,7 +343,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            gCurrentWindow->elements[index].data.graphic->imageNo = baseImage + 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = baseImage + 1;
         }
         return consumed;
     }
@@ -308,9 +359,11 @@ static void WindowMessageBoard_RefreshRecords()
     for (std::int32_t index = 0; index < 4; ++index) {
         const auto& record = gLoginWindowRuntime.recordsD3FAD4[index];
         const std::int32_t first = 2 + index * 7;
-        auto* const graphic = gCurrentWindow->elements[first].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first)]))) { continue; }
+        auto* const graphic = (*gCurrentWindow)[NativeElementKey(first)]->data.graphic;
         graphic->imageNo = record.value00;
-        auto* const name = gCurrentWindow->elements[first + 1].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 1)]))) { continue; }
+        auto* const name = (*gCurrentWindow)[NativeElementKey(first + 1)]->data.text;
         name->text = record.texts08[0];
         __time64_t time = static_cast<std::uint32_t>(record.value04);
         if (time > 0) {
@@ -321,21 +374,24 @@ static void WindowMessageBoard_RefreshRecords()
             const std::int32_t month = calendar->tm_mon;
             const std::int32_t year = calendar->tm_year;
             cg::text::FormatTo(buffer, L"{:4}/{:02}/{:02}/{:02}:{:02}", year + 1900, month + 1, day, hour, minute);
-            auto* const date = gCurrentWindow->elements[first + 2].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 2)]))) { continue; }
+            auto* const date = (*gCurrentWindow)[NativeElementKey(first + 2)]->data.text;
             date->text = buffer;
         } else {
-            gCurrentWindow->elements[first + 2].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 2)])) (*gCurrentWindow)[NativeElementKey(first + 2)]->visible = 0;
         }
         for (std::int32_t line = 1; line < 4; ++line) {
-            auto* const text = gCurrentWindow->elements[first + 3 + line].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 3 + line)]))) { continue; }
+            auto* const text = (*gCurrentWindow)[NativeElementKey(first + 3 + line)]->data.text;
             text->text = record.texts08[line];
         }
-        gCurrentWindow->elements[first + 3].visible = record.value408 != 0 ? 1 : 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(first + 3)])) (*gCurrentWindow)[NativeElementKey(first + 3)]->visible = record.value408 != 0 ? 1 : 0;
     }
-    gCurrentWindow->elements[32].visible = (gLoginWindowRuntime.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
-    gCurrentWindow->elements[33].visible = (gLoginWindowRuntime.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_33])) (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_33]->visible = (gLoginWindowRuntime.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_34])) (*gCurrentWindow)[WindowMessageBoardElementId::HandleButtons_34]->visible = (gLoginWindowRuntime.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
     WindowInstance* const window = gCurrentWindow;
-    if (gFocusedElementDataD45F94 == window->elements[1].data.input) {
+    if (!((window && (*window)[WindowMessageBoardElementId::HandleInput]))) { return; }
+    if (gFocusedElementDataD45F94 == (*window)[WindowMessageBoardElementId::HandleInput]->data.input) {
         static_cast<void>(WindowInput_ActivateElement(&gWindow50InputPrototype580618, window->x, window->y, 2));
     }
 }

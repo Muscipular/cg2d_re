@@ -7,6 +7,28 @@
 #include <ctime>
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowMiniMailElementId : ElementId {
+    ButtonClose = 1,
+    HandleInput = 2,
+    Send = 3,
+    Send_4 = 4,
+    Send_5 = 5,
+    Send_6 = 6,
+    Send_7 = 7,
+    Send_8 = 8,
+    Send_9 = 9,
+    Send_10 = 10,
+    Send_11 = 11,
+    Send_12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -52,22 +74,22 @@ static WindowTextPrototype gWindowText579B20 { // 原全局：0x00579B20。
 };
 
 static WindowElementPrototype gWindowElements579B28[16] { // 原全局：0x00579B28。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic579AA8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Input, 22, 70, 170, 120, 1, {.unusedValue = 0}, &WindowMiniMail_HandleInput},
-    {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic579A78}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 80, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 72, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 64, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 56, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 48, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 40, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 32, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 24, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Graphic, 20, 28, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send},
-    {WindowElementType_Text, 21, 48, 0, 0, 1, {.text = &gWindowText579B20}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5799D0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5799E8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic579A00}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic579AA8}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowMiniMailElementId::ButtonClose)},
+    {WindowElementType_Input, 22, 70, 170, 120, 1, {.unusedValue = 0}, &WindowMiniMail_HandleInput, -1, static_cast<ElementId>(WindowMiniMailElementId::HandleInput)},
+    {WindowElementType_Graphic, 154, 28, 50, 18, 1, {.graphic = &gWindowGraphic579A78}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send)},
+    {WindowElementType_Graphic, 80, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_4)},
+    {WindowElementType_Graphic, 72, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_5)},
+    {WindowElementType_Graphic, 64, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_6)},
+    {WindowElementType_Graphic, 56, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_7)},
+    {WindowElementType_Graphic, 48, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_8)},
+    {WindowElementType_Graphic, 40, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_9)},
+    {WindowElementType_Graphic, 32, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_10)},
+    {WindowElementType_Graphic, 24, 30, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_11)},
+    {WindowElementType_Graphic, 20, 28, 0, 0, 1, {.graphic = &gWindowGraphic579B08}, &WindowMiniMail_Send, -1, static_cast<ElementId>(WindowMiniMailElementId::Send_12)},
+    {WindowElementType_Text, 21, 48, 0, 0, 1, {.text = &gWindowText579B20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMiniMailElementId::Element13)},
+    {WindowElementType_Graphic, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5799D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMiniMailElementId::Element14)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5799E8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMiniMailElementId::Element15)},
+    {WindowElementType_Graphic, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic579A00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowMiniMailElementId::Element16)},
 };
 
 // 原型：窗口63；原全局：0x0054EE20。
@@ -78,18 +100,19 @@ WindowPrototype gWindowPrototypeMiniMail {0, 4, 383, 81, 232, 210, 0x80000080u, 
 // 原函数：0x004CB5D0。
 static void WindowMiniMail_Refresh()
 {
-    gCurrentWindow->elements[12].data.text->text = gMiniMailCompose105F508.name;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::Element13])) (*gCurrentWindow)[WindowMiniMailElementId::Element13]->data.text->text = gMiniMailCompose105F508.name;
     WindowInstance* const window = gCurrentWindow;
     static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, 2));
     std::int32_t divisor = 1;
     for (std::int32_t index = 0; index < 8; ++index) {
         const std::int32_t cost = world::detail::ReadCategoryValue105FA20();
-        gCurrentWindow->elements[index + 3].data.graphic->imageNo =
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 3)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(index + 3)]->data.graphic->imageNo =
             cost < divisor ? 0 : cost / divisor % 10 + 245520;
         divisor *= 10;
     }
     if (world::detail::ReadCategoryValue105FA20() == 0) {
-        gCurrentWindow->elements[3].data.graphic->imageNo = 245520;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::Send_4])) (*gCurrentWindow)[WindowMiniMailElementId::Send_4]->data.graphic->imageNo = 245520;
     }
 }
 
@@ -102,8 +125,10 @@ static std::int32_t WindowMiniMail_Update(const std::int32_t value)
         WindowInstance* const window = gCurrentWindow;
         static_cast<void>(WindowInput_ActivateElement(&gMiniMailInputPrototype580CB0, window->x, window->y, mode));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
-        gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data.input;
-        gCurrentWindow->elements[1].data.input->context =
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]))) { return {}; }
+        gFocusedElementDataD45F94 = (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]->data.input;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]))) { return {}; }
+        (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]->data.input->context =
             &cg::ui::detail::gInputContextCA0180;
         const std::int32_t target = gMiniMailCompose105F508.target;
         gMiniMailInputPrototype580CB0.text.clear();
@@ -119,12 +144,15 @@ static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::in
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[1].data.input) {
+        if (!((window && (*window)[WindowMiniMailElementId::HandleInput]))) { return {}; }
+        if (gFocusedElementDataD45F94 != (*window)[WindowMiniMailElementId::HandleInput]->data.input) {
             static_cast<void>(WindowInput_ActivateElement(
                 &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
-            gFocusedElementDataD45F94 = gCurrentWindow->elements[1].data.input;
-            gCurrentWindow->elements[1].data.input->context =
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]))) { return {}; }
+            gFocusedElementDataD45F94 = (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]->data.input;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]))) { return {}; }
+            (*gCurrentWindow)[WindowMiniMailElementId::HandleInput]->data.input->context =
                 &cg::ui::detail::gInputContextCA0180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -142,7 +170,8 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     if (index != 2) {
         return 0;
     }
-    auto* const graphic = gCurrentWindow->elements[2].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowMiniMailElementId::Send]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[WindowMiniMailElementId::Send]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 244253;

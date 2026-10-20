@@ -1,6 +1,41 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowGuildRankElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    ButtonClose = 12,
+    ButtonOk = 13,
+    Element14 = 14,
+    HandleVerticalScroll = 15,
+    HandleScrollButtons = 16,
+    HandleScrollButtons_17 = 17,
+    Scroll = 18,
+    Element19 = 19,
+    SelectRow = 20,
+    SelectRow_21 = 21,
+    SelectRow_22 = 22,
+    SelectRow_23 = 23,
+    SelectRow_24 = 24,
+    SelectRow_25 = 25,
+    SelectRow_26 = 26,
+    SelectRow_27 = 27,
+    SelectRow_28 = 28,
+    SelectRow_29 = 29,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -58,35 +93,35 @@ static WindowTextPrototype gWindowText56F858 {{std::byte{0}, std::byte{12}, std:
 static std::uint32_t gWindowMouseFlagsD67860 = 0; // 原全局：0x00D67860。
 
 static WindowElementPrototype gWindowElements56F860[29] { // 原全局：0x0056F860。
-    {WindowElementType_Text, 7, 21, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 37, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 53, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 69, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 85, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 101, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 117, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 133, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 149, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 7, 165, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp},
-    {WindowElementType_Text, 8, 181, 0, 0, 1, {.text = &gWindowText56F858}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 150, 181, 49, 17, 1, {.graphic = &gWindowGraphic56F7C0}, &WindowGuildRank_ButtonClose},
-    {WindowElementType_Graphic, 206, 181, 32, 17, 1, {.graphic = &gWindowGraphic56F7D8}, &WindowGuildRank_ButtonOk},
-    {WindowElementType_Graphic, 224, 0, 0, 14, 1, {.graphic = &gWindowGraphic56F7F0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 225, 33, 11, 135, 1, {.mouseFlags = &gWindowMouseFlagsD67860}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 224, 22, 11, 11, 1, {.graphic = &gWindowGraphic56F808}, &WindowGuildRank_HandleScrollButtons},
-    {WindowElementType_Graphic, 224, 168, 11, 11, 1, {.graphic = &gWindowGraphic56F820}, &WindowGuildRank_HandleScrollButtons},
-    {WindowElementType_EventArea, 0, 0, 243, 206, 1, {.unusedValue = 0}, &WindowGuildRank_Scroll},
-    {WindowElementType_Graphic, 221, 18, 0, 0, 1, {.graphic = &gWindowGraphic56F838}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 5, 19, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 35, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 51, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 67, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 83, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 99, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 115, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 131, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 147, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
-    {WindowElementType_Graphic, 5, 163, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow},
+    {WindowElementType_Text, 7, 21, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element1)},
+    {WindowElementType_Text, 7, 37, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element2)},
+    {WindowElementType_Text, 7, 53, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element3)},
+    {WindowElementType_Text, 7, 69, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element4)},
+    {WindowElementType_Text, 7, 85, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element5)},
+    {WindowElementType_Text, 7, 101, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element6)},
+    {WindowElementType_Text, 7, 117, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element7)},
+    {WindowElementType_Text, 7, 133, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element8)},
+    {WindowElementType_Text, 7, 149, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element9)},
+    {WindowElementType_Text, 7, 165, 0, 0, 1, {.text = &gWindowText56F850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element10)},
+    {WindowElementType_Text, 8, 181, 0, 0, 1, {.text = &gWindowText56F858}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element11)},
+    {WindowElementType_Graphic, 150, 181, 49, 17, 1, {.graphic = &gWindowGraphic56F7C0}, &WindowGuildRank_ButtonClose, -1, static_cast<ElementId>(WindowGuildRankElementId::ButtonClose)},
+    {WindowElementType_Graphic, 206, 181, 32, 17, 1, {.graphic = &gWindowGraphic56F7D8}, &WindowGuildRank_ButtonOk, -1, static_cast<ElementId>(WindowGuildRankElementId::ButtonOk)},
+    {WindowElementType_Graphic, 224, 0, 0, 14, 1, {.graphic = &gWindowGraphic56F7F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element14)},
+    {WindowElementType_MouseArea, 225, 33, 11, 135, 1, {.mouseFlags = &gWindowMouseFlagsD67860}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowGuildRankElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 224, 22, 11, 11, 1, {.graphic = &gWindowGraphic56F808}, &WindowGuildRank_HandleScrollButtons, -1, static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons)},
+    {WindowElementType_Graphic, 224, 168, 11, 11, 1, {.graphic = &gWindowGraphic56F820}, &WindowGuildRank_HandleScrollButtons, -1, static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons_17)},
+    {WindowElementType_EventArea, 0, 0, 243, 206, 1, {.unusedValue = 0}, &WindowGuildRank_Scroll, -1, static_cast<ElementId>(WindowGuildRankElementId::Scroll)},
+    {WindowElementType_Graphic, 221, 18, 0, 0, 1, {.graphic = &gWindowGraphic56F838}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildRankElementId::Element19)},
+    {WindowElementType_Graphic, 5, 19, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow)},
+    {WindowElementType_Graphic, 5, 35, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_21)},
+    {WindowElementType_Graphic, 5, 51, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_22)},
+    {WindowElementType_Graphic, 5, 67, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_23)},
+    {WindowElementType_Graphic, 5, 83, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_24)},
+    {WindowElementType_Graphic, 5, 99, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_25)},
+    {WindowElementType_Graphic, 5, 115, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_26)},
+    {WindowElementType_Graphic, 5, 131, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_27)},
+    {WindowElementType_Graphic, 5, 147, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_28)},
+    {WindowElementType_Graphic, 5, 163, 216, 16, 1, {.graphic = &gWindowGraphic56F7A8}, &WindowGuildRank_SelectRow, -1, static_cast<ElementId>(WindowGuildRankElementId::SelectRow_29)},
 };
 
 // 原型：窗口55；原全局：0x0054E9C0。
@@ -108,7 +143,8 @@ static std::int32_t WindowGuildRank_Draw(const std::int32_t)
 {
     static_cast<void>(WindowGuildRank_Refresh());
     WindowRuntime_DrawCurrent();
-    gLoginWindowRuntime.mailRankScrollCA0474 = WindowScroll_ReadPosition(&gCurrentWindow->elements[14], 21);
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildRankElementId::HandleVerticalScroll]))) { return {}; }
+    gLoginWindowRuntime.mailRankScrollCA0474 = WindowScroll_ReadPosition((*gCurrentWindow)[WindowGuildRankElementId::HandleVerticalScroll], 21);
     WindowInstance* const window = gCurrentWindow;
     const std::int16_t height = static_cast<std::int16_t>(window->height);
     const std::int16_t width = static_cast<std::int16_t>(window->width);
@@ -134,7 +170,8 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
         consumed = 1;
     }
     const std::int32_t selected = gLoginWindowRuntime.mailRankCF4A14;
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = selected == scroll + index - 19 ? 0x3B59E : 0x3B59C;
     return consumed;
 }
@@ -143,7 +180,8 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
 static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = kSettingsClose55331C;
     }
@@ -166,7 +204,8 @@ static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const 
 // 原函数：0x004A4370。
 static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B570;
@@ -193,7 +232,8 @@ static std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index
     if (index != 15 && index != 16) {
         return 0;
     }
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     const std::int32_t idle = index == 15 ? 0x3B592 : 0x3B595;
     graphic->imageNo = hover ? idle + 2 : idle;
@@ -215,7 +255,8 @@ static std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index
                 gLoginWindowRuntime.mailRankScrollCA0474 = position;
             }
         }
-        WindowScroll_SetPosition(&gCurrentWindow->elements[14], 21, position);
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildRankElementId::HandleVerticalScroll]))) { return {}; }
+        WindowScroll_SetPosition((*gCurrentWindow)[WindowGuildRankElementId::HandleVerticalScroll], 21, position);
     }
     return hover ? 1 : 0;
 }
@@ -225,12 +266,14 @@ static std::uint32_t WindowGuildRank_Refresh()
 {
     for (std::int32_t row = 0; row < 10; ++row) {
         const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
-        auto* const data = gCurrentWindow->elements[row].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+        auto* const data = (*gCurrentWindow)[NativeElementKey(row)]->data.text;
         const wchar_t* const rank = cg::world::GetGuildRankText(scroll + row + 1);
         data->text = rank;
     }
     const std::int32_t member = gLoginWindowRuntime.mailMemberIndexCB1D18;
-    auto* const data = gCurrentWindow->elements[10].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildRankElementId::Element11]))) { return {}; }
+    auto* const data = (*gCurrentWindow)[WindowGuildRankElementId::Element11]->data.text;
     const wchar_t* const name = cg::world::gOrderedRecords1051B14[member].name18.c_str();
     const std::uint32_t length = static_cast<std::uint32_t>(cg::text::ToGbk(name).size() + 1);
     data->text = name;
@@ -245,7 +288,8 @@ static std::int32_t WindowGuildRank_Scroll(const std::int32_t, const std::int32_
         if (wheel != 0) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t position = gLoginWindowRuntime.mailRankScrollCA0474;
-            gLoginWindowRuntime.mailRankScrollCA0474 = WindowScroll_ApplyWheel(&window->elements[14], position, 21, wheel);
+            if (!((window && (*window)[WindowGuildRankElementId::HandleVerticalScroll]))) { return {}; }
+            gLoginWindowRuntime.mailRankScrollCA0474 = WindowScroll_ApplyWheel((*window)[WindowGuildRankElementId::HandleVerticalScroll], position, 21, wheel);
         }
     }
     return 0;

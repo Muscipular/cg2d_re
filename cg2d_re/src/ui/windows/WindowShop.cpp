@@ -9,6 +9,78 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowShopElementId : ElementId {
+    HandleConfirmation = 1,
+    ButtonClose = 2,
+    ButtonOk = 3,
+    ButtonCancel = 4,
+    ButtonAddAll = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    HandleVerticalScroll = 12,
+    ButtonPreviousRow = 13,
+    ButtonNextRow = 14,
+    ButtonPreviousPage = 15,
+    ButtonNextPage = 16,
+    Scroll = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+    Element37 = 37,
+    Element38 = 38,
+    Element39 = 39,
+    Element40 = 40,
+    Element41 = 41,
+    Element42 = 42,
+    ButtonDecrease = 43,
+    ButtonDecrease_44 = 44,
+    ButtonDecrease_45 = 45,
+    ButtonDecrease_46 = 46,
+    ButtonDecrease_47 = 47,
+    ButtonIncrease = 48,
+    ButtonIncrease_49 = 49,
+    ButtonIncrease_50 = 50,
+    ButtonIncrease_51 = 51,
+    ButtonIncrease_52 = 52,
+    HandleItemIcon = 53,
+    HandleItemIcon_54 = 54,
+    HandleItemIcon_55 = 55,
+    HandleItemIcon_56 = 56,
+    HandleItemIcon_57 = 57,
+    Element58 = 58,
+    Element59 = 59,
+    Element60 = 60,
+    Element61 = 61,
+    Element62 = 62,
+    HandleInventory = 63,
+    HandleSaleDrop = 64,
+    Element65 = 65,
+    HandleSideArea = 66,
+};
+
+
 namespace detail {
 
 // G08：仅参考实际安装的mode 0增减路径使用，其他数量窗口保留原上限。
@@ -371,72 +443,72 @@ static std::uint32_t& gWindowMouseFlagsD678F0 = // 原全局：0x00D678F0。
     reinterpret_cast<std::uint32_t&>(gWindowGraphicD678E0.height);
 
 static WindowElementPrototype gWindowElements573D80[66] { // 原全局：0x00573D80。
-    {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowShop_HandleConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic573AF0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic573C88}, &WindowShop_ButtonOk},
-    {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonCancel},
-    {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonAddAll},
-    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText573CF8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 124, 37, 0, 0, 1, {.number = &gWindowNumber573D20}, &WindowElement_NoOp},
-    {WindowElementType_Number, 255, 37, 0, 0, 1, {.number = &gWindowNumber573D28}, &WindowElement_NoOp},
-    {WindowElementType_Number, 389, 30, 0, 0, 1, {.number = &gWindowNumber573D18}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage573D10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 267, 85, 0, 14, 1, {.graphic = &gWindowGraphic573B50}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 267, 85, 11, 243, 1, {.mouseFlags = &gWindowMouseFlagsD678F0}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 267, 75, 11, 11, 1, {.graphic = &gWindowGraphic573B68}, &WindowShop_ButtonPreviousRow},
-    {WindowElementType_Graphic, 267, 327, 11, 11, 1, {.graphic = &gWindowGraphic573B80}, &WindowShop_ButtonNextRow},
-    {WindowElementType_Graphic, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic573CB8}, &WindowShop_ButtonPreviousPage},
-    {WindowElementType_Graphic, 246, 55, 18, 18, 1, {.graphic = &gWindowGraphic573CD0}, &WindowShop_ButtonNextPage},
-    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowShop_Scroll},
-    {WindowElementType_Text, 154, 90, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 145, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 200, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 255, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 310, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 102, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 157, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 212, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 267, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 322, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 120, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 175, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 230, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 285, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 154, 340, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 108, 0, 0, 1, {.number = &gWindowNumber573D30}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 163, 0, 0, 1, {.number = &gWindowNumber573D38}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 218, 0, 0, 1, {.number = &gWindowNumber573D40}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 273, 0, 0, 1, {.number = &gWindowNumber573D48}, &WindowElement_NoOp},
-    {WindowElementType_Number, 129, 328, 0, 0, 1, {.number = &gWindowNumber573D50}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 90, 0, 0, 1, {.number = &gWindowNumber573D58}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 145, 0, 0, 1, {.number = &gWindowNumber573D60}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 200, 0, 0, 1, {.number = &gWindowNumber573D68}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 255, 0, 0, 1, {.number = &gWindowNumber573D70}, &WindowElement_NoOp},
-    {WindowElementType_Number, 132, 310, 0, 0, 1, {.number = &gWindowNumber573D78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 80, 90, 11, 11, 1, {.graphic = &gWindowGraphic573B98}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 145, 11, 11, 1, {.graphic = &gWindowGraphic573BB0}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 200, 11, 11, 1, {.graphic = &gWindowGraphic573BC8}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 255, 11, 11, 1, {.graphic = &gWindowGraphic573BE0}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 80, 310, 11, 11, 1, {.graphic = &gWindowGraphic573BF8}, &WindowShop_ButtonDecrease},
-    {WindowElementType_Graphic, 95, 90, 11, 11, 1, {.graphic = &gWindowGraphic573C10}, &WindowShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 145, 11, 11, 1, {.graphic = &gWindowGraphic573C28}, &WindowShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 200, 11, 11, 1, {.graphic = &gWindowGraphic573C40}, &WindowShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 255, 11, 11, 1, {.graphic = &gWindowGraphic573C58}, &WindowShop_ButtonIncrease},
-    {WindowElementType_Graphic, 95, 310, 11, 11, 1, {.graphic = &gWindowGraphic573C70}, &WindowShop_ButtonIncrease},
-    {WindowElementType_EventArea, 27, 73, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 128, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 183, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 238, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_EventArea, 27, 293, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon},
-    {WindowElementType_Graphic, 27, 70, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 125, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 180, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 235, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 290, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 290, 125, 252, 202, 1, {.unusedValue = 0}, &WindowShop_HandleInventory},
-    {WindowElementType_Graphic, 15, 28, 274, 325, 1, {.graphic = &gWindowGraphic573B20}, &WindowShop_HandleSaleDrop},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic573B08}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 552, 5, 18, 80, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowShop_HandleConfirmation, -1, static_cast<ElementId>(WindowShopElementId::HandleConfirmation)},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic573AF0}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowShopElementId::ButtonClose)},
+    {WindowElementType_Graphic, 294, 333, 66, 17, 1, {.graphic = &gWindowGraphic573C88}, &WindowShop_ButtonOk, -1, static_cast<ElementId>(WindowShopElementId::ButtonOk)},
+    {WindowElementType_Graphic, 467, 333, 66, 17, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonCancel, -1, static_cast<ElementId>(WindowShopElementId::ButtonCancel)},
+    {WindowElementType_Graphic, 371, 333, 25, 19, 1, {.graphic = &gWindowGraphic573CA0}, &WindowShop_ButtonAddAll, -1, static_cast<ElementId>(WindowShopElementId::ButtonAddAll)},
+    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText573CF8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element6)},
+    {WindowElementType_Number, 124, 37, 0, 0, 1, {.number = &gWindowNumber573D20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element7)},
+    {WindowElementType_Number, 255, 37, 0, 0, 1, {.number = &gWindowNumber573D28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element8)},
+    {WindowElementType_Number, 389, 30, 0, 0, 1, {.number = &gWindowNumber573D18}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element9)},
+    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage573D10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element10)},
+    {WindowElementType_Graphic, 267, 85, 0, 14, 1, {.graphic = &gWindowGraphic573B50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element11)},
+    {WindowElementType_MouseArea, 267, 85, 11, 243, 1, {.mouseFlags = &gWindowMouseFlagsD678F0}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowShopElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 267, 75, 11, 11, 1, {.graphic = &gWindowGraphic573B68}, &WindowShop_ButtonPreviousRow, -1, static_cast<ElementId>(WindowShopElementId::ButtonPreviousRow)},
+    {WindowElementType_Graphic, 267, 327, 11, 11, 1, {.graphic = &gWindowGraphic573B80}, &WindowShop_ButtonNextRow, -1, static_cast<ElementId>(WindowShopElementId::ButtonNextRow)},
+    {WindowElementType_Graphic, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic573CB8}, &WindowShop_ButtonPreviousPage, -1, static_cast<ElementId>(WindowShopElementId::ButtonPreviousPage)},
+    {WindowElementType_Graphic, 246, 55, 18, 18, 1, {.graphic = &gWindowGraphic573CD0}, &WindowShop_ButtonNextPage, -1, static_cast<ElementId>(WindowShopElementId::ButtonNextPage)},
+    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowShop_Scroll, -1, static_cast<ElementId>(WindowShopElementId::Scroll)},
+    {WindowElementType_Text, 154, 90, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element18)},
+    {WindowElementType_Text, 154, 145, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element19)},
+    {WindowElementType_Text, 154, 200, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element20)},
+    {WindowElementType_Text, 154, 255, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element21)},
+    {WindowElementType_Text, 154, 310, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element22)},
+    {WindowElementType_Text, 154, 102, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element23)},
+    {WindowElementType_Text, 154, 157, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element24)},
+    {WindowElementType_Text, 154, 212, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element25)},
+    {WindowElementType_Text, 154, 267, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element26)},
+    {WindowElementType_Text, 154, 322, 0, 14, 1, {.text = &gWindowText573D00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element27)},
+    {WindowElementType_Text, 154, 120, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element28)},
+    {WindowElementType_Text, 154, 175, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element29)},
+    {WindowElementType_Text, 154, 230, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element30)},
+    {WindowElementType_Text, 154, 285, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element31)},
+    {WindowElementType_Text, 154, 340, 0, 14, 1, {.text = &gWindowText573D08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element32)},
+    {WindowElementType_Number, 129, 108, 0, 0, 1, {.number = &gWindowNumber573D30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element33)},
+    {WindowElementType_Number, 129, 163, 0, 0, 1, {.number = &gWindowNumber573D38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element34)},
+    {WindowElementType_Number, 129, 218, 0, 0, 1, {.number = &gWindowNumber573D40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element35)},
+    {WindowElementType_Number, 129, 273, 0, 0, 1, {.number = &gWindowNumber573D48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element36)},
+    {WindowElementType_Number, 129, 328, 0, 0, 1, {.number = &gWindowNumber573D50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element37)},
+    {WindowElementType_Number, 132, 90, 0, 0, 1, {.number = &gWindowNumber573D58}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element38)},
+    {WindowElementType_Number, 132, 145, 0, 0, 1, {.number = &gWindowNumber573D60}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element39)},
+    {WindowElementType_Number, 132, 200, 0, 0, 1, {.number = &gWindowNumber573D68}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element40)},
+    {WindowElementType_Number, 132, 255, 0, 0, 1, {.number = &gWindowNumber573D70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element41)},
+    {WindowElementType_Number, 132, 310, 0, 0, 1, {.number = &gWindowNumber573D78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element42)},
+    {WindowElementType_Graphic, 80, 90, 11, 11, 1, {.graphic = &gWindowGraphic573B98}, &WindowShop_ButtonDecrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonDecrease)},
+    {WindowElementType_Graphic, 80, 145, 11, 11, 1, {.graphic = &gWindowGraphic573BB0}, &WindowShop_ButtonDecrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonDecrease_44)},
+    {WindowElementType_Graphic, 80, 200, 11, 11, 1, {.graphic = &gWindowGraphic573BC8}, &WindowShop_ButtonDecrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonDecrease_45)},
+    {WindowElementType_Graphic, 80, 255, 11, 11, 1, {.graphic = &gWindowGraphic573BE0}, &WindowShop_ButtonDecrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonDecrease_46)},
+    {WindowElementType_Graphic, 80, 310, 11, 11, 1, {.graphic = &gWindowGraphic573BF8}, &WindowShop_ButtonDecrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonDecrease_47)},
+    {WindowElementType_Graphic, 95, 90, 11, 11, 1, {.graphic = &gWindowGraphic573C10}, &WindowShop_ButtonIncrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonIncrease)},
+    {WindowElementType_Graphic, 95, 145, 11, 11, 1, {.graphic = &gWindowGraphic573C28}, &WindowShop_ButtonIncrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonIncrease_49)},
+    {WindowElementType_Graphic, 95, 200, 11, 11, 1, {.graphic = &gWindowGraphic573C40}, &WindowShop_ButtonIncrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonIncrease_50)},
+    {WindowElementType_Graphic, 95, 255, 11, 11, 1, {.graphic = &gWindowGraphic573C58}, &WindowShop_ButtonIncrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonIncrease_51)},
+    {WindowElementType_Graphic, 95, 310, 11, 11, 1, {.graphic = &gWindowGraphic573C70}, &WindowShop_ButtonIncrease, -1, static_cast<ElementId>(WindowShopElementId::ButtonIncrease_52)},
+    {WindowElementType_EventArea, 27, 73, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon, -1, static_cast<ElementId>(WindowShopElementId::HandleItemIcon)},
+    {WindowElementType_EventArea, 27, 128, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon, -1, static_cast<ElementId>(WindowShopElementId::HandleItemIcon_54)},
+    {WindowElementType_EventArea, 27, 183, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon, -1, static_cast<ElementId>(WindowShopElementId::HandleItemIcon_55)},
+    {WindowElementType_EventArea, 27, 238, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon, -1, static_cast<ElementId>(WindowShopElementId::HandleItemIcon_56)},
+    {WindowElementType_EventArea, 27, 293, 48, 48, 1, {.unusedValue = 0}, &WindowShop_HandleItemIcon, -1, static_cast<ElementId>(WindowShopElementId::HandleItemIcon_57)},
+    {WindowElementType_Graphic, 27, 70, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element58)},
+    {WindowElementType_Graphic, 27, 125, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element59)},
+    {WindowElementType_Graphic, 27, 180, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element60)},
+    {WindowElementType_Graphic, 27, 235, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element61)},
+    {WindowElementType_Graphic, 27, 290, 40, 11, 1, {.graphic = &gWindowGraphic573B38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element62)},
+    {WindowElementType_EventArea, 290, 125, 252, 202, 1, {.unusedValue = 0}, &WindowShop_HandleInventory, -1, static_cast<ElementId>(WindowShopElementId::HandleInventory)},
+    {WindowElementType_Graphic, 15, 28, 274, 325, 1, {.graphic = &gWindowGraphic573B20}, &WindowShop_HandleSaleDrop, -1, static_cast<ElementId>(WindowShopElementId::HandleSaleDrop)},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic573B08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopElementId::Element65)},
+    {WindowElementType_EventArea, 552, 5, 18, 80, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowShopElementId::HandleSideArea)},
 };
 
 // 原型：窗口53；原全局：0x0054EC60。
@@ -569,7 +641,8 @@ static void WindowShop_RemoveSaleSelection()
         position = 0;
         gShopScrollCC488C = 0;
     }
-    static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + 11, maximum, position));
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleVerticalScroll]))) { return; }
+    static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowShopElementId::HandleVerticalScroll], maximum, position));
     WindowShop_RefreshSellRows();
     WindowShop_RefreshSellQuantities();
     WindowShop_RefreshSellAmount();
@@ -964,9 +1037,11 @@ static void WindowShop_RefreshBuyRows()
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& priceText = gShopPriceTextsD673EC[row];
         priceText.clear();
-        gCurrentWindow->elements[row + 17].data.text->text.clear();
-        gCurrentWindow->elements[row + 22].data.text->text.clear();
-        gCurrentWindow->elements[row + 27].visible = 0;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->text.clear();
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->text.clear();
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->visible = 0;
         const auto* record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         if (record->used == 0) {
             continue;
@@ -983,9 +1058,11 @@ static void WindowShop_RefreshBuyRows()
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = record->memo;
-            gCurrentWindow->elements[row + 17].data.text->style.color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->style.color =
                 std::byte{5};
-            gCurrentWindow->elements[row + 22].data.text->style.color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -998,18 +1075,20 @@ static void WindowShop_RefreshBuyRows()
             record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
             std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            gCurrentWindow->elements[row + 17].data.text->style.color = color;
-            gCurrentWindow->elements[row + 22].data.text->style.color = color;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)])) (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->style.color = color;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)])) (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->style.color = color;
         }
-        WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[row + 17].data.text, gCurrentWindow->elements[row + 22].data.text, buffer);
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]) && (gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+        WindowRuntime_FillTwoTextLines((*gCurrentWindow)[NativeElementKey(row + 17)]->data.text, (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text, buffer);
         record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         if (record->allowed != 0) {
-            gCurrentWindow->elements[row + 32].data.number->color = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 32)])) (*gCurrentWindow)[NativeElementKey(row + 32)]->data.number->color = 0;
         } else {
-            gCurrentWindow->elements[row + 32].data.number->color = 4;
-            gCurrentWindow->elements[row + 27].visible = 1;
-            gCurrentWindow->elements[row + 27].data.text->text = kShopUnavailableHint586BF4;
-            gCurrentWindow->elements[row + 27].data.text->style.color =
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 32)])) (*gCurrentWindow)[NativeElementKey(row + 32)]->data.number->color = 4;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->data.text->text = kShopUnavailableHint586BF4;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 27)]->data.text->style.color =
                 std::byte{4};
         }
     }
@@ -1050,7 +1129,8 @@ static void WindowShop_RefreshBuyAmount()
     cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", total);
     const std::int32_t currentTotal = gShopTotalD2DAFC;
     const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
-    gCurrentWindow->elements[7].data.number->color =
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element8]))) { return; }
+    (*gCurrentWindow)[WindowShopElementId::Element8]->data.number->color =
         currentTotal <= money ? 0 : 6;
 }
 
@@ -1082,9 +1162,11 @@ static void WindowShop_RefreshSellRows()
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& priceText = gShopPriceTextsD673EC[row];
         priceText.clear();
-        gCurrentWindow->elements[row + 17].data.text->text.clear();
-        gCurrentWindow->elements[row + 22].data.text->text.clear();
-        gCurrentWindow->elements[row + 27].visible = 0;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->text.clear();
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->text.clear();
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->visible = 0;
         std::int32_t index = std::bit_cast<std::int8_t>(
             gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
         if (index < 0) {
@@ -1104,9 +1186,11 @@ static void WindowShop_RefreshSellRows()
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = record->memo;
-            gCurrentWindow->elements[row + 17].data.text->style.color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->style.color =
                 std::byte{5};
-            gCurrentWindow->elements[row + 22].data.text->style.color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -1120,22 +1204,25 @@ static void WindowShop_RefreshSellRows()
             record = &gShopItemsCF4FE0[index];
             std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            gCurrentWindow->elements[row + 17].data.text->style.color = color;
-            gCurrentWindow->elements[row + 22].data.text->style.color = color;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)])) (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->style.color = color;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)])) (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->style.color = color;
         }
-        WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[row + 17].data.text, gCurrentWindow->elements[row + 22].data.text, buffer);
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]) && (gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+        WindowRuntime_FillTwoTextLines((*gCurrentWindow)[NativeElementKey(row + 17)]->data.text, (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text, buffer);
         index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
         record = &gShopItemsCF4FE0[index];
         if (record->allowed != 0) {
             std::int32_t selected;
             std::memcpy(&selected, &record->selected, sizeof(selected));
-            gCurrentWindow->elements[row + 32].data.number->color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 32)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 32)]->data.number->color =
                 selected != 0 ? 0 : 7;
         } else {
-            gCurrentWindow->elements[row + 32].data.number->color = 6;
-            gCurrentWindow->elements[row + 27].visible = 1;
-            gCurrentWindow->elements[row + 27].data.text->text = L"＊无法贩卖";
-            gCurrentWindow->elements[row + 27].data.text->style.color =
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 32)])) (*gCurrentWindow)[NativeElementKey(row + 32)]->data.number->color = 6;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->data.text->text = L"＊无法贩卖";
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 27)]->data.text->style.color =
                 std::byte{6};
         }
     }
@@ -1147,8 +1234,8 @@ static void WindowShop_RefreshSellQuantities()
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& text = gShopCountTextsD2D988[row];
         text.clear();
-        gCurrentWindow->elements[row + 42].visible = 0;
-        gCurrentWindow->elements[row + 47].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 42)])) (*gCurrentWindow)[NativeElementKey(row + 42)]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 47)])) (*gCurrentWindow)[NativeElementKey(row + 47)]->visible = 0;
         std::int32_t index = std::bit_cast<std::int8_t>(
             gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
         if (index >= 0) {
@@ -1161,8 +1248,8 @@ static void WindowShop_RefreshSellQuantities()
             std::int32_t maximum;
             std::memcpy(&maximum, &record->maximum, sizeof(maximum));
             if (maximum > 1) {
-                gCurrentWindow->elements[row + 42].visible = 1;
-                gCurrentWindow->elements[row + 47].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 42)])) (*gCurrentWindow)[NativeElementKey(row + 42)]->visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 47)])) (*gCurrentWindow)[NativeElementKey(row + 47)]->visible = 1;
             }
         }
     }
@@ -1186,7 +1273,7 @@ static void WindowShop_RefreshSellAmount()
     }
     gShopTotalD2DAFC = total;
     cg::text::FormatTo(gShopTotalTextCC4B2C, L"{:10}", total);
-    gCurrentWindow->elements[7].data.number->color = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element8])) (*gCurrentWindow)[WindowShopElementId::Element8]->data.number->color = 0;
 }
 
 // 原函数：0x004B8C50。
@@ -1213,9 +1300,11 @@ static void WindowShop_RefreshExchangeRows()
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& priceText = gShopPriceTextsD673EC[row];
         priceText.clear();
-        gCurrentWindow->elements[row + 17].data.text->text.clear();
-        gCurrentWindow->elements[row + 22].data.text->text.clear();
-        gCurrentWindow->elements[row + 27].visible = 0;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->text.clear();
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->text.clear();
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->visible = 0;
         const auto* record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         if (record->used == 0) {
             continue;
@@ -1232,9 +1321,11 @@ static void WindowShop_RefreshExchangeRows()
         std::memcpy(&flags, &record->flags, sizeof(flags));
         if ((flags & 0x100u) != 0) {
             buffer = record->memo;
-            gCurrentWindow->elements[row + 17].data.text->style.color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->style.color =
                 std::byte{5};
-            gCurrentWindow->elements[row + 22].data.text->style.color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->style.color =
                 std::byte{5};
         } else {
             std::int32_t count;
@@ -1247,21 +1338,23 @@ static void WindowShop_RefreshExchangeRows()
             record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
             std::memcpy(&flags, &record->flags, sizeof(flags));
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
-            gCurrentWindow->elements[row + 17].data.text->style.color = color;
-            gCurrentWindow->elements[row + 22].data.text->style.color = color;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)])) (*gCurrentWindow)[NativeElementKey(row + 17)]->data.text->style.color = color;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)])) (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->style.color = color;
         }
-        WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[row + 17].data.text, gCurrentWindow->elements[row + 22].data.text, buffer);
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 17)]) && (gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+        WindowRuntime_FillTwoTextLines((*gCurrentWindow)[NativeElementKey(row + 17)]->data.text, (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text, buffer);
         record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         const std::int32_t available = gShopAvailableCF4A24;
         std::memcpy(&price, &record->price, sizeof(price));
         const std::int32_t total = gShopTotalD2DAFC;
         if (available >= price + total) {
-            gCurrentWindow->elements[row + 32].data.number->color = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 32)])) (*gCurrentWindow)[NativeElementKey(row + 32)]->data.number->color = 0;
         } else {
-            gCurrentWindow->elements[row + 32].data.number->color = 7;
-            gCurrentWindow->elements[row + 27].visible = 1;
-            gCurrentWindow->elements[row + 27].data.text->text = L"＊你的数量不够加工";
-            gCurrentWindow->elements[row + 27].data.text->style.color =
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 32)])) (*gCurrentWindow)[NativeElementKey(row + 32)]->data.number->color = 7;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)])) (*gCurrentWindow)[NativeElementKey(row + 27)]->data.text->text = L"＊你的数量不够加工";
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 27)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 27)]->data.text->style.color =
                 std::byte{4};
         }
     }
@@ -1273,15 +1366,15 @@ static void WindowShop_RefreshExchangeQuantities()
     for (std::int32_t row = 0; row < 5; ++row) {
         std::wstring& text = gShopCountTextsD2D988[row];
         text.clear();
-        gCurrentWindow->elements[row + 42].visible = 0;
-        gCurrentWindow->elements[row + 47].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 42)])) (*gCurrentWindow)[NativeElementKey(row + 42)]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 47)])) (*gCurrentWindow)[NativeElementKey(row + 47)]->visible = 0;
         const auto* const record = &gShopItemsCF4FE0[gShopScrollCC488C + row];
         if (record->used != 0) {
             std::int32_t selected;
             std::memcpy(&selected, &record->selected, sizeof(selected));
             cg::text::FormatTo(text, L"{:2}", selected);
-            gCurrentWindow->elements[row + 42].visible = 1;
-            gCurrentWindow->elements[row + 47].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 42)])) (*gCurrentWindow)[NativeElementKey(row + 42)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 47)])) (*gCurrentWindow)[NativeElementKey(row + 47)]->visible = 1;
         }
     }
 }
@@ -1327,8 +1420,9 @@ static void WindowShop_RefreshDetailName()
     std::int32_t price;
     std::memcpy(&price, &gShopDetailCC3210.valueC34, sizeof(price));
     cg::text::FormatTo(gShopPriceTextsD673EC[0], L"{:10}", price);
-    WindowRuntime_FillTwoTextLines(gCurrentWindow->elements[17].data.text,
-        gCurrentWindow->elements[22].data.text, gShopDetailCC3210.name);
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element18]) && (gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element23]))) { return; }
+    WindowRuntime_FillTwoTextLines((*gCurrentWindow)[WindowShopElementId::Element18]->data.text,
+        (*gCurrentWindow)[WindowShopElementId::Element23]->data.text, gShopDetailCC3210.name);
 }
 
 // 原函数：0x004B9270。
@@ -1367,17 +1461,17 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
     if (value == -1) {
         gShopScrollCC488C = 0;
         gShopAvailableCF4A24 = -1;
-        gCurrentWindow->elements[0].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleConfirmation])) (*gCurrentWindow)[WindowShopElementId::HandleConfirmation]->visible = 0;
         for (std::int32_t row = 0; row < 5; ++row) {
-            gCurrentWindow->elements[17 + row].visible = 1;
-            gCurrentWindow->elements[22 + row].visible = 1;
-            gCurrentWindow->elements[27 + row].visible = 0;
-            gCurrentWindow->elements[32 + row].visible = 1;
-            gCurrentWindow->elements[37 + row].visible = 1;
-            gCurrentWindow->elements[42 + row].visible = 1;
-            gCurrentWindow->elements[47 + row].visible = 1;
-            gCurrentWindow->elements[52 + row].visible = 1;
-            gCurrentWindow->elements[57 + row].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(17 + row)])) (*gCurrentWindow)[NativeElementKey(17 + row)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(22 + row)])) (*gCurrentWindow)[NativeElementKey(22 + row)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(27 + row)])) (*gCurrentWindow)[NativeElementKey(27 + row)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(32 + row)])) (*gCurrentWindow)[NativeElementKey(32 + row)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(37 + row)])) (*gCurrentWindow)[NativeElementKey(37 + row)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(42 + row)])) (*gCurrentWindow)[NativeElementKey(42 + row)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(47 + row)])) (*gCurrentWindow)[NativeElementKey(47 + row)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(52 + row)])) (*gCurrentWindow)[NativeElementKey(52 + row)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(57 + row)])) (*gCurrentWindow)[NativeElementKey(57 + row)]->visible = 1;
         }
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
@@ -1385,15 +1479,16 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
             WindowShop_RefreshBuyQuantities();
             WindowShop_RefreshBuyAmount();
             WindowShop_CountBuySlots();
-            gCurrentWindow->elements[63].data.graphic->imageNo = 244381;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleSaleDrop])) (*gCurrentWindow)[WindowShopElementId::HandleSaleDrop]->data.graphic->imageNo = 244381;
             for (std::int32_t row = 0; row < 5; ++row) {
-                gCurrentWindow->elements[52 + row].visible = 1;
-                gCurrentWindow->elements[52 + row].mouseCallback = &WindowShop_HandleItemIcon;
-                gCurrentWindow->elements[57 + row].data.graphic->imageNo =
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(52 + row)])) (*gCurrentWindow)[NativeElementKey(52 + row)]->visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(52 + row)])) (*gCurrentWindow)[NativeElementKey(52 + row)]->mouseCallback = &WindowShop_HandleItemIcon;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(57 + row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(57 + row)]->data.graphic->imageNo =
                     244382;
             }
-            gCurrentWindow->elements[6].visible = 0;
-            gCurrentWindow->elements[4].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element7])) (*gCurrentWindow)[WindowShopElementId::Element7]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::ButtonAddAll])) (*gCurrentWindow)[WindowShopElementId::ButtonAddAll]->visible = 0;
             break;
         case 1:
         case 4:
@@ -1402,59 +1497,61 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
             WindowShop_RefreshSellQuantities();
             WindowShop_RefreshSellAmount();
             WindowShop_CountSellItems();
-            gCurrentWindow->elements[63].data.graphic->imageNo = 244381;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleSaleDrop])) (*gCurrentWindow)[WindowShopElementId::HandleSaleDrop]->data.graphic->imageNo = 244381;
             for (std::int32_t row = 0; row < 5; ++row) {
-                gCurrentWindow->elements[52 + row].visible = 1;
-                gCurrentWindow->elements[52 + row].mouseCallback = &WindowShop_HandleSaleSelection;
-                gCurrentWindow->elements[57 + row].data.graphic->imageNo =
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(52 + row)])) (*gCurrentWindow)[NativeElementKey(52 + row)]->visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(52 + row)])) (*gCurrentWindow)[NativeElementKey(52 + row)]->mouseCallback = &WindowShop_HandleSaleSelection;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(57 + row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(57 + row)]->data.graphic->imageNo =
                     244382;
             }
-            gCurrentWindow->elements[6].visible = 0;
-            gCurrentWindow->elements[4].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element7])) (*gCurrentWindow)[WindowShopElementId::Element7]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::ButtonAddAll])) (*gCurrentWindow)[WindowShopElementId::ButtonAddAll]->visible = 1;
             break;
         case 2:
             WindowShop_RefreshExchangeRows();
             WindowShop_RefreshExchangeQuantities();
             WindowShop_RefreshExchangeAmount();
             WindowShop_CountExchangeItems();
-            gCurrentWindow->elements[63].data.graphic->imageNo = 244388;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleSaleDrop])) (*gCurrentWindow)[WindowShopElementId::HandleSaleDrop]->data.graphic->imageNo = 244388;
             for (std::int32_t row = 0; row < 5; ++row) {
-                gCurrentWindow->elements[52 + row].visible = 1;
-                gCurrentWindow->elements[52 + row].mouseCallback = &WindowShop_HandleItemIcon;
-                gCurrentWindow->elements[57 + row].data.graphic->imageNo =
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(52 + row)])) (*gCurrentWindow)[NativeElementKey(52 + row)]->visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(52 + row)])) (*gCurrentWindow)[NativeElementKey(52 + row)]->mouseCallback = &WindowShop_HandleItemIcon;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(57 + row)]))) { continue; }
+                (*gCurrentWindow)[NativeElementKey(57 + row)]->data.graphic->imageNo =
                     244389;
             }
-            gCurrentWindow->elements[6].visible = 1;
-            gCurrentWindow->elements[4].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element7])) (*gCurrentWindow)[WindowShopElementId::Element7]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::ButtonAddAll])) (*gCurrentWindow)[WindowShopElementId::ButtonAddAll]->visible = 0;
             break;
         case 3:
             WindowShop_RefreshDetailName();
             WindowShop_RefreshDetailAmount();
             for (std::int32_t row = 1; row < 5; ++row) {
-                gCurrentWindow->elements[17 + row].visible = 0;
-                gCurrentWindow->elements[22 + row].visible = 0;
-                gCurrentWindow->elements[27 + row].visible = 0;
-                gCurrentWindow->elements[32 + row].visible = 0;
-                gCurrentWindow->elements[37 + row].visible = 0;
-                gCurrentWindow->elements[42 + row].visible = 0;
-                gCurrentWindow->elements[47 + row].visible = 0;
-                gCurrentWindow->elements[52 + row].visible = 0;
-                gCurrentWindow->elements[57 + row].visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(17 + row)])) (*gCurrentWindow)[NativeElementKey(17 + row)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(22 + row)])) (*gCurrentWindow)[NativeElementKey(22 + row)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(27 + row)])) (*gCurrentWindow)[NativeElementKey(27 + row)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(32 + row)])) (*gCurrentWindow)[NativeElementKey(32 + row)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(37 + row)])) (*gCurrentWindow)[NativeElementKey(37 + row)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(42 + row)])) (*gCurrentWindow)[NativeElementKey(42 + row)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(47 + row)])) (*gCurrentWindow)[NativeElementKey(47 + row)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(52 + row)])) (*gCurrentWindow)[NativeElementKey(52 + row)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(57 + row)])) (*gCurrentWindow)[NativeElementKey(57 + row)]->visible = 0;
             }
-            gCurrentWindow->elements[63].data.graphic->imageNo = 244388;
-            gCurrentWindow->elements[17].visible = 1;
-            gCurrentWindow->elements[22].visible = 1;
-            gCurrentWindow->elements[27].visible = 0;
-            gCurrentWindow->elements[32].visible = 1;
-            gCurrentWindow->elements[37].visible = 1;
-            gCurrentWindow->elements[42].visible = 1;
-            gCurrentWindow->elements[47].visible = 1;
-            gCurrentWindow->elements[52].visible = 1;
-            gCurrentWindow->elements[57].visible = 1;
-            gCurrentWindow->elements[52].mouseCallback = &WindowShop_HandleDetailIcon;
-            gCurrentWindow->elements[57].data.graphic->imageNo = 244389;
-            gCurrentWindow->elements[6].visible = 1;
-            gCurrentWindow->elements[4].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleSaleDrop])) (*gCurrentWindow)[WindowShopElementId::HandleSaleDrop]->data.graphic->imageNo = 244388;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element18])) (*gCurrentWindow)[WindowShopElementId::Element18]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element23])) (*gCurrentWindow)[WindowShopElementId::Element23]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element28])) (*gCurrentWindow)[WindowShopElementId::Element28]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element33])) (*gCurrentWindow)[WindowShopElementId::Element33]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element38])) (*gCurrentWindow)[WindowShopElementId::Element38]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::ButtonDecrease])) (*gCurrentWindow)[WindowShopElementId::ButtonDecrease]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::ButtonIncrease])) (*gCurrentWindow)[WindowShopElementId::ButtonIncrease]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleItemIcon])) (*gCurrentWindow)[WindowShopElementId::HandleItemIcon]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element58])) (*gCurrentWindow)[WindowShopElementId::Element58]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleItemIcon])) (*gCurrentWindow)[WindowShopElementId::HandleItemIcon]->mouseCallback = &WindowShop_HandleDetailIcon;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element58])) (*gCurrentWindow)[WindowShopElementId::Element58]->data.graphic->imageNo = 244389;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element7])) (*gCurrentWindow)[WindowShopElementId::Element7]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::ButtonAddAll])) (*gCurrentWindow)[WindowShopElementId::ButtonAddAll]->visible = 0;
             break;
         default:
             break;
@@ -1467,11 +1564,14 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
         gShopTooltipPageD67B8C = 0;
         gShopRowKeysC9A954[3] = -2;
         gShopRowKeysC9A954[4] = -2;
-        auto* const title = gCurrentWindow->elements[5].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element6]))) { return {}; }
+        auto* const title = (*gCurrentWindow)[WindowShopElementId::Element6]->data.text;
         title->text = gNpcDialogLinesCC24D4[0].text;
-        auto* animation = gCurrentWindow->elements[9].data.animation;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element10]))) { return {}; }
+        auto* animation = (*gCurrentWindow)[WindowShopElementId::Element10]->data.animation;
         cg::yobi::SetYobiActionField2A8(animation->action, gShopImageD2DAD0);
-        animation = gCurrentWindow->elements[9].data.animation;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element10]))) { return {}; }
+        animation = (*gCurrentWindow)[WindowShopElementId::Element10]->data.animation;
         cg::yobi::SetYobiActionField2B8(animation->action, 5);
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {
@@ -1480,13 +1580,15 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
     if (gShopDialogTypeCC3EC8 != world::gCurrentDialogType_581800) {
         gCurrentWindow->state |= 0x8000u;
     }
-    gCurrentWindow->elements[10].visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element11])) (*gCurrentWindow)[WindowShopElementId::Element11]->visible = 1;
     if (gShopItemCountCB1E10 - 5 <= 0) {
-        gCurrentWindow->elements[10].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element11])) (*gCurrentWindow)[WindowShopElementId::Element11]->visible = 0;
     }
-    WindowElement* const elements = gCurrentWindow->elements;
-    if ((elements[11].data.mouse->flags & 1u) != 0) {
-        gShopScrollCC488C = WindowScroll_ReadPosition(elements + 11, gShopItemCountCB1E10 - 5);
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowShopElementId::HandleVerticalScroll]))) { return {}; }
+    if (((*elementsWindow)[WindowShopElementId::HandleVerticalScroll]->data.mouse->flags & 1u) != 0) {
+        if (!((elementsWindow && (*elementsWindow)[WindowShopElementId::HandleVerticalScroll]))) { return {}; }
+        gShopScrollCC488C = WindowScroll_ReadPosition((*elementsWindow)[WindowShopElementId::HandleVerticalScroll], gShopItemCountCB1E10 - 5);
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
@@ -1510,7 +1612,8 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
     if (gMaterialOccupancyCC4894.shopMode == 0) {
         const std::int32_t total = gShopTotalD2DAFC;
         const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
-        gCurrentWindow->elements[7].data.number->color =
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::Element8]))) { return {}; }
+        (*gCurrentWindow)[WindowShopElementId::Element8]->data.number->color =
             total <= money ? 0 : 6;
     }
     if (gMaterialOccupancyCC4894.shopMode == 2) {
@@ -1607,7 +1710,8 @@ static void WindowShop_Submit(const std::int32_t selection)
 // 原函数：0x004B9F40。
 static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
@@ -1850,10 +1954,10 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
             if (mode == 2) {
                 WindowInstance* const window = gCurrentWindow;
                 gConfirmationCancelHintD45D70 = cancelHint;
-                window->elements[0].visible = 1;
+                if ((window && (*window)[WindowShopElementId::HandleConfirmation])) (*window)[WindowShopElementId::HandleConfirmation]->visible = 1;
             } else {
                 gConfirmationCancelHintD45D70 = cancelHint;
-                gCurrentWindow->elements[0].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleConfirmation])) (*gCurrentWindow)[WindowShopElementId::HandleConfirmation]->visible = 1;
             }
             gCurrentWindow->state |= 2u;
             static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -1876,7 +1980,8 @@ static std::int32_t WindowShop_ButtonOk(const std::int32_t index, const std::int
 // 原函数：0x004BA950。
 static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {
@@ -1911,7 +2016,8 @@ static std::int32_t WindowShop_ButtonCancel(const std::int32_t index, const std:
 // 原函数：0x004BAA50。
 static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     bool available = false;
     for (std::int32_t inventorySlot = 0; inventorySlot < 20; ++inventorySlot) {
         if ((static_cast<std::uint32_t>(gShopValueCF467C) & (1u << inventorySlot)) == 0) {
@@ -2003,7 +2109,8 @@ static std::int32_t WindowShop_ButtonAddAll(const std::int32_t index, const std:
                             const std::int32_t maximum = gShopItemCountCB1E10 - 5;
                             gShopValueCF467C = std::bit_cast<std::int32_t>(mask | (1u << inventorySlot));
                             const std::int32_t position = gShopScrollCC488C;
-                            static_cast<void>(WindowScroll_SetPosition(window->elements + 11, maximum, position));
+                            if (!((window && (*window)[WindowShopElementId::HandleVerticalScroll]))) { continue; }
+                            static_cast<void>(WindowScroll_SetPosition((*window)[WindowShopElementId::HandleVerticalScroll], maximum, position));
                             WindowShop_RefreshSellRows();
                             WindowShop_RefreshSellQuantities();
                             WindowShop_RefreshSellAmount();
@@ -2087,7 +2194,8 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
                             const std::int32_t position = gShopScrollCC488C;
                             const std::int32_t maximum = gShopItemCountCB1E10 - 5;
                             gShopValueCF467C = std::bit_cast<std::int32_t>(mask | (1u << inventorySlot));
-                            static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + 11, maximum, position));
+                            if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleVerticalScroll]))) { return {}; }
+                            static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowShopElementId::HandleVerticalScroll], maximum, position));
                             WindowShop_RefreshSellRows();
                             WindowShop_RefreshSellQuantities();
                             WindowShop_RefreshSellAmount();
@@ -2102,7 +2210,8 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0) {
         const WindowInstance* const window = gCurrentWindow;
         const std::int32_t frame = cg::render::gHoverFramePaletteIndex_D69768;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
         cg::render::DrawGraphicHover(
@@ -2116,7 +2225,8 @@ static std::int32_t WindowShop_HandleSaleDrop(const std::int32_t index, const st
 // 原函数：0x004BAD10。
 static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gShopScrollCC488C > 0) {
@@ -2128,7 +2238,8 @@ static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const
         const std::int32_t position = gShopScrollCC488C;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t maximum = gShopItemCountCB1E10 - 5;
-        static_cast<void>(WindowScroll_SetPosition(window->elements + index - 1, maximum, position));
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
@@ -2162,7 +2273,8 @@ static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const
 // 原函数：0x004BAE10。
 static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
@@ -2174,7 +2286,8 @@ static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std
         }
         const std::int32_t position = gShopScrollCC488C;
         const std::int32_t maximum = gShopItemCountCB1E10 - 5;
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 2, maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, position));
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
@@ -2208,7 +2321,8 @@ static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std
 // 原函数：0x004BAF10。
 static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gShopScrollCC488C > 0 ? 51 : 55, 320));
@@ -2218,7 +2332,8 @@ static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, cons
         }
         const std::int32_t position = gShopScrollCC488C;
         const std::int32_t maximum = gShopItemCountCB1E10 - 5;
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 3, maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
@@ -2252,7 +2367,8 @@ static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, cons
 // 原函数：0x004BB010。
 static std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
@@ -2269,7 +2385,8 @@ static std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const st
             position = 0;
             gShopScrollCC488C = position;
         }
-        static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 4, maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
@@ -2307,8 +2424,9 @@ static std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32
         const std::int32_t count = gShopItemCountCB1E10;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gShopScrollCC488C;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
         gShopScrollCC488C =
-            WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, position, count - 5, wheel);
+            WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 5, wheel);
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
             WindowShop_RefreshBuyRows();
@@ -2334,7 +2452,8 @@ static std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32
 // 原函数：0x004BB1D0。
 static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t row = gShopScrollCC488C + index - 42;
     const bool hover = (state & 1) != 0;
     auto permitted = static_cast<std::uint8_t>(index);
@@ -2567,7 +2686,8 @@ static std::int32_t WindowShop_ButtonDecrease(const std::int32_t index, const st
 // 原函数：0x004BB6E0。
 static std::int32_t WindowShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t row = gShopScrollCC488C + index - 47;
     const bool hover = (state & 1) != 0;
     auto permitted = static_cast<std::uint8_t>(index);
@@ -2926,7 +3046,8 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
         cg::render::DrawGraphicHover(
@@ -2955,7 +3076,8 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
     if (record->allowed == 0) {
         static_cast<void>(render::ClearTextQueueTail_456D50(3));
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x + 1;
         const std::int32_t y = window->y + element.y + 31;
         static_cast<void>(render::DrawText_456780(
@@ -2963,7 +3085,8 @@ static std::int32_t WindowShop_HandleItemIcon(const std::int32_t index, const st
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y)), 3, 0, 6, L"X", 0, 0));
     }
     const WindowInstance* const window = gCurrentWindow;
-    const WindowElement& element = window->elements[index];
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const WindowElement& element = (*(*window)[NativeElementKey(index)]);
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
     static_cast<void>(cg::render::DrawGraphic(
@@ -2989,7 +3112,8 @@ static std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const 
     if ((state & 1) != 0) {
         gShopTooltipIndex580844 = 200;
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
         cg::render::DrawGraphicHover(
@@ -2998,7 +3122,8 @@ static std::int32_t WindowShop_HandleDetailIcon(const std::int32_t index, const 
             223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     }
     const WindowInstance* const window = gCurrentWindow;
-    const WindowElement& element = window->elements[index];
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const WindowElement& element = (*(*window)[NativeElementKey(index)]);
     std::int32_t imageNo;
     std::memcpy(&imageNo, &gShopDetailCC3210.imageNo, sizeof(imageNo));
     static_cast<void>(cg::render::DrawGraphic(
@@ -3067,7 +3192,8 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
     }
     if (WindowDrag_ReadKind() == 9 && WindowDrag_ReadSourceIndex() == row) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
         cg::render::DrawGraphicHover(
@@ -3077,7 +3203,8 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
     }
     if (hover) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
         cg::render::DrawGraphicHover(
@@ -3087,7 +3214,8 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
     }
     if ((events & 0x20u) != 0 && WindowDrag_ReadKind() == 9) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
         cg::render::DrawGraphicHover(
@@ -3130,7 +3258,8 @@ static std::int32_t WindowShop_HandleSaleSelection(const std::int32_t index, con
         }
     }
     const WindowInstance* const window = gCurrentWindow;
-    const WindowElement& element = window->elements[index];
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const WindowElement& element = (*(*window)[NativeElementKey(index)]);
     const std::int32_t drawItem = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
     std::int32_t imageNo;
     std::memcpy(&imageNo, &gShopItemsCF4FE0[drawItem].imageNo, sizeof(imageNo));
@@ -3156,7 +3285,8 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
     if ((events & 0x21u) != 0) {
         for (std::int32_t hitSlot = 0; hitSlot < 20; ++hitSlot) {
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t left = element.x + 50 * (hitSlot % 5) + window->x + 2;
             const std::int32_t top = element.y + 50 * (hitSlot / 5) + window->y + 2;
             if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
@@ -3235,7 +3365,8 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
                             const std::int32_t position = gShopScrollCC488C;
                             const std::int32_t maximum = gShopItemCountCB1E10 - 5;
                             gShopValueCF467C = std::bit_cast<std::int32_t>(mask | (1u << hovered));
-                            static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + 11, maximum, position));
+                            if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopElementId::HandleVerticalScroll]))) { return {}; }
+                            static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[WindowShopElementId::HandleVerticalScroll], maximum, position));
                             WindowShop_RefreshSellRows();
                             WindowShop_RefreshSellQuantities();
                             WindowShop_RefreshSellAmount();
@@ -3279,7 +3410,8 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 2;
             const std::int32_t top = element.y + 50 * ((source - 8) / 5) + window->y + 2;
             cg::render::DrawGraphicHover(
@@ -3291,7 +3423,8 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
     std::wstring buffer;
     if (hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 2;
         const std::int32_t top = element.y + 50 * (hovered / 5) + window->y + 2;
         cg::render::DrawGraphicHover(
@@ -3324,7 +3457,8 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
                 continue;
             }
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 26;
             const std::int32_t y = element.y + 50 * (position / 5) + window->y + 26;
             if (item.itemId == gShopExchangeCurrencyItemId_D2D608) {
@@ -3353,7 +3487,8 @@ static std::int32_t WindowShop_HandleInventory(const std::int32_t index, const s
                 continue;
             }
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 26;
             const std::int32_t y = element.y + 50 * (position / 5) + window->y + 26;
             if ((static_cast<std::uint32_t>(gShopValueCF467C) & (1u << position)) != 0) {
@@ -3408,7 +3543,7 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
         if ((buttons & 1u) != 0) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
             const WindowValueCallback callback = gConfirmationCallbackC8B088;
             if (callback != nullptr) {
                 callback(0);
@@ -3425,7 +3560,7 @@ static std::int32_t WindowShop_HandleConfirmation(const std::int32_t index, cons
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & 1u) != 0) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
             const WindowValueCallback callback = gConfirmationCallbackC8B088;
             if (callback != nullptr) {
                 callback(1);

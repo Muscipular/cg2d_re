@@ -10,6 +10,7 @@
 #include <cstring>
 #include <cstdio>
 #include <limits>
+#include <optional>
 
 namespace cg::script {
 void startCopilot(int x, int y);
@@ -20,6 +21,20 @@ std::vector<std::pair<int, int> > getAutoCopliotRoute();
 //std::vector<std::shared_ptr<UIWindowInstanceEx>> winList;
 
 
+
+static ui::ElementId LuaReadElementId(lua_State* L, int index) {
+    if (lua_isnoneornil(L, index)) return 0;
+    if (lua_type(L, index) == LUA_TSTRING && lua_objlen(L, index) == 0) return 0;
+    if (lua_type(L, index) != LUA_TNUMBER) throw std::runtime_error("elementId must be a non-negative integer");
+    const auto value = lua_tonumber(L, index);
+    if (!std::isfinite(value) || value < 0 || value > std::numeric_limits<ui::ElementId>::max() || std::trunc(value) != value)
+        throw std::runtime_error("elementId must be a non-negative integer");
+    return static_cast<ui::ElementId>(value);
+}
+static ui::ElementId LuaElementIdField(lua_State* L, int table) {
+    lua_getfield(L, table, "elementId");
+    auto id = LuaReadElementId(L, -1); lua_pop(L, 1); return id;
+}
 
 static constexpr int LUA_REF_NONE = -1;
 static int ResolveLuaMapX(int mapX) {
@@ -645,107 +660,89 @@ void __declspec(noinline) RegGraphic(lua_State* L) {
 
 LuaWindow::LuaWindow(UIWindowInstance& value, lua_State* state)
     : window(value), owner(state), generation(value.generation) {}
-LuaWindow::~LuaWindow() {
+LuaWindowBinding::~LuaWindowBinding() {
     LuaUnref(owner, window.refUpdate);
     LuaUnref(owner, window.refDraw);
     LuaUnref(owner, window.refEvent);
-    for (int i = 0; i < window.elementCount; ++i)
-        if (!window.elements[i].component) ReleaseLuaElementRefs(owner, window.elements[i]);
+    // 脚本退出时原生窗口可能仍存在，解除元素回调但不销毁UI。
+    for (auto& [key, element] : window.sortedMap) {
+        ReleaseLuaElementRefs(owner, element);
+        if (element.component) element.component->callbacks.reset();
+    }
+    for (auto& node : window.retiredElements) {
+        auto& element = node.mapped();
+        ReleaseLuaElementRefs(owner, element);
+        if (element.component) element.component->callbacks.reset();
+    }
 }
-LuaWindowRef LuaWindow::ref() const { return {window.id, generation}; }
+
+LuaWindowRef LuaWindow::ref() const { return {window.id}; }
 UIControl* LuaWindow::FindControl(int controlId) {
     return window.components ? window.components->find(controlId) : nullptr;
 }
-void LuaWindow::ClearChildren() { if (window.id > WIN_NORMAL_END) ui::WindowRuntime_Components(window).clear(); }
+void LuaWindow::ClearChildren() { ui::WindowRuntime_ClearElements(window); }
 UIControl* LuaWindow::AddControl(std::unique_ptr<UIControl> control, int parentId) {
-    if (window.id <= WIN_NORMAL_END) return nullptr;
     return ui::WindowRuntime_Components(window).add(std::move(control), parentId);
 }
 
 UIControl* LuaWindow::AddImage(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::ImageData data, LuaCallbackRefs callbacks, int parentId) {
-    int controlId = ui::WindowRuntime_Components(window).nextId++;
+    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
     return AddControl(std::make_unique<UIImageControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, data, MakeLuaElementEvents(callbacks)), parentId);
 }
 
 UIControl* LuaWindow::AddAnime(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::AnimeData data, LuaCallbackRefs callbacks, int parentId) {
-    int controlId = ui::WindowRuntime_Components(window).nextId++;
+    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
     return AddControl(std::make_unique<UIAnimeControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, data, MakeLuaElementEvents(callbacks)), parentId);
 }
 
 UIControl* LuaWindow::AddText(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::TextData data, LuaCallbackRefs callbacks, int parentId) {
-    int controlId = ui::WindowRuntime_Components(window).nextId++;
+    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
     return AddControl(std::make_unique<UITextControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), MakeLuaElementEvents(callbacks)), parentId);
 }
 
 UIControl* LuaWindow::AddPngImage(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::PngImageData data, LuaCallbackRefs callbacks, int parentId) {
-    int controlId = ui::WindowRuntime_Components(window).nextId++;
+    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
     return AddControl(std::make_unique<UIPngImageControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), MakeLuaElementEvents(callbacks)), parentId);
 }
 
 UIControl* LuaWindow::AddCanvas(std::wstring_view name, int x, int y, int w, int h, int visible, std::vector<CanvasShape> shapes, LuaCallbackRefs callbacks, int parentId) {
-    int controlId = ui::WindowRuntime_Components(window).nextId++;
+    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
     return AddControl(std::make_unique<UICanvasControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(shapes), MakeLuaElementEvents(callbacks)), parentId);
 }
 
 UIControl* LuaWindow::AddTextInput(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::TextInputData data, LuaCallbackRefs callbacks, int parentId) {
-    int controlId = ui::WindowRuntime_Components(window).nextId++;
+    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
     return AddControl(std::make_unique<UITextInputControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), MakeLuaElementEvents(callbacks)), parentId);
 }
 
 UIControl* LuaWindow::AddScrollView(std::wstring_view name, int x, int y, int w, int h, int visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks, int parentId) {
-    int controlId = ui::WindowRuntime_Components(window).nextId++;
+    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
     return AddControl(std::make_unique<UIScrollViewControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, contentHeight, scrollY, barWidth, scrollStep, MakeLuaElementEvents(callbacks)), parentId);
 }
 
 UIControl* LuaWindow::AddMapEx(std::wstring_view name, int x, int y, int w, int h, int visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks, int parentId) {
-    int controlId = ui::WindowRuntime_Components(window).nextId++;
+    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
     return AddControl(std::make_unique<UIMapExControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, ResolveLuaMapX(mapX), ResolveLuaMapY(mapY), ResolveLuaMapId(mapId), ResolveLuaFloor(floor), MakeLuaElementEvents(callbacks)), parentId);
 }
 
-static UIWindowInstance* ResolveNativeWindow(const LuaNativeWindowRef& ref) {
-    if (ref.winId < 0 || ref.winId >= WIN_MAX) {
-        return nullptr;
-    }
-    auto* window = gWindowState[ref.winId].window;
-    return window && window->generation == ref.generation && !(window->state & WIN_STATE_CLOSE) ? window : nullptr;
-}
-
-static LuaWindow* ResolveWindow(const LuaWindowRef& ref) {
+static std::optional<LuaWindow> ResolveWindow(const LuaWindowRef& ref) {
     auto* instance = ui::WindowRuntime_FindInstance(ref.winId);
-    if (!instance || instance->generation != ref.generation || (instance->state & WIN_STATE_CLOSE)) return nullptr;
-    return static_cast<LuaWindow*>(instance->binding);
+    if (!instance || (instance->state & WIN_STATE_CLOSE)) return std::nullopt;
+    return LuaWindow(*instance, nullptr);
 }
-
+ui::WindowElement* ResolveLuaElement(const LuaControlRef& ref) {
+    auto* window = ui::WindowRuntime_FindInstance(ref.winId);
+    return window && !(window->state & WIN_STATE_CLOSE) ? (*window)[ref.controlId] : nullptr;
+}
 UIControl* ResolveControl(const LuaControlRef& ref) {
-    LuaWindowRef windowRef{ref.winId, ref.generation};
-    auto window = ResolveWindow(windowRef);
-    if (!window) {
-        return nullptr;
-    }
-    return window->FindControl(ref.controlId);
+    auto* element = ResolveLuaElement(ref);
+    return element ? element->component : nullptr;
 }
-
-bool IsLuaControlAttached(const LuaControlRef& ref) {
-    const auto* window = ResolveWindow({ref.winId, ref.generation});
-    return window && !(window->window.state & WIN_STATE_CLOSE) && ResolveControl(ref);
-}
-
+bool IsLuaControlAttached(const LuaControlRef& ref) { return ResolveLuaElement(ref) != nullptr; }
 static void PushWindowRef(lua_State* L, LuaWindowRef ref) {
-    if (ref.winId >= 0 && ref.winId < WIN_MAX) {
-        auto* native = static_cast<LuaNativeWindowRef*>(lua_newuserdata(L, sizeof(LuaNativeWindowRef)));
-        *native = {ref.winId, ref.generation};
-        luaL_setmetatable(L, CName(LuaNativeWindowRef));
-        return;
-    }
-    auto data = static_cast<LuaWindowRef*>(lua_newuserdata(L, sizeof(LuaWindowRef)));
+    auto* data = static_cast<LuaWindowRef*>(lua_newuserdata(L, sizeof(LuaWindowRef)));
     *data = ref;
     luaL_setmetatable(L, CName(LuaWindowRef));
-}
-
-static void PushNativeWindowRef(lua_State* L, LuaNativeWindowRef ref) {
-    auto data = static_cast<LuaNativeWindowRef*>(lua_newuserdata(L, sizeof(LuaNativeWindowRef)));
-    *data = ref;
-    luaL_setmetatable(L, CName(LuaNativeWindowRef));
 }
 
 static void PushControlRef(lua_State* L, LuaControlRef ref) {
@@ -768,7 +765,7 @@ static int LuaReadParentId(lua_State* L, int index, const LuaWindow* window) {
     lua_getfield(L, index, "parent");
     if (!lua_isnil(L, -1)) {
         auto parentRef = static_cast<LuaControlRef*>(luaL_checkudata(L, -1, CName(LuaControlRef)));
-        if (!parentRef || !window || parentRef->winId != window->window.id || parentRef->generation != window->generation) {
+        if (!parentRef || !window || parentRef->winId != window->window.id) {
             lua_pop(L, 1);
             return -1;
         }
@@ -831,8 +828,8 @@ static int CallWindowCallback(lua_State* L, int callbackRef, const char* name, L
     return result;
 }
 
-void LuaWindow::update() { CallWindowCallback(owner, window.refUpdate, "LuaWindow.onUpdate", ref()); }
-void LuaWindow::draw() { CallWindowCallback(owner, window.refDraw, "LuaWindow.onDraw", ref()); }
+void LuaWindowBinding::update() { CallWindowCallback(owner, window.refUpdate, "LuaWindow.onUpdate", ref()); }
+void LuaWindowBinding::draw() { CallWindowCallback(owner, window.refDraw, "LuaWindow.onDraw", ref()); }
 
 static void LuaSetWindowVisible(LuaWindow* window, bool visible) {
     ui::WindowRuntime_SetVisible(window->window, visible);
@@ -855,7 +852,6 @@ static void LuaApplyNewWindowParam(lua_State* L, int index, LuaWindow* window) {
 }
 
 static void LuaApplyExistingWindowParam(lua_State* L, int index, LuaWindow* window) {
-    if (window->owner != L) { luaL_error(L, "window belongs to another Lua state"); return; }
     if (LuaHasField(L, index, "x")) {
         window->window.x = static_cast<short>(LuaGetIntField(L, index, "x", window->window.x));
     }
@@ -871,7 +867,7 @@ static void LuaApplyExistingWindowParam(lua_State* L, int index, LuaWindow* wind
     if (LuaHasField(L, index, "layer"))
         window->window.layer = LuaGetIntField(L, index, "layer", window->window.layer);
     if (LuaHasField(L, index, "visible")) {
-        LuaSetWindowVisible(window, LuaGetBoolField(L, index, "visible", (window->window.state & WIN_STATE_ACTIVE) != 0));
+        LuaSetWindowVisible(window, LuaGetBoolField(L, index, "visible", window->window.id < WIN_MAX ? !window->window.scriptHidden : (window->window.state & WIN_STATE_ACTIVE) != 0));
     }
     if (LuaHasField(L, index, "dragMove")) {
         if (auto ext = GetExtWindowById(window->window.id)) ext->dragMove = LuaGetIntField(L, index, "dragMove", ext->dragMove);
@@ -1065,9 +1061,9 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
     }
 }
 
-static void LuaPushWindowField(lua_State* L, LuaWindow* window, const char* key) {
+static void LuaPushWindowField(lua_State* L, const std::optional<LuaWindow>& window, const char* key) {
     if (strcmp(key, "valid") == 0) {
-        lua_pushboolean(L, window != nullptr);
+        lua_pushboolean(L, window.has_value());
         return;
     }
     if (!window) {
@@ -1080,9 +1076,9 @@ static void LuaPushWindowField(lua_State* L, LuaWindow* window, const char* key)
     } else if (strcmp(key, "state") == 0) {
         lua_pushinteger(L, window->window.state);
     } else if (strcmp(key, "visible") == 0) {
-        lua_pushboolean(L, (window->window.state & WIN_STATE_ACTIVE) != 0);
+        lua_pushboolean(L, window->window.id < WIN_MAX ? !window->window.scriptHidden : (window->window.state & WIN_STATE_ACTIVE) != 0);
     } else if (strcmp(key, "count") == 0) {
-        lua_pushinteger(L, window->window.components ? window->window.components->rootCount() : 0);
+        lua_pushinteger(L, static_cast<int>(window->window.sortedMap.size()));
     } else if (strcmp(key, "x") == 0) {
         lua_pushinteger(L, window->window.x);
     } else if (strcmp(key, "y") == 0) {
@@ -1101,43 +1097,10 @@ static void LuaPushWindowField(lua_State* L, LuaWindow* window, const char* key)
     }
 }
 
-static void LuaPushNativeWindowField(lua_State* L, UIWindowInstance* window, const char* key) {
-    if (strcmp(key, "valid") == 0) {
-        lua_pushboolean(L, window != nullptr);
-        return;
-    }
-    if (!window) {
-        lua_pushnil(L);
-        return;
-    }
-    if (LuaPushWindowProperty(L, *window, key)) return;
-    if (strcmp(key, "winId") == 0 || strcmp(key, "id") == 0) {
-        lua_pushinteger(L, window->id);
-    } else if (strcmp(key, "visible") == 0) {
-        lua_pushboolean(L, !window->scriptHidden);
-    } else if (strcmp(key, "count") == 0) {
-        lua_pushinteger(L, window->elementCount);
-    } else if (strcmp(key, "state") == 0) {
-        lua_pushinteger(L, window->state);
-    } else if (strcmp(key, "x") == 0) {
-        lua_pushinteger(L, window->x);
-    } else if (strcmp(key, "y") == 0) {
-        lua_pushinteger(L, window->y);
-    } else if (strcmp(key, "width") == 0) {
-        lua_pushinteger(L, window->width);
-    } else if (strcmp(key, "height") == 0) {
-        lua_pushinteger(L, window->height);
-    } else if (strcmp(key, "layer") == 0) {
-        lua_pushinteger(L, window->layer);
-    } else {
-        lua_pushnil(L);
-    }
-}
 
 LuaFunctionEx(LuaControlRef, AddPoint) {
     auto ref = CheckControlRef(L, 1);
     auto control = ResolveControl(*ref);
-    if (control && ResolveWindow({control->winId, control->generation})->owner != L) return luaL_error(L, "control belongs to another Lua state");
     if (!control || control->type != UIControl::TYPE_MAP_EX) {
         lua_pushboolean(L, false);
         return 1;
@@ -1158,7 +1121,6 @@ LuaFunctionEx(LuaControlRef, AddPoint) {
 LuaFunctionEx(LuaControlRef, RemovePoints) {
     auto ref = CheckControlRef(L, 1);
     auto control = ResolveControl(*ref);
-    if (control && ResolveWindow({control->winId, control->generation})->owner != L) return luaL_error(L, "control belongs to another Lua state");
     if (!control || control->type != UIControl::TYPE_MAP_EX || !lua_isnumber(L, 2) || !lua_isnumber(L, 3)) {
         lua_pushinteger(L, 0);
         return 1;
@@ -1174,7 +1136,6 @@ LuaFunctionEx(LuaControlRef, RemovePoints) {
 LuaFunctionEx(LuaControlRef, GetPoints) {
     auto ref = CheckControlRef(L, 1);
     auto control = ResolveControl(*ref);
-    if (control && ResolveWindow({control->winId, control->generation})->owner != L) return luaL_error(L, "control belongs to another Lua state");
     if (!control || control->type != UIControl::TYPE_MAP_EX) {
         lua_newtable(L);
         return 1;
@@ -1190,13 +1151,20 @@ LuaFunctionEx(LuaControlRef, GetPoints) {
 }
 
 LuaFunctionEx(LuaControlRef, Set) {
+    if (LuaHasField(L, 2, "elementId") || LuaHasField(L, 2, "controlId") || LuaHasField(L, 2, "id"))
+        return luaL_error(L, "elementId is read-only");
     auto ref = CheckControlRef(L, 1);
     if (!lua_istable(L, 2)) {
         lua_pushboolean(L, false);
         return 1;
     }
     auto control = ResolveControl(*ref);
-    if (control && ResolveWindow({control->winId, control->generation})->owner != L) return luaL_error(L, "control belongs to another Lua state");
+    if (!control) {
+        auto* element = ResolveLuaElement(*ref);
+        if (!element) { lua_pushboolean(L, false); return 1; }
+        LuaApplyNativeElementTable(L, 2, *element);
+        lua_pushboolean(L, true); return 1;
+    }
     if (!control) {
         lua_pushboolean(L, false);
         return 1;
@@ -1335,6 +1303,8 @@ LuaFunctionEx(LuaControlRef, Index) {
         lua_pushcfunction(L, LuaCFunction(LuaControlRef, GetPoints));
         return 1;
     }
+    if (!ResolveControl(*ref)) return LuaElementRead(L);
+    if (!std::strcmp(key, "elementId")) { Push(L, ref->controlId); return 1; }
     LuaPushControlField(L, ResolveControl(*ref), key);
     return 1;
 }
@@ -1346,7 +1316,7 @@ LuaFunctionEx(LuaControlRef, ToString) {
         return 1;
     }
     char buff[64] = {0};
-    sprintf(buff, CName(LuaControlRef) "_%d_%u_%d", ref->winId, ref->generation, ref->controlId);
+    sprintf(buff, CName(LuaControlRef) "_%d_%u", ref->winId, ref->controlId);
     lua_pushstring(L, buff);
     return 1;
 }
@@ -1358,12 +1328,11 @@ LuaFunctionEx(LuaWindowRef, Set) {
         return 1;
     }
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushboolean(L, false);
         return 1;
     }
-    LuaApplyExistingWindowParam(L, 2, window);
+    LuaApplyExistingWindowParam(L, 2, &*window);
     lua_pushboolean(L, true);
     return 1;
 }
@@ -1371,7 +1340,6 @@ LuaFunctionEx(LuaWindowRef, Set) {
 LuaFunctionEx(LuaWindowRef, Close) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushboolean(L, false);
         return 1;
@@ -1419,12 +1387,11 @@ LuaFunctionEx(LuaWindowRef, ShowTips) {
 LuaFunctionEx(LuaWindowRef, DrawRect) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushboolean(L, false);
         return 1;
     }
-    if ((window->window.state & WIN_STATE_ACTIVE) == 0) {
+    if (window->window.scriptHidden || (window->window.id >= WIN_MAX && !(window->window.state & WIN_STATE_ACTIVE))) {
         lua_pushboolean(L, false);
         return 1;
     }
@@ -1450,10 +1417,16 @@ LuaFunctionEx(LuaWindowRef, DrawRect) {
     return 2;
 }
 
+LuaFunctionEx(LuaWindowRef, RemoveElement) {
+    auto window = ResolveWindow(*CheckWindowRef(L, 1));
+    const auto id = LuaReadElementId(L, 2);
+    lua_pushboolean(L, window && ui::WindowRuntime_RemoveElement(window->window, id));
+    return 1;
+}
+
 LuaFunctionEx(LuaWindowRef, ClearChildren) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushboolean(L, false);
         return 1;
@@ -1466,7 +1439,6 @@ LuaFunctionEx(LuaWindowRef, ClearChildren) {
 LuaFunctionEx(LuaWindowRef, AddImage) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushnil(L);
         return 1;
@@ -1476,11 +1448,12 @@ LuaFunctionEx(LuaWindowRef, AddImage) {
     }
 
     auto name = LuaGetWideStringField(L, 2, "name");
-    int parentId = LuaReadParentId(L, 2, window);
+    int parentId = LuaReadParentId(L, 2, &*window);
     int image = LuaGetIntField(L, 2, "image", LuaGetIntField(L, 2, "id", -1));
     int imageHover = LuaGetIntField(L, 2, "imageHover", image);
     int imagePress = LuaGetIntField(L, 2, "imagePress", image);
     UIControl::ImageData data{image, imageHover, imagePress, LuaGetColorField(L, 2, "color", 0xffffffff)};
+    window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddImage(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, data, LuaReadCallbacks(L, 2), parentId);
     if (!control) {
         lua_pushnil(L);
@@ -1488,14 +1461,13 @@ LuaFunctionEx(LuaWindowRef, AddImage) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, window->generation, control->id});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
     return 1;
 }
 
 LuaFunctionEx(LuaWindowRef, AddPngImage) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushnil(L);
         return 1;
@@ -1505,8 +1477,9 @@ LuaFunctionEx(LuaWindowRef, AddPngImage) {
     }
 
     auto name = LuaGetWideStringField(L, 2, "name");
-    int parentId = LuaReadParentId(L, 2, window);
+    int parentId = LuaReadParentId(L, 2, &*window);
     auto data = LuaReadPngImageData(L, 2);
+    window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddPngImage(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
     if (!control) {
         lua_pushnil(L);
@@ -1514,14 +1487,13 @@ LuaFunctionEx(LuaWindowRef, AddPngImage) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, window->generation, control->id});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
     return 1;
 }
 
 LuaFunctionEx(LuaWindowRef, AddCanvas) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushnil(L);
         return 1;
@@ -1531,7 +1503,8 @@ LuaFunctionEx(LuaWindowRef, AddCanvas) {
     }
 
     auto name = LuaGetWideStringField(L, 2, "name");
-    int parentId = LuaReadParentId(L, 2, window);
+    int parentId = LuaReadParentId(L, 2, &*window);
+    window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddCanvas(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", LuaGetIntField(L, 2, "w", 0)), LuaGetIntField(L, 2, "height", LuaGetIntField(L, 2, "h", 0)), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, LuaReadCanvasShapes(L, 2), LuaReadCallbacks(L, 2), parentId);
     if (!control) {
         lua_pushnil(L);
@@ -1539,14 +1512,13 @@ LuaFunctionEx(LuaWindowRef, AddCanvas) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", false);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, window->generation, control->id});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
     return 1;
 }
 
 LuaFunctionEx(LuaWindowRef, AddAnime) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushnil(L);
         return 1;
@@ -1556,7 +1528,7 @@ LuaFunctionEx(LuaWindowRef, AddAnime) {
     }
 
     auto name = LuaGetWideStringField(L, 2, "name");
-    int parentId = LuaReadParentId(L, 2, window);
+    int parentId = LuaReadParentId(L, 2, &*window);
     UIControl::AnimeData data{
         -1,
         0,
@@ -1566,6 +1538,7 @@ LuaFunctionEx(LuaWindowRef, AddAnime) {
     LuaReadNumberIntField(L, 2, "animeNo", data.animeNo);
     LuaReadNumberIntField(L, 2, "action", data.action);
     LuaReadNumberIntField(L, 2, "dir", data.dir);
+    window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddAnime(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, data, LuaReadCallbacks(L, 2), parentId);
     if (!control) {
         lua_pushnil(L);
@@ -1573,14 +1546,13 @@ LuaFunctionEx(LuaWindowRef, AddAnime) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, window->generation, control->id});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
     return 1;
 }
 
 LuaFunctionEx(LuaWindowRef, AddText) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushnil(L);
         return 1;
@@ -1590,12 +1562,13 @@ LuaFunctionEx(LuaWindowRef, AddText) {
     }
 
     auto name = LuaGetWideStringField(L, 2, "name");
-    int parentId = LuaReadParentId(L, 2, window);
+    int parentId = LuaReadParentId(L, 2, &*window);
     UIControl::TextData data{
         static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
         static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
         LuaGetWideStringField(L, 2, "text")
     };
+    window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddText(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
     if (!control) {
         lua_pushnil(L);
@@ -1603,14 +1576,13 @@ LuaFunctionEx(LuaWindowRef, AddText) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", false);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, window->generation, control->id});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
     return 1;
 }
 
 LuaFunctionEx(LuaWindowRef, AddTextInput) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushnil(L);
         return 1;
@@ -1620,13 +1592,14 @@ LuaFunctionEx(LuaWindowRef, AddTextInput) {
     }
 
     auto name = LuaGetWideStringField(L, 2, "name");
-    int parentId = LuaReadParentId(L, 2, window);
+    int parentId = LuaReadParentId(L, 2, &*window);
     UIControl::TextInputData data{
         static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
         static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
         ClampTextInputMaxLength(LuaGetIntField(L, 2, "maxLength", TEXT_INPUT_MAX_LENGTH)),
         LuaGetWideStringField(L, 2, "text")
     };
+    window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddTextInput(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
     if (!control) {
         lua_pushnil(L);
@@ -1634,14 +1607,13 @@ LuaFunctionEx(LuaWindowRef, AddTextInput) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, window->generation, control->id});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
     return 1;
 }
 
 LuaFunctionEx(LuaWindowRef, AddScrollView) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushnil(L);
         return 1;
@@ -1651,7 +1623,8 @@ LuaFunctionEx(LuaWindowRef, AddScrollView) {
     }
 
     auto name = LuaGetWideStringField(L, 2, "name");
-    int parentId = LuaReadParentId(L, 2, window);
+    int parentId = LuaReadParentId(L, 2, &*window);
+    window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddScrollView(
         name.c_str(),
         LuaGetIntField(L, 2, "x", 0),
@@ -1671,14 +1644,13 @@ LuaFunctionEx(LuaWindowRef, AddScrollView) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, window->generation, control->id});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
     return 1;
 }
 
 LuaFunctionEx(LuaWindowRef, AddMapEx) {
     auto ref = CheckWindowRef(L, 1);
     auto window = ResolveWindow(*ref);
-    if (window && window->owner != L) return luaL_error(L, "window belongs to another Lua state");
     if (!window) {
         lua_pushnil(L);
         return 1;
@@ -1688,7 +1660,8 @@ LuaFunctionEx(LuaWindowRef, AddMapEx) {
     }
 
     auto name = LuaGetWideStringField(L, 2, "name");
-    int parentId = LuaReadParentId(L, 2, window);
+    int parentId = LuaReadParentId(L, 2, &*window);
+    window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddMapEx(
         name.c_str(),
         LuaGetIntField(L, 2, "x", 0),
@@ -1708,7 +1681,7 @@ LuaFunctionEx(LuaWindowRef, AddMapEx) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, window->generation, control->id});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
     return 1;
 }
 
@@ -1723,7 +1696,10 @@ LuaFunctionEx(LuaWindowRef, Index) {
         lua_pushnil(L);
         return 1;
     }
-    if (strcmp(key, "AddImage") == 0) {
+    if (!std::strcmp(key, "id") || !std::strcmp(key, "winId")) { Push(L, ref->winId); return 1; }
+    if (strcmp(key, "RemoveElement") == 0) {
+        lua_pushcfunction(L, LuaCFunction(LuaWindowRef, RemoveElement));
+    } else if (strcmp(key, "AddImage") == 0) {
         lua_pushcfunction(L, LuaCFunction(LuaWindowRef, AddImage));
     } else if (strcmp(key, "AddAnime") == 0) {
         lua_pushcfunction(L, LuaCFunction(LuaWindowRef, AddAnime));
@@ -1764,42 +1740,14 @@ LuaFunctionEx(LuaWindowRef, ToString) {
         return 1;
     }
     char buff[64] = {0};
-    sprintf(buff, CName(LuaWindowRef) "_%d_%u", ref->winId, ref->generation);
-    lua_pushstring(L, buff);
-    return 1;
-}
-
-LuaFunctionEx(LuaNativeWindowRef, Index) {
-    if (lua_gettop(L) != 2 || lua_type(L, 1) != LUA_TUSERDATA) {
-        lua_pushnil(L);
-        return 1;
-    }
-    auto ref = static_cast<LuaNativeWindowRef*>(lua_touserdata(L, 1));
-    const char* key = lua_tostring(L, 2);
-    if (!ref || !key) {
-        lua_pushnil(L);
-        return 1;
-    }
-    LuaPushNativeWindowField(L, ResolveNativeWindow(*ref), key);
-    return 1;
-}
-
-LuaFunctionEx(LuaNativeWindowRef, ToString) {
-    auto ref = static_cast<LuaNativeWindowRef*>(lua_touserdata(L, 1));
-    if (!ref) {
-        lua_pushstring(L, CName(LuaNativeWindowRef) "_invalid");
-        return 1;
-    }
-    char buff[64] = {0};
-    sprintf(buff, CName(LuaNativeWindowRef) "_%d", ref->winId);
+    sprintf(buff, CName(LuaWindowRef) "_%d", ref->winId);
     lua_pushstring(L, buff);
     return 1;
 }
 
 LuaFunctionEx(LuaWindowRef, NewIndex) {
-    auto* window = ResolveWindow(*CheckWindowRef(L, 1));
+    auto window = ResolveWindow(*CheckWindowRef(L, 1));
     if (!window) return luaL_error(L, "window is no longer valid");
-    EnsureLuaWindowBinding(L, window->window);
     if (lua_type(L, 2) != LUA_TSTRING) return luaL_error(L, "property name must be a string");
     const auto* key = lua_tostring(L, 2);
     if (!std::strcmp(key, "id") || !std::strcmp(key, "winId")) return luaL_error(L, "property is read-only");
@@ -1809,6 +1757,7 @@ LuaFunctionEx(LuaWindowRef, NewIndex) {
         else if (!std::strcmp(key, "onDraw") || !std::strcmp(key, "draw")) ref = &window->window.refDraw;
         else if (!std::strcmp(key, "onEvent")) ref = &window->window.refEvent;
         if (!ref) return luaL_error(L, "nil is only allowed for callbacks");
+        if (*ref >= 0) EnsureLuaWindowBinding(L, window->window);
         LuaUnref(L, *ref); return 0;
     }
     lua_newtable(L); lua_pushvalue(L, 2); lua_pushvalue(L, 3); lua_rawset(L, -3);
@@ -1816,7 +1765,7 @@ LuaFunctionEx(LuaWindowRef, NewIndex) {
     return Lua_LuaWindowRef_Set(L);
 }
 LuaFunctionEx(LuaControlRef, NewIndex) {
-    if (!ResolveControl(*CheckControlRef(L, 1))) return luaL_error(L, "element is no longer valid");
+    if (!ResolveControl(*CheckControlRef(L, 1))) return LuaElementWrite(L);
     if (lua_type(L, 2) != LUA_TSTRING) return luaL_error(L, "property name must be a string");
     lua_newtable(L); lua_pushvalue(L, 2); lua_pushvalue(L, 3); lua_rawset(L, -3);
     // nil callback assignment is handled separately because tables cannot retain a nil key.
@@ -1837,24 +1786,11 @@ LuaFunctionEx(LuaControlRef, NewIndex) {
         else if (!std::strcmp(key, "onChange")) ref = &control->element().refChange;
         else if (!std::strcmp(key, "onEnter")) ref = &control->element().refEnter;
         if (!ref) return luaL_error(L, "nil is only allowed for callbacks");
-        EnsureLuaWindowBinding(L, *control->windowOwner);
+        if (*ref >= 0) EnsureLuaWindowBinding(L, *control->windowOwner);
         LuaUnref(L, *ref); return 0;
     }
     lua_replace(L, 2); lua_settop(L, 2);
     return Lua_LuaControlRef_Set(L);
-}
-
-void __declspec(noinline) RegCNativeWindow(lua_State* L) {
-
-    luaL_newmetatable(L, CName(LuaNativeWindowRef));
-    lua_pushstring(L, "__index");
-    lua_pushcfunction(L, LuaCFunction(LuaNativeWindowRef, Index));
-    lua_rawset(L, -3);
-    lua_pushstring(L, "__tostring");
-    lua_pushcfunction(L, LuaCFunction(LuaNativeWindowRef, ToString));
-    lua_rawset(L, -3);
-    lua_settop(L, 0);
-
 }
 
 void __declspec(noinline) RegCControl(lua_State* L) {
@@ -2027,7 +1963,8 @@ LuaFunction(WinMgr_newWindow) {
 
     auto existing = GetExtWindowById(id);
     if (existing) {
-        auto window = static_cast<LuaWindow*>(existing->window.binding);
+        auto view = LuaWindow(existing->window, L);
+        auto* window = &view;
         LuaApplyExistingWindowParam(L, 1, window);
         window->window.state |= WIN_STATE_FOCUS;
         lua_pushinteger(L, 1);
@@ -2036,8 +1973,8 @@ LuaFunction(WinMgr_newWindow) {
     }
 
     std::shared_ptr<UIWindowInstanceEx> windowBase = std::make_shared<ui::WindowExtension>();
-    auto window = new LuaWindow(windowBase->window, L);
-    windowBase->window.binding = window;
+    auto view = LuaWindow(windowBase->window, L);
+    auto* window = &view;
     LuaApplyNewWindowParam(L, 1, window);
     WindowExOpen(windowBase);
     windowBase->dragMove = LuaGetIntField(L, 1, "dragMove", 0);
@@ -2047,24 +1984,10 @@ LuaFunction(WinMgr_newWindow) {
 }
 
 LuaFunction(WinMgr_findWindow) {
-    int id = static_cast<int>(lua_tointeger(L, 1));
-    if (id >= 0 && id < WIN_MAX && gWindowState[id].window) {
-        ui::WindowRuntime_EnsureIdentity(*gWindowState[id].window);
-        PushNativeWindowRef(L, {id, gWindowState[id].window->generation});
-        return 1;
-    }
-    if (id <= WIN_NORMAL_END) {
-        lua_pushnil(L);
-        return 1;
-    }
-    auto extWindow = GetExtWindowById(id);
-    if (!extWindow) {
-        lua_pushnil(L);
-        return 1;
-    }
-    auto window = static_cast<LuaWindow*>(extWindow->window.binding);
-    if (!window) { lua_pushnil(L); return 1; }
-    PushWindowRef(L, window->ref());
+    const int id = static_cast<int>(luaL_checkinteger(L, 1));
+    auto* window = ui::WindowRuntime_FindInstance(id);
+    if (!window || (window->state & WIN_STATE_CLOSE)) { lua_pushnil(L); return 1; }
+    PushWindowRef(L, {id});
     return 1;
 }
 
@@ -2639,7 +2562,6 @@ void RegisterLuaUI(lua_State* L)
     RegUIConst(L);
     RegCControl(L);
     RegCWindow(L);
-    RegCNativeWindow(L);
     RegisterLuaUIProxy(L);
     RegCEventHandle(L);
     RegCBridgeHandle(L);

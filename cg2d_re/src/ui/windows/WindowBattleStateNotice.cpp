@@ -2,6 +2,14 @@
 #include "../../world/BattleState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowBattleStateNoticeElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -16,8 +24,8 @@ static WindowTextPrototype gWindowText56C9A8 {{}, L"偷袭"}; // 原全局：0x0
 static WindowTextPrototype gWindowText56C9B0 {{}, L"被偷袭"}; // 原全局：0x0056C9B0。 // 原常量参考：0x00585F68。
 
 static WindowElementPrototype gWindowElements56C9B8[2] { // 原全局：0x0056C9B8。
-    {WindowElementType_Text, 78, 40, 0, 0, 1, {.text = &gWindowText56C9A8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 68, 40, 0, 0, 1, {.text = &gWindowText56C9B0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 78, 40, 0, 0, 1, {.text = &gWindowText56C9A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleStateNoticeElementId::Element1)},
+    {WindowElementType_Text, 68, 40, 0, 0, 1, {.text = &gWindowText56C9B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleStateNoticeElementId::Element2)},
 };
 
 // 原型：窗口32；原全局：0x0054E840。
@@ -40,16 +48,16 @@ static std::int32_t WindowBattleStateNotice_Update(const std::int32_t)
 {
     WindowInstance* const initialWindow = gCurrentWindow;
     world::gBattleEntryNoticeAction5ABFB8 = nullptr;
-    initialWindow->elements[0].visible = 0;
-    gCurrentWindow->elements[1].visible = 0;
+    if ((initialWindow && (*initialWindow)[WindowBattleStateNoticeElementId::Element1])) (*initialWindow)[WindowBattleStateNoticeElementId::Element1]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element2])) (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element2]->visible = 0;
     if (world::gCurrentSceneState != 3) {
         gCurrentWindow->state |= 0x8000u;
     }
     const auto flags = static_cast<std::uint8_t>(world::gBattlePlayerFlags5ABCAC);
     if ((flags & 1u) != 0) {
-        gCurrentWindow->elements[0].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element1])) (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element1]->visible = 1;
     } else if ((flags & 2u) != 0) {
-        gCurrentWindow->elements[1].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element2])) (*gCurrentWindow)[WindowBattleStateNoticeElementId::Element2]->visible = 1;
     } else {
         gCurrentWindow->state |= 0x8000u;
     }

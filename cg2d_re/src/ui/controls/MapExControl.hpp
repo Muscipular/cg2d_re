@@ -26,7 +26,7 @@ struct UIMapExControl : UIControl {
     int lastClickX = -1;
     int lastClickY = -1;
 
-    UIMapExControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, WindowEventBinding callbacks);
+    UIMapExControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, WindowEventBinding callbacks);
 
     int AddPoint(MapExPoint point);
     int RemovePoints(int mapX, int mapY);

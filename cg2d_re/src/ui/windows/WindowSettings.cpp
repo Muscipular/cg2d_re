@@ -4,6 +4,44 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowSettingsElementId : ElementId {
+    ButtonClose = 1,
+    ButtonLogoutPanel = 2,
+    ButtonInputPanel = 3,
+    ButtonAudioPanel = 4,
+    ButtonDisplayPanel = 5,
+    ButtonHotkeys = 6,
+    Element7 = 7,
+    Element8 = 8,
+    ButtonLogout = 9,
+    ButtonServerSelect = 10,
+    ToggleItemStacking = 11,
+    ToggleCursor = 12,
+    CycleHotkeyMode = 13,
+    Element14 = 14,
+    ButtonMusicDecrease = 15,
+    ButtonMusicIncrease = 16,
+    Element17 = 17,
+    ButtonSoundDecrease = 18,
+    ButtonSoundIncrease = 19,
+    ToggleChannels = 20,
+    ToggleAudioFlag = 21,
+    ToggleScanlines = 22,
+    DrawRenderModeButton = 23,
+    DrawRenderModeButton_24 = 24,
+    DrawRenderModeButton_25 = 25,
+    DrawRenderModeButton_26 = 26,
+    DrawRenderModeButton_27 = 27,
+    HandleSideArea = 28,
+    HandleSideArea_29 = 29,
+    HandleSideArea_30 = 30,
+    HandleSideArea_31 = 31,
+    HandleSideArea_32 = 32,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -178,38 +216,38 @@ static WindowNumberData gWindowNumber5689B8 {&gSettingsEffectTextD2EA64, 0, 3, 0
 static WindowNumberData gWindowNumber5689C0 {&gSettingsMusicTextD3041C, 0, 3, 0, 0}; // 原全局：0x005689C0。
 
 static WindowElementPrototype gWindowElements5689C8[32] { // 原全局：0x005689C8。
-    {WindowElementType_Graphic, 186, 9, 11, 11, 1, {.graphic = &gWindowGraphic568720}, &WindowSettings_ButtonClose},
-    {WindowElementType_Graphic, 69, 51, 70, 17, 1, {.graphic = &gWindowGraphic568738}, &WindowSettings_ButtonLogoutPanel},
-    {WindowElementType_Graphic, 69, 79, 70, 17, 1, {.graphic = &gWindowGraphic568750}, &WindowSettings_ButtonInputPanel},
-    {WindowElementType_Graphic, 69, 109, 70, 17, 1, {.graphic = &gWindowGraphic568768}, &WindowSettings_ButtonAudioPanel},
-    {WindowElementType_Graphic, 69, 142, 70, 17, 1, {.graphic = &gWindowGraphic568780}, &WindowSettings_ButtonDisplayPanel},
-    {WindowElementType_Graphic, 69, 174, 70, 17, 1, {.graphic = &gWindowGraphic568798}, &WindowSettings_ButtonHotkeys},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic5688D0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 13, 26, 40, 11, 1, {.graphic = &gWindowGraphic5688E8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -111, 30, 102, 18, 1, {.graphic = &gWindowGraphic568810}, &WindowSettings_ButtonLogout},
-    {WindowElementType_Graphic, -111, 58, 102, 18, 1, {.graphic = &gWindowGraphic568828}, &WindowSettings_ButtonServerSelect},
-    {WindowElementType_Graphic, -117, 40, 88, 18, 1, {.graphic = &gWindowGraphic568840}, &WindowSettings_ToggleItemStacking},
-    {WindowElementType_Graphic, -117, 75, 88, 18, 1, {.graphic = &gWindowGraphic568858}, &WindowSettings_ToggleCursor},
-    {WindowElementType_Graphic, -117, 110, 88, 18, 1, {.graphic = &gWindowGraphic568900}, &WindowSettings_CycleHotkeyMode},
-    {WindowElementType_Number, -72, 51, 0, 0, 1, {.number = &gWindowNumber5689C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -98, 47, 18, 18, 1, {.graphic = &gWindowGraphic568870}, &WindowSettings_ButtonMusicDecrease},
-    {WindowElementType_Graphic, -35, 47, 18, 18, 1, {.graphic = &gWindowGraphic568888}, &WindowSettings_ButtonMusicIncrease},
-    {WindowElementType_Number, -72, 95, 0, 0, 1, {.number = &gWindowNumber5689B8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -98, 91, 18, 18, 1, {.graphic = &gWindowGraphic568870}, &WindowSettings_ButtonSoundDecrease},
-    {WindowElementType_Graphic, -35, 91, 18, 18, 1, {.graphic = &gWindowGraphic568888}, &WindowSettings_ButtonSoundIncrease},
-    {WindowElementType_Graphic, -88, 141, 63, 18, 1, {.graphic = &gWindowGraphic5688A0}, &WindowSettings_ToggleChannels},
-    {WindowElementType_Graphic, -88, 185, 63, 18, 1, {.graphic = &gWindowGraphic568918}, &WindowSettings_ToggleAudioFlag},
-    {WindowElementType_Graphic, -45, 25, 44, 18, 1, {.graphic = &gWindowGraphic5688B8}, &WindowSettings_ToggleScanlines},
-    {WindowElementType_Graphic, 0, 72, 22, 19, 0, {.graphic = &gWindowGraphic568930}, &WindowSettings_DrawRenderModeButton},
-    {WindowElementType_Graphic, -120, 72, 22, 19, 1, {.graphic = &gWindowGraphic568948}, &WindowSettings_DrawRenderModeButton},
-    {WindowElementType_Graphic, -89, 72, 22, 19, 1, {.graphic = &gWindowGraphic568960}, &WindowSettings_DrawRenderModeButton},
-    {WindowElementType_Graphic, -58, 72, 22, 19, 1, {.graphic = &gWindowGraphic568978}, &WindowSettings_DrawRenderModeButton},
-    {WindowElementType_Graphic, -27, 72, 22, 19, 1, {.graphic = &gWindowGraphic568990}, &WindowSettings_DrawRenderModeButton},
-    {WindowElementType_Graphic, -130, 10, 150, 79, 1, {.graphic = &gWindowGraphic5687B0}, &WindowElement_HandleSideArea},
-    {WindowElementType_Graphic, -130, 10, 150, 128, 1, {.graphic = &gWindowGraphic5687C8}, &WindowElement_HandleSideArea},
-    {WindowElementType_Graphic, -130, 10, 150, 203, 1, {.graphic = &gWindowGraphic5687E0}, &WindowElement_HandleSideArea},
-    {WindowElementType_Graphic, -130, 10, 150, 90, 1, {.graphic = &gWindowGraphic5687F8}, &WindowElement_HandleSideArea},
-    {WindowElementType_EventArea, 209, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 186, 9, 11, 11, 1, {.graphic = &gWindowGraphic568720}, &WindowSettings_ButtonClose, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonClose)},
+    {WindowElementType_Graphic, 69, 51, 70, 17, 1, {.graphic = &gWindowGraphic568738}, &WindowSettings_ButtonLogoutPanel, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonLogoutPanel)},
+    {WindowElementType_Graphic, 69, 79, 70, 17, 1, {.graphic = &gWindowGraphic568750}, &WindowSettings_ButtonInputPanel, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonInputPanel)},
+    {WindowElementType_Graphic, 69, 109, 70, 17, 1, {.graphic = &gWindowGraphic568768}, &WindowSettings_ButtonAudioPanel, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonAudioPanel)},
+    {WindowElementType_Graphic, 69, 142, 70, 17, 1, {.graphic = &gWindowGraphic568780}, &WindowSettings_ButtonDisplayPanel, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonDisplayPanel)},
+    {WindowElementType_Graphic, 69, 174, 70, 17, 1, {.graphic = &gWindowGraphic568798}, &WindowSettings_ButtonHotkeys, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonHotkeys)},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic5688D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowSettingsElementId::Element7)},
+    {WindowElementType_Graphic, 13, 26, 40, 11, 1, {.graphic = &gWindowGraphic5688E8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowSettingsElementId::Element8)},
+    {WindowElementType_Graphic, -111, 30, 102, 18, 1, {.graphic = &gWindowGraphic568810}, &WindowSettings_ButtonLogout, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonLogout)},
+    {WindowElementType_Graphic, -111, 58, 102, 18, 1, {.graphic = &gWindowGraphic568828}, &WindowSettings_ButtonServerSelect, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonServerSelect)},
+    {WindowElementType_Graphic, -117, 40, 88, 18, 1, {.graphic = &gWindowGraphic568840}, &WindowSettings_ToggleItemStacking, -1, static_cast<ElementId>(WindowSettingsElementId::ToggleItemStacking)},
+    {WindowElementType_Graphic, -117, 75, 88, 18, 1, {.graphic = &gWindowGraphic568858}, &WindowSettings_ToggleCursor, -1, static_cast<ElementId>(WindowSettingsElementId::ToggleCursor)},
+    {WindowElementType_Graphic, -117, 110, 88, 18, 1, {.graphic = &gWindowGraphic568900}, &WindowSettings_CycleHotkeyMode, -1, static_cast<ElementId>(WindowSettingsElementId::CycleHotkeyMode)},
+    {WindowElementType_Number, -72, 51, 0, 0, 1, {.number = &gWindowNumber5689C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowSettingsElementId::Element14)},
+    {WindowElementType_Graphic, -98, 47, 18, 18, 1, {.graphic = &gWindowGraphic568870}, &WindowSettings_ButtonMusicDecrease, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonMusicDecrease)},
+    {WindowElementType_Graphic, -35, 47, 18, 18, 1, {.graphic = &gWindowGraphic568888}, &WindowSettings_ButtonMusicIncrease, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonMusicIncrease)},
+    {WindowElementType_Number, -72, 95, 0, 0, 1, {.number = &gWindowNumber5689B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowSettingsElementId::Element17)},
+    {WindowElementType_Graphic, -98, 91, 18, 18, 1, {.graphic = &gWindowGraphic568870}, &WindowSettings_ButtonSoundDecrease, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonSoundDecrease)},
+    {WindowElementType_Graphic, -35, 91, 18, 18, 1, {.graphic = &gWindowGraphic568888}, &WindowSettings_ButtonSoundIncrease, -1, static_cast<ElementId>(WindowSettingsElementId::ButtonSoundIncrease)},
+    {WindowElementType_Graphic, -88, 141, 63, 18, 1, {.graphic = &gWindowGraphic5688A0}, &WindowSettings_ToggleChannels, -1, static_cast<ElementId>(WindowSettingsElementId::ToggleChannels)},
+    {WindowElementType_Graphic, -88, 185, 63, 18, 1, {.graphic = &gWindowGraphic568918}, &WindowSettings_ToggleAudioFlag, -1, static_cast<ElementId>(WindowSettingsElementId::ToggleAudioFlag)},
+    {WindowElementType_Graphic, -45, 25, 44, 18, 1, {.graphic = &gWindowGraphic5688B8}, &WindowSettings_ToggleScanlines, -1, static_cast<ElementId>(WindowSettingsElementId::ToggleScanlines)},
+    {WindowElementType_Graphic, 0, 72, 22, 19, 0, {.graphic = &gWindowGraphic568930}, &WindowSettings_DrawRenderModeButton, -1, static_cast<ElementId>(WindowSettingsElementId::DrawRenderModeButton)},
+    {WindowElementType_Graphic, -120, 72, 22, 19, 1, {.graphic = &gWindowGraphic568948}, &WindowSettings_DrawRenderModeButton, -1, static_cast<ElementId>(WindowSettingsElementId::DrawRenderModeButton_24)},
+    {WindowElementType_Graphic, -89, 72, 22, 19, 1, {.graphic = &gWindowGraphic568960}, &WindowSettings_DrawRenderModeButton, -1, static_cast<ElementId>(WindowSettingsElementId::DrawRenderModeButton_25)},
+    {WindowElementType_Graphic, -58, 72, 22, 19, 1, {.graphic = &gWindowGraphic568978}, &WindowSettings_DrawRenderModeButton, -1, static_cast<ElementId>(WindowSettingsElementId::DrawRenderModeButton_26)},
+    {WindowElementType_Graphic, -27, 72, 22, 19, 1, {.graphic = &gWindowGraphic568990}, &WindowSettings_DrawRenderModeButton, -1, static_cast<ElementId>(WindowSettingsElementId::DrawRenderModeButton_27)},
+    {WindowElementType_Graphic, -130, 10, 150, 79, 1, {.graphic = &gWindowGraphic5687B0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowSettingsElementId::HandleSideArea)},
+    {WindowElementType_Graphic, -130, 10, 150, 128, 1, {.graphic = &gWindowGraphic5687C8}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowSettingsElementId::HandleSideArea_29)},
+    {WindowElementType_Graphic, -130, 10, 150, 203, 1, {.graphic = &gWindowGraphic5687E0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowSettingsElementId::HandleSideArea_30)},
+    {WindowElementType_Graphic, -130, 10, 150, 90, 1, {.graphic = &gWindowGraphic5687F8}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowSettingsElementId::HandleSideArea_31)},
+    {WindowElementType_EventArea, 209, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowSettingsElementId::HandleSideArea_32)},
 };
 
 // 原型：窗口24；原全局：0x0054E660。
@@ -221,97 +259,109 @@ WindowPrototype gWindowPrototypeSettings {0, 4, 409, 100, 207, 222, 0x80010101u,
 static void WindowSettings_RefreshLogoutPanel(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[WindowId_Settings].window;
-    window->elements[27].x = offset + 16;
-    WindowElement* const elements = window->elements;
-    const std::int32_t x = elements[27].x;
-    auto* const graphic = elements[27].data.graphic;
+    if ((window && (*window)[WindowSettingsElementId::HandleSideArea])) (*window)[WindowSettingsElementId::HandleSideArea]->x = offset + 16;
+    auto* elementsWindow = window;
+    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea]))) { return; }
+    const std::int32_t x = (*elementsWindow)[WindowSettingsElementId::HandleSideArea]->x;
+    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea]))) { return; }
+    auto* const graphic = (*elementsWindow)[WindowSettingsElementId::HandleSideArea]->data.graphic;
     const std::int32_t width = 16 - x;
     graphic->width = width;
-    const std::int32_t limit = window->elements[27].width;
+    if (!((window && (*window)[WindowSettingsElementId::HandleSideArea]))) { return; }
+    const std::int32_t limit = (*window)[WindowSettingsElementId::HandleSideArea]->width;
     if (width > limit) {
         graphic->width = limit;
     }
     const std::int32_t visible = offset <= -146 ? 1 : 0;
-    window->elements[8].visible = visible;
-    window->elements[9].visible = visible;
+    if ((window && (*window)[WindowSettingsElementId::ButtonLogout])) (*window)[WindowSettingsElementId::ButtonLogout]->visible = visible;
+    if ((window && (*window)[WindowSettingsElementId::ButtonServerSelect])) (*window)[WindowSettingsElementId::ButtonServerSelect]->visible = visible;
 }
 
 // 原函数：0x00493AF0。
 static void WindowSettings_RefreshInputPanel(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[WindowId_Settings].window;
-    window->elements[28].x = offset + 16;
-    WindowElement* const elements = window->elements;
-    const std::int32_t x = elements[28].x;
-    auto* const graphic = elements[28].data.graphic;
+    if ((window && (*window)[WindowSettingsElementId::HandleSideArea_29])) (*window)[WindowSettingsElementId::HandleSideArea_29]->x = offset + 16;
+    auto* elementsWindow = window;
+    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_29]))) { return; }
+    const std::int32_t x = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_29]->x;
+    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_29]))) { return; }
+    auto* const graphic = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_29]->data.graphic;
     const std::int32_t width = 16 - x;
     graphic->width = width;
-    const std::int32_t limit = window->elements[28].width;
+    if (!((window && (*window)[WindowSettingsElementId::HandleSideArea_29]))) { return; }
+    const std::int32_t limit = (*window)[WindowSettingsElementId::HandleSideArea_29]->width;
     if (width > limit) {
         graphic->width = limit;
     }
     const std::int32_t visible = offset <= -146 ? 1 : 0;
-    window->elements[10].visible = visible;
-    window->elements[11].visible = visible;
-    window->elements[12].visible = visible;
+    if ((window && (*window)[WindowSettingsElementId::ToggleItemStacking])) (*window)[WindowSettingsElementId::ToggleItemStacking]->visible = visible;
+    if ((window && (*window)[WindowSettingsElementId::ToggleCursor])) (*window)[WindowSettingsElementId::ToggleCursor]->visible = visible;
+    if ((window && (*window)[WindowSettingsElementId::CycleHotkeyMode])) (*window)[WindowSettingsElementId::CycleHotkeyMode]->visible = visible;
 }
 
 // 原函数：0x00493B70。
 static void WindowSettings_RefreshAudioPanel(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[WindowId_Settings].window;
-    window->elements[29].x = offset + 16;
-    WindowElement* const elements = window->elements;
-    const std::int32_t x = elements[29].x;
-    auto* const graphic = elements[29].data.graphic;
+    if ((window && (*window)[WindowSettingsElementId::HandleSideArea_30])) (*window)[WindowSettingsElementId::HandleSideArea_30]->x = offset + 16;
+    auto* elementsWindow = window;
+    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_30]))) { return; }
+    const std::int32_t x = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_30]->x;
+    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_30]))) { return; }
+    auto* const graphic = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_30]->data.graphic;
     const std::int32_t width = 16 - x;
     graphic->width = width;
-    const std::int32_t limit = window->elements[29].width;
+    if (!((window && (*window)[WindowSettingsElementId::HandleSideArea_30]))) { return; }
+    const std::int32_t limit = (*window)[WindowSettingsElementId::HandleSideArea_30]->width;
     if (width > limit) {
         graphic->width = limit;
     }
     if (offset > -146) {
         for (std::int32_t index = 13; index <= 20; ++index) {
-            window->elements[index].visible = 0;
+            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
         }
         return;
     }
-    window->elements[13].visible = 1;
+    if ((window && (*window)[WindowSettingsElementId::Element14])) (*window)[WindowSettingsElementId::Element14]->visible = 1;
     const std::int32_t musicWidth = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
-    window->elements[13].x = ((37 - musicWidth) >> 1) + offset + 69;
-    window->elements[14].visible = 1;
-    window->elements[15].visible = 1;
-    window->elements[16].visible = 1;
+    if ((window && (*window)[WindowSettingsElementId::Element14])) (*window)[WindowSettingsElementId::Element14]->x = ((37 - musicWidth) >> 1) + offset + 69;
+    if ((window && (*window)[WindowSettingsElementId::ButtonMusicDecrease])) (*window)[WindowSettingsElementId::ButtonMusicDecrease]->visible = 1;
+    if ((window && (*window)[WindowSettingsElementId::ButtonMusicIncrease])) (*window)[WindowSettingsElementId::ButtonMusicIncrease]->visible = 1;
+    if ((window && (*window)[WindowSettingsElementId::Element17])) (*window)[WindowSettingsElementId::Element17]->visible = 1;
     const std::int32_t effectWidth = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
-    window->elements[16].x = ((37 - effectWidth) >> 1) + offset + 69;
-    window->elements[17].visible = 1;
-    window->elements[18].visible = 1;
-    window->elements[19].visible = 1;
-    window->elements[20].visible = 1;
+    if ((window && (*window)[WindowSettingsElementId::Element17])) (*window)[WindowSettingsElementId::Element17]->x = ((37 - effectWidth) >> 1) + offset + 69;
+    if ((window && (*window)[WindowSettingsElementId::ButtonSoundDecrease])) (*window)[WindowSettingsElementId::ButtonSoundDecrease]->visible = 1;
+    if ((window && (*window)[WindowSettingsElementId::ButtonSoundIncrease])) (*window)[WindowSettingsElementId::ButtonSoundIncrease]->visible = 1;
+    if ((window && (*window)[WindowSettingsElementId::ToggleChannels])) (*window)[WindowSettingsElementId::ToggleChannels]->visible = 1;
+    if ((window && (*window)[WindowSettingsElementId::ToggleAudioFlag])) (*window)[WindowSettingsElementId::ToggleAudioFlag]->visible = 1;
 }
 
 // 原函数：0x00493CB0。
 static void WindowSettings_RefreshDisplayPanel(const std::int32_t offset)
 {
     WindowInstance* const window = gWindowStates[WindowId_Settings].window;
-    window->elements[30].x = offset + 16;
-    WindowElement* const elements = window->elements;
-    const std::int32_t x = elements[30].x;
-    auto* const graphic = elements[30].data.graphic;
+    if ((window && (*window)[WindowSettingsElementId::HandleSideArea_31])) (*window)[WindowSettingsElementId::HandleSideArea_31]->x = offset + 16;
+    auto* elementsWindow = window;
+    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_31]))) { return; }
+    const std::int32_t x = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_31]->x;
+    if (!((elementsWindow && (*elementsWindow)[WindowSettingsElementId::HandleSideArea_31]))) { return; }
+    auto* const graphic = (*elementsWindow)[WindowSettingsElementId::HandleSideArea_31]->data.graphic;
     const std::int32_t width = 16 - x;
     graphic->width = width;
-    const std::int32_t limit = window->elements[30].width;
+    if (!((window && (*window)[WindowSettingsElementId::HandleSideArea_31]))) { return; }
+    const std::int32_t limit = (*window)[WindowSettingsElementId::HandleSideArea_31]->width;
     if (width > limit) {
         graphic->width = limit;
     }
-    window->elements[21].visible = 0;
+    if ((window && (*window)[WindowSettingsElementId::ToggleScanlines])) (*window)[WindowSettingsElementId::ToggleScanlines]->visible = 0;
     if (offset <= -146) {
-        window->elements[21].visible = 1;
+        if ((window && (*window)[WindowSettingsElementId::ToggleScanlines])) (*window)[WindowSettingsElementId::ToggleScanlines]->visible = 1;
         for (std::int32_t index = 22; index <= 26; ++index) {
-            window->elements[index].visible = 0;
+            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
         }
         const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
-        window->elements[mode + 22].visible = 1;
+        if ((window && (*window)[NativeElementKey(mode + 22)])) (*window)[NativeElementKey(mode + 22)]->visible = 1;
     }
 }
 
@@ -320,7 +370,7 @@ static std::int32_t WindowSettings_Update(const std::int32_t value)
 {
     if (value == -1) {
         for (std::int32_t index = 8; index <= 30; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
         gSettingsPanelCC4234 = -1;
         gSettingsOffsetCA02DC = 0;
@@ -367,7 +417,8 @@ static void WindowSettings_Release()
 // 原函数：0x00493EE0。
 static std::int32_t WindowSettings_ButtonLogoutPanel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B8BE;
     if ((state & 1) != 0) {
@@ -375,23 +426,25 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(const std::int32_t index, c
         gHoverTextD68AE8 = L"登出伺服器。" /* 原常量参考：0x00586DE8。 */;
     }
     if ((state & 2) != 0) {
-        const std::int32_t visible = gCurrentWindow->elements[27].visible;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]))) { return {}; }
+        const std::int32_t visible = (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]->visible;
         for (std::int32_t element = 8; element <= 30; ++element) {
-            gCurrentWindow->elements[element].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
         }
         gSettingsPanelCC4234 = -1;
         gSettingsOffsetCA02DC = 0;
         if (visible == 0) {
             gSettingsPanelCC4234 = 0;
             gSettingsStepD2D610 = 17;
-            gCurrentWindow->elements[8].visible = 1;
-            gCurrentWindow->elements[9].visible = 1;
-            gCurrentWindow->elements[27].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonLogout])) (*gCurrentWindow)[WindowSettingsElementId::ButtonLogout]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonServerSelect])) (*gCurrentWindow)[WindowSettingsElementId::ButtonServerSelect]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea])) (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]->visible = 1;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (gCurrentWindow->elements[27].visible != 0) {
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]))) { return {}; }
+    if ((*gCurrentWindow)[WindowSettingsElementId::HandleSideArea]->visible != 0) {
         graphic->imageNo = 0x3B8BF;
     }
     return consumed;
@@ -400,7 +453,8 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(const std::int32_t index, c
 // 原函数：0x00494000。
 static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, const std::int32_t state)
 {
-    auto* graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B8C1;
     if ((state & 1) != 0) {
@@ -408,26 +462,29 @@ static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, co
         gHoverTextD68AE8 = L"设定滑鼠与键盘的操作方式。" /* 原常量参考：0x00586DF8。 */;
     }
     if ((state & 2) != 0) {
-        const std::int32_t visible = gCurrentWindow->elements[28].visible;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]))) { return {}; }
+        const std::int32_t visible = (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]->visible;
         for (std::int32_t element = 8; element <= 30; ++element) {
-            gCurrentWindow->elements[element].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
         }
         gSettingsPanelCC4234 = -1;
         gSettingsOffsetCA02DC = 0;
         if (visible == 0) {
             gSettingsPanelCC4234 = 1;
             gSettingsStepD2D610 = 17;
-            gCurrentWindow->elements[10].visible = 1;
-            gCurrentWindow->elements[11].visible = 1;
-            gCurrentWindow->elements[12].visible = 1;
-            gCurrentWindow->elements[28].visible = 1;
-            auto* const inputGraphic = gCurrentWindow->elements[10].data.graphic;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleItemStacking])) (*gCurrentWindow)[WindowSettingsElementId::ToggleItemStacking]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleCursor])) (*gCurrentWindow)[WindowSettingsElementId::ToggleCursor]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::CycleHotkeyMode])) (*gCurrentWindow)[WindowSettingsElementId::CycleHotkeyMode]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29])) (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]->visible = 1;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleItemStacking]))) { return {}; }
+            auto* const inputGraphic = (*gCurrentWindow)[WindowSettingsElementId::ToggleItemStacking]->data.graphic;
             inputGraphic->imageNo = 0x3B8DE;
             if (platform::gInvertItemSplitModifier_D67AE8 != 0) {
                 inputGraphic->imageNo = 0x3B8DB;
             }
             // 原494121改写EBP；末尾选中图也写这个借用载荷。
-            graphic = gCurrentWindow->elements[11].data.graphic;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleCursor]))) { return {}; }
+            graphic = (*gCurrentWindow)[WindowSettingsElementId::ToggleCursor]->data.graphic;
             graphic->imageNo = 0x3B8E4;
             if (platform::gNativeCursorEnabled_D67AE4 != 0) {
                 graphic->imageNo = 0x3B8E1;
@@ -436,7 +493,8 @@ static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, co
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (gCurrentWindow->elements[28].visible != 0) {
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]))) { return {}; }
+    if ((*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_29]->visible != 0) {
         graphic->imageNo = 0x3B8C2;
     }
     return consumed;
@@ -445,7 +503,8 @@ static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, co
 // 原函数：0x00494180。
 static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B8C4;
     if ((state & 1) != 0) {
@@ -453,36 +512,40 @@ static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, co
         gHoverTextD68AE8 = L"设定音乐音效。" /* 原常量参考：0x00586E14。 */;
     }
     if ((state & 2) != 0) {
-        const std::int32_t visible = gCurrentWindow->elements[29].visible;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]))) { return {}; }
+        const std::int32_t visible = (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]->visible;
         for (std::int32_t element = 8; element <= 30; ++element) {
-            gCurrentWindow->elements[element].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
         }
         gSettingsPanelCC4234 = -1;
         gSettingsOffsetCA02DC = 0;
         if (visible == 0) {
             gSettingsPanelCC4234 = 2;
             gSettingsStepD2D610 = 17;
-            gCurrentWindow->elements[19].visible = 1;
-            gCurrentWindow->elements[13].visible = 1;
-            gCurrentWindow->elements[14].visible = 1;
-            gCurrentWindow->elements[15].visible = 1;
-            gCurrentWindow->elements[16].visible = 1;
-            gCurrentWindow->elements[17].visible = 1;
-            gCurrentWindow->elements[18].visible = 1;
-            gCurrentWindow->elements[29].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleChannels])) (*gCurrentWindow)[WindowSettingsElementId::ToggleChannels]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element14])) (*gCurrentWindow)[WindowSettingsElementId::Element14]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonMusicDecrease])) (*gCurrentWindow)[WindowSettingsElementId::ButtonMusicDecrease]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonMusicIncrease])) (*gCurrentWindow)[WindowSettingsElementId::ButtonMusicIncrease]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element17])) (*gCurrentWindow)[WindowSettingsElementId::Element17]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonSoundDecrease])) (*gCurrentWindow)[WindowSettingsElementId::ButtonSoundDecrease]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ButtonSoundIncrease])) (*gCurrentWindow)[WindowSettingsElementId::ButtonSoundIncrease]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30])) (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]->visible = 1;
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t musicWidth = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
-            gCurrentWindow->elements[13].x =
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element14]))) { return {}; }
+            (*gCurrentWindow)[WindowSettingsElementId::Element14]->x =
                 ((37 - musicWidth) >> 1) + gSettingsOffsetCA02DC + 69;
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t effectWidth = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
-            gCurrentWindow->elements[16].x =
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element17]))) { return {}; }
+            (*gCurrentWindow)[WindowSettingsElementId::Element17]->x =
                 ((37 - effectWidth) >> 1) + gSettingsOffsetCA02DC + 69;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (gCurrentWindow->elements[29].visible != 0) {
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]))) { return {}; }
+    if ((*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_30]->visible != 0) {
         graphic->imageNo = 0x3B8C5;
     }
     return consumed;
@@ -491,7 +554,8 @@ static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, co
 // 原函数：0x00494370。
 static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, const std::int32_t state)
 {
-    auto* graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B8C7;
     if ((state & 1) != 0) {
@@ -499,19 +563,21 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, 
         gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
     }
     if ((state & 2) != 0) {
-        const std::int32_t visible = gCurrentWindow->elements[30].visible;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]))) { return {}; }
+        const std::int32_t visible = (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]->visible;
         for (std::int32_t element = 8; element <= 30; ++element) {
-            gCurrentWindow->elements[element].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 0;
         }
         gSettingsPanelCC4234 = -1;
         gSettingsOffsetCA02DC = 0;
         if (visible == 0) {
             gSettingsPanelCC4234 = 3;
             gSettingsStepD2D610 = 17;
-            gCurrentWindow->elements[21].visible = 1;
-            gCurrentWindow->elements[30].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleScanlines])) (*gCurrentWindow)[WindowSettingsElementId::ToggleScanlines]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31])) (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]->visible = 1;
             // 原49444C改写EBP，后续选中图仍写元素21。
-            graphic = gCurrentWindow->elements[21].data.graphic;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::ToggleScanlines]))) { return {}; }
+            graphic = (*gCurrentWindow)[WindowSettingsElementId::ToggleScanlines]->data.graphic;
             graphic->imageNo = 0x3B8F9;
             if (platform::gScanlineSyncMode != 0) {
                 graphic->imageNo = 0x3B8FC;
@@ -520,7 +586,8 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, 
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (gCurrentWindow->elements[30].visible != 0) {
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]))) { return {}; }
+    if ((*gCurrentWindow)[WindowSettingsElementId::HandleSideArea_31]->visible != 0) {
         graphic->imageNo = 0x3B8C8;
     }
     return consumed;
@@ -530,7 +597,8 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, 
 static std::int32_t WindowSettings_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = kSettingsClose55331C;
@@ -552,7 +620,8 @@ static std::int32_t WindowSettings_ButtonClose(const std::int32_t index, const s
 // 原函数：0x004944A0。
 static std::int32_t WindowSettings_ButtonHotkeys(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     graphic->imageNo = 0x3B8CA;
     if ((state & 1) != 0) {
@@ -579,7 +648,8 @@ static std::int32_t WindowSettings_ButtonHotkeys(const std::int32_t index, const
 static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"登出并回到城内登入点。" /* 原常量参考：0x00586E48。 */;
@@ -609,7 +679,8 @@ static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const 
 static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B8D6;
@@ -641,7 +712,8 @@ static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, 
 static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"变更物品堆叠视窗的开启方式。" /* 原常量参考：0x00586E7C。 */;
@@ -670,7 +742,8 @@ static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, 
 static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"变更滑鼠游标种类。" /* 原常量参考：0x00586E9C。 */;
@@ -702,7 +775,8 @@ static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const 
 static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"变更快速键的型态。" /* 原常量参考：0x00586EB0。 */;
@@ -728,7 +802,8 @@ static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, con
 static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gMusicVolume <= 0
@@ -746,7 +821,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index,
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
-            gCurrentWindow->elements[13].x = x;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element14])) (*gCurrentWindow)[WindowSettingsElementId::Element14]->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
@@ -765,7 +840,8 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index,
 static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gMusicVolume >= 15
@@ -783,7 +859,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index,
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
-            gCurrentWindow->elements[13].x = x;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element14])) (*gCurrentWindow)[WindowSettingsElementId::Element14]->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
@@ -802,7 +878,8 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index,
 static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gEffectVolume <= 0
@@ -820,7 +897,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index,
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
-            gCurrentWindow->elements[16].x = x;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element17])) (*gCurrentWindow)[WindowSettingsElementId::Element17]->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
@@ -839,7 +916,8 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index,
 static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         const wchar_t* const hint = platform::gEffectVolume >= 15
@@ -857,7 +935,7 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index,
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
-            gCurrentWindow->elements[16].x = x;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowSettingsElementId::Element17])) (*gCurrentWindow)[WindowSettingsElementId::Element17]->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
@@ -876,7 +954,8 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index,
 static std::int32_t WindowSettings_ToggleChannels(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
@@ -906,7 +985,8 @@ static std::int32_t WindowSettings_ToggleChannels(const std::int32_t index, cons
 static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"变更音响输出类型。" /* 原常量参考：0x00586F7C。 */;
@@ -936,7 +1016,8 @@ static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, con
 static std::int32_t WindowSettings_ToggleScanlines(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"扫描线同期设定" /* 原常量参考：0x00586E24。 */;
@@ -965,7 +1046,8 @@ static std::int32_t WindowSettings_ToggleScanlines(const std::int32_t index, con
 // 原函数：0x004950D0。
 static std::int32_t WindowSettings_DrawRenderModeButton(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"目前的描绘功能。" /* 原常量参考：0x00586F90。 */;
     }

@@ -1,6 +1,46 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowConfirmationElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    ButtonOk = 12,
+    ButtonCancel = 13,
+    ButtonActionTwo = 14,
+    ButtonActionThree = 15,
+    ButtonActionFour = 16,
+    ButtonActionFive = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -76,40 +116,40 @@ static WindowGraphicData gWindowGraphic5706B0 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowTextPrototype gWindowText5706C8 {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, L"content"}; // 原全局：0x005706C8。 // 原常量参考：0x00585E9C。
 
 static WindowElementPrototype gWindowElements5706D0[34] { // 原全局：0x005706D0。
-    {WindowElementType_Text, 30, 10, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 23, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 36, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 49, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 62, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 75, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 88, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 101, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 114, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 127, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 30, 140, 0, 0, 0, {.text = &gWindowText5706C8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 45, 130, 66, 17, 1, {.graphic = &gWindowGraphic570638}, &WindowConfirmation_ButtonOk},
-    {WindowElementType_Graphic, 111, 130, 66, 17, 1, {.graphic = &gWindowGraphic570650}, &WindowConfirmation_ButtonCancel},
-    {WindowElementType_Graphic, 15, 130, 66, 17, 0, {.graphic = &gWindowGraphic570668}, &WindowConfirmation_ButtonActionTwo},
-    {WindowElementType_Graphic, 81, 130, 66, 17, 0, {.graphic = &gWindowGraphic570680}, &WindowConfirmation_ButtonActionThree},
-    {WindowElementType_Graphic, 15, 130, 66, 17, 0, {.graphic = &gWindowGraphic570698}, &WindowConfirmation_ButtonActionFour},
-    {WindowElementType_Graphic, 81, 130, 66, 17, 0, {.graphic = &gWindowGraphic5706B0}, &WindowConfirmation_ButtonActionFive},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570560}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 74, 0, 0, 0, 1, {.graphic = &gWindowGraphic570578}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 148, 0, 0, 0, 1, {.graphic = &gWindowGraphic570590}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705A8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 215, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705D8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 74, 156, 0, 0, 1, {.graphic = &gWindowGraphic570608}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 148, 108, 0, 0, 1, {.graphic = &gWindowGraphic570620}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 74, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 148, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 74, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 148, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 74, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 148, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp},
+    {WindowElementType_Text, 30, 10, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element1)},
+    {WindowElementType_Text, 30, 23, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element2)},
+    {WindowElementType_Text, 30, 36, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element3)},
+    {WindowElementType_Text, 30, 49, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element4)},
+    {WindowElementType_Text, 30, 62, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element5)},
+    {WindowElementType_Text, 30, 75, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element6)},
+    {WindowElementType_Text, 30, 88, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element7)},
+    {WindowElementType_Text, 30, 101, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element8)},
+    {WindowElementType_Text, 30, 114, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element9)},
+    {WindowElementType_Text, 30, 127, 0, 0, 1, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element10)},
+    {WindowElementType_Text, 30, 140, 0, 0, 0, {.text = &gWindowText5706C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element11)},
+    {WindowElementType_Graphic, 45, 130, 66, 17, 1, {.graphic = &gWindowGraphic570638}, &WindowConfirmation_ButtonOk, -1, static_cast<ElementId>(WindowConfirmationElementId::ButtonOk)},
+    {WindowElementType_Graphic, 111, 130, 66, 17, 1, {.graphic = &gWindowGraphic570650}, &WindowConfirmation_ButtonCancel, -1, static_cast<ElementId>(WindowConfirmationElementId::ButtonCancel)},
+    {WindowElementType_Graphic, 15, 130, 66, 17, 0, {.graphic = &gWindowGraphic570668}, &WindowConfirmation_ButtonActionTwo, -1, static_cast<ElementId>(WindowConfirmationElementId::ButtonActionTwo)},
+    {WindowElementType_Graphic, 81, 130, 66, 17, 0, {.graphic = &gWindowGraphic570680}, &WindowConfirmation_ButtonActionThree, -1, static_cast<ElementId>(WindowConfirmationElementId::ButtonActionThree)},
+    {WindowElementType_Graphic, 15, 130, 66, 17, 0, {.graphic = &gWindowGraphic570698}, &WindowConfirmation_ButtonActionFour, -1, static_cast<ElementId>(WindowConfirmationElementId::ButtonActionFour)},
+    {WindowElementType_Graphic, 81, 130, 66, 17, 0, {.graphic = &gWindowGraphic5706B0}, &WindowConfirmation_ButtonActionFive, -1, static_cast<ElementId>(WindowConfirmationElementId::ButtonActionFive)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570560}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element18)},
+    {WindowElementType_Graphic, 74, 0, 0, 0, 1, {.graphic = &gWindowGraphic570578}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element19)},
+    {WindowElementType_Graphic, 148, 0, 0, 0, 1, {.graphic = &gWindowGraphic570590}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element20)},
+    {WindowElementType_Graphic, 0, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element21)},
+    {WindowElementType_Graphic, 215, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element22)},
+    {WindowElementType_Graphic, 0, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element23)},
+    {WindowElementType_Graphic, 74, 156, 0, 0, 1, {.graphic = &gWindowGraphic570608}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element24)},
+    {WindowElementType_Graphic, 148, 108, 0, 0, 1, {.graphic = &gWindowGraphic570620}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element25)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element26)},
+    {WindowElementType_Graphic, 74, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element27)},
+    {WindowElementType_Graphic, 148, 0, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element28)},
+    {WindowElementType_Graphic, 0, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element29)},
+    {WindowElementType_Graphic, 74, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element30)},
+    {WindowElementType_Graphic, 148, 54, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element31)},
+    {WindowElementType_Graphic, 0, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element32)},
+    {WindowElementType_Graphic, 74, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element33)},
+    {WindowElementType_Graphic, 148, 108, 0, 0, 1, {.graphic = &gWindowGraphic5705C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowConfirmationElementId::Element34)},
 };
 
 // 原型：窗口47；原全局：0x0054EA80。
@@ -121,7 +161,8 @@ static std::int32_t WindowConfirmation_HandleButton(
     const std::int32_t index, const std::int32_t state, const std::int32_t idleImage,
     WindowElementCallback* const callbackSlot, const std::int32_t sound, const bool requiresControl)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = idleImage;
     if ((state & 1) != 0) {
         graphic->imageNo = idleImage + 2;
@@ -200,7 +241,8 @@ static WindowInstance* WindowConfirmation_RequestClose()
 static wchar_t* WindowConfirmation_RefreshText()
 {
     for (std::int32_t index = 0; index < 11; ++index) {
-        auto* const data = gCurrentWindow->elements[index].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
+        auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
         data->text = L"";
     }
     std::wstring text = gWindow47Runtime.textCC426C;
@@ -210,7 +252,8 @@ static wchar_t* WindowConfirmation_RefreshText()
     std::int32_t row = 0;
     while (token != nullptr) {
         static_cast<void>(WindowConfirmation_PadText(line, token));
-        auto* const data = gCurrentWindow->elements[row].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row)]))) { continue; }
+        auto* const data = (*gCurrentWindow)[NativeElementKey(row)]->data.text;
         data->text = line;
         token = std::wcstok(nullptr, L"\n" /* 原常量参考：0x005531C4。 */, &context);
         ++row;
@@ -223,9 +266,9 @@ static std::int32_t WindowConfirmation_RefreshButtons()
 {
     std::int32_t mask = gWindow47Runtime.visibleMaskCC4240;
     for (std::int32_t index = 11; index < 17; ++index) {
-        gCurrentWindow->elements[index].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         if ((mask & 1) != 0) {
-            gCurrentWindow->elements[index].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
         }
         mask >>= 1;
     }

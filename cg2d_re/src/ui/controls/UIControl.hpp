@@ -24,7 +24,7 @@ struct UIClipRect {
 struct WindowControlRef {
     int winId = -1;
     uint32_t generation = 0;
-    int controlId = 0;
+    uint32_t controlId = 0;
 };
 struct WindowElementEvents {
     virtual ~WindowElementEvents() = default;
@@ -91,17 +91,17 @@ struct UIControl {
 
     int winId;
     uint32_t generation;
-    int id;
+    uint32_t id;
     TYPE type;
     uint8_t mouseState = MOUSE_NONE;
     bool hitable = true;
-    int parentId = 0;
+    uint32_t parentId = 0;
     std::wstring name{};
 
     WindowEventBinding callbacks;
     WindowInstance* windowOwner = nullptr; // 借用所属窗口。
     bool attached = true; // 清空时立即失效，回收由UI安全点执行。
-    WindowElement draft{}; // 尚未发布的新控件；发布后活动属性仅在窗口数组。
+    WindowElement draft{}; // 创建期间暂存；加入窗口后活动属性仅在sortedMap节点。
     WindowElement* currentElement = &draft;
     WindowElement& element() { return *currentElement; }
     const WindowElement& element() const { return *currentElement; }
@@ -111,7 +111,7 @@ struct UIControl {
     WindowControlRef ref() const { return {winId, generation, id}; }
 
 
-    UIControl(int winId, uint32_t generation, int id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, WindowEventBinding callbacks);
+    UIControl(int winId, uint32_t generation, uint32_t id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, WindowEventBinding callbacks);
 
     virtual ~UIControl();
 

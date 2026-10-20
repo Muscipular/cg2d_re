@@ -3,6 +3,83 @@
 #include "../../world/AlbumState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowAlbumListElementId : ElementId {
+    ButtonClose = 1,
+    Element2 = 2,
+    DragScroll = 3,
+    HandleScrollButtons = 4,
+    HandleScrollButtons_5 = 5,
+    HandleScrollButtons_6 = 6,
+    HandleScrollButtons_7 = 7,
+    Scroll = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+    Element37 = 37,
+    Element38 = 38,
+    Element39 = 39,
+    Element40 = 40,
+    Element41 = 41,
+    Element42 = 42,
+    Element43 = 43,
+    Element44 = 44,
+    Element45 = 45,
+    Element46 = 46,
+    Element47 = 47,
+    Element48 = 48,
+    Element49 = 49,
+    Element50 = 50,
+    Element51 = 51,
+    Element52 = 52,
+    Element53 = 53,
+    Element54 = 54,
+    Element55 = 55,
+    Element56 = 56,
+    Element57 = 57,
+    Element58 = 58,
+    SelectEntry = 59,
+    SelectEntry_60 = 60,
+    SelectEntry_61 = 61,
+    SelectEntry_62 = 62,
+    SelectEntry_63 = 63,
+    SelectEntry_64 = 64,
+    SelectEntry_65 = 65,
+    SelectEntry_66 = 66,
+    SelectEntry_67 = 67,
+    SelectEntry_68 = 68,
+    Element69 = 69,
+    Element70 = 70,
+    HandleSideArea = 71,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -53,77 +130,77 @@ static WindowTextPrototype gWindowText567020 { // 原全局：0x00567020。
 static std::uint32_t gWindowMouseFlagsD677C0 = 0; // 原全局：0x00D677C0。
 
 static WindowElementPrototype gWindowElements567028[71] { // 原全局：0x00567028。
-    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic566F18}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic566F90}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD677C0}, &WindowAlbumList_DragScroll},
-    {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic566FA8}, &WindowAlbumList_HandleScrollButtons},
-    {WindowElementType_Graphic, 206, 174, 11, 11, 1, {.graphic = &gWindowGraphic566FC0}, &WindowAlbumList_HandleScrollButtons},
-    {WindowElementType_Graphic, 40, 189, 20, 20, 1, {.graphic = &gWindowGraphic566FF0}, &WindowAlbumList_HandleScrollButtons},
-    {WindowElementType_Graphic, 170, 189, 20, 20, 1, {.graphic = &gWindowGraphic567008}, &WindowAlbumList_HandleScrollButtons},
-    {WindowElementType_EventArea, 0, 0, 225, 220, 1, {.unusedValue = 0}, &WindowAlbumList_Scroll},
-    {WindowElementType_Graphic, 19, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 19, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 25, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 31, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 31, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 47, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 63, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 79, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 95, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 111, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 127, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 143, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 159, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 47, 175, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 29, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 45, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 61, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 77, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 93, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 109, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 125, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 141, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 157, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Text, 75, 173, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 28, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 44, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 60, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 76, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 92, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 108, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 124, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 140, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 156, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic566F30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic566F48}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 225, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic566F18}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowAlbumListElementId::ButtonClose)},
+    {WindowElementType_Graphic, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic566F90}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element2)},
+    {WindowElementType_MouseArea, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD677C0}, &WindowAlbumList_DragScroll, -1, static_cast<ElementId>(WindowAlbumListElementId::DragScroll)},
+    {WindowElementType_Graphic, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic566FA8}, &WindowAlbumList_HandleScrollButtons, -1, static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons)},
+    {WindowElementType_Graphic, 206, 174, 11, 11, 1, {.graphic = &gWindowGraphic566FC0}, &WindowAlbumList_HandleScrollButtons, -1, static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons_5)},
+    {WindowElementType_Graphic, 40, 189, 20, 20, 1, {.graphic = &gWindowGraphic566FF0}, &WindowAlbumList_HandleScrollButtons, -1, static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons_6)},
+    {WindowElementType_Graphic, 170, 189, 20, 20, 1, {.graphic = &gWindowGraphic567008}, &WindowAlbumList_HandleScrollButtons, -1, static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons_7)},
+    {WindowElementType_EventArea, 0, 0, 225, 220, 1, {.unusedValue = 0}, &WindowAlbumList_Scroll, -1, static_cast<ElementId>(WindowAlbumListElementId::Scroll)},
+    {WindowElementType_Graphic, 19, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element9)},
+    {WindowElementType_Graphic, 25, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element10)},
+    {WindowElementType_Graphic, 31, 31, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element11)},
+    {WindowElementType_Graphic, 19, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element12)},
+    {WindowElementType_Graphic, 25, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element13)},
+    {WindowElementType_Graphic, 31, 47, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element14)},
+    {WindowElementType_Graphic, 19, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element15)},
+    {WindowElementType_Graphic, 25, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element16)},
+    {WindowElementType_Graphic, 31, 63, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element17)},
+    {WindowElementType_Graphic, 19, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element18)},
+    {WindowElementType_Graphic, 25, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element19)},
+    {WindowElementType_Graphic, 31, 79, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element20)},
+    {WindowElementType_Graphic, 19, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element21)},
+    {WindowElementType_Graphic, 25, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element22)},
+    {WindowElementType_Graphic, 31, 95, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element23)},
+    {WindowElementType_Graphic, 19, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element24)},
+    {WindowElementType_Graphic, 25, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element25)},
+    {WindowElementType_Graphic, 31, 111, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element26)},
+    {WindowElementType_Graphic, 19, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element27)},
+    {WindowElementType_Graphic, 25, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element28)},
+    {WindowElementType_Graphic, 31, 127, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element29)},
+    {WindowElementType_Graphic, 19, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element30)},
+    {WindowElementType_Graphic, 25, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element31)},
+    {WindowElementType_Graphic, 31, 143, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element32)},
+    {WindowElementType_Graphic, 19, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element33)},
+    {WindowElementType_Graphic, 25, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element34)},
+    {WindowElementType_Graphic, 31, 159, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element35)},
+    {WindowElementType_Graphic, 19, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element36)},
+    {WindowElementType_Graphic, 25, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element37)},
+    {WindowElementType_Graphic, 31, 175, 0, 0, 1, {.graphic = &gWindowGraphic566F78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element38)},
+    {WindowElementType_Graphic, 47, 31, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element39)},
+    {WindowElementType_Graphic, 47, 47, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element40)},
+    {WindowElementType_Graphic, 47, 63, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element41)},
+    {WindowElementType_Graphic, 47, 79, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element42)},
+    {WindowElementType_Graphic, 47, 95, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element43)},
+    {WindowElementType_Graphic, 47, 111, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element44)},
+    {WindowElementType_Graphic, 47, 127, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element45)},
+    {WindowElementType_Graphic, 47, 143, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element46)},
+    {WindowElementType_Graphic, 47, 159, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element47)},
+    {WindowElementType_Graphic, 47, 175, 0, 0, 1, {.graphic = &gWindowGraphic566FD8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element48)},
+    {WindowElementType_Text, 75, 29, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element49)},
+    {WindowElementType_Text, 75, 45, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element50)},
+    {WindowElementType_Text, 75, 61, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element51)},
+    {WindowElementType_Text, 75, 77, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element52)},
+    {WindowElementType_Text, 75, 93, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element53)},
+    {WindowElementType_Text, 75, 109, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element54)},
+    {WindowElementType_Text, 75, 125, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element55)},
+    {WindowElementType_Text, 75, 141, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element56)},
+    {WindowElementType_Text, 75, 157, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element57)},
+    {WindowElementType_Text, 75, 173, 0, 0, 1, {.text = &gWindowText567020}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element58)},
+    {WindowElementType_Graphic, 15, 28, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry)},
+    {WindowElementType_Graphic, 15, 44, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_60)},
+    {WindowElementType_Graphic, 15, 60, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_61)},
+    {WindowElementType_Graphic, 15, 76, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_62)},
+    {WindowElementType_Graphic, 15, 92, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_63)},
+    {WindowElementType_Graphic, 15, 108, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_64)},
+    {WindowElementType_Graphic, 15, 124, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_65)},
+    {WindowElementType_Graphic, 15, 140, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_66)},
+    {WindowElementType_Graphic, 15, 156, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_67)},
+    {WindowElementType_Graphic, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic566F60}, &WindowAlbumList_SelectEntry, -1, static_cast<ElementId>(WindowAlbumListElementId::SelectEntry_68)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic566F30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element69)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic566F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAlbumListElementId::Element70)},
+    {WindowElementType_EventArea, 225, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowAlbumListElementId::HandleSideArea)},
 };
 
 // 原型：窗口19；原全局：0x0054E600。
@@ -142,9 +219,9 @@ static void* WindowAlbumList_Refresh()
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
         const bool used = records[scroll + row].used != 0;
         const std::int32_t firstDigit = 8 + row * 3;
-        gCurrentWindow->elements[firstDigit].visible = 0;
-        gCurrentWindow->elements[firstDigit + 1].visible = 0;
-        gCurrentWindow->elements[firstDigit + 2].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstDigit)])) (*gCurrentWindow)[NativeElementKey(firstDigit)]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstDigit + 1)])) (*gCurrentWindow)[NativeElementKey(firstDigit + 1)]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstDigit + 2)])) (*gCurrentWindow)[NativeElementKey(firstDigit + 2)]->visible = 0;
         if (used) {
             const std::int32_t number = scroll + row + 1;
             const std::uint32_t color = 0xFFFFFFFFu;
@@ -152,22 +229,26 @@ static void* WindowAlbumList_Refresh()
             descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
             for (std::int32_t digit = 0; digit < 2; ++digit) {
                 WindowInstance* const window = gCurrentWindow;
-                WindowElement* const elements = window->elements;
+                auto* elementsWindow = window;
                 const std::int32_t image = 0x3B6B4
                     + (digit == 0 ? number % 1000 / 100 : number % 100 / 10);
                 const std::int32_t windowY = window->y;
                 const std::int32_t windowX = window->x;
-                const std::int32_t elementY = elements[firstDigit + digit].y;
-                const std::int32_t elementX = elements[firstDigit + digit].x;
+                if (!((elementsWindow && (*elementsWindow)[NativeElementKey(firstDigit + digit)]))) { continue; }
+                const std::int32_t elementY = (*elementsWindow)[NativeElementKey(firstDigit + digit)]->y;
+                if (!((elementsWindow && (*elementsWindow)[NativeElementKey(firstDigit + digit)]))) { continue; }
+                const std::int32_t elementX = (*elementsWindow)[NativeElementKey(firstDigit + digit)]->x;
                 static_cast<void>(cg::render::DrawGraphic(
                     elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
             }
             WindowInstance* const window = gCurrentWindow;
-            WindowElement* const elements = window->elements;
+            auto* elementsWindow = window;
             const std::int32_t image = 0x3B6B4 + number % 10;
-            const std::int32_t elementY = elements[firstDigit + 2].y;
+            if (!((elementsWindow && (*elementsWindow)[NativeElementKey(firstDigit + 2)]))) { continue; }
+            const std::int32_t elementY = (*elementsWindow)[NativeElementKey(firstDigit + 2)]->y;
             const std::int32_t windowY = window->y;
-            const std::int32_t elementX = elements[firstDigit + 2].x;
+            if (!((elementsWindow && (*elementsWindow)[NativeElementKey(firstDigit + 2)]))) { continue; }
+            const std::int32_t elementX = (*elementsWindow)[NativeElementKey(firstDigit + 2)]->x;
             const std::int32_t windowX = window->x;
             static_cast<void>(cg::render::DrawGraphic(
                 elementX + windowX + 1, elementY + windowY + 4, 223, image, 0, &descriptor));
@@ -175,21 +256,23 @@ static void* WindowAlbumList_Refresh()
             const world::AlbumRecord* const nameRecords = world::GetSelectedAlbumRecords();
             WindowInstance* const nameWindow = gCurrentWindow;
             const std::int32_t nameScroll = gLoginWindowRuntime.valueC8A95C;
-            auto* const text = nameWindow->elements[48 + row].data.text;
+            if (!((nameWindow && (*nameWindow)[NativeElementKey(48 + row)]))) { continue; }
+            auto* const text = (*nameWindow)[NativeElementKey(48 + row)]->data.text;
             const auto& name = nameRecords[nameScroll + row].name;
             text->text = name;
             const world::AlbumRecord* const flagRecords = world::GetSelectedAlbumRecords();
             const std::int32_t flagScroll = gLoginWindowRuntime.valueC8A95C;
             const bool fresh = flagRecords[flagScroll + row].fresh != 0;
             WindowInstance* const flagWindow = gCurrentWindow;
-            flagWindow->elements[38 + row].visible = fresh ? 1 : 0;
+            if ((flagWindow && (*flagWindow)[NativeElementKey(38 + row)])) (*flagWindow)[NativeElementKey(38 + row)]->visible = fresh ? 1 : 0;
             result = flagWindow;
         } else {
-            auto* const text = gCurrentWindow->elements[48 + row].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(48 + row)]))) { continue; }
+            auto* const text = (*gCurrentWindow)[NativeElementKey(48 + row)]->data.text;
             text->text.clear();
-            WindowElement* const elements = gCurrentWindow->elements;
-            elements[38 + row].visible = 0;
-            result = elements;
+            auto* elementsWindow = gCurrentWindow;
+            if ((elementsWindow && (*elementsWindow)[NativeElementKey(38 + row)])) (*elementsWindow)[NativeElementKey(38 + row)]->visible = 0;
+            result = (*elementsWindow)[WindowAlbumListElementId::ButtonClose];
         }
     }
     return result;
@@ -211,10 +294,10 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"开启此魔物的图鉴视窗。";
-        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB04;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
-        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BB02;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BB02;
     }
     if ((state & 2) != 0) {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
@@ -237,7 +320,7 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
 static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
     const auto setImage = [index](const std::int32_t image) {
-        gCurrentWindow->elements[index].data.graphic->imageNo = image;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
     };
     std::int32_t consumed = 0;
     switch (index) {
@@ -264,7 +347,8 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
             }
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
-            static_cast<void>(WindowScroll_SetPosition(window->elements + 2, 950, scroll));
+            if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[WindowAlbumListElementId::DragScroll], 950, scroll));
             consumed = 1;
         }
         return consumed;
@@ -281,7 +365,8 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
                 }
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + 2, 950, scroll));
+                if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[WindowAlbumListElementId::DragScroll], 950, scroll));
             } else {
                 std::int32_t next = gLoginWindowRuntime.valueC8A95C + 10;
                 gLoginWindowRuntime.valueC8A95C = next;
@@ -290,7 +375,8 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
                     gLoginWindowRuntime.valueC8A95C = next;
                 }
                 WindowInstance* const window = gCurrentWindow;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + 2, 950, next));
+                if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[WindowAlbumListElementId::DragScroll], 950, next));
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -311,7 +397,8 @@ static std::int32_t WindowAlbumList_DragScroll(const std::int32_t index, const s
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result == 1) {
         WindowInstance* const window = gCurrentWindow;
-        gLoginWindowRuntime.valueC8A95C = WindowScroll_ReadPosition(window->elements + 2, 950);
+        if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
+        gLoginWindowRuntime.valueC8A95C = WindowScroll_ReadPosition((*window)[WindowAlbumListElementId::DragScroll], 950);
     }
     return result;
 }
@@ -323,7 +410,8 @@ static std::int32_t WindowAlbumList_Scroll(const std::int32_t, const std::int32_
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
-        gLoginWindowRuntime.valueC8A95C = WindowScroll_ApplyWheel(window->elements + 2, scroll, 950, wheel);
+        if (!((window && (*window)[WindowAlbumListElementId::DragScroll]))) { return {}; }
+        gLoginWindowRuntime.valueC8A95C = WindowScroll_ApplyWheel((*window)[WindowAlbumListElementId::DragScroll], scroll, 950, wheel);
     }
     return 0;
 }

@@ -3,6 +3,85 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowPlayerProfileElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    ButtonClose = 18,
+    Element19 = 19,
+    HandleButtons = 20,
+    HandleButtons_21 = 21,
+    HandleButtons_22 = 22,
+    Element23 = 23,
+    HandleButtons_24 = 24,
+    HandleButtons_25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+    Element37 = 37,
+    Element38 = 38,
+    Element39 = 39,
+    Element40 = 40,
+    Element41 = 41,
+    Element42 = 42,
+    Element43 = 43,
+    Element44 = 44,
+    Element45 = 45,
+    Element46 = 46,
+    Element47 = 47,
+    Element48 = 48,
+    Element49 = 49,
+    Element50 = 50,
+    Element51 = 51,
+    Element52 = 52,
+    Element53 = 53,
+    Element54 = 54,
+    Element55 = 55,
+    Element56 = 56,
+    Element57 = 57,
+    Element58 = 58,
+    Element59 = 59,
+    Element60 = 60,
+    Element61 = 61,
+    Element62 = 62,
+    Element63 = 63,
+    Element64 = 64,
+    Element65 = 65,
+    Element66 = 66,
+    Element67 = 67,
+    Element68 = 68,
+    Element69 = 69,
+    Element70 = 70,
+    Element71 = 71,
+    Element72 = 72,
+    HandleSideArea = 73,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -119,79 +198,79 @@ static WindowTextPrototype gWindowText55FD58 { // 原全局：0x0055FD58。
 };
 
 static WindowElementPrototype gWindowElements55FD60[73] { // 原全局：0x0055FD60。
-    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText55FCF0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText55FCF8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 70, 101, 0, 0, 1, {.text = &gWindowText55FD00}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 31, 0, 0, 1, {.text = &gWindowText55FD08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 49, 0, 0, 1, {.text = &gWindowText55FD10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 68, 0, 0, 1, {.text = &gWindowText55FD18}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 86, 0, 0, 1, {.text = &gWindowText55FD20}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 104, 0, 0, 1, {.text = &gWindowText55FD28}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 123, 0, 0, 1, {.text = &gWindowText55FD30}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 141, 0, 0, 1, {.text = &gWindowText55FD38}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 158, 0, 0, 1, {.text = &gWindowText55FD40}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 176, 0, 0, 1, {.text = &gWindowText55FD48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 194, 0, 0, 1, {.text = &gWindowText55FD50}, &WindowElement_NoOp},
-    {WindowElementType_Text, 89, 211, 0, 0, 1, {.text = &gWindowText55FD58}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic55F780}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 48, 103, 0, 0, 1, {.graphic = &gWindowGraphic55F798}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 60, 104, 0, 0, 1, {.graphic = &gWindowGraphic55F7B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic55F7C8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 151, 230, 0, 0, 1, {.graphic = &gWindowGraphic55F7E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic55F7F8}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic55F810}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic55FCD8}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F858}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 217, 200, 36, 25, 1, {.graphic = &gWindowGraphic55F828}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 253, 200, 36, 25, 1, {.graphic = &gWindowGraphic55F840}, &WindowPlayerProfile_HandleButtons},
-    {WindowElementType_Graphic, 229, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 237, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 245, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 253, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 261, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 285, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 293, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 301, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 229, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 237, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 245, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 253, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 261, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 285, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 293, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 301, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 229, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 237, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 245, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 253, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 261, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 285, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 293, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 301, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 229, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 237, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 245, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 253, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 261, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 285, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 293, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 301, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 195, 130, 0, 0, 1, {.graphic = &gWindowGraphic55FC30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 195, 147, 0, 0, 1, {.graphic = &gWindowGraphic55FC48}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 195, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FC60}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 195, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FC78}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 29, 0, 0, 1, {.graphic = &gWindowGraphic55FC90}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55FCA8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic55FCC0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText55FCF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element1)},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText55FCF8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element2)},
+    {WindowElementType_Text, 70, 101, 0, 0, 1, {.text = &gWindowText55FD00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element3)},
+    {WindowElementType_Text, 165, 31, 0, 0, 1, {.text = &gWindowText55FD08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element4)},
+    {WindowElementType_Text, 165, 49, 0, 0, 1, {.text = &gWindowText55FD10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element5)},
+    {WindowElementType_Text, 165, 68, 0, 0, 1, {.text = &gWindowText55FD18}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element6)},
+    {WindowElementType_Text, 165, 86, 0, 0, 1, {.text = &gWindowText55FD20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element7)},
+    {WindowElementType_Text, 165, 104, 0, 0, 1, {.text = &gWindowText55FD28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element8)},
+    {WindowElementType_Text, 89, 123, 0, 0, 1, {.text = &gWindowText55FD30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element9)},
+    {WindowElementType_Text, 89, 141, 0, 0, 1, {.text = &gWindowText55FD38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element10)},
+    {WindowElementType_Text, 89, 158, 0, 0, 1, {.text = &gWindowText55FD40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element11)},
+    {WindowElementType_Text, 89, 176, 0, 0, 1, {.text = &gWindowText55FD48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element12)},
+    {WindowElementType_Text, 89, 194, 0, 0, 1, {.text = &gWindowText55FD50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element13)},
+    {WindowElementType_Text, 89, 211, 0, 0, 1, {.text = &gWindowText55FD58}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element14)},
+    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic55F780}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element15)},
+    {WindowElementType_Graphic, 48, 103, 0, 0, 1, {.graphic = &gWindowGraphic55F798}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element16)},
+    {WindowElementType_Graphic, 60, 104, 0, 0, 1, {.graphic = &gWindowGraphic55F7B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element17)},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic55F7C8}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPlayerProfileElementId::ButtonClose)},
+    {WindowElementType_Graphic, 151, 230, 0, 0, 1, {.graphic = &gWindowGraphic55F7E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element19)},
+    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic55F7F8}, &WindowPlayerProfile_HandleButtons, -1, static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons)},
+    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic55F810}, &WindowPlayerProfile_HandleButtons, -1, static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons_21)},
+    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic55FCD8}, &WindowPlayerProfile_HandleButtons, -1, static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons_22)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F858}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element23)},
+    {WindowElementType_Graphic, 217, 200, 36, 25, 1, {.graphic = &gWindowGraphic55F828}, &WindowPlayerProfile_HandleButtons, -1, static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons_24)},
+    {WindowElementType_Graphic, 253, 200, 36, 25, 1, {.graphic = &gWindowGraphic55F840}, &WindowPlayerProfile_HandleButtons, -1, static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons_25)},
+    {WindowElementType_Graphic, 229, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element26)},
+    {WindowElementType_Graphic, 237, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element27)},
+    {WindowElementType_Graphic, 245, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element28)},
+    {WindowElementType_Graphic, 253, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element29)},
+    {WindowElementType_Graphic, 261, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element30)},
+    {WindowElementType_Graphic, 269, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element31)},
+    {WindowElementType_Graphic, 277, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element32)},
+    {WindowElementType_Graphic, 285, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element33)},
+    {WindowElementType_Graphic, 293, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element34)},
+    {WindowElementType_Graphic, 301, 130, 0, 0, 1, {.graphic = &gWindowGraphic55F870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element35)},
+    {WindowElementType_Graphic, 229, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element36)},
+    {WindowElementType_Graphic, 237, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element37)},
+    {WindowElementType_Graphic, 245, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element38)},
+    {WindowElementType_Graphic, 253, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element39)},
+    {WindowElementType_Graphic, 261, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element40)},
+    {WindowElementType_Graphic, 269, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element41)},
+    {WindowElementType_Graphic, 277, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element42)},
+    {WindowElementType_Graphic, 285, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element43)},
+    {WindowElementType_Graphic, 293, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element44)},
+    {WindowElementType_Graphic, 301, 147, 0, 0, 1, {.graphic = &gWindowGraphic55F960}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element45)},
+    {WindowElementType_Graphic, 229, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element46)},
+    {WindowElementType_Graphic, 237, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element47)},
+    {WindowElementType_Graphic, 245, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element48)},
+    {WindowElementType_Graphic, 253, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element49)},
+    {WindowElementType_Graphic, 261, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element50)},
+    {WindowElementType_Graphic, 269, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element51)},
+    {WindowElementType_Graphic, 277, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element52)},
+    {WindowElementType_Graphic, 285, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element53)},
+    {WindowElementType_Graphic, 293, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element54)},
+    {WindowElementType_Graphic, 301, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FA50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element55)},
+    {WindowElementType_Graphic, 229, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element56)},
+    {WindowElementType_Graphic, 237, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element57)},
+    {WindowElementType_Graphic, 245, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element58)},
+    {WindowElementType_Graphic, 253, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element59)},
+    {WindowElementType_Graphic, 261, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element60)},
+    {WindowElementType_Graphic, 269, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element61)},
+    {WindowElementType_Graphic, 277, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element62)},
+    {WindowElementType_Graphic, 285, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element63)},
+    {WindowElementType_Graphic, 293, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element64)},
+    {WindowElementType_Graphic, 301, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FB40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element65)},
+    {WindowElementType_Graphic, 195, 130, 0, 0, 1, {.graphic = &gWindowGraphic55FC30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element66)},
+    {WindowElementType_Graphic, 195, 147, 0, 0, 1, {.graphic = &gWindowGraphic55FC48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element67)},
+    {WindowElementType_Graphic, 195, 163, 0, 0, 1, {.graphic = &gWindowGraphic55FC60}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element68)},
+    {WindowElementType_Graphic, 195, 179, 0, 0, 1, {.graphic = &gWindowGraphic55FC78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element69)},
+    {WindowElementType_Graphic, 16, 29, 0, 0, 1, {.graphic = &gWindowGraphic55FC90}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element70)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55FCA8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element71)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic55FCC0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerProfileElementId::Element72)},
+    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowPlayerProfileElementId::HandleSideArea)},
 };
 
 // 原型：窗口7；原全局：0x0054E360。
@@ -206,28 +285,32 @@ static void WindowPlayerProfile_RefreshAttributeBar(
     const std::int32_t lastImage, const std::int32_t singleImage)
 {
     for (std::int32_t index = 0; index < 10; ++index) {
-        gCurrentWindow->elements[firstElement + index].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)])) (*gCurrentWindow)[NativeElementKey(firstElement + index)]->visible = 0;
     }
     const std::int32_t count = world::gPlayerRuntimeSlots.valuesE4[static_cast<std::int32_t>(attribute)] / 10;
     if (count == 1) {
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)]))) { return; }
         auto* const graphic =
-            gCurrentWindow->elements[firstElement].data.graphic;
+            (*gCurrentWindow)[NativeElementKey(firstElement)]->data.graphic;
         graphic->imageNo = singleImage;
-        gCurrentWindow->elements[firstElement].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)])) (*gCurrentWindow)[NativeElementKey(firstElement)]->visible = 1;
     } else {
         for (std::int32_t index = 0; index < count; ++index) {
-            auto* const graphic = gCurrentWindow->elements[firstElement + index].data.graphic;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)]))) { continue; }
+            auto* const graphic = (*gCurrentWindow)[NativeElementKey(firstElement + index)]->data.graphic;
             graphic->imageNo = middleImage;
-            gCurrentWindow->elements[firstElement + index].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)])) (*gCurrentWindow)[NativeElementKey(firstElement + index)]->visible = 1;
             if (index == 0) {
-                auto* const first = gCurrentWindow->elements[firstElement].data.graphic;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)]))) { continue; }
+                auto* const first = (*gCurrentWindow)[NativeElementKey(firstElement)]->data.graphic;
                 first->imageNo = firstImage;
-                gCurrentWindow->elements[firstElement].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement)])) (*gCurrentWindow)[NativeElementKey(firstElement)]->visible = 1;
             }
             if (index == count - 1) {
-                auto* const last = gCurrentWindow->elements[firstElement + index].data.graphic;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)]))) { continue; }
+                auto* const last = (*gCurrentWindow)[NativeElementKey(firstElement + index)]->data.graphic;
                 last->imageNo = lastImage;
-                gCurrentWindow->elements[firstElement + index].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(firstElement + index)])) (*gCurrentWindow)[NativeElementKey(firstElement + index)]->visible = 1;
             }
         }
     }
@@ -256,7 +339,8 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
         break;
     case 21:
         if (character_select::state::gPukVersion < 8u) {
-            gCurrentWindow->elements[index].data.graphic->imageNo =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+            (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo =
                 0x3C111;
             return 0;
         }
@@ -280,7 +364,8 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
     }
 
     std::int32_t consumed = 0;
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = hoverImage;
         gHoverTextD68AE8 = hint;
@@ -314,77 +399,89 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
 // 原函数：0x00474FB0。
 static void WindowPlayerProfile_Refresh()
 {
-    WindowElement* const portraitElements = gCurrentWindow->elements;
+    auto* portraitElementsWindow = gCurrentWindow;
     const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
-    portraitElements[14].data.graphic->imageNo = portrait;
+    if ((portraitElementsWindow && (*portraitElementsWindow)[WindowPlayerProfileElementId::Element15])) (*portraitElementsWindow)[WindowPlayerProfileElementId::Element15]->data.graphic->imageNo = portrait;
     WindowPlayerProfile_RefreshAttributeBar(0, 25, 0x3BAC7, 0x3BACA, 0x3BAC8, 0x3BAC9);
     WindowPlayerProfile_RefreshAttributeBar(1, 35, 0x3BACC, 0x3BACF, 0x3BACD, 0x3BACE);
     WindowPlayerProfile_RefreshAttributeBar(2, 45, 0x3BAD1, 0x3BAD4, 0x3BAD2, 0x3BAD3);
     WindowPlayerProfile_RefreshAttributeBar(3, 55, 0x3BAD6, 0x3BAD9, 0x3BAD7, 0x3BAD8);
 
-    auto* const nameData = gCurrentWindow->elements[0].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element1]))) { return; }
+    auto* const nameData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element1]->data.text;
     const wchar_t* const name = world::GetPlayerDisplayText(1);
     nameData->text = name;
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
-    auto* const levelData = gCurrentWindow->elements[1].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element2]))) { return; }
+    auto* const levelData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element2]->data.text;
     levelData->text = buffer;
 
-    WindowElement* const jobElements = gCurrentWindow->elements;
+    auto* jobElementsWindow = gCurrentWindow;
     const auto& job = world::GetPlayerJobName();
-    auto* const jobData = jobElements[3].data.text;
+    if (!((jobElementsWindow && (*jobElementsWindow)[WindowPlayerProfileElementId::Element4]))) { return; }
+    auto* const jobData = (*jobElementsWindow)[WindowPlayerProfileElementId::Element4]->data.text;
     jobData->text = job;
 
     WindowInstance* const guildWindow = gCurrentWindow;
     const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
-    auto* const guildData = guildWindow->elements[4].data.text;
+    if (!((guildWindow && (*guildWindow)[WindowPlayerProfileElementId::Element5]))) { return; }
+    auto* const guildData = (*guildWindow)[WindowPlayerProfileElementId::Element5]->data.text;
     if (guildIndex != -1) {
         const wchar_t* const guild = cg::world::GetGuildName();
         guildData->text = guild;
         const std::int32_t rankIndex = cg::world::ReadGuildTextIndex10514B0();
-        auto* const rankData = gCurrentWindow->elements[5].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element6]))) { return; }
+        auto* const rankData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element6]->data.text;
         const wchar_t* const rank = cg::world::GetGuildRankText(rankIndex);
         rankData->text = rank;
     } else {
         const wchar_t* const guild = L"";
         guildData->text = guild;
-        auto* const rankData = gCurrentWindow->elements[5].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element6]))) { return; }
+        auto* const rankData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element6]->data.text;
         const wchar_t* const rank = L"";
         rankData->text = rank;
     }
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
-    auto* const titleData = gCurrentWindow->elements[6].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element7]))) { return; }
+    auto* const titleData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element7]->data.text;
     const wchar_t* const title = world::GetTitleText(titleIndex);
     titleData->text = title;
 
-    WindowElement* const ownTitleElements = gCurrentWindow->elements;
+    auto* ownTitleElementsWindow = gCurrentWindow;
     const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
-    auto* const ownTitleData = ownTitleElements[7].data.text;
+    if (!((ownTitleElementsWindow && (*ownTitleElementsWindow)[WindowPlayerProfileElementId::Element8]))) { return; }
+    auto* const ownTitleData = (*ownTitleElementsWindow)[WindowPlayerProfileElementId::Element8]->data.text;
     ownTitleData->text = ownTitle;
 
     WindowInstance* const tribeWindow = gCurrentWindow;
     const std::int16_t tribeIndex = world::ReadPlayerTribe();
-    WindowElement* const tribeElements = tribeWindow->elements;
+    auto* tribeElementsWindow = tribeWindow;
     const wchar_t* const tribe = gTribeNames57CB54[tribeIndex];
-    auto* const tribeData = tribeElements[8].data.text;
+    if (!((tribeElementsWindow && (*tribeElementsWindow)[WindowPlayerProfileElementId::Element9]))) { return; }
+    auto* const tribeData = (*tribeElementsWindow)[WindowPlayerProfileElementId::Element9]->data.text;
     tribeData->text = tribe;
 
     cg::text::FormatTo(buffer, L"{:9}", static_cast<std::int32_t>(world::gPlayerRuntimeSlots.value58));
-    auto* const experienceData = gCurrentWindow->elements[9].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element10]))) { return; }
+    auto* const experienceData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element10]->data.text;
     experienceData->text = buffer;
 
     const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
     const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
-    auto* const hpData = gCurrentWindow->elements[11].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element12]))) { return; }
+    auto* const hpData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element12]->data.text;
     hpData->text = buffer;
 
     const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
     const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
-    auto* const fpData = gCurrentWindow->elements[12].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element13]))) { return; }
+    auto* const fpData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element13]->data.text;
     fpData->text = buffer;
 
     std::wstring_view nextExperience;
@@ -394,19 +491,21 @@ static void WindowPlayerProfile_Refresh()
         cg::text::FormatTo(buffer, L"{:9}", static_cast<std::int32_t>(world::gPlayerRuntimeSlots.value68));
         nextExperience = buffer;
     }
-    auto* const nextData = gCurrentWindow->elements[10].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element11]))) { return; }
+    auto* const nextData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element11]->data.text;
     nextData->text = nextExperience;
 
     cg::text::FormatTo(buffer, L"{:9}", world::gPlayerRuntimeSlots.value104);
-    auto* const duelData = gCurrentWindow->elements[13].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element14]))) { return; }
+    auto* const duelData = (*gCurrentWindow)[WindowPlayerProfileElementId::Element14]->data.text;
     duelData->text = buffer;
 
     if (world::gPlayerRuntimeSlots.value1A0 == 1) {
-        gCurrentWindow->elements[22].x = 227;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element23])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element23]->x = 227;
     } else {
-        gCurrentWindow->elements[22].x = 263;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element23])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element23]->x = 263;
     }
-    gCurrentWindow->elements[22].y = 203;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element23])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element23]->y = 203;
 
     const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
     std::int32_t injuryImage;
@@ -421,19 +520,20 @@ static void WindowPlayerProfile_Refresh()
     } else {
         injuryImage = 0x3B618;
     }
-    gCurrentWindow->elements[15].data.graphic->imageNo = injuryImage;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element16])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element16]->data.graphic->imageNo = injuryImage;
 
     const std::int32_t penalty = world::gPlayerRuntimeSlots.valueF8;
     if (penalty > 0) {
         cg::text::FormatTo(buffer, L"x{}", penalty);
-        WindowElement* const penaltyElements = gCurrentWindow->elements;
-        auto* const penaltyData = penaltyElements[2].data.text;
+        auto* penaltyElementsWindow = gCurrentWindow;
+        if (!((penaltyElementsWindow && (*penaltyElementsWindow)[WindowPlayerProfileElementId::Element3]))) { return; }
+        auto* const penaltyData = (*penaltyElementsWindow)[WindowPlayerProfileElementId::Element3]->data.text;
         penaltyData->text = buffer;
-        gCurrentWindow->elements[2].visible = 1;
-        gCurrentWindow->elements[16].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element3])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element3]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element17])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element17]->visible = 1;
     } else {
-        gCurrentWindow->elements[2].visible = 0;
-        gCurrentWindow->elements[16].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element3])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element3]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerProfileElementId::Element17])) (*gCurrentWindow)[WindowPlayerProfileElementId::Element17]->visible = 0;
     }
 }
 

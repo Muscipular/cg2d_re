@@ -3,6 +3,32 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowEmoteElementId : ElementId {
+    ButtonEmote = 1,
+    ButtonEmote_2 = 2,
+    ButtonEmote_3 = 3,
+    ButtonEmote_4 = 4,
+    ButtonEmote_5 = 5,
+    ButtonEmote_6 = 6,
+    ButtonEmote_7 = 7,
+    ButtonEmote_8 = 8,
+    ButtonEmote_9 = 9,
+    ButtonEmote_10 = 10,
+    ButtonEmote_11 = 11,
+    ButtonEmote_12 = 12,
+    ButtonEmote_13 = 13,
+    ButtonEmote_14 = 14,
+    ButtonEmote_15 = 15,
+    ButtonEmote_16 = 16,
+    ButtonEmote_17 = 17,
+    ButtonEmote_18 = 18,
+    ButtonClose = 19,
+    Element20 = 20,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -84,26 +110,26 @@ static WindowGraphicData gWindowGraphic56B288 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic56B2A0 {0x3B984, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B2A0。
 
 static WindowElementPrototype gWindowElements56B2B8[20] { // 原全局：0x0056B2B8。
-    {WindowElementType_Graphic, 5, 25, 23, 23, 1, {.graphic = &gWindowGraphic56B0D8}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 5, 50, 23, 23, 1, {.graphic = &gWindowGraphic56B0F0}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 5, 75, 23, 23, 1, {.graphic = &gWindowGraphic56B108}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 5, 100, 23, 23, 1, {.graphic = &gWindowGraphic56B120}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 5, 125, 23, 23, 1, {.graphic = &gWindowGraphic56B138}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 5, 150, 23, 23, 1, {.graphic = &gWindowGraphic56B150}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 5, 175, 23, 23, 1, {.graphic = &gWindowGraphic56B168}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 5, 200, 23, 23, 1, {.graphic = &gWindowGraphic56B180}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 5, 225, 23, 23, 1, {.graphic = &gWindowGraphic56B198}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 25, 23, 23, 1, {.graphic = &gWindowGraphic56B1B0}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 50, 23, 23, 1, {.graphic = &gWindowGraphic56B1C8}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 75, 23, 23, 1, {.graphic = &gWindowGraphic56B1E0}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 100, 23, 23, 1, {.graphic = &gWindowGraphic56B1F8}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 125, 23, 23, 1, {.graphic = &gWindowGraphic56B210}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 150, 23, 23, 1, {.graphic = &gWindowGraphic56B228}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 175, 23, 23, 1, {.graphic = &gWindowGraphic56B240}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 200, 23, 23, 1, {.graphic = &gWindowGraphic56B258}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 29, 225, 23, 23, 1, {.graphic = &gWindowGraphic56B270}, &WindowEmote_ButtonEmote},
-    {WindowElementType_Graphic, 45, 7, 11, 11, 1, {.graphic = &gWindowGraphic56B288}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B2A0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 5, 25, 23, 23, 1, {.graphic = &gWindowGraphic56B0D8}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote)},
+    {WindowElementType_Graphic, 5, 50, 23, 23, 1, {.graphic = &gWindowGraphic56B0F0}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_2)},
+    {WindowElementType_Graphic, 5, 75, 23, 23, 1, {.graphic = &gWindowGraphic56B108}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_3)},
+    {WindowElementType_Graphic, 5, 100, 23, 23, 1, {.graphic = &gWindowGraphic56B120}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_4)},
+    {WindowElementType_Graphic, 5, 125, 23, 23, 1, {.graphic = &gWindowGraphic56B138}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_5)},
+    {WindowElementType_Graphic, 5, 150, 23, 23, 1, {.graphic = &gWindowGraphic56B150}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_6)},
+    {WindowElementType_Graphic, 5, 175, 23, 23, 1, {.graphic = &gWindowGraphic56B168}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_7)},
+    {WindowElementType_Graphic, 5, 200, 23, 23, 1, {.graphic = &gWindowGraphic56B180}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_8)},
+    {WindowElementType_Graphic, 5, 225, 23, 23, 1, {.graphic = &gWindowGraphic56B198}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_9)},
+    {WindowElementType_Graphic, 29, 25, 23, 23, 1, {.graphic = &gWindowGraphic56B1B0}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_10)},
+    {WindowElementType_Graphic, 29, 50, 23, 23, 1, {.graphic = &gWindowGraphic56B1C8}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_11)},
+    {WindowElementType_Graphic, 29, 75, 23, 23, 1, {.graphic = &gWindowGraphic56B1E0}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_12)},
+    {WindowElementType_Graphic, 29, 100, 23, 23, 1, {.graphic = &gWindowGraphic56B1F8}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_13)},
+    {WindowElementType_Graphic, 29, 125, 23, 23, 1, {.graphic = &gWindowGraphic56B210}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_14)},
+    {WindowElementType_Graphic, 29, 150, 23, 23, 1, {.graphic = &gWindowGraphic56B228}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_15)},
+    {WindowElementType_Graphic, 29, 175, 23, 23, 1, {.graphic = &gWindowGraphic56B240}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_16)},
+    {WindowElementType_Graphic, 29, 200, 23, 23, 1, {.graphic = &gWindowGraphic56B258}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_17)},
+    {WindowElementType_Graphic, 29, 225, 23, 23, 1, {.graphic = &gWindowGraphic56B270}, &WindowEmote_ButtonEmote, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonEmote_18)},
+    {WindowElementType_Graphic, 45, 7, 11, 11, 1, {.graphic = &gWindowGraphic56B288}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowEmoteElementId::ButtonClose)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B2A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowEmoteElementId::Element20)},
 };
 
 // 原型：窗口34；原全局：0x0054E6F0。
@@ -147,7 +173,8 @@ static std::int32_t WindowEmote_ResetSelection()
 // 原函数：0x00495FE0。
 static std::int32_t WindowEmote_ButtonEmote(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hover) {

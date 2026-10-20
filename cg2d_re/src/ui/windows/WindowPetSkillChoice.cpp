@@ -9,6 +9,119 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowPetSkillChoiceElementId : ElementId {
+    HandleConfirmation = 1,
+    ButtonClose = 2,
+    ButtonLearn = 3,
+    ButtonBack = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    HandleVerticalScroll = 11,
+    ButtonPreviousRow = 12,
+    ButtonNextRow = 13,
+    ButtonPreviousPage = 14,
+    ButtonNextPage = 15,
+    Scroll = 16,
+    Element17 = 17,
+    Element18 = 18,
+    HandleVerticalScroll_19 = 19,
+    ButtonPreviousRow_20 = 20,
+    ButtonNextRow_21 = 21,
+    ButtonPreviousPage_22 = 22,
+    ButtonNextPage_23 = 23,
+    Scroll_24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+    Element37 = 37,
+    Element38 = 38,
+    Element39 = 39,
+    Element40 = 40,
+    Element41 = 41,
+    Element42 = 42,
+    Element43 = 43,
+    Element44 = 44,
+    Element45 = 45,
+    Element46 = 46,
+    Element47 = 47,
+    Element48 = 48,
+    Element49 = 49,
+    Element50 = 50,
+    Element51 = 51,
+    Element52 = 52,
+    Element53 = 53,
+    Element54 = 54,
+    Element55 = 55,
+    Element56 = 56,
+    Element57 = 57,
+    Element58 = 58,
+    Element59 = 59,
+    Element60 = 60,
+    Element61 = 61,
+    Element62 = 62,
+    Element63 = 63,
+    Element64 = 64,
+    Element65 = 65,
+    Element66 = 66,
+    Element67 = 67,
+    Element68 = 68,
+    Element69 = 69,
+    Element70 = 70,
+    Element71 = 71,
+    Element72 = 72,
+    Element73 = 73,
+    Element74 = 74,
+    Element75 = 75,
+    Element76 = 76,
+    Element77 = 77,
+    Element78 = 78,
+    Element79 = 79,
+    Element80 = 80,
+    Element81 = 81,
+    Element82 = 82,
+    Element83 = 83,
+    Element84 = 84,
+    Element85 = 85,
+    Element86 = 86,
+    Element87 = 87,
+    Element88 = 88,
+    Element89 = 89,
+    Element90 = 90,
+    Element91 = 91,
+    Element92 = 92,
+    Element93 = 93,
+    Element94 = 94,
+    Element95 = 95,
+    Element96 = 96,
+    Element97 = 97,
+    Element98 = 98,
+    Element99 = 99,
+    Element100 = 100,
+    Element101 = 101,
+    Element102 = 102,
+    Element103 = 103,
+    Element104 = 104,
+    Element105 = 105,
+    Element106 = 106,
+    HandleSideArea = 107,
+};
+
+
 namespace detail {
 
 // 原D67448五个候选宠物28H记录，协议索引不等同于玩家宠物槽。
@@ -315,113 +428,113 @@ static std::uint32_t gWindowMouseFlagsD67900 = 0; // 原全局：0x00D67900。
 // 原全局：0x005748E8。
 // 原5748E8的107项；选择回调由模式刷新发布，不替换初始4B0F10。
 static WindowElementPrototype gWindowElements5748E8[107] {
-    {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowPetSkillChoice_HandleConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic574668}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 203, 326, 66, 17, 1, {.graphic = &gWindowGraphic5746F8}, &WindowPetSkillChoice_ButtonLearn},
-    {WindowElementType_Graphic, 467, 326, 66, 17, 1, {.graphic = &gWindowGraphic574710}, &WindowPetSkillChoice_ButtonBack},
-    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText5747C0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 78, 52, 0, 14, 1, {.text = &gWindowText5747D8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 262, 37, 0, 14, 1, {.number = &gWindowNumber5747F0}, &WindowElement_NoOp},
-    {WindowElementType_Number, 389, 30, 0, 14, 1, {.number = &gWindowNumber5747E8}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5747E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 502, 146, 0, 14, 1, {.graphic = &gWindowGraphic5746B0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 502, 146, 11, 137, 1, {.mouseFlags = &gWindowMouseFlagsD67900}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 502, 136, 11, 11, 1, {.graphic = &gWindowGraphic5746C8}, &WindowPetSkillChoice_ButtonPreviousRow},
-    {WindowElementType_Graphic, 502, 282, 11, 11, 1, {.graphic = &gWindowGraphic5746E0}, &WindowPetSkillChoice_ButtonNextRow},
-    {WindowElementType_Graphic, 472, 300, 18, 18, 1, {.graphic = &gWindowGraphic574788}, &WindowPetSkillChoice_ButtonPreviousPage},
-    {WindowElementType_Graphic, 498, 300, 18, 18, 1, {.graphic = &gWindowGraphic5747A0}, &WindowPetSkillChoice_ButtonNextPage},
-    {WindowElementType_EventArea, 286, 27, 273, 280, 1, {.unusedValue = 0}, &WindowPetSkillChoice_Scroll},
-    {WindowElementType_Graphic, 499, 132, 11, 11, 1, {.graphic = &gWindowGraphic574728}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 269, 85, 0, 14, 1, {.graphic = &gWindowGraphic5746B0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 269, 85, 11, 244, 1, {.mouseFlags = &gWindowMouseFlagsD67900}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 269, 75, 11, 11, 1, {.graphic = &gWindowGraphic5746C8}, &WindowPetSkillChoice_ButtonPreviousRow},
-    {WindowElementType_Graphic, 269, 327, 11, 11, 1, {.graphic = &gWindowGraphic5746E0}, &WindowPetSkillChoice_ButtonNextRow},
-    {WindowElementType_Graphic, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic574788}, &WindowPetSkillChoice_ButtonPreviousPage},
-    {WindowElementType_Graphic, 246, 55, 18, 18, 1, {.graphic = &gWindowGraphic5747A0}, &WindowPetSkillChoice_ButtonNextPage},
-    {WindowElementType_EventArea, 17, 28, 274, 325, 1, {.unusedValue = 0}, &WindowPetSkillChoice_Scroll},
-    {WindowElementType_Text, 33, 87, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 127, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 147, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 167, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 187, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 207, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 227, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 247, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 267, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 33, 287, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 135, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 151, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 167, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 183, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 199, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 215, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 231, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 247, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 263, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 296, 279, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 446, 135, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 446, 151, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 446, 167, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 446, 183, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 446, 199, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 136, 0, 0, 1, {.number = &gWindowNumber574848}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 152, 0, 0, 1, {.number = &gWindowNumber574850}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 168, 0, 0, 1, {.number = &gWindowNumber574858}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 184, 0, 0, 1, {.number = &gWindowNumber574860}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 200, 0, 0, 1, {.number = &gWindowNumber574868}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 216, 0, 0, 1, {.number = &gWindowNumber574870}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 232, 0, 0, 1, {.number = &gWindowNumber574878}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 248, 0, 0, 1, {.number = &gWindowNumber574880}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 264, 0, 0, 1, {.number = &gWindowNumber574888}, &WindowElement_NoOp},
-    {WindowElementType_Number, 454, 280, 0, 0, 1, {.number = &gWindowNumber574890}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 136, 0, 0, 1, {.number = &gWindowNumber574898}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 152, 0, 0, 1, {.number = &gWindowNumber5748A0}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 168, 0, 0, 1, {.number = &gWindowNumber5748A8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 184, 0, 0, 1, {.number = &gWindowNumber5748B0}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 200, 0, 0, 1, {.number = &gWindowNumber5748B8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 216, 0, 0, 1, {.number = &gWindowNumber5748C0}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 232, 0, 0, 1, {.number = &gWindowNumber5748C8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 248, 0, 0, 1, {.number = &gWindowNumber5748D0}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 264, 0, 0, 1, {.number = &gWindowNumber5748D8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 492, 280, 0, 0, 1, {.number = &gWindowNumber5748E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 133, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 149, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 165, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 181, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 197, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 213, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 229, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 245, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 261, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 290, 277, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp},
-    {WindowElementType_Text, 41, 82, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 41, 137, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 41, 192, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 41, 247, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 41, 302, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 239, 83, 0, 14, 1, {.number = &gWindowNumber5747F8}, &WindowElement_NoOp},
-    {WindowElementType_Number, 239, 138, 0, 14, 1, {.number = &gWindowNumber574800}, &WindowElement_NoOp},
-    {WindowElementType_Number, 239, 193, 0, 14, 1, {.number = &gWindowNumber574808}, &WindowElement_NoOp},
-    {WindowElementType_Number, 239, 248, 0, 14, 1, {.number = &gWindowNumber574810}, &WindowElement_NoOp},
-    {WindowElementType_Number, 239, 303, 0, 14, 1, {.number = &gWindowNumber574818}, &WindowElement_NoOp},
-    {WindowElementType_Number, 233, 108, 0, 14, 1, {.number = &gWindowNumber574820}, &WindowElement_NoOp},
-    {WindowElementType_Number, 233, 163, 0, 14, 1, {.number = &gWindowNumber574828}, &WindowElement_NoOp},
-    {WindowElementType_Number, 233, 218, 0, 14, 1, {.number = &gWindowNumber574830}, &WindowElement_NoOp},
-    {WindowElementType_Number, 233, 273, 0, 14, 1, {.number = &gWindowNumber574838}, &WindowElement_NoOp},
-    {WindowElementType_Number, 233, 328, 0, 14, 1, {.number = &gWindowNumber574840}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 80, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 135, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 190, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 245, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 37, 300, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 70, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 125, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 180, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 235, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 27, 290, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 17, 28, 274, 325, 1, {.graphic = &gWindowGraphic574698}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic574680}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 552, 5, 18, 80, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_EventArea, 0, 0, 640, 383, 1, {.unusedValue = 0}, &WindowPetSkillChoice_HandleConfirmation, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::HandleConfirmation)},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic574668}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonClose)},
+    {WindowElementType_Graphic, 203, 326, 66, 17, 1, {.graphic = &gWindowGraphic5746F8}, &WindowPetSkillChoice_ButtonLearn, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonLearn)},
+    {WindowElementType_Graphic, 467, 326, 66, 17, 1, {.graphic = &gWindowGraphic574710}, &WindowPetSkillChoice_ButtonBack, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonBack)},
+    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText5747C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element5)},
+    {WindowElementType_Text, 78, 52, 0, 14, 1, {.text = &gWindowText5747D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element6)},
+    {WindowElementType_Number, 262, 37, 0, 14, 1, {.number = &gWindowNumber5747F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element7)},
+    {WindowElementType_Number, 389, 30, 0, 14, 1, {.number = &gWindowNumber5747E8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element8)},
+    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage5747E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element9)},
+    {WindowElementType_Graphic, 502, 146, 0, 14, 1, {.graphic = &gWindowGraphic5746B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element10)},
+    {WindowElementType_MouseArea, 502, 146, 11, 137, 1, {.mouseFlags = &gWindowMouseFlagsD67900}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 502, 136, 11, 11, 1, {.graphic = &gWindowGraphic5746C8}, &WindowPetSkillChoice_ButtonPreviousRow, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonPreviousRow)},
+    {WindowElementType_Graphic, 502, 282, 11, 11, 1, {.graphic = &gWindowGraphic5746E0}, &WindowPetSkillChoice_ButtonNextRow, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonNextRow)},
+    {WindowElementType_Graphic, 472, 300, 18, 18, 1, {.graphic = &gWindowGraphic574788}, &WindowPetSkillChoice_ButtonPreviousPage, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonPreviousPage)},
+    {WindowElementType_Graphic, 498, 300, 18, 18, 1, {.graphic = &gWindowGraphic5747A0}, &WindowPetSkillChoice_ButtonNextPage, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonNextPage)},
+    {WindowElementType_EventArea, 286, 27, 273, 280, 1, {.unusedValue = 0}, &WindowPetSkillChoice_Scroll, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Scroll)},
+    {WindowElementType_Graphic, 499, 132, 11, 11, 1, {.graphic = &gWindowGraphic574728}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element17)},
+    {WindowElementType_Graphic, 269, 85, 0, 14, 1, {.graphic = &gWindowGraphic5746B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element18)},
+    {WindowElementType_MouseArea, 269, 85, 11, 244, 1, {.mouseFlags = &gWindowMouseFlagsD67900}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::HandleVerticalScroll_19)},
+    {WindowElementType_Graphic, 269, 75, 11, 11, 1, {.graphic = &gWindowGraphic5746C8}, &WindowPetSkillChoice_ButtonPreviousRow, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonPreviousRow_20)},
+    {WindowElementType_Graphic, 269, 327, 11, 11, 1, {.graphic = &gWindowGraphic5746E0}, &WindowPetSkillChoice_ButtonNextRow, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonNextRow_21)},
+    {WindowElementType_Graphic, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic574788}, &WindowPetSkillChoice_ButtonPreviousPage, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonPreviousPage_22)},
+    {WindowElementType_Graphic, 246, 55, 18, 18, 1, {.graphic = &gWindowGraphic5747A0}, &WindowPetSkillChoice_ButtonNextPage, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::ButtonNextPage_23)},
+    {WindowElementType_EventArea, 17, 28, 274, 325, 1, {.unusedValue = 0}, &WindowPetSkillChoice_Scroll, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Scroll_24)},
+    {WindowElementType_Text, 33, 87, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element25)},
+    {WindowElementType_Text, 33, 127, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element26)},
+    {WindowElementType_Text, 33, 147, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element27)},
+    {WindowElementType_Text, 33, 167, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element28)},
+    {WindowElementType_Text, 33, 187, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element29)},
+    {WindowElementType_Text, 33, 207, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element30)},
+    {WindowElementType_Text, 33, 227, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element31)},
+    {WindowElementType_Text, 33, 247, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element32)},
+    {WindowElementType_Text, 33, 267, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element33)},
+    {WindowElementType_Text, 33, 287, 0, 0, 1, {.text = &gWindowText5747D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element34)},
+    {WindowElementType_Text, 296, 135, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element35)},
+    {WindowElementType_Text, 296, 151, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element36)},
+    {WindowElementType_Text, 296, 167, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element37)},
+    {WindowElementType_Text, 296, 183, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element38)},
+    {WindowElementType_Text, 296, 199, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element39)},
+    {WindowElementType_Text, 296, 215, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element40)},
+    {WindowElementType_Text, 296, 231, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element41)},
+    {WindowElementType_Text, 296, 247, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element42)},
+    {WindowElementType_Text, 296, 263, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element43)},
+    {WindowElementType_Text, 296, 279, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element44)},
+    {WindowElementType_Text, 446, 135, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element45)},
+    {WindowElementType_Text, 446, 151, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element46)},
+    {WindowElementType_Text, 446, 167, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element47)},
+    {WindowElementType_Text, 446, 183, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element48)},
+    {WindowElementType_Text, 446, 199, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element49)},
+    {WindowElementType_Number, 454, 136, 0, 0, 1, {.number = &gWindowNumber574848}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element50)},
+    {WindowElementType_Number, 454, 152, 0, 0, 1, {.number = &gWindowNumber574850}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element51)},
+    {WindowElementType_Number, 454, 168, 0, 0, 1, {.number = &gWindowNumber574858}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element52)},
+    {WindowElementType_Number, 454, 184, 0, 0, 1, {.number = &gWindowNumber574860}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element53)},
+    {WindowElementType_Number, 454, 200, 0, 0, 1, {.number = &gWindowNumber574868}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element54)},
+    {WindowElementType_Number, 454, 216, 0, 0, 1, {.number = &gWindowNumber574870}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element55)},
+    {WindowElementType_Number, 454, 232, 0, 0, 1, {.number = &gWindowNumber574878}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element56)},
+    {WindowElementType_Number, 454, 248, 0, 0, 1, {.number = &gWindowNumber574880}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element57)},
+    {WindowElementType_Number, 454, 264, 0, 0, 1, {.number = &gWindowNumber574888}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element58)},
+    {WindowElementType_Number, 454, 280, 0, 0, 1, {.number = &gWindowNumber574890}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element59)},
+    {WindowElementType_Number, 492, 136, 0, 0, 1, {.number = &gWindowNumber574898}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element60)},
+    {WindowElementType_Number, 492, 152, 0, 0, 1, {.number = &gWindowNumber5748A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element61)},
+    {WindowElementType_Number, 492, 168, 0, 0, 1, {.number = &gWindowNumber5748A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element62)},
+    {WindowElementType_Number, 492, 184, 0, 0, 1, {.number = &gWindowNumber5748B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element63)},
+    {WindowElementType_Number, 492, 200, 0, 0, 1, {.number = &gWindowNumber5748B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element64)},
+    {WindowElementType_Number, 492, 216, 0, 0, 1, {.number = &gWindowNumber5748C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element65)},
+    {WindowElementType_Number, 492, 232, 0, 0, 1, {.number = &gWindowNumber5748C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element66)},
+    {WindowElementType_Number, 492, 248, 0, 0, 1, {.number = &gWindowNumber5748D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element67)},
+    {WindowElementType_Number, 492, 264, 0, 0, 1, {.number = &gWindowNumber5748D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element68)},
+    {WindowElementType_Number, 492, 280, 0, 0, 1, {.number = &gWindowNumber5748E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element69)},
+    {WindowElementType_Graphic, 290, 133, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element70)},
+    {WindowElementType_Graphic, 290, 149, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element71)},
+    {WindowElementType_Graphic, 290, 165, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element72)},
+    {WindowElementType_Graphic, 290, 181, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element73)},
+    {WindowElementType_Graphic, 290, 197, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element74)},
+    {WindowElementType_Graphic, 290, 213, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element75)},
+    {WindowElementType_Graphic, 290, 229, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element76)},
+    {WindowElementType_Graphic, 290, 245, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element77)},
+    {WindowElementType_Graphic, 290, 261, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element78)},
+    {WindowElementType_Graphic, 290, 277, 207, 16, 1, {.graphic = &gWindowGraphic574740}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element79)},
+    {WindowElementType_Text, 41, 82, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element80)},
+    {WindowElementType_Text, 41, 137, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element81)},
+    {WindowElementType_Text, 41, 192, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element82)},
+    {WindowElementType_Text, 41, 247, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element83)},
+    {WindowElementType_Text, 41, 302, 0, 0, 1, {.text = &gWindowText5747C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element84)},
+    {WindowElementType_Number, 239, 83, 0, 14, 1, {.number = &gWindowNumber5747F8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element85)},
+    {WindowElementType_Number, 239, 138, 0, 14, 1, {.number = &gWindowNumber574800}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element86)},
+    {WindowElementType_Number, 239, 193, 0, 14, 1, {.number = &gWindowNumber574808}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element87)},
+    {WindowElementType_Number, 239, 248, 0, 14, 1, {.number = &gWindowNumber574810}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element88)},
+    {WindowElementType_Number, 239, 303, 0, 14, 1, {.number = &gWindowNumber574818}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element89)},
+    {WindowElementType_Number, 233, 108, 0, 14, 1, {.number = &gWindowNumber574820}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element90)},
+    {WindowElementType_Number, 233, 163, 0, 14, 1, {.number = &gWindowNumber574828}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element91)},
+    {WindowElementType_Number, 233, 218, 0, 14, 1, {.number = &gWindowNumber574830}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element92)},
+    {WindowElementType_Number, 233, 273, 0, 14, 1, {.number = &gWindowNumber574838}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element93)},
+    {WindowElementType_Number, 233, 328, 0, 14, 1, {.number = &gWindowNumber574840}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element94)},
+    {WindowElementType_Graphic, 37, 80, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element95)},
+    {WindowElementType_Graphic, 37, 135, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element96)},
+    {WindowElementType_Graphic, 37, 190, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element97)},
+    {WindowElementType_Graphic, 37, 245, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element98)},
+    {WindowElementType_Graphic, 37, 300, 207, 16, 1, {.graphic = &gWindowGraphic574770}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element99)},
+    {WindowElementType_Graphic, 27, 70, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element100)},
+    {WindowElementType_Graphic, 27, 125, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element101)},
+    {WindowElementType_Graphic, 27, 180, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element102)},
+    {WindowElementType_Graphic, 27, 235, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element103)},
+    {WindowElementType_Graphic, 27, 290, 241, 55, 1, {.graphic = &gWindowGraphic574758}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element104)},
+    {WindowElementType_Graphic, 17, 28, 274, 325, 1, {.graphic = &gWindowGraphic574698}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element105)},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic574680}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::Element106)},
+    {WindowElementType_EventArea, 552, 5, 18, 80, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowPetSkillChoiceElementId::HandleSideArea)},
 };
 
 // 原型：窗口54；原全局：0x0054EC90。
@@ -734,9 +847,9 @@ void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* const text)
 // 原函数：0x004BE3F0。
 static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
 {
-    window->elements[104].data.graphic->imageNo = 244384;
-    window->elements[2].visible = 1;
-    window->elements[5].visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244384;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
     gWindow54ValueCB01E4 = 0;
     std::int32_t usedSlots = 0;
     std::int32_t count = 0;
@@ -750,7 +863,8 @@ static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
     }
     const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
     gWindow54ValueCB01E4 = count;
-    cg::text::FormatTo(window->elements[5].data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
+    if (!((window && (*window)[WindowPetSkillChoiceElementId::Element6]))) { return; }
+    cg::text::FormatTo((*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
     std::int32_t freeSlots = world::gPlayerRuntimeSlots.value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
@@ -758,38 +872,39 @@ static void WindowPetSkillChoice_RefreshLearn(WindowInstance* const window)
     const std::int32_t displayed = gWindow54ValueCB01E4 + freeSlots;
     gWindow54ValueCB01E4 = displayed;
     for (std::int32_t index = 9; index <= 16; ++index) {
-        window->elements[index].visible = displayed > 10 ? 1 : 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = displayed > 10 ? 1 : 0;
     }
-    window->elements[24].visible = 1;
-    window->elements[24].data.text->text = gNpcDialogLinesCC24D4[9].text;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element25])) (*window)[WindowPetSkillChoiceElementId::Element25]->visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element25])) (*window)[WindowPetSkillChoiceElementId::Element25]->data.text->text = gNpcDialogLinesCC24D4[9].text;
     for (std::int32_t row = 0; row < 8; ++row) {
-        window->elements[row + 25].visible = 1;
-        window->elements[row + 25].data.text->text = gNpcDialogLinesCC24D4[row + 10].text;
+        if ((window && (*window)[NativeElementKey(row + 25)])) (*window)[NativeElementKey(row + 25)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 25)])) (*window)[NativeElementKey(row + 25)]->data.text->text = gNpcDialogLinesCC24D4[row + 10].text;
     }
-    window->elements[33].visible = 1;
-    cg::text::FormatTo(window->elements[33].data.text->text, L"所需的技能栏位数量：{:2}栏", gWindow54ValueCC2E68);
-    window->elements[6].visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 1;
+    if (!((window && (*window)[WindowPetSkillChoiceElementId::Element34]))) { return; }
+    cg::text::FormatTo((*window)[WindowPetSkillChoiceElementId::Element34]->data.text->text, L"所需的技能栏位数量：{:2}栏", gWindow54ValueCC2E68);
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54ValueCF4A3C);
     for (std::int32_t row = 0; row < 10; ++row) {
-        window->elements[row + 69].mouseCallback = &WindowElement_NoOp;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowElement_NoOp;
     }
     const std::int32_t currentCount = gWindow54ValueCB01E4;
     const std::int32_t scroll = gWindow54PetScrollCC31DC;
     WindowPetSkillChoice_RefreshLearnRows(window, scroll, currentCount);
     for (std::int32_t index = 17; index <= 23; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
     for (std::int32_t index = 79; index <= 103; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
 }
 
 // 原函数：0x004BE600。
 static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
 {
-    window->elements[104].data.graphic->imageNo = 244384;
-    window->elements[2].visible = 0;
-    window->elements[5].visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244384;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
     for (std::int32_t row = 0; row < world::kSkillSlotCount; ++row) {
         const world::SkillPairRecord& pair = world::gSkillPairsF63370[row];
         if (pair.used != 0) {
@@ -820,7 +935,8 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
     }
     const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
     gWindow54ValueCB01E4 = count;
-    cg::text::FormatTo(window->elements[5].data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
+    if (!((window && (*window)[WindowPetSkillChoiceElementId::Element6]))) { return; }
+    cg::text::FormatTo((*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
     std::int32_t freeSlots = world::gPlayerRuntimeSlots.value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
@@ -828,87 +944,89 @@ static void WindowPetSkillChoice_RefreshForget(WindowInstance* const window)
     const std::int32_t displayed = gWindow54ValueCB01E4 + freeSlots;
     gWindow54ValueCB01E4 = displayed;
     for (std::int32_t index = 9; index <= 16; ++index) {
-        window->elements[index].visible = displayed > 10 ? 1 : 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = displayed > 10 ? 1 : 0;
     }
-    window->elements[24].visible = 0;
-    window->elements[25].data.text->text = L"请选择";
-    window->elements[26].data.text->text = L"想遗忘的技能";
-    window->elements[27].data.text->text = L"";
-    window->elements[28].data.text->text = L"＊＊＊＊＊＊　注意　＊＊＊＊＊＊";
-    window->elements[29].data.text->text = L"";
-    window->elements[30].data.text->text = L"　一旦遗忘技能后";
-    window->elements[31].data.text->text = L"　就不能再恢复原状了。";
-    window->elements[32].data.text->text = L"　请特别注意。";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element25])) (*window)[WindowPetSkillChoiceElementId::Element25]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element26])) (*window)[WindowPetSkillChoiceElementId::Element26]->data.text->text = L"请选择";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element27])) (*window)[WindowPetSkillChoiceElementId::Element27]->data.text->text = L"想遗忘的技能";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element28])) (*window)[WindowPetSkillChoiceElementId::Element28]->data.text->text = L"";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element29])) (*window)[WindowPetSkillChoiceElementId::Element29]->data.text->text = L"＊＊＊＊＊＊　注意　＊＊＊＊＊＊";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element30])) (*window)[WindowPetSkillChoiceElementId::Element30]->data.text->text = L"";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element31])) (*window)[WindowPetSkillChoiceElementId::Element31]->data.text->text = L"　一旦遗忘技能后";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element32])) (*window)[WindowPetSkillChoiceElementId::Element32]->data.text->text = L"　就不能再恢复原状了。";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element33])) (*window)[WindowPetSkillChoiceElementId::Element33]->data.text->text = L"　请特别注意。";
     for (std::int32_t index = 25; index <= 32; ++index) {
-        window->elements[index].visible = 1;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
     }
-    window->elements[33].visible = 0;
-    window->elements[6].visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", 0);
     for (std::int32_t row = 0; row < 10; ++row) {
-        window->elements[row + 69].mouseCallback = &WindowPetSkillChoice_SubmitForget;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowPetSkillChoice_SubmitForget;
     }
     const std::int32_t currentCount = gWindow54ValueCB01E4;
     const std::int32_t scroll = gWindow54PetScrollCC31DC;
     WindowPetSkillChoice_RefreshForgetRows(window, scroll, currentCount);
     for (std::int32_t index = 17; index <= 23; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
     for (std::int32_t index = 79; index <= 103; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
 }
 
 // 原函数：0x004BE930。
 static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
 {
-    window->elements[104].data.graphic->imageNo = 244385;
-    window->elements[2].visible = 0;
-    window->elements[5].visible = 1;
-    window->elements[5].data.text->text = L"";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244385;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text = L"";
     for (std::int32_t index = 9; index <= 16; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
     for (std::int32_t index = 24; index <= 32; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
-    window->elements[33].visible = 0;
-    window->elements[6].visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", 0);
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t petIndex =
             std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
-        window->elements[row + 69].visible = 1;
-        window->elements[row + 69].mouseCallback = &WindowElement_NoOp;
-        window->elements[row + 69].data.graphic->imageNo = 243100;
-        window->elements[row + 34].visible = 1;
-        window->elements[row + 44].visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowElement_NoOp;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->data.graphic->imageNo = 243100;
+        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 0;
         if (gWindow54ModeC8AF64 == 12) {
-            window->elements[row + 44].visible = 1;
+            if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 1;
         }
-        window->elements[row + 49].visible = 1;
-        window->elements[row + 59].visible = 1;
-        window->elements[row + 34].data.text->text.clear();
-        window->elements[row + 44].data.text->text.clear();
+        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
+        if (!((window && (*window)[NativeElementKey(row + 34)]))) { continue; }
+        (*window)[NativeElementKey(row + 34)]->data.text->text.clear();
+        if (!((window && (*window)[NativeElementKey(row + 44)]))) { continue; }
+        (*window)[NativeElementKey(row + 44)]->data.text->text.clear();
         const world::PetRuntimeRecord& pet = world::gPetRuntimeRecords[petIndex];
         const bool used = pet.used != 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (used) {
             const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            window->elements[row + 34].data.text->text = name;
+            if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = name;
             const std::int32_t tribe = std::bit_cast<std::int16_t>(pet.value04);
-            window->elements[row + 44].data.text->text = gTribeNames57CB54[tribe];
+            if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->data.text->text = gTribeNames57CB54[tribe];
         }
     }
     for (std::int32_t row = 5; row < 10; ++row) {
-        window->elements[row + 69].visible = 0;
-        window->elements[row + 34].visible = 0;
-        window->elements[row + 49].visible = 0;
-        window->elements[row + 59].visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
     }
     for (std::int32_t index = 17; index <= 23; ++index) {
-        window->elements[index].visible = 1;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
     }
     WindowPetSkillChoice_RefreshPetRows(window, gWindow54SkillScrollCC31F4);
 }
@@ -916,18 +1034,18 @@ static void WindowPetSkillChoice_RefreshPetNames(WindowInstance* const window)
 // 原函数：0x004BEC20。
 static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const window)
 {
-    window->elements[104].data.graphic->imageNo = 244385;
-    window->elements[2].visible = 0;
-    window->elements[5].visible = 1;
-    window->elements[5].data.text->text = L"";
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244385;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text = L"";
     for (std::int32_t index = 9; index <= 16; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
     for (std::int32_t index = 24; index <= 32; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
-    window->elements[33].visible = 0;
-    window->elements[6].visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
         const world::PetPairRecord& pair = world::gPetPairsDE0B08[row];
@@ -948,36 +1066,38 @@ static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const wind
     }
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t selected = gWindow54PetMapCF4AB0[row];
-        window->elements[row + 69].visible = 1;
-        window->elements[row + 69].mouseCallback = &WindowPetSkillChoice_SelectPetCandidate;
-        window->elements[row + 34].visible = 1;
-        window->elements[row + 44].visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowPetSkillChoice_SelectPetCandidate;
+        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 0;
         if (gWindow54ModeC8AF64 == 13) {
-            window->elements[row + 44].visible = 1;
+            if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 1;
         }
-        window->elements[row + 49].visible = 1;
-        window->elements[row + 59].visible = 1;
-        window->elements[row + 34].data.text->text.clear();
-        window->elements[row + 44].data.text->text.clear();
+        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
+        if (!((window && (*window)[NativeElementKey(row + 34)]))) { continue; }
+        (*window)[NativeElementKey(row + 34)]->data.text->text.clear();
+        if (!((window && (*window)[NativeElementKey(row + 44)]))) { continue; }
+        (*window)[NativeElementKey(row + 44)]->data.text->text.clear();
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (selected >= 0 && gWindow54PetOptionsD67448[selected].used != 0) {
             const Window54PetOption& option = gWindow54PetOptionsD67448[selected];
-            window->elements[row + 34].data.text->text = option.name;
+            if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = option.name;
             const std::int32_t tribe = option.tribe;
             if (tribe >= 0) {
-                window->elements[row + 44].data.text->text = gTribeNames57CB54[tribe];
+                if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->data.text->text = gTribeNames57CB54[tribe];
             }
         }
     }
     for (std::int32_t row = 5; row < 10; ++row) {
-        window->elements[row + 69].visible = 0;
-        window->elements[row + 34].visible = 0;
-        window->elements[row + 49].visible = 0;
-        window->elements[row + 59].visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
     }
     for (std::int32_t index = 17; index <= 23; ++index) {
-        window->elements[index].visible = 1;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
     }
     WindowPetSkillChoice_RefreshPetRows(window, gWindow54SkillScrollCC31F4);
 }
@@ -985,9 +1105,9 @@ static void WindowPetSkillChoice_RefreshPetCandidates(WindowInstance* const wind
 // 原函数：0x004BEF30。
 static void WindowPetSkillChoice_RefreshSelectedPetSkills(WindowInstance* const window)
 {
-    window->elements[104].data.graphic->imageNo = 244385;
-    window->elements[2].visible = 0;
-    window->elements[5].visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element105])) (*window)[WindowPetSkillChoiceElementId::Element105]->data.graphic->imageNo = 244385;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::ButtonLearn])) (*window)[WindowPetSkillChoiceElementId::ButtonLearn]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element6])) (*window)[WindowPetSkillChoiceElementId::Element6]->visible = 1;
     const std::int32_t capacity = std::min(gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots, world::kPetTechniqueSlotCount);
     gWindow54ValueCB01E4 = capacity;
     gWindow54PetScrollCC31DC = std::clamp(gWindow54PetScrollCC31DC, 0, std::max(0, capacity - 10));
@@ -997,37 +1117,40 @@ static void WindowPetSkillChoice_RefreshSelectedPetSkills(WindowInstance* const 
             ++used;
         }
     }
-    cg::text::FormatTo(window->elements[5].data.text->text, L"{:2}/{:2}", used, capacity);
+    if (!((window && (*window)[WindowPetSkillChoiceElementId::Element6]))) { return; }
+    cg::text::FormatTo((*window)[WindowPetSkillChoiceElementId::Element6]->data.text->text, L"{:2}/{:2}", used, capacity);
     for (std::int32_t index = 9; index <= 16; ++index) {
-        window->elements[index].visible = capacity > 10 ? 1 : 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = capacity > 10 ? 1 : 0;
     }
-    static_cast<void>(WindowScroll_SetPosition(&window->elements[10], std::max(0, capacity - 10), gWindow54PetScrollCC31DC));
+    if (!((window && (*window)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return; }
+    static_cast<void>(WindowScroll_SetPosition((*window)[WindowPetSkillChoiceElementId::HandleVerticalScroll], std::max(0, capacity - 10), gWindow54PetScrollCC31DC));
     for (std::int32_t index = 24; index <= 32; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
-    window->elements[33].visible = 0;
-    window->elements[6].visible = 1;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element34])) (*window)[WindowPetSkillChoiceElementId::Element34]->visible = 0;
+    if ((window && (*window)[WindowPetSkillChoiceElementId::Element7])) (*window)[WindowPetSkillChoiceElementId::Element7]->visible = 1;
     cg::text::FormatTo(gWindow54AmountTextD45F78, L"{:10}", gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
-        window->elements[row + 69].visible = 1;
-        window->elements[row + 69].mouseCallback = &WindowPetSkillChoice_SelectPetCandidate;
-        window->elements[row + 34].data.text->text.clear();
-        window->elements[row + 44].visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowPetSkillChoice_SelectPetCandidate;
+        if (!((window && (*window)[NativeElementKey(row + 34)]))) { continue; }
+        (*window)[NativeElementKey(row + 34)]->data.text->text.clear();
+        if ((window && (*window)[NativeElementKey(row + 44)])) (*window)[NativeElementKey(row + 44)]->visible = 0;
         const bool usedOption = gWindow54PetOptionsD67448[row].used != 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (usedOption) {
-            window->elements[row + 34].data.text->text = gWindow54PetOptionsD67448[row].name;
+            if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = gWindow54PetOptionsD67448[row].name;
         }
     }
     for (std::int32_t row = 5; row < 10; ++row) {
-        window->elements[row + 69].visible = 0;
-        window->elements[row + 34].visible = 0;
-        window->elements[row + 49].visible = 0;
-        window->elements[row + 59].visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
     }
     for (std::int32_t index = 17; index <= 23; ++index) {
-        window->elements[index].visible = 1;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 1;
     }
     WindowPetSkillChoice_RefreshPetRows(window, gWindow54SkillScrollCC31F4);
     WindowPetSkillChoice_RefreshSelectedSkillRows(window, gWindow54PetScrollCC31DC);
@@ -1038,22 +1161,22 @@ static void WindowPetSkillChoice_RefreshLearnRows(
     WindowInstance* const window, const std::int32_t scroll, const std::int32_t count)
 {
     for (std::int32_t row = 0; row < 10; ++row) {
-        window->elements[row + 69].visible = 0;
-        window->elements[row + 34].visible = 0;
-        window->elements[row + 49].visible = 0;
-        window->elements[row + 59].visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (scroll + row < count) {
-            window->elements[row + 69].visible = 1;
+            if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
             const world::SkillPairRecord& pair = world::gSkillPairsF63370[scroll + row];
             if (pair.used != 0) {
                 const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
-                window->elements[row + 34].visible = 1;
-                window->elements[row + 49].visible = 1;
-                window->elements[row + 59].visible = 1;
+                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
+                if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 1;
+                if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
                 const world::SkillRuntimeRecord& skill = world::gSkillsF1BAFC[index];
-                window->elements[row + 34].data.text->text = skill.name;
+                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = skill.name;
                 cg::text::FormatTo(gWindow54ValueTextsCB035C[row], L"{:2}", skill.level);
                 const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:2}", requiredSlots);
@@ -1061,7 +1184,7 @@ static void WindowPetSkillChoice_RefreshLearnRows(
         }
     }
     for (std::int32_t index = 44; index <= 48; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
 }
 
@@ -1070,27 +1193,27 @@ static void WindowPetSkillChoice_RefreshForgetRows(
     WindowInstance* const window, const std::int32_t scroll, const std::int32_t count)
 {
     for (std::int32_t row = 0; row < 10; ++row) {
-        window->elements[row + 69].visible = 0;
-        window->elements[row + 34].visible = 0;
-        window->elements[row + 49].visible = 0;
-        window->elements[row + 59].visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
         gWindow54ValueTextsCB035C[row].clear();
         gWindow54ValueTextsC8B318[row].clear();
         if (scroll + row < count) {
-            window->elements[row + 69].visible = 1;
+            if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
             const std::int32_t selected = gWindow54SkillMapCC4D04[scroll + row];
             if (selected >= 0 && gWindow54ValuesCB01A4[selected] >= 0) {
-                window->elements[row + 34].visible = 1;
-                window->elements[row + 49].visible = 1;
-                window->elements[row + 59].visible = 1;
-                window->elements[row + 34].data.text->text = gWindow54NamesC8AAA0[selected].text;
+                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
+                if ((window && (*window)[NativeElementKey(row + 49)])) (*window)[NativeElementKey(row + 49)]->visible = 1;
+                if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
+                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = gWindow54NamesC8AAA0[selected].text;
                 cg::text::FormatTo(gWindow54ValueTextsCB035C[row], L"{:2}", gWindow54ValuesCB01A4[selected]);
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:2}", gWindow54ValuesCB09D8[selected]);
             }
         }
     }
     for (std::int32_t index = 44; index <= 48; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
 }
 
@@ -1099,34 +1222,36 @@ static void WindowPetSkillChoice_RefreshPetRows(WindowInstance* const window, co
 {
     for (std::int32_t row = 0; row < 5; ++row) {
         const Window54SkillRecord& record = gWindow54SkillsD2EAB8[scroll + row];
-        window->elements[row + 94].visible = 1;
-        window->elements[row + 79].visible = 1;
-        window->elements[row + 84].visible = 1;
-        window->elements[row + 89].visible = 1;
-        window->elements[row + 99].visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 94)])) (*window)[NativeElementKey(row + 94)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 79)])) (*window)[NativeElementKey(row + 79)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 84)])) (*window)[NativeElementKey(row + 84)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 89)])) (*window)[NativeElementKey(row + 89)]->visible = 1;
+        if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->visible = 1;
         if (gWindow54ModeC8AF64 == 2) {
-            window->elements[row + 99].mouseCallback = &WindowPetSkillChoice_SubmitPetSkill;
+            if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->mouseCallback = &WindowPetSkillChoice_SubmitPetSkill;
         }
         if (gWindow54ModeC8AF64 == 3) {
-            window->elements[row + 99].mouseCallback = &WindowPetSkillChoice_DrawSelectedSkillFrame;
+            if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->mouseCallback = &WindowPetSkillChoice_DrawSelectedSkillFrame;
         }
         if (gWindow54ModeC8AF64 == 12) {
-            window->elements[row + 99].mouseCallback = &WindowPetSkillChoice_SubmitPetSkill;
+            if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->mouseCallback = &WindowPetSkillChoice_SubmitPetSkill;
         }
         if (gWindow54ModeC8AF64 == 13) {
-            window->elements[row + 99].mouseCallback = &WindowPetSkillChoice_DrawSelectedSkillFrame;
+            if ((window && (*window)[NativeElementKey(row + 99)])) (*window)[NativeElementKey(row + 99)]->mouseCallback = &WindowPetSkillChoice_DrawSelectedSkillFrame;
         }
-        window->elements[row + 79].data.text->text.clear();
+        if (!((window && (*window)[NativeElementKey(row + 79)]))) { continue; }
+        (*window)[NativeElementKey(row + 79)]->data.text->text.clear();
         gWindow54SkillValueTextsCF4978[row].clear();
         gWindow54SkillPriceTextsCF493C[row].clear();
         // 原存在性检查不加scroll，显示内容仍取分页后的记录。
         if (gWindow54SkillsD2EAB8[row].name[0] != '\0') {
-            window->elements[row + 79].data.text->text = record.name;
+            if ((window && (*window)[NativeElementKey(row + 79)])) (*window)[NativeElementKey(row + 79)]->data.text->text = record.name;
             cg::text::FormatTo(gWindow54SkillValueTextsCF4978[row], L"{:5}", record.value04);
             cg::text::FormatTo(gWindow54SkillPriceTextsCF493C[row], L"{:10}", record.price);
             const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
             const std::int32_t price = record.price;
-            window->elements[row + 89].data.number->color =
+            if (!((window && (*window)[NativeElementKey(row + 89)]))) { continue; }
+            (*window)[NativeElementKey(row + 89)]->data.number->color =
                 money >= price ? 0 : 6;
         }
     }
@@ -1140,29 +1265,30 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const 
     if (visibleCount > 0) {
         do {
             const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[scroll + row];
-            window->elements[row + 69].visible = 1;
-            window->elements[row + 34].visible = 1;
-            window->elements[row + 59].visible = 1;
-            window->elements[row + 69].mouseCallback = &WindowPetSkillChoice_SelectSkillSlot;
-            window->elements[row + 34].data.text->text.clear();
+            if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 1;
+            if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 1;
+            if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 1;
+            if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowPetSkillChoice_SelectSkillSlot;
+            if (!((window && (*window)[NativeElementKey(row + 34)]))) { return; }
+            (*window)[NativeElementKey(row + 34)]->data.text->text.clear();
             const bool used = slot.used != 0;
             gWindow54ValueTextsCB035C[row].clear();
             gWindow54ValueTextsC8B318[row].clear();
             if (used) {
-                window->elements[row + 34].data.text->text = slot.name;
+                if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->data.text->text = slot.name;
                 cg::text::FormatTo(gWindow54ValueTextsC8B318[row], L"{:3}", slot.value04);
             }
             ++row;
         } while (row < visibleCount);
     }
     for (; row < 10; ++row) {
-        window->elements[row + 69].visible = 0;
-        window->elements[row + 34].visible = 0;
-        window->elements[row + 59].visible = 0;
-        window->elements[row + 69].mouseCallback = &WindowElement_NoOp;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 34)])) (*window)[NativeElementKey(row + 34)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 59)])) (*window)[NativeElementKey(row + 59)]->visible = 0;
+        if ((window && (*window)[NativeElementKey(row + 69)])) (*window)[NativeElementKey(row + 69)]->mouseCallback = &WindowElement_NoOp;
     }
     for (std::int32_t index = 44; index <= 48; ++index) {
-        window->elements[index].visible = 0;
+        if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
     }
 }
 
@@ -1170,11 +1296,13 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const 
 static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
 {
     if (value == -1) {
-        gCurrentWindow->elements[0].visible = 0;
-        gCurrentWindow->elements[4].data.text->text = gNpcDialogLinesCC24D4[0].text;
-        auto* animation = gCurrentWindow->elements[8].data.animation;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::HandleConfirmation])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::HandleConfirmation]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element5])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element5]->data.text->text = gNpcDialogLinesCC24D4[0].text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element9]))) { return {}; }
+        auto* animation = (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element9]->data.animation;
         cg::yobi::SetYobiActionField2A8(animation->action, gWindow54ImageCC18C4);
-        animation = gCurrentWindow->elements[8].data.animation;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element9]))) { return {}; }
+        animation = (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element9]->data.animation;
         cg::yobi::SetYobiActionField2B8(animation->action, 5);
         gWindow54PetScrollCC31DC = 0;
         const auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
@@ -1222,12 +1350,14 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
     case 0:
     case 1: {
         if (gWindow54ValueCB01E4 - 10 <= 0) {
-            window->elements[9].visible = 0;
+            if ((window && (*window)[WindowPetSkillChoiceElementId::Element10])) (*window)[WindowPetSkillChoiceElementId::Element10]->visible = 0;
             window = gCurrentWindow;
         }
-        WindowElement* const elements = window->elements;
-        if ((elements[10].data.mouse->flags & 1u) != 0) {
-            const std::int32_t position = WindowScroll_ReadPosition(elements + 10, gWindow54ValueCB01E4 - 10);
+        auto* elementsWindow = window;
+        if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return {}; }
+        if (((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]->data.mouse->flags & 1u) != 0) {
+            if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return {}; }
+            const std::int32_t position = WindowScroll_ReadPosition((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll], gWindow54ValueCB01E4 - 10);
             const std::uint8_t currentMode = gWindow54ModeC8AF64;
             WindowInstance* const current = gCurrentWindow;
             gWindow54PetScrollCC31DC = position;
@@ -1245,24 +1375,28 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
     case 4:
     case 12:
     case 13: {
-        window->elements[9].visible = 1;
+        if ((window && (*window)[WindowPetSkillChoiceElementId::Element10])) (*window)[WindowPetSkillChoiceElementId::Element10]->visible = 1;
         if (gWindow54ValueCB01E4 - 10 <= 0) {
-            gCurrentWindow->elements[9].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element10])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element10]->visible = 0;
         }
-        WindowElement* elements = gCurrentWindow->elements;
-        if ((elements[10].data.mouse->flags & 1u) != 0) {
-            const std::int32_t position = WindowScroll_ReadPosition(elements + 10, gWindow54ValueCB01E4 - 10);
+        auto* elementsWindow = gCurrentWindow;
+        if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return {}; }
+        if (((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]->data.mouse->flags & 1u) != 0) {
+            if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll]))) { return {}; }
+            const std::int32_t position = WindowScroll_ReadPosition((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll], gWindow54ValueCB01E4 - 10);
             WindowInstance* const current = gCurrentWindow;
             gWindow54PetScrollCC31DC = position;
             WindowPetSkillChoice_RefreshSelectedSkillRows(current, position);
         }
-        gCurrentWindow->elements[17].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element18])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element18]->visible = 1;
         if (gWindow54ValueCB01E8 - 5 <= 0) {
-            gCurrentWindow->elements[17].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element18])) (*gCurrentWindow)[WindowPetSkillChoiceElementId::Element18]->visible = 0;
         }
-        elements = gCurrentWindow->elements;
-        if ((elements[18].data.mouse->flags & 1u) != 0) {
-            const std::int32_t position = WindowScroll_ReadPosition(elements + 18, gWindow54ValueCB01E8 - 5);
+        elementsWindow = gCurrentWindow;
+        if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll_19]))) { return {}; }
+        if (((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll_19]->data.mouse->flags & 1u) != 0) {
+            if (!((elementsWindow && (*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll_19]))) { return {}; }
+            const std::int32_t position = WindowScroll_ReadPosition((*elementsWindow)[WindowPetSkillChoiceElementId::HandleVerticalScroll_19], gWindow54ValueCB01E8 - 5);
             gWindow54SkillScrollCC31F4 = position;
             WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, position);
         }
@@ -1299,7 +1433,8 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
 // 原函数：0x004BFBC0。
 static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     if (hover) {
         gHoverTextD68AE8 = L"学习此技能。";
@@ -1336,7 +1471,8 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
 static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);
     const bool hover = (state & 1) != 0;
     if (hover) {
@@ -1449,7 +1585,8 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
 // 原函数：0x004BFF60。
 static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -1464,7 +1601,8 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
             const std::int32_t position = gWindow54PetScrollCC31DC;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            static_cast<void>(WindowScroll_SetPosition(window->elements + index - 1, maximum, position));
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t count = gWindow54ValueCB01E4;
             WindowInstance* const current = gCurrentWindow;
@@ -1491,7 +1629,8 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
                 const std::int32_t position = gWindow54PetScrollCC31DC;
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + index - 1, maximum, position));
+                if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
                 WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
             } else {
@@ -1504,7 +1643,8 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + index - 1, maximum, position));
+                if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
                 WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
             }
@@ -1527,7 +1667,8 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
 // 原函数：0x004C0160。
 static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -1542,7 +1683,8 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
             }
             const std::int32_t position = gWindow54PetScrollCC31DC;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 2, maximum, position));
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, position));
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
             WindowInstance* const window = gCurrentWindow;
@@ -1567,7 +1709,8 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
                 }
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 2, maximum, position));
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 2, maximum, position));
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
                 WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
                 break;
@@ -1586,7 +1729,8 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
             // 原4C0314为index-1；模式12/13也不按右侧元素改走另一分支。
-            static_cast<void>(WindowScroll_SetPosition(window->elements + index - 1, maximum, position));
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index)] - 1, maximum, position));
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
             WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
             break;
@@ -1609,7 +1753,8 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
 // 原函数：0x004C0380。
 static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -1622,7 +1767,8 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
             }
             const std::int32_t position = gWindow54PetScrollCC31DC;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 3, maximum, position));
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t count = gWindow54ValueCB01E4;
             WindowInstance* const window = gCurrentWindow;
@@ -1647,7 +1793,8 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
                 }
                 const std::int32_t position = gWindow54PetScrollCC31DC;
                 const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-                static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 3, maximum, position));
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
                 WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
             } else {
@@ -1658,7 +1805,8 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
                 }
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 3, maximum, position));
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 3, maximum, position));
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
                 WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
             }
@@ -1681,7 +1829,8 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
 // 原函数：0x004C0590。
 static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -1702,7 +1851,8 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                 position = 0;
                 gWindow54PetScrollCC31DC = position;
             }
-            static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 4, maximum, position));
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
             WindowInstance* const window = gCurrentWindow;
@@ -1735,7 +1885,8 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                     position = 0;
                     gWindow54PetScrollCC31DC = position;
                 }
-                static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 4, maximum, position));
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
                 WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
             } else {
@@ -1754,7 +1905,8 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                     position = 0;
                     gWindow54SkillScrollCC31F4 = position;
                 }
-                static_cast<void>(WindowScroll_SetPosition(gCurrentWindow->elements + index - 4, maximum, position));
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index)] - 4, maximum, position));
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
                 WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
             }
@@ -1784,8 +1936,9 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
             const std::int32_t count = gWindow54ValueCB01E4;
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t position = gWindow54PetScrollCC31DC;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
             gWindow54PetScrollCC31DC =
-                WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, position, count - 10, wheel);
+                WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 10, wheel);
             break;
         }
         case 2:
@@ -1797,15 +1950,17 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
             if (index <= 17) {
                 const std::int32_t count = gWindow54ValueCB01E4;
                 const std::int32_t position = gWindow54PetScrollCC31DC;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
                 const std::int32_t scroll =
-                    WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, position, count - 10, wheel);
+                    WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 10, wheel);
                 gWindow54PetScrollCC31DC = scroll;
                 WindowPetSkillChoice_RefreshSelectedSkillRows(gCurrentWindow, scroll);
             } else {
                 const std::int32_t count = gWindow54ValueCB01E8;
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
                 const std::int32_t scroll =
-                    WindowScroll_ApplyWheel(gCurrentWindow->elements + index - 5, position, count - 5, wheel);
+                    WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index)] - 5, position, count - 5, wheel);
                 gWindow54SkillScrollCC31F4 = scroll;
                 WindowPetSkillChoice_RefreshPetRows(gCurrentWindow, scroll);
             }
@@ -1821,7 +1976,8 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
 // 原函数：0x004C0910。
 static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t selected = gWindow54SkillMapCC4D04[gWindow54PetScrollCC31DC + index - 69];
     if (selected < 0 || gWindow54ValuesCB01A4[selected] < 0) {
         graphic->imageNo = 243104;
@@ -1862,7 +2018,8 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
 // 原函数：0x004C0A50。
 static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t selected = gWindow54PetMapCF4AB0[gWindow54PetScrollCC31DC + index - 69];
     if (selected == 0) {
         gWindow54MessageC9FCE0 = -1;
@@ -1933,7 +2090,8 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
 {
     WindowInstance* const window = gCurrentWindow;
     const bool hover = (state & 1) != 0;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     const std::int32_t slot = gWindow54PetScrollCC31DC + index - 69;
     if (hover) {
         gHoverTextD68AE8 = L"把要学习的技能放在这一栏。";
@@ -1941,7 +2099,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const std::int32_t inde
     std::int32_t consumed = 0;
     if ((state & 2) != 0) {
         gWindow54ReplacementC8B08C = slot;
-        window->elements[0].visible = 1;
+        if ((window && (*window)[WindowPetSkillChoiceElementId::HandleConfirmation])) (*window)[WindowPetSkillChoiceElementId::HandleConfirmation]->visible = 1;
         gCurrentWindow->state |= 2u;
         static_cast<void>(audio::PlaySe_52C450(78, 320));
         consumed = 1;
@@ -1967,7 +2125,8 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
     if ((state & 1) != 0) {
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t hoverImage = cg::render::gHoverFramePaletteIndex_D69768;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
         cg::render::DrawGraphicHover(
@@ -2025,7 +2184,8 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(const std::int32
     const std::int32_t selected = gWindow54SkillScrollCC31F4 + index - 99;
     if (gWindow54SkillsD2EAB8[selected].name[0] != '\0' && gWindow54SelectedD2DC04 == selected) {
         WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x;
         const std::int32_t y = window->y + element.y;
         cg::render::DrawGraphicHover(
@@ -2052,7 +2212,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
         if ((buttons & 1u) != 0) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
             std::wstring requestText;
             cg::text::FormatTo(requestText, L"{}", gWindow54ReplacementC8B08C);
             const std::int32_t target = world::gDialogTargetD2DE6C;
@@ -2077,7 +2237,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
         static_cast<void>(0);
         if ((buttons & 1u) != 0) {
             cancelImage = 245327;
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
             gCurrentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }

@@ -18,9 +18,9 @@ static struct ElementPointerDrag {
 static bool pointerDragReserved = false; // 含松开/取消的当前帧，防止事件穿透。
 
 bool WindowRuntime_IsElementInteractive(const WindowInstance& window, const WindowElement& element) {
-    if ((window.state & WIN_STATE_CLOSE) || window.scriptHidden || element.visible != 1) return false;
+    if (element.removed || (window.state & WIN_STATE_CLOSE) || window.scriptHidden || element.visible != 1) return false;
     if (const auto* component = element.component) {
-        if (!component->attached || !component->hitable || !(window.state & WIN_STATE_ACTIVE)
+        if (!component->attached || !component->hitable || (window.id >= WIN_MAX && !(window.state & WIN_STATE_ACTIVE))
             || !window.components) return false;
         for (int parentId = component->parentId; parentId != 0;) {
             const auto* parent = window.components->find(parentId);
@@ -35,15 +35,7 @@ static WindowElement* ResolvePointerDrag(WindowInstance*& window) {
     window = WindowRuntime_FindInstance(pointerDrag.windowId);
     if (!window || window->generation != pointerDrag.generation || (window->state & WIN_STATE_CLOSE)
         || window->scriptHidden || platform::gWindowActiveState != 2) return nullptr;
-    WindowElement* element = nullptr;
-    if (pointerDrag.componentId != 0) {
-        if (!(window->state & WIN_STATE_ACTIVE) || !window->components) return nullptr;
-        auto* component = window->components->find(pointerDrag.componentId);
-        if (!component || !component->hitable) return nullptr;
-        element = &component->element();
-    } else if (pointerDrag.elementIndex >= 0 && pointerDrag.elementIndex < window->elementCount) {
-        element = &window->elements[pointerDrag.elementIndex];
-    }
+    WindowElement* element = (*window)[static_cast<ElementId>(pointerDrag.elementIndex)];
     return element && element->refDrag >= 0 && WindowRuntime_IsElementInteractive(*window, *element) ? element : nullptr;
 }
 
@@ -82,7 +74,7 @@ bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& eleme
     pointerDrag.windowId = window.id;
     pointerDrag.generation = window.generation;
     pointerDrag.componentId = element.component ? element.component->id : 0;
-    pointerDrag.elementIndex = static_cast<int>(&element - window.elements);
+    pointerDrag.elementIndex = static_cast<int>(element.elementId);
     pointerDrag.lastX = platform::gLegacyMouseState.buttonCoordinates[0];
     pointerDrag.lastY = platform::gLegacyMouseState.buttonCoordinates[1];
     pointerDrag.moved = false;
@@ -97,7 +89,7 @@ static void EmitPointerDrag(WindowInstance& window, WindowElement& element, int 
         const auto callbacks = component->callbacks;
         if (callbacks) callbacks->mouse(component->ref(), flags);
     } else if (window.binding) {
-        const int index = static_cast<int>(&element - window.elements);
+        const int index = static_cast<int>(element.elementId);
         window.binding->elementEvent(element, index, flags);
         if (WindowRuntime_IsElementInteractive(window, element)) window.binding->event(index, flags);
     }
@@ -167,76 +159,38 @@ void UIControl::bindPayload() {
     if (callbacks) callbacks->attach(value);
 }
 
-WindowComponentStore::~WindowComponentStore() {
-    WindowRuntime_CancelPointerDrag(window);
-    // 元素内存须晚于组件析构，输入焦点及事件解绑会访问当前元素。
-    pending.clear();
-    components.clear();
-    window.elements = nullptr;
-    window.elementCount = 0;
-}
+WindowComponentStore::~WindowComponentStore() = default;
 
 UIControl* WindowComponentStore::find(int id) const {
-    for (const auto* list : {&components, &pending})
-        for (const auto& item : *list)
-            if (item->attached && item->id == id) return item.get();
-    return nullptr;
+    auto* element = window[static_cast<ElementId>(id)];
+    return element && element->component && element->component->attached ? element->component : nullptr;
 }
 
 UIControl* WindowComponentStore::add(std::unique_ptr<UIControl> component, int parentId) {
     if (!component) return nullptr;
-    if (parentId != 0) {
-        const auto* parent = find(parentId);
+    if (parentId) {
+        auto* parent = find(parentId);
         if (!parent || parent->type != UIControl::TYPE_SCROLL_VIEW) return nullptr;
     }
+    auto& element = WindowRuntime_AddElement(window, static_cast<ElementId>(component->id));
+    const auto elementId = element.elementId;
+    const auto serial = element.creationSerial;
+    element = component->draft;
+    element.elementId = elementId;
+    element.owner = &window;
+    element.creationSerial = serial;
+    element.seqNo = -nextId++; // 默认按创建顺序，显式elementId不影响新控件优先级。
     component->windowOwner = &window;
     component->parentId = parentId;
+    component->currentElement = &element;
+    component->draft = {};
     component->bindPayload();
-    pending.push_back(std::move(component));
     changed = true;
-    return pending.back().get();
+    return component.release();
 }
-
-void WindowComponentStore::clear() {
-    WindowRuntime_CancelPointerDrag(window);
-    // 不改变正在遍历的数组；先使全部代理失效，再归还焦点。
-    for (auto* list : {&components, &pending})
-        for (auto& item : *list) item->attached = false;
-    for (auto* list : {&components, &pending})
-        for (auto& item : *list) item->blurTextInput();
-    changed = true;
-}
-
-void WindowComponentStore::publish() {
-    if (!changed) return;
-    // 先完成所有可能分配失败的操作，再迁移owner和借用地址。
-    std::vector<WindowElement> next;
-    next.reserve(components.size() + pending.size());
-    components.reserve(components.size() + pending.size());
-    for (const auto* list : {&components, &pending})
-        for (const auto& item : *list) if (item->attached) next.push_back(item->element());
-    std::erase_if(components, [](const auto& item) { return !item->attached; });
-    std::erase_if(pending, [](const auto& item) { return !item->attached; });
-    for (auto& item : pending) components.push_back(std::move(item));
-    pending.clear();
-    elements.swap(next);
-    window.elements = elements.data();
-    window.elementCount = static_cast<int>(elements.size());
-    for (std::size_t i = 0; i < components.size(); ++i) {
-        components[i]->currentElement = &elements[i];
-        components[i]->draft = {}; // 退役草稿不再保留属性表/载荷别名。
-        components[i]->bindPayload();
-    }
-    window.elementsSortedSource = nullptr;
-    changed = false;
-}
-
-int WindowComponentStore::rootCount() const {
-    int result = 0;
-    for (const auto* list : {&components, &pending})
-        for (const auto& item : *list) if (item->attached && item->parentId == 0) ++result;
-    return result;
-}
+void WindowComponentStore::clear() { WindowRuntime_ClearElements(window); changed = true; }
+void WindowComponentStore::publish() { WindowRuntime_UpdateElementOrder(window); changed = false; }
+int WindowComponentStore::rootCount() const { return static_cast<int>(window.sortedMap.size()); }
 
 WindowComponentStore& WindowRuntime_Components(WindowInstance& window) {
     if (!window.components) window.components = new WindowComponentStore(window);
@@ -251,9 +205,10 @@ bool IsControlAttached(const WindowControlRef& ref) {
 
 std::vector<UIControl*> WindowRuntime_Children(WindowInstance& window, int parentId) {
     std::vector<UIControl*> result;
-    for (int i = 0; i < window.elementsSortedCount; ++i) {
-        auto* component = window.elementsSorted[i]->component;
-        if (component && component->attached && component->parentId == parentId) result.push_back(component);
+    WindowElementCursor cursor(window);
+    while (auto* element = cursor.next()) {
+        auto* component = element ? element->component : nullptr;
+        if (component && component->attached && component->parentId == static_cast<ElementId>(parentId)) result.push_back(component);
     }
     return result;
 }
@@ -270,20 +225,23 @@ void UIResetControlProcessState(UIControl* control) {
 
 void WindowRuntime_ResetComponents(WindowInstance& window) {
     if (!window.components) return;
-    std::vector<UIControl*> snapshot;
-    for (const auto* list : {&window.components->components, &window.components->pending})
-        for (const auto& item : *list) if (item->attached) snapshot.push_back(item.get());
-    for (auto* item : snapshot) if (item->attached) UIResetControlProcessState(item);
+    WindowElementCursor cursor(window);
+    while (auto* element = cursor.next()) {
+        if (element && element->component) UIResetControlProcessState(element->component);
+    }
 }
 
 int WindowRuntime_ProcessComponents(WindowInstance& window, int hasFocused) {
     int captured = WindowRuntime_PointerDragBlocksMouse() ? 1 : 0;
-    for (auto* control : WindowRuntime_Children(window, 0)) {
+    WindowElementCursor cursor(window);
+    while (auto* element = cursor.next()) {
+        auto* control = element->component;
+        if (!control || control->parentId) continue;
         if ((window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) break;
         if (!control->attached) continue;
         if (window.binding) window.binding->elementUpdate(control->element());
         if (!control->attached || (window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) continue;
-        const auto index = static_cast<int>(&control->element() - window.elements);
+        const auto index = static_cast<int>(control->element().elementId);
         if (control->process(index, hasFocused, captured)) captured = 1;
     }
     return captured | WindowRuntime_ProcessPointerDrag(window);

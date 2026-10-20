@@ -6,6 +6,38 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowTextListElementId : ElementId {
+    DrawConfirmation = 1,
+    ButtonClose = 2,
+    EditTitle = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    HandleVerticalScroll = 16,
+    ButtonPreviousRow = 17,
+    ButtonNextRow = 18,
+    ButtonPreviousPage = 19,
+    ButtonNextPage = 20,
+    Scroll = 21,
+    SubmitTitle = 22,
+    SubmitSelection = 23,
+    HandleItemSelection = 24,
+    DrawBackgroundTooltip = 25,
+    Element26 = 26,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -135,32 +167,32 @@ static WindowTextPrototype gWindowTexts5719A0[9] { // 原全局：0x005719A0。
 static std::uint32_t gWindowMouseFlagsD67898 = 0; // 原全局：0x00D67898。
 
 static WindowElementPrototype gWindowElements5719E8[26] { // 原全局：0x005719E8。
-    {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowTextList_DrawConfirmation},
-    {WindowElementType_Graphic, 211, 8, 11, 11, 1, {.graphic = &gWindowGraphic5718A8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_EventArea, 57, 30, 150, 12, 1, {.unusedValue = 0}, &WindowTextList_EditTitle},
-    {WindowElementType_Text, 57, 30, 0, 0, 1, {.text = &gWindowText571998}, &WindowElement_NoOp},
-    {WindowElementType_Input, 57, 30, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 64, 0, 0, 1, {.text = &gWindowTexts5719A0[0]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 81, 0, 0, 1, {.text = &gWindowTexts5719A0[1]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 98, 0, 0, 1, {.text = &gWindowTexts5719A0[2]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 115, 0, 0, 1, {.text = &gWindowTexts5719A0[3]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 132, 0, 0, 1, {.text = &gWindowTexts5719A0[4]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 149, 0, 0, 1, {.text = &gWindowTexts5719A0[5]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 166, 0, 0, 1, {.text = &gWindowTexts5719A0[6]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 183, 0, 0, 1, {.text = &gWindowTexts5719A0[7]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 17, 200, 0, 0, 1, {.text = &gWindowTexts5719A0[8]}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 212, 75, 0, 14, 1, {.graphic = &gWindowGraphic5718F0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 212, 75, 11, 136, 1, {.mouseFlags = &gWindowMouseFlagsD67898}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 212, 65, 11, 11, 1, {.graphic = &gWindowGraphic571908}, &WindowTextList_ButtonPreviousRow},
-    {WindowElementType_Graphic, 212, 210, 11, 11, 1, {.graphic = &gWindowGraphic571920}, &WindowTextList_ButtonNextRow},
-    {WindowElementType_Graphic, 169, 225, 18, 18, 1, {.graphic = &gWindowGraphic571968}, &WindowTextList_ButtonPreviousPage},
-    {WindowElementType_Graphic, 189, 225, 18, 18, 1, {.graphic = &gWindowGraphic571980}, &WindowTextList_ButtonNextPage},
-    {WindowElementType_EventArea, 0, 0, 231, 305, 1, {.unusedValue = 0}, &WindowTextList_Scroll},
-    {WindowElementType_Graphic, 165, 43, 57, 17, 1, {.graphic = &gWindowGraphic571938}, &WindowTextList_SubmitTitle},
-    {WindowElementType_Graphic, 74, 237, 57, 17, 1, {.graphic = &gWindowGraphic571950}, &WindowTextList_SubmitSelection},
-    {WindowElementType_EventArea, 15, 225, 48, 48, 1, {.unusedValue = 0}, &WindowTextList_HandleItemSelection},
-    {WindowElementType_Graphic, 0, 0, 267, 305, 1, {.graphic = &gWindowGraphic5718C0}, &WindowTextList_DrawBackgroundTooltip},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5718D8}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 0, 0, 330, 110, 1, {.unusedValue = 0}, &WindowTextList_DrawConfirmation, -1, static_cast<ElementId>(WindowTextListElementId::DrawConfirmation)},
+    {WindowElementType_Graphic, 211, 8, 11, 11, 1, {.graphic = &gWindowGraphic5718A8}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowTextListElementId::ButtonClose)},
+    {WindowElementType_EventArea, 57, 30, 150, 12, 1, {.unusedValue = 0}, &WindowTextList_EditTitle, -1, static_cast<ElementId>(WindowTextListElementId::EditTitle)},
+    {WindowElementType_Text, 57, 30, 0, 0, 1, {.text = &gWindowText571998}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element4)},
+    {WindowElementType_Input, 57, 30, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element5)},
+    {WindowElementType_Text, 17, 64, 0, 0, 1, {.text = &gWindowTexts5719A0[0]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element6)},
+    {WindowElementType_Text, 17, 81, 0, 0, 1, {.text = &gWindowTexts5719A0[1]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element7)},
+    {WindowElementType_Text, 17, 98, 0, 0, 1, {.text = &gWindowTexts5719A0[2]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element8)},
+    {WindowElementType_Text, 17, 115, 0, 0, 1, {.text = &gWindowTexts5719A0[3]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element9)},
+    {WindowElementType_Text, 17, 132, 0, 0, 1, {.text = &gWindowTexts5719A0[4]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element10)},
+    {WindowElementType_Text, 17, 149, 0, 0, 1, {.text = &gWindowTexts5719A0[5]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element11)},
+    {WindowElementType_Text, 17, 166, 0, 0, 1, {.text = &gWindowTexts5719A0[6]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element12)},
+    {WindowElementType_Text, 17, 183, 0, 0, 1, {.text = &gWindowTexts5719A0[7]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element13)},
+    {WindowElementType_Text, 17, 200, 0, 0, 1, {.text = &gWindowTexts5719A0[8]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element14)},
+    {WindowElementType_Graphic, 212, 75, 0, 14, 1, {.graphic = &gWindowGraphic5718F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element15)},
+    {WindowElementType_MouseArea, 212, 75, 11, 136, 1, {.mouseFlags = &gWindowMouseFlagsD67898}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowTextListElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 212, 65, 11, 11, 1, {.graphic = &gWindowGraphic571908}, &WindowTextList_ButtonPreviousRow, -1, static_cast<ElementId>(WindowTextListElementId::ButtonPreviousRow)},
+    {WindowElementType_Graphic, 212, 210, 11, 11, 1, {.graphic = &gWindowGraphic571920}, &WindowTextList_ButtonNextRow, -1, static_cast<ElementId>(WindowTextListElementId::ButtonNextRow)},
+    {WindowElementType_Graphic, 169, 225, 18, 18, 1, {.graphic = &gWindowGraphic571968}, &WindowTextList_ButtonPreviousPage, -1, static_cast<ElementId>(WindowTextListElementId::ButtonPreviousPage)},
+    {WindowElementType_Graphic, 189, 225, 18, 18, 1, {.graphic = &gWindowGraphic571980}, &WindowTextList_ButtonNextPage, -1, static_cast<ElementId>(WindowTextListElementId::ButtonNextPage)},
+    {WindowElementType_EventArea, 0, 0, 231, 305, 1, {.unusedValue = 0}, &WindowTextList_Scroll, -1, static_cast<ElementId>(WindowTextListElementId::Scroll)},
+    {WindowElementType_Graphic, 165, 43, 57, 17, 1, {.graphic = &gWindowGraphic571938}, &WindowTextList_SubmitTitle, -1, static_cast<ElementId>(WindowTextListElementId::SubmitTitle)},
+    {WindowElementType_Graphic, 74, 237, 57, 17, 1, {.graphic = &gWindowGraphic571950}, &WindowTextList_SubmitSelection, -1, static_cast<ElementId>(WindowTextListElementId::SubmitSelection)},
+    {WindowElementType_EventArea, 15, 225, 48, 48, 1, {.unusedValue = 0}, &WindowTextList_HandleItemSelection, -1, static_cast<ElementId>(WindowTextListElementId::HandleItemSelection)},
+    {WindowElementType_Graphic, 0, 0, 267, 305, 1, {.graphic = &gWindowGraphic5718C0}, &WindowTextList_DrawBackgroundTooltip, -1, static_cast<ElementId>(WindowTextListElementId::DrawBackgroundTooltip)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5718D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTextListElementId::Element26)},
 };
 
 // 原型：窗口51；原全局：0x0054EB70。
@@ -182,7 +214,8 @@ static std::uint32_t WindowTextList_RefreshLines(WindowInstance* const window)
     for (std::int32_t line = 0; line < 9; ++line) {
         const std::int32_t index = gWindowLineScrollCF46B8 + line;
         const std::int32_t count = gWindowLineCountD67B74;
-        auto* const data = window->elements[line + 5].data.text;
+        if (!((window && (*window)[NativeElementKey(line + 5)]))) { continue; }
+        auto* const data = (*window)[NativeElementKey(line + 5)]->data.text;
         const std::wstring_view source =
             index < count ? std::wstring_view(gWindowLinesD67B70[index]) : std::wstring_view{};
         result = static_cast<std::uint32_t>(source.size() + 1);
@@ -228,7 +261,8 @@ void WindowTextList_ContinueDialog(const char* const text)
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     WindowInstance* const window = gWindowStates[WindowId_TextList].window;
     gWindowTitleCC4118 = cg::text::FromGbkWide(buffer.data());
-    auto* const title = window->elements[3].data.text;
+    if (!((window && (*window)[WindowTextListElementId::Element4]))) { return; }
+    auto* const title = (*window)[WindowTextListElementId::Element4]->data.text;
     title->text = gWindowTitleCC4118;
     WindowTextList_ReleaseLines();
     network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
@@ -271,13 +305,14 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
     if (value == -1) {
         gSelectedItem57EE0C = -1;
         gWindowLineScrollCF46B8 = 0;
-        gCurrentWindow->elements[2].visible = 1;
-        gCurrentWindow->elements[3].visible = 1;
-        gCurrentWindow->elements[4].visible = 0;
-        auto* const title = gCurrentWindow->elements[3].data.text;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::EditTitle])) (*gCurrentWindow)[WindowTextListElementId::EditTitle]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element4])) (*gCurrentWindow)[WindowTextListElementId::Element4]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element5])) (*gCurrentWindow)[WindowTextListElementId::Element5]->visible = 0;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element4]))) { return {}; }
+        auto* const title = (*gCurrentWindow)[WindowTextListElementId::Element4]->data.text;
         title->text = gWindowTitleCC4118;
         static_cast<void>(WindowTextList_RefreshLines(gCurrentWindow));
-        gCurrentWindow->elements[0].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::DrawConfirmation])) (*gCurrentWindow)[WindowTextListElementId::DrawConfirmation]->visible = 0;
         gWindowCloseRequestCC4B28 = 1;
     }
     bool close = true;
@@ -291,32 +326,32 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (input::gCurrentInputData != &cg::ui::detail::gInputContextCC49C0) {
-        gCurrentWindow->elements[2].visible = 1;
-        gCurrentWindow->elements[3].visible = 1;
-        gCurrentWindow->elements[4].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::EditTitle])) (*gCurrentWindow)[WindowTextListElementId::EditTitle]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element4])) (*gCurrentWindow)[WindowTextListElementId::Element4]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element5])) (*gCurrentWindow)[WindowTextListElementId::Element5]->visible = 0;
     }
     if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0) {
-        gCurrentWindow->elements[22].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::SubmitSelection])) (*gCurrentWindow)[WindowTextListElementId::SubmitSelection]->visible = 0;
         if (gSelectedItem57EE0C >= 0) {
-            gCurrentWindow->elements[22].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::SubmitSelection])) (*gCurrentWindow)[WindowTextListElementId::SubmitSelection]->visible = 1;
         }
     }
-    gCurrentWindow->elements[2].visible = 0;
-    gCurrentWindow->elements[21].visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::EditTitle])) (*gCurrentWindow)[WindowTextListElementId::EditTitle]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::SubmitTitle])) (*gCurrentWindow)[WindowTextListElementId::SubmitTitle]->visible = 0;
     if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 0x80u) != 0) {
-        gCurrentWindow->elements[2].visible = 1;
-        gCurrentWindow->elements[21].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::EditTitle])) (*gCurrentWindow)[WindowTextListElementId::EditTitle]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::SubmitTitle])) (*gCurrentWindow)[WindowTextListElementId::SubmitTitle]->visible = 1;
     }
-    gCurrentWindow->elements[22].visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::SubmitSelection])) (*gCurrentWindow)[WindowTextListElementId::SubmitSelection]->visible = 0;
     if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0) {
         if (gSelectedItem57EE0C < 0) {
             return 1;
         }
-        gCurrentWindow->elements[22].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::SubmitSelection])) (*gCurrentWindow)[WindowTextListElementId::SubmitSelection]->visible = 1;
     }
     if (gSelectedItem57EE0C >= 0
         && world::gPlayerRuntimeSlots.items[gSelectedItem57EE0C].itemType == 53) {
-        gCurrentWindow->elements[22].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::SubmitSelection])) (*gCurrentWindow)[WindowTextListElementId::SubmitSelection]->visible = 1;
     }
     return 1;
 }
@@ -324,20 +359,24 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
 // 原函数：0x004AD9F0。
 static std::int32_t WindowTextList_Draw(const std::int32_t)
 {
-    gCurrentWindow->elements[14].visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element15])) (*gCurrentWindow)[WindowTextListElementId::Element15]->visible = 1;
     if (gWindowLineCountD67B74 - 9 <= 0) {
-        gCurrentWindow->elements[14].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element15])) (*gCurrentWindow)[WindowTextListElementId::Element15]->visible = 0;
     }
     WindowInstance* window = gCurrentWindow;
-    auto* const mouse = window->elements[15].data.mouse;
+    if (!((window && (*window)[WindowTextListElementId::HandleVerticalScroll]))) { return {}; }
+    auto* const mouse = (*window)[WindowTextListElementId::HandleVerticalScroll]->data.mouse;
     if ((static_cast<std::uint8_t>(mouse->flags) & 1u) != 0) {
+        if (!((window && (*window)[WindowTextListElementId::HandleVerticalScroll]))) { return {}; }
         gWindowLineScrollCF46B8 = WindowScroll_ReadPosition(
-            &window->elements[15], gWindowLineCountD67B74 - 9);
+            (*window)[WindowTextListElementId::HandleVerticalScroll], gWindowLineCountD67B74 - 9);
         static_cast<void>(WindowTextList_RefreshLines(gCurrentWindow));
         window = gCurrentWindow;
     }
-    const std::int32_t y = window->y + window->elements[4].y;
-    const std::int32_t x = window->x + window->elements[4].x;
+    if (!((window && (*window)[WindowTextListElementId::Element5]))) { return {}; }
+    const std::int32_t y = window->y + (*window)[WindowTextListElementId::Element5]->y;
+    if (!((window && (*window)[WindowTextListElementId::Element5]))) { return {}; }
+    const std::int32_t x = window->x + (*window)[WindowTextListElementId::Element5]->x;
     static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57EE10, x, y, 2));
     WindowRuntime_DrawCurrent();
     return 1;
@@ -354,7 +393,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
     if (cg::ui::HitTestMouseRect_5049A0(287, 218, 353, 235, -1) != 0) {
         imageNo = 243050;
         if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & 1u) != 0) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
             gCurrentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             imageNo = 243049;
@@ -372,7 +411,8 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
 // 原函数：0x004ADBD0。
 static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 0x400) != 0) {
         if (gWindowLineScrollCF46B8 > 0) {
@@ -384,7 +424,8 @@ static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, c
         const std::int32_t position = gWindowLineScrollCF46B8;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t maximum = gWindowLineCountD67B74 - 9;
-        static_cast<void>(WindowScroll_SetPosition(&window->elements[index - 1], maximum, position));
+        if (!((window && (*window)[NativeElementKey(index - 1)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey(index - 1)], maximum, position));
         static_cast<void>(WindowTextList_RefreshLines(gCurrentWindow));
         result = 1;
     }
@@ -401,7 +442,8 @@ static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, c
 // 原函数：0x004ADC80。
 static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 0x400) != 0) {
         const std::int32_t last = gWindowLineCountD67B74 - 9;
@@ -413,7 +455,8 @@ static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const
         }
         const std::int32_t position = gWindowLineScrollCF46B8;
         const std::int32_t maximum = gWindowLineCountD67B74 - 9;
-        static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[index - 2], maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index - 2)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index - 2)], maximum, position));
         static_cast<void>(WindowTextList_RefreshLines(gCurrentWindow));
         result = 1;
     }
@@ -430,7 +473,8 @@ static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const
 // 原函数：0x004ADD50。
 static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 2) != 0) {
         static_cast<void>(audio::PlaySe_52C450(gWindowLineScrollCF46B8 > 0 ? 51 : 55, 320));
@@ -440,7 +484,8 @@ static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, 
         }
         const std::int32_t position = gWindowLineScrollCF46B8;
         const std::int32_t maximum = gWindowLineCountD67B74 - 9;
-        static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[index - 3], maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index - 3)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index - 3)], maximum, position));
         static_cast<void>(WindowTextList_RefreshLines(gCurrentWindow));
         result = 1;
     }
@@ -457,7 +502,8 @@ static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, 
 // 原函数：0x004ADE10。
 static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t result = 0;
     if ((state & 2) != 0) {
         const std::int32_t last = gWindowLineCountD67B74 - 9;
@@ -470,7 +516,8 @@ static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, cons
             gWindowLineScrollCF46B8 = limit;
         }
         const std::int32_t position = gWindowLineScrollCF46B8;
-        static_cast<void>(WindowScroll_SetPosition(&gCurrentWindow->elements[index - 4], maximum, position));
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index - 4)]))) { return {}; }
+        static_cast<void>(WindowScroll_SetPosition((*gCurrentWindow)[NativeElementKey(index - 4)], maximum, position));
         static_cast<void>(WindowTextList_RefreshLines(gCurrentWindow));
         result = 1;
     }
@@ -491,8 +538,9 @@ static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::i
         const std::int32_t count = gWindowLineCountD67B74;
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindowLineScrollCF46B8;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index - 5)]))) { return {}; }
         gWindowLineScrollCF46B8 =
-            WindowScroll_ApplyWheel(&gCurrentWindow->elements[index - 5], position, count - 9, wheel);
+            WindowScroll_ApplyWheel((*gCurrentWindow)[NativeElementKey(index - 5)], position, count - 9, wheel);
     }
     return 0;
 }
@@ -500,10 +548,12 @@ static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::i
 // 原函数：0x004ADF40。
 static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
-    auto* const graphic = elements[index].data.graphic;
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
-    if (elements[4].visible != 0) {
+    if (!((elementsWindow && (*elementsWindow)[WindowTextListElementId::Element5]))) { return {}; }
+    if ((*elementsWindow)[WindowTextListElementId::Element5]->visible != 0) {
         if ((state & 1) != 0) {
             gHoverTextD68AE8 = L"变更家族兽名称。";
         }
@@ -513,11 +563,12 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
             const std::wstring packet = input::EscapeText(L"N|" + name, 255);
             gWindowTitleCC4118 = proposedTitle;
             static_cast<void>(WindowChat_RestoreInput());
-            auto* const title = gCurrentWindow->elements[3].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element4]))) { return {}; }
+            auto* const title = (*gCurrentWindow)[WindowTextListElementId::Element4]->data.text;
             title->text = gWindowTitleCC4118;
-            gCurrentWindow->elements[4].visible = 0;
-            gCurrentWindow->elements[2].visible = 1;
-            gCurrentWindow->elements[3].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element5])) (*gCurrentWindow)[WindowTextListElementId::Element5]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::EditTitle])) (*gCurrentWindow)[WindowTextListElementId::EditTitle]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element4])) (*gCurrentWindow)[WindowTextListElementId::Element4]->visible = 1;
             const std::int32_t target = gWindowRequestCF46AC;
             const std::int32_t request = gWindowRequestD672B0;
             const std::int32_t y =
@@ -545,7 +596,8 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
 // 原函数：0x004AE170。
 static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"用滑鼠拖放物品至此视窗做为饲料。";
@@ -580,22 +632,26 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
 static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std::int32_t state)
 {
     const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-    WindowElement_DrawHoverFrame(&gCurrentWindow->elements[index], state, imageNo);
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    WindowElement_DrawHoverFrame((*gCurrentWindow)[NativeElementKey(index)], state, imageNo);
     if ((state & 2) == 0) {
         return 0;
     }
-    gCurrentWindow->elements[2].visible = 0;
-    gCurrentWindow->elements[3].visible = 0;
-    gCurrentWindow->elements[4].visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::EditTitle])) (*gCurrentWindow)[WindowTextListElementId::EditTitle]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element4])) (*gCurrentWindow)[WindowTextListElementId::Element4]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowTextListElementId::Element5])) (*gCurrentWindow)[WindowTextListElementId::Element5]->visible = 1;
     WindowInstance* const window = gCurrentWindow;
-    const std::int32_t y = window->y + window->elements[4].y;
-    const std::int32_t x = window->x + window->elements[4].x;
+    if (!((window && (*window)[WindowTextListElementId::Element5]))) { return {}; }
+    const std::int32_t y = window->y + (*window)[WindowTextListElementId::Element5]->y;
+    if (!((window && (*window)[WindowTextListElementId::Element5]))) { return {}; }
+    const std::int32_t x = window->x + (*window)[WindowTextListElementId::Element5]->x;
     static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57EE10, x, y, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextCC49C0);
     input::LoadInitialText_44A160(gWindowTitleCC4118);
     WindowInstance* const focusedWindow = gCurrentWindow;
-    gFocusedElementDataD45F94 = focusedWindow->elements[4].data.input;
-    focusedWindow->elements[4].data.input->context = &cg::ui::detail::gInputContextCC49C0;
+    if (!((focusedWindow && (*focusedWindow)[WindowTextListElementId::Element5]))) { return {}; }
+    gFocusedElementDataD45F94 = (*focusedWindow)[WindowTextListElementId::Element5]->data.input;
+    if ((focusedWindow && (*focusedWindow)[WindowTextListElementId::Element5])) (*focusedWindow)[WindowTextListElementId::Element5]->data.input->context = &cg::ui::detail::gInputContextCC49C0;
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     return 1;
 }
@@ -604,10 +660,12 @@ static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std
 static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
     const auto x = std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(window->elements[index].x + window->x));
+        static_cast<std::uint16_t>((*window)[NativeElementKey(index)]->x + window->x));
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
     const auto y = std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(window->elements[index].y + window->y));
+        static_cast<std::uint16_t>((*window)[NativeElementKey(index)]->y + window->y));
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -634,7 +692,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
             } else {
                 WindowInstance* const modalWindow = gCurrentWindow;
                 gWindowModalTextC8AF88 = L"你没有喂食宠物的权限。";
-                modalWindow->elements[0].visible = 1;
+                if ((modalWindow && (*modalWindow)[WindowTextListElementId::DrawConfirmation])) (*modalWindow)[WindowTextListElementId::DrawConfirmation]->visible = 1;
                 gCurrentWindow->state |= 2u;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }

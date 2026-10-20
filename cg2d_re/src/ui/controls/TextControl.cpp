@@ -2,7 +2,7 @@
 
 namespace cg::ui {
 using namespace component_detail;
-UITextControl::UITextControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextData data, WindowEventBinding callbacks)
+UITextControl::UITextControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextData data, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_TEXT, name, x, y, w, h, visible, callbacks), data(std::move(data)) {
     hitable = false;
 }

@@ -3,6 +3,49 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowPlayerTitlesElementId : ElementId {
+    EditDraft = 1,
+    Element2 = 2,
+    DragScroll = 3,
+    HandleButtons = 4,
+    HandleButtons_5 = 5,
+    Scroll = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    ButtonClose = 17,
+    HandleButtons_18 = 18,
+    HandleButtons_19 = 19,
+    Element20 = 20,
+    HandleButtons_21 = 21,
+    HandleButtons_22 = 22,
+    HandleButtons_23 = 23,
+    HandleButtons_24 = 24,
+    HandleButtons_25 = 25,
+    HandleButtons_26 = 26,
+    SelectTitle = 27,
+    SelectTitle_28 = 28,
+    SelectTitle_29 = 29,
+    SelectTitle_30 = 30,
+    SelectTitle_31 = 31,
+    SelectTitle_32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    HandleButtons_36 = 36,
+    HandleSideArea = 37,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -96,43 +139,43 @@ static std::uint32_t gWindowMouseFlagsD676F0 = 0; // 原全局：0x00D676F0。
 static std::uint32_t gWindowMouseFlagsD6772C = 0; // 原全局：0x00D6772C。
 
 static WindowElementPrototype gWindowElements560F50[37] { // 原全局：0x00560F50。
-    {WindowElementType_Input, 105, 31, 144, 12, 1, {.unusedValue = 0}, &WindowPlayerTitles_EditDraft},
-    {WindowElementType_Graphic, 239, 104, 0, 14, 1, {.graphic = &gWindowGraphic560ED8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 239, 104, 11, 72, 1, {.mouseFlags = &gWindowMouseFlagsD676F0}, &WindowPlayerTitles_DragScroll},
-    {WindowElementType_Graphic, 239, 93, 11, 11, 1, {.graphic = &gWindowGraphic560EF0}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 239, 175, 11, 11, 1, {.graphic = &gWindowGraphic560F08}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_EventArea, 0, 0, 315, 261, 1, {.unusedValue = 0}, &WindowPlayerTitles_Scroll},
-    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText560F38}, &WindowElement_NoOp},
-    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText560F40}, &WindowElement_NoOp},
-    {WindowElementType_Text, 105, 31, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 105, 64, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 94, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 110, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 126, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 142, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 158, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 174, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560DA0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DB8}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic560DD0}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DE8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic560F20}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 260, 27, 49, 17, 1, {.graphic = &gWindowGraphic560E00}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 260, 61, 49, 17, 1, {.graphic = &gWindowGraphic560E18}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 260, 175, 49, 17, 1, {.graphic = &gWindowGraphic560E30}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 220, 203, 18, 18, 1, {.graphic = &gWindowGraphic560E48}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 199, 203, 18, 18, 1, {.graphic = &gWindowGraphic560E60}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_Graphic, 23, 92, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 108, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 124, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 140, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 156, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 23, 172, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle},
-    {WindowElementType_Graphic, 15, 28, 0, 0, 1, {.graphic = &gWindowGraphic560E90}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic560EA8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic560EC0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 0, 0, 374, 281, 1, {.mouseFlags = &gWindowMouseFlagsD6772C}, &WindowPlayerTitles_HandleButtons},
-    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Input, 105, 31, 144, 12, 1, {.unusedValue = 0}, &WindowPlayerTitles_EditDraft, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::EditDraft)},
+    {WindowElementType_Graphic, 239, 104, 0, 14, 1, {.graphic = &gWindowGraphic560ED8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element2)},
+    {WindowElementType_MouseArea, 239, 104, 11, 72, 1, {.mouseFlags = &gWindowMouseFlagsD676F0}, &WindowPlayerTitles_DragScroll, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::DragScroll)},
+    {WindowElementType_Graphic, 239, 93, 11, 11, 1, {.graphic = &gWindowGraphic560EF0}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons)},
+    {WindowElementType_Graphic, 239, 175, 11, 11, 1, {.graphic = &gWindowGraphic560F08}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_5)},
+    {WindowElementType_EventArea, 0, 0, 315, 261, 1, {.unusedValue = 0}, &WindowPlayerTitles_Scroll, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Scroll)},
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText560F38}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element7)},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText560F40}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element8)},
+    {WindowElementType_Text, 105, 31, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element9)},
+    {WindowElementType_Text, 105, 64, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element10)},
+    {WindowElementType_Text, 25, 94, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element11)},
+    {WindowElementType_Text, 25, 110, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element12)},
+    {WindowElementType_Text, 25, 126, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element13)},
+    {WindowElementType_Text, 25, 142, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element14)},
+    {WindowElementType_Text, 25, 158, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element15)},
+    {WindowElementType_Text, 25, 174, 0, 0, 1, {.text = &gWindowText560F48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element16)},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560DA0}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::ButtonClose)},
+    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DB8}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_18)},
+    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic560DD0}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_19)},
+    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic560DE8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element20)},
+    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic560F20}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_21)},
+    {WindowElementType_Graphic, 260, 27, 49, 17, 1, {.graphic = &gWindowGraphic560E00}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_22)},
+    {WindowElementType_Graphic, 260, 61, 49, 17, 1, {.graphic = &gWindowGraphic560E18}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_23)},
+    {WindowElementType_Graphic, 260, 175, 49, 17, 1, {.graphic = &gWindowGraphic560E30}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_24)},
+    {WindowElementType_Graphic, 220, 203, 18, 18, 1, {.graphic = &gWindowGraphic560E48}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_25)},
+    {WindowElementType_Graphic, 199, 203, 18, 18, 1, {.graphic = &gWindowGraphic560E60}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_26)},
+    {WindowElementType_Graphic, 23, 92, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::SelectTitle)},
+    {WindowElementType_Graphic, 23, 108, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::SelectTitle_28)},
+    {WindowElementType_Graphic, 23, 124, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::SelectTitle_29)},
+    {WindowElementType_Graphic, 23, 140, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::SelectTitle_30)},
+    {WindowElementType_Graphic, 23, 156, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::SelectTitle_31)},
+    {WindowElementType_Graphic, 23, 172, 216, 16, 1, {.graphic = &gWindowGraphic560E78}, &WindowPlayerTitles_SelectTitle, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::SelectTitle_32)},
+    {WindowElementType_Graphic, 15, 28, 0, 0, 1, {.graphic = &gWindowGraphic560E90}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element33)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic560EA8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element34)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic560EC0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::Element35)},
+    {WindowElementType_MouseArea, 0, 0, 374, 281, 1, {.mouseFlags = &gWindowMouseFlagsD6772C}, &WindowPlayerTitles_HandleButtons, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_36)},
+    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowPlayerTitlesElementId::HandleSideArea)},
 };
 
 // 原型：窗口9；原全局：0x0054E3C0。
@@ -150,15 +193,18 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
         return 0;
     }
     WindowInstance* const window = gCurrentWindow;
-    if (gFocusedElementDataD45F94 != window->elements[0].data.input) {
+    if (!((window && (*window)[WindowPlayerTitlesElementId::EditDraft]))) { return {}; }
+    if (gFocusedElementDataD45F94 != (*window)[WindowPlayerTitlesElementId::EditDraft]->data.input) {
         gTitleInputPrototype57CCB8.text = gTitleDraftD45FC0;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57CCB8, x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2DC10);
         WindowInstance* const focused = gCurrentWindow;
-        gFocusedElementDataD45F94 = focused->elements[0].data.input;
-        focused->elements[0].data.input->context =
+        if (!((focused && (*focused)[WindowPlayerTitlesElementId::EditDraft]))) { return {}; }
+        gFocusedElementDataD45F94 = (*focused)[WindowPlayerTitlesElementId::EditDraft]->data.input;
+        if (!((focused && (*focused)[WindowPlayerTitlesElementId::EditDraft]))) { return {}; }
+        (*focused)[WindowPlayerTitlesElementId::EditDraft]->data.input->context =
             &cg::ui::detail::gInputContextD2DC10;
     }
     return 1;
@@ -167,7 +213,8 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
 // 原函数：0x00477600。
 static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B59E;
@@ -203,7 +250,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
-        gCurrentWindow->elements[index].data.graphic->imageNo = image;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
     };
     switch (index) {
     case 17:
@@ -307,12 +354,14 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             if (index == 3 && page > 0) {
                 gTitlePageCF4E54 = page - 1;
                 WindowInstance* const window = gCurrentWindow;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + 2, 58, page - 1));
+                if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58, page - 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else if (index == 4 && page < 58) {
                 WindowInstance* const window = gCurrentWindow;
                 gTitlePageCF4E54 = page + 1;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + 2, 58, page + 1));
+                if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58, page + 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -339,7 +388,8 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
                 gTitlePageCF4E54 = page;
             }
             WindowInstance* const window = gCurrentWindow;
-            static_cast<void>(WindowScroll_SetPosition(window->elements + 2, 58, page));
+            if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58, page));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & 8) != 0) {
@@ -361,7 +411,8 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             }
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t page = gTitlePageCF4E54;
-            static_cast<void>(WindowScroll_SetPosition(window->elements + 2, 58, page));
+            if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58, page));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & 8) != 0) {
@@ -386,7 +437,8 @@ static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t page = gTitlePageCF4E54;
-        gTitlePageCF4E54 = WindowScroll_ApplyWheel(window->elements + 2, page, 58, wheel);
+        if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
+        gTitlePageCF4E54 = WindowScroll_ApplyWheel((*window)[WindowPlayerTitlesElementId::DragScroll], page, 58, wheel);
     }
     return 0;
 }
@@ -398,7 +450,8 @@ static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, cons
     const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
     if (result != 0) {
         WindowInstance* const window = gCurrentWindow;
-        gTitlePageCF4E54 = WindowScroll_ReadPosition(window->elements + 2, 58);
+        if (!((window && (*window)[WindowPlayerTitlesElementId::DragScroll]))) { return {}; }
+        gTitlePageCF4E54 = WindowScroll_ReadPosition((*window)[WindowPlayerTitlesElementId::DragScroll], 58);
     }
     return result;
 }
@@ -407,30 +460,35 @@ static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, cons
 // 原函数：0x00478010。
 static void WindowPlayerTitles_Refresh()
 {
-    auto* const nameData = gCurrentWindow->elements[6].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element7]))) { return; }
+    auto* const nameData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element7]->data.text;
     const wchar_t* const name = world::GetPlayerDisplayText(1);
     nameData->text = name;
 
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
-    auto* const levelData = gCurrentWindow->elements[7].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element8]))) { return; }
+    auto* const levelData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element8]->data.text;
     levelData->text = buffer;
 
     const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
-    auto* const titleData = gCurrentWindow->elements[9].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element10]))) { return; }
+    auto* const titleData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element10]->data.text;
     const wchar_t* const title = world::GetTitleText(titleIndex);
     titleData->text = title;
 
     if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DC10) {
-        gCurrentWindow->elements[8].visible = 1;
-        auto* const draftData = gCurrentWindow->elements[8].data.text;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9])) (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]->visible = 1;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]))) { return; }
+        auto* const draftData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]->data.text;
         draftData->text = gTitleDraftD45FC0;
         const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
-        auto* const colorData = gCurrentWindow->elements[8].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]))) { return; }
+        auto* const colorData = (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]->data.text;
         colorData->style.color = unchanged ? std::byte{0} : std::byte{6};
     } else {
         gTitleDraftD45FC0 = input::ContextText(*gTitleInputPrototype57CCB8.input.context);
-        gCurrentWindow->elements[8].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9])) (*gCurrentWindow)[WindowPlayerTitlesElementId::Element9]->visible = 0;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
@@ -438,7 +496,7 @@ static void WindowPlayerTitles_Refresh()
     }
 
     const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
-    gCurrentWindow->elements[21].visible = unchanged ? 0 : 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerTitlesElementId::HandleButtons_22])) (*gCurrentWindow)[WindowPlayerTitlesElementId::HandleButtons_22]->visible = unchanged ? 0 : 1;
 
     const world::TitleRecord* record =
         world::gSortedTitlesDE03F8.data() + gTitlePageCF4E54;
@@ -446,7 +504,8 @@ static void WindowPlayerTitles_Refresh()
         WindowInstance* const window = gCurrentWindow;
         const wchar_t* const text = record->text.data();
         ++record;
-        auto* const data = window->elements[index].data.text;
+        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+        auto* const data = (*window)[NativeElementKey(index)]->data.text;
         data->text = text;
     }
 }
@@ -460,9 +519,10 @@ static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
         gTitlePageCF4E54 = 0;
         gTitleDraftD45FC0 = ownTitle;
 
-        WindowElement* const elements = gCurrentWindow->elements;
+        auto* elementsWindow = gCurrentWindow;
         const wchar_t* const displayTitle = world::GetPlayerDisplayText(2);
-        auto* const data = elements[8].data.text;
+        if (!((elementsWindow && (*elementsWindow)[WindowPlayerTitlesElementId::Element9]))) { return {}; }
+        auto* const data = (*elementsWindow)[WindowPlayerTitlesElementId::Element9]->data.text;
         data->text = displayTitle;
     }
     WindowPlayerTitles_Refresh();

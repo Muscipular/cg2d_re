@@ -12,6 +12,10 @@
 #include <string>
 #include <map>
 #include <variant>
+#include <set>
+#include <vector>
+#include <unordered_map>
+#include <type_traits>
 
 namespace cg::input {
 class InputContext;
@@ -40,6 +44,12 @@ struct WindowComponentStore;
 struct WindowBinding;
 // LUP01：Lua扩展属性由UI对象拥有，仅允许原始字符串和S32整数。
 using WindowPropertyMap = std::map<std::string, std::variant<std::string, std::int32_t>>;
+using ElementId = std::uint32_t;
+// 原型业务槽使用固定ID：首项为1，后续槽按枚举基址展开，0留给自动分配。
+enum class NativeElementId : ElementId { First = 1 };
+constexpr ElementId NativeElementKey(std::int32_t slot) noexcept {
+    return slot < 0 ? 0 : static_cast<ElementId>(NativeElementId::First) + static_cast<ElementId>(slot);
+}
 
 // 原控件type的S32编号；创建、绘制、输入及释放共用同一类型。
 enum WindowElementType : std::int32_t {
@@ -164,9 +174,16 @@ struct WindowElement {
     std::int32_t refDrop = -1;
     std::int32_t refChange = -1;
     std::int32_t refEnter = -1;
+    ElementId elementId = 0; // LUR01：窗口内唯一身份，不随顺序改变。
+    WindowInstance* owner = nullptr;
+    ElementId relatedElementId = 0; // 滚动条关联滑块，替代element-1。
+    std::int32_t nativeSlot = -1; // 原生业务回调的槽号，不用于元素内存定位。
+    bool removed = false; // 回调中立即失效，安全点回收。
+    bool ownsPayload = true;
+    std::uint64_t creationSerial = 0;
 };
 
-// WEO01：update中维护指针排序缓存；数组/数量/顺序变化或距离上次刷新满1秒时重排。
+// LUR01：显式通知单一sortedMap更新排序，遍历中调用会记录日志并抛异常。
 void WindowRuntime_UpdateElementOrder(WindowInstance& window);
 
 // 原实例+40的16B可拖动区域，472D20逐项命中。
@@ -175,6 +192,52 @@ struct WindowDragRect {
     std::int32_t y; // 原成员偏移：+0x04。
     std::int32_t width; // 原成员偏移：+0x08。
     std::int32_t height; // 原成员偏移：+0x0C。
+};
+
+// LUR01：元素仅存在有序节点中，ID索引借用稳定节点地址，不复制元素。
+class SortedElementMap {
+    using Storage = std::map<std::pair<std::int32_t, ElementId>, WindowElement>;
+    Storage values;
+    std::unordered_map<ElementId, WindowElement*> byId;
+    std::uint32_t traversalDepth = 0;
+public:
+    using node_type = Storage::node_type;
+    using iterator = Storage::iterator;
+    auto begin() noexcept { return values.begin(); }
+    auto end() noexcept { return values.end(); }
+    auto begin() const noexcept { return values.begin(); }
+    auto end() const noexcept { return values.end(); }
+    auto upper_bound(const Storage::key_type& key) { return values.upper_bound(key); }
+    auto size() const noexcept { return values.size(); }
+    bool empty() const noexcept { return values.empty(); }
+    void notifyUpdate();
+    void beginTraversal() { ++traversalDepth; }
+    void endTraversal() { --traversalDepth; }
+    WindowElement* operator[](ElementId id) noexcept {
+        const auto it = byId.find(id);
+        return it == byId.end() || it->second->removed ? nullptr : it->second;
+    }
+    const WindowElement* operator[](ElementId id) const noexcept {
+        const auto it = byId.find(id);
+        return it == byId.end() || it->second->removed ? nullptr : it->second;
+    }
+    auto try_emplace(const Storage::key_type& key, WindowElement element) {
+        auto result = values.try_emplace(key, std::move(element));
+        if (result.second) {
+            try { byId.emplace(key.second, &result.first->second); }
+            catch (...) { values.erase(result.first); throw; }
+        }
+        return result;
+    }
+    node_type extract(iterator it) {
+        byId.erase(it->first.second);
+        return values.extract(it);
+    }
+    void insert(node_type node) {
+        const auto id = node.key().second;
+        auto result = values.insert(std::move(node));
+        byId.insert_or_assign(id, &result.position->second);
+    }
 };
 
 struct WindowInstance {
@@ -189,17 +252,14 @@ struct WindowInstance {
     std::int32_t dragMouseY20; // 原成员偏移：+0x20。
     std::uint32_t flags; // 原成员偏移：+0x24。
     std::int32_t elementCount; // 原成员偏移：+0x28。
-    WindowElement* elements; // 原+2C。
+    SortedElementMap sortedMap; // 唯一元素存储，按seqNo/ID排序，按ID高效查询。
     WindowCallback update; // 原+30。
     WindowCallback draw; // 原+34。
     WindowReleaseCallback release; // 原+38。
     std::int32_t secondaryCount; // 原+3C。
     std::array<WindowDragRect, 10> dragRects40; // 原[+40,+E0)。
-    WindowElement** elementsSorted; // WEO01：窗口拥有指针数组，条目借用elements中的原控件。
-    WindowElement* elementsSortedSource; // 上次排序的原数组，用于检测数组更换。
-    std::int32_t elementsSortedCount; // 有效缓存条目数。
-    std::uint64_t elementsSortedTick; // 上次排序的客户端毫秒时刻。
-    WindowComponentStore* components = nullptr; // LUP01：动态元素和组件的唯一owner。
+    std::vector<decltype(sortedMap)::node_type> retiredElements;
+    WindowComponentStore* components = nullptr; // 动态组件操作入口；组件由sortedMap元素拥有。
     WindowBinding* binding = nullptr; // LUP01：随窗口释放的外部事件绑定。
     std::uint32_t generation = 0; // LUP01：每次创建实例分配新代次。
     WindowPropertyMap* properties = nullptr; // 按需创建，随窗口释放。
@@ -207,6 +267,53 @@ struct WindowInstance {
     std::int32_t refDraw = -1;
     std::int32_t refEvent = -1;
     bool scriptHidden = false; // 旧原生state不含统一visible位，脚本显隐独立门控。
+    WindowElement* operator[](ElementId elementId) noexcept {
+        return sortedMap[elementId];
+    }
+    const WindowElement* operator[](ElementId elementId) const noexcept {
+        return sortedMap[elementId];
+    }
+    template<class E> requires std::is_enum_v<E>
+    WindowElement* operator[](E id) noexcept { return (*this)[static_cast<ElementId>(id)]; }
+    template<class E> requires std::is_enum_v<E>
+    const WindowElement* operator[](E id) const noexcept { return (*this)[static_cast<ElementId>(id)]; }
+};
+
+ElementId WindowRuntime_AllocateElementId(const WindowInstance& window, ElementId requested = 0);
+WindowElement& WindowRuntime_AddElement(WindowInstance& window, ElementId id);
+bool WindowRuntime_RemoveElement(WindowInstance& window, ElementId id);
+void WindowRuntime_ClearElements(WindowInstance& window);
+void WindowRuntime_CollectElements(WindowInstance& window);
+void WindowRuntime_DestroyElements(WindowInstance& window);
+// 不保存map迭代器，回调增删后以排序键继续；本轮不处理新建元素。
+struct WindowElementCursor {
+    WindowInstance& window;
+    std::pair<std::int32_t, ElementId> key{};
+    std::uint64_t limit = 0;
+    bool started = false;
+    explicit WindowElementCursor(WindowInstance& value);
+    ~WindowElementCursor() { window.sortedMap.endTraversal(); }
+    WindowElementCursor(const WindowElementCursor&) = delete;
+    WindowElementCursor& operator=(const WindowElementCursor&) = delete;
+    WindowElement* next();
+};
+
+// 旧选择器缓存改为身份引用，元素删除后查询返回空。
+WindowInstance* WindowRuntime_FindInstance(int id);
+struct WindowElementLink {
+    int windowId = -1;
+    ElementId elementId = 0;
+    WindowElementLink& operator=(WindowElement* element) {
+        windowId = element && element->owner ? element->owner->id : -1;
+        elementId = element ? element->elementId : 0;
+        return *this;
+    }
+    WindowElement* get() const {
+        auto* window = WindowRuntime_FindInstance(windowId);
+        return window ? (*window)[elementId] : nullptr;
+    }
+    operator WindowElement*() const { return get(); }
+    WindowElement* operator->() const { return get(); }
 };
 
 namespace detail {
@@ -381,7 +488,11 @@ cg::yobi::YobiAction* WindowAttributeTarget_Open(
 std::int32_t WindowRuntime_DrawLargeFrame(std::int32_t value); // 31/46共用绘制与九宫格尾。
 // 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
 struct WindowItemSelectorState {
-    std::array<WindowElement*, 20> elements00; // 原成员偏移：+0x00。 4C6EC0绑定的非拥有元素，非零模式保留槽19。
+    std::array<WindowElementLink, 20> elements00; // 选择器关联控件身份，非零模式保留槽19。
+    bool elementsValid() const {
+        for (const auto& ref : elements00) if (ref.elementId && !ref.get()) return false;
+        return true;
+    }
     std::array<WindowElementCallback, 4> callbacks50; // 原成员偏移：+0x50。 4C6550写回元素mouseCallback。
     std::int32_t value60; // 原成员偏移：+0x60。 4C6550发布的数值页状态，4C75A0仅在2时绘制。
     std::int32_t value64; // 原成员偏移：+0x64。
@@ -603,6 +714,7 @@ struct WindowElementPrototype {
     WindowElementPrototypeSource source; // 原成员偏移：+0x18。
     WindowElementCallback mouseCallback; // 原成员偏移：+0x1C。
     std::int32_t seqNo = -1; // WEO01：-1使用原型索引，其余值作为实例初始顺序。
+    ElementId elementId = 0; // C++原型由对应窗口的enum显式指定固定ID。
 };
 
 // 原48B可变原型的原生x64表示，36/37等同源原型须共用对象。
@@ -1080,22 +1192,10 @@ static_assert(offsetof(WindowElement, data) == 0x20);
 static_assert(offsetof(WindowElement, mouseCallback) == 0x28);
 static_assert(sizeof(WindowElementData) == sizeof(void*));
 static_assert(offsetof(WindowElement, seqNo) == 0x30);
-static_assert(sizeof(WindowElement) == 0x78);
-static_assert(offsetof(WindowInstance, state) == 0);
-static_assert(offsetof(WindowInstance, elements) == 0x30);
-static_assert(offsetof(WindowInstance, update) == 0x38);
-static_assert(offsetof(WindowInstance, draw) == 0x40);
-static_assert(offsetof(WindowInstance, release) == 0x48);
-static_assert(offsetof(WindowInstance, secondaryCount) == 0x50);
 static_assert(offsetof(WindowDragRect, y) == 4);
 static_assert(offsetof(WindowDragRect, width) == 8);
 static_assert(offsetof(WindowDragRect, height) == 12);
 static_assert(sizeof(WindowDragRect) == 16);
-static_assert(offsetof(WindowInstance, dragMouseX1C) == 0x1C);
-static_assert(offsetof(WindowInstance, dragMouseY20) == 0x20);
-static_assert(offsetof(WindowInstance, dragRects40) == 0x54);
-static_assert(offsetof(WindowInstance, elementsSorted) == 0xF8);
-static_assert(sizeof(WindowInstance) == 0x148);
 static_assert(offsetof(WindowState, window) == 0x10);
 static_assert(offsetof(WindowState, userState) == 0x20);
 static_assert(offsetof(WindowState, actionFlags1C) == 0x28);

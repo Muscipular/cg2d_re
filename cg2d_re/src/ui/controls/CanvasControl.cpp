@@ -2,7 +2,7 @@
 
 namespace cg::ui {
 using namespace component_detail;
-UICanvasControl::UICanvasControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, std::vector<CanvasShape> shapes, WindowEventBinding callbacks)
+UICanvasControl::UICanvasControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, std::vector<CanvasShape> shapes, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_CANVAS, name, x, y, w, h, visible, callbacks) {
     hitable = false;
     SetShapes(std::move(shapes));

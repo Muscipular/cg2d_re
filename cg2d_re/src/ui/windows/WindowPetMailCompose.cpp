@@ -3,6 +3,25 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowPetMailComposeElementId : ElementId {
+    ButtonClose = 1,
+    HandleInput = 2,
+    HandleSendButtons = 3,
+    HandleSendButtons_4 = 4,
+    Element5 = 5,
+    HandleGiftItem = 6,
+    Element7 = 7,
+    Element8 = 8,
+    HandleSendButtons_9 = 9,
+    HandleSendButtons_10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    HandleSideArea = 13,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -43,19 +62,19 @@ static WindowGraphicData gWindowGraphic5701C0 {0x3BE5D, 0, 0, 0, 0, 0xFFFFFFFFu}
 static WindowGraphicData gWindowGraphic5701D8 {0x3BE5A, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x005701D8。
 
 static WindowElementPrototype gWindowElements570318[13] { // 原全局：0x00570318。
-    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Input, 33, 84, 170, 120, 1, {}, &WindowMailCompose_HandleInput},
-    {WindowElementType_Graphic, 15, 29, 56, 16, 1, {.graphic = &gWindowGraphic570178}, &WindowPetMailCompose_HandleSendButtons},
-    {WindowElementType_Graphic, 154, 29, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &WindowPetMailCompose_HandleSendButtons},
-    {WindowElementType_Graphic, 151, 199, 0, 0, 1, {.graphic = &gWindowGraphic5701A8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 151, 199, 50, 50, 1, {.graphic = &gWindowGraphic5701A8}, &WindowPetMailCompose_HandleGiftItem},
-    {WindowElementType_Text, 21, 49, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 16, 199, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701C0}, &WindowPetMailCompose_HandleSendButtons},
-    {WindowElementType_Graphic, 66, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701D8}, &WindowPetMailCompose_HandleSendButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570118}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 13, 26, 0, 0, 1, {.graphic = &gWindowGraphic570130}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPetMailComposeElementId::ButtonClose)},
+    {WindowElementType_Input, 33, 84, 170, 120, 1, {}, &WindowMailCompose_HandleInput, -1, static_cast<ElementId>(WindowPetMailComposeElementId::HandleInput)},
+    {WindowElementType_Graphic, 15, 29, 56, 16, 1, {.graphic = &gWindowGraphic570178}, &WindowPetMailCompose_HandleSendButtons, -1, static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons)},
+    {WindowElementType_Graphic, 154, 29, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &WindowPetMailCompose_HandleSendButtons, -1, static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons_4)},
+    {WindowElementType_Graphic, 151, 199, 0, 0, 1, {.graphic = &gWindowGraphic5701A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetMailComposeElementId::Element5)},
+    {WindowElementType_Graphic, 151, 199, 50, 50, 1, {.graphic = &gWindowGraphic5701A8}, &WindowPetMailCompose_HandleGiftItem, -1, static_cast<ElementId>(WindowPetMailComposeElementId::HandleGiftItem)},
+    {WindowElementType_Text, 21, 49, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetMailComposeElementId::Element7)},
+    {WindowElementType_Text, 16, 199, 0, 0, 1, {.text = &gWindowText5701F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetMailComposeElementId::Element8)},
+    {WindowElementType_Graphic, 16, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701C0}, &WindowPetMailCompose_HandleSendButtons, -1, static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons_9)},
+    {WindowElementType_Graphic, 66, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701D8}, &WindowPetMailCompose_HandleSendButtons, -1, static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons_10)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570118}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetMailComposeElementId::Element11)},
+    {WindowElementType_Graphic, 13, 26, 0, 0, 1, {.graphic = &gWindowGraphic570130}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetMailComposeElementId::Element12)},
+    {WindowElementType_EventArea, 207, 0, 25, 100, 1, {}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowPetMailComposeElementId::HandleSideArea)},
 };
 
 // 原型：窗口23；原全局：0x0054EA50。
@@ -94,8 +113,9 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         input::SetContext_44B330(&cg::ui::detail::gInputContextD66CA8);
         WindowInstance* const focused = gCurrentWindow;
         gMailInputPrototype57E740.text.clear();
-        gFocusedElementDataD45F94 = focused->elements[1].data.input;
-        focused->elements[1].data.input->context = &cg::ui::detail::gInputContextD66CA8;
+        if (!((focused && (*focused)[WindowPetMailComposeElementId::HandleInput]))) { return {}; }
+        gFocusedElementDataD45F94 = (*focused)[WindowPetMailComposeElementId::HandleInput]->data.input;
+        if ((focused && (*focused)[WindowPetMailComposeElementId::HandleInput])) (*focused)[WindowPetMailComposeElementId::HandleInput]->data.input->context = &cg::ui::detail::gInputContextD66CA8;
     }
     gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
@@ -180,12 +200,16 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
         const WindowInstance* const window = gCurrentWindow;
         const std::uint32_t image = cg::render::gHoverFramePaletteIndex_D69768;
         const std::int32_t windowY = window->y;
-        const WindowElement* const elements = window->elements;
+        auto* elementsWindow = window;
         const std::int32_t windowX = window->x;
-        const std::int32_t elementX = elements[index].x;
-        const std::int32_t elementY = elements[index].y;
-        const std::int32_t height = elements[index].height;
-        const std::int32_t width = elements[index].width;
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+        const std::int32_t elementX = (*elementsWindow)[NativeElementKey(index)]->x;
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+        const std::int32_t elementY = (*elementsWindow)[NativeElementKey(index)]->y;
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+        const std::int32_t height = (*elementsWindow)[NativeElementKey(index)]->height;
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+        const std::int32_t width = (*elementsWindow)[NativeElementKey(index)]->width;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(windowX + elementX),
             static_cast<std::uint16_t>(windowY + elementY),
@@ -219,7 +243,8 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
     case 8:
     case 9: {
         const std::int32_t idle = index == 2 ? 0x3BE54 : index == 8 ? 0x3BE5D : 0x3BE5A;
-        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = idle + 2;
             gHoverTextD68AE8 = index == 2 ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
@@ -250,7 +275,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
             consumed = 1;
         }
         if ((state & 8) != 0) {
-            gCurrentWindow->elements[index].data.graphic->imageNo = idle + 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = idle + 1;
         }
         return consumed;
     }
@@ -261,7 +286,8 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
     }
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
-        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3BA1D;
             gHoverTextD68AE8 = kReplyMailHint587730;
@@ -329,7 +355,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
         }
     }
     if ((state & 8) != 0) {
-        gCurrentWindow->elements[index].data.graphic->imageNo = 0x3BA1C;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 0x3BA1C;
     }
     return consumed;
 }
@@ -340,7 +366,8 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
         const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
-        auto* const text = gCurrentWindow->elements[6].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetMailComposeElementId::Element7]))) { return {}; }
+        auto* const text = (*gCurrentWindow)[WindowPetMailComposeElementId::Element7]->data.text;
         text->text = category == 0 ? world::detail::gContactsF19FB0[target].name10
             : cg::world::gOrderedRecords1051B14[target].name18;
     }
@@ -348,7 +375,8 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     const std::int32_t namePet = gLoginWindowRuntime.choicesCC4CA0.values04[namePosition];
     const auto& pet = world::gPetRuntimeRecords[namePet];
     const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-    auto* const nameData = gCurrentWindow->elements[7].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetMailComposeElementId::Element8]))) { return {}; }
+    auto* const nameData = (*gCurrentWindow)[WindowPetMailComposeElementId::Element8]->data.text;
     nameData->text = name;
     const std::int32_t firstPosition = gLoginWindowRuntime.prefixD2F0B8.value08;
     const std::int32_t firstPet = gLoginWindowRuntime.choicesCC4CA0.values04[firstPosition];
@@ -358,10 +386,11 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
         const std::int32_t secondPet = gLoginWindowRuntime.choicesCC4CA0.values04[secondPosition];
         unavailable = WindowPetMailCompose_HasGiftItem(secondPet) != 0;
     }
-    auto* const colorData = gCurrentWindow->elements[7].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetMailComposeElementId::Element8]))) { return {}; }
+    auto* const colorData = (*gCurrentWindow)[WindowPetMailComposeElementId::Element8]->data.text;
     colorData->style.color = unavailable ? std::byte{7} : std::byte{0};
     const bool hasItem = gLoginWindowRuntime.prefixD2F0B8.value0C != -1;
-    gCurrentWindow->elements[4].visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowPetMailComposeElementId::Element5])) (*gCurrentWindow)[WindowPetMailComposeElementId::Element5]->visible = 0;
     if (hasItem) {
         const std::int32_t imageSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
         const std::int32_t image = world::gPlayerRuntimeSlots.items[imageSlot].imageNo;

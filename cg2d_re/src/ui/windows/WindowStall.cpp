@@ -12,6 +12,107 @@
 #include "../../world/WorldObjectState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowStallElementId : ElementId {
+    DrawTooltipOverlay = 1,
+    HandlePriceInput = 2,
+    ButtonClose = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    EditName = 7,
+    Element8 = 8,
+    EditDescription = 9,
+    Element10 = 10,
+    ScrollListings = 11,
+    ScrollPetCandidates = 12,
+    HandleItemRow = 13,
+    HandleItemRow_14 = 14,
+    HandleItemRow_15 = 15,
+    HandleItemRow_16 = 16,
+    HandleItemRow_17 = 17,
+    HandleItemRow_18 = 18,
+    HandleItemRow_19 = 19,
+    HandleItemRow_20 = 20,
+    HandleItemRow_21 = 21,
+    HandleItemRow_22 = 22,
+    HandleInventory = 23,
+    HandlePetRow = 24,
+    HandlePetRow_25 = 25,
+    HandlePetRow_26 = 26,
+    HandlePetCandidate = 27,
+    HandlePetCandidate_28 = 28,
+    HandlePetCandidate_29 = 29,
+    HandlePetCandidate_30 = 30,
+    HandleButtons = 31,
+    HandleButtons_32 = 32,
+    HandleButtons_33 = 33,
+    HandleButtons_34 = 34,
+    HandleButtons_35 = 35,
+    TabCategory = 36,
+    TabCategory_37 = 37,
+    Element38 = 38,
+    HandleVerticalScroll = 39,
+    ButtonPreviousListing = 40,
+    ButtonNextListing = 41,
+    Element42 = 42,
+    HandleVerticalScroll_43 = 43,
+    ButtonPreviousPet = 44,
+    ButtonNextPet = 45,
+    Element46 = 46,
+    Element47 = 47,
+    Element48 = 48,
+};
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowStallElementId_gWindowElements57BB08 : ElementId {
+    DrawTooltipOverlay = 1,
+    HandlePurchaseConfirmation = 2,
+    ButtonClose = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    ScrollListings = 9,
+    ScrollPetCandidates = 10,
+    HandleItemRow = 11,
+    HandleItemRow_12 = 12,
+    HandleItemRow_13 = 13,
+    HandleItemRow_14 = 14,
+    HandleItemRow_15 = 15,
+    HandleItemRow_16 = 16,
+    HandleItemRow_17 = 17,
+    HandleItemRow_18 = 18,
+    HandleItemRow_19 = 19,
+    HandleItemRow_20 = 20,
+    HandleInventory = 21,
+    HandlePetRow = 22,
+    HandlePetRow_23 = 23,
+    HandlePetRow_24 = 24,
+    HandlePetCandidate = 25,
+    HandlePetCandidate_26 = 26,
+    HandlePetCandidate_27 = 27,
+    HandlePetCandidate_28 = 28,
+    HandleButtons = 29,
+    HandleButtons_30 = 30,
+    TabCategory = 31,
+    TabCategory_32 = 32,
+    Element33 = 33,
+    HandleVerticalScroll = 34,
+    ButtonPreviousListing = 35,
+    ButtonNextListing = 36,
+    Element37 = 37,
+    HandleVerticalScroll_38 = 38,
+    ButtonPreviousPet = 39,
+    ButtonNextPet = 40,
+    Element41 = 41,
+    Element42 = 42,
+    Element43 = 43,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -315,100 +416,100 @@ static std::int32_t gWindowAnimationImage57B458 = 100000; // 原全局：0x0057B
 static std::uint32_t gWindowMouseFlagsD67A10 = 0; // 原全局：0x00D67A10。
 
 static WindowElementPrototype gWindowElements57B508[48] { // 原全局：0x0057B508。
-    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_DrawTooltipOverlay},
-    {WindowElementType_Input, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_HandlePriceInput},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic57B288}, &WindowStall_ButtonClose},
-    {WindowElementType_Number, 393, 30, 0, 0, 1, {.number = &gWindowNumber57B450}, &WindowElement_NoOp},
-    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText57B420}, &WindowElement_NoOp},
-    {WindowElementType_Text, 230, 25, 0, 14, 1, {.text = &gWindowText57B428}, &WindowElement_NoOp},
-    {WindowElementType_Input, 230, 11, 120, 16, 1, {.unusedValue = 0}, &WindowStall_EditName},
-    {WindowElementType_Text, 298, 51, 0, 0, 1, {.text = &gWindowText57B430}, &WindowElement_NoOp},
-    {WindowElementType_Input, 299, 51, 167, 57, 1, {.unusedValue = 0}, &WindowStall_EditDescription},
-    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage57B458}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollListings},
-    {WindowElementType_EventArea, 292, 28, 250, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollPetCandidates},
-    {WindowElementType_EventArea, 22, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 292, 127, 248, 198, 1, {.unusedValue = 0}, &WindowStall_HandleInventory},
-    {WindowElementType_EventArea, 22, 53, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 22, 144, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 22, 235, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 292, 127, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 177, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 227, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 277, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_Graphic, 45, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2A0}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 45, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2B8}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 188, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2E8}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 461, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B300}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 322, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B318}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 26, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B3F0}, &WindowStall_TabCategory},
-    {WindowElementType_Graphic, 90, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B408}, &WindowStall_TabCategory},
-    {WindowElementType_Graphic, 267, 65, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 267, 65, 11, 248, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 267, 55, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousListing},
-    {WindowElementType_Graphic, 267, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextListing},
-    {WindowElementType_Graphic, 527, 139, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 527, 139, 11, 174, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 527, 129, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousPet},
-    {WindowElementType_Graphic, 527, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextPet},
-    {WindowElementType_Graphic, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_DrawTooltipOverlay, -1, static_cast<ElementId>(WindowStallElementId::DrawTooltipOverlay)},
+    {WindowElementType_Input, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_HandlePriceInput, -1, static_cast<ElementId>(WindowStallElementId::HandlePriceInput)},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic57B288}, &WindowStall_ButtonClose, -1, static_cast<ElementId>(WindowStallElementId::ButtonClose)},
+    {WindowElementType_Number, 393, 30, 0, 0, 1, {.number = &gWindowNumber57B450}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element4)},
+    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText57B420}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element5)},
+    {WindowElementType_Text, 230, 25, 0, 14, 1, {.text = &gWindowText57B428}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element6)},
+    {WindowElementType_Input, 230, 11, 120, 16, 1, {.unusedValue = 0}, &WindowStall_EditName, -1, static_cast<ElementId>(WindowStallElementId::EditName)},
+    {WindowElementType_Text, 298, 51, 0, 0, 1, {.text = &gWindowText57B430}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element8)},
+    {WindowElementType_Input, 299, 51, 167, 57, 1, {.unusedValue = 0}, &WindowStall_EditDescription, -1, static_cast<ElementId>(WindowStallElementId::EditDescription)},
+    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage57B458}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element10)},
+    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollListings, -1, static_cast<ElementId>(WindowStallElementId::ScrollListings)},
+    {WindowElementType_EventArea, 292, 28, 250, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollPetCandidates, -1, static_cast<ElementId>(WindowStallElementId::ScrollPetCandidates)},
+    {WindowElementType_EventArea, 22, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow)},
+    {WindowElementType_EventArea, 22, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_14)},
+    {WindowElementType_EventArea, 22, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_15)},
+    {WindowElementType_EventArea, 22, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_16)},
+    {WindowElementType_EventArea, 22, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_17)},
+    {WindowElementType_EventArea, 144, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_18)},
+    {WindowElementType_EventArea, 144, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_19)},
+    {WindowElementType_EventArea, 144, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_20)},
+    {WindowElementType_EventArea, 144, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_21)},
+    {WindowElementType_EventArea, 144, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId::HandleItemRow_22)},
+    {WindowElementType_EventArea, 292, 127, 248, 198, 1, {.unusedValue = 0}, &WindowStall_HandleInventory, -1, static_cast<ElementId>(WindowStallElementId::HandleInventory)},
+    {WindowElementType_EventArea, 22, 53, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow, -1, static_cast<ElementId>(WindowStallElementId::HandlePetRow)},
+    {WindowElementType_EventArea, 22, 144, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow, -1, static_cast<ElementId>(WindowStallElementId::HandlePetRow_25)},
+    {WindowElementType_EventArea, 22, 235, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow, -1, static_cast<ElementId>(WindowStallElementId::HandlePetRow_26)},
+    {WindowElementType_EventArea, 292, 127, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate, -1, static_cast<ElementId>(WindowStallElementId::HandlePetCandidate)},
+    {WindowElementType_EventArea, 292, 177, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate, -1, static_cast<ElementId>(WindowStallElementId::HandlePetCandidate_28)},
+    {WindowElementType_EventArea, 292, 227, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate, -1, static_cast<ElementId>(WindowStallElementId::HandlePetCandidate_29)},
+    {WindowElementType_EventArea, 292, 277, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate, -1, static_cast<ElementId>(WindowStallElementId::HandlePetCandidate_30)},
+    {WindowElementType_Graphic, 45, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2A0}, &WindowStall_HandleButtons, -1, static_cast<ElementId>(WindowStallElementId::HandleButtons)},
+    {WindowElementType_Graphic, 45, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2B8}, &WindowStall_HandleButtons, -1, static_cast<ElementId>(WindowStallElementId::HandleButtons_32)},
+    {WindowElementType_Graphic, 188, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2E8}, &WindowStall_HandleButtons, -1, static_cast<ElementId>(WindowStallElementId::HandleButtons_33)},
+    {WindowElementType_Graphic, 461, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B300}, &WindowStall_HandleButtons, -1, static_cast<ElementId>(WindowStallElementId::HandleButtons_34)},
+    {WindowElementType_Graphic, 322, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B318}, &WindowStall_HandleButtons, -1, static_cast<ElementId>(WindowStallElementId::HandleButtons_35)},
+    {WindowElementType_Graphic, 26, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B3F0}, &WindowStall_TabCategory, -1, static_cast<ElementId>(WindowStallElementId::TabCategory)},
+    {WindowElementType_Graphic, 90, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B408}, &WindowStall_TabCategory, -1, static_cast<ElementId>(WindowStallElementId::TabCategory_37)},
+    {WindowElementType_Graphic, 267, 65, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element38)},
+    {WindowElementType_MouseArea, 267, 65, 11, 248, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowStallElementId::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 267, 55, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousListing, -1, static_cast<ElementId>(WindowStallElementId::ButtonPreviousListing)},
+    {WindowElementType_Graphic, 267, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextListing, -1, static_cast<ElementId>(WindowStallElementId::ButtonNextListing)},
+    {WindowElementType_Graphic, 527, 139, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element42)},
+    {WindowElementType_MouseArea, 527, 139, 11, 174, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowStallElementId::HandleVerticalScroll_43)},
+    {WindowElementType_Graphic, 527, 129, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousPet, -1, static_cast<ElementId>(WindowStallElementId::ButtonPreviousPet)},
+    {WindowElementType_Graphic, 527, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextPet, -1, static_cast<ElementId>(WindowStallElementId::ButtonNextPet)},
+    {WindowElementType_Graphic, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element46)},
+    {WindowElementType_Graphic, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element47)},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId::Element48)},
 };
 
 static WindowElementPrototype gWindowElements57BB08[43] { // 原全局：0x0057BB08。
-    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_DrawTooltipOverlay},
-    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_HandlePurchaseConfirmation},
-    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic57B288}, &WindowStall_ButtonClose},
-    {WindowElementType_Number, 393, 30, 0, 0, 1, {.number = &gWindowNumber57B450}, &WindowElement_NoOp},
-    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText57B420}, &WindowElement_NoOp},
-    {WindowElementType_Text, 230, 25, 0, 14, 1, {.text = &gWindowText57B428}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 299, 51, 167, 57, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage57B458}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollListings},
-    {WindowElementType_EventArea, 292, 28, 250, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollPetCandidates},
-    {WindowElementType_EventArea, 22, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 22, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 144, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow},
-    {WindowElementType_EventArea, 292, 127, 248, 198, 1, {.unusedValue = 0}, &WindowStall_HandleInventory},
-    {WindowElementType_EventArea, 22, 53, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 22, 144, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 22, 235, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow},
-    {WindowElementType_EventArea, 292, 127, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 177, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 227, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_EventArea, 292, 277, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate},
-    {WindowElementType_Graphic, 188, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2D0}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 461, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B300}, &WindowStall_HandleButtons},
-    {WindowElementType_Graphic, 26, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B3F0}, &WindowStall_TabCategory},
-    {WindowElementType_Graphic, 90, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B408}, &WindowStall_TabCategory},
-    {WindowElementType_Graphic, 267, 65, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 267, 65, 11, 248, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 267, 55, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousListing},
-    {WindowElementType_Graphic, 267, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextListing},
-    {WindowElementType_Graphic, 527, 139, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 527, 139, 11, 174, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_Graphic, 527, 129, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousPet},
-    {WindowElementType_Graphic, 527, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextPet},
-    {WindowElementType_Graphic, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_DrawTooltipOverlay, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::DrawTooltipOverlay)},
+    {WindowElementType_EventArea, 0, 0, 549, 366, 1, {.unusedValue = 0}, &WindowStall_HandlePurchaseConfirmation, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandlePurchaseConfirmation)},
+    {WindowElementType_Graphic, 528, 9, 11, 11, 1, {.graphic = &gWindowGraphic57B288}, &WindowStall_ButtonClose, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::ButtonClose)},
+    {WindowElementType_Number, 393, 30, 0, 0, 1, {.number = &gWindowNumber57B450}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element4)},
+    {WindowElementType_Text, 412, 44, 0, 14, 1, {.text = &gWindowText57B420}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element5)},
+    {WindowElementType_Text, 230, 25, 0, 14, 1, {.text = &gWindowText57B428}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element6)},
+    {WindowElementType_EventArea, 299, 51, 167, 57, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element7)},
+    {WindowElementType_Animation, 508, 105, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage57B458}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element8)},
+    {WindowElementType_EventArea, 15, 28, 274, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollListings, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::ScrollListings)},
+    {WindowElementType_EventArea, 292, 28, 250, 325, 1, {.unusedValue = 0}, &WindowStall_ScrollPetCandidates, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::ScrollPetCandidates)},
+    {WindowElementType_EventArea, 22, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow)},
+    {WindowElementType_EventArea, 22, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_12)},
+    {WindowElementType_EventArea, 22, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_13)},
+    {WindowElementType_EventArea, 22, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_14)},
+    {WindowElementType_EventArea, 22, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_15)},
+    {WindowElementType_EventArea, 144, 53, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_16)},
+    {WindowElementType_EventArea, 144, 109, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_17)},
+    {WindowElementType_EventArea, 144, 165, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_18)},
+    {WindowElementType_EventArea, 144, 221, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_19)},
+    {WindowElementType_EventArea, 144, 277, 48, 48, 1, {.unusedValue = 0}, &WindowStall_HandleItemRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleItemRow_20)},
+    {WindowElementType_EventArea, 292, 127, 248, 198, 1, {.unusedValue = 0}, &WindowStall_HandleInventory, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleInventory)},
+    {WindowElementType_EventArea, 22, 53, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandlePetRow)},
+    {WindowElementType_EventArea, 22, 144, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandlePetRow_23)},
+    {WindowElementType_EventArea, 22, 235, 240, 90, 1, {.unusedValue = 0}, &WindowStall_HandlePetRow, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandlePetRow_24)},
+    {WindowElementType_EventArea, 292, 127, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandlePetCandidate)},
+    {WindowElementType_EventArea, 292, 177, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandlePetCandidate_26)},
+    {WindowElementType_EventArea, 292, 227, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandlePetCandidate_27)},
+    {WindowElementType_EventArea, 292, 277, 231, 48, 1, {.unusedValue = 0}, &WindowStall_HandlePetCandidate, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandlePetCandidate_28)},
+    {WindowElementType_Graphic, 188, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B2D0}, &WindowStall_HandleButtons, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleButtons)},
+    {WindowElementType_Graphic, 461, 335, 49, 17, 1, {.graphic = &gWindowGraphic57B300}, &WindowStall_HandleButtons, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleButtons_30)},
+    {WindowElementType_Graphic, 26, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B3F0}, &WindowStall_TabCategory, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::TabCategory)},
+    {WindowElementType_Graphic, 90, 28, 63, 18, 1, {.graphic = &gWindowGraphic57B408}, &WindowStall_TabCategory, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::TabCategory_32)},
+    {WindowElementType_Graphic, 267, 65, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element33)},
+    {WindowElementType_MouseArea, 267, 65, 11, 248, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleVerticalScroll)},
+    {WindowElementType_Graphic, 267, 55, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousListing, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::ButtonPreviousListing)},
+    {WindowElementType_Graphic, 267, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextListing, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::ButtonNextListing)},
+    {WindowElementType_Graphic, 527, 139, 0, 14, 1, {.graphic = &gWindowGraphic57B3A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element37)},
+    {WindowElementType_MouseArea, 527, 139, 11, 174, 1, {.mouseFlags = &gWindowMouseFlagsD67A10}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::HandleVerticalScroll_38)},
+    {WindowElementType_Graphic, 527, 129, 11, 11, 1, {.graphic = &gWindowGraphic57B3C0}, &WindowStall_ButtonPreviousPet, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::ButtonPreviousPet)},
+    {WindowElementType_Graphic, 527, 312, 11, 11, 1, {.graphic = &gWindowGraphic57B3D8}, &WindowStall_ButtonNextPet, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::ButtonNextPet)},
+    {WindowElementType_Graphic, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element41)},
+    {WindowElementType_Graphic, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element42)},
+    {WindowElementType_Graphic, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowStallElementId_gWindowElements57BB08::Element43)},
 };
 
 // 原型：窗口67；原全局：0x0054EF58。
@@ -424,7 +525,8 @@ WindowPrototype gWindowPrototypeStallBrowse {0, 4, 10, 30, 549, 366, 0x80000080u
 // 原函数：0x004CDE40。
 static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gStallModeD67BDC == 1) {
@@ -438,7 +540,8 @@ static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, 
             const std::int32_t page = gStallPetPageD67BD0;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gStallPetCountD67BD4 - 3;
-            static_cast<void>(WindowScroll_SetPosition(window->elements + (own ? 38 : 33), maximum, page));
+            if (!((window && (*window)[NativeElementKey((own ? 38 : 33))]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey((own ? 38 : 33))], maximum, page));
         } else {
             if (gStallItemPageD67BC8 > 0) {
                 --gStallItemPageD67BC8;
@@ -450,7 +553,8 @@ static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, 
             const std::int32_t page = gStallItemPageD67BC8;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t maximum = gStallItemCountD67BCC - 10;
-            static_cast<void>(WindowScroll_SetPosition(window->elements + (own ? 38 : 33), maximum, page));
+            if (!((window && (*window)[NativeElementKey((own ? 38 : 33))]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey((own ? 38 : 33))], maximum, page));
         }
         consumed = 1;
     }
@@ -467,7 +571,8 @@ static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, 
 // 原函数：0x004CDFA0。
 static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gStallModeD67BDC == 1) {
@@ -482,8 +587,9 @@ static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, cons
             const bool own = gStallOwn58111C != 0;
             const std::int32_t current = gStallPetPageD67BD0;
             const std::int32_t limit = gStallPetCountD67BD4 - 3;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey((own ? 38 : 33))]))) { return {}; }
             static_cast<void>(WindowScroll_SetPosition(
-                gCurrentWindow->elements + (own ? 38 : 33), limit, current));
+                (*gCurrentWindow)[NativeElementKey((own ? 38 : 33))], limit, current));
         } else {
             const std::int32_t maximum = gStallItemCountD67BCC - 10;
             const std::int32_t page = gStallItemPageD67BC8;
@@ -496,8 +602,9 @@ static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, cons
             const bool own = gStallOwn58111C != 0;
             const std::int32_t current = gStallItemPageD67BC8;
             const std::int32_t limit = gStallItemCountD67BCC - 10;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey((own ? 38 : 33))]))) { return {}; }
             static_cast<void>(WindowScroll_SetPosition(
-                gCurrentWindow->elements + (own ? 38 : 33), limit, current));
+                (*gCurrentWindow)[NativeElementKey((own ? 38 : 33))], limit, current));
         }
         consumed = 1;
     }
@@ -521,14 +628,16 @@ static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::in
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t maximum = gStallPetCountD67BD4 - 3;
             const std::int32_t page = gStallPetPageD67BD0;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey((own ? 38 : 33))]))) { return {}; }
             gStallPetPageD67BD0 = WindowScroll_ApplyWheel(
-                gCurrentWindow->elements + (own ? 38 : 33), page, maximum, wheel);
+                (*gCurrentWindow)[NativeElementKey((own ? 38 : 33))], page, maximum, wheel);
         } else {
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t maximum = gStallItemCountD67BCC - 10;
             const std::int32_t page = gStallItemPageD67BC8;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey((own ? 38 : 33))]))) { return {}; }
             gStallItemPageD67BC8 = WindowScroll_ApplyWheel(
-                gCurrentWindow->elements + (own ? 38 : 33), page, maximum, wheel);
+                (*gCurrentWindow)[NativeElementKey((own ? 38 : 33))], page, maximum, wheel);
         }
     }
     return 0;
@@ -537,7 +646,8 @@ static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::in
 // 原函数：0x004CE1F0。
 static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gStallModeD67BDC == 1) {
@@ -548,9 +658,10 @@ static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, cons
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             const bool own = gStallOwn58111C != 0;
-            WindowElement* const elements = gCurrentWindow->elements;
+            auto* elementsWindow = gCurrentWindow;
             const std::int32_t page = gStallPetCandidatePageD67BD8;
-            static_cast<void>(WindowScroll_SetPosition(elements + (own ? 42 : 37), 1, page));
+            if (!((elementsWindow && (*elementsWindow)[NativeElementKey((own ? 42 : 37))]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*elementsWindow)[NativeElementKey((own ? 42 : 37))], 1, page));
         }
         consumed = 1;
     }
@@ -567,7 +678,8 @@ static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, cons
 // 原函数：0x004CE2B0。
 static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 0x400) != 0) {
         if (gStallModeD67BDC == 1) {
@@ -578,9 +690,10 @@ static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const st
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
             const bool own = gStallOwn58111C != 0;
-            WindowElement* const elements = gCurrentWindow->elements;
+            auto* elementsWindow = gCurrentWindow;
             const std::int32_t page = gStallPetCandidatePageD67BD8;
-            static_cast<void>(WindowScroll_SetPosition(elements + (own ? 42 : 37), 1, page));
+            if (!((elementsWindow && (*elementsWindow)[NativeElementKey((own ? 42 : 37))]))) { return {}; }
+            static_cast<void>(WindowScroll_SetPosition((*elementsWindow)[NativeElementKey((own ? 42 : 37))], 1, page));
         }
         consumed = 1;
     }
@@ -604,8 +717,9 @@ static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const st
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t page = gStallPetCandidatePageD67BD8;
+            if (!((window && (*window)[NativeElementKey((own ? 42 : 37))]))) { return {}; }
             gStallPetCandidatePageD67BD8 =
-                WindowScroll_ApplyWheel(window->elements + (own ? 42 : 37), page, 1, wheel);
+                WindowScroll_ApplyWheel((*window)[NativeElementKey((own ? 42 : 37))], page, 1, wheel);
         }
     }
     return 0;
@@ -614,9 +728,10 @@ static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const st
 // 原函数：0x004CE3F0。
 static std::int32_t WindowStall_TabCategory(const std::int32_t index, const std::int32_t state)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     const bool ownAtEntry = gStallOwn58111C != 0;
-    auto* const graphic = elements[index].data.graphic;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*elementsWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t category = index;
     if (ownAtEntry) {
         if (index == 35) {
@@ -647,12 +762,14 @@ static std::int32_t WindowStall_TabCategory(const std::int32_t index, const std:
                 const std::int32_t page = gStallPetPageD67BD0;
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t maximum = gStallPetCountD67BD4 - 3;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + (own ? 38 : 33), maximum, page));
+                if (!((window && (*window)[NativeElementKey((own ? 38 : 33))]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey((own ? 38 : 33))], maximum, page));
             } else {
                 const std::int32_t page = gStallItemPageD67BC8;
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t maximum = gStallItemCountD67BCC - 10;
-                static_cast<void>(WindowScroll_SetPosition(window->elements + (own ? 38 : 33), maximum, page));
+                if (!((window && (*window)[NativeElementKey((own ? 38 : 33))]))) { return {}; }
+                static_cast<void>(WindowScroll_SetPosition((*window)[NativeElementKey((own ? 38 : 33))], maximum, page));
             }
             consumed = 1;
         }
@@ -662,12 +779,12 @@ static std::int32_t WindowStall_TabCategory(const std::int32_t index, const std:
     if (own) {
         constexpr std::array<std::int32_t, 7> slots {41, 42, 43, 44, 11, 45, 46};
         for (const std::int32_t slot : slots) {
-            gCurrentWindow->elements[slot].visible = visible;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(slot)])) (*gCurrentWindow)[NativeElementKey(slot)]->visible = visible;
         }
     } else {
         constexpr std::array<std::int32_t, 7> slots {36, 37, 38, 39, 9, 40, 41};
         for (const std::int32_t slot : slots) {
-            gCurrentWindow->elements[slot].visible = visible;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(slot)])) (*gCurrentWindow)[NativeElementKey(slot)]->visible = visible;
         }
     }
     return consumed;
@@ -710,7 +827,7 @@ static std::int32_t WindowStall_RequestClose()
 static WindowInstance* WindowStall_ShowPurchaseConfirmation()
 {
     WindowInstance* const window = gCurrentWindow;
-    window->elements[1].visible = 1;
+    if ((window && (*window)[WindowStallElementId::HandlePriceInput])) (*window)[WindowStallElementId::HandlePriceInput]->visible = 1;
     return window;
 }
 
@@ -721,11 +838,12 @@ static WindowElement* WindowStall_EditItemPrice()
     static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
     WindowInstance* const window = gCurrentWindow;
-    gFocusedElementDataD45F94 = window->elements[1].data.input;
-    window->elements[1].data.input->context = &cg::ui::detail::gInputContextCF4E60;
-    WindowElement* const elements = gCurrentWindow->elements;
-    elements[1].visible = 1;
-    return elements;
+    if (!((window && (*window)[WindowStallElementId::HandlePriceInput]))) { return {}; }
+    gFocusedElementDataD45F94 = (*window)[WindowStallElementId::HandlePriceInput]->data.input;
+    if ((window && (*window)[WindowStallElementId::HandlePriceInput])) (*window)[WindowStallElementId::HandlePriceInput]->data.input->context = &cg::ui::detail::gInputContextCF4E60;
+    auto* elementsWindow = gCurrentWindow;
+    if ((elementsWindow && (*elementsWindow)[WindowStallElementId::HandlePriceInput])) (*elementsWindow)[WindowStallElementId::HandlePriceInput]->visible = 1;
+    return (*elementsWindow)[WindowStallElementId::DrawTooltipOverlay];
 }
 
 // 原函数：0x004CFCA0。
@@ -743,9 +861,10 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
     static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
     WindowInstance* const window = gCurrentWindow;
-    gFocusedElementDataD45F94 = window->elements[1].data.input;
-    window->elements[1].data.input->context = &cg::ui::detail::gInputContextCF4E60;
-    gCurrentWindow->elements[1].visible = 1;
+    if (!((window && (*window)[WindowStallElementId::HandlePriceInput]))) { return; }
+    gFocusedElementDataD45F94 = (*window)[WindowStallElementId::HandlePriceInput]->data.input;
+    if ((window && (*window)[WindowStallElementId::HandlePriceInput])) (*window)[WindowStallElementId::HandlePriceInput]->data.input->context = &cg::ui::detail::gInputContextCF4E60;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandlePriceInput])) (*gCurrentWindow)[WindowStallElementId::HandlePriceInput]->visible = 1;
 }
 
 // 原函数：0x004CFD70。
@@ -795,7 +914,8 @@ static std::int32_t WindowStall_RemoveListing()
 static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     bool disabled = false;
     std::int32_t imageGroup = state;
     if (gStallOwn58111C != 0) {
@@ -1005,7 +1125,7 @@ static std::int32_t WindowStall_SubmitListings()
     WindowInstance* const window = gCurrentWindow;
     gStallMessageModeD67C34 = 0;
     gStallMessageValueD67C38 = 0;
-    window->elements[0].visible = 1;
+    if ((window && (*window)[WindowStallElementId::DrawTooltipOverlay])) (*window)[WindowStallElementId::DrawTooltipOverlay]->visible = 1;
     return 0;
 }
 
@@ -1038,7 +1158,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
         static_cast<void>(cg::render::DrawGraphic(
             buttonX, buttonY, 227, hit ? 243050 : 243048, 0, &descriptor));
         if (hit && (state & 2) != 0) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
     }
     window = gCurrentWindow;
@@ -1222,7 +1342,8 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         descriptor.color = color;
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t y = window->y + element.y;
         const std::int32_t x = window->x + element.x;
         static_cast<void>(render::DrawGraphic3_520970(
@@ -1230,7 +1351,8 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
     } else {
         if ((state & 1) != 0) {
             WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
             cg::render::DrawGraphicHover(
@@ -1253,7 +1375,8 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         const std::int32_t current = gStallPetPageD67BD0 + row;
         if (current == gStallPetSelection581128 - 5) {
             WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
             cg::render::DrawGraphicHover(
@@ -1397,7 +1520,8 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         if (!offered && own) {
             if ((state & 1) != 0) {
                 WindowInstance* const window = gCurrentWindow;
-                const WindowElement& element = window->elements[index];
+                if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+                const WindowElement& element = (*(*window)[NativeElementKey(index)]);
                 const std::int32_t y = window->y + element.y;
                 const std::int32_t x = window->x + element.x;
                 cg::render::DrawGraphicHover(
@@ -1416,7 +1540,8 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         if ((offered || own) && gStallOwn58111C != 0
             && gStallPetCandidatePageD67BD8 + row == gStallPetSelection581128) {
             WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
             cg::render::DrawGraphicHover(
@@ -1437,7 +1562,8 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
     }
     if (gStallOwn58111C != 0 && gStallPetUsedCF400C[gStallPetCandidatePageD67BD8 + row] != 0) {
         WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t y = window->y + element.y;
         const std::int32_t x = window->x + element.x;
         cg::render::DrawGraphicHover(
@@ -1498,7 +1624,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         std::wstring nameLine;
         static_cast<void>(input::ExtractTextLine(nameLine, item->name, line, 10));
         WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const auto y = static_cast<std::int16_t>(window->y + element.y + 5 + line * 14);
         const auto x = static_cast<std::int16_t>(window->x + element.x + 52);
         static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, nameLine, 0, 0));
@@ -1511,7 +1638,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         const std::uint32_t color = 0x80808080u;
         descriptor.color = color;
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t y = window->y + element.y;
         const std::int32_t x = window->x + element.x;
         static_cast<void>(render::DrawGraphic3_520970(
@@ -1519,7 +1647,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     } else {
         if ((state & 1) != 0) {
             WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
             cg::render::DrawGraphicHover(
@@ -1542,7 +1671,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         const std::int32_t current = gStallItemPageD67BC8 + row;
         if (current == gStallItemSelection581124 - 20) {
             WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t y = window->y + element.y;
             const std::int32_t x = window->x + element.x;
             cg::render::DrawGraphicHover(
@@ -1570,7 +1700,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     }
     {
         WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t y = element.y + window->y + 35;
         const std::int32_t x = element.x + window->x + 105;
         WindowNumber_Draw(x, y, buffer, 0, priceColor, 1, 223);
@@ -1580,7 +1711,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         std::wstring countBuffer;
         cg::text::FormatTo(countBuffer, L"{:3}", count);
         WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const auto y = static_cast<std::int16_t>(window->y + element.y + 32);
         const auto x = static_cast<std::int16_t>(window->x + element.x + 21);
         static_cast<void>(render::DrawText_456780(x, y, 3, 1, 1, countBuffer, 0, 0));
@@ -1590,7 +1722,8 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const WindowElement& element = window->elements[index];
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const WindowElement& element = (*(*window)[NativeElementKey(index)]);
     const std::int32_t imageNo = item->imageNo;
     const std::int32_t y = element.y + window->y + 24;
     const std::int32_t x = element.x + window->x + 24;
@@ -1612,7 +1745,8 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
             continue;
         }
         WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t x = window->x + element.x + 50 * (slot % 5);
         const std::int32_t y = window->y + element.y + 50 * (slot / 5);
         render::GraphicDescriptor16 descriptor {};
@@ -1694,8 +1828,9 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
         static_cast<void>(WindowInput_ActivateElement(&gStallPriceInput581590, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCF4E60);
         WindowInstance* const window = gCurrentWindow;
-        gFocusedElementDataD45F94 = window->elements[1].data.input;
-        window->elements[1].data.input->context = &cg::ui::detail::gInputContextCF4E60;
+        if (!((window && (*window)[WindowStallElementId::HandlePriceInput]))) { return {}; }
+        gFocusedElementDataD45F94 = (*window)[WindowStallElementId::HandlePriceInput]->data.input;
+        if ((window && (*window)[WindowStallElementId::HandlePriceInput])) (*window)[WindowStallElementId::HandlePriceInput]->data.input->context = &cg::ui::detail::gInputContextCF4E60;
     }
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextCF4E60) {
         for (std::int32_t digit = 0; digit < 10; ++digit) {
@@ -1727,7 +1862,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
             if (input::gCurrentInputData == &cg::ui::detail::gInputContextCF4E60) {
                 WindowChat_RestoreInput();
             }
-            gCurrentWindow->elements[1].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandlePriceInput])) (*gCurrentWindow)[WindowStallElementId::HandlePriceInput]->visible = 0;
         } else {
             static_cast<void>(render::DrawGraphic3_520970(
                 x + 106, y + 9, 227, 243002, 0, 1, 0, &descriptor));
@@ -1784,7 +1919,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
                 if (input::gCurrentInputData == &cg::ui::detail::gInputContextCF4E60) {
                     WindowChat_RestoreInput();
                 }
-                gCurrentWindow->elements[1].visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandlePriceInput])) (*gCurrentWindow)[WindowStallElementId::HandlePriceInput]->visible = 0;
             }
             imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
         } else {
@@ -1836,7 +1971,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
         acceptLeft, acceptTop, acceptLeft + 49, acceptTop + 17, -1) != 0) {
         if ((state & 2) != 0) {
             static_cast<void>(WindowStall_RequestPurchase());
-            gCurrentWindow->elements[1].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandlePriceInput])) (*gCurrentWindow)[WindowStallElementId::HandlePriceInput]->visible = 0;
         }
         imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
     }
@@ -1851,7 +1986,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     if (cg::ui::HitTestMouseRect_5049A0(
         cancelLeft, cancelTop, cancelLeft + 49, cancelTop + 17, -1) != 0) {
         if ((state & 2) != 0) {
-            gCurrentWindow->elements[1].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandlePriceInput])) (*gCurrentWindow)[WindowStallElementId::HandlePriceInput]->visible = 0;
         }
         imageState = (state & 8) != 0 ? 1 : ((state & 1) != 0 ? 2 : -1);
     }
@@ -1877,7 +2012,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
         }
         if (cg::ui::HitTestMouseRect_5049A0(x + 133, y + 6, x + 148, y + 19, -1) != 0) {
             if ((state & 2) != 0) {
-                gCurrentWindow->elements[1].visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandlePriceInput])) (*gCurrentWindow)[WindowStallElementId::HandlePriceInput]->visible = 0;
             } else {
                 static_cast<void>(render::DrawGraphic3_520970(
                     x + 136, y + 9, 227, 243002, 0, 1, 0, &descriptor));
@@ -1909,7 +2044,7 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, c
     } else {
         if (cg::ui::HitTestMouseRect_5049A0(x + 254, y + 6, x + 269, y + 19, -1) != 0) {
             if ((state & 2) != 0) {
-                gCurrentWindow->elements[1].visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandlePriceInput])) (*gCurrentWindow)[WindowStallElementId::HandlePriceInput]->visible = 0;
             } else {
                 static_cast<void>(render::DrawGraphic3_520970(
                     x + 257, y + 9, 227, 243002, 0, 1, 0, &descriptor));
@@ -1996,29 +2131,34 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
         gStallDescriptionD67BF8.clear();
         std::memset(gStallItemUsedCC31AC.data() + 16, 0, 4);
         gStallPetUsedCF400C[4] = 0;
-        initial->elements[0].visible = 0;
-        gCurrentWindow->elements[1].visible = 0;
+        if ((initial && (*initial)[WindowStallElementId::DrawTooltipOverlay])) (*initial)[WindowStallElementId::DrawTooltipOverlay]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandlePriceInput])) (*gCurrentWindow)[WindowStallElementId::HandlePriceInput]->visible = 0;
     }
     std::wstring lineText;
     if (gStallOwn58111C != 0) {
         const bool showScroll = gStallModeD67BDC == 1
             ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
-        gCurrentWindow->elements[37].visible = showScroll ? 1 : 0;
-        WindowElement* elements = gCurrentWindow->elements;
-        if ((elements[38].data.mouse->flags & 1u) != 0) {
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element38])) (*gCurrentWindow)[WindowStallElementId::Element38]->visible = showScroll ? 1 : 0;
+        auto* elementsWindow = gCurrentWindow;
+        if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::HandleVerticalScroll]))) { return {}; }
+        if (((*elementsWindow)[WindowStallElementId::HandleVerticalScroll]->data.mouse->flags & 1u) != 0) {
             if (gStallModeD67BDC == 1) {
-                gStallPetPageD67BD0 = WindowScroll_ReadPosition(elements + 38, gStallPetCountD67BD4 - 3);
+                if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::HandleVerticalScroll]))) { return {}; }
+                gStallPetPageD67BD0 = WindowScroll_ReadPosition((*elementsWindow)[WindowStallElementId::HandleVerticalScroll], gStallPetCountD67BD4 - 3);
             } else {
-                gStallItemPageD67BC8 = WindowScroll_ReadPosition(elements + 38, gStallItemCountD67BCC - 10);
+                if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::HandleVerticalScroll]))) { return {}; }
+                gStallItemPageD67BC8 = WindowScroll_ReadPosition((*elementsWindow)[WindowStallElementId::HandleVerticalScroll], gStallItemCountD67BCC - 10);
             }
         }
-        elements = gCurrentWindow->elements;
-        if ((elements[42].data.mouse->flags & 1u) != 0
+        elementsWindow = gCurrentWindow;
+        if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::HandleVerticalScroll_43]))) { return {}; }
+        if (((*elementsWindow)[WindowStallElementId::HandleVerticalScroll_43]->data.mouse->flags & 1u) != 0
             && gStallModeD67BDC == 1) {
-            gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 42, 1);
+            if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::HandleVerticalScroll_43]))) { return {}; }
+            gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition((*elementsWindow)[WindowStallElementId::HandleVerticalScroll_43], 1);
         }
-        gCurrentWindow->elements[4].data.text->text = world::GetPlayerDisplayText(1);
-        gCurrentWindow->elements[7].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element5])) (*gCurrentWindow)[WindowStallElementId::Element5]->data.text->text = world::GetPlayerDisplayText(1);
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element8])) (*gCurrentWindow)[WindowStallElementId::Element8]->visible = 0;
         if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC2378
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
@@ -2030,20 +2170,22 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             for (std::int32_t line = 0; line < 3; ++line) {
                 static_cast<void>(input::ExtractTextLine(lineText, gStallDescriptionD67BF8, line, 28));
                 WindowInstance* const window = gCurrentWindow;
-                WindowElement* const current = window->elements;
+                auto* currentWindow = window;
+                if (!((currentWindow && (*currentWindow)[WindowStallElementId::EditDescription]))) { continue; }
                 const std::int16_t y = std::bit_cast<std::int16_t>(
-                    static_cast<std::uint16_t>(current[8].y + window->y + line * 14));
+                    static_cast<std::uint16_t>((*currentWindow)[WindowStallElementId::EditDescription]->y + window->y + line * 14));
+                if (!((currentWindow && (*currentWindow)[WindowStallElementId::EditDescription]))) { continue; }
                 const std::int16_t x = std::bit_cast<std::int16_t>(
-                    static_cast<std::uint16_t>(current[8].x + window->x));
+                    static_cast<std::uint16_t>((*currentWindow)[WindowStallElementId::EditDescription]->x + window->x));
                 static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, lineText, 0, 0));
             }
         } else {
             const auto& source = login::detail::GetCurrentSavedStallDescriptionFF4D28();
             WindowInstance* const window = gCurrentWindow;
             gStallDescriptionD67BF8 = source;
-            window->elements[7].visible = 1;
+            if ((window && (*window)[WindowStallElementId::Element8])) (*window)[WindowStallElementId::Element8]->visible = 1;
         }
-        gCurrentWindow->elements[5].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element6])) (*gCurrentWindow)[WindowStallElementId::Element6]->visible = 0;
         if (input::gCurrentInputData == &cg::ui::detail::gInputContextCB0028
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
@@ -2053,55 +2195,64 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
             gStallNameD67BE4 = input::ContextText(*gStallNameInput581130.input.context);
         } else if (!gStallNameD67BE4.empty()) {
             WindowInstance* const window = gCurrentWindow;
-            WindowElement* const current = window->elements;
+            auto* currentWindow = window;
+            if (!((currentWindow && (*currentWindow)[WindowStallElementId::EditName]))) { return {}; }
             const std::int16_t y = std::bit_cast<std::int16_t>(
-                static_cast<std::uint16_t>(current[6].y + window->y));
+                static_cast<std::uint16_t>((*currentWindow)[WindowStallElementId::EditName]->y + window->y));
+            if (!((currentWindow && (*currentWindow)[WindowStallElementId::EditName]))) { return {}; }
             const std::int16_t x = std::bit_cast<std::int16_t>(
-                static_cast<std::uint16_t>(current[6].x + window->x));
+                static_cast<std::uint16_t>((*currentWindow)[WindowStallElementId::EditName]->x + window->x));
             static_cast<void>(render::DrawText_456780(x, y, 3, 4,
                 std::bit_cast<std::int8_t>(std::uint8_t{0x8C}), gStallNameD67BE4, 0, 0));
         } else {
             const auto& source = login::detail::GetCurrentSavedStallNameFF4D18();
             WindowInstance* const window = gCurrentWindow;
             gStallNameD67BE4 = source;
-            window->elements[5].visible = 1;
+            if ((window && (*window)[WindowStallElementId::Element6])) (*window)[WindowStallElementId::Element6]->visible = 1;
         }
         const std::uint8_t gate = gOwnStallOpenForBusiness_D67BE0;
         gStallHover581120 = -1;
         if (gate != 0) {
-            gCurrentWindow->elements[30].visible = 0;
-            gCurrentWindow->elements[31].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandleButtons])) (*gCurrentWindow)[WindowStallElementId::HandleButtons]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandleButtons_32])) (*gCurrentWindow)[WindowStallElementId::HandleButtons_32]->visible = 1;
         } else {
-            gCurrentWindow->elements[30].visible = 1;
-            gCurrentWindow->elements[31].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandleButtons])) (*gCurrentWindow)[WindowStallElementId::HandleButtons]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandleButtons_32])) (*gCurrentWindow)[WindowStallElementId::HandleButtons_32]->visible = 0;
         }
     } else {
         const bool showScroll = gStallModeD67BDC == 1
             ? gStallPetCountD67BD4 > 3 : gStallItemCountD67BCC > 10;
-        gCurrentWindow->elements[32].visible = showScroll ? 1 : 0;
-        WindowElement* elements = gCurrentWindow->elements;
-        if ((elements[33].data.mouse->flags & 1u) != 0) {
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::HandleButtons_33])) (*gCurrentWindow)[WindowStallElementId::HandleButtons_33]->visible = showScroll ? 1 : 0;
+        auto* elementsWindow = gCurrentWindow;
+        if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::HandleButtons_34]))) { return {}; }
+        if (((*elementsWindow)[WindowStallElementId::HandleButtons_34]->data.mouse->flags & 1u) != 0) {
             if (gStallModeD67BDC == 1) {
-                gStallPetPageD67BD0 = WindowScroll_ReadPosition(elements + 33, gStallPetCountD67BD4 - 3);
+                if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::HandleButtons_34]))) { return {}; }
+                gStallPetPageD67BD0 = WindowScroll_ReadPosition((*elementsWindow)[WindowStallElementId::HandleButtons_34], gStallPetCountD67BD4 - 3);
             } else {
-                gStallItemPageD67BC8 = WindowScroll_ReadPosition(elements + 33, gStallItemCountD67BCC - 10);
+                if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::HandleButtons_34]))) { return {}; }
+                gStallItemPageD67BC8 = WindowScroll_ReadPosition((*elementsWindow)[WindowStallElementId::HandleButtons_34], gStallItemCountD67BCC - 10);
             }
         }
-        elements = gCurrentWindow->elements;
-        if ((elements[37].data.mouse->flags & 1u) != 0
+        elementsWindow = gCurrentWindow;
+        if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::Element38]))) { return {}; }
+        if (((*elementsWindow)[WindowStallElementId::Element38]->data.mouse->flags & 1u) != 0
             && gStallModeD67BDC == 1) {
-            gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition(elements + 37, 1);
+            if (!((elementsWindow && (*elementsWindow)[WindowStallElementId::Element38]))) { return {}; }
+            gStallPetCandidatePageD67BD8 = WindowScroll_ReadPosition((*elementsWindow)[WindowStallElementId::Element38], 1);
         }
-        gCurrentWindow->elements[4].data.text->text = gStallBrowseData->sellerName00;
-        gCurrentWindow->elements[5].data.text->text = gStallBrowseData->stallName11;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element5])) (*gCurrentWindow)[WindowStallElementId::Element5]->data.text->text = gStallBrowseData->sellerName00;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element6])) (*gCurrentWindow)[WindowStallElementId::Element6]->data.text->text = gStallBrowseData->stallName11;
         for (std::int32_t line = 0; line < 3; ++line) {
             static_cast<void>(input::ExtractTextLine(lineText, gStallBrowseData->description22, line, 28));
             WindowInstance* const window = gCurrentWindow;
-            WindowElement* const current = window->elements;
+            auto* currentWindow = window;
+            if (!((currentWindow && (*currentWindow)[WindowStallElementId::EditName]))) { continue; }
             const std::int16_t y = std::bit_cast<std::int16_t>(
-                static_cast<std::uint16_t>(current[6].y + window->y + line * 14));
+                static_cast<std::uint16_t>((*currentWindow)[WindowStallElementId::EditName]->y + window->y + line * 14));
+            if (!((currentWindow && (*currentWindow)[WindowStallElementId::EditName]))) { continue; }
             const std::int16_t x = std::bit_cast<std::int16_t>(
-                static_cast<std::uint16_t>(current[6].x + window->x));
+                static_cast<std::uint16_t>((*currentWindow)[WindowStallElementId::EditName]->x + window->x));
             static_cast<void>(render::DrawText_456780(x, y, 3, 8, 0, lineText, 0, 0));
         }
         gStallHover581120 = -1;
@@ -2121,15 +2272,18 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[8].data.input) {
+        if (!((window && (*window)[WindowStallElementId::EditDescription]))) { return {}; }
+        if (gFocusedElementDataD45F94 != (*window)[WindowStallElementId::EditDescription]->data.input) {
             gStallDescriptionInput581360.text = gStallDescriptionD67BF8;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gStallDescriptionInput581360, x, y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC2378);
             WindowInstance* const current = gCurrentWindow;
-            gFocusedElementDataD45F94 = current->elements[8].data.input;
-            current->elements[8].data.input->context =
+            if (!((current && (*current)[WindowStallElementId::EditDescription]))) { return {}; }
+            gFocusedElementDataD45F94 = (*current)[WindowStallElementId::EditDescription]->data.input;
+            if (!((current && (*current)[WindowStallElementId::EditDescription]))) { return {}; }
+            (*current)[WindowStallElementId::EditDescription]->data.input->context =
                 &cg::ui::detail::gInputContextCC2378;
         }
         return 1;
@@ -2148,15 +2302,18 @@ static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t 
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[6].data.input) {
+        if (!((window && (*window)[WindowStallElementId::EditName]))) { return {}; }
+        if (gFocusedElementDataD45F94 != (*window)[WindowStallElementId::EditName]->data.input) {
             gStallNameInput581130.text = gStallNameD67BE4;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gStallNameInput581130, x, y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCB0028);
             WindowInstance* const current = gCurrentWindow;
-            gFocusedElementDataD45F94 = current->elements[6].data.input;
-            current->elements[6].data.input->context =
+            if (!((current && (*current)[WindowStallElementId::EditName]))) { return {}; }
+            gFocusedElementDataD45F94 = (*current)[WindowStallElementId::EditName]->data.input;
+            if (!((current && (*current)[WindowStallElementId::EditName]))) { return {}; }
+            (*current)[WindowStallElementId::EditName]->data.input->context =
                 &cg::ui::detail::gInputContextCB0028;
         }
         return 1;
@@ -2169,21 +2326,24 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
 {
     if (gStallOwn58111C != 0) {
         {
-            auto* const data = gCurrentWindow->elements[9].data.animation;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element10]))) { return {}; }
+            auto* const data = (*gCurrentWindow)[WindowStallElementId::Element10]->data.animation;
             cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2A8(source);
             cg::yobi::SetYobiActionField2A8(target, value);
         }
         {
-            auto* const data = gCurrentWindow->elements[9].data.animation;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element10]))) { return {}; }
+            auto* const data = (*gCurrentWindow)[WindowStallElementId::Element10]->data.animation;
             cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2B0(source);
             cg::yobi::SetYobiActionField2B0(target, value);
         }
         {
-            auto* const data = gCurrentWindow->elements[9].data.animation;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element10]))) { return {}; }
+            auto* const data = (*gCurrentWindow)[WindowStallElementId::Element10]->data.animation;
             cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
             cg::yobi::YobiAction* const target = data->action;
             const std::int32_t value = cg::yobi::GetYobiActionField2B8(source);
@@ -2235,17 +2395,20 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
         }
     } else {
         {
-            auto* const data = gCurrentWindow->elements[7].data.animation;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element8]))) { return {}; }
+            auto* const data = (*gCurrentWindow)[WindowStallElementId::Element8]->data.animation;
             const std::int32_t value = gStallBrowseData->imageNo60;
             cg::yobi::SetYobiActionField2A8(data->action, value);
         }
         {
-            auto* const data = gCurrentWindow->elements[7].data.animation;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element8]))) { return {}; }
+            auto* const data = (*gCurrentWindow)[WindowStallElementId::Element8]->data.animation;
             const std::int32_t value = gStallBrowseData->action64;
             cg::yobi::SetYobiActionField2B0(data->action, value);
         }
         {
-            auto* const data = gCurrentWindow->elements[7].data.animation;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::Element8]))) { return {}; }
+            auto* const data = (*gCurrentWindow)[WindowStallElementId::Element8]->data.animation;
             const std::int32_t value = gStallBrowseData->direction68;
             cg::yobi::SetYobiActionField2B8(data->action, value);
         }
@@ -2520,7 +2683,7 @@ static std::int32_t WindowStall_RequestPurchase()
     gStallMessageModeD67C34 = 0;
     gStallMessageValueD67C38 = 0;
     gStallMessageC8A978 = message;
-    gCurrentWindow->elements[0].visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowStallElementId::DrawTooltipOverlay])) (*gCurrentWindow)[WindowStallElementId::DrawTooltipOverlay]->visible = 1;
     return length;
 }
 
@@ -2528,7 +2691,8 @@ static std::int32_t WindowStall_RequestPurchase()
 static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = window->elements[index].data.graphic;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*window)[NativeElementKey(index)]->data.graphic;
     const bool hovered = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hovered) {
@@ -2583,7 +2747,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
         if (window != nullptr) {
-            window->elements[0].visible = 1;
+            if ((window && (*window)[WindowStallElementId::DrawTooltipOverlay])) (*window)[WindowStallElementId::DrawTooltipOverlay]->visible = 1;
         }
         gOwnStallOpenForBusiness_D67BE0 = 0;
         gStallPendingD67C31 = 0;
@@ -2595,7 +2759,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
     WindowInstance* const window = gWindowStates[WindowId_OwnStall].window;
     world::gPlayerRuntimeSlots.text15BB8 = name;
     if (window != nullptr) {
-        window->elements[0].visible = 0;
+        if ((window && (*window)[WindowStallElementId::DrawTooltipOverlay])) (*window)[WindowStallElementId::DrawTooltipOverlay]->visible = 0;
     }
     gStallPendingD67C31 = 0;
 }
@@ -2614,10 +2778,10 @@ static void WindowStall_ReceiveCloseResult(const std::int32_t result)
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
         if (window != nullptr) {
-            window->elements[0].visible = 1;
+            if ((window && (*window)[WindowStallElementId::DrawTooltipOverlay])) (*window)[WindowStallElementId::DrawTooltipOverlay]->visible = 1;
         }
     } else if (window != nullptr) {
-        window->elements[0].visible = 0;
+        if ((window && (*window)[WindowStallElementId::DrawTooltipOverlay])) (*window)[WindowStallElementId::DrawTooltipOverlay]->visible = 0;
     }
 }
 
@@ -2671,7 +2835,7 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
         }
         WindowInstance* const window = gWindowStates[WindowId_StallBrowse].window;
         if (window != nullptr) {
-            window->elements[0].visible = 0;
+            if ((window && (*window)[WindowStallElementId::DrawTooltipOverlay])) (*window)[WindowStallElementId::DrawTooltipOverlay]->visible = 0;
         }
         gStallPendingD67C31 = 0;
         return;
@@ -2697,7 +2861,7 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
     gStallMessageModeD67C34 = 1;
     gStallMessageValueD67C38 = 0;
     if (window != nullptr) {
-        window->elements[0].visible = 1;
+        if ((window && (*window)[WindowStallElementId::DrawTooltipOverlay])) (*window)[WindowStallElementId::DrawTooltipOverlay]->visible = 1;
     }
     gStallPendingD67C31 = 0;
 }

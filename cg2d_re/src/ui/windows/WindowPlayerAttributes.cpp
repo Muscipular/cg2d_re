@@ -4,6 +4,55 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowPlayerAttributesElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    HandleButtons = 30,
+    HandleButtons_31 = 31,
+    HandleButtons_32 = 32,
+    HandleButtons_33 = 33,
+    HandleButtons_34 = 34,
+    ButtonClose = 35,
+    HandleButtons_36 = 36,
+    Element37 = 37,
+    HandleButtons_38 = 38,
+    HandleButtons_39 = 39,
+    Element40 = 40,
+    Element41 = 41,
+    Element42 = 42,
+    HandleSideArea = 43,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -154,49 +203,49 @@ static WindowTextPrototype gWindowText560838 { // 原全局：0x00560838。
 };
 
 static WindowElementPrototype gWindowElements560840[43] { // 原全局：0x00560840。
-    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText560758}, &WindowElement_NoOp},
-    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText560760}, &WindowElement_NoOp},
-    {WindowElementType_Text, 130, 31, 0, 0, 1, {.text = &gWindowText560768}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 48, 0, 0, 1, {.text = &gWindowText560770}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 64, 0, 0, 1, {.text = &gWindowText560778}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 80, 0, 0, 1, {.text = &gWindowText560780}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 96, 0, 0, 1, {.text = &gWindowText560788}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 112, 0, 0, 1, {.text = &gWindowText560790}, &WindowElement_NoOp},
-    {WindowElementType_Text, 46, 159, 0, 0, 1, {.text = &gWindowText560798}, &WindowElement_NoOp},
-    {WindowElementType_Text, 46, 175, 0, 0, 1, {.text = &gWindowText5607A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 46, 191, 0, 0, 1, {.text = &gWindowText5607A8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 46, 207, 0, 0, 1, {.text = &gWindowText560830}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 159, 0, 0, 1, {.text = &gWindowText5607B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 175, 0, 0, 1, {.text = &gWindowText5607B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 191, 0, 0, 1, {.text = &gWindowText5607C0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 124, 207, 0, 0, 1, {.text = &gWindowText560838}, &WindowElement_NoOp},
-    {WindowElementType_Text, 212, 48, 0, 0, 1, {.text = &gWindowText5607C8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 212, 64, 0, 0, 1, {.text = &gWindowText5607D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 212, 80, 0, 0, 1, {.text = &gWindowText5607D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 284, 48, 0, 0, 1, {.text = &gWindowText5607E0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 284, 64, 0, 0, 1, {.text = &gWindowText5607E8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 284, 80, 0, 0, 1, {.text = &gWindowText5607F0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 212, 137, 0, 0, 1, {.text = &gWindowText5607F8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 212, 153, 0, 0, 1, {.text = &gWindowText560800}, &WindowElement_NoOp},
-    {WindowElementType_Text, 284, 137, 0, 0, 1, {.text = &gWindowText560808}, &WindowElement_NoOp},
-    {WindowElementType_Text, 284, 153, 0, 0, 1, {.text = &gWindowText560810}, &WindowElement_NoOp},
-    {WindowElementType_Text, 212, 191, 0, 0, 1, {.text = &gWindowText560818}, &WindowElement_NoOp},
-    {WindowElementType_Text, 284, 191, 0, 0, 1, {.text = &gWindowText560820}, &WindowElement_NoOp},
-    {WindowElementType_Text, 284, 207, 0, 0, 1, {.text = &gWindowText560828}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 94, 48, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 94, 64, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 94, 80, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 94, 96, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 94, 112, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560680}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560698}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic5606B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic5606C8}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic560740}, &WindowPlayerAttributes_HandleButtons},
-    {WindowElementType_Graphic, 15, 28, 0, 0, 1, {.graphic = &gWindowGraphic5606F8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic560710}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic560728}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText560758}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element1)},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText560760}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element2)},
+    {WindowElementType_Text, 130, 31, 0, 0, 1, {.text = &gWindowText560768}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element3)},
+    {WindowElementType_Text, 124, 48, 0, 0, 1, {.text = &gWindowText560770}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element4)},
+    {WindowElementType_Text, 124, 64, 0, 0, 1, {.text = &gWindowText560778}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element5)},
+    {WindowElementType_Text, 124, 80, 0, 0, 1, {.text = &gWindowText560780}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element6)},
+    {WindowElementType_Text, 124, 96, 0, 0, 1, {.text = &gWindowText560788}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element7)},
+    {WindowElementType_Text, 124, 112, 0, 0, 1, {.text = &gWindowText560790}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element8)},
+    {WindowElementType_Text, 46, 159, 0, 0, 1, {.text = &gWindowText560798}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element9)},
+    {WindowElementType_Text, 46, 175, 0, 0, 1, {.text = &gWindowText5607A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element10)},
+    {WindowElementType_Text, 46, 191, 0, 0, 1, {.text = &gWindowText5607A8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element11)},
+    {WindowElementType_Text, 46, 207, 0, 0, 1, {.text = &gWindowText560830}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element12)},
+    {WindowElementType_Text, 124, 159, 0, 0, 1, {.text = &gWindowText5607B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element13)},
+    {WindowElementType_Text, 124, 175, 0, 0, 1, {.text = &gWindowText5607B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element14)},
+    {WindowElementType_Text, 124, 191, 0, 0, 1, {.text = &gWindowText5607C0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element15)},
+    {WindowElementType_Text, 124, 207, 0, 0, 1, {.text = &gWindowText560838}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element16)},
+    {WindowElementType_Text, 212, 48, 0, 0, 1, {.text = &gWindowText5607C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element17)},
+    {WindowElementType_Text, 212, 64, 0, 0, 1, {.text = &gWindowText5607D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element18)},
+    {WindowElementType_Text, 212, 80, 0, 0, 1, {.text = &gWindowText5607D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element19)},
+    {WindowElementType_Text, 284, 48, 0, 0, 1, {.text = &gWindowText5607E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element20)},
+    {WindowElementType_Text, 284, 64, 0, 0, 1, {.text = &gWindowText5607E8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element21)},
+    {WindowElementType_Text, 284, 80, 0, 0, 1, {.text = &gWindowText5607F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element22)},
+    {WindowElementType_Text, 212, 137, 0, 0, 1, {.text = &gWindowText5607F8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element23)},
+    {WindowElementType_Text, 212, 153, 0, 0, 1, {.text = &gWindowText560800}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element24)},
+    {WindowElementType_Text, 284, 137, 0, 0, 1, {.text = &gWindowText560808}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element25)},
+    {WindowElementType_Text, 284, 153, 0, 0, 1, {.text = &gWindowText560810}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element26)},
+    {WindowElementType_Text, 212, 191, 0, 0, 1, {.text = &gWindowText560818}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element27)},
+    {WindowElementType_Text, 284, 191, 0, 0, 1, {.text = &gWindowText560820}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element28)},
+    {WindowElementType_Text, 284, 207, 0, 0, 1, {.text = &gWindowText560828}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element29)},
+    {WindowElementType_Graphic, 94, 48, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons)},
+    {WindowElementType_Graphic, 94, 64, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons_31)},
+    {WindowElementType_Graphic, 94, 80, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons_32)},
+    {WindowElementType_Graphic, 94, 96, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons_33)},
+    {WindowElementType_Graphic, 94, 112, 11, 11, 1, {.graphic = &gWindowGraphic5606E0}, &WindowPlayerAttributes_HandleButtons, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons_34)},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic560680}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::ButtonClose)},
+    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic560698}, &WindowPlayerAttributes_HandleButtons, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons_36)},
+    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic5606B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element37)},
+    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic5606C8}, &WindowPlayerAttributes_HandleButtons, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons_38)},
+    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic560740}, &WindowPlayerAttributes_HandleButtons, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons_39)},
+    {WindowElementType_Graphic, 15, 28, 0, 0, 1, {.graphic = &gWindowGraphic5606F8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element40)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic560710}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element41)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic560728}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::Element42)},
+    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowPlayerAttributesElementId::HandleSideArea)},
 };
 
 // 原型：窗口8；原全局：0x0054E390。
@@ -222,7 +271,8 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     const std::int32_t limit = total / 2;
 
     if (index >= 29 && index <= 33) {
-        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         std::int32_t consumed = 0;
         if ((state & 1) != 0) {
             graphic->imageNo = 0x3B53D;
@@ -260,7 +310,8 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
         break;
     case 38:
         if (character_select::state::gPukVersion < 8u) {
-            gCurrentWindow->elements[index].data.graphic->imageNo =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+            (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo =
                 0x3C111;
             return 0;
         }
@@ -272,7 +323,8 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     default:
         return 0;
     }
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = hoverImage;
@@ -300,7 +352,8 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
 // 原函数：0x004767E0。
 static void WindowPlayerAttributes_Refresh()
 {
-    auto* const nameData = gCurrentWindow->elements[0].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPlayerAttributesElementId::Element1]))) { return; }
+    auto* const nameData = (*gCurrentWindow)[WindowPlayerAttributesElementId::Element1]->data.text;
     const wchar_t* const name = world::GetPlayerDisplayText(1);
     nameData->text = name;
 
@@ -308,7 +361,8 @@ static void WindowPlayerAttributes_Refresh()
     const auto writeNumber = [&buffer](
         const std::int32_t index, const std::int32_t value, const std::wstring_view format) {
         cg::text::FormatTo(buffer, format, value);
-        auto* const text = gCurrentWindow->elements[index].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return; }
+        auto* const text = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
         text->text = buffer;
     };
     writeNumber(1, world::gPlayerRuntimeSlots.level, L"{:3}");
@@ -347,14 +401,14 @@ static void WindowPlayerAttributes_Refresh()
         total += vitality;
         total += remainingPoints;
         const std::int32_t limit = total / 2;
-        gCurrentWindow->elements[29].visible = vitality < limit ? 1 : 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPlayerAttributesElementId::HandleButtons])) (*gCurrentWindow)[WindowPlayerAttributesElementId::HandleButtons]->visible = vitality < limit ? 1 : 0;
         for (std::int32_t index = 1; index < 5; ++index) {
             const std::int32_t value = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)];
-            gCurrentWindow->elements[29 + index].visible = value < limit ? 1 : 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(29 + index)])) (*gCurrentWindow)[NativeElementKey(29 + index)]->visible = value < limit ? 1 : 0;
         }
     } else {
         for (std::int32_t index = 29; index < 34; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
     }
 }

@@ -123,6 +123,7 @@ set(cg2d_re_startup_sources
     src/script/LuaRuntime.cpp
     src/script/LuaData.cpp
     src/ui/WindowComponents.cpp
+    src/ui/WindowElements.cpp
     src/ui/WindowExtension.cpp
     src/script/LuaUIProxy.cpp
     src/script/LuaControlEvents.cpp

@@ -2,6 +2,46 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowAttributeTargetElementId : ElementId {
+    ButtonCancel = 1,
+    ButtonBack = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    SelectRow = 17,
+    SelectRow_18 = 18,
+    SelectRow_19 = 19,
+    SelectRow_20 = 20,
+    SelectRow_21 = 21,
+    SelectRow_22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -66,40 +106,40 @@ static WindowTextPrototype gWindowText56D3E0 { // 原全局：0x0056D3E0。
 };
 
 static WindowElementPrototype gWindowElements56D3E8[34] { // 原全局：0x0056D3E8。
-    {WindowElementType_Graphic, 151, 200, 66, 17, 1, {.graphic = &gWindowGraphic56D310}, &WindowAttributeTarget_ButtonCancel},
-    {WindowElementType_Graphic, 303, 200, 66, 17, 1, {.graphic = &gWindowGraphic56D328}, &WindowAttributeTarget_ButtonBack},
-    {WindowElementType_Text, 180, 25, 0, 0, 1, {.text = &gWindowText56D3D8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 45, 0, 0, 1, {.text = &gWindowText56D3E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 57, 72, 0, 0, 1, {.graphic = &gWindowGraphic56D340}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 57, 92, 0, 0, 1, {.graphic = &gWindowGraphic56D358}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 57, 112, 0, 0, 1, {.graphic = &gWindowGraphic56D370}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 57, 132, 0, 0, 1, {.graphic = &gWindowGraphic56D388}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 57, 152, 0, 0, 1, {.graphic = &gWindowGraphic56D3A0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 57, 172, 0, 0, 1, {.graphic = &gWindowGraphic56D3B8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 70, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 90, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 110, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 130, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 150, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 170, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 40, 70, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 90, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 110, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 130, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 150, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow},
-    {WindowElementType_EventArea, 40, 170, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow},
-    {WindowElementType_Text, 40, 70, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 90, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 110, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 130, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 150, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 170, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 70, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 90, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 110, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 130, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 150, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 40, 170, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 151, 200, 66, 17, 1, {.graphic = &gWindowGraphic56D310}, &WindowAttributeTarget_ButtonCancel, -1, static_cast<ElementId>(WindowAttributeTargetElementId::ButtonCancel)},
+    {WindowElementType_Graphic, 303, 200, 66, 17, 1, {.graphic = &gWindowGraphic56D328}, &WindowAttributeTarget_ButtonBack, -1, static_cast<ElementId>(WindowAttributeTargetElementId::ButtonBack)},
+    {WindowElementType_Text, 180, 25, 0, 0, 1, {.text = &gWindowText56D3D8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element3)},
+    {WindowElementType_Text, 40, 45, 0, 0, 1, {.text = &gWindowText56D3E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element4)},
+    {WindowElementType_Graphic, 57, 72, 0, 0, 1, {.graphic = &gWindowGraphic56D340}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element5)},
+    {WindowElementType_Graphic, 57, 92, 0, 0, 1, {.graphic = &gWindowGraphic56D358}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element6)},
+    {WindowElementType_Graphic, 57, 112, 0, 0, 1, {.graphic = &gWindowGraphic56D370}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element7)},
+    {WindowElementType_Graphic, 57, 132, 0, 0, 1, {.graphic = &gWindowGraphic56D388}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element8)},
+    {WindowElementType_Graphic, 57, 152, 0, 0, 1, {.graphic = &gWindowGraphic56D3A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element9)},
+    {WindowElementType_Graphic, 57, 172, 0, 0, 1, {.graphic = &gWindowGraphic56D3B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element10)},
+    {WindowElementType_Text, 40, 70, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element11)},
+    {WindowElementType_Text, 40, 90, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element12)},
+    {WindowElementType_Text, 40, 110, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element13)},
+    {WindowElementType_Text, 40, 130, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element14)},
+    {WindowElementType_Text, 40, 150, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element15)},
+    {WindowElementType_Text, 40, 170, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element16)},
+    {WindowElementType_EventArea, 40, 70, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow, -1, static_cast<ElementId>(WindowAttributeTargetElementId::SelectRow)},
+    {WindowElementType_EventArea, 40, 90, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow, -1, static_cast<ElementId>(WindowAttributeTargetElementId::SelectRow_18)},
+    {WindowElementType_EventArea, 40, 110, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow, -1, static_cast<ElementId>(WindowAttributeTargetElementId::SelectRow_19)},
+    {WindowElementType_EventArea, 40, 130, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow, -1, static_cast<ElementId>(WindowAttributeTargetElementId::SelectRow_20)},
+    {WindowElementType_EventArea, 40, 150, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow, -1, static_cast<ElementId>(WindowAttributeTargetElementId::SelectRow_21)},
+    {WindowElementType_EventArea, 40, 170, 441, 13, 1, {.unusedValue = 0}, &WindowAttributeTarget_SelectRow, -1, static_cast<ElementId>(WindowAttributeTargetElementId::SelectRow_22)},
+    {WindowElementType_Text, 40, 70, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element23)},
+    {WindowElementType_Text, 40, 90, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element24)},
+    {WindowElementType_Text, 40, 110, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element25)},
+    {WindowElementType_Text, 40, 130, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element26)},
+    {WindowElementType_Text, 40, 150, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element27)},
+    {WindowElementType_Text, 40, 170, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element28)},
+    {WindowElementType_Text, 40, 70, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element29)},
+    {WindowElementType_Text, 40, 90, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element30)},
+    {WindowElementType_Text, 40, 110, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element31)},
+    {WindowElementType_Text, 40, 130, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element32)},
+    {WindowElementType_Text, 40, 150, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element33)},
+    {WindowElementType_Text, 40, 170, 0, 0, 1, {.text = &gWindowText56D3D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowAttributeTargetElementId::Element34)},
 };
 
 // 原型：窗口46；原全局：0x0054E930。
@@ -142,41 +182,50 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
 {
     std::int32_t row = 0;
     for (; row < 6 && offset + row < gStatusChoiceCountCC2364; ++row) {
-        gCurrentWindow->elements[row + 4].visible = 0;
-        gCurrentWindow->elements[row + 10].data.text->text.clear();
-        gCurrentWindow->elements[row + 22].data.text->text.clear();
-        gCurrentWindow->elements[row + 28].data.text->text.clear();
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)])) (*gCurrentWindow)[NativeElementKey(row + 4)]->visible = 0;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 10)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 10)]->data.text->text.clear();
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->text.clear();
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 28)]))) { continue; }
+        (*gCurrentWindow)[NativeElementKey(row + 28)]->data.text->text.clear();
         const wchar_t* const name = gStatusChoiceRecordsCB03D0[offset + row].name;
         if (name != nullptr) {
-            cg::text::FormatTo(gCurrentWindow->elements[row + 10].data.text->text, L"           {}", name);
-            gCurrentWindow->elements[row + 10].data.text->style.color =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 10)]))) { continue; }
+            cg::text::FormatTo((*gCurrentWindow)[NativeElementKey(row + 10)]->data.text->text, L"           {}", name);
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 10)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 10)]->data.text->style.color =
                 static_cast<std::byte>(gStatusChoiceRecordsCB03D0[offset + row].color);
-            gCurrentWindow->elements[row + 4].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)])) (*gCurrentWindow)[NativeElementKey(row + 4)]->visible = 1;
             const std::int32_t imageIndex = WindowItem_HealthImageLevel(gStatusChoiceRecordsCB03D0[offset + row].injury);
-            gCurrentWindow->elements[row + 4].data.graphic->imageNo =
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)]))) { continue; }
+            (*gCurrentWindow)[NativeElementKey(row + 4)]->data.graphic->imageNo =
                 gHealthImages57E6A4[imageIndex];
             const std::int32_t level = gStatusChoiceRecordsCB03D0[offset + row].level;
-            cg::text::FormatTo(gCurrentWindow->elements[row + 22].data.text->text, L"{:10}", level);
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)]))) { continue; }
+            cg::text::FormatTo((*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->text, L"{:10}", level);
             const WindowStatusChoiceRecord* const record = gStatusChoiceRecordsCB03D0 + offset + row;
             const std::int32_t maxFp = record->maxFp;
             const std::int32_t fp = record->fp;
             const std::int32_t maxHp = record->maxHp;
             const std::int32_t hp = record->hp;
-            cg::text::FormatTo(gCurrentWindow->elements[row + 28].data.text->text, L"                            {:6}/{:6} {:6}/{:6}", hp, maxHp, fp, maxFp);
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 28)]))) { continue; }
+            cg::text::FormatTo((*gCurrentWindow)[NativeElementKey(row + 28)]->data.text->text, L"                            {:6}/{:6} {:6}/{:6}", hp, maxHp, fp, maxFp);
         }
     }
     for (; row < 6; ++row) {
-        gCurrentWindow->elements[row + 4].visible = 0;
-        gCurrentWindow->elements[row + 10].data.text->text = L"";
-        gCurrentWindow->elements[row + 22].data.text->text = L"";
-        gCurrentWindow->elements[row + 28].data.text->text = L"";
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 4)])) (*gCurrentWindow)[NativeElementKey(row + 4)]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 10)])) (*gCurrentWindow)[NativeElementKey(row + 10)]->data.text->text = L"";
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 22)])) (*gCurrentWindow)[NativeElementKey(row + 22)]->data.text->text = L"";
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 28)])) (*gCurrentWindow)[NativeElementKey(row + 28)]->data.text->text = L"";
     }
 }
 
 // 原函数：0x0049FA40。
 static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"关闭此视窗";
@@ -207,7 +256,8 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index,
 // 原函数：0x0049FB00。
 static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"回到前一页视窗。";
@@ -243,7 +293,8 @@ static std::int32_t WindowAttributeTarget_SelectRow(const std::int32_t index, co
         return 0;
     }
     if ((state & 1) != 0) {
-        WindowElement_DrawHoverFrame(gCurrentWindow->elements + index, state, cg::render::gHoverFramePaletteIndex_D69768);
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        WindowElement_DrawHoverFrame((*gCurrentWindow)[NativeElementKey(index)], state, cg::render::gHoverFramePaletteIndex_D69768);
         gHoverTextD68AE8 = L"选择此人物。";
     }
     if ((state & 2) != 0) {

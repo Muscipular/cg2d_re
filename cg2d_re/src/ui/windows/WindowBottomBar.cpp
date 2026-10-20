@@ -2,6 +2,26 @@
 #include "../../world/ChatHistory.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowBottomBarElementId : ElementId {
+    HandleButtons = 1,
+    HandleButtons_2 = 2,
+    HandleButtons_3 = 3,
+    HandleButtons_4 = 4,
+    HandleButtons_5 = 5,
+    HandleButtons_6 = 6,
+    HandleButtons_7 = 7,
+    HandleButtons_8 = 8,
+    HandleButtons_9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -58,20 +78,20 @@ static WindowTextPrototype gWindowText55F5B8 { // 原全局：0x0055F5B8。
 WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeBottomBar; // 原全局：0x0054E330。
 
 static WindowElementPrototype gWindowElements55F5C0[14] { // 原全局：0x0055F5C0。
-    {WindowElementType_EventArea, 0, 0, 640, 30, 1, {.unusedValue = 0}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 10, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4C0}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 86, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4D8}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 163, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4F0}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 239, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F508}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 316, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F520}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 392, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F538}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 464, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F550}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Graphic, 555, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F568}, &WindowBottomBar_HandleButtons},
-    {WindowElementType_Text, 565, 11, 0, 0, 1, {.text = &gWindowText55F5B8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F580}, &WindowElement_NoOp},
-    {WindowElementType_Text, 21, 10, 0, 0, 1, {.text = &gWindowText55F5B0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 408, 10, 0, 0, 1, {.text = &gWindowText55F5B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F598}, &WindowElement_NoOp},
+    {WindowElementType_EventArea, 0, 0, 640, 30, 1, {.unusedValue = 0}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons)},
+    {WindowElementType_Graphic, 10, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4C0}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_2)},
+    {WindowElementType_Graphic, 86, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4D8}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_3)},
+    {WindowElementType_Graphic, 163, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F4F0}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_4)},
+    {WindowElementType_Graphic, 239, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F508}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_5)},
+    {WindowElementType_Graphic, 316, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F520}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_6)},
+    {WindowElementType_Graphic, 392, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F538}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_7)},
+    {WindowElementType_Graphic, 464, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F550}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_8)},
+    {WindowElementType_Graphic, 555, 7, 60, 20, 1, {.graphic = &gWindowGraphic55F568}, &WindowBottomBar_HandleButtons, -1, static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_9)},
+    {WindowElementType_Text, 565, 11, 0, 0, 1, {.text = &gWindowText55F5B8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBottomBarElementId::Element10)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F580}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBottomBarElementId::Element11)},
+    {WindowElementType_Text, 21, 10, 0, 0, 1, {.text = &gWindowText55F5B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBottomBarElementId::Element12)},
+    {WindowElementType_Text, 408, 10, 0, 0, 1, {.text = &gWindowText55F5B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBottomBarElementId::Element13)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55F598}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBottomBarElementId::Element14)},
 };
 
 // 原型：窗口6；原全局：0x0054E330。
@@ -88,7 +108,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         gWindow6HoverD2EA70 = static_cast<std::uint8_t>(state) & 1u;
         return 0;
     case 1: {
-        auto* const graphic = gCurrentWindow->elements[1].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_2]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_2]->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B960 : 0x3B95F;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -164,7 +185,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return 1;
     }
     case 2: {
-        auto* const graphic = gCurrentWindow->elements[2].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_3]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_3]->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B963 : 0x3B962;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -198,7 +220,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return consumed;
     }
     case 3: {
-        auto* const graphic = gCurrentWindow->elements[3].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_4]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_4]->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B966 : 0x3B965;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -232,7 +255,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return consumed;
     }
     case 4: {
-        auto* const graphic = gCurrentWindow->elements[4].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_5]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_5]->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? 0x3B969 : 0x3B968;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -270,7 +294,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
     case 7: {
         const std::int32_t windowId = index == 5 ? 21 : (index == 6 ? 19 : 24);
         const std::int32_t normalImage = 0x3B96B + (index - 5) * 3;
-        auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         graphic->imageNo = (state & 1) != 0 ? normalImage + 1 : normalImage;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -294,7 +319,8 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         return consumed;
     }
     case 8: {
-        auto* const graphic = gCurrentWindow->elements[8].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9]))) { return {}; }
+        auto* const graphic = (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9]->data.graphic;
         graphic->imageNo = 0x18666;
         if ((state & 1) != 0) {
             consumed = 1;
@@ -325,12 +351,12 @@ static std::int32_t WindowBottomBar_Update(const std::int32_t)
 {
     if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8.empty()) {
         for (std::int32_t index = 1; index <= 7; ++index) {
-            gCurrentWindow->elements[index].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
         }
-        gCurrentWindow->elements[8].visible = 0;
-        gCurrentWindow->elements[10].visible = 1;
-        gCurrentWindow->elements[11].visible = 0;
-        gCurrentWindow->elements[12].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9])) (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element11])) (*gCurrentWindow)[WindowBottomBarElementId::Element11]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element12])) (*gCurrentWindow)[WindowBottomBarElementId::Element12]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element13])) (*gCurrentWindow)[WindowBottomBarElementId::Element13]->visible = 0;
     } else {
         if (gHoverTextD68AE8.find(L"[han]") != std::wstring::npos) {
             if (!gHoverTextD68AE8.empty()) {
@@ -344,28 +370,31 @@ static std::int32_t WindowBottomBar_Update(const std::int32_t)
             gHoverObjectValueD68AC8 = 5;
         }
 
-        WindowElement* const mainElements = gCurrentWindow->elements;
-        auto* const mainText = mainElements[11].data.text;
+        auto* mainElementsWindow = gCurrentWindow;
+        if (!((mainElementsWindow && (*mainElementsWindow)[WindowBottomBarElementId::Element12]))) { return {}; }
+        auto* const mainText = (*mainElementsWindow)[WindowBottomBarElementId::Element12]->data.text;
         mainText->text = gHoverTextD68AE8;
         mainText->style.color = *reinterpret_cast<const std::byte*>(&gHoverObjectValueD68AC8);
         if (gHoverTitleD68BF4.size() != 0) {
-            gCurrentWindow->elements[12].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element13])) (*gCurrentWindow)[WindowBottomBarElementId::Element13]->visible = 1;
         }
-        WindowElement* const titleElements = gCurrentWindow->elements;
-        auto* const titleText = titleElements[12].data.text;
+        auto* titleElementsWindow = gCurrentWindow;
+        if (!((titleElementsWindow && (*titleElementsWindow)[WindowBottomBarElementId::Element13]))) { return {}; }
+        auto* const titleText = (*titleElementsWindow)[WindowBottomBarElementId::Element13]->data.text;
         titleText->text = gHoverTitleD68BF4;
         titleText->style.color = *reinterpret_cast<const std::byte*>(&gHoverTitleValueD69748);
         for (std::int32_t index = 1; index <= 7; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
-        gCurrentWindow->elements[8].visible = 0;
-        gCurrentWindow->elements[10].visible = 0;
-        gCurrentWindow->elements[11].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9])) (*gCurrentWindow)[WindowBottomBarElementId::HandleButtons_9]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element11])) (*gCurrentWindow)[WindowBottomBarElementId::Element11]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBottomBarElementId::Element12])) (*gCurrentWindow)[WindowBottomBarElementId::Element12]->visible = 1;
     }
 
     const std::wstring_view description = platform::QueryWindowImeDescription_4734F0();
-    WindowElement* const elements = gCurrentWindow->elements;
-    auto* const text = elements[9].data.text;
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowBottomBarElementId::Element10]))) { return {}; }
+    auto* const text = (*elementsWindow)[WindowBottomBarElementId::Element10]->data.text;
     text->text = description;
     gHoverTextD68AE8.clear();
     gHoverObjectValueD68AC8 = 0;

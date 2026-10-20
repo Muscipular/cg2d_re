@@ -6,6 +6,15 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowShopChoiceElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    SelectRow = 3,
+};
+
+
 namespace detail {
 
 using WindowChoiceCallback = std::int32_t (*)(std::int32_t index);
@@ -147,9 +156,9 @@ static WindowTextPrototype gWindowText56D828 { // 原全局：0x0056D828。
 static std::int32_t gWindowAnimationImage56D830 = 100000; // 原全局：0x0056D830。
 
 static WindowElementPrototype gWindowElements56D838[3] { // 原全局：0x0056D838。
-    {WindowElementType_Text, 40, 10, 0, 0, 1, {.text = &gWindowText56D828}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 40, 135, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56D830}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 99, 142, 108, 0, 1, {.unusedValue = 0}, &WindowShopChoice_SelectRow},
+    {WindowElementType_Text, 40, 10, 0, 0, 1, {.text = &gWindowText56D828}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopChoiceElementId::Element1)},
+    {WindowElementType_Animation, 40, 135, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56D830}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShopChoiceElementId::Element2)},
+    {WindowElementType_EventArea, 99, 142, 108, 0, 1, {.unusedValue = 0}, &WindowShopChoice_SelectRow, -1, static_cast<ElementId>(WindowShopChoiceElementId::SelectRow)},
 };
 
 // 原型：窗口52；原全局：0x0054E960。
@@ -215,17 +224,21 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
 static std::int32_t WindowShopChoice_Update(const std::int32_t value)
 {
     if (value == -1) {
-        auto* const title = gCurrentWindow->elements[0].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::Element1]))) { return {}; }
+        auto* const title = (*gCurrentWindow)[WindowShopChoiceElementId::Element1]->data.text;
         title->text = gChoiceDialog.title;
         const std::int32_t measured = cg::render::TextMeasure(gChoiceDialog.title, 1);
         WindowInstance* const window = gCurrentWindow;
-        window->elements[0].x = ((window->width - measured) >> 1) + 6;
-        auto* animation = gCurrentWindow->elements[1].data.animation;
+        if ((window && (*window)[WindowShopChoiceElementId::Element1])) (*window)[WindowShopChoiceElementId::Element1]->x = ((window->width - measured) >> 1) + 6;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::Element2]))) { return {}; }
+        auto* animation = (*gCurrentWindow)[WindowShopChoiceElementId::Element2]->data.animation;
         cg::yobi::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
-        animation = gCurrentWindow->elements[1].data.animation;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::Element2]))) { return {}; }
+        animation = (*gCurrentWindow)[WindowShopChoiceElementId::Element2]->data.animation;
         cg::yobi::SetYobiActionField2B8(animation->action, 5);
         const std::uint8_t count = gChoiceDialog.choiceCount;
-        gCurrentWindow->elements[2].height =
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::SelectRow]))) { return {}; }
+        (*gCurrentWindow)[WindowShopChoiceElementId::SelectRow]->height =
             count != 0 ? 14 * std::bit_cast<std::int8_t>(count) - 2 : 0;
         gChoiceDialog.closeEnabled = 1;
     }
@@ -252,7 +265,8 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
     for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.choiceCount); ++row) {
         const std::wstring& text = gChoiceDialog.choices[row];
             WindowInstance* const window = gCurrentWindow;
-            const auto& element = window->elements[2];
+            if (!((window && (*window)[WindowShopChoiceElementId::SelectRow]))) { continue; }
+            const auto& element = (*(*window)[WindowShopChoiceElementId::SelectRow]);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(window->x + element.x),
                 static_cast<std::int16_t>(window->y + element.y + row * 14),
@@ -288,15 +302,17 @@ static std::int32_t WindowShopChoice_SelectRow(const std::int32_t, const std::in
     for (std::int32_t index = 0;
          index < std::bit_cast<std::int8_t>(gChoiceDialog.choiceCount); ++index) {
         WindowInstance* const window = gCurrentWindow;
-        const auto& element = window->elements[2];
+        if (!((window && (*window)[WindowShopChoiceElementId::SelectRow]))) { continue; }
+        const auto& element = (*(*window)[WindowShopChoiceElementId::SelectRow]);
         const auto x = static_cast<std::int16_t>(window->x + element.x);
         const auto y = static_cast<std::int16_t>(window->y + element.y + index * 14);
         if (cg::ui::HitTestMouseRect_5049A0(x, y, x + element.width, y + 12, -1) == 0) {
             continue;
         }
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowShopChoiceElementId::SelectRow]))) { continue; }
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(x - 2), static_cast<std::uint16_t>(y - 2),
-            static_cast<std::uint16_t>(x + gCurrentWindow->elements[2].width + 2),
+            static_cast<std::uint16_t>(x + (*gCurrentWindow)[WindowShopChoiceElementId::SelectRow]->width + 2),
             static_cast<std::uint16_t>(y + 14), 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         gHoverTextD68AE8 = gChoiceDialog.hints[index];
         if ((platform::gLegacyMouseState.edgeButtons & 1u) != 0) {

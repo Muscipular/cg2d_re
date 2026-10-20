@@ -2,6 +2,29 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowShortcutBarElementId : ElementId {
+    HandleButtons = 1,
+    HandleButtons_2 = 2,
+    HandleButtons_3 = 3,
+    HandleButtons_4 = 4,
+    HandleButtons_5 = 5,
+    HandleButtons_6 = 6,
+    HandleButtons_7 = 7,
+    HandleButtons_8 = 8,
+    HandleButtons_9 = 9,
+    Element10 = 10,
+    ButtonCollapse = 11,
+};
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowShortcutBarElementId_gWindowElements55EEC0 : ElementId {
+    Element1 = 1,
+    ButtonExpand = 2,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -49,22 +72,22 @@ WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeShortcutBar; // 原全
 
 // 原57C130指向的元素数组；实际初值和回调绑定位于windows/各窗口文件；共享载荷与索引表位于WindowPrototypes.cpp，本头声明供窗口调用侧使用。
 static WindowElementPrototype gWindowElements55ED60[11] { // 原全局：0x0055ED60。
-    {WindowElementType_Graphic, 14, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC70}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 35, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC88}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 56, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECA0}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 77, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECB8}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 98, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECD0}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 119, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECE8}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 140, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED00}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 161, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED18}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 182, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED30}, &WindowShortcutBar_HandleButtons},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EC58}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonCollapse},
+    {WindowElementType_Graphic, 14, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC70}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons)},
+    {WindowElementType_Graphic, 35, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC88}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_2)},
+    {WindowElementType_Graphic, 56, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECA0}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_3)},
+    {WindowElementType_Graphic, 77, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECB8}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_4)},
+    {WindowElementType_Graphic, 98, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECD0}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_5)},
+    {WindowElementType_Graphic, 119, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECE8}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_6)},
+    {WindowElementType_Graphic, 140, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED00}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_7)},
+    {WindowElementType_Graphic, 161, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED18}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_8)},
+    {WindowElementType_Graphic, 182, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED30}, &WindowShortcutBar_HandleButtons, -1, static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_9)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EC58}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShortcutBarElementId::Element10)},
+    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonCollapse, -1, static_cast<ElementId>(WindowShortcutBarElementId::ButtonCollapse)},
 };
 
 static WindowElementPrototype gWindowElements55EEC0[2] { // 原全局：0x0055EEC0。
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55ED48}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonExpand},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55ED48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowShortcutBarElementId_gWindowElements55EEC0::Element1)},
+    {WindowElementType_MouseArea, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &WindowShortcutBar_ButtonExpand, -1, static_cast<ElementId>(WindowShortcutBarElementId_gWindowElements55EEC0::ButtonExpand)},
 };
 
 // 原型：窗口4；原全局：0x0054E240。
@@ -113,7 +136,8 @@ static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std
 // 原函数：0x0046FC60。
 static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     std::int32_t consumed = hover ? 1 : 0;
     if (index == 8) {

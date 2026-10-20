@@ -6,6 +6,65 @@
 #include <algorithm>
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowPetSkillsElementId : ElementId {
+    EditName = 1,
+    ButtonClose = 2,
+    SwitchPage = 3,
+    SwitchPage_4 = 4,
+    Element5 = 5,
+    HandleButtons = 6,
+    HandleButtons_7 = 7,
+    HandleButtons_8 = 8,
+    HandleButtons_9 = 9,
+    HandleButtons_10 = 10,
+    HandleButtons_11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+    Element37 = 37,
+    HandleSkillRow = 38,
+    HandleSkillRow_39 = 39,
+    HandleSkillRow_40 = 40,
+    HandleSkillRow_41 = 41,
+    HandleSkillRow_42 = 42,
+    HandleSkillRow_43 = 43,
+    HandleSkillRow_44 = 44,
+    HandleSkillRow_45 = 45,
+    HandleSkillRow_46 = 46,
+    HandleSkillRow_47 = 47,
+    Element48 = 48,
+    HandleScroll = 49,
+    Element50 = 50,
+    Element51 = 51,
+    Element52 = 52,
+    HandleSideArea = 53,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -69,60 +128,60 @@ static WindowNumberData gWindowNumbers5667C0[10] { // 原全局：0x005667C0。
 };
 
 static WindowElementPrototype gWindowElements566810[53] { // 原全局：0x00566810；原51项，新增滑块及拖动区域。
-    {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName},
-    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowPetDetail_SwitchPage},
-    {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage},
-    {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 187, 28, 32, 16, 1, {.graphic = &gWindowGraphic565650}, &WindowPetSkills_HandleButtons},
-    {WindowElementType_Graphic, 175, 253, 49, 15, 1, {.graphic = &gWindowGraphic5658C0}, &WindowPetSkills_HandleButtons},
-    {WindowElementType_Graphic, 21, 253, 13, 15, 1, {.graphic = &gWindowGraphic565878}, &WindowPetSkills_HandleButtons},
-    {WindowElementType_Graphic, 65, 253, 13, 15, 1, {.graphic = &gWindowGraphic565890}, &WindowPetSkills_HandleButtons},
-    {WindowElementType_Graphic, 225, 50, 11, 11, 1, {.graphic = &gWindowGraphic565908}, &WindowPetSkills_HandleButtons},
-    {WindowElementType_Graphic, 225, 195, 11, 11, 1, {.graphic = &gWindowGraphic565920}, &WindowPetSkills_HandleButtons},
-    {WindowElementType_Text, 66, 31, 0, 0, 1, {.text = &gWindowText565950}, &WindowElement_NoOp},
-    {WindowElementType_Text, 44, 256, 0, 0, 1, {.text = &gWindowText565988}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 50, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 66, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 82, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 98, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 114, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 130, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 146, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 162, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 178, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 194, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 51, 0, 0, 1, {.number = &gWindowNumbers5667C0[0]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 67, 0, 0, 1, {.number = &gWindowNumbers5667C0[1]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 83, 0, 0, 1, {.number = &gWindowNumbers5667C0[2]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 99, 0, 0, 1, {.number = &gWindowNumbers5667C0[3]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 115, 0, 0, 1, {.number = &gWindowNumbers5667C0[4]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 131, 0, 0, 1, {.number = &gWindowNumbers5667C0[5]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 147, 0, 0, 1, {.number = &gWindowNumbers5667C0[6]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 163, 0, 0, 1, {.number = &gWindowNumbers5667C0[7]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 179, 0, 0, 1, {.number = &gWindowNumbers5667C0[8]}, &WindowElement_NoOp},
-    {WindowElementType_Number, 201, 195, 0, 0, 1, {.number = &gWindowNumbers5667C0[9]}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 213, 0, 0, 1, {.text = &gWindowText5659A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 225, 0, 0, 1, {.text = &gWindowText5659A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 237, 0, 0, 1, {.text = &gWindowText5659A0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 25, 249, 0, 0, 1, {.text = &gWindowText5659A0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 17, 48, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 64, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 80, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 96, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 112, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 128, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 144, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 160, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 176, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
-    {WindowElementType_Graphic, 17, 192, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow},
+    {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName, -1, static_cast<ElementId>(WindowPetSkillsElementId::EditName)},
+    {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPetSkillsElementId::ButtonClose)},
+    {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetSkillsElementId::SwitchPage)},
+    {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetSkillsElementId::SwitchPage_4)},
+    {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element5)},
+    {WindowElementType_Graphic, 187, 28, 32, 16, 1, {.graphic = &gWindowGraphic565650}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons)},
+    {WindowElementType_Graphic, 175, 253, 49, 15, 1, {.graphic = &gWindowGraphic5658C0}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_7)},
+    {WindowElementType_Graphic, 21, 253, 13, 15, 1, {.graphic = &gWindowGraphic565878}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8)},
+    {WindowElementType_Graphic, 65, 253, 13, 15, 1, {.graphic = &gWindowGraphic565890}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_9)},
+    {WindowElementType_Graphic, 225, 50, 11, 11, 1, {.graphic = &gWindowGraphic565908}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_10)},
+    {WindowElementType_Graphic, 225, 195, 11, 11, 1, {.graphic = &gWindowGraphic565920}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_11)},
+    {WindowElementType_Text, 66, 31, 0, 0, 1, {.text = &gWindowText565950}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element12)},
+    {WindowElementType_Text, 44, 256, 0, 0, 1, {.text = &gWindowText565988}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element13)},
+    {WindowElementType_Text, 20, 50, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element14)},
+    {WindowElementType_Text, 20, 66, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element15)},
+    {WindowElementType_Text, 20, 82, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element16)},
+    {WindowElementType_Text, 20, 98, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element17)},
+    {WindowElementType_Text, 20, 114, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element18)},
+    {WindowElementType_Text, 20, 130, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element19)},
+    {WindowElementType_Text, 20, 146, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element20)},
+    {WindowElementType_Text, 20, 162, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element21)},
+    {WindowElementType_Text, 20, 178, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element22)},
+    {WindowElementType_Text, 20, 194, 0, 0, 1, {.text = &gWindowText565990}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element23)},
+    {WindowElementType_Number, 201, 51, 0, 0, 1, {.number = &gWindowNumbers5667C0[0]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element24)},
+    {WindowElementType_Number, 201, 67, 0, 0, 1, {.number = &gWindowNumbers5667C0[1]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element25)},
+    {WindowElementType_Number, 201, 83, 0, 0, 1, {.number = &gWindowNumbers5667C0[2]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element26)},
+    {WindowElementType_Number, 201, 99, 0, 0, 1, {.number = &gWindowNumbers5667C0[3]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element27)},
+    {WindowElementType_Number, 201, 115, 0, 0, 1, {.number = &gWindowNumbers5667C0[4]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element28)},
+    {WindowElementType_Number, 201, 131, 0, 0, 1, {.number = &gWindowNumbers5667C0[5]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element29)},
+    {WindowElementType_Number, 201, 147, 0, 0, 1, {.number = &gWindowNumbers5667C0[6]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element30)},
+    {WindowElementType_Number, 201, 163, 0, 0, 1, {.number = &gWindowNumbers5667C0[7]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element31)},
+    {WindowElementType_Number, 201, 179, 0, 0, 1, {.number = &gWindowNumbers5667C0[8]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element32)},
+    {WindowElementType_Number, 201, 195, 0, 0, 1, {.number = &gWindowNumbers5667C0[9]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element33)},
+    {WindowElementType_Text, 25, 213, 0, 0, 1, {.text = &gWindowText5659A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element34)},
+    {WindowElementType_Text, 25, 225, 0, 0, 1, {.text = &gWindowText5659A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element35)},
+    {WindowElementType_Text, 25, 237, 0, 0, 1, {.text = &gWindowText5659A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element36)},
+    {WindowElementType_Text, 25, 249, 0, 0, 1, {.text = &gWindowText5659A0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element37)},
+    {WindowElementType_Graphic, 17, 48, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow)},
+    {WindowElementType_Graphic, 17, 64, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_39)},
+    {WindowElementType_Graphic, 17, 80, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_40)},
+    {WindowElementType_Graphic, 17, 96, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_41)},
+    {WindowElementType_Graphic, 17, 112, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_42)},
+    {WindowElementType_Graphic, 17, 128, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_43)},
+    {WindowElementType_Graphic, 17, 144, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_44)},
+    {WindowElementType_Graphic, 17, 160, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_45)},
+    {WindowElementType_Graphic, 17, 176, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_46)},
+    {WindowElementType_Graphic, 17, 192, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &WindowPetSkills_HandleSkillRow, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow_47)},
     // 同层图形按提交索引降序绘制；滑块必须先于覆盖其区域的0x3BAEE面板提交。
-    {WindowElementType_Graphic, 225, 61, 0, 14, 0, {.graphic = &gPetTechniqueScrollThumb}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 225, 61, 11, 134, 0, {.mouseFlags = &gPetTechniqueScrollMouseFlags}, &WindowPetSkills_HandleScroll},
-    {WindowElementType_Graphic, 17, 32, 0, 0, 1, {.graphic = &gWindowGraphic565698}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic565608}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 14, 25, 0, 0, 1, {.graphic = &gWindowGraphic565620}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 250, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 225, 61, 0, 14, 0, {.graphic = &gPetTechniqueScrollThumb}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element48)},
+    {WindowElementType_MouseArea, 225, 61, 11, 134, 0, {.mouseFlags = &gPetTechniqueScrollMouseFlags}, &WindowPetSkills_HandleScroll, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleScroll)},
+    {WindowElementType_Graphic, 17, 32, 0, 0, 1, {.graphic = &gWindowGraphic565698}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element50)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic565608}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element51)},
+    {WindowElementType_Graphic, 14, 25, 0, 0, 1, {.graphic = &gWindowGraphic565620}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element52)},
+    {WindowElementType_EventArea, 250, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleSideArea)},
 };
 
 // 原型：窗口18；原全局：0x0054E5D0。
@@ -163,7 +222,7 @@ static WindowElement* WindowPetSkills_Refresh()
         const bool customName = initialPet.name6BD[0] != '\0';
         input::InputContext* const activeInput = input::gCurrentInputData;
         if (activeInput == &cg::ui::detail::gInputContextD2D4A0) {
-            gCurrentWindow->elements[11].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element12])) (*gCurrentWindow)[WindowPetSkillsElementId::Element12]->visible = 0;
             const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
             WindowInstance* window;
             if (customName) {
@@ -177,31 +236,34 @@ static WindowElement* WindowPetSkills_Refresh()
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 1));
         } else {
-            gCurrentWindow->elements[11].visible = 1;
-            auto* const data = gCurrentWindow->elements[11].data.text;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element12])) (*gCurrentWindow)[WindowPetSkillsElementId::Element12]->visible = 1;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element12]))) { return {}; }
+            auto* const data = (*gCurrentWindow)[WindowPetSkillsElementId::Element12]->data.text;
             data->text = gLoginWindowRuntime.petNameDraftD45E74;
             const auto& compared = selectedPet();
             const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
             const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
-            gCurrentWindow->elements[5].visible = changed ? 1 : 0;
-            auto* const colorData = gCurrentWindow->elements[11].data.text;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::HandleButtons])) (*gCurrentWindow)[WindowPetSkillsElementId::HandleButtons]->visible = changed ? 1 : 0;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element12]))) { return {}; }
+            auto* const colorData = (*gCurrentWindow)[WindowPetSkillsElementId::Element12]->data.text;
             colorData->style.color = changed ? std::byte{6} : std::byte{0};
         }
         const auto& compared = selectedPet();
         const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
         const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
-        gCurrentWindow->elements[5].visible = changed ? 1 : 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::HandleButtons])) (*gCurrentWindow)[WindowPetSkillsElementId::HandleButtons]->visible = changed ? 1 : 0;
 
         for (std::int32_t row = 0; row < 10; ++row) {
-            gCurrentWindow->elements[37 + row].visible = 0;
-            gCurrentWindow->elements[13 + row].visible = 0;
-            gCurrentWindow->elements[23 + row].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(37 + row)])) (*gCurrentWindow)[NativeElementKey(37 + row)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(13 + row)])) (*gCurrentWindow)[NativeElementKey(13 + row)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(23 + row)])) (*gCurrentWindow)[NativeElementKey(23 + row)]->visible = 0;
         }
         const std::int32_t slotCount = std::clamp(selectedPet().value6A4, 0, world::kPetTechniqueSlotCount);
         const std::int32_t maximum = std::max(0, slotCount - 10);
         gPetTechniqueScroll = std::clamp(gPetTechniqueScroll, 0, maximum);
-        gCurrentWindow->elements[kPetTechniqueScrollThumbElement].visible = maximum > 0 ? 1 : 0;
-        WindowElement& track = gCurrentWindow->elements[kPetTechniqueScrollTrackElement];
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollThumbElement)])) (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollThumbElement)]->visible = maximum > 0 ? 1 : 0;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollTrackElement)]))) { return {}; }
+        WindowElement& track = (*(*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollTrackElement)]);
         track.visible = maximum > 0 ? 1 : 0;
         auto* const mouse = track.data.mouse;
         if (maximum == 0) {
@@ -211,46 +273,49 @@ static WindowElement* WindowPetSkills_Refresh()
             static_cast<void>(WindowScroll_SetPosition(&track, maximum, gPetTechniqueScroll));
         }
         for (std::int32_t shown = 0; shown < std::min(10, slotCount - gPetTechniqueScroll); ++shown) {
-            gCurrentWindow->elements[37 + shown].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(37 + shown)])) (*gCurrentWindow)[NativeElementKey(37 + shown)]->visible = 1;
         }
         for (std::int32_t row = 0; row < 10; ++row) {
             const std::int32_t techniqueIndex = gPetTechniqueScroll + row;
             if (selectedPet().techniquesD8[techniqueIndex].used != 0) {
-                gCurrentWindow->elements[13 + row].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(13 + row)])) (*gCurrentWindow)[NativeElementKey(13 + row)]->visible = 1;
                 const auto& techniqueName = selectedPet().techniquesD8[techniqueIndex].name;
-                auto* const data = gCurrentWindow->elements[13 + row].data.text;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(13 + row)]))) { continue; }
+                auto* const data = (*gCurrentWindow)[NativeElementKey(13 + row)]->data.text;
                 data->text = techniqueName;
-                gCurrentWindow->elements[23 + row].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(23 + row)])) (*gCurrentWindow)[NativeElementKey(23 + row)]->visible = 1;
                 const std::int32_t fp = selectedPet().techniquesD8[techniqueIndex].fp;
                 cg::text::FormatTo(buffer, L"{:3}", fp);
                 gPetTechniqueCostsD66C34[row] = buffer;
             }
         }
     } else {
-        gCurrentWindow->elements[11].visible = 0;
-        gCurrentWindow->elements[kPetTechniqueScrollThumbElement].visible = 0;
-        gCurrentWindow->elements[kPetTechniqueScrollTrackElement].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element12])) (*gCurrentWindow)[WindowPetSkillsElementId::Element12]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollThumbElement)])) (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollThumbElement)]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollTrackElement)])) (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollTrackElement)]->visible = 0;
         for (std::int32_t row = 0; row < 10; ++row) {
-            gCurrentWindow->elements[37 + row].visible = 0;
-            gCurrentWindow->elements[13 + row].visible = 0;
-            gCurrentWindow->elements[23 + row].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(37 + row)])) (*gCurrentWindow)[NativeElementKey(37 + row)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(13 + row)])) (*gCurrentWindow)[NativeElementKey(13 + row)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(23 + row)])) (*gCurrentWindow)[NativeElementKey(23 + row)]->visible = 0;
         }
     }
     cg::text::FormatTo(buffer, L"{}/{}", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
-    auto* const page = gCurrentWindow->elements[12].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element13]))) { return {}; }
+    auto* const page = (*gCurrentWindow)[WindowPetSkillsElementId::Element13]->data.text;
     page->text = buffer;
-    gCurrentWindow->elements[33].visible = 0;
-    gCurrentWindow->elements[34].visible = 0;
-    WindowElement* const result = gCurrentWindow->elements;
-    result[35].visible = 0;
-    gCurrentWindow->elements[36].visible = 0;
-    return result;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element34])) (*gCurrentWindow)[WindowPetSkillsElementId::Element34]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element35])) (*gCurrentWindow)[WindowPetSkillsElementId::Element35]->visible = 0;
+    auto* resultWindow = gCurrentWindow;
+    if ((resultWindow && (*resultWindow)[WindowPetSkillsElementId::Element36])) (*resultWindow)[WindowPetSkillsElementId::Element36]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element37])) (*gCurrentWindow)[WindowPetSkillsElementId::Element37]->visible = 0;
+    return (*resultWindow)[WindowPetSkillsElementId::EditName];
 }
 
 static std::int32_t WindowPetSkills_HandleScroll(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
-    WindowElement& track = gCurrentWindow->elements[index];
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    WindowElement& track = (*(*gCurrentWindow)[NativeElementKey(index)]);
     const auto* const mouse = track.data.mouse;
     if ((mouse->flags & 1u) != 0) {
         const auto selected = std::bit_cast<std::int16_t>(
@@ -311,7 +376,7 @@ static std::int32_t WindowPetSkills_Update(const std::int32_t value)
     }
     if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
         gPetTechniqueScroll = 0;
-        gCurrentWindow->elements[kPetTechniqueScrollTrackElement].data.mouse->flags = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollTrackElement)])) (*gCurrentWindow)[NativeElementKey(kPetTechniqueScrollTrackElement)]->data.mouse->flags = 0;
         WindowPetDetail_InitializeDraft();
     }
     gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -360,7 +425,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
 {
     std::int32_t consumed = 0;
     const auto setImage = [index](const std::int32_t image) {
-        gCurrentWindow->elements[index].data.graphic->imageNo = image;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = image;
     };
     const auto petIndex = [](const std::int32_t position) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
@@ -387,7 +452,8 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();
                 gLoginWindowRuntime.petNameDraftD45E74 = name;
-                auto* const data = gCurrentWindow->elements[11].data.text;
+                if (!((gCurrentWindow && (*gCurrentWindow)[WindowPetSkillsElementId::Element12]))) { return {}; }
+                auto* const data = (*gCurrentWindow)[WindowPetSkillsElementId::Element12]->data.text;
                 data->text = name;
             }
             consumed = 1;
@@ -540,13 +606,13 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
     }
     if (index == 37) {
         for (std::int32_t line = 0; line < 4; ++line) {
-            gCurrentWindow->elements[33 + line].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(33 + line)])) (*gCurrentWindow)[NativeElementKey(33 + line)]->visible = 0;
         }
     }
     const bool hover = (events & 1u) != 0;
     if (hover) {
         for (std::int32_t line = 0; line < 4; ++line) {
-            gCurrentWindow->elements[33 + line].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(33 + line)])) (*gCurrentWindow)[NativeElementKey(33 + line)]->visible = 1;
         }
         std::wstring buffer;
         for (std::int32_t line = 0; line < 4; ++line) {
@@ -556,8 +622,9 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
             const auto technique = std::bit_cast<std::int16_t>(pet.techniquePairs650[gPetTechniqueScroll + index - 37].index);
             const auto& description = pet.techniquesD8[technique].description;
             if (input::ExtractTextLine(buffer, description, line, 26) != 0) {
-                auto* const elements = gCurrentWindow->elements;
-                auto* const data = elements[33 + line].data.text;
+                auto* elementsWindow = gCurrentWindow;
+                if (!((elementsWindow && (*elementsWindow)[NativeElementKey(33 + line)]))) { continue; }
+                auto* const data = (*elementsWindow)[NativeElementKey(33 + line)]->data.text;
                 data->text = buffer;
             }
         }
@@ -575,7 +642,8 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, con
         static_cast<void>(network::SwapPetSkillOrderRequest_5124E0(socket, selected, sourceTechnique, targetTechnique));
         WindowDrag_Reset();
     }
-    if ((events & 4u) != 0 && hover && gCurrentWindow->elements[index - 24].visible != 0) {
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index - 24)]))) { return {}; }
+    if ((events & 4u) != 0 && hover && (*gCurrentWindow)[NativeElementKey(index - 24)]->visible != 0) {
         static_cast<void>(WindowPetSkills_StartDrag(gPetTechniqueScroll + index - 37));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }

@@ -4,6 +4,20 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowBattlePetsElementId : ElementId {
+    ButtonClose = 1,
+    ButtonReturn = 2,
+    SelectRow = 3,
+    SelectRow_4 = 4,
+    SelectRow_5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    HandleSideArea = 8,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -34,14 +48,14 @@ static WindowGraphicData gWindowGraphic56C7C8 {0x3BA75, 0, 0, 0, 0, 0x80FFFFFFu}
 static WindowGraphicData gWindowGraphic56C7E0 {0x3BA76, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C7E0。
 
 static WindowElementPrototype gWindowElements56C800[8] { // 原全局：0x0056C800。
-    {WindowElementType_Graphic, 302, 9, 11, 11, 1, {.graphic = &gWindowGraphic56C798}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 258, 173, 57, 17, 1, {.graphic = &gWindowGraphic56C7E0}, &WindowBattlePets_ButtonReturn},
-    {WindowElementType_EventArea, 15, 28, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
-    {WindowElementType_EventArea, 15, 76, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
-    {WindowElementType_EventArea, 15, 124, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow},
-    {WindowElementType_Graphic, 0, 0, 320, 353, 1, {.graphic = &gWindowGraphic56C7B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 25, 320, 353, 1, {.graphic = &gWindowGraphic56C7C8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 320, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 302, 9, 11, 11, 1, {.graphic = &gWindowGraphic56C798}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowBattlePetsElementId::ButtonClose)},
+    {WindowElementType_Graphic, 258, 173, 57, 17, 1, {.graphic = &gWindowGraphic56C7E0}, &WindowBattlePets_ButtonReturn, -1, static_cast<ElementId>(WindowBattlePetsElementId::ButtonReturn)},
+    {WindowElementType_EventArea, 15, 28, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow, -1, static_cast<ElementId>(WindowBattlePetsElementId::SelectRow)},
+    {WindowElementType_EventArea, 15, 76, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow, -1, static_cast<ElementId>(WindowBattlePetsElementId::SelectRow_4)},
+    {WindowElementType_EventArea, 15, 124, 300, 48, 1, {.unusedValue = 0}, &WindowBattlePets_SelectRow, -1, static_cast<ElementId>(WindowBattlePetsElementId::SelectRow_5)},
+    {WindowElementType_Graphic, 0, 0, 320, 353, 1, {.graphic = &gWindowGraphic56C7B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattlePetsElementId::Element6)},
+    {WindowElementType_Graphic, 12, 25, 320, 353, 1, {.graphic = &gWindowGraphic56C7C8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattlePetsElementId::Element7)},
+    {WindowElementType_EventArea, 320, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowBattlePetsElementId::HandleSideArea)},
 };
 
 // 原型：窗口28；原全局：0x0054E810。
@@ -52,9 +66,9 @@ WindowPrototype gWindowPrototypeBattlePets {0, 4, 100, 100, 356, 223, 0x80010101
 // 原函数：0x0049B630。
 static std::int32_t WindowBattlePets_Update(const std::int32_t)
 {
-    gCurrentWindow->elements[1].visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowBattlePetsElementId::ButtonReturn])) (*gCurrentWindow)[WindowBattlePetsElementId::ButtonReturn]->visible = 0;
     if (world::FindBattlePetIndex_43C4B0() != -1) {
-        gCurrentWindow->elements[1].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowBattlePetsElementId::ButtonReturn])) (*gCurrentWindow)[WindowBattlePetsElementId::ButtonReturn]->visible = 1;
     }
     return 1;
 }
@@ -62,7 +76,8 @@ static std::int32_t WindowBattlePets_Update(const std::int32_t)
 // 原函数：0x0049BA10。
 static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"让这只宠物归还。";
@@ -163,7 +178,8 @@ static void WindowBattlePets_Refresh(
 static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    const WindowElement* const element = window->elements + index;
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    const WindowElement* const element = (*window)[NativeElementKey(index)];
     const auto x = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(static_cast<std::uint16_t>(window->x)
             + static_cast<std::uint16_t>(element->x)));
@@ -196,7 +212,8 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
         std::uint16_t flags = pet.flags6AA;
         if (flags == 1 || flags == 2) {
             if ((state & 1) != 0) {
-                WindowElement_DrawHoverFrame(window->elements + index, state, cg::render::gHoverFramePaletteIndex_D69768);
+                if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+                WindowElement_DrawHoverFrame((*window)[NativeElementKey(index)], state, cg::render::gHoverFramePaletteIndex_D69768);
                 flags = pet.flags6AA;
                 if (flags != 2) {
                     const wchar_t* const hint = gBattlePetVitalsCF4B78[selected].hp > 0

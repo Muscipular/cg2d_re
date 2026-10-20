@@ -3,6 +3,46 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowOwnProfileElementId : ElementId {
+    Element1 = 1,
+    Element2 = 2,
+    Element3 = 3,
+    Element4 = 4,
+    Element5 = 5,
+    EditField = 6,
+    EditField_7 = 7,
+    EditField_8 = 8,
+    EditField_9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    ButtonClose = 17,
+    HandleButtons = 18,
+    Element19 = 19,
+    HandleButtons_20 = 20,
+    HandleButtons_21 = 21,
+    HandleButtons_22 = 22,
+    Element23 = 23,
+    HandleButtons_24 = 24,
+    HandleButtons_25 = 25,
+    HandleButtons_26 = 26,
+    HandleButtons_27 = 27,
+    HandleButtons_28 = 28,
+    HandleButtons_29 = 29,
+    HandleButtons_30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    HandleSideArea = 34,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -107,40 +147,40 @@ static WindowTextPrototype gWindowText561550 { // 原全局：0x00561550。
 };
 
 static WindowElementPrototype gWindowElements561558[34] { // 原全局：0x00561558。
-    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText561510}, &WindowElement_NoOp},
-    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText561518}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 39, 0, 0, 1, {.text = &gWindowText561520}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 59, 0, 0, 1, {.text = &gWindowText561528}, &WindowElement_NoOp},
-    {WindowElementType_Text, 140, 79, 0, 0, 1, {.text = &gWindowText561530}, &WindowElement_NoOp},
-    {WindowElementType_Input, 90, 105, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField},
-    {WindowElementType_Input, 90, 129, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField},
-    {WindowElementType_Input, 90, 153, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField},
-    {WindowElementType_Input, 90, 177, 168, 54, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField},
-    {WindowElementType_Text, 97, 108, 0, 0, 1, {.text = &gWindowText561540}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 130, 0, 0, 1, {.text = &gWindowText561548}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 152, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 170, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
-    {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5613F0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 15, 29, 64, 72, 1, {.graphic = &gWindowGraphic5614F8}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic5613F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic561408}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic561420}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic561438}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic561450}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 266, 105, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 266, 128, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 266, 151, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 73, 146, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 257, 32, 40, 30, 1, {.graphic = &gWindowGraphic5614C8}, &WindowProfile_HandleButtons},
-    {WindowElementType_Graphic, 15, 36, 0, 0, 1, {.graphic = &gWindowGraphic561468}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561480}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic561498}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Text, 70, 10, 0, 0, 1, {.text = &gWindowText561510}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element1)},
+    {WindowElementType_Text, 272, 11, 0, 0, 1, {.text = &gWindowText561518}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element2)},
+    {WindowElementType_Text, 140, 39, 0, 0, 1, {.text = &gWindowText561520}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element3)},
+    {WindowElementType_Text, 140, 59, 0, 0, 1, {.text = &gWindowText561528}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element4)},
+    {WindowElementType_Text, 140, 79, 0, 0, 1, {.text = &gWindowText561530}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element5)},
+    {WindowElementType_Input, 90, 105, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField, -1, static_cast<ElementId>(WindowOwnProfileElementId::EditField)},
+    {WindowElementType_Input, 90, 129, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField, -1, static_cast<ElementId>(WindowOwnProfileElementId::EditField_7)},
+    {WindowElementType_Input, 90, 153, 168, 14, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField, -1, static_cast<ElementId>(WindowOwnProfileElementId::EditField_8)},
+    {WindowElementType_Input, 90, 177, 168, 54, 1, {.unusedValue = 0}, &WindowOwnProfile_EditField, -1, static_cast<ElementId>(WindowOwnProfileElementId::EditField_9)},
+    {WindowElementType_Text, 97, 108, 0, 0, 1, {.text = &gWindowText561540}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element10)},
+    {WindowElementType_Text, 97, 130, 0, 0, 1, {.text = &gWindowText561548}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element11)},
+    {WindowElementType_Text, 97, 152, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element12)},
+    {WindowElementType_Text, 97, 170, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element13)},
+    {WindowElementType_Text, 97, 184, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element14)},
+    {WindowElementType_Text, 97, 198, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element15)},
+    {WindowElementType_Text, 97, 212, 0, 0, 1, {.text = &gWindowText561550}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element16)},
+    {WindowElementType_Graphic, 296, 8, 12, 12, 1, {.graphic = &gWindowGraphic5613F0}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowOwnProfileElementId::ButtonClose)},
+    {WindowElementType_Graphic, 15, 29, 64, 72, 1, {.graphic = &gWindowGraphic5614F8}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons)},
+    {WindowElementType_Graphic, 15, 29, 0, 0, 1, {.graphic = &gWindowGraphic5613F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element19)},
+    {WindowElementType_Graphic, 151, 230, 38, 25, 1, {.graphic = &gWindowGraphic561408}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_20)},
+    {WindowElementType_Graphic, 204, 231, 38, 25, 1, {.graphic = &gWindowGraphic561420}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_21)},
+    {WindowElementType_Graphic, 258, 230, 38, 25, 1, {.graphic = &gWindowGraphic561438}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_22)},
+    {WindowElementType_Graphic, 94, 230, 38, 25, 1, {.graphic = &gWindowGraphic561450}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element23)},
+    {WindowElementType_Graphic, 266, 105, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_24)},
+    {WindowElementType_Graphic, 266, 128, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_25)},
+    {WindowElementType_Graphic, 266, 151, 20, 20, 1, {.graphic = &gWindowGraphic5614B0}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_26)},
+    {WindowElementType_Graphic, 73, 102, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_27)},
+    {WindowElementType_Graphic, 73, 124, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_28)},
+    {WindowElementType_Graphic, 73, 146, 20, 20, 1, {.graphic = &gWindowGraphic5614E0}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_29)},
+    {WindowElementType_Graphic, 257, 32, 40, 30, 1, {.graphic = &gWindowGraphic5614C8}, &WindowProfile_HandleButtons, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleButtons_30)},
+    {WindowElementType_Graphic, 15, 36, 0, 0, 1, {.graphic = &gWindowGraphic561468}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element31)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic561480}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element32)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic561498}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowOwnProfileElementId::Element33)},
+    {WindowElementType_EventArea, 315, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowOwnProfileElementId::HandleSideArea)},
 };
 
 // 原型：窗口58；原全局：0x0054E3F0。
@@ -156,9 +196,9 @@ static void WindowOwnProfile_RefreshEntry(
     auto& current = world::detail::gCurrentProfile10738E8.entries410[index];
     const std::int32_t element = index + 9;
     const bool editing = input::gCurrentInputData == context;
-    WindowElement* const elements = gCurrentWindow->elements;
+    auto* elementsWindow = gCurrentWindow;
     if (editing) {
-        elements[element].visible = 0;
+        if ((elementsWindow && (*elementsWindow)[NativeElementKey(element)])) (*elementsWindow)[NativeElementKey(element)]->visible = 0;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
@@ -174,13 +214,15 @@ static void WindowOwnProfile_RefreshEntry(
     std::size_t length;
     if (index == 0) {
         length = cg::text::ToGbk(current.text08).size() + 1;
-        data = elements[element].data.text;
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(element)]))) { return; }
+        data = (*elementsWindow)[NativeElementKey(element)]->data.text;
     } else {
-        data = elements[element].data.text;
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(element)]))) { return; }
+        data = (*elementsWindow)[NativeElementKey(element)]->data.text;
         length = cg::text::ToGbk(current.text08).size() + 1;
     }
     data->text = current.text08;
-    gCurrentWindow->elements[element].visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->visible = 1;
     const auto& saved = world::detail::ReadSelectedProfile1074938();
     std::byte color {6};
     if (saved.entries410[index].text08 == current.text08) {
@@ -190,7 +232,7 @@ static void WindowOwnProfile_RefreshEntry(
             color = saved.value04 != 0 && currentValue != 0 ? std::byte{0} : std::byte{7};
         }
     }
-    gCurrentWindow->elements[element].data.text->style.color = color;
+    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(element)])) (*gCurrentWindow)[NativeElementKey(element)]->data.text->style.color = color;
 }
 
 // 原478A10完整刷新：保持每个阶段的角色采样和窗口重取，不缓存跨输入调用的data。
@@ -198,41 +240,47 @@ static void WindowOwnProfile_RefreshEntry(
 static void WindowOwnProfile_Refresh()
 {
     auto& current = world::detail::gCurrentProfile10738E8;
-    WindowElement* const portraitElements = gCurrentWindow->elements;
+    auto* portraitElementsWindow = gCurrentWindow;
     const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
-    portraitElements[18].data.graphic->imageNo = portrait;
+    if ((portraitElementsWindow && (*portraitElementsWindow)[WindowOwnProfileElementId::Element19])) (*portraitElementsWindow)[WindowOwnProfileElementId::Element19]->data.graphic->imageNo = portrait;
     const std::int32_t publicFlag = world::detail::SelectedProfileValue04();
-    gCurrentWindow->elements[17].data.graphic->imageNo =
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileElementId::HandleButtons]))) { return; }
+    (*gCurrentWindow)[WindowOwnProfileElementId::HandleButtons]->data.graphic->imageNo =
         publicFlag != 0 ? 0 : 0x3C113;
 
-    auto* const nameData = gCurrentWindow->elements[0].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileElementId::Element1]))) { return; }
+    auto* const nameData = (*gCurrentWindow)[WindowOwnProfileElementId::Element1]->data.text;
     const wchar_t* const name = world::GetPlayerDisplayText(1);
     nameData->text = name;
     std::wstring number;
     cg::text::FormatTo(number, L"{:3}", world::gPlayerRuntimeSlots.level);
-    auto* const levelData = gCurrentWindow->elements[1].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileElementId::Element2]))) { return; }
+    auto* const levelData = (*gCurrentWindow)[WindowOwnProfileElementId::Element2]->data.text;
     levelData->text = number;
 
-    WindowElement* const titleElements = gCurrentWindow->elements;
+    auto* titleElementsWindow = gCurrentWindow;
     const wchar_t* const title = world::GetPlayerDisplayText(2);
-    auto* const titleData = titleElements[2].data.text;
+    if (!((titleElementsWindow && (*titleElementsWindow)[WindowOwnProfileElementId::Element3]))) { return; }
+    auto* const titleData = (*titleElementsWindow)[WindowOwnProfileElementId::Element3]->data.text;
     titleData->text = title;
-    WindowElement* const jobElements = gCurrentWindow->elements;
+    auto* jobElementsWindow = gCurrentWindow;
     const auto& job = world::GetPlayerJobName();
-    auto* const jobData = jobElements[3].data.text;
+    if (!((jobElementsWindow && (*jobElementsWindow)[WindowOwnProfileElementId::Element4]))) { return; }
+    auto* const jobData = (*jobElementsWindow)[WindowOwnProfileElementId::Element4]->data.text;
     jobData->text = job;
 
     WindowInstance* const guildWindow = gCurrentWindow;
     const std::int32_t guildIndex = cg::world::ReadGuildTextIndex10514B0();
-    auto* const guildData = guildWindow->elements[4].data.text;
+    if (!((guildWindow && (*guildWindow)[WindowOwnProfileElementId::Element5]))) { return; }
+    auto* const guildData = (*guildWindow)[WindowOwnProfileElementId::Element5]->data.text;
     const wchar_t* const guild = guildIndex == -1
         ? L"" : cg::world::GetGuildName();
     guildData->text = guild;
 
     for (std::int32_t index = 0; index < 3; ++index) {
-        WindowElement* const elements = gCurrentWindow->elements;
+        auto* elementsWindow = gCurrentWindow;
         const std::int32_t image = current.entries410[index].value04;
-        elements[index + 26].data.graphic->imageNo = image;
+        if ((elementsWindow && (*elementsWindow)[NativeElementKey(index + 26)])) (*elementsWindow)[NativeElementKey(index + 26)]->data.graphic->imageNo = image;
     }
     WindowOwnProfile_RefreshEntry(0, &cg::ui::detail::gInputContextD64CB0, &gOwnProfileInputPrototype57CEE8);
     WindowOwnProfile_RefreshEntry(1, &cg::ui::detail::gInputContextD2D670, &gOwnProfileInputPrototype57D118);
@@ -240,7 +288,7 @@ static void WindowOwnProfile_Refresh()
 
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2D828) {
         for (std::int32_t index = 12; index < 16; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t y = window->y;
@@ -255,12 +303,13 @@ static void WindowOwnProfile_Refresh()
         for (std::int32_t index = 0; index < 4; ++index) {
             static_cast<void>(input::ExtractTextLine(
                 line, current.text728.data(), index, 28));
-            WindowElement* const elements = gCurrentWindow->elements;
-            auto* const data = elements[index + 12].data.text;
+            auto* elementsWindow = gCurrentWindow;
+            if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index + 12)]))) { continue; }
+            auto* const data = (*elementsWindow)[NativeElementKey(index + 12)]->data.text;
             data->text = line;
         }
         for (std::int32_t index = 12; index < 16; ++index) {
-            gCurrentWindow->elements[index].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
         }
         const auto& saved = world::detail::ReadSelectedProfile1074938();
         std::byte color {6};
@@ -268,11 +317,11 @@ static void WindowOwnProfile_Refresh()
             color = saved.value04 != 0 ? std::byte{0} : std::byte{7};
         }
         for (std::int32_t index = 12; index < 16; ++index) {
-            gCurrentWindow->elements[index].data.text->style.color = color;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.text->style.color = color;
         }
     }
     const std::int32_t changed = world::detail::HasProfileDraftChanges_533B00();
-    gCurrentWindow->elements[29].visible = changed != 0 ? 1 : 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowOwnProfileElementId::HandleButtons_30])) (*gCurrentWindow)[WindowOwnProfileElementId::HandleButtons_30]->visible = changed != 0 ? 1 : 0;
 }
 
 // 原函数：0x00478320。
@@ -328,7 +377,8 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
         return 0;
     }
     WindowInstance* const window = gCurrentWindow;
-    if (gFocusedElementDataD45F94 != window->elements[index].data.input) {
+    if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+    if (gFocusedElementDataD45F94 != (*window)[NativeElementKey(index)]->data.input) {
         const auto& current = world::detail::gCurrentProfile10738E8;
         const wchar_t* const source =
             index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
@@ -338,8 +388,9 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
         static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 0));
         input::SetContext_44B330(context);
         WindowInstance* const focused = gCurrentWindow;
-        gFocusedElementDataD45F94 = focused->elements[index].data.input;
-        focused->elements[index].data.input->context = context;
+        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
+        gFocusedElementDataD45F94 = (*focused)[NativeElementKey(index)]->data.input;
+        if ((focused && (*focused)[NativeElementKey(index)])) (*focused)[NativeElementKey(index)]->data.input->context = context;
     }
     return 1;
 }

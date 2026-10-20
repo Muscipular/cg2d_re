@@ -49,19 +49,18 @@ struct LuaElementEvents final : ui::WindowElementEvents {
     }
     void release(ui::WindowElement& element) override { ReleaseLuaElementRefs(pending.owner, element); }
     int mouse(ui::WindowControlRef ref, int flags) override {
-        auto* control = ResolveControl({ref.winId, ref.generation, ref.controlId});
+        auto* control = ResolveControl({ref.winId, static_cast<std::uint32_t>(ref.controlId)});
         if (!control) return 0;
         int result = CallLuaElementEvent(pending.owner, *control->windowOwner, control->element(), flags);
         auto* window = control->windowOwner;
         if (window->binding && ui::WindowRuntime_IsElementInteractive(*window, control->element())) {
-            const int index = control->currentElement == &control->draft ? -1
-                : static_cast<int>(&control->element() - window->elements);
+            const int index = static_cast<int>(control->element().elementId);
             result |= window->binding->event(index, flags);
         }
         return result;
     }
     int text(ui::WindowControlRef ref, bool enter, std::wstring_view value) override {
-        const LuaControlRef target{ref.winId, ref.generation, ref.controlId};
+        const LuaControlRef target{ref.winId, static_cast<std::uint32_t>(ref.controlId)};
         auto* control = ResolveControl(target);
         if (!control) return 0;
         return CallControlTextCallback(pending.owner, enter ? control->element().refEnter : control->element().refChange,

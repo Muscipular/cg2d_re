@@ -139,11 +139,11 @@ static int EmitControlEvents(WindowControlRef ref, WindowEventBinding callbacks,
     return flags && callbacks && IsControlAttached(ref) ? callbacks->mouse(ref, flags) : 0;
 }
 
-UIControl::UIControl(int winId, uint32_t generation, int id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, WindowEventBinding callbacks)
+UIControl::UIControl(int winId, uint32_t generation, uint32_t id, TYPE type, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, WindowEventBinding callbacks)
     : winId(winId), generation(generation), id(id), type(type), mouseState(MOUSE_NONE), name(name), callbacks(std::move(callbacks)) {
     draft.x = x; draft.y = y; draft.width = w; draft.height = h; draft.visible = visible;
     draft.component = this;
-    draft.seqNo = -id; // 旧Lua控件后加入者优先。
+    draft.seqNo = -static_cast<std::int32_t>(id % 1000000000u); // 旧Lua控件后加入者优先。
     static constexpr WindowElementType types[] = {WindowElementType_EventArea,
         WindowElementType_Graphic, WindowElementType_Text, WindowElementType_PngImage,
         WindowElementType_Input, WindowElementType_Animation, WindowElementType_ScrollView,
@@ -234,7 +234,7 @@ bool UIControl::process(int index, int hasFocused, int captured) {
 }
 
 bool UIControl::process(int /*index*/, int hasFocused, int captured, const UIClipRect* clipRect, short ox, short oy) {
-    if (!attached || (windowOwner && ((windowOwner->state & WIN_STATE_CLOSE) || !(windowOwner->state & WIN_STATE_ACTIVE)))) return false;
+    if (!attached || (windowOwner && ((windowOwner->state & WIN_STATE_CLOSE) || (windowOwner->id >= WIN_MAX && !(windowOwner->state & WIN_STATE_ACTIVE))))) return false;
     if (WindowRuntime_PointerDragBlocksMouse()) {
         mouseState = MOUSE_NONE; // 捕获源的按下状态由统一捕获派发恢复。
         return false;
@@ -256,7 +256,7 @@ bool UIControl::process(int /*index*/, int hasFocused, int captured, const UICli
     if (type == TYPE_TEXT_INPUT) {
         auto inputData = textInputData();
         syncTextInputText();
-        if (!attached || (windowOwner && ((windowOwner->state & WIN_STATE_CLOSE) || !(windowOwner->state & WIN_STATE_ACTIVE)))) return false;
+        if (!attached || (windowOwner && ((windowOwner->state & WIN_STATE_CLOSE) || (windowOwner->id >= WIN_MAX && !(windowOwner->state & WIN_STATE_ACTIVE))))) return false;
         if (inputData && inputData->focused && !isFullyInClip) {
             blurTextInput();
             mouseState = MOUSE_NONE;

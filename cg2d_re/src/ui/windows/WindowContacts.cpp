@@ -3,6 +3,123 @@
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowContactsElementId : ElementId {
+    ButtonGuildDetails = 1,
+    HandleNavigation = 2,
+    HandleNavigation_3 = 3,
+    HandleNavigation_4 = 4,
+    HandleNavigation_5 = 5,
+    HandleNavigation_6 = 6,
+    HandleNavigation_7 = 7,
+    Element8 = 8,
+    Element9 = 9,
+    ButtonClose = 10,
+    TabCategory = 11,
+    TabCategory_12 = 12,
+    TabCategory_13 = 13,
+    Element14 = 14,
+    ScrollRow = 15,
+    ScrollRow_16 = 16,
+    Element17 = 17,
+    HandleVerticalScroll = 18,
+    Scroll = 19,
+    ButtonGroupMail = 20,
+    Element21 = 21,
+    HandleRankButton = 22,
+    HandleRankButton_23 = 23,
+    HandleRankButton_24 = 24,
+    HandleRankButton_25 = 25,
+    HandleRankButton_26 = 26,
+    HandleRankButton_27 = 27,
+    OpenMail = 28,
+    ButtonCompose = 29,
+    ButtonDelete = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    OpenMail_36 = 36,
+    ButtonCompose_37 = 37,
+    ButtonDelete_38 = 38,
+    Element39 = 39,
+    Element40 = 40,
+    Element41 = 41,
+    Element42 = 42,
+    Element43 = 43,
+    OpenMail_44 = 44,
+    ButtonCompose_45 = 45,
+    ButtonDelete_46 = 46,
+    Element47 = 47,
+    Element48 = 48,
+    Element49 = 49,
+    Element50 = 50,
+    Element51 = 51,
+    HandleNavigation_52 = 52,
+    HandleNavigation_53 = 53,
+    HandleNavigation_54 = 54,
+    OpenMail_55 = 55,
+    ButtonCompose_56 = 56,
+    ButtonDelete_57 = 57,
+    Element58 = 58,
+    Element59 = 59,
+    OpenMail_60 = 60,
+    ButtonCompose_61 = 61,
+    ButtonDelete_62 = 62,
+    Element63 = 63,
+    Element64 = 64,
+    OpenMail_65 = 65,
+    ButtonCompose_66 = 66,
+    ButtonDelete_67 = 67,
+    Element68 = 68,
+    Element69 = 69,
+    OpenMail_70 = 70,
+    ButtonCompose_71 = 71,
+    ButtonDelete_72 = 72,
+    Element73 = 73,
+    Element74 = 74,
+    OpenMail_75 = 75,
+    ButtonCompose_76 = 76,
+    ButtonDelete_77 = 77,
+    Element78 = 78,
+    Element79 = 79,
+    OpenMail_80 = 80,
+    ButtonCompose_81 = 81,
+    ButtonDelete_82 = 82,
+    Element83 = 83,
+    Element84 = 84,
+    OpenMail_85 = 85,
+    ButtonCompose_86 = 86,
+    ButtonDelete_87 = 87,
+    Element88 = 88,
+    Element89 = 89,
+    OpenMail_90 = 90,
+    ButtonCompose_91 = 91,
+    ButtonDelete_92 = 92,
+    Element93 = 93,
+    Element94 = 94,
+    OpenMail_95 = 95,
+    ButtonCompose_96 = 96,
+    ButtonDelete_97 = 97,
+    Element98 = 98,
+    Element99 = 99,
+    HandleAvatar = 100,
+    HandleAvatar_101 = 101,
+    HandleAvatar_102 = 102,
+    HandleAvatar_103 = 103,
+    HandleAvatar_104 = 104,
+    HandleAvatar_105 = 105,
+    HandleAvatar_106 = 106,
+    HandleAvatar_107 = 107,
+    HandleAvatar_108 = 108,
+    Element109 = 109,
+    Element110 = 110,
+    HandleSideArea = 111,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -169,117 +286,117 @@ static std::uint32_t gWindowMouseFlagsD67840 = 0; // 原全局：0x00D67840。
 
 // 原全局：0x0056DB38。 窗口21完整元素及原型坐标唯一来源。
 static WindowElementPrototype gWindowElements56DB38[111] { // 原全局：0x0056DB38。
-    {WindowElementType_Graphic, 259, 45, 41, 17, 0, {.graphic = &gWindowGraphic56DA90}, &WindowContacts_ButtonGuildDetails},
-    {WindowElementType_Graphic, 19, 30, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 124, 30, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 19, 49, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 124, 49, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 19, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 42, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 42, 33, 0, 0, 1, {.graphic = &gWindowGraphic56D8B0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 42, 52, 0, 0, 1, {.graphic = &gWindowGraphic56D8E0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 310, 9, 11, 11, 1, {.graphic = &gWindowGraphic56D9A0}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Graphic, 218, 353, 39, 24, 1, {.graphic = &gWindowGraphic56DA30}, &WindowContacts_TabCategory},
-    {WindowElementType_Graphic, 271, 352, 38, 25, 1, {.graphic = &gWindowGraphic56DA48}, &WindowContacts_TabCategory},
-    {WindowElementType_Graphic, 143, 349, 60, 25, 1, {.graphic = &gWindowGraphic56DAD8}, &WindowContacts_TabCategory},
-    {WindowElementType_Graphic, 120, 8, 60, 25, 1, {.graphic = &gWindowGraphic56DAF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 310, 69, 11, 11, 1, {.graphic = &gWindowGraphic56D9B8}, &WindowContacts_ScrollRow},
-    {WindowElementType_Graphic, 310, 315, 11, 11, 1, {.graphic = &gWindowGraphic56D9E8}, &WindowContacts_ScrollRow},
-    {WindowElementType_Graphic, 310, 80, 10, 14, 1, {.graphic = &gWindowGraphic56D9D0}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 309, 80, 11, 235, 1, {.mouseFlags = &gWindowMouseFlagsD67840}, &WindowElement_HandleVerticalScroll},
-    {WindowElementType_EventArea, 0, 0, 331, 381, 1, {.unusedValue = 0}, &WindowContacts_Scroll},
-    {WindowElementType_Graphic, 219, 45, 19, 19, 1, {.graphic = &gWindowGraphic56D970}, &WindowContacts_ButtonGroupMail},
-    {WindowElementType_Text, 200, 30, 0, 0, 1, {.text = &gWindowText56DB30}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 142, 84, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 282, 84, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 142, 171, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 282, 171, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 142, 258, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 282, 258, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton},
-    {WindowElementType_Graphic, 222, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 243, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 264, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 130, 71, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 279, 71, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 87, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 102, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
-    {WindowElementType_Text, 151, 133, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 222, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 243, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 264, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 130, 158, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 279, 158, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 174, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 189, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
-    {WindowElementType_Text, 151, 220, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 222, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 243, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 264, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 130, 245, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 279, 245, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 261, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp},
-    {WindowElementType_Text, 165, 276, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp},
-    {WindowElementType_Text, 151, 307, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 67, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 16, 154, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 16, 241, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation},
-    {WindowElementType_Graphic, 242, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 80, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 80, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 110, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 110, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 139, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 139, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 168, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 168, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 197, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 197, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 226, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 226, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 255, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 255, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 284, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 284, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 242, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail},
-    {WindowElementType_Graphic, 263, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose},
-    {WindowElementType_Graphic, 284, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete},
-    {WindowElementType_Text, 56, 313, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp},
-    {WindowElementType_Text, 173, 313, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 68, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 97, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 126, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 155, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 184, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 213, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 242, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 271, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 15, 300, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56DAA8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic56DAC0}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 331, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 259, 45, 41, 17, 0, {.graphic = &gWindowGraphic56DA90}, &WindowContacts_ButtonGuildDetails, -1, static_cast<ElementId>(WindowContactsElementId::ButtonGuildDetails)},
+    {WindowElementType_Graphic, 19, 30, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation)},
+    {WindowElementType_Graphic, 124, 30, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)},
+    {WindowElementType_Graphic, 19, 49, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation_4)},
+    {WindowElementType_Graphic, 124, 49, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation_5)},
+    {WindowElementType_Graphic, 19, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation_6)},
+    {WindowElementType_Graphic, 42, 333, 18, 18, 1, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation_7)},
+    {WindowElementType_Graphic, 42, 33, 0, 0, 1, {.graphic = &gWindowGraphic56D8B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element8)},
+    {WindowElementType_Graphic, 42, 52, 0, 0, 1, {.graphic = &gWindowGraphic56D8E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element9)},
+    {WindowElementType_Graphic, 310, 9, 11, 11, 1, {.graphic = &gWindowGraphic56D9A0}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonClose)},
+    {WindowElementType_Graphic, 218, 353, 39, 24, 1, {.graphic = &gWindowGraphic56DA30}, &WindowContacts_TabCategory, -1, static_cast<ElementId>(WindowContactsElementId::TabCategory)},
+    {WindowElementType_Graphic, 271, 352, 38, 25, 1, {.graphic = &gWindowGraphic56DA48}, &WindowContacts_TabCategory, -1, static_cast<ElementId>(WindowContactsElementId::TabCategory_12)},
+    {WindowElementType_Graphic, 143, 349, 60, 25, 1, {.graphic = &gWindowGraphic56DAD8}, &WindowContacts_TabCategory, -1, static_cast<ElementId>(WindowContactsElementId::TabCategory_13)},
+    {WindowElementType_Graphic, 120, 8, 60, 25, 1, {.graphic = &gWindowGraphic56DAF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element14)},
+    {WindowElementType_Graphic, 310, 69, 11, 11, 1, {.graphic = &gWindowGraphic56D9B8}, &WindowContacts_ScrollRow, -1, static_cast<ElementId>(WindowContactsElementId::ScrollRow)},
+    {WindowElementType_Graphic, 310, 315, 11, 11, 1, {.graphic = &gWindowGraphic56D9E8}, &WindowContacts_ScrollRow, -1, static_cast<ElementId>(WindowContactsElementId::ScrollRow_16)},
+    {WindowElementType_Graphic, 310, 80, 10, 14, 1, {.graphic = &gWindowGraphic56D9D0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element17)},
+    {WindowElementType_MouseArea, 309, 80, 11, 235, 1, {.mouseFlags = &gWindowMouseFlagsD67840}, &WindowElement_HandleVerticalScroll, -1, static_cast<ElementId>(WindowContactsElementId::HandleVerticalScroll)},
+    {WindowElementType_EventArea, 0, 0, 331, 381, 1, {.unusedValue = 0}, &WindowContacts_Scroll, -1, static_cast<ElementId>(WindowContactsElementId::Scroll)},
+    {WindowElementType_Graphic, 219, 45, 19, 19, 1, {.graphic = &gWindowGraphic56D970}, &WindowContacts_ButtonGroupMail, -1, static_cast<ElementId>(WindowContactsElementId::ButtonGroupMail)},
+    {WindowElementType_Text, 200, 30, 0, 0, 1, {.text = &gWindowText56DB30}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element21)},
+    {WindowElementType_Graphic, 142, 84, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton, -1, static_cast<ElementId>(WindowContactsElementId::HandleRankButton)},
+    {WindowElementType_Graphic, 282, 84, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton, -1, static_cast<ElementId>(WindowContactsElementId::HandleRankButton_23)},
+    {WindowElementType_Graphic, 142, 171, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton, -1, static_cast<ElementId>(WindowContactsElementId::HandleRankButton_24)},
+    {WindowElementType_Graphic, 282, 171, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton, -1, static_cast<ElementId>(WindowContactsElementId::HandleRankButton_25)},
+    {WindowElementType_Graphic, 142, 258, 18, 18, 0, {.graphic = &gWindowGraphic56DA00}, &WindowContacts_HandleRankButton, -1, static_cast<ElementId>(WindowContactsElementId::HandleRankButton_26)},
+    {WindowElementType_Graphic, 282, 258, 18, 18, 0, {.graphic = &gWindowGraphic56DA18}, &WindowContacts_HandleRankButton, -1, static_cast<ElementId>(WindowContactsElementId::HandleRankButton_27)},
+    {WindowElementType_Graphic, 222, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail)},
+    {WindowElementType_Graphic, 243, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose)},
+    {WindowElementType_Graphic, 264, 120, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete)},
+    {WindowElementType_Text, 130, 71, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element31)},
+    {WindowElementType_Text, 279, 71, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element32)},
+    {WindowElementType_Text, 165, 87, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element33)},
+    {WindowElementType_Text, 165, 102, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element34)},
+    {WindowElementType_Text, 151, 133, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element35)},
+    {WindowElementType_Graphic, 222, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_36)},
+    {WindowElementType_Graphic, 243, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_37)},
+    {WindowElementType_Graphic, 264, 207, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_38)},
+    {WindowElementType_Text, 130, 158, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element39)},
+    {WindowElementType_Text, 279, 158, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element40)},
+    {WindowElementType_Text, 165, 174, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element41)},
+    {WindowElementType_Text, 165, 189, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element42)},
+    {WindowElementType_Text, 151, 220, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element43)},
+    {WindowElementType_Graphic, 222, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_44)},
+    {WindowElementType_Graphic, 243, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_45)},
+    {WindowElementType_Graphic, 264, 303, 19, 19, 1, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_46)},
+    {WindowElementType_Text, 130, 245, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element47)},
+    {WindowElementType_Text, 279, 245, 0, 0, 1, {.text = &gWindowText56DB10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element48)},
+    {WindowElementType_Text, 165, 261, 0, 0, 1, {.text = &gWindowText56DB18}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element49)},
+    {WindowElementType_Text, 165, 276, 0, 0, 1, {.text = &gWindowText56DB20}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element50)},
+    {WindowElementType_Text, 151, 307, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element51)},
+    {WindowElementType_Graphic, 16, 67, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation_52)},
+    {WindowElementType_Graphic, 16, 154, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation_53)},
+    {WindowElementType_Graphic, 16, 241, 292, 87, 1, {.graphic = &gWindowGraphic56DA60}, &WindowContacts_HandleNavigation, -1, static_cast<ElementId>(WindowContactsElementId::HandleNavigation_54)},
+    {WindowElementType_Graphic, 242, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_55)},
+    {WindowElementType_Graphic, 263, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_56)},
+    {WindowElementType_Graphic, 284, 72, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_57)},
+    {WindowElementType_Text, 56, 80, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element58)},
+    {WindowElementType_Text, 173, 80, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element59)},
+    {WindowElementType_Graphic, 242, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_60)},
+    {WindowElementType_Graphic, 263, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_61)},
+    {WindowElementType_Graphic, 284, 102, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_62)},
+    {WindowElementType_Text, 56, 110, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element63)},
+    {WindowElementType_Text, 173, 110, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element64)},
+    {WindowElementType_Graphic, 242, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_65)},
+    {WindowElementType_Graphic, 263, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_66)},
+    {WindowElementType_Graphic, 284, 131, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_67)},
+    {WindowElementType_Text, 56, 139, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element68)},
+    {WindowElementType_Text, 173, 139, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element69)},
+    {WindowElementType_Graphic, 242, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_70)},
+    {WindowElementType_Graphic, 263, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_71)},
+    {WindowElementType_Graphic, 284, 160, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_72)},
+    {WindowElementType_Text, 56, 168, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element73)},
+    {WindowElementType_Text, 173, 168, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element74)},
+    {WindowElementType_Graphic, 242, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_75)},
+    {WindowElementType_Graphic, 263, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_76)},
+    {WindowElementType_Graphic, 284, 189, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_77)},
+    {WindowElementType_Text, 56, 197, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element78)},
+    {WindowElementType_Text, 173, 197, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element79)},
+    {WindowElementType_Graphic, 242, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_80)},
+    {WindowElementType_Graphic, 263, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_81)},
+    {WindowElementType_Graphic, 284, 218, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_82)},
+    {WindowElementType_Text, 56, 226, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element83)},
+    {WindowElementType_Text, 173, 226, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element84)},
+    {WindowElementType_Graphic, 242, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_85)},
+    {WindowElementType_Graphic, 263, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_86)},
+    {WindowElementType_Graphic, 284, 247, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_87)},
+    {WindowElementType_Text, 56, 255, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element88)},
+    {WindowElementType_Text, 173, 255, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element89)},
+    {WindowElementType_Graphic, 242, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_90)},
+    {WindowElementType_Graphic, 263, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_91)},
+    {WindowElementType_Graphic, 284, 276, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_92)},
+    {WindowElementType_Text, 56, 284, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element93)},
+    {WindowElementType_Text, 173, 284, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element94)},
+    {WindowElementType_Graphic, 242, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D958}, &WindowContacts_OpenMail, -1, static_cast<ElementId>(WindowContactsElementId::OpenMail_95)},
+    {WindowElementType_Graphic, 263, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D940}, &WindowContacts_ButtonCompose, -1, static_cast<ElementId>(WindowContactsElementId::ButtonCompose_96)},
+    {WindowElementType_Graphic, 284, 305, 19, 19, 0, {.graphic = &gWindowGraphic56D988}, &WindowContacts_ButtonDelete, -1, static_cast<ElementId>(WindowContactsElementId::ButtonDelete_97)},
+    {WindowElementType_Text, 56, 313, 0, 0, 1, {.text = &gWindowText56DB08}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element98)},
+    {WindowElementType_Text, 173, 313, 0, 0, 1, {.text = &gWindowText56DB28}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element99)},
+    {WindowElementType_Graphic, 15, 68, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar)},
+    {WindowElementType_Graphic, 15, 97, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar_101)},
+    {WindowElementType_Graphic, 15, 126, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar_102)},
+    {WindowElementType_Graphic, 15, 155, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar_103)},
+    {WindowElementType_Graphic, 15, 184, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar_104)},
+    {WindowElementType_Graphic, 15, 213, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar_105)},
+    {WindowElementType_Graphic, 15, 242, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar_106)},
+    {WindowElementType_Graphic, 15, 271, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar_107)},
+    {WindowElementType_Graphic, 15, 300, 230, 29, 0, {.graphic = &gWindowGraphic56DA78}, &WindowContacts_HandleAvatar, -1, static_cast<ElementId>(WindowContactsElementId::HandleAvatar_108)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56DAA8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element109)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic56DAC0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowContactsElementId::Element110)},
+    {WindowElementType_EventArea, 331, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowContactsElementId::HandleSideArea)},
 };
 
 // 原型：窗口21；原全局：0x0054E990。
@@ -317,7 +434,8 @@ static std::int32_t WindowContacts_Refresh()
 {
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::uint32_t sortMode = gLoginWindowRuntime.mailSortModeD67B3C;
-    auto* const sortGraphic = gCurrentWindow->elements[8].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element9]))) { return {}; }
+    auto* const sortGraphic = (*gCurrentWindow)[WindowContactsElementId::Element9]->data.graphic;
     sortGraphic->imageNo = kMailSortImages54F4C0[category * 5 + sortMode];
     WindowContacts_Sort();
     if (gContactsPreviewMode_D67B38 == 0) {
@@ -328,7 +446,7 @@ static std::int32_t WindowContacts_Refresh()
         if (currentCategory == 1) {
             for (std::int32_t index = 21; index < 27; ++index) {
                 const std::int32_t allowed = WindowGuildDetails_ReadRankPermissions();
-                gCurrentWindow->elements[index].visible = allowed != 0 ? 1 : 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = allowed != 0 ? 1 : 0;
             }
             if (WindowGuildDetails_ReadRankPermissions() != 0) {
                 for (std::int32_t row = 0; row < 3; ++row) {
@@ -337,26 +455,27 @@ static std::int32_t WindowContacts_Refresh()
                     const std::int32_t memberIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
                     const std::int32_t rank = cg::world::gOrderedRecords1051B14[memberIndex].value00;
                     const std::uint8_t flags = cg::world::ReadGuildRankFlagsByte1051514(rank);
-                    gCurrentWindow->elements[21 + row * 2].visible = 0;
-                    gCurrentWindow->elements[22 + row * 2].visible = (flags & 0x80) == 0 ? 1 : 0;
+                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(21 + row * 2)])) (*gCurrentWindow)[NativeElementKey(21 + row * 2)]->visible = 0;
+                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(22 + row * 2)])) (*gCurrentWindow)[NativeElementKey(22 + row * 2)]->visible = (flags & 0x80) == 0 ? 1 : 0;
                 }
             } else {
                 for (std::int32_t row = 0; row < 3; ++row) {
-                    gCurrentWindow->elements[21 + row * 2].visible = 0;
-                    gCurrentWindow->elements[22 + row * 2].visible = 0;
+                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(21 + row * 2)])) (*gCurrentWindow)[NativeElementKey(21 + row * 2)]->visible = 0;
+                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(22 + row * 2)])) (*gCurrentWindow)[NativeElementKey(22 + row * 2)]->visible = 0;
                 }
             }
             for (std::int32_t index = 29; index < 46; index += 8) {
                 const std::int32_t allowed = WindowGuildDetails_CanEdit(2);
-                gCurrentWindow->elements[index].visible = allowed != 0 ? 1 : 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = allowed != 0 ? 1 : 0;
             }
             if (cg::world::ReadGuildStatus10514AC() == -1) {
-                gCurrentWindow->elements[20].visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 0;
             } else {
-                gCurrentWindow->elements[20].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 1;
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t status = cg::world::ReadGuildStatus10514AC();
-                auto* const data = window->elements[20].data.text;
+                if (!((window && (*window)[WindowContactsElementId::Element21]))) { return {}; }
+                auto* const data = (*window)[WindowContactsElementId::Element21]->data.text;
                 WindowMail_WriteGuildStatus(data, status);
             }
         }
@@ -369,32 +488,33 @@ static std::int32_t WindowContacts_Refresh()
             const std::int32_t rowCategory = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[rowCategory];
             WindowInstance* const entryWindow = gCurrentWindow;
-            WindowElement* const entryElements = entryWindow->elements;
+            auto* entryElementsWindow = entryWindow;
             const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
-            entryElements[29 + row * 8].visible = 1;
-            gCurrentWindow->elements[28 + row * 8].visible = 1;
-            gCurrentWindow->elements[27 + row * 8].visible = 1;
+            if ((entryElementsWindow && (*entryElementsWindow)[NativeElementKey(29 + row * 8)])) (*entryElementsWindow)[NativeElementKey(29 + row * 8)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(28 + row * 8)])) (*gCurrentWindow)[NativeElementKey(28 + row * 8)]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(27 + row * 8)])) (*gCurrentWindow)[NativeElementKey(27 + row * 8)]->visible = 1;
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
                 record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
-                gCurrentWindow->elements[51 + row].data.graphic->imageNo = 0x3B9E0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(51 + row)])) (*gCurrentWindow)[NativeElementKey(51 + row)]->data.graphic->imageNo = 0x3B9E0;
                 break;
             case 1:
                 record = WindowMail_MakeContactView(cg::world::gOrderedRecords1051B14[recordIndex]);
-                gCurrentWindow->elements[51 + row].data.graphic->imageNo = 0x3B9E8;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(51 + row)])) (*gCurrentWindow)[NativeElementKey(51 + row)]->data.graphic->imageNo = 0x3B9E8;
                 break;
             case 2:
                 record = WindowMail_MakeContactView(world::detail::ReadMiniMailContact1075A90(recordIndex));
-                gCurrentWindow->elements[51 + row].data.graphic->imageNo = 0x3B9E0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(51 + row)])) (*gCurrentWindow)[NativeElementKey(51 + row)]->data.graphic->imageNo = 0x3B9E0;
                 break;
             }
             const std::int32_t textIndex = 30 + row * 8;
             if (*record.used == 0) {
-                gCurrentWindow->elements[29 + row * 8].visible = 0;
-                gCurrentWindow->elements[28 + row * 8].visible = 0;
-                gCurrentWindow->elements[27 + row * 8].visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(29 + row * 8)])) (*gCurrentWindow)[NativeElementKey(29 + row * 8)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(28 + row * 8)])) (*gCurrentWindow)[NativeElementKey(28 + row * 8)]->visible = 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(27 + row * 8)])) (*gCurrentWindow)[NativeElementKey(27 + row * 8)]->visible = 0;
                 for (std::int32_t index = textIndex; index < textIndex + 5; ++index) {
-                    auto* const data = gCurrentWindow->elements[index].data.text;
+                    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
+                    auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
                     data->text = L"";
                 }
                 continue;
@@ -410,15 +530,18 @@ static std::int32_t WindowContacts_Refresh()
             const std::int32_t anchorX = kMailImageAnchors56F790[row][0];
             static_cast<void>(cg::render::DrawGraphic(
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
-            auto* const nameData = gCurrentWindow->elements[textIndex].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex)]))) { continue; }
+            auto* const nameData = (*gCurrentWindow)[NativeElementKey(textIndex)]->data.text;
             nameData->text = record.name;
             cg::text::FormatTo(numberText, L"{:3}" /* 原常量参考：0x00553FCC。 */, *record.number);
-            auto* const numberData = gCurrentWindow->elements[textIndex + 1].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 1)]))) { continue; }
+            auto* const numberData = (*gCurrentWindow)[NativeElementKey(textIndex + 1)]->data.text;
             numberData->text = numberText;
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
             case 2: {
-                auto* const data = gCurrentWindow->elements[textIndex + 2].data.text;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 2)]))) { continue; }
+                auto* const data = (*gCurrentWindow)[NativeElementKey(textIndex + 2)]->data.text;
                 data->text = record.text32;
                 break;
             }
@@ -428,16 +551,19 @@ static std::int32_t WindowContacts_Refresh()
                 const std::int32_t rank = member->value00;
                 const wchar_t* const text = rank == -1
                     ? L"" : cg::world::GetGuildRankText(rank);
-                auto* const data = gCurrentWindow->elements[textIndex + 2].data.text;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 2)]))) { continue; }
+                auto* const data = (*gCurrentWindow)[NativeElementKey(textIndex + 2)]->data.text;
                 data->text = text;
                 break;
             }
             }
-            auto* const textData = gCurrentWindow->elements[textIndex + 3].data.text;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 3)]))) { continue; }
+            auto* const textData = (*gCurrentWindow)[NativeElementKey(textIndex + 3)]->data.text;
             textData->text = record.text21;
-            WindowElement* const statusElements = gCurrentWindow->elements;
+            auto* statusElementsWindow = gCurrentWindow;
             const std::int16_t status = record.ReadStatus();
-            auto* const statusData = statusElements[textIndex + 4].data.text;
+            if (!((statusElementsWindow && (*statusElementsWindow)[NativeElementKey(textIndex + 4)]))) { continue; }
+            auto* const statusData = (*statusElementsWindow)[NativeElementKey(textIndex + 4)]->data.text;
             WindowMail_WriteContactStatus(record, statusData, status);
             switch (gLoginWindowRuntime.valuesD67B40[6]) {
             case 0:
@@ -447,11 +573,11 @@ static std::int32_t WindowContacts_Refresh()
                 break;
             case 1:
                 if (WindowGuildDetails_CanEdit(2) != 0) {
-                    gCurrentWindow->elements[29 + row * 8].visible = privileged == 0 ? 1 : 0;
+                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(29 + row * 8)])) (*gCurrentWindow)[NativeElementKey(29 + row * 8)]->visible = privileged == 0 ? 1 : 0;
                 } else {
                     const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8();
                     const std::int32_t memberKey = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
-                    gCurrentWindow->elements[29 + row * 8].visible = memberKey == ownKey ? 1 : 0;
+                    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(29 + row * 8)])) (*gCurrentWindow)[NativeElementKey(29 + row * 8)]->visible = memberKey == ownKey ? 1 : 0;
                 }
                 if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(27 + row * 8);
@@ -468,13 +594,14 @@ static std::int32_t WindowContacts_Refresh()
     }
 
     if (gLoginWindowRuntime.valuesD67B40[6] == 1) {
-        gCurrentWindow->elements[20].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 1;
         WindowInstance* const window = gCurrentWindow;
         const std::int32_t status = cg::world::ReadGuildStatus10514AC();
-        auto* const data = window->elements[20].data.text;
+        if (!((window && (*window)[WindowContactsElementId::Element21]))) { return {}; }
+        auto* const data = (*window)[WindowContactsElementId::Element21]->data.text;
         WindowMail_WriteGuildStatus(data, status);
     } else {
-        gCurrentWindow->elements[20].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 0;
     }
     MailContactView record;
     for (std::int32_t row = 0; row < 9; ++row) {
@@ -482,24 +609,24 @@ static std::int32_t WindowContacts_Refresh()
         const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[3 + rowCategory];
         WindowInstance* const entryWindow = gCurrentWindow;
         const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
-        entryWindow->elements[56 + row * 5].visible = 1;
-        gCurrentWindow->elements[55 + row * 5].visible = 1;
-        gCurrentWindow->elements[54 + row * 5].visible = 1;
+        if ((entryWindow && (*entryWindow)[NativeElementKey(56 + row * 5)])) (*entryWindow)[NativeElementKey(56 + row * 5)]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(55 + row * 5)])) (*gCurrentWindow)[NativeElementKey(55 + row * 5)]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(54 + row * 5)])) (*gCurrentWindow)[NativeElementKey(54 + row * 5)]->visible = 1;
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
         case 0:
             record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
-            gCurrentWindow->elements[56 + row * 5].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(56 + row * 5)])) (*gCurrentWindow)[NativeElementKey(56 + row * 5)]->visible = 1;
             break;
         case 1: {
             const auto* const member = &cg::world::gOrderedRecords1051B14[recordIndex];
             record = WindowMail_MakeContactView(*member);
             if (WindowGuildDetails_CanEdit(2) != 0) {
                 const std::int32_t privileged = WindowGuildDetails_CanEditRank(member->value00, 0x80);
-                gCurrentWindow->elements[56 + row * 5].visible = privileged == 0 ? 1 : 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(56 + row * 5)])) (*gCurrentWindow)[NativeElementKey(56 + row * 5)]->visible = privileged == 0 ? 1 : 0;
             } else {
                 const std::int32_t memberKey = member->value0C;
                 const std::int32_t ownKey = cg::world::ReadGuildOwnKey10514B8();
-                gCurrentWindow->elements[56 + row * 5].visible = memberKey == ownKey ? 1 : 0;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(56 + row * 5)])) (*gCurrentWindow)[NativeElementKey(56 + row * 5)]->visible = memberKey == ownKey ? 1 : 0;
             }
             break;
         }
@@ -509,18 +636,21 @@ static std::int32_t WindowContacts_Refresh()
         }
         const std::int32_t textIndex = 57 + row * 5;
         if (*record.used == 0) {
-            gCurrentWindow->elements[56 + row * 5].visible = 0;
-            gCurrentWindow->elements[55 + row * 5].visible = 0;
-            gCurrentWindow->elements[54 + row * 5].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(56 + row * 5)])) (*gCurrentWindow)[NativeElementKey(56 + row * 5)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(55 + row * 5)])) (*gCurrentWindow)[NativeElementKey(55 + row * 5)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(54 + row * 5)])) (*gCurrentWindow)[NativeElementKey(54 + row * 5)]->visible = 0;
             for (std::int32_t index = textIndex; index < textIndex + 2; ++index) {
-                auto* const data = gCurrentWindow->elements[index].data.text;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
+                auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.text;
                 data->text = L"";
             }
             continue;
         }
-        auto* const nameData = gCurrentWindow->elements[textIndex].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex)]))) { continue; }
+        auto* const nameData = (*gCurrentWindow)[NativeElementKey(textIndex)]->data.text;
         nameData->text = record.name;
-        auto* const statusData = gCurrentWindow->elements[textIndex + 1].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(textIndex + 1)]))) { continue; }
+        auto* const statusData = (*gCurrentWindow)[NativeElementKey(textIndex + 1)]->data.text;
         const std::int16_t status = record.ReadStatus();
         WindowMail_WriteContactStatus(record, statusData, status);
         switch (gLoginWindowRuntime.valuesD67B40[6]) {
@@ -532,7 +662,8 @@ static std::int32_t WindowContacts_Refresh()
         case 1:
             if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
                 const std::int32_t blink = gLoginWindowRuntime.mailBlinkFlagD67B60;
-                auto* const graphic = gCurrentWindow->elements[54 + row * 5].data.graphic;
+                if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(54 + row * 5)]))) { continue; }
+                auto* const graphic = (*gCurrentWindow)[NativeElementKey(54 + row * 5)]->data.graphic;
                 graphic->imageNo = blink != 0 ? 0x3B549 : 0x3B547;
             }
             break;
@@ -557,25 +688,27 @@ static void WindowContacts_SetDisplayMode(const std::int32_t mode, const std::in
 static void WindowContacts_ApplyDisplayLayout(const std::int32_t mode)
 {
     for (std::int32_t index = 0; index < 21; ++index) {
-        gCurrentWindow->elements[index].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
     }
     if (mode == 0) {
-        auto* const graphic = gCurrentWindow->elements[7].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element8]))) { return; }
+        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::Element8]->data.graphic;
         graphic->imageNo = 0x3B612;
         for (std::int32_t index = 21; index < 54; ++index) {
-            gCurrentWindow->elements[index].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
         }
         for (std::int32_t index = 54; index < 108; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
     } else if (mode == 1) {
-        auto* const graphic = gCurrentWindow->elements[7].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element8]))) { return; }
+        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::Element8]->data.graphic;
         graphic->imageNo = 0x3B611;
         for (std::int32_t index = 21; index < 54; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
         for (std::int32_t index = 54; index < 108; ++index) {
-            gCurrentWindow->elements[index].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
         }
     }
 }
@@ -585,51 +718,54 @@ static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
 {
     if (category == 0) {
         for (std::int32_t index = 21; index < 27; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
-        gCurrentWindow->elements[13].visible = 0;
-        gCurrentWindow->elements[20].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element14])) (*gCurrentWindow)[WindowContactsElementId::Element14]->visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element21])) (*gCurrentWindow)[WindowContactsElementId::Element21]->visible = 0;
         for (const std::int32_t index : {32, 40, 48}) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t x = gWindowElements56DB38[32].x;
-            window->elements[index].x = x - 24;
+            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->x = x - 24;
         }
-        auto* const graphic = gCurrentWindow->elements[10].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::TabCategory]))) { return; }
+        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::TabCategory]->data.graphic;
         graphic->imageNo = 0x3B57E;
         for (std::int32_t index = 21; index < 27; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
     } else if (category == 1) {
-        auto* const graphic = gCurrentWindow->elements[11].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::TabCategory_12]))) { return; }
+        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::TabCategory_12]->data.graphic;
         graphic->imageNo = 0x3B581;
-        gCurrentWindow->elements[13].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element14])) (*gCurrentWindow)[WindowContactsElementId::Element14]->visible = 0;
         for (const std::int32_t index : {32, 40, 48}) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t x = gWindowElements56DB38[32].x;
-            window->elements[index].x = x;
+            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->x = x;
         }
     } else if (category == 2) {
         for (std::int32_t index = 21; index < 27; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
-        gCurrentWindow->elements[13].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element14])) (*gCurrentWindow)[WindowContactsElementId::Element14]->visible = 1;
         for (const std::int32_t index : {34, 42, 50, 58, 63, 68, 73, 78, 83, 88, 93, 98, 20}) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
-        auto* const graphic = gCurrentWindow->elements[12].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::TabCategory_13]))) { return; }
+        auto* const graphic = (*gCurrentWindow)[WindowContactsElementId::TabCategory_13]->data.graphic;
         graphic->imageNo = 0x3C116;
         for (const std::int32_t index : {32, 40, 48}) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t x = gWindowElements56DB38[32].x;
-            window->elements[index].x = x - 24;
+            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->x = x - 24;
         }
         for (const std::int32_t index : {34, 42, 50, 0, 3, 4, 8, 19, 20}) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
-        gCurrentWindow->elements[5].visible = 1;
-        gCurrentWindow->elements[6].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::HandleNavigation_6])) (*gCurrentWindow)[WindowContactsElementId::HandleNavigation_6]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::HandleNavigation_7])) (*gCurrentWindow)[WindowContactsElementId::HandleNavigation_7]->visible = 1;
         for (std::int32_t index = 21; index < 27; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
     } else {
         return;
@@ -638,17 +774,18 @@ static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
     for (const std::int32_t index : {1, 2, 7}) {
         WindowInstance* const xWindow = gCurrentWindow;
         const std::int32_t x = gWindowElements56DB38[index].x;
-        xWindow->elements[index].x = x + (category == 2 ? 110 : 0);
+        if ((xWindow && (*xWindow)[NativeElementKey(index)])) (*xWindow)[NativeElementKey(index)]->x = x + (category == 2 ? 110 : 0);
         WindowInstance* const yWindow = gCurrentWindow;
         const std::int32_t y = gWindowElements56DB38[index].y;
-        yWindow->elements[index].y = y + (category == 2 ? 17 : 0);
+        if ((yWindow && (*yWindow)[NativeElementKey(index)])) (*yWindow)[NativeElementKey(index)]->y = y + (category == 2 ? 17 : 0);
     }
 }
 
 // 原函数：0x004A1C30。
 static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t imageOffset = index == 14 ? 0 : 3;
     graphic->imageNo = 0x3B592 + imageOffset;
     if ((state & 1) != 0) {
@@ -734,7 +871,8 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     }
 
     const std::int32_t imageOffset = (index & 1) != 0 ? 0 : 3;
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B558 + imageOffset;
         if (index <= 2) {
@@ -776,7 +914,8 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     }
     if ((state & 8) != 0) {
         // 业务调用可能改变当前窗口，按原尾路径重新借用载荷。
-        auto* const pressed = gCurrentWindow->elements[index].data.graphic;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        auto* const pressed = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
         pressed->imageNo = 0x3B557 + imageOffset;
     }
     return consumed;
@@ -785,7 +924,8 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
 // 原函数：0x004A2610。
 static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = 0x3B541;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B543;
@@ -823,7 +963,8 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
         return 0;
     }
     const std::int32_t idle = category == 0 ? 0x3B57D : (category == 1 ? 0x3B580 : 0x3C115);
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = idle + 2;
@@ -836,13 +977,15 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
     }
     if ((state & 2) != 0) {
         if (category == 2) {
-            auto* const selected = gCurrentWindow->elements[12].data.graphic;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::TabCategory_13]))) { return {}; }
+            auto* const selected = (*gCurrentWindow)[WindowContactsElementId::TabCategory_13]->data.graphic;
             selected->imageNo = 0x3C116;
         } else {
-            auto* const title = gCurrentWindow->elements[108].data.graphic;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::Element109]))) { return {}; }
+            auto* const title = (*gCurrentWindow)[WindowContactsElementId::Element109]->data.graphic;
             title->imageNo = category == 0 ? 0x3B9DE : 0x3B9E3;
         }
-        gCurrentWindow->elements[0].visible = category == 1 ? 1 : 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::ButtonGuildDetails])) (*gCurrentWindow)[WindowContactsElementId::ButtonGuildDetails]->visible = category == 1 ? 1 : 0;
         gLoginWindowRuntime.valuesD67B40[6] = category;
         WindowContacts_ClampScroll();
         static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -857,7 +1000,8 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
 // 原函数：0x004A2BD0。
 static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = 0x3B9E5;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B9E7;
@@ -916,8 +1060,9 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
     const std::int32_t mode = gContactsPreviewMode_D67B38;
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return {}; }
     const std::int32_t result = WindowScroll_ApplyWheel(
-        &gCurrentWindow->elements[17], position, count - (mode == 0 ? 3 : 9), wheel);
+        (*gCurrentWindow)[WindowContactsElementId::HandleVerticalScroll], position, count - (mode == 0 ? 3 : 9), wheel);
     const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
     gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + currentCategory] = result;
     return 0;
@@ -927,7 +1072,8 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
 static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std::int32_t state)
 {
     const std::int32_t parity = (index - 21) % 2;
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t imageOffset = parity != 0 ? 3 : 0;
     graphic->imageNo = 0x3B556 + imageOffset;
     if ((state & 1) != 0) {
@@ -968,7 +1114,8 @@ static void WindowContacts_OpenRankSelection(const std::int32_t index)
 // 原函数：0x004A2B00。
 static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = 0x3B547;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B549;
@@ -1066,17 +1213,20 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         const std::uint32_t color = 0xFFFFFFFFu;
         descriptor.color = color;
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-        WindowElement* const firstElements = firstWindow->elements;
+        auto* firstElementsWindow = firstWindow;
         const std::int32_t firstWindowY = firstWindow->y;
-        const std::int32_t firstElementY = firstElements[index].y;
-        const std::int32_t firstElementX = firstElements[index].x;
+        if (!((firstElementsWindow && (*firstElementsWindow)[NativeElementKey(index)]))) { return {}; }
+        const std::int32_t firstElementY = (*firstElementsWindow)[NativeElementKey(index)]->y;
+        if (!((firstElementsWindow && (*firstElementsWindow)[NativeElementKey(index)]))) { return {}; }
+        const std::int32_t firstElementX = (*firstElementsWindow)[NativeElementKey(index)]->x;
         const std::int32_t firstY = firstElementY + firstWindowY + 55;
         const std::int32_t firstWindowX = firstWindow->x;
         static_cast<void>(cg::render::DrawGraphic(
             firstElementX + firstWindowX + 182, firstY, 223, 0x3BD32, 0, &descriptor));
 
         // 先固定第一次绘图后的元素；图号转换后仅重取当前窗口，不更换此元素。
-        WindowElement* const element = &gCurrentWindow->elements[index];
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+        WindowElement* const element = (*gCurrentWindow)[NativeElementKey(index)];
         const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*recordImage);
         const std::int32_t elementY = element->y;
         WindowInstance* const currentWindow = gCurrentWindow;
@@ -1127,7 +1277,8 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
 // 原函数：0x004A3C70。
 static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hover = (state & 1) != 0;
     graphic->imageNo = hover ? 0x3B546 : 0x3B544;
     const std::int32_t consumed = hover ? 1 : 0;
@@ -1179,7 +1330,8 @@ static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const
 // 原函数：0x004A32E0。
 static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = 0x3B54A;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B54C;
@@ -1326,7 +1478,8 @@ static void WindowContacts_ClampScroll()
         }
         position = gLoginWindowRuntime.valuesD67B40[3 + category];
     }
-    WindowScroll_SetPosition(&gCurrentWindow->elements[17], maximum, position);
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return; }
+    WindowScroll_SetPosition((*gCurrentWindow)[WindowContactsElementId::HandleVerticalScroll], maximum, position);
 }
 
 // 原函数：0x004A2C60。
@@ -1594,15 +1747,18 @@ static std::int32_t WindowContacts_DragScroll(const std::int32_t)
         count = 20;
         break;
     }
-    WindowElement* const elements = gCurrentWindow->elements;
-    auto* const mouse = elements[17].data.mouse;
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return {}; }
+    auto* const mouse = (*elementsWindow)[WindowContactsElementId::HandleVerticalScroll]->data.mouse;
     if ((mouse->flags & 1) != 0) {
         if (gContactsPreviewMode_D67B38 == 0) {
-            count = WindowScroll_ReadPosition(&elements[17], count - 3);
+            if (!((elementsWindow && (*elementsWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return {}; }
+            count = WindowScroll_ReadPosition((*elementsWindow)[WindowContactsElementId::HandleVerticalScroll], count - 3);
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
             gLoginWindowRuntime.valuesD67B40[category] = count;
         } else {
-            count = WindowScroll_ReadPosition(&elements[17], count - 9);
+            if (!((elementsWindow && (*elementsWindow)[WindowContactsElementId::HandleVerticalScroll]))) { return {}; }
+            count = WindowScroll_ReadPosition((*elementsWindow)[WindowContactsElementId::HandleVerticalScroll], count - 9);
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
             gLoginWindowRuntime.valuesD67B40[3 + category] = count;
         }

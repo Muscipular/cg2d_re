@@ -49,18 +49,16 @@ void WindowRuntime_ReleaseBindings(WindowInstance& window) {
 }
 WindowExtension::~WindowExtension() {
     if (dragOwner == window.id) dragOwner = -1;
-    if (!window.components)
-        for (int i = 0; i < window.elementCount; ++i) delete window.elements[i].properties;
+    WindowRuntime_DestroyElements(window);
     WindowRuntime_ReleaseBindings(window);
-    std::free(window.elementsSorted);
 }
+
 void WindowRuntime_SetVisible(WindowInstance& window, bool visible) {
     if (!visible) WindowRuntime_CancelPointerDrag(window);
     if (window.id >= 0 && window.id < WIN_MAX) {
         window.scriptHidden = !visible;
         if (!visible) {
-            for (int i = 0; i < window.elementCount; ++i) {
-                const auto& element = window.elements[i];
+            for (const auto& [id, element] : window.sortedMap) {
                 if (element.type == WindowElementType_Input && element.data.input
                     && gCurrentInputData == element.data.input->context) detail::WindowChat_RestoreInput();
             }
@@ -83,7 +81,6 @@ int WindowExtension::update(int, int hasFocused) {
         WindowRuntime_ResetComponents(window);
         return 1;
     }
-    if (window.binding) window.binding->update();
     if ((window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) {
         WindowRuntime_ResetComponents(window);
         return 1;
@@ -112,8 +109,6 @@ int WindowExtension::update(int, int hasFocused) {
 int WindowExtension::render(int) {
     if ((window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) return 1;
     WindowRuntime_DrawCurrent();
-    if (!(window.state & WIN_STATE_CLOSE) && (window.state & WIN_STATE_ACTIVE) && window.binding)
-        window.binding->draw();
     RendererBreakWindowTextBatch();
     return 1;
 }
@@ -209,6 +204,8 @@ void WindowRuntime_UpdateScene()
 
 void PrepareWindowFrame()
 {
+    for (auto* window : detail::gWindows) if (window) WindowRuntime_CollectElements(*window);
+    for (const auto& entry : windows) WindowRuntime_CollectElements(entry->window);
     WindowRuntime_UpdateScene();
     // 先移除再通知，关闭事件可以安全重建同ID窗口。
     std::vector<int> closed;

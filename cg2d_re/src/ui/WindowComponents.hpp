@@ -12,12 +12,9 @@
 
 namespace cg::ui {
 
-// 连续元素数组仅在调度安全点发布；组件地址稳定，element()随发布重绑。
+// 动态组件直接挂在sortedMap节点；本入口不另外拥有元素或组件数组。
 struct WindowComponentStore {
     WindowInstance& window;
-    std::vector<WindowElement> elements;
-    std::vector<std::unique_ptr<UIControl>> components;
-    std::vector<std::unique_ptr<UIControl>> pending;
     int nextId = 1;
     bool changed = false;
     explicit WindowComponentStore(WindowInstance& value) : window(value) {}

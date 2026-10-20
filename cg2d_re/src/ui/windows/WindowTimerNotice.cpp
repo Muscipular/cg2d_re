@@ -3,6 +3,13 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowTimerNoticeElementId : ElementId {
+    Element1 = 1,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -16,7 +23,7 @@ static std::int32_t WindowTimerNotice_Update(std::int32_t value); // 窗口39文
 static WindowTextPrototype gWindowText56CCC8 {{}, L""}; // 原全局：0x0056CCC8。
 
 static WindowElementPrototype gWindowElements56CCD0[1] { // 原全局：0x0056CCD0。
-    {WindowElementType_Text, 0, 44, 0, 0, 1, {.text = &gWindowText56CCC8}, &WindowElement_NoOp},
+    {WindowElementType_Text, 0, 44, 0, 0, 1, {.text = &gWindowText56CCC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowTimerNoticeElementId::Element1)},
 };
 
 // 原型：窗口39；原全局：0x0054E8A0。
@@ -28,12 +35,13 @@ WindowPrototype gWindowPrototypeTimerNotice {3, 3, 196, 180, 256, 96, 0x80010101
 static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
 {
     if (value == -1) {
-        auto* const data = gCurrentWindow->elements[0].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowTimerNoticeElementId::Element1]))) { return {}; }
+        auto* const data = (*gCurrentWindow)[WindowTimerNoticeElementId::Element1]->data.text;
         const std::wstring& text = world::GetMapName_9DAD30();
         data->text = text;
         const std::int32_t textWidth = cg::render::TextMeasure(text, 0);
         WindowInstance* const window = gCurrentWindow;
-        window->elements[0].x = (window->width - textWidth) >> 1;
+        if ((window && (*window)[WindowTimerNoticeElementId::Element1])) (*window)[WindowTimerNoticeElementId::Element1]->x = (window->width - textWidth) >> 1;
     } else {
         const std::uint64_t tick = platform::ReadTickCount64();
         if (world::gMapNoticeStartTick_62B5B0 + 2000u <= tick) {

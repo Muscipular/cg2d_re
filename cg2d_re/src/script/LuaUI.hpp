@@ -8,12 +8,12 @@
 namespace cg::script {
 using UIWindowInstanceEx = ui::WindowExtension;
 ui::WindowEventBinding MakeLuaElementEvents(LuaCallbackRefs refs);
-struct LuaWindow final : ui::WindowBinding {
+struct LuaWindowBinding final : ui::WindowBinding {
     UIWindowInstance& window; // 非拥有，原生窗口持有本绑定。
     lua_State* owner = nullptr;
-    const uint32_t& generation;
-    LuaWindow(UIWindowInstance& value, lua_State* state);
-    ~LuaWindow() override;
+    LuaWindowBinding(UIWindowInstance& value, lua_State* state) : window(value), owner(state) {}
+    ~LuaWindowBinding() override;
+    LuaWindowRef ref() const { return {window.id}; }
     void update() override;
     void draw() override;
     int event(int elementIndex, int flags) override;
@@ -21,6 +21,14 @@ struct LuaWindow final : ui::WindowBinding {
     void elementDraw(ui::WindowElement& element) override;
     int elementEvent(ui::WindowElement& element, int index, int flags) override;
 
+};
+// 每次API调用临时借用UI，不挂到窗口，也不控制窗口生命周期。
+struct LuaWindow {
+    UIWindowInstance& window;
+    lua_State* owner = nullptr;
+    const uint32_t& generation;
+    ui::ElementId requestedElementId = 0;
+    LuaWindow(UIWindowInstance& value, lua_State* state);
     UIControl* FindControl(int controlId);
 
     void ClearChildren();
@@ -71,12 +79,16 @@ void ShutdownLuaUIEvents();
 bool IsLuaControlAttached(const LuaControlRef& ref);
 UIControl* ResolveControl(const LuaControlRef& ref);
 void ReleaseLuaElementRefs(lua_State* L, ui::WindowElement& element);
-LuaWindow* EnsureLuaWindowBinding(lua_State* L, ui::WindowInstance& window);
+LuaWindowBinding* EnsureLuaWindowBinding(lua_State* L, ui::WindowInstance& window);
 bool LuaPushElementProperty(lua_State* L, ui::WindowElement& element, const char* key);
 bool LuaPushWindowProperty(lua_State* L, ui::WindowInstance& window, const char* key);
 void LuaApplyElementExtras(lua_State* L, int table, UIControl& control);
 void LuaApplyWindowExtras(lua_State* L, int table, ui::WindowInstance& window);
 void RegisterLuaUIProxy(lua_State* L);
+ui::WindowElement* ResolveLuaElement(const LuaControlRef& ref);
+int LuaElementRead(lua_State* L);
+int LuaElementWrite(lua_State* L);
+void LuaApplyNativeElementTable(lua_State* L, int table, ui::WindowElement& element);
 void PushLuaElement(lua_State* L, ui::WindowInstance& window, ui::WindowElement& element);
 int CallLuaElementEvent(lua_State* L, ui::WindowInstance& window, ui::WindowElement& element, int flags);
 } // namespace cg::script

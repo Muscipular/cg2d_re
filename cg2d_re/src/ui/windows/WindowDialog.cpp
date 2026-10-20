@@ -12,6 +12,31 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowDialogElementId : ElementId {
+    HandleButtons = 1,
+    HandleButtons_2 = 2,
+    HandleButtons_3 = 3,
+    HandleButtons_4 = 4,
+    HandleButtons_5 = 5,
+    HandleButtons_6 = 6,
+    HandleTextSelection = 7,
+    Element8 = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -178,27 +203,27 @@ static WindowGraphicData gWindowGraphic56CA70 {0x3BE51, 0, 0, 0, 0, 0xFFFFFFFFu}
 static std::int32_t gWindowAnimationImageD6780C = 0; // 原全局：0x00D6780C。
 
 static WindowElementPrototype gWindowElements56CA88[19] { // 原全局：0x0056CA88。
-    {WindowElementType_Graphic, 0, 0, 66, 17, 1, {.graphic = &gWindowGraphic56C9F8}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA10}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA28}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 60, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA40}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 60, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA58}, &WindowDialog_HandleButtons},
-    {WindowElementType_Graphic, 120, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA70}, &WindowDialog_HandleButtons},
-    {WindowElementType_EventArea, 120, 0, 28, 8, 1, {.unusedValue = 0}, &WindowDialog_HandleTextSelection},
-    {WindowElementType_Input, 80, 42, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
-    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp},
+    {WindowElementType_Graphic, 0, 0, 66, 17, 1, {.graphic = &gWindowGraphic56C9F8}, &WindowDialog_HandleButtons, -1, static_cast<ElementId>(WindowDialogElementId::HandleButtons)},
+    {WindowElementType_Graphic, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA10}, &WindowDialog_HandleButtons, -1, static_cast<ElementId>(WindowDialogElementId::HandleButtons_2)},
+    {WindowElementType_Graphic, 0, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA28}, &WindowDialog_HandleButtons, -1, static_cast<ElementId>(WindowDialogElementId::HandleButtons_3)},
+    {WindowElementType_Graphic, 60, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA40}, &WindowDialog_HandleButtons, -1, static_cast<ElementId>(WindowDialogElementId::HandleButtons_4)},
+    {WindowElementType_Graphic, 60, 20, 66, 17, 1, {.graphic = &gWindowGraphic56CA58}, &WindowDialog_HandleButtons, -1, static_cast<ElementId>(WindowDialogElementId::HandleButtons_5)},
+    {WindowElementType_Graphic, 120, 0, 66, 17, 1, {.graphic = &gWindowGraphic56CA70}, &WindowDialog_HandleButtons, -1, static_cast<ElementId>(WindowDialogElementId::HandleButtons_6)},
+    {WindowElementType_EventArea, 120, 0, 28, 8, 1, {.unusedValue = 0}, &WindowDialog_HandleTextSelection, -1, static_cast<ElementId>(WindowDialogElementId::HandleTextSelection)},
+    {WindowElementType_Input, 80, 42, 0, 0, 1, {.unusedValue = 0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element8)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element9)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element10)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element11)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element12)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element13)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element14)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element15)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element16)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element17)},
+    {WindowElementType_Animation, 0, 0, 0, 0, 1, {.animationImageNo = &gWindowAnimationImageD6780C}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowDialogElementId::Element18)},
     // 原运行第19项与下一文本/元素源字节重叠；值1不是函数，visible0阻止正常调用。
     {WindowElementType_EventArea, 0x593850, 3, 0, 44, 0, {.unusedValue = 0},
-        reinterpret_cast<WindowElementCallback>(std::uintptr_t{1})},
+        reinterpret_cast<WindowElementCallback>(std::uintptr_t{1}), -1, static_cast<ElementId>(WindowDialogElementId::Element19)},
 };
 
 // 原型：窗口36；原全局：0x0054E870。
@@ -216,7 +241,7 @@ void WindowDialog_Reset()
     WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
     if (window != nullptr) {
         for (std::int32_t index = 8; index < 18; ++index) {
-            window->elements[index].visible = 0;
+            if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->visible = 0;
         }
     }
 }
@@ -238,7 +263,8 @@ void WindowDialog_AddImage(
     image.used = used;
     WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
     if (window != nullptr) {
-        WindowElement* const element = window->elements + count + 8;
+        if (!((window && (*window)[NativeElementKey(count)]))) { return; }
+        WindowElement* const element = (*window)[NativeElementKey(count)] + 8;
         cg::yobi::SetYobiActionField2A8(
             element->data.animation->action, imageNo);
         cg::yobi::SetYobiActionField2B8(
@@ -313,7 +339,7 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
     WindowInstance* const initialWindow = gCurrentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (initialWindow->state & 0x8000u) != 0) {
         for (std::int32_t index = 0; index < 19; ++index) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
         }
         return 1;
     }
@@ -334,23 +360,23 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
         const std::int32_t spacing = (gCurrentWindow->width - 48) / (buttonCount + 1);
         std::int32_t x = spacing - 9;
         for (std::int32_t index = 0, bit = 1; index < 6; ++index, bit <<= 1) {
-            gCurrentWindow->elements[index].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
             if ((gMessageDialog.buttons & bit) != 0) {
-                gCurrentWindow->elements[index].visible = 1;
-                gCurrentWindow->elements[index].width = 66;
-                gCurrentWindow->elements[index].height = 17;
-                gCurrentWindow->elements[index].x = x;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->width = 66;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->height = 17;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->x = x;
                 x += spacing;
                 WindowInstance* const window = gCurrentWindow;
-                window->elements[index].y = window->height + margin / 2 - margin - 25;
+                if ((window && (*window)[NativeElementKey(index)])) (*window)[NativeElementKey(index)]->y = window->height + margin / 2 - margin - 25;
             }
         }
-        gCurrentWindow->elements[6].x = 0;
-        gCurrentWindow->elements[6].y = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowDialogElementId::HandleTextSelection])) (*gCurrentWindow)[WindowDialogElementId::HandleTextSelection]->x = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowDialogElementId::HandleTextSelection])) (*gCurrentWindow)[WindowDialogElementId::HandleTextSelection]->y = 0;
         WindowInstance* window = gCurrentWindow;
-        window->elements[6].width = window->width;
+        if ((window && (*window)[WindowDialogElementId::HandleTextSelection])) (*window)[WindowDialogElementId::HandleTextSelection]->width = window->width;
         window = gCurrentWindow;
-        window->elements[6].height = window->height;
+        if ((window && (*window)[WindowDialogElementId::HandleTextSelection])) (*window)[WindowDialogElementId::HandleTextSelection]->height = window->height;
         const std::int32_t count = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
         gMessageDialog.selectedInput = -1;
         if (count > 0) {
@@ -358,7 +384,7 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
             try { gMessageDialog.inputTexts.resize(static_cast<std::size_t>(count)); }
             catch (const std::bad_alloc&) { gMessageDialog.inputTexts.clear(); }
             gDialogInputPrototype57E478.maxCharPerLine = gMessageDialog.inputCapacity;
-            gCurrentWindow->elements[7].visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowDialogElementId::Element8])) (*gCurrentWindow)[WindowDialogElementId::Element8]->visible = 1;
             const std::int16_t inputY = gMessageDialog.inputY[0];
             window = gCurrentWindow;
             const std::int32_t y = window->y + inputY;
@@ -366,28 +392,33 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
             static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
             window = gCurrentWindow;
-            gFocusedElementDataD45F94 = window->elements[7].data.input;
-            window->elements[7].data.input->context = &cg::ui::detail::gInputContextCA02E0;
+            if (!((window && (*window)[WindowDialogElementId::Element8]))) { return {}; }
+            gFocusedElementDataD45F94 = (*window)[WindowDialogElementId::Element8]->data.input;
+            if ((window && (*window)[WindowDialogElementId::Element8])) (*window)[WindowDialogElementId::Element8]->data.input->context = &cg::ui::detail::gInputContextCA02E0;
             gMessageDialog.selectedInput = 0;
         }
         gMessageDialog.closeCallbackPending = 1;
         for (std::int32_t index = 8; index < 18; ++index) {
             const auto& image = gMessageDialogImagesCC4B70[index - 8];
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
             cg::yobi::SetYobiActionField2A8(
-                gCurrentWindow->elements[index].data.animation->action,
+                (*gCurrentWindow)[NativeElementKey(index)]->data.animation->action,
                 image.imageNo);
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
             cg::yobi::SetYobiActionField2B8(
-                gCurrentWindow->elements[index].data.animation->action,
+                (*gCurrentWindow)[NativeElementKey(index)]->data.animation->action,
                 std::bit_cast<std::int8_t>(image.direction));
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
             cg::yobi::SetYobiActionField310(
-                gCurrentWindow->elements[index].data.animation->action, 4);
+                (*gCurrentWindow)[NativeElementKey(index)]->data.animation->action, 4);
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { continue; }
             cg::yobi::SetYobiActionField309(
-                gCurrentWindow->elements[index].data.animation->action, 4);
-            gCurrentWindow->elements[index].x = image.x;
-            gCurrentWindow->elements[index].y = image.y;
-            gCurrentWindow->elements[index].visible = 0;
+                (*gCurrentWindow)[NativeElementKey(index)]->data.animation->action, 4);
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->x = image.x;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->y = image.y;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 0;
             if (image.used != 0) {
-                gCurrentWindow->elements[index].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
             }
         }
         return 1;
@@ -556,7 +587,8 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
         {245332, 245333, 245334},
         {245329, 245330, 245331},
     };
-    auto* const data = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const data = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const bool hovered = (state & 1) != 0;
     std::int32_t consumed = 0;
     if (hovered) {
@@ -626,14 +658,15 @@ static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const s
                 if (previous >= 0) {
                     gMessageDialog.inputTexts[previous] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
                 }
-                gCurrentWindow->elements[7].visible = 1;
+                if ((gCurrentWindow && (*gCurrentWindow)[WindowDialogElementId::Element8])) (*gCurrentWindow)[WindowDialogElementId::Element8]->visible = 1;
                 const std::int16_t inputY = gMessageDialog.inputY[selected];
                 const std::int32_t y = inputY + gCurrentWindow->y;
                 static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
                 input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
                 window = gCurrentWindow;
-                gFocusedElementDataD45F94 = window->elements[7].data.input;
-                window->elements[7].data.input->context = &cg::ui::detail::gInputContextCA02E0;
+                if (!((window && (*window)[WindowDialogElementId::Element8]))) { return {}; }
+                gFocusedElementDataD45F94 = (*window)[WindowDialogElementId::Element8]->data.input;
+                if ((window && (*window)[WindowDialogElementId::Element8])) (*window)[WindowDialogElementId::Element8]->data.input->context = &cg::ui::detail::gInputContextCA02E0;
                 const std::wstring* const texts = gMessageDialog.inputTexts.data();
                 gMessageDialog.selectedInput = selected;
                 input::LoadInitialText_44A160(texts[selected]);

@@ -2,6 +2,88 @@
 #include "../../world/ChatHistory.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowGuildDetailsElementId : ElementId {
+    HandleInput = 1,
+    HandleInput_2 = 2,
+    HandleInput_3 = 3,
+    HandleInput_4 = 4,
+    HandleInput_5 = 5,
+    HandleInput_6 = 6,
+    HandleInput_7 = 7,
+    HandleInput_8 = 8,
+    HandleInput_9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+    Element37 = 37,
+    Element38 = 38,
+    Element39 = 39,
+    Element40 = 40,
+    Element41 = 41,
+    Element42 = 42,
+    Element43 = 43,
+    Element44 = 44,
+    Element45 = 45,
+    Element46 = 46,
+    Element47 = 47,
+    Element48 = 48,
+    Element49 = 49,
+    Element50 = 50,
+    Element51 = 51,
+    Element52 = 52,
+    Element53 = 53,
+    Element54 = 54,
+    Element55 = 55,
+    Element56 = 56,
+    Element57 = 57,
+    Element58 = 58,
+    Element59 = 59,
+    Element60 = 60,
+    Element61 = 61,
+    Element62 = 62,
+    Element63 = 63,
+    Element64 = 64,
+    HandleActionButton = 65,
+    HandleActionButton_66 = 66,
+    HandleScrollButtons = 67,
+    HandleScrollButtons_68 = 68,
+    Element69 = 69,
+    HandleScrollFocus = 70,
+    Scroll = 71,
+    ButtonClose = 72,
+    HandleActionButton_73 = 73,
+    Element74 = 74,
+    Element75 = 75,
+    HandleSideArea = 76,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -152,82 +234,82 @@ static WindowTextPrototype gWindowText571F10 { // 原全局：0x00571F10。
 static std::uint32_t gWindowMouseFlagsD678A8 = 0; // 原全局：0x00D678A8。
 
 static WindowElementPrototype gWindowElements571F18[76] { // 原全局：0x00571F18。
-    {WindowElementType_Input, 116, 31, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Input, 116, 49, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Input, 38, 163, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Input, 38, 182, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Input, 38, 201, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Input, 38, 220, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Input, 38, 239, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Input, 38, 258, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Input, 38, 277, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput},
-    {WindowElementType_Text, 116, 31, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 116, 49, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 38, 165, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 38, 184, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 38, 203, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 38, 222, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 38, 241, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 38, 260, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 38, 279, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 201, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 220, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 258, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 201, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 220, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 258, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 201, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 220, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 258, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 201, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 220, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 258, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 201, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 220, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 258, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 201, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 220, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 258, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 201, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 220, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 239, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 258, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 277, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 18, 161, 0, 0, 1, {.graphic = &gWindowGraphic571EC8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 116, 70, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 116, 90, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Text, 116, 110, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 161, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 180, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 199, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 218, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 237, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 256, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 16, 275, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 273, 28, 32, 17, 0, {.graphic = &gWindowGraphic571E20}, &WindowGuildDetails_HandleActionButton},
-    {WindowElementType_Graphic, 273, 46, 32, 17, 0, {.graphic = &gWindowGraphic571E20}, &WindowGuildDetails_HandleActionButton},
-    {WindowElementType_Graphic, 299, 163, 11, 11, 1, {.graphic = &gWindowGraphic571E38}, &WindowGuildDetails_HandleScrollButtons},
-    {WindowElementType_Graphic, 299, 280, 11, 11, 1, {.graphic = &gWindowGraphic571E68}, &WindowGuildDetails_HandleScrollButtons},
-    {WindowElementType_Graphic, 299, 173, 0, 0, 1, {.graphic = &gWindowGraphic571E50}, &WindowElement_NoOp},
-    {WindowElementType_MouseArea, 298, 173, 10, 94, 1, {.mouseFlags = &gWindowMouseFlagsD678A8}, &WindowGuildDetails_HandleScrollFocus},
-    {WindowElementType_EventArea, 0, 0, 317, 325, 1, {.unusedValue = 0}, &WindowGuildDetails_Scroll},
-    {WindowElementType_Graphic, 299, 9, 11, 11, 1, {.graphic = &gWindowGraphic571E08}, &WindowGuildDetails_ButtonClose},
-    {WindowElementType_Graphic, 265, 296, 57, 17, 0, {.graphic = &gWindowGraphic571E20}, &WindowGuildDetails_HandleActionButton},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic571EE0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic571EF8}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 317, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Input, 116, 31, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput)},
+    {WindowElementType_Input, 116, 49, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput_2)},
+    {WindowElementType_Input, 38, 163, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput_3)},
+    {WindowElementType_Input, 38, 182, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput_4)},
+    {WindowElementType_Input, 38, 201, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput_5)},
+    {WindowElementType_Input, 38, 220, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput_6)},
+    {WindowElementType_Input, 38, 239, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput_7)},
+    {WindowElementType_Input, 38, 258, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput_8)},
+    {WindowElementType_Input, 38, 277, 144, 14, 1, {.unusedValue = 0}, &WindowGuildDetails_HandleInput, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleInput_9)},
+    {WindowElementType_Text, 116, 31, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element10)},
+    {WindowElementType_Text, 116, 49, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element11)},
+    {WindowElementType_Text, 38, 165, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element12)},
+    {WindowElementType_Text, 38, 184, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element13)},
+    {WindowElementType_Text, 38, 203, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element14)},
+    {WindowElementType_Text, 38, 222, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element15)},
+    {WindowElementType_Text, 38, 241, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element16)},
+    {WindowElementType_Text, 38, 260, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element17)},
+    {WindowElementType_Text, 38, 279, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element18)},
+    {WindowElementType_Graphic, 201, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element19)},
+    {WindowElementType_Graphic, 220, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element20)},
+    {WindowElementType_Graphic, 239, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element21)},
+    {WindowElementType_Graphic, 258, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element22)},
+    {WindowElementType_Graphic, 277, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element23)},
+    {WindowElementType_Graphic, 201, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element24)},
+    {WindowElementType_Graphic, 220, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element25)},
+    {WindowElementType_Graphic, 239, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element26)},
+    {WindowElementType_Graphic, 258, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element27)},
+    {WindowElementType_Graphic, 277, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element28)},
+    {WindowElementType_Graphic, 201, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element29)},
+    {WindowElementType_Graphic, 220, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element30)},
+    {WindowElementType_Graphic, 239, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element31)},
+    {WindowElementType_Graphic, 258, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element32)},
+    {WindowElementType_Graphic, 277, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element33)},
+    {WindowElementType_Graphic, 201, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element34)},
+    {WindowElementType_Graphic, 220, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element35)},
+    {WindowElementType_Graphic, 239, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element36)},
+    {WindowElementType_Graphic, 258, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element37)},
+    {WindowElementType_Graphic, 277, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element38)},
+    {WindowElementType_Graphic, 201, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element39)},
+    {WindowElementType_Graphic, 220, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element40)},
+    {WindowElementType_Graphic, 239, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element41)},
+    {WindowElementType_Graphic, 258, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element42)},
+    {WindowElementType_Graphic, 277, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element43)},
+    {WindowElementType_Graphic, 201, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element44)},
+    {WindowElementType_Graphic, 220, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element45)},
+    {WindowElementType_Graphic, 239, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element46)},
+    {WindowElementType_Graphic, 258, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element47)},
+    {WindowElementType_Graphic, 277, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element48)},
+    {WindowElementType_Graphic, 201, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element49)},
+    {WindowElementType_Graphic, 220, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element50)},
+    {WindowElementType_Graphic, 239, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element51)},
+    {WindowElementType_Graphic, 258, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element52)},
+    {WindowElementType_Graphic, 277, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element53)},
+    {WindowElementType_Graphic, 18, 161, 0, 0, 1, {.graphic = &gWindowGraphic571EC8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element54)},
+    {WindowElementType_Text, 116, 70, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element55)},
+    {WindowElementType_Text, 116, 90, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element56)},
+    {WindowElementType_Text, 116, 110, 0, 0, 1, {.text = &gWindowText571F10}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element57)},
+    {WindowElementType_Graphic, 16, 161, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element58)},
+    {WindowElementType_Graphic, 16, 180, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element59)},
+    {WindowElementType_Graphic, 16, 199, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element60)},
+    {WindowElementType_Graphic, 16, 218, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element61)},
+    {WindowElementType_Graphic, 16, 237, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element62)},
+    {WindowElementType_Graphic, 16, 256, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element63)},
+    {WindowElementType_Graphic, 16, 275, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element64)},
+    {WindowElementType_Graphic, 273, 28, 32, 17, 0, {.graphic = &gWindowGraphic571E20}, &WindowGuildDetails_HandleActionButton, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleActionButton)},
+    {WindowElementType_Graphic, 273, 46, 32, 17, 0, {.graphic = &gWindowGraphic571E20}, &WindowGuildDetails_HandleActionButton, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleActionButton_66)},
+    {WindowElementType_Graphic, 299, 163, 11, 11, 1, {.graphic = &gWindowGraphic571E38}, &WindowGuildDetails_HandleScrollButtons, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleScrollButtons)},
+    {WindowElementType_Graphic, 299, 280, 11, 11, 1, {.graphic = &gWindowGraphic571E68}, &WindowGuildDetails_HandleScrollButtons, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleScrollButtons_68)},
+    {WindowElementType_Graphic, 299, 173, 0, 0, 1, {.graphic = &gWindowGraphic571E50}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element69)},
+    {WindowElementType_MouseArea, 298, 173, 10, 94, 1, {.mouseFlags = &gWindowMouseFlagsD678A8}, &WindowGuildDetails_HandleScrollFocus, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleScrollFocus)},
+    {WindowElementType_EventArea, 0, 0, 317, 325, 1, {.unusedValue = 0}, &WindowGuildDetails_Scroll, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Scroll)},
+    {WindowElementType_Graphic, 299, 9, 11, 11, 1, {.graphic = &gWindowGraphic571E08}, &WindowGuildDetails_ButtonClose, -1, static_cast<ElementId>(WindowGuildDetailsElementId::ButtonClose)},
+    {WindowElementType_Graphic, 265, 296, 57, 17, 0, {.graphic = &gWindowGraphic571E20}, &WindowGuildDetails_HandleActionButton, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleActionButton_73)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic571EE0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element74)},
+    {WindowElementType_Graphic, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic571EF8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowGuildDetailsElementId::Element75)},
+    {WindowElementType_EventArea, 317, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowGuildDetailsElementId::HandleSideArea)},
 };
 
 // 原型：窗口48；原全局：0x0054EBA0。
@@ -249,9 +331,11 @@ static std::int32_t WindowGuildDetails_Update(const std::int32_t value)
             const wchar_t* const source = cg::world::GetGuildRankText(index);
             gGuildDraftCF4018.ranks[index].text = source;
         }
-        auto* const name = gCurrentWindow->elements[9].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]))) { return {}; }
+        auto* const name = (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]->data.text;
         name->text = cg::world::GetGuildName();
-        auto* const second = gCurrentWindow->elements[10].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]))) { return {}; }
+        auto* const second = (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]->data.text;
         second->text = cg::world::GetGuildSecondText();
     }
     if (WindowGuildDetails_CommitFocusedInput() == 0) {
@@ -276,63 +360,67 @@ static void WindowGuildDetails_RefreshReadOnly()
         WindowGuildDetails_RefreshEditor();
         return;
     }
-    gCurrentWindow->elements[64].visible = 0;
-    gCurrentWindow->elements[65].visible = 0;
-    gCurrentWindow->elements[72].visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66]->visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73]->visible = 0;
     for (std::int32_t index = 9; index < 18; ++index) {
-        gCurrentWindow->elements[index].visible = 1;
-        gCurrentWindow->elements[index].mouseCallback = &WindowElement_NoOp;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->mouseCallback = &WindowElement_NoOp;
     }
     for (std::int32_t index = 18; index < 53; ++index) {
-        gCurrentWindow->elements[index].height = 0;
-        gCurrentWindow->elements[index].width = 0;
-        gCurrentWindow->elements[index].mouseCallback = &WindowElement_NoOp;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->height = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->width = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->mouseCallback = &WindowElement_NoOp;
     }
-    gCurrentWindow->elements[72].visible = 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73]->visible = 0;
     static_cast<void>(WindowGuildDetails_RefreshRanks());
 }
 
 // 原函数：0x004AF250。
 static void WindowGuildDetails_RefreshEditor()
 {
-    gCurrentWindow->elements[64].visible = 1;
-    gCurrentWindow->elements[65].visible = 1;
-    gCurrentWindow->elements[72].visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton]->visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66]->visible = 1;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73]->visible = 1;
     for (std::int32_t index = 9; index < 18; ++index) {
-        gCurrentWindow->elements[index].visible = 1;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->visible = 1;
     }
     for (std::int32_t index = 18; index < 53; ++index) {
-        gCurrentWindow->elements[index].height = 15;
-        gCurrentWindow->elements[index].width = 15;
-        gCurrentWindow->elements[index].mouseCallback = &WindowGuildDetails_ToggleRankPermission;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->height = 15;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->width = 15;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->mouseCallback = &WindowGuildDetails_ToggleRankPermission;
     }
     static_cast<void>(WindowGuildDetails_RefreshRanks());
     WindowInstance* window = gCurrentWindow;
-    WindowElement* elements = window->elements;
-    if (gFocusedElementDataD45F94 == elements[0].data.input) {
+    auto* elementsWindow = window;
+    if (!((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::HandleInput]))) { return; }
+    if (gFocusedElementDataD45F94 == (*elementsWindow)[WindowGuildDetailsElementId::HandleInput]->data.input) {
         char fieldBytes[41]{};
         cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[0].input.context));
         gGuildDraftCF4018.name604 = input::ContextText(*gGuildInputs57F040[0].input.context);
-        window->elements[9].visible = 0;
+        if ((window && (*window)[WindowGuildDetailsElementId::Element10])) (*window)[WindowGuildDetailsElementId::Element10]->visible = 0;
         WindowInstance* const current = gCurrentWindow;
         const std::int32_t y = current->y;
         const std::int32_t x = current->x;
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[0], x, y, 1));
     } else {
-        elements[9].visible = 1;
-        auto* const text = gCurrentWindow->elements[9].data.text;
+        if ((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::Element10])) (*elementsWindow)[WindowGuildDetailsElementId::Element10]->visible = 1;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]))) { return; }
+        auto* const text = (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]->data.text;
         text->text = gGuildDraftCF4018.name604;
         const bool changed = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
-        gCurrentWindow->elements[9].data.text->style.color =
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]))) { return; }
+        (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]->data.text->style.color =
             changed ? std::byte{6} : std::byte{0};
     }
     const bool nameChanged = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName()) != 0;
-    gCurrentWindow->elements[64].visible = nameChanged ? 1 : 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton]->visible = nameChanged ? 1 : 0;
 
     window = gCurrentWindow;
-    elements = window->elements;
-    if (gFocusedElementDataD45F94 == elements[1].data.input) {
-        elements[10].visible = 0;
+    elementsWindow = window;
+    if (!((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::HandleInput_2]))) { return; }
+    if (gFocusedElementDataD45F94 == (*elementsWindow)[WindowGuildDetailsElementId::HandleInput_2]->data.input) {
+        if ((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::Element11])) (*elementsWindow)[WindowGuildDetailsElementId::Element11]->visible = 0;
         char fieldBytes[41]{};
         cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[1].input.context));
         gGuildDraftCF4018.secondText634 = input::ContextText(*gGuildInputs57F040[1].input.context);
@@ -341,73 +429,82 @@ static void WindowGuildDetails_RefreshEditor()
         const std::int32_t x = current->x;
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 1));
     } else {
-        elements[10].visible = 1;
-        auto* const text = gCurrentWindow->elements[10].data.text;
+        if ((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::Element11])) (*elementsWindow)[WindowGuildDetailsElementId::Element11]->visible = 1;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]))) { return; }
+        auto* const text = (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]->data.text;
         text->text = gGuildDraftCF4018.secondText634;
         const bool changed = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
-        gCurrentWindow->elements[10].data.text->style.color =
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]))) { return; }
+        (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]->data.text->style.color =
             changed ? std::byte{6} : std::byte{0};
     }
     const bool secondChanged = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText()) != 0;
-    gCurrentWindow->elements[65].visible = secondChanged ? 1 : 0;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_66]->visible = secondChanged ? 1 : 0;
 
     for (std::int32_t row = 0; row < 7; ++row) {
         window = gCurrentWindow;
-        elements = window->elements;
-        if (gFocusedElementDataD45F94 == elements[row + 2].data.input) {
-            elements[row + 11].visible = 0;
+        elementsWindow = window;
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(row + 2)]))) { continue; }
+        if (gFocusedElementDataD45F94 == (*elementsWindow)[NativeElementKey(row + 2)]->data.input) {
+            if ((elementsWindow && (*elementsWindow)[NativeElementKey(row + 11)])) (*elementsWindow)[NativeElementKey(row + 11)]->visible = 0;
             WindowGuildDetails_SaveInputDraft(row + 2);
             WindowInstance* const current = gCurrentWindow;
             // 原显示源为row，而草稿写回使用row+2，不合并这两个索引。
-            current->elements[row + 11].data.text->text =
+            if (!((current && (*current)[NativeElementKey(row + 11)]))) { continue; }
+            (*current)[NativeElementKey(row + 11)]->data.text->text =
                 input::ContextText(*gGuildInputs57F040[row].input.context);
         }
         window = gCurrentWindow;
         const std::int32_t rank = gGuildPageD67B78 + row;
-        auto* const text = window->elements[row + 11].data.text;
+        if (!((window && (*window)[NativeElementKey(row + 11)]))) { continue; }
+        auto* const text = (*window)[NativeElementKey(row + 11)]->data.text;
         const std::int32_t changed = WindowGuildDetails_HasChangedRank(rank);
         text->style.color = changed != 0 ? std::byte{6} : std::byte{0};
     }
     const std::int32_t changed = WindowGuildDetails_HasChangedRanks();
-    gCurrentWindow->elements[72].visible = changed;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73])) (*gCurrentWindow)[WindowGuildDetailsElementId::HandleActionButton_73]->visible = changed;
 }
 
 // 原函数：0x004AF650。
 static std::int32_t WindowGuildDetails_RefreshRanks()
 {
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
-    gCurrentWindow->elements[53].visible = 0;
-    auto* const name = gCurrentWindow->elements[9].data.text;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element54])) (*gCurrentWindow)[WindowGuildDetailsElementId::Element54]->visible = 0;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]))) { return {}; }
+    auto* const name = (*gCurrentWindow)[WindowGuildDetailsElementId::Element10]->data.text;
     name->text = editable != 0 ? gGuildDraftCF4018.name604.data()
         : cg::world::GetGuildName();
-    auto* const second = gCurrentWindow->elements[10].data.text;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]))) { return {}; }
+    auto* const second = (*gCurrentWindow)[WindowGuildDetailsElementId::Element11]->data.text;
     second->text = editable != 0 ? gGuildDraftCF4018.secondText634.data()
         : cg::world::GetGuildSecondText();
     for (std::int32_t index = 0; index < 3; ++index) {
         WindowInstance* const window = gCurrentWindow;
         const wchar_t* const source = cg::world::GetGuildAuxText(index);
-        window->elements[index + 54].data.text->text = source;
+        if ((window && (*window)[NativeElementKey(index + 54)])) (*window)[NativeElementKey(index + 54)]->data.text->text = source;
     }
     std::int32_t y = 164;
     for (std::int32_t row = 0; row < 7; ++row) {
         const std::int32_t rank = gGuildPageD67B78 + row;
         const wchar_t* const source = editable != 0 ? gGuildDraftCF4018.ranks[rank].text.data()
             : cg::world::GetGuildRankText(rank);
-        auto* const text = gCurrentWindow->elements[row + 11].data.text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(row + 11)]))) { continue; }
+        auto* const text = (*gCurrentWindow)[NativeElementKey(row + 11)]->data.text;
         text->text = source;
         for (std::int32_t column = 0; column < 5; ++column) {
             const std::int32_t flags = editable != 0 ? gGuildDraftCF4018.ranks[rank].flags
                 : cg::world::ReadGuildRankFlags1051514(rank);
-            auto* const graphic = gCurrentWindow->elements[18 + row * 5 + column].data.graphic;
+            if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(18 + row * 5 + column)]))) { continue; }
+            auto* const graphic = (*gCurrentWindow)[NativeElementKey(18 + row * 5 + column)]->data.graphic;
             graphic->imageNo = (flags & (1 << column)) != 0 ? 0x3B9F6 : 0x3B9FD;
         }
         const std::uint8_t flags = editable != 0
             ? *reinterpret_cast<const unsigned char*>(&gGuildDraftCF4018.ranks[rank].flags)
             : cg::world::ReadGuildRankFlagsByte1051514(rank);
         if ((flags & 0x80) != 0) {
-            gCurrentWindow->elements[53].visible = 1;
-            gCurrentWindow->elements[53].x = 23;
-            gCurrentWindow->elements[53].y = y;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element54])) (*gCurrentWindow)[WindowGuildDetailsElementId::Element54]->visible = 1;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element54])) (*gCurrentWindow)[WindowGuildDetailsElementId::Element54]->x = 23;
+            if ((gCurrentWindow && (*gCurrentWindow)[WindowGuildDetailsElementId::Element54])) (*gCurrentWindow)[WindowGuildDetailsElementId::Element54]->y = y;
         }
         y += 20;
     }
@@ -435,9 +532,10 @@ static std::int32_t WindowGuildDetails_CommitFocusedInput()
 {
     WindowInstance* const window = gCurrentWindow;
     void* const focused = gFocusedElementDataD45F94;
-    WindowElement* const elements = window->elements;
+    auto* elementsWindow = window;
     for (std::int32_t index = 0; index < 9; ++index) {
-        if (elements[index].data.input == focused) {
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { continue; }
+        if ((*elementsWindow)[NativeElementKey(index)]->data.input == focused) {
             return 1;
         }
     }
@@ -447,10 +545,12 @@ static std::int32_t WindowGuildDetails_CommitFocusedInput()
 // 原函数：0x004AFAE0。
 static void WindowGuildDetails_DragScroll(const std::int32_t)
 {
-    WindowElement* const elements = gCurrentWindow->elements;
-    auto* const mouse = elements[69].data.mouse;
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::HandleScrollFocus]))) { return; }
+    auto* const mouse = (*elementsWindow)[WindowGuildDetailsElementId::HandleScrollFocus]->data.mouse;
     if ((mouse->flags & 1) != 0) {
-        gGuildPageD67B78 = WindowScroll_ReadPosition(&elements[69], 25);
+        if (!((elementsWindow && (*elementsWindow)[WindowGuildDetailsElementId::HandleScrollFocus]))) { return; }
+        gGuildPageD67B78 = WindowScroll_ReadPosition((*elementsWindow)[WindowGuildDetailsElementId::HandleScrollFocus], 25);
     }
 }
 
@@ -469,7 +569,8 @@ static void WindowGuildDetails_ScrollRow()
     static_cast<void>(audio::PlaySe_52C450(sound, 320));
     WindowInstance* const window = gCurrentWindow;
     const std::int32_t position = gGuildPageD67B78;
-    static_cast<void>(WindowScroll_SetPosition(&window->elements[69], 25, position));
+    if (!((window && (*window)[WindowGuildDetailsElementId::HandleScrollFocus]))) { return; }
+    static_cast<void>(WindowScroll_SetPosition((*window)[WindowGuildDetailsElementId::HandleScrollFocus], 25, position));
 }
 
 // 原函数：0x004AEC30。
@@ -498,7 +599,8 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(const std::int32_t i
 // 原函数：0x004AED40。
 static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = 0x3B56E;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B570;
@@ -529,14 +631,15 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         return editable;
     }
     WindowInstance* const window = gCurrentWindow;
-    WindowElement* const elements = window->elements;
-    if (gFocusedElementDataD45F94 == elements[index].data.input) {
+    auto* elementsWindow = window;
+    if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+    if (gFocusedElementDataD45F94 == (*elementsWindow)[NativeElementKey(index)]->data.input) {
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 2));
         return 0;
     }
-    elements[index + 9].visible = 1;
+    if ((elementsWindow && (*elementsWindow)[NativeElementKey(index + 9)])) (*elementsWindow)[NativeElementKey(index + 9)]->visible = 1;
     if ((state & 2) == 0) {
         return 0;
     }
@@ -552,14 +655,17 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = gCurrentWindow;
-        gFocusedElementDataD45F94 = focused->elements[index].data.input;
-        focused->elements[index].data.input->context =
+        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
+        gFocusedElementDataD45F94 = (*focused)[NativeElementKey(index)]->data.input;
+        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
+        (*focused)[NativeElementKey(index)]->data.input->context =
             &cg::ui::detail::gInputContextD2E130;
         gGuildEditing57F03C = 33;
         break;
     }
     case 2: case 3: case 4: case 5: case 6: case 7: case 8: {
-        const std::wstring& source = gCurrentWindow->elements[index + 9].data.text->text;
+        if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 9)]))) { return {}; }
+        const std::wstring& source = (*gCurrentWindow)[NativeElementKey(index + 9)]->data.text->text;
         gGuildInputs57F040[index].text = source;
         WindowInstance* const current = gCurrentWindow;
         const std::int32_t y = current->y;
@@ -567,8 +673,10 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = gCurrentWindow;
-        gFocusedElementDataD45F94 = focused->elements[index].data.input;
-        focused->elements[index].data.input->context =
+        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
+        gFocusedElementDataD45F94 = (*focused)[NativeElementKey(index)]->data.input;
+        if (!((focused && (*focused)[NativeElementKey(index)]))) { return {}; }
+        (*focused)[NativeElementKey(index)]->data.input->context =
             &cg::ui::detail::gInputContextD2E130;
         gGuildEditing57F03C = gGuildPageD67B78 + index - 2;
         break;
@@ -580,7 +688,8 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
 // 原函数：0x004AF000。
 static std::int32_t WindowGuildDetails_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     const std::int32_t offset = index == 66 ? 0 : 3;
     graphic->imageNo = 0x3B592 + offset;
     if ((state & 1) != 0) {
@@ -617,7 +726,8 @@ static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int
         if (wheel != 0) {
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t page = gGuildPageD67B78;
-            gGuildPageD67B78 = WindowScroll_ApplyWheel(&window->elements[69], page, 25, wheel);
+            if (!((window && (*window)[WindowGuildDetailsElementId::HandleScrollFocus]))) { return {}; }
+            gGuildPageD67B78 = WindowScroll_ApplyWheel((*window)[WindowGuildDetailsElementId::HandleScrollFocus], page, 25, wheel);
             static_cast<void>(WindowChat_RestoreInput());
         }
     }
@@ -627,7 +737,8 @@ static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int
 // 原函数：0x004AF100。
 static std::int32_t WindowGuildDetails_ButtonClose(const std::int32_t index, const std::int32_t state)
 {
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     graphic->imageNo = 0x3B538;
     if ((state & 1) != 0) {
         graphic->imageNo = 0x3B53A;

@@ -3,6 +3,83 @@
 #include "../../world/WorldUpdateDependencies.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowProfileSearchElementId : ElementId {
+    ButtonClose = 1,
+    Element2 = 2,
+    Element3 = 3,
+    HandleSearchButtons = 4,
+    HandleSearchButtons_5 = 5,
+    HandleSearchButtons_6 = 6,
+    Element7 = 7,
+    EditKeyword = 8,
+    Element9 = 9,
+    Element10 = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    Element17 = 17,
+    Element18 = 18,
+    Element19 = 19,
+    Element20 = 20,
+    Element21 = 21,
+    Element22 = 22,
+    Element23 = 23,
+    Element24 = 24,
+    Element25 = 25,
+    Element26 = 26,
+    Element27 = 27,
+    Element28 = 28,
+    Element29 = 29,
+    Element30 = 30,
+    Element31 = 31,
+    Element32 = 32,
+    Element33 = 33,
+    Element34 = 34,
+    Element35 = 35,
+    Element36 = 36,
+    Element37 = 37,
+    Element38 = 38,
+    Element39 = 39,
+    Element40 = 40,
+    Element41 = 41,
+    Element42 = 42,
+    Element43 = 43,
+    Element44 = 44,
+    Element45 = 45,
+    Element46 = 46,
+    Element47 = 47,
+    Element48 = 48,
+    SelectResult = 49,
+    SelectResult_50 = 50,
+    SelectResult_51 = 51,
+    SelectResult_52 = 52,
+    SelectResult_53 = 53,
+    SelectResult_54 = 54,
+    SelectResult_55 = 55,
+    SelectResult_56 = 56,
+    SelectResult_57 = 57,
+    SelectResult_58 = 58,
+    SelectResult_59 = 59,
+    SelectResult_60 = 60,
+    SelectResult_61 = 61,
+    SelectResult_62 = 62,
+    SelectResult_63 = 63,
+    SelectResult_64 = 64,
+    SelectResult_65 = 65,
+    SelectResult_66 = 66,
+    SelectResult_67 = 67,
+    SelectResult_68 = 68,
+    Element69 = 69,
+    Element70 = 70,
+    HandleSideArea = 71,
+};
+
+
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
@@ -74,77 +151,77 @@ static WindowTextPrototype gWindowText578CC0 { // 原全局：0x00578CC0。
 };
 
 static WindowElementPrototype gWindowElements578CC8[71] { // 原全局：0x00578CC8。
-    {WindowElementType_Graphic, 284, 9, 10, 10, 1, {.graphic = &gWindowGraphic578BE8}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Text, 120, 30, 0, 0, 1, {.text = &gWindowText578CA8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 140, 8, 0, 0, 1, {.graphic = &gWindowGraphic578C48}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 190, 367, 55, 20, 1, {.graphic = &gWindowGraphic578C90}, &WindowProfileSearch_HandleSearchButtons},
-    {WindowElementType_Graphic, 250, 367, 20, 20, 1, {.graphic = &gWindowGraphic578C60}, &WindowProfileSearch_HandleSearchButtons},
-    {WindowElementType_Graphic, 270, 367, 20, 20, 1, {.graphic = &gWindowGraphic578C78}, &WindowProfileSearch_HandleSearchButtons},
-    {WindowElementType_Text, 20, 370, 0, 0, 1, {.text = &gWindowText578CC0}, &WindowElement_NoOp},
-    {WindowElementType_Input, 20, 370, 168, 14, 1, {.unusedValue = 0}, &WindowProfileSearch_EditKeyword},
-    {WindowElementType_Text, 20, 47, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 63, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 79, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 95, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 111, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 127, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 143, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 159, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 175, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 191, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 207, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 223, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 239, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 255, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 271, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 287, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 303, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 319, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 335, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 20, 351, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 47, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 63, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 79, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 95, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 111, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 127, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 143, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 159, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 175, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 191, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 207, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 223, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 239, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 255, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 271, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 287, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 303, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 319, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 335, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Text, 195, 351, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 15, 45, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 61, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 77, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 93, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 109, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 125, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 141, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 157, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 173, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 189, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 205, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 221, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 237, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 253, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 269, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 285, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 301, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 317, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 333, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 15, 349, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult},
-    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic578C00}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 14, 27, 0, 0, 1, {.graphic = &gWindowGraphic578C18}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, 300, 0, 30, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 284, 9, 10, 10, 1, {.graphic = &gWindowGraphic578BE8}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowProfileSearchElementId::ButtonClose)},
+    {WindowElementType_Text, 120, 30, 0, 0, 1, {.text = &gWindowText578CA8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element2)},
+    {WindowElementType_Graphic, 140, 8, 0, 0, 1, {.graphic = &gWindowGraphic578C48}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element3)},
+    {WindowElementType_Graphic, 190, 367, 55, 20, 1, {.graphic = &gWindowGraphic578C90}, &WindowProfileSearch_HandleSearchButtons, -1, static_cast<ElementId>(WindowProfileSearchElementId::HandleSearchButtons)},
+    {WindowElementType_Graphic, 250, 367, 20, 20, 1, {.graphic = &gWindowGraphic578C60}, &WindowProfileSearch_HandleSearchButtons, -1, static_cast<ElementId>(WindowProfileSearchElementId::HandleSearchButtons_5)},
+    {WindowElementType_Graphic, 270, 367, 20, 20, 1, {.graphic = &gWindowGraphic578C78}, &WindowProfileSearch_HandleSearchButtons, -1, static_cast<ElementId>(WindowProfileSearchElementId::HandleSearchButtons_6)},
+    {WindowElementType_Text, 20, 370, 0, 0, 1, {.text = &gWindowText578CC0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element7)},
+    {WindowElementType_Input, 20, 370, 168, 14, 1, {.unusedValue = 0}, &WindowProfileSearch_EditKeyword, -1, static_cast<ElementId>(WindowProfileSearchElementId::EditKeyword)},
+    {WindowElementType_Text, 20, 47, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element9)},
+    {WindowElementType_Text, 20, 63, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element10)},
+    {WindowElementType_Text, 20, 79, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element11)},
+    {WindowElementType_Text, 20, 95, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element12)},
+    {WindowElementType_Text, 20, 111, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element13)},
+    {WindowElementType_Text, 20, 127, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element14)},
+    {WindowElementType_Text, 20, 143, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element15)},
+    {WindowElementType_Text, 20, 159, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element16)},
+    {WindowElementType_Text, 20, 175, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element17)},
+    {WindowElementType_Text, 20, 191, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element18)},
+    {WindowElementType_Text, 20, 207, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element19)},
+    {WindowElementType_Text, 20, 223, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element20)},
+    {WindowElementType_Text, 20, 239, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element21)},
+    {WindowElementType_Text, 20, 255, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element22)},
+    {WindowElementType_Text, 20, 271, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element23)},
+    {WindowElementType_Text, 20, 287, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element24)},
+    {WindowElementType_Text, 20, 303, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element25)},
+    {WindowElementType_Text, 20, 319, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element26)},
+    {WindowElementType_Text, 20, 335, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element27)},
+    {WindowElementType_Text, 20, 351, 0, 0, 1, {.text = &gWindowText578CB0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element28)},
+    {WindowElementType_Text, 195, 47, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element29)},
+    {WindowElementType_Text, 195, 63, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element30)},
+    {WindowElementType_Text, 195, 79, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element31)},
+    {WindowElementType_Text, 195, 95, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element32)},
+    {WindowElementType_Text, 195, 111, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element33)},
+    {WindowElementType_Text, 195, 127, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element34)},
+    {WindowElementType_Text, 195, 143, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element35)},
+    {WindowElementType_Text, 195, 159, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element36)},
+    {WindowElementType_Text, 195, 175, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element37)},
+    {WindowElementType_Text, 195, 191, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element38)},
+    {WindowElementType_Text, 195, 207, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element39)},
+    {WindowElementType_Text, 195, 223, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element40)},
+    {WindowElementType_Text, 195, 239, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element41)},
+    {WindowElementType_Text, 195, 255, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element42)},
+    {WindowElementType_Text, 195, 271, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element43)},
+    {WindowElementType_Text, 195, 287, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element44)},
+    {WindowElementType_Text, 195, 303, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element45)},
+    {WindowElementType_Text, 195, 319, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element46)},
+    {WindowElementType_Text, 195, 335, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element47)},
+    {WindowElementType_Text, 195, 351, 0, 0, 1, {.text = &gWindowText578CB8}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element48)},
+    {WindowElementType_Graphic, 15, 45, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult)},
+    {WindowElementType_Graphic, 15, 61, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_50)},
+    {WindowElementType_Graphic, 15, 77, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_51)},
+    {WindowElementType_Graphic, 15, 93, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_52)},
+    {WindowElementType_Graphic, 15, 109, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_53)},
+    {WindowElementType_Graphic, 15, 125, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_54)},
+    {WindowElementType_Graphic, 15, 141, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_55)},
+    {WindowElementType_Graphic, 15, 157, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_56)},
+    {WindowElementType_Graphic, 15, 173, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_57)},
+    {WindowElementType_Graphic, 15, 189, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_58)},
+    {WindowElementType_Graphic, 15, 205, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_59)},
+    {WindowElementType_Graphic, 15, 221, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_60)},
+    {WindowElementType_Graphic, 15, 237, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_61)},
+    {WindowElementType_Graphic, 15, 253, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_62)},
+    {WindowElementType_Graphic, 15, 269, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_63)},
+    {WindowElementType_Graphic, 15, 285, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_64)},
+    {WindowElementType_Graphic, 15, 301, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_65)},
+    {WindowElementType_Graphic, 15, 317, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_66)},
+    {WindowElementType_Graphic, 15, 333, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_67)},
+    {WindowElementType_Graphic, 15, 349, 280, 16, 1, {.graphic = &gWindowGraphic578C30}, &WindowProfileSearch_SelectResult, -1, static_cast<ElementId>(WindowProfileSearchElementId::SelectResult_68)},
+    {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic578C00}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element69)},
+    {WindowElementType_Graphic, 14, 27, 0, 0, 1, {.graphic = &gWindowGraphic578C18}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowProfileSearchElementId::Element70)},
+    {WindowElementType_EventArea, 300, 0, 30, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowProfileSearchElementId::HandleSideArea)},
 };
 
 // 原型：窗口61；原全局：0x0054EDC0。
@@ -159,12 +236,12 @@ static void WindowProfileSearch_RefreshResults()
     for (std::int32_t index = 0; index < 20; ++index) {
         const auto& record = search.records[index];
         if (record.used != 0) {
-            gCurrentWindow->elements[index + 8].data.text->text = record.text10C;
-            gCurrentWindow->elements[index + 28].data.text->text = record.text04;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 8)])) (*gCurrentWindow)[NativeElementKey(index + 8)]->data.text->text = record.text10C;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 28)])) (*gCurrentWindow)[NativeElementKey(index + 28)]->data.text->text = record.text04;
         } else {
-            gCurrentWindow->elements[index + 8].visible = 0;
-            gCurrentWindow->elements[index + 28].visible = 0;
-            gCurrentWindow->elements[index + 48].visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 8)])) (*gCurrentWindow)[NativeElementKey(index + 8)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 28)])) (*gCurrentWindow)[NativeElementKey(index + 28)]->visible = 0;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index + 48)])) (*gCurrentWindow)[NativeElementKey(index + 48)]->visible = 0;
         }
     }
     const std::int32_t group = search.value00;
@@ -173,8 +250,9 @@ static void WindowProfileSearch_RefreshResults()
     case 1:
     case 2: {
         const wchar_t* const title = world::detail::ReadCategoryText105FA24(group, search.value04);
-        gCurrentWindow->elements[1].data.text->text = title;
-        gCurrentWindow->elements[2].data.graphic->imageNo =
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element2])) (*gCurrentWindow)[WindowProfileSearchElementId::Element2]->data.text->text = title;
+        if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element3]))) { return; }
+        (*gCurrentWindow)[WindowProfileSearchElementId::Element3]->data.graphic->imageNo =
             group == 0 ? 246045 : (group == 1 ? 0 : 246046);
         break;
     }
@@ -187,7 +265,7 @@ static void WindowProfileSearch_RefreshResults()
 static std::uint32_t WindowProfileSearch_DrawKeyword()
 {
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextCB0610) {
-        gCurrentWindow->elements[6].visible = 0;
+        if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element7])) (*gCurrentWindow)[WindowProfileSearchElementId::Element7]->visible = 0;
         WindowInstance* const window = gCurrentWindow;
         static_cast<void>(WindowInput_ActivateElement(
             &gProfileSearchInputPrototype580A80, window->x, window->y, 1));
@@ -196,8 +274,9 @@ static std::uint32_t WindowProfileSearch_DrawKeyword()
         gProfileSearchKeyword1075988 = text;
         return length;
     }
-    gCurrentWindow->elements[6].visible = 1;
-    std::wstring& text = gCurrentWindow->elements[6].data.text->text;
+    if ((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element7])) (*gCurrentWindow)[WindowProfileSearchElementId::Element7]->visible = 1;
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::Element7]))) { return {}; }
+    std::wstring& text = (*gCurrentWindow)[WindowProfileSearchElementId::Element7]->data.text->text;
     const auto length = static_cast<std::uint32_t>(
         gProfileSearchKeyword1075988.size() + 1);
     text = gProfileSearchKeyword1075988;
@@ -236,13 +315,16 @@ static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const st
     }
     if ((state & 2) != 0) {
         WindowInstance* const window = gCurrentWindow;
-        if (gFocusedElementDataD45F94 != window->elements[7].data.input) {
+        if (!((window && (*window)[WindowProfileSearchElementId::EditKeyword]))) { return {}; }
+        if (gFocusedElementDataD45F94 != (*window)[WindowProfileSearchElementId::EditKeyword]->data.input) {
             gProfileSearchInputPrototype580A80.text = gProfileSearchKeyword1075988;
             static_cast<void>(WindowInput_ActivateElement(
                 &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCB0610);
-            gFocusedElementDataD45F94 = gCurrentWindow->elements[7].data.input;
-            gCurrentWindow->elements[7].data.input->context =
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::EditKeyword]))) { return {}; }
+            gFocusedElementDataD45F94 = (*gCurrentWindow)[WindowProfileSearchElementId::EditKeyword]->data.input;
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowProfileSearchElementId::EditKeyword]))) { return {}; }
+            (*gCurrentWindow)[WindowProfileSearchElementId::EditKeyword]->data.input->context =
                 &cg::ui::detail::gInputContextCB0610;
         }
         return 1;
@@ -265,7 +347,8 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
         L"下一页",
     };
     const std::int32_t position = index - 3;
-    auto* const graphic = gCurrentWindow->elements[index].data.graphic;
+    if (!((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)]))) { return {}; }
+    auto* const graphic = (*gCurrentWindow)[NativeElementKey(index)]->data.graphic;
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         graphic->imageNo = hoverImages[position];
@@ -300,9 +383,9 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if ((state & 1) != 0) {
         gHoverTextD68AE8 = L"浏览此名玩家的资料表";
         consumed = 1;
-        gCurrentWindow->elements[index].data.graphic->imageNo = 246059;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 246059;
     } else {
-        gCurrentWindow->elements[index].data.graphic->imageNo = 246060;
+        if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 246060;
     }
     if ((state & 2) != 0) {
         const auto& record = world::detail::gProfileSearch105C398.records[position];
@@ -320,7 +403,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if (gWindowStates[WindowId_ProfileView].window != nullptr) {
         const std::int32_t key = world::detail::gViewedProfile105ECE0.value00;
         if (key == world::detail::gProfileSearch105C398.records[position].value104) {
-            gCurrentWindow->elements[index].data.graphic->imageNo = 246058;
+            if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 246058;
         }
     }
     return consumed;

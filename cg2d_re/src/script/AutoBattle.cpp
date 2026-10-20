@@ -538,24 +538,29 @@ static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
 
 // 面板沿原坐标、图号、互斥选项和鼠标规则；载荷由C++容器持有。
 struct AutoBattleWindow final : UIWindowInstanceEx {
-    std::array<ui::WindowElement, CHK_MAX + 3> elements{};
     std::array<ui::WindowGraphicData, CHK_MAX + 3> graphics{};
     AutoBattleWindow(int id, int x, int width, int height, int count) {
         window.id = id; window.x = x; window.y = 100;
         window.width = width; window.height = height;
         window.state = WIN_STATE_ACTIVE; window.layer = 4;
-        window.elementCount = count; window.elements = elements.data();
+        for (int slot = 0; slot < count; ++slot) {
+            auto& element = ui::WindowRuntime_AddElement(window, ui::NativeElementKey(slot));
+            element.nativeSlot = slot;
+            element.seqNo = slot;
+            element.ownsPayload = false;
+        }
     }
     ~AutoBattleWindow() override {
-        // 自有数组必须在派生对象仍有效时解除绑定，基类仅释放排序缓存。
+        ui::WindowRuntime_DestroyElements(window);
         ui::WindowRuntime_ReleaseBindings(window);
-        for (auto& element : elements) { delete element.properties; element.properties = nullptr; }
-        window.elements = nullptr;
-        window.elementCount = 0;
     }
     void AddGraphic(int ix, int x, int y, int w, int h, int image, ui::WindowElementCallback callback) {
         graphics[ix] = {image, 0, 0, 0, 0, 0xFFFFFFFFu};
-        elements[ix] = {ui::WindowElementType_Graphic, 0, x, y, w, h, 1, {.graphic = &graphics[ix]}, callback, ix};
+        auto* element = window[ui::NativeElementKey(ix)];
+        if (!element) return;
+        element->type = ui::WindowElementType_Graphic;
+        element->x = x; element->y = y; element->width = w; element->height = h;
+        element->visible = 1; element->data.graphic = &graphics[ix]; element->mouseCallback = callback;
     }
     int update(int stage, int) override {
         if (window.id == WIN_AUTOBATTLE && clicked && (gMouseBtnDown2 & CG_MBTN_LEFTDOWN)) {
@@ -569,21 +574,23 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
 };
 
 static ui::WindowGraphicData& CurrentGraphic(int index) {
-    return *gCurrentWindow->elements[index].data.graphic;
+    return *(*gCurrentWindow)[ui::NativeElementKey(index)]->data.graphic;
 }
 
 static void MakeAutoBattleSimple() {
     if (simpleMode == SIMPLE_MODE_OFF) simpleMode = SIMPLE_MODE_FULL;
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE_SIMPLE,
         simpleMode == SIMPLE_MODE_FULL ? -2 : -70, 77, 20, 2);
-    panel->elements[0] = {ui::WindowElementType_EventArea, 0, 65, 0, 10, 20, 1, {},
-        +[](int, int mouse) {
+    auto* toggle = panel->window[ui::NativeElementKey(0)];
+    toggle->type = ui::WindowElementType_EventArea; toggle->x = 65; toggle->width = 10;
+    toggle->height = 20; toggle->visible = 1;
+    toggle->mouseCallback = +[](int, int mouse) {
             if (mouse & 2) {
                 simpleMode = simpleMode == SIMPLE_MODE_HIDE ? SIMPLE_MODE_FULL : SIMPLE_MODE_HIDE;
                 gCurrentWindow->x = simpleMode == SIMPLE_MODE_FULL ? -2 : -70;
             }
             return (mouse & 2) ? 1 : 0;
-        }};
+        };
     panel->AddGraphic(1, 0, 0, 77, 20, 641503, +[](int, int mouse) {
         if (mouse & 2) {
             simpleMode = SIMPLE_MODE_OFF;

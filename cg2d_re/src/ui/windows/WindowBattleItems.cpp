@@ -8,6 +8,34 @@
 #include "../../world/PlayerState.hpp"
 
 namespace cg::ui {
+
+// 固定元素ID；创建与业务查找使用同一枚举，0保留给自动分配。
+enum class WindowBattleItemsElementId : ElementId {
+    ButtonClose = 1,
+    RefreshMoney = 2,
+    RefreshExtraValue = 3,
+    HandleInventory = 4,
+    Element5 = 5,
+    Element6 = 6,
+    Element7 = 7,
+    TogglePreview = 8,
+    CycleEquipment = 9,
+    RotatePreview = 10,
+    Element11 = 11,
+    Element12 = 12,
+    Element13 = 13,
+    Element14 = 14,
+    Element15 = 15,
+    Element16 = 16,
+    TabEquipment = 17,
+    TabPet = 18,
+    TabPet_19 = 19,
+    TabPet_20 = 20,
+    HandleEquipment = 21,
+    HandleSideArea = 22,
+};
+
+
 namespace detail {
 
 // 回调与内部函数前置声明。
@@ -83,28 +111,28 @@ static WindowNumberData gWindowNumber56C420 {&gBattleMoneyTextCF469C, 10, 3, 1, 
 static WindowNumberData gWindowNumber56C428 {&gBattleValueTextC8A960, 10, 3, 1, 0}; // 原全局：0x0056C428。
 
 static WindowElementPrototype gWindowElements56C430[22] { // 原全局：0x0056C430。
-    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic56C348}, &WindowRuntime_ButtonClose},
-    {WindowElementType_Number, 198, 31, 0, 0, 1, {.number = &gWindowNumber56C420}, &WindowBattleItems_RefreshMoney},
-    {WindowElementType_Number, 99, 31, 0, 0, 1, {.number = &gWindowNumber56C428}, &WindowBattleItems_RefreshExtraValue},
-    {WindowElementType_Graphic, 8, 0, 276, 253, 1, {.graphic = &gWindowGraphic56C360}, &WindowBattleItems_HandleInventory},
-    {WindowElementType_Animation, -81, 163, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56C418}, &WindowElement_NoOp},
-    {WindowElementType_Text, -81, 28, 0, 0, 0, {.text = &gWindowText562C70}, &WindowElement_NoOp},
-    {WindowElementType_Text, -81, 48, 0, 0, 0, {.text = &gWindowText562C78}, &WindowElement_NoOp},
-    {WindowElementType_EventArea, -114, 188, 33, 17, 0, {.unusedValue = 0}, &WindowBattleItems_TogglePreview},
-    {WindowElementType_EventArea, -81, 188, 33, 17, 0, {.unusedValue = 0}, &WindowBattleItems_CycleEquipment},
-    {WindowElementType_EventArea, -121, 73, 78, 113, 0, {.unusedValue = 0}, &WindowBattleItems_RotatePreview},
-    {WindowElementType_Graphic, -170, 73, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 73, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -170, 123, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 123, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -170, 23, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, -41, 23, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp},
-    {WindowElementType_Graphic, 2, 17, 19, 46, 1, {.graphic = &gWindowGraphic56C378}, &WindowBattleItems_TabEquipment},
-    {WindowElementType_Graphic, 2, 62, 19, 46, 1, {.graphic = &gWindowGraphic56C3A8}, &WindowBattleItems_TabPet},
-    {WindowElementType_Graphic, 2, 107, 19, 46, 1, {.graphic = &gWindowGraphic56C3C0}, &WindowBattleItems_TabPet},
-    {WindowElementType_Graphic, 2, 152, 19, 46, 1, {.graphic = &gWindowGraphic56C3D8}, &WindowBattleItems_TabPet},
-    {WindowElementType_Graphic, -197, 17, 212, 210, 1, {.graphic = &gWindowGraphic56C390}, &WindowBattleItems_HandleEquipment},
-    {WindowElementType_EventArea, 320, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea},
+    {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic56C348}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowBattleItemsElementId::ButtonClose)},
+    {WindowElementType_Number, 198, 31, 0, 0, 1, {.number = &gWindowNumber56C420}, &WindowBattleItems_RefreshMoney, -1, static_cast<ElementId>(WindowBattleItemsElementId::RefreshMoney)},
+    {WindowElementType_Number, 99, 31, 0, 0, 1, {.number = &gWindowNumber56C428}, &WindowBattleItems_RefreshExtraValue, -1, static_cast<ElementId>(WindowBattleItemsElementId::RefreshExtraValue)},
+    {WindowElementType_Graphic, 8, 0, 276, 253, 1, {.graphic = &gWindowGraphic56C360}, &WindowBattleItems_HandleInventory, -1, static_cast<ElementId>(WindowBattleItemsElementId::HandleInventory)},
+    {WindowElementType_Animation, -81, 163, 0, 0, 1, {.animationImageNo = &gWindowAnimationImage56C418}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element5)},
+    {WindowElementType_Text, -81, 28, 0, 0, 0, {.text = &gWindowText562C70}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element6)},
+    {WindowElementType_Text, -81, 48, 0, 0, 0, {.text = &gWindowText562C78}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element7)},
+    {WindowElementType_EventArea, -114, 188, 33, 17, 0, {.unusedValue = 0}, &WindowBattleItems_TogglePreview, -1, static_cast<ElementId>(WindowBattleItemsElementId::TogglePreview)},
+    {WindowElementType_EventArea, -81, 188, 33, 17, 0, {.unusedValue = 0}, &WindowBattleItems_CycleEquipment, -1, static_cast<ElementId>(WindowBattleItemsElementId::CycleEquipment)},
+    {WindowElementType_EventArea, -121, 73, 78, 113, 0, {.unusedValue = 0}, &WindowBattleItems_RotatePreview, -1, static_cast<ElementId>(WindowBattleItemsElementId::RotatePreview)},
+    {WindowElementType_Graphic, -170, 73, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element11)},
+    {WindowElementType_Graphic, -41, 73, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element12)},
+    {WindowElementType_Graphic, -170, 123, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element13)},
+    {WindowElementType_Graphic, -41, 123, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element14)},
+    {WindowElementType_Graphic, -170, 23, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element15)},
+    {WindowElementType_Graphic, -41, 23, 48, 48, 0, {.graphic = &gWindowGraphic56C3F0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBattleItemsElementId::Element16)},
+    {WindowElementType_Graphic, 2, 17, 19, 46, 1, {.graphic = &gWindowGraphic56C378}, &WindowBattleItems_TabEquipment, -1, static_cast<ElementId>(WindowBattleItemsElementId::TabEquipment)},
+    {WindowElementType_Graphic, 2, 62, 19, 46, 1, {.graphic = &gWindowGraphic56C3A8}, &WindowBattleItems_TabPet, -1, static_cast<ElementId>(WindowBattleItemsElementId::TabPet)},
+    {WindowElementType_Graphic, 2, 107, 19, 46, 1, {.graphic = &gWindowGraphic56C3C0}, &WindowBattleItems_TabPet, -1, static_cast<ElementId>(WindowBattleItemsElementId::TabPet_19)},
+    {WindowElementType_Graphic, 2, 152, 19, 46, 1, {.graphic = &gWindowGraphic56C3D8}, &WindowBattleItems_TabPet, -1, static_cast<ElementId>(WindowBattleItemsElementId::TabPet_20)},
+    {WindowElementType_Graphic, -197, 17, 212, 210, 1, {.graphic = &gWindowGraphic56C390}, &WindowBattleItems_HandleEquipment, -1, static_cast<ElementId>(WindowBattleItemsElementId::HandleEquipment)},
+    {WindowElementType_EventArea, 320, 7, 18, 78, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowBattleItemsElementId::HandleSideArea)},
 };
 
 // 原型：窗口27；原全局：0x0054E7E0。
@@ -187,7 +215,7 @@ static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         consumed = 1;
     }
-    gCurrentWindow->elements[index].data.graphic->imageNo = 244306;
+    if ((gCurrentWindow && (*gCurrentWindow)[NativeElementKey(index)])) (*gCurrentWindow)[NativeElementKey(index)]->data.graphic->imageNo = 244306;
     return consumed;
 }
 
@@ -223,22 +251,28 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
     const std::int32_t position = world::gBattleCurrentPosition5ABCA4;
     WindowInstance* const window = gCurrentWindow;
     cg::yobi::YobiAction* const source = world::gBattleEntries59E980[position];
-    auto* const data = window->elements[4].data.animation;
+    if (!((window && (*window)[WindowBattleItemsElementId::Element5]))) { return {}; }
+    auto* const data = (*window)[WindowBattleItemsElementId::Element5]->data.animation;
     const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(source);
     cg::yobi::SetYobiActionField2A8(data->action, imageNo);
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
     cg::yobi::SetYobiActionField2B8(
-        gCurrentWindow->elements[4].data.animation->action, 5);
+        (*gCurrentWindow)[WindowBattleItemsElementId::Element5]->data.animation->action, 5);
+    if (!((gCurrentWindow && (*gCurrentWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
     cg::yobi::SetYobiActionField309(
-        gCurrentWindow->elements[4].data.animation->action, 0);
-    WindowElement* const elements = gCurrentWindow->elements;
-    if (elements[4].visible != 0) {
+        (*gCurrentWindow)[WindowBattleItemsElementId::Element5]->data.animation->action, 0);
+    auto* elementsWindow = gCurrentWindow;
+    if (!((elementsWindow && (*elementsWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
+    if ((*elementsWindow)[WindowBattleItemsElementId::Element5]->visible != 0) {
         const std::int32_t currentImage = cg::yobi::GetYobiActionField2A8(
             world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4]);
         if (currentImage >= 110350 && currentImage <= 110373) {
+            if (!((elementsWindow && (*elementsWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
             cg::yobi::SetYobiActionField309(
-                elements[4].data.animation->action, 4);
+                (*elementsWindow)[WindowBattleItemsElementId::Element5]->data.animation->action, 4);
+            if (!((gCurrentWindow && (*gCurrentWindow)[WindowBattleItemsElementId::Element5]))) { return {}; }
             cg::yobi::SetYobiActionField310(
-                gCurrentWindow->elements[4].data.animation->action, 4);
+                (*gCurrentWindow)[WindowBattleItemsElementId::Element5]->data.animation->action, 4);
         }
     }
     WindowRuntime_DrawCurrent();
@@ -308,7 +342,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) > 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t elementX = element.x;
             const std::int32_t windowX = window->x;
             const std::int32_t left = elementX + 50 * (position % 5) + windowX + 15;
@@ -398,7 +433,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 continue;
             }
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t elementX = element.x;
             const std::int32_t windowX = window->x;
             const std::int32_t left = elementX + 50 * (position % 5) + windowX + 15;
@@ -565,7 +601,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             const WindowInstance* const window = gCurrentWindow;
-            const WindowElement& element = window->elements[index];
+            if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+            const WindowElement& element = (*(*window)[NativeElementKey(index)]);
             const std::int32_t elementX = element.x;
             const std::int32_t windowX = window->x;
             const std::int32_t left = elementX + 50 * ((source - 8) % 5) + windowX + 15;
@@ -580,7 +617,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     }
     if ((events & 1u) != 0 && hovered >= 0) {
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t elementX = element.x;
         const std::int32_t windowX = window->x;
         const std::int32_t left = elementX + 50 * (hovered % 5) + windowX + 15;
@@ -598,10 +636,11 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     if (WindowDrag_ReadKind() != 0 && (events & 0x20u) != 0 && WindowDrag_ReadSourceIndex() < 8) {
         const WindowInstance* const window = gCurrentWindow;
         const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
-        const WindowElement* const elements = window->elements;
+        auto* elementsWindow = window;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
-        const WindowElement& element = elements[index];
+        if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+        const WindowElement& element = (*(*elementsWindow)[NativeElementKey(index)]);
         const std::int32_t elementX = element.x;
         const std::int32_t height = element.height;
         const std::int32_t elementY = element.y;
@@ -624,7 +663,8 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             continue;
         }
         const WindowInstance* const window = gCurrentWindow;
-        const WindowElement& element = window->elements[index];
+        if (!((window && (*window)[NativeElementKey(index)]))) { continue; }
+        const WindowElement& element = (*(*window)[NativeElementKey(index)]);
         const std::int32_t elementX = element.x;
         const std::int32_t windowX = window->x;
         const std::int32_t x = elementX + 50 * (position % 5) + windowX + 39;
@@ -798,7 +838,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             WindowInstance* const window = gCurrentWindow;
             gItemSelectorD2F338.value3FC = 1;
-            window->elements[20].mouseCallback = WindowBattleItems_ShowExtraAttributes;
+            if ((window && (*window)[WindowBattleItemsElementId::HandleEquipment])) (*window)[WindowBattleItemsElementId::HandleEquipment]->mouseCallback = WindowBattleItems_ShowExtraAttributes;
             return consumed;
         }
     } else if (hovered >= 0) {
@@ -889,10 +929,11 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
                 const WindowInstance* const window = gCurrentWindow;
                 const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
-                const WindowElement* const elements = window->elements;
+                auto* elementsWindow = window;
                 const std::int32_t windowY = window->y;
                 const std::int32_t windowX = window->x;
-                const WindowElement& element = elements[index];
+                if (!((elementsWindow && (*elementsWindow)[NativeElementKey(index)]))) { return {}; }
+                const WindowElement& element = (*(*elementsWindow)[NativeElementKey(index)]);
                 const std::int32_t elementX = element.x;
                 const std::int32_t height = element.height;
                 const std::int32_t elementY = element.y;

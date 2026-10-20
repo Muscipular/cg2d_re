@@ -2,7 +2,7 @@
 
 namespace cg::ui {
 using namespace component_detail;
-UIImageControl::UIImageControl(int winId, uint32_t generation, int id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, ImageData data, WindowEventBinding callbacks)
+UIImageControl::UIImageControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, ImageData data, WindowEventBinding callbacks)
     : UIControl(winId, generation, id, TYPE_IMAGE, name, x, y, w, h, visible, callbacks), data(data) {
 }
 

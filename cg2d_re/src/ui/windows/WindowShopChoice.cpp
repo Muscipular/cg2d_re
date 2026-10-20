@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -13,7 +14,6 @@ enum class WindowShopChoiceElementId : ElementId {
     Element2 = 2,
     SelectRow = 3,
 };
-
 
 namespace detail {
 
@@ -190,7 +190,7 @@ static std::int32_t WindowShopChoice_SendReply(const std::wstring_view buffer)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    return network::SendDialogResponse_512620(platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
+    return cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escapedReply);
 }
 
 // 原函数：0x0049FCA0。
@@ -359,8 +359,7 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    return network::SendDialogResponse_512620(
-        platform::gConnectionSocket, x, y, request, target, 0, escapedReply);
+    return cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escapedReply);
 }
 
 // 原函数：0x004A0140。

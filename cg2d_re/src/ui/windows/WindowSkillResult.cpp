@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -23,7 +24,6 @@ enum class WindowSkillResultElementId : ElementId {
     Element13 = 13,
     HandleSideArea = 14,
 };
-
 
 namespace detail {
 
@@ -364,7 +364,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t currentSkill = gUsingSkillIndexD2F32C;
-            static_cast<void>(network::RequestSkillTargetAttributes_511C30(platform::gConnectionSocket, currentSkill));
+            static_cast<void>(cg::network::GetGameConnection().RequestSkillTargetAttributes(currentSkill));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }

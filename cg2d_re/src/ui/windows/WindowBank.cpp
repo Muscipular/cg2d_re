@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -52,13 +53,11 @@ enum class WindowBankElementId : ElementId {
     HandleSideArea = 38,
 };
 
-
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
 input::InputContext gInputContextCA0018 {}; // 原全局：0x00CA0018。
-
 
 // 回调与内部函数前置声明。
 
@@ -402,8 +401,7 @@ static void WindowBank_Release()
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::SendDialogResponse_512620(
-        platform::gConnectionSocket, x, y, value14, userState, 0, buffer));
+    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, buffer));
     WindowInstance* const numberWindow = gWindowStates[WindowId_Quantity].window;
     if (numberWindow != nullptr && gWindowStates[WindowId_Quantity].value20 == 41) {
         numberWindow->state |= 0x8000u;
@@ -569,7 +567,7 @@ static std::int32_t WindowBank_ButtonFirstPage(const std::int32_t index, const s
     if ((state & MouseFlag_LDownEvent) != 0) {
         gLoginWindowRuntime.valueD67618 = 0;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(network::SelectBankPageRequest_5127B0(platform::gConnectionSocket, 1));
+        static_cast<void>(cg::network::GetGameConnection().SelectBankPageRequest(1));
     }
     if (graphic) graphic->imageNo = 243173;
     if ((state & MouseFlag_Hover) != 0) {
@@ -596,7 +594,7 @@ static std::int32_t WindowBank_ButtonSecondPage(const std::int32_t index, const 
     if ((state & MouseFlag_LDownEvent) != 0) {
         gLoginWindowRuntime.valueD67618 = 1;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(network::SelectBankPageRequest_5127B0(platform::gConnectionSocket, 2));
+        static_cast<void>(cg::network::GetGameConnection().SelectBankPageRequest(2));
     }
     if (graphic) graphic->imageNo = 243176;
     if ((state & MouseFlag_Hover) != 0) {
@@ -1532,8 +1530,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const std::int32_t index, cons
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(network::SendDialogResponse_512620(
-                    platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
+                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
             }
         }
         consumed = 1;
@@ -1690,8 +1687,7 @@ static std::int32_t WindowBank_HandleAmount(const std::int32_t index, const std:
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, value14, userState, 0, escapedReply));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
             window = currentWindow;
             auto* const confirmedElement = window->FindElementById(NativeElementKey(index));
             if (confirmedElement) {

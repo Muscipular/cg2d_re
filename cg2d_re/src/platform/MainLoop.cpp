@@ -1,3 +1,6 @@
+#include "cg/network/CgConnection.hpp"
+#include "../scene/login/LoginStateDependencies.hpp"
+#include <format>
 #include "StartupNative.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "ClientShutdown.hpp"
@@ -39,8 +42,6 @@ double gFrameIncrement = 1000.0 / 60.0; // 原全局：0x005590F0。
 std::uint32_t gCatchUpCount = 1; // 原全局：0x005590F8。
 std::uint32_t gFrameCount = 3; // 原全局：0x0058B7E4。
 std::int32_t gPendingPaletteReload = 0; // 原全局：0x0062A65C。
-
-std::uintptr_t gConnectionSocket = 0; // CTO01：原0x00D9B2B8的兼容镜像，CgConnection持有真实会话身份。
 
 __declspec(noinline)
 static void UpdateWndTitle(float& fps, std::size_t& frameIndex, std::array<std::uint32_t, 3>& frameCounts)
@@ -146,7 +147,22 @@ int MainLoop()
         gPendingGraphicCount = 0;
         gPendingGraphicCount2 = 0;
         render::ResetGraphicCache_456D30();
-        NetworkLoop_507DF0();
+        auto& connection = network::GetGameConnection();
+        if (connection.Active()) {
+            const auto disconnect = world::gNetworkDisconnectState_D9F2CA;
+            if (disconnect == 1) {
+                world::SetCurrentSceneType(11);
+                world::gNetworkDisconnectState_D9F2CA = 2;
+            } else if (disconnect == 0) {
+                const auto result = connection.Pump();
+                if (result.terminated) {
+                    world::gNetworkDisconnectState_D9F2CA = 1;
+                    const auto diagnostic = std::format(L"NETWORK CLOSED PHASE={} ERROR={} ENDPOINT={}",
+                        static_cast<int>(result.terminal.phase), result.terminal.error, result.terminal.endpoint);
+                    static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
+                }
+            }
+        }
         UpdateAudioAndSkipMciClose_52CD30(-1);
         world::Update();
         script::UpdateLuaScene();

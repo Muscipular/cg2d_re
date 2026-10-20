@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "../../world/PlayerState.hpp"
@@ -45,13 +46,11 @@ enum class WindowPlayerTitlesElementId : ElementId {
     HandleSideArea = 37,
 };
 
-
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
 input::InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
-
 
 // 回调与内部函数前置声明。
 
@@ -246,9 +245,9 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
             const std::int32_t originalIndex = world::FindTitleIndexById(id);
             if (originalIndex >= 0) {
                 if (mode == 1) {
-                    static_cast<void>(network::DeletePlayerTitleRequest_512310(platform::gConnectionSocket, originalIndex));
+                    static_cast<void>(cg::network::GetGameConnection().DeletePlayerTitleRequest(originalIndex));
                 } else {
-                    static_cast<void>(network::SelectPlayerTitleRequest_5122C0(platform::gConnectionSocket, originalIndex));
+                    static_cast<void>(cg::network::GetGameConnection().SelectPlayerTitleRequest(originalIndex));
                 }
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
@@ -309,7 +308,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::wstring escapedText = input::EscapeTextAndNotify(gTitleDraftD45FC0, 128);
-            static_cast<void>(network::SetCustomPlayerTitleRequest_512360(platform::gConnectionSocket, escapedText));
+            static_cast<void>(cg::network::GetGameConnection().SetCustomPlayerTitleRequest(escapedText));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(WindowChat_RestoreInput());
             consumed = 1;
@@ -328,7 +327,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             setImage(0x3B574);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(network::SelectPlayerTitleRequest_5122C0(platform::gConnectionSocket, -1));
+            static_cast<void>(cg::network::GetGameConnection().SelectPlayerTitleRequest(-1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {

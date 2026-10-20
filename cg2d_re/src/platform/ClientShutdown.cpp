@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "ClientShutdown.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "imeImpl.hpp"
@@ -8,7 +9,7 @@
 #include "cg/resource/AnimationRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
-#include "cg/network/NetworkRuntime.hpp"
+#include "cg/world/SceneState.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPaletteCache.hpp"
@@ -37,7 +38,7 @@ static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 // 原函数：0x00457A40。
 int ShutdownClient_457A40()
 {
-    network::StopNetworkIo();
+    cg::network::GetGameConnection().StopIo();
     script::ShutdownLua();
     shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0();
     resource::ReleaseIndependentPalettes_522C50();
@@ -53,7 +54,8 @@ int ShutdownClient_457A40()
     static_cast<void>(render::ReleaseFont_456530());
     ShutdownIme_459040();
     cg::yobi::ShutdownYobiActionList_404D60();
-    cg::network::ShutdownNetworkRuntime_5081A0();
+    cg::network::GetGameConnection().Shutdown();
+    cg::world::gNetworkDisconnectState_D9F2CA = 0;
 
     const INT element = COLOR_BACKGROUND;
     const COLORREF color = static_cast<COLORREF>(gDesktopColor);

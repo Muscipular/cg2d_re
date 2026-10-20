@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -120,7 +121,6 @@ enum class WindowPetSkillChoiceElementId : ElementId {
     Element106 = 106,
     HandleSideArea = 107,
 };
-
 
 namespace detail {
 
@@ -1495,8 +1495,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const std::int32_t index, c
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(network::SendDialogResponse_512620(
-                    platform::gConnectionSocket, x, y, request, target, 0, escaped));
+                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
                 currentWindow->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
             }
@@ -1553,8 +1552,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, escaped));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             break;
         }
@@ -1569,8 +1567,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, escaped));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             break;
         }
@@ -1588,8 +1585,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const std::int32_t index, co
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 2, text));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 2, text));
             world::gCurrentDialogType_581800 = -2;
             break;
         }
@@ -2091,8 +2087,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const std::int32_t index, 
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, escaped));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -2166,8 +2161,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const std::int32_t i
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, escaped));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
             world::gCurrentDialogType_581800 = -2;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -2275,8 +2269,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const std::int32_t index
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::SendDialogResponse_512620(
-        platform::gConnectionSocket, x, y, request, target, 0, escaped));
+    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
     world::gCurrentDialogType_581800 = -2;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
@@ -2332,8 +2325,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const std::int32_t i
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, requestText));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, requestText));
             currentWindow->state &= ~2u;
             acceptImage = 245324;
             currentWindow->state |= 0x8000u;

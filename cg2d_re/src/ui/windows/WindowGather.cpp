@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -28,7 +29,6 @@ enum class WindowGatherElementId : ElementId {
     Element14 = 14,
     HandleSideArea = 15,
 };
-
 
 namespace detail {
 
@@ -641,8 +641,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                 static_cast<void>(gSkillSendModeC8A970); // 原cmp未被后续分支消费，没有+200。
                 skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
             }
-            static_cast<void>(network::SendSkillUseRequest_511EF0(
-                platform::gConnectionSocket, skill, level, -1, L""));
+            static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill, level, -1, L""));
             gWindow12PetImageCB10CC = WindowSkill_ReadBattlePetImage();
             gWindow12CrystalLevelCC3E90 = WindowSkill_ReadCrystalLevel();
             gWindow12ModeCC3E80 = 2;

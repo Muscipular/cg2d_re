@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -25,7 +26,6 @@ enum class WindowAppearanceElementId : ElementId {
     Element14 = 14,
     Element15 = 15,
 };
-
 
 namespace detail {
 
@@ -295,8 +295,7 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 1, buffer));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 1, buffer));
             currentWindow->state |= 0x8000u;
             consumed = 1;
         }
@@ -447,8 +446,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::SendDialogResponse_512620(
-        platform::gConnectionSocket, x, y, request, target, button, escaped));
+    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, button, escaped));
     world::gCurrentDialogType_581800 = -1;
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     static_cast<void>(audio::PlaySe_52C450(57, 320));

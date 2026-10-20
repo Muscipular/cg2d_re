@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "StartupNative.hpp"
 #include "MainLoopDependencies.hpp"
 
@@ -90,7 +91,7 @@ std::int32_t CheckLegacyDxCapability_458DC0()
 // 原KeepAlive@[0x457AB0,0x457B03)；CTM01基线／差值64位，零哨兵与60000ms门槛保持。
 void KeepAlive_457AB0()
 {
-    if (network::ReadNetworkRuntimeActive() == 0) {
+    if (cg::network::GetGameConnection().Active() == 0) {
         return;
     }
 
@@ -109,9 +110,9 @@ void KeepAlive_457AB0()
         return;
     }
 
-    const std::uintptr_t socket = gConnectionSocket;
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
     gKeepAliveBaselineTick = tick;
-    static_cast<void>(network::SendKeepAliveRequest_512C60(socket));
+    static_cast<void>(cg::network::GetGameConnection().SendKeepAliveRequest());
 }
 
 // 原函数：0x0053B4BF。

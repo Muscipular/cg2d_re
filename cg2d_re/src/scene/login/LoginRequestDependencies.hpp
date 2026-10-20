@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include <cstdint>
 
 namespace cg::login::detail {
@@ -13,7 +15,6 @@ std::int32_t PollLogoutReply_508C90();
 extern std::uint16_t gReplyCodeDA3B2E; // 原全局：0x00DA3B2E。
 
 // 原508CF0仅读result；S32比较/成功/末次调用返回保留，网络分派弃其返回。
-std::int32_t HandleLogoutReply_508CF0(
-    std::uintptr_t unusedSocket, const char* result, const char* unusedText);
+std::int32_t HandleLogoutReply_508CF0(cg::network::CgConnection& networkConnection, const char* result, const char* unusedText);
 
 } // namespace cg::login::detail

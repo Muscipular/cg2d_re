@@ -1,4 +1,6 @@
 #pragma once
+
+namespace cg::network { class CgConnection; }
 #include <string_view>
 
 #include <cstdint>
@@ -12,8 +14,8 @@ void ShutdownLua();
 void UpdateLuaScene();
 void AddLuaMouseWheel(int delta);
 int LuaProcessWinMgrChatMessage(std::wstring_view text);
-void LuaReceivePacket(const char* header, char** arguments);
-void LuaSendPacket(std::string_view packet);
+void LuaReceivePacket(cg::network::CgConnection& networkConnection, const char* header, char** arguments);
+void LuaSendPacket(cg::network::CgConnection& networkConnection, std::string_view packet);
 void RecordAutoBattleAction(std::string_view packet);
 
 } // namespace cg::script

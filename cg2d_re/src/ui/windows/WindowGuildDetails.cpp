@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/ChatHistory.hpp"
 
@@ -82,7 +83,6 @@ enum class WindowGuildDetailsElementId : ElementId {
     Element75 = 75,
     HandleSideArea = 76,
 };
-
 
 namespace detail {
 
@@ -892,8 +892,7 @@ static std::int32_t WindowGuildDetails_SubmitName()
         return result;
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(gGuildDraftCF4018.name604, 256);
-    static_cast<void>(network::SendGuildTextUpdate_511250(
-        platform::gConnectionSocket, 2, escapedText));
+    static_cast<void>(cg::network::GetGameConnection().SendGuildTextUpdate(2, escapedText));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     return WindowChat_RestoreInput();
 }
@@ -914,8 +913,7 @@ static std::int32_t WindowGuildDetails_SubmitDescription()
         return result;
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(gGuildDraftCF4018.secondText634, 256);
-    static_cast<void>(network::SendGuildTextUpdate_511250(
-        platform::gConnectionSocket, 3, escapedText));
+    static_cast<void>(cg::network::GetGameConnection().SendGuildTextUpdate(3, escapedText));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     return WindowChat_RestoreInput();
 }
@@ -942,8 +940,8 @@ static std::int32_t WindowGuildDetails_SubmitRanks()
             || cg::world::ReadGuildRankFlags1051514(index) != gGuildDraftCF4018.ranks[index].flags) {
             const std::wstring escapedText = input::EscapeTextAndNotify(draft, 256);
             const std::int32_t flags = gGuildDraftCF4018.ranks[index].flags;
-            const std::uintptr_t socket = platform::gConnectionSocket;
-            static_cast<void>(network::SendGuildRankDefinition_5112C0(socket, index, flags, escapedText));
+            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+            static_cast<void>(cg::network::GetGameConnection().SendGuildRankDefinition(index, flags, escapedText));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     }

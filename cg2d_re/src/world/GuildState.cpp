@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/world/GuildState.hpp"
 
 #include "cg/input/Input.hpp"
@@ -123,7 +124,7 @@ const wchar_t* GetGuildRankText(const std::int32_t index) noexcept
 }
 
 // 原函数：0x0050E850。
-void HandleGuildInfoReply_50E850(const std::uintptr_t, const char* const text)
+void HandleGuildInfoReply_50E850(cg::network::CgConnection&, const char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -193,7 +194,7 @@ void HandleGuildInfoReply_50E850(const std::uintptr_t, const char* const text)
 }
 
 // 原函数：0x0050EB40。
-void HandleGuildRankDefinitionsReply_50EB40(const std::uintptr_t, const char* const text)
+void HandleGuildRankDefinitionsReply_50EB40(cg::network::CgConnection&, const char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -232,7 +233,7 @@ void HandleGuildRankDefinitionsReply_50EB40(const std::uintptr_t, const char* co
 }
 
 // 原函数：0x0050F280。
-void HandleGuildRemovalReply_50F280(const std::uintptr_t, const std::int32_t key)
+void HandleGuildRemovalReply_50F280(cg::network::CgConnection&, const std::int32_t key)
 {
     if (gGuildHeader10514A8.key00 != key) {
         return;
@@ -325,8 +326,7 @@ static std::int32_t ParseOrderedRecord_50EF70(
 }
 
 // 原函数：0x0050EEB0。
-std::uintptr_t UpdateOrderedRecords_50EEB0(
-    std::uintptr_t, std::uint32_t, const char* const text)
+std::uintptr_t UpdateOrderedRecords_50EEB0(cg::network::CgConnection&, std::uint32_t, const char* const text)
 {
     const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
@@ -356,8 +356,7 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(
 }
 
 // 原函数：0x0050EC50。
-std::uintptr_t UpdateOrderedRecordBatch_50EC50(
-    std::uintptr_t, const char* const text)
+std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection&, const char* const text)
 {
     const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {

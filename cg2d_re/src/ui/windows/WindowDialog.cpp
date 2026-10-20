@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -35,7 +36,6 @@ enum class WindowDialogElementId : ElementId {
     Element18 = 18,
     Element19 = 19,
 };
-
 
 namespace detail {
 
@@ -114,7 +114,7 @@ static void WindowDialog_Route(
 
 // 原函数：0x0050E130。
 static void WindowDialog_RouteReply(
-    std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
+    cg::network::CgConnection& networkConnection, std::int32_t type, std::int32_t value,
     std::int32_t request, std::int32_t target, char* text); // 50E110门禁后原共享尾入口。
 
 // 原函数：0x0049DDB0。
@@ -176,9 +176,6 @@ static DialogReplyRuntimeSlots gDialogReply {};
 static std::array<WindowDialogTextLine, 30> gDialogLinesCB1398 {}; // 原全局：0x00CB1398。
 
 static std::array<std::int16_t, 2> gDialogInputYD67B34 {}; // 原全局：0x00D67B34。
-
-
-
 
 static std::array<HealingDialogRecord, 7> gHealingDialogRecordsD672F0 {}; // 原全局：0x00D672F0。
 
@@ -800,7 +797,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        if (network::SendDialogResponse_512620(platform::gConnectionSocket, x, y, request, target, button,
+        if (cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, button,
                 reply) < 0) { return 0; }
         world::gCurrentDialogType_581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -813,7 +810,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        if (network::SendDialogResponse_512620(platform::gConnectionSocket, x, y, request, target, 0,
+        if (cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0,
                 reply) < 0) { return 0; }
         world::gCurrentDialogType_581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -1097,10 +1094,9 @@ static void WindowDialog_Route(
 
 // 原函数：0x0050E130。
 static void WindowDialog_RouteReply(
-    const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,
+    cg::network::CgConnection&, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
-    static_cast<void>(unusedSocket);
     if (value == -1) {
         if (type != world::gCurrentDialogType_581800) {
             return;
@@ -1321,8 +1317,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
 // 窗口函数实现。
 
 // 原函数：0x0050E110。
-void WindowDialog_ReceiveReply(
-    const std::uintptr_t unusedSocket, const std::int32_t type, const std::int32_t value,
+void WindowDialog_ReceiveReply(cg::network::CgConnection& networkConnection, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
@@ -1334,7 +1329,7 @@ void WindowDialog_ReceiveReply(
     if (world::ReadRippleGateOnce() != 0) {
         return;
     }
-    detail::WindowDialog_RouteReply(unusedSocket, type, value, request, target, text);
+    detail::WindowDialog_RouteReply(networkConnection, type, value, request, target, text);
 }
 
 } // namespace cg::ui

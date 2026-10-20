@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -32,7 +33,6 @@ enum class WindowTradeElementId : ElementId {
     Element19 = 19,
     Element20 = 20,
 };
-
 
 namespace detail {
 
@@ -333,7 +333,6 @@ static std::int32_t gTradeValueD66E08 = 0; // 原全局：0x00D66E08。 所选�
 static std::int32_t gTradeValueCC2344 = 0; // 原全局：0x00CC2344。 交易选择状态。
 
 static std::wstring gTradeNameD2D654 {}; // 原全局：0x00D2D654。
-
 
 // 原全局：0x00CF3AE8。 比较按S8，写入只取低U8。
 static std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8 {}; // 原全局：0x00CF3AE8。
@@ -687,7 +686,7 @@ static void WindowTrade_Release()
         window->state |= 0x8000u;
     }
     if (gTradeValueD67B80 == 0) {
-        static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 0));
+        static_cast<void>(cg::network::GetGameConnection().SendTradeDecision(0));
         gTradeValueD67CBC = 1;
     }
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -2696,8 +2695,7 @@ static std::int32_t WindowTrade_ButtonPublish(const std::int32_t index, const st
         }
         const auto petCopy = petSource;
         const std::int32_t amount = gTradeValueD046D0;
-        static_cast<void>(network::SendTradeOffer_512040(
-            platform::gConnectionSocket, itemCopy, petCopy, amount));
+        static_cast<void>(cg::network::GetGameConnection().SendTradeOffer(itemCopy, petCopy, amount));
         WindowInstance* const window = currentWindow;
         gTradeValueD2E2B0 = 1;
         gTradeScrollD67430 = 0;
@@ -2732,7 +2730,7 @@ static std::int32_t WindowTrade_ButtonWithdraw(const std::int32_t index, const s
         }
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
+            static_cast<void>(cg::network::GetGameConnection().WithdrawTradeConfirmation());
             const std::int32_t previous = gTradeValueCC4224;
             gTradeValueD2E2B0 = 0;
             if (previous == 2) {
@@ -2773,12 +2771,12 @@ static std::int32_t WindowTrade_ButtonConfirm(const std::int32_t index, const st
                 const std::uint64_t tick = platform::ReadTickCount64();
                 if (gWindowActionTick62B5AC + 500u < tick) {
                     if (phase == 1) {
-                        static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 1));
+                        static_cast<void>(cg::network::GetGameConnection().SendTradeDecision(1));
                         gTradeValueD2E2B0 = 2;
                         gTradeValueD67CB8 = 1;
                         gTradeValueD67CBC = 1;
                     } else {
-                        static_cast<void>(network::WithdrawTradeConfirmation_512230(platform::gConnectionSocket));
+                        static_cast<void>(cg::network::GetGameConnection().WithdrawTradeConfirmation());
                         const std::int32_t previous = gTradeValueCC4224;
                         gTradeValueD2E2B0 = 0;
                         if (previous == 2) {
@@ -2834,7 +2832,7 @@ cg::yobi::YobiAction* WindowTrade_ReceiveStart(const std::wstring_view name)
 // 原函数：0x004E4E60。
 static void WindowTrade_RequestTargetList(const std::int32_t index, const wchar_t* const name)
 {
-    static_cast<void>(network::SelectTradePartnerRequest_511FF0(platform::gConnectionSocket, index));
+    static_cast<void>(cg::network::GetGameConnection().SelectTradePartnerRequest(index));
     static_cast<void>(WindowTrade_ReceiveStart(name));
 }
 
@@ -3107,7 +3105,7 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index,
 // 窗口函数实现。
 
 // 原函数：0x0050E3C0。
-void WindowTrade_ReceiveTargetReply(const std::uintptr_t, const char* const text)
+void WindowTrade_ReceiveTargetReply(cg::network::CgConnection&, const char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -3119,13 +3117,13 @@ void WindowTrade_ReceiveTargetReply(const std::uintptr_t, const char* const text
 }
 
 // 原函数：0x0050E3F0。
-void WindowTrade_ReceiveStartReply(const std::uintptr_t, char* const text, const std::int32_t)
+void WindowTrade_ReceiveStartReply(cg::network::CgConnection& networkConnection, char* const text, const std::int32_t)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
     if (world::gLogoutToTownPending_D67E78 != 0) {
-        static_cast<void>(network::SendTradeDecision_512270(platform::gConnectionSocket, 0));
+        static_cast<void>(networkConnection.SendTradeDecision(0));
         return;
     }
     if (world::ReadRippleGateOnce() != 0) {
@@ -3136,7 +3134,7 @@ void WindowTrade_ReceiveStartReply(const std::uintptr_t, char* const text, const
 }
 
 // 原函数：0x0050E440。
-std::int32_t WindowTrade_ReceiveCancelReply(const std::uintptr_t)
+std::int32_t WindowTrade_ReceiveCancelReply(cg::network::CgConnection&)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3151,7 +3149,7 @@ std::int32_t WindowTrade_ReceiveCancelReply(const std::uintptr_t)
 }
 
 // 原函数：0x0050E470。
-std::int32_t WindowTrade_ReceiveStateReply(const std::uintptr_t, const std::int32_t value)
+std::int32_t WindowTrade_ReceiveStateReply(cg::network::CgConnection&, const std::int32_t value)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3166,7 +3164,7 @@ std::int32_t WindowTrade_ReceiveStateReply(const std::uintptr_t, const std::int3
 }
 
 // 原函数：0x0050E4A0。
-std::int32_t WindowTrade_ReceiveItemReply(const std::uintptr_t, const char* const text)
+std::int32_t WindowTrade_ReceiveItemReply(cg::network::CgConnection&, const char* const text)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3180,8 +3178,7 @@ std::int32_t WindowTrade_ReceiveItemReply(const std::uintptr_t, const char* cons
 }
 
 // 原函数：0x0050E4D0。
-std::int32_t WindowTrade_ReceivePetReply(
-    const std::uintptr_t, const std::int32_t index, const char* const text)
+std::int32_t WindowTrade_ReceivePetReply(cg::network::CgConnection&, const std::int32_t index, const char* const text)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3195,8 +3192,7 @@ std::int32_t WindowTrade_ReceivePetReply(
 }
 
 // 原函数：0x0050E500。
-std::int32_t WindowTrade_ReceivePetSkillReply(
-    const std::uintptr_t, const std::int32_t index, const char* const text)
+std::int32_t WindowTrade_ReceivePetSkillReply(cg::network::CgConnection&, const std::int32_t index, const char* const text)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3210,7 +3206,7 @@ std::int32_t WindowTrade_ReceivePetSkillReply(
 }
 
 // 原函数：0x0050E530。
-std::int32_t WindowTrade_ReceiveRemoteResetReply(const std::uintptr_t)
+std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection&)
 {
     const std::int32_t scene = world::gGameplayRepliesSuppressed_9A6E0C;
     if (scene != 0) {
@@ -3230,7 +3226,7 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(const std::uintptr_t)
 }
 
 // 原函数：0x0050E570。
-void WindowTrade_ReceiveCloseReply(const std::uintptr_t, const std::int32_t value)
+void WindowTrade_ReceiveCloseReply(cg::network::CgConnection&, const std::int32_t value)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;

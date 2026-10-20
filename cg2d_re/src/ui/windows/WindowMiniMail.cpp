@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -28,13 +29,11 @@ enum class WindowMiniMailElementId : ElementId {
     Element16 = 16,
 };
 
-
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
 input::InputContext gInputContextCA0180 {}; // 原全局：0x00CA0180。
-
 
 // 回调与内部函数前置声明。
 
@@ -226,8 +225,7 @@ static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int
     const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::SendDialogResponse_512620(
-        platform::gConnectionSocket, x, y, request, target, 8, packet));
+    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::FindMiniMailContactByKey_534370(gMiniMailCompose105F508.target);
     if (contact != -1) {
         __time64_t time;

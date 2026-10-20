@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/BattleState.hpp"
@@ -16,7 +17,6 @@ enum class WindowBattlePetsElementId : ElementId {
     Element7 = 7,
     HandleSideArea = 8,
 };
-
 
 namespace detail {
 
@@ -91,7 +91,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, cons
             if (world::FindBattlePetIndex_43C4B0() != -1) {
                 std::array<char, 768> buffer;
                 std::sprintf(buffer.data(), "M|%X", 255u);
-                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                 currentWindow->state |= 0x8000u;
                 world::gBattlePlayerActionState5ABC74 = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -240,8 +240,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
                     } else {
                         std::array<char, 768> buffer;
                         std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
-                        static_cast<void>(network::SendBattlePacket_5109B0(
-                            platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                        static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                         currentWindow->state |= 0x8000u;
                         world::gBattlePlayerActionState5ABC74 = 1;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));

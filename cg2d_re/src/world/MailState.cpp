@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "MailState.hpp"
@@ -144,7 +145,6 @@ struct MiniMailRuntimeSlots {
 
 static MiniMailRuntimeSlots gMiniMailRuntime {};
 static std::uint32_t gMiniMailSequence1075A88 = 0; // 原全局：0x01075A88。 W32序号，先发布低W16再递增。
-
 
 // 持久双槽、当前资料、DpSY回复与4CAC60查看资料各自拥有存储。
 static std::array<ProfileRuntimeRecord, 2> gProfiles1074938 {}; // 原全局：0x01074938。
@@ -420,7 +420,7 @@ void SortContactIndices_4EC1A0()
 }
 
 // 原函数：0x0050D740。
-void HandleContactListReply_50D740(const std::uintptr_t, const char* const payload)
+void HandleContactListReply_50D740(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -459,7 +459,7 @@ void HandleContactListReply_50D740(const std::uintptr_t, const char* const paylo
 }
 
 // 原函数：0x0050D8C0。
-void HandleContactExtendedTextReply_50D8C0(const std::uintptr_t, const char* const payload)
+void HandleContactExtendedTextReply_50D8C0(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -487,8 +487,7 @@ void HandleContactExtendedTextReply_50D8C0(const std::uintptr_t, const char* con
 }
 
 // 原函数：0x0050D9E0。
-void HandleContactUpdateReply_50D9E0(
-    const std::uintptr_t, const std::int32_t index, const char* const payload)
+void HandleContactUpdateReply_50D9E0(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -751,8 +750,7 @@ std::int32_t HasUnreadMiniMail_519170(const std::int32_t index)
 }
 
 // 原函数：0x0050DC70。
-void HandleContactMailReply_50DC70(
-    const std::uintptr_t, const std::int32_t index,
+void HandleContactMailReply_50DC70(cg::network::CgConnection&, const std::int32_t index,
     const char* const payload, const std::int32_t)
 {
     char name[32];
@@ -862,7 +860,7 @@ void RemoveMiniMailContact_534480(const std::int32_t index)
 }
 
 // 原函数：0x0050F430。
-void HandleMiniMailContactRemovalReply_50F430(const std::uintptr_t, const char* const payload)
+void HandleMiniMailContactRemovalReply_50F430(cg::network::CgConnection&, const char* const payload)
 {
     const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
     const std::int32_t index = FindMiniMailContactByKey_534370(key);
@@ -870,8 +868,7 @@ void HandleMiniMailContactRemovalReply_50F430(const std::uintptr_t, const char* 
 }
 
 // 原函数：0x0050F7F0。
-void HandleMiniMailReply_50F7F0(
-    const std::uintptr_t, const std::int32_t key,
+void HandleMiniMailReply_50F7F0(cg::network::CgConnection&, const std::int32_t key,
     const char* const payload, const std::int32_t)
 {
     const std::int32_t index = FindMiniMailContactByKey_534370(key);
@@ -898,7 +895,7 @@ void HandleMiniMailReply_50F7F0(
 }
 
 // 原函数：0x0050F9E0。
-void HandleMiniMailConversationReply_50F9E0(const std::uintptr_t, const char* const payload)
+void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection&, const char* const payload)
 {
     const std::int32_t index = FindFreeMiniMailContactSlot_5343A0();
     if (index == -1) {
@@ -1080,18 +1077,16 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
         const std::int32_t third = gProfiles1074938[selected].entries410[2].value00;
         const std::int32_t second = gProfiles1074938[selected].entries410[1].value00;
         const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
-        const std::uintptr_t socket = platform::gConnectionSocket;
-        return network::SendPlayerProfile_511640(
-            socket, first, escaped[0], second, escaped[1],
+        const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+        return cg::network::GetGameConnection().SendPlayerProfile(first, escaped[0], second, escaped[1],
             third, escaped[2], escaped[3]);
     }
 
     const std::int32_t third = gCurrentProfile10738E8.entries410[2].value00;
     const std::int32_t second = gCurrentProfile10738E8.entries410[1].value00;
     const std::int32_t first = gCurrentProfile10738E8.entries410[0].value00;
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::SendPlayerProfile_511640(
-        socket, first, escaped[0], second, escaped[1],
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    static_cast<void>(cg::network::GetGameConnection().SendPlayerProfile(first, escaped[0], second, escaped[1],
         third, escaped[2], escaped[3]));
 
     const std::int16_t selected = login::gSelectedCharacterIndex;
@@ -1120,12 +1115,12 @@ std::int32_t ResendSavedPlayerProfile_534290()
     const std::int16_t selected = login::gSelectedCharacterIndex;
     const std::int32_t enabled = gProfiles1074938[selected].value04;
     static_cast<void>(PublishPlayerProfile_533C80(1));
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::SetProfileVisibilityRequest_5118B0(socket, enabled != 0 ? 1 : 0);
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    return cg::network::GetGameConnection().SetProfileVisibilityRequest(enabled != 0 ? 1 : 0);
 }
 
 // 原函数：0x0050F2A0。
-std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(const std::uintptr_t, const char* const payload)
+std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(cg::network::CgConnection&, const char* const payload)
 {
     for (std::int32_t index = 0; index < 100; ++index) {
         gCategory105FA10.records[index].used = 0;
@@ -1159,7 +1154,7 @@ std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(const std::uintptr_t, co
 }
 
 // 原函数：0x0050F3A0。
-std::int32_t HandleProfileCategoryVersionsReply_50F3A0(const std::uintptr_t socket, const char* const payload)
+std::int32_t HandleProfileCategoryVersionsReply_50F3A0(cg::network::CgConnection& networkConnection, const char* const payload)
 {
     const std::int32_t first = network::ParseDelimitedInteger_52CFA0(payload, '|', 1);
     const std::int32_t second = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
@@ -1173,13 +1168,13 @@ std::int32_t HandleProfileCategoryVersionsReply_50F3A0(const std::uintptr_t sock
         mask |= 2;
     }
     if (mask != 0) {
-        return network::RequestProfileCategoryUpdates_5115F0(socket, mask);
+        return networkConnection.RequestProfileCategoryUpdates(mask);
     }
     return previous;
 }
 
 // 原函数：0x0050F8E0。
-std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(const std::uintptr_t, const char* const payload)
+std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(cg::network::CgConnection&, const char* const payload)
 {
     for (std::int32_t index = 200; index < 300; ++index) {
         gCategory105FA10.records[index].used = 0;
@@ -1331,8 +1326,7 @@ std::int32_t HandleViewedPlayerProfileReply_4CAC60(const std::int32_t, char* con
 }
 
 // 原函数：0x0050F450。
-void HandlePlayerProfileReply_50F450(
-    const std::uintptr_t, const char* const text1, const std::int32_t value2,
+void HandlePlayerProfileReply_50F450(cg::network::CgConnection&, const char* const text1, const std::int32_t value2,
     const char* const text3, const char* const text4, const char* const text5,
     const std::int32_t value6, const std::int32_t value7, const char* const text8,
     const std::int32_t value9, const char* const text10, const std::int32_t value11,

@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/scene/login/CharacterListRequest.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -112,9 +113,9 @@ std::uint32_t StartCharacterListRequest()
     static_cast<void>(ClearCharacterSlot_51B3B0(0));
     static_cast<void>(ClearCharacterSlot_51B3B0(1));
 
-    const std::uintptr_t socket = platform::gConnectionSocket;
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
     gCharacterListReplyCode = 0;
-    static_cast<void>(network::SendCharacterListRequest_512B90(socket));
+    static_cast<void>(cg::network::GetGameConnection().SendCharacterListRequest());
     gRequestStatus = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;
@@ -147,8 +148,7 @@ std::int32_t PollCharacterListRequest()
 }
 
 // 原函数：0x005089B0。
-std::int32_t HandleCharacterListResponse_5089B0(
-    const std::uintptr_t,
+std::int32_t HandleCharacterListResponse_5089B0(cg::network::CgConnection&,
     const std::int32_t result,
     const char* const data)
 {

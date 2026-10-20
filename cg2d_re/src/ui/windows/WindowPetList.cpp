@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/ChatHistory.hpp"
 #include "../../world/PlayerState.hpp"
@@ -267,7 +268,6 @@ enum class WindowPetListElementId : ElementId {
     HandleButtons_258 = 258,
     HandleSideArea = 259,
 };
-
 
 namespace detail {
 
@@ -619,8 +619,8 @@ static std::int32_t WindowPetList_SendStates(const std::array<std::int32_t, 5>& 
     const std::int32_t third = values[2];
     const std::int32_t second = values[1];
     const std::int32_t first = values[0];
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::SendPetStates_511AE0(socket, first, second, third, fourth, fifth);
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    return cg::network::GetGameConnection().SendPetStates(first, second, third, fourth, fifth);
 }
 
 // 原函数：0x0048D4E0。

@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "../../world/PlayerState.hpp"
@@ -74,7 +75,7 @@ static std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 
 static std::int32_t WindowItemUse_SelectTextTarget(const std::int32_t index, const wchar_t*)
 {
     if (index >= 0) {
-        static_cast<void>(network::SelectItemTextTarget_511D10(platform::gConnectionSocket, index));
+        static_cast<void>(cg::network::GetGameConnection().SelectItemTextTarget(index));
         gItemUseTargetCB0A48 = index;
         return 0;
     }
@@ -179,7 +180,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(const char* const 
 static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index, const wchar_t*)
 {
     if (index == -3) {
-        static_cast<void>(network::RequestItemTargetAttributes_511CD0(platform::gConnectionSocket));
+        static_cast<void>(cg::network::GetGameConnection().RequestItemTargetAttributes());
         return 0;
     }
     if (index >= 0) {
@@ -187,7 +188,7 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(const std::int32_t index
         const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::SendItemUseRequest_510AC0(platform::gConnectionSocket, x, y, item, target));
+        static_cast<void>(cg::network::GetGameConnection().SendItemUseRequest(x, y, item, target));
     }
     if (index == -1) {
         const std::int32_t selected = gSelectedItemCB1DF4;
@@ -335,7 +336,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(const char* c
 // 窗口函数实现。
 
 // 原函数：0x0050E380。
-void WindowItemUse_ReceiveTextTargetReply(const std::uintptr_t, const char* const text)
+void WindowItemUse_ReceiveTextTargetReply(cg::network::CgConnection&, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
         return;
@@ -344,7 +345,7 @@ void WindowItemUse_ReceiveTextTargetReply(const std::uintptr_t, const char* cons
 }
 
 // 原函数：0x0050E3A0。
-void WindowItemUse_ReceiveAttributeTargetReply(const std::uintptr_t, const char* const text)
+void WindowItemUse_ReceiveAttributeTargetReply(cg::network::CgConnection&, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
         return;

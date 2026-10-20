@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -2392,13 +2393,13 @@ LuaFunction(WinMgr_sendPacket) {
         size_t len = 0;
         const char* data = luaL_checklstring(L, 1, &len);
         if (len > 0 && data[len - 1] == '\n') {
-            int result = network::SendLuaPacket( data, static_cast<int>(len));
+            int result = cg::network::GetGameConnection().SendPacket( data, static_cast<int>(len));
             lua_pushinteger(L, result);
             return 1;
         }
         std::string packet(data, len);
         packet.push_back('\n');
-        int result = network::SendLuaPacket( packet.c_str(), static_cast<int>(packet.size()));
+        int result = cg::network::GetGameConnection().SendPacket( packet.c_str(), static_cast<int>(packet.size()));
         lua_pushinteger(L, result);
         return 1;
     }
@@ -2409,16 +2410,16 @@ LuaFunction(WinMgr_sendPacket) {
         packet.push_back(' ');
         if (lua_type(L, i) == LUA_TNUMBER) {
             int value = static_cast<int>(lua_tointeger(L, i));
-            packet += reinterpret_cast<const char*>(network::FormatProtocolInteger_517670(value));
+            packet += cg::network::GetGameConnection().EncodeInteger(value).c_str();
         } else if (lua_isstring(L, i)) {
-            packet += reinterpret_cast<const char*>(network::EscapeProtocolText_5171F0(text::FromGbkWide(lua_tostring(L, i))));
+            packet += cg::network::GetGameConnection().EscapeText(text::FromGbkWide(lua_tostring(L, i))).c_str();
         } else {
             return luaL_argerror(L, i, "data must be string or integer");
         }
     }
     packet.push_back('\n');
 
-    int result = network::SendLuaPacket( packet.c_str(), static_cast<int>(packet.size()));
+    int result = cg::network::GetGameConnection().SendPacket( packet.c_str(), static_cast<int>(packet.size()));
     lua_pushinteger(L, result);
     return 1;
 }
@@ -2468,7 +2469,7 @@ LuaFunction(WinMgr_cliSendMsg) {
 
 LuaFunction(WinMgr_nrEncode62) {
     int value = static_cast<int>(luaL_checkinteger(L, 1));
-    lua_pushstring(L, reinterpret_cast<const char*>(network::FormatProtocolInteger_517670(value)));
+    lua_pushstring(L, cg::network::GetGameConnection().EncodeInteger(value).c_str());
     return 1;
 }
 
@@ -2494,13 +2495,13 @@ LuaFunction(WinMgr_nrDecode16) {
 
 LuaFunction(WinMgr_nrEncodeString) {
     const char* value = luaL_checkstring(L, 1);
-    lua_pushstring(L, reinterpret_cast<const char*>(network::EscapeProtocolText_5171F0(text::FromGbkWide(value))));
+    lua_pushstring(L, cg::network::GetGameConnection().EscapeText(text::FromGbkWide(value)).c_str());
     return 1;
 }
 
 LuaFunction(WinMgr_nrDecodeString) {
     const char* value = luaL_checkstring(L, 1);
-    lua_pushstring(L, reinterpret_cast<const char*>(network::UnescapeProtocolText_5172D0(value)));
+    lua_pushstring(L, cg::network::GetGameConnection().UnescapeText(value).c_str());
     return 1;
 }
 
@@ -2588,9 +2589,9 @@ void RegisterLuaUI(lua_State* L)
     RegLuaIO(L);
     if (L == GetLuaState()) LuaBridgeSetLuaUIState(L); else LuaBridgeSetAutoBattleState(L);
 }
-void LuaReceivePacket(const char* header, char** arguments)
+void LuaReceivePacket(cg::network::CgConnection& networkConnection, const char* header, char** arguments)
 {
-    const auto connection = network::GetGameConnection().Id();
+    const auto connection = networkConnection.Id();
     // 先快照注册集合和参数，允许回调注册/注销或重入网络发送。
     const auto options = gWinMgrPacketRecvOptions;
     std::vector<std::string> values;
@@ -2600,13 +2601,13 @@ void LuaReceivePacket(const char* header, char** arguments)
     pointers.push_back(nullptr);
     const std::string packetHeader(header);
     for (const auto& option : options) {
-        if (connection != network::GetGameConnection().Id() || !network::ReadNetworkRuntimeActive()) break;
+        if (connection != networkConnection.Id() || !networkConnection.Active()) break;
         if (option.header == packetHeader) LuaCallPacketRecvEvent(option.event, packetHeader.c_str(), pointers.data());
     }
 }
-void LuaSendPacket(std::string_view packet)
+void LuaSendPacket(cg::network::CgConnection& networkConnection, std::string_view packet)
 {
-    const auto connection = network::GetGameConnection().Id();
+    const auto connection = networkConnection.Id();
     const auto options = gWinMgrPacketSendOptions;
     std::string matched;
     bool found = false;
@@ -2614,7 +2615,7 @@ void LuaSendPacket(std::string_view packet)
     if (!found) return;
     const std::string bytes(packet.substr(matched.size()));
     for (const auto& option : options) {
-        if (connection != network::GetGameConnection().Id() || !network::ReadNetworkRuntimeActive()) break;
+        if (connection != networkConnection.Id() || !networkConnection.Active()) break;
         if (option.header == matched) LuaCallPacketSendEvent(option.event, matched.c_str(), bytes.data(), static_cast<int>(bytes.size()));
     }
 }

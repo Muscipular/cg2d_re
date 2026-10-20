@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/PlayerState.hpp"
@@ -20,7 +21,6 @@ enum class WindowPetMailComposeElementId : ElementId {
     Element12 = 12,
     HandleSideArea = 13,
 };
-
 
 namespace detail {
 
@@ -349,11 +349,11 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
                 const std::int32_t item = gLoginWindowRuntime.prefixD2F0B8.value0C;
                 const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
-                const std::uintptr_t socket = platform::gConnectionSocket;
+                const auto networkSession = cg::network::GetGameConnection().CaptureSession();
                 if (category == 1) {
-                    static_cast<void>(network::SendGuildPetMail_511510(socket, target, pet, item, packet, 0));
+                    static_cast<void>(cg::network::GetGameConnection().SendGuildPetMail(target, pet, item, packet, 0));
                 } else {
-                    static_cast<void>(network::SendContactPetMail_5110B0(socket, target, pet, item, packet, 0));
+                    static_cast<void>(cg::network::GetGameConnection().SendContactPetMail(target, pet, item, packet, 0));
                 }
                 WindowMail_FormatTimestamp(timestamp);
                 if (category == 1) {

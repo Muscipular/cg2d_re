@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "version.h"
@@ -339,7 +340,7 @@ std::int32_t GetServerAddressInfo_507D90(
     const auto& record = gLoginServerRecords_D69798[static_cast<std::size_t>(serverIndex)];
     serverAddress = record.address;
     *port = static_cast<std::uint16_t>(std::wcstol(record.portText.c_str(), nullptr, 10));
-    // NTM01：映射/策略DNS由BeginServerConnection接续，查询本身不再阻塞主线程。
+    // NTM01：映射/策略DNS由CgConnection::BeginConnect接续，查询本身不再阻塞主线程。
     VM_END
     return 0;
 }
@@ -447,7 +448,8 @@ std::int32_t ProcessScene_45FEA0()
         case -1:
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, L"NETWORK还没准备好。" /* 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。 */);
-            cg::network::ShutdownNetworkRuntime_5081A0();
+            cg::network::GetGameConnection().Shutdown();
+            cg::world::gNetworkDisconnectState_D9F2CA = 0;
             break;
         case -2: {
             world::gCurrentSceneState = 100;
@@ -565,18 +567,21 @@ std::int32_t ProcessScene_45FEA0()
                     break;
                 }
             }
-            cg::network::ShutdownNetworkRuntime_5081A0();
+            cg::network::GetGameConnection().Shutdown();
+            cg::world::gNetworkDisconnectState_D9F2CA = 0;
             break;
         }
         case -3:
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, L"无法连上更新伺服器" /* 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。 */);
-            cg::network::ShutdownNetworkRuntime_5081A0();
+            cg::network::GetGameConnection().Shutdown();
+            cg::world::gNetworkDisconnectState_D9F2CA = 0;
             break;
         case -4:
             world::gCurrentSceneState = 100;
             CopyText(gLoginSceneMessage, L"版本错误，请重新启动魔力宝贝。" /* 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
-            cg::network::ShutdownNetworkRuntime_5081A0();
+            cg::network::GetGameConnection().Shutdown();
+            cg::world::gNetworkDisconnectState_D9F2CA = 0;
             break;
         default:
             break;

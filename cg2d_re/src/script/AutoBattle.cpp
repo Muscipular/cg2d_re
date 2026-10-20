@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "../world/BattleState.hpp"
@@ -295,7 +296,7 @@ static int SendBattleAction(lua_State* L)
     int n = 0;
     auto sendNone = [&]() {
         n = sprintf_s(buff, "Rg N\n");
-        network::SendLuaPacket(buff, n);
+        static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
     };
     switch (param1) {
         case B_ACTION_SKILL: {
@@ -323,7 +324,7 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             n = sprintf_s(buff, "Rg S|%X|%X|%X\n", skIndex, param3, target);
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         }
         case B_ACTION_ITEM: {
@@ -338,7 +339,7 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             n = sprintf_s(buff, "Rg I|%X|%X\n", itemIndex, target);
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         }
         case B_ACTION_ATTACK: {
@@ -356,35 +357,35 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             n = sprintf_s(buff, "Rg H|%X\n", target);
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         }
         case B_ACTION_DEF:
             n = sprintf_s(buff, "Rg G\n");
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         case B_ACTION_ESCAPE:
             n = sprintf_s(buff, "Rg E\n");
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         case B_ACTION_MOVE:
             n = sprintf_s(buff, "Rg P\n");
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         case B_ACTION_PET:
             n = sprintf_s(buff, "Rg M|%X\n", param2);
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         case B_ACTION_NONE:
             sendNone();
             break;
         case B_ACTION_EQUIP:
             n = sprintf_s(buff, "Rg Q|%X\n", param2 < 0 ? 255 : param2);
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         case B_ACTION_REBIRTH:
             n = sprintf_s(buff, "Rg R|%X\n", param2 ? 1 : 0);
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         case B_ACTION_PET_SKILL: {
             auto techIndex = getPetTechIndex(param2);
@@ -398,7 +399,7 @@ static int SendBattleAction(lua_State* L)
             }
             if (techIndex < 0) {
                 n = sprintf_s(buff, "Rg W|FF|FF\n");
-                network::SendLuaPacket(buff, n);
+                static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
                 break;
             }
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
@@ -408,11 +409,11 @@ static int SendBattleAction(lua_State* L)
             m_log_iw(L"B_ACTION_ATTACK checkAndGetTarget %d target %d\n", petPos, target);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
                 n = sprintf_s(buff, "Rg W|FF|FF\n");
-                network::SendLuaPacket(buff, n);
+                static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
                 break;
             }
             n = sprintf_s(buff, "Rg W|%X|%X\n", techIndex, target);
-            network::SendLuaPacket(buff, n);
+            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
             break;
         }
     }

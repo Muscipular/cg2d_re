@@ -16,8 +16,6 @@
 
 namespace cg::platform {
 
-using cg::network::NetworkLoop_507DF0;
-
 // 原 4576B0 的首个直接依赖；父初始化本体位于 ClientInitialization.cpp。
 // 原函数：0x0044B5A0。
 std::uint32_t ResetSystemLog_44B5A0(); // 打开失败返回 0，成功透传 fclose 的 W32。

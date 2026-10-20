@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 #include <cstring>
@@ -223,7 +224,7 @@ void WindowMail_SetUnreadGraphic(const std::int32_t index)
 std::int32_t WindowMail_DeleteContact(const std::int32_t, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
-    static_cast<void>(network::RequestContactDeletion_511190(platform::gConnectionSocket, index));
+    static_cast<void>(cg::network::GetGameConnection().RequestContactDeletion(index));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     static_cast<void>(world::detail::ClearContactMailMessages_5192C0(currentIndex));
     static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
@@ -239,9 +240,9 @@ std::int32_t WindowMail_DeleteContact(const std::int32_t, const std::int32_t)
 std::int32_t WindowMail_DeleteGuildMember(const std::int32_t, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
-    const std::uintptr_t socket = platform::gConnectionSocket;
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
     const std::int32_t key = cg::world::gOrderedRecords1051B14[index].value0C;
-    static_cast<void>(network::RequestGuildMemberDeletion_511430(socket, key));
+    static_cast<void>(cg::network::GetGameConnection().RequestGuildMemberDeletion(key));
     static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
     static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -255,8 +256,8 @@ std::int32_t WindowMail_DeleteMiniMailContact(const std::int32_t, const std::int
     const auto& record = world::detail::ReadMiniMailContact1075A90(index);
     const std::int32_t key = record.key04;
     const std::wstring escapedText = input::EscapeTextAndNotify(record.name10, 255);
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::RequestMiniMailContactDeletion_5117D0(socket, key, escapedText));
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    static_cast<void>(cg::network::GetGameConnection().RequestMiniMailContactDeletion(key, escapedText));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     world::detail::RemoveMiniMailContact_534480(currentIndex);
     static_cast<void>(audio::PlaySe_52C450(78, 320));

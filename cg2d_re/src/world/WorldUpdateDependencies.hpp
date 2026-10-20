@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include "cg/platform/LegacyCryptInt.hpp"
 
 #include <cstdint>
@@ -26,19 +28,16 @@ std::int32_t UpdateCapability4LoginScene_464840();                 // 原 0x4648
 // 原函数：0x00476680。
 void DrawChatRangeOverlay_476680();                         // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
 // 原函数：0x0050C870。
-std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(
-    std::uintptr_t socket, std::int32_t playerValue,
+std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(cg::network::CgConnection& networkConnection, std::int32_t playerValue,
     std::int32_t timeOffset, std::int32_t pathValue,
     std::int32_t adjustment); // GTP01：PudO 校时，持有 category，两 time/旧 adjustment 与最后 S32 返回保。
 // 原函数：0x0050E1A0。
-void HandleDirectionalMapEffectsReply_50E1A0(
-    std::uintptr_t socket, std::int32_t mask, std::int32_t value,
+void HandleDirectionalMapEffectsReply_50E1A0(cg::network::CgConnection& networkConnection, std::int32_t mask, std::int32_t value,
     const char* unusedText); // 三效果半字写入后调用既有46E0D0。
 // 原函数：0x0050E210。
-std::int32_t HandleNotificationSoundReply_50E210(std::uintptr_t socket, std::int32_t value); // 九种指定音效，其他值透传。
+std::int32_t HandleNotificationSoundReply_50E210(cg::network::CgConnection& networkConnection, std::int32_t value); // 九种指定音效，其他值透传。
 // 原函数：0x0050E650。
-void HandleMapSceneEffectReply_50E650(
-    std::uintptr_t socket, std::int32_t mode, std::int32_t duration,
+void HandleMapSceneEffectReply_50E650(cg::network::CgConnection& networkConnection, std::int32_t mode, std::int32_t duration,
     std::int32_t floor, std::int32_t mapX, std::int32_t mapY); // PVfz原序转449700，socket未用。
 // 原函数：0x00440B50。
 std::int32_t IsObservationSceneTransitionActive_440B50(); // 原当前场景U32闭区间250..252门禁。

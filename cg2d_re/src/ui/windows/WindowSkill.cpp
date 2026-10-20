@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -43,7 +44,6 @@ enum class WindowSkillElementId : ElementId {
     Element29 = 29,
     HandleSideArea = 30,
 };
-
 
 namespace detail {
 
@@ -539,7 +539,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
     }
     if (index == -3) {
         const std::int32_t skill = gUsingSkillIndexD2F32C;
-        static_cast<void>(network::RequestSkillTargetAttributes_511C30(platform::gConnectionSocket, skill));
+        static_cast<void>(cg::network::GetGameConnection().RequestSkillTargetAttributes(skill));
         return 0;
     }
     if (index == -2) {
@@ -566,8 +566,8 @@ static std::int32_t WindowSkill_SelectAttributeTarget(const std::int32_t index, 
     const std::int32_t target = gSkillStatusTargetsCF3FD0[index];
     const std::int32_t level = gUsingSkillLevelCA0AC4;
     const std::int32_t skill = gUsingSkillIndexD2F32C;
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::SendSkillUseRequest_511EF0(socket, skill + offset, level, target, cg::text::FromGbkWide(extra)));
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill + offset, level, target, cg::text::FromGbkWide(extra)));
     return 0;
 }
 
@@ -801,7 +801,7 @@ static std::int32_t WindowSkill_HandleSkillRow(const std::int32_t index, const s
                 std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
             const std::int32_t sourceSkill =
                 std::bit_cast<std::int16_t>(world::gSkillPairsF63370[source].index);
-            static_cast<void>(network::SwapPlayerSkillOrderRequest_512470(platform::gConnectionSocket, sourceSkill, targetSkill));
+            static_cast<void>(cg::network::GetGameConnection().SwapPlayerSkillOrderRequest(sourceSkill, targetSkill));
             world::gSkillReorderPending_DA3B20 = 1;
         }
         WindowDrag_Reset();
@@ -1760,7 +1760,7 @@ static std::int32_t WindowSkill_ButtonUse(const std::int32_t index, const std::i
         } else if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendWorldActionRequest_511DD0(platform::gConnectionSocket, x, y, rebirth != 0 ? 62 : 61));
+            static_cast<void>(cg::network::GetGameConnection().SendWorldActionRequest(x, y, rebirth != 0 ? 62 : 61));
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             const std::uint8_t previous = occupancy[7];
             gSkillRebirthModeEnabled_5F9754 = rebirth != 0 ? 0 : 1;
@@ -2415,10 +2415,10 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                         return;
                     }
                     const std::int32_t skill = gSkillWindowIndexD2EA60;
-                    const std::uintptr_t socket = platform::gConnectionSocket;
+                    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
                     gUsingSkillIndexD2F32C = skill;
                     gUsingSkillLevelCA0AC4 = technique;
-                    static_cast<void>(network::RequestSkillTargetAttributes_511C30(socket, skill));
+                    static_cast<void>(cg::network::GetGameConnection().RequestSkillTargetAttributes(skill));
                     return;
                 }
                 case 2:
@@ -2459,8 +2459,7 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                     const std::int32_t rebirth = world::gSkillsF1BAFC[skill].rebirthState4C48;
                     const bool enabled = gSkillRebirthModeEnabled_5F9754 != 0;
                     if ((rebirth != 0) != enabled) {
-                        static_cast<void>(network::SendSkillRebirthSelection_510F50(
-                            platform::gConnectionSocket, skill + (enabled ? 100 : 0)));
+                        static_cast<void>(cg::network::GetGameConnection().SendSkillRebirthSelection(skill + (enabled ? 100 : 0)));
                     }
                     WindowSkill_ShowRecipes(currentWindow, technique);
                     return;
@@ -2478,9 +2477,8 @@ static std::int32_t WindowSkill_SelectSkillType(const std::int32_t index, const 
                     }
                     const std::uint8_t rebirth = gSkillRebirthModeEnabled_5F9754;
                     const std::int32_t skill = gSkillWindowIndexD2EA60;
-                    const std::uintptr_t socket = platform::gConnectionSocket;
-                    static_cast<void>(network::SendSkillUseRequest_511EF0(
-                        socket, skill + (rebirth != 0 ? 100 : 0), technique, -1, L""));
+                    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+                    static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill + (rebirth != 0 ? 100 : 0), technique, -1, L""));
                     return;
                 }
                 default:
@@ -2514,8 +2512,7 @@ void WindowSkill_SyncStates()
     const std::int32_t rebirth = world::gSkillsF1BAFC[index].rebirthState4C48;
     const bool enabled = gSkillRebirthModeEnabled_5F9754 != 0;
     if ((rebirth != 0) != enabled) {
-        static_cast<void>(network::SendSkillRebirthSelection_510F50(
-            platform::gConnectionSocket, index + (enabled ? 100 : 0)));
+        static_cast<void>(cg::network::GetGameConnection().SendSkillRebirthSelection(index + (enabled ? 100 : 0)));
     }
 }
 
@@ -2538,7 +2535,7 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
     }
     if (index >= 0 && gSkillTargetPendingC8AF5F == 0) {
         if (gSkillTargetKindCF4A10 != 0 && gSkillTargetKindsD2F75C[index] != 3) {
-            static_cast<void>(network::SelectSkillTextTarget_511C80(platform::gConnectionSocket, index));
+            static_cast<void>(cg::network::GetGameConnection().SelectSkillTextTarget(index));
             gSkillSelectedTargetCC4B1C = index;
             gSkillTargetPendingC8AF5F = 1;
             return 0;
@@ -2562,8 +2559,7 @@ static std::int32_t WindowSkill_SelectTextTarget(const std::int32_t index, const
             level = gUsingSkillLevelCA0AC4;
             skill = gUsingSkillIndexD2F32C;
         }
-        static_cast<void>(network::SendSkillUseRequest_511EF0(
-            platform::gConnectionSocket, skill, level, index, cg::text::FromGbkWide(extra)));
+        static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill, level, index, cg::text::FromGbkWide(extra)));
     }
     gSkillTargetPendingC8AF5F = 1;
     return 0;
@@ -2678,7 +2674,7 @@ static void WindowSkill_ReceiveTextTargets(const char* const text)
 // 窗口函数实现。
 
 // 原函数：0x0050E340。
-void WindowSkill_ReceiveTextTargetReply(const std::uintptr_t, const char* const text)
+void WindowSkill_ReceiveTextTargetReply(cg::network::CgConnection&, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
         return;
@@ -2687,7 +2683,7 @@ void WindowSkill_ReceiveTextTargetReply(const std::uintptr_t, const char* const 
 }
 
 // 原函数：0x0050E360。
-void WindowSkill_ReceiveAttributeTargetReply(const std::uintptr_t, const char* const text)
+void WindowSkill_ReceiveAttributeTargetReply(cg::network::CgConnection&, const char* const text)
 {
     if (world::ReadRippleGateOnce() != 0) {
         return;

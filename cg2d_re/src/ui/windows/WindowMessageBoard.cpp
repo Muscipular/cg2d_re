@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -47,13 +48,11 @@ enum class WindowMessageBoardElementId : ElementId {
     Element36 = 36,
 };
 
-
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
 input::InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
-
 
 // 回调与内部函数前置声明。
 
@@ -298,8 +297,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::SendDialogResponse_512620(
-            platform::gConnectionSocket, x, y, request, target, 64, escaped));
+        static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 64, escaped));
         static_cast<void>(WindowMessageBoard_Close());
         return 1;
     }
@@ -327,8 +325,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 1, escapedText));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 1, escapedText));
             gWindow50InputPrototype580618.input.context->clearText();
             static_cast<void>(WindowMessageBoard_Close());
         } else {
@@ -360,8 +357,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const std::int32_t index, c
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(network::SendDialogResponse_512620(
-                    platform::gConnectionSocket, x, y, request, target, index == 32 ? 32 : 16, escaped));
+                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, index == 32 ? 32 : 16, escaped));
                 static_cast<void>(WindowMessageBoard_Close());
                 consumed = 1;
             }

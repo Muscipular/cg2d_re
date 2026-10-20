@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -19,11 +21,11 @@ inline constexpr std::int32_t kTechniqueSlotCount = 30;
 static_assert(kSkillSlotCount <= 32); // 现有战斗P封包以32位掩码表示技能可用状态。
 
 // 原[509650,509B96)，玩家属性掩码回复，socket未用。
-std::int32_t HandlePlayerPrimaryStatsReply_509650(std::uintptr_t socket, const char* payload); // MPR01：aPc掩码主属性，六CryptInt原序/金额和双尾字段，真实S32分界。
+std::int32_t HandlePlayerPrimaryStatsReply_509650(cg::network::CgConnection& networkConnection, const char* payload); // MPR01：aPc掩码主属性，六CryptInt原序/金额和双尾字段，真实S32分界。
 // 原函数：0x00509BA0。
-void HandlePlayerSecondaryStatsReply_509BA0(std::uintptr_t unusedSocket, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
+void HandlePlayerSecondaryStatsReply_509BA0(cg::network::CgConnection& networkConnection, const char* payload); // MPR01：UU掩码附加属性/三金额上限、原步速修正和action发布，void副作用/完整ABI待。
 // 原函数：0x00509E30。
-void HandlePlayerProfessionReply_509E30(std::uintptr_t unusedSocket, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
+void HandlePlayerProfessionReply_509E30(cg::network::CgConnection& networkConnection, std::int32_t value, char* text); // 先写低U8，再原位反转义职业名。
 const std::wstring& GetPlayerJobName() noexcept; // F1BAE0职业名，同源28B字段只读借用。
 
 // 原技能+3C的94H技术记录；50A120生产，数值语义未证的字段保持地址命名。
@@ -39,7 +41,6 @@ struct SkillTechniqueRecord {
     std::int32_t value8C; // 原成员偏移：+0x8C。
     std::int32_t value90; // 原成员偏移：+0x90。
 };
-
 
 // 原技能配方材料0x28字节，50C580生产、519950只清itemId、4F4630查count。
 struct SkillRecipeItem {
@@ -103,13 +104,11 @@ std::int32_t IsItemEligibleForPetDecoration_5050B0(std::int32_t slot); // 类别
 // 原函数：0x00505110。
 std::int32_t IsItemEligibleForRefining_505110(std::int32_t slot); // 说明、两段物品类别及flag1000条件。
 // 原函数：0x00509EB0。
-void HandlePlayerSkillsReply_509EB0(std::uintptr_t socket, const char* payload);
+void HandlePlayerSkillsReply_509EB0(cg::network::CgConnection& networkConnection, const char* payload);
 // 原函数：0x0050A120。
-void HandlePlayerSkillTechniquesReply_50A120(
-    std::uintptr_t unusedSocket, std::int32_t skillIndex, const char* payload); // 清技术区后按六字段生产。
+void HandlePlayerSkillTechniquesReply_50A120(cg::network::CgConnection& networkConnection, std::int32_t skillIndex, const char* payload); // 清技术区后按六字段生产。
 // 原函数：0x0050C580。
-void HandleSkillRecipesReply_50C580(
-    std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 固定56行、每行五材料。
+void HandleSkillRecipesReply_50C580(cg::network::CgConnection& networkConnection, std::int32_t index, const char* payload); // 固定56行、每行五材料。
 
 // 原FDA8A4起的28条玩家物品；NIO01在网络字段解析后持有UTF-16，注释偏移仅作原端参考。
 struct PlayerItemRecord {
@@ -192,12 +191,11 @@ static_assert(offsetof(PlayerRuntimeSlots, flags18C)
 extern PlayerRuntimeSlots gPlayerRuntimeSlots; // 原全局：0x00FDA700；中央有序构造。
 
 // 原函数：0x0050BFD0。
-void HandleFullPlayerInventoryReply_50BFD0(std::uintptr_t unusedSocket, const char* payload); // 固定28槽全量回复。
+void HandleFullPlayerInventoryReply_50BFD0(cg::network::CgConnection& networkConnection, const char* payload); // 固定28槽全量回复。
 // 原函数：0x0050C260。
-void HandlePlayerInventoryUpdatesReply_50C260(std::uintptr_t unusedSocket, const char* payload); // 带槽号的14字段增量回复。
+void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection& networkConnection, const char* payload); // 带槽号的14字段增量回复。
 // 原函数：0x0050C900。
-void HandleInventorySlotSwapReply_50C900(
-    std::uintptr_t unusedSocket, std::int32_t first, std::int32_t second); // 玩家/UI/拖动/副本按序换位。
+void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection& networkConnection, std::int32_t first, std::int32_t second); // 玩家/UI/拖动/副本按序换位。
 // 原函数：0x0051B5F0。
 std::int32_t CountInventoryItemQuantity_51B5F0(std::int32_t itemId); // 仅背包8..27槽，完整W16占用/匹配S32编号后累加数量。
 // 原51B630：玩家/宠物容器间整条换位，不改装备标志或同步UI。
@@ -288,23 +286,20 @@ std::int32_t HasPetTechnique_52E180(
 extern std::uint32_t gPetDetailDraftChanged_D67B28; // 原全局：0x00D67B28。 492250置1，UI后续复用。
 
 // 原510150：宠物物品带槽号回复；level重复解析图号字段，不同步UI。
-void HandlePetInventoryUpdatesReply_510150(
-    std::uintptr_t unusedSocket, std::int32_t petIndex, const char* payload);
+void HandlePetInventoryUpdatesReply_510150(cg::network::CgConnection& networkConnection, std::int32_t petIndex, const char* payload);
 
 // 原函数：0x0050A6B0。
-void HandlePetPrimaryStatsReply_50A6B0(std::uintptr_t socket, std::int32_t index, const char* payload);
+void HandlePetPrimaryStatsReply_50A6B0(cg::network::CgConnection& networkConnection, std::int32_t index, const char* payload);
 // 原函数：0x0050AC20。
-void HandlePetSecondaryStatsReply_50AC20(std::uintptr_t socket, std::int32_t index, const char* payload);
+void HandlePetSecondaryStatsReply_50AC20(cg::network::CgConnection& networkConnection, std::int32_t index, const char* payload);
 // 原函数：0x0050B0D0。
-void HandlePetTechniquesReply_50B0D0(
-    std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 技能回复，无CryptInt门禁。
+void HandlePetTechniquesReply_50B0D0(cg::network::CgConnection& networkConnection, std::int32_t index, const char* payload); // 技能回复，无CryptInt门禁。
 // 原函数：0x005185C0。
 void BuildPetTechniqueDisplayEntries_5185C0(
     const detail::PetTechniqueRecord* source, SkillPairRecord* destination,
     std::int32_t count); // 保留全部used和sequence，按源序写低W16索引，不排序。
 // 原函数：0x0050CF70。
-std::int32_t HandlePetAttributePointsReply_50CF70(
-    std::uintptr_t socket, std::int32_t index, std::int32_t value); // 仅写宠物+6C并返回index。
+std::int32_t HandlePetAttributePointsReply_50CF70(cg::network::CgConnection& networkConnection, std::int32_t index, std::int32_t value); // 仅写宠物+6C并返回index。
 // 原函数：0x0043C4B0。
 std::int32_t FindBattlePetIndex_43C4B0(); // 首个used严格1且flags6AA严格2的宠物槽，未命中-1。
 
@@ -318,15 +313,14 @@ struct TitleRecord {
 extern std::array<TitleRecord, 64> gSortedTitlesDE03F8; // 原全局：0x00DE03F8。
 
 // 原函数：0x0050A300。
-void HandlePlayerTitlesReply_50A300(std::uintptr_t socket, const char* payload); // 原称号回复；socket未用。
+void HandlePlayerTitlesReply_50A300(cg::network::CgConnection& networkConnection, const char* payload); // 原称号回复；socket未用。
 // 原函数：0x00519840。
 std::int32_t FindTitleIndexById(std::int32_t id); // 原表首匹配索引，未找到返回-1。
 extern std::int32_t gInitialPlayerDuelPoints_FDA6F8; // 原全局：0x00FDA6F8。 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
 // 原函数：0x0050BFA0。
-std::uint32_t HandlePlayerOptionsReply_50BFA0(std::uintptr_t socket, std::int32_t value); // 玩家选项回复，清bit2后写U16。
+std::uint32_t HandlePlayerOptionsReply_50BFA0(cg::network::CgConnection& networkConnection, std::int32_t value); // 玩家选项回复，清bit2后写U16。
 // 原函数：0x0050BFC0。
-std::uint16_t HandlePlayerBattleRowReply_50BFC0(
-    std::uintptr_t socket, std::int32_t value); // 玩家+1A0低W16写入；原返回仅定义AX。
+std::uint16_t HandlePlayerBattleRowReply_50BFC0(cg::network::CgConnection& networkConnection, std::int32_t value); // 玩家+1A0低W16写入；原返回仅定义AX。
 // 原函数：0x00472F40。
 std::int32_t ToggleDuelPermission_472F40(); // 同源玩家选项切换04后发送。
 std::uint8_t ReadPlayerOptions194LowByte() noexcept; // 原FDA894低U8，状态栏提示与图号用同一快照。

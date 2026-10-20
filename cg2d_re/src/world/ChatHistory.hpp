@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include <cstddef>
 #include <cstdio>
 #include <string_view>
@@ -38,7 +40,6 @@ struct Record5FB7F8 {
     std::int32_t fontType; // 原成员偏移：+0x130。
 };
 
-
 extern Record5FB7F8 gRecords5FB7F8[512]; // 原全局：0x005FB7F8。
 extern volatile std::int32_t gChatWriteIndex_626C08; // 原全局：0x00626C08。
 extern volatile std::int32_t gChatRecordCount_C9A944; // 原全局：0x00C9A944。
@@ -56,13 +57,11 @@ void AppendChatMessage_44B050(std::wstring_view text, std::int32_t color, std::i
 std::int32_t SendPlayerChatInput_50C940(
     const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。 // CTS01：见聊天发送完整合同。
 // 原函数：0x0050C7A0。
-std::uint32_t HandlePlayerTimerReply_50C7A0(
-    std::uintptr_t socket, std::int32_t seconds, std::int32_t mode); // PTP01：原首缩放/mode/剩余缩放/单 tick 序，返完整 gate/tick。
+std::uint32_t HandlePlayerTimerReply_50C7A0(cg::network::CgConnection& networkConnection, std::int32_t seconds, std::int32_t mode); // PTP01：原首缩放/mode/剩余缩放/单 tick 序，返完整 gate/tick。
 // 原函数：0x0050CE10。
-std::int32_t HandleSystemChatReply_50CE10(std::uintptr_t socket, const char* text); // 系统提示及可选内嵌音效。
+std::int32_t HandleSystemChatReply_50CE10(cg::network::CgConnection& networkConnection, const char* text); // 系统提示及可选内嵌音效。
 // 原函数：0x0050CAE0。
-void HandlePlayerChatReply_50CAE0(
-    std::uintptr_t socket, std::int32_t objectIndex, const char* payload,
+void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, std::int32_t objectIndex, const char* payload,
     std::int32_t color, std::int32_t font); // 聊天回复：原名字过滤、日志与头顶生产。
 // 原函数：0x0043D860。
 void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。

@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -37,13 +38,11 @@ enum class WindowTextListElementId : ElementId {
     Element26 = 26,
 };
 
-
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
 input::InputContext gInputContextCC49C0 {}; // 原全局：0x00CC49C0。
-
 
 // 回调与内部函数前置声明。
 
@@ -297,8 +296,7 @@ static void WindowTextList_Release()
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::SendDialogResponse_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, L"C"));
+        static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, L"C"));
     }
     world::gCurrentDialogType_581800 = -1;
 }
@@ -620,8 +618,7 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(network::SendDialogResponse_512620(
-                    platform::gConnectionSocket, x, y, request, target, 0, packet));
+                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, packet));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 consumed = 1;
             }
@@ -659,8 +656,7 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(network::SendDialogResponse_512620(
-                platform::gConnectionSocket, x, y, request, target, 0, buffer));
+            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, buffer));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }

@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/script/LuaRuntime.hpp"
@@ -227,7 +228,6 @@ static_assert(offsetof(AlbumDiskRecord, value30) == 0x30);
 static_assert(offsetof(AlbumDiskRecord, name) == 0x34);
 static_assert(offsetof(AlbumDiskRecord, description) == 0x45);
 static_assert(offsetof(AlbumDiskRecord, fresh) == 0x7F);
-
 
 struct AlbumDiskStorage {
     std::array<char, 4> signature; // +00：CCA及NUL。
@@ -848,9 +848,8 @@ void SynchronizeAlbumEntryMask_518A40(const std::int32_t version, const char* co
             bit <<= 1;
         }
     }
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::RequestAlbumEntries_511030(
-        socket, requests.empty() ? nullptr : requests.data(),
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    static_cast<void>(cg::network::GetGameConnection().RequestAlbumEntries(requests.empty() ? nullptr : requests.data(),
         static_cast<std::int32_t>(requests.size())));
     const std::int16_t selected = login::gSelectedCharacterIndex;
     gAlbumStorage.versions[selected] = version;
@@ -1785,9 +1784,9 @@ static std::int32_t TogglePlayerOptionAndSend(const std::uint16_t mask)
     }
     // 原473060取样后先读socket再保留低W16；原高W16被丢弃，不借新端下一字段冒充。
     const std::uint32_t sampledOptions = gPlayerRuntimeSlots.options194;
-    const std::uintptr_t socket = platform::gConnectionSocket;
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
     const std::int32_t value = static_cast<std::uint16_t>(sampledOptions);
-    return network::SendPlayerOptions_511A00(socket, value);
+    return cg::network::GetGameConnection().SendPlayerOptions(value);
 }
 
 void MarkPlayerChatActive() noexcept
@@ -2783,9 +2782,8 @@ std::uint32_t RequestMissingMapRectanglesAhead_46AF30()
         const std::int32_t startX = gMapWindowStartX9A86D0[position];
         const std::int32_t floor = gMapFloor;
         const std::int32_t mapId = std::bit_cast<std::int32_t>(gCurrentMapId_9A86DC);
-        const std::uintptr_t socket = platform::gConnectionSocket;
-        static_cast<void>(network::RequestMapRectangle_510710(
-            socket, mapId, floor, startX, startY, endX, endY));
+        const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+        static_cast<void>(cg::network::GetGameConnection().RequestMapRectangle(mapId, floor, startX, startY, endX, endY));
         ++index;
     }
 
@@ -3425,9 +3423,7 @@ std::int32_t __cdecl CheckMapRectangleCrcAndRequest_469290(
         && expectedHit == hitCheck) {
         return 1;
     }
-    static_cast<void>(network::RequestMapRectangle_510710(
-        platform::gConnectionSocket,
-        first, floor, xStart, yStart, xEnd, yEnd));
+    static_cast<void>(cg::network::GetGameConnection().RequestMapRectangle(first, floor, xStart, yStart, xEnd, yEnd));
     return 0;
 }
 
@@ -4366,7 +4362,7 @@ void DrawBattleScene_43CBB0()
         cg::yobi::YobiClearUp_404D30();
         DetachWorldObjectActions_446610();
         cg::world::gRippleGate = std::int32_t{0};
-        static_cast<void>(network::AcknowledgeBattleExit_5108F0(platform::gConnectionSocket, 0));
+        static_cast<void>(cg::network::GetGameConnection().AcknowledgeBattleExit(0));
         return;
     }
     case 9: {
@@ -4455,7 +4451,7 @@ void DrawBattleScene_43CBB0()
             static_cast<void>(0);
             if (exitClicked) {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
-                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"U" /* 原常量参考：0x00554190。 */));
+                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"U" /* 原常量参考：0x00554190。 */));
                 gCurrentSceneState = 7;
             }
         }
@@ -4948,9 +4944,7 @@ void* __cdecl RequestDetectedMapTransition_46ADA0()
     const std::int32_t detectedCode =
         std::bit_cast<std::int16_t>(gLastDetectedCode);
     const std::uint32_t sequence = gMapTransitionRequestSequence_C8221C;
-    static_cast<void>(network::SendMapTransitionRequest_510630(
-        platform::gConnectionSocket,
-        detectedCode,
+    static_cast<void>(cg::network::GetGameConnection().SendMapTransitionRequest(detectedCode,
         std::bit_cast<std::int32_t>(sequence),
         x,
         y,
@@ -5014,7 +5008,7 @@ std::int32_t __cdecl RequestPlayerCoordinateSynchronization_46AC90()
     gMapMovementInputBlocked_C82220 = 1;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    return network::SendPlayerCoordinates_510810(platform::gConnectionSocket, x, y);
+    return cg::network::GetGameConnection().SendPlayerCoordinates(x, y);
 }
 
 // 原 [0x46AEA0,0x46AF24)：恢复地图后发送五整数请求，重读序号再自增。
@@ -5031,9 +5025,7 @@ std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0()
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::uint32_t sequence = gMapTransitionRequestSequence_C8221C;
-    static_cast<void>(network::SendMapTransitionRequest_510630(
-        platform::gConnectionSocket,
-        2,
+    static_cast<void>(cg::network::GetGameConnection().SendMapTransitionRequest(2,
         std::bit_cast<std::int32_t>(sequence),
         x,
         y,
@@ -5379,8 +5371,7 @@ std::int32_t __cdecl SendCurrentPlayerMovementPath_50C8D0(
     const char* const text)
 {
     const std::int32_t fourth = std::bit_cast<std::int32_t>(gValue9EE8F8);
-    return network::SendPlayerMovementPath_510570(
-        platform::gConnectionSocket, x, y, cg::text::FromGbkWide(text), fourth);
+    return cg::network::GetGameConnection().SendPlayerMovementPath(x, y, cg::text::FromGbkWide(text), fourth);
 }
 
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
@@ -5683,8 +5674,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     const std::int32_t protocolAction = kEmoteProtocolActions584BB4[selected];
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(network::SendWorldActionRequest_511DD0(
-        platform::gConnectionSocket, x, y, protocolAction));
+    static_cast<void>(cg::network::GetGameConnection().SendWorldActionRequest(x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
     SetPlayerAnimationState_51A060(localAction);
     const std::uint64_t completedAt = platform::ReadTickCount64();
@@ -5739,7 +5729,7 @@ std::uint32_t RequestAdjacentWorldInteraction_51B3E0()
     }
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(network::SendPositionDirectionInteraction_510B80(platform::gConnectionSocket, x, y, direction));
+    static_cast<void>(cg::network::GetGameConnection().SendPositionDirectionInteraction(x, y, direction));
     const std::uint64_t sentAt = platform::ReadTickCount64();
     gLastAdjacentInteractionTick_FF0D38 = sentAt;
     return static_cast<std::uint32_t>(sentAt);
@@ -5806,7 +5796,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
         if (objectIndex >= 0) {
             static_cast<void>(ui::WindowStallBrowse_RequestClose());
             static_cast<void>(ui::WindowOwnStall_RequestClose());
-            static_cast<void>(network::RequestStallContents_512190(platform::gConnectionSocket, objectIndex));
+            static_cast<void>(cg::network::GetGameConnection().RequestStallContents(objectIndex));
         }
         TurnPlayerTowardCursorTarget_46B370();
         static_cast<void>(RequestAdjacentWorldInteraction_51B3E0());
@@ -5814,8 +5804,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
         const std::int32_t secondX = gPlayerMoveTargetX;
         const std::int32_t secondIndex = FindWorldObjectAt_445160(secondX, secondY, 8);
         if (secondIndex != -1) {
-            static_cast<void>(network::RequestPlayerProfile_511760(
-                platform::gConnectionSocket, 3, secondIndex));
+            static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(3, secondIndex));
         }
     }
     if ((gPartyActive_FF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) != 0)
@@ -6084,8 +6073,7 @@ void AdvancePlayerWorldMovement_46A700()
                         static_cast<std::int32_t>(gPlayerSnapshotY);
                     const std::int32_t snapshotX =
                         static_cast<std::int32_t>(gPlayerSnapshotX);
-                    static_cast<void>(network::SendWorldActionRequest_511DD0(
-                        platform::gConnectionSocket, snapshotX, snapshotY, 70));
+                    static_cast<void>(cg::network::GetGameConnection().SendWorldActionRequest(snapshotX, snapshotY, 70));
                 }
             }
         }
@@ -7937,7 +7925,8 @@ std::int32_t ProcessLogoutScene_45EBB0()
     } else if (sceneState == 2) {
         const std::int32_t result = UpdateLogoutScene_45ED90();
         if (result == 1) {
-            network::ShutdownNetworkRuntime_5081A0();
+            cg::network::GetGameConnection().Shutdown();
+            cg::world::gNetworkDisconnectState_D9F2CA = 0;
             cg::yobi::YobiClearUp_404D30();
             SetCurrentSceneType(2);
         } else if (result == 2) {
@@ -7948,12 +7937,14 @@ std::int32_t ProcessLogoutScene_45EBB0()
 维护完毕后将重新开机，请稍做等候。)" /* 原常量参考：0x0055CA28。 */;
             resetMaintenance = true;
         } else if (result == -1) {
-            network::ShutdownNetworkRuntime_5081A0();
+            cg::network::GetGameConnection().Shutdown();
+            cg::world::gNetworkDisconnectState_D9F2CA = 0;
             gCurrentSceneState = 100;
             gLogoutText9A5B08 = L"处理登出逾时。" /* 原常量参考：0x0055CA18。 */;
             resetFailure = true;
         } else if (result == -2) {
-            network::ShutdownNetworkRuntime_5081A0();
+            cg::network::GetGameConnection().Shutdown();
+            cg::world::gNetworkDisconnectState_D9F2CA = 0;
             gCurrentSceneState = 100;
             gLogoutText9A5B08 = L"登出处理失败。" /* 原常量参考：0x0055CA08。 */;
             resetFailure = true;
@@ -7981,7 +7972,8 @@ std::int32_t ProcessLogoutScene_45EBB0()
         if (result == 0) {
             return result;
         }
-        network::ShutdownNetworkRuntime_5081A0();
+        cg::network::GetGameConnection().Shutdown();
+        cg::world::gNetworkDisconnectState_D9F2CA = 0;
         cg::yobi::YobiClearUp_404D30();
         return SetCurrentSceneType(2);
     }
@@ -8054,8 +8046,6 @@ std::int32_t UpdateLogoutScene_45ED90()
 
 } // namespace detail
 
-
-
 void PlayerRuntimeSlots::ClearRaw() noexcept
 {
     value00 = 0;
@@ -8105,7 +8095,6 @@ void PlayerRuntimeSlots::ClearRaw() noexcept
     value15BCC = 0;
     values15BD0.fill(0);
 }
-
 
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
 void PetRuntimeRecord::ClearRaw() noexcept
@@ -8194,15 +8183,13 @@ void ClearCurrentCharacterAlbum_518BE0()
 }
 
 // 原[50E5B0,50E5C3)：相册版本及掩码原序转传，网络首参不消费。
-void HandleAlbumEntryMaskReply_50E5B0(
-    const std::uintptr_t /*socket*/, const std::int32_t version, const char* const payload)
+void HandleAlbumEntryMaskReply_50E5B0(cg::network::CgConnection&, const std::int32_t version, const char* const payload)
 {
     detail::SynchronizeAlbumEntryMask_518A40(version, payload);
 }
 
 // 原[50E5D0,50E62E)：十五数值及两文本原序转传，不增加接收门禁。
-void HandleAlbumEntryReply_50E5D0(
-    const std::uintptr_t /*socket*/, const std::int32_t number, const std::int32_t imageNo,
+void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection&, const std::int32_t number, const std::int32_t imageNo,
     const std::int32_t mark1, const std::int32_t mark2, const std::int32_t tribe,
     const std::int32_t value0C, const std::int32_t value10, const std::int32_t value14,
     const std::int32_t value18, const std::int32_t value1C, const std::int32_t value20,
@@ -8273,8 +8260,7 @@ void DrawChatRangeOverlay_476680()
 }
 
 // 原函数：0x0050A3E0。
-void HandlePartyMemberReply_50A3E0(
-    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+void HandlePartyMemberReply_50A3E0(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -8375,7 +8361,7 @@ void HandlePartyMemberReply_50A3E0(
 }
 
 // 原函数：0x0050B380。
-void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char* const payload)
+void HandleMapObjectListReply_50B380(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -8572,7 +8558,7 @@ void HandleMapObjectListReply_50B380(const std::uintptr_t /*socket*/, const char
 }
 
 // 原函数：0x0050BCD0。
-void HandleWorldActorActionsReply_50BCD0(const std::uintptr_t /*socket*/, const char* const payload)
+void HandleWorldActorActionsReply_50BCD0(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -8672,8 +8658,7 @@ std::int32_t ToggleGuildInvitePermission_473030()
 }
 
 // 原函数：0x0050BFA0。
-std::uint32_t HandlePlayerOptionsReply_50BFA0(
-    const std::uintptr_t /*socket*/, const std::int32_t value)
+std::uint32_t HandlePlayerOptionsReply_50BFA0(cg::network::CgConnection&, const std::int32_t value)
 {
     const std::uint32_t gate = gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
@@ -8685,8 +8670,7 @@ std::uint32_t HandlePlayerOptionsReply_50BFA0(
 }
 
 // 原函数：0x0050BFC0。
-std::uint16_t HandlePlayerBattleRowReply_50BFC0(
-    const std::uintptr_t /*socket*/, const std::int32_t value)
+std::uint16_t HandlePlayerBattleRowReply_50BFC0(cg::network::CgConnection&, const std::int32_t value)
 {
     const auto low = static_cast<std::uint16_t>(value);
     gPlayerRuntimeSlots.value1A0 = low;
@@ -8694,8 +8678,7 @@ std::uint16_t HandlePlayerBattleRowReply_50BFC0(
 }
 
 // 原函数：0x0050CF70。
-std::int32_t HandlePetAttributePointsReply_50CF70(
-    const std::uintptr_t /*socket*/, const std::int32_t index,
+std::int32_t HandlePetAttributePointsReply_50CF70(cg::network::CgConnection&, const std::int32_t index,
     const std::int32_t value)
 {
     gPetRuntimeRecords[index].lvFlag6C = value;
@@ -8703,8 +8686,7 @@ std::int32_t HandlePetAttributePointsReply_50CF70(
 }
 
 // PTP01：原 [0x50C7A0,0x50C7E4)；首 ×5 后发布 mode，剩余缩放/单 tick 与完整 gate/tick 返回保。
-std::uint32_t HandlePlayerTimerReply_50C7A0(
-    const std::uintptr_t /*socket*/, const std::int32_t seconds,
+std::uint32_t HandlePlayerTimerReply_50C7A0(cg::network::CgConnection&, const std::int32_t seconds,
     const std::int32_t mode)
 {
     const std::uint32_t gate = gGameplayRepliesSuppressed_9A6E0C;
@@ -8722,7 +8704,7 @@ std::uint32_t HandlePlayerTimerReply_50C7A0(
 }
 
 // 原函数：0x0050CE10。
-std::int32_t HandleSystemChatReply_50CE10(const std::uintptr_t /*socket*/, const char* const text)
+std::int32_t HandleSystemChatReply_50CE10(cg::network::CgConnection&, const char* const text)
 {
     char source[2024];
     char command[512];
@@ -8745,8 +8727,7 @@ std::int32_t HandleSystemChatReply_50CE10(const std::uintptr_t /*socket*/, const
 }
 
 // 原函数：0x0050E1A0。
-void HandleDirectionalMapEffectsReply_50E1A0(
-    const std::uintptr_t /*socket*/, const std::int32_t mask,
+void HandleDirectionalMapEffectsReply_50E1A0(cg::network::CgConnection&, const std::int32_t mask,
     const std::int32_t value, const char* const /*unusedText*/)
 {
     if (mask == 0) {
@@ -8770,8 +8751,7 @@ void HandleDirectionalMapEffectsReply_50E1A0(
 }
 
 // 原函数：0x0050E650。
-void HandleMapSceneEffectReply_50E650(
-    const std::uintptr_t /*socket*/, const std::int32_t mode,
+void HandleMapSceneEffectReply_50E650(cg::network::CgConnection&, const std::int32_t mode,
     const std::int32_t duration, const std::int32_t floor,
     const std::int32_t mapX, const std::int32_t mapY)
 {
@@ -8779,8 +8759,7 @@ void HandleMapSceneEffectReply_50E650(
 }
 
 // 原函数：0x0050E210。
-std::int32_t HandleNotificationSoundReply_50E210(
-    const std::uintptr_t /*socket*/, const std::int32_t value)
+std::int32_t HandleNotificationSoundReply_50E210(cg::network::CgConnection&, const std::int32_t value)
 {
     const std::int32_t gate = std::bit_cast<std::int32_t>(gGameplayRepliesSuppressed_9A6E0C);
     if (gate != 0) {
@@ -8850,13 +8829,12 @@ std::int32_t SendPlayerChatInput_50C940(
     const std::int32_t range = platform::gChatRange_554640;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    return network::SendChatMessage_511900(socket, x, y, packet, sendColor, range, mode);
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    return cg::network::GetGameConnection().SendChatMessage(x, y, packet, sendColor, range, mode);
 }
 
 // 原函数：0x0050CAE0。
-void HandlePlayerChatReply_50CAE0(
-    const std::uintptr_t /*socket*/, const std::int32_t objectIndex,
+void HandlePlayerChatReply_50CAE0(cg::network::CgConnection&, const std::int32_t objectIndex,
     const char* const payload, const std::int32_t color, const std::int32_t font)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
@@ -8915,8 +8893,7 @@ void HandlePlayerChatReply_50CAE0(
 }
 
 // 原函数：0x0050D000。
-void HandlePartyMembershipReply_50D000(
-    const std::uintptr_t /*socket*/, const std::int32_t first, const std::int32_t second)
+void HandlePartyMembershipReply_50D000(cg::network::CgConnection& networkConnection, const std::int32_t first, const std::int32_t second)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -8934,13 +8911,12 @@ void HandlePartyMembershipReply_50D000(
         const std::int32_t y = static_cast<std::int32_t>(gPlayerSnapshotY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerSnapshotX);
         static_cast<void>(
-            network::SendPlayerPositionAndDirection_512720(platform::gConnectionSocket, x, y, direction));
+            networkConnection.SendPlayerPositionAndDirection(x, y, direction));
     }
 }
 
 // MPR01：原509650完整444条；掩码推进及六CryptInt/RNG、先三临时值后发布、金额双尾门槛/名字长度和S32返回保。
-std::int32_t HandlePlayerPrimaryStatsReply_509650(
-    const std::uintptr_t /*socket*/, const char* const payload)
+std::int32_t HandlePlayerPrimaryStatsReply_509650(cg::network::CgConnection&, const char* const payload)
 {
     const std::int32_t gate = std::bit_cast<std::int32_t>(gGameplayRepliesSuppressed_9A6E0C);
     if (gate != 0) {
@@ -9031,7 +9007,7 @@ std::int32_t HandlePlayerPrimaryStatsReply_509650(
 }
 
 // MPR01：原509BA0完整232条；附加属性按掩码顺序、W16 tribe/三S32金额上限及原步速修正/同action发布保。
-void HandlePlayerSecondaryStatsReply_509BA0(const std::uintptr_t, const char* const payload)
+void HandlePlayerSecondaryStatsReply_509BA0(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9101,7 +9077,7 @@ void HandlePlayerSecondaryStatsReply_509BA0(const std::uintptr_t, const char* co
 }
 
 // 原函数：0x00509E30。
-void HandlePlayerProfessionReply_509E30(const std::uintptr_t, const std::int32_t value, char* const text)
+void HandlePlayerProfessionReply_509E30(cg::network::CgConnection&, const std::int32_t value, char* const text)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9165,7 +9141,7 @@ std::int32_t IsItemEligibleForRefining_505110(const std::int32_t slot)
 }
 
 // 原函数：0x00509EB0。
-void HandlePlayerSkillsReply_509EB0(const std::uintptr_t /*socket*/, const char* const payload)
+void HandlePlayerSkillsReply_509EB0(cg::network::CgConnection& networkConnection, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9223,9 +9199,9 @@ void HandlePlayerSkillsReply_509EB0(const std::uintptr_t /*socket*/, const char*
             record.sequence = sequence;
             if (canRebirth == 1) {
                 const std::uint8_t flag = ui::WindowRuntime_ReadObservationFlag();
-                const std::uintptr_t socket = platform::gConnectionSocket;
+                const auto networkSession = networkConnection.CaptureSession();
                 const std::int32_t value = index + (flag != 0 ? 100 : 0);
-                static_cast<void>(network::SendSkillRebirthSelection_510F50(socket, value));
+                static_cast<void>(networkConnection.SendSkillRebirthSelection(value));
             }
         }
         field += 11;
@@ -9235,8 +9211,7 @@ void HandlePlayerSkillsReply_509EB0(const std::uintptr_t /*socket*/, const char*
 }
 
 // 原函数：0x0050A120。
-void HandlePlayerSkillTechniquesReply_50A120(
-    const std::uintptr_t, const std::int32_t skillIndex, const char* const payload)
+void HandlePlayerSkillTechniquesReply_50A120(cg::network::CgConnection&, const std::int32_t skillIndex, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9283,8 +9258,7 @@ void HandlePlayerSkillTechniquesReply_50A120(
 }
 
 // 原函数：0x0050C580。
-void HandleSkillRecipesReply_50C580(
-    const std::uintptr_t, const std::int32_t index, const char* const payload)
+void HandleSkillRecipesReply_50C580(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= kSkillSlotCount) {
         return;
@@ -9323,7 +9297,7 @@ void HandleSkillRecipesReply_50C580(
 }
 
 // 原函数：0x0050BF20。
-void HandleWorldObjectRemovalReply_50BF20(const std::uintptr_t, const char* const payload)
+void HandleWorldObjectRemovalReply_50BF20(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9346,7 +9320,7 @@ void HandleWorldObjectRemovalReply_50BF20(const std::uintptr_t, const char* cons
 }
 
 // 原函数：0x0050BFD0。
-void HandleFullPlayerInventoryReply_50BFD0(const std::uintptr_t, const char* const payload)
+void HandleFullPlayerInventoryReply_50BFD0(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9372,7 +9346,7 @@ void HandleFullPlayerInventoryReply_50BFD0(const std::uintptr_t, const char* con
 }
 
 // 原函数：0x0050C260。
-void HandlePlayerInventoryUpdatesReply_50C260(const std::uintptr_t, const char* const payload)
+void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9420,8 +9394,7 @@ std::int32_t CountInventoryItemQuantity_51B5F0(const std::int32_t itemId)
 }
 
 // 原函数：0x0050C900。
-void HandleInventorySlotSwapReply_50C900(
-    const std::uintptr_t, const std::int32_t first, const std::int32_t second)
+void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection&, const std::int32_t first, const std::int32_t second)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9509,8 +9482,7 @@ std::int32_t HasPetMailTechnique_52E1D0(const std::int32_t index)
 }
 
 // 原函数：0x00510150。
-void HandlePetInventoryUpdatesReply_510150(
-    const std::uintptr_t, const std::int32_t petIndex, const char* const payload)
+void HandlePetInventoryUpdatesReply_510150(cg::network::CgConnection&, const std::int32_t petIndex, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || petIndex < 0 || petIndex >= 5) {
         return;
@@ -9572,8 +9544,7 @@ void HandlePetInventoryUpdatesReply_510150(
 }
 
 // 原函数：0x0050A6B0。
-void HandlePetPrimaryStatsReply_50A6B0(
-    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+void HandlePetPrimaryStatsReply_50A6B0(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
@@ -9671,8 +9642,7 @@ void HandlePetPrimaryStatsReply_50A6B0(
 }
 
 // 原函数：0x0050AC20。
-void HandlePetSecondaryStatsReply_50AC20(
-    const std::uintptr_t /*socket*/, const std::int32_t index, const char* const payload)
+void HandlePetSecondaryStatsReply_50AC20(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
@@ -9712,8 +9682,7 @@ void HandlePetSecondaryStatsReply_50AC20(
 }
 
 // 原函数：0x0050B0D0。
-void HandlePetTechniquesReply_50B0D0(
-    const std::uintptr_t, const std::int32_t index, const char* const payload)
+void HandlePetTechniquesReply_50B0D0(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
@@ -9797,7 +9766,7 @@ std::int32_t FindBattlePetIndex_43C4B0()
 }
 
 // 原函数：0x0050A300。
-void HandlePlayerTitlesReply_50A300(const std::uintptr_t /*socket*/, const char* const payload)
+void HandlePlayerTitlesReply_50A300(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -9944,8 +9913,7 @@ std::int32_t __cdecl IsMapCellBlocked_469810(const std::int32_t x, const std::in
 }
 
 // 原函数：0x005093C0。
-void HandlePlayerPositionReply_5093C0(
-    const std::uintptr_t, const std::int32_t x, const std::int32_t y,
+void HandlePlayerPositionReply_5093C0(cg::network::CgConnection&, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction)
 {
     static_cast<void>(detail::UpdatePlayerMapWindow_468200());
@@ -9955,8 +9923,7 @@ void HandlePlayerPositionReply_5093C0(
 }
 
 // 原函数：0x0050D080。
-void Sub_50D080(
-    const std::uintptr_t, const std::int32_t first, const std::int32_t second)
+void Sub_50D080(cg::network::CgConnection&, const std::int32_t first, const std::int32_t second)
 {
     gValue9FB918 = static_cast<std::int32_t>(first);
 
@@ -9971,8 +9938,7 @@ void Sub_50D080(
 }
 
 // 原函数：0x0050D120。
-void HandleBattleEntryReply_50D120(
-    const std::uintptr_t, const std::int32_t type, const std::int32_t imageNo)
+void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection, const std::int32_t type, const std::int32_t imageNo)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -10003,7 +9969,7 @@ void HandleBattleEntryReply_50D120(
         detail::DetachWorldObjectActions_446610();
 
         cg::world::gRippleGate = std::int32_t{0};
-        static_cast<void>(network::AcknowledgeBattleExit_5108F0(platform::gConnectionSocket, 0));
+        static_cast<void>(networkConnection.AcknowledgeBattleExit(0));
         return;
     }
     if (type > 0) {
@@ -10035,7 +10001,7 @@ void HandleBattleEntryReply_50D120(
 }
 
 // 原函数：0x0050D3C0。
-void HandleBattleStreamReply_50D3C0(const std::uintptr_t, const char* const text)
+void HandleBattleStreamReply_50D3C0(cg::network::CgConnection&, const char* const text)
 {
     const char kind = text[0];
     if (kind == 'C') {
@@ -10094,7 +10060,7 @@ void HandleBattleStreamReply_50D3C0(const std::uintptr_t, const char* const text
 }
 
 // 原函数：0x0050D500。
-void HandleBattleResultsReply_50D500(const std::uintptr_t, const char* const payload)
+void HandleBattleResultsReply_50D500(cg::network::CgConnection&, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -10149,8 +10115,7 @@ void HandleBattleResultsReply_50D500(const std::uintptr_t, const char* const pay
 }
 
 // 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。
-void __cdecl HandleMapTransitionReply_50CF90(
-    const std::uintptr_t, const std::int32_t sequence,
+void __cdecl HandleMapTransitionReply_50CF90(cg::network::CgConnection&, const std::int32_t sequence,
     const std::int32_t status)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
@@ -10172,8 +10137,7 @@ void __cdecl HandleMapTransitionReply_50CF90(
 }
 
 // 原 [0x509090,0x5090FC)：校验成功才清地图请求及一次性状态位。
-void __cdecl HandleMapRectangleCrcReply_509090(
-    const std::uintptr_t, const std::int32_t first,
+void __cdecl HandleMapRectangleCrcReply_509090(cg::network::CgConnection&, const std::int32_t first,
     const std::int32_t floor, const std::int32_t xStart,
     const std::int32_t yStart, const std::int32_t xEnd,
     const std::int32_t yEnd, const std::int32_t expectedTile,
@@ -10195,8 +10159,7 @@ void __cdecl HandleMapRectangleCrcReply_509090(
 }
 
 // 原 [0x509100,0x5093B6)：同一局部帧中的 WORD 写入可覆盖后续原文。
-std::int32_t __cdecl HandleMapRectangleDataReply_509100(
-    const std::uintptr_t, const std::int32_t mapId,
+std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnection&, const std::int32_t mapId,
     const std::int32_t floor, const std::int32_t xStart,
     const std::int32_t yStart, const std::int32_t xEnd,
     const std::int32_t yEnd, const char* const payload)
@@ -10301,8 +10264,7 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(
 }
 
 // 原 [0x5093F0,0x509548)：保留地图保存、场景清理和加密对象赋值顺序。
-std::int32_t __cdecl HandleMapChangeReply_5093F0(
-    const std::uintptr_t, const std::int32_t a2, const std::int32_t a3,
+std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection&, const std::int32_t a2, const std::int32_t a3,
     const std::int32_t a4, const std::int32_t a5, const std::int32_t a6,
     const std::int32_t a7, const std::int32_t a8, const std::int32_t a9,
     const std::int32_t a10, const std::int32_t a11, const std::int32_t a12,
@@ -10350,8 +10312,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(
 
 // 原 [0x509550,0x509642)：原位反转义、两段提取与地图回复状态发布。
 // 原地图名分段字节复制按用户要求改为GBK转宽字符串赋值；提取、长度判断、调色板和返回保持。
-std::int32_t __cdecl HandleMapNameReply_509550(
-    const std::uintptr_t, char* const payload)
+std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection&, char* const payload)
 {
     std::array<char, 256> text;
     std::array<char, 32> number;
@@ -10408,8 +10369,7 @@ std::uint32_t CaptureMapTilesForTransition_51D640()
 }
 
 // GTP01：原 [0x50C870,0x50C8C8)；保两次 time/旧 adjustment，持有时段交调色板后再发布两字段。
-std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(
-    const std::uintptr_t, const std::int32_t playerValue,
+std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(cg::network::CgConnection&, const std::int32_t playerValue,
     const std::int32_t timeOffset, const std::int32_t pathValue,
     const std::int32_t adjustment)
 {
@@ -10739,7 +10699,7 @@ void RequestDuelWithFacingPlayer_470050()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::SendDuelRequest_510880(platform::gConnectionSocket, x, y));
+        static_cast<void>(cg::network::GetGameConnection().SendDuelRequest(x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -10774,7 +10734,7 @@ void RequestSpectateFacingBattle_470150()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::SendSpectateRequest_510940(platform::gConnectionSocket, x, y));
+        static_cast<void>(cg::network::GetGameConnection().SendSpectateRequest(x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -10814,7 +10774,7 @@ void RequestPartyJoinOrLeave_470270()
         const std::int32_t mode = joinTeam ? 1 : 0;
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::SendTeamJoinLeaveRequest_511A50(platform::gConnectionSocket, x, y, mode));
+        static_cast<void>(cg::network::GetGameConnection().SendTeamJoinLeaveRequest(x, y, mode));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -10844,7 +10804,7 @@ void RequestFacingPlayerContactCard_4703C0()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::SendContactCardRequest_5111E0(platform::gConnectionSocket, x, y));
+        static_cast<void>(cg::network::GetGameConnection().SendContactCardRequest(x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -10879,7 +10839,7 @@ void RequestNearbyPlayerTrade_4704A0()
         && (gPlayerCoordinateSyncPending_C821D8 == 0)) {
         const std::uint64_t now = platform::ReadTickCount64();
         if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-            static_cast<void>(network::SendTradeRequest_511FB0(platform::gConnectionSocket));
+            static_cast<void>(cg::network::GetGameConnection().SendTradeRequest());
             ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
         }
     }
@@ -10916,7 +10876,7 @@ void RequestFacingPlayerGuildInvitation_470670()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(network::SendGuildInvitation_5113C0(platform::gConnectionSocket, x, y));
+        static_cast<void>(cg::network::GetGameConnection().SendGuildInvitation(x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -11011,7 +10971,7 @@ std::int8_t RequestPlayerStatusIcon_51BE50(const std::int32_t requested)
     const std::int32_t y = static_cast<std::int32_t>(gPlayerSnapshotY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerSnapshotX);
     const std::int32_t result =
-        network::SendPlayerMotionRequest_511E60(platform::gConnectionSocket, x, y, value);
+        cg::network::GetGameConnection().SendPlayerMotionRequest(x, y, value);
     // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
     auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&gPlayerRuntimeSlots.flags18C) + 2;
     actionBytes[0] |= 2u;

@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/ChatHistory.hpp"
 
@@ -20,7 +21,6 @@ enum class WindowBottomBarElementId : ElementId {
     Element13 = 13,
     Element14 = 14,
 };
-
 
 namespace detail {
 
@@ -341,7 +341,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
             const std::uint64_t previous = gWindow6RequestTimeD67AF0;
             const std::int64_t elapsed = std::bit_cast<std::int64_t>(now - previous);
             if (elapsed >= 30) {
-                static_cast<void>(network::SendIuEPacket_516D70(platform::gConnectionSocket));
+                static_cast<void>(cg::network::GetGameConnection().SendIuEPacket());
                 gWindow6RequestTimeD67AF0 = platform::ReadSystemSeconds_4589D0();
             } else {
                 world::AppendChatMessage_44B050(L"请等待30秒后再操作", 4, 3);

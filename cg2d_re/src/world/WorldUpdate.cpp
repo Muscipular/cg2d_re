@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
@@ -180,7 +181,8 @@ void Update()
         cg::login::detail::SaveCurrentClientPreferences_520160();
         detail::DestroyPlayerMapPresence_519D50();
         detail::ResetWorldObjectTable_446470();
-        cg::network::ShutdownNetworkRuntime_5081A0();
+        cg::network::GetGameConnection().Shutdown();
+        cg::world::gNetworkDisconnectState_D9F2CA = 0;
         const std::int32_t capability = resource::ProbePaletteCapability_45C970();
         const std::int32_t paletteIndex = capability == 3 ? 27 : 0;
         render::gPaletteCapability = capability;
@@ -292,7 +294,7 @@ std::int32_t UpdateDisconnectDialog_455C90()
     std::wstring errorText;
     const bool connectionError = login::gServerConnectionErrorPresent_593FC0 != 0;
     if (connectionError) {
-        cg::text::FormatTo(errorText, L"伺服器连线中断({})", network::ReadNetworkErrorD9F2CC());
+        cg::text::FormatTo(errorText, L"伺服器连线中断({})", cg::network::GetGameConnection().Error());
         secondText = errorText;
         thirdText = L"请尝试其他的伺服器。";
     } else {

@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../../scene/login/LoginSavedState.hpp"
@@ -111,7 +112,6 @@ enum class WindowStallElementId_gWindowElements57BB08 : ElementId {
     Element42 = 42,
     Element43 = 43,
 };
-
 
 namespace detail {
 
@@ -856,7 +856,7 @@ static std::int32_t WindowStall_AddListing(const std::int32_t value)
 // 原函数：0x004CE8A0。
 static std::int32_t WindowStall_RequestClose()
 {
-    return network::CloseStallRequest_512160(platform::gConnectionSocket);
+    return cg::network::GetGameConnection().CloseStallRequest();
 }
 
 // 原函数：0x004CED50。
@@ -1163,8 +1163,8 @@ static std::int32_t WindowStall_SubmitListings()
     description = input::EscapeTextAndNotify(description, 275);
     const auto descriptionBytes = cg::text::ToGbk(description);
     description = cg::text::FromGbkWide(descriptionBytes.substr(0, 112));
-    const std::uintptr_t socket = platform::gConnectionSocket;
-    static_cast<void>(network::PublishStallRequest_5120D0(socket, name, description, offers));
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    static_cast<void>(cg::network::GetGameConnection().PublishStallRequest(name, description, offers));
     if (!gStallNameInput581130.input.context->empty()) {
         login::detail::GetCurrentSavedStallNameFF4D18() = name;
     }
@@ -2835,9 +2835,9 @@ static std::int32_t WindowStall_RequestPurchase()
     if (value < 0) {
         return value;
     }
-    const std::uintptr_t socket = platform::gConnectionSocket;
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
     gStallPendingD67C31 = 1;
-    static_cast<void>(network::PurchaseStallOffer_5121E0(socket, value));
+    static_cast<void>(cg::network::GetGameConnection().PurchaseStallOffer(value));
     constexpr wchar_t message[] = L"购买请求中";
     const auto length = static_cast<std::int32_t>(std::size(message));
     gStallMessageModeD67C34 = 0;
@@ -2882,7 +2882,7 @@ static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std:
 static void WindowStall_Release()
 {
     if (gStallOwn58111C != 0 && gOwnStallOpenForBusiness_D67BE0 != 0) {
-        static_cast<void>(network::CloseStallRequest_512160(platform::gConnectionSocket));
+        static_cast<void>(cg::network::GetGameConnection().CloseStallRequest());
     }
     static_cast<void>(audio::PlaySe_52C450(57, 320));
 }
@@ -3036,20 +3036,19 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
 // 窗口函数实现。
 
 // 原函数：0x0050E7D0。
-void WindowStall_ReceiveOpenReply(const std::uintptr_t, const std::int32_t result)
+void WindowStall_ReceiveOpenReply(cg::network::CgConnection&, const std::int32_t result)
 {
     detail::WindowStall_ReceiveOpenResult(result);
 }
 
 // 原函数：0x0050E7E0。
-void WindowStall_ReceiveCloseReply(const std::uintptr_t, const std::int32_t result)
+void WindowStall_ReceiveCloseReply(cg::network::CgConnection&, const std::int32_t result)
 {
     detail::WindowStall_ReceiveCloseResult(result);
 }
 
 // 原函数：0x0050E7F0。
-void WindowStall_ReceiveBrowseReply(
-    const std::uintptr_t, const std::int32_t status, const std::int32_t target,
+void WindowStall_ReceiveBrowseReply(cg::network::CgConnection&, const std::int32_t status, const std::int32_t target,
     const char* const stallName, const char* const description,
     const char* const itemPayload, const char* const petPayload)
 {
@@ -3057,7 +3056,7 @@ void WindowStall_ReceiveBrowseReply(
 }
 
 // 原函数：0x0050E820。
-void WindowStall_ReceivePurchaseReply(const std::uintptr_t, const std::int32_t result)
+void WindowStall_ReceivePurchaseReply(cg::network::CgConnection&, const std::int32_t result)
 {
     detail::WindowStall_ReceivePurchaseResult(result);
 }

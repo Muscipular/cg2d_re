@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -34,7 +35,6 @@ enum class WindowGuildRankElementId : ElementId {
     SelectRow_28 = 28,
     SelectRow_29 = 29,
 };
-
 
 namespace detail {
 
@@ -233,8 +233,8 @@ static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t rank = gLoginWindowRuntime.mailRankCF4A14;
             const std::int32_t key = gLoginWindowRuntime.mailMemberKeyD45F88;
-            const std::uintptr_t socket = platform::gConnectionSocket;
-            static_cast<void>(network::SendGuildMemberRankChange_511350(socket, key, rank + 1));
+            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+            static_cast<void>(cg::network::GetGameConnection().SendGuildMemberRankChange(key, rank + 1));
             WindowInstance* const window = currentWindow;
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));

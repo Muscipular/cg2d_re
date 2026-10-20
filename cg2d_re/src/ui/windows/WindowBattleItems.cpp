@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -34,7 +35,6 @@ enum class WindowBattleItemsElementId : ElementId {
     HandleEquipment = 21,
     HandleSideArea = 22,
 };
-
 
 namespace detail {
 
@@ -438,8 +438,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 currentWindow->state |= 0x8000u;
                 world::gBattleSelectionModes5ABC7C[5] = 0;
                 std::sprintf(buffer.data(), "Q|%X|", 255u);
-                static_cast<void>(network::SendBattlePacket_5109B0(
-                    platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                 world::gBattlePlayerActionState5ABC74 = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
@@ -538,8 +537,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                         currentWindow->state |= 0x8000u;
                         world::gBattleSelectionModes5ABC7C[5] = 0;
                         std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
-                        static_cast<void>(network::SendBattlePacket_5109B0(
-                            platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                        static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                         world::gBattlePlayerActionState5ABC74 = 1;
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
@@ -571,8 +569,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                     std::sprintf(buffer.data(), "I|%X|%X",
                         static_cast<std::uint32_t>(hovered + 8),
                         static_cast<std::uint32_t>(currentPosition));
-                    static_cast<void>(network::SendBattlePacket_5109B0(
-                        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     cg::yobi::FlushBattleEntries_43C060();
                     world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -837,8 +834,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                     currentWindow->state |= 0x8000u;
                     world::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
-                    static_cast<void>(network::SendBattlePacket_5109B0(
-                        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
@@ -908,8 +904,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                     currentWindow->state |= 0x8000u;
                     world::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", 255u);
-                    static_cast<void>(network::SendBattlePacket_5109B0(
-                        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }

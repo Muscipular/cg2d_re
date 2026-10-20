@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include <string>
@@ -75,7 +76,7 @@ std::uint32_t AppendSystemLog_44B5C0(std::wstring_view text)
 // 原函数：0x00508360。
 std::int32_t AdvanceServerLoginConnection_508360()
 {
-    if (network::ReadNetworkRuntimeActive() == 0) {
+    if (cg::network::GetGameConnection().Active() == 0) {
         return 0;
     }
 
@@ -93,7 +94,8 @@ std::int32_t AdvanceServerLoginConnection_508360()
             return -2;
         }
 
-        if (network::BeginServerConnection(serverAddress, port, platform::gNoDelay != 0) == 0) {
+        world::gNetworkDisconnectState_D9F2CA = 0;
+        if (cg::network::GetGameConnection().BeginConnect(serverAddress, port, platform::gNoDelay != 0) == 0) {
             static_cast<void>((gRequestMessage = L"网路通讯协定（TCP）错误。"));
             return -3;
         }
@@ -106,10 +108,10 @@ std::int32_t AdvanceServerLoginConnection_508360()
             gConnectionStep = 69;
         }
 
-        const auto connection = network::PollServerConnection();
+        const auto connection = cg::network::GetGameConnection().PollConnection();
         if (connection.state == platform::ConnectionState::Connected) {
             gConnectionStep = 71;
-            gRequestPollingEnabled = 1;
+            cg::network::GetGameConnection().SetIoEnabled(true);
             static_cast<void>(AppendSystemLog_44B5C0(L"CONNECT OK"));
         }
         else if (connection.state == platform::ConnectionState::Failed
@@ -117,7 +119,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
             const auto diagnostic = std::format(L"CONNECT ERROR={} PHASE={} ENDPOINT={} ATTEMPT={}",
                 connection.error, static_cast<int>(connection.phase), connection.endpoint, connection.attempt);
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
-            network::CloseServerConnection();
+            cg::network::GetGameConnection().Close();
             if (connection.phase == platform::ConnectionPhase::Resolve) {
                 static_cast<void>(cg::text::FormatTo(gRequestMessage,
                     L"无法取得伺服器的 IP 位址。({})", connection.host));
@@ -141,7 +143,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
     }
     else if (step >= 71 && step <= 80) {
         if (step == 71) {
-            network::WriteProtocolModeDA3B22(0);
+            cg::network::GetGameConnection().ResetLoginReply();
 
             std::wstring adapterScratch;
             std::wstring passwordCopy;
@@ -150,9 +152,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
             passwordCopy = gPassword;
             adapterId = adapterScratch;
             gPassword = passwordCopy;
-            const std::int32_t queued = network::SendAccountLoginRequest_512800(
-                platform::gConnectionSocket,
-                gExecutableDigest,
+            const std::int32_t queued = cg::network::GetGameConnection().SendAccountLoginRequest(gExecutableDigest,
                 passwordCopy,
                 gAccount,
                 adapterId);
@@ -163,10 +163,10 @@ std::int32_t AdvanceServerLoginConnection_508360()
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
         }
         else if (gRequestStatus == 2) {
-            if (network::ReadProtocolModeDA3B22() == 0) {
+            if (cg::network::GetGameConnection().LoginAccepted() == 0) {
                 gRequestStatus = 0;
                 static_cast<void>((gRequestMessage = L"无法登入。"));
-                network::CloseServerConnection();
+                cg::network::GetGameConnection().Close();
                 return -7;
             }
             step = 81;
@@ -189,7 +189,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
 
     const std::uint64_t now = platform::ReadTickCount64();
     if (now - gRequestStartTick > 600000U) {
-        network::CloseServerConnection();
+        cg::network::GetGameConnection().Close();
         static_cast<void>((gRequestMessage = L"与伺服器的连接逾时。"));
         return -1;
     }
@@ -248,9 +248,11 @@ std::int32_t UpdateServerConnection()
     }
 
     if (phase == 2) {
-        cg::network::ShutdownNetworkRuntime_5081A0();
+        cg::network::GetGameConnection().Shutdown();
+        cg::world::gNetworkDisconnectState_D9F2CA = 0;
         cg::world::blacklist::PersistAndReset_401000(gSelectedLoginServerGroup_55A054);
-        if (cg::network::InitializeNetworkRuntime_508140() != 0) {
+        if (cg::network::GetGameConnection().Initialize()) {
+            world::gNetworkDisconnectState_D9F2CA = 0;
             gServerConnectionPhase_9A6E3C = 3;
             ResetServerConnectionState_508350();
             gServerConnectionPhase_9A6E3C = 4;

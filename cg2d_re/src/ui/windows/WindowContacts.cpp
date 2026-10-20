@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../../scene/login/LoginSavedState.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -118,7 +119,6 @@ enum class WindowContactsElementId : ElementId {
     Element110 = 110,
     HandleSideArea = 111,
 };
-
 
 namespace detail {
 
@@ -890,7 +890,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
             if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
                 return 1;
             }
-            static_cast<void>(network::RequestPlayerProfile_511760(platform::gConnectionSocket, 0, recordIndex));
+            static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(0, recordIndex));
             break;
         }
         case 1: {
@@ -900,7 +900,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
                 return 1;
             }
             const std::int32_t target = record.value0C;
-            static_cast<void>(network::RequestPlayerProfile_511760(platform::gConnectionSocket, 1, target));
+            static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(1, target));
             break;
         }
         case 2: {
@@ -910,7 +910,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
                 return 1;
             }
             const std::int32_t target = record.key04;
-            static_cast<void>(network::RequestPlayerProfile_511760(platform::gConnectionSocket, 2, target));
+            static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(2, target));
             break;
         }
         }
@@ -1336,7 +1336,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
             return 1;
         }
-        static_cast<void>(network::RequestPlayerProfile_511760(platform::gConnectionSocket, 0, recordIndex));
+        static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(0, recordIndex));
         break;
     }
     case 1: {
@@ -1346,7 +1346,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
             return 1;
         }
         const std::int32_t target = record.value0C;
-        static_cast<void>(network::RequestPlayerProfile_511760(platform::gConnectionSocket, 1, target));
+        static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(1, target));
         break;
     }
     case 2: {
@@ -1356,7 +1356,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
             return 1;
         }
         const std::int32_t target = record.key04;
-        static_cast<void>(network::RequestPlayerProfile_511760(platform::gConnectionSocket, 2, target));
+        static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(2, target));
         break;
     }
     }

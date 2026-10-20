@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "../../world/PlayerState.hpp"
@@ -80,7 +81,6 @@ enum class WindowPlayerProfileElementId : ElementId {
     Element72 = 72,
     HandleSideArea = 73,
 };
-
 
 namespace detail {
 
@@ -404,7 +404,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
                 consumed = 1;
             }
         } else if (world::gPlayerRuntimeSlots.value1A0 == (index == 23 ? 0 : 1)) {
-            static_cast<void>(network::ToggleBattleRowRequest_512570(platform::gConnectionSocket));
+            static_cast<void>(cg::network::GetGameConnection().ToggleBattleRowRequest());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
     }

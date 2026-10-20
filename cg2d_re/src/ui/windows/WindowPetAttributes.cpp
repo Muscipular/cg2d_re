@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/PlayerState.hpp"
 #include "../../world/WorldMapState.hpp"
@@ -54,7 +55,6 @@ enum class WindowPetAttributesElementId : ElementId {
     Element45 = 45,
     HandleSideArea = 46,
 };
-
 
 namespace detail {
 
@@ -335,9 +335,9 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-            const std::uintptr_t socket = platform::gConnectionSocket;
+            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::RenamePetRequest_5125B0(socket, pet, escapedText));
+            static_cast<void>(cg::network::GetGameConnection().RenamePetRequest(pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             WindowChat_RestoreInput();
             if (text.empty()) {
@@ -371,8 +371,8 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-                const std::uintptr_t socket = platform::gConnectionSocket;
-                static_cast<void>(network::DropPetRequest_510E30(socket, x, y, pet));
+                const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+                static_cast<void>(cg::network::GetGameConnection().DropPetRequest(x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 if (world::gPetRuntimeRecords[selected].flags6AA == 2) {
@@ -444,9 +444,9 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t attribute = index - 9;
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-            const std::uintptr_t socket = platform::gConnectionSocket;
+            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::IncreasePetAttributeRequest_512400(socket, pet, attribute));
+            static_cast<void>(cg::network::GetGameConnection().IncreasePetAttributeRequest(pet, attribute));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             consumed = 1;
         }

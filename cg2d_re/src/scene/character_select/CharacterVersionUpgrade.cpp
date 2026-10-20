@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -49,9 +50,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         if (render::gPaletteCapability >= 2) {
             const std::uint8_t pukVersion = state::gPukVersion;
             if (pukVersion == 0 || pukVersion == 2) {
-                static_cast<void>(detail::SendVersionUpgradeRequest_512D30(
-                    platform::gConnectionSocket,
-                    2,
+                static_cast<void>(cg::network::GetGameConnection().SendVersionUpgradeRequest(2,
                     L"abcdefg" /* 原 0x55C910。 */));
                 world::gCurrentSceneState = 3;
             } else {
@@ -155,25 +154,19 @@ std::int32_t ProcessScene_462330()
             const std::uint8_t pukVersion = state::gPukVersion;
             switch (pukVersion) {
             case 7:
-                detail::SendVersionUpgradeRequest_512D30(
-                    platform::gConnectionSocket,
-                    5,
+                cg::network::GetGameConnection().SendVersionUpgradeRequest(5,
                     detail::gVersionPayload9A5C10);
                 world::gCurrentSceneState = 3;
                 break;
             case 5:
             case 6:
-                detail::SendVersionUpgradeRequest_512D30(
-                    platform::gConnectionSocket,
-                    4,
+                cg::network::GetGameConnection().SendVersionUpgradeRequest(4,
                     state::kVersion30);
                 world::gCurrentSceneState = 3;
                 break;
             case 0:
             case 2:
-                detail::SendVersionUpgradeRequest_512D30(
-                    platform::gConnectionSocket,
-                    2,
+                cg::network::GetGameConnection().SendVersionUpgradeRequest(2,
                     state::kVersion20);
                 world::gCurrentSceneState = 3;
                 break;

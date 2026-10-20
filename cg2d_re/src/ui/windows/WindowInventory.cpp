@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -37,8 +38,6 @@ enum class WindowInventoryElementId : ElementId {
     HandleSideArea = 23,
     HandleSideArea_24 = 24,
 };
-
-
 
 void WindowRuntime_SetInventoryPages(
     const std::int32_t bagPageCount, const std::int32_t bankPageCount,
@@ -102,12 +101,7 @@ static std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, cons
             }
             if ((state & MouseFlag_DragFinish) != 0) {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
-                const auto* const source = network::FormatProtocolInteger_517670(WindowDrag_ReadSourceIndex());
-                char packet[64];
-                std::snprintf(packet, sizeof(packet), "SWITMP %s %d -1",
-                    reinterpret_cast<const char*>(source), page);
-                // SendProtocolBuffer负责追加唯一LF，数组保留结尾空间。
-                static_cast<void>(network::SendProtocolBuffer_517480(platform::gConnectionSocket, packet));
+                static_cast<void>(cg::network::GetGameConnection().MoveItemToBagPage(WindowDrag_ReadSourceIndex(), page));
                 WindowDrag_Reset();
             }
         }
@@ -115,9 +109,7 @@ static std::int32_t WindowInventory_SwitchBagPage(const std::int32_t index, cons
             currentPage = page;
             RefreshInventoryPageSelection(window, &WindowInventory_SwitchBagPage, page);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            char packet[64];
-            std::snprintf(packet, sizeof(packet), "SWITM %d", page);
-            static_cast<void>(network::SendProtocolBuffer_517480(platform::gConnectionSocket, packet));
+            static_cast<void>(cg::network::GetGameConnection().SelectBagPage(page));
         }
         graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & MouseFlag_Hover) != 0 ? 2 : 0];
     }
@@ -142,9 +134,7 @@ static std::int32_t WindowInventory_SwitchBankPage(const std::int32_t index, con
             currentPage = page;
             RefreshInventoryPageSelection(window, &WindowInventory_SwitchBankPage, page);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            char packet[64];
-            std::snprintf(packet, sizeof(packet), "rh %d", page + 1);
-            static_cast<void>(network::SendProtocolBuffer_517480(platform::gConnectionSocket, packet));
+            static_cast<void>(cg::network::GetGameConnection().SelectInventoryBankPage(page + 1));
         }
         graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & MouseFlag_Hover) != 0 ? 2 : 0];
     }
@@ -274,8 +264,6 @@ static std::int32_t WindowInventory_Draw(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-
-
 // 原全局：0x00CB086C。 488E60格式化，type7载荷借用。
 static std::wstring gInventoryMoneyTextCB086C {}; // 原全局：0x00CB086C。
 
@@ -356,17 +344,14 @@ static void WindowItem_TransferQuantity(
         if (from == to) {
             const std::int32_t targetGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
             const std::int32_t sourceGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-            static_cast<void>(network::MoveItemBetweenOwnersRequest_516C90(
-                platform::gConnectionSocket, sourceGroup, source, targetGroup, target, -1));
+            static_cast<void>(cg::network::GetGameConnection().MoveItemBetweenOwnersRequest(sourceGroup, source, targetGroup, target, -1));
         } else {
             const std::int32_t sourceGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-            static_cast<void>(network::MoveItemBetweenOwnersRequest_516C90(
-                platform::gConnectionSocket, sourceGroup, source, 0, target, -1));
+            static_cast<void>(cg::network::GetGameConnection().MoveItemBetweenOwnersRequest(sourceGroup, source, 0, target, -1));
         }
     } else if (to != 0) {
         const std::int32_t targetGroup = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-        static_cast<void>(network::MoveItemBetweenOwnersRequest_516C90(
-            platform::gConnectionSocket, 0, source, targetGroup, target, -1));
+        static_cast<void>(cg::network::GetGameConnection().MoveItemBetweenOwnersRequest(0, source, targetGroup, target, -1));
     }
 }
 
@@ -710,7 +695,7 @@ static void WindowInventory_DropMoney(const std::int32_t amount)
         && world::IsObservationSceneTransitionActive_440B50() == 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::DropGoldRequest_510DA0(platform::gConnectionSocket, x, y, amount));
+        static_cast<void>(cg::network::GetGameConnection().DropGoldRequest(x, y, amount));
     }
 }
 
@@ -878,8 +863,7 @@ std::int32_t WindowInventory_HandleItems(const std::int32_t index, const std::in
                             static_cast<std::int32_t>(world::gPlayerY);
                         const std::int32_t x =
                             static_cast<std::int32_t>(world::gPlayerX);
-                        static_cast<void>(network::BeginItemUseRequest_510A00(
-                            platform::gConnectionSocket, x, y, hovered + 8, group));
+                        static_cast<void>(cg::network::GetGameConnection().BeginItemUseRequest(x, y, hovered + 8, group));
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
                     static_cast<void>(WindowDrag_ResetMouse());
@@ -1121,15 +1105,13 @@ std::int32_t WindowInventory_HandleEquipment(const std::int32_t index, const std
                         gSelectedItemCB0A44 = hovered;
                         if (mode > 0) {
                             const std::int32_t group = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-                            static_cast<void>(network::MoveItemBetweenOwnersRequest_516C90(
-                                platform::gConnectionSocket, group, hovered, 0, -1, -1));
+                            static_cast<void>(cg::network::GetGameConnection().MoveItemBetweenOwnersRequest(group, hovered, 0, -1, -1));
                         } else {
                             const std::int32_t y =
                                 static_cast<std::int32_t>(world::gPlayerY);
                             const std::int32_t x =
                                 static_cast<std::int32_t>(world::gPlayerX);
-                            static_cast<void>(network::BeginItemUseRequest_510A00(
-                                platform::gConnectionSocket, x, y, hovered, 0));
+                            static_cast<void>(cg::network::GetGameConnection().BeginItemUseRequest(x, y, hovered, 0));
                         }
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
@@ -1301,8 +1283,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
             const std::uint8_t mode = gItemSelectionModeCC40D4;
             if (mode == 1) {
                 const std::int32_t selected = gSelectedItemCB0A44;
-                static_cast<void>(network::SendItemTargetPair_511D60(
-                    platform::gConnectionSocket, hovered + 8, selected));
+                static_cast<void>(cg::network::GetGameConnection().SendItemTargetPair(hovered + 8, selected));
             } else if (mode == 2) {
                 cg::text::FormatTo(buffer, L"{}", hovered + 8);
                 escaped = input::EscapeTextAndNotify(buffer, 15);
@@ -1312,8 +1293,7 @@ std::int32_t WindowInventory_HandleItemSelection(const std::int32_t index, const
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(network::SendDialogResponse_512620(
-                    platform::gConnectionSocket, x, y, request, target, 0, escaped));
+                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
                 leaveSelection();
             }
         }

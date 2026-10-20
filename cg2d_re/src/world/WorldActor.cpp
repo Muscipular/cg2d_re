@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../Yobi/map_actor.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../Yobi/base.hpp"
@@ -23,9 +24,7 @@
 #include <cstdlib> // 原CRT接口：0x0053C649、0x0053BFC0、0x0053BE40、0x0053BEC0、0x0053C2F0；原参数／返回合同由直接调用承接。
 #include <cstring>
 
-
 namespace cg::world::detail {
-
 
 // YGOS01：完整S32动画图号区间判定；仅445350方向门禁调用，不新增公头接口。
 // 原函数：0x005183B0。
@@ -897,9 +896,8 @@ std::int32_t ReadPlayerMovementActive_51A680()
 
 namespace cg::world {
 
-
 // 原函数：0x0050AEF0。
-void HandlePartyActorVitalsReply_50AEF0(const std::uintptr_t, const char* const payload)
+void HandlePartyActorVitalsReply_50AEF0(cg::network::CgConnection&, const char* const payload)
 {
     char text[2048];
     for (std::int32_t field = 3; field < 28; field += 5) {
@@ -931,7 +929,6 @@ void HandlePartyActorVitalsReply_50AEF0(const std::uintptr_t, const char* const 
         action->barMaximum1C0 = static_cast<std::int32_t>(maxFp);
     }
 }
-
 
 // WLR01：仅已占用/空action恢复，方向→第二/第一坐标→图号，创建后按原借用/字节复制/flags发布。
 // 原函数：0x004467D0。
@@ -971,7 +968,6 @@ void RecreateWorldObjectAction_4467D0(const std::int32_t objectIndex)
     const std::uint32_t flags = record.flags114;
     action->flags |= flags;
 }
-
 
 // 原函数：0x00519EE0。
 void SynchronizePlayerMapActionPosition_519EE0()

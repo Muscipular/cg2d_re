@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -25,7 +27,6 @@ struct AlbumRecord {
     std::uint8_t fresh; // +7F：新记录标记。
 };
 
-
 // 423800借用当前角色960条记录，入口固定一次角色S16。
 const AlbumRecord* GetSelectedAlbumRecords();
 // 492F70固定角色/记录后清+7F，返回同记录名称；不保存或重新取角色。
@@ -35,11 +36,9 @@ void SaveAlbumData_5186A0(); // 原相册保存：codec容量4，短写保留文
 // 原函数：0x00518BE0。
 void ClearCurrentCharacterAlbum_518BE0(); // 原所选角色相册组清理及保存。
 // 原函数：0x0050E5B0。
-void HandleAlbumEntryMaskReply_50E5B0(
-    std::uintptr_t socket, std::int32_t version, const char* payload); // 相册同步回复，socket未用。
+void HandleAlbumEntryMaskReply_50E5B0(cg::network::CgConnection& networkConnection, std::int32_t version, const char* payload); // 相册同步回复，socket未用。
 // 原函数：0x0050E5D0。
-void HandleAlbumEntryReply_50E5D0(
-    std::uintptr_t socket, std::int32_t number, std::int32_t imageNo,
+void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& networkConnection, std::int32_t number, std::int32_t imageNo,
     std::int32_t mark1, std::int32_t mark2, std::int32_t tribe,
     std::int32_t value0C, std::int32_t value10, std::int32_t value14,
     std::int32_t value18, std::int32_t value1C, std::int32_t value20,

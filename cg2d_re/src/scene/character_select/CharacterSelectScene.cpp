@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "../login/LoginSavedState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -199,7 +200,7 @@ static std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 }
 
 // 原函数：0x0050E770。
-std::uint8_t HandlePukVersionReply_50E770(std::uintptr_t, const std::int32_t pukVersion)
+std::uint8_t HandlePukVersionReply_50E770(cg::network::CgConnection&, const std::int32_t pukVersion)
 {
     const std::uint8_t version = static_cast<std::uint8_t>(pukVersion);
     state::gPukVersion = version;
@@ -1467,13 +1468,16 @@ std::int32_t ProcessScene_460FF0()
                     world::gCurrentSceneState = 9;
                 } else if (result == -3) {
                     world::gCurrentSceneState = 2;
-                    cg::network::ShutdownNetworkRuntime_5081A0();
+                    cg::network::GetGameConnection().Shutdown();
+                    cg::world::gNetworkDisconnectState_D9F2CA = 0;
                 } else if (result == -4) {
                     world::gCurrentSceneState = 7;
-                    cg::network::ShutdownNetworkRuntime_5081A0();
+                    cg::network::GetGameConnection().Shutdown();
+                    cg::world::gNetworkDisconnectState_D9F2CA = 0;
                 } else if (result < 0) {
                     world::gCurrentSceneState = 4;
-                    cg::network::ShutdownNetworkRuntime_5081A0();
+                    cg::network::GetGameConnection().Shutdown();
+                    cg::world::gNetworkDisconnectState_D9F2CA = 0;
                 }
             } else if (mainState == 2u) {
                 login::ResetLoginMessage();
@@ -1725,7 +1729,8 @@ std::int32_t ProcessScene_460FF0()
             && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
             cg::yobi::YobiClearUp_404D30();
             ClearPreviewActions();
-            cg::network::ShutdownNetworkRuntime_5081A0();
+            cg::network::GetGameConnection().Shutdown();
+            cg::world::gNetworkDisconnectState_D9F2CA = 0;
             world::SetCurrentSceneType(2);
             login::detail::PlaySe(54, 320, 240);
         }
@@ -1744,14 +1749,11 @@ std::int32_t ProcessScene_460FF0()
             const std::uint8_t pukVersion = state::gPukVersion;
             sceneResult = static_cast<std::int32_t>(pukVersion);
             if (pukVersion == 0u || pukVersion == 2u) {
-                sceneResult = detail::SendVersionUpgradeRequest_512D30(
-                    platform::gConnectionSocket, 2, state::kVersion20);
+                sceneResult = cg::network::GetGameConnection().SendVersionUpgradeRequest(2, state::kVersion20);
             } else if (pukVersion == 5u || pukVersion == 6u) {
-                sceneResult = detail::SendVersionUpgradeRequest_512D30(
-                    platform::gConnectionSocket, 4, state::kVersion30);
+                sceneResult = cg::network::GetGameConnection().SendVersionUpgradeRequest(4, state::kVersion30);
             } else if (pukVersion == 7u) {
-                sceneResult = detail::SendVersionUpgradeRequest_512D30(
-                    platform::gConnectionSocket, 5, detail::gVersionPayload9A5C10);
+                sceneResult = cg::network::GetGameConnection().SendVersionUpgradeRequest(5, detail::gVersionPayload9A5C10);
             }
             world::gCurrentSceneState = 0;
         }

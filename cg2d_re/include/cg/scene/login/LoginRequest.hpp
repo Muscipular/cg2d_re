@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include <array>
 #include "cg/text/Encoding.hpp"
 #include <cstddef>
@@ -56,7 +58,6 @@ std::int32_t CharacterNameExists_51B140(std::wstring_view name);
 extern std::uint16_t gRequestReplyCode;        // 原 0xDA3B2C，R/W16。
 extern std::int32_t gRequestStatus;            // 原 0xDA3B34，R/W32。
 extern std::uint64_t gRequestStartTick;        // 原 0xDA3B38；CTM01本地64位毫秒。
-extern std::uint8_t gRequestPollingEnabled;    // 原 0xD9F2C9，R/W8。
 extern std::wstring gRequestMessage; // 原 0xDA34DC。
 
 // 原 sub_508AF0@0x508AF0；前置条件是有符号选择值位于 [0, 1]。
@@ -67,7 +68,6 @@ std::uint32_t StartLoginRequest();
 std::int32_t PollLoginRequest();
 
 // 原 sub_508BC0@[0x508BC0,0x508C39)：caller 压三参，本体只读前两项。
-void HandleLoginResponse_508BC0(
-    std::uintptr_t socket, const char* result, const char* unusedText);
+void HandleLoginResponse_508BC0(cg::network::CgConnection& networkConnection, const char* result, const char* unusedText);
 
 } // namespace cg::login

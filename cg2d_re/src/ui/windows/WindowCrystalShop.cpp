@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -83,7 +84,6 @@ enum class WindowCrystalShopElementId : ElementId {
     Element69 = 69,
     HandleSideArea = 70,
 };
-
 
 namespace detail {
 
@@ -779,8 +779,7 @@ static void WindowCrystalShop_Submit(const std::int32_t value)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(network::SendDialogResponse_512620(
-        platform::gConnectionSocket, x, y, request, target, 0, escaped));
+    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
     currentWindow->state |= 0x8000u;
 }
 

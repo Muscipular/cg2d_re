@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/scene/login/CharacterCreationRequest.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -31,10 +32,9 @@ std::uint32_t StartCharacterCreationRequest()
     const std::int32_t graphic = character_select::state::gSelectedGraphicNo;
     const std::int32_t motion = character_select::state::gCreationSubmittedMotionImage_DE0AFC;
     const std::int32_t selected = gSelectedCharacterIndex;
-    const std::uintptr_t socket = platform::gConnectionSocket;
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
     gCharacterCreationReplyCode = 0;
-    network::SendCharacterCreationRequest_5128C0(
-        socket, selected, character_select::state::gCreationNameFF0D18,
+    cg::network::GetGameConnection().SendCharacterCreationRequest(selected, character_select::state::gCreationNameFF0D18,
         motion, graphic, attribute0, attribute1, attribute2, attribute3, attribute4,
         element0, element1, element2, element3);
     gRequestStatus = 1;
@@ -64,8 +64,7 @@ std::int32_t PollCharacterCreationRequest()
 }
 
 // 原函数：0x00508EE0。
-void HandleCharacterCreationResponse_508EE0(
-    const std::uintptr_t,
+void HandleCharacterCreationResponse_508EE0(cg::network::CgConnection&,
     const char* const result,
     const std::int32_t registNumber,
     const char* const)

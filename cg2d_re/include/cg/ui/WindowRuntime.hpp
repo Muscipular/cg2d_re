@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include <cstdint>
 
 namespace cg::yobi {
@@ -211,65 +213,58 @@ void WindowRuntime_DrawCurrent(); // 严格visible==1的七类分派，尾部清
 
 // 对话BZ回复：三重门禁、关闭/完整路由及对象朝向，socket保持未使用实参。
 // 原函数：0x0050E110。
-void WindowDialog_ReceiveReply(
-    std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
+void WindowDialog_ReceiveReply(cg::network::CgConnection& networkConnection, std::int32_t type, std::int32_t value,
     std::int32_t request, std::int32_t target, char* text);
 
 // 资料DyAG回复：三重门禁后完整38/39/40路由，无BZ关闭特例或对象朝向尾。
 // 原函数：0x0050F990。
-void WindowProfile_ReceiveReply(
-    std::uintptr_t unusedSocket, std::int32_t type, std::int32_t value,
+void WindowProfile_ReceiveReply(cg::network::CgConnection& networkConnection, std::int32_t type, std::int32_t value,
     std::int32_t request, std::int32_t target, char* text);
 
 // 摆摊开/收回复，无场景门禁，原返回地址均被dispatcher丢弃。
 // 原函数：0x0050E7D0。
-void WindowStall_ReceiveOpenReply(std::uintptr_t unusedSocket, std::int32_t result);
+void WindowStall_ReceiveOpenReply(cg::network::CgConnection& networkConnection, std::int32_t result);
 // 原函数：0x0050E7E0。
-void WindowStall_ReceiveCloseReply(std::uintptr_t unusedSocket, std::int32_t result);
+void WindowStall_ReceiveCloseReply(cg::network::CgConnection& networkConnection, std::int32_t result);
 // 原函数：0x0050E7F0。
-void WindowStall_ReceiveBrowseReply(
-    std::uintptr_t unusedSocket, std::int32_t status, std::int32_t target,
+void WindowStall_ReceiveBrowseReply(cg::network::CgConnection& networkConnection, std::int32_t status, std::int32_t target,
     const char* stallName, const char* description,
     const char* itemPayload, const char* petPayload); // ft完整浏览生产，无场景门禁。
 // 原函数：0x0050E820。
-void WindowStall_ReceivePurchaseReply(std::uintptr_t unusedSocket, std::int32_t result); // 购买结果，无额外门禁。
+void WindowStall_ReceivePurchaseReply(cg::network::CgConnection& networkConnection, std::int32_t result); // 购买结果，无额外门禁。
 
 // LY物品使用名单：仅一次CryptInt门禁，完整生产自己/地图五槽/服务器目标后打开45。
 // 原函数：0x0050E380。
-void WindowItemUse_ReceiveTextTargetReply(std::uintptr_t unusedSocket, const char* text);
+void WindowItemUse_ReceiveTextTargetReply(cg::network::CgConnection& networkConnection, const char* text);
 // 原函数：0x0050E3A0。
-void WindowItemUse_ReceiveAttributeTargetReply(std::uintptr_t unusedSocket, const char* text); // nFV完整自身/远端属性生产后打开46。
+void WindowItemUse_ReceiveAttributeTargetReply(cg::network::CgConnection& networkConnection, const char* text); // nFV完整自身/远端属性生产后打开46。
 // 原函数：0x0050E340。
-void WindowSkill_ReceiveTextTargetReply(std::uintptr_t unusedSocket, const char* text); // ysVc技能目标名单及45选择回调。
+void WindowSkill_ReceiveTextTargetReply(cg::network::CgConnection& networkConnection, const char* text); // ysVc技能目标名单及45选择回调。
 // 原函数：0x0050E360。
-void WindowSkill_ReceiveAttributeTargetReply(std::uintptr_t unusedSocket, const char* text); // ND技能属性列表及46选择回调。
+void WindowSkill_ReceiveAttributeTargetReply(cg::network::CgConnection& networkConnection, const char* text); // ND技能属性列表及46选择回调。
 // 原函数：0x0050C7F0。
-void WindowWorkResult_ReceiveReply(
-    std::uintptr_t unusedSocket, std::int32_t result,
+void WindowWorkResult_ReceiveReply(cg::network::CgConnection& networkConnection, std::int32_t result,
     std::int32_t kind, const char* text); // JgO四类结果，场景门禁后仅一次Ripple读取。
 
 // 交易回复：按场景门禁后单次CryptInt门禁，socket由原dispatcher传入但不消费。
 // 原函数：0x0050E3C0。
-void WindowTrade_ReceiveTargetReply(std::uintptr_t unusedSocket, const char* text); // 名单解析/回调生产与窗口44展开。
+void WindowTrade_ReceiveTargetReply(cg::network::CgConnection& networkConnection, const char* text); // 名单解析/回调生产与窗口44展开。
 // 原函数：0x0050E3F0。
-void WindowTrade_ReceiveStartReply(
-    std::uintptr_t unusedSocket, char* text, std::int32_t unusedValue); // 特殊状态发送拒绝；正常路径原位反转义。
+void WindowTrade_ReceiveStartReply(cg::network::CgConnection& networkConnection, char* text, std::int32_t unusedValue); // 特殊状态发送拒绝；正常路径原位反转义。
 // 原函数：0x0050E440。
-std::int32_t WindowTrade_ReceiveCancelReply(std::uintptr_t unusedSocket);
+std::int32_t WindowTrade_ReceiveCancelReply(cg::network::CgConnection& networkConnection);
 // 原函数：0x0050E470。
-std::int32_t WindowTrade_ReceiveStateReply(std::uintptr_t unusedSocket, std::int32_t value);
+std::int32_t WindowTrade_ReceiveStateReply(cg::network::CgConnection& networkConnection, std::int32_t value);
 // 原函数：0x0050E4A0。
-std::int32_t WindowTrade_ReceiveItemReply(std::uintptr_t unusedSocket, const char* text);
+std::int32_t WindowTrade_ReceiveItemReply(cg::network::CgConnection& networkConnection, const char* text);
 // 原函数：0x0050E4D0。
-std::int32_t WindowTrade_ReceivePetReply(
-    std::uintptr_t unusedSocket, std::int32_t index, const char* text);
+std::int32_t WindowTrade_ReceivePetReply(cg::network::CgConnection& networkConnection, std::int32_t index, const char* text);
 // 原函数：0x0050E500。
-std::int32_t WindowTrade_ReceivePetSkillReply(
-    std::uintptr_t unusedSocket, std::int32_t index, const char* text);
+std::int32_t WindowTrade_ReceivePetSkillReply(cg::network::CgConnection& networkConnection, std::int32_t index, const char* text);
 // 原函数：0x0050E530。
-std::int32_t WindowTrade_ReceiveRemoteResetReply(std::uintptr_t unusedSocket); // 清第0组，返回D2E2B0改写前值。
+std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection& networkConnection); // 清第0组，返回D2E2B0改写前值。
 // 原函数：0x0050E570。
-void WindowTrade_ReceiveCloseReply(std::uintptr_t unusedSocket, std::int32_t value); // 关闭只置标志，弃原混合返回。
+void WindowTrade_ReceiveCloseReply(cg::network::CgConnection& networkConnection, std::int32_t value); // 关闭只置标志，弃原混合返回。
 
 // 读取原生拖动阶段，供脚本控件判断当前鼠标操作。
 int WindowDrag_ReadMousePhase();

@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
@@ -8,7 +9,6 @@ enum class WindowSpectatorElementId : ElementId {
     Element1 = 1,
     ButtonEnd = 2,
 };
-
 
 namespace detail {
 
@@ -69,7 +69,7 @@ static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const st
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"U"));
+    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"U"));
     world::gCurrentSceneState = 7;
     return 1;
 }

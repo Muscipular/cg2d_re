@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/PlayerState.hpp"
 #include "../../world/WorldMapState.hpp"
@@ -75,13 +76,11 @@ enum class WindowPetDetailElementId : ElementId {
     HandleSideArea = 66,
 };
 
-
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
 input::InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
-
 
 // 回调与内部函数前置声明。
 
@@ -522,9 +521,9 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-            const std::uintptr_t socket = platform::gConnectionSocket;
+            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(network::RenamePetRequest_5125B0(socket, pet, escapedText));
+            static_cast<void>(cg::network::GetGameConnection().RenamePetRequest(pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             WindowChat_RestoreInput();
             if (text.empty()) {
@@ -558,8 +557,8 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-                const std::uintptr_t socket = platform::gConnectionSocket;
-                static_cast<void>(network::DropPetRequest_510E30(socket, x, y, pet));
+                const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+                static_cast<void>(cg::network::GetGameConnection().DropPetRequest(x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 if (world::gPetRuntimeRecords[selected].flags6AA == 2) {

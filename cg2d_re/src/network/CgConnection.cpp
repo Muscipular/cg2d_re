@@ -1,9 +1,9 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/network/NetworkRuntime.hpp"
-#include "CgConnectionLegacy.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/platformTool.hpp"
@@ -90,55 +90,49 @@ using SendProtocolObserver = void (*)(
     std::uint32_t direction,
     char* buffer);
 
-static std::int32_t DefaultNetworkCallback(
-    std::uintptr_t,
-    const void*,
-    std::uint32_t)
-{
-    return 0;
-}
-
 // N02：网络对象拥有半帧、连续块输出和待分行正文，不借用recv局部缓冲。
 struct CompressedReceiveState {
     std::vector<std::uint8_t> frame; // size为头部声明的总帧长，包含四字节头。
     std::size_t frameBytes = 0; // 已填充的帧字节数。
     // 多一个块仅供“先解压再判逻辑容量”，不得发布超过0x8100的整帧输出。
-    std::array<char, kLz4FrameDecodedCapacity + kLz4BlockSize> frameOutput;
-    std::array<char, kDecodedQueueCapacity> lines;
+    std::array<char, kLz4FrameDecodedCapacity + kLz4BlockSize> frameOutput {};
+    std::array<char, kDecodedQueueCapacity> lines {};
     std::size_t lineBytes = 0; // 含完整LF行及尚未收齐的尾行。
 };
 
 // CTO01：每个连接对象私有的主线程协议工作区；不暴露可变状态。
 struct CgConnection::Impl {
-    std::uint16_t protocolModeDA3B22; // 原全局：0x00DA3B22。
-    __time64_t time62B394; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
-    std::tm* localTime62B380; // 原全局：0x0062B380。 原 W32 指针槽，借用CRT同线程共享std::tm。
-    using SendCallback = std::function<std::int32_t(std::uintptr_t, const void*, std::uint32_t)>;
-    SendCallback sendCallback; // 原 0x58B5E8。
-    std::uint32_t workspaceCapacity;
-    std::uint8_t* sendMessageBuffer; // 原全局：0x0058B5F0。 发送命令与字段的完整消息拼接缓冲区。
-    std::uint8_t* reservedProtocolBuffer; // 原全局：0x0058B5F4。 保留缓冲区，当前仅有生命周期操作。
-    std::uint8_t* textTokenBuffer; // 原全局：0x0058B5F8。 文本字段转义、反转义共用的临时缓冲区。
-    std::uint8_t* integerTokenBuffer; // 原全局：0x0058B5FC。 整数字段及尾随空格的临时缓冲区。
-    char** pointerTable58B614; // 原全局：0x0058B614。
-    std::uint8_t* reservedTripleBuffer0; // 原全局：0x0058B604。 三倍容量保留缓冲区，当前仅有生命周期操作。
-    std::uint8_t* reservedTripleBuffer1; // 原全局：0x0058B608。 三倍容量保留缓冲区，当前仅有生命周期操作。
-    std::uint8_t* reservedTripleBuffer2; // 原全局：0x0058B60C。 三倍容量保留缓冲区，当前仅有生命周期操作。
-    std::uint8_t* reservedTripleBuffer3; // 原全局：0x0058B610。 三倍容量保留缓冲区，当前仅有生命周期操作。
-    SendProtocolObserver sendObserver58B61C; // 原全局：0x0058B61C。
+    CgConnection& owner; // 仅主线程使用，后台传输不借用连接对象。
+    bool contextBound {};
+    platform::ConnectionId contextId {};
+    explicit Impl(CgConnection& connection) : owner(connection) {}
+    std::uint16_t protocolModeDA3B22 {}; // 原全局：0x00DA3B22。
+    __time64_t time62B394 {}; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
+    std::tm* localTime62B380 {}; // 原全局：0x0062B380。 原 W32 指针槽，借用CRT同线程共享std::tm。
+    std::uint32_t workspaceCapacity {};
+    std::uint8_t* sendMessageBuffer {}; // 原全局：0x0058B5F0。 发送命令与字段的完整消息拼接缓冲区。
+    std::uint8_t* reservedProtocolBuffer {}; // 原全局：0x0058B5F4。 保留缓冲区，当前仅有生命周期操作。
+    std::uint8_t* textTokenBuffer {}; // 原全局：0x0058B5F8。 文本字段转义、反转义共用的临时缓冲区。
+    std::uint8_t* integerTokenBuffer {}; // 原全局：0x0058B5FC。 整数字段及尾随空格的临时缓冲区。
+    char** pointerTable58B614 {}; // 原全局：0x0058B614。
+    std::uint8_t* reservedTripleBuffer0 {}; // 原全局：0x0058B604。 三倍容量保留缓冲区，当前仅有生命周期操作。
+    std::uint8_t* reservedTripleBuffer1 {}; // 原全局：0x0058B608。 三倍容量保留缓冲区，当前仅有生命周期操作。
+    std::uint8_t* reservedTripleBuffer2 {}; // 原全局：0x0058B60C。 三倍容量保留缓冲区，当前仅有生命周期操作。
+    std::uint8_t* reservedTripleBuffer3 {}; // 原全局：0x0058B610。 三倍容量保留缓冲区，当前仅有生命周期操作。
+    SendProtocolObserver sendObserver58B61C {}; // 原全局：0x0058B61C。
     std::wstring sendLogPathDA3B58; // 原全局：0x00DA3B58。
     std::wstring receiveLogPathDA3F9C; // 原全局：0x00DA3F9C。
-    std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
-    std::uint8_t** workspaceSlots; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
-    std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
+    std::uint8_t integerFormatScratch[64] {}; // 原 [0xDA3F58,0xDA3F98)。
+    std::uint8_t** workspaceSlots {}; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
+    std::uint8_t active {};   // 原 0xD9F2C8，网络运行期活动门禁。
     // 保留原[0xD8F2B8,0xD9F2C0)布局供主线程分发/接收；待发字节由后端独占。
-    std::array<std::uint8_t, kQueueStorageSize> queueBytes; // 原全局：0x00D8F2B8。
-    std::int32_t receiveLengthD69790; // 原 0xD69790，独立于连续队列。
-    std::uint8_t flagsD9F2C0; // 原全局：0x00D9F2C0。
-    std::uint64_t lastTickD9F2C4; // 原全局：0x00D9F2C4。
-    std::int32_t errorD9F2CC; // 原全局：0x00D9F2CC。
-    std::uint32_t receiveResetD9F3C4; // 原全局：0x00D9F3C4。
-    std::uint32_t frameModuloD9F3C8; // 原全局：0x00D9F3C8。
+    std::array<std::uint8_t, kQueueStorageSize> queueBytes {}; // 原全局：0x00D8F2B8。
+    std::int32_t receiveLengthD69790 {}; // 原 0xD69790，独立于连续队列。
+    std::uint8_t flagsD9F2C0 {}; // 原全局：0x00D9F2C0。
+    std::uint64_t lastTickD9F2C4 {}; // 原全局：0x00D9F2C4。
+    std::int32_t errorD9F2CC {}; // 原全局：0x00D9F2CC。
+    std::uint32_t receiveResetD9F3C4 {}; // 原全局：0x00D9F3C4。
+    std::uint32_t frameModuloD9F3C8 {}; // 原全局：0x00D9F3C8。
     std::uint8_t value58ADA4 = 0x80; // 原全局：0x0058ADA4。 原ed回复独立字节，不属于58ADA8的排除链文本。
     std::wstring addressTextDA33D8; // 原全局：0x00DA33D8。 lSZ回复的地址文字。
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
@@ -159,26 +153,25 @@ struct CgConnection::Impl {
     std::uint8_t* EscapeProtocolText_5171F0(const std::wstring_view text);
     std::uint8_t* UnescapeProtocolText_5172D0(const char* const text);
     std::uint8_t* DecodeOptionalProtocolText_5171B0(const char* const text);
-    std::int32_t SendProtocolBuffer_517480(const std::uintptr_t socket, char* const buffer);
-    std::int32_t SendConnectionProbe_512C10(const std::uintptr_t socket, const std::wstring_view text);
-    std::int32_t AppendReceiveQueue_5081E0(const void* const source, const std::uint32_t size);
+    std::int32_t SendProtocolBuffer_517480(const platform::ConnectionId expectedId, char* const buffer);
+    std::int32_t SendConnectionProbe_512C10(const platform::ConnectionId expectedId, const std::wstring_view text);
+
     std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size);
-    std::uint16_t ReadProtocolModeDA3B22() noexcept;
-    void WriteProtocolModeDA3B22(const std::uint16_t value) noexcept;
+
     void SplitReceivedBuffer_5173B0(char* const buffer);
-    std::int32_t NetworkDispatch_512E40(const std::uintptr_t socket, const void* const received);
-    void HandleServerAddressChangeReply_50E6E0(const std::uintptr_t, const char* const text);
-    std::int32_t HandleVersionUpgradeReply_50E780(const std::uintptr_t, const std::int32_t value);
-    std::int32_t AllocateNetworkWorkspace_516B60(const SendCallback& callback, const std::uint32_t bufferLength, const std::uintptr_t);
+    std::int32_t NetworkDispatch_512E40(const platform::ConnectionId expectedId, const void* const received);
+    void HandleServerAddressChangeReply_50E6E0(cg::network::CgConnection& networkConnection, const char* const text);
+    std::int32_t HandleVersionUpgradeReply_50E780(cg::network::CgConnection& networkConnection, const std::int32_t value);
+    std::int32_t AllocateNetworkWorkspace_516B60(const std::uint32_t bufferLength);
     void ReleaseProtocolWorkspace();
     bool AppendDecodedProtocolBytes(const void* const data, const std::size_t size);
     std::int32_t ReceiveProtocolLine( void* const destination, const std::int32_t capacity);
-    void HandleResponse_508800(const std::uintptr_t, const std::int32_t value, const char* const text);
+    void HandleResponse_508800(cg::network::CgConnection& networkConnection, const std::int32_t value, const char* const text);
     platform::ConnectionId BeginConnect(std::wstring host, std::uint16_t port, bool noDelay);
     platform::ConnectionSnapshot PollConnection();
     void Close();
     void StopIo();
-    std::int32_t SendPacket(const std::uintptr_t connection, const void* const data, const std::uint32_t size);
+    std::int32_t SendPacket(const platform::ConnectionId expectedId, const void* const data, const std::uint32_t size);
     std::int32_t Initialize();
     ConnectionPumpResult Pump();
     void Shutdown();
@@ -187,7 +180,7 @@ struct CgConnection::Impl {
     template <typename... Values, std::size_t... Indices>
     std::tuple<Values...> DecodeDispatchArguments(std::index_sequence<Indices...>, const std::uint32_t workspaceBeforeCapacityMask);
     template <auto Callback, typename... Values>
-    bool TryDispatchReply(const char* const head, const char* const command, const std::uintptr_t socket, const std::uint32_t workspaceBeforeCapacityMask = 0U);
+    bool TryDispatchReply(const char* const head, const char* const command, const std::uint32_t workspaceBeforeCapacityMask = 0U);
 };
 
 #ifdef TAOMOLI
@@ -300,11 +293,10 @@ static std::int32_t BuildProtocolCommand_517510(
 // 原509080不读取参数；六个调用形态仍先完成各自的全部解码。
 template <typename... Values>
 // 原函数：0x00509080。
-static void IgnoreReplyArguments_509080(const std::uintptr_t, Values...)
+static void IgnoreReplyArguments_509080(cg::network::CgConnection&, Values...)
 {
     cg::core::NullSub_509080();
 }
-
 
 template <typename Value>
 Value CgConnection::Impl::DecodeDispatchArgument(
@@ -346,7 +338,7 @@ std::tuple<Values...> CgConnection::Impl::DecodeDispatchArguments(
 
 template <auto Callback, typename... Values>
 bool CgConnection::Impl::TryDispatchReply(
-    const char* const head, const char* const command, const std::uintptr_t socket,
+    const char* const head, const char* const command,
     const std::uint32_t workspaceBeforeCapacityMask)
 {
     // 原108块均先取头U8再取命令U8；每对比较后以同头样本判NUL。
@@ -374,11 +366,11 @@ bool CgConnection::Impl::TryDispatchReply(
     }
     const auto values = DecodeDispatchArguments<Values...>(
         std::index_sequence_for<Values...> {}, workspaceBeforeCapacityMask);
-    std::apply([this, socket](const auto... arguments) {
+    std::apply([this](const auto... arguments) {
         if constexpr (std::is_member_function_pointer_v<decltype(Callback)>)
-            static_cast<void>((this->*Callback)(socket, arguments...));
+            static_cast<void>((this->*Callback)(owner, arguments...));
         else
-            static_cast<void>(Callback(socket, arguments...));
+            static_cast<void>(Callback(owner, arguments...));
     }, values);
     return true;
 }
@@ -628,7 +620,7 @@ std::uint8_t* CgConnection::Impl::DecodeOptionalProtocolText_5171B0(const char* 
 }
 
 std::int32_t CgConnection::Impl::SendProtocolBuffer_517480(
-    const std::uintptr_t socket,
+    const platform::ConnectionId expectedId,
     char* const buffer)
 {
     // UTL02：5171F0已将各文本token编码为GBK；日志、观察者和回调共用原协议字节。
@@ -646,7 +638,7 @@ std::int32_t CgConnection::Impl::SendProtocolBuffer_517480(
         this->sendObserver58B61C;
     if (observer != nullptr) {
         observer(1U, buffer);
-        if (socket != connectionId || !this->active) return -100;
+        if (expectedId != connectionId || !this->active) return -100;
     }
 
     std::uint32_t length =
@@ -660,13 +652,14 @@ std::int32_t CgConnection::Impl::SendProtocolBuffer_517480(
         ++length;
     }
 
-    return this->sendCallback(socket, buffer, length);
+    return SendPacket(expectedId, buffer, length);
 }
 
 std::int32_t CgConnection::Impl::SendConnectionProbe_512C10(
-    const std::uintptr_t socket,
+    const platform::ConnectionId expectedId,
     const std::wstring_view text)
 {
+    const auto session = owner.CaptureSession();
     static_cast<void>(BuildProtocolCommand_517510(
         reinterpret_cast<char*>(this->sendMessageBuffer), "Or"));
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
@@ -677,31 +670,8 @@ std::int32_t CgConnection::Impl::SendConnectionProbe_512C10(
         reinterpret_cast<const char*>(token),
         capacity));
     return SendProtocolBuffer_517480(
-        socket,
+        expectedId,
         reinterpret_cast<char*>(this->sendMessageBuffer));
-}
-
-std::int32_t CgConnection::Impl::AppendReceiveQueue_5081E0(
-    const void* const source,
-    const std::uint32_t size)
-{
-    if (!ioEnabled) {
-        return -100;
-    }
-
-    const std::int32_t previous = this->receiveLengthD69790;
-    const std::int32_t next =
-        previous + static_cast<std::int32_t>(size);
-    if (next > static_cast<std::int32_t>(kQueueCapacity)) {
-        return -1;
-    }
-
-    std::memcpy(
-        this->queueBytes.data() + kReceiveQueueOffset + previous,
-        source,
-        size);
-    this->receiveLengthD69790 = next;
-    return 0;
 }
 
 std::int32_t CgConnection::Impl::ConsumeReceiveQueue_508230(const std::int32_t size)
@@ -720,16 +690,6 @@ std::int32_t CgConnection::Impl::ConsumeReceiveQueue_508230(const std::int32_t s
         this->queueBytes.data() + kReceiveQueueOffset;
     std::memmove(receive, receive + size, static_cast<std::uint32_t>(remaining));
     return 0;
-}
-
-std::uint16_t CgConnection::Impl::ReadProtocolModeDA3B22() noexcept
-{
-    return this->protocolModeDA3B22;
-}
-
-void CgConnection::Impl::WriteProtocolModeDA3B22(const std::uint16_t value) noexcept
-{
-    this->protocolModeDA3B22 = value;
 }
 
 void CgConnection::Impl::SplitReceivedBuffer_5173B0(char* const buffer)
@@ -777,8 +737,9 @@ void CgConnection::Impl::SplitReceivedBuffer_5173B0(char* const buffer)
 }
 
 std::int32_t CgConnection::Impl::NetworkDispatch_512E40(
-    const std::uintptr_t socket, const void* const received)
+    const platform::ConnectionId expectedId, const void* const received)
 {
+    const auto session = owner.CaptureSession();
     using namespace detail; // 原业务handler仍由各模块持有。
     const std::int32_t capacity = std::bit_cast<std::int32_t>(
         this->workspaceCapacity);
@@ -789,7 +750,7 @@ std::int32_t CgConnection::Impl::NetworkDispatch_512E40(
         reinterpret_cast<const char*>(this->sendMessageBuffer)) + 1;
     SplitReceivedBuffer_5173B0(
         reinterpret_cast<char*>(this->sendMessageBuffer));
-    if (socket != connectionId || !this->active) return 0;
+    if (expectedId != connectionId || !this->active) return 0;
     const std::vector<std::uint8_t> receivedPacket(this->sendMessageBuffer,
         this->sendMessageBuffer + receivedSize);
     std::vector<char*> receivedArguments;
@@ -804,8 +765,8 @@ std::int32_t CgConnection::Impl::NetworkDispatch_512E40(
     // 服务端明文头直接是原命令（如whV），不再执行原密文命令逆变换。
     for (auto& [header, handler] : this->receiveHandlers) {
         if (header == head) {
-            handler(head, this->pointerTable58B614);
-            if (socket != connectionId || !ioEnabled) return 0;
+            handler(owner, head, this->pointerTable58B614);
+            if (expectedId != connectionId || !ioEnabled) return 0;
             break;
         }
     }
@@ -817,126 +778,126 @@ std::int32_t CgConnection::Impl::NetworkDispatch_512E40(
             this->pointerTable58B614);
     };
     restoreArguments();
-    script::LuaReceivePacket(head, this->pointerTable58B614);
-    if (socket != connectionId || !ioEnabled) return 0;
+    script::LuaReceivePacket(owner, head, this->pointerTable58B614);
+    if (expectedId != connectionId || !ioEnabled) return 0;
     restoreArguments();
 
     // I为完整S32解析，T为同编号工作区char*；顺序与原108条比较路径一致。
     using I = std::int32_t;
     using T = char*;
-    if (TryDispatchReply<world::HandlePlayerPositionReply_5093C0, I, I, I>(head, "QBt", socket)) return 0;
-    if (TryDispatchReply<world::HandleMapRectangleCrcReply_509090, I, I, I, I, I, I, I, I, I>(head, "jmb", socket)) return 0;
-    if (TryDispatchReply<world::HandleMapRectangleDataReply_509100, I, I, I, I, I, I, T>(head, "aBS", socket)) return 0;
-    if (TryDispatchReply<world::HandleMapTransitionReply_50CF90, I, I>(head, "EZ", socket)) return 0;
-    if (TryDispatchReply<world::Sub_50D080, I, I>(head, "OaHi", socket)) return 0;
-    if (TryDispatchReply<world::HandleBattleEntryReply_50D120, I, I>(head, "dAgg", socket)) return 0;
-    if (TryDispatchReply<world::HandleBattleResultsReply_50D500, T>(head, "Gn", socket)) return 0;
-    if (TryDispatchReply<HandleDuelPointResultReply_50D700, T>(head, "hB", socket)) return 0;
-    if (TryDispatchReply<world::HandleBattleStreamReply_50D3C0, T>(head, "LYIm", socket)) return 0;
-    if (TryDispatchReply<world::HandleFullPlayerInventoryReply_50BFD0, T>(head, "ELoy", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerInventoryUpdatesReply_50C260, T>(head, "rU", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerWorldTimeReply_50C870, I, I, I, I>(head, "PudO", socket)) return 0;
-    if (TryDispatchReply<world::HandleInventorySlotSwapReply_50C900, I, I>(head, "vWpn", socket)) return 0;
-    if (TryDispatchReply<world::HandleSkillRecipesReply_50C580, I, T>(head, "xmgQ", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandlePlayerTimerReply_50C7A0, I, I>(head, "MTg", socket)) return 0;
-    if (TryDispatchReply<world::detail::HandleContactMailReply_50DC70, I, T, I>(head, "Mhbt", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandleAlbumEntryMaskReply_50E5B0, I, T>(head, "Ilz", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandleAlbumEntryReply_50E5D0, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, T, T>(head, "dM", socket, 0x30000U)) return 0;
-    if (TryDispatchReply<IgnoreReplyArguments_509080<I, T>, I, T>(head, "Dn", socket, 0x4U)) return 0;
-    if (TryDispatchReply<IgnoreReplyArguments_509080<I>, I>(head, "IYo", socket)) return 0;
-    if (TryDispatchReply<HandleMapActorTransitionReply_50DD80, I, I, I, I, I, I, I, T>(head, "lDuJ", socket, 0x100U)) return 0;
-    if (TryDispatchReply<world::detail::HandleContactListReply_50D740, T>(head, "gnxd", socket)) return 0;
-    if (TryDispatchReply<world::detail::HandleContactExtendedTextReply_50D8C0, T>(head, "PhdQ", socket)) return 0;
-    if (TryDispatchReply<world::detail::HandleContactUpdateReply_50D9E0, I, T>(head, "vI", socket, 0x4U)) return 0;
-    if (TryDispatchReply<HandleGuildMailResetReply_50E830>(head, "GC", socket)) return 0;
-    if (TryDispatchReply<cg::world::HandleGuildInfoReply_50E850, T>(head, "aDn", socket)) return 0;
-    if (TryDispatchReply<cg::world::HandleGuildRankDefinitionsReply_50EB40, T>(head, "znv", socket)) return 0;
-    if (TryDispatchReply<cg::world::UpdateOrderedRecordBatch_50EC50, T>(head, "yuD", socket)) return 0;
-    if (TryDispatchReply<cg::world::UpdateOrderedRecords_50EEB0, I, T>(head, "Kka", socket, 0x4U)) return 0;
-    if (TryDispatchReply<HandleGuildMemberRemovalReply_50F130, I>(head, "oRut", socket)) return 0;
-    if (TryDispatchReply<HandleGuildMailReply_50F190, I, T, I>(head, "Rll", socket, 0x4U)) return 0;
-    if (TryDispatchReply<cg::world::HandleGuildRemovalReply_50F280, I>(head, "frQp", socket)) return 0;
-    if (TryDispatchReply<world::detail::HandleProfileCategoryVersionsReply_50F3A0, T>(head, "HNP", socket)) return 0;
-    if (TryDispatchReply<world::detail::HandlePrimaryProfileCategoriesReply_50F2A0, T>(head, "eZT", socket)) return 0;
-    if (TryDispatchReply<world::detail::HandleSecondaryProfileCategoriesReply_50F8E0, T>(head, "IUn", socket)) return 0;
-    if (TryDispatchReply<world::detail::HandlePlayerProfileReply_50F450, T, I, T, T, T, I, I, T, I, T, I, T, T>(head, "DpSY", socket, 0x1128U)) return 0;
-    if (TryDispatchReply<world::detail::HandleMiniMailContactRemovalReply_50F430, T>(head, "cNB", socket)) return 0;
-    if (TryDispatchReply<world::detail::HandleMiniMailReply_50F7F0, I, T, I>(head, "ow", socket, 0x4U)) return 0;
-    if (TryDispatchReply<ui::WindowProfile_ReceiveReply, I, I, I, I, T>(head, "DyAG", socket, 0x20U)) return 0;
-    if (TryDispatchReply<world::detail::HandleMiniMailConversationReply_50F9E0, T>(head, "KyN", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerChatReply_50CAE0, I, T, I, I>(head, "zdr", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandleSystemChatReply_50CE10, T>(head, "Zd", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerPrimaryStatsReply_509650, T>(head, "aPc", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerSecondaryStatsReply_509BA0, T>(head, "UU", socket)) return 0;
-    if (TryDispatchReply<world::HandlePetPrimaryStatsReply_50A6B0, I, T>(head, "IsSy", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandlePetSecondaryStatsReply_50AC20, I, T>(head, "AU", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandlePartyActorVitalsReply_50AEF0, T>(head, "TNT", socket)) return 0;
-    if (TryDispatchReply<world::HandleMapObjectListReply_50B380, T>(head, "nsY", socket)) return 0;
-    if (TryDispatchReply<world::HandlePartyMemberReply_50A3E0, I, T>(head, "JJQj", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandlePlayerTitlesReply_50A300, T>(head, "Sc", socket)) return 0;
-    if (TryDispatchReply<world::HandleWorldActorActionsReply_50BCD0, T>(head, "NI", socket)) return 0;
-    if (TryDispatchReply<world::HandleWorldObjectRemovalReply_50BF20, T>(head, "uSB", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerProfessionReply_509E30, I, T>(head, "jv", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandlePlayerSkillsReply_509EB0, T>(head, "cNE", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerSkillTechniquesReply_50A120, I, T>(head, "Rspn", socket, 0x4U)) return 0;
-    if (TryDispatchReply<world::HandlePetTechniquesReply_50B0D0, I, T>(head, "OBee", socket, 0x4U)) return 0;
-    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "Yo", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerOptionsReply_50BFA0, I>(head, "SkBD", socket)) return 0;
-    if (TryDispatchReply<Sub_50D3B0, I>(head, "sZWu", socket)) return 0;
-    if (TryDispatchReply<world::HandlePartyMembershipReply_50D000, I, I>(head, "bNY", socket)) return 0;
-    if (TryDispatchReply<ui::WindowSkill_ReceiveTextTargetReply, T>(head, "ysVc", socket)) return 0;
-    if (TryDispatchReply<ui::WindowSkill_ReceiveAttributeTargetReply, T>(head, "ND", socket)) return 0;
-    if (TryDispatchReply<ui::WindowItemUse_ReceiveTextTargetReply, T>(head, "LY", socket)) return 0;
-    if (TryDispatchReply<ui::WindowItemUse_ReceiveAttributeTargetReply, T>(head, "nFV", socket)) return 0;
-    if (TryDispatchReply<ui::WindowWorkResult_ReceiveReply, I, I, T>(head, "JgO", socket, 0x8U)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceiveTargetReply, T>(head, "Cxo", socket)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceiveStartReply, T, I>(head, "ms", socket)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceiveCancelReply>(head, "NdM", socket)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceiveItemReply, T>(head, "nUbJ", socket)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceiveStateReply, I>(head, "hJq", socket)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceivePetReply, I, T>(head, "RwK", socket, 0x4U)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceivePetSkillReply, I, T>(head, "Yq", socket, 0x4U)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceiveRemoteResetReply>(head, "xEg", socket)) return 0;
-    if (TryDispatchReply<ui::WindowTrade_ReceiveCloseReply, I>(head, "We", socket)) return 0;
-    if (TryDispatchReply<HandleFailureNoticeReply_50CF20, I, I, I, I>(head, "BHe", socket)) return 0;
-    if (TryDispatchReply<HandleRemainingAttributePointsReply_50CF60, I>(head, "kg", socket)) return 0;
-    if (TryDispatchReply<world::HandlePetAttributePointsReply_50CF70, I, I>(head, "sA", socket)) return 0;
-    if (TryDispatchReply<world::HandlePlayerBattleRowReply_50BFC0, I>(head, "Ov", socket)) return 0;
-    if (TryDispatchReply<ui::WindowDialog_ReceiveReply, I, I, I, I, T>(head, "BZ", socket, 0x20U)) return 0;
-    if (TryDispatchReply<world::HandleDirectionalMapEffectsReply_50E1A0, I, I, T>(head, "zzd", socket, 0x8U)) return 0;
-    if (TryDispatchReply<world::HandleNotificationSoundReply_50E210, I>(head, "TFCu", socket)) return 0;
-    if (TryDispatchReply<HandleMapBgmChangeReply_50E310, I>(head, "wiB", socket)) return 0;
-    if (TryDispatchReply<HandlePaletteTransitionReply_50E630, I, I>(head, "bJg", socket)) return 0;
-    if (TryDispatchReply<world::HandleMapSceneEffectReply_50E650, I, I, I, I, I>(head, "PVfz", socket)) return 0;
-    if (TryDispatchReply<HandleServerSoundPlayback_50E680, I, I, I>(head, "murD", socket)) return 0;
-    if (TryDispatchReply<HandleSpatialSoundSourceReply_50E6C0, I, I, I>(head, "ftaN", socket)) return 0;
-    if (TryDispatchReply<world::HandleMapNameReply_509550, T>(head, "TeD", socket)) return 0;
-    if (TryDispatchReply<world::HandleMapChangeReply_5093F0, I, I, I, I, I, I, I, I, I, I, I, I>(head, "GmNM", socket)) return 0;
-    if (TryDispatchReply<&Impl::HandleResponse_508800, I, T>(head, "whV", socket, 0x4U)) return 0;
-    if (TryDispatchReply<login::HandleCharacterCreationResponse_508EE0, T, I, T>(head, "DZ", socket, 0x8U)) return 0;
-    if (TryDispatchReply<login::HandleCharacterDeletionResponse_509020, T, T>(head, "oy", socket, 0x4U)) return 0;
-    if (TryDispatchReply<login::HandleLoginResponse_508BC0, T, T>(head, "hPUd", socket, 0x4U)) return 0;
-    if (TryDispatchReply<login::HandleCharacterListResponse_5089B0, I, T>(head, "Daj", socket, 0x4U)) return 0;
-    if (TryDispatchReply<login::detail::HandleLogoutReply_508CF0, T, T>(head, "HMNy", socket, 0x4U)) return 0;
-    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "cJzI", socket)) return 0;
-    if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "Bi", socket)) return 0;
-    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "LOh", socket)) return 0;
-    if (TryDispatchReply<&Impl::HandleServerAddressChangeReply_50E6E0, T>(head, "lSZ", socket)) return 0;
-    if (TryDispatchReply<character_select::detail::HandlePukVersionReply_50E770, I>(head, "PfM", socket)) return 0;
-    if (TryDispatchReply<&Impl::HandleVersionUpgradeReply_50E780, I>(head, "ed", socket)) return 0;
+    if (TryDispatchReply<world::HandlePlayerPositionReply_5093C0, I, I, I>(head, "QBt")) return 0;
+    if (TryDispatchReply<world::HandleMapRectangleCrcReply_509090, I, I, I, I, I, I, I, I, I>(head, "jmb")) return 0;
+    if (TryDispatchReply<world::HandleMapRectangleDataReply_509100, I, I, I, I, I, I, T>(head, "aBS")) return 0;
+    if (TryDispatchReply<world::HandleMapTransitionReply_50CF90, I, I>(head, "EZ")) return 0;
+    if (TryDispatchReply<world::Sub_50D080, I, I>(head, "OaHi")) return 0;
+    if (TryDispatchReply<world::HandleBattleEntryReply_50D120, I, I>(head, "dAgg")) return 0;
+    if (TryDispatchReply<world::HandleBattleResultsReply_50D500, T>(head, "Gn")) return 0;
+    if (TryDispatchReply<HandleDuelPointResultReply_50D700, T>(head, "hB")) return 0;
+    if (TryDispatchReply<world::HandleBattleStreamReply_50D3C0, T>(head, "LYIm")) return 0;
+    if (TryDispatchReply<world::HandleFullPlayerInventoryReply_50BFD0, T>(head, "ELoy")) return 0;
+    if (TryDispatchReply<world::HandlePlayerInventoryUpdatesReply_50C260, T>(head, "rU")) return 0;
+    if (TryDispatchReply<world::HandlePlayerWorldTimeReply_50C870, I, I, I, I>(head, "PudO")) return 0;
+    if (TryDispatchReply<world::HandleInventorySlotSwapReply_50C900, I, I>(head, "vWpn")) return 0;
+    if (TryDispatchReply<world::HandleSkillRecipesReply_50C580, I, T>(head, "xmgQ", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandlePlayerTimerReply_50C7A0, I, I>(head, "MTg")) return 0;
+    if (TryDispatchReply<world::detail::HandleContactMailReply_50DC70, I, T, I>(head, "Mhbt", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandleAlbumEntryMaskReply_50E5B0, I, T>(head, "Ilz", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandleAlbumEntryReply_50E5D0, I, I, I, I, I, I, I, I, I, I, I, I, I, I, I, T, T>(head, "dM", 0x30000U)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<I, T>, I, T>(head, "Dn", 0x4U)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<I>, I>(head, "IYo")) return 0;
+    if (TryDispatchReply<HandleMapActorTransitionReply_50DD80, I, I, I, I, I, I, I, T>(head, "lDuJ", 0x100U)) return 0;
+    if (TryDispatchReply<world::detail::HandleContactListReply_50D740, T>(head, "gnxd")) return 0;
+    if (TryDispatchReply<world::detail::HandleContactExtendedTextReply_50D8C0, T>(head, "PhdQ")) return 0;
+    if (TryDispatchReply<world::detail::HandleContactUpdateReply_50D9E0, I, T>(head, "vI", 0x4U)) return 0;
+    if (TryDispatchReply<HandleGuildMailResetReply_50E830>(head, "GC")) return 0;
+    if (TryDispatchReply<cg::world::HandleGuildInfoReply_50E850, T>(head, "aDn")) return 0;
+    if (TryDispatchReply<cg::world::HandleGuildRankDefinitionsReply_50EB40, T>(head, "znv")) return 0;
+    if (TryDispatchReply<cg::world::UpdateOrderedRecordBatch_50EC50, T>(head, "yuD")) return 0;
+    if (TryDispatchReply<cg::world::UpdateOrderedRecords_50EEB0, I, T>(head, "Kka", 0x4U)) return 0;
+    if (TryDispatchReply<HandleGuildMemberRemovalReply_50F130, I>(head, "oRut")) return 0;
+    if (TryDispatchReply<HandleGuildMailReply_50F190, I, T, I>(head, "Rll", 0x4U)) return 0;
+    if (TryDispatchReply<cg::world::HandleGuildRemovalReply_50F280, I>(head, "frQp")) return 0;
+    if (TryDispatchReply<world::detail::HandleProfileCategoryVersionsReply_50F3A0, T>(head, "HNP")) return 0;
+    if (TryDispatchReply<world::detail::HandlePrimaryProfileCategoriesReply_50F2A0, T>(head, "eZT")) return 0;
+    if (TryDispatchReply<world::detail::HandleSecondaryProfileCategoriesReply_50F8E0, T>(head, "IUn")) return 0;
+    if (TryDispatchReply<world::detail::HandlePlayerProfileReply_50F450, T, I, T, T, T, I, I, T, I, T, I, T, T>(head, "DpSY", 0x1128U)) return 0;
+    if (TryDispatchReply<world::detail::HandleMiniMailContactRemovalReply_50F430, T>(head, "cNB")) return 0;
+    if (TryDispatchReply<world::detail::HandleMiniMailReply_50F7F0, I, T, I>(head, "ow", 0x4U)) return 0;
+    if (TryDispatchReply<ui::WindowProfile_ReceiveReply, I, I, I, I, T>(head, "DyAG", 0x20U)) return 0;
+    if (TryDispatchReply<world::detail::HandleMiniMailConversationReply_50F9E0, T>(head, "KyN")) return 0;
+    if (TryDispatchReply<world::HandlePlayerChatReply_50CAE0, I, T, I, I>(head, "zdr", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandleSystemChatReply_50CE10, T>(head, "Zd")) return 0;
+    if (TryDispatchReply<world::HandlePlayerPrimaryStatsReply_509650, T>(head, "aPc")) return 0;
+    if (TryDispatchReply<world::HandlePlayerSecondaryStatsReply_509BA0, T>(head, "UU")) return 0;
+    if (TryDispatchReply<world::HandlePetPrimaryStatsReply_50A6B0, I, T>(head, "IsSy", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandlePetSecondaryStatsReply_50AC20, I, T>(head, "AU", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandlePartyActorVitalsReply_50AEF0, T>(head, "TNT")) return 0;
+    if (TryDispatchReply<world::HandleMapObjectListReply_50B380, T>(head, "nsY")) return 0;
+    if (TryDispatchReply<world::HandlePartyMemberReply_50A3E0, I, T>(head, "JJQj", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandlePlayerTitlesReply_50A300, T>(head, "Sc")) return 0;
+    if (TryDispatchReply<world::HandleWorldActorActionsReply_50BCD0, T>(head, "NI")) return 0;
+    if (TryDispatchReply<world::HandleWorldObjectRemovalReply_50BF20, T>(head, "uSB")) return 0;
+    if (TryDispatchReply<world::HandlePlayerProfessionReply_509E30, I, T>(head, "jv", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandlePlayerSkillsReply_509EB0, T>(head, "cNE")) return 0;
+    if (TryDispatchReply<world::HandlePlayerSkillTechniquesReply_50A120, I, T>(head, "Rspn", 0x4U)) return 0;
+    if (TryDispatchReply<world::HandlePetTechniquesReply_50B0D0, I, T>(head, "OBee", 0x4U)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "Yo")) return 0;
+    if (TryDispatchReply<world::HandlePlayerOptionsReply_50BFA0, I>(head, "SkBD")) return 0;
+    if (TryDispatchReply<Sub_50D3B0, I>(head, "sZWu")) return 0;
+    if (TryDispatchReply<world::HandlePartyMembershipReply_50D000, I, I>(head, "bNY")) return 0;
+    if (TryDispatchReply<ui::WindowSkill_ReceiveTextTargetReply, T>(head, "ysVc")) return 0;
+    if (TryDispatchReply<ui::WindowSkill_ReceiveAttributeTargetReply, T>(head, "ND")) return 0;
+    if (TryDispatchReply<ui::WindowItemUse_ReceiveTextTargetReply, T>(head, "LY")) return 0;
+    if (TryDispatchReply<ui::WindowItemUse_ReceiveAttributeTargetReply, T>(head, "nFV")) return 0;
+    if (TryDispatchReply<ui::WindowWorkResult_ReceiveReply, I, I, T>(head, "JgO", 0x8U)) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceiveTargetReply, T>(head, "Cxo")) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceiveStartReply, T, I>(head, "ms")) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceiveCancelReply>(head, "NdM")) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceiveItemReply, T>(head, "nUbJ")) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceiveStateReply, I>(head, "hJq")) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceivePetReply, I, T>(head, "RwK", 0x4U)) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceivePetSkillReply, I, T>(head, "Yq", 0x4U)) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceiveRemoteResetReply>(head, "xEg")) return 0;
+    if (TryDispatchReply<ui::WindowTrade_ReceiveCloseReply, I>(head, "We")) return 0;
+    if (TryDispatchReply<HandleFailureNoticeReply_50CF20, I, I, I, I>(head, "BHe")) return 0;
+    if (TryDispatchReply<HandleRemainingAttributePointsReply_50CF60, I>(head, "kg")) return 0;
+    if (TryDispatchReply<world::HandlePetAttributePointsReply_50CF70, I, I>(head, "sA")) return 0;
+    if (TryDispatchReply<world::HandlePlayerBattleRowReply_50BFC0, I>(head, "Ov")) return 0;
+    if (TryDispatchReply<ui::WindowDialog_ReceiveReply, I, I, I, I, T>(head, "BZ", 0x20U)) return 0;
+    if (TryDispatchReply<world::HandleDirectionalMapEffectsReply_50E1A0, I, I, T>(head, "zzd", 0x8U)) return 0;
+    if (TryDispatchReply<world::HandleNotificationSoundReply_50E210, I>(head, "TFCu")) return 0;
+    if (TryDispatchReply<HandleMapBgmChangeReply_50E310, I>(head, "wiB")) return 0;
+    if (TryDispatchReply<HandlePaletteTransitionReply_50E630, I, I>(head, "bJg")) return 0;
+    if (TryDispatchReply<world::HandleMapSceneEffectReply_50E650, I, I, I, I, I>(head, "PVfz")) return 0;
+    if (TryDispatchReply<HandleServerSoundPlayback_50E680, I, I, I>(head, "murD")) return 0;
+    if (TryDispatchReply<HandleSpatialSoundSourceReply_50E6C0, I, I, I>(head, "ftaN")) return 0;
+    if (TryDispatchReply<world::HandleMapNameReply_509550, T>(head, "TeD")) return 0;
+    if (TryDispatchReply<world::HandleMapChangeReply_5093F0, I, I, I, I, I, I, I, I, I, I, I, I>(head, "GmNM")) return 0;
+    if (TryDispatchReply<&Impl::HandleResponse_508800, I, T>(head, "whV", 0x4U)) return 0;
+    if (TryDispatchReply<login::HandleCharacterCreationResponse_508EE0, T, I, T>(head, "DZ", 0x8U)) return 0;
+    if (TryDispatchReply<login::HandleCharacterDeletionResponse_509020, T, T>(head, "oy", 0x4U)) return 0;
+    if (TryDispatchReply<login::HandleLoginResponse_508BC0, T, T>(head, "hPUd", 0x4U)) return 0;
+    if (TryDispatchReply<login::HandleCharacterListResponse_5089B0, I, T>(head, "Daj", 0x4U)) return 0;
+    if (TryDispatchReply<login::detail::HandleLogoutReply_508CF0, T, T>(head, "HMNy", 0x4U)) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "cJzI")) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "Bi")) return 0;
+    if (TryDispatchReply<IgnoreReplyArguments_509080<T>, T>(head, "LOh")) return 0;
+    if (TryDispatchReply<&Impl::HandleServerAddressChangeReply_50E6E0, T>(head, "lSZ")) return 0;
+    if (TryDispatchReply<character_select::detail::HandlePukVersionReply_50E770, I>(head, "PfM")) return 0;
+    if (TryDispatchReply<&Impl::HandleVersionUpgradeReply_50E780, I>(head, "ed")) return 0;
     // COR10：追踪器已移除，旧tq配置仍按两个整数解码后忽略。
-    if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "tq", socket)) return 0;
-    if (TryDispatchReply<ui::WindowStall_ReceiveOpenReply, I>(head, "Tmrx", socket)) return 0;
-    if (TryDispatchReply<ui::WindowStall_ReceiveCloseReply, I>(head, "KXhH", socket)) return 0;
-    if (TryDispatchReply<ui::WindowStall_ReceiveBrowseReply, I, I, T, T, T, T>(head, "ft", socket, 0x68U)) return 0;
-    if (TryDispatchReply<ui::WindowStall_ReceivePurchaseReply, I>(head, "Yx", socket)) return 0;
-    static_cast<void>(TryDispatchReply<world::HandlePetInventoryUpdatesReply_510150, I, T>(head, "iKe", socket, 0x4U));
-    static_cast<void>(TryDispatchReply<HandleInventorySlotSwapReply_510460, I, I, I, I>(head, "kiG", socket));
-    static_cast<void>(TryDispatchReply<HandleItemDetailReply_510490, T>(head, "TgX", socket));
+    if (TryDispatchReply<IgnoreReplyArguments_509080<I, I>, I, I>(head, "tq")) return 0;
+    if (TryDispatchReply<ui::WindowStall_ReceiveOpenReply, I>(head, "Tmrx")) return 0;
+    if (TryDispatchReply<ui::WindowStall_ReceiveCloseReply, I>(head, "KXhH")) return 0;
+    if (TryDispatchReply<ui::WindowStall_ReceiveBrowseReply, I, I, T, T, T, T>(head, "ft", 0x68U)) return 0;
+    if (TryDispatchReply<ui::WindowStall_ReceivePurchaseReply, I>(head, "Yx")) return 0;
+    static_cast<void>(TryDispatchReply<world::HandlePetInventoryUpdatesReply_510150, I, T>(head, "iKe", 0x4U));
+    static_cast<void>(TryDispatchReply<HandleInventorySlotSwapReply_510460, I, I, I, I>(head, "kiG"));
+    static_cast<void>(TryDispatchReply<HandleItemDetailReply_510490, T>(head, "TgX"));
     return -1;
 }
 
-void CgConnection::Impl::HandleServerAddressChangeReply_50E6E0(const std::uintptr_t, const char* const text)
+void CgConnection::Impl::HandleServerAddressChangeReply_50E6E0(cg::network::CgConnection&, const char* const text)
 {
     auto& previous = this->addressTextDA33D8;
     const auto address = cg::text::FromGbkWide(text);
@@ -952,7 +913,7 @@ void CgConnection::Impl::HandleServerAddressChangeReply_50E6E0(const std::uintpt
     previous = address;
 }
 
-std::int32_t CgConnection::Impl::HandleVersionUpgradeReply_50E780(const std::uintptr_t, const std::int32_t value)
+std::int32_t CgConnection::Impl::HandleVersionUpgradeReply_50E780(cg::network::CgConnection&, const std::int32_t value)
 {
     const std::int32_t sceneType = world::gCurrentSceneType;
     const auto lowByte = static_cast<std::uint8_t>(value);
@@ -966,15 +927,8 @@ std::int32_t CgConnection::Impl::HandleVersionUpgradeReply_50E780(const std::uin
 }
 
 std::int32_t CgConnection::Impl::AllocateNetworkWorkspace_516B60(
-    const SendCallback& callback,
-    const std::uint32_t bufferLength,
-    const std::uintptr_t)
+    const std::uint32_t bufferLength)
 {
-    this->sendCallback = &DefaultNetworkCallback;
-    if (callback != nullptr) {
-        this->sendCallback = callback;
-    }
-
     ReleaseProtocolWorkspace();
     if (AllocateProtocolBuffers_516DA0(bufferLength) != 0) return -1;
 
@@ -1116,8 +1070,7 @@ std::int32_t CgConnection::Impl::ReceiveProtocolLine(
 }
 
 // 原0x00508800：登录回复更新当前连接协议状态，原业务字段保持。
-void CgConnection::Impl::HandleResponse_508800(
-    const std::uintptr_t,
+void CgConnection::Impl::HandleResponse_508800(cg::network::CgConnection&,
     const std::int32_t value,
     const char* const text)
 {
@@ -1201,7 +1154,7 @@ void CgConnection::Impl::StopIo()
 
 // 完整明文消息沿原Hook顺序提交；只在传输层的短锁内追加或替换字节。
 std::int32_t CgConnection::Impl::SendPacket(
-    const std::uintptr_t connection,
+    const platform::ConnectionId expectedId,
     const void* const data,
     const std::uint32_t size)
 {
@@ -1209,16 +1162,16 @@ std::int32_t CgConnection::Impl::SendPacket(
         return -100;
     }
     const auto id = connectionId;
-    if (id == 0 || (connection != 0 && connection != id)) return -100;
+    if (id == 0 || expectedId != id) return -100;
 
     // L04：回调可重入发送；持有字节快照，避免共享格式化缓冲被覆盖。
     const std::string packet(static_cast<const char*>(data), size);
     script::RecordAutoBattleAction(packet);
-    script::LuaSendPacket(packet);
+    script::LuaSendPacket(owner, packet);
     if (id != connectionId || !ioEnabled) return -100;
     for (auto& [header, handler] : this->sendHandlers) {
         if (packet.starts_with(header)) {
-            handler(header.c_str(), packet.data() + header.size(),
+            handler(owner, header.c_str(), packet.data() + header.size(),
                 static_cast<std::int32_t>(packet.size() - header.size()));
             break;
         }
@@ -1247,17 +1200,17 @@ std::int32_t CgConnection::Impl::SendPacket(
 std::int32_t CgConnection::Impl::Initialize()
 {
     if (!this->gameplayHandlersRegistered) {
-        RegisterReceive("BtWt", [](const char*, char** const arguments) {
+        RegisterReceive("BtWt", [](CgConnection&, const char*, char** const arguments) {
             const std::int32_t wait = ParseProtocolInteger_517190(arguments[1]);
             world::gBattleCommandWaitMs = std::bit_cast<std::uint32_t>(wait);
             world::gBattleShowEnemyHpBars = ParseProtocolInteger_517190(arguments[2]) != 0;
             m_log_iw(L"Set battleCommandWait = %d\n", wait);
         });
-        RegisterReceive("SpDt", [](const char*, char** const arguments) {
+        RegisterReceive("SpDt", [](CgConnection&, const char*, char** const arguments) {
             world::gChatMinimumIntervalMs = std::bit_cast<std::uint32_t>(
                 ParseProtocolInteger_517190(arguments[1]));
         });
-        RegisterReceive("INVCF", [](const char*, char** const arguments) {
+        RegisterReceive("INVCF", [](CgConnection&, const char*, char** const arguments) {
             const std::int32_t bagPages = ParseProtocolInteger_517190(arguments[1]);
             const std::int32_t bankPages = ParseProtocolInteger_517190(arguments[2]);
             const std::int32_t bagPage = ParseProtocolInteger_517190(arguments[3]);
@@ -1266,6 +1219,7 @@ std::int32_t CgConnection::Impl::Initialize()
         this->gameplayHandlersRegistered = true;
     }
     if (this->active) Shutdown();
+    owner.SetIoEnabled(false);
     int transportError = 0;
     if (!transport.Open(transportError)) {
         this->errorD9F2CC = transportError;
@@ -1273,9 +1227,7 @@ std::int32_t CgConnection::Impl::Initialize()
     }
 
     if (AllocateNetworkWorkspace_516B60(
-        [this](std::uintptr_t id, const void* data, std::uint32_t size) { return SendPacket(id, data, size); },
-        0x10000U,
-        connectionId) != 0) {
+        0x10000U) != 0) {
         transport.Stop();
         return 0;
     }
@@ -1390,7 +1342,7 @@ void CgConnection::Impl::Shutdown()
     ReleaseProtocolWorkspace();
 }
 
-CgConnection::CgConnection() : impl_(std::make_unique<Impl>()) {}
+CgConnection::CgConnection() : impl_(std::make_unique<Impl>(*this)) {}
 CgConnection::~CgConnection() = default;
 bool CgConnection::Initialize() { return impl_->Initialize() != 0; }
 void CgConnection::Shutdown() { impl_->Shutdown(); }
@@ -1405,8 +1357,11 @@ void CgConnection::SetIoEnabled(bool enabled)
     impl_->ioEnabled = enabled;
     impl_->transport.SetIoEnabled(impl_->connectionId, enabled);
 }
-std::int32_t CgConnection::SendPacket(platform::ConnectionId id, const void* data, std::uint32_t size)
-{ return impl_->SendPacket(id, data, size); }
+std::int32_t CgConnection::SendPacket(const void* data, std::uint32_t size)
+{
+    const auto session = CaptureSession();
+    return impl_->SendPacket(impl_->contextId, data, size);
+}
 ConnectionPumpResult CgConnection::Pump() { return impl_->Pump(); }
 void CgConnection::RegisterReceive(const char* header, ProtocolReceiveHandler handler)
 { impl_->RegisterReceive(header, std::move(handler)); }
@@ -1415,111 +1370,2596 @@ void CgConnection::RegisterSend(const char* header, ProtocolSendHandler handler)
 void CgConnection::Close() { impl_->Close(); }
 void CgConnection::StopIo() { impl_->StopIo(); }
 
-// 只供旧组包实现同步借用；不作为CgConnection公开API。
-char* detail::ConnectionLegacyAccess::OutputBuffer(CgConnection& owner) noexcept
-{ return reinterpret_cast<char*>(owner.impl_->sendMessageBuffer); }
-std::uint32_t detail::ConnectionLegacyAccess::BufferCapacity(CgConnection& owner) noexcept
-{ return owner.impl_->workspaceCapacity; }
+// 唯一对象跨重连/Shutdown保留，身份序列不重置。
+static CgConnection gGameConnection;
+CgConnection& GetGameConnection() noexcept { return gGameConnection; }
 
-std::int32_t detail::ConnectionLegacyAccess::AllocateProtocolBuffers_516DA0(CgConnection& owner,
-    const std::uint32_t bufferLength)
+CgConnection::SessionScope::SessionScope(CgConnection& owner) noexcept
+    : owner_(owner), previousBound_(owner.impl_->contextBound), previousId_(owner.impl_->contextId)
 {
-    return owner.impl_->AllocateProtocolBuffers_516DA0(bufferLength);
+    if (!owner_.impl_->contextBound) owner_.impl_->contextId = owner_.Id();
+    owner_.impl_->contextBound = true;
+}
+CgConnection::SessionScope::~SessionScope()
+{
+    owner_.impl_->contextBound = previousBound_;
+    owner_.impl_->contextId = previousId_;
+}
+CgConnection::SessionScope CgConnection::CaptureSession() noexcept { return SessionScope(*this); }
+bool CgConnection::IoEnabled() const noexcept { return impl_->ioEnabled; }
+void CgConnection::ResetLoginReply() noexcept { impl_->protocolModeDA3B22 = 0; }
+bool CgConnection::LoginAccepted() const noexcept { return impl_->protocolModeDA3B22 != 0; }
+std::string CgConnection::EncodeInteger(std::int32_t value)
+{ return reinterpret_cast<const char*>(impl_->FormatProtocolInteger_517670(value)); }
+std::string CgConnection::EscapeText(std::wstring_view text)
+{ return reinterpret_cast<const char*>(impl_->EscapeProtocolText_5171F0(text)); }
+std::string CgConnection::UnescapeText(const char* text)
+{ return reinterpret_cast<const char*>(impl_->UnescapeProtocolText_5172D0(text)); }
+
+// 这三条UI路径保留原十进制字段，不合并到Base62的同名协议。
+std::int32_t CgConnection::MoveItemToBagPage(std::int32_t source, std::int32_t page)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    const auto* encoded = impl_->FormatProtocolInteger_517670(source);
+    char packet[64];
+    std::snprintf(packet, sizeof(packet), "SWITMP %s %d -1", reinterpret_cast<const char*>(encoded), page);
+    return impl_->SendProtocolBuffer_517480(impl_->contextId, packet);
+}
+std::int32_t CgConnection::SelectBagPage(std::int32_t page)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    char packet[64];
+    std::snprintf(packet, sizeof(packet), "SWITM %d", page);
+    return impl_->SendProtocolBuffer_517480(impl_->contextId, packet);
+}
+std::int32_t CgConnection::SelectInventoryBankPage(std::int32_t page)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    char packet[64];
+    std::snprintf(packet, sizeof(packet), "rh %d", page);
+    return impl_->SendProtocolBuffer_517480(impl_->contextId, packet);
 }
 
-std::uint8_t* detail::ConnectionLegacyAccess::FormatProtocolInteger_517670(CgConnection& owner, const std::int32_t value)
+// 原 [0x512B90,0x512BCC)：列表请求的三次共享缓冲读取保持独立。
+std::int32_t CgConnection::SendCharacterListRequest()
 {
-    return owner.impl_->FormatProtocolInteger_517670(value);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Gp"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        "",
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::uint8_t* detail::ConnectionLegacyAccess::FormatProtocolIntegerToken_517120(CgConnection& owner, const std::int32_t value)
+// 原 [0x512BD0,0x512C0C)：登出请求的三次共享缓冲读取保持独立。
+std::int32_t CgConnection::SendLogoutRequest()
 {
-    return owner.impl_->FormatProtocolIntegerToken_517120(value);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "WA"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        "",
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::uint8_t* detail::ConnectionLegacyAccess::FormatProtocolTextToken_517160(CgConnection& owner, const std::wstring_view text)
+// 原 [0x512C60,0x512C9C)：保活命令后追加 593850 当前文本并发送。
+std::int32_t CgConnection::SendKeepAliveRequest()
 {
-    return owner.impl_->FormatProtocolTextToken_517160(text);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "DE"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        "",
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::uint8_t* detail::ConnectionLegacyAccess::EscapeProtocolText_5171F0(CgConnection& owner, const std::wstring_view text)
+// 原 [0x511CD0,0x511D0C)：as 请求，追加共享原字节文本。
+std::int32_t CgConnection::RequestItemTargetAttributes()
 {
-    return owner.impl_->EscapeProtocolText_5171F0(text);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "as"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        "",
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::uint8_t* detail::ConnectionLegacyAccess::UnescapeProtocolText_5172D0(CgConnection& owner, const char* const text)
+// 原 [0x511FB0,0x511FEC)：ixH 请求，追加共享原字节文本。
+std::int32_t CgConnection::SendTradeRequest()
 {
-    return owner.impl_->UnescapeProtocolText_5172D0(text);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "ixH"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        "",
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::uint8_t* detail::ConnectionLegacyAccess::DecodeOptionalProtocolText_5171B0(CgConnection& owner, const char* const text)
+// 原 [0x512230,0x51226C)：suI 请求，追加共享原字节文本。
+std::int32_t CgConnection::WithdrawTradeConfirmation()
 {
-    return owner.impl_->DecodeOptionalProtocolText_5171B0(text);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "suI"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        "",
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::int32_t detail::ConnectionLegacyAccess::SendProtocolBuffer_517480(CgConnection& owner,
-    const std::uintptr_t socket,
-    char* const buffer)
+// 原 [0x512570,0x5125AC)：ih 请求，追加共享原字节文本。
+std::int32_t CgConnection::ToggleBattleRowRequest()
 {
-    return owner.impl_->SendProtocolBuffer_517480(socket, buffer);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "ih"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        "",
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::int32_t detail::ConnectionLegacyAccess::SendConnectionProbe_512C10(CgConnection& owner,
-    const std::uintptr_t socket,
+// 原 [0x512CF0,0x512D2C)：lO 请求，追加共享原字节文本。
+std::int32_t CgConnection::RequestLogoutToTown()
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "lO"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        "",
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512DF0,0x512E38)：容量仅在命令构造之后、整数格式化之前采样。
+std::int32_t CgConnection::SendLoginTimestamp(const std::uint32_t tickBits)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "CCL"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(
+        std::bit_cast<std::int32_t>(tickBits));
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512D30,0x512D9B)：两项分别采样容量，格式化后重读输出缓冲。
+std::int32_t CgConnection::SendVersionUpgradeRequest(const std::int32_t version,
+    const std::wstring_view payload)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Xoee"));
+
+    const std::int32_t integerCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const integerToken = impl_->FormatProtocolIntegerToken_517120(version);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(integerToken),
+        integerCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(payload);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512DA0,0x512DE8)：命令构造后采一次容量，再格式化和追加整数。
+std::int32_t CgConnection::SendCraftDuration(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "IPy"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x510570,0x510621)：四项各自采容量、格式化后重读共享输出缓冲。
+std::int32_t CgConnection::SendPlayerMovementPath(const std::int32_t first,
+    const std::int32_t second,
+    const std::wstring_view text,
+    const std::int32_t fourth)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "zA"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    const std::int32_t fourthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fourthToken = impl_->FormatProtocolIntegerToken_517120(fourth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fourthToken),
+        fourthCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512B00,0x512B8E)：每项均先读容量，格式化后重新读取输出缓冲。
+std::int32_t CgConnection::SendCharacterLoginRequest(const std::int32_t field4C,
+    const std::int32_t field50,
+    const std::int32_t field18)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "emRV"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(field4C);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(field50);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(field18);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512AB0,0x512AF8)：一次容量采样，输出缓冲在各调用点重新读取。
+std::int32_t CgConnection::SendCharacterDeletionRequest(const std::int32_t registNumber)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Godf"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(registNumber);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// NLD01／原512800：摘要、口令、账号、适配器四轮独立采容量，转义后重读输出缓冲。
+std::int32_t CgConnection::SendAccountLoginRequest(const std::wstring_view executableDigest,
+    const std::wstring_view password,
+    const std::wstring_view account,
+    const std::wstring_view adapterId)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "JFVf"));
+
+    const std::int32_t digestCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const digestToken =
+        impl_->FormatProtocolTextToken_517160(executableDigest);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(digestToken),
+        digestCapacity));
+
+    const std::int32_t passwordCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const passwordToken = impl_->FormatProtocolTextToken_517160(password);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(passwordToken),
+        passwordCapacity));
+
+    const std::int32_t accountCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const accountToken =
+        impl_->FormatProtocolTextToken_517160(account);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(accountToken),
+        accountCapacity));
+
+    const std::int32_t adapterCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const adapterToken =
+        impl_->FormatProtocolTextToken_517160(adapterId);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(adapterToken),
+        adapterCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5128C0,0x512AAC)：每项独立读取容量，格式化后重读输出缓冲。
+std::int32_t CgConnection::SendCharacterCreationRequest(const std::int32_t field1,
+    const std::wstring_view field2,
+    const std::int32_t field3,
+    const std::int32_t field4,
+    const std::int32_t field5,
+    const std::int32_t field6,
+    const std::int32_t field7,
+    const std::int32_t field8,
+    const std::int32_t field9,
+    const std::int32_t field10,
+    const std::int32_t field11,
+    const std::int32_t field12,
+    const std::int32_t field13)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "aSEl"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(field1);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(field2);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    const std::array<std::int32_t, 11> remainingIntegerFields {
+        field3, field4, field5, field6, field7, field8,
+        field9, field10, field11, field12, field13
+    };
+    for (const std::int32_t field : remainingIntegerFields) {
+        const std::int32_t capacity = std::bit_cast<std::int32_t>(
+            impl_->workspaceCapacity);
+        std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(field);
+        static_cast<void>(AppendProtocolText_5170D0(
+            reinterpret_cast<char*>(impl_->sendMessageBuffer),
+            reinterpret_cast<const char*>(token),
+            capacity));
+    }
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x510630,0x510704)：五轮各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendMapTransitionRequest(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third,
+    const std::int32_t fourth,
+    const std::int32_t fifth)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "pg"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    const std::int32_t fourthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fourthToken = impl_->FormatProtocolIntegerToken_517120(fourth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fourthToken),
+        fourthCapacity));
+
+    const std::int32_t fifthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fifthToken = impl_->FormatProtocolIntegerToken_517120(fifth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fifthToken),
+        fifthCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x510710,0x510807)：六轮各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::RequestMapRectangle(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third,
+    const std::int32_t fourth,
+    const std::int32_t fifth,
+    const std::int32_t sixth)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "UUN"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    const std::int32_t fourthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fourthToken = impl_->FormatProtocolIntegerToken_517120(fourth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fourthToken),
+        fourthCapacity));
+
+    const std::int32_t fifthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fifthToken = impl_->FormatProtocolIntegerToken_517120(fifth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fifthToken),
+        fifthCapacity));
+
+    const std::int32_t sixthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const sixthToken = impl_->FormatProtocolIntegerToken_517120(sixth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(sixthToken),
+        sixthCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x00510AC0。
+std::int32_t CgConnection::SendItemUseRequest(const std::int32_t x, const std::int32_t y,
+    const std::int32_t item, const std::int32_t target)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "iVfo"));
+    const std::array<std::int32_t, 4> fields {x, y, item, target};
+    for (const std::int32_t field : fields) {
+        const std::int32_t capacity = std::bit_cast<std::int32_t>(
+            impl_->workspaceCapacity);
+        std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(field);
+        static_cast<void>(AppendProtocolText_5170D0(
+            reinterpret_cast<char*>(impl_->sendMessageBuffer),
+            reinterpret_cast<const char*>(token), capacity));
+    }
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// NFI01：fIM三Base62整数按现明文普通空格发送；保原time/seed/rand与共享缓冲时序。
+// 原函数：0x00510B80。
+std::int32_t CgConnection::SendPositionDirectionInteraction(const std::int32_t x,
+    const std::int32_t y, const std::int32_t direction)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "fIM"));
+    const std::array<std::int32_t, 3> fields {x, y, direction};
+    for (const std::int32_t field : fields) {
+        const std::int32_t capacity = std::bit_cast<std::int32_t>(
+            impl_->workspaceCapacity);
+        std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(field);
+        static_cast<void>(AppendProtocolText_5170D0(
+            reinterpret_cast<char*>(impl_->sendMessageBuffer),
+            reinterpret_cast<const char*>(token), capacity));
+    }
+
+    char* buffer = reinterpret_cast<char*>(impl_->sendMessageBuffer);
+    std::int32_t selected = 1;
+    std::int32_t spaces = 0;
+    std::uint32_t index = 0;
+    if (std::strlen(buffer) != 0) {
+        do {
+            if (buffer[index] == ' ') {
+                ++spaces;
+            }
+            if (spaces >= 3) {
+                break;
+            }
+            ++index;
+        } while (index < std::strlen(buffer));
+        if (spaces > 0) {
+            const __time64_t seconds = ::_time64(nullptr);
+            static_cast<void>(
+                platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(seconds)));
+            selected = platform::Rand16() % spaces;
+            if (selected == 0) {
+                selected = 1;
+            }
+            buffer = reinterpret_cast<char*>(impl_->sendMessageBuffer);
+        }
+    }
+    std::int32_t ordinal = 0;
+    for (index = 0; index < std::strlen(buffer); ++index) {
+        if (buffer[index] == ' ') {
+            if (ordinal == selected) {
+                // 服务端不以0x17终止整数token，保普通空格；原选择/RNG消费及fresh借用保持。
+                buffer = reinterpret_cast<char*>(impl_->sendMessageBuffer);
+                break;
+            }
+            ++ordinal;
+        }
+    }
+    return impl_->SendProtocolBuffer_517480(impl_->contextId, buffer);
+}
+
+// 原 [0x510810,0x51087B)：两轮各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendPlayerCoordinates(const std::int32_t first,
+    const std::int32_t second)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "KeOX"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511030,0x5110AE)：先追加数量，再逐项读取 W32 并分别采容量。
+std::int32_t CgConnection::RequestAlbumEntries(const std::int32_t* values,
+    const std::int32_t count)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "kza"));
+
+    const std::int32_t countCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const countToken = impl_->FormatProtocolIntegerToken_517120(count);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(countToken),
+        countCapacity));
+
+    for (std::int32_t index = 0; index < count; ++index) {
+        const std::int32_t capacity = std::bit_cast<std::int32_t>(
+            impl_->workspaceCapacity);
+        const std::int32_t value = values[index];
+        std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+        static_cast<void>(AppendProtocolText_5170D0(
+            reinterpret_cast<char*>(impl_->sendMessageBuffer),
+            reinterpret_cast<const char*>(token),
+            capacity));
+    }
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511190,0x5111D8)：FPkR单整数发送；容量先采，输出缓冲独立重取。
+std::int32_t CgConnection::RequestContactDeletion(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "FPkR"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token), capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x00511250。
+std::int32_t CgConnection::SendGuildTextUpdate(const std::int32_t kind, const std::wstring_view text)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Ufm"));
+    const std::int32_t kindCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const kindToken = impl_->FormatProtocolIntegerToken_517120(kind);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(kindToken), kindCapacity));
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken), textCapacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5112C0,0x51134E)：两整数、文本各自采容量并重读输出缓冲。
+std::int32_t CgConnection::SendGuildRankDefinition(const std::int32_t first,
+    const std::int32_t second,
     const std::wstring_view text)
 {
-    return owner.impl_->SendConnectionProbe_512C10(socket, text);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "GY"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::int32_t detail::ConnectionLegacyAccess::AppendReceiveQueue_5081E0(CgConnection& owner,
-    const void* const source,
-    const std::uint32_t size)
+// 原 [0x511350,0x5113BB)：两整数分别采容量并在格式化后重读输出缓冲。
+std::int32_t CgConnection::SendGuildMemberRankChange(const std::int32_t first,
+    const std::int32_t second)
 {
-    return owner.impl_->AppendReceiveQueue_5081E0(source, size);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "uHb"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::int32_t detail::ConnectionLegacyAccess::ConsumeReceiveQueue_508230(CgConnection& owner, const std::int32_t size)
+// 原 [0x510880,0x5108EB)：对战请求，发送坐标不是目标格坐标。
+std::int32_t CgConnection::SendDuelRequest(const std::int32_t first,
+    const std::int32_t second)
 {
-    return owner.impl_->ConsumeReceiveQueue_508230(size);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "ik"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::uint16_t detail::ConnectionLegacyAccess::ReadProtocolModeDA3B22(CgConnection& owner) noexcept
+// 原 [0x510940,0x5109AB)：观战命令原字节为大小写敏感的IMv。
+std::int32_t CgConnection::SendSpectateRequest(const std::int32_t first,
+    const std::int32_t second)
 {
-    return owner.impl_->ReadProtocolModeDA3B22();
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "IMv"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-void detail::ConnectionLegacyAccess::WriteProtocolModeDA3B22(CgConnection& owner, const std::uint16_t value) noexcept
+// 原 [0x5111E0,0x51124B)：名片请求，两字段分别采容量并重读共享缓冲。
+std::int32_t CgConnection::SendContactCardRequest(const std::int32_t first,
+    const std::int32_t second)
 {
-    return owner.impl_->WriteProtocolModeDA3B22(value);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "vcAz"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-void detail::ConnectionLegacyAccess::SplitReceivedBuffer_5173B0(CgConnection& owner, char* const buffer)
+// 原 [0x5113C0,0x51142B)：两整数各自采容量并在格式化后重读输出缓冲。
+std::int32_t CgConnection::SendGuildInvitation(const std::int32_t first,
+    const std::int32_t second)
 {
-    return owner.impl_->SplitReceivedBuffer_5173B0(buffer);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "npzi"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::int32_t detail::ConnectionLegacyAccess::NetworkDispatch_512E40(CgConnection& owner,
-    const std::uintptr_t socket, const void* const received)
+// 原 [0x511430,0x511478)：单次采容量、格式化后重读输出缓冲发送。
+std::int32_t CgConnection::RequestGuildMemberDeletion(const std::int32_t value)
 {
-    return owner.impl_->NetworkDispatch_512E40(socket, received);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "dbQC"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-void detail::ConnectionLegacyAccess::HandleServerAddressChangeReply_50E6E0(CgConnection& owner, const std::uintptr_t, const char* const text)
+// 原[510FA0,51102E)：三次采容量与格式化后的输出地址重取独立。
+std::int32_t CgConnection::SendContactMail(const std::int32_t first,
+    const std::wstring_view text, const std::int32_t third)
 {
-    return owner.impl_->HandleServerAddressChangeReply_50E6E0(0, text);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "CV"));
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken), firstCapacity));
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken), textCapacity));
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken), thirdCapacity));
+    return impl_->SendProtocolBuffer_517480(impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::int32_t detail::ConnectionLegacyAccess::HandleVersionUpgradeReply_50E780(CgConnection& owner, const std::uintptr_t, const std::int32_t value)
+// 原 [0x511480,0x51150E)：整数、文本、整数分别采容量并重读输出缓冲。
+std::int32_t CgConnection::SendGuildMail(const std::int32_t first,
+    const std::wstring_view text,
+    const std::int32_t third)
 {
-    return owner.impl_->HandleVersionUpgradeReply_50E780(0, value);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "uId"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
-std::int32_t detail::ConnectionLegacyAccess::AllocateNetworkWorkspace_516B60(CgConnection& owner,
-    const NetworkCallback callback,
-    const std::uint32_t bufferLength,
-    const std::uintptr_t)
+// 原[5110B0,511184)：五字段各自采容量，格式化后重取输出地址。
+std::int32_t CgConnection::SendContactPetMail(const std::int32_t first, const std::int32_t second,
+    const std::int32_t third, const std::wstring_view text, const std::int32_t fifth)
 {
-    return owner.impl_->AllocateNetworkWorkspace_516B60(callback, bufferLength, 0);
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "rMsv"));
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken), firstCapacity));
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken), secondCapacity));
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken), thirdCapacity));
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken), textCapacity));
+    const std::int32_t fifthCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const fifthToken = impl_->FormatProtocolIntegerToken_517120(fifth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fifthToken), fifthCapacity));
+    return impl_->SendProtocolBuffer_517480(impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511510,0x5115E4)：三整数、文本、末整数分别采容量并重读输出缓冲。
+std::int32_t CgConnection::SendGuildPetMail(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third,
+    const std::wstring_view text,
+    const std::int32_t fifth)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "PfqV"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    const std::int32_t fifthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fifthToken = impl_->FormatProtocolIntegerToken_517120(fifth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fifthToken),
+        fifthCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5115F0,0x511638)：单次采容量、整数格式化后重读缓冲发送。
+std::int32_t CgConnection::RequestProfileCategoryUpdates(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "HoW"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511640,0x51175A)：七项依次采容量、格式化并重读输出缓冲。
+std::int32_t CgConnection::SendPlayerProfile(const std::int32_t field1,
+    const std::wstring_view text2,
+    const std::int32_t field3,
+    const std::wstring_view text4,
+    const std::int32_t field5,
+    const std::wstring_view text6,
+    const std::wstring_view text7)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Ot"));
+
+    const std::int32_t capacity1 = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token1 = impl_->FormatProtocolIntegerToken_517120(field1);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token1),
+        capacity1));
+
+    const std::int32_t capacity2 = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token2 = impl_->FormatProtocolTextToken_517160(text2);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token2),
+        capacity2));
+
+    const std::int32_t capacity3 = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token3 = impl_->FormatProtocolIntegerToken_517120(field3);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token3),
+        capacity3));
+
+    const std::int32_t capacity4 = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token4 = impl_->FormatProtocolTextToken_517160(text4);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token4),
+        capacity4));
+
+    const std::int32_t capacity5 = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token5 = impl_->FormatProtocolIntegerToken_517120(field5);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token5),
+        capacity5));
+
+    const std::int32_t capacity6 = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token6 = impl_->FormatProtocolTextToken_517160(text6);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token6),
+        capacity6));
+
+    const std::int32_t capacity7 = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token7 = impl_->FormatProtocolTextToken_517160(text7);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token7),
+        capacity7));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511760,0x5117CB)：两项各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::RequestPlayerProfile(const std::int32_t first,
+    const std::int32_t second)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "TLKH"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5117D0,0x51183B)：整数、文本各自采容量并在格式化后重读输出缓冲。
+std::int32_t CgConnection::RequestMiniMailContactDeletion(const std::int32_t value,
+    const std::wstring_view text)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "wD"));
+
+    const std::int32_t valueCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const valueToken = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(valueToken),
+        valueCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511840,0x5118AB)：文本、整数各自采容量并在格式化后重读输出缓冲。
+std::int32_t CgConnection::SendMiniMail(const std::wstring_view text,
+    const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "GH"));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    const std::int32_t valueCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const valueToken = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(valueToken),
+        valueCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5118B0,0x5118F8)：单次容量采样、整数格式化后重读缓冲发送。
+std::int32_t CgConnection::SetProfileVisibilityRequest(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "lz"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511900,0x5119F7)：六项各自先读容量，格式化后重读输出缓冲。
+// CTS01：原六字段逐项容量→token→新buffer→append，末发送S32透传。
+std::int32_t CgConnection::SendChatMessage(const std::int32_t first,
+    const std::int32_t second,
+    const std::wstring_view text,
+    const std::int32_t fourth,
+    const std::int32_t fifth,
+    const std::int32_t sixth)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "uSr"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    const std::int32_t fourthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fourthToken = impl_->FormatProtocolIntegerToken_517120(fourth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fourthToken),
+        fourthCapacity));
+
+    const std::int32_t fifthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fifthToken = impl_->FormatProtocolIntegerToken_517120(fifth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fifthToken),
+        fifthCapacity));
+
+    const std::int32_t sixthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const sixthToken = impl_->FormatProtocolIntegerToken_517120(sixth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(sixthToken),
+        sixthCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511A00,0x511A48)：构造命令后只采一次容量，追加并发送。
+std::int32_t CgConnection::SendPlayerOptions(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "dcMv"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511A50,0x511ADE)：三项各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendTeamJoinLeaveRequest(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "zn"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511AE0,0x511BB4)：五项各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendPetStates(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third,
+    const std::int32_t fourth,
+    const std::int32_t fifth)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "LKQy"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    const std::int32_t fourthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fourthToken = impl_->FormatProtocolIntegerToken_517120(fourth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fourthToken),
+        fourthCapacity));
+
+    const std::int32_t fifthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fifthToken = impl_->FormatProtocolIntegerToken_517120(fifth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fifthToken),
+        fifthCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511BC0,0x511C2B)：两项各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::MovePetSlotRequest(const std::int32_t first,
+    const std::int32_t second)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Ukuy"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511C30,0x511C78)：构造命令后只采一次容量，追加并发送。
+std::int32_t CgConnection::RequestSkillTargetAttributes(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "iET"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511C80,0x511CC8)：一次容量采样，整数 token 追加后发送。
+std::int32_t CgConnection::SelectSkillTextTarget(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "McVa"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511D10,0x511D58)：一次容量采样，整数 token 追加后发送。
+std::int32_t CgConnection::SelectItemTextTarget(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "mjCv"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511D60,0x511DCB)：两项各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendItemTargetPair(const std::int32_t first,
+    const std::int32_t second)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "BG"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511DD0,0x511E5E)：三项各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendWorldActionRequest(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "MIS"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511E60,0x511EEE)：三项各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendPlayerMotionRequest(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "klF"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511EF0,0x511FA1)：三个整数及文本各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendSkillUseRequest(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third,
+    const std::wstring_view text)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "sM"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x511FF0,0x512038)：容量在格式化前采样，追加和发送各自重读缓冲。
+std::int32_t CgConnection::SelectTradePartnerRequest(const std::int32_t index)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "QeuC"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(index);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token), capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512040,0x5120CE)：两段文本和整数各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::SendTradeOffer(const std::wstring_view first,
+    const std::wstring_view second,
+    const std::int32_t third)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "aiAb"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolTextToken_517160(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolTextToken_517160(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5120D0,0x51215E)：三段文本各自采容量、格式化后重读输出缓冲。
+std::int32_t CgConnection::PublishStallRequest(const std::wstring_view first,
+    const std::wstring_view second,
+    const std::wstring_view third)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "ylGN"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolTextToken_517160(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolTextToken_517160(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolTextToken_517160(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512160,0x512185)：建命令后重读缓冲并完整透传发送返回。
+std::int32_t CgConnection::CloseStallRequest()
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "JMh"));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512190,0x5121D8)：一次容量采样，整数 token 追加后发送。
+std::int32_t CgConnection::RequestStallContents(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "ElVN"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5121E0,0x512228)：容量在格式化前采样，追加及发送时重读缓冲。
+std::int32_t CgConnection::PurchaseStallOffer(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "wAo"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x005127B0。
+std::int32_t CgConnection::SelectBankPageRequest(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "rh"));
+    const std::int32_t capacity =
+        std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token), capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512270,0x5122B8)：格式化前采容量，追加与发送各自重读缓冲。
+std::int32_t CgConnection::SendTradeDecision(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "OU"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5122C0,0x512308)：格式化前采容量，追加与发送各自重读缓冲。
+std::int32_t CgConnection::SelectPlayerTitleRequest(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "zGp"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512310,0x512358)：格式化前采容量，追加与发送各自重读缓冲。
+std::int32_t CgConnection::DeletePlayerTitleRequest(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "tj"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512360,0x5123A8)：转义前采容量，追加与发送各自重读缓冲。
+std::int32_t CgConnection::SetCustomPlayerTitleRequest(const std::wstring_view text)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "ACwB"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5123B0,0x5123F8)：格式化前采容量，追加与发送各自重读缓冲。
+std::int32_t CgConnection::IncreasePlayerAttributeRequest(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "IHw"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512400,0x51246B)：两轮分别采容量、格式化后重读共享缓冲。
+std::int32_t CgConnection::IncreasePetAttributeRequest(const std::int32_t first,
+    const std::int32_t second)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "kjSK"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512470,0x5124DB)：两轮分别采容量、格式化后重读共享缓冲。
+std::int32_t CgConnection::SwapPlayerSkillOrderRequest(const std::int32_t first,
+    const std::int32_t second)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Noeb"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x510E30,0x510EBE)：放地请求，容量读取先于格式化，缓冲读取在其后。
+std::int32_t CgConnection::DropPetRequest(const std::int32_t x,
+    const std::int32_t y,
+    const std::int32_t pet)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "FvWm"));
+    const std::int32_t xCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const xToken = impl_->FormatProtocolIntegerToken_517120(x);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(xToken), xCapacity));
+    const std::int32_t yCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const yToken = impl_->FormatProtocolIntegerToken_517120(y);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(yToken), yCapacity));
+    const std::int32_t petCapacity = std::bit_cast<std::int32_t>(impl_->workspaceCapacity);
+    std::uint8_t* const petToken = impl_->FormatProtocolIntegerToken_517120(pet);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(petToken), petCapacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5124E0,0x51256E)：三轮分别采容量、格式化后重读共享缓冲。
+std::int32_t CgConnection::SwapPetSkillOrderRequest(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "HJQp"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x5125B0,0x51261B)：两轮各自采容量、格式化后重读共享输出缓冲。
+std::int32_t CgConnection::RenamePetRequest(const std::int32_t value,
+    const std::wstring_view text)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "ycX"));
+
+    const std::int32_t valueCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const valueToken = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(valueToken),
+        valueCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512620,0x512717)：六轮分别采容量、格式化后重读共享输出缓冲。
+// SDM01：原512620完整77条；xD五S32及文本各先容量再token/fresh输出，当前原字段/LF明文及S32返回保。
+std::int32_t CgConnection::SendDialogResponse(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third,
+    const std::int32_t fourth,
+    const std::int32_t fifth,
+    const std::wstring_view text)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "xD"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    const std::int32_t fourthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fourthToken = impl_->FormatProtocolIntegerToken_517120(fourth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fourthToken),
+        fourthCapacity));
+
+    const std::int32_t fifthCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const fifthToken = impl_->FormatProtocolIntegerToken_517120(fifth);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(fifthToken),
+        fifthCapacity));
+
+    const std::int32_t textCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const textToken = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(textToken),
+        textCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// IMT01：原55条，四S32字段容量先格式/输出重读及S32发送返回，当前原字段/LF明文，正确正文保。
+// 原函数：0x00510CE0。
+std::int32_t CgConnection::DropItemRequest(const std::int32_t x, const std::int32_t y,
+    const std::int32_t group, const std::int32_t index)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "QpfE"));
+
+    const std::int32_t xCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const xToken = impl_->FormatProtocolIntegerToken_517120(x);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(xToken), xCapacity));
+
+    const std::int32_t yCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const yToken = impl_->FormatProtocolIntegerToken_517120(y);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(yToken), yCapacity));
+
+    const std::int32_t groupCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const groupToken = impl_->FormatProtocolIntegerToken_517120(group);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(groupToken), groupCapacity));
+
+    const std::int32_t indexCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const indexToken = impl_->FormatProtocolIntegerToken_517120(index);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(indexToken), indexCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x00510A00。
+std::int32_t CgConnection::BeginItemUseRequest(const std::int32_t x, const std::int32_t y,
+    const std::int32_t index, const std::int32_t group)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Ak"));
+
+    const std::int32_t xCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const xToken = impl_->FormatProtocolIntegerToken_517120(x);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(xToken), xCapacity));
+
+    const std::int32_t yCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const yToken = impl_->FormatProtocolIntegerToken_517120(y);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(yToken), yCapacity));
+
+    const std::int32_t indexCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const indexToken = impl_->FormatProtocolIntegerToken_517120(index);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(indexToken), indexCapacity));
+
+    const std::int32_t groupCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const groupToken = impl_->FormatProtocolIntegerToken_517120(group);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(groupToken), groupCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x00516C90。
+std::int32_t CgConnection::MoveItemBetweenOwnersRequest(const std::int32_t sourceGroup, const std::int32_t source,
+    const std::int32_t targetGroup, const std::int32_t target, const std::int32_t amount)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Cpa"));
+
+    const std::int32_t sourceGroupCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const sourceGroupToken = impl_->FormatProtocolIntegerToken_517120(sourceGroup);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(sourceGroupToken), sourceGroupCapacity));
+
+    const std::int32_t sourceCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const sourceToken = impl_->FormatProtocolIntegerToken_517120(source);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(sourceToken), sourceCapacity));
+
+    const std::int32_t targetGroupCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const targetGroupToken = impl_->FormatProtocolIntegerToken_517120(targetGroup);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(targetGroupToken), targetGroupCapacity));
+
+    const std::int32_t targetCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const targetToken = impl_->FormatProtocolIntegerToken_517120(target);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(targetToken), targetCapacity));
+
+    const std::int32_t amountCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const amountToken = impl_->FormatProtocolIntegerToken_517120(amount);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(amountToken), amountCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x00516D70。
+std::int32_t CgConnection::SendIuEPacket()
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "iuE"));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x005109B0。
+std::int32_t CgConnection::SendBattlePacket(const std::wstring_view text)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "Rg"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolTextToken_517160(text);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token), capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// MDR01：原510DA0完整44条；woz三个S32，各容量先token/fresh输出，末真实S32发送结果，原字段/LF明文。
+std::int32_t CgConnection::DropGoldRequest(const std::int32_t x,
+    const std::int32_t y, const std::int32_t amount)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "woz"));
+
+    const std::int32_t xCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const xToken = impl_->FormatProtocolIntegerToken_517120(x);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(xToken), xCapacity));
+
+    const std::int32_t yCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const yToken = impl_->FormatProtocolIntegerToken_517120(y);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(yToken), yCapacity));
+
+    const std::int32_t amountCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const amountToken = impl_->FormatProtocolIntegerToken_517120(amount);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(amountToken), amountCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x00510EC0。
+std::int32_t CgConnection::MoveItemStackRequest(const std::int32_t source,
+    const std::int32_t target, const std::int32_t amount)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "yi"));
+
+    const std::int32_t sourceCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const sourceToken = impl_->FormatProtocolIntegerToken_517120(source);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(sourceToken), sourceCapacity));
+
+    const std::int32_t targetCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const targetToken = impl_->FormatProtocolIntegerToken_517120(target);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(targetToken), targetCapacity));
+
+    const std::int32_t amountCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const amountToken = impl_->FormatProtocolIntegerToken_517120(amount);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(amountToken), amountCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x00510F50。
+std::int32_t CgConnection::SendSkillRebirthSelection(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "fS"));
+
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token),
+        capacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原函数：0x005108F0。
+std::int32_t CgConnection::AcknowledgeBattleExit(const std::int32_t value)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "eL"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const token = impl_->FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(token), capacity));
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId, reinterpret_cast<char*>(impl_->sendMessageBuffer));
+}
+
+// 原 [0x512720,0x5127AE)：三项各自采容量、格式化后重读共享输出缓冲。
+std::int32_t CgConnection::SendPlayerPositionAndDirection(const std::int32_t first,
+    const std::int32_t second,
+    const std::int32_t third)
+{
+    const auto session = CaptureSession();
+    if (!impl_->active) return -100;
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer), "cZt"));
+
+    const std::int32_t firstCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const firstToken = impl_->FormatProtocolIntegerToken_517120(first);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(firstToken),
+        firstCapacity));
+
+    const std::int32_t secondCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const secondToken = impl_->FormatProtocolIntegerToken_517120(second);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(secondToken),
+        secondCapacity));
+
+    const std::int32_t thirdCapacity = std::bit_cast<std::int32_t>(
+        impl_->workspaceCapacity);
+    std::uint8_t* const thirdToken = impl_->FormatProtocolIntegerToken_517120(third);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(impl_->sendMessageBuffer),
+        reinterpret_cast<const char*>(thirdToken),
+        thirdCapacity));
+
+    return impl_->SendProtocolBuffer_517480(
+        impl_->contextId,
+        reinterpret_cast<char*>(impl_->sendMessageBuffer));
 }
 
 } // namespace cg::network

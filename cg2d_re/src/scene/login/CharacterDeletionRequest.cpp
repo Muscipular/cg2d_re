@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/scene/login/CharacterDeletionRequest.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -20,11 +21,11 @@ std::uint32_t StartCharacterDeletionRequest()
     const std::int16_t selected = gSelectedCharacterIndex;
     gCharacterDeletionReplyCode = 0;
 
-    const std::uintptr_t socket = platform::gConnectionSocket;
+    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
     const CharacterRecord* const record = gCharacterRecords.data() + selected;
     const std::int32_t registNumber = record->registNumber;
 
-    network::SendCharacterDeletionRequest_512AB0(socket, registNumber);
+    cg::network::GetGameConnection().SendCharacterDeletionRequest(registNumber);
     gRequestStatus = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
     gRequestStartTick = tick;
@@ -54,8 +55,7 @@ std::int32_t PollCharacterDeletionRequest()
 }
 
 // 原函数：0x00509020。
-void HandleCharacterDeletionResponse_509020(
-    const std::uintptr_t,
+void HandleCharacterDeletionResponse_509020(cg::network::CgConnection&,
     const char* const result,
     const char* const)
 {

@@ -4781,3 +4781,13 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 已清点镜像涉及57个源码/头文件、81个现有业务组包函数，以及Lua/AutoBattle、背包SWITMP/SWITM和银行rh的直接拼包路径；明确不同编码和回调流水线不能直接合并。
 - 新增CTO02：全部网络请求成员化、接收及Hook显式连接上下文、生命周期副作用回归调用模块，清理镜像和CTO01内部兼容桥；提出将gRequestPollingEnabled一并收敛到对象门禁，保留纯字段解析与原业务状态归属。
 - 文档：doc/cg2d_connection_business_migration_spec.md，含81项成员映射。本轮仅设计和进度，未修改运行代码、编译或运行，整体方案待用户确认。
+
+## 551. CgConnection全业务网络入口迁移实施（2026-10-20）
+
+- 用户确认执行CTO02并在完成后运行build.bat。继续按file-content显式UTF-8读写、匹配既有换行风格，单线程实施，不新增依赖。
+- 已完成81个业务发送成员化及194处调用迁移，覆盖登录/人物、Lua/AutoBattle、世界和全部UI。三个背包/银行特殊报文进入独立具名成员，保留SWITMP来源Base62、SWITM页码十进制及rh两条入口各自编码。
+- 接收派发表、原生Hook和Lua桥改传连接引用；CaptureSession/SessionScope在对象内保留原采样时点和同步调用栈身份，内部探测也纳入，旧回调重连后不向新连接提交旧请求。无活动工作区的具名发送返回-100；已初始化的组包/RNG消费顺序保持。
+- gConnectionSocket、gRequestPollingEnabled及旧自由入口已清除，CgConnectionLegacy.hpp已删除；NetworkRuntime仅保留无状态字段工具和原业务handler。唯一对象归CgConnection，门禁归IoEnabled；登录、主循环断线、返回选择及退出副作用均保留原调用位置。
+- 静态文本比较通过：81个组包本体除对象/上下文替换外相同，194处调用的业务参数与顺序相同；60个调用模块的字面量未变，另单列核对主循环日志及三条UI报文迁入。首轮build.bat Debug发现退出模块缺少SceneState声明、对话内部路由仍用旧首参，均已补齐，准备重新构建；运行验收仍待进行。
+- 第二轮build.bat Debug配置、编译与客户端链接成功，退出码0；保留原业务C4701/C4244等警告。最终核对108条派发命令/目标/字段类型/读取掩码一致，UTF-8、原换行风格及git diff --check通过；CgTransport与构建配置未改动。
+- CTO02源码实施和本轮构建验证完成，SPEC状态已同步。本轮不运行客户端或测试，互通/重入竞态未验；精确提交本轮源码与文档，保留用户既有未跟踪内容。

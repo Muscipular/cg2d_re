@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -24,7 +25,6 @@ enum class WindowBattleCommandElementId : ElementId {
     Element13 = 13,
     Element14 = 14,
 };
-
 
 namespace detail {
 
@@ -571,7 +571,7 @@ static std::int32_t WindowBattleCommand_ButtonDefend(const std::int32_t index, c
             world::gBattleSelectionModes5ABC7C[1] = 1;
             world::gBattleSelectionMode5ABC70 = 0;
             cg::yobi::FlushBattleEntries_43C060();
-            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"G"));
+            static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"G"));
             cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
             world::gBattleCommandAction5ABC00 = nullptr;
             world::gBattlePlayerActionState5ABC74 = 1;
@@ -737,7 +737,7 @@ static std::int32_t WindowBattleCommand_ButtonFormation(const std::int32_t index
             world::gBattleSelectionMode5ABC70 = 6;
             world::gBattleSelectionModes5ABC7C[6] = 1;
             cg::yobi::FlushBattleEntries_43C060();
-            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"P"));
+            static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"P"));
             cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
             world::gBattleCommandAction5ABC00 = nullptr;
             world::gBattlePlayerActionState5ABC74 = 1;
@@ -780,7 +780,7 @@ static std::int32_t WindowBattleCommand_ButtonEscape(const std::int32_t index, c
             world::gBattleSelectionModes5ABC7C[7] = 1;
             world::gBattleSelectionMode5ABC70 = 0;
             cg::yobi::FlushBattleEntries_43C060();
-            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"E"));
+            static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"E"));
             cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
             world::gBattleCommandAction5ABC00 = nullptr;
             world::gBattlePlayerActionState5ABC74 = 1;
@@ -847,7 +847,7 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(const std::int32_t index, 
                 world::gBattleEntries59E980[world::gBattleCurrentPosition5ABCA4];
             const char* const command =
                 *cg::yobi::FindBattleRebirthSlot(current) != nullptr ? "R|0" : "R|1";
-            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, cg::text::FromGbkWide(command)));
+            static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(command)));
             cg::yobi::MarkDeath(world::gBattleCommandAction5ABC00);
             world::gBattleCommandAction5ABC00 = nullptr;
             world::gBattlePlayerActionState5ABC74 = 1;
@@ -1016,8 +1016,7 @@ static void WindowBattleCommand_SelectSkill(const std::int32_t skillIndex, const
         static_cast<std::uint32_t>(currentSkill),
         static_cast<std::uint32_t>(currentTechnique),
         static_cast<std::uint32_t>(currentPosition));
-    static_cast<void>(network::SendBattlePacket_5109B0(
-        platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
     cg::yobi::FlushBattleEntries_43C060();
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     const std::int32_t count = world::gBattleSkillActionCount5ABBF4;
@@ -1105,8 +1104,7 @@ static void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
         world::gBattlePetCommandPhase553F88 = 0;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         if (world::gBattleCurrentPosition5ABCA4 < 20) {
-            static_cast<void>(network::SendBattlePacket_5109B0(
-                platform::gConnectionSocket, L"W|FF"));
+            static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"W|FF"));
         }
         cg::yobi::FlushBattleEntries_43C060();
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -1136,8 +1134,7 @@ static void WindowBattleCommand_SelectPetSkill(const std::int32_t technique)
         std::array<char, 768> buffer;
         std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), static_cast<std::uint32_t>(targetIndex));
-        static_cast<void>(network::SendBattlePacket_5109B0(
-            platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+        static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
         cg::yobi::FlushBattleEntries_43C060();
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         const std::int32_t count = world::gBattlePetActionCount5ABBBC;
@@ -1158,8 +1155,7 @@ static void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
         world::gBattleSelectionMode5ABC70 = 0;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         if (world::gBattleCurrentPosition5ABCA4 < 20) {
-            static_cast<void>(network::SendBattlePacket_5109B0(
-                platform::gConnectionSocket, L"W|FF"));
+            static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"W|FF"));
         }
         cg::yobi::FlushBattleEntries_43C060();
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -1184,8 +1180,7 @@ static void WindowBattleCommand_SelectRidingSkill(const std::int32_t technique)
         std::array<char, 768> buffer;
         std::sprintf(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), pet);
-        static_cast<void>(network::SendBattlePacket_5109B0(
-            platform::gConnectionSocket, cg::text::FromGbkWide(buffer.data())));
+        static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
         cg::yobi::FlushBattleEntries_43C060();
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         const std::int32_t count = world::gBattlePetActionCount5ABBBC;
@@ -1305,13 +1300,13 @@ void WindowBattleCommand_Dispatch()
             cg::yobi::YobiAction* const player = cg::world::gBattleEntries59E980[position];
             if (*cg::yobi::FindBattleRiderSlot(player) != nullptr) {
                 if ((reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0] & 8u) != 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"N"));
                     const std::int32_t petCount = cg::world::gBattlePetActionCount5ABBBC;
                     const std::uint32_t flags = cg::world::gBattlePlayerFlags5ABCAC;
                     const bool skipPlayer = (flags & 0x20000u) != 0;
                     cg::world::gBattlePetActionCount5ABBBC = petCount + 1;
                     if (skipPlayer) {
-                        static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
+                        static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"N"));
                         const std::int32_t count = cg::world::gBattleSkillActionCount5ABBF4;
                         world::gCurrentSceneState = 5;
                         cg::world::gBattleSkillActionCount5ABBF4 = count + 1;
@@ -1367,7 +1362,7 @@ void WindowBattleCommand_Dispatch()
         std::uint32_t flags = cg::world::gBattlePlayerFlags5ABCAC;
         if ((flags & 4u) != 0) {
             if (position < 20) {
-                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
+                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"N"));
                 position = cg::world::gBattleCurrentPosition5ABCA4;
                 flags = cg::world::gBattlePlayerFlags5ABCAC;
             }
@@ -1377,7 +1372,7 @@ void WindowBattleCommand_Dispatch()
                 cg::world::gBattleCommandState5ABC3C = 3;
             } else if ((flags & 0x10u) != 0) {
                 if (position < 20) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"N"));
                 }
                 const std::int32_t nextCount = cg::world::gBattleSkillActionCount5ABBF4;
                 world::gCurrentSceneState = 5;
@@ -1467,7 +1462,7 @@ void WindowBattleCommand_Dispatch()
                     break;
                 }
                 if (send) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(buffer));
                     cg::yobi::FlushBattleEntries_43C060();
                     cg::world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -1534,7 +1529,7 @@ void WindowBattleCommand_Dispatch()
         }
         if ((flags & 8u) != 0) {
             if (cg::world::gBattleCurrentPosition5ABCA4 < 20) {
-                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"W|FF"));
+                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"W|FF"));
             }
             ++cg::world::gBattlePetActionCount5ABBBC;
             world::gCurrentSceneState = 5;
@@ -1576,7 +1571,7 @@ void WindowBattleCommand_Dispatch()
             if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & platform::LegacyMouseEdge_LDown) != 0) {
                 const std::int32_t technique = cg::world::gSelectedBattlePetTechniqueIndex_553F84;
                 cg::text::FormatTo(buffer, L"W|{:X}|{:X}", static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
-                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer));
+                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(buffer));
                 cg::yobi::FlushBattleEntries_43C060();
                 cg::world::gBattlePlayerActionState5ABC74 = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -1737,29 +1732,29 @@ static void WindowBattleCommand_DrawTimer()
         cg::yobi::YobiAction* const player = cg::world::gBattleEntries59E980[cg::world::gBattleCurrentPosition5ABCA4];
         bool finish = false;
         if (*cg::yobi::FindBattleRiderSlot(player) != nullptr) {
-            static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"W|FF"));
+            static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"W|FF"));
             finish = true;
         } else {
             std::uint8_t flags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
             const std::int32_t skillCount = cg::world::gBattleSkillActionCount5ABBF4;
             if ((flags & 0x20u) != 0) {
                 if (skillCount == 0 && (flags & 4u) == 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"N"));
                     finish = true;
                 }
                 if (cg::world::gBattlePetActionCount5ABBBC == 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"W|FF"));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"W|FF"));
                     finish = true;
                 }
             } else if (skillCount != 0 || (flags & 4u) == 0) {
                 if (skillCount == 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"N"));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"N"));
                     flags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
                     finish = true;
                 }
                 if (cg::world::gBattleSkillActionCount5ABBF4 == 1 && (flags & 4u) == 0) {
-                    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, L"N"));
+                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"N"));
                     finish = true;
                 }
             }

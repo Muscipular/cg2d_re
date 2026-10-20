@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include "../login/LoginSavedState.hpp"
 
 #include "../login/LoginMessageDependencies.hpp"
@@ -83,7 +85,7 @@ std::int32_t SaveCharacterCreationDraftSnapshot_4642C0(); // 保存14个W32及�
 std::uint8_t RestoreCharacterCreationDraftSnapshot_464380(); // 从备份低字节恢复创建字段，整块恢复输入，返回末次AL。
 
 // 原 [0x50E770,0x50E77A)：忽略 socket，取第二个 S32 的低字节写 Puk 版本 W8 并返回。
-std::uint8_t HandlePukVersionReply_50E770(std::uintptr_t unusedSocket, std::int32_t pukVersion);
+std::uint8_t HandlePukVersionReply_50E770(cg::network::CgConnection& networkConnection, std::int32_t pukVersion);
 
 // 原 [0x51BA10,0x51BAB5)：按原区间顺序返回图号类别 0..5。
 std::int32_t ClassifyCharacterGraphicFamily_51BA10(std::int32_t imageNo);
@@ -118,8 +120,6 @@ std::int32_t ComposeCharacterAppearanceGraphic_4C5650(
     std::int32_t quarter,
     std::int32_t fifth,
     std::int32_t ones);
-
-using cg::network::SendVersionUpgradeRequest_512D30;
 
 // BRT01：原9A5C10正常只读首NUL；新端1B owner静态存活，由创建/升级共享。
 // 1B是已证读足迹对应容量，不冒称原未使用预留尾部长度。

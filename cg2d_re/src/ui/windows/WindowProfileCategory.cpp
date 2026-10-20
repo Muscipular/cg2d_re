@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -169,7 +170,6 @@ enum class WindowProfileCategoryElementId : ElementId {
     Element161 = 161,
     HandleSideArea = 162,
 };
-
 
 namespace detail {
 
@@ -470,8 +470,7 @@ static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t inde
         const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(network::SendDialogResponse_512620(
-            platform::gConnectionSocket, x, y, request, target, 0, buffers[1]));
+        static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, buffers[1]));
         gProfileSearchKeyword1075988.clear();
     }
     return 1;

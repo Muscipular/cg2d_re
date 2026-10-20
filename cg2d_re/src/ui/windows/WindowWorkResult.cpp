@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -5,8 +6,7 @@ namespace cg::ui {
 // 窗口函数实现。
 
 // 原函数：0x0050C7F0。
-void WindowWorkResult_ReceiveReply(
-    const std::uintptr_t, const std::int32_t result,
+void WindowWorkResult_ReceiveReply(cg::network::CgConnection&, const std::int32_t result,
     const std::int32_t kind, const char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0 || world::ReadRippleGateOnce() != 0) {

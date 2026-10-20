@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -101,7 +103,6 @@ struct ContactRuntimeRecord {
     std::wstring text53; // 原成员偏移：+0x53。
 };
 
-
 extern std::array<ContactRuntimeRecord, 60> gContactsF19FB0; // 原全局：0x00F19FB0。
 // 原1075A90起的20条74H记录；50F9E0生产，查找/收信/未读扫描共用。
 struct MiniMailContactRecord {
@@ -126,15 +127,13 @@ extern std::int32_t gViewedMailMessageIndex_D046D4; // 原全局：0x00D046D4。
 // 原函数：0x004EC1A0。
 void SortContactIndices_4EC1A0(); // 原序生成/排序60个索引，比较器相等仍为-1。
 // 原函数：0x0050D740。
-void HandleContactListReply_50D740(std::uintptr_t unusedSocket, const char* payload); // 基础批量回复，无排序尾。
+void HandleContactListReply_50D740(cg::network::CgConnection& networkConnection, const char* payload); // 基础批量回复，无排序尾。
 // 原函数：0x0050D8C0。
-void HandleContactExtendedTextReply_50D8C0(std::uintptr_t unusedSocket, const char* payload); // 长文本批量回复，提前结束也排序。
+void HandleContactExtendedTextReply_50D8C0(cg::network::CgConnection& networkConnection, const char* payload); // 长文本批量回复，提前结束也排序。
 // 原函数：0x0050D9E0。
-void HandleContactUpdateReply_50D9E0(
-    std::uintptr_t unusedSocket, std::int32_t index, const char* payload); // 单槽回复，可清同源普通邮件。
+void HandleContactUpdateReply_50D9E0(cg::network::CgConnection& networkConnection, std::int32_t index, const char* payload); // 单槽回复，可清同源普通邮件。
 // 原函数：0x0050DC70。
-void HandleContactMailReply_50DC70(
-    std::uintptr_t unusedSocket, std::int32_t index,
+void HandleContactMailReply_50DC70(cg::network::CgConnection& networkConnection, std::int32_t index,
     const char* payload, std::int32_t unusedFourth); // 普通收信：插入/保存/扫描/通知。
 // 原函数：0x005191C0。
 void PrependContactMailMessage_5191C0(
@@ -163,13 +162,12 @@ void PrependMiniMailMessage_5343C0(
 // 原函数：0x00534480。
 void RemoveMiniMailContact_534480(std::int32_t index); // 保留最多20条清理，负索引或超出存储范围不访问。
 // 原函数：0x0050F430。
-void HandleMiniMailContactRemovalReply_50F430(std::uintptr_t unusedSocket, const char* payload); // 查槽后删除，-1不访问记录。
+void HandleMiniMailContactRemovalReply_50F430(cg::network::CgConnection& networkConnection, const char* payload); // 查槽后删除，-1不访问记录。
 // 原函数：0x0050F7F0。
-void HandleMiniMailReply_50F7F0(
-    std::uintptr_t unusedSocket, std::int32_t key,
+void HandleMiniMailReply_50F7F0(cg::network::CgConnection& networkConnection, std::int32_t key,
     const char* payload, std::int32_t unusedFourth); // 迷你收信，无文件保存。
 // 原函数：0x0050F9E0。
-void HandleMiniMailConversationReply_50F9E0(std::uintptr_t unusedSocket, const char* payload); // 完整首次生产、时间戳及两路插入。
+void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& networkConnection, const char* payload); // 完整首次生产、时间戳及两路插入。
 
 // 原资料/迷你邮件共享生命周期；不复用94H登录记录或510H保存记录。
 // 原函数：0x00533910。
@@ -189,11 +187,11 @@ std::int32_t LoadPlayerProfilesFile_5347F0(); // 整块读取后重取角色并�
 
 // 原category.dat同源三组与profile编号回复；均无场景门禁。
 // 原函数：0x0050F2A0。
-std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(std::uintptr_t unusedSocket, const char* payload); // 第一/第二组生产，返回计数。
+std::int32_t HandlePrimaryProfileCategoriesReply_50F2A0(cg::network::CgConnection& networkConnection, const char* payload); // 第一/第二组生产，返回计数。
 // 原函数：0x0050F3A0。
-std::int32_t HandleProfileCategoryVersionsReply_50F3A0(std::uintptr_t socket, const char* payload); // 写profile编号后比较旧表头，按差异补发。
+std::int32_t HandleProfileCategoryVersionsReply_50F3A0(cg::network::CgConnection& networkConnection, const char* payload); // 写profile编号后比较旧表头，按差异补发。
 // 原函数：0x0050F8E0。
-std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(std::uintptr_t unusedSocket, const char* payload); // 第三组生产，返回计数。
+std::int32_t HandleSecondaryProfileCategoriesReply_50F8E0(cg::network::CgConnection& networkConnection, const char* payload); // 第三组生产，返回计数。
 // 原函数：0x005348A0。
 std::int32_t SaveProfileCategoryFile_5348A0(); // bin/category.dat原13ED4H整块保存。
 // 原函数：0x00534910。
@@ -209,8 +207,7 @@ std::int32_t HandleViewedPlayerProfileReply_4CAC60(std::int32_t unusedValue, cha
 // 原函数：0x005342F0。
 std::int32_t FindProfileCategoryImage_5342F0(std::int32_t key, std::int32_t mode); // 分类第1/3组严格used==1首匹配，失败-1。
 // 原函数：0x0050F450。
-void HandlePlayerProfileReply_50F450(
-    std::uintptr_t unusedSocket, const char* text1, std::int32_t value2,
+void HandlePlayerProfileReply_50F450(cg::network::CgConnection& networkConnection, const char* text1, std::int32_t value2,
     const char* text3, const char* text4, const char* text5, std::int32_t value6,
     std::int32_t value7, const char* text8, std::int32_t value9,
     const char* text10, std::int32_t value11, const char* text12,

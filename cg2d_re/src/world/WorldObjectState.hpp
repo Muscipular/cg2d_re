@@ -1,5 +1,7 @@
 #pragma once
 
+namespace cg::network { class CgConnection; }
+
 #include <string>
 #include <string_view>
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -65,20 +67,19 @@ extern std::int32_t gWorldObjectFreeCursor; // 原5AC49C。
 extern std::int32_t gWorldObjectUsedCount; // 原5AC4B4。
 extern std::int32_t gWorldObjectUpperBound; // 原5F9738；不是占用数。
 
-
 } // namespace cg::world::detail
 
 namespace cg::world {
 // 原函数：0x004462B0。
 cg::yobi::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // WOL01：查槽一次/负返空，非负借用action。
 // 原函数：0x0050AEF0。
-void HandlePartyActorVitalsReply_50AEF0(std::uintptr_t unusedSocket, const char* payload); // 最多五组对象HP/FP，无全局门禁。
+void HandlePartyActorVitalsReply_50AEF0(cg::network::CgConnection& networkConnection, const char* payload); // 最多五组对象HP/FP，无全局门禁。
 // 原函数：0x0050B380。
-void HandleMapObjectListReply_50B380(std::uintptr_t socket, const char* payload); // 完整TAB对象批量回复，socket未用。
+void HandleMapObjectListReply_50B380(cg::network::CgConnection& networkConnection, const char* payload); // 完整TAB对象批量回复，socket未用。
 // 原函数：0x0050BCD0。
-void HandleWorldActorActionsReply_50BCD0(std::uintptr_t socket, const char* payload); // 逗号动作批量回复，先观察拦截。
+void HandleWorldActorActionsReply_50BCD0(cg::network::CgConnection& networkConnection, const char* payload); // 逗号动作批量回复，先观察拦截。
 // 原函数：0x0050BF20。
-void HandleWorldObjectRemovalReply_50BF20(std::uintptr_t unusedSocket, const char* payload); // 删除编号后清首个匹配地图槽引用。
+void HandleWorldObjectRemovalReply_50BF20(cg::network::CgConnection& networkConnection, const char* payload); // 删除编号后清首个匹配地图槽引用。
 // 原函数：0x0043DB00。
 std::uint16_t* SuspendWorldActorForObservation_43DB00(cg::yobi::YobiAction* action); // flags120观察低BYTE置80，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x0043DB30。

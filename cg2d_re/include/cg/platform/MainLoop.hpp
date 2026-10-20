@@ -19,7 +19,6 @@ extern std::uint32_t gCatchUpCount; // 原 0x5590F8，比较时按 signed32，�
 extern std::uint32_t gFrameCount;   // 原 0x58B7E4，映像初值 3。
 extern std::int32_t gPendingPaletteReload; // 原 0x62A65C，仅等于 1 时消费。
 
-extern std::uintptr_t gConnectionSocket; // CTO01：原0xD9B2B8只读兼容镜像，仅适配层写入；身份以CgConnection::Id为准。
 // CTM01：Win32 GetTickCount64减启动基线，完整64位毫秒；所有业务共用该时间域。
 std::uint64_t ReadTickCount64() noexcept;
 // CTM01/A11：WinMain按Debug／--debug设置，主循环据此提交诊断文本。

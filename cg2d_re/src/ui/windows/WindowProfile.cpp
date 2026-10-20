@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -37,7 +38,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(network::SetProfileVisibilityRequest_5118B0(platform::gConnectionSocket, visible ? 0 : 1));
+            static_cast<void>(cg::network::GetGameConnection().SetProfileVisibilityRequest(visible ? 0 : 1));
             if (!visible) {
                 static_cast<void>(world::detail::PublishPlayerProfile_533C80(1));
             }
@@ -229,8 +230,7 @@ static void WindowProfile_RouteReply(
 // 窗口函数实现。
 
 // 原函数：0x0050F990。
-void WindowProfile_ReceiveReply(
-    const std::uintptr_t, const std::int32_t type, const std::int32_t value,
+void WindowProfile_ReceiveReply(cg::network::CgConnection&, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {

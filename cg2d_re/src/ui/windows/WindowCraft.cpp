@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -46,13 +47,11 @@ enum class WindowCraftElementId : ElementId {
     HandleSideArea = 31,
 };
 
-
 namespace detail {
 
 // 控件载荷、窗口状态、组件表与原型。
 
 input::InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
-
 
 // 回调与内部函数前置声明。
 
@@ -529,8 +528,7 @@ static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window,
         duration = static_cast<std::uint32_t>(gCraftDeadlineCF3B04) * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
         gCraftDeadlineCF3B04 = duration;
     }
-    static_cast<void>(network::SendCraftDuration_512DA0(
-        platform::gConnectionSocket, static_cast<std::int32_t>(duration / 1000u)));
+    static_cast<void>(cg::network::GetGameConnection().SendCraftDuration(static_cast<std::int32_t>(duration / 1000u)));
     const std::uint64_t tick = platform::ReadTickCount64();
     gCraftDeadlineCF3B04 = gCraftDeadlineCF3B04 + tick;
     if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
@@ -1854,8 +1852,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
                 const std::int32_t request = std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
                 const std::int32_t selected = gSelectedItemD460C0;
                 const std::int32_t skill = gCraftSkillIndexCC2368;
-                static_cast<void>(network::SendSkillUseRequest_511EF0(
-                    platform::gConnectionSocket, skill + offset, request, selected, buffer));
+                static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill + offset, request, selected, buffer));
                 input::InputContext* const current = input::gCurrentInputData;
                 gSelectionModeD2D650 = 5;
                 if (current == &cg::ui::detail::gInputContextD2DE70) {
@@ -3001,8 +2998,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             }
             skill = gCraftSkillIndexCC2368;
         }
-        static_cast<void>(network::SendSkillUseRequest_511EF0(
-            platform::gConnectionSocket, skill + offset, request, target, requestText));
+        static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill + offset, request, target, requestText));
     };
     bool hideControls = false;
     if (gSelectionModeD2D650 == 1 && expired()) {

@@ -5,7 +5,6 @@
 #include <memory>
 #include <span>
 #include <string>
-#include <string_view>
 
 namespace cg::platform {
 
@@ -45,10 +44,10 @@ public:
     [[nodiscard]] ConnectionSnapshot PollConnection(ConnectionId id) const;
     void ContinueAfterPolicy(ConnectionId id);
     void SetIoEnabled(ConnectionId id, bool enabled);
-    // replace时prefix作为独立前置消息，全部发送后才发送bytes；容量检查和替换仍原子完成。
-    // 普通追加保留队首已有的前置消息边界；后端不识别任何协议命令。
+    // 每次只提交bytes这一条消息；replace原子替换待发内容，并保留本消息的独立send边界。
+    // 普通追加保留队首已有的消息边界；后端不识别任何协议命令。
     [[nodiscard]] NetworkQueueResult TryQueueSend(ConnectionId id,
-        std::span<const std::uint8_t> bytes, bool replace, std::string_view prefix = {});
+        std::span<const std::uint8_t> bytes, bool replace);
     [[nodiscard]] std::size_t DrainReceived(ConnectionId id, std::span<std::uint8_t> destination);
     void CloseConnection(ConnectionId id);
     void Stop(); // 唤醒、取消、join，然后释放事件及Winsock引用。

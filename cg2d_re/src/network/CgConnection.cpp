@@ -1177,21 +1177,27 @@ std::int32_t CgConnection::Impl::SendPacket(
         }
     }
 
-    // N03：JFVf仍原子替换待发队列；先独立发送六字节XCNY，再发送登录正文，不额外触发Hook。
+    // XCNY作为独立消息提交，成功后才追加登录正文；它不额外触发Hook。
     constexpr std::string_view loginPrelude = "XCNY \n";
     const bool startsLogin = packet.starts_with("JFVf");
     if (id != connectionId || !ioEnabled) return -100;
     transport.SetIoEnabled(id, true);
-    const auto queued = transport.TryQueueSend(id,
-        {reinterpret_cast<const std::uint8_t*>(packet.data()), packet.size()}, startsLogin,
-        startsLogin ? loginPrelude : std::string_view {});
-    if (queued != platform::NetworkQueueResult::Accepted)
-        return queued == platform::NetworkQueueResult::QueueFull ? -1 : -100;
-    // 成功入队后记录明文；不把队列日志当作socket发送成功，避免按TCP分片重复打印。
     if (startsLogin) {
+        // 两次独立提交仍保留原总容量上限；超长登录不先发送孤立的XCNY。
+        if (packet.size() > platform::CgTransport::kQueueCapacity - loginPrelude.size()) return -1;
+        const auto preludeQueued = transport.TryQueueSend(id,
+            {reinterpret_cast<const std::uint8_t*>(loginPrelude.data()), loginPrelude.size()}, true);
+        if (preludeQueued != platform::NetworkQueueResult::Accepted)
+            return preludeQueued == platform::NetworkQueueResult::QueueFull ? -1 : -100;
         m_logw(L"[network][send queued][%zu] %.*hs", loginPrelude.size(),
             static_cast<int>(loginPrelude.size()), loginPrelude.data());
     }
+    // 登录正文只能追加，不能替换掉尚未发完的XCNY。
+    const auto queued = transport.TryQueueSend(id,
+        {reinterpret_cast<const std::uint8_t*>(packet.data()), packet.size()}, false);
+    if (queued != platform::NetworkQueueResult::Accepted)
+        return queued == platform::NetworkQueueResult::QueueFull ? -1 : -100;
+    // 成功入队后记录明文；不把队列日志当作socket发送成功，避免按TCP分片重复打印。
     m_logw(L"[network][send queued][%u] %.*hs%hs", size, static_cast<int>(size),
         packet.data(), packet.ends_with('\n') ? "" : "\n");
     return 0;

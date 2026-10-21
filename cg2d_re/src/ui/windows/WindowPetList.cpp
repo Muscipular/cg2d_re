@@ -274,7 +274,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048C1E0。
-static std::int32_t WindowPetList_HandleButtons(std::int32_t index, std::int32_t state); // 窗口15完整五组交互。
+static std::int32_t WindowPetList_HandleButtons(ElementId elementId, std::int32_t state); // 窗口15完整五组交互。
 
 // 原函数：0x0048D4E0。
 static network::SendResult WindowPetList_SubmitStates(); // 五状态局部快照叠加真实跟随位，透传发送结果。
@@ -639,8 +639,9 @@ static network::SendResult WindowPetList_SubmitStates()
 }
 
 // 原函数：0x0048C1E0。
-static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetList_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -648,11 +649,11 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
     const auto petIndex = [](const std::int32_t row) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
     };
-    const auto setImage = [index, currentWindow](const std::int32_t image) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
+    const auto setImage = [elementId, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
 
-    if (index >= 253 && index <= 257) {
+    if (elementId >= static_cast<ElementId>(WindowPetListElementId::HandleButtons_254) && elementId <= static_cast<ElementId>(WindowPetListElementId::HandleButtons_258)) {
         const std::int32_t row = index - 253;
         std::uint32_t events = static_cast<std::uint32_t>(state);
         if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 3) {
@@ -708,10 +709,10 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         return consumed;
     }
 
-    if (index >= 226 && index <= 230) {
+    if (elementId >= static_cast<ElementId>(WindowPetListElementId::HandleButtons) && elementId <= static_cast<ElementId>(WindowPetListElementId::HandleButtons_231)) {
         const std::int32_t row = index - 226;
         if (character_select::state::gPukVersion < 7u) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             return 0;
         }
         if (WindowPet_HasSkill25600(petIndex(row)) != 1) {
@@ -753,7 +754,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         return consumed;
     }
 
-    if (index >= 231 && index <= 235) {
+    if (elementId >= static_cast<ElementId>(WindowPetListElementId::HandleButtons_232) && elementId <= static_cast<ElementId>(WindowPetListElementId::HandleButtons_236)) {
         const std::int32_t row = index - 231;
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B58B);
@@ -797,7 +798,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         return consumed;
     }
 
-    if (index >= 236 && index <= 240) {
+    if (elementId >= static_cast<ElementId>(WindowPetListElementId::HandleButtons_237) && elementId <= static_cast<ElementId>(WindowPetListElementId::HandleButtons_241)) {
         const std::int32_t row = index - 236;
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B58E);
@@ -827,7 +828,7 @@ static std::int32_t WindowPetList_HandleButtons(const std::int32_t index, const 
         return consumed;
     }
 
-    if (index >= 241 && index <= 245) {
+    if (elementId >= static_cast<ElementId>(WindowPetListElementId::HandleButtons_242) && elementId <= static_cast<ElementId>(WindowPetListElementId::HandleButtons_246)) {
         const std::int32_t row = index - 241;
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B591);

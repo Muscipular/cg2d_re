@@ -61,7 +61,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048E430。
-static std::int32_t WindowPetAttributes_HandleButtons(std::int32_t index, std::int32_t state); // 宠物详细属性九按钮，9..13发送加点。
+static std::int32_t WindowPetAttributes_HandleButtons(ElementId elementId, std::int32_t state); // 宠物详细属性九按钮，9..13发送加点。
 
 // 原函数：0x0048DAB0。
 static std::int32_t WindowPetAttributes_Update(std::int32_t value);
@@ -311,19 +311,20 @@ static void WindowPetAttributes_Release()
 }
 
 // 原函数：0x0048E430。
-static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetAttributes_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    const auto setImage = [index, currentWindow](const std::int32_t image) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
+    const auto setImage = [elementId, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     const auto petIndex = [](const std::int32_t position) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
     };
-    switch (index) {
-    case 5:
+    switch (static_cast<WindowPetAttributesElementId>(elementId)) {
+    case WindowPetAttributesElementId::HandleButtons:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B570);
             gHoverTextD68AE8 = kPetRenameHint586D38;
@@ -356,7 +357,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             setImage(0x3B56F);
         }
         return consumed;
-    case 6:
+    case WindowPetAttributesElementId::HandleButtons_7:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAF9);
             gHoverTextD68AE8 = kPetPlaceHint586C14;
@@ -385,19 +386,19 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             setImage(0x3BAF8);
         }
         return consumed;
-    case 7:
-    case 8:
+    case WindowPetAttributesElementId::HandleButtons_8:
+    case WindowPetAttributesElementId::HandleButtons_9:
         if ((state & MouseFlag_Hover) != 0) {
-            setImage(index == 7 ? 0x3B558 : 0x3B55B);
+            setImage(elementId == static_cast<ElementId>(WindowPetAttributesElementId::HandleButtons_8) ? 0x3B558 : 0x3B55B);
             gHoverTextD68AE8 = kPetSelectHint586D2C;
             consumed = 1;
         } else {
-            setImage(index == 7 ? 0x3B556 : 0x3B559);
+            setImage(elementId == static_cast<ElementId>(WindowPetAttributesElementId::HandleButtons_8) ? 0x3B556 : 0x3B559);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             for (std::int32_t attempt = 0; attempt < 6; ++attempt) {
-                if (index == 7) {
+                if (elementId == static_cast<ElementId>(WindowPetAttributesElementId::HandleButtons_8)) {
                     --position;
                     if (position < 0) {
                         position = 4;
@@ -426,14 +427,14 @@ static std::int32_t WindowPetAttributes_HandleButtons(const std::int32_t index, 
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
-            setImage(index == 7 ? 0x3B557 : 0x3B55A);
+            setImage(elementId == static_cast<ElementId>(WindowPetAttributesElementId::HandleButtons_8) ? 0x3B557 : 0x3B55A);
         }
         return consumed;
-    case 9:
-    case 10:
-    case 11:
-    case 12:
-    case 13:
+    case WindowPetAttributesElementId::HandleButtons_10:
+    case WindowPetAttributesElementId::HandleButtons_11:
+    case WindowPetAttributesElementId::HandleButtons_12:
+    case WindowPetAttributesElementId::HandleButtons_13:
+    case WindowPetAttributesElementId::HandleButtons_14:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B53D);
             gHoverTextD68AE8 = L"分配点数至目前的能力数值。" /* 原常量参考：0x005863A4。 */;

@@ -70,13 +70,13 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048ECA0。
-static std::int32_t WindowPetSkills_HandleButtons(std::int32_t index, std::int32_t state); // 宠物技能页六按钮。
+static std::int32_t WindowPetSkills_HandleButtons(ElementId elementId, std::int32_t state); // 宠物技能页六按钮。
 
 // 原函数：0x0048F6C0。
-static std::int32_t WindowPetSkills_HandleSkillRow(std::int32_t index, std::int32_t state); // 描述、技能换位与拖动。
+static std::int32_t WindowPetSkills_HandleSkillRow(ElementId elementId, std::int32_t state); // 描述、技能换位与拖动。
 
 // 新增宠物技能滑块：复用垂直滚动处理，将位置同步到十行技能列表。
-static std::int32_t WindowPetSkills_HandleScroll(std::int32_t index, std::int32_t state);
+static std::int32_t WindowPetSkills_HandleScroll(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0048DBB0。
 static std::int32_t WindowPetSkills_Update(std::int32_t value);
@@ -323,12 +323,12 @@ static WindowElement* WindowPetSkills_Refresh()
     return resultWindow->FindElementById(WindowPetSkillsElementId::EditName);
 }
 
-static std::int32_t WindowPetSkills_HandleScroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetSkills_HandleScroll(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const std::int32_t consumed = WindowElement_HandleVerticalScroll(index, state);
-    auto* const trackElement = currentWindow->FindElementById(NativeElementKey(index));
+    const std::int32_t consumed = WindowElement_HandleVerticalScroll(elementId, state);
+    auto* const trackElement = currentWindow->FindElementById(elementId);
     if (trackElement) {
         WindowElement& track = (*trackElement);
         const auto* const mouse = track.data.mouse;
@@ -439,19 +439,19 @@ static void WindowPetSkills_Release()
 }
 
 // 原函数：0x0048ECA0。
-static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetSkills_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    const auto setImage = [index, currentWindow](const std::int32_t image) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
+    const auto setImage = [elementId, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     const auto petIndex = [](const std::int32_t position) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
     };
-    switch (index) {
-    case 5:
+    switch (static_cast<WindowPetSkillsElementId>(elementId)) {
+    case WindowPetSkillsElementId::HandleButtons:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B570);
             gHoverTextD68AE8 = kPetRenameHint586D38;
@@ -484,7 +484,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             setImage(0x3B56F);
         }
         return consumed;
-    case 6:
+    case WindowPetSkillsElementId::HandleButtons_7:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAF9);
             gHoverTextD68AE8 = kPetPlaceHint586C14;
@@ -513,21 +513,21 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             setImage(0x3BAF8);
         }
         return consumed;
-    case 7:
-    case 8: {
+    case WindowPetSkillsElementId::HandleButtons_8:
+    case WindowPetSkillsElementId::HandleButtons_9: {
         if ((state & MouseFlag_Hover) != 0) {
-            setImage(index == 7 ? 0x3B558 : 0x3B55B);
+            setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8) ? 0x3B558 : 0x3B55B);
             gHoverTextD68AE8 = kPetSelectHint586D2C;
             consumed = 1;
         } else {
-            setImage(index == 7 ? 0x3B556 : 0x3B559);
+            setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8) ? 0x3B556 : 0x3B559);
         }
         // 下一只按钮即使未点击也检查>=5；上一只只在点击后取选择。
-        if (index == 8 || (state & MouseFlag_LDownEvent) != 0) {
+        if (elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_9) || (state & MouseFlag_LDownEvent) != 0) {
             std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             if ((state & MouseFlag_LDownEvent) != 0 || position >= 5) {
                 for (std::int32_t attempt = 0; attempt < 6; ++attempt) {
-                    if (index == 7) {
+                    if (elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8)) {
                         --position;
                         if (position < 0) {
                             position = 4;
@@ -543,7 +543,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
                     }
                 }
                 std::int16_t selected;
-                if (index == 7) {
+                if (elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8)) {
                     selected = petIndex(position);
                     gLoginWindowRuntime.selectedPetCC3E5C = position;
                 } else {
@@ -563,24 +563,24 @@ static std::int32_t WindowPetSkills_HandleButtons(const std::int32_t index, cons
             }
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
-            setImage(index == 7 ? 0x3B557 : 0x3B55A);
+            setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8) ? 0x3B557 : 0x3B55A);
         }
         return consumed;
     }
-    case 9:
-    case 10:
+    case WindowPetSkillsElementId::HandleButtons_10:
+    case WindowPetSkillsElementId::HandleButtons_11:
         if ((state & MouseFlag_Hover) != 0) {
-            setImage(index == 9 ? 0x3B594 : 0x3B597);
+            setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_10) ? 0x3B594 : 0x3B597);
         } else {
-            setImage(index == 9 ? 0x3B592 : 0x3B595);
+            setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_10) ? 0x3B592 : 0x3B595);
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
             const auto selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
             const std::int32_t slotCount = std::clamp(world::gPetRuntimeRecords[selected].value6A4, 0, world::kPetTechniqueSlotCount);
-            const std::int32_t position = std::clamp(gPetTechniqueScroll + (index == 9 ? -1 : 1), 0, std::max(0, slotCount - 10));
+            const std::int32_t position = std::clamp(gPetTechniqueScroll + (elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_10) ? -1 : 1), 0, std::max(0, slotCount - 10));
             static_cast<void>(audio::PlaySe_52C450(position != gPetTechniqueScroll ? 51 : 55, 320));
             gPetTechniqueScroll = position;
-            setImage(index == 9 ? 0x3B593 : 0x3B596);
+            setImage(elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_10) ? 0x3B593 : 0x3B596);
             return 1;
         }
         return 0;
@@ -620,15 +620,16 @@ static std::int32_t WindowPetSkills_StartDrag(const std::int32_t source)
 }
 
 // 原函数：0x0048F6C0。
-static std::int32_t WindowPetSkills_HandleSkillRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetSkills_HandleSkillRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 11) {
         events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
     }
-    if (index == 37) {
+    if (elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow)) {
         for (std::int32_t line = 0; line < 4; ++line) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(33 + line)); indexedElement) indexedElement->visible = 0;
         }

@@ -168,7 +168,7 @@ static void WindowStall_BuildItemDescription(world::PlayerItemRecord* item, cons
 static std::int32_t WindowStall_RequestPurchase(); // 选择索引直接查询后发购买请求，返回宽提示长度（含NUL）或原负值。
 
 // 原函数：0x004CD420。
-static std::int32_t WindowStall_ButtonClose(std::int32_t index, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
+static std::int32_t WindowStall_ButtonClose(ElementId elementId, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
 
 // 原函数：0x004CDE00。
 static void WindowStall_Release(); // 67/68共用释放，条件发送后无条件SE57。
@@ -183,40 +183,40 @@ static std::int32_t WindowStall_AddListing(std::int32_t value); // 当前选择�
 static std::int32_t WindowStall_Update(std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
 
 // 原函数：0x004D2080。
-static std::int32_t WindowStall_EditDescription(std::int32_t unusedIndex, std::int32_t state); // 固定元素8说明编辑，hover不消费。
+static std::int32_t WindowStall_EditDescription(ElementId elementId, std::int32_t state); // 固定元素8说明编辑，hover不消费。
 
 // 原函数：0x004D2170。
-static std::int32_t WindowStall_EditName(std::int32_t unusedIndex, std::int32_t state); // 固定元素6名称编辑，同源Input对象。
+static std::int32_t WindowStall_EditName(ElementId elementId, std::int32_t state); // 固定元素6名称编辑，同源Input对象。
 
 // 原函数：0x004CDE40。
-static std::int32_t WindowStall_ButtonPreviousListing(std::int32_t index, std::int32_t state); // 上架列表向前，bit400动作。
+static std::int32_t WindowStall_ButtonPreviousListing(ElementId elementId, std::int32_t state); // 上架列表向前，bit400动作。
 
 // 原函数：0x004CDFA0。
-static std::int32_t WindowStall_ButtonNextListing(std::int32_t index, std::int32_t state); // 上架列表向后，音效后重读滚动参数。
+static std::int32_t WindowStall_ButtonNextListing(ElementId elementId, std::int32_t state); // 上架列表向后，音效后重读滚动参数。
 
 // 原函数：0x004CE0F0。
-static std::int32_t WindowStall_ScrollListings(std::int32_t unusedIndex, std::int32_t state); // 上架列表滚轮，始终返回0。
+static std::int32_t WindowStall_ScrollListings(ElementId elementId, std::int32_t state); // 上架列表滚轮，始终返回0。
 
 // 原函数：0x004CE1F0。
-static std::int32_t WindowStall_ButtonPreviousPet(std::int32_t index, std::int32_t state); // 宠物候选向前，非宠物模式仍可消费bit400。
+static std::int32_t WindowStall_ButtonPreviousPet(ElementId elementId, std::int32_t state); // 宠物候选向前，非宠物模式仍可消费bit400。
 
 // 原函数：0x004CE2B0。
-static std::int32_t WindowStall_ButtonNextPet(std::int32_t index, std::int32_t state); // 宠物候选向后，最大页1。
+static std::int32_t WindowStall_ButtonNextPet(ElementId elementId, std::int32_t state); // 宠物候选向后，最大页1。
 
 // 原函数：0x004CE370。
-static std::int32_t WindowStall_ScrollPetCandidates(std::int32_t unusedIndex, std::int32_t state); // 宠物候选滚轮，始终返回0。
+static std::int32_t WindowStall_ScrollPetCandidates(ElementId elementId, std::int32_t state); // 宠物候选滚轮，始终返回0。
 
 // 原函数：0x004CE3F0。
-static std::int32_t WindowStall_TabCategory(std::int32_t index, std::int32_t state); // 类别页签及七项候选控件原序显隐。
+static std::int32_t WindowStall_TabCategory(ElementId elementId, std::int32_t state); // 类别页签及七项候选控件原序显隐。
 
 // 原函数：0x004CFE70。
 static std::int32_t WindowStall_SubmitListings(); // 槽序上架组包、转义发送及同源保存记录回写，返回0。
 
 // 原函数：0x004D0230。
-static std::int32_t WindowStall_DrawTooltipOverlay(std::int32_t index, std::int32_t state); // 共用提示覆盖层，只返回hover位。
+static std::int32_t WindowStall_DrawTooltipOverlay(ElementId elementId, std::int32_t state); // 共用提示覆盖层，只返回hover位。
 
 // 原函数：0x004CF940。
-static std::int32_t WindowStall_HandleButtons(std::int32_t index, std::int32_t state); // 自身/浏览主要按钮，禁用与普通收尾分离。
+static std::int32_t WindowStall_HandleButtons(ElementId elementId, std::int32_t state); // 自身/浏览主要按钮，禁用与普通收尾分离。
 
 // 原函数：0x004CE8A0。
 static network::SendResult WindowStall_RequestClose(); // 收摊请求，透传发送结果。
@@ -239,19 +239,19 @@ static void WindowStall_EditPetPrice(std::int32_t petIndex); // 固定六装备�
 static std::int32_t WindowStall_RemoveListing(); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。
 
 // 原函数：0x004D2260。
-static std::int32_t WindowStall_HandlePriceInput(std::int32_t unusedIndex, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
+static std::int32_t WindowStall_HandlePriceInput(ElementId elementId, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
 
 // 原函数：0x004D2840。
-static std::int32_t WindowStall_HandlePurchaseConfirmation(std::int32_t unusedIndex, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
+static std::int32_t WindowStall_HandlePurchaseConfirmation(ElementId elementId, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
 
 // 原函数：0x004D1D50。
-static std::int32_t WindowStall_HandleInventory(std::int32_t index, std::int32_t state); // 玩家背包20格，首命中交互但完整绘制。
+static std::int32_t WindowStall_HandleInventory(ElementId elementId, std::int32_t state); // 玩家背包20格，首命中交互但完整绘制。
 
 // 原函数：0x004D04A0。
-static std::int32_t WindowStall_HandleItemRow(std::int32_t index, std::int32_t state); // 上架/浏览物品行，固定记录与价格重读分离。
+static std::int32_t WindowStall_HandleItemRow(ElementId elementId, std::int32_t state); // 上架/浏览物品行，固定记录与价格重读分离。
 
 // 原函数：0x004D16F0。
-static std::int32_t WindowStall_HandlePetCandidate(std::int32_t index, std::int32_t state); // 宠物候选，逐项重读候选页并保持CryptInt顺序。
+static std::int32_t WindowStall_HandlePetCandidate(ElementId elementId, std::int32_t state); // 宠物候选，逐项重读候选页并保持CryptInt顺序。
 
 // 原函数：0x004D1C00。
 static std::int32_t WindowStall_DrawCandidateAttributes(
@@ -266,7 +266,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     std::int32_t x, std::int32_t y, std::int32_t index); // 完整浏览宠物详情，复用D67B84预览。
 
 // 原函数：0x004D0EB0。
-static std::int32_t WindowStall_HandlePetRow(std::int32_t index, std::int32_t state); // 上架/浏览宠物行，末尾金额两次读取及详情分派。
+static std::int32_t WindowStall_HandlePetRow(ElementId elementId, std::int32_t state); // 上架/浏览宠物行，末尾金额两次读取及详情分派。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -523,11 +523,11 @@ WindowPrototype gWindowPrototypeStallBrowse {0, 4, 10, 30, 549, 366, 0x80000080u
  // 原全局：0x00D046D8。
 
 // 原函数：0x004CDE40。
-static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonPreviousListing(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -575,11 +575,11 @@ static std::int32_t WindowStall_ButtonPreviousListing(const std::int32_t index, 
 }
 
 // 原函数：0x004CDFA0。
-static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonNextListing(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -631,7 +631,7 @@ static std::int32_t WindowStall_ButtonNextListing(const std::int32_t index, cons
 }
 
 // 原函数：0x004CE0F0。
-static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_ScrollListings(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -662,11 +662,11 @@ static std::int32_t WindowStall_ScrollListings(const std::int32_t, const std::in
 }
 
 // 原函数：0x004CE1F0。
-static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonPreviousPet(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -698,11 +698,11 @@ static std::int32_t WindowStall_ButtonPreviousPet(const std::int32_t index, cons
 }
 
 // 原函数：0x004CE2B0。
-static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonNextPet(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -734,7 +734,7 @@ static std::int32_t WindowStall_ButtonNextPet(const std::int32_t index, const st
 }
 
 // 原函数：0x004CE370。
-static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_ScrollPetCandidates(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -756,24 +756,25 @@ static std::int32_t WindowStall_ScrollPetCandidates(const std::int32_t, const st
 }
 
 // 原函数：0x004CE3F0。
-static std::int32_t WindowStall_TabCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_TabCategory(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     const bool ownAtEntry = gStallOwn58111C != 0;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t category = index;
     if (ownAtEntry) {
-        if (index == 35) {
+        if (elementId == static_cast<ElementId>(WindowStallElementId::TabCategory)) {
             category = 0;
-        } else if (index == 36) {
+        } else if (elementId == static_cast<ElementId>(WindowStallElementId::TabCategory_37)) {
             category = 1;
         }
-    } else if (index == 30) {
+    } else if (elementId == static_cast<ElementId>(WindowStallElementId::HandleButtons)) {
         category = 0;
-    } else if (index == 31) {
+    } else if (elementId == static_cast<ElementId>(WindowStallElementId::HandleButtons_32)) {
         category = 1;
     }
     std::int32_t consumed = 0;
@@ -957,18 +958,18 @@ static std::int32_t WindowStall_RemoveListing()
 }
 
 // 原函数：0x004CF940。
-static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     bool disabled = false;
     std::int32_t imageGroup = state;
     if (gStallOwn58111C != 0) {
-        switch (index) {
-        case 30:
+        switch (static_cast<WindowStallElementId>(elementId)) {
+        case WindowStallElementId::HandleButtons:
             imageGroup = 0;
             if ((gStallItemCountD67BCC <= 0 && gStallPetCountD67BD4 <= 0)
                 || gStallPendingD67C31 != 0) {
@@ -982,7 +983,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
                 static_cast<void>(WindowStall_SubmitListings());
             }
             break;
-        case 31:
+        case WindowStallElementId::HandleButtons_32:
             imageGroup = 1;
             if (gStallPendingD67C31 != 0) {
                 disabled = true;
@@ -993,7 +994,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
                 static_cast<void>(WindowStall_RequestClose());
             }
             break;
-        case 32: {
+        case WindowStallElementId::HandleButtons_33: {
             imageGroup = 3;
             const std::int32_t mode = gStallModeD67BDC;
             if (mode == 0) {
@@ -1013,7 +1014,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
             }
             break;
         }
-        case 33:
+        case WindowStallElementId::HandleButtons_34:
             imageGroup = 4;
             if (gOwnStallOpenForBusiness_D67BE0 != 0) {
                 disabled = true;
@@ -1022,7 +1023,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
             break;
-        case 34: {
+        case WindowStallElementId::HandleButtons_35: {
             imageGroup = 5;
             const std::int32_t mode = gStallModeD67BDC;
             if (mode == 0) {
@@ -1045,7 +1046,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
         default:
             break;
         }
-    } else if (index == 28) {
+    } else if (elementId == static_cast<ElementId>(WindowStallElementId::HandlePetCandidate_29)) {
         imageGroup = 2;
         if (gStallPendingD67C31 != 0) {
             disabled = true;
@@ -1063,7 +1064,7 @@ static std::int32_t WindowStall_HandleButtons(const std::int32_t index, const st
                 }
             }
         }
-    } else if (index == 29) {
+    } else if (elementId == static_cast<ElementId>(WindowStallElementId::HandlePetCandidate_30)) {
         imageGroup = 4;
         if (gStallPendingD67C31 != 0) {
             disabled = true;
@@ -1180,7 +1181,7 @@ static std::int32_t WindowStall_SubmitListings()
 }
 
 // 原函数：0x004D0230。
-static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_DrawTooltipOverlay(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -1210,7 +1211,7 @@ static std::int32_t WindowStall_DrawTooltipOverlay(const std::int32_t index, con
         static_cast<void>(cg::render::DrawGraphic(
             buttonX, buttonY, 227, hit ? 243050 : 243048, 0, &descriptor));
         if (hit && (state & MouseFlag_LDownEvent) != 0) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
         }
     }
     window = currentWindow;
@@ -1324,8 +1325,9 @@ static std::int32_t WindowStall_DrawPetDetails(
 }
 
 // 原函数：0x004D0EB0。
-static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandlePetRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if (gStallModeD67BDC != 1) {
@@ -1396,7 +1398,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         descriptor.color = color;
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t y = window->y + element.y;
@@ -1407,7 +1409,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
     } else {
         if ((state & MouseFlag_Hover) != 0) {
             WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t y = window->y + element.y;
@@ -1433,7 +1435,7 @@ static std::int32_t WindowStall_HandlePetRow(const std::int32_t index, const std
         const std::int32_t current = gStallPetPageD67BD0 + row;
         if (current == gStallPetSelection581128 - 5) {
             WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t y = window->y + element.y;
@@ -1518,8 +1520,9 @@ static std::int32_t WindowStall_DrawCandidateAttributes(
 }
 
 // 原函数：0x004D16F0。
-static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandlePetCandidate(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if (gStallModeD67BDC != 1) {
@@ -1582,7 +1585,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         if (!offered && own) {
             if ((state & MouseFlag_Hover) != 0) {
                 WindowInstance* const window = currentWindow;
-                auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+                auto* const elementPtr = window->FindElementById(elementId);
                 if (elementPtr) {
                     const WindowElement& element = (*elementPtr);
                     const std::int32_t y = window->y + element.y;
@@ -1604,7 +1607,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
         if ((offered || own) && gStallOwn58111C != 0
             && gStallPetCandidatePageD67BD8 + row == gStallPetSelection581128) {
             WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t y = window->y + element.y;
@@ -1628,7 +1631,7 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
     }
     if (gStallOwn58111C != 0 && gStallPetUsedCF400C[gStallPetCandidatePageD67BD8 + row] != 0) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t y = window->y + element.y;
@@ -1643,8 +1646,9 @@ static std::int32_t WindowStall_HandlePetCandidate(const std::int32_t index, con
 }
 
 // 原函数：0x004D04A0。
-static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandleItemRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0) {
@@ -1694,7 +1698,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         std::wstring nameLine;
         static_cast<void>(input::ExtractTextLine(nameLine, item->name, line, 10));
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const auto y = static_cast<std::int16_t>(window->y + element.y + 5 + line * 14);
@@ -1710,7 +1714,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         const std::uint32_t color = 0x80808080u;
         descriptor.color = color;
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t y = window->y + element.y;
@@ -1721,7 +1725,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     } else {
         if ((state & MouseFlag_Hover) != 0) {
             WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t y = window->y + element.y;
@@ -1747,7 +1751,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         const std::int32_t current = gStallItemPageD67BC8 + row;
         if (current == gStallItemSelection581124 - 20) {
             WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t y = window->y + element.y;
@@ -1778,7 +1782,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     }
     {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t y = element.y + window->y + 35;
@@ -1791,7 +1795,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
         std::wstring countBuffer;
         cg::text::FormatTo(countBuffer, L"{:3}", count);
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const auto y = static_cast<std::int16_t>(window->y + element.y + 32);
@@ -1804,7 +1808,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement& element = (*elementPtr);
         const std::int32_t imageNo = item->imageNo;
@@ -1816,7 +1820,7 @@ static std::int32_t WindowStall_HandleItemRow(const std::int32_t index, const st
 }
 
 // 原函数：0x004D1D50。
-static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_HandleInventory(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -1831,7 +1835,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
             continue;
         }
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = window->x + element.x + 50 * (slot % 5);
@@ -1909,7 +1913,7 @@ static std::int32_t WindowStall_HandleInventory(const std::int32_t index, const 
 }
 
 // 原函数：0x004D2260。
-static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_HandlePriceInput(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -2030,7 +2034,7 @@ static std::int32_t WindowStall_HandlePriceInput(const std::int32_t, const std::
 }
 
 // 原函数：0x004D2840。
-static std::int32_t WindowStall_HandlePurchaseConfirmation(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_HandlePurchaseConfirmation(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -2390,7 +2394,7 @@ static std::int32_t WindowStall_Update(const std::int32_t value)
 }
 
 // 原函数：0x004D2080。
-static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_EditDescription(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -2428,7 +2432,7 @@ static std::int32_t WindowStall_EditDescription(const std::int32_t, const std::i
 }
 
 // 原函数：0x004D2170。
-static std::int32_t WindowStall_EditName(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStall_EditName(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -2848,12 +2852,12 @@ static std::int32_t WindowStall_RequestPurchase()
 }
 
 // 原函数：0x004CD420。
-static std::int32_t WindowStall_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStall_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hovered = (state & MouseFlag_Hover) != 0;

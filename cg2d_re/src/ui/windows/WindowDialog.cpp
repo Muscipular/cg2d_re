@@ -98,10 +98,10 @@ struct HealingDialogRecord {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049CE70。
-static std::int32_t WindowDialog_HandleButtons(std::int32_t index, std::int32_t state); // 六按钮与原位图号恢复。
+static std::int32_t WindowDialog_HandleButtons(ElementId elementId, std::int32_t state); // 六按钮与原位图号恢复。
 
 // 原函数：0x0049CF70。
-static std::int32_t WindowDialog_HandleTextSelection(std::int32_t unusedIndex, std::int32_t state); // 输入行切换/文本行选择。
+static std::int32_t WindowDialog_HandleTextSelection(ElementId elementId, std::int32_t state); // 输入行切换/文本行选择。
 
 // 原函数：0x0049DA30。
 static std::int32_t WindowDialog_Reply(
@@ -589,8 +589,9 @@ static void WindowDialog_Release()
 }
 
 // 原函数：0x0049CE70。
-static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowDialog_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     static constexpr std::int32_t images[6][3] {
@@ -601,7 +602,7 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
         {245332, 245333, 245334},
         {245329, 245330, 245331},
     };
-    auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const dataElement = currentWindow->FindElementById(elementId);
     if (dataElement) {
         auto* const data = dataElement->data.graphic;
         const bool hovered = (state & MouseFlag_Hover) != 0;
@@ -640,7 +641,7 @@ static std::int32_t WindowDialog_HandleButtons(const std::int32_t index, const s
 }
 
 // 原函数：0x0049CF70。
-static std::int32_t WindowDialog_HandleTextSelection(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowDialog_HandleTextSelection(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;

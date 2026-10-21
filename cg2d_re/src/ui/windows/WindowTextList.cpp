@@ -62,37 +62,37 @@ static std::int32_t WindowTextList_Update(std::int32_t value); // 51初始化、
 static std::int32_t WindowTextList_Draw(std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
 
 // 原函数：0x004ADAA0。
-static std::int32_t WindowTextList_DrawConfirmation(std::int32_t index, std::int32_t unused); // 51模态提示及固定确认按钮。
+static std::int32_t WindowTextList_DrawConfirmation(ElementId elementId, std::int32_t unused); // 51模态提示及固定确认按钮。
 
 // 原函数：0x004ADBD0。
-static std::int32_t WindowTextList_ButtonPreviousRow(std::int32_t index, std::int32_t state); // 上一行，bit400。
+static std::int32_t WindowTextList_ButtonPreviousRow(ElementId elementId, std::int32_t state); // 上一行，bit400。
 
 // 原函数：0x004ADC80。
-static std::int32_t WindowTextList_ButtonNextRow(std::int32_t index, std::int32_t state); // 下一行，bit400。
+static std::int32_t WindowTextList_ButtonNextRow(ElementId elementId, std::int32_t state); // 下一行，bit400。
 
 // 原函数：0x004ADD50。
-static std::int32_t WindowTextList_ButtonPreviousPage(std::int32_t index, std::int32_t state); // 上九行，bit2。
+static std::int32_t WindowTextList_ButtonPreviousPage(ElementId elementId, std::int32_t state); // 上九行，bit2。
 
 // 原函数：0x004ADE10。
-static std::int32_t WindowTextList_ButtonNextPage(std::int32_t index, std::int32_t state); // 下九行，bit2。
+static std::int32_t WindowTextList_ButtonNextPage(ElementId elementId, std::int32_t state); // 下九行，bit2。
 
 // 原函数：0x004ADEF0。
-static std::int32_t WindowTextList_Scroll(std::int32_t index, std::int32_t state); // 51滚轮，draw阶段再刷新文本。
+static std::int32_t WindowTextList_Scroll(ElementId elementId, std::int32_t state); // 51滚轮，draw阶段再刷新文本。
 
 // 原函数：0x004ADF40。
-static std::int32_t WindowTextList_SubmitTitle(std::int32_t index, std::int32_t state); // 标题双次转义与N请求。
+static std::int32_t WindowTextList_SubmitTitle(ElementId elementId, std::int32_t state); // 标题双次转义与N请求。
 
 // 原函数：0x004AE170。
-static std::int32_t WindowTextList_SubmitSelection(std::int32_t index, std::int32_t state); // 当前选择I请求，不预拒绝负值。
+static std::int32_t WindowTextList_SubmitSelection(ElementId elementId, std::int32_t state); // 当前选择I请求，不预拒绝负值。
 
 // 原函数：0x004AE260。
-static std::int32_t WindowTextList_EditTitle(std::int32_t index, std::int32_t state); // 标题编辑焦点与InputContext借用。
+static std::int32_t WindowTextList_EditTitle(ElementId elementId, std::int32_t state); // 标题编辑焦点与InputContext借用。
 
 // 原函数：0x004AE350。
-static std::int32_t WindowTextList_HandleItemSelection(std::int32_t index, std::int32_t state); // 51物品选择落点/拖出与失效清理。
+static std::int32_t WindowTextList_HandleItemSelection(ElementId elementId, std::int32_t state); // 51物品选择落点/拖出与失效清理。
 
 // 原函数：0x004AE5B0。
-static std::int32_t WindowTextList_DrawBackgroundTooltip(std::int32_t unused, std::int32_t state); // 仅在提示为空时填背景提示。
+static std::int32_t WindowTextList_DrawBackgroundTooltip(ElementId elementId, std::int32_t state); // 仅在提示为空时填背景提示。
 
 // 原函数：0x004AD780。
 static void WindowTextList_Release();
@@ -399,7 +399,7 @@ static std::int32_t WindowTextList_Draw(const std::int32_t)
 }
 
 // 原函数：0x004ADAA0。
-static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowTextList_DrawConfirmation(const ElementId elementId, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -411,7 +411,7 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
     if (cg::ui::HitTestMouseRect_5049A0(287, 218, 353, 235, -1) != 0) {
         imageNo = 243050;
         if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_LDown) != 0) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             currentWindow->state &= ~2u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             imageNo = 243049;
@@ -427,11 +427,12 @@ static std::int32_t WindowTextList_DrawConfirmation(const std::int32_t index, co
 }
 
 // 原函数：0x004ADBD0。
-static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -462,11 +463,12 @@ static std::int32_t WindowTextList_ButtonPreviousRow(const std::int32_t index, c
 }
 
 // 原函数：0x004ADC80。
-static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonNextRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -497,11 +499,12 @@ static std::int32_t WindowTextList_ButtonNextRow(const std::int32_t index, const
 }
 
 // 原函数：0x004ADD50。
-static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -530,11 +533,12 @@ static std::int32_t WindowTextList_ButtonPreviousPage(const std::int32_t index, 
 }
 
 // 原函数：0x004ADE10。
-static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonNextPage(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t result = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -566,8 +570,9 @@ static std::int32_t WindowTextList_ButtonNextPage(const std::int32_t index, cons
 }
 
 // 原函数：0x004ADEF0。
-static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_Scroll(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -584,12 +589,12 @@ static std::int32_t WindowTextList_Scroll(const std::int32_t index, const std::i
 }
 
 // 原函数：0x004ADF40。
-static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_SubmitTitle(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     auto* const element5 = elementsWindow->FindElementById(WindowTextListElementId::Element5);
@@ -637,11 +642,11 @@ static std::int32_t WindowTextList_SubmitTitle(const std::int32_t index, const s
 }
 
 // 原函数：0x004AE170。
-static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_SubmitSelection(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -676,12 +681,12 @@ static std::int32_t WindowTextList_SubmitSelection(const std::int32_t index, con
 }
 
 // 原函数：0x004AE260。
-static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_EditTitle(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
-    auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const indexedElement = currentWindow->FindElementById(elementId);
     if (indexedElement) {
         WindowElement_DrawHoverFrame(indexedElement, state, imageNo);
     }
@@ -714,16 +719,16 @@ static std::int32_t WindowTextList_EditTitle(const std::int32_t index, const std
 }
 
 // 原函数：0x004AE350。
-static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextList_HandleItemSelection(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const xElement = window->FindElementById(NativeElementKey(index));
+    auto* const xElement = window->FindElementById(elementId);
     if (!xElement) { return 0; }
     const auto x = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(xElement->x + window->x));
-    auto* const yElement = window->FindElementById(NativeElementKey(index));
+    auto* const yElement = window->FindElementById(elementId);
     if (!yElement) { return 0; }
     const auto y = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(yElement->y + window->y));
@@ -801,7 +806,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const std::int32_t index,
 }
 
 // 原函数：0x004AE5B0。
-static std::int32_t WindowTextList_DrawBackgroundTooltip(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowTextList_DrawBackgroundTooltip(const ElementId, const std::int32_t state)
 {
     if ((state & MouseFlag_Hover) != 0 && gHoverTextD68AE8.empty()) {
         gHoverTextD68AE8 = L"从物品视窗以滑鼠拖放方式选择要喂的饲料。";

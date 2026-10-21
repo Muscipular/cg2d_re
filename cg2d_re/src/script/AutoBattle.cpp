@@ -546,7 +546,6 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
         window.state = WIN_STATE_ACTIVE; window.layer = 4;
         for (int slot = 0; slot < count; ++slot) {
             auto& element = ui::WindowRuntime_AddElement(window, ui::NativeElementKey(slot));
-            element.nativeSlot = slot;
             element.seqNo = slot;
             element.ownsPayload = false;
         }
@@ -574,10 +573,10 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
     int render(int) override { ui::WindowRuntime_DrawCurrent(); return 1; }
 };
 
-static ui::WindowGraphicData* CurrentGraphic(int index) {
+static ui::WindowGraphicData* CurrentGraphic(ui::ElementId elementId) {
     auto* const window = gCurrentWindow;
     if (!window) return nullptr;
-    auto* const element = window->FindElementById(ui::NativeElementKey(index));
+    auto* const element = window->FindElementById(elementId);
     return element ? element->data.graphic : nullptr;
 }
 
@@ -588,14 +587,14 @@ static void MakeAutoBattleSimple() {
     auto* toggle = panel->window.FindElementById(ui::NativeElementKey(0));
     toggle->type = ui::WindowElementType_EventArea; toggle->x = 65; toggle->width = 10;
     toggle->height = 20; toggle->visible = 1;
-    toggle->mouseCallback = +[](int, int mouse) {
+    toggle->mouseCallback = +[](ui::ElementId, int mouse) {
             if (mouse & 2) {
                 simpleMode = simpleMode == SIMPLE_MODE_HIDE ? SIMPLE_MODE_FULL : SIMPLE_MODE_HIDE;
                 gCurrentWindow->x = simpleMode == SIMPLE_MODE_FULL ? -2 : -70;
             }
             return (mouse & 2) ? 1 : 0;
         };
-    panel->AddGraphic(1, 0, 0, 77, 20, 641503, +[](int, int mouse) {
+    panel->AddGraphic(1, 0, 0, 77, 20, 641503, +[](ui::ElementId, int mouse) {
         if (mouse & 2) {
             simpleMode = SIMPLE_MODE_OFF;
             gCurrentWindow->state |= WIN_STATE_CLOSE;
@@ -611,41 +610,42 @@ static void MakeAutoBattle() {
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE, 50, 240, 185, CHK_MAX + 3);
     for (int ix = 0; ix < CHK_MAX; ++ix) {
         const auto& check = checkboxList[ix];
-        panel->AddGraphic(ix, check.x, check.y, check.w, check.h, 641502, +[](int index, int mouse) {
+        panel->AddGraphic(ix, check.x, check.y, check.w, check.h, 641502, +[](ui::ElementId elementId, int mouse) {
+            const int index = static_cast<int>(elementId) - 1; // 复选项数组从0开始。
             auto& check = checkboxList[index];
             if (mouse & 1) ui::detail::gHoverTextD68AE8 = check.msg;
             if (mouse & 2) {
                 if (check.group) for (auto& other : checkboxList) if (other.group == check.group) other.value = 0;
                 check.value = check.value ? 0 : 1;
             }
-            if (auto* graphic = CurrentGraphic(index)) graphic->imageNo = check.value ? 641501 : 641502;
+            if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = check.value ? 641501 : 641502;
             return (mouse & 2) ? 1 : 0;
         });
     }
-    panel->AddGraphic(CHK_MAX, 200, 6, 14, 14, 243000, +[](int index, int mouse) {
+    panel->AddGraphic(CHK_MAX, 200, 6, 14, 14, 243000, +[](ui::ElementId elementId, int mouse) {
         if (mouse & 1) ui::detail::gHoverTextD68AE8 = L"关闭窗口";
         if (mouse & 2) {
             MakeAutoBattleSimple();
             gCurrentWindow->state |= WIN_STATE_CLOSE;
             return 1;
         }
-        if (auto* graphic = CurrentGraphic(index)) graphic->imageNo = (mouse & 1) ? 243001 : 243000;
+        if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = (mouse & 1) ? 243001 : 243000;
         return 0;
     });
     panel->graphics[CHK_MAX].offsetX = -2;
     panel->graphics[CHK_MAX].offsetY = -1;
     panel->graphics[CHK_MAX].width = panel->graphics[CHK_MAX].height = 12;
-    panel->AddGraphic(CHK_MAX + 1, 80, 150, 58, 17, 640186, +[](int index, int mouse) {
+    panel->AddGraphic(CHK_MAX + 1, 80, 150, 58, 17, 640186, +[](ui::ElementId elementId, int mouse) {
         if (mouse & 1) ui::detail::gHoverTextD68AE8 = enableAutoBattle ? L"停止自动战斗" : L"开始自动战斗";
         if (mouse & 2) {
             const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
             if ((world::gCurrentSceneState == 4 && count == 0) || enableAutoBattle || world::gCurrentSceneState != 4)
                 enableAutoBattle = !enableAutoBattle;
         }
-        if (auto* graphic = CurrentGraphic(index)) graphic->imageNo = enableAutoBattle ? 640188 : ((mouse & 1) ? 640187 : 640186);
+        if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = enableAutoBattle ? 640188 : ((mouse & 1) ? 640187 : 640186);
         return (mouse & 2) ? 1 : 0;
     });
-    panel->AddGraphic(CHK_MAX + 2, 0, 0, 240, 185, 641500, +[](int, int mouse) {
+    panel->AddGraphic(CHK_MAX + 2, 0, 0, 240, 185, 641500, +[](ui::ElementId, int mouse) {
         if (mouse & 2) { clicked = true; lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY)); }
         else if (clicked && !(mouse & 8)) clicked = false;
         return (mouse & 2) ? 1 : 0;

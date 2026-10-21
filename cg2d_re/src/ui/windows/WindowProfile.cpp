@@ -23,13 +23,14 @@ static std::int32_t gWindowInteractionOriginY_CC4D3C = 0; // 原全局：0x00CC4
 // 窗口函数实现。
 
 // 原函数：0x00478330。
-std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowProfile_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    switch (index) {
-    case 17: {
+    switch (elementId) {
+    case NativeElementKey(17): {
         const bool visible = world::detail::SelectedProfileValue04() != 0;
         if ((state & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = visible
@@ -46,9 +47,9 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         }
         return consumed;
     }
-    case 19:
-    case 20:
-    case 21: {
+    case NativeElementKey(19):
+    case NativeElementKey(20):
+    case NativeElementKey(21): {
         constexpr std::array<std::int32_t, 3> images {244405, 243075, 244408};
         constexpr const wchar_t* hints[] {
             L"切换成玩家状态视窗。",
@@ -56,7 +57,7 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             L"切换成玩家称号视窗。",
         };
         const std::int32_t position = index - 19;
-        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const graphicElement = currentWindow->FindElementById(elementId);
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
@@ -85,10 +86,10 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
         }
         return consumed;
     }
-    case 23:
-    case 24:
-    case 25: {
-        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    case NativeElementKey(23):
+    case NativeElementKey(24):
+    case NativeElementKey(25): {
+        auto* const graphicElement = currentWindow->FindElementById(elementId);
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
@@ -111,12 +112,12 @@ std::int32_t WindowProfile_HandleButtons(const std::int32_t index, const std::in
             consumed = 1;
         }
         if (gWindowStates[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 243034;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 243034;
         }
         return consumed;
     }
-    case 29: {
-        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    case NativeElementKey(29): {
+        auto* const graphicElement = currentWindow->FindElementById(elementId);
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {

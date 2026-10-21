@@ -48,7 +48,7 @@ static std::uint32_t WindowProfileView_Refresh(); // 四图号、八资料文本
 static void WindowProfileView_Release(); // 先清对话类型，再标记关联窗口63。
 
 // 原函数：0x004CB2F0。
-static std::int32_t WindowProfileView_ButtonMail(std::int32_t index, std::int32_t state); // 查看资料发信，先金额门禁再打开63。
+static std::int32_t WindowProfileView_ButtonMail(ElementId elementId, std::int32_t state); // 查看资料发信，先金额门禁再打开63。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -214,11 +214,11 @@ static void WindowProfileView_Release()
 }
 
 // 原函数：0x004CB2F0。
-static std::int32_t WindowProfileView_ButtonMail(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowProfileView_ButtonMail(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index != 0) {
+    if (elementId != static_cast<ElementId>(WindowProfileViewElementId::ButtonMail)) {
         return 0;
     }
     std::int32_t consumed = 0;

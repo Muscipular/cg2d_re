@@ -245,12 +245,12 @@ static std::int16_t gDragY57C11E = 0; // 原全局：0x0057C11E。
 
 static std::int32_t gFocusWindowId57C120 = 0; // 原全局：0x0057C120。
 
-static std::int32_t gFocusElementIndex57C124 = -1; // 原全局：0x0057C124。
+static ElementId gFocusElementId57C124 = 0; // 原全局：0x0057C124；MEI01改存元素ID，0表示无焦点。
 
 static std::int32_t gMousePhase57C128 = 0; // 原全局：0x0057C128。
 
-// 原全局：0x0057C12C。 原映像初值-1，不等同焦点元素。
-static std::int32_t gCurrentElementIndex57C12C = -1; // 原全局：0x0057C12C。
+// 原全局：0x0057C12C。原映像槽号初值-1；MEI01改存元素ID，0表示无当前元素，不等同焦点元素。
+static ElementId gCurrentElementId57C12C = 0; // 原全局：0x0057C12C。
 
 static std::int32_t gCurrentWindowIdD67A1C = 0; // 原全局：0x00D67A1C。
 
@@ -832,7 +832,7 @@ void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData*
 
 // WSB01：原33C0/C3只返0，保留当前窗口事件签名，不补业务。
 // 原函数：0x004B0F10。
-std::int32_t WindowElement_NoOp(const std::int32_t, const std::int32_t)
+std::int32_t WindowElement_NoOp(const ElementId, const std::int32_t)
 {
     return 0;
 }
@@ -930,7 +930,7 @@ std::int32_t WindowItem_FindSortedPetIndex(const std::int32_t slot)
 
 // WCL01：原474170完整15条；bit2置当前窗口bit13，hover优先返回1，否则低BYTE bit5，正确正文保持。
 // 原函数：0x00474170。
-std::int32_t WindowElement_HandleSideArea(const std::int32_t, const std::int32_t state)
+std::int32_t WindowElement_HandleSideArea(const ElementId, const std::int32_t state)
 {
     if ((state & MouseFlag_LDownEvent) != 0) {
         gCurrentWindow->state |= 0x2000u;
@@ -1495,10 +1495,10 @@ std::uint8_t WindowInput_HandleNumber(
 
 // WCL01：原4C1FB0完整53条；持同窗口/graphic，bit2仅置关闭位与SE57，图号优先序保，返回0/1。
 // 原函数：0x004C1FB0。
-std::int32_t WindowRuntime_ButtonClose(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowRuntime_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphicElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+    auto* const graphicElement = window ? window->FindElementById(elementId) : nullptr;
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
@@ -2924,7 +2924,7 @@ static void WindowRuntime_ResetMouseAndItemFlags()
     gDragY57C11E = 0;
     gDragX57C11C = 0;
     gFocusWindowId57C120 = 0;
-    gFocusElementIndex57C124 = -1;
+    gFocusElementId57C124 = 0;
     gMousePhase57C128 = 0;
 }
 
@@ -3355,7 +3355,7 @@ static void WindowRuntime_ResetReferences()
     }
     WindowRuntime_ResetMouseAndItemFlags();
     gCurrentWindowIdD67A1C = 0;
-    gCurrentElementIndex57C12C = -1;
+    gCurrentElementId57C12C = 0;
 }
 
 static void WindowRuntime_OpenConfiguredWindows()
@@ -3838,9 +3838,9 @@ std::int32_t WindowDrag_ReadFocusWindowId()
 }
 
 // 原函数：0x00475D50。
-std::int32_t WindowDrag_ReadFocusElement()
+ElementId WindowDrag_ReadFocusElement()
 {
-    return gFocusElementIndex57C124;
+    return gFocusElementId57C124;
 }
 
 // 原函数：0x00475D60。
@@ -3878,10 +3878,10 @@ std::int32_t WindowDrag_Start(
     gMouseValue57C110 = kind;
     const std::int32_t windowId = gCurrentWindowIdD67A1C;
     gDragCallback57C118 = callback;
-    const std::int32_t elementIndex = gCurrentElementIndex57C12C;
+    const ElementId elementId = gCurrentElementId57C12C;
     gFocusWindowId57C120 = windowId;
     gDragSourceIndex57C114 = sourceIndex;
-    gFocusElementIndex57C124 = elementIndex;
+    gFocusElementId57C124 = elementId;
     gMousePhase57C128 = 1;
     return 1;
 }
@@ -3900,10 +3900,10 @@ std::int32_t WindowDrag_StartAtPosition(
     gDragCallback57C118 = callback;
     const std::int32_t windowId = gCurrentWindowIdD67A1C;
     gDragX57C11C = x;
-    const std::int32_t elementIndex = gCurrentElementIndex57C12C;
+    const ElementId elementId = gCurrentElementId57C12C;
     gDragY57C11E = y;
     gFocusWindowId57C120 = windowId;
-    gFocusElementIndex57C124 = elementIndex;
+    gFocusElementId57C124 = elementId;
     gMousePhase57C128 = 3;
     return 1;
 }
@@ -3927,27 +3927,27 @@ void WindowDrag_Reset()
     gDragY57C11E = 0;
     gFocusWindowId57C120 = 0;
     gMousePhase57C128 = 0;
-    gFocusElementIndex57C124 = -1;
+    gFocusElementId57C124 = 0;
 }
 
-// DLP01：已有kind才绑定两个S32焦点槽，不改变会话阶段，返S32 0/1。
+// DLP01/MEI01：已有kind才绑定焦点窗口与元素ID，不改变会话阶段，返S32 0/1。
 // 原函数：0x004763B0。
 std::int32_t WindowDrag_SetFocus(
-    const std::int32_t windowId, const std::int32_t elementIndex)
+    const std::int32_t windowId, const ElementId elementId)
 {
     if (gMouseValue57C110 == 0) {
         return 0;
     }
     gFocusWindowId57C120 = windowId;
-    gFocusElementIndex57C124 = elementIndex;
+    gFocusElementId57C124 = elementId;
     return 1;
 }
 
-// DLP01：只清焦点索引/kind/焦点窗口/回调/phase五槽，来源及两坐标保持，返S32 0。
+// DLP01：只清焦点元素ID/kind/焦点窗口/回调/phase五槽，来源及两坐标保持，返S32 0。
 // 原函数：0x004763E0。
 std::int32_t WindowDrag_ResetMouse()
 {
-    gFocusElementIndex57C124 = -1;
+    gFocusElementId57C124 = 0;
     gMouseValue57C110 = 0;
     gFocusWindowId57C120 = 0;
     gDragCallback57C118 = nullptr;
@@ -4124,7 +4124,7 @@ static void WindowRuntime_AdvanceMousePhase()
         gDragY57C11E = 0;
         gFocusWindowId57C120 = 0;
         gMousePhase57C128 = 0;
-        gFocusElementIndex57C124 = -1;
+        gFocusElementId57C124 = 0;
         return;
     }
     case 6:
@@ -4146,7 +4146,6 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
     WindowInstance* const window = gCurrentWindow;
     WindowElement* const element = window->FindElementById(elementId);
     if (!element) return;
-    const auto index = element->nativeSlot;
     if (element->component) {
         element->component->process(static_cast<int>(elementId), 1, 0);
         return;
@@ -4165,7 +4164,7 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
                     events = MouseFlag_Dragging;
                 }
                 if (gFocusWindowId57C120 == gCurrentWindowIdD67A1C
-                    && gFocusElementIndex57C124 == gCurrentElementIndex57C12C) {
+                    && gFocusElementId57C124 == gCurrentElementId57C12C) {
                     events = WindowRuntime_AppendMouseEvents(events);
                 }
             } else {
@@ -4199,7 +4198,7 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
     const int ownerId = window->id;
     const auto ownerGeneration = window->generation;
     if (element->visible == 1) {
-        if (element->mouseCallback) handled = element->mouseCallback(index, events);
+        if (element->mouseCallback) handled = element->mouseCallback(elementId, events);
         const auto* live = WindowRuntime_FindInstance(ownerId);
         if (live == window && live->generation == ownerGeneration && window->binding
             && window->FindElementById(elementId) == element && !(window->state & 0x8000u) && !window->scriptHidden) {
@@ -4234,19 +4233,19 @@ void WindowRuntime_UpdateExtendedElements()
         if (gCurrentWindow->binding) gCurrentWindow->binding->elementUpdate(*element);
         element = gCurrentWindow->FindElementById(id);
         if (!element || (gCurrentWindow->state & 0x8000u)) continue;
-        gCurrentElementIndex57C12C = element->nativeSlot;
+        gCurrentElementId57C12C = element->elementId;
         if (element->visible == 1) WindowRuntime_DispatchElementMouse(id);
     }
 }
 
 // WSB01：原载荷字节借用及上下界/差值三个现场取样阶段见滚动回调SPEC。
 // 原函数：0x004741A0。
-std::int32_t WindowElement_HandleVerticalScroll(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowElement_HandleVerticalScroll(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
     if (!window) return 0;
     // 窗口49的Graphic与普通MouseArea共享滚动语义，按活动类型读写对应字段。
-    auto* const scrollElement = window->FindElementById(NativeElementKey(index));
+    auto* const scrollElement = window->FindElementById(elementId);
     if (!scrollElement) return 0;
     auto* const previous = window->FindElementById(scrollElement->relatedElementId);
     if (!previous) return 0; // 仅取消当前滚动控件操作，调度器继续后续元素。
@@ -4432,7 +4431,7 @@ std::int32_t WindowRuntime_Update()
                 WindowElementCursor cursor(*window);
                 while (auto* element = cursor.next()) {
                     const auto elementId = element->elementId;
-                    gCurrentElementIndex57C12C = element->nativeSlot;
+                    gCurrentElementId57C12C = element->elementId;
                     if ((window->state & 0x8000u) || window->scriptHidden) break;
                     if (window->binding) window->binding->elementUpdate(*element);
                     if ((window->state & 0x8000u) || window->scriptHidden) break;
@@ -4443,7 +4442,7 @@ std::int32_t WindowRuntime_Update()
                 static_cast<void>(WindowRuntime_ProcessPointerDrag(*window));
             }
             const bool hasFocus = focused != 0;
-            gCurrentElementIndex57C12C = -1;
+            gCurrentElementId57C12C = 0;
             if (hasFocus) {
                 const std::int32_t phase = gMousePhase57C128;
                 *reinterpret_cast<unsigned char*>(
@@ -4563,7 +4562,6 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
             const auto fixedId = slot < count && prototype->elements[slot].elementId
                 ? prototype->elements[slot].elementId : NativeElementKey(slot);
             auto& element = WindowRuntime_AddElement(*window, fixedId);
-            element.nativeSlot = slot;
             element.relatedElementId = slot > 0 ? NativeElementKey(slot - 1) : 0;
         }
         WindowElementPrototype* source = prototype->elements;
@@ -4830,7 +4828,7 @@ void WindowDrag_Cancel()
     gDragX57C11C = 0;
     gDragY57C11E = 0;
     gFocusWindowId57C120 = 0;
-    gFocusElementIndex57C124 = -1;
+    gFocusElementId57C124 = 0;
     gMousePhase57C128 = phase == 1 ? 2 : 6;
 }
 

@@ -36,10 +36,10 @@ static cg::yobi::YobiAction* WindowSkillResult_Open(); // 原操作计数、关�
 static WindowAnimationData* WindowSkillResult_RefreshResult(WindowInstance* window); // 窗口13按分类完整填充结果。
 
 // 原函数：0x00487D60。
-static std::int32_t WindowSkillResult_ButtonContinue(std::int32_t index, std::int32_t state); // 先比较FP，再继续技能请求。
+static std::int32_t WindowSkillResult_ButtonContinue(ElementId elementId, std::int32_t state); // 先比较FP，再继续技能请求。
 
 // 原函数：0x00487E80。
-static std::int32_t WindowSkillResult_ButtonClose(std::int32_t index, std::int32_t state); // 关闭入口窗口，音效后写图号。
+static std::int32_t WindowSkillResult_ButtonClose(ElementId elementId, std::int32_t state); // 关闭入口窗口，音效后写图号。
 
 // 原函数：0x00487660。
 static void WindowSkillResult_Release();
@@ -339,13 +339,13 @@ static std::int32_t WindowSkillResult_Draw(const std::int32_t)
 }
 
 // 原函数：0x00487D60。
-static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkillResult_ButtonContinue(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     const std::int32_t level = gUsingSkillLevelCA0AC4;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t skill = gUsingSkillIndexD2F32C;
@@ -381,12 +381,12 @@ static std::int32_t WindowSkillResult_ButtonContinue(const std::int32_t index, c
 }
 
 // 原函数：0x00487E80。
-static std::int32_t WindowSkillResult_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSkillResult_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {

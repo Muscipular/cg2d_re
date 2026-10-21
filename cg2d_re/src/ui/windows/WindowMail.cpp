@@ -27,7 +27,7 @@ struct MailStatusTextTable {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004A3760。
-static std::int32_t WindowMail_CancelDelete(std::int32_t unusedIndex, std::int32_t unusedState); // 取消时必要重开窗口21。
+static std::int32_t WindowMail_CancelDelete(ElementId elementId, std::int32_t unusedState); // 取消时必要重开窗口21。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -221,7 +221,7 @@ void WindowMail_SetUnreadGraphic(const std::int32_t index)
 }
 
 // 原函数：0x004A3600。
-std::int32_t WindowMail_DeleteContact(const std::int32_t, const std::int32_t)
+std::int32_t WindowMail_DeleteContact(const ElementId, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     static_cast<void>(cg::network::GetGameConnection().RequestContactDeletion(index));
@@ -237,7 +237,7 @@ std::int32_t WindowMail_DeleteContact(const std::int32_t, const std::int32_t)
 }
 
 // 原函数：0x004A3660。
-std::int32_t WindowMail_DeleteGuildMember(const std::int32_t, const std::int32_t)
+std::int32_t WindowMail_DeleteGuildMember(const ElementId, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     const auto networkSession = cg::network::GetGameConnection().CaptureSession();
@@ -250,7 +250,7 @@ std::int32_t WindowMail_DeleteGuildMember(const std::int32_t, const std::int32_t
 }
 
 // 原函数：0x004A36B0。
-std::int32_t WindowMail_DeleteMiniMailContact(const std::int32_t, const std::int32_t)
+std::int32_t WindowMail_DeleteMiniMailContact(const ElementId, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     const auto& record = world::detail::ReadMiniMailContact1075A90(index);
@@ -265,7 +265,7 @@ std::int32_t WindowMail_DeleteMiniMailContact(const std::int32_t, const std::int
 }
 
 // 原函数：0x004A3760。
-static std::int32_t WindowMail_CancelDelete(const std::int32_t, const std::int32_t)
+static std::int32_t WindowMail_CancelDelete(const ElementId, const std::int32_t)
 {
     if (gWindowStates[WindowId_Contacts].window == nullptr) {
         static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Contacts, 1, 0, nullptr));

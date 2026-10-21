@@ -143,46 +143,46 @@ static void WindowContacts_ApplyDisplayLayout(std::int32_t mode); // 联系人�
 static void WindowContacts_ApplyCategoryLayout(std::int32_t category); // 普通/公会/迷你名单布局，借原型坐标。
 
 // 原函数：0x004A1C30。
-static std::int32_t WindowContacts_ScrollRow(std::int32_t index, std::int32_t state); // 单行滚动、边界音效及保存。
+static std::int32_t WindowContacts_ScrollRow(ElementId elementId, std::int32_t state); // 单行滚动、边界音效及保存。
 
 // 原函数：0x004A1EF0。
-static std::int32_t WindowContacts_HandleNavigation(std::int32_t index, std::int32_t state); // 显示/排序/翻页及三行记录TLKH发送。
+static std::int32_t WindowContacts_HandleNavigation(ElementId elementId, std::int32_t state); // 显示/排序/翻页及三行记录TLKH发送。
 
 // 原函数：0x004A2610。
-static std::int32_t WindowContacts_ButtonGroupMail(std::int32_t index, std::int32_t state); // 群发入口：检查49，动画打开22。
+static std::int32_t WindowContacts_ButtonGroupMail(ElementId elementId, std::int32_t state); // 群发入口：检查49，动画打开22。
 
 // 原函数：0x004A2870。
-static std::int32_t WindowContacts_TabCategory(std::int32_t index, std::int32_t state); // 普通/公会/迷你类别切换。
+static std::int32_t WindowContacts_TabCategory(ElementId elementId, std::int32_t state); // 普通/公会/迷你类别切换。
 
 // 原函数：0x004A2BD0。
-static std::int32_t WindowContacts_ButtonGuildDetails(std::int32_t index, std::int32_t state); // 动画打开窗口48公会详情。
+static std::int32_t WindowContacts_ButtonGuildDetails(ElementId elementId, std::int32_t state); // 动画打开窗口48公会详情。
 
 // 原函数：0x004A37E0。
 static std::int32_t WindowContacts_ResolveRecordIndex(std::int32_t index); // 三行/九行元素编号到同源排序后记录索引。
 
 // 原函数：0x004A40C0。
-static std::int32_t WindowContacts_Scroll(std::int32_t unused, std::int32_t state); // 滚轮推进，重读类别写回，恒返回0。
+static std::int32_t WindowContacts_Scroll(ElementId elementId, std::int32_t state); // 滚轮推进，重读类别写回，恒返回0。
 
 // 原函数：0x004A2530。
-static std::int32_t WindowContacts_HandleRankButton(std::int32_t index, std::int32_t state); // 六职级按钮，bit400转交完整4A38C0。
+static std::int32_t WindowContacts_HandleRankButton(ElementId elementId, std::int32_t state); // 六职级按钮，bit400转交完整4A38C0。
 
 // 原函数：0x004A38C0。
 static void WindowContacts_OpenRankSelection(std::int32_t index); // 两次联系人索引读取，生产职级状态后直接打开55。
 
 // 原函数：0x004A2B00。
-static std::int32_t WindowContacts_OpenMail(std::int32_t index, std::int32_t state); // 发布同源记录/两类别槽，动画打开40。
+static std::int32_t WindowContacts_OpenMail(ElementId elementId, std::int32_t state); // 发布同源记录/两类别槽，动画打开40。
 
 // 原函数：0x004A3780。
 static std::int32_t WindowContacts_ResolveButtonRecord(std::int32_t index); // 三行/九行分组按钮到实际记录索引。
 
 // 原函数：0x004A39C0。
-static std::int32_t WindowContacts_HandleAvatar(std::int32_t index, std::int32_t state); // 九行头像悬停及独立TLKH双击发送。
+static std::int32_t WindowContacts_HandleAvatar(ElementId elementId, std::int32_t state); // 九行头像悬停及独立TLKH双击发送。
 
 // 原函数：0x004A3C70。
-static std::int32_t WindowContacts_ButtonCompose(std::int32_t index, std::int32_t state); // 十二写信按钮，发布类别/索引后动画打开22。
+static std::int32_t WindowContacts_ButtonCompose(ElementId elementId, std::int32_t state); // 十二写信按钮，发布类别/索引后动画打开22。
 
 // 原函数：0x004A32E0。
-static std::int32_t WindowContacts_ButtonDelete(std::int32_t index, std::int32_t state); // 三类联系人删除确认分派。
+static std::int32_t WindowContacts_ButtonDelete(ElementId elementId, std::int32_t state); // 三类联系人删除确认分派。
 
 // 原函数：0x004A33C0。
 static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
@@ -826,14 +826,14 @@ static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
 }
 
 // 原函数：0x004A1C30。
-static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ScrollRow(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const std::int32_t imageOffset = index == 14 ? 0 : 3;
+        const std::int32_t imageOffset = elementId == static_cast<ElementId>(WindowContactsElementId::ScrollRow) ? 0 : 3;
         graphic->imageNo = 0x3B592 + imageOffset;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B594 + imageOffset;
@@ -849,7 +849,7 @@ static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std
     const std::int32_t mode = gContactsPreviewMode_D67B38;
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     std::int32_t& position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
-    position += index == 14 ? -1 : 1;
+    position += elementId == static_cast<ElementId>(WindowContactsElementId::ScrollRow) ? -1 : 1;
     if ((mode == 0 || mode == 1) && category >= 0 && category <= 2) {
         std::int32_t maximum;
         if (category == 0) {
@@ -876,11 +876,12 @@ static std::int32_t WindowContacts_ScrollRow(const std::int32_t index, const std
 }
 
 // 原函数：0x004A1EF0。
-static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index >= 51 && index <= 53) {
+    if (elementId >= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_52) && elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_54)) {
         if ((state & MouseFlag_RDownEvent) == 0) {
             return 0;
         }
@@ -916,19 +917,19 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
         }
         return 0;
     }
-    if (index < 1 || index > 6) {
+    if (elementId < static_cast<ElementId>(WindowContactsElementId::HandleNavigation) || elementId > static_cast<ElementId>(WindowContactsElementId::HandleNavigation_7)) {
         return 0;
     }
 
     const std::int32_t imageOffset = (index & 1) != 0 ? 0 : 3;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B558 + imageOffset;
-            if (index <= 2) {
+            if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)) {
                 gHoverTextD68AE8 = gContactsPreviewMode_D67B38 != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
-            } else if (index <= 4) {
+            } else if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_5)) {
                 gHoverTextD68AE8 = L"切换名片的排序方式。" /* 原常量参考：0x0058746C。 */;
             }
         } else {
@@ -938,7 +939,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
 
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        if (index <= 2) {
+        if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)) {
             const std::int32_t oldMode = gContactsPreviewMode_D67B38;
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t mode = oldMode == 0 ? 1 : 0;
@@ -948,16 +949,16 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
             gLoginWindowRuntime.valuesD67B40[3 + currentCategory] = 0;
             gLoginWindowRuntime.valuesD67B40[currentCategory] = 0;
             WindowContacts_ClampScroll();
-        } else if (index <= 4) {
+        } else if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_5)) {
             const std::int32_t oldSort = std::bit_cast<std::int32_t>(gLoginWindowRuntime.mailSortModeD67B3C);
-            const std::int32_t sort = (oldSort + (index == 3 ? 4 : 6)) % 5;
+            const std::int32_t sort = (oldSort + (elementId == static_cast<ElementId>(WindowContactsElementId::HandleNavigation_4) ? 4 : 6)) % 5;
             gLoginWindowRuntime.mailSortModeD67B3C = std::bit_cast<std::uint32_t>(sort);
             platform::gContactSortMode_D67CD0 = std::bit_cast<std::uint32_t>(sort);
         } else {
             const std::int32_t mode = gContactsPreviewMode_D67B38;
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t step = mode == 0 ? 3 : 9;
-            gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category] += index == 5 ? -step : step;
+            gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category] += elementId == static_cast<ElementId>(WindowContactsElementId::HandleNavigation_6) ? -step : step;
             WindowContacts_ClampScroll();
         }
         login::detail::SaveCurrentLoginRecord_520200();
@@ -966,7 +967,7 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
         // 业务调用可能改变当前窗口，按原尾路径重新借用载荷。
-        auto* const pressedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const pressedElement = currentWindow->FindElementById(elementId);
         if (pressedElement) {
             auto* const pressed = pressedElement->data.graphic;
             pressed->imageNo = 0x3B557 + imageOffset;
@@ -976,11 +977,11 @@ static std::int32_t WindowContacts_HandleNavigation(const std::int32_t index, co
 }
 
 // 原函数：0x004A2610。
-static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonGroupMail(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 0x3B541;
@@ -1012,11 +1013,12 @@ static std::int32_t WindowContacts_ButtonGroupMail(const std::int32_t index, con
 }
 
 // 原函数：0x004A2870。
-static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_TabCategory(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index < 10 || index > 12) {
+    if (elementId < static_cast<ElementId>(WindowContactsElementId::TabCategory) || elementId > static_cast<ElementId>(WindowContactsElementId::TabCategory_13)) {
         return 0;
     }
     const std::int32_t category = index - 10;
@@ -1024,7 +1026,7 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
         return 0;
     }
     const std::int32_t idle = category == 0 ? 0x3B57D : (category == 1 ? 0x3B580 : 0x3C115);
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -1063,11 +1065,11 @@ static std::int32_t WindowContacts_TabCategory(const std::int32_t index, const s
 }
 
 // 原函数：0x004A2BD0。
-static std::int32_t WindowContacts_ButtonGuildDetails(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonGuildDetails(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 0x3B9E5;
@@ -1103,7 +1105,7 @@ static std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
 }
 
 // 原函数：0x004A40C0。
-static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowContacts_Scroll(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -1143,12 +1145,13 @@ static std::int32_t WindowContacts_Scroll(const std::int32_t, const std::int32_t
 }
 
 // 原函数：0x004A2530。
-static std::int32_t WindowContacts_HandleRankButton(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_HandleRankButton(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t parity = (index - 21) % 2;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t imageOffset = parity != 0 ? 3 : 0;
@@ -1191,11 +1194,12 @@ static void WindowContacts_OpenRankSelection(const std::int32_t index)
 }
 
 // 原函数：0x004A2B00。
-static std::int32_t WindowContacts_OpenMail(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_OpenMail(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B547;
     if ((state & MouseFlag_Hover) != 0) {
@@ -1244,8 +1248,9 @@ static std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
 }
 
 // 原函数：0x004A39C0。
-static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_HandleAvatar(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const activeWindow = gCurrentWindow;
     if (!activeWindow) return 0;
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -1298,10 +1303,10 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         auto* firstElementsWindow = firstWindow;
         const std::int32_t firstWindowY = firstWindow->y;
-        auto* const firstElementYElement = firstElementsWindow->FindElementById(NativeElementKey(index));
+        auto* const firstElementYElement = firstElementsWindow->FindElementById(elementId);
         if (firstElementYElement) {
             const std::int32_t firstElementY = firstElementYElement->y;
-            auto* const firstElementXElement = firstElementsWindow->FindElementById(NativeElementKey(index));
+            auto* const firstElementXElement = firstElementsWindow->FindElementById(elementId);
             if (firstElementXElement) {
                 const std::int32_t firstElementX = firstElementXElement->x;
                 const std::int32_t firstY = firstElementY + firstWindowY + 55;
@@ -1312,7 +1317,7 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
         }
 
         // 先固定第一次绘图后的元素；图号转换后仅重取当前窗口，不更换此元素。
-        auto* const elementPtr = activeWindow->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = activeWindow->FindElementById(elementId);
         if (elementPtr) {
             WindowElement* const element = elementPtr;
             const std::int32_t image = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(*recordImage);
@@ -1364,30 +1369,30 @@ static std::int32_t WindowContacts_HandleAvatar(const std::int32_t index, const 
 }
 
 // 原函数：0x004A3C70。
-static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonCompose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hover = (state & MouseFlag_Hover) != 0;
     if (graphic) graphic->imageNo = hover ? 0x3B546 : 0x3B544;
     const std::int32_t consumed = hover ? 1 : 0;
     bool nineRows;
     std::int32_t row;
-    switch (index) {
-    case 28: nineRows = false; row = 0; break;
-    case 36: nineRows = false; row = 1; break;
-    case 44: nineRows = false; row = 2; break;
-    case 55: nineRows = true; row = 0; break;
-    case 60: nineRows = true; row = 1; break;
-    case 65: nineRows = true; row = 2; break;
-    case 70: nineRows = true; row = 3; break;
-    case 75: nineRows = true; row = 4; break;
-    case 80: nineRows = true; row = 5; break;
-    case 85: nineRows = true; row = 6; break;
-    case 90: nineRows = true; row = 7; break;
-    case 95: nineRows = true; row = 8; break;
+    switch (static_cast<WindowContactsElementId>(elementId)) {
+    case WindowContactsElementId::ButtonCompose: nineRows = false; row = 0; break;
+    case WindowContactsElementId::ButtonCompose_37: nineRows = false; row = 1; break;
+    case WindowContactsElementId::ButtonCompose_45: nineRows = false; row = 2; break;
+    case WindowContactsElementId::ButtonCompose_56: nineRows = true; row = 0; break;
+    case WindowContactsElementId::ButtonCompose_61: nineRows = true; row = 1; break;
+    case WindowContactsElementId::ButtonCompose_66: nineRows = true; row = 2; break;
+    case WindowContactsElementId::ButtonCompose_71: nineRows = true; row = 3; break;
+    case WindowContactsElementId::ButtonCompose_76: nineRows = true; row = 4; break;
+    case WindowContactsElementId::ButtonCompose_81: nineRows = true; row = 5; break;
+    case WindowContactsElementId::ButtonCompose_86: nineRows = true; row = 6; break;
+    case WindowContactsElementId::ButtonCompose_91: nineRows = true; row = 7; break;
+    case WindowContactsElementId::ButtonCompose_96: nineRows = true; row = 8; break;
     default: return consumed;
     }
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
@@ -1419,11 +1424,12 @@ static std::int32_t WindowContacts_ButtonCompose(const std::int32_t index, const
 }
 
 // 原函数：0x004A32E0。
-static std::int32_t WindowContacts_ButtonDelete(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonDelete(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B54A;
     if ((state & MouseFlag_Hover) != 0) {

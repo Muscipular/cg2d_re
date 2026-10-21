@@ -85,16 +85,16 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00492430。
-static std::int32_t WindowAlbumList_SelectEntry(std::int32_t index, std::int32_t state); // 图鉴列表打开选中详情。
+static std::int32_t WindowAlbumList_SelectEntry(ElementId elementId, std::int32_t state); // 图鉴列表打开选中详情。
 
 // 原函数：0x00492520。
-static std::int32_t WindowAlbumList_HandleScrollButtons(std::int32_t index, std::int32_t state); // 单行/十行滚动按钮。
+static std::int32_t WindowAlbumList_HandleScrollButtons(ElementId elementId, std::int32_t state); // 单行/十行滚动按钮。
 
 // 原函数：0x00492800。
-static std::int32_t WindowAlbumList_DragScroll(std::int32_t index, std::int32_t state); // WSP01：原950参数拖动换算；旧X代码1961。
+static std::int32_t WindowAlbumList_DragScroll(ElementId elementId, std::int32_t state); // WSP01：原950参数拖动换算；旧X代码1961。
 
 // 原函数：0x00492840。
-static std::int32_t WindowAlbumList_Scroll(std::int32_t index, std::int32_t state); // 图鉴滚轮，恒返0。
+static std::int32_t WindowAlbumList_Scroll(ElementId elementId, std::int32_t state); // 图鉴滚轮，恒返0。
 
 // 原函数：0x004923F0。
 static std::int32_t WindowAlbumList_Update(std::int32_t value);
@@ -303,17 +303,18 @@ static std::int32_t WindowAlbumList_Update(const std::int32_t value)
 }
 
 // 原函数：0x00492430。
-static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAlbumList_SelectEntry(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"开启此魔物的图鉴视窗。";
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
@@ -333,32 +334,32 @@ static std::int32_t WindowAlbumList_SelectEntry(const std::int32_t index, const 
 }
 
 // 原函数：0x00492520。
-static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAlbumList_HandleScrollButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const auto setImage = [index, currentWindow](const std::int32_t image) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
+    const auto setImage = [elementId, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     std::int32_t consumed = 0;
-    switch (index) {
-    case 3:
-    case 4:
+    switch (static_cast<WindowAlbumListElementId>(elementId)) {
+    case WindowAlbumListElementId::HandleScrollButtons:
+    case WindowAlbumListElementId::HandleScrollButtons_5:
         if ((state & MouseFlag_Hover) != 0) {
-            setImage(index == 3 ? 0x3B594 : 0x3B597);
+            setImage(elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? 0x3B594 : 0x3B597);
             consumed = 1;
         } else {
-            setImage(index == 3 ? 0x3B592 : 0x3B595);
+            setImage(elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? 0x3B592 : 0x3B595);
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
-            setImage(index == 3 ? 0x3B593 : 0x3B596);
+            setImage(elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? 0x3B593 : 0x3B596);
             consumed = 1;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t next = gLoginWindowRuntime.valueC8A95C + (index == 3 ? -1 : 1);
+            const std::int32_t next = gLoginWindowRuntime.valueC8A95C + (elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? -1 : 1);
             gLoginWindowRuntime.valueC8A95C = next;
-            if (index == 3 ? next < 0 : next > 949) {
-                gLoginWindowRuntime.valueC8A95C = index == 3 ? 0 : 950;
+            if (elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? next < 0 : next > 949) {
+                gLoginWindowRuntime.valueC8A95C = elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? 0 : 950;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -372,12 +373,12 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
             consumed = 1;
         }
         return consumed;
-    case 5:
-    case 6:
-        setImage(index == 5 ? ((state & MouseFlag_Hover) != 0 ? 0x3B558 : 0x3B556)
+    case WindowAlbumListElementId::HandleScrollButtons_6:
+    case WindowAlbumListElementId::HandleScrollButtons_7:
+        setImage(elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons_6) ? ((state & MouseFlag_Hover) != 0 ? 0x3B558 : 0x3B556)
                            : ((state & MouseFlag_Hover) != 0 ? 0x3B55B : 0x3B559));
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (index == 5) {
+            if (elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons_6)) {
                 const std::int32_t next = gLoginWindowRuntime.valueC8A95C - 10;
                 gLoginWindowRuntime.valueC8A95C = next;
                 if (next < 0) {
@@ -406,7 +407,7 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
-            setImage(index == 5 ? 0x3B557 : 0x3B55A);
+            setImage(elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons_6) ? 0x3B557 : 0x3B55A);
         }
         return consumed;
     default:
@@ -416,11 +417,11 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const std::int32_t index
 
 // WSP01：旧X片段1961；结果恰1才按原950参数换算，不由此推容量。
 // 原函数：0x00492800。
-static std::int32_t WindowAlbumList_DragScroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAlbumList_DragScroll(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
+    const std::int32_t result = WindowElement_HandleVerticalScroll(elementId, state);
     if (result == 1) {
         WindowInstance* const window = currentWindow;
         auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
@@ -432,7 +433,7 @@ static std::int32_t WindowAlbumList_DragScroll(const std::int32_t index, const s
 }
 
 // 原函数：0x00492840。
-static std::int32_t WindowAlbumList_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowAlbumList_Scroll(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;

@@ -44,16 +44,16 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004C94F0。
-static std::int32_t WindowOwnProfileCategory_SelectCategory(std::int32_t index, std::int32_t state); // 十行分类选择，写当前资料。
+static std::int32_t WindowOwnProfileCategory_SelectCategory(ElementId elementId, std::int32_t state); // 十行分类选择，写当前资料。
 
 // 原函数：0x004C96F0。
-static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(std::int32_t index, std::int32_t state); // 窗口59四滚动/翻页按钮。
+static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(ElementId elementId, std::int32_t state); // 窗口59四滚动/翻页按钮。
 
 // 原函数：0x004C9B80。
-static std::int32_t WindowOwnProfileCategory_DragScroll(std::int32_t index, std::int32_t state); // WSP01：原分类count-10拖动换算；旧X代码1992。
+static std::int32_t WindowOwnProfileCategory_DragScroll(ElementId elementId, std::int32_t state); // WSP01：原分类count-10拖动换算；旧X代码1992。
 
 // 原函数：0x004C9BE0。
-static std::int32_t WindowOwnProfileCategory_Scroll(std::int32_t unusedIndex, std::int32_t state); // 三模式滚轮，恒返0。
+static std::int32_t WindowOwnProfileCategory_Scroll(ElementId elementId, std::int32_t state); // 三模式滚轮，恒返0。
 
 // 原函数：0x004C94B0。
 // 关联原入口：0x004C94D6（共享尾已并入本函数正文）。
@@ -174,8 +174,9 @@ static std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
 }
 
 // 原函数：0x004C94F0。
-static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowOwnProfileCategory_SelectCategory(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -186,10 +187,10 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         case 2: gHoverTextD68AE8 = L"设定描述的目录" /* 原常量参考：0x00588514。 */; break;
         default: break;
         }
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB04;
         consumed = 1;
     } else {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB02;
     }
 
     const std::int32_t selectedMode = gProfileCategory1085DA0;
@@ -198,7 +199,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
         const std::int32_t selected =
             world::detail::gCurrentProfile10738E8.entries410[selectedMode].value00;
         if (selected == page + index - 19) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB03;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BB03;
         }
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
@@ -223,16 +224,16 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(const std::int32_t i
 }
 
 // 原函数：0x004C96F0。
-static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    const auto setImage = [index, currentWindow](const std::int32_t image) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
+    const auto setImage = [elementId, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
-    switch (index) {
-    case 3: {
+    switch (static_cast<WindowOwnProfileCategoryElementId>(elementId)) {
+    case WindowOwnProfileCategoryElementId::HandleScrollButtons: {
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B594);
             consumed = 1;
@@ -273,7 +274,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
         }
         return 1;
     }
-    case 4: {
+    case WindowOwnProfileCategoryElementId::HandleScrollButtons_5: {
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B597);
             consumed = 1;
@@ -312,7 +313,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
         }
         return 1;
     }
-    case 6:
+    case WindowOwnProfileCategoryElementId::HandleScrollButtons_7:
         setImage((state & MouseFlag_Hover) != 0 ? 0x3B558 : 0x3B556);
         if ((state & MouseFlag_LDownEvent) != 0) {
             std::int32_t page = gProfileScrollCA0444 - 10;
@@ -339,7 +340,7 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
             setImage(0x3B557);
         }
         return consumed;
-    case 7:
+    case WindowOwnProfileCategoryElementId::HandleScrollButtons_8:
         setImage((state & MouseFlag_Hover) != 0 ? 0x3B55B : 0x3B559);
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t mode = gProfileCategory1085DA0;
@@ -376,11 +377,11 @@ static std::int32_t WindowOwnProfileCategory_HandleScrollButtons(const std::int3
 
 // WSP01：旧X片段1992；恰1且mode0..2才按原分类count-10更新。
 // 原函数：0x004C9B80。
-static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowOwnProfileCategory_DragScroll(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
+    const std::int32_t result = WindowElement_HandleVerticalScroll(elementId, state);
     if (result == 1) {
         const std::int32_t mode = gProfileCategory1085DA0;
         if (mode >= 0 && mode <= 2) {
@@ -398,7 +399,7 @@ static std::int32_t WindowOwnProfileCategory_DragScroll(const std::int32_t index
 }
 
 // 原函数：0x004C9BE0。
-static std::int32_t WindowOwnProfileCategory_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowOwnProfileCategory_Scroll(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;

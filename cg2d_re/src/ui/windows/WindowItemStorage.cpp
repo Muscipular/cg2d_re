@@ -22,10 +22,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004AC290。
-static std::int32_t WindowItemStorage_HandleOwnItems(std::int32_t index, std::int32_t state); // 窗口38自有物品面板。
+static std::int32_t WindowItemStorage_HandleOwnItems(ElementId elementId, std::int32_t state); // 窗口38自有物品面板。
 
 // 原函数：0x004AC890。
-static std::int32_t WindowItemStorage_HandleStoredItems(std::int32_t index, std::int32_t state); // SEP01：完整窗口38外部物品消费，低BYTE/坐标原序与S32 consumed保持。
+static std::int32_t WindowItemStorage_HandleStoredItems(ElementId elementId, std::int32_t state); // SEP01：完整窗口38外部物品消费，低BYTE/坐标原序与S32 consumed保持。
 
 // 原函数：0x004AC0F0。
 static void WindowItemStorage_Release();
@@ -130,8 +130,9 @@ static std::int32_t WindowItemStorage_Draw(const std::int32_t)
 }
 
 // 原函数：0x004AC290。
-static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -156,10 +157,10 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
             const WindowInstance* const window = currentWindow;
             const std::int32_t windowX = window->x;
             const std::int32_t windowY = window->y;
-            auto* const elementXElement = window->FindElementById(NativeElementKey(index));
+            auto* const elementXElement = window->FindElementById(elementId);
             if (elementXElement) {
                 const std::int32_t elementX = elementXElement->x;
-                auto* const elementYElement = window->FindElementById(NativeElementKey(index));
+                auto* const elementYElement = window->FindElementById(elementId);
                 if (elementYElement) {
                     const std::int32_t elementY = elementYElement->y;
                     for (std::int32_t position = 0; position < 20; ++position) {
@@ -182,7 +183,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t left = element.x + 50 * (position % 5) + window->x + 12;
@@ -230,7 +231,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 12;
@@ -244,7 +245,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
     }
     if (hovered >= 0) {
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 12;
@@ -270,7 +271,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
             continue;
         }
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = element.x + 50 * (position % 5) + window->x + 36;
@@ -305,8 +306,9 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const std::int32_t index, c
 
 // SEP01：原4AC890完整426条；flags只读低BYTE，坐标按原S32取样序，窗口38类型门槛/翻页/数量显示保持。
 // 原函数：0x004AC890。
-static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowItemStorage_HandleStoredItems(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -325,7 +327,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         const std::int32_t dropY = WindowDrag_ReadY();
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t elementX = element.x;
@@ -356,7 +358,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t elementX = element.x;
@@ -414,7 +416,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 100) {
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t elementX = element.x;
@@ -432,7 +434,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
     }
     if (hovered >= 0) {
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t elementX = element.x;
@@ -465,7 +467,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const std::int32_t index
             continue;
         }
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t elementX = element.x;

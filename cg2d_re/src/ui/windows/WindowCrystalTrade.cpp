@@ -9,11 +9,11 @@ namespace detail {
 // 窗口函数实现。
 
 // 原函数：0x004C2460。
-std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowCrystalTrade_ButtonCancel(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
@@ -46,11 +46,11 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const std::int32_t index, const std
 }
 
 // 原函数：0x004C4680。
-std::int32_t WindowCrystalTrade_DrawButton(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowCrystalTrade_DrawButton(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 243203;

@@ -1,14 +1,14 @@
 # 鼠标回调统一元素ID（MEI01）
 
-状态：2026-10-22，源码核对完成，待用户确认；尚未修改实现。
+状态：2026-10-22，用户回复“ok”确认；实现及静态核对完成，未编译或运行验收。
 
 ## 目标与现状
 
 用户要求评估将WindowElementPrototype::mouseCallback的index改为elementId并移除nativeSlot，同时询问relatedElementId、removed、ownsPayload及creationSerial是否仍有必要。
 
-WindowElementCallback当前签名为S32 index/S32 state；WindowRuntime_DispatchElementMouse实际传入element.nativeSlot。NativeElementKey将非负槽号转换为slot+1，元素ID为U32；排序位置由elementAtIndex单独表达。因此这次修改涉及参数语义与所有消费者，不能只重命名参数或替换调度实参。
+改动前WindowElementCallback签名为S32 index/S32 state；WindowRuntime_DispatchElementMouse实际传入element.nativeSlot。NativeElementKey将非负槽号转换为slot+1，元素ID为U32；排序位置由elementAtIndex单独表达。因此这次修改涉及参数语义与所有消费者，不能只重命名参数或替换调度实参。
 
-## 拟实施范围
+## 已确认实施范围
 
 1. WindowElementCallback统一为`std::int32_t (*)(ElementId elementId, std::int32_t state)`；原型与实例共用该类型，分发直接传当前元素的elementId。
 2. 同步所有绑定函数、前置声明、回调表及直接调用。元素查找直接使用ID；固定元素判断使用对应窗口枚举。列表行号、背包位置等业务索引按原业务基址显式换算，保持原值、分支和调用顺序，不把业务索引统一改成ID。
@@ -33,4 +33,11 @@ WindowElementCallback当前签名为S32 index/S32 state；WindowRuntime_Dispatch
 - 核对自动战斗窗口、动态分页元素及滚动条相关调用；保留既有元素删除、借用载荷与游标行为。
 - 仅做源码、UTF-8/换行及Git差异静态核对；不编译、不运行、不新增或执行测试，不将静态核对计为运行验收。
 
-本方案改变SEV01保留nativeSlot回调契约的原范围。按用户本轮“复杂重构先给SPEC确认”要求，批准后实施。
+本方案经用户确认，覆盖SEV01中保留nativeSlot回调契约的原范围。
+
+## 实施与静态核对记录
+
+- 356个具名回调、709处声明/定义及自动战斗六个匿名回调改用ElementId；确认框转发、动态回调表与16处具名直接调用同步，当前元素与拖动焦点统一为ID/0。删除nativeSlot全部源码读写，大地图绘制按ID判断元素区域。
+- 静态核对原型表2596项固定ID均与原槽号加1一致；当前元素直接按ID查询，固定元素分支使用所在窗口枚举。跨窗口共享逻辑或无可见专用枚举的位置保留NativeElementKey常量表达，避免为本次迁移扩展公共枚举。业务行号、原型数组及仍接收旧槽号的既有辅助接口按需从ID换算有符号局部索引，不引入存储字段或缓存。
+- 355个常规回调正文按ID/槽号映射、枚举分支及转发实参反向归一后，非注释词法序列与改动前一致；大地图转发、OnElement及绘制、自动战斗成员载荷访问、确认框转发和焦点生命周期另行静态核对。保留relatedElementId、removed、ownsPayload、creationSerial及对应行为。
+- 检查动态绑定、声明/定义、直接调用、lambda捕获、ID比较与有符号业务运算；当前源码无nativeSlot或旧焦点索引全局名残留。UTF-8与既有换行保持，Git差异检查通过。未编译、运行客户端、新增或执行测试；静态核对不代表运行验收。

@@ -15,7 +15,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004990F0。
-static std::int32_t WindowSpectator_ButtonEnd(std::int32_t index, std::int32_t state); // 窗口29观战结束，hover不消费。
+static std::int32_t WindowSpectator_ButtonEnd(ElementId elementId, std::int32_t state); // 窗口29观战结束，hover不消费。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -32,7 +32,7 @@ WindowPrototype gWindowPrototypeSpectator {2, 3, 492, 0, 148, 108, 0x80010101u, 
 // 窗口函数实现。
 
 // 原函数：0x004990F0。
-static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSpectator_ButtonEnd(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -42,16 +42,16 @@ static std::int32_t WindowSpectator_ButtonEnd(const std::int32_t index, const st
         auto* elementsWindow = window;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
-        auto* const xElement = elementsWindow->FindElementById(NativeElementKey(index));
+        auto* const xElement = elementsWindow->FindElementById(elementId);
         if (xElement) {
             const std::int32_t x = xElement->x;
-            auto* const yElement = elementsWindow->FindElementById(NativeElementKey(index));
+            auto* const yElement = elementsWindow->FindElementById(elementId);
             if (yElement) {
                 const std::int32_t y = yElement->y;
-                auto* const heightElement = elementsWindow->FindElementById(NativeElementKey(index));
+                auto* const heightElement = elementsWindow->FindElementById(elementId);
                 if (heightElement) {
                     const std::int32_t height = heightElement->height;
-                    auto* const widthElement = elementsWindow->FindElementById(NativeElementKey(index));
+                    auto* const widthElement = elementsWindow->FindElementById(elementId);
                     if (widthElement) {
                         const std::int32_t width = widthElement->width;
                         cg::render::DrawGraphicHover(

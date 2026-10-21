@@ -41,13 +41,13 @@ static WindowAnimationData* WindowGather_Cancel(WindowInstance* window); // 取�
 static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* window); // 窗口12计时/操作初始化。
 
 // 原函数：0x00486CF0。
-static std::int32_t WindowGather_ButtonContinue(std::int32_t index, std::int32_t state); // FP/背包检查与重启。
+static std::int32_t WindowGather_ButtonContinue(ElementId elementId, std::int32_t state); // FP/背包检查与重启。
 
 // 原函数：0x00486E50。
-static std::int32_t WindowGather_ButtonClose(std::int32_t index, std::int32_t state); // 关闭或取消，hover后重取窗口。
+static std::int32_t WindowGather_ButtonClose(ElementId elementId, std::int32_t state); // 关闭或取消，hover后重取窗口。
 
 // 原函数：0x00486F20。
-static std::int32_t WindowGather_DrawResultImage(std::int32_t index, std::int32_t unusedState); // 结果图及固定框，恒返0。
+static std::int32_t WindowGather_DrawResultImage(ElementId elementId, std::int32_t unusedState); // 结果图及固定框，恒返0。
 
 // 原函数：0x00485AF0。
 static WindowAnimationData* WindowGather_ShowResult(WindowInstance* window); // 窗口12完整结果展示及双计时槽发布。
@@ -785,13 +785,13 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
 }
 
 // 原函数：0x00486CF0。
-static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGather_ButtonContinue(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
@@ -830,12 +830,12 @@ static std::int32_t WindowGather_ButtonContinue(const std::int32_t index, const 
 }
 
 // 原函数：0x00486E50。
-static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGather_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
@@ -866,7 +866,7 @@ static std::int32_t WindowGather_ButtonClose(const std::int32_t index, const std
 }
 
 // 原函数：0x00486F20。
-static std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowGather_DrawResultImage(const ElementId elementId, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -877,7 +877,7 @@ static std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (resultImage >= 0) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t y = element->y + window->y + 24;
@@ -886,7 +886,7 @@ static std::int32_t WindowGather_DrawResultImage(const std::int32_t index, const
         }
     }
     WindowInstance* const window = currentWindow;
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const std::int32_t y = element->y + window->y + 24;

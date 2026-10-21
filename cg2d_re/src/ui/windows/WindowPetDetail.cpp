@@ -85,7 +85,7 @@ input::InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048DD80。
-static std::int32_t WindowPetDetail_HandleButtons(std::int32_t index, std::int32_t state); // 宠物详情名称/放地/选择/旋转。
+static std::int32_t WindowPetDetail_HandleButtons(ElementId elementId, std::int32_t state); // 宠物详情名称/放地/选择/旋转。
 
 // 原函数：0x0048D9A0。
 static std::int32_t WindowPetDetail_Update(std::int32_t value);
@@ -497,19 +497,19 @@ static void WindowPetDetail_Release()
 }
 
 // 原函数：0x0048DD80。
-static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetDetail_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    const auto setImage = [index, currentWindow](const std::int32_t image) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
+    const auto setImage = [elementId, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     const auto petIndex = [](const std::int32_t position) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
     };
-    switch (index) {
-    case 5:
+    switch (static_cast<WindowPetDetailElementId>(elementId)) {
+    case WindowPetDetailElementId::HandleButtons:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B570);
             gHoverTextD68AE8 = kPetRenameHint586D38;
@@ -542,7 +542,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             setImage(0x3B56F);
         }
         return consumed;
-    case 6:
+    case WindowPetDetailElementId::HandleButtons_7:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAF9);
             gHoverTextD68AE8 = kPetPlaceHint586C14;
@@ -571,19 +571,19 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             setImage(0x3BAF8);
         }
         return consumed;
-    case 7:
-    case 8:
+    case WindowPetDetailElementId::HandleButtons_8:
+    case WindowPetDetailElementId::HandleButtons_9:
         if ((state & MouseFlag_Hover) != 0) {
-            setImage(index == 7 ? 0x3B558 : 0x3B55B);
+            setImage(elementId == static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8) ? 0x3B558 : 0x3B55B);
             gHoverTextD68AE8 = kPetSelectHint586D2C;
             consumed = 1;
         } else {
-            setImage(index == 7 ? 0x3B556 : 0x3B559);
+            setImage(elementId == static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8) ? 0x3B556 : 0x3B559);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             for (std::int32_t attempt = 0; attempt < 6; ++attempt) {
-                if (index == 7) {
+                if (elementId == static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8)) {
                     --position;
                     if (position < 0) {
                         position = 4;
@@ -612,10 +612,10 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
-            setImage(index == 7 ? 0x3B557 : 0x3B55A);
+            setImage(elementId == static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8) ? 0x3B557 : 0x3B55A);
         }
         return consumed;
-    case 64:
+    case WindowPetDetailElementId::HandleButtons_65:
         if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t direction = gLoginWindowRuntime.valueD673D0 + 1;
             gLoginWindowRuntime.valueD673D0 = direction;
@@ -641,7 +641,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const std::int32_t index, cons
 }
 
 // 原函数：0x0048F380。
-std::int32_t WindowPetDetail_EditName(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowPetDetail_EditName(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -655,16 +655,16 @@ std::int32_t WindowPetDetail_EditName(const std::int32_t index, const std::int32
     static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
     input::SetContext_44B330(&cg::ui::detail::gInputContextD2D4A0);
     WindowInstance* const focused = currentWindow;
-    auto* const indexedElement = focused->FindElementById(NativeElementKey(index));
+    auto* const indexedElement = focused->FindElementById(elementId);
     if (indexedElement) {
         gFocusedElementDataD45F94 = indexedElement->data.input;
     }
-    if (auto* const indexedElement2 = focused->FindElementById(NativeElementKey(index)); indexedElement2) indexedElement2->data.input->context = &cg::ui::detail::gInputContextD2D4A0;
+    if (auto* const indexedElement2 = focused->FindElementById(elementId); indexedElement2) indexedElement2->data.input->context = &cg::ui::detail::gInputContextD2D4A0;
     return 1;
 }
 
 // 原函数：0x0048F410。
-std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowPetDetail_SwitchPage(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -672,21 +672,21 @@ std::int32_t WindowPetDetail_SwitchPage(const std::int32_t index, const std::int
     std::int32_t idle;
     std::int32_t hover;
     const wchar_t* hint;
-    switch (index) {
-    case 2:
+    switch (static_cast<WindowPetDetailElementId>(elementId)) {
+    case WindowPetDetailElementId::Element3:
         target = 16; idle = 0x3BAF4; hover = 0x3BAF6; hint = L"切换至此宠物的能力视窗。" /* 原常量参考：0x00585958。 */;
         break;
-    case 3:
+    case WindowPetDetailElementId::SwitchPage:
         target = 17; idle = 0x3B583; hover = 0x3B585; hint = L"切换至此宠物的详细视窗。" /* 原常量参考：0x0058593C。 */;
         break;
-    case 4:
+    case WindowPetDetailElementId::SwitchPage_5:
         target = 18; idle = 0x3BAF1; hover = 0x3BAF3; hint = L"切换至此宠物的技能视窗。" /* 原常量参考：0x00585920。 */;
         break;
     default:
         return 0;
     }
     std::int32_t consumed = 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {

@@ -45,13 +45,13 @@ static std::int32_t WindowMailRead_Update(std::int32_t value); // 读信初始�
 static std::int32_t WindowMailRead_Draw(std::int32_t unused); // 刷新清当前未读，再公共绘制。
 
 // 原函数：0x004A4660。
-static std::int32_t WindowMailRead_ButtonPrevious(std::int32_t index, std::int32_t state); // 上一封，负页跳9。
+static std::int32_t WindowMailRead_ButtonPrevious(ElementId elementId, std::int32_t state); // 上一封，负页跳9。
 
 // 原函数：0x004A4710。
-static std::int32_t WindowMailRead_ButtonNext(std::int32_t index, std::int32_t state); // 下一封，页>=10跳0。
+static std::int32_t WindowMailRead_ButtonNext(ElementId elementId, std::int32_t state); // 下一封，页>=10跳0。
 
 // 原函数：0x004A47C0。
-static std::int32_t WindowMailRead_ButtonReply(std::int32_t index, std::int32_t state); // 回复上下文与旧物品占用释放。
+static std::int32_t WindowMailRead_ButtonReply(ElementId elementId, std::int32_t state); // 回复上下文与旧物品占用释放。
 
 // 原函数：0x004A48A0。
 static void WindowMailRead_FindUnread(); // 最后未读位置；原唯一caller不消费混合地址/整数返回。
@@ -60,7 +60,7 @@ static void WindowMailRead_FindUnread(); // 最后未读位置；原唯一caller
 static std::uint32_t WindowMailRead_Refresh(); // 三类邮件十行、姓名、时间和页码，返回末复制长度。
 
 // 原函数：0x004A4FC0。
-static std::int32_t WindowMailRead_HandleAvatar(std::int32_t unused, std::int32_t state); // 悬停双图，区分三类头像采样序。
+static std::int32_t WindowMailRead_HandleAvatar(ElementId elementId, std::int32_t state); // 悬停双图，区分三类头像采样序。
 
 // 原函数：0x004A4620。
 static std::int32_t WindowMailRead_Update(std::int32_t value);
@@ -143,11 +143,11 @@ static std::int32_t WindowMailRead_Draw(const std::int32_t)
 }
 
 // 原函数：0x004A4660。
-static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonPrevious(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -176,11 +176,11 @@ static std::int32_t WindowMailRead_ButtonPrevious(const std::int32_t index, cons
 }
 
 // 原函数：0x004A4710。
-static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonNext(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -209,11 +209,11 @@ static std::int32_t WindowMailRead_ButtonNext(const std::int32_t index, const st
 }
 
 // 原函数：0x004A47C0。
-static std::int32_t WindowMailRead_ButtonReply(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonReply(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -403,7 +403,7 @@ static std::uint32_t WindowMailRead_Refresh()
 }
 
 // 原函数：0x004A4FC0。
-static std::int32_t WindowMailRead_HandleAvatar(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowMailRead_HandleAvatar(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;

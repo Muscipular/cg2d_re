@@ -56,13 +56,13 @@ static std::int32_t WindowAttributeTarget_Update(std::int32_t value);
 static void WindowAttributeTarget_Refresh(std::int32_t offset); // 六行名称/等级/HP/FP及伤势图标。
 
 // 原函数：0x0049FA40。
-static std::int32_t WindowAttributeTarget_ButtonCancel(std::int32_t index, std::int32_t state);
+static std::int32_t WindowAttributeTarget_ButtonCancel(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049FB00。
-static std::int32_t WindowAttributeTarget_ButtonBack(std::int32_t index, std::int32_t state);
+static std::int32_t WindowAttributeTarget_ButtonBack(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049FBC0。
-static std::int32_t WindowAttributeTarget_SelectRow(std::int32_t index, std::int32_t state);
+static std::int32_t WindowAttributeTarget_SelectRow(ElementId elementId, std::int32_t state);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -240,11 +240,11 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
 }
 
 // 原函数：0x0049FA40。
-static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAttributeTarget_ButtonCancel(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -277,11 +277,11 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const std::int32_t index,
 }
 
 // 原函数：0x0049FB00。
-static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAttributeTarget_ButtonBack(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -314,8 +314,9 @@ static std::int32_t WindowAttributeTarget_ButtonBack(const std::int32_t index, c
 }
 
 // 原函数：0x0049FBC0。
-static std::int32_t WindowAttributeTarget_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAttributeTarget_SelectRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t selected = gStatusChoiceOffsetD671D4 + index - 16;
@@ -323,7 +324,7 @@ static std::int32_t WindowAttributeTarget_SelectRow(const std::int32_t index, co
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = currentWindow->FindElementById(elementId);
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
         }

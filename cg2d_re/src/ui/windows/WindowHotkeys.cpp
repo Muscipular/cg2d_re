@@ -49,37 +49,37 @@ static std::int32_t WindowHotkeys_Update(std::int32_t value); // 窗口25初始�
 static std::int32_t WindowHotkeys_Draw(std::int32_t value); // 窗口25说明/预设文本绘制及编辑焦点收尾。
 
 // 原函数：0x004953B0。
-static std::int32_t WindowHotkeys_ButtonClose(std::int32_t index, std::int32_t state); // 关闭并写回预设文本，不直接持久化。
+static std::int32_t WindowHotkeys_ButtonClose(ElementId elementId, std::int32_t state); // 关闭并写回预设文本，不直接持久化。
 
 // 原函数：0x00495450。
-static std::int32_t WindowHotkeys_ButtonPreviousRow(std::int32_t index, std::int32_t state); // 上一行，bit400。
+static std::int32_t WindowHotkeys_ButtonPreviousRow(ElementId elementId, std::int32_t state); // 上一行，bit400。
 
 // 原函数：0x00495500。
-static std::int32_t WindowHotkeys_ButtonNextRow(std::int32_t index, std::int32_t state); // 下一行，音效后重新取计数。
+static std::int32_t WindowHotkeys_ButtonNextRow(ElementId elementId, std::int32_t state); // 下一行，音效后重新取计数。
 
 // 原函数：0x004955C0。
-static std::int32_t WindowHotkeys_ButtonPreviousPage(std::int32_t index, std::int32_t state); // 上十行，音效先于位置修改。
+static std::int32_t WindowHotkeys_ButtonPreviousPage(ElementId elementId, std::int32_t state); // 上十行，音效先于位置修改。
 
 // 原函数：0x00495670。
-static std::int32_t WindowHotkeys_ButtonNextPage(std::int32_t index, std::int32_t state); // 下十行，保留三阶段计数读取。
+static std::int32_t WindowHotkeys_ButtonNextPage(ElementId elementId, std::int32_t state); // 下十行，保留三阶段计数读取。
 
 // 原函数：0x00495750。
-static std::int32_t WindowHotkeys_Scroll(std::int32_t index, std::int32_t state); // 窗口25滚轮，恒返0。
+static std::int32_t WindowHotkeys_Scroll(ElementId elementId, std::int32_t state); // 窗口25滚轮，恒返0。
 
 // 原函数：0x004957B0。
-static std::int32_t WindowHotkeys_TabFirstCategory(std::int32_t index, std::int32_t state); // 分类0与十行复位。
+static std::int32_t WindowHotkeys_TabFirstCategory(ElementId elementId, std::int32_t state); // 分类0与十行复位。
 
 // 原函数：0x004958D0。
-static std::int32_t WindowHotkeys_TabSecondCategory(std::int32_t index, std::int32_t state); // 分类1与十行复位。
+static std::int32_t WindowHotkeys_TabSecondCategory(ElementId elementId, std::int32_t state); // 分类1与十行复位。
 
 // 原函数：0x004959F0。
-static std::int32_t WindowHotkeys_TabThirdCategory(std::int32_t index, std::int32_t state); // 分类2与十行复位。
+static std::int32_t WindowHotkeys_TabThirdCategory(ElementId elementId, std::int32_t state); // 分类2与十行复位。
 
 // 原函数：0x00495B10。
-static std::int32_t WindowHotkeys_TabPresetText(std::int32_t index, std::int32_t state); // 分类3只换回调，不复位行图号。
+static std::int32_t WindowHotkeys_TabPresetText(ElementId elementId, std::int32_t state); // 分类3只换回调，不复位行图号。
 
 // 原函数：0x00495C20。
-static std::int32_t WindowHotkeys_EditPresetText(std::int32_t index, std::int32_t state); // 预设文本备份、初始化及同源焦点。
+static std::int32_t WindowHotkeys_EditPresetText(ElementId elementId, std::int32_t state); // 预设文本备份、初始化及同源焦点。
 
 // 原函数：0x00495130。
 static std::int32_t WindowHotkeys_Update(std::int32_t value);
@@ -440,11 +440,11 @@ static std::int32_t WindowHotkeys_Draw(const std::int32_t)
 }
 
 // 原函数：0x004953B0。
-static std::int32_t WindowHotkeys_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 0x3B538;
@@ -464,13 +464,13 @@ static std::int32_t WindowHotkeys_ButtonClose(const std::int32_t index, const st
 }
 
 // 原函数：0x00495450。
-static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -502,13 +502,13 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(const std::int32_t index, co
 }
 
 // 原函数：0x00495500。
-static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonNextRow(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -543,13 +543,13 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const std::int32_t index, const 
 }
 
 // 原函数：0x004955C0。
-static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -584,13 +584,13 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(const std::int32_t index, c
 }
 
 // 原函数：0x00495670。
-static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonNextPage(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -630,8 +630,9 @@ static std::int32_t WindowHotkeys_ButtonNextPage(const std::int32_t index, const
 }
 
 // 原函数：0x00495750。
-static std::int32_t WindowHotkeys_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_Scroll(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowState* const windowState = gCurrentWindowState;
@@ -651,13 +652,13 @@ static std::int32_t WindowHotkeys_Scroll(const std::int32_t index, const std::in
 }
 
 // 原函数：0x004957B0。
-static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_TabFirstCategory(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -703,13 +704,13 @@ static std::int32_t WindowHotkeys_TabFirstCategory(const std::int32_t index, con
 }
 
 // 原函数：0x004958D0。
-static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_TabSecondCategory(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -755,13 +756,13 @@ static std::int32_t WindowHotkeys_TabSecondCategory(const std::int32_t index, co
 }
 
 // 原函数：0x004959F0。
-static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_TabThirdCategory(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -807,13 +808,13 @@ static std::int32_t WindowHotkeys_TabThirdCategory(const std::int32_t index, con
 }
 
 // 原函数：0x00495B10。
-static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_TabPresetText(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const activeWindow = gCurrentWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
     WindowState* const windowState = gCurrentWindowState;
-    auto* const graphicElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -855,11 +856,12 @@ static std::int32_t WindowHotkeys_TabPresetText(const std::int32_t index, const 
 }
 
 // 原函数：0x00495C20。
-static std::int32_t WindowHotkeys_EditPresetText(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowHotkeys_EditPresetText(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const std::int32_t row = std::bit_cast<std::int32_t>(gCurrentWindowState->value14) + index - 9;
     std::int32_t consumed = 0;

@@ -87,7 +87,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00474BE0。
-static std::int32_t WindowPlayerProfile_HandleButtons(std::int32_t index, std::int32_t state); // 窗口7资料切页及前后排请求。
+static std::int32_t WindowPlayerProfile_HandleButtons(ElementId elementId, std::int32_t state); // 窗口7资料切页及前后排请求。
 
 // 原函数：0x00474310。
 static void WindowPlayerProfile_Release();
@@ -328,7 +328,7 @@ static void WindowPlayerProfile_RefreshAttributeBar(
 
 // 原474BE0：五按钮及默认分支；位置请求不写玩家状态，返回仍为悬停值。
 // 原函数：0x00474BE0。
-static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerProfile_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -336,22 +336,22 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
     std::int32_t hoverImage;
     std::int32_t targetWindow = 0;
     const wchar_t* hint;
-    switch (index) {
-    case 19:
+    switch (static_cast<WindowPlayerProfileElementId>(elementId)) {
+    case WindowPlayerProfileElementId::HandleButtons:
         idleImage = 0x3B583;
         hoverImage = 0x3B585;
         targetWindow = 8;
         hint = L"切换成玩家明细视窗。";
         break;
-    case 20:
+    case WindowPlayerProfileElementId::HandleButtons_21:
         idleImage = 0x3BAB8;
         hoverImage = 0x3BABA;
         targetWindow = 9;
         hint = L"切换成玩家称号视窗。";
         break;
-    case 21:
+    case WindowPlayerProfileElementId::HandleButtons_22:
         if (character_select::state::gPukVersion < 8u) {
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(elementId);
             if (indexedElement) {
                 indexedElement->data.graphic->imageNo =
                     0x3C111;
@@ -363,12 +363,12 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
         targetWindow = 58;
         hint = L"切换成玩家简介视窗";
         break;
-    case 23:
+    case WindowPlayerProfileElementId::HandleButtons_24:
         idleImage = 0x3BAC0;
         hoverImage = 0x3BAC1;
         hint = L"把战斗时的位置变更为前排。";
         break;
-    case 24:
+    case WindowPlayerProfileElementId::HandleButtons_25:
         idleImage = 0x3BABD;
         hoverImage = 0x3BABE;
         hint = L"把战斗时的位置变更为后排。";
@@ -378,7 +378,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
     }
 
     std::int32_t consumed = 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
@@ -403,7 +403,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const std::int32_t index, 
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
                 consumed = 1;
             }
-        } else if (world::gPlayerRuntimeSlots.value1A0 == (index == 23 ? 0 : 1)) {
+        } else if (world::gPlayerRuntimeSlots.value1A0 == (elementId == static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons_24) ? 0 : 1)) {
             static_cast<void>(cg::network::GetGameConnection().ToggleBattleRowRequest());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }

@@ -30,13 +30,13 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0046FBD0。
-static std::int32_t WindowShortcutBar_ButtonCollapse(std::int32_t unused, std::int32_t state); // 快捷栏4点击收起到5，打开后发布CA0440。
+static std::int32_t WindowShortcutBar_ButtonCollapse(ElementId elementId, std::int32_t state); // 快捷栏4点击收起到5，打开后发布CA0440。
 
 // 原函数：0x0046FC10。
-static std::int32_t WindowShortcutBar_ButtonExpand(std::int32_t unused, std::int32_t state); // 快捷栏5点击展开到4。
+static std::int32_t WindowShortcutBar_ButtonExpand(ElementId elementId, std::int32_t state); // 快捷栏5点击展开到4。
 
 // 原函数：0x0046FC60。
-static std::int32_t WindowShortcutBar_HandleButtons(std::int32_t index, std::int32_t state); // 完整九按钮，保留6/7子入口消费覆盖。
+static std::int32_t WindowShortcutBar_HandleButtons(ElementId elementId, std::int32_t state); // 完整九按钮，保留6/7子入口消费覆盖。
 
 // 主原型中的真实回调依赖；本声明只约束窗口调用侧，不替代各本体取证。
 // 原函数：0x0046FBA0。
@@ -110,7 +110,7 @@ static std::int32_t WindowShortcutBar_Update(const std::int32_t)
 }
 
 // 原函数：0x0046FBD0。
-static std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowShortcutBar_ButtonCollapse(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -125,7 +125,7 @@ static std::int32_t WindowShortcutBar_ButtonCollapse(const std::int32_t, const s
 }
 
 // 原函数：0x0046FC10。
-static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowShortcutBar_ButtonExpand(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -140,16 +140,17 @@ static std::int32_t WindowShortcutBar_ButtonExpand(const std::int32_t, const std
 }
 
 // 原函数：0x0046FC60。
-static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowShortcutBar_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = hover ? 1 : 0;
-        if (index == 8) {
+        if (elementId == static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_9)) {
             if (hover) {
                 gHoverTextD68AE8 = L"进行摆摊" /* 原常量参考：0x005862A0。 */;
                 graphic->imageNo = 0x18224;
@@ -190,7 +191,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
         if (static_cast<std::uint32_t>(index) > 7u) {
             return consumed;
         }
-        if (index < 5) {
+        if (elementId < static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_6)) {
             const wchar_t* const hints[5] {
                 L"要求进行对战。" /* 原常量参考：0x00556C80。 */, L"要求进行观战。" /* 原常量参考：0x00556C90。 */, L"要求加入冒险队伍。" /* 原常量参考：0x00556CA0。 */,
                 L"要求交换名片。" /* 原常量参考：0x00556CB4。 */, L"要求进行交易。" /* 原常量参考：0x00556CD8。 */,
@@ -209,7 +210,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             }
             return consumed;
         }
-        if (index == 5) {
+        if (elementId == static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_6)) {
             if (character_select::state::gPukVersion < 7u) {
                 if (hover) {
                     graphic->imageNo = 0x3B91D;
@@ -226,17 +227,17 @@ static std::int32_t WindowShortcutBar_HandleButtons(const std::int32_t index, co
             }
             return consumed;
         }
-        if (index == 6) {
+        if (elementId == static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_7)) {
             if (hover) {
                 gHoverTextD68AE8 = L"打开情绪动作视窗。" /* 原常量参考：0x00556CE8。 */;
             }
-            return WindowStatusBar_ButtonEmote(6, state);
+            return WindowStatusBar_ButtonEmote(NativeElementKey(6), state);
         }
         if (hover) {
             gHoverTextD68AE8 = L"打开小地图视窗。" /* 原常量参考：0x0058625C。 */;
         }
     }
-    return WindowStatusBar_ButtonMiniMap(7, state);
+    return WindowStatusBar_ButtonMiniMap(NativeElementKey(7), state);
 }
 
 } // namespace detail

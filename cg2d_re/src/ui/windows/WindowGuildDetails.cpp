@@ -147,25 +147,25 @@ static void WindowGuildDetails_DragScroll(std::int32_t unused); // 拖动反求�
 static std::int32_t WindowGuildDetails_CommitFocusedInput(); // 固定窗口/焦点，扫描九个输入载荷。
 
 // 原函数：0x004AEC30。
-static std::int32_t WindowGuildDetails_ToggleRankPermission(std::int32_t index, std::int32_t state);
+static std::int32_t WindowGuildDetails_ToggleRankPermission(ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AED40。
-static std::int32_t WindowGuildDetails_HandleActionButton(std::int32_t index, std::int32_t state);
+static std::int32_t WindowGuildDetails_HandleActionButton(ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AEE00。
-static std::int32_t WindowGuildDetails_HandleInput(std::int32_t index, std::int32_t state);
+static std::int32_t WindowGuildDetails_HandleInput(ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AF000。
-static std::int32_t WindowGuildDetails_HandleScrollButtons(std::int32_t index, std::int32_t state);
+static std::int32_t WindowGuildDetails_HandleScrollButtons(ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AF090。
-static std::int32_t WindowGuildDetails_HandleScrollFocus(std::int32_t index, std::int32_t state); // WSP01：滚动恰1时调用既有焦点页依赖。
+static std::int32_t WindowGuildDetails_HandleScrollFocus(ElementId elementId, std::int32_t state); // WSP01：滚动恰1时调用既有焦点页依赖。
 
 // 原函数：0x004AF0C0。
-static std::int32_t WindowGuildDetails_Scroll(std::int32_t unused, std::int32_t state);
+static std::int32_t WindowGuildDetails_Scroll(ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AF100。
-static std::int32_t WindowGuildDetails_ButtonClose(std::int32_t index, std::int32_t state);
+static std::int32_t WindowGuildDetails_ButtonClose(ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AEAE0。
 static std::int32_t WindowGuildDetails_Update(std::int32_t value);
@@ -628,8 +628,9 @@ static void WindowGuildDetails_ScrollRow()
 }
 
 // 原函数：0x004AEC30。
-static std::int32_t WindowGuildDetails_ToggleRankPermission(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildDetails_ToggleRankPermission(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     const std::int32_t row = (index - 18) / 5;
     const std::int32_t column = (index - 18) % 5;
     if (row == 0 && gGuildPageD67B78 == 0) {
@@ -651,27 +652,27 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(const std::int32_t i
 }
 
 // 原函数：0x004AED40。
-static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildDetails_HandleActionButton(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     if (graphic) graphic->imageNo = 0x3B56E;
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B570;
-        switch (index) {
-        case 64: gHoverTextD68AE8 = L"变更家族名称。" /* 原常量参考：0x00587AC8。 */; break;
-        case 65: gHoverTextD68AE8 = L"变更家族会馆名称。" /* 原常量参考：0x00587AD8。 */; break;
-        case 72: gHoverTextD68AE8 = L"变更已设定的家族称号。" /* 原常量参考：0x00587AEC。 */; break;
+        switch (static_cast<WindowGuildDetailsElementId>(elementId)) {
+        case WindowGuildDetailsElementId::HandleActionButton: gHoverTextD68AE8 = L"变更家族名称。" /* 原常量参考：0x00587AC8。 */; break;
+        case WindowGuildDetailsElementId::HandleActionButton_66: gHoverTextD68AE8 = L"变更家族会馆名称。" /* 原常量参考：0x00587AD8。 */; break;
+        case WindowGuildDetailsElementId::HandleActionButton_73: gHoverTextD68AE8 = L"变更已设定的家族称号。" /* 原常量参考：0x00587AEC。 */; break;
         }
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (graphic) graphic->imageNo = 0x3B56F;
-        switch (index) {
-        case 64: static_cast<void>(WindowGuildDetails_SubmitName()); break;
-        case 65: static_cast<void>(WindowGuildDetails_SubmitDescription()); break;
-        case 72: static_cast<void>(WindowGuildDetails_SubmitRanks()); break;
+        switch (static_cast<WindowGuildDetailsElementId>(elementId)) {
+        case WindowGuildDetailsElementId::HandleActionButton: static_cast<void>(WindowGuildDetails_SubmitName()); break;
+        case WindowGuildDetailsElementId::HandleActionButton_66: static_cast<void>(WindowGuildDetails_SubmitDescription()); break;
+        case WindowGuildDetailsElementId::HandleActionButton_73: static_cast<void>(WindowGuildDetails_SubmitRanks()); break;
         }
         if (graphic) graphic->imageNo = 0x3B56F;
         return 1;
@@ -680,8 +681,9 @@ static std::int32_t WindowGuildDetails_HandleActionButton(const std::int32_t ind
 }
 
 // 原函数：0x004AEE00。
-static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildDetails_HandleInput(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
@@ -690,7 +692,7 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
     }
     WindowInstance* const window = currentWindow;
     auto* elementsWindow = window;
-    auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(index));
+    auto* const indexedElement = elementsWindow->FindElementById(elementId);
     if (indexedElement) {
         if (gFocusedElementDataD45F94 == indexedElement->data.input) {
             const std::int32_t y = window->y;
@@ -703,11 +705,11 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    switch (index) {
-    case 0:
+    switch (static_cast<WindowGuildDetailsElementId>(elementId)) {
+    case WindowGuildDetailsElementId::HandleInput:
         world::AppendChatMessage_44B050(L"家族名称不得更改喔!!" /* 原常量参考：0x00587B04。 */, 4, 3);
         break;
-    case 1: {
+    case WindowGuildDetailsElementId::HandleInput_2: {
         gGuildInputs57F040[1].text = gGuildDraftCF4018.secondText634;
         WindowInstance* const current = currentWindow;
         const std::int32_t y = current->y;
@@ -715,11 +717,11 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[1], x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = currentWindow;
-        auto* const indexedElement3 = focused->FindElementById(NativeElementKey(index));
+        auto* const indexedElement3 = focused->FindElementById(elementId);
         if (indexedElement3) {
             gFocusedElementDataD45F94 = indexedElement3->data.input;
         }
-        auto* const indexedElement4 = focused->FindElementById(NativeElementKey(index));
+        auto* const indexedElement4 = focused->FindElementById(elementId);
         if (indexedElement4) {
             indexedElement4->data.input->context =
                 &cg::ui::detail::gInputContextD2E130;
@@ -727,7 +729,7 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         gGuildEditing57F03C = 33;
         break;
     }
-    case 2: case 3: case 4: case 5: case 6: case 7: case 8: {
+    case WindowGuildDetailsElementId::HandleInput_3: case WindowGuildDetailsElementId::HandleInput_4: case WindowGuildDetailsElementId::HandleInput_5: case WindowGuildDetailsElementId::HandleInput_6: case WindowGuildDetailsElementId::HandleInput_7: case WindowGuildDetailsElementId::HandleInput_8: case WindowGuildDetailsElementId::HandleInput_9: {
         auto* const sourceElement = currentWindow->FindElementById(NativeElementKey(index + 9));
         if (sourceElement) {
             const std::wstring& source = sourceElement->data.text->text;
@@ -739,11 +741,11 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
         static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextD2E130);
         WindowInstance* const focused = currentWindow;
-        auto* const indexedElement3 = focused->FindElementById(NativeElementKey(index));
+        auto* const indexedElement3 = focused->FindElementById(elementId);
         if (indexedElement3) {
             gFocusedElementDataD45F94 = indexedElement3->data.input;
         }
-        auto* const indexedElement4 = focused->FindElementById(NativeElementKey(index));
+        auto* const indexedElement4 = focused->FindElementById(elementId);
         if (indexedElement4) {
             indexedElement4->data.input->context =
                 &cg::ui::detail::gInputContextD2E130;
@@ -756,14 +758,14 @@ static std::int32_t WindowGuildDetails_HandleInput(const std::int32_t index, con
 }
 
 // 原函数：0x004AF000。
-static std::int32_t WindowGuildDetails_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildDetails_HandleScrollButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const std::int32_t offset = index == 66 ? 0 : 3;
+        const std::int32_t offset = elementId == static_cast<ElementId>(WindowGuildDetailsElementId::HandleScrollButtons) ? 0 : 3;
         graphic->imageNo = 0x3B592 + offset;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B594 + offset;
@@ -773,7 +775,7 @@ static std::int32_t WindowGuildDetails_HandleScrollButtons(const std::int32_t in
         }
     }
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        gGuildPageD67B78 += index == 66 ? -1 : 1;
+        gGuildPageD67B78 += elementId == static_cast<ElementId>(WindowGuildDetailsElementId::HandleScrollButtons) ? -1 : 1;
         WindowGuildDetails_ScrollRow();
         static_cast<void>(WindowChat_RestoreInput());
         return 1;
@@ -783,9 +785,9 @@ static std::int32_t WindowGuildDetails_HandleScrollButtons(const std::int32_t in
 
 // WSP01：滚动结果恰1才调用既有焦点页依赖，保留原S32结果。
 // 原函数：0x004AF090。
-static std::int32_t WindowGuildDetails_HandleScrollFocus(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildDetails_HandleScrollFocus(const ElementId elementId, const std::int32_t state)
 {
-    const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
+    const std::int32_t result = WindowElement_HandleVerticalScroll(elementId, state);
     if (result == 1) {
         static_cast<void>(WindowChat_RestoreInput());
     }
@@ -793,7 +795,7 @@ static std::int32_t WindowGuildDetails_HandleScrollFocus(const std::int32_t inde
 }
 
 // 原函数：0x004AF0C0。
-static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowGuildDetails_Scroll(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -813,11 +815,11 @@ static std::int32_t WindowGuildDetails_Scroll(const std::int32_t, const std::int
 }
 
 // 原函数：0x004AF100。
-static std::int32_t WindowGuildDetails_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildDetails_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = 0x3B538;

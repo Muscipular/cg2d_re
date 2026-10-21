@@ -56,7 +56,7 @@ input::InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
 // 回调与内部函数前置声明。
 
 // 原函数：0x00484D60。
-static std::int32_t WindowCraft_HandleMaterialTooltip(std::int32_t index, std::int32_t state); // 六材料槽悬停、翻页与图形绘制。
+static std::int32_t WindowCraft_HandleMaterialTooltip(ElementId elementId, std::int32_t state); // 六材料槽悬停、翻页与图形绘制。
 
 // 原函数：0x0047D4B0。
 static std::int32_t WindowCraft_HasRecipeCrystalLevel(); // 晶石等级读取后比较当前配方等级。
@@ -86,7 +86,7 @@ static void WindowCraft_WaitDecoration(WindowInstance* window); // 装饰等待�
 static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* window); // 精炼等待模式10，一次RAND且不读物品等级。
 
 // 原函数：0x00483EB0。
-static std::int32_t WindowCraft_HandleMaterialSlot(std::int32_t index, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
+static std::int32_t WindowCraft_HandleMaterialSlot(ElementId elementId, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
 
 // 原函数：0x0047DF50。
 static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
@@ -127,34 +127,34 @@ static void WindowCraft_HandleMaterialDrag(
 static std::int32_t WindowCraft_StartMaterialDrag(std::int32_t sourceIndex); // 安装类型10的47DE00拖动回调。
 
 // 原函数：0x00482270。
-static std::int32_t WindowCraft_ButtonExecute(std::int32_t index, std::int32_t state); // 执行资格、五等待及刻印直接发送。
+static std::int32_t WindowCraft_ButtonExecute(ElementId elementId, std::int32_t state); // 执行资格、五等待及刻印直接发送。
 
 // 原函数：0x00482FA0。
-static std::int32_t WindowCraft_ButtonContinue(std::int32_t index, std::int32_t state); // 续作，初始化后独立重读模式5。
+static std::int32_t WindowCraft_ButtonContinue(ElementId elementId, std::int32_t state); // 续作，初始化后独立重读模式5。
 
 // 原函数：0x004830B0。
-static std::int32_t WindowCraft_ButtonClose(std::int32_t index, std::int32_t state); // 底部关闭，点击仍返回0。
+static std::int32_t WindowCraft_ButtonClose(ElementId elementId, std::int32_t state); // 底部关闭，点击仍返回0。
 
 // 原函数：0x00483150。
-static std::int32_t WindowCraft_HandleInventory(std::int32_t index, std::int32_t state); // 20格背包投放/快速选择/拖动及绘制。
+static std::int32_t WindowCraft_HandleInventory(ElementId elementId, std::int32_t state); // 20格背包投放/快速选择/拖动及绘制。
 
 // 原函数：0x00484FB0。
-static std::int32_t WindowCraft_DrawResultImage(std::int32_t index, std::int32_t unusedState); // 结果图，负图号不绘制。
+static std::int32_t WindowCraft_DrawResultImage(ElementId elementId, std::int32_t unusedState); // 结果图，负图号不绘制。
 
 // 原函数：0x00485030。
-static std::int32_t WindowCraft_HandleEngravingInput(std::int32_t index, std::int32_t state); // 刻印输入焦点，借用唯一D2DE70。
+static std::int32_t WindowCraft_HandleEngravingInput(ElementId elementId, std::int32_t state); // 刻印输入焦点，借用唯一D2DE70。
 
 // 原函数：0x00485160。
-static std::int32_t WindowCraft_ButtonCloseIcon(std::int32_t index, std::int32_t state); // 右上关闭，点击返回1。
+static std::int32_t WindowCraft_ButtonCloseIcon(ElementId elementId, std::int32_t state); // 右上关闭，点击返回1。
 
 // 原函数：0x00485200。
-static std::int32_t WindowCraft_DrawInvalidEngravingNotice(std::int32_t index, std::int32_t unusedState); // 非法刻印字符覆盖提示。
+static std::int32_t WindowCraft_DrawInvalidEngravingNotice(ElementId elementId, std::int32_t unusedState); // 非法刻印字符覆盖提示。
 
 // 原函数：0x00485350。
-static std::int32_t WindowCraft_DrawEmptyEngravingNotice(std::int32_t index, std::int32_t unusedState); // 空白刻印覆盖提示。
+static std::int32_t WindowCraft_DrawEmptyEngravingNotice(ElementId elementId, std::int32_t unusedState); // 空白刻印覆盖提示。
 
 // 原函数：0x004847C0。
-static std::int32_t WindowCraft_HandleSingleMaterial(std::int32_t index, std::int32_t state); // 单选投放/校验/拖动与绘制。
+static std::int32_t WindowCraft_HandleSingleMaterial(ElementId elementId, std::int32_t state); // 单选投放/校验/拖动与绘制。
 
 // 原函数：0x0047EC00。
 static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* window); // 单选模式3完整初始化，返回借用载荷。
@@ -166,7 +166,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* window)
 static WindowAnimationData* WindowCraft_RefreshRecipeResult(); // 仅已有窗口11才更新，不自动创建。
 
 // 原函数：0x00484E90。
-static std::int32_t WindowCraft_HandleItemTooltip(std::int32_t index, std::int32_t state); // 单物品悬停/翻页，物品编号不加8。
+static std::int32_t WindowCraft_HandleItemTooltip(ElementId elementId, std::int32_t state); // 单物品悬停/翻页，物品编号不加8。
 
 // 原函数：0x0047F3D0。
 static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* window); // 物品加工结果展示，保留入口选择快照及交叉门禁。
@@ -1008,8 +1008,9 @@ static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const
 }
 
 // 原函数：0x00483EB0。
-static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleMaterialSlot(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -1260,7 +1261,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
     }
     if (WindowDrag_ReadKind() == 10 && WindowDrag_ReadSourceIndex() == destination) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t y = window->y + element->y;
@@ -1272,7 +1273,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
     }
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t x = window->x + element->x;
@@ -1285,7 +1286,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
     }
     if ((events & MouseFlag_Dragging) != 0) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t x = window->x + element->x;
@@ -1319,7 +1320,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(const std::int32_t index, con
     }
     WindowInstance* const window = currentWindow;
     const std::int32_t imageNo = gSelectionImagesCF3FF4[destination];
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const std::int32_t y = element->y + window->y + 24;
@@ -1618,11 +1619,11 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 }
 
 // 原函数：0x00482270。
-static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonExecute(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const elementPtr = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = currentWindow->FindElementById(elementId);
     if (!elementPtr) { return 0; }
     WindowElement* const element = elementPtr;
     auto* const graphic = element->data.graphic;
@@ -1889,7 +1890,7 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if (index == 25) {
+    if (elementId == static_cast<ElementId>(WindowCraftElementId::ButtonExecute_26)) {
         graphic->imageNo = 0x8FD3;
         if (hovered) {
             graphic->imageNo = 0x8FD5;
@@ -1924,12 +1925,12 @@ static std::int32_t WindowCraft_ButtonExecute(const std::int32_t index, const st
 }
 
 // 原函数：0x00482FA0。
-static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonContinue(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hovered = (state & MouseFlag_Hover) != 0;
     if (hovered) {
@@ -1974,11 +1975,11 @@ static std::int32_t WindowCraft_ButtonContinue(const std::int32_t index, const s
 }
 
 // 原函数：0x004830B0。
-static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hovered = (state & MouseFlag_Hover) != 0;
@@ -2001,8 +2002,9 @@ static std::int32_t WindowCraft_ButtonClose(const std::int32_t index, const std:
 }
 
 // 原函数：0x00483150。
-static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleInventory(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -2029,7 +2031,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
             if (hoverMarks[position + 8] != 0) {
                 continue;
             }
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement* const element = elementPtr;
                 const std::int32_t left = element->x + 50 * (position % 5) + window->x;
@@ -2052,7 +2054,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
                 continue;
             }
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement* const element = elementPtr;
                 const std::int32_t left = element->x + 50 * (position % 5) + window->x;
@@ -2318,7 +2320,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement* const element = elementPtr;
                 const std::int32_t left = element->x + 50 * ((source - 8) % 5) + window->x;
@@ -2331,7 +2333,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
     }
     if (hovered >= 0) {
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t left = element->x + 50 * (hovered % 5) + window->x;
@@ -2355,7 +2357,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
             continue;
         }
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t x = element->x + 50 * (position % 5) + window->x + 24;
@@ -2381,7 +2383,7 @@ static std::int32_t WindowCraft_HandleInventory(const std::int32_t index, const 
 }
 
 // 原函数：0x00484FB0。
-static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowCraft_DrawResultImage(const ElementId elementId, const std::int32_t)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -2394,7 +2396,7 @@ static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const 
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const WindowInstance* const window = currentWindow;
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const std::int32_t y = element->y + window->y + 24;
@@ -2405,14 +2407,14 @@ static std::int32_t WindowCraft_DrawResultImage(const std::int32_t index, const 
 }
 
 // 原函数：0x00485030。
-static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleEngravingInput(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if (gSelectedItemD460C0 < 0) {
         return 0;
     }
-    auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const indexedElement = currentWindow->FindElementById(elementId);
     if (indexedElement) {
         WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
     }
@@ -2447,11 +2449,11 @@ static std::int32_t WindowCraft_HandleEngravingInput(const std::int32_t index, c
 }
 
 // 原函数：0x00485160。
-static std::int32_t WindowCraft_ButtonCloseIcon(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonCloseIcon(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hovered = (state & MouseFlag_Hover) != 0;
@@ -2510,23 +2512,25 @@ static std::int32_t WindowCraft_DrawInputNotice(
 }
 
 // 原函数：0x00485200。
-static std::int32_t WindowCraft_DrawInvalidEngravingNotice(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowCraft_DrawInvalidEngravingNotice(const ElementId elementId, const std::int32_t)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     return WindowCraft_DrawInputNotice(index,
         LR"(包含\ 或 | 的字元。)",
         LR"(包含\ 或 | 的字元不能用来刻印。)");
 }
 
 // 原函数：0x00485350。
-static std::int32_t WindowCraft_DrawEmptyEngravingNotice(const std::int32_t index, const std::int32_t)
+static std::int32_t WindowCraft_DrawEmptyEngravingNotice(const ElementId elementId, const std::int32_t)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     return WindowCraft_DrawInputNotice(index,
         L"没有包含空白以外的字元",
         L"刻印名称不能包含空白。");
 }
 
 // 原函数：0x004847C0。
-static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleSingleMaterial(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -2632,7 +2636,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
     }
     if (WindowDrag_ReadKind() == 10 && WindowDrag_ReadSourceIndex() == 6) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t y = window->y + element->y;
@@ -2644,7 +2648,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
     }
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t x = window->x + element->x;
@@ -2657,7 +2661,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
     }
     if ((events & MouseFlag_Dragging) != 0) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t x = window->x + element->x;
@@ -2690,7 +2694,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(const std::int32_t index, c
         gMaterialHoveredItemD67424 = currentSelected;
     }
     WindowInstance* const window = currentWindow;
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const std::int32_t windowY = window->y;
@@ -3289,8 +3293,9 @@ WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
 }
 
 // 原函数：0x00484D60。
-static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleMaterialTooltip(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -3302,7 +3307,7 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
     std::int32_t consumed = 0;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t x = window->x + element->x;
@@ -3333,7 +3338,7 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(const std::int32_t index, 
         gMaterialHoveredItemD67424 = selected + 8;
     }
     WindowInstance* const window = currentWindow;
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const std::int32_t imageNo = gSelectionImagesCF3FF4[slot];
@@ -3525,7 +3530,7 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, 
 }
 
 // 原函数：0x00484E90。
-static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCraft_HandleItemTooltip(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -3537,7 +3542,7 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
     std::int32_t consumed = 0;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement* const element = elementPtr;
             const std::int32_t y = window->y + element->y;
@@ -3568,7 +3573,7 @@ static std::int32_t WindowCraft_HandleItemTooltip(const std::int32_t index, cons
         gMaterialHoveredItemD67424 = selected;
     }
     WindowInstance* const window = currentWindow;
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const std::int32_t imageNo = gSelectedImageCC3ED8;

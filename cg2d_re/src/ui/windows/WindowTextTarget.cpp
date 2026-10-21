@@ -44,25 +44,25 @@ static void WindowTextTarget_Refresh(std::int32_t offset); // 刷新五行，未
 static std::int32_t WindowTextTarget_Draw(std::int32_t value);
 
 // 原函数：0x0049F260。
-static std::int32_t WindowTextTarget_ButtonPreviousRow(std::int32_t index, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonPreviousRow(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F310。
-static std::int32_t WindowTextTarget_ButtonNextRow(std::int32_t index, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonNextRow(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F3D0。
-static std::int32_t WindowTextTarget_ButtonPreviousPage(std::int32_t index, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonPreviousPage(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F490。
-static std::int32_t WindowTextTarget_ButtonNextPage(std::int32_t index, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonNextPage(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F570。
-static std::int32_t WindowTextTarget_Scroll(std::int32_t index, std::int32_t state);
+static std::int32_t WindowTextTarget_Scroll(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F5C0。
-static std::int32_t WindowTextTarget_ButtonCancel(std::int32_t index, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonCancel(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F680。
-static std::int32_t WindowTextTarget_SelectRow(std::int32_t index, std::int32_t state);
+static std::int32_t WindowTextTarget_SelectRow(ElementId elementId, std::int32_t state);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -225,11 +225,12 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
 }
 
 // 原函数：0x0049F260。
-static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -263,11 +264,12 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index,
 }
 
 // 原函数：0x0049F310。
-static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonNextRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -300,11 +302,12 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, con
 }
 
 // 原函数：0x0049F3D0。
-static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -336,11 +339,12 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index
 }
 
 // 原函数：0x0049F490。
-static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonNextPage(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -379,8 +383,9 @@ static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, co
 }
 
 // 原函数：0x0049F570。
-static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_Scroll(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -397,11 +402,11 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
 }
 
 // 原函数：0x0049F5C0。
-static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonCancel(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -434,8 +439,9 @@ static std::int32_t WindowTextTarget_ButtonCancel(const std::int32_t index, cons
 }
 
 // 原函数：0x0049F680。
-static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowTextTarget_SelectRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t selected = gTextChoiceOffsetD2D9C0 + index - 14;
@@ -444,7 +450,7 @@ static std::int32_t WindowTextTarget_SelectRow(const std::int32_t index, const s
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = currentWindow->FindElementById(elementId);
         if (indexedElement) {
             WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
         }

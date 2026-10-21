@@ -59,7 +59,7 @@ input::InputContext gInputContextCAFEC8 {}; // 原全局：0x00CAFEC8。
 // 回调与内部函数前置声明。
 
 // 原函数：0x004792D0。
-static std::int32_t WindowOwnProfile_EditField(std::int32_t index, std::int32_t state); // 窗口58元素5..8编辑焦点。
+static std::int32_t WindowOwnProfile_EditField(ElementId elementId, std::int32_t state); // 窗口58元素5..8编辑焦点。
 
 // 原函数：0x004744F0。
 static void WindowOwnProfile_Release();
@@ -366,26 +366,27 @@ static void WindowOwnProfile_Release()
 }
 
 // 原函数：0x004792D0。
-static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowOwnProfile_EditField(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInputPrototype* prototype;
     input::InputContext* context;
-    switch (index) {
-    case 5:
+    switch (static_cast<WindowOwnProfileElementId>(elementId)) {
+    case WindowOwnProfileElementId::EditField:
         prototype = &gOwnProfileInputPrototype57CEE8;
         context = &cg::ui::detail::gInputContextD64CB0;
         break;
-    case 6:
+    case WindowOwnProfileElementId::EditField_7:
         prototype = &gOwnProfileInputPrototype57D118;
         context = &cg::ui::detail::gInputContextD2D670;
         break;
-    case 7:
+    case WindowOwnProfileElementId::EditField_8:
         prototype = &gOwnProfileInputPrototype57D348;
         context = &cg::ui::detail::gInputContextCAFEC8;
         break;
-    case 8:
+    case WindowOwnProfileElementId::EditField_9:
         prototype = &gOwnProfileInputPrototype57D578;
         context = &cg::ui::detail::gInputContextD2D828;
         break;
@@ -399,23 +400,23 @@ static std::int32_t WindowOwnProfile_EditField(const std::int32_t index, const s
         return 0;
     }
     WindowInstance* const window = currentWindow;
-    auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+    auto* const indexedElement = window->FindElementById(elementId);
     if (indexedElement) {
         if (gFocusedElementDataD45F94 != indexedElement->data.input) {
             const auto& current = world::detail::gCurrentProfile10738E8;
             const wchar_t* const source =
-                index == 8 ? current.text728.data() : current.entries410[index - 5].text08.data();
+                elementId == static_cast<ElementId>(WindowOwnProfileElementId::EditField_9) ? current.text728.data() : current.entries410[index - 5].text08.data();
             prototype->text = source;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(prototype, x, y, 0));
             input::SetContext_44B330(context);
             WindowInstance* const focused = currentWindow;
-            auto* const indexedElement2 = focused->FindElementById(NativeElementKey(index));
+            auto* const indexedElement2 = focused->FindElementById(elementId);
             if (indexedElement2) {
                 gFocusedElementDataD45F94 = indexedElement2->data.input;
             }
-            if (auto* const indexedElement3 = focused->FindElementById(NativeElementKey(index)); indexedElement3) indexedElement3->data.input->context = context;
+            if (auto* const indexedElement3 = focused->FindElementById(elementId); indexedElement3) indexedElement3->data.input->context = context;
         }
     }
     return 1;

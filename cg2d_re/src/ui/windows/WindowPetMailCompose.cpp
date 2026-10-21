@@ -30,10 +30,10 @@ namespace detail {
 static std::int32_t WindowPetMailCompose_Update(std::int32_t value); // 宠物邮件两遍候选与刷新，标关闭后仍继续。
 
 // 原函数：0x004A6300。
-static std::int32_t WindowPetMailCompose_HandleGiftItem(std::int32_t index, std::int32_t state); // 物品占用迁移、取出拖动及悬停框。
+static std::int32_t WindowPetMailCompose_HandleGiftItem(ElementId elementId, std::int32_t state); // 物品占用迁移、取出拖动及悬停框。
 
 // 原函数：0x004A6450。
-static std::int32_t WindowPetMailCompose_HandleSendButtons(std::int32_t index, std::int32_t state); // 四按钮，两类发送保留不同失败声音。
+static std::int32_t WindowPetMailCompose_HandleSendButtons(ElementId elementId, std::int32_t state); // 四按钮，两类发送保留不同失败声音。
 
 // 原函数：0x004A6AC0。
 static std::uint8_t WindowPetMailCompose_RefreshPet(); // 宠物名称/颜色和携带物品图、数量刷新。
@@ -157,7 +157,7 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A6300。
-static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetMailCompose_HandleGiftItem(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -208,16 +208,16 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(const std::int32_t index
         const std::int32_t windowY = window->y;
         auto* elementsWindow = window;
         const std::int32_t windowX = window->x;
-        auto* const elementXElement = elementsWindow->FindElementById(NativeElementKey(index));
+        auto* const elementXElement = elementsWindow->FindElementById(elementId);
         if (elementXElement) {
             const std::int32_t elementX = elementXElement->x;
-            auto* const elementYElement = elementsWindow->FindElementById(NativeElementKey(index));
+            auto* const elementYElement = elementsWindow->FindElementById(elementId);
             if (elementYElement) {
                 const std::int32_t elementY = elementYElement->y;
-                auto* const heightElement = elementsWindow->FindElementById(NativeElementKey(index));
+                auto* const heightElement = elementsWindow->FindElementById(elementId);
                 if (heightElement) {
                     const std::int32_t height = heightElement->height;
-                    auto* const widthElement = elementsWindow->FindElementById(NativeElementKey(index));
+                    auto* const widthElement = elementsWindow->FindElementById(elementId);
                     if (widthElement) {
                         const std::int32_t width = widthElement->width;
                         cg::render::DrawGraphicHover(
@@ -249,32 +249,32 @@ static std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
 }
 
 // 原函数：0x004A6450。
-static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPetMailCompose_HandleSendButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    switch (index) {
-    case 2:
-    case 8:
-    case 9: {
-        const std::int32_t idle = index == 2 ? 0x3BE54 : index == 8 ? 0x3BE5D : 0x3BE5A;
-        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    switch (static_cast<WindowPetMailComposeElementId>(elementId)) {
+    case WindowPetMailComposeElementId::HandleSendButtons:
+    case WindowPetMailComposeElementId::HandleSendButtons_9:
+    case WindowPetMailComposeElementId::HandleSendButtons_10: {
+        const std::int32_t idle = elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons) ? 0x3BE54 : elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons_9) ? 0x3BE5D : 0x3BE5A;
+        auto* const graphicElement = currentWindow->FindElementById(elementId);
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
                 graphic->imageNo = idle + 2;
-                gHoverTextD68AE8 = index == 2 ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
+                gHoverTextD68AE8 = elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons) ? L"寄送一般邮件。" /* 原常量参考：0x005877A4。 */ : L"换另一只宠物寄送邮件。" /* 原常量参考：0x0058778C。 */;
                 consumed = 1;
             } else {
                 graphic->imageNo = idle;
             }
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (index == 2) {
+            if (elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons)) {
                 currentWindow->state |= 0x8000u;
                 static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
-            } else if (index == 8) {
+            } else if (elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons_9)) {
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08 - 1;
                 gLoginWindowRuntime.prefixD2F0B8.value08 = position;
                 if (position < 0) {
@@ -293,18 +293,18 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 1;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = idle + 1;
         }
         return consumed;
     }
-    case 3:
+    case WindowPetMailComposeElementId::HandleSendButtons_4:
         break;
     default:
         return 0;
     }
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
-        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const graphicElement = currentWindow->FindElementById(elementId);
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             if ((state & MouseFlag_Hover) != 0) {
@@ -375,7 +375,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const std::int32_t in
         }
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3BA1C;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3BA1C;
     }
     return consumed;
 }

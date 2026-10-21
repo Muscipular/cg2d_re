@@ -96,7 +96,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00492880。
-static std::int32_t WindowAlbumDetail_HandleNavigation(std::int32_t index, std::int32_t state); // 图鉴详情四种翻页与旋转。
+static std::int32_t WindowAlbumDetail_HandleNavigation(ElementId elementId, std::int32_t state); // 图鉴详情四种翻页与旋转。
 
 // 原函数：0x00492410。
 static std::int32_t WindowAlbumDetail_Update(std::int32_t value);
@@ -433,35 +433,35 @@ static std::int32_t WindowAlbumDetail_Update(const std::int32_t value)
 }
 
 // 原函数：0x00492880。
-static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAlbumDetail_HandleNavigation(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t delta;
     std::int32_t idle;
     const wchar_t* hint;
-    switch (index) {
-    case 9:
+    switch (static_cast<WindowAlbumDetailElementId>(elementId)) {
+    case WindowAlbumDetailElementId::HandleNavigation:
         delta = -10;
         idle = 0x3B55C;
         hint = L"快速切换至后10页视窗。" /* 原常量参考：0x00586DC8。 */;
         break;
-    case 10:
+    case WindowAlbumDetailElementId::HandleNavigation_11:
         delta = -1;
         idle = 0x3BE5D;
         hint = L"切换至后一页视窗。" /* 原常量参考：0x00586DB4。 */;
         break;
-    case 11:
+    case WindowAlbumDetailElementId::HandleNavigation_12:
         delta = 1;
         idle = 0x3BE5A;
         hint = L"切换至前一页视窗。" /* 原常量参考：0x00586DA0。 */;
         break;
-    case 12:
+    case WindowAlbumDetailElementId::HandleNavigation_13:
         delta = 10;
         idle = 0x3B55F;
         hint = L"快速切换至前10页视窗。" /* 原常量参考：0x00586D88。 */;
         break;
-    case 80:
+    case WindowAlbumDetailElementId::HandleNavigation_81:
         if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t direction = gLoginWindowRuntime.valueCF4A00 + 1;
             gLoginWindowRuntime.valueCF4A00 = direction;
@@ -485,10 +485,10 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = hint;
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 2;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = idle + 2;
         consumed = 1;
     } else {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = idle;
     }
     if ((state & MouseFlag_LRepeatDown) != 0) {
         const std::int32_t selected = gLoginWindowRuntime.valueCB2200 + delta;
@@ -504,7 +504,7 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(const std::int32_t index,
         consumed = 1;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = idle + 1;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = idle + 1;
     }
     return consumed;
 }

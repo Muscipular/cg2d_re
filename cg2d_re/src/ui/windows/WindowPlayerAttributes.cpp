@@ -58,7 +58,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00475E00。
-static std::int32_t WindowPlayerAttributes_HandleButtons(std::int32_t index, std::int32_t state); // 窗口8入口六值快照、加点及切页。
+static std::int32_t WindowPlayerAttributes_HandleButtons(ElementId elementId, std::int32_t state); // 窗口8入口六值快照、加点及切页。
 
 // 原函数：0x00474360。
 static void WindowPlayerAttributes_Release();
@@ -255,8 +255,9 @@ WindowPrototype gWindowPrototypePlayerAttributes {0, 4, 15, 97, 315, 261, 0x8000
 
 // 原475E00：先按原顺序采样六值，连默认分支也计算门槛；区别于4767E0重读。
 // 原函数：0x00475E00。
-static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerAttributes_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::array<std::int32_t, 6> values;
@@ -272,8 +273,8 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     }
     const std::int32_t limit = total / 2;
 
-    if (index >= 29 && index <= 33) {
-        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    if (elementId >= static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons) && elementId <= static_cast<ElementId>(WindowPlayerAttributesElementId::HandleButtons_34)) {
+        auto* const graphicElement = currentWindow->FindElementById(elementId);
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             std::int32_t consumed = 0;
@@ -299,22 +300,22 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     std::int32_t hoverImage;
     std::int32_t targetWindow;
     const wchar_t* hint;
-    switch (index) {
-    case 35:
+    switch (static_cast<WindowPlayerAttributesElementId>(elementId)) {
+    case WindowPlayerAttributesElementId::HandleButtons_36:
         idleImage = 0x3BAB5;
         hoverImage = 0x3BAB7;
         targetWindow = 7;
         hint = L"切换成玩家状态视窗。";
         break;
-    case 37:
+    case WindowPlayerAttributesElementId::HandleButtons_38:
         idleImage = 0x3BAB8;
         hoverImage = 0x3BABA;
         targetWindow = 9;
         hint = L"切换成玩家称号视窗。";
         break;
-    case 38:
+    case WindowPlayerAttributesElementId::HandleButtons_39:
         if (character_select::state::gPukVersion < 8u) {
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(elementId);
             if (indexedElement) {
                 indexedElement->data.graphic->imageNo =
                     0x3C111;
@@ -329,7 +330,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const std::int32_t inde
     default:
         return 0;
     }
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;

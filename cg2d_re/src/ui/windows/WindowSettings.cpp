@@ -69,61 +69,61 @@ static std::int32_t WindowSettings_Draw(std::int32_t unusedValue); // 四侧栏�
 static void WindowSettings_Release(); // 设置写回/持久化后播放关闭音效。
 
 // 原函数：0x00493EE0。
-static std::int32_t WindowSettings_ButtonLogoutPanel(std::int32_t index, std::int32_t state); // 登出侧栏开关。
+static std::int32_t WindowSettings_ButtonLogoutPanel(ElementId elementId, std::int32_t state); // 登出侧栏开关。
 
 // 原函数：0x00494000。
-static std::int32_t WindowSettings_ButtonInputPanel(std::int32_t index, std::int32_t state); // 输入侧栏，展开后保留元素11载荷别名。
+static std::int32_t WindowSettings_ButtonInputPanel(ElementId elementId, std::int32_t state); // 输入侧栏，展开后保留元素11载荷别名。
 
 // 原函数：0x00494180。
-static std::int32_t WindowSettings_ButtonAudioPanel(std::int32_t index, std::int32_t state); // 音量侧栏，生成两个type7同源文本。
+static std::int32_t WindowSettings_ButtonAudioPanel(ElementId elementId, std::int32_t state); // 音量侧栏，生成两个type7同源文本。
 
 // 原函数：0x00494370。
-static std::int32_t WindowSettings_ButtonDisplayPanel(std::int32_t index, std::int32_t state); // 显示侧栏，展开后保留元素21载荷别名。
+static std::int32_t WindowSettings_ButtonDisplayPanel(ElementId elementId, std::int32_t state); // 显示侧栏，展开后保留元素21载荷别名。
 
 // 原函数：0x00493E50。
-static std::int32_t WindowSettings_ButtonClose(std::int32_t index, std::int32_t state); // 设置窗关闭标记，无直接音效。
+static std::int32_t WindowSettings_ButtonClose(ElementId elementId, std::int32_t state); // 设置窗关闭标记，无直接音效。
 
 // 原函数：0x004944A0。
-static std::int32_t WindowSettings_ButtonHotkeys(std::int32_t index, std::int32_t state); // 快捷键窗口25开关。
+static std::int32_t WindowSettings_ButtonHotkeys(ElementId elementId, std::int32_t state); // 快捷键窗口25开关。
 
 // 原函数：0x00494550。
-static std::int32_t WindowSettings_ButtonLogout(std::int32_t index, std::int32_t state); // lO请求与场景10状态7。
+static std::int32_t WindowSettings_ButtonLogout(ElementId elementId, std::int32_t state); // lO请求与场景10状态7。
 
 // 原函数：0x00494620。
-static std::int32_t WindowSettings_ButtonServerSelect(std::int32_t index, std::int32_t state); // 返回服务器选择，非场景10构造CryptInt零值。
+static std::int32_t WindowSettings_ButtonServerSelect(ElementId elementId, std::int32_t state); // 返回服务器选择，非场景10构造CryptInt零值。
 
 // 原函数：0x00494720。
-static std::int32_t WindowSettings_ToggleItemStacking(std::int32_t index, std::int32_t state); // 物品堆叠输入设置。
+static std::int32_t WindowSettings_ToggleItemStacking(ElementId elementId, std::int32_t state); // 物品堆叠输入设置。
 
 // 原函数：0x004947F0。
-static std::int32_t WindowSettings_ToggleCursor(std::int32_t index, std::int32_t state); // 光标切换，非零模式逐帧预览。
+static std::int32_t WindowSettings_ToggleCursor(ElementId elementId, std::int32_t state); // 光标切换，非零模式逐帧预览。
 
 // 原函数：0x004948F0。
-static std::int32_t WindowSettings_CycleHotkeyMode(std::int32_t index, std::int32_t state); // 快捷键模式，同源六项图号表。
+static std::int32_t WindowSettings_CycleHotkeyMode(ElementId elementId, std::int32_t state); // 快捷键模式，同源六项图号表。
 
 // 原函数：0x004949C0。
-static std::int32_t WindowSettings_ButtonMusicDecrease(std::int32_t index, std::int32_t state); // 音乐减量，bit400触发。
+static std::int32_t WindowSettings_ButtonMusicDecrease(ElementId elementId, std::int32_t state); // 音乐减量，bit400触发。
 
 // 原函数：0x00494AE0。
-static std::int32_t WindowSettings_ButtonMusicIncrease(std::int32_t index, std::int32_t state); // 音乐增量。
+static std::int32_t WindowSettings_ButtonMusicIncrease(ElementId elementId, std::int32_t state); // 音乐增量。
 
 // 原函数：0x00494C10。
-static std::int32_t WindowSettings_ButtonSoundDecrease(std::int32_t index, std::int32_t state); // 音效减量，仍调用BGM音量入口。
+static std::int32_t WindowSettings_ButtonSoundDecrease(ElementId elementId, std::int32_t state); // 音效减量，仍调用BGM音量入口。
 
 // 原函数：0x00494D30。
-static std::int32_t WindowSettings_ButtonSoundIncrease(std::int32_t index, std::int32_t state); // 音效增量。
+static std::int32_t WindowSettings_ButtonSoundIncrease(ElementId elementId, std::int32_t state); // 音效增量。
 
 // 原函数：0x00494E60。
-static std::int32_t WindowSettings_ToggleChannels(std::int32_t index, std::int32_t state); // 声道设置，保留W32奇偶切换。
+static std::int32_t WindowSettings_ToggleChannels(ElementId elementId, std::int32_t state); // 声道设置，保留W32奇偶切换。
 
 // 原函数：0x00494F30。
-static std::int32_t WindowSettings_ToggleAudioFlag(std::int32_t index, std::int32_t state); // 554644切换，提示仍复用声道文案。
+static std::int32_t WindowSettings_ToggleAudioFlag(ElementId elementId, std::int32_t state); // 554644切换，提示仍复用声道文案。
 
 // 原函数：0x00495000。
-static std::int32_t WindowSettings_ToggleScanlines(std::int32_t index, std::int32_t state); // 低U8切换后写W16扫描线设置。
+static std::int32_t WindowSettings_ToggleScanlines(ElementId elementId, std::int32_t state); // 低U8切换后写W16扫描线设置。
 
 // 原函数：0x004950D0。
-static std::int32_t WindowSettings_DrawRenderModeButton(std::int32_t index, std::int32_t state); // 当前渲染模式提示/图号，恒返0。
+static std::int32_t WindowSettings_DrawRenderModeButton(ElementId elementId, std::int32_t state); // 当前渲染模式提示/图号，恒返0。
 
 // 原函数：0x00493D60。
 static std::int32_t WindowSettings_Update(std::int32_t value);
@@ -441,11 +441,11 @@ static void WindowSettings_Release()
 }
 
 // 原函数：0x00493EE0。
-static std::int32_t WindowSettings_ButtonLogoutPanel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonLogoutPanel(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if (graphic) graphic->imageNo = 0x3B8BE;
@@ -483,11 +483,11 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(const std::int32_t index, c
 }
 
 // 原函数：0x00494000。
-static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonInputPanel(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if (graphic) graphic->imageNo = 0x3B8C1;
@@ -541,11 +541,11 @@ static std::int32_t WindowSettings_ButtonInputPanel(const std::int32_t index, co
 }
 
 // 原函数：0x00494180。
-static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonAudioPanel(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if (graphic) graphic->imageNo = 0x3B8C4;
@@ -602,11 +602,11 @@ static std::int32_t WindowSettings_ButtonAudioPanel(const std::int32_t index, co
 }
 
 // 原函数：0x00494370。
-static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonDisplayPanel(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if (graphic) graphic->imageNo = 0x3B8C7;
@@ -650,12 +650,12 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(const std::int32_t index, 
 }
 
 // 原函数：0x00493E50。
-static std::int32_t WindowSettings_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -679,11 +679,11 @@ static std::int32_t WindowSettings_ButtonClose(const std::int32_t index, const s
 }
 
 // 原函数：0x004944A0。
-static std::int32_t WindowSettings_ButtonHotkeys(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonHotkeys(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -711,12 +711,12 @@ static std::int32_t WindowSettings_ButtonHotkeys(const std::int32_t index, const
 }
 
 // 原函数：0x00494550。
-static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonLogout(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -747,12 +747,12 @@ static std::int32_t WindowSettings_ButtonLogout(const std::int32_t index, const 
 }
 
 // 原函数：0x00494620。
-static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonServerSelect(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -785,12 +785,12 @@ static std::int32_t WindowSettings_ButtonServerSelect(const std::int32_t index, 
 }
 
 // 原函数：0x00494720。
-static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ToggleItemStacking(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -820,12 +820,12 @@ static std::int32_t WindowSettings_ToggleItemStacking(const std::int32_t index, 
 }
 
 // 原函数：0x004947F0。
-static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ToggleCursor(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -858,12 +858,12 @@ static std::int32_t WindowSettings_ToggleCursor(const std::int32_t index, const 
 }
 
 // 原函数：0x004948F0。
-static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_CycleHotkeyMode(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -890,12 +890,12 @@ static std::int32_t WindowSettings_CycleHotkeyMode(const std::int32_t index, con
 }
 
 // 原函数：0x004949C0。
-static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonMusicDecrease(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -930,12 +930,12 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(const std::int32_t index,
 }
 
 // 原函数：0x00494AE0。
-static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonMusicIncrease(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -970,12 +970,12 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(const std::int32_t index,
 }
 
 // 原函数：0x00494C10。
-static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonSoundDecrease(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -1010,12 +1010,12 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(const std::int32_t index,
 }
 
 // 原函数：0x00494D30。
-static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ButtonSoundIncrease(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -1050,12 +1050,12 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(const std::int32_t index,
 }
 
 // 原函数：0x00494E60。
-static std::int32_t WindowSettings_ToggleChannels(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ToggleChannels(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -1086,12 +1086,12 @@ static std::int32_t WindowSettings_ToggleChannels(const std::int32_t index, cons
 }
 
 // 原函数：0x00494F30。
-static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ToggleAudioFlag(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -1122,12 +1122,12 @@ static std::int32_t WindowSettings_ToggleAudioFlag(const std::int32_t index, con
 }
 
 // 原函数：0x00495000。
-static std::int32_t WindowSettings_ToggleScanlines(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_ToggleScanlines(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -1158,11 +1158,12 @@ static std::int32_t WindowSettings_ToggleScanlines(const std::int32_t index, con
 }
 
 // 原函数：0x004950D0。
-static std::int32_t WindowSettings_DrawRenderModeButton(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowSettings_DrawRenderModeButton(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {

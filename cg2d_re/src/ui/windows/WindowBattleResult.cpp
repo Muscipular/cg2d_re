@@ -91,10 +91,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00499880。
-static std::int32_t WindowRuntime_ButtonCloseResult(std::int32_t index, std::int32_t state); // 结果窗关闭按钮，固定入口图形载荷。
+static std::int32_t WindowRuntime_ButtonCloseResult(ElementId elementId, std::int32_t state); // 结果窗关闭按钮，固定入口图形载荷。
 
 // 原函数：0x00499750。
-static std::int32_t WindowBattleResult_ButtonClose(std::int32_t index, std::int32_t state); // 窗口30点击关闭，索引未使用。
+static std::int32_t WindowBattleResult_ButtonClose(ElementId elementId, std::int32_t state); // 窗口30点击关闭，索引未使用。
 
 // 原函数：0x004991C0。
 static std::int32_t WindowBattleResult_Update(std::int32_t value);
@@ -230,12 +230,12 @@ WindowPrototype gWindowPrototypeDpResult {3, 3, 245, 170, 150, 140, 0x80010101u,
 // 窗口函数实现。
 
 // 原函数：0x00499880。
-static std::int32_t WindowRuntime_ButtonCloseResult(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowRuntime_ButtonCloseResult(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
@@ -409,7 +409,7 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
 }
 
 // 原函数：0x00499750。
-static std::int32_t WindowBattleResult_ButtonClose(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleResult_ButtonClose(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;

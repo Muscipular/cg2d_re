@@ -60,7 +60,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004723D0。
-static std::int32_t WindowStatusBar_HandleHintButton(std::int32_t index, std::int32_t state); // SHP01：三项提示完整点击/取样序，原门槛和关闭开窗保持。
+static std::int32_t WindowStatusBar_HandleHintButton(ElementId elementId, std::int32_t state); // SHP01：三项提示完整点击/取样序，原门槛和关闭开窗保持。
 
 // 原函数：0x00470AC0。
 static void WindowStatusBar_Refresh(); // TUC01：窗口1HP/FP、时钟/四位倒计时/提示原生产序；机器ABI与运行待。
@@ -69,19 +69,19 @@ static void WindowStatusBar_Refresh(); // TUC01：窗口1HP/FP、时钟/四位�
 static void WindowCompactStatusBar_Refresh(); // TUC01：窗口2直接FP复制/四位倒计时，首窗口取样晚于描述符发布。
 
 // 原函数：0x00471CD0。
-static std::int32_t WindowStatusBar_ButtonCompact(std::int32_t unused, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
+static std::int32_t WindowStatusBar_ButtonCompact(ElementId elementId, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
 
 // 原函数：0x00471D10。
-static std::int32_t WindowCompactStatusBar_ButtonCollapse(std::int32_t unused, std::int32_t state); // 状态栏2点击切3。
+static std::int32_t WindowCompactStatusBar_ButtonCollapse(ElementId elementId, std::int32_t state); // 状态栏2点击切3。
 
 // 原函数：0x00471D60。
-static std::int32_t WindowCollapsedStatusBar_ButtonExpand(std::int32_t unused, std::int32_t state); // 状态栏3按场景返回2或1。
+static std::int32_t WindowCollapsedStatusBar_ButtonExpand(ElementId elementId, std::int32_t state); // 状态栏3按场景返回2或1。
 
 // 原函数：0x00471DD0。
-static std::int32_t WindowStatusBar_HandleHover(std::int32_t unused, std::int32_t state); // 仅hover命中消费。
+static std::int32_t WindowStatusBar_HandleHover(ElementId elementId, std::int32_t state); // 仅hover命中消费。
 
 // 原函数：0x00471DF0。
-static std::int32_t WindowStatusBar_HandleOptionButtons(std::int32_t index, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
+static std::int32_t WindowStatusBar_HandleOptionButtons(ElementId elementId, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
 
 // 原函数：0x00473080。
 static std::int32_t WindowStatusBar_ReadInjuredPetIndex(); // SHP01：玩家伤势优先返0，否则宠物原编号+10/未命中-1。
@@ -287,13 +287,13 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
 }
 
 // 原函数：0x004708A0。
-std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowStatusBar_ButtonEmote(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = gWindowStates[WindowId_Emote].window;
     if (window != nullptr) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3B921;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3B921;
         window = gWindowStates[WindowId_Emote].window;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
@@ -309,13 +309,13 @@ std::int32_t WindowStatusBar_ButtonEmote(const std::int32_t index, const std::in
 }
 
 // 原函数：0x00470910。
-std::int32_t WindowStatusBar_ButtonMiniMap(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowStatusBar_ButtonMiniMap(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = gWindowStates[WindowId_MiniMap].window;
     if (window != nullptr) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0x3B924;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3B924;
         window = gWindowStates[WindowId_MiniMap].window;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
@@ -439,7 +439,7 @@ static void WindowCompactStatusBar_Refresh()
 }
 
 // 原函数：0x00471CD0。
-static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStatusBar_ButtonCompact(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -454,7 +454,7 @@ static std::int32_t WindowStatusBar_ButtonCompact(const std::int32_t, const std:
 }
 
 // 原函数：0x00471D10。
-static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowCompactStatusBar_ButtonCollapse(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -469,7 +469,7 @@ static std::int32_t WindowCompactStatusBar_ButtonCollapse(const std::int32_t, co
 }
 
 // 原函数：0x00471D60。
-static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -490,14 +490,15 @@ static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const std::int32_t, co
 }
 
 // 原函数：0x00471DD0。
-static std::int32_t WindowStatusBar_HandleHover(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleHover(const ElementId, const std::int32_t state)
 {
     return (state & MouseFlag_Hover) != 0 ? 1 : 0;
 }
 
 // 原函数：0x00471DF0。
-static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleOptionButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
@@ -507,10 +508,10 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const std::int32_t index
         const bool hover = (state & MouseFlag_Hover) != 0;
         std::int32_t consumed = hover ? 1 : 0;
         graphic->imageNo = 0x3B8FC + index * 3 + (hover ? 1 : 0);
-        if (index < 17 || index > 22) {
+        if (elementId < static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons) || elementId > static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23)) {
             return consumed;
         }
-        if (index == 22 && character_select::state::gPukVersion < 7u) {
+        if (elementId == static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23) && character_select::state::gPukVersion < 7u) {
             if (hover) {
                 graphic->imageNo = 0x3B93E;
                 gHoverTextD68AE8 = kStatusGuildUnavailable586270;
@@ -576,14 +577,14 @@ static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 
 // SHP01：原三项提示/关闭开窗；hover持有及姓名/分档/窗口读取序，原业务门槛保持。
 // 原函数：0x004723D0。
-static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     std::wstring buffer;
-    switch (index) {
-    case 13: {
+    switch (static_cast<WindowStatusBarElementId>(elementId)) {
+    case WindowStatusBarElementId::HandleHintButton_14: {
         const std::int32_t candidate = world::FindAttributeAllocationHintTarget_504B10();
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
@@ -639,7 +640,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
         }
         return consumed;
     }
-    case 12: {
+    case WindowStatusBarElementId::HandleHintButton_13: {
         const std::int32_t hasMail = gLoginWindowRuntime.statusHasMailCC4B5C;
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
@@ -671,7 +672,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const std::int32_t index, c
         }
         return consumed;
     }
-    case 11: {
+    case WindowStatusBarElementId::HandleHintButton: {
         const std::int32_t target = WindowStatusBar_ReadInjuredPetIndex();
         std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
         const bool hover = (state & MouseFlag_Hover) != 0;

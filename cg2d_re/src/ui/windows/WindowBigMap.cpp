@@ -163,7 +163,7 @@ enum BigMapElement : int {
 };
 static int WindowBigMap_Update(int stage);
 static int WindowBigMap_Draw(int stage);
-static int WindowBigMap_Element(int index, int events);
+static int WindowBigMap_Element(ElementId elementId, int events);
 static void WindowBigMap_Release();
 // 与其它原生窗口一致：具名载荷、固定坐标/尺寸/初始显隐及回调直接预定义。
 static WindowGraphicData gBigMapToggleGraphic{243033, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -605,7 +605,7 @@ struct BigMapWindowState final {
         if (!acceptsMouse || (gMouseClickState & platform::LegacyMouseEdge_RDown)) mapClickPending = false;
         if (scrollingList) {
             const bool heldScroll = available && held && listOpen && MaxListFirstRow() > 0;
-            WindowElement_HandleVerticalScroll(ListScrollTrack, heldScroll ? MouseFlag_LHoldPhysical : MouseFlag_None);
+            WindowElement_HandleVerticalScroll(static_cast<ElementId>(WindowBigMapElementId::Element15), heldScroll ? MouseFlag_LHoldPhysical : MouseFlag_None);
             auto* const indexedElement = window.FindElementById(NativeElementKey(ListScrollTrack));
             if (indexedElement) {
                 SetListFirstRow(WindowScroll_ReadPosition(indexedElement, MaxListFirstRow()));
@@ -640,8 +640,9 @@ struct BigMapWindowState final {
         return stage;
     }
 
-    int OnElement(int index, int events) {
-        auto* const elementPtr = window.FindElementById(NativeElementKey(index));
+    int OnElement(ElementId elementId, int events) {
+        const int index = static_cast<int>(elementId) - 1; // 原型表与业务区域的索引。
+        auto* const elementPtr = window.FindElementById(elementId);
         if (!elementPtr) { return 0; }
         auto& element = (*elementPtr);
         element.state = acceptsMouse ? static_cast<std::uint32_t>(events) : MouseFlag_None;
@@ -683,7 +684,7 @@ struct BigMapWindowState final {
             if ((events & MouseFlag_LHoldPhysical) && MaxListFirstRow() > 0) {
                 scrollingList = true;
                 mapClickPending = false;
-                WindowElement_HandleVerticalScroll(index, events);
+                WindowElement_HandleVerticalScroll(elementId, events);
                 SetListFirstRow(WindowScroll_ReadPosition(&element, MaxListFirstRow()));
             }
             return 1;
@@ -806,8 +807,8 @@ struct BigMapWindowState final {
     void DrawElements(const UIClipRect& clip) {
         WindowElementCursor cursor(window);
         while (auto* current = cursor.next()) {
-            const auto i = current->nativeSlot;
-            if (i < ButtonFirst) continue;
+            const auto elementId = current->elementId;
+            if (elementId < NativeElementKey(ButtonFirst)) continue;
             const auto& element = *current;
             if (element.visible != 1) continue;
             if (element.type == WindowElementType_Graphic) {
@@ -818,13 +819,13 @@ struct BigMapWindowState final {
                 const auto& data = *element.data.text;
                 auto textClip = clip;
                 int textX = window.x + element.x;
-                if (i == TextMapName) textClip.right = static_cast<short>(window.x + 188);
-                if ((i >= ListNameFirst && i < TextListToggle) || i == TextListEmpty || i == TextListPage) {
+                if (elementId == NativeElementKey(TextMapName)) textClip.right = static_cast<short>(window.x + 188);
+                if ((elementId >= NativeElementKey(ListNameFirst) && elementId < NativeElementKey(TextListToggle)) || elementId == NativeElementKey(TextListEmpty) || elementId == NativeElementKey(TextListPage)) {
                     textClip.left = static_cast<short>(std::max<int>(clip.left, textX));
                     textClip.right = static_cast<short>(std::min<int>(clip.right, textX + element.width));
                     textClip.top = static_cast<short>(std::max<int>(clip.top, window.y + element.y));
                     textClip.bottom = static_cast<short>(std::min<int>(clip.bottom, window.y + element.y + element.height));
-                    if (i >= ListCoordinateFirst && i < TextListToggle)
+                    if (elementId >= NativeElementKey(ListCoordinateFirst) && elementId < NativeElementKey(TextListToggle))
                         textX += std::max(0, element.width - render::TextMeasure(data.text, std::to_integer<char>(data.style.font)));
                 }
                 RendererDrawTextClipped(static_cast<short>(textX),
@@ -1014,7 +1015,7 @@ static int WindowBigMap_Update(int stage) {
     }
     return gBigMapState->Update(stage);
 }
-static int WindowBigMap_Element(int index, int events) { return gBigMapState->OnElement(index, events); }
+static int WindowBigMap_Element(ElementId elementId, int events) { return gBigMapState->OnElement(elementId, events); }
 static int WindowBigMap_Draw(int stage) { return gBigMapState->Draw(stage); }
 static void WindowBigMap_Release() { gBigMapState.reset(); }
 

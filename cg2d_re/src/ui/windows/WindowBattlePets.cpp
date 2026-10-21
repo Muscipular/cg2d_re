@@ -26,10 +26,10 @@ namespace detail {
 static std::int32_t WindowBattlePets_Update(std::int32_t unused); // 窗口28归还按钮显隐。
 
 // 原函数：0x0049BA10。
-static std::int32_t WindowBattlePets_ButtonReturn(std::int32_t index, std::int32_t state); // 窗口28宠物归还M|FF。
+static std::int32_t WindowBattlePets_ButtonReturn(ElementId elementId, std::int32_t state); // 窗口28宠物归还M|FF。
 
 // 原函数：0x0049BB00。
-static std::int32_t WindowBattlePets_SelectRow(std::int32_t index, std::int32_t state); // 窗口28三条宠物选择行。
+static std::int32_t WindowBattlePets_SelectRow(ElementId elementId, std::int32_t state); // 窗口28三条宠物选择行。
 
 // 原函数：0x0049B670。
 static void WindowBattlePets_Refresh(
@@ -76,11 +76,11 @@ static std::int32_t WindowBattlePets_Update(const std::int32_t)
 }
 
 // 原函数：0x0049BA10。
-static std::int32_t WindowBattlePets_ButtonReturn(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattlePets_ButtonReturn(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -182,12 +182,13 @@ static void WindowBattlePets_Refresh(
 }
 
 // 原函数：0x0049BB00。
-static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattlePets_SelectRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const auto x = std::bit_cast<std::int16_t>(
@@ -222,7 +223,7 @@ static std::int32_t WindowBattlePets_SelectRow(const std::int32_t index, const s
             std::uint16_t flags = pet.flags6AA;
             if (flags == 1 || flags == 2) {
                 if ((state & MouseFlag_Hover) != 0) {
-                    auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+                    auto* const indexedElement = window->FindElementById(elementId);
                     if (indexedElement) {
                         WindowElement_DrawHoverFrame(indexedElement, state, cg::render::gHoverFramePaletteIndex_D69768);
                     }

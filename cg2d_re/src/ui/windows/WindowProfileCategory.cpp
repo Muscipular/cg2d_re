@@ -183,7 +183,7 @@ static std::int32_t WindowProfileCategory_Update(std::int32_t value); // 窗口6
 static void WindowProfileCategory_Refresh(); // 固定32/32/15项分类的显隐、文本和选择颜色。
 
 // 原函数：0x004CA1A0。
-static std::int32_t WindowProfileCategory_SelectCategory(std::int32_t index, std::int32_t state); // 分类点击发送后复制共享默认关键词。
+static std::int32_t WindowProfileCategory_SelectCategory(ElementId elementId, std::int32_t state); // 分类点击发送后复制共享默认关键词。
 
 // 原函数：0x004CA300。
 static void WindowProfileCategory_Release(); // 先清对话类型，再标记61/62/63。
@@ -445,17 +445,18 @@ static std::int32_t WindowProfileCategory_ResolveCategory(
 }
 
 // 原函数：0x004CA1A0。
-static std::int32_t WindowProfileCategory_SelectCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowProfileCategory_SelectCategory(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"在此目录中搜寻";
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246042;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246042;
         consumed = 1;
     } else {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 0;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0;
     }
     if ((state & MouseFlag_LDownEvent) == 0 || WindowProfileView_ReadSelection(index) == 0) {
         return consumed;

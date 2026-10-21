@@ -47,22 +47,22 @@ static std::int32_t WindowGuildRank_Update(std::int32_t value); // 窗口55只�
 static std::int32_t WindowGuildRank_Draw(std::int32_t unused); // 刷新/公共绘制后反求滚动，再画九宫格。
 
 // 原函数：0x004A4220。
-static std::int32_t WindowGuildRank_SelectRow(std::int32_t index, std::int32_t state); // 职级行选择及当前选择图号。
+static std::int32_t WindowGuildRank_SelectRow(ElementId elementId, std::int32_t state); // 职级行选择及当前选择图号。
 
 // 原函数：0x004A42C0。
-static std::int32_t WindowGuildRank_ButtonClose(std::int32_t index, std::int32_t state); // 固定入口窗口关闭、声音后的图形更新。
+static std::int32_t WindowGuildRank_ButtonClose(ElementId elementId, std::int32_t state); // 固定入口窗口关闭、声音后的图形更新。
 
 // 原函数：0x004A4370。
-static std::int32_t WindowGuildRank_ButtonOk(std::int32_t index, std::int32_t state); // uHb设置后重取窗口关闭，返回仅由hover决定。
+static std::int32_t WindowGuildRank_ButtonOk(ElementId elementId, std::int32_t state); // uHb设置后重取窗口关闭，返回仅由hover决定。
 
 // 原函数：0x004A4420。
-static std::int32_t WindowGuildRank_HandleScrollButtons(std::int32_t index, std::int32_t state); // 上下滚动先发声，只修各自一侧边界。
+static std::int32_t WindowGuildRank_HandleScrollButtons(ElementId elementId, std::int32_t state); // 上下滚动先发声，只修各自一侧边界。
 
 // 原函数：0x004A4540。
 static std::uint32_t WindowGuildRank_Refresh(); // 十行职级/成员姓名刷新，返回含NUL姓名长度。
 
 // 原函数：0x004A45E0。
-static std::int32_t WindowGuildRank_Scroll(std::int32_t unused, std::int32_t state); // 非零滚轮推进，恒返回0。
+static std::int32_t WindowGuildRank_Scroll(ElementId elementId, std::int32_t state); // 非零滚轮推进，恒返回0。
 
 // 原函数：0x004A4180。
 static std::int32_t WindowGuildRank_Update(std::int32_t value);
@@ -161,8 +161,9 @@ static std::int32_t WindowGuildRank_Draw(const std::int32_t)
 }
 
 // 原函数：0x004A4220。
-static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildRank_SelectRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -176,7 +177,7 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
         consumed = 1;
     }
     const std::int32_t selected = gLoginWindowRuntime.mailRankCF4A14;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = selected == scroll + index - 19 ? 0x3B59E : 0x3B59C;
@@ -185,12 +186,12 @@ static std::int32_t WindowGuildRank_SelectRow(const std::int32_t index, const st
 }
 
 // 原函数：0x004A42C0。
-static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildRank_ButtonClose(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    auto* const graphicElement = window->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = window->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
@@ -215,11 +216,11 @@ static std::int32_t WindowGuildRank_ButtonClose(const std::int32_t index, const 
 }
 
 // 原函数：0x004A4370。
-static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildRank_ButtonOk(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -245,22 +246,22 @@ static std::int32_t WindowGuildRank_ButtonOk(const std::int32_t index, const std
 }
 
 // 原函数：0x004A4420。
-static std::int32_t WindowGuildRank_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGuildRank_HandleScrollButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index != 15 && index != 16) {
+    if (elementId != static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons) && elementId != static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons_17)) {
         return 0;
     }
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hover = (state & MouseFlag_Hover) != 0;
-    const std::int32_t idle = index == 15 ? 0x3B592 : 0x3B595;
+    const std::int32_t idle = elementId == static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons) ? 0x3B592 : 0x3B595;
     if (graphic) graphic->imageNo = hover ? idle + 2 : idle;
     if ((state & MouseFlag_LRepeatDown) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         std::int32_t position;
-        if (index == 15) {
+        if (elementId == static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons)) {
             const std::int32_t previous = gLoginWindowRuntime.mailRankScrollCA0474;
             gLoginWindowRuntime.mailRankScrollCA0474 = previous - 1;
             if (previous - 1 < 0) {
@@ -310,7 +311,7 @@ static std::uint32_t WindowGuildRank_Refresh()
 }
 
 // 原函数：0x004A45E0。
-static std::int32_t WindowGuildRank_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowGuildRank_Scroll(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;

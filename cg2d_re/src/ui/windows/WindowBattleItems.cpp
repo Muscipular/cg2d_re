@@ -42,28 +42,28 @@ namespace detail {
 
 // 4C6EC0发布的战斗背包/装备交互。
 // 原函数：0x00499930。
-static std::int32_t WindowBattleItems_TogglePreview(std::int32_t unusedIndex, std::int32_t state);
+static std::int32_t WindowBattleItems_TogglePreview(ElementId elementId, std::int32_t state);
 
 // 原函数：0x00499950。
-static std::int32_t WindowBattleItems_CycleEquipment(std::int32_t unusedIndex, std::int32_t state);
+static std::int32_t WindowBattleItems_CycleEquipment(ElementId elementId, std::int32_t state);
 
 // 原函数：0x00499970。
-static std::int32_t WindowBattleItems_RotatePreview(std::int32_t unusedIndex, std::int32_t state);
+static std::int32_t WindowBattleItems_RotatePreview(ElementId elementId, std::int32_t state);
 
 // 原函数：0x00499B00。
-static std::int32_t WindowBattleItems_RefreshMoney(std::int32_t unusedIndex, std::int32_t unusedState);
+static std::int32_t WindowBattleItems_RefreshMoney(ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x00499B20。
-static std::int32_t WindowBattleItems_RefreshExtraValue(std::int32_t unusedIndex, std::int32_t unusedState);
+static std::int32_t WindowBattleItems_RefreshExtraValue(ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x00499B40。
-static std::int32_t WindowBattleItems_TabEquipment(std::int32_t unusedIndex, std::int32_t state); // 战斗页签忽略内部返回。
+static std::int32_t WindowBattleItems_TabEquipment(ElementId elementId, std::int32_t state); // 战斗页签忽略内部返回。
 
 // 原函数：0x00499B60。
-static std::int32_t WindowBattleItems_TabPet(std::int32_t index, std::int32_t state); // SAP01：战斗宠物页签，成功忽略4C7380结果返回S32零，无效图处理保持。
+static std::int32_t WindowBattleItems_TabPet(ElementId elementId, std::int32_t state); // SAP01：战斗宠物页签，成功忽略4C7380结果返回S32零，无效图处理保持。
 
 // 原函数：0x0049B610。
-static std::int32_t WindowBattleItems_ShowExtraAttributes(std::int32_t unusedIndex, std::int32_t state); // D2F338附加属性页包装。
+static std::int32_t WindowBattleItems_ShowExtraAttributes(ElementId elementId, std::int32_t state); // D2F338附加属性页包装。
 
 // 原函数：0x00499990。
 static std::int32_t WindowBattleItems_Update(std::int32_t value);
@@ -141,40 +141,40 @@ WindowPrototype gWindowPrototypeBattleItems {0, 4, 100, 100, 276, 253, 0x8001010
 // 窗口函数实现。
 
 // 原函数：0x00499930。
-static std::int32_t WindowBattleItems_TogglePreview(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_TogglePreview(const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_TogglePreview(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // 原函数：0x00499950。
-static std::int32_t WindowBattleItems_CycleEquipment(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_CycleEquipment(const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_CycleEquipment(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // 原函数：0x00499970。
-static std::int32_t WindowBattleItems_RotatePreview(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_RotatePreview(const ElementId, const std::int32_t state)
 {
     static_cast<void>(WindowItemSelector_RotatePreview(&gItemSelectorD2F338, state));
     return 0;
 }
 
 // 原函数：0x00499B00。
-static std::int32_t WindowBattleItems_RefreshMoney(const std::int32_t, const std::int32_t)
+static std::int32_t WindowBattleItems_RefreshMoney(const ElementId, const std::int32_t)
 {
     cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00499B20。
-static std::int32_t WindowBattleItems_RefreshExtraValue(const std::int32_t, const std::int32_t)
+static std::int32_t WindowBattleItems_RefreshExtraValue(const ElementId, const std::int32_t)
 {
     cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 
 // 原函数：0x00499B40。
-static std::int32_t WindowBattleItems_TabEquipment(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_TabEquipment(const ElementId, const std::int32_t state)
 {
     static_cast<void>(WindowItemSelector_HandleTab(&gItemSelectorD2F338, 0, state));
     return 0;
@@ -182,8 +182,9 @@ static std::int32_t WindowBattleItems_TabEquipment(const std::int32_t, const std
 
 // SAP01：原71条；五对与S8模式保持，成功忽略按钮结果恒0，无效图/声效按原，运行待。
 // 原函数：0x00499B60。
-static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBattleItems_TabPet(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t ordinal = index - 17;
@@ -217,7 +218,7 @@ static std::int32_t WindowBattleItems_TabPet(const std::int32_t index, const std
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         consumed = 1;
     }
-    if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 244306;
+    if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 244306;
     return consumed;
 }
 
@@ -297,7 +298,7 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
 
 // BIP01：原1175条；六BYTE/五grid/区域取序明确，原未加8容量索引/技能经验成本和目标发布保持，全生产消费及运行待。
 // 原函数：0x00499C30。
-std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowBattleItems_HandleInventory(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -360,7 +361,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) > 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t elementX = element.x;
@@ -452,7 +453,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
                 continue;
             }
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t elementX = element.x;
@@ -620,7 +621,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t elementX = element.x;
@@ -638,7 +639,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t elementX = element.x;
@@ -662,7 +663,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
         auto* elementsWindow = window;
         const std::int32_t windowY = window->y;
         const std::int32_t windowX = window->x;
-        auto* const elementPtr = elementsWindow->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = elementsWindow->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t elementX = element.x;
@@ -688,7 +689,7 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
             continue;
         }
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t elementX = element.x;
@@ -740,15 +741,16 @@ std::int32_t WindowBattleItems_HandleInventory(const std::int32_t index, const s
 }
 
 // 原函数：0x0049B610。
-static std::int32_t WindowBattleItems_ShowExtraAttributes(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowBattleItems_ShowExtraAttributes(const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_HandlePlayerAttributes(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // BEI01：原755条，三BYTE及区域描边取序明确；宠物禁用/玩家装备/原两Q命令保持，全生产消费及运行待。
 // 原函数：0x0049AC40。
-std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const std::int32_t state)
+std::int32_t WindowBattleItems_HandleEquipment(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     static constexpr wchar_t noSpace[] = L"物品栏位不足！";
@@ -959,7 +961,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const std::int32_t index, const s
                 auto* elementsWindow = window;
                 const std::int32_t windowY = window->y;
                 const std::int32_t windowX = window->x;
-                auto* const elementPtr = elementsWindow->FindElementById(NativeElementKey(index));
+                auto* const elementPtr = elementsWindow->FindElementById(elementId);
                 if (elementPtr) {
                     const WindowElement& element = (*elementPtr);
                     const std::int32_t elementX = element.x;

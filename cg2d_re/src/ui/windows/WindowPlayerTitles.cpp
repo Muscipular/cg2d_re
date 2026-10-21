@@ -55,19 +55,19 @@ input::InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
 // 回调与内部函数前置声明。
 
 // 原函数：0x00477540。
-static std::int32_t WindowPlayerTitles_EditDraft(std::int32_t unusedIndex, std::int32_t state); // 草稿编辑焦点。
+static std::int32_t WindowPlayerTitles_EditDraft(ElementId elementId, std::int32_t state); // 草稿编辑焦点。
 
 // 原函数：0x00477600。
-static std::int32_t WindowPlayerTitles_SelectTitle(std::int32_t index, std::int32_t state); // 六行称号选择/删除。
+static std::int32_t WindowPlayerTitles_SelectTitle(ElementId elementId, std::int32_t state); // 六行称号选择/删除。
 
 // 原函数：0x00477710。
-static std::int32_t WindowPlayerTitles_HandleButtons(std::int32_t index, std::int32_t state); // 完整按钮分派与背景清模式。
+static std::int32_t WindowPlayerTitles_HandleButtons(ElementId elementId, std::int32_t state); // 完整按钮分派与背景清模式。
 
 // 原函数：0x004782A0。
-static std::int32_t WindowPlayerTitles_Scroll(std::int32_t unusedIndex, std::int32_t state); // 称号滚轮，恒返0。
+static std::int32_t WindowPlayerTitles_Scroll(ElementId elementId, std::int32_t state); // 称号滚轮，恒返0。
 
 // 原函数：0x004782E0。
-static std::int32_t WindowPlayerTitles_DragScroll(std::int32_t index, std::int32_t state); // WSP01：原称号拖动页码；旧X代码1959。
+static std::int32_t WindowPlayerTitles_DragScroll(ElementId elementId, std::int32_t state); // WSP01：原称号拖动页码；旧X代码1959。
 
 // 原函数：0x004744A0。
 static void WindowPlayerTitles_Release();
@@ -183,7 +183,7 @@ WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080
 // 窗口函数实现。
 
 // 原函数：0x00477540。
-static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_EditDraft(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -218,11 +218,12 @@ static std::int32_t WindowPlayerTitles_EditDraft(const std::int32_t, const std::
 }
 
 // 原函数：0x00477600。
-static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_SelectTitle(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -257,29 +258,29 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const std::int32_t index, con
 }
 
 // 原函数：0x00477710。
-static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    const auto setImage = [index, currentWindow](const std::int32_t image) {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = image;
+    const auto setImage = [elementId, currentWindow](const std::int32_t image) {
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
-    switch (index) {
-    case 17:
-    case 18:
-    case 20: {
-        if (index == 20 && character_select::state::gPukVersion < 8u) {
+    switch (static_cast<WindowPlayerTitlesElementId>(elementId)) {
+    case WindowPlayerTitlesElementId::HandleButtons_18:
+    case WindowPlayerTitlesElementId::HandleButtons_19:
+    case WindowPlayerTitlesElementId::HandleButtons_21: {
+        if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_21) && character_select::state::gPukVersion < 8u) {
             setImage(0x3C111);
             return 0;
         }
-        const std::int32_t target = index == 17 ? 7 : index == 18 ? 8 : 58;
-        const std::int32_t idle = index == 17 ? 0x3BAB5 : index == 18 ? 0x3B583 : 0x3C111;
-        const std::int32_t hover = index == 17 ? 0x3BAB7 : index == 18 ? 0x3B585 : 0x3C112;
+        const std::int32_t target = elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_18) ? 7 : elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_19) ? 8 : 58;
+        const std::int32_t idle = elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_18) ? 0x3BAB5 : elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_19) ? 0x3B583 : 0x3C111;
+        const std::int32_t hover = elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_18) ? 0x3BAB7 : elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_19) ? 0x3B585 : 0x3C112;
         if ((state & MouseFlag_Hover) != 0) {
             setImage(hover);
-            gHoverTextD68AE8 = index == 17 ? L"切换成玩家状态视窗。" /* 原常量参考：0x005858D8。 */
-                            : index == 18 ? L"切换成玩家明细视窗。" /* 原常量参考：0x005858C0。 */ : L"切换成玩家简介视窗" /* 原常量参考：0x0058637C。 */;
+            gHoverTextD68AE8 = elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_18) ? L"切换成玩家状态视窗。" /* 原常量参考：0x005858D8。 */
+                            : elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_19) ? L"切换成玩家明细视窗。" /* 原常量参考：0x005858C0。 */ : L"切换成玩家简介视窗" /* 原常量参考：0x0058637C。 */;
             consumed = 1;
         } else {
             setImage(idle);
@@ -298,7 +299,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         }
         return consumed;
     }
-    case 21: {
+    case WindowPlayerTitlesElementId::HandleButtons_22: {
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3BAC4);
             gHoverTextD68AE8 = L"设定此称号。" /* 原常量参考：0x005863D8。 */;
@@ -318,7 +319,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         }
         return consumed;
     }
-    case 22:
+    case WindowPlayerTitlesElementId::HandleButtons_23:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B576);
             gHoverTextD68AE8 = L"取消所选择的称号。" /* 原常量参考：0x005863FC。 */;
@@ -334,7 +335,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             setImage(0x3B575);
         }
         return consumed;
-    case 23: {
+    case WindowPlayerTitlesElementId::HandleButtons_24: {
         if (gTitleModeCF4E50 == 1) {
             setImage(0x3B578);
             gHoverTextD68AE8 = L"删除所选择的称号。" /* 原常量参考：0x005863E8。 */;
@@ -354,17 +355,17 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
         }
         return consumed;
     }
-    case 3:
-    case 4:
+    case WindowPlayerTitlesElementId::HandleButtons:
+    case WindowPlayerTitlesElementId::HandleButtons_5:
         if ((state & MouseFlag_Hover) != 0) {
-            setImage(index == 3 ? 0x3B594 : 0x3B597);
+            setImage(elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons) ? 0x3B594 : 0x3B597);
             consumed = 1;
         } else {
-            setImage(index == 3 ? 0x3B592 : 0x3B595);
+            setImage(elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons) ? 0x3B592 : 0x3B595);
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t page = gTitlePageCF4E54;
-            if (index == 3 && page > 0) {
+            if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons) && page > 0) {
                 gTitlePageCF4E54 = page - 1;
                 WindowInstance* const window = currentWindow;
                 auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
@@ -372,7 +373,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
                     static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page - 1));
                 }
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
-            } else if (index == 4 && page < 58) {
+            } else if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_5) && page < 58) {
                 WindowInstance* const window = currentWindow;
                 gTitlePageCF4E54 = page + 1;
                 auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
@@ -386,11 +387,11 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
-            setImage(index == 3 ? 0x3B593 : 0x3B596);
+            setImage(elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons) ? 0x3B593 : 0x3B596);
             consumed = 1;
         }
         return consumed;
-    case 24:
+    case WindowPlayerTitlesElementId::HandleButtons_25:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B55B);
             consumed = 1;
@@ -415,7 +416,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             setImage(0x3B55A);
         }
         return consumed;
-    case 25:
+    case WindowPlayerTitlesElementId::HandleButtons_26:
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B558);
             consumed = 1;
@@ -440,7 +441,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
             setImage(0x3B557);
         }
         return consumed;
-    case 35:
+    case WindowPlayerTitlesElementId::HandleButtons_36:
         if ((state & MouseFlag_LDownEvent) != 0) {
             gTitleModeCF4E50 = 0;
             return 1;
@@ -452,7 +453,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const std::int32_t index, c
 }
 
 // 原函数：0x004782A0。
-static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_Scroll(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -470,11 +471,11 @@ static std::int32_t WindowPlayerTitles_Scroll(const std::int32_t, const std::int
 
 // WSP01：旧X片段1959；滚动非零才反求称号页码，原型/代码身份沿CAC08。
 // 原函数：0x004782E0。
-static std::int32_t WindowPlayerTitles_DragScroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_DragScroll(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    const std::int32_t result = WindowElement_HandleVerticalScroll(index, state);
+    const std::int32_t result = WindowElement_HandleVerticalScroll(elementId, state);
     if (result != 0) {
         WindowInstance* const window = currentWindow;
         auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);

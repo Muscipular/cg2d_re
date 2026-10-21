@@ -99,16 +99,16 @@ static std::uint32_t WindowProfileSearch_DrawKeyword(); // 活动输入与关键
 static void WindowProfileSearch_RefreshResults(); // 固定20条结果、三组标题刷新；不重新显示已隐藏的非空行。
 
 // 原函数：0x004CA6F0。
-static std::int32_t WindowProfileSearch_HandleSearchButtons(std::int32_t index, std::int32_t state); // 搜索/上页/下页双层转义请求。
+static std::int32_t WindowProfileSearch_HandleSearchButtons(ElementId elementId, std::int32_t state); // 搜索/上页/下页双层转义请求。
 
 // 原函数：0x004CA9C0。
-static std::int32_t WindowProfileSearch_SelectResult(std::int32_t index, std::int32_t state); // 按行发查看请求，随后重读窗口62高亮。
+static std::int32_t WindowProfileSearch_SelectResult(ElementId elementId, std::int32_t state); // 按行发查看请求，随后重读窗口62高亮。
 
 // 原函数：0x004CAB60。
 static void WindowProfileSearch_Release(); // 先清对话类型，再标记62/63。
 
 // 原函数：0x004CAB90。
-static std::int32_t WindowProfileSearch_EditKeyword(std::int32_t unusedIndex, std::int32_t state); // 固定元素7关键词编辑入口。
+static std::int32_t WindowProfileSearch_EditKeyword(ElementId elementId, std::int32_t state); // 固定元素7关键词编辑入口。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -316,7 +316,7 @@ static void WindowProfileSearch_Release()
 }
 
 // 原函数：0x004CAB90。
-static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowProfileSearch_EditKeyword(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -351,11 +351,12 @@ static std::int32_t WindowProfileSearch_EditKeyword(const std::int32_t, const st
 }
 
 // 原函数：0x004CA6F0。
-static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowProfileSearch_HandleSearchButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index < 3 || index > 5) {
+    if (elementId < static_cast<ElementId>(WindowProfileSearchElementId::HandleSearchButtons) || elementId > static_cast<ElementId>(WindowProfileSearchElementId::HandleSearchButtons_6)) {
         return 0;
     }
     constexpr std::array<std::int32_t, 3> normalImages {246048, 243030, 243033};
@@ -367,7 +368,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
         L"下一页",
     };
     const std::int32_t position = index - 3;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -397,8 +398,9 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const std::int32_t i
 }
 
 // 原函数：0x004CA9C0。
-static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowProfileSearch_SelectResult(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t position = index - 48;
@@ -406,9 +408,9 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"浏览此名玩家的资料表";
         consumed = 1;
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246059;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246059;
     } else {
-        if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246060;
+        if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246060;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         const auto& record = world::detail::gProfileSearch105C398.records[position];
@@ -425,7 +427,7 @@ static std::int32_t WindowProfileSearch_SelectResult(const std::int32_t index, c
     if (gWindowStates[WindowId_ProfileView].window != nullptr) {
         const std::int32_t key = world::detail::gViewedProfile105ECE0.value00;
         if (key == world::detail::gProfileSearch105C398.records[position].value104) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->data.graphic->imageNo = 246058;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246058;
         }
     }
     return consumed;

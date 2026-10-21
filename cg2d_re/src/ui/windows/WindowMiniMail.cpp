@@ -44,10 +44,10 @@ static std::int32_t WindowMiniMail_Update(std::int32_t value); // 窗口63首次
 static void WindowMiniMail_Refresh(); // 同源收件人与八位费用刷新，原混合返回无人消费。
 
 // 原函数：0x004CB6A0。
-static std::int32_t WindowMiniMail_Send(std::int32_t index, std::int32_t state); // 双层转义发送、插入本地迷你邮件及完整关闭尾。
+static std::int32_t WindowMiniMail_Send(ElementId elementId, std::int32_t state); // 双层转义发送、插入本地迷你邮件及完整关闭尾。
 
 // 原函数：0x004CB920。
-static std::int32_t WindowMiniMail_HandleInput(std::int32_t unusedIndex, std::int32_t state); // 固定元素1输入焦点与非活动绘制。
+static std::int32_t WindowMiniMail_HandleInput(ElementId elementId, std::int32_t state); // 固定元素1输入焦点与非活动绘制。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -148,7 +148,7 @@ static std::int32_t WindowMiniMail_Update(const std::int32_t value)
 }
 
 // 原函数：0x004CB920。
-static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowMiniMail_HandleInput(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -182,11 +182,11 @@ static std::int32_t WindowMiniMail_HandleInput(const std::int32_t, const std::in
 }
 
 // 原函数：0x004CB6A0。
-static std::int32_t WindowMiniMail_Send(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMiniMail_Send(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index != 2) {
+    if (elementId != static_cast<ElementId>(WindowMiniMailElementId::Send)) {
         return 0;
     }
     auto* const sendElement = currentWindow->FindElementById(WindowMiniMailElementId::Send);

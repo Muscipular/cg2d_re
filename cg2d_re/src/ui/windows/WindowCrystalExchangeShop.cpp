@@ -109,37 +109,37 @@ static void WindowCrystalExchangeShop_Refresh(); // 首次/分页/数量脏标�
 static void WindowCrystalExchangeShop_Submit(std::int32_t value); // 低U8为0才按实时商品组包，命令1。
 
 // 原函数：0x004C43C0。
-static std::int32_t WindowCrystalExchangeShop_ButtonOk(std::int32_t index, std::int32_t state); // 交换物数量/背包门禁及确认预览。
+static std::int32_t WindowCrystalExchangeShop_ButtonOk(ElementId elementId, std::int32_t state); // 交换物数量/背包门禁及确认预览。
 
 // 原函数：0x004C50C0。
-static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(std::int32_t index, std::int32_t unusedState); // 窗口70确认覆盖层。
+static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(ElementId elementId, std::int32_t unusedState); // 窗口70确认覆盖层。
 
 // 原函数：0x004C4CB0。
-static std::int32_t WindowCrystalExchangeShop_HandleInventory(std::int32_t index, std::int32_t state); // 仅首格命中，仍绘完整20格。
+static std::int32_t WindowCrystalExchangeShop_HandleInventory(ElementId elementId, std::int32_t state); // 仅首格命中，仍绘完整20格。
 
 // 原函数：0x004C4B70。
-static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(std::int32_t index, std::int32_t state); // 窗口70商品图标及四页提示。
+static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(ElementId elementId, std::int32_t state); // 窗口70商品图标及四页提示。
 
 // 原函数：0x004C46C0。
-static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(std::int32_t index, std::int32_t state); // 窗口70上一行。
+static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(ElementId elementId, std::int32_t state); // 窗口70上一行。
 
 // 原函数：0x004C4740。
-static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(std::int32_t index, std::int32_t state); // 下一行。
+static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(ElementId elementId, std::int32_t state); // 下一行。
 
 // 原函数：0x004C47C0。
-static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(std::int32_t index, std::int32_t state); // 上一页。
+static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(ElementId elementId, std::int32_t state); // 上一页。
 
 // 原函数：0x004C4840。
-static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(std::int32_t index, std::int32_t state); // 下一页。
+static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(ElementId elementId, std::int32_t state); // 下一页。
 
 // 原函数：0x004C48F0。
-static std::int32_t WindowCrystalExchangeShop_Scroll(std::int32_t index, std::int32_t state); // 滚轮，仅回写分页。
+static std::int32_t WindowCrystalExchangeShop_Scroll(ElementId elementId, std::int32_t state); // 滚轮，仅回写分页。
 
 // 原函数：0x004C4940。
-static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(std::int32_t index, std::int32_t state); // 减数量，窗口70独立脏标。
+static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(ElementId elementId, std::int32_t state); // 减数量，窗口70独立脏标。
 
 // 原函数：0x004C4A50。
-static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(std::int32_t index, std::int32_t state); // 加数量，零上限采用交换文案。
+static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(ElementId elementId, std::int32_t state); // 加数量，零上限采用交换文案。
 
 // 原函数：0x004C54D0。
 static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
@@ -774,11 +774,11 @@ static void WindowCrystalExchangeShop_Submit(const std::int32_t value)
 }
 
 // 原函数：0x004C43C0。
-static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonOk(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     const bool hover = (state & MouseFlag_Hover) != 0;
     std::int32_t consumed = 0;
@@ -860,11 +860,11 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(const std::int32_t index,
 }
 
 // 原函数：0x004C46C0。
-static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -891,11 +891,11 @@ static std::int32_t WindowCrystalExchangeShop_ButtonPreviousRow(const std::int32
 }
 
 // 原函数：0x004C4740。
-static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -923,11 +923,11 @@ static std::int32_t WindowCrystalExchangeShop_ButtonNextRow(const std::int32_t i
 }
 
 // 原函数：0x004C47C0。
-static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -953,11 +953,11 @@ static std::int32_t WindowCrystalExchangeShop_ButtonPreviousPage(const std::int3
 }
 
 // 原函数：0x004C4840。
-static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -990,8 +990,9 @@ static std::int32_t WindowCrystalExchangeShop_ButtonNextPage(const std::int32_t 
 }
 
 // 原函数：0x004C48F0。
-static std::int32_t WindowCrystalExchangeShop_Scroll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_Scroll(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -1009,11 +1010,12 @@ static std::int32_t WindowCrystalExchangeShop_Scroll(const std::int32_t index, c
 }
 
 // 原函数：0x004C4940。
-static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
@@ -1050,11 +1052,12 @@ static std::int32_t WindowCrystalExchangeShop_ButtonDecrease(const std::int32_t 
 }
 
 // 原函数：0x004C4A50。
-static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
@@ -1100,8 +1103,9 @@ static std::int32_t WindowCrystalExchangeShop_ButtonIncrease(const std::int32_t 
 }
 
 // 原函数：0x004C4B70。
-static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t selected = gWindow70ScrollCC4B68 + index - 56;
@@ -1130,7 +1134,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t 
     }
     if (item->remainingC50 == 0) {
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t windowY = window->y;
@@ -1141,7 +1145,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t 
         }
     }
     const WindowInstance* const window = currentWindow;
-    auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+    auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement& element = (*elementPtr);
         const std::int32_t windowY = window->y;
@@ -1155,7 +1159,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleItemIcon(const std::int32_t 
 }
 
 // 原函数：0x004C4CB0。
-static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowCrystalExchangeShop_HandleInventory(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -1175,7 +1179,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
         auto* elementsWindow = window;
         const std::int32_t windowX = window->x;
         const std::int32_t windowY = window->y;
-        auto* const elementPtr = elementsWindow->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = elementsWindow->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + windowX + 2;
@@ -1208,7 +1212,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
-            auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+            auto* const elementPtr = window->FindElementById(elementId);
             if (elementPtr) {
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t left = element.x + 50 * ((source - 8) % 5) + window->x + 2;
@@ -1223,7 +1227,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
     std::wstring buffer;
     if (hovered >= 0) {
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t left = element.x + 50 * (hovered % 5) + window->x + 2;
@@ -1252,7 +1256,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
             continue;
         }
         const WindowInstance* const window = currentWindow;
-        auto* const elementPtr = window->FindElementById(NativeElementKey(index));
+        auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
             const WindowElement& element = (*elementPtr);
             const std::int32_t x = element.x + 50 * (slot % 5) + window->x + 26;
@@ -1279,7 +1283,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(const std::int32_t
 }
 
 // 原函数：0x004C50C0。
-static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int32_t index, const std::int32_t unusedState)
+static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const ElementId elementId, const std::int32_t unusedState)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -1296,7 +1300,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int3
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         gHoverTextD68AE8 = gWindow70ConfirmAcceptD2DD6C;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gWindow70ConfirmCallbackCF4AA4;
             if (callback != nullptr) {
                 callback(0);
@@ -1313,7 +1317,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(const std::int3
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
-            if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
+            if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = gWindow70ConfirmCallbackCF4AA4;
             if (callback != nullptr) {
                 callback(1);

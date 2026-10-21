@@ -58,10 +58,10 @@ static void WindowGroupSelect_Release(); // 释放时仅关闭仍处于群发方
 static std::int32_t WindowGroupSelect_Draw(std::int32_t value); // 滚动反求、七行刷新、公共绘制。
 
 // 原函数：0x004B4BB0。
-static std::int32_t WindowGroupSelect_HandlePageButtons(std::int32_t index, std::int32_t state); // 前后翻七行，仅hover消费。
+static std::int32_t WindowGroupSelect_HandlePageButtons(ElementId elementId, std::int32_t state); // 前后翻七行，仅hover消费。
 
 // 原函数：0x004B4CA0。
-static std::int32_t WindowGroupSelect_HandleScrollButtons(std::int32_t index, std::int32_t state); // bit400单行滚动，发声后修正位置。
+static std::int32_t WindowGroupSelect_HandleScrollButtons(ElementId elementId, std::int32_t state); // bit400单行滚动，发声后修正位置。
 
 // 原函数：0x004B4DB0。
 static std::int32_t WindowGroupSelect_ClampScroll(); // 顺序修正上下界，保留count<7时负上界。
@@ -73,16 +73,16 @@ static std::int32_t WindowGroupSelect_DragScroll(std::int32_t unused); // 非负
 static void WindowGroupSelect_Refresh(); // 三种标题和七行显隐，不改选择标志。
 
 // 原函数：0x004B5210。
-static std::int32_t WindowGroupSelect_TabCategory(std::int32_t index, std::int32_t state); // 切换三模式后清滚动位置。
+static std::int32_t WindowGroupSelect_TabCategory(ElementId elementId, std::int32_t state); // 切换三模式后清滚动位置。
 
 // 原函数：0x004B53C0。
-static std::int32_t WindowGroupSelect_ButtonSelectAll(std::int32_t index, std::int32_t state); // 全组选择，普通联系人借原排序索引。
+static std::int32_t WindowGroupSelect_ButtonSelectAll(ElementId elementId, std::int32_t state); // 全组选择，普通联系人借原排序索引。
 
 // 原函数：0x004B5550。
-static std::int32_t WindowGroupSelect_SelectRow(std::int32_t index, std::int32_t state); // 七行选择，点击时重读滚动位置。
+static std::int32_t WindowGroupSelect_SelectRow(ElementId elementId, std::int32_t state); // 七行选择，点击时重读滚动位置。
 
 // 原函数：0x004B5A40。
-static std::int32_t WindowGroupSelect_Scroll(std::int32_t unused, std::int32_t state); // 零wheel仍调用4743B0。
+static std::int32_t WindowGroupSelect_Scroll(ElementId elementId, std::int32_t state); // 零wheel仍调用4743B0。
 
 // 原函数：0x004B5630。
 static void WindowGroupSelect_ResetRecipients(); // 清计数/模式及两200项数组，不清初始化标志。
@@ -253,17 +253,17 @@ static std::int32_t WindowGroupSelect_Draw(const std::int32_t value)
 }
 
 // 原函数：0x004B4BB0。
-static std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_HandlePageButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index != 6 && index != 7) {
+    if (elementId != static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons) && elementId != static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons_8)) {
         return 0;
     }
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const std::int32_t idle = index == 6 ? 0x3B556 : 0x3B559;
+        const std::int32_t idle = elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons) ? 0x3B556 : 0x3B559;
         graphic->imageNo = idle;
         std::int32_t result = 0;
         if ((state & MouseFlag_Hover) != 0) {
@@ -273,7 +273,7 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = idle + 1;
             const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
-            gLoginWindowRuntime.mailGroupScrollD67B88 = position + (index == 6 ? -7 : 7);
+            gLoginWindowRuntime.mailGroupScrollD67B88 = position + (elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons) ? -7 : 7);
             static_cast<void>(WindowGroupSelect_ClampScroll());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -286,17 +286,17 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(const std::int32_t index
 }
 
 // 原函数：0x004B4CA0。
-static std::int32_t WindowGroupSelect_HandleScrollButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_HandleScrollButtons(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index != 1 && index != 2) {
+    if (elementId != static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons) && elementId != static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons_3)) {
         return 0;
     }
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const std::int32_t idle = index == 1 ? 0x3B592 : 0x3B595;
+        const std::int32_t idle = elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons) ? 0x3B592 : 0x3B595;
         graphic->imageNo = idle;
         std::int32_t result = 0;
         if ((state & MouseFlag_Hover) != 0) {
@@ -306,7 +306,7 @@ static std::int32_t WindowGroupSelect_HandleScrollButtons(const std::int32_t ind
         if ((state & MouseFlag_LRepeatDown) != 0) {
             graphic->imageNo = idle + 1;
             std::int32_t sound = 51;
-            if (index == 1) {
+            if (elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons)) {
                 const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88 - 1;
                 gLoginWindowRuntime.mailGroupScrollD67B88 = position;
                 if (position < 0) {
@@ -418,16 +418,16 @@ static void WindowGroupSelect_Refresh()
 }
 
 // 原函数：0x004B5210。
-static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_TabCategory(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index != 8 && index != 9) {
+    if (elementId != static_cast<ElementId>(WindowGroupSelectElementId::TabCategory) && elementId != static_cast<ElementId>(WindowGroupSelectElementId::TabCategory_10)) {
         return 0;
     }
-    const std::int32_t idle = index == 8 ? 0x3B556 : 0x3B559;
+    const std::int32_t idle = elementId == static_cast<ElementId>(WindowGroupSelectElementId::TabCategory) ? 0x3B556 : 0x3B559;
     std::int32_t result = 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
@@ -439,7 +439,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
         }
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        if (index == 8) {
+        if (elementId == static_cast<ElementId>(WindowGroupSelectElementId::TabCategory)) {
             const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode - 1;
             gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
             if (mode < 0) {
@@ -460,7 +460,7 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
         result = 1;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
-        auto* const currentElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const currentElement = currentWindow->FindElementById(elementId);
         if (currentElement) {
             auto* const current = currentElement->data.graphic;
             current->imageNo = idle + 1;
@@ -470,12 +470,12 @@ static std::int32_t WindowGroupSelect_TabCategory(const std::int32_t index, cons
 }
 
 // 原函数：0x004B53C0。
-static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_ButtonSelectAll(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t result = 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
@@ -514,7 +514,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, 
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
-        auto* const currentElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const currentElement = currentWindow->FindElementById(elementId);
         if (currentElement) {
             auto* const current = currentElement->data.graphic;
             current->imageNo = 0x3BA1F;
@@ -524,13 +524,14 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(const std::int32_t index, 
 }
 
 // 原函数：0x004B5550。
-static std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowGroupSelect_SelectRow(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
     const std::int32_t selected = gLoginWindowRuntime.mailGroupCC1A30.selected[scroll + index - 20];
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         graphic->imageNo = selected == 1 ? 0x3BA21 : 0x3BA22;
@@ -558,7 +559,7 @@ static std::int32_t WindowGroupSelect_SelectRow(const std::int32_t index, const 
 }
 
 // 原函数：0x004B5A40。
-static std::int32_t WindowGroupSelect_Scroll(const std::int32_t, const std::int32_t state)
+static std::int32_t WindowGroupSelect_Scroll(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;

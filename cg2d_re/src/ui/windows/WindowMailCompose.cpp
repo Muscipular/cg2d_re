@@ -26,7 +26,7 @@ namespace detail {
 static std::int32_t WindowMailCompose_Update(std::int32_t value); // 发信初始化、宠物候选和收件人刷新。
 
 // 原函数：0x004A5970。
-static std::int32_t WindowMailCompose_HandleRecipients(std::int32_t index, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
+static std::int32_t WindowMailCompose_HandleRecipients(ElementId elementId, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
 
 // 原函数：0x004A6160。
 static std::uint8_t WindowMailCompose_RefreshRecipients(); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
@@ -197,7 +197,7 @@ void WindowMailCompose_Release()
 }
 
 // 原函数：0x004A58E0。
-std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_t state)
+std::int32_t WindowMailCompose_HandleInput(const ElementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
@@ -229,15 +229,15 @@ std::int32_t WindowMailCompose_HandleInput(const std::int32_t, const std::int32_
 }
 
 // 原函数：0x004A5970。
-static std::int32_t WindowMailCompose_HandleRecipients(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowMailCompose_HandleRecipients(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    if (index != 2 && index != 3) {
+    if (elementId != static_cast<ElementId>(WindowMailComposeElementId::HandleRecipients) && elementId != static_cast<ElementId>(WindowMailComposeElementId::HandleRecipients_4)) {
         return 0;
     }
     std::int32_t consumed = 0;
-    if (index == 2) {
+    if (elementId == static_cast<ElementId>(WindowMailComposeElementId::HandleRecipients)) {
         auto* const handleRecipientsElement = currentWindow->FindElementById(WindowMailComposeElementId::HandleRecipients);
         if (handleRecipientsElement) {
             auto* const graphic = handleRecipientsElement->data.graphic;

@@ -27,7 +27,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00473840。
-static std::int32_t WindowBottomBar_HandleButtons(std::int32_t index, std::int32_t state); // 窗口6完整九分支按钮。
+static std::int32_t WindowBottomBar_HandleButtons(ElementId elementId, std::int32_t state); // 窗口6完整九分支按钮。
 
 // HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
 // 原函数：0x004731E0。
@@ -100,16 +100,17 @@ WindowPrototype gWindowPrototypeBottomBar {2, 5, 0, 452, 640, 30, 0x80010101u, 1
 // 窗口函数实现。
 
 // 原函数：0x00473840。
-static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, const std::int32_t state)
 {
+    const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    switch (index) {
-    case 0:
+    switch (static_cast<WindowBottomBarElementId>(elementId)) {
+    case WindowBottomBarElementId::HandleButtons:
         gWindow6HoverD2EA70 = static_cast<std::uint8_t>(state) & MouseFlag_Hover;
         return 0;
-    case 1: {
+    case WindowBottomBarElementId::HandleButtons_2: {
         auto* const handleButtons_2Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_2);
         if (handleButtons_2Element) {
             auto* const graphic = handleButtons_2Element->data.graphic;
@@ -188,7 +189,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         }
         return 1;
     }
-    case 2: {
+    case WindowBottomBarElementId::HandleButtons_3: {
         auto* const handleButtons_3Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_3);
         if (!handleButtons_3Element) { return 0; }
         auto* const graphic = handleButtons_3Element->data.graphic;
@@ -224,7 +225,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         }
         return consumed;
     }
-    case 3: {
+    case WindowBottomBarElementId::HandleButtons_4: {
         auto* const handleButtons_4Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_4);
         if (!handleButtons_4Element) { return 0; }
         auto* const graphic = handleButtons_4Element->data.graphic;
@@ -260,7 +261,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         }
         return consumed;
     }
-    case 4: {
+    case WindowBottomBarElementId::HandleButtons_5: {
         auto* const handleButtons_5Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_5);
         if (!handleButtons_5Element) { return 0; }
         auto* const graphic = handleButtons_5Element->data.graphic;
@@ -296,12 +297,12 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         }
         return consumed;
     }
-    case 5:
-    case 6:
-    case 7: {
-        const std::int32_t windowId = index == 5 ? 21 : (index == 6 ? 19 : 24);
+    case WindowBottomBarElementId::HandleButtons_6:
+    case WindowBottomBarElementId::HandleButtons_7:
+    case WindowBottomBarElementId::HandleButtons_8: {
+        const std::int32_t windowId = elementId == static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_6) ? 21 : (elementId == static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_7) ? 19 : 24);
         const std::int32_t normalImage = 0x3B96B + (index - 5) * 3;
-        auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const graphicElement = currentWindow->FindElementById(elementId);
         if (graphicElement) {
             auto* const graphic = graphicElement->data.graphic;
             graphic->imageNo = (state & MouseFlag_Hover) != 0 ? normalImage + 1 : normalImage;
@@ -318,7 +319,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
                     static_cast<void>(WindowRuntime_CreateAnimation(windowId, 1, 0, nullptr));
                 } else {
                     window->state |= 0x8000u;
-                    if (index != 7) {
+                    if (elementId != static_cast<ElementId>(WindowBottomBarElementId::HandleButtons_8)) {
                         static_cast<void>(audio::PlaySe_52C450(57, 320));
                     }
                 }
@@ -327,7 +328,7 @@ static std::int32_t WindowBottomBar_HandleButtons(const std::int32_t index, cons
         }
         return consumed;
     }
-    case 8: {
+    case WindowBottomBarElementId::HandleButtons_9: {
         auto* const handleButtons_9Element = currentWindow->FindElementById(WindowBottomBarElementId::HandleButtons_9);
         if (handleButtons_9Element) {
             auto* const graphic = handleButtons_9Element->data.graphic;

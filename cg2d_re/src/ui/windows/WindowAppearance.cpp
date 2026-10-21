@@ -38,16 +38,16 @@ struct Window56TextStorage {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004C5C30。
-static std::int32_t WindowAppearance_ButtonOk(std::int32_t index, std::int32_t state); // 图号原文本直接发送，不转义。
+static std::int32_t WindowAppearance_ButtonOk(ElementId elementId, std::int32_t state); // 图号原文本直接发送，不转义。
 
 // 原函数：0x004C5D00。
-static std::int32_t WindowAppearance_CycleClass(std::int32_t index, std::int32_t state); // class按版本上下界循环。
+static std::int32_t WindowAppearance_CycleClass(ElementId elementId, std::int32_t state); // class按版本上下界循环。
 
 // 原函数：0x004C5DE0。
-static std::int32_t WindowAppearance_CycleFifthDigit(std::int32_t index, std::int32_t state); // fifth分量0..4循环。
+static std::int32_t WindowAppearance_CycleFifthDigit(ElementId elementId, std::int32_t state); // fifth分量0..4循环。
 
 // 原函数：0x004C5EB0。
-static std::int32_t WindowAppearance_CycleOnesDigit(std::int32_t index, std::int32_t state); // ones分量0..4循环。
+static std::int32_t WindowAppearance_CycleOnesDigit(ElementId elementId, std::int32_t state); // ones分量0..4循环。
 
 // 原函数：0x004C5F80。
 static std::int32_t WindowAppearance_SendDialogReply(
@@ -272,11 +272,11 @@ static void WindowAppearance_Release()
 }
 
 // 原函数：0x004C5C30。
-static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAppearance_ButtonOk(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
@@ -312,15 +312,15 @@ static std::int32_t WindowAppearance_ButtonOk(const std::int32_t index, const st
 }
 
 // 原函数：0x004C5D00。
-static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleClass(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        std::int32_t imageClass = gWindow56ClassCC466C + (index < 4 ? -1 : 1);
+        std::int32_t imageClass = gWindow56ClassCC466C + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element5) ? -1 : 1);
         const std::int32_t minimum = gWindow56MinimumCB0F80;
         gWindow56ClassCC466C = imageClass;
         if (imageClass < minimum) {
@@ -339,26 +339,26 @@ static std::int32_t WindowAppearance_CycleClass(const std::int32_t index, const 
         if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
         consumed = 1;
     }
-    if (graphic) graphic->imageNo = index < 4 ? 243030 : 243033;
+    if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element5) ? 243030 : 243033;
     if ((state & MouseFlag_Hover) != 0) {
-        if (graphic) graphic->imageNo = index < 4 ? 243032 : 243035;
+        if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element5) ? 243032 : 243035;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
-        if (graphic) graphic->imageNo = index < 4 ? 243031 : 243034;
+        if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element5) ? 243031 : 243034;
     }
     return consumed;
 }
 
 // 原函数：0x004C5DE0。
-static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleFifthDigit(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        std::int32_t fifth = gWindow56FifthCB0F88 + (index < 7 ? -1 : 1);
+        std::int32_t fifth = gWindow56FifthCB0F88 + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element8) ? -1 : 1);
         gWindow56FifthCB0F88 = fifth;
         if (fifth < 0) {
             fifth = 4;
@@ -376,26 +376,26 @@ static std::int32_t WindowAppearance_CycleFifthDigit(const std::int32_t index, c
         if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
         consumed = 1;
     }
-    if (graphic) graphic->imageNo = index < 7 ? 243030 : 243033;
+    if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element8) ? 243030 : 243033;
     if ((state & MouseFlag_Hover) != 0) {
-        if (graphic) graphic->imageNo = index < 7 ? 243032 : 243035;
+        if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element8) ? 243032 : 243035;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
-        if (graphic) graphic->imageNo = index < 7 ? 243031 : 243034;
+        if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element8) ? 243031 : 243034;
     }
     return consumed;
 }
 
 // 原函数：0x004C5EB0。
-static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleOnesDigit(const ElementId elementId, const std::int32_t state)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
-    auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index));
+    auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        std::int32_t ones = gWindow56OnesCF4680 + (index < 10 ? -1 : 1);
+        std::int32_t ones = gWindow56OnesCF4680 + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element11) ? -1 : 1);
         gWindow56OnesCF4680 = ones;
         if (ones < 0) {
             ones = 4;
@@ -413,12 +413,12 @@ static std::int32_t WindowAppearance_CycleOnesDigit(const std::int32_t index, co
         if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
         consumed = 1;
     }
-    if (graphic) graphic->imageNo = index < 10 ? 243030 : 243033;
+    if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element11) ? 243030 : 243033;
     if ((state & MouseFlag_Hover) != 0) {
-        if (graphic) graphic->imageNo = index < 10 ? 243032 : 243035;
+        if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element11) ? 243032 : 243035;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
-        if (graphic) graphic->imageNo = index < 10 ? 243031 : 243034;
+        if (graphic) graphic->imageNo = elementId < static_cast<ElementId>(WindowAppearanceElementId::Element11) ? 243031 : 243034;
     }
     return consumed;
 }

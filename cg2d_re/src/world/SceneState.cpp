@@ -4909,7 +4909,7 @@ std::int32_t __cdecl DetectPendingPathEvents_46AA00()
             break;
         }
         // 原4B0F10不读参数；直接使用UI同一零返回入口。
-        if (ui::detail::WindowElement_NoOp(0, 0) != 0) {
+        if (ui::detail::WindowElement_NoOp(ui::NativeElementKey(0), 0) != 0) {
             result = 1;
             const std::int32_t nextStep = step + 1;
             gPendingPathEventActive_C82230 = 1;

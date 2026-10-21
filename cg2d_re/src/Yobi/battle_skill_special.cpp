@@ -2438,7 +2438,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     auto* const casterPayload = caster->payload.battleActor;
     casterPayload->castSkill103C = gBattleMSkill5AAA78;
     casterPayload->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
-    const bool singlePosition = gBattleMSkill5AAA78 == 406;
+    const bool singlePosition = gBattleMSkill5AAA78 == BattleSkill_RiderBreakMind;
     std::int32_t previewOffset = payload->packetOffset64;
     std::int32_t previewPosition;
     std::int32_t previewCasterPosition;
@@ -3219,7 +3219,7 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
     cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->fpUsed1008 = fpUsed;
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);
-    if (gBattleMSkill5AAA78 == 2019) {
+    if (gBattleMSkill5AAA78 == BattleSkill_SoloDance) {
         const std::int32_t band = GetBattleValueBand_43BF00(gBattleMSkillLevelIndex5A3A18 + 1);
         const std::int32_t imageCasterPosition = gBattleMCasterPosition5AAA64;
         const std::int32_t image = kBattleMSkill2019Images54D684[band - 1];
@@ -3228,7 +3228,7 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 253);
     }
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 39);
-    if (gBattleMSkill5AAA78 == 2019) {
+    if (gBattleMSkill5AAA78 == BattleSkill_SoloDance) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 254);
     }
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 40);
@@ -3280,7 +3280,7 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
         const std::int32_t targetLevel = gBattleMSkillLevelIndex5A3A18;
         levelTarget->payload.battleActor->castSkillLevel1044 = targetLevel;
         const std::int32_t skill = gBattleMSkill5AAA78;
-        if (skill >= 99 && skill <= 104) {
+        if (skill >= BattleSkill_DefUp && skill <= BattleSkill_AglDown) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 157);
             if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                 continue;
@@ -3294,12 +3294,12 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
             YobiAction* const statusTarget = cg::world::gBattleAllEntries59E980[statusTargetPosition];
             auto* const targetPayload = statusTarget->payload.battleActor;
             switch (statusSkill) {
-            case 99: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP; break;
-            case 100: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_DOWN; break;
-            case 101: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_UP; break;
-            case 102: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_DOWN; break;
-            case 103: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_UP; break;
-            case 104: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN; break;
+            case BattleSkill_DefUp: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP; break;
+            case BattleSkill_DefDown: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_DOWN; break;
+            case BattleSkill_AtkUp: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_UP; break;
+            case BattleSkill_AtkDown: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_DOWN; break;
+            case BattleSkill_AglUp: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_UP; break;
+            case BattleSkill_AglDown: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN; break;
             default: break;
             }
             if (targetPayload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_PARAMETER || targetPayload->statusEffectType13DC != statusType) {
@@ -3310,7 +3310,8 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 143);
             const std::int32_t currentSkill = gBattleMSkill5AAA78;
             cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
-                ->soundId1018 = currentSkill == 99 || currentSkill == 101 || currentSkill == 103 ? 253 : 274;
+                ->soundId1018 = currentSkill == BattleSkill_DefUp || currentSkill == BattleSkill_AtkUp
+                    || currentSkill == BattleSkill_AglUp ? 253 : 274;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 80);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 37);
         } else if (skill == 3001) {
@@ -3334,7 +3335,7 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
                 ->soundId1018 = 274;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 80);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 37);
-        } else if (skill == 2019) {
+        } else if (skill == BattleSkill_SoloDance) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 157);
             if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                 continue;

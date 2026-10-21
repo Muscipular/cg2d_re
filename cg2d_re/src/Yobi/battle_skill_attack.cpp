@@ -181,48 +181,48 @@ FinishFirstTargetFailure:
     firstCaster->payload.battleActor->castLevel1040 = level;
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 40);
     if (static_cast<std::uint32_t>(skill) < 2
-        || skill == 3
-        || skill == 6
+        || skill == BattleSkill_Parameter_AllOrNothing
+        || skill == BattleSkill_Forcecut
         || skill == 72
-        || skill == 75
-        || skill == 76
-        || skill == 77
-        || skill == 78
-        || skill == 79
-        || skill == 80
-        || skill == 2096
-        || skill == 2097
-        || skill == 2098
-        || skill == 2099
-        || skill == 2100
-        || skill == 2101
+        || skill == BattleSkill_StatusAttackPoison
+        || skill == BattleSkill_StatusAttackSleep
+        || skill == BattleSkill_StatusAttackStone
+        || skill == BattleSkill_StatusAttackInebriety
+        || skill == BattleSkill_StatusAttackConfusion
+        || skill == BattleSkill_StatusAttackForget
+        || skill == BattleSkill_StatusAttackPoison2096
+        || skill == BattleSkill_StatusAttackSleep2097
+        || skill == BattleSkill_StatusAttackStone2098
+        || skill == BattleSkill_StatusAttackInebriety2099
+        || skill == BattleSkill_StatusAttackConfusion2100
+        || skill == BattleSkill_StatusAttackForget2101
         || skill == 81
         || skill == 84
         || skill == 85
         || skill == 87
-        || skill == 96
-        || skill == 94
-        || skill == 5
-        || skill == 2016
-        || skill == 2008
-        || skill == 2021
-        || skill == 3100) {
+        || skill == BattleSkill_Assassin
+        || skill == BattleSkill_PanicAttack
+        || skill == BattleSkill_GuardBreak
+        || skill == BattleSkill_ShortStrike
+        || skill == BattleSkill_Taunt
+        || skill == BattleSkill_MercyStrike
+        || skill == BattleSkill_SwallowSlash) {
         goto AppendInitialGenericCast;
     }
-    if (skill == 2017) {
+    if (skill == BattleSkill_ShadowHand) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 151);
         cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D6D0[GetBattleValueBand_43BF00(levelIndex + 1)];
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 252);
         goto ReadFirstTarget;
     }
-    if (skill == 2007) {
+    if (skill == BattleSkill_Recklessness) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 151);
         cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->image102C = kAttackImages54D5F4[GetBattleValueBand_43BF00(levelIndex + 1)];
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 252);
         goto ReadFirstTarget;
     }
-    if (skill < 257 || skill >= 4004) {
-        if (skill == 105) {
+    if (skill < BattleSkill_DelayAttack257 || skill >= 4004) {
+        if (skill == BattleSkill_Ranbu) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 161);
             cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->flash1004 = 1;
             goto ReadFirstTarget;
@@ -235,8 +235,8 @@ AppendInitialGenericCast:
         goto ReadFirstTarget;
     }
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 151);
-    if (skill != 257) {
-        if (skill == 258) {
+    if (skill != BattleSkill_DelayAttack257) {
+        if (skill == BattleSkill_DelayAttack258) {
             coordinateIndex15 = cg::world::gBattlePointIndices5536FC[15];
             coordinateIndex5 = cg::world::gBattlePointIndices5536FC[5];
             coordinate15 = cg::world::gBattleGraphicPoints553758[coordinateIndex15][2];
@@ -258,7 +258,7 @@ AppendInitialGenericCast:
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 10);
             goto ReadFirstTarget;
         }
-        if (skill != 262 || levelIndex < 9)
+        if (skill != BattleSkill_FirstAttack || levelIndex < 9)
             goto ReadFirstTarget;
     }
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 75);
@@ -279,7 +279,7 @@ ReadFirstTarget:
         skill81Value = TakeBattleMInteger_438F70(scene);
     if ((mainFlags & 0x800000) != 0)
         TakeBattleMAuxGraphics_43BF30(scene, 0, &primaryGraphic, &mainSecondGraphic, mainFirstImages, mainSecondImages, mainValues);
-    if (skill == 5 || skill == 2016) {
+    if (skill == BattleSkill_GuardBreak || skill == BattleSkill_ShortStrike) {
         clearedMainFlags = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(mainFlags) & ~0x4U);
         mainFlags = clearedMainFlags;
     }
@@ -292,9 +292,9 @@ ReadFirstTarget:
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 115);
             goto SelectSkill260MoveTail;
         }
-        if (skill == 96)
+        if (skill == BattleSkill_Assassin)
             goto SelectSkill260MoveTail;
-        if (skill == 260) {
+        if (skill == BattleSkill_Wattack) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 208);
 // 原函数：0x004392A0。
 AppendSkill260Move206:
@@ -304,28 +304,28 @@ AppendSkill260Move206:
         if (roundCount > 0) {
             movingSource = (*sourcePosition);
             if ((*sourcePosition) == positionOrFlag) {
-                if (skill == 262) {
+                if (skill == BattleSkill_FirstAttack) {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[movingSource], 210);
                     goto AppendPrimaryEffect;
                 }
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[movingSource], 3);
 SelectSkill260MoveTail:
-                if (skill != 260)
+                if (skill != BattleSkill_Wattack)
                     goto AppendPrimaryEffect;
                 goto AppendSkill260Move206;
             }
         }
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 7);
-        if (skill == 262)
+        if (skill == BattleSkill_FirstAttack)
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 210);
         else
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 9);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 10);
-        if (skill == 2008) {
+        if (skill == BattleSkill_Taunt) {
             cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D608[GetBattleValueBand_43BF00(levelIndex + 1)];
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 252);
         } else {
-            if (skill != 2021)
+            if (skill != BattleSkill_MercyStrike)
                 goto SelectSkill260MoveTail;
             cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D694[GetBattleValueBand_43BF00(levelIndex + 1)];
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 252);
@@ -348,7 +348,7 @@ AppendPrimaryEffect:
             (*currentTarget) = *redirectedPosition;
         }
         switch (skill) {
-            case 260:
+            case BattleSkill_Wattack:
                 if ((mainFlags & 0x80000) != 0) {
                     secondaryToken = TakeBattleMInteger_438F70(scene);
                     secondaryConverted = GetBattlePosition_4237E0(secondaryToken);
@@ -380,7 +380,7 @@ AppendPrimaryEffect:
                     }
                 }
                 goto AppendTechniqueEffects;
-            case 94:
+            case BattleSkill_PanicAttack:
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->attackDebuffType1050 = TakeBattleMInteger_438F70(scene);
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 260;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
@@ -396,8 +396,8 @@ AppendPrimaryEffect:
                 }
                 mainAuxIndex = mainScanIndex94;
                 goto AppendMainAuxiliaryEffects;
-            case 5:
-            case 2016:
+            case BattleSkill_GuardBreak:
+            case BattleSkill_ShortStrike:
                 initialReactionPosition = initialPosition;
                 cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->reactionImage1010 = 22341;
                 goto AppendInitialReaction;
@@ -414,19 +414,19 @@ AppendInitialReaction:
 AppendTechniqueEffects:
                 if (levelIndex >= 9) {
                     switch (skill) {
-                        case 257:
+                        case BattleSkill_DelayAttack257:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 74);
                             AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], 2, 0, 15);
                             goto AppendTechniqueMainEffect;
-                        case 259:
+                        case BattleSkill_StatusAttackPoisonStrike:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 74);
                             AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], 0, 0, 15);
                             goto AppendTechniqueMainEffect;
-                        case 260:
+                        case BattleSkill_Wattack:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 74);
                             AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], 1, 0, 15);
                             goto AppendTechniqueMainEffect;
-                        case 262:
+                        case BattleSkill_FirstAttack:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 74);
                             AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], 3, 0, 15);
 // 原函数：0x004392A0。
@@ -527,7 +527,7 @@ AppendMainAuxiliaryEffects:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 76);
                 currentTarget = targetPosition;
                 break;
-            case 2017:
+            case BattleSkill_ShadowHand:
                 secondaryPosition = 0;
                 lastSecondaryPosition = 0;
                 secondaryFlags = 0;
@@ -590,7 +590,7 @@ AppendMainAuxiliaryEffects:
                 }
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 76);
                 break;
-            case 96:
+            case BattleSkill_Assassin:
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 62;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 77);
@@ -618,7 +618,7 @@ AppendMainAuxiliaryEffects:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 73);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 74);
                 break;
-            case 105:
+            case BattleSkill_Ranbu:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 99);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 100);
                 mainAuxIndex = 0;
@@ -636,7 +636,7 @@ AppendMainAuxiliaryEffects:
                 goto AppendTechniqueEffects;
         }
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], 0);
-        if (skill == 2016) {
+        if (skill == BattleSkill_ShortStrike) {
             cg::world::gBattleAllEntries59E980[(*currentTarget)]->payload.battleActor->image102C = kAttackImages54D6BC[GetBattleValueBand_43BF00(levelIndex + 1)];
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], 252);
         }
@@ -677,7 +677,7 @@ AppendLocalCriticalCast:
                 currentTarget = targetPosition;
                 goto ReloadPrimaryFlags;
             }
-            if ((mainFlags & 0x10000000) != 0 || !primaryValue && skill != 6 || (mainFlags & 3) == 0)
+            if ((mainFlags & 0x10000000) != 0 || !primaryValue && skill != BattleSkill_Forcecut || (mainFlags & 3) == 0)
                 goto AppendSkill2008ReactionTail;
             if ((mainFlags & 0x8000) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], 123);
@@ -692,14 +692,14 @@ AppendLocalCriticalCast:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], 121);
                 goto ReloadPrimaryFlags;
             }
-            if (skill != 260) {
-                if (skill != 72 && skill != 2017 && skill != 113) {
+            if (skill != BattleSkill_Wattack) {
+                if (skill != 72 && skill != BattleSkill_ShadowHand && skill != 113) {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], (mainFlags & 2) != 0 ? 165 : 27);
 ReloadPrimaryFlags:
                     currentMainFlags = mainFlags;
                 }
 AppendSkill2008ReactionTail:
-                if (skill == 2008 && (currentMainFlags & 0x20) == 0 && (currentMainFlags & 0x80000) == 0)
+                if (skill == BattleSkill_Taunt && (currentMainFlags & 0x20) == 0 && (currentMainFlags & 0x80000) == 0)
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], 65);
                 goto FindMainNextTarget;
             }
@@ -806,22 +806,23 @@ FindMainNextTarget:
         mainNextTarget = FindBattleMTarget_43B9B0(scene, (*targetPosition), 0);
         if (positionOrFlag)
             AppendBattleSkillTail_424500(scene, (*targetPosition), mainFlags, primaryValue, mainNextTarget);
-        if ((mainFlags & 0x10000000) == 0 && (primaryValue || skill == 6 || mainFlag8 || (mainFlags & 0x100) != 0) && (mainFlags & 0xC000) == 0) {
+        if ((mainFlags & 0x10000000) == 0 && (primaryValue || skill == BattleSkill_Forcecut || mainFlag8
+            || (mainFlags & 0x100) != 0) && (mainFlags & 0xC000) == 0) {
             if ((mainFlags & 0x2000) != 0) {
                 if ((*targetPosition) == *initialPosition && (*sourcePosition) != mainNextTarget)
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 11);
-                if (skill == 257) {
+                if (skill == BattleSkill_DelayAttack257) {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 76);
                     goto HandleMainDeath;
                 }
-                if (skill == 262) {
+                if (skill == BattleSkill_FirstAttack) {
                     mainCompletedActor = cg::world::gBattleAllEntries59E980[*initialPosition];
                     if (mainCompletedActor->payload.battleActor->castSkillLevel1044 >= 9)
                         goto AppendMainCompleted76;
                 }
             } else {
                 mainCompletedTarget = (*targetPosition);
-                if ((*targetPosition) != *initialPosition && skill != 72 && skill != 2017 && skill != 96 && skill != 113) {
+                if ((*targetPosition) != *initialPosition && skill != 72 && skill != BattleSkill_ShadowHand && skill != BattleSkill_Assassin && skill != 113) {
                     if (mainNextTarget < 0)
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[mainCompletedTarget], 11);
                     else
@@ -850,7 +851,7 @@ DeferMainInitialDeath:
         }
         if ((*targetPosition) == *initialPosition)
             goto DeferMainInitialDeath;
-        if (skill == 96)
+        if (skill == BattleSkill_Assassin)
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], 47);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], 46);
 HandleSkill72PostReaction:
@@ -963,7 +964,7 @@ HandleSkill72PostReaction:
             }
         }
 HandleSkill2017PostReaction:
-        if (skill == 2017) {
+        if (skill == BattleSkill_ShadowHand) {
             primaryValue = mainFlags & 1; // 426810：同一W32局部的2017后段快照。
             if ((mainFlags & 1) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], 0);
@@ -1093,12 +1094,12 @@ PrepareInitialTail:
             initialPositionAtTail = initialPosition;
             goto FinalizeInitialActor;
         }
-        if (skill == 257) {
+        if (skill == BattleSkill_DelayAttack257) {
             initialPositionAtTail = initialPosition;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 76);
         } else {
             initialPositionAtTail = initialPosition;
-            if (skill == 262) {
+            if (skill == BattleSkill_FirstAttack) {
                 nextInitialActor = cg::world::gBattleAllEntries59E980[*initialPosition];
                 if (nextInitialActor->payload.battleActor->castSkillLevel1044 >= 9)
                     AppendBattleCast_4392A0(scene, nextInitialActor, 76);
@@ -1133,9 +1134,9 @@ FinalizeInitialActor:
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPositionAtTail], 11);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPositionAtTail], 10);
         }
-        if (skill == 257) {
+        if (skill == BattleSkill_DelayAttack257) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPositionAtTail], 76);
-        } else if (skill == 262) {
+        } else if (skill == BattleSkill_FirstAttack) {
             tailInitialActor = cg::world::gBattleAllEntries59E980[*initialPositionAtTail];
             if (tailInitialActor->payload.battleActor->castSkillLevel1044 >= 9)
                 AppendBattleCast_4392A0(scene, tailInitialActor, 76);
@@ -1303,17 +1304,20 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
     cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->attackModeFF4 = mode;
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 40);
     std::int32_t skill = gBattleMSkill5AAA78;
-    if (skill == 0 || skill == 1 || skill == 3 || skill == 6 || skill == 81 || skill == 84
-        || skill == 85 || skill == 87 || skill == 5 || skill == 2016 || skill == 95 || skill == 3019
-        || skill == 4002 || skill == 3038 || skill == 110 || skill == 2008 || skill == 2021
-        || (skill >= 75 && skill <= 80) || (skill >= 2096 && skill <= 2101)) {
+    if (skill == BattleSkill_ContinuationAttack || skill == BattleSkill_Parameter_DoubleEdgedBlade
+        || skill == BattleSkill_Parameter_AllOrNothing || skill == BattleSkill_Forcecut || skill == 81 || skill == 84
+        || skill == 85 || skill == 87 || skill == BattleSkill_GuardBreak || skill == BattleSkill_ShortStrike
+            || skill == BattleSkill_RandomShot || skill == 3019
+        || skill == 4002 || skill == 3038 || skill == 110 || skill == BattleSkill_Taunt || skill == BattleSkill_MercyStrike
+        || (skill >= BattleSkill_StatusAttackPoison && skill <= BattleSkill_StatusAttackForget)
+            || (skill >= BattleSkill_StatusAttackPoison2096 && skill <= BattleSkill_StatusAttackForget2101)) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
         skill = gBattleMSkill5AAA78;
-    } else if (skill == 105) {
+    } else if (skill == BattleSkill_Ranbu) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->flash1004 = 1;
         skill = gBattleMSkill5AAA78;
-    } else if (skill == 2007) {
+    } else if (skill == BattleSkill_Recklessness) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
         const std::int32_t band = GetBattleValueBand_43BF00(gBattleMSkillLevelIndex5A3A18 + 1);
         const std::int32_t imageCasterPosition = gBattleMCasterPosition5AAA64;
@@ -1323,10 +1327,10 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         imageCasterPayload->image102C = image;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 252);
         skill = gBattleMSkill5AAA78;
-    } else if (skill >= 257 && skill < 4004) {
+    } else if (skill >= BattleSkill_DelayAttack257 && skill < 4004) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
         skill = gBattleMSkill5AAA78;
-        if (skill == 258) {
+        if (skill == BattleSkill_DelayAttack258) {
             const std::int32_t firstXIndex = cg::world::gBattlePointIndices5536FC[15];
             const std::int32_t secondXIndex = cg::world::gBattlePointIndices5536FC[5];
             const std::int32_t firstX = cg::world::gBattleGraphicPoints553758[firstXIndex][2];
@@ -1352,13 +1356,13 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         }
     }
     if (gBattleMSkillLevelIndex5A3A18 >= 9) {
-        if (skill == 266) {
+        if (skill == BattleSkill_Madmax) {
             AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 0, 0, 15);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 245);
-        } else if (skill == 259) {
+        } else if (skill == BattleSkill_StatusAttackPoisonStrike) {
             AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 5, 0, 15);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 245);
-        } else if (skill == 258) {
+        } else if (skill == BattleSkill_DelayAttack258) {
             AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 3, 0, 15);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 245);
         }
@@ -1468,7 +1472,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
                     flags = gBattleMResultFlags5A4A20;
                 } else if ((flags & 0x20000000u) == 0) {
                     const std::int32_t feedbackSkill = gBattleMSkill5AAA78;
-                    if ((feedbackSkill == 95 || feedbackSkill == 3019) && (flags & 0x20u) == 0) {
+                    if ((feedbackSkill == BattleSkill_RandomShot || feedbackSkill == 3019) && (flags & 0x20u) == 0) {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 29);
                     } else if ((feedbackSkill == 4002 || feedbackSkill == 3038) && (flags & 0x20u) == 0) {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 30);
@@ -1482,7 +1486,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         }
         if ((amount != 0 || (flags & 0x108u) != 0) && (flags & 0x2000E000u) == 0) {
             const std::int32_t feedbackSkill = gBattleMSkill5AAA78;
-            const bool specialFeedback = feedbackSkill == 95 || feedbackSkill == 3019
+            const bool specialFeedback = feedbackSkill == BattleSkill_RandomShot || feedbackSkill == 3019
                 || feedbackSkill == 4002 || feedbackSkill == 3038;
             if (specialFeedback && (flags & 0x20u) == 0) {
                 continue;
@@ -1500,7 +1504,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
     }
     if (mode == 3) {
         const std::int32_t finalSkill = gBattleMSkill5AAA78;
-        if ((finalSkill == 266 || finalSkill == 2022) && selfPosition >= 0) {
+        if ((finalSkill == BattleSkill_Madmax || finalSkill == BattleSkill_KarmaCycle) && selfPosition >= 0) {
             const std::int32_t selfCasterPosition = gBattleMCasterPosition5AAA64;
             const std::int32_t restoredFirstImage = selfFirstImage;
             YobiAction* const selfCaster = cg::world::gBattleAllEntries59E980[selfCasterPosition];

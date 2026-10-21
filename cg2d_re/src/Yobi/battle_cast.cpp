@@ -1156,19 +1156,23 @@ void UpdateBattleAction98_40D1D0(YobiAction* const action)
         const std::int32_t skill = payload->castSkill103C;
         std::int32_t type = -1;
         switch (skill) {
-        case 19: case 23: case 27: case 2068: case 2069: case 2070:
+        case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicEarthStrong:
+        case BattleSkill_AttackMagicEarthSuper: case 2068: case 2069: case 2070:
             type = 0;
             break;
-        case 20: case 24: case 28: case 2071: case 2072: case 2073:
+        case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicWaterStrong:
+        case BattleSkill_AttackMagicWaterSuper: case 2071: case 2072: case 2073:
             type = 1;
             break;
-        case 21: case 25: case 29: case 2074: case 2075: case 2076:
+        case BattleSkill_AttackMagicFire: case BattleSkill_AttackMagicFireStrong:
+        case BattleSkill_AttackMagicFireSuper: case 2074: case 2075: case 2076:
             type = 2;
             break;
-        case 22: case 26: case 30: case 2077: case 2078: case 2079:
+        case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicWindStrong:
+        case BattleSkill_AttackMagicWindSuper: case 2077: case 2078: case 2079:
             type = 3;
             break;
-        case 31: case 3037:
+        case BattleSkill_Dorain: case 3037:
             type = 4;
             break;
         default:
@@ -2202,32 +2206,32 @@ void UpdateBattleAction139_410000(YobiAction* const action)
     const std::int32_t event = action->frameEvent;
     if (event >= 10000 && event < 20000) {
         YobiAction* const eventEffect = action->battleCastEffect10;
-        if (eventEffect != nullptr && payload->castSkill103C != 402) {
+        if (eventEffect != nullptr && payload->castSkill103C != BattleSkill_Barrier) {
             static_cast<void>(MarkDeath(eventEffect));
             action->battleCastEffect10 = nullptr;
             const std::int32_t skill = payload->castSkill103C;
             bool moveSpecialTarget = false;
-            if (skill == 98) {
+            if (skill == BattleSkill_Dance) {
                 const std::int32_t attribute = payload->skill98Mode1048;
                 moveSpecialTarget = attribute == 12 || attribute == 13;
             }
             if (moveSpecialTarget) {
                 MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[payload->targetPosition100C]);
-            } else if (skill == 97) {
+            } else if (skill == BattleSkill_EarthQuake) {
                 gYobiScreenOffsetMaximumAmplitude = 6;
                 gYobiScreenOffsetRising = 1;
                 static_cast<void>(audio::PlaySe_52C450(5, 320));
                 static_cast<void>(audio::PlaySe_52C450(262, 320));
             } else {
-                if ((skill >= 50 && skill <= 53) || skill == 88) {
+                if ((skill >= BattleSkill_TreatTypeEarth && skill <= BattleSkill_TreatTypeWind) || skill == 88) {
                     if (payload->effects1C[payload->effectRunningC9C].position != -1) {
                         static_cast<void>(audio::PlaySe_52C450(275, action->x));
                         std::int32_t imageNo = 0;
                         switch (payload->castSkill103C) {
-                        case 50: imageNo = 110092; break;
-                        case 51: imageNo = 110089; break;
-                        case 52: imageNo = 110090; break;
-                        case 53: imageNo = 110091; break;
+                        case BattleSkill_TreatTypeEarth: imageNo = 110092; break;
+                        case BattleSkill_TreatTypeWater: imageNo = 110089; break;
+                        case BattleSkill_TreatTypeFire: imageNo = 110090; break;
+                        case BattleSkill_TreatTypeWind: imageNo = 110091; break;
                         case 88: imageNo = 110155; break;
                         default: break;
                         }
@@ -2236,7 +2240,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         }
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                     }
-                } else if (skill == 405) {
+                } else if (skill == BattleSkill_LvSet) {
                     static_cast<void>(audio::PlaySe_52C450(275, action->x));
                     static_cast<void>(NewBattleBackgroundFade_421570(
                         payload->effects1C[payload->effectRunningC9C].position4, 1, 1));
@@ -2314,8 +2318,9 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         temporary.reset();
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                     }
-                } else if ((skill >= 19 && skill <= 30) || (skill >= 2068 && skill <= 2079)
-                    || (skill >= 2055 && skill <= 2057) || skill == 31 || skill == 3037) {
+                } else if ((skill >= BattleSkill_AttackMagicEarth && skill <= BattleSkill_AttackMagicWindSuper)
+                    || (skill >= 2068 && skill <= 2079)
+                    || (skill >= 2055 && skill <= 2057) || skill == BattleSkill_Dorain || skill == 3037) {
                     std::int32_t type = -1;
                     if (skill == 2070) {
                         type = 44;
@@ -2361,7 +2366,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
             static_cast<void>(MarkDeath(completedEffect));
             action->battleCastEffect10 = nullptr;
             do {
-                if (payload->castSkill103C == 402) {
+                if (payload->castSkill103C == BattleSkill_Barrier) {
                     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[
                         payload->effects1C[payload->effectRunningC9C].position]);
                 }
@@ -2373,19 +2378,23 @@ void UpdateBattleAction139_410000(YobiAction* const action)
     if (action->battleCastEffect10 != nullptr) {
         std::int32_t type = -1;
         switch (payload->castSkill103C) {
-        case 19: case 23: case 27: case 2068: case 2069: case 2070:
+        case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicEarthStrong:
+        case BattleSkill_AttackMagicEarthSuper: case 2068: case 2069: case 2070:
             type = 0;
             break;
-        case 20: case 24: case 28: case 2071: case 2072: case 2073:
+        case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicWaterStrong:
+        case BattleSkill_AttackMagicWaterSuper: case 2071: case 2072: case 2073:
             type = 1;
             break;
-        case 21: case 25: case 29: case 2074: case 2075: case 2076:
+        case BattleSkill_AttackMagicFire: case BattleSkill_AttackMagicFireStrong:
+        case BattleSkill_AttackMagicFireSuper: case 2074: case 2075: case 2076:
             type = 2;
             break;
-        case 22: case 26: case 30: case 2077: case 2078: case 2079:
+        case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicWindStrong:
+        case BattleSkill_AttackMagicWindSuper: case 2077: case 2078: case 2079:
             type = 3;
             break;
-        case 31: case 3037:
+        case BattleSkill_Dorain: case 3037:
             type = 4;
             break;
         default:
@@ -2407,10 +2416,10 @@ void UpdateBattleAction140_410730(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     const std::int32_t skill = payload->castSkill103C;
-    if ((skill >= 19 && skill <= 30) || (skill >= 2068 && skill <= 2079)
-        || (skill >= 2055 && skill <= 2057) || skill == 31 || skill == 3037) {
+    if ((skill >= BattleSkill_AttackMagicEarth && skill <= BattleSkill_AttackMagicWindSuper) || (skill >= 2068 && skill <= 2079)
+        || (skill >= 2055 && skill <= 2057) || skill == BattleSkill_Dorain || skill == 3037) {
         static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 35, 0, 0));
-    } else if (skill >= 61 && skill <= 63) {
+    } else if (skill >= BattleSkill_HealMagic && skill <= BattleSkill_HealMagicSuper) {
         AdvanceBattleCastState_439340(world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position]);
     }
@@ -2432,7 +2441,7 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
         }
     } else {
         const std::int32_t skill = payload->castSkill103C;
-        if (skill == 98) {
+        if (skill == BattleSkill_Dance) {
             imageNo = payload->skill98Mode1048 + 110075;
         } else if (skill == 2002) {
             imageNo = 110075;
@@ -2553,10 +2562,10 @@ void UpdateBattleAction145_411290(YobiAction* const action)
     const std::int32_t skill = action->payload.battleActor->castSkill103C;
     std::int32_t imageNo = -1;
     switch (skill) {
-    case 50: imageNo = 110092; break;
-    case 51: imageNo = 110089; break;
-    case 52: imageNo = 110090; break;
-    case 53: imageNo = 110091; break;
+    case BattleSkill_TreatTypeEarth: imageNo = 110092; break;
+    case BattleSkill_TreatTypeWater: imageNo = 110089; break;
+    case BattleSkill_TreatTypeFire: imageNo = 110090; break;
+    case BattleSkill_TreatTypeWind: imageNo = 110091; break;
     default: break;
     }
     if (imageNo >= 0) {
@@ -3060,7 +3069,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                         const auto* const attackerPayload = static_cast<const BattleActorPayload*>(attacker->payload.battleActor);
                         std::int32_t imageNo;
                         std::int32_t direction = 0;
-                        if (attackerPayload->castSkill103C == 260) {
+                        if (attackerPayload->castSkill103C == BattleSkill_Wattack) {
                             const std::int32_t level = attackerPayload->castSkillLevel1044;
                             if (level >= 12) {
                                 imageNo = 111054;
@@ -3369,7 +3378,7 @@ void UpdateBattleAction216_413400(YobiAction* const action)
                     break;
                 }
                 static_cast<void>(SeedBattleRandom_4065A0(position + payload->battlePosition18));
-                if (payload->castSkill103C == 400) {
+                if (payload->castSkill103C == BattleSkill_MonWind) {
                     static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 35, 0, 0));
                 }
                 const std::int32_t currentIndex = payload->effectRunningC9C;
@@ -3395,9 +3404,9 @@ void UpdateBattleAction216_413400(YobiAction* const action)
     }
     if (action->battleCastEffect10 != nullptr) {
         const std::int32_t skill = payload->castSkill103C;
-        if (skill == 400) {
+        if (skill == BattleSkill_MonWind) {
             static_cast<void>(DrawBattleTiledEffect_41E890(3));
-        } else if (skill == 401) {
+        } else if (skill == BattleSkill_Acid) {
             static_cast<void>(DrawBattleTiledEffect_41E890(1));
         }
     }
@@ -3674,7 +3683,7 @@ std::int32_t UpdateBattleAction222_413E90(YobiAction* const action)
     if (GetBattleDistance_406300(action,
         cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 20) {
         const std::int32_t skill = payload->castSkill103C;
-        if (skill != 266 && skill != 2022) {
+        if (skill != BattleSkill_Madmax && skill != BattleSkill_KarmaCycle) {
             static_cast<void>(MarkDeath(action));
             static_cast<void>(audio::PlaySe_52C450(216, action->x));
             MoveBattleByAngle_405EA0(action);

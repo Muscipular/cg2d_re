@@ -114,19 +114,19 @@ std::int32_t GetBattlePosition_4237E0(const std::int32_t position)
 std::uint8_t IsBattleAppendEffectSkill_43BD00(const std::int32_t skill)
 {
     switch (skill) {
-    case 8:
-    case 11:
-    case 2006:
-    case 2019:
-    case 2027:
+    case BattleSkill_SpecialGuard:
+    case BattleSkill_CrossCounter:
+    case BattleSkill_Concentration:
+    case BattleSkill_SoloDance:
+    case BattleSkill_Adrenaline:
         return 1;
     default:
         break;
     }
-    return (skill >= 55 && skill <= 60)
-        || (skill >= 64 && skill <= 66)
-        || (skill >= 2010 && skill <= 2012)
-        || (skill >= 2014 && skill <= 2015)
+    return (skill >= BattleSkill_ReflectionPhysics && skill <= BattleSkill_IneffectiveMagic)
+        || (skill >= BattleSkill_LpRecovery && skill <= BattleSkill_LpRecoverySuper)
+        || (skill >= BattleSkill_ElementalAmplification && skill <= BattleSkill_DefensiveBarrier)
+        || (skill >= BattleSkill_BattleCommand && skill <= BattleSkill_BideTime)
         || (skill >= 2050 && skill <= 2052)
         || (skill >= 2058 && skill <= 2067)
         || (skill >= 2089 && skill <= 2095)

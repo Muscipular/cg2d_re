@@ -1492,7 +1492,8 @@ void InitBattleScreenYEffect_4234B0(
     }
     const std::int32_t skill = sourcePayload->castSkill103C;
     std::int32_t image;
-    if (skill == 20 || skill == 24 || skill == 28) {
+    if (skill == BattleSkill_AttackMagicWater || skill == BattleSkill_AttackMagicWaterStrong
+        || skill == BattleSkill_AttackMagicWaterSuper) {
         image = sourcePayload->image102C;
     } else {
         const std::int32_t imageOffset = platform::RandomRange_46FAF0(0, 2);

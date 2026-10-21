@@ -33,6 +33,8 @@ static constexpr std::array<std::array<std::int32_t, 5>, 8> kBattleMStatusBandIm
 }};
 
 // 原54D738..54D864，按真实等级直接索引，重复图号不取消列。
+// BSI01：各行对应独立技能；仅凭图号不能确认名称，2058～2067／2089～2095仍保留技能编号。
+// 2091～2095当前使用111083～111087；用户资料为111183～111187，尚未消解差异，不改表值。
 static constexpr std::array<std::array<std::int32_t, 5>, 15> kBattleMStatusImages54D738 {{ // 原常量参考：0x0054D738。
     {111167, 111167, 111167, 111167, 111167},
     {111168, 111168, 111168, 111168, 111168},
@@ -52,6 +54,7 @@ static constexpr std::array<std::array<std::int32_t, 5>, 15> kBattleMStatusImage
 }};
 
 // 原54D864..54D93C，前三行2050..2052，后十五行3002..3016。
+// BSI01：仅有独立技能的播放图号依据，业务名称未确认；不得按共享常驻状态图猜名。
 static constexpr std::array<std::array<std::int32_t, 3>, 18> kBattleMStatusImages54D864 {{ // 原常量参考：0x0054D864。
     {111153, 111154, 111155},
     {111156, 111157, 111158},
@@ -112,7 +115,8 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->image1028 = 111001;
         }
-    } else if ((initialSkill >= 64 && initialSkill <= 66) || initialSkill == 68) {
+    } else if ((initialSkill >= BattleSkill_LpRecovery && initialSkill <= BattleSkill_LpRecoverySuper)
+        || initialSkill == BattleSkill_Revive) {
         if (level < 12) {
             const std::int32_t imageCasterPosition = gBattleMCasterPosition5AAA64;
             const std::int32_t imageOffset = kBattleMSkillEffectOffsets553E58[level];
@@ -173,18 +177,19 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
         cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
             ->numberDisplayType1034 = -1;
         const std::int32_t skill = gBattleMSkill5AAA78;
-        if ((skill >= 55 && skill <= 60) || (skill >= 64 && skill <= 67)) {
+        if ((skill >= BattleSkill_ReflectionPhysics && skill <= BattleSkill_IneffectiveMagic)
+            || (skill >= BattleSkill_LpRecovery && skill <= BattleSkill_StatusRecover)) {
             const std::int32_t sourcePosition = gBattleMCasterPosition5AAA64;
             const std::int32_t targetPosition = gBattleMTargetPosition5AAA40;
             const bool sameSide = (sourcePosition == 20 && targetPosition < 10)
                 || (sourcePosition == 21 && targetPosition >= 10);
-            const std::int32_t state = skill <= 60 ? (sameSide ? 190 : 120)
-                : skill <= 66 ? (sameSide ? 180 : 130) : (sameSide ? 183 : 133);
+            const std::int32_t state = skill <= BattleSkill_IneffectiveMagic ? (sameSide ? 190 : 120)
+                : skill <= BattleSkill_LpRecoverySuper ? (sameSide ? 180 : 130) : (sameSide ? 183 : 133);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[targetPosition], state);
-            if (skill == 67 && (gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
+            if (skill == BattleSkill_StatusRecover && (gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 142);
             }
-        } else if (skill >= 32 && skill <= 49) {
+        } else if (skill >= BattleSkill_StatusChangePoison && skill <= BattleSkill_StatusChangeForgetSuper) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 119);
             if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                 continue;
@@ -194,7 +199,10 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             const std::int32_t successfulSkill = gBattleMSkill5AAA78;
             successfulSkillActor->payload.battleActor->castSkill103C = successfulSkill;
             const std::int32_t currentSkill = gBattleMSkill5AAA78;
-            const std::int32_t type = currentSkill >= 32 && currentSkill <= 49 ? (currentSkill - 32) % CG_BATTLE_DEBUFF_TYPE_COUNT + CG_BATTLE_DEBUFF_POISON : CG_BATTLE_DEBUFF_NONE;
+            const std::int32_t type = currentSkill >= BattleSkill_StatusChangePoison
+                && currentSkill <= BattleSkill_StatusChangeForgetSuper
+                ? (currentSkill - BattleSkill_StatusChangePoison) % CG_BATTLE_DEBUFF_TYPE_COUNT + CG_BATTLE_DEBUFF_POISON
+                : CG_BATTLE_DEBUFF_NONE;
             YobiAction* const target = cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
             auto* const targetPayload = target->payload.battleActor;
             if (targetPayload->debuffState13CC != 2 || targetPayload->debuffType13D0 != type) {
@@ -203,12 +211,12 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             targetPayload->debuffType13D0 = type;
             targetPayload->debuffState13CC = 2;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 141);
-        } else if (skill == 54) {
+        } else if (skill == BattleSkill_ReverseType) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 146);
             if ((gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 147);
             }
-        } else if (skill == 68) {
+        } else if (skill == BattleSkill_Revive) {
             const std::int32_t amount = TakeBattleMInteger_438F70(scene);
             ResetBattleCastList_4391E0(gBattleMTargetPosition5AAA40);
             cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->phase = 0;
@@ -223,7 +231,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
                     ->numberDisplayType1034 = 5;
             }
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 40);
-        } else if (skill >= 99 && skill <= 104) {
+        } else if (skill >= BattleSkill_DefUp && skill <= BattleSkill_AglDown) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 157);
             if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                 continue;
@@ -233,13 +241,13 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             const std::int32_t successfulSkill = gBattleMSkill5AAA78;
             successfulSkillActor->payload.battleActor->castSkill103C = successfulSkill;
             switch (gBattleMSkill5AAA78) {
-            case 99: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP; break;
-            case 100: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_DOWN; break;
-            case 101: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_UP; break;
-            case 102: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_DOWN; break;
-            case 103: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_UP; break;
-            case 104: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN; break;
-            case 114: statusType = CG_BATTLE_PARAMETER_EFFECT_RECOVERY_UP; break;
+            case BattleSkill_DefUp: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP; break;
+            case BattleSkill_DefDown: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_DOWN; break;
+            case BattleSkill_AtkUp: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_UP; break;
+            case BattleSkill_AtkDown: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_DOWN; break;
+            case BattleSkill_AglUp: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_UP; break;
+            case BattleSkill_AglDown: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN; break;
+            case BattleSkill_RecoveryUp: statusType = CG_BATTLE_PARAMETER_EFFECT_RECOVERY_UP; break;
             default: break;
             }
             auto* const targetPayload =
@@ -260,8 +268,9 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 45);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 46);
             }
-        } else if (skill == 2006 || (skill >= 2010 && skill <= 2015) || skill == 2027) {
-            if (skill == 2013) {
+        } else if (skill == BattleSkill_Concentration || (skill >= BattleSkill_ElementalAmplification && skill <= BattleSkill_BideTime)
+            || skill == BattleSkill_Adrenaline) {
+            if (skill == BattleSkill_VoodooCurse) {
                 const auto output = std::format(L"performIndex = {}", gBattleMSkillLevelIndex5A3A18);
                 ::OutputDebugStringW(output.c_str());
                 if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
@@ -270,18 +279,19 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             }
             std::int32_t row = 0;
             switch (skill) {
-            case 2010: row = 1; break;
-            case 2011: row = 2; break;
-            case 2012: row = 3; break;
-            case 2013: row = 4; break;
-            case 2015: row = 5; break;
-            case 2014: row = 6; break;
-            case 2027: row = 7; break;
+            case BattleSkill_ElementalAmplification: row = 1; break;
+            case BattleSkill_Blessing: row = 2; break;
+            case BattleSkill_DefensiveBarrier: row = 3; break;
+            case BattleSkill_VoodooCurse: row = 4; break;
+            case BattleSkill_BideTime: row = 5; break;
+            case BattleSkill_BattleCommand: row = 6; break;
+            case BattleSkill_Adrenaline: row = 7; break;
             default: break;
             }
             const std::int32_t band = GetBattleValueBand_43BF00(gBattleMSkillLevelIndex5A3A18 + 1);
             const std::int32_t bandTargetPosition = gBattleMTargetPosition5AAA40;
-            if (skill == 2006 || skill == 2011 || skill == 2013 || skill == 2027) {
+            if (skill == BattleSkill_Concentration || skill == BattleSkill_Blessing || skill == BattleSkill_VoodooCurse
+                || skill == BattleSkill_Adrenaline) {
                 const std::int32_t image = kBattleMStatusBandImages[row][band - 1];
                 YobiAction* const bandTarget = cg::world::gBattleAllEntries59E980[bandTargetPosition];
                 bandTarget->payload.battleActor->image102C = image;
@@ -292,14 +302,17 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
                 bandPayload->image102C = image;
             }
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 252);
-            if (skill == 2011 || skill == 2013 || (gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
+            if (skill == BattleSkill_Blessing || skill == BattleSkill_VoodooCurse || (gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                 continue;
             }
-            const std::int32_t type = skill == 2006 ? CG_BATTLE_EXT_EFFECT_SKILL_2006 : skill == 2010 ? CG_BATTLE_EXT_EFFECT_SKILL_2010 : skill == 2012 ? CG_BATTLE_EXT_EFFECT_SKILL_2012
-                : skill == 2014 ? CG_BATTLE_EXT_EFFECT_SKILL_2014 : skill == 2015 ? CG_BATTLE_EXT_EFFECT_SKILL_2015 : CG_BATTLE_EXT_EFFECT_SKILL_2027;
+            const std::int32_t type = skill == BattleSkill_Concentration ? CG_BATTLE_EXT_EFFECT_SKILL_2006
+                : skill == BattleSkill_ElementalAmplification ? CG_BATTLE_EXT_EFFECT_SKILL_2010
+                : skill == BattleSkill_DefensiveBarrier ? CG_BATTLE_EXT_EFFECT_SKILL_2012
+                : skill == BattleSkill_BattleCommand ? CG_BATTLE_EXT_EFFECT_SKILL_2014
+                : skill == BattleSkill_BideTime ? CG_BATTLE_EXT_EFFECT_SKILL_2015 : CG_BATTLE_EXT_EFFECT_SKILL_2027;
             auto* const targetPayload =
                 cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor;
-            const bool replaceState = skill != 2015 && skill != 2027;
+            const bool replaceState = skill != BattleSkill_BideTime && skill != BattleSkill_Adrenaline;
             if (replaceState && (targetPayload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_EXTENDED || targetPayload->statusEffectType13DC != type)) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 144);
             }
@@ -414,27 +427,27 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
     std::int32_t* const effectImage =
         &cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->image102C;
     switch (gBattleMSkill5AAA78) {
-    case 19: case 23: case 27: {
+    case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicEarthStrong: case BattleSkill_AttackMagicEarthSuper: {
         const std::int32_t index = gBattleMSkillLevelIndex5A3A18;
         *effectImage = index < 12 ? 3 * kBattleMSkillEffectOffsets553E58[index] + 110032 : 111002;
         break;
     }
-    case 20: case 24: case 28: {
+    case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicWaterStrong: case BattleSkill_AttackMagicWaterSuper: {
         const std::int32_t index = gBattleMSkillLevelIndex5A3A18;
         *effectImage = index < 12 ? 3 * kBattleMSkillEffectOffsets553E58[index] + 110020 : 111005;
         break;
     }
-    case 21: case 25: case 29: {
+    case BattleSkill_AttackMagicFire: case BattleSkill_AttackMagicFireStrong: case BattleSkill_AttackMagicFireSuper: {
         const std::int32_t index = gBattleMSkillLevelIndex5A3A18;
         *effectImage = index < 12 ? 3 * kBattleMSkillEffectOffsets553E58[index] + 110140 : 111008;
         break;
     }
-    case 22: case 26: case 30: {
+    case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicWindStrong: case BattleSkill_AttackMagicWindSuper: {
         const std::int32_t index = gBattleMSkillLevelIndex5A3A18;
         *effectImage = index < 12 ? kBattleMSkillEffectOffsets553E58[index] + 110044 : 111011;
         break;
     }
-    case 31: case 3037: {
+    case BattleSkill_Dorain: case 3037: {
         const std::int32_t index = gBattleMSkillLevelIndex5A3A18;
         *effectImage = index < 12 ? kBattleMSkillEffectOffsets553E58[index] + 110063 : 111012;
         break;
@@ -533,7 +546,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
             if ((flags & 0x40u) != 0 && (flags & 0x10000u) == 0) {
                 const std::int32_t skill = gBattleMSkill5AAA78;
                 std::int32_t targetPosition;
-                if (skill == 31 || skill == 3037) {
+                if (skill == BattleSkill_Dorain || skill == 3037) {
                     if ((flags & 0xC00u) != 0) {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 33);
                     }
@@ -594,7 +607,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
                     flags = gBattleMResultFlags5A4A20;
                 } else if ((flags & 0x20000000u) == 0) {
                     const std::int32_t skill = gBattleMSkill5AAA78;
-                    if (skill != 31 && skill != 3037) {
+                    if (skill != BattleSkill_Dorain && skill != 3037) {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],
                             (flags & 2u) != 0 ? 165 : 27);
                         flags = gBattleMResultFlags5A4A20;
@@ -637,7 +650,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
         }
         if ((lastAmount != 0 || (flags & 0x108u) != 0) && (flags & 0x20070000u) == 0) {
             const std::int32_t skill = gBattleMSkill5AAA78;
-            if (skill != 31 && skill != 3037) {
+            if (skill != BattleSkill_Dorain && skill != 3037) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 11);
                 flags = gBattleMResultFlags5A4A20;
                 if ((flags & 0x100u) != 0) {
@@ -699,7 +712,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
                 }
             } else if (lastAmount != 0) {
                 const std::int32_t skill = gBattleMSkill5AAA78;
-                if (skill != 31 && skill != 3037) {
+                if (skill != BattleSkill_Dorain && skill != 3037) {
                     if ((reflectedFlags & 3u) != 0) {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
                             (gBattleMResultFlags5A4A20 & 2u) != 0 ? 165 : 27);
@@ -744,7 +757,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
         if (lastAmount != 0 || (*reinterpret_cast<const std::uint8_t*>(&gBattleMFlags5ABA84) & 8u) != 0
             || (gBattleMResultFlags5A4A20 & 0x100u) != 0) {
             const std::int32_t skill = gBattleMSkill5AAA78;
-            if (skill != 31 && skill != 3037) {
+            if (skill != BattleSkill_Dorain && skill != 3037) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 11);
                 if ((gBattleMResultFlags5A4A20 & 0x100u) != 0) {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 76);

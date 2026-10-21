@@ -620,7 +620,7 @@ YobiAction* NewBattleEffect_41CD00(
         }
         case 35: {
             const std::int32_t skill = sourcePayload->castSkill103C;
-            const bool fixedTargetMode = skill == 31 || skill == 3037 || skill == 2013;
+            const bool fixedTargetMode = skill == BattleSkill_Dorain || skill == 3037 || skill == BattleSkill_VoodooCurse;
             YobiAction* fixedTarget = nullptr; // 仅fixedTargetMode路径读取，且该路径先赋值。
             if (fixedTargetMode) {
                 fixedTarget = cg::world::gBattleAllEntries59E980[
@@ -630,7 +630,7 @@ YobiAction* NewBattleEffect_41CD00(
             if (action == nullptr) {
                 return nullptr;
             }
-            if (skill == 400) {
+            if (skill == BattleSkill_MonWind) {
                 const std::uint32_t initialFlags = action->flags;
                 auto* const payload = action->payload.battleActor;
                 action->callback = UpdateBattleCarryingEffect_4219D0;
@@ -706,11 +706,14 @@ YobiAction* NewBattleEffect_41CD00(
                 action->offset40 = fixedTarget->offset40;
                 action->offset44 = fixedTarget->offset44;
                 action->pathCountOrDrawOrder_270 = 0;
-            } else if (skill == 19 || skill == 23 || skill == 27) {
+            } else if (skill == BattleSkill_AttackMagicEarth || skill == BattleSkill_AttackMagicEarthStrong
+                || skill == BattleSkill_AttackMagicEarthSuper) {
                 InitBattleOffsetEffect_423040(action, source, UpdateBattleMovingImpactEffect_41BB00);
-            } else if (skill == 22 || skill == 26 || skill == 30) {
+            } else if (skill == BattleSkill_AttackMagicWind || skill == BattleSkill_AttackMagicWindStrong
+                || skill == BattleSkill_AttackMagicWindSuper) {
                 InitBattleCenterEffect_4231D0(action, source, UpdateBattleHomingImpactEffect_41C3B0);
-            } else if (skill == 21 || skill == 25 || skill == 29) {
+            } else if (skill == BattleSkill_AttackMagicFire || skill == BattleSkill_AttackMagicFireStrong
+                || skill == BattleSkill_AttackMagicFireSuper) {
                 InitBattleLowerEffect_423350(action, source, UpdateBattleFrameEventEffect_41B440);
             } else if (skill >= 2068 && skill <= 2079) {
                 InitBattleTargetEffect_422E50(action, source, UpdateBattleImpactSoundEffect_41AF00);
@@ -800,7 +803,7 @@ YobiAction* NewBattleEffect_41CD00(
             case 21: {
                 const std::int32_t skill = sourcePayload->castSkill103C;
                 std::int32_t* level = &sourcePayload->castSkillLevel1044;
-                if (skill == 3100 || skill == 3101) {
+                if (skill == BattleSkill_SwallowSlash || skill == BattleSkill_BladeSoul) {
                     level = &sourcePayload->castLevel1040;
                     --*level;
                 }
@@ -830,12 +833,12 @@ YobiAction* NewBattleEffect_41CD00(
                 std::int32_t lowImage;
                 std::int32_t highImage;
                 switch (type) {
-                case 7: skill = 55; lowImage = 110109; highImage = 111025; break;
-                case 8: skill = 57; lowImage = 110117; highImage = 111027; break;
-                case 9: skill = 59; lowImage = 110125; highImage = 111023; break;
-                case 10: skill = 56; lowImage = 110113; highImage = 111024; break;
-                case 11: skill = 58; lowImage = 110121; highImage = 110121; break;
-                default: skill = 60; lowImage = 110129; highImage = 111022; break;
+                case 7: skill = BattleSkill_ReflectionPhysics; lowImage = 110109; highImage = 111025; break;
+                case 8: skill = BattleSkill_AbsorbPhysics; lowImage = 110117; highImage = 111027; break;
+                case 9: skill = BattleSkill_IneffectivePhysics; lowImage = 110125; highImage = 111023; break;
+                case 10: skill = BattleSkill_ReflectionMagic; lowImage = 110113; highImage = 111024; break;
+                case 11: skill = BattleSkill_AbsorbMagic; lowImage = 110121; highImage = 110121; break;
+                default: skill = BattleSkill_IneffectiveMagic; lowImage = 110129; highImage = 111022; break;
                 }
                 const std::int32_t technique = FindBattleAppendEffectTechnique_43BEA0(
                     skill, source->payload.battleActor->battlePosition18);
@@ -1572,13 +1575,13 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     const float initialY = action->offset44;
     action->x = initialX;
     action->y = static_cast<std::int32_t>(initialY);
-    action->imageNo = parentPayload->castSkill103C == 2022 ? 111141 : 103000;
+    action->imageNo = parentPayload->castSkill103C == BattleSkill_KarmaCycle ? 111141 : 103000;
     action->imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::Boomerang, action->imageNo); // E08／419692。
     action->direction = 0;
     action->pathCountOrDrawOrder_270 = 0;
     payload->battlePosition18 = parentPayload->battlePosition18;
     do {
-        if (parentPayload->castSkill103C == 258) {
+        if (parentPayload->castSkill103C == BattleSkill_DelayAttack258) {
             const std::int32_t level = parentPayload->castSkillLevel1044;
             const std::int32_t image = level < 9 ? 29105 : (level < 12 ? 29106 : 104217);
             static_cast<void>(NewBattleHitEffect_41F5B0(
@@ -1992,16 +1995,20 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
     }
     std::array<std::int32_t, 4> sourceAttributes {};
     switch (sourcePayload->castSkill103C) {
-    case 19: case 23: case 27: case 2068: case 2069: case 2070:
+    case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicEarthStrong: case BattleSkill_AttackMagicEarthSuper:
+    case 2068: case 2069: case 2070:
         sourceAttributes[0] = 1;
         break;
-    case 20: case 24: case 28: case 2071: case 2072: case 2073:
+    case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicWaterStrong: case BattleSkill_AttackMagicWaterSuper:
+    case 2071: case 2072: case 2073:
         sourceAttributes[1] = 1;
         break;
-    case 21: case 25: case 29: case 2074: case 2075: case 2076:
+    case BattleSkill_AttackMagicFire: case BattleSkill_AttackMagicFireStrong: case BattleSkill_AttackMagicFireSuper:
+    case 2074: case 2075: case 2076:
         sourceAttributes[2] = 1;
         break;
-    case 22: case 26: case 30: case 2077: case 2078: case 2079:
+    case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicWindStrong: case BattleSkill_AttackMagicWindSuper:
+    case 2077: case 2078: case 2079:
         sourceAttributes[3] = 1;
         break;
     case 2055: case 2056: case 2057:

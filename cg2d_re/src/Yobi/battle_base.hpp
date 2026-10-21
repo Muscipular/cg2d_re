@@ -36,14 +36,14 @@
 #define CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN 6 // 敏捷下降。
 #define CG_BATTLE_PARAMETER_EFFECT_RECOVERY_UP 7 // 回复能力上升。
 
-// mode=3的扩展类型：业务名称未证，按已确认的技能来源命名；相同图号不合并编号。
-#define CG_BATTLE_EXT_EFFECT_SKILL_2006 0 // 技能2006；动作143的扩展选择值。
-#define CG_BATTLE_EXT_EFFECT_SKILL_2010 4 // 技能2010；动作143的扩展选择值。
-#define CG_BATTLE_EXT_EFFECT_SKILL_2012 5 // 技能2012；动作143的扩展选择值。
-#define CG_BATTLE_EXT_EFFECT_SKILL_2019 7 // 技能2019；动作143的扩展选择值。
-#define CG_BATTLE_EXT_EFFECT_SKILL_2015 8 // 技能2015；当前生产不安排动作143常驻图。
-#define CG_BATTLE_EXT_EFFECT_SKILL_2014 9 // 技能2014；动作143的扩展选择值。
-#define CG_BATTLE_EXT_EFFECT_SKILL_2027 10 // 技能2027；当前生产不安排动作143常驻图。
+// mode=3的扩展类型：宏值是状态类型而非技能号；保留来源编号，相同图号不合并技能。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2006 0 // 集中（用户确认名称）；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2010 4 // 元素增幅（用户确认名称）；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2012 5 // 防御结界（用户确认名称）；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2019 7 // 独舞（用户确认名称）；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2015 8 // 伺机而动（用户确认名称）；当前生产不安排动作143常驻图。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2014 9 // 战斗号令（用户确认名称）；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2027 10 // 肾上腺素（用户确认名称）；当前生产不安排动作143常驻图。
 #define CG_BATTLE_EXT_EFFECT_SKILL_2058_2059 11 // 技能2058／2059；动作143的扩展选择值。
 #define CG_BATTLE_EXT_EFFECT_SKILL_2060_2061 12 // 技能2060／2061；动作143的扩展选择值。
 #define CG_BATTLE_EXT_EFFECT_SKILL_2062_2063 13 // 技能2062／2063；动作143的扩展选择值。
@@ -79,6 +79,140 @@
 namespace cg::yobi {
 
 namespace detail {
+// BSI01：客户端分派技能号；用于gBattleMSkill5AAA78、castSkill103C及skill7C的已归一化消费。
+// 保持各字段为有符号整数，允许未知／Lua技能；不用于原始BattleSkillMeta::skillId注册键。
+// data技术号与所属技能号不一致时取techId / 100；不改变现有205000报文归一化阈值。
+// Strong／Super仅对应data的强力／超强名称；每个成员的业务／用户来源见注释。
+enum BattleSkillDispatchId : std::int32_t {
+    BattleSkill_ContinuationAttack = 0, // 连击；TECH_ContinuationAttack。
+    BattleSkill_Parameter_DoubleEdgedBlade = 1, // 诸刃；TECH_Parameter，名称译名区分共用处理函数。
+    BattleSkill_Parameter_AllOrNothing = 3, // 乾坤一掷；TECH_Parameter，名称译名区分共用处理函数。
+    BattleSkill_SpiracleShot = 4, // 气功弹；TECH_SpiracleShot。
+    BattleSkill_GuardBreak = 5, // 崩击；TECH_GuardBreak／GuardBreakEx。
+    BattleSkill_Forcecut = 6, // 战栗袭心；TECH_Forcecut。
+    BattleSkill_SpecialGuard = 8, // 圣盾；TECH_SpecialGuard。
+    BattleSkill_CrossCounter = 11, // 反击；TECH_CrossCounter。
+    BattleSkill_Consentration = 12, // 明镜止水；保留TECH_Consentration来源拼写，与扩展集中技能不同。
+    BattleSkill_AttackMagicEarth = 19, // 陨石／地魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicWater = 20, // 冰冻／水魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicFire = 21, // 火焰／火魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicWind = 22, // 风刃／风魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicEarthStrong = 23, // 强力陨石／地魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicWaterStrong = 24, // 强力冰冻／水魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicFireStrong = 25, // 强力火焰／火魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicWindStrong = 26, // 强力风刃／风魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicEarthSuper = 27, // 超强陨石／地魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicWaterSuper = 28, // 超强冰冻／水魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicFireSuper = 29, // 超强火焰／火魔法；TECH_Attack_Magic。
+    BattleSkill_AttackMagicWindSuper = 30, // 超强风刃／风魔法；TECH_Attack_Magic。
+    BattleSkill_Dorain = 31, // 吸血魔法；保留TECH_Dorain来源拼写。
+    BattleSkill_StatusChangePoison = 32, // 中毒魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeSleep = 33, // 昏睡魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeStone = 34, // 石化魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeInebriety = 35, // 酒醉魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeConfusion = 36, // 混乱魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeForget = 37, // 遗忘魔法；TECH_StatusChange。
+    BattleSkill_StatusChangePoisonStrong = 38, // 强力中毒魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeSleepStrong = 39, // 强力昏睡魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeStoneStrong = 40, // 强力石化魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeInebrietyStrong = 41, // 强力酒醉魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeConfusionStrong = 42, // 强力混乱魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeForgetStrong = 43, // 强力遗忘魔法；TECH_StatusChange。
+    BattleSkill_StatusChangePoisonSuper = 44, // 超强中毒魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeSleepSuper = 45, // 超强昏睡魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeStoneSuper = 46, // 超强石化魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeInebrietySuper = 47, // 超强酒醉魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeConfusionSuper = 48, // 超强混乱魔法；TECH_StatusChange。
+    BattleSkill_StatusChangeForgetSuper = 49, // 超强遗忘魔法；TECH_StatusChange。
+    BattleSkill_TreatTypeEarth = 50, // 大地的祈祷；TECH_Treat_Type。
+    BattleSkill_TreatTypeWater = 51, // 海洋的祈祷；TECH_Treat_Type。
+    BattleSkill_TreatTypeFire = 52, // 火焰的祈祷；TECH_Treat_Type。
+    BattleSkill_TreatTypeWind = 53, // 云群的祈祷；TECH_Treat_Type。
+    BattleSkill_ReverseType = 54, // 属性反转；TECH_Reverse_Type。
+    BattleSkill_ReflectionPhysics = 55, // 攻击反弹；TECH_Reflection_Physics。
+    BattleSkill_ReflectionMagic = 56, // 魔法反弹；TECH_Reflection_Magic。
+    BattleSkill_AbsorbPhysics = 57, // 攻击吸收；TECH_Absorb_Physics。
+    BattleSkill_AbsorbMagic = 58, // 魔法吸收；TECH_Absorb_Magic。
+    BattleSkill_IneffectivePhysics = 59, // 攻击无效；TECH_Ineffective_Physics。
+    BattleSkill_IneffectiveMagic = 60, // 魔法无效；TECH_Ineffective_Magic。
+    BattleSkill_HealMagic = 61, // 补血魔法；TECH_Heal_Magic。
+    BattleSkill_HealMagicStrong = 62, // 强力补血魔法；TECH_Heal_Magic。
+    BattleSkill_HealMagicSuper = 63, // 超强补血魔法；TECH_Heal_Magic。
+    BattleSkill_LpRecovery = 64, // 恢复魔法；TECH_LpRecovery。
+    BattleSkill_LpRecoveryStrong = 65, // 强力恢复魔法；TECH_LpRecovery。
+    BattleSkill_LpRecoverySuper = 66, // 超强恢复魔法；TECH_LpRecovery。
+    BattleSkill_StatusRecover = 67, // 洁净魔法；TECH_StatusRecover。
+    BattleSkill_Revive = 68, // 气绝回复；TECH_Revive。
+    BattleSkill_NormalAttack = 73, // 攻击；TECH_NormalAttack。
+    BattleSkill_StatusAttackPoison = 75, // 中毒攻击；TECH_StatusAttack默认异常，可被MD:覆盖。
+    BattleSkill_StatusAttackSleep = 76, // 昏睡攻击；TECH_StatusAttack默认异常，可被MD:覆盖。
+    BattleSkill_StatusAttackStone = 77, // 石化攻击；TECH_StatusAttack默认异常，可被MD:覆盖。
+    BattleSkill_StatusAttackInebriety = 78, // 酒醉攻击；TECH_StatusAttack默认异常，可被MD:覆盖。
+    BattleSkill_StatusAttackConfusion = 79, // 混乱攻击；TECH_StatusAttack默认异常，可被MD:覆盖。
+    BattleSkill_StatusAttackForget = 80, // 遗忘攻击；TECH_StatusAttack默认异常，可被MD:覆盖。
+    BattleSkill_PanicAttack = 94, // 混乱攻击；TECH_PanicAttack，随机异常，与79固定混乱不同。
+    BattleSkill_RandomShot = 95, // 乱射；TECH_RandomShot。
+    BattleSkill_Assassin = 96, // 暗杀；TECH_Assassin。
+    BattleSkill_EarthQuake = 97, // 大地之怒；TECH_EarthQuake。
+    BattleSkill_Dance = 98, // 跳舞；TECH_Dance。
+    BattleSkill_DefUp = 99, // 捷舞；TECH_DefUp，防御上升。
+    BattleSkill_DefDown = 100, // 霹雳舞；TECH_DefDown，防御下降。
+    BattleSkill_AtkUp = 101, // 黏巴达舞；TECH_AtkUp，攻击上升。
+    BattleSkill_AtkDown = 102, // 梭舞／灵魂舞；TECH_AtkDown，攻击下降。
+    BattleSkill_AglUp = 103, // 啪啦啪啦舞；TECH_AglUp，敏捷上升。
+    BattleSkill_AglDown = 104, // 浩室舞；TECH_AglDown，敏捷下降。
+    BattleSkill_Ranbu = 105, // 飞燕乱舞；TECH_Ranbu，用户指定105保留Ranbu；挑衅另用2008。
+    BattleSkill_UltimateAttack = 112, // 狮子吼；TECH_UltimateAttack，所属107的技术11201按整数除100。
+    BattleSkill_RecoveryUp = 114, // 回复能力上升；服务器RCVUP宏与客户端独立114路径，当前data缺记录。
+    BattleSkill_DelayAttack257 = 257, // 戒骄戒躁；TECH_DelayAttack，技术25700／100；子类保留编号，所属技能1001。
+    BattleSkill_DelayAttack258 = 258, // 一击必中；TECH_DelayAttack，技术25800／100；子类保留编号，所属技能1002。
+    BattleSkill_StatusAttackPoisonStrike = 259, // 毒击；TECH_StatusAttack，技术25900／100；PUK2_SKILL下默认中毒，与75不合并。
+    BattleSkill_Wattack = 260, // 一石二鸟；TECH_Wattack，技术26000／100，所属技能1004。
+    BattleSkill_FirstAttack = 262, // 迅速果断；TECH_FirstAttack，技术26200／100，所属技能1006。
+    BattleSkill_Copy = 263, // 羊头狗肉；TECH_Copy，技术26300／100，所属技能1007。
+    BattleSkill_Madmax = 266, // 因果报应；TECH_Madmax，技术26600／100，所属技能1010。
+    BattleSkill_MagicMissile = 267, // 精神冲击波；TECH_MagicMissile，技术26700／100，所属技能1011。
+    BattleSkill_MonWind = 400, // 突风；TECH_MonWind，技术40030／100，所属技能257。
+    BattleSkill_Acid = 401, // 酸性攻击；TECH_Acid，技术40130／100，data名称为アシッド。
+    BattleSkill_Barrier = 402, // 屏障；TECH_Barrier，技术40230／100，data名称为バリア。
+    BattleSkill_RiderBreakAttack = 404, // 人宠合击ATK；TECH_RiderBreak，技术40430／100。
+    BattleSkill_LvSet = 405, // 等级控制；TECH_LvSet，技术40530／100。
+    BattleSkill_RiderBreakMind = 406, // 人宠合击MND；TECH_RiderBreak，技术40630／100。
+    BattleSkill_Concentration = 2006, // 集中；用户确认名称，英文为项目译名。
+    BattleSkill_Recklessness = 2007, // 鲁莽；用户确认名称，英文为项目译名。
+    BattleSkill_Taunt = 2008, // 挑衅；用户确认名称，英文为项目译名。用户指定挑衅按2008；105不命名为Taunt。
+    BattleSkill_ElementalAmplification = 2010, // 元素增幅；用户确认名称，英文为项目译名。
+    BattleSkill_Blessing = 2011, // 祝福；用户确认名称，英文为项目译名。
+    BattleSkill_DefensiveBarrier = 2012, // 防御结界；用户确认名称，英文为项目译名。
+    BattleSkill_VoodooCurse = 2013, // 巫毒诅咒；用户确认名称，英文为项目译名。
+    BattleSkill_BattleCommand = 2014, // 战斗号令；用户确认名称，英文为项目译名。
+    BattleSkill_BideTime = 2015, // 伺机而动；用户确认名称，英文为项目译名。
+    BattleSkill_ShortStrike = 2016, // 短击；用户确认名称，英文为项目译名。
+    BattleSkill_ShadowHand = 2017, // 暗影之手；用户确认名称，英文为项目译名。
+    BattleSkill_SoloDance = 2019, // 独舞；用户确认名称，英文为项目译名。
+    BattleSkill_MercyStrike = 2021, // 手下留情；用户确认名称，英文为项目译名。
+    BattleSkill_KarmaCycle = 2022, // 因果轮回；用户确认名称，英文为项目译名。
+    BattleSkill_Adrenaline = 2027, // 肾上腺素；用户确认名称，英文为项目译名。
+    BattleSkill_EmergencyTransfusion = 2028, // 紧急输血；用户确认名称，英文为项目译名。
+    BattleSkill_StatusAttackPoison2096 = 2096, // 独立中毒异常攻击；图号110075及状态位已证，正式名称未确认，保留编号区分75～80。
+    BattleSkill_StatusAttackSleep2097 = 2097, // 独立昏睡异常攻击；图号110076及状态位已证，正式名称未确认，保留编号区分75～80。
+    BattleSkill_StatusAttackStone2098 = 2098, // 独立石化异常攻击；图号110077及状态位已证，正式名称未确认，保留编号区分75～80。
+    BattleSkill_StatusAttackInebriety2099 = 2099, // 独立酒醉异常攻击；图号110078及状态位已证，正式名称未确认，保留编号区分75～80。
+    BattleSkill_StatusAttackConfusion2100 = 2100, // 独立混乱异常攻击；图号110079及状态位已证，正式名称未确认，保留编号区分75～80。
+    BattleSkill_StatusAttackForget2101 = 2101, // 独立遗忘异常攻击；图号110080及状态位已证，正式名称未确认，保留编号区分75～80。
+    BattleSkill_ConfusionShockwave = 3029, // 混乱冲击波；用户确认名称，英文为项目译名。
+    BattleSkill_SwallowSlash = 3100, // 燕斩；用户确认名称，英文为项目译名。
+    BattleSkill_BladeSoul = 3101, // 锋上魂；用户确认名称，英文为项目译名。
+    BattleSkill_WindRendingStrike = 4003, // 裂风击；用户确认名称，英文为项目译名。
+};
+
+// BSI01未命名项仍保留原数字：不能仅凭共享处理入口或图像推导同一业务。
+// 72、81～88、93、106～111、113、117、2002、2005：尚未完成本编号域的名称对应核实。
+// 2050～2052、2058～2067、2089～2095、3002～3016：仅确认独立技能／图号，未提供业务名。
+// 2055～2057、2068～2079、3001、3019、3037、3038、4002：已有分支不足以确定名称。
+// 4004仅作为现有比较的区间上界保留，不据此定义技能名称。
+// 2009鹰眼为用户提供名称，本轮未找到独立消费分支，暂不定义无消费者的枚举项。
+
 // BAF01：BC及相关角色记录的协议位；与BM命中标志、服务器CHAR_BATTLEFLG分别定义。
 // 数值来源及客户端承接差异见 doc/cg2d_battle_actor_flags_spec.md。
 enum BattleCharacterFlag : std::uint32_t {
@@ -222,7 +356,7 @@ struct BattleActorPayload {
     std::int32_t value1030; // 原+1030；共用HP／FP数值、选图参数和动作模式，不能仅命名为伤害值，保留原名；非指针。
     std::int32_t numberDisplayType1034; // 原成员偏移：+0x1034。 427470状态/技能链写入，4107C0/410B00消费的显示及数值类型。
     std::int32_t value1038; // 原+1038；409680作强制命中门禁，40E560兼作动作阶段；统一业务含义未定，保留原名。
-    std::int32_t castSkill103C; // 原成员偏移：+0x103C。
+    std::int32_t castSkill103C; // 原+0x103C；分派技能号，已证常量见BattleSkillDispatchId，保留未知整数。
     std::int32_t castLevel1040; // 原成员偏移：+0x1040。 与1044的技术索引独立。
     std::int32_t castSkillLevel1044; // 原成员偏移：+0x1044。
     std::int32_t skill98Mode1048; // 原成员偏移：+0x1048。 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
@@ -279,7 +413,7 @@ struct BattleScenePayload {
     std::int32_t value70; // 原+70；gBattleMValue5ABA7C快照，既存角色位置又作累计技能重复标记，不能统一叫施法者位置，保留原名。
     std::int32_t defenderPosition74; // 原成员偏移：+0x74。
     std::int32_t targetPosition78; // 原成员偏移：+0x78。
-    std::int32_t skill7C; // 原成员偏移：+0x7C。
+    std::int32_t skill7C; // 原+0x7C；当前场景技能号；原生分派见BattleSkillDispatchId，Lua路径仍承接原始ID。
     std::int32_t technique80; // 原成员偏移：+0x80。
     std::int32_t itemMode84; // 原+84；ITM消息模式，执行状态保存／恢复使用。
     std::int32_t skill98Mode88; // 原+88；技能98模式，执行状态保存／恢复使用。

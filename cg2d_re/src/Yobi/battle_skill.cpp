@@ -101,10 +101,15 @@ static void ProcessBattleMSkillWaitingState(
     const std::int32_t skill98Mode88 = gBattleMSkill98Mode5A4A34;
     if (subState == 2) {
         switch (skill) {
-        case 19: case 20: case 21: case 22: case 23: case 24: case 25:
-        case 26: case 27: case 28: case 29: case 30: case 31:
-        case 61: case 62: case 63: case 83: case 400: case 401: case 402:
-        case 2028: case 2055: case 2056: case 2057:
+        case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicFire:
+        case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicEarthStrong:
+        case BattleSkill_AttackMagicWaterStrong: case BattleSkill_AttackMagicFireStrong:
+        case BattleSkill_AttackMagicWindStrong: case BattleSkill_AttackMagicEarthSuper:
+        case BattleSkill_AttackMagicWaterSuper: case BattleSkill_AttackMagicFireSuper:
+        case BattleSkill_AttackMagicWindSuper: case BattleSkill_Dorain:
+        case BattleSkill_HealMagic: case BattleSkill_HealMagicStrong: case BattleSkill_HealMagicSuper: case 83:
+        case BattleSkill_MonWind: case BattleSkill_Acid: case BattleSkill_Barrier:
+        case BattleSkill_EmergencyTransfusion: case 2055: case 2056: case 2057:
         case 2068: case 2069: case 2070: case 2071: case 2072: case 2073:
         case 2074: case 2075: case 2076: case 2077: case 2078: case 2079:
         case 3037:
@@ -147,34 +152,62 @@ static void ProcessBattleMSkillWaitingState(
     };
     FinishKind kind;
     switch (skill) {
-    case 0: case 1: case 3: case 5: case 6: case 72: case 73:
-    case 75: case 76: case 77: case 78: case 79: case 80: case 81:
-    case 84: case 85: case 87: case 94: case 95: case 96: case 105: case 110: case 113:
-    case 257: case 258: case 259: case 260: case 262: case 266:
-    case 2007: case 2008: case 2016: case 2017: case 2021: case 2022:
-    case 2096: case 2097: case 2098: case 2099: case 2100: case 2101:
-    case 3019: case 3038: case 3100: case 3101: case 4002:
+    case BattleSkill_ContinuationAttack: case BattleSkill_Parameter_DoubleEdgedBlade:
+    case BattleSkill_Parameter_AllOrNothing: case BattleSkill_GuardBreak: case BattleSkill_Forcecut: case 72:
+    case BattleSkill_NormalAttack:
+    case BattleSkill_StatusAttackPoison: case BattleSkill_StatusAttackSleep: case BattleSkill_StatusAttackStone:
+    case BattleSkill_StatusAttackInebriety: case BattleSkill_StatusAttackConfusion:
+    case BattleSkill_StatusAttackForget: case 81:
+    case 84: case 85: case 87: case BattleSkill_PanicAttack: case BattleSkill_RandomShot: case BattleSkill_Assassin:
+    case BattleSkill_Ranbu: case 110: case 113:
+    case BattleSkill_DelayAttack257: case BattleSkill_DelayAttack258: case BattleSkill_StatusAttackPoisonStrike:
+    case BattleSkill_Wattack: case BattleSkill_FirstAttack: case BattleSkill_Madmax:
+    case BattleSkill_Recklessness: case BattleSkill_Taunt: case BattleSkill_ShortStrike: case BattleSkill_ShadowHand:
+    case BattleSkill_MercyStrike: case BattleSkill_KarmaCycle:
+    case BattleSkill_StatusAttackPoison2096: case BattleSkill_StatusAttackSleep2097:
+    case BattleSkill_StatusAttackStone2098: case BattleSkill_StatusAttackInebriety2099:
+    case BattleSkill_StatusAttackConfusion2100: case BattleSkill_StatusAttackForget2101:
+    case 3019: case 3038: case BattleSkill_SwallowSlash: case BattleSkill_BladeSoul: case 4002:
         kind = FinishKind::LastCaster;
         break;
-    case 19: case 20: case 21: case 22: case 23: case 24: case 25:
-    case 26: case 27: case 28: case 29: case 30: case 31: case 82:
-    case 267: case 400: case 401: case 402:
+    case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicFire:
+    case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicEarthStrong: case BattleSkill_AttackMagicWaterStrong:
+    case BattleSkill_AttackMagicFireStrong:
+    case BattleSkill_AttackMagicWindStrong: case BattleSkill_AttackMagicEarthSuper:
+    case BattleSkill_AttackMagicWaterSuper: case BattleSkill_AttackMagicFireSuper:
+    case BattleSkill_AttackMagicWindSuper: case BattleSkill_Dorain: case 82:
+    case BattleSkill_MagicMissile: case BattleSkill_MonWind: case BattleSkill_Acid: case BattleSkill_Barrier:
     case 2055: case 2056: case 2057:
     case 2068: case 2069: case 2070: case 2071: case 2072: case 2073:
     case 2074: case 2075: case 2076: case 2077: case 2078: case 2079:
-    case 3029: case 3037:
+    case BattleSkill_ConfusionShockwave: case 3037:
         kind = FinishKind::OnlyFinish;
         break;
-    case 4: case 12: case 50: case 51: case 52: case 53:
-    case 61: case 62: case 63: case 83: case 88: case 93: case 97:
-    case 107: case 108: case 109: case 114: case 117: case 263: case 405:
-    case 2005: case 4003:
-    case 32: case 33: case 34: case 35: case 36: case 37: case 38: case 39:
-    case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 48: case 49:
-    case 54: case 55: case 56: case 57: case 58: case 59: case 60:
-    case 64: case 65: case 66: case 67: case 68: case 86:
-    case 99: case 100: case 101: case 102: case 103: case 104:
-    case 2006: case 2010: case 2011: case 2012: case 2013: case 2014: case 2015: case 2019: case 2027:
+    case BattleSkill_SpiracleShot: case BattleSkill_Consentration: case BattleSkill_TreatTypeEarth:
+    case BattleSkill_TreatTypeWater: case BattleSkill_TreatTypeFire: case BattleSkill_TreatTypeWind:
+    case BattleSkill_HealMagic: case BattleSkill_HealMagicStrong: case BattleSkill_HealMagicSuper: case 83: case 88:
+    case 93: case BattleSkill_EarthQuake:
+    case 107: case 108: case 109: case BattleSkill_RecoveryUp: case 117: case BattleSkill_Copy: case BattleSkill_LvSet:
+    case 2005: case BattleSkill_WindRendingStrike:
+    case BattleSkill_StatusChangePoison: case BattleSkill_StatusChangeSleep: case BattleSkill_StatusChangeStone:
+    case BattleSkill_StatusChangeInebriety: case BattleSkill_StatusChangeConfusion:
+    case BattleSkill_StatusChangeForget: case BattleSkill_StatusChangePoisonStrong:
+    case BattleSkill_StatusChangeSleepStrong:
+    case BattleSkill_StatusChangeStoneStrong: case BattleSkill_StatusChangeInebrietyStrong:
+    case BattleSkill_StatusChangeConfusionStrong: case BattleSkill_StatusChangeForgetStrong:
+    case BattleSkill_StatusChangePoisonSuper: case BattleSkill_StatusChangeSleepSuper:
+    case BattleSkill_StatusChangeStoneSuper: case BattleSkill_StatusChangeInebrietySuper:
+    case BattleSkill_StatusChangeConfusionSuper: case BattleSkill_StatusChangeForgetSuper:
+    case BattleSkill_ReverseType: case BattleSkill_ReflectionPhysics: case BattleSkill_ReflectionMagic:
+    case BattleSkill_AbsorbPhysics: case BattleSkill_AbsorbMagic: case BattleSkill_IneffectivePhysics:
+    case BattleSkill_IneffectiveMagic:
+    case BattleSkill_LpRecovery: case BattleSkill_LpRecoveryStrong: case BattleSkill_LpRecoverySuper:
+    case BattleSkill_StatusRecover: case BattleSkill_Revive: case 86:
+    case BattleSkill_DefUp: case BattleSkill_DefDown: case BattleSkill_AtkUp: case BattleSkill_AtkDown:
+    case BattleSkill_AglUp: case BattleSkill_AglDown:
+    case BattleSkill_Concentration: case BattleSkill_ElementalAmplification: case BattleSkill_Blessing:
+    case BattleSkill_DefensiveBarrier: case BattleSkill_VoodooCurse: case BattleSkill_BattleCommand:
+    case BattleSkill_BideTime: case BattleSkill_SoloDance: case BattleSkill_Adrenaline:
     case 2050: case 2051: case 2052:
     case 2058: case 2059: case 2060: case 2061: case 2062: case 2063: case 2064: case 2065: case 2066: case 2067:
     case 2089: case 2090: case 2091: case 2092: case 2093: case 2094: case 2095:
@@ -185,19 +218,19 @@ static void ProcessBattleMSkillWaitingState(
     case 106: case 111: case 2002:
         kind = FinishKind::ClearCaster;
         break;
-    case 404: case 406:
+    case BattleSkill_RiderBreakAttack: case BattleSkill_RiderBreakMind:
         kind = FinishKind::BothCasters;
         break;
-    case 112:
+    case BattleSkill_UltimateAttack:
         kind = FinishKind::CasterFlash;
         break;
-    case 98:
+    case BattleSkill_Dance:
         kind = skill98Mode88 == 7 ? FinishKind::EffectTargets : FinishKind::Caster;
         break;
     default:
         return;
     }
-    if (CheckBattleTurnReady_4394A0(scene, skill == 68 ? 1 : 0) != 1) {
+    if (CheckBattleTurnReady_4394A0(scene, skill == BattleSkill_Revive ? 1 : 0) != 1) {
         return;
     }
     switch (kind) {
@@ -209,7 +242,7 @@ static void ProcessBattleMSkillWaitingState(
         if (last != nullptr) {
             auto* const lastPayload = last->payload.battleActor;
             if ((*reinterpret_cast<const unsigned char*>(&lastPayload->flagsFDC) & BattleActorFlag_Dead) == 0) {
-                if (gBattleMSkill5AAA78 == 105) {
+                if (gBattleMSkill5AAA78 == BattleSkill_Ranbu) {
                     lastPayload->flash1004 = 0;
                 }
                 FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C]);
@@ -336,28 +369,29 @@ void ProcessBattleMSkillHeader(
     std::int32_t fpUsed;
     const std::int32_t skill = ReadBattleMSkillHeader(scene, fpUsed);
     switch (skill) {
-    case 4:
+    case BattleSkill_SpiracleShot:
         ProcessBattleMSkill4(scene, payload, fpUsed);
         break;
-    case 61: case 62: case 63: case 83:
+    case BattleSkill_HealMagic: case BattleSkill_HealMagicStrong: case BattleSkill_HealMagicSuper: case 83:
         ProcessBattleMSkill61Family(scene, payload, fpUsed);
         break;
-    case 50: case 51: case 52: case 53: case 88:
+    case BattleSkill_TreatTypeEarth: case BattleSkill_TreatTypeWater: case BattleSkill_TreatTypeFire:
+    case BattleSkill_TreatTypeWind: case 88:
         ProcessBattleMSkill50Family(scene, payload, fpUsed);
         break;
-    case 12:
+    case BattleSkill_Consentration:
         ProcessBattleMSkill12(scene, payload, fpUsed);
         break;
     case 82:
         ProcessBattleMSkill82(scene, payload, fpUsed);
         break;
-    case 97:
+    case BattleSkill_EarthQuake:
         ProcessBattleMSkill97(scene, payload, fpUsed);
         break;
     case 93:
         ProcessBattleMSkill93(scene, payload, fpUsed);
         break;
-    case 98:
+    case BattleSkill_Dance:
         ProcessBattleMSkill98(scene, payload, fpUsed);
         break;
     case 107:
@@ -369,10 +403,10 @@ void ProcessBattleMSkillHeader(
     case 109:
         ProcessBattleMSkill109(scene, payload, fpUsed);
         break;
-    case 112:
+    case BattleSkill_UltimateAttack:
         ProcessBattleMSkill112(scene, payload, fpUsed);
         break;
-    case 114:
+    case BattleSkill_RecoveryUp:
         ProcessBattleMSkill114(scene, payload, fpUsed);
         break;
     case 117:
@@ -381,47 +415,59 @@ void ProcessBattleMSkillHeader(
     case 106: case 111: case 2002:
         ProcessBattleMSkill106Family(scene, payload, fpUsed);
         break;
-    case 99: case 100: case 101: case 102: case 103: case 104:
-    case 2019: case 3001:
+    case BattleSkill_DefUp: case BattleSkill_DefDown: case BattleSkill_AtkUp: case BattleSkill_AtkDown:
+    case BattleSkill_AglUp: case BattleSkill_AglDown:
+    case BattleSkill_SoloDance: case 3001:
         ProcessBattleMSkill99Family(scene, payload, fpUsed);
         break;
-    case 263:
+    case BattleSkill_Copy:
         ProcessBattleMSkill263(scene, payload, fpUsed);
         break;
-    case 400:
+    case BattleSkill_MonWind:
         ProcessBattleMSkill400(scene, payload, fpUsed);
         break;
-    case 401:
+    case BattleSkill_Acid:
         ProcessBattleMSkill401(scene, payload, fpUsed);
         break;
-    case 402:
+    case BattleSkill_Barrier:
         ProcessBattleMSkill402(scene, payload, fpUsed);
         break;
-    case 405:
+    case BattleSkill_LvSet:
         ProcessBattleMSkill405(scene, payload, fpUsed);
         break;
-    case 404: case 406:
+    case BattleSkill_RiderBreakAttack: case BattleSkill_RiderBreakMind:
         ProcessBattleMSkill404Family(scene, payload);
         break;
-    case 267: case 3029:
+    case BattleSkill_MagicMissile: case BattleSkill_ConfusionShockwave:
         ProcessBattleMSkill267(scene, payload, fpUsed, flags9C, feedbackAlternateImageA0);
         break;
-    case 2005: case 4003:
+    case 2005: case BattleSkill_WindRendingStrike:
         ProcessBattleMSkill2005Family(scene, payload, fpUsed);
         break;
-    case 2028:
+    case BattleSkill_EmergencyTransfusion:
         ProcessBattleMSkill2028(scene, payload, fpUsed);
         break;
-    case 3101:
+    case BattleSkill_BladeSoul:
         ProcessBattleMSkill3101(scene, payload, fpUsed);
         break;
-    case 32: case 33: case 34: case 35: case 36: case 37: case 38:
-    case 39: case 40: case 41: case 42: case 43: case 44: case 45:
-    case 46: case 47: case 48: case 49:
-    case 54: case 55: case 56: case 57: case 58: case 59: case 60:
-    case 64: case 65: case 66: case 67: case 68: case 86:
-    case 2006: case 2010: case 2011: case 2012: case 2013: case 2014: case 2015:
-    case 2027: case 2050: case 2051: case 2052:
+    case BattleSkill_StatusChangePoison: case BattleSkill_StatusChangeSleep: case BattleSkill_StatusChangeStone:
+    case BattleSkill_StatusChangeInebriety: case BattleSkill_StatusChangeConfusion:
+    case BattleSkill_StatusChangeForget: case BattleSkill_StatusChangePoisonStrong:
+    case BattleSkill_StatusChangeSleepStrong: case BattleSkill_StatusChangeStoneStrong:
+    case BattleSkill_StatusChangeInebrietyStrong: case BattleSkill_StatusChangeConfusionStrong:
+    case BattleSkill_StatusChangeForgetStrong: case BattleSkill_StatusChangePoisonSuper:
+    case BattleSkill_StatusChangeSleepSuper:
+    case BattleSkill_StatusChangeStoneSuper: case BattleSkill_StatusChangeInebrietySuper:
+    case BattleSkill_StatusChangeConfusionSuper: case BattleSkill_StatusChangeForgetSuper:
+    case BattleSkill_ReverseType: case BattleSkill_ReflectionPhysics: case BattleSkill_ReflectionMagic:
+    case BattleSkill_AbsorbPhysics: case BattleSkill_AbsorbMagic: case BattleSkill_IneffectivePhysics:
+    case BattleSkill_IneffectiveMagic:
+    case BattleSkill_LpRecovery: case BattleSkill_LpRecoveryStrong: case BattleSkill_LpRecoverySuper:
+    case BattleSkill_StatusRecover: case BattleSkill_Revive: case 86:
+    case BattleSkill_Concentration: case BattleSkill_ElementalAmplification: case BattleSkill_Blessing:
+    case BattleSkill_DefensiveBarrier: case BattleSkill_VoodooCurse: case BattleSkill_BattleCommand:
+    case BattleSkill_BideTime:
+    case BattleSkill_Adrenaline: case 2050: case 2051: case 2052:
     case 2058: case 2059: case 2060: case 2061: case 2062:
     case 2063: case 2064: case 2065: case 2066: case 2067:
     case 2089: case 2090: case 2091: case 2092: case 2093: case 2094: case 2095:
@@ -430,8 +476,12 @@ void ProcessBattleMSkillHeader(
     case 3012: case 3013: case 3014: case 3015: case 3016:
         ProcessBattleMSkill32Family(scene, payload, fpUsed);
         break;
-    case 19: case 20: case 21: case 22: case 23: case 24: case 25:
-    case 26: case 27: case 28: case 29: case 30: case 31:
+    case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicFire:
+    case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicEarthStrong: case BattleSkill_AttackMagicWaterStrong:
+    case BattleSkill_AttackMagicFireStrong:
+    case BattleSkill_AttackMagicWindStrong: case BattleSkill_AttackMagicEarthSuper:
+    case BattleSkill_AttackMagicWaterSuper: case BattleSkill_AttackMagicFireSuper:
+    case BattleSkill_AttackMagicWindSuper: case BattleSkill_Dorain:
     case 2055: case 2056: case 2057:
     case 2068: case 2069: case 2070: case 2071: case 2072: case 2073:
     case 2074: case 2075: case 2076: case 2077: case 2078: case 2079:
@@ -440,7 +490,7 @@ void ProcessBattleMSkillHeader(
     case 3037:
         ProcessBattleMSkill19Family(scene, payload, fpUsed, 1, flags9C, feedbackAlternateImageA0);
         break;
-    case 73: {
+    case BattleSkill_NormalAttack: {
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);
         if (mode == 0) {
             const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
@@ -453,7 +503,7 @@ void ProcessBattleMSkillHeader(
         }
         break;
     }
-    case 3100: {
+    case BattleSkill_SwallowSlash: {
         TakeBattleMInteger_438F70(scene);
         const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
         const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
@@ -462,17 +512,24 @@ void ProcessBattleMSkillHeader(
             scene, payload, attackSkill, attackSkillLevel, attackSkillLevelIndex, fpUsed, true);
         break;
     }
-    case 0: case 1: case 3: case 5: case 6: case 72:
-    case 75: case 76: case 77: case 78: case 79: case 80: case 81:
-    case 84: case 85: case 87: case 94: case 95: case 96:
-    case 105: case 110: case 113:
-    case 257: case 258: case 259: case 260: case 262: case 266:
-    case 2007: case 2008: case 2016: case 2017: case 2021: case 2022:
-    case 2096: case 2097: case 2098: case 2099: case 2100: case 2101:
+    case BattleSkill_ContinuationAttack: case BattleSkill_Parameter_DoubleEdgedBlade:
+    case BattleSkill_Parameter_AllOrNothing: case BattleSkill_GuardBreak: case BattleSkill_Forcecut: case 72:
+    case BattleSkill_StatusAttackPoison: case BattleSkill_StatusAttackSleep: case BattleSkill_StatusAttackStone:
+    case BattleSkill_StatusAttackInebriety: case BattleSkill_StatusAttackConfusion:
+    case BattleSkill_StatusAttackForget: case 81:
+    case 84: case 85: case 87: case BattleSkill_PanicAttack: case BattleSkill_RandomShot: case BattleSkill_Assassin:
+    case BattleSkill_Ranbu: case 110: case 113:
+    case BattleSkill_DelayAttack257: case BattleSkill_DelayAttack258: case BattleSkill_StatusAttackPoisonStrike:
+    case BattleSkill_Wattack: case BattleSkill_FirstAttack: case BattleSkill_Madmax:
+    case BattleSkill_Recklessness: case BattleSkill_Taunt: case BattleSkill_ShortStrike: case BattleSkill_ShadowHand:
+    case BattleSkill_MercyStrike: case BattleSkill_KarmaCycle:
+    case BattleSkill_StatusAttackPoison2096: case BattleSkill_StatusAttackSleep2097:
+    case BattleSkill_StatusAttackStone2098: case BattleSkill_StatusAttackInebriety2099:
+    case BattleSkill_StatusAttackConfusion2100: case BattleSkill_StatusAttackForget2101:
     case 3019: case 3038: case 4002: {
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);
         const std::int32_t currentSkill = gBattleMSkill5AAA78;
-        if (currentSkill == 72 || currentSkill == 113 || currentSkill == 2017 || mode == 0) {
+        if (currentSkill == 72 || currentSkill == 113 || currentSkill == BattleSkill_ShadowHand || mode == 0) {
             const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
             const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
             ProcessBattleMSkillAttackTargets(

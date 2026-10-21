@@ -82,29 +82,53 @@ enum class BattlePreviewSkillLayout {
 static BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t skill)
 {
     switch (skill) {
-    case 0: case 1: case 3: case 5: case 6: case 72:
-    case 75: case 76: case 77: case 78: case 79: case 80: case 81:
-    case 84: case 85: case 87: case 94: case 95: case 96: case 105: case 110: case 113:
-    case 257: case 258: case 259: case 260: case 262: case 266:
-    case 2007: case 2008: case 2016: case 2017: case 2021: case 2022:
-    case 2096: case 2097: case 2098: case 2099: case 2100: case 2101:
-    case 3019: case 3038: case 3100: case 3101: case 4002:
+    case BattleSkill_ContinuationAttack: case BattleSkill_Parameter_DoubleEdgedBlade:
+    case BattleSkill_Parameter_AllOrNothing: case BattleSkill_GuardBreak: case BattleSkill_Forcecut: case 72:
+    case BattleSkill_StatusAttackPoison: case BattleSkill_StatusAttackSleep: case BattleSkill_StatusAttackStone:
+    case BattleSkill_StatusAttackInebriety: case BattleSkill_StatusAttackConfusion:
+    case BattleSkill_StatusAttackForget: case 81:
+    case 84: case 85: case 87: case BattleSkill_PanicAttack: case BattleSkill_RandomShot: case BattleSkill_Assassin:
+    case BattleSkill_Ranbu: case 110: case 113:
+    case BattleSkill_DelayAttack257: case BattleSkill_DelayAttack258: case BattleSkill_StatusAttackPoisonStrike:
+    case BattleSkill_Wattack: case BattleSkill_FirstAttack: case BattleSkill_Madmax:
+    case BattleSkill_Recklessness: case BattleSkill_Taunt: case BattleSkill_ShortStrike: case BattleSkill_ShadowHand:
+    case BattleSkill_MercyStrike: case BattleSkill_KarmaCycle:
+    case BattleSkill_StatusAttackPoison2096: case BattleSkill_StatusAttackSleep2097:
+    case BattleSkill_StatusAttackStone2098: case BattleSkill_StatusAttackInebriety2099:
+    case BattleSkill_StatusAttackConfusion2100: case BattleSkill_StatusAttackForget2101:
+    case 3019: case 3038: case BattleSkill_SwallowSlash: case BattleSkill_BladeSoul: case 4002:
         return BattlePreviewSkillLayout::Attack;
-    case 73:
+    case BattleSkill_NormalAttack:
         return BattlePreviewSkillLayout::Mode73;
-    case 4: case 19: case 20: case 21: case 22: case 23: case 24: case 25:
-    case 26: case 27: case 28: case 29: case 30: case 31: case 82: case 97:
-    case 267: case 2005: case 2055: case 2056: case 2057:
+    case BattleSkill_SpiracleShot: case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicWater:
+    case BattleSkill_AttackMagicFire: case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicEarthStrong:
+    case BattleSkill_AttackMagicWaterStrong: case BattleSkill_AttackMagicFireStrong:
+    case BattleSkill_AttackMagicWindStrong: case BattleSkill_AttackMagicEarthSuper:
+    case BattleSkill_AttackMagicWaterSuper: case BattleSkill_AttackMagicFireSuper:
+    case BattleSkill_AttackMagicWindSuper: case BattleSkill_Dorain: case 82: case BattleSkill_EarthQuake:
+    case BattleSkill_MagicMissile: case 2005: case 2055: case 2056: case 2057:
     case 2068: case 2069: case 2070: case 2071: case 2072: case 2073:
     case 2074: case 2075: case 2076: case 2077: case 2078: case 2079:
-    case 3029: case 3037: case 4003:
+    case BattleSkill_ConfusionShockwave: case 3037: case BattleSkill_WindRendingStrike:
         return BattlePreviewSkillLayout::Damage;
-    case 32: case 33: case 34: case 35: case 36: case 37: case 38: case 39:
-    case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47:
-    case 48: case 49: case 54: case 55: case 56: case 57: case 58: case 59: case 60:
-    case 64: case 65: case 66: case 67: case 68: case 86:
-    case 2006: case 2010: case 2011: case 2012: case 2013: case 2014: case 2015:
-    case 2019: case 2027: case 2050: case 2051: case 2052:
+    case BattleSkill_StatusChangePoison: case BattleSkill_StatusChangeSleep: case BattleSkill_StatusChangeStone:
+    case BattleSkill_StatusChangeInebriety: case BattleSkill_StatusChangeConfusion:
+    case BattleSkill_StatusChangeForget: case BattleSkill_StatusChangePoisonStrong:
+    case BattleSkill_StatusChangeSleepStrong:
+    case BattleSkill_StatusChangeStoneStrong: case BattleSkill_StatusChangeInebrietyStrong:
+    case BattleSkill_StatusChangeConfusionStrong: case BattleSkill_StatusChangeForgetStrong:
+    case BattleSkill_StatusChangePoisonSuper: case BattleSkill_StatusChangeSleepSuper:
+    case BattleSkill_StatusChangeStoneSuper: case BattleSkill_StatusChangeInebrietySuper:
+    case BattleSkill_StatusChangeConfusionSuper: case BattleSkill_StatusChangeForgetSuper:
+    case BattleSkill_ReverseType: case BattleSkill_ReflectionPhysics: case BattleSkill_ReflectionMagic:
+    case BattleSkill_AbsorbPhysics: case BattleSkill_AbsorbMagic: case BattleSkill_IneffectivePhysics:
+    case BattleSkill_IneffectiveMagic:
+    case BattleSkill_LpRecovery: case BattleSkill_LpRecoveryStrong: case BattleSkill_LpRecoverySuper:
+    case BattleSkill_StatusRecover: case BattleSkill_Revive: case 86:
+    case BattleSkill_Concentration: case BattleSkill_ElementalAmplification: case BattleSkill_Blessing:
+    case BattleSkill_DefensiveBarrier: case BattleSkill_VoodooCurse: case BattleSkill_BattleCommand:
+    case BattleSkill_BideTime:
+    case BattleSkill_SoloDance: case BattleSkill_Adrenaline: case 2050: case 2051: case 2052:
     case 2058: case 2059: case 2060: case 2061: case 2062: case 2063:
     case 2064: case 2065: case 2066: case 2067:
     case 2089: case 2090: case 2091: case 2092: case 2093: case 2094: case 2095:
@@ -112,28 +136,31 @@ static BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t s
     case 3008: case 3009: case 3010: case 3011: case 3012: case 3013:
     case 3014: case 3015: case 3016:
         return BattlePreviewSkillLayout::ValuesRide;
-    case 61: case 62: case 63: case 83: case 2028:
+    case BattleSkill_HealMagic: case BattleSkill_HealMagicStrong: case BattleSkill_HealMagicSuper: case 83:
+    case BattleSkill_EmergencyTransfusion:
         return BattlePreviewSkillLayout::PairRide;
-    case 99: case 100: case 101: case 102: case 103: case 104:
-    case 107: case 109: case 112: case 114: case 117: case 3001:
+    case BattleSkill_DefUp: case BattleSkill_DefDown: case BattleSkill_AtkUp: case BattleSkill_AtkDown:
+    case BattleSkill_AglUp: case BattleSkill_AglDown:
+    case 107: case 109: case BattleSkill_UltimateAttack: case BattleSkill_RecoveryUp: case 117: case 3001:
         return BattlePreviewSkillLayout::ValuesOnly;
     case 108:
         return BattlePreviewSkillLayout::PairOnly;
-    case 12: case 50: case 51: case 52: case 53: case 88:
+    case BattleSkill_Consentration: case BattleSkill_TreatTypeEarth: case BattleSkill_TreatTypeWater:
+    case BattleSkill_TreatTypeFire: case BattleSkill_TreatTypeWind: case 88:
         return BattlePreviewSkillLayout::SourceValue;
     case 93:
         return BattlePreviewSkillLayout::NamedTargets;
-    case 98:
+    case BattleSkill_Dance:
         return BattlePreviewSkillLayout::Mode98;
-    case 263:
+    case BattleSkill_Copy:
         return BattlePreviewSkillLayout::OptionalPair;
-    case 400: case 401:
+    case BattleSkill_MonWind: case BattleSkill_Acid:
         return BattlePreviewSkillLayout::DirectValues;
-    case 402:
+    case BattleSkill_Barrier:
         return BattlePreviewSkillLayout::Team;
-    case 405:
+    case BattleSkill_LvSet:
         return BattlePreviewSkillLayout::DirectRecords;
-    case 404: case 406:
+    case BattleSkill_RiderBreakAttack: case BattleSkill_RiderBreakMind:
         return BattlePreviewSkillLayout::RideRecords;
     case 106: case 111: case 2002:
         return BattlePreviewSkillLayout::EffectRecords;
@@ -554,7 +581,7 @@ std::int32_t ScanBattleMAttackParticipants_439920(
     for (;;) {
         std::int32_t extraPosition = -1;
         std::int32_t extraFlags = 0;
-        if (currentSkill == 260 && (flags & 0x80000) != 0) {
+        if (currentSkill == BattleSkill_Wattack && (flags & 0x80000) != 0) {
             extraPosition = GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600());
             if (extraPosition != 255) {
                 ++participants[extraPosition];
@@ -568,13 +595,13 @@ std::int32_t ScanBattleMAttackParticipants_439920(
         if ((flags & 0x200) != 0) {
             ++participants[GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600())];
         }
-        if (currentSkill == 260) {
+        if (currentSkill == BattleSkill_Wattack) {
             if ((flags & 0x80000) != 0 && (extraFlags & 0x200) != 0) {
                 ++participants[GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600())];
             }
-        } else if (currentSkill == 94) {
+        } else if (currentSkill == BattleSkill_PanicAttack) {
             static_cast<void>(TakeBattleMPreviewInteger_439600());
-        } else if ((currentSkill == 72 || currentSkill == 2017) && (flags & 1) != 0) {
+        } else if ((currentSkill == 72 || currentSkill == BattleSkill_ShadowHand) && (flags & 1) != 0) {
             extraPosition = GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600());
             ++participants[extraPosition];
             const std::int32_t extraAttackFlags = TakeBattleMPreviewInteger_439600();
@@ -658,7 +685,7 @@ void ScanBattleMParticipants_439B30(
         case BattlePreviewSkillLayout::Attack:
         case BattlePreviewSkillLayout::Mode73: {
             const std::int32_t mode = TakeBattleMPreviewInteger_439600();
-            if (mode == 0 || skill == 72 || skill == 2017 || skill == 113) {
+            if (mode == 0 || skill == 72 || skill == BattleSkill_ShadowHand || skill == 113) {
                 position = ScanBattleMAttackParticipants_439920(skill, participants);
             } else if (mode > 0 && mode <= 4) {
                 readSource();
@@ -695,7 +722,7 @@ void ScanBattleMParticipants_439B30(
             if (layout == BattlePreviewSkillLayout::Damage) {
                 scanTargets(2, true);
             } else if (layout == BattlePreviewSkillLayout::PairRide
-                || layout == BattlePreviewSkillLayout::PairOnly || skill == 68) {
+                || layout == BattlePreviewSkillLayout::PairOnly || skill == BattleSkill_Revive) {
                 scanTargets(2, false);
             } else {
                 scanTargets(1, false);

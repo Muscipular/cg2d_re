@@ -1947,8 +1947,8 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
         if ((gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
             auto* const targetPayload =
                 cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor;
-            targetPayload->statusEffectType13DC = 7;
-            targetPayload->statusEffectMode13D8 = 1;
+            targetPayload->statusEffectType13DC = CG_BATTLE_PARAMETER_EFFECT_RECOVERY_UP;
+            targetPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_PARAMETER;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 143);
             cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
                 ->soundId1018 = 253;
@@ -3294,19 +3294,19 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
             YobiAction* const statusTarget = cg::world::gBattleAllEntries59E980[statusTargetPosition];
             auto* const targetPayload = statusTarget->payload.battleActor;
             switch (statusSkill) {
-            case 99: statusType = 1; break;
-            case 100: statusType = 2; break;
-            case 101: statusType = 3; break;
-            case 102: statusType = 4; break;
-            case 103: statusType = 5; break;
-            case 104: statusType = 6; break;
+            case 99: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP; break;
+            case 100: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_DOWN; break;
+            case 101: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_UP; break;
+            case 102: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_DOWN; break;
+            case 103: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_UP; break;
+            case 104: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN; break;
             default: break;
             }
-            if (targetPayload->statusEffectMode13D8 != 1 || targetPayload->statusEffectType13DC != statusType) {
+            if (targetPayload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_PARAMETER || targetPayload->statusEffectType13DC != statusType) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 144);
             }
             targetPayload->statusEffectType13DC = statusType;
-            targetPayload->statusEffectMode13D8 = 1;
+            targetPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_PARAMETER;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 143);
             const std::int32_t currentSkill = gBattleMSkill5AAA78;
             cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
@@ -3324,11 +3324,11 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
             reapplyTarget->payload.battleActor->castSkill103C = reapplySkill;
             auto* const targetPayload =
                 cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor;
-            if (targetPayload->statusEffectMode13D8 != 1 || targetPayload->statusEffectType13DC != 0) {
+            if (targetPayload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_PARAMETER || targetPayload->statusEffectType13DC != CG_BATTLE_PARAMETER_EFFECT_NONE) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 144);
             }
-            targetPayload->statusEffectType13DC = 0;
-            targetPayload->statusEffectMode13D8 = 1;
+            targetPayload->statusEffectType13DC = CG_BATTLE_PARAMETER_EFFECT_NONE;
+            targetPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_PARAMETER;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 143);
             cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
                 ->soundId1018 = 274;
@@ -3344,13 +3344,13 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
             YobiAction* const statusTarget = cg::world::gBattleAllEntries59E980[statusTargetPosition];
             const std::int32_t remainderDividend = statusLevel - 1;
             auto* const targetPayload = statusTarget->payload.battleActor;
-            const std::int32_t remainder = remainderDividend % 3;
-            if (targetPayload->statusEffectMode13D8 != 3 || targetPayload->statusEffectType13DC != 7 || targetPayload->statusEffectImageIndex13E0 != remainder) {
+            const std::int32_t remainder = remainderDividend % CG_BATTLE_EXT_SKILL_2019_IMAGE_COUNT;
+            if (targetPayload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_EXTENDED || targetPayload->statusEffectType13DC != CG_BATTLE_EXT_EFFECT_SKILL_2019 || targetPayload->statusEffectImageIndex13E0 != remainder) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 144);
             }
-            targetPayload->statusEffectType13DC = 7;
-            targetPayload->statusEffectMode13D8 = 3;
-            targetPayload->statusEffectImageIndex13E0 = (gBattleMSkillLevel5A4A2C - 1) % 3;
+            targetPayload->statusEffectType13DC = CG_BATTLE_EXT_EFFECT_SKILL_2019;
+            targetPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_EXTENDED;
+            targetPayload->statusEffectImageIndex13E0 = (gBattleMSkillLevel5A4A2C - 1) % CG_BATTLE_EXT_SKILL_2019_IMAGE_COUNT;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 143);
             cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
                 ->soundId1018 = 253;

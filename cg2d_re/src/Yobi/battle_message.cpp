@@ -1693,11 +1693,11 @@ static void ProcessBattleMStatusHeader(
             return;
         }
         if (actorPayload->debuffState13CC != state || actorPayload->debuffType13D0 != type) {
-            if (state == 0) {
+            if (state == CG_BATTLE_STATUS_MODE_RESET) {
                 AppendBattleCast_4392A0(scene, current, 142);
-                actorPayload->statusEffectType13DC = -1;
-                actorPayload->statusEffectMode13D8 = 0;
-            } else if (state == 2 || state == 3) {
+                actorPayload->statusEffectType13DC = CG_BATTLE_STATUS_TYPE_CLEAR_REQUEST;
+                actorPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_RESET;
+            } else if (state == CG_BATTLE_STATUS_MODE_DEBUFF || state == CG_BATTLE_STATUS_MODE_EXTENDED) {
                 AppendBattleCast_4392A0(scene, current, 142);
                 actorPayload->statusEffectType13DC = type;
                 actorPayload->statusEffectMode13D8 = state;
@@ -1714,7 +1714,7 @@ static void ProcessBattleMStatusHeader(
             return;
         }
         auto* const actorPayload = actor->payload.battleActor;
-        const std::int32_t mode = TakeBattleMInteger_438F70(scene) <= 0 ? 1 : 3;
+        const std::int32_t mode = TakeBattleMInteger_438F70(scene) <= 0 ? CG_BATTLE_STATUS_MODE_PARAMETER : CG_BATTLE_STATUS_MODE_EXTENDED;
         const std::int32_t type = TakeBattleMInteger_438F70(scene);
         if (actorPayload->statusEffectMode13D8 != mode || actorPayload->statusEffectType13DC != type) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 144);

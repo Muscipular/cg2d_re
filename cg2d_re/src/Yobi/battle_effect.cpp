@@ -2051,17 +2051,17 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     if (payload->effect1054 != nullptr) {
         return nullptr;
     }
-    std::int32_t type = 0;
+    std::int32_t type = CG_BATTLE_DEBUFF_NONE;
     switch (imageNo) {
-    case 110075: payload->flagsFDC |= BattleActorFlag_Poison; type = 1; break;
-    case 110076: payload->flagsFDC |= BattleActorFlag_Sleep; type = 2; break;
-    case 110077: payload->flagsFDC |= BattleActorFlag_Stone; type = 3; break;
-    case 110078: payload->flagsFDC |= BattleActorFlag_Inebriety; type = 4; break;
-    case 110079: payload->flagsFDC |= BattleActorFlag_Confusion; type = 5; break;
-    case 110080: payload->flagsFDC |= BattleActorFlag_Forget; type = 6; break;
+    case 110075: payload->flagsFDC |= BattleActorFlag_Poison; type = CG_BATTLE_DEBUFF_POISON; break;
+    case 110076: payload->flagsFDC |= BattleActorFlag_Sleep; type = CG_BATTLE_DEBUFF_SLEEP; break;
+    case 110077: payload->flagsFDC |= BattleActorFlag_Stone; type = CG_BATTLE_DEBUFF_STONE; break;
+    case 110078: payload->flagsFDC |= BattleActorFlag_Inebriety; type = CG_BATTLE_DEBUFF_INEBRIETY; break;
+    case 110079: payload->flagsFDC |= BattleActorFlag_Confusion; type = CG_BATTLE_DEBUFF_CONFUSION; break;
+    case 110080: payload->flagsFDC |= BattleActorFlag_Forget; type = CG_BATTLE_DEBUFF_FORGET; break;
     default: break;
     }
-    if (type != 0) {
+    if (type != CG_BATTLE_DEBUFF_NONE) {
         auto* const currentPayload = parent->payload.battleActor;
         currentPayload->debuffType13D0 = type;
         currentPayload->debuffState13CC = 2;
@@ -2455,7 +2455,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     action->callback = UpdateBattleStatusEffect_41FCD0;
     auto* const payload = parent->payload.battleActor;
     std::int32_t displayImage = imageNo;
-    if (payload->statusEffectMode13D8 != 3) {
+    if (payload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_EXTENDED) {
         switch (imageNo) {
         case 103018: payload->flagsFDC |= BattleActorFlag_DefenseUp; break;
         case 103019: payload->flagsFDC |= BattleActorFlag_DefenseDown; break;

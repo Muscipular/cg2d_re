@@ -2423,9 +2423,9 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     bool create = true;
     std::int32_t imageNo = 0; // 未选中图号时create必为false，初值不会用于创建。
-    if (payload->statusEffectMode13D8 == 3) {
+    if (payload->statusEffectMode13D8 == CG_BATTLE_STATUS_MODE_EXTENDED) {
         const std::int32_t type = payload->statusEffectType13DC;
-        if (type == 19 || type == 20) {
+        if (type == CG_BATTLE_EXT_EFFECT_SKILL_2089 || type == CG_BATTLE_EXT_EFFECT_SKILL_2090) {
             imageNo = type + 111173;
         } else {
             create = false;
@@ -2438,7 +2438,7 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
             imageNo = 110075;
         } else {
             const std::int32_t type = payload->statusEffectType13DC;
-            if (type >= 1 && type <= 6) {
+            if (type >= CG_BATTLE_DEBUFF_POISON && type <= CG_BATTLE_DEBUFF_FORGET) {
                 imageNo = type + 110074;
             } else {
                 create = false;
@@ -2470,7 +2470,7 @@ void UpdateBattleAction142_410F70(YobiAction* const action)
     // G03：原状态收尾完成后重取载荷，发布当前减益类型并清理变化标记。
     auto* const currentPayload = action->payload.battleActor;
     currentPayload->statusEffectType13DC = currentPayload->debuffType13D0;
-    currentPayload->statusEffectMode13D8 = 0;
+    currentPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_RESET;
 }
 
 // 原函数：0x00410FC0。
@@ -2482,41 +2482,41 @@ void UpdateBattleAction143_410FC0(YobiAction* const action)
     const std::int32_t use = payload->statusEffectMode13D8;
     bool create = true;
     std::int32_t imageNo = 0; // 未选中图号时create必为false，初值不会用于创建。
-    if (use == 1) {
+    if (use == CG_BATTLE_STATUS_MODE_PARAMETER) {
         const std::int32_t type = payload->statusEffectType13DC;
-        if (type >= 1 && type <= 6) {
+        if (type >= CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP && type <= CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN) {
             imageNo = type + 103017;
-        } else if (type == 7) {
+        } else if (type == CG_BATTLE_PARAMETER_EFFECT_RECOVERY_UP) {
             imageNo = 103033;
         } else {
             create = false;
         }
-    } else if (use == 3) {
+    } else if (use == CG_BATTLE_STATUS_MODE_EXTENDED) {
         switch (payload->statusEffectType13DC) {
-        case 0: imageNo = 111100; break;
-        case 4: case 30: case 31: case 32: imageNo = 111099; break;
-        case 5: case 16: case 17: case 18: imageNo = 111098; break;
-        case 7: imageNo = kBattleStatusImages[payload->statusEffectImageIndex13E0]; break;
-        case 9: imageNo = 111152; break;
-        case 11: imageNo = 98254; break;
-        case 12: imageNo = 98252; break;
-        case 13: imageNo = 98257; break;
-        case 14: imageNo = 98255; break;
-        case 15: imageNo = 98258; break;
-        case 33: imageNo = 98273; break;
-        case 34: imageNo = 98261; break;
-        case 35: case 45: imageNo = 98259; break;
-        case 36: imageNo = 98260; break;
-        case 37: imageNo = 98264; break;
-        case 38: imageNo = 98266; break;
-        case 39: imageNo = 98272; break;
-        case 40: imageNo = 98263; break;
-        case 41: imageNo = 98267; break;
-        case 42: imageNo = 98269; break;
-        case 43: imageNo = 98270; break;
-        case 44: imageNo = 98271; break;
-        case 46: imageNo = 98265; break;
-        case 47: imageNo = 98262; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2006: imageNo = 111100; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2010: case CG_BATTLE_EXT_EFFECT_SKILL_2050: case CG_BATTLE_EXT_EFFECT_SKILL_2051: case CG_BATTLE_EXT_EFFECT_SKILL_2052: imageNo = 111099; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2012: case CG_BATTLE_EXT_EFFECT_SKILL_2092_2093: case CG_BATTLE_EXT_EFFECT_SKILL_2094_2095: case CG_BATTLE_EXT_EFFECT_SKILL_2091: imageNo = 111098; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2019: imageNo = kBattleStatusImages[payload->statusEffectImageIndex13E0]; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2014: imageNo = 111152; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2058_2059: imageNo = 98254; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2060_2061: imageNo = 98252; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2062_2063: imageNo = 98257; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2064_2065: imageNo = 98255; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_2066_2067: imageNo = 98258; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3002: imageNo = 98273; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3003: imageNo = 98261; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3004: case CG_BATTLE_EXT_EFFECT_SKILL_3014: imageNo = 98259; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3005: imageNo = 98260; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3006: imageNo = 98264; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3007: imageNo = 98266; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3008: imageNo = 98272; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3009: imageNo = 98263; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3010: imageNo = 98267; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3011: imageNo = 98269; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3012: imageNo = 98270; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3013: imageNo = 98271; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3015: imageNo = 98265; break;
+        case CG_BATTLE_EXT_EFFECT_SKILL_3016: imageNo = 98262; break;
         default: create = false; break;
         }
     } else {

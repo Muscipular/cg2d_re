@@ -194,7 +194,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             const std::int32_t successfulSkill = gBattleMSkill5AAA78;
             successfulSkillActor->payload.battleActor->castSkill103C = successfulSkill;
             const std::int32_t currentSkill = gBattleMSkill5AAA78;
-            const std::int32_t type = currentSkill >= 32 && currentSkill <= 49 ? (currentSkill - 32) % 6 + 1 : 0;
+            const std::int32_t type = currentSkill >= 32 && currentSkill <= 49 ? (currentSkill - 32) % CG_BATTLE_DEBUFF_TYPE_COUNT + CG_BATTLE_DEBUFF_POISON : CG_BATTLE_DEBUFF_NONE;
             YobiAction* const target = cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
             auto* const targetPayload = target->payload.battleActor;
             if (targetPayload->debuffState13CC != 2 || targetPayload->debuffType13D0 != type) {
@@ -233,22 +233,22 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             const std::int32_t successfulSkill = gBattleMSkill5AAA78;
             successfulSkillActor->payload.battleActor->castSkill103C = successfulSkill;
             switch (gBattleMSkill5AAA78) {
-            case 99: statusType = 1; break;
-            case 100: statusType = 2; break;
-            case 101: statusType = 3; break;
-            case 102: statusType = 4; break;
-            case 103: statusType = 5; break;
-            case 104: statusType = 6; break;
-            case 114: statusType = 7; break;
+            case 99: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP; break;
+            case 100: statusType = CG_BATTLE_PARAMETER_EFFECT_DEFENSE_DOWN; break;
+            case 101: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_UP; break;
+            case 102: statusType = CG_BATTLE_PARAMETER_EFFECT_ATTACK_DOWN; break;
+            case 103: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_UP; break;
+            case 104: statusType = CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN; break;
+            case 114: statusType = CG_BATTLE_PARAMETER_EFFECT_RECOVERY_UP; break;
             default: break;
             }
             auto* const targetPayload =
                 cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor;
-            if (targetPayload->statusEffectMode13D8 != 1 || targetPayload->statusEffectType13DC != statusType) {
+            if (targetPayload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_PARAMETER || targetPayload->statusEffectType13DC != statusType) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 144);
             }
             targetPayload->statusEffectType13DC = statusType;
-            targetPayload->statusEffectMode13D8 = 1;
+            targetPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_PARAMETER;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 143);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 37);
         } else if (skill == 86) {
@@ -295,16 +295,16 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             if (skill == 2011 || skill == 2013 || (gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                 continue;
             }
-            const std::int32_t type = skill == 2006 ? 0 : skill == 2010 ? 4 : skill == 2012 ? 5
-                : skill == 2014 ? 9 : skill == 2015 ? 8 : 10;
+            const std::int32_t type = skill == 2006 ? CG_BATTLE_EXT_EFFECT_SKILL_2006 : skill == 2010 ? CG_BATTLE_EXT_EFFECT_SKILL_2010 : skill == 2012 ? CG_BATTLE_EXT_EFFECT_SKILL_2012
+                : skill == 2014 ? CG_BATTLE_EXT_EFFECT_SKILL_2014 : skill == 2015 ? CG_BATTLE_EXT_EFFECT_SKILL_2015 : CG_BATTLE_EXT_EFFECT_SKILL_2027;
             auto* const targetPayload =
                 cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor;
             const bool replaceState = skill != 2015 && skill != 2027;
-            if (replaceState && (targetPayload->statusEffectMode13D8 != 3 || targetPayload->statusEffectType13DC != type)) {
+            if (replaceState && (targetPayload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_EXTENDED || targetPayload->statusEffectType13DC != type)) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 144);
             }
             targetPayload->statusEffectType13DC = type;
-            targetPayload->statusEffectMode13D8 = 3;
+            targetPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_EXTENDED;
             if (replaceState) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 143);
             }
@@ -316,30 +316,30 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             bool useDebuffActions = false;
             if (skill >= 2050 && skill <= 2052) {
                 image = kBattleMStatusImages54D864[skill - 2050][gBattleMSkillLevelIndex5A3A18];
-                type = skill - 2050 + 30;
+                type = skill - 2050 + CG_BATTLE_EXT_EFFECT_SKILL_2050;
             } else if (skill >= 2058 && skill <= 2067) {
                 image = kBattleMStatusImages54D738[skill - 2058][gBattleMSkillLevelIndex5A3A18];
-                type = (skill - 2058) / 2 + 11;
+                type = (skill - 2058) / 2 + CG_BATTLE_EXT_EFFECT_SKILL_2058_2059;
             } else if (skill == 2089) {
                 image = kBattleMStatusImages54D738[13][gBattleMSkillLevelIndex5A3A18];
-                type = 19;
+                type = CG_BATTLE_EXT_EFFECT_SKILL_2089;
                 useDebuffActions = true;
             } else if (skill == 2090) {
                 image = kBattleMStatusImages54D738[14][gBattleMSkillLevelIndex5A3A18];
-                type = 20;
+                type = CG_BATTLE_EXT_EFFECT_SKILL_2090;
                 useDebuffActions = true;
             } else if (skill == 2091) {
                 image = kBattleMStatusImages54D738[10][gBattleMSkillLevelIndex5A3A18];
-                type = 18;
+                type = CG_BATTLE_EXT_EFFECT_SKILL_2091;
             } else if (skill == 2092 || skill == 2093) {
                 image = kBattleMStatusImages54D738[11][gBattleMSkillLevelIndex5A3A18];
-                type = 16;
+                type = CG_BATTLE_EXT_EFFECT_SKILL_2092_2093;
             } else if (skill == 2094 || skill == 2095) {
                 image = kBattleMStatusImages54D738[12][gBattleMSkillLevelIndex5A3A18];
-                type = 17;
+                type = CG_BATTLE_EXT_EFFECT_SKILL_2094_2095;
             } else {
                 image = kBattleMStatusImages54D864[skill - 3002 + 3][gBattleMSkillLevelIndex5A3A18];
-                type = skill - 3002 + 33;
+                type = skill - 3002 + CG_BATTLE_EXT_EFFECT_SKILL_3002;
             }
             cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
                 ->image102C = image;
@@ -349,12 +349,12 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             }
             auto* const targetPayload =
                 cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor;
-            if (targetPayload->statusEffectMode13D8 != 3 || targetPayload->statusEffectType13DC != type) {
+            if (targetPayload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_EXTENDED || targetPayload->statusEffectType13DC != type) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],
                     useDebuffActions ? 142 : 144);
             }
             targetPayload->statusEffectType13DC = type;
-            targetPayload->statusEffectMode13D8 = 3;
+            targetPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_EXTENDED;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],
                 useDebuffActions ? 141 : 143);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 37);

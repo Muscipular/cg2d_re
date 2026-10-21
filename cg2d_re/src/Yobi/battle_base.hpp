@@ -7,6 +7,75 @@
 #include <cstdint>
 #include <type_traits>
 
+// 状态模式／类型宏见 doc/cg2d_yobi_value_naming_spec.md；保留有符号整数常量和完整S32字段。
+// YVN01：statusEffectMode13D8的解释域；RESET仅表示清理／基态，不保证类型值为空。
+#define CG_BATTLE_STATUS_MODE_RESET 0 // 清理／基态。
+#define CG_BATTLE_STATUS_MODE_PARAMETER 1 // 能力变化。
+#define CG_BATTLE_STATUS_MODE_DEBUFF 2 // 普通减益输入。
+#define CG_BATTLE_STATUS_MODE_EXTENDED 3 // 扩展状态。
+
+// ANR清理请求的临时类型值；动作142随后可回写现有减益类型。
+#define CG_BATTLE_STATUS_TYPE_CLEAR_REQUEST (-1)
+
+// 普通减益类型：动作141及NewBattleDebuffEffect共用；与FDC位掩码不同。
+#define CG_BATTLE_DEBUFF_NONE 0 // 无普通减益类型。
+#define CG_BATTLE_DEBUFF_POISON 1 // 中毒。
+#define CG_BATTLE_DEBUFF_SLEEP 2 // 睡眠。
+#define CG_BATTLE_DEBUFF_STONE 3 // 石化。
+#define CG_BATTLE_DEBUFF_INEBRIETY 4 // 醉酒。
+#define CG_BATTLE_DEBUFF_CONFUSION 5 // 混乱。
+#define CG_BATTLE_DEBUFF_FORGET 6 // 遗忘。
+
+// mode=1的能力变化类型；NONE不代表其他模式的0。
+#define CG_BATTLE_PARAMETER_EFFECT_NONE 0 // 不创建新的能力状态图。
+#define CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP 1 // 防御上升。
+#define CG_BATTLE_PARAMETER_EFFECT_DEFENSE_DOWN 2 // 防御下降。
+#define CG_BATTLE_PARAMETER_EFFECT_ATTACK_UP 3 // 攻击上升。
+#define CG_BATTLE_PARAMETER_EFFECT_ATTACK_DOWN 4 // 攻击下降。
+#define CG_BATTLE_PARAMETER_EFFECT_AGILITY_UP 5 // 敏捷上升。
+#define CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN 6 // 敏捷下降。
+#define CG_BATTLE_PARAMETER_EFFECT_RECOVERY_UP 7 // 回复能力上升。
+
+// mode=3的扩展类型：业务名称未证，按已确认的技能来源命名；相同图号不合并编号。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2006 0 // 技能2006；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2010 4 // 技能2010；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2012 5 // 技能2012；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2019 7 // 技能2019；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2015 8 // 技能2015；当前生产不安排动作143常驻图。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2014 9 // 技能2014；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2027 10 // 技能2027；当前生产不安排动作143常驻图。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2058_2059 11 // 技能2058／2059；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2060_2061 12 // 技能2060／2061；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2062_2063 13 // 技能2062／2063；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2064_2065 14 // 技能2064／2065；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2066_2067 15 // 技能2066／2067；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2092_2093 16 // 技能2092／2093；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2094_2095 17 // 技能2094／2095；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2091 18 // 技能2091；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2089 19 // 技能2089；动作141特殊图号。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2090 20 // 技能2090；动作141特殊图号。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2050 30 // 技能2050；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2051 31 // 技能2051；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_2052 32 // 技能2052；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3002 33 // 技能3002；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3003 34 // 技能3003；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3004 35 // 技能3004；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3005 36 // 技能3005；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3006 37 // 技能3006；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3007 38 // 技能3007；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3008 39 // 技能3008；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3009 40 // 技能3009；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3010 41 // 技能3010；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3011 42 // 技能3011；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3012 43 // 技能3012；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3013 44 // 技能3013；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3014 45 // 技能3014；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3015 46 // 技能3015；动作143的扩展选择值。
+#define CG_BATTLE_EXT_EFFECT_SKILL_3016 47 // 技能3016；动作143的扩展选择值。
+
+#define CG_BATTLE_DEBUFF_TYPE_COUNT 6 // 技能32～49循环使用的六种普通减益。
+#define CG_BATTLE_EXT_SKILL_2019_IMAGE_COUNT 3 // 13E0的防御／敏捷／攻击图像变体数。
+
 namespace cg::yobi {
 
 namespace detail {
@@ -182,9 +251,9 @@ struct BattleActorPayload {
     std::int32_t debuffState13CC; // 原成员偏移：+0x13CC。 41F660分配前写2，失败不回滚。
     std::int32_t debuffType13D0; // 原成员偏移：+0x13D0。 41F660六图号对应类型1至6。
     std::array<std::byte, 4> bytes13D4; // 原成员偏移：+0x13D4。 原13D4..13D7：仅保留存储，不解释为减益状态或指针。
-    std::int32_t statusEffectMode13D8; // 原成员偏移：+0x13D8。 427470状态/技能链生产；41FE00按完整W32与3比较。
-    std::int32_t statusEffectType13DC; // 原成员偏移：+0x13DC。 427470状态/技能链生产141/143状态图号选择值。
-    std::int32_t statusEffectImageIndex13E0; // 原成员偏移：+0x13E0。 427470技能链生产索引；143的13DC==7按S32查54D4C0。
+    std::int32_t statusEffectMode13D8; // 原+13D8；CG_BATTLE_STATUS_MODE_*解释域，427470生产、41FE00消费完整W32。
+    std::int32_t statusEffectType13DC; // 原+13DC；按模式使用CG_BATTLE_DEBUFF_*／PARAMETER_EFFECT_*／EXT_EFFECT_*，保留清理哨兵及未知值。
+    std::int32_t statusEffectImageIndex13E0; // 原+13E0；扩展技能2019按S32查54D4C0，变体数见CG_BATTLE_EXT_SKILL_2019_IMAGE_COUNT。
     std::int32_t image13E4; // 原成员偏移：+0x13E4。 427470技能链生产图号；41CD00的type43从重取的源载荷读取。
     BattleSkillMeta skillMeta; // E01：本机具名扩展，分配及完整克隆统一按 sizeof(BattleActorPayload)。
 };

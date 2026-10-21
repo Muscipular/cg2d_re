@@ -22,47 +22,49 @@
 
 下表ID首先表示data技能ID；客户端分派位置要按上一节核对。英文名是候选常量后缀，不改游戏显示名；同一处理函数不代表相同技能效果。
 
+**用户确认的命名优先级（2026-10-21）**：优先采用已核实处理函数的业务名称，去掉TECH_等固定前缀并统一单词分隔；保留可直接检索的函数词干，不另译游戏显示名作为首选。data名称写入中文注释。共享处理函数时，追加已证的异常、元素或范围子类型；子类型尚未确定则保留编号及原因，不合并ID、不猜译名称。函数名与实际实现冲突时，以实现证据为准。
+
 | ID | data名称／类别 | tech处理函数 | 候选后缀 |
 | --- | --- | --- | --- |
 | 0 | 连击 | TECH_ContinuationAttack | ContinuationAttack |
-| 1 | 诸刃 | TECH_Parameter，TR／DR／MR参数 | DoubleEdgedAttack |
-| 3 | 乾坤一掷 | TECH_Parameter，HR／DD参数 | RecklessAttack |
+| 1 | 诸刃 | TECH_Parameter，TR／DR／MR参数 | Parameter类；子类型名待确认，暂保留编号1 |
+| 3 | 乾坤一掷 | TECH_Parameter，HR／DD参数 | Parameter类；子类型名待确认，暂保留编号3 |
 | 4 | 气功弹 | TECH_SpiracleShot | SpiracleShot |
 | 5 | 崩击 | TECH_GuardBreak／GuardBreakEx | GuardBreak |
-| 6 | 战栗袭心 | TECH_Forcecut | ForceCut |
+| 6 | 战栗袭心 | TECH_Forcecut | Forcecut |
 | 7 | 护卫 | TECH_BodyGuard | BodyGuard |
 | 8 | 圣盾 | TECH_SpecialGuard | SpecialGuard |
-| 9 | 阳炎 | TECH_Mikawashi | EvasiveAttack |
+| 9 | 阳炎 | TECH_Mikawashi | Mikawashi |
 | 10 | 防御魔法攻击 | TECH_MagicGuard | MagicGuard |
 | 11 | 反击 | TECH_CrossCounter | CrossCounter |
-| 12 | 明镜止水 | TECH_Consentration | Concentration |
-| 19～22 | 陨石／冰冻／火焰／风刃魔法 | TECH_Attack_Magic | 按元素分别命名，不合并ID |
-| 23～26、27～30 | 上述四系的强力／超强魔法 | TECH_Attack_Magic | 分别保留范围级别 |
-| 31 | 吸血魔法 | TECH_Dorain | DrainMagic |
-| 32～37 | 中毒／昏睡／石化／酒醉／混乱／遗忘魔法 | TECH_StatusChange | 六类状态分别命名 |
-| 38～43、44～49 | 上述六类强力／超强魔法 | TECH_StatusChange | 分别保留范围级别 |
-| 50～53 | 地／水／火／风祈祷 | TECH_Treat_Type | 按四属性分别命名 |
-| 54 | 属性反转 | TECH_Reverse_Type | ReverseAttribute |
-| 55／56 | 攻击／魔法反弹 | TECH_Reflection_Physics／Magic | ReflectPhysical／ReflectMagic |
-| 57／58 | 攻击／魔法吸收 | TECH_Absorb_Physics／Magic | AbsorbPhysical／AbsorbMagic |
-| 59／60 | 攻击／魔法无效 | TECH_Ineffective_Physics／Magic | NullifyPhysical／NullifyMagic |
-| 61～63 | 补血／强力补血／超强补血 | TECH_Heal_Magic | 按范围命名治疗技能 |
-| 64～66 | 恢复／强力恢复／超强恢复 | TECH_LpRecovery | 与即时补血技能分开 |
-| 67 | 洁净魔法 | TECH_StatusRecover | StatusRecovery |
+| 12 | 明镜止水 | TECH_Consentration | Consentration，保留来源函数拼写 |
+| 19～22 | 陨石／冰冻／火焰／风刃魔法 | TECH_Attack_Magic | AttackMagic加已证元素子类型，不合并ID |
+| 23～26、27～30 | 上述四系的强力／超强魔法 | TECH_Attack_Magic | AttackMagic加已证元素及范围子类型 |
+| 31 | 吸血魔法 | TECH_Dorain | Dorain，保留来源函数拼写 |
+| 32～37 | 中毒／昏睡／石化／酒醉／混乱／遗忘魔法 | TECH_StatusChange | StatusChange加六类异常子类型 |
+| 38～43、44～49 | 上述六类强力／超强魔法 | TECH_StatusChange | StatusChange加已证异常及范围子类型 |
+| 50～53 | 地／水／火／风祈祷 | TECH_Treat_Type | TreatType加四属性子类型 |
+| 54 | 属性反转 | TECH_Reverse_Type | ReverseType |
+| 55／56 | 攻击／魔法反弹 | TECH_Reflection_Physics／Magic | ReflectionPhysics／ReflectionMagic |
+| 57／58 | 攻击／魔法吸收 | TECH_Absorb_Physics／Magic | AbsorbPhysics／AbsorbMagic |
+| 59／60 | 攻击／魔法无效 | TECH_Ineffective_Physics／Magic | IneffectivePhysics／IneffectiveMagic |
+| 61～63 | 补血／强力补血／超强补血 | TECH_Heal_Magic | HealMagic加已证范围子类型 |
+| 64～66 | 恢复／强力恢复／超强恢复 | TECH_LpRecovery | LpRecovery加已证范围子类型 |
+| 67 | 洁净魔法 | TECH_StatusRecover | StatusRecover |
 | 68 | 气绝回复 | TECH_Revive | Revive |
 | 73／74 | 攻击／防御 | TECH_NormalAttack／NormalGuard | NormalAttack／NormalGuard |
-| 75～80 | 六类异常状态攻击 | TECH_StatusAttack | 按固定异常类型分别命名 |
+| 75～80 | 六类异常状态攻击 | TECH_StatusAttack | StatusAttack加固定异常子类型，例如StatusAttackConfusion=79 |
 | 94 | 混乱攻击 | TECH_PanicAttack | PanicAttack，见下一节 |
 | 95 | 乱射 | TECH_RandomShot | RandomShot |
-| 96 | 暗杀 | TECH_Assassin | Assassinate |
+| 96 | 暗杀 | TECH_Assassin | Assassin |
 | 97 | 大地之怒 | TECH_EarthQuake | EarthQuake |
 | 98 | 跳舞 | TECH_Dance | Dance |
-| 99 | 捷舞 | TECH_DefUp | DefenseUp |
-| 100 | 霹雳舞 | TECH_DefDown | DefenseDown |
-| 101 | 黏巴达舞 | TECH_AtkUp | AttackUp |
-| 102 | skill表为梭舞，tech表为灵魂舞 | TECH_AtkDown | AttackDown，不按单一显示名定英文 |
-| 103 | 啪啦啪啦舞 | TECH_AglUp | AgilityUp |
-| 104 | 浩室舞 | TECH_AglDown | AgilityDown |
+| 99 | 捷舞 | TECH_DefUp | DefUp |
+| 100 | 霹雳舞 | TECH_DefDown | DefDown |
+| 101 | 黏巴达舞 | TECH_AtkUp | AtkUp |
+| 102 | skill表为梭舞，tech表为灵魂舞 | TECH_AtkDown | AtkDown |
+| 103 | 啪啦啪啦舞 | TECH_AglUp | AglUp |
+| 104 | 浩室舞 | TECH_AglDown | AglDown |
 
 99～104还由服务器include/battle.h的BATTLE_PARAMETER_SKILL_*和客户端状态类型生产共同佐证。114在本data缺失，但服务器RCVUP宏与客户端独立技能114路径可佐证回复能力上升，来源等级与表内技能不同。
 
@@ -70,7 +72,7 @@
 
 两者在skill.txt均名为“混乱攻击”，但不能归入同一个枚举项，也不是“79格斗、94属性攻击”。
 
-- **79：固定混乱异常攻击。** tech.txt的7900～7951系列使用TECH_StatusAttack，所查该技能记录没有MD:覆盖。服务器tech.c注册到BATTLE_COM_M_STATUSATTACK；battle_event.c的BATTLE_StatusAttackCheck在case79默认选择异常类型4，BATTLE_checkStatusChange的type4读取Confusion／更新混乱状态。SK:／MD:及套装覆盖仍属于原有可配置行为，不能据此新增固定限制。候选名ConfusionAttack。
+- **79：固定混乱异常攻击。** tech.txt的7900～7951系列使用TECH_StatusAttack，所查该技能记录没有MD:覆盖。服务器tech.c注册到BATTLE_COM_M_STATUSATTACK；battle_event.c的BATTLE_StatusAttackCheck在case79默认选择异常类型4，BATTLE_checkStatusChange的type4读取Confusion／更新混乱状态。SK:／MD:及套装覆盖仍属于原有可配置行为，不能据此新增固定限制。按用户最新命名优先级，候选名由ConfusionAttack调整为StatusAttackConfusion。
 - **94：格斗系可学的随机异常攻击。** tech.txt的9400～9458系列使用TECH_PanicAttack；9409显示名“狮子奋迅”。服务器注册到BATTLE_COM_P_PANIC，命中后调用BATTLE_PanicCheck，并把返回的异常类型附加到战斗消息；客户端94另读该类型并选择减益图像。候选名PanicAttack，可注释“格斗混乱攻击／随机异常攻击”。
 - **当前服务器的随机集合必须按可达代码解释。** BATTLE_PanicCheck的17439行使用RAND(0,4)，0直接返回；1／2／3／4分别对应睡眠／醉酒／混乱／遗忘。虽保留case5中毒、case6石化，但当前抽取范围不会到达，不能说当前实现随机六种异常。
 - **职业证据**：skilllv.txt第38209～38215行给职业141～147配置技能94等级上限；jobs.txt确认141为见习格斗士、142为格斗士、147为拳圣。94同时也配置给士兵等职业，不能命名为“格斗专属”。79在这些格斗职业的表项上限为0，但有超级职等其他非零记录，不能断言仅宠物／怪物能用。
@@ -111,5 +113,5 @@
 - 本data缺少此前扩展状态映射中的2006、2010、2012、2014、2015、2019、2027、2050～2052、2058～2067、2089～2095和3002～3016。现有CG_BATTLE_EXT_EFFECT_SKILL_*来源宏不能据此改为猜测的业务名称。
 - 服务器宏名也需交叉核实：例如94的历史宏名含RANDOMDANCE，但data函数及当前服务器命中处理为PanicAttack；不直接复制历史命名作为业务结论。
 - 后续若使用枚举，原始技能域与客户端分派域应明确区分，例如BattleSkillId与BattleSkillDispatchId。只为实际需要替换且证据充分的常量定义成员；原始skillId、Lua注册键、协议字段及跨域存储仍保留有符号整数，不限制自定义ID。
-- 普通静态编号用函数／行为语义命名，并注释data显示名、实际来源和编号域；有归一化冲突的项先核完整消息生产链；未确认项保留数字并写明原因。与statusEffectType13DC的状态类型宏保持独立。
+- 普通静态编号优先使用处理函数业务名称，再补已证子类型，中文注释保留data显示名、实际来源和编号域；有归一化冲突的项先核完整消息生产链；未确认项保留数字并写明原因。与statusEffectType13DC的状态类型宏保持独立，不因本次技能命名规则改动已经落地的状态宏。
 - 本轮仅建立分析依据，不自动创建枚举或修改业务。只做显式编码读取、源码／表格静态核对；未编译、运行客户端、计算摘要或新增测试。

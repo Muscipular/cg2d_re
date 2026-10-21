@@ -12,7 +12,7 @@
 
 namespace cg::ui {
 
-// 动态组件直接挂在sortedMap节点；本入口不另外拥有元素或组件数组。
+// 动态组件直接挂在sortedMap独占的稳定对象上；本入口不另外拥有元素或组件数组。
 struct WindowComponentStore {
     WindowInstance& window;
     int nextId = 1;

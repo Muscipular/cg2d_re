@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <string>
 #include <map>
+#include <memory>
 #include <variant>
 #include <set>
 #include <vector>
@@ -194,42 +195,38 @@ struct WindowDragRect {
     std::int32_t height; // 原成员偏移：+0x0C。
 };
 
-// LUR01：元素仅存在有序节点中，ID索引借用稳定节点地址，不复制元素。
+// SEV01：有序vector独占元素对象，ID索引借用稳定对象地址，不复制元素。
 class SortedElementMap {
-    using Storage = std::map<std::pair<std::int32_t, ElementId>, WindowElement>;
+public:
+    using OrderKey = std::pair<std::int32_t, ElementId>; // notifyUpdate发布的排序键。
+    using ElementOwner = std::unique_ptr<WindowElement>; // 活动与退役列表之间转移的唯一owner。
+private:
+    using Storage = std::vector<std::pair<OrderKey, ElementOwner>>;
     Storage values;
     std::unordered_map<ElementId, WindowElement*> byId;
     std::uint32_t traversalDepth = 0;
 public:
-    using node_type = Storage::node_type;
     using iterator = Storage::iterator;
     auto begin() noexcept { return values.begin(); }
     auto end() noexcept { return values.end(); }
     auto begin() const noexcept { return values.begin(); }
     auto end() const noexcept { return values.end(); }
-    auto upper_bound(const Storage::key_type& key) { return values.upper_bound(key); }
+    iterator upper_bound(const OrderKey& key); // 游标按已发布键重新定位，不缓存vector迭代器。
     auto size() const noexcept { return values.size(); }
     bool empty() const noexcept { return values.empty(); }
     void notifyUpdate();
     void beginTraversal() { ++traversalDepth; }
     void endTraversal() { --traversalDepth; }
-    // 按当前(seqNo, elementId)顺序从0查找，跳过逻辑删除项；负数或越界返回nullptr。
-    // O(n)返回借用指针；index是排序位置，增删或notifyUpdate后位置可能改变，不是nativeSlot。
+    bool isTraversing() const noexcept { return traversalDepth != 0; } // 有游标借用时禁止回收退役对象。
+    // O(1)按已发布(seqNo, elementId)顺序从0查找；负数或越界返回nullptr。
+    // 返回借用指针；index不是nativeSlot，增删或notifyUpdate后位置可能改变。
     WindowElement* elementAtIndex(std::int32_t index) noexcept {
-        if (index < 0) return nullptr;
-        for (auto& entry : values) {
-            if (entry.second.removed) continue;
-            if (index-- == 0) return &entry.second;
-        }
-        return nullptr;
+        if (index < 0 || static_cast<std::size_t>(index) >= values.size()) return nullptr;
+        return values[static_cast<std::size_t>(index)].second.get();
     }
     const WindowElement* elementAtIndex(std::int32_t index) const noexcept {
-        if (index < 0) return nullptr;
-        for (const auto& entry : values) {
-            if (entry.second.removed) continue;
-            if (index-- == 0) return &entry.second;
-        }
-        return nullptr;
+        if (index < 0 || static_cast<std::size_t>(index) >= values.size()) return nullptr;
+        return values[static_cast<std::size_t>(index)].second.get();
     }
     // 单次ID查询；不存在或已逻辑删除时返回nullptr，不插入元素。
     WindowElement* FindElementById(ElementId id) noexcept {
@@ -246,23 +243,8 @@ public:
     const WindowElement* FindElementById(E id) const noexcept { return FindElementById(static_cast<ElementId>(id)); }
     WindowElement* operator[](ElementId id) noexcept { return FindElementById(id); }
     const WindowElement* operator[](ElementId id) const noexcept { return FindElementById(id); }
-    auto try_emplace(const Storage::key_type& key, WindowElement element) {
-        auto result = values.try_emplace(key, std::move(element));
-        if (result.second) {
-            try { byId.emplace(key.second, &result.first->second); }
-            catch (...) { values.erase(result.first); throw; }
-        }
-        return result;
-    }
-    node_type extract(iterator it) {
-        byId.erase(it->first.second);
-        return values.extract(it);
-    }
-    void insert(node_type node) {
-        const auto id = node.key().second;
-        auto result = values.insert(std::move(node));
-        byId.insert_or_assign(id, &result.position->second);
-    }
+    WindowElement* insert(ElementId id); // 初始键为(0,id)，失败回滚；重复ID返回nullptr。
+    ElementOwner extract(WindowElement& element) noexcept; // 按对象身份移出，避免误删同ID新对象。
 };
 
 struct WindowInstance {
@@ -283,7 +265,7 @@ struct WindowInstance {
     WindowReleaseCallback release; // 原+38。
     std::int32_t secondaryCount; // 原+3C。
     std::array<WindowDragRect, 10> dragRects40; // 原[+40,+E0)。
-    std::vector<decltype(sortedMap)::node_type> retiredElements;
+    std::vector<SortedElementMap::ElementOwner> retiredElements; // 延迟释放的独占对象，子孙排在父对象前。
     WindowComponentStore* components = nullptr; // 动态组件操作入口；组件由sortedMap元素拥有。
     WindowBinding* binding = nullptr; // LUP01：随窗口释放的外部事件绑定。
     std::uint32_t generation = 0; // LUP01：每次创建实例分配新代次。
@@ -317,7 +299,7 @@ bool WindowRuntime_RemoveElement(WindowInstance& window, ElementId id);
 void WindowRuntime_ClearElements(WindowInstance& window);
 void WindowRuntime_CollectElements(WindowInstance& window);
 void WindowRuntime_DestroyElements(WindowInstance& window);
-// 不保存map迭代器，回调增删后以排序键继续；本轮不处理新建元素。
+// 不保存vector迭代器，回调增删后以已发布排序键继续；本轮不处理新建元素。
 struct WindowElementCursor {
     WindowInstance& window;
     std::pair<std::int32_t, ElementId> key{};

@@ -58,9 +58,10 @@ void WindowRuntime_SetVisible(WindowInstance& window, bool visible) {
     if (window.id >= 0 && window.id < WIN_MAX) {
         window.scriptHidden = !visible;
         if (!visible) {
-            for (const auto& [id, element] : window.sortedMap) {
-                if (element.type == WindowElementType_Input && element.data.input
-                    && gCurrentInputData == element.data.input->context) detail::WindowChat_RestoreInput();
+            WindowElementCursor cursor(window);
+            while (auto* element = cursor.next()) {
+                if (element->type == WindowElementType_Input && element->data.input
+                    && gCurrentInputData == element->data.input->context) detail::WindowChat_RestoreInput();
             }
             if (gCurrentWindow == &window) WindowDrag_Cancel();
         }

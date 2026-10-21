@@ -39,10 +39,11 @@ LuaWindowBinding* EnsureLuaWindowBinding(lua_State* L, ui::WindowInstance& windo
     ui::WindowRuntime_EnsureIdentity(window);
     if (!window.binding) {
         window.binding = new LuaWindowBinding(window, L);
-        for (auto& [key, element] : window.sortedMap) {
-            if (element.component && !element.component->callbacks) {
+        ui::WindowElementCursor cursor(window);
+        while (auto* element = cursor.next()) {
+            if (element->component && !element->component->callbacks) {
                 LuaCallbackRefs refs; refs.owner = L;
-                element.component->callbacks = MakeLuaElementEvents(refs);
+                element->component->callbacks = MakeLuaElementEvents(refs);
             }
         }
     }

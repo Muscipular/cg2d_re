@@ -101,7 +101,7 @@ struct UIControl {
     WindowEventBinding callbacks;
     WindowInstance* windowOwner = nullptr; // 借用所属窗口。
     bool attached = true; // 清空时立即失效，回收由UI安全点执行。
-    WindowElement draft{}; // 创建期间暂存；加入窗口后活动属性仅在sortedMap节点。
+    WindowElement draft{}; // 创建期间暂存；加入窗口后活动属性仅在sortedMap独占的稳定对象中。
     WindowElement* currentElement = &draft;
     WindowElement& element() { return *currentElement; }
     const WindowElement& element() const { return *currentElement; }

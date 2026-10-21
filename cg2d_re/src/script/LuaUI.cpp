@@ -666,12 +666,13 @@ LuaWindowBinding::~LuaWindowBinding() {
     LuaUnref(owner, window.refDraw);
     LuaUnref(owner, window.refEvent);
     // 脚本退出时原生窗口可能仍存在，解除元素回调但不销毁UI。
-    for (auto& [key, element] : window.sortedMap) {
-        ReleaseLuaElementRefs(owner, element);
-        if (element.component) element.component->callbacks.reset();
+    ui::WindowElementCursor cursor(window);
+    while (auto* element = cursor.next()) {
+        ReleaseLuaElementRefs(owner, *element);
+        if (element->component) element->component->callbacks.reset();
     }
-    for (auto& node : window.retiredElements) {
-        auto& element = node.mapped();
+    for (auto& retired : window.retiredElements) {
+        auto& element = *retired;
         ReleaseLuaElementRefs(owner, element);
         if (element.component) element.component->callbacks.reset();
     }

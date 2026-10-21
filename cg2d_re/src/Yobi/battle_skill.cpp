@@ -34,7 +34,7 @@ std::int32_t AppendBattleRedirect_4242B0(
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[redirect], target, flags, value);
     cg::world::gBattleAllEntries59E980[redirect]->payload.battleActor->targetPosition100C = target;
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], 41);
-    cg::world::gBattleAllEntries59E980[redirect]->payload.battleActor->value1018 = 252;
+    cg::world::gBattleAllEntries59E980[redirect]->payload.battleActor->soundId1018 = 252;
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], 80);
     cg::world::gBattleAllEntries59E980[redirect]->payload.battleActor->reactionImage1010 = 0x5748;
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], 69);
@@ -98,7 +98,7 @@ static void ProcessBattleMSkillWaitingState(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t subState)
 {
     const std::int32_t skill = gBattleMSkill5AAA78;
-    const std::int32_t value88 = gBattleMValue5A4A34;
+    const std::int32_t skill98Mode88 = gBattleMSkill98Mode5A4A34;
     if (subState == 2) {
         switch (skill) {
         case 19: case 20: case 21: case 22: case 23: case 24: case 25:
@@ -192,7 +192,7 @@ static void ProcessBattleMSkillWaitingState(
         kind = FinishKind::CasterFlash;
         break;
     case 98:
-        kind = value88 == 7 ? FinishKind::EffectTargets : FinishKind::Caster;
+        kind = skill98Mode88 == 7 ? FinishKind::EffectTargets : FinishKind::Caster;
         break;
     default:
         return;
@@ -326,7 +326,7 @@ static std::int32_t ReadBattleMSkillHeader(
 
 void ProcessBattleMSkillHeader(
     YobiAction* const scene, BattleScenePayload* const payload,
-    const std::uint32_t flags9C, const std::int32_t valueA0)
+    const std::uint32_t flags9C, const std::int32_t feedbackAlternateImageA0)
 {
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
@@ -404,7 +404,7 @@ void ProcessBattleMSkillHeader(
         ProcessBattleMSkill404Family(scene, payload);
         break;
     case 267: case 3029:
-        ProcessBattleMSkill267(scene, payload, fpUsed, flags9C, valueA0);
+        ProcessBattleMSkill267(scene, payload, fpUsed, flags9C, feedbackAlternateImageA0);
         break;
     case 2005: case 4003:
         ProcessBattleMSkill2005Family(scene, payload, fpUsed);
@@ -435,10 +435,10 @@ void ProcessBattleMSkillHeader(
     case 2055: case 2056: case 2057:
     case 2068: case 2069: case 2070: case 2071: case 2072: case 2073:
     case 2074: case 2075: case 2076: case 2077: case 2078: case 2079:
-        ProcessBattleMSkill19Family(scene, payload, fpUsed, 0, flags9C, valueA0);
+        ProcessBattleMSkill19Family(scene, payload, fpUsed, 0, flags9C, feedbackAlternateImageA0);
         break;
     case 3037:
-        ProcessBattleMSkill19Family(scene, payload, fpUsed, 1, flags9C, valueA0);
+        ProcessBattleMSkill19Family(scene, payload, fpUsed, 1, flags9C, feedbackAlternateImageA0);
         break;
     case 73: {
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);

@@ -381,8 +381,8 @@ AppendPrimaryEffect:
                 }
                 goto AppendTechniqueEffects;
             case 94:
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1050 = TakeBattleMInteger_438F70(scene);
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 260;
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->attackDebuffType1050 = TakeBattleMInteger_438F70(scene);
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 260;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 98);
                 mainAuxIndex = 0;
@@ -490,7 +490,7 @@ AppendMainAuxiliaryEffects:
                     cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*targetPosition);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 41);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 75);
-                    cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 110;
+                    cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 110;
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
                     if ((secondaryFlags & 0x200) != 0)
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 73);
@@ -516,7 +516,7 @@ AppendMainAuxiliaryEffects:
                     cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*targetPosition);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 41);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 75);
-                    cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 110;
+                    cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 110;
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 73);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 5);
@@ -555,7 +555,7 @@ AppendMainAuxiliaryEffects:
                     cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*currentTarget);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 41);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 75);
-                    cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 110;
+                    cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 110;
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 73);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 74);
@@ -580,7 +580,7 @@ AppendMainAuxiliaryEffects:
                     cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*currentTarget);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 41);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 75);
-                    cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 110;
+                    cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 110;
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 73);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 5);
@@ -591,7 +591,7 @@ AppendMainAuxiliaryEffects:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 76);
                 break;
             case 96:
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 62;
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 62;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 77);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 36);
@@ -603,12 +603,12 @@ AppendMainAuxiliaryEffects:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 78);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 36);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 75);
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 210;
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId101C = 210;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 95);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 76);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 64);
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1020 = 133;
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1020 = 133;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 82);
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22403;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 68);
@@ -876,12 +876,12 @@ HandleSkill72PostReaction:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], 32);
             }
             if ((mainFlags & 0x80000) != 0) {
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 257;
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId101C = 257;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 68);
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22332;
             } else {
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 258;
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId101C = 258;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 68);
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22333;
@@ -985,12 +985,12 @@ HandleSkill2017PostReaction:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], 32);
             }
             if ((mainFlags & 0x80000) != 0) {
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 257;
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId101C = 257;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 68);
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22332;
             } else {
-                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value101C = 258;
+                cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId101C = 258;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 81);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 68);
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->reactionImage1010 = 22333;
@@ -1069,10 +1069,10 @@ HandleSkill2017PostReaction:
             }
         } else if (skill == 81 && !mainFlag8 && (mainFlags & 0xC100) == 0 && ((mainFlags & 0x2000) == 0 || !nextTargetOrDeathFlag)) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 64);
-            cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1018 = 271;
+            cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 271;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 80);
             cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1030 = skill81Value;
-            cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1034 = 5;
+            cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->numberDisplayType1034 = 5;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 160);
         }
 ReadNextAttackRound:
@@ -1522,7 +1522,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
                 redirectFieldActor->payload.battleActor->targetPosition100C
                     = redirectFieldTargetPosition;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], 41);
-                cg::world::gBattleAllEntries59E980[redirectPosition]->payload.battleActor->value1018 = 252;
+                cg::world::gBattleAllEntries59E980[redirectPosition]->payload.battleActor->soundId1018 = 252;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], 80);
                 cg::world::gBattleAllEntries59E980[redirectPosition]->payload.battleActor
                     ->reactionImage1010 = 22344;

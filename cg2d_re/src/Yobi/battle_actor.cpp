@@ -64,7 +64,7 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
     action->flags = configuredFlags;
     action->characterAction = 0;
     action->framePlayingRate = 100;
-    action->value54 = 3.0F;
+    action->motionMagnitude54 = 3.0F;
     action->direction = 1;
     action->displayPriority = 9;
     const std::int32_t firstPointIndex = cg::world::gBattlePointIndices5536FC[position];
@@ -874,7 +874,7 @@ std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     action->characterAction = 1;
-    action->value54 = 4.0F;
+    action->motionMagnitude54 = 4.0F;
     action->framePlayingRate = 100;
     const float turnY = static_cast<float>(payload->y04);
     const float turnX = static_cast<float>(payload->x00);
@@ -899,7 +899,7 @@ std::int32_t UpdateBattleAction3_406C30(YobiAction* const action)
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = 1;
-    action->value54 = 8.0F;
+    action->motionMagnitude54 = 8.0F;
     action->framePlayingRate = 100;
     TurnBattleToward_406190(action,
         cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
@@ -919,7 +919,7 @@ std::int32_t UpdateBattleAction4_406D70(YobiAction* const action)
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = 3;
-    action->value54 = 8.0F;
+    action->motionMagnitude54 = 8.0F;
     action->framePlayingRate = 100;
     TurnBattleToward_406190(action,
         cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position], 1, 0.0F);
@@ -938,7 +938,7 @@ std::int32_t UpdateBattleAction5_40CFA0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     action->characterAction = 3;
-    action->value54 = 8.0F;
+    action->motionMagnitude54 = 8.0F;
     action->framePlayingRate = 100;
     const std::int32_t count = payload->valueFF0;
     payload->valueFF0 = count + 1;
@@ -957,7 +957,7 @@ std::int32_t UpdateBattleAction6_406CD0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     action->characterAction = 3;
-    action->value54 = 8.0F;
+    action->motionMagnitude54 = 8.0F;
     action->framePlayingRate = 100;
     const float turnY = static_cast<float>(payload->moveTargetYFEC);
     const float turnX = static_cast<float>(payload->moveTargetXFE8);
@@ -1021,7 +1021,7 @@ std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     action->characterAction = 3;
-    action->value54 = 8.0F;
+    action->motionMagnitude54 = 8.0F;
     action->framePlayingRate = 100;
     const std::int32_t previous = payload->castPlayIndexFC4 - 2;
     if (previous >= 0 && payload->castListCA4[previous] == 14) {
@@ -1132,7 +1132,7 @@ void UpdateBattleAction12_406930(YobiAction* const action)
         const float y = static_cast<float>(payload->y0C);
         const float x = static_cast<float>(payload->x08);
         TurnBattleTowardPosition_4060D0(action, x, y, 0, 0.0F);
-        action->value54 = 6.0F;
+        action->motionMagnitude54 = 6.0F;
         AdvanceBattleCastState_439340(action);
         return;
     }
@@ -1153,13 +1153,13 @@ void UpdateBattleAction12_406930(YobiAction* const action)
     const float y = static_cast<float>(payload->y0C);
     const float x = static_cast<float>(payload->x08);
     TurnBattleTowardPosition_4060D0(action, x, y, 1, 0.0F);
-    const std::int32_t frames = payload->valueFCC + 1;
-    payload->valueFCC = frames;
+    const std::int32_t frames = payload->actionFrameCountFCC + 1;
+    payload->actionFrameCountFCC = frames;
     action->framePlayingRate = frames > 70 ? 30 : 100 - frames;
-    if (payload->valueFCC >= 120) {
-        payload->valueFCC = 0;
+    if (payload->actionFrameCountFCC >= 120) {
+        payload->actionFrameCountFCC = 0;
         payload->valueFF0 = 0;
-        action->value54 = 6.0F;
+        action->motionMagnitude54 = 6.0F;
         AdvanceBattleCastState_439340(action);
     }
 }
@@ -1195,7 +1195,7 @@ void UpdateBattleAction13_406A80(YobiAction* const action)
     const float turnY = static_cast<float>(payload->y0C);
     const float turnX = static_cast<float>(payload->x08);
     TurnBattleTowardPosition_4060D0(action, turnX, turnY, updateDirection, 0.0F);
-    action->value54 = 6.0F;
+    action->motionMagnitude54 = 6.0F;
     action->framePlayingRate = 20;
     MoveBattleByAngle_405EA0(action);
     const float distanceY = static_cast<float>(payload->y0C);

@@ -421,7 +421,7 @@ void UpsertGroundItemObject_445D20(
     }
     record.action->flags |= 0x400u;
     record.action->field1D8 = value48;
-    record.action->payload.mapActor->value18 = value50;
+    record.action->payload.mapActor->itemCount18 = value50;
 }
 
 // WOP01：类别4记录更新；两坐标encoded/mask/count先取齐，不补类别2专用字段。

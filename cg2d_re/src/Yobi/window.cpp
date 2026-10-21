@@ -25,7 +25,7 @@ struct WindowOpeningPayload {
     std::int32_t centerY; // 原成员偏移：+0x10。
     std::int32_t halfWidth; // 原成员偏移：+0x14。
     std::int32_t halfHeight; // 原成员偏移：+0x18。
-    std::int32_t value1C; // 原成员偏移：+0x1C。
+    std::int32_t value1C; // 原+1C；当前仅见清零和布局断言，未找到业务读取，保留原名。
     std::uint16_t flag20; // 原成员偏移：+0x20。
     std::array<std::byte, 2> bytes22; // 原成员偏移：+0x22。
 };

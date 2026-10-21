@@ -123,7 +123,7 @@ static void UpdateArrivingObservationGroup_440070(YobiAction* action);
 YobiAction* CreateDepartingObservationGroup_43F330(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
-    const std::int32_t value170)
+    const std::int32_t travelDuration)
 {
     YobiAction* const action = NewMapCharaAction();
     if (action == nullptr) {
@@ -151,7 +151,7 @@ YobiAction* CreateDepartingObservationGroup_43F330(
     action->worldX = static_cast<float>(scaledX);
     action->worldY = static_cast<float>(mapY * 64.0);
 
-    action->readiness = static_cast<std::int32_t>(value170);
+    action->readiness = static_cast<std::int32_t>(travelDuration);
     action->phase = 1;
     const float worldY = action->worldY;
     const float worldX = action->worldX;
@@ -1043,14 +1043,14 @@ std::int32_t HandleMapObservationActionReply_440920(
     }
     YobiAction* const source = world::FindObjectYobi_4462B0(values[0]);
     if (source != nullptr) {
-        const std::int32_t value170 = values[1];
+        const std::int32_t travelDuration = values[1];
         const std::int32_t direction = source->direction;
         const std::int32_t sourceY =
             static_cast<std::int32_t>(source->mapY1F0);
         const std::int32_t sourceX =
             static_cast<std::int32_t>(source->mapX1E0);
         YobiAction* const observer = detail::CreateDepartingObservationGroup_43F330(
-            source->imageNo, sourceX, sourceY, direction, value170);
+            source->imageNo, sourceX, sourceY, direction, travelDuration);
         detail::SetObservationGroupMembers_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];

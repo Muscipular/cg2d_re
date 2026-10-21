@@ -108,9 +108,9 @@ struct YobiAction {
     float offset40 = 0.0f; // 原+40；448A50/448BF0/449A00的投影后横向偏移。
     float offset44 = 0.0f; // 原+44；对应纵向偏移，不与屏幕y合并。
     float effectAcceleration48 = 0.0f; // 原+48，420D50/41A310写0.2，41A7D0写0.1，41A200从4C扣除；4087C0/4090F0复用为回旋转向步长。
-    std::uint32_t value4CBits = 0; // 原+4C；41F4C0/41F5B0写C1000000，41F450/41A200按F32消费。
+    std::uint32_t verticalVelocityBits4C = 0; // 原+4C；41F4C0/41F5B0写C1000000，41F450/41A200按F32消费。
     float angle50 = 0.0f; // 原+50；本对象族创建清零，449160另作角度。
-    float value54 = 0.0f; // 原+54；三路对象速度及其他回调的幅值，共用F32。
+    float motionMagnitude54 = 0.0f; // 原+54；三路对象速度及其他回调的幅值，共用F32。
     std::int32_t field58 = 0; // 原 +58，与 +2B8 的 direction 独立。
     float scaleX = 0.0f; // 原成员偏移：+0x5C。
     float scaleY = 0.0f; // 原成员偏移：+0x60。
@@ -133,15 +133,15 @@ struct YobiAction {
     std::array<std::byte, 25> bytes155{}; // 原+155..16D，41EB10复制原字节，业务用途未定。
     platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
-    platform::LegacyCryptInt value190; // 原+190/+1A0，选择对象静态构造各自初始化。
-    platform::LegacyCryptInt value1A0; // 原成员偏移：+0x1A0。
+    platform::LegacyCryptInt value190; // 原+190；当前仅见构造／复制，未找到业务消费，保留原名；与1A0各自初始化。
+    platform::LegacyCryptInt value1A0; // 原+1A0；当前仅见构造／复制，缺少用途依据，保留原名。
     platform::LegacyCryptInt barValue1B0; // 原+1B0；442F70同步玩家/宠物FP，43DB60绘第二条。
     platform::LegacyCryptInt barMaximum1C0; // 原+1C0；同步最大FP，读取仍消费计数/RNG。
     union {
         std::int32_t field1D0; // 原+1D0数值路径，宽度保持S32。
         YobiAction** windowCompletionSlot1D0 = nullptr; // 原成员偏移：+0x1D0。 475950/4758D0非拥有完成槽。
     };
-    std::int32_t value1D4 = 0; // 原+1D4；观察父节点主队列索引/子节点轨迹计数，共用S32。
+    std::int32_t value1D4 = 0; // 原+1D4；共用附件位置、观察队列索引／轨迹计数和效果反向标志，不能统一为单一用途，保留原名。
     std::int32_t field1D8 = 0; // 原 +1D8；51A090 写入完整第四参数。
     std::int32_t counter1DC = 0; // 原+1DC，442F70图标/420300序列特效计数。
     platform::LegacyCryptInt mapX1E0; // 原+1E0/+1F0当前位置；420100族复用为序号/计时。

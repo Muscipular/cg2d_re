@@ -16,7 +16,7 @@ inline constexpr std::array<std::int32_t, 12> kBattleMSkillEffectOffsets553E58 {
 
 void ProcessBattleMSkillHeader(
     YobiAction* const scene, BattleScenePayload* const payload,
-    const std::uint32_t flags9C, const std::int32_t valueA0);
+    const std::uint32_t flags9C, const std::int32_t feedbackAlternateImageA0);
 
 // 原4242B0：三方动作/效果按序追加，返回redirect，不缓存对象表中的T*。
 std::int32_t AppendBattleRedirect_4242B0(

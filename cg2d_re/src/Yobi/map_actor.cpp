@@ -481,7 +481,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         const std::int32_t level = std::atoi(buffer);
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
-        const std::int32_t value1D8 = std::atoi(buffer);
+        const std::int32_t value1D8 = std::atoi(buffer); // 仅证实传给附属对象field1D8，具体业务含义未定，保留原名。
         char name[256];
         network::ExtractDelimitedField_52CED0(text, '|', field, 255, name);
         ++field;
@@ -940,7 +940,7 @@ YobiAction* PublishPlayerActionIdentity(
     action = world::gPlayerRuntimeSlots.action;
     action->field1D0 = level;
     action = world::gPlayerRuntimeSlots.action;
-    action->field1D8 = value188;
+    action->field1D8 = value188; // 当前只承接玩家协议字段到field1D8，业务含义尚未确定，保留参数原名。
     return action;
 }
 

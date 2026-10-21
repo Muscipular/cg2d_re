@@ -125,16 +125,16 @@ struct BattleActorPayload {
     std::array<std::int32_t, 200> castListCA4; // 原成员偏移：+0xCA4。 FC4前的200项动作队列。
     std::int32_t castPlayIndexFC4; // 原成员偏移：+0xFC4。
     std::int32_t castListIndexFC8; // 原成员偏移：+0xFC8。
-    std::int32_t valueFCC; // 原成员偏移：+0xFCC。
-    std::int32_t valueFD0; // 原成员偏移：+0xFD0。
-    std::int32_t valueFD4; // 原成员偏移：+0xFD4。
+    std::int32_t actionFrameCountFCC; // 原+FCC；动作回调帧计数，用于阶段等待和移动阈值。
+    std::int32_t valueFD0; // 原+FD0；共用等待倒计时、一次性启动状态及碰撞边界编号，不能只叫计时器，保留原名。
+    std::int32_t valueFD4; // 原+FD4；攻击等待帧与REB进入／退出阶段共用，单一含义不能覆盖，保留原名。
     std::int32_t busyFD8; // 原成员偏移：+0xFD8。
     std::uint32_t flagsFDC; // 原成员偏移：+0xFDC；BattleActorFlag位集合，保留未知位和原消息承接。
     std::uint32_t stateFE0; // 原成员偏移：+0xFE0。
     std::int32_t effectFlagsFE4; // 原成员偏移：+0xFE4。
     std::int32_t moveTargetXFE8; // 412870按目标坐标侧写入；与00/08/10坐标来源独立。
     std::int32_t moveTargetYFEC;
-    std::int32_t valueFF0; // 原成员偏移：+0xFF0。
+    std::int32_t valueFF0; // 原+FF0；共用周期／碰撞计数、延时和保存的phase，无法统一为计时器或阶段，保留原名。
     std::int32_t attackModeFF4; // 原成员偏移：+0xFF4。 426FC0写入原完整攻击模式。
     std::int32_t aliveFF8; // 原成员偏移：+0xFF8。
     std::array<std::byte, 4> bytesFFC; // 原成员偏移：+0xFFC。 原FFC..FFF：随整个载荷清零/浅复制，用途及地址属性未定。
@@ -144,21 +144,21 @@ struct BattleActorPayload {
     std::int32_t targetPosition100C; // 原成员偏移：+0x100C。 4242B0三方序列写入原目标。
     std::int32_t reactionImage1010; // 原成员偏移：+0x1010。
     std::int32_t image1014; // 原成员偏移：+0x1014。 427470装备消息写51B740转换后的图号，40C480消费。
-    std::int32_t value1018; // 原成员偏移：+0x1018。
-    std::int32_t value101C; // 原成员偏移：+0x101C。 40CCB0音效编号；427470技能98模式6已写入，424620已接，其他生产沿对应父合同。
-    std::int32_t value1020; // 原成员偏移：+0x1020。 40CCE0音效编号；与1018/101C独立，不是地址。
-    std::int32_t value1024; // 原成员偏移：+0x1024。
+    std::int32_t soundId1018; // 原+1018；BM／技能链生产，动作80传给PlaySe的音效编号。
+    std::int32_t soundId101C; // 原成员偏移：+0x101C。 40CCB0音效编号；427470技能98模式6已写入，424620已接，其他生产沿对应父合同。
+    std::int32_t soundId1020; // 原成员偏移：+0x1020。 40CCE0音效编号；与1018/101C独立，不是地址。
+    std::int32_t effectPlaybackState1024; // 原+1024；关联特效置1、完成置2，部分动作续用3／4；保持完整S32状态。
     std::int32_t image1028; // 原成员偏移：+0x1028。 427470技能链生产图号；41CD00的type34用作图号及音效/坐标重读源。
     std::int32_t image102C; // 原成员偏移：+0x102C。 426FC0按技术索引和目标阵营选表。
-    std::int32_t value1030; // 原成员偏移：+0x1030。 41CD00的type18按2000/3500选图，非指针。
-    std::int32_t value1034; // 原成员偏移：+0x1034。 427470状态/技能链写入，4107C0/410B00消费的显示及数值类型。
-    std::int32_t value1038; // 原成员偏移：+0x1038。
+    std::int32_t value1030; // 原+1030；共用HP／FP数值、选图参数和动作模式，不能仅命名为伤害值，保留原名；非指针。
+    std::int32_t numberDisplayType1034; // 原成员偏移：+0x1034。 427470状态/技能链写入，4107C0/410B00消费的显示及数值类型。
+    std::int32_t value1038; // 原+1038；409680作强制命中门禁，40E560兼作动作阶段；统一业务含义未定，保留原名。
     std::int32_t castSkill103C; // 原成员偏移：+0x103C。
     std::int32_t castLevel1040; // 原成员偏移：+0x1040。 与1044的技术索引独立。
     std::int32_t castSkillLevel1044; // 原成员偏移：+0x1044。
-    std::int32_t value1048; // 原成员偏移：+0x1048。 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
+    std::int32_t skill98Mode1048; // 原成员偏移：+0x1048。 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
     std::array<std::byte, 4> bytes104C; // 原成员偏移：+0x104C。 原104C..104F：仅保留存储，不按邻接值猜图号或计数。
-    std::int32_t value1050; // 原成员偏移：+0x1050。 424F64保存技能94的M整数；409680用于减益图号偏移。
+    std::int32_t attackDebuffType1050; // 原成员偏移：+0x1050。 424F64保存技能94的M整数；409680用于减益图号偏移。
     YobiAction* effect1054; // 原成员偏移：+0x1054。 41F660发布；416DD0/4072E0先标死再清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 原成员偏移：+0x1058。 41FBE0创建并发布的非拥有附属特效引用。
     YobiAction* effect105C; // 原成员偏移：+0x105C。 41F860发布；4131B0/422370标死并清槽，非拥有引用。
@@ -171,10 +171,10 @@ struct BattleActorPayload {
     std::int8_t rebirthEffectType1080; // 原成员偏移：+0x1080。 4113A0按低U8加1发布/退出清零，4208F0按S8选图；其他生产仍缺。
     std::array<std::byte, 3> bytes1081; // 原成员偏移：+0x1081。 原1081..1083：用途未定字节，不以原生隐式对齐代替承载。
     std::array<std::int32_t, 200> queuedTargets1084; // 原成员偏移：+0x1084。 原[1084,13A4)，43B7F0追加值及哨兵。
-    std::int32_t value13A4; // 原成员偏移：+0x13A4。
+    std::int32_t queuedTargetIndex13A4; // 原+13A4；queuedTargets1084读取游标，由43B830递增。
     std::int32_t queuedTargetCount13A8; // 原成员偏移：+0x13A8。
     std::int32_t baseImage13AC; // 原成员偏移：+0x13AC。 413550保存原图号，413750/413980恢复，独立于13E4。
-    std::int32_t value13B0; // 原成员偏移：+0x13B0。 413550写0/1，413750/413980恢复后清零，4131B0消费。
+    std::int32_t appearanceOverrideActive13B0; // 原成员偏移：+0x13B0。 413550写0/1，413750/413980恢复后清零，4131B0消费。
     YobiAction* gear13B4; // 原成员偏移：+0x13B4。 422C20主附件，非拥有引用。
     std::array<YobiAction*, 2> auxiliaryGear13B8; // 原成员偏移：+0x13B8。 原13B8/13BC，422C90的0/1槽。
     std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原成员偏移：+0x13C0。 原13C0/13C4，清附件不清类型。
@@ -182,9 +182,9 @@ struct BattleActorPayload {
     std::int32_t debuffState13CC; // 原成员偏移：+0x13CC。 41F660分配前写2，失败不回滚。
     std::int32_t debuffType13D0; // 原成员偏移：+0x13D0。 41F660六图号对应类型1至6。
     std::array<std::byte, 4> bytes13D4; // 原成员偏移：+0x13D4。 原13D4..13D7：仅保留存储，不解释为减益状态或指针。
-    std::int32_t value13D8; // 原成员偏移：+0x13D8。 427470状态/技能链生产；41FE00按完整W32与3比较。
-    std::int32_t value13DC; // 原成员偏移：+0x13DC。 427470状态/技能链生产141/143状态图号选择值。
-    std::int32_t value13E0; // 原成员偏移：+0x13E0。 427470技能链生产索引；143的13DC==7按S32查54D4C0。
+    std::int32_t statusEffectMode13D8; // 原成员偏移：+0x13D8。 427470状态/技能链生产；41FE00按完整W32与3比较。
+    std::int32_t statusEffectType13DC; // 原成员偏移：+0x13DC。 427470状态/技能链生产141/143状态图号选择值。
+    std::int32_t statusEffectImageIndex13E0; // 原成员偏移：+0x13E0。 427470技能链生产索引；143的13DC==7按S32查54D4C0。
     std::int32_t image13E4; // 原成员偏移：+0x13E4。 427470技能链生产图号；41CD00的type43从重取的源载荷读取。
     BattleSkillMeta skillMeta; // E01：本机具名扩展，分配及完整克隆统一按 sizeof(BattleActorPayload)。
 };
@@ -198,7 +198,7 @@ static_assert(offsetof(BattleEntryEffectRecord, position4) == 12);
 
 // 原场景180B载荷；标量保留宽度，B0场地特效引用按原生T*拓宽。
 struct BattleScenePayload {
-    std::int32_t value00; // 原+00，41A9E0/41AF00完成指定分类且场景phase8时递增。
+    std::int32_t completedEntryCount00; // 原+00，41A9E0/41AF00完成指定分类且场景phase8时递增。
     std::int32_t entryCount04; // 原成员偏移：+0x04。 427470/CMB按S32读写的参与者数量。
     std::array<std::int32_t, 20> entryPositions08; // 原成员偏移：+0x08。 原08..57的位置列表，非对象地址。
     std::int32_t packetSubState58; // 原成员偏移：+0x58。
@@ -207,19 +207,19 @@ struct BattleScenePayload {
     std::int32_t packetOffset64; // 原成员偏移：+0x64。
     std::int32_t groupBase68; // 原成员偏移：+0x68。
     std::int32_t casterPosition6C; // 原成员偏移：+0x6C。 427750恢复、437A29回存的同源执行快照，非新端字节偏移。
-    std::int32_t value70; // 原成员偏移：+0x70。
+    std::int32_t value70; // 原+70；gBattleMValue5ABA7C快照，既存角色位置又作累计技能重复标记，不能统一叫施法者位置，保留原名。
     std::int32_t defenderPosition74; // 原成员偏移：+0x74。
     std::int32_t targetPosition78; // 原成员偏移：+0x78。
     std::int32_t skill7C; // 原成员偏移：+0x7C。
     std::int32_t technique80; // 原成员偏移：+0x80。
-    std::int32_t value84; // 原成员偏移：+0x84。
-    std::int32_t value88; // 原成员偏移：+0x88。
-    std::int32_t value8C; // 原成员偏移：+0x8C。
+    std::int32_t itemMode84; // 原+84；ITM消息模式，执行状态保存／恢复使用。
+    std::int32_t skill98Mode88; // 原+88；技能98模式，执行状态保存／恢复使用。
+    std::int32_t feedbackSourcePosition8C; // 原+8C；反射／累计回馈的来源角色位置快照。
     std::uint32_t resultFlags90; // 原成员偏移：+0x90。
     std::uint32_t flags94; // 原成员偏移：+0x94。
-    std::int32_t value98; // 原成员偏移：+0x98。
+    std::int32_t feedbackEffectImage98; // 原+98；反射／累计回馈的首个附加图号快照。
     std::uint32_t flags9C; // 原成员偏移：+0x9C。 恢复为函数局部量，公共尾不回存。
-    std::int32_t valueA0; // 原成员偏移：+0xA0。 同上，不与messageValueA4合并。
+    std::int32_t feedbackAlternateImageA0; // 原成员偏移：+0xA0。 同上，不与messageValueA4合并。
     std::int32_t messageValueA4; // 原成员偏移：+0xA4。
     std::uint32_t entryMaskA8; // 原成员偏移：+0xA8。 4394A0参与对象位图，含特殊槽20/21。
     std::int32_t waitCountAC; // 原成员偏移：+0xAC。 忙状态每次检查递增，超时逐对象恢复后清零。

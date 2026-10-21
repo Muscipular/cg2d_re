@@ -11,7 +11,7 @@ YobiAction* NewMapCharaAction();
 // 原43F330/43FEB0：观察链两种生产者，43F520/440070绑定及正文已有，完整寿命/运行未验。
 YobiAction* CreateDepartingObservationGroup_43F330(
     std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
-    std::int32_t direction, std::int32_t value170);
+    std::int32_t direction, std::int32_t travelDuration);
 // 原函数：0x0043FEB0。
 YobiAction* CreateArrivingObservationGroup_43FEB0(
     std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,

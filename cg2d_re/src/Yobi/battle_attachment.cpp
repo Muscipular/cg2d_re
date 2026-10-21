@@ -140,7 +140,7 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     if ((flags & BattleActorFlag_Rebirth) != 0) {
         extraFlags = 2;
     }
-    if (payload->value13B0 != 0) {
+    if (payload->appearanceOverrideActive13B0 != 0) {
         extraFlags = 2;
     }
     if ((flags & BattleActorFlag_Morph) != 0) {
@@ -351,7 +351,7 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     action->flags = configuredFlags;
     action->characterAction = 0;
     action->framePlayingRate = 100;
-    action->value54 = 3.0F;
+    action->motionMagnitude54 = 3.0F;
     const std::int32_t direction = parent->direction;
     action->displayPriority = 9;
     action->direction = direction;
@@ -384,7 +384,7 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     action->imageNo = imageNo;
     action->characterAction = 0;
     action->framePlayingRate = 100;
-    action->value54 = 3.0F;
+    action->motionMagnitude54 = 3.0F;
     action->direction = parent->direction;
     action->displayPriority = 9;
     action->phase = 0;
@@ -417,7 +417,7 @@ YobiAction* NewBattleAuxGear_422B00(
     action->flags = flags;
     action->characterAction = 0;
     action->framePlayingRate = 100;
-    action->value54 = 3.0F;
+    action->motionMagnitude54 = 3.0F;
     const std::int32_t direction = parent->direction;
     action->displayPriority = 9;
     action->direction = direction;

@@ -34,16 +34,16 @@ extern std::int32_t gBattleMSkill5AAA78;
 extern std::int32_t gBattleMTechnique5A4A38;
 
 // 共享原状态，只在本组实现中定义；原全局：0x005A4A34。
-extern std::int32_t gBattleMValue5A4A34;
+extern std::int32_t gBattleMSkill98Mode5A4A34;
 
 // 共享原状态，只在本组实现中定义；原全局：0x005ABA90。
-extern std::int32_t gBattleMValue5ABA90;
+extern std::int32_t gBattleMFeedbackSourcePosition5ABA90;
 
 // 共享原状态，只在本组实现中定义；原全局：0x005ABA84。
 extern std::uint32_t gBattleMFlags5ABA84;
 
 // 共享原状态，只在本组实现中定义；原全局：0x005A4A28。
-extern std::int32_t gBattleMValue5A4A28;
+extern std::int32_t gBattleMFeedbackEffectImage5A4A28;
 
 // 共享原状态，只在本组实现中定义；原全局：0x0059FA14。
 extern std::int32_t gBattleMMessageValue59FA14;

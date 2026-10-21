@@ -97,13 +97,13 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & 0x40000u) != 0) {
                 AdvanceBattleCastState_439340(target);
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & 0x20000u) != 0) {
                 AdvanceBattleCastState_439340(target);
@@ -137,7 +137,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                 }
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else {
                 if ((categoryFlags & 0x100000u) != 0) {
@@ -263,13 +263,13 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & 0x40000u) != 0) {
                 AdvanceBattleCastState_439340(target);
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & 0x20000u) != 0) {
                 AdvanceBattleCastState_439340(target);
@@ -303,7 +303,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                 }
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else {
                 if ((categoryFlags & 0x100000u) != 0) {
@@ -433,13 +433,13 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                     AdvanceBattleCastState_439340(target);
                     YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                     if (scene->phase == 8) {
-                        ++scene->payload.battleScene->value00;
+                        ++scene->payload.battleScene->completedEntryCount00;
                     }
                 } else if ((categoryFlags & 0x40000u) != 0) {
                     AdvanceBattleCastState_439340(target);
                     YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                     if (scene->phase == 8) {
-                        ++scene->payload.battleScene->value00;
+                        ++scene->payload.battleScene->completedEntryCount00;
                     }
                 } else if ((categoryFlags & 0x20000u) != 0) {
                     AdvanceBattleCastState_439340(target);
@@ -473,7 +473,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                     }
                     YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                     if (scene->phase == 8) {
-                        ++scene->payload.battleScene->value00;
+                        ++scene->payload.battleScene->completedEntryCount00;
                     }
                 } else if ((categoryFlags & 0x20000000u) != 0) {
                     AdvanceBattleCastState_439340(target);
@@ -647,13 +647,13 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & 0x40000u) != 0) {
                 AdvanceBattleCastState_439340(target);
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & 0x20000u) != 0) {
                 AdvanceBattleCastState_439340(target);
@@ -687,7 +687,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 }
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else {
                 if ((categoryFlags & 0x100000u) != 0) {
@@ -769,9 +769,9 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 static_cast<double>(movingHalfHeight) + target->graphicOffsetY + target->offset44);
             TurnBattleTowardPosition_4060D0(action, x, centerY, 0, 0.0F);
             MoveBattleByAngle_405EA0(action);
-            const double speed = action->value54 + 0.5;
+            const double speed = action->motionMagnitude54 + 0.5;
             const std::int32_t hit = action->frameEvent;
-            action->value54 = static_cast<float>(speed);
+            action->motionMagnitude54 = static_cast<float>(speed);
             if (hit == 0) {
                 const std::int32_t image = action->imageNo;
                 if (image >= 110032 && image <= 110034) {
@@ -895,13 +895,13 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & 0x40000u) != 0) {
                 AdvanceBattleCastState_439340(target);
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & 0x20000u) != 0) {
                 AdvanceBattleCastState_439340(target);
@@ -935,7 +935,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 }
                 YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
                 if (scene->phase == 8) {
-                    ++scene->payload.battleScene->value00;
+                    ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else {
                 if ((categoryFlags & 0x100000u) != 0) {
@@ -1394,7 +1394,7 @@ void InitBattleCenterEffect_4231D0(
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     const std::int32_t speed = platform::RandomRange_46FAF0(4, 8);
-    action->value54 = static_cast<float>(speed);
+    action->motionMagnitude54 = static_cast<float>(speed);
     payload->castSkill103C = sourcePayload->castSkill103C;
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
     payload->skillMeta = sourcePayload->skillMeta; // E01／4232E9。
@@ -1544,7 +1544,7 @@ YobiAction* NewBattleHitEffect_41F5B0(
     action->framePlayingRate = 100;
     action->offset40 = static_cast<float>(static_cast<double>(offsetX) + parent->offset40);
     const double y = static_cast<double>(offsetY) + parent->offset44;
-    action->value4CBits = 0xC1000000u;
+    action->verticalVelocityBits4C = 0xC1000000u;
     action->imageNo = imageNo;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;

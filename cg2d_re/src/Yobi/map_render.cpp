@@ -961,7 +961,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         } else if ((flags & 0x400u) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
             YobiAction* const fixed = graphic->reference.action;
-            const std::int32_t count = fixed->payload.mapActor->value18;
+            const std::int32_t count = fixed->payload.mapActor->itemCount18;
             if (count > 0) {
                 cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}({})", fixed->nameC4.c_str(), count);
             } else {

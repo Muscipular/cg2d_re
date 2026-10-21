@@ -36,16 +36,16 @@ union MapTransitionSlots18 {
 
 struct MapTransitionPayload {
     std::int16_t mode;
-    std::int16_t value02; // 原成员偏移：+0x02。
-    std::int16_t value04; // 原成员偏移：+0x04。
-    std::uint16_t value06; // 原成员偏移：+0x06。
+    std::int16_t searchDirection02; // 原+02；过渡移动的候选搜索方向，失败／连续转向时调整。
+    std::int16_t previousStepDirection04; // 原+04；上一步方向，用于连续转向判断。
+    std::uint16_t directionChangeCount06; // 原+06；连续方向变化次数，阈值判断仍按S16读取。
     std::int32_t mapX08; // 原成员偏移：+0x08。
     std::int32_t mapY0C; // 原成员偏移：+0x0C。
     std::int32_t counter10; // 原成员偏移：+0x10。
     std::uint64_t tick14; // 原成员偏移：+0x14。
     MapTransitionSlots18 slots18; // 原成员偏移：+0x18。
-    float value20; // 原成员偏移：+0x20。
-    std::int32_t value24; // 原成员偏移：+0x24。
+    float orbitAngle20; // 原+20；模式2／3圆周过渡角度，传给按度数查表的三角函数。
+    std::int32_t orbitRadius24; // 原+24；模式2／3三点圆周绘制半径。
     std::int32_t objectIndex28; // 原成员偏移：+0x28。
     std::uint32_t visible2C; // 原成员偏移：+0x2C。
     std::uint32_t frame30; // 原成员偏移：+0x30。
@@ -67,11 +67,11 @@ static_assert(std::is_trivially_copyable_v<MapTransitionPayload>);
 
 static_assert(sizeof(MapTransitionSlots18) == 0x10);
 
-static_assert(offsetof(MapTransitionPayload, value02) == 0x02);
+static_assert(offsetof(MapTransitionPayload, searchDirection02) == 0x02);
 
-static_assert(offsetof(MapTransitionPayload, value04) == 0x04);
+static_assert(offsetof(MapTransitionPayload, previousStepDirection04) == 0x04);
 
-static_assert(offsetof(MapTransitionPayload, value06) == 0x06);
+static_assert(offsetof(MapTransitionPayload, directionChangeCount06) == 0x06);
 
 static_assert(offsetof(MapTransitionPayload, mapX08) == 0x08);
 
@@ -228,7 +228,7 @@ static void ChooseWanderingTransitionStep_4469C0(YobiAction* const action)
     }
     auto* const payload = action->payload.mapTransition;
     std::int32_t attempt = 0;
-    std::int16_t direction = payload->value02;
+    std::int16_t direction = payload->searchDirection02;
     std::int32_t candidateX;
     std::int32_t candidateY;
     do {
@@ -247,21 +247,21 @@ static void ChooseWanderingTransitionStep_4469C0(YobiAction* const action)
     if (attempt >= 4) {
         payload->mapX08 = -1;
         payload->mapY0C = -1;
-        payload->value02 = static_cast<std::int16_t>(payload->value02 - 2);
-        NormalizeTransitionDirection_446990(&payload->value02);
+        payload->searchDirection02 = static_cast<std::int16_t>(payload->searchDirection02 - 2);
+        NormalizeTransitionDirection_446990(&payload->searchDirection02);
         return;
     }
-    if (std::bit_cast<std::int16_t>(payload->value06) >= 2) {
-        payload->value06 = 0;
-        payload->value02 = static_cast<std::int16_t>(payload->value02 - 6);
-        NormalizeTransitionDirection_446990(&payload->value02);
+    if (std::bit_cast<std::int16_t>(payload->directionChangeCount06) >= 2) {
+        payload->directionChangeCount06 = 0;
+        payload->searchDirection02 = static_cast<std::int16_t>(payload->searchDirection02 - 6);
+        NormalizeTransitionDirection_446990(&payload->searchDirection02);
     }
-    if (direction != payload->value04) {
-        ++payload->value06;
+    if (direction != payload->previousStepDirection04) {
+        ++payload->directionChangeCount06;
     } else {
-        payload->value06 = 0;
+        payload->directionChangeCount06 = 0;
     }
-    payload->value04 = direction;
+    payload->previousStepDirection04 = direction;
     action->pathX220[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = candidateX;
     action->pathY248[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = candidateY;
     ++action->pathCountOrDrawOrder_270;
@@ -280,11 +280,11 @@ static void AppendStraightTransitionStep_446B50(YobiAction* const action)
         || (world::gPlayerY != world::gLastMapDrawPlayerY_9EE8E0)) {
         return;
     }
-    const std::int16_t deltaX = world::ReadDirectionDeltaX(payload->value02);
+    const std::int16_t deltaX = world::ReadDirectionDeltaX(payload->searchDirection02);
     const std::int32_t x =
         (action->mapX1E0 + static_cast<std::int32_t>(deltaX));
     action->pathX220[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = x;
-    const std::int16_t deltaY = world::ReadDirectionDeltaY(payload->value02);
+    const std::int16_t deltaY = world::ReadDirectionDeltaY(payload->searchDirection02);
     const std::int32_t y =
         (action->mapY1F0 + static_cast<std::int32_t>(deltaY));
     action->pathY248[std::bit_cast<std::int16_t>(action->pathCountOrDrawOrder_270)] = y;
@@ -400,9 +400,9 @@ static void DrawTransitionOrbit(
     for (std::int32_t point = 0; point < 3; ++point) {
         const double xFactor = world::LookupCosineDegrees_46F950(angle);
         const float offsetX = static_cast<float>(
-            xFactor * payload->value24);
+            xFactor * payload->orbitRadius24);
         const double yFactor = world::LookupSineDegrees_46F930(angle);
-        const double offsetY = yFactor * payload->value24;
+        const double offsetY = yFactor * payload->orbitRadius24;
         const float projectedY = static_cast<float>(
             offsetY + action->worldY);
         const float projectedX = static_cast<float>(
@@ -416,7 +416,7 @@ static void DrawTransitionOrbit(
         action->y = static_cast<std::int32_t>(
             static_cast<std::int64_t>(screenY + 0.5));
         static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
-        if (allowMapAtZero && payload->value24 == 0) {
+        if (allowMapAtZero && payload->orbitRadius24 == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
             const std::int32_t yOffset = GetYobiGraphicOriginOffset_5182B0(action, 1);
             const std::int32_t drawY = yOffset + action->y;
@@ -640,10 +640,10 @@ static std::int32_t UpdateExpandingOrbitTransition_447070(YobiAction* const acti
     auto* const payload = action->payload.mapTransition;
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
-        payload->value20 = 0.0F;
-        payload->value24 = 0;
+        payload->orbitAngle20 = 0.0F;
+        payload->orbitRadius24 = 0;
     }
-    if (payload->value24 > 800) {
+    if (payload->orbitRadius24 > 800) {
         world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 0;
@@ -652,12 +652,12 @@ static std::int32_t UpdateExpandingOrbitTransition_447070(YobiAction* const acti
         const std::uint64_t now = platform::ReadTickCount64();
         const std::uint64_t deadline = payload->tick14 + 1000u;
         if (deadline < now) {
-            const double angle = payload->value20 + 6.0;
-            payload->value24 += 4;
-            payload->value20 = static_cast<float>(angle);
+            const double angle = payload->orbitAngle20 + 6.0;
+            payload->orbitRadius24 += 4;
+            payload->orbitAngle20 = static_cast<float>(angle);
         }
     }
-    DrawTransitionOrbit(action, payload, payload->value20, true);
+    DrawTransitionOrbit(action, payload, payload->orbitAngle20, true);
     return 0;
 }
 
@@ -668,17 +668,17 @@ static std::int32_t UpdateContractingOrbitTransition_447230(YobiAction* const ac
     if (payload->slots18.values.state18 == 0) {
         payload->slots18.values.state18 = 1;
         payload->slots18.values.state1C = 0;
-        payload->value20 = 0.0F;
-        payload->value24 = 800;
-    } else if (payload->value24 <= 0) {
+        payload->orbitAngle20 = 0.0F;
+        payload->orbitRadius24 = 800;
+    } else if (payload->orbitRadius24 <= 0) {
         world::RecreateWorldObjectAction_4467D0(payload->objectIndex28);
         MarkDeath(action);
         return 1;
     }
     if (payload->slots18.values.state18 != 0) {
-        const double angle = payload->value20 + 6.0;
-        payload->value24 -= 4;
-        payload->value20 = static_cast<float>(angle);
+        const double angle = payload->orbitAngle20 + 6.0;
+        payload->orbitRadius24 -= 4;
+        payload->orbitAngle20 = static_cast<float>(angle);
         DrawTransitionOrbit(action, payload, static_cast<float>(angle), false);
     }
     return 0;
@@ -838,7 +838,7 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
 YobiAction* CreateMapTransitionAction_448040(
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
-    const std::int16_t mode, const std::int16_t value02,
+    const std::int16_t mode, const std::int16_t searchDirection02,
     const std::int32_t objectIndex)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, sizeof(detail::MapTransitionPayload), YobiPayloadKind::MapTransition);
@@ -878,10 +878,10 @@ YobiAction* CreateMapTransitionAction_448040(
     auto* const payload = action->payload.mapTransition;
     action->y = y;
     payload->mode = mode;
-    payload->value02 = value02;
-    detail::SelectOddTransitionDirection_446970(&payload->value02);
-    payload->value04 = payload->value02;
-    payload->value06 = 0;
+    payload->searchDirection02 = searchDirection02;
+    detail::SelectOddTransitionDirection_446970(&payload->searchDirection02);
+    payload->previousStepDirection04 = payload->searchDirection02;
+    payload->directionChangeCount06 = 0;
     payload->mapX08 = mapX;
     payload->mapY0C = mapY;
     payload->counter10 = 0;
@@ -893,8 +893,8 @@ YobiAction* CreateMapTransitionAction_448040(
         payload->slots18.values.state18 = 0;
         payload->slots18.values.state1C = 0;
     }
-    payload->value20 = 0.0F;
-    payload->value24 = 0;
+    payload->orbitAngle20 = 0.0F;
+    payload->orbitRadius24 = 0;
     payload->flags10C = 0;
     payload->objectIndex28 = objectIndex;
     return action;

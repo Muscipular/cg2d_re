@@ -20,7 +20,7 @@ struct MapActorPayload {
     YobiAction* action0C; // 原成员偏移：+0x0C。
     YobiAction* action10; // 原成员偏移：+0x10。
     std::uint64_t chatDeadline14; // 原成员偏移：+0x14。
-    std::int32_t value18; // 原+18，445D20发布协议数值value50。
+    std::int32_t itemCount18; // 原+18；445D20发布地面物品数量，悬停绘制名称后的数量。
     std::array<std::wstring, 2>* text1C; // 原+0x1C；UTL02拥有两行动态UTF-16正文，载荷仍为指针。
     std::int32_t color20; // 原+20生产完整S32，绘制消费低S8。
     std::int32_t textLength24; // 原成员偏移：+0x24。

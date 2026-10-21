@@ -171,7 +171,7 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
         action->displayPriority = 0xCD;
         action->mapX1E0 = static_cast<std::int32_t>(index);
         action->imageNo = 0;
-        action->value54 = 18.0F;
+        action->motionMagnitude54 = 18.0F;
         action->angle50 = angle;
         std::int32_t mapNo;
         if (slot == 0) {
@@ -216,10 +216,10 @@ void MoveBattleSequence_420590(YobiAction* const action)
     float angle = static_cast<float>(270.0 - action->angle50);
     world::NormalizeAngleDegrees_46F8F0(&angle);
     const double xFactor = world::LookupCosineDegrees_46F950(angle);
-    const double xStep = xFactor * action->value54;
+    const double xStep = xFactor * action->motionMagnitude54;
     action->offset40 = static_cast<float>(action->offset40 - xStep);
     const double yFactor = world::LookupSineDegrees_46F930(angle);
-    const double yStep = yFactor * action->value54;
+    const double yStep = yFactor * action->motionMagnitude54;
     const double y = yStep + action->offset44;
     action->offset44 = static_cast<float>(y);
     action->x = static_cast<std::int32_t>(action->offset40);
@@ -248,8 +248,8 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     case 1: {
         ++action->counter1DC;
         MoveBattleSequence_420590(action);
-        const double speed = static_cast<double>(action->value54) - 0.7F;
-        action->value54 = static_cast<float>(speed);
+        const double speed = static_cast<double>(action->motionMagnitude54) - 0.7F;
+        action->motionMagnitude54 = static_cast<float>(speed);
         // 原FST后比较未舍入值，FCOMP的无序也走阶段推进分支。
         if (!(speed > 0.0)) {
             ++action->imageNo;
@@ -265,7 +265,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
                 const std::int32_t next = action->imageNo + 1;
                 action->flags = 0;
                 action->imageNo = next;
-                action->value54 = 10.0F;
+                action->motionMagnitude54 = 10.0F;
                 action->angle50 = 0.0F;
                 if ((action->mapX1E0 == 9)) {
                     static_cast<void>(audio::PlaySe_52C450(64, 320));
@@ -279,8 +279,8 @@ void UpdateBattleSequence_420300(YobiAction* const action)
         ++action->counter1DC;
         MoveBattleSequence_420590(action);
         static_cast<void>((++action->mapY1F0));
-        const double speed = action->value54 - 1.0;
-        action->value54 = static_cast<float>(speed);
+        const double speed = action->motionMagnitude54 - 1.0;
+        action->motionMagnitude54 = static_cast<float>(speed);
         if (!(speed > 0.0)) {
             const std::int32_t next = action->imageNo + 1;
             action->angle50 = 180.0F;
@@ -291,8 +291,8 @@ void UpdateBattleSequence_420300(YobiAction* const action)
     case 4: {
         ++action->counter1DC;
         static_cast<void>((++action->mapY1F0));
-        const double speed = action->value54 + 1.0;
-        action->value54 = static_cast<float>(speed);
+        const double speed = action->motionMagnitude54 + 1.0;
+        action->motionMagnitude54 = static_cast<float>(speed);
         if (speed >= 10.0) {
             ++action->imageNo;
         }
@@ -370,7 +370,7 @@ std::int32_t NewBattleNumber_41F1A0(
         action->displayPriority = 0xCF;
         action->mapX1E0 = static_cast<std::int32_t>(std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
         action->imageNo = 0;
-        action->value54 = 18.0F;
+        action->motionMagnitude54 = 18.0F;
         action->angle50 = x < 320 ? 270.0F : 90.0F;
         action->flags = 2;
         const std::int32_t character = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
@@ -444,7 +444,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
         action->displayPriority = 0xCF;
         action->mapX1E0 = static_cast<std::int32_t>(std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
         action->imageNo = 0;
-        action->value54 = 18.0F;
+        action->motionMagnitude54 = 18.0F;
         action->angle50 = x < 320 ? 270.0F : 90.0F;
         action->flags = 2;
         static_cast<void>(resource::GetGraphicMapNoIndex(mapNo, &action->graphicIndex));
@@ -483,10 +483,10 @@ void UpdateBattleFloatingIcon_41F450(YobiAction* const action)
 {
     const std::int32_t initialPhase = action->phase;
     if (initialPhase == 0) {
-        const double speed = static_cast<double>(std::bit_cast<float>(action->value4CBits))
+        const double speed = static_cast<double>(std::bit_cast<float>(action->verticalVelocityBits4C))
             + 0.8F;
         const bool reachedPeak = speed >= 7.2F;
-        action->value4CBits = std::bit_cast<std::uint32_t>(static_cast<float>(speed));
+        action->verticalVelocityBits4C = std::bit_cast<std::uint32_t>(static_cast<float>(speed));
         if (reachedPeak) {
             action->phase = 1;
         }
@@ -521,7 +521,7 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     action->framePlayingRate = 100;
     action->offset40 = static_cast<float>(static_cast<double>(offsetX) + parent->offset40);
     const double y = static_cast<double>(offsetY) + parent->offset44;
-    action->value4CBits = 0xC1000000u;
+    action->verticalVelocityBits4C = 0xC1000000u;
     action->imageNo = imageNo;
     action->direction = 0;
     action->rebirthValue1 = 4;

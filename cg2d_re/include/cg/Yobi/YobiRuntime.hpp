@@ -102,18 +102,18 @@ YobiAction* CreateWindowOpeningAnimation_475950(
 // 原48AC60完整数量展开；maximum为S32，callback为非拥有原生函数指针。
 YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
     std::int32_t sourceWindow, std::int32_t sourceElement, std::int32_t imageNo,
-    std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
+    std::int32_t maximum, std::int32_t value14, std::int32_t initialValue, // value14仅确认透传窗口参数，业务含义未定，保留原名。
     void (*callback)(std::int32_t), std::uint32_t flags, std::uint32_t mode,
     std::uint32_t actionFlags); // QIP01：失败直发布/返回空；低BYTE标志与两CryptInt原序。
 
 // 原窗口41/38的完整展开创建；失败仍发布，kind成功路径按低S16传递。
 // 原函数：0x004ABEF0。
 YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
-    std::int32_t kind, std::int32_t value14, std::int32_t userState,
+    std::int32_t kind, std::int32_t value14, std::int32_t userState, // value14透传银行窗口，未确认业务含义，保留原名。
     std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开41并返空，低BYTE和临时CryptInt原序保持。
 // 原函数：0x004ACE80。
 YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
-    std::int32_t kind, std::int32_t value14, std::int32_t userState,
+    std::int32_t kind, std::int32_t value14, std::int32_t userState, // value14透传物品保管窗口，未确认业务含义，保留原名。
     std::int32_t phase, std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开38并返空，低BYTE和临时CryptInt原序保持。
 
 // 原441DB0：独立载荷、四次坐标赋值/投影；4417E0与实体尾442F70正文已有，完整链/运行未验。
@@ -123,7 +123,7 @@ YobiAction* CreateMapActorAction_441DB0(
 // LDT01／原448040：独立载荷、同临时槽四次坐标赋值/投影与tick；447E60及十种模式已有本体。
 YobiAction* CreateMapTransitionAction_448040(
     std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
-    std::int32_t direction, std::int16_t mode, std::int16_t value02,
+    std::int32_t direction, std::int16_t mode, std::int16_t searchDirection02,
     std::int32_t objectIndex);
 // WLR01：519D50/4462E0/4464D0共用八槽/text清理；逐槽标死清引用，不处理+34/+38或释放主action/payload。
 void ClearMapActorAttachments(YobiAction* action);

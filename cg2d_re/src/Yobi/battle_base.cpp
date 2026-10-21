@@ -31,9 +31,9 @@ static void ResetBattleCastEffects(BattleActorPayload* const payload)
     payload->effectFlagsFE4 = 0;
     payload->valueFF0 = 0;
     payload->aliveFF8 = 0;
-    payload->value1024 = 0;
+    payload->effectPlaybackState1024 = 0;
     payload->value1038 = 0;
-    payload->valueFCC = 0;
+    payload->actionFrameCountFCC = 0;
     payload->valueFD0 = 0;
     payload->effectRunningC9C = 0;
     payload->effectCountCA0 = 0;
@@ -263,11 +263,11 @@ void NormalizeBattleAngle_405E60(YobiAction* const action)
 void MoveBattleByAngle_405EA0(YobiAction* const action)
 {
     const double xFactor = world::LookupCosineDegrees_46F950(action->angle50);
-    const double xStep = xFactor * action->value54;
+    const double xStep = xFactor * action->motionMagnitude54;
     const float yAngle = action->angle50;
     action->offset40 = static_cast<float>(xStep + action->offset40);
     const double yFactor = world::LookupSineDegrees_46F930(yAngle);
-    action->offset44 = static_cast<float>(yFactor * action->value54 + action->offset44);
+    action->offset44 = static_cast<float>(yFactor * action->motionMagnitude54 + action->offset44);
 }
 
 // 原函数：0x00405ED0。
@@ -483,12 +483,12 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     if ((*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & BattleActorFlag_Dead) != 0 || action->phase == 13) {
         return;
     }
-    action->value54 = 1.0F;
+    action->motionMagnitude54 = 1.0F;
     cg::world::gBattleAllEntries59E980[index]->hidden = 0;
     ResetBattleCastEffects(payload);
     payload->castPlayIndexFC4 = 0;
     payload->castListCA4[0] = 0;
-    payload->value13A4 = 0;
+    payload->queuedTargetIndex13A4 = 0;
     payload->queuedTargetCount13A8 = 0;
     const std::uint8_t flags = *reinterpret_cast<const unsigned char*>(&payload->flagsFDC);
     payload->castListIndexFC8 = -1;
@@ -513,7 +513,7 @@ void ResetBattleCastList_4391E0(const std::int32_t index)
         return;
     }
     auto* const payload = action->payload.battleActor;
-    action->value54 = 1.0F;
+    action->motionMagnitude54 = 1.0F;
     cg::world::gBattleAllEntries59E980[index]->hidden = 0;
     ResetBattleCastEffects(payload);
     payload->castListIndexFC8 = -1;
@@ -522,7 +522,7 @@ void ResetBattleCastList_4391E0(const std::int32_t index)
     payload->queuedTargets1084[1] = -1;
     payload->castPlayIndexFC4 = 0;
     payload->castListCA4[0] = 0;
-    payload->value13A4 = 0;
+    payload->queuedTargetIndex13A4 = 0;
     payload->queuedTargetCount13A8 = 0;
 }
 
@@ -640,8 +640,8 @@ std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* const action)
         return 0;
     }
     auto* const payload = action->payload.battleActor;
-    const std::int32_t next = payload->value13A4 + 1;
-    payload->value13A4 = next;
+    const std::int32_t next = payload->queuedTargetIndex13A4 + 1;
+    payload->queuedTargetIndex13A4 = next;
     return payload->queuedTargets1084[next] == -1 ? 1 : 0;
 }
 

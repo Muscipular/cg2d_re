@@ -176,8 +176,8 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             YobiAction* const turningRider = payload->rider13C8;
             const float riderX = static_cast<float>(static_cast<double>(riderDeltaX) + effect->offset40);
             TurnBattleTowardPosition_4060D0(turningRider, riderX, riderY, 1, 0.0F);
-            action->value54 = 8.0F;
-            payload->rider13C8->value54 = 8.0F;
+            action->motionMagnitude54 = 8.0F;
+            payload->rider13C8->motionMagnitude54 = 8.0F;
             static_cast<void>(PlayFrame_517DA0(action, 0));
             static_cast<void>(PlayFrame_517DA0(payload->rider13C8, 0));
             static_cast<void>(MarkDeath(cg::world::gBattleAllEntries59E980[second]));
@@ -325,7 +325,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     const std::int32_t first = payload->effects1C[index].position3;
     const std::int32_t second = payload->effects1C[index].position4;
     action->characterAction = 3;
-    action->value54 = 8.0F;
+    action->motionMagnitude54 = 8.0F;
     const std::int32_t distancePoint = cg::world::gBattlePointIndices5536FC[second];
     const float distanceY = static_cast<float>(cg::world::gBattleGraphicPoints553758[distancePoint][3]);
     const float distanceX = static_cast<float>(cg::world::gBattleGraphicPoints553758[distancePoint][2]);
@@ -677,7 +677,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         firstTarget->y = action->y;
         firstTarget = cg::world::gBattleAllEntries59E980[first];
         firstTarget->direction = action->direction;
-        cg::world::gBattleAllEntries59E980[first]->value54 = 6.0F;
+        cg::world::gBattleAllEntries59E980[first]->motionMagnitude54 = 6.0F;
         RestoreBattleRideGear(&cg::world::gBattleAllEntries59E980[first], carrier);
         carrier->first00 = nullptr;
         static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[first], 0));
@@ -745,7 +745,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         const float targetY = effect->offset44;
         const float targetX = static_cast<float>(static_cast<double>(targetDeltaX) + effect->offset40);
         TurnBattleTowardPosition_4060D0(currentRider, targetX, targetY, 1, 0.0F);
-        payload->rider13C8->value54 = 8.0F;
+        payload->rider13C8->motionMagnitude54 = 8.0F;
         static_cast<void>(PlayFrame_517DA0(payload->rider13C8, 0));
         YobiAction* const soundRider = payload->rider13C8;
         static_cast<void>(audio::PlaySe_52C450(465, soundRider->x));
@@ -867,18 +867,18 @@ void UpdateBattleAction230_4160A0(YobiAction* const action)
 // 原函数：0x00416150。
 std::int32_t UpdateBattleAction231_416150(YobiAction* const action)
 {
-    const double speed = static_cast<double>(action->value54) - 0.45F;
+    const double speed = static_cast<double>(action->motionMagnitude54) - 0.45F;
     auto* const payload = action->payload.battleActor;
     action->characterAction = 9;
-    action->value54 = static_cast<float>(speed);
+    action->motionMagnitude54 = static_cast<float>(speed);
     if (!(speed >= 0.0)) {
-        action->value54 = 0.0F;
+        action->motionMagnitude54 = 0.0F;
     }
     action->framePlayingRate = 100;
     MoveBattleByAngle_405EA0(action);
-    if (!(action->value54 > 0.0F)) {
+    if (!(action->motionMagnitude54 > 0.0F)) {
         AdvanceBattleCastState_439340(action);
-        action->value54 = 6.0F;
+        action->motionMagnitude54 = 6.0F;
     }
     static_cast<void>(PlayFrame_517DA0(action, 0));
     if (payload->valueFF0 == 0) {

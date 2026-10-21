@@ -53,9 +53,9 @@ YobiAction& YobiAction::operator=(const YobiAction& source)
     std::memcpy(&this->offset40, &source.offset40, sizeof(source.offset40));
     std::memcpy(&this->offset44, &source.offset44, sizeof(source.offset44));
     std::memcpy(&this->effectAcceleration48, &source.effectAcceleration48, sizeof(source.effectAcceleration48));
-    this->value4CBits = source.value4CBits;
+    this->verticalVelocityBits4C = source.verticalVelocityBits4C;
     std::memcpy(&this->angle50, &source.angle50, sizeof(source.angle50));
-    std::memcpy(&this->value54, &source.value54, sizeof(source.value54));
+    std::memcpy(&this->motionMagnitude54, &source.motionMagnitude54, sizeof(source.motionMagnitude54));
     this->field58 = source.field58;
     std::memcpy(&this->scaleX, &source.scaleX, sizeof(source.scaleX));
     std::memcpy(&this->scaleY, &source.scaleY, sizeof(source.scaleY));

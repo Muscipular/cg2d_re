@@ -184,7 +184,7 @@ static void InitializeSceneEffectGraphic(
     if (created) {
         action->offset40 = 0.0F;
         action->offset44 = 0.0F;
-        action->value54 = 0.25F;
+        action->motionMagnitude54 = 0.25F;
         action->angle50 = 0.0F;
         action->field58 = 0;
     }
@@ -200,12 +200,12 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
     }
     if (action->characterAction == 1) {
         if (action->offset40 < 0.0F) {
-            if (action->value54 > 0.0F
-                && static_cast<double>(action->value54) - 0.11F <= 0.0) {
+            if (action->motionMagnitude54 > 0.0F
+                && static_cast<double>(action->motionMagnitude54) - 0.11F <= 0.0) {
                 PlaySceneEffectSounds();
             }
-            const double speed = static_cast<double>(action->value54) - 0.11F;
-            action->value54 = static_cast<float>(speed);
+            const double speed = static_cast<double>(action->motionMagnitude54) - 0.11F;
+            action->motionMagnitude54 = static_cast<float>(speed);
             const double x = action->offset40 - speed;
             action->offset40 = static_cast<float>(x);
             action->offset44 = static_cast<float>(
@@ -213,26 +213,26 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
             if (x > 0.0) {
                 action->offset40 = 0.0F;
                 action->offset44 = 0.0F;
-                action->value54 = 0.0F;
+                action->motionMagnitude54 = 0.0F;
                 ++action->characterAction;
             }
         } else {
             action->offset40 = static_cast<float>(
-                static_cast<double>(action->offset40) - action->value54);
+                static_cast<double>(action->offset40) - action->motionMagnitude54);
             action->offset44 = static_cast<float>(
-                static_cast<double>(action->value54) * 0.14F + action->offset44);
+                static_cast<double>(action->motionMagnitude54) * 0.14F + action->offset44);
         }
     } else if (action->characterAction == 3) {
-        const double speed = static_cast<double>(action->value54) + 0.002F;
-        action->value54 = static_cast<float>(speed);
+        const double speed = static_cast<double>(action->motionMagnitude54) + 0.002F;
+        action->motionMagnitude54 = static_cast<float>(speed);
         if (speed > 1.5F) {
-            action->value54 = 1.5F;
+            action->motionMagnitude54 = 1.5F;
         }
         action->offset40 = static_cast<float>(
-            static_cast<double>(action->offset40) + action->value54);
+            static_cast<double>(action->offset40) + action->motionMagnitude54);
         action->offset44 = static_cast<float>(
             action->offset44
-            - static_cast<double>(action->value54) * 0.2F);
+            - static_cast<double>(action->motionMagnitude54) * 0.2F);
     }
     float screenX;
     float screenY;
@@ -253,12 +253,12 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
     }
     if (action->characterAction == 1) {
         if (action->offset40 > 0.0F) {
-            if (action->value54 > 0.0F
-                && static_cast<double>(action->value54) - 0.11F <= 0.0) {
+            if (action->motionMagnitude54 > 0.0F
+                && static_cast<double>(action->motionMagnitude54) - 0.11F <= 0.0) {
                 PlaySceneEffectSounds();
             }
-            const double speed = static_cast<double>(action->value54) - 0.11F;
-            action->value54 = static_cast<float>(speed);
+            const double speed = static_cast<double>(action->motionMagnitude54) - 0.11F;
+            action->motionMagnitude54 = static_cast<float>(speed);
             const double x = speed + action->offset40;
             action->offset40 = static_cast<float>(x);
             action->offset44 = static_cast<float>(
@@ -266,26 +266,26 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
             if (x < 0.0) {
                 action->offset40 = 0.0F;
                 action->offset44 = 0.0F;
-                action->value54 = 0.0F;
+                action->motionMagnitude54 = 0.0F;
                 ++action->characterAction;
             }
         } else {
             action->offset40 = static_cast<float>(
-                static_cast<double>(action->offset40) + action->value54);
+                static_cast<double>(action->offset40) + action->motionMagnitude54);
             action->offset44 = static_cast<float>(
                 action->offset44
-                - static_cast<double>(action->value54) * 0.14F);
+                - static_cast<double>(action->motionMagnitude54) * 0.14F);
         }
     } else if (action->characterAction == 3) {
-        const double speed = static_cast<double>(action->value54) + 0.002F;
-        action->value54 = static_cast<float>(speed);
+        const double speed = static_cast<double>(action->motionMagnitude54) + 0.002F;
+        action->motionMagnitude54 = static_cast<float>(speed);
         if (speed > 1.5F) {
-            action->value54 = 1.5F;
+            action->motionMagnitude54 = 1.5F;
         }
         action->offset40 = static_cast<float>(
-            static_cast<double>(action->offset40) - action->value54);
+            static_cast<double>(action->offset40) - action->motionMagnitude54);
         action->offset44 = static_cast<float>(
-            static_cast<double>(action->value54) * 0.2F + action->offset44);
+            static_cast<double>(action->motionMagnitude54) * 0.2F + action->offset44);
     }
     float screenX;
     float screenY;
@@ -337,17 +337,17 @@ static void ConfigureRightEntrySceneEffect_448810(
     case 1:
         action->offset40 = 870.0F;
         action->offset44 = -121.8F;
-        action->value54 = 1.0F;
+        action->motionMagnitude54 = 1.0F;
         break;
     case 2:
         action->offset40 = 0.0F;
-        action->value54 = 0.0F;
+        action->motionMagnitude54 = 0.0F;
         break;
     case 3:
         PlaySceneEffectSounds();
         action->offset40 = 0.0F;
         action->offset44 = 0.0F;
-        action->value54 = 0.0F;
+        action->motionMagnitude54 = 0.0F;
         break;
     default:
         MarkDeath(action);
@@ -418,17 +418,17 @@ static void ConfigureLeftEntrySceneEffect_448D90(
     case 1:
         action->offset40 = -870.0F;
         action->offset44 = 121.8F;
-        action->value54 = 1.0F;
+        action->motionMagnitude54 = 1.0F;
         break;
     case 2:
         action->offset40 = 0.0F;
-        action->value54 = 0.0F;
+        action->motionMagnitude54 = 0.0F;
         break;
     case 3:
         PlaySceneEffectSounds();
         action->offset40 = 0.0F;
         action->offset44 = 0.0F;
-        action->value54 = 0.0F;
+        action->motionMagnitude54 = 0.0F;
         break;
     default:
         MarkDeath(action);
@@ -556,9 +556,9 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         }
         if (associated != nullptr) {
             world::gMapEffectOffsetXBits =
-                std::bit_cast<std::uint32_t>(associated->value54);
+                std::bit_cast<std::uint32_t>(associated->motionMagnitude54);
             world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
-                static_cast<float>(static_cast<double>(associated->value54) * -0.14F));
+                static_cast<float>(static_cast<double>(associated->motionMagnitude54) * -0.14F));
         }
     } else if (elapsed > 200 * (5 * duration - 80)) {
         world::gMapEffectOffsetXBits = 0;
@@ -567,13 +567,13 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         if (elapsed % 40 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
         }
-        const double amplitude = static_cast<double>(action->value54) - 0.025F;
-        action->value54 = static_cast<float>(amplitude);
+        const double amplitude = static_cast<double>(action->motionMagnitude54) - 0.025F;
+        action->motionMagnitude54 = static_cast<float>(amplitude);
         if (amplitude < 0.0) {
-            action->value54 = 0.0F;
+            action->motionMagnitude54 = 0.0F;
         }
         platform::detail::Cg2dMapTimedOffset(
-            (progress + 250) % 360, &action->value54,
+            (progress + 250) % 360, &action->motionMagnitude54,
             &world::gMapEffectOffsetXBits, &world::gMapEffectOffsetYBits);
     } else if (elapsed <= 14000) {
         if (elapsed >= 13000 && elapsed % 120 == 0) {
@@ -584,9 +584,9 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         }
         if (associated != nullptr) {
             world::gMapEffectOffsetXBits =
-                std::bit_cast<std::uint32_t>(-associated->value54);
+                std::bit_cast<std::uint32_t>(-associated->motionMagnitude54);
             world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
-                static_cast<float>(static_cast<double>(associated->value54) * 0.14F));
+                static_cast<float>(static_cast<double>(associated->motionMagnitude54) * 0.14F));
         }
     } else if (elapsed <= 15000) {
         if (elapsed % 120 == 0) {
@@ -596,15 +596,15 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
         }
         if (associated != nullptr) {
-            const double amplitude = static_cast<double>(associated->value54) - 0.025F;
-            associated->value54 = static_cast<float>(amplitude);
+            const double amplitude = static_cast<double>(associated->motionMagnitude54) - 0.025F;
+            associated->motionMagnitude54 = static_cast<float>(amplitude);
             if (amplitude < 0.0) {
-                associated->value54 = 0.0F;
+                associated->motionMagnitude54 = 0.0F;
             }
             world::gMapEffectOffsetXBits =
-                std::bit_cast<std::uint32_t>(-associated->value54);
+                std::bit_cast<std::uint32_t>(-associated->motionMagnitude54);
             world::gMapEffectOffsetYBits = std::bit_cast<std::uint32_t>(
-                static_cast<float>(static_cast<double>(associated->value54) * 0.14F));
+                static_cast<float>(static_cast<double>(associated->motionMagnitude54) * 0.14F));
         }
     } else if (elapsed <= 16000) {
         if (elapsed % 120 == 0) {
@@ -623,19 +623,19 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         }
         const bool increasing = elapsed <= 200 * (5 * duration - 125);
         platform::detail::Cg2dMapTimedOffset(
-            (progress + 250) % 360, &action->value54,
+            (progress + 250) % 360, &action->motionMagnitude54,
             &world::gMapEffectOffsetXBits, &world::gMapEffectOffsetYBits);
         if (increasing) {
-            const double amplitude = static_cast<double>(action->value54) + 0.1F;
-            action->value54 = static_cast<float>(amplitude);
+            const double amplitude = static_cast<double>(action->motionMagnitude54) + 0.1F;
+            action->motionMagnitude54 = static_cast<float>(amplitude);
             if (amplitude > 15.0F) {
-                action->value54 = 15.0F;
+                action->motionMagnitude54 = 15.0F;
             }
         } else {
-            const double amplitude = static_cast<double>(action->value54) - 0.15F;
-            action->value54 = static_cast<float>(amplitude);
+            const double amplitude = static_cast<double>(action->motionMagnitude54) - 0.15F;
+            action->motionMagnitude54 = static_cast<float>(amplitude);
             if (amplitude < 1.0F) {
-                action->value54 = 1.0F;
+                action->motionMagnitude54 = 1.0F;
             }
         }
     }
@@ -668,7 +668,7 @@ static void EnsureTimedMapBackgroundEffect_448290()
     action->displayPriority = 1;
     action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
     action->flags = 2;
-    action->value54 = 0.0F;
+    action->motionMagnitude54 = 0.0F;
     action->drawMode.clipMode = 1;
     const std::int16_t sourceX = -320;
     const std::int16_t sourceY = 340;
@@ -687,10 +687,10 @@ static void MoveSceneEffectAlongAngle_449670(YobiAction* const action)
     world::NormalizeAngleDegrees_46F8F0(&angle);
     const double xFactor = world::LookupCosineDegrees_46F950(angle);
     action->offset40 = static_cast<float>(
-        action->offset40 - xFactor * action->value54);
+        action->offset40 - xFactor * action->motionMagnitude54);
     const double yFactor = world::LookupSineDegrees_46F930(angle);
     action->offset44 = static_cast<float>(
-        yFactor * action->value54 + action->offset44);
+        yFactor * action->motionMagnitude54 + action->offset44);
 }
 
 // 原[449400,449552)：漂移对象的移动、帧表、投影及四方向退出。
@@ -839,7 +839,7 @@ void UpdateMapEnvironmentEffects_449160()
     action->imageNo = (timeCategory & 1u) != 0
         ? platform::RandomRange_46FAF0(0, 1) : platform::RandomRange_46FAF0(2, 3);
     const std::int32_t speed = platform::RandomRange_46FAF0(0, 200);
-    action->value54 = static_cast<float>(static_cast<double>(speed) * 0.01F + 2.0F);
+    action->motionMagnitude54 = static_cast<float>(static_cast<double>(speed) * 0.01F + 2.0F);
     const std::int32_t offset = platform::RandomRange_46FAF0(0, 2048) - 1024;
     switch (action->imageNo & 3) {
     case 0:

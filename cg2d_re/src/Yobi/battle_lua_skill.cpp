@@ -1488,14 +1488,14 @@ static void ObserveNodeTransition(RuntimeNode& node) {
 
 static void InitializeActionQueues(YobiAction* action) {
     BattleActorPayload& data = *action->payload.battleActor;
-    data.valueFCC = 0;
+    data.actionFrameCountFCC = 0;
     data.valueFD0 = 0;
     data.valueFD4 = 0;
     data.busyFD8 = 0;
     data.effectFlagsFE4 = 0;
     data.valueFF0 = 0;
     data.aliveFF8 = 0;
-    data.value1024 = 0;
+    data.effectPlaybackState1024 = 0;
     data.value1038 = 0;
     for (BattleEntryEffectRecord& effect : data.effects1C) {
         effect = {-1, 0, 0, 0};
@@ -1509,7 +1509,7 @@ static void InitializeActionQueues(YobiAction* action) {
     data.castListIndexFC8 = -1;
     data.queuedTargets1084[0] = -1;
     data.queuedTargets1084[1] = -1;
-    data.value13A4 = 0;
+    data.queuedTargetIndex13A4 = 0;
     data.queuedTargetCount13A8 = 0;
     data.castSkill103C = gLuaSkillRuntime.rawSkillId;
     data.castLevel1040 = gLuaSkillRuntime.normalizedSkillLevel;
@@ -1610,7 +1610,7 @@ static bool CommitRootPlan(YobiAction* scene, int skillId, int techId, int skill
 
     for (const PendingEntry& entry : gPendingBatch.entries) {
         YobiAction* action = battleEntries[entry.position];
-        action->value54 = 1.0f;
+        action->motionMagnitude54 = 1.0f;
         action->hidden = 0;
         InitializeActionQueues(action);
         uint32_t nodeId = AddRuntimeNode(action, 0, 0, false, true);

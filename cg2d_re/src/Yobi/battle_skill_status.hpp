@@ -17,12 +17,12 @@ namespace detail {
 [[maybe_unused]] void ProcessBattleMSkill19Family(
     YobiAction* const scene, BattleScenePayload* const payload,
     const std::int32_t fpUsed, const std::int32_t entryValue,
-    const std::uint32_t flags9C, const std::int32_t valueA0);
+    const std::uint32_t flags9C, const std::int32_t feedbackAlternateImageA0);
 
 // 原434EDF..43573F；267保留继承累计值，每目标累计效果与最终累计尾分别生产。
 [[maybe_unused]] void ProcessBattleMSkill267(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed,
-    const std::uint32_t flags9C, const std::int32_t valueA0);
+    const std::uint32_t flags9C, const std::int32_t feedbackAlternateImageA0);
 
 } // namespace detail
 

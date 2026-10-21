@@ -257,8 +257,8 @@ struct StagedVisual {
 struct DebuffState {
     int flags{};
     int debuffState{};
-    int debuffType{};
-    YobiAction* buffYobi{};
+    int debuffType = 0;
+    YobiAction* buffYobi = nullptr;
 };
 
 struct StagedDebuff {

@@ -351,19 +351,19 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_PlaySound1020:
         static_cast<void>(UpdateBattleAction82_40CCE0(action));
         break;
-    case 83:
+    case BattleAction_ApplyDamageUp:
         static_cast<void>(UpdateBattleAction83_40CD10(action));
         break;
-    case 84:
+    case BattleAction_ClearDamageUp:
         static_cast<void>(UpdateBattleAction84_40CD70(action));
         break;
-    case 85:
+    case BattleAction_SpinAndEnlarge:
         static_cast<void>(UpdateBattleAction85_40CDE0(action));
         break;
-    case 86:
+    case BattleAction_ApplyDamageToTargets:
         static_cast<void>(UpdateBattleAction86_40C520(action));
         break;
-    case 87:
+    case BattleAction_PlayEarthquakeEffects:
         static_cast<void>(UpdateBattleAction87_40C780(action));
         break;
     case BattleAction_StartScreenShake:

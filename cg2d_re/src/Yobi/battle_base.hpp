@@ -104,6 +104,11 @@ enum BattleActionId : std::int32_t {
     BattleAction_PlaySound1018 = 80, // 播放soundId1018，保留先读取X再读取音效号的顺序。
     BattleAction_PlaySound101C = 81, // 播放soundId101C；与1018／1020是独立音效槽。
     BattleAction_PlaySound1020 = 82, // 播放soundId1020；不合并其他音效槽。
+    BattleAction_ApplyDamageUp = 83, // 逐步放大至1.3阈值，推进后设置DamageUp位；不在客户端计算伤害倍率。
+    BattleAction_ClearDamageUp = 84, // 逐步缩回1.0并清除DamageUp位，保留睡眠／石化播放门禁。
+    BattleAction_SpinAndEnlarge = 85, // 旋转并放大至2.0阈值后创建特效；技能2002可按名称选图，不设置DamageUp。
+    BattleAction_ApplyDamageToTargets = 86, // 逐项消费效果列表伤害／免疫／死亡／解除睡眠等结果，推进目标并启动震屏。
+    BattleAction_PlayEarthquakeEffects = 87, // 大地之怒：在对方十个阵型点随机播放特效和音效，计数至270后推进，不在此扣血。
     BattleAction_StartScreenShake = 88, // 设最大振幅6并开启振幅上升，然后推进。
     BattleAction_EndScreenShakeRise = 89, // 结束振幅上升；后续主循环逐步减振幅，不立即归零。
     BattleAction_ShowEffectTarget = 96, // 将当前效果目标hidden置0后推进本角色。

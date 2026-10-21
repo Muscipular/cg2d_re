@@ -774,6 +774,7 @@ void UpdateBattleAction82_40CCE0(YobiAction* const action)
 // 原函数：0x0040CD10。
 std::int32_t UpdateBattleAction83_40CD10(YobiAction* const action)
 {
+    // BAN01：DamageUp建立过程；这里只改变外观和状态位，不计算服务器的伤害加成。
     const double step = 0.005F;
     const double scaleX = action->scaleX + step;
     action->characterAction = 9;
@@ -791,6 +792,7 @@ std::int32_t UpdateBattleAction83_40CD10(YobiAction* const action)
 // 原函数：0x0040CD70。
 void UpdateBattleAction84_40CD70(YobiAction* const action)
 {
+    // BAN01：83的解除过程；PDN消息也通过此动作恢复缩放并清除DamageUp。
     const double step = 0.01F;
     const double scaleX = action->scaleX - step;
     auto* const payload = action->payload.battleActor;
@@ -812,6 +814,7 @@ void UpdateBattleAction84_40CD70(YobiAction* const action)
 // 原函数：0x0040CDE0。
 void UpdateBattleAction85_40CDE0(YobiAction* const action)
 {
+    // BAN01：技能82、跳舞mode12及特定复制体共用的旋转放大表现，不是DamageUp状态建立。
     using world::gBattleNamedEffects5ABCE0;
     const double step = 0.01F;
     const double scaleX = action->scaleX + step;
@@ -854,6 +857,7 @@ void UpdateBattleAction85_40CDE0(YobiAction* const action)
 // 原函数：0x0040C520。
 void UpdateBattleAction86_40C520(YobiAction* const action)
 {
+    // BAN01：消费已生成的逐目标命中结果并实际扣HP；技能82／97及跳舞mode12共用。
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     do {
@@ -927,6 +931,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
 // 原函数：0x0040C780。
 std::int32_t UpdateBattleAction87_40C780(YobiAction* const action)
 {
+    // BAN01：技能97大地之怒的对方阵营表现阶段；后续动作86负责实际伤害结算。
     using world::gBattleGraphicPoints553758;
     auto* const payload = action->payload.battleActor;
     for (std::int32_t index = 0; index < 10; ++index) {
@@ -2900,7 +2905,7 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     copy->worldX = static_cast<float>(100.0 / (halfDuration * halfDuration));
     AppendBattleCast_4392A0(caster, copy, 113);
     if (payload->castSkillLevel1044 == 90) {
-        AppendBattleCast_4392A0(caster, copy, 85);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_SpinAndEnlarge);
         AppendBattleCast_4392A0(caster, copy, BattleAction_Wait30Ticks);
     }
     AppendBattleCast_4392A0(caster, copy, 114);

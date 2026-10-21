@@ -17,21 +17,21 @@ namespace cg::platform {
 
 struct LegacyWavesReverb::Impl {
     enum class Operation { configure, reset, process, close };
-    SDL_Mutex* control {}; // 串行Configure/Reset/Process，工作线程不取该锁。
-    SDL_Semaphore* request {}; // 请求方发布operation后唤醒Run。
-    SDL_Semaphore* completed {}; // Run发布result后完成一次同步借用。
-    SDL_Thread* worker {}; // 唯一COM apartment与效果对象owner。
-    int sampleRate {}; // 实际固定WAV频率，格式设置和100ns时间转换共用。
-    bool opened {}; // 初次创建/格式/资源申请的真实结果，控制关闭时是否发请求。
+    SDL_Mutex* control = nullptr; // 串行Configure/Reset/Process，工作线程不取该锁。
+    SDL_Semaphore* request = nullptr; // 请求方发布operation后唤醒Run。
+    SDL_Semaphore* completed = nullptr; // Run发布result后完成一次同步借用。
+    SDL_Thread* worker = nullptr; // 唯一COM apartment与效果对象owner。
+    int sampleRate = 0; // 实际固定WAV频率，格式设置和100ns时间转换共用。
+    bool opened = false; // 初次创建/格式/资源申请的真实结果，控制关闭时是否发请求。
     std::atomic<Operation> operation {Operation::close}; // release/acquire发布下面请求字段。
     std::atomic<bool> result {false}; // release/acquire发布请求结果及hasTail。
-    std::int32_t decay {}; // 原455030参数0；仅configure请求消费。
-    std::int32_t mix {}; // 原455030参数1；仅configure请求消费。
-    float* pcm {}; // 同步借用请求方的双声道PCM，completed后清指针。
-    std::size_t samples {}; // process输入float数，SDK按字节数消费。
-    std::uint64_t startFrame {}; // 连续输出帧时点，重复段也不回退。
-    bool zeroInput {}; // 最后一遍后用DMO_INPLACE_ZERO排尾音。
-    bool hasTail {}; // Process返回S_FALSE，result同步后才交请求方读取。
+    std::int32_t decay = 0; // 原455030参数0；仅configure请求消费。
+    std::int32_t mix = 0; // 原455030参数1；仅configure请求消费。
+    float* pcm = nullptr; // 同步借用请求方的双声道PCM，completed后清指针。
+    std::size_t samples = 0; // process输入float数，SDK按字节数消费。
+    std::uint64_t startFrame = 0; // 连续输出帧时点，重复段也不回退。
+    bool zeroInput = false; // 最后一遍后用DMO_INPLACE_ZERO排尾音。
+    bool hasTail = false; // Process返回S_FALSE，result同步后才交请求方读取。
 
     // 下列COM指针与所有调用都属于Run线程，不发布给请求方。
     static int SDLCALL Run(void* data)

@@ -103,36 +103,36 @@ struct CompressedReceiveState {
 // CTO01：每个连接对象私有的主线程协议工作区；不暴露可变状态。
 struct CgConnection::Impl {
     CgConnection& owner; // 仅主线程使用，后台传输不借用连接对象。
-    bool contextBound {};
-    platform::ConnectionId contextId {};
+    bool contextBound = false;
+    platform::ConnectionId contextId = 0;
     explicit Impl(CgConnection& connection) : owner(connection) {}
-    std::uint16_t protocolModeDA3B22 {}; // 原全局：0x00DA3B22。
-    __time64_t time62B394 {}; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
-    std::tm* localTime62B380 {}; // 原全局：0x0062B380。 原 W32 指针槽，借用CRT同线程共享std::tm。
-    std::uint32_t workspaceCapacity {};
-    std::uint8_t* sendMessageBuffer {}; // 原全局：0x0058B5F0。 发送命令与字段的完整消息拼接缓冲区。
-    std::uint8_t* reservedProtocolBuffer {}; // 原全局：0x0058B5F4。 保留缓冲区，当前仅有生命周期操作。
-    std::uint8_t* textTokenBuffer {}; // 原全局：0x0058B5F8。 文本字段转义、反转义共用的临时缓冲区。
-    std::uint8_t* integerTokenBuffer {}; // 原全局：0x0058B5FC。 整数字段及尾随空格的临时缓冲区。
-    char** pointerTable58B614 {}; // 原全局：0x0058B614。
-    std::uint8_t* reservedTripleBuffer0 {}; // 原全局：0x0058B604。 三倍容量保留缓冲区，当前仅有生命周期操作。
-    std::uint8_t* reservedTripleBuffer1 {}; // 原全局：0x0058B608。 三倍容量保留缓冲区，当前仅有生命周期操作。
-    std::uint8_t* reservedTripleBuffer2 {}; // 原全局：0x0058B60C。 三倍容量保留缓冲区，当前仅有生命周期操作。
-    std::uint8_t* reservedTripleBuffer3 {}; // 原全局：0x0058B610。 三倍容量保留缓冲区，当前仅有生命周期操作。
-    SendProtocolObserver sendObserver58B61C {}; // 原全局：0x0058B61C。
+    std::uint16_t protocolModeDA3B22 = 0; // 原全局：0x00DA3B22。
+    __time64_t time62B394 = 0; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
+    std::tm* localTime62B380 = nullptr; // 原全局：0x0062B380。 原 W32 指针槽，借用CRT同线程共享std::tm。
+    std::uint32_t workspaceCapacity = 0;
+    std::uint8_t* sendMessageBuffer = nullptr; // 原全局：0x0058B5F0。 发送命令与字段的完整消息拼接缓冲区。
+    std::uint8_t* reservedProtocolBuffer = nullptr; // 原全局：0x0058B5F4。 保留缓冲区，当前仅有生命周期操作。
+    std::uint8_t* textTokenBuffer = nullptr; // 原全局：0x0058B5F8。 文本字段转义、反转义共用的临时缓冲区。
+    std::uint8_t* integerTokenBuffer = nullptr; // 原全局：0x0058B5FC。 整数字段及尾随空格的临时缓冲区。
+    char** pointerTable58B614 = nullptr; // 原全局：0x0058B614。
+    std::uint8_t* reservedTripleBuffer0 = nullptr; // 原全局：0x0058B604。 三倍容量保留缓冲区，当前仅有生命周期操作。
+    std::uint8_t* reservedTripleBuffer1 = nullptr; // 原全局：0x0058B608。 三倍容量保留缓冲区，当前仅有生命周期操作。
+    std::uint8_t* reservedTripleBuffer2 = nullptr; // 原全局：0x0058B60C。 三倍容量保留缓冲区，当前仅有生命周期操作。
+    std::uint8_t* reservedTripleBuffer3 = nullptr; // 原全局：0x0058B610。 三倍容量保留缓冲区，当前仅有生命周期操作。
+    SendProtocolObserver sendObserver58B61C = nullptr; // 原全局：0x0058B61C。
     std::wstring sendLogPathDA3B58; // 原全局：0x00DA3B58。
     std::wstring receiveLogPathDA3F9C; // 原全局：0x00DA3F9C。
     std::uint8_t integerFormatScratch[64] {}; // 原 [0xDA3F58,0xDA3F98)。
-    std::uint8_t** workspaceSlots {}; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
-    std::uint8_t active {};   // 原 0xD9F2C8，网络运行期活动门禁。
+    std::uint8_t** workspaceSlots = nullptr; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
+    std::uint8_t active = 0;   // 原 0xD9F2C8，网络运行期活动门禁。
     // 保留原[0xD8F2B8,0xD9F2C0)布局供主线程分发/接收；待发字节由后端独占。
     std::array<std::uint8_t, kQueueStorageSize> queueBytes {}; // 原全局：0x00D8F2B8。
-    std::int32_t receiveLengthD69790 {}; // 原 0xD69790，独立于连续队列。
-    std::uint8_t flagsD9F2C0 {}; // 原全局：0x00D9F2C0。
-    std::uint64_t lastTickD9F2C4 {}; // 原全局：0x00D9F2C4。
-    std::int32_t errorD9F2CC {}; // 原全局：0x00D9F2CC。
-    std::uint32_t receiveResetD9F3C4 {}; // 原全局：0x00D9F3C4。
-    std::uint32_t frameModuloD9F3C8 {}; // 原全局：0x00D9F3C8。
+    std::int32_t receiveLengthD69790 = 0; // 原 0xD69790，独立于连续队列。
+    std::uint8_t flagsD9F2C0 = 0; // 原全局：0x00D9F2C0。
+    std::uint64_t lastTickD9F2C4 = 0; // 原全局：0x00D9F2C4。
+    std::int32_t errorD9F2CC = 0; // 原全局：0x00D9F2CC。
+    std::uint32_t receiveResetD9F3C4 = 0; // 原全局：0x00D9F3C4。
+    std::uint32_t frameModuloD9F3C8 = 0; // 原全局：0x00D9F3C8。
     std::uint8_t value58ADA4 = 0x80; // 原全局：0x0058ADA4。 原ed回复独立字节，不属于58ADA8的排除链文本。
     std::wstring addressTextDA33D8; // 原全局：0x00DA33D8。 lSZ回复的地址文字。
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
@@ -141,8 +141,8 @@ struct CgConnection::Impl {
     std::list<std::pair<std::string, ProtocolSendHandler>> sendHandlers;
     CompressedReceiveState compressedReceive; // N02：会话数据随初始化／关闭重置。
     platform::CgTransport transport;
-    platform::ConnectionId connectionId {};
-    bool ioEnabled {};
+    platform::ConnectionId connectionId = 0;
+    bool ioEnabled = false;
     ~Impl() { Shutdown(); }
     void RegisterReceive(const char* header, ProtocolReceiveHandler handler)
     { receiveHandlers.emplace_back(header, std::move(handler)); }

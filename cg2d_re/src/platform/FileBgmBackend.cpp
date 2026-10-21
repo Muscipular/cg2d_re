@@ -13,18 +13,18 @@ namespace cg::platform {
 struct FileBgmBackend::Impl {
     // track先销毁，等待混音线程释放音频引用后再释放原文件缓存。
     struct Playback {
-        MIX_Audio* audio {};
-        MIX_Track* track {};
+        MIX_Audio* audio = nullptr;
+        MIX_Track* track = nullptr;
         ~Playback() { MIX_DestroyTrack(track); MIX_DestroyAudio(audio); }
     };
     struct Properties {
         SDL_PropertiesID id {SDL_CreateProperties()};
         ~Properties() { SDL_DestroyProperties(id); }
     };
-    bool initialized {};
-    MIX_Mixer* mixer {};
-    SDL_AudioDeviceID device {};
-    bool watching {};
+    bool initialized = false;
+    MIX_Mixer* mixer = nullptr;
+    SDL_AudioDeviceID device = 0;
+    bool watching = false;
     std::atomic<bool> deviceRemoved {false};
     std::map<std::uint64_t, Playback> playbacks;
 

@@ -8,7 +8,7 @@ namespace cg::script {
 static constexpr char kBgmHandleMetatable[] = "cg.BGMHandle";
 
 // userdata仅保存稳定身份；track/音频缓存由audio服务拥有。
-struct LuaBgmHandle { audio::FileBgmHandle id {}; };
+struct LuaBgmHandle { audio::FileBgmHandle id = 0; };
 
 static int BgmStop(lua_State* L)
 {

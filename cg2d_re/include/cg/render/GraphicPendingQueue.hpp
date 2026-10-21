@@ -117,7 +117,7 @@ static_assert(offsetof(GraphicCache3, unwrittenByte) == 0x03);
 // 原 0x1020EB8 的 W16 计数复用 platform 既有存储。
 struct LegacyPendingStorage {
     std::wstring savedPath; // 原FF4E30：启动时写入的保存路径。
-    std::uint8_t precedingBatchType{}; // 原prefix+5C：旧索引-2的类型槽。
+    std::uint8_t precedingBatchType = 0; // 原prefix+5C：旧索引-2的类型槽。
     std::array<GraphicCacheItem32, MAX_QUEUE_SIZE> records; // 原全局：0x00FF4EB8。
     std::array<GraphicCache3, MAX_QUEUE_SIZE> cache3; // 原全局：0x0101CEB8。
 };

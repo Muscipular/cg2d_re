@@ -50,12 +50,12 @@ struct SkillRegistration {
 
 // 当前SKL的只读字段索引；epoch使上次回调保存的PacketReader失效。
 struct PacketView {
-    bool active{};
-    uint32_t epoch{};
-    int startOffset{};
-    int endOffset{};
-    int failureOffset{};
-    int intCount{};
+    bool active = false;
+    uint32_t epoch = 0;
+    int startOffset = 0;
+    int endOffset = 0;
+    int failureOffset = 0;
+    int intCount = 0;
     std::vector<int> offsets;
 };
 
@@ -71,92 +71,92 @@ struct CallbackRefs {
 };
 
 struct PendingCast {
-    int actionId{};
+    int actionId = 0;
     CallbackRefs callbacks;
 };
 
 struct PendingEntry {
-    int position{};
-    size_t castBegin{};
-    size_t castCount{};
-    size_t effectBegin{};
-    size_t effectCount{};
+    int position = 0;
+    size_t castBegin = 0;
+    size_t castCount = 0;
+    size_t effectBegin = 0;
+    size_t effectCount = 0;
 };
 
 struct PendingChild {
-    int sourcePos{};
-    int targetPos{};
-    int spawnMode{};
-    int waitMode{};
-    size_t castBegin{};
-    size_t castCount{};
-    size_t effectBegin{};
-    size_t effectCount{};
+    int sourcePos = 0;
+    int targetPos = 0;
+    int spawnMode = 0;
+    int waitMode = 0;
+    size_t castBegin = 0;
+    size_t castCount = 0;
+    size_t effectBegin = 0;
+    size_t effectCount = 0;
 };
 
 struct PendingVisual {
-    int sourcePos{};
-    int targetPos{};
-    int waitMode{};
-    int actionState{};
-    int imageNo{};
-    int charAction{};
-    int dir{};
+    int sourcePos = 0;
+    int targetPos = 0;
+    int waitMode = 0;
+    int actionState = 0;
+    int imageNo = 0;
+    int charAction = 0;
+    int dir = 0;
     float scaleX{1.0f};
     float scaleY{1.0f};
-    bool hasX{};
-    bool hasY{};
-    float x{};
-    float y{};
+    bool hasX = false;
+    bool hasY = false;
+    float x = 0.0f;
+    float y = 0.0f;
     int updateRef{LUA_NOREF};
 };
 
 struct PendingVisualFrame {
-    bool hasImageNo{};
-    int imageNo{};
-    bool hasCharAction{};
-    int charAction{};
-    bool hasDir{};
-    int dir{};
-    bool hasScaleX{};
-    float scaleX{};
-    bool hasScaleY{};
-    float scaleY{};
-    bool hasX{};
-    float x{};
-    bool hasY{};
-    float y{};
-    bool markDeath{};
+    bool hasImageNo = false;
+    int imageNo = 0;
+    bool hasCharAction = false;
+    int charAction = 0;
+    bool hasDir = false;
+    int dir = 0;
+    bool hasScaleX = false;
+    float scaleX = 0.0f;
+    bool hasScaleY = false;
+    float scaleY = 0.0f;
+    bool hasX = false;
+    float x = 0.0f;
+    bool hasY = false;
+    float y = 0.0f;
+    bool markDeath = false;
 };
 
 struct PendingOperation {
-    int opId{};
-    int position{};
-    int value{};
-    size_t hitIndex{};
+    int opId = 0;
+    int position = 0;
+    int value = 0;
+    size_t hitIndex = 0;
 };
 
 struct PendingHitTargetCast {
-    int position{};
-    int actionId{};
+    int position = 0;
+    int actionId = 0;
 };
 
 struct PendingHit {
     BattleEntryEffectRecord effect{};
-    size_t ownerCastIndex{};
-    size_t targetCastBegin{};
-    size_t targetCastCount{};
+    size_t ownerCastIndex = 0;
+    size_t targetCastBegin = 0;
+    size_t targetCastCount = 0;
 };
 
 // 一次脚本回调的待提交结果；ownedRefs在失败时释放，成功时转交运行表。
 struct PendingBatch {
-    bool hasNextActionState{};
-    int nextActionState{};
+    bool hasNextActionState = false;
+    int nextActionState = 0;
     int onCompleteRef{LUA_NOREF};
-    size_t appendCastBegin{};
-    size_t appendCastCount{};
-    size_t appendEffectBegin{};
-    size_t appendEffectCount{};
+    size_t appendCastBegin = 0;
+    size_t appendCastCount = 0;
+    size_t appendEffectBegin = 0;
+    size_t appendEffectCount = 0;
     std::vector<PendingEntry> entries;
     std::vector<PendingChild> children;
     std::vector<PendingVisual> visuals;
@@ -171,68 +171,68 @@ struct PendingBatch {
 
 // 运行表只观察Yobi对象；完成、逻辑死亡、物理释放和子树等待分别记录。
 struct RuntimeNode {
-    uint32_t id{};
-    uint32_t parentId{};
-    YobiAction* action{};
-    int waitMode{};
+    uint32_t id = 0;
+    uint32_t parentId = 0;
+    YobiAction* action = nullptr;
+    int waitMode = 0;
     int observedActionState{std::numeric_limits<int>::min()};
     int observedCastOrdinal{std::numeric_limits<int>::min()};
-    int observedEffectRunning{};
-    uint32_t transitionGeneration{};
-    uint32_t enteredTransitionGeneration{};
-    int pendingNextActionState{};
-    bool temporary{};
-    bool pendingBind{};
-    bool actionDead{};
-    bool deathMarked{};
-    bool actionComplete{};
-    bool nativeFinishPending{};
-    bool nativeCleanup{};
-    bool pendingAdvance{};
-    bool pendingHasNextActionState{};
-    bool pendingWasVirtual{};
-    bool activationPending{};
-    bool visual{};
-    bool visualFinishPending{};
+    int observedEffectRunning = 0;
+    uint32_t transitionGeneration = 0;
+    uint32_t enteredTransitionGeneration = 0;
+    int pendingNextActionState = 0;
+    bool temporary = false;
+    bool pendingBind = false;
+    bool actionDead = false;
+    bool deathMarked = false;
+    bool actionComplete = false;
+    bool nativeFinishPending = false;
+    bool nativeCleanup = false;
+    bool pendingAdvance = false;
+    bool pendingHasNextActionState = false;
+    bool pendingWasVirtual = false;
+    bool activationPending = false;
+    bool visual = false;
+    bool visualFinishPending = false;
     int visualUpdateRef{LUA_NOREF};
-    uint32_t visualTick{};
-    int visualSourcePos{};
-    int visualTargetPos{};
-    float visualStartX{};
-    float visualStartY{};
-    uint32_t queueOwnerNodeId{};
+    uint32_t visualTick = 0;
+    int visualSourcePos = 0;
+    int visualTargetPos = 0;
+    float visualStartX = 0.0f;
+    float visualStartY = 0.0f;
+    uint32_t queueOwnerNodeId = 0;
 };
 
 // 将实际动作队列序号关联到阶段回调及受击编号，不另建动作执行队列。
 struct RuntimeCastBinding {
-    uint32_t nodeId{};
-    int castOrdinal{};
-    int actionId{};
-    int hitId{};
+    uint32_t nodeId = 0;
+    int castOrdinal = 0;
+    int actionId = 0;
+    int hitId = 0;
     int hitEffectIndex{-1};
     CallbackRefs callbacks;
 };
 
 // 单个被接管SKL的场景、根节点和回调所有权；结束后继续原报文游标。
 struct LuaSkillRuntime {
-    bool active{};
-    bool aborting{};
-    bool inCallback{};
-    bool completionCalled{};
-    uint32_t generation{};
+    bool active = false;
+    bool aborting = false;
+    bool inCallback = false;
+    bool completionCalled = false;
+    uint32_t generation = 0;
     uint32_t nextNodeId{1};
     int nextHitId{1};
-    int rawSkillId{};
-    int rawTechId{};
-    int skillLevel{};
-    int skillLevel2{};
-    int normalizedSkillLevel{};
-    int normalizedSkillLevel2{};
-    int casterPos{};
-    int packetStart{};
-    int packetEnd{};
+    int rawSkillId = 0;
+    int rawTechId = 0;
+    int skillLevel = 0;
+    int skillLevel2 = 0;
+    int normalizedSkillLevel = 0;
+    int normalizedSkillLevel2 = 0;
+    int casterPos = 0;
+    int packetStart = 0;
+    int packetEnd = 0;
     int onCompleteRef{LUA_NOREF};
-    YobiAction* scene{};
+    YobiAction* scene = nullptr;
     std::vector<uint32_t> rootNodeIds;
     std::vector<RuntimeNode> nodes;
     std::vector<RuntimeCastBinding> castBindings;
@@ -240,31 +240,31 @@ struct LuaSkillRuntime {
 
 // 原生分配已成功但尚未提交的对象；批次失败时仅标死，由Yobi链释放。
 struct StagedChild {
-    YobiAction* action{};
-    uint32_t nodeId{};
-    size_t pendingIndex{};
+    YobiAction* action = nullptr;
+    uint32_t nodeId = 0;
+    size_t pendingIndex = 0;
 };
 
 struct StagedVisual {
-    YobiAction* action{};
-    uint32_t nodeId{};
-    size_t pendingIndex{};
-    float startX{};
-    float startY{};
+    YobiAction* action = nullptr;
+    uint32_t nodeId = 0;
+    size_t pendingIndex = 0;
+    float startX = 0.0f;
+    float startY = 0.0f;
 };
 
 // 减益批次预创建时保存／恢复真实角色字段，成功后按操作顺序发布。
 struct DebuffState {
-    int flags{};
-    int debuffState{};
+    int flags = 0;
+    int debuffState = 0;
     int debuffType = 0;
     YobiAction* buffYobi = nullptr;
 };
 
 struct StagedDebuff {
-    size_t operationIndex{};
-    YobiAction* target{};
-    YobiAction* effect{};
+    size_t operationIndex = 0;
+    YobiAction* target = nullptr;
+    YobiAction* effect = nullptr;
     DebuffState desiredState;
 };
 
@@ -1639,9 +1639,9 @@ static bool CommitRootPlan(YobiAction* scene, int skillId, int techId, int skill
 }
 
 struct QueueGrowth {
-    YobiAction* action{};
-    size_t castCount{};
-    size_t effectCount{};
+    YobiAction* action = nullptr;
+    size_t castCount = 0;
+    size_t effectCount = 0;
 };
 
 static bool AddQueueGrowth(std::vector<QueueGrowth>& growths, YobiAction* action,
@@ -2199,8 +2199,8 @@ static bool CommitCallbackBatch(uint32_t nodeId) {
 }
 
 struct EffectCallbackDispatch {
-    int callbackRef{};
-    int hitId{};
+    int callbackRef = 0;
+    int hitId = 0;
 };
 
 static bool DispatchPendingEffect(uint32_t nodeId, int castOrdinal) {

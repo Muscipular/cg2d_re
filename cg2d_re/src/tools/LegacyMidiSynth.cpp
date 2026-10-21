@@ -55,10 +55,10 @@ const Chunk* Find(Bytes parent, const std::vector<Chunk>& chunks, const char* na
 }
 struct SampleParameters {
     std::uint16_t unity {60};
-    std::int16_t fine {};
-    std::int32_t attenuation {};
-    std::uint32_t loopStart {};
-    std::uint32_t loopLength {};
+    std::int16_t fine = 0;
+    std::int32_t attenuation = 0;
+    std::uint32_t loopStart = 0;
+    std::uint32_t loopLength = 0;
 };
 bool ReadSampleParameters(Bytes bytes, SampleParameters& out)
 {
@@ -77,11 +77,11 @@ bool ReadSampleParameters(Bytes bytes, SampleParameters& out)
     return true;
 }
 struct Articulation {
-    double attack {};
-    double decay {};
-    double release {};
+    double attack = 0.0;
+    double decay = 0.0;
+    double release = 0.0;
     double sustain {1.0};
-    double pan {};
+    double pan = 0.0;
 };
 bool ReadArticulation(Bytes parent, const std::vector<Chunk>& chunks, Articulation& out)
 {
@@ -122,41 +122,41 @@ struct LegacyMidiSynth::Impl {
     struct Region {
         std::uint32_t bank, program, wave;
         std::uint16_t keyLow, keyHigh, velocityLow, velocityHigh;
-        std::uint16_t keyGroup {}; // DLS1 rgnh键组：0无组、1..15打击乐互斥；见CAC15。
+        std::uint16_t keyGroup = 0; // DLS1 rgnh键组：0无组、1..15打击乐互斥；见CAC15。
         SampleParameters parameters;
-        bool ownParameters {};
+        bool ownParameters = false;
         Articulation articulation;
     };
     struct Event { std::uint64_t tick, frame; std::uint8_t status, first, second; std::uint32_t tempo; };
     struct Channel {
         std::array<std::uint8_t, 128> control {};
-        std::uint8_t program {};
+        std::uint8_t program = 0;
         std::uint16_t bend {8192};
         // RPN0/1/2各自持有参数；切换选择不丢值，序列重置由channels={}恢复。
-        std::uint8_t bendSemitones {2}, bendCents {};
+        std::uint8_t bendSemitones {2}, bendCents = 0;
         std::uint16_t fineTuning {8192};
         std::uint8_t coarseTuning {64};
-        bool nrpnSelected {}; // CC99/98后Data Entry不再写RPN，CC101/100重新选择RPN。
+        bool nrpnSelected = false; // CC99/98后Data Entry不再写RPN，CC101/100重新选择RPN。
     };
     struct Voice {
-        const Region* region {};
-        const Wave* wave {};
+        const Region* region = nullptr;
+        const Wave* wave = nullptr;
         SampleParameters parameters;
-        std::uint8_t channel {}, key {}, velocity {};
-        double cursor {}, envelope {}, releasedLevel {};
-        std::uint64_t age {}, releaseAge {};
-        bool released {}, keyUp {};
-        bool sostenutoHeld {}; // CC66上升沿锁存仍按住的音符；见CAC14离线踏板合同。
+        std::uint8_t channel = 0, key = 0, velocity = 0;
+        double cursor = 0.0, envelope = 0.0, releasedLevel = 0.0;
+        std::uint64_t age = 0, releaseAge = 0;
+        bool released = false, keyUp = false;
+        bool sostenutoHeld = false; // CC66上升沿锁存仍按住的音符；见CAC14离线踏板合同。
     };
     std::vector<Wave> waves;
     std::vector<Region> regions;
     std::vector<Event> events;
     std::array<Channel, 16> channels {};
     std::array<Voice, 64> voices {}; // 原端口dwVoices=64。
-    std::uint64_t frame {}, duration {};
-    std::size_t eventIndex {};
-    std::uint32_t repeats {};
-    bool playing {};
+    std::uint64_t frame = 0, duration = 0;
+    std::size_t eventIndex = 0;
+    std::uint32_t repeats = 0;
+    bool playing = false;
 
     void ResetSequence()
     {

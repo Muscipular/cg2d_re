@@ -32,7 +32,7 @@ struct CgTransport::Impl {
         ~Socket() { if (value != INVALID_SOCKET) closesocket(value); }
     };
     struct Addresses {
-        PADDRINFOEXW value {};
+        PADDRINFOEXW value = nullptr;
         ~Addresses() { if (value) FreeAddrInfoExW(value); }
     };
     struct Request {
@@ -43,15 +43,15 @@ struct CgTransport::Impl {
         std::wstring policyQuery;
     };
 
-    bool winsock {};
+    bool winsock = false;
     Event control; // 手动复位；锁内复位/发布，避免丢失唤醒。
     std::thread worker;
     mutable std::mutex mutex;
-    bool stopping {}, cancelled {}, ioEnabled {}, policyApproved {};
+    bool stopping = false, cancelled = false, ioEnabled = false, policyApproved = false;
     std::optional<Request> pending; // 只保留最新一次连接请求，不建立无界任务队列。
     ConnectionSnapshot status;
     std::array<std::uint8_t, kQueueCapacity> sendBytes {}, receiveBytes {};
-    std::size_t sendLength {}, receiveLength {};
+    std::size_t sendLength = 0, receiveLength = 0;
 
     ~Impl()
     {
@@ -102,7 +102,7 @@ struct CgTransport::Impl {
         if (!completed.Create()) return WSAGetLastError();
         OVERLAPPED overlapped {};
         overlapped.hEvent = completed.value;
-        HANDLE cancellation {};
+        HANDLE cancellation = nullptr;
         ADDRINFOEXW hints {};
         hints.ai_family = family;
         hints.ai_socktype = SOCK_STREAM;

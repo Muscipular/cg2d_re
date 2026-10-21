@@ -15,13 +15,13 @@ enum class NetworkQueueResult { Accepted, QueueFull, NotConnected, StaleSession,
 
 // 跨线程只发布值；策略结果由主线程裁决，原生地址与句柄不越过平台边界。
 struct ConnectionSnapshot {
-    ConnectionId id {};
+    ConnectionId id = 0;
     ConnectionState state {ConnectionState::Idle};
     ConnectionPhase phase {ConnectionPhase::None};
-    int error {};
-    std::uint64_t attempt {}; // 同一域名的候选序号。
-    std::uint64_t lastSendTick {}; // 与ReadTickCount64同源的实际send成功时点。
-    std::size_t receivedBytes {};
+    int error = 0;
+    std::uint64_t attempt = 0; // 同一域名的候选序号。
+    std::uint64_t lastSendTick = 0; // 与ReadTickCount64同源的实际send成功时点。
+    std::size_t receivedBytes = 0;
     std::wstring host; // 地址策略映射后的host，用于连接失败提示。
     std::wstring endpoint; // IPv6带端口时包含方括号。
     std::string policyAddress; // 原策略查询首个IPv4结果，失败保持空串。

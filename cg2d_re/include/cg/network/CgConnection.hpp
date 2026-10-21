@@ -26,8 +26,8 @@ using ProtocolSendHandler = std::function<void(
 
 // Pump只报告终止，不在连接对象中切换场景；terminal仅在terminated为true时有效。
 struct ConnectionPumpResult {
-    std::uint8_t value {};
-    bool terminated {};
+    std::uint8_t value = 0;
+    bool terminated = false;
     platform::ConnectionSnapshot terminal;
 };
 

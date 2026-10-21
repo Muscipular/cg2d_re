@@ -287,7 +287,7 @@ std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
 
 WindowShopDetail gShopDetailCC3210 {}; // 原全局：0x00CC3210。
 
-std::uint16_t gShopPriceTailD67420 {}; // 原D673EC+0x34：第五行价格末两位的非文本别名。
+std::uint16_t gShopPriceTailD67420 = 0; // 原D673EC+0x34：第五行价格末两位的非文本别名。
 
 std::int32_t gShopAvailableCF4A24 = 0; // 原全局：0x00CF4A24。
 

@@ -19,7 +19,7 @@
 
 namespace cg::render {
 
-TextureSurface* gCpuTempSurface {}; // 原Temp面的非拥有指针；创建／释放仍归本模块。
+TextureSurface* gCpuTempSurface = nullptr; // 原Temp面的非拥有指针；创建／释放仍归本模块。
 
 struct CpuBackStorage {
     // CPU 视图与 GDI DIB 共用此映射；逻辑容量仍为可见帧加一个额外像素。
@@ -65,7 +65,7 @@ struct CpuBackStorage {
 static constexpr std::uint8_t kOutlineExtraColors[1][3] {{0xA2, 0xE8, 0xFF}};
 
 static std::unique_ptr<CpuBackStorage> gCpuBackSurface;
-static TextureSurface* gCpuAutoMapSurface {};
+static TextureSurface* gCpuAutoMapSurface = nullptr;
 
 
 // GRT01：Temp／表面复制直接进入 GPU Back，保留无色键、无混合语义。

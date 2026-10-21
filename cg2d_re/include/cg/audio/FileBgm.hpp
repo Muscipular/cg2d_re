@@ -14,7 +14,7 @@ enum class FileBgmOwner { Ui, Battle };
 // 单调递增身份兼作代次，不复用旧handle；0表示无播放。
 using FileBgmHandle = std::uint64_t;
 struct FileBgmResult {
-    FileBgmHandle handle {};
+    FileBgmHandle handle = 0;
     std::string error; // UTF-8，脚本边界转换为GBK。
 };
 

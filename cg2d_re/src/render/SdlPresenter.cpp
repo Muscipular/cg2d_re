@@ -65,19 +65,19 @@ struct SdlPresenter::Impl {
     // 只记录本次 SDL_InitSubSystem 成功获得的 VIDEO 引用。
     bool videoInitialized {false};
     // 创建窗口期间的临时属性组；成功包装后立即释放。
-    SDL_PropertiesID windowProperties {};
+    SDL_PropertiesID windowProperties = 0;
     // 外部窗口的 SDL wrapper，本类不拥有对应的原生窗口。
-    SDL_Window* window {};
-    SDL_Renderer* renderer {};
-    SDL_Texture* texture {};
-    SDL_Texture* backTarget {}; // GRT01：整帧合成的持久 GPU Back。
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
+    SDL_Texture* texture = nullptr;
+    SDL_Texture* backTarget = nullptr; // GRT01：整帧合成的持久 GPU Back。
     bool cpuModified = true;
     bool gpuModified = false;
     bool gpuDrawing = false;
     // 最终帧的固定尺寸，与外部窗口实际输出尺寸相互独立。
-    int width {};
-    int height {};
-    SDL_WindowID windowId {};
+    int width = 0;
+    int height = 0;
+    SDL_WindowID windowId = 0;
     bool watchingEvents {false};
     // 观察器可能在其他线程执行；只发布失效，不接触资源或上层状态。
     std::atomic<bool> resourcesLost {false};

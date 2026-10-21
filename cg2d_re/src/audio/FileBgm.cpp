@@ -14,7 +14,7 @@ struct FileBgmRecord {
     FileBgmMode mode;
     FileBgmOwner owner;
     FileBgmState state {FileBgmState::Playing};
-    float gain {};
+    float gain = 0.0f;
 };
 
 static platform::FileBgmBackend gFileBgmBackend;

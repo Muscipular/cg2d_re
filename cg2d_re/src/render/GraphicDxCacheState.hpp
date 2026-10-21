@@ -57,7 +57,7 @@ public:
     TextureSurface* Get() const noexcept { return surface_; }
 
 private:
-    TextureSurface* surface_ {};
+    TextureSurface* surface_ = nullptr;
 };
 
 // 原 0x1C 节点的 x64 字段承载；GRT01 每图一个节点，blockX/Y 为零、next 为空。

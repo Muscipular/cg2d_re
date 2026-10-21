@@ -254,15 +254,15 @@ static AlbumStorage gAlbumStorage{};
 // ABS01：图鉴业务每批最多20条，收齐本批dM后才发送下一批。
 constexpr std::size_t kAlbumRequestBatchSize = 20;
 struct AlbumSynchronization {
-    network::CgConnection* connection {}; // 非拥有，仅与回调来源核对。
-    platform::ConnectionId connectionId {}; // 绑定本轮会话，重连后不续发。
+    network::CgConnection* connection = nullptr; // 非拥有，仅与回调来源核对。
+    platform::ConnectionId connectionId = 0; // 绑定本轮会话，重连后不续发。
     std::int16_t selected {-1}; // 本轮角色槽。
-    std::int32_t version {}; // 全部收齐后才发布的目标版本。
+    std::int32_t version = 0; // 全部收齐后才发布的目标版本。
     std::vector<std::int32_t> requests; // 掩码生成的完整编号列表。
-    std::size_t nextRequest {}; // 下一批起点。
+    std::size_t nextRequest = 0; // 下一批起点。
     std::vector<std::int32_t> waiting; // 本批尚未收到的编号，最多20项。
     std::optional<std::pair<std::int32_t, std::string>> deferredMask; // 本批收齐后处理最新Ilz。
-    std::uint64_t generation {}; // 清理后递增，旧回调不能修改新任务。
+    std::uint64_t generation = 0; // 清理后递增，旧回调不能修改新任务。
 };
 static AlbumSynchronization gAlbumSynchronization {};
 
@@ -430,8 +430,8 @@ struct MapCharaSceneSlots {
     std::int16_t valueC8A760; // 原全局：0x00C8A760。
     std::int16_t valueC8A762; // 原全局：0x00C8A762。
     cg::yobi::YobiAction* actionC8A764; // 原全局：0x00C8A764。
-    std::uint32_t valueC8A768 {}; // 原全局：0x00C8A768。 原PE未初始化区装载清零；413070仅覆写命中半字。
-    std::uint32_t valueC8A76C {}; // 原全局：0x00C8A76C。
+    std::uint32_t valueC8A768 = 0; // 原全局：0x00C8A768。 原PE未初始化区装载清零；413070仅覆写命中半字。
+    std::uint32_t valueC8A76C = 0; // 原全局：0x00C8A76C。
     float value55DE9C {5.0F}; // 原全局：0x0055DE9C。
     std::int16_t value55DEA0 {315}; // 原全局：0x0055DEA0。
     std::int16_t value55DEA2 {-1}; // 原全局：0x0055DEA2。

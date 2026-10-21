@@ -15,49 +15,49 @@ namespace cg::platform {
 struct SdlAudioBackend::Impl {
     struct Sample {
         SDL_AudioSpec spec {};
-        Uint8* data {};
-        Uint32 length {};
+        Uint8* data = nullptr;
+        Uint32 length = 0;
         SDL_AudioSpec mixSpec {};
-        Uint8* pcmStereo {};
-        std::size_t frames {};
+        Uint8* pcmStereo = nullptr;
+        std::size_t frames = 0;
     };
 
     struct Channel {
-        SDL_AudioStream* stream {};
-        Sample* sample {};
-        SDL_Semaphore* failureSignal {};
-        std::size_t cursor {};
-        std::size_t loopStart {};
-        std::size_t loopEnd {};
+        SDL_AudioStream* stream = nullptr;
+        Sample* sample = nullptr;
+        SDL_Semaphore* failureSignal = nullptr;
+        std::size_t cursor = 0;
+        std::size_t loopStart = 0;
+        std::size_t loopEnd = 0;
         float panLeft {1.0f};
         float panRight {1.0f};
-        bool loop {};
-        std::uint32_t remainingRepeats {}; // 固定WAV的有限重复次数；普通音效/BGM仍由loop控制。
-        bool playing {};
-        bool feedFailed {};
-        LegacyWavesReverb* reverb {}; // 仅固定WAV借同一Impl效果owner，普通BGM/音效为空。
-        std::uint64_t outputFrames {}; // 固定效果连续时点，样本游标回环时不重置。
-        bool reverbHasTail {}; // 当前效果返回S_FALSE，尚有尾音。
-        bool drainingReverb {}; // 最后一遍已结束，后续只给效果零输入。
+        bool loop = false;
+        std::uint32_t remainingRepeats = 0; // 固定WAV的有限重复次数；普通音效/BGM仍由loop控制。
+        bool playing = false;
+        bool feedFailed = false;
+        LegacyWavesReverb* reverb = nullptr; // 仅固定WAV借同一Impl效果owner，普通BGM/音效为空。
+        std::uint64_t outputFrames = 0; // 固定效果连续时点，样本游标回环时不重置。
+        bool reverbHasTail = false; // 当前效果返回S_FALSE，尚有尾音。
+        bool drainingReverb = false; // 最后一遍已结束，后续只给效果零输入。
     };
 
-    bool audioInitialized {};
-    SDL_AudioDeviceID device {};
+    bool audioInitialized = false;
+    SDL_AudioDeviceID device = 0;
     std::array<Sample, kSampleSlots> samples {};
     std::array<Channel, kChannelCount> channels {};
     Sample bgmSample {};
     Channel bgm {};
-    SDL_Semaphore* bgmStopRequest {};
-    SDL_Thread* bgmWorker {};
-    std::atomic<std::uint8_t>* bgmStopNotice {};
-    std::atomic<std::uint32_t>* bgmReady {};
+    SDL_Semaphore* bgmStopRequest = nullptr;
+    SDL_Thread* bgmWorker = nullptr;
+    std::atomic<std::uint8_t>* bgmStopNotice = nullptr;
+    std::atomic<std::uint32_t>* bgmReady = nullptr;
     std::atomic<bool> bgmAbort {false};
-    bool bgmBound {};
+    bool bgmBound = false;
     float bgmGain {1.0f}; // 原音量/淡出的目标增益，独立于文件音乐的前台抑制。
-    bool bgmSuppressed {};
+    bool bgmSuppressed = false;
     Sample fixedMusicSample;
     Channel fixedMusic;
-    bool fixedMusicPrepared {};
+    bool fixedMusicPrepared = false;
     LegacyWavesReverb fixedMusicReverb; // 唯一固定效果线程owner，流退出回调后Close。
 
     static int SDLCALL RunBgmStopWorker(void* const userdata)

@@ -36,9 +36,9 @@
 namespace cg::render {
 
 struct TextureSurface {
-    std::int32_t width {};  // 原 DDS 的实际 W32 尺寸，可能大于低 S16 请求值。
-    std::int32_t height {};
-    std::uint32_t colorKey {};
+    std::int32_t width = 0;  // 原 DDS 的实际 W32 尺寸，可能大于低 S16 请求值。
+    std::int32_t height = 0;
+    std::uint32_t colorKey = 0;
     std::uint32_t references {1}; // 创建引用及独立绑定引用；不是原 COM 对外计数。
     std::unique_ptr<std::uint32_t[]> pixels;
     // 借用 pixels；成员逆序析构保证先释放包装，再释放像素。
@@ -48,13 +48,13 @@ struct TextureSurface {
     std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> gpuTexture {
         nullptr, SDL_DestroyTexture
     };
-    SDL_Renderer* gpuRenderer {}; // 非拥有；销毁 renderer 前清除关联纹理。
+    SDL_Renderer* gpuRenderer = nullptr; // 非拥有；销毁 renderer 前清除关联纹理。
     bool gpuDirty = true;
     bool gpuPremultipliedAlpha = false; // 当前GPU像素表示；CPU始终保留普通ARGB。
     bool pngContentDecoded = false; // GRT05：成功解码的 graphic PNG 像素不依赖调色板。
     std::array<std::int32_t, 4> dirtyRectangle {};
-    TextureSurface* nextOwned {};
-    TextureSurface* previousOwned {};
+    TextureSurface* nextOwned = nullptr;
+    TextureSurface* previousOwned = nullptr;
 };
 
 // 原5536B8「確認」；正文4B，字面量隐式追加唯一NUL。
@@ -138,7 +138,7 @@ public:
     }
 
 private:
-    TextureSurface* head_ {};
+    TextureSurface* head_ = nullptr;
 };
 
 static TextureSurfaceOwner gTextureSurfaceOwner;

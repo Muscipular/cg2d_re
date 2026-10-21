@@ -2071,7 +2071,7 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     if (type != CG_BATTLE_DEBUFF_NONE) {
         auto* const currentPayload = parent->payload.battleActor;
         currentPayload->debuffType13D0 = type;
-        currentPayload->debuffState13CC = 2;
+        currentPayload->debuffState13CC = CG_BATTLE_STATUS_MODE_DEBUFF;
     }
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
     if (action == nullptr) {

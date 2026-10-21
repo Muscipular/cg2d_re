@@ -5051,3 +5051,9 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 使用本机DbgHelp与匹配映像的x64展开信息还原调用栈：PrepareWindowFrame → erase_if/remove_if → shared_ptr移动赋值/释放 → WindowExtension析构 → DestroyElements/ClearElements/RemoveElement → WindowElement_ForgetInputRestore → WindowRuntime_FindInstance → GetExtWindowById。确认NEU01新增输入恢复清理查询重入了正在压缩的活动列表；不是仅凭点击现象推断Lua回调崩溃。
 - 修复PrepareWindowFrame：删除前为关闭ID和临时owner列表准备容量，压缩期间保留关闭对象的shared_ptr；活动列表稳定后释放临时owner，再通知Lua，保持同ID重建的通知时机。退出清理先swap出活动列表再销毁，避免相同析构重入；GetExtWindowById对空身份直接返回并跳过空项。
 - 静态核对正常保留/关闭混排、多个关闭对象、有效或空焦点身份、退出清理及关闭通知后的同ID重建顺序，Git差异检查通过；本步仅修改WindowExtension.cpp与唯一进度并精确提交。未编译、启动客户端、新增或执行测试，不计算摘要；实际点击回归仍待运行验证，保留已有未跟踪文件。
+
+## 590. 隐藏元素清理的重复全表遍历修复（2026-10-22）
+
+- 用户反馈打开宠物界面后持续卡顿。静态追踪发现NEU01的鼠标更新对隐藏元素调用ResetElement，绘制对隐藏元素调用BlurElement；两者此前无论元素类型均通过Children扫描整个窗口。宠物列表包含259个元素，未使用宠物行与属性条会隐藏大量元素，导致每帧按隐藏元素数量重复全表遍历；游标next还逐次执行upper_bound。这是已确认的性能回退路径，尚无运行耗时采样证明其占比。
+- 核对本线UI parentId写入：仅Lua创建入口赋非零值，且明确要求父元素为ScrollView；原生创建默认无父元素。BlurElement/ResetElement改为普通元素完成自身失焦、鼠标状态/图态清理与Leave回调后直接返回，仅滚动容器继续身份复查及子树递归。保留回调期间游标保护，不引入子节点缓存、不改宠物业务刷新与渲染。
+- 静态确认普通隐藏元素不再进入Children扫描，滚动容器及嵌套输入仍沿原递归清理路径；Git差异检查通过。精确提交WindowComponents.cpp和本进度；未编译、执行测试、运行客户端或采样，不计算摘要，实际帧率改善仍待运行验证，保留已有未跟踪文件。

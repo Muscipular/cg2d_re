@@ -150,6 +150,7 @@ std::vector<WindowElementRef> WindowRuntime_Children(WindowInstance& window, Ele
 void WindowRuntime_BlurElement(WindowElement& element) {
     WindowElementCursor lease(*element.owner);
     WindowElement_BlurInput(element);
+    if (element.type != WindowElementType_ScrollView) return; // 只有滚动容器拥有子元素，普通隐藏元素无需扫描全窗口。
     for (const auto& ref : WindowRuntime_Children(*element.owner, element.elementId))
         if (auto* child = WindowRuntime_ResolveElement(ref)) WindowRuntime_BlurElement(*child);
 }
@@ -164,7 +165,7 @@ void WindowRuntime_ResetElement(WindowElement& element) {
     if (element.type == WindowElementType_ScrollView && element.data.scrollView) element.data.scrollView->draggingThumb = false;
     if (previous == WindowMouseState_Hover && !element.detaching && window.binding)
         window.binding->elementEvent(element, static_cast<int>(element.elementId), MouseFlag_Leave);
-    if (!WindowRuntime_ResolveElement(ref)) return;
+    if (element.type != WindowElementType_ScrollView || !WindowRuntime_ResolveElement(ref)) return;
     for (const auto& childRef : WindowRuntime_Children(window, element.elementId))
         if (auto* child = WindowRuntime_ResolveElement(childRef)) WindowRuntime_ResetElement(*child);
 }

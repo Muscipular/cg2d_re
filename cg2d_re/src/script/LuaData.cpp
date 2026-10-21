@@ -265,16 +265,16 @@ static int ReadBattle(lua_State* L, int index, std::string_view key)
     if (key == "maxFp") { Push(L, p->barMaximum1C0); return 1; }
     const auto* payload = p->payload.battleActor;
     if (!payload) { lua_pushnil(L); return 1; }
-    if (key == "isPlayer") { Push(L, ((payload->flagsFDC & 4u) != 0)); return 1; }
-    if (key == "isPet") { Push(L, ((payload->flagsFDC & 8u) != 0)); return 1; }
-    if (key == "isDeath") { Push(L, ((payload->flagsFDC & 2u) != 0)); return 1; }
-    if (key == "isTwoAction") { Push(L, ((payload->flagsFDC & 1024u) != 0)); return 1; }
-    if (key == "isPoison") { Push(L, ((payload->flagsFDC & 16u) != 0)); return 1; }
-    if (key == "isSleep") { Push(L, ((payload->flagsFDC & 32u) != 0)); return 1; }
-    if (key == "isStone") { Push(L, ((payload->flagsFDC & 64u) != 0)); return 1; }
-    if (key == "isDrug") { Push(L, ((payload->flagsFDC & 128u) != 0)); return 1; }
-    if (key == "isConfusion") { Push(L, ((payload->flagsFDC & 256u) != 0)); return 1; }
-    if (key == "isForget") { Push(L, ((payload->flagsFDC & 512u) != 0)); return 1; }
+    if (key == "isPlayer") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Player) != 0)); return 1; }
+    if (key == "isPet") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Pet) != 0)); return 1; }
+    if (key == "isDeath") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Dead) != 0)); return 1; }
+    if (key == "isTwoAction") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_TwoActions) != 0)); return 1; }
+    if (key == "isPoison") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Poison) != 0)); return 1; }
+    if (key == "isSleep") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Sleep) != 0)); return 1; }
+    if (key == "isStone") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Stone) != 0)); return 1; }
+    if (key == "isDrug") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Inebriety) != 0)); return 1; }
+    if (key == "isConfusion") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Confusion) != 0)); return 1; }
+    if (key == "isForget") { Push(L, ((payload->flagsFDC & cg::yobi::detail::BattleActorFlag_Forget) != 0)); return 1; }
     lua_pushnil(L); return 1;
 }
 static int DataIndex(lua_State* L)

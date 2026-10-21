@@ -69,10 +69,10 @@ void SyncBattleRider_421FB0(YobiAction* const action)
             play = true;
         } else if (action->characterAction != 0) {
             action->characterAction = 0;
-            play = (*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & 0x60u) == 0;
+            play = (*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0;
         } else {
             play = (*reinterpret_cast<const unsigned char*>(&parent->flags) & 0x40u) != 0
-                && (*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & 0x60u) == 0;
+                && (*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0;
         }
         const std::int32_t parentDirection = parent->direction;
         if (action->direction != parentDirection) {
@@ -137,13 +137,13 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     }
     const std::uint32_t flags = payload->flagsFDC;
     std::uint32_t extraFlags = 0;
-    if ((flags & 0x10000000u) != 0) {
+    if ((flags & BattleActorFlag_Rebirth) != 0) {
         extraFlags = 2;
     }
     if (payload->value13B0 != 0) {
         extraFlags = 2;
     }
-    if ((flags & 0x2000u) != 0) {
+    if ((flags & BattleActorFlag_Morph) != 0) {
         extraFlags = 2;
     }
     action->direction = parent->direction;

@@ -987,7 +987,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         // G02：只对应参考首匹配507AD4，其他位置分支的门禁保持。
         if (payload != nullptr
             && (world::gBattleShowEnemyHpBars || payload->battlePosition18 < 10)) {
-            if ((payload->flagsFDC & 0x2000u) != 0) {
+            if ((payload->flagsFDC & detail::BattleActorFlag_Morph) != 0) {
                 companion = 4;
             }
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
@@ -999,7 +999,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         }
     } else if (position < 20) {
         if (payload != nullptr && payload->battlePosition18 < 10) {
-            if ((payload->flagsFDC & 0x2000u) != 0) {
+            if ((payload->flagsFDC & detail::BattleActorFlag_Morph) != 0) {
                 companion = 4;
             }
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
@@ -1012,7 +1012,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         }
     } else {
         if (payload != nullptr && payload->battlePosition18 < 10) {
-            if ((payload->flagsFDC & 0x2000u) != 0) {
+            if ((payload->flagsFDC & detail::BattleActorFlag_Morph) != 0) {
                 companion = 4;
             }
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;

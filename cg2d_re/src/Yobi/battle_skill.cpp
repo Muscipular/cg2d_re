@@ -208,7 +208,7 @@ static void ProcessBattleMSkillWaitingState(
         YobiAction* const last = cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C];
         if (last != nullptr) {
             auto* const lastPayload = last->payload.battleActor;
-            if ((*reinterpret_cast<const unsigned char*>(&lastPayload->flagsFDC) & 2u) == 0) {
+            if ((*reinterpret_cast<const unsigned char*>(&lastPayload->flagsFDC) & BattleActorFlag_Dead) == 0) {
                 if (gBattleMSkill5AAA78 == 105) {
                     lastPayload->flash1004 = 0;
                 }
@@ -233,12 +233,12 @@ static void ProcessBattleMSkillWaitingState(
     case FinishKind::BothCasters: {
         YobiAction* const caster = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
-                &caster->payload.battleActor->flagsFDC) & 2u) == 0) {
+                &caster->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
             FaceBattleActorTowardFormationPosition_406260(caster);
         }
         YobiAction* const last = cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C];
         if (last != nullptr && (*reinterpret_cast<const unsigned char*>(
-                &last->payload.battleActor->flagsFDC) & 2u) == 0) {
+                &last->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
             FaceBattleActorTowardFormationPosition_406260(last);
         }
         break;
@@ -246,7 +246,7 @@ static void ProcessBattleMSkillWaitingState(
     case FinishKind::CasterFlash: {
         YobiAction* const caster = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
-                &caster->payload.battleActor->flagsFDC) & 2u) == 0) {
+                &caster->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
             FaceBattleActorTowardFormationPosition_406260(caster);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->flash1004 = 0;

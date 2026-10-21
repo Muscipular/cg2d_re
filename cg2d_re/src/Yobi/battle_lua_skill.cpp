@@ -2083,7 +2083,7 @@ static void CommitOperations(uint32_t nodeId) {
                 MarkActionDeathOnce(data.effect1054);
                 data.effect1054 = nullptr;
             }
-            data.flagsFDC = static_cast<std::uint32_t>(static_cast<int>(data.flagsFDC) & 0xFFFFFC0F);
+            data.flagsFDC = static_cast<std::uint32_t>(static_cast<int>(data.flagsFDC) & ~BattleActorAbnormalMask);
         }
     }
 }

@@ -2010,7 +2010,7 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
         for (std::size_t index = 0; index < sourceAttributes.size(); ++index) {
             sourceAttributes[index] = source->fields288[index] != 0 ? 1 : 0;
         }
-        if ((sourcePayload->flagsFDC & 0x800u) != 0) {
+        if ((sourcePayload->flagsFDC & BattleActorFlag_ReverseType) != 0) {
             sourceAttributes = {sourceAttributes[2], sourceAttributes[3], sourceAttributes[0], sourceAttributes[1]};
         }
         break;
@@ -2019,7 +2019,7 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
     for (std::size_t index = 0; index < targetAttributes.size(); ++index) {
         targetAttributes[index] = target->fields288[index] != 0 ? 1 : 0;
     }
-    if ((targetPayload->flagsFDC & 0x800u) != 0) {
+    if ((targetPayload->flagsFDC & BattleActorFlag_ReverseType) != 0) {
         targetAttributes = {targetAttributes[2], targetAttributes[3], targetAttributes[0], targetAttributes[1]};
     }
     struct AttributeEffect {
@@ -2053,12 +2053,12 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     }
     std::int32_t type = 0;
     switch (imageNo) {
-    case 110075: payload->flagsFDC |= 0x10u; type = 1; break;
-    case 110076: payload->flagsFDC |= 0x20u; type = 2; break;
-    case 110077: payload->flagsFDC |= 0x40u; type = 3; break;
-    case 110078: payload->flagsFDC |= 0x80u; type = 4; break;
-    case 110079: payload->flagsFDC |= 0x100u; type = 5; break;
-    case 110080: payload->flagsFDC |= 0x200u; type = 6; break;
+    case 110075: payload->flagsFDC |= BattleActorFlag_Poison; type = 1; break;
+    case 110076: payload->flagsFDC |= BattleActorFlag_Sleep; type = 2; break;
+    case 110077: payload->flagsFDC |= BattleActorFlag_Stone; type = 3; break;
+    case 110078: payload->flagsFDC |= BattleActorFlag_Inebriety; type = 4; break;
+    case 110079: payload->flagsFDC |= BattleActorFlag_Confusion; type = 5; break;
+    case 110080: payload->flagsFDC |= BattleActorFlag_Forget; type = 6; break;
     default: break;
     }
     if (type != 0) {
@@ -2457,13 +2457,13 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     std::int32_t displayImage = imageNo;
     if (payload->value13D8 != 3) {
         switch (imageNo) {
-        case 103018: payload->flagsFDC |= 0x4000u; break;
-        case 103019: payload->flagsFDC |= 0x8000u; break;
-        case 103020: payload->flagsFDC |= 0x10000u; break;
-        case 103021: payload->flagsFDC |= 0x20000u; break;
-        case 103022: payload->flagsFDC |= 0x40000u; break;
-        case 103023: payload->flagsFDC |= 0x80000u; break;
-        case 103033: payload->flagsFDC |= 0x100000u; displayImage = 103018; break;
+        case 103018: payload->flagsFDC |= BattleActorFlag_DefenseUp; break;
+        case 103019: payload->flagsFDC |= BattleActorFlag_DefenseDown; break;
+        case 103020: payload->flagsFDC |= BattleActorFlag_AttackUp; break;
+        case 103021: payload->flagsFDC |= BattleActorFlag_AttackDown; break;
+        case 103022: payload->flagsFDC |= BattleActorFlag_AgilityUp; break;
+        case 103023: payload->flagsFDC |= BattleActorFlag_AgilityDown; break;
+        case 103033: payload->flagsFDC |= BattleActorFlag_RecoveryUp; displayImage = 103018; break;
         default: break;
         }
     }
@@ -2657,38 +2657,38 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
 {
     auto* const payload = parent->payload.battleActor;
     const std::uint32_t flags = payload->flagsFDC;
-    if ((flags & 0x10u) != 0) {
+    if ((flags & BattleActorFlag_Poison) != 0) {
         static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110075));
     } else {
-        payload->flagsFDC = flags & ~0x10u;
+        payload->flagsFDC = flags & ~BattleActorFlag_Poison;
     }
-    if ((flags & 0x20u) != 0) {
+    if ((flags & BattleActorFlag_Sleep) != 0) {
         static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110076));
     } else {
-        payload->flagsFDC &= ~0x20u;
+        payload->flagsFDC &= ~BattleActorFlag_Sleep;
     }
-    if ((flags & 0x40u) != 0) {
+    if ((flags & BattleActorFlag_Stone) != 0) {
         static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110077));
     } else {
-        payload->flagsFDC &= ~0x40u;
+        payload->flagsFDC &= ~BattleActorFlag_Stone;
     }
-    if ((flags & 0x80u) != 0) {
+    if ((flags & BattleActorFlag_Inebriety) != 0) {
         static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110078));
     } else {
-        payload->flagsFDC &= ~0x80u;
+        payload->flagsFDC &= ~BattleActorFlag_Inebriety;
     }
-    if ((flags & 0x100u) != 0) {
+    if ((flags & BattleActorFlag_Confusion) != 0) {
         static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110079));
     } else {
-        payload->flagsFDC &= ~0x100u;
+        payload->flagsFDC &= ~BattleActorFlag_Confusion;
     }
-    if ((flags & 0x200u) != 0) {
+    if ((flags & BattleActorFlag_Forget) != 0) {
         static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110080));
     } else {
-        payload->flagsFDC &= ~0x200u;
+        payload->flagsFDC &= ~BattleActorFlag_Forget;
     }
-    const float scale = (flags & 0x1000u) != 0 ? 1.3F : 1.0F;
-    const bool hasAttachedEffect = (flags & 0x400u) != 0;
+    const float scale = (flags & BattleActorFlag_DamageUp) != 0 ? 1.3F : 1.0F;
+    const bool hasAttachedEffect = (flags & BattleActorFlag_TwoActions) != 0;
     parent->scaleX = scale;
     parent->scaleY = scale;
     if (hasAttachedEffect) {
@@ -2698,48 +2698,48 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
         parent->payload.battleActor->attachedEffect1058 = nullptr;
     }
     const std::uint32_t currentFlags = payload->flagsFDC;
-    if ((flags & 0x800u) != 0) {
-        payload->flagsFDC = currentFlags | 0x800u;
+    if ((flags & BattleActorFlag_ReverseType) != 0) {
+        payload->flagsFDC = currentFlags | BattleActorFlag_ReverseType;
         static_cast<void>(NewBattleReverseEffect_41F860(parent, 110152));
     } else {
         YobiAction* const effect = payload->effect105C;
-        payload->flagsFDC = currentFlags & ~0x800u;
+        payload->flagsFDC = currentFlags & ~BattleActorFlag_ReverseType;
         static_cast<void>(MarkDeath(effect));
         payload->effect105C = nullptr;
     }
-    if ((flags & 0x2000u) != 0) {
-        payload->flagsFDC |= 0x2000u;
+    if ((flags & BattleActorFlag_Morph) != 0) {
+        payload->flagsFDC |= BattleActorFlag_Morph;
     }
     // 原端每对状态共用清位掩码；不能改为清除各自的选择位。
-    if ((flags & 0x4000u) != 0) {
+    if ((flags & BattleActorFlag_DefenseUp) != 0) {
         static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103018, 0));
     } else {
-        payload->flagsFDC &= ~0x4000u;
+        payload->flagsFDC &= ~BattleActorFlag_DefenseUp;
     }
-    if ((flags & 0x8000u) != 0) {
+    if ((flags & BattleActorFlag_DefenseDown) != 0) {
         static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103019, 0));
     } else {
-        payload->flagsFDC &= ~0x4000u;
+        payload->flagsFDC &= ~BattleActorFlag_DefenseUp;
     }
-    if ((flags & 0x10000u) != 0) {
+    if ((flags & BattleActorFlag_AttackUp) != 0) {
         static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103020, 0));
     } else {
-        payload->flagsFDC &= ~0x10000u;
+        payload->flagsFDC &= ~BattleActorFlag_AttackUp;
     }
-    if ((flags & 0x20000u) != 0) {
+    if ((flags & BattleActorFlag_AttackDown) != 0) {
         static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103021, 0));
     } else {
-        payload->flagsFDC &= ~0x10000u;
+        payload->flagsFDC &= ~BattleActorFlag_AttackUp;
     }
-    if ((flags & 0x40000u) != 0) {
+    if ((flags & BattleActorFlag_AgilityUp) != 0) {
         static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103022, 0));
     } else {
-        payload->flagsFDC &= ~0x40000u;
+        payload->flagsFDC &= ~BattleActorFlag_AgilityUp;
     }
-    if ((flags & 0x80000u) != 0) {
+    if ((flags & BattleActorFlag_AgilityDown) != 0) {
         static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103023, 0));
     } else {
-        payload->flagsFDC &= ~0x40000u;
+        payload->flagsFDC &= ~BattleActorFlag_AgilityUp;
     }
 }
 

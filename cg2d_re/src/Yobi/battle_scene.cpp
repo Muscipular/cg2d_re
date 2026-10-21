@@ -411,7 +411,7 @@ std::int32_t ReturnBattleActorsToFormation_43C910()
     for (YobiAction* const action : world::gBattleEntries59E980) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
-                &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 1u) == 0) {
+                &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & detail::BattleActorFlag_EntryComplete) == 0) {
             action->phase = 2;
             pending = true;
         }
@@ -461,7 +461,7 @@ std::int32_t Sub_43CA50()
     for (const YobiAction* const action : world::gBattleEntries59E980) {
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
-                &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0) {
+                &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & detail::BattleActorFlag_Player) != 0) {
             ++count;
         }
     }
@@ -533,7 +533,7 @@ std::int32_t CheckBattleCommand_43C560(
                 && ((flags & 0x10u) != 0
                     || ((flags & 0x800u) != 0
                         && (*reinterpret_cast<const std::uint8_t*>(
-                            &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & 4u) != 0))
+                            &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & detail::BattleActorFlag_Player) != 0))
                 && (!(action->readiness <= 0)
                     || (flags & 2u) != 0)) {
                 cg::world::gBattleEntries59E980[slot]->flags |= 8u;

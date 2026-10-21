@@ -1355,7 +1355,7 @@ static void ProcessBattleMTransitionHeader(
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 80);
                 YobiAction* const current = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
                 if ((*reinterpret_cast<const unsigned char*>(
-                        &current->payload.battleActor->flagsFDC) & 2u) == 0) {
+                        &current->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
                     AppendBattleCast_4392A0(scene, current, 57);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 64);
                 }
@@ -2017,7 +2017,7 @@ static void ProcessBattleMMonsterHeader(
             return;
         }
         if ((*reinterpret_cast<const unsigned char*>(
-                &defender->payload.battleActor->flagsFDC) & 2u) != 0) {
+                &defender->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) != 0) {
             ResetBattleCastList_4391E0(failedDefenderPosition);
             failedDefenderPosition = gBattleMDefenderPosition5A4A24;
         }
@@ -2060,16 +2060,16 @@ static void ProcessBattleMMonsterHeader(
         defender->fields288[2] = 0;
         defender->fields288[1] = 0;
         defender->fields288[0] = 0;
-        if ((defenderPayload->flagsFDC & 0x01000000u) != 0) {
+        if ((defenderPayload->flagsFDC & BattleActorFlag_Earth) != 0) {
             defender->fields288[0] = 1;
         }
-        if ((defenderPayload->flagsFDC & 0x02000000u) != 0) {
+        if ((defenderPayload->flagsFDC & BattleActorFlag_Water) != 0) {
             defender->fields288[1] = 1;
         }
-        if ((defenderPayload->flagsFDC & 0x04000000u) != 0) {
+        if ((defenderPayload->flagsFDC & BattleActorFlag_Fire) != 0) {
             defender->fields288[2] = 1;
         }
-        if ((defenderPayload->flagsFDC & 0x08000000u) != 0) {
+        if ((defenderPayload->flagsFDC & BattleActorFlag_Wind) != 0) {
             defender->fields288[3] = 1;
         }
         defenderPayload->castPlayIndexFC4 = 0;
@@ -2262,7 +2262,7 @@ static void ProcessBattleMComboHeader(
         if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             YobiAction* const target = cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
             if (target != nullptr && (*reinterpret_cast<const unsigned char*>(
-                    &target->payload.battleActor->flagsFDC) & 2u) == 0) {
+                    &target->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
                 FaceBattleActorTowardFormationPosition_406260(target);
             }
             FinishBattleEvent_43B6C0(scene);
@@ -2758,7 +2758,7 @@ static void ProcessBattleMRideHeader(
             YobiAction* const second = cg::world::gBattleAllEntries59E980[secondPosition];
             if (second != nullptr) {
                 auto* const secondPayload = second->payload.battleActor;
-                if ((*reinterpret_cast<const unsigned char*>(&secondPayload->flagsFDC) & 2u) == 0) {
+                if ((*reinterpret_cast<const unsigned char*>(&secondPayload->flagsFDC) & BattleActorFlag_Dead) == 0) {
                     secondPayload->reactionImage1010 = 22334;
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondPosition], 68);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondPosition], 65);
@@ -2799,16 +2799,16 @@ static void ProcessBattleMRideHeader(
         first->fields288[2] = 0;
         first->fields288[1] = 0;
         first->fields288[0] = 0;
-        if ((firstPayload->flagsFDC & 0x01000000u) != 0) {
+        if ((firstPayload->flagsFDC & BattleActorFlag_Earth) != 0) {
             first->fields288[0] = 1;
         }
-        if ((firstPayload->flagsFDC & 0x02000000u) != 0) {
+        if ((firstPayload->flagsFDC & BattleActorFlag_Water) != 0) {
             first->fields288[1] = 1;
         }
-        if ((firstPayload->flagsFDC & 0x04000000u) != 0) {
+        if ((firstPayload->flagsFDC & BattleActorFlag_Fire) != 0) {
             first->fields288[2] = 1;
         }
-        if ((firstPayload->flagsFDC & 0x08000000u) != 0) {
+        if ((firstPayload->flagsFDC & BattleActorFlag_Wind) != 0) {
             first->fields288[3] = 1;
         }
         firstPayload->castPlayIndexFC4 = 0;
@@ -2869,16 +2869,16 @@ static void ProcessBattleMRideHeader(
         second->fields288[2] = 0;
         second->fields288[1] = 0;
         second->fields288[0] = 0;
-        if ((secondPayload->flagsFDC & 0x01000000u) != 0) {
+        if ((secondPayload->flagsFDC & BattleActorFlag_Earth) != 0) {
             second->fields288[0] = 1;
         }
-        if ((secondPayload->flagsFDC & 0x02000000u) != 0) {
+        if ((secondPayload->flagsFDC & BattleActorFlag_Water) != 0) {
             second->fields288[1] = 1;
         }
-        if ((secondPayload->flagsFDC & 0x04000000u) != 0) {
+        if ((secondPayload->flagsFDC & BattleActorFlag_Fire) != 0) {
             second->fields288[2] = 1;
         }
-        if ((secondPayload->flagsFDC & 0x08000000u) != 0) {
+        if ((secondPayload->flagsFDC & BattleActorFlag_Wind) != 0) {
             second->fields288[3] = 1;
         }
         secondPayload->castPlayIndexFC4 = 0;
@@ -2903,12 +2903,12 @@ static void ProcessBattleMRideHeader(
         AppendBattleEffect_439400(cg::world::gBattleAllEntries59E980[effectCasterPosition], effectRecord);
         YobiAction* const firstEntry = carrier->first00;
         if ((*reinterpret_cast<const unsigned char*>(
-                &firstEntry->payload.battleActor->flagsFDC) & 2u) != 0) {
+                &firstEntry->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) != 0) {
             AppendBattleCast_4392A0(scene, firstEntry, 46);
         }
         YobiAction* const secondEntry = carrier->second04;
         if ((*reinterpret_cast<const unsigned char*>(
-                &secondEntry->payload.battleActor->flagsFDC) & 2u) != 0) {
+                &secondEntry->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) != 0) {
             AppendBattleCast_4392A0(scene, secondEntry, 46);
         }
     }
@@ -3099,16 +3099,16 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         firstActor->fields288[2] = 0;
         firstActor->fields288[1] = 0;
         firstActor->fields288[0] = 0;
-        if ((firstPayload->flagsFDC & 0x1000000u) != 0) {
+        if ((firstPayload->flagsFDC & BattleActorFlag_Earth) != 0) {
             firstActor->fields288[0] = 1;
         }
-        if ((firstPayload->flagsFDC & 0x2000000u) != 0) {
+        if ((firstPayload->flagsFDC & BattleActorFlag_Water) != 0) {
             firstActor->fields288[1] = 1;
         }
-        if ((firstPayload->flagsFDC & 0x4000000u) != 0) {
+        if ((firstPayload->flagsFDC & BattleActorFlag_Fire) != 0) {
             firstActor->fields288[2] = 1;
         }
-        if ((firstPayload->flagsFDC & 0x8000000u) != 0) {
+        if ((firstPayload->flagsFDC & BattleActorFlag_Wind) != 0) {
             firstActor->fields288[3] = 1;
         }
         firstPayload->castPlayIndexFC4 = 0;
@@ -3173,16 +3173,16 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         secondActor->fields288[2] = 0;
         secondActor->fields288[1] = 0;
         secondActor->fields288[0] = 0;
-        if ((secondPayload->flagsFDC & 0x1000000u) != 0) {
+        if ((secondPayload->flagsFDC & BattleActorFlag_Earth) != 0) {
             secondActor->fields288[0] = 1;
         }
-        if ((secondPayload->flagsFDC & 0x2000000u) != 0) {
+        if ((secondPayload->flagsFDC & BattleActorFlag_Water) != 0) {
             secondActor->fields288[1] = 1;
         }
-        if ((secondPayload->flagsFDC & 0x4000000u) != 0) {
+        if ((secondPayload->flagsFDC & BattleActorFlag_Fire) != 0) {
             secondActor->fields288[2] = 1;
         }
-        if ((secondPayload->flagsFDC & 0x8000000u) != 0) {
+        if ((secondPayload->flagsFDC & BattleActorFlag_Wind) != 0) {
             secondActor->fields288[3] = 1;
         }
         secondPayload->castPlayIndexFC4 = 0;
@@ -3211,7 +3211,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         carrier->gearImage0C = gearImage;
         AppendBattleCast_4392A0(action, *originalSlot, 226);
         AppendBattleEffect_439400(*originalSlot, {first, 0u, first, second});
-        if ((*reinterpret_cast<const unsigned char*>(&firstPayload->flagsFDC) & 2u) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&firstPayload->flagsFDC) & BattleActorFlag_Dead) != 0) {
             firstActor->value54 = 4.0F;
             AppendBattleCast_4392A0(action, firstActor, 11);
             AppendBattleCast_4392A0(action, firstActor, 40);
@@ -3222,7 +3222,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
             AppendBattleCast_4392A0(action, firstActor, 11);
             AppendBattleCast_4392A0(action, firstActor, 10);
         }
-        if ((*reinterpret_cast<const unsigned char*>(&secondPayload->flagsFDC) & 2u) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&secondPayload->flagsFDC) & BattleActorFlag_Dead) != 0) {
             secondActor->value54 = 4.0F;
             AppendBattleCast_4392A0(action, secondActor, 11);
             AppendBattleCast_4392A0(action, secondActor, 40);
@@ -3389,18 +3389,18 @@ void ParseBattleC_438550()
             actor->rebirthValue1 = 4;
             actor->rebirthValue2 = 4;
         }
-        if ((inputFlags & 1u) != 0) {
-            payload->flagsFDC &= ~1u;
+        if ((inputFlags & detail::BattleCharacterFlag_Appear) != 0) {
+            payload->flagsFDC &= ~detail::BattleActorFlag_EntryComplete;
             actor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][0]);
             actor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][1]);
         } else {
-            const std::uint32_t flags = payload->flagsFDC | 1u;
+            const std::uint32_t flags = payload->flagsFDC | detail::BattleActorFlag_EntryComplete;
             payload->flagsFDC = flags;
-            if ((flags & 2u) == 0) {
+            if ((flags & detail::BattleActorFlag_Dead) == 0) {
                 actor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
                 actor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
                 detail::FaceBattleActorTowardFormationPosition_406260(actor);
-                if ((inputFlags & 2u) != 0) {
+                if ((inputFlags & detail::BattleCharacterFlag_Dead) != 0) {
                     detail::FaceBattleActorTowardFormationPosition_406260(actor);
                     actor->characterAction = 10;
                     while (detail::PlayFrame_517DA0(actor, 1) != 1) {
@@ -3411,115 +3411,115 @@ void ParseBattleC_438550()
         }
         std::uint32_t deathFlags = payload->flagsFDC;
         std::uint32_t deathState = payload->stateFE0;
-        if ((inputFlags & 2u) != 0) {
-            deathFlags |= 2u;
+        if ((inputFlags & detail::BattleCharacterFlag_Dead) != 0) {
+            deathFlags |= detail::BattleActorFlag_Dead;
             deathState |= 2u;
         } else {
-            deathFlags &= ~2u;
+            deathFlags &= ~detail::BattleActorFlag_Dead;
             deathState &= ~2u;
         }
         payload->flagsFDC = deathFlags;
         std::uint32_t flags = payload->flagsFDC;
         payload->stateFE0 = deathState;
-        flags = (inputFlags & 4u) != 0 ? flags | 4u : flags & ~4u;
+        flags = (inputFlags & detail::BattleCharacterFlag_Player) != 0 ? flags | detail::BattleActorFlag_Player : flags & ~detail::BattleActorFlag_Player;
         payload->flagsFDC = flags;
-        flags = (inputFlags & 8u) != 0 ? flags | 8u : flags & ~8u;
+        flags = (inputFlags & detail::BattleCharacterFlag_Pet) != 0 ? flags | detail::BattleActorFlag_Pet : flags & ~detail::BattleActorFlag_Pet;
         payload->flagsFDC = flags;
-        if ((inputFlags & 0x10u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Poison) != 0) {
             static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110075));
         } else {
-            payload->flagsFDC &= ~0x10u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_Poison;
         }
-        if ((inputFlags & 0x20u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Sleep) != 0) {
             static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110076));
         } else {
-            payload->flagsFDC &= ~0x20u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_Sleep;
         }
-        if ((inputFlags & 0x40u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Stone) != 0) {
             static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110077));
         } else {
-            payload->flagsFDC &= ~0x40u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_Stone;
         }
-        if ((inputFlags & 0x80u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Inebriety) != 0) {
             static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110078));
         } else {
-            payload->flagsFDC &= ~0x80u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_Inebriety;
         }
-        if ((inputFlags & 0x100u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Confusion) != 0) {
             static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110079));
         } else {
-            payload->flagsFDC &= ~0x100u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_Confusion;
         }
-        if ((inputFlags & 0x200u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Forget) != 0) {
             static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110080));
         } else {
-            payload->flagsFDC &= ~0x200u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_Forget;
         }
-        const float scale = (inputFlags & 0x1000u) != 0 ? 1.3F : 1.0F;
+        const float scale = (inputFlags & detail::BattleCharacterFlag_DamageUp) != 0 ? 1.3F : 1.0F;
         actor->scaleX = scale;
         actor->scaleY = scale;
-        if ((inputFlags & 0x400u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_TwoActions) != 0) {
             static_cast<void>(detail::NewBattleAttachedEffect_41FBE0(actor, 1));
         } else {
             static_cast<void>(MarkDeath(actor->payload.battleActor->attachedEffect1058));
             actor->payload.battleActor->attachedEffect1058 = nullptr;
         }
         const std::uint32_t reverseFlags = payload->flagsFDC;
-        if ((inputFlags & 0x800u) != 0) {
-            payload->flagsFDC = reverseFlags | 0x800u;
+        if ((inputFlags & detail::BattleCharacterFlag_ReverseType) != 0) {
+            payload->flagsFDC = reverseFlags | detail::BattleActorFlag_ReverseType;
             static_cast<void>(detail::NewBattleReverseEffect_41F860(actor, 110152));
         } else {
             YobiAction* const effect = payload->effect105C;
-            payload->flagsFDC = reverseFlags & ~0x800u;
+            payload->flagsFDC = reverseFlags & ~detail::BattleActorFlag_ReverseType;
             static_cast<void>(MarkDeath(effect));
             payload->effect105C = nullptr;
         }
-        if ((inputFlags & 0x2000u) != 0) {
-            payload->flagsFDC |= 0x2000u;
+        if ((inputFlags & detail::BattleCharacterFlag_Morph) != 0) {
+            payload->flagsFDC |= detail::BattleActorFlag_Morph;
         }
         // 三对状态位沿原清除掩码，不能按输入位对称化。
-        if ((inputFlags & 0x4000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_DefenseUp) != 0) {
             static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103018, 0));
         } else {
-            payload->flagsFDC &= ~0x4000u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_DefenseUp;
         }
-        if ((inputFlags & 0x8000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_DefenseDown) != 0) {
             static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103019, 0));
         } else {
-            payload->flagsFDC &= ~0x4000u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_DefenseUp;
         }
-        if ((inputFlags & 0x10000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_AttackUp) != 0) {
             static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103020, 0));
         } else {
-            payload->flagsFDC &= ~0x10000u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_AttackUp;
         }
-        if ((inputFlags & 0x20000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_AttackDown) != 0) {
             static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103021, 0));
         } else {
-            payload->flagsFDC &= ~0x10000u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_AttackUp;
         }
-        if ((inputFlags & 0x40000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_AgilityUp) != 0) {
             static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103022, 0));
         } else {
-            payload->flagsFDC &= ~0x40000u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_AgilityUp;
         }
-        if ((inputFlags & 0x80000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_AgilityDown) != 0) {
             static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103023, 0));
         } else {
-            payload->flagsFDC &= ~0x40000u;
+            payload->flagsFDC &= ~detail::BattleActorFlag_AgilityUp;
         }
-        if ((inputFlags & 0x10000000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Rebirth) != 0) {
             if (payload->rebirthEffectType1080 == 0) {
-                if ((inputFlags & 0x1000000u) != 0) {
+                if ((inputFlags & detail::BattleCharacterFlag_Earth) != 0) {
                     payload->rebirthEffectType1080 = 1;
                 }
-                if ((inputFlags & 0x2000000u) != 0) {
+                if ((inputFlags & detail::BattleCharacterFlag_Water) != 0) {
                     payload->rebirthEffectType1080 = 2;
                 }
-                if ((inputFlags & 0x4000000u) != 0) {
+                if ((inputFlags & detail::BattleCharacterFlag_Fire) != 0) {
                     payload->rebirthEffectType1080 = 3;
                 }
-                if ((inputFlags & 0x8000000u) != 0) {
+                if ((inputFlags & detail::BattleCharacterFlag_Wind) != 0) {
                     payload->rebirthEffectType1080 = 4;
                 }
                 const std::int8_t type = payload->rebirthEffectType1080;
@@ -3562,7 +3562,7 @@ void ParseBattleC_438550()
                     }
                 }
             }
-            payload->flagsFDC |= 0x10000000u;
+            payload->flagsFDC |= detail::BattleActorFlag_Rebirth;
         } else {
             for (std::int32_t index = 0; index < 3; ++index) {
                 YobiAction* const effect = payload->rebirthAuxiliaryEffects1074[index];
@@ -3576,7 +3576,7 @@ void ParseBattleC_438550()
                 static_cast<void>(MarkDeath(effect));
                 payload->rebirthEffect106C = nullptr;
             }
-            const std::uint32_t rebirthFlags = payload->flagsFDC & ~0x10000000u;
+            const std::uint32_t rebirthFlags = payload->flagsFDC & ~detail::BattleActorFlag_Rebirth;
             payload->rebirthEffectType1080 = 0;
             payload->flagsFDC = rebirthFlags;
         }
@@ -3584,16 +3584,16 @@ void ParseBattleC_438550()
         actor->fields288[2] = 0;
         actor->fields288[1] = 0;
         actor->fields288[0] = 0;
-        if ((inputFlags & 0x1000000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Earth) != 0) {
             actor->fields288[0] = 1;
         }
-        if ((inputFlags & 0x2000000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Water) != 0) {
             actor->fields288[1] = 1;
         }
-        if ((inputFlags & 0x4000000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Fire) != 0) {
             actor->fields288[2] = 1;
         }
-        if ((inputFlags & 0x8000000u) != 0) {
+        if ((inputFlags & detail::BattleCharacterFlag_Wind) != 0) {
             actor->fields288[3] = 1;
         }
         UpdateBattleAlbumFlag_4238F0(actor);

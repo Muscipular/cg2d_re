@@ -1,12 +1,12 @@
 # 战斗角色 flagsFDC 语义与枚举方案（BAF01）
 
-日期：2026-10-21。状态：源码分析与候选方案完成，运行源码尚未修改。
+日期：2026-10-21。状态：用户确认后已实施，静态核对完成；未编译或运行验证。
 
 ## 1. 范围与依据
 
 用户要求分析 flagsFDC，尝试使用 enum，并允许结合 `cgmsv_server/battle`。本项只读核对客户端当前源码和本机服务器源码；服务器提供当前协议语义参考，不替代原端机器指令证据，不据此修正客户端历史行为。未调用 IDA、编译、运行或计算摘要。
 
-- 客户端字段：`src/Yobi/battle_base.hpp:62`，`BattleActorPayload::flagsFDC` 是32位位集合；独立于 `stateFE0`、`effectFlagsFE4`、`YobiAction::flags` 和 `BattleEntryEffectRecord::flags`。
+- 客户端字段：`src/Yobi/battle_base.hpp`，`BattleActorPayload::flagsFDC` 是32位位集合；独立于 `stateFE0`、`effectFlagsFE4`、`YobiAction::flags` 和 `BattleEntryEffectRecord::flags`。
 - 服务器定义：[include/battle.h](../../../cgmsv_server/include/battle.h)，480–515行的 `BC_FLAG_*`。
 - 服务器生产：[battle/battle_command.c](../../../cgmsv_server/battle/battle_command.c)，`BATTLE_MakeCharaString` 的203–372行由角色类型、状态及属性生产标志，434–445行放入角色记录的 HP/FP 之后。
 - 另一路生产：[battle/battle_event.c](../../../cgmsv_server/battle/battle_event.c)，`BATTLE_makeCharFlag` 的19710–19830行供骑乘等消息使用。
@@ -99,5 +99,12 @@ payload->flagsFDC &= ~BattleActorFlag_Sleep;
 后续替换须逐处确认来源：battle_actor、battle_scene、battle_message、battle_effect、battle_cast、battle_attack、battle_impact、battle_status、battle_attachment、battle_base、battle_skill、battle_skill_special、battle_ride、battle_lua_skill、map_render及LuaData。局部变量名相同不代表同一域，不进行全文数字替换。
 
 - 静态验收：逐项数值一致；所有替换表达式保持原32位掩码／低位截断、取样次序与赋值次数；结构大小、协议序列化、Lua键名和返回值不变；未知位、非对称清位及纯快照／整值复制保持。
-- 运行源码实施前先确认该枚举边界。未确认处不猜命名，不将静态分析记为运行验证。
-- 本轮只提交此分析／方案及进度，不修改服务器或客户端实现，不编译、运行或新增测试。
+- 初次分析仅提交方案及进度；用户随后明确“先实现上一个SPEC”，确认上述枚举边界。未确认处不猜命名，不将静态分析记为运行验证。
+- 不修改服务器，不编译、运行或新增测试。
+
+## 6. 实施结果（2026-10-21）
+
+- 在既有battle_base.hpp内增加两套各26项的普通enum及四个已用组合掩码，替换16个CPP中的304处掩码常量；ElementMask没有现有同组合用点，未增加闲置声明。flagsFDC继续使用uint32_t，字段布局不变。
+- 按用户补充要求，将22处 `(flagsFDC >> 1) & 1u` 改为 `(flagsFDC & BattleActorFlag_Dead) != 0`。该位固定为0x2，判断结果在原算术／显式转换中仍为0或1；保留原先加1、乘14、除4等运算、读取次数和时点，不新增辅助函数。
+- 协议bit0与运行bit0分别命名，BC逐位更新、BM整值复制、骑乘恢复、低位读取、非对称清位、Lua公开键及未知位保持；未处理Yobi其他模糊字段重命名。
+- 静态核对：两套枚举逐项与本表一致；304处新掩码按实际声明求值得到原值；16个CPP除这304处及22处死亡位判断外，全文与修改前一致，UTF-8及既有LF保持。头文件除新增声明和字段注释外一致。差异检查通过；不代表编译、链接或运行验收。

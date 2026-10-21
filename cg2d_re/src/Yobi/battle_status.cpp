@@ -69,7 +69,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
         if (angle >= 360.0) {
             action->angle50 = static_cast<float>(angle - 360.0);
         }
-        if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
+        if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
             gYobiUpdateGateMode = 1;
             payload->aliveFF8 = 1;
         }
@@ -84,10 +84,10 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
                 action->direction = direction - 8;
             }
         }
-        const std::int32_t threshold = 14 * (static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 1);
+        const std::int32_t threshold = 14 * (static_cast<std::int32_t>((payload->flagsFDC & BattleActorFlag_Dead) != 0) + 1);
         if (payload->valueFCC == threshold) {
             action->value54 = 5.0F;
-            if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0) {
+            if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
                     gYobiUpdateGateMode = 0;
                 }
@@ -113,7 +113,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
     }
     if (count >= 14 * initialBit + 54) {
         payload->valueFCC = 0;
-        if ((static_cast<std::uint8_t>(initialFlags) & 2u) == 0) {
+        if ((static_cast<std::uint8_t>(initialFlags) & BattleActorFlag_Dead) == 0) {
             action->value54 = 6.0F;
             action->framePlayingRate = 100;
             AdvanceBattleCastState_439340(action);
@@ -239,7 +239,7 @@ std::int32_t UpdateBattleAction30_40AF30(YobiAction* const action)
         MoveBattleByAngle_405EA0(action);
         return PlayFrame_517DA0(action, 1);
     }
-    if (count >= 14 * (static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 1)) {
+    if (count >= 14 * (static_cast<std::int32_t>((payload->flagsFDC & BattleActorFlag_Dead) != 0) + 1)) {
         payload->valueFCC = 0;
         action->framePlayingRate = 100;
         action->value54 = 4.0F;
@@ -308,7 +308,7 @@ void ConsumeBattleFpCost_405B60(YobiAction* const action)
 static void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     const std::int32_t displayType = payload->value1034;
@@ -388,7 +388,7 @@ void UpdateBattleAction160_410B00(YobiAction* const action)
 void UpdateBattleAction162_410E30(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     if (payload->value1024 == 2) {
@@ -459,7 +459,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                     SetYobiActionField308(action, 0);
                     SetYobiActionField30F(action, 255);
                     reinterpret_cast<unsigned char*>(&action->drawMode.color)[3] = 255;
-                    payload->flagsFDC |= 0x10000000u;
+                    payload->flagsFDC |= BattleActorFlag_Rebirth;
                     static_cast<void>(PlayFrame_517DA0(action, 0));
                 } else {
                     SetYobiActionField30F(action, static_cast<std::uint8_t>(alpha - 7));
@@ -526,7 +526,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             SetYobiActionField308(action, 0);
             SetYobiActionField30F(action, 255);
             action->flags = flags;
-            payload->flagsFDC |= 0x10000000u;
+            payload->flagsFDC |= BattleActorFlag_Rebirth;
             action->characterAction = 0;
             static_cast<void>(PlayFrame_517DA0(action, 0));
             static_cast<void>(AdvanceBattleEffect_439470(action));
@@ -594,7 +594,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
         action->imageNo = imageNo;
         SetYobiActionField30F(action, 0);
         SetYobiActionField309(action, 0);
-        payload->flagsFDC &= ~0x10000000u;
+        payload->flagsFDC &= ~BattleActorFlag_Rebirth;
         static_cast<void>(PlayFrame_517DA0(action, 1));
         if (render::HasLegacy3DDevice_44B610() == 0) {
             action->flags |= 0x10000u;
@@ -667,7 +667,7 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
     action->imageNo = imageNo;
     SetYobiActionField30F(action, 0);
     SetYobiActionField309(action, 0);
-    payload->flagsFDC &= ~0x10000000u;
+    payload->flagsFDC &= ~BattleActorFlag_Rebirth;
     payload->value13B0 = 0;
     static_cast<void>(PlayFrame_517DA0(action, 1));
     if (render::HasLegacy3DDevice_44B610() == 0) {
@@ -708,7 +708,7 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
         }
         const std::uint8_t movingFlags =
             *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
-        if ((movingFlags & 2u) != 0) {
+        if ((movingFlags & BattleActorFlag_Dead) != 0) {
             gYobiUpdateGateMode = 1;
             payload->aliveFF8 = 1;
         }
@@ -721,12 +721,12 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
         if (direction >= 8) {
             action->direction = direction - 8;
         }
-        const std::int32_t threshold = 14 * (static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 1);
+        const std::int32_t threshold = 14 * (static_cast<std::int32_t>((payload->flagsFDC & BattleActorFlag_Dead) != 0) + 1);
         if (payload->valueFCC == threshold) {
             action->value54 = 5.0F;
             const std::uint8_t thresholdFlags =
                 *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
-            if ((thresholdFlags & 2u) != 0) {
+            if ((thresholdFlags & BattleActorFlag_Dead) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
                     gYobiUpdateGateMode = 0;
                 }
@@ -752,7 +752,7 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
     }
     if (count >= 14 * initialBit + 54) {
         payload->valueFCC = 0;
-        if ((initialFlags & 2u) == 0) {
+        if ((initialFlags & BattleActorFlag_Dead) == 0) {
             action->value54 = 6.0F;
             action->framePlayingRate = 100;
             AdvanceBattleCastState_439340(action);
@@ -932,7 +932,7 @@ void UpdateBattleAction179_4122E0(YobiAction* const action)
 void UpdateBattleActions180_203_412310(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     if (payload->value1024 == 0) {
@@ -974,7 +974,7 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
 void UpdateBattleAction204_4124E0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     action->flags &= ~2u;

@@ -10,6 +10,76 @@
 namespace cg::yobi {
 
 namespace detail {
+// BAF01：BC及相关角色记录的协议位；与BM命中标志、服务器CHAR_BATTLEFLG分别定义。
+// 数值来源及客户端承接差异见 doc/cg2d_battle_actor_flags_spec.md。
+enum BattleCharacterFlag : std::uint32_t {
+    BattleCharacterFlag_Appear = 0x00000001u,       // 协议要求播放入场；FDC运行位反向承接。
+    BattleCharacterFlag_Dead = 0x00000002u,         // 倒地／死亡。
+    BattleCharacterFlag_Player = 0x00000004u,       // 玩家类别；部分骑乘宠物也按此类别编码。
+    BattleCharacterFlag_Pet = 0x00000008u,          // 宠物类别，服务端BC_FLAG_MON。
+    BattleCharacterFlag_Poison = 0x00000010u,       // 中毒。
+    BattleCharacterFlag_Sleep = 0x00000020u,        // 睡眠。
+    BattleCharacterFlag_Stone = 0x00000040u,        // 石化。
+    BattleCharacterFlag_Inebriety = 0x00000080u,    // 醉酒，对应ModDrunk。
+    BattleCharacterFlag_Confusion = 0x00000100u,    // 混乱。
+    BattleCharacterFlag_Forget = 0x00000200u,       // 遗忘。
+    BattleCharacterFlag_TwoActions = 0x00000400u,   // 双动。
+    BattleCharacterFlag_ReverseType = 0x00000800u,  // 属性反转。
+    BattleCharacterFlag_DamageUp = 0x00001000u,     // 伤害增强。
+    BattleCharacterFlag_Morph = 0x00002000u,        // 变身。
+    BattleCharacterFlag_DefenseUp = 0x00004000u,    // 防御上升。
+    BattleCharacterFlag_DefenseDown = 0x00008000u,  // 防御下降。
+    BattleCharacterFlag_AttackUp = 0x00010000u,     // 攻击上升。
+    BattleCharacterFlag_AttackDown = 0x00020000u,   // 攻击下降。
+    BattleCharacterFlag_AgilityUp = 0x00040000u,    // 敏捷上升。
+    BattleCharacterFlag_AgilityDown = 0x00080000u,  // 敏捷下降。
+    BattleCharacterFlag_RecoveryUp = 0x00100000u,   // 回复能力上升。
+    BattleCharacterFlag_Earth = 0x01000000u,        // 地属性。
+    BattleCharacterFlag_Water = 0x02000000u,        // 水属性。
+    BattleCharacterFlag_Fire = 0x04000000u,         // 火属性。
+    BattleCharacterFlag_Wind = 0x08000000u,         // 风属性。
+    BattleCharacterFlag_Rebirth = 0x10000000u,     // REB形态，不是倒地后的复活动作。
+};
+
+// BattleActorPayload::flagsFDC的运行位；存储仍为uint32_t，保留组合位及未知位。
+enum BattleActorFlag : std::uint32_t {
+    BattleActorFlag_EntryComplete = 0x00000001u, // 入场／归位完成；不能直接当作协议Appear。
+    BattleActorFlag_Dead = 0x00000002u,         // 倒地／死亡。
+    BattleActorFlag_Player = 0x00000004u,       // 玩家类别。
+    BattleActorFlag_Pet = 0x00000008u,          // 宠物类别。
+    BattleActorFlag_Poison = 0x00000010u,       // 中毒，特效110075。
+    BattleActorFlag_Sleep = 0x00000020u,        // 睡眠，特效110076。
+    BattleActorFlag_Stone = 0x00000040u,        // 石化，特效110077。
+    BattleActorFlag_Inebriety = 0x00000080u,    // 醉酒，特效110078。
+    BattleActorFlag_Confusion = 0x00000100u,    // 混乱，特效110079。
+    BattleActorFlag_Forget = 0x00000200u,       // 遗忘，特效110080。
+    BattleActorFlag_TwoActions = 0x00000400u,   // 双动；BC路径仅更新附着效果，不补写此位。
+    BattleActorFlag_ReverseType = 0x00000800u,  // 属性反转，特效110152。
+    BattleActorFlag_DamageUp = 0x00001000u,     // 伤害增强；放大／缩小动作完成时更新。
+    BattleActorFlag_Morph = 0x00002000u,        // 变身，用于绘制与挂件处理。
+    BattleActorFlag_DefenseUp = 0x00004000u,    // 防御上升，特效103018。
+    BattleActorFlag_DefenseDown = 0x00008000u,  // 防御下降，特效103019。
+    BattleActorFlag_AttackUp = 0x00010000u,     // 攻击上升，特效103020。
+    BattleActorFlag_AttackDown = 0x00020000u,   // 攻击下降，特效103021。
+    BattleActorFlag_AgilityUp = 0x00040000u,    // 敏捷上升，特效103022。
+    BattleActorFlag_AgilityDown = 0x00080000u,  // 敏捷下降，特效103023。
+    BattleActorFlag_RecoveryUp = 0x00100000u,   // 回复能力上升，103033分支使用103018显示。
+    BattleActorFlag_Earth = 0x01000000u,        // 地属性，fields288[0]。
+    BattleActorFlag_Water = 0x02000000u,        // 水属性，fields288[1]。
+    BattleActorFlag_Fire = 0x04000000u,         // 火属性，fields288[2]。
+    BattleActorFlag_Wind = 0x08000000u,         // 风属性，fields288[3]。
+    BattleActorFlag_Rebirth = 0x10000000u,     // REB形态及其持续特效。
+};
+
+// 仅替换既有组合掩码；睡眠／石化播放门禁不代表全部不可行动状态。
+inline constexpr std::uint32_t BattleActorSleepOrStoneMask = BattleActorFlag_Sleep | BattleActorFlag_Stone;
+inline constexpr std::uint32_t BattleActorPlayerOrPetMask = BattleActorFlag_Player | BattleActorFlag_Pet;
+inline constexpr std::uint32_t BattleActorAbnormalMask = BattleActorFlag_Poison | BattleActorFlag_Sleep
+    | BattleActorFlag_Stone | BattleActorFlag_Inebriety | BattleActorFlag_Confusion | BattleActorFlag_Forget;
+// 原0xFFF03FFF只清六个能力升降位，不能扩大到RecoveryUp。
+inline constexpr std::uint32_t BattleActorParameterChangeMask = BattleActorFlag_DefenseUp | BattleActorFlag_DefenseDown
+    | BattleActorFlag_AttackUp | BattleActorFlag_AttackDown | BattleActorFlag_AgilityUp | BattleActorFlag_AgilityDown;
+
 // 原1C起的16B数值记录；按动作解释字段，见BMSA06控制/附加记录合同，不含对象指针。
 struct BattleEntryEffectRecord {
     std::int32_t position; // 原记录+00；命中目标、245特效类型或-1队列哨兵。
@@ -59,7 +129,7 @@ struct BattleActorPayload {
     std::int32_t valueFD0; // 原成员偏移：+0xFD0。
     std::int32_t valueFD4; // 原成员偏移：+0xFD4。
     std::int32_t busyFD8; // 原成员偏移：+0xFD8。
-    std::uint32_t flagsFDC; // 原成员偏移：+0xFDC。
+    std::uint32_t flagsFDC; // 原成员偏移：+0xFDC；BattleActorFlag位集合，保留未知位和原消息承接。
     std::uint32_t stateFE0; // 原成员偏移：+0xFE0。
     std::int32_t effectFlagsFE4; // 原成员偏移：+0xFE4。
     std::int32_t moveTargetXFE8; // 412870按目标坐标侧写入；与00/08/10坐标来源独立。

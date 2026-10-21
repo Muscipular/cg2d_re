@@ -303,10 +303,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             action->fields288[2] = 0;
             action->fields288[1] = 0;
             action->fields288[0] = 0;
-            if ((payload->flagsFDC & 0x1000000u) != 0) { action->fields288[0] = 1; }
-            if ((payload->flagsFDC & 0x2000000u) != 0) { action->fields288[1] = 1; }
-            if ((payload->flagsFDC & 0x4000000u) != 0) { action->fields288[2] = 1; }
-            if ((payload->flagsFDC & 0x8000000u) != 0) { action->fields288[3] = 1; }
+            if ((payload->flagsFDC & BattleActorFlag_Earth) != 0) { action->fields288[0] = 1; }
+            if ((payload->flagsFDC & BattleActorFlag_Water) != 0) { action->fields288[1] = 1; }
+            if ((payload->flagsFDC & BattleActorFlag_Fire) != 0) { action->fields288[2] = 1; }
+            if ((payload->flagsFDC & BattleActorFlag_Wind) != 0) { action->fields288[3] = 1; }
             FaceBattleActorTowardFormationPosition_406260(action);
             UpdateBattleAlbumFlag_4238F0(action);
             static_cast<void>(MarkDeath(payload->effect1060));

@@ -142,16 +142,16 @@ void CgWindowClose(int id)
     }
 }
 
-// 原生窗口统一使用kWindowCategories，Lua扩展窗口没有原生类别。
-static bool IsDefaultWindow(int id)
+// 原生窗口直接读取实例类别；扩展窗口仍不作为默认窗口保留。
+static bool IsDefaultWindow(const WindowInstance& window)
 {
-    return id >= 0 && id < WIN_MAX && ui::WindowRuntime_GetCategory(id) == 0;
+    return window.id >= 0 && window.id < WIN_MAX && window.category == 0;
 }
 
 void CloseNonDefaultWindows(int exceptId)
 {
     const auto close = [exceptId](UIWindowInstance& window) {
-        if (window.id != exceptId && !IsDefaultWindow(window.id))
+        if (window.id != exceptId && !IsDefaultWindow(window))
             window.state |= WIN_STATE_CLOSE;
     };
     for (auto* window : ui::detail::gWindows) if (window) close(*window);
@@ -169,7 +169,7 @@ bool CloseTopmostNonDefaultWindow()
 {
     UIWindowInstance* target = nullptr;
     const auto consider = [&](UIWindowInstance& window) {
-        if ((window.state & WIN_STATE_CLOSE) || window.scriptHidden || IsDefaultWindow(window.id)) return;
+        if ((window.state & WIN_STATE_CLOSE) || window.scriptHidden || IsDefaultWindow(window)) return;
         if (!target || IsWindowAbove(window, *target)) target = &window;
     };
     for (auto* window : ui::detail::gWindows) if (window) consider(*window);

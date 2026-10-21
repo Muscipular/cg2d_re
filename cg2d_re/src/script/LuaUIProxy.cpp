@@ -131,6 +131,7 @@ bool LuaPushElementProperty(lua_State* L, ui::WindowElement& element, const char
     return PushProperty(L, element.properties, key);
 }
 bool LuaPushWindowProperty(lua_State* L, ui::WindowInstance& window, const char* key) {
+    if (!std::strcmp(key, "category")) { Push(L, static_cast<int>(window.category)); return true; }
     if (auto* ref = WindowRef(window, key)) { if (*ref >= 0) EnsureLuaWindowBinding(L, window); PushRef(L, *ref); return true; }
     if (!std::strcmp(key, "elements")) { PushElements(L, window); return true; }
     return PushProperty(L, window.properties, key);
@@ -184,6 +185,8 @@ void LuaApplyWindowExtras(lua_State* L, int table, ui::WindowInstance& window) {
         const auto* key = lua_tostring(L, -2);
         if (auto* ref = WindowRef(window, key)) {
             if (*ref >= 0 || !lua_isnil(L, -1)) EnsureLuaWindowBinding(L, window); SetRef(L, -1, *ref);
+        } else if (!std::strcmp(key, "category")) {
+            window.category = static_cast<std::int8_t>(ReadInteger(L, -1));
         } else if (!Listed(key, {"id","x","y","width","height","layer","visible","dragMove"}))
             SetProperty(L, window.properties, key, -1);
         lua_pop(L, 1);

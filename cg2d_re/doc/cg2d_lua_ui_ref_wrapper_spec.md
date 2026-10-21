@@ -105,6 +105,7 @@ end
 
 - 共用一套属性解析与赋值：位置、尺寸、层级、可见性、elements、回调及扩展属性。
 - `Set`与直接属性赋值使用同一实现，避免两种入口产生不同结果。
+- 2026-10-22按用户要求增加窗口`category`属性：创建参数、`window.category`读取/赋值及`window:Set{category = 2}`均直接映射WindowInstance::category，不写入扩展属性表。沿原S8类别字段承接整数；原生窗口初值只在创建时取kWindowCategories，扩展窗口未指定时为0。赋值本身不触发关闭，后续已有类别策略读取当前值；扩展窗口仍不作为默认窗口保留。本项完成静态接线核对，未编译或运行。
 - `Close`、`CheckKeyState`、`ShowTips`、`DrawRect`等公共操作不再要求Lua绑定；DrawRect按对应原生可见性判断，不能对所有窗口直接套用扩展窗口ACTIVE位。
 - 普通属性读取、赋值及string/int扩展属性操作不创建Lua绑定。
 - `dragMove`继续使用既有扩展窗口拖动实现；固定窗口不新增第二套拖动协议，设置不支持的属性明确报错。

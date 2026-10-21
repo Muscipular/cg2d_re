@@ -619,7 +619,7 @@ static std::array<WindowDragPrototype, 42> gDragPrototypes {{
     {0, nullptr}, // 原D67A20虚拟零区，同一空矩形原型。
 }};
 
-// 原54EFE8的71项S8类别，与窗口编号一一对应。
+// 原54EFE8的71项S8类别及大地图扩展；仅作为新建原生窗口的category初值。
 static constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 4, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
@@ -4547,7 +4547,10 @@ std::int32_t WindowRuntime_Render()
 WindowInstance* WindowRuntime_Open(const std::int32_t id)
 {
     using namespace detail;
-    const std::int8_t category = kWindowCategories[id];
+    const auto existingEntry = std::find_if(gWindows.begin(), gWindows.end(),
+        [id](const WindowInstance* window) { return window && window->id == id; });
+    const std::int8_t category = existingEntry != gWindows.end()
+        ? (*existingEntry)->category : kWindowCategories[id];
     if (category == 1) {
         WindowRuntime_CloseByCategory(2);
     } else if (category == 2) {
@@ -4575,6 +4578,7 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     }
     WindowPrototype* const prototype = gWindowPrototypes57C130[id];
     window->id = id;
+    window->category = category;
     WindowRuntime_EnsureIdentity(*window);
     window->state = prototype->state;
     window->layer = prototype->layer;
@@ -4988,13 +4992,6 @@ void WindowRuntime_ProcessScene()
     }
 }
 
-// 供窗口关闭策略读取既有类别表，不复制维护窗口编号名单。
-std::uint32_t WindowRuntime_GetCategory(const std::int32_t id)
-{
-    if (id < 0 || id >= static_cast<std::int32_t>(detail::kWindowCount)) return 0;
-    return static_cast<std::uint32_t>(detail::kWindowCategories[id]);
-}
-
 // 原函数：0x00472240。
 void WindowRuntime_CloseByCategory(const std::uint32_t mask)
 {
@@ -5006,7 +5003,7 @@ void WindowRuntime_CloseByCategory(const std::uint32_t mask)
         }
         const std::int32_t id = window->id;
         const auto category = static_cast<std::uint32_t>(
-            static_cast<std::int32_t>(kWindowCategories[id]));
+            static_cast<std::int32_t>(window->category));
         if ((mask & category) != 0) {
             gCurrentWindowState = &gWindowStates[id];
             gCurrentWindowState->flags |= 2u;

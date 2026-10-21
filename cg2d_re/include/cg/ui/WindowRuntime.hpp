@@ -166,7 +166,6 @@ std::int32_t WindowRuntime_Update(); // 完整鼠标/窗口/快捷键/预设输�
 std::int32_t WindowRuntime_Render(); // 转生计时到期发送/清标志后，透传完整窗口更新返回。
 // 原函数：0x00472240。
 void WindowRuntime_CloseByCategory(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
-std::uint32_t WindowRuntime_GetCategory(std::int32_t id); // 原生窗口类别；无效编号返回0。
 // DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。
 // 原函数：0x00476410。
 void WindowDrag_Cancel(); // 回调后重读阶段，最后进入2或6，不等同通用重置。

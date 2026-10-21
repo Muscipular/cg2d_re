@@ -778,7 +778,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
                     if (cg::world::gBattleAllEntries59E980[slot] != nullptr
                         && (payload->entryMaskA8 & (1u << slot)) != 0) {
                         ResetBattleCastList_4391E0(static_cast<std::int32_t>(slot));
-                        AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[slot], 11);
+                        AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[slot], BattleAction_ReturnToFormation);
                         AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[slot], BattleAction_FaceFormation);
                         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[slot]);
                         payload->waitCountAC = 0;
@@ -798,7 +798,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
                 displaced = expectedY < actualY || expectedY > actualY;
             }
             if (displaced) {
-                AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[index], 11);
+                AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[index], BattleAction_ReturnToFormation);
                 AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[index], BattleAction_FaceFormation);
                 MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[index]);
                 return 0;

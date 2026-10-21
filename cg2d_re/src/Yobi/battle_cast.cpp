@@ -186,7 +186,7 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
         }
         if (dead) {
             AdvanceBattleCastState_439340(action);
-            if (action->phase == 46) {
+            if (action->phase == BattleAction_HandleDeath) {
                 AdvanceBattleCastState_439340(action);
             }
             return;
@@ -218,7 +218,7 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
         payload->effect1068 = nullptr;
     }
     if (payload->appearanceOverrideActive13B0 != 0) {
-        action->phase = 219;
+        action->phase = BattleAction_RestoreAppearanceAfterDeath;
         return;
     }
     if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorPlayerOrPetMask) != 0) {
@@ -234,7 +234,7 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
         payload->attachedEffect1058 = nullptr;
     }
     payload->stateFE0 |= 2u;
-    action->phase = 48;
+    action->phase = BattleAction_FadeOutForRemoval;
 }
 
 // BDE01：完整W32 FDC置2后推进，不缩窄发布。
@@ -261,7 +261,7 @@ void UpdateBattleAction48_40B490(YobiAction* const action)
             action->flags = flags | 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(218, x));
             static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 36, 0, 1));
-            action->phase = 49;
+            action->phase = BattleAction_WaitRemovalEffect;
         } else if (count > 4) {
             payload->valueFF0 = 0;
             const std::uint32_t flags = action->flags ^ 2u;
@@ -665,6 +665,7 @@ void UpdateBattleAction71_40C4D0(YobiAction* const action)
 // 原函数：0x0040CAA0。
 void UpdateBattleAction72_40CAA0(YobiAction* const action)
 {
+    // BAN01：此路径只证实caster1070的x00递增；该槽的完成通知业务尚未核实，动作保留编号。
     auto* const payload = action->payload.battleActor;
     auto* const casterPayload = payload->caster1070->payload.battleActor;
     ++casterPayload->x00;
@@ -1040,6 +1041,7 @@ void UpdateBattleAction90_40C910(YobiAction* const action)
 // 原函数：0x0040CF30。
 std::int32_t UpdateBattleAction91_40CF30(YobiAction* const action)
 {
+    // BAN01：仅证实对象flags位2的开关，不与hidden字段或角色状态位混同，暂不猜业务名。
     action->flags |= 2u;
     AdvanceBattleCastState_439340(action);
     return PlayFrame_517DA0(action, 0);
@@ -1049,6 +1051,7 @@ std::int32_t UpdateBattleAction91_40CF30(YobiAction* const action)
 // 原函数：0x0040CF50。
 std::int32_t UpdateBattleAction92_40CF50(YobiAction* const action)
 {
+    // BAN01：91的反向位操作；flags位2的业务名称尚未核实，保留原动作号。
     action->flags &= ~2u;
     AdvanceBattleCastState_439340(action);
     return PlayFrame_517DA0(action, 0);
@@ -2119,6 +2122,8 @@ void UpdateBattleAction115_40FB80(YobiAction* const action)
 // 原函数：0x0040FC10。
 void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
 {
+    // BAN01：只确认动作号到工厂type的映射；118无创建分支，不能把所有入口统一命名为创建效果。
+    // 其余工厂type的业务含义及等待合同需单独核实，保留各动作编号。
     auto* const payload = action->payload.battleActor;
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -2903,7 +2908,7 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     copy->motionMagnitude54 = static_cast<float>(speed);
     const std::int32_t halfDuration = currentDuration / 2;
     copy->worldX = static_cast<float>(100.0 / (halfDuration * halfDuration));
-    AppendBattleCast_4392A0(caster, copy, 113);
+    AppendBattleCast_4392A0(caster, copy, BattleAction_MoveAlongArc);
     if (payload->castSkillLevel1044 == 90) {
         AppendBattleCast_4392A0(caster, copy, BattleAction_SpinAndEnlarge);
         AppendBattleCast_4392A0(caster, copy, BattleAction_Wait30Ticks);
@@ -2953,7 +2958,7 @@ void SetBattleAction208Target_412870(YobiAction* const action)
         payload->moveTargetXFE8 = x - 44;
         payload->moveTargetYFEC = static_cast<std::int32_t>(target->offset44) - 30;
     }
-    action->phase = 6;
+    action->phase = BattleAction_MoveToTargetPosition;
 }
 
 // 原函数：0x00412900。
@@ -3164,7 +3169,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
             action->motionMagnitude54 = 6.0F;
             action->framePlayingRate = 100;
             AdvanceBattleCastState_439340(action);
-            if (action->phase == 11) {
+            if (action->phase == BattleAction_ReturnToFormation) {
                 action->motionMagnitude54 = 4.0F;
                 action->framePlayingRate = 100;
             }
@@ -3306,7 +3311,7 @@ std::int32_t UpdateBattleAction213_4131B0(YobiAction* const action)
         payload->attachedEffect1058 = nullptr;
     }
     const std::int32_t next = payload->appearanceOverrideActive13B0;
-    action->phase = next != 0 ? 220 : 214;
+    action->phase = next != 0 ? BattleAction_RestoreAppearanceBeforeFade : BattleAction_FadeOutAndContinue;
     return next;
 }
 
@@ -3324,7 +3329,7 @@ void UpdateBattleAction214_4132B0(YobiAction* const action)
             action->flags = flags | 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(218, x));
             static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 36, 0, 1));
-            action->phase = 215;
+            action->phase = BattleAction_WaitFadeEffectAndContinue;
         } else if (count > 4) {
             payload->valueFF0 = 0;
             const std::uint32_t flags = action->flags ^ 2u;
@@ -3561,7 +3566,7 @@ void UpdateBattleAction219_413750(YobiAction* const action)
             payload->attachedEffect1058 = nullptr;
         }
         payload->stateFE0 |= 2u;
-        action->phase = 48;
+        action->phase = BattleAction_FadeOutForRemoval;
         return;
     }
     static_cast<void>(NewBattleCenteredEffect_41FA00(action, 110169));
@@ -3575,7 +3580,7 @@ void UpdateBattleAction220_413980(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     if (RestoreBattleBaseImage(action, payload)) {
-        action->phase = 214;
+        action->phase = BattleAction_FadeOutAndContinue;
     }
 }
 

@@ -117,7 +117,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
             action->motionMagnitude54 = 6.0F;
             action->framePlayingRate = 100;
             AdvanceBattleCastState_439340(action);
-            if (action->phase == 11) {
+            if (action->phase == BattleAction_ReturnToFormation) {
                 action->motionMagnitude54 = 4.0F;
                 action->framePlayingRate = 100;
             }
@@ -756,7 +756,7 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
             action->motionMagnitude54 = 6.0F;
             action->framePlayingRate = 100;
             AdvanceBattleCastState_439340(action);
-            if (action->phase == 11) {
+            if (action->phase == BattleAction_ReturnToFormation) {
                 action->motionMagnitude54 = 4.0F;
                 action->framePlayingRate = 100;
             }
@@ -845,7 +845,7 @@ void UpdateBattleAction171_412020(YobiAction* const action)
 // 原函数：0x004120F0。
 void UpdateBattleActions172_173_4120F0(YobiAction* const action)
 {
-    const std::int32_t step = action->phase == 173 ? 2 : 3;
+    const std::int32_t step = action->phase == BattleAction_FadeOutStep2 ? BattleAction_EnterFormation : BattleAction_ApproachEffectTarget;
     const std::uint8_t alpha = GetYobiActionField30F(action);
     if (alpha - step > 0) {
         SetYobiActionField30F(action, static_cast<std::uint8_t>(alpha - step));
@@ -931,6 +931,7 @@ void UpdateBattleAction179_4122E0(YobiAction* const action)
 // 原函数：0x00412310。
 void UpdateBattleActions180_203_412310(YobiAction* const action)
 {
+    // BAN01：本组转204收尾，不同于普通工厂入口转162；188不创建效果，不能按共用type合并动作。
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));

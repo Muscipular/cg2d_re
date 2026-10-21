@@ -854,7 +854,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
         }
         auto* const targetPayload = target->payload.battleActor;
         static_cast<void>(MarkDeath(action));
-        action->phase = 17;
+        action->phase = BattleAction_MoveOutOfBounds;
         const std::int32_t mode = payload->attackModeFF4;
         if (mode == 2) {
             YobiAction* const effect = NewBattleRandomEffect_419FC0(action, 110469, 0);
@@ -1234,7 +1234,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             if ((flags & 0x108u) == 0) {
                 static_cast<void>(MarkDeath(action));
             }
-            action->phase = 17;
+            action->phase = BattleAction_MoveOutOfBounds;
         }
     }
 }
@@ -1347,7 +1347,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
             }
             static_cast<void>(MarkDeath(action));
         }
-        action->phase = 17;
+        action->phase = BattleAction_MoveOutOfBounds;
     }
     MoveBattleByAngle_405EA0(action);
 }
@@ -2327,7 +2327,7 @@ std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
             action->motionMagnitude54 = 6.0F;
             action->framePlayingRate = 100;
             AdvanceBattleCastState_439340(action);
-            if (action->phase == 11) {
+            if (action->phase == BattleAction_ReturnToFormation) {
                 action->motionMagnitude54 = 4.0F;
                 action->framePlayingRate = 100;
             }
@@ -2593,7 +2593,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
             payload->valueFD0 = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC & BattleActorFlag_Dead) != 0) + 1u);
         }
         if ((flags & 0x2000u) == 0 && payload->valueFF0 < 16) {
-            action->phase = 5;
+            action->phase = BattleAction_MoveForward16Ticks;
         }
         static_cast<void>(AdvanceBattleEffect_439470(action));
     }
@@ -2618,7 +2618,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
         YobiAction* const target = cg::world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
         static_cast<void>(MarkDeath(action));
-        action->phase = 17;
+        action->phase = BattleAction_MoveOutOfBounds;
         YobiAction* const effect = NewBattleRandomEffect_419FC0(action, 110473, 0);
         if (effect != nullptr) {
             effect->y -= 68;
@@ -2796,7 +2796,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
             if ((flags & 8u) == 0 && (flags & 0x100u) == 0) {
                 static_cast<void>(MarkDeath(action));
             }
-            action->phase = 17;
+            action->phase = BattleAction_MoveOutOfBounds;
         } else {
             const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
             TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[position], 1, 6.0F);
@@ -2821,7 +2821,7 @@ void UpdateBattleAction240_417AC0(YobiAction* const action)
             action->battleCastEffect10 = nullptr;
         }
         payload->effectPlaybackState1024 = 0;
-        action->phase = 241;
+        action->phase = BattleAction_FireArcShotsSequentially;
         payload->valueFF0 = 0;
     }
     if (action->battleCastEffect10 != nullptr) {
@@ -3027,7 +3027,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
             if ((flags & 8u) == 0 && (flags & 0x100u) == 0) {
                 static_cast<void>(MarkDeath(action));
             }
-            action->phase = 17;
+            action->phase = BattleAction_MoveOutOfBounds;
         }
     }
 }

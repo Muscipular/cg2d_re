@@ -822,7 +822,7 @@ std::int32_t UpdateBattleAction228_416000(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     payload->valueFF0 = 0;
-    action->phase = 229;
+    action->phase = BattleAction_AnimateSlowdown;
     return UpdateBattleAction229_416020(action);
 }
 

@@ -145,12 +145,29 @@ enum BattleActionId : std::int32_t {
     BattleAction_StepAroundEffectTarget = 105, // 按计数分段切换目标上下左右位置；旧计数到120后推进自身及对应目标。
     BattleAction_MarkForRemoval = 107, // 直接MarkDeath当前对象；不清战斗全局槽，区别于51。
     BattleAction_MoveAlongArc = 113, // 按二次曲线调整显示高度并同步附属对象；到期定位目标坐标、推进并标死附属对象。
+    BattleAction_PlayDebuffSpellEffect = 119, // 播放异常魔法受术特效（工厂type4），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayBarrierSpellEffect = 120, // 播放物理／魔法反射、吸收、无效化共用受术特效（工厂type5），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayPhysicalReflectEffect = 121, // 播放物理反射特效（工厂type7），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayPhysicalAbsorbEffect = 122, // 播放物理吸收特效（工厂type8），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayPhysicalNullifyEffect = 123, // 播放物理无效化特效（工厂type9），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayMagicReflectEffect = 124, // 播放魔法反射特效（工厂type10），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayMagicAbsorbEffect = 125, // 播放魔法吸收特效（工厂type11），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayMagicNullifyEffect = 126, // 播放魔法无效化特效（工厂type12），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_StartPhysicalReflectEffect = 127, // 创建物理反射特效（工厂type7、link=0）后立即推进，不等待效果结束。
+    BattleAction_StartPhysicalAbsorbEffect = 128, // 创建物理吸收特效（工厂type8、link=0）后立即推进，不等待效果结束。
+    BattleAction_StartPhysicalNullifyEffect = 129, // 创建物理无效化特效（工厂type9、link=0）后立即推进，不等待效果结束。
+    BattleAction_PlayRecoveryEffect = 130, // 播放持续回复魔法受术特效（工厂type13），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayStatusRecoveryEffect = 133, // 播放异常恢复魔法受术特效（工厂type25），转162等待；本动作不直接施加状态或结算数值。
     BattleAction_ApplyDebuff = 141, // 按模式／类型创建异常效果1054；可设置异常位，含2089／2090扩展图。
     BattleAction_ClearDebuff = 142, // 清除1054及异常位；推进后回写当前减益类型并重置状态效果模式。
     BattleAction_ApplyStatusEffect = 143, // 创建能力变化／扩展状态效果1068；支持负向能力变化，并非仅增益。
     BattleAction_ClearStatusEffect = 144, // 清除1068及能力变化位；不等于清除角色全部状态。
     BattleAction_CreatePrayerField = 145, // 按四属性祈祷技能创建场地效果，随后推进。
+    BattleAction_PlayAttributeReversalEffect = 146, // 播放属性反转受术特效（工厂type6），转162等待；本动作不直接施加状态或结算数值。
     BattleAction_ToggleAttributeReversal = 147, // 按ReverseType位创建或清除反转效果105C，同时切换该状态位。
+    BattleAction_PlayReviveEffect = 148, // 播放复活受术特效（工厂type33）并转162等待；死亡位重置及HP恢复由后续动作处理。
+    BattleAction_PlayHealEffect = 149, // 播放补血魔法受术特效（工厂type16），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayParameterChangeEffect = 157, // 播放能力变化魔法受术特效（工厂type37），转162等待；本动作不直接施加状态或结算数值。
     BattleAction_ApplyResourceChange = 159, // 按numberDisplayType1034显示数值并更新HP／FP，随后推进动作队列。
     BattleAction_ApplyResourceChangeAndWait = 160, // 同159处理HP／FP，但只转动作37等待，不立即推进队列。
     BattleAction_WaitEffectComplete = 162, // 等待effectPlaybackState1024为2，再清标记、显示角色并推进。
@@ -163,6 +180,20 @@ enum BattleActionId : std::int32_t {
     BattleAction_EndBackgroundFade = 176, // 将effect1060的phase设为2并清角色槽；不是直接MarkDeath。
     BattleAction_PlayBackgroundFade = 177, // 创建不保存到effect1060的背景渐变，工厂末参1，然后推进。
     BattleAction_AdvanceAndIdle = 178, // 先推进队列游标，再将角色phase设为待机0。
+    BattleAction_PlayRecoveryEffectAndFadeIn = 180, // 播放持续回复魔法受术特效（工厂type13），转204渐显、按结果结算HP／FP并等待；不同于动作130。
+    BattleAction_PlayStatusRecoveryEffectAndFadeIn = 183, // 播放异常恢复魔法受术特效（工厂type25），转204渐显、按结果结算HP／FP并等待；不同于动作133。
+    BattleAction_PlayHealEffectAndFadeIn = 184, // 播放补血魔法受术特效（工厂type16），转204渐显、按结果结算HP／FP并等待；不同于动作149。
+    BattleAction_PlayDebuffSpellEffectAndFadeIn = 189, // 播放异常魔法受术特效（工厂type4），转204渐显、按结果结算HP／FP并等待；不同于动作119。
+    BattleAction_PlayBarrierSpellEffectAndFadeIn = 190, // 播放物理／魔法反射、吸收、无效化共用受术特效（工厂type5），转204渐显、按结果结算HP／FP并等待；不同于动作120。
+    BattleAction_PlayPhysicalReflectEffectAndFadeIn = 191, // 播放物理反射特效（工厂type7），转204渐显、按结果结算HP／FP并等待；不同于动作121。
+    BattleAction_PlayPhysicalAbsorbEffectAndFadeIn = 192, // 播放物理吸收特效（工厂type8），转204渐显、按结果结算HP／FP并等待；不同于动作122。
+    BattleAction_PlayPhysicalNullifyEffectAndFadeIn = 193, // 播放物理无效化特效（工厂type9），转204渐显、按结果结算HP／FP并等待；不同于动作123。
+    BattleAction_PlayMagicReflectEffectAndFadeIn = 194, // 播放魔法反射特效（工厂type10），转204渐显、按结果结算HP／FP并等待；不同于动作124。
+    BattleAction_PlayMagicAbsorbEffectAndFadeIn = 195, // 播放魔法吸收特效（工厂type11），转204渐显、按结果结算HP／FP并等待；不同于动作125。
+    BattleAction_PlayMagicNullifyEffectAndFadeIn = 196, // 播放魔法无效化特效（工厂type12），转204渐显、按结果结算HP／FP并等待；不同于动作126。
+    BattleAction_PlayAttributeReversalEffectAndFadeIn = 201, // 播放属性反转受术特效（工厂type6），转204渐显、按结果结算HP／FP并等待；不同于动作146。
+    BattleAction_PlayParameterChangeEffectAndFadeIn = 202, // 播放能力变化魔法受术特效（工厂type37），转204渐显、按结果结算HP／FP并等待；不同于动作157。
+    BattleAction_FadeInAndResolveEffect = 204, // 逐步渐显，特效完成后按结果显示免疫或结算HP／FP；再等待60次计数且完全不透明才推进。
     BattleAction_FaceEffectTarget = 206, // 朝当前效果记录的目标角色转向后推进。
     BattleAction_MoveToEffectPosition = 207, // 从效果position／flags读取目的坐标，推进效果后切入移动动作6。
     BattleAction_MoveBesideEffectTarget = 208, // 按目标屏幕分区设置偏移落点，再转动作6移动，不直接推进队列。
@@ -200,7 +231,7 @@ enum BattleActionId : std::int32_t {
 // 77／78仅证实设备相关绘制位切换；167～170仅证实匿名渲染字段赋值，字段含义不足以命名。
 // 56～62、106、179、205等仅有角色动画号／终帧行为，未确认动画业务含义，不猜姿态名称。
 // 72对caster1070的x00递增，但该槽在此路径的完成通知含义未证；91／92的对象flags位2也未命名。
-// 116等工厂入口及180～203虽有type映射，部分入口只等待而不创建；需区分创建／收尾语义后再命名。
+// 工厂剩余编号的type业务仍未证；118／188无创建分支，保留编号，已证普通等待／渐显结算分别命名。
 
 // BSI01：客户端分派技能号；用于gBattleMSkill5AAA78、castSkill103C及skill7C的已归一化消费。
 // 保持各字段为有符号整数，允许未知／Lua技能；不用于原始BattleSkillMeta::skillId注册键。

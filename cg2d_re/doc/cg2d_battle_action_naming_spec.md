@@ -4,7 +4,7 @@
 
 ## 范围与依据
 
-在既有battle_base.hpp的cg::yobi::detail定义有符号BattleActionId枚举，覆盖逐项读取实现确认的112个动作。替换AppendBattleCast_4392A0的动作参数（包括三元分支值）、battle_actor.cpp的phase分派case、已核实角色动作处理函数内的直接phase跳转／比较及castListCA4动作值；相同数值的音效号、字段偏移、角色动画动作号、其他对象phase及条件中的位掩码不替换。
+在既有battle_base.hpp的cg::yobi::detail定义有符号BattleActionId枚举，覆盖逐项读取实现确认的143个动作。替换AppendBattleCast_4392A0的动作参数（包括三元分支值）、battle_actor.cpp的phase分派case、已核实角色动作处理函数内的直接phase跳转／比较及castListCA4动作值；相同数值的音效号、字段偏移、角色动画动作号、其他对象phase及条件中的位掩码不替换。
 
 | 动作号 | 标识符 | 当前实现作用 |
 | --- | --- | --- |
@@ -155,9 +155,54 @@
 | 249 | BattleAction_FireBlastWaves | 帧事件触发时按技能／等级逐目标发射冲击波，播放音效268并清事件。来源：battle_attack.cpp的UpdateBattleAction249_4071C0。 |
 | 251 | BattleAction_SetHpFpOne | 将本角色HP和FP同时置1后推进，不在此清除死亡状态。来源：battle_cast.cpp的UpdateBattleAction251_40B180。 |
 
+## 特效动作继续补齐（2026-10-22）
+
+本批新增31项。沿动作入口→NewBattleEffect_41CD00的type→技能生产方与完成回调核对，不根据图号单独推断技能业务。
+
+- 工厂type7～12直接引用ReflectionPhysics／AbsorbPhysics／IneffectivePhysics及对应Magic技能，确认六类屏障触发特效；type5则是六类技能共用的施加特效，不能命名为某一种反射或吸收。
+- battle_skill_status.cpp的状态技能生产方证实type4为异常受术、type13为持续回复受术、type25为异常恢复受术、type6为属性反转受术、type33为复活受术、type37为能力变化受术。成功位仍决定后续状态动作；播放受术特效不等于成功。
+- type16由补血生产路径及工厂末尾SkillEffectKind::Heal替换分支双向确认；type13的替换分支为SkillEffectKind::Recovery。Heal与Recovery不合并。
+- 普通工厂动作link=1并转162；效果结束通知播放状态2，162清通知／隐藏相关字段后推进。127～129使用link=0且立即推进，故采用Start前缀；phase-120的120是映射偏移，保留原值。
+- 180～203中的对应type采用AndFadeIn后缀：转204后透明度每次加3；播放状态2时按结果免疫位显示图标，或按数字类型结算HP／FP，再进入60次计数；状态4且透明度255才推进。各分支是否实际修改数值取决于输入，不表示每种特效都会恢复HP。
+- 对暂未查到独立业务生产方的同type入口，仅沿相同工厂分支与已证收尾命名，保留各自编号，不把它们合并为同一动作或技能。
+
+| 编号 | 标识符 | 作用及边界 |
+| --- | --- | --- |
+| 119 | BattleAction_PlayDebuffSpellEffect | 播放异常魔法受术特效（工厂type4），转162等待；本动作不直接施加状态或结算数值。 |
+| 120 | BattleAction_PlayBarrierSpellEffect | 播放物理／魔法反射、吸收、无效化共用受术特效（工厂type5），转162等待；本动作不直接施加状态或结算数值。 |
+| 121 | BattleAction_PlayPhysicalReflectEffect | 播放物理反射特效（工厂type7），转162等待；本动作不直接施加状态或结算数值。 |
+| 122 | BattleAction_PlayPhysicalAbsorbEffect | 播放物理吸收特效（工厂type8），转162等待；本动作不直接施加状态或结算数值。 |
+| 123 | BattleAction_PlayPhysicalNullifyEffect | 播放物理无效化特效（工厂type9），转162等待；本动作不直接施加状态或结算数值。 |
+| 124 | BattleAction_PlayMagicReflectEffect | 播放魔法反射特效（工厂type10），转162等待；本动作不直接施加状态或结算数值。 |
+| 125 | BattleAction_PlayMagicAbsorbEffect | 播放魔法吸收特效（工厂type11），转162等待；本动作不直接施加状态或结算数值。 |
+| 126 | BattleAction_PlayMagicNullifyEffect | 播放魔法无效化特效（工厂type12），转162等待；本动作不直接施加状态或结算数值。 |
+| 127 | BattleAction_StartPhysicalReflectEffect | 创建物理反射特效（工厂type7、link=0）后立即推进，不等待效果结束。 |
+| 128 | BattleAction_StartPhysicalAbsorbEffect | 创建物理吸收特效（工厂type8、link=0）后立即推进，不等待效果结束。 |
+| 129 | BattleAction_StartPhysicalNullifyEffect | 创建物理无效化特效（工厂type9、link=0）后立即推进，不等待效果结束。 |
+| 130 | BattleAction_PlayRecoveryEffect | 播放持续回复魔法受术特效（工厂type13），转162等待；本动作不直接施加状态或结算数值。 |
+| 133 | BattleAction_PlayStatusRecoveryEffect | 播放异常恢复魔法受术特效（工厂type25），转162等待；本动作不直接施加状态或结算数值。 |
+| 146 | BattleAction_PlayAttributeReversalEffect | 播放属性反转受术特效（工厂type6），转162等待；本动作不直接施加状态或结算数值。 |
+| 148 | BattleAction_PlayReviveEffect | 播放复活受术特效（工厂type33）并转162等待；死亡位重置及HP恢复由后续动作处理。 |
+| 149 | BattleAction_PlayHealEffect | 播放补血魔法受术特效（工厂type16），转162等待；本动作不直接施加状态或结算数值。 |
+| 157 | BattleAction_PlayParameterChangeEffect | 播放能力变化魔法受术特效（工厂type37），转162等待；本动作不直接施加状态或结算数值。 |
+| 180 | BattleAction_PlayRecoveryEffectAndFadeIn | 播放持续回复魔法受术特效（工厂type13），转204渐显、按结果结算HP／FP并等待；不同于动作130。 |
+| 183 | BattleAction_PlayStatusRecoveryEffectAndFadeIn | 播放异常恢复魔法受术特效（工厂type25），转204渐显、按结果结算HP／FP并等待；不同于动作133。 |
+| 184 | BattleAction_PlayHealEffectAndFadeIn | 播放补血魔法受术特效（工厂type16），转204渐显、按结果结算HP／FP并等待；不同于动作149。 |
+| 189 | BattleAction_PlayDebuffSpellEffectAndFadeIn | 播放异常魔法受术特效（工厂type4），转204渐显、按结果结算HP／FP并等待；不同于动作119。 |
+| 190 | BattleAction_PlayBarrierSpellEffectAndFadeIn | 播放物理／魔法反射、吸收、无效化共用受术特效（工厂type5），转204渐显、按结果结算HP／FP并等待；不同于动作120。 |
+| 191 | BattleAction_PlayPhysicalReflectEffectAndFadeIn | 播放物理反射特效（工厂type7），转204渐显、按结果结算HP／FP并等待；不同于动作121。 |
+| 192 | BattleAction_PlayPhysicalAbsorbEffectAndFadeIn | 播放物理吸收特效（工厂type8），转204渐显、按结果结算HP／FP并等待；不同于动作122。 |
+| 193 | BattleAction_PlayPhysicalNullifyEffectAndFadeIn | 播放物理无效化特效（工厂type9），转204渐显、按结果结算HP／FP并等待；不同于动作123。 |
+| 194 | BattleAction_PlayMagicReflectEffectAndFadeIn | 播放魔法反射特效（工厂type10），转204渐显、按结果结算HP／FP并等待；不同于动作124。 |
+| 195 | BattleAction_PlayMagicAbsorbEffectAndFadeIn | 播放魔法吸收特效（工厂type11），转204渐显、按结果结算HP／FP并等待；不同于动作125。 |
+| 196 | BattleAction_PlayMagicNullifyEffectAndFadeIn | 播放魔法无效化特效（工厂type12），转204渐显、按结果结算HP／FP并等待；不同于动作126。 |
+| 201 | BattleAction_PlayAttributeReversalEffectAndFadeIn | 播放属性反转受术特效（工厂type6），转204渐显、按结果结算HP／FP并等待；不同于动作146。 |
+| 202 | BattleAction_PlayParameterChangeEffectAndFadeIn | 播放能力变化魔法受术特效（工厂type37），转204渐显、按结果结算HP／FP并等待；不同于动作157。 |
+| 204 | BattleAction_FadeInAndResolveEffect | 逐步渐显，特效完成后按结果显示免疫或结算HP／FP；再等待60次计数且完全不透明才推进。 |
+
 ### 仍保留编号的动作
 
-原生分派共有257个动作入口，累计112项已命名；以下145个编号对应89个处理入口，保留编号并记录本轮能确认的边界。定位完成不等于业务已证；未完整核对的组合流程明确列为后续分析项，不宣称所有动作已完成业务还原。
+原生分派共有257个动作入口，累计143项已命名；以下114个编号对应86个处理入口，保留编号并记录本轮能确认的边界。定位完成不等于业务已证；未完整核对的组合流程明确列为后续分析项，不宣称所有动作已完成业务还原。
 
 | 编号 | 处理入口 | 保留原因 |
 | --- | --- | --- |
@@ -214,12 +259,10 @@
 | 112 | UpdateBattleAction112_40EB00 | 已定位处理函数与既有注释；本轮尚未完整核对组合状态、目标取样和收尾条件，不据局部行为猜名。 |
 | 114 | UpdateBattleAction114_40F0A0 | 已定位处理函数与既有注释；本轮尚未完整核对组合状态、目标取样和收尾条件，不据局部行为猜名。 |
 | 115 | UpdateBattleAction115_40FB80 | 已确认特效创建／等待／清理步骤，但对应工厂type的具体业务尚未完整确认。 |
-| 116、117、118、119、120、121、122、123、124、125、126、130、131、132、133、134、135、136、137、146、149、150、151、152、153、157、158、161、217、250、252 | UpdateBattleFactoryAction_40FC10 | 共用工厂映射；118不创建效果，其余type的业务含义及等待合同尚未逐项核实。 |
-| 127、128、129 | UpdateBattleActions127To129_40FF90 | 已确认type7～9且工厂末参0后立即推进；效果业务含义未确认，不套用其他同type动作名。 |
+| 116、117、118、131、132、134、135、136、137、150、151、152、153、158、161、217、250、252 | UpdateBattleFactoryAction_40FC10 | 已核实转162等待；118没有创建分支。其余仅确认工厂type及图号／缩放等表现，对应完整业务尚缺证据，保留编号。 |
 | 138 | UpdateBattleAction138_40FF40 | 已确认特效创建／等待／清理步骤，但对应工厂type的具体业务尚未完整确认。 |
 | 139 | UpdateBattleAction139_410000 | 已定位处理函数与既有注释；本轮尚未完整核对组合状态、目标取样和收尾条件，不据局部行为猜名。 |
 | 140 | UpdateBattleAction140_410730 | 已定位处理函数与既有注释；本轮尚未完整核对组合状态、目标取样和收尾条件，不据局部行为猜名。 |
-| 148 | UpdateBattleAction148_40FEF0 | 已确认特效创建／等待／清理步骤，但对应工厂type的具体业务尚未完整确认。 |
 | 154 | UpdateBattleAction154_40F790 | 已确认特效创建／等待／清理步骤，但对应工厂type的具体业务尚未完整确认。 |
 | 155 | UpdateBattleAction155_40F800 | 已定位处理函数与既有注释；本轮尚未完整核对组合状态、目标取样和收尾条件，不据局部行为猜名。 |
 | 156 | UpdateBattleAction156_40FB30 | 已确认特效创建／等待／清理步骤，但对应工厂type的具体业务尚未完整确认。 |
@@ -231,8 +274,7 @@
 | 169 | UpdateBattleAction169_411FE0 | 仅确认绘制位或匿名渲染字段的写入；尚未追通实际显示消费，不能混同hidden或状态位。 |
 | 170 | UpdateBattleAction170_412000 | 仅确认绘制位或匿名渲染字段的写入；尚未追通实际显示消费，不能混同hidden或状态位。 |
 | 179 | UpdateBattleAction179_4122E0 | 已核对动画／帧结束或方向变化行为，尚未确认对应角色动画的业务语义，保留编号。 |
-| 180、181、182、183、184、185、186、187、188、189、190、191、192、193、194、195、196、197、198、199、200、201、202、203 | UpdateBattleActions180_203_412310 | 共用工厂映射，转204而非162收尾；188不创建效果，不能与普通工厂入口合并。 |
-| 204 | UpdateBattleAction204_4124E0 | 已定位处理函数与既有注释；本轮尚未完整核对组合状态、目标取样和收尾条件，不据局部行为猜名。 |
+| 181、182、185、186、187、188、197、198、199、200、203 | UpdateBattleActions180_203_412310 | 已核实转204渐显、结果结算及等待；188没有创建分支。其余特效业务尚缺证据，不能与普通工厂入口合并。 |
 | 205 | UpdateBattleAction205_4127B0 | 已核对动画／帧结束或方向变化行为，尚未确认对应角色动画的业务语义，保留编号。 |
 | 209 | UpdateBattleAction209_412900 | 已定位处理函数与既有注释；本轮尚未完整核对组合状态、目标取样和收尾条件，不据局部行为猜名。 |
 | 216 | UpdateBattleAction216_413400 | 已定位处理函数与既有注释；本轮尚未完整核对组合状态、目标取样和收尾条件，不据局部行为猜名。 |
@@ -258,3 +300,5 @@
 83～87补充五个成员及四个CPP的14处引用，总计53项／641处引用。按实际枚举值还原本批引用后，排除新增注释的完整代码词法序列与本批修改前一致；头文件除新增五项及注释外原代码一致。成员无重复名称／值且均有消费者，技能83～87及其他同值编号未混改。显式UTF-8并保持原换行，仅做静态差异及精确暂存范围检查，不编译、运行或新增测试。
 
 2026-10-22继续批新增59项、替换11个CPP的318处引用（含补齐此前已命名动作的两处跳转），累计112项／959处引用。按头文件实际值分别归一化修改前后代码中的动作枚举引用，排除注释后完整词法序列一致；头文件除新增成员及说明外原代码一致。全部成员有消费者且无重名重值，原生257项分派覆盖不变。保留浮点、RNG、HP／FP数值、目标重新取样及推进时序，仅做显式编码和静态核对。
+
+2026-10-22特效批新增31项，七个CPP替换157处引用，累计143项／1116处引用。包含普通／渐显工厂内部case、127～129范围边界及状态技能生产方的局部state分支；工厂type和换算偏移不替换。以实际枚举值归一化前后CPP，剔除注释后完整词法序列一致；头文件仅增加31项带中文注释成员。143项无重名重值且全部引用，原生257项分派集合保持不变；显式UTF-8与原换行核对，不编译、运行或新增测试。

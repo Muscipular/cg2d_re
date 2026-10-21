@@ -453,29 +453,29 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 116:
     case 117:
     case 118:
-    case 119:
-    case 120:
-    case 121:
-    case 122:
-    case 123:
-    case 124:
-    case 125:
-    case 126:
-    case 130:
+    case BattleAction_PlayDebuffSpellEffect:
+    case BattleAction_PlayBarrierSpellEffect:
+    case BattleAction_PlayPhysicalReflectEffect:
+    case BattleAction_PlayPhysicalAbsorbEffect:
+    case BattleAction_PlayPhysicalNullifyEffect:
+    case BattleAction_PlayMagicReflectEffect:
+    case BattleAction_PlayMagicAbsorbEffect:
+    case BattleAction_PlayMagicNullifyEffect:
+    case BattleAction_PlayRecoveryEffect:
     case 131:
     case 132:
-    case 133:
+    case BattleAction_PlayStatusRecoveryEffect:
     case 134:
     case 135:
     case 136:
     case 137:
-    case 146:
-    case 149:
+    case BattleAction_PlayAttributeReversalEffect:
+    case BattleAction_PlayHealEffect:
     case 150:
     case 151:
     case 152:
     case 153:
-    case 157:
+    case BattleAction_PlayParameterChangeEffect:
     case 158:
     case 161:
     case 217:
@@ -483,9 +483,9 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 252:
         static_cast<void>(UpdateBattleFactoryAction_40FC10(action));
         break;
-    case 127:
-    case 128:
-    case 129:
+    case BattleAction_StartPhysicalReflectEffect:
+    case BattleAction_StartPhysicalAbsorbEffect:
+    case BattleAction_StartPhysicalNullifyEffect:
         static_cast<void>(UpdateBattleActions127To129_40FF90(action));
         break;
     case 138:
@@ -515,7 +515,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_ToggleAttributeReversal:
         static_cast<void>(UpdateBattleAction147_411320(action));
         break;
-    case 148:
+    case BattleAction_PlayReviveEffect:
         static_cast<void>(UpdateBattleAction148_40FEF0(action));
         break;
     case 154:
@@ -585,33 +585,33 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 179:
         static_cast<void>(UpdateBattleAction179_4122E0(action));
         break;
-    case 180:
+    case BattleAction_PlayRecoveryEffectAndFadeIn:
     case 181:
     case 182:
-    case 183:
-    case 184:
+    case BattleAction_PlayStatusRecoveryEffectAndFadeIn:
+    case BattleAction_PlayHealEffectAndFadeIn:
     case 185:
     case 186:
     case 187:
     case 188:
-    case 189:
-    case 190:
-    case 191:
-    case 192:
-    case 193:
-    case 194:
-    case 195:
-    case 196:
+    case BattleAction_PlayDebuffSpellEffectAndFadeIn:
+    case BattleAction_PlayBarrierSpellEffectAndFadeIn:
+    case BattleAction_PlayPhysicalReflectEffectAndFadeIn:
+    case BattleAction_PlayPhysicalAbsorbEffectAndFadeIn:
+    case BattleAction_PlayPhysicalNullifyEffectAndFadeIn:
+    case BattleAction_PlayMagicReflectEffectAndFadeIn:
+    case BattleAction_PlayMagicAbsorbEffectAndFadeIn:
+    case BattleAction_PlayMagicNullifyEffectAndFadeIn:
     case 197:
     case 198:
     case 199:
     case 200:
-    case 201:
-    case 202:
+    case BattleAction_PlayAttributeReversalEffectAndFadeIn:
+    case BattleAction_PlayParameterChangeEffectAndFadeIn:
     case 203:
         static_cast<void>(UpdateBattleActions180_203_412310(action));
         break;
-    case 204:
+    case BattleAction_FadeInAndResolveEffect:
         static_cast<void>(UpdateBattleAction204_4124E0(action));
         break;
     case 205:

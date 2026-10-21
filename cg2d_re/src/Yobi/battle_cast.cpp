@@ -2122,8 +2122,8 @@ void UpdateBattleAction115_40FB80(YobiAction* const action)
 // 原函数：0x0040FC10。
 void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
 {
-    // BAN01：只确认动作号到工厂type的映射；118无创建分支，不能把所有入口统一命名为创建效果。
-    // 其余工厂type的业务含义及等待合同需单独核实，保留各动作编号。
+    // BAN01：已证受术／反射等特效分别命名，link=1通知本角色，统一转162等待结束。
+    // 118无创建分支；其余保留编号的type尚缺业务证据，不依据图号猜名。
     auto* const payload = action->payload.battleActor;
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -2131,31 +2131,31 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
     if (payload->effectPlaybackState1024 == 0) {
         std::int32_t type = -1;
         switch (action->phase) {
-        case 130: type = 13; break;
+        case BattleAction_PlayRecoveryEffect: type = 13; break;
         case 116: type = 1; break;
         case 117: type = 2; break;
-        case 133: type = 25; break;
-        case 149: type = 16; break;
+        case BattleAction_PlayStatusRecoveryEffect: type = 25; break;
+        case BattleAction_PlayHealEffect: type = 16; break;
         case 150: type = 18; break;
         case 151: type = 21; break;
         case 152: type = 22; break;
         case 153: type = 23; break;
-        case 119: type = 4; break;
-        case 120: type = 5; break;
-        case 121: type = 7; break;
-        case 122: type = 8; break;
-        case 123: type = 9; break;
-        case 124: type = 10; break;
-        case 125: type = 11; break;
-        case 126: type = 12; break;
+        case BattleAction_PlayDebuffSpellEffect: type = 4; break;
+        case BattleAction_PlayBarrierSpellEffect: type = 5; break;
+        case BattleAction_PlayPhysicalReflectEffect: type = 7; break;
+        case BattleAction_PlayPhysicalAbsorbEffect: type = 8; break;
+        case BattleAction_PlayPhysicalNullifyEffect: type = 9; break;
+        case BattleAction_PlayMagicReflectEffect: type = 10; break;
+        case BattleAction_PlayMagicAbsorbEffect: type = 11; break;
+        case BattleAction_PlayMagicNullifyEffect: type = 12; break;
         case 134: type = 26; break;
         case 135: type = 27; break;
         case 136: type = 28; break;
         case 137: type = 29; break;
         case 131: type = 14; break;
         case 132: type = 15; break;
-        case 146: type = 6; break;
-        case 157: type = 37; break;
+        case BattleAction_PlayAttributeReversalEffect: type = 6; break;
+        case BattleAction_PlayParameterChangeEffect: type = 37; break;
         case 158: type = 38; break;
         case 161: type = 39; break;
         case 217: type = 40; break;
@@ -2175,13 +2175,15 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
 // 原函数：0x0040FF90。
 void UpdateBattleActions127To129_40FF90(YobiAction* const action)
 {
+    // BAN01：type7／8／9分别为物理反射／吸收／无效化；link=0，创建后立即推进。
+    // phase-120中的120是动作号到工厂type的换算偏移，不是动作120。
     auto* const payload = action->payload.battleActor;
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     if (payload->effectPlaybackState1024 == 0) {
         const std::int32_t phase = action->phase;
-        if (phase >= 127 && phase <= 129) {
+        if (phase >= BattleAction_StartPhysicalReflectEffect && phase <= BattleAction_StartPhysicalNullifyEffect) {
             static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0},
                 static_cast<std::uint32_t>(phase - 120), 0, 0));
         }
@@ -2605,6 +2607,7 @@ void UpdateBattleAction147_411320(YobiAction* const action)
 // 原函数：0x0040FEF0。
 void UpdateBattleAction148_40FEF0(YobiAction* const action)
 {
+    // BAN01：仅播放复活受术效果；成功后的死亡位清理和HP恢复由生产方另行排队。
     auto* const payload = action->payload.battleActor;
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));

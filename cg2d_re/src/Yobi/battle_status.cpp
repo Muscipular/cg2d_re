@@ -931,7 +931,8 @@ void UpdateBattleAction179_4122E0(YobiAction* const action)
 // 原函数：0x00412310。
 void UpdateBattleActions180_203_412310(YobiAction* const action)
 {
-    // BAN01：本组转204收尾，不同于普通工厂入口转162；188不创建效果，不能按共用type合并动作。
+    // BAN01：本组转204渐显并按结果结算，不能与普通转162等待的同type动作合并。
+    // 188无创建分支；其他保留编号项的特效业务尚缺证据，不依据图号猜名。
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -939,28 +940,28 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
     if (payload->effectPlaybackState1024 == 0) {
         std::int32_t type = -1;
         switch (action->phase) {
-        case 180: type = 13; break;
+        case BattleAction_PlayRecoveryEffectAndFadeIn: type = 13; break;
         case 181: type = 1; break;
         case 182: type = 2; break;
-        case 183: type = 25; break;
-        case 184: type = 16; break;
+        case BattleAction_PlayStatusRecoveryEffectAndFadeIn: type = 25; break;
+        case BattleAction_PlayHealEffectAndFadeIn: type = 16; break;
         case 185: type = 21; break;
         case 186: type = 22; break;
         case 187: type = 23; break;
-        case 189: type = 4; break;
-        case 190: type = 5; break;
-        case 191: type = 7; break;
-        case 192: type = 8; break;
-        case 193: type = 9; break;
-        case 194: type = 10; break;
-        case 195: type = 11; break;
-        case 196: type = 12; break;
+        case BattleAction_PlayDebuffSpellEffectAndFadeIn: type = 4; break;
+        case BattleAction_PlayBarrierSpellEffectAndFadeIn: type = 5; break;
+        case BattleAction_PlayPhysicalReflectEffectAndFadeIn: type = 7; break;
+        case BattleAction_PlayPhysicalAbsorbEffectAndFadeIn: type = 8; break;
+        case BattleAction_PlayPhysicalNullifyEffectAndFadeIn: type = 9; break;
+        case BattleAction_PlayMagicReflectEffectAndFadeIn: type = 10; break;
+        case BattleAction_PlayMagicAbsorbEffectAndFadeIn: type = 11; break;
+        case BattleAction_PlayMagicNullifyEffectAndFadeIn: type = 12; break;
         case 197: type = 26; break;
         case 198: type = 29; break;
         case 199: type = 14; break;
         case 200: type = 15; break;
-        case 201: type = 6; break;
-        case 202: type = 37; break;
+        case BattleAction_PlayAttributeReversalEffectAndFadeIn: type = 6; break;
+        case BattleAction_PlayParameterChangeEffectAndFadeIn: type = 37; break;
         case 203: type = 39; break;
         default: break;
         }
@@ -968,12 +969,14 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
             static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, type, 0, 1));
         }
     }
-    action->phase = 204;
+    action->phase = BattleAction_FadeInAndResolveEffect;
 }
 
 // 原函数：0x004124E0。
 void UpdateBattleAction204_4124E0(YobiAction* const action)
 {
+    // BAN01：透明度每次加3；播放状态2时按免疫位或数字类型结算一次，转3累计60次。
+    // 状态4且完全不透明才清状态／计数并推进；不将渐显完成单独视为动作完成。
     auto* const payload = action->payload.battleActor;
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));

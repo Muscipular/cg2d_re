@@ -513,31 +513,31 @@ static std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
 #include "SceneAngleTable55DF10.inc"
 };
 
-// 原 .data [0x55EA50,0x55EC58)：65 项 F64 位型，按表项原序保存。
-static std::array<std::uint64_t, 65> gAngleTableBits55EA50 { // 原全局：0x0055EA50。
-    0x0000000000000000ULL, 0x3FECA543F1C75819ULL, 0x3FFCA379B77C02B0ULL, 0x4005785F06F69446ULL,
-    0x400C9C55000C953AULL, 0x4011DE5EEDCC20D5ULL, 0x40156C5D63886595ULL, 0x4018F7B84DB9C737ULL,
-    0x401C800431BDE82DULL, 0x4020026BD6E8AF81ULL, 0x4021C2E5BC87DB2BULL, 0x4023813DD97F62B7ULL,
-    0x40253D436B8F9B13ULL, 0x4026F6C7863BEEC4ULL, 0x4028AD9CCFAEFF5CULL, 0x402A6197C3D68406ULL,
-    0x402C128E71476AF9ULL, 0x402DC059641F6449ULL, 0x402F6AD2999567DCULL, 0x403088EB24A6A876ULL,
-    0x40315AA161E4F766ULL, 0x40322A7C286F8AD2ULL, 0x4032F86CA89FC6DAULL, 0x4033C46530058149ULL,
-    0x40348E58F7121AB5ULL, 0x4035563C64345CFFULL, 0x40361C04C8BC9CD4ULL, 0x4036DFA8826AA8EBULL,
-    0x4037A11EEAA6D267ULL, 0x4038606045BAF534ULL, 0x40391D65D3996FA8ULL, 0x4039D829CFDD2285ULL,
-    0x403A90A72EAD9275ULL, 0x403B46D9F0A1BE2BULL, 0x403BFABECEDD4845ULL, 0x403CAC535C9E6688ULL,
-    0x403D5B95C4220360ULL, 0x403E088509BF9C63ULL, 0x403EB3210BE9424EULL, 0x403F5B69EC2CE465ULL,
-    0x404000B063E07A29ULL, 0x404052839042D8C3ULL, 0x4040A32F87AD080BULL, 0x4040F2B599AA6091ULL,
-    0x40414117481B21C4ULL, 0x40418E56605EE569ULL, 0x4041DA74D9C6B053ULL, 0x40422574E65BEA0CULL,
-    0x40426F58D1526D8BULL, 0x4042B8232096787DULL, 0x4042FFD6733EBBFDULL, 0x40434675A31A4BDCULL,
-    0x40438C03925BB7B7ULL, 0x4043D0833C60029FULL, 0x404413F7CED91687ULL, 0x404456646F156191ULL,
-    0x404497CC63F14120ULL, 0x4044D83315D701DAULL, 0x4045179BD4067CF2ULL, 0x4045560A2877EE4EULL,
-    0x4045938183F91E64ULL, 0x4045D005681ECD4BULL, 0x40460B996FA82E88ULL, 0x404646411C2A0232ULL,
-    0x4046800000000000ULL,
+// 原 .data [0x55EA50,0x55EC58)：65 项可写 F64，十六进制浮点字面值精确保留原位型。
+static std::array<double, 65> gAngleTable55EA50 { // 原全局：0x0055EA50；供 GetVectorAngleDegrees_46F970 插值。
+    0x0.0p+0, 0x1.ca543f1c75819p-1, 0x1.ca379b77c02b0p+0, 0x1.5785f06f69446p+1,
+    0x1.c9c55000c953ap+1, 0x1.1de5eedcc20d5p+2, 0x1.56c5d63886595p+2, 0x1.8f7b84db9c737p+2,
+    0x1.c800431bde82dp+2, 0x1.0026bd6e8af81p+3, 0x1.1c2e5bc87db2bp+3, 0x1.3813dd97f62b7p+3,
+    0x1.53d436b8f9b13p+3, 0x1.6f6c7863beec4p+3, 0x1.8ad9ccfaeff5cp+3, 0x1.a6197c3d68406p+3,
+    0x1.c128e71476af9p+3, 0x1.dc059641f6449p+3, 0x1.f6ad2999567dcp+3, 0x1.088eb24a6a876p+4,
+    0x1.15aa161e4f766p+4, 0x1.22a7c286f8ad2p+4, 0x1.2f86ca89fc6dap+4, 0x1.3c46530058149p+4,
+    0x1.48e58f7121ab5p+4, 0x1.5563c64345cffp+4, 0x1.61c04c8bc9cd4p+4, 0x1.6dfa8826aa8ebp+4,
+    0x1.7a11eeaa6d267p+4, 0x1.8606045baf534p+4, 0x1.91d65d3996fa8p+4, 0x1.9d829cfdd2285p+4,
+    0x1.a90a72ead9275p+4, 0x1.b46d9f0a1be2bp+4, 0x1.bfabecedd4845p+4, 0x1.cac535c9e6688p+4,
+    0x1.d5b95c4220360p+4, 0x1.e088509bf9c63p+4, 0x1.eb3210be9424ep+4, 0x1.f5b69ec2ce465p+4,
+    0x1.000b063e07a29p+5, 0x1.052839042d8c3p+5, 0x1.0a32f87ad080bp+5, 0x1.0f2b599aa6091p+5,
+    0x1.14117481b21c4p+5, 0x1.18e56605ee569p+5, 0x1.1da74d9c6b053p+5, 0x1.22574e65bea0cp+5,
+    0x1.26f58d1526d8bp+5, 0x1.2b8232096787dp+5, 0x1.2ffd6733ebbfdp+5, 0x1.34675a31a4bdcp+5,
+    0x1.38c03925bb7b7p+5, 0x1.3d0833c60029fp+5, 0x1.413f7ced91687p+5, 0x1.456646f156191p+5,
+    0x1.497cc63f14120p+5, 0x1.4d83315d701dap+5, 0x1.5179bd4067cf2p+5, 0x1.5560a2877ee4ep+5,
+    0x1.5938183f91e64p+5, 0x1.5d005681ecd4bp+5, 0x1.60b996fa82e88p+5, 0x1.646411c2a0232p+5,
+    0x1.6800000000000p+5,
 };
 
 static_assert(kMapBitReverse55DAAC[1] == 0x80u);
 static_assert(kMapCrcTable55DBAC[1] == 0x1021u);
 static_assert(sizeof(gAngleTableBits55DF10) == 2880);
-static_assert(sizeof(gAngleTableBits55EA50) == 520);
+static_assert(sizeof(gAngleTable55EA50) == 520);
 static_assert(sizeof(gDirectionDeltas55D9DC) == 32);
 
 std::int32_t& gCurrentSceneType = platform::gCurrentSceneTypeStorage_FF0D40; // 原全局：0x00FF0D40。
@@ -10570,12 +10570,10 @@ double __cdecl GetVectorAngleDegrees_46F970(const float first, const float secon
     const std::int32_t index = static_cast<std::int32_t>(scaled);
     const std::int32_t nextIndex = index + 1 > 64 ? 64 : index + 1;
     const float fraction = static_cast<float>(scaled - index);
-    const double leftSample = std::bit_cast<double>(
-        gAngleTableBits55EA50[static_cast<std::size_t>(index)]);
+    const double leftSample = gAngleTable55EA50[static_cast<std::size_t>(index)];
     const double firstWeight = 1.0 - fraction;
     const double left = leftSample * firstWeight;
-    const double rightSample = std::bit_cast<double>(
-        gAngleTableBits55EA50[static_cast<std::size_t>(nextIndex)]);
+    const double rightSample = gAngleTable55EA50[static_cast<std::size_t>(nextIndex)];
     const double right = rightSample * fraction;
     const float angle = static_cast<float>(left + right);
 

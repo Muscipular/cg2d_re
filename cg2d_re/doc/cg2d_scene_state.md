@@ -1649,7 +1649,7 @@ angle    = float(table[i] * (1.0f - fraction) + table[j] * fraction)
 
 ### 34.4 `dbl_55EA50` 的 65 项 F64 表
 
-表覆盖 `[0x55EA50,0x55EC58)`，共 65 项；`address(i) = 0x55EA50 + 8 * i`。以下每项是对应 double 的精确 64 位位型，按索引递增；内存按小端存放，不另行换写为 hex-float：
+表覆盖 `[0x55EA50,0x55EC58)`，共 65 项；`address(i) = 0x55EA50 + 8 * i`。以下每项是对应 double 的精确 64 位位型，按索引递增；内存按小端存放。2026-10-21 按用户要求，源码改为可写 `std::array<double, 65> gAngleTable55EA50`，使用精确十六进制浮点字面值直接初始化，覆盖此前不换写 hex-float 的约定；下列原始位型继续作为逐项核对依据。读取处直接取 double，保持插值顺序、F32 中间写槽、索引规则及520字节大小。
 
 ```text
 i=00-07: 0000000000000000 3FECA543F1C75819 3FFCA379B77C02B0 4005785F06F69446 400C9C55000C953A 4011DE5EEDCC20D5 40156C5D63886595 4018F7B84DB9C737

@@ -5043,3 +5043,11 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 已存在窗口的打开策略读取实例category；类别关闭、默认窗口判断改为直接读取该字段，移除无调用者的WindowRuntime_GetCategory及声明。原类别位掩码、打开时关闭其他类别的先后顺序、原生/扩展窗口的默认窗口规则保持。
 - 用户追加要求同步Lua接口：category读取、直接赋值、Set表更新及创建参数统一映射实例字段，不写入自定义properties；原生窗口与扩展窗口共用该接线。同步Lua引用包装SPEC，赋值本身不立即触发关闭。
 - 完成创建赋值、全部类别调用点及差异静态核对；类别表仅剩新建初值读取，UTF-8与既有换行保持。按规则精确提交本项源码和进度；未编译、运行、新增或执行测试，不计算摘要，保留已有未跟踪文件。
+
+## 589. 点击Lua UI后的窗口回收重入崩溃修复（2026-10-22）
+
+- 用户提供cg2d_crash_20261022_015451_882_29856_23416_1.dmp，明确要求分析并修复，补充触发条件为点击Lua UI。本次只读分析该转储及其匹配映像/PDB，不扩大为客户端启动、构建或测试授权。
+- 转储线程23416发生0xC0000005读异常，目标地址0xC；匹配PDB的GUID与Age（87）一致。异常定位GetExtWindowById的窗口ID读取，现场查询ID为-1，windows列表第二项的shared_ptr对象和控制块均为空。
+- 使用本机DbgHelp与匹配映像的x64展开信息还原调用栈：PrepareWindowFrame → erase_if/remove_if → shared_ptr移动赋值/释放 → WindowExtension析构 → DestroyElements/ClearElements/RemoveElement → WindowElement_ForgetInputRestore → WindowRuntime_FindInstance → GetExtWindowById。确认NEU01新增输入恢复清理查询重入了正在压缩的活动列表；不是仅凭点击现象推断Lua回调崩溃。
+- 修复PrepareWindowFrame：删除前为关闭ID和临时owner列表准备容量，压缩期间保留关闭对象的shared_ptr；活动列表稳定后释放临时owner，再通知Lua，保持同ID重建的通知时机。退出清理先swap出活动列表再销毁，避免相同析构重入；GetExtWindowById对空身份直接返回并跳过空项。
+- 静态核对正常保留/关闭混排、多个关闭对象、有效或空焦点身份、退出清理及关闭通知后的同ID重建顺序，Git差异检查通过；本步仅修改WindowExtension.cpp与唯一进度并精确提交。未编译、启动客户端、新增或执行测试，不计算摘要；实际点击回归仍待运行验证，保留已有未跟踪文件。

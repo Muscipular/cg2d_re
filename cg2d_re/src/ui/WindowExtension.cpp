@@ -109,7 +109,8 @@ int WindowExtension::render(int) {
 
 std::shared_ptr<WindowExtension> GetExtWindowById(int id)
 {
-    for (const auto& window : windows) if (window->window.id == id) return window;
+    if (id < 0) return nullptr; // 未捕获鼠标/输入焦点的空身份。
+    for (const auto& window : windows) if (window && window->window.id == id) return window;
     return nullptr;
 }
 
@@ -203,12 +204,17 @@ void PrepareWindowFrame()
     WindowRuntime_UpdateScene();
     // 先移除再通知，关闭事件可以安全重建同ID窗口。
     std::vector<int> closed;
+    std::vector<std::shared_ptr<WindowExtension>> retiring;
+    closed.reserve(windows.size());
+    retiring.reserve(windows.size());
     std::erase_if(windows, [&](const auto& entry) {
         if (!(entry->window.state & WIN_STATE_CLOSE)) return false;
         closed.push_back(entry->window.id);
+        retiring.push_back(entry); // 压缩列表期间保活，避免析构中的输入清理重入半移动的windows。
         windowOrder.erase(entry->window.id);
         return true;
     });
+    retiring.clear(); // 活动列表已稳定；先释放关闭对象，再通知Lua。
     for (int id : closed) script::LuaProcessWinMgrWindowClose(id);
 
     // 移走当前批次；打开回调中新建的窗口留到下一次UI更新，避免递归派发。
@@ -269,7 +275,9 @@ void FinishWindowFrame()
 void ShutdownExtensionWindows()
 {
     pendingWindowOpens.clear();
-    windows.clear(); // 元素和窗口绑定销毁后，调用方才可关闭Lua state。
+    std::vector<std::shared_ptr<WindowExtension>> retiring;
+    retiring.swap(windows); // 先清空活动注册表，析构查询不能看到正在销毁的shared_ptr。
+    retiring.clear(); // 元素和窗口绑定销毁后，调用方才可关闭Lua state。
     dragOwner = -1;
     mouseWheelDelta = 0;
     for (auto* window : detail::gWindows) if (window) {

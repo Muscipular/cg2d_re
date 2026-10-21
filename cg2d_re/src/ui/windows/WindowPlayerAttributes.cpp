@@ -351,6 +351,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const ElementId element
             WindowInstance* const yTarget = gWindowStates[targetWindow].window;
             yTarget->y = ySource->y;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
+            WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
             consumed = 1;
         }
         return consumed;

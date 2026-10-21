@@ -401,6 +401,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const ElementId elementId,
                 WindowInstance* const yTarget = gWindowStates[targetWindow].window;
                 yTarget->y = ySource->y;
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
+                WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
                 consumed = 1;
             }
         } else if (world::gPlayerRuntimeSlots.value1A0 == (elementId == static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons_24) ? 0 : 1)) {

@@ -707,6 +707,7 @@ std::int32_t WindowPetDetail_SwitchPage(const ElementId elementId, const std::in
         WindowInstance* const yTarget = gWindowStates[target].window;
         yTarget->y = ySource->y;
         static_cast<void>(audio::PlaySe_52C450(56, 320));
+        WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
         return 1;
     }
     return consumed;

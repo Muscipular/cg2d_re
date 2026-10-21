@@ -745,6 +745,24 @@ static std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24
 
 static std::int32_t gWindowUpdateCountCC4844 = 0; // 原全局：0x00CC4844。 473F80的共享数量，draw返回后重读。
 
+struct WindowPagePresentation;
+static WindowPagePresentation* gPagePresentation = nullptr; // 仅借用当前窗口调度栈上的切页记录。
+
+// PSF01：记录不持有窗口，回调退出后按ID/代次复查；离开当前窗口调度即失效。
+struct WindowPagePresentation {
+    explicit WindowPagePresentation(const WindowInstance& source)
+        : sourceId(source.id), sourceGeneration(source.generation), previous(gPagePresentation)
+    { gPagePresentation = this; }
+    ~WindowPagePresentation() { gPagePresentation = previous; }
+
+    int sourceId;
+    std::uint32_t sourceGeneration;
+    int targetId = -1;
+    std::uint32_t targetGeneration = 0;
+    bool accepting = true; // 输入结束后停止登记，补画不会递归产生新批次。
+    WindowPagePresentation* previous;
+};
+
 static constexpr ShortcutEmoteBinding kShortcutEmotes[] {
     {0x31, 0x31, 0, 0},
     {0x32, 0x32, 2, 1},
@@ -4391,6 +4409,15 @@ void WindowRuntime_ReleaseDefault()
     static_cast<void>(WindowRuntime_ReturnOne(0));
 }
 
+void WindowRuntime_QueuePagePresentation(const WindowInstance& source, const WindowInstance& target)
+{
+    if (!gPagePresentation || !gPagePresentation->accepting
+        || gPagePresentation->sourceId != source.id
+        || gPagePresentation->sourceGeneration != source.generation) return;
+    gPagePresentation->targetId = target.id;
+    gPagePresentation->targetGeneration = target.generation;
+}
+
 } // namespace detail
 
 // 窗口函数实现。
@@ -4441,6 +4468,7 @@ std::int32_t WindowRuntime_Update()
                 if (++index >= static_cast<std::int32_t>(scheduledWindows.size())) break;
                 continue;
             }
+            WindowPagePresentation pagePresentation(*window);
             gCurrentWindow = window;
             gCurrentWindowState = extension ? &extension->state : &gWindowStates[window->id];
             gCurrentWindowIdD67A1C = window->id;
@@ -4489,6 +4517,7 @@ std::int32_t WindowRuntime_Update()
                 }
                 updateResult = 0;
             }
+            pagePresentation.accepting = false;
             if (window->binding && !(window->state & 0x8000u) && !window->scriptHidden) {
                 WindowElementCursor cursor(*window);
                 while (auto* currentElement = cursor.next()) {
@@ -4501,6 +4530,36 @@ std::int32_t WindowRuntime_Update()
             if (!(window->state & 0x8000u) && !window->scriptHidden) {
                 carried = invoke([&] { return extension ? extension->render(updateResult) : window->draw(updateResult); });
                 if (window->binding && !(window->state & 0x8000u) && !window->scriptHidden) window->binding->draw();
+            }
+            // 切页回调已消费点击；新页只刷新原生内容并接替旧页的绘制位置，不参与本帧输入。
+            if (!extension && pagePresentation.targetId >= 0
+                && gWindowStates[pagePresentation.sourceId].window == window
+                && window->generation == pagePresentation.sourceGeneration && (window->state & 0x8000u)) {
+                auto* const target = WindowRuntime_FindInstance(pagePresentation.targetId);
+                if (target && target->generation == pagePresentation.targetGeneration
+                    && !(target->state & 0x8000u) && !target->scriptHidden
+                    && std::none_of(scheduledWindows.begin(), scheduledWindows.end(),
+                        [target](const ScheduledWindow& entry) { return entry.window == target; })) {
+                    auto* const previousWindow = gCurrentWindow;
+                    auto* const previousState = gCurrentWindowState;
+                    const auto previousId = gCurrentWindowIdD67A1C;
+                    const auto previousElementId = gCurrentElementId57C12C;
+                    gCurrentWindow = target;
+                    gCurrentWindowState = &gWindowStates[target->id];
+                    gCurrentWindowIdD67A1C = target->id;
+                    gCurrentElementId57C12C = 0;
+                    // 宠物页的update(-1)只初始化；正常update补齐属性/技能，沿各页自己的draw。
+                    const auto targetResult = invoke([&] { return target->update(carried); });
+                    if (WindowRuntime_FindInstance(pagePresentation.targetId) == target
+                        && target->generation == pagePresentation.targetGeneration
+                        && !(target->state & 0x8000u) && !target->scriptHidden) {
+                        carried = invoke([&] { return target->draw(targetResult); });
+                    }
+                    gCurrentWindow = previousWindow;
+                    gCurrentWindowState = previousState;
+                    gCurrentWindowIdD67A1C = previousId;
+                    gCurrentElementId57C12C = previousElementId;
+                }
             }
             const std::int32_t currentCount = static_cast<std::int32_t>(scheduledWindows.size());
             ++index;

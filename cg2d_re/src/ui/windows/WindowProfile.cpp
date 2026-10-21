@@ -82,6 +82,7 @@ std::int32_t WindowProfile_HandleButtons(const ElementId elementId, const std::i
             const std::int32_t y = sourceForY->y;
             targetForY->y = y;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
+            WindowRuntime_QueuePagePresentation(*currentWindow, *targetForY);
             return 1;
         }
         return consumed;

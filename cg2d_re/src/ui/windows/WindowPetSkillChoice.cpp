@@ -1648,9 +1648,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
             const std::int32_t position = gWindow54PetScrollCC31DC;
             WindowInstance* const window = currentWindow;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t count = gWindow54ValueCB01E4;
@@ -1678,9 +1678,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
                 const std::int32_t position = gWindow54PetScrollCC31DC;
                 WindowInstance* const window = currentWindow;
                 const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-                auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+                auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
                 if (indexedElement) {
-                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
                 }
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
                 WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
@@ -1694,9 +1694,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const std::int32_t in
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
                 WindowInstance* const window = currentWindow;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+                auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
                 if (indexedElement) {
-                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
                 }
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
                 WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
@@ -1738,9 +1738,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
             }
             const std::int32_t position = gWindow54PetScrollCC31DC;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 2));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
@@ -1766,9 +1766,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
                 }
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 2));
                 if (indexedElement) {
-                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, position));
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
                 }
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
                 WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
@@ -1788,9 +1788,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const std::int32_t index,
             WindowInstance* const window = currentWindow;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
             // 原4C0314为index-1；模式12/13也不按右侧元素改走另一分支。
-            auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
             WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
@@ -1830,9 +1830,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
             }
             const std::int32_t position = gWindow54PetScrollCC31DC;
             const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t count = gWindow54ValueCB01E4;
@@ -1858,9 +1858,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
                 }
                 const std::int32_t position = gWindow54PetScrollCC31DC;
                 const std::int32_t maximum = gWindow54ValueCB01E4 - 10;
-                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
                 if (indexedElement) {
-                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
                 }
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
                 WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
@@ -1872,9 +1872,9 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const std::int32_t i
                 }
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
                 const std::int32_t maximum = gWindow54ValueCB01E8 - 5;
-                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
                 if (indexedElement) {
-                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
                 }
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
                 WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
@@ -1922,9 +1922,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                 position = 0;
                 gWindow54PetScrollCC31DC = position;
             }
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 4));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             const std::uint8_t mode = gWindow54ModeC8AF64;
             const std::int32_t scroll = gWindow54PetScrollCC31DC;
@@ -1958,9 +1958,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                     position = 0;
                     gWindow54PetScrollCC31DC = position;
                 }
-                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 4));
                 if (indexedElement) {
-                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
                 }
                 const std::int32_t scroll = gWindow54PetScrollCC31DC;
                 WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
@@ -1980,9 +1980,9 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const std::int32_t index
                     position = 0;
                     gWindow54SkillScrollCC31F4 = position;
                 }
-                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+                auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 4));
                 if (indexedElement) {
-                    static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+                    static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
                 }
                 const std::int32_t scroll = gWindow54SkillScrollCC31F4;
                 WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
@@ -2015,10 +2015,10 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
             const std::int32_t count = gWindow54ValueCB01E4;
             const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
             const std::int32_t position = gWindow54PetScrollCC31DC;
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
             if (indexedElement) {
                 gWindow54PetScrollCC31DC =
-                    WindowScroll_ApplyWheel(indexedElement - 5, position, count - 10, wheel);
+                    WindowScroll_ApplyWheel(indexedElement, position, count - 10, wheel);
             }
             break;
         }
@@ -2031,20 +2031,20 @@ static std::int32_t WindowPetSkillChoice_Scroll(const std::int32_t index, const 
             if (index <= 17) {
                 const std::int32_t count = gWindow54ValueCB01E4;
                 const std::int32_t position = gWindow54PetScrollCC31DC;
-                auto* const scrollElement = currentWindow->FindElementById(NativeElementKey(index));
+                auto* const scrollElement = currentWindow->FindElementById(NativeElementKey(index - 5));
                 if (scrollElement) {
                     const std::int32_t scroll =
-                        WindowScroll_ApplyWheel(scrollElement - 5, position, count - 10, wheel);
+                        WindowScroll_ApplyWheel(scrollElement, position, count - 10, wheel);
                     gWindow54PetScrollCC31DC = scroll;
                     WindowPetSkillChoice_RefreshSelectedSkillRows(currentWindow, scroll);
                 }
             } else {
                 const std::int32_t count = gWindow54ValueCB01E8;
                 const std::int32_t position = gWindow54SkillScrollCC31F4;
-                auto* const scrollElement = currentWindow->FindElementById(NativeElementKey(index));
+                auto* const scrollElement = currentWindow->FindElementById(NativeElementKey(index - 5));
                 if (scrollElement) {
                     const std::int32_t scroll =
-                        WindowScroll_ApplyWheel(scrollElement - 5, position, count - 5, wheel);
+                        WindowScroll_ApplyWheel(scrollElement, position, count - 5, wheel);
                     gWindow54SkillScrollCC31F4 = scroll;
                     WindowPetSkillChoice_RefreshPetRows(currentWindow, scroll);
                 }

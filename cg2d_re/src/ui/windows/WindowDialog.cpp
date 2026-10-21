@@ -260,9 +260,8 @@ void WindowDialog_AddImage(
     image.used = used;
     WindowInstance* const window = gWindowStates[WindowId_Dialog].window;
     if (window != nullptr) {
-        auto* const elementPtr = window ? window->FindElementById(NativeElementKey(count)) : nullptr;
-        if (elementPtr) {
-            WindowElement* const element = elementPtr + 8;
+        auto* const element = window->FindElementById(NativeElementKey(count + 8));
+        if (element) {
             cg::yobi::SetYobiActionField2A8(
                 element->data.animation->action, imageNo);
             cg::yobi::SetYobiActionField2B8(

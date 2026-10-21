@@ -2339,9 +2339,9 @@ static std::int32_t WindowShop_ButtonPreviousRow(const std::int32_t index, const
         const std::int32_t position = gShopScrollCC488C;
         WindowInstance* const window = currentWindow;
         const std::int32_t maximum = gShopItemCountCB1E10 - 5;
-        auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
         if (indexedElement) {
-            static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+            static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
         }
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
@@ -2391,9 +2391,9 @@ static std::int32_t WindowShop_ButtonNextRow(const std::int32_t index, const std
         }
         const std::int32_t position = gShopScrollCC488C;
         const std::int32_t maximum = gShopItemCountCB1E10 - 5;
-        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 2));
         if (indexedElement) {
-            static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, position));
+            static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
         }
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
@@ -2441,9 +2441,9 @@ static std::int32_t WindowShop_ButtonPreviousPage(const std::int32_t index, cons
         }
         const std::int32_t position = gShopScrollCC488C;
         const std::int32_t maximum = gShopItemCountCB1E10 - 5;
-        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
         if (indexedElement) {
-            static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+            static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
         }
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
@@ -2498,9 +2498,9 @@ static std::int32_t WindowShop_ButtonNextPage(const std::int32_t index, const st
             position = 0;
             gShopScrollCC488C = position;
         }
-        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 4));
         if (indexedElement) {
-            static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+            static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
         }
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:
@@ -2541,10 +2541,10 @@ static std::int32_t WindowShop_Scroll(const std::int32_t index, const std::int32
         const std::int32_t count = gShopItemCountCB1E10;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gShopScrollCC488C;
-        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {
             gShopScrollCC488C =
-                WindowScroll_ApplyWheel(indexedElement - 5, position, count - 5, wheel);
+                WindowScroll_ApplyWheel(indexedElement, position, count - 5, wheel);
         }
         switch (std::bit_cast<std::int8_t>(gMaterialOccupancyCC4894.shopMode)) {
         case 0:

@@ -999,10 +999,10 @@ static std::int32_t WindowCrystalExchangeShop_Scroll(const std::int32_t index, c
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindow70ScrollCC4B68;
         WindowInstance* const window = currentWindow;
-        auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = window->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {
             gWindow70ScrollCC4B68 =
-                WindowScroll_ApplyWheel(indexedElement - 5, position, count - 5, wheel);
+                WindowScroll_ApplyWheel(indexedElement, position, count - 5, wheel);
         }
     }
     return 0;

@@ -243,9 +243,9 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const std::int32_t index,
             const std::int32_t offset = gTextChoiceOffsetD2D9C0;
             WindowInstance* const window = currentWindow;
             const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-            auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, offset));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
             WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
             consumed = 1;
@@ -280,9 +280,9 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const std::int32_t index, con
             }
             const std::int32_t offset = gTextChoiceOffsetD2D9C0;
             const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 2));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, offset));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
             WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
             consumed = 1;
@@ -316,9 +316,9 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const std::int32_t index
             }
             const std::int32_t offset = gTextChoiceOffsetD2D9C0;
             const std::int32_t maximum = gTextChoiceCountCC4CE4 - 5;
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, offset));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
             WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
             consumed = 1;
@@ -359,9 +359,9 @@ static std::int32_t WindowTextTarget_ButtonNextPage(const std::int32_t index, co
                 offset = 0;
                 gTextChoiceOffsetD2D9C0 = offset;
             }
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 4));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, offset));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
             WindowTextTarget_Refresh(gTextChoiceOffsetD2D9C0);
             consumed = 1;
@@ -387,10 +387,10 @@ static std::int32_t WindowTextTarget_Scroll(const std::int32_t index, const std:
         const std::int32_t count = gTextChoiceCountCC4CE4;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t offset = gTextChoiceOffsetD2D9C0;
-        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {
             gTextChoiceOffsetD2D9C0 =
-                WindowScroll_ApplyWheel(indexedElement - 5, offset, count - 5, wheel);
+                WindowScroll_ApplyWheel(indexedElement, offset, count - 5, wheel);
         }
     }
     return 0;

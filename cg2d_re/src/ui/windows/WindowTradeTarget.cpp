@@ -242,9 +242,9 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(const std::int32_t index
             const std::int32_t position = gWindowListOffsetCC3EF4;
             WindowInstance* const window = currentWindow;
             const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-            auto* const indexedElement = window->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 1, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
             result = 1;
@@ -279,9 +279,9 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(const std::int32_t index, co
             }
             const std::int32_t position = gWindowListOffsetCC3EF4;
             const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 2));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 2, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
             result = 1;
@@ -315,9 +315,9 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(const std::int32_t inde
             }
             const std::int32_t position = gWindowListOffsetCC3EF4;
             const std::int32_t maximum = gWindowListCountCF46A8 - 5;
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 3, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
             result = 1;
@@ -358,9 +358,9 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(const std::int32_t index, c
                 position = 0;
                 gWindowListOffsetCC3EF4 = position;
             }
-            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+            auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 4));
             if (indexedElement) {
-                static_cast<void>(WindowScroll_SetPosition(indexedElement - 4, maximum, position));
+                static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
             }
             WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
             result = 1;
@@ -386,10 +386,10 @@ static std::int32_t WindowTradeTarget_Scroll(const std::int32_t index, const std
         const std::int32_t count = gWindowListCountCF46A8;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = gWindowListOffsetCC3EF4;
-        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index));
+        auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {
             gWindowListOffsetCC3EF4 =
-                WindowScroll_ApplyWheel(indexedElement - 5, position, count - 5, wheel);
+                WindowScroll_ApplyWheel(indexedElement, position, count - 5, wheel);
         }
     }
     return 0;

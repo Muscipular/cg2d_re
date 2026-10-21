@@ -102,13 +102,13 @@ void UpdateNativeBattleActor(YobiAction* const action)
         return;
     }
     switch (action->phase) {
-    case 0:
+    case BattleAction_Idle:
         static_cast<void>(UpdateBattleAction0_406650(action));
         break;
-    case 1:
+    case BattleAction_WaitIdle:
         static_cast<void>(UpdateBattleAction1_406720(action));
         break;
-    case 2:
+    case BattleAction_EnterFormation:
         static_cast<void>(UpdateBattleAction2_406760(action));
         break;
     case 3:
@@ -120,7 +120,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 5:
         static_cast<void>(UpdateBattleAction5_40CFA0(action));
         break;
-    case 6:
+    case BattleAction_MoveToTargetPosition:
         static_cast<void>(UpdateBattleAction6_406CD0(action));
         break;
     case 7:
@@ -177,7 +177,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 24:
         static_cast<void>(UpdateBattleAction24_409380(action));
         break;
-    case 25:
+    case BattleAction_WaitTargetReady:
         static_cast<void>(UpdateBattleAction25_406BA0(action));
         break;
     case 26:
@@ -210,19 +210,19 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 35:
         static_cast<void>(UpdateBattleAction35_40B930(action));
         break;
-    case 36:
+    case BattleAction_Wait30Ticks:
         static_cast<void>(UpdateBattleAction36_40BAD0(action));
         break;
-    case 37:
+    case BattleAction_Wait60Ticks:
         static_cast<void>(UpdateBattleAction37_40BB20(action));
         break;
-    case 38:
+    case BattleAction_Wait120Ticks:
         static_cast<void>(UpdateBattleAction38_40BB70(action));
         break;
     case 39:
         static_cast<void>(UpdateBattleAction39_40BBC0(action));
         break;
-    case 40:
+    case BattleAction_FaceFormation:
         static_cast<void>(UpdateBattleAction40_40BD40(action));
         break;
     case 41:
@@ -243,7 +243,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 46:
         static_cast<void>(UpdateBattleAction46_40B200(action));
         break;
-    case 47:
+    case BattleAction_MarkDead:
         static_cast<void>(UpdateBattleAction47_40B3F0(action));
         break;
     case 48:
@@ -255,7 +255,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 50:
         static_cast<void>(UpdateBattleAction50_40B3C0(action));
         break;
-    case 51:
+    case BattleAction_RemoveFromBattle:
         static_cast<void>(UpdateBattleAction51_40BE70(action));
         break;
     case 52:
@@ -267,7 +267,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 54:
         static_cast<void>(UpdateBattleAction54_40BFE0(action));
         break;
-    case 55:
+    case BattleAction_ConsumeFp:
         static_cast<void>(UpdateBattleAction55_40C0C0(action));
         break;
     case 56:
@@ -294,13 +294,13 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 63:
         static_cast<void>(UpdateBattleAction63_40C2E0(action));
         break;
-    case 64:
+    case BattleAction_SetIdlePose:
         static_cast<void>(UpdateBattleAction64_40CBB0(action));
         break;
     case 65:
         static_cast<void>(UpdateBattleAction65_40C380(action));
         break;
-    case 66:
+    case BattleAction_PlayConfiguredImage:
         static_cast<void>(UpdateBattleAction66_40C480(action));
         break;
     case 67:
@@ -321,16 +321,16 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 72:
         static_cast<void>(UpdateBattleAction72_40CAA0(action));
         break;
-    case 73:
+    case BattleAction_AdvanceLinkedCast:
         static_cast<void>(AdvanceBattleLinkedCast_40CAC0(action));
         break;
-    case 74:
+    case BattleAction_AdvanceEffectAndCast:
         static_cast<void>(AdvanceBattleEffectAndCast_40CAF0(action));
         break;
-    case 75:
+    case BattleAction_EnableFlash:
         static_cast<void>(UpdateBattleAction75_40CB10(action));
         break;
-    case 76:
+    case BattleAction_DisableFlash:
         static_cast<void>(UpdateBattleAction76_40CB30(action));
         break;
     case 77:
@@ -339,16 +339,16 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 78:
         static_cast<void>(UpdateBattleAction78_40CB80(action));
         break;
-    case 79:
+    case BattleAction_ResetDeathState:
         static_cast<void>(UpdateBattleAction79_40CBD0(action));
         break;
-    case 80:
+    case BattleAction_PlaySound1018:
         static_cast<void>(UpdateBattleAction80_40CC80(action));
         break;
-    case 81:
+    case BattleAction_PlaySound101C:
         static_cast<void>(UpdateBattleAction81_40CCB0(action));
         break;
-    case 82:
+    case BattleAction_PlaySound1020:
         static_cast<void>(UpdateBattleAction82_40CCE0(action));
         break;
     case 83:
@@ -366,10 +366,10 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 87:
         static_cast<void>(UpdateBattleAction87_40C780(action));
         break;
-    case 88:
+    case BattleAction_StartScreenShake:
         static_cast<void>(UpdateBattleAction88_40C8D0(action));
         break;
-    case 89:
+    case BattleAction_EndScreenShakeRise:
         static_cast<void>(UpdateBattleAction89_40C8F0(action));
         break;
     case 90:
@@ -390,16 +390,16 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 95:
         static_cast<void>(UpdateBattleAction95_40D0B0(action));
         break;
-    case 96:
+    case BattleAction_ShowEffectTarget:
         static_cast<void>(UpdateBattleAction96_40D170(action));
         break;
-    case 97:
+    case BattleAction_HideEffectTarget:
         static_cast<void>(UpdateBattleAction97_40D1A0(action));
         break;
     case 98:
         static_cast<void>(UpdateBattleAction98_40D1D0(action));
         break;
-    case 99:
+    case BattleAction_SetAnimationRate25:
         static_cast<void>(UpdateBattleAction99_40D390(action));
         break;
     case 100:
@@ -423,7 +423,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 106:
         static_cast<void>(UpdateBattleAction106_40DF50(action));
         break;
-    case 107:
+    case BattleAction_MarkForRemoval:
         static_cast<void>(UpdateBattleAction107_40DF70(action));
         break;
     case 108:
@@ -497,22 +497,22 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 140:
         static_cast<void>(UpdateBattleAction140_410730(action));
         break;
-    case 141:
+    case BattleAction_ApplyDebuff:
         static_cast<void>(UpdateBattleAction141_410E90(action));
         break;
-    case 142:
+    case BattleAction_ClearDebuff:
         static_cast<void>(UpdateBattleAction142_410F70(action));
         break;
-    case 143:
+    case BattleAction_ApplyStatusEffect:
         static_cast<void>(UpdateBattleAction143_410FC0(action));
         break;
-    case 144:
+    case BattleAction_ClearStatusEffect:
         static_cast<void>(UpdateBattleAction144_411240(action));
         break;
-    case 145:
+    case BattleAction_CreatePrayerField:
         static_cast<void>(UpdateBattleAction145_411290(action));
         break;
-    case 147:
+    case BattleAction_ToggleAttributeReversal:
         static_cast<void>(UpdateBattleAction147_411320(action));
         break;
     case 148:
@@ -527,13 +527,13 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 156:
         static_cast<void>(UpdateBattleAction156_40FB30(action));
         break;
-    case 159:
+    case BattleAction_ApplyResourceChange:
         static_cast<void>(UpdateBattleAction159_4107C0(action));
         break;
-    case 160:
+    case BattleAction_ApplyResourceChangeAndWait:
         static_cast<void>(UpdateBattleAction160_410B00(action));
         break;
-    case 162:
+    case BattleAction_WaitEffectComplete:
         static_cast<void>(UpdateBattleAction162_410E30(action));
         break;
     case 163:
@@ -560,26 +560,26 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 170:
         static_cast<void>(UpdateBattleAction170_412000(action));
         break;
-    case 171:
+    case BattleAction_FadeIn:
         static_cast<void>(UpdateBattleAction171_412020(action));
         break;
     case 172:
     case 173:
         static_cast<void>(UpdateBattleActions172_173_4120F0(action));
         break;
-    case 174:
+    case BattleAction_SelectPalette:
         static_cast<void>(UpdateBattleAction174_4121D0(action));
         break;
-    case 175:
+    case BattleAction_StartBackgroundFade:
         static_cast<void>(UpdateBattleAction175_412210(action));
         break;
-    case 176:
+    case BattleAction_EndBackgroundFade:
         static_cast<void>(UpdateBattleAction176_412260(action));
         break;
-    case 177:
+    case BattleAction_PlayBackgroundFade:
         static_cast<void>(UpdateBattleAction177_412290(action));
         break;
-    case 178:
+    case BattleAction_AdvanceAndIdle:
         static_cast<void>(UpdateBattleAction178_4122C0(action));
         break;
     case 179:
@@ -617,10 +617,10 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 205:
         static_cast<void>(UpdateBattleAction205_4127B0(action));
         break;
-    case 206:
+    case BattleAction_FaceEffectTarget:
         static_cast<void>(UpdateBattleAction206_4127F0(action));
         break;
-    case 207:
+    case BattleAction_MoveToEffectPosition:
         static_cast<void>(UpdateBattleAction207_412830(action));
         break;
     case 208:
@@ -747,16 +747,16 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case 251:
         static_cast<void>(UpdateBattleAction251_40B180(action));
         break;
-    case 253:
+    case BattleAction_CreateCastingEffect:
         static_cast<void>(UpdateBattleAction253_40FE50(action));
         break;
-    case 254:
+    case BattleAction_ClearCastingEffect:
         static_cast<void>(UpdateBattleAction254_40FEB0(action));
         break;
     case 255:
         static_cast<void>(UpdateBattleAction255_4186B0(action));
         break;
-    case 256:
+    case BattleAction_RequestBattleExit:
         static_cast<void>(UpdateBattleAction256_418B50(action));
         break;
     default:
@@ -885,7 +885,7 @@ std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
     if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
         action->offset40 = static_cast<float>(payload->x00);
         const double y = payload->y04;
-        action->phase = 0;
+        action->phase = BattleAction_Idle;
         action->offset44 = static_cast<float>(y);
         payload->flagsFDC |= BattleActorFlag_EntryComplete;
     }
@@ -1211,7 +1211,7 @@ void UpdateBattleAction13_406A80(YobiAction* const action)
 void UpdateBattleAction236_406630(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->phase = 0;
+    action->phase = BattleAction_Idle;
     payload->busyFD8 = 0;
     UpdateBattleAction0_406650(action);
 }

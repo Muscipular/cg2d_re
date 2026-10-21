@@ -381,7 +381,7 @@ void UpdateBattleAction159_4107C0(YobiAction* const action)
 void UpdateBattleAction160_410B00(YobiAction* const action)
 {
     ApplyBattleResourceChange_4107C0_410B00(action);
-    action->phase = 37;
+    action->phase = BattleAction_Wait60Ticks;
 }
 
 // 原函数：0x00410E30。
@@ -916,7 +916,7 @@ void UpdateBattleAction177_412290(YobiAction* const action)
 void UpdateBattleAction178_4122C0(YobiAction* const action)
 {
     AdvanceBattleCastState_439340(action);
-    action->phase = 0;
+    action->phase = BattleAction_Idle;
 }
 
 // 原函数：0x004122E0。
@@ -1084,7 +1084,7 @@ void UpdateBattleAction207_412830(YobiAction* const action)
     payload->moveTargetXFE8 = payload->effects1C[index].position;
     payload->moveTargetYFEC = std::bit_cast<std::int32_t>(payload->effects1C[index].flags);
     static_cast<void>(AdvanceBattleEffect_439470(action));
-    action->phase = 6;
+    action->phase = BattleAction_MoveToTargetPosition;
 }
 
 } // namespace detail

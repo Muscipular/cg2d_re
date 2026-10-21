@@ -487,7 +487,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     cg::world::gBattleAllEntries59E980[index]->hidden = 0;
     ResetBattleCastEffects(payload);
     payload->castPlayIndexFC4 = 0;
-    payload->castListCA4[0] = 0;
+    payload->castListCA4[0] = BattleAction_Idle;
     payload->queuedTargetIndex13A4 = 0;
     payload->queuedTargetCount13A8 = 0;
     const std::uint8_t flags = *reinterpret_cast<const unsigned char*>(&payload->flagsFDC);
@@ -521,7 +521,7 @@ void ResetBattleCastList_4391E0(const std::int32_t index)
     payload->queuedTargets1084[0] = -1;
     payload->queuedTargets1084[1] = -1;
     payload->castPlayIndexFC4 = 0;
-    payload->castListCA4[0] = 0;
+    payload->castListCA4[0] = BattleAction_Idle;
     payload->queuedTargetIndex13A4 = 0;
     payload->queuedTargetCount13A8 = 0;
 }
@@ -779,7 +779,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
                         && (payload->entryMaskA8 & (1u << slot)) != 0) {
                         ResetBattleCastList_4391E0(static_cast<std::int32_t>(slot));
                         AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[slot], 11);
-                        AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[slot], 40);
+                        AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[slot], BattleAction_FaceFormation);
                         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[slot]);
                         payload->waitCountAC = 0;
                     }
@@ -799,7 +799,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
             }
             if (displaced) {
                 AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[index], 11);
-                AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[index], 40);
+                AppendBattleCast_4392A0(parent, cg::world::gBattleAllEntries59E980[index], BattleAction_FaceFormation);
                 MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[index]);
                 return 0;
             }

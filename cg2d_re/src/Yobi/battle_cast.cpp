@@ -280,7 +280,7 @@ void UpdateBattleAction48_40B490(YobiAction* const action)
     if (previousAlpha == 0) {
         action->field58 = 0;
         payload->valueFF0 = 0;
-        action->phase = 51;
+        action->phase = BattleAction_RemoveFromBattle;
         return;
     }
     static_cast<void>(NewBattleRisingEffect_420D50(action));
@@ -295,7 +295,7 @@ void UpdateBattleAction49_40B5B0(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     if (payload->effectPlaybackState1024 == 2) {
         payload->effectPlaybackState1024 = 0;
-        action->phase = 51;
+        action->phase = BattleAction_RemoveFromBattle;
     }
 }
 
@@ -332,8 +332,8 @@ void UpdateBattleAction52_40BE90(YobiAction* const action)
         YobiAction* const pet = cg::world::gBattleAllEntries59E980[petPosition];
         if (pet != nullptr) {
             AppendBattleCast_4392A0(caster, pet, 13);
-            AppendBattleCast_4392A0(caster, cg::world::gBattleAllEntries59E980[petPosition], 47);
-            AppendBattleCast_4392A0(caster, cg::world::gBattleAllEntries59E980[petPosition], 51);
+            AppendBattleCast_4392A0(caster, cg::world::gBattleAllEntries59E980[petPosition], BattleAction_MarkDead);
+            AppendBattleCast_4392A0(caster, cg::world::gBattleAllEntries59E980[petPosition], BattleAction_RemoveFromBattle);
             const std::int32_t currentPetPosition = cg::world::GetBattlePetPosition_405B40(payload->battlePosition18);
             MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[currentPetPosition]);
         }
@@ -1977,7 +1977,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
             }
         } else {
             payload->flagsFDC &= ~BattleActorAbnormalMask;
-            AppendBattleCast_4392A0(action, cg::world::gBattleAllEntries59E980[paired.position], 142);
+            AppendBattleCast_4392A0(action, cg::world::gBattleAllEntries59E980[paired.position], BattleAction_ClearDebuff);
         }
         const std::int32_t hitIndex = payload->effectRunningC9C;
         const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
@@ -2108,7 +2108,7 @@ void UpdateBattleAction115_40FB80(YobiAction* const action)
             payload->effects1C[payload->effectRunningC9C].position]->hidden = 1;
         action->hidden = 1;
     }
-    action->phase = 162;
+    action->phase = BattleAction_WaitEffectComplete;
 }
 
 // 原函数：0x0040FC10。
@@ -2158,7 +2158,7 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
                 static_cast<std::uint32_t>(type), 0, 1));
         }
     }
-    action->phase = 162;
+    action->phase = BattleAction_WaitEffectComplete;
 }
 
 // BFW01：完整FDC持样/条件播放，后取phase选7/8/9末参0，全路径推进。
@@ -2190,7 +2190,7 @@ void UpdateBattleAction138_40FF40(YobiAction* const action)
     if (payload->effectPlaybackState1024 == 0) {
         static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 20, 0, 1));
     }
-    action->phase = 162;
+    action->phase = BattleAction_WaitEffectComplete;
 }
 
 // BFW01：事件/完成两次独立特效指针持样，98单次属性；405不同取样/四临时复制原序。
@@ -2602,7 +2602,7 @@ void UpdateBattleAction148_40FEF0(YobiAction* const action)
     if (payload->effectPlaybackState1024 == 0) {
         static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 33, 0, 1));
     }
-    action->phase = 162;
+    action->phase = BattleAction_WaitEffectComplete;
 }
 
 // 原函数：0x0040F790。
@@ -2753,13 +2753,13 @@ void UpdateBattleAction103_40DBE0(YobiAction* const action)
     YobiAction* const caster = payload->caster1070;
     do {
         YobiAction* const copy = NewBattleCastCopy_4205F0(action);
-        AppendBattleCast_4392A0(caster, copy, 25);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(caster, copy, 77);
         AppendBattleCast_4392A0(caster, copy, 91);
         AppendBattleCast_4392A0(caster, copy, 9);
         AppendBattleCast_4392A0(caster, copy, 92);
         AppendBattleCast_4392A0(caster, copy, 14);
-        AppendBattleCast_4392A0(caster, copy, 107);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_MarkForRemoval);
         const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
         const std::int32_t value4 = effect.position4;
         const std::uint32_t flags = effect.flags;
@@ -2784,9 +2784,9 @@ void UpdateBattleAction109_40E4B0(YobiAction* const action)
     copy->flags |= hasDevice ? 0x100000u : 0x8000u;
     copyPayload->flash1004 = 1;
     copyPayload->battlePosition18 = -1;
-    AppendBattleCast_4392A0(caster, copy, 25);
+    AppendBattleCast_4392A0(caster, copy, BattleAction_WaitTargetReady);
     AppendBattleCast_4392A0(caster, copy, 110);
-    AppendBattleCast_4392A0(caster, copy, 107);
+    AppendBattleCast_4392A0(caster, copy, BattleAction_MarkForRemoval);
     const std::int32_t effectIndex = payload->effectRunningC9C;
     const BattleEntryEffectRecord& effect = payload->effects1C[effectIndex];
     const std::int32_t position4 = effect.position4;
@@ -2901,10 +2901,10 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     AppendBattleCast_4392A0(caster, copy, 113);
     if (payload->castSkillLevel1044 == 90) {
         AppendBattleCast_4392A0(caster, copy, 85);
-        AppendBattleCast_4392A0(caster, copy, 36);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_Wait30Ticks);
     }
     AppendBattleCast_4392A0(caster, copy, 114);
-    AppendBattleCast_4392A0(caster, copy, 107);
+    AppendBattleCast_4392A0(caster, copy, BattleAction_MarkForRemoval);
     if (payload->castSkillLevel1044 < 90) {
         const std::int32_t effectIndex = payload->effectRunningC9C;
         const BattleEntryEffectRecord& effect = payload->effects1C[effectIndex];
@@ -3747,7 +3747,7 @@ void UpdateBattleAction253_40FE50(YobiAction* const action)
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
-    if (action->phase == 253 && payload->effectPlaybackState1024 == 0) {
+    if (action->phase == BattleAction_CreateCastingEffect && payload->effectPlaybackState1024 == 0) {
         action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 43, 0, 1);
     }
     AdvanceBattleCastState_439340(action);

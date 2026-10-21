@@ -1680,10 +1680,10 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
                     AdvanceBattleCastState_439340(action->battleOpponent10);
                     AppendBattleEffect_439400(action, {parentPayload->effects1C[parentPayload->effectRunningC9C].position, 0, 0, 0});
                     if (cg::world::gBattleAllEntries59E980[parentPayload->effects1C[parentPayload->effectRunningC9C].position]->phase != 0) {
-                        AppendBattleCast_4392A0(caster, action, 25);
+                        AppendBattleCast_4392A0(caster, action, BattleAction_WaitTargetReady);
                     }
-                    AppendBattleCast_4392A0(caster, action, 73);
-                    AppendBattleCast_4392A0(caster, action, 25);
+                    AppendBattleCast_4392A0(caster, action, BattleAction_AdvanceLinkedCast);
+                    AppendBattleCast_4392A0(caster, action, BattleAction_WaitTargetReady);
                     AppendBattleCast_4392A0(caster, action, 222);
                     action->effectAcceleration48 = 10.0F;
                     AdvanceBattleCastState_439340(action);

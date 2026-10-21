@@ -79,6 +79,63 @@
 namespace cg::yobi {
 
 namespace detail {
+// BAN01：战斗动作队列编号；用于AppendBattleCast_4392A0及角色phase分派，不是技能号或图号。
+// 原函数编号／地址保留；逐项来源与未命名原因见doc/cg2d_battle_action_naming_spec.md。
+enum BattleActionId : std::int32_t {
+    BattleAction_Idle = 0, // 待机；按死亡／睡眠／石化状态选择姿态，保留特殊队列166及技能72／113门禁。
+    BattleAction_WaitIdle = 1, // 保持待机姿态并播放；不自行推进动作队列。
+    BattleAction_EnterFormation = 2, // 移入阵型坐标；到达后转待机并设置入场完成位。
+    BattleAction_MoveToTargetPosition = 6, // 移动至moveTargetXFE8／YFEC；到达后推进动作。
+    BattleAction_WaitTargetReady = 25, // 等待当前效果目标待机并保存其坐标；目标缺失或为自身时按原条件推进。
+    BattleAction_Wait30Ticks = 36, // valueFF0递增至30后清零并推进；保留睡眠／石化播放门禁。
+    BattleAction_Wait60Ticks = 37, // valueFF0递增至60后清零并推进；不是60毫秒。
+    BattleAction_Wait120Ticks = 38, // valueFF0递增至120后清零并推进；不是120毫秒。
+    BattleAction_FaceFormation = 40, // 按阵型位置恢复朝向后推进。
+    BattleAction_MarkDead = 47, // 设置角色FDC倒地／死亡位后推进，不销毁对象。
+    BattleAction_RemoveFromBattle = 51, // 清空战斗角色全局槽并MarkDeath；实际释放沿调度器。
+    BattleAction_ConsumeFp = 55, // 播放一帧、扣除fpUsed1008指定消耗，再推进。
+    BattleAction_SetIdlePose = 64, // 将角色动画动作设为0并推进；不同于持续待机动作0。
+    BattleAction_PlayConfiguredImage = 66, // 切换为image1014及角色动作5，播放结束后推进并清帧事件。
+    BattleAction_AdvanceLinkedCast = 73, // 先推进当前效果目标的动作，再推进本角色动作。
+    BattleAction_AdvanceEffectAndCast = 74, // 先推进当前效果游标，再推进本角色动作。
+    BattleAction_EnableFlash = 75, // 将flash1004设为1后推进。
+    BattleAction_DisableFlash = 76, // 将flash1004清零后推进。
+    BattleAction_ResetDeathState = 79, // 清理中心／再生附属效果，恢复待机姿态并清除死亡位及stateFE0的2位。
+    BattleAction_PlaySound1018 = 80, // 播放soundId1018，保留先读取X再读取音效号的顺序。
+    BattleAction_PlaySound101C = 81, // 播放soundId101C；与1018／1020是独立音效槽。
+    BattleAction_PlaySound1020 = 82, // 播放soundId1020；不合并其他音效槽。
+    BattleAction_StartScreenShake = 88, // 设最大振幅6并开启振幅上升，然后推进。
+    BattleAction_EndScreenShakeRise = 89, // 结束振幅上升；后续主循环逐步减振幅，不立即归零。
+    BattleAction_ShowEffectTarget = 96, // 将当前效果目标hidden置0后推进本角色。
+    BattleAction_HideEffectTarget = 97, // 将当前效果目标hidden置1后推进本角色。
+    BattleAction_SetAnimationRate25 = 99, // 播放速率设为25，推进后清frameIndex／frameRemain；单位不外推。
+    BattleAction_MarkForRemoval = 107, // 直接MarkDeath当前对象；不清战斗全局槽，区别于51。
+    BattleAction_ApplyDebuff = 141, // 按模式／类型创建异常效果1054；可设置异常位，含2089／2090扩展图。
+    BattleAction_ClearDebuff = 142, // 清除1054及异常位；推进后回写当前减益类型并重置状态效果模式。
+    BattleAction_ApplyStatusEffect = 143, // 创建能力变化／扩展状态效果1068；支持负向能力变化，并非仅增益。
+    BattleAction_ClearStatusEffect = 144, // 清除1068及能力变化位；不等于清除角色全部状态。
+    BattleAction_CreatePrayerField = 145, // 按四属性祈祷技能创建场地效果，随后推进。
+    BattleAction_ToggleAttributeReversal = 147, // 按ReverseType位创建或清除反转效果105C，同时切换该状态位。
+    BattleAction_ApplyResourceChange = 159, // 按numberDisplayType1034显示数值并更新HP／FP，随后推进动作队列。
+    BattleAction_ApplyResourceChangeAndWait = 160, // 同159处理HP／FP，但只转动作37等待，不立即推进队列。
+    BattleAction_WaitEffectComplete = 162, // 等待effectPlaybackState1024为2，再清标记、显示角色并推进。
+    BattleAction_FadeIn = 171, // 递增角色及附属对象透明度至255后推进，保留设备绘制位处理。
+    BattleAction_SelectPalette = 174, // 用当前效果的position／position3切换调色板，推进效果及动作。
+    BattleAction_StartBackgroundFade = 175, // 创建或复用effect1060背景渐变对象并将其phase设为0，然后推进。
+    BattleAction_EndBackgroundFade = 176, // 将effect1060的phase设为2并清角色槽；不是直接MarkDeath。
+    BattleAction_PlayBackgroundFade = 177, // 创建不保存到effect1060的背景渐变，工厂末参1，然后推进。
+    BattleAction_AdvanceAndIdle = 178, // 先推进队列游标，再将角色phase设为待机0。
+    BattleAction_FaceEffectTarget = 206, // 朝当前效果记录的目标角色转向后推进。
+    BattleAction_MoveToEffectPosition = 207, // 从效果position／flags读取目的坐标，推进效果后切入移动动作6。
+    BattleAction_CreateCastingEffect = 253, // 本动作且播放标记为0时创建type43施法效果并保存battleCastEffect10，然后推进。
+    BattleAction_ClearCastingEffect = 254, // 标死battleCastEffect10并清槽／播放标记，然后推进。
+    BattleAction_RequestBattleExit = 256, // 清事件分派忙标志并请求退出战斗；不在这里销毁角色。
+};
+
+// 未命名动作保持原编号：攻击／受击／复制体等组合流程尚未逐项归纳，不能用单个副作用代替整体语义。
+// 77／78仅证实设备相关绘制位切换；167～170仅证实匿名渲染字段赋值，字段含义不足以命名。
+// 56～62、106、179、205等仅有角色动画号／终帧行为，未确认动画业务含义，不猜姿态名称。
+
 // BSI01：客户端分派技能号；用于gBattleMSkill5AAA78、castSkill103C及skill7C的已归一化消费。
 // 保持各字段为有符号整数，允许未知／Lua技能；不用于原始BattleSkillMeta::skillId注册键。
 // data技术号与所属技能号不一致时取techId / 100；不改变现有205000报文归一化阈值。

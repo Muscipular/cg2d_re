@@ -703,8 +703,8 @@ ui::WindowElement* LuaWindow::AddControl(std::wstring_view name, int x, int y, i
     std::int32_t nextSeq = 0;
     if (!window.sortedMap.empty()) {
         nextSeq = window.sortedMap.begin()->second->seqNo;
-        for (const auto& entry : window.sortedMap) nextSeq = std::max(nextSeq, entry.second->seqNo);
-        ++nextSeq;
+        for (const auto& entry : window.sortedMap) nextSeq = std::min(nextSeq, entry.second->seqNo);
+        --nextSeq; // LEL01：Lua后添加的元素默认置前，显式seqNo仍由属性入口覆盖。
     }
     auto& element = ui::WindowRuntime_AddElement(window, requestedElementId);
     element.name = std::move(preparedName);
@@ -731,6 +731,7 @@ ui::WindowElement* LuaWindow::AddAnime(std::wstring_view name, int x, int y, int
 
 ui::WindowElement* LuaWindow::AddText(std::wstring_view name, int x, int y, int w, int h, int visible, ui::WindowTextData data, LuaCallbackRefs callbacks, int parentId) {
     PendingLuaElement pending{ui::WindowElementType_Text, {}, callbacks};
+    data.layout = ui::WindowTextLayout::Box;
     pending.data.text = new ui::WindowTextData(std::move(data));
     return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
@@ -1638,6 +1639,10 @@ LuaFunctionEx(LuaWindowRef, AddText) {
         {static_cast<std::byte>(LuaGetIntField(L, 2, "color", 0) & 0xff), static_cast<std::byte>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))), {}, {}},
         LuaGetWideStringField(L, 2, "text")
     };
+    // 在发布元素和转移回调引用前校验，错误align不能留下半创建文本。
+    lua_getfield(L, 2, "align");
+    if (!lua_isnil(L, -1)) data.align = LuaReadTextAlign(L, -1);
+    lua_pop(L, 1);
     window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddText(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, std::move(data), LuaReadCallbacks(L, 2), parentId);
     if (!control) {

@@ -85,6 +85,7 @@ LuaWindowBinding* EnsureLuaWindowBinding(lua_State* L, ui::WindowInstance& windo
 bool LuaPushElementProperty(lua_State* L, ui::WindowElement& element, const char* key);
 bool LuaPushWindowProperty(lua_State* L, ui::WindowInstance& window, const char* key);
 void LuaApplyElementExtras(lua_State* L, int table, ui::WindowElement& control);
+ui::WindowTextAlign LuaReadTextAlign(lua_State* L, int value); // LEL01：创建前与属性更新共用0/1/2校验。
 void LuaApplyWindowExtras(lua_State* L, int table, ui::WindowInstance& window);
 void RegisterLuaUIProxy(lua_State* L);
 ui::WindowElement* ResolveLuaElement(const LuaControlRef& ref);

@@ -61,6 +61,11 @@ static std::int32_t ReadInteger(lua_State* L, int index) {
         throw std::runtime_error("integer must be in int32 range");
     return static_cast<std::int32_t>(value);
 }
+ui::WindowTextAlign LuaReadTextAlign(lua_State* L, int value) {
+    const auto align = ReadInteger(L, value);
+    if (align < 0 || align > 2) throw std::runtime_error("align must be 0 (left), 1 (center), or 2 (right)");
+    return static_cast<ui::WindowTextAlign>(align);
+}
 static bool PushProperty(lua_State* L, const ui::WindowPropertyMap* properties, const char* key) {
     if (!properties) return false;
     const auto it = properties->find(key);
@@ -109,6 +114,7 @@ bool LuaPushElementProperty(lua_State* L, ui::WindowElement& element, const char
     if (element.type == ui::WindowElementType_Text && element.data.text) {
         const auto& data = *element.data.text;
         if (!std::strcmp(key, "text")) { Push(L, data.text); return true; }
+        if (!std::strcmp(key, "align")) { Push(L, static_cast<int>(data.align)); return true; }
         if (!std::strcmp(key, "font") || !std::strcmp(key, "fontType")) { Push(L, std::to_integer<uint8_t>(data.style.font)); return true; }
         if (!std::strcmp(key, "color")) { Push(L, std::to_integer<uint8_t>(data.style.color)); return true; }
     }
@@ -140,6 +146,13 @@ bool LuaPushWindowProperty(lua_State* L, ui::WindowInstance& window, const char*
 static bool SetElementCore(lua_State* L, ui::WindowInstance& window, ui::WindowElement& element, const char* key, int value) {
     if (auto* ref = ElementRef(element, key)) {
         if (*ref >= 0 || !lua_isnil(L, value)) EnsureLuaWindowBinding(L, window); SetRef(L, value, *ref); return true;
+    }
+    if (element.type == ui::WindowElementType_Text && !std::strcmp(key, "align")) {
+        auto& data = *element.data.text;
+        if (data.layout != ui::WindowTextLayout::Box)
+            throw std::runtime_error("align is only supported by text box layout");
+        data.align = LuaReadTextAlign(L, value);
+        return true;
     }
     if (!std::strcmp(key, "seqNo")) {
         const auto previous = element.seqNo;

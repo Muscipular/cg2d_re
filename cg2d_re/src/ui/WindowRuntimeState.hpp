@@ -128,11 +128,17 @@ static_assert(offsetof(WindowTextStyle, font) == 1);
 static_assert(offsetof(WindowTextStyle, reserved02) == 2);
 static_assert(offsetof(WindowTextStyle, reserved03) == 3);
 
+// LEL01：布局是文本能力，不按窗口来源判断；原生载荷默认保留锚点语义。
+enum class WindowTextLayout : std::uint8_t { NativeAnchor, Box };
+enum class WindowTextAlign : std::uint8_t { Left = 0, Center = 1, Right = 2 };
+
 // 原第3类元素的8B载荷；文本由47167F分配，47134F释放。
 // UTL02：动态UTF-16正文；原256B私有容量退休，协议/资源模型另行承载。
 struct WindowTextData {
     WindowTextStyle style; // 原成员偏移：+0x00。
     std::wstring text; // 原x86成员偏移：+0x04（文本指针）；UTL02动态UTF-16正文，当前按原生对齐。
+    WindowTextLayout layout = WindowTextLayout::NativeAnchor; // Box以元素左上角和尺寸布局。
+    WindowTextAlign align = WindowTextAlign::Left; // Box水平对齐，垂直方向保持顶对齐。
 };
 
 // 原type4的12B鼠标载荷；滚动回调与元素命中共用，不含地址。

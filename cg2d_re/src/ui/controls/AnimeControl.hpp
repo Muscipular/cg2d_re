@@ -1,22 +1,5 @@
 #pragma once
 #include "UIControl.hpp"
-
 namespace cg::ui {
-struct UIAnimeControl : UIControl {
-    AnimeData data;
-    YobiAction* action = nullptr;
-    int actionAnimeNo = -1;
-
-    UIAnimeControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, AnimeData data, WindowEventBinding callbacks);
-    ~UIAnimeControl() override;
-
-    bool render(short ox, short oy) override;
-    bool render(short ox, short oy, const UIClipRect* clipRect) override;
-
-    AnimeData* animeData() override;
-    const AnimeData* animeData() const override;
-
-    void resetAction();
-    void releaseAction();
-};
-} // namespace cg::ui
+void WindowElement_PrepareAnimation(WindowAnimationData& data);
+}

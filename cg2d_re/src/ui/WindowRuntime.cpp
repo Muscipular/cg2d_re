@@ -118,7 +118,7 @@ static std::int32_t WindowRuntime_HitTestRect(
     std::int32_t left, std::int32_t top, std::int32_t width, std::int32_t height);
 
 // 原函数：0x00473560。
-static void WindowRuntime_DispatchElementMouse(std::int32_t index); // 固定元素派发鼠标事件，回调后重读共享阶段。
+static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, ElementId elementId, int ox, int oy, const UIClipRect* clip); // 共用原生事件分发，父容器只提供坐标与裁剪。
 
 // 原函数：0x00472D20。
 static std::int32_t WindowDrag_Update(); // WDF01：完整拖动/焦点两位结果，原宽度和现场取样见SPEC。
@@ -4140,25 +4140,31 @@ static void WindowRuntime_AdvanceMousePhase()
 }
 
 // 原函数：0x00473560。
-static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
+static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const ElementId elementId, int ox, int oy, const UIClipRect* clip)
 {
-    if (WindowRuntime_PointerDragBlocksMouse()) return;
-    WindowInstance* const window = gCurrentWindow;
+    if (WindowRuntime_PointerDragBlocksMouse()) return 0;
+    WindowInstance* const window = &target;
+    WindowElementCursor lease(target);
     WindowElement* const element = window->FindElementById(elementId);
-    if (!element) return;
-    if (element->component) {
-        element->component->process(static_cast<int>(elementId), 1, 0);
-        return;
+    if (!element) return 0;
+    const auto identity = WindowRuntime_ElementRef(*element);
+    if (!WindowRuntime_IsElementInteractive(*window, *element)) { WindowRuntime_ResetElement(*element); return 0; }
+    gCurrentElementId57C12C = elementId;
+    if (element->type == WindowElementType_Input) {
+        WindowElement_PrepareInput(*element, ox, oy, clip);
+        WindowElement_SyncInputText(*element);
+        if (WindowRuntime_ResolveElement(identity) != element || !WindowRuntime_IsElementInteractive(*window, *element)) return 0;
     }
-    const std::int32_t left = window->x + element->x;
-    const std::int32_t top = window->y + element->y;
+    const std::int32_t left = ox + element->x;
+    const std::int32_t top = oy + element->y;
     const std::int32_t width = element->width;
     const std::int32_t height = element->height;
     std::int32_t events = MouseFlag_None;
     std::int32_t phase = gMousePhase57C128;
     if (phase == 1 || phase == 4 || phase == 2 || phase == 6) {
         if (static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 0xD4u) {
-            if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
+            if (WindowRuntime_HitTestRect(left, top, width, height) != 0
+                && UIPointInClipRect(platform::gLegacyMouseState.mouseX, platform::gLegacyMouseState.mouseY, clip)) {
                 phase = gMousePhase57C128;
                 if (phase == 1 || phase == 4) {
                     events = MouseFlag_Dragging;
@@ -4172,15 +4178,15 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
             }
         }
     } else if (gWindowHasFocusCA0AB4 == 0) {
-        if (WindowRuntime_HitTestRect(left, top, width, height) != 0) {
+        if (WindowRuntime_HitTestRect(left, top, width, height) != 0
+                && UIPointInClipRect(platform::gLegacyMouseState.mouseX, platform::gLegacyMouseState.mouseY, clip)) {
             events = WindowRuntime_AppendMouseEvents(MouseFlag_Hover);
             WindowInstance* const currentWindow = gCurrentWindow;
             WindowElement* const currentElement = currentWindow->FindElementById(elementId);
             if (currentElement && currentElement->type == WindowElementType_MouseArea) {
                 auto* const data = currentElement->data.mouse;
-                data->deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(currentWindow->x + currentElement->x));
-                WindowInstance* const yWindow = gCurrentWindow;
-                data->deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(yWindow->y + element->y));
+                data->deltaX = (platform::gLegacyMouseState.mouseX - static_cast<std::int32_t>(ox + currentElement->x));
+                data->deltaY = (platform::gLegacyMouseState.mouseY - static_cast<std::int32_t>(oy + element->y));
             }
         }
         phase = gMousePhase57C128;
@@ -4189,25 +4195,44 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
         const std::int32_t dragX = gDragX57C11C - left;
         if (dragX >= 0 && dragX < width) {
             const std::int32_t dragY = gDragY57C11E - top;
-            if (dragY >= 0 && dragY < height) {
+            if (dragY >= 0 && dragY < height && UIPointInClipRect(gDragX57C11C, gDragY57C11E, clip)) {
                 events |= MouseFlag_DragFinish;
             }
         }
     }
+    const auto previousMouse = element->mouseState;
+    element->mouseState = (events & (MouseFlag_Dragging | MouseFlag_LDownEvent | MouseFlag_LHoldPhysical | MouseFlag_LRepeatDown))
+        ? WindowMouseState_Press : (events & MouseFlag_Hover) ? WindowMouseState_Hover : WindowMouseState_None;
     int handled = 0;
+    const bool inputFocused = element->type == WindowElementType_Input && element->data.input
+        && element->data.input->ownedInput && (events & MouseFlag_LDownEvent);
+    if (element->type == WindowElementType_Graphic) WindowElement_UpdateImageState(*element);
+    if (element->type == WindowElementType_MapEx && element->data.mapEx) element->data.mapEx->UpdateMouse(*element, ox, oy, clip, events);
+    if (element->type == WindowElementType_Input) {
+        if (events & MouseFlag_LDownEvent) WindowElement_FocusInput(*element);
+        else if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) && !(events & MouseFlag_Hover)) WindowElement_BlurInput(*element);
+    }
+    if (element->type == WindowElementType_ScrollView && element->data.scrollView)
+        handled = WindowElement_ProcessScroll(*element, events, ox, oy, clip);
+    gCurrentElementId57C12C = elementId;
+    if (WindowRuntime_ResolveElement(identity) != element) return handled;
+    if (previousMouse == WindowMouseState_Hover && element->mouseState == WindowMouseState_None && window->binding)
+        window->binding->elementEvent(*element, static_cast<int>(elementId), MouseFlag_Leave);
+    if (WindowRuntime_ResolveElement(identity) != element || !WindowRuntime_IsElementInteractive(*window, *element)) return handled;
     const int ownerId = window->id;
     const auto ownerGeneration = window->generation;
-    if (element->visible == 1) {
+    if (element->visible == 1 && !handled) {
         if (element->mouseCallback) handled = element->mouseCallback(elementId, events);
         const auto* live = WindowRuntime_FindInstance(ownerId);
         if (live == window && live->generation == ownerGeneration && window->binding
-            && window->FindElementById(elementId) == element && !(window->state & 0x8000u) && !window->scriptHidden) {
+            && WindowRuntime_ResolveElement(identity) == element && WindowRuntime_IsElementInteractive(*window, *element)) {
             if (WindowRuntime_BeginPointerDrag(*window, *element, events)) handled |= 1;
             handled |= window->binding->elementEvent(*element, static_cast<int>(elementId), events);
-            if (window->FindElementById(elementId) == element && !(window->state & 0x8000u) && !window->scriptHidden)
+            if (WindowRuntime_ResolveElement(identity) == element && window->binding && WindowRuntime_IsElementInteractive(*window, *element))
                 handled |= window->binding->event(static_cast<int>(elementId), events);
         }
     }
+    handled |= inputFocused ? 1 : 0;
     if (handled != 0) {
         phase = gMousePhase57C128;
         auto* const eventByte = reinterpret_cast<unsigned char*>(
@@ -4222,6 +4247,7 @@ static void WindowRuntime_DispatchElementMouse(const ElementId elementId)
             static_cast<void>(WindowDrag_ResetMouse());
         }
     }
+    return handled;
 }
 
 void WindowRuntime_UpdateExtendedElements()
@@ -4229,12 +4255,14 @@ void WindowRuntime_UpdateExtendedElements()
     WindowRuntime_UpdateElementOrder(*gCurrentWindow);
     WindowElementCursor cursor(*gCurrentWindow);
     while (auto* element = cursor.next()) {
+        if (element->parentId) continue;
         const auto id = element->elementId;
+        const auto identity = WindowRuntime_ElementRef(*element);
         if (gCurrentWindow->binding) gCurrentWindow->binding->elementUpdate(*element);
-        element = gCurrentWindow->FindElementById(id);
+        element = WindowRuntime_ResolveElement(identity);
         if (!element || (gCurrentWindow->state & 0x8000u)) continue;
         gCurrentElementId57C12C = element->elementId;
-        if (element->visible == 1) WindowRuntime_DispatchElementMouse(id);
+        WindowRuntime_DispatchElementMouse(*element->owner, id, element->owner->x, element->owner->y, nullptr);
     }
 }
 
@@ -4430,14 +4458,16 @@ std::int32_t WindowRuntime_Update()
                 WindowRuntime_UpdateElementOrder(*window);
                 WindowElementCursor cursor(*window);
                 while (auto* element = cursor.next()) {
+                    if (element->parentId) continue;
                     const auto elementId = element->elementId;
+                    const auto identity = WindowRuntime_ElementRef(*element);
                     gCurrentElementId57C12C = element->elementId;
                     if ((window->state & 0x8000u) || window->scriptHidden) break;
                     if (window->binding) window->binding->elementUpdate(*element);
                     if ((window->state & 0x8000u) || window->scriptHidden) break;
-                    element = window->FindElementById(elementId);
-                    if (element && element->visible == 1)
-                        static_cast<void>(invoke([&] { WindowRuntime_DispatchElementMouse(elementId); return 0; }));
+                    element = WindowRuntime_ResolveElement(identity);
+                    if (element)
+                        static_cast<void>(invoke([&] { return WindowRuntime_DispatchElementMouse(*window, elementId, window->x, window->y, nullptr); }));
                 }
                 static_cast<void>(WindowRuntime_ProcessPointerDrag(*window));
             }
@@ -4464,7 +4494,7 @@ std::int32_t WindowRuntime_Update()
                 while (auto* currentElement = cursor.next()) {
                     const auto id = currentElement->elementId;
                     if ((window->state & 0x8000u) || window->scriptHidden) break;
-                    if (auto* element = window->FindElementById(id); element && !element->component)
+                    if (auto* element = window->FindElementById(id); element && !element->detaching)
                         window->binding->elementDraw(*element);
                 }
             }
@@ -4986,6 +5016,10 @@ void WindowRuntime_CloseByCategory(const std::uint32_t mask)
     }
 }
 
+int WindowRuntime_DispatchElementMouse(WindowInstance& window, ElementId id, int ox, int oy, const UIClipRect* clip) {
+    return detail::WindowRuntime_DispatchElementMouseAt(window, id, ox, oy, clip);
+}
+
 void WindowRuntime_UpdateElementOrder(WindowInstance& window)
 {
     window.sortedMap.notifyUpdate();
@@ -4993,168 +5027,153 @@ void WindowRuntime_UpdateElementOrder(WindowInstance& window)
 
 // WDP01：完整元素分发、低W16裁剪与现场取样；见doc/cg2d_window_element_draw_pipeline_spec.md。
 // 原函数：0x004729B0。
+void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int oy, const UIClipRect* clip) {
+    using namespace detail;
+    WindowElementCursor lease(window);
+    auto* element = window.FindElementById(id);
+    if (!element || element->detaching || (window.state & 0x8000u) || window.scriptHidden) return;
+    if (element->visible != 1) { WindowRuntime_BlurElement(*element); return; }
+    render::GraphicDescriptor16 descriptor{};
+    const int x = ox + element->x, y = oy + element->y;
+    const auto firstGraphic = platform::gPendingGraphicCount;
+    switch (element->type) {
+    case WindowElementType_Graphic: {
+        WindowElement_UpdateImageState(*element);
+        const auto* const data = element->data.graphic;
+        const std::int32_t entryImageNo = data->imageNo;
+        if (entryImageNo == 0) {
+            break;
+        }
+        std::array<std::uint16_t, 4> rectangle {};
+        static_assert(sizeof(rectangle) == 8);
+        std::uint8_t cropped = 0;
+        if (data->offsetX != 0 || data->offsetY != 0
+            || data->width != 0 || data->height != 0) {
+            std::int32_t graphicIndex;
+            resource::GetGraphicMapNoIndex(entryImageNo, &graphicIndex);
+            std::int16_t graphicX;
+            std::int16_t graphicY;
+            resource::GetGraphicXY(
+                static_cast<std::uint32_t>(graphicIndex), &graphicX, &graphicY);
+            std::uint16_t offsetX;
+            std::memcpy(&offsetX, &data->offsetX, sizeof(offsetX));
+            rectangle[0] = static_cast<std::uint16_t>(offsetX + graphicX);
+            std::uint16_t offsetY;
+            std::memcpy(&offsetY, &data->offsetY, sizeof(offsetY));
+            rectangle[1] = static_cast<std::uint16_t>(offsetY + graphicY);
+            std::uint16_t cropWidth;
+            std::memcpy(&cropWidth, &data->width, sizeof(cropWidth));
+            rectangle[2] = cropWidth;
+            std::uint16_t cropHeight;
+            std::memcpy(&cropHeight, &data->height, sizeof(cropHeight));
+            rectangle[3] = cropHeight;
+            cropped = 1;
+        }
+        descriptor.sourceX = std::bit_cast<std::int16_t>(rectangle[0]);
+        descriptor.sourceY = std::bit_cast<std::int16_t>(rectangle[1]);
+        descriptor.sourceWidth = std::bit_cast<std::int16_t>(rectangle[2]);
+        descriptor.sourceHeight = std::bit_cast<std::int16_t>(rectangle[3]);
+        descriptor.color = data->color;
+        descriptor.clipMode = cropped;
+        descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
+        descriptor.paletteIndex = 0;
+        std::int32_t imageNo;
+        std::int32_t drawY;
+        std::int32_t drawX;
+        if (cropped == 0) {
+            imageNo = data->imageNo;
+            const std::int32_t drawElementY = element->y;
+            const std::int32_t drawWindowY = oy;
+            const std::int32_t drawElementX = element->x;
+            const std::int32_t drawWindowX = ox;
+            drawY = drawElementY + drawWindowY;
+            drawX = drawElementX + drawWindowX;
+        } else {
+            imageNo = data->imageNo;
+            const std::int32_t drawElementY = element->y;
+            const std::int32_t drawElementX = element->x;
+            const std::int32_t drawWindowY = oy;
+            drawY = drawWindowY + drawElementY;
+            const std::int32_t drawWindowX = ox;
+            drawX = drawWindowX + drawElementX;
+        }
+        static_cast<void>(render::DrawGraphic3_520970(
+            drawX, drawY, 0xDF, imageNo, 0, 1, 0, &descriptor));
+        break;
+    }
+    case WindowElementType_Animation: {
+        auto* const data = element->data.animation;
+        WindowElement_PrepareAnimation(*data);
+        if (data->options && !data->action) break;
+        const std::uint32_t stop = data->value04;
+        cg::yobi::YobiAction* const action = data->action;
+        static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(action, 100, stop != 0, 0));
+        const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
+        if (graphicIndex == 0) {
+            break;
+        }
+        const render::GraphicDescriptor16* const mode =
+            cg::yobi::ApplyWindowAnimationDrawMode(action);
+        const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, 1);
+        const std::int32_t animationElementY = element->y;
+        const std::int32_t drawY = offsetY + oy + animationElementY;
+        const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t animationElementX = element->x;
+        const std::int32_t drawX = offsetX + ox + animationElementX;
+        static_cast<void>(render::DrawGraphic2_521DD0(
+            drawX, drawY, 0xDF, graphicIndex, 0, 0, mode));
+        break;
+    }
+    case WindowElementType_Text:
+        WindowElement_DrawText(*element, x, y, clip);
+        break;
+    case WindowElementType_Input: {
+        WindowElement_PrepareInput(*element, ox, oy, clip);
+        const auto* const data = element->data.input;
+        if (data == gFocusedElementDataD45F94) {
+            if (input::gCurrentInputData == &cg::ui::detail::gInputContext626AA0) {
+                if (input::gChatPanelVisible_C9A96C == 1) {
+                    WindowChat_DrawInput(data->context);
+                }
+            } else if (data != nullptr) {
+                WindowChat_DrawFixedWidthInput(data->context);
+            }
+        }
+        break;
+    }
+    case WindowElementType_InputCaret:
+        WindowChat_DrawHistory(x + 5, y);
+        break;
+    case WindowElementType_Number: {
+        const auto* const data = element->data.number;
+        if (data != nullptr) {
+            const std::uint8_t flags = data->flags;
+            const std::int8_t color = std::bit_cast<std::int8_t>(data->color);
+            const std::int8_t style = data->style;
+            const std::wstring& text = *data->text;
+            WindowNumber_Draw(x, y, text, style, color, flags, 0xDF);
+        }
+        break;
+    }
+    case WindowElementType_PngImage: WindowElement_DrawPng(*element, ox, oy, clip); break;
+    case WindowElementType_Canvas: WindowElement_DrawCanvas(*element, ox, oy, clip); break;
+    case WindowElementType_MapEx: element->data.mapEx->Render(*element, ox, oy, clip); break;
+    case WindowElementType_ScrollView: WindowElement_DrawScroll(*element, ox, oy, clip); break;
+    default:
+        break;
+    }
+    if (clip) WindowRuntime_ClipGraphics(firstGraphic, *clip);
+}
+
 void WindowRuntime_DrawCurrent()
 {
     using namespace detail;
-    render::GraphicDescriptor16 descriptor {};
     WindowInstance* window = gCurrentWindow;
     WindowRuntime_UpdateElementOrder(*window);
     WindowElementCursor cursor(*window);
     while (auto* element = cursor.next()) {
-        if (auto* component = element->component) {
-            if (component->attached && component->parentId == 0 && !(window->state & 0x8000u)) {
-                if (window->binding) window->binding->elementDraw(*element);
-                if (component->attached && !(window->state & 0x8000u) && (window->id < static_cast<int>(kWindowCount) || (window->state & 2u))) {
-                    component_detail::RendererBreakWindowTextBatch();
-                    component->render(static_cast<short>(window->x), static_cast<short>(window->y));
-                }
-            }
-            continue;
-        }
-        if (element->visible == 1) {
-            const std::int32_t elementX = element->x;
-            const std::int32_t windowX = window->x;
-            const std::int32_t windowY = window->y;
-            const std::int32_t x = windowX + elementX;
-            const std::int32_t elementY = element->y;
-            const std::int32_t y = windowY + elementY;
-            switch (element->type) {
-            case WindowElementType_Graphic: {
-                const auto* const data = element->data.graphic;
-                const std::int32_t entryImageNo = data->imageNo;
-                if (entryImageNo == 0) {
-                    break;
-                }
-                std::array<std::uint16_t, 4> rectangle {};
-                static_assert(sizeof(rectangle) == 8);
-                std::uint8_t cropped = 0;
-                if (data->offsetX != 0 || data->offsetY != 0
-                    || data->width != 0 || data->height != 0) {
-                    std::int32_t graphicIndex;
-                    resource::GetGraphicMapNoIndex(entryImageNo, &graphicIndex);
-                    std::int16_t graphicX;
-                    std::int16_t graphicY;
-                    resource::GetGraphicXY(
-                        static_cast<std::uint32_t>(graphicIndex), &graphicX, &graphicY);
-                    std::uint16_t offsetX;
-                    std::memcpy(&offsetX, &data->offsetX, sizeof(offsetX));
-                    rectangle[0] = static_cast<std::uint16_t>(offsetX + graphicX);
-                    std::uint16_t offsetY;
-                    std::memcpy(&offsetY, &data->offsetY, sizeof(offsetY));
-                    rectangle[1] = static_cast<std::uint16_t>(offsetY + graphicY);
-                    std::uint16_t cropWidth;
-                    std::memcpy(&cropWidth, &data->width, sizeof(cropWidth));
-                    rectangle[2] = cropWidth;
-                    std::uint16_t cropHeight;
-                    std::memcpy(&cropHeight, &data->height, sizeof(cropHeight));
-                    rectangle[3] = cropHeight;
-                    cropped = 1;
-                }
-                descriptor.sourceX = std::bit_cast<std::int16_t>(rectangle[0]);
-                descriptor.sourceY = std::bit_cast<std::int16_t>(rectangle[1]);
-                descriptor.sourceWidth = std::bit_cast<std::int16_t>(rectangle[2]);
-                descriptor.sourceHeight = std::bit_cast<std::int16_t>(rectangle[3]);
-                descriptor.color = data->color;
-                descriptor.clipMode = cropped;
-                descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-                descriptor.paletteIndex = 0;
-                std::int32_t imageNo;
-                std::int32_t drawY;
-                std::int32_t drawX;
-                if (cropped == 0) {
-                    WindowInstance* const drawWindow = gCurrentWindow;
-                    imageNo = data->imageNo;
-                    const std::int32_t drawElementY = element->y;
-                    const std::int32_t drawWindowY = drawWindow->y;
-                    const std::int32_t drawElementX = element->x;
-                    const std::int32_t drawWindowX = drawWindow->x;
-                    drawY = drawElementY + drawWindowY;
-                    drawX = drawElementX + drawWindowX;
-                } else {
-                    imageNo = data->imageNo;
-                    const std::int32_t drawElementY = element->y;
-                    const std::int32_t drawElementX = element->x;
-                    WindowInstance* const drawWindow = gCurrentWindow;
-                    const std::int32_t drawWindowY = drawWindow->y;
-                    drawY = drawWindowY + drawElementY;
-                    const std::int32_t drawWindowX = drawWindow->x;
-                    drawX = drawWindowX + drawElementX;
-                }
-                static_cast<void>(render::DrawGraphic3_520970(
-                    drawX, drawY, 0xDF, imageNo, 0, 1, 0, &descriptor));
-                break;
-            }
-            case WindowElementType_Animation: {
-                const auto* const data = element->data.animation;
-                const std::uint32_t stop = data->value04;
-                cg::yobi::YobiAction* const action = data->action;
-                static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(action, 100, stop != 0, 0));
-                const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
-                if (graphicIndex == 0) {
-                    break;
-                }
-                const render::GraphicDescriptor16* const mode =
-                    cg::yobi::ApplyWindowAnimationDrawMode(action);
-                const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, 1);
-                WindowInstance* const verticalWindow = gCurrentWindow;
-                const std::int32_t animationElementY = element->y;
-                const std::int32_t drawY = offsetY + verticalWindow->y + animationElementY;
-                const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, 0);
-                WindowInstance* const horizontalWindow = gCurrentWindow;
-                const std::int32_t animationElementX = element->x;
-                const std::int32_t drawX = offsetX + horizontalWindow->x + animationElementX;
-                static_cast<void>(render::DrawGraphic2_521DD0(
-                    drawX, drawY, 0xDF, graphicIndex, 0, 0, mode));
-                break;
-            }
-            case WindowElementType_Text: {
-                const auto* const data = element->data.text;
-                const std::wstring& text = data->text;
-
-                    const std::int32_t drawY = y - element->height;
-                    const auto color = std::bit_cast<std::int8_t>(
-                        std::to_integer<std::uint8_t>(data->style.color));
-                    const auto font = std::bit_cast<std::int8_t>(
-                        std::to_integer<std::uint8_t>(data->style.font));
-                    const std::int32_t drawX = x - element->width;
-                    static_cast<void>(render::DrawText2_456670(
-                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
-                        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
-                        3, font, color, text, 0));
-
-                break;
-            }
-            case WindowElementType_Input: {
-                const auto* const data = element->data.input;
-                if (data == gFocusedElementDataD45F94) {
-                    if (input::gCurrentInputData == &cg::ui::detail::gInputContext626AA0) {
-                        if (input::gChatPanelVisible_C9A96C == 1) {
-                            WindowChat_DrawInput(data->context);
-                        }
-                    } else if (data != nullptr) {
-                        WindowChat_DrawFixedWidthInput(data->context);
-                    }
-                }
-                break;
-            }
-            case WindowElementType_InputCaret:
-                WindowChat_DrawHistory(x + 5, y);
-                break;
-            case WindowElementType_Number: {
-                const auto* const data = element->data.number;
-                if (data != nullptr) {
-                    const std::uint8_t flags = data->flags;
-                    const std::int8_t color = std::bit_cast<std::int8_t>(data->color);
-                    const std::int8_t style = data->style;
-                    const std::wstring& text = *data->text;
-                    WindowNumber_Draw(x, y, text, style, color, flags, 0xDF);
-                }
-                break;
-            }
-            default:
-                break;
-            }
-        }
+        if (element->parentId) continue;
+        WindowRuntime_DrawElement(*window, element->elementId, window->x, window->y, nullptr);
         window = gCurrentWindow;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

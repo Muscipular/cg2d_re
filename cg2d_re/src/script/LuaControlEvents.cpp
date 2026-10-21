@@ -30,44 +30,22 @@ static int CallControlTextCallback(lua_State* L, int callbackRef, const char* na
 }
 
 
-struct LuaElementEvents final : ui::WindowElementEvents {
-    LuaCallbackRefs pending; // 仅创建至attach期间暂存；活动ref全部在WindowElement上。
-    explicit LuaElementEvents(LuaCallbackRefs value) : pending(value) {}
-    ~LuaElementEvents() override { pending.clear(pending.owner); }
-    void attach(ui::WindowElement& element) override {
-        if (pending.onUpdate >= 0) { element.refUpdate = pending.onUpdate; pending.onUpdate = -1; }
-        if (pending.onDraw >= 0) { element.refDraw = pending.onDraw; pending.onDraw = -1; }
-        if (pending.onEvent >= 0) { element.refEvent = pending.onEvent; pending.onEvent = -1; }
-        if (pending.onClick >= 0) { element.refClick = pending.onClick; pending.onClick = -1; }
-        if (pending.onPress >= 0) { element.refPress = pending.onPress; pending.onPress = -1; }
-        if (pending.onHover >= 0) { element.refHover = pending.onHover; pending.onHover = -1; }
-        if (pending.onLeave >= 0) { element.refLeave = pending.onLeave; pending.onLeave = -1; }
-        if (pending.onDrag >= 0) { element.refDrag = pending.onDrag; pending.onDrag = -1; }
-        if (pending.onDrop >= 0) { element.refDrop = pending.onDrop; pending.onDrop = -1; }
-        if (pending.onChange >= 0) { element.refChange = pending.onChange; pending.onChange = -1; }
-        if (pending.onEnter >= 0) { element.refEnter = pending.onEnter; pending.onEnter = -1; }
-    }
-    void release(ui::WindowElement& element) override { ReleaseLuaElementRefs(pending.owner, element); }
-    int mouse(ui::WindowControlRef ref, int flags) override {
-        auto* control = ResolveControl({ref.winId, static_cast<std::uint32_t>(ref.controlId)});
-        if (!control) return 0;
-        int result = CallLuaElementEvent(pending.owner, *control->windowOwner, control->element(), flags);
-        auto* window = control->windowOwner;
-        if (window->binding && ui::WindowRuntime_IsElementInteractive(*window, control->element())) {
-            const int index = static_cast<int>(control->element().elementId);
-            result |= window->binding->event(index, flags);
-        }
-        return result;
-    }
-    int text(ui::WindowControlRef ref, bool enter, std::wstring_view value) override {
-        const LuaControlRef target{ref.winId, static_cast<std::uint32_t>(ref.controlId)};
-        auto* control = ResolveControl(target);
-        if (!control) return 0;
-        return CallControlTextCallback(pending.owner, enter ? control->element().refEnter : control->element().refChange,
-            enter ? "UIControl.onEnter" : "UIControl.onChange", target, value);
-    }
-};
-ui::WindowEventBinding MakeLuaElementEvents(LuaCallbackRefs refs) {
-    return std::make_shared<LuaElementEvents>(refs);
+void AttachLuaElementRefs(LuaCallbackRefs& refs, ui::WindowElement& element) {
+    element.refUpdate = refs.onUpdate; refs.onUpdate = -1;
+    element.refDraw = refs.onDraw; refs.onDraw = -1;
+    element.refEvent = refs.onEvent; refs.onEvent = -1;
+    element.refClick = refs.onClick; refs.onClick = -1;
+    element.refPress = refs.onPress; refs.onPress = -1;
+    element.refHover = refs.onHover; refs.onHover = -1;
+    element.refLeave = refs.onLeave; refs.onLeave = -1;
+    element.refDrag = refs.onDrag; refs.onDrag = -1;
+    element.refDrop = refs.onDrop; refs.onDrop = -1;
+    element.refChange = refs.onChange; refs.onChange = -1;
+    element.refEnter = refs.onEnter; refs.onEnter = -1;
+}
+int LuaWindowBinding::elementText(ui::WindowElement& element, bool enter, std::wstring_view value) {
+    if (element.removed || element.detaching || (window.state & WIN_STATE_CLOSE)) return 0;
+    return CallControlTextCallback(owner, enter ? element.refEnter : element.refChange,
+        enter ? "WindowElement.onEnter" : "WindowElement.onChange", {window.id, element.elementId}, value);
 }
 } // namespace cg::script

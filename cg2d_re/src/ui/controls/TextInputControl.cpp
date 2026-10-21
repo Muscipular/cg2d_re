@@ -2,7 +2,7 @@
 
 namespace cg::ui {
 using namespace component_detail;
-static UITextInputControl* gFocusedTextInput = nullptr;
+static WindowElementRef focusedInput;
 int ClampTextInputMaxLength(int length) { return length <= 0 || length > TEXT_INPUT_MAX_LENGTH ? TEXT_INPUT_MAX_LENGTH : length; }
 static std::size_t GbkPrefixLength(std::string_view value, int limit)
 {
@@ -61,122 +61,86 @@ static void UpdateTextInputLineStart(InputContext& context, int maxLength)
         context.field158 = static_cast<int>(text::Next(context.text, context.field158));
     }
 }
-UITextInputControl::UITextInputControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, TextInputData data, WindowEventBinding callbacks)
-    : UIControl(winId, generation, id, TYPE_TEXT_INPUT, name, x, y, w, h, visible, callbacks), data(std::move(data)) {
-    this->data.maxLength = ClampTextInputMaxLength(this->data.maxLength);
-    setTextInputText(this->data.lastText.c_str());
+void WindowElement_ForgetInputRestore(const WindowElement& element) {
+    auto* window = WindowRuntime_FindInstance(focusedInput.winId);
+    if (!window || window->generation != focusedInput.generation) return;
+    auto* focused = window->FindElementById(focusedInput.elementId);
+    if (!focused || focused->creationSerial != focusedInput.creationSerial || focused == &element
+        || focused->type != WindowElementType_Input || !focused->data.input) return;
+    auto* state = focused->data.input->ownedInput;
+    if (!state) return;
+    // 原生焦点槽实际借用Input或Graphic载荷，不读取联合体的非活动成员。
+    const void* payload = element.type == WindowElementType_Input ? static_cast<void*>(element.data.input)
+        : element.type == WindowElementType_Graphic ? static_cast<void*>(element.data.graphic) : nullptr;
+    if (payload && state->previousElement == payload) state->previousElement = nullptr;
+    if (element.type == WindowElementType_Input && element.data.input
+        && state->previousInput == element.data.input->context) state->previousInput = nullptr;
 }
-
-UITextInputControl::~UITextInputControl() {
-    blurTextInput();
-}
-
-UIControl::TextInputData* UITextInputControl::textInputData() {
-    return &data;
-}
-
-const UIControl::TextInputData* UITextInputControl::textInputData() const {
-    return &data;
-}
-
-bool UITextInputControl::isTextInputFocused() {
-    return data.focused && gCurrentInputData == &data.context;
-}
-
-void UITextInputControl::blurTextInput() {
-    if (!data.focused && gFocusedTextInput != this && gCurrentInputData != &data.context) {
-        return;
-    }
-    InputContext* restoreInput = data.previousInput ? data.previousInput : gDefaultInputData;
+void WindowElement_BlurInput(WindowElement& element) {
+    if (element.type != WindowElementType_Input || !element.data.input || !element.data.input->ownedInput) return;
+    auto& data = *element.data.input->ownedInput;
+    if (!data.focused && gCurrentInputData != &data.context) return;
+    auto* restoreInput = data.previousInput ? data.previousInput : gDefaultInputData;
     data.focused = false;
     data.previousInput = nullptr;
-    if (gFocusedTextInput == this) {
-        gFocusedTextInput = nullptr;
-    }
-    if (gCurrentInputData == &data.context || !gCurrentInputData) {
-        InputSetContext(restoreInput);
-    }
+    if (focusedInput.winId == element.owner->id && focusedInput.elementId == element.elementId) focusedInput = {};
+    if (detail::gFocusedElementDataD45F94 == element.data.input) detail::gFocusedElementDataD45F94 = data.previousElement;
+    data.previousElement = nullptr;
+    if (gCurrentInputData == &data.context || !gCurrentInputData) InputSetContext(restoreInput);
 }
-
-void UITextInputControl::focusTextInput() {
-    if (gFocusedTextInput && gFocusedTextInput != this) {
-        gFocusedTextInput->blurTextInput();
-    }
+void WindowElement_FocusInput(WindowElement& element) {
+    if (element.type != WindowElementType_Input || !element.data.input || !element.data.input->ownedInput) return;
+    if (auto* previous = WindowRuntime_ResolveElement(focusedInput); previous && previous != &element) WindowElement_BlurInput(*previous);
+    auto& data = *element.data.input->ownedInput;
     if (!data.focused) {
         data.previousInput = gCurrentInputData && gCurrentInputData != &data.context ? gCurrentInputData : gDefaultInputData;
+        data.previousElement = detail::gFocusedElementDataD45F94;
         data.focused = true;
     }
-    gFocusedTextInput = this;
+    focusedInput = WindowRuntime_ElementRef(element);
     ClampInputContextText(data.context, data.maxLength);
+    detail::gFocusedElementDataD45F94 = element.data.input;
     InputSetContext(&data.context);
 }
-
-void UITextInputControl::setTextInputText(std::wstring_view text) {
-    const std::wstring value(text); // 调用方可借用context.text，先持有再更新context。
-    data.maxLength = ClampTextInputMaxLength(data.maxLength);
-    SetInputContextText(data.context, value.c_str(), data.maxLength);
-    data.lastText = data.context.text;
+void WindowInput_SetText(WindowInputData& input, std::wstring_view text) {
+    if (!input.context) return;
+    const std::wstring value(text);
+    if (auto* data = input.ownedInput) {
+        data->maxLength = ClampTextInputMaxLength(data->maxLength);
+        SetInputContextText(data->context, value.c_str(), data->maxLength);
+        data->lastText = data->context.text;
+    } else input.context->setText(value);
 }
-
-void UITextInputControl::syncTextInputText() {
-    bool enter = RemoveInputContextLineBreaks(data.context);
-    ClampInputContextText(data.context, data.maxLength);
-    if (isTextInputFocused() && (platform::gKeyStates[0x0D] & KSF_TRIGGER)) {
-        enter = true;
+void WindowElement_SyncInputText(WindowElement& element) {
+    auto* data = element.data.input ? element.data.input->ownedInput : nullptr;
+    if (!data) return;
+    bool enter = RemoveInputContextLineBreaks(data->context);
+    ClampInputContextText(data->context, data->maxLength);
+    if (data->focused && gCurrentInputData == &data->context && (platform::gKeyStates[0x0D] & KSF_TRIGGER)) enter = true;
+    const std::wstring value = data->context.text;
+    const auto ref = WindowRuntime_ElementRef(element);
+    if (value != data->lastText) {
+        data->lastText = value;
+        if (element.owner->binding) element.owner->binding->elementText(element, false, value);
     }
-
-    const std::wstring value = data.context.text;
-    WindowControlRef controlRef{winId, generation, id};
-    if (value != data.lastText) {
-        data.lastText = value;
-        if (callbacks && IsControlAttached(controlRef)) callbacks->text(controlRef, false, data.lastText);
-    }
-    if (enter) {
-        if (callbacks && IsControlAttached(controlRef)) callbacks->text(controlRef, true, value);
-    }
+    if (enter) if (auto* live = WindowRuntime_ResolveElement(ref); live && !live->detaching && live->owner->binding)
+        live->owner->binding->elementText(*live, true, value);
 }
-
-bool UITextInputControl::render(short ox, short oy) {
-    return render(ox, oy, nullptr);
-}
-
-bool UITextInputControl::render(short ox, short oy, const UIClipRect* clipRect) {
-    if (element().visible != 1) {
-        blurTextInput();
-        return true;
-    }
-    const int absX = ox + element().x;
-    const int absY = oy + element().y;
-    const bool fullyVisible = !clipRect || (absX >= clipRect->left && absY >= clipRect->top && absX + element().width <= clipRect->right && absY + element().height <= clipRect->bottom);
-    if (!fullyVisible) {
-        blurTextInput();
-    }
-    const bool focused = isTextInputFocused();
-    if (fullyVisible) {
-        RendererBreakWindowTextBatch();
-        data.context.x = absX + 3;
-        data.context.y = absY + 2;
-        data.context.field138 = FONT_LAYER_WINDOW;
-        data.context.field13C = data.font;
-        data.context.field140 = data.color;
-        ApplyTextInputLimit(data.context, data.maxLength);
-        data.context.field14C = element().height;
-        data.context.encrypt = 0;
-        data.context.field130 = element().width > 6 ? element().width - 6 : 0;
-        UpdateTextInputLineStart(data.context, data.maxLength);
-        RendererDrawInputText(&data.context);
-    }
-    if (element().width > 0 && element().height > 0) {
-        auto rectX = static_cast<int16_t>(absX);
-        auto rectY = static_cast<int16_t>(absY);
-        COLORREF background = focused ? static_cast<COLORREF>(0xa0000000) : static_cast<COLORREF>(0x70000000);
-        RendererDrawRectClipped(rectX, rectY, element().width, element().height, LAYER_UI, background, clipRect);
-        COLORREF border = focused ? 0xffffffff : 0xff707070;
-        RendererDrawRectClipped(rectX, rectY, element().width, 1, LAYER_UI, border, clipRect);
-        RendererDrawRectClipped(rectX, static_cast<int16_t>(absY + element().height - 1), element().width, 1, LAYER_UI, border, clipRect);
-        RendererDrawRectClipped(rectX, rectY, 1, element().height, LAYER_UI, border, clipRect);
-        RendererDrawRectClipped(static_cast<int16_t>(absX + element().width - 1), rectY, 1, element().height, LAYER_UI, border, clipRect);
-    }
-    return true;
+void WindowElement_PrepareInput(WindowElement& element, int ox, int oy, const UIClipRect* clip) {
+    auto* data = element.data.input ? element.data.input->ownedInput : nullptr;
+    if (!data) return;
+    const int x = ox + element.x, y = oy + element.y;
+    if (element.visible != 1 || !element.hitable || (clip && (x < clip->left || y < clip->top
+        || x + element.width > clip->right || y + element.height > clip->bottom))) WindowElement_BlurInput(element);
+    data->context.x = x + 3;
+    data->context.y = y + 2;
+    data->context.field138 = FONT_LAYER_WINDOW;
+    data->context.field13C = data->font;
+    data->context.field140 = data->color;
+    ApplyTextInputLimit(data->context, data->maxLength);
+    data->context.field14C = element.height;
+    data->context.encrypt = 0;
+    data->context.field130 = element.width > 6 ? element.width - 6 : 0;
+    UpdateTextInputLineStart(data->context, data->maxLength);
 }
 } // namespace cg::ui

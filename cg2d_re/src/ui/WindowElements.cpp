@@ -106,10 +106,9 @@ bool WindowRuntime_RemoveElement(WindowInstance& window, ElementId id) {
     // 在失焦等删除副作用之前准备退役容量；分配失败时保持活动对象及索引完整。
     window.retiredElements.reserve(window.retiredElements.size() + 1);
     WindowRuntime_CancelPointerDrag(window);
-    if (element->component) {
-        element->component->attached = false;
-        element->component->blurTextInput();
-    }
+    element->detaching = true;
+    WindowElement_ForgetInputRestore(*element);
+    WindowRuntime_BlurElement(*element);
     // 游标覆盖整个删除过程，回收器不能释放递归中仍在借用的对象。
     WindowElementCursor children(window);
     auto owner = window.sortedMap.extract(*element);
@@ -129,7 +128,7 @@ bool WindowRuntime_RemoveElement(WindowInstance& window, ElementId id) {
         }
     } retireParentLast{window, element};
     while (auto* child = children.next()) {
-        if (child->component && static_cast<ElementId>(child->component->parentId) == id)
+        if (child->parentId == id)
             WindowRuntime_RemoveElement(window, child->elementId);
     }
     if (element->type == WindowElementType_Input && element->data.input
@@ -143,12 +142,6 @@ void WindowRuntime_ClearElements(WindowInstance& window) {
 }
 
 static void ReleaseElement(WindowElement& element) {
-    if (element.component) {
-        delete element.component; // 组件析构释放自身载荷与Lua引用。
-        element.component = nullptr;
-        element.properties = nullptr;
-        return;
-    }
     if (element.owner && element.owner->binding) {
         auto* binding = static_cast<script::LuaWindowBinding*>(element.owner->binding);
         script::ReleaseLuaElementRefs(binding->owner, element);
@@ -156,21 +149,7 @@ static void ReleaseElement(WindowElement& element) {
     delete element.properties;
     element.properties = nullptr;
     if (!element.ownsPayload) return;
-    switch (element.type) {
-    case WindowElementType_Graphic: std::free(element.data.graphic); break;
-    case WindowElementType_Input: std::free(element.data.input); break;
-    case WindowElementType_Animation:
-        if (element.data.animation) {
-            if (element.data.animation->action) cg::yobi::MarkDeathUnchecked(element.data.animation->action);
-            std::free(element.data.animation);
-        }
-        break;
-    case WindowElementType_Text: delete element.data.text; break;
-    case WindowElementType_MouseArea: std::free(element.data.mouse); break;
-    case WindowElementType_InputCaret: std::free(element.data.inputCaret); break;
-    case WindowElementType_Number: std::free(element.data.number); break;
-    default: break;
-    }
+    WindowRuntime_DestroyPayload(element.type, element.data);
 }
 
 void WindowRuntime_CollectElements(WindowInstance& window) {

@@ -39,13 +39,6 @@ LuaWindowBinding* EnsureLuaWindowBinding(lua_State* L, ui::WindowInstance& windo
     ui::WindowRuntime_EnsureIdentity(window);
     if (!window.binding) {
         window.binding = new LuaWindowBinding(window, L);
-        ui::WindowElementCursor cursor(window);
-        while (auto* element = cursor.next()) {
-            if (element->component && !element->component->callbacks) {
-                LuaCallbackRefs refs; refs.owner = L;
-                element->component->callbacks = MakeLuaElementEvents(refs);
-            }
-        }
     }
     auto* binding = static_cast<LuaWindowBinding*>(window.binding);
     if (binding->owner != L) throw std::runtime_error("window belongs to another Lua state");
@@ -122,19 +115,17 @@ bool LuaPushElementProperty(lua_State* L, ui::WindowElement& element, const char
     if (element.type == ui::WindowElementType_Graphic && element.data.graphic) {
         if (!std::strcmp(key, "image")) { Push(L, element.data.graphic->imageNo); return true; }
         if (!std::strcmp(key, "color")) { Push(L, element.data.graphic->color); return true; }
-        if (element.component) {
-            if (!std::strcmp(key, "imageHover")) { Push(L, element.component->imageData()->imageHover); return true; }
-            if (!std::strcmp(key, "imagePress")) { Push(L, element.component->imageData()->imagePress); return true; }
-        }
+        if (!std::strcmp(key, "imageHover")) { Push(L, element.data.graphic->imageHover); return true; }
+        if (!std::strcmp(key, "imagePress")) { Push(L, element.data.graphic->imagePress); return true; }
     }
     if (element.type == ui::WindowElementType_Input && element.data.input && element.data.input->context) {
         const auto& context = *element.data.input->context;
         if (!std::strcmp(key, "text")) { Push(L, context.text); return true; }
         if (!std::strcmp(key, "font") || !std::strcmp(key, "fontType")) {
-            Push(L, element.component ? element.component->textInputData()->font : context.field13C); return true;
+            Push(L, element.data.input->ownedInput ? element.data.input->ownedInput->font : context.field13C); return true;
         }
         if (!std::strcmp(key, "color")) {
-            Push(L, element.component ? element.component->textInputData()->color : context.field140); return true;
+            Push(L, element.data.input->ownedInput ? element.data.input->ownedInput->color : context.field140); return true;
         }
     }
     return PushProperty(L, element.properties, key);
@@ -162,24 +153,25 @@ static bool Listed(const char* key, std::initializer_list<const char*> names) {
     for (auto* name : names) if (!std::strcmp(key, name)) return true;
     return false;
 }
-void LuaApplyElementExtras(lua_State* L, int table, UIControl& control) {
+void LuaApplyElementExtras(lua_State* L, int table, ui::WindowElement& control) {
     table = AbsIndex(L, table);
-    auto& window = *control.windowOwner;
-    auto& element = control.element();
+    auto& window = *control.owner;
+    auto& element = control;
     lua_pushnil(L);
     while (lua_next(L, table)) {
         if (lua_type(L, -2) != LUA_TSTRING) throw std::runtime_error("property name must be a string");
         const auto* key = lua_tostring(L, -2);
         if (!SetElementCore(L, window, element, key, -1)
             && !Listed(key, {"elementId","name","x","y","width","height","visible","hitable","parent","parentId","seqNo"})
-            && !(control.type == UIControl::TYPE_IMAGE && Listed(key, {"image","id","imageHover","imagePress","color"}))
-            && !(control.type == UIControl::TYPE_TEXT && Listed(key, {"text","font","fontType","color"}))
-            && !(control.type == UIControl::TYPE_ANIME && Listed(key, {"animeNo","action","dir","revertPlay","revert"}))
-            && !(control.type == UIControl::TYPE_TEXT_INPUT && Listed(key, {"text","font","fontType","color","maxLength"}))
-            && !(control.type == UIControl::TYPE_PNG_IMAGE && Listed(key, {"image","imageHover","imagePress","imageRect","imageHoverRect","imagePressRect","color"}))
-            && !(control.type == UIControl::TYPE_CANVAS && Listed(key, {"shapes"}))
-            && !(control.type == UIControl::TYPE_SCROLL_VIEW && Listed(key, {"contentHeight","scrollY","barWidth","scrollStep"}))
-            && !(control.type == UIControl::TYPE_MAP_EX && Listed(key, {"mapX","mapY","mapId","floor","w","h"})))
+            && !(control.type == ui::WindowElementType_Graphic && Listed(key, {"image","id","imageHover","imagePress","color"}))
+            && !(control.type == ui::WindowElementType_Text && Listed(key, {"text","font","fontType","color"}))
+            && !(control.type == ui::WindowElementType_Animation && control.data.animation && control.data.animation->options && Listed(key, {"animeNo","action","dir","revertPlay","revert"}))
+            && !(control.type == ui::WindowElementType_Input && Listed(key, {"text","font","fontType","color"}))
+            && !(control.type == ui::WindowElementType_Input && control.data.input && control.data.input->ownedInput && !std::strcmp(key, "maxLength"))
+            && !(control.type == ui::WindowElementType_PngImage && Listed(key, {"image","imageHover","imagePress","imageRect","imageHoverRect","imagePressRect","color"}))
+            && !(control.type == ui::WindowElementType_Canvas && Listed(key, {"shapes"}))
+            && !(control.type == ui::WindowElementType_ScrollView && Listed(key, {"contentHeight","scrollY","barWidth","scrollStep"}))
+            && !(control.type == ui::WindowElementType_MapEx && Listed(key, {"mapX","mapY","mapId","floor","w","h"})))
             SetProperty(L, element.properties, key, -1);
         lua_pop(L, 1);
     }
@@ -224,60 +216,14 @@ int LuaElementRead(lua_State* L) {
     }
     lua_pushnil(L); return 1;
 }
-static void ApplyElementValue(lua_State* L, ui::WindowInstance* window, ui::WindowElement* element, const char* key, int value) {
-    if (SetElementCore(L, *window, *element, key, value)) return;
-    if (!std::strcmp(key, "x")) element->x = ReadInteger(L, value);
-    else if (!std::strcmp(key, "y")) element->y = ReadInteger(L, value);
-    else if (!std::strcmp(key, "width")) element->width = ReadInteger(L, value);
-    else if (!std::strcmp(key, "height")) element->height = ReadInteger(L, value);
-    else if (!std::strcmp(key, "visible")) {
-        element->visible = lua_toboolean(L, value) ? 1 : 0;
-        if (!element->visible && element->type == ui::WindowElementType_Input && element->data.input
-            && gCurrentInputData == element->data.input->context) ui::detail::WindowChat_RestoreInput();
-    } else if (element->type == ui::WindowElementType_Text && element->data.text && Listed(key, {"text","font","fontType","color"})) {
-        auto& data = *element->data.text;
-        if (!std::strcmp(key, "text")) {
-            std::size_t size = 0; const char* bytes = luaL_checklstring(L, value, &size);
-            data.text = text::FromGbkWide(std::string_view(bytes, size));
-        } else if (!std::strcmp(key, "color")) data.style.color = static_cast<std::byte>(ReadInteger(L, value) & 255);
-        else data.style.font = static_cast<std::byte>(render::ResolveFontId(ReadInteger(L, value)));
-    } else if (element->type == ui::WindowElementType_Graphic && element->data.graphic && Listed(key, {"image","color"})) {
-        if (!std::strcmp(key, "image")) element->data.graphic->imageNo = ReadInteger(L, value);
-        else element->data.graphic->color = static_cast<std::uint32_t>(luaL_checknumber(L, value));
-    } else if (element->type == ui::WindowElementType_Input && element->data.input && element->data.input->context && Listed(key, {"text","font","fontType","color"})) {
-        auto& context = *element->data.input->context;
-        if (!std::strcmp(key, "text")) {
-            std::size_t size = 0; const char* bytes = luaL_checklstring(L, value, &size);
-            context.setText(text::FromGbkWide(std::string_view(bytes, size)));
-        } else if (!std::strcmp(key, "color")) context.field140 = ReadInteger(L, value) & 255;
-        else context.field13C = render::ResolveFontId(ReadInteger(L, value));
-    } else SetProperty(L, element->properties, key, value);
-}
-int LuaElementWrite(lua_State* L) {
-    const auto* ref = static_cast<LuaControlRef*>(luaL_checkudata(L, 1, "LuaControlRef"));
-    auto* element = ResolveLuaElement(*ref);
-    if (!element) throw std::runtime_error("element is no longer valid");
-    ApplyElementValue(L, element->owner, element, luaL_checkstring(L, 2), 3);
-    return 0;
-}
-void LuaApplyNativeElementTable(lua_State* L, int table, ui::WindowElement& element) {
-    table = AbsIndex(L, table);
-    lua_pushnil(L);
-    while (lua_next(L, table)) {
-        ApplyElementValue(L, element.owner, &element, luaL_checkstring(L, -2), -1);
-        lua_pop(L, 1);
-    }
-}
-
 int CallLuaElementEvent(lua_State* L, ui::WindowInstance& window, ui::WindowElement& element, int flags) {
     const auto call = [&](int callback) {
-        if (!flags || element.removed || (window.state & WIN_STATE_CLOSE) || (element.component && !element.component->attached)) return 0;
+        if (!flags || element.removed || element.detaching || (window.state & WIN_STATE_CLOSE)) return 0;
         // 同一批onEvent/onPress/onDrag之间允许隐藏、禁用或清空；每次调用重新检查。
         // Leave保留隐藏时的退出通知，不要求控件继续可交互。
         if (flags != MouseFlag_Leave && !ui::WindowRuntime_IsElementInteractive(window, element)) return 0;
-        // 旧Lua CallControlCallback在未绑定函数时返回1，hitable控件仍消费命中。
-        // 原生旧元素没有这一默认值，脚本监听缺席时不能抢走原业务事件。
-        if (callback < 0) return element.component ? 1 : 0;
+        // 与原生分发一致：没有监听函数不额外消费命中。
+        if (callback < 0) return 0;
         const int top = lua_gettop(L);
         lua_rawgeti(L, LUA_REGISTRYINDEX, callback);
         PushLuaElement(L, window, element); lua_pushinteger(L, flags);
@@ -297,7 +243,7 @@ int CallLuaElementEvent(lua_State* L, ui::WindowInstance& window, ui::WindowElem
     return result;
 }
 static void CallElementFrame(lua_State* L, ui::WindowInstance& window, ui::WindowElement& element, int callback) {
-    if (callback < 0 || (window.state & WIN_STATE_CLOSE) || (element.component && !element.component->attached)) return;
+    if (callback < 0 || (window.state & WIN_STATE_CLOSE)) return;
     const int top = lua_gettop(L);
     lua_rawgeti(L, LUA_REGISTRYINDEX, callback); PushLuaElement(L, window, element);
     if (lua_pcall(L, 1, 0, 0)) m_log_iw(L"[LUA] element frame: %hs", lua_tostring(L, -1));

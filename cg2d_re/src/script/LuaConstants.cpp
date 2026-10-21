@@ -172,32 +172,32 @@ void RegUIConst(lua_State* L) {
     lua_newtable(L);
 
     lua_newtable(L);
-    lua_pushinteger(L, UIControl::TYPE_NONE);
+    lua_pushinteger(L, ui::WindowElementType_EventArea);
     lua_setfield(L, -2, "NONE");
-    lua_pushinteger(L, UIControl::TYPE_IMAGE);
+    lua_pushinteger(L, ui::WindowElementType_Graphic);
     lua_setfield(L, -2, "IMAGE");
-    lua_pushinteger(L, UIControl::TYPE_TEXT);
+    lua_pushinteger(L, ui::WindowElementType_Text);
     lua_setfield(L, -2, "TEXT");
-    lua_pushinteger(L, UIControl::TYPE_PNG_IMAGE);
+    lua_pushinteger(L, ui::WindowElementType_PngImage);
     lua_setfield(L, -2, "PNG_IMAGE");
-    lua_pushinteger(L, UIControl::TYPE_TEXT_INPUT);
+    lua_pushinteger(L, ui::WindowElementType_Input);
     lua_setfield(L, -2, "TEXT_INPUT");
-    lua_pushinteger(L, UIControl::TYPE_ANIME);
+    lua_pushinteger(L, ui::WindowElementType_Animation);
     lua_setfield(L, -2, "ANIME");
-    lua_pushinteger(L, UIControl::TYPE_SCROLL_VIEW);
+    lua_pushinteger(L, ui::WindowElementType_ScrollView);
     lua_setfield(L, -2, "SCROLL_VIEW");
-    lua_pushinteger(L, UIControl::TYPE_MAP_EX);
+    lua_pushinteger(L, ui::WindowElementType_MapEx);
     lua_setfield(L, -2, "MAP");
-    lua_pushinteger(L, UIControl::TYPE_CANVAS);
+    lua_pushinteger(L, ui::WindowElementType_Canvas);
     lua_setfield(L, -2, "CANVAS");
     lua_setfield(L, -2, "TYPE");
 
     lua_newtable(L);
-    lua_pushinteger(L, UIControl::MOUSE_NONE);
+    lua_pushinteger(L, ui::WindowMouseState_None);
     lua_setfield(L, -2, "NONE");
-    lua_pushinteger(L, UIControl::MOUSE_HOVER);
+    lua_pushinteger(L, ui::WindowMouseState_Hover);
     lua_setfield(L, -2, "HOVER");
-    lua_pushinteger(L, UIControl::MOUSE_PRESS);
+    lua_pushinteger(L, ui::WindowMouseState_Press);
     lua_setfield(L, -2, "PRESS");
     lua_setfield(L, -2, "MOUSE_STATE");
 

@@ -42,8 +42,6 @@ void WindowRuntime_ReleaseBindings(WindowInstance& window) {
     WindowRuntime_CancelPointerDrag(window);
     delete window.binding;
     window.binding = nullptr;
-    delete window.components;
-    window.components = nullptr;
     delete window.properties;
     window.properties = nullptr;
 }
@@ -58,6 +56,7 @@ void WindowRuntime_SetVisible(WindowInstance& window, bool visible) {
     if (window.id >= 0 && window.id < WIN_MAX) {
         window.scriptHidden = !visible;
         if (!visible) {
+            WindowRuntime_ResetElements(window);
             WindowElementCursor cursor(window);
             while (auto* element = cursor.next()) {
                 if (element->type == WindowElementType_Input && element->data.input
@@ -72,23 +71,18 @@ void WindowRuntime_SetVisible(WindowInstance& window, bool visible) {
         window.state &= ~WIN_STATE_ACTIVE;
         if (dragOwner == window.id) dragOwner = -1;
         if (auto extension = GetExtWindowById(window.id)) extension->dragMoving = false;
-        WindowRuntime_ResetComponents(window);
+        WindowRuntime_ResetElements(window);
     }
 }
 int WindowExtension::update(int, int hasFocused) {
     if ((window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) {
         if (dragOwner == window.id) dragOwner = -1;
         dragMoving = false;
-        WindowRuntime_ResetComponents(window);
+        WindowRuntime_ResetElements(window);
         return 1;
     }
-    if ((window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) {
-        WindowRuntime_ResetComponents(window);
-        return 1;
-    }
-    if (window.components) window.components->publish();
     WindowRuntime_UpdateElementOrder(window);
-    const int captured = WindowRuntime_ProcessComponents(window, hasFocused);
+    const int captured = WindowRuntime_ProcessElements(window);
     if (!(window.state & WIN_STATE_CLOSE) && (window.state & WIN_STATE_ACTIVE)
         && dragMove == 1 && (gMouseBtnDown2 & platform::LegacyMouseButton_Left) && !WindowRuntime_PointerDragBlocksMouse()) {
         if (dragMoving && dragOwner == window.id) {
@@ -103,7 +97,6 @@ int WindowExtension::update(int, int hasFocused) {
         if (dragOwner == window.id) dragOwner = -1;
         dragMoving = false;
     }
-    if (window.components) window.components->publish();
     WindowRuntime_UpdateElementOrder(window);
     return 1;
 }
@@ -276,7 +269,7 @@ void FinishWindowFrame()
 void ShutdownExtensionWindows()
 {
     pendingWindowOpens.clear();
-    windows.clear(); // UI销毁组件/绑定后，调用方才可关闭Lua state。
+    windows.clear(); // 元素和窗口绑定销毁后，调用方才可关闭Lua state。
     dragOwner = -1;
     mouseWheelDelta = 0;
     for (auto* window : detail::gWindows) if (window) {

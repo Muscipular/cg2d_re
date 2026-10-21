@@ -8,8 +8,8 @@ using namespace component_detail;
 static struct ElementPointerDrag {
     int windowId = -1;
     std::uint32_t generation = 0;
-    int componentId = 0;
-    int elementIndex = -1;
+    ElementId elementId = 0;
+    std::uint64_t creationSerial = 0;
     int lastX = 0;
     int lastY = 0;
     bool moved = false;
@@ -18,15 +18,12 @@ static struct ElementPointerDrag {
 static bool pointerDragReserved = false; // 含松开/取消的当前帧，防止事件穿透。
 
 bool WindowRuntime_IsElementInteractive(const WindowInstance& window, const WindowElement& element) {
-    if (element.removed || (window.state & WIN_STATE_CLOSE) || window.scriptHidden || element.visible != 1) return false;
-    if (const auto* component = element.component) {
-        if (!component->attached || !component->hitable || (window.id >= WIN_MAX && !(window.state & WIN_STATE_ACTIVE))
-            || !window.components) return false;
-        for (int parentId = component->parentId; parentId != 0;) {
-            const auto* parent = window.components->find(parentId);
-            if (!parent || !parent->hitable || parent->element().visible != 1) return false;
-            parentId = parent->parentId;
-        }
+    if (element.removed || element.detaching || !element.hitable || (window.state & WIN_STATE_CLOSE)
+        || window.scriptHidden || element.visible != 1 || (window.id >= WIN_MAX && !(window.state & WIN_STATE_ACTIVE))) return false;
+    for (ElementId parentId = element.parentId; parentId != 0;) {
+        const auto* parent = window.FindElementById(parentId);
+        if (!parent || parent->removed || parent->detaching || !parent->hitable || parent->visible != 1) return false;
+        parentId = parent->parentId;
     }
     return true;
 }
@@ -35,14 +32,13 @@ static WindowElement* ResolvePointerDrag(WindowInstance*& window) {
     window = WindowRuntime_FindInstance(pointerDrag.windowId);
     if (!window || window->generation != pointerDrag.generation || (window->state & WIN_STATE_CLOSE)
         || window->scriptHidden || platform::gWindowActiveState != 2) return nullptr;
-    WindowElement* element = window->FindElementById(static_cast<ElementId>(pointerDrag.elementIndex));
-    return element && element->refDrag >= 0 && WindowRuntime_IsElementInteractive(*window, *element) ? element : nullptr;
+    WindowElement* element = window->FindElementById(static_cast<ElementId>(pointerDrag.elementId));
+    return element && element->creationSerial == pointerDrag.creationSerial && element->refDrag >= 0 && WindowRuntime_IsElementInteractive(*window, *element) ? element : nullptr;
 }
 
 static void CancelPointerDrag() {
     WindowInstance* window = nullptr;
-    if (auto* element = ResolvePointerDrag(window); element && element->component)
-        element->component->mouseState = UIControl::MOUSE_NONE;
+    if (auto* element = ResolvePointerDrag(window)) element->mouseState = WindowMouseState_None;
     pointerDrag = {};
 }
 
@@ -73,8 +69,8 @@ bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& eleme
         || platform::gWindowActiveState != 2) return false;
     pointerDrag.windowId = window.id;
     pointerDrag.generation = window.generation;
-    pointerDrag.componentId = element.component ? element.component->id : 0;
-    pointerDrag.elementIndex = static_cast<int>(element.elementId);
+    pointerDrag.elementId = element.elementId;
+    pointerDrag.creationSerial = element.creationSerial;
     pointerDrag.lastX = platform::gLegacyMouseState.buttonCoordinates[0];
     pointerDrag.lastY = platform::gLegacyMouseState.buttonCoordinates[1];
     pointerDrag.moved = false;
@@ -85,18 +81,16 @@ bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& eleme
 }
 
 static void EmitPointerDrag(WindowInstance& window, WindowElement& element, int flags) {
-    if (auto* component = element.component) {
-        const auto callbacks = component->callbacks;
-        if (callbacks) callbacks->mouse(component->ref(), flags);
-    } else if (window.binding) {
-        const int index = static_cast<int>(element.elementId);
-        window.binding->elementEvent(element, index, flags);
-        if (WindowRuntime_IsElementInteractive(window, element)) window.binding->event(index, flags);
-    }
+    if (!window.binding) return;
+    const auto ref = WindowRuntime_ElementRef(element);
+    window.binding->elementEvent(element, static_cast<int>(element.elementId), flags);
+    if (auto* live = WindowRuntime_ResolveElement(ref); live && window.binding && WindowRuntime_IsElementInteractive(window, *live))
+        window.binding->event(static_cast<int>(live->elementId), flags);
 }
 
 int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     if (!pointerDragReserved) return 0;
+    WindowElementCursor lease(window);
     ConsumePointerDragMouse();
     if (pointerDrag.windowId != window.id || pointerDrag.generation != window.generation) return 1;
     WindowInstance* owner = nullptr;
@@ -110,7 +104,7 @@ int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     const bool moved = x != pointerDrag.lastX || y != pointerDrag.lastY;
     pointerDrag.lastX = x; pointerDrag.lastY = y;
     pointerDrag.moved |= moved;
-    if (element->component) element->component->mouseState = UIControl::MOUSE_PRESS;
+    element->mouseState = WindowMouseState_Press;
     if (pointerDrag.startedThisFrame && !moved && !released) return 1; // 按下本身已派发onPress。
     if (released) platform::ResetLegacyMousePosition_506890(x, y);
     int flags = held && !released ? MouseFlag_LHoldPhysical : MouseFlag_None;
@@ -136,115 +130,79 @@ void WindowRuntime_EndPointerDragFrame() {
     if (!ResolvePointerDrag(window) || WindowDrag_ReadMousePhase() != 0) CancelPointerDrag();
 }
 
-void UIControl::bindPayload() {
-    auto& value = element();
-    value.component = this;
-    switch (value.type) {
-    case WindowElementType_Graphic: value.data.graphic = imageData(); break;
-    case WindowElementType_Text: value.data.text = textData(); break;
-    case WindowElementType_Animation:
-        animationPayload.action = static_cast<UIAnimeControl*>(this)->action;
-        value.data.animation = &animationPayload;
-        break;
-    case WindowElementType_Input:
-        inputPayload.context = &textInputData()->context;
-        value.data.input = &inputPayload;
-        break;
-    case WindowElementType_PngImage: value.data.pngImage = static_cast<UIPngImageControl*>(this); break;
-    case WindowElementType_Canvas: value.data.canvas = static_cast<UICanvasControl*>(this); break;
-    case WindowElementType_MapEx: value.data.mapEx = static_cast<UIMapExControl*>(this); break;
-    case WindowElementType_ScrollView: value.data.scrollView = static_cast<UIScrollViewControl*>(this); break;
-    default: break;
-    }
-    if (callbacks) callbacks->attach(value);
+
+
+WindowElementRef WindowRuntime_ElementRef(const WindowElement& element) {
+    return {element.owner->id, element.owner->generation, element.elementId, element.creationSerial};
 }
-
-WindowComponentStore::~WindowComponentStore() = default;
-
-UIControl* WindowComponentStore::find(int id) const {
-    auto* element = window.FindElementById(static_cast<ElementId>(id));
-    return element && element->component && element->component->attached ? element->component : nullptr;
+WindowElement* WindowRuntime_ResolveElement(const WindowElementRef& ref) {
+    auto* window = WindowRuntime_FindInstance(ref.winId);
+    if (!window || window->generation != ref.generation || (window->state & WIN_STATE_CLOSE)) return nullptr;
+    auto* element = window->FindElementById(ref.elementId);
+    return element && element->creationSerial == ref.creationSerial ? element : nullptr;
 }
-
-UIControl* WindowComponentStore::add(std::unique_ptr<UIControl> component, int parentId) {
-    if (!component) return nullptr;
-    if (parentId) {
-        auto* parent = find(parentId);
-        if (!parent || parent->type != UIControl::TYPE_SCROLL_VIEW) return nullptr;
-    }
-    auto& element = WindowRuntime_AddElement(window, static_cast<ElementId>(component->id));
-    const auto elementId = element.elementId;
-    const auto serial = element.creationSerial;
-    element = component->draft;
-    element.elementId = elementId;
-    element.owner = &window;
-    element.creationSerial = serial;
-    element.seqNo = -nextId++; // 默认按创建顺序，显式elementId不影响新控件优先级。
-    component->windowOwner = &window;
-    component->parentId = parentId;
-    component->currentElement = &element;
-    component->draft = {};
-    component->bindPayload();
-    changed = true;
-    return component.release();
-}
-void WindowComponentStore::clear() { WindowRuntime_ClearElements(window); changed = true; }
-void WindowComponentStore::publish() { WindowRuntime_UpdateElementOrder(window); changed = false; }
-int WindowComponentStore::rootCount() const { return static_cast<int>(window.sortedMap.size()); }
-
-WindowComponentStore& WindowRuntime_Components(WindowInstance& window) {
-    if (!window.components) window.components = new WindowComponentStore(window);
-    return *window.components;
-}
-
-bool IsControlAttached(const WindowControlRef& ref) {
-    const auto* window = WindowRuntime_FindInstance(ref.winId);
-    return window && window->generation == ref.generation && !(window->state & WIN_STATE_CLOSE)
-        && window->components && window->components->find(ref.controlId);
-}
-
-std::vector<UIControl*> WindowRuntime_Children(WindowInstance& window, int parentId) {
-    std::vector<UIControl*> result;
+std::vector<WindowElementRef> WindowRuntime_Children(WindowInstance& window, ElementId parentId) {
+    std::vector<WindowElementRef> result;
     WindowElementCursor cursor(window);
-    while (auto* element = cursor.next()) {
-        auto* component = element ? element->component : nullptr;
-        if (component && component->attached && component->parentId == static_cast<ElementId>(parentId)) result.push_back(component);
-    }
+    while (auto* element = cursor.next()) if (element->parentId == parentId && !element->detaching) result.push_back(WindowRuntime_ElementRef(*element));
     return result;
 }
-
-void UIResetControlProcessState(UIControl* control) {
-    if (!control) return;
-    const auto previous = control->mouseState;
-    control->mouseState = UIControl::MOUSE_NONE;
-    control->blurTextInput();
-    UIEmitControlLeaveIfNeeded(control->ref(), control->callbacks, previous, control->mouseState);
-    if (control->type == UIControl::TYPE_SCROLL_VIEW)
-        static_cast<UIScrollViewControl*>(control)->draggingThumb = false;
+void WindowRuntime_BlurElement(WindowElement& element) {
+    WindowElementCursor lease(*element.owner);
+    WindowElement_BlurInput(element);
+    for (const auto& ref : WindowRuntime_Children(*element.owner, element.elementId))
+        if (auto* child = WindowRuntime_ResolveElement(ref)) WindowRuntime_BlurElement(*child);
 }
-
-void WindowRuntime_ResetComponents(WindowInstance& window) {
-    if (!window.components) return;
+void WindowRuntime_ResetElement(WindowElement& element) {
+    auto& window = *element.owner;
+    WindowElementCursor lease(window);
+    const auto ref = WindowRuntime_ElementRef(element);
+    const auto previous = element.mouseState;
+    element.mouseState = WindowMouseState_None;
+    if (element.type == WindowElementType_Graphic) WindowElement_UpdateImageState(element);
+    WindowElement_BlurInput(element);
+    if (element.type == WindowElementType_ScrollView && element.data.scrollView) element.data.scrollView->draggingThumb = false;
+    if (previous == WindowMouseState_Hover && !element.detaching && window.binding)
+        window.binding->elementEvent(element, static_cast<int>(element.elementId), MouseFlag_Leave);
+    if (!WindowRuntime_ResolveElement(ref)) return;
+    for (const auto& childRef : WindowRuntime_Children(window, element.elementId))
+        if (auto* child = WindowRuntime_ResolveElement(childRef)) WindowRuntime_ResetElement(*child);
+}
+void WindowRuntime_ResetElements(WindowInstance& window) {
+    WindowElementCursor cursor(window);
+    while (auto* element = cursor.next()) if (!element->parentId) WindowRuntime_ResetElement(*element);
+}
+int WindowRuntime_ProcessElements(WindowInstance& window) {
+    int handled = 0;
     WindowElementCursor cursor(window);
     while (auto* element = cursor.next()) {
-        if (element && element->component) UIResetControlProcessState(element->component);
-    }
-}
-
-int WindowRuntime_ProcessComponents(WindowInstance& window, int hasFocused) {
-    int captured = WindowRuntime_PointerDragBlocksMouse() ? 1 : 0;
-    WindowElementCursor cursor(window);
-    while (auto* element = cursor.next()) {
-        auto* control = element->component;
-        if (!control || control->parentId) continue;
+        if (element->parentId) continue;
         if ((window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) break;
-        if (!control->attached) continue;
-        if (window.binding) window.binding->elementUpdate(control->element());
-        if (!control->attached || (window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) continue;
-        const auto index = static_cast<int>(control->element().elementId);
-        if (control->process(index, hasFocused, captured)) captured = 1;
+        const auto ref = WindowRuntime_ElementRef(*element);
+        if (window.binding) window.binding->elementUpdate(*element);
+        if (auto* live = WindowRuntime_ResolveElement(ref)) handled |= WindowRuntime_DispatchElementMouse(window, live->elementId, window.x, window.y, nullptr);
     }
-    return captured | WindowRuntime_ProcessPointerDrag(window);
+    return handled | WindowRuntime_ProcessPointerDrag(window);
 }
-
+void WindowRuntime_DestroyPayload(WindowElementType type, WindowElementData& data) {
+    switch (type) {
+    case WindowElementType_Graphic: std::free(data.graphic); break;
+    case WindowElementType_Text: delete data.text; break;
+    case WindowElementType_Animation:
+        if (data.animation) { if (data.animation->action) yobi::MarkDeathUnchecked(data.animation->action); delete data.animation->options; std::free(data.animation); }
+        break;
+    case WindowElementType_Input:
+        if (data.input) { delete data.input->ownedInput; std::free(data.input); }
+        break;
+    case WindowElementType_MouseArea: std::free(data.mouse); break;
+    case WindowElementType_InputCaret: std::free(data.inputCaret); break;
+    case WindowElementType_Number: std::free(data.number); break;
+    case WindowElementType_PngImage: delete data.pngImage; break;
+    case WindowElementType_Canvas: delete data.canvas; break;
+    case WindowElementType_MapEx: delete data.mapEx; break;
+    case WindowElementType_ScrollView: delete data.scrollView; break;
+    default: break;
+    }
+    data = {};
+}
 } // namespace cg::ui

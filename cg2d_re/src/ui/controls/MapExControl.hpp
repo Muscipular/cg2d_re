@@ -6,7 +6,7 @@
 #include "UIControl.hpp"
 
 namespace cg::ui {
-struct UIMapExControl : UIControl {
+struct WindowMapExData {
     struct MapExPoint {
         int mapX = 0;
         int mapY = 0;
@@ -26,23 +26,20 @@ struct UIMapExControl : UIControl {
     int lastClickX = -1;
     int lastClickY = -1;
 
-    UIMapExControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, WindowEventBinding callbacks);
 
     int AddPoint(MapExPoint point);
     int RemovePoints(int mapX, int mapY);
     const std::vector<MapExPoint>& GetPoints() const;
 
     // BMUI01：同步现有地图缓存；坐标相对于控件左上角，不含窗口偏移。
-    bool PrepareMap();
-    std::pair<int, int> MapToScreen(int gridX, int gridY) const;
-    std::pair<int, int> ScreenToMap(int screenX, int screenY) const;
+    bool PrepareMap(const WindowElement& element);
+    std::pair<int, int> MapToScreen(const WindowElement& element, int gridX, int gridY) const;
+    std::pair<int, int> ScreenToMap(const WindowElement& element, int screenX, int screenY) const;
+    void UpdateMouse(const WindowElement& element, int ox, int oy, const UIClipRect* clipRect, int events);
     bool IsExplored(int gridX, int gridY) const;
 
-    bool render(short ox, short oy) override;
-    bool render(short ox, short oy, const UIClipRect* clipRect) override;
+    bool Render(const WindowElement& element, int ox, int oy, const UIClipRect* clipRect);
 
-    bool process(int index, int hasFocused, int captured) override;
-    bool process(int index, int hasFocused, int captured, const UIClipRect* clipRect, short ox, short oy) override;
 
 private:
     struct MapExTile {
@@ -120,10 +117,10 @@ private:
     void BuildOneVisibleTile(int startTileX, int endTileX, int startTileY, int endTileY);
     void BuildMapTile(MapExTile& tile, int tileX, int tileY, int mode);
     bool UpdateTileTexture(MapExTile& tile);
-    void DrawPoints(int absX, int absY, int drawX, int drawY, const UIClipRect& controlClip);
+    void DrawPoints(const WindowElement& element, int absX, int absY, int drawX, int drawY, const UIClipRect& controlClip);
     MapExTile& GetOrCreateTile(int tileX, int tileY);
     MapExTile* FindTile(int tileX, int tileY);
     void TrimMapTileCache(int startTileX, int endTileX, int startTileY, int endTileY);
-    void UpdateMouseMapPos(short ox, short oy, const UIClipRect* clipRect);
+
 };
 } // namespace cg::ui

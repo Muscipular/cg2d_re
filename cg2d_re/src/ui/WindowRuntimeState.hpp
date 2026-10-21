@@ -36,12 +36,10 @@ struct MiniMailContactRecord;
 
 namespace cg::ui {
 
-struct UIControl;
-struct UIPngImageControl;
-struct UICanvasControl;
-struct UIMapExControl;
-struct UIScrollViewControl;
-struct WindowComponentStore;
+struct WindowPngImageData;
+struct WindowCanvasData;
+struct WindowMapExData;
+struct WindowScrollViewData;
 struct WindowBinding;
 struct WindowAnimationOptions;
 struct WindowTextInputState;
@@ -71,6 +69,8 @@ enum WindowElementType : std::int32_t {
 };
 static_assert(sizeof(WindowElementType) == sizeof(std::int32_t));
 
+enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_Hover, WindowMouseState_Press };
+
 using WindowCallback = std::int32_t (*)(std::int32_t value);
 using WindowReleaseCallback = void (*)();
 using WindowElementCallback = std::int32_t (*)(ElementId elementId, std::int32_t state); // 窗口内稳定元素ID，非排序位置。
@@ -79,7 +79,7 @@ using WindowDragCallback = void (*)(
     std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
 using WindowListSelectionCallback = void (*)(std::int32_t index, const wchar_t* text);
 
-// 原type1的24B图形载荷，六个数值字段，不含地址。
+// 原type1的24B前缀保留；NEU01在宿主载荷末尾扩充图态配置。
 struct WindowGraphicData {
     std::int32_t imageNo; // 原成员偏移：+0x00。
     std::int32_t offsetX; // 原成员偏移：+0x04。
@@ -151,10 +151,10 @@ union WindowElementData {
     WindowInputData* input;
     std::uint32_t* inputCaret;
     WindowNumberData* number;
-    UIPngImageControl* pngImage;
-    UICanvasControl* canvas;
-    UIMapExControl* mapEx;
-    UIScrollViewControl* scrollView;
+    WindowPngImageData* pngImage;
+    WindowCanvasData* canvas;
+    WindowMapExData* mapEx;
+    WindowScrollViewData* scrollView;
 };
 
 // 仅按已证字段增量映射；未消费数据不计最终布局冻结，见UI窗口SPEC。
@@ -169,7 +169,6 @@ struct WindowElement {
     WindowElementData data; // 原+1C；按type访问对应载荷指针。
     WindowElementCallback mouseCallback; // 原+20。
     std::int32_t seqNo; // WEO01：窗口内绘制/鼠标顺序，小值在前，同值按原索引。
-    UIControl* component = nullptr; // LUP01：原生组件，窗口存储拥有；空值沿旧处理。
     WindowPropertyMap* properties = nullptr; // 按需创建，随控件释放。
     std::int32_t refUpdate = -1; // Lua registry引用，桥接负责调用/解绑。
     std::int32_t refDraw = -1;
@@ -187,11 +186,11 @@ struct WindowElement {
     ElementId relatedElementId = 0; // 滚动条关联滑块，替代element-1。
     std::wstring name; // NEU01：元素名称，脚本属性与原生元素共用。
     ElementId parentId = 0; // 所属滚动容器，0表示窗口根元素。
-    std::uint8_t mouseState = 0; // 0离开、1悬停、2按下；不复用原生state位。
+    WindowMouseState mouseState = WindowMouseState_None; // 通用交互状态，不复用原生state位。
     bool hitable = true; // 元素是否参加鼠标命中。
     bool detaching = false; // 失焦前即停止交互，尚未从活动表提取。
     bool removed = false; // 回调中立即失效，安全点回收。
-    bool ownsPayload = true; // 非组件载荷的释放责任；自动战斗窗口借用成员数组时为false。
+    bool ownsPayload = true; // 载荷及其自有资源的释放责任；自动战斗窗口借用成员数组时为false。
     std::uint64_t creationSerial = 0; // 游标按创建序号上限跳过遍历期间新增的元素。
 };
 
@@ -277,7 +276,6 @@ struct WindowInstance {
     std::int32_t secondaryCount; // 原+3C。
     std::array<WindowDragRect, 10> dragRects40; // 原[+40,+E0)。
     std::vector<SortedElementMap::ElementOwner> retiredElements; // 延迟释放的独占对象，子孙排在父对象前。
-    WindowComponentStore* components = nullptr; // 动态组件操作入口；组件由sortedMap元素拥有。
     WindowBinding* binding = nullptr; // LUP01：随窗口释放的外部事件绑定。
     std::uint32_t generation = 0; // LUP01：每次创建实例分配新代次。
     WindowPropertyMap* properties = nullptr; // 按需创建，随窗口释放。
@@ -1196,7 +1194,11 @@ static_assert(offsetof(WindowGraphicData, offsetY) == 8);
 static_assert(offsetof(WindowGraphicData, width) == 0x0C);
 static_assert(offsetof(WindowGraphicData, height) == 0x10);
 static_assert(offsetof(WindowGraphicData, color) == 0x14);
+static_assert(offsetof(WindowGraphicData, imageHover) == 0x18);
+static_assert(offsetof(WindowGraphicData, imagePress) == 0x1C);
+static_assert(offsetof(WindowGraphicData, imageNormal) == 0x20);
 static_assert(sizeof(WindowGraphicData) == 0x24);
+static_assert(offsetof(WindowInputData, ownedInput) == 8);
 static_assert(sizeof(WindowInputData) == 16);
 static_assert(offsetof(WindowNumberData, color) == 8);
 static_assert(offsetof(WindowNumberData, style) == 9);
@@ -1205,6 +1207,7 @@ static_assert(offsetof(WindowNumberData, byte07) == 0x0B);
 static_assert(sizeof(WindowNumberData) == 16);
 static_assert(offsetof(WindowAnimationData, action) == 0);
 static_assert(offsetof(WindowAnimationData, value04) == 8);
+static_assert(offsetof(WindowAnimationData, options) == 16);
 static_assert(sizeof(WindowAnimationData) == 24);
 static_assert(offsetof(WindowMouseData, deltaX) == 4);
 static_assert(offsetof(WindowMouseData, deltaY) == 8);

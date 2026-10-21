@@ -12,6 +12,7 @@
 #include <cstdio>
 #include <limits>
 #include <optional>
+#include <new>
 
 namespace cg::script {
 void startCopilot(int x, int y);
@@ -423,13 +424,13 @@ static bool LuaReadPngRectField(lua_State* L, int index, const char* field, RECT
     return true;
 }
 
-static void LuaReadPngImageState(lua_State* L, int index, const char* imageField, const char* rectField, UIControl::PngImageState& state) {
+static void LuaReadPngImageState(lua_State* L, int index, const char* imageField, const char* rectField, ui::WindowPngImageState& state) {
     state.path = LuaGetWideStringField(L, index, imageField);
     state.hasRect = LuaReadPngRectField(L, index, rectField, state.rect);
 }
 
-static UIControl::PngImageData LuaReadPngImageData(lua_State* L, int index) {
-    UIControl::PngImageData data{};
+static ui::WindowPngImageData LuaReadPngImageData(lua_State* L, int index) {
+    ui::WindowPngImageData data{};
     LuaReadPngImageState(L, index, "image", "imageRect", data.image);
     LuaReadPngImageState(L, index, "imageHover", "imageHoverRect", data.imageHover);
     LuaReadPngImageState(L, index, "imagePress", "imagePressRect", data.imagePress);
@@ -518,7 +519,7 @@ static std::vector<CanvasShape> LuaReadCanvasShapes(lua_State* L, int index) {
     return shapes;
 }
 
-static void LuaSetPngImageState(lua_State* L, int index, const char* imageField, const char* rectField, UIControl::PngImageState& state) {
+static void LuaSetPngImageState(lua_State* L, int index, const char* imageField, const char* rectField, ui::WindowPngImageState& state) {
     if (LuaHasField(L, index, imageField)) {
         state.path = LuaGetWideStringField(L, index, imageField, state.path);
     }
@@ -527,7 +528,7 @@ static void LuaSetPngImageState(lua_State* L, int index, const char* imageField,
     }
 }
 
-static void LuaPushPngRect(lua_State* L, const UIControl::PngImageState& state) {
+static void LuaPushPngRect(lua_State* L, const ui::WindowPngImageState& state) {
     if (!state.hasRect) {
         lua_pushnil(L);
         return;
@@ -583,7 +584,7 @@ static std::vector<COLORREF> LuaReadMapPointColors(lua_State* L, int index) {
     return colors;
 }
 
-static bool LuaReadMapPoint(lua_State* L, int index, UIMapExControl::MapExPoint& point) {
+static bool LuaReadMapPoint(lua_State* L, int index, ui::WindowMapExData::MapExPoint& point) {
     if (!lua_istable(L, index)) {
         return false;
     }
@@ -610,7 +611,7 @@ static bool LuaReadMapPoint(lua_State* L, int index, UIMapExControl::MapExPoint&
     return true;
 }
 
-static void LuaPushMapPoint(lua_State* L, const UIMapExControl::MapExPoint& point) {
+static void LuaPushMapPoint(lua_State* L, const ui::WindowMapExData::MapExPoint& point) {
     lua_createtable(L, 0, 5);
     LuaSetIntegerField(L, "mapX", point.mapX);
     LuaSetIntegerField(L, "mapY", point.mapY);
@@ -669,62 +670,112 @@ LuaWindowBinding::~LuaWindowBinding() {
     ui::WindowElementCursor cursor(window);
     while (auto* element = cursor.next()) {
         ReleaseLuaElementRefs(owner, *element);
-        if (element->component) element->component->callbacks.reset();
     }
     for (auto& retired : window.retiredElements) {
         auto& element = *retired;
         ReleaseLuaElementRefs(owner, element);
-        if (element.component) element.component->callbacks.reset();
     }
 }
 
 LuaWindowRef LuaWindow::ref() const { return {window.id}; }
-UIControl* LuaWindow::FindControl(int controlId) {
-    return window.components ? window.components->find(controlId) : nullptr;
+// 创建未提交前统一拥有载荷和待转移引用，失败不泄漏到活动元素表。
+struct PendingLuaElement {
+    ui::WindowElementType type;
+    ui::WindowElementData data{};
+    LuaCallbackRefs refs;
+    ~PendingLuaElement() { ui::WindowRuntime_DestroyPayload(type, data); refs.clear(refs.owner); }
+};
+template<class T> static T* AllocatePlainPayload() {
+    auto* data = static_cast<T*>(std::calloc(1, sizeof(T)));
+    if (!data) throw std::bad_alloc();
+    return data;
 }
+ui::WindowElement* LuaWindow::FindControl(int controlId) { return window.FindElementById(static_cast<ui::ElementId>(controlId)); }
 void LuaWindow::ClearChildren() { ui::WindowRuntime_ClearElements(window); }
-UIControl* LuaWindow::AddControl(std::unique_ptr<UIControl> control, int parentId) {
-    return ui::WindowRuntime_Components(window).add(std::move(control), parentId);
+ui::WindowElement* LuaWindow::AddControl(std::wstring_view name, int x, int y, int w, int h, int visible,
+    ui::WindowElementType type, ui::WindowElementData& payload, LuaCallbackRefs& callbacks, int parentId) {
+    if (parentId) {
+        const auto* parent = window.FindElementById(static_cast<ui::ElementId>(parentId));
+        if (!parent || parent->detaching || parent->type != ui::WindowElementType_ScrollView) return nullptr;
+    }
+    auto preparedName = std::wstring(name);
+    EnsureLuaWindowBinding(callbacks.owner, window);
+    std::int32_t nextSeq = 0;
+    if (!window.sortedMap.empty()) {
+        nextSeq = window.sortedMap.begin()->second->seqNo;
+        for (const auto& entry : window.sortedMap) nextSeq = std::max(nextSeq, entry.second->seqNo);
+        ++nextSeq;
+    }
+    auto& element = ui::WindowRuntime_AddElement(window, requestedElementId);
+    element.name = std::move(preparedName);
+    element.x = x; element.y = y; element.width = w; element.height = h; element.visible = visible ? 1 : 0;
+    element.type = type; element.parentId = static_cast<ui::ElementId>(parentId); element.seqNo = nextSeq;
+    element.data = payload; payload = {};
+    AttachLuaElementRefs(callbacks, element);
+    return &element;
+}
+ui::WindowElement* LuaWindow::AddImage(std::wstring_view name, int x, int y, int w, int h, int visible, ui::WindowGraphicData data, LuaCallbackRefs callbacks, int parentId) {
+    PendingLuaElement pending{ui::WindowElementType_Graphic, {}, callbacks};
+    pending.data.graphic = AllocatePlainPayload<ui::WindowGraphicData>();
+    *pending.data.graphic = data;
+    return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
-UIControl* LuaWindow::AddImage(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::ImageData data, LuaCallbackRefs callbacks, int parentId) {
-    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
-    return AddControl(std::make_unique<UIImageControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, data, MakeLuaElementEvents(callbacks)), parentId);
+ui::WindowElement* LuaWindow::AddAnime(std::wstring_view name, int x, int y, int w, int h, int visible, ui::WindowAnimationOptions data, LuaCallbackRefs callbacks, int parentId) {
+    PendingLuaElement pending{ui::WindowElementType_Animation, {}, callbacks};
+    pending.data.animation = AllocatePlainPayload<ui::WindowAnimationData>();
+    pending.data.animation->options = new ui::WindowAnimationOptions(data);
+    ui::WindowElement_PrepareAnimation(*pending.data.animation);
+    return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
-UIControl* LuaWindow::AddAnime(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::AnimeData data, LuaCallbackRefs callbacks, int parentId) {
-    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
-    return AddControl(std::make_unique<UIAnimeControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, data, MakeLuaElementEvents(callbacks)), parentId);
+ui::WindowElement* LuaWindow::AddText(std::wstring_view name, int x, int y, int w, int h, int visible, ui::WindowTextData data, LuaCallbackRefs callbacks, int parentId) {
+    PendingLuaElement pending{ui::WindowElementType_Text, {}, callbacks};
+    pending.data.text = new ui::WindowTextData(std::move(data));
+    return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
-UIControl* LuaWindow::AddText(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::TextData data, LuaCallbackRefs callbacks, int parentId) {
-    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
-    return AddControl(std::make_unique<UITextControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), MakeLuaElementEvents(callbacks)), parentId);
+ui::WindowElement* LuaWindow::AddPngImage(std::wstring_view name, int x, int y, int w, int h, int visible, ui::WindowPngImageData data, LuaCallbackRefs callbacks, int parentId) {
+    PendingLuaElement pending{ui::WindowElementType_PngImage, {}, callbacks};
+    pending.data.pngImage = new ui::WindowPngImageData(std::move(data));
+    return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
-UIControl* LuaWindow::AddPngImage(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::PngImageData data, LuaCallbackRefs callbacks, int parentId) {
-    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
-    return AddControl(std::make_unique<UIPngImageControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), MakeLuaElementEvents(callbacks)), parentId);
+ui::WindowElement* LuaWindow::AddCanvas(std::wstring_view name, int x, int y, int w, int h, int visible, std::vector<CanvasShape> shapes, LuaCallbackRefs callbacks, int parentId) {
+    PendingLuaElement pending{ui::WindowElementType_Canvas, {}, callbacks};
+    pending.data.canvas = new ui::WindowCanvasData;
+    pending.data.canvas->SetShapes(std::move(shapes));
+    return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
-UIControl* LuaWindow::AddCanvas(std::wstring_view name, int x, int y, int w, int h, int visible, std::vector<CanvasShape> shapes, LuaCallbackRefs callbacks, int parentId) {
-    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
-    return AddControl(std::make_unique<UICanvasControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(shapes), MakeLuaElementEvents(callbacks)), parentId);
+ui::WindowElement* LuaWindow::AddTextInput(std::wstring_view name, int x, int y, int w, int h, int visible, ui::WindowTextInputState data, LuaCallbackRefs callbacks, int parentId) {
+    PendingLuaElement pending{ui::WindowElementType_Input, {}, callbacks};
+    pending.data.input = AllocatePlainPayload<ui::WindowInputData>();
+    pending.data.input->ownedInput = new ui::WindowTextInputState(std::move(data));
+    auto& input = *pending.data.input->ownedInput;
+    input.maxLength = ui::ClampTextInputMaxLength(input.maxLength);
+    pending.data.input->context = &input.context;
+    ui::WindowInput_SetText(*pending.data.input, input.lastText);
+    return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
-UIControl* LuaWindow::AddTextInput(std::wstring_view name, int x, int y, int w, int h, int visible, UIControl::TextInputData data, LuaCallbackRefs callbacks, int parentId) {
-    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
-    return AddControl(std::make_unique<UITextInputControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, std::move(data), MakeLuaElementEvents(callbacks)), parentId);
+ui::WindowElement* LuaWindow::AddScrollView(std::wstring_view name, int x, int y, int w, int h, int visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks, int parentId) {
+    PendingLuaElement pending{ui::WindowElementType_ScrollView, {}, callbacks};
+    pending.data.scrollView = new ui::WindowScrollViewData;
+    auto& view = *pending.data.scrollView;
+    view.contentHeight = std::max(0, contentHeight); view.barWidth = barWidth <= 0 ? 8 : barWidth; view.scrollStep = std::max(1, scrollStep);
+    const int maximum = std::max(0, view.contentHeight - h);
+    view.scrollY = std::clamp(scrollY, 0, maximum);
+    if (view.scrollStep > 1 && view.scrollY < maximum) view.scrollY = view.scrollY / view.scrollStep * view.scrollStep;
+    return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
-UIControl* LuaWindow::AddScrollView(std::wstring_view name, int x, int y, int w, int h, int visible, int contentHeight, int scrollY, int barWidth, int scrollStep, LuaCallbackRefs callbacks, int parentId) {
-    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
-    return AddControl(std::make_unique<UIScrollViewControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, contentHeight, scrollY, barWidth, scrollStep, MakeLuaElementEvents(callbacks)), parentId);
-}
-
-UIControl* LuaWindow::AddMapEx(std::wstring_view name, int x, int y, int w, int h, int visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks, int parentId) {
-    auto controlId = ui::WindowRuntime_AllocateElementId(window, requestedElementId);
-    return AddControl(std::make_unique<UIMapExControl>(window.id, generation, controlId, name, static_cast<short>(x), static_cast<short>(y), static_cast<short>(w), static_cast<short>(h), visible ? 1 : 0, ResolveLuaMapX(mapX), ResolveLuaMapY(mapY), ResolveLuaMapId(mapId), ResolveLuaFloor(floor), MakeLuaElementEvents(callbacks)), parentId);
+ui::WindowElement* LuaWindow::AddMapEx(std::wstring_view name, int x, int y, int w, int h, int visible, int mapX, int mapY, int mapId, int floor, LuaCallbackRefs callbacks, int parentId) {
+    PendingLuaElement pending{ui::WindowElementType_MapEx, {}, callbacks};
+    pending.data.mapEx = new ui::WindowMapExData;
+    pending.data.mapEx->mapX = ResolveLuaMapX(mapX); pending.data.mapEx->mapY = ResolveLuaMapY(mapY);
+    pending.data.mapEx->mapId = ResolveLuaMapId(mapId); pending.data.mapEx->floor = ResolveLuaFloor(floor);
+    return AddControl(name, x, y, w, h, visible, pending.type, pending.data, pending.refs, parentId);
 }
 
 static std::optional<LuaWindow> ResolveWindow(const LuaWindowRef& ref) {
@@ -735,10 +786,6 @@ static std::optional<LuaWindow> ResolveWindow(const LuaWindowRef& ref) {
 ui::WindowElement* ResolveLuaElement(const LuaControlRef& ref) {
     auto* window = ui::WindowRuntime_FindInstance(ref.winId);
     return window && !(window->state & WIN_STATE_CLOSE) ? window->FindElementById(ref.controlId) : nullptr;
-}
-UIControl* ResolveControl(const LuaControlRef& ref) {
-    auto* element = ResolveLuaElement(ref);
-    return element ? element->component : nullptr;
 }
 bool IsLuaControlAttached(const LuaControlRef& ref) { return ResolveLuaElement(ref) != nullptr; }
 static void PushWindowRef(lua_State* L, LuaWindowRef ref) {
@@ -922,9 +969,9 @@ static bool LuaPushMapControlField(lua_State* L, T* map, const char* key) {
     return false;
 }
 
-static bool LuaPushMapControlField(lua_State* L, UIControl* control, const char* key) {
-    if (control->type == UIControl::TYPE_MAP_EX) {
-        return LuaPushMapControlField(L, static_cast<UIMapExControl*>(control), key);
+static bool LuaPushMapControlField(lua_State* L, ui::WindowElement* control, const char* key) {
+    if (control->type == ui::WindowElementType_MapEx) {
+        return LuaPushMapControlField(L, control->data.mapEx, key);
     }
     return false;
 }
@@ -945,7 +992,7 @@ static void LuaApplyMapControlFields(lua_State* L, T* map) {
     }
 }
 
-static void LuaPushControlField(lua_State* L, UIControl* control, const char* key) {
+static void LuaPushControlField(lua_State* L, ui::WindowElement* control, const char* key) {
     if (strcmp(key, "valid") == 0) {
         lua_pushboolean(L, control != nullptr);
         return;
@@ -954,24 +1001,24 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
         lua_pushnil(L);
         return;
     }
-    if (LuaPushElementProperty(L, control->element(), key)) return;
+    if (LuaPushElementProperty(L, *control, key)) return;
     if (LuaPushMapControlField(L, control, key)) {
         return;
     }
     if (strcmp(key, "id") == 0 || strcmp(key, "controlId") == 0) {
-        lua_pushinteger(L, control->id);
+        lua_pushinteger(L, control->elementId);
     } else if (strcmp(key, "name") == 0) {
         Push(L, control->name);
     } else if (strcmp(key, "x") == 0) {
-        lua_pushinteger(L, control->element().x);
+        lua_pushinteger(L, control->x);
     } else if (strcmp(key, "y") == 0) {
-        lua_pushinteger(L, control->element().y);
+        lua_pushinteger(L, control->y);
     } else if (strcmp(key, "width") == 0) {
-        lua_pushinteger(L, control->element().width);
+        lua_pushinteger(L, control->width);
     } else if (strcmp(key, "height") == 0) {
-        lua_pushinteger(L, control->element().height);
+        lua_pushinteger(L, control->height);
     } else if (strcmp(key, "visible") == 0) {
-        lua_pushboolean(L, control->element().visible == 1);
+        lua_pushboolean(L, control->visible == 1);
     } else if (strcmp(key, "type") == 0) {
         lua_pushinteger(L, control->type);
     } else if (strcmp(key, "mouseState") == 0) {
@@ -980,14 +1027,14 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
         lua_pushboolean(L, control->hitable);
     } else if (strcmp(key, "parentId") == 0) {
         lua_pushinteger(L, control->parentId);
-    } else if (control->type == UIControl::TYPE_SCROLL_VIEW) {
-        auto view = static_cast<UIScrollViewControl*>(control);
+    } else if (control->type == ui::WindowElementType_ScrollView) {
+        auto view = control->data.scrollView;
         if (strcmp(key, "scrollY") == 0) {
             lua_pushinteger(L, view->scrollY);
         } else if (strcmp(key, "contentHeight") == 0) {
             lua_pushinteger(L, view->contentHeight);
         } else if (strcmp(key, "maxScrollY") == 0) {
-            lua_pushinteger(L, view->MaxScrollY());
+            lua_pushinteger(L, view->MaxScrollY(*control));
         } else if (strcmp(key, "barWidth") == 0) {
             lua_pushinteger(L, view->barWidth);
         } else if (strcmp(key, "scrollStep") == 0) {
@@ -995,15 +1042,15 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
         } else {
             lua_pushnil(L);
         }
-    } else if (control->type == UIControl::TYPE_IMAGE && strcmp(key, "image") == 0) {
-        const auto* data = control->imageData();
+    } else if (control->type == ui::WindowElementType_Graphic && strcmp(key, "image") == 0) {
+        const auto* data = (control->type == ui::WindowElementType_Graphic && control->data.graphic ? control->data.graphic : nullptr);
         if (data) {
             lua_pushinteger(L, data->imageNo);
         } else {
             lua_pushnil(L);
         }
-    } else if (control->type == UIControl::TYPE_ANIME) {
-        const auto* data = control->animeData();
+    } else if (control->type == ui::WindowElementType_Animation) {
+        const auto* data = (control->type == ui::WindowElementType_Animation && control->data.animation ? control->data.animation->options : nullptr);
         if (!data) {
             lua_pushnil(L);
             return;
@@ -1019,8 +1066,8 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
         } else {
             lua_pushnil(L);
         }
-    } else if (control->type == UIControl::TYPE_PNG_IMAGE) {
-        const auto* data = control->pngImageData();
+    } else if (control->type == ui::WindowElementType_PngImage) {
+        const auto* data = (control->type == ui::WindowElementType_PngImage && control->data.pngImage ? control->data.pngImage : nullptr);
         if (!data) {
             lua_pushnil(L);
             return;
@@ -1042,11 +1089,11 @@ static void LuaPushControlField(lua_State* L, UIControl* control, const char* ke
         } else {
             lua_pushnil(L);
         }
-    } else if (control->type == UIControl::TYPE_TEXT && strcmp(key, "text") == 0) {
-        const auto* data = control->textData();
+    } else if (control->type == ui::WindowElementType_Text && strcmp(key, "text") == 0) {
+        const auto* data = (control->type == ui::WindowElementType_Text && control->data.text ? control->data.text : nullptr);
         Push(L, data ? std::wstring_view(data->text) : std::wstring_view{});
-    } else if (control->type == UIControl::TYPE_TEXT_INPUT) {
-        const auto* data = control->textInputData();
+    } else if (control->type == ui::WindowElementType_Input) {
+        const auto* data = (control->type == ui::WindowElementType_Input && control->data.input ? control->data.input->ownedInput : nullptr);
         if (!data) {
             lua_pushnil(L);
             return;
@@ -1102,19 +1149,19 @@ static void LuaPushWindowField(lua_State* L, const std::optional<LuaWindow>& win
 
 LuaFunctionEx(LuaControlRef, AddPoint) {
     auto ref = CheckControlRef(L, 1);
-    auto control = ResolveControl(*ref);
-    if (!control || control->type != UIControl::TYPE_MAP_EX) {
+    auto control = ResolveLuaElement(*ref);
+    if (!control || control->type != ui::WindowElementType_MapEx) {
         lua_pushboolean(L, false);
         return 1;
     }
 
-    UIMapExControl::MapExPoint point{};
+    ui::WindowMapExData::MapExPoint point{};
     if (!LuaReadMapPoint(L, 2, point)) {
         lua_pushboolean(L, false);
         return 1;
     }
 
-    int index = static_cast<UIMapExControl*>(control)->AddPoint(std::move(point));
+    int index = control->data.mapEx->AddPoint(std::move(point));
     lua_pushboolean(L, true);
     lua_pushinteger(L, index);
     return 2;
@@ -1122,28 +1169,28 @@ LuaFunctionEx(LuaControlRef, AddPoint) {
 
 LuaFunctionEx(LuaControlRef, RemovePoints) {
     auto ref = CheckControlRef(L, 1);
-    auto control = ResolveControl(*ref);
-    if (!control || control->type != UIControl::TYPE_MAP_EX || !lua_isnumber(L, 2) || !lua_isnumber(L, 3)) {
+    auto control = ResolveLuaElement(*ref);
+    if (!control || control->type != ui::WindowElementType_MapEx || !lua_isnumber(L, 2) || !lua_isnumber(L, 3)) {
         lua_pushinteger(L, 0);
         return 1;
     }
 
     int mapX = static_cast<int>(lua_tointeger(L, 2));
     int mapY = static_cast<int>(lua_tointeger(L, 3));
-    int removed = static_cast<UIMapExControl*>(control)->RemovePoints(mapX, mapY);
+    int removed = control->data.mapEx->RemovePoints(mapX, mapY);
     lua_pushinteger(L, removed);
     return 1;
 }
 
 LuaFunctionEx(LuaControlRef, GetPoints) {
     auto ref = CheckControlRef(L, 1);
-    auto control = ResolveControl(*ref);
-    if (!control || control->type != UIControl::TYPE_MAP_EX) {
+    auto control = ResolveLuaElement(*ref);
+    if (!control || control->type != ui::WindowElementType_MapEx) {
         lua_newtable(L);
         return 1;
     }
 
-    const auto& points = static_cast<UIMapExControl*>(control)->GetPoints();
+    const auto& points = control->data.mapEx->GetPoints();
     lua_createtable(L, static_cast<int>(points.size()), 0);
     for (size_t i = 0; i < points.size(); ++i) {
         LuaPushMapPoint(L, points[i]);
@@ -1160,13 +1207,7 @@ LuaFunctionEx(LuaControlRef, Set) {
         lua_pushboolean(L, false);
         return 1;
     }
-    auto control = ResolveControl(*ref);
-    if (!control) {
-        auto* element = ResolveLuaElement(*ref);
-        if (!element) { lua_pushboolean(L, false); return 1; }
-        LuaApplyNativeElementTable(L, 2, *element);
-        lua_pushboolean(L, true); return 1;
-    }
+    auto control = ResolveLuaElement(*ref);
     if (!control) {
         lua_pushboolean(L, false);
         return 1;
@@ -1175,41 +1216,44 @@ LuaFunctionEx(LuaControlRef, Set) {
         control->name = LuaGetWideStringField(L, 2, "name", control->name);
     }
     if (LuaHasField(L, 2, "x")) {
-        control->element().x = static_cast<short>(LuaGetIntField(L, 2, "x", control->element().x));
+        control->x = LuaGetIntField(L, 2, "x", control->x);
     }
     if (LuaHasField(L, 2, "y")) {
-        control->element().y = static_cast<short>(LuaGetIntField(L, 2, "y", control->element().y));
+        control->y = LuaGetIntField(L, 2, "y", control->y);
     }
     if (LuaHasField(L, 2, "width")) {
-        control->element().width = static_cast<short>(LuaGetIntField(L, 2, "width", control->element().width));
+        control->width = LuaGetIntField(L, 2, "width", control->width);
     }
     if (LuaHasField(L, 2, "height")) {
-        control->element().height = static_cast<short>(LuaGetIntField(L, 2, "height", control->element().height));
+        control->height = LuaGetIntField(L, 2, "height", control->height);
     }
     if (LuaHasField(L, 2, "visible")) {
-        control->element().visible = LuaGetBoolField(L, 2, "visible", control->element().visible == 1) ? 1 : 0;
-        if (control->element().visible != 1) {
-            control->blurTextInput();
+        control->visible = LuaGetBoolField(L, 2, "visible", control->visible == 1) ? 1 : 0;
+        if (control->visible != 1) {
+            ui::WindowRuntime_BlurElement(*control);
+            if (control->type == ui::WindowElementType_Input && control->data.input
+                && !control->data.input->ownedInput && gCurrentInputData == control->data.input->context)
+                ui::detail::WindowChat_RestoreInput();
         }
     }
     if (LuaHasField(L, 2, "hitable")) {
         control->hitable = LuaGetBoolField(L, 2, "hitable", control->hitable);
         if (!control->hitable) {
-            control->blurTextInput();
+            ui::WindowRuntime_BlurElement(*control);
         }
     }
-    if (control->type == UIControl::TYPE_MAP_EX) {
-        LuaApplyMapControlFields(L, static_cast<UIMapExControl*>(control));
-    } else if (control->type == UIControl::TYPE_SCROLL_VIEW) {
-        auto view = static_cast<UIScrollViewControl*>(control);
+    if (control->type == ui::WindowElementType_MapEx) {
+        LuaApplyMapControlFields(L, control->data.mapEx);
+    } else if (control->type == ui::WindowElementType_ScrollView) {
+        auto view = control->data.scrollView;
         if (LuaHasField(L, 2, "contentHeight")) {
-            view->SetContentHeight(LuaGetIntField(L, 2, "contentHeight", view->contentHeight));
+            view->SetContentHeight(*control, LuaGetIntField(L, 2, "contentHeight", view->contentHeight));
         }
         if (LuaHasField(L, 2, "scrollY")) {
-            view->SetScrollY(LuaGetIntField(L, 2, "scrollY", view->scrollY));
+            view->SetScrollY(*control, LuaGetIntField(L, 2, "scrollY", view->scrollY));
         }
         if (LuaHasField(L, 2, "scrollStep")) {
-            view->SetScrollStep(LuaGetIntField(L, 2, "scrollStep", view->scrollStep));
+            view->SetScrollStep(*control, LuaGetIntField(L, 2, "scrollStep", view->scrollStep));
         }
         if (LuaHasField(L, 2, "barWidth")) {
             view->barWidth = LuaGetIntField(L, 2, "barWidth", view->barWidth);
@@ -1217,37 +1261,40 @@ LuaFunctionEx(LuaControlRef, Set) {
                 view->barWidth = 8;
             }
         }
-    } else if (control->type == UIControl::TYPE_CANVAS) {
+    } else if (control->type == ui::WindowElementType_Canvas) {
         if (LuaHasField(L, 2, "shapes")) {
-            static_cast<UICanvasControl*>(control)->SetShapes(LuaReadCanvasShapes(L, 2));
+            control->data.canvas->SetShapes(LuaReadCanvasShapes(L, 2));
         }
-    } else if (auto imageData = control->imageData()) {
-        int image = LuaGetIntField(L, 2, "image", LuaGetIntField(L, 2, "id", imageData->imageNo));
-        imageData->imageNo = image;
+    } else if (auto imageData = (control->type == ui::WindowElementType_Graphic && control->data.graphic ? control->data.graphic : nullptr)) {
+        if (LuaHasField(L, 2, "image")) {
+            imageData->imageNo = LuaGetIntField(L, 2, "image", imageData->imageNo);
+            imageData->imageNormal = imageData->imageNo;
+        } else if (!imageData->imageHover && !imageData->imagePress) imageData->imageNormal = imageData->imageNo;
         if (LuaHasField(L, 2, "imageHover")) {
             imageData->imageHover = LuaGetIntField(L, 2, "imageHover", imageData->imageHover);
         }
         if (LuaHasField(L, 2, "imagePress")) {
             imageData->imagePress = LuaGetIntField(L, 2, "imagePress", imageData->imagePress);
         }
+        if (!imageData->imageHover && !imageData->imagePress) imageData->imageNo = imageData->imageNormal;
         if (LuaHasField(L, 2, "color")) {
             imageData->color = LuaGetColorField(L, 2, "color", imageData->color);
         }
-    } else if (auto animeData = control->animeData()) {
+    } else if (auto animeData = (control->type == ui::WindowElementType_Animation && control->data.animation ? control->data.animation->options : nullptr)) {
         LuaReadNumberIntField(L, 2, "animeNo", animeData->animeNo);
         LuaReadNumberIntField(L, 2, "action", animeData->action);
         LuaReadNumberIntField(L, 2, "dir", animeData->dir);
         if (LuaHasField(L, 2, "revertPlay") || LuaHasField(L, 2, "revert")) {
             animeData->revertPlay = LuaGetIntField(L, 2, "revertPlay", LuaGetIntField(L, 2, "revert", animeData->revertPlay));
         }
-    } else if (auto pngImageData = control->pngImageData()) {
+    } else if (auto pngImageData = (control->type == ui::WindowElementType_PngImage && control->data.pngImage ? control->data.pngImage : nullptr)) {
         LuaSetPngImageState(L, 2, "image", "imageRect", pngImageData->image);
         LuaSetPngImageState(L, 2, "imageHover", "imageHoverRect", pngImageData->imageHover);
         LuaSetPngImageState(L, 2, "imagePress", "imagePressRect", pngImageData->imagePress);
         if (LuaHasField(L, 2, "color")) {
             pngImageData->color = LuaGetColorField(L, 2, "color", pngImageData->color);
         }
-    } else if (auto textData = control->textData()) {
+    } else if (auto textData = (control->type == ui::WindowElementType_Text && control->data.text ? control->data.text : nullptr)) {
         if (LuaHasField(L, 2, "text")) {
             textData->text = LuaGetWideStringField(L, 2, "text", textData->text);
         }
@@ -1257,14 +1304,14 @@ LuaFunctionEx(LuaControlRef, Set) {
         if (LuaHasField(L, 2, "color")) {
             textData->style.color = static_cast<std::byte>(LuaGetIntField(L, 2, "color", std::to_integer<uint8_t>(textData->style.color)) & 0xff);
         }
-    } else if (auto textInputData = control->textInputData()) {
+    } else if (auto textInputData = (control->type == ui::WindowElementType_Input && control->data.input ? control->data.input->ownedInput : nullptr)) {
         if (LuaHasField(L, 2, "maxLength")) {
             textInputData->maxLength = ClampTextInputMaxLength(LuaGetIntField(L, 2, "maxLength", textInputData->maxLength));
-            control->setTextInputText(textInputData->context.text);
+            ui::WindowInput_SetText(*control->data.input, textInputData->context.text);
         }
         if (LuaHasField(L, 2, "text")) {
             const auto value = LuaGetWideStringField(L, 2, "text", textInputData->context.text);
-            control->setTextInputText(value.c_str());
+            ui::WindowInput_SetText(*control->data.input, value);
         }
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType")) {
             textInputData->font = static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", textInputData->font))));
@@ -1272,6 +1319,14 @@ LuaFunctionEx(LuaControlRef, Set) {
         if (LuaHasField(L, 2, "color")) {
             textInputData->color = static_cast<uint8_t>(LuaGetIntField(L, 2, "color", textInputData->color) & 0xff);
         }
+    }
+    if (control->type == ui::WindowElementType_Input && control->data.input
+        && !control->data.input->ownedInput && control->data.input->context) {
+        auto& context = *control->data.input->context;
+        if (LuaHasField(L, 2, "text")) context.setText(LuaGetWideStringField(L, 2, "text", context.text));
+        if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType"))
+            context.field13C = render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", context.field13C)));
+        if (LuaHasField(L, 2, "color")) context.field140 = LuaGetIntField(L, 2, "color", context.field140) & 0xff;
     }
     LuaApplyElementExtras(L, 2, *control);
     lua_pushboolean(L, true);
@@ -1305,9 +1360,9 @@ LuaFunctionEx(LuaControlRef, Index) {
         lua_pushcfunction(L, LuaCFunction(LuaControlRef, GetPoints));
         return 1;
     }
-    if (!ResolveControl(*ref)) return LuaElementRead(L);
+    if (!ResolveLuaElement(*ref)) return LuaElementRead(L);
     if (!std::strcmp(key, "elementId")) { Push(L, ref->controlId); return 1; }
-    LuaPushControlField(L, ResolveControl(*ref), key);
+    LuaPushControlField(L, ResolveLuaElement(*ref), key);
     return 1;
 }
 
@@ -1468,7 +1523,7 @@ LuaFunctionEx(LuaWindowRef, AddImage) {
     int image = LuaGetIntField(L, 2, "image", LuaGetIntField(L, 2, "id", -1));
     int imageHover = LuaGetIntField(L, 2, "imageHover", image);
     int imagePress = LuaGetIntField(L, 2, "imagePress", image);
-    UIControl::ImageData data{image, imageHover, imagePress, LuaGetColorField(L, 2, "color", 0xffffffff)};
+    ui::WindowGraphicData data{image, 0, 0, 0, 0, LuaGetColorField(L, 2, "color", 0xffffffff), imageHover, imagePress, image};
     window->requestedElementId = LuaElementIdField(L, 2);
     auto control = window->AddImage(name.c_str(), LuaGetIntField(L, 2, "x", 0), LuaGetIntField(L, 2, "y", 0), LuaGetIntField(L, 2, "width", 0), LuaGetIntField(L, 2, "height", 0), LuaGetBoolField(L, 2, "visible", true) ? 1 : 0, data, LuaReadCallbacks(L, 2), parentId);
     if (!control) {
@@ -1477,7 +1532,7 @@ LuaFunctionEx(LuaWindowRef, AddImage) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->elementId)});
     return 1;
 }
 
@@ -1503,7 +1558,7 @@ LuaFunctionEx(LuaWindowRef, AddPngImage) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->elementId)});
     return 1;
 }
 
@@ -1528,7 +1583,7 @@ LuaFunctionEx(LuaWindowRef, AddCanvas) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", false);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->elementId)});
     return 1;
 }
 
@@ -1545,7 +1600,7 @@ LuaFunctionEx(LuaWindowRef, AddAnime) {
 
     auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, &*window);
-    UIControl::AnimeData data{
+    ui::WindowAnimationOptions data{
         -1,
         0,
         0,
@@ -1562,7 +1617,7 @@ LuaFunctionEx(LuaWindowRef, AddAnime) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->elementId)});
     return 1;
 }
 
@@ -1579,9 +1634,8 @@ LuaFunctionEx(LuaWindowRef, AddText) {
 
     auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, &*window);
-    UIControl::TextData data{
-        static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
-        static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
+    ui::WindowTextData data{
+        {static_cast<std::byte>(LuaGetIntField(L, 2, "color", 0) & 0xff), static_cast<std::byte>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))), {}, {}},
         LuaGetWideStringField(L, 2, "text")
     };
     window->requestedElementId = LuaElementIdField(L, 2);
@@ -1592,7 +1646,7 @@ LuaFunctionEx(LuaWindowRef, AddText) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", false);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->elementId)});
     return 1;
 }
 
@@ -1609,7 +1663,7 @@ LuaFunctionEx(LuaWindowRef, AddTextInput) {
 
     auto name = LuaGetWideStringField(L, 2, "name");
     int parentId = LuaReadParentId(L, 2, &*window);
-    UIControl::TextInputData data{
+    ui::WindowTextInputState data{
         static_cast<uint8_t>(LuaGetIntField(L, 2, "color", 0) & 0xff),
         static_cast<uint8_t>(render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", 0)))),
         ClampTextInputMaxLength(LuaGetIntField(L, 2, "maxLength", TEXT_INPUT_MAX_LENGTH)),
@@ -1623,7 +1677,7 @@ LuaFunctionEx(LuaWindowRef, AddTextInput) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->elementId)});
     return 1;
 }
 
@@ -1660,7 +1714,7 @@ LuaFunctionEx(LuaWindowRef, AddScrollView) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->elementId)});
     return 1;
 }
 
@@ -1697,7 +1751,7 @@ LuaFunctionEx(LuaWindowRef, AddMapEx) {
     }
     control->hitable = LuaGetBoolField(L, 2, "hitable", true);
     LuaApplyElementExtras(L, 2, *control);
-    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->id)});
+    PushControlRef(L, {window->window.id, static_cast<std::uint32_t>(control->elementId)});
     return 1;
 }
 
@@ -1783,28 +1837,28 @@ LuaFunctionEx(LuaWindowRef, NewIndex) {
     return Lua_LuaWindowRef_Set(L);
 }
 LuaFunctionEx(LuaControlRef, NewIndex) {
-    if (!ResolveControl(*CheckControlRef(L, 1))) return LuaElementWrite(L);
+    if (!ResolveLuaElement(*CheckControlRef(L, 1))) return luaL_error(L, "element is no longer valid");
     if (lua_type(L, 2) != LUA_TSTRING) return luaL_error(L, "property name must be a string");
     lua_newtable(L); lua_pushvalue(L, 2); lua_pushvalue(L, 3); lua_rawset(L, -3);
     // nil callback assignment is handled separately because tables cannot retain a nil key.
     if (lua_isnil(L, 3)) {
-        auto* control = ResolveControl(*CheckControlRef(L, 1));
+        auto* control = ResolveLuaElement(*CheckControlRef(L, 1));
         if (!control) return luaL_error(L, "element is no longer valid");
         const auto* key = lua_tostring(L, 2);
         int* ref = nullptr;
-        if (!std::strcmp(key, "onUpdate")) ref = &control->element().refUpdate;
-        else if (!std::strcmp(key, "onDraw")) ref = &control->element().refDraw;
-        else if (!std::strcmp(key, "onEvent")) ref = &control->element().refEvent;
-        else if (!std::strcmp(key, "onClick")) ref = &control->element().refClick;
-        else if (!std::strcmp(key, "onPress")) ref = &control->element().refPress;
-        else if (!std::strcmp(key, "onHover")) ref = &control->element().refHover;
-        else if (!std::strcmp(key, "onLeave")) ref = &control->element().refLeave;
-        else if (!std::strcmp(key, "onDrag")) ref = &control->element().refDrag;
-        else if (!std::strcmp(key, "onDrop")) ref = &control->element().refDrop;
-        else if (!std::strcmp(key, "onChange")) ref = &control->element().refChange;
-        else if (!std::strcmp(key, "onEnter")) ref = &control->element().refEnter;
+        if (!std::strcmp(key, "onUpdate")) ref = &control->refUpdate;
+        else if (!std::strcmp(key, "onDraw")) ref = &control->refDraw;
+        else if (!std::strcmp(key, "onEvent")) ref = &control->refEvent;
+        else if (!std::strcmp(key, "onClick")) ref = &control->refClick;
+        else if (!std::strcmp(key, "onPress")) ref = &control->refPress;
+        else if (!std::strcmp(key, "onHover")) ref = &control->refHover;
+        else if (!std::strcmp(key, "onLeave")) ref = &control->refLeave;
+        else if (!std::strcmp(key, "onDrag")) ref = &control->refDrag;
+        else if (!std::strcmp(key, "onDrop")) ref = &control->refDrop;
+        else if (!std::strcmp(key, "onChange")) ref = &control->refChange;
+        else if (!std::strcmp(key, "onEnter")) ref = &control->refEnter;
         if (!ref) return luaL_error(L, "nil is only allowed for callbacks");
-        if (*ref >= 0) EnsureLuaWindowBinding(L, *control->windowOwner);
+        if (*ref >= 0) EnsureLuaWindowBinding(L, *control->owner);
         LuaUnref(L, *ref); return 0;
     }
     lua_replace(L, 2); lua_settop(L, 2);

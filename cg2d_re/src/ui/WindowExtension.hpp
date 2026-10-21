@@ -14,6 +14,7 @@ struct WindowBinding {
     virtual void elementUpdate(WindowElement&) {}
     virtual void elementDraw(WindowElement&) {}
     virtual int elementEvent(WindowElement&, int, int) { return 0; }
+    virtual int elementText(WindowElement&, bool, std::wstring_view) { return 0; } // 文本变更/回车统一从窗口绑定进入脚本。
 };
 
 // 与旧原生窗口共用WindowInstance和帧调度，动态窗口由UI管理器拥有。

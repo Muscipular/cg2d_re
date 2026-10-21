@@ -106,22 +106,22 @@ static void MapExIncludeScreenPoint(int mapWidth, int screenX, int screenY, int&
     maxMapY = std::max(maxMapY, static_cast<int>(std::ceil(mapYd)) + 2);
 }
 
-void UIMapExControl::MapExTile::ReleaseTexture() {
+void WindowMapExData::MapExTile::ReleaseTexture() {
     if (texture) {
         RendererReleaseSurfaceTexture(texture);
         texture = nullptr;
     }
 }
 
-UIMapExControl::MapExTile::~MapExTile() {
+WindowMapExData::MapExTile::~MapExTile() {
     ReleaseTexture();
 }
 
-UIMapExControl::MapExTile::MapExTile(MapExTile&& other) noexcept {
+WindowMapExData::MapExTile::MapExTile(MapExTile&& other) noexcept {
     *this = std::move(other);
 }
 
-UIMapExControl::MapExTile& UIMapExControl::MapExTile::operator=(MapExTile&& other) noexcept {
+WindowMapExData::MapExTile& WindowMapExData::MapExTile::operator=(MapExTile&& other) noexcept {
     if (this == &other) {
         return *this;
     }
@@ -145,11 +145,8 @@ UIMapExControl::MapExTile& UIMapExControl::MapExTile::operator=(MapExTile&& othe
     return *this;
 }
 
-UIMapExControl::UIMapExControl(int winId, uint32_t generation, uint32_t id, std::wstring_view name, short x, short y, short w, short h, uint8_t visible, int mapX, int mapY, int mapId, int floor, WindowEventBinding callbacks)
-    : UIControl(winId, generation, id, TYPE_MAP_EX, name, x, y, w, h, visible, callbacks), mapX(mapX), mapY(mapY), mapId(mapId), floor(floor) {
-}
 
-int UIMapExControl::AddPoint(MapExPoint point) {
+int WindowMapExData::AddPoint(MapExPoint point) {
     point.type = std::clamp(point.type, 0, 3);
     point.size = std::clamp(point.size, 1, 16);
     if (point.colors.empty()) {
@@ -159,7 +156,7 @@ int UIMapExControl::AddPoint(MapExPoint point) {
     return static_cast<int>(points.size());
 }
 
-int UIMapExControl::RemovePoints(int pointX, int pointY) {
+int WindowMapExData::RemovePoints(int pointX, int pointY) {
     size_t oldSize = points.size();
     points.erase(std::remove_if(points.begin(), points.end(), [pointX, pointY](const MapExPoint& point) {
         return point.mapX == pointX && point.mapY == pointY;
@@ -167,11 +164,11 @@ int UIMapExControl::RemovePoints(int pointX, int pointY) {
     return static_cast<int>(oldSize - points.size());
 }
 
-const std::vector<UIMapExControl::MapExPoint>& UIMapExControl::GetPoints() const {
+const std::vector<WindowMapExData::MapExPoint>& WindowMapExData::GetPoints() const {
     return points;
 }
 
-void UIMapExControl::ResetMapCache(int effectiveMapId, int effectiveGroup, int effectiveFloor) {
+void WindowMapExData::ResetMapCache(int effectiveMapId, int effectiveGroup, int effectiveFloor) {
     diskMap = DiskMapCache{};
     visibleMap = VisibleMapCache{};
     mapTiles.clear();
@@ -186,7 +183,7 @@ void UIMapExControl::ResetMapCache(int effectiveMapId, int effectiveGroup, int e
     loadedFloor = effectiveFloor;
 }
 
-bool UIMapExControl::LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor) {
+bool WindowMapExData::LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor) {
     if (diskMap.loaded && diskMap.mapId == effectiveMapId && diskMap.group == effectiveGroup && diskMap.floor == effectiveFloor) {
         mapWidth = diskMap.width;
         mapHeight = diskMap.height;
@@ -256,7 +253,7 @@ bool UIMapExControl::LoadDiskMapIfNeeded(int effectiveMapId, int effectiveGroup,
     return true;
 }
 
-void UIMapExControl::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor) {
+void WindowMapExData::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGroup, int effectiveFloor) {
     short visibleW = world::gMapSpanX;
     short visibleH = world::gMapSpanY;
     if (visibleW <= 0 || visibleH <= 0) {
@@ -318,7 +315,7 @@ void UIMapExControl::SyncVisibleMapIfNeeded(int effectiveMapId, int effectiveGro
     MarkTilesDirtyForMapRect(playerX - MAP_EX_VISIBLE_RADIUS, playerY - MAP_EX_VISIBLE_RADIUS, playerX + MAP_EX_VISIBLE_RADIUS, playerY + MAP_EX_VISIBLE_RADIUS);
 }
 
-bool UIMapExControl::PrepareMap() {
+bool WindowMapExData::PrepareMap(const WindowElement& element) {
     int effectiveMapId = EffectiveMapExValue(mapId, world::gCurrentMapId_9A86DC);
     int effectiveGroup = world::gMapCachePathKey_9E0434;
     int effectiveFloor = EffectiveMapExValue(floor, world::gMapFloor);
@@ -326,7 +323,7 @@ bool UIMapExControl::PrepareMap() {
         ResetMapCache(effectiveMapId, effectiveGroup, effectiveFloor);
     }
 
-    if (element().width <= 0 || element().height <= 0 || !LoadDiskMapIfNeeded(effectiveMapId, effectiveGroup, effectiveFloor)) {
+    if (element.width <= 0 || element.height <= 0 || !LoadDiskMapIfNeeded(effectiveMapId, effectiveGroup, effectiveFloor)) {
         mapBufferW = 0;
         mapBufferH = 0;
         mapBufferMode = -1;
@@ -351,7 +348,7 @@ bool UIMapExControl::PrepareMap() {
     return mapWidth > 0 && mapHeight > 0 && mapBufferW > 0 && mapBufferH > 0;
 }
 
-void UIMapExControl::MarkTilesDirtyForMapRect(int left, int top, int right, int bottom) {
+void WindowMapExData::MarkTilesDirtyForMapRect(int left, int top, int right, int bottom) {
     if (mapWidth <= 0 || mapHeight <= 0 || mapBufferW <= 0 || mapBufferH <= 0 || mapTiles.empty()) {
         return;
     }
@@ -396,7 +393,7 @@ void UIMapExControl::MarkTilesDirtyForMapRect(int left, int top, int right, int 
     }
 }
 
-UIMapExControl::MapExTile& UIMapExControl::GetOrCreateTile(int tileX, int tileY) {
+WindowMapExData::MapExTile& WindowMapExData::GetOrCreateTile(int tileX, int tileY) {
     auto [it, inserted] = mapTiles.try_emplace(MakeMapExTileKey(tileX, tileY));
     auto& tile = it->second;
     if (inserted) {
@@ -412,7 +409,7 @@ UIMapExControl::MapExTile& UIMapExControl::GetOrCreateTile(int tileX, int tileY)
     return tile;
 }
 
-UIMapExControl::MapExTile* UIMapExControl::FindTile(int tileX, int tileY) {
+WindowMapExData::MapExTile* WindowMapExData::FindTile(int tileX, int tileY) {
     auto it = mapTiles.find(MakeMapExTileKey(tileX, tileY));
     if (it == mapTiles.end()) {
         return nullptr;
@@ -421,7 +418,7 @@ UIMapExControl::MapExTile* UIMapExControl::FindTile(int tileX, int tileY) {
     return &it->second;
 }
 
-void UIMapExControl::BuildOneVisibleTile(int startTileX, int endTileX, int startTileY, int endTileY) {
+void WindowMapExData::BuildOneVisibleTile(int startTileX, int endTileX, int startTileY, int endTileY) {
     int centerScreenX = 0;
     int centerScreenY = 0;
     MapExScreenFromMap(mapWidth, mapX, mapY, centerScreenX, centerScreenY);
@@ -464,7 +461,7 @@ void UIMapExControl::BuildOneVisibleTile(int startTileX, int endTileX, int start
     BuildMapTile(tile, bestTileX, bestTileY, mapBufferMode);
 }
 
-void UIMapExControl::BuildMapTile(MapExTile& tile, int tileX, int tileY, int mode) {
+void WindowMapExData::BuildMapTile(MapExTile& tile, int tileX, int tileY, int mode) {
     int tileLeft = tileX * MAP_EX_TILE_W;
     int tileTop = tileY * MAP_EX_TILE_H;
 
@@ -657,7 +654,7 @@ void UIMapExControl::BuildMapTile(MapExTile& tile, int tileX, int tileY, int mod
     tile.dirty = !UpdateTileTexture(tile);
 }
 
-bool UIMapExControl::UpdateTileTexture(MapExTile& tile) {
+bool WindowMapExData::UpdateTileTexture(MapExTile& tile) {
     if (tile.pixels.empty() || tile.w <= 0 || tile.h <= 0) {
         tile.ReleaseTexture();
         return false;
@@ -719,8 +716,8 @@ static void MapExAppendPointShape(std::vector<CanvasShape>& shapes, int type, fl
     shapes.push_back(std::move(shape));
 }
 
-void UIMapExControl::DrawPoints(int absX, int absY, int drawX, int drawY, const UIClipRect& controlClip) {
-    if (points.empty() || mapWidth <= 0 || element().width <= 0 || element().height <= 0) {
+void WindowMapExData::DrawPoints(const WindowElement& element, int absX, int absY, int drawX, int drawY, const UIClipRect& controlClip) {
+    if (points.empty() || mapWidth <= 0 || element.width <= 0 || element.height <= 0) {
         return;
     }
 
@@ -739,7 +736,7 @@ void UIMapExControl::DrawPoints(int absX, int absY, int drawX, int drawY, const 
         float pointSize = static_cast<float>(size);
         float localX = static_cast<float>(drawX + screenX - absX);
         float localY = static_cast<float>(drawY + screenY - absY);
-        if (localX + pointSize < 0.0f || localY + pointSize < 0.0f || localX - pointSize >= static_cast<float>(element().width) || localY - pointSize >= static_cast<float>(element().height)) {
+        if (localX + pointSize < 0.0f || localY + pointSize < 0.0f || localX - pointSize >= static_cast<float>(element.width) || localY - pointSize >= static_cast<float>(element.height)) {
             continue;
         }
 
@@ -751,11 +748,11 @@ void UIMapExControl::DrawPoints(int absX, int absY, int drawX, int drawY, const 
     }
 
     if (!shapes.empty()) {
-        RendererDrawCanvasClipped(absX, absY, element().width, element().height, LAYER_UI, shapes, &controlClip);
+        RendererDrawCanvasClipped(absX, absY, element.width, element.height, LAYER_UI, shapes, &controlClip);
     }
 }
 
-void UIMapExControl::TrimMapTileCache(int startTileX, int endTileX, int startTileY, int endTileY) {
+void WindowMapExData::TrimMapTileCache(int startTileX, int endTileX, int startTileY, int endTileY) {
     while (mapTiles.size() > MAP_EX_TILE_CACHE_MAX) {
         auto oldest = mapTiles.end();
         for (auto it = mapTiles.begin(); it != mapTiles.end(); ++it) {
@@ -775,44 +772,41 @@ void UIMapExControl::TrimMapTileCache(int startTileX, int endTileX, int startTil
     }
 }
 
-bool UIMapExControl::render(short ox, short oy) {
-    return render(ox, oy, nullptr);
-}
 
-bool UIMapExControl::render(short ox, short oy, const UIClipRect* clipRect) {
-    if (element().visible != 1) {
+bool WindowMapExData::Render(const WindowElement& element, int ox, int oy, const UIClipRect* clipRect) {
+    if (element.visible != 1) {
         return true;
     }
 
-    const int absX = ox + element().x;
-    const int absY = oy + element().y;
+    const int absX = ox + element.x;
+    const int absY = oy + element.y;
     UIClipRect controlRect{
         static_cast<short>(absX),
         static_cast<short>(absY),
-        static_cast<short>(absX + element().width),
-        static_cast<short>(absY + element().height)
+        static_cast<short>(absX + element.width),
+        static_cast<short>(absY + element.height)
     };
     UIClipRect controlClip{};
     if (!UIIntersectClipRect(controlClip, clipRect, controlRect)) {
         return true;
     }
 
-    if (!PrepareMap()) {
-        RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element().width, element().height, LAYER_UI, 0xff000000, &controlClip);
+    if (!PrepareMap(element)) {
+        RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
         return true;
     }
 
     int centerScreenX = 0;
     int centerScreenY = 0;
     MapExScreenFromMap(mapWidth, mapX, mapY, centerScreenX, centerScreenY);
-    int drawX = absX + element().width / 2 - centerScreenX;
-    int drawY = absY + element().height / 2 - centerScreenY;
+    int drawX = absX + element.width / 2 - centerScreenX;
+    int drawY = absY + element.height / 2 - centerScreenY;
     int srcLeft = std::max(0, static_cast<int>(controlClip.left) - drawX);
     int srcTop = std::max(0, static_cast<int>(controlClip.top) - drawY);
     int srcRight = std::min(mapBufferW, static_cast<int>(controlClip.right) - drawX);
     int srcBottom = std::min(mapBufferH, static_cast<int>(controlClip.bottom) - drawY);
     if (srcRight <= srcLeft || srcBottom <= srcTop) {
-        RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element().width, element().height, LAYER_UI, 0xff000000, &controlClip);
+        RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
         return true;
     }
 
@@ -821,7 +815,7 @@ bool UIMapExControl::render(short ox, short oy, const UIClipRect* clipRect) {
     int startTileY = srcTop / MAP_EX_TILE_H;
     int endTileY = (srcBottom - 1) / MAP_EX_TILE_H;
 
-    DrawPoints(absX, absY, drawX, drawY, controlClip);
+    DrawPoints(element, absX, absY, drawX, drawY, controlClip);
     if (tileBuildFrameCounter == 0) {
         BuildOneVisibleTile(startTileX, endTileX, startTileY, endTileY);
     }
@@ -836,22 +830,22 @@ bool UIMapExControl::render(short ox, short oy, const UIClipRect* clipRect) {
         }
     }
     TrimMapTileCache(startTileX, endTileX, startTileY, endTileY);
-    RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element().width, element().height, LAYER_UI, 0xff000000, &controlClip);
+    RendererDrawRectClipped(static_cast<int16_t>(absX), static_cast<int16_t>(absY), element.width, element.height, LAYER_UI, 0xff000000, &controlClip);
     return true;
 }
 
-std::pair<int, int> UIMapExControl::MapToScreen(int gridX, int gridY) const {
-    return {element().width / 2 + 2 * (gridX - mapX + gridY - mapY),
-        element().height / 2 + gridY - mapY - (gridX - mapX)};
+std::pair<int, int> WindowMapExData::MapToScreen(const WindowElement& element, int gridX, int gridY) const {
+    return {element.width / 2 + 2 * (gridX - mapX + gridY - mapY),
+        element.height / 2 + gridY - mapY - (gridX - mapX)};
 }
 
-std::pair<int, int> UIMapExControl::ScreenToMap(int screenX, int screenY) const {
-    const int dx = screenX - element().width / 2, dy = screenY - element().height / 2;
+std::pair<int, int> WindowMapExData::ScreenToMap(const WindowElement& element, int screenX, int screenY) const {
+    const int dx = screenX - element.width / 2, dy = screenY - element.height / 2;
     return {mapX + MapExDivRoundNearest(dx - 2 * dy, 4),
         mapY + MapExDivRoundNearest(dx + 2 * dy, 4)};
 }
 
-bool UIMapExControl::IsExplored(int gridX, int gridY) const {
+bool WindowMapExData::IsExplored(int gridX, int gridY) const {
     if (gridX < 0 || gridY < 0 || gridX >= mapWidth || gridY >= mapHeight) return false;
     const int localX = gridX - visibleMap.startX, localY = gridY - visibleMap.startY;
     if (visibleMap.loaded && std::abs(gridX - visibleMap.playerX) <= MAP_EX_VISIBLE_RADIUS
@@ -862,36 +856,29 @@ bool UIMapExControl::IsExplored(int gridX, int gridY) const {
     return diskMap.loaded && (diskMap.hitData[MapExIndex(diskMap.width, gridX, gridY)] & 0x4000) != 0;
 }
 
-void UIMapExControl::UpdateMouseMapPos(short ox, short oy, const UIClipRect* clipRect) {
-    if (element().visible != 1 || !hitable || element().width <= 0 || element().height <= 0) {
+void WindowMapExData::UpdateMouse(const WindowElement& element, int ox, int oy, const UIClipRect* clipRect, int events) {
+    if (element.visible != 1 || !element.hitable || element.width <= 0 || element.height <= 0) {
         lastMouseX = -1;
         lastMouseY = -1;
         return;
     }
 
-    const int absX = ox + element().x;
-    const int absY = oy + element().y;
-    if (!MouseIsInRect(absX, absY, element().width, element().height) || !UIPointInClipRect(gMouseX, gMouseY, clipRect)) {
+    const int absX = ox + element.x;
+    const int absY = oy + element.y;
+    if (!MouseIsInRect(absX, absY, element.width, element.height) || !UIPointInClipRect(gMouseX, gMouseY, clipRect)) {
         lastMouseX = -1;
         lastMouseY = -1;
         return;
     }
 
-    const auto position = ScreenToMap(gMouseX - absX, gMouseY - absY);
+    const auto position = ScreenToMap(element, gMouseX - absX, gMouseY - absY);
     lastMouseX = position.first;
     lastMouseY = position.second;
-    if (gMouseClickState & platform::LegacyMouseEdge_LDown) {
+    if (events & MouseFlag_LDownEvent) {
         lastClickX = lastMouseX;
         lastClickY = lastMouseY;
     }
 }
 
-bool UIMapExControl::process(int index, int hasFocused, int captured) {
-    return process(index, hasFocused, captured, nullptr, static_cast<short>(gCurrentWindow->x), static_cast<short>(gCurrentWindow->y));
-}
 
-bool UIMapExControl::process(int index, int hasFocused, int captured, const UIClipRect* clipRect, short ox, short oy) {
-    UpdateMouseMapPos(ox, oy, clipRect);
-    return UIControl::process(index, hasFocused, captured, clipRect, ox, oy);
-}
 } // namespace cg::ui

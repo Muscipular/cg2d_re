@@ -12,24 +12,15 @@
 
 namespace cg::ui {
 
-// 动态组件直接挂在sortedMap独占的稳定对象上；本入口不另外拥有元素或组件数组。
-struct WindowComponentStore {
-    WindowInstance& window;
-    int nextId = 1;
-    bool changed = false;
-    explicit WindowComponentStore(WindowInstance& value) : window(value) {}
-    ~WindowComponentStore();
-    UIControl* find(int id) const;
-    UIControl* add(std::unique_ptr<UIControl> component, int parentId);
-    void clear();
-    void publish();
-    int rootCount() const;
-};
-
-WindowComponentStore& WindowRuntime_Components(WindowInstance& window);
-std::vector<UIControl*> WindowRuntime_Children(WindowInstance& window, int parentId);
-void WindowRuntime_ResetComponents(WindowInstance& window);
-int WindowRuntime_ProcessComponents(WindowInstance& window, int hasFocused);
+// 元素身份、父子访问和资源清理共用原生存储。
+std::vector<WindowElementRef> WindowRuntime_Children(WindowInstance& window, ElementId parentId);
+void WindowRuntime_BlurElement(WindowElement& element);
+void WindowRuntime_ResetElement(WindowElement& element);
+void WindowRuntime_ResetElements(WindowInstance& window);
+int WindowRuntime_ProcessElements(WindowInstance& window);
+void WindowRuntime_DestroyPayload(WindowElementType type, WindowElementData& data);
+void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int oy, const UIClipRect* clip);
+int WindowRuntime_DispatchElementMouse(WindowInstance& window, ElementId id, int ox, int oy, const UIClipRect* clip);
 
 // LUP02：按帧捕获控件左键拖动，与原生物品拖放phase隔离。
 void WindowRuntime_BeginPointerDragFrame();

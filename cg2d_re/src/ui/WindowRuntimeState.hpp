@@ -43,6 +43,8 @@ struct UIMapExControl;
 struct UIScrollViewControl;
 struct WindowComponentStore;
 struct WindowBinding;
+struct WindowAnimationOptions;
+struct WindowTextInputState;
 // LUP01：Lua扩展属性由UI对象拥有，仅允许原始字符串和S32整数。
 using WindowPropertyMap = std::map<std::string, std::variant<std::string, std::int32_t>>;
 using ElementId = std::uint32_t;
@@ -85,11 +87,15 @@ struct WindowGraphicData {
     std::int32_t width; // 原成员偏移：+0x0C。
     std::int32_t height; // 原成员偏移：+0x10。
     std::uint32_t color; // 原成员偏移：+0x14。
+    std::int32_t imageHover = 0; // NEU01：可选悬停图，0沿用正常图。
+    std::int32_t imagePress = 0; // 可选按下图。
+    std::int32_t imageNormal = 0; // 图态配置的正常图；imageNo仍为当前绘制图。
 };
 
 // 原type5首槽是真实输入上下文引用；外层载荷拥有、上下文不拥有。
 struct WindowInputData {
     input::InputContext* context; // 原成员偏移：+0x00。
+    WindowTextInputState* ownedInput = nullptr; // NEU01：可选自有输入状态；原生上下文继续借用。
 };
 
 // 原type7的文本T*与四个字节；字符串借用，不随外层free。
@@ -105,6 +111,7 @@ struct WindowNumberData {
 struct WindowAnimationData {
     cg::yobi::YobiAction* action; // 原成员偏移：+0x00。
     std::uint32_t value04; // 原成员偏移：+0x04。
+    WindowAnimationOptions* options = nullptr; // NEU01：可选资源/动作配置，action为唯一动画资源。
 };
 
 // 文本实例与原型共用的4B样式；原472C35读颜色、472C3C读字体，不含指针。
@@ -178,6 +185,11 @@ struct WindowElement {
     ElementId elementId = 0; // LUR01：窗口内唯一身份，不随顺序改变。
     WindowInstance* owner = nullptr;
     ElementId relatedElementId = 0; // 滚动条关联滑块，替代element-1。
+    std::wstring name; // NEU01：元素名称，脚本属性与原生元素共用。
+    ElementId parentId = 0; // 所属滚动容器，0表示窗口根元素。
+    std::uint8_t mouseState = 0; // 0离开、1悬停、2按下；不复用原生state位。
+    bool hitable = true; // 元素是否参加鼠标命中。
+    bool detaching = false; // 失焦前即停止交互，尚未从活动表提取。
     bool removed = false; // 回调中立即失效，安全点回收。
     bool ownsPayload = true; // 非组件载荷的释放责任；自动战斗窗口借用成员数组时为false。
     std::uint64_t creationSerial = 0; // 游标按创建序号上限跳过遍历期间新增的元素。
@@ -1184,8 +1196,8 @@ static_assert(offsetof(WindowGraphicData, offsetY) == 8);
 static_assert(offsetof(WindowGraphicData, width) == 0x0C);
 static_assert(offsetof(WindowGraphicData, height) == 0x10);
 static_assert(offsetof(WindowGraphicData, color) == 0x14);
-static_assert(sizeof(WindowGraphicData) == 0x18);
-static_assert(sizeof(WindowInputData) == 8);
+static_assert(sizeof(WindowGraphicData) == 0x24);
+static_assert(sizeof(WindowInputData) == 16);
 static_assert(offsetof(WindowNumberData, color) == 8);
 static_assert(offsetof(WindowNumberData, style) == 9);
 static_assert(offsetof(WindowNumberData, flags) == 0x0A);
@@ -1193,7 +1205,7 @@ static_assert(offsetof(WindowNumberData, byte07) == 0x0B);
 static_assert(sizeof(WindowNumberData) == 16);
 static_assert(offsetof(WindowAnimationData, action) == 0);
 static_assert(offsetof(WindowAnimationData, value04) == 8);
-static_assert(sizeof(WindowAnimationData) == 16);
+static_assert(sizeof(WindowAnimationData) == 24);
 static_assert(offsetof(WindowMouseData, deltaX) == 4);
 static_assert(offsetof(WindowMouseData, deltaY) == 8);
 static_assert(sizeof(WindowMouseData) == 12);

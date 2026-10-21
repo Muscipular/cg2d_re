@@ -161,7 +161,7 @@ WindowTextPrototype gWindowText562C78 { // 原全局：0x00562C78。
 
 WindowGraphicData gWindowGraphicD678E0 {}; // 原全局：0x00D678E0。
 
-static_assert(sizeof(WindowGraphicData) == 0x18);
+static_assert(sizeof(WindowGraphicData) == 0x24);
 
 static_assert(offsetof(WindowGraphicData, height) == 0x10);
 

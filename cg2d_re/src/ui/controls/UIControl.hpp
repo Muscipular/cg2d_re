@@ -53,10 +53,8 @@ struct UIControl {
         MOUSE_PRESS = 2, //LeftDown
     };
     struct ImageData : WindowGraphicData {
-        int imageHover = 0;
-        int imagePress = 0;
         ImageData(int image = 0, int hover = 0, int press = 0, COLORREF tint = 0xffffffff)
-            : WindowGraphicData{image, 0, 0, 0, 0, tint}, imageHover(hover), imagePress(press) {}
+            : WindowGraphicData{image, 0, 0, 0, 0, tint, hover, press, image} {}
     };
     struct AnimeData {
         int animeNo;

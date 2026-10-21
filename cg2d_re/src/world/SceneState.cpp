@@ -508,8 +508,8 @@ static constexpr std::array<std::uint16_t, 256> kMapCrcTable55DBAC { // 原常�
 // 原 0x55BAE0 的可写八字节区，正文六字节、NUL 后保留零填充。
 static constexpr wchar_t gText55BAE0[] = L"登出中";
 
-// 原 0x55DF10：保留可写数据身份，不以运行期三角函数重算原表。
-static std::array<std::uint64_t, 360> gAngleTableBits55DF10 {
+// 原 0x55DF10：可写 F64 字面值表，供 LookupSineDegrees_46F930 查表；不重算三角函数。
+static std::array<double, 360> gAngleTable55DF10 {
 #include "SceneAngleTable55DF10.inc"
 };
 
@@ -536,7 +536,7 @@ static std::array<double, 65> gAngleTable55EA50 { // 原全局：0x0055EA50；�
 
 static_assert(kMapBitReverse55DAAC[1] == 0x80u);
 static_assert(kMapCrcTable55DBAC[1] == 0x1021u);
-static_assert(sizeof(gAngleTableBits55DF10) == 2880);
+static_assert(sizeof(gAngleTable55DF10) == 2880);
 static_assert(sizeof(gAngleTable55EA50) == 520);
 static_assert(sizeof(gDirectionDeltas55D9DC) == 32);
 
@@ -10535,13 +10535,12 @@ void __cdecl NormalizeAngleDegrees_46F8F0(float* const value)
     }
 }
 
-// 原 [0x46F930,0x46F94E)：F32 归一化、向零截断索引，原表 F64 位型返回。
+// 原 [0x46F930,0x46F94E)：F32 归一化、向零截断索引，直接返回原表 F64 值。
 double __cdecl LookupSineDegrees_46F930(float angle)
 {
     NormalizeAngleDegrees_46F8F0(&angle);
     const std::int32_t index = static_cast<std::int32_t>(angle);
-    return std::bit_cast<double>(
-        gAngleTableBits55DF10[static_cast<std::size_t>(index)]);
+    return gAngleTable55DF10[static_cast<std::size_t>(index)];
 }
 
 // 原 [0x46F950,0x46F967)：先将 +90 的结果写为 F32，再透传表读取结果。

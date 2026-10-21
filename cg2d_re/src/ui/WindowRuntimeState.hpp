@@ -213,6 +213,24 @@ public:
     void notifyUpdate();
     void beginTraversal() { ++traversalDepth; }
     void endTraversal() { --traversalDepth; }
+    // 按当前(seqNo, elementId)顺序从0查找，跳过逻辑删除项；负数或越界返回nullptr。
+    // O(n)返回借用指针；index是排序位置，增删或notifyUpdate后位置可能改变，不是nativeSlot。
+    WindowElement* elementAtIndex(std::int32_t index) noexcept {
+        if (index < 0) return nullptr;
+        for (auto& entry : values) {
+            if (entry.second.removed) continue;
+            if (index-- == 0) return &entry.second;
+        }
+        return nullptr;
+    }
+    const WindowElement* elementAtIndex(std::int32_t index) const noexcept {
+        if (index < 0) return nullptr;
+        for (const auto& entry : values) {
+            if (entry.second.removed) continue;
+            if (index-- == 0) return &entry.second;
+        }
+        return nullptr;
+    }
     // 单次ID查询；不存在或已逻辑删除时返回nullptr，不插入元素。
     WindowElement* FindElementById(ElementId id) noexcept {
         const auto it = byId.find(id);

@@ -26,13 +26,13 @@
 
 **用户确认的命名优先级（2026-10-21）**：优先采用已核实处理函数的业务名称，去掉TECH_等固定前缀并统一单词分隔；保留可直接检索的函数词干，不另译游戏显示名作为首选。data名称写入中文注释。共享处理函数时，追加已证的异常、元素或范围子类型；子类型尚未确定则保留编号及原因，不合并ID、不猜译名称。函数名与实际实现冲突时，以实现证据为准。
 
-**Parameter重名规则（用户补充）**：使用 `Parameter_$name`，其中 `$name` 取已确认的data技能名称，不另猜英文翻译。本表两项分别为 `Parameter_诸刃` 和 `Parameter_乾坤一掷`；该后缀用于区分同一处理函数下的技能ID，不表示新增业务子类型。覆盖上述Parameter重复项暂保留编号的决定，其他未确认项策略保持。
+**标识符与Parameter重名规则（用户最新补充）**：宏名及枚举标识符只使用ASCII英文、数字和下划线，中文技能名仅保留在注释及说明。Parameter重复项仍使用 `Parameter_$name`，两项命名为 `Parameter_DoubleEdgedBlade`（诸刃）和 `Parameter_AllOrNothing`（乾坤一掷）；英文后缀是本项目选择的技能名称译名，不宣称来自服务器标识符或官方英文名，不据此推导额外效果。该规则替代此前的中文后缀候选。
 
 | ID | data名称／类别 | tech处理函数 | 候选后缀 |
 | --- | --- | --- | --- |
 | 0 | 连击 | TECH_ContinuationAttack | ContinuationAttack |
-| 1 | 诸刃 | TECH_Parameter，TR／DR／MR参数 | Parameter_诸刃 |
-| 3 | 乾坤一掷 | TECH_Parameter，HR／DD参数 | Parameter_乾坤一掷 |
+| 1 | 诸刃 | TECH_Parameter，TR／DR／MR参数 | Parameter_DoubleEdgedBlade |
+| 3 | 乾坤一掷 | TECH_Parameter，HR／DD参数 | Parameter_AllOrNothing |
 | 4 | 气功弹 | TECH_SpiracleShot | SpiracleShot |
 | 5 | 崩击 | TECH_GuardBreak／GuardBreakEx | GuardBreak |
 | 6 | 战栗袭心 | TECH_Forcecut | Forcecut |
@@ -57,7 +57,12 @@
 | 67 | 洁净魔法 | TECH_StatusRecover | StatusRecover |
 | 68 | 气绝回复 | TECH_Revive | Revive |
 | 73／74 | 攻击／防御 | TECH_NormalAttack／NormalGuard | NormalAttack／NormalGuard |
-| 75～80 | 六类异常状态攻击 | TECH_StatusAttack | StatusAttack加固定异常子类型，例如StatusAttackConfusion=79 |
+| 75 | 毒性攻击 | TECH_StatusAttack | StatusAttackPoison |
+| 76 | 昏睡攻击 | TECH_StatusAttack | StatusAttackSleep |
+| 77 | 石化攻击 | TECH_StatusAttack | StatusAttackStone |
+| 78 | 酒醉攻击 | TECH_StatusAttack | StatusAttackInebriety |
+| 79 | 混乱攻击 | TECH_StatusAttack | StatusAttackConfusion |
+| 80 | 遗忘攻击 | TECH_StatusAttack | StatusAttackForget |
 | 94 | 混乱攻击 | TECH_PanicAttack | PanicAttack，见下一节 |
 | 95 | 乱射 | TECH_RandomShot | RandomShot |
 | 96 | 暗杀 | TECH_Assassin | Assassin |
@@ -71,6 +76,25 @@
 | 104 | 浩室舞 | TECH_AglDown | AglDown |
 
 99～104还由服务器include/battle.h的BATTLE_PARAMETER_SKILL_*和客户端状态类型生产共同佐证。114在本data缺失，但服务器RCVUP宏与客户端独立技能114路径可佐证回复能力上升，来源等级与表内技能不同。
+
+### StatusAttack异常类型依据
+
+服务器battle_event.c的BATTLE_StatusAttackCheck（16411～16558行）按所属技能号75～80依次向BATTLE_checkStatusChange传入默认type=0～5；后者（16156行起）分别读取Poison、Sleep、Stone、Drunk、Confusion、Amnesia，并写入对应Mod状态。候选后缀中的Inebriety／Forget沿用客户端已有异常术语，对应服务器Drunk／Amnesia。
+
+| 分派技能号 | 默认异常 | 服务器默认type | 候选后缀 |
+| --- | --- | --- | --- |
+| 75 | 中毒 | 0 | StatusAttackPoison |
+| 76 | 昏睡 | 1 | StatusAttackSleep |
+| 77 | 石化 | 2 | StatusAttackStone |
+| 78 | 酒醉 | 3 | StatusAttackInebriety |
+| 79 | 混乱 | 4 | StatusAttackConfusion |
+| 80 | 遗忘 | 5 | StatusAttackForget |
+| 259（所属技能1003，技术25900～25909） | 中毒 | 0 | StatusAttackPoisonStrike |
+
+- GBK读取的tech.txt中，上述75～80及1003的TECH_StatusAttack记录均没有MD:覆盖；所属技能9909的技术7589显式MD:0，按技术号换算仍为75，复用StatusAttackPoison，不另造编号。
+- 1003在服务器PUK2_SKILL条件下处理暴击／武器相关成功率后落入case75的中毒路径；因此259与75虽默认同为中毒，也保留独立编号。PoisonStrike取自“毒击”的英文命名，不把259当成另一种异常。未启用该条件时，不能将此默认分支视为已启用。
+- 类型是默认业务语义，不是不可配置的限制：SK:及套装可改选所属技能，MD:及套装可覆盖异常；MD:255会随机选择0～5。这些语义不因常量命名改变。
+- 此处服务器异常type为0～5，客户端普通减益类型为1～6，技能号又是独立编号域；三者不能直接互换或共用宏值。
 
 ## 4. 79与94的同名区别
 
@@ -90,7 +114,7 @@
 | --- | --- | --- | --- |
 | 1001 戒骄戒躁 | 25700 | TECH_DelayAttack | 257 |
 | 1002 一击必中 | 25800 | TECH_DelayAttack | 258 |
-| 1003 毒击 | 25900 | TECH_StatusAttack | 259 |
+| 1003 毒击 | 25900 | TECH_StatusAttack（默认中毒） | 259，StatusAttackPoisonStrike |
 | 1004 一石二鸟 | 26000 | TECH_Wattack | 260 |
 | 1005 骑士之誉 | 26100 | TECH_FullBodyGuard | 261 |
 | 1006 迅速果断 | 26200 | TECH_FirstAttack | 262 |
@@ -108,7 +132,7 @@
 | 263 人宠合击MND | 40630 | TECH_RiderBreak | 406 |
 | 2008 挑衅 | 10500 | TECH_Taunt | 105，与data技能105飞燕乱舞不是同一个概念 |
 | 107 洞察的附加技术“狮子吼” | 11201 | TECH_UltimateAttack | 112 |
-| 9909 G咒术技能 | 7589 | TECH_StatusAttack，MD:0 | 75 |
+| 9909 G咒术技能 | 7589 | TECH_StatusAttack，MD:0中毒 | 75，StatusAttackPoison |
 
 例如DelayAttack对应257／258、Wattack对应260、Taunt对应105、MonWind对应400；不能分别使用data所属技能号1001／1002、1004、2008、257作为这些分派常量的值。共享处理函数仍按前述命名规则处理，不因取值规则而合并不同编号。
 

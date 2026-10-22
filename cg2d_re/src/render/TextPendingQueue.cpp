@@ -98,7 +98,8 @@ std::int32_t DrawText2_456670(
     const std::int8_t fontType,
     const std::int8_t color,
     const std::wstring_view text,
-    const std::int8_t value7)
+    const std::int8_t value7,
+    const std::array<std::int32_t, 4>* const clipRectangle)
 {
     const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
     const std::int32_t initialCount =
@@ -116,6 +117,8 @@ std::int32_t DrawText2_456670(
     entry.fontType = static_cast<std::uint8_t>(ResolveFontId(fontType));
     entry.value7 = std::bit_cast<std::uint8_t>(value7);
     entry.marker = 0xF9;
+    entry.clipRectangle.reset(); // 队列槽跨帧复用，不继承上一条文字的裁剪。
+    if (clipRectangle) entry.clipRectangle = *clipRectangle;
 
     entry.text = text; // UTL02：记录持有完整UTF-16正文。
     const std::size_t queueIndex =
@@ -173,6 +176,7 @@ std::int32_t DrawText_456780(
     entry.fontType = static_cast<std::uint8_t>(ResolveFontId(fontType));
     entry.value7 = std::bit_cast<std::uint8_t>(value7);
     entry.marker = std::bit_cast<std::uint8_t>(marker);
+    entry.clipRectangle.reset();
 
     entry.text = text; // UTL02：记录持有完整UTF-16正文。
     const std::size_t queueIndex = static_cast<std::size_t>(renderMode);

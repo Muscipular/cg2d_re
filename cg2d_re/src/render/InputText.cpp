@@ -53,6 +53,7 @@ void DrawInputText_4568A0(input::InputContext* const context)
         entry.color = static_cast<std::uint8_t>(context->field140);
         entry.fontType = static_cast<std::uint8_t>(ResolveFontId(context->field13C));
         entry.value7 = 0;
+        entry.clipRectangle.reset(); // 单行输入直接复用队列槽，不沿用UI文本框裁剪。
         const std::size_t visibleStart = input::ContextUtf16Offset(*context, context->field158);
         const std::wstring_view visible(contents.data() + visibleStart, contents.size() - visibleStart);
         if (context->encrypt >= 1) {

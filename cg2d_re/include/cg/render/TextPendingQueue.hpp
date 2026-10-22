@@ -5,6 +5,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <string_view>
 
@@ -28,6 +29,7 @@ struct TextPendingRecord {
     std::wstring text; // 原+0x09的255B文本域；UTL02动态UTF-16，不保留旧字节容量。
     std::int32_t field108; // 原成员偏移：+0x108。
     std::uint32_t nextToken; // 原成员偏移：+0x10C。
+    std::optional<std::array<std::int32_t, 4>> clipRectangle; // LEL01：按值保存屏幕裁剪left/top/right/bottom。
 };
 
 // 原 fontLayer@0x558F50 的六项四字节记录；本目标只读取低字节 layer。
@@ -81,7 +83,8 @@ std::int32_t DrawText2_456670(
     std::int8_t fontType,
     std::int8_t color,
     std::wstring_view text,
-    std::int8_t value7);
+    std::int8_t value7,
+    const std::array<std::int32_t, 4>* clipRectangle = nullptr); // 可选纹理裁剪，入队时复制。
 
 // Renderer::DrawText@[0x456780,0x456891)。
 std::int32_t DrawText_456780(

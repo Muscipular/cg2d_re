@@ -1,5 +1,6 @@
 #include "../WindowComponents.hpp"
 #include <algorithm>
+#include <array>
 #include <bit>
 #include <limits>
 namespace cg::ui {
@@ -13,7 +14,7 @@ void WindowElement_DrawText(const WindowElement& element, int x, int y, const UI
         const int spacing = element.width - render::TextMeasure(data.text, font);
         textX += data.align == WindowTextAlign::Center ? spacing / 2 : spacing;
     }
-    auto drawX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textX));
+    const auto drawX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textX));
     const auto drawY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(box ? y : y - element.height));
     int left = clip ? clip->left : std::numeric_limits<int>::min();
     int right = clip ? clip->right : std::numeric_limits<int>::max();
@@ -26,31 +27,10 @@ void WindowElement_DrawText(const WindowElement& element, int x, int y, const UI
     if (box && element.height > 0) {
         top = std::max(top, y); bottom = std::min(bottom, y + element.height);
     }
-    std::wstring clippedText;
-    std::wstring_view value = data.text;
-    if (clip || (box && (element.width > 0 || element.height > 0))) {
-        if (left >= right || top >= bottom) return;
-        const auto& metrics = render::GetFontMetrics(font);
-        int fontHeight = metrics.fontHeight > 0 ? metrics.fontHeight : metrics.sHeight;
-        if (fontHeight <= 0) fontHeight = 16;
-        if (drawY < top || drawY + fontHeight > bottom) return;
-        int currentX = drawX;
-        for (std::size_t offset = 0; offset < value.size();) {
-            const auto next = text::Next(value, offset);
-            const auto glyph = value.substr(offset, next - offset);
-            int width = render::TextMeasure(glyph, font);
-            if (width <= 0) width = metrics.sWidth * (value[offset] < 0x80 ? 1 : 2);
-            if (currentX >= left && currentX + width <= right) {
-                if (clippedText.empty()) drawX = static_cast<std::int16_t>(currentX);
-                clippedText.append(glyph);
-            }
-            currentX += width;
-            offset = next;
-        }
-        if (clippedText.empty()) return;
-        value = clippedText;
-    }
-    // 只裁去不完整的字形，仍用原生文本入口；不引入自动换行或颜色转义规则。
-    render::DrawText2_456670(drawX, drawY, 3, font, color, value, 0);
+    const bool clipping = clip || (box && (element.width > 0 || element.height > 0));
+    if (clipping && (left >= right || top >= bottom)) return;
+    const std::array<std::int32_t, 4> bounds {left, top, right, bottom};
+    // 队列复制裁剪区域，最终绘制字形及阴影纹理时裁剪，不再丢整字或整行。
+    render::DrawText2_456670(drawX, drawY, 3, font, color, data.text, 0, clipping ? &bounds : nullptr);
 }
 }

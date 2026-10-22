@@ -13,6 +13,7 @@
 #include <yaml-cpp/yaml.h>
 
 #include <array>
+#include <algorithm>
 #include <bit>
 #include <cstring>
 #include <filesystem>
@@ -416,30 +417,55 @@ void RenderTextToSurface_456D70(const std::uint32_t headToken)
     for (const TextPendingRecord* record = FindTextPendingRecord(headToken);
          record != nullptr; record = FindTextPendingRecord(record->nextToken)) {
         std::int32_t x = record->x;
+        const std::uint32_t color = kTextColors[record->color & 0x7FU];
+        const bool shadow = (record->color & 0x80U) == 0 && record->color != 127;
         std::map<TextureSurface*, std::vector<GlyphDraw>> batches;
         for (std::size_t offset = 0; offset < record->text.size();) {
             const std::size_t next = cg::text::Next(record->text, offset);
-            const auto* glyph = gFontGlyphCache->FindOrCreate(
-                std::wstring_view(record->text).substr(offset, next - offset), record->fontType);
+            const auto character = std::wstring_view(record->text).substr(offset, next - offset);
             offset = next;
+            if (record->clipRectangle) {
+                const auto& clip = *record->clipRectangle;
+                const SIZE size = MeasureGlyphSize(character, record->fontType);
+                const int shadowOffset = shadow ? 1 : 0;
+                // 先用完整字形（含阴影）范围剔除，边界相交才查询/生成纹理并精确裁剪。
+                if (x + size.cx + shadowOffset <= clip[0] || x >= clip[2]
+                    || record->y + size.cy + shadowOffset <= clip[1] || record->y >= clip[3]) {
+                    x += size.cx;
+                    continue;
+                }
+            }
+            const auto* glyph = gFontGlyphCache->FindOrCreate(character, record->fontType);
             if (glyph == nullptr) { continue; }
             batches[glyph->surface].push_back({glyph, x});
             x += glyph->source[2] - glyph->source[0];
         }
-        const std::uint32_t color = kTextColors[record->color & 0x7FU];
-        const bool shadow = (record->color & 0x80U) == 0 && record->color != 127;
         for (const auto& [surface, draws] : batches) {
             for (const GlyphDraw& draw : draws) {
                 const TextureRectangle& source = draw.glyph->source;
                 const std::int32_t width = source[2] - source[0];
                 const std::int32_t height = source[3] - source[1];
-                if (shadow) {
-                    const TextureRectangle destination {draw.x + 1, record->y + 1,
-                        draw.x + width + 1, record->y + height + 1};
-                    static_cast<void>(RenderImageTexture(surface, source, destination, 0, 0x9F000000U));
-                }
-                const TextureRectangle destination {draw.x, record->y, draw.x + width, record->y + height};
-                static_cast<void>(RenderImageTexture(surface, source, destination, 0, color));
+                const auto drawTexture = [&](const int offset, const std::uint32_t tint) {
+                    auto clippedSource = source;
+                    TextureRectangle destination {draw.x + offset, record->y + offset,
+                        draw.x + width + offset, record->y + height + offset};
+                    if (record->clipRectangle) {
+                        const auto& clip = *record->clipRectangle;
+                        const TextureRectangle visible {
+                            std::max(destination[0], clip[0]), std::max(destination[1], clip[1]),
+                            std::min(destination[2], clip[2]), std::min(destination[3], clip[3])};
+                        if (visible[0] >= visible[2] || visible[1] >= visible[3]) return;
+                        // 字形按1:1绘制；源图集矩形与目标同步收缩，保留边界内的部分像素。
+                        clippedSource[0] += visible[0] - destination[0];
+                        clippedSource[1] += visible[1] - destination[1];
+                        clippedSource[2] -= destination[2] - visible[2];
+                        clippedSource[3] -= destination[3] - visible[3];
+                        destination = visible;
+                    }
+                    static_cast<void>(RenderImageTexture(surface, clippedSource, destination, 0, tint));
+                };
+                if (shadow) drawTexture(1, 0x9F000000U);
+                drawTexture(0, color);
             }
         }
     }

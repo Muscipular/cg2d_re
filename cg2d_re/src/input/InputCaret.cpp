@@ -17,10 +17,10 @@ static inline constexpr wchar_t kCaretText[] = L"|";
 static void DrawBasicCaret()
 {
     input::InputContext* const context = input::gCurrentInputData;
-    const std::int32_t color = context->field140;
-    const std::int32_t fontType = render::ResolveFontId(context->field13C);
+    const std::int32_t color = context->color;
+    const std::int32_t fontType = render::ResolveFontId(context->fontType);
     const std::int8_t renderMode = static_cast<std::int8_t>(
-        static_cast<std::uint8_t>(context->field138) + 1U);
+        static_cast<std::uint8_t>(context->renderMode) + 1U);
     const std::int32_t y = context->y;
     const std::int32_t x = context->x;
     const std::int32_t halfCaretWidth =
@@ -41,10 +41,10 @@ static void DrawImeCaret()
 {
     input::InputContext* const preMeasureContext =
         input::gCurrentInputData;
-    const std::int32_t color = preMeasureContext->field140;
-    const std::int32_t fontType = render::ResolveFontId(preMeasureContext->field13C);
+    const std::int32_t color = preMeasureContext->color;
+    const std::int32_t fontType = render::ResolveFontId(preMeasureContext->fontType);
     const std::int8_t renderMode = static_cast<std::int8_t>(
-        static_cast<std::uint8_t>(preMeasureContext->field138) + 1U);
+        static_cast<std::uint8_t>(preMeasureContext->renderMode) + 1U);
     const std::int32_t y = preMeasureContext->y;
     const std::int32_t cursorPosition =
         platform::gImeCompositionCursorPosition;
@@ -57,7 +57,7 @@ static void DrawImeCaret()
     input::InputContext* const postMeasureContext =
         input::gCurrentInputData;
     const std::int32_t postMeasureFontType =
-        postMeasureContext->field13C;
+        postMeasureContext->fontType;
     const std::int32_t postMeasureX = postMeasureContext->x;
     const std::int32_t halfCaretWidth =
         render::GetFontMetrics(postMeasureFontType).sWidth

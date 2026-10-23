@@ -4364,15 +4364,15 @@ std::uint8_t WindowInput_ActivateElement(
     }
     case 2: {
         const std::int32_t inputX = prototype->x + x;
-        prototype->input.context->field130 = inputX;
+        prototype->input.context->textX = inputX;
         const std::int32_t inputY = prototype->y + y;
-        prototype->input.context->field134 = inputY;
+        prototype->input.context->textY = inputY;
         return 1;
     }
     case 3: {
         const std::int32_t fontType = prototype->fontType;
         const std::int32_t renderMode = prototype->renderMode;
-        const std::int32_t color = context->field140;
+        const std::int32_t color = context->color;
         const std::int32_t inputY = prototype->y + y;
         const std::int32_t inputX = prototype->x + x;
         input::SetInputPositionAndStyle_45D760(context, inputX, inputY, color, renderMode, fontType);

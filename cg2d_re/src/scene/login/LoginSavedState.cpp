@@ -770,7 +770,7 @@ std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected)
     if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     const volatile std::int32_t& color =
-        cg::ui::detail::gInputContext626AA0.field140;
+        cg::ui::detail::gInputContext626AA0.color;
     const volatile std::int32_t& first = cg::platform::gValue55463C;
     const volatile std::int32_t& second = cg::platform::gChatRange_554640;
     const volatile std::int32_t& third = cg::platform::gChatNotificationSoundEnabled_554644;
@@ -792,7 +792,7 @@ std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected)
     auto& current = gCurrentSavedRecord;
     const std::int32_t color = current.display30A[0 + selected];
     const std::int32_t first = current.display30A[2 + selected];
-    cg::ui::detail::gInputContext626AA0.field140 = color;
+    cg::ui::detail::gInputContext626AA0.color = color;
     cg::platform::gValue55463C = first;
     const std::int32_t second = current.display30A[4 + selected];
     const std::int32_t third = current.display30A[6 + selected];

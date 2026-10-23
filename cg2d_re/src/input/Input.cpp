@@ -39,17 +39,17 @@ InputContext::InputContext() noexcept
       y(ownFields_.y),
       caretByteOffset(ownFields_.caretByteOffset),
       totalByteLength(ownFields_.totalByteLength),
-      field130(ownFields_.field130),
-      field134(ownFields_.field134),
-      field138(ownFields_.field138),
-      field13C(ownFields_.field13C),
-      field140(ownFields_.field140),
+      textX(ownFields_.textX),
+      textY(ownFields_.textY),
+      renderMode(ownFields_.renderMode),
+      fontType(ownFields_.fontType),
+      color(ownFields_.color),
       maxLine(ownFields_.maxLine),
       maxCharPerLine(ownFields_.maxCharPerLine),
-      field14C(ownFields_.field14C),
+      lineHeight(ownFields_.lineHeight),
       encrypt(ownFields_.encrypt),
-      field154(ownFields_.field154),
-      field158(ownFields_.field158) {}
+      visibleWidth(ownFields_.visibleWidth),
+      visibleStartOffset(ownFields_.visibleStartOffset) {}
 InputContext::InputContext(const InputContext& other) : InputContext() { *this = other; }
 InputContext& InputContext::operator=(const InputContext& other)
 {
@@ -61,18 +61,18 @@ InputContext& InputContext::operator=(const InputContext& other)
     const std::size_t caret = ContextUtf16Offset(other, other.caretByteOffset);
     caretByteOffset = static_cast<std::int32_t>(caret);
     totalByteLength = static_cast<std::int32_t>(contents.size());
-    field130 = other.field130;
-    field134 = other.field134;
-    field13C = other.field13C;
-    field140 = other.field140;
+    textX = other.textX;
+    textY = other.textY;
+    fontType = other.fontType;
+    color = other.color;
     maxLine = other.maxLine;
     maxCharPerLine = other.maxCharPerLine;
-    field14C = other.field14C;
+    lineHeight = other.lineHeight;
     encrypt = other.encrypt;
-    field154 = other.field154;
-    const std::size_t visible = ContextUtf16Offset(other, other.field158);
-    field158 = static_cast<std::int32_t>(visible);
-    field138 = other.field138;
+    visibleWidth = other.visibleWidth;
+    const std::size_t visible = ContextUtf16Offset(other, other.visibleStartOffset);
+    visibleStartOffset = static_cast<std::int32_t>(visible);
+    renderMode = other.renderMode;
     return *this;
 }
 bool InputContext::empty() const noexcept
@@ -118,13 +118,13 @@ public:
     explicit EditText(InputContext& value)
         : context(value), contents(ContextText(value)),
           caret(ContextUtf16Offset(value, value.caretByteOffset)),
-          visible(ContextUtf16Offset(value, value.field158)) {}
+          visible(ContextUtf16Offset(value, value.visibleStartOffset)) {}
     bool commit()
     {
         context.setText(contents);
         context.totalByteLength = static_cast<std::int32_t>(contents.size());
         context.caretByteOffset = static_cast<std::int32_t>(text::Prefix(contents, caret));
-        context.field158 = static_cast<std::int32_t>(text::Prefix(contents, visible));
+        context.visibleStartOffset = static_cast<std::int32_t>(text::Prefix(contents, visible));
         return true;
     }
     InputContext& context;
@@ -147,13 +147,13 @@ std::size_t ContextUtf16Offset(const InputContext& context, const std::int32_t u
 void SetVisibleUtf16Offset(InputContext& context, const std::size_t utf16Offset)
 {
     const std::wstring utf16 = ContextText(context);
-    context.field158 = static_cast<std::int32_t>(text::Prefix(utf16, utf16Offset));
+    context.visibleStartOffset = static_cast<std::int32_t>(text::Prefix(utf16, utf16Offset));
 }
 
 std::vector<TextLine> SplitLines(const InputContext& context)
 {
     const std::wstring contents = ContextText(context);
-    const std::int32_t widthLimit = context.maxCharPerLine * render::GetFontMetrics(context.field13C).sWidth;
+    const std::int32_t widthLimit = context.maxCharPerLine * render::GetFontMetrics(context.fontType).sWidth;
     std::vector<TextLine> lines;
     std::size_t start = 0;
     do {
@@ -161,7 +161,7 @@ std::vector<TextLine> SplitLines(const InputContext& context)
         while (end < contents.size() && contents[end] != '\r') {
             const std::size_t next = text::Next(contents, end);
             if (widthLimit > 0 && end > start
-                && render::Font::measure(contents.c_str() + start, context.field13C, static_cast<std::int32_t>(next - start)) > widthLimit) {
+                && render::Font::measure(contents.c_str() + start, context.fontType, static_cast<std::int32_t>(next - start)) > widthLimit) {
                 break;
             }
             end = next;
@@ -196,13 +196,13 @@ void MoveCaretLine(const std::int32_t direction)
     if (destination < 0 || destination >= static_cast<std::ptrdiff_t>(lines.size())) {
         return;
     }
-    const std::int32_t columnWidth = render::Font::measure(edit.contents.c_str() + lines[row].start, context->field13C,
+    const std::int32_t columnWidth = render::Font::measure(edit.contents.c_str() + lines[row].start, context->fontType,
         static_cast<std::int32_t>(edit.caret - lines[row].start));
     const TextLine& line = lines[static_cast<std::size_t>(destination)];
     edit.caret = line.start;
     while (edit.caret < line.end) {
         const std::size_t next = text::Next(edit.contents, edit.caret);
-        if (render::Font::measure(edit.contents.c_str() + line.start, context->field13C, static_cast<std::int32_t>(next - line.start)) > columnWidth) {
+        if (render::Font::measure(edit.contents.c_str() + line.start, context->fontType, static_cast<std::int32_t>(next - line.start)) > columnWidth) {
             break;
         }
         edit.caret = next;
@@ -263,12 +263,12 @@ InputContext* ConfigureInputLayoutAndResetScroll_45D720(
     [[maybe_unused]] const std::int32_t unused,
     const std::int32_t color, const std::int32_t renderMode)
 {
-    context->field154 = 0;
-    context->field158 = 0;
-    context->field134 = y;
-    context->field130 = x;
-    context->field138 = renderMode;
-    context->field140 = color;
+    context->visibleWidth = 0;
+    context->visibleStartOffset = 0;
+    context->textY = y;
+    context->textX = x;
+    context->renderMode = renderMode;
+    context->color = color;
     return context;
 }
 
@@ -279,11 +279,11 @@ InputContext* SetInputPositionAndStyle_45D760(
     const std::int32_t color, const std::int32_t renderMode,
     const std::int32_t fontType)
 {
-    context->field130 = x;
-    context->field134 = y;
-    context->field140 = color;
-    context->field138 = renderMode;
-    context->field13C = fontType;
+    context->textX = x;
+    context->textY = y;
+    context->color = color;
+    context->renderMode = renderMode;
+    context->fontType = fontType;
     return context;
 }
 
@@ -922,31 +922,31 @@ std::int32_t ExtractDialogTextLine(
 // 原0x00449CF0：初始正文直接使用UTF-16。
 void InitializeContext_449CF0(
     InputContext* const context,
-    const std::int32_t field130,
-    const std::int32_t field134,
+    const std::int32_t textX,
+    const std::int32_t textY,
     const std::int32_t renderMode,
     const std::int32_t fontType,
     const std::int32_t color,
     const std::wstring_view initialText,
     const std::int32_t maxLine,
     const std::int32_t maxCharPerLine,
-    const std::int32_t field14C,
+    const std::int32_t lineHeight,
     const std::int32_t encrypt)
 {
-    context->field130 = field130;
-    context->field138 = renderMode;
-    context->field140 = color;
-    context->field134 = field134;
+    context->textX = textX;
+    context->renderMode = renderMode;
+    context->color = color;
+    context->textY = textY;
     context->maxCharPerLine = maxCharPerLine;
-    context->field13C = fontType;
+    context->fontType = fontType;
     context->encrypt = encrypt;
     context->maxLine = maxLine;
-    context->field14C = field14C;
+    context->lineHeight = lineHeight;
     context->clearText();
     context->totalByteLength = 0;
     context->caretByteOffset = 0;
-    context->field154 = 0;
-    context->field158 = 0;
+    context->visibleWidth = 0;
+    context->visibleStartOffset = 0;
 
     if (!initialText.empty()) {
         InputContext* const savedContext = gCurrentInputData;
@@ -1061,7 +1061,7 @@ void HandleInputEnterKey_44AB60()
                 std::bit_cast<std::int32_t>(history.tail626838)));
             context = gCurrentInputData;
         }
-        const std::int32_t color = cg::ui::detail::gInputContext626AA0.field140;
+        const std::int32_t color = cg::ui::detail::gInputContext626AA0.color;
         world::detail::gCursor62683C = -1;
         static_cast<void>(world::SendPlayerChatInput_50C940(context, color));
         gCurrentInputData->totalByteLength = 0;

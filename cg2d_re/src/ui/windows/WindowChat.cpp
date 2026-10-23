@@ -174,23 +174,23 @@ static void WindowInput_ScrollAndDraw(input::InputContext* const context, const 
 {
     const std::wstring contents = input::ContextText(*context);
     const std::size_t caret = input::ContextUtf16Offset(*context, context->caretByteOffset);
-    std::size_t offset = input::ContextUtf16Offset(*context, context->field158);
-    context->field154 = width;
+    std::size_t offset = input::ContextUtf16Offset(*context, context->visibleStartOffset);
+    context->visibleWidth = width;
     if (caret < offset) { offset = caret; }
     else {
-        while (offset < caret && render::Font::measure(contents.c_str() + offset, context->field13C,
-            static_cast<std::int32_t>(caret - offset)) > context->field154) { offset = cg::text::Next(contents, offset); }
+        while (offset < caret && render::Font::measure(contents.c_str() + offset, context->fontType,
+            static_cast<std::int32_t>(caret - offset)) > context->visibleWidth) { offset = cg::text::Next(contents, offset); }
     }
     input::SetVisibleUtf16Offset(*context, offset);
     render::DrawInputText_4568A0(context);
 }
 
 // 原5FB7F4是最后一条输入上下文的尾槽，不是日志511的font。
-// CLD01：索引0借第24项输入field158，保原前项字体别名；见doc/cg2d_chat_log_line_drawing_spec.md。
+// CLD01：索引0借第24项输入visibleStartOffset（原+0x158），保原前项字体别名；见doc/cg2d_chat_log_line_drawing_spec.md。
 static std::int32_t& WindowChat_PreviousFont(const std::int32_t index)
 {
     if (index == 0) {
-        return cg::ui::detail::gInputContexts5F9758[23].field158;
+        return cg::ui::detail::gInputContexts5F9758[23].visibleStartOffset;
     }
     return world::gRecords5FB7F8[index - 1].fontType;
 }
@@ -203,7 +203,7 @@ std::int32_t WindowChat_ResetState()
     world::gChatRecordCount_C9A944 = 0;
     gChatWidthRequestC9A934 = 0;
     gChatHeightRequestC9A93C = 0;
-    cg::ui::detail::gInputContext626AA0.field140 = 0;
+    cg::ui::detail::gInputContext626AA0.color = 0;
     return 0;
 }
 
@@ -425,7 +425,7 @@ static void WindowChat_RefreshGeometry()
     const std::int32_t button7X = gWindowElements570CB0[7].x;
     if (auto* const handleButtons_8Element = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::HandleButtons_8) : nullptr, * const element176 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element17) : nullptr; handleButtons_8Element && element176) handleButtons_8Element->x = element176->x + button7X;
     window = currentWindow;
-    const std::int32_t color = cg::ui::detail::gInputContext626AA0.field140;
+    const std::int32_t color = cg::ui::detail::gInputContext626AA0.color;
     if (auto* const handleButtons_8Element2 = window ? window->FindElementById(WindowChatElementId::HandleButtons_8) : nullptr; handleButtons_8Element2) handleButtons_8Element2->data.graphic->imageNo = color + 245192;
 }
 
@@ -607,30 +607,30 @@ static std::int32_t WindowChat_HandleButtons(const ElementId elementId, const st
         }
         std::int32_t color;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t next = cg::ui::detail::gInputContext626AA0.field140 + 1;
-            cg::ui::detail::gInputContext626AA0.field140 = next;
+            const std::int32_t next = cg::ui::detail::gInputContext626AA0.color + 1;
+            cg::ui::detail::gInputContext626AA0.color = next;
             if (next == 4) {
-                cg::ui::detail::gInputContext626AA0.field140 = 5;
+                cg::ui::detail::gInputContext626AA0.color = 5;
             } else if (next > 9) {
-                cg::ui::detail::gInputContext626AA0.field140 = 0;
+                cg::ui::detail::gInputContext626AA0.color = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            color = cg::ui::detail::gInputContext626AA0.field140;
-            world::gInputContext626840.field140 = color;
+            color = cg::ui::detail::gInputContext626AA0.color;
+            world::gInputContext626840.color = color;
             consumed = 1;
         } else {
-            color = cg::ui::detail::gInputContext626AA0.field140;
+            color = cg::ui::detail::gInputContext626AA0.color;
         }
         if ((state & MouseFlag_RDownEvent) != 0) {
             --color;
-            cg::ui::detail::gInputContext626AA0.field140 = color;
+            cg::ui::detail::gInputContext626AA0.color = color;
             if (color == 4) {
-                cg::ui::detail::gInputContext626AA0.field140 = 3;
+                cg::ui::detail::gInputContext626AA0.color = 3;
             } else if (color < 0) {
-                cg::ui::detail::gInputContext626AA0.field140 = 9;
+                cg::ui::detail::gInputContext626AA0.color = 9;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            world::gInputContext626840.field140 = cg::ui::detail::gInputContext626AA0.field140;
+            world::gInputContext626840.color = cg::ui::detail::gInputContext626AA0.color;
             consumed = 1;
         }
         break;
@@ -895,7 +895,7 @@ static std::int32_t WindowChat_RefreshCompactHeight()
 // 原函数：0x004A7590。
 void WindowChat_DrawInput(input::InputContext* const context)
 {
-    const std::int32_t font = input::gCurrentInputData->field13C;
+    const std::int32_t font = input::gCurrentInputData->fontType;
     static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
     const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t widthUnits = gChatWidthUnitsC9A930;
@@ -907,7 +907,7 @@ void WindowChat_DrawInput(input::InputContext* const context)
 // 原函数：0x004A7640。
 void WindowChat_DrawFixedWidthInput(input::InputContext* const context)
 {
-    const std::int32_t font = input::gCurrentInputData->field13C;
+    const std::int32_t font = input::gCurrentInputData->fontType;
     static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
     WindowInput_ScrollAndDraw(context, 1024);
 }

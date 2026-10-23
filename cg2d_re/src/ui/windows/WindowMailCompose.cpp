@@ -114,7 +114,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         gMailInputPrototype57E740.maxCharPerLine = 28;
         cg::ui::detail::gInputContextD66CA8.maxLine = 10;
         gMailInputPrototype57E740.maxLine = 10;
-        cg::ui::detail::gInputContextD66CA8.field14C = 12;
+        cg::ui::detail::gInputContextD66CA8.lineHeight = 12;
         gMailInputPrototype57E740.value224 = 12;
         cg::ui::detail::gInputContextD66CA8.encrypt = 0;
         gMailInputPrototype57E740.encrypt = 0;

@@ -27,7 +27,7 @@ static void SetInputContextText(InputContext& context, std::wstring_view value, 
     const auto length = GbkPrefixLength(bytes, ClampTextInputMaxLength(maxLength));
     context.setText(length == bytes.size() ? std::wstring(value) : text::FromGbkWide(std::string_view(bytes).substr(0, length)));
     context.caretByteOffset = context.totalByteLength;
-    context.field158 = 0;
+    context.visibleStartOffset = 0;
 }
 static bool RemoveInputContextLineBreaks(InputContext& context)
 {
@@ -36,7 +36,7 @@ static bool RemoveInputContextLineBreaks(InputContext& context)
     if (context.text.size() == oldSize) return false;
     context.totalByteLength = static_cast<int>(context.text.size());
     context.caretByteOffset = context.totalByteLength;
-    context.field158 = 0;
+    context.visibleStartOffset = 0;
     return true;
 }
 static bool ClampInputContextText(InputContext& context, int maxLength)
@@ -48,17 +48,17 @@ static bool ClampInputContextText(InputContext& context, int maxLength)
     if (changed) context.text = text::FromGbkWide(std::string_view(bytes).substr(0, length));
     context.totalByteLength = static_cast<int>(context.text.size());
     context.caretByteOffset = static_cast<int>(text::Prefix(context.text, std::min<std::size_t>(context.text.size(), std::max(0, context.caretByteOffset))));
-    context.field158 = static_cast<int>(text::Prefix(context.text, std::min(context.field158, context.caretByteOffset)));
+    context.visibleStartOffset = static_cast<int>(text::Prefix(context.text, std::min(context.visibleStartOffset, context.caretByteOffset)));
     return changed;
 }
 static void UpdateTextInputLineStart(InputContext& context, int maxLength)
 {
     ClampInputContextText(context, maxLength);
-    if (context.field154 <= 0) { context.field158 = 0; return; }
-    while (context.field158 < context.caretByteOffset) {
-        const std::wstring_view visible(context.text.data() + context.field158, context.caretByteOffset - context.field158);
-        if (render::TextMeasure(visible, context.field13C) <= context.field154) break;
-        context.field158 = static_cast<int>(text::Next(context.text, context.field158));
+    if (context.visibleWidth <= 0) { context.visibleStartOffset = 0; return; }
+    while (context.visibleStartOffset < context.caretByteOffset) {
+        const std::wstring_view visible(context.text.data() + context.visibleStartOffset, context.caretByteOffset - context.visibleStartOffset);
+        if (render::TextMeasure(visible, context.fontType) <= context.visibleWidth) break;
+        context.visibleStartOffset = static_cast<int>(text::Next(context.text, context.visibleStartOffset));
     }
 }
 void WindowElement_ForgetInputRestore(const WindowElement& element) {
@@ -133,17 +133,17 @@ void WindowElement_PrepareInput(WindowElement& element, int ox, int oy, const UI
     if (element.visible != 1 || !element.hitable || (clip && (x < clip->left || y < clip->top
         || x + element.width > clip->right || y + element.height > clip->bottom))) WindowElement_BlurInput(element);
     // 原生DrawInputText从field130/134取正文原点，再写x/y供光标与IME使用。
-    data->context.field130 = x + 3;
-    data->context.field134 = y + 2;
-    data->context.x = data->context.field130;
-    data->context.y = data->context.field134;
-    data->context.field138 = FONT_LAYER_WINDOW;
-    data->context.field13C = data->font;
-    data->context.field140 = data->color;
+    data->context.textX = x + 3;
+    data->context.textY = y + 2;
+    data->context.x = data->context.textX;
+    data->context.y = data->context.textY;
+    data->context.renderMode = FONT_LAYER_WINDOW;
+    data->context.fontType = data->font;
+    data->context.color = data->color;
     ApplyTextInputLimit(data->context, data->maxLength);
-    data->context.field14C = element.height;
+    data->context.lineHeight = element.height;
     data->context.encrypt = 0;
-    data->context.field154 = element.width > 6 ? element.width - 6 : 0;
+    data->context.visibleWidth = element.width > 6 ? element.width - 6 : 0;
     UpdateTextInputLineStart(data->context, data->maxLength);
 }
 } // namespace cg::ui

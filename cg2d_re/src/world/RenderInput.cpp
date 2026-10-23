@@ -81,7 +81,7 @@ static void DrawCandidateEntry(
 {
     const std::int32_t oldUnits = units; // UTL01：本地累计值现在是实际像素，非旧GBK字节列。
     input::InputContext* const context = input::gCurrentInputData;
-    const std::int32_t fontType = render::ResolveFontId(context->field13C);
+    const std::int32_t fontType = render::ResolveFontId(context->fontType);
     const std::int32_t height = render::GetFontMetrics(fontType).doubleHeight;
     const std::wstring number = std::to_wstring(std::bit_cast<std::int32_t>(pageIndex + 1U));
     const std::int32_t numberWidth = cg::render::TextMeasure(number, fontType);
@@ -183,10 +183,10 @@ void RenderInput_4590E0()
         || context == nullptr) {
         return;
     }
-    const std::int32_t renderMode = context->field138;
+    const std::int32_t renderMode = context->renderMode;
     const std::uint8_t baseLayer = renderMode == 0 ? 0xD2U : 0xE0U;
-    const std::uint8_t compositionModeByte = static_cast<std::uint8_t>(context->field138);
-    const std::int32_t compositionFontType = render::ResolveFontId(context->field13C);
+    const std::uint8_t compositionModeByte = static_cast<std::uint8_t>(context->renderMode);
+    const std::int32_t compositionFontType = render::ResolveFontId(context->fontType);
     const std::int8_t compositionMode = std::bit_cast<std::int8_t>(
         static_cast<std::uint8_t>(compositionModeByte + 1U));
     const std::int32_t compositionY = context->y;
@@ -197,11 +197,11 @@ void RenderInput_4590E0()
 
     input::InputContext* const measureContext = input::gCurrentInputData;
     const std::int32_t compositionWidth = cg::render::TextMeasure(
-        platform::gImeComposition, measureContext->field13C);
+        platform::gImeComposition, measureContext->fontType);
     input::InputContext* const boxContext = input::gCurrentInputData;
     const std::int32_t boxY = boxContext->y;
     const std::int32_t boxX = boxContext->x;
-    const std::int32_t boxFontType = boxContext->field13C;
+    const std::int32_t boxFontType = boxContext->fontType;
     const std::int32_t boxHeight = render::GetFontMetrics(boxFontType).doubleHeight;
     cg::render::DrawGraphicHover(
         static_cast<std::uint16_t>(boxX - 1), static_cast<std::uint16_t>(boxY - 1),
@@ -223,7 +223,7 @@ void RenderInput_4590E0()
             }
         }
         compositionOffset = text::Next(composition, compositionOffset);
-        scannedWidth = render::Font::measure(platform::gImeComposition, input::gCurrentInputData->field13C,
+        scannedWidth = render::Font::measure(platform::gImeComposition, input::gCurrentInputData->fontType,
             static_cast<std::int32_t>(compositionOffset));
     }
 
@@ -231,7 +231,7 @@ void RenderInput_4590E0()
         input::InputContext* const highlightContext = input::gCurrentInputData;
         const std::int32_t highlightY = highlightContext->y;
         const std::int32_t highlightX = highlightContext->x;
-        const std::int32_t highlightFontType = highlightContext->field13C;
+        const std::int32_t highlightFontType = highlightContext->fontType;
         const std::int32_t highlightHeight = render::GetFontMetrics(highlightFontType).doubleHeight;
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>((highlightX + targetStart) - 1),

@@ -14,17 +14,17 @@ struct InputFields {
     std::int32_t y; // 原成员偏移：+0x124。
     std::int32_t caretByteOffset; // 原成员偏移：+0x128。
     std::int32_t totalByteLength; // 原成员偏移：+0x12C。
-    std::int32_t field130; // 原成员偏移：+0x130。
-    std::int32_t field134; // 原成员偏移：+0x134。
-    std::int32_t field138; // 32位渲染模式；原成员偏移：+0x138，绘制边界取低8位。
-    std::int32_t field13C; // 原成员偏移：+0x13C。
-    std::int32_t field140; // 原成员偏移：+0x140。
+    std::int32_t textX; // 正文绘制起点X，像素；原成员偏移：+0x130。
+    std::int32_t textY; // 正文绘制起点Y，像素；原成员偏移：+0x134。
+    std::int32_t renderMode; // 32位渲染模式；原成员偏移：+0x138，绘制边界取低8位。
+    std::int32_t fontType; // 输入正文及光标使用的字体编号；原成员偏移：+0x13C。
+    std::int32_t color; // 输入正文及光标使用的颜色索引；原成员偏移：+0x140。
     std::int32_t maxLine; // 原成员偏移：+0x144。
     std::int32_t maxCharPerLine; // 原成员偏移：+0x148。
-    std::int32_t field14C; // 原成员偏移：+0x14C。
+    std::int32_t lineHeight; // 多行正文相邻行的Y步进，像素；原成员偏移：+0x14C。
     std::int32_t encrypt; // 原成员偏移：+0x150。
-    std::int32_t field154; // 原成员偏移：+0x154。
-    std::int32_t field158; // 原成员偏移：+0x158。
+    std::int32_t visibleWidth; // 单行正文可视宽度，像素；0表示绘制时不裁短；原成员偏移：+0x154。
+    std::int32_t visibleStartOffset; // 单行正文可见起点，UTF-16码元偏移；原成员偏移：+0x158。
 };
 // 现场输入只持有动态UTF-16；GBK转换留在协议／存档提交边界。
 class InputContext {
@@ -46,17 +46,17 @@ public:
     std::int32_t& y; // 原成员偏移：+0x124。
     std::int32_t& caretByteOffset; // 原+0x128；当前为UTF-16码元偏移。
     std::int32_t& totalByteLength; // 原+0x12C；长度单位与当前输入存储一致。
-    std::int32_t& field130; // 原成员偏移：+0x130。
-    std::int32_t& field134; // 原成员偏移：+0x134。
-    std::int32_t& field138; // 32位渲染模式；原成员偏移：+0x138，引用自身数值存储。
-    std::int32_t& field13C; // 原成员偏移：+0x13C。
-    std::int32_t& field140; // 原成员偏移：+0x140。
+    std::int32_t& textX; // 正文绘制起点X，像素；区别于光标坐标x；原成员偏移：+0x130。
+    std::int32_t& textY; // 正文绘制起点Y，像素；区别于光标坐标y；原成员偏移：+0x134。
+    std::int32_t& renderMode; // 32位渲染模式；原成员偏移：+0x138，引用自身数值存储。
+    std::int32_t& fontType; // 输入正文及光标使用的字体编号；原成员偏移：+0x13C。
+    std::int32_t& color; // 输入正文及光标使用的颜色索引；原成员偏移：+0x140。
     std::int32_t& maxLine; // 原成员偏移：+0x144。
     std::int32_t& maxCharPerLine; // 原成员偏移：+0x148。
-    std::int32_t& field14C; // 原成员偏移：+0x14C。
+    std::int32_t& lineHeight; // 多行正文相邻行的Y步进，像素；原成员偏移：+0x14C。
     std::int32_t& encrypt; // 原成员偏移：+0x150。
-    std::int32_t& field154; // 原成员偏移：+0x154。
-    std::int32_t& field158; // 原+0x158；可见起点，UTF-16码元偏移。
+    std::int32_t& visibleWidth; // 单行正文可视宽度，像素；0表示绘制时不裁短；原成员偏移：+0x154。
+    std::int32_t& visibleStartOffset; // 原+0x158；单行可见起点，UTF-16码元偏移；聊天日志借用见WindowChat_PreviousFont。
 };
 
 // UTL02：行范围使用UTF-16码元偏移，end不含CR，nextStart包含分行字符。
@@ -128,15 +128,15 @@ std::int32_t ProcessPresetHotkeys_44B340();
 // 原 sub_449CF0@[0x449CF0,0x449D92)。
 void InitializeContext_449CF0(
     InputContext* context,
-    std::int32_t field130,
-    std::int32_t field134,
+    std::int32_t textX,
+    std::int32_t textY,
     std::int32_t renderMode,
     std::int32_t fontType,
     std::int32_t color,
     std::wstring_view initialText,
     std::int32_t maxLine,
     std::int32_t maxCharPerLine,
-    std::int32_t field14C,
+    std::int32_t lineHeight,
     std::int32_t encrypt);
 
 // 原45D720：清154/158，按Y/X/render/color写入；第四参数不消费。

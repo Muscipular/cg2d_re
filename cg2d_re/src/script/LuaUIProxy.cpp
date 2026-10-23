@@ -128,10 +128,10 @@ bool LuaPushElementProperty(lua_State* L, ui::WindowElement& element, const char
         const auto& context = *element.data.input->context;
         if (!std::strcmp(key, "text")) { Push(L, context.text); return true; }
         if (!std::strcmp(key, "font") || !std::strcmp(key, "fontType")) {
-            Push(L, element.data.input->ownedInput ? element.data.input->ownedInput->font : context.field13C); return true;
+            Push(L, element.data.input->ownedInput ? element.data.input->ownedInput->font : context.fontType); return true;
         }
         if (!std::strcmp(key, "color")) {
-            Push(L, element.data.input->ownedInput ? element.data.input->ownedInput->color : context.field140); return true;
+            Push(L, element.data.input->ownedInput ? element.data.input->ownedInput->color : context.color); return true;
         }
     }
     return PushProperty(L, element.properties, key);

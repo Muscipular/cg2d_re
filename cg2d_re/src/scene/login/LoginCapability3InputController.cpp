@@ -66,14 +66,14 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
 
     if (mode < 2) {
         const std::int32_t measureFontType =
-            input::gCurrentInputData->field13C;
+            input::gCurrentInputData->fontType;
         const std::int32_t compositionWidth = cg::render::TextMeasure(
             platform::gImeComposition,
             measureFontType);
         input::InputContext* const drawContext = input::gCurrentInputData;
         const std::int32_t drawY = drawContext->y;
         const std::int32_t drawX = drawContext->x;
-        const std::int32_t drawFontType = drawContext->field13C;
+        const std::int32_t drawFontType = drawContext->fontType;
         const std::int32_t compositionRight = drawX + compositionWidth;
         const std::int32_t compositionBottom = drawY
             + render::GetFontMetrics(drawFontType).doubleHeight;

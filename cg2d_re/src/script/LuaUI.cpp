@@ -1326,8 +1326,8 @@ LuaFunctionEx(LuaControlRef, Set) {
         auto& context = *control->data.input->context;
         if (LuaHasField(L, 2, "text")) context.setText(LuaGetWideStringField(L, 2, "text", context.text));
         if (LuaHasField(L, 2, "font") || LuaHasField(L, 2, "fontType"))
-            context.field13C = render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", context.field13C)));
-        if (LuaHasField(L, 2, "color")) context.field140 = LuaGetIntField(L, 2, "color", context.field140) & 0xff;
+            context.fontType = render::ResolveFontId(LuaGetIntField(L, 2, "font", LuaGetIntField(L, 2, "fontType", context.fontType)));
+        if (LuaHasField(L, 2, "color")) context.color = LuaGetIntField(L, 2, "color", context.color) & 0xff;
     }
     LuaApplyElementExtras(L, 2, *control);
     lua_pushboolean(L, true);

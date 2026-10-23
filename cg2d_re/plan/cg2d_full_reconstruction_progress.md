@@ -5162,3 +5162,8 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 按用户要求，以当前初始化、正文/光标绘制、滚动、Lua控件及聊天日志消费者为依据，将8项占位字段统一命名：field130→textX、field134→textY、field138→renderMode、field13C→fontType、field140→color、field14C→lineHeight、field154→visibleWidth、field158→visibleStartOffset。
 - InputFields存储、InputContext引用、构造/复制、初始化形参及所有消费者同步；正文起点区别于既有光标x/y，行高和可视宽度明确像素单位，可见起点明确UTF-16码元单位，保留原偏移注释。WindowChat_PreviousFont继续借第24项输入尾字段，注明原+0x158；无字段类型、顺序、存储关系或业务逻辑调整。
 - 14份源码/头逐行与提交前内容比较，仅允许上述名称替换及头文件/聊天别名说明注释变化；旧字段标识检索清零，UTF-8严格解码及Git差异检查通过。按子目录规则仅追加本进度，不刷新历史JSON/函数表或旧合同；精确提交本项文件，保留既有未跟踪文件。未编译、执行测试或运行客户端，不宣称运行验收通过。
+
+## 606. 自动战斗简化窗口类别设为5（2026-10-24）
+
+- 用户确认将WIN_AUTOBATTLE_SIMPLE的category改为5；在MakeAutoBattleSimple创建实例后、发布窗口前显式赋值，完整自动战斗面板仍沿原初始化。
+- 静态核对创建路径及差异，源码仅增加该赋值；精确提交源码与本进度，保留既有未跟踪文件。未编译、测试或运行客户端。

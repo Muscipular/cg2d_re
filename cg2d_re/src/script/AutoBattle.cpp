@@ -584,6 +584,7 @@ static void MakeAutoBattleSimple() {
     if (simpleMode == SIMPLE_MODE_OFF) simpleMode = SIMPLE_MODE_FULL;
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE_SIMPLE,
         simpleMode == SIMPLE_MODE_FULL ? -2 : -70, 77, 20, 2);
+    panel->window.category = 5;
     auto* toggle = panel->window.FindElementById(ui::NativeElementKey(0));
     toggle->type = ui::WindowElementType_EventArea; toggle->x = 65; toggle->width = 10;
     toggle->height = 20; toggle->visible = 1;

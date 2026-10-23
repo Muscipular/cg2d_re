@@ -11,7 +11,7 @@ void WindowElement_DrawText(const WindowElement& element, int x, int y, const UI
     const bool box = data.layout == WindowTextLayout::Box;
     int textX = box ? x : x - element.width;
     if (box && element.width > 0 && data.align != WindowTextAlign::Left) {
-        const int spacing = element.width - render::TextMeasure(data.text, font);
+        const int spacing = element.width - render::MeasureColoredText(data.text, font);
         textX += data.align == WindowTextAlign::Center ? spacing / 2 : spacing;
     }
     const auto drawX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textX));
@@ -31,6 +31,14 @@ void WindowElement_DrawText(const WindowElement& element, int x, int y, const UI
     if (clipping && (left >= right || top >= bottom)) return;
     const std::array<std::int32_t, 4> bounds {left, top, right, bottom};
     // 队列复制裁剪区域，最终绘制字形及阴影纹理时裁剪，不再丢整字或整行。
-    render::DrawText2_456670(drawX, drawY, 3, font, color, data.text, 0, clipping ? &bounds : nullptr);
+    if (box) {
+        // Lua文本框独立占据本元素的绘制顺序，不能追加到前方控件的文字链穿过背景。
+        render::ClearTextQueueTail_456D50(3);
+        render::DrawColoredText(drawX, drawY, 3, font, color, data.text, 0,
+            std::bit_cast<std::int8_t>(std::uint8_t{0xF9}), clipping ? &bounds : nullptr);
+        render::ClearTextQueueTail_456D50(3);
+    } else {
+        render::DrawText2_456670(drawX, drawY, 3, font, color, data.text, 0, clipping ? &bounds : nullptr);
+    }
 }
 }

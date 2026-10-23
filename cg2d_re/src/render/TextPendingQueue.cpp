@@ -206,19 +206,16 @@ std::int32_t DrawText_456780(
     return result;
 }
 
-void DrawColoredText(
-    const std::int16_t x, const std::int16_t y, const std::uint8_t renderMode,
-    const std::int8_t fontType, const std::int8_t color, const std::wstring_view text,
-    const std::int8_t value7, const std::int8_t marker)
+// 绘制和度量使用相同的可见分段，避免色码/转义美元符占用对齐宽度。
+template <typename Submit>
+static void ForEachColoredTextSegment(
+    const std::wstring_view text, const std::int8_t color, const Submit& submit)
 {
-    std::int32_t currentX = x;
     std::int8_t currentColor = color;
     std::wstring segment;
     const auto submitSegment = [&] {
         if (segment.empty()) { return; }
-        static_cast<void>(DrawText_456780(static_cast<std::int16_t>(currentX), y,
-            renderMode, fontType, currentColor, segment, value7, marker));
-        currentX += TextMeasure(segment, fontType);
+        submit(std::wstring_view(segment), currentColor);
         segment.clear();
     };
     for (std::size_t offset = 0; offset < text.size();) {
@@ -242,6 +239,34 @@ void DrawColoredText(
         offset = next;
     }
     submitSegment();
+}
+
+std::int32_t MeasureColoredText(const std::wstring_view text, const std::int8_t fontType)
+{
+    std::int32_t width = 0;
+    ForEachColoredTextSegment(text, 0,
+        [&](const std::wstring_view segment, const std::int8_t) {
+            width += TextMeasure(segment, fontType);
+        });
+    return width;
+}
+
+void DrawColoredText(
+    const std::int16_t x, const std::int16_t y, const std::uint8_t renderMode,
+    const std::int8_t fontType, const std::int8_t color, const std::wstring_view text,
+    const std::int8_t value7, const std::int8_t marker,
+    const std::array<std::int32_t, 4>* const clipRectangle)
+{
+    std::int32_t currentX = x;
+    ForEachColoredTextSegment(text, color,
+        [&](const std::wstring_view segment, const std::int8_t segmentColor) {
+            const auto index = DrawText_456780(static_cast<std::int16_t>(currentX), y,
+                renderMode, fontType, segmentColor, segment, value7, marker);
+            if (index >= 0 && clipRectangle) {
+                gTextPendingRecords[static_cast<std::size_t>(index)].clipRectangle = *clipRectangle;
+            }
+            currentX += TextMeasure(segment, fontType);
+        });
 }
 
 } // namespace cg::render

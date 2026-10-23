@@ -51,11 +51,16 @@ extern std::int32_t gHoveredTextPendingIndex;
 // 使用Font的同一字体度量与唯一CPU Back，不改变队列令牌和文本所有权。
 void RenderTextToSurface_456D70(std::uint32_t headToken);
 
+// 与DrawColoredText共用色码分段，度量实际可见文字；供Lua文本框水平对齐。
+std::int32_t MeasureColoredText(std::wstring_view text, std::int8_t fontType);
+
 // R06：仅显式调用方解析美元颜色标记和转义，分段沿原DrawText队列提交。
+// 可选裁剪矩形按值复制到每个分段，调用者无需延长矩形寿命。
 void DrawColoredText(
     std::int16_t x, std::int16_t y, std::uint8_t renderMode,
     std::int8_t fontType, std::int8_t color, std::wstring_view text,
-    std::int8_t value7, std::int8_t marker);
+    std::int8_t value7, std::int8_t marker,
+    const std::array<std::int32_t, 4>* clipRectangle = nullptr);
 
 // 原 sub_45D7A0@[0x45D7A0,0x45D7CF)。
 // 左键按下时返回 values 中首个等于当前悬停文本索引的元素下标，否则返回 -1。

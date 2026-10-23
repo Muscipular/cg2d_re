@@ -688,7 +688,12 @@ std::int32_t __cdecl PlaySe_52C450(
         static_cast<std::size_t>(gNextSeChannel105082C);
     SoundChannelState& channel = gSoundChannels104D0C8[channelIndex];
     if (channel.currentSeNo == seNo) {
-        static_cast<void>(gSdlAudioBackend.RewindChannel(channelIndex));
+        if (!gSdlAudioBackend.RewindChannel(channelIndex)) {
+            gSdlAudioBackend.ReleaseChannel(channelIndex);
+            channel.currentSeNo = -2;
+            channel.value30 = 0;
+            return -1;
+        }
     } else {
         const std::int32_t previous = channel.currentSeNo;
         channel.currentSeNo = seNo;
@@ -732,8 +737,12 @@ std::int32_t __cdecl PlaySe_52C450(
         static_cast<void>(gSdlAudioBackend.SetChannelFrequency(
             static_cast<std::size_t>(frequencyChannel), frequency));
     }
-    static_cast<void>(gSdlAudioBackend.PlayChannel(
-        static_cast<std::size_t>(gNextSeChannel105082C), false));
+    if (!gSdlAudioBackend.PlayChannel(static_cast<std::size_t>(gNextSeChannel105082C), false)) {
+        gSdlAudioBackend.ReleaseChannel(channelIndex);
+        channel.currentSeNo = -2;
+        channel.value30 = 0;
+        return -1; // RMO01：缓存重新加载失败不发布冷却或假成功。
+    }
 
     std::uint32_t next =
         static_cast<std::uint32_t>(gNextSeChannel105082C);
@@ -835,8 +844,14 @@ std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
     }
 
     if (isNew != 0) {
-        static_cast<void>(gSdlAudioBackend.RewindChannel(
-            static_cast<std::size_t>(request.channelIndex)));
+        const auto rewindChannel = static_cast<std::size_t>(request.channelIndex);
+        if (!gSdlAudioBackend.RewindChannel(rewindChannel)) {
+            gSdlAudioBackend.ReleaseChannel(rewindChannel);
+            gSoundChannels104D0C8[rewindChannel].currentSeNo = -2;
+            gSoundChannels104D0C8[rewindChannel].value30 = 0;
+            request.channelIndex = -1;
+            return -1;
+        }
         const bool loop =
             gSoundEffects103E7B0[static_cast<std::size_t>(request.seNo)].loop != 0;
         const std::int32_t playChannel = request.channelIndex;
@@ -844,8 +859,13 @@ std::int32_t __cdecl ApplySpatialSoundRequest_52C680(
             gSoundChannels104D0C8[static_cast<std::size_t>(
                 playChannel)].value30 = 1;
         }
-        static_cast<void>(gSdlAudioBackend.PlayChannel(
-            static_cast<std::size_t>(playChannel), loop));
+        if (!gSdlAudioBackend.PlayChannel(static_cast<std::size_t>(playChannel), loop)) {
+            gSdlAudioBackend.ReleaseChannel(static_cast<std::size_t>(playChannel));
+            gSoundChannels104D0C8[static_cast<std::size_t>(playChannel)].currentSeNo = -2;
+            gSoundChannels104D0C8[static_cast<std::size_t>(playChannel)].value30 = 0;
+            request.channelIndex = -1;
+            return -1;
+        }
 
         std::uint32_t next =
             static_cast<std::uint32_t>(gNextSeChannel105082C);

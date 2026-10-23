@@ -8,6 +8,7 @@
 #include <cmath>
 #include <limits>
 #include <new>
+#include <string>
 #include <utility>
 
 namespace cg::platform {
@@ -15,11 +16,18 @@ namespace cg::platform {
 struct SdlAudioBackend::Impl {
     struct Sample {
         SDL_AudioSpec spec {};
-        Uint8* data = nullptr;
         Uint32 length = 0;
         SDL_AudioSpec mixSpec {};
         Uint8* pcmStereo = nullptr;
         std::size_t frames = 0;
+    };
+
+    // RMO01：固定64项；PCM只由此项拥有，references仅由业务线程在流锁外/内安全点更新。
+    struct CachedSample {
+        std::wstring path;
+        Sample sample {};
+        std::uint64_t lastUse = 0;
+        std::size_t references = 0;
     };
 
     struct Channel {
@@ -39,11 +47,16 @@ struct SdlAudioBackend::Impl {
         std::uint64_t outputFrames = 0; // 固定效果连续时点，样本游标回环时不重置。
         bool reverbHasTail = false; // 当前效果返回S_FALSE，尚有尾音。
         bool drainingReverb = false; // 最后一遍已结束，后续只给效果零输入。
+        std::size_t sampleIndex = kSampleSlots; // 普通音效槽；BGM/固定音乐保持无槽值。
+        CachedSample* cachedSample = nullptr; // 仅普通音效的播放引用；回调不管理缓存。
     };
 
     bool audioInitialized = false;
     SDL_AudioDeviceID device = 0;
     std::array<Sample, kSampleSlots> samples {};
+    std::array<std::wstring, kSampleSlots> samplePaths;
+    std::array<CachedSample, kPcmCacheCapacity> sampleCache;
+    std::uint64_t sampleUseSequence = 0;
     std::array<Channel, kChannelCount> channels {};
     Sample bgmSample {};
     Channel bgm {};
@@ -107,7 +120,6 @@ struct SdlAudioBackend::Impl {
 
     static void FreeSample(Sample& sample)
     {
-        SDL_free(std::exchange(sample.data, nullptr));
         SDL_free(std::exchange(sample.pcmStereo, nullptr));
         sample = {};
     }
@@ -136,8 +148,8 @@ struct SdlAudioBackend::Impl {
         }
 
         FreeSample(sample);
+        SDL_free(data); // 转换完成后只保留F32；原格式和length仍保留供业务查询。
         sample.spec = spec;
-        sample.data = data;
         sample.length = length;
         sample.mixSpec = mixSpec;
         sample.pcmStereo = pcmStereo;
@@ -155,6 +167,88 @@ struct SdlAudioBackend::Impl {
         SDL_IOStream* const input = SDL_IOFromFile(encodedPath, "rb");
         SDL_free(encodedPath);
         return LoadSample(sample, input);
+    }
+
+    // 业务线程持有流锁，或已销毁该流；回调退出后才解除PCM引用。
+    void DropChannelSample(Channel& channel) noexcept
+    {
+        if (channel.cachedSample == nullptr) { return; }
+        --channel.cachedSample->references;
+        channel.cachedSample = nullptr;
+        channel.sample = &samples[channel.sampleIndex];
+    }
+
+    // 自然播放结束仍可保留SDL流；闲置流不能永久占用缓存引用。
+    void ReclaimInactiveSamples() noexcept
+    {
+        for (Channel& channel : channels) {
+            if (channel.stream == nullptr || channel.cachedSample == nullptr) { continue; }
+            if (!SDL_LockAudioStream(channel.stream)) { continue; }
+            if (!channel.playing) { DropChannelSample(channel); }
+            SDL_UnlockAudioStream(channel.stream);
+        }
+    }
+
+    // 仅业务线程调用。缓存命中不重新解码；未命中只淘汰无引用的最旧项。
+    CachedSample* FindOrLoadSample(const std::wstring& path) noexcept
+    {
+        for (CachedSample& entry : sampleCache) {
+            if (entry.sample.pcmStereo != nullptr && entry.path == path) {
+                entry.lastUse = ++sampleUseSequence;
+                return &entry;
+            }
+        }
+        ReclaimInactiveSamples(); // 只在未命中、需要淘汰时锁流回收，命中路径不扫描64条流。
+        CachedSample* victim = nullptr;
+        for (CachedSample& entry : sampleCache) {
+            if (entry.references != 0) { continue; }
+            if (victim == nullptr || entry.sample.pcmStereo == nullptr || entry.lastUse < victim->lastUse) {
+                victim = &entry;
+                if (entry.sample.pcmStereo == nullptr) { break; }
+            }
+        }
+        if (victim == nullptr) {
+            SDL_SetError("All sound PCM cache entries are in use");
+            return nullptr;
+        }
+        FreeSample(victim->sample);
+        victim->path.clear();
+        try {
+            victim->path = path;
+        } catch (const std::bad_alloc&) {
+            SDL_OutOfMemory();
+            return nullptr;
+        }
+        if (!LoadSample(victim->sample, path.c_str())) {
+            victim->path.clear();
+            return nullptr;
+        }
+        victim->lastUse = ++sampleUseSequence;
+        return victim;
+    }
+
+    // 同音效重播也经此入口；读取/转换在流锁之外，回调只会读取已固定的PCM。
+    bool AcquireChannelSample(Channel& channel) noexcept
+    {
+        if (!SDL_LockAudioStream(channel.stream)) { return false; }
+        if (channel.cachedSample != nullptr) {
+            channel.cachedSample->lastUse = ++sampleUseSequence;
+            SDL_UnlockAudioStream(channel.stream);
+            return true;
+        }
+        SDL_UnlockAudioStream(channel.stream);
+        CachedSample* const entry = FindOrLoadSample(samplePaths[channel.sampleIndex]);
+        if (entry == nullptr || !SDL_LockAudioStream(channel.stream)) { return false; }
+        if (!SDL_SetAudioStreamFormat(channel.stream, &entry->sample.mixSpec, nullptr)) {
+            SDL_UnlockAudioStream(channel.stream);
+            return false;
+        }
+        ++entry->references;
+        channel.cachedSample = entry;
+        channel.sample = &entry->sample;
+        channel.loopEnd = entry->sample.frames;
+        SDL_UnlockAudioStream(channel.stream);
+        return true;
     }
 
     static void SDLCALL FeedChannel(
@@ -235,7 +329,7 @@ struct SdlAudioBackend::Impl {
     // 音效与固定WAV共用绑定流程；采样资源由各自owner持有，回调不借临时对象。
     static bool PrepareChannel(Channel& channel, Sample& sample, SDL_AudioDeviceID device)
     {
-        if (channel.stream != nullptr || sample.pcmStereo == nullptr) { return false; }
+        if (channel.stream != nullptr || sample.frames == 0) { return false; }
         SDL_AudioStream* const stream = SDL_CreateAudioStream(&sample.mixSpec, nullptr);
         if (stream == nullptr) { return false; }
         channel.sample = &sample;
@@ -269,6 +363,9 @@ struct SdlAudioBackend::Impl {
         }
         for (Sample& sample : samples) {
             FreeSample(sample);
+        }
+        for (CachedSample& entry : sampleCache) {
+            FreeSample(entry.sample);
         }
         FreeSample(bgmSample);
         if (device != 0) {
@@ -316,20 +413,29 @@ bool SdlAudioBackend::LoadWav(
     if (impl_ == nullptr || slot >= kSampleSlots || path == nullptr) {
         return false;
     }
-    Impl::Sample& sample = impl_->samples[slot];
     for (const Impl::Channel& channel : impl_->channels) {
-        if (channel.stream != nullptr && channel.sample == &sample) {
+        if (channel.stream != nullptr && channel.sampleIndex == slot) {
             return false;
         }
     }
-
-    return Impl::LoadSample(sample, path);
+    try {
+        std::wstring resourcePath(path);
+        Impl::CachedSample* const entry = impl_->FindOrLoadSample(resourcePath);
+        if (entry == nullptr) { return false; }
+        impl_->samplePaths[slot] = std::move(resourcePath);
+        impl_->samples[slot] = entry->sample;
+        impl_->samples[slot].pcmStereo = nullptr; // 槽只保存元数据，不能重复拥有缓存PCM。
+        return true;
+    } catch (const std::bad_alloc&) {
+        SDL_OutOfMemory();
+        return false;
+    }
 }
 
 bool SdlAudioBackend::HasSample(const std::size_t slot) const noexcept
 {
     return impl_ != nullptr && slot < kSampleSlots
-        && impl_->samples[slot].data != nullptr;
+        && impl_->samples[slot].frames != 0;
 }
 
 bool SdlAudioBackend::PrepareChannel(
@@ -341,7 +447,9 @@ bool SdlAudioBackend::PrepareChannel(
     }
     Impl::Channel& channel = impl_->channels[channelIndex];
     Impl::Sample& sample = impl_->samples[sampleIndex];
-    return Impl::PrepareChannel(channel, sample, impl_->device);
+    if (!Impl::PrepareChannel(channel, sample, impl_->device)) { return false; }
+    channel.sampleIndex = sampleIndex;
+    return true;
 }
 
 bool SdlAudioBackend::HasChannel(const std::size_t index) const noexcept
@@ -361,6 +469,7 @@ bool SdlAudioBackend::StopChannel(const std::size_t index) noexcept
     }
     channel.playing = false;
     const bool cleared = SDL_ClearAudioStream(channel.stream);
+    impl_->DropChannelSample(channel);
     static_cast<void>(SDL_UnlockAudioStream(channel.stream));
     return cleared;
 }
@@ -371,6 +480,7 @@ bool SdlAudioBackend::RewindChannel(const std::size_t index) noexcept
         return false;
     }
     Impl::Channel& channel = impl_->channels[index];
+    if (!impl_->AcquireChannelSample(channel)) { return false; }
     if (!SDL_LockAudioStream(channel.stream)) {
         return false;
     }
@@ -390,6 +500,7 @@ void SdlAudioBackend::ReleaseChannel(const std::size_t index) noexcept
     }
     Impl::Channel& channel = impl_->channels[index];
     SDL_DestroyAudioStream(channel.stream);
+    impl_->DropChannelSample(channel);
     channel = {};
 }
 
@@ -442,6 +553,7 @@ bool SdlAudioBackend::PlayChannel(
         return false;
     }
     Impl::Channel& channel = impl_->channels[index];
+    if (!impl_->AcquireChannelSample(channel)) { return false; }
     if (!SDL_LockAudioStream(channel.stream)) {
         return false;
     }

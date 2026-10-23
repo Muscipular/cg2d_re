@@ -14,6 +14,7 @@ class SdlAudioBackend final {
 public:
     static constexpr std::size_t kSampleSlots = 500;
     static constexpr std::size_t kChannelCount = 64;
+    static constexpr std::size_t kPcmCacheCapacity = 64; // RMO01：普通音效的唯一资源PCM条目上限。
 
     SdlAudioBackend() noexcept;
     ~SdlAudioBackend();
@@ -43,11 +44,11 @@ public:
     void ShutdownFixedMusic() noexcept;
 
     // path 为UTF-16路径；SDL要求的编码转换仅在实现中的文件打开边界完成。
-    // 保留各 WAV 自身的格式和 PCM 数据；失败不改已有槽内容。
+    // RMO01：保留各WAV的元数据与路径，PCM按同路径共享64项LRU；失败不改已有槽元数据。
     [[nodiscard]] bool LoadWav(std::size_t slot, const wchar_t* path) noexcept;
     [[nodiscard]] bool HasSample(std::size_t slot) const noexcept;
 
-    // 复制样本引用到独立通道；调用者在重绑前须先释放旧通道。
+    // 绑定样本元数据到独立通道；Rewind/Play取得缓存引用，调用者在重绑前释放旧通道。
     [[nodiscard]] bool PrepareChannel(std::size_t channel, std::size_t sample) noexcept;
     [[nodiscard]] bool HasChannel(std::size_t channel) const noexcept;
     [[nodiscard]] bool StopChannel(std::size_t channel) noexcept;

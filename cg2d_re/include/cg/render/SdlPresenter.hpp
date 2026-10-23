@@ -32,10 +32,6 @@ public:
     [[nodiscard]] bool Create(
         std::uintptr_t nativeWindow, int width, int height, const char* driver) noexcept;
 
-    // Init 的合作级别/显示模式边界；真实切换并同步，不改变逻辑帧尺寸。
-    // 全屏模式选择失败沿原 SetDisplayMode 忽略返回的合同保留当前选择。
-    [[nodiscard]] bool SetFullscreen(bool fullscreen) noexcept;
-
     // 呈现 GPU Back；纯 CPU 调用或 CPU 标脏时先上传 0x00RRGGBB 镜像。
     // 已有 GPU 绘制不会被未更新的 CPU 镜像覆盖，最终输出使用 nearest。
     // pitchBytes 须为正、为 4 的倍数且至少 width * 4；允许行间 padding。
@@ -85,7 +81,6 @@ extern std::uint32_t gFrameParity628FC8;
 
 // Renderer::Init/Destroy 的单一 SDL 后端边界；原生窗口由平台持有。
 [[nodiscard]] bool CreateRendererPresenter() noexcept;
-[[nodiscard]] bool SetRendererPresenterFullscreen(bool fullscreen) noexcept;
 [[nodiscard]] bool DestroyRendererPresenter() noexcept;
 [[nodiscard]] const wchar_t* RendererPresenterLastError() noexcept;
 

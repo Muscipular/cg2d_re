@@ -179,7 +179,7 @@ LRESULT CALLBACK WindowProcedure(
                 gRendererLost = 1;
             }
             render::PaletteBinding* palette = render::GetRendererPalette(render::gRenderer);
-            if (palette != nullptr && gWindowMode != 0) {
+            if (palette != nullptr) {
                 static_cast<void>(
                     render::SetPaletteEntries(palette, 0, 0, 256, render::gPalette));
             }
@@ -205,9 +205,6 @@ LRESULT CALLBACK WindowProcedure(
 
         gCurrentClientWidth = static_cast<std::uint16_t>(lParam32);
         gCurrentClientHeight = static_cast<std::uint16_t>(lParam32 >> 16);
-        if (gWindowMode == 0) {
-            return 0;
-        }
         if (gCurrentClientWidth == static_cast<std::uint32_t>(gWindowWidth)
             && gCurrentClientHeight == static_cast<std::uint32_t>(gWindowHeight)) {
             gWindowResizePhase = 0;
@@ -241,11 +238,7 @@ LRESULT CALLBACK WindowProcedure(
         gWindowResizePhase = 2;
         const LONG style = GetWindowLongW(window, GWL_STYLE);
         RECT rect {};
-        if (gWindowMode != 0) {
-            SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
-        } else {
-            SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
-        }
+        SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
         AdjustWindowRectEx(&rect, static_cast<DWORD>(style), FALSE, 0);
         SetWindowPos(
             window,
@@ -306,19 +299,11 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_SYSKEYDOWN:
-        RebuildRendererIfGraphicDirty();
         if (wParam32 == VK_RETURN) {
-            if (gFrameBackgroundMode_73ECC0 == 2 || render::gRenderer == nullptr) {
-                return 0;
-            }
-            gWindowMode = gWindowMode != 1;
-            render::RebuildRenderer_466B80();
-            static_cast<void>(InitializeWindow());
-            const std::uint64_t tick = ReadTickCount64();
-            gWindowResizePhase = 0;
-            gLastRenderDt = static_cast<double>(tick);
+            // WO01：取消Alt+Enter切换，不重建窗口或呈现器。
             return 0;
         }
+        RebuildRendererIfGraphicDirty();
         if (wParam32 == VK_F10) {
             // 原 4671C3..4671D4 仅在按位更新完成后写一次键状态。
             std::uint8_t pressed = static_cast<std::uint8_t>(gKeyStates[VK_F10] | 2u);
@@ -364,7 +349,7 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_SYSCOMMAND:
-        if (wParam32 == SC_CLOSE && gWindowMode == 1
+        if (wParam32 == SC_CLOSE
             && MessageBoxW(
                 window,
                 L"可以结束魔力宝贝吗？",

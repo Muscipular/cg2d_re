@@ -18,7 +18,7 @@ int SetWindowedDesktopColor()
     return SetSysColors(1, &element, &color);
 }
 
-// 原 WndInit@0x4669F0；保留创建、已有窗口及窗口模式的各分支。
+// 原 WndInit@0x4669F0；WO01固定窗口模式，保留创建及已有窗口的处理。
 int InitializeWindow()
 {
     // R02：首次 WndInit 前解析原进程参数；重建窗口复用已经发布的布局。
@@ -46,51 +46,25 @@ int InitializeWindow()
         layoutInitialized = true;
     }
     world::CenterBattleLayoutToWindow();
-    DWORD style;
+    const DWORD style = 0x00CA0000;
     RECT rect;
-    if (gWindowMode) {
-        style = 0x00CA0000;
-        SetWindowedDesktopColor();
-        // 原 0x466A08 在 helper 返回后重读模式；变为零时仍保留窗口化 style。
-        if (gWindowMode) {
-            SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
-        } else {
-            SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
-        }
-    } else {
-        style = 0x90000000;
-        SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
-    }
+    SetWindowedDesktopColor();
+    SetRect(&rect, 0, 0, gWindowWidth, gWindowHeight);
     AdjustWindowRectEx(&rect, style, FALSE, 0);
 
     if (gLegacyWindow) {
         // GWL_STYLE 的值仍是 32 位 LONG，不是需要 Ptr 宽化的窗口指针字段。
         SetWindowLongW(reinterpret_cast<HWND>(gLegacyWindow), GWL_STYLE, static_cast<LONG>(style));
         ShowWindow(reinterpret_cast<HWND>(gLegacyWindow), gShowCommand);
-        if (gWindowMode) {
-            SetWindowPos(
-                reinterpret_cast<HWND>(gLegacyWindow), HWND_NOTOPMOST,
-                gStartX, gStartY, rect.right - rect.left, rect.bottom - rect.top,
-                SWP_FRAMECHANGED);
-        } else {
-            SetWindowPos(
-                reinterpret_cast<HWND>(gLegacyWindow), HWND_NOTOPMOST,
-                0, 0, rect.right - rect.left, rect.bottom - rect.top,
-                SWP_FRAMECHANGED);
-        }
+        SetWindowPos(
+            reinterpret_cast<HWND>(gLegacyWindow), HWND_NOTOPMOST,
+            gStartX, gStartY, rect.right - rect.left, rect.bottom - rect.top,
+            SWP_FRAMECHANGED);
     } else {
-        HWND window;
-        if (gWindowMode) {
-            window = CreateWindowExW(
-                0, gWindowClassName, gWindowClassName, style,
-                gStartX, gStartY, rect.right - rect.left, rect.bottom - rect.top,
-                nullptr, nullptr, reinterpret_cast<HINSTANCE>(gInstance), nullptr);
-        } else {
-            window = CreateWindowExW(
-                0, gWindowClassName, gWindowClassName, style,
-                0, 0, rect.right - rect.left, rect.bottom - rect.top,
-                nullptr, nullptr, reinterpret_cast<HINSTANCE>(gInstance), nullptr);
-        }
+        HWND window = CreateWindowExW(
+            0, gWindowClassName, gWindowClassName, style,
+            gStartX, gStartY, rect.right - rect.left, rect.bottom - rect.top,
+            nullptr, nullptr, reinterpret_cast<HINSTANCE>(gInstance), nullptr);
         gLegacyWindow = reinterpret_cast<std::uintptr_t>(window);
     }
 

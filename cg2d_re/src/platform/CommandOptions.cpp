@@ -182,9 +182,6 @@ int ParseCommandOptions()
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。
     cg::render::gLegacyPendingStorage.savedPath = L"data\\0\\save.dat";
 
-    if (const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"windowmode"))) {
-        gWindowMode = 1;
-    }
     HDC deviceContext = GetDC(reinterpret_cast<HWND>(gLegacyWindow));
     gDeviceBitsPerPixel = GetDeviceCaps(deviceContext, BITSPIXEL);
     ReleaseDC(reinterpret_cast<HWND>(gLegacyWindow), deviceContext);

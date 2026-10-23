@@ -176,12 +176,7 @@ int InitializeClient_4576B0()
 {
     static_cast<void>(ResetSystemLog_44B5A0());
     const std::int8_t rendererResult = render::RendererInit_44B630();
-    bool reportRendererFailure = rendererResult == 1;
-    if (rendererResult == 2) {
-        gWindowMode = gWindowMode != 1;
-        reportRendererFailure = render::RendererInit_44B630() != 0;
-    }
-    if (reportRendererFailure) {
+    if (rendererResult != 0) {
         ShowWideMessage(L"DirectDraw初期化失败。", kConfirmCaption, kErrorMessageFlags);
         ::PostMessageW(reinterpret_cast<HWND>(gLegacyWindow), 0x10, 0, 0);
     }

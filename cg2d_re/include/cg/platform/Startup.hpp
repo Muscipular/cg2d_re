@@ -19,7 +19,6 @@ extern std::uintptr_t gInstance;       // 原 0x9A6F38，HINSTANCE 的原生承�
 extern std::uintptr_t gCursorHandles[11]; // 原 0x9A6EF8 起，11 个原生光标引用。
 extern std::int32_t gShowCommand;      // 原 0x9A6F28。
 extern wchar_t gWindowClassName[5];     // 原0x559384；直接供W窗口接口借用。
-extern std::int32_t gWindowMode;       // 原 0x9A7F48。
 extern std::int32_t gWindowWidth;      // 原 0x55CE74。
 extern std::int32_t gWindowHeight;     // 原 0x55CE78。
 extern std::int32_t gWindowActiveState; // 原 0x55CE70，初值 2。

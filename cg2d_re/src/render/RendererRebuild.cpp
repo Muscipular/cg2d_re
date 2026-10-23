@@ -26,19 +26,14 @@ void RebuildRenderer_466B80()
     const std::uint32_t previousQueueMode = gRenderQueueMode103CF10;
     RendererDestroy_44C3C0();
     const std::int8_t rendererResult = RendererInit_44B630();
-    bool reportRendererFailure = rendererResult == 1;
-    if (rendererResult == 2) {
-        platform::gWindowMode = platform::gWindowMode != 1;
-        reportRendererFailure = RendererInit_44B630() != 0;
-    }
-    if (reportRendererFailure) {
+    if (rendererResult != 0) {
         platform::ShowWideMessage(L"DirectDraw初期化失败。", L"确认", 0x10);
         ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), 0x10, 0, 0);
     }
 
     static_cast<void>(BuildSurfaceCache_5231A0());
     if (InitPalette32() == 0) {
-        ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), 0x104, 0x0D, 0);
+        ::PostMessageW(reinterpret_cast<HWND>(platform::gLegacyWindow), WM_CLOSE, 0, 0);
     }
     const std::int32_t sceneType = world::gCurrentSceneType;
     if (sceneType == 10) {
@@ -64,7 +59,7 @@ void RebuildRenderer_466B80()
     }
 
     auto* palette = GetRendererPalette(gRenderer);
-    if (palette != nullptr && platform::gWindowMode != 0) {
+    if (palette != nullptr) {
         static_cast<void>(SetPaletteEntries(palette, 0, 0, 256, gPalette));
     }
     resource::ReleaseIndependentPalettes_522C50();

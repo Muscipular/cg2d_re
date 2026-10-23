@@ -126,14 +126,14 @@ int MainLoop()
             ShowModeChange_458A40();
             render::RebuildRenderer_466B80();
             auto* palette = render::GetRendererPalette(render::gRenderer);
-            if (palette != nullptr && gWindowMode != 0) {
+            if (palette != nullptr) {
                 render::SetPaletteEntries(palette, 0, 0, 256, render::gPalette);
             }
         }
         if (gRendererLost != 0 && render::TestCooperativeLevel_44C6B0() != 0) {
             render::RebuildRenderer_466B80();
             auto* palette = render::GetRendererPalette(render::gRenderer);
-            if (palette != nullptr && gWindowMode != 0) {
+            if (palette != nullptr) {
                 render::SetPaletteEntries(palette, 0, 0, 256, render::gPalette);
             }
         }

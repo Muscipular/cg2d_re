@@ -191,7 +191,7 @@ std::int8_t RendererInit_44B630()
     platform::gDeviceBitsPerPixel = ::GetDeviceCaps(dc, BITSPIXEL);
     ::ReleaseDC(reinterpret_cast<HWND>(platform::gLegacyWindow), dc);
     if ((platform::gRendererFlags & 8u) != 0 && platform::gDeviceBitsPerPixel < 16) {
-        platform::ShowWideMessage(L"因荧幕颜色不是16Bit，显示画面将改为全荧幕显示。", kConfirmCaption, 0x10);
+        platform::ShowWideMessage(L"桌面颜色深度低于16位，无法初始化显示画面。", kConfirmCaption, 0x10);
         return 1;
     }
     if (!AllocateRendererResources()) {
@@ -204,10 +204,6 @@ std::int8_t RendererInit_44B630()
     gTextureSizeH = 48;
     if (!CreateRendererPresenter()) {
         platform::ShowWideMessage(L"DirectDrawCreateEx Error", kConfirmCaption, 0x10);
-        return 1;
-    }
-    if (!SetRendererPresenterFullscreen(platform::gWindowMode == 0)) {
-        platform::ShowWideMessage(L"SetCooperativeLevel Error", kConfirmCaption, 0x10);
         return 1;
     }
     if (!CreateCpuBackSurface()) {

@@ -50,7 +50,7 @@ static std::uint32_t gScreenshotRedMask62A64C = 0; // 原全局：0x0062A64C。
 static std::uint32_t gScreenshotGreenMask62A650 = 0; // 原全局：0x0062A650。
 static std::uint32_t gScreenshotBlueMask62A654 = 0; // 原全局：0x0062A654。
 
-// 初始化资源前及窗口模式同步后先提交不透明黑底，不等待loading循环的首帧。
+// 初始化资源前先提交不透明黑底，不等待loading循环的首帧。
 static bool PresentInitialBlackFrame(SDL_Renderer* const renderer) noexcept
 {
     return SDL_SetRenderTarget(renderer, nullptr)
@@ -250,36 +250,6 @@ bool SdlPresenter::Create(
     pending->watchingEvents = true;
 
     impl_ = std::move(pending);
-    lastError_.clear();
-    return true;
-}
-
-bool SdlPresenter::SetFullscreen(const bool fullscreen) noexcept
-{
-    if (!SDL_IsMainThread()) {
-        return Fail(L"SetFullscreen", L"必须在 SDL 主线程调用。");
-    }
-    if (impl_ == nullptr) {
-        return Fail(L"SetFullscreen", L"实例尚未创建或已销毁。");
-    }
-    if (fullscreen) {
-        SDL_DisplayMode mode {};
-        const SDL_DisplayID display = SDL_GetDisplayForWindow(impl_->window);
-        if (SDL_GetClosestFullscreenDisplayMode(
-                display, impl_->width, impl_->height, 0.0f, false, &mode)) {
-            // 原 44B9EA 不消费 SetDisplayMode 返回；实际 fullscreen 请求仍须成功。
-            static_cast<void>(SDL_SetWindowFullscreenMode(impl_->window, &mode));
-        }
-    }
-    if (!SDL_SetWindowFullscreen(impl_->window, fullscreen)) {
-        return FailSdl(L"SDL_SetWindowFullscreen");
-    }
-    if (!SDL_SyncWindow(impl_->window)) {
-        return FailSdl(L"SDL_SyncWindow");
-    }
-    if (!PresentInitialBlackFrame(impl_->renderer)) {
-        return FailSdl(L"Present black frame after window mode change");
-    }
     lastError_.clear();
     return true;
 }
@@ -575,11 +545,6 @@ bool CreateRendererPresenter() noexcept
 {
     return gRendererPresenter.Create(
         platform::gLegacyWindow, GetCpuSurfaceWidth(), GetCpuSurfaceHeight(), "direct3d11");
-}
-
-bool SetRendererPresenterFullscreen(const bool fullscreen) noexcept
-{
-    return gRendererPresenter.SetFullscreen(fullscreen);
 }
 
 bool DestroyRendererPresenter() noexcept

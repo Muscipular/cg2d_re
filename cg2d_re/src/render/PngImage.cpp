@@ -177,7 +177,7 @@ std::int32_t DrawGraphicImage(const std::int32_t imageNo,
 {
     if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount || !gGraphicDxCache103CFA4) return -1;
     if (LoadGraphic_522570(imageNo) == 0) return -1;
-    const auto& entry = gGraphicDxCache103CFA4[imageNo];
+    const auto& entry = gGraphicDxCache103CFA4->Read(imageNo);
     if (!entry.head) return -1;
     PixelImage image;
     image.width = static_cast<std::int16_t>(entry.width);
@@ -196,7 +196,7 @@ bool IsGraphicImageTransparent(const std::int32_t imageNo, const std::int32_t x,
     graphic.descriptor.mixFlags = GraphicMixFlag_OriginalPalette;
     static_cast<void>(LoadGraphicIndependentPalette_523140(&graphic));
     if (!LoadGraphic_522570(imageNo)) return false;
-    auto* node = gGraphicDxCache103CFA4[imageNo].head;
+    auto* node = gGraphicDxCache103CFA4->Read(imageNo).head;
     if (!node || !LoadGraphicTexture_520B10(&graphic, node)) return false;
     node->reuseState = platform::gFrameCount;
     const SDL_Surface* surface = GetTextureSdlSurface(node->surface);
@@ -216,7 +216,7 @@ bool CompositeGraphicPixels(const std::int32_t imageNo, const PngRectangle& sour
     graphic.descriptor.color = 0xFFFFFFFFu;
     static_cast<void>(LoadGraphicIndependentPalette_523140(&graphic));
     if (!LoadGraphic_522570(imageNo)) return false;
-    auto* node = gGraphicDxCache103CFA4[imageNo].head;
+    auto* node = gGraphicDxCache103CFA4->Read(imageNo).head;
     if (!node) return false;
     for (; node; node = node->next) {
         if (!LoadGraphicTexture_520B10(&graphic, node)) return false;
@@ -468,7 +468,7 @@ void DrawPngImageBatch(const PngImageBatch& batch)
         graphic.descriptor.mixFlags = GraphicMixFlag_OriginalPalette;
         static_cast<void>(LoadGraphicIndependentPalette_523140(&graphic));
         if (LoadGraphic_522570(graphic.imageNo) == 0) return;
-        TextureNode* const node = gGraphicDxCache103CFA4[graphic.imageNo].head;
+        TextureNode* const node = gGraphicDxCache103CFA4->Read(graphic.imageNo).head;
         if (!node || LoadGraphicTexture_520B10(&graphic, node) == 0) return;
         node->reuseState = platform::gFrameCount;
         static_cast<void>(RenderImageTexture(

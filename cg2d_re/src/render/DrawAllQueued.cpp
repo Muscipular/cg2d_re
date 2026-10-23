@@ -35,7 +35,7 @@ static void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
     if (graphic->imageNo < 0 || gGraphicDxCache103CFA4 == nullptr) { return; }
     static_cast<void>(LoadGraphicIndependentPalette_523140(graphic));
     if (LoadGraphic_522570(graphic->imageNo) == 0) { return; }
-    const auto& entry = gGraphicDxCache103CFA4[graphic->imageNo];
+    const auto& entry = gGraphicDxCache103CFA4->Read(graphic->imageNo);
     TextureNode* const node = entry.head;
     if (node == nullptr || LoadGraphicTexture_520B10(graphic, node) == 0) { return; }
     node->reuseState = platform::gFrameCount;
@@ -282,14 +282,14 @@ static void DrawSprite(GraphicCacheItem32* const graphic)
     if (x + width < 0 || y + height < 0) {
         return;
     }
-    DxGraphicEntry* dxBase = gGraphicDxCache103CFA4;
+    const DxGraphicEntry& entry = gGraphicDxCache103CFA4->Read(imageNo);
     const std::int32_t initialWidth =
-        std::bit_cast<std::int16_t>(dxBase[imageNo].width);
+        std::bit_cast<std::int16_t>(entry.width);
     if (x > initialWidth) {
         return;
     }
     const std::int32_t initialHeight =
-        std::bit_cast<std::int16_t>(dxBase[imageNo].height);
+        std::bit_cast<std::int16_t>(entry.height);
     if (y > initialHeight) {
         return;
     }
@@ -298,22 +298,20 @@ static void DrawSprite(GraphicCacheItem32* const graphic)
         width += x;
         graphic->x = originX - x;
         x = 0;
-        dxBase = gGraphicDxCache103CFA4;
     }
     if (y < 0) {
         const std::int32_t originY = graphic->y;
         height += y;
         graphic->y = originY - y;
         y = 0;
-        dxBase = gGraphicDxCache103CFA4;
     }
     const std::int32_t fullWidth =
-        std::bit_cast<std::int16_t>(dxBase[imageNo].width);
+        std::bit_cast<std::int16_t>(entry.width);
     if (x + width > fullWidth) {
         width = fullWidth - x;
     }
     const std::int32_t fullHeight =
-        std::bit_cast<std::int16_t>(dxBase[imageNo].height);
+        std::bit_cast<std::int16_t>(entry.height);
     if (y + height > fullHeight) {
         height = fullHeight - y;
     }
@@ -331,16 +329,15 @@ static void DrawSprite(GraphicCacheItem32* const graphic)
             integerPath = scaleY == 1.0f || std::isnan(scaleY);
         }
     }
-    TextureNode* const head = dxBase[imageNo].head;
+    TextureNode* const head = entry.head;
     if (head != nullptr) {
         if (integerPath) {
             DrawIntegerNodes(graphic, imageNo, x, y, width, height, head);
         } else {
             DrawScaledNodes(graphic, imageNo, x, y, width, height, true, 1.0f, head);
         }
-        dxBase = gGraphicDxCache103CFA4;
     }
-    PaletteCacheItem* const palette = dxBase[imageNo].palette;
+    PaletteCacheItem* const palette = entry.palette;
     if (palette != nullptr) {
         palette->dirtyCount = 0;
     }
@@ -368,9 +365,9 @@ static void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float 
     if (width < 0 || height < 0) {
         return;
     }
-    DxGraphicEntry* dxBase = gGraphicDxCache103CFA4;
+    const DxGraphicEntry& entry = gGraphicDxCache103CFA4->Read(imageNo);
     const std::int32_t currentWidth =
-        std::bit_cast<std::int16_t>(dxBase[imageNo].width);
+        std::bit_cast<std::int16_t>(entry.width);
     if (currentWidth < 0 || height < 0) {
         return;
     }
@@ -380,12 +377,11 @@ static void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float 
     if (width <= 0 || height <= 0) {
         return;
     }
-    TextureNode* const head = dxBase[imageNo].head;
+    TextureNode* const head = entry.head;
     if (head != nullptr) {
         DrawScaledNodes(graphic, imageNo, 0, 0, width, height, false, scale, head);
-        dxBase = gGraphicDxCache103CFA4;
     }
-    PaletteCacheItem* const palette = dxBase[imageNo].palette;
+    PaletteCacheItem* const palette = entry.palette;
     if (palette != nullptr) {
         palette->dirtyCount = 0;
     }

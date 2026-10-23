@@ -21,18 +21,19 @@ std::int16_t ReadGraphicDxWidth(std::int32_t imageNo) noexcept;
 std::int16_t ReadGraphicDxHeight(std::int32_t imageNo) noexcept;
 
 // AF406：按graphic共享的16位动作属性和Coordinate；无图号返回零，不触发纹理上传。
+// RMO01：两个Set仅在分页分配失败时返回false，由动画驱动/加载器传递失败。
 std::uint16_t ReadGraphicAnimeActionFlags(std::int32_t imageNo) noexcept;
-void SetGraphicAnimeActionFlags(std::uint32_t imageNo, std::uint16_t flags) noexcept;
+bool SetGraphicAnimeActionFlags(std::uint32_t imageNo, std::uint16_t flags) noexcept;
 void ReadGraphicCoordinate(std::int32_t imageNo, std::int16_t& x, std::int16_t& y) noexcept;
-void SetGraphicCoordinate(std::uint32_t imageNo, std::int16_t x, std::int16_t y) noexcept;
+bool SetGraphicCoordinate(std::uint32_t imageNo, std::int16_t x, std::int16_t y) noexcept;
 // 原43C0B8先借DX表，43C0E6/43C0EA随后从同表取高度/宽度低S16。
 // 仅调用期非拥有T*；不检查图号、不加载、不扩宽原W16字段。
-struct DxGraphicEntry;
-extern DxGraphicEntry* gGraphicDxCache103CFA4; // 原全局：0x0103CFA4；同一缓存指针。
+class GraphicDxCache;
+extern GraphicDxCache* gGraphicDxCache103CFA4; // 原全局：0x0103CFA4；同一缓存指针。
 std::int16_t ReadGraphicDxHeightFromEntries(
-    const DxGraphicEntry* entries, std::int32_t imageNo) noexcept;
+    const GraphicDxCache* entries, std::int32_t imageNo) noexcept;
 std::int16_t ReadGraphicDxWidthFromEntries(
-    const DxGraphicEntry* entries, std::int32_t imageNo) noexcept;
+    const GraphicDxCache* entries, std::int32_t imageNo) noexcept;
 
 // 原42A324先取DX表，再读取调用期借用的W32图号字段；不检查图号或触发加载。
 std::int16_t ReadGraphicDxHeightFromField(const std::int32_t& imageNo) noexcept;

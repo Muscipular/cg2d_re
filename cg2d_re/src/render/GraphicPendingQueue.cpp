@@ -144,9 +144,9 @@ void DrawMatchingGraphicHover_507090(const std::int32_t value4)
             const std::int32_t imageNo = record->imageNo;
             const std::uint8_t hoverLayer =
                 layer < 0xD4 ? std::uint8_t{0xCE} : std::uint8_t{0xDA};
-            const DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
+            const GraphicDxCache* const dxBase = gGraphicDxCache103CFA4;
             const std::uint32_t hover = cg::render::gHoverFramePaletteIndex_D69768;
-            const DxGraphicEntry* const entry = dxBase + imageNo;
+            const DxGraphicEntry* const entry = &dxBase->Read(imageNo);
             const std::int32_t y = record->y;
             const std::int32_t x = record->x;
             const std::int16_t height =

@@ -3,6 +3,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <type_traits>
 
 struct SDL_Surface;
@@ -116,8 +117,25 @@ static_assert(offsetof(DxGraphicEntry, animeActionFlags) == 0x1C);
 static_assert(offsetof(DxGraphicEntry, coordinateX) == 0x1E);
 static_assert(offsetof(DxGraphicEntry, coordinateY) == 0x20);
 
-// 原 103CFA4；由 GraphicAlloc 发布，失败或释放后不由该入口清槽。
-extern DxGraphicEntry* gGraphicDxCache103CFA4;
+// RMO01：每页256项，页内地址在资源表寿命内稳定；只读空页不分配。
+class GraphicDxCache final {
+public:
+    explicit GraphicDxCache(std::int32_t capacity) noexcept;
+    bool IsAllocated() const noexcept { return pages_ != nullptr; }
+    const DxGraphicEntry& Read(std::uint32_t imageNo) const noexcept;
+    DxGraphicEntry* Find(std::uint32_t imageNo) noexcept;
+    // 首次写入清零整页；失败返回空，由资源加载入口传递。
+    DxGraphicEntry* Ensure(std::uint32_t imageNo) noexcept;
+    void InvalidateReferences(std::int32_t count) noexcept;
+
+private:
+    static constexpr std::size_t kEntriesPerPage = 256;
+    std::size_t pageCount_ = 0;
+    std::unique_ptr<std::unique_ptr<DxGraphicEntry[]>[]> pages_;
+};
+
+// 原103CFA4的唯一拥有入口仍为GraphicAlloc/FreePrimaryGraphicResourceTables。
+extern GraphicDxCache* gGraphicDxCache103CFA4;
 
 // 原 [1020F08,103CF08) 的节点池与 103CF24/103CF20 两个独立 W32 槽。
 extern std::array<TextureNode, kTextureNodeCapacity> gTextureNodes; // 原全局：0x01020F08。

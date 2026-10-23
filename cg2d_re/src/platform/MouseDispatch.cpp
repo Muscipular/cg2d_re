@@ -54,8 +54,8 @@ static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
 {
     if (graphic.reference.action == nullptr) {
         const std::int32_t imageNo = graphic.imageNo;
-        const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
-        const std::int32_t width = std::bit_cast<std::int16_t>(base[imageNo].width);
+        const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
+        const std::int32_t width = std::bit_cast<std::int16_t>(base->Read(imageNo).width);
         const std::int32_t x = graphic.x;
         if (!(gLegacyMouseState.mouseX <= static_cast<std::int32_t>(x + width))) {
             return false;
@@ -64,9 +64,9 @@ static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
             return false;
         }
         const std::int32_t heightImage = graphic.imageNo;
-        const render::DxGraphicEntry* const heightBase = render::gGraphicDxCache103CFA4;
+        const render::GraphicDxCache* const heightBase = render::gGraphicDxCache103CFA4;
         const std::int32_t y = graphic.y;
-        const std::int32_t height = std::bit_cast<std::int16_t>(heightBase[heightImage].height);
+        const std::int32_t height = std::bit_cast<std::int16_t>(heightBase->Read(heightImage).height);
         if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(y + height))) {
             return false;
         }
@@ -97,8 +97,8 @@ static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
     }
 
     const std::int32_t imageNo = graphic.imageNo;
-    const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
-    const std::int32_t height = std::bit_cast<std::int16_t>(base[imageNo].height);
+    const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
+    const std::int32_t height = std::bit_cast<std::int16_t>(base->Read(imageNo).height);
     const std::int32_t hitHeight = height < 96 ? height : 96;
     const cg::yobi::YobiAction* const xAction = graphic.reference.action;
     const std::int32_t x = graphic.x;
@@ -112,15 +112,15 @@ static bool HitQueuedGraphic(const render::GraphicCacheItem32& graphic)
         return false;
     }
     const std::int32_t upperImage = graphic.imageNo;
-    const render::DxGraphicEntry* const upperBase = render::gGraphicDxCache103CFA4;
-    const std::int32_t upperHeight = std::bit_cast<std::int16_t>(upperBase[upperImage].height);
+    const render::GraphicDxCache* const upperBase = render::gGraphicDxCache103CFA4;
+    const std::int32_t upperHeight = std::bit_cast<std::int16_t>(upperBase->Read(upperImage).height);
     const std::int32_t upperY = graphic.y;
     if (!(gLegacyMouseState.mouseY <= static_cast<std::int32_t>(upperHeight + upperY))) {
         return false;
     }
     const std::int32_t lowerImage = graphic.imageNo;
-    const render::DxGraphicEntry* const lowerBase = render::gGraphicDxCache103CFA4;
-    const std::int32_t lowerHeight = std::bit_cast<std::int16_t>(lowerBase[lowerImage].height);
+    const render::GraphicDxCache* const lowerBase = render::gGraphicDxCache103CFA4;
+    const std::int32_t lowerHeight = std::bit_cast<std::int16_t>(lowerBase->Read(lowerImage).height);
     const std::int32_t lowerY = graphic.y;
     if (!(static_cast<std::int32_t>(lowerHeight - hitHeight + lowerY) <= gLegacyMouseState.mouseY)) {
         return false;
@@ -138,26 +138,26 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
     std::uint8_t frameLayer;
     if (layer >= 0xE2) {
         const std::int32_t imageNo = graphic.imageNo;
-        const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
+        const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
         hover = cg::render::gHoverFramePaletteIndex_D69768;
         x = graphic.x;
-        entry = base + imageNo;
+        entry = &base->Read(imageNo);
         y = graphic.y;
         frameLayer = 0xE4;
     } else if (layer >= 0xD4) {
         const std::int32_t imageNo = graphic.imageNo;
-        const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
+        const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
         hover = cg::render::gHoverFramePaletteIndex_D69768;
-        entry = base + imageNo;
+        entry = &base->Read(imageNo);
         y = graphic.y;
         x = graphic.x;
         frameLayer = 0xDA;
     } else if (graphic.reference.action != nullptr) {
         const std::int32_t imageNo = graphic.imageNo;
-        const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
+        const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
         hover = cg::render::gHoverFramePaletteIndex_D69768;
         y = graphic.y;
-        entry = base + imageNo;
+        entry = &base->Read(imageNo);
         x = graphic.x;
         const std::int32_t height = std::bit_cast<std::int16_t>(entry->height);
         const double scaledHeight = static_cast<double>(height)
@@ -176,10 +176,10 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
         return;
     } else {
         const std::int32_t imageNo = graphic.imageNo;
-        const render::DxGraphicEntry* const base = render::gGraphicDxCache103CFA4;
+        const render::GraphicDxCache* const base = render::gGraphicDxCache103CFA4;
         hover = cg::render::gHoverFramePaletteIndex_D69768;
         y = graphic.y;
-        entry = base + imageNo;
+        entry = &base->Read(imageNo);
         x = graphic.x;
         frameLayer = 0xCE;
     }

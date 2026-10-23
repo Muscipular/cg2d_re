@@ -92,9 +92,8 @@ PaletteCacheItem* TakeIndexCacheFromPool_44E150(const std::int32_t imageNo) noex
         ++index;
     }
     if (index < static_cast<std::int32_t>(kGraphicPaletteDynamicCount)) {
-        DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
         const std::int32_t previousImageNo = pool[index].imageNo;
-        dxBase[previousImageNo].palette = nullptr;
+        if (auto* entry = gGraphicDxCache103CFA4->Find(previousImageNo)) { entry->palette = nullptr; }
         gGraphicDataCacheList[index].imageNo = -1;
         gGraphicDataCacheList[index].imageNo = imageNo;
         gGraphicDataCacheList[index].dirtyCount = 0;
@@ -102,8 +101,7 @@ PaletteCacheItem* TakeIndexCacheFromPool_44E150(const std::int32_t imageNo) noex
     }
 
     const std::int32_t previousImageNo = pool[0].imageNo;
-    DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
-    dxBase[previousImageNo].palette = nullptr;
+    if (auto* entry = gGraphicDxCache103CFA4->Find(previousImageNo)) { entry->palette = nullptr; }
     gGraphicDataCacheList[0].imageNo = -1;
     gGraphicDataCacheList[0].imageNo = imageNo;
     gGraphicDataCacheList[0].dirtyCount = 0;
@@ -212,7 +210,7 @@ void AgeGraphicPaletteCache_44E230() noexcept
             continue;
         }
         if (pool[index].dirtyCount >= 1) {
-            gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].palette = nullptr;
+            if (auto* entry = gGraphicDxCache103CFA4->Find(imageNo)) { entry->palette = nullptr; }
             gGraphicDataCacheList[index].imageNo = -1;
             pool = gGraphicDataCacheList;
         }

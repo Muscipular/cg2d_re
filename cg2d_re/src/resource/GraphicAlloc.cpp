@@ -9,28 +9,31 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <new>
 
 namespace cg::resource {
 
 std::uint32_t gAlbumEntryLimit_D2D5FC = 0; // 原全局：0x00D2D5FC。
 
-// 原函数：0x004574E0；BLM01容量取配置，原失败清理与四块清零序保持。
+// 原函数：0x004574E0；BLM01容量取配置；RMO01仅DX改为清零页目录。
 std::int32_t GraphicAlloc_4574E0()
 {
     animation::gMaxAnimateCount9A4A4C = gBinLoaderAnimeCapacity;
     gMaxGraphicCount = gBinLoaderGraphicCapacity;
     gAlbumEntryLimit_D2D5FC = 0x3C0;
 
-    // BLM01：四块分配／清零与加载器共用配置容量，记录仍只拓宽原生指针。
+    // RMO01：DX页目录覆盖配置容量，记录页首次写入才分配。
     animation::AnimateRecord* const allocatedAnimate =
         static_cast<animation::AnimateRecord*>(
             std::malloc(static_cast<std::size_t>(animation::gMaxAnimateCount9A4A4C)
                 * sizeof(animation::AnimateRecord)));
     const std::int32_t cacheCapacity = gMaxGraphicCount;
     animation::gAnimateRecords9A4A58 = allocatedAnimate;
-    render::DxGraphicEntry* const allocatedDxCache =
-        static_cast<render::DxGraphicEntry*>(std::malloc(
-            static_cast<std::size_t>(cacheCapacity) * sizeof(render::DxGraphicEntry)));
+    auto* allocatedDxCache = new (std::nothrow) render::GraphicDxCache(cacheCapacity);
+    if (allocatedDxCache != nullptr && !allocatedDxCache->IsAllocated()) {
+        delete allocatedDxCache;
+        allocatedDxCache = nullptr;
+    }
     const std::int32_t graphicCapacity = gMaxGraphicCount;
     render::gGraphicDxCache103CFA4 = allocatedDxCache;
     gGraphicInfo = static_cast<GraphicInfo*>(
@@ -50,10 +53,8 @@ std::int32_t GraphicAlloc_4574E0()
         if (animate != nullptr) {
             std::free(animate);
         }
-        render::DxGraphicEntry* const cacheToFree = render::gGraphicDxCache103CFA4;
-        if (cacheToFree != nullptr) {
-            std::free(cacheToFree);
-        }
+        delete render::gGraphicDxCache103CFA4;
+        render::gGraphicDxCache103CFA4 = nullptr;
         GraphicInfo* const graphicToFree = gGraphicInfo;
         if (graphicToFree != nullptr) {
             std::free(graphicToFree);
@@ -65,11 +66,6 @@ std::int32_t GraphicAlloc_4574E0()
     std::memset(
         animate, 0, static_cast<std::size_t>(animateClearCount)
             * sizeof(animation::AnimateRecord));
-    const std::int32_t cacheClearCount = gMaxGraphicCount;
-    render::DxGraphicEntry* const cacheToClear = render::gGraphicDxCache103CFA4;
-    std::memset(
-        cacheToClear, 0, static_cast<std::size_t>(cacheClearCount)
-            * sizeof(render::DxGraphicEntry));
     const std::int32_t graphicClearCount = gMaxGraphicCount;
     GraphicInfo* const graphicToClear = gGraphicInfo;
     std::memset(
@@ -83,17 +79,15 @@ std::int32_t GraphicAlloc_4574E0()
     return 1;
 }
 
-// GAP01：原457670完整19条；P1/P2/P3逐次一次取样/同快照free，不清槽或新增释放。
+// 原457670：P1/P3沿CRT释放；RMO01的P2逐页销毁并清缓存拥有者。
 void FreePrimaryGraphicResourceTables_457670()
 {
     animation::AnimateRecord* const animate = animation::gAnimateRecords9A4A58;
     if (animate != nullptr) {
         std::free(animate);
     }
-    render::DxGraphicEntry* const cache = render::gGraphicDxCache103CFA4;
-    if (cache != nullptr) {
-        std::free(cache);
-    }
+    delete render::gGraphicDxCache103CFA4;
+    render::gGraphicDxCache103CFA4 = nullptr;
     GraphicInfo* const graphic = gGraphicInfo;
     if (graphic != nullptr) {
         std::free(graphic);

@@ -81,7 +81,7 @@ static void ApplyYobiGraphicFlip(YobiAction* const action, const std::int32_t lo
 }
 
 // 原 517A8C..517C85 / 518098..518291 的相同阶段；不合并两入口的图号或速率门禁。
-static void ApplyYobiAnimeFrame(
+static bool ApplyYobiAnimeFrame(
     YobiAction* const action,
     const std::int32_t animeIndex,
     const resource::animation::detail::ActionEntry* const selected,
@@ -101,7 +101,9 @@ static void ApplyYobiAnimeFrame(
     action->graphicIndex = static_cast<std::int32_t>(graphicFrame->graphicIndex);
     // AF406：4.06@470759按图号共享完整动作属性，不能从mixFlags低字节反推。
     if ((resource::animation::gAnimateRecords9A4A58[animeIndex].flag & 1u) != 0) {
-        render::SetGraphicAnimeActionFlags(graphicFrame->graphicIndex, selected->revert);
+        if (!render::SetGraphicAnimeActionFlags(graphicFrame->graphicIndex, selected->revert)) {
+            return false; // RMO01：两条动画驱动入口均传递资源失败值-1。
+        }
     }
     std::int16_t offsetX;
     std::int16_t offsetY;
@@ -171,6 +173,7 @@ static void ApplyYobiAnimeFrame(
         action->frameIndex = frameIndex + 1u;
         --action->frameRemain;
     }
+    return true;
 }
 
 // YGOS01：先确定原F32系数再查询；保正常S64向零转换/窄化及当前偏移，沿1252宿主边界。
@@ -307,8 +310,7 @@ std::int32_t PlayFrame_517DA0(
         action->frameIndex = 0;
         action->completedLoops = completedLoops + 1u;
     }
-    ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource);
-    return 0;
+    return ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource) ? 0 : -1;
 }
 
 } // namespace detail
@@ -444,8 +446,7 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
         action->frameIndex = 0;
         action->completedLoops = completedLoops + 1u;
     }
-    detail::ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource);
-    return 0;
+    return detail::ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource) ? 0 : -1;
 }
 
 } // namespace cg::yobi

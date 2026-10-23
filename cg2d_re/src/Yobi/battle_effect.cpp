@@ -1269,7 +1269,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     static_cast<void>(render::LoadGraphic_522570(cg::world::gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = parent->payload.battleActor->battlePosition18;
     const std::int32_t targetPosition = effect->position;
-    const render::DxGraphicEntry* const graphics = render::gGraphicDxCache103CFA4;
+    const render::GraphicDxCache* const graphics = render::gGraphicDxCache103CFA4;
     YobiAction* const target = cg::world::gBattleAllEntries59E980[targetPosition];
     const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);
     const std::int32_t parentGraphicIndex = parent->graphicIndex;
@@ -1435,7 +1435,7 @@ YobiAction* NewBattleRangeHit_419390(
     const std::int32_t projectileImage = action->imageNo;
     YobiAction* const target = cg::world::gBattleAllEntries59E980[targetPosition];
     const std::int32_t projectionImage = projectileImage - 16;
-    const render::DxGraphicEntry* const graphics = render::gGraphicDxCache103CFA4;
+    const render::GraphicDxCache* const graphics = render::gGraphicDxCache103CFA4;
     const std::int16_t targetHeight = render::ReadGraphicDxHeightFromEntries(graphics, target->graphicIndex);
     const std::int32_t parentGraphicIndex = parent->graphicIndex;
     const std::int32_t targetGraphicOffsetY = target->graphicOffsetY;

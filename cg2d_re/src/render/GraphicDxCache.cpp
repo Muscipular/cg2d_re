@@ -212,7 +212,52 @@ void InitializeSurfaceTransformCache62A630_44CD30()
     gSurfaceTransforms62A630 = &storage;
 }
 
-DxGraphicEntry* gGraphicDxCache103CFA4 = nullptr; // 原全局：0x0103CFA4。
+GraphicDxCache* gGraphicDxCache103CFA4 = nullptr; // 原全局：0x0103CFA4；RMO01分页拥有者。
+
+GraphicDxCache::GraphicDxCache(const std::int32_t capacity) noexcept
+    : pageCount_((static_cast<std::size_t>(capacity) + kEntriesPerPage - 1) / kEntriesPerPage),
+      pages_(new (std::nothrow) std::unique_ptr<DxGraphicEntry[]>[pageCount_] {})
+{
+}
+
+const DxGraphicEntry& GraphicDxCache::Read(const std::uint32_t imageNo) const noexcept
+{
+    static const DxGraphicEntry empty {};
+    const auto& page = pages_[imageNo / kEntriesPerPage];
+    return page ? page[imageNo % kEntriesPerPage] : empty;
+}
+
+DxGraphicEntry* GraphicDxCache::Find(const std::uint32_t imageNo) noexcept
+{
+    auto& page = pages_[imageNo / kEntriesPerPage];
+    return page ? &page[imageNo % kEntriesPerPage] : nullptr;
+}
+
+DxGraphicEntry* GraphicDxCache::Ensure(const std::uint32_t imageNo) noexcept
+{
+    auto& page = pages_[imageNo / kEntriesPerPage];
+    if (!page) {
+        page.reset(new (std::nothrow) DxGraphicEntry[kEntriesPerPage] {});
+        if (!page) {
+            m_logw(L"[render] DX cache page allocation failed: graphic=%u\n", imageNo);
+            return nullptr;
+        }
+    }
+    return &page[imageNo % kEntriesPerPage];
+}
+
+void GraphicDxCache::InvalidateReferences(const std::int32_t count) noexcept
+{
+    const auto limit = static_cast<std::size_t>(count);
+    for (std::size_t pageIndex = 0; pageIndex < pageCount_ && pageIndex * kEntriesPerPage < limit; ++pageIndex) {
+        if (!pages_[pageIndex]) { continue; }
+        const auto entries = std::min(kEntriesPerPage, limit - pageIndex * kEntriesPerPage);
+        for (std::size_t index = 0; index < entries; ++index) {
+            pages_[pageIndex][index].head = nullptr;
+            pages_[pageIndex][index].palette = nullptr;
+        }
+    }
+}
 std::array<TextureNode, kTextureNodeCapacity> gTextureNodes {}; // 原全局：0x01020F08。
 std::int32_t gTextureNodeCount = 0; // 原全局：0x0103CF24。
 std::int32_t gTextureScanIndex = 0; // 原全局：0x0103CF20。
@@ -400,24 +445,8 @@ std::int32_t InvalidateGraphicRefs_523350() noexcept
         return count;
     }
 
-    std::int32_t processed = 0;
-    std::uint32_t legacyOffset = 0;
-    do {
-        const auto index = static_cast<std::size_t>(processed);
-        DxGraphicEntry* headBase = gGraphicDxCache103CFA4;
-        ++processed;
-        headBase[index].head = nullptr;
-
-        DxGraphicEntry* paletteBase = gGraphicDxCache103CFA4;
-        paletteBase[index].palette = nullptr;
-        const std::int32_t currentCount = resource::gMaxGraphicCount;
-        legacyOffset += 0x10;
-        if (processed >= currentCount) {
-            break;
-        }
-    } while (true);
-
-    return static_cast<std::int32_t>(legacyOffset);
+    gGraphicDxCache103CFA4->InvalidateReferences(count);
+    return static_cast<std::int32_t>(static_cast<std::uint32_t>(count) * 0x10u);
 }
 
 // 原函数：0x00522570。
@@ -426,9 +455,11 @@ std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
     if (imageNo < 0 || imageNo >= resource::gMaxGraphicCount) {
         return 0;
     }
-    if (gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].head != nullptr) {
+    if (gGraphicDxCache103CFA4->Read(imageNo).head != nullptr) {
         return 1;
     }
+    DxGraphicEntry* const entry = gGraphicDxCache103CFA4->Ensure(imageNo);
+    if (entry == nullptr) { return 0; }
     if (resource::ReadGraphicDataByIndex(
             imageNo,
             &resource::gGraphicDataPtr,
@@ -443,31 +474,34 @@ std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
         return 0;
     }
 
-    DxGraphicEntry* const widthBase = gGraphicDxCache103CFA4;
     std::uint16_t width;
     std::memcpy(&width, &resource::gCurrentGraphicWidth, sizeof(width));
     resource::gGraphicDataBuffer = imageNo;
-    widthBase[static_cast<std::size_t>(imageNo)].width = width;
+    entry->width = width;
 
-    DxGraphicEntry* const heightBase = gGraphicDxCache103CFA4;
     std::uint16_t height;
     std::memcpy(&height, &resource::gCurrentGraphicHeight, sizeof(height));
-    heightBase[static_cast<std::size_t>(imageNo)].height = height;
+    entry->height = height;
     TakeGraphicDxCache_5222D0(imageNo, nullptr);
-    return gGraphicDxCache103CFA4[imageNo].head != nullptr ? 1 : 0;
+    return entry->head != nullptr ? 1 : 0;
 }
 
 std::uint16_t ReadGraphicAnimeActionFlags(const std::int32_t imageNo) noexcept
 {
     return imageNo >= 0 && imageNo < resource::gMaxGraphicCount
-        ? gGraphicDxCache103CFA4[imageNo].animeActionFlags : 0;
+        ? gGraphicDxCache103CFA4->Read(imageNo).animeActionFlags : 0;
 }
 
-void SetGraphicAnimeActionFlags(const std::uint32_t imageNo, const std::uint16_t flags) noexcept
+bool SetGraphicAnimeActionFlags(const std::uint32_t imageNo, const std::uint16_t flags) noexcept
 {
     if (imageNo < static_cast<std::uint32_t>(resource::gMaxGraphicCount)) {
-        gGraphicDxCache103CFA4[imageNo].animeActionFlags = flags;
+        auto* entry = gGraphicDxCache103CFA4->Find(imageNo);
+        if (entry == nullptr && flags == 0) { return true; }
+        if (entry == nullptr) { entry = gGraphicDxCache103CFA4->Ensure(imageNo); }
+        if (entry == nullptr) { return false; }
+        entry->animeActionFlags = flags;
     }
+    return true;
 }
 
 void ReadGraphicCoordinate(
@@ -476,47 +510,53 @@ void ReadGraphicCoordinate(
     x = 0;
     y = 0;
     if (imageNo >= 0 && imageNo < resource::gMaxGraphicCount) {
-        x = gGraphicDxCache103CFA4[imageNo].coordinateX;
-        y = gGraphicDxCache103CFA4[imageNo].coordinateY;
+        const auto& entry = gGraphicDxCache103CFA4->Read(imageNo);
+        x = entry.coordinateX;
+        y = entry.coordinateY;
     }
 }
 
-void SetGraphicCoordinate(
+bool SetGraphicCoordinate(
     const std::uint32_t imageNo, const std::int16_t x, const std::int16_t y) noexcept
 {
     if (imageNo < static_cast<std::uint32_t>(resource::gMaxGraphicCount)) {
-        gGraphicDxCache103CFA4[imageNo].coordinateX = x;
-        gGraphicDxCache103CFA4[imageNo].coordinateY = y;
+        auto* entry = gGraphicDxCache103CFA4->Find(imageNo);
+        if (entry == nullptr && x == 0 && y == 0) { return true; }
+        if (entry == nullptr) { entry = gGraphicDxCache103CFA4->Ensure(imageNo); }
+        if (entry == nullptr) { return false; }
+        entry->coordinateX = x;
+        entry->coordinateY = y;
     }
+    return true;
 }
 
 std::int16_t ReadGraphicDxWidth(const std::int32_t imageNo) noexcept
 {
-    return static_cast<std::int16_t>(gGraphicDxCache103CFA4[imageNo].width);
+    return static_cast<std::int16_t>(gGraphicDxCache103CFA4->Read(imageNo).width);
 }
 
 std::int16_t ReadGraphicDxHeight(const std::int32_t imageNo) noexcept
 {
-    return static_cast<std::int16_t>(gGraphicDxCache103CFA4[imageNo].height);
+    return static_cast<std::int16_t>(gGraphicDxCache103CFA4->Read(imageNo).height);
 }
 
 std::int16_t ReadGraphicDxHeightFromEntries(
-    const DxGraphicEntry* const entries, const std::int32_t imageNo) noexcept
+    const GraphicDxCache* const entries, const std::int32_t imageNo) noexcept
 {
-    return static_cast<std::int16_t>(entries[imageNo].height);
+    return static_cast<std::int16_t>(entries->Read(imageNo).height);
 }
 
 std::int16_t ReadGraphicDxWidthFromEntries(
-    const DxGraphicEntry* const entries, const std::int32_t imageNo) noexcept
+    const GraphicDxCache* const entries, const std::int32_t imageNo) noexcept
 {
-    return static_cast<std::int16_t>(entries[imageNo].width);
+    return static_cast<std::int16_t>(entries->Read(imageNo).width);
 }
 
 std::int16_t ReadGraphicDxHeightFromField(const std::int32_t& imageNo) noexcept
 {
-    DxGraphicEntry* const entries = gGraphicDxCache103CFA4;
+    const GraphicDxCache* const entries = gGraphicDxCache103CFA4;
     const std::int32_t image = imageNo;
-    return static_cast<std::int16_t>(entries[image].height);
+    return static_cast<std::int16_t>(entries->Read(image).height);
 }
 
 // 原函数：0x005222D0。
@@ -525,7 +565,9 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
     const auto width = static_cast<std::int32_t>(resource::gCurrentGraphicWidth);
     const auto height = static_cast<std::int32_t>(resource::gCurrentGraphicHeight);
     const std::size_t pixels = static_cast<std::size_t>(width) * height;
-    DxGraphicEntry& entry = gGraphicDxCache103CFA4[imageNo];
+    DxGraphicEntry* const allocatedEntry = gGraphicDxCache103CFA4->Ensure(imageNo);
+    if (allocatedEntry == nullptr) { return; }
+    DxGraphicEntry& entry = *allocatedEntry;
     if (pixels > kGraphicTexturePixelBudget) {
         // 负尺寸转为 size_t 后也会进入既有容量拒绝分支，需区分资源尺寸错误。
         if (width < 0 || height < 0) {
@@ -540,8 +582,8 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
     }
     const auto evict = [](TextureNode& node) {
         if (node.imageNo != -1) {
-            DxGraphicEntry& previous = gGraphicDxCache103CFA4[node.imageNo];
-            if (previous.head == &node) { previous.head = nullptr; }
+            auto* previous = gGraphicDxCache103CFA4->Find(node.imageNo);
+            if (previous != nullptr && previous->head == &node) { previous->head = nullptr; }
         }
         ReleaseGraphicNodeSurface(node);
         node.imageNo = -1;
@@ -599,8 +641,9 @@ std::int32_t LoadGraphicTexture_520B10(
     std::int32_t paletteVersion = gPaletteFrameVersion;
     const std::int32_t initialImageNo = graphic->imageNo;
     const std::uint8_t initialMixFlags = graphic->descriptor.mixFlags;
-    DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
-    DxGraphicEntry& entry = dxBase[initialImageNo];
+    DxGraphicEntry* const existingEntry = gGraphicDxCache103CFA4->Find(initialImageNo);
+    if (existingEntry == nullptr) { return 0; }
+    DxGraphicEntry& entry = *existingEntry;
     if ((initialMixFlags & GraphicMixFlag_OriginalPalette) != 0) {
         paletteChoice = 0;
         paletteVersion = 0;

@@ -354,7 +354,9 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
             + static_cast<std::uint32_t>(graphicBase);
         destination->x = buffer[coordinate].x;
         destination->y = buffer[coordinate].y;
-        render::SetGraphicCoordinate(destination->graphicIndex, destination->x, destination->y);
+        if (!render::SetGraphicCoordinate(destination->graphicIndex, destination->x, destination->y)) {
+            return 0; // RMO01：父AnimeLoadAction沿原失败链释放本次槽资源。
+        }
     }
     return 1;
 }

@@ -264,7 +264,7 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
         return;
     }
     const std::int32_t graphic = action->graphicIndex;
-    const render::DxGraphicEntry* const entries = render::gGraphicDxCache103CFA4;
+    const render::GraphicDxCache* const entries = render::gGraphicDxCache103CFA4;
     const std::uint32_t hoverImage = cg::render::gHoverFramePaletteIndex_D69768;
     const std::int32_t y = action->y;
     const std::int32_t offsetX = action->graphicOffsetX;

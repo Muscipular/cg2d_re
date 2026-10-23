@@ -15,6 +15,12 @@ struct LegacyTextureDevice;
 // 原 RECT 的四项 S32，顺序为 left/top/right/bottom；缓存使用同一数值顺序。
 using TextureRectangle = std::array<std::int32_t, 4>;
 
+// OPA01：原生贴图按设备门禁处理；模式1/2忽略整体Alpha、跳过加法效果，保留色键抠空。
+std::int32_t RenderLegacyImageTexture(
+    TextureSurface* surface, const TextureRectangle& source,
+    const TextureRectangle& destination, std::uint8_t mixFlags, std::uint32_t color,
+    bool linearSampling = false);
+
 // R03/R04／GRT01：整图源矩形直接交给 GPU 缩放、翻转与混合。
 // 采样逐次提交，默认最近邻；仅缩放战斗蒙版显式开启线性采样。
 std::int32_t RenderImageTexture(
@@ -38,7 +44,7 @@ std::int32_t RenderColorRectangle(const TextureRectangle& rectangle, std::uint32
 struct LegacyTextureState {
     std::int16_t width;            // +B8：纹理采样分母，不是请求块宽。
     std::int16_t height;           // +BA。
-    std::int32_t textureDrawingEnabled;  // +BC：R05保留设备绘制门禁，ARGB不再依赖RGB色键。
+    std::int32_t textureDrawingEnabled;  // +BC：OPA01原生混合/填充门禁，模式1/2关闭，模式3/4按ARGB格式启用。
     std::uint32_t textureCaps;     // +B4：bit1 幂次方、bit5 正方形限制。
     std::uint32_t pixelBitCount;   // +68：native 格式查询结果。
 };

@@ -271,7 +271,8 @@ std::int8_t RendererInit_44B630()
         return DowngradeRenderer();
     }
     gRenderer->textureState.textureDrawingEnabled =
-        deviceFormat->format == SDL_PIXELFORMAT_ARGB8888 ? 1 : 0;
+        platform::gSupportedRenderMode >= 3
+            && deviceFormat->format == SDL_PIXELFORMAT_ARGB8888 ? 1 : 0;
     if (!ConfigureLegacyTexturePipeline(GetRendererTextureDevice())) {
         return DowngradeRenderer();
     }

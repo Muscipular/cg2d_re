@@ -76,7 +76,7 @@ static void DrawFullscreenBackground(GraphicCacheItem32* const graphic)
     const TextureRectangle destination {0, 0, GetCpuSurfaceWidth(), GetCpuSurfaceHeight()};
     const bool linearSampling = graphic->batchType == GraphicBatch_BattleBackground
         && (source[2] - source[0] != destination[2] || source[3] - source[1] != destination[3]);
-    if (RenderImageTexture(node->surface, source, destination,
+    if (RenderLegacyImageTexture(node->surface, source, destination,
             graphic->descriptor.mixFlags, graphic->descriptor.color, linearSampling) == kSurfaceBusy) {
         gGraphicDirty = 1;
     }

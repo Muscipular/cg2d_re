@@ -283,7 +283,7 @@ std::int32_t RenderTextureToSurface_44D520(
         destinationX, destinationY,
         destinationX + (right - left), destinationY + (bottom - top)
     };
-    return RenderImageTexture(surface, rectangle, destination, mixFlags, color);
+    return RenderLegacyImageTexture(surface, rectangle, destination, mixFlags, color);
 }
 
 // 原函数：0x0044DA90。
@@ -303,7 +303,22 @@ std::int32_t RenderTexture_44DA90(
         x, y, TruncateTextureCoordinate(static_cast<double>(x) + right - left),
         TruncateTextureCoordinate(static_cast<double>(y) + bottom - top)
     };
-    return RenderImageTexture(surface, *rectangle, destination, mixFlags, color);
+    return RenderLegacyImageTexture(surface, *rectangle, destination, mixFlags, color);
+}
+
+// OPA01：对应原44D6DB/+BC门禁及44D996的加法效果早退，GPU仍负责色键Alpha与采样。
+std::int32_t RenderLegacyImageTexture(
+    TextureSurface* const surface, const TextureRectangle& source,
+    const TextureRectangle& destination, const std::uint8_t mixFlags, std::uint32_t color,
+    const bool linearSampling)
+{
+    if (GetLegacyTextureState().textureDrawingEnabled == 0) {
+        if ((mixFlags & GraphicMixFlag_Additive) != 0) {
+            return 0;
+        }
+        color |= 0xFF000000u;
+    }
+    return RenderImageTexture(surface, source, destination, mixFlags, color, linearSampling);
 }
 
 // GRT01：整图、字形图集与 PNG 共用源矩形提交；缩放／翻转／混合均由 GPU 执行。

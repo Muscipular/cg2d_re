@@ -5191,6 +5191,11 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
                 if (input::gChatPanelVisible_C9A96C == 1) {
                     WindowChat_DrawInput(data->context);
                 }
+            } else if (data != nullptr && data->ownedInput != nullptr) {
+                // Lua输入沿原生正文/光标坐标计算，但独立入队并使用控件实际宽度。
+                render::ClearTextQueueTail_456D50(3);
+                render::DrawInputText_4568A0(data->context);
+                render::ClearTextQueueTail_456D50(3);
             } else if (data != nullptr) {
                 WindowChat_DrawFixedWidthInput(data->context);
             }

@@ -54,10 +54,10 @@ static bool ClampInputContextText(InputContext& context, int maxLength)
 static void UpdateTextInputLineStart(InputContext& context, int maxLength)
 {
     ClampInputContextText(context, maxLength);
-    if (context.field130 <= 0) { context.field158 = 0; return; }
+    if (context.field154 <= 0) { context.field158 = 0; return; }
     while (context.field158 < context.caretByteOffset) {
         const std::wstring_view visible(context.text.data() + context.field158, context.caretByteOffset - context.field158);
-        if (render::TextMeasure(visible, context.field13C) <= context.field130) break;
+        if (render::TextMeasure(visible, context.field13C) <= context.field154) break;
         context.field158 = static_cast<int>(text::Next(context.text, context.field158));
     }
 }
@@ -132,15 +132,18 @@ void WindowElement_PrepareInput(WindowElement& element, int ox, int oy, const UI
     const int x = ox + element.x, y = oy + element.y;
     if (element.visible != 1 || !element.hitable || (clip && (x < clip->left || y < clip->top
         || x + element.width > clip->right || y + element.height > clip->bottom))) WindowElement_BlurInput(element);
-    data->context.x = x + 3;
-    data->context.y = y + 2;
+    // 原生DrawInputText从field130/134取正文原点，再写x/y供光标与IME使用。
+    data->context.field130 = x + 3;
+    data->context.field134 = y + 2;
+    data->context.x = data->context.field130;
+    data->context.y = data->context.field134;
     data->context.field138 = FONT_LAYER_WINDOW;
     data->context.field13C = data->font;
     data->context.field140 = data->color;
     ApplyTextInputLimit(data->context, data->maxLength);
     data->context.field14C = element.height;
     data->context.encrypt = 0;
-    data->context.field130 = element.width > 6 ? element.width - 6 : 0;
+    data->context.field154 = element.width > 6 ? element.width - 6 : 0;
     UpdateTextInputLineStart(data->context, data->maxLength);
 }
 } // namespace cg::ui

@@ -1,6 +1,7 @@
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "../WindowExtension.hpp"
 #include "../../world/PlayerState.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -64,6 +65,7 @@ enum class WindowPetSkillsElementId : ElementId {
     Element52 = 52,
     HandleSideArea = 53,
     SwitchEquipment = 67, // 四个宠物详情页的装备页签统一ID。
+    HandleMouseWheel = 68, // 技能列表及滚动条范围的滚轮事件区域。
 };
 
 namespace detail {
@@ -78,6 +80,9 @@ static std::int32_t WindowPetSkills_HandleSkillRow(ElementId elementId, std::int
 
 // 新增宠物技能滑块：复用垂直滚动处理，将位置同步到十行技能列表。
 static std::int32_t WindowPetSkills_HandleScroll(ElementId elementId, std::int32_t state);
+
+// 列表悬停时消费共享滚轮，每格滚动一行并同步现有滑块。
+static std::int32_t WindowPetSkills_HandleMouseWheel(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0048DBB0。
 static std::int32_t WindowPetSkills_Update(std::int32_t value);
@@ -128,7 +133,8 @@ static WindowNumberData gWindowNumbers5667C0[10] { // 原全局：0x005667C0。
     {&gPetTechniqueCostsD66C34[9], 0, 0, 0, 0},
 };
 
-static WindowElementPrototype gWindowElements566810[54] { // 原全局：0x00566810；原51项，新增滑块及拖动区域。
+static WindowElementPrototype gWindowElements566810[55] { // 原全局：0x00566810；扩充滑块、装备页签与滚轮区域。
+    {WindowElementType_EventArea, 20, 50, 216, 160, 1, {.unusedValue = 0}, &WindowPetSkills_HandleMouseWheel, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleMouseWheel)},
     {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gPetEquipmentPageGraphic}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetSkillsElementId::SwitchEquipment)},
     {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName, -1, static_cast<ElementId>(WindowPetSkillsElementId::EditName)},
     {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPetSkillsElementId::ButtonClose)},
@@ -187,7 +193,7 @@ static WindowElementPrototype gWindowElements566810[54] { // 原全局：0x00566
 };
 
 // 原型：窗口18；原全局：0x0054E5D0。
-WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u, 54, gWindowElements566810, &WindowPetSkills_Update, &WindowPetSkills_Draw, &WindowPetSkills_Release}; // 18: 54E5D0
+WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u, 55, gWindowElements566810, &WindowPetSkills_Update, &WindowPetSkills_Draw, &WindowPetSkills_Release}; // 18: 54E5D0
 
 // 窗口函数实现。
 
@@ -323,6 +329,21 @@ static WindowElement* WindowPetSkills_Refresh()
     if (auto* const element36 = resultWindow->FindElementById(WindowPetSkillsElementId::Element36); element36) element36->visible = 0;
     if (auto* const element37 = currentWindow->FindElementById(WindowPetSkillsElementId::Element37); element37) element37->visible = 0;
     return resultWindow->FindElementById(WindowPetSkillsElementId::EditName);
+}
+
+static std::int32_t WindowPetSkills_HandleMouseWheel(const ElementId, const std::int32_t state)
+{
+    if ((state & MouseFlag_Hover) == 0 || WindowDrag_ReadMousePhase() != 0) return 0;
+    const std::int32_t wheel = WindowPeekMouseWheelDelta();
+    if (wheel == 0) return 0;
+    const auto selected = std::bit_cast<std::int16_t>(
+        world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+    const std::int32_t slotCount = std::clamp(world::gPetRuntimeRecords[selected].value6A4, 0, world::kPetTechniqueSlotCount);
+    const std::int32_t step = wheel / 120 != 0 ? wheel / 120 : wheel > 0 ? 1 : -1;
+    gPetTechniqueScroll = std::clamp(gPetTechniqueScroll - step, 0, std::max(0, slotCount - 10));
+    WindowConsumeMouseWheelDelta();
+    static_cast<void>(WindowPetSkills_Refresh());
+    return 1;
 }
 
 static std::int32_t WindowPetSkills_HandleScroll(const ElementId elementId, const std::int32_t state)

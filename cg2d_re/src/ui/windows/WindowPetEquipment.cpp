@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"

@@ -186,6 +186,8 @@ public:
 
 // 保留原0x67资源查询规则供十一CUR选择实例；原EXE只映射为数据，不作为代码装载。
 // module及LoadCursor共享句柄归进程寿命，SetCursor借用期间不卸载，见CAC11。
+// 保持独立边界，避免动态static初始化被合并进调用方的VM区域。
+__declspec(noinline)
 static HINSTANCE ResolveWindowResourceInstance(HINSTANCE instance)
 {
     // RT_GROUP_ICON=14；资源ID与查询统一使用W接口，避免受UNICODE宏影响。
@@ -308,7 +310,6 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
 {
     using namespace cg::platform;
     static_cast<void>(ReadTickCount64()); // CTM01：在入口建立统一启动计时基线。
-    VM_LIGHT_START
 
     const ClientTimerResolution timerResolution;
     const ClientMinidumpReport minidumpReport;
@@ -346,9 +347,12 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
         gWindowClass.lpszMenuName = nullptr;
         gWindowClass.lpszClassName = gWindowClassName;
         if (RegisterClassW(&gWindowClass) == 0) {
-           goto END;
+            return 0;
         }
     }
+
+    // 回调取址和窗口类登记保持原生，避免自动字符串保护重定向代码指针。
+    VM_LIGHT_START
     {
         CaptureDesktopColor();
         ParseClientVersion();
@@ -362,7 +366,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
         InitializeWindow();
         MainLoop();
     }
-    VM_LIGHT_END
     END:
+    VM_LIGHT_END
     return 0;
 }

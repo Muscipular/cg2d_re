@@ -89,7 +89,7 @@ std::int32_t GetMacAddress_534EF0(std::wstring& output)
     return 0;
 }
 
-// 本端新增：供IsServerAddressPolicyAccepted使用，原始字节SHA-256转64位小写十六进制；CNG失败返回空串。
+// 本端新增：供ApplyServerAddressPolicyResult使用，原始字节SHA-256转64位小写十六进制；CNG失败返回空串。
 static std::string sha256ToString(std::string_view input)
 {
     BCRYPT_ALG_HANDLE algorithm = nullptr;
@@ -154,12 +154,12 @@ std::wstring PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16
     return query;
 }
 
-// SDP01：纯结果判定；空结果和计算失败均不通过，查询协调器负责汇总，禁止终止进程。
-bool IsServerAddressPolicyAccepted(const std::string_view address)
+// 只能由主线程消费当前会话的策略结果；SDP01：空结果和计算失败均不通过，不再退出进程。
+bool ApplyServerAddressPolicyResult(const std::string_view address)
 {
     VM_HARD_START
     const bool accepted = !address.empty() && sha256ToString(std::string(address) + "_re.cg.qoq.im")
-        == "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199"; // 原校验值保持。
+        == "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/;
     VM_HARD_END
     return accepted;
 }

@@ -7,7 +7,6 @@
 #include <wininet.h>
 
 #include "ServerAddressPolicy.hpp"
-#include "cg/platform/platformTool.hpp"
 
 #include <array>
 #include <atomic>
@@ -24,12 +23,13 @@ namespace cg::platform::policy_detail {
 // 三路共用截止时间，不因收到部分响应或开始读取正文而延长。
 static constexpr DWORD kQueryTimeoutMs = 10000;
 static constexpr std::size_t kMaxDnsMessageBytes = 65535;
-enum class Outcome { Pending, Accepted, Rejected, Failed, TimedOut };
+enum class Outcome { Pending, Resolved, Failed, TimedOut };
 
 struct QueryState {
     HANDLE event = CreateEventW(nullptr, TRUE, FALSE, nullptr);
     Outcome outcome = Outcome::Pending; // 仅协调工作线程读写。
     DWORD error = ERROR_SUCCESS;
+    std::string address; // 本路首个IPv4结果，只提取地址，固定校验仍在主线程。
     QueryState() { if (!event) { outcome = Outcome::Failed; error = GetLastError(); } }
     ~QueryState() { if (event) CloseHandle(event); }
     void Fail(DWORD value) { error = value; outcome = Outcome::Failed; }
@@ -41,7 +41,7 @@ struct Records {
 };
 
 // 只消费查询名或其CNAME链的Answer首个A记录，不接受附加区的无关地址。
-static Outcome CheckRecords(const std::wstring& query, const DNS_RECORDW* records)
+static Outcome ExtractPolicyAddress(const std::wstring& query, const DNS_RECORDW* records, std::string& output)
 {
     std::size_t count = 0;
     for (auto* record = records; record; record = record->pNext) ++count;
@@ -56,7 +56,8 @@ static Outcome CheckRecords(const std::wstring& query, const DNS_RECORDW* record
                 address.s_addr = record->Data.A.IpAddress;
                 char text[INET_ADDRSTRLEN] {};
                 if (!inet_ntop(AF_INET, &address, text, sizeof(text))) return Outcome::Failed;
-                return IsServerAddressPolicyAccepted(text) ? Outcome::Accepted : Outcome::Rejected;
+                output = text;
+                return Outcome::Resolved;
             }
             if (record->wType == DNS_TYPE_CNAME) canonical = record->Data.CNAME.pNameHost;
         }
@@ -139,7 +140,7 @@ struct SystemDnsQuery final : QueryState, std::enable_shared_from_this<SystemDns
     {
         if (outcome != Outcome::Pending || !complete.load(std::memory_order_acquire)) return;
         if (result.QueryStatus != ERROR_SUCCESS) { Fail(result.QueryStatus); return; }
-        outcome = CheckRecords(name, reinterpret_cast<const DNS_RECORDW*>(result.pQueryRecords));
+        outcome = ExtractPolicyAddress(name, reinterpret_cast<const DNS_RECORDW*>(result.pQueryRecords), address);
         if (outcome == Outcome::Failed) error = DNS_INFO_NO_RECORDS;
     }
 
@@ -254,7 +255,7 @@ struct DohQuery final : QueryState, std::enable_shared_from_this<DohQuery> {
         const DNS_STATUS status = DnsExtractRecordsFromMessage_W(message,
             static_cast<WORD>(response.size()), &records.value);
         if (status != ERROR_SUCCESS) { Fail(status); return; }
-        outcome = CheckRecords(name, reinterpret_cast<const DNS_RECORDW*>(records.value));
+        outcome = ExtractPolicyAddress(name, reinterpret_cast<const DNS_RECORDW*>(records.value), address);
         if (outcome == Outcome::Failed) error = DNS_INFO_NO_RECORDS;
     }
 
@@ -320,7 +321,8 @@ struct Queries {
 namespace cg::platform {
 
 ServerAddressPolicyResult QueryServerAddressPolicy(
-    const std::wstring& name, HANDLE control, const std::function<bool()>& consumeControl)
+    const std::wstring& name, HANDLE control, const std::function<bool()>& consumeControl,
+    const std::function<void(std::string)>& publishAddress, const std::function<bool()>& isApproved)
 {
     using namespace policy_detail;
     Queries queries;
@@ -331,11 +333,14 @@ ServerAddressPolicyResult QueryServerAddressPolicy(
     const std::array<QueryState*, 3> states {queries.dns.get(), queries.doh[0].get(), queries.doh[1].get()};
     for (;;) {
         if (consumeControl()) return {.cancelled = true};
+        if (isApproved()) return {.approved = true};
         queries.dns->Advance();
-        if (queries.dns->outcome == Outcome::Accepted) return {.approved = true};
+        if (!queries.dns->address.empty()) publishAddress(std::exchange(queries.dns->address, {}));
+        if (isApproved()) return {.approved = true};
         for (auto& query : queries.doh) {
             query->Advance();
-            if (query->outcome == Outcome::Accepted) return {.approved = true};
+            if (!query->address.empty()) publishAddress(std::exchange(query->address, {}));
+            if (isApproved()) return {.approved = true};
         }
         const ULONGLONG now = GetTickCount64();
         std::array<HANDLE, 4> events {control};

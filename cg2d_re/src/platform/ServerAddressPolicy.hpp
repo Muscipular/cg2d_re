@@ -13,8 +13,9 @@ struct ServerAddressPolicyResult {
     bool cancelled = false;
 };
 
-// 在传输工作线程并行等待系统DNS及两家DoH；control唤醒后消费当前会话取消状态。
+// 并行查询只发布地址，由主线程原校验点裁决；control唤醒后检查取消及主线程通过结果。
 ServerAddressPolicyResult QueryServerAddressPolicy(
-    const std::wstring& name, HANDLE control, const std::function<bool()>& consumeControl);
+    const std::wstring& name, HANDLE control, const std::function<bool()>& consumeControl,
+    const std::function<void(std::string)>& publishAddress, const std::function<bool()>& isApproved);
 
 } // namespace cg::platform

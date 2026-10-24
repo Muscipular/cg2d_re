@@ -39,7 +39,9 @@
 
 ## 修订与实现状态（2026-10-25）
 
-- 本次仅修订SPEC。现有源码已撤去上述握手，并由ServerAddressPolicy.cpp的CheckRecords在后台调用IsServerAddressPolicyAccepted；虽然CgTransport::Impl::Session仍先RunPolicy再处理真实服务器地址，该实现尚未符合本次保留原校验点的要求，后续须按本修订恢复，不将文档修订记为源码已完成。
+- 用户GO后已恢复PolicyReady/ContinueAfterPolicy及CgConnection::Impl::PollConnection中的ApplyServerAddressPolicyResult校验点。后台只提取并发布各路首个IPv4结果，传输锁内最多暂存三条；主线程逐条裁决，任一路通过即唤醒工作线程并取消其余请求，未通过只移出当前结果。
+- 三路查询继续共用10秒截止时间；查询结束时，已发布但尚未经主线程裁决的结果保留原握手等待，避免抢先判为失败。全部已就绪结果均未通过且其他查询结束后才发布Policy失败；取消、关闭或新ConnectionId使旧结果失效，真实服务器地址处理仍在RunPolicy通过之后。
+- 按用户补充要求恢复原主线程校验说明、结果字段注释及固定校验值旁的原注释；涉及旧空结果放行和进程退出的说明按已批准行为更新。本轮静态检查通过，未编译、测试或运行客户端，三路竞速及重连等实际行为仍待运行验收。
 
 ## 接口依据
 

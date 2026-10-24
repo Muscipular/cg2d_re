@@ -1127,7 +1127,13 @@ platform::ConnectionId CgConnection::Impl::BeginConnect(std::wstring host, std::
 
 platform::ConnectionSnapshot CgConnection::Impl::PollConnection()
 {
-    return transport.PollConnection(connectionId);
+    auto snapshot = transport.PollConnection(connectionId);
+    while (snapshot.state == platform::ConnectionState::PolicyReady) {
+        const bool approved = platform::ApplyServerAddressPolicyResult(snapshot.policyAddress);
+        transport.ContinueAfterPolicy(snapshot.id, approved);
+        snapshot = transport.PollConnection(snapshot.id);
+    }
+    return snapshot;
 }
 
 void CgConnection::Impl::Close()

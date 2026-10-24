@@ -9,8 +9,6 @@
 #include <ws2tcpip.h>
 #include <Windows.h>
 
-#include "ServerAddressPolicy.hpp"
-
 #include <algorithm>
 #include <array>
 #include <cstring>
@@ -42,16 +40,13 @@ struct CgTransport::Impl {
         std::wstring host;
         std::uint16_t port;
         bool noDelay;
-        std::wstring policyQuery;
     };
 
     bool winsock = false;
     Event control; // 手动复位；锁内复位/发布，避免丢失唤醒。
     std::thread worker;
     mutable std::mutex mutex;
-    bool stopping = false, cancelled = false, ioEnabled = false, policyApproved = false;
-    std::array<std::string, 3> policyAddresses; // 三路各发布一次，当前待验地址始终位于队首。
-    std::size_t policyAddressCount = 0; // 仅在mutex内交接，拒绝一路不丢弃其他已就绪结果。
+    bool stopping = false, cancelled = false, ioEnabled = false;
     std::optional<Request> pending; // 只保留最新一次连接请求，不建立无界任务队列。
     ConnectionSnapshot status;
     std::array<std::uint8_t, kQueueCapacity> sendBytes {}, receiveBytes {};
@@ -127,50 +122,6 @@ struct CgTransport::Impl {
                 GetAddrInfoExOverlappedResult(&overlapped);
                 return waitError ? waitError : WSA_OPERATION_ABORTED;
             }
-        }
-    }
-
-    bool RunPolicy(const Request& request)
-    {
-        if (request.policyQuery.empty()) return true;
-        auto result = QueryServerAddressPolicy(request.policyQuery, control.value,
-            [this, id = request.id] { return ConsumeControl(id); },
-            [this, id = request.id](std::string address) {
-                std::lock_guard lock(mutex);
-                if (status.id != id || stopping || cancelled || policyApproved) return;
-                policyAddresses[policyAddressCount++] = std::move(address);
-                if (policyAddressCount == 1) {
-                    status.policyAddress = policyAddresses[0];
-                    status.state = ConnectionState::PolicyReady;
-                    status.phase = ConnectionPhase::Policy;
-                }
-            },
-            [this, id = request.id] {
-                std::lock_guard lock(mutex);
-                return status.id == id && !stopping && !cancelled && policyApproved;
-            });
-        if (result.cancelled || Cancelled(request.id)) return false;
-        if (result.approved) return true;
-        // 查询截止只结束未完成的线路；已就绪结果仍须在原主线程校验点完成交接。
-        for (;;) {
-            {
-                std::lock_guard lock(mutex);
-                if (status.id != request.id || stopping || cancelled) return false;
-                if (policyApproved) return true;
-                if (status.state != ConnectionState::PolicyReady) {
-                    status.state = ConnectionState::Failed;
-                    status.phase = ConnectionPhase::Policy;
-                    status.error = ERROR_ACCESS_DENIED;
-                    sendLength = 0;
-                    return false;
-                }
-            }
-            const DWORD waited = WSAWaitForMultipleEvents(1, &control.value, FALSE, WSA_INFINITE, FALSE);
-            if (waited == WSA_WAIT_FAILED) {
-                Publish(request.id, ConnectionState::Failed, ConnectionPhase::Policy, WSAGetLastError());
-                return false;
-            }
-            if (ConsumeControl(request.id)) return false;
         }
     }
 
@@ -293,7 +244,6 @@ struct CgTransport::Impl {
     void Session(const Request& request)
     {
         if (Cancelled(request.id)) return;
-        if (!RunPolicy(request) || Cancelled(request.id)) return;
         Publish(request.id, ConnectionState::Resolving, ConnectionPhase::Resolve);
         Addresses addresses;
         ADDRINFOEXW numeric {};
@@ -443,7 +393,7 @@ bool CgTransport::Open(int& error)
 }
 
 ConnectionId CgTransport::BeginConnect(std::wstring host, std::uint16_t port,
-    bool noDelay, std::wstring policyQuery)
+    bool noDelay, bool policyApproved)
 {
     if (!impl_ || nextId_ == (std::numeric_limits<ConnectionId>::max)()) return 0;
     std::lock_guard lock(impl_->mutex);
@@ -452,13 +402,13 @@ ConnectionId CgTransport::BeginConnect(std::wstring host, std::uint16_t port,
     ConnectionSnapshot next;
     next.id = id;
     next.host = host;
-    next.state = ConnectionState::Resolving;
-    next.phase = policyQuery.empty() ? ConnectionPhase::Resolve : ConnectionPhase::Policy;
-    impl_->pending.emplace(Impl::Request {id, std::move(host), port, noDelay, std::move(policyQuery)});
+    next.state = policyApproved ? ConnectionState::Resolving : ConnectionState::Failed;
+    next.phase = policyApproved ? ConnectionPhase::Resolve : ConnectionPhase::Policy;
+    next.error = policyApproved ? 0 : ERROR_ACCESS_DENIED;
+    if (policyApproved) impl_->pending.emplace(Impl::Request {id, std::move(host), port, noDelay});
+    else impl_->pending.reset();
     impl_->status = std::move(next);
-    impl_->cancelled = impl_->ioEnabled = impl_->policyApproved = false;
-    impl_->policyAddresses = {};
-    impl_->policyAddressCount = 0;
+    impl_->cancelled = impl_->ioEnabled = false;
     impl_->sendLength = impl_->receiveLength = 0;
     WSASetEvent(impl_->control.value);
     return id;
@@ -472,30 +422,6 @@ ConnectionSnapshot CgTransport::PollConnection(ConnectionId id) const
     auto result = impl_->status;
     result.receivedBytes = impl_->receiveLength;
     return result;
-}
-
-void CgTransport::ContinueAfterPolicy(ConnectionId id, bool approved)
-{
-    if (!impl_) return;
-    std::lock_guard lock(impl_->mutex);
-    if (impl_->status.id != id || impl_->status.state != ConnectionState::PolicyReady
-        || impl_->stopping || impl_->cancelled) return;
-    impl_->policyApproved = approved;
-    if (approved) {
-        impl_->policyAddressCount = 0;
-    } else {
-        for (std::size_t index = 1; index < impl_->policyAddressCount; ++index)
-            impl_->policyAddresses[index - 1] = std::move(impl_->policyAddresses[index]);
-        --impl_->policyAddressCount;
-    }
-    if (impl_->policyAddressCount != 0) {
-        impl_->status.policyAddress = impl_->policyAddresses[0];
-    } else {
-        impl_->status.policyAddress.clear();
-        impl_->status.state = ConnectionState::Resolving;
-        impl_->status.phase = approved ? ConnectionPhase::Resolve : ConnectionPhase::Policy;
-    }
-    WSASetEvent(impl_->control.value);
 }
 
 void CgTransport::SetIoEnabled(ConnectionId id, bool enabled)

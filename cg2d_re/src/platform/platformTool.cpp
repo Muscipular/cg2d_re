@@ -1,6 +1,7 @@
 #include "cg/platform/platformTool.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "ServerAddressPolicy.hpp"
 #include <cstdlib>
 
 #include <winsock2.h>
@@ -89,7 +90,7 @@ std::int32_t GetMacAddress_534EF0(std::wstring& output)
     return 0;
 }
 
-// 本端新增：供ApplyServerAddressPolicyResult使用，原始字节SHA-256转64位小写十六进制；CNG失败返回空串。
+// 本端新增：供PrepareServerAddressPolicy使用，原始字节SHA-256转64位小写十六进制；CNG失败返回空串。
 static std::string sha256ToString(std::string_view input)
 {
     BCRYPT_ALG_HANDLE algorithm = nullptr;
@@ -134,32 +135,31 @@ static std::string sha256ToString(std::string_view input)
     return result;
 }
 
-// NTM01/A10：只生产策略查询，不在主线程执行同步DNS。
-std::wstring PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
+// SDP01：DNS/DoH请求、等待及固定校验均在本次调用返回前完成，不延后到传输线程或轮询。
+bool PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
 {
     VM_HARD_START
-    std::wstring query;
+    bool accepted = false;
 #ifdef TAOMOLI
     if (serverAddress == L"taomoli" && port <= 9)
     {
         serverAddress = L"218.78.128.210";
         port = static_cast<std::uint16_t>(9030 + port);
+        accepted = true;
     }
     else
 #endif
     {
-        query = std::format(L"{}.{}.re.cg.qoq.im", serverAddress, port);
+        const auto query = std::format(L"{}.{}.re.cg.qoq.im", serverAddress, port);
+        accepted = QueryServerAddressPolicy(query, [](const std::string_view address) {
+            // 保留原固定校验值及注释；回调在本次Prepare调用线程内直接执行。
+            VM_HARD_START
+            const bool approved = !address.empty() && sha256ToString(std::string(address) + "_re.cg.qoq.im")
+                == "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/;
+            VM_HARD_END
+            return approved;
+        });
     }
-    VM_HARD_END
-    return query;
-}
-
-// 只能由主线程消费当前会话的策略结果；SDP01：空结果和计算失败均不通过，不再退出进程。
-bool ApplyServerAddressPolicyResult(const std::string_view address)
-{
-    VM_HARD_START
-    const bool accepted = !address.empty() && sha256ToString(std::string(address) + "_re.cg.qoq.im")
-        == "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/;
     VM_HARD_END
     return accepted;
 }

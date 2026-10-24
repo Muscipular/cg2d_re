@@ -7,6 +7,7 @@
 #include <wininet.h>
 
 #include "ServerAddressPolicy.hpp"
+#include "cg/core/vm.h"
 
 #include <array>
 #include <atomic>
@@ -27,7 +28,7 @@ enum class Outcome { Pending, Resolved, Failed, TimedOut };
 
 struct QueryState {
     HANDLE event = CreateEventW(nullptr, TRUE, FALSE, nullptr);
-    Outcome outcome = Outcome::Pending; // 仅协调工作线程读写。
+    Outcome outcome = Outcome::Pending; // 仅PrepareServerAddressPolicy的调用线程读写。
     DWORD error = ERROR_SUCCESS;
     std::string address; // 本路首个IPv4结果，只提取地址，固定校验仍在主线程。
     QueryState() { if (!event) { outcome = Outcome::Failed; error = GetLastError(); } }
@@ -320,11 +321,12 @@ struct Queries {
 
 namespace cg::platform {
 
-ServerAddressPolicyResult QueryServerAddressPolicy(
-    const std::wstring& name, HANDLE control, const std::function<bool()>& consumeControl,
-    const std::function<void(std::string)>& publishAddress, const std::function<bool()>& isApproved)
+bool QueryServerAddressPolicy(
+    const std::wstring& name, const std::function<bool(std::string_view)>& isAccepted)
 {
     using namespace policy_detail;
+    VM_HARD_START
+    bool approved = false;
     Queries queries;
     const ULONGLONG deadline = GetTickCount64() + kQueryTimeoutMs;
     queries.dns->Start(name);
@@ -332,25 +334,28 @@ ServerAddressPolicyResult QueryServerAddressPolicy(
     queries.doh[1]->Start(name, L"dns.alidns.com");
     const std::array<QueryState*, 3> states {queries.dns.get(), queries.doh[0].get(), queries.doh[1].get()};
     for (;;) {
-        if (consumeControl()) return {.cancelled = true};
-        if (isApproved()) return {.approved = true};
         queries.dns->Advance();
-        if (!queries.dns->address.empty()) publishAddress(std::exchange(queries.dns->address, {}));
-        if (isApproved()) return {.approved = true};
+        if (!queries.dns->address.empty() && isAccepted(std::exchange(queries.dns->address, {}))) {
+            approved = true;
+            break;
+        }
         for (auto& query : queries.doh) {
             query->Advance();
-            if (!query->address.empty()) publishAddress(std::exchange(query->address, {}));
-            if (isApproved()) return {.approved = true};
+            if (!query->address.empty() && isAccepted(std::exchange(query->address, {}))) {
+                approved = true;
+                break;
+            }
         }
+        if (approved) break;
         const ULONGLONG now = GetTickCount64();
-        std::array<HANDLE, 4> events {control};
-        DWORD count = 1;
+        std::array<HANDLE, 3> events {};
+        DWORD count = 0;
         for (auto* state : states) {
             if (state->outcome != Outcome::Pending) continue;
             if (now >= deadline) state->outcome = Outcome::TimedOut;
             else events[count++] = state->event;
         }
-        if (count == 1) break;
+        if (count == 0) break;
         const DWORD waited = WaitForMultipleObjects(count, events.data(), FALSE, static_cast<DWORD>(deadline - now));
         if (waited == WAIT_FAILED) {
             const DWORD error = GetLastError();
@@ -358,7 +363,8 @@ ServerAddressPolicyResult QueryServerAddressPolicy(
             break;
         }
     }
-    return {};
+    VM_HARD_END
+    return approved;
 }
 
 } // namespace cg::platform

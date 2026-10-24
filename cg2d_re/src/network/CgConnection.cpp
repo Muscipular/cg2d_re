@@ -1113,11 +1113,11 @@ platform::ConnectionId CgConnection::Impl::BeginConnect(std::wstring host, std::
 {
     Close();
     try {
-        auto policyQuery = platform::PrepareServerAddressPolicy(host, port);
+        const bool policyApproved = platform::PrepareServerAddressPolicy(host, port);
         this->frameModuloD9F3C8 = 0;
         this->flagsD9F2C0 = 0;
         this->errorD9F2CC = 0;
-        const auto id = transport.BeginConnect(std::move(host), port, noDelay, std::move(policyQuery));
+        const auto id = transport.BeginConnect(std::move(host), port, noDelay, policyApproved);
         connectionId = id;
         return connectionId;
     } catch (const std::exception&) {
@@ -1127,13 +1127,7 @@ platform::ConnectionId CgConnection::Impl::BeginConnect(std::wstring host, std::
 
 platform::ConnectionSnapshot CgConnection::Impl::PollConnection()
 {
-    auto snapshot = transport.PollConnection(connectionId);
-    while (snapshot.state == platform::ConnectionState::PolicyReady) {
-        const bool approved = platform::ApplyServerAddressPolicyResult(snapshot.policyAddress);
-        transport.ContinueAfterPolicy(snapshot.id, approved);
-        snapshot = transport.PollConnection(snapshot.id);
-    }
-    return snapshot;
+    return transport.PollConnection(connectionId);
 }
 
 void CgConnection::Impl::Close()

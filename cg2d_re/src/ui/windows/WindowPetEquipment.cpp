@@ -24,13 +24,11 @@ enum class WindowPetEquipmentElementId : ElementId {
     CollarSlot = 13,
     AccessorySlot1 = 14,
     AccessorySlot2 = 15,
-    AccessorySlot3 = 16,
     CrystalLabel = 17,
     ArmorLabel = 18,
     CollarLabel = 19,
     AccessoryLabel1 = 20,
     AccessoryLabel2 = 21,
-    AccessoryLabel3 = 22,
     Frame = 23,
     Panel = 24,
     SideArea = 25,
@@ -41,7 +39,7 @@ namespace detail {
 
 // 同步宠物名字、排序位置及说明状态，宠物消失时关闭装备页。
 static std::int32_t WindowPetEquipment_Update(std::int32_t value);
-// 共用物品提示和宠物外框，绘制六槽图标及空格边框。
+// 共用物品提示和宠物外框，绘制本页五个装备槽。
 static std::int32_t WindowPetEquipment_Draw(std::int32_t value);
 // 将装备页位置同步给另外三个宠物详情页。
 static void WindowPetEquipment_Release();
@@ -53,24 +51,24 @@ static std::int32_t WindowPetEquipment_HandleItems(ElementId elementId, std::int
 // 将原装备栏的两列三层中心坐标平移到宠物框，图标、槽底及鼠标命中保持同源。
 static constexpr std::int32_t kPetEquipmentOriginX = 22;
 static constexpr std::int32_t kPetEquipmentOriginY = 55;
-// 六个实例分别裁出图98147的对应装备格，初始化时按共享中心表填写源偏移。
+// 五个实例分别裁出图98147的对应装备格，初始化时按共享中心表填写源偏移。
 static WindowGraphicData gPetEquipmentSlotGraphic {98147, 0, 0, 48, 48, 0xFFFFFFFFu};
 
 WindowGraphicData gPetEquipmentPageGraphic {244474, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gPetEquipmentActivePageGraphic {244475, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowTextPrototype gPetEquipmentName {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L""};
 static WindowTextPrototype gPetEquipmentNumber {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"1/5"};
+// 本页只展示原槽0～4，饰品3（槽5）不参与绘制或命中。
 static WindowTextPrototype gPetEquipmentLabels[] {
     {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"晶石"},
     {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"防具"},
     {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"项圈"},
     {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"饰品1"},
     {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"饰品2"},
-    {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, L"饰品3"},
 };
 
 static WindowElementPrototype gPetEquipmentElements[] {
-    {WindowElementType_Text, 66, 31, 140, 16, 1, {.text = &gPetEquipmentName}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::Name)},
+    {WindowElementType_Text, 49, 31, 147, 16, 1, {.text = &gPetEquipmentName}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::Name)},
     {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPetEquipmentElementId::ButtonClose)},
     {WindowElementType_Graphic, 27, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetEquipmentElementId::TabStatus)},
     {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetEquipmentElementId::TabAttributes)},
@@ -81,7 +79,6 @@ static WindowElementPrototype gPetEquipmentElements[] {
     {WindowElementType_Graphic, 0, 0, 48, 48, 1, {.graphic = &gPetEquipmentSlotGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::CollarSlot)},
     {WindowElementType_Graphic, 0, 0, 48, 48, 1, {.graphic = &gPetEquipmentSlotGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::AccessorySlot1)},
     {WindowElementType_Graphic, 0, 0, 48, 48, 1, {.graphic = &gPetEquipmentSlotGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::AccessorySlot2)},
-    {WindowElementType_Graphic, 0, 0, 48, 48, 1, {.graphic = &gPetEquipmentSlotGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::AccessorySlot3)},
     {WindowElementType_Text, 23, 31, 24, 16, 1, {.text = &gWindowText565950}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::NameLabel)},
     {WindowElementType_Graphic, 21, 253, 13, 15, 1, {.graphic = &gWindowGraphic565878}, &WindowPetEquipment_SelectPet, -1, static_cast<ElementId>(WindowPetEquipmentElementId::PreviousPet)},
     {WindowElementType_Graphic, 65, 253, 13, 15, 1, {.graphic = &gWindowGraphic565890}, &WindowPetEquipment_SelectPet, -1, static_cast<ElementId>(WindowPetEquipmentElementId::NextPet)},
@@ -91,7 +88,6 @@ static WindowElementPrototype gPetEquipmentElements[] {
     {WindowElementType_Text, 0, 0, 36, 16, 1, {.text = &gPetEquipmentLabels[2]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::CollarLabel)},
     {WindowElementType_Text, 0, 0, 36, 16, 1, {.text = &gPetEquipmentLabels[3]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::AccessoryLabel1)},
     {WindowElementType_Text, 0, 0, 36, 16, 1, {.text = &gPetEquipmentLabels[4]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::AccessoryLabel2)},
-    {WindowElementType_Text, 0, 0, 36, 16, 1, {.text = &gPetEquipmentLabels[5]}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::AccessoryLabel3)},
     {WindowElementType_Graphic, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic565608}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::Frame)},
     {WindowElementType_Graphic, 14, 25, 0, 0, 1, {.graphic = &gWindowGraphic565620}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetEquipmentElementId::Panel)},
     {WindowElementType_EventArea, 250, 0, 20, 130, 1, {.unusedValue = 0}, &WindowElement_HandleSideArea, -1, static_cast<ElementId>(WindowPetEquipmentElementId::SideArea)},
@@ -114,11 +110,10 @@ static std::int32_t WindowPetEquipment_Update(const std::int32_t value)
         while (auto* element = cursor.next()) {
             if (element->type != WindowElementType_Text) continue;
             element->data.text->layout = WindowTextLayout::Box;
-            element->data.text->align = element->elementId == static_cast<ElementId>(WindowPetEquipmentElementId::Name)
-                || element->elementId == static_cast<ElementId>(WindowPetEquipmentElementId::NameLabel)
+            element->data.text->align = element->elementId == static_cast<ElementId>(WindowPetEquipmentElementId::NameLabel)
                 ? WindowTextAlign::Left : WindowTextAlign::Center;
         }
-        for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(gSelectorPetX54F5C4.size()); ++slot) {
+        for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(std::size(gPetEquipmentLabels)); ++slot) {
             auto* const background = window->FindElementById(static_cast<ElementId>(WindowPetEquipmentElementId::CrystalSlot) + slot);
             if (!background) continue;
             background->x = kPetEquipmentOriginX + gSelectorPetX54F5C4[slot] - 24;
@@ -191,7 +186,7 @@ static std::int32_t WindowPetEquipment_HandleItems(const ElementId, const std::i
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     std::int32_t hovered = -1;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(gSelectorPetX54F5C4.size()) && slot < pet.values6D8[0]; ++slot) {
+        for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(std::size(gPetEquipmentLabels)) && slot < pet.values6D8[0]; ++slot) {
             const std::int32_t left = window->x + kPetEquipmentOriginX + gSelectorPetX54F5C4[slot] - 24;
             const std::int32_t top = window->y + kPetEquipmentOriginY + gSelectorPetY54F5DC[slot] - 24;
             if (HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
@@ -212,7 +207,7 @@ static std::int32_t WindowPetEquipment_HandleItems(const ElementId, const std::i
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t x = WindowDrag_ReadX();
             const std::int32_t y = WindowDrag_ReadY();
-            for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(gSelectorPetX54F5C4.size()) && slot < pet.values6D8[0]; ++slot) {
+            for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(std::size(gPetEquipmentLabels)) && slot < pet.values6D8[0]; ++slot) {
                 const std::int32_t left = window->x + kPetEquipmentOriginX + gSelectorPetX54F5C4[slot] - 24;
                 const std::int32_t top = window->y + kPetEquipmentOriginY + gSelectorPetY54F5DC[slot] - 24;
                 if (x >= left && x < left + 48 && y >= top && y < top + 48) {
@@ -265,7 +260,7 @@ static std::int32_t WindowPetEquipment_Draw(const std::int32_t)
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
     descriptor.mixFlags = render::GraphicMixFlag_OriginalPalette;
-    for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(gSelectorPetX54F5C4.size()); ++slot) {
+    for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(std::size(gPetEquipmentLabels)); ++slot) {
         const std::int32_t left = window->x + kPetEquipmentOriginX + gSelectorPetX54F5C4[slot] - 24;
         const std::int32_t top = window->y + kPetEquipmentOriginY + gSelectorPetY54F5DC[slot] - 24;
         if (slot >= pet.values6D8[0]) {

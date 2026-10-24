@@ -2,6 +2,13 @@
 
 日期：2026-10-24。用户已批准WinINet DoH与系统DNS并行、任一路通过即放行、全部失败才提示、不直接退出；随后要求同时接入Cloudflare与阿里DoH。本合同记录该已授权范围及实现取舍。
 
+## 验证点与时机（2026-10-25修订）
+
+- 按用户最新要求，DoH只扩展策略查询来源，不改变原有验证点或延后验证时机。每次连接仍由BeginConnect调用PrepareServerAddressPolicy，再在CgTransport::Impl::RunPolicy阶段完成策略查询与裁决；保留原查询名、TAOMOLI映射/免查询分支、首个A记录取值及固定摘要比较规则。
+- 保留PolicyReady/ContinueAfterPolicy握手：查询结果就绪后，由主线程CgConnection::Impl::PollConnection在原ApplyServerAddressPolicyResult校验点消费当前会话结果；通过后才允许工作线程继续真实服务器地址处理、解析及TCP连接。移除进程退出行为不构成迁移或撤去该校验点的授权。
+- 任一路结果就绪即提交原校验点判定；任一路通过即放行并取消其余请求，不为等待其余线路或10秒截止时间延后已有结果的验证。单路未通过仍等待其他线路，全部未通过或截止时仍无通过才按既有失败流程处理。
+- 校验必须保持在真实服务器地址处理、解析及TCP连接之前，不得移到连接成功、登录请求发送或登录响应处理时，也不得先连接再补验。
+
 ## 查询与裁决
 
 - 每次连接保留PrepareServerAddressPolicy产生的查询名及既有TAOMOLI映射/免查询分支，不改游戏协议与真实服务器连接解析。
@@ -14,14 +21,14 @@
 
 - WinINet采用用户现有代理配置，使用HTTPS并保留默认主机名/证书验证，不增加忽略证书标志或交互式证书窗口。不发送Cookie/自动认证，不自动跟随重定向，不把校验响应写入WinINet缓存。
 - DoH使用`application/dns-message`，要求HTTP 200及匹配的内容类型。响应最大65535字节；检查DNS响应位、opcode、截断位、状态码、事务ID、单个Question的名称/类型/A类，再交Windows DNS记录解析器处理。
-- Question比较保留标签边界、允许压缩指针并限制循环/越界；CNAME跟踪限制为记录数量以内。系统DNS和DoH均复用同一纯校验函数，CNG失败不产生通过结果。
+- Question比较保留标签边界、允许压缩指针并限制循环/越界；CNAME跟踪限制为记录数量以内。系统DNS和DoH的地址结果均在原校验点复用同一纯校验函数，CNG失败不产生通过结果。
 
 ## 并发与生命周期
 
-- CgTransport现有工作线程负责启动、等待和汇总，主线程继续按快照轮询。无需为各路增加常驻线程；系统回调只写本请求完成状态、唤醒事件，禁止访问传输对象、UI或会话状态。
+- CgTransport现有工作线程负责启动、等待和发布查询结果，主线程继续按快照轮询并在原校验点裁决。无需为各路增加常驻线程；系统回调只写本请求完成状态、唤醒事件，禁止访问传输对象、UI或会话状态。
 - DNS请求及结果结构由共享上下文持有；DnsCancelQuery后由完成回调释放其保留引用。WinINet请求正文、分段读缓冲区、事件及上下文一直保留到INTERNET_STATUS_HANDLE_CLOSING最后通知。取消不等待其他线路成功返回，也不复用未完成请求的缓冲区。
 - 三路统一RAII取消；成功、取消、超时、异常和正常失败均关闭WinINet句柄并取消仍在等待的DNS。关闭回调只释放自身资源，不会覆盖新请求结果。
-- 继续使用ConnectionId及传输锁保护发布；协调器返回后再次检查当前会话。撤去PolicyReady/ContinueAfterPolicy握手以及ApplyServerAddressPolicyResult的进程退出行为。
+- 继续使用ConnectionId及传输锁保护发布；主线程消费结果及工作线程继续连接前均检查当前会话。保留PolicyReady/ContinueAfterPolicy握手及ApplyServerAddressPolicyResult原校验点，仅将其进程退出行为改为既有连接失败处理。
 
 ## 失败提示与实现边界
 
@@ -29,6 +36,10 @@
 - Policy失败分支在详细连接日志之前处理，不输出分路结果、错误码或策略标识；移除诊断字符串的构造及跨层传递，其他网络错误的既有日志与提示保持。
 - 新增平台私有ServerAddressPolicy模块，Win32句柄不进入业务公开接口；CMake仅登记本模块并链接系统自带wininet/dnsapi，不引入外部依赖。
 - 本次按项目限制仅执行静态源码、SDK声明、引用和差异检查，未编译、运行客户端、执行测试、查询实际校验域名或计算任何文件摘要。三路竞速、代理/TUN、证书失败、超时、取消和连续重连仍待运行验收。
+
+## 修订与实现状态（2026-10-25）
+
+- 本次仅修订SPEC。现有源码已撤去上述握手，并由ServerAddressPolicy.cpp的CheckRecords在后台调用IsServerAddressPolicyAccepted；虽然CgTransport::Impl::Session仍先RunPolicy再处理真实服务器地址，该实现尚未符合本次保留原校验点的要求，后续须按本修订恢复，不将文档修订记为源码已完成。
 
 ## 接口依据
 

@@ -136,8 +136,23 @@ static std::string sha256ToString(std::string_view input)
 }
 
 // SDP01：在此发起三路后台DNS/DoH校验，调用方不等待；仅全部失败时退出进程。
+__declspec(noinline)
 void PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
 {
+    // 回调在外层VM之前定义并禁止内联，避免两段保护标记合并。
+    struct PolicyCheck {
+        __declspec(noinline)
+        bool operator()(const std::string_view address) const
+        {
+            // 保留原固定校验值及注释；单路失败不提前退出。
+            VM_HARD_START
+            const bool approved = !address.empty() && sha256ToString(std::string(address) + "_re.cg.qoq.im")
+                == "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/;
+            VM_HARD_END
+            return approved;
+        }
+    };
+
     VM_HARD_START
 #ifdef TAOMOLI
     if (serverAddress == L"taomoli" && port <= 9)
@@ -149,14 +164,7 @@ void PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port
 #endif
     {
         const auto query = std::format(L"{}.{}.re.cg.qoq.im", serverAddress, port);
-        StartServerAddressPolicy(query, [](const std::string_view address) {
-            // 保留原固定校验值及注释；回调按值交给后台线程，单路失败不提前退出。
-            VM_HARD_START
-            const bool approved = !address.empty() && sha256ToString(std::string(address) + "_re.cg.qoq.im")
-                == "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/;
-            VM_HARD_END
-            return approved;
-        });
+        StartServerAddressPolicy(query, PolicyCheck {});
     }
     VM_HARD_END
 }

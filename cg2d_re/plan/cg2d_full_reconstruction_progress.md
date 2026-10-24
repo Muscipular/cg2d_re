@@ -5331,3 +5331,9 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 用户明确要求本轮完成后执行build.bat并提交，本次授权覆盖对应构建暂停限制。执行build.bat Debug，CMake配置、MSVC x64编译及链接成功，脚本退出码0，产物为build/windows-msvc-x64/Debug/cg2d_re.exe；无需修正源码。
 - 构建包含ServerAddressPolicy、platformTool、CgTransport、CgConnection及关联调用模块；输出C4458、C4244、C4701告警。已同步[SDP01](../doc/cg2d_server_address_policy_spec.md)构建结果，精确提交本轮验证说明与唯一进度，原功能源码已提交，既有未跟踪内容排除。
 - 未运行客户端、测试或实际策略查询，未重新加壳或计算文件摘要；构建成功不替代后台竞速、成功取消、全部失败退出、超时及受保护代码的运行验收。
+
+## 631. 后台地址校验VM标记禁止内联（2026-10-25）
+
+- 用户报告嵌套VM宏错误并要求加入noinline。核对本项五个含VM标记的函数均未标注禁止内联，Prepare外层VM内还定义带独立VM的校验lambda；本次隔离函数与保护标记边界，不凭Debug通过推定加壳已通过。
+- Prepare、QueryGroup::Complete、RunPolicyQuery、StartServerAddressPolicy增加__declspec(noinline)；原校验lambda改为Prepare内的局部PolicyCheck，其operator()同样禁止内联，并在外层VM开始之前定义。保留直接VM_HARD成对标记、固定值及原注释，查询入口、三路后台任务、通过/剩余计数和全部失败退出保持。
+- 已同步[SDP01](../doc/cg2d_server_address_policy_spec.md)。静态核对确认查询实现仅新增noinline，固定校验正文、原注释、地址映射和查询名不变，五处VM标记成对且对应函数禁止内联；四份变更文件严格UTF-8读取及换行检查通过。沿用用户本轮build.bat与提交授权，执行build.bat Debug，配置、编译和链接成功，退出码0，仍有既有C4458告警。未测试、运行客户端、实际查询、重新加壳或计算文件摘要，嵌套VM报错是否消失仍需实际加壳确认；精确提交本轮四份变更，保留既有未跟踪内容。

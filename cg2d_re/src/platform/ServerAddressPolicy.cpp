@@ -335,6 +335,7 @@ struct QueryGroup {
         if (winsock) WSACleanup();
     }
 
+    __declspec(noinline)
     void Complete(bool accepted) noexcept
     {
         VM_HARD_START
@@ -352,6 +353,7 @@ struct QueryGroup {
 };
 
 template<class Query, class... Args>
+__declspec(noinline)
 static void RunPolicyQuery(std::shared_ptr<QueryGroup> group, Args... args) noexcept
 {
     VM_HARD_START
@@ -389,6 +391,7 @@ static void RunPolicyQuery(std::shared_ptr<QueryGroup> group, Args... args) noex
 
 namespace cg::platform {
 
+__declspec(noinline)
 void StartServerAddressPolicy(
     std::wstring name, std::function<bool(std::string_view)> isAccepted)
 {

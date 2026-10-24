@@ -5,7 +5,7 @@
 ## 验证点与时机（2026-10-25修订）
 
 - PrepareServerAddressPolicy仍是唯一发起入口，在函数内完成地址映射、构造查询名并启动三路后台任务后立即返回void；不以返回true冒充校验已经通过。按用户最新许可，真实服务器连接不等待策略结果，查询与校验在后台继续完成，不迁至PollConnection或传输工作线程。
-- 以用户指定Git版本的固定校验值、原注释及VM标记为对照。Prepare主体、后台请求/裁决及函数内定义的固定校验回调均保留直接成对的VM_HARD_START/VM_HARD_END；保留TAOMOLI映射/免查询、首个A记录和固定比较规则。
+- 以用户指定Git版本的固定校验值、原注释及VM标记为对照。Prepare主体、后台请求/裁决及函数内定义的固定校验回调均保留直接成对的VM_HARD_START/VM_HARD_END；含VM标记的五个函数全部标注__declspec(noinline)。校验使用Prepare内的局部PolicyCheck可调用对象，其operator()定义位于外层VM开始之前，避免嵌套声明及内联将两段保护标记合并；保留TAOMOLI映射/免查询、首个A记录和固定比较规则。
 - 每路地址就绪即在该路后台线程中调用固定校验；任一路通过即记录通过并唤醒其余线程取消查询。单路未通过只记本路完成，三路全部结束且没有通过才退出进程，不能在单路不符时提前退出。
 - 本条覆盖旧同步等待、RunPolicy、PolicyReady/ContinueAfterPolicy及PollConnection裁决约定；已存在的界面、连接、登录和协议流程不承接策略结果。策略退出仅按本次独立查询批次裁决，不引入后台重试或轮询。
 
@@ -43,6 +43,7 @@
 - 已实现三路std::thread分离任务；Prepare改为void发起入口，线程按值持有批次及静态DoH端点，调用方不等待查询结果。按用户授权将原单路立即退出移到三路聚合裁决，移除传输层bool策略门禁与旧Policy失败提示。
 - 线程捕获/资源持有、通过标志与剩余计数先后、单次10秒截止和取消唤醒静态核对通过；固定值、原注释、原地址规则、请求/响应解析及系统回调实现与Git基线一致，十份变更文件UTF-8及Git差异检查通过。
 - 用户随后明确要求build.bat并提交，本轮已执行build.bat Debug，配置、编译和链接成功，退出码0，产物为build/windows-msvc-x64/Debug/cg2d_re.exe。构建包含三路后台线程及Prepare/传输接线，仍有C4458、C4244、C4701告警；未测试、运行客户端、实际查询策略域名或重新加壳，后台竞速、取消、超时及受保护代码的实际行为仍须对应运行验收。
+- 用户报告VM宏嵌套并要求noinline：已补Prepare、PolicyCheck::operator()、QueryGroup::Complete、RunPolicyQuery及StartServerAddressPolicy的禁止内联属性，并将校验回调定义移到外层VM之前。固定校验与后台裁决不变；本次build.bat Debug配置、编译及链接成功，退出码0，新增noinline属性经MSVC编译通过，仍有既有C4458告警。未重新加壳，尚不能据此确认嵌套VM报错消失。
 
 ## 接口依据
 

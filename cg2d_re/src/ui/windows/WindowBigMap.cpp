@@ -253,16 +253,16 @@ static WindowTextPrototype gBigMapListRowText{{std::byte{0}, std::byte{12}, {}, 
 static WindowTextPrototype gBigMapListEmptyText{{std::byte{0}, std::byte{12}, {}, {}}, L"暂无坐标"};
 static WindowTextPrototype gBigMapCustomTexts[]{
     {{std::byte{0}, std::byte{12}, {}, {}}, L"自定坐标"},
-    {{std::byte{10}, std::byte{12}, {}, {}}, L"新增"},
-    {{std::byte{10}, std::byte{12}, {}, {}}, L"修改"},
-    {{std::byte{10}, std::byte{12}, {}, {}}, L"删除"},
-    {{std::byte{10}, std::byte{12}, {}, {}}, L"重载"},
+    {{std::byte{4}, std::byte{12}, {}, {}}, L"新增"},
+    {{std::byte{4}, std::byte{12}, {}, {}}, L"修改"},
+    {{std::byte{4}, std::byte{12}, {}, {}}, L"删除"},
+    {{std::byte{4}, std::byte{12}, {}, {}}, L"重载"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"自定坐标"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"名称"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"X"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"Y"},
-    {{std::byte{10}, std::byte{12}, {}, {}}, L"保存"},
-    {{std::byte{10}, std::byte{12}, {}, {}}, L"取消"},
+    {{std::byte{4}, std::byte{12}, {}, {}}, L"保存"},
+    {{std::byte{4}, std::byte{12}, {}, {}}, L"取消"},
 };
 static WindowTextPrototype gBigMapCategoryTexts[7]{
     {{std::byte{0}, std::byte{12}, {}, {}}, L"小的地点或居所"},
@@ -435,6 +435,7 @@ struct BigMapWindowState final {
             data.ownedInput = new WindowTextInputState;
             data.context = &data.ownedInput->context;
             data.ownedInput->font = kMapFont;
+            data.ownedInput->color = 6; // 输入时红字；失焦由本窗口以3号蓝色绘制。
             data.ownedInput->maxLength = index == CustomName ? 23 : 5;
         }
         Layout();
@@ -1192,7 +1193,7 @@ struct BigMapWindowState final {
                 RendererBreakWindowTextBatch();
                 if (input::gCurrentInputData == context) render::DrawInputText_4568A0(context);
                 else RendererDrawTextClipped(window.x + element.x + 3, window.y + element.y + 2,
-                    FONT_LAYER_WINDOW, kMapFont, 0, input::ContextText(*context), 0, 0, &inputClip);
+                    FONT_LAYER_WINDOW, kMapFont, 3, input::ContextText(*context), 0, 0, &inputClip);
                 RendererBreakWindowTextBatch();
                 RendererDrawRectClipped(window.x + element.x, window.y + element.y, element.width, element.height,
                     LAYER_UI, 0xD0FFFFFFu, &clip);

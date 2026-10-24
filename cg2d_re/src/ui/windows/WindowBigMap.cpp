@@ -190,7 +190,7 @@ static_assert(offsetof(BigMapPointRecord, name) == 0x08);
 static_assert(offsetof(BigMapPointRecord, floor) == 0x20);
 static_assert(offsetof(BigMapPointRecord, x) == 0x24);
 static_assert(offsetof(BigMapPointRecord, y) == 0x26);
-static constexpr int kCustomPointCount = 64; // 4.06@4399B8清0xA00字节。
+static constexpr int kCustomPointCount = 100; // BMP01：按用户要求由原端64槽扩容至100槽。
 static constexpr int kCustomPointOrder = -2; // 固定ID96起，排在旧地图/列表命中区域前。
 struct BigMapCustomPoint {
     BigMapPointRecord record;
@@ -480,7 +480,7 @@ struct BigMapWindowState final {
         entry.display.name = text::FromGbkWide(std::string_view(record.name.data(), length));
     }
 
-    // 4.06@4399F0..439A41：物理序号统计整个文件，64槽包含本地图的无效记录。
+    // 4.06@4399F0..439A41：物理序号统计整个文件；本线扩为100槽，仍包含本地图的无效记录。
     void LoadCustomPoints() {
         CloseCustomEditor();
         coordinateRows.clear();
@@ -523,7 +523,7 @@ struct BigMapWindowState final {
             slot = 0;
             while (slot < kCustomPointCount && customPoints[slot].record.used != 0) ++slot;
             if (slot == kCustomPointCount) {
-                customPointStatus = L"当前地图的64个自定坐标已满";
+                customPointStatus = std::format(L"当前地图的{}个自定坐标已满", kCustomPointCount);
                 return;
             }
         } else if (slot < 0 || customPoints[slot].record.used == 0) {

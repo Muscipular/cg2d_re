@@ -541,6 +541,9 @@ struct WindowItemSelectorState {
     std::uint8_t value3FC; // 原成员偏移：+0x3FC。
 };
 
+// 原宠物装备栏图98147的六槽中心坐标；详情装备页共用，顺序与items6E4一致。
+extern const std::array<std::int32_t, 6> gSelectorPetX54F5C4;
+extern const std::array<std::int32_t, 6> gSelectorPetY54F5DC;
 extern WindowItemSelectorState gItemSelectorCF3B10; // 原全局：0x00CF3B10。
 // 原函数：0x004C61B0。
 WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorState* state, std::int32_t previewIndex); // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。

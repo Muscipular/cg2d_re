@@ -116,6 +116,11 @@ std::int32_t AdvanceServerLoginConnection_508360()
         }
         else if (connection.state == platform::ConnectionState::Failed
             || connection.state == platform::ConnectionState::Closed) {
+            if (connection.phase == platform::ConnectionPhase::Policy) {
+                cg::network::GetGameConnection().Close();
+                gRequestMessage = L"无法连上伺服器。 ";
+                return -6;
+            }
             const auto diagnostic = std::format(L"CONNECT ERROR={} PHASE={} ENDPOINT={} ATTEMPT={}",
                 connection.error, static_cast<int>(connection.phase), connection.endpoint, connection.attempt);
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));

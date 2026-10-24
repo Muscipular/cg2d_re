@@ -190,6 +190,7 @@ set(cg2d_re_startup_sources
     src/platform/SdlAudioBackend.cpp
     src/platform/FileBgmBackend.cpp
     src/platform/CgTransport.cpp
+    src/platform/ServerAddressPolicy.cpp
     src/platform/LegacyWavesReverb.cpp
     src/platform/LegacyAudioMath.cpp
     src/platform/RuntimeInitialization.cpp
@@ -384,7 +385,7 @@ target_link_libraries(cg2d_re_client PRIVATE
     cg2d_re_lz4 cg2d_re_luajit_prebuilt cg2d_re_tmd
     SDL3::SDL3-static SDL3_mixer::SDL3_mixer-static yaml-cpp::yaml-cpp
     user32 shell32 gdi32 gdiplus windowscodecs shlwapi imm32
-    ws2_32 winmm iphlpapi ole32 bcrypt dbghelp)
+    ws2_32 winmm iphlpapi ole32 bcrypt dbghelp wininet dnsapi)
 # LUM01：预编译LuaJIT使用Release静态CRT；参与客户端链接的源码目标在Debug也须匹配/MT。
 # 保留各配置的调试信息与优化设置；SDL静态目标已在其子目录作用域匹配/MT。
 set_target_properties(cg2d_re_client cg2d_re_lz4 yaml-cpp

@@ -9,6 +9,8 @@
 #include <ws2tcpip.h>
 #include <Windows.h>
 
+#include "ServerAddressPolicy.hpp"
+
 #include <algorithm>
 #include <array>
 #include <cstring>
@@ -47,7 +49,7 @@ struct CgTransport::Impl {
     Event control; // 手动复位；锁内复位/发布，避免丢失唤醒。
     std::thread worker;
     mutable std::mutex mutex;
-    bool stopping = false, cancelled = false, ioEnabled = false, policyApproved = false;
+    bool stopping = false, cancelled = false, ioEnabled = false;
     std::optional<Request> pending; // 只保留最新一次连接请求，不建立无界任务队列。
     ConnectionSnapshot status;
     std::array<std::uint8_t, kQueueCapacity> sendBytes {}, receiveBytes {};
@@ -129,39 +131,17 @@ struct CgTransport::Impl {
     bool RunPolicy(const Request& request)
     {
         if (request.policyQuery.empty()) return true;
-        Addresses addresses;
-        const int error = Resolve(request.id, request.policyQuery, nullptr, AF_INET, 0, addresses);
-        if (Cancelled(request.id)) return false;
-        std::string policyAddress;
-        if (error == 0) {
-            for (auto* entry = addresses.value; entry; entry = entry->ai_next) {
-                if (entry->ai_family != AF_INET) continue;
-                char text[INET_ADDRSTRLEN] {};
-                const auto* address = reinterpret_cast<const sockaddr_in*>(entry->ai_addr);
-                if (inet_ntop(AF_INET, &address->sin_addr, text, sizeof(text))) policyAddress = text;
-                break;
-            }
-        }
-        {
-            std::lock_guard lock(mutex);
-            if (status.id != request.id || stopping || cancelled) return false;
-            status.policyAddress = std::move(policyAddress);
-            status.state = ConnectionState::PolicyReady;
-            status.phase = ConnectionPhase::Policy;
-        }
-        for (;;) {
-            {
-                std::lock_guard lock(mutex);
-                if (stopping || cancelled || status.id != request.id) return false;
-                if (policyApproved) return true;
-            }
-            const DWORD waited = WSAWaitForMultipleEvents(1, &control.value, FALSE, WSA_INFINITE, FALSE);
-            if (waited == WSA_WAIT_FAILED) {
-                Publish(request.id, ConnectionState::Failed, ConnectionPhase::Policy, WSAGetLastError());
-                return false;
-            }
-            if (ConsumeControl(request.id)) return false;
-        }
+        auto result = QueryServerAddressPolicy(request.policyQuery, control.value,
+            [this, id = request.id] { return ConsumeControl(id); });
+        if (result.cancelled || Cancelled(request.id)) return false;
+        if (result.approved) return true;
+        std::lock_guard lock(mutex);
+        if (status.id != request.id || stopping || cancelled) return false;
+        status.state = ConnectionState::Failed;
+        status.phase = ConnectionPhase::Policy;
+        status.error = ERROR_ACCESS_DENIED;
+        sendLength = 0;
+        return false;
     }
 
     static std::wstring Endpoint(const sockaddr* address, int length)
@@ -446,7 +426,7 @@ ConnectionId CgTransport::BeginConnect(std::wstring host, std::uint16_t port,
     next.phase = policyQuery.empty() ? ConnectionPhase::Resolve : ConnectionPhase::Policy;
     impl_->pending.emplace(Impl::Request {id, std::move(host), port, noDelay, std::move(policyQuery)});
     impl_->status = std::move(next);
-    impl_->cancelled = impl_->ioEnabled = impl_->policyApproved = false;
+    impl_->cancelled = impl_->ioEnabled = false;
     impl_->sendLength = impl_->receiveLength = 0;
     WSASetEvent(impl_->control.value);
     return id;
@@ -460,17 +440,6 @@ ConnectionSnapshot CgTransport::PollConnection(ConnectionId id) const
     auto result = impl_->status;
     result.receivedBytes = impl_->receiveLength;
     return result;
-}
-
-void CgTransport::ContinueAfterPolicy(ConnectionId id)
-{
-    if (!impl_) return;
-    std::lock_guard lock(impl_->mutex);
-    if (impl_->status.id != id || impl_->status.state != ConnectionState::PolicyReady || impl_->cancelled) return;
-    impl_->policyApproved = true;
-    impl_->status.state = ConnectionState::Resolving;
-    impl_->status.phase = ConnectionPhase::Resolve;
-    WSASetEvent(impl_->control.value);
 }
 
 void CgTransport::SetIoEnabled(ConnectionId id, bool enabled)

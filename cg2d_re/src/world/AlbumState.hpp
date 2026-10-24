@@ -32,7 +32,7 @@ const AlbumRecord* GetSelectedAlbumRecords();
 // 492F70固定角色/记录后清+7F，返回同记录名称；不保存或重新取角色。
 const std::wstring& ClearAlbumNewFlagAndGetName(std::int16_t selected, std::int32_t index);
 // 原函数：0x005186A0。
-void SaveAlbumData_5186A0(); // 原相册保存：codec容量4，短写保留文件句柄。
+void SaveAlbumData_5186A0(); // ANP01：完整相册编码保存，短写保留原文件句柄行为。
 // 原函数：0x00518BE0。
 void ClearCurrentCharacterAlbum_518BE0(); // 原所选角色相册组清理及保存。
 // 原函数：0x0050E5B0。
@@ -47,7 +47,7 @@ void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& networkConnection, 
 
 namespace detail {
 // 原函数：0x00518780。
-void LoadAlbumData_518780(); // 原相册加载：读取4字节，长度不符调用5186A0。
+void LoadAlbumData_518780(); // ANP01：读取完整编码相册，长度不符调用5186A0。
 // 原函数：0x00518870。
 void UpdateAlbumEntry_518870(
     std::int32_t number, std::int32_t imageNo,

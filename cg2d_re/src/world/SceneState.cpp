@@ -751,7 +751,7 @@ std::uint32_t& gBattleSceneEffectC8A76C = gMapCharaSceneSlots.valueC8A76C; // �
 
 namespace detail {
 
-// 原[518780,518865)：只读4字节；错误先关闭，长度不符调用同源保存。
+// 原[518780,518865)：ANP01改读完整快照及控制字节；错误先关闭，长度不符调用同源保存。
 void LoadAlbumData_518780()
 {
     ResetAlbumSynchronization();
@@ -766,7 +766,7 @@ void LoadAlbumData_518780()
         SaveAlbumData_5186A0();
     } else {
         const std::uint32_t count =
-            static_cast<std::uint32_t>(std::fread(encoded, 1, 4, stream));
+            static_cast<std::uint32_t>(std::fread(encoded, 1, sizeof(AlbumDiskStorage) + 1, stream));
         // 原5187EA/5187F0读取flags低U8并测试20H错误位。
         if (std::ferror(stream) != 0) {
             static_cast<void>(std::fclose(stream));
@@ -8231,7 +8231,7 @@ const std::wstring& ClearAlbumNewFlagAndGetName(const std::int16_t selected, con
     return record->name;
 }
 
-// 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
+// 原[5186A0,518774)：ANP01按完整快照及控制字节提供codec容量；短写不关闭文件。
 void SaveAlbumData_5186A0()
 {
     auto* const encoded = static_cast<std::uint8_t*>(
@@ -8247,7 +8247,8 @@ void SaveAlbumData_5186A0()
     EncodeAlbumStorage(*snapshot);
     std::int32_t encodedBytes;
     login::detail::EncodeLegacyBytes_52D310(
-        reinterpret_cast<std::uint8_t*>(snapshot.get()), 0x3C00C, 0, encoded, &encodedBytes, 4);
+        reinterpret_cast<std::uint8_t*>(snapshot.get()), 0x3C00C, 0, encoded, &encodedBytes,
+        static_cast<std::int32_t>(sizeof(*snapshot) + 1));
     const std::uint32_t count = static_cast<std::uint32_t>(encodedBytes);
     const std::uint32_t written =
         static_cast<std::uint32_t>(std::fwrite(encoded, 1, static_cast<std::uint32_t>(count), stream));

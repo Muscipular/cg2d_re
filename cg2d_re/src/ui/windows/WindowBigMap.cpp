@@ -6,10 +6,13 @@
 #include "../../world/WorldMapState.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "../controls/TextInputControl.hpp"
 #include <array>
 #include <bit>
+#include <cerrno>
 #include <fstream>
 #include <format>
+#include <share.h>
 #include <string_view>
 #include <vector>
 
@@ -112,6 +115,28 @@ enum class WindowBigMapElementId : ElementId {
     Element93 = 93,
     Element94 = 94,
     Element95 = 95,
+    CustomSource = 96,
+    CustomAdd,
+    CustomEdit,
+    CustomDelete,
+    CustomReload,
+    CustomName,
+    CustomX,
+    CustomY,
+    CustomSave,
+    CustomCancel,
+    CustomEditorPanel,
+    CustomTextSource,
+    CustomTextAdd,
+    CustomTextEdit,
+    CustomTextDelete,
+    CustomTextReload,
+    CustomTextTitle,
+    CustomTextName,
+    CustomTextX,
+    CustomTextY,
+    CustomTextSave,
+    CustomTextCancel,
 };
 
 
@@ -144,6 +169,32 @@ struct BigMapAnnotation {
     std::int16_t placement = 0;
     int imageNo = -1, imageWidth = 0, imageHeight = 0;
     bool hasIcon = false;
+    int customSlot = -1; // BMP01：仅自定坐标列表使用，七类标注保持-1。
+};
+
+// BMP01，4.06@4399F0/439597..4395B1：磁盘记录独立于宽文本显示对象。
+struct BigMapPointRecord {
+    std::uint16_t used = 0;
+    std::uint16_t reserved = 0; // +02未证用途，按原字节保留。
+    std::uint32_t fileRecord = 0; // +04加载时覆写为从1开始的物理序号，0表示新增。
+    std::array<char, 24> name{}; // +08，GBK及NUL。
+    std::int32_t floor = 0; // +20。
+    std::int16_t x = 0, y = 0; // +24/+26。
+};
+static_assert(std::is_trivially_copyable_v<BigMapPointRecord>);
+static_assert(std::is_standard_layout_v<BigMapPointRecord>);
+static_assert(sizeof(BigMapPointRecord) == 0x28);
+static_assert(offsetof(BigMapPointRecord, reserved) == 0x02);
+static_assert(offsetof(BigMapPointRecord, fileRecord) == 0x04);
+static_assert(offsetof(BigMapPointRecord, name) == 0x08);
+static_assert(offsetof(BigMapPointRecord, floor) == 0x20);
+static_assert(offsetof(BigMapPointRecord, x) == 0x24);
+static_assert(offsetof(BigMapPointRecord, y) == 0x26);
+static constexpr int kCustomPointCount = 64; // 4.06@4399B8清0xA00字节。
+static constexpr int kCustomPointOrder = -2; // 固定ID96起，排在旧地图/列表命中区域前。
+struct BigMapCustomPoint {
+    BigMapPointRecord record;
+    BigMapAnnotation display; // 列表借用；不加入七类标注或地图绘制。
 };
 
 // 前段按输入优先级排列：按钮、筛选、遮挡区域，地图最后接收事件。
@@ -159,8 +210,14 @@ enum BigMapElement : int {
     TextListToggle = ListCoordinateFirst + kCoordinateRows, TextListEmpty, TextListPage, TextEnd,
     MapNameImage = TextEnd,
     PlayerLegendImage, TargetLegendImage, CheckedFirst, CheckboxFirst = CheckedFirst + 7,
-    ElementCount = CheckboxFirst + 7,
+    CustomSource = CheckboxFirst + 7, CustomAdd, CustomEdit, CustomDelete, CustomReload,
+    CustomName, CustomX, CustomY, CustomSave, CustomCancel, CustomEditorPanel,
+    CustomTextSource, CustomTextAdd, CustomTextEdit, CustomTextDelete, CustomTextReload,
+    CustomTextTitle, CustomTextName, CustomTextX, CustomTextY, CustomTextSave, CustomTextCancel,
+    ElementCount,
 };
+static_assert(NativeElementKey(CustomSource) == static_cast<ElementId>(WindowBigMapElementId::CustomSource));
+static_assert(NativeElementKey(CustomTextCancel) == static_cast<ElementId>(WindowBigMapElementId::CustomTextCancel));
 static int WindowBigMap_Update(int stage);
 static int WindowBigMap_Draw(int stage);
 static int WindowBigMap_Element(ElementId elementId, int events);
@@ -194,6 +251,19 @@ static WindowTextPrototype gBigMapStatusText{{std::byte{0}, std::byte{12}, {}, {
 static WindowTextPrototype gBigMapListText{{std::byte{0}, std::byte{12}, {}, {}}, L"坐标列表"};
 static WindowTextPrototype gBigMapListRowText{{std::byte{0}, std::byte{12}, {}, {}}, L""};
 static WindowTextPrototype gBigMapListEmptyText{{std::byte{0}, std::byte{12}, {}, {}}, L"暂无坐标"};
+static WindowTextPrototype gBigMapCustomTexts[]{
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"自定坐标"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"新增"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"修改"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"删除"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"重载"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"自定坐标"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"名称"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"X"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"Y"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"保存"},
+    {{std::byte{0}, std::byte{12}, {}, {}}, L"取消"},
+};
 static WindowTextPrototype gBigMapCategoryTexts[7]{
     {{std::byte{0}, std::byte{12}, {}, {}}, L"小的地点或居所"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"伐木地点"},
@@ -300,6 +370,29 @@ static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_Graphic, 46, 244, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBigMapElementId::Element93)}, // 分类4选择框
     {WindowElementType_Graphic, 46, 264, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBigMapElementId::Element94)}, // 分类5选择框
     {WindowElementType_Graphic, 46, 284, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBigMapElementId::Element95)}, // 分类6选择框
+    // BMP01：只新增前景顺序，不改变旧控件ID、数组索引及滚动条邻接关系。
+    {WindowElementType_EventArea, 190, 50, 72, 20, 1, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomSource)},
+    {WindowElementType_EventArea, 102, 326, 52, 22, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomAdd)},
+    {WindowElementType_EventArea, 164, 326, 52, 22, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomEdit)},
+    {WindowElementType_EventArea, 226, 326, 52, 22, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomDelete)},
+    {WindowElementType_EventArea, 288, 326, 52, 22, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomReload)},
+    {WindowElementType_Input, 412, 107, 202, 20, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomName)},
+    {WindowElementType_Input, 392, 143, 76, 20, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomX)},
+    {WindowElementType_Input, 526, 143, 76, 20, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomY)},
+    {WindowElementType_EventArea, 414, 181, 60, 24, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomSave)},
+    {WindowElementType_EventArea, 490, 181, 60, 24, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomCancel)},
+    {WindowElementType_EventArea, 358, 77, 266, 142, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomEditorPanel)},
+    {WindowElementType_Text, 196, 53, 60, 16, 1, {.text = &gBigMapCustomTexts[0]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextSource)},
+    {WindowElementType_Text, 116, 329, 30, 16, 0, {.text = &gBigMapCustomTexts[1]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextAdd)},
+    {WindowElementType_Text, 178, 329, 30, 16, 0, {.text = &gBigMapCustomTexts[2]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextEdit)},
+    {WindowElementType_Text, 240, 329, 30, 16, 0, {.text = &gBigMapCustomTexts[3]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextDelete)},
+    {WindowElementType_Text, 302, 329, 30, 16, 0, {.text = &gBigMapCustomTexts[4]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextReload)},
+    {WindowElementType_Text, 373, 85, 120, 16, 0, {.text = &gBigMapCustomTexts[5]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextTitle)},
+    {WindowElementType_Text, 373, 111, 30, 16, 0, {.text = &gBigMapCustomTexts[6]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextName)},
+    {WindowElementType_Text, 373, 147, 12, 16, 0, {.text = &gBigMapCustomTexts[7]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextX)},
+    {WindowElementType_Text, 510, 147, 12, 16, 0, {.text = &gBigMapCustomTexts[8]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextY)},
+    {WindowElementType_Text, 431, 185, 30, 16, 0, {.text = &gBigMapCustomTexts[9]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextSave)},
+    {WindowElementType_Text, 507, 185, 30, 16, 0, {.text = &gBigMapCustomTexts[10]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextCancel)},
 };
 static_assert(std::size(gBigMapElements) == ElementCount);
 
@@ -312,6 +405,10 @@ struct BigMapWindowState final {
     BigMapSurface map;
     std::map<std::pair<int, int>, BigMapAnnotation> annotations;
     std::vector<const BigMapAnnotation*> coordinateRows; // 借用annotations节点，重载前先清空。
+    std::array<BigMapCustomPoint, kCustomPointCount> customPoints{};
+    int selectedCustomSlot = -1, editingCustomSlot = -1;
+    bool customPointsMode = false, customPointsLoaded = true;
+    std::wstring customPointStatus;
     int listFirstRow = 0, listMapWidth = -1, listMapHeight = -1;
     int lastListClickX = -1, lastListClickY = -1;
     bool listOpen = false, listDirty = true, scrollingList = false;
@@ -331,6 +428,15 @@ struct BigMapWindowState final {
     int failedUiImages = 0;
 
     explicit BigMapWindowState(WindowInstance& instance) : window(instance) {
+        for (int index = CustomName; index <= CustomY; ++index) {
+            auto* const element = window.FindElementById(NativeElementKey(index));
+            if (!element || !element->data.input) continue;
+            auto& data = *element->data.input;
+            data.ownedInput = new WindowTextInputState;
+            data.context = &data.ownedInput->context;
+            data.ownedInput->font = kMapFont;
+            data.ownedInput->maxLength = index == CustomName ? 23 : 5;
+        }
         Layout();
         // 原型保持固定布局；仅初始化时按当前字体度量入口的10px间距。
         auto* const labelElement = window.FindElementById(NativeElementKey(TextToggle));
@@ -341,8 +447,187 @@ struct BigMapWindowState final {
             if (auto* const element = window.FindElementById(NativeElementKey(listButton))) element->x += shift;
             for (int i = ListToggleTextArea; i <= ListPanelArea; ++i) { if (auto* element = window.FindElementById(NativeElementKey(i))) element->x += shift; }
             for (int i = ListNameFirst; i < TextEnd; ++i) { if (auto* element = window.FindElementById(NativeElementKey(i))) element->x += shift; }
+            for (int i = CustomAdd; i <= CustomReload; ++i) { if (auto* element = window.FindElementById(NativeElementKey(i))) element->x += shift; }
+            for (int i = CustomTextAdd; i <= CustomTextReload; ++i) { if (auto* element = window.FindElementById(NativeElementKey(i))) element->x += shift; }
         }
         if (auto* const indexedElement2 = window.FindElementById(NativeElementKey(ListToggleTextArea)); indexedElement2) indexedElement2->width = render::TextMeasure(gBigMapListText.text, kMapFont);
+    }
+
+    ~BigMapWindowState() { CloseCustomEditor(); }
+
+    void CloseCustomEditor() {
+        for (int index = CustomName; index <= CustomY; ++index) {
+            if (auto* element = window.FindElementById(NativeElementKey(index))) WindowElement_BlurInput(*element);
+        }
+        editingCustomSlot = -1;
+    }
+
+    void RefreshCustomPointDisplay(int slot) {
+        auto& entry = customPoints[slot];
+        const auto& record = entry.record;
+        entry.display = {};
+        entry.display.customSlot = slot;
+        entry.display.x = record.x; entry.display.y = record.y;
+        const auto length = static_cast<std::size_t>(std::find(record.name.begin(), record.name.end(), '\0') - record.name.begin());
+        entry.display.name = text::FromGbkWide(std::string_view(record.name.data(), length));
+    }
+
+    // 4.06@4399F0..439A41：物理序号统计整个文件，64槽包含本地图的无效记录。
+    void LoadCustomPoints() {
+        CloseCustomEditor();
+        coordinateRows.clear();
+        listDirty = true;
+        customPoints = {};
+        selectedCustomSlot = -1;
+        customPointStatus.clear();
+        std::FILE* const stream = _wfopen(L"data/mappoint.dat", L"rb");
+        customPointsLoaded = stream != nullptr || errno == ENOENT;
+        if (!stream) {
+            if (!customPointsLoaded) customPointStatus = L"无法读取 data/mappoint.dat";
+            return;
+        }
+        BigMapPointRecord record;
+        std::uint32_t fileRecord = 0;
+        int slot = 0;
+        while (slot < kCustomPointCount && std::fread(&record, sizeof(record), 1, stream) == 1) {
+            ++fileRecord;
+            if (record.floor != currentFloor) continue;
+            record.fileRecord = fileRecord;
+            customPoints[slot].record = record;
+            RefreshCustomPointDisplay(slot++);
+        }
+        const bool readFailed = std::ferror(stream) != 0;
+        const bool closeFailed = std::fclose(stream) != 0;
+        if (readFailed || closeFailed) {
+            customPoints = {};
+            customPointsLoaded = false;
+            customPointStatus = L"读取 data/mappoint.dat 失败";
+        }
+    }
+
+    void BeginCustomEditor(bool adding) {
+        if (!mapReady || !customPointsLoaded) {
+            customPointStatus = L"地图或自定坐标尚未就绪，请先重载";
+            return;
+        }
+        int slot = selectedCustomSlot;
+        if (adding) {
+            slot = 0;
+            while (slot < kCustomPointCount && customPoints[slot].record.used != 0) ++slot;
+            if (slot == kCustomPointCount) {
+                customPointStatus = L"当前地图的64个自定坐标已满";
+                return;
+            }
+        } else if (slot < 0 || customPoints[slot].record.used == 0) {
+            customPointStatus = L"请先选择需要修改的自定坐标";
+            return;
+        }
+        CloseCustomEditor();
+        editingCustomSlot = slot;
+        const auto& entry = customPoints[slot];
+        const int x = adding ? (targetX >= 0 ? targetX : static_cast<int>(world::gPlayerX)) : entry.record.x;
+        const int y = adding ? (targetX >= 0 ? targetY : static_cast<int>(world::gPlayerY)) : entry.record.y;
+        const std::array<std::wstring, 3> values{
+            adding ? std::format(L"自定坐标{}", slot + 1) : entry.display.name,
+            std::to_wstring(x), std::to_wstring(y)};
+        for (int index = CustomName; index <= CustomY; ++index) {
+            if (auto* element = window.FindElementById(NativeElementKey(index)))
+                WindowInput_SetText(*element->data.input, values[index - CustomName]);
+        }
+        customPointStatus.clear();
+        dragging = movingWindow = mapClickPending = scrollingList = false;
+        SyncControls();
+    }
+
+    // 4.06@4397BC..439805：只覆盖选中记录或追加，删除不压缩文件。
+    bool WriteCustomPoint(int slot, BigMapPointRecord record) {
+        std::FILE* stream = _wfsopen(L"data/mappoint.dat", L"rb+", _SH_DENYNO);
+        if (!stream && errno == ENOENT) stream = _wfsopen(L"data/mappoint.dat", L"wb+", _SH_DENYNO);
+        if (!stream) {
+            customPointStatus = L"无法写入 data/mappoint.dat";
+            return false;
+        }
+        const bool existing = record.fileRecord != 0;
+        const auto offset = existing ? static_cast<__int64>(record.fileRecord - 1) * static_cast<__int64>(sizeof(record)) : 0;
+        if (_fseeki64(stream, offset, existing ? SEEK_SET : SEEK_END) != 0) {
+            static_cast<void>(std::fclose(stream));
+            customPointStatus = L"自定坐标文件定位失败";
+            return false;
+        }
+        const auto position = _ftelli64(stream);
+        if (position < 0) {
+            static_cast<void>(std::fclose(stream));
+            customPointStatus = L"无法取得自定坐标记录位置";
+            return false;
+        }
+        const bool written = std::fwrite(&record, sizeof(record), 1, stream) == 1;
+        const bool closed = std::fclose(stream) == 0;
+        if (!written || !closed) {
+            customPointsLoaded = false;
+            selectedCustomSlot = -1;
+            CloseCustomEditor();
+            customPointStatus = L"保存自定坐标失败，请重载后确认文件状态";
+            return false;
+        }
+        if (!existing) record.fileRecord = static_cast<std::uint32_t>(position / static_cast<__int64>(sizeof(record)) + 1);
+        coordinateRows.clear();
+        customPoints[slot].record = record;
+        RefreshCustomPointDisplay(slot);
+        selectedCustomSlot = record.used ? slot : -1;
+        CloseCustomEditor();
+        customPointStatus = record.used ? L"自定坐标已保存" : L"自定坐标已删除";
+        RebuildCoordinateList();
+        return true;
+    }
+
+    void SaveCustomEditor() {
+        if (editingCustomSlot < 0) return;
+        std::array<std::wstring, 3> values;
+        for (int index = CustomName; index <= CustomY; ++index) {
+            auto* element = window.FindElementById(NativeElementKey(index));
+            if (!element || !element->data.input || !element->data.input->context) return;
+            values[index - CustomName] = input::ContextText(*element->data.input->context);
+        }
+        wchar_t* endX = nullptr;
+        wchar_t* endY = nullptr;
+        const long x = std::wcstol(values[1].c_str(), &endX, 10);
+        const long y = std::wcstol(values[2].c_str(), &endY, 10);
+        if (!mapReady || values[1].empty() || values[2].empty() || *endX || *endY
+            || x < 0 || y < 0 || x >= map.mapWidth || y >= map.mapHeight) {
+            customPointStatus = L"坐标必须是当前地图范围内的整数";
+            return;
+        }
+        std::string name;
+        try { name = text::ToGbk(values[0]); }
+        catch (const text::GbkStorageError&) {
+            customPointStatus = L"坐标名称无法按GBK保存";
+            return;
+        }
+        if (name.size() <= 1 || name.size() >= 20) {
+            customPointStatus = L"坐标名称须为2～19个GBK字节";
+            return;
+        }
+        auto record = customPoints[editingCustomSlot].record;
+        record.used = 1;
+        record.floor = currentFloor;
+        record.x = static_cast<std::int16_t>(x);
+        record.y = static_cast<std::int16_t>(y);
+        std::memcpy(record.name.data(), name.c_str(), name.size() + 1);
+        static_cast<void>(WriteCustomPoint(editingCustomSlot, record));
+    }
+
+    void DeleteCustomPoint() {
+        if (!customPointsLoaded) {
+            customPointStatus = L"请先重载自定坐标，确认文件状态";
+            return;
+        }
+        if (selectedCustomSlot < 0 || customPoints[selectedCustomSlot].record.used == 0) {
+            customPointStatus = L"请先选择需要删除的自定坐标";
+            return;
+        }
+        auto record = customPoints[selectedCustomSlot].record;
+        record.used = 0;
+        static_cast<void>(WriteCustomPoint(selectedCustomSlot, record));
     }
 
     int MaxListFirstRow() const {
@@ -389,9 +674,15 @@ struct BigMapWindowState final {
 
     void RebuildCoordinateList() {
         coordinateRows.clear();
-        for (const auto& [position, point] : annotations) {
-            if (categories[point.category] && point.x >= 0 && point.y >= 0
-                && point.x < map.mapWidth && point.y < map.mapHeight) coordinateRows.push_back(&point);
+        if (customPointsMode) {
+            for (const auto& entry : customPoints) {
+                if (entry.record.used != 0) coordinateRows.push_back(&entry.display);
+            }
+        } else {
+            for (const auto& [position, point] : annotations) {
+                if (categories[point.category] && point.x >= 0 && point.y >= 0
+                    && point.x < map.mapWidth && point.y < map.mapHeight) coordinateRows.push_back(&point);
+            }
         }
         listDirty = false;
         listMapWidth = map.mapWidth; listMapHeight = map.mapHeight;
@@ -400,7 +691,11 @@ struct BigMapWindowState final {
     }
 
     void ToggleCoordinateList() {
-        listOpen = !listOpen;
+        CloseCustomEditor();
+        listOpen = customPointsMode || !listOpen;
+        customPointsMode = false;
+        selectedCustomSlot = -1;
+        RebuildCoordinateList();
         if (listOpen) options = false;
         scrollingList = false;
         lastListClickX = lastListClickY = -1;
@@ -439,11 +734,24 @@ struct BigMapWindowState final {
 
     bool MapHit() const {
         if (!mapReady) return false;
+        for (int i = CustomSource; i <= CustomEditorPanel; ++i) if (ElementHit(i)) return false;
         for (int i = ButtonFirst; i < MapArea; ++i) if (ElementHit(i)) return false;
         return ElementHit(MapArea);
     }
 
     void SyncControls() {
+        for (int i = CustomAdd; i <= CustomReload; ++i) {
+            if (auto* element = window.FindElementById(NativeElementKey(i))) element->visible = listOpen && customPointsMode;
+        }
+        for (int i = CustomTextAdd; i <= CustomTextReload; ++i) {
+            if (auto* element = window.FindElementById(NativeElementKey(i))) element->visible = listOpen && customPointsMode;
+        }
+        for (int i = CustomName; i <= CustomEditorPanel; ++i) {
+            if (auto* element = window.FindElementById(NativeElementKey(i))) element->visible = editingCustomSlot >= 0;
+        }
+        for (int i = CustomTextTitle; i <= CustomTextCancel; ++i) {
+            if (auto* element = window.FindElementById(NativeElementKey(i))) element->visible = editingCustomSlot >= 0;
+        }
         // 固定布局来自原型；这里只维护业务驱动的显隐和居中按钮的动态行。
         const int walk = ButtonFirst + static_cast<int>(BigMapButton::Walk);
         const int center = ButtonFirst + static_cast<int>(BigMapButton::Center);
@@ -490,6 +798,7 @@ struct BigMapWindowState final {
                 ? std::format(L"目标：{}  {}", targetX, targetY) : L"";
         }
         std::wstring status = !annotationsLoaded ? L"缺少或无法读取 data/mapdesc.txt" : L"";
+        if (!customPointStatus.empty()) status += L"  " + customPointStatus;
         if (missingIcons || failedUiImages)
             status += std::format(L"  缺图：{}  UI资源失败：{}", missingIcons, failedUiImages);
         const auto generation = map.Status();
@@ -565,6 +874,7 @@ struct BigMapWindowState final {
 
     int Update(int stage) {
         if (world::gCurrentSceneType != SCENE_NORMAL) {
+            CloseCustomEditor();
             window.state |= WIN_STATE_CLOSE;
             dragging = movingWindow = mapClickPending = acceptsMouse = false;
             return stage;
@@ -580,6 +890,7 @@ struct BigMapWindowState final {
             followPlayer = true;
 
             LoadAnnotations();
+            LoadCustomPoints();
         }
         if (followPlayer) {
             map.mapX = static_cast<int>(world::gPlayerX);
@@ -646,6 +957,35 @@ struct BigMapWindowState final {
         if (!elementPtr) { return 0; }
         auto& element = (*elementPtr);
         element.state = acceptsMouse ? static_cast<std::uint32_t>(events) : MouseFlag_None;
+        if (index >= CustomSource) {
+            if (!acceptsMouse || (window.state & WIN_STATE_CLOSE) || !(events & MouseFlag_Hover)) return 0;
+            if (events & MouseFlag_LDownEvent) {
+                mapClickPending = false;
+                switch (index) {
+                case CustomSource: {
+                    const bool open = !listOpen || !customPointsMode;
+                    CloseCustomEditor();
+                    customPointsMode = true;
+                    listOpen = open;
+                    options = false;
+                    scrollingList = false;
+                    if (open) LoadCustomPoints();
+                    RebuildCoordinateList();
+                    break;
+                }
+                case CustomAdd: BeginCustomEditor(true); break;
+                case CustomEdit: BeginCustomEditor(false); break;
+                case CustomDelete: DeleteCustomPoint(); break;
+                case CustomReload: LoadCustomPoints(); RebuildCoordinateList(); break;
+                case CustomSave: SaveCustomEditor(); break;
+                case CustomCancel: CloseCustomEditor(); break;
+                default: break; // 输入框由原生分发聚焦，面板空白仅消费事件。
+                }
+            }
+            SyncControls();
+            RefreshText();
+            return 1;
+        }
         if (index < ButtonEnd) {
             const bool hover = (element.state & MouseFlag_Hover) != 0, pressed = hover && (element.state & MouseFlag_LHoldPhysical) != 0;
             int imageNo = gBigMapElements[index].source.graphic->imageNo;
@@ -696,6 +1036,15 @@ struct BigMapWindowState final {
                 if (mapReady && position >= 0 && position < static_cast<int>(coordinateRows.size())
                     && (events & (MouseFlag_LDownEvent | MouseFlag_LDblClickEvent))) {
                     const auto& point = *coordinateRows[position];
+                    if (customPointsMode) {
+                        CloseCustomEditor();
+                        selectedCustomSlot = point.customSlot;
+                        if (point.x < 0 || point.y < 0 || point.x >= map.mapWidth || point.y >= map.mapHeight) {
+                            customPointStatus = L"该坐标超出当前地图，可修改或删除";
+                            RefreshText();
+                            return 1;
+                        }
+                    }
                     const bool doubleClick = (events & MouseFlag_LDblClickEvent) && lastListClickX == point.x && lastListClickY == point.y;
                     const bool retarget = getAutoCopliotState() && (targetX != point.x || targetY != point.y);
                     targetX = point.x; targetY = point.y;
@@ -729,8 +1078,9 @@ struct BigMapWindowState final {
                 lastListClickX = lastListClickY = -1;
                 if (index < ButtonEnd) {
                     switch (static_cast<BigMapButton>(index - ButtonFirst)) {
-                    case BigMapButton::Close: window.state |= WIN_STATE_CLOSE; break;
+                    case BigMapButton::Close: CloseCustomEditor(); window.state |= WIN_STATE_CLOSE; break;
                     case BigMapButton::Toggle:
+                        CloseCustomEditor();
                         options = !options;
                         if (options) listOpen = false;
                         element.data.graphic->imageNo = options ? 243031 : 243034;
@@ -809,12 +1159,24 @@ struct BigMapWindowState final {
         while (auto* current = cursor.next()) {
             const auto elementId = current->elementId;
             if (elementId < NativeElementKey(ButtonFirst)) continue;
-            const auto& element = *current;
+            auto& element = *current;
             if (element.visible != 1) continue;
             if (element.type == WindowElementType_Graphic) {
                 const auto& data = *element.data.graphic;
                 ImageAt(data.imageNo, window.x + element.x, window.y + element.y,
                     element.width, element.height, clip, data.color);
+            } else if (element.type == WindowElementType_Input) {
+                WindowElement_PrepareInput(element, window.x, window.y, &clip);
+                auto* const context = element.data.input->context;
+                const UIClipRect inputClip{static_cast<short>(window.x + element.x), static_cast<short>(window.y + element.y),
+                    static_cast<short>(window.x + element.x + element.width), static_cast<short>(window.y + element.y + element.height)};
+                RendererBreakWindowTextBatch();
+                if (input::gCurrentInputData == context) render::DrawInputText_4568A0(context);
+                else RendererDrawTextClipped(window.x + element.x + 3, window.y + element.y + 2,
+                    FONT_LAYER_WINDOW, kMapFont, 0, input::ContextText(*context), 0, 0, &inputClip);
+                RendererBreakWindowTextBatch();
+                RendererDrawRectClipped(window.x + element.x, window.y + element.y, element.width, element.height,
+                    LAYER_UI, 0xD0FFFFFFu, &clip);
             } else if (element.type == WindowElementType_Text) {
                 const auto& data = *element.data.text;
                 auto textClip = clip;
@@ -881,6 +1243,21 @@ struct BigMapWindowState final {
                 std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);
         }
         return;
+    }
+
+    void DrawCustomControls(const UIClipRect& clip) {
+        for (int index : {CustomSource, CustomAdd, CustomEdit, CustomDelete, CustomReload, CustomSave, CustomCancel}) {
+            const auto* element = window.FindElementById(NativeElementKey(index));
+            if (!element || element->visible != 1) continue;
+            const bool active = (element->state & MouseFlag_Hover) || (index == CustomSource && listOpen && customPointsMode);
+            RendererDrawRectClipped(window.x + element->x, window.y + element->y, element->width, element->height,
+                LAYER_UI, active ? 0xD0B8D0DCu : 0xB3FFFFFFu, &clip);
+        }
+        const auto* panel = window.FindElementById(NativeElementKey(CustomEditorPanel));
+        if (panel && panel->visible == 1)
+            yobi::DrawNineGrid_49BE00(245300, static_cast<short>(window.x + panel->x), static_cast<short>(window.y + panel->y),
+                static_cast<short>(panel->width), static_cast<short>(panel->height), LAYER_UI, -1,
+                std::bit_cast<std::int32_t>(0xE6FFFFFFu), 74, 54);
     }
 
     void Marker(int gx, int gy, int mapNo, int size, const UIClipRect& clip) {
@@ -951,6 +1328,7 @@ struct BigMapWindowState final {
         const auto mapClip = Viewport();
         const int px = static_cast<int>(world::gPlayerX), py = static_cast<int>(world::gPlayerY);
         DrawElements(clip);
+        DrawCustomControls(clip);
         // 同层逆序绘制：底色晚于文字入队。70%不透明度对应Alpha 179。
         for (int index : {CurrentCoordinateArea, TargetCoordinateArea}) {
             auto* const elementPtr = window.FindElementById(NativeElementKey(index));

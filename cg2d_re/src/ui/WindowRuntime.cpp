@@ -619,13 +619,14 @@ static std::array<WindowDragPrototype, 42> gDragPrototypes {{
     {0, nullptr}, // 原D67A20虚拟零区，同一空矩形原型。
 }};
 
-// 原54EFE8的71项S8类别及大地图扩展；仅作为新建原生窗口的category初值。
+// 原54EFE8的71项S8类别及扩展窗口；仅作为新建原生窗口的category初值。
 static constexpr std::array<std::int8_t, kWindowCount> kWindowCategories {
     0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 4, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
     0, 4, 4, 0, 1, 2, 2, 0, 1, 2, 4, 2, 2, 2, 2, 2,
     1, 1, 2, 4, 2, 2, 2, 1, 2, 0, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 2, 2, 2, 2, 4, // 大地图与小地图同为4类，入口关闭其它非默认窗口。
+    1, // 72：宠物装备与其它宠物详情页同类。
 };
 
 static constexpr std::array<std::int32_t, 52> kNumberDigitImages54F0D8 { // 原常量参考：0x0054F0D8。
@@ -741,6 +742,7 @@ static std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24
     &gDragPrototypes[32],
     &gDragPrototypes[33], // 70
     &gDragPrototypes[41], // 71：标题及地图拖动由大地图元素回调区分。
+    &gDragPrototypes[8], // 72：沿用宠物详情页的标题拖动区域。
 };
 
 static std::int32_t gWindowUpdateCountCC4844 = 0; // 原全局：0x00CC4844。 473F80的共享数量，draw返回后重读。
@@ -4651,15 +4653,19 @@ WindowInstance* WindowRuntime_Open(const std::int32_t id)
     const std::int32_t pageCount = WindowInventory_GetPageElementCount(id);
     window->elementCount = count + pageCount;
     if (window->elementCount != 0) {
+        ElementId previousId = 0;
         for (int slot = 0; slot < count + pageCount; ++slot) {
             const auto fixedId = slot < count && prototype->elements[slot].elementId
                 ? prototype->elements[slot].elementId : NativeElementKey(slot);
             auto& element = WindowRuntime_AddElement(*window, fixedId);
-            element.relatedElementId = slot > 0 ? NativeElementKey(slot - 1) : 0;
+            element.relatedElementId = previousId;
+            previousId = fixedId;
         }
         WindowElementPrototype* source = prototype->elements;
         for (std::int32_t index = 0; index < count; ++index, ++source) {
-            auto* const elementPtr = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
+            // 与创建阶段共用原型固定ID，允许页签插入和不连续ID，前后关系也沿实际ID。
+            const ElementId elementId = source->elementId ? source->elementId : NativeElementKey(index);
+            auto* const elementPtr = window->FindElementById(elementId);
             if (!elementPtr) { continue; }
             WindowElement* const element = elementPtr;
             element->refUpdate = element->refDraw = element->refEvent = -1;

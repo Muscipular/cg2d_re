@@ -677,7 +677,9 @@ static std::int32_t WindowPetList_HandleButtons(const ElementId elementId, const
                 WindowInstance* const detailsWindow = gWindowStates[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = row;
                 gLoginWindowRuntime.valueD673D0 = 5;
-                if (detailsWindow != nullptr || gWindowStates[WindowId_PetAttributes].window != nullptr
+                if (WindowInstance* const equipment = gWindowStates[WindowId_PetEquipment].window) {
+                    equipment->state |= 0x2000u;
+                } else if (detailsWindow != nullptr || gWindowStates[WindowId_PetAttributes].window != nullptr
                     || gWindowStates[WindowId_PetSkills].window != nullptr) {
                     const wchar_t* const name =
                         pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();

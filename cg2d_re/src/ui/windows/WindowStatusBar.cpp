@@ -624,6 +624,9 @@ static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, 
                 if (skills != nullptr) {
                     skills->state |= 0x8000u;
                 }
+                if (WindowInstance* const equipment = gWindowStates[WindowId_PetEquipment].window) {
+                    equipment->state |= 0x8000u;
+                }
                 static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PetAttributes, 1, 0, nullptr));
             } else {
                 WindowInstance* const profile = gWindowStates[WindowId_PlayerProfile].window;
@@ -750,6 +753,9 @@ static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, 
                     WindowInstance* const skills = gWindowStates[WindowId_PetSkills].window;
                     if (skills != nullptr) {
                         skills->state |= 0x8000u;
+                    }
+                    if (WindowInstance* const equipment = gWindowStates[WindowId_PetEquipment].window) {
+                        equipment->state |= 0x8000u;
                     }
                     gLoginWindowRuntime.selectedPetCC3E5C = WindowStatusBar_FindSortedPetIndex(petIndex);
                     gLoginWindowRuntime.valueD673D0 = 5;

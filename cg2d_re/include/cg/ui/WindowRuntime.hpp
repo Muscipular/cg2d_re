@@ -101,6 +101,7 @@ enum WindowId : std::int32_t {
     WindowId_CrystalShop = 69, // 窗口69：晶石商店69。
     WindowId_CrystalExchangeShop = 70, // 窗口70：晶石商店70。
     WindowId_BigMap = 71, // BMWP01：大地图，仅运行期窗口，不写入旧窗口存档。
+    WindowId_PetEquipment = 72, // 宠物装备页，与详情三页共用当前宠物；仅运行期窗口。
 };
 static_assert(sizeof(WindowId) == sizeof(std::int32_t));
 

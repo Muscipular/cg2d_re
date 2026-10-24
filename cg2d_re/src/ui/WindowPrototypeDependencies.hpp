@@ -27,6 +27,8 @@ extern WindowPrototype gWindowPrototypePetList; // 原全局：0x0054E540。
 extern WindowPrototype gWindowPrototypePetDetail; // 原全局：0x0054E570。
 extern WindowPrototype gWindowPrototypePetAttributes; // 原全局：0x0054E5A0。
 extern WindowPrototype gWindowPrototypePetSkills; // 原全局：0x0054E5D0。
+extern WindowPrototype gWindowPrototypePetEquipment; // 宠物装备页原型。
+extern WindowGraphicData gPetEquipmentPageGraphic; // 四个宠物详情页共用的装备页签原型。
 extern WindowPrototype gWindowPrototypeAlbumList; // 原全局：0x0054E600。
 extern WindowPrototype gWindowPrototypeAlbumDetail; // 原全局：0x0054E630。
 extern WindowPrototype gWindowPrototypeContacts; // 原全局：0x0054E990。

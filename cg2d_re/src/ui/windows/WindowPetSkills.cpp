@@ -63,6 +63,7 @@ enum class WindowPetSkillsElementId : ElementId {
     Element51 = 51,
     Element52 = 52,
     HandleSideArea = 53,
+    SwitchEquipment = 67, // 四个宠物详情页的装备页签统一ID。
 };
 
 namespace detail {
@@ -127,12 +128,13 @@ static WindowNumberData gWindowNumbers5667C0[10] { // 原全局：0x005667C0。
     {&gPetTechniqueCostsD66C34[9], 0, 0, 0, 0},
 };
 
-static WindowElementPrototype gWindowElements566810[53] { // 原全局：0x00566810；原51项，新增滑块及拖动区域。
+static WindowElementPrototype gWindowElements566810[54] { // 原全局：0x00566810；原51项，新增滑块及拖动区域。
+    {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gPetEquipmentPageGraphic}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetSkillsElementId::SwitchEquipment)},
     {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName, -1, static_cast<ElementId>(WindowPetSkillsElementId::EditName)},
     {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPetSkillsElementId::ButtonClose)},
-    {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetSkillsElementId::SwitchPage)},
-    {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetSkillsElementId::SwitchPage_4)},
-    {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element5)},
+    {WindowElementType_Graphic, 27, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetSkillsElementId::SwitchPage)},
+    {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetSkillsElementId::SwitchPage_4)},
+    {WindowElementType_Graphic, 133, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetSkillsElementId::Element5)},
     {WindowElementType_Graphic, 187, 28, 32, 16, 1, {.graphic = &gWindowGraphic565650}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons)},
     {WindowElementType_Graphic, 175, 253, 49, 15, 1, {.graphic = &gWindowGraphic5658C0}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_7)},
     {WindowElementType_Graphic, 21, 253, 13, 15, 1, {.graphic = &gWindowGraphic565878}, &WindowPetSkills_HandleButtons, -1, static_cast<ElementId>(WindowPetSkillsElementId::HandleButtons_8)},
@@ -185,7 +187,7 @@ static WindowElementPrototype gWindowElements566810[53] { // 原全局：0x00566
 };
 
 // 原型：窗口18；原全局：0x0054E5D0。
-WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u, 53, gWindowElements566810, &WindowPetSkills_Update, &WindowPetSkills_Draw, &WindowPetSkills_Release}; // 18: 54E5D0
+WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u, 54, gWindowElements566810, &WindowPetSkills_Update, &WindowPetSkills_Draw, &WindowPetSkills_Release}; // 18: 54E5D0
 
 // 窗口函数实现。
 

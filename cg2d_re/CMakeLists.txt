@@ -289,6 +289,7 @@ set(cg2d_re_startup_sources
     src/ui/windows/WindowOwnProfileCategory.cpp
     src/ui/windows/WindowPetAttributes.cpp
     src/ui/windows/WindowPetDetail.cpp
+    src/ui/windows/WindowPetEquipment.cpp
     src/ui/windows/WindowPetList.cpp
     src/ui/windows/WindowPetMailCompose.cpp
     src/ui/windows/WindowPetSkillChoice.cpp

@@ -74,6 +74,7 @@ enum class WindowPetDetailElementId : ElementId {
     Element64 = 64,
     HandleButtons_65 = 65,
     HandleSideArea = 66,
+    SwitchEquipment = 67, // 四个宠物详情页的装备页签统一ID。
 };
 
 namespace detail {
@@ -137,12 +138,13 @@ static std::uint32_t gWindowAnimationImage5659B8 = 100000; // 原全局：0x0056
 
 static std::uint32_t gWindowMouseFlagsD677B0 = 0; // 原全局：0x00D677B0。
 
-static WindowElementPrototype gWindowElements5659C0[66] { // 原全局：0x005659C0。
+static WindowElementPrototype gWindowElements5659C0[67] { // 原全局：0x005659C0。
+    {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gPetEquipmentPageGraphic}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetDetailElementId::SwitchEquipment)},
     {WindowElementType_Input, 66, 31, 96, 12, 1, {.unusedValue = 0}, &WindowPetDetail_EditName, -1, static_cast<ElementId>(WindowPetDetailElementId::EditName)},
     {WindowElementType_Graphic, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowPetDetailElementId::ButtonClose)},
-    {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetDetailElementId::Element3)},
-    {WindowElementType_Graphic, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetDetailElementId::SwitchPage)},
-    {WindowElementType_Graphic, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetDetailElementId::SwitchPage_5)},
+    {WindowElementType_Graphic, 27, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowPetDetailElementId::Element3)},
+    {WindowElementType_Graphic, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetDetailElementId::SwitchPage)},
+    {WindowElementType_Graphic, 133, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &WindowPetDetail_SwitchPage, -1, static_cast<ElementId>(WindowPetDetailElementId::SwitchPage_5)},
     {WindowElementType_Graphic, 187, 28, 32, 16, 1, {.graphic = &gWindowGraphic565650}, &WindowPetDetail_HandleButtons, -1, static_cast<ElementId>(WindowPetDetailElementId::HandleButtons)},
     {WindowElementType_Graphic, 175, 253, 49, 15, 1, {.graphic = &gWindowGraphic5658C0}, &WindowPetDetail_HandleButtons, -1, static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_7)},
     {WindowElementType_Graphic, 21, 253, 13, 15, 1, {.graphic = &gWindowGraphic565878}, &WindowPetDetail_HandleButtons, -1, static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8)},
@@ -207,7 +209,7 @@ static WindowElementPrototype gWindowElements5659C0[66] { // 原全局：0x00565
 };
 
 // 原型：窗口16；原全局：0x0054E570。
-WindowPrototype gWindowPrototypePetDetail {0, 4, 365, 83, 245, 306, 0x80010101u, 66, gWindowElements5659C0, &WindowPetDetail_Update, &WindowRuntime_DrawDefault, &WindowPetDetail_Release}; // 16: 54E570
+WindowPrototype gWindowPrototypePetDetail {0, 4, 365, 83, 245, 306, 0x80010101u, 67, gWindowElements5659C0, &WindowPetDetail_Update, &WindowRuntime_DrawDefault, &WindowPetDetail_Release}; // 16: 54E570
 
 // 窗口函数实现。
 
@@ -679,6 +681,9 @@ std::int32_t WindowPetDetail_SwitchPage(const ElementId elementId, const std::in
     case WindowPetDetailElementId::SwitchPage:
         target = 17; idle = 0x3B583; hover = 0x3B585; hint = L"切换至此宠物的详细视窗。" /* 原常量参考：0x0058593C。 */;
         break;
+    case WindowPetDetailElementId::SwitchEquipment:
+        target = WindowId_PetEquipment; idle = 244474; hover = 244476; hint = L"切换至此宠物的装备视窗。";
+        break;
     case WindowPetDetailElementId::SwitchPage_5:
         target = 18; idle = 0x3BAF1; hover = 0x3BAF3; hint = L"切换至此宠物的技能视窗。" /* 原常量参考：0x00585920。 */;
         break;
@@ -690,7 +695,8 @@ std::int32_t WindowPetDetail_SwitchPage(const ElementId elementId, const std::in
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
-            graphic->imageNo = hover;
+            graphic->imageNo = target == WindowId_PetEquipment && (state & MouseFlag_LHoldPhysical) != 0
+                ? 244475 : hover;
             gHoverTextD68AE8 = hint;
             consumed = 1;
         } else {
@@ -698,16 +704,13 @@ std::int32_t WindowPetDetail_SwitchPage(const ElementId elementId, const std::in
         }
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
+        WindowInstance* const targetWindow = WindowRuntime_Open(target);
+        if (!targetWindow) return 1;
         currentWindow->state |= 0x8000u;
-        static_cast<void>(WindowRuntime_Open(target));
-        WindowInstance* const xSource = currentWindow;
-        WindowInstance* const xTarget = gWindowStates[target].window;
-        xTarget->x = xSource->x;
-        WindowInstance* const ySource = currentWindow;
-        WindowInstance* const yTarget = gWindowStates[target].window;
-        yTarget->y = ySource->y;
+        targetWindow->x = currentWindow->x;
+        targetWindow->y = currentWindow->y;
         static_cast<void>(audio::PlaySe_52C450(56, 320));
-        WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
+        WindowRuntime_QueuePagePresentation(*currentWindow, *targetWindow);
         return 1;
     }
     return consumed;

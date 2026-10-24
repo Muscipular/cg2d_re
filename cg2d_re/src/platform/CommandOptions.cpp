@@ -21,6 +21,8 @@
 #include <string>
 #include <string_view>
 
+#include "cg/core/vm.h"
+
 namespace cg::platform {
 
 // std::wstring gNewestText = L"/update/newestV2.txt"; // 原全局：0x0058ADA8。
@@ -64,6 +66,7 @@ static bool gAutoLoginPending = false;
 static std::int32_t gAutoLoginCharacterSlot = -1;
 
 // A08：保留首次关键字、空白及引号边界，不改变原参数解析顺序。
+__declspec(noinline)
 static bool ParseCommandArgumentValue(
     const wchar_t* commandLine, const wchar_t* key, std::wstring& outValue)
 {
@@ -107,6 +110,7 @@ static bool ParseCommandArgumentValue(
 }
 
 // A08：既有 IP 表解析完成后，向实际登录消费者发布参数及场景。
+__declspec(noinline)
 static void ApplyAutoLoginCommandLine(const wchar_t* commandLine)
 {
     std::wstring account;
@@ -114,6 +118,7 @@ static void ApplyAutoLoginCommandLine(const wchar_t* commandLine)
     std::wstring serverText;
     std::wstring characterSlotText;
     std::int32_t serverIndex = -1;
+    VM_LIGHT_START
 
     if (ParseCommandArgumentValue(commandLine, L"/uu:", account)
         && ParseCommandArgumentValue(commandLine, L"/pw:", password)
@@ -144,22 +149,30 @@ static void ApplyAutoLoginCommandLine(const wchar_t* commandLine)
             static_cast<std::uint16_t>(serverIndex));
         gAutoLoginPending = true;
     }
+    VM_LIGHT_END
 }
 
+__declspec(noinline)
 bool ConsumeAutoLoginCharacterSlot(const std::uint32_t slot) noexcept
 {
+    VM_LIGHT_START
+    bool ret = false;
     if (gAutoLoginPending && gAutoLoginCharacterSlot >= 0
-        && slot == static_cast<std::uint32_t>(gAutoLoginCharacterSlot)) {
+        && slot == static_cast<std::uint32_t>(gAutoLoginCharacterSlot))
+    {
         gAutoLoginPending = false;
-        return true;
+        ret = true;
     }
-    return false;
+    VM_LIGHT_END
+    return ret;
 }
 
 // 原 ParseCmdOpt@0x465F00；原参数见 doc/cg2d_command_options.md，A08扩展见ALM01 SPEC。
+__declspec(noinline)
 int ParseCommandOptions()
 {
-    wchar_t savedata[128] {};
+    VM_LIGHT_START
+    wchar_t savedata[128] = L"";
     // if (wchar_t* match = const_cast<wchar_t*>(std::wcsstr(gCommandLine.c_str(), L"newest:"))) {
     //     std::swscanf(match + std::wcslen(L"newest:"), L"%127ls", gNewestText);
     // }
@@ -219,6 +232,7 @@ int ParseCommandOptions()
     gCurrentSceneTypeStorage_FF0D40 = 1;
     const int result = ParseIpOptions_507C80(gCommandLine.c_str());
     ApplyAutoLoginCommandLine(::GetCommandLineW());
+    VM_LIGHT_END
     return result;
 }
 

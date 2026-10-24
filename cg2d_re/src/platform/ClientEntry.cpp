@@ -14,6 +14,8 @@
 #include <cwchar>
 #include <string>
 
+#include "cg/core/vm.h"
+
 namespace cg::platform {
 
 static bool gClientDiagnosticsEnabled = false; // CTM01/A11：仅WinMain寿命内启用。
@@ -306,6 +308,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
 {
     using namespace cg::platform;
     static_cast<void>(ReadTickCount64()); // CTM01：在入口建立统一启动计时基线。
+    VM_LIGHT_START
 
     const ClientTimerResolution timerResolution;
     const ClientMinidumpReport minidumpReport;
@@ -343,20 +346,23 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
         gWindowClass.lpszMenuName = nullptr;
         gWindowClass.lpszClassName = gWindowClassName;
         if (RegisterClassW(&gWindowClass) == 0) {
-            return 0;
+           goto END;
         }
     }
-
-    CaptureDesktopColor();
-    ParseClientVersion();
-    CreateSaveDirectories();
-    cg::login::detail::InitializeSavedState_533300();
-    ParseCommandOptions();
-    const ClientDiagnosticsConsole diagnosticsConsole(gCommandLine);
-    if (cg::resource::BuildResourcePaths() != 0) {
-        return 0;
+    {
+        CaptureDesktopColor();
+        ParseClientVersion();
+        CreateSaveDirectories();
+        cg::login::detail::InitializeSavedState_533300();
+        ParseCommandOptions();
+        const ClientDiagnosticsConsole diagnosticsConsole(gCommandLine);
+        if (cg::resource::BuildResourcePaths() != 0) {
+            goto END;
+        }
+        InitializeWindow();
+        MainLoop();
     }
-    InitializeWindow();
-    MainLoop();
+    VM_LIGHT_END
+    END:
     return 0;
 }

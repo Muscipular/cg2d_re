@@ -253,16 +253,16 @@ static WindowTextPrototype gBigMapListRowText{{std::byte{0}, std::byte{12}, {}, 
 static WindowTextPrototype gBigMapListEmptyText{{std::byte{0}, std::byte{12}, {}, {}}, L"暂无坐标"};
 static WindowTextPrototype gBigMapCustomTexts[]{
     {{std::byte{0}, std::byte{12}, {}, {}}, L"自定坐标"},
-    {{std::byte{0}, std::byte{12}, {}, {}}, L"新增"},
-    {{std::byte{0}, std::byte{12}, {}, {}}, L"修改"},
-    {{std::byte{0}, std::byte{12}, {}, {}}, L"删除"},
-    {{std::byte{0}, std::byte{12}, {}, {}}, L"重载"},
+    {{std::byte{10}, std::byte{12}, {}, {}}, L"新增"},
+    {{std::byte{10}, std::byte{12}, {}, {}}, L"修改"},
+    {{std::byte{10}, std::byte{12}, {}, {}}, L"删除"},
+    {{std::byte{10}, std::byte{12}, {}, {}}, L"重载"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"自定坐标"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"名称"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"X"},
     {{std::byte{0}, std::byte{12}, {}, {}}, L"Y"},
-    {{std::byte{0}, std::byte{12}, {}, {}}, L"保存"},
-    {{std::byte{0}, std::byte{12}, {}, {}}, L"取消"},
+    {{std::byte{10}, std::byte{12}, {}, {}}, L"保存"},
+    {{std::byte{10}, std::byte{12}, {}, {}}, L"取消"},
 };
 static WindowTextPrototype gBigMapCategoryTexts[7]{
     {{std::byte{0}, std::byte{12}, {}, {}}, L"小的地点或居所"},
@@ -371,7 +371,7 @@ static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_Graphic, 46, 264, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBigMapElementId::Element94)}, // 分类5选择框
     {WindowElementType_Graphic, 46, 284, 9, 9, 0, {.graphic = &gBigMapCheckboxGraphic}, &WindowElement_NoOp, -1, static_cast<ElementId>(WindowBigMapElementId::Element95)}, // 分类6选择框
     // BMP01：只新增前景顺序，不改变旧控件ID、数组索引及滚动条邻接关系。
-    {WindowElementType_EventArea, 190, 50, 72, 20, 1, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomSource)},
+    {WindowElementType_Graphic, 190, 51, 18, 18, 1, {.graphic = &gBigMapListGraphic}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomSource)},
     {WindowElementType_EventArea, 102, 326, 52, 22, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomAdd)},
     {WindowElementType_EventArea, 164, 326, 52, 22, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomEdit)},
     {WindowElementType_EventArea, 226, 326, 52, 22, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomDelete)},
@@ -382,17 +382,17 @@ static WindowElementPrototype gBigMapElements[]{
     {WindowElementType_EventArea, 414, 181, 60, 24, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomSave)},
     {WindowElementType_EventArea, 490, 181, 60, 24, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomCancel)},
     {WindowElementType_EventArea, 358, 77, 266, 142, 0, {}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomEditorPanel)},
-    {WindowElementType_Text, 196, 53, 60, 16, 1, {.text = &gBigMapCustomTexts[0]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextSource)},
-    {WindowElementType_Text, 116, 329, 30, 16, 0, {.text = &gBigMapCustomTexts[1]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextAdd)},
-    {WindowElementType_Text, 178, 329, 30, 16, 0, {.text = &gBigMapCustomTexts[2]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextEdit)},
-    {WindowElementType_Text, 240, 329, 30, 16, 0, {.text = &gBigMapCustomTexts[3]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextDelete)},
-    {WindowElementType_Text, 302, 329, 30, 16, 0, {.text = &gBigMapCustomTexts[4]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextReload)},
+    {WindowElementType_Text, 213, 52, 48, 18, 1, {.text = &gBigMapCustomTexts[0]}, &WindowBigMap_Element, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextSource)},
+    {WindowElementType_Text, 116, 331, 30, 16, 0, {.text = &gBigMapCustomTexts[1]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextAdd)},
+    {WindowElementType_Text, 178, 331, 30, 16, 0, {.text = &gBigMapCustomTexts[2]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextEdit)},
+    {WindowElementType_Text, 240, 331, 30, 16, 0, {.text = &gBigMapCustomTexts[3]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextDelete)},
+    {WindowElementType_Text, 302, 331, 30, 16, 0, {.text = &gBigMapCustomTexts[4]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextReload)},
     {WindowElementType_Text, 373, 85, 120, 16, 0, {.text = &gBigMapCustomTexts[5]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextTitle)},
     {WindowElementType_Text, 373, 111, 30, 16, 0, {.text = &gBigMapCustomTexts[6]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextName)},
     {WindowElementType_Text, 373, 147, 12, 16, 0, {.text = &gBigMapCustomTexts[7]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextX)},
     {WindowElementType_Text, 510, 147, 12, 16, 0, {.text = &gBigMapCustomTexts[8]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextY)},
-    {WindowElementType_Text, 431, 185, 30, 16, 0, {.text = &gBigMapCustomTexts[9]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextSave)},
-    {WindowElementType_Text, 507, 185, 30, 16, 0, {.text = &gBigMapCustomTexts[10]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextCancel)},
+    {WindowElementType_Text, 431, 187, 30, 16, 0, {.text = &gBigMapCustomTexts[9]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextSave)},
+    {WindowElementType_Text, 507, 187, 30, 16, 0, {.text = &gBigMapCustomTexts[10]}, &WindowElement_NoOp, kCustomPointOrder, static_cast<ElementId>(WindowBigMapElementId::CustomTextCancel)},
 };
 static_assert(std::size(gBigMapElements) == ElementCount);
 
@@ -450,7 +450,15 @@ struct BigMapWindowState final {
             for (int i = CustomAdd; i <= CustomReload; ++i) { if (auto* element = window.FindElementById(NativeElementKey(i))) element->x += shift; }
             for (int i = CustomTextAdd; i <= CustomTextReload; ++i) { if (auto* element = window.FindElementById(NativeElementKey(i))) element->x += shift; }
         }
-        if (auto* const indexedElement2 = window.FindElementById(NativeElementKey(ListToggleTextArea)); indexedElement2) indexedElement2->width = render::TextMeasure(gBigMapListText.text, kMapFont);
+        if (auto* const label = window.FindElementById(NativeElementKey(ListToggleTextArea))) {
+            label->width = render::TextMeasure(gBigMapListText.text, kMapFont);
+            const int sourceX = label->x + label->width + 10;
+            if (auto* const source = window.FindElementById(NativeElementKey(CustomSource))) source->x = sourceX;
+            if (auto* const text = window.FindElementById(NativeElementKey(CustomTextSource))) {
+                text->x = sourceX + 23;
+                text->width = render::TextMeasure(gBigMapCustomTexts[0].text, kMapFont);
+            }
+        }
     }
 
     ~BigMapWindowState() { CloseCustomEditor(); }
@@ -734,7 +742,7 @@ struct BigMapWindowState final {
 
     bool MapHit() const {
         if (!mapReady) return false;
-        for (int i = CustomSource; i <= CustomEditorPanel; ++i) if (ElementHit(i)) return false;
+        for (int i = CustomSource; i <= CustomTextSource; ++i) if (ElementHit(i)) return false;
         for (int i = ButtonFirst; i < MapArea; ++i) if (ElementHit(i)) return false;
         return ElementHit(MapArea);
     }
@@ -752,7 +760,7 @@ struct BigMapWindowState final {
         for (int i = CustomTextTitle; i <= CustomTextCancel; ++i) {
             if (auto* element = window.FindElementById(NativeElementKey(i))) element->visible = editingCustomSlot >= 0;
         }
-        // 固定布局来自原型；这里只维护业务驱动的显隐和居中按钮的动态行。
+        // 固定布局来自原型；这里只维护业务驱动的显隐、自定列表框高和居中按钮的动态行。
         const int walk = ButtonFirst + static_cast<int>(BigMapButton::Walk);
         const int center = ButtonFirst + static_cast<int>(BigMapButton::Center);
         if (auto* const indexedElement = window.FindElementById(NativeElementKey(walk)); indexedElement) indexedElement->visible = targetX >= 0 && mapReady;
@@ -775,7 +783,10 @@ struct BigMapWindowState final {
             if (auto* const indexedElement16 = window.FindElementById(NativeElementKey(CheckedFirst + i)); indexedElement16) indexedElement16->visible = options && categories[i];
             if (auto* const indexedElement17 = window.FindElementById(NativeElementKey(CheckboxFirst + i)); indexedElement17) indexedElement17->visible = options;
         }
-        if (auto* const indexedElement14 = window.FindElementById(NativeElementKey(ListPanelArea)); indexedElement14) indexedElement14->visible = listOpen;
+        if (auto* const panel = window.FindElementById(NativeElementKey(ListPanelArea))) {
+            panel->visible = listOpen;
+            panel->height = gBigMapElements[ListPanelArea].height + (customPointsMode ? 36 : 0);
+        }
         if (auto* const indexedElement15 = window.FindElementById(NativeElementKey(TextListPage)); indexedElement15) indexedElement15->visible = listOpen;
         if (auto* const indexedElement16 = window.FindElementById(NativeElementKey(ListPreviousPage)); indexedElement16) indexedElement16->visible = listOpen;
         if (auto* const indexedElement17 = window.FindElementById(NativeElementKey(ListNextPage)); indexedElement17) indexedElement17->visible = listOpen;
@@ -958,11 +969,19 @@ struct BigMapWindowState final {
         auto& element = (*elementPtr);
         element.state = acceptsMouse ? static_cast<std::uint32_t>(events) : MouseFlag_None;
         if (index >= CustomSource) {
+            if (index == CustomSource || (index == CustomTextSource && (element.state & MouseFlag_Hover))) {
+                if (auto* const source = window.FindElementById(NativeElementKey(CustomSource))) {
+                    const bool hover = (element.state & MouseFlag_Hover) != 0;
+                    const bool pressed = hover && (element.state & MouseFlag_LHoldPhysical) != 0;
+                    source->data.graphic->imageNo = pressed ? CenterPressed : hover ? CenterHover : CenterNormal;
+                }
+            }
             if (!acceptsMouse || (window.state & WIN_STATE_CLOSE) || !(events & MouseFlag_Hover)) return 0;
             if (events & MouseFlag_LDownEvent) {
                 mapClickPending = false;
                 switch (index) {
-                case CustomSource: {
+                case CustomSource:
+                case CustomTextSource: {
                     const bool open = !listOpen || !customPointsMode;
                     CloseCustomEditor();
                     customPointsMode = true;
@@ -1246,10 +1265,10 @@ struct BigMapWindowState final {
     }
 
     void DrawCustomControls(const UIClipRect& clip) {
-        for (int index : {CustomSource, CustomAdd, CustomEdit, CustomDelete, CustomReload, CustomSave, CustomCancel}) {
+        for (int index : {CustomAdd, CustomEdit, CustomDelete, CustomReload, CustomSave, CustomCancel}) {
             const auto* element = window.FindElementById(NativeElementKey(index));
             if (!element || element->visible != 1) continue;
-            const bool active = (element->state & MouseFlag_Hover) || (index == CustomSource && listOpen && customPointsMode);
+            const bool active = (element->state & MouseFlag_Hover) != 0;
             RendererDrawRectClipped(window.x + element->x, window.y + element->y, element->width, element->height,
                 LAYER_UI, active ? 0xD0B8D0DCu : 0xB3FFFFFFu, &clip);
         }

@@ -393,7 +393,7 @@ bool CgTransport::Open(int& error)
 }
 
 ConnectionId CgTransport::BeginConnect(std::wstring host, std::uint16_t port,
-    bool noDelay, bool policyApproved)
+    bool noDelay)
 {
     if (!impl_ || nextId_ == (std::numeric_limits<ConnectionId>::max)()) return 0;
     std::lock_guard lock(impl_->mutex);
@@ -402,11 +402,9 @@ ConnectionId CgTransport::BeginConnect(std::wstring host, std::uint16_t port,
     ConnectionSnapshot next;
     next.id = id;
     next.host = host;
-    next.state = policyApproved ? ConnectionState::Resolving : ConnectionState::Failed;
-    next.phase = policyApproved ? ConnectionPhase::Resolve : ConnectionPhase::Policy;
-    next.error = policyApproved ? 0 : ERROR_ACCESS_DENIED;
-    if (policyApproved) impl_->pending.emplace(Impl::Request {id, std::move(host), port, noDelay});
-    else impl_->pending.reset();
+    next.state = ConnectionState::Resolving;
+    next.phase = ConnectionPhase::Resolve;
+    impl_->pending.emplace(Impl::Request {id, std::move(host), port, noDelay});
     impl_->status = std::move(next);
     impl_->cancelled = impl_->ioEnabled = false;
     impl_->sendLength = impl_->receiveLength = 0;

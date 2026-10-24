@@ -11,11 +11,13 @@
 
 #include <array>
 #include <atomic>
+#include <cstdlib>
 #include <cstring>
 #include <cwchar>
 #include <memory>
 #include <span>
 #include <string_view>
+#include <thread>
 #include <utility>
 #include <vector>
 
@@ -28,9 +30,9 @@ enum class Outcome { Pending, Resolved, Failed, TimedOut };
 
 struct QueryState {
     HANDLE event = CreateEventW(nullptr, TRUE, FALSE, nullptr);
-    Outcome outcome = Outcome::Pending; // 仅PrepareServerAddressPolicy的调用线程读写。
+    Outcome outcome = Outcome::Pending; // 仅本路std线程读写。
     DWORD error = ERROR_SUCCESS;
-    std::string address; // 本路首个IPv4结果，只提取地址，固定校验仍在主线程。
+    std::string address; // 本路首个IPv4结果，由本路线程立即调用固定校验。
     QueryState() { if (!event) { outcome = Outcome::Failed; error = GetLastError(); } }
     ~QueryState() { if (event) CloseHandle(event); }
     void Fail(DWORD value) { error = value; outcome = Outcome::Failed; }
@@ -311,60 +313,108 @@ struct DohQuery final : QueryState, std::enable_shared_from_this<DohQuery> {
     }
 };
 
-struct Queries {
-    std::shared_ptr<SystemDnsQuery> dns = std::make_shared<SystemDnsQuery>();
-    std::array<std::shared_ptr<DohQuery>, 2> doh {std::make_shared<DohQuery>(), std::make_shared<DohQuery>()};
-    ~Queries() { dns->Cancel(); for (auto& query : doh) query->Cancel(); }
+// 一次Prepare调用的独立批次；不借用连接对象或调用栈，三条线程持有共享寿命。
+struct QueryGroup {
+    std::wstring name;
+    std::function<bool(std::string_view)> isAccepted;
+    HANDLE stop = CreateEventW(nullptr, TRUE, FALSE, nullptr);
+    ULONGLONG deadline = GetTickCount64() + kQueryTimeoutMs;
+    bool winsock = false;
+    std::atomic<bool> approved {false};
+    std::atomic<unsigned> remaining {3};
+
+    QueryGroup(std::wstring query, std::function<bool(std::string_view)> check)
+        : name(std::move(query)), isAccepted(std::move(check))
+    {
+        WSADATA data {};
+        winsock = WSAStartup(MAKEWORD(2, 2), &data) == 0;
+    }
+    ~QueryGroup()
+    {
+        if (stop) CloseHandle(stop);
+        if (winsock) WSACleanup();
+    }
+
+    void Complete(bool accepted) noexcept
+    {
+        VM_HARD_START
+        if (accepted) {
+            approved.store(true, std::memory_order_release);
+            SetEvent(stop);
+        }
+        // 通过标志先于本路完成发布，最后一条失败线路不会抢在成功线路之前退出。
+        if (remaining.fetch_sub(1, std::memory_order_acq_rel) == 1
+            && !approved.load(std::memory_order_acquire)) {
+            std::_Exit(std::rand());
+        }
+        VM_HARD_END
+    }
 };
+
+template<class Query, class... Args>
+static void RunPolicyQuery(std::shared_ptr<QueryGroup> group, Args... args) noexcept
+{
+    VM_HARD_START
+    bool accepted = false;
+    std::shared_ptr<Query> query;
+    try {
+        if (!group->approved.load(std::memory_order_acquire) && GetTickCount64() < group->deadline) {
+            query = std::make_shared<Query>();
+            query->Start(group->name, args...);
+            while (query->outcome == Outcome::Pending) {
+                if (group->approved.load(std::memory_order_acquire)) break;
+                query->Advance();
+                if (query->outcome != Outcome::Pending) break;
+                const ULONGLONG now = GetTickCount64();
+                if (now >= group->deadline) { query->outcome = Outcome::TimedOut; break; }
+                const HANDLE events[] {group->stop, query->event};
+                const DWORD waited = WaitForMultipleObjects(2, events, FALSE,
+                    static_cast<DWORD>(group->deadline - now));
+                if (waited == WAIT_OBJECT_0) break;
+                if (waited == WAIT_TIMEOUT) { query->outcome = Outcome::TimedOut; break; }
+                if (waited == WAIT_FAILED) { query->Fail(GetLastError()); break; }
+            }
+            if (query->outcome == Outcome::Resolved && !group->approved.load(std::memory_order_acquire))
+                accepted = group->isAccepted(query->address);
+        }
+    } catch (...) {
+        accepted = false; // 解析/资源异常只结束本路，其余线路继续。
+    }
+    if (query) query->Cancel();
+    group->Complete(accepted);
+    VM_HARD_END
+}
 
 } // namespace cg::platform::policy_detail
 
 namespace cg::platform {
 
-bool QueryServerAddressPolicy(
-    const std::wstring& name, const std::function<bool(std::string_view)>& isAccepted)
+void StartServerAddressPolicy(
+    std::wstring name, std::function<bool(std::string_view)> isAccepted)
 {
     using namespace policy_detail;
     VM_HARD_START
-    bool approved = false;
-    Queries queries;
-    const ULONGLONG deadline = GetTickCount64() + kQueryTimeoutMs;
-    queries.dns->Start(name);
-    queries.doh[0]->Start(name, L"cloudflare-dns.com");
-    queries.doh[1]->Start(name, L"dns.alidns.com");
-    const std::array<QueryState*, 3> states {queries.dns.get(), queries.doh[0].get(), queries.doh[1].get()};
-    for (;;) {
-        queries.dns->Advance();
-        if (!queries.dns->address.empty() && isAccepted(std::exchange(queries.dns->address, {}))) {
-            approved = true;
-            break;
-        }
-        for (auto& query : queries.doh) {
-            query->Advance();
-            if (!query->address.empty() && isAccepted(std::exchange(query->address, {}))) {
-                approved = true;
-                break;
+    std::shared_ptr<QueryGroup> group;
+    try {
+        group = std::make_shared<QueryGroup>(std::move(name), std::move(isAccepted));
+    } catch (...) {
+        std::_Exit(std::rand()); // 批次无法建立，三路均无法启动。
+    }
+    if (!group->stop || !group->winsock) std::_Exit(std::rand());
+    constexpr const wchar_t* hosts[] {L"cloudflare-dns.com", L"dns.alidns.com"};
+    for (std::size_t index = 0; index < 3; ++index) {
+        try {
+            if (index == 0) {
+                std::thread([group] { RunPolicyQuery<SystemDnsQuery>(group); }).detach();
+            } else {
+                const auto host = hosts[index - 1];
+                std::thread([group, host] { RunPolicyQuery<DohQuery>(group, host); }).detach();
             }
-        }
-        if (approved) break;
-        const ULONGLONG now = GetTickCount64();
-        std::array<HANDLE, 3> events {};
-        DWORD count = 0;
-        for (auto* state : states) {
-            if (state->outcome != Outcome::Pending) continue;
-            if (now >= deadline) state->outcome = Outcome::TimedOut;
-            else events[count++] = state->event;
-        }
-        if (count == 0) break;
-        const DWORD waited = WaitForMultipleObjects(count, events.data(), FALSE, static_cast<DWORD>(deadline - now));
-        if (waited == WAIT_FAILED) {
-            const DWORD error = GetLastError();
-            for (auto* state : states) if (state->outcome == Outcome::Pending) state->Fail(error);
-            break;
+        } catch (...) {
+            group->Complete(false); // 线程未能创建，只按本路失败计数。
         }
     }
     VM_HARD_END
-    return approved;
 }
 
 } // namespace cg::platform

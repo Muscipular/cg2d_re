@@ -135,24 +135,22 @@ static std::string sha256ToString(std::string_view input)
     return result;
 }
 
-// SDP01：DNS/DoH请求、等待及固定校验均在本次调用返回前完成，不延后到传输线程或轮询。
-bool PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
+// SDP01：在此发起三路后台DNS/DoH校验，调用方不等待；仅全部失败时退出进程。
+void PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port)
 {
     VM_HARD_START
-    bool accepted = false;
 #ifdef TAOMOLI
     if (serverAddress == L"taomoli" && port <= 9)
     {
         serverAddress = L"218.78.128.210";
         port = static_cast<std::uint16_t>(9030 + port);
-        accepted = true;
     }
     else
 #endif
     {
         const auto query = std::format(L"{}.{}.re.cg.qoq.im", serverAddress, port);
-        accepted = QueryServerAddressPolicy(query, [](const std::string_view address) {
-            // 保留原固定校验值及注释；回调在本次Prepare调用线程内直接执行。
+        StartServerAddressPolicy(query, [](const std::string_view address) {
+            // 保留原固定校验值及注释；回调按值交给后台线程，单路失败不提前退出。
             VM_HARD_START
             const bool approved = !address.empty() && sha256ToString(std::string(address) + "_re.cg.qoq.im")
                 == "5d1e868246a4c66ee2eb1b9c035fda400068865b1d29aef8df4bdbe351e4a199" /*"8.8.8.8_re.cg.qoq.im"*/;
@@ -161,7 +159,6 @@ bool PrepareServerAddressPolicy(std::wstring& serverAddress, std::uint16_t& port
         });
     }
     VM_HARD_END
-    return accepted;
 }
 
 } // namespace cg::platform

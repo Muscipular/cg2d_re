@@ -13,7 +13,7 @@ enum class ConnectionState { Idle, Resolving, Connecting, Connected, Closing, Cl
 enum class ConnectionPhase { None, Setup, SocketOptions, Policy, Resolve, ConnectStart, Connect, Receive, Send, Cancel };
 enum class NetworkQueueResult { Accepted, QueueFull, NotConnected, StaleSession, Stopping };
 
-// 跨线程只发布值；地址策略已在PrepareServerAddressPolicy内完成，原生地址与句柄不越过平台边界。
+// 跨线程只发布值；地址策略由Prepare独立发起，原生地址与句柄不越过平台边界。
 struct ConnectionSnapshot {
     ConnectionId id = 0;
     ConnectionState state {ConnectionState::Idle};
@@ -39,7 +39,7 @@ public:
 
     [[nodiscard]] bool Open(int& error);
     [[nodiscard]] ConnectionId BeginConnect(std::wstring host, std::uint16_t port,
-        bool noDelay, bool policyApproved);
+        bool noDelay);
     [[nodiscard]] ConnectionSnapshot PollConnection(ConnectionId id) const;
     void SetIoEnabled(ConnectionId id, bool enabled);
     // 只提交bytes；replace原子替换待发内容，普通追加保持字节顺序，不识别协议命令。

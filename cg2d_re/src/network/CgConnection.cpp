@@ -1113,11 +1113,11 @@ platform::ConnectionId CgConnection::Impl::BeginConnect(std::wstring host, std::
 {
     Close();
     try {
-        const bool policyApproved = platform::PrepareServerAddressPolicy(host, port);
+        platform::PrepareServerAddressPolicy(host, port);
         this->frameModuloD9F3C8 = 0;
         this->flagsD9F2C0 = 0;
         this->errorD9F2CC = 0;
-        const auto id = transport.BeginConnect(std::move(host), port, noDelay, policyApproved);
+        const auto id = transport.BeginConnect(std::move(host), port, noDelay);
         connectionId = id;
         return connectionId;
     } catch (const std::exception&) {

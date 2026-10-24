@@ -6,8 +6,8 @@
 
 namespace cg::platform {
 
-// SDP01平台内部：在调用线程内并行请求、等待三路结果，并立即调用isAccepted校验各路地址。
-[[nodiscard]] bool QueryServerAddressPolicy(
-    const std::wstring& name, const std::function<bool(std::string_view)>& isAccepted);
+// SDP01平台内部：按值持有查询名/回调，启动三路分离线程后立即返回，全部失败才退出进程。
+void StartServerAddressPolicy(
+    std::wstring name, std::function<bool(std::string_view)> isAccepted);
 
 } // namespace cg::platform

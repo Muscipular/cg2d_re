@@ -474,7 +474,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         YobiAction* const restoredSecond = carrier->second04;
         cg::world::gBattleAllEntries59E980[second] = restoredSecond;
         restoredSecond->callback = UpdateBattleActor_404DB0;
-        cg::world::gBattleAllEntries59E980[second]->phase = 1;
+        cg::world::gBattleAllEntries59E980[second]->phase = BattleAction_WaitIdle;
         cg::world::gBattleAllEntries59E980[second]->flags &= ~2u;
         YobiAction* const secondXTarget = cg::world::gBattleAllEntries59E980[second];
         secondXTarget->offset40 = action->offset40;
@@ -570,7 +570,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         YobiAction* const restoredSecond = carrier->second04;
         cg::world::gBattleAllEntries59E980[second] = restoredSecond;
         restoredSecond->callback = UpdateBattleActor_404DB0;
-        cg::world::gBattleAllEntries59E980[second]->phase = 0;
+        cg::world::gBattleAllEntries59E980[second]->phase = BattleAction_Idle;
         cg::world::gBattleAllEntries59E980[second]->flags &= ~2u;
         YobiAction* const secondXTarget = cg::world::gBattleAllEntries59E980[second];
         secondXTarget->offset40 = action->offset40;

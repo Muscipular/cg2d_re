@@ -1331,7 +1331,7 @@ static void ProcessBattleMTransitionHeader(
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[casterPosition], BattleAction_ShowReactionIcon);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
             ->reactionImage1010 = 22320;
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 12);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PrepareEscape);
         const std::uint32_t result = gBattleMResultFlags5A4A20;
         if (result == 0) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayDeathAnimation);
@@ -1345,10 +1345,10 @@ static void ProcessBattleMTransitionHeader(
                 ->soundId1018 = 211;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySound1018);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_DismissPlayerPet);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 13);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MoveToExitPoint);
             const std::int32_t currentPosition = gBattleMCasterPosition5AAA64;
             const bool playerPosition = cg::world::gBattleCurrentPosition5ABCA4 == currentPosition;
-            const std::int32_t castState = playerPosition ? 256 : 51;
+            const std::int32_t castState = playerPosition ? BattleAction_RequestBattleExit : BattleAction_RemoveFromBattle;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[currentPosition], castState);
         }
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
@@ -1371,8 +1371,8 @@ static void ProcessBattleMTransitionHeader(
             if (kind == BattleMTransitionHeader::Clear) {
                 cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                     ->reactionImage1010 = 22320;
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 12);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 13);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PrepareEscape);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MoveToExitPoint);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_RemoveFromBattle);
             } else {
                 cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
@@ -1383,7 +1383,7 @@ static void ProcessBattleMTransitionHeader(
                 YobiAction* const current = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
                 if ((*reinterpret_cast<const unsigned char*>(
                         &current->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
-                    AppendBattleCast_4392A0(scene, current, 57);
+                    AppendBattleCast_4392A0(scene, current, BattleAction_PlayAnimation13AndResetFrames);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_SetIdlePose);
                 }
             }
@@ -1412,7 +1412,7 @@ static void ProcessBattleMTransitionHeader(
         }
         actor->payload.battleActor->reactionImage1010 = 22334;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ShowReactionIcon);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 65);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_OscillateFacing);
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
         break;
     }
@@ -1438,14 +1438,14 @@ static void ProcessBattleMTransitionHeader(
         auto* const yPayload = yActor->payload.battleActor;
         const std::int32_t y = cg::world::gBattleGraphicPoints553758[yIndex][1];
         yPayload->y0C = y;
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 12);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PrepareEscape);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
             ->reactionImage1010 = 22324;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ShowReactionIcon);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
             ->soundId1018 = 211;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySound1018);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 13);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MoveToExitPoint);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_RemoveFromBattle);
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
         break;
@@ -1653,7 +1653,7 @@ static void ProcessBattleMStatusHeader(
                 ->soundId1018 = 273;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySound1018);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ApplyResourceChange);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 32);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayHitAnimation);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->value1030 = value;
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
@@ -1664,7 +1664,7 @@ static void ProcessBattleMStatusHeader(
             }
             break;
         case 1:
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 131);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayEffectType14);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ApplyResourceChangeAndWait);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->value1030 = value;
@@ -1689,7 +1689,7 @@ static void ProcessBattleMStatusHeader(
             if (gBattleMStatusMode5ABA88 == 4) {
                 cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                     ->image102C = 104216;
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 252);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayConfiguredEffect42);
             }
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ApplyResourceChange);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
@@ -1768,7 +1768,7 @@ static void ProcessBattleMStatusHeader(
         const std::int32_t effectPosition = gBattleMTargetPosition5AAA40;
         const BattleEntryEffectRecord effect {effectPosition, effectFlags, 0, image};
         AppendBattleEffect_439400(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], effect);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 163);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TransitionRebirthForm);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_SetIdlePose);
         break;
     }
@@ -1776,7 +1776,7 @@ static void ProcessBattleMStatusHeader(
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(PeekBattleMInteger_43B860(scene));
         YobiAction* const preview = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (preview != nullptr
-            && (preview->payload.battleActor->busyFD8 != 0 || preview->phase != 0)) {
+            && (preview->payload.battleActor->busyFD8 != 0 || preview->phase != BattleAction_Idle)) {
             return;
         }
         const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -1810,7 +1810,7 @@ static void ProcessBattleMPositionHeader(
             const std::int32_t otherPosition = cg::world::GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             YobiAction* const other = cg::world::gBattleAllEntries59E980[otherPosition];
-            if (other != nullptr && other->characterAction != 10 && other->phase != 34) {
+            if (other != nullptr && other->characterAction != 10 && other->phase != BattleAction_BounceOutAfterKnockout) {
                 FaceBattleActorTowardFormationPosition_406260(other);
             }
             FinishBattleEvent_43B6C0(scene);
@@ -1872,7 +1872,7 @@ static void ProcessBattleMPositionHeader(
         const std::int32_t casterPosition = gBattleMCasterPosition5AAA64;
         initialOtherPayload->battlePosition18 = casterPosition;
         YobiAction* const other = cg::world::gBattleAllEntries59E980[otherPosition];
-        if (other != nullptr && other->phase != 34) {
+        if (other != nullptr && other->phase != BattleAction_BounceOutAfterKnockout) {
             {
                 const std::int32_t sampledCasterPosition = gBattleMCasterPosition5AAA64;
                 auto* const otherPayload = other->payload.battleActor;
@@ -1967,7 +1967,7 @@ static void ProcessBattleMPositionHeader(
     cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->motionMagnitude54 = 3.0F;
     cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->framePlayingRate = 100;
     YobiAction* const other = *oldSlot;
-    if (other != nullptr && other->phase != 34) {
+    if (other != nullptr && other->phase != BattleAction_BounceOutAfterKnockout) {
         AppendBattleCast_4392A0(scene, other, BattleAction_ReturnToFormation);
         MoveBattleCastState_439380(*oldSlot);
         (*oldSlot)->motionMagnitude54 = 3.0F;
@@ -2111,7 +2111,7 @@ static void ProcessBattleMMonsterHeader(
         defender->scaleY = 0.0F;
         defenderPayload->battlePosition18 = gBattleMDefenderPosition5A4A24;
         UpdateBattleAlbumFlag_4238F0(defender);
-        defender->phase = 0;
+        defender->phase = BattleAction_Idle;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ShowReactionIcon);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
             ->reactionImage1010 = 22338;
@@ -2155,7 +2155,7 @@ static void ProcessBattleMItemHeader(
     if (mode == 7) {
         actor->payload.battleActor->soundId1018 = 438;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySound1018);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 205);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation16AndResetFrames);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_Wait120Ticks);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_Wait60Ticks);
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
@@ -2164,7 +2164,7 @@ static void ProcessBattleMItemHeader(
     }
     AppendBattleCast_4392A0(scene, actor, BattleAction_WaitTargetReady);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FaceFormation);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 138);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayItemUseEffect);
     if (mode == 6) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_AdvanceLinkedCast);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_Idle);
@@ -2188,9 +2188,9 @@ static void ProcessBattleMItemHeader(
         YobiAction* const effectCaster = cg::world::gBattleAllEntries59E980[effectCasterPosition];
         AppendBattleEffectList_4393A0(effectCaster, effectTargetPosition, 0, 0);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_Idle);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 154);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 155);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 156);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_StartScalingEffect24);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_PulseScaleWithParentEffect);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_WaitScalingEffect24End);
         const std::int32_t reverseTargetPosition = gBattleMTargetPosition5AAA40;
         const std::int32_t reverseCasterPosition = gBattleMCasterPosition5AAA64;
         YobiAction* const reverseTarget = cg::world::gBattleAllEntries59E980[reverseTargetPosition];
@@ -2201,16 +2201,16 @@ static void ProcessBattleMItemHeader(
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ShowReactionIcon);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->reactionImage1010 = 28880;
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 57);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 57);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 57);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation13AndResetFrames);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation13AndResetFrames);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation13AndResetFrames);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_RemoveFromBattle);
         } else {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ShowReactionIcon);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->reactionImage1010 = 22333;
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 58);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 58);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation14AndResetFrames);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation14AndResetFrames);
         }
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_AdvanceEffectAndCast);
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
@@ -2241,7 +2241,7 @@ static void ProcessBattleMItemHeader(
         const bool secondKind = value == 7;
         YobiAction* const skillTarget = cg::world::gBattleAllEntries59E980[skillTargetPosition];
         skillTarget->payload.battleActor->castSkillLevel1044 = 0;
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], secondKind ? 150 : BattleAction_PlayHealEffect);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], secondKind ? BattleAction_PlayAmountTieredRecoveryEffect : BattleAction_PlayHealEffect);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_ApplyResourceChangeAndWait);
         const std::int32_t messageTargetPosition = gBattleMTargetPosition5AAA40;
         YobiAction* const messageTarget = cg::world::gBattleAllEntries59E980[messageTargetPosition];
@@ -2270,7 +2270,7 @@ static void ProcessBattleMComboHeader(
         return;
     case 2: {
         YobiAction* const actor = cg::world::gBattleAllEntries59E980[payload->entryPositions08[payload->completedEntryCount00]];
-        if (actor->phase == 0) {
+        if (actor->phase == BattleAction_Idle) {
             AdvanceBattleCastState_439340(actor);
         }
         const std::int32_t count = payload->entryCount04;
@@ -2351,10 +2351,10 @@ static void ProcessBattleMComboHeader(
         payload->entryPositions08[entryIndex] = entryCasterPosition;
         ++payload->entryCount04;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 7);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 9);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 10);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 72);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation2FacingEffectTarget);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MoveTowardTargetOrFormation);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation4AndRestoreFacing);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_NotifyCasterEntryComplete);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_Idle);
         std::int32_t imageIndex = 0;
         for (std::int32_t index = 0; index < 2; ++index) {
@@ -2372,7 +2372,7 @@ static void ProcessBattleMComboHeader(
         YobiAction* const auxiliaryCaster = cg::world::gBattleAllEntries59E980[auxiliaryCasterPosition];
         AppendBattleAuxEffects_43BC10(auxiliaryCaster, auxiliaryTargetPosition, auxiliaryFlags,
             auxiliaryFirstImage, auxiliarySecondImage, auxiliaryImage);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 14);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PerformMeleeAttack);
         std::uint32_t flags = gBattleMResultFlags5A4A20;
         if ((flags & 0xE000u) == 0) {
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
@@ -2381,7 +2381,7 @@ static void ProcessBattleMComboHeader(
         }
         if ((flags & 0x40u) != 0) {
             if ((flags & 3u) != 0 && (flags & 0x2000u) != 0) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 34);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_BounceOutAfterKnockout);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_StartPhysicalReflectEffect);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_Idle);
                 flags = gBattleMResultFlags5A4A20;
@@ -2408,7 +2408,7 @@ static void ProcessBattleMComboHeader(
             } else if ((flags & 0x2000u) != 0) {
                 const bool secondReaction = (flags & 2u) != 0;
                 const std::int32_t reactionCasterPosition = gBattleMCasterPosition5AAA64;
-                const std::int32_t reactionKind = secondReaction ? 165 : 27;
+                const std::int32_t reactionKind = secondReaction ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit;
                 YobiAction* const reactionCaster = cg::world::gBattleAllEntries59E980[reactionCasterPosition];
                 AppendBattleCast_4392A0(scene, reactionCaster, reactionKind);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_StartPhysicalReflectEffect);
@@ -2420,9 +2420,9 @@ static void ProcessBattleMComboHeader(
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ReturnToFormation);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_HandleDeath);
         } else {
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 7);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation2FacingEffectTarget);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ReturnToFormation);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 10);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation4AndRestoreFacing);
         }
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
         gBattleMValue5ABA7C = gBattleMCasterPosition5AAA64;
@@ -2437,7 +2437,7 @@ static void ProcessBattleMComboHeader(
     } else {
         if ((flags & 0x40u) != 0) {
             if ((flags & 3u) != 0) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 34);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_BounceOutAfterKnockout);
                 if ((gBattleMResultFlags5A4A20 & 0x2000u) != 0) {
                     const std::int32_t playerCasterPosition = gBattleMCasterPosition5AAA64;
                     if (cg::world::gBattleCurrentPosition5ABCA4 == playerCasterPosition) {
@@ -2458,7 +2458,7 @@ static void ProcessBattleMComboHeader(
                 flags = gBattleMResultFlags5A4A20;
             }
         } else if (amount != 0 && (flags & 3u) != 0) {
-            const std::int32_t reactionKind = (flags & 2u) != 0 ? 165 : 27;
+            const std::int32_t reactionKind = (flags & 2u) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit;
             const std::int32_t reactionTargetPosition = gBattleMTargetPosition5AAA40;
             YobiAction* const reactionTarget = cg::world::gBattleAllEntries59E980[reactionTargetPosition];
             AppendBattleCast_4392A0(scene, reactionTarget, reactionKind);
@@ -2523,7 +2523,7 @@ static void ProcessBattleMGmnHeader(
         AppendBattleCast_4392A0(scene, *slot, BattleAction_SelectPalette);
         AppendBattleCast_4392A0(scene, *slot, BattleAction_EndBackgroundFade);
         AppendBattleCast_4392A0(scene, *slot, BattleAction_FadeOutStep3);
-        AppendBattleCast_4392A0(scene, *slot, 168);
+        AppendBattleCast_4392A0(scene, *slot, BattleAction_ClearColorOverrides);
         AppendBattleCast_4392A0(scene, *slot, BattleAction_RemoveFromBattle);
         const std::int32_t begin = position == 21 ? 10 : 0;
         const std::int32_t end = position == 21 ? 20 : 10;
@@ -2532,7 +2532,7 @@ static void ProcessBattleMGmnHeader(
             YobiAction* const member = *memberSlot;
             if (member != nullptr) {
                 AppendBattleCast_4392A0(scene, member, BattleAction_FadeIn);
-                AppendBattleCast_4392A0(scene, *memberSlot, 168);
+                AppendBattleCast_4392A0(scene, *memberSlot, BattleAction_ClearColorOverrides);
                 MoveBattleCastState_439380(*memberSlot);
             }
         }
@@ -2596,7 +2596,7 @@ static void ProcessBattleMGmnHeader(
     created->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2];
     created->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3];
     actorPayload->battlePosition18 = position;
-    created->phase = 0;
+    created->phase = BattleAction_Idle;
     created->rebirthValue1 = 4;
     created->rebirthValue2 = 4;
     {
@@ -2611,7 +2611,7 @@ static void ProcessBattleMGmnHeader(
     AppendBattleCast_4392A0(scene, *slot, BattleAction_SelectPalette);
     AppendBattleCast_4392A0(scene, *slot, BattleAction_Idle);
     AppendBattleCast_4392A0(scene, *slot, BattleAction_Wait60Ticks);
-    AppendBattleCast_4392A0(scene, *slot, 167);
+    AppendBattleCast_4392A0(scene, *slot, BattleAction_EnableAlphaOverride);
     if (entrance == 0) {
         created->scaleX = 0.0F;
         created->scaleY = 0.0F;
@@ -2650,7 +2650,7 @@ static void ProcessBattleMGmnHeader(
         yActor->y = static_cast<std::int32_t>(static_cast<std::int64_t>(yActor->offset44));
         FaceBattleActorTowardFormationPosition_406260(*slot);
         AppendBattleCast_4392A0(scene, *slot, BattleAction_MoveToTargetPosition);
-        AppendBattleCast_4392A0(scene, *slot, 10);
+        AppendBattleCast_4392A0(scene, *slot, BattleAction_PlayAnimation4AndRestoreFacing);
     }
 
     const std::int32_t begin = position == 21 ? 10 : 0;
@@ -2671,7 +2671,7 @@ static void ProcessBattleMGmnHeader(
             continue;
         }
         AppendBattleCast_4392A0(scene, member, BattleAction_Wait60Ticks);
-        AppendBattleCast_4392A0(scene, *memberSlot, 167);
+        AppendBattleCast_4392A0(scene, *memberSlot, BattleAction_EnableAlphaOverride);
         YobiAction* const colored = *memberSlot;
         colored->color2 = std::bit_cast<std::int32_t>(colored->drawMode.color);
         YobiAction* const flagActor = *memberSlot;
@@ -2759,7 +2759,7 @@ static void ProcessBattleMRideHeader(
             carrierAction->offset44 = static_cast<float>(
                 cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3]);
             existingPayload->effect1060 = carrierAction;
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 224);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TransitionRideState);
             const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;
             const BattleEntryEffectRecord effectRecord {firstPosition, 1u, effectCasterPosition, secondPosition};
             AppendBattleEffect_439400(cg::world::gBattleAllEntries59E980[effectCasterPosition], effectRecord);
@@ -2773,22 +2773,22 @@ static void ProcessBattleMRideHeader(
             const std::int32_t pointIndexY = cg::world::gBattlePointIndices5536FC[firstPosition];
             YobiAction* const effectY = existingPayload->effect1060;
             effectY->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[pointIndexY][3]);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 225);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FailToMountAndReturn);
             const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;
             const BattleEntryEffectRecord effectRecord {firstPosition, 1u, effectCasterPosition, secondPosition};
             AppendBattleEffect_439400(cg::world::gBattleAllEntries59E980[effectCasterPosition], effectRecord);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ShowReactionIcon);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->reactionImage1010 = 22331;
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 58);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 58);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation14AndResetFrames);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation14AndResetFrames);
             YobiAction* const second = cg::world::gBattleAllEntries59E980[secondPosition];
             if (second != nullptr) {
                 auto* const secondPayload = second->payload.battleActor;
                 if ((*reinterpret_cast<const unsigned char*>(&secondPayload->flagsFDC) & BattleActorFlag_Dead) == 0) {
                     secondPayload->reactionImage1010 = 22334;
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondPosition], BattleAction_ShowReactionIcon);
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondPosition], 65);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondPosition], BattleAction_OscillateFacing);
                     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[secondPosition]);
                 }
             }
@@ -2850,7 +2850,7 @@ static void ProcessBattleMRideHeader(
         first->scaleY = 1.0F;
         firstPayload->battlePosition18 = firstPosition;
         UpdateBattleAlbumFlag_4238F0(first);
-        first->phase = 0;
+        first->phase = BattleAction_Idle;
         first->flags |= 2u;
         first->callback = nullptr;
         carrier->first00 = first;
@@ -2920,11 +2920,11 @@ static void ProcessBattleMRideHeader(
         second->scaleY = 1.0F;
         secondPayload->battlePosition18 = secondPosition;
         UpdateBattleAlbumFlag_4238F0(second);
-        second->phase = 0;
+        second->phase = BattleAction_Idle;
         second->flags |= 2u;
         second->callback = nullptr;
         carrier->second04 = second;
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 224);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TransitionRideState);
         const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;
         const BattleEntryEffectRecord effectRecord {effectCasterPosition, 0u, firstPosition, secondPosition};
         AppendBattleEffect_439400(cg::world::gBattleAllEntries59E980[effectCasterPosition], effectRecord);
@@ -3151,7 +3151,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         firstPayload->battlePosition18 = first;
         UpdateBattleAlbumFlag_4238F0(firstActor);
         const std::uint32_t firstFlags = firstActor->flags | 2u;
-        firstActor->phase = 0;
+        firstActor->phase = BattleAction_Idle;
         firstActor->flags = firstFlags;
         firstActor->callback = nullptr;
 
@@ -3226,7 +3226,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         secondPayload->battlePosition18 = second;
         UpdateBattleAlbumFlag_4238F0(secondActor);
         const std::uint32_t secondFlags = secondActor->flags | 2u;
-        secondActor->phase = 0;
+        secondActor->phase = BattleAction_Idle;
         secondActor->flags = secondFlags;
         secondActor->callback = nullptr;
 
@@ -3236,7 +3236,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         carrier->first00 = firstActor;
         carrier->second04 = secondActor;
         carrier->gearImage0C = gearImage;
-        AppendBattleCast_4392A0(action, *originalSlot, 226);
+        AppendBattleCast_4392A0(action, *originalSlot, BattleAction_DismountAndRestoreActors);
         AppendBattleEffect_439400(*originalSlot, {first, 0u, first, second});
         if ((*reinterpret_cast<const unsigned char*>(&firstPayload->flagsFDC) & BattleActorFlag_Dead) != 0) {
             firstActor->motionMagnitude54 = 4.0F;
@@ -3245,9 +3245,9 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
             AppendBattleCast_4392A0(action, firstActor, BattleAction_HandleDeath);
         } else {
             firstActor->motionMagnitude54 = 5.0F;
-            AppendBattleCast_4392A0(action, firstActor, 7);
+            AppendBattleCast_4392A0(action, firstActor, BattleAction_PlayAnimation2FacingEffectTarget);
             AppendBattleCast_4392A0(action, firstActor, BattleAction_ReturnToFormation);
-            AppendBattleCast_4392A0(action, firstActor, 10);
+            AppendBattleCast_4392A0(action, firstActor, BattleAction_PlayAnimation4AndRestoreFacing);
         }
         if ((*reinterpret_cast<const unsigned char*>(&secondPayload->flagsFDC) & BattleActorFlag_Dead) != 0) {
             secondActor->motionMagnitude54 = 4.0F;
@@ -3256,9 +3256,9 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
             AppendBattleCast_4392A0(action, secondActor, BattleAction_HandleDeath);
         } else {
             secondActor->motionMagnitude54 = 5.0F;
-            AppendBattleCast_4392A0(action, secondActor, 7);
+            AppendBattleCast_4392A0(action, secondActor, BattleAction_PlayAnimation2FacingEffectTarget);
             AppendBattleCast_4392A0(action, secondActor, BattleAction_ReturnToFormation);
-            AppendBattleCast_4392A0(action, secondActor, 10);
+            AppendBattleCast_4392A0(action, secondActor, BattleAction_PlayAnimation4AndRestoreFacing);
         }
         scene->packetOffset64 = previewOffset;
     }

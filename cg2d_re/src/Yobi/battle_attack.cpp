@@ -114,11 +114,11 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                 const std::uint32_t flags = payload->effects1C[index].flags;
                 if ((flags & 0x2000u) == 0) {
                     if ((flags & 8u) != 0) {
-                        target->phase = 31;
+                        target->phase = BattleAction_DodgeAndWaitAttacker;
                     } else if ((flags & 0x100u) != 0) {
                         static_cast<void>(audio::PlaySe_52C450(210, action->x));
                         targetPayload->flash1004 = 1;
-                        target->phase = 31;
+                        target->phase = BattleAction_DodgeAndWaitAttacker;
                     } else if ((flags & 0x1000C000u) == 0
                         && (payload->effects1C[index].position3 != 0 || payload->castSkill103C == BattleSkill_Forcecut)) {
                         target->offset40 = static_cast<float>(targetPayload->x10);
@@ -139,7 +139,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             static_cast<void>(NewBattleRandomEffect_419FC0(target, secondaryImage, 0));
                         }
                         NewBattleRebirthEffects_4208F0(action, target);
-                        target->phase = 26;
+                        target->phase = BattleAction_RecoilOnHit;
                         const std::int32_t currentEvent = action->frameEvent;
                         if (currentEvent >= 20000) {
                             static_cast<void>(audio::PlaySe_52C450(currentEvent - 20000, action->x));
@@ -164,14 +164,14 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                 const std::int32_t index = payload->effectRunningC9C;
                 const std::uint32_t flags = payload->effects1C[index].flags;
                 if ((flags & 8u) != 0) {
-                    target->phase = 31;
+                    target->phase = BattleAction_DodgeAndWaitAttacker;
                     goto finishHit;
                 }
                 if ((flags & 0x100u) != 0) {
                     if (targetPayload->flash1004 == 0) {
                         static_cast<void>(audio::PlaySe_52C450(210, action->x));
                         targetPayload->flash1004 = 1;
-                        target->phase = 31;
+                        target->phase = BattleAction_DodgeAndWaitAttacker;
                     }
                     goto finishHit;
                 }
@@ -882,7 +882,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             }
         }
         static_cast<void>(NewBattleRandomEffect_419FC0(target, 110474, 0));
-        if (target->phase != 0) {
+        if (target->phase != BattleAction_Idle) {
             AdvanceBattleCastState_439340(target);
             targetPayload->actionFrameCountFCC = 0;
             targetPayload->effectPlaybackState1024 = 0;
@@ -972,40 +972,40 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
         if ((flags & 8u) != 0) {
             const std::int32_t skill = payload->castSkill103C;
             if (skill == BattleSkill_RandomShot || skill == 4002 || skill == 3038) {
-                if (target->phase != 0) {
+                if (target->phase != BattleAction_Idle) {
                     AdvanceBattleCastState_439340(target);
                     targetPayload->actionFrameCountFCC = 0;
                     targetPayload->effectPlaybackState1024 = 0;
                 }
                 AdvanceBattleCastState_439340(target);
-            } else if (payload->attackModeFF4 == 4 && target->phase != 0) {
+            } else if (payload->attackModeFF4 == 4 && target->phase != BattleAction_Idle) {
                 AdvanceBattleCastState_439340(target);
                 targetPayload->actionFrameCountFCC = 0;
                 targetPayload->effectPlaybackState1024 = 0;
                 AdvanceBattleCastState_439340(target);
             } else {
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             }
             goto finishProjectileHit;
         }
         if ((flags & 0x100u) != 0) {
             const std::int32_t skill = payload->castSkill103C;
             if (skill == BattleSkill_RandomShot || skill == 4002 || skill == 3038) {
-                if (target->phase != 0) {
+                if (target->phase != BattleAction_Idle) {
                     AdvanceBattleCastState_439340(target);
                     targetPayload->actionFrameCountFCC = 0;
                     targetPayload->effectPlaybackState1024 = 0;
                 }
                 AdvanceBattleCastState_439340(target);
             } else {
-                if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                if (payload->attackModeFF4 == 4 && target->phase != BattleAction_Idle) {
                     AdvanceBattleCastState_439340(target);
                     targetPayload->actionFrameCountFCC = 0;
                     targetPayload->effectPlaybackState1024 = 0;
                 }
                 targetPayload->flash1004 = 1;
                 static_cast<void>(audio::PlaySe_52C450(210, action->x));
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             }
             goto finishProjectileHit;
         }
@@ -1050,13 +1050,13 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             if ((hitFlags & 0x48000u) != 0) {
                 const std::int32_t skill = payload->castSkill103C;
                 if (skill == BattleSkill_RandomShot || skill == 4002 || skill == 3038) {
-                    if (target->phase != 0) {
+                    if (target->phase != BattleAction_Idle) {
                         AdvanceBattleCastState_439340(target);
                         targetPayload->actionFrameCountFCC = 0;
                         targetPayload->effectPlaybackState1024 = 0;
                     }
                 } else {
-                    if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                    if (payload->attackModeFF4 == 4 && target->phase != BattleAction_Idle) {
                         AdvanceBattleCastState_439340(target);
                         targetPayload->actionFrameCountFCC = 0;
                         targetPayload->effectPlaybackState1024 = 0;
@@ -1071,13 +1071,13 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             } else if ((hitFlags & 0x24000u) != 0) {
                 const std::int32_t skill = payload->castSkill103C;
                 if (skill == BattleSkill_RandomShot || skill == 4002 || skill == 3038) {
-                    if (target->phase != 0) {
+                    if (target->phase != BattleAction_Idle) {
                         AdvanceBattleCastState_439340(target);
                         targetPayload->actionFrameCountFCC = 0;
                         targetPayload->effectPlaybackState1024 = 0;
                     }
                 } else {
-                    if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                    if (payload->attackModeFF4 == 4 && target->phase != BattleAction_Idle) {
                         AdvanceBattleCastState_439340(target);
                         targetPayload->actionFrameCountFCC = 0;
                         targetPayload->effectPlaybackState1024 = 0;
@@ -1118,13 +1118,13 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             } else if ((hitFlags & 0x12000u) != 0) {
                 const std::int32_t skill = payload->castSkill103C;
                 if (skill == BattleSkill_RandomShot || skill == 4002 || skill == 3038) {
-                    if (target->phase != 0) {
+                    if (target->phase != BattleAction_Idle) {
                         AdvanceBattleCastState_439340(target);
                         targetPayload->actionFrameCountFCC = 0;
                         targetPayload->effectPlaybackState1024 = 0;
                     }
                 } else {
-                    if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                    if (payload->attackModeFF4 == 4 && target->phase != BattleAction_Idle) {
                         AdvanceBattleCastState_439340(target);
                         targetPayload->actionFrameCountFCC = 0;
                         targetPayload->effectPlaybackState1024 = 0;
@@ -1160,13 +1160,13 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     if (forwardAngle >= 360.0) {
                         target->angle50 = static_cast<float>(forwardAngle - 360.0);
                     }
-                    if (target->phase != 0) {
+                    if (target->phase != BattleAction_Idle) {
                         AdvanceBattleCastState_439340(target);
                         targetPayload->actionFrameCountFCC = 0;
                         targetPayload->effectPlaybackState1024 = 0;
                     }
                 } else {
-                    if (payload->attackModeFF4 == 4 && target->phase != 0) {
+                    if (payload->attackModeFF4 == 4 && target->phase != BattleAction_Idle) {
                         AdvanceBattleCastState_439340(target);
                         targetPayload->actionFrameCountFCC = 0;
                         targetPayload->effectPlaybackState1024 = 0;
@@ -1285,11 +1285,11 @@ void UpdateBattleAction20_408410(YobiAction* const action)
         const std::int32_t appliedIndex = payload->effectRunningC9C;
         const std::uint32_t flags = payload->effects1C[appliedIndex].flags;
         if ((flags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((flags & 0x100u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(210, action->x));
             targetPayload->flash1004 = 1;
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if (payload->effects1C[appliedIndex].position3 != 0) {
                 if ((flags & 2u) != 0) {
@@ -1364,7 +1364,7 @@ std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
     const float targetY = static_cast<float>(payload->y04);
     const float targetX = static_cast<float>(payload->x00);
     if (GetBattleDistanceToPosition_4062A0(action, targetX, targetY) < 20) {
-        action->phase = 22;
+        action->phase = BattleAction_ResolveBoomerangHits;
     }
     MoveBattleByAngle_405EA0(action);
     return PlayFrame_517DA0(action, 0);
@@ -1397,7 +1397,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
             cg::world::gBattleAllEntries59E980[payload->effects1C[turnIndex].position], 0, step);
         NormalizeBattleAngle_405E60(action);
         YobiAction* const other = action->battleOpponent10;
-        if (other->phase != 15) {
+        if (other->phase != BattleAction_LaunchRangedAttack) {
             TurnBattleToward_406190(other, action, 1, 0.0F);
         }
         if (action->frameEvent == 0
@@ -1489,11 +1489,11 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
             const std::int32_t appliedIndex = payload->effectRunningC9C;
             const std::uint32_t flags = payload->effects1C[appliedIndex].flags;
             if ((flags & 8u) != 0) {
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else if ((flags & 0x100u) != 0) {
                 static_cast<void>(audio::PlaySe_52C450(210, action->x));
                 targetPayload->flash1004 = 1;
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else {
                 if ((flags & 0xE000u) == 0 && payload->effects1C[appliedIndex].position3 != 0) {
                     if ((flags & 2u) != 0) {
@@ -1619,7 +1619,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
         MoveBattleByAngle_405EA0(action);
         result = action->frameEvent;
         if (result == 1) {
-            action->phase = 23;
+            action->phase = BattleAction_ReturnBoomerang;
         }
     }
     return result;
@@ -1663,11 +1663,11 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
     if (GetBattleDistance_406300(action, action->battleOpponent10) < 60) {
         YobiAction* const parent = action->battleOpponent10;
         action->effectAcceleration48 = 180.0F;
-        if (parent->phase == 15) {
+        if (parent->phase == BattleAction_LaunchRangedAttack) {
             AdvanceBattleCastState_439340(parent);
         }
         YobiAction* const currentParent = action->battleOpponent10;
-        if (currentParent->phase != 24) {
+        if (currentParent->phase != BattleAction_Wait21Ticks) {
             currentParent->characterAction = 12;
             static_cast<void>(PlayFrame_517DA0(action->battleOpponent10, 0));
             AdvanceBattleCastState_439340(action->battleOpponent10);
@@ -1679,12 +1679,12 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
                     static_cast<void>(AdvanceBattleEffect_439470(action->battleOpponent10));
                     AdvanceBattleCastState_439340(action->battleOpponent10);
                     AppendBattleEffect_439400(action, {parentPayload->effects1C[parentPayload->effectRunningC9C].position, 0, 0, 0});
-                    if (cg::world::gBattleAllEntries59E980[parentPayload->effects1C[parentPayload->effectRunningC9C].position]->phase != 0) {
+                    if (cg::world::gBattleAllEntries59E980[parentPayload->effects1C[parentPayload->effectRunningC9C].position]->phase != BattleAction_Idle) {
                         AppendBattleCast_4392A0(caster, action, BattleAction_WaitTargetReady);
                     }
                     AppendBattleCast_4392A0(caster, action, BattleAction_AdvanceLinkedCast);
                     AppendBattleCast_4392A0(caster, action, BattleAction_WaitTargetReady);
-                    AppendBattleCast_4392A0(caster, action, 222);
+                    AppendBattleCast_4392A0(caster, action, BattleAction_MoveLinkedProjectileToTarget);
                     action->effectAcceleration48 = 10.0F;
                     AdvanceBattleCastState_439340(action);
                 }
@@ -1695,7 +1695,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
                 auto* const parentPayload = action->battleOpponent10->payload.battleActor;
                 const std::int32_t index = parentPayload->castPlayIndexFC4;
                 parentPayload->valueFF0 = 0;
-                if (parentPayload->castListCA4[index + 1] == 221) {
+                if (parentPayload->castListCA4[index + 1] == BattleAction_ApplyFollowupHit) {
                     AdvanceBattleCastState_439340(action->battleOpponent10);
                 }
             }
@@ -1736,7 +1736,7 @@ void UpdateBattleAction25_406BA0(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         return;
     }
-    if (payload->battlePosition18 == position || target->phase == 0) {
+    if (payload->battlePosition18 == position || target->phase == BattleAction_Idle) {
         auto* const targetPayload = target->payload.battleActor;
         targetPayload->x10 = target->x;
         YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
@@ -2120,12 +2120,12 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
         if ((flags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((flags & 0x100u) != 0) {
             if (targetPayload->flash1004 == 0) {
                 static_cast<void>(audio::PlaySe_52C450(210, action->x));
                 targetPayload->flash1004 = 1;
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             }
         } else {
             if ((flags & 0xC000u) == 0
@@ -2455,12 +2455,12 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
         if ((flags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((flags & 0x100u) != 0) {
             if (targetPayload->flash1004 == 0) {
                 static_cast<void>(audio::PlaySe_52C450(210, action->x));
                 targetPayload->flash1004 = 1;
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             }
         } else {
             if ((flags & 0xC000u) == 0
@@ -2657,11 +2657,11 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
         const std::int32_t hitIndex = payload->effectRunningC9C;
         const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
         if ((hitFlags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((hitFlags & 0x100u) != 0) {
             targetPayload->flash1004 = 1;
             static_cast<void>(audio::PlaySe_52C450(210, action->x));
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((hitFlags & 0xE000u) == 0 && payload->effects1C[hitIndex].position3 != 0) {
                 if ((hitFlags & 2u) != 0) {
@@ -2781,11 +2781,11 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, 0));
         const std::int32_t phase = action->phase;
         const double speed = action->motionMagnitude54;
-        action->motionMagnitude54 = static_cast<float>(phase == 238 ? speed - 0.5 : speed + 0.5);
+        action->motionMagnitude54 = static_cast<float>(phase == BattleAction_ResolveDeceleratingProjectileHit ? speed - 0.5 : speed + 0.5);
         if (!(action->motionMagnitude54 > 1.0F)) {
             const float boundarySpeed = action->motionMagnitude54;
             const bool reverseSpeed = !(boundarySpeed >= 0.0F);
-            action->phase = 239;
+            action->phase = BattleAction_ResolveAcceleratingProjectileHit;
             if (reverseSpeed) {
                 action->motionMagnitude54 = -action->motionMagnitude54;
             }
@@ -2923,11 +2923,11 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
         const std::int32_t hitIndex = payload->effectRunningC9C;
         const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
         if ((hitFlags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((hitFlags & 0x100u) != 0) {
             targetPayload->flash1004 = 1;
             static_cast<void>(audio::PlaySe_52C450(210, action->x));
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((hitFlags & 0x7E000u) == 0 && payload->effects1C[hitIndex].position3 != 0) {
                 if ((hitFlags & 2u) != 0) {
@@ -3138,11 +3138,11 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
             ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
             const std::uint32_t hitFlags = effect.flags;
             if ((hitFlags & 8u) != 0) {
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else if ((hitFlags & 0x100u) != 0) {
                 targetPayload->flash1004 = 1;
                 static_cast<void>(audio::PlaySe_52C450(210, action->x));
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else {
                 if ((hitFlags & 0xE000u) == 0 && effect.position3 != 0) {
                     if ((hitFlags & 2u) != 0) {

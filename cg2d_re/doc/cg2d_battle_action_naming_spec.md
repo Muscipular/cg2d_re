@@ -1,5 +1,9 @@
 # 战斗动作命名（BAN01）
 
+> 2026-10-25 补充范围：结合当前 cg2d.exe 会话、cgmsv_server 源码及用户指定 gmsv/data，继续核对剩余114项，覆盖角色phase的0～256全部257项。用户明确允许未证业务名的项按已证行为命名，例如PlayAnimation13AndResetFrames；动画号、工厂type及匿名标志位直接保留在名称或注释中，不据图号猜技能名称。下文旧“未命名”清单为本次补充前的历史状态。
+
+本次保持BattleActionId及字段、参数的有符号整数承载；仅扩充枚举、替换已确认属于角色动作域的数字引用及更新说明。角色动画、技能号、效果工厂type、场景phase、骑手／特效自身phase和位掩码各自保留。原端数据库、服务端与游戏数据只读。不编译、调试、运行或新增测试；完成后通过数值逆替换核对源码词法一致性并精确提交。
+
 日期：2026-10-21。用户要求将141、142等动作号按作用命名，随后要求继续尝试其他动作；沿用中文注释、英文标识符规则。
 
 ## 范围与依据
@@ -302,3 +306,153 @@
 2026-10-22继续批新增59项、替换11个CPP的318处引用（含补齐此前已命名动作的两处跳转），累计112项／959处引用。按头文件实际值分别归一化修改前后代码中的动作枚举引用，排除注释后完整词法序列一致；头文件除新增成员及说明外原代码一致。全部成员有消费者且无重名重值，原生257项分派覆盖不变。保留浮点、RNG、HP／FP数值、目标重新取样及推进时序，仅做显式编码和静态核对。
 
 2026-10-22特效批新增31项，七个CPP替换157处引用，累计143项／1116处引用。包含普通／渐显工厂内部case、127～129范围边界及状态技能生产方的局部state分支；工厂type和换算偏移不替换。以实际枚举值归一化前后CPP，剔除注释后完整词法序列一致；头文件仅增加31项带中文注释成员。143项无重名重值且全部引用，原生257项分派集合保持不变；显式UTF-8与原换行核对，不编译、运行或新增测试。
+
+
+## 全257项补齐（2026-10-25）
+
+用户确认未证业务名的项按已证行为命名。本轮新增114项，原143项名称和值保持；BattleActionId按原编号覆盖0～256全部257项。这里只命名动作域，不修改角色phase、动作队列或函数参数的整数类型，不更改原函数名称／地址、队列终止符和执行顺序。
+
+### 原端与参考证据
+
+| 来源 | 已核对事实及适用边界 |
+| --- | --- |
+| cg2d.exe，0x004392A0 | 0x004392C6将第三参数写入castList，0x004392D3写入-1终止符，0x004392DE设置忙标志。第三参数是角色动作号。 |
+| cg2d.exe，0x00439340 | 0x0043936C将下一队列值写入角色phase；0x00439370在队列终止／结束时写236。命名为ResetBusyAndIdle，保持原分流。 |
+| cg2d.exe，0x00404DD5 | 输入来自角色phase；实际跳转表0x0040573C，表项宽4字节，起始case为0，共257项。逐项读取原表目标并核对目标处call，257项均与当前UpdateNativeBattleActor处理函数一致。 |
+| cg2d.exe，0x0040FC10、0x00412310 | 分别核对30条普通特效映射及23条渐显特效映射，工厂type、末参1及后继162／204与源码一致。118／188原本没有创建分支，分别命名EnterEffectWait／EnterFadeInAndResolveEffect。 |
+| cg2d.exe，0x0040CAA0；battle_message.cpp合击生产 | 0x0040CAB1递增caster载荷首整数；本入口由场景入队，实际对应BattleScenePayload::completedEntryCount00。命名NotifyCasterEntryComplete，不把该写入解释为角色坐标移动。 |
+| cgmsv_server/include/battle.h:572起、battle/battle_event.c:6097起 | BM_FLAG_CRITICAL、AVOIDANCE、MIKAWASHI、PARRY及AKO标志与角色受击、闪避和击飞生产对应；27／165分别保留可选旋转与必经旋转，31仍等待攻击者离开动作14。服务器宏不用于替换对象flags、角色flagsFDC或其他同值编号。 |
+| cgmsv_server/skill/tech.c | TECH_LpRecovery、TECH_Steal、TECH_DefUp、TECH_Acid、TECH_MonWind等注册只用于核对技能生产入口，不推导客户端动作编号。 |
+| H:\Games\cgmsv_21.2a\gmsv\data\skill.txt、tech.txt | 显式GBK严格读取。skill.txt中61／62／63为补血系列、106为分身、97为大地之怒、260为座骑；tech.txt中技术9900属于TECH_DefUp。据此核生产背景，多技能共用的动作按行为命名，不把技能号直接用作phase。 |
+| src/world/WorldActorDrawing.cpp:572起、src/Yobi/base.cpp:591起 | 308对应batchType颜色通道掩码，值8只覆盖Alpha；309对应rebirthValue1混合标志覆盖掩码，255覆盖全部位。167～170分别据实际消费命名。77／78保留后端绘制位的行为名称；0x8000按帧奇偶跳过绘制，0x100000把Alpha设为128，不概括为同一种底层混合机制。 |
+
+场景phase8与角色动作8分属不同域。近战处理中的caster来自场景，因此其phase==8保留原值；骑手、缩放特效等对象自身的phase0／1／2／3也保持。本轮不修改或保存IDA数据库，不修改服务端或游戏数据。
+
+### 新增114项
+
+表中函数均为当前源码处理入口，地址后缀与原257项跳转表逐项对应；共用工厂函数的具体type另见说明。动画／工厂type／匿名标志的业务名未证时，名称只表达已证行为。
+
+| 编号 | 名称 | 处理函数／原地址 | 已证行为 |
+| --- | --- | --- | --- |
+| 7 | BattleAction_PlayAnimation2FacingEffectTarget | UpdateBattleAction7_409410 | 播放动画2，面向当前效果目标；目标为-1时面向本角色阵型点，终帧后推进。 |
+| 8 | BattleAction_PlayAnimation2FacingMoveTarget | UpdateBattleAction8_4094A0 | 播放动画2并面向moveTargetXFE8／YFEC，终帧后推进。 |
+| 9 | BattleAction_MoveTowardTargetOrFormation | UpdateBattleAction9_409510 | 前两项动作为近战攻击14时返回阵型点，否则接近当前效果目标；到达阈值后推进。 |
+| 10 | BattleAction_PlayAnimation4AndRestoreFacing | UpdateBattleAction10_409610 | 播放动画4；终帧且前项为归位11、自身未死亡时恢复阵型朝向，再推进。 |
+| 12 | BattleAction_PrepareEscape | UpdateBattleAction12_406930 | 面向退场点播放逐步减速的动画与周期尾迹，计数到120后推进；死亡时直接准备退场。 |
+| 13 | BattleAction_MoveToExitPoint | UpdateBattleAction13_406A80 | 移往x08／y0C退场点并产生尾迹，到达后定位并推进；也供玩家宠物离场使用。 |
+| 14 | BattleAction_PerformMeleeAttack | UpdateBattleAction14_409680 | 按帧事件执行近战命中、反射／吸收／无效、状态及HP／FP结果，等待收尾后推进。 |
+| 15 | BattleAction_LaunchRangedAttack | UpdateBattleAction15_406E10 | 播放远程攻击动画；模式3创建回旋镖，其他模式按帧事件逐目标创建远程命中对象。 |
+| 16 | BattleAction_ResolveProjectileHit | UpdateBattleAction16_4072E0 | 投射物接近目标后结算命中、状态与数值，处理特殊命中效果及继续飞出／销毁。 |
+| 18 | BattleAction_FireBowShots | UpdateBattleAction18_408170 | 按帧事件逐目标发射图号22050的箭矢命中对象；保留乱射等技能的重复播放分支。 |
+| 19 | BattleAction_FireThrowingShots | UpdateBattleAction19_4082F0 | 探测动画7／5并按帧事件逐目标发射图号22090的投射物；乱射可清帧重播。 |
+| 20 | BattleAction_ResolveCloseRangeHit | UpdateBattleAction20_408410 | 移动至目标70距离内处理命中、伤害／免疫及目标推进，随后销毁或继续飞出。 |
+| 21 | BattleAction_MoveBoomerangToTurnPoint | UpdateBattleAction21_408750 | 回旋镖先移往载荷x00／y04转折点，距离小于20后转入回旋命中22。 |
+| 22 | BattleAction_ResolveBoomerangHits | UpdateBattleAction22_4087C0 | 回旋过程中逐目标结算命中和数值，消费效果记录并等待延迟，结束后转23返回。 |
+| 23 | BattleAction_ReturnBoomerang | UpdateBattleAction23_4090F0 | 回旋镖转向并返回原施放者，按距离及技能推进施放者动作，近距离标死自身。 |
+| 26 | BattleAction_RecoilOnHit | UpdateBattleAction26_40A9E0 | 按受击／格挡结果选动画8／9并沿反向移动；自身不推进队列。 |
+| 27 | BattleAction_ReactToHit | UpdateBattleAction27_40AA70 | 处理受击后退、可选暴击旋转、减速和等待；按死亡及结果标志恢复速率后推进。 |
+| 28 | BattleAction_ReactToHitWithSound | UpdateBattleAction28_40ACF0 | 播放音效132并按14／34／54计数执行后退、减速及等待后推进。 |
+| 29 | BattleAction_RecoilAndWait44Ticks | UpdateBattleAction29_40AE50 | 先后退，再等待至计数44；恢复播放率和移动速度后推进。 |
+| 30 | BattleAction_RecoilAndWait14Or28Ticks | UpdateBattleAction30_40AF30 | 先后退，按死亡位等待至计数14或28，恢复速率后推进。 |
+| 31 | BattleAction_DodgeAndWaitAttacker | UpdateBattleAction31_40B020 | 后退闪避，可按招架位旋转；等待对手离开近战动作14后恢复姿态并推进。 |
+| 32 | BattleAction_PlayHitAnimation | UpdateBattleAction32_40B410 | 播放受击动画8，终帧后推进；不移动或累计受击计数。 |
+| 33 | BattleAction_PlayGuardAnimation | UpdateBattleAction33_40B450 | 播放格挡动画9，终帧后推进；与受击动画8保持独立。 |
+| 34 | BattleAction_BounceOutAfterKnockout | UpdateBattleAction34_40B5E0 | 先受击后退，再散射、旋转并在屏幕边界反弹三次，飞出边界后推进。 |
+| 35 | BattleAction_FlyOutAfterKnockout | UpdateBattleAction35_40B930 | 先受击后退，再散射并以速度15附带尾迹飞出边界，随后推进。 |
+| 39 | BattleAction_AlternateHitAndGuardAnimations | UpdateBattleAction39_40BBC0 | 交替播放动画8／9及音效并逐步缩短间隔；十轮后恢复阵型朝向并推进。 |
+| 56 | BattleAction_PlayAnimation5AndResetFrames | UpdateBattleAction56_40C160 | 动画5终帧后依次清帧索引、剩余帧和帧事件，再推进。 |
+| 57 | BattleAction_PlayAnimation13AndResetFrames | UpdateBattleAction57_40C1A0 | 动画13终帧后清帧索引和剩余帧再推进，保留帧事件。 |
+| 58 | BattleAction_PlayAnimation14AndResetFrames | UpdateBattleAction58_40C1E0 | 动画14终帧后清帧索引和剩余帧再推进，保留帧事件。 |
+| 59 | BattleAction_PlayAnimation15AndResetFrames | UpdateBattleAction59_40C240 | 动画15终帧后清帧索引和剩余帧再推进，保留帧事件。 |
+| 60 | BattleAction_SetAnimation15 | UpdateBattleAction60_40C220 | 仅将角色动画设为15后推进，不播放或清帧。 |
+| 61 | BattleAction_PlayAnimation12 | UpdateBattleAction61_40C280 | 播放动画12，终帧后推进，不清帧状态。 |
+| 62 | BattleAction_PlayAnimation18 | UpdateBattleAction62_40C2B0 | 播放动画18，终帧后推进，不清帧状态。 |
+| 63 | BattleAction_TurnLeftThenRight | UpdateBattleAction63_40C2E0 | 待机动画中在计数20／50分别改变方向-2／+4，旧计数到70后推进。 |
+| 65 | BattleAction_OscillateFacing | UpdateBattleAction65_40C380 | 待机动画中按八次计数交替改变一个方向，旧计数到70后推进。 |
+| 72 | BattleAction_NotifyCasterEntryComplete | UpdateBattleAction72_40CAA0 | 递增caster1070载荷首个整数后推进；当前合击生产中该槽对应场景completedEntryCount00。 |
+| 77 | BattleAction_EnableBackendDrawFlags | UpdateBattleAction77_40CB50 | 按原3D设备分支设置对象绘制位0x100000或0x8000，再推进。 |
+| 78 | BattleAction_DisableBackendDrawFlags | UpdateBattleAction78_40CB80 | 按原3D设备分支清除对象绘制位0x100000或0x8000，再推进。 |
+| 90 | BattleAction_SweepEffectTargetsAndExit | UpdateBattleAction90_40C910 | 移动并旋转，接近各效果目标时启动目标动作；消费目标后飞出边界并推进。 |
+| 91 | BattleAction_SetObjectFlag2AndPlay | UpdateBattleAction91_40CF30 | 设置YobiAction::flags的位2，推进后播放一帧；不写hidden字段。 |
+| 92 | BattleAction_ClearObjectFlag2AndPlay | UpdateBattleAction92_40CF50 | 清除YobiAction::flags的位2，推进后播放一帧；与动作91成对。 |
+| 98 | BattleAction_CastWithTargetMarkers | UpdateBattleAction98_40D1D0 | 播放施法动画6，在帧事件及终帧创建目标标记，并按技能绘制平铺效果。 |
+| 100 | BattleAction_PlayAttackAnimationSequence | UpdateBattleAction100_40D3C0 | 按技能等级选择动画序列表，逐段播放、触发目标反应和命中特效；遇序列负值后推进。 |
+| 102 | BattleAction_RushThroughTargets | UpdateBattleAction102_40D6C0 | 先以速度32移动八次，再逐目标处理命中、伤害／吸收／反射及状态，恢复速率后推进。 |
+| 103 | BattleAction_SpawnMeleeAttackCopies | UpdateBattleAction103_40DBE0 | 逐目标创建独立复制体，安排等待、绘制位、移动、近战攻击及销毁队列。 |
+| 106 | BattleAction_SetAnimation13 | UpdateBattleAction106_40DF50 | 仅将角色动画设为13后推进，不播放或清帧。 |
+| 108 | BattleAction_AttackAllTargetsOnFrameEvent | UpdateBattleAction108_40DF80 | 动画5的有效帧事件到达后逐目标结算攻击结果，清事件；终帧后推进。 |
+| 109 | BattleAction_SpawnChargedStrikeCopy | UpdateBattleAction109_40E4B0 | 创建图号101031的独立复制体，复制当前效果并安排等待、蓄力攻击110及销毁。 |
+| 110 | BattleAction_ChargeAndStrike | UpdateBattleAction110_40E560 | 先累计60次蓄力，再接近目标，按成功／反射结果结算双方HP及命中特效，延迟后推进。 |
+| 111 | BattleAction_FlyOutFastAndShakeScreen | UpdateBattleAction111_40E970 | 短暂后退后散射，以速度32反向飞出；离开边界时启动震屏并推进。 |
+| 112 | BattleAction_SpawnArcAttackCopies | UpdateBattleAction112_40EB00 | 按帧事件为效果目标创建复制体，安排弧线移动及动作114命中，保留等级90特殊队列。 |
+| 114 | BattleAction_ResolveArcCopyHits | UpdateBattleAction114_40F0A0 | 逐效果处理弧线复制体命中、反射／吸收、状态及数值；恢复速率并推进。 |
+| 115 | BattleAction_PlayAttackClashEffect | UpdateBattleAction115_40FB80 | 按反击标志创建工厂type0／3效果，隐藏自身与效果目标，转162等待。 |
+| 116 | BattleAction_PlayEffectType1 | UpdateBattleFactoryAction_40FC10 | 创建工厂type1（固定图号110063）并转162等待；业务名称未证。 |
+| 117 | BattleAction_PlayMagicAttackEffect | UpdateBattleFactoryAction_40FC10 | 创建工厂type2攻击魔法受术效果并转162等待；包含反射反馈路径。 |
+| 118 | BattleAction_EnterEffectWait | UpdateBattleFactoryAction_40FC10 | 不创建新效果，直接转162等待现有效果完成；保留原缺少创建分支的行为。 |
+| 131 | BattleAction_PlayEffectType14 | UpdateBattleFactoryAction_40FC10 | 创建工厂type14的等级分档效果并转162等待；可由状态报文mode1安排。 |
+| 132 | BattleAction_PlayEffectType15 | UpdateBattleFactoryAction_40FC10 | 创建工厂type15的等级分档效果并转162等待；业务名称未证。 |
+| 134 | BattleAction_PlayEffectType26 | UpdateBattleFactoryAction_40FC10 | 创建工厂type26（图号110156）并转162等待；不同技能可共用。 |
+| 135 | BattleAction_PlayEffectType27 | UpdateBattleFactoryAction_40FC10 | 创建工厂type27（图号111162）并转162等待，不按技术号2053猜业务名。 |
+| 136 | BattleAction_PlayEffectType28 | UpdateBattleFactoryAction_40FC10 | 创建工厂type28（图号111163）并转162等待，不按技术号2054猜业务名。 |
+| 137 | BattleAction_PlayHealingCastEffect | UpdateBattleFactoryAction_40FC10 | 补血技能生产的施放侧效果：工厂type29，创建后转162等待。 |
+| 138 | BattleAction_PlayItemUseEffect | UpdateBattleAction138_40FF40 | 物品使用入口安排的工厂type20效果，创建后转162等待。 |
+| 139 | BattleAction_CastSpellAndTriggerTargets | UpdateBattleAction139_410000 | 播放施法动画及type34效果，按帧事件启动目标或创建魔法效果；终帧清理并推进。 |
+| 140 | BattleAction_TriggerSpellEffectOrHealTarget | UpdateBattleAction140_410730 | 攻击魔法创建type35效果，补血魔法推进当前目标；随后推进自身。 |
+| 150 | BattleAction_PlayAmountTieredRecoveryEffect | UpdateBattleFactoryAction_40FC10 | 按value1030的2000／3500阈值选恢复图像（工厂type18），转162等待。 |
+| 151 | BattleAction_PlayLevelScaledEffect21 | UpdateBattleFactoryAction_40FC10 | 创建工厂type21等级分档效果，部分技能使用castLevel1040；转162等待。 |
+| 152 | BattleAction_PlayParentBoundEffect22 | UpdateBattleFactoryAction_40FC10 | 创建工厂type22、图号110097的效果，父对象死亡时结束；转162等待。 |
+| 153 | BattleAction_PlayParentBoundEffect23 | UpdateBattleFactoryAction_40FC10 | 创建工厂type23、图号110096的效果，父对象死亡时结束；转162等待。 |
+| 154 | BattleAction_StartScalingEffect24 | UpdateBattleAction154_40F790 | 创建并保存工厂type24缩放效果，等待其phase为1后推进本角色。 |
+| 155 | BattleAction_PulseScaleWithParentEffect | UpdateBattleAction155_40F800 | 创建type22父对象效果，按原计数往复缩放角色并恢复，结束时令保存效果进入phase2。 |
+| 156 | BattleAction_WaitScalingEffect24End | UpdateBattleAction156_40FB30 | 等待保存的type24效果phase为3，标死、清槽后推进角色。 |
+| 158 | BattleAction_PlayEffectType38 | UpdateBattleFactoryAction_40FC10 | 按技能等级选择工厂type38图像并转162等待；业务名称未证。 |
+| 161 | BattleAction_PlayBombLevelEffect | UpdateBattleFactoryAction_40FC10 | 创建工厂type39，按gBattleBombLevelD67B2C选择图像，转162等待。 |
+| 163 | BattleAction_TransitionRebirthForm | UpdateBattleAction163_4113A0 | 按结果标志进入或退出Rebirth形态，处理换图、透明度及形态附属效果，不是死亡复活。 |
+| 164 | BattleAction_RestoreRebirthBaseForm | UpdateBattleAction164_411A50 | 恢复Rebirth前的基础图像、状态位和透明度，结束后返回保存的角色phase。 |
+| 165 | BattleAction_ReactToCriticalHit | UpdateBattleAction165_411D30 | 受击后退后持续旋转、减速和等待；与27的可选旋转不同，最后按死亡标志推进。 |
+| 167 | BattleAction_EnableAlphaOverride | UpdateBattleAction167_411FA0 | 将batchType设为8，只覆盖绘制颜色的Alpha通道，然后推进。 |
+| 168 | BattleAction_ClearColorOverrides | UpdateBattleAction168_411FC0 | 将batchType清零，停止覆盖绘制颜色通道，然后推进。 |
+| 169 | BattleAction_OverrideAllMixFlags | UpdateBattleAction169_411FE0 | 将混合标志覆盖掩码rebirthValue1设为255，使用既有rebirthValue2覆盖全部混合位。 |
+| 170 | BattleAction_ClearMixFlagOverride | UpdateBattleAction170_412000 | 将混合标志覆盖掩码rebirthValue1清零，然后推进。 |
+| 179 | BattleAction_PlayAnimation6 | UpdateBattleAction179_4122E0 | 播放动画6，终帧后推进，不额外创建施法效果。 |
+| 181 | BattleAction_PlayEffectType1AndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type1后转204渐显、处理结果及等待；业务名称未证。 |
+| 182 | BattleAction_PlayMagicAttackEffectAndFadeIn | UpdateBattleActions180_203_412310 | 创建type2攻击魔法受术效果后转204渐显、处理结果及等待。 |
+| 185 | BattleAction_PlayLevelScaledEffect21AndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type21等级分档效果后转204渐显、处理结果及等待。 |
+| 186 | BattleAction_PlayParentBoundEffect22AndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type22父对象生命周期关联效果后转204渐显、处理结果及等待。 |
+| 187 | BattleAction_PlayParentBoundEffect23AndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type23父对象生命周期关联效果后转204渐显、处理结果及等待。 |
+| 188 | BattleAction_EnterFadeInAndResolveEffect | UpdateBattleActions180_203_412310 | 不创建新效果，直接转204渐显、处理结果及等待；保留缺少创建分支的行为。 |
+| 197 | BattleAction_PlayEffectType26AndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type26后转204渐显、处理结果及等待；业务名称未证。 |
+| 198 | BattleAction_PlayHealingCastEffectAndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type29补血施放侧效果后转204渐显、处理结果及等待。 |
+| 199 | BattleAction_PlayEffectType14AndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type14后转204渐显、处理结果及等待；业务名称未证。 |
+| 200 | BattleAction_PlayEffectType15AndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type15后转204渐显、处理结果及等待；业务名称未证。 |
+| 203 | BattleAction_PlayBombLevelEffectAndFadeIn | UpdateBattleActions180_203_412310 | 创建工厂type39的炸弹等级分档效果后转204渐显、处理结果及等待。 |
+| 205 | BattleAction_PlayAnimation16AndResetFrames | UpdateBattleAction205_4127B0 | 播放动画16，终帧后清帧索引和剩余帧再推进，保留帧事件。 |
+| 209 | BattleAction_ReactToHitAndStrikeLinkedTarget | UpdateBattleAction209_412900 | 受击后退和减速期间，在指定计数对关联目标结算后续攻击，再按死亡标志收尾。 |
+| 216 | BattleAction_CastMonsterSpellAndTriggerTargets | UpdateBattleAction216_413400 | 播放怪物法术的施法效果；帧事件时处理255哨兵目标列表，启动目标并按技能创建效果。 |
+| 217 | BattleAction_PlayRandomOffsetEffect40 | UpdateBattleFactoryAction_40FC10 | 创建工厂type40，在角色图像范围内随机偏移效果坐标并设置后端绘制位，转162等待。 |
+| 218 | BattleAction_ChangeAppearanceWithCrossFade | UpdateBattleAction218_413550 | 创建换图副体并交叉渐变，按效果记录切换外观、保存基础图号和覆盖状态后推进。 |
+| 221 | BattleAction_ApplyFollowupHit | UpdateBattleAction221_413B40 | 先消费攻击者记录，再按下一条目标记录结算追加命中／反射／吸收与状态，推进动作及效果。 |
+| 222 | BattleAction_MoveLinkedProjectileToTarget | UpdateBattleAction222_413E90 | 关联投射物接近目标后销毁；特定回旋技能则推进目标／效果并转22继续回旋命中。 |
+| 224 | BattleAction_TransitionRideState | UpdateBattleAction224_414050 | 按效果flags进入或解除骑乘，处理骑手运动、角色槽转移、装备和状态效果恢复。 |
+| 225 | BattleAction_FailToMountAndReturn | UpdateBattleAction225_4150F0 | 骑乘失败入口创建骑手并播放抛物线运动，随后还原角色图像及坐标并清理临时对象。 |
+| 226 | BattleAction_DismountAndRestoreActors | UpdateBattleAction226_4154C0 | 骑乘退出时播放骑手受击／抛物线运动，恢复原角色槽、装备及状态并销毁合成对象。 |
+| 227 | BattleAction_DismountWithActorAnimation | UpdateBattleAction227_415940 | 解除骑乘时复制本角色动画并按结果选择骑手动画，落地后恢复原角色和挂件。 |
+| 232 | BattleAction_RushIntoTargetWithTrail | UpdateBattleAction232_416220 | 动画3冲向目标，近距离结算命中／反射／吸收及数值，逐帧产生随机尾迹。 |
+| 233 | BattleAction_ReactToHitWithoutDisplacement | UpdateBattleAction233_416860 | 保留受击计数、旋转、尾迹及死亡门禁；不调用移动函数，与27／165保持独立。 |
+| 234 | BattleAction_BounceOutImmediately | UpdateBattleAction234_416AB0 | 首计数即创建散射与音效，旋转并在边界反弹，飞出后推进；没有34的前段受击后退。 |
+| 237 | BattleAction_RushAndResolveHitWithin16Ticks | UpdateBattleAction237_416DD0 | 前16次移动并按距离触发命中，达到计数时也处理目标结果；之后继续移动及队列收尾。 |
+| 238 | BattleAction_ResolveDeceleratingProjectileHit | UpdateBattleActions238_239_417410 | 处理目标命中及等待；等待结束后每次减速0.5，低速时转239加速。 |
+| 239 | BattleAction_ResolveAcceleratingProjectileHit | UpdateBattleActions238_239_417410 | 与238共用命中逻辑，等待结束后每次加速0.5，命中后按原条件销毁或飞出。 |
+| 243 | BattleAction_ResolveStraightProjectileHit | UpdateBattleAction243_417D80 | 直线投射物按距离及帧事件结算命中，等待后继续移动；无238／239的加减速切换。 |
+| 250 | BattleAction_PlayConfiguredEffect41 | UpdateBattleFactoryAction_40FC10 | 按image102C创建工厂type41效果并转162等待；保留与type42的独立编号。 |
+| 252 | BattleAction_PlayConfiguredEffect42 | UpdateBattleFactoryAction_40FC10 | 按image102C创建工厂type42效果并转162等待；不与动作250合并。 |
+| 255 | BattleAction_ApplyAreaAttackOnFrameEvent | UpdateBattleAction255_4186B0 | 动画5有效帧事件时逐目标结算范围攻击，首目标创建type47效果，终帧后推进。 |
+
+### 本轮验证
+
+- 257项名称和值均唯一，连续覆盖0～256；UpdateNativeBattleActor的257个case均使用本枚举，所有成员有实际消费者。
+- 14份CPP共替换565处动作号引用，包含直接入队、三元结果、角色跳转／比较、复制体／投射物生产及队列终止回退。场景、骑手、特效自身phase，技能号、动画号、工厂type、图号和条件位掩码保持各自原值与解释域。
+- 对15份源／头文件逐词法比较：先去掉新增114个枚举定义，再将枚举引用逆替换为实际整数，与本轮HEAD原代码一致；字符串字面值也参与比较，仅排除注释。原143项定义、调用、条件、取样、数值与写入顺序均保持。
+- 两个工厂消费者的53条phase→type映射及后继162／204与本轮IDA伪代码逐项一致；118／188没有被补造创建分支。
+- 显式UTF-8读取，工作区换行保持CRLF，Git差异检查通过。只做静态核对，未编译、调试、测试、运行客户端或计算文件摘要；行为／画面运行验收未执行。

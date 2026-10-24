@@ -1264,7 +1264,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
     }
-    action->phase = 16;
+    action->phase = BattleAction_ResolveProjectileHit;
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     static_cast<void>(render::LoadGraphic_522570(cg::world::gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = parent->payload.battleActor->battlePosition18;
@@ -1346,7 +1346,7 @@ YobiAction* NewBattleBlastWave_419180(
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
     }
-    action->phase = 16;
+    action->phase = BattleAction_ResolveProjectileHit;
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     static_cast<void>(render::LoadGraphic_522570(cg::world::gBattleAllEntries59E980[effect->position]->graphicIndex));
     payload->battlePosition18 = parent->payload.battleActor->battlePosition18;
@@ -1423,7 +1423,7 @@ YobiAction* NewBattleRangeHit_419390(
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
     }
-    action->phase = 16;
+    action->phase = BattleAction_ResolveProjectileHit;
     action->pathCountOrDrawOrder_270 = 0;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
@@ -1486,7 +1486,7 @@ YobiAction* NewBattleArcShot_419DA0(
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
     }
-    action->phase = mode != 0 ? 243 : 16;
+    action->phase = mode != 0 ? BattleAction_ResolveStraightProjectileHit : BattleAction_ResolveProjectileHit;
     const std::uint32_t hiddenFlags = action->flags | 2u;
     action->imageNo = imageNo;
     action->flags = hiddenFlags;
@@ -1535,7 +1535,7 @@ YobiAction* NewBattleCastCopy_4205F0(YobiAction* const parent)
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
     action->pathCountOrDrawOrder_270 = 0;
-    action->phase = 0;
+    action->phase = BattleAction_Idle;
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
     payload->battlePosition18 = parent->payload.battleActor->battlePosition18;
@@ -1718,14 +1718,14 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     const float turnX = static_cast<float>(payload->x00);
     TurnBattleTowardPosition_4060D0(action, turnX, turnY, 0, 0.0F);
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
-    action->phase = 21;
+    action->phase = BattleAction_MoveBoomerangToTurnPoint;
     action->motionMagnitude54 = 10.0F;
     action->effectAcceleration48 = 10.0F;
     action->field1D0 = 0;
     const float halfWidth = static_cast<float>(render::ReadGraphicDxWidth(parent->graphicIndex) * 0.5);
     do {
         action->callback(action);
-        if (action->phase != 21) {
+        if (action->phase != BattleAction_MoveBoomerangToTurnPoint) {
             break;
         }
     } while (static_cast<double>(GetBattleDistance_406300(action, parent)) < halfWidth);

@@ -32,7 +32,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
     if (initialPhase == 0) {
         YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
-        if (currentTarget->phase != 0) {
+        if (currentTarget->phase != BattleAction_Idle) {
             return;
         }
     }
@@ -62,7 +62,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
         const std::int32_t resolvedIndex = payload->effectRunningC9C;
         const std::uint32_t resolvedFlags = payload->effects1C[resolvedIndex].flags;
         if ((resolvedFlags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((resolvedFlags & 0x70000u) == 0 && payload->effects1C[resolvedIndex].position3 != 0) {
                 static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
@@ -198,7 +198,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
     if (initialPhase == 0) {
         YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
-        if (currentTarget->phase != 0) {
+        if (currentTarget->phase != BattleAction_Idle) {
             return;
         }
     }
@@ -228,7 +228,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
         const std::int32_t resolvedIndex = payload->effectRunningC9C;
         const std::uint32_t resolvedFlags = payload->effects1C[resolvedIndex].flags;
         if ((resolvedFlags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((resolvedFlags & 0x70000u) == 0 && payload->effects1C[resolvedIndex].position3 != 0) {
                 static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
@@ -365,7 +365,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
     if (initialPhase == 0) {
         YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
-        if (currentTarget->phase != 0) {
+        if (currentTarget->phase != BattleAction_Idle) {
             return;
         }
     }
@@ -395,7 +395,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
             const std::int32_t resolvedIndex = payload->effectRunningC9C;
             const std::uint32_t resolvedFlags = payload->effects1C[resolvedIndex].flags;
             if ((resolvedFlags & 8u) != 0) {
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else {
                 if ((resolvedFlags & 0x70000u) == 0 && payload->effects1C[resolvedIndex].position3 != 0) {
                     if ((resolvedFlags & 2u) != 0) {
@@ -510,14 +510,14 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
             const std::int32_t index = payload->effectRunningC9C;
             const std::uint32_t flags = payload->effects1C[index].flags;
             if ((flags & 8u) != 0) {
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else if ((flags & 0x70000u) == 0 && payload->effects1C[index].position3 != 0) {
                 if ((flags & 2u) != 0) {
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
                 }
                 static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, 0));
                 NewBattleRebirthEffects_4208F0(cg::world::gBattleAllEntries59E980[payload->battlePosition18], target);
-                target->phase = 26;
+                target->phase = BattleAction_RecoilOnHit;
                 const std::int32_t event = action->frameEvent;
                 const std::int32_t x = action->x;
                 const std::int32_t sound = event >= 20000 ? event - 20000 : event - 10000;
@@ -570,7 +570,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
     if (initialPhase == 0) {
         YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
-        if (currentTarget->phase != 0) {
+        if (currentTarget->phase != BattleAction_Idle) {
             return;
         }
     }
@@ -616,7 +616,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
         const std::int32_t resolvedIndex = payload->effectRunningC9C;
         const std::uint32_t resolvedFlags = payload->effects1C[resolvedIndex].flags;
         if ((resolvedFlags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((resolvedFlags & 0x70000u) == 0 && payload->effects1C[resolvedIndex].position3 != 0) {
                 const BattleEntryEffectRecord& effect = payload->effects1C[resolvedIndex];
@@ -820,7 +820,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
     if (initialPhase == 0) {
         YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
-        if (currentTarget->phase != 0) {
+        if (currentTarget->phase != BattleAction_Idle) {
             return;
         }
     }
@@ -864,7 +864,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
         const std::int32_t resolvedIndex = payload->effectRunningC9C;
         const std::uint32_t resolvedFlags = payload->effects1C[resolvedIndex].flags;
         if ((resolvedFlags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((resolvedFlags & 0x70000u) == 0 && payload->effects1C[resolvedIndex].position3 != 0) {
                 const BattleEntryEffectRecord& effect = payload->effects1C[resolvedIndex];
@@ -1080,7 +1080,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
     if (action->phase == 0) {
         YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
-        if (currentTarget->phase != 0) {
+        if (currentTarget->phase != BattleAction_Idle) {
             return;
         }
     }
@@ -1102,7 +1102,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
         const std::int32_t resolvedIndex = payload->effectRunningC9C;
         const std::uint32_t flags = payload->effects1C[resolvedIndex].flags;
         if ((flags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((flags & 0x10000000u) != 0) {
                 static_cast<void>(NewBattleFloatingIcon_41F4C0(

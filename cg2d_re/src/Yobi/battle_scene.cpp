@@ -412,7 +412,7 @@ std::int32_t ReturnBattleActorsToFormation_43C910()
         if (action != nullptr
             && (*reinterpret_cast<const std::uint8_t*>(
                 &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & detail::BattleActorFlag_EntryComplete) == 0) {
-            action->phase = 2;
+            action->phase = BattleAction_EnterFormation;
             pending = true;
         }
     }

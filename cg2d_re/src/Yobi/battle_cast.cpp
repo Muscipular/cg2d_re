@@ -166,7 +166,7 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     if ((payload->flagsFDC & BattleActorFlag_Rebirth) != 0) {
         payload->valueFF0 = action->phase;
-        action->phase = 164;
+        action->phase = BattleAction_RestoreRebirthBaseForm;
         return;
     }
     if (payload->rider13C8 != nullptr && payload->effect1060 != nullptr) {
@@ -331,7 +331,7 @@ void UpdateBattleAction52_40BE90(YobiAction* const action)
         const std::int32_t petPosition = cg::world::GetBattlePetPosition_405B40(payload->battlePosition18);
         YobiAction* const pet = cg::world::gBattleAllEntries59E980[petPosition];
         if (pet != nullptr) {
-            AppendBattleCast_4392A0(caster, pet, 13);
+            AppendBattleCast_4392A0(caster, pet, BattleAction_MoveToExitPoint);
             AppendBattleCast_4392A0(caster, cg::world::gBattleAllEntries59E980[petPosition], BattleAction_MarkDead);
             AppendBattleCast_4392A0(caster, cg::world::gBattleAllEntries59E980[petPosition], BattleAction_RemoveFromBattle);
             const std::int32_t currentPetPosition = cg::world::GetBattlePetPosition_405B40(payload->battlePosition18);
@@ -665,7 +665,7 @@ void UpdateBattleAction71_40C4D0(YobiAction* const action)
 // 原函数：0x0040CAA0。
 void UpdateBattleAction72_40CAA0(YobiAction* const action)
 {
-    // BAN01：此路径只证实caster1070的x00递增；该槽的完成通知业务尚未核实，动作保留编号。
+    // BAN01：合击生产将场景作为caster1070；载荷首整数对应场景completedEntryCount00，不是角色坐标加一。
     auto* const payload = action->payload.battleActor;
     auto* const casterPayload = payload->caster1070->payload.battleActor;
     ++casterPayload->x00;
@@ -919,7 +919,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
             payload->effects1C[payload->effectRunningC9C].position]);
         YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
-        if (currentTarget->phase == 0) {
+        if (currentTarget->phase == BattleAction_Idle) {
             AdvanceBattleCastState_439340(currentTarget);
         }
     } while (AdvanceBattleEffect_439470(action) != 1);
@@ -1007,7 +1007,7 @@ void UpdateBattleAction90_40C910(YobiAction* const action)
                     payload->effects1C[payload->effectRunningC9C].position]);
                 YobiAction* const currentTarget = cg::world::gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                if (currentTarget->phase == 0) {
+                if (currentTarget->phase == BattleAction_Idle) {
                     AdvanceBattleCastState_439340(currentTarget);
                 }
                 payload->valueFD0 = 4;
@@ -1041,7 +1041,7 @@ void UpdateBattleAction90_40C910(YobiAction* const action)
 // 原函数：0x0040CF30。
 std::int32_t UpdateBattleAction91_40CF30(YobiAction* const action)
 {
-    // BAN01：仅证实对象flags位2的开关，不与hidden字段或角色状态位混同，暂不猜业务名。
+    // BAN01：名称只描述对象flags位2的操作，不与hidden字段或角色状态位混同。
     action->flags |= 2u;
     AdvanceBattleCastState_439340(action);
     return PlayFrame_517DA0(action, 0);
@@ -1051,7 +1051,7 @@ std::int32_t UpdateBattleAction91_40CF30(YobiAction* const action)
 // 原函数：0x0040CF50。
 std::int32_t UpdateBattleAction92_40CF50(YobiAction* const action)
 {
-    // BAN01：91的反向位操作；flags位2的业务名称尚未核实，保留原动作号。
+    // BAN01：91的反向位操作；仍保留flags位2，不推测独立业务语义。
     action->flags &= ~2u;
     AdvanceBattleCastState_439340(action);
     return PlayFrame_517DA0(action, 0);
@@ -1235,7 +1235,7 @@ void UpdateBattleAction100_40D3C0(YobiAction* const action)
     } else if ((static_cast<std::uint8_t>(flags >> 8) & 0x40u) != 0) {
         static_cast<void>(NewBattleEffect_41CD00(target, 0, {.offsetY = 0}, 8, 0, 1));
     } else {
-        target->phase = 26;
+        target->phase = BattleAction_RecoilOnHit;
         const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
         const std::uint32_t currentFlags = effect.flags;
         std::int32_t imageNo;
@@ -1340,11 +1340,11 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
         const std::int32_t hitIndex = payload->effectRunningC9C;
         const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
         if ((static_cast<std::uint8_t>(hitFlags) & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((static_cast<std::uint8_t>(hitFlags >> 8) & 1u) != 0) {
             targetPayload->flash1004 = 1;
             static_cast<void>(audio::PlaySe_52C450(210, action->x));
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((static_cast<std::uint8_t>(hitFlags >> 8) & 0xE0u) == 0 && payload->effects1C[hitIndex].position3 != 0) {
                 if ((static_cast<std::uint8_t>(hitFlags) & 2u) != 0) {
@@ -1590,11 +1590,11 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
             const std::int32_t hitIndex = payload->effectRunningC9C;
             const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
             if ((static_cast<std::uint8_t>(hitFlags) & 8u) != 0) {
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else if ((static_cast<std::uint8_t>(hitFlags >> 8) & 1u) != 0) {
                 targetPayload->flash1004 = 1;
                 static_cast<void>(audio::PlaySe_52C450(210, action->x));
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else {
                 if ((static_cast<std::uint8_t>(hitFlags >> 8) & 0xE0u) == 0 && payload->effects1C[hitIndex].position3 != 0) {
                     if ((static_cast<std::uint8_t>(hitFlags) & 2u) != 0) {
@@ -1734,7 +1734,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                     ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
                     const std::uint32_t flags = payload->effects1C[payload->effectRunningC9C].flags;
                     if ((static_cast<std::uint8_t>(flags) & 8u) != 0) {
-                        target->phase = 31;
+                        target->phase = BattleAction_DodgeAndWaitAttacker;
                     } else if ((flags & 0x80000u) != 0) {
                         if ((static_cast<std::uint8_t>(flags >> 8) & 0xE0u) == 0) {
                             const std::int32_t imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
@@ -1990,11 +1990,11 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
         const std::int32_t hitIndex = payload->effectRunningC9C;
         const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
         if ((hitFlags & 8u) != 0) {
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else if ((hitFlags & 0x100u) != 0) {
             targetPayload->flash1004 = 1;
             static_cast<void>(audio::PlaySe_52C450(210, action->x));
-            target->phase = 31;
+            target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
             if ((hitFlags & 0xE000u) == 0 && payload->effects1C[hitIndex].position3 != 0) {
                 if ((hitFlags & 2u) != 0) {
@@ -2123,7 +2123,7 @@ void UpdateBattleAction115_40FB80(YobiAction* const action)
 void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
 {
     // BAN01：已证受术／反射等特效分别命名，link=1通知本角色，统一转162等待结束。
-    // 118无创建分支；其余保留编号的type尚缺业务证据，不依据图号猜名。
+    // 118无创建分支；未证业务名的工厂项保留type号，不依据图号猜技能名。
     auto* const payload = action->payload.battleActor;
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -2132,14 +2132,14 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
         std::int32_t type = -1;
         switch (action->phase) {
         case BattleAction_PlayRecoveryEffect: type = 13; break;
-        case 116: type = 1; break;
-        case 117: type = 2; break;
+        case BattleAction_PlayEffectType1: type = 1; break;
+        case BattleAction_PlayMagicAttackEffect: type = 2; break;
         case BattleAction_PlayStatusRecoveryEffect: type = 25; break;
         case BattleAction_PlayHealEffect: type = 16; break;
-        case 150: type = 18; break;
-        case 151: type = 21; break;
-        case 152: type = 22; break;
-        case 153: type = 23; break;
+        case BattleAction_PlayAmountTieredRecoveryEffect: type = 18; break;
+        case BattleAction_PlayLevelScaledEffect21: type = 21; break;
+        case BattleAction_PlayParentBoundEffect22: type = 22; break;
+        case BattleAction_PlayParentBoundEffect23: type = 23; break;
         case BattleAction_PlayDebuffSpellEffect: type = 4; break;
         case BattleAction_PlayBarrierSpellEffect: type = 5; break;
         case BattleAction_PlayPhysicalReflectEffect: type = 7; break;
@@ -2148,19 +2148,19 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
         case BattleAction_PlayMagicReflectEffect: type = 10; break;
         case BattleAction_PlayMagicAbsorbEffect: type = 11; break;
         case BattleAction_PlayMagicNullifyEffect: type = 12; break;
-        case 134: type = 26; break;
-        case 135: type = 27; break;
-        case 136: type = 28; break;
-        case 137: type = 29; break;
-        case 131: type = 14; break;
-        case 132: type = 15; break;
+        case BattleAction_PlayEffectType26: type = 26; break;
+        case BattleAction_PlayEffectType27: type = 27; break;
+        case BattleAction_PlayEffectType28: type = 28; break;
+        case BattleAction_PlayHealingCastEffect: type = 29; break;
+        case BattleAction_PlayEffectType14: type = 14; break;
+        case BattleAction_PlayEffectType15: type = 15; break;
         case BattleAction_PlayAttributeReversalEffect: type = 6; break;
         case BattleAction_PlayParameterChangeEffect: type = 37; break;
-        case 158: type = 38; break;
-        case 161: type = 39; break;
-        case 217: type = 40; break;
-        case 250: type = 41; break;
-        case 252: type = 42; break;
+        case BattleAction_PlayEffectType38: type = 38; break;
+        case BattleAction_PlayBombLevelEffect: type = 39; break;
+        case BattleAction_PlayRandomOffsetEffect40: type = 40; break;
+        case BattleAction_PlayConfiguredEffect41: type = 41; break;
+        case BattleAction_PlayConfiguredEffect42: type = 42; break;
         default: break;
         }
         if (type >= 0) {
@@ -2767,11 +2767,11 @@ void UpdateBattleAction103_40DBE0(YobiAction* const action)
     do {
         YobiAction* const copy = NewBattleCastCopy_4205F0(action);
         AppendBattleCast_4392A0(caster, copy, BattleAction_WaitTargetReady);
-        AppendBattleCast_4392A0(caster, copy, 77);
-        AppendBattleCast_4392A0(caster, copy, 91);
-        AppendBattleCast_4392A0(caster, copy, 9);
-        AppendBattleCast_4392A0(caster, copy, 92);
-        AppendBattleCast_4392A0(caster, copy, 14);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_EnableBackendDrawFlags);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_SetObjectFlag2AndPlay);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_MoveTowardTargetOrFormation);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_ClearObjectFlag2AndPlay);
+        AppendBattleCast_4392A0(caster, copy, BattleAction_PerformMeleeAttack);
         AppendBattleCast_4392A0(caster, copy, BattleAction_MarkForRemoval);
         const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
         const std::int32_t value4 = effect.position4;
@@ -2798,7 +2798,7 @@ void UpdateBattleAction109_40E4B0(YobiAction* const action)
     copyPayload->flash1004 = 1;
     copyPayload->battlePosition18 = -1;
     AppendBattleCast_4392A0(caster, copy, BattleAction_WaitTargetReady);
-    AppendBattleCast_4392A0(caster, copy, 110);
+    AppendBattleCast_4392A0(caster, copy, BattleAction_ChargeAndStrike);
     AppendBattleCast_4392A0(caster, copy, BattleAction_MarkForRemoval);
     const std::int32_t effectIndex = payload->effectRunningC9C;
     const BattleEntryEffectRecord& effect = payload->effects1C[effectIndex];
@@ -2916,7 +2916,7 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
         AppendBattleCast_4392A0(caster, copy, BattleAction_SpinAndEnlarge);
         AppendBattleCast_4392A0(caster, copy, BattleAction_Wait30Ticks);
     }
-    AppendBattleCast_4392A0(caster, copy, 114);
+    AppendBattleCast_4392A0(caster, copy, BattleAction_ResolveArcCopyHits);
     AppendBattleCast_4392A0(caster, copy, BattleAction_MarkForRemoval);
     if (payload->castSkillLevel1044 < 90) {
         const std::int32_t effectIndex = payload->effectRunningC9C;
@@ -3050,12 +3050,12 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
             const std::int32_t effectIndex = payload->effectRunningC9C;
             const std::uint32_t flags = payload->effects1C[effectIndex].flags;
             if ((flags & 8u) != 0) {
-                target->phase = 31;
+                target->phase = BattleAction_DodgeAndWaitAttacker;
             } else if ((flags & 0x100u) != 0) {
                 if (targetPayload->flash1004 == 0) {
                     static_cast<void>(audio::PlaySe_52C450(210, action->x));
                     targetPayload->flash1004 = 1;
-                    target->phase = 31;
+                    target->phase = BattleAction_DodgeAndWaitAttacker;
                 }
             } else {
                 if ((flags & 0xC000u) == 0 && payload->effects1C[effectIndex].position3 != 0) {
@@ -3279,7 +3279,7 @@ std::int32_t UpdateBattleAction213_4131B0(YobiAction* const action)
     if ((payload->flagsFDC & BattleActorFlag_Rebirth) != 0) {
         const std::int32_t phase = action->phase;
         payload->valueFF0 = phase;
-        action->phase = 164;
+        action->phase = BattleAction_RestoreRebirthBaseForm;
         return phase;
     }
     action->characterAction = 10;
@@ -3709,7 +3709,7 @@ std::int32_t UpdateBattleAction222_413E90(YobiAction* const action)
             payload->effects1C[payload->effectRunningC9C].position]);
         static_cast<void>(AdvanceBattleEffect_439470(action));
         YobiAction* const opponent = action->battleOpponent10;
-        action->phase = 22;
+        action->phase = BattleAction_ResolveBoomerangHits;
         TurnBattleToward_406190(action, opponent, 0, 0.0F);
         const double angle = action->angle50 + 180.0;
         action->angle50 = static_cast<float>(angle);

@@ -274,7 +274,7 @@ std::int32_t UpdateBattleAction31_40B020(YobiAction* const action)
         action->characterAction = 0;
     } else {
         YobiAction* const other = action->battleOpponent10;
-        if (other == nullptr || other->phase != 14) {
+        if (other == nullptr || other->phase != BattleAction_PerformMeleeAttack) {
             if ((payload->effectFlagsFE4 & 0x08000000) != 0) {
                 UpdateBattleDirectionFromAngle_405CB0(action);
             }
@@ -932,7 +932,7 @@ void UpdateBattleAction179_4122E0(YobiAction* const action)
 void UpdateBattleActions180_203_412310(YobiAction* const action)
 {
     // BAN01：本组转204渐显并按结果结算，不能与普通转162等待的同type动作合并。
-    // 188无创建分支；其他保留编号项的特效业务尚缺证据，不依据图号猜名。
+    // 188无创建分支；未证业务名的工厂项保留type号，不依据图号猜技能名。
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
@@ -941,13 +941,13 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
         std::int32_t type = -1;
         switch (action->phase) {
         case BattleAction_PlayRecoveryEffectAndFadeIn: type = 13; break;
-        case 181: type = 1; break;
-        case 182: type = 2; break;
+        case BattleAction_PlayEffectType1AndFadeIn: type = 1; break;
+        case BattleAction_PlayMagicAttackEffectAndFadeIn: type = 2; break;
         case BattleAction_PlayStatusRecoveryEffectAndFadeIn: type = 25; break;
         case BattleAction_PlayHealEffectAndFadeIn: type = 16; break;
-        case 185: type = 21; break;
-        case 186: type = 22; break;
-        case 187: type = 23; break;
+        case BattleAction_PlayLevelScaledEffect21AndFadeIn: type = 21; break;
+        case BattleAction_PlayParentBoundEffect22AndFadeIn: type = 22; break;
+        case BattleAction_PlayParentBoundEffect23AndFadeIn: type = 23; break;
         case BattleAction_PlayDebuffSpellEffectAndFadeIn: type = 4; break;
         case BattleAction_PlayBarrierSpellEffectAndFadeIn: type = 5; break;
         case BattleAction_PlayPhysicalReflectEffectAndFadeIn: type = 7; break;
@@ -956,13 +956,13 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
         case BattleAction_PlayMagicReflectEffectAndFadeIn: type = 10; break;
         case BattleAction_PlayMagicAbsorbEffectAndFadeIn: type = 11; break;
         case BattleAction_PlayMagicNullifyEffectAndFadeIn: type = 12; break;
-        case 197: type = 26; break;
-        case 198: type = 29; break;
-        case 199: type = 14; break;
-        case 200: type = 15; break;
+        case BattleAction_PlayEffectType26AndFadeIn: type = 26; break;
+        case BattleAction_PlayHealingCastEffectAndFadeIn: type = 29; break;
+        case BattleAction_PlayEffectType14AndFadeIn: type = 14; break;
+        case BattleAction_PlayEffectType15AndFadeIn: type = 15; break;
         case BattleAction_PlayAttributeReversalEffectAndFadeIn: type = 6; break;
         case BattleAction_PlayParameterChangeEffectAndFadeIn: type = 37; break;
-        case 203: type = 39; break;
+        case BattleAction_PlayBombLevelEffectAndFadeIn: type = 39; break;
         default: break;
         }
         if (type >= 0) {

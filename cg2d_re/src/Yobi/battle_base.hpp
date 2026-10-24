@@ -80,7 +80,7 @@ namespace cg::yobi {
 
 namespace detail {
 // BAN01：战斗动作队列编号；用于AppendBattleCast_4392A0及角色phase分派，不是技能号或图号。
-// 原函数编号／地址保留；逐项来源与未命名原因见doc/cg2d_battle_action_naming_spec.md。
+// 原函数编号／地址保留；257项覆盖0～256，逐项依据见doc/cg2d_battle_action_naming_spec.md。
 enum BattleActionId : std::int32_t {
     BattleAction_Idle = 0, // 待机；按死亡／睡眠／石化状态选择姿态，保留特殊队列166及技能72／113门禁。
     BattleAction_WaitIdle = 1, // 保持待机姿态并播放；不自行推进动作队列。
@@ -89,13 +89,39 @@ enum BattleActionId : std::int32_t {
     BattleAction_CloseInOnEffectTarget = 4, // 朝当前效果目标贴近，距离小于8后推进；速度8，角色动画3。
     BattleAction_MoveForward16Ticks = 5, // 沿当前角度移动；旧计数小于16时移动，否则推进并清计数。
     BattleAction_MoveToTargetPosition = 6, // 移动至moveTargetXFE8／YFEC；到达后推进动作。
+    BattleAction_PlayAnimation2FacingEffectTarget = 7, // 播放动画2，面向当前效果目标；目标为-1时面向本角色阵型点，终帧后推进。
+    BattleAction_PlayAnimation2FacingMoveTarget = 8, // 播放动画2并面向moveTargetXFE8／YFEC，终帧后推进。
+    BattleAction_MoveTowardTargetOrFormation = 9, // 前两项动作为近战攻击14时返回阵型点，否则接近当前效果目标；到达阈值后推进。
+    BattleAction_PlayAnimation4AndRestoreFacing = 10, // 播放动画4；终帧且前项为归位11、自身未死亡时恢复阵型朝向，再推进。
     BattleAction_ReturnToFormation = 11, // 返回阵型x00／y04；保留骑乘死亡短路、死亡动画及转入46的条件。
+    BattleAction_PrepareEscape = 12, // 面向退场点播放逐步减速的动画与周期尾迹，计数到120后推进；死亡时直接准备退场。
+    BattleAction_MoveToExitPoint = 13, // 移往x08／y0C退场点并产生尾迹，到达后定位并推进；也供玩家宠物离场使用。
+    BattleAction_PerformMeleeAttack = 14, // 按帧事件执行近战命中、反射／吸收／无效、状态及HP／FP结果，等待收尾后推进。
+    BattleAction_LaunchRangedAttack = 15, // 播放远程攻击动画；模式3创建回旋镖，其他模式按帧事件逐目标创建远程命中对象。
+    BattleAction_ResolveProjectileHit = 16, // 投射物接近目标后结算命中、状态与数值，处理特殊命中效果及继续飞出／销毁。
     BattleAction_MoveOutOfBounds = 17, // 继续移动，超出原屏幕扩展边界后MarkDeath；不重命名为立即销毁。
+    BattleAction_FireBowShots = 18, // 按帧事件逐目标发射图号22050的箭矢命中对象；保留乱射等技能的重复播放分支。
+    BattleAction_FireThrowingShots = 19, // 探测动画7／5并按帧事件逐目标发射图号22090的投射物；乱射可清帧重播。
+    BattleAction_ResolveCloseRangeHit = 20, // 移动至目标70距离内处理命中、伤害／免疫及目标推进，随后销毁或继续飞出。
+    BattleAction_MoveBoomerangToTurnPoint = 21, // 回旋镖先移往载荷x00／y04转折点，距离小于20后转入回旋命中22。
+    BattleAction_ResolveBoomerangHits = 22, // 回旋过程中逐目标结算命中和数值，消费效果记录并等待延迟，结束后转23返回。
+    BattleAction_ReturnBoomerang = 23, // 回旋镖转向并返回原施放者，按距离及技能推进施放者动作，近距离标死自身。
     BattleAction_Wait21Ticks = 24, // 递增计数至大于20后清零并推进；不播放帧。
     BattleAction_WaitTargetReady = 25, // 等待当前效果目标待机并保存其坐标；目标缺失或为自身时按原条件推进。
+    BattleAction_RecoilOnHit = 26, // 按受击／格挡结果选动画8／9并沿反向移动；自身不推进队列。
+    BattleAction_ReactToHit = 27, // 处理受击后退、可选暴击旋转、减速和等待；按死亡及结果标志恢复速率后推进。
+    BattleAction_ReactToHitWithSound = 28, // 播放音效132并按14／34／54计数执行后退、减速及等待后推进。
+    BattleAction_RecoilAndWait44Ticks = 29, // 先后退，再等待至计数44；恢复播放率和移动速度后推进。
+    BattleAction_RecoilAndWait14Or28Ticks = 30, // 先后退，按死亡位等待至计数14或28，恢复速率后推进。
+    BattleAction_DodgeAndWaitAttacker = 31, // 后退闪避，可按招架位旋转；等待对手离开近战动作14后恢复姿态并推进。
+    BattleAction_PlayHitAnimation = 32, // 播放受击动画8，终帧后推进；不移动或累计受击计数。
+    BattleAction_PlayGuardAnimation = 33, // 播放格挡动画9，终帧后推进；与受击动画8保持独立。
+    BattleAction_BounceOutAfterKnockout = 34, // 先受击后退，再散射、旋转并在屏幕边界反弹三次，飞出边界后推进。
+    BattleAction_FlyOutAfterKnockout = 35, // 先受击后退，再散射并以速度15附带尾迹飞出边界，随后推进。
     BattleAction_Wait30Ticks = 36, // valueFF0递增至30后清零并推进；保留睡眠／石化播放门禁。
     BattleAction_Wait60Ticks = 37, // valueFF0递增至60后清零并推进；不是60毫秒。
     BattleAction_Wait120Ticks = 38, // valueFF0递增至120后清零并推进；不是120毫秒。
+    BattleAction_AlternateHitAndGuardAnimations = 39, // 交替播放动画8／9及音效并逐步缩短间隔；十轮后恢复阵型朝向并推进。
     BattleAction_FaceFormation = 40, // 按阵型位置恢复朝向后推进。
     BattleAction_FaceTargetFormationPoint = 41, // 面向targetPosition100C对应的阵型静态坐标后推进。
     BattleAction_FaceSelectedTarget = 42, // 面向targetPosition100C对应角色的实时坐标后推进。
@@ -112,17 +138,29 @@ enum BattleActionId : std::int32_t {
     BattleAction_ShrinkOut = 53, // 每次缩小0.02并创建type22效果；缩至0后清施法效果并推进。
     BattleAction_GrowIn = 54, // 每次放大0.02至1并创建type23效果；恢复阵型朝向和绘制位后推进。
     BattleAction_ConsumeFp = 55, // 播放一帧、扣除fpUsed1008指定消耗，再推进。
+    BattleAction_PlayAnimation5AndResetFrames = 56, // 动画5终帧后依次清帧索引、剩余帧和帧事件，再推进。
+    BattleAction_PlayAnimation13AndResetFrames = 57, // 动画13终帧后清帧索引和剩余帧再推进，保留帧事件。
+    BattleAction_PlayAnimation14AndResetFrames = 58, // 动画14终帧后清帧索引和剩余帧再推进，保留帧事件。
+    BattleAction_PlayAnimation15AndResetFrames = 59, // 动画15终帧后清帧索引和剩余帧再推进，保留帧事件。
+    BattleAction_SetAnimation15 = 60, // 仅将角色动画设为15后推进，不播放或清帧。
+    BattleAction_PlayAnimation12 = 61, // 播放动画12，终帧后推进，不清帧状态。
+    BattleAction_PlayAnimation18 = 62, // 播放动画18，终帧后推进，不清帧状态。
+    BattleAction_TurnLeftThenRight = 63, // 待机动画中在计数20／50分别改变方向-2／+4，旧计数到70后推进。
     BattleAction_SetIdlePose = 64, // 将角色动画动作设为0并推进；不同于持续待机动作0。
+    BattleAction_OscillateFacing = 65, // 待机动画中按八次计数交替改变一个方向，旧计数到70后推进。
     BattleAction_PlayConfiguredImage = 66, // 切换为image1014及角色动作5，播放结束后推进并清帧事件。
     BattleAction_TriggerTargetsOnFrameEvent = 67, // 帧事件到达时启动目标动作并推进效果游标；自身动画结束后推进。
     BattleAction_ShowReactionIcon = 68, // 用reactionImage1010创建浮动图标，条件播放后推进。
     BattleAction_ShowReactionHitEffect = 69, // 用reactionImage1010创建30帧命中特效，条件播放后推进。
     BattleAction_FireSpiracleShots = 70, // 帧事件触发时逐目标创建气功弹，消费效果列表并播放音效254。
     BattleAction_StartEffectTargets = 71, // 无帧事件门禁，逐目标启动动作并推进效果游标，再推进自身。
+    BattleAction_NotifyCasterEntryComplete = 72, // 递增caster1070载荷首个整数后推进；当前合击生产中该槽对应场景completedEntryCount00。
     BattleAction_AdvanceLinkedCast = 73, // 先推进当前效果目标的动作，再推进本角色动作。
     BattleAction_AdvanceEffectAndCast = 74, // 先推进当前效果游标，再推进本角色动作。
     BattleAction_EnableFlash = 75, // 将flash1004设为1后推进。
     BattleAction_DisableFlash = 76, // 将flash1004清零后推进。
+    BattleAction_EnableBackendDrawFlags = 77, // 按原3D设备分支设置对象绘制位0x100000或0x8000，再推进。
+    BattleAction_DisableBackendDrawFlags = 78, // 按原3D设备分支清除对象绘制位0x100000或0x8000，再推进。
     BattleAction_ResetDeathState = 79, // 清理中心／再生附属效果，恢复待机姿态并清除死亡位及stateFE0的2位。
     BattleAction_PlaySound1018 = 80, // 播放soundId1018，保留先读取X再读取音效号的顺序。
     BattleAction_PlaySound101C = 81, // 播放soundId101C；与1018／1020是独立音效槽。
@@ -134,17 +172,35 @@ enum BattleActionId : std::int32_t {
     BattleAction_PlayEarthquakeEffects = 87, // 大地之怒：在对方十个阵型点随机播放特效和音效，计数至270后推进，不在此扣血。
     BattleAction_StartScreenShake = 88, // 设最大振幅6并开启振幅上升，然后推进。
     BattleAction_EndScreenShakeRise = 89, // 结束振幅上升；后续主循环逐步减振幅，不立即归零。
+    BattleAction_SweepEffectTargetsAndExit = 90, // 移动并旋转，接近各效果目标时启动目标动作；消费目标后飞出边界并推进。
+    BattleAction_SetObjectFlag2AndPlay = 91, // 设置YobiAction::flags的位2，推进后播放一帧；不写hidden字段。
+    BattleAction_ClearObjectFlag2AndPlay = 92, // 清除YobiAction::flags的位2，推进后播放一帧；与动作91成对。
     BattleAction_ReleaseUpdateGate = 93, // 按活动条目数决定清全局更新门禁，清aliveFF8后推进；不删除角色。
     BattleAction_OffsetFromEffectTarget = 94, // 从当前目标坐标出发沿其反向角度移动50，再面向目标并推进。
     BattleAction_RushAndZeroTargetHp = 95, // 沿当前角度移动16次后推进，并将效果目标HP置0；保留原写入顺序。
     BattleAction_ShowEffectTarget = 96, // 将当前效果目标hidden置0后推进本角色。
     BattleAction_HideEffectTarget = 97, // 将当前效果目标hidden置1后推进本角色。
+    BattleAction_CastWithTargetMarkers = 98, // 播放施法动画6，在帧事件及终帧创建目标标记，并按技能绘制平铺效果。
     BattleAction_SetAnimationRate25 = 99, // 播放速率设为25，推进后清frameIndex／frameRemain；单位不外推。
+    BattleAction_PlayAttackAnimationSequence = 100, // 按技能等级选择动画序列表，逐段播放、触发目标反应和命中特效；遇序列负值后推进。
     BattleAction_MoveToSideCenter = 101, // 按目标阵营移至固定中央坐标，抵达后调整朝向、清计数并推进。
+    BattleAction_RushThroughTargets = 102, // 先以速度32移动八次，再逐目标处理命中、伤害／吸收／反射及状态，恢复速率后推进。
+    BattleAction_SpawnMeleeAttackCopies = 103, // 逐目标创建独立复制体，安排等待、绘制位、移动、近战攻击及销毁队列。
     BattleAction_ShowInspectionResults = 104, // 向当前玩家显示目标生命／魔力或调查失败消息；保留原CryptInt字节消费。
     BattleAction_StepAroundEffectTarget = 105, // 按计数分段切换目标上下左右位置；旧计数到120后推进自身及对应目标。
+    BattleAction_SetAnimation13 = 106, // 仅将角色动画设为13后推进，不播放或清帧。
     BattleAction_MarkForRemoval = 107, // 直接MarkDeath当前对象；不清战斗全局槽，区别于51。
+    BattleAction_AttackAllTargetsOnFrameEvent = 108, // 动画5的有效帧事件到达后逐目标结算攻击结果，清事件；终帧后推进。
+    BattleAction_SpawnChargedStrikeCopy = 109, // 创建图号101031的独立复制体，复制当前效果并安排等待、蓄力攻击110及销毁。
+    BattleAction_ChargeAndStrike = 110, // 先累计60次蓄力，再接近目标，按成功／反射结果结算双方HP及命中特效，延迟后推进。
+    BattleAction_FlyOutFastAndShakeScreen = 111, // 短暂后退后散射，以速度32反向飞出；离开边界时启动震屏并推进。
+    BattleAction_SpawnArcAttackCopies = 112, // 按帧事件为效果目标创建复制体，安排弧线移动及动作114命中，保留等级90特殊队列。
     BattleAction_MoveAlongArc = 113, // 按二次曲线调整显示高度并同步附属对象；到期定位目标坐标、推进并标死附属对象。
+    BattleAction_ResolveArcCopyHits = 114, // 逐效果处理弧线复制体命中、反射／吸收、状态及数值；恢复速率并推进。
+    BattleAction_PlayAttackClashEffect = 115, // 按反击标志创建工厂type0／3效果，隐藏自身与效果目标，转162等待。
+    BattleAction_PlayEffectType1 = 116, // 创建工厂type1（固定图号110063）并转162等待；业务名称未证。
+    BattleAction_PlayMagicAttackEffect = 117, // 创建工厂type2攻击魔法受术效果并转162等待；包含反射反馈路径。
+    BattleAction_EnterEffectWait = 118, // 不创建新效果，直接转162等待现有效果完成；保留原缺少创建分支的行为。
     BattleAction_PlayDebuffSpellEffect = 119, // 播放异常魔法受术特效（工厂type4），转162等待；本动作不直接施加状态或结算数值。
     BattleAction_PlayBarrierSpellEffect = 120, // 播放物理／魔法反射、吸收、无效化共用受术特效（工厂type5），转162等待；本动作不直接施加状态或结算数值。
     BattleAction_PlayPhysicalReflectEffect = 121, // 播放物理反射特效（工厂type7），转162等待；本动作不直接施加状态或结算数值。
@@ -157,7 +213,16 @@ enum BattleActionId : std::int32_t {
     BattleAction_StartPhysicalAbsorbEffect = 128, // 创建物理吸收特效（工厂type8、link=0）后立即推进，不等待效果结束。
     BattleAction_StartPhysicalNullifyEffect = 129, // 创建物理无效化特效（工厂type9、link=0）后立即推进，不等待效果结束。
     BattleAction_PlayRecoveryEffect = 130, // 播放持续回复魔法受术特效（工厂type13），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayEffectType14 = 131, // 创建工厂type14的等级分档效果并转162等待；可由状态报文mode1安排。
+    BattleAction_PlayEffectType15 = 132, // 创建工厂type15的等级分档效果并转162等待；业务名称未证。
     BattleAction_PlayStatusRecoveryEffect = 133, // 播放异常恢复魔法受术特效（工厂type25），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayEffectType26 = 134, // 创建工厂type26（图号110156）并转162等待；不同技能可共用。
+    BattleAction_PlayEffectType27 = 135, // 创建工厂type27（图号111162）并转162等待，不按技术号2053猜业务名。
+    BattleAction_PlayEffectType28 = 136, // 创建工厂type28（图号111163）并转162等待，不按技术号2054猜业务名。
+    BattleAction_PlayHealingCastEffect = 137, // 补血技能生产的施放侧效果：工厂type29，创建后转162等待。
+    BattleAction_PlayItemUseEffect = 138, // 物品使用入口安排的工厂type20效果，创建后转162等待。
+    BattleAction_CastSpellAndTriggerTargets = 139, // 播放施法动画及type34效果，按帧事件启动目标或创建魔法效果；终帧清理并推进。
+    BattleAction_TriggerSpellEffectOrHealTarget = 140, // 攻击魔法创建type35效果，补血魔法推进当前目标；随后推进自身。
     BattleAction_ApplyDebuff = 141, // 按模式／类型创建异常效果1054；可设置异常位，含2089／2090扩展图。
     BattleAction_ClearDebuff = 142, // 清除1054及异常位；推进后回写当前减益类型并重置状态效果模式。
     BattleAction_ApplyStatusEffect = 143, // 创建能力变化／扩展状态效果1068；支持负向能力变化，并非仅增益。
@@ -167,11 +232,27 @@ enum BattleActionId : std::int32_t {
     BattleAction_ToggleAttributeReversal = 147, // 按ReverseType位创建或清除反转效果105C，同时切换该状态位。
     BattleAction_PlayReviveEffect = 148, // 播放复活受术特效（工厂type33）并转162等待；死亡位重置及HP恢复由后续动作处理。
     BattleAction_PlayHealEffect = 149, // 播放补血魔法受术特效（工厂type16），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayAmountTieredRecoveryEffect = 150, // 按value1030的2000／3500阈值选恢复图像（工厂type18），转162等待。
+    BattleAction_PlayLevelScaledEffect21 = 151, // 创建工厂type21等级分档效果，部分技能使用castLevel1040；转162等待。
+    BattleAction_PlayParentBoundEffect22 = 152, // 创建工厂type22、图号110097的效果，父对象死亡时结束；转162等待。
+    BattleAction_PlayParentBoundEffect23 = 153, // 创建工厂type23、图号110096的效果，父对象死亡时结束；转162等待。
+    BattleAction_StartScalingEffect24 = 154, // 创建并保存工厂type24缩放效果，等待其phase为1后推进本角色。
+    BattleAction_PulseScaleWithParentEffect = 155, // 创建type22父对象效果，按原计数往复缩放角色并恢复，结束时令保存效果进入phase2。
+    BattleAction_WaitScalingEffect24End = 156, // 等待保存的type24效果phase为3，标死、清槽后推进角色。
     BattleAction_PlayParameterChangeEffect = 157, // 播放能力变化魔法受术特效（工厂type37），转162等待；本动作不直接施加状态或结算数值。
+    BattleAction_PlayEffectType38 = 158, // 按技能等级选择工厂type38图像并转162等待；业务名称未证。
     BattleAction_ApplyResourceChange = 159, // 按numberDisplayType1034显示数值并更新HP／FP，随后推进动作队列。
     BattleAction_ApplyResourceChangeAndWait = 160, // 同159处理HP／FP，但只转动作37等待，不立即推进队列。
+    BattleAction_PlayBombLevelEffect = 161, // 创建工厂type39，按gBattleBombLevelD67B2C选择图像，转162等待。
     BattleAction_WaitEffectComplete = 162, // 等待effectPlaybackState1024为2，再清标记、显示角色并推进。
+    BattleAction_TransitionRebirthForm = 163, // 按结果标志进入或退出Rebirth形态，处理换图、透明度及形态附属效果，不是死亡复活。
+    BattleAction_RestoreRebirthBaseForm = 164, // 恢复Rebirth前的基础图像、状态位和透明度，结束后返回保存的角色phase。
+    BattleAction_ReactToCriticalHit = 165, // 受击后退后持续旋转、减速和等待；与27的可选旋转不同，最后按死亡标志推进。
     BattleAction_ConsumeQueuedTime = 166, // 当前玩家消费排队时间值，显示负时间数字并推进排队值及动作。
+    BattleAction_EnableAlphaOverride = 167, // 将batchType设为8，只覆盖绘制颜色的Alpha通道，然后推进。
+    BattleAction_ClearColorOverrides = 168, // 将batchType清零，停止覆盖绘制颜色通道，然后推进。
+    BattleAction_OverrideAllMixFlags = 169, // 将混合标志覆盖掩码rebirthValue1设为255，使用既有rebirthValue2覆盖全部混合位。
+    BattleAction_ClearMixFlagOverride = 170, // 将混合标志覆盖掩码rebirthValue1清零，然后推进。
     BattleAction_FadeIn = 171, // 递增角色及附属对象透明度至255后推进，保留设备绘制位处理。
     BattleAction_FadeOutStep3 = 172, // 角色及附属对象透明度每次减3；归零后设置隐藏相关位并推进。
     BattleAction_FadeOutStep2 = 173, // 角色及附属对象透明度每次减2；与172保持不同速度。
@@ -180,9 +261,16 @@ enum BattleActionId : std::int32_t {
     BattleAction_EndBackgroundFade = 176, // 将effect1060的phase设为2并清角色槽；不是直接MarkDeath。
     BattleAction_PlayBackgroundFade = 177, // 创建不保存到effect1060的背景渐变，工厂末参1，然后推进。
     BattleAction_AdvanceAndIdle = 178, // 先推进队列游标，再将角色phase设为待机0。
+    BattleAction_PlayAnimation6 = 179, // 播放动画6，终帧后推进，不额外创建施法效果。
     BattleAction_PlayRecoveryEffectAndFadeIn = 180, // 播放持续回复魔法受术特效（工厂type13），转204渐显、按结果结算HP／FP并等待；不同于动作130。
+    BattleAction_PlayEffectType1AndFadeIn = 181, // 创建工厂type1后转204渐显、处理结果及等待；业务名称未证。
+    BattleAction_PlayMagicAttackEffectAndFadeIn = 182, // 创建type2攻击魔法受术效果后转204渐显、处理结果及等待。
     BattleAction_PlayStatusRecoveryEffectAndFadeIn = 183, // 播放异常恢复魔法受术特效（工厂type25），转204渐显、按结果结算HP／FP并等待；不同于动作133。
     BattleAction_PlayHealEffectAndFadeIn = 184, // 播放补血魔法受术特效（工厂type16），转204渐显、按结果结算HP／FP并等待；不同于动作149。
+    BattleAction_PlayLevelScaledEffect21AndFadeIn = 185, // 创建工厂type21等级分档效果后转204渐显、处理结果及等待。
+    BattleAction_PlayParentBoundEffect22AndFadeIn = 186, // 创建工厂type22父对象生命周期关联效果后转204渐显、处理结果及等待。
+    BattleAction_PlayParentBoundEffect23AndFadeIn = 187, // 创建工厂type23父对象生命周期关联效果后转204渐显、处理结果及等待。
+    BattleAction_EnterFadeInAndResolveEffect = 188, // 不创建新效果，直接转204渐显、处理结果及等待；保留缺少创建分支的行为。
     BattleAction_PlayDebuffSpellEffectAndFadeIn = 189, // 播放异常魔法受术特效（工厂type4），转204渐显、按结果结算HP／FP并等待；不同于动作119。
     BattleAction_PlayBarrierSpellEffectAndFadeIn = 190, // 播放物理／魔法反射、吸收、无效化共用受术特效（工厂type5），转204渐显、按结果结算HP／FP并等待；不同于动作120。
     BattleAction_PlayPhysicalReflectEffectAndFadeIn = 191, // 播放物理反射特效（工厂type7），转204渐显、按结果结算HP／FP并等待；不同于动作121。
@@ -191,47 +279,69 @@ enum BattleActionId : std::int32_t {
     BattleAction_PlayMagicReflectEffectAndFadeIn = 194, // 播放魔法反射特效（工厂type10），转204渐显、按结果结算HP／FP并等待；不同于动作124。
     BattleAction_PlayMagicAbsorbEffectAndFadeIn = 195, // 播放魔法吸收特效（工厂type11），转204渐显、按结果结算HP／FP并等待；不同于动作125。
     BattleAction_PlayMagicNullifyEffectAndFadeIn = 196, // 播放魔法无效化特效（工厂type12），转204渐显、按结果结算HP／FP并等待；不同于动作126。
+    BattleAction_PlayEffectType26AndFadeIn = 197, // 创建工厂type26后转204渐显、处理结果及等待；业务名称未证。
+    BattleAction_PlayHealingCastEffectAndFadeIn = 198, // 创建工厂type29补血施放侧效果后转204渐显、处理结果及等待。
+    BattleAction_PlayEffectType14AndFadeIn = 199, // 创建工厂type14后转204渐显、处理结果及等待；业务名称未证。
+    BattleAction_PlayEffectType15AndFadeIn = 200, // 创建工厂type15后转204渐显、处理结果及等待；业务名称未证。
     BattleAction_PlayAttributeReversalEffectAndFadeIn = 201, // 播放属性反转受术特效（工厂type6），转204渐显、按结果结算HP／FP并等待；不同于动作146。
     BattleAction_PlayParameterChangeEffectAndFadeIn = 202, // 播放能力变化魔法受术特效（工厂type37），转204渐显、按结果结算HP／FP并等待；不同于动作157。
+    BattleAction_PlayBombLevelEffectAndFadeIn = 203, // 创建工厂type39的炸弹等级分档效果后转204渐显、处理结果及等待。
     BattleAction_FadeInAndResolveEffect = 204, // 逐步渐显，特效完成后按结果显示免疫或结算HP／FP；再等待60次计数且完全不透明才推进。
+    BattleAction_PlayAnimation16AndResetFrames = 205, // 播放动画16，终帧后清帧索引和剩余帧再推进，保留帧事件。
     BattleAction_FaceEffectTarget = 206, // 朝当前效果记录的目标角色转向后推进。
     BattleAction_MoveToEffectPosition = 207, // 从效果position／flags读取目的坐标，推进效果后切入移动动作6。
     BattleAction_MoveBesideEffectTarget = 208, // 按目标屏幕分区设置偏移落点，再转动作6移动，不直接推进队列。
+    BattleAction_ReactToHitAndStrikeLinkedTarget = 209, // 受击后退和减速期间，在指定计数对关联目标结算后续攻击，再按死亡标志收尾。
     BattleAction_RushWithTrail = 210, // 以速度16接近效果目标并生成随机尾迹；距离小于70后恢复速度8及播放率。
     BattleAction_ApplySceneEffects = 211, // 按效果flags四个位写入两个场景效果全局的各16位分量，推进效果及动作。
     BattleAction_RepeatOffsetEffect = 212, // 反复创建指定图号／XY偏移效果；计数达到记录flags阈值后推进效果及动作。
     BattleAction_HandleDeathAndContinue = 213, // 死亡动画后清理常驻效果，外观恢复或渐隐后继续队列；保留再生分流。
     BattleAction_FadeOutAndContinue = 214, // 按后端闪烁／渐隐，结束后推进队列；不同于48进入角色移除。
     BattleAction_WaitFadeEffectAndContinue = 215, // 等待播放状态2并清标记后推进队列；不转51移除角色。
+    BattleAction_CastMonsterSpellAndTriggerTargets = 216, // 播放怪物法术的施法效果；帧事件时处理255哨兵目标列表，启动目标并按技能创建效果。
+    BattleAction_PlayRandomOffsetEffect40 = 217, // 创建工厂type40，在角色图像范围内随机偏移效果坐标并设置后端绘制位，转162等待。
+    BattleAction_ChangeAppearanceWithCrossFade = 218, // 创建换图副体并交叉渐变，按效果记录切换外观、保存基础图号和覆盖状态后推进。
     BattleAction_RestoreAppearanceAfterDeath = 219, // 恢复基础外观后按玩家／宠物分类继续死亡流程，非玩家宠物转48。
     BattleAction_RestoreAppearanceBeforeFade = 220, // 恢复基础外观完成后转214渐隐继续流程。
+    BattleAction_ApplyFollowupHit = 221, // 先消费攻击者记录，再按下一条目标记录结算追加命中／反射／吸收与状态，推进动作及效果。
+    BattleAction_MoveLinkedProjectileToTarget = 222, // 关联投射物接近目标后销毁；特定回旋技能则推进目标／效果并转22继续回旋命中。
     BattleAction_UpdatePetSnapshot = 223, // 按效果position设置宠物快照索引；-2时同步状态UI并清快照，再推进。
+    BattleAction_TransitionRideState = 224, // 按效果flags进入或解除骑乘，处理骑手运动、角色槽转移、装备和状态效果恢复。
+    BattleAction_FailToMountAndReturn = 225, // 骑乘失败入口创建骑手并播放抛物线运动，随后还原角色图像及坐标并清理临时对象。
+    BattleAction_DismountAndRestoreActors = 226, // 骑乘退出时播放骑手受击／抛物线运动，恢复原角色槽、装备及状态并销毁合成对象。
+    BattleAction_DismountWithActorAnimation = 227, // 解除骑乘时复制本角色动画并按结果选择骑手动画，落地后恢复原角色和挂件。
     BattleAction_StartAnimationSlowdown = 228, // 清计数，转229并立即执行首次减速动画更新。
     BattleAction_AnimateSlowdown = 229, // 角色动画3播放率按250-4*计数递减；计数60后清零并推进，不改变移动速度。
     BattleAction_MoveAlongEffectPath = 230, // 按效果position／flags中的XY坐标转向移动；距离小于8后落点并推进效果及动作。
     BattleAction_DecelerateWithTrail = 231, // 每次速度减0.45至0并产生交替尾迹；停下后推进并恢复速度6。
+    BattleAction_RushIntoTargetWithTrail = 232, // 动画3冲向目标，近距离结算命中／反射／吸收及数值，逐帧产生随机尾迹。
+    BattleAction_ReactToHitWithoutDisplacement = 233, // 保留受击计数、旋转、尾迹及死亡门禁；不调用移动函数，与27／165保持独立。
+    BattleAction_BounceOutImmediately = 234, // 首计数即创建散射与音效，旋转并在边界反弹，飞出后推进；没有34的前段受击后退。
     BattleAction_ApplyEffectFlags = 235, // 按本角色位置调用ApplyBattleEffectFlags，再推进动作。
     BattleAction_ResetBusyAndIdle = 236, // 清busyFD8并转待机，立即执行待机处理；不等同于只写phase=0。
+    BattleAction_RushAndResolveHitWithin16Ticks = 237, // 前16次移动并按距离触发命中，达到计数时也处理目标结果；之后继续移动及队列收尾。
+    BattleAction_ResolveDeceleratingProjectileHit = 238, // 处理目标命中及等待；等待结束后每次减速0.5，低速时转239加速。
+    BattleAction_ResolveAcceleratingProjectileHit = 239, // 与238共用命中逻辑，等待结束后每次加速0.5，命中后按原条件销毁或飞出。
     BattleAction_PrepareArcShots = 240, // 创建施法效果并播放；帧事件到达后清效果、计数，转241发射。
     BattleAction_FireArcShotsSequentially = 241, // 精神／混乱冲击波逐目标发射弧形弹道，目标间等待计数6，保留帧事件及音效时序。
     BattleAction_FireArcShotsTogether = 242, // 精神／混乱冲击波一次遍历全部目标发射弧形弹道，随后推进；无241的逐目标延迟。
+    BattleAction_ResolveStraightProjectileHit = 243, // 直线投射物按距离及帧事件结算命中，等待后继续移动；无238／239的加减速切换。
     BattleAction_MarkDeadAndAcquireGate = 244, // 设置死亡位、全局更新门禁和aliveFF8，再推进；不同于47仅置死亡位。
     BattleAction_CreateTiledEffect = 245, // 按效果position／position3指定平铺类型和寿命，推进效果及动作。
     BattleAction_SetSpeedFromEffect = 246, // 用效果position3乘0.01设置motionMagnitude54，再推进效果及动作。
     BattleAction_SavePosition = 247, // 将当前浮点XY分别截断到载荷x10／y14，再推进。
     BattleAction_ReturnToSavedPosition = 248, // 移回x10／y14保存坐标，距离小于5后定位并推进；不同于回阵型坐标。
     BattleAction_FireBlastWaves = 249, // 帧事件触发时按技能／等级逐目标发射冲击波，播放音效268并清事件。
+    BattleAction_PlayConfiguredEffect41 = 250, // 按image102C创建工厂type41效果并转162等待；保留与type42的独立编号。
     BattleAction_SetHpFpOne = 251, // 将本角色HP和FP同时置1后推进，不在此清除死亡状态。
+    BattleAction_PlayConfiguredEffect42 = 252, // 按image102C创建工厂type42效果并转162等待；不与动作250合并。
     BattleAction_CreateCastingEffect = 253, // 本动作且播放标记为0时创建type43施法效果并保存battleCastEffect10，然后推进。
     BattleAction_ClearCastingEffect = 254, // 标死battleCastEffect10并清槽／播放标记，然后推进。
+    BattleAction_ApplyAreaAttackOnFrameEvent = 255, // 动画5有效帧事件时逐目标结算范围攻击，首目标创建type47效果，终帧后推进。
     BattleAction_RequestBattleExit = 256, // 清事件分派忙标志并请求退出战斗；不在这里销毁角色。
 };
 
-// 未命名动作保持原编号：剩余攻击／受击／复制体／骑乘等组合流程尚未完整归纳，不以单个副作用代替整体语义。
-// 77／78仅证实设备相关绘制位切换；167～170仅证实匿名渲染字段赋值，字段含义不足以命名。
-// 56～62、106、179、205等仅有角色动画号／终帧行为，未确认动画业务含义，不猜姿态名称。
-// 72对caster1070的x00递增，但该槽在此路径的完成通知含义未证；91／92的对象flags位2也未命名。
-// 工厂剩余编号的type业务仍未证；118／188无创建分支，保留编号，已证普通等待／渐显结算分别命名。
+// BAN01：未证业务名的动画／特效按已证动画号、工厂type或字段行为命名；不把同值的技能、图号和特效phase混用。
 
 // BSI01：客户端分派技能号；用于gBattleMSkill5AAA78、castSkill103C及skill7C的已归一化消费。
 // 保持各字段为有符号整数，允许未知／Lua技能；不用于原始BattleSkillMeta::skillId注册键。

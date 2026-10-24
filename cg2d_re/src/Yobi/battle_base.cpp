@@ -480,7 +480,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
         return;
     }
     auto* const payload = action->payload.battleActor;
-    if ((*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & BattleActorFlag_Dead) != 0 || action->phase == 13) {
+    if ((*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & BattleActorFlag_Dead) != 0 || action->phase == BattleAction_MoveToExitPoint) {
         return;
     }
     action->motionMagnitude54 = 1.0F;
@@ -575,10 +575,10 @@ void AdvanceNativeBattleCastState(YobiAction* const action)
     const bool completed = next >= 200;
     payload->castPlayIndexFC4 = next;
     if (completed) {
-        action->phase = 236;
+        action->phase = BattleAction_ResetBusyAndIdle;
     } else {
         const std::int32_t state = payload->castListCA4[next];
-        action->phase = state == -1 ? 236 : state;
+        action->phase = state == -1 ? BattleAction_ResetBusyAndIdle : state;
     }
 }
 
@@ -767,7 +767,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
         const auto* const actorPayload = static_cast<const BattleActorPayload*>(actor->payload.battleActor);
         if (parentPhase != 24 && enable == 0
             && (*reinterpret_cast<const unsigned char*>(&actorPayload->stateFE0) & 2u) != 0
-            && actorPayload->aliveFF8 == 0 && actor->phase != 27) {
+            && actorPayload->aliveFF8 == 0 && actor->phase != BattleAction_ReactToHit) {
             continue;
         }
         if (actorPayload->busyFD8 == 1) {

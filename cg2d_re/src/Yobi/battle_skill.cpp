@@ -40,16 +40,16 @@ std::int32_t AppendBattleRedirect_4242B0(
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_ShowReactionHitEffect);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_Wait30Ticks);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_EnableFlash);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], 7);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_PlayAnimation2FacingEffectTarget);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_CloseInOnEffectTarget);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_TurnTargetTowardSelf);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_AdvanceLinkedCast);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], 10);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_PlayAnimation4AndRestoreFacing);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_DisableFlash);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_AdvanceEffectAndCast);
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[redirect], target, flags, value);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[target], BattleAction_Idle);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[target], 28);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[target], BattleAction_ReactToHitWithSound);
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[target], source, flags, value);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[target], BattleAction_AdvanceLinkedCast);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[target], BattleAction_AdvanceEffectAndCast);
@@ -124,12 +124,12 @@ static void ProcessBattleMSkillWaitingState(
         }
         std::int32_t readyCount = 0;
         for (std::int32_t index = 0; index < count - 1; ++index) {
-            if (cg::world::gBattleAllEntries59E980[payload->entryPositions08[index]]->phase == 0) {
+            if (cg::world::gBattleAllEntries59E980[payload->entryPositions08[index]]->phase == BattleAction_Idle) {
                 ++readyCount;
             }
         }
         YobiAction* const last = cg::world::gBattleAllEntries59E980[payload->entryPositions08[count - 1]];
-        if (last->phase == 1) {
+        if (last->phase == BattleAction_WaitIdle) {
             ++readyCount;
         }
         if (readyCount < count) {
@@ -290,7 +290,7 @@ static void ProcessBattleMSkillWaitingState(
         auto* const casterPayload = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor;
         for (BattleEntryEffectRecord* effect = casterPayload->effects1C.data(); effect->position != -1; ++effect) {
             YobiAction* const target = cg::world::gBattleAllEntries59E980[effect->position];
-            if (target != nullptr && target->characterAction != 10 && target->phase != 34) {
+            if (target != nullptr && target->characterAction != 10 && target->phase != BattleAction_BounceOutAfterKnockout) {
                 FaceBattleActorTowardFormationPosition_406260(target);
             }
         }

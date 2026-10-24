@@ -210,20 +210,20 @@ FinishFirstTargetFailure:
         goto AppendInitialGenericCast;
     }
     if (skill == BattleSkill_ShadowHand) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 151);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayLevelScaledEffect21);
         cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D6D0[GetBattleValueBand_43BF00(levelIndex + 1)];
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 252);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayConfiguredEffect42);
         goto ReadFirstTarget;
     }
     if (skill == BattleSkill_Recklessness) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 151);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayLevelScaledEffect21);
         cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->image102C = kAttackImages54D5F4[GetBattleValueBand_43BF00(levelIndex + 1)];
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 252);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayConfiguredEffect42);
         goto ReadFirstTarget;
     }
     if (skill < BattleSkill_DelayAttack257 || skill >= 4004) {
         if (skill == BattleSkill_Ranbu) {
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 161);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayBombLevelEffect);
             cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->flash1004 = 1;
             goto ReadFirstTarget;
         }
@@ -231,10 +231,10 @@ FinishFirstTargetFailure:
             goto ReadFirstTarget;
 // 原函数：0x004392A0。
 AppendInitialGenericCast:
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 151);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayLevelScaledEffect21);
         goto ReadFirstTarget;
     }
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], 151);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayLevelScaledEffect21);
     if (skill != BattleSkill_DelayAttack257) {
         if (skill == BattleSkill_DelayAttack258) {
             coordinateIndex15 = cg::world::gBattlePointIndices5536FC[15];
@@ -253,9 +253,9 @@ AppendInitialGenericCast:
             coordinateSource = *sourcePosition;
             cg::world::gBattleAllEntries59E980[coordinateSource]->payload.battleActor
                 ->moveTargetYFEC = coordinateSum / 2;
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 8);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation2FacingMoveTarget);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_MoveToTargetPosition);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 10);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation4AndRestoreFacing);
             goto ReadFirstTarget;
         }
         if (skill != BattleSkill_FirstAttack || levelIndex < 9)
@@ -289,7 +289,7 @@ ReadFirstTarget:
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_WaitTargetReady);
         if ((mainFlags & 0x10) != 0 || (mainFlags & 0x1000) != 0) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_ApproachEffectTarget);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 115);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAttackClashEffect);
             goto SelectSkill260MoveTail;
         }
         if (skill == BattleSkill_Assassin)
@@ -315,20 +315,20 @@ SelectSkill260MoveTail:
                 goto AppendSkill260Move206;
             }
         }
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 7);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation2FacingEffectTarget);
         if (skill == BattleSkill_FirstAttack)
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_RushWithTrail);
         else
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 9);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 10);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_MoveTowardTargetOrFormation);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation4AndRestoreFacing);
         if (skill == BattleSkill_Taunt) {
             cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D608[GetBattleValueBand_43BF00(levelIndex + 1)];
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 252);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayConfiguredEffect42);
         } else {
             if (skill != BattleSkill_MercyStrike)
                 goto SelectSkill260MoveTail;
             cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D694[GetBattleValueBand_43BF00(levelIndex + 1)];
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 252);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayConfiguredEffect42);
         }
 // 原函数：0x004392A0。
 AppendPrimaryEffect:
@@ -384,7 +384,7 @@ AppendPrimaryEffect:
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->attackDebuffType1050 = TakeBattleMInteger_438F70(scene);
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 260;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlaySound1018);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 98);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_CastWithTargetMarkers);
                 mainAuxIndex = 0;
                 mainScanIndex94 = 0;
                 mainScan94 = mainFirstImages;
@@ -455,7 +455,7 @@ AppendTechniqueMainEffect:
 // 原函数：0x0043BC10。
 AppendMainAuxiliaryEffects:
                 AppendBattleAuxEffects_43BC10(cg::world::gBattleAllEntries59E980[(*sourcePosition)], (*currentTarget), mainFlags, primaryGraphic, mainSecondGraphic, mainFirstImages[mainAuxIndex]);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 14);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PerformMeleeAttack);
                 break;
             case 72:
             case 113:
@@ -500,7 +500,7 @@ AppendMainAuxiliaryEffects:
                     effect72Secondary.position = secondaryPosition;
                     effect72Secondary.flags = static_cast<std::uint32_t>(secondaryFlags);
                     AppendBattleEffect_439400(cg::world::gBattleAllEntries59E980[(*sourcePosition)], effect72Secondary);
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 237);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_RushAndResolveHitWithin16Ticks);
                     effect72Main.position3 = primaryValue;
                     effect72Main.position4 = primaryGraphic;
                     effect72Main.flags = static_cast<std::uint32_t>(mainFlags);
@@ -512,7 +512,7 @@ AppendMainAuxiliaryEffects:
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_MoveForward16Ticks);
                     }
                 } else {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 63);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_TurnLeftThenRight);
                     cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*targetPosition);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_FaceTargetFormationPoint);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_EnableFlash);
@@ -564,7 +564,7 @@ AppendMainAuxiliaryEffects:
                     effect2017Secondary.position = secondaryPosition;
                     effect2017Secondary.flags = static_cast<std::uint32_t>(secondaryFlags);
                     AppendBattleEffect_439400(cg::world::gBattleAllEntries59E980[(*sourcePosition)], effect2017Secondary);
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 237);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_RushAndResolveHitWithin16Ticks);
                     effect2017Main.position3 = primaryValue;
                     effect2017Main.position4 = primaryGraphic;
                     effect2017Main.flags = static_cast<std::uint32_t>(mainFlags);
@@ -576,7 +576,7 @@ AppendMainAuxiliaryEffects:
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_MoveForward16Ticks);
                     }
                 } else {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 63);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_TurnLeftThenRight);
                     cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->targetPosition100C = (*currentTarget);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_FaceTargetFormationPoint);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_EnableFlash);
@@ -593,14 +593,14 @@ AppendMainAuxiliaryEffects:
             case BattleSkill_Assassin:
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 62;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlaySound1018);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 77);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_EnableBackendDrawFlags);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_Wait30Ticks);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 91);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_SetObjectFlag2AndPlay);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_Wait30Ticks);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_OffsetFromEffectTarget);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 92);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_ClearObjectFlag2AndPlay);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_Wait30Ticks);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 78);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_DisableBackendDrawFlags);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_Wait30Ticks);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_EnableFlash);
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId101C = 210;
@@ -620,7 +620,7 @@ AppendMainAuxiliaryEffects:
                 break;
             case BattleSkill_Ranbu:
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_SetAnimationRate25);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 100);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAttackAnimationSequence);
                 mainAuxIndex = 0;
                 mainScanIndex105 = 0;
                 mainScan105 = mainFirstImages;
@@ -638,7 +638,7 @@ AppendMainAuxiliaryEffects:
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], BattleAction_Idle);
         if (skill == BattleSkill_ShortStrike) {
             cg::world::gBattleAllEntries59E980[(*currentTarget)]->payload.battleActor->image102C = kAttackImages54D6BC[GetBattleValueBand_43BF00(levelIndex + 1)];
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], 252);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], BattleAction_PlayConfiguredEffect42);
         }
         currentMainFlags = mainFlags;
         mainFlag8 = mainFlags & 8;
@@ -647,10 +647,10 @@ AppendMainAuxiliaryEffects:
                 if ((mainFlags & 3) == 0)
                     goto AppendSkill2008ReactionTail;
                 if ((mainFlags & 0x2000) != 0) {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 34);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_BounceOutAfterKnockout);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_PlayPhysicalReflectEffect);
                 } else {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], 34);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_BounceOutAfterKnockout);
                     if (positionOrFlag) {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_AdvanceLinkedCast);
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_AdvanceEffectAndCast);
@@ -688,28 +688,28 @@ AppendLocalCriticalCast:
                 goto ReloadPrimaryFlags;
             }
             if ((mainFlags & 0x2000) != 0) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? 165 : 27);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], BattleAction_PlayPhysicalReflectEffect);
                 goto ReloadPrimaryFlags;
             }
             if (skill != BattleSkill_Wattack) {
                 if (skill != 72 && skill != BattleSkill_ShadowHand && skill != 113) {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], (mainFlags & 2) != 0 ? 165 : 27);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], (mainFlags & 2) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
 ReloadPrimaryFlags:
                     currentMainFlags = mainFlags;
                 }
 AppendSkill2008ReactionTail:
                 if (skill == BattleSkill_Taunt && (currentMainFlags & 0x20) == 0 && (currentMainFlags & 0x80000) == 0)
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], 65);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], BattleAction_OscillateFacing);
                 goto FindMainNextTarget;
             }
             if ((mainFlags & 0x80000) == 0 || secondaryPosition == 255) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], (mainFlags & 2) != 0 ? 165 : 27);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], (mainFlags & 2) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
             } else {
                 secondaryNextTarget = FindBattleMTarget_43B9B0(scene, secondaryPosition, 0);
                 originalTargetForSecondary = (*currentTarget);
                 nextTargetOrDeathFlag = secondaryNextTarget;
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[originalTargetForSecondary], 209);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[originalTargetForSecondary], BattleAction_ReactToHitAndStrikeLinkedTarget);
                 effect260Secondary.position3 = level;
                 effect260Secondary.position4 = secondaryGraphic;
                 effect260Secondary.position = secondaryPosition;
@@ -733,10 +733,10 @@ AppendSecondaryAuxiliaryEffects:
                     if ((secondaryFlags & 3) != 0) {
                         if ((secondaryFlags & 0x2000) != 0) {
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_FaceEffectTarget);
-                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], 34);
+                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_BounceOutAfterKnockout);
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalReflectEffect);
                         } else {
-                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], 34);
+                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_BounceOutAfterKnockout);
                             if ((secondaryFlags & 0x200) != 0) {
                                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_AdvanceLinkedCast);
                                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_AdvanceEffectAndCast);
@@ -763,7 +763,7 @@ AppendSecondaryAuxiliaryEffects:
                     } else if ((secondaryFlags & 0x2000) != 0) {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalReflectEffect);
                     } else if ((secondaryFlags & 8) == 0 && (secondaryFlags & 0x10000100) == 0) {
-                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? 165 : 27);
+                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                     }
                 } else {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalNullifyEffect);
@@ -864,17 +864,17 @@ HandleSkill72PostReaction:
                         if ((secondaryFlags & 0x4000) != 0) {
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalAbsorbEffect);
                         } else if ((secondaryFlags & 0x2000) != 0) {
-                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? 165 : 27);
+                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalReflectEffect);
                         } else {
-                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? 165 : 27);
+                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                         }
                     } else {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalNullifyEffect);
                     }
                 }
             } else {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], 32);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_PlayHitAnimation);
             }
             if ((mainFlags & 0x80000) != 0) {
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId101C = 257;
@@ -890,12 +890,12 @@ HandleSkill72PostReaction:
             positionOrFlag = secondaryFlags & 0x40;
             if ((secondaryFlags & 0x40) == 0 || (secondaryFlags & 0x2000) == 0) {
                 if ((mainFlags & 0x80000) != 0) {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 57);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation13AndResetFrames);
                 } else if ((mainFlags & 1) != 0) {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 58);
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 58);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation14AndResetFrames);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation14AndResetFrames);
                 } else {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 60);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_SetAnimation15);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_Wait60Ticks);
                 }
             }
@@ -903,10 +903,10 @@ HandleSkill72PostReaction:
             if ((mainFlags & 1) != 0 && !mainFlag8 && (mainFlags & 0x100) == 0) {
                 if (positionOrFlag && (secondaryFlags & 3) != 0) {
                     if ((secondaryFlags & 0x2000) != 0) {
-                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 34);
+                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_BounceOutAfterKnockout);
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalReflectEffect);
                     } else {
-                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], 34);
+                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_BounceOutAfterKnockout);
                         if ((secondaryFlags & 0x200) != 0) {
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_AdvanceLinkedCast);
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_AdvanceEffectAndCast);
@@ -973,17 +973,17 @@ HandleSkill2017PostReaction:
                         if ((secondaryFlags & 0x4000) != 0) {
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalAbsorbEffect);
                         } else if ((secondaryFlags & 0x2000) != 0) {
-                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? 165 : 27);
+                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalReflectEffect);
                         } else {
-                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? 165 : 27);
+                            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                         }
                     } else {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_PlayPhysicalNullifyEffect);
                     }
                 }
             } else {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], 32);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_PlayHitAnimation);
             }
             if ((mainFlags & 0x80000) != 0) {
                 cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId101C = 257;
@@ -998,12 +998,12 @@ HandleSkill2017PostReaction:
             }
             if ((secondaryFlags & 0x40) == 0 || (secondaryFlags & 0x2000) == 0) {
                 if ((mainFlags & 0x80000) != 0) {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 57);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation13AndResetFrames);
                 } else if ((mainFlags & 1) != 0) {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 58);
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 58);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation14AndResetFrames);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayAnimation14AndResetFrames);
                 } else {
-                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 60);
+                    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_SetAnimation15);
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_Wait60Ticks);
                 }
             }
@@ -1012,12 +1012,12 @@ HandleSkill2017PostReaction:
                 skill2017Flags = secondaryFlags;
                 if ((secondaryFlags & 0x40) != 0 && (secondaryFlags & 3) != 0) {
                     if ((secondaryFlags & 0x2000) != 0) {
-                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], 34);
+                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_BounceOutAfterKnockout);
                         skill2017Position = lastSecondaryPosition;
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[lastSecondaryPosition], BattleAction_PlayPhysicalReflectEffect);
                     } else {
                         skill2017Position = lastSecondaryPosition;
-                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[lastSecondaryPosition], 34);
+                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[lastSecondaryPosition], BattleAction_BounceOutAfterKnockout);
                         if ((secondaryFlags & 0x200) != 0) {
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[lastSecondaryPosition], BattleAction_AdvanceLinkedCast);
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[lastSecondaryPosition], BattleAction_AdvanceEffectAndCast);
@@ -1130,9 +1130,9 @@ FinalizeInitialActor:
         }
     } else {
         if (initialAtTail < 20) {
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[initialAtTail], 7);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[initialAtTail], BattleAction_PlayAnimation2FacingEffectTarget);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPositionAtTail], BattleAction_ReturnToFormation);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPositionAtTail], 10);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPositionAtTail], BattleAction_PlayAnimation4AndRestoreFacing);
         }
         if (skill == BattleSkill_DelayAttack257) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPositionAtTail], BattleAction_DisableFlash);
@@ -1168,9 +1168,9 @@ void TakeBattleMSkillTargets_426FC0(
     cg::world::gBattleAllEntries59E980[*sourcePosition]->payload.battleActor->image102C = initialImage;
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_WaitTargetReady);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_ConsumeFp);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], 151);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_PlayLevelScaledEffect21);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_SetIdlePose);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], 255);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_ApplyAreaAttackOnFrameEvent);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_Wait30Ticks);
     for (;;) {
         const std::int32_t target = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -1234,10 +1234,10 @@ void TakeBattleMSkillTargets_426FC0(
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], BattleAction_ReturnToFormation);
         } else if ((flags & (0x40u | 0x80u)) != 0) {
             if ((flags & 0x40u) != 0) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], 34);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], BattleAction_BounceOutAfterKnockout);
             }
             if ((flags & 0x80u) != 0) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], 35);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], BattleAction_FlyOutAfterKnockout);
             }
             const std::int32_t currentTarget = *targetPosition;
             if (cg::world::gBattleCurrentPosition5ABCA4 == currentTarget) {
@@ -1259,7 +1259,7 @@ void TakeBattleMSkillTargets_426FC0(
         } else if ((flags & 0x10000u) != 0) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], BattleAction_PlayMagicReflectEffect);
         } else if ((flags & 3u) != 0) {
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], (flags & 2u) != 0 ? 165 : 27);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], (flags & 2u) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
         }
         if ((flags & 0x20u) != 0) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*targetPosition], BattleAction_HandleDeath);
@@ -1311,24 +1311,24 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         || skill == 4002 || skill == 3038 || skill == 110 || skill == BattleSkill_Taunt || skill == BattleSkill_MercyStrike
         || (skill >= BattleSkill_StatusAttackPoison && skill <= BattleSkill_StatusAttackForget)
             || (skill >= BattleSkill_StatusAttackPoison2096 && skill <= BattleSkill_StatusAttackForget2101)) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayLevelScaledEffect21);
         skill = gBattleMSkill5AAA78;
     } else if (skill == BattleSkill_Ranbu) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayLevelScaledEffect21);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->flash1004 = 1;
         skill = gBattleMSkill5AAA78;
     } else if (skill == BattleSkill_Recklessness) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayLevelScaledEffect21);
         const std::int32_t band = GetBattleValueBand_43BF00(gBattleMSkillLevelIndex5A3A18 + 1);
         const std::int32_t imageCasterPosition = gBattleMCasterPosition5AAA64;
         YobiAction* const imageCaster = cg::world::gBattleAllEntries59E980[imageCasterPosition];
         auto* const imageCasterPayload = imageCaster->payload.battleActor;
         const std::int32_t image = kBattleMSkill2007Images54D5F4[band];
         imageCasterPayload->image102C = image;
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 252);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayConfiguredEffect42);
         skill = gBattleMSkill5AAA78;
     } else if (skill >= BattleSkill_DelayAttack257 && skill < 4004) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayLevelScaledEffect21);
         skill = gBattleMSkill5AAA78;
         if (skill == BattleSkill_DelayAttack258) {
             const std::int32_t firstXIndex = cg::world::gBattlePointIndices5536FC[15];
@@ -1349,9 +1349,9 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
             const std::int32_t middleY = middleYSum / 2;
             YobiAction* const middleYCaster = cg::world::gBattleAllEntries59E980[middleYCasterPosition];
             middleYCaster->payload.battleActor->moveTargetYFEC = middleY;
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 8);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation2FacingMoveTarget);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MoveToTargetPosition);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 10);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayAnimation4AndRestoreFacing);
             skill = gBattleMSkill5AAA78;
         }
     }
@@ -1370,16 +1370,16 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ConsumeFp);
     if (mode == 4) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 18);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FireBowShots);
     } else if (mode == 3) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 15);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_LaunchRangedAttack);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TrackOpponentFacing);
     } else if (mode == 2) {
         const std::int32_t modeSkill = gBattleMSkill5AAA78;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
-            modeSkill == 4002 || modeSkill == 3038 ? 19 : 15);
+            modeSkill == 4002 || modeSkill == 3038 ? BattleAction_FireThrowingShots : BattleAction_LaunchRangedAttack);
     }
     std::int32_t selfPosition = -1;
     std::uint32_t selfFlags = 0;
@@ -1451,7 +1451,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         std::uint32_t flags = gBattleMResultFlags5A4A20;
         if ((flags & 0x108u) == 0) {
             if ((flags & 0x40u) != 0) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 34);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_BounceOutAfterKnockout);
                 const std::int32_t comparisonTargetPosition = gBattleMTargetPosition5AAA40;
                 if (cg::world::gBattleCurrentPosition5ABCA4 == comparisonTargetPosition) {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[comparisonTargetPosition], BattleAction_RequestBattleExit);
@@ -1473,12 +1473,12 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
                 } else if ((flags & 0x20000000u) == 0) {
                     const std::int32_t feedbackSkill = gBattleMSkill5AAA78;
                     if ((feedbackSkill == BattleSkill_RandomShot || feedbackSkill == 3019) && (flags & 0x20u) == 0) {
-                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 29);
+                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_RecoilAndWait44Ticks);
                     } else if ((feedbackSkill == 4002 || feedbackSkill == 3038) && (flags & 0x20u) == 0) {
-                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 30);
+                        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_RecoilAndWait14Or28Ticks);
                     } else {
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],
-                            (flags & 2u) != 0 ? 165 : 27);
+                            (flags & 2u) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                     }
                     flags = gBattleMResultFlags5A4A20;
                 }
@@ -1533,11 +1533,11 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_ShowReactionHitEffect);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_Wait30Ticks);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_EnableFlash);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], 7);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_PlayAnimation2FacingEffectTarget);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_CloseInOnEffectTarget);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_TurnTargetTowardSelf);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_AdvanceLinkedCast);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], 10);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_PlayAnimation4AndRestoreFacing);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_DisableFlash);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_SetIdlePose);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_WaitTargetReady);
@@ -1545,7 +1545,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_AdvanceEffectAndCast);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirectPosition], BattleAction_Idle);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_Idle);
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 28);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_ReactToHitWithSound);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_SetIdlePose);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_Idle);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_AdvanceEffectAndCast);
@@ -1592,12 +1592,12 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
             YobiAction* const finalAuxTarget = cg::world::gBattleAllEntries59E980[finalAuxTargetPosition];
             AppendBattleAuxEffects_43BC10(finalAuxTarget, finalAuxTargetPosition,
                 finalAuxFlags, finalAuxFirstImage, finalAuxSecondImage, finalAuxImage);
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 221);
+            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_ApplyFollowupHit);
             AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_AdvanceEffectAndCast);
             const std::uint32_t flags = gBattleMResultFlags5A4A20;
             if ((flags & 0x40u) != 0) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 34);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_BounceOutAfterKnockout);
                 const std::int32_t comparisonTargetPosition = gBattleMTargetPosition5AAA40;
                 if (cg::world::gBattleCurrentPosition5ABCA4 == comparisonTargetPosition) {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[comparisonTargetPosition], BattleAction_RequestBattleExit);
@@ -1613,7 +1613,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_PlayPhysicalReflectEffect);
             } else if (tailAmount != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],
-                    (flags & 2u) != 0 ? 165 : 27);
+                    (flags & 2u) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_ReturnToFormation);
             }
             // 原4368A2门禁只读flags最低W8，其余位视图仍沿完整W32样本。
@@ -1678,15 +1678,15 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
     caster->payload.battleActor->attackModeFF4 = mode;
     if (mode == 2) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 15);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_LaunchRangedAttack);
     } else if (mode == 3) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 15);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_LaunchRangedAttack);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TrackOpponentFacing);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_Wait21Ticks);
     } else if (mode == 4) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 18);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FireBowShots);
     }
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
@@ -1736,7 +1736,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         std::uint32_t flags = gBattleMResultFlags5A4A20;
         if ((flags & 0x108u) == 0) {
             if ((flags & 0x40u) != 0) {
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 34);
+                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_BounceOutAfterKnockout);
                 const std::int32_t comparisonTargetPosition = gBattleMTargetPosition5AAA40;
                 if (cg::world::gBattleCurrentPosition5ABCA4 == comparisonTargetPosition) {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[comparisonTargetPosition], BattleAction_RequestBattleExit);
@@ -1754,7 +1754,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_PlayPhysicalReflectEffect);
                 } else {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],
-                        (flags & 2u) != 0 ? 165 : 27);
+                        (flags & 2u) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
                 }
                 flags = gBattleMResultFlags5A4A20;
             }

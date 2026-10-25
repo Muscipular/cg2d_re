@@ -66,7 +66,7 @@ static std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA9
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectImage = firstImage;
         const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;
@@ -454,7 +454,7 @@ static void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleSce
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectImage = firstImage;
         const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;
@@ -1082,7 +1082,7 @@ static void ProcessBattleMSkill98Mode12(YobiAction* const scene, BattleScenePayl
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectImage = firstImage;
         const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;
@@ -1314,7 +1314,7 @@ static void ProcessBattleMSkill98DamageTargets(
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectImage = firstImage;
         const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;
@@ -1393,7 +1393,7 @@ static void ProcessBattleMSkill98Mode17(YobiAction* const scene, BattleScenePayl
         gBattleMResultFlags5A4A20 = flags;
         if ((flags & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
             flags = gBattleMResultFlags5A4A20;
         } else {
             firstImage = 0;
@@ -2744,7 +2744,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         AppendBattleCast_4392A0(scene, second, BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(scene, second, BattleAction_RushIntoTargetWithTrail);
@@ -2935,7 +2935,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
         }
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectFirstImage = firstImage;
         const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;
@@ -3410,7 +3410,7 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2019Images54D684 {1111
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectImage = firstImage;
         const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;

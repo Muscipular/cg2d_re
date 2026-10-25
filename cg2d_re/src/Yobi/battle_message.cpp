@@ -35,6 +35,30 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 原427470的PSN内部模式；具体状态名未证，只按资源变化及表现命名。
+enum BattleMStatusValueMode : std::int32_t {
+    BattleMStatusValueMode_DecreaseHpWithHit = 0, // 减HP并播放受击动画。
+    BattleMStatusValueMode_IncreaseHpWithRecoveryEffect = 1, // 状态HP恢复效果及资源变更等待。
+    BattleMStatusValueMode_DecreaseFp = 2, // 减FP并等待。
+    BattleMStatusValueMode_DecreaseHpAndWait = 3, // 减HP，按死亡标记选择等待路径。
+    BattleMStatusValueMode_DecreaseHpWithImage104216AndWait = 4, // 在模式3公共路径中追加图104216。
+};
+
+// 原ITM的0／6／7；预扫描与执行共用，结果字段及恢复效果字段另有解释域。
+enum BattleMItemMode : std::int32_t {
+    BattleMItemMode_RecoverTargetHp = 0, // 按目标列表恢复HP。
+    BattleMItemMode_SealCard = 6, // 封印卡三阶段及成功／失败表现。
+    BattleMItemMode_PlayNodAndWait = 7, // 音效438、点头及等待；物品身份未证。
+};
+
+// 原42782E四项分派；仅解释CMB的packetSubState58，原递增及计数门槛保持。
+enum BattleMComboPhase : std::int32_t {
+    BattleMComboPhase_ReadAndQueue = 0, // 读取消息并建立合击动作队列。
+    BattleMComboPhase_WaitForEntryCompletions = 1, // 等待完成计数达到参与者数。
+    BattleMComboPhase_AdvanceEntriesAndShowSequence = 2, // 推进参与者，按原条件显示序列。
+    BattleMComboPhase_WaitForTurnReady = 3, // 等待回合就绪并结束事件。
+};
+
 // 原427470独占的同源W32；活动路径先从载荷恢复，失活消息先解析位置，不依赖初值。
 std::int32_t gBattleMCasterPosition5AAA64 = 0; // 原全局：0x005AAA64。
 
@@ -540,7 +564,7 @@ void TakeBattleMAuxGraphics_43BF30(
     std::int32_t* const firstImage, std::int32_t* const secondImage,
     std::int32_t* const firstImages, std::int32_t* const secondImages, std::int32_t* const values)
 {
-    if (mode == 1) {
+    if (mode == BattleMAuxGraphicsReadMode_SkipPreviewFields) {
         static_cast<void>(TakeBattleMPreviewInteger_439600());
         static_cast<void>(TakeBattleMPreviewInteger_439600());
         for (std::int32_t index = 0; index < 2; ++index) {
@@ -548,7 +572,7 @@ void TakeBattleMAuxGraphics_43BF30(
             static_cast<void>(TakeBattleMPreviewInteger_439600());
             static_cast<void>(TakeBattleMPreviewInteger_439600());
         }
-    } else if (mode == 0) {
+    } else if (mode == BattleMAuxGraphicsReadMode_ReadObjectFields) {
         *firstImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
         *secondImage = character_select::ResolveCharacterImageForVersion(TakeBattleMInteger_438F70(action));
         for (std::int32_t index = 0; index < 2; ++index) {
@@ -576,7 +600,7 @@ std::int32_t ScanBattleMAttackParticipants_439920(
         static_cast<void>(TakeBattleMPreviewInteger_439600());
     }
     if ((flags & 0x800000) != 0) {
-        TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+        TakeBattleMAuxGraphics_43BF30(nullptr, BattleMAuxGraphicsReadMode_SkipPreviewFields, nullptr, nullptr, nullptr, nullptr, nullptr);
     }
     for (;;) {
         std::int32_t extraPosition = -1;
@@ -588,7 +612,7 @@ std::int32_t ScanBattleMAttackParticipants_439920(
                 extraFlags = TakeBattleMPreviewInteger_439600();
                 static_cast<void>(TakeBattleMPreviewInteger_439600());
                 if ((extraFlags & 0x800000) != 0) {
-                    TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                    TakeBattleMAuxGraphics_43BF30(nullptr, BattleMAuxGraphicsReadMode_SkipPreviewFields, nullptr, nullptr, nullptr, nullptr, nullptr);
                 }
             }
         }
@@ -607,7 +631,7 @@ std::int32_t ScanBattleMAttackParticipants_439920(
             const std::int32_t extraAttackFlags = TakeBattleMPreviewInteger_439600();
             static_cast<void>(TakeBattleMPreviewInteger_439600());
             if ((extraAttackFlags & 0x800000) != 0) {
-                TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                TakeBattleMAuxGraphics_43BF30(nullptr, BattleMAuxGraphicsReadMode_SkipPreviewFields, nullptr, nullptr, nullptr, nullptr, nullptr);
             }
             if ((extraAttackFlags & 0x200) != 0) {
                 ++participants[GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600())];
@@ -625,7 +649,7 @@ std::int32_t ScanBattleMAttackParticipants_439920(
         flags = TakeBattleMPreviewInteger_439600();
         static_cast<void>(TakeBattleMPreviewInteger_439600());
         if ((flags & 0x800000) != 0) {
-            TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+            TakeBattleMAuxGraphics_43BF30(nullptr, BattleMAuxGraphicsReadMode_SkipPreviewFields, nullptr, nullptr, nullptr, nullptr, nullptr);
         }
         currentSkill = -1;
     }
@@ -665,7 +689,7 @@ void ScanBattleMParticipants_439B30(
                 const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
                 skip(values - 1);
                 if (auxiliaryGraphics && (targetFlags & 0x800000) != 0) {
-                    TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                    TakeBattleMAuxGraphics_43BF30(nullptr, BattleMAuxGraphicsReadMode_SkipPreviewFields, nullptr, nullptr, nullptr, nullptr, nullptr);
                 }
             }
         }
@@ -702,7 +726,7 @@ void ScanBattleMParticipants_439B30(
                     const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
                     skip(1);
                     if ((targetFlags & 0x800000) != 0) {
-                        TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                        TakeBattleMAuxGraphics_43BF30(nullptr, BattleMAuxGraphicsReadMode_SkipPreviewFields, nullptr, nullptr, nullptr, nullptr, nullptr);
                     }
                     if (sourceTarget && (targetFlags & 0x200) != 0) {
                         ++participants[readPosition()];
@@ -862,7 +886,7 @@ void ScanBattleMParticipants_439B30(
                     const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
                     skip(1);
                     if ((targetFlags & 0x800000) != 0) {
-                        TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                        TakeBattleMAuxGraphics_43BF30(nullptr, BattleMAuxGraphicsReadMode_SkipPreviewFields, nullptr, nullptr, nullptr, nullptr, nullptr);
                     }
                 }
             }
@@ -901,7 +925,7 @@ void ScanBattleMParticipants_439B30(
                     }
                 }
                 if ((targetFlags & 0x800000) != 0) {
-                    TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
+                    TakeBattleMAuxGraphics_43BF30(nullptr, BattleMAuxGraphicsReadMode_SkipPreviewFields, nullptr, nullptr, nullptr, nullptr, nullptr);
                 }
             }
             followRide = true;
@@ -957,7 +981,7 @@ void ScanBattleMParticipants_439B30(
         break;
     case BattleMHeader_ITM: { // ITM
         const std::int32_t mode = TakeBattleMPreviewInteger_439600();
-        if (mode == 0) {
+        if (mode == BattleMItemMode_RecoverTargetHp) {
             readSource();
             for (;;) {
                 skip(1);
@@ -967,11 +991,11 @@ void ScanBattleMParticipants_439B30(
                 }
                 ++participants[target];
             }
-        } else if (mode == 6) {
+        } else if (mode == BattleMItemMode_SealCard) {
             readSource();
             ++participants[readPosition()];
             skip(1);
-        } else if (mode == 7) {
+        } else if (mode == BattleMItemMode_PlayNodAndWait) {
             readSource();
         }
         *flag = 1;
@@ -1648,7 +1672,7 @@ static void ProcessBattleMStatusHeader(
         const std::int32_t skillLevel = gBattleMTechnique5A4A38;
         skillActor->payload.battleActor->castSkillLevel1044 = skillLevel;
         switch (gBattleMStatusMode5ABA88) {
-        case 0:
+        case BattleMStatusValueMode_DecreaseHpWithHit:
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->soundId1018 = 273;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySound1018);
@@ -1663,7 +1687,7 @@ static void ProcessBattleMStatusHeader(
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MarkDead);
             }
             break;
-        case 1:
+        case BattleMStatusValueMode_IncreaseHpWithRecoveryEffect:
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayStatusHpRecoveryEffect);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ApplyResourceChangeAndWait);
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
@@ -1671,7 +1695,7 @@ static void ProcessBattleMStatusHeader(
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->numberDisplayType1034 = BattleNumber_IncreaseHp;
             break;
-        case 2:
+        case BattleMStatusValueMode_DecreaseFp:
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->soundId1018 = 274;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySound1018);
@@ -1681,12 +1705,12 @@ static void ProcessBattleMStatusHeader(
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->numberDisplayType1034 = BattleNumber_DecreaseFp;
             break;
-        case 3:
-        case 4:
+        case BattleMStatusValueMode_DecreaseHpAndWait:
+        case BattleMStatusValueMode_DecreaseHpWithImage104216AndWait:
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->soundId1018 = 273;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySound1018);
-            if (gBattleMStatusMode5ABA88 == 4) {
+            if (gBattleMStatusMode5ABA88 == BattleMStatusValueMode_DecreaseHpWithImage104216AndWait) {
                 cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                     ->image102C = 104216;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayConfiguredEffect42);
@@ -2133,7 +2157,7 @@ static void ProcessBattleMItemHeader(
     const std::int32_t subState = payload->packetSubState58;
     if (subState != 0) {
         const std::int32_t mode = gBattleMItemMode59FA10;
-        if (subState == 1 && (mode == 0 || mode == 6 || mode == 7)
+        if (subState == 1 && (mode == BattleMItemMode_RecoverTargetHp || mode == BattleMItemMode_SealCard || mode == BattleMItemMode_PlayNodAndWait)
             && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
@@ -2142,7 +2166,7 @@ static void ProcessBattleMItemHeader(
     }
     const std::int32_t mode = TakeBattleMInteger_438F70(scene);
     gBattleMItemMode59FA10 = mode;
-    if (mode != 0 && mode != 6 && mode != 7) {
+    if (mode != BattleMItemMode_RecoverTargetHp && mode != BattleMItemMode_SealCard && mode != BattleMItemMode_PlayNodAndWait) {
         return;
     }
     const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -2152,7 +2176,7 @@ static void ProcessBattleMItemHeader(
         FinishBattleEvent_43B6C0(scene);
         return;
     }
-    if (mode == 7) {
+    if (mode == BattleMItemMode_PlayNodAndWait) {
         actor->payload.battleActor->soundId1018 = 438;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySound1018);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayNodAnimationAndResetFrames);
@@ -2165,7 +2189,7 @@ static void ProcessBattleMItemHeader(
     AppendBattleCast_4392A0(scene, actor, BattleAction_WaitTargetReady);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FaceFormation);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayItemUseEffect);
-    if (mode == 6) {
+    if (mode == BattleMItemMode_SealCard) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_AdvanceLinkedCast);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_Idle);
         const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -2260,15 +2284,15 @@ static void ProcessBattleMComboHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     switch (payload->packetSubState58) {
-    case 0:
+    case BattleMComboPhase_ReadAndQueue:
         break;
-    case 1:
+    case BattleMComboPhase_WaitForEntryCompletions:
         if (payload->completedEntryCount00 >= payload->entryCount04) {
             payload->completedEntryCount00 = 0;
             ++payload->packetSubState58;
         }
         return;
-    case 2: {
+    case BattleMComboPhase_AdvanceEntriesAndShowSequence: {
         YobiAction* const actor = cg::world::gBattleAllEntries59E980[payload->entryPositions08[payload->completedEntryCount00]];
         if (actor->phase == BattleAction_Idle) {
             AdvanceBattleCastState_439340(actor);
@@ -2285,7 +2309,7 @@ static void ProcessBattleMComboHeader(
         }
         return;
     }
-    case 3:
+    case BattleMComboPhase_WaitForTurnReady:
         if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             YobiAction* const target = cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
             if (target != nullptr && (*reinterpret_cast<const unsigned char*>(
@@ -2331,7 +2355,7 @@ static void ProcessBattleMComboHeader(
         amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
             ->castSkill103C = -1;

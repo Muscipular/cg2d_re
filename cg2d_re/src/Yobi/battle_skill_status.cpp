@@ -498,7 +498,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
         std::uint32_t flags = gBattleMResultFlags5A4A20;
         if ((flags & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
             flags = gBattleMResultFlags5A4A20;
         }
         if ((flags & 0x10000u) != 0) {
@@ -845,7 +845,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
         std::uint32_t flags = gBattleMResultFlags5A4A20;
         if ((flags & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
             flags = gBattleMResultFlags5A4A20;
         }
         if ((flags & 0x12000u) != 0) {

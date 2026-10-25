@@ -279,7 +279,7 @@ ReadFirstTarget:
     if (skill == 81)
         skill81Value = TakeBattleMInteger_438F70(scene);
     if ((mainFlags & 0x800000) != 0)
-        TakeBattleMAuxGraphics_43BF30(scene, 0, &primaryGraphic, &mainSecondGraphic, mainFirstImages, mainSecondImages, mainValues);
+        TakeBattleMAuxGraphics_43BF30(scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &primaryGraphic, &mainSecondGraphic, mainFirstImages, mainSecondImages, mainValues);
     if (skill == BattleSkill_GuardBreak || skill == BattleSkill_ShortStrike) {
         clearedMainFlags = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(mainFlags) & ~0x4U);
         mainFlags = clearedMainFlags;
@@ -362,7 +362,7 @@ AppendPrimaryEffect:
                         secondaryFlags = TakeBattleMInteger_438F70(scene);
                         level = TakeBattleMInteger_438F70(scene);
                         if ((secondaryFlags & 0x800000) != 0)
-                            TakeBattleMAuxGraphics_43BF30(scene, 0, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
+                            TakeBattleMAuxGraphics_43BF30(scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
                         if ((secondaryFlags & 0x200) != 0) {
                             secondaryRedirectToken = TakeBattleMInteger_438F70(scene);
                             secondaryRedirect = GetBattlePosition_4237E0(secondaryRedirectToken);
@@ -471,7 +471,7 @@ AppendMainAuxiliaryEffects:
                     secondaryFlags = TakeBattleMInteger_438F70(scene);
                     level = TakeBattleMInteger_438F70(scene);
                     if ((secondaryFlags & 0x800000) != 0)
-                        TakeBattleMAuxGraphics_43BF30(scene, 0, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
+                        TakeBattleMAuxGraphics_43BF30(scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
                     if ((secondaryFlags & 0x200) != 0) {
                         skill72RedirectToken = TakeBattleMInteger_438F70(scene);
                         skill72Redirect = GetBattlePosition_4237E0(skill72RedirectToken);
@@ -540,7 +540,7 @@ AppendMainAuxiliaryEffects:
                     secondaryFlags = TakeBattleMInteger_438F70(scene);
                     level = TakeBattleMInteger_438F70(scene);
                     if ((secondaryFlags & 0x800000) != 0)
-                        TakeBattleMAuxGraphics_43BF30(scene, 0, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
+                        TakeBattleMAuxGraphics_43BF30(scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
                     if ((secondaryFlags & 0x200) != 0) {
                         skill2017RedirectToken = TakeBattleMInteger_438F70(scene);
                         skill2017Redirect = GetBattlePosition_4237E0(skill2017RedirectToken);
@@ -1114,7 +1114,7 @@ PrepareInitialTail:
         mainFlags = TakeBattleMInteger_438F70(scene);
         primaryValue = TakeBattleMInteger_438F70(scene);
         if ((mainFlags & 0x800000) != 0)
-            TakeBattleMAuxGraphics_43BF30(scene, 0, &primaryGraphic, &mainSecondGraphic, mainFirstImages, mainSecondImages, mainValues);
+            TakeBattleMAuxGraphics_43BF30(scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &primaryGraphic, &mainSecondGraphic, mainFirstImages, mainSecondImages, mainValues);
         currentTarget = targetPosition;
         secondaryPosition = -1;
         ++roundCount;
@@ -1195,7 +1195,7 @@ void TakeBattleMSkillTargets_426FC0(
         std::array<std::int32_t, 2> values {};
         if ((flags & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectTarget = *targetPosition;
         const std::int32_t effectSource = *sourcePosition;
@@ -1408,7 +1408,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
             selfFlags = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
             selfAmount = TakeBattleMInteger_438F70(scene);
             if ((selfFlags & 0x800000u) != 0) {
-                TakeBattleMAuxGraphics_43BF30(scene, 0, &selfFirstImage, &selfSecondImage,
+                TakeBattleMAuxGraphics_43BF30(scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &selfFirstImage, &selfSecondImage,
                     selfFirstImages.data(), selfSecondImages.data(), selfValues.data());
             }
             if ((selfFlags & 0x200u) != 0) {
@@ -1424,7 +1424,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectFirstImage = firstImage;
         const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;
@@ -1709,7 +1709,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         const std::int32_t amount = TakeBattleMInteger_438F70(scene);
         if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
             TakeBattleMAuxGraphics_43BF30(
-                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+                scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
         const std::int32_t effectFirstImage = firstImage;
         const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;

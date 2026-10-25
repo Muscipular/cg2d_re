@@ -5452,3 +5452,11 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 已在既有battle_message.hpp新增25项S32消息头枚举，替换77处引用（CPP65、头12；其中分类枚举取值18、分派／门禁59），没有新增头依赖或公开接口变化。逆映射数字后排除新增枚举／注释、保留字符串逐词一致；25项取值／顺序／唯一性、引用闭合、25个头标签及原表顺序、既有18项分类枚举值、UTF-8、原换行、历史进度前缀及差异检查通过。开始build.bat Debug，实际编译／链接结果随后追加。
 - build.bat Debug的MSVC x64配置、编译及链接成功，退出码0，脚本报告产物build/windows-msvc-x64/Debug/cg2d_re.exe。相关模块重编译仍有既有C4701（battle_message的amount、battle_skill_status的lastAmount／statusType、battle_skill_special的statusType／selfFlags），保持原路径；未测试、运行客户端／算法、安装依赖、计算摘要或改动IDA／外部资料。
 - 本项提交限定一份CPP、一份既有头、YMN07及本进度，共4份文件；保留原分支与既有未跟踪内容，没有创建临时补丁文件。GMN业务名、全局主场景phase8及其他解释域保留说明，不将具名和编译成功外推协议运行或全部魔法数字整理完成。
+
+## 647. Yobi战斗M消息内部模式及合击子阶段枚举（2026-10-25）
+
+- 用户要求继续分析剩余magicNumber，先记[YMN08](../doc/cg2d_yobi_battle_message_modes_enum_spec.md)，按既有委托裁决四组14项S32枚举：附加图形读取2模式、PSN数值5模式、ITM物品3模式和CMB合击4子阶段；只按已证资源变化、封印卡、图号及动作命名，原整数接口／布局保持。
+- 当前cg2d.exe会话只读核对43BF30两路8字段消费、PSN的5ABA88生产及HP／FP动作消费、ITM预扫描／执行0／6／7分派和封印卡三阶段队列、437B38起四项W32子阶段表及实际目标。PSN状态名、ITM模式7物品身份、独立结果／效果字段、零初始化及全局主场景phase8保留说明；准备实施，静态核对及实际编译结果随后追加。
+- 已在四份CPP及既有battle_message.hpp新增四组14项S32枚举，替换51处数字引用（附加图形模式30、PSN模式6、ITM模式11、CMB子阶段4），没有新增头依赖或公开接口变化。排除新声明／注释、保留字符串的五份源／头逆映射逐词一致；14项取值／顺序／唯一性、引用闭合、独立字段／初始化、UTF-8、原换行、历史进度前缀及差异检查通过。开始build.bat Debug，实际编译／链接结果随后追加。
+- build.bat Debug的MSVC x64配置、编译及链接成功，退出码0，脚本报告产物build/windows-msvc-x64/Debug/cg2d_re.exe。相关模块重编译仍有既有C4701（battle_message的amount、battle_skill_status的lastAmount／statusType、battle_skill_special的statusType／selfFlags），原路径保持；未执行测试、客户端／算法、安装依赖、计算摘要或改动IDA／外部资料。
+- 本项提交限定四份CPP、一份既有头、YMN08及本进度，共7份文件；保留原分支及既有未跟踪内容，没有创建临时补丁文件。PSN状态名、ITM模式7物品身份、独立结果／效果字段及全局主场景phase8保留说明，不将具名和编译成功外推协议运行或全部魔法数字整理完成。

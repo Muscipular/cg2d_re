@@ -9,6 +9,12 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 原43BF30读取模式；对象字段与预扫描各消费8整数，未知模式保持不读取。
+enum BattleMAuxGraphicsReadMode : std::int32_t {
+    BattleMAuxGraphicsReadMode_ReadObjectFields = 0, // 读对象游标，输出6项映射图号及2项值。
+    BattleMAuxGraphicsReadMode_SkipPreviewFields = 1, // 仅推进预扫描游标，不解引用输出。
+};
+
 // 原553E94头表索引；439B30预扫描与427470事件phase共用，不是角色动作或技能mode。
 enum BattleMHeaderKind : std::int32_t {
     BattleMHeader_SKL = 0, // 技能头；内部技能／mode与本枚举独立。

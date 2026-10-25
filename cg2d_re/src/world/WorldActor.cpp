@@ -276,9 +276,9 @@ void ApplyWorldActorActionCommand_444410(
             const std::int32_t original =
                 std::bit_cast<std::int32_t>(gWorldObjects[payload->index].imageNo);
             action->imageNo = ResolveRidingCharacterImage_51C0D0(original);
-            action->phase = 1;
+            action->phase = cg::yobi::MapActorPhase_Mounting;
         } else {
-            action->phase = 2;
+            action->phase = cg::yobi::MapActorPhase_Dismounting;
         }
         {
             cg::yobi::YobiAction* const ride = payload->rideActor44;
@@ -293,7 +293,7 @@ void ApplyWorldActorActionCommand_444410(
         }
         return;
     case 80:
-        action->phase = 3;
+        action->phase = cg::yobi::MapActorPhase_Spiral;
         action->imageNo = character_select::ResolveCharacterImageForVersion(option1);
         payload->transitionProgress48 = 0;
         return;

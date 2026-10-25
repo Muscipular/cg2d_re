@@ -372,7 +372,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
     }
     static_cast<void>(AdvanceYobiAnimationFrame_517880(gear, 100, stopAtEnd, 0, syncSource));
     if ((flags & AnimeActionFlag_Wing) == 0
-        && (parent->phase != 0
+        && (parent->phase != MapActorPhase_Normal
             || ((flags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0 && parent->characterAction == CharacterAnimation_Down))) {
         return;
     }

@@ -14,6 +14,7 @@
 #include "../world/MailState.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "NetworkRuntimeDependencies.hpp"
+#include "../Yobi/map_transition.hpp"
 #include "NetworkDispatchDependencies.hpp"
 
 #include "cg/scene/login/CharacterCreationRequest.hpp"
@@ -293,16 +294,16 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection&, const std:
         std::int16_t value02 = 0;
         switch (mode) {
         case 0:
-            actionMode = 2;
+            actionMode = cg::yobi::MapTransitionMode_ExpandingOrbit;
             break;
         case 1:
-            actionMode = 8;
+            actionMode = cg::yobi::MapTransitionMode_TrailUsingYOrigin;
             break;
         case 2:
-            actionMode = 4;
+            actionMode = cg::yobi::MapTransitionMode_AcceleratingBlink;
             break;
         case 3:
-            actionMode = 0;
+            actionMode = cg::yobi::MapTransitionMode_Wandering;
             value02 = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(direction));
             break;
@@ -351,16 +352,16 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection&, const std:
     std::int16_t actionMode;
     switch (mode) {
     case 0:
-        actionMode = 3;
+        actionMode = cg::yobi::MapTransitionMode_ContractingOrbit;
         break;
     case 1:
-        actionMode = 9;
+        actionMode = cg::yobi::MapTransitionMode_TrailUsingXOrigin;
         break;
     case 2:
-        actionMode = 5;
+        actionMode = cg::yobi::MapTransitionMode_DeceleratingBlink;
         break;
     case 3:
-        actionMode = 1;
+        actionMode = cg::yobi::MapTransitionMode_PairedEffects;
         break;
     default:
         return;

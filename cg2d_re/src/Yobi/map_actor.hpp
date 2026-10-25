@@ -10,6 +10,15 @@
 
 namespace cg::yobi {
 
+// YMN03：441DB0地图角色的phase，由43E490分派；与MapChara观察对象phase独立。
+// phase字段仍为S32；未知值沿原默认分支回0，不额外增加校验或初始化。
+enum MapActorPhase : std::int32_t {
+    MapActorPhase_Normal = 0, // 继续4417E0普通移动／绘制，可以行走，不等于Idle。
+    MapActorPhase_Mounting = 1, // 上骑过渡，结束后恢复骑乘姿态并回Normal。
+    MapActorPhase_Dismounting = 2, // 下骑过渡，清骑乘对象／恢复原图后回Normal。
+    MapActorPhase_Spiral = 3, // 按方向和进度作螺旋位移，收步动画结束后回Normal；业务招式名未证。
+};
+
 namespace detail {
 
 // 原 441DB0 的 0x50 载荷，与上方观察链载荷不同；未消费区不猜业务类型。

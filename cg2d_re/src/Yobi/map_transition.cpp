@@ -35,7 +35,7 @@ union MapTransitionSlots18 {
 };
 
 struct MapTransitionPayload {
-    std::int16_t mode;
+    std::int16_t mode; // MapTransitionMode；保留原S16，不与协议mode或action->phase混用。
     std::int16_t searchDirection02; // 原+02；过渡移动的候选搜索方向，失败／连续转向时调整。
     std::int16_t previousStepDirection04; // 原+04；上一步方向，用于连续转向判断。
     std::uint16_t directionChangeCount06; // 原+06；连续方向变化次数，阈值判断仍按S16读取。
@@ -762,34 +762,34 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
     auto* const payload = action->payload.mapTransition;
     std::int32_t result = 1;
     switch (payload->mode) {
-    case 0:
+    case MapTransitionMode_Wandering:
         result = UpdateWanderingMapTransition_446D80(action);
         break;
-    case 1:
+    case MapTransitionMode_PairedEffects:
         result = UpdatePairedEffectMapTransition_446FA0(action);
         break;
-    case 2:
+    case MapTransitionMode_ExpandingOrbit:
         result = UpdateExpandingOrbitTransition_447070(action);
         break;
-    case 3:
+    case MapTransitionMode_ContractingOrbit:
         result = UpdateContractingOrbitTransition_447230(action);
         break;
-    case 4:
+    case MapTransitionMode_AcceleratingBlink:
         result = UpdateAcceleratingBlinkTransition_4473B0(action);
         break;
-    case 5:
+    case MapTransitionMode_DeceleratingBlink:
         result = UpdateDeceleratingBlinkTransition_4474E0(action);
         break;
-    case 6:
+    case MapTransitionMode_StraightBlink:
         result = UpdateStraightBlinkTransition_447610(action);
         break;
-    case 7:
+    case MapTransitionMode_ApproachingBlink:
         result = UpdateApproachingBlinkTransition_447820(action);
         break;
-    case 8:
+    case MapTransitionMode_TrailUsingYOrigin:
         result = UpdateVerticalTrailTransition_447A20(action);
         break;
-    case 9:
+    case MapTransitionMode_TrailUsingXOrigin:
         result = UpdateCrossAxisTrailTransition_447C40(action);
         break;
     default:
@@ -886,7 +886,7 @@ YobiAction* CreateMapTransitionAction_448040(
     payload->mapY0C = mapY;
     payload->counter10 = 0;
     payload->tick14 = platform::ReadTickCount64();
-    if (mode == 0 || mode == 1) {
+    if (mode == MapTransitionMode_Wandering || mode == MapTransitionMode_PairedEffects) {
         payload->slots18.attachments.firstEffect18 = nullptr;
         payload->slots18.attachments.secondEffect1C = nullptr;
     } else {

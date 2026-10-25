@@ -412,12 +412,19 @@ static void AssignReady(YobiAction* const action)
     (action->readiness = 1);
 }
 
+// YMN03：仅用于5046D0模态对象的phase；不解释其他WindowOpening对象的透传phase。
+enum ModalActionPhase : std::int32_t {
+    ModalActionPhase_Opening = 0, // 扩张边框；沿原对象初始0，不额外写phase。
+    ModalActionPhase_ReadyOnly = 1, // winId=-1／-2展开后仅发布readiness=1。
+    ModalActionPhase_DrawingBody = 2, // 非负winId展开后绘制底图并发布readiness=1。
+};
+
 // 原函数：0x005046D0。
 static void UpdateModalAction_5046D0(YobiAction* const action)
 {
     auto* const payload = action->payload.windowUi;
 
-    if (action->phase == 0) {
+    if (action->phase == ModalActionPhase_Opening) {
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(
                 payload->centerX - payload->currentHalfWidth),
@@ -435,9 +442,9 @@ static void UpdateModalAction_5046D0(YobiAction* const action)
         payload->currentHalfHeight += action->deltaY;
         if (payload->frameCount >= 10) {
             if (payload->winId == -1 || payload->winId == -2) {
-                action->phase = 1;
+                action->phase = ModalActionPhase_ReadyOnly;
             } else if (payload->winId >= 0) {
-                action->phase = 2;
+                action->phase = ModalActionPhase_DrawingBody;
                 ++payload->frameCount;
                 return;
             }
@@ -446,11 +453,11 @@ static void UpdateModalAction_5046D0(YobiAction* const action)
         return;
     }
 
-    if (action->phase == 1) {
+    if (action->phase == ModalActionPhase_ReadyOnly) {
         AssignReady(action);
         return;
     }
-    if (action->phase != 2) {
+    if (action->phase != ModalActionPhase_DrawingBody) {
         return;
     }
 

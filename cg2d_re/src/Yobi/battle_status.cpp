@@ -887,7 +887,7 @@ void UpdateBattleAction175_412210(YobiAction* const action)
         payload->effect1060 = NewBattleBackgroundFade_421570(
             payload->effects1C[payload->effectRunningC9C].position4, 2, 0);
     }
-    payload->effect1060->phase = 0;
+    payload->effect1060->phase = BattleBackgroundFadePhase_IncreasingAlpha;
     AdvanceBattleCastState_439340(action);
 }
 
@@ -897,7 +897,7 @@ void UpdateBattleAction176_412260(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     YobiAction* const effect = payload->effect1060;
     if (effect != nullptr) {
-        effect->phase = 2;
+        effect->phase = BattleBackgroundFadePhase_DecreasingAlpha;
         payload->effect1060 = nullptr;
     }
     AdvanceBattleCastState_439340(action);

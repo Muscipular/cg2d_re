@@ -2573,7 +2573,7 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
 {
     using world::gBattleBackgroundImage59F9F8;
     switch (action->phase) {
-    case 0: {
+    case BattleBackgroundFadePhase_IncreasingAlpha: {
         const std::uint8_t alpha = GetYobiActionField30F(action);
         const std::int32_t step = action->field58;
         if (alpha + step < 255) {
@@ -2585,22 +2585,22 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
         SetYobiActionField30F(action, 255);
         if (publish != 0) {
             cg::world::gBattleBackgroundImage59F9F8 = action->imageNo;
-            action->phase = 4;
+            action->phase = BattleBackgroundFadePhase_Finishing;
         }
         [[fallthrough]];
     }
-    case 1: {
+    case BattleBackgroundFadePhase_ShowingWithAlphaOverride: {
         const std::uint32_t flags = action->flags & ~2u;
         const std::int32_t publish = action->counter28;
         SetYobiActionField308(action, 8);
         action->flags = flags;
         if (publish != 0) {
             cg::world::gBattleBackgroundImage59F9F8 = action->imageNo;
-            action->phase = 4;
+            action->phase = BattleBackgroundFadePhase_Finishing;
         }
         break;
     }
-    case 2: {
+    case BattleBackgroundFadePhase_DecreasingAlpha: {
         const std::uint8_t alpha = GetYobiActionField30F(action);
         const std::int32_t step = action->field58;
         SetYobiActionField308(action, 8);
@@ -2612,13 +2612,13 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
         SetYobiActionField30F(action, 0);
         [[fallthrough]];
     }
-    case 3: {
+    case BattleBackgroundFadePhase_HidingAndFinishing: {
         const std::uint32_t flags = action->flags;
         SetYobiActionField308(action, 0);
         action->flags = flags | 2u;
         [[fallthrough]];
     }
-    case 4:
+    case BattleBackgroundFadePhase_Finishing:
         static_cast<void>(MarkDeath(action));
         break;
     default:
@@ -2649,7 +2649,7 @@ YobiAction* NewBattleBackgroundFade_421570(
     action->displayPriority = 3;
     action->offset40 = 0.0F;
     action->offset44 = 0.0F;
-    action->phase = 0;
+    action->phase = BattleBackgroundFadePhase_IncreasingAlpha;
     action->counter28 = publishBackground;
     SetYobiActionField308(action, 8);
     SetYobiActionField30F(action, 0);

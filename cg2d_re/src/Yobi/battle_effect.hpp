@@ -90,6 +90,15 @@ enum BattleTransitionPhase : std::int32_t {
     BattleTransitionPhase_HiddenAfterStop = 1, // 停播或动画不可用后隐藏；不代表对象已销毁。
 };
 
+// 原421570/412210/412260生产、421480消费；背景效果phase，保留贯穿及延后标死。
+enum BattleBackgroundFadePhase : std::int32_t {
+    BattleBackgroundFadePhase_IncreasingAlpha = 0, // 增加color2高字节，完成后贯穿显示分支。
+    BattleBackgroundFadePhase_ShowingWithAlphaOverride = 1, // 清隐藏位并启用alpha覆盖，按原条件发布背景。
+    BattleBackgroundFadePhase_DecreasingAlpha = 2, // 减少alpha，到零后贯穿隐藏及结束分支。
+    BattleBackgroundFadePhase_HidingAndFinishing = 3, // 清覆盖掩码、置隐藏位，本轮继续标死。
+    BattleBackgroundFadePhase_Finishing = 4, // 直接标死；阶段0/1发布背景后下一轮进入。
+};
+
 // YUF01：41CD00第三槽按type选择；0..47是S32绝对／相对Y，其他类型借用已有对象，不能跨臂读取。
 union BattleEffectThirdArgument {
     std::int32_t yValue; // type47直接作绝对Y，其他消费者可能加源Y／offset44，不能统一叫offsetY。

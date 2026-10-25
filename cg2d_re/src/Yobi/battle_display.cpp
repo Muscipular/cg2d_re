@@ -27,6 +27,30 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 原420100生产imageNo阶段，420300消费；不是角色图号或phase。
+enum BattleSequenceStage : std::int32_t {
+    BattleSequenceStage_WaitingForEntry = 0, // 消耗逐项延迟，再等待原入场计数。
+    BattleSequenceStage_EnteringAndSlowing = 1, // 按创建方向入场，速度每轮减0.7。
+    BattleSequenceStage_Holding = 2, // 停留，沿原flags及计数选择后续或标死。
+    BattleSequenceStage_RisingAndSlowing = 3, // angle0向上移动，速度每轮减1。
+    BattleSequenceStage_FallingAndAccelerating = 4, // angle180向下移动，速度每轮加1。
+    BattleSequenceStage_WaitingForRemoval = 5, // 停止移动，按原总计数标死。
+};
+
+// 原41F110/41F450共享phase语义；数字延迟及50帧、图标60帧分别保持。
+enum BattleFloatingDisplayPhase : std::int32_t {
+    BattleFloatingDisplayPhase_Moving = 0, // 沿原分配初始0进入，不增加显式初始化。
+    BattleFloatingDisplayPhase_Holding = 1, // 停止移动，计数到各自阈值后标死。
+};
+
+// 原54D4E8表第二维；41F1A0/4206C0按字符选择，第一维style与本枚举独立。
+enum BattleNumberGraphicColumn : std::int32_t {
+    BattleNumberGraphicColumn_DigitBase = 0, // 加字符减'0'得到数字图。
+    BattleNumberGraphicColumn_Plus = 1, // '+'字形。
+    BattleNumberGraphicColumn_Minus = 2, // '-'字形。
+    BattleNumberGraphicColumn_Colon = 3, // ':'字形。
+};
+
 // 原4217F0的18H（24B）文本载荷；末4B用途未定，行表/行字节由421750释放。
 struct BattleTextPayload {
     YobiAction* panel00; // 原成员偏移：+0x00。
@@ -170,7 +194,7 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
         action->callback = UpdateBattleSequence_420300;
         action->displayPriority = 0xCD;
         action->mapX1E0 = static_cast<std::int32_t>(index);
-        action->imageNo = 0;
+        action->imageNo = BattleSequenceStage_WaitingForEntry;
         action->motionMagnitude54 = 18.0F;
         action->angle50 = angle;
         std::int32_t mapNo;
@@ -231,7 +255,7 @@ void MoveBattleSequence_420590(YobiAction* const action)
 void UpdateBattleSequence_420300(YobiAction* const action)
 {
     switch (action->imageNo) {
-    case 0: {
+    case BattleSequenceStage_WaitingForEntry: {
         const std::int32_t count = action->counter1DC;
         const std::int32_t delay = action->field1D0;
         action->counter1DC = count + 1;
@@ -245,7 +269,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
         }
         return;
     }
-    case 1: {
+    case BattleSequenceStage_EnteringAndSlowing: {
         ++action->counter1DC;
         MoveBattleSequence_420590(action);
         const double speed = static_cast<double>(action->motionMagnitude54) - 0.7F;
@@ -257,7 +281,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
         }
         return;
     }
-    case 2:
+    case BattleSequenceStage_Holding:
         ++action->counter1DC;
         static_cast<void>((++action->mapY1F0));
         if (action->flags != 0) {
@@ -275,7 +299,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
             static_cast<void>(MarkDeath(action));
         }
         return;
-    case 3: {
+    case BattleSequenceStage_RisingAndSlowing: {
         ++action->counter1DC;
         MoveBattleSequence_420590(action);
         static_cast<void>((++action->mapY1F0));
@@ -288,7 +312,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
         }
         return;
     }
-    case 4: {
+    case BattleSequenceStage_FallingAndAccelerating: {
         ++action->counter1DC;
         static_cast<void>((++action->mapY1F0));
         const double speed = action->motionMagnitude54 + 1.0;
@@ -299,7 +323,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
         MoveBattleSequence_420590(action);
         return;
     }
-    case 5:
+    case BattleSequenceStage_WaitingForRemoval:
         ++action->counter1DC;
         static_cast<void>((++action->mapY1F0));
         if (action->counter1DC > 240) {
@@ -315,7 +339,7 @@ void UpdateBattleSequence_420300(YobiAction* const action)
 void UpdateBattleNumber_41F110(YobiAction* const action)
 {
     const std::int32_t initialPhase = action->phase;
-    if (initialPhase == 0) {
+    if (initialPhase == BattleFloatingDisplayPhase_Moving) {
         const std::int32_t oldDelay = action->field58;
         if (oldDelay > 0) {
             action->field58 = oldDelay - 1;
@@ -327,11 +351,11 @@ void UpdateBattleNumber_41F110(YobiAction* const action)
             action->numberVelocityB8 = static_cast<float>(speed);
             action->flags = flags;
             if (reachedPeak) {
-                action->phase = 1;
+                action->phase = BattleFloatingDisplayPhase_Holding;
             }
             action->y += static_cast<std::int32_t>(speed);
         }
-    } else if (initialPhase == 1) {
+    } else if (initialPhase == BattleFloatingDisplayPhase_Holding) {
         const std::int32_t count = action->deltaX + 1;
         action->deltaX = count;
         if (count >= 50) {
@@ -376,10 +400,10 @@ std::int32_t NewBattleNumber_41F1A0(
         const std::int32_t character = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
         std::int32_t mapNo;
         switch (character) {
-        case '+': mapNo = kBattleNumberGraphics54D4E8[style][1]; break;
-        case '-': mapNo = kBattleNumberGraphics54D4E8[style][2]; break;
-        case ':': mapNo = kBattleNumberGraphics54D4E8[style][3]; break;
-        default: mapNo = kBattleNumberGraphics54D4E8[style][0] + character - '0'; break;
+        case '+': mapNo = kBattleNumberGraphics54D4E8[style][BattleNumberGraphicColumn_Plus]; break;
+        case '-': mapNo = kBattleNumberGraphics54D4E8[style][BattleNumberGraphicColumn_Minus]; break;
+        case ':': mapNo = kBattleNumberGraphics54D4E8[style][BattleNumberGraphicColumn_Colon]; break;
+        default: mapNo = kBattleNumberGraphics54D4E8[style][BattleNumberGraphicColumn_DigitBase] + character - '0'; break;
         }
         static_cast<void>(resource::GetGraphicMapNoIndex(mapNo, &action->graphicIndex));
         std::int16_t graphicX;
@@ -425,13 +449,13 @@ std::int32_t NewBattleTimeNumber_4206C0(
         const wchar_t character = buffer[index];
         std::int32_t mapNo = 0;
         if (character >= '0' && character <= '9') {
-            mapNo = kBattleNumberGraphics54D4E8[0][0] + character - '0';
+            mapNo = kBattleNumberGraphics54D4E8[0][BattleNumberGraphicColumn_DigitBase] + character - '0';
         }
         if (character == '-') {
-            mapNo = kBattleNumberGraphics54D4E8[0][2];
+            mapNo = kBattleNumberGraphics54D4E8[0][BattleNumberGraphicColumn_Minus];
         }
         if (character == ':') {
-            mapNo = kBattleNumberGraphics54D4E8[0][3];
+            mapNo = kBattleNumberGraphics54D4E8[0][BattleNumberGraphicColumn_Colon];
         }
         if (mapNo == 0) {
             continue;
@@ -482,17 +506,17 @@ std::int32_t NewBattleTimeNumber_4206C0(
 void UpdateBattleFloatingIcon_41F450(YobiAction* const action)
 {
     const std::int32_t initialPhase = action->phase;
-    if (initialPhase == 0) {
+    if (initialPhase == BattleFloatingDisplayPhase_Moving) {
         const double speed = static_cast<double>(std::bit_cast<float>(action->verticalVelocityBits4C))
             + 0.8F;
         const bool reachedPeak = speed >= 7.2F;
         action->verticalVelocityBits4C = std::bit_cast<std::uint32_t>(static_cast<float>(speed));
         if (reachedPeak) {
-            action->phase = 1;
+            action->phase = BattleFloatingDisplayPhase_Holding;
         }
         // 原FST不弹出速度，Y使用未舍入和，而非刚存回的F32。
         action->offset44 = static_cast<float>(speed + action->offset44);
-    } else if (initialPhase == 1) {
+    } else if (initialPhase == BattleFloatingDisplayPhase_Holding) {
         const std::int32_t count = action->deltaX + 1;
         action->deltaX = count;
         if (count >= 60) {

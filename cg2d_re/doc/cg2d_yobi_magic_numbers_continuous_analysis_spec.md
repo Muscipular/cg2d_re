@@ -28,3 +28,21 @@ BattleAttachedEffectMode两项为DisplayImage22326=1、DisplayImage22327=2，只
 YMN09实施：五份CPP及既有battle_effect.hpp新增三组17项，替换77处数字（图号58、附属模式5、放置模式14）。排除新增声明／注释、保留字符串的逆映射逐词核对通过；取值／顺序／唯一性、引用闭合、原整数接口／全部分支、UTF-8、原换行、历史进度前缀及差异检查通过，开始编译验证。
 
 YMN09验证：build.bat Debug的MSVC x64配置、编译及链接成功，退出码0，脚本报告build/windows-msvc-x64/Debug/cg2d_re.exe。本次输出仍有battle_message的amount及battle_effect的result可能未初始化的既有C4701，原路径保持。提交范围限定六份源／头、本文及唯一进度，共8份文件；其他候选继续分析。
+
+## YMN10：地图绘制解释域
+
+裁决七组29项：YobiGraphicAxis为U8的X=0／Y=1，置于既有YobiRuntime.hpp，替换两个原点函数的比较及所有调用，包括跨轴残影传参和窗口预览四处调用；参数仍为U8，跨轴残影的Y偏移继续取X轴，不纠正原行为。
+
+MapGearKind为S32：MainGear=0、StandOrDown=1、StandLoop=2、DirectionalBatch10=3、DirectionalBatch11=4、DirectionalBatch12=5、AdjacentImagePair=6，置于map_actor.hpp。0对应主挂件，2强制站立，3～5走方向／动作分支并以kind+7选择绘制batch，518300分别使用1.75／1.5／1.25原点系数；1及6沿原站立／倒地分支。玩家更新的6额外生成图号+1的第二挂件，与BattleAuxGearType的6不同域。animation.cpp为此增加既有map_actor.hpp引用，其余依赖不扩。
+
+environment.cpp的detail域定义三组S32：SceneEffectGraphicType为Image14645=100、Image14646=101、Image301122=201、Image1002065=202；SceneDriftVariant为FromPositiveWorldX=0、FromNegativeWorldX=1、FromNegativeWorldY=2、FromPositiveWorldY=3、RippleWithExitVariant0=4，最后一项只证明帧表第4行按index读取、附加波纹及复用变体0退出规则，未证入口方向，生成入口仍只随机0～3；SceneEffectFrameGroup为Overlay=0、Drift=1，保持表及读取次数。
+
+map_render.cpp局部S16的ActorOverheadTextSlot六项为NameC4=1、TitleE1=2、Text144=3、Text102=4、Text123=5、Text31C=6，只表示远端角色已证文本字段，后三类业务名未证。window.cpp局部S32的WindowFrameGraphicGroup三项为Image245300=2、Image245310=3、Image245380=4，只解释winId右移1后的分组，原winId、负样式、tileStyle和基础22620／22630分支保持。
+
+证据：5182B0的5182D2／5182E6和518300的518355／51837C分别判低字节0／1，查询后的无效轴仍返回0；51830D起三次比较落到51832C／518322／518318写三个系数。4412D0在441301判kind2、44130A／441310筛3～5；当前441570按kind+7绘制，地图解析与玩家更新分别写两路kind字段，未据同值复用战斗枚举。
+
+负环境类型在448DFA归一化type-100，449070起103字节压缩索引再查44905C的W32目标表，100／101／201／202实际落448E19／448E20／448E27／448E2E，分别写四图；第二张偏移分派经4490EC索引及4490D8的W32表落448ED2／448EE0／448EFF／448F1E，目标及case已核。漂移生成449261通过4493AC四项W32落449268／4492B7／449309／44935B，与四种世界坐标入口对应；退出4494CC经449554四项W32落4494D3／4494F3／449513／449533。mode4特例及低两位退出判断均保留。窗口5044E0在5045D3按winId>>1判断2／3／4，分别于5045ED／5045E4／5045DB写245300／245310／245380，未改样式含义。
+
+YMN10实施：八份CPP及两份既有头新增七组29项，替换121处数字（轴64、地图挂件22、环境类型8、漂移14、帧组3、头顶文本7、窗口分组3）。地图kind6原有倒地清图消费也具名，第二挂件创建与清图顺序保持。排除新增枚举及animation.cpp的一处既有头引用后，十份源／头逆映射逐词一致；各项数值／顺序／唯一性、同域引用、UTF-8／原换行、历史进度与差异检查通过，开始编译验证。
+
+YMN10验证：build.bat Debug的MSVC x64配置、编译、链接成功，退出码0，报告同一cg2d_re.exe路径。共享头触发相关模块重编译，仍有Yobi的amount／result／lastAmount／statusType／selfFlags／relativeX／relativeY，以及WindowBank／Contacts／Shop／Trade／Skill原路径的C4701，另见WindowShop原S32到S16的C4244；没有改变这些路径。精确提交十份源／头、本文及唯一进度，共12份文件，继续消息内部模式及阶段分析。

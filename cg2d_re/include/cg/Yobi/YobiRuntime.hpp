@@ -24,6 +24,12 @@ void ShutdownBattleEffects();
 // runtime/list 是唯一 owner，场景中的 YobiAction* 均为非拥有观察者。
 struct YobiAction;
 
+// 5182B0／518300的低字节轴；原U8参数继续承接未知值。
+enum YobiGraphicAxis : std::uint8_t {
+    YobiGraphicAxis_X = 0,
+    YobiGraphicAxis_Y = 1,
+};
+
 // YCA01：角色资源的动画编号；供characterAction及动画设置接口使用，不是phase或协议命令。
 // 原S32字段／参数继续承接未知值；YAN01按495FE0提示文字→584B6C动画表证实12～19的名称。
 enum CharacterAnimationId : std::int32_t {

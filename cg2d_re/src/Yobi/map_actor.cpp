@@ -105,7 +105,7 @@ static void DrawActorPhaseAttachment(
         || readOrder == ActorAttachmentReadOrder::BeforeXAddition;
     YobiAction* const child = *slot;
     const render::GraphicDescriptor16* const descriptor = &child->drawMode;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(child, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(child, YobiGraphicAxis_Y);
     const std::int32_t parentY = action->y;
     YobiAction* nextChild = nullptr; // 下方互补分支在读取前必定覆盖，不改变取样时点。
     if (readBeforeY) {
@@ -115,7 +115,7 @@ static void DrawActorPhaseAttachment(
     if (!readBeforeY) {
         nextChild = *slot;
     }
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(nextChild, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(nextChild, YobiGraphicAxis_X);
     const std::int32_t parentX = action->x;
     YobiAction* graphicChild = nullptr; // 同上，保留X加法前后各路径的取样顺序。
     if (readBeforeX) {
@@ -178,9 +178,9 @@ static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* con
     action->characterAction = CharacterAnimation_Sit;
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
     const std::int32_t drawY = offsetY + action->y + vertical;
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t x = action->x;
     const double sortY = static_cast<double>(action->worldY)
         + 0.001F;
@@ -255,9 +255,9 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
     action->characterAction = CharacterAnimation_Sit;
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
     const std::int32_t drawY = offsetY + action->y + vertical;
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t x = action->x;
     const double sortY = static_cast<double>(action->worldY)
         + 0.001F;
@@ -339,9 +339,9 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
     }
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
     const std::int32_t drawY = offsetY + screenY;
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t graphicIndex = action->graphicIndex;
     const std::int32_t drawX = offsetX + screenX;
     const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
@@ -386,7 +386,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         while (std::strcmp(buffer, "EF") != 0) {
             const std::int32_t kind =
                 character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
-            if (kind == 0) {
+            if (kind == MapGearKind_MainGear) {
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
@@ -408,8 +408,8 @@ std::int32_t ParseMapActorAttachments_43DD00(
                         payload->firstAuxiliaryGear34 = NewYobiGearPet_441130(imageNo, x, y);
                         payload->firstAuxiliaryGearKind3C = kind;
                     } else if (index == 1) {
-                        if (kind >= 3 && kind <= 5
-                            && payload->firstAuxiliaryGearKind3C >= 3 && payload->firstAuxiliaryGearKind3C <= 5) {
+                        if (kind >= MapGearKind_DirectionalBatch10 && kind <= MapGearKind_DirectionalBatch12
+                            && payload->firstAuxiliaryGearKind3C >= MapGearKind_DirectionalBatch10 && payload->firstAuxiliaryGearKind3C <= MapGearKind_DirectionalBatch12) {
                             MarkDeath(payload->firstAuxiliaryGear34);
                             payload->firstAuxiliaryGear34 = nullptr;
                         }
@@ -664,11 +664,11 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         ride->direction = action->direction;
         static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->rideActor44, 100, stopAtEnd, 0));
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
         YobiAction* const rideY = payload->rideActor44;
         const std::int32_t y = action->y;
         const std::int32_t drawY = offsetY + rideY->frameY + y;
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         YobiAction* const rideX = payload->rideActor44;
         const std::int32_t x = action->x;
         const std::int32_t frameX = rideX->frameX;
@@ -713,9 +713,9 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         const std::int32_t firstGraphicIndex = action->graphicIndex;
         if (world::RegisterMapActorDrawKey_446900(firstGraphicIndex, mapX, mapY) == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-            const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+            const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
             const std::int32_t drawY = offsetY + action->y;
-            const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+            const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
             const std::int32_t x = action->x;
             const auto worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
             const std::int32_t drawX = offsetX + x;
@@ -732,9 +732,9 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     } else {
         const std::int32_t mode = world::gPlayerRuntimeSlots.action == action ? 1 : 0;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
         const std::int32_t drawY = offsetY + action->y;
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t x = action->x;
         const auto worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
         const std::int32_t drawX = offsetX + x;
@@ -1118,7 +1118,7 @@ void ApplyPlayerAppearanceReply(
                 character_select::ResolveCharacterImageForVersion(mappedPet);
             payload->firstAuxiliaryGear34->imageNo = converted;
         }
-        if (kind == 6) {
+        if (kind == MapGearKind_AdjacentImagePair) {
             YobiAction* const previousSecondPet = payload->secondAuxiliaryGear38;
             ++mappedPet;
             bool hasSecondPet = previousSecondPet != nullptr;

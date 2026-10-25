@@ -42,6 +42,17 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 地图头顶文本槽；仅按远端角色字段命名，未证业务名称保留。
+enum ActorOverheadTextSlot : std::int16_t {
+    ActorOverheadTextSlot_NameC4 = 1,
+    ActorOverheadTextSlot_TitleE1 = 2,
+    ActorOverheadTextSlot_Text144 = 3,
+    ActorOverheadTextSlot_Text102 = 4,
+    ActorOverheadTextSlot_Text123 = 5,
+    ActorOverheadTextSlot_Text31C = 6,
+};
+
+
 // 原[554204,5542A4)的40项S32初值；4417A0按每25个图号一组读取。
 static std::array<std::int32_t, 40> gActorHeightOffsets554204 { // 原全局：0x00554204。
     -78, -88, -88, -81, -88, -90, -99, -88, -88, -88,
@@ -82,9 +93,9 @@ static void UpdateOneShotMapAnimation_4441A0(YobiAction* const action)
         return;
     }
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
     const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t x = action->x;
     const std::int32_t graphicIndex = action->graphicIndex;
     const std::int32_t drawX = offsetX + x;
@@ -193,10 +204,10 @@ void ResolveGearPetAnimationState_4412D0(
     auto* const payload = action->payload.mapActor;
     for (std::int32_t slot = 0; slot < 2; ++slot) {
         const std::int32_t kind = slot == 0 ? payload->firstAuxiliaryGearKind3C : payload->secondAuxiliaryGearKind40;
-        if (kind == 2) {
+        if (kind == MapGearKind_StandLoop) {
             *characterAction = CharacterAnimation_Stand;
             *revert = AnimationPlayback_Loop;
-        } else if (kind >= 3 && kind <= 5) {
+        } else if (kind >= MapGearKind_DirectionalBatch10 && kind <= MapGearKind_DirectionalBatch12) {
             switch (action->characterAction) {
             case CharacterAnimation_Walk: *characterAction = CharacterAnimation_Walk; *revert = AnimationPlayback_Loop; break;
             case CharacterAnimation_BeginRun: *characterAction = CharacterAnimation_BeginRun; *revert = AnimationPlayback_StopAtEnd; break;
@@ -239,7 +250,7 @@ void ResolveGearPetDrawPlacement_441430(
     auto* const payload = action->payload.mapActor;
     for (std::int32_t slot = 0; slot < 2; ++slot) {
         const std::int32_t kind = slot == 0 ? payload->firstAuxiliaryGearKind3C : payload->secondAuxiliaryGearKind40;
-        if (kind < 3 || kind > 5) {
+        if (kind < MapGearKind_DirectionalBatch10 || kind > MapGearKind_DirectionalBatch12) {
             continue;
         }
         switch (action->direction) {
@@ -285,11 +296,11 @@ void DrawGear_441570(
         if (child == nullptr) {
             continue;
         }
-        if (kind >= 3 && kind <= 5) {
+        if (kind >= MapGearKind_DirectionalBatch10 && kind <= MapGearKind_DirectionalBatch12) {
             const render::GraphicDescriptor16* const descriptor = &child->drawMode;
-            const std::int32_t childY = GetScaledYobiGraphicOriginOffset_518300(child, 1, kind);
+            const std::int32_t childY = GetScaledYobiGraphicOriginOffset_518300(child, YobiGraphicAxis_Y, kind);
             const std::int32_t drawY = childY + action->y + offsetY;
-            const std::int32_t childX = GetScaledYobiGraphicOriginOffset_518300(child, 0, kind);
+            const std::int32_t childX = GetScaledYobiGraphicOriginOffset_518300(child, YobiGraphicAxis_X, kind);
             const std::int32_t drawX = childX + action->x + offsetX;
             const std::int32_t graphicIndex = child->graphicIndex;
             world::DrawGearNormal_46C060(
@@ -297,15 +308,15 @@ void DrawGear_441570(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
                 descriptor, static_cast<std::uint8_t>(kind + 7));
-        } else if (kind == 1 || kind == 2 || kind == 6) {
+        } else if (kind == MapGearKind_StandOrDown || kind == MapGearKind_StandLoop || kind == MapGearKind_AdjacentImagePair) {
             const render::GraphicDescriptor16* const descriptor = &child->drawMode;
-            const std::int32_t childY = GetYobiGraphicOriginOffset_5182B0(child, 1);
+            const std::int32_t childY = GetYobiGraphicOriginOffset_5182B0(child, YobiGraphicAxis_Y);
             const std::int32_t drawY = childY + action->y;
-            const std::int32_t childX = GetYobiGraphicOriginOffset_5182B0(child, 0);
+            const std::int32_t childX = GetYobiGraphicOriginOffset_5182B0(child, YobiGraphicAxis_X);
             const std::int32_t drawX = childX + action->x;
             const std::int32_t graphicIndex = child->graphicIndex;
             world::DrawGearNormal_46C060(
-                primaryIndex, kind == 1 ? 0 : 1, graphicIndex,
+                primaryIndex, kind == MapGearKind_StandOrDown ? 0 : 1, graphicIndex,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)),
                 descriptor, 0);
@@ -389,8 +400,8 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
     }
     // 4.06@4365A6/43695F：WING共享关联主体的绘制基点，不叠加翅膀动画帧偏移。
     YobiAction* const origin = (flags & AnimeActionFlag_Wing) != 0 ? (ride != nullptr ? ride : parent) : gear;
-    const std::int32_t x = origin->x + static_cast<std::int16_t>(offsetX) + GetYobiGraphicOriginOffset_5182B0(origin, 0);
-    const std::int32_t y = origin->y + static_cast<std::int16_t>(offsetY) + GetYobiGraphicOriginOffset_5182B0(origin, 1);
+    const std::int32_t x = origin->x + static_cast<std::int16_t>(offsetX) + GetYobiGraphicOriginOffset_5182B0(origin, YobiGraphicAxis_X);
+    const std::int32_t y = origin->y + static_cast<std::int16_t>(offsetY) + GetYobiGraphicOriginOffset_5182B0(origin, YobiGraphicAxis_Y);
     world::DrawGearNormal_46C060(primaryIndex, before, gear->graphicIndex,
         static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), &gear->drawMode, 0, layer);
 }
@@ -487,12 +498,12 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             const std::int32_t imageNo = action->imageNo;
             const std::int32_t height = GetActorOverheadOffset_4417A0(imageNo);
             YobiAction* const yOffsetChild = payload->overheadMarker04;
-            const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(yOffsetChild, 1);
+            const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(yOffsetChild, YobiGraphicAxis_Y);
             const std::int32_t currentY = action->y;
             const std::int32_t heightOffsetY = height + offsetY;
             YobiAction* const xOffsetChild = payload->overheadMarker04;
             const std::int32_t drawY = heightOffsetY + currentY;
-            const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(xOffsetChild, 0);
+            const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(xOffsetChild, YobiGraphicAxis_X);
             const std::int32_t currentX = action->x;
             YobiAction* const graphicChild = payload->overheadMarker04;
             const std::int32_t drawX = offsetX + currentX;
@@ -577,7 +588,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         const wchar_t* text = nullptr;
         std::int8_t color = 0;
         if (action == world::gPlayerRuntimeSlots.action) {
-            if (nameMode <= 6) {
+            if (nameMode <= ActorOverheadTextSlot_Text31C) {
                 constexpr std::array<std::int8_t, 6> colors {1, 4, 5, 2, 0, 0};
                 text = world::GetPlayerDisplayText(nameMode);
                 color = colors[nameMode - 1];
@@ -587,12 +598,12 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             if ((actionFlags & 0x100u) != 0 && (actionFlags & 0x80000u) == 0) {
                 if (action->imageNo != 0) {
                     switch (nameMode) {
-                    case 1: text = action->nameC4.data(); color = 0; break;
-                    case 2: text = action->titleE1.data(); color = 1; break;
-                    case 3: text = action->text144.data(); color = 4; break;
-                    case 4: text = action->text102.data(); color = 5; break;
-                    case 5: text = action->text123.data(); color = 2; break;
-                    case 6: text = action->text31C.data(); color = 2; break;
+                    case ActorOverheadTextSlot_NameC4: text = action->nameC4.data(); color = 0; break;
+                    case ActorOverheadTextSlot_TitleE1: text = action->titleE1.data(); color = 1; break;
+                    case ActorOverheadTextSlot_Text144: text = action->text144.data(); color = 4; break;
+                    case ActorOverheadTextSlot_Text102: text = action->text102.data(); color = 5; break;
+                    case ActorOverheadTextSlot_Text123: text = action->text123.data(); color = 2; break;
+                    case ActorOverheadTextSlot_Text31C: text = action->text31C.data(); color = 2; break;
                     default: break;
                     }
                 }
@@ -613,14 +624,14 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
 
     // 三图标的共同定位按每个原取槽点重读，不捕获一份子指针跨越查询调用。
     const auto positionStatus = [&](YobiAction*& slot) {
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(slot, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(slot, YobiGraphicAxis_X);
         slot->x = offsetX + action->x;
         const std::int32_t height = GetActorOverheadOffset_4417A0(action->imageNo);
-        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(slot, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(slot, YobiGraphicAxis_Y);
         slot->y = height + offsetY + action->y - 20;
-        const std::int32_t worldX = GetYobiGraphicOriginOffset_5182B0(slot, 0);
+        const std::int32_t worldX = GetYobiGraphicOriginOffset_5182B0(slot, YobiGraphicAxis_X);
         slot->worldX = static_cast<float>(static_cast<double>(worldX) + action->worldX);
-        const std::int32_t worldY = GetYobiGraphicOriginOffset_5182B0(slot, 1);
+        const std::int32_t worldY = GetYobiGraphicOriginOffset_5182B0(slot, YobiGraphicAxis_Y);
         slot->worldY = static_cast<float>(
             static_cast<double>(worldY) + action->worldY + 0.1F);
     };
@@ -753,10 +764,10 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         }
         ResolveGearPetAnimationState_4412D0(action, primaryIndex, &characterAction, &revert);
         ResolveGearPetDrawPlacement_441430(action, primaryIndex, &x, &y, &before);
-        if (payload->firstAuxiliaryGearKind3C == 6 && payload->firstAuxiliaryGear34->characterAction == CharacterAnimation_Down) {
+        if (payload->firstAuxiliaryGearKind3C == MapGearKind_AdjacentImagePair && payload->firstAuxiliaryGear34->characterAction == CharacterAnimation_Down) {
             payload->firstAuxiliaryGear34->graphicIndex = -1;
         }
-        if (payload->secondAuxiliaryGearKind40 == 6 && payload->secondAuxiliaryGear38->characterAction == CharacterAnimation_Down) {
+        if (payload->secondAuxiliaryGearKind40 == MapGearKind_AdjacentImagePair && payload->secondAuxiliaryGear38->characterAction == CharacterAnimation_Down) {
             payload->secondAuxiliaryGear38->graphicIndex = -1;
         }
         DrawGear_441570(action, primaryIndex, x, y, before);

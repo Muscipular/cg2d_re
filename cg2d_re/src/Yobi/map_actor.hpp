@@ -10,6 +10,17 @@
 
 namespace cg::yobi {
 
+// 地图挂件kind；6生成相邻图号双挂件，与战斗辅助挂件类型独立。
+enum MapGearKind : std::int32_t {
+    MapGearKind_MainGear = 0,
+    MapGearKind_StandOrDown = 1,
+    MapGearKind_StandLoop = 2,
+    MapGearKind_DirectionalBatch10 = 3,
+    MapGearKind_DirectionalBatch11 = 4,
+    MapGearKind_DirectionalBatch12 = 5,
+    MapGearKind_AdjacentImagePair = 6,
+};
+
 // YMN03：441DB0地图角色的phase，由43E490分派；与MapChara观察对象phase独立。
 // phase字段仍为S32；未知值沿原默认分支回0，不额外增加校验或初始化。
 enum MapActorPhase : std::int32_t {

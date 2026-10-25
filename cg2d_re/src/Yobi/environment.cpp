@@ -28,6 +28,29 @@ volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude = 4; // 原 0x553C58。
 
 namespace detail {
 
+// 负环境配置的图形类型；只按已证资源图号命名，不是移动mode。
+enum SceneEffectGraphicType : std::int32_t {
+    SceneEffectGraphicType_Image14645 = 100,
+    SceneEffectGraphicType_Image14646 = 101,
+    SceneEffectGraphicType_Image301122 = 201,
+    SceneEffectGraphicType_Image1002065 = 202,
+};
+
+// 漂移帧表行及低两位退出变体；4只证实波纹与变体0退出规则。
+enum SceneDriftVariant : std::int32_t {
+    SceneDriftVariant_FromPositiveWorldX = 0,
+    SceneDriftVariant_FromNegativeWorldX = 1,
+    SceneDriftVariant_FromNegativeWorldY = 2,
+    SceneDriftVariant_FromPositiveWorldY = 3,
+    SceneDriftVariant_RippleWithExitVariant0 = 4,
+};
+
+// 449570帧表组索引；覆盖层及漂移对象各用独立表。
+enum SceneEffectFrameGroup : std::int32_t {
+    SceneEffectFrameGroup_Overlay = 0,
+    SceneEffectFrameGroup_Drift = 1,
+};
+
 // 原448810/448D90/449700生产，三路回调消费；characterAction在此保存移动模式。
 // mode0分别表示计时配置或直接返回，保留各入口的原解释。
 enum SceneEffectMode : std::int32_t {
@@ -144,7 +167,7 @@ static std::int32_t AdvanceSceneEffectTableFrame_449570(YobiAction* const action
         }
         action->frameRemain = frame->duration;
         std::int32_t graphicIndex;
-        if (group == 1 && image == 4) {
+        if (group == SceneEffectFrameGroup_Drift && image == SceneDriftVariant_RippleWithExitVariant0) {
             graphicIndex = frame->graphic;
         } else {
             resource::GetGraphicMapNoIndex(frame->graphic, &graphicIndex);
@@ -391,10 +414,10 @@ static void ConfigureLeftEntrySceneEffect_448D90(
     }
     std::int32_t image;
     switch (type) {
-    case 100: image = 14645; break;
-    case 101: image = 14646; break;
-    case 201: image = 301122; break;
-    case 202: image = 1002065; break;
+    case SceneEffectGraphicType_Image14645: image = 14645; break;
+    case SceneEffectGraphicType_Image14646: image = 14646; break;
+    case SceneEffectGraphicType_Image301122: image = 301122; break;
+    case SceneEffectGraphicType_Image1002065: image = 1002065; break;
     default: return;
     }
     YobiAction* action = FindLiveActionByCallback(UpdateLeftEntrySceneEffect_448BF0);
@@ -408,19 +431,19 @@ static void ConfigureLeftEntrySceneEffect_448D90(
     action->callback = UpdateLeftEntrySceneEffect_448BF0;
     InitializeSceneEffectGraphic(action, image, created);
     switch (type) {
-    case 100:
+    case SceneEffectGraphicType_Image14645:
         action->graphicOffsetX -= 189;
         action->graphicOffsetY += 217;
         break;
-    case 101:
+    case SceneEffectGraphicType_Image14646:
         action->graphicOffsetX -= 215;
         action->graphicOffsetY -= 220;
         break;
-    case 201:
+    case SceneEffectGraphicType_Image301122:
         action->graphicOffsetX -= 253;
         action->graphicOffsetY += 217;
         break;
-    case 202:
+    case SceneEffectGraphicType_Image1002065:
         action->graphicOffsetX -= 279;
         action->graphicOffsetY -= 124;
         break;
@@ -515,7 +538,7 @@ static void UpdateSceneEffectOverlay_449C10(YobiAction* const action)
         return;
     }
     action->imageNo = parent->characterAction == SceneEffectMode_MovingIn ? 0 : 1;
-    static_cast<void>(AdvanceSceneEffectTableFrame_449570(action, 0));
+    static_cast<void>(AdvanceSceneEffectTableFrame_449570(action, SceneEffectFrameGroup_Overlay));
     action->x = parent->x;
     action->y = parent->y;
 }
@@ -721,7 +744,7 @@ static void UpdateDriftingSceneEffect_449400(YobiAction* const action)
         return;
     }
     MoveSceneEffectAlongAngle_449670(action);
-    static_cast<void>(AdvanceSceneEffectTableFrame_449570(action, 1));
+    static_cast<void>(AdvanceSceneEffectTableFrame_449570(action, SceneEffectFrameGroup_Drift));
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
@@ -736,26 +759,26 @@ static void UpdateDriftingSceneEffect_449400(YobiAction* const action)
         screenY + 0.5));
     const std::int32_t image = action->imageNo;
     action->y = offsetY + projectedY;
-    if (image == 4) {
+    if (image == SceneDriftVariant_RippleWithExitVariant0) {
         static_cast<void>(ApplyRippleOffsetToSceneEffect_4496C0(action));
     }
     switch (action->imageNo & 3) {
-    case 0:
+    case SceneDriftVariant_FromPositiveWorldX:
         if (action->x < -150 || action->y > 630) {
             MarkDeath(action);
         }
         break;
-    case 1:
+    case SceneDriftVariant_FromNegativeWorldX:
         if (action->x > 790 || action->y < -150) {
             MarkDeath(action);
         }
         break;
-    case 2:
+    case SceneDriftVariant_FromNegativeWorldY:
         if (action->x > 790 || action->y > 630) {
             MarkDeath(action);
         }
         break;
-    case 3:
+    case SceneDriftVariant_FromPositiveWorldY:
         if (action->x < -150 || action->y < -150) {
             MarkDeath(action);
         }
@@ -852,33 +875,33 @@ void UpdateMapEnvironmentEffects_449160()
     action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
     const auto timeCategory = static_cast<std::uint8_t>(world::gCurrentDayPeriod_73ED48);
     action->imageNo = (timeCategory & 1u) != 0
-        ? platform::RandomRange_46FAF0(0, 1) : platform::RandomRange_46FAF0(2, 3);
+        ? platform::RandomRange_46FAF0(detail::SceneDriftVariant_FromPositiveWorldX, detail::SceneDriftVariant_FromNegativeWorldX) : platform::RandomRange_46FAF0(detail::SceneDriftVariant_FromNegativeWorldY, detail::SceneDriftVariant_FromPositiveWorldY);
     const std::int32_t speed = platform::RandomRange_46FAF0(0, 200);
     action->motionMagnitude54 = static_cast<float>(static_cast<double>(speed) * 0.01F + 2.0F);
     const std::int32_t offset = platform::RandomRange_46FAF0(0, 2048) - 1024;
     switch (action->imageNo & 3) {
-    case 0:
+    case detail::SceneDriftVariant_FromPositiveWorldX:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 213);
         action->worldX = static_cast<float>(
             world::gPlayerRuntimeSlots.action->worldX + 550.0);
         action->worldY = static_cast<float>(
             static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldY);
         break;
-    case 1:
+    case detail::SceneDriftVariant_FromNegativeWorldX:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 33);
         action->worldX = static_cast<float>(
             world::gPlayerRuntimeSlots.action->worldX - 400.0 - 150.0F);
         action->worldY = static_cast<float>(
             static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldY);
         break;
-    case 2:
+    case detail::SceneDriftVariant_FromNegativeWorldY:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 107);
         action->worldX = static_cast<float>(
             static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldX);
         action->worldY = static_cast<float>(
             world::gPlayerRuntimeSlots.action->worldY - 400.0 - 150.0F);
         break;
-    case 3:
+    case detail::SceneDriftVariant_FromPositiveWorldY:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 40) + 287);
         action->worldX = static_cast<float>(
             static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldX);

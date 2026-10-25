@@ -1,4 +1,5 @@
 #include "animation.hpp"
+#include "map_actor.hpp"
 #include "base.hpp"
 #include "../resource/AnimationRuntimeState.hpp"
 #include "cg/resource/AnimationRuntime.hpp"
@@ -186,20 +187,20 @@ std::int32_t GetScaledYobiGraphicOriginOffset_518300(
 {
     float scale = 0.0F;
     switch (kind) {
-    case 3: scale = 1.75F; break;
-    case 4: scale = 1.5F; break;
-    case 5: scale = 1.25F; break;
+    case MapGearKind_DirectionalBatch10: scale = 1.75F; break;
+    case MapGearKind_DirectionalBatch11: scale = 1.5F; break;
+    case MapGearKind_DirectionalBatch12: scale = 1.25F; break;
     default: break;
     }
     std::int16_t x;
     std::int16_t y;
     resource::GetGraphicXY(static_cast<std::uint32_t>(action->graphicIndex), &x, &y);
-    if (axis == 0) {
+    if (axis == YobiGraphicAxis_X) {
         const auto offset = static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(x) * scale));
         return action->graphicOffsetX - offset;
     }
-    if (axis == 1) {
+    if (axis == YobiGraphicAxis_Y) {
         const auto offset = static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(y) * scale));
         return action->graphicOffsetY - offset;
@@ -326,12 +327,12 @@ std::int32_t GetYobiGraphicOriginOffset_5182B0(YobiAction* const action, const s
     std::int16_t y;
     resource::GetGraphicXY(
         static_cast<std::uint32_t>(action->graphicIndex), &x, &y);
-    if (axis == 0) {
+    if (axis == YobiGraphicAxis_X) {
         const std::int32_t offsetX = x;
         const std::int32_t graphicOffsetX = action->graphicOffsetX;
         return graphicOffsetX - offsetX;
     }
-    if (axis == 1) {
+    if (axis == YobiGraphicAxis_Y) {
         const std::int32_t offsetY = y;
         const std::int32_t graphicOffsetY = action->graphicOffsetY;
         return graphicOffsetY - offsetY;

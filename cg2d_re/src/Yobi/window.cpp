@@ -15,6 +15,13 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 5044E0的winId右移1后的图形分组；与原winId及负样式分域。
+enum WindowFrameGraphicGroup : std::int32_t {
+    WindowFrameGraphicGroup_Image245300 = 2,
+    WindowFrameGraphicGroup_Image245310 = 3,
+    WindowFrameGraphicGroup_Image245380 = 4,
+};
+
 // 原475950/48AC60共用布局的24H载荷；函数指针与完成槽留在action各自家族字段。
 struct WindowOpeningPayload {
     std::uint16_t id; // 原成员偏移：+0x00。 通用展开为窗口编号，存放41/38族为kind，回调按S16读取。
@@ -972,13 +979,13 @@ YobiAction* CreateModalAction_5044E0(
             payload->baseImageNo = 22630;
         }
         switch (winId >> 1) {
-        case 2:
+        case detail::WindowFrameGraphicGroup_Image245300:
             payload->baseImageNo = 245300;
             break;
-        case 3:
+        case detail::WindowFrameGraphicGroup_Image245310:
             payload->baseImageNo = 245310;
             break;
-        case 4:
+        case detail::WindowFrameGraphicGroup_Image245380:
             payload->baseImageNo = 245380;
             break;
         default:

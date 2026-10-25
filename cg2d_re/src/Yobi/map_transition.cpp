@@ -152,9 +152,9 @@ static std::int32_t UpdateAcceleratingBlinkTransition_4473B0(YobiAction* const a
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
         const std::int32_t drawY = offsetY + action->y;
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t drawX = offsetX + action->x;
         static_cast<void>(render::DrawGraphic2_521DD0(
             drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
@@ -205,9 +205,9 @@ static std::int32_t UpdateDeceleratingBlinkTransition_4474E0(YobiAction* const a
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
         const std::int32_t drawY = offsetY + action->y;
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t drawX = offsetX + action->x;
         static_cast<void>(render::DrawGraphic2_521DD0(
             drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
@@ -382,9 +382,9 @@ static void DrawMovingTransition(
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
         const std::int32_t drawY = offsetY + action->y;
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t drawX = offsetX + action->x;
         static_cast<void>(render::DrawGraphic2_521DD0(
             drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
@@ -418,9 +418,9 @@ static void DrawTransitionOrbit(
         static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
         if (allowMapAtZero && payload->orbitRadius24 == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-            const std::int32_t yOffset = GetYobiGraphicOriginOffset_5182B0(action, 1);
+            const std::int32_t yOffset = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
             const std::int32_t drawY = yOffset + action->y;
-            const std::int32_t xOffset = GetYobiGraphicOriginOffset_5182B0(action, 0);
+            const std::int32_t xOffset = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
             const std::int32_t x = action->x;
             const std::int32_t graphicIndex = action->graphicIndex;
             const std::int32_t drawX = xOffset + x;
@@ -434,9 +434,9 @@ static void DrawTransitionOrbit(
         } else if (render::gFrameParity628FC8 == 1) {
             const std::int32_t graphicIndex = action->graphicIndex;
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-            const std::int32_t yOffset = GetYobiGraphicOriginOffset_5182B0(action, 1);
+            const std::int32_t yOffset = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
             const std::int32_t drawY = yOffset + action->y;
-            const std::int32_t xOffset = GetYobiGraphicOriginOffset_5182B0(action, 0);
+            const std::int32_t xOffset = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
             const std::int32_t drawX = xOffset + action->x;
             static_cast<void>(render::DrawGraphic2_521DD0(
                 drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
@@ -496,7 +496,7 @@ static std::int32_t UpdateTransitionTrail(
         const std::int32_t height = payload->height3C;
         const std::int32_t y = action->y;
         const std::int32_t drawY = offsetY + height + y;
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t drawX = offsetX + action->x;
         static_cast<void>(render::DrawGraphic2_521DD0(
             drawX, drawY, 11, graphicIndex, 0, 0, descriptor));
@@ -507,7 +507,7 @@ static std::int32_t UpdateTransitionTrail(
             if (graphicIndex >= 0) {
                 const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, yOffsetAxis);
                 const std::int32_t drawY = offsetY + payload->trailY94[index];
-                const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+                const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
                 const std::int32_t drawX = offsetX + payload->trailX6C[index];
                 static_cast<void>(render::DrawGraphic2_521DD0(
                     drawX, drawY, 11, graphicIndex, 0, 0, nullptr));
@@ -747,13 +747,13 @@ static std::int32_t UpdateApproachingBlinkTransition_447820(YobiAction* const ac
 // 原函数：0x00447A20。
 static std::int32_t UpdateVerticalTrailTransition_447A20(YobiAction* const action)
 {
-    return UpdateTransitionTrail(action, 1);
+    return UpdateTransitionTrail(action, YobiGraphicAxis_Y);
 }
 
 // 原函数：0x00447C40。
 static std::int32_t UpdateCrossAxisTrailTransition_447C40(YobiAction* const action)
 {
-    return UpdateTransitionTrail(action, 0);
+    return UpdateTransitionTrail(action, YobiGraphicAxis_X);
 }
 
 // 原函数：0x00447E60。
@@ -817,9 +817,9 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
         return;
     }
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
     const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t x = action->x;
     const std::int32_t graphicIndex = action->graphicIndex;
     const std::int32_t drawX = offsetX + x;

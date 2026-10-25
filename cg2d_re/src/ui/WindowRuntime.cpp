@@ -2167,9 +2167,9 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowItemSelectorState* cons
     const render::GraphicDescriptor16* const descriptor =
         cg::yobi::ApplyWindowAnimationDrawMode(preview, true);
     const std::uint8_t layer = cg::yobi::GetYobiActionField15(preview);
-    const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, 1);
+    const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, cg::yobi::YobiGraphicAxis_Y);
     const std::int32_t y = offsetY + currentWindow->y + 163;
-    const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, 0);
+    const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(preview, cg::yobi::YobiGraphicAxis_X);
     const std::int32_t elementX = panelElement->x;
     const std::int32_t x = elementX + offsetX + currentWindow->x + 101;
     return render::DrawGraphic2_521DD0(x, y, layer, graphicIndex, 0, 0, descriptor);
@@ -5176,10 +5176,10 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
         }
         const render::GraphicDescriptor16* const mode =
             cg::yobi::ApplyWindowAnimationDrawMode(action);
-        const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, 1);
+        const std::int32_t offsetY = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, cg::yobi::YobiGraphicAxis_Y);
         const std::int32_t animationElementY = element->y;
         const std::int32_t drawY = offsetY + oy + animationElementY;
-        const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t offsetX = cg::yobi::GetYobiGraphicOriginOffset_5182B0(action, cg::yobi::YobiGraphicAxis_X);
         const std::int32_t animationElementX = element->x;
         const std::int32_t drawX = offsetX + ox + animationElementX;
         static_cast<void>(render::DrawGraphic2_521DD0(

@@ -408,9 +408,9 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
                 shiftY = (action->y - parentY) * remaining / 15;
             }
         }
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         action->deltaX = offsetX + shiftX + relativeX + parentX;
-        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+        const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
         action->deltaY = offsetY + shiftY + relativeY + parentY;
     }
     ++action->value1D4;
@@ -524,8 +524,8 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
         const std::int32_t drawSlot = action->field1D0;
         AddObservationMemberSlotOffset_43FD90(drawImageNo, drawSlot, drawDirection, &slotX, &slotY);
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-        const std::int32_t drawY = GetYobiGraphicOriginOffset_5182B0(action, 1) + shiftY + relativeY + parentY;
-        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+        const std::int32_t drawY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y) + shiftY + relativeY + parentY;
+        const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
         const std::int32_t primaryIndex = parent->value1D4;
         const std::int32_t drawX = offsetX + shiftX + relativeX + parentX;
         const std::int32_t graphicIndex = action->graphicIndex;
@@ -647,9 +647,9 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
     action->x = x;
     action->y = y;
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
     const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t drawX = offsetX + action->x;
     const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::uint32_t worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
@@ -754,9 +754,9 @@ static void UpdateArrivingObservationGroup_440070(YobiAction* const action)
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
     action->x = x;
     action->y = y;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
     const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t drawX = offsetX + action->x;
     const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::int32_t graphicIndex = action->graphicIndex;
@@ -879,13 +879,13 @@ static void UpdateObservationTravelProjection_440C50(YobiAction* const action)
         const std::int32_t direction = child->direction;
         const std::int32_t slot = child->field1D0;
         AddObservationMemberSlotOffset_43FD90(action->imageNo, slot, direction, &offsetX, &offsetY);
-        const std::int32_t graphicX = GetYobiGraphicOriginOffset_5182B0(payload->partyActions[index], 0);
+        const std::int32_t graphicX = GetYobiGraphicOriginOffset_5182B0(payload->partyActions[index], YobiGraphicAxis_X);
         const std::int32_t frameX = action->frameX;
         const std::int32_t parentX = action->x;
         const std::int32_t frameOffsetX = graphicX + frameX;
         const std::int32_t slotOffsetX = offsetX;
         drawX[index] = frameOffsetX + parentX + slotOffsetX;
-        const std::int32_t graphicY = GetYobiGraphicOriginOffset_5182B0(payload->partyActions[index], 1);
+        const std::int32_t graphicY = GetYobiGraphicOriginOffset_5182B0(payload->partyActions[index], YobiGraphicAxis_Y);
         const std::int32_t frameY = action->frameY;
         const std::int32_t parentY = action->y;
         const std::int32_t frameOffsetY = graphicY + frameY;
@@ -933,9 +933,9 @@ static void UpdateObservationTravelProjection_440C50(YobiAction* const action)
     }
     const std::int32_t graphicIndex = action->graphicIndex;
     const render::GraphicDescriptor16* const mode = &action->drawMode;
-    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
+    const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
     const std::int32_t y = offsetY + action->y;
-    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
+    const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_X);
     const std::int32_t x = offsetX + action->x;
     render::DrawGraphic2_521DD0(x, y, 10, graphicIndex, 0, 0, mode);
     ++payload->frame;

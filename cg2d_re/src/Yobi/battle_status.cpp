@@ -20,6 +20,27 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 动作163进入分支的FD4阶段；与同字段的退出／返回解释分开。
+enum BattleRebirthEnterPhase : std::int32_t {
+    BattleRebirthEnterPhase_Start = 0,
+    BattleRebirthEnterPhase_FadeAndWaitTransition = 1,
+    BattleRebirthEnterPhase_CreatePersistentEffects = 2,
+};
+
+// 动作163退出分支的FD4阶段；原淡入准备与完成清零顺序保持。
+enum BattleRebirthExitPhase : std::int32_t {
+    BattleRebirthExitPhase_PrepareFadeIn = 0,
+    BattleRebirthExitPhase_FadeIn = 1,
+};
+
+// 动作164的FD4阶段；2仅证实消费时不标死保存效果，不新增生产路径。
+enum BattleRebirthReturnPhase : std::int32_t {
+    BattleRebirthReturnPhase_StartTransition = 0,
+    BattleRebirthReturnPhase_FadeInAndMarkEffectDead = 1,
+    BattleRebirthReturnPhase_FadeInWithoutMarkDeath = 2,
+};
+
+
 
 
 static constexpr std::array<std::array<std::int32_t, 2>, 4> kRebirthExitImages4118BF {{
@@ -412,7 +433,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
     const std::int32_t initialEffect = payload->effectRunningC9C;
     if ((payload->effects1C[initialEffect].flags & 0x80000u) != 0) {
         switch (payload->valueFD4) {
-        case 0: {
+        case BattleRebirthEnterPhase_Start: {
             const std::int32_t direction = action->direction;
             const bool side = direction < 6 && static_cast<std::uint32_t>(direction) > 2u;
             const std::int32_t soundX = action->x;
@@ -424,7 +445,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                 action->flags |= 0x8000u;
             }
             const std::int32_t effectIndex = payload->effectRunningC9C;
-            payload->valueFD4 = 1;
+            payload->valueFD4 = BattleRebirthEnterPhase_FadeAndWaitTransition;
             YobiAction* const effect = NewBattleTransitionEffect_419C10(action,
                 kRebirthEnterImages[payload->effects1C[effectIndex].position][side]);
             payload->rebirthEffect106C = effect;
@@ -436,12 +457,12 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
             break;
         }
-        case 1: {
+        case BattleRebirthEnterPhase_FadeAndWaitTransition: {
             const std::int32_t imageNo = action->imageNo;
             if (imageNo == payload->effects1C[initialEffect].position4) {
                 YobiAction* const effect = payload->rebirthEffect106C;
                 if (effect == nullptr || effect->phase != BattleTransitionPhase_Playing) {
-                    payload->valueFD4 = 2;
+                    payload->valueFD4 = BattleRebirthEnterPhase_CreatePersistentEffects;
                 }
                 static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             } else {
@@ -469,7 +490,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             }
             break;
         }
-        case 2: {
+        case BattleRebirthEnterPhase_CreatePersistentEffects: {
             YobiAction* const previousEffect = payload->rebirthEffect106C;
             if (previousEffect != nullptr) {
                 static_cast<void>(MarkDeath(previousEffect));
@@ -532,7 +553,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             static_cast<void>(AdvanceBattleEffect_439470(action));
             AdvanceBattleCastState_439340(action);
             action->frameEvent = 0;
-            payload->valueFD4 = 0;
+            payload->valueFD4 = BattleRebirthEnterPhase_Start;
             break;
         }
         default:
@@ -550,7 +571,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
 
     action->characterAction = CharacterAnimation_Cast;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
-    if (payload->valueFD4 == 1) {
+    if (payload->valueFD4 == BattleRebirthExitPhase_FadeIn) {
         const std::uint8_t alpha = GetYobiActionField30F(action);
         if (alpha + 7 > 255) {
             YobiAction* const previousEffect = payload->rebirthEffect106C;
@@ -566,11 +587,11 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             static_cast<void>(AdvanceBattleEffect_439470(action));
             AdvanceBattleCastState_439340(action);
             action->frameEvent = 0;
-            payload->valueFD4 = 0;
+            payload->valueFD4 = BattleRebirthExitPhase_PrepareFadeIn;
         } else {
             SetYobiActionField30F(action, static_cast<std::uint8_t>(alpha + 7));
         }
-    } else if (payload->valueFD4 == 0) {
+    } else if (payload->valueFD4 == BattleRebirthExitPhase_PrepareFadeIn) {
         const std::int8_t initialType = payload->rebirthEffectType1080;
         if (initialType > 0) {
             static_cast<void>(audio::PlaySe_52C450(kRebirthExitSounds411901[initialType - 1], action->x));
@@ -609,7 +630,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             SetYobiActionField309(effect, 4);
             SetYobiActionField310(payload->rebirthEffect106C, 4);
         }
-        payload->valueFD4 = 1;
+        payload->valueFD4 = BattleRebirthExitPhase_FadeIn;
     }
 }
 
@@ -620,14 +641,14 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
     action->characterAction = CharacterAnimation_Stand;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     const std::int32_t stage = payload->valueFD4;
-    if (stage != 0) {
-        if (stage > 0 && stage <= 2) {
+    if (stage != BattleRebirthReturnPhase_StartTransition) {
+        if (stage > BattleRebirthReturnPhase_StartTransition && stage <= BattleRebirthReturnPhase_FadeInWithoutMarkDeath) {
             const std::uint8_t alpha = GetYobiActionField30F(action);
             if (alpha + 7 <= 255) {
                 SetYobiActionField30F(action, static_cast<std::uint8_t>(alpha + 7));
                 return;
             }
-            if (stage == 1) {
+            if (stage == BattleRebirthReturnPhase_FadeInAndMarkEffectDead) {
                 static_cast<void>(MarkDeath(payload->rebirthEffect106C));
             }
             payload->rebirthEffect106C = nullptr;
@@ -640,7 +661,7 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
             action->phase = savedPhase;
             payload->valueFF0 = 0;
             action->frameEvent = 0;
-            payload->valueFD4 = 0;
+            payload->valueFD4 = BattleRebirthReturnPhase_StartTransition;
         }
         return;
     }
@@ -683,7 +704,7 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
         SetYobiActionField309(effect, 4);
         SetYobiActionField310(payload->rebirthEffect106C, 4);
     }
-    payload->valueFD4 = 1;
+    payload->valueFD4 = BattleRebirthReturnPhase_FadeInAndMarkEffectDead;
 }
 
 // 原函数：0x00411D30。

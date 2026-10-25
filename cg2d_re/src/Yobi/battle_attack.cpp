@@ -2061,10 +2061,10 @@ void UpdateBattleAction241_417B80(YobiAction* const action)
     const std::int32_t skill = payload->castSkill103C;
     if (skill == BattleSkill_MagicMissile) {
         const std::int32_t image = payload->castSkillLevel1044 < 12 ? 114177 : 114196;
-        static_cast<void>(NewBattleArcShot_419DA0(action, effect, image, payload->image102C, 0));
+        static_cast<void>(NewBattleArcShot_419DA0(action, effect, image, payload->image102C, BattleArcShotMode_ResolveProjectileHit));
     } else if (skill == BattleSkill_ConfusionShockwave) {
         const std::int32_t image = payload->castSkillLevel1044 < 12 ? 114263 : 114264;
-        static_cast<void>(NewBattleArcShot_419DA0(action, effect, image, payload->image102C, 0));
+        static_cast<void>(NewBattleArcShot_419DA0(action, effect, image, payload->image102C, BattleArcShotMode_ResolveProjectileHit));
     }
     static_cast<void>(AdvanceBattleEffect_439470(action));
     payload->valueFF0 = 6;
@@ -2086,10 +2086,10 @@ void UpdateBattleAction242_417CC0(YobiAction* const action)
         const std::int32_t skill = payload->castSkill103C;
         if (skill == BattleSkill_MagicMissile) {
             const std::int32_t image = payload->castSkillLevel1044 < 12 ? 114177 : 114196;
-            static_cast<void>(NewBattleArcShot_419DA0(action, effect, image, payload->image102C, 0));
+            static_cast<void>(NewBattleArcShot_419DA0(action, effect, image, payload->image102C, BattleArcShotMode_ResolveProjectileHit));
         } else if (skill == BattleSkill_ConfusionShockwave) {
             const std::int32_t image = payload->castSkillLevel1044 < 12 ? 114263 : 114264;
-            static_cast<void>(NewBattleArcShot_419DA0(action, effect, image, payload->image102C, 0));
+            static_cast<void>(NewBattleArcShot_419DA0(action, effect, image, payload->image102C, BattleArcShotMode_ResolveProjectileHit));
         }
         static_cast<void>(AdvanceBattleEffect_439470(action));
     }

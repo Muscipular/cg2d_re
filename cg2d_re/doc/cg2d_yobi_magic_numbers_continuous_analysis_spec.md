@@ -62,3 +62,23 @@ battle_message.cpp内部另定义四组：BattleMQueuedPhase两项ReadAndQueue=0
 YMN11实施：七份CPP及既有battle_base.hpp新增六组32项，替换91处数字（跳舞模式48、SKL阶段20、两阶段消息门禁12、MON阶段5、CHT阶段2、GMN模式4），没有新增头依赖。八份源／头逆映射逐词一致，取值／顺序／唯一性、引用闭合、完整字符串、原整数类型／控制流／顺序、UTF-8／原换行、历史进度和差异检查通过，开始编译验证。
 
 YMN11验证：build.bat Debug配置、编译和链接成功，退出码0；仍有既有C4701（amount／result／lastAmount／statusType／selfFlags），原未初始化分支保持。精确提交八份源／头、本文及唯一进度，共10份文件；其他候选继续分析。
+
+## YMN12：就绪策略、效果门禁、变身阶段及Lua操作
+
+裁决八组19项S32。BattleTurnReadyPolicy两项AllowInactiveSkip=0／CheckAllSelectedEntries=1，置于battle_base.hpp；只表达4394A0是否允许FE0 bit1、aliveFF8及角色phase组合条件跳过参与者，不把这些字段扩写为死亡状态。BattleArcShotMode只定义ResolveProjectileHit=0，原419DA0的其他非零输入仍选择动作243；当前调用只传0，没有臆造1号枚举。BattleTrailRenderMode两项LeaveFlag20000=0／AddFlag20000=1，仅表达41E7C0的mode==1追加20000h位，不给该位猜业务名。后二组置于battle_effect.hpp。
+
+battle_impact.cpp内部BattleImpactPhase两项WaitForTargetIdle=0／Running=1，仅用于41A9E0／41AF00／41B440／41BB00／41C3B0／4219D0六类效果的首次目标待机门禁；不解释全局主场景phase8，也不把新建动作的统一零初始化套用此枚举。
+
+battle_status.cpp内部对共享临时字段FD4分三域：BattleRebirthEnterPhase的Start=0／FadeAndWaitTransition=1／CreatePersistentEffects=2，对应163的进入分支；BattleRebirthExitPhase的PrepareFadeIn=0／FadeIn=1，对应163的退出分支；BattleRebirthReturnPhase的StartTransition=0／FadeInAndMarkEffectDead=1／FadeInWithoutMarkDeath=2，对应164回原动作。后者2只证实消费行为：淡入结束清保存引用但不主动标死，生产来源未闭合；保留原>0且<=2门禁，不新增2的写入。
+
+battle_lua_skill.cpp内部LuaBattleOperation四项SetHp=1／ApplyDebuff=2／ClearDebuff=3／AppendHit=4，以当前Lua读取—校验—暂存—提交为证，不声称原EXE存在同一操作协议。只替换opId比较及输入上下界，保留其int字段、初值0、错误路径、值校验、命中顺序及全部Lua字符串。
+
+证据：4394CD读父phase、4394D3判24，4394D8判enable零，4394DC～4394F1检查FE0／FF8／角色phase组合；当前所有调用的0／1及条件参数同域，超时1200仍为数量参数。419E8A／419E8C判最后参数零，419E97写动作16，非零于419E8E写243；41E827仅判第四参数为1，41E829 OR20000h，随机及其余标志操作不变。41A9E9／41A9EF读并判自身phase0，41AA07／41AA0A判目标phase0，41AA15再写自身1；当前其余五函数具有相同门禁，目标仍用BattleAction_Idle。
+
+4113C7读取FD4，进入分支依0／1／2初始化、淡变／等待及创建持久效果；4116A6写2，进入结束清0。当前163退出支路分别准备淡入、增加alpha后清0。411A6D读取返回阶段，411C97写1；164对1／2的不同标死行为及原保存phase恢复顺序保持。Lua的opId生产由LuaRequireIntField要求1～4，提交分别写readiness、写已暂存减益、清异常、追加命中及反应队列，当前逐项对应。
+
+保留AppendBattleSkillTail_424500的mode==0：调用方传入完整解析数值（level／primaryValue），并非已证有限模式集合，不能擅造0／1枚举。其他计数、效果资源号及全局主场景phase8仍独立处理。
+
+YMN12实施：九份CPP及两份既有头新增八组19项，替换77处数字（就绪策略16、弧形投射5、尾迹8、效果门禁12、变身进入6／退出4／返回6、Lua操作20），没有新增头依赖。十一份源／头逆映射逐词、各项数值／顺序／唯一性、引用闭合、字符串与原控制流／顺序、UTF-8／原换行、历史进度和差异检查通过，开始编译验证。
+
+YMN12验证：build.bat Debug配置、编译、链接成功，退出码0；仍有既有C4701（amount／result／lastAmount／statusType／selfFlags），原路径保持。精确提交十一份源／头、本文及唯一进度，共13份文件，继续核查剩余分派与位标志。

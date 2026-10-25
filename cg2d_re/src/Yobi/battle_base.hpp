@@ -79,6 +79,12 @@
 namespace cg::yobi {
 
 namespace detail {
+// 4394A0是否允许原FE0／FF8／phase组合条件跳过参与者；未知非零仍按原路径检查。
+enum BattleTurnReadyPolicy : std::int32_t {
+    BattleTurnReadyPolicy_AllowInactiveSkip = 0,
+    BattleTurnReadyPolicy_CheckAllSelectedEntries = 1,
+};
+
 // SKL技能98的内部模式；与技能号、PSN模式独立，未证舞蹈名按已证行为命名。
 enum BattleDanceMode : std::int32_t {
     BattleDanceMode_Poison = 0,

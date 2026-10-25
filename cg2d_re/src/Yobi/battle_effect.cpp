@@ -1486,7 +1486,7 @@ YobiAction* NewBattleArcShot_419DA0(
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
     }
-    action->phase = mode != 0 ? BattleAction_ResolveStraightProjectileHit : BattleAction_ResolveProjectileHit;
+    action->phase = mode != BattleArcShotMode_ResolveProjectileHit ? BattleAction_ResolveStraightProjectileHit : BattleAction_ResolveProjectileHit;
     const std::uint32_t hiddenFlags = action->flags | 2u;
     action->imageNo = imageNo;
     action->flags = hiddenFlags;
@@ -1860,7 +1860,7 @@ YobiAction* NewBattleTrailEffect_41E7C0(
         const std::int32_t modeFlag = platform::RandomRange_46FAF0(0, 1);
         action->flags |= modeFlag == 0 ? 0x10000u : 0x8000u;
     }
-    if (mode == 1) {
+    if (mode == BattleTrailRenderMode_AddFlag20000) {
         action->flags |= 0x20000u;
     }
     action->flags |= 0x40000u;

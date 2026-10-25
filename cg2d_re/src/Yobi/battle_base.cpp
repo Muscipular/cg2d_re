@@ -765,7 +765,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
         }
         const std::int32_t parentPhase = parent->phase;
         const auto* const actorPayload = static_cast<const BattleActorPayload*>(actor->payload.battleActor);
-        if (parentPhase != 24 && enable == 0
+        if (parentPhase != 24 && enable == BattleTurnReadyPolicy_AllowInactiveSkip
             && (*reinterpret_cast<const unsigned char*>(&actorPayload->stateFE0) & 2u) != 0
             && actorPayload->aliveFF8 == 0 && actor->phase != BattleAction_ReactToHit) {
             continue;

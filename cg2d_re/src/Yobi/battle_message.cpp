@@ -1357,7 +1357,7 @@ static void ProcessBattleMTransitionHeader(
     const std::int32_t subState = payload->packetSubState58;
     if (subState != BattleMQueuedPhase_ReadAndQueue) {
         if (subState == BattleMQueuedPhase_WaitForTurnReady
-            && CheckBattleTurnReady_4394A0(scene, kind == BattleMTransitionHeader::Clear ? 1 : 0) == 1) {
+            && CheckBattleTurnReady_4394A0(scene, kind == BattleMTransitionHeader::Clear ? BattleTurnReadyPolicy_CheckAllSelectedEntries : BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             if (kind == BattleMTransitionHeader::PetNotice || kind == BattleMTransitionHeader::PetLeave) {
                 FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             }
@@ -1627,14 +1627,14 @@ static void ProcessBattleMDataHeader(
         } else if (flags == 0x1000u) {
             AddBattleAppendEffect_43BE00(11, technique, gBattleMCasterPosition5AAA64);
         }
-        if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+        if (CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
         }
         return;
     }
     case BattleMDataHeader::End:
-        if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+        if (CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FinishBattleEvent_43B6C0(scene);
             world::gCurrentSceneState = 7;
         }
@@ -1649,7 +1649,7 @@ static void ProcessBattleMStatusHeader(
     const std::int32_t subState = payload->packetSubState58;
     if (subState != BattleMQueuedPhase_ReadAndQueue) {
         if ((kind == BattleMStatusHeader::QueuedValue || subState == BattleMQueuedPhase_WaitForTurnReady)
-            && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+            && CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
         }
@@ -1857,7 +1857,7 @@ static void ProcessBattleMPositionHeader(
 {
     const std::int32_t subState = payload->packetSubState58;
     if (subState != BattleMQueuedPhase_ReadAndQueue) {
-        if (subState == BattleMQueuedPhase_WaitForTurnReady && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+        if (subState == BattleMQueuedPhase_WaitForTurnReady && CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             const std::int32_t otherPosition = cg::world::GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             YobiAction* const other = cg::world::gBattleAllEntries59E980[otherPosition];
@@ -2034,7 +2034,7 @@ static void ProcessBattleMMonsterHeader(
     std::int32_t defenderPosition = gBattleMDefenderPosition5A4A24;
     const std::int32_t subState = payload->packetSubState58;
     if (subState == BattleMMonsterPhase_WaitForActors) {
-        if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+        if (CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             YobiAction* const defender = cg::world::gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24];
             if (defender == nullptr || defender->payload.battleActor->busyFD8 == 0) {
                 FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
@@ -2185,7 +2185,7 @@ static void ProcessBattleMItemHeader(
     if (subState != BattleMQueuedPhase_ReadAndQueue) {
         const std::int32_t mode = gBattleMItemMode59FA10;
         if (subState == BattleMQueuedPhase_WaitForTurnReady && (mode == BattleMItemMode_RecoverTargetHp || mode == BattleMItemMode_SealCard || mode == BattleMItemMode_PlayNodAndWait)
-            && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+            && CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
         }
@@ -2337,7 +2337,7 @@ static void ProcessBattleMComboHeader(
         return;
     }
     case BattleMComboPhase_WaitForTurnReady:
-        if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+        if (CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             YobiAction* const target = cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
             if (target != nullptr && (*reinterpret_cast<const unsigned char*>(
                     &target->payload.battleActor->flagsFDC) & BattleActorFlag_Dead) == 0) {
@@ -2558,7 +2558,7 @@ static void ProcessBattleMGmnHeader(
         if (second != nullptr && second->payload.battleActor->busyFD8 == 1) {
             return;
         }
-        if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+        if (CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
         }
@@ -2757,7 +2757,7 @@ static void ProcessBattleMRideHeader(
 {
     const std::int32_t subState = payload->packetSubState58;
     if (subState != BattleMQueuedPhase_ReadAndQueue) {
-        if (subState == BattleMQueuedPhase_WaitForTurnReady && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+        if (subState == BattleMQueuedPhase_WaitForTurnReady && CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FinishBattleEvent_43B6C0(scene);
         }
         return;

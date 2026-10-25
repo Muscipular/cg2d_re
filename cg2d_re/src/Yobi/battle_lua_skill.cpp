@@ -129,6 +129,14 @@ struct PendingVisualFrame {
     bool markDeath = false;
 };
 
+// 当前Lua批处理操作号；依据本文件读取／校验／提交，不是原EXE协议枚举。
+enum LuaBattleOperation : std::int32_t {
+    LuaBattleOperation_SetHp = 1,
+    LuaBattleOperation_ApplyDebuff = 2,
+    LuaBattleOperation_ClearDebuff = 3,
+    LuaBattleOperation_AppendHit = 4,
+};
+
 struct PendingOperation {
     int opId = 0;
     int position = 0;
@@ -1001,15 +1009,15 @@ static void ReadOperations(lua_State* L, int index) {
             luaL_error(L, "operation item must be a table");
         }
         PendingOperation operation{};
-        operation.opId = LuaRequireIntField(L, -1, "opId", 1, 4);
-        if (operation.opId == 4) {
+        operation.opId = LuaRequireIntField(L, -1, "opId", LuaBattleOperation_SetHp, LuaBattleOperation_AppendHit);
+        if (operation.opId == LuaBattleOperation_AppendHit) {
             operation.hitIndex = ReadHit(L, -1);
         } else {
             operation.position = LuaRequireIntField(L, -1, "pos", 0, kBattleEntryCount - 1);
             operation.value = LuaOptionalIntField(L, -1, "value", 0,
                                                    std::numeric_limits<int>::min(),
                                                    std::numeric_limits<int>::max());
-            if (operation.opId == 1 || operation.opId == 2) {
+            if (operation.opId == LuaBattleOperation_SetHp || operation.opId == LuaBattleOperation_ApplyDebuff) {
                 LuaRawGetField(L, -1, "value");
                 bool hasValue = !lua_isnil(L, -1);
                 lua_pop(L, 1);
@@ -1687,7 +1695,7 @@ static bool ValidateOperationBatch(uint32_t nodeId) {
     size_t hitCount = 0;
     for (size_t i = 0; i < gPendingBatch.operations.size(); ++i) {
         const PendingOperation& operation = gPendingBatch.operations[i];
-        if (operation.opId == 4) {
+        if (operation.opId == LuaBattleOperation_AppendHit) {
             if (nodeId == 0 || operation.hitIndex != hitCount ||
                 operation.hitIndex >= gPendingBatch.hits.size()) {
                 return false;
@@ -1716,19 +1724,19 @@ static bool ValidateOperationBatch(uint32_t nodeId) {
         if (!target || !target->payload.battleActor) {
             return false;
         }
-        if (operation.opId == 1) {
+        if (operation.opId == LuaBattleOperation_SetHp) {
             int maxHp = target->maxHp;
             if (operation.value < 0 || operation.value > maxHp) {
                 return false;
             }
-        } else if (operation.opId == 2) {
+        } else if (operation.opId == LuaBattleOperation_ApplyDebuff) {
             if (operation.value < BattleStatusGraphic_Poison || operation.value > BattleStatusGraphic_Forget) {
                 return false;
             }
-        } else if (operation.opId != 3) {
+        } else if (operation.opId != LuaBattleOperation_ClearDebuff) {
             return false;
         }
-        if (operation.opId == 2 || operation.opId == 3) {
+        if (operation.opId == LuaBattleOperation_ApplyDebuff || operation.opId == LuaBattleOperation_ClearDebuff) {
             SimulatedDebuffState* state = nullptr;
             for (SimulatedDebuffState& candidate : debuffStates) {
                 if (candidate.target == target) {
@@ -1740,7 +1748,7 @@ static bool ValidateOperationBatch(uint32_t nodeId) {
                 debuffStates.push_back({target, target->payload.battleActor->debuffEffect1054 != nullptr});
                 state = &debuffStates.back();
             }
-            if (operation.opId == 2) {
+            if (operation.opId == LuaBattleOperation_ApplyDebuff) {
                 if (state->active) {
                     return false;
                 }
@@ -1778,7 +1786,7 @@ static bool ValidateCallbackBatch(uint32_t nodeId) {
     size_t additionalSortedYobiCount =
         gPendingBatch.children.size() + gPendingBatch.visuals.size();
     for (const PendingOperation& operation : gPendingBatch.operations) {
-        if (operation.opId == 2) {
+        if (operation.opId == LuaBattleOperation_ApplyDebuff) {
             ++additionalSortedYobiCount;
         }
     }
@@ -1985,7 +1993,7 @@ static bool StageDebuffOperations() {
     gStagedDebuffs.clear();
     for (size_t i = 0; i < gPendingBatch.operations.size(); ++i) {
         const PendingOperation& operation = gPendingBatch.operations[i];
-        if (operation.opId != 2 && operation.opId != 3) {
+        if (operation.opId != LuaBattleOperation_ApplyDebuff && operation.opId != LuaBattleOperation_ClearDebuff) {
             continue;
         }
         YobiAction* target = battleEntries[operation.position];
@@ -2000,7 +2008,7 @@ static bool StageDebuffOperations() {
             shadows.push_back({target, ReadDebuffState(target)});
             shadow = &shadows.back();
         }
-        if (operation.opId == 3) {
+        if (operation.opId == LuaBattleOperation_ClearDebuff) {
             shadow->state.buffYobi = nullptr;
             shadow->state.flags &= 0xFFFFFC0F;
             continue;
@@ -2059,7 +2067,7 @@ static void CommitOperations(uint32_t nodeId) {
     size_t stagedDebuffIndex = 0;
     for (size_t i = 0; i < gPendingBatch.operations.size(); ++i) {
         const PendingOperation& operation = gPendingBatch.operations[i];
-        if (operation.opId == 4) {
+        if (operation.opId == LuaBattleOperation_AppendHit) {
             const PendingHit& hit = gPendingBatch.hits[operation.hitIndex];
             int hitId = gLuaSkillRuntime.nextHitId++;
             int effectIndex = owner->payload.battleActor->effectCountCA0;
@@ -2072,12 +2080,12 @@ static void CommitOperations(uint32_t nodeId) {
             continue;
         }
         YobiAction* target = battleEntries[operation.position];
-        if (operation.opId == 1) {
+        if (operation.opId == LuaBattleOperation_SetHp) {
             target->readiness = operation.value;
-        } else if (operation.opId == 2) {
+        } else if (operation.opId == LuaBattleOperation_ApplyDebuff) {
             const StagedDebuff& staged = gStagedDebuffs[stagedDebuffIndex++];
             WriteDebuffState(staged.target, staged.desiredState);
-        } else if (operation.opId == 3) {
+        } else if (operation.opId == LuaBattleOperation_ClearDebuff) {
             BattleActorPayload& data = *target->payload.battleActor;
             if (data.debuffEffect1054) {
                 MarkActionDeathOnce(data.debuffEffect1054);
@@ -2740,7 +2748,7 @@ static bool UpdateRuntimePacketState(YobiAction* scene) {
     if (!AllRootNodesComplete() || !AllTemporaryNodesDead()) {
         return false;
     }
-    if (!CheckBattleTurnReady_4394A0(scene, 0)) {
+    if (!CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip)) {
         return false;
     }
     if (!gLuaSkillRuntime.aborting && !gLuaSkillRuntime.completionCalled) {

@@ -11,6 +11,18 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 419DA0仅证实调用输入0；其他非零仍选原动作243，不臆造编号。
+enum BattleArcShotMode : std::int32_t {
+    BattleArcShotMode_ResolveProjectileHit = 0,
+};
+
+// 41E7C0只在mode1追加20000h位；该位业务名未证，其他模式不改该位。
+enum BattleTrailRenderMode : std::int32_t {
+    BattleTrailRenderMode_LeaveFlag20000 = 0,
+    BattleTrailRenderMode_AddFlag20000 = 1,
+};
+
+
 // 原41F660／41FE00图号；与状态编号及工厂type独立，RecoveryUp沿原规则显示DefenseUp图。
 enum BattleStatusGraphic : std::int32_t {
     BattleStatusGraphic_Poison = 110075,

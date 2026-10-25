@@ -230,7 +230,7 @@ static void ProcessBattleMSkillWaitingState(
     default:
         return;
     }
-    if (CheckBattleTurnReady_4394A0(scene, skill == BattleSkill_Revive ? 1 : 0) != 1) {
+    if (CheckBattleTurnReady_4394A0(scene, skill == BattleSkill_Revive ? BattleTurnReadyPolicy_CheckAllSelectedEntries : BattleTurnReadyPolicy_AllowInactiveSkip) != 1) {
         return;
     }
     switch (kind) {

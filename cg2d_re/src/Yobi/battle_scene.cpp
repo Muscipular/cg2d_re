@@ -54,7 +54,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
         return;
     }
     if (cg::world::gBattleTurnMessagesExhausted_5ABB28 == 1) {
-        if (activeEvents == 0 && CheckBattleTurnReady_4394A0(scene, 1) != 0) {
+        if (activeEvents == 0 && CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_CheckAllSelectedEntries) != 0) {
             const std::uint32_t turn = cg::world::gBattleTurnSnapshot5ABC08;
             cg::world::gBattleTurnMessagesExhausted_5ABB28 = 0;
             cg::world::gBattleEventDispatchBusy_5ABB1C = 0;

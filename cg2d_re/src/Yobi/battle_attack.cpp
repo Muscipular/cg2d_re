@@ -1668,7 +1668,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
         }
         YobiAction* const currentParent = action->battleOpponent10;
         if (currentParent->phase != BattleAction_Wait21Ticks) {
-            currentParent->characterAction = CharacterAnimation_Animation12;
+            currentParent->characterAction = CharacterAnimation_Wave;
             static_cast<void>(PlayFrame_517DA0(action->battleOpponent10, AnimationPlayback_Loop));
             AdvanceBattleCastState_439340(action->battleOpponent10);
             if (payload->castSkill103C == BattleSkill_Madmax) {

@@ -123,16 +123,16 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_MoveToTargetPosition:
         static_cast<void>(UpdateBattleAction6_406CD0(action));
         break;
-    case BattleAction_PlayAnimation2FacingEffectTarget:
+    case BattleAction_PlayBeginRunFacingEffectTarget:
         static_cast<void>(UpdateBattleAction7_409410(action));
         break;
-    case BattleAction_PlayAnimation2FacingMoveTarget:
+    case BattleAction_PlayBeginRunFacingMoveTarget:
         static_cast<void>(UpdateBattleAction8_4094A0(action));
         break;
     case BattleAction_MoveTowardTargetOrFormation:
         static_cast<void>(UpdateBattleAction9_409510(action));
         break;
-    case BattleAction_PlayAnimation4AndRestoreFacing:
+    case BattleAction_PlayEndRunAndRestoreFacing:
         static_cast<void>(UpdateBattleAction10_409610(action));
         break;
     case BattleAction_ReturnToFormation:
@@ -270,25 +270,25 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_ConsumeFp:
         static_cast<void>(UpdateBattleAction55_40C0C0(action));
         break;
-    case BattleAction_PlayAnimation5AndResetFrames:
+    case BattleAction_PlayAttackAnimationAndResetFrames:
         static_cast<void>(UpdateBattleAction56_40C160(action));
         break;
-    case BattleAction_PlayAnimation13AndResetFrames:
+    case BattleAction_PlayJoyAnimationAndResetFrames:
         static_cast<void>(UpdateBattleAction57_40C1A0(action));
         break;
-    case BattleAction_PlayAnimation14AndResetFrames:
+    case BattleAction_PlayAngryAnimationAndResetFrames:
         static_cast<void>(UpdateBattleAction58_40C1E0(action));
         break;
-    case BattleAction_PlayAnimation15AndResetFrames:
+    case BattleAction_PlaySadAnimationAndResetFrames:
         static_cast<void>(UpdateBattleAction59_40C240(action));
         break;
-    case BattleAction_SetAnimation15:
+    case BattleAction_SetSadAnimation:
         static_cast<void>(UpdateBattleAction60_40C220(action));
         break;
-    case BattleAction_PlayAnimation12:
+    case BattleAction_PlayWaveAnimation:
         static_cast<void>(UpdateBattleAction61_40C280(action));
         break;
-    case BattleAction_PlayAnimation18:
+    case BattleAction_PlayScissorsAnimation:
         static_cast<void>(UpdateBattleAction62_40C2B0(action));
         break;
     case BattleAction_TurnLeftThenRight:
@@ -420,7 +420,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_StepAroundEffectTarget:
         static_cast<void>(UpdateBattleAction105_40DE40(action));
         break;
-    case BattleAction_SetAnimation13:
+    case BattleAction_SetJoyAnimation:
         static_cast<void>(UpdateBattleAction106_40DF50(action));
         break;
     case BattleAction_MarkForRemoval:
@@ -582,7 +582,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_AdvanceAndIdle:
         static_cast<void>(UpdateBattleAction178_4122C0(action));
         break;
-    case BattleAction_PlayAnimation6:
+    case BattleAction_PlayCastAnimation:
         static_cast<void>(UpdateBattleAction179_4122E0(action));
         break;
     case BattleAction_PlayRecoveryEffectAndFadeIn:
@@ -614,7 +614,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_FadeInAndResolveEffect:
         static_cast<void>(UpdateBattleAction204_4124E0(action));
         break;
-    case BattleAction_PlayAnimation16AndResetFrames:
+    case BattleAction_PlayNodAnimationAndResetFrames:
         static_cast<void>(UpdateBattleAction205_4127B0(action));
         break;
     case BattleAction_FaceEffectTarget:
@@ -835,7 +835,7 @@ void UpdateBattleAction0_406650(YobiAction* const action)
         const std::int32_t previous = payload->castPlayIndexFC4 - 1;
         if (previous >= 0) {
             const std::int32_t previousAction = payload->castListCA4[previous];
-            if (previousAction == BattleAction_PlayAnimation13AndResetFrames || previousAction == BattleAction_PlayAnimation15AndResetFrames) {
+            if (previousAction == BattleAction_PlayJoyAnimationAndResetFrames || previousAction == BattleAction_PlaySadAnimationAndResetFrames) {
                 return;
             }
         }
@@ -1102,7 +1102,7 @@ void UpdateBattleAction11_4067F0(YobiAction* const action)
         action->characterAction = CharacterAnimation_Walk;
     }
     const std::int32_t previous = payload->castPlayIndexFC4 - 1;
-    if (previous >= 0 && payload->castListCA4[previous] == BattleAction_PlayAnimation2FacingEffectTarget) {
+    if (previous >= 0 && payload->castListCA4[previous] == BattleAction_PlayBeginRunFacingEffectTarget) {
         action->characterAction = CharacterAnimation_Run;
     }
     const std::int32_t updateDirection = action->characterAction != CharacterAnimation_Down ? 1 : 0;

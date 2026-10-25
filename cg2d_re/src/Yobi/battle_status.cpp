@@ -957,7 +957,7 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
         case BattleAction_PlayMagicAbsorbEffectAndFadeIn: type = BattleEffectType_MagicAbsorb; break;
         case BattleAction_PlayMagicNullifyEffectAndFadeIn: type = BattleEffectType_MagicNullify; break;
         case BattleAction_PlayEffectType26AndFadeIn: type = BattleEffectType_CenteredImage110156; break;
-        case BattleAction_PlayHealingCastEffectAndFadeIn: type = BattleEffectType_CenteredImage110157; break;
+        case BattleAction_PlayHealingCastEffectAndFadeIn: type = BattleEffectType_HealingCast; break;
         case BattleAction_PlayEffectType14AndFadeIn: type = BattleEffectType_LevelScaledImage110165; break;
         case BattleAction_PlayEffectType15AndFadeIn: type = BattleEffectType_CenteredLevelScaledImage110170; break;
         case BattleAction_PlayAttributeReversalEffectAndFadeIn: type = BattleEffectType_AttributeReversal; break;
@@ -1062,7 +1062,7 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
 // 原函数：0x004127B0。
 void UpdateBattleAction205_4127B0(YobiAction* const action)
 {
-    action->characterAction = CharacterAnimation_Animation16;
+    action->characterAction = CharacterAnimation_Nod;
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         action->frameIndex = 0;
         action->frameRemain = 0;

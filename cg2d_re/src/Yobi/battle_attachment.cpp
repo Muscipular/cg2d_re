@@ -270,11 +270,11 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
         const std::int32_t parentCharacterAction = parent->characterAction;
         switch (parentCharacterAction) {
         case CharacterAnimation_Stand:
-        case CharacterAnimation_Animation12:
-        case CharacterAnimation_Animation13:
-        case CharacterAnimation_Animation14:
-        case CharacterAnimation_Animation15:
-        case CharacterAnimation_Animation16:
+        case CharacterAnimation_Wave:
+        case CharacterAnimation_Joy:
+        case CharacterAnimation_Angry:
+        case CharacterAnimation_Sad:
+        case CharacterAnimation_Nod:
             break;
         case CharacterAnimation_Walk:
         case CharacterAnimation_Run:

@@ -536,12 +536,12 @@ YobiAction* NewBattleEffect_41CD00(
             break;
         }
         case BattleEffectType_StatusRecoveryEmitter:
-        case BattleEffectType_ReverseEmitter: {
+        case BattleEffectType_ReviveEmitter: {
             action = NewYobiAction_404AE0(2, sizeof(BattleRingEmitterPayload), YobiPayloadKind::BattleRingEmitter);
             if (action == nullptr) {
                 return nullptr;
             }
-            if (type == BattleEffectType_ReverseEmitter) {
+            if (type == BattleEffectType_ReviveEmitter) {
                 static_cast<void>(audio::PlaySe_52C450(280, source->x));
                 action->callback = UpdateBattleReverseEmitter_41A590;
             } else {
@@ -778,7 +778,7 @@ YobiAction* NewBattleEffect_41CD00(
             bool centerY = false;
             bool childAura = false;
             switch (type) {
-            case BattleEffectType_FixedImage110009: action->imageNo = 110009; break;
+            case BattleEffectType_AttackClash: action->imageNo = 110009; break;
             case BattleEffectType_FixedImage110063: action->imageNo = 110063; break;
             case BattleEffectType_MagicAttack:
             case BattleEffectType_DebuffSpell:
@@ -818,7 +818,7 @@ YobiAction* NewBattleEffect_41CD00(
                 action->callback = UpdateBattleParentEffect_41A1C0;
                 deviceBlend = true;
                 break;
-            case BattleEffectType_FixedImage110104: action->imageNo = 110104; break;
+            case BattleEffectType_ItemUse: action->imageNo = 110104; break;
             case BattleEffectType_CrossCounter:
                 action->imageNo = FindBattleAppendEffectTechnique_43BEA0(11, sourcePayload->battlePosition18) >= 12
                     ? 111053 : 110153;
@@ -860,7 +860,7 @@ YobiAction* NewBattleEffect_41CD00(
                 action->imageNo = type == BattleEffectType_CenteredImage110156 ? 110156 : (type == BattleEffectType_CenteredImage111162 ? 111162 : 111163);
                 centerY = true;
                 break;
-            case BattleEffectType_CenteredImage110157:
+            case BattleEffectType_HealingCast:
                 action->imageNo = 110157;
                 deviceBlend = true;
                 centerY = true;

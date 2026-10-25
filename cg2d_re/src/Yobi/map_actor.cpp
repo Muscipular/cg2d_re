@@ -613,16 +613,16 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
                 static_cast<std::size_t>(index)].category & 0x100u) != 0) {
         const std::int32_t characterAction = action->characterAction;
         stopAtEnd = characterAction == CharacterAnimation_Run || characterAction == CharacterAnimation_Stand
-            || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Animation18 || characterAction == CharacterAnimation_Animation19
-            || characterAction == CharacterAnimation_Animation13 || characterAction == CharacterAnimation_Animation15
+            || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Scissors || characterAction == CharacterAnimation_Paper
+            || characterAction == CharacterAnimation_Joy || characterAction == CharacterAnimation_Sad
             || characterAction == CharacterAnimation_Sit ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     } else {
         YobiAction* const ride = payload->rideActor44;
         const std::int32_t characterAction =
             ride != nullptr ? ride->characterAction : action->characterAction;
-        stopAtEnd = characterAction == CharacterAnimation_Animation12 || characterAction == CharacterAnimation_Animation13
-            || characterAction == CharacterAnimation_Animation14 || characterAction == CharacterAnimation_Animation15 || characterAction == CharacterAnimation_Walk
-            || characterAction == CharacterAnimation_Stand || characterAction == CharacterAnimation_Animation16 || characterAction == CharacterAnimation_Run
+        stopAtEnd = characterAction == CharacterAnimation_Wave || characterAction == CharacterAnimation_Joy
+            || characterAction == CharacterAnimation_Angry || characterAction == CharacterAnimation_Sad || characterAction == CharacterAnimation_Walk
+            || characterAction == CharacterAnimation_Stand || characterAction == CharacterAnimation_Nod || characterAction == CharacterAnimation_Run
             || characterAction == CharacterAnimation_Cast ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     }
     std::uint32_t flipStatic = 0;

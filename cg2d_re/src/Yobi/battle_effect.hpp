@@ -14,7 +14,7 @@ namespace detail {
 // BFTN01：41CD00的创建类型，覆盖0～47；不是角色phase、技能号或顶层压缩分支号。
 // 未证业务名按图号／回调行为命名。函数仍接收U32，保留type>47使用已有对象的公共尾。
 enum BattleEffectType : std::uint32_t {
-    BattleEffectType_FixedImage110009 = 0, // 图110009；动作115的普通分支。
+    BattleEffectType_AttackClash = 0, // 图110009；动作115普通交锋效果，反击另用type3。
     BattleEffectType_FixedImage110063 = 1, // 图110063；普通完成通知回调41A160。
     BattleEffectType_MagicAttack = 2, // 攻击魔法共用表现；等级偏移+110067，高等级111013。
     BattleEffectType_CrossCounter = 3, // 按反击技能11的附加技术等级选110153／111053。
@@ -34,7 +34,7 @@ enum BattleEffectType : std::uint32_t {
     BattleEffectType_ParentBoundImage110184 = 17, // 图110184、层203、回调41A1C0；父死亡时标死，不跟随父坐标。
     BattleEffectType_AmountTieredImage111194 = 18, // 按1030的2000／3500阈值选111194／111195／111196。
     BattleEffectType_ParentImageTierAura = 19, // 按父图及1D0等级选110184／111015／111020／0；14／16递归使用。
-    BattleEffectType_FixedImage110104 = 20, // 图110104；完成后通知关联父对象。
+    BattleEffectType_ItemUse = 20, // 图110104；物品使用动作138的表现，完成后通知关联父对象。
     BattleEffectType_LevelScaledImage110100 = 21, // 等级偏移+110100／111016；3100／3101先递减1040取等级。
     BattleEffectType_ParentBoundImage110097 = 22, // 图110097、回调41A1C0；保持创建坐标，不是跟随特效。
     BattleEffectType_ParentBoundImage110096 = 23, // 图110096、回调41A1C0；与22独立编号。
@@ -43,11 +43,11 @@ enum BattleEffectType : std::uint32_t {
     BattleEffectType_CenteredImage110156 = 26, // 图110156，按源图偏移居中Y。
     BattleEffectType_CenteredImage111162 = 27, // 图111162，按源图偏移居中Y。
     BattleEffectType_CenteredImage111163 = 28, // 图111163，按源图偏移居中Y。
-    BattleEffectType_CenteredImage110157 = 29, // 图110157，设备混合并居中Y；不推测独占技能名。
+    BattleEffectType_HealingCast = 29, // 补血施放侧图110157，设备混合并居中Y；其他技能可共用。
     BattleEffectType_FixedImage110012 = 30, // 图110012；源浮点X，源Y加第三数值。
     BattleEffectType_FixedImage110014 = 31, // 图110014；与30／32保持独立编号。
     BattleEffectType_FixedImage110013 = 32, // 图110013；与30／31保持独立编号。
-    BattleEffectType_ReverseEmitter = 33, // 环形载荷、反向发射41A590，音效280。
+    BattleEffectType_ReviveEmitter = 33, // 复活受术表现；环形载荷、反向发射41A590、音效280，不在此恢复HP。
     BattleEffectType_CastingImage1028 = 34, // 源1028施法图及扩展替换，保留原图音效／定位选择。
     BattleEffectType_SkillImpact = 35, // 按103C分派完整命中／移动初始化，保留Magic扩展图替换。
     BattleEffectType_RandomEmitter = 36, // 回调41A310随机发射；分配优先级取源位置低U8*10+1的低U8。

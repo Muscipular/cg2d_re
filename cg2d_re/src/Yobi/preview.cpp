@@ -125,8 +125,8 @@ std::int32_t AdvanceCharacterPreviewAnimation(YobiAction* const action)
         {{CharacterAnimation_Guard, 1, 0}},
         {{CharacterAnimation_Down, 1, 0}},
         {{CharacterAnimation_Sit, 1, 0}},
-        {{CharacterAnimation_Animation12, 1, 0}},
-        {{CharacterAnimation_Animation13, 1, 0}},
+        {{CharacterAnimation_Wave, 1, 0}},
+        {{CharacterAnimation_Joy, 1, 0}},
     }};
     const std::int32_t phase = action->phase;
     if (phase < 0 || static_cast<std::uint32_t>(phase) >= 16) {

@@ -431,7 +431,7 @@ void UpdateBattleAction56_40C160(YobiAction* const action)
 // 原函数：0x0040C1A0。
 void UpdateBattleAction57_40C1A0(YobiAction* const action)
 {
-    action->characterAction = CharacterAnimation_Animation13;
+    action->characterAction = CharacterAnimation_Joy;
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         action->frameIndex = 0;
         action->frameRemain = 0;
@@ -443,7 +443,7 @@ void UpdateBattleAction57_40C1A0(YobiAction* const action)
 // 原函数：0x0040C1E0。
 void UpdateBattleAction58_40C1E0(YobiAction* const action)
 {
-    action->characterAction = CharacterAnimation_Animation14;
+    action->characterAction = CharacterAnimation_Angry;
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         action->frameIndex = 0;
         action->frameRemain = 0;
@@ -455,7 +455,7 @@ void UpdateBattleAction58_40C1E0(YobiAction* const action)
 // 原函数：0x0040C240。
 void UpdateBattleAction59_40C240(YobiAction* const action)
 {
-    action->characterAction = CharacterAnimation_Animation15;
+    action->characterAction = CharacterAnimation_Sad;
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         action->frameIndex = 0;
         action->frameRemain = 0;
@@ -467,7 +467,7 @@ void UpdateBattleAction59_40C240(YobiAction* const action)
 // 原函数：0x0040C220。
 void UpdateBattleAction60_40C220(YobiAction* const action)
 {
-    action->characterAction = CharacterAnimation_Animation15;
+    action->characterAction = CharacterAnimation_Sad;
     AdvanceBattleCastState_439340(action);
 }
 
@@ -475,7 +475,7 @@ void UpdateBattleAction60_40C220(YobiAction* const action)
 // 原函数：0x0040C280。
 void UpdateBattleAction61_40C280(YobiAction* const action)
 {
-    action->characterAction = CharacterAnimation_Animation12;
+    action->characterAction = CharacterAnimation_Wave;
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
     }
@@ -485,7 +485,7 @@ void UpdateBattleAction61_40C280(YobiAction* const action)
 // 原函数：0x0040C2B0。
 void UpdateBattleAction62_40C2B0(YobiAction* const action)
 {
-    action->characterAction = CharacterAnimation_Animation18;
+    action->characterAction = CharacterAnimation_Scissors;
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
     }
@@ -1502,7 +1502,7 @@ std::int32_t UpdateBattleAction105_40DE40(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     YobiAction* const target = world::gBattleAllEntries59E980[
         payload->effects1C[payload->effectRunningC9C].position];
-    action->characterAction = CharacterAnimation_Animation16;
+    action->characterAction = CharacterAnimation_Nod;
     action->framePlayingRate = 50;
     const std::int32_t currentIndex = payload->effectRunningC9C;
     const std::int32_t currentPosition = payload->battlePosition18;
@@ -1542,7 +1542,7 @@ std::int32_t UpdateBattleAction105_40DE40(YobiAction* const action)
 // 原函数：0x0040DF50。
 void UpdateBattleAction106_40DF50(YobiAction* const action)
 {
-    action->characterAction = CharacterAnimation_Animation13;
+    action->characterAction = CharacterAnimation_Joy;
     AdvanceBattleCastState_439340(action);
 }
 
@@ -2110,7 +2110,7 @@ void UpdateBattleAction115_40FB80(YobiAction* const action)
     action->characterAction = CharacterAnimation_Attack;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        const std::uint32_t type = (payload->effects1C[payload->effectRunningC9C].flags & 0x1000u) != 0 ? BattleEffectType_CrossCounter : BattleEffectType_FixedImage110009;
+        const std::uint32_t type = (payload->effects1C[payload->effectRunningC9C].flags & 0x1000u) != 0 ? BattleEffectType_CrossCounter : BattleEffectType_AttackClash;
         static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = -32}, type, 0, 1));
         world::gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position]->hidden = 1;
@@ -2151,7 +2151,7 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
         case BattleAction_PlayEffectType26: type = BattleEffectType_CenteredImage110156; break;
         case BattleAction_PlayEffectType27: type = BattleEffectType_CenteredImage111162; break;
         case BattleAction_PlayEffectType28: type = BattleEffectType_CenteredImage111163; break;
-        case BattleAction_PlayHealingCastEffect: type = BattleEffectType_CenteredImage110157; break;
+        case BattleAction_PlayHealingCastEffect: type = BattleEffectType_HealingCast; break;
         case BattleAction_PlayEffectType14: type = BattleEffectType_LevelScaledImage110165; break;
         case BattleAction_PlayEffectType15: type = BattleEffectType_CenteredLevelScaledImage110170; break;
         case BattleAction_PlayAttributeReversalEffect: type = BattleEffectType_AttributeReversal; break;
@@ -2200,7 +2200,7 @@ void UpdateBattleAction138_40FF40(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_FixedImage110104, 0, 1));
+        static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ItemUse, 0, 1));
     }
     action->phase = BattleAction_WaitEffectComplete;
 }
@@ -2613,7 +2613,7 @@ void UpdateBattleAction148_40FEF0(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ReverseEmitter, 0, 1));
+        static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ReviveEmitter, 0, 1));
     }
     action->phase = BattleAction_WaitEffectComplete;
 }

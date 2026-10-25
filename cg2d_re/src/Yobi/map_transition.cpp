@@ -809,9 +809,9 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
         static_cast<std::int64_t>(screenY + 0.5));
     const std::int32_t characterAction = action->characterAction;
     const std::int32_t stopAtEnd =
-        characterAction == CharacterAnimation_Animation12 || characterAction == CharacterAnimation_Animation13 || characterAction == CharacterAnimation_Animation14
-        || characterAction == CharacterAnimation_Animation15 || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Stand
-        || characterAction == CharacterAnimation_Animation16 ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
+        characterAction == CharacterAnimation_Wave || characterAction == CharacterAnimation_Joy || characterAction == CharacterAnimation_Angry
+        || characterAction == CharacterAnimation_Sad || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Stand
+        || characterAction == CharacterAnimation_Nod ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, 0));
     if ((action->flags & 2u) != 0) {
         return;

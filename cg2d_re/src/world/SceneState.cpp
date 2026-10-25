@@ -349,8 +349,26 @@ static constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
     37619,
 };
 
+// YAN01：本地动画表，按495FE0提示及索引命名；相邻协议表中的30／31保持独立。
 static constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C { // 原常量参考：0x00584B6C。
-    11, 0, 12, 1, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
+    cg::yobi::CharacterAnimation_Sit,
+    cg::yobi::CharacterAnimation_Stand,
+    cg::yobi::CharacterAnimation_Wave,
+    cg::yobi::CharacterAnimation_Walk,
+    cg::yobi::CharacterAnimation_Nod,
+    cg::yobi::CharacterAnimation_Down,
+    cg::yobi::CharacterAnimation_Joy,
+    cg::yobi::CharacterAnimation_Attack,
+    cg::yobi::CharacterAnimation_Angry,
+    cg::yobi::CharacterAnimation_Guard,
+    cg::yobi::CharacterAnimation_Sad,
+    cg::yobi::CharacterAnimation_Damage,
+    cg::yobi::CharacterAnimation_Throw,
+    cg::yobi::CharacterAnimation_Cast,
+    cg::yobi::CharacterAnimation_Scissors,
+    cg::yobi::CharacterAnimation_Run,
+    cg::yobi::CharacterAnimation_Paper,
+    cg::yobi::CharacterAnimation_Rock,
 };
 static constexpr std::array<std::int32_t, 18> kEmoteProtocolActions584BB4 { // 原常量参考：0x00584BB4。
     11, 31, 12, 30, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,

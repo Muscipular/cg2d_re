@@ -40,11 +40,11 @@ std::int32_t AppendBattleRedirect_4242B0(
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_ShowReactionHitEffect);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_Wait30Ticks);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_EnableFlash);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_PlayAnimation2FacingEffectTarget);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_PlayBeginRunFacingEffectTarget);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_CloseInOnEffectTarget);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_TurnTargetTowardSelf);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_AdvanceLinkedCast);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_PlayAnimation4AndRestoreFacing);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_PlayEndRunAndRestoreFacing);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_DisableFlash);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[redirect], BattleAction_AdvanceEffectAndCast);
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[redirect], target, flags, value);

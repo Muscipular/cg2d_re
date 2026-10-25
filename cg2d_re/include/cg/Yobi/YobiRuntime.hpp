@@ -25,7 +25,7 @@ void ShutdownBattleEffects();
 struct YobiAction;
 
 // YCA01：角色资源的动画编号；供characterAction及动画设置接口使用，不是phase或协议命令。
-// 原S32字段／参数继续承接未知值；12～19按已证编号命名，不据手势名称线索推测资源表现。
+// 原S32字段／参数继续承接未知值；YAN01按495FE0提示文字→584B6C动画表证实12～19的名称。
 enum CharacterAnimationId : std::int32_t {
     CharacterAnimation_Stand = 0, // 角色站立／待机；特效也用编号0播放自身默认动画。
     CharacterAnimation_Walk = 1, // 行走；地图路径移动、战斗入场及部分退场使用。
@@ -39,14 +39,14 @@ enum CharacterAnimationId : std::int32_t {
     CharacterAnimation_Guard = 9, // 防御姿态；命中结果标志选择的替代姿态，非防御状态本身。
     CharacterAnimation_Down = 10, // 倒地姿态；死亡待机及相关结束路径使用。
     CharacterAnimation_Sit = 11, // 坐姿；骑乘人物／骑手及观察场景也使用，不限于骑乘。
-    CharacterAnimation_Animation12 = 12, // 40C280播放至终帧；其他入口可仅设置或按自身规则循环。
-    CharacterAnimation_Animation13 = 13, // 40C1A0终帧后清index／remain；40DF50仅设置并推进。
-    CharacterAnimation_Animation14 = 14, // 40C1E0终帧后清index／remain；业务手势未核。
-    CharacterAnimation_Animation15 = 15, // 40C240终帧清帧；40C220仅设置并推进，地图可循环。
-    CharacterAnimation_Animation16 = 16, // 40DE40环绕目标时播放；4127B0终帧后清帧，业务手势未核。
-    CharacterAnimation_Animation17 = 17, // 51A840动作17直接透传至动画设置；具体资源表现未核。
-    CharacterAnimation_Animation18 = 18, // 40C2B0播放至终帧；地图部分分类按循环处理。
-    CharacterAnimation_Animation19 = 19, // 地图部分分类按循环处理；外部动作19直接透传。
+    CharacterAnimation_Wave = 12, // 挥手；40C280播放至终帧，其他入口可仅设置或循环。
+    CharacterAnimation_Joy = 13, // 高兴；40C1A0终帧后清index／remain，40DF50仅设置并推进。
+    CharacterAnimation_Angry = 14, // 愤怒；40C1E0终帧后清index／remain。
+    CharacterAnimation_Sad = 15, // 悲伤；40C240终帧清帧，40C220仅设置并推进，地图可循环。
+    CharacterAnimation_Nod = 16, // 点头；40DE40环绕目标时播放，4127B0终帧后清帧。
+    CharacterAnimation_Rock = 17, // 猜拳出石头；情绪窗口索引17及51A840动作17传入动画设置。
+    CharacterAnimation_Scissors = 18, // 猜拳出剪刀；40C2B0播放至终帧，地图部分分类循环。
+    CharacterAnimation_Paper = 19, // 猜拳出布；地图部分分类循环，外部动作19直接透传。
 };
 
 // YAPN01：两帧播放入口的stopAtEnd及playRevert取值；完整S32承载保留未知模式。

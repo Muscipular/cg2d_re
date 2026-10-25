@@ -208,11 +208,11 @@ void ResolveGearPetAnimationState_4412D0(
             case CharacterAnimation_Guard: *characterAction = CharacterAnimation_Guard; *revert = AnimationPlayback_StopAtEnd; break;
             case CharacterAnimation_Down: *characterAction = CharacterAnimation_Down; *revert = AnimationPlayback_StopAtEnd; break;
             case CharacterAnimation_Stand:
-            case CharacterAnimation_Animation12:
-            case CharacterAnimation_Animation13:
-            case CharacterAnimation_Animation14:
-            case CharacterAnimation_Animation15:
-            case CharacterAnimation_Animation16:
+            case CharacterAnimation_Wave:
+            case CharacterAnimation_Joy:
+            case CharacterAnimation_Angry:
+            case CharacterAnimation_Sad:
+            case CharacterAnimation_Nod:
                 *characterAction = CharacterAnimation_Stand;
                 *revert = AnimationPlayback_Loop;
                 break;

@@ -246,7 +246,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         }
                     } else if (skill == BattleSkill_StatusAttackPoisonStrike) {
                         if ((payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                            static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                            static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                         }
                     } else if (skill == BattleSkill_PanicAttack) {
                         const std::int32_t value = payload->attackDebuffType1050;
@@ -337,7 +337,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         }
                     } else if (skill == BattleSkill_StatusAttackPoisonStrike) {
                         if ((payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                            static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                            static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                         }
                     } else if (skill == BattleSkill_PanicAttack) {
                         const std::int32_t value = payload->attackDebuffType1050;
@@ -412,7 +412,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         }
                     } else if (skill == BattleSkill_StatusAttackPoisonStrike) {
                         if ((payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                            static_cast<void>(NewBattleDebuffEffect_41F660(action, 110075));
+                            static_cast<void>(NewBattleDebuffEffect_41F660(action, BattleStatusGraphic_Poison));
                         }
                     } else if (skill == BattleSkill_PanicAttack) {
                         const std::int32_t value = payload->attackDebuffType1050;
@@ -493,7 +493,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                     const std::int32_t currentSkill = payload->castSkill103C;
                     if (currentSkill == BattleSkill_StatusAttackPoisonStrike) {
                         if ((payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                            static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                            static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                         }
                     } else if (currentSkill == BattleSkill_PanicAttack) {
                         const std::int32_t value = payload->attackDebuffType1050;
@@ -1064,7 +1064,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     const std::int32_t currentSkill = payload->castSkill103C;
                     if ((currentSkill == 110 || currentSkill == 3019)
                         && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                     }
                 }
                 AdvanceBattleCastState_439340(target);
@@ -1085,7 +1085,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     const std::int32_t currentSkill = payload->castSkill103C;
                     if ((currentSkill == 110 || currentSkill == 3019)
                         && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                     }
                 }
                 AdvanceBattleCastState_439340(target);
@@ -1132,7 +1132,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     const std::int32_t currentSkill = payload->castSkill103C;
                     if ((currentSkill == 110 || currentSkill == 3019)
                         && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                     }
                 }
                 AdvanceBattleCastState_439340(target);
@@ -1146,7 +1146,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 const std::int32_t skill = payload->castSkill103C;
                 if (skill == BattleSkill_RandomShot || skill == 4002 || skill == 3038) {
                     if ((payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                     }
                     const double backwardAngle = target->angle50 + 180.0;
                     target->angle50 = static_cast<float>(backwardAngle);
@@ -1174,7 +1174,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     const std::int32_t currentSkill = payload->castSkill103C;
                     if ((currentSkill == 110 || currentSkill == 3019)
                         && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                        static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                        static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                     }
                 }
                 AdvanceBattleCastState_439340(target);
@@ -1197,11 +1197,11 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             }
             if (payload->castSkill103C == BattleSkill_StatusAttackPoisonStrike
                 && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
             }
             if (payload->castSkill103C == BattleSkill_ConfusionShockwave
                 && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                static_cast<void>(NewBattleDebuffEffect_41F660(target, 110079));
+                static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Confusion));
             }
         }
     finishProjectileHit:
@@ -1595,7 +1595,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                 }
                 if (payload->castSkill103C == BattleSkill_StatusAttackPoisonStrike
                     && (payload->effects1C[payload->effectRunningC9C].flags & 0x80000u) != 0) {
-                    static_cast<void>(NewBattleDebuffEffect_41F660(target, 110075));
+                    static_cast<void>(NewBattleDebuffEffect_41F660(target, BattleStatusGraphic_Poison));
                 }
             }
             const std::int32_t finishIndex = payload->effectRunningC9C;

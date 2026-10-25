@@ -2060,12 +2060,12 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     }
     std::int32_t type = CG_BATTLE_DEBUFF_NONE;
     switch (imageNo) {
-    case 110075: payload->flagsFDC |= BattleActorFlag_Poison; type = CG_BATTLE_DEBUFF_POISON; break;
-    case 110076: payload->flagsFDC |= BattleActorFlag_Sleep; type = CG_BATTLE_DEBUFF_SLEEP; break;
-    case 110077: payload->flagsFDC |= BattleActorFlag_Stone; type = CG_BATTLE_DEBUFF_STONE; break;
-    case 110078: payload->flagsFDC |= BattleActorFlag_Inebriety; type = CG_BATTLE_DEBUFF_INEBRIETY; break;
-    case 110079: payload->flagsFDC |= BattleActorFlag_Confusion; type = CG_BATTLE_DEBUFF_CONFUSION; break;
-    case 110080: payload->flagsFDC |= BattleActorFlag_Forget; type = CG_BATTLE_DEBUFF_FORGET; break;
+    case BattleStatusGraphic_Poison: payload->flagsFDC |= BattleActorFlag_Poison; type = CG_BATTLE_DEBUFF_POISON; break;
+    case BattleStatusGraphic_Sleep: payload->flagsFDC |= BattleActorFlag_Sleep; type = CG_BATTLE_DEBUFF_SLEEP; break;
+    case BattleStatusGraphic_Stone: payload->flagsFDC |= BattleActorFlag_Stone; type = CG_BATTLE_DEBUFF_STONE; break;
+    case BattleStatusGraphic_Inebriety: payload->flagsFDC |= BattleActorFlag_Inebriety; type = CG_BATTLE_DEBUFF_INEBRIETY; break;
+    case BattleStatusGraphic_Confusion: payload->flagsFDC |= BattleActorFlag_Confusion; type = CG_BATTLE_DEBUFF_CONFUSION; break;
+    case BattleStatusGraphic_Forget: payload->flagsFDC |= BattleActorFlag_Forget; type = CG_BATTLE_DEBUFF_FORGET; break;
     default: break;
     }
     if (type != CG_BATTLE_DEBUFF_NONE) {
@@ -2360,7 +2360,7 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
 {
     YobiAction* const existing = parent->payload.battleActor->attachedEffect1058;
     if (existing != nullptr) {
-        existing->imageNo = mode == 1 ? 22326 : 22327;
+        existing->imageNo = mode == BattleAttachedEffectMode_DisplayImage22326 ? 22326 : 22327;
         return nullptr;
     }
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -2374,7 +2374,7 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
     action->flags = flags;
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
-    action->imageNo = mode == 1 ? 22326 : 22327;
+    action->imageNo = mode == BattleAttachedEffectMode_DisplayImage22326 ? 22326 : 22327;
     action->direction = 0;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
@@ -2464,13 +2464,13 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     std::int32_t displayImage = imageNo;
     if (payload->statusEffectMode13D8 != CG_BATTLE_STATUS_MODE_EXTENDED) {
         switch (imageNo) {
-        case 103018: payload->flagsFDC |= BattleActorFlag_DefenseUp; break;
-        case 103019: payload->flagsFDC |= BattleActorFlag_DefenseDown; break;
-        case 103020: payload->flagsFDC |= BattleActorFlag_AttackUp; break;
-        case 103021: payload->flagsFDC |= BattleActorFlag_AttackDown; break;
-        case 103022: payload->flagsFDC |= BattleActorFlag_AgilityUp; break;
-        case 103023: payload->flagsFDC |= BattleActorFlag_AgilityDown; break;
-        case 103033: payload->flagsFDC |= BattleActorFlag_RecoveryUp; displayImage = 103018; break;
+        case BattleStatusGraphic_DefenseUp: payload->flagsFDC |= BattleActorFlag_DefenseUp; break;
+        case BattleStatusGraphic_DefenseDown: payload->flagsFDC |= BattleActorFlag_DefenseDown; break;
+        case BattleStatusGraphic_AttackUp: payload->flagsFDC |= BattleActorFlag_AttackUp; break;
+        case BattleStatusGraphic_AttackDown: payload->flagsFDC |= BattleActorFlag_AttackDown; break;
+        case BattleStatusGraphic_AgilityUp: payload->flagsFDC |= BattleActorFlag_AgilityUp; break;
+        case BattleStatusGraphic_AgilityDown: payload->flagsFDC |= BattleActorFlag_AgilityDown; break;
+        case BattleStatusGraphic_RecoveryUp: payload->flagsFDC |= BattleActorFlag_RecoveryUp; displayImage = BattleStatusGraphic_DefenseUp; break;
         default: break;
         }
     }
@@ -2492,7 +2492,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     action->x = x;
     action->y = static_cast<std::int32_t>(y);
     action->pathCountOrDrawOrder_270 = 0;
-    if (mode == 1) {
+    if (mode == BattleStatusEffectPlacement_RaisedAndScaled) {
         action->deltaY = -50;
         action->scaleX = 0.3F;
         action->scaleY = 0.3F;
@@ -2665,32 +2665,32 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
     auto* const payload = parent->payload.battleActor;
     const std::uint32_t flags = payload->flagsFDC;
     if ((flags & BattleActorFlag_Poison) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110075));
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Poison));
     } else {
         payload->flagsFDC = flags & ~BattleActorFlag_Poison;
     }
     if ((flags & BattleActorFlag_Sleep) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110076));
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Sleep));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Sleep;
     }
     if ((flags & BattleActorFlag_Stone) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110077));
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Stone));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Stone;
     }
     if ((flags & BattleActorFlag_Inebriety) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110078));
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Inebriety));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Inebriety;
     }
     if ((flags & BattleActorFlag_Confusion) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110079));
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Confusion));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Confusion;
     }
     if ((flags & BattleActorFlag_Forget) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, 110080));
+        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Forget));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Forget;
     }
@@ -2699,7 +2699,7 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
     parent->scaleX = scale;
     parent->scaleY = scale;
     if (hasAttachedEffect) {
-        static_cast<void>(NewBattleAttachedEffect_41FBE0(parent, 1));
+        static_cast<void>(NewBattleAttachedEffect_41FBE0(parent, BattleAttachedEffectMode_DisplayImage22326));
     } else {
         static_cast<void>(MarkDeath(parent->payload.battleActor->attachedEffect1058));
         parent->payload.battleActor->attachedEffect1058 = nullptr;
@@ -2719,32 +2719,32 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
     }
     // 原端每对状态共用清位掩码；不能改为清除各自的选择位。
     if ((flags & BattleActorFlag_DefenseUp) != 0) {
-        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103018, 0));
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, BattleStatusGraphic_DefenseUp, BattleStatusEffectPlacement_Default));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_DefenseUp;
     }
     if ((flags & BattleActorFlag_DefenseDown) != 0) {
-        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103019, 0));
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, BattleStatusGraphic_DefenseDown, BattleStatusEffectPlacement_Default));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_DefenseUp;
     }
     if ((flags & BattleActorFlag_AttackUp) != 0) {
-        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103020, 0));
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, BattleStatusGraphic_AttackUp, BattleStatusEffectPlacement_Default));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_AttackUp;
     }
     if ((flags & BattleActorFlag_AttackDown) != 0) {
-        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103021, 0));
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, BattleStatusGraphic_AttackDown, BattleStatusEffectPlacement_Default));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_AttackUp;
     }
     if ((flags & BattleActorFlag_AgilityUp) != 0) {
-        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103022, 0));
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, BattleStatusGraphic_AgilityUp, BattleStatusEffectPlacement_Default));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_AgilityUp;
     }
     if ((flags & BattleActorFlag_AgilityDown) != 0) {
-        static_cast<void>(NewBattleStatusEffect_41FE00(parent, 103023, 0));
+        static_cast<void>(NewBattleStatusEffect_41FE00(parent, BattleStatusGraphic_AgilityDown, BattleStatusEffectPlacement_Default));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_AgilityUp;
     }

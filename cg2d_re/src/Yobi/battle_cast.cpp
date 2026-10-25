@@ -2454,9 +2454,9 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
     } else {
         const std::int32_t skill = payload->castSkill103C;
         if (skill == BattleSkill_Dance) {
-            imageNo = payload->skill98Mode1048 + 110075;
+            imageNo = payload->skill98Mode1048 + BattleStatusGraphic_Poison;
         } else if (skill == 2002) {
-            imageNo = 110075;
+            imageNo = BattleStatusGraphic_Poison;
         } else {
             const std::int32_t type = payload->statusEffectType13DC;
             if (type >= CG_BATTLE_DEBUFF_POISON && type <= CG_BATTLE_DEBUFF_FORGET) {
@@ -2498,7 +2498,7 @@ void UpdateBattleAction142_410F70(YobiAction* const action)
 void UpdateBattleAction143_410FC0(YobiAction* const action)
 {
     // 原常量参考：0x0054D4C0。
-    static constexpr std::array<std::int32_t, 4> kBattleStatusImages {103018, 103022, 103020, 0};
+    static constexpr std::array<std::int32_t, 4> kBattleStatusImages {BattleStatusGraphic_DefenseUp, BattleStatusGraphic_AgilityUp, BattleStatusGraphic_AttackUp, 0};
     auto* const payload = action->payload.battleActor;
     const std::int32_t use = payload->statusEffectMode13D8;
     bool create = true;
@@ -2508,7 +2508,7 @@ void UpdateBattleAction143_410FC0(YobiAction* const action)
         if (type >= CG_BATTLE_PARAMETER_EFFECT_DEFENSE_UP && type <= CG_BATTLE_PARAMETER_EFFECT_AGILITY_DOWN) {
             imageNo = type + 103017;
         } else if (type == CG_BATTLE_PARAMETER_EFFECT_RECOVERY_UP) {
-            imageNo = 103033;
+            imageNo = BattleStatusGraphic_RecoveryUp;
         } else {
             create = false;
         }
@@ -2544,7 +2544,7 @@ void UpdateBattleAction143_410FC0(YobiAction* const action)
         create = false;
     }
     if (create) {
-        static_cast<void>(NewBattleStatusEffect_41FE00(action, imageNo, 1));
+        static_cast<void>(NewBattleStatusEffect_41FE00(action, imageNo, BattleStatusEffectPlacement_RaisedAndScaled));
     }
     const std::uint8_t flags =
         *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);

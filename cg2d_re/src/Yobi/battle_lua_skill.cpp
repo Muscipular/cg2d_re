@@ -1722,7 +1722,7 @@ static bool ValidateOperationBatch(uint32_t nodeId) {
                 return false;
             }
         } else if (operation.opId == 2) {
-            if (operation.value < 110075 || operation.value > 110080) {
+            if (operation.value < BattleStatusGraphic_Poison || operation.value > BattleStatusGraphic_Forget) {
                 return false;
             }
         } else if (operation.opId != 3) {

@@ -11,6 +11,35 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 原41F660／41FE00图号；与状态编号及工厂type独立，RecoveryUp沿原规则显示DefenseUp图。
+enum BattleStatusGraphic : std::int32_t {
+    BattleStatusGraphic_Poison = 110075,
+    BattleStatusGraphic_Sleep = 110076,
+    BattleStatusGraphic_Stone = 110077,
+    BattleStatusGraphic_Inebriety = 110078,
+    BattleStatusGraphic_Confusion = 110079,
+    BattleStatusGraphic_Forget = 110080,
+    BattleStatusGraphic_DefenseUp = 103018,
+    BattleStatusGraphic_DefenseDown = 103019,
+    BattleStatusGraphic_AttackUp = 103020,
+    BattleStatusGraphic_AttackDown = 103021,
+    BattleStatusGraphic_AgilityUp = 103022,
+    BattleStatusGraphic_AgilityDown = 103023,
+    BattleStatusGraphic_RecoveryUp = 103033,
+};
+
+// 原41FBE0两种已知输入；其他值仍按原else显示22327，完整业务名未证。
+enum BattleAttachedEffectMode : std::int32_t {
+    BattleAttachedEffectMode_DisplayImage22326 = 1,
+    BattleAttachedEffectMode_DisplayImage22327 = 2,
+};
+
+// 原41FF5F放置模式；仅1抬高并缩放，其他值保留原分支。
+enum BattleStatusEffectPlacement : std::int32_t {
+    BattleStatusEffectPlacement_Default = 0,
+    BattleStatusEffectPlacement_RaisedAndScaled = 1,
+};
+
 // BFTN01：41CD00的创建类型，覆盖0～47；不是角色phase、技能号或顶层压缩分支号。
 // BFTN02补充已证用途；未证业务名仍按图号／行为命名，证据缺口见对应SPEC。
 // 函数仍接收U32，保留type>47使用已有对象的公共尾。

@@ -1487,7 +1487,7 @@ static void ProcessBattleMDataHeader(
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         YobiAction* const actor = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (actor != nullptr) {
-            static_cast<void>(NewBattleAttachedEffect_41FBE0(actor, 2));
+            static_cast<void>(NewBattleAttachedEffect_41FBE0(actor, BattleAttachedEffectMode_DisplayImage22327));
         }
         FinishBattleEvent_43B6C0(scene);
         return;
@@ -3477,32 +3477,32 @@ void ParseBattleC_438550()
         flags = (inputFlags & detail::BattleCharacterFlag_Pet) != 0 ? flags | detail::BattleActorFlag_Pet : flags & ~detail::BattleActorFlag_Pet;
         payload->flagsFDC = flags;
         if ((inputFlags & detail::BattleCharacterFlag_Poison) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110075));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Poison));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Poison;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Sleep) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110076));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Sleep));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Sleep;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Stone) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110077));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Stone));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Stone;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Inebriety) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110078));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Inebriety));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Inebriety;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Confusion) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110079));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Confusion));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Confusion;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Forget) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, 110080));
+            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Forget));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Forget;
         }
@@ -3510,7 +3510,7 @@ void ParseBattleC_438550()
         actor->scaleX = scale;
         actor->scaleY = scale;
         if ((inputFlags & detail::BattleCharacterFlag_TwoActions) != 0) {
-            static_cast<void>(detail::NewBattleAttachedEffect_41FBE0(actor, 1));
+            static_cast<void>(detail::NewBattleAttachedEffect_41FBE0(actor, detail::BattleAttachedEffectMode_DisplayImage22326));
         } else {
             static_cast<void>(MarkDeath(actor->payload.battleActor->attachedEffect1058));
             actor->payload.battleActor->attachedEffect1058 = nullptr;
@@ -3530,32 +3530,32 @@ void ParseBattleC_438550()
         }
         // 三对状态位沿原清除掩码，不能按输入位对称化。
         if ((inputFlags & detail::BattleCharacterFlag_DefenseUp) != 0) {
-            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103018, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, detail::BattleStatusGraphic_DefenseUp, detail::BattleStatusEffectPlacement_Default));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_DefenseUp;
         }
         if ((inputFlags & detail::BattleCharacterFlag_DefenseDown) != 0) {
-            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103019, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, detail::BattleStatusGraphic_DefenseDown, detail::BattleStatusEffectPlacement_Default));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_DefenseUp;
         }
         if ((inputFlags & detail::BattleCharacterFlag_AttackUp) != 0) {
-            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103020, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, detail::BattleStatusGraphic_AttackUp, detail::BattleStatusEffectPlacement_Default));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_AttackUp;
         }
         if ((inputFlags & detail::BattleCharacterFlag_AttackDown) != 0) {
-            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103021, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, detail::BattleStatusGraphic_AttackDown, detail::BattleStatusEffectPlacement_Default));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_AttackUp;
         }
         if ((inputFlags & detail::BattleCharacterFlag_AgilityUp) != 0) {
-            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103022, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, detail::BattleStatusGraphic_AgilityUp, detail::BattleStatusEffectPlacement_Default));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_AgilityUp;
         }
         if ((inputFlags & detail::BattleCharacterFlag_AgilityDown) != 0) {
-            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, 103023, 0));
+            static_cast<void>(detail::NewBattleStatusEffect_41FE00(actor, detail::BattleStatusGraphic_AgilityDown, detail::BattleStatusEffectPlacement_Default));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_AgilityUp;
         }

@@ -155,7 +155,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
             auto& connection = network::GetGameConnection();
             const auto networkSession = connection.CaptureSession();
             // 登录业务先发XCNY并替换旧待发内容，成功后才追加账号登录请求。
-            constexpr char loginPrelude[] = "XCNY \n";
+            constexpr char loginPrelude[] = "XCNY 3 \n";
             auto queued = connection.SendPacket(loginPrelude,
                 static_cast<std::uint32_t>(sizeof(loginPrelude) - 1), true);
             if (queued == network::SendResult::Queued) {

@@ -136,7 +136,7 @@ static void ProcessBattleMSkillWaitingState(
             return;
         }
         const std::int32_t casterPhase = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->phase;
-        if (casterPhase == 0 || casterPhase == 1) {
+        if (casterPhase == BattleAction_Idle || casterPhase == BattleAction_WaitIdle) {
             // 原42A930传最后参与者ECX，而不是用于phase门禁的施法者。
             AdvanceBattleCastState_439340(last);
             payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;

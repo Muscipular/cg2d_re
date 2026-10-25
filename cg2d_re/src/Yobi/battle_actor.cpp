@@ -1226,11 +1226,11 @@ void UpdateBattleAlbumFlag_4238F0(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     const std::uint32_t state = payload->stateFE0;
     const std::int32_t position = payload->battlePosition18;
-    const std::uint32_t cleared = state & ~std::uint32_t{1};
+    const std::uint32_t cleared = state & ~std::uint32_t{static_cast<std::int32_t>(detail::BattleRuntimeStateFlag_AttributeEffectsEligible)};
     payload->stateFE0 = cleared;
     const std::int32_t playerPosition = cg::world::gBattleCurrentPosition5ABCA4;
     if (position == playerPosition) {
-        payload->stateFE0 = cleared | 1u;
+        payload->stateFE0 = cleared | detail::BattleRuntimeStateFlag_AttributeEffectsEligible;
         return;
     }
     if (position != cg::world::GetBattlePetPosition_405B40(playerPosition)) {
@@ -1245,7 +1245,7 @@ void UpdateBattleAlbumFlag_4238F0(YobiAction* const action)
             return;
         }
     }
-    payload->stateFE0 = payload->stateFE0 | 1u;
+    payload->stateFE0 = payload->stateFE0 | detail::BattleRuntimeStateFlag_AttributeEffectsEligible;
 }
 
 } // namespace cg::yobi

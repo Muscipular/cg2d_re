@@ -116,3 +116,23 @@ YobiUpdateGatePolicy两项S32为FullRate=0／DeferFlaggedUntilPhaseZero=1；全�
 YMN14实施：37份CPP及既有YobiRuntime.hpp新增五组53项，替换423处数字（对象位200、组合47、方向97、更新策略44、颜色通道35）；公开接口的参数／返回与对象字段类型保持，未新增头依赖。38份源／头按原整数值及S32／U32类型逆映射逐词一致；取值／顺序／唯一性、引用闭合、完整字符串、UTF-8／原换行、历史进度及差异检查通过，开始编译验证。
 
 YMN14验证：build.bat Debug配置、编译及链接成功，退出码0。公开头触发较广重编译，仍有Yobi及WindowBank／Contacts／Shop／Trade／Skill的既有C4701、WindowShop的S32到S16既有C4244；原路径保持。精确提交38份源／头、本文及唯一进度，共40份文件，继续独立输入／状态位与残余分派。
+
+## YMN15：独立状态／输入位及残余命令
+
+裁决新增24组枚举，并扩展既有BattleResultByte1Flag三项，共新增72项。battle_base.hpp的detail域承接目标选择12位及810h组合、目标编码（无目标-1、邻接编码基值20、两侧40／41、全部42）、BP入场两种突袭／直接武器位及突袭组合、BC场地六位、FE0两个运行位、属性图标显示策略三位、BM第二字节的闪避／特殊格挡／物理吸收和E0h物理反应组合。除目标编码为S32外均为U32；现有第二字节三项保留完整值和消费，新增三项不与完整结果位混用。
+
+服务端battle.h的355～369行B_TARGET、520～527行BP_FLAG、628～640行BC_FIELD及TARGET编码与客户端消费对应。目标800h未由该服务端给出同名定义，客户端只筛同阵营其他玩家，按OtherAllyPlayers命名；目标门禁先发布5ABC44再按原顺序检查和标记，保持武器／前后排处理。场地20h是End，原438573直接结束整次C解析；其余五位依优先级选择110092／110089／110090／110091／110155，不把End简化成仅保留特效。
+
+FE0 bit1由4238F0按自身／自宠／对方图鉴匹配发布，在4209C0控制属性图标资格，命名AttributeEffectsEligible；bit2由击飞／反应结束路径写入、40C190清除、4394A0作为非活动参与者跳过条件，命名InactiveSkipReady，不擅推死亡或空闲。属性图标全局策略三位仅表示在类型5／6之外、模式1、类型5／6之内是否显示，保留原条件组合。BM字节补齐保持原右移和低BYTE读取，secondaryFlagByte1的1经赋值链证明是原bit8闪避，不能套用Normal。
+
+map_actor.hpp承接九组U32：附件输入三位及9h装备列表掩码、地图显示六位／三掩码／第二字节200h对应位、地图动作九位、类别的循环表情位、地图对象静态翻转门禁的一位／一掩码。只解释实际flags42／玩家18A、flags120／玩家动作、flags114、category和附件报文各自域，彼此同值不混用。未证状态业务名按1AF41／1AF42／1AF43／1AF4D／1AF4E／1824F图及声音命名；随宠显示先把8／10h／40h映射为1／4／20h，清位时仍按原对象类别选源位，不重排。聊天到期只清本地DFFFh掩码及原正文存储，保留后续游标别名行为。
+
+其他局部域：map_observation.cpp的S32命令DepartingGroup=81／ArrivingGroup=82，仅用于440920报文分派，不并入CharacterAnimationId；map_transition.cpp的两个U32位为FirstEffectAttempted／SecondEffectAttempted，创建失败也照原逻辑置位，不能称成功；window.cpp的S32展开模式Vertical=0／BothAxes=1及U32的UseStoredCoordinates=1，只解释低mode几何初始化和窗口坐标读取，不给入口flags的flag20快照猜业务。animation.cpp的U32位PublishActionFlags=1对应资源记录的动作属性发布；base.hpp的S32哨兵NotQueued=-2对应对象cacheIndex，队列容量及其他负索引不混用。
+
+原端只读核对43C560目标位与810h／玩家筛选、438550场地位及图号、4238F0资格发布与440920的81／82观察链。当前源码的属性／地图状态／附件解析／窗口两轴初始化逐字段闭合；已有图号／字段说明继续保留，不猜玩家状态名称。另复用既有BattleAction_Idle／WaitIdle补SKL参与者与Lua原生收尾的四处比较，复用YobiActionFlag补五处已证全局角色数组的绘制位引用。
+
+继续保留RID预读20整数／实际19整数的差异，尚不能据此把预读bit2无条件归入BC死亡位；窗口入口flags bit0只证存入flag20而未见业务读取，保留原值及说明。准备按原数值／S32／U32类型替换、对新增及既有枚举做双向逆映射静态核对，随后编译验证。
+
+YMN15实施：18份CPP及三份既有头新增24组、扩展既有第二字节枚举一组，共新增72项，替换140处数字，包括复用既有角色动作四处和对象绘制位五处；没有新增头依赖。21份源／头在排除新声明并核对旧声明后，对新旧两侧的具名引用按原数值／S32／U32做逆映射，逐词一致；枚举值／顺序／唯一性、引用增量、完整字符串、UTF-8／原换行、历史进度与差异检查通过，开始编译验证。
+
+YMN15验证：build.bat Debug配置、编译及链接成功，退出码0；仍有Yobi的amount／result／lastAmount／statusType／selfFlags／relativeX／relativeY既有C4701，原路径保持。精确提交21份源／头、本文及唯一进度，共23份文件。按原BSI01确认的GBK重新只读核查技能数据，尚有技术函数可进一步对应的编号，继续核对后再作最终汇总。

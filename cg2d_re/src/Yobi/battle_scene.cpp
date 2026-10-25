@@ -358,10 +358,10 @@ std::int32_t GetSelectedBattleEntry_43C120()
             || (GetYobiActionFlagsLowByte(action) & YobiActionFlag_PendingValue2) == 0) {
             continue;
         }
-        if ((target & 0x40u) != 0) {
+        if ((target & detail::BattleTargetFlag_Single) != 0) {
             return position;
         }
-        if ((target & 0x80u) != 0) {
+        if ((target & detail::BattleTargetFlag_CrossNeighbors) != 0) {
             std::int32_t row = position;
             std::int32_t column = position;
             for (std::int32_t r = 0; r < 4; ++r) {
@@ -380,27 +380,27 @@ std::int32_t GetSelectedBattleEntry_43C120()
             if (column - 1 >= 0) {
                 detail::DrawBattleEntryHover_43C0A0(rows[row][column - 1]);
             }
-            return position + 20;
+            return position + detail::BattleTargetCode_CrossNeighborBase;
         }
-        if ((target & 0x100u) != 0) {
+        if ((target & detail::BattleTargetFlag_Team) != 0) {
             const std::int32_t first = position < 10 ? 0 : 10;
             for (std::int32_t index = first; index < first + 10; ++index) {
                 if (index != position) {
                     detail::DrawBattleEntryHover_43C0A0(index);
                 }
             }
-            return position < 10 ? 40 : 41;
+            return position < 10 ? detail::BattleTargetCode_Team0 : detail::BattleTargetCode_Team1;
         }
-        if ((target & 0x200u) != 0) {
+        if ((target & detail::BattleTargetFlag_All) != 0) {
             for (std::int32_t index = 0; index < 20; ++index) {
                 if (index != position) {
                     detail::DrawBattleEntryHover_43C0A0(index);
                 }
             }
-            return 42;
+            return detail::BattleTargetCode_All;
         }
     }
-    return -1;
+    return detail::BattleTargetCode_None;
 }
 
 
@@ -443,12 +443,12 @@ void OrientEnteringBattleSides_43C9A0()
     };
     const std::uint8_t firstFlags =
         *reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC);
-    if ((firstFlags & 1u) != 0) {
+    if ((firstFlags & detail::BattlePlayerFlag_PlayerSurprise) != 0) {
         turnEntries(10, 20);
     }
     const std::uint8_t secondFlags =
         *reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC);
-    if ((secondFlags & 2u) != 0) {
+    if ((secondFlags & detail::BattlePlayerFlag_EnemySurprise) != 0) {
         turnEntries(0, 10);
     }
 }
@@ -503,26 +503,26 @@ std::int32_t CheckBattleCommand_43C560(
 {
     cg::world::gBattleTargetFlags5ABC44 = flags;
     const std::int32_t pet = cg::world::GetBattlePetPosition_405B40(position);
-    if ((flags & 1u) == 0) {
+    if ((flags & detail::BattleTargetFlag_Select) == 0) {
         return 0;
     }
-    if ((flags & 4u) != 0) {
+    if ((flags & detail::BattleTargetFlag_OwnPet) != 0) {
         YobiAction* const action = cg::world::gBattleEntries59E980[pet];
         if (action != nullptr
             && (!(action->readiness <= 0)
-                || (flags & 2u) != 0)) {
-            cg::world::gBattleEntries59E980[pet]->flags |= 8u;
+                || (flags & detail::BattleTargetFlag_AllowDead) != 0)) {
+            cg::world::gBattleEntries59E980[pet]->flags |= YobiActionFlag_PendingValue2;
         }
     }
-    if ((flags & 8u) != 0) {
+    if ((flags & detail::BattleTargetFlag_Self) != 0) {
         YobiAction* const action = cg::world::gBattleEntries59E980[position];
         if (action != nullptr
             && (!(action->readiness <= 0)
-                || (flags & 2u) != 0)) {
-            cg::world::gBattleEntries59E980[position]->flags |= 8u;
+                || (flags & detail::BattleTargetFlag_AllowDead) != 0)) {
+            cg::world::gBattleEntries59E980[position]->flags |= YobiActionFlag_PendingValue2;
         }
     }
-    if ((flags & 0x810u) != 0) {
+    if ((flags & detail::BattleTargetMask_OtherAlliesOrPlayers) != 0) {
         const std::int32_t first = position < 10 ? 0 : 10;
         for (std::int32_t slot = first; slot < first + 10; ++slot) {
             if (slot == position || slot == pet) {
@@ -530,24 +530,24 @@ std::int32_t CheckBattleCommand_43C560(
             }
             YobiAction* const action = cg::world::gBattleEntries59E980[slot];
             if (action != nullptr
-                && ((flags & 0x10u) != 0
-                    || ((flags & 0x800u) != 0
+                && ((flags & detail::BattleTargetFlag_OtherAllies) != 0
+                    || ((flags & detail::BattleTargetFlag_OtherAllyPlayers) != 0
                         && (*reinterpret_cast<const std::uint8_t*>(
                             &static_cast<const detail::BattleActorPayload*>(action->payload.battleActor)->flagsFDC) & detail::BattleActorFlag_Player) != 0))
                 && (!(action->readiness <= 0)
-                    || (flags & 2u) != 0)) {
-                cg::world::gBattleEntries59E980[slot]->flags |= 8u;
+                    || (flags & detail::BattleTargetFlag_AllowDead) != 0)) {
+                cg::world::gBattleEntries59E980[slot]->flags |= YobiActionFlag_PendingValue2;
             }
         }
     }
-    if ((flags & 0x20u) != 0) {
+    if ((flags & detail::BattleTargetFlag_Opponents) != 0) {
         const std::int32_t first = position < 10 ? 10 : 0;
         for (std::int32_t slot = first; slot < first + 10; ++slot) {
             YobiAction* const action = cg::world::gBattleEntries59E980[slot];
             if (action != nullptr
                 && (!(action->readiness <= 0)
-                    || (flags & 2u) != 0)) {
-                cg::world::gBattleEntries59E980[slot]->flags |= 8u;
+                    || (flags & detail::BattleTargetFlag_AllowDead) != 0)) {
+                cg::world::gBattleEntries59E980[slot]->flags |= YobiActionFlag_PendingValue2;
             }
         }
     }
@@ -557,8 +557,8 @@ std::int32_t CheckBattleCommand_43C560(
         {9, 7, 5, 6, 8},
         {4, 2, 0, 1, 3},
     };
-    if ((flags & 0x400u) == 0
-        || ((*reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC) & 0x80u) == 0
+    if ((flags & detail::BattleTargetFlag_CheckMeleeRows) == 0
+        || ((*reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC) & detail::BattlePlayerFlag_DirectWeapon) == 0
             && position == cg::world::gBattleCurrentPosition5ABCA4)) {
         return 1;
     }
@@ -613,8 +613,8 @@ void FlushBattleEntries_43C060()
         YobiAction* const action = entries[slot];
         if (action != nullptr) {
             action->flags &= ~YobiActionFlag_PendingValue2;
-            entries[slot]->flags |= 4u;
-            entries[slot]->cacheIndex = -2;
+            entries[slot]->flags |= YobiActionFlag_PendingValue1;
+            entries[slot]->cacheIndex = YobiGraphicCacheIndex_NotQueued;
         }
     }
 }

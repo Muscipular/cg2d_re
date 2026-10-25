@@ -15,6 +15,18 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 窗口入口低mode的几何展开方式；未知模式仍保持原未赋值路径。
+enum WindowOpeningExpansionMode : std::int32_t {
+    WindowOpeningExpansionMode_Vertical = 0,
+    WindowOpeningExpansionMode_BothAxes = 1,
+};
+
+// 窗口状态位1使入口复用已存坐标，不据此推断当前窗口是否打开。
+enum WindowSavedPositionFlag : std::uint32_t {
+    WindowSavedPositionFlag_UseStoredCoordinates = 0x00000001u,
+};
+
+
 // 5044E0的winId右移1后的图形分组；与原winId及负样式分域。
 enum WindowFrameGraphicGroup : std::int32_t {
     WindowFrameGraphicGroup_Image245300 = 2,
@@ -718,13 +730,13 @@ YobiAction* CreateWindowOpeningAnimation_475950(
     payload->width = lowWidth;
     action->windowCompletionSlot1D0 = completionSlot;
     const auto lowMode = static_cast<std::uint8_t>(mode);
-    if (lowMode == 0) {
+    if (lowMode == detail::WindowOpeningExpansionMode_Vertical) {
         payload->centerX = lowWidth / 2 + lowX;
         payload->centerY = lowHeight / 2 + lowY;
         action->deltaX = 0;
         action->deltaY = (payload->centerY - lowY) / 10;
         payload->halfWidth = payload->centerX - lowX;
-    } else if (lowMode == 1) {
+    } else if (lowMode == detail::WindowOpeningExpansionMode_BothAxes) {
         payload->centerX = lowWidth / 2 + lowX;
         payload->centerY = lowHeight / 2 + lowY;
         action->deltaX = (payload->centerX - lowX) / 10;
@@ -759,7 +771,7 @@ YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     const std::int32_t height = prototype->height;
-    if ((windowFlags & 1u) != 0) {
+    if ((windowFlags & detail::WindowSavedPositionFlag_UseStoredCoordinates) != 0) {
         x = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].x;
         y = ui::detail::gWindowStates[cg::ui::WindowId_Quantity].y;
     }
@@ -785,13 +797,13 @@ YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
     action->nameY = sourceElement;
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
-    if (lowMode == 0) {
+    if (lowMode == detail::WindowOpeningExpansionMode_Vertical) {
         payload->centerX = width / 2 + x;
         payload->centerY = height / 2 + y;
         action->deltaX = 0;
         action->deltaY = (payload->centerY - y) / 10;
         payload->halfWidth = payload->centerX - x;
-    } else if (lowMode == 1) {
+    } else if (lowMode == detail::WindowOpeningExpansionMode_BothAxes) {
         payload->centerX = width / 2 + x;
         payload->centerY = height / 2 + y;
         action->deltaX = (payload->centerX - x) / 10;
@@ -813,7 +825,7 @@ YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Bank];
     const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
-        &ui::detail::gWindowStates[cg::ui::WindowId_Bank].flags) & 1u) != 0;
+        &ui::detail::gWindowStates[cg::ui::WindowId_Bank].flags) & detail::WindowSavedPositionFlag_UseStoredCoordinates) != 0;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     std::int32_t x = prototype->defaultX;
@@ -841,13 +853,13 @@ YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
     action->mapY1F0 = static_cast<std::int32_t>(userState);
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
-    if (lowMode == 0) {
+    if (lowMode == detail::WindowOpeningExpansionMode_Vertical) {
         payload->centerX = width / 2 + x;
         payload->centerY = height / 2 + y;
         action->deltaX = 0;
         action->deltaY = (payload->centerY - y) / 10;
         payload->halfWidth = payload->centerX - x;
-    } else if (lowMode == 1) {
+    } else if (lowMode == detail::WindowOpeningExpansionMode_BothAxes) {
         const std::int32_t centerX = width / 2 + x;
         payload->centerX = centerX;
         payload->centerY = height / 2 + y;
@@ -870,7 +882,7 @@ YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_ItemStorage];
     const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
-        &ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].flags) & 1u) != 0;
+        &ui::detail::gWindowStates[cg::ui::WindowId_ItemStorage].flags) & detail::WindowSavedPositionFlag_UseStoredCoordinates) != 0;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     std::int32_t x = prototype->defaultX;
@@ -899,13 +911,13 @@ YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
     action->mapY1F0 = static_cast<std::int32_t>(userState);
     payload->counter = 0;
     const auto lowMode = static_cast<std::uint8_t>(mode);
-    if (lowMode == 0) {
+    if (lowMode == detail::WindowOpeningExpansionMode_Vertical) {
         payload->centerX = width / 2 + x;
         payload->centerY = height / 2 + y;
         action->deltaX = 0;
         action->deltaY = (payload->centerY - y) / 10;
         payload->halfWidth = payload->centerX - x;
-    } else if (lowMode == 1) {
+    } else if (lowMode == detail::WindowOpeningExpansionMode_BothAxes) {
         const std::int32_t centerX = width / 2 + x;
         payload->centerX = centerX;
         payload->centerY = height / 2 + y;

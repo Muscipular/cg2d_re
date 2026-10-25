@@ -10,6 +10,69 @@
 
 namespace cg::yobi {
 
+// 43DD00附件报文的低BYTE标志，不是角色协议状态。
+enum MapAttachmentInputFlag : std::uint32_t {
+    MapAttachmentInputFlag_RidingActor = 0x00000002u,
+    MapAttachmentInputFlag_AttachedActor = 0x00000004u,
+    MapAttachmentInputFlag_AuxiliaryGearEntries = 0x00000010u,
+};
+
+// 只证1／8任一位控制装备列表，不拆分未证业务身份。
+enum MapAttachmentInputMask : std::uint32_t {
+    MapAttachmentInputMask_GearList = 0x00000009u,
+};
+
+// 地图flags42／玩家18A的显示位；未知业务名按图号或消费命名。
+enum MapActorDisplayFlag : std::uint32_t {
+    MapActorDisplayFlag_OverheadMarker = 0x00000100u,
+    MapActorDisplayFlag_SharedMovementAndBars = 0x00000200u,
+    MapActorDisplayFlag_StatusImage1AF41 = 0x00000400u,
+    MapActorDisplayFlag_ChatBubbleText = 0x00002000u,
+    MapActorDisplayFlag_StatusImage1AF43 = 0x00004000u,
+    MapActorDisplayFlag_StatusImage1AF42 = 0x00008000u,
+};
+
+// 地图显示位的原完整组合及清除掩码。
+enum MapActorDisplayMask : std::uint32_t {
+    MapActorDisplayMask_FollowPetStatusImages = 0x00008400u,
+    MapActorDisplayMask_PrimaryStatusImages = 0x0000C400u,
+    MapActorDisplayMask_WithoutChatBubbleText = 0x0000DFFFu,
+};
+
+// flags42第二字节的200h位；与完整掩码及其他同值标志分域。
+enum MapActorDisplayByte1Flag : std::uint32_t {
+    MapActorDisplayByte1Flag_SharedMovementAndBars = 0x00000002u,
+};
+
+// 地图flags120／玩家动作位；随宠投影前后的位分别保留。
+enum MapActorActionFlag : std::uint32_t {
+    MapActorActionFlag_StatusImage1AF4E = 0x00000001u,
+    MapActorActionFlag_DynamicStatusImage = 0x00000002u,
+    MapActorActionFlag_StatusImage1AF4D = 0x00000004u,
+    MapActorActionFlag_FollowPetStatusImage1AF4E = 0x00000008u,
+    MapActorActionFlag_FollowPetStatusImage1AF4D = 0x00000010u,
+    MapActorActionFlag_StatusImage1AF4DSound = 0x00000020u,
+    MapActorActionFlag_FollowPetStatusImage1AF4DSound = 0x00000040u,
+    MapActorActionFlag_SuspendUpdate = 0x00000080u,
+    MapActorActionFlag_StatusImage1824F = 0x00001000u,
+};
+
+// 4417E0按category选择表情动画循环集合的位，具体对象身份未证。
+enum MapActorCategoryFlag : std::uint32_t {
+    MapActorCategoryFlag_LoopEmoteAnimations = 0x00000100u,
+};
+
+// 地图flags114用于静态翻转判断的类别位，具体对象身份未证。
+enum MapObjectRenderFlag : std::uint32_t {
+    MapObjectRenderFlag_NameOnlyCategory = 0x00001000u,
+};
+
+// flags114中使原静态翻转门禁不通过的完整掩码，不猜各组成位业务名。
+enum MapObjectRenderMask : std::uint32_t {
+    MapObjectRenderMask_StaticFlipExempt = 0x00400380u,
+};
+
+
 // 地图挂件kind；6生成相邻图号双挂件，与战斗辅助挂件类型独立。
 enum MapGearKind : std::int32_t {
     MapGearKind_MainGear = 0,

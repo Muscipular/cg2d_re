@@ -943,7 +943,7 @@ HandleSkill72PostReaction:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_ReturnToFormation);
                             secondaryFlagByte1 = static_cast<std::uint8_t>(static_cast<std::uint32_t>(secondaryFlags) >> 8U);
                         }
-                        if ((secondaryFlagByte1 & 1) != 0)
+                        if ((secondaryFlagByte1 & static_cast<std::int32_t>(BattleResultByte1Flag_FlashDodge)) != 0)
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_DisableFlash);
                     }
                 } else {

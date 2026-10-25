@@ -267,7 +267,7 @@ YobiAction* NewYobiAction_404AE0(
     action->callback = nullptr;
     action->priority = priority;
     action->graphicIndex = -1;
-    action->cacheIndex = -2;
+    action->cacheIndex = YobiGraphicCacheIndex_NotQueued;
     action->framePlayingRate = 100;
     action->scaleX = 1.0F;
     action->scaleY = 1.0F;

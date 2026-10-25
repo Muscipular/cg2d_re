@@ -2552,7 +2552,7 @@ static void UpdateSkillEffect(YobiAction* action) {
         UpdateNativeBattleActor(action);
         node = FindNodeById(nodeId);
         if (node && !node->actionDead && node->action && node->action->payload.battleActor &&
-            node->action->phase == 0 &&
+            node->action->phase == BattleAction_Idle &&
             node->action->payload.battleActor->busyFD8 == 0) {
             node->nativeCleanup = false;
             node->nativeFinishPending = false;
@@ -2562,7 +2562,7 @@ static void UpdateSkillEffect(YobiAction* action) {
         return;
     }
     if (!node->temporary && node->actionComplete) {
-        if (action->phase == 0 || action->phase == kEndActionState) {
+        if (action->phase == BattleAction_Idle || action->phase == kEndActionState) {
             return;
         }
         ClearPendingAdvance(*node);

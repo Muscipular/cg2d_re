@@ -379,7 +379,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         }
     }
 
-    if ((flags & 9u) != 0) {
+    if ((flags & MapAttachmentInputMask_GearList) != 0) {
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         std::int32_t index = 0;
@@ -394,7 +394,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                 if (payload != nullptr) {
                     payload->mainGear30 = NewYobiGear_4410F0(imageNo);
                 }
-            } else if ((flags & 0x10u) != 0) {
+            } else if ((flags & MapAttachmentInputFlag_AuxiliaryGearEntries) != 0) {
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
@@ -428,7 +428,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         }
     }
 
-    if ((flags & 2u) != 0) {
+    if ((flags & MapAttachmentInputFlag_RidingActor) != 0) {
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
@@ -466,7 +466,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         payload->transitionProgress48 = 0;
     }
 
-    if ((flags & 4u) != 0) {
+    if ((flags & MapAttachmentInputFlag_AttachedActor) != 0) {
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
@@ -573,12 +573,12 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     }
     YobiAction* player = world::gPlayerRuntimeSlots.action;
     if ((player != nullptr && player == action) || index == -1) {
-        if ((world::ReadPlayerActionFlagsByte() & 0x80u) != 0) {
+        if ((world::ReadPlayerActionFlagsByte() & MapActorActionFlag_SuspendUpdate) != 0) {
             return;
         }
     } else if ((reinterpret_cast<const unsigned char*>(
                     &world::detail::gWorldObjects[
-                        static_cast<std::size_t>(index)].flags120)[0] & 0x80u) != 0) {
+                        static_cast<std::size_t>(index)].flags120)[0] & MapActorActionFlag_SuspendUpdate) != 0) {
         return;
     }
     if (UpdateMapActorTransitionPhase_43E490(action) != 0) {
@@ -589,7 +589,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         index = payload->index;
         if ((reinterpret_cast<const unsigned char*>(
                     &world::detail::gWorldObjects[
-                        static_cast<std::size_t>(index)].flags42)[1] & 2u) == 0) {
+                        static_cast<std::size_t>(index)].flags42)[1] & MapActorDisplayByte1Flag_SharedMovementAndBars) == 0) {
             UpdateMapActorPathMovement_4424B0(action);
             useSharedRate = false;
         } else {
@@ -610,7 +610,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     std::int32_t stopAtEnd;
     if (player != action
         && (world::detail::gWorldObjects[
-                static_cast<std::size_t>(index)].category & 0x100u) != 0) {
+                static_cast<std::size_t>(index)].category & MapActorCategoryFlag_LoopEmoteAnimations) != 0) {
         const std::int32_t characterAction = action->characterAction;
         stopAtEnd = characterAction == CharacterAnimation_Run || characterAction == CharacterAnimation_Stand
             || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Scissors || characterAction == CharacterAnimation_Paper
@@ -632,7 +632,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         if (player != action) {
             const std::uint32_t flags = world::detail::gWorldObjects[
                 static_cast<std::size_t>(index)].flags114;
-            if ((flags & 0x1000u) != 0 && (flags & 0x400380u) == 0) {
+            if ((flags & MapObjectRenderFlag_NameOnlyCategory) != 0 && (flags & MapObjectRenderMask_StaticFlipExempt) == 0) {
                 flipStatic = 1;
             }
         }

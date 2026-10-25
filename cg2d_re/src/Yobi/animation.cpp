@@ -17,6 +17,12 @@ namespace cg::yobi {
 
 namespace detail {
 
+// Yobi帧驱动按动画资源记录位发布动作属性，保持原失败返回。
+enum AnimeResourceFlag : std::uint32_t {
+    AnimeResourceFlag_PublishActionFlags = 0x00000001u,
+};
+
+
 std::uint16_t GetYobiAnimeActionFlags(const YobiAction* const action) noexcept
 {
     return render::ReadGraphicAnimeActionFlags(action->graphicIndex);
@@ -101,7 +107,7 @@ static bool ApplyYobiAnimeFrame(
     action->drawMode.mixFlags &= ~cg::render::GraphicMixFlag_FlipMask;
     action->graphicIndex = static_cast<std::int32_t>(graphicFrame->graphicIndex);
     // AF406：4.06@470759按图号共享完整动作属性，不能从mixFlags低字节反推。
-    if ((resource::animation::gAnimateRecords9A4A58[animeIndex].flag & 1u) != 0) {
+    if ((resource::animation::gAnimateRecords9A4A58[animeIndex].flag & AnimeResourceFlag_PublishActionFlags) != 0) {
         if (!render::SetGraphicAnimeActionFlags(graphicFrame->graphicIndex, selected->revert)) {
             return false; // RMO01：两条动画驱动入口均传递资源失败值-1。
         }

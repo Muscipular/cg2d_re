@@ -500,7 +500,7 @@ void RenderChara_521F20()
         const std::uint32_t flags = action->flags;
         if (((flags & cg::yobi::YobiActionFlag_SkipDrawWhenParityZero) != 0 && render::gFrameParity628FC8 == 0)
             || ((flags & cg::yobi::YobiActionFlag_SkipDrawWhenParityOne) != 0 && render::gFrameParity628FC8 == 1)) {
-            action->cacheIndex = -2;
+            action->cacheIndex = cg::yobi::YobiGraphicCacheIndex_NotQueued;
             continue;
         }
 
@@ -646,7 +646,7 @@ void RenderChara_521F20()
         if (const auto* const anchor = cg::yobi::detail::GetBattleTitleAnchor(action)) {
             // 此时人物和骑乘均已更新；在最终队列坐标处对齐，避免叠加称号自身偏移。
             if (!cg::yobi::detail::GetYobiTitleTopLeft(anchor, action, true, record->x, record->y)) {
-                action->cacheIndex = -2;
+                action->cacheIndex = cg::yobi::YobiGraphicCacheIndex_NotQueued;
                 continue;
             }
         }

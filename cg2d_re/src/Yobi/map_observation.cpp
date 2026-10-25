@@ -23,6 +23,13 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 440920观察回复命令；不是角色资源动画81／82。
+enum MapObservationReplyAction : std::int32_t {
+    MapObservationReplyAction_DepartingGroup = 81,
+    MapObservationReplyAction_ArrivingGroup = 82,
+};
+
+
 // 原43F330/43FEB0生产、43F520/440070消费；仅用于观察父组的phase。
 enum ObservationGroupPhase : std::int32_t {
     ObservationGroupPhase_WaitingForBoarding = 1, // 等待成员登载完成。
@@ -1031,7 +1038,7 @@ std::int32_t HandleMapObservationActionReply_440920(
     [[maybe_unused]] const std::int32_t unusedDirection,
     const std::int32_t characterAction, const char* const row)
 {
-    if (characterAction < 81 || characterAction > 82) {
+    if (characterAction < detail::MapObservationReplyAction_DepartingGroup || characterAction > detail::MapObservationReplyAction_ArrivingGroup) {
         return 0;
     }
     YobiAction* const target =
@@ -1045,7 +1052,7 @@ std::int32_t HandleMapObservationActionReply_440920(
     for (std::int32_t index = 0; index < 7; ++index) {
         values[index] = network::ParseDelimitedInteger_52CFA0(row, '|', index + 6);
     }
-    if (characterAction == 82) {
+    if (characterAction == detail::MapObservationReplyAction_ArrivingGroup) {
         const std::int32_t imageNo = character_select::ResolveCharacterImageForVersion(values[0]);
         YobiAction* const observer = detail::CreateArrivingObservationGroup_43FEB0(imageNo, x, y, values[1]);
         detail::SetObservationGroupMembers_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);

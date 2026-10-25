@@ -499,7 +499,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     payload->castSkillLevel1044 = -1;
     payload->skillMeta = {}; // E01／4391B6：每次重新初始化动作清除上次技能。
     if ((flags & BattleActorFlag_Dead) == 0
-        && (*reinterpret_cast<const unsigned char*>(&world::gBattlePlayerFlags5ABCAC) & 3u) != 0) {
+        && (*reinterpret_cast<const unsigned char*>(&world::gBattlePlayerFlags5ABCAC) & BattlePlayerMask_EitherSurprise) != 0) {
         FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[index]);
     }
 }
@@ -766,7 +766,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
         const std::int32_t parentPhase = parent->phase;
         const auto* const actorPayload = static_cast<const BattleActorPayload*>(actor->payload.battleActor);
         if (parentPhase != 24 && enable == BattleTurnReadyPolicy_AllowInactiveSkip
-            && (*reinterpret_cast<const unsigned char*>(&actorPayload->stateFE0) & 2u) != 0
+            && (*reinterpret_cast<const unsigned char*>(&actorPayload->stateFE0) & BattleRuntimeStateFlag_InactiveSkipReady) != 0
             && actorPayload->aliveFF8 == 0 && actor->phase != BattleAction_ReactToHit) {
             continue;
         }

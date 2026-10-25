@@ -425,11 +425,11 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         state = world::ReadPlayerActionFlags();
         value = world::gPlayerRuntimeSlots.value190;
         if ((action->flags & YobiActionFlag_FollowPetOverlay) != 0) {
-            flags &= 0x8400u;
+            flags &= MapActorDisplayMask_FollowPetStatusImages;
             state = static_cast<std::uint16_t>(
-                ((state & 8u) != 0 ? 1u : 0u)
-                | ((state & 0x10u) != 0 ? 4u : 0u)
-                | ((state & 0x40u) != 0 ? 0x20u : 0u));
+                ((state & MapActorActionFlag_FollowPetStatusImage1AF4E) != 0 ? MapActorActionFlag_StatusImage1AF4E : 0u)
+                | ((state & MapActorActionFlag_FollowPetStatusImage1AF4D) != 0 ? MapActorActionFlag_StatusImage1AF4D : 0u)
+                | ((state & MapActorActionFlag_FollowPetStatusImage1AF4DSound) != 0 ? MapActorActionFlag_StatusImage1AF4DSound : 0u));
             for (const world::PetRuntimeRecord& pet : world::gPetRuntimeRecords) {
                 if (pet.used != 0 && pet.follow6D4 != 0) {
                     action->readiness = pet.values0C[0];
@@ -451,22 +451,22 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         value = world::detail::gWorldObjects[stateIndex].value124;
         flags = originalFlags;
         if ((action->flags & YobiActionFlag_FollowPetOverlay) != 0) {
-            flags &= 0x8400u;
+            flags &= MapActorDisplayMask_FollowPetStatusImages;
             state = static_cast<std::uint16_t>(
-                ((state & 8u) != 0 ? 1u : 0u)
-                | ((state & 0x10u) != 0 ? 4u : 0u)
-                | ((state & 0x40u) != 0 ? 0x20u : 0u));
+                ((state & MapActorActionFlag_FollowPetStatusImage1AF4E) != 0 ? MapActorActionFlag_StatusImage1AF4E : 0u)
+                | ((state & MapActorActionFlag_FollowPetStatusImage1AF4D) != 0 ? MapActorActionFlag_StatusImage1AF4D : 0u)
+                | ((state & MapActorActionFlag_FollowPetStatusImage1AF4DSound) != 0 ? MapActorActionFlag_StatusImage1AF4DSound : 0u));
         }
-        drawBars = (originalFlags & 0x200u) != 0;
+        drawBars = (originalFlags & MapActorDisplayFlag_SharedMovementAndBars) != 0;
     }
     if (world::gActorBarsEnabled5AC490 == 0) {
         drawBars = false;
     }
 
-    bool createFirst = action->overheadMarkerRefresh2EC != 0 && (flags & 0x100u) != 0;
-    if (!createFirst && (flags & 0x100u) != 0 && payload->overheadMarker04 == nullptr) {
-        createFirst = (flags & 0x400u) == 0
-            || (flags & 0x4000u) == 0 || (flags & 0x8000u) != 0;
+    bool createFirst = action->overheadMarkerRefresh2EC != 0 && (flags & MapActorDisplayFlag_OverheadMarker) != 0;
+    if (!createFirst && (flags & MapActorDisplayFlag_OverheadMarker) != 0 && payload->overheadMarker04 == nullptr) {
+        createFirst = (flags & MapActorDisplayFlag_StatusImage1AF41) == 0
+            || (flags & MapActorDisplayFlag_StatusImage1AF43) == 0 || (flags & MapActorDisplayFlag_StatusImage1AF42) != 0;
     }
     if (createFirst) {
         const std::int32_t kind = action->overheadMarkerMode2E4;
@@ -475,11 +475,11 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t imageNo = kind == OverheadMarkerMode_CustomImage || kind == OverheadMarkerMode_CustomImageKeepMarkerFlag ? action->overheadMarkerImage2E8 : 0x192BC;
         payload->overheadMarker04 = CreateMapAttachmentAction_444000(imageNo, mapX, mapY, CharacterAnimation_Stand, 0, 10);
-    } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
+    } else if (((flags & MapActorDisplayFlag_OverheadMarker) == 0 || (flags & MapActorDisplayFlag_StatusImage1AF41) != 0)
                && payload->overheadMarker04 != nullptr) {
         MarkDeath(payload->overheadMarker04);
         payload->overheadMarker04 = nullptr;
-    } else if ((flags & 0x100u) != 0) {
+    } else if ((flags & MapActorDisplayFlag_OverheadMarker) != 0) {
         YobiAction* const initialChild = payload->overheadMarker04;
         if (initialChild != nullptr) {
             const std::int32_t parentX = action->x;
@@ -515,12 +515,12 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         }
     }
 
-    if ((flags & 0x2000u) != 0) {
+    if ((flags & MapActorDisplayFlag_ChatBubbleText) != 0) {
         const std::uint64_t now = platform::ReadTickCount64();
         const std::array<std::wstring, 2>* drawableText = nullptr;
         if (payload->chatDeadline14 <= now) {
             auto* const expiredText = payload->text1C;
-            flags &= 0xDFFFu;
+            flags &= MapActorDisplayMask_WithoutChatBubbleText;
             if (expiredText != nullptr) {
                 delete expiredText;
                 payload->text1C = nullptr;
@@ -657,25 +657,25 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         }
     };
 
-    const std::uint16_t statusMask = flags & 0xC400u;
-    if (statusMask != 0 || (state & 2u) != 0 || (state & 0x1000u) != 0) {
+    const std::uint16_t statusMask = flags & MapActorDisplayMask_PrimaryStatusImages;
+    if (statusMask != 0 || (state & MapActorActionFlag_DynamicStatusImage) != 0 || (state & MapActorActionFlag_StatusImage1824F) != 0) {
         std::int32_t statusImage = 0;
-        if ((state & 2u) != 0) {
+        if ((state & MapActorActionFlag_DynamicStatusImage) != 0) {
             if (value < 0 || value >= world::GetActorStatusIconCount_4410E0()) {
                 value = 0;
             }
             statusImage = gActorStatusImages5542F4[value];
         }
-        if ((flags & 0x400u) != 0) {
+        if ((flags & MapActorDisplayFlag_StatusImage1AF41) != 0) {
             statusImage = 0x1AF41;
         }
-        if ((flags & 0x8000u) != 0) {
+        if ((flags & MapActorDisplayFlag_StatusImage1AF42) != 0) {
             statusImage = 0x1AF42;
         }
-        if ((flags & 0x4000u) != 0) {
+        if ((flags & MapActorDisplayFlag_StatusImage1AF43) != 0) {
             statusImage = 0x1AF43;
         }
-        if ((state & 0x1000u) != 0) {
+        if ((state & MapActorActionFlag_StatusImage1824F) != 0) {
             statusImage = 0x1824F;
         }
         if (payload->statusIcon4C == nullptr) {
@@ -689,7 +689,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         if (payload->statusIcon4C != nullptr) {
             payload->statusIcon4C->imageNo = statusImage;
             positionStatus(payload->statusIcon4C);
-            if ((state & 1u) != 0 && statusMask == 0) {
+            if ((state & MapActorActionFlag_StatusImage1AF4E) != 0 && statusMask == 0) {
                 payload->statusIcon4C->x -= 17;
             }
             drawStatus(payload->statusIcon4C);
@@ -699,14 +699,14 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         payload->statusIcon4C = nullptr;
     }
 
-    if ((state & 4u) != 0) {
+    if ((state & MapActorActionFlag_StatusImage1AF4D) != 0) {
         if (payload->statusIcon4C == nullptr) {
             if (payload->statusIcon1AF4D_0C == nullptr) {
                 const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
                 const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
                 payload->statusIcon1AF4D_0C = CreateMapAttachmentAction_444000(0x1AF4D, mapX, mapY, CharacterAnimation_Stand, 0, 10);
-                if ((state & 0x20u) != 0) {
-                    clearActionState((action->flags & YobiActionFlag_FollowPetOverlay) != 0 ? 0x40 : 0x20);
+                if ((state & MapActorActionFlag_StatusImage1AF4DSound) != 0) {
+                    clearActionState((action->flags & YobiActionFlag_FollowPetOverlay) != 0 ? static_cast<std::int32_t>(MapActorActionFlag_FollowPetStatusImage1AF4DSound) : static_cast<std::int32_t>(MapActorActionFlag_StatusImage1AF4DSound));
                     static_cast<void>(audio::PlaySe_52C450(0x1B5, action->x));
                 }
                 payload->statusIcon1AF4D_0C->counter1DC = 0;
@@ -720,14 +720,14 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         }
         ++payload->statusIcon1AF4D_0C->counter1DC;
         if (payload->statusIcon1AF4D_0C->counter1DC > 600) {
-            clearActionState((action->flags & YobiActionFlag_FollowPetOverlay) != 0 ? 0x10 : 4);
+            clearActionState((action->flags & YobiActionFlag_FollowPetOverlay) != 0 ? static_cast<std::int32_t>(MapActorActionFlag_FollowPetStatusImage1AF4D) : static_cast<std::int32_t>(MapActorActionFlag_StatusImage1AF4D));
         }
     } else if (payload->statusIcon1AF4D_0C != nullptr) {
         MarkDeath(payload->statusIcon1AF4D_0C);
         payload->statusIcon1AF4D_0C = nullptr;
     }
 
-    if ((state & 1u) != 0 && statusMask == 0) {
+    if ((state & MapActorActionFlag_StatusImage1AF4E) != 0 && statusMask == 0) {
         if (payload->statusIcon1AF4E_10 == nullptr) {
             const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);

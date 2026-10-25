@@ -13,6 +13,12 @@
 
 namespace cg::yobi {
 
+// Yobi对象cacheIndex的未入队哨兵；其他索引及容量不属于此域。
+enum YobiGraphicCacheIndex : std::int32_t {
+    YobiGraphicCacheIndex_NotQueued = -2,
+};
+
+
 using YobiCallback = void (*)(YobiAction* action);
 
 namespace detail {

@@ -3396,18 +3396,18 @@ void ParseBattleC_438550()
     cg::world::gBattleCOffset5ABA80 = 2;
     const auto fieldFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450());
     cg::world::gBattleFieldFlags5ABB58 = fieldFlags;
-    if ((fieldFlags & 0x20u) != 0) {
+    if ((fieldFlags & detail::BattleFieldFlag_End) != 0) {
         return;
     }
-    if ((fieldFlags & 1u) != 0) {
+    if ((fieldFlags & detail::BattleFieldFlag_Earth) != 0) {
         static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110092));
-    } else if ((fieldFlags & 2u) != 0) {
+    } else if ((fieldFlags & detail::BattleFieldFlag_Water) != 0) {
         static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110089));
-    } else if ((fieldFlags & 4u) != 0) {
+    } else if ((fieldFlags & detail::BattleFieldFlag_Fire) != 0) {
         static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110090));
-    } else if ((fieldFlags & 8u) != 0) {
+    } else if ((fieldFlags & detail::BattleFieldFlag_Wind) != 0) {
         static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110091));
-    } else if ((fieldFlags & 0x10u) != 0) {
+    } else if ((fieldFlags & detail::BattleFieldFlag_Silence) != 0) {
         static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110155));
     } else {
         static_cast<void>(MarkDeath(cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0));

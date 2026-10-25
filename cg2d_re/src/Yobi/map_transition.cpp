@@ -22,6 +22,13 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 创建18902的尝试标志；工厂失败时仍按原逻辑置位。
+enum WanderingTransitionEffectFlag : std::uint32_t {
+    WanderingTransitionEffectFlag_FirstEffectAttempted = 0x00000001u,
+    WanderingTransitionEffectFlag_SecondEffectAttempted = 0x00000002u,
+};
+
+
 // YUF01：原448040的+18/+1C按mode解释；0／1为附件引用，其余为S32初始化状态，不跨臂读取。
 union MapTransitionSlots18 {
     struct {
@@ -551,7 +558,7 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
         MarkDeath(action);
         return 0;
     }
-    if ((payload->flags10C & 1u) == 0
+    if ((payload->flags10C & WanderingTransitionEffectFlag_FirstEffectAttempted) == 0
         && payload->slots18.attachments.firstEffect18 == nullptr) {
         YobiAction** const slot = &payload->slots18.attachments.firstEffect18;
         const std::uint64_t firstTick = platform::ReadTickCount64();
@@ -562,10 +569,10 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
             *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, slot);
-            payload->flags10C |= 1u;
+            payload->flags10C |= WanderingTransitionEffectFlag_FirstEffectAttempted;
         }
     }
-    if ((payload->flags10C & 2u) == 0
+    if ((payload->flags10C & WanderingTransitionEffectFlag_SecondEffectAttempted) == 0
         && payload->slots18.attachments.secondEffect1C == nullptr) {
         YobiAction** const slot = &payload->slots18.attachments.secondEffect1C;
         const std::uint64_t secondTick = platform::ReadTickCount64();
@@ -576,7 +583,7 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
             *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, slot);
-            payload->flags10C |= 2u;
+            payload->flags10C |= WanderingTransitionEffectFlag_SecondEffectAttempted;
         }
     }
     if (TransitionMovementIdle(action)) {

@@ -1972,22 +1972,22 @@ void NewBattleRebirthEffects_4208F0(YobiAction* const source, YobiAction* const 
 std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiAction* const target)
 {
     const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload.battleActor);
-    if ((static_cast<std::uint8_t>(sourcePayload->stateFE0) & 1u) == 0) {
+    if ((static_cast<std::uint8_t>(sourcePayload->stateFE0) & BattleRuntimeStateFlag_AttributeEffectsEligible) == 0) {
         return 0;
     }
     const auto* const targetPayload = static_cast<const BattleActorPayload*>(target->payload.battleActor);
-    if ((static_cast<std::uint8_t>(targetPayload->stateFE0) & 1u) == 0) {
+    if ((static_cast<std::uint8_t>(targetPayload->stateFE0) & BattleRuntimeStateFlag_AttributeEffectsEligible) == 0) {
         return 0;
     }
     const std::uint8_t flags = cg::world::gBattleAttributeEffectFlags59F9E0;
     const std::int32_t battleType = cg::world::gBattleType5ABFC8;
-    if ((flags & 1u) == 0 && battleType != 5 && battleType != 6) {
+    if ((flags & BattleAttributeEffectPolicyFlag_OutsideTypes5And6) == 0 && battleType != 5 && battleType != 6) {
         return 0;
     }
-    if ((flags & 2u) == 0 && cg::world::gBattleModeFlag5ABFCC == 1) {
+    if ((flags & BattleAttributeEffectPolicyFlag_InMode1) == 0 && cg::world::gBattleModeFlag5ABFCC == 1) {
         return 0;
     }
-    if ((flags & 4u) == 0 && (battleType == 5 || battleType == 6)) {
+    if ((flags & BattleAttributeEffectPolicyFlag_InTypes5And6) == 0 && (battleType == 5 || battleType == 6)) {
         return 0;
     }
     if (source == nullptr || target == nullptr || sourcePayload == nullptr || targetPayload == nullptr) {

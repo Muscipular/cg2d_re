@@ -1808,7 +1808,7 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
                 }
                 const std::uint32_t state = payload->stateFE0;
                 payload->aliveFF8 = 0;
-                payload->stateFE0 = state | 2u;
+                payload->stateFE0 = state | BattleRuntimeStateFlag_InactiveSkipReady;
             }
             for (std::int32_t remaining = 40; remaining != 0; --remaining) {
                 static_cast<void>(NewBattleScatterEffect_41E510(action, 110004));
@@ -1902,7 +1902,7 @@ std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
             }
             const std::uint32_t state = payload->stateFE0;
             payload->aliveFF8 = 0;
-            payload->stateFE0 = state | 2u;
+            payload->stateFE0 = state | BattleRuntimeStateFlag_InactiveSkipReady;
         }
         for (std::int32_t remaining = 40; remaining != 0; --remaining) {
             static_cast<void>(NewBattleScatterEffect_41E510(action, 110004));
@@ -2361,7 +2361,7 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
             }
             const std::uint32_t state = payload->stateFE0;
             payload->aliveFF8 = 0;
-            payload->stateFE0 = state | 2u;
+            payload->stateFE0 = state | BattleRuntimeStateFlag_InactiveSkipReady;
         }
         for (std::int32_t remaining = 40; remaining != 0; --remaining) {
             static_cast<void>(NewBattleScatterEffect_41E510(action, 110004));

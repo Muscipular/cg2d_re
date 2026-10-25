@@ -732,7 +732,7 @@ void UpdateBattleAction79_40CBD0(YobiAction* const action)
     }
     action->characterAction = CharacterAnimation_Stand;
     const std::uint32_t flags = payload->flagsFDC & ~BattleActorFlag_Dead;
-    const std::uint32_t state = payload->stateFE0 & ~2u;
+    const std::uint32_t state = payload->stateFE0 & ~BattleRuntimeStateFlag_InactiveSkipReady;
     payload->flagsFDC = flags;
     payload->stateFE0 = state;
     AdvanceBattleCastState_439340(action);
@@ -1232,7 +1232,7 @@ void UpdateBattleAction100_40D3C0(YobiAction* const action)
         static_cast<void>(NewBattleEffect_41CD00(target, 0, {.yValue = 0}, BattleEffectType_PhysicalReflect, 0, 1));
     } else if ((static_cast<std::uint8_t>(flags >> 8) & BattleResultByte1Flag_NullifyPhysical) != 0) {
         static_cast<void>(NewBattleEffect_41CD00(target, 0, {.yValue = 0}, BattleEffectType_PhysicalNullify, 0, 1));
-    } else if ((static_cast<std::uint8_t>(flags >> 8) & 0x40u) != 0) {
+    } else if ((static_cast<std::uint8_t>(flags >> 8) & BattleResultByte1Flag_AbsorbPhysical) != 0) {
         static_cast<void>(NewBattleEffect_41CD00(target, 0, {.yValue = 0}, BattleEffectType_PhysicalAbsorb, 0, 1));
     } else {
         target->phase = BattleAction_RecoilOnHit;
@@ -1241,7 +1241,7 @@ void UpdateBattleAction100_40D3C0(YobiAction* const action)
         std::int32_t imageNo;
         if ((static_cast<std::uint8_t>(currentFlags) & BattleResultFlag_Guard) != 0) {
             imageNo = 110000;
-        } else if ((static_cast<std::uint8_t>(currentFlags >> 8) & 4u) != 0) {
+        } else if ((static_cast<std::uint8_t>(currentFlags >> 8) & BattleResultByte1Flag_SpecialGuard) != 0) {
             imageNo = FindBattleAppendEffectTechnique_43BEA0(8, effect.position) < 12 ? 110098 : 111048;
         } else {
             imageNo = 110133;
@@ -1326,7 +1326,7 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
         std::int32_t imageNo;
         if ((static_cast<std::uint8_t>(initialFlags) & BattleResultFlag_Guard) != 0) {
             imageNo = 110000;
-        } else if ((static_cast<std::uint8_t>(initialFlags >> 8) & 4u) != 0) {
+        } else if ((static_cast<std::uint8_t>(initialFlags >> 8) & BattleResultByte1Flag_SpecialGuard) != 0) {
             imageNo = FindBattleAppendEffectTechnique_43BEA0(8, position) < 12 ? 110098 : 111048;
         } else {
             imageNo = 110133;
@@ -1341,12 +1341,12 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
         const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
         if ((static_cast<std::uint8_t>(hitFlags) & BattleResultFlag_Avoidance) != 0) {
             target->phase = BattleAction_DodgeAndWaitAttacker;
-        } else if ((static_cast<std::uint8_t>(hitFlags >> 8) & 1u) != 0) {
+        } else if ((static_cast<std::uint8_t>(hitFlags >> 8) & BattleResultByte1Flag_FlashDodge) != 0) {
             targetPayload->flash1004 = 1;
             static_cast<void>(audio::PlaySe_52C450(210, action->x));
             target->phase = BattleAction_DodgeAndWaitAttacker;
         } else {
-            if ((static_cast<std::uint8_t>(hitFlags >> 8) & 0xE0u) == 0 && payload->effects1C[hitIndex].position3 != 0) {
+            if ((static_cast<std::uint8_t>(hitFlags >> 8) & BattleResultByte1Mask_PhysicalReaction) == 0 && payload->effects1C[hitIndex].position3 != 0) {
                 if ((static_cast<std::uint8_t>(hitFlags) & BattleResultFlag_Critical) != 0) {
                     static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
                 }
@@ -1382,7 +1382,7 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
             bool showAttributes = false;
             if ((static_cast<std::uint8_t>(flags >> 8) & BattleResultByte1Flag_NullifyPhysical) != 0) {
                 AdvanceBattleCastState_439340(target);
-            } else if ((static_cast<std::uint8_t>(flags >> 8) & 0x40u) != 0) {
+            } else if ((static_cast<std::uint8_t>(flags >> 8) & BattleResultByte1Flag_AbsorbPhysical) != 0) {
                 AdvanceBattleCastState_439340(target);
                 const std::int32_t healIndex = payload->effectRunningC9C;
                 if ((payload->effects1C[healIndex].flags & BattleResultFlag_RebirthGuard) != 0) {
@@ -1573,7 +1573,7 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
             std::int32_t imageNo;
             if ((static_cast<std::uint8_t>(initialFlags) & BattleResultFlag_Guard) != 0) {
                 imageNo = 110000;
-            } else if ((static_cast<std::uint8_t>(initialFlags >> 8) & 4u) != 0) {
+            } else if ((static_cast<std::uint8_t>(initialFlags >> 8) & BattleResultByte1Flag_SpecialGuard) != 0) {
                 imageNo = FindBattleAppendEffectTechnique_43BEA0(8, position) < 12 ? 110098 : 111048;
             } else if ((static_cast<std::uint8_t>(initialFlags >> 8) & BattleResultByte1Flag_Bodyguard) != 0 || initialIndex == 0) {
                 imageNo = 110135;
@@ -1591,12 +1591,12 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
             const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
             if ((static_cast<std::uint8_t>(hitFlags) & BattleResultFlag_Avoidance) != 0) {
                 target->phase = BattleAction_DodgeAndWaitAttacker;
-            } else if ((static_cast<std::uint8_t>(hitFlags >> 8) & 1u) != 0) {
+            } else if ((static_cast<std::uint8_t>(hitFlags >> 8) & BattleResultByte1Flag_FlashDodge) != 0) {
                 targetPayload->flash1004 = 1;
                 static_cast<void>(audio::PlaySe_52C450(210, action->x));
                 target->phase = BattleAction_DodgeAndWaitAttacker;
             } else {
-                if ((static_cast<std::uint8_t>(hitFlags >> 8) & 0xE0u) == 0 && payload->effects1C[hitIndex].position3 != 0) {
+                if ((static_cast<std::uint8_t>(hitFlags >> 8) & BattleResultByte1Mask_PhysicalReaction) == 0 && payload->effects1C[hitIndex].position3 != 0) {
                     if ((static_cast<std::uint8_t>(hitFlags) & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
                     }
@@ -1632,7 +1632,7 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
                 bool showAttributes = false;
                 if ((static_cast<std::uint8_t>(flags >> 8) & BattleResultByte1Flag_NullifyPhysical) != 0) {
                     AdvanceBattleCastState_439340(target);
-                } else if ((static_cast<std::uint8_t>(flags >> 8) & 0x40u) != 0) {
+                } else if ((static_cast<std::uint8_t>(flags >> 8) & BattleResultByte1Flag_AbsorbPhysical) != 0) {
                     AdvanceBattleCastState_439340(target);
                     const std::int32_t healIndex = payload->effectRunningC9C;
                     if ((payload->effects1C[healIndex].flags & BattleResultFlag_RebirthGuard) != 0) {
@@ -1736,7 +1736,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                     if ((static_cast<std::uint8_t>(flags) & BattleResultFlag_Avoidance) != 0) {
                         target->phase = BattleAction_DodgeAndWaitAttacker;
                     } else if ((flags & BattleResultFlag_Success) != 0) {
-                        if ((static_cast<std::uint8_t>(flags >> 8) & 0xE0u) == 0) {
+                        if ((static_cast<std::uint8_t>(flags >> 8) & BattleResultByte1Mask_PhysicalReaction) == 0) {
                             const std::int32_t imageNo = platform::RandomRange_46FAF0(0, 2) + 110001;
                             YobiAction* const effect = NewBattleRandomEffect_419FC0(target, imageNo, 0);
                             NewBattleRebirthEffects_4208F0(action, target);
@@ -1859,7 +1859,7 @@ std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
                 }
                 const std::uint32_t state = payload->stateFE0;
                 payload->aliveFF8 = 0;
-                payload->stateFE0 = state | 2u;
+                payload->stateFE0 = state | BattleRuntimeStateFlag_InactiveSkipReady;
             }
             for (std::int32_t remaining = 40; remaining != 0; --remaining) {
                 static_cast<void>(NewBattleScatterEffect_41E510(action, 110004));

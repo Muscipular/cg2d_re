@@ -80,6 +80,77 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 43C560目标标记及43C120目标编码位；与对象绘制位独立。
+enum BattleTargetFlag : std::uint32_t {
+    BattleTargetFlag_Select = 0x00000001u,
+    BattleTargetFlag_AllowDead = 0x00000002u,
+    BattleTargetFlag_OwnPet = 0x00000004u,
+    BattleTargetFlag_Self = 0x00000008u,
+    BattleTargetFlag_OtherAllies = 0x00000010u,
+    BattleTargetFlag_Opponents = 0x00000020u,
+    BattleTargetFlag_Single = 0x00000040u,
+    BattleTargetFlag_CrossNeighbors = 0x00000080u,
+    BattleTargetFlag_Team = 0x00000100u,
+    BattleTargetFlag_All = 0x00000200u,
+    BattleTargetFlag_CheckMeleeRows = 0x00000400u,
+    BattleTargetFlag_OtherAllyPlayers = 0x00000800u,
+};
+
+// 同阵营其他目标的普通／仅玩家两条路径。
+enum BattleTargetMask : std::uint32_t {
+    BattleTargetMask_OtherAlliesOrPlayers = 0x00000810u,
+};
+
+// 43C120返回的目标编码；位置0～19及邻接20～39仍由原算式承接。
+enum BattleTargetCode : std::int32_t {
+    BattleTargetCode_None = -1,
+    BattleTargetCode_CrossNeighborBase = 20,
+    BattleTargetCode_Team0 = 40,
+    BattleTargetCode_Team1 = 41,
+    BattleTargetCode_All = 42,
+};
+
+// BP入场位；只定义本模块已有消费，低BYTE读取保持。
+enum BattlePlayerFlag : std::uint32_t {
+    BattlePlayerFlag_PlayerSurprise = 0x00000001u,
+    BattlePlayerFlag_EnemySurprise = 0x00000002u,
+    BattlePlayerFlag_DirectWeapon = 0x00000080u,
+};
+
+// 两种突袭的完整原组合值。
+enum BattlePlayerMask : std::uint32_t {
+    BattlePlayerMask_EitherSurprise = 0x00000003u,
+};
+
+// BC头的场地位；End直接结束整次C解析，五种效果保持原优先级。
+enum BattleFieldFlag : std::uint32_t {
+    BattleFieldFlag_Earth = 0x00000001u,
+    BattleFieldFlag_Water = 0x00000002u,
+    BattleFieldFlag_Fire = 0x00000004u,
+    BattleFieldFlag_Wind = 0x00000008u,
+    BattleFieldFlag_Silence = 0x00000010u,
+    BattleFieldFlag_End = 0x00000020u,
+};
+
+// 角色FE0的两个已证运行位；与BC／FDC及BM结果独立。
+enum BattleRuntimeStateFlag : std::uint32_t {
+    BattleRuntimeStateFlag_AttributeEffectsEligible = 0x00000001u,
+    BattleRuntimeStateFlag_InactiveSkipReady = 0x00000002u,
+};
+
+// 4209C0的全局显示策略，不是角色状态或场地属性。
+enum BattleAttributeEffectPolicyFlag : std::uint32_t {
+    BattleAttributeEffectPolicyFlag_OutsideTypes5And6 = 0x00000001u,
+    BattleAttributeEffectPolicyFlag_InMode1 = 0x00000002u,
+    BattleAttributeEffectPolicyFlag_InTypes5And6 = 0x00000004u,
+};
+
+// BM第二字节的原物理反应组合；不改写为完整W32检查。
+enum BattleResultByte1Mask : std::uint32_t {
+    BattleResultByte1Mask_PhysicalReaction = 0x000000E0u,
+};
+
+
 // BM结果位：effects1C.flags／FE4及M结果全局；与BC角色位、绘制flags独立。
 enum BattleResultFlag : std::uint32_t {
     BattleResultFlag_Normal = 0x00000001u,
@@ -143,8 +214,11 @@ enum BattleResultMask : std::uint32_t {
 
 // BM结果右移8位后的字节掩码；保持原读取／移位及运算宽度。
 enum BattleResultByte1Flag : std::uint32_t {
+    BattleResultByte1Flag_FlashDodge = 0x00000001u,
     BattleResultByte1Flag_Bodyguard = 0x00000002u,
+    BattleResultByte1Flag_SpecialGuard = 0x00000004u,
     BattleResultByte1Flag_ReflectPhysical = 0x00000020u,
+    BattleResultByte1Flag_AbsorbPhysical = 0x00000040u,
     BattleResultByte1Flag_NullifyPhysical = 0x00000080u,
 };
 

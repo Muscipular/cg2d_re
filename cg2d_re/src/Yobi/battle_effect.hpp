@@ -11,6 +11,59 @@ namespace cg::yobi {
 
 namespace detail {
 
+// BFTN01：41CD00的创建类型，覆盖0～47；不是角色phase、技能号或顶层压缩分支号。
+// 未证业务名按图号／回调行为命名。函数仍接收U32，保留type>47使用已有对象的公共尾。
+enum BattleEffectType : std::uint32_t {
+    BattleEffectType_FixedImage110009 = 0, // 图110009；动作115的普通分支。
+    BattleEffectType_FixedImage110063 = 1, // 图110063；普通完成通知回调41A160。
+    BattleEffectType_MagicAttack = 2, // 攻击魔法共用表现；等级偏移+110067，高等级111013。
+    BattleEffectType_CrossCounter = 3, // 按反击技能11的附加技术等级选110153／111053。
+    BattleEffectType_DebuffSpell = 4, // 减益魔法表现；等级偏移+110071，高等级111063。
+    BattleEffectType_BarrierSpell = 5, // 反射／吸收／无效类施放表现；110105族／111021，不等同技能402屏障。
+    BattleEffectType_AttributeReversal = 6, // 属性反转表现；等级偏移+110161，高等级111001。
+    BattleEffectType_PhysicalReflect = 7, // 查技能55技术等级，选110109／111025。
+    BattleEffectType_PhysicalAbsorb = 8, // 查技能57技术等级，选110117／111027。
+    BattleEffectType_PhysicalNullify = 9, // 查技能59技术等级，选110125／111023。
+    BattleEffectType_MagicReflect = 10, // 查技能56技术等级，选110113／111024。
+    BattleEffectType_MagicAbsorb = 11, // 查技能58技术等级，两分支均用110121，查询调用保留。
+    BattleEffectType_MagicNullify = 12, // 查技能60技术等级，选110129／111022。
+    BattleEffectType_Recovery = 13, // 恢复魔法表现；110176族／111019，保留Recovery扩展图替换。
+    BattleEffectType_LevelScaledImage110165 = 14, // 等级偏移+110165；等级>=9递归创建19附加层。
+    BattleEffectType_CenteredLevelScaledImage110170 = 15, // 等级偏移+110170／111001；按源图偏移居中Y。
+    BattleEffectType_Heal = 16, // 补血魔法表现；110085族，等级>=9创建19，随后做Heal扩展图替换。
+    BattleEffectType_ParentBoundImage110184 = 17, // 图110184、层203、回调41A1C0；父死亡时标死，不跟随父坐标。
+    BattleEffectType_AmountTieredImage111194 = 18, // 按1030的2000／3500阈值选111194／111195／111196。
+    BattleEffectType_ParentImageTierAura = 19, // 按父图及1D0等级选110184／111015／111020／0；14／16递归使用。
+    BattleEffectType_FixedImage110104 = 20, // 图110104；完成后通知关联父对象。
+    BattleEffectType_LevelScaledImage110100 = 21, // 等级偏移+110100／111016；3100／3101先递减1040取等级。
+    BattleEffectType_ParentBoundImage110097 = 22, // 图110097、回调41A1C0；保持创建坐标，不是跟随特效。
+    BattleEffectType_ParentBoundImage110096 = 23, // 图110096、回调41A1C0；与22独立编号。
+    BattleEffectType_ScalePulseImage110095 = 24, // 图110095、层8、初始缩放0，回调41A270放大／缩小。
+    BattleEffectType_StatusRecoveryEmitter = 25, // 洁净魔法表现；顺序发射41A7D0，音效281。
+    BattleEffectType_CenteredImage110156 = 26, // 图110156，按源图偏移居中Y。
+    BattleEffectType_CenteredImage111162 = 27, // 图111162，按源图偏移居中Y。
+    BattleEffectType_CenteredImage111163 = 28, // 图111163，按源图偏移居中Y。
+    BattleEffectType_CenteredImage110157 = 29, // 图110157，设备混合并居中Y；不推测独占技能名。
+    BattleEffectType_FixedImage110012 = 30, // 图110012；源浮点X，源Y加第三数值。
+    BattleEffectType_FixedImage110014 = 31, // 图110014；与30／32保持独立编号。
+    BattleEffectType_FixedImage110013 = 32, // 图110013；与30／31保持独立编号。
+    BattleEffectType_ReverseEmitter = 33, // 环形载荷、反向发射41A590，音效280。
+    BattleEffectType_CastingImage1028 = 34, // 源1028施法图及扩展替换，保留原图音效／定位选择。
+    BattleEffectType_SkillImpact = 35, // 按103C分派完整命中／移动初始化，保留Magic扩展图替换。
+    BattleEffectType_RandomEmitter = 36, // 回调41A310随机发射；分配优先级取源位置低U8*10+1的低U8。
+    BattleEffectType_ParameterChange = 37, // 能力变化表现；按等级选110189／111057。
+    BattleEffectType_LevelIndexedImage111239 = 38, // 等级1～7选111240～111246，其余111239。
+    BattleEffectType_BombLevel = 39, // 按全局爆弹等级选110103～110100或111016，居中Y。
+    BattleEffectType_RandomOffsetImage110474 = 40, // 图110474；依次取源宽及Y偏移，随机定位。
+    BattleEffectType_PayloadImage102CType41 = 41, // 直接取源102C；与42共用表现，保留独立类型。
+    BattleEffectType_PayloadImage102CType42 = 42, // 直接取源102C；与41保持独立编号。
+    BattleEffectType_ParentBoundImage13E4 = 43, // 角色载荷、图源13E4、回调41A1C0；复制源坐标。
+    BattleEffectType_FixedImage111179 = 44, // 图111179；技能2070命中链生产。
+    BattleEffectType_FixedImage111188 = 45, // 图111188；技能2076命中链生产。
+    BattleEffectType_FixedImage111191 = 46, // 图111191；技能2079命中链生产。
+    BattleEffectType_ScaledPayloadImage102CAtPosition = 47, // 绝对X／Y、源102C、XY缩放各乘1.5；创建类型上界。
+};
+
 // 41CD00第三槽：创建类型0..47使用S32 Y槽；其他类型消费已有对象T*，由caller显式选择成员。
 union BattleEffectThirdArgument {
     std::int32_t offsetY;
@@ -74,7 +127,7 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* parent); // 先随机位置
 // 原函数：0x0041CD00。
 YobiAction* NewBattleEffect_41CD00(
     YobiAction* source, std::int32_t offsetX, BattleEffectThirdArgument third,
-    std::uint32_t type, std::int32_t blend, std::int32_t link); // 完整48类及已有对象公共尾。
+    std::uint32_t type, std::int32_t blend, std::int32_t link); // type见BattleEffectType；完整48类及已有对象公共尾。
 // 原函数：0x0041E890。
 std::int32_t DrawBattleTiledEffect_41E890(std::int32_t type); // BSTL01：共享相位先推进，X外Y内100格/每格fresh相位/末次返回。
 // 原函数：0x0041E920。

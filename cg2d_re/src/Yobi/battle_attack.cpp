@@ -2811,7 +2811,7 @@ void UpdateBattleAction240_417AC0(YobiAction* const action)
     action->characterAction = 6;
     action->framePlayingRate = 100;
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 34, 0, 1);
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, BattleEffectType_CastingImage1028, 0, 1);
     }
     static_cast<void>(PlayFrame_517DA0(action, 1));
     const std::int32_t event = action->frameEvent;
@@ -3119,7 +3119,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
             if (index == 0) {
                 const std::int32_t x = position < 10 ? 500 : 150;
                 const std::int32_t y = position < 10 ? 450 : 50;
-                static_cast<void>(NewBattleEffect_41CD00(action, x, {.offsetY = y}, 47, 0, 1));
+                static_cast<void>(NewBattleEffect_41CD00(action, x, {.offsetY = y}, BattleEffectType_ScaledPayloadImage102CAtPosition, 0, 1));
             }
             const std::uint32_t initialFlags = effect.flags;
             std::int32_t imageNo;

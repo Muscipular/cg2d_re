@@ -446,11 +446,11 @@ YobiAction* NewBattleEffect_41CD00(
     using world::gBattleAllEntries59E980;
     auto* const sourcePayload = source->payload.battleActor;
     YobiAction* action;
-    if (type > 47) {
+    if (type > BattleEffectType_ScaledPayloadImage102CAtPosition) {
         action = third.existingAction;
     } else {
         switch (type) {
-        case 47: {
+        case BattleEffectType_ScaledPayloadImage102CAtPosition: {
             action = NewYobiAction_404AE0(2, 0);
             if (action == nullptr) {
                 return nullptr;
@@ -470,7 +470,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->imageNo = sourcePayload->image102C;
             break;
         }
-        case 13: {
+        case BattleEffectType_Recovery: {
             action = NewYobiAction_404AE0(2, 0);
             if (action == nullptr) {
                 return nullptr;
@@ -492,9 +492,9 @@ YobiAction* NewBattleEffect_41CD00(
             action->pathCountOrDrawOrder_270 = 0;
             break;
         }
-        case 30:
-        case 31:
-        case 32: {
+        case BattleEffectType_FixedImage110012:
+        case BattleEffectType_FixedImage110014:
+        case BattleEffectType_FixedImage110013: {
             action = NewYobiAction_404AE0(2, 0);
             if (action == nullptr) {
                 return nullptr;
@@ -504,7 +504,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->displayPriority = 204;
             action->flags = initialFlags | 0x40000u;
             action->framePlayingRate = 100;
-            action->imageNo = type == 30 ? 110012 : (type == 31 ? 110014 : 110013);
+            action->imageNo = type == BattleEffectType_FixedImage110012 ? 110012 : (type == BattleEffectType_FixedImage110014 ? 110014 : 110013);
             action->rebirthValue1 = 4;
             action->rebirthValue2 = 4;
             action->offset40 = source->offset40;
@@ -512,7 +512,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->pathCountOrDrawOrder_270 = 0;
             break;
         }
-        case 36: {
+        case BattleEffectType_RandomEmitter: {
             const auto position = static_cast<std::uint8_t>(sourcePayload->battlePosition18);
             action = NewYobiAction_404AE0(static_cast<std::uint8_t>(position * 10 + 1), 0);
             if (action == nullptr) {
@@ -535,13 +535,13 @@ YobiAction* NewBattleEffect_41CD00(
             action->offset44 = static_cast<float>(projectedY);
             break;
         }
-        case 25:
-        case 33: {
+        case BattleEffectType_StatusRecoveryEmitter:
+        case BattleEffectType_ReverseEmitter: {
             action = NewYobiAction_404AE0(2, sizeof(BattleRingEmitterPayload), YobiPayloadKind::BattleRingEmitter);
             if (action == nullptr) {
                 return nullptr;
             }
-            if (type == 33) {
+            if (type == BattleEffectType_ReverseEmitter) {
                 static_cast<void>(audio::PlaySe_52C450(280, source->x));
                 action->callback = UpdateBattleReverseEmitter_41A590;
             } else {
@@ -563,8 +563,8 @@ YobiAction* NewBattleEffect_41CD00(
             action->offset44 = static_cast<float>(projectedY);
             break;
         }
-        case 34:
-        case 43: {
+        case BattleEffectType_CastingImage1028:
+        case BattleEffectType_ParentBoundImage13E4: {
             action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
             gBattleFactoryEffect59F9E8 = action;
             // 原34/43先写1C再走判空分支；RPLAN.24不改为安全失败。
@@ -578,11 +578,11 @@ YobiAction* NewBattleEffect_41CD00(
             action->flags = initialFlags | 0x40000u;
             action->framePlayingRate = 100;
             // E07／41DB2C：只替换施法图，音效及定位继续读取原 image1028。
-            action->imageNo = type == 34 ? ResolveSkillCastingImage(source, sourcePayload->image1028)
+            action->imageNo = type == BattleEffectType_CastingImage1028 ? ResolveSkillCastingImage(source, sourcePayload->image1028)
                 : source->payload.battleActor->image13E4;
             action->rebirthValue1 = 4;
             action->rebirthValue2 = 4;
-            if (type == 34) {
+            if (type == BattleEffectType_CastingImage1028) {
                 const std::int32_t image = sourcePayload->image1028;
                 std::int32_t sound = 0; // playSound为true的路径均覆盖此值。
                 bool playSound = true;
@@ -618,7 +618,7 @@ YobiAction* NewBattleEffect_41CD00(
             }
             break;
         }
-        case 35: {
+        case BattleEffectType_SkillImpact: {
             const std::int32_t skill = sourcePayload->castSkill103C;
             const bool fixedTargetMode = skill == BattleSkill_Dorain || skill == 3037 || skill == BattleSkill_VoodooCurse;
             YobiAction* fixedTarget = nullptr; // 仅fixedTargetMode路径读取，且该路径先赋值。
@@ -725,8 +725,8 @@ YobiAction* NewBattleEffect_41CD00(
             }
             break;
         }
-        case 17:
-        case 19: {
+        case BattleEffectType_ParentBoundImage110184:
+        case BattleEffectType_ParentImageTierAura: {
             action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
             if (action == nullptr) {
                 return nullptr;
@@ -737,7 +737,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->flags = initialFlags | 0x40000u;
             action->battleAttachmentParent10 = source;
             action->framePlayingRate = 100;
-            if (type == 17) {
+            if (type == BattleEffectType_ParentBoundImage110184) {
                 action->imageNo = 110184;
             } else {
                 const std::int32_t image = source->imageNo;
@@ -778,29 +778,29 @@ YobiAction* NewBattleEffect_41CD00(
             bool centerY = false;
             bool childAura = false;
             switch (type) {
-            case 0: action->imageNo = 110009; break;
-            case 1: action->imageNo = 110063; break;
-            case 2:
-            case 4:
-            case 5:
-            case 6:
-            case 15: {
+            case BattleEffectType_FixedImage110009: action->imageNo = 110009; break;
+            case BattleEffectType_FixedImage110063: action->imageNo = 110063; break;
+            case BattleEffectType_MagicAttack:
+            case BattleEffectType_DebuffSpell:
+            case BattleEffectType_BarrierSpell:
+            case BattleEffectType_AttributeReversal:
+            case BattleEffectType_CenteredLevelScaledImage110170: {
                 const std::int32_t level = sourcePayload->castSkillLevel1044;
                 std::int32_t base;
                 std::int32_t highImage;
                 switch (type) {
-                case 2: base = 110067; highImage = 111013; break;
-                case 4: base = 110071; highImage = 111063; break;
-                case 5: base = 110105; highImage = 111021; break;
-                case 6: base = 110161; highImage = 111001; break;
+                case BattleEffectType_MagicAttack: base = 110067; highImage = 111013; break;
+                case BattleEffectType_DebuffSpell: base = 110071; highImage = 111063; break;
+                case BattleEffectType_BarrierSpell: base = 110105; highImage = 111021; break;
+                case BattleEffectType_AttributeReversal: base = 110161; highImage = 111001; break;
                 default: base = 110170; highImage = 111001; break;
                 }
                 action->imageNo = level >= 12 ? highImage : kBattleEffectTierOffsets553A38[level] + base;
-                deviceBlend = type != 5;
-                centerY = type == 15;
+                deviceBlend = type != BattleEffectType_BarrierSpell;
+                centerY = type == BattleEffectType_CenteredLevelScaledImage110170;
                 break;
             }
-            case 21: {
+            case BattleEffectType_LevelScaledImage110100: {
                 const std::int32_t skill = sourcePayload->castSkill103C;
                 std::int32_t* level = &sourcePayload->castSkillLevel1044;
                 if (skill == BattleSkill_SwallowSlash || skill == BattleSkill_BladeSoul) {
@@ -812,32 +812,32 @@ YobiAction* NewBattleEffect_41CD00(
                 centerY = true;
                 break;
             }
-            case 22:
-            case 23:
-                action->imageNo = type == 22 ? 110097 : 110096;
+            case BattleEffectType_ParentBoundImage110097:
+            case BattleEffectType_ParentBoundImage110096:
+                action->imageNo = type == BattleEffectType_ParentBoundImage110097 ? 110097 : 110096;
                 action->callback = UpdateBattleParentEffect_41A1C0;
                 deviceBlend = true;
                 break;
-            case 20: action->imageNo = 110104; break;
-            case 3:
+            case BattleEffectType_FixedImage110104: action->imageNo = 110104; break;
+            case BattleEffectType_CrossCounter:
                 action->imageNo = FindBattleAppendEffectTechnique_43BEA0(11, sourcePayload->battlePosition18) >= 12
                     ? 111053 : 110153;
                 break;
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12: {
+            case BattleEffectType_PhysicalReflect:
+            case BattleEffectType_PhysicalAbsorb:
+            case BattleEffectType_PhysicalNullify:
+            case BattleEffectType_MagicReflect:
+            case BattleEffectType_MagicAbsorb:
+            case BattleEffectType_MagicNullify: {
                 std::int32_t skill;
                 std::int32_t lowImage;
                 std::int32_t highImage;
                 switch (type) {
-                case 7: skill = BattleSkill_ReflectionPhysics; lowImage = 110109; highImage = 111025; break;
-                case 8: skill = BattleSkill_AbsorbPhysics; lowImage = 110117; highImage = 111027; break;
-                case 9: skill = BattleSkill_IneffectivePhysics; lowImage = 110125; highImage = 111023; break;
-                case 10: skill = BattleSkill_ReflectionMagic; lowImage = 110113; highImage = 111024; break;
-                case 11: skill = BattleSkill_AbsorbMagic; lowImage = 110121; highImage = 110121; break;
+                case BattleEffectType_PhysicalReflect: skill = BattleSkill_ReflectionPhysics; lowImage = 110109; highImage = 111025; break;
+                case BattleEffectType_PhysicalAbsorb: skill = BattleSkill_AbsorbPhysics; lowImage = 110117; highImage = 111027; break;
+                case BattleEffectType_PhysicalNullify: skill = BattleSkill_IneffectivePhysics; lowImage = 110125; highImage = 111023; break;
+                case BattleEffectType_MagicReflect: skill = BattleSkill_ReflectionMagic; lowImage = 110113; highImage = 111024; break;
+                case BattleEffectType_MagicAbsorb: skill = BattleSkill_AbsorbMagic; lowImage = 110121; highImage = 110121; break;
                 default: skill = BattleSkill_IneffectiveMagic; lowImage = 110129; highImage = 111022; break;
                 }
                 const std::int32_t technique = FindBattleAppendEffectTechnique_43BEA0(
@@ -847,48 +847,48 @@ YobiAction* NewBattleEffect_41CD00(
                 centerY = true;
                 break;
             }
-            case 24:
+            case BattleEffectType_ScalePulseImage110095:
                 action->imageNo = 110095;
                 action->callback = UpdateBattleScalingEffect_41A270;
                 action->displayPriority = 8;
                 action->scaleX = 0.0F;
                 action->scaleY = 0.0F;
                 break;
-            case 26:
-            case 27:
-            case 28:
-                action->imageNo = type == 26 ? 110156 : (type == 27 ? 111162 : 111163);
+            case BattleEffectType_CenteredImage110156:
+            case BattleEffectType_CenteredImage111162:
+            case BattleEffectType_CenteredImage111163:
+                action->imageNo = type == BattleEffectType_CenteredImage110156 ? 110156 : (type == BattleEffectType_CenteredImage111162 ? 111162 : 111163);
                 centerY = true;
                 break;
-            case 29:
+            case BattleEffectType_CenteredImage110157:
                 action->imageNo = 110157;
                 deviceBlend = true;
                 centerY = true;
                 break;
-            case 14:
-            case 16: {
+            case BattleEffectType_LevelScaledImage110165:
+            case BattleEffectType_Heal: {
                 const std::int32_t level = sourcePayload->castSkillLevel1044;
-                const std::int32_t base = type == 14 ? 110165 : 110085;
+                const std::int32_t base = type == BattleEffectType_LevelScaledImage110165 ? 110165 : 110085;
                 action->imageNo = level >= 12 ? base : kBattleEffectTierOffsets553A38[level] + base;
                 deviceBlend = true;
                 childAura = true;
                 break;
             }
-            case 18: {
+            case BattleEffectType_AmountTieredImage111194: {
                 const std::int32_t value = sourcePayload->value1030;
                 action->imageNo = value >= 3500 ? 111196 : (value >= 2000 ? 111195 : 111194);
                 deviceBlend = true;
                 break;
             }
-            case 37:
+            case BattleEffectType_ParameterChange:
                 action->imageNo = sourcePayload->castSkillLevel1044 < 12 ? 110189 : 111057;
                 break;
-            case 38: {
+            case BattleEffectType_LevelIndexedImage111239: {
                 const std::int32_t level = sourcePayload->castSkillLevel1044;
                 action->imageNo = level >= 1 && level <= 7 ? 111239 + level : 111239;
                 break;
             }
-            case 39: {
+            case BattleEffectType_BombLevel: {
                 const std::int32_t level = world::gBattleBombLevelD67B2C;
                 if (level > 0 && level <= 3) {
                     action->imageNo = 110103;
@@ -904,7 +904,7 @@ YobiAction* NewBattleEffect_41CD00(
                 centerY = true;
                 break;
             }
-            case 40: {
+            case BattleEffectType_RandomOffsetImage110474: {
                 action->imageNo = 110474;
                 const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
                 action->flags |= hasDevice ? 0x100000u : 0x8000u;
@@ -919,11 +919,11 @@ YobiAction* NewBattleEffect_41CD00(
                 action->offset44 = static_cast<float>(y);
                 break;
             }
-            case 41:
-            case 42: action->imageNo = sourcePayload->image102C; break;
-            case 44: action->imageNo = 111179; break;
-            case 45: action->imageNo = 111188; break;
-            case 46: action->imageNo = 111191; break;
+            case BattleEffectType_PayloadImage102CType41:
+            case BattleEffectType_PayloadImage102CType42: action->imageNo = sourcePayload->image102C; break;
+            case BattleEffectType_FixedImage111179: action->imageNo = 111179; break;
+            case BattleEffectType_FixedImage111188: action->imageNo = 111188; break;
+            case BattleEffectType_FixedImage111191: action->imageNo = 111191; break;
             }
             if (deviceBlend) {
                 const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
@@ -937,7 +937,7 @@ YobiAction* NewBattleEffect_41CD00(
                 const std::int32_t level = sourcePayload->castSkillLevel1044;
                 if (level >= 9) {
                     action->field1D0 = level;
-                    static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 19, 1, 0));
+                    static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, BattleEffectType_ParentImageTierAura, 1, 0));
                 }
             }
             break;
@@ -959,9 +959,9 @@ YobiAction* NewBattleEffect_41CD00(
         source->payload.battleActor->effectPlaybackState1024 = BattleEffectPlayback_Playing;
     }
     // E05／41E368：附加层已按原图生成，再替换受术动画。
-    if (type == 0x10) {
+    if (type == BattleEffectType_Heal) {
         action->imageNo = ResolveSkillEffectImage(source, SkillEffectKind::Heal, action->imageNo);
-    } else if (type == 0x0D) {
+    } else if (type == BattleEffectType_Recovery) {
         action->imageNo = ResolveSkillEffectImage(source, SkillEffectKind::Recovery, action->imageNo);
     }
     const float x = action->offset40;
@@ -970,7 +970,7 @@ YobiAction* NewBattleEffect_41CD00(
     const float y = action->offset44;
     action->x = projectedX;
     action->y = static_cast<std::int32_t>(y);
-    if (type == 17 || type == 19 || type == 34 || type == 35 || type == 43) {
+    if (type == BattleEffectType_ParentBoundImage110184 || type == BattleEffectType_ParentImageTierAura || type == BattleEffectType_CastingImage1028 || type == BattleEffectType_SkillImpact || type == BattleEffectType_ParentBoundImage13E4) {
         auto* const payload = action->payload.battleActor;
         if (payload != nullptr) {
             const auto* const currentSource = static_cast<const BattleActorPayload*>(source->payload.battleActor);
@@ -980,7 +980,7 @@ YobiAction* NewBattleEffect_41CD00(
         }
     }
     // E04：原创建／定位完成后替换通用魔法图号。
-    if (type == 0x23) {
+    if (type == BattleEffectType_SkillImpact) {
         action->imageNo = ResolveSkillEffectImage(source, SkillEffectKind::Magic, action->imageNo);
     }
     return action;

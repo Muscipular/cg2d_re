@@ -5,6 +5,23 @@
 // 本组内部共享声明；跨模块接口见 cg/Yobi/YobiRuntime.hpp。
 
 namespace cg::yobi::detail {
+
+// 原4221F0/骑乘过渡生产、421FB0消费；只解释骑乘子对象的phase，非父角色动作号。
+enum BattleRiderSyncMode : std::int32_t {
+    BattleRiderSyncMode_FollowParent = 0, // 同步父动作、方向、位置及绘制属性。
+    BattleRiderSyncMode_DrawAttributesOnly = 1, // 过渡独立控制动作／坐标，仍同步父绘制属性及缩放。
+};
+
+// 原422C90配置、422780消费；type3..5仅首次创建设置缩放，重用对象不补写。
+enum BattleAuxGearType : std::int32_t {
+    BattleAuxGearType_StandOrDown = 1, // 原default动作映射，站立或跟随父倒地；创建排序次键-1。
+    BattleAuxGearType_StandLoop = 2, // 站立循环，创建排序次键3。
+    BattleAuxGearType_DirectionalQuarterScale = 3, // 首次缩放1/4，按父动作及八方向偏移随行。
+    BattleAuxGearType_DirectionalHalfScale = 4, // 首次缩放1/2，同源动作与方向映射。
+    BattleAuxGearType_DirectionalThreeQuarterScale = 5, // 首次缩放3/4，同源动作与方向映射。
+    BattleAuxGearType_ClearGraphicOnDown = 6, // 父倒地时先清graphicIndex再播帧；配置已有对象不改图号。
+};
+
 // 原函数：0x00421F90。
 void UpdateBattleAttachment_421F90(YobiAction* action); // 父战斗槽身份变化时只标死附件。
 // 原函数：0x00421FB0。

@@ -36,7 +36,7 @@ void SyncBattleRider_421FB0(YobiAction* const action)
         static_cast<void>(MarkDeath(action));
         return;
     }
-    const bool followsParent = action->phase == 0;
+    const bool followsParent = action->phase == BattleRiderSyncMode_FollowParent;
     if (followsParent) {
         action->deltaX = parent->x;
         action->deltaY = parent->y;
@@ -65,7 +65,7 @@ void SyncBattleRider_421FB0(YobiAction* const action)
             break;
         }
         bool play;
-        if (parent->phase != 0) {
+        if (parent->phase != BattleAction_Idle) {
             play = true;
         } else if (action->characterAction != CharacterAnimation_Stand) {
             action->characterAction = CharacterAnimation_Stand;
@@ -262,11 +262,11 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     std::int32_t xOffset = 0;
     std::int32_t yOffset = 0;
     switch (type) {
-    case 2:
+    case BattleAuxGearType_StandLoop:
         break;
-    case 3:
-    case 4:
-    case 5: {
+    case BattleAuxGearType_DirectionalQuarterScale:
+    case BattleAuxGearType_DirectionalHalfScale:
+    case BattleAuxGearType_DirectionalThreeQuarterScale: {
         const std::int32_t parentCharacterAction = parent->characterAction;
         switch (parentCharacterAction) {
         case CharacterAnimation_Stand:
@@ -307,7 +307,7 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
         }
         break;
     }
-    case 6:
+    case BattleAuxGearType_ClearGraphicOnDown:
         if (parent->characterAction == CharacterAnimation_Down) {
             characterAction = CharacterAnimation_Down;
             stopAtEnd = AnimationPlayback_StopAtEnd;
@@ -355,7 +355,7 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     const std::int32_t direction = parent->direction;
     action->displayPriority = 9;
     action->direction = direction;
-    action->phase = 0;
+    action->phase = BattleRiderSyncMode_FollowParent;
     action->pathCountOrDrawOrder_270 = 1;
     action->battleAttachmentParent10 = parent;
     action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
@@ -446,7 +446,7 @@ std::int32_t SetBattleRider_4222B0(
             const std::int32_t mapped = world::ResolveRidingCharacterImage_51C0D0(imageNo);
             YobiAction* const rider = NewBattleRider_4221F0(action, mapped);
             payload->rider13C8 = rider;
-            rider->phase = 0;
+            rider->phase = BattleRiderSyncMode_FollowParent;
             payload->rider13C8->field58 = 0;
             payload->rider13C8->characterAction = CharacterAnimation_Stand;
         }
@@ -459,7 +459,7 @@ std::int32_t SetBattleRider_4222B0(
     }
     YobiAction* const rider = payload->rider13C8;
     if (rider != nullptr) {
-        rider->phase = 0;
+        rider->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));
         payload->rider13C8 = nullptr;
@@ -532,9 +532,9 @@ void SetBattleAuxGear_422C90(
         }
         return;
     }
-    if (index == 1 && type >= 3 && type <= 5) {
+    if (index == 1 && type >= BattleAuxGearType_DirectionalQuarterScale && type <= BattleAuxGearType_DirectionalThreeQuarterScale) {
         const std::int32_t firstType = payload->auxiliaryGearTypes13C0[0];
-        if (firstType >= 3 && firstType <= 5) {
+        if (firstType >= BattleAuxGearType_DirectionalQuarterScale && firstType <= BattleAuxGearType_DirectionalThreeQuarterScale) {
             static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
             payload->auxiliaryGear13B8[0] = nullptr;
         }
@@ -543,7 +543,7 @@ void SetBattleAuxGear_422C90(
     YobiAction** const slot = &payload->auxiliaryGear13B8[index];
     payload->auxiliaryGearTypes13C0[index] = type;
     switch (type) {
-    case 1: {
+    case BattleAuxGearType_StandOrDown: {
         if (*slot == nullptr) {
             *slot = NewBattleAuxGear_422B00(action, imageNo, -1);
         }
@@ -553,7 +553,7 @@ void SetBattleAuxGear_422C90(
         }
         return;
     }
-    case 2: {
+    case BattleAuxGearType_StandLoop: {
         if (*slot == nullptr) {
             *slot = NewBattleAuxGear_422B00(action, imageNo, 3);
         }
@@ -563,20 +563,20 @@ void SetBattleAuxGear_422C90(
         }
         return;
     }
-    case 3:
-    case 4:
-    case 5: {
+    case BattleAuxGearType_DirectionalQuarterScale:
+    case BattleAuxGearType_DirectionalHalfScale:
+    case BattleAuxGearType_DirectionalThreeQuarterScale: {
         if (*slot == nullptr) {
             YobiAction* const gear = NewBattleAuxGear_422B00(action, imageNo, 0);
-            const bool isTypeThree = type == 3;
+            const bool isTypeThree = type == BattleAuxGearType_DirectionalQuarterScale;
             *slot = gear;
             if (isTypeThree) {
                 gear->scaleX = 0.25F;
                 (*slot)->scaleY = 0.25F;
-            } else if (type == 4) {
+            } else if (type == BattleAuxGearType_DirectionalHalfScale) {
                 gear->scaleX = 0.5F;
                 (*slot)->scaleY = 0.5F;
-            } else if (type == 5) {
+            } else if (type == BattleAuxGearType_DirectionalThreeQuarterScale) {
                 gear->scaleX = 0.75F;
                 (*slot)->scaleY = 0.75F;
             }
@@ -587,7 +587,7 @@ void SetBattleAuxGear_422C90(
         }
         return;
     }
-    case 6:
+    case BattleAuxGearType_ClearGraphicOnDown:
         if (*slot == nullptr) {
             *slot = NewBattleAuxGear_422B00(action, imageNo, 3);
         }

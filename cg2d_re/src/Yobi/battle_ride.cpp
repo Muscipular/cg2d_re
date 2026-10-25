@@ -106,7 +106,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             const std::int32_t image = world::ResolveRidingCharacterImage_51C0D0(effect->imageNo);
             YobiAction* const rider = NewBattleRider_4221F0(action, image);
             payload->rider13C8 = rider;
-            rider->phase = 1;
+            rider->phase = BattleRiderSyncMode_DrawAttributesOnly;
             payload->rider13C8->field58 = 0;
             payload->rider13C8->characterAction = CharacterAnimation_Sit;
             YobiAction* const nameSource = cg::world::gBattleAllEntries59E980[first];
@@ -230,7 +230,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         const bool pastMinimum = oldTime > 15;
         currentRider->field58 = oldTime + 1;
         if (pastMinimum && action->frameY <= offset) {
-            payload->rider13C8->phase = 0;
+            payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
             payload->rider13C8->field58 = 0;
             payload->rider13C8->flags &= ~0x14u;
             action->nameC4 = effect->nameC4;
@@ -341,7 +341,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         TurnBattleTowardPosition_4060D0(action, turnX, turnY, 1, 0.0F);
         MoveBattleByAngle_405EA0(action);
     }
-    payload->rider13C8->phase = 1;
+    payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = CharacterAnimation_Sit;
     payload->rider13C8->flags |= 0x14u;
     const std::int32_t riderDistancePoint = cg::world::gBattlePointIndices5536FC[first];
@@ -443,7 +443,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         FaceBattleActorTowardFormationPosition_406260(*firstSlot);
         static_cast<void>(PlayFrame_517DA0(*firstSlot, AnimationPlayback_Loop));
         MoveBattleCastState_439380(*firstSlot);
-        payload->rider13C8->phase = 0;
+        payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));
         YobiAction* const oldEffect = payload->effect1060;
@@ -491,7 +491,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
     }
     action->characterAction = CharacterAnimation_Run;
-    payload->rider13C8->phase = 1;
+    payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = CharacterAnimation_Damage;
     payload->rider13C8->flags |= 0x14u;
     const std::int32_t x = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->offset40);
@@ -534,7 +534,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[first]);
         static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[first], AnimationPlayback_Loop));
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[first]);
-        payload->rider13C8->phase = 0;
+        payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));
         YobiAction* const oldEffect = payload->effect1060;
@@ -633,7 +633,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         ClearBattleRideAttachments(payload);
         static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
     }
-    payload->rider13C8->phase = 1;
+    payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = flags != 0 ? CharacterAnimation_Damage : CharacterAnimation_Sit;
     payload->rider13C8->flags |= 0x14u;
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
@@ -682,7 +682,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         carrier->first00 = nullptr;
         static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[first], AnimationPlayback_Loop));
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[first]);
-        payload->rider13C8->phase = 0;
+        payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));
         YobiAction* const oldEffect = payload->effect1060;
@@ -709,7 +709,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         const std::int32_t imageNo = world::ResolveRidingCharacterImage_51C0D0(action->imageNo);
         YobiAction* const rider = NewBattleRider_4221F0(action, imageNo);
         payload->rider13C8 = rider;
-        rider->phase = 1;
+        rider->phase = BattleRiderSyncMode_DrawAttributesOnly;
         payload->rider13C8->field58 = 0;
         payload->rider13C8->characterAction = CharacterAnimation_Sit;
         payload->rider13C8->nameC4 = action->nameC4;
@@ -787,10 +787,10 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
     const std::int32_t previous = counterRider->field58;
     counterRider->field58 = previous + 1;
     if (previous > 15 && action->frameY <= displacement) {
-        payload->rider13C8->phase = 0;
+        payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         payload->rider13C8->flags &= ~0x14u;
-        payload->rider13C8->phase = 0;
+        payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));
         YobiAction* const restoreEffect = payload->effect1060;

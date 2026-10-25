@@ -63,6 +63,13 @@ enum AnimationFrameResult : std::int32_t {
     AnimationFrameResult_StoppedOrUnavailable = 1, // 终点停播或动画／动作不可用。
 };
 
+// YMN02：overheadMarkerMode2E4与UpdateMapActorMode的已证模式；接口仍接收／返回S32。
+enum OverheadMarkerMode : std::int32_t {
+    OverheadMarkerMode_DefaultImage = 0, // 默认头顶图；原归一逻辑将1／2之外的模式落到此值。
+    OverheadMarkerMode_CustomImage = 1, // 采用overheadMarkerImage2E8；具体业务身份未证。
+    OverheadMarkerMode_CustomImageKeepMarkerFlag = 2, // 自定义图；清队长标记时保留0x100位，不代表所有路径都保留附件。
+};
+
 // 本机载荷类别；与YobiPayload的有效指针成员对应，不写入协议或原端数据。
 enum class YobiPayloadKind : std::uint8_t {
     None,

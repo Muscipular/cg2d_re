@@ -65,6 +65,31 @@ enum BattleEffectType : std::uint32_t {
     BattleEffectType_AreaAttackImpactAtPosition = 47, // 动作255首目标的范围攻击表现；绝对XY、源102C、各缩放1.5，类型上界。
 };
 
+// YMN02：41E890／41E920的553A74图表行号；与41CD00的创建type独立。
+// 只描述视觉图族；物理技能等可复用，参数与局部S32继续承接未知值。
+enum BattleTiledEffectType : std::int32_t {
+    BattleTiledEffect_Earth = 0, // 图28881～28888；地魔法及部分物理命中共用。
+    BattleTiledEffect_Water = 1, // 图28889～28896；水魔法及酸液等共用。
+    BattleTiledEffect_Fire = 2, // 图28897～28904；火魔法及部分技能队列共用。
+    BattleTiledEffect_Wind = 3, // 图28905～28912；风魔法及MonWind等共用。
+    BattleTiledEffect_Drain = 4, // Dorain／3037施法链使用，图28895与28904交替；不代表单次扣血结算。
+    BattleTiledEffect_SharedRow5 = 5, // 图28913～28916；即死、冲击波及其他技能共用，独立业务名未证。
+};
+
+// 仅用于工厂SealCard效果的phase；动作154～156与41A270握手，不是角色动作或捕获结果。
+enum BattleSealCardPhase : std::int32_t {
+    BattleSealCardPhase_Expanding = 0, // 放大中；沿原对象构造的初始0，不额外初始化。
+    BattleSealCardPhase_Expanded = 1, // 已放大，等待角色往复缩放结束。
+    BattleSealCardPhase_Shrinking = 2, // 角色动作155写入，令卡效果开始缩小。
+    BattleSealCardPhase_Collapsed = 3, // 已缩小，等待角色动作156标死／清槽。
+};
+
+// 419C10／419BE0过渡效果的phase；仍以S32存储，消费者保留非零判断。
+enum BattleTransitionPhase : std::int32_t {
+    BattleTransitionPhase_Playing = 0, // 调用单次帧播放，等待严格返回1。
+    BattleTransitionPhase_HiddenAfterStop = 1, // 停播或动画不可用后隐藏；不代表对象已销毁。
+};
+
 // YUF01：41CD00第三槽按type选择；0..47是S32绝对／相对Y，其他类型借用已有对象，不能跨臂读取。
 union BattleEffectThirdArgument {
     std::int32_t yValue; // type47直接作绝对Y，其他消费者可能加源Y／offset44，不能统一叫offsetY。

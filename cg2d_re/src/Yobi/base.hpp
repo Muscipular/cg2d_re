@@ -177,7 +177,7 @@ struct YobiAction {
     std::uint32_t field2D8 = 0; // 原+2D8；克隆／骑乘复制，410E30/4124E0清零；未证业务读取，不猜动画位。
     std::uint32_t completedLoops = 0;   // 原 +2DC。
     std::int32_t playRevert = AnimationPlayback_Loop; // 原+2E0：见AnimationPlaybackMode，保留caller完整W32。
-    std::int32_t overheadMarkerMode2E4 = 0; // 原+2E4；0用默认头顶标记，1／2用+2E8，模式2影响队长标记清理。
+    std::int32_t overheadMarkerMode2E4 = OverheadMarkerMode_DefaultImage; // 原+2E4；0用默认头顶标记，1／2用+2E8，模式2影响队长标记清理。
     std::int32_t overheadMarkerImage2E8 = 0; // 原+2E8；overheadMarkerMode2E4为1／2时采用的头顶标记图号。
     std::uint8_t overheadMarkerRefresh2EC = 0; // 原+2EC；图号变化置1，442F70在原条件下重建头顶标记并清零。
     std::int32_t frameX = 0;            // 原 +2F0：帧坐标叠加坐标文件偏移。

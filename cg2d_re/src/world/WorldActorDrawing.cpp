@@ -122,7 +122,7 @@ void ClearWorldActorLeaderMarker_442C00(cg::yobi::YobiAction* const action)
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     record.marker44 = 0;
-    if (action->overheadMarkerMode2E4 != 2) {
+    if (action->overheadMarkerMode2E4 != cg::yobi::OverheadMarkerMode_CustomImageKeepMarkerFlag) {
         record.flags42 &= 0xFEFFu;
     }
 }

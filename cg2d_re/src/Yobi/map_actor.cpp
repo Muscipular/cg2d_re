@@ -988,8 +988,8 @@ void UpdateMapActorMode(
         current->overheadMarkerRefresh2EC = 1;
         current = slot;
     }
-    const bool explicitMode = mode == 1 || mode == 2;
-    current->overheadMarkerMode2E4 = explicitMode ? mode : 0;
+    const bool explicitMode = mode == OverheadMarkerMode_CustomImage || mode == OverheadMarkerMode_CustomImageKeepMarkerFlag;
+    current->overheadMarkerMode2E4 = explicitMode ? mode : OverheadMarkerMode_DefaultImage;
     slot->overheadMarkerImage2E8 = explicitMode ? imageNo : 0;
 }
 

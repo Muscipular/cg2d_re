@@ -440,7 +440,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             const std::int32_t imageNo = action->imageNo;
             if (imageNo == payload->effects1C[initialEffect].position4) {
                 YobiAction* const effect = payload->rebirthEffect106C;
-                if (effect == nullptr || effect->phase != 0) {
+                if (effect == nullptr || effect->phase != BattleTransitionPhase_Playing) {
                     payload->valueFD4 = 2;
                 }
                 static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));

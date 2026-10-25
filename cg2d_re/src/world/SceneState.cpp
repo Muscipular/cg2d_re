@@ -6586,7 +6586,7 @@ cg::yobi::YobiAction* ClearPlayerLeaderMarker_51A5B0()
 {
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     *reinterpret_cast<unsigned char*>(&gPlayerRuntimeSlots.flags18C) = 0;
-    if (action == nullptr || cg::yobi::GetYobiActionField2E4(action) != 2) {
+    if (action == nullptr || cg::yobi::GetYobiActionField2E4(action) != cg::yobi::OverheadMarkerMode_CustomImageKeepMarkerFlag) {
         gPlayerRuntimeSlots.flags18A &= 0xFEFFu;
     }
     return action;
@@ -8567,7 +8567,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection&, const char* con
                 object = gPlayerRuntimeSlots.action;
                 cg::yobi::UpdateMapActorMode(
                     gPlayerRuntimeSlots.action, mode, attachmentImage);
-                if (mode == 2) {
+                if (mode == cg::yobi::OverheadMarkerMode_CustomImageKeepMarkerFlag) {
                     if ((gPlayerRuntimeSlots.flags18A & 0x200u) == 0) {
                         gPlayerRuntimeSlots.flags18A |= 0x100u;
                     }
@@ -8610,7 +8610,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection&, const char* con
                 object = FindObjectYobi_4462B0(objectIndex);
                 if (object != nullptr) {
                     cg::yobi::UpdateMapActorMode(object, mode, attachmentImage);
-                    if (mode == 2) {
+                    if (mode == cg::yobi::OverheadMarkerMode_CustomImageKeepMarkerFlag) {
                         detail::EnableWorldActorModeMarker_449C90(object);
                     } else {
                         detail::ClearWorldActorModeMarkerUnlessLeader_449CC0(object);

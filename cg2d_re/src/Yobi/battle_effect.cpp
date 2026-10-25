@@ -208,23 +208,23 @@ void UpdateBattleRisingEffect_41A200(YobiAction* const action)
 void UpdateBattleScalingEffect_41A270(YobiAction* const action)
 {
     constexpr double step = 0.02F;
-    if (action->phase == 0) {
+    if (action->phase == BattleSealCardPhase_Expanding) {
         const double scaleX = action->scaleX + step;
         action->scaleX = static_cast<float>(scaleX);
         action->scaleY = static_cast<float>(action->scaleY + step);
         if (scaleX > 1.0) {
-            action->phase = 1;
+            action->phase = BattleSealCardPhase_Expanded;
             action->scaleX = 1.0F;
             action->scaleY = 1.0F;
         }
-    } else if (action->phase == 2) {
+    } else if (action->phase == BattleSealCardPhase_Shrinking) {
         const double scaleX = action->scaleX - step;
         action->scaleX = static_cast<float>(scaleX);
         action->scaleY = static_cast<float>(action->scaleY - step);
         if (!(scaleX >= 0.0)) {
             action->scaleX = 0.0F;
             action->scaleY = 0.0F;
-            action->phase = 3;
+            action->phase = BattleSealCardPhase_Collapsed;
         }
     }
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
@@ -2166,9 +2166,9 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
 // 原函数：0x00419BE0。
 void UpdateBattleTransitionEffect_419BE0(YobiAction* const action)
 {
-    if (action->phase == 0 && PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
+    if (action->phase == BattleTransitionPhase_Playing && PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         const std::uint32_t flags = action->flags;
-        action->phase = 1;
+        action->phase = BattleTransitionPhase_HiddenAfterStop;
         action->flags = flags | 2u;
     }
 }
@@ -2192,7 +2192,7 @@ YobiAction* NewBattleTransitionEffect_419C10(YobiAction* const parent, const std
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
     action->pathCountOrDrawOrder_270 = 0;
-    action->phase = 0;
+    action->phase = BattleTransitionPhase_Playing;
     action->field1D0 = 0;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);

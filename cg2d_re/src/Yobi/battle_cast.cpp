@@ -1166,22 +1166,22 @@ void UpdateBattleAction98_40D1D0(YobiAction* const action)
         switch (skill) {
         case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicEarthStrong:
         case BattleSkill_AttackMagicEarthSuper: case 2068: case 2069: case 2070:
-            type = 0;
+            type = BattleTiledEffect_Earth;
             break;
         case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicWaterStrong:
         case BattleSkill_AttackMagicWaterSuper: case 2071: case 2072: case 2073:
-            type = 1;
+            type = BattleTiledEffect_Water;
             break;
         case BattleSkill_AttackMagicFire: case BattleSkill_AttackMagicFireStrong:
         case BattleSkill_AttackMagicFireSuper: case 2074: case 2075: case 2076:
-            type = 2;
+            type = BattleTiledEffect_Fire;
             break;
         case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicWindStrong:
         case BattleSkill_AttackMagicWindSuper: case 2077: case 2078: case 2079:
-            type = 3;
+            type = BattleTiledEffect_Wind;
             break;
         case BattleSkill_Dorain: case 3037:
-            type = 4;
+            type = BattleTiledEffect_Drain;
             break;
         default:
             break;
@@ -1191,7 +1191,7 @@ void UpdateBattleAction98_40D1D0(YobiAction* const action)
         }
         const std::int32_t currentSkill = payload->castSkill103C;
         if (currentSkill == 86 || currentSkill == 2055 || currentSkill == 2056 || currentSkill == 2057) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(5));
+            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_SharedRow5));
         }
     }
 }
@@ -2392,22 +2392,22 @@ void UpdateBattleAction139_410000(YobiAction* const action)
         switch (payload->castSkill103C) {
         case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicEarthStrong:
         case BattleSkill_AttackMagicEarthSuper: case 2068: case 2069: case 2070:
-            type = 0;
+            type = BattleTiledEffect_Earth;
             break;
         case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicWaterStrong:
         case BattleSkill_AttackMagicWaterSuper: case 2071: case 2072: case 2073:
-            type = 1;
+            type = BattleTiledEffect_Water;
             break;
         case BattleSkill_AttackMagicFire: case BattleSkill_AttackMagicFireStrong:
         case BattleSkill_AttackMagicFireSuper: case 2074: case 2075: case 2076:
-            type = 2;
+            type = BattleTiledEffect_Fire;
             break;
         case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicWindStrong:
         case BattleSkill_AttackMagicWindSuper: case 2077: case 2078: case 2079:
-            type = 3;
+            type = BattleTiledEffect_Wind;
             break;
         case BattleSkill_Dorain: case 3037:
-            type = 4;
+            type = BattleTiledEffect_Drain;
             break;
         default:
             break;
@@ -2417,7 +2417,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
         }
         const std::int32_t currentSkill = payload->castSkill103C;
         if (currentSkill == 86 || currentSkill == 2055 || currentSkill == 2056 || currentSkill == 2057) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(5));
+            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_SharedRow5));
         }
     }
 }
@@ -2629,7 +2629,7 @@ void UpdateBattleAction154_40F790(YobiAction* const action)
         payload->effect1060 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_SealCard, 0, 0);
         static_cast<void>(audio::PlaySe_52C450(212, action->x));
     }
-    if (payload->effect1060->phase == 1) {
+    if (payload->effect1060->phase == BattleSealCardPhase_Expanded) {
         AdvanceBattleCastState_439340(action);
     }
 }
@@ -2731,7 +2731,7 @@ void UpdateBattleAction155_40F800(YobiAction* const action)
             action->battleCastEffect10 = nullptr;
             payload->effectPlaybackState1024 = BattleEffectPlayback_Idle;
         }
-        payload->effect1060->phase = 2;
+        payload->effect1060->phase = BattleSealCardPhase_Shrinking;
         payload->valueFF0 = 0;
         const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
         const std::uint32_t flags = action->flags & ~(hasDevice ? 0x100000u : 0x8000u);
@@ -2751,7 +2751,7 @@ void UpdateBattleAction156_40FB30(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     YobiAction* const effect = payload->effect1060;
-    if (effect->phase == 3) {
+    if (effect->phase == BattleSealCardPhase_Collapsed) {
         static_cast<void>(MarkDeath(effect));
         payload->effect1060 = nullptr;
         AdvanceBattleCastState_439340(action);
@@ -3418,9 +3418,9 @@ void UpdateBattleAction216_413400(YobiAction* const action)
     if (action->battleCastEffect10 != nullptr) {
         const std::int32_t skill = payload->castSkill103C;
         if (skill == BattleSkill_MonWind) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(3));
+            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_Wind));
         } else if (skill == BattleSkill_Acid) {
-            static_cast<void>(DrawBattleTiledEffect_41E890(1));
+            static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_Water));
         }
     }
 }

@@ -1,6 +1,7 @@
 #include "battle_skill_attack.hpp"
 #include "base.hpp"
 #include "battle_base.hpp"
+#include "battle_effect.hpp"
 #include "battle_message.hpp"
 
 #include "battle_scene.hpp"
@@ -416,19 +417,19 @@ AppendTechniqueEffects:
                     switch (skill) {
                         case BattleSkill_DelayAttack257:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_AdvanceEffectAndCast);
-                            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], 2, 0, 15);
+                            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleTiledEffect_Fire, 0, 15);
                             goto AppendTechniqueMainEffect;
                         case BattleSkill_StatusAttackPoisonStrike:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_AdvanceEffectAndCast);
-                            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], 0, 0, 15);
+                            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleTiledEffect_Earth, 0, 15);
                             goto AppendTechniqueMainEffect;
                         case BattleSkill_Wattack:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_AdvanceEffectAndCast);
-                            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], 1, 0, 15);
+                            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleTiledEffect_Water, 0, 15);
                             goto AppendTechniqueMainEffect;
                         case BattleSkill_FirstAttack:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_AdvanceEffectAndCast);
-                            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], 3, 0, 15);
+                            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleTiledEffect_Wind, 0, 15);
 // 原函数：0x004392A0。
 AppendTechniqueMainEffect:
                             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_CreateTiledEffect);
@@ -1357,13 +1358,13 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
     }
     if (gBattleMSkillLevelIndex5A3A18 >= 9) {
         if (skill == BattleSkill_Madmax) {
-            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 0, 0, 15);
+            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleTiledEffect_Earth, 0, 15);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_CreateTiledEffect);
         } else if (skill == BattleSkill_StatusAttackPoisonStrike) {
-            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 5, 0, 15);
+            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleTiledEffect_SharedRow5, 0, 15);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_CreateTiledEffect);
         } else if (skill == BattleSkill_DelayAttack258) {
-            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 3, 0, 15);
+            AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleTiledEffect_Wind, 0, 15);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_CreateTiledEffect);
         }
     }

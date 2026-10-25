@@ -462,7 +462,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         action->overheadMarkerRefresh2EC = 0;
         const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-        const std::int32_t imageNo = kind == 1 || kind == 2 ? action->overheadMarkerImage2E8 : 0x192BC;
+        const std::int32_t imageNo = kind == OverheadMarkerMode_CustomImage || kind == OverheadMarkerMode_CustomImageKeepMarkerFlag ? action->overheadMarkerImage2E8 : 0x192BC;
         payload->overheadMarker04 = CreateMapAttachmentAction_444000(imageNo, mapX, mapY, CharacterAnimation_Stand, 0, 10);
     } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
                && payload->overheadMarker04 != nullptr) {

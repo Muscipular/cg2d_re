@@ -154,8 +154,8 @@ void UpdateBattleCompletingEffect_41A160(YobiAction* const action)
         YobiAction* const parent = action->battleAttachmentParent10;
         if (parent != nullptr) {
             auto* const payload = parent->payload.battleActor;
-            if (payload->effectPlaybackState1024 != 0) {
-                payload->effectPlaybackState1024 = 2;
+            if (payload->effectPlaybackState1024 != BattleEffectPlayback_Idle) {
+                payload->effectPlaybackState1024 = BattleEffectPlayback_Completed;
             }
         }
         static_cast<void>(MarkDeath(action));
@@ -282,8 +282,8 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
         YobiAction* const completionParent = action->battleAttachmentParent10;
         if (completionParent != nullptr) {
             auto* const payload = completionParent->payload.battleActor;
-            if (payload->effectPlaybackState1024 != 0) {
-                payload->effectPlaybackState1024 = 2;
+            if (payload->effectPlaybackState1024 != BattleEffectPlayback_Idle) {
+                payload->effectPlaybackState1024 = BattleEffectPlayback_Completed;
             }
         }
         static_cast<void>(MarkDeath(action));
@@ -352,8 +352,8 @@ void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
         YobiAction* const parent = action->battleAttachmentParent10;
         if (parent != nullptr) {
             auto* const parentPayload = parent->payload.battleActor;
-            if (parentPayload->effectPlaybackState1024 != 0) {
-                parentPayload->effectPlaybackState1024 = 2;
+            if (parentPayload->effectPlaybackState1024 != BattleEffectPlayback_Idle) {
+                parentPayload->effectPlaybackState1024 = BattleEffectPlayback_Completed;
             }
         }
         static_cast<void>(MarkDeath(action));
@@ -396,8 +396,8 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
         YobiAction* const parent = action->battleAttachmentParent10;
         if (parent != nullptr) {
             auto* const payload = parent->payload.battleActor;
-            if (payload->effectPlaybackState1024 != 0) {
-                payload->effectPlaybackState1024 = 2;
+            if (payload->effectPlaybackState1024 != BattleEffectPlayback_Idle) {
+                payload->effectPlaybackState1024 = BattleEffectPlayback_Completed;
             }
         }
         static_cast<void>(MarkDeath(action));
@@ -956,7 +956,7 @@ YobiAction* NewBattleEffect_41CD00(
     }
     if (link == 1) {
         action->battleAttachmentParent10 = source;
-        source->payload.battleActor->effectPlaybackState1024 = 1;
+        source->payload.battleActor->effectPlaybackState1024 = BattleEffectPlayback_Playing;
     }
     // E05／41E368：附加层已按原图生成，再替换受术动画。
     if (type == 0x10) {

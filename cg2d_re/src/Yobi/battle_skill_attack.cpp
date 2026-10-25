@@ -1073,7 +1073,7 @@ HandleSkill2017PostReaction:
             cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 271;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlaySound1018);
             cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->value1030 = skill81Value;
-            cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->numberDisplayType1034 = 5;
+            cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->numberDisplayType1034 = BattleNumber_IncreaseHp;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_ApplyResourceChangeAndWait);
         }
 ReadNextAttackRound:
@@ -1276,7 +1276,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
     YobiAction* const scene, BattleScenePayload* const payload,
     const std::int32_t fpUsed, const std::int32_t mode)
 {
-    if (mode < 0 || mode > 4) {
+    if (mode < BattleAttackMode_Melee || mode > BattleAttackMode_Bow) {
         ParseBattleMRide_4239D0(scene);
         ++payload->packetSubState58;
         return;
@@ -1368,14 +1368,14 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         }
     }
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ConsumeFp);
-    if (mode == 4) {
+    if (mode == BattleAttackMode_Bow) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FireBowShots);
-    } else if (mode == 3) {
+    } else if (mode == BattleAttackMode_Boomerang) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_LaunchRangedAttack);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TrackOpponentFacing);
-    } else if (mode == 2) {
+    } else if (mode == BattleAttackMode_ThrowingKnife) {
         const std::int32_t modeSkill = gBattleMSkill5AAA78;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
@@ -1502,7 +1502,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_HandleDeath);
         }
     }
-    if (mode == 3) {
+    if (mode == BattleAttackMode_Boomerang) {
         const std::int32_t finalSkill = gBattleMSkill5AAA78;
         if ((finalSkill == BattleSkill_Madmax || finalSkill == BattleSkill_KarmaCycle) && selfPosition >= 0) {
             const std::int32_t selfCasterPosition = gBattleMCasterPosition5AAA64;
@@ -1654,7 +1654,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
 [[maybe_unused]] void ProcessBattleMSkill73NonzeroMode(
     YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t mode)
 {
-    if (mode < 0 || mode > 4) {
+    if (mode < BattleAttackMode_Melee || mode > BattleAttackMode_Bow) {
         ParseBattleMRide_4239D0(scene);
         ++payload->packetSubState58;
         return;
@@ -1676,15 +1676,15 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         return;
     }
     caster->payload.battleActor->attackModeFF4 = mode;
-    if (mode == 2) {
+    if (mode == BattleAttackMode_ThrowingKnife) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_LaunchRangedAttack);
-    } else if (mode == 3) {
+    } else if (mode == BattleAttackMode_Boomerang) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_LaunchRangedAttack);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TrackOpponentFacing);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_Wait21Ticks);
-    } else if (mode == 4) {
+    } else if (mode == BattleAttackMode_Bow) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_WaitTargetReady);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FireBowShots);
     }

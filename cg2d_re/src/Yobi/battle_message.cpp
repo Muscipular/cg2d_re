@@ -685,9 +685,9 @@ void ScanBattleMParticipants_439B30(
         case BattlePreviewSkillLayout::Attack:
         case BattlePreviewSkillLayout::Mode73: {
             const std::int32_t mode = TakeBattleMPreviewInteger_439600();
-            if (mode == 0 || skill == 72 || skill == BattleSkill_ShadowHand || skill == 113) {
+            if (mode == BattleAttackMode_Melee || skill == 72 || skill == BattleSkill_ShadowHand || skill == 113) {
                 position = ScanBattleMAttackParticipants_439920(skill, participants);
-            } else if (mode > 0 && mode <= 4) {
+            } else if (mode > BattleAttackMode_Melee && mode <= BattleAttackMode_Bow) {
                 readSource();
                 for (;;) {
                     const std::int32_t target = readPosition();
@@ -1657,7 +1657,7 @@ static void ProcessBattleMStatusHeader(
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->value1030 = value;
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
-                ->numberDisplayType1034 = 6;
+                ->numberDisplayType1034 = BattleNumber_DecreaseHp;
             if ((*reinterpret_cast<const unsigned char*>(&gBattleMResultFlags5A4A20) & 0x20u) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_HandleDeath);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MarkDead);
@@ -1669,7 +1669,7 @@ static void ProcessBattleMStatusHeader(
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->value1030 = value;
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
-                ->numberDisplayType1034 = 5;
+                ->numberDisplayType1034 = BattleNumber_IncreaseHp;
             break;
         case 2:
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
@@ -1679,7 +1679,7 @@ static void ProcessBattleMStatusHeader(
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->value1030 = value;
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
-                ->numberDisplayType1034 = 3;
+                ->numberDisplayType1034 = BattleNumber_DecreaseFp;
             break;
         case 3:
         case 4:
@@ -1695,7 +1695,7 @@ static void ProcessBattleMStatusHeader(
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                 ->value1030 = value;
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
-                ->numberDisplayType1034 = 6;
+                ->numberDisplayType1034 = BattleNumber_DecreaseHp;
             if ((*reinterpret_cast<const unsigned char*>(&gBattleMResultFlags5A4A20) & 0x20u) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_MarkDead);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_HandleDeath);
@@ -2248,7 +2248,7 @@ static void ProcessBattleMItemHeader(
         const std::int32_t currentMessageValue = gBattleMMessageValue59FA14;
         messageTarget->payload.battleActor->value1030 = currentMessageValue;
         cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
-            ->numberDisplayType1034 = 5;
+            ->numberDisplayType1034 = BattleNumber_IncreaseHp;
     }
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);

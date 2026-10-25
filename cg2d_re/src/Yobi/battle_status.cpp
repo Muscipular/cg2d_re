@@ -312,40 +312,40 @@ static void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     const std::int32_t displayType = payload->numberDisplayType1034;
-    if (displayType != 0) {
+    if (displayType != BattleNumber_Style0) {
         const std::int32_t y = action->y - 80;
         const std::int32_t x = action->x;
         static_cast<void>(NewBattleNumber_41F1A0(x, y, payload->value1030, displayType, 2, 0));
     }
     switch (payload->numberDisplayType1034) {
-    case 6:
+    case BattleNumber_DecreaseHp:
         (action->readiness -= static_cast<std::int32_t>(payload->value1030));
         if ((action->readiness < 0)) {
             action->readiness = std::int32_t{0};
         }
         break;
-    case 5:
+    case BattleNumber_IncreaseHp:
         (action->readiness += static_cast<std::int32_t>(payload->value1030));
         if ((action->maxHp < action->readiness)) {
             action->readiness = action->maxHp;
         }
         break;
-    case 4:
+    case BattleNumber_IncreaseFp:
         (action->barValue1B0 += static_cast<std::int32_t>(payload->value1030));
         if ((action->barMaximum1C0 < action->barValue1B0)) {
             action->barValue1B0 = action->barMaximum1C0;
         }
         break;
-    case 3:
+    case BattleNumber_DecreaseFp:
         (action->barValue1B0 -= static_cast<std::int32_t>(payload->value1030));
         if ((0 > action->barValue1B0)) {
             action->barValue1B0 = std::int32_t{0};
         }
         break;
-    case 0:
+    case BattleNumber_Style0:
         static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22459, 0, 0));
         break;
-    case 9: {
+    case BattleNumber_SetHp: {
         action->readiness = static_cast<std::int32_t>(payload->value1030);
         if ((0 > action->readiness)) {
             action->readiness = std::int32_t{0};
@@ -355,7 +355,7 @@ static void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         }
         break;
     }
-    case 8: {
+    case BattleNumber_SetFp: {
         action->barValue1B0 = static_cast<std::int32_t>(payload->value1030);
         if ((0 > action->barValue1B0)) {
             action->barValue1B0 = std::int32_t{0};
@@ -391,8 +391,8 @@ void UpdateBattleAction162_410E30(YobiAction* const action)
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
-    if (payload->effectPlaybackState1024 == 2) {
-        payload->effectPlaybackState1024 = 0;
+    if (payload->effectPlaybackState1024 == BattleEffectPlayback_Completed) {
+        payload->effectPlaybackState1024 = BattleEffectPlayback_Idle;
         action->hidden = 0;
         action->field2D8 = 0;
         AdvanceBattleCastState_439340(action);
@@ -937,7 +937,7 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
     if ((payload->flagsFDC & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
-    if (payload->effectPlaybackState1024 == 0) {
+    if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
         std::int32_t type = -1;
         switch (action->phase) {
         case BattleAction_PlayRecoveryEffectAndFadeIn: type = 13; break;
@@ -999,7 +999,7 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
             SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 0x8000);
         }
     }
-    if (payload->effectPlaybackState1024 == 2) {
+    if (payload->effectPlaybackState1024 == BattleEffectPlayback_Completed) {
         action->hidden = 0;
         action->field2D8 = 0;
         const std::int32_t index = payload->effectRunningC9C;
@@ -1015,25 +1015,25 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
                 static_cast<void>(NewBattleNumber_41F1A0(x, y, value, displayType, 2, 0));
             }
             switch (payload->numberDisplayType1034) {
-            case 6:
+            case BattleNumber_DecreaseHp:
                 (action->readiness -= static_cast<std::int32_t>(payload->value1030));
                 if ((action->readiness < 0)) {
                     action->readiness = std::int32_t{0};
                 }
                 break;
-            case 5:
+            case BattleNumber_IncreaseHp:
                 (action->readiness += static_cast<std::int32_t>(payload->value1030));
                 if ((action->maxHp < action->readiness)) {
                     action->readiness = action->maxHp;
                 }
                 break;
-            case 4:
+            case BattleNumber_IncreaseFp:
                 (action->barValue1B0 += static_cast<std::int32_t>(payload->value1030));
                 if ((action->barMaximum1C0 < action->barValue1B0)) {
                     action->barValue1B0 = action->barMaximum1C0;
                 }
                 break;
-            case 3:
+            case BattleNumber_DecreaseFp:
                 (action->barValue1B0 -= static_cast<std::int32_t>(payload->value1030));
                 if ((0 > action->barValue1B0)) {
                     action->barValue1B0 = std::int32_t{0};
@@ -1045,15 +1045,15 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
         }
         ++payload->effectPlaybackState1024;
     }
-    if (payload->effectPlaybackState1024 == 3) {
+    if (payload->effectPlaybackState1024 == BattleEffectPlayback_HoldAfterResult) {
         const std::int32_t count = payload->valueFF0 + 1;
         payload->valueFF0 = count;
         if (count >= 60) {
-            payload->effectPlaybackState1024 = 4;
+            payload->effectPlaybackState1024 = BattleEffectPlayback_WaitFullOpacity;
         }
     }
-    if (payload->effectPlaybackState1024 == 4 && GetYobiActionField30F(action) == 255) {
-        payload->effectPlaybackState1024 = 0;
+    if (payload->effectPlaybackState1024 == BattleEffectPlayback_WaitFullOpacity && GetYobiActionField30F(action) == 255) {
+        payload->effectPlaybackState1024 = BattleEffectPlayback_Idle;
         payload->valueFF0 = 0;
         AdvanceBattleCastState_439340(action);
     }

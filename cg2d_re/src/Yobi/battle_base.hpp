@@ -343,6 +343,37 @@ enum BattleActionId : std::int32_t {
 
 // BAN01：未证业务名的动画／特效按已证动画号、工厂type或字段行为命名；不把同值的技能、图号和特效phase混用。
 
+// YEN01：SKL攻击模式；服务端CG2D报文将旧远程武器号加一，不直接复用B_WEAPON。
+// 仅列已证分支；1的业务未证，未知输入仍由原S32字段承接。
+enum BattleAttackMode : std::int32_t {
+    BattleAttackMode_Melee = 0, // 走424620近战目标生产；不等于武器道具类型0。
+    BattleAttackMode_ThrowingKnife = 2, // 投掷小刀；通常走动作15，技能4002／3038走动作19。
+    BattleAttackMode_Boomerang = 3, // 回旋镖；动作15创建4195F0，后续按21／22／23往返。
+    BattleAttackMode_Bow = 4, // 弓；动作18逐目标发射，命中链有独立音效及收尾。
+};
+
+// YEN01：数值类型兼作41F1A0的数字样式索引，资源加减只发生在对应消费者。
+// -1仅在动作204抑制数字；0在159／160显示22459图标，在204及计时数字中仍是样式0。
+enum BattleNumberType : std::int32_t {
+    BattleNumber_SkipAfterEffect = -1, // 动作204不显示数字，也不改HP／FP；不是41F1A0合法表索引。
+    BattleNumber_Style0 = 0, // 第0行数字样式；具体图标／数字分支由调用者决定。
+    BattleNumber_DecreaseFp = 3, // 数字样式3；159／160／204从FP减去value1030。
+    BattleNumber_IncreaseFp = 4, // 数字样式4；159／160／204向FP加上value1030。
+    BattleNumber_IncreaseHp = 5, // 数字样式5；159／160／204向HP加上value1030。
+    BattleNumber_DecreaseHp = 6, // 数字样式6；159／160／204从HP减去value1030。
+    BattleNumber_SetFp = 8, // 数字样式8；159／160将FP设为value1030，保留原上下限处理。
+    BattleNumber_SetHp = 9, // 数字样式9；159／160将HP设为value1030，保留原上下限处理。
+};
+
+// YEN01：关联特效在施放者+1024的握手状态，独立于特效对象及角色自身的phase。
+enum BattleEffectPlaybackState : std::int32_t {
+    BattleEffectPlayback_Idle = 0, // 未开始／已清理；不保证没有其他未关联特效。
+    BattleEffectPlayback_Playing = 1, // 41CD00的link=1发布，等待关联特效完成通知。
+    BattleEffectPlayback_Completed = 2, // 关联特效通知完成；162等动作清回0，204结算后自增至3。
+    BattleEffectPlayback_HoldAfterResult = 3, // 动作204结算后的60次回调等待，原自增语句保留。
+    BattleEffectPlayback_WaitFullOpacity = 4, // 等待透明度255；完成后清状态／计数并推进动作。
+};
+
 // BSI01：客户端分派技能号；用于gBattleMSkill5AAA78、castSkill103C及skill7C的已归一化消费。
 // 保持各字段为有符号整数，允许未知／Lua技能；不用于原始BattleSkillMeta::skillId注册键。
 // data技术号与所属技能号不一致时取techId / 100；不改变现有205000报文归一化阈值。
@@ -602,7 +633,7 @@ struct BattleActorPayload {
     std::int32_t moveTargetXFE8; // 412870按目标坐标侧写入；与00/08/10坐标来源独立。
     std::int32_t moveTargetYFEC;
     std::int32_t valueFF0; // 原+FF0；共用周期／碰撞计数、延时和保存的phase，无法统一为计时器或阶段，保留原名。
-    std::int32_t attackModeFF4; // 原成员偏移：+0xFF4。 426FC0写入原完整攻击模式。
+    std::int32_t attackModeFF4; // 原+FF4：攻击路径使用BattleAttackMode；动作155借作随机次数，保持完整S32。
     std::int32_t aliveFF8; // 原成员偏移：+0xFF8。
     std::array<std::byte, 4> bytesFFC; // 原成员偏移：+0xFFC。 原FFC..FFF：随整个载荷清零/浅复制，用途及地址属性未定。
     std::int32_t flashCounter1000; // 原成员偏移：+0x1000。 404DB0残影节拍；438290沿通用分配零化，不额外写入。
@@ -614,11 +645,11 @@ struct BattleActorPayload {
     std::int32_t soundId1018; // 原+1018；BM／技能链生产，动作80传给PlaySe的音效编号。
     std::int32_t soundId101C; // 原成员偏移：+0x101C。 40CCB0音效编号；427470技能98模式6已写入，424620已接，其他生产沿对应父合同。
     std::int32_t soundId1020; // 原成员偏移：+0x1020。 40CCE0音效编号；与1018/101C独立，不是地址。
-    std::int32_t effectPlaybackState1024; // 原+1024；关联特效置1、完成置2，部分动作续用3／4；保持完整S32状态。
+    std::int32_t effectPlaybackState1024; // 原+1024；解释见BattleEffectPlaybackState，保持完整S32状态及原自增。
     std::int32_t image1028; // 原成员偏移：+0x1028。 427470技能链生产图号；41CD00的type34用作图号及音效/坐标重读源。
     std::int32_t image102C; // 原成员偏移：+0x102C。 426FC0按技术索引和目标阵营选表。
     std::int32_t value1030; // 原+1030；共用HP／FP数值、选图参数和动作模式，不能仅命名为伤害值，保留原名；非指针。
-    std::int32_t numberDisplayType1034; // 原成员偏移：+0x1034。 427470状态/技能链写入，4107C0/410B00消费的显示及数值类型。
+    std::int32_t numberDisplayType1034; // 原+1034；BattleNumberType的数字样式／资源操作，按159／160／204分别消费。
     std::int32_t value1038; // 原+1038；409680作强制命中门禁，40E560兼作动作阶段；统一业务含义未定，保留原名。
     std::int32_t castSkill103C; // 原+0x103C；分派技能号，已证常量见BattleSkillDispatchId，保留未知整数。
     std::int32_t castLevel1040; // 原成员偏移：+0x1040。 与1044的技术索引独立。

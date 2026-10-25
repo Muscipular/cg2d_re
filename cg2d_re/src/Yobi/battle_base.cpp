@@ -31,7 +31,7 @@ static void ResetBattleCastEffects(BattleActorPayload* const payload)
     payload->effectFlagsFE4 = 0;
     payload->valueFF0 = 0;
     payload->aliveFF8 = 0;
-    payload->effectPlaybackState1024 = 0;
+    payload->effectPlaybackState1024 = BattleEffectPlayback_Idle;
     payload->value1038 = 0;
     payload->actionFrameCountFCC = 0;
     payload->valueFD0 = 0;

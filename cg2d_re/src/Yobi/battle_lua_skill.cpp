@@ -1495,7 +1495,7 @@ static void InitializeActionQueues(YobiAction* action) {
     data.effectFlagsFE4 = 0;
     data.valueFF0 = 0;
     data.aliveFF8 = 0;
-    data.effectPlaybackState1024 = 0;
+    data.effectPlaybackState1024 = BattleEffectPlayback_Idle;
     data.value1038 = 0;
     for (BattleEntryEffectRecord& effect : data.effects1C) {
         effect = {-1, 0, 0, 0};

@@ -175,7 +175,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
         const std::int32_t targetLevel = gBattleMSkillLevelIndex5A3A18;
         levelTarget->payload.battleActor->castSkillLevel1044 = targetLevel;
         cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
-            ->numberDisplayType1034 = -1;
+            ->numberDisplayType1034 = BattleNumber_SkipAfterEffect;
         const std::int32_t skill = gBattleMSkill5AAA78;
         if ((skill >= BattleSkill_ReflectionPhysics && skill <= BattleSkill_IneffectiveMagic)
             || (skill >= BattleSkill_LpRecovery && skill <= BattleSkill_StatusRecover)) {
@@ -231,7 +231,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
                 cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
                     ->value1030 = amount;
                 cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload.battleActor
-                    ->numberDisplayType1034 = 5;
+                    ->numberDisplayType1034 = BattleNumber_IncreaseHp;
             }
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_FaceFormation);
         } else if (skill >= BattleSkill_DefUp && skill <= BattleSkill_AglDown) {
@@ -674,7 +674,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
         const std::int32_t halfAmount = gBattleMHalfValue5A4A30;
         halfCasterActor->payload.battleActor->value1030 = halfAmount;
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
-            ->numberDisplayType1034 = 5;
+            ->numberDisplayType1034 = BattleNumber_IncreaseHp;
     }
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
     if (gBattleMMessageValue59FA14 != 0) {
@@ -735,7 +735,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
                         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
                             ->value1030 = lastAmount / 2;
                         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
-                            ->numberDisplayType1034 = 5;
+                            ->numberDisplayType1034 = BattleNumber_IncreaseHp;
                     }
                 }
             }
@@ -997,7 +997,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
         const std::int32_t accumulatedAmount = gBattleMMessageValue59FA14;
         amountCasterActor->payload.battleActor->value1030 = accumulatedAmount;
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
-            ->numberDisplayType1034 = 6;
+            ->numberDisplayType1034 = BattleNumber_DecreaseHp;
         std::uint32_t flags = gBattleMFlags5ABA84;
         if ((flags & 0x10000000u) == 0) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ApplyResourceChange);

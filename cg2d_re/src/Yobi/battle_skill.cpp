@@ -492,7 +492,7 @@ void ProcessBattleMSkillHeader(
         break;
     case BattleSkill_NormalAttack: {
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);
-        if (mode == 0) {
+        if (mode == BattleAttackMode_Melee) {
             const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
             const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
             const std::int32_t attackSkill = gBattleMSkill5AAA78;
@@ -529,7 +529,7 @@ void ProcessBattleMSkillHeader(
     case 3019: case 3038: case 4002: {
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);
         const std::int32_t currentSkill = gBattleMSkill5AAA78;
-        if (currentSkill == 72 || currentSkill == 113 || currentSkill == BattleSkill_ShadowHand || mode == 0) {
+        if (currentSkill == 72 || currentSkill == 113 || currentSkill == BattleSkill_ShadowHand || mode == BattleAttackMode_Melee) {
             const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
             const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
             ProcessBattleMSkillAttackTargets(

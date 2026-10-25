@@ -131,7 +131,7 @@ YobiAction* CreateDepartingObservationGroup_43F330(
     }
     action->imageNo = imageNo;
     action->callback = UpdateDepartingObservationGroup_43F520;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->direction = direction;
     action->field58 = direction;
     action->displayPriority = 10;
@@ -178,7 +178,7 @@ YobiAction* CreateArrivingObservationGroup_43FEB0(
     action->direction = direction;
     action->callback = UpdateArrivingObservationGroup_440070;
     action->imageNo = imageNo;
-    action->characterAction = 3;
+    action->characterAction = CharacterAnimation_Run;
     action->displayPriority = 10;
     action->flags = 0x20u;
     const auto assignCoordinate = [](
@@ -241,7 +241,7 @@ static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const pare
     }
     action->callback = nullptr;
     action->imageNo = source->imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     const std::int32_t direction = source->direction;
     action->displayPriority = 10;
     action->direction = direction;
@@ -273,7 +273,7 @@ static YobiAction* CreateLandingObservationMember_43FE00(YobiAction* const paren
     }
     action->callback = nullptr;
     action->imageNo = source->imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     const std::int32_t direction = source->direction;
     action->displayPriority = 10;
     action->direction = direction;
@@ -297,15 +297,15 @@ static void SetObservationChildAction(
         || (imageNo >= 0x1B580 && imageNo <= 0x1B587)
         || (imageNo >= 0x1B58A && imageNo <= 0x1B59C)
         || (imageNo >= 0x1D554 && imageNo <= 0x1D55B)) {
-        action->characterAction = 3;
+        action->characterAction = CharacterAnimation_Run;
     } else if ((imageNo >= 0x186A0 && imageNo <= 0x18A87)
         || (imageNo >= 0x19A28 && imageNo <= 0x1A130)
         || (imageNo >= 0x197D0 && imageNo <= 0x19848)
         || (imageNo >= 0x1D524 && imageNo <= 0x1D553)
         || (imageNo >= 0x1AF0E && imageNo <= 0x1AF25)) {
-        action->characterAction = 11;
+        action->characterAction = CharacterAnimation_Sit;
     } else {
-        action->characterAction = 0;
+        action->characterAction = CharacterAnimation_Stand;
     }
 }
 
@@ -360,7 +360,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
         if (currentFrame > 15 && targetY <= relativeY) {
             relativeY = targetY;
         }
-        action->characterAction = 11;
+        action->characterAction = CharacterAnimation_Sit;
         if (currentFrame > 15 && targetY <= relativeY) {
             const std::int32_t imageNo = action->imageNo;
             action->phase = 2;
@@ -469,11 +469,11 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
         if (frame > 15 && relativeY >= 0) {
             relativeY = 0;
         }
-        action->characterAction = 11;
+        action->characterAction = CharacterAnimation_Sit;
         if (frame > 15 && relativeY >= 0) {
             const std::int32_t soundX = action->x;
             action->phase = 5;
-            action->characterAction = 0;
+            action->characterAction = CharacterAnimation_Stand;
             static_cast<void>(audio::PlaySe_52C450(0x1C9, soundX));
             const std::uint32_t currentIndex = payload->values[action->field1D0];
             if (currentIndex == world::gPlayerRuntimeSlots.objectIndex) {
@@ -590,14 +590,14 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
     } else if (initialPhase == 2) {
         const std::int32_t frame = payload->frame;
         if (frame < 0) {
-            action->characterAction = 2;
+            action->characterAction = CharacterAnimation_BeginRun;
             if (AdvanceYobiAnimationFrame_517880(action, 100, 1, 0) == 1) {
                 payload->frame = 0;
             }
-            action->counter1DC = 0;
+            action->counter1DC = CharacterAnimation_Stand;
         } else {
-            action->characterAction = 3;
-            action->counter1DC = 3;
+            action->characterAction = CharacterAnimation_Run;
+            action->counter1DC = CharacterAnimation_Run;
             y += static_cast<std::int32_t>(static_cast<std::int64_t>(
                 static_cast<double>(frame)
                 * -1.4F));
@@ -933,7 +933,7 @@ YobiAction* CreateObservationTravelFromSnapshot_440B70()
 
     action->callback = UpdateObservationTravelProjection_440C50;
     action->imageNo = gMapImage5F9734;
-    action->characterAction = 3;
+    action->characterAction = CharacterAnimation_Run;
     const std::int32_t initialDirection = gMapDirection5F9740;
     auto* const payload = action->payload.mapChara;
     action->direction = initialDirection;
@@ -959,7 +959,7 @@ YobiAction* CreateObservationTravelFromSnapshot_440B70()
             const std::int32_t direction = gMapDirection5F9740;
             directionChild->direction = direction;
             YobiAction* const actionChild = payload->partyActions[index];
-            actionChild->characterAction = 3;
+            actionChild->characterAction = CharacterAnimation_Run;
             YobiAction* const indexChild = payload->partyActions[index];
             indexChild->field1D0 = static_cast<std::int32_t>(index);
         }
@@ -1078,7 +1078,7 @@ YobiAction* CreateRegisteredMapGraphicAction_46DE50(
     }
     action->callback = nullptr;
     action->imageNo = imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->direction = 0;
     action->displayPriority = 10;
     action->flags = 0x30;

@@ -290,7 +290,7 @@ static void ProcessBattleMSkillWaitingState(
         auto* const casterPayload = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor;
         for (BattleEntryEffectRecord* effect = casterPayload->effects1C.data(); effect->position != -1; ++effect) {
             YobiAction* const target = cg::world::gBattleAllEntries59E980[effect->position];
-            if (target != nullptr && target->characterAction != 10 && target->phase != BattleAction_BounceOutAfterKnockout) {
+            if (target != nullptr && target->characterAction != CharacterAnimation_Down && target->phase != BattleAction_BounceOutAfterKnockout) {
                 FaceBattleActorTowardFormationPosition_406260(target);
             }
         }

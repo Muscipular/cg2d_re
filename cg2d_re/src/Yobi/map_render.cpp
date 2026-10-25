@@ -194,38 +194,38 @@ void ResolveGearPetAnimationState_4412D0(
     for (std::int32_t slot = 0; slot < 2; ++slot) {
         const std::int32_t kind = slot == 0 ? payload->kind3C : payload->kind40;
         if (kind == 2) {
-            *characterAction = 0;
+            *characterAction = CharacterAnimation_Stand;
             *revert = 0;
         } else if (kind >= 3 && kind <= 5) {
             switch (action->characterAction) {
-            case 1: *characterAction = 1; *revert = 0; break;
-            case 2: *characterAction = 2; *revert = 1; break;
-            case 3: *characterAction = 3; *revert = 0; break;
-            case 4: *characterAction = 4; *revert = 1; break;
-            case 5: *characterAction = 5; *revert = 1; break;
-            case 6: *characterAction = 6; *revert = 0; break;
-            case 8: *characterAction = 8; *revert = 1; break;
-            case 9: *characterAction = 9; *revert = 1; break;
-            case 10: *characterAction = 10; *revert = 1; break;
-            case 0:
-            case 12:
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-                *characterAction = 0;
+            case CharacterAnimation_Walk: *characterAction = CharacterAnimation_Walk; *revert = 0; break;
+            case CharacterAnimation_BeginRun: *characterAction = CharacterAnimation_BeginRun; *revert = 1; break;
+            case CharacterAnimation_Run: *characterAction = CharacterAnimation_Run; *revert = 0; break;
+            case CharacterAnimation_EndRun: *characterAction = CharacterAnimation_EndRun; *revert = 1; break;
+            case CharacterAnimation_Attack: *characterAction = CharacterAnimation_Attack; *revert = 1; break;
+            case CharacterAnimation_Cast: *characterAction = CharacterAnimation_Cast; *revert = 0; break;
+            case CharacterAnimation_Damage: *characterAction = CharacterAnimation_Damage; *revert = 1; break;
+            case CharacterAnimation_Guard: *characterAction = CharacterAnimation_Guard; *revert = 1; break;
+            case CharacterAnimation_Down: *characterAction = CharacterAnimation_Down; *revert = 1; break;
+            case CharacterAnimation_Stand:
+            case CharacterAnimation_Animation12:
+            case CharacterAnimation_Animation13:
+            case CharacterAnimation_Animation14:
+            case CharacterAnimation_Animation15:
+            case CharacterAnimation_Animation16:
+                *characterAction = CharacterAnimation_Stand;
                 *revert = 0;
                 break;
             default:
-                *characterAction = 0;
+                *characterAction = CharacterAnimation_Stand;
                 *revert = 1;
                 break;
             }
-        } else if (action->characterAction == 10) {
-            *characterAction = 10;
+        } else if (action->characterAction == CharacterAnimation_Down) {
+            *characterAction = CharacterAnimation_Down;
             *revert = 1;
         } else {
-            *characterAction = 0;
+            *characterAction = CharacterAnimation_Stand;
             *revert = 0;
         }
     }
@@ -351,13 +351,13 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
     if ((flags & AnimeActionFlag_Wing) != 0) {
         gear->characterAction = parent->characterAction;
         const std::int32_t image = parent->imageNo;
-        if (parent->characterAction == 6
+        if (parent->characterAction == CharacterAnimation_Cast
             && ((image >= 100250 && image <= 100273) || (image >= 100650 && image <= 100655))) {
             return;
         }
         syncSource = ride != nullptr ? ride : parent;
         before = gear->direction >= 4 && gear->direction <= 6 ? 0 : 1;
-        if (gear->characterAction == 10) {
+        if (gear->characterAction == CharacterAnimation_Down) {
             layer = 9; // 4.06层5，对应本线普通地图层10的下一层。
         }
     } else if ((flags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0) {
@@ -367,13 +367,13 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
         offsetY = 0;
     } else {
         const std::int32_t parentAction = parent->characterAction;
-        gear->characterAction = parentAction >= 2 && parentAction <= 4 ? 0
-            : parentAction == 8 ? 3 : parentAction;
+        gear->characterAction = parentAction >= CharacterAnimation_BeginRun && parentAction <= CharacterAnimation_EndRun ? CharacterAnimation_Stand
+            : parentAction == CharacterAnimation_Damage ? CharacterAnimation_Run : parentAction;
     }
     static_cast<void>(AdvanceYobiAnimationFrame_517880(gear, 100, stopAtEnd, 0, syncSource));
     if ((flags & AnimeActionFlag_Wing) == 0
         && (parent->phase != 0
-            || ((flags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0 && parent->characterAction == 10))) {
+            || ((flags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0 && parent->characterAction == CharacterAnimation_Down))) {
         return;
     }
     if ((flags & AnimeActionFlag_Title) != 0) {
@@ -463,7 +463,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t imageNo = kind == 1 || kind == 2 ? action->imageNo2E8 : 0x192BC;
-        payload->action04 = CreateMapAttachmentAction_444000(imageNo, mapX, mapY, 0, 0, 10);
+        payload->action04 = CreateMapAttachmentAction_444000(imageNo, mapX, mapY, CharacterAnimation_Stand, 0, 10);
     } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
                && payload->action04 != nullptr) {
         MarkDeath(payload->action04);
@@ -670,7 +670,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         if (payload->action4C == nullptr) {
             const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-            YobiAction* const child = CreateMapAttachmentAction_444000(statusImage, mapX, mapY, 0, 0, 10);
+            YobiAction* const child = CreateMapAttachmentAction_444000(statusImage, mapX, mapY, CharacterAnimation_Stand, 0, 10);
             payload->action4C = child;
             child->rebirthValue1 = 4;
             payload->action4C->rebirthValue2 = 4;
@@ -693,7 +693,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             if (payload->action0C == nullptr) {
                 const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
                 const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-                payload->action0C = CreateMapAttachmentAction_444000(0x1AF4D, mapX, mapY, 0, 0, 10);
+                payload->action0C = CreateMapAttachmentAction_444000(0x1AF4D, mapX, mapY, CharacterAnimation_Stand, 0, 10);
                 if ((state & 0x20u) != 0) {
                     clearActionState((action->flags & 0x80000u) != 0 ? 0x40 : 0x20);
                     static_cast<void>(audio::PlaySe_52C450(0x1B5, action->x));
@@ -720,7 +720,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         if (payload->action10 == nullptr) {
             const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-            YobiAction* const child = CreateMapAttachmentAction_444000(0x1AF4E, mapX, mapY, 0, 0, 10);
+            YobiAction* const child = CreateMapAttachmentAction_444000(0x1AF4E, mapX, mapY, CharacterAnimation_Stand, 0, 10);
             payload->action10 = child;
             child->rebirthValue1 = 4;
             payload->action10->rebirthValue2 = 4;
@@ -740,7 +740,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
     DrawMapMainGear406(action, primaryIndex);
     if ((payload->action34 != nullptr || payload->action38 != nullptr)
         && payload->action44 == nullptr) {
-        std::int32_t characterAction = 0;
+        std::int32_t characterAction = CharacterAnimation_Stand;
         std::int32_t revert = 1;
         std::int32_t x = 0;
         std::int32_t y = 0;
@@ -753,10 +753,10 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         }
         ResolveGearPetAnimationState_4412D0(action, primaryIndex, &characterAction, &revert);
         ResolveGearPetDrawPlacement_441430(action, primaryIndex, &x, &y, &before);
-        if (payload->kind3C == 6 && payload->action34->characterAction == 10) {
+        if (payload->kind3C == 6 && payload->action34->characterAction == CharacterAnimation_Down) {
             payload->action34->graphicIndex = -1;
         }
-        if (payload->kind40 == 6 && payload->action38->characterAction == 10) {
+        if (payload->kind40 == 6 && payload->action38->characterAction == CharacterAnimation_Down) {
             payload->action38->graphicIndex = -1;
         }
         DrawGear_441570(action, primaryIndex, x, y, before);
@@ -835,7 +835,7 @@ YobiAction* NewYobiGearPet_441130(
     }
     action->callback = nullptr;
     action->imageNo = imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->displayPriority = 10;
     action->flags = 0x34u;
     (action->mapX200 = static_cast<std::int32_t>(mapX));
@@ -871,7 +871,7 @@ YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
 
     action->callback = nullptr;
     action->imageNo = imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->displayPriority = 10;
     action->flags = 0x34;
     return action;

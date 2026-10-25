@@ -41,34 +41,34 @@ void SyncBattleRider_421FB0(YobiAction* const action)
         action->deltaX = parent->x;
         action->deltaY = parent->y;
         switch (parent->characterAction) {
-        case 1:
-            action->characterAction = 1;
+        case CharacterAnimation_Walk:
+            action->characterAction = CharacterAnimation_Walk;
             break;
-        case 2:
-        case 3:
-        case 4:
-            action->characterAction = 3;
+        case CharacterAnimation_BeginRun:
+        case CharacterAnimation_Run:
+        case CharacterAnimation_EndRun:
+            action->characterAction = CharacterAnimation_Run;
             break;
-        case 5:
-        case 6:
-            action->characterAction = 5;
+        case CharacterAnimation_Attack:
+        case CharacterAnimation_Cast:
+            action->characterAction = CharacterAnimation_Attack;
             break;
-        case 8:
-        case 10:
-            action->characterAction = 8;
+        case CharacterAnimation_Damage:
+        case CharacterAnimation_Down:
+            action->characterAction = CharacterAnimation_Damage;
             break;
-        case 9:
-            action->characterAction = 9;
+        case CharacterAnimation_Guard:
+            action->characterAction = CharacterAnimation_Guard;
             break;
         default:
-            action->characterAction = 0;
+            action->characterAction = CharacterAnimation_Stand;
             break;
         }
         bool play;
         if (parent->phase != 0) {
             play = true;
-        } else if (action->characterAction != 0) {
-            action->characterAction = 0;
+        } else if (action->characterAction != CharacterAnimation_Stand) {
+            action->characterAction = CharacterAnimation_Stand;
             play = (*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0;
         } else {
             play = (*reinterpret_cast<const unsigned char*>(&parent->flags) & 0x40u) != 0
@@ -81,7 +81,7 @@ void SyncBattleRider_421FB0(YobiAction* const action)
         }
         if (play) {
             static_cast<void>(PlayFrame_517DA0(
-                action, action->characterAction == 5 ? 0 : parent->playRevert));
+                action, action->characterAction == CharacterAnimation_Attack ? 0 : parent->playRevert));
         }
     }
     std::uint32_t drawFlags = (action->flags & 0xFFEA7FFDu) | 0x820000u;
@@ -132,8 +132,8 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     if (wing) {
         action->characterAction = parentAction;
     } else if (!fixedPlacement) {
-        action->characterAction = parentAction >= 2 && parentAction <= 4 ? 0
-            : parentAction == 8 ? 3 : parentAction;
+        action->characterAction = parentAction >= CharacterAnimation_BeginRun && parentAction <= CharacterAnimation_EndRun ? CharacterAnimation_Stand
+            : parentAction == CharacterAnimation_Damage ? CharacterAnimation_Run : parentAction;
     }
     const std::uint32_t flags = payload->flagsFDC;
     std::uint32_t extraFlags = 0;
@@ -148,9 +148,9 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     }
     action->direction = parent->direction;
     const std::int32_t image = parent->imageNo;
-    const bool suppressWing = wing && parentAction == 6
+    const bool suppressWing = wing && parentAction == CharacterAnimation_Cast
         && ((image >= 100250 && image <= 100273) || (image >= 100650 && image <= 100655));
-    if (suppressWing || (fixedPlacement && parentAction == 10)) {
+    if (suppressWing || (fixedPlacement && parentAction == CharacterAnimation_Down)) {
         extraFlags = 2;
     } else {
         const std::int32_t stopAtEnd = wing ? parent->playRevert : 0;
@@ -257,7 +257,7 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     } else if (index == 1) {
         type = payload->auxiliaryGearTypes13C0[1];
     }
-    std::int32_t characterAction = 0;
+    std::int32_t characterAction = CharacterAnimation_Stand;
     std::int32_t stopAtEnd = 0;
     std::int32_t xOffset = 0;
     std::int32_t yOffset = 0;
@@ -269,24 +269,24 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     case 5: {
         const std::int32_t parentCharacterAction = parent->characterAction;
         switch (parentCharacterAction) {
-        case 0:
-        case 12:
-        case 13:
-        case 14:
-        case 15:
-        case 16:
+        case CharacterAnimation_Stand:
+        case CharacterAnimation_Animation12:
+        case CharacterAnimation_Animation13:
+        case CharacterAnimation_Animation14:
+        case CharacterAnimation_Animation15:
+        case CharacterAnimation_Animation16:
             break;
-        case 1:
-        case 3:
-        case 6:
+        case CharacterAnimation_Walk:
+        case CharacterAnimation_Run:
+        case CharacterAnimation_Cast:
             characterAction = parentCharacterAction;
             break;
-        case 2:
-        case 4:
-        case 5:
-        case 8:
-        case 9:
-        case 10:
+        case CharacterAnimation_BeginRun:
+        case CharacterAnimation_EndRun:
+        case CharacterAnimation_Attack:
+        case CharacterAnimation_Damage:
+        case CharacterAnimation_Guard:
+        case CharacterAnimation_Down:
             characterAction = parentCharacterAction;
             stopAtEnd = 1;
             break;
@@ -308,15 +308,15 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
         break;
     }
     case 6:
-        if (parent->characterAction == 10) {
-            characterAction = 10;
+        if (parent->characterAction == CharacterAnimation_Down) {
+            characterAction = CharacterAnimation_Down;
             stopAtEnd = 1;
             graphicIndex = -1;
         }
         break;
     default:
-        if (parent->characterAction == 10) {
-            characterAction = 10;
+        if (parent->characterAction == CharacterAnimation_Down) {
+            characterAction = CharacterAnimation_Down;
             stopAtEnd = 1;
         }
         break;
@@ -349,7 +349,7 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     const std::uint32_t configuredFlags = flags | 0x860040u;
     action->callback = UpdateBattleAttachment_421F90;
     action->flags = configuredFlags;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 3.0F;
     const std::int32_t direction = parent->direction;
@@ -382,7 +382,7 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     action->callback = UpdateBattleAttachment_421F90;
     action->flags = flags;
     action->imageNo = imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 3.0F;
     action->direction = parent->direction;
@@ -415,7 +415,7 @@ YobiAction* NewBattleAuxGear_422B00(
     const std::uint32_t flags = parent->flags;
     action->imageNo = imageNo;
     action->flags = flags;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 3.0F;
     const std::int32_t direction = parent->direction;
@@ -448,7 +448,7 @@ std::int32_t SetBattleRider_4222B0(
             payload->rider13C8 = rider;
             rider->phase = 0;
             payload->rider13C8->field58 = 0;
-            payload->rider13C8->characterAction = 0;
+            payload->rider13C8->characterAction = CharacterAnimation_Stand;
         }
         if (payload->rider13C8 != nullptr) {
             const std::int32_t mapped = world::ResolveRidingCharacterImage_51C0D0(imageNo);

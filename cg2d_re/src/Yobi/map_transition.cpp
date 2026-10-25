@@ -561,7 +561,7 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
                 static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
-            *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, 0, 0, displayPriority, slot);
+            *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, slot);
             payload->flags10C |= 1u;
         }
     }
@@ -575,7 +575,7 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
                 static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
-            *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, 0, 0, displayPriority, slot);
+            *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, slot);
             payload->flags10C |= 2u;
         }
     }
@@ -611,7 +611,7 @@ static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const act
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
             payload->slots18.attachments.action18 =
-                CreateOneShotMapAnimation_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
+                CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, nullptr);
         }
     }
     if (payload->slots18.attachments.action1C == nullptr) {
@@ -623,7 +623,7 @@ static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const act
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
             payload->slots18.attachments.action1C =
-                CreateOneShotMapAnimation_444260(0x18902, x, y, 0, 0, displayPriority, nullptr);
+                CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, nullptr);
         }
     }
     const std::uint64_t tick = platform::ReadTickCount64();
@@ -809,9 +809,9 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
         static_cast<std::int64_t>(screenY + 0.5));
     const std::int32_t characterAction = action->characterAction;
     const std::int32_t stopAtEnd =
-        characterAction == 12 || characterAction == 13 || characterAction == 14
-        || characterAction == 15 || characterAction == 1 || characterAction == 0
-        || characterAction == 16 ? 0 : 1;
+        characterAction == CharacterAnimation_Animation12 || characterAction == CharacterAnimation_Animation13 || characterAction == CharacterAnimation_Animation14
+        || characterAction == CharacterAnimation_Animation15 || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Stand
+        || characterAction == CharacterAnimation_Animation16 ? 0 : 1;
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, 0));
     if ((action->flags & 2u) != 0) {
         return;
@@ -848,7 +848,7 @@ YobiAction* CreateMapTransitionAction_448040(
     action->direction = direction;
     action->callback = detail::UpdateMapTransitionAction_447E60;
     action->imageNo = imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->displayPriority = 10;
     action->flags = 0x200034u;
     const auto assignCoordinate = [](

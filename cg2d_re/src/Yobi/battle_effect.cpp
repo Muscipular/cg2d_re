@@ -1123,7 +1123,7 @@ YobiAction* NewBattleArcProjection_418FF0(
     const std::uint32_t flags = action->flags | 0x40000u;
     action->callback = UpdateBattleArcProjection_418F10;
     action->flags = flags;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 10;
     action->displayPriority = parent->displayPriority;
     action->imageNo = imageNo;
@@ -1195,7 +1195,7 @@ void NewBattleProjection_418DF0(
     const std::uint32_t flags = action->flags | 0x40000u;
     action->callback = UpdateBattleProjection_418D80;
     action->flags = flags;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 10;
     const std::uint8_t priority = parent->displayPriority;
     action->battleAttachmentParent10 = parent;
@@ -1243,7 +1243,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     action->flags |= 0x60002u;
     action->callback = UpdateBattleActor_404DB0;
     action->imageNo = 0;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 10.0F;
     action->displayPriority = 203;
@@ -1316,7 +1316,7 @@ YobiAction* NewBattleBlastWave_419180(
     const std::uint32_t initialFlags = action->flags | 0x60002u;
     action->callback = UpdateBattleActor_404DB0;
     action->flags = initialFlags;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 10.0F;
     action->displayPriority = 203;
@@ -1471,7 +1471,7 @@ YobiAction* NewBattleArcShot_419DA0(
     action->flags |= 0x60002u;
     action->callback = UpdateBattleActor_404DB0;
     action->imageNo = 0;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 10.0F;
     action->displayPriority = 203;
@@ -1560,7 +1560,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     }
     const std::uint32_t flags = action->flags | 0x40000u;
     action->callback = UpdateBattleActor_404DB0;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->flags = flags;
     action->framePlayingRate = 100;
     action->displayPriority = 205;
@@ -2185,7 +2185,7 @@ YobiAction* NewBattleTransitionEffect_419C10(YobiAction* const parent, const std
     action->callback = UpdateBattleTransitionEffect_419BE0;
     action->flags = flags;
     action->imageNo = imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 0.0F;
     action->displayPriority = 204;
@@ -2234,7 +2234,7 @@ YobiAction* NewBattleOffsetFollowEffect_419CF0(
     action->callback = UpdateBattleOffsetFollowEffect_419CB0;
     action->flags = flags;
     action->imageNo = imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 0.0F;
     action->displayPriority = 9;
@@ -2642,7 +2642,7 @@ YobiAction* NewBattleBackgroundFade_421570(
     if (imageNo >= 0) {
         static_cast<void>(resource::GetGraphicMapNoIndex(imageNo, &action->graphicIndex));
     }
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->field58 = step;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 0.0F;
@@ -2802,7 +2802,7 @@ YobiAction* NewBattleScreenEmitter_421700(const std::int32_t phase)
     }
     const std::uint32_t flags = action->flags;
     action->callback = UpdateBattleScreenEmitter_4216B0;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->flags = flags | 2u;
     action->framePlayingRate = 100;
     action->displayPriority = 3;

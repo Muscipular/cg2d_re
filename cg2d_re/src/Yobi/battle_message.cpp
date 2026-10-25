@@ -1810,7 +1810,7 @@ static void ProcessBattleMPositionHeader(
             const std::int32_t otherPosition = cg::world::GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             YobiAction* const other = cg::world::gBattleAllEntries59E980[otherPosition];
-            if (other != nullptr && other->characterAction != 10 && other->phase != BattleAction_BounceOutAfterKnockout) {
+            if (other != nullptr && other->characterAction != CharacterAnimation_Down && other->phase != BattleAction_BounceOutAfterKnockout) {
                 FaceBattleActorTowardFormationPosition_406260(other);
             }
             FinishBattleEvent_43B6C0(scene);
@@ -3429,7 +3429,7 @@ void ParseBattleC_438550()
                 detail::FaceBattleActorTowardFormationPosition_406260(actor);
                 if ((inputFlags & detail::BattleCharacterFlag_Dead) != 0) {
                     detail::FaceBattleActorTowardFormationPosition_406260(actor);
-                    actor->characterAction = 10;
+                    actor->characterAction = CharacterAnimation_Down;
                     while (detail::PlayFrame_517DA0(actor, 1) != 1) {
                     }
                     static_cast<void>(detail::NewBattleCenteredEffect_41FA00(actor, 110169));

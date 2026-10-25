@@ -33,7 +33,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
     YobiAction* const caster = payload->caster1070;
-    action->characterAction = 5;
+    action->characterAction = CharacterAnimation_Attack;
     const std::int32_t event = action->frameEvent;
     action->framePlayingRate = 100;
     if (event >= 10000) {
@@ -606,9 +606,9 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     if (payload->valueFD0 == 0) {
         payload->valueFD0 = 1;
-        action->characterAction = 7;
+        action->characterAction = CharacterAnimation_Throw;
         if (ProbeBattleAttackEvent_4065E0(action) == 0) {
-            action->characterAction = 5;
+            action->characterAction = CharacterAnimation_Attack;
         }
     }
     action->framePlayingRate = 100;
@@ -688,7 +688,7 @@ void UpdateBattleAction18_408170(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 5;
+    action->characterAction = CharacterAnimation_Attack;
     const std::int32_t skill = payload->castSkill103C;
     action->framePlayingRate = skill == BattleSkill_RandomShot || skill == 3019 ? 33 : 100;
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
@@ -732,9 +732,9 @@ void UpdateBattleAction19_4082F0(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     if (payload->valueFD0 == 0) {
         payload->valueFD0 = 1;
-        action->characterAction = 7;
+        action->characterAction = CharacterAnimation_Throw;
         if (ProbeBattleAttackEvent_4065E0(action) == 0) {
-            action->characterAction = 5;
+            action->characterAction = CharacterAnimation_Attack;
         }
     }
     action->framePlayingRate = 33;
@@ -768,7 +768,7 @@ void UpdateBattleAction19_4082F0(YobiAction* const action)
 void UpdateBattleAction70_4070E0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 5;
+    action->characterAction = CharacterAnimation_Attack;
     action->framePlayingRate = 100;
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     if (position != -1) {
@@ -792,7 +792,7 @@ void UpdateBattleAction70_4070E0(YobiAction* const action)
 void UpdateBattleAction249_4071C0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 5;
+    action->characterAction = CharacterAnimation_Attack;
     action->framePlayingRate = 100;
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     if (position != -1) {
@@ -1668,7 +1668,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
         }
         YobiAction* const currentParent = action->battleOpponent10;
         if (currentParent->phase != BattleAction_Wait21Ticks) {
-            currentParent->characterAction = 12;
+            currentParent->characterAction = CharacterAnimation_Animation12;
             static_cast<void>(PlayFrame_517DA0(action->battleOpponent10, 0));
             AdvanceBattleCastState_439340(action->battleOpponent10);
             if (payload->castSkill103C == BattleSkill_Madmax) {
@@ -1746,7 +1746,7 @@ void UpdateBattleAction25_406BA0(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         return;
     }
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
@@ -1756,7 +1756,7 @@ void UpdateBattleAction25_406BA0(YobiAction* const action)
 // 原函数：0x0040B410。
 void UpdateBattleAction32_40B410(YobiAction* const action)
 {
-    action->characterAction = 8;
+    action->characterAction = CharacterAnimation_Damage;
     action->framePlayingRate = 100;
     if (PlayFrame_517DA0(action, 1) == 1) {
         AdvanceBattleCastState_439340(action);
@@ -1767,7 +1767,7 @@ void UpdateBattleAction32_40B410(YobiAction* const action)
 // 原函数：0x0040B450。
 void UpdateBattleAction33_40B450(YobiAction* const action)
 {
-    action->characterAction = 9;
+    action->characterAction = CharacterAnimation_Guard;
     action->framePlayingRate = 100;
     if (PlayFrame_517DA0(action, 1) == 1) {
         AdvanceBattleCastState_439340(action);
@@ -1779,9 +1779,9 @@ void UpdateBattleAction33_40B450(YobiAction* const action)
 std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 8;
+    action->characterAction = CharacterAnimation_Damage;
     if ((static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0xC04) != 0) {
-        action->characterAction = 9;
+        action->characterAction = CharacterAnimation_Guard;
     }
     action->framePlayingRate = 100;
     const std::int32_t count = payload->actionFrameCountFCC + 1;
@@ -1871,9 +1871,9 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
 std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 8;
+    action->characterAction = CharacterAnimation_Damage;
     if ((static_cast<std::uint16_t>(payload->effectFlagsFE4) & 0xC04) != 0) {
-        action->characterAction = 9;
+        action->characterAction = CharacterAnimation_Guard;
     }
     action->framePlayingRate = 100;
     const std::int32_t previous = payload->actionFrameCountFCC;
@@ -1978,7 +1978,7 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
 {
     if (action->nameX == 0) {
         const std::int32_t x = action->x;
-        action->characterAction = 8;
+        action->characterAction = CharacterAnimation_Damage;
         static_cast<void>(audio::PlaySe_52C450(163, x));
         static_cast<void>(audio::PlaySe_52C450(171, action->x));
     }
@@ -1987,9 +1987,9 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
     const std::int32_t count = previousCount + 1;
     action->nameX = count;
     if (interval == 36 || count % (36 - interval) == 0) {
-        if (action->characterAction == 9) {
+        if (action->characterAction == CharacterAnimation_Guard) {
             const std::int32_t x = action->x;
-            action->characterAction = 8;
+            action->characterAction = CharacterAnimation_Damage;
             static_cast<void>(audio::PlaySe_52C450(163, x));
             static_cast<void>(audio::PlaySe_52C450(171, action->x));
             const std::int32_t firstDirection = action->direction + 1;
@@ -2004,7 +2004,7 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
             }
         } else {
             const std::int32_t x = action->x;
-            action->characterAction = 9;
+            action->characterAction = CharacterAnimation_Guard;
             static_cast<void>(audio::PlaySe_52C450(163, x));
             static_cast<void>(audio::PlaySe_52C450(174, action->x));
         }
@@ -2014,7 +2014,7 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
             action->nameX = 0;
             action->nameY = 0;
             action->nameValueC0 = 0;
-            action->characterAction = 9;
+            action->characterAction = CharacterAnimation_Guard;
             FaceBattleActorTowardFormationPosition_406260(action);
             AdvanceBattleCastState_439340(action);
         }
@@ -2037,7 +2037,7 @@ void UpdateBattleAction241_417B80(YobiAction* const action)
 {
     const std::int32_t event = action->frameEvent;
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 6;
+    action->characterAction = CharacterAnimation_Cast;
     action->framePlayingRate = 100;
     if (event == 0) {
         if (PlayFrame_517DA0(action, 1) == 1) {
@@ -2102,7 +2102,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 3;
+    action->characterAction = CharacterAnimation_Run;
     action->motionMagnitude54 = 10.0F;
     action->framePlayingRate = 100;
     const std::int32_t turnPosition = payload->effects1C[payload->effectRunningC9C].position;
@@ -2269,9 +2269,9 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
 std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 8;
+    action->characterAction = CharacterAnimation_Damage;
     if ((payload->effectFlagsFE4 & 0xC04) != 0) {
-        action->characterAction = 9;
+        action->characterAction = CharacterAnimation_Guard;
     }
     action->framePlayingRate = 50;
     const std::uint32_t initialFlags = payload->flagsFDC;
@@ -2348,7 +2348,7 @@ std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
 std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 8;
+    action->characterAction = CharacterAnimation_Damage;
     action->framePlayingRate = 100;
     const std::int32_t count = payload->actionFrameCountFCC + 1;
     payload->actionFrameCountFCC = count;
@@ -2433,7 +2433,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 3;
+    action->characterAction = CharacterAnimation_Run;
     action->motionMagnitude54 = 10.0F;
     action->framePlayingRate = 100;
     bool applyEffect = true;
@@ -2808,7 +2808,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
 void UpdateBattleAction240_417AC0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 6;
+    action->characterAction = CharacterAnimation_Cast;
     action->framePlayingRate = 100;
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
         action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, BattleEffectType_CastingImage1028, 0, 1);
@@ -3078,7 +3078,7 @@ void UpdateBattleAction247_4185F0(YobiAction* const action)
 std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
-    action->characterAction = 1;
+    action->characterAction = CharacterAnimation_Walk;
     action->motionMagnitude54 = 8.0F;
     action->framePlayingRate = 100;
     const float turnY = static_cast<float>(payload->y14);
@@ -3101,7 +3101,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
     using world::gBattleAllEntries59E980;
     const std::int32_t event = action->frameEvent;
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 5;
+    action->characterAction = CharacterAnimation_Attack;
     action->framePlayingRate = 100;
     if (event >= 10000 && event < 20000) {
         for (;;) {

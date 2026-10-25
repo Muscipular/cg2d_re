@@ -167,7 +167,10 @@ static bool ApplyYobiAnimeFrame(
     const std::int32_t characterAction = action->characterAction;
     if (syncSource != nullptr
         && (GetYobiAnimeActionFlags(action) & resource::animation::AnimeActionFlag_Wing) != 0
-        && (characterAction == 5 || characterAction == 8 || characterAction == 9 || characterAction == 10)) {
+        && (characterAction == CharacterAnimation_Attack
+            || characterAction == CharacterAnimation_Damage
+            || characterAction == CharacterAnimation_Guard
+            || characterAction == CharacterAnimation_Down)) {
         action->frameIndex = syncSource->frameIndex;
     } else {
         action->frameIndex = frameIndex + 1u;

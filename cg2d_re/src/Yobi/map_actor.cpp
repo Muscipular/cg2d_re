@@ -58,16 +58,16 @@ static void RestoreMountedCharacterAction(YobiAction* const action)
         || (imageNo >= 0x1B580 && imageNo <= 0x1B587)
         || (imageNo >= 0x1B58A && imageNo <= 0x1B59C)
         || (imageNo >= 0x1D554 && imageNo <= 0x1D55B)) {
-        action->characterAction = 0;
+        action->characterAction = CharacterAnimation_Stand;
     } else if ((imageNo >= 0x186A0 && imageNo <= 0x18A87)
         || (imageNo >= 0x19A28 && imageNo <= 0x1A130)
         || (imageNo >= 0x197D0 && imageNo <= 0x19848)
         || (imageNo >= 0x1D524 && imageNo <= 0x1D553)
         || (imageNo >= 0x1D55C && imageNo <= 0x1D563)
         || (imageNo >= 0x1AF0E && imageNo <= 0x1AF25)) {
-        action->characterAction = 11;
+        action->characterAction = CharacterAnimation_Sit;
     } else {
-        action->characterAction = 0;
+        action->characterAction = CharacterAnimation_Stand;
     }
 }
 
@@ -143,7 +143,7 @@ static void DrawActorPhaseEffect(
         payload->action08 = created;
         created->callback = nullptr;
         payload->action08->imageNo = imageNo;
-        payload->action08->characterAction = 0;
+        payload->action08->characterAction = CharacterAnimation_Stand;
         payload->action08->displayPriority = 10;
         payload->action08->flags = 0x34u;
     }
@@ -175,7 +175,7 @@ static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* con
             vertical = frameY;
         }
     }
-    action->characterAction = 11;
+    action->characterAction = CharacterAnimation_Sit;
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
     const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
@@ -220,7 +220,7 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
     YobiAction* const ride = payload->action44;
     if (ride == nullptr) {
         action->phase = 0;
-        action->characterAction = 0;
+        action->characterAction = CharacterAnimation_Stand;
         MarkDeath(payload->action44);
         payload->action44 = nullptr;
         RestoreActorOriginalImage(action, payload);
@@ -252,7 +252,7 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
     if (counter > 15 && vertical >= 0) {
         vertical = 0;
     }
-    action->characterAction = 11;
+    action->characterAction = CharacterAnimation_Sit;
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
     const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
@@ -281,7 +281,7 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
     payload->counter48 = nextCounter;
     if (nextCounter > 15 && vertical >= 0) {
         action->phase = 0;
-        action->characterAction = 0;
+        action->characterAction = CharacterAnimation_Stand;
         MarkDeath(payload->action44);
         payload->action44 = nullptr;
         RestoreActorOriginalImage(action, payload);
@@ -309,7 +309,7 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
         static_cast<std::int64_t>(projectedY + 0.5));
     const std::int32_t counter = payload->counter48;
     if (counter <= 360) {
-        action->characterAction = 3;
+        action->characterAction = CharacterAnimation_Run;
         const std::int32_t progress = 360 - counter;
         screenY += static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(progress)
@@ -330,11 +330,11 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
         screenX += static_cast<std::int32_t>(offsets[0]);
         screenY += static_cast<std::int32_t>(offsets[1]);
     } else {
-        action->characterAction = 4;
+        action->characterAction = CharacterAnimation_EndRun;
         if (AdvanceYobiAnimationFrame_517880(action, 100, 1, 0) == 1) {
             action->phase = 0;
             payload->counter48 = 0;
-            action->characterAction = 0;
+            action->characterAction = CharacterAnimation_Stand;
         }
     }
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
@@ -452,7 +452,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                 if (ride != nullptr) {
                     ride->callback = nullptr;
                     payload->action44->imageNo = imageNo;
-                    payload->action44->characterAction = 0;
+                    payload->action44->characterAction = CharacterAnimation_Stand;
                     payload->action44->displayPriority = 10;
                     payload->action44->flags = 0x34u;
                     payload->action44->flags |= 0x200u;
@@ -612,17 +612,17 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         && (world::detail::gWorldObjects[
                 static_cast<std::size_t>(index)].category & 0x100u) != 0) {
         const std::int32_t characterAction = action->characterAction;
-        stopAtEnd = characterAction == 3 || characterAction == 0
-            || characterAction == 1 || characterAction == 18 || characterAction == 19
-            || characterAction == 13 || characterAction == 15 || characterAction == 11 ? 0 : 1;
+        stopAtEnd = characterAction == CharacterAnimation_Run || characterAction == CharacterAnimation_Stand
+            || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Animation18 || characterAction == CharacterAnimation_Animation19
+            || characterAction == CharacterAnimation_Animation13 || characterAction == CharacterAnimation_Animation15 || characterAction == CharacterAnimation_Sit ? 0 : 1;
     } else {
         YobiAction* const ride = payload->action44;
         const std::int32_t characterAction =
             ride != nullptr ? ride->characterAction : action->characterAction;
-        stopAtEnd = characterAction == 12 || characterAction == 13
-            || characterAction == 14 || characterAction == 15 || characterAction == 1
-            || characterAction == 0 || characterAction == 16 || characterAction == 3
-            || characterAction == 6 ? 0 : 1;
+        stopAtEnd = characterAction == CharacterAnimation_Animation12 || characterAction == CharacterAnimation_Animation13
+            || characterAction == CharacterAnimation_Animation14 || characterAction == CharacterAnimation_Animation15 || characterAction == CharacterAnimation_Walk
+            || characterAction == CharacterAnimation_Stand || characterAction == CharacterAnimation_Animation16 || characterAction == CharacterAnimation_Run
+            || characterAction == CharacterAnimation_Cast ? 0 : 1;
     }
     std::uint32_t flipStatic = 0;
     if (world::gMapResourceMode_9DAD68 == 1) {
@@ -791,7 +791,7 @@ void UpdateMapActorPathMovement_4424B0(YobiAction* const action)
     }
     if (idle) {
         if (action->movementActive_272 != 0) {
-            SetMapActorAnimationState_43EFC0(action, 0, 0);
+            SetMapActorAnimationState_43EFC0(action, CharacterAnimation_Stand, 0);
         }
         action->movementActive_272 = 0;
     } else {
@@ -817,7 +817,7 @@ void UpdateMapActorPathMovement_4424B0(YobiAction* const action)
             action->movementStepXBits_27C = 0;
             action->movementStepYBits_280 = 0;
         }
-        SetMapActorAnimationState_43EFC0(action, 1, 0);
+        SetMapActorAnimationState_43EFC0(action, CharacterAnimation_Walk, 0);
     }
 
     // 此入口先写count，不使用encoded优先的通用operator=(int32_t)。
@@ -843,7 +843,7 @@ YobiAction* CreateMapActorAction_441DB0(
     action->direction = direction;
     action->callback = detail::UpdateAndQueueMapActor_4417E0;
     action->imageNo = imageNo;
-    action->characterAction = 0;
+    action->characterAction = CharacterAnimation_Stand;
     action->displayPriority = 10;
     action->flags = 0x34;
 
@@ -1160,7 +1160,7 @@ void ApplyPlayerRideReply(
             YobiAction* const ride = NewYobiAction_404AE0(2, 0);
             payload->action44 = ride;
             ride->callback = nullptr;
-            payload->action44->characterAction = 0;
+            payload->action44->characterAction = CharacterAnimation_Stand;
             payload->action44->displayPriority = 10;
             payload->action44->flags = 0x34u;
             payload->action44->flags |= 0x200u;
@@ -1173,9 +1173,9 @@ void ApplyPlayerRideReply(
         world::gPlayerRuntimeSlots.action->phase = 1;
         payload->counter48 = 0;
         *remainingSteps = steps;
-        payload->action44->characterAction = 0;
-        if (world::gPlayerRuntimeSlots.action->characterAction == 1) {
-            payload->action44->characterAction = 1;
+        payload->action44->characterAction = CharacterAnimation_Stand;
+        if (world::gPlayerRuntimeSlots.action->characterAction == CharacterAnimation_Walk) {
+            payload->action44->characterAction = CharacterAnimation_Walk;
         }
         return;
     }
@@ -1187,9 +1187,9 @@ void ApplyPlayerRideReply(
     YobiAction* const ride = payload->action44;
     payload->counter48 = 0;
     if (ride != nullptr) {
-        ride->characterAction = 0;
-        if (world::gPlayerRuntimeSlots.action->characterAction == 1) {
-            payload->action44->characterAction = 1;
+        ride->characterAction = CharacterAnimation_Stand;
+        if (world::gPlayerRuntimeSlots.action->characterAction == CharacterAnimation_Walk) {
+            payload->action44->characterAction = CharacterAnimation_Walk;
         }
     }
     *remainingSteps = 0;
@@ -1463,19 +1463,19 @@ void SetMapActorAnimationState_43EFC0(
             || (imageNo >= 112010 && imageNo <= 112028)
             || (imageNo >= 120148 && imageNo <= 120155)) {
             switch (payload->action44->characterAction) {
-            case 0: action->characterAction = 0; break;
-            case 1: action->characterAction = 1; break;
-            case 2:
-            case 3:
-            case 4: action->characterAction = 3; break;
-            case 5:
-            case 6: action->characterAction = 5; break;
-            case 8:
-            case 10: action->characterAction = 8; break;
-            case 9: action->characterAction = 9; break;
+            case CharacterAnimation_Stand: action->characterAction = CharacterAnimation_Stand; break;
+            case CharacterAnimation_Walk: action->characterAction = CharacterAnimation_Walk; break;
+            case CharacterAnimation_BeginRun:
+            case CharacterAnimation_Run:
+            case CharacterAnimation_EndRun: action->characterAction = CharacterAnimation_Run; break;
+            case CharacterAnimation_Attack:
+            case CharacterAnimation_Cast: action->characterAction = CharacterAnimation_Attack; break;
+            case CharacterAnimation_Damage:
+            case CharacterAnimation_Down: action->characterAction = CharacterAnimation_Damage; break;
+            case CharacterAnimation_Guard: action->characterAction = CharacterAnimation_Guard; break;
             default:
-                action->characterAction = 0;
-                payload->action44->characterAction = 0;
+                action->characterAction = CharacterAnimation_Stand;
+                payload->action44->characterAction = CharacterAnimation_Stand;
                 break;
             }
         } else if ((imageNo >= 100000 && imageNo <= 100999)
@@ -1483,9 +1483,9 @@ void SetMapActorAnimationState_43EFC0(
             || (imageNo >= 104400 && imageNo <= 104520)
             || (imageNo >= 120100 && imageNo <= 120147)
             || imageNo == 100900 || imageNo == 100901) {
-            action->characterAction = 11;
+            action->characterAction = CharacterAnimation_Sit;
         } else {
-            action->characterAction = 0;
+            action->characterAction = CharacterAnimation_Stand;
         }
     } else {
         action->characterAction = characterAction;
@@ -1524,7 +1524,7 @@ void StepMapActorMovement_442730(YobiAction* const action)
     }
     if (idle) {
         if (action->movementActive_272 != 0) {
-            SetMapActorAnimationState_43EFC0(action, 0, 0);
+            SetMapActorAnimationState_43EFC0(action, CharacterAnimation_Stand, 0);
         }
         action->movementActive_272 = 0;
     } else {
@@ -1550,7 +1550,7 @@ void StepMapActorMovement_442730(YobiAction* const action)
             action->movementStepXBits_27C = 0;
             action->movementStepYBits_280 = 0;
         }
-        SetMapActorAnimationState_43EFC0(action, 1, 0);
+        SetMapActorAnimationState_43EFC0(action, CharacterAnimation_Walk, 0);
     }
 
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
@@ -1577,7 +1577,7 @@ void StepPartyMemberMovement_4428F0(YobiAction* const action)
     }
     if (idle) {
         if (action->movementActive_272 != 0) {
-            SetMapActorAnimationState_43EFC0(action, 0, 0);
+            SetMapActorAnimationState_43EFC0(action, CharacterAnimation_Stand, 0);
         }
         action->movementActive_272 = 0;
     } else {
@@ -1606,7 +1606,7 @@ void StepPartyMemberMovement_4428F0(YobiAction* const action)
             action->movementStepXBits_27C = 0;
             action->movementStepYBits_280 = 0;
         }
-        SetMapActorAnimationState_43EFC0(action, 1, 0);
+        SetMapActorAnimationState_43EFC0(action, CharacterAnimation_Walk, 0);
     }
 
     // 倍率入口与442730不同：mask→encoded→count，不提前复制目标载荷。

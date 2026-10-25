@@ -111,10 +111,22 @@ std::int32_t AdvanceCharacterPreviewAnimation(YobiAction* const action)
 {
     // 原55B2C0，每项依次为动作、持续次数、基图号偏移。
     static constexpr std::array<std::array<std::int32_t, 3>, 16> kPreviewAnimationSequence {{
-        {{1, 2, 0}}, {{3, 2, 0}}, {{5, 1, -2}}, {{5, 1, -1}},
-        {{5, 1, 0}}, {{5, 1, 1}}, {{5, 1, 2}}, {{5, 1, 3}},
-        {{6, 1, 0}}, {{7, 1, 0}}, {{8, 1, 0}}, {{9, 1, 0}},
-        {{10, 1, 0}}, {{11, 1, 0}}, {{12, 1, 0}}, {{13, 1, 0}},
+        {{CharacterAnimation_Walk, 2, 0}},
+        {{CharacterAnimation_Run, 2, 0}},
+        {{CharacterAnimation_Attack, 1, -2}},
+        {{CharacterAnimation_Attack, 1, -1}},
+        {{CharacterAnimation_Attack, 1, 0}},
+        {{CharacterAnimation_Attack, 1, 1}},
+        {{CharacterAnimation_Attack, 1, 2}},
+        {{CharacterAnimation_Attack, 1, 3}},
+        {{CharacterAnimation_Cast, 1, 0}},
+        {{CharacterAnimation_Throw, 1, 0}},
+        {{CharacterAnimation_Damage, 1, 0}},
+        {{CharacterAnimation_Guard, 1, 0}},
+        {{CharacterAnimation_Down, 1, 0}},
+        {{CharacterAnimation_Sit, 1, 0}},
+        {{CharacterAnimation_Animation12, 1, 0}},
+        {{CharacterAnimation_Animation13, 1, 0}},
     }};
     const std::int32_t phase = action->phase;
     if (phase < 0 || static_cast<std::uint32_t>(phase) >= 16) {

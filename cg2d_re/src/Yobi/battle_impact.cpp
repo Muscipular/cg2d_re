@@ -1159,7 +1159,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
             if (carry) {
                 YobiAction* const target = cg::world::gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
-                target->characterAction = 8;
+                target->characterAction = CharacterAnimation_Damage;
                 const std::int32_t tick = action->field58 & 0x1F;
                 std::int32_t arc;
                 if (tick < 16) {

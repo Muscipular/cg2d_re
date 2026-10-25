@@ -161,10 +161,10 @@ struct YobiAction {
     YobiExtraState290 extraState290{}; // 原+290..2A3；不作为本机地址存储。
     std::int32_t framePlayingRate = 0; // 原成员偏移：+0x2A4。
     std::int32_t imageNo = 0; // 原+2A8；420100族以此槽分派阶段，图形序号另存graphicIndex。
-    std::int32_t characterAction = 0; // 原成员偏移：+0x2B0。
+    std::int32_t characterAction = CharacterAnimation_Stand; // 原+2B0；动画路径见CharacterAnimationId，场景特效也借作独立阶段。
     std::int32_t direction = 0; // 原成员偏移：+0x2B8。
     std::int32_t lastImageNo = 0;       // 原 +2AC：上次播放图号。
-    std::int32_t lastCharacterAction = 0; // 原 +2B4：上次动作。
+    std::int32_t lastCharacterAction = CharacterAnimation_Stand; // 原+2B4：上次动画；-1使播放缓存失效，不是动画编号。
     std::int32_t lastDirection = 0;     // 原 +2BC：上次方向。
     std::uint32_t frameIndex = 0;       // 原 +2C0：以 U32 与帧数比较。
     std::int32_t frameRemain = 0;       // 原 +2C4：非零则递减，本轮不取新帧。

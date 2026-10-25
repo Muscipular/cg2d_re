@@ -100,7 +100,7 @@ struct PendingVisual {
     int waitMode = 0;
     int actionState = 0;
     int imageNo = 0;
-    int charAction = 0;
+    int charAction = CharacterAnimation_Stand;
     int dir = 0;
     float scaleX{1.0f};
     float scaleY{1.0f};
@@ -115,7 +115,7 @@ struct PendingVisualFrame {
     bool hasImageNo = false;
     int imageNo = 0;
     bool hasCharAction = false;
-    int charAction = 0;
+    int charAction = CharacterAnimation_Stand;
     bool hasDir = false;
     int dir = 0;
     bool hasScaleX = false;
@@ -918,7 +918,7 @@ static void ReadVisuals(lua_State* L, int index) {
                                                  kMaxActionState);
         visual.imageNo = LuaRequireIntField(L, -1, "imageNo", 0,
                                             std::numeric_limits<int>::max());
-        visual.charAction = LuaOptionalIntField(L, -1, "charAction", 0, 0,
+        visual.charAction = LuaOptionalIntField(L, -1, "charAction", CharacterAnimation_Stand, 0,
                                                 kMaxActionState);
         visual.dir = LuaOptionalIntField(L, -1, "dir", 0, 0, 7);
         LuaOptionalFloatField(L, -1, "scaleX", visual.scaleX);

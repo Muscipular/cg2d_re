@@ -24,6 +24,31 @@ void ShutdownBattleEffects();
 // runtime/list 是唯一 owner，场景中的 YobiAction* 均为非拥有观察者。
 struct YobiAction;
 
+// YCA01：角色资源的动画编号；供characterAction及动画设置接口使用，不是phase或协议命令。
+// 原S32字段／参数继续承接未知值；12～19按已证编号命名，不据手势名称线索推测资源表现。
+enum CharacterAnimationId : std::int32_t {
+    CharacterAnimation_Stand = 0, // 角色站立／待机；特效也用编号0播放自身默认动画。
+    CharacterAnimation_Walk = 1, // 行走；地图路径移动、战斗入场及部分退场使用。
+    CharacterAnimation_BeginRun = 2, // 起跑；战斗面向目标单次播放，观察场景终帧后转3。
+    CharacterAnimation_Run = 3, // 奔跑；战斗接近／归位及地图观察移动使用。
+    CharacterAnimation_EndRun = 4, // 收步；战斗归位收尾及地图螺旋结束播放。
+    CharacterAnimation_Attack = 5, // 攻击；近战及动画7探测失败后的回退姿态。
+    CharacterAnimation_Cast = 6, // 施法；施法特效／帧事件链使用，地图也可独立播放。
+    CharacterAnimation_Throw = 7, // 投掷姿态；远程攻击先探测此动画的攻击帧事件。
+    CharacterAnimation_Damage = 8, // 受击姿态；受击及部分击飞／骑乘结果路径共用。
+    CharacterAnimation_Guard = 9, // 防御姿态；命中结果标志选择的替代姿态，非防御状态本身。
+    CharacterAnimation_Down = 10, // 倒地姿态；死亡待机及相关结束路径使用。
+    CharacterAnimation_Sit = 11, // 坐姿；骑乘人物／骑手及观察场景也使用，不限于骑乘。
+    CharacterAnimation_Animation12 = 12, // 40C280播放至终帧；其他入口可仅设置或按自身规则循环。
+    CharacterAnimation_Animation13 = 13, // 40C1A0终帧后清index／remain；40DF50仅设置并推进。
+    CharacterAnimation_Animation14 = 14, // 40C1E0终帧后清index／remain；业务手势未核。
+    CharacterAnimation_Animation15 = 15, // 40C240终帧清帧；40C220仅设置并推进，地图可循环。
+    CharacterAnimation_Animation16 = 16, // 40DE40环绕目标时播放；4127B0终帧后清帧，业务手势未核。
+    CharacterAnimation_Animation17 = 17, // 51A840动作17直接透传至动画设置；具体资源表现未核。
+    CharacterAnimation_Animation18 = 18, // 40C2B0播放至终帧；地图部分分类按循环处理。
+    CharacterAnimation_Animation19 = 19, // 地图部分分类按循环处理；外部动作19直接透传。
+};
+
 // 本机载荷类别；与YobiPayload的有效指针成员对应，不写入协议或原端数据。
 enum class YobiPayloadKind : std::uint8_t {
     None,
@@ -200,7 +225,7 @@ void StepPartyMemberMovement_4428F0(YobiAction* action); // 原9DAD78倍率推�
 // 原函数：0x0043EFC0。
 void SetMapActorAnimationState_43EFC0(
     YobiAction* action, std::int32_t characterAction,
-    std::int32_t restart); // 主对象/坐骑动作映射及附件播放重置。
+    std::int32_t restart); // characterAction见CharacterAnimationId；主对象／坐骑映射及附件播放重置。
 
 // 原 46DE50：创建地图动画 action，保留四次 CryptInt 临时赋值及投影顺序。
 YobiAction* CreateRegisteredMapGraphicAction_46DE50(std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY);
@@ -361,8 +386,8 @@ std::uint8_t GetYobiActionFlagsLowByte(const YobiAction* action) noexcept; // �
 std::int32_t GetYobiActionCacheIndex(const YobiAction* action) noexcept; // 原+18数值索引，不是地址。
 std::int32_t GetYobiActionField2A8(YobiAction* action);
 void SetYobiActionField2A8(YobiAction* action, std::int32_t value);
-void SetYobiActionField2B0(YobiAction* action, std::int32_t value);
-std::int32_t GetYobiActionField2B0(const YobiAction* action) noexcept; // 原动作S32，摆摊预览逐次借读。
+void SetYobiActionField2B0(YobiAction* action, std::int32_t value); // 动画路径见CharacterAnimationId，保留完整S32。
+std::int32_t GetYobiActionField2B0(const YobiAction* action) noexcept; // 原动画S32，摆摊预览逐次借读。
 void SetYobiActionField15(YobiAction* action, std::uint8_t value);
 std::uint8_t GetYobiActionField15(const YobiAction* action) noexcept; // 原+15显示层，选择器预览借读。
 std::int32_t GetYobiActionField30(YobiAction* action);

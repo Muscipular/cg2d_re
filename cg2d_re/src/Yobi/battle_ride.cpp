@@ -108,7 +108,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             payload->rider13C8 = rider;
             rider->phase = 1;
             payload->rider13C8->field58 = 0;
-            payload->rider13C8->characterAction = 11;
+            payload->rider13C8->characterAction = CharacterAnimation_Sit;
             YobiAction* const nameSource = cg::world::gBattleAllEntries59E980[first];
             YobiAction* const nameRider = payload->rider13C8;
             nameRider->nameC4 = nameSource->nameC4;
@@ -142,7 +142,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             payload->rider13C8->flags |= 0x14u;
             action->nameC4 = cg::world::gBattleAllEntries59E980[second]->nameC4;
             const std::int32_t nextImage = cg::world::gBattleAllEntries59E980[second]->imageNo;
-            action->characterAction = 0;
+            action->characterAction = CharacterAnimation_Stand;
             action->imageNo = nextImage;
             action->field1D0 = cg::world::gBattleAllEntries59E980[second]->field1D0;
             action->readiness = cg::world::gBattleAllEntries59E980[second]->readiness;
@@ -165,7 +165,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
                 action->offset40 = effect->offset40;
                 action->offset44 = effect->offset44;
                 FaceBattleActorTowardFormationPosition_406260(action);
-                action->characterAction = 0;
+                action->characterAction = CharacterAnimation_Stand;
             } else {
                 const float turnY = effect->offset44;
                 const float turnX = effect->offset40;
@@ -185,19 +185,19 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             static_cast<void>(audio::PlaySe_52C450(465, payload->rider13C8->x));
             return;
         }
-        action->characterAction = 3;
+        action->characterAction = CharacterAnimation_Run;
         const float distanceY = effect->offset44;
         const float distanceX = effect->offset40;
         if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
             action->offset40 = effect->offset40;
             action->offset44 = effect->offset44;
             FaceBattleActorTowardFormationPosition_406260(action);
-            action->characterAction = 0;
+            action->characterAction = CharacterAnimation_Stand;
         } else {
             MoveBattleByAngle_405EA0(action);
         }
         static_cast<void>(PlayFrame_517DA0(action, 0));
-        payload->rider13C8->characterAction = 11;
+        payload->rider13C8->characterAction = CharacterAnimation_Sit;
         const float riderY = effect->offset44;
         const std::int32_t riderDeltaX = effect->deltaX;
         YobiAction* const distanceRider = payload->rider13C8;
@@ -234,7 +234,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             payload->rider13C8->field58 = 0;
             payload->rider13C8->flags &= ~0x14u;
             action->nameC4 = effect->nameC4;
-            action->characterAction = 0;
+            action->characterAction = CharacterAnimation_Stand;
             action->field1D0 = effect->field1D0;
             action->readiness = effect->readiness;
             action->maxHp = effect->maxHp;
@@ -324,7 +324,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     auto* const carrier = payload->effect1060->payload.battleRideCarrier;
     const std::int32_t first = payload->effects1C[index].position3;
     const std::int32_t second = payload->effects1C[index].position4;
-    action->characterAction = 3;
+    action->characterAction = CharacterAnimation_Run;
     action->motionMagnitude54 = 8.0F;
     const std::int32_t distancePoint = cg::world::gBattlePointIndices5536FC[second];
     const float distanceY = static_cast<float>(cg::world::gBattleGraphicPoints553758[distancePoint][3]);
@@ -333,7 +333,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         action->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][2]);
         action->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][3]);
         FaceBattleActorTowardFormationPosition_406260(action);
-        action->characterAction = 0;
+        action->characterAction = CharacterAnimation_Stand;
     } else {
         const std::int32_t turnPoint = cg::world::gBattlePointIndices5536FC[second];
         const float turnY = static_cast<float>(cg::world::gBattleGraphicPoints553758[turnPoint][3]);
@@ -342,7 +342,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         MoveBattleByAngle_405EA0(action);
     }
     payload->rider13C8->phase = 1;
-    payload->rider13C8->characterAction = 11;
+    payload->rider13C8->characterAction = CharacterAnimation_Sit;
     payload->rider13C8->flags |= 0x14u;
     const std::int32_t riderDistancePoint = cg::world::gBattlePointIndices5536FC[first];
     const float riderDistanceY = static_cast<float>(cg::world::gBattleGraphicPoints553758[riderDistancePoint][3]);
@@ -490,9 +490,9 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         directionRider->direction = directionSource->direction;
         static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
     }
-    action->characterAction = 3;
+    action->characterAction = CharacterAnimation_Run;
     payload->rider13C8->phase = 1;
-    payload->rider13C8->characterAction = 8;
+    payload->rider13C8->characterAction = CharacterAnimation_Damage;
     payload->rider13C8->flags |= 0x14u;
     const std::int32_t x = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->offset40);
     const std::int32_t screenX = static_cast<std::int32_t>(gYobiScreenOffsetX);
@@ -634,7 +634,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
     }
     payload->rider13C8->phase = 1;
-    payload->rider13C8->characterAction = flags != 0 ? 8 : 11;
+    payload->rider13C8->characterAction = flags != 0 ? CharacterAnimation_Damage : CharacterAnimation_Sit;
     payload->rider13C8->flags |= 0x14u;
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const std::int32_t screenX = static_cast<std::int32_t>(gYobiScreenOffsetX);
@@ -711,7 +711,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         payload->rider13C8 = rider;
         rider->phase = 1;
         payload->rider13C8->field58 = 0;
-        payload->rider13C8->characterAction = 11;
+        payload->rider13C8->characterAction = CharacterAnimation_Sit;
         payload->rider13C8->nameC4 = action->nameC4;
         YobiAction* const levelRider = payload->rider13C8;
         const std::int32_t level = action->field1D0;
@@ -751,7 +751,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         static_cast<void>(audio::PlaySe_52C450(465, soundRider->x));
         return;
     }
-    initialRider->characterAction = 11;
+    initialRider->characterAction = CharacterAnimation_Sit;
     YobiAction* const effect = payload->effect1060;
     YobiAction* const currentRider = payload->rider13C8;
     const std::int32_t targetDeltaX = effect->deltaX;
@@ -830,7 +830,7 @@ std::int32_t UpdateBattleAction228_416000(YobiAction* const action)
 std::int32_t UpdateBattleAction229_416020(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 3;
+    action->characterAction = CharacterAnimation_Run;
     if (payload->valueFF0 < 60) {
         action->framePlayingRate = 250;
         action->framePlayingRate = 250 - 4 * payload->valueFF0;
@@ -869,7 +869,7 @@ std::int32_t UpdateBattleAction231_416150(YobiAction* const action)
 {
     const double speed = static_cast<double>(action->motionMagnitude54) - 0.45F;
     auto* const payload = action->payload.battleActor;
-    action->characterAction = 9;
+    action->characterAction = CharacterAnimation_Guard;
     action->motionMagnitude54 = static_cast<float>(speed);
     if (!(speed >= 0.0)) {
         action->motionMagnitude54 = 0.0F;

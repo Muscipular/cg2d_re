@@ -69,7 +69,7 @@ void AppendBattleSkillTail_424500(
     }
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[position], BattleAction_AdvanceLinkedCast);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[position], BattleAction_AdvanceEffectAndCast);
-    if ((flags & 0xE000u) != 0) {
+    if ((flags & BattleResultMask_PhysicalReaction) != 0) {
         if (target < 0) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[position], BattleAction_ReturnToFormation);
         } else {
@@ -78,7 +78,7 @@ void AppendBattleSkillTail_424500(
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[position], BattleAction_AdvanceEffectAndCast);
         }
     }
-    if ((flags & 0x20u) == 0) {
+    if ((flags & BattleResultFlag_Death) == 0) {
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[position], BattleAction_FaceFormation);
     }
     // 原4245BF独立尾块，不能与前面的E000h分支合并去重。

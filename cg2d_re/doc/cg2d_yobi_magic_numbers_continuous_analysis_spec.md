@@ -82,3 +82,19 @@ battle_lua_skill.cpp内部LuaBattleOperation四项SetHp=1／ApplyDebuff=2／Clea
 YMN12实施：九份CPP及两份既有头新增八组19项，替换77处数字（就绪策略16、弧形投射5、尾迹8、效果门禁12、变身进入6／退出4／返回6、Lua操作20），没有新增头依赖。十一份源／头逆映射逐词、各项数值／顺序／唯一性、引用闭合、字符串与原控制流／顺序、UTF-8／原换行、历史进度和差异检查通过，开始编译验证。
 
 YMN12验证：build.bat Debug配置、编译、链接成功，退出码0；仍有既有C4701（amount／result／lastAmount／statusType／selfFlags），原路径保持。精确提交十一份源／头、本文及唯一进度，共13份文件，继续核查剩余分派与位标志。
+
+## YMN13：BM结果位与组合掩码
+
+裁决四组57项U32，置于既有battle_base.hpp的detail域：BattleResultFlag的31项仅覆盖客户端已有消费的位；BattleResultMask的22项保留原组合常量；BattleResultByte1Flag三项及BattleResultByte3Flag一项分别表示右移8位／24位后的字节掩码，保持原读取宽度、移位、括号及运算顺序。原普通S32字面量以static_cast<std::int32_t>引用，原U32字面量直接引用，避免改变整型提升和按位取反类型；字段／接口均保持原整数类型。
+
+服务端include/battle.h的572～618行提供BM_FLAG各位定义；battle_event.c的反射／吸收／无效结果生产、客户端解析到effects1C.flags、FE4以及5A4A20／5ABA84，再到排队与表现消费形成对应。BC角色位、CHAR位、绘制flags及其他全局flags不混用。未出现客户端独立消费的bit26不新增成员。预扫描的flags、extraFlags、targetFlags逐入口按实际字段顺序核对，RID中角色预览位仍保持独立。
+
+命名取舍：bit6／7依实际排队34／35命名BounceOut／FlyOut；bit8会播放210并设置flash1004后闪避，命名FlashDodge，服务端标签为MIKAWASHI，不另猜技能名。bit23命名HasAuxiliaryGraphics：客户端按此位消费两张图及两组图／数值共8字段，并在执行中更新骑乘／挂件；服务端WEAPON_BROKEN仅为对应来源，不将该位简化成纯图标。bit22／24／25分别按服务端装备标签及22330／22328消费命名WeaponDamageIcon／EquipmentDamageIcon／EquipmentBrokenIcon；bit30／31只据数字显示追加“+”“-”命名NumberSuffixPlus／NumberSuffixMinus。
+
+原端只读核对：4063BD／4063F0／406423／40650A／40653D依次检查200000h、400000h、800000h、1000000h、2000000h并创建22329／22330／22328；附加读取推进后的末两块仍消费入口快照。40FBBE的1000h选择CrossCounter特效；40AA92的4与C00h选择格挡动画，40AC50的10与3000h控制后退结束速度。43BF38／43BF3B区分实际／预览读取，43BF6C起消费两图及两组3字段。41F1D7检查40000000h追加“+”，41F20D检查符号位追加“-”，与当前flags参数对应；不把其误归绘制对象flags。
+
+组合掩码按组成位命名，不新增业务推断。FC1FFFDFh清除死亡、受伤、武器损伤、附加图形、装备损伤／损坏六类结果，其余位原样保留；不用补集表达式重写。高字节20h／80h分别是物理反射／无效，第二字节2是护卫，最高字节10h是再生保护，与低字节同值标志分开定义。准备按同域数据流逐处替换并进行包含字面量数值及S32／U32类型的逆映射核对，随后编译验证。
+
+YMN13实施：十二份CPP及既有battle_base.hpp新增四组57项，替换832处数字（完整结果位707、组合116、第二字节8、最高字节1）；普通S32引用通过显式转换保持原类型。排除新增声明，保留全部字符串及原数值和S32／U32类型的逆映射逐词一致；各项取值／顺序／唯一性、引用闭合、原换行／UTF-8、历史进度及差异检查通过。首轮编译发现battle_display.cpp缺少声明头，退出码1；已补充既有battle_base.hpp引用，并补齐直接数组成员的漏引，重新静态核对通过，开始重新编译。
+
+YMN13验证：重新执行build.bat Debug，配置、编译及链接成功，退出码0；仍有既有C4701（amount／result／lastAmount／statusType／selfFlags），没有改动对应路径。十三份源／头、本文及唯一进度共15份文件精确提交，继续对象标志及方向编号取证。

@@ -618,7 +618,7 @@ void AppendBattleAuxEffects_43BC10(
     YobiAction* const action, const std::int32_t position, const std::uint32_t flags,
     const std::int32_t value3, const std::int32_t value4, const std::int32_t value5)
 {
-    if ((flags & 0x800000u) == 0) {
+    if ((flags & BattleResultFlag_HasAuxiliaryGraphics) == 0) {
         return;
     }
     auto* const payload = action->payload.battleActor;
@@ -681,21 +681,21 @@ void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction
     const std::int32_t index = payload->effectRunningC9C;
     const std::uint32_t flags = payload->effects1C[index].flags;
     const std::int32_t position = payload->effects1C[index].position;
-    const std::int32_t recipient = (flags & 0x2000u) != 0 ? sourcePosition : position;
-    if ((flags & 0x200000u) != 0) {
+    const std::int32_t recipient = (flags & BattleResultFlag_ReflectPhysical) != 0 ? sourcePosition : position;
+    if ((flags & BattleResultFlag_Injury) != 0) {
         static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[recipient], 22329, 0, 0));
     }
-    if ((flags & 0x400000u) != 0) {
+    if ((flags & BattleResultFlag_WeaponDamageIcon) != 0) {
         static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[recipient], 22330, 0, 0));
     }
-    if ((flags & 0x800000u) != 0) {
+    if ((flags & BattleResultFlag_HasAuxiliaryGraphics) != 0) {
         std::int32_t effectPosition;
         std::int32_t imageNo;
         std::int32_t ridingImageNo;
         std::int32_t gearImageNo;
         static_cast<void>(TakeBattleAuxEffects_43BC90(
             action, &effectPosition, &imageNo, &ridingImageNo, &gearImageNo));
-        const std::int32_t auxiliaryRecipient = (flags & 0x2000u) != 0 ? sourcePosition : effectPosition;
+        const std::int32_t auxiliaryRecipient = (flags & BattleResultFlag_ReflectPhysical) != 0 ? sourcePosition : effectPosition;
         static_cast<void>(NewBattleFloatingIcon_41F4C0(
             cg::world::gBattleAllEntries59E980[auxiliaryRecipient], 22328, 0, 0));
         static_cast<void>(audio::PlaySe_52C450(214, cg::world::gBattleAllEntries59E980[auxiliaryRecipient]->x));
@@ -708,10 +708,10 @@ void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction
         SetBattleGear_422BC0(gearTarget, gearImage);
     }
     // 附加读取已经推进游标，末两块仍消费入口快照，不刷新flags或position。
-    if ((flags & 0x1000000u) != 0) {
+    if ((flags & BattleResultFlag_EquipmentDamageIcon) != 0) {
         static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[recipient], 22330, 0, 0));
     }
-    if ((flags & 0x2000000u) != 0) {
+    if ((flags & BattleResultFlag_EquipmentBrokenIcon) != 0) {
         static_cast<void>(NewBattleFloatingIcon_41F4C0(cg::world::gBattleAllEntries59E980[recipient], 22328, 0, 0));
         static_cast<void>(audio::PlaySe_52C450(214, cg::world::gBattleAllEntries59E980[recipient]->x));
     }

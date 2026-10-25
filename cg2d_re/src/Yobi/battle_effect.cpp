@@ -643,7 +643,7 @@ YobiAction* NewBattleEffect_41CD00(
                 const std::int32_t effectPosition = sourcePayload->effects1C[effectIndex].position;
                 AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
                 const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
-                if ((flags & 0x800000u) != 0) {
+                if ((flags & BattleResultFlag_HasAuxiliaryGraphics) != 0) {
                     std::int32_t position;
                     std::int32_t value3;
                     std::int32_t value4;
@@ -685,7 +685,7 @@ YobiAction* NewBattleEffect_41CD00(
                 const std::int32_t effectPosition = sourcePayload->effects1C[effectIndex].position;
                 AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
                 const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
-                if ((flags & 0x800000u) != 0) {
+                if ((flags & BattleResultFlag_HasAuxiliaryGraphics) != 0) {
                     std::int32_t position;
                     std::int32_t value3;
                     std::int32_t value4;
@@ -1259,7 +1259,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     const std::int32_t effectPosition = effect->position;
     AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = effect->flags;
-    if ((flags & 0x800000u) != 0) {
+    if ((flags & BattleResultFlag_HasAuxiliaryGraphics) != 0) {
         std::int32_t position, value3, value4, value5;
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
@@ -1341,7 +1341,7 @@ YobiAction* NewBattleBlastWave_419180(
     const std::int32_t effectPosition = effect->position;
     AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = effect->flags;
-    if ((flags & 0x800000u) != 0) {
+    if ((flags & BattleResultFlag_HasAuxiliaryGraphics) != 0) {
         std::int32_t position, value3, value4, value5;
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
@@ -1418,7 +1418,7 @@ YobiAction* NewBattleRangeHit_419390(
     const std::int32_t effectPosition = effect->position;
     AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = effect->flags;
-    if ((flags & 0x800000u) != 0) {
+    if ((flags & BattleResultFlag_HasAuxiliaryGraphics) != 0) {
         std::int32_t position, value3, value4, value5;
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
@@ -1481,7 +1481,7 @@ YobiAction* NewBattleArcShot_419DA0(
     TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[effect->position], 0, 0.0F);
     AppendBattleEffect_439400(action, *effect);
     const std::uint32_t flags = effect->flags;
-    if ((flags & 0x800000u) != 0) {
+    if ((flags & BattleResultFlag_HasAuxiliaryGraphics) != 0) {
         std::int32_t position, value3, value4, value5;
         static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
@@ -1595,7 +1595,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
         const std::int32_t effectPosition = parentPayload->effects1C[effectIndex].position;
         AppendBattleEffect_439400(action, {effectPosition, appendedFlags, effectValue3, effectValue4});
         const std::uint32_t effectFlags = parentPayload->effects1C[parentPayload->effectRunningC9C].flags;
-        if ((effectFlags & 0x800000u) != 0) {
+        if ((effectFlags & BattleResultFlag_HasAuxiliaryGraphics) != 0) {
             std::int32_t position, value3, value4, value5;
             static_cast<void>(TakeBattleAuxEffects_43BC90(parent, &position, &value3, &value4, &value5));
             AppendBattleAuxEffects_43BC10(action, position, effectFlags, value3, value4, value5);

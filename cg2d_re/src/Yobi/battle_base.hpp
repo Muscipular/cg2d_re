@@ -79,6 +79,80 @@
 namespace cg::yobi {
 
 namespace detail {
+
+// BM结果位：effects1C.flags／FE4及M结果全局；与BC角色位、绘制flags独立。
+enum BattleResultFlag : std::uint32_t {
+    BattleResultFlag_Normal = 0x00000001u,
+    BattleResultFlag_Critical = 0x00000002u,
+    BattleResultFlag_Guard = 0x00000004u,
+    BattleResultFlag_Avoidance = 0x00000008u,
+    BattleResultFlag_Counter = 0x00000010u,
+    BattleResultFlag_Death = 0x00000020u,
+    BattleResultFlag_BounceOut = 0x00000040u,
+    BattleResultFlag_FlyOut = 0x00000080u,
+    BattleResultFlag_FlashDodge = 0x00000100u,
+    BattleResultFlag_Bodyguard = 0x00000200u,
+    BattleResultFlag_SpecialGuard = 0x00000400u,
+    BattleResultFlag_MagicGuard = 0x00000800u,
+    BattleResultFlag_CrossCounter = 0x00001000u,
+    BattleResultFlag_ReflectPhysical = 0x00002000u,
+    BattleResultFlag_AbsorbPhysical = 0x00004000u,
+    BattleResultFlag_NullifyPhysical = 0x00008000u,
+    BattleResultFlag_ReflectMagic = 0x00010000u,
+    BattleResultFlag_AbsorbMagic = 0x00020000u,
+    BattleResultFlag_NullifyMagic = 0x00040000u,
+    BattleResultFlag_Success = 0x00080000u,
+    BattleResultFlag_WakeUp = 0x00100000u,
+    BattleResultFlag_Injury = 0x00200000u,
+    BattleResultFlag_WeaponDamageIcon = 0x00400000u,
+    BattleResultFlag_HasAuxiliaryGraphics = 0x00800000u,
+    BattleResultFlag_EquipmentDamageIcon = 0x01000000u,
+    BattleResultFlag_EquipmentBrokenIcon = 0x02000000u,
+    BattleResultFlag_Parry = 0x08000000u,
+    BattleResultFlag_RebirthGuard = 0x10000000u,
+    BattleResultFlag_Barrier = 0x20000000u,
+    BattleResultFlag_NumberSuffixPlus = 0x40000000u,
+    BattleResultFlag_NumberSuffixMinus = 0x80000000u,
+};
+
+// BM结果的原组合掩码；保留完整U32值，不重写为组合表达式。
+enum BattleResultMask : std::uint32_t {
+    BattleResultMask_NormalOrCritical = 0x00000003u,
+    BattleResultMask_AvoidanceOrFlashDodge = 0x00000108u,
+    BattleResultMask_GuardOrSpecialGuard = 0x00000404u,
+    BattleResultMask_SpecialOrMagicGuard = 0x00000C00u,
+    BattleResultMask_AnyGuard = 0x00000C04u,
+    BattleResultMask_CounterOrCrossCounter = 0x00001010u,
+    BattleResultMask_DeathOrPhysicalReflect = 0x00002020u,
+    BattleResultMask_CounterOrCrossCounterOrPhysicalReflect = 0x00003010u,
+    BattleResultMask_PhysicalAbsorbOrNullify = 0x0000C000u,
+    BattleResultMask_FlashDodgeOrPhysicalAbsorbOrNullify = 0x0000C100u,
+    BattleResultMask_PhysicalReaction = 0x0000E000u,
+    BattleResultMask_Reflection = 0x00012000u,
+    BattleResultMask_PhysicalOrMagicAbsorb = 0x00024000u,
+    BattleResultMask_PhysicalOrMagicNullify = 0x00048000u,
+    BattleResultMask_MagicReaction = 0x00070000u,
+    BattleResultMask_AnyReaction = 0x0007E000u,
+    BattleResultMask_FlashDodgeOrRebirthGuard = 0x10000100u,
+    BattleResultMask_PhysicalAbsorbOrNullifyOrRebirthGuard = 0x1000C000u,
+    BattleResultMask_PhysicalReactionOrBarrier = 0x2000E000u,
+    BattleResultMask_MagicReactionOrBarrier = 0x20070000u,
+    BattleResultMask_AnyReactionOrBarrier = 0x2007E000u,
+    BattleResultMask_WithoutDeathInjuryOrEquipmentResults = 0xFC1FFFDFu,
+};
+
+// BM结果右移8位后的字节掩码；保持原读取／移位及运算宽度。
+enum BattleResultByte1Flag : std::uint32_t {
+    BattleResultByte1Flag_Bodyguard = 0x00000002u,
+    BattleResultByte1Flag_ReflectPhysical = 0x00000020u,
+    BattleResultByte1Flag_NullifyPhysical = 0x00000080u,
+};
+
+// BM结果右移24位后的字节掩码；与低字节同值的反击位分域。
+enum BattleResultByte3Flag : std::uint32_t {
+    BattleResultByte3Flag_RebirthGuard = 0x00000010u,
+};
+
 // 4394A0是否允许原FE0／FF8／phase组合条件跳过参与者；未知非零仍按原路径检查。
 enum BattleTurnReadyPolicy : std::int32_t {
     BattleTurnReadyPolicy_AllowInactiveSkip = 0,

@@ -1,4 +1,5 @@
 #include "battle_display.hpp"
+#include "battle_base.hpp"
 #include "base.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
 #include "cg/resource/GraphicInfo.hpp"
@@ -376,10 +377,10 @@ std::int32_t NewBattleNumber_41F1A0(
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", value);
     if (world::gBattleModeFlag5ABFCC == 0) {
-        if ((flags & 0x40000000u) != 0) {
+        if ((flags & BattleResultFlag_NumberSuffixPlus) != 0) {
             buffer += L"+";
         }
-        if ((flags & 0x80000000u) != 0) {
+        if ((flags & BattleResultFlag_NumberSuffixMinus) != 0) {
             buffer += L"-";
         }
     }

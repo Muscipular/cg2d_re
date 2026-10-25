@@ -174,7 +174,7 @@ struct YobiAction {
     std::int32_t hidden = 0;            // 原 +2D4：仅严格等于 1 时跳过播放。
     std::uint32_t field2D8 = 0;         // 原+2D8；41EB10复制，410E30/4124E0另清零，独立位型。
     std::uint32_t completedLoops = 0;   // 原 +2DC。
-    std::int32_t playRevert = 0;        // 原 +2E0：保留 caller 完整 W32。
+    std::int32_t playRevert = AnimationPlayback_Loop; // 原+2E0：见AnimationPlaybackMode，保留caller完整W32。
     std::int32_t field2E4 = 0;          // 原 +2E4；51A5B0 比较完整 W32 是否为2。
     std::int32_t imageNo2E8 = 0;        // 原+2E8，442F70第一附件图号。
     std::uint8_t refresh2EC = 0;        // 原+2EC，创建第一附件时清零。

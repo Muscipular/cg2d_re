@@ -37,7 +37,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
         }
     }
     action->phase = 1;
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         static_cast<void>(MarkDeath(action));
         const std::int32_t initialIndex = payload->effectRunningC9C;
         const std::int32_t initialPosition = payload->effects1C[initialIndex].position;
@@ -203,7 +203,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
         }
     }
     action->phase = 1;
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         static_cast<void>(MarkDeath(action));
         const std::int32_t initialIndex = payload->effectRunningC9C;
         const std::int32_t initialPosition = payload->effects1C[initialIndex].position;
@@ -535,7 +535,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
             payload->valueFD0 = remaining - 1;
         }
         if (payload->valueFD0 == 0) {
-            if (PlayFrame_517DA0(action, 1) == 1) {
+            if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
                 const std::int32_t image = action->imageNo;
                 if (image >= 110140 && image <= 110151) {
                     static_cast<void>(MarkDeath(action));
@@ -748,7 +748,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
             static_cast<void>(audio::PlaySe_52C450(262, action->x));
             const std::int32_t frames = platform::RandomRange_46FAF0(0, 32);
             for (std::int32_t remaining = frames; remaining > 0; --remaining) {
-                static_cast<void>(PlayFrame_517DA0(action, 0));
+                static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             }
         }
         const std::int32_t remaining = payload->valueFD0;
@@ -762,7 +762,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
             }
         }
         if (payload->valueFD0 == 0) {
-            static_cast<void>(PlayFrame_517DA0(action, 0));
+            static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             const std::int32_t movingHalfHeight = render::ReadGraphicDxHeight(target->graphicIndex) / 2;
             const float x = target->offset40;
             const float centerY = static_cast<float>(
@@ -996,7 +996,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
             payload->valueFD0 = remaining - 1;
         }
         if (payload->valueFD0 == 0) {
-            static_cast<void>(PlayFrame_517DA0(action, 0));
+            static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             if (action->frameEvent == 0) {
                 const float step = static_cast<float>(static_cast<double>(action->battleTurnStepB4) + 0.1F);
                 action->battleTurnStepB4 = step;
@@ -1134,7 +1134,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
             payload->valueFD0 = remaining - 1;
         }
         if (payload->valueFD0 == 0) {
-            static_cast<void>(PlayFrame_517DA0(action, 0));
+            static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             if (action->frameEvent == 0) {
                 const float step = static_cast<float>(static_cast<double>(action->battleTurnStepB4) + 0.1F);
                 action->battleTurnStepB4 = step;
@@ -1552,7 +1552,7 @@ YobiAction* NewBattleHitEffect_41F5B0(
     action->offset44 = static_cast<float>(y);
     action->deltaY = lifetime;
     action->direction = 0;
-    static_cast<void>(PlayFrame_517DA0(action, 1));
+    static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
     const float screenY = action->offset44;
     action->x = screenX;

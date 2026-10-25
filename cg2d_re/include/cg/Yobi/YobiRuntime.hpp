@@ -49,6 +49,20 @@ enum CharacterAnimationId : std::int32_t {
     CharacterAnimation_Animation19 = 19, // 地图部分分类按循环处理；外部动作19直接透传。
 };
 
+// YAPN01：两帧播放入口的stopAtEnd及playRevert取值；完整S32承载保留未知模式。
+enum AnimationPlaybackMode : std::int32_t {
+    AnimationPlayback_Loop = 0, // 到达末尾后回绕并增加循环数。
+    AnimationPlayback_StopAtEnd = 1, // 仅严格等于1时停在末尾，不能按非零判断。
+    AnimationPlayback_LoopMode3 = 3, // 地图Field／Shield挂件传入3，现有播放路径仍循环。
+};
+
+// 两帧播放入口的返回码；0可能未取新帧，1也包含资源索引／动作缺失。
+enum AnimationFrameResult : std::int32_t {
+    AnimationFrameResult_ResourceFailure = -1, // 动作装载或当前帧资源属性发布失败。
+    AnimationFrameResult_Continue = 0, // 继续、等待或跳过；不能据此判断画面已更新。
+    AnimationFrameResult_StoppedOrUnavailable = 1, // 终点停播或动画／动作不可用。
+};
+
 // 本机载荷类别；与YobiPayload的有效指针成员对应，不写入协议或原端数据。
 enum class YobiPayloadKind : std::uint8_t {
     None,
@@ -408,6 +422,7 @@ void SetYobiActionField30F(YobiAction* action, std::uint8_t value);
 std::int32_t AdvanceCharacterPreviewAnimation(YobiAction* action);
 
 // 原 Yobi::FrameMove@[0x517880,0x517D9D)：参数速率、严格 ==1 停播及低 W8 静图翻转开关；取样沿YFPS01 SPEC。
+// stopAtEnd见AnimationPlaybackMode，返回见AnimationFrameResult；参数及返回继续使用完整S32。
 std::int32_t AdvanceYobiAnimationFrame_517880(
     YobiAction* action,
     std::int32_t rate,

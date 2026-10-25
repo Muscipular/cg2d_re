@@ -2602,7 +2602,7 @@ static void ProcessBattleMGmnHeader(
     {
         created->mapX1E0 = static_cast<std::int32_t>(render::gActivePalette);
     }
-    static_cast<void>(PlayFrame_517DA0(*slot, 0));
+    static_cast<void>(PlayFrame_517DA0(*slot, AnimationPlayback_Loop));
     static_cast<void>(NewBattleText_4217F0(4, created->nameC4.data(), 0, 100));
     (*slot)->payload.battleActor->soundId1018 = soundId1018;
     AppendBattleCast_4392A0(scene, *slot, BattleAction_PlaySound1018);
@@ -3430,7 +3430,7 @@ void ParseBattleC_438550()
                 if ((inputFlags & detail::BattleCharacterFlag_Dead) != 0) {
                     detail::FaceBattleActorTowardFormationPosition_406260(actor);
                     actor->characterAction = CharacterAnimation_Down;
-                    while (detail::PlayFrame_517DA0(actor, 1) != 1) {
+                    while (detail::PlayFrame_517DA0(actor, AnimationPlayback_StopAtEnd) != AnimationFrameResult_StoppedOrUnavailable) {
                     }
                     static_cast<void>(detail::NewBattleCenteredEffect_41FA00(actor, 110169));
                 }
@@ -3624,7 +3624,7 @@ void ParseBattleC_438550()
             actor->fields288[3] = 1;
         }
         UpdateBattleAlbumFlag_4238F0(actor);
-        static_cast<void>(detail::PlayFrame_517DA0(actor, 0));
+        static_cast<void>(detail::PlayFrame_517DA0(actor, AnimationPlayback_Loop));
     }
 
     for (std::int32_t index = 0; index < 22; ++index) {

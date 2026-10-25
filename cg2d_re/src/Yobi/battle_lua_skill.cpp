@@ -1901,7 +1901,7 @@ static bool StageChildren() {
         }
         child->value1D4 = pending.targetPos;
         InitializeActionQueues(child);
-        PlayFrame_517DA0(child, 0);
+        PlayFrame_517DA0(child, AnimationPlayback_Loop);
         gStagedChildren.push_back({child, 0, i});
     }
     return true;
@@ -1942,7 +1942,7 @@ static bool StageVisuals() {
         visual->value1D4 = pending.targetPos;
         InitializeActionQueues(visual);
         visual->callback = LuaVisualUpdate;
-        PlayFrame_517DA0(visual, 0);
+        PlayFrame_517DA0(visual, AnimationPlayback_Loop);
         if (!SyncVisualPosition(visual)) {
             MarkActionDeathOnce(visual);
             RollbackStagedVisuals();
@@ -2454,7 +2454,7 @@ static void LuaVisualUpdate(YobiAction* action) {
         return;
     }
     if (node->visualFinishPending) {
-        PlayFrame_517DA0(action, 0);
+        PlayFrame_517DA0(action, AnimationPlayback_Loop);
         if (!SyncVisualPosition(action)) {
             AbortRuntime(nodeId, "visual finish position");
             return;
@@ -2509,7 +2509,7 @@ static void LuaVisualUpdate(YobiAction* action) {
             action->phase = nextActionState;
         }
     }
-    PlayFrame_517DA0(action, 0);
+    PlayFrame_517DA0(action, AnimationPlayback_Loop);
     if (!SyncVisualPosition(action)) {
         AbortRuntime(nodeId, "visual position");
         return;

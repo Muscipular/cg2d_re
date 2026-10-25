@@ -328,7 +328,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
     if (source != nullptr) {
         action->imageNo = world::ResolveRidingCharacterImage_51C0D0(source->imageNo);
         action->direction = parent->direction;
-        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     } else {
         action->graphicIndex = -1;
     }
@@ -414,7 +414,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
         if (action->phase == 4) {
             action->direction = source->direction;
         }
-        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     } else {
         action->graphicIndex = -1;
     }
@@ -586,12 +586,12 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
     const std::int32_t initialPhase = action->phase;
     action->counter1DC = -1;
     if (initialPhase == 1) {
-        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     } else if (initialPhase == 2) {
         const std::int32_t frame = payload->frame;
         if (frame < 0) {
             action->characterAction = CharacterAnimation_BeginRun;
-            if (AdvanceYobiAnimationFrame_517880(action, 100, 1, 0) == 1) {
+            if (AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_StopAtEnd, 0) == AnimationFrameResult_StoppedOrUnavailable) {
                 payload->frame = 0;
             }
             action->counter1DC = CharacterAnimation_Stand;
@@ -612,7 +612,7 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
             platform::detail::Cg2dMapActorSpiralOffset(frame, angle, offset);
             x += static_cast<std::int32_t>(offset[0]);
             y += static_cast<std::int32_t>(offset[1]);
-            static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+            static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
             if (FindObservationGroupByMember_43F1F0(world::gPlayerRuntimeSlots.objectIndex) == nullptr
                 && frame > 300 && (x < -300 || x > 940)) {
                 UnlinkObservationGroup_43F1B0(action);
@@ -732,7 +732,7 @@ static void UpdateArrivingObservationGroup_440070(YobiAction* const action)
         }
         MarkDeath(action);
     }
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
     action->x = x;
     action->y = y;
@@ -838,7 +838,7 @@ static void UpdateObservationTravelProjection_440C50(YobiAction* const action)
     platform::detail::MapObserverProjection projection;
     platform::detail::Cg2dMapObserverProjection(
         initialFrame, &gMapDuration5F9744, initialDirection, &projection);
-    AdvanceYobiAnimationFrame_517880(action, 100, 0, 0);
+    AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0);
     action->x = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(projection.x)) + 320;
     const auto arc = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(
@@ -856,7 +856,7 @@ static void UpdateObservationTravelProjection_440C50(YobiAction* const action)
         }
         std::int32_t offsetX = 0;
         std::int32_t offsetY = 0;
-        AdvanceYobiAnimationFrame_517880(payload->partyActions[index], 100, 0, 0);
+        AdvanceYobiAnimationFrame_517880(payload->partyActions[index], 100, AnimationPlayback_Loop, 0);
         YobiAction* const child = payload->partyActions[index];
         const std::int32_t direction = child->direction;
         const std::int32_t slot = child->field1D0;
@@ -1120,7 +1120,7 @@ void UpdateRegisteredMapGraphicAction_46DD90(YobiAction* const action)
         (action->mapX1E0 * 64));
     const auto worldY = static_cast<float>(
         (action->mapY1F0 * 64));
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     const std::int32_t offsetY = action->mapOffsetY;
     const std::int32_t offsetX = action->mapOffsetX;
     const std::int32_t drawY = offsetY + action->y;

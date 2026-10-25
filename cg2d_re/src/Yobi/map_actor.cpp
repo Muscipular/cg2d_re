@@ -149,7 +149,7 @@ static void DrawActorPhaseEffect(
     }
     YobiAction* const child = payload->action08;
     if (child != nullptr) {
-        static_cast<void>(AdvanceYobiAnimationFrame_517880(child, 100, 0, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(child, 100, AnimationPlayback_Loop, 0));
         DrawActorPhaseAttachment(action, &payload->action08, primaryIndex, 1, readOrder);
     }
 }
@@ -176,7 +176,7 @@ static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* con
         }
     }
     action->characterAction = CharacterAnimation_Sit;
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
     const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
     const std::int32_t drawY = offsetY + action->y + vertical;
@@ -192,7 +192,7 @@ static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* con
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->action44, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->action44, 100, AnimationPlayback_Loop, 0));
     DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
         ActorAttachmentReadOrder::AfterYAndXAddition);
     DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE10,
@@ -253,7 +253,7 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
         vertical = 0;
     }
     action->characterAction = CharacterAnimation_Sit;
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
     const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
     const std::int32_t drawY = offsetY + action->y + vertical;
@@ -269,7 +269,7 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->action44, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->action44, 100, AnimationPlayback_Loop, 0));
     DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
         ActorAttachmentReadOrder::BeforeYAddition);
     DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE11,
@@ -331,13 +331,13 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
         screenY += static_cast<std::int32_t>(offsets[1]);
     } else {
         action->characterAction = CharacterAnimation_EndRun;
-        if (AdvanceYobiAnimationFrame_517880(action, 100, 1, 0) == 1) {
+        if (AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_StopAtEnd, 0) == AnimationFrameResult_StoppedOrUnavailable) {
             action->phase = 0;
             payload->counter48 = 0;
             action->characterAction = CharacterAnimation_Stand;
         }
     }
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
     const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
     const std::int32_t drawY = offsetY + screenY;
@@ -614,7 +614,8 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         const std::int32_t characterAction = action->characterAction;
         stopAtEnd = characterAction == CharacterAnimation_Run || characterAction == CharacterAnimation_Stand
             || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Animation18 || characterAction == CharacterAnimation_Animation19
-            || characterAction == CharacterAnimation_Animation13 || characterAction == CharacterAnimation_Animation15 || characterAction == CharacterAnimation_Sit ? 0 : 1;
+            || characterAction == CharacterAnimation_Animation13 || characterAction == CharacterAnimation_Animation15
+            || characterAction == CharacterAnimation_Sit ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     } else {
         YobiAction* const ride = payload->action44;
         const std::int32_t characterAction =
@@ -622,7 +623,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         stopAtEnd = characterAction == CharacterAnimation_Animation12 || characterAction == CharacterAnimation_Animation13
             || characterAction == CharacterAnimation_Animation14 || characterAction == CharacterAnimation_Animation15 || characterAction == CharacterAnimation_Walk
             || characterAction == CharacterAnimation_Stand || characterAction == CharacterAnimation_Animation16 || characterAction == CharacterAnimation_Run
-            || characterAction == CharacterAnimation_Cast ? 0 : 1;
+            || characterAction == CharacterAnimation_Cast ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     }
     std::uint32_t flipStatic = 0;
     if (world::gMapResourceMode_9DAD68 == 1) {

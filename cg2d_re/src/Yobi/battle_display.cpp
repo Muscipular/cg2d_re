@@ -528,7 +528,7 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     action->offset44 = static_cast<float>(y);
     action->rebirthValue2 = 4;
     action->pathCountOrDrawOrder_270 = 0;
-    static_cast<void>(PlayFrame_517DA0(action, 1));
+    static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
     const float projectedY = action->offset44;
     action->x = projectedX;

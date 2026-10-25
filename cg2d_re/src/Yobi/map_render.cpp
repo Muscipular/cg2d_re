@@ -73,7 +73,7 @@ static void UpdateOneShotMapAnimation_4441A0(YobiAction* const action)
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    if (AdvanceYobiAnimationFrame_517880(action, 100, 1, 0) != 0) {
+    if (AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_StopAtEnd, 0) != AnimationFrameResult_Continue) {
         YobiAction** const slot = action->completionSlot10;
         if (slot != nullptr) {
             *slot = nullptr;
@@ -195,18 +195,18 @@ void ResolveGearPetAnimationState_4412D0(
         const std::int32_t kind = slot == 0 ? payload->kind3C : payload->kind40;
         if (kind == 2) {
             *characterAction = CharacterAnimation_Stand;
-            *revert = 0;
+            *revert = AnimationPlayback_Loop;
         } else if (kind >= 3 && kind <= 5) {
             switch (action->characterAction) {
-            case CharacterAnimation_Walk: *characterAction = CharacterAnimation_Walk; *revert = 0; break;
-            case CharacterAnimation_BeginRun: *characterAction = CharacterAnimation_BeginRun; *revert = 1; break;
-            case CharacterAnimation_Run: *characterAction = CharacterAnimation_Run; *revert = 0; break;
-            case CharacterAnimation_EndRun: *characterAction = CharacterAnimation_EndRun; *revert = 1; break;
-            case CharacterAnimation_Attack: *characterAction = CharacterAnimation_Attack; *revert = 1; break;
-            case CharacterAnimation_Cast: *characterAction = CharacterAnimation_Cast; *revert = 0; break;
-            case CharacterAnimation_Damage: *characterAction = CharacterAnimation_Damage; *revert = 1; break;
-            case CharacterAnimation_Guard: *characterAction = CharacterAnimation_Guard; *revert = 1; break;
-            case CharacterAnimation_Down: *characterAction = CharacterAnimation_Down; *revert = 1; break;
+            case CharacterAnimation_Walk: *characterAction = CharacterAnimation_Walk; *revert = AnimationPlayback_Loop; break;
+            case CharacterAnimation_BeginRun: *characterAction = CharacterAnimation_BeginRun; *revert = AnimationPlayback_StopAtEnd; break;
+            case CharacterAnimation_Run: *characterAction = CharacterAnimation_Run; *revert = AnimationPlayback_Loop; break;
+            case CharacterAnimation_EndRun: *characterAction = CharacterAnimation_EndRun; *revert = AnimationPlayback_StopAtEnd; break;
+            case CharacterAnimation_Attack: *characterAction = CharacterAnimation_Attack; *revert = AnimationPlayback_StopAtEnd; break;
+            case CharacterAnimation_Cast: *characterAction = CharacterAnimation_Cast; *revert = AnimationPlayback_Loop; break;
+            case CharacterAnimation_Damage: *characterAction = CharacterAnimation_Damage; *revert = AnimationPlayback_StopAtEnd; break;
+            case CharacterAnimation_Guard: *characterAction = CharacterAnimation_Guard; *revert = AnimationPlayback_StopAtEnd; break;
+            case CharacterAnimation_Down: *characterAction = CharacterAnimation_Down; *revert = AnimationPlayback_StopAtEnd; break;
             case CharacterAnimation_Stand:
             case CharacterAnimation_Animation12:
             case CharacterAnimation_Animation13:
@@ -214,19 +214,19 @@ void ResolveGearPetAnimationState_4412D0(
             case CharacterAnimation_Animation15:
             case CharacterAnimation_Animation16:
                 *characterAction = CharacterAnimation_Stand;
-                *revert = 0;
+                *revert = AnimationPlayback_Loop;
                 break;
             default:
                 *characterAction = CharacterAnimation_Stand;
-                *revert = 1;
+                *revert = AnimationPlayback_StopAtEnd;
                 break;
             }
         } else if (action->characterAction == CharacterAnimation_Down) {
             *characterAction = CharacterAnimation_Down;
-            *revert = 1;
+            *revert = AnimationPlayback_StopAtEnd;
         } else {
             *characterAction = CharacterAnimation_Stand;
-            *revert = 0;
+            *revert = AnimationPlayback_Loop;
         }
     }
 }
@@ -327,7 +327,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
     gear->direction = parent->direction;
     if (gear->graphicIndex < 0) {
         // 4.06创建时先取首帧发布动作属性，本次尚不提交挂件。
-        static_cast<void>(AdvanceYobiAnimationFrame_517880(gear, 100, 1, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(gear, 100, AnimationPlayback_StopAtEnd, 0));
         return;
     }
     const std::uint16_t flags = GetYobiAnimeActionFlags(gear);
@@ -346,7 +346,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
     }
     std::int32_t before = 1; // 同层逆序消费：before链在人物之后实际绘制。
     std::uint8_t layer = 10;
-    std::int32_t stopAtEnd = 0;
+    std::int32_t stopAtEnd = AnimationPlayback_Loop;
     const YobiAction* syncSource = nullptr;
     if ((flags & AnimeActionFlag_Wing) != 0) {
         gear->characterAction = parent->characterAction;
@@ -361,7 +361,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
             layer = 9; // 4.06层5，对应本线普通地图层10的下一层。
         }
     } else if ((flags & (AnimeActionFlag_Field | AnimeActionFlag_Shield)) != 0) {
-        stopAtEnd = 3;
+        stopAtEnd = AnimationPlayback_LoopMode3;
         layer = (flags & AnimeActionFlag_Field) != 0 ? 8 : 10;
         offsetX = 0;
         offsetY = 0;
@@ -483,7 +483,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             const float worldY = action->worldY;
             worldYChild->worldY = worldY;
             YobiAction* const animatedChild = payload->action04;
-            AdvanceYobiAnimationFrame_517880(animatedChild, 100, 0, 0);
+            AdvanceYobiAnimationFrame_517880(animatedChild, 100, AnimationPlayback_Loop, 0);
             const std::int32_t imageNo = action->imageNo;
             const std::int32_t height = GetActorOverheadOffset_4417A0(imageNo);
             YobiAction* const yOffsetChild = payload->action04;
@@ -625,7 +625,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             static_cast<double>(worldY) + action->worldY + 0.1F);
     };
     const auto drawStatus = [&](YobiAction*& slot) {
-        AdvanceYobiAnimationFrame_517880(slot, 100, 0, 0);
+        AdvanceYobiAnimationFrame_517880(slot, 100, AnimationPlayback_Loop, 0);
         slot->drawMode.mixFlags |= cg::render::GraphicMixFlag_OriginalPalette;
         YobiAction* const child = slot;
         const std::int32_t y = child->y;
@@ -741,7 +741,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
     if ((payload->action34 != nullptr || payload->action38 != nullptr)
         && payload->action44 == nullptr) {
         std::int32_t characterAction = CharacterAnimation_Stand;
-        std::int32_t revert = 1;
+        std::int32_t revert = AnimationPlayback_StopAtEnd;
         std::int32_t x = 0;
         std::int32_t y = 0;
         std::uint8_t before = 1;

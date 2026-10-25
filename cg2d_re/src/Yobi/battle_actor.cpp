@@ -79,7 +79,7 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
     payload->y0C = y;
     action->phase = BattleAction_Idle;
     action->pathCountOrDrawOrder_270 = 0;
-    PlayFrame_517DA0(action, 0);
+    PlayFrame_517DA0(action, AnimationPlayback_Loop);
     const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
     const float screenY = action->offset44;
     action->x = screenX;
@@ -827,7 +827,7 @@ void UpdateBattleAction0_406650(YobiAction* const action)
     const std::uint8_t cachedFlags = static_cast<std::uint8_t>(flags);
     if ((cachedFlags & BattleActorFlag_Dead) != 0) {
         action->characterAction = CharacterAnimation_Down;
-        static_cast<void>(PlayFrame_517DA0(action, 1));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
         return;
     }
     const std::int32_t skill = payload->castSkill103C;
@@ -844,11 +844,11 @@ void UpdateBattleAction0_406650(YobiAction* const action)
         action->characterAction = CharacterAnimation_Stand;
         const std::uint8_t currentFlags = static_cast<std::uint8_t>(payload->flagsFDC);
         if ((currentFlags & BattleActorSleepOrStoneMask) == 0) {
-            static_cast<void>(PlayFrame_517DA0(action, 0));
+            static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         }
     } else if ((static_cast<std::uint8_t>(action->flags) & 0x40u) != 0
         && (cachedFlags & BattleActorSleepOrStoneMask) == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
 }
 
@@ -864,7 +864,7 @@ void UpdateBattleAction1_406720(YobiAction* const action)
     }
     const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);
     if ((flags & BattleActorSleepOrStoneMask) == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
 }
 
@@ -889,7 +889,7 @@ std::int32_t UpdateBattleAction2_406760(YobiAction* const action)
         action->offset44 = static_cast<float>(y);
         payload->flagsFDC |= BattleActorFlag_EntryComplete;
     }
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // BRCP01：转向后重取C9C/position/目标；距离<70推进，否则移动，再播放。
@@ -909,7 +909,7 @@ std::int32_t UpdateBattleAction3_406C30(YobiAction* const action)
     } else {
         MoveBattleByAngle_405EA0(action);
     }
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // BRCP01：转向后重取效果目标；距离<8推进，否则移动，再播放。
@@ -929,7 +929,7 @@ std::int32_t UpdateBattleAction4_406D70(YobiAction* const action)
     } else {
         MoveBattleByAngle_405EA0(action);
     }
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // BPAW01：FF0先发布增量再按旧值<16分流，推进后清零，再播放。
@@ -948,7 +948,7 @@ std::int32_t UpdateBattleAction5_40CFA0(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         payload->valueFF0 = 0;
     }
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // BRCP01：两组FE8/FEC先Y后X取样；抵达先X发布再取Y，随后推进/播放。
@@ -970,7 +970,7 @@ std::int32_t UpdateBattleAction6_406CD0(YobiAction* const action)
         action->offset44 = static_cast<float>(payload->moveTargetYFEC);
         AdvanceBattleCastState_439340(action);
     }
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // BPAW01：持一次position选转向；严格终帧后fresh低BYTE调速，再推进。
@@ -988,7 +988,7 @@ void UpdateBattleAction7_409410(YobiAction* const action)
     } else {
         TurnBattleToward_406190(action, world::gBattleAllEntries59E980[position], 1, 0.0F);
     }
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
             action->framePlayingRate = 200;
         }
@@ -1006,7 +1006,7 @@ void UpdateBattleAction8_4094A0(YobiAction* const action)
     const float y = static_cast<float>(payload->moveTargetYFEC);
     const float x = static_cast<float>(payload->moveTargetXFE8);
     TurnBattleTowardPosition_4060D0(action, x, y, 1, 0.0F);
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
             action->framePlayingRate = 200;
         }
@@ -1032,7 +1032,7 @@ std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
         const float distanceX = static_cast<float>(payload->x00);
         if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
             AdvanceBattleCastState_439340(action);
-            return PlayFrame_517DA0(action, 0);
+            return PlayFrame_517DA0(action, AnimationPlayback_Loop);
         }
     } else {
         TurnBattleToward_406190(action,
@@ -1040,11 +1040,11 @@ std::int32_t UpdateBattleAction9_409510(YobiAction* const action)
         if (GetBattleDistance_406300(action,
                 cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]) < 70) {
             AdvanceBattleCastState_439340(action);
-            return PlayFrame_517DA0(action, 0);
+            return PlayFrame_517DA0(action, AnimationPlayback_Loop);
         }
     }
     MoveBattleByAngle_405EA0(action);
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // BPAW01：严格终帧才取上一项11/低BYTE门禁，按本位重查全局方向叶后推进。
@@ -1054,7 +1054,7 @@ void UpdateBattleAction10_409610(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     action->characterAction = CharacterAnimation_EndRun;
     action->framePlayingRate = 100;
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         const std::int32_t previous = payload->castPlayIndexFC4 - 1;
         if (previous >= 0 && payload->castListCA4[previous] == BattleAction_ReturnToFormation && (static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) == 0) {
             FaceBattleActorTowardFormationPosition_406260(world::gBattleAllEntries59E980[payload->battlePosition18]);
@@ -1117,7 +1117,7 @@ void UpdateBattleAction11_4067F0(YobiAction* const action)
         action->offset44 = static_cast<float>(payload->y04);
         AdvanceBattleCastState_439340(action);
     }
-    static_cast<void>(PlayFrame_517DA0(action, action->characterAction == CharacterAnimation_Down ? 1 : 0));
+    static_cast<void>(PlayFrame_517DA0(action, action->characterAction == CharacterAnimation_Down ? AnimationPlayback_StopAtEnd : AnimationPlayback_Loop));
 }
 
 // B12P01：原入口低BYTE、周期特效/计数与特殊直接推进见doc/cg2d_battle_coordinate_action_producer_spec.md。
@@ -1128,7 +1128,7 @@ void UpdateBattleAction12_406930(YobiAction* const action)
     const std::uint8_t entryFlags = static_cast<std::uint8_t>(payload->flagsFDC);
     if ((entryFlags & BattleActorFlag_Dead) != 0) {
         action->characterAction = CharacterAnimation_Down;
-        static_cast<void>(PlayFrame_517DA0(action, 1));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
         const float y = static_cast<float>(payload->y0C);
         const float x = static_cast<float>(payload->x08);
         TurnBattleTowardPosition_4060D0(action, x, y, 0, 0.0F);
@@ -1149,7 +1149,7 @@ void UpdateBattleAction12_406930(YobiAction* const action)
         payload->valueFF0 = 0;
     }
     action->characterAction = CharacterAnimation_Walk;
-    static_cast<void>(PlayFrame_517DA0(action, 0));
+    static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     const float y = static_cast<float>(payload->y0C);
     const float x = static_cast<float>(payload->x08);
     TurnBattleTowardPosition_4060D0(action, x, y, 1, 0.0F);
@@ -1173,7 +1173,7 @@ void UpdateBattleAction13_406A80(YobiAction* const action)
     const std::uint8_t entryFlags = static_cast<std::uint8_t>(payload->flagsFDC);
     if ((entryFlags & BattleActorFlag_Dead) != 0) {
         action->characterAction = CharacterAnimation_Down;
-        static_cast<void>(PlayFrame_517DA0(action, 1));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
         updateDirection = 0;
     } else {
         if (payload->valueFF0 == 0) {
@@ -1189,7 +1189,7 @@ void UpdateBattleAction13_406A80(YobiAction* const action)
             payload->valueFF0 = 0;
         }
         action->characterAction = CharacterAnimation_Walk;
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         updateDirection = 1;
     }
     const float turnY = static_cast<float>(payload->y0C);

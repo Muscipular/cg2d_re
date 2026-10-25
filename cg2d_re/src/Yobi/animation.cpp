@@ -212,7 +212,7 @@ std::int32_t PlayFrame_517DA0(
     YobiAction* const action, const std::int32_t stopAtEnd, const YobiAction* const syncSource)
 {
     if (action == nullptr || action->hidden == 1) {
-        return 0;
+        return AnimationFrameResult_Continue;
     }
     const std::int32_t characterAction = action->characterAction;
     action->playRevert = stopAtEnd;
@@ -231,11 +231,11 @@ std::int32_t PlayFrame_517DA0(
     }
     if (action->frameRemain != 0) {
         --action->frameRemain;
-        return 0;
+        return AnimationFrameResult_Continue;
     }
     if (imageNo <= 999) {
         action->graphicIndex = 0;
-        return 0;
+        return AnimationFrameResult_Continue;
     }
     if (imageNo < 100000) {
         std::int32_t graphicIndex;
@@ -264,24 +264,24 @@ std::int32_t PlayFrame_517DA0(
         }
         action->frameX = 0;
         action->frameY = 0;
-        return 0;
+        return AnimationFrameResult_Continue;
     }
     if (imageNo > resource::animation::gMaxAnimateCount9A4A4C + 100000) {
-        return 1;
+        return AnimationFrameResult_StoppedOrUnavailable;
     }
     const std::int32_t animeIndex =
         resource::animation::GetIndex_45B400(static_cast<std::uint32_t>(imageNo - 100000));
     if (animeIndex < 0) {
-        return 1;
+        return AnimationFrameResult_StoppedOrUnavailable;
     }
     if (resource::animation::AnimeLoadAction_45B760(animeIndex) == 0) {
-        return -1;
+        return AnimationFrameResult_ResourceFailure;
     }
     const auto* const list = static_cast<resource::animation::detail::ActionEntry*>(
         resource::animation::gAnimateRecords9A4A58[animeIndex].actionList);
     const std::uint16_t count = resource::animation::gAnimateRecords9A4A58[animeIndex].count;
     if (count == 0) {
-        return 1;
+        return AnimationFrameResult_StoppedOrUnavailable;
     }
     std::int32_t selectedIndex = 0;
     const std::int32_t direction = action->direction;
@@ -292,7 +292,7 @@ std::int32_t PlayFrame_517DA0(
         }
     }
     if (selectedIndex >= count) {
-        return 1;
+        return AnimationFrameResult_StoppedOrUnavailable;
     }
     const auto* const selected = &list[selectedIndex];
     const std::uint32_t product =
@@ -304,16 +304,17 @@ std::int32_t PlayFrame_517DA0(
         action->frameRemain = 1;
     }
     if (action->frameIndex >= selected->frameCount) {
-        if (stopAtEnd == 1) {
+        if (stopAtEnd == AnimationPlayback_StopAtEnd) {
             action->frameRemain = 255;
             action->completedLoops = 1;
-            return 1;
+            return AnimationFrameResult_StoppedOrUnavailable;
         }
         const std::uint32_t completedLoops = action->completedLoops;
         action->frameIndex = 0;
         action->completedLoops = completedLoops + 1u;
     }
-    return ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource) ? 0 : -1;
+    return ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource)
+        ? AnimationFrameResult_Continue : AnimationFrameResult_ResourceFailure;
 }
 
 } // namespace detail
@@ -347,7 +348,7 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
     const YobiAction* const syncSource)
 {
     if (action == nullptr || action->hidden == 1) {
-        return 0;
+        return AnimationFrameResult_Continue;
     }
     const std::int32_t characterAction = action->characterAction;
     action->playRevert = stopAtEnd;
@@ -366,11 +367,11 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
     }
     if (action->frameRemain != 0) {
         --action->frameRemain;
-        return 0;
+        return AnimationFrameResult_Continue;
     }
     if (imageNo <= 999) {
         action->graphicIndex = 0;
-        return 0;
+        return AnimationFrameResult_Continue;
     }
     if (imageNo < 100000 || imageNo >= 200000) {
         std::int32_t graphicIndex;
@@ -403,22 +404,22 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
         }
         action->frameX = 0;
         action->frameY = 0;
-        return 0;
+        return AnimationFrameResult_Continue;
     }
     // BLM01：动画编号由实际索引表判定，不与动画记录容量绑定。
     const std::int32_t animeIndex =
         resource::animation::GetIndex_45B400(static_cast<std::uint32_t>(imageNo - 100000));
     if (animeIndex < 0) {
-        return 1;
+        return AnimationFrameResult_StoppedOrUnavailable;
     }
     if (resource::animation::AnimeLoadAction_45B760(animeIndex) == 0) {
-        return -1;
+        return AnimationFrameResult_ResourceFailure;
     }
     const auto* const list = static_cast<resource::animation::detail::ActionEntry*>(
         resource::animation::gAnimateRecords9A4A58[animeIndex].actionList);
     const std::uint16_t count = resource::animation::gAnimateRecords9A4A58[animeIndex].count;
     if (count == 0) {
-        return 1;
+        return AnimationFrameResult_StoppedOrUnavailable;
     }
     std::int32_t selectedIndex = 0;
     const std::int32_t direction = action->direction;
@@ -429,7 +430,7 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
         }
     }
     if (selectedIndex >= count) {
-        return 1;
+        return AnimationFrameResult_StoppedOrUnavailable;
     }
     const auto* const selected = &list[selectedIndex];
     const std::uint32_t product = selected->duration * static_cast<std::uint32_t>(rate);
@@ -440,16 +441,17 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
         action->frameRemain = 1;
     }
     if (action->frameIndex >= selected->frameCount) {
-        if (stopAtEnd == 1) {
+        if (stopAtEnd == AnimationPlayback_StopAtEnd) {
             action->frameRemain = 255;
             action->completedLoops = 1;
-            return 1;
+            return AnimationFrameResult_StoppedOrUnavailable;
         }
         const std::uint32_t completedLoops = action->completedLoops;
         action->frameIndex = 0;
         action->completedLoops = completedLoops + 1u;
     }
-    return detail::ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource) ? 0 : -1;
+    return detail::ApplyYobiAnimeFrame(action, animeIndex, selected, frames, syncSource)
+        ? AnimationFrameResult_Continue : AnimationFrameResult_ResourceFailure;
 }
 
 } // namespace cg::yobi

@@ -568,7 +568,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                 return;
             }
         } else {
-            if (PlayFrame_517DA0(action, 1) != 1) {
+            if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) != AnimationFrameResult_StoppedOrUnavailable) {
                 return;
             }
             frames = payload->valueFD4;
@@ -583,7 +583,7 @@ std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* const action)
 {
     std::int32_t result;
     for (;;) {
-        if (PlayFrame_517DA0(action, 1) == 1) {
+        if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
             result = 0;
             break;
         }
@@ -636,7 +636,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
             }
             TurnBattleTowardPosition_4060D0(action, static_cast<float>(x), static_cast<float>(y), 1, 0.0F);
         }
-        if (PlayFrame_517DA0(action, 1) == 1) {
+        if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
             AdvanceBattleCastState_439340(action);
             payload->valueFD0 = 0;
         }
@@ -655,7 +655,7 @@ void UpdateBattleAction15_406E10(YobiAction* const action)
     if (position != -1) {
         TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[position], 1, 0.0F);
     }
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
         payload->valueFD0 = 0;
     }
@@ -693,12 +693,12 @@ void UpdateBattleAction18_408170(YobiAction* const action)
     action->framePlayingRate = skill == BattleSkill_RandomShot || skill == 3019 ? 33 : 100;
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     if (position == -1) {
-        if (PlayFrame_517DA0(action, 1) == 1) {
+        if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
             AdvanceBattleCastState_439340(action);
         }
     } else {
         TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[position], 1, 0.0F);
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     const std::int32_t gateEvent = action->frameEvent;
     if (gateEvent < 10000 || gateEvent >= 20000) {
@@ -740,12 +740,12 @@ void UpdateBattleAction19_4082F0(YobiAction* const action)
     action->framePlayingRate = 33;
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     if (position == -1) {
-        if (PlayFrame_517DA0(action, 1) == 1) {
+        if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
             AdvanceBattleCastState_439340(action);
         }
     } else {
         TurnBattleToward_406190(action, cg::world::gBattleAllEntries59E980[position], 1, 0.0F);
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     const std::int32_t gateEvent = action->frameEvent;
     if (gateEvent < 10000 || gateEvent >= 20000) {
@@ -774,7 +774,7 @@ void UpdateBattleAction70_4070E0(YobiAction* const action)
     if (position != -1) {
         TurnBattleToward_406190(action, world::gBattleAllEntries59E980[position], 1, 0.0F);
     }
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
     }
     const std::int32_t event = action->frameEvent;
@@ -798,7 +798,7 @@ void UpdateBattleAction249_4071C0(YobiAction* const action)
     if (position != -1) {
         TurnBattleToward_406190(action, world::gBattleAllEntries59E980[position], 1, 0.0F);
     }
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
     }
     if (payload->effects1C[payload->effectRunningC9C].position == -1) {
@@ -1223,11 +1223,11 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
         payload->valueFD0 = delay - 1;
         const std::int32_t image = action->imageNo;
         if (image == 110016 || image == 111055) {
-            static_cast<void>(PlayFrame_517DA0(action, 0));
+            static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         }
     }
     if (payload->valueFD0 == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         MoveBattleByAngle_405EA0(action);
         if (action->frameEvent == 1) {
             const std::uint32_t flags = payload->effects1C[payload->effectRunningC9C].flags;
@@ -1367,7 +1367,7 @@ std::int32_t UpdateBattleAction21_408750(YobiAction* const action)
         action->phase = BattleAction_ResolveBoomerangHits;
     }
     MoveBattleByAngle_405EA0(action);
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // B22H01：回旋命中独立HP/数显与延迟、低BYTE及取样阶段见doc/cg2d_battle_boomerang_hit_spec.md。
@@ -1615,7 +1615,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
     }
     std::int32_t result = payload->valueFD0;
     if (result == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         MoveBattleByAngle_405EA0(action);
         result = action->frameEvent;
         if (result == 1) {
@@ -1669,7 +1669,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
         YobiAction* const currentParent = action->battleOpponent10;
         if (currentParent->phase != BattleAction_Wait21Ticks) {
             currentParent->characterAction = CharacterAnimation_Animation12;
-            static_cast<void>(PlayFrame_517DA0(action->battleOpponent10, 0));
+            static_cast<void>(PlayFrame_517DA0(action->battleOpponent10, AnimationPlayback_Loop));
             AdvanceBattleCastState_439340(action->battleOpponent10);
             if (payload->castSkill103C == BattleSkill_Madmax) {
                 auto* const parentPayload = action->battleOpponent10->payload.battleActor;
@@ -1704,7 +1704,7 @@ std::int32_t UpdateBattleAction23_4090F0(YobiAction* const action)
         }
     }
     MoveBattleByAngle_405EA0(action);
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // BPAW01：先发布新FF0，严格>20才先归零再推进，不播放。
@@ -1748,7 +1748,7 @@ void UpdateBattleAction25_406BA0(YobiAction* const action)
     }
     action->characterAction = CharacterAnimation_Stand;
     if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
 }
 
@@ -1758,7 +1758,7 @@ void UpdateBattleAction32_40B410(YobiAction* const action)
 {
     action->characterAction = CharacterAnimation_Damage;
     action->framePlayingRate = 100;
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
     }
 }
@@ -1769,7 +1769,7 @@ void UpdateBattleAction33_40B450(YobiAction* const action)
 {
     action->characterAction = CharacterAnimation_Guard;
     action->framePlayingRate = 100;
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
     }
 }
@@ -1861,8 +1861,8 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
     }
     std::int32_t result;
     do {
-        result = PlayFrame_517DA0(action, 1);
-    } while (result == 0);
+        result = PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
+    } while (result == AnimationFrameResult_Continue);
     return result;
 }
 
@@ -1893,7 +1893,7 @@ std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
             payload->aliveFF8 = 1;
         }
         MoveBattleByAngle_405EA0(action);
-        return PlayFrame_517DA0(action, 1);
+        return PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
     }
     if (count == duration) {
         if ((static_cast<std::uint8_t>(flags) & BattleActorFlag_Dead) != 0) {
@@ -1921,7 +1921,7 @@ std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
         || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
         AdvanceBattleCastState_439340(action);
     }
-    return PlayFrame_517DA0(action, 1);
+    return PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
 }
 
 // BSEX01：完整FDC后低BYTE门禁；条件播放后fresh FF0，新值>=30归零再推进。
@@ -1930,7 +1930,7 @@ void UpdateBattleAction36_40BAD0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     const std::int32_t count = payload->valueFF0 + 1;
     payload->valueFF0 = count;
@@ -1946,7 +1946,7 @@ void UpdateBattleAction37_40BB20(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     const std::int32_t count = payload->valueFF0 + 1;
     payload->valueFF0 = count;
@@ -1962,7 +1962,7 @@ void UpdateBattleAction38_40BB70(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     const std::int32_t count = payload->valueFF0 + 1;
     payload->valueFF0 = count;
@@ -2019,9 +2019,9 @@ std::int32_t UpdateBattleAction39_40BBC0(YobiAction* const action)
             AdvanceBattleCastState_439340(action);
         }
     }
-    static_cast<void>(PlayFrame_517DA0(action, 1));
-    static_cast<void>(PlayFrame_517DA0(action, 1));
-    return PlayFrame_517DA0(action, 1);
+    static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
+    static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
+    return PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
 }
 
 // BWT01：方向恢复后推进，原无播放/计数或动作发布。
@@ -2040,7 +2040,7 @@ void UpdateBattleAction241_417B80(YobiAction* const action)
     action->characterAction = CharacterAnimation_Cast;
     action->framePlayingRate = 100;
     if (event == 0) {
-        if (PlayFrame_517DA0(action, 1) == 1) {
+        if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
             static_cast<void>(AdvanceBattleEffect_439470(action));
             AdvanceBattleCastState_439340(action);
             payload->valueFD0 = 0;
@@ -2077,7 +2077,7 @@ void UpdateBattleAction241_417B80(YobiAction* const action)
 void UpdateBattleAction242_417CC0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    static_cast<void>(PlayFrame_517DA0(action, 0));
+    static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     for (;;) {
         const auto* const effect = &payload->effects1C[payload->effectRunningC9C];
         if (effect->position == -1) {
@@ -2262,7 +2262,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
     }
     const std::int32_t imageNo = (platform::Rand16() & 1) != 0 ? 110006 : 110004;
     static_cast<void>(NewBattlePositionEffect_41E680(action, imageNo));
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // 原函数：0x00416860。
@@ -2291,7 +2291,7 @@ std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
             gYobiUpdateGateMode = 1;
             payload->aliveFF8 = 1;
         }
-        return PlayFrame_517DA0(action, 1);
+        return PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
     }
     if (count < 14 * initialBit + 34) {
         const std::int32_t direction = action->direction + 1;
@@ -2319,7 +2319,7 @@ std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
         if (previous >= 2) {
             payload->valueFF0 = 0;
         }
-        return PlayFrame_517DA0(action, 1);
+        return PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
     }
     if (count >= 14 * initialBit + 54) {
         payload->actionFrameCountFCC = 0;
@@ -2341,7 +2341,7 @@ std::int32_t UpdateBattleAction233_416860(YobiAction* const action)
             AdvanceBattleCastState_439340(action);
         }
     }
-    return PlayFrame_517DA0(action, 1);
+    return PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
 }
 
 // 原函数：0x00416AB0。
@@ -2423,8 +2423,8 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
     }
     std::int32_t result;
     do {
-        result = PlayFrame_517DA0(action, 1);
-    } while (result == 0);
+        result = PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
+    } while (result == AnimationFrameResult_Continue);
     return result;
 }
 
@@ -2603,7 +2603,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         payload->valueFF0 = 0;
     }
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // 原函数：0x00417410。
@@ -2774,11 +2774,11 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
     const std::int32_t remaining = payload->valueFD0;
     if (remaining > 0) {
         payload->valueFD0 = remaining - 1;
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     // 与计时递减独立：归零当帧还会再次播放，且播放可能改写帧事件。
     if (payload->valueFD0 == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         const std::int32_t phase = action->phase;
         const double speed = action->motionMagnitude54;
         action->motionMagnitude54 = static_cast<float>(phase == BattleAction_ResolveDeceleratingProjectileHit ? speed - 0.5 : speed + 0.5);
@@ -2813,7 +2813,7 @@ void UpdateBattleAction240_417AC0(YobiAction* const action)
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
         action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, BattleEffectType_CastingImage1028, 0, 1);
     }
-    static_cast<void>(PlayFrame_517DA0(action, 1));
+    static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     const std::int32_t event = action->frameEvent;
     if (event >= 10000 && event < 20000) {
         if (action->battleCastEffect10 != nullptr) {
@@ -3016,11 +3016,11 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
         payload->valueFD0 = remaining - 1;
         const std::int32_t imageNo = action->imageNo;
         if (imageNo == 110016 || imageNo == 111055) {
-            static_cast<void>(PlayFrame_517DA0(action, 0));
+            static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         }
     }
     if (payload->valueFD0 == 0) {
-        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         MoveBattleByAngle_405EA0(action);
         if (action->frameEvent == 1) {
             const std::uint32_t flags = payload->effects1C[payload->effectRunningC9C].flags;
@@ -3092,7 +3092,7 @@ std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
         action->offset44 = static_cast<float>(payload->y14);
         AdvanceBattleCastState_439340(action);
     }
-    return PlayFrame_517DA0(action, 0);
+    return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }
 
 // 原函数：0x004186B0。
@@ -3248,7 +3248,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
         payload->valueFF0 = 0;
         action->frameEvent = 0;
     }
-    if (PlayFrame_517DA0(action, 1) == 1) {
+    if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         AdvanceBattleCastState_439340(action);
     }
 }

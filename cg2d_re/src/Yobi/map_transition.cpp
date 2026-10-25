@@ -148,7 +148,7 @@ static std::int32_t UpdateAcceleratingBlinkTransition_4473B0(YobiAction* const a
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
@@ -201,7 +201,7 @@ static std::int32_t UpdateDeceleratingBlinkTransition_4474E0(YobiAction* const a
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
@@ -378,7 +378,7 @@ static void DrawMovingTransition(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     if (payload->visible2C != 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
@@ -415,7 +415,7 @@ static void DrawTransitionOrbit(
             static_cast<std::int64_t>(screenX + 0.5));
         action->y = static_cast<std::int32_t>(
             static_cast<std::int64_t>(screenY + 0.5));
-        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
         if (allowMapAtZero && payload->orbitRadius24 == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
             const std::int32_t yOffset = GetYobiGraphicOriginOffset_5182B0(action, 1);
@@ -488,7 +488,7 @@ static std::int32_t UpdateTransitionTrail(
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, 0, 0));
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
     if ((action->flags & 2u) == 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
@@ -811,7 +811,7 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
     const std::int32_t stopAtEnd =
         characterAction == CharacterAnimation_Animation12 || characterAction == CharacterAnimation_Animation13 || characterAction == CharacterAnimation_Animation14
         || characterAction == CharacterAnimation_Animation15 || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Stand
-        || characterAction == CharacterAnimation_Animation16 ? 0 : 1;
+        || characterAction == CharacterAnimation_Animation16 ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, 0));
     if ((action->flags & 2u) != 0) {
         return;

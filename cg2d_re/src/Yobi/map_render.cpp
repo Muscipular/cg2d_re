@@ -123,7 +123,7 @@ YobiAction* CreateOneShotMapAnimation_444260(
     action->callback = UpdateOneShotMapAnimation_4441A0;
     action->direction = direction;
     action->displayPriority = displayPriority;
-    action->flags = 0x20u;
+    action->flags = YobiActionFlag_PendingBatchFF;
     (action->mapX200 = static_cast<std::int32_t>(mapX));
     (action->mapY210 = static_cast<std::int32_t>(mapY));
     (action->mapX1E0 = static_cast<std::int32_t>(mapX));
@@ -169,7 +169,7 @@ YobiAction* CreateMapAttachmentAction_444000(
     action->characterAction = characterAction;
     action->direction = direction;
     action->displayPriority = displayPriority;
-    action->flags = 0x20u;
+    action->flags = YobiActionFlag_PendingBatchFF;
     // 原四次各先读取临时 encoded/mask/count，再按同序发布目标。
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
@@ -254,27 +254,27 @@ void ResolveGearPetDrawPlacement_441430(
             continue;
         }
         switch (action->direction) {
-        case 0: *x = 34; *y = -4; break;
-        case 1: *x = 36; *y = 16; break;
-        case 2: *x = 16; *y = 24; break;
-        case 3: *x = -16; *y = 26; break;
-        case 4: *x = -34; *y = 8; break;
-        case 5: *x = -36; *y = -12; break;
-        case 6: *x = -20; *y = -20; break;
-        case 7: *x = 16; *y = -26; break;
+        case YobiDirection_UpLeft: *x = 34; *y = -4; break;
+        case YobiDirection_Up: *x = 36; *y = 16; break;
+        case YobiDirection_UpRight: *x = 16; *y = 24; break;
+        case YobiDirection_Right: *x = -16; *y = 26; break;
+        case YobiDirection_DownRight: *x = -34; *y = 8; break;
+        case YobiDirection_Down: *x = -36; *y = -12; break;
+        case YobiDirection_DownLeft: *x = -20; *y = -20; break;
+        case YobiDirection_Left: *x = 16; *y = -26; break;
         default: break;
         }
         switch (action->direction) {
-        case 1:
-        case 2:
-        case 3:
-        case 4:
+        case YobiDirection_Up:
+        case YobiDirection_UpRight:
+        case YobiDirection_Right:
+        case YobiDirection_DownRight:
             *before = 1;
             break;
-        case 0:
-        case 5:
-        case 6:
-        case 7:
+        case YobiDirection_UpLeft:
+        case YobiDirection_Down:
+        case YobiDirection_DownLeft:
+        case YobiDirection_Left:
             *before = 0;
             break;
         default: break;
@@ -367,7 +367,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
             return;
         }
         syncSource = ride != nullptr ? ride : parent;
-        before = gear->direction >= 4 && gear->direction <= 6 ? 0 : 1;
+        before = gear->direction >= YobiDirection_DownRight && gear->direction <= YobiDirection_DownLeft ? 0 : 1;
         if (gear->characterAction == CharacterAnimation_Down) {
             layer = 9; // 4.06层5，对应本线普通地图层10的下一层。
         }
@@ -424,7 +424,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         flags = static_cast<std::uint16_t>(world::ReadPlayerFlags18A());
         state = world::ReadPlayerActionFlags();
         value = world::gPlayerRuntimeSlots.value190;
-        if ((action->flags & 0x80000u) != 0) {
+        if ((action->flags & YobiActionFlag_FollowPetOverlay) != 0) {
             flags &= 0x8400u;
             state = static_cast<std::uint16_t>(
                 ((state & 8u) != 0 ? 1u : 0u)
@@ -450,7 +450,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         state = world::detail::gWorldObjects[stateIndex].flags120;
         value = world::detail::gWorldObjects[stateIndex].value124;
         flags = originalFlags;
-        if ((action->flags & 0x80000u) != 0) {
+        if ((action->flags & YobiActionFlag_FollowPetOverlay) != 0) {
             flags &= 0x8400u;
             state = static_cast<std::uint16_t>(
                 ((state & 8u) != 0 ? 1u : 0u)
@@ -525,7 +525,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                 delete expiredText;
                 payload->text1C = nullptr;
             }
-        } else if (gChatBubbles554338 != 0 && (action->flags & 0x180u) != 0
+        } else if (gChatBubbles554338 != 0 && (action->flags & YobiActionMask_LocalPlayerOrNamedCharacter) != 0
                    && (drawableText = payload->text1C) != nullptr) {
             // 原var_114与对象索引别名；包括零长度，后面的共享状态清位仍用此值。
             stateIndex = payload->textLength24;
@@ -595,7 +595,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             }
         } else {
             const std::uint32_t actionFlags = action->flags;
-            if ((actionFlags & 0x100u) != 0 && (actionFlags & 0x80000u) == 0) {
+            if ((actionFlags & YobiActionFlag_NamedCharacterWithTitle) != 0 && (actionFlags & YobiActionFlag_FollowPetOverlay) == 0) {
                 if (action->imageNo != 0) {
                     switch (nameMode) {
                     case ActorOverheadTextSlot_NameC4: text = action->nameC4.data(); color = 0; break;
@@ -607,8 +607,8 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                     default: break;
                     }
                 }
-            } else if ((actionFlags & 0x80200u) != 0) {
-                text = (actionFlags & 0x200u) != 0 && !action->titleE1.empty()
+            } else if ((actionFlags & YobiActionMask_PetOrRiderOrFollowPetOverlay) != 0) {
+                text = (actionFlags & YobiActionFlag_PetOrRider) != 0 && !action->titleE1.empty()
                     ? action->titleE1.data() : action->nameC4.data();
             }
         }
@@ -706,7 +706,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                 const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
                 payload->statusIcon1AF4D_0C = CreateMapAttachmentAction_444000(0x1AF4D, mapX, mapY, CharacterAnimation_Stand, 0, 10);
                 if ((state & 0x20u) != 0) {
-                    clearActionState((action->flags & 0x80000u) != 0 ? 0x40 : 0x20);
+                    clearActionState((action->flags & YobiActionFlag_FollowPetOverlay) != 0 ? 0x40 : 0x20);
                     static_cast<void>(audio::PlaySe_52C450(0x1B5, action->x));
                 }
                 payload->statusIcon1AF4D_0C->counter1DC = 0;
@@ -720,7 +720,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         }
         ++payload->statusIcon1AF4D_0C->counter1DC;
         if (payload->statusIcon1AF4D_0C->counter1DC > 600) {
-            clearActionState((action->flags & 0x80000u) != 0 ? 0x10 : 4);
+            clearActionState((action->flags & YobiActionFlag_FollowPetOverlay) != 0 ? 0x10 : 4);
         }
     } else if (payload->statusIcon1AF4D_0C != nullptr) {
         MarkDeath(payload->statusIcon1AF4D_0C);
@@ -848,7 +848,7 @@ YobiAction* NewYobiGearPet_441130(
     action->imageNo = imageNo;
     action->characterAction = CharacterAnimation_Stand;
     action->displayPriority = 10;
-    action->flags = 0x34u;
+    action->flags = YobiActionMask_MapActorDefaults;
     (action->mapX200 = static_cast<std::int32_t>(mapX));
     (action->mapY210 = static_cast<std::int32_t>(mapY));
     action->pathCountOrDrawOrder_270 = 0;
@@ -884,7 +884,7 @@ YobiAction* NewYobiGear_4410F0(const std::int32_t imageNo)
     action->imageNo = imageNo;
     action->characterAction = CharacterAnimation_Stand;
     action->displayPriority = 10;
-    action->flags = 0x34;
+    action->flags = static_cast<std::int32_t>(YobiActionMask_MapActorDefaults);
     return action;
 }
 
@@ -896,7 +896,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     constexpr wchar_t kLevel58AD5C[] = L"等级 {:<3} {:<16}";
 
     YobiAction* action = graphic->reference.action;
-    if (action == nullptr || (action->flags & 0x10u) == 0) {
+    if (action == nullptr || (action->flags & YobiActionFlag_HoverDescription) == 0) {
         return;
     }
     const std::int32_t scene = world::gCurrentSceneType;
@@ -908,7 +908,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             return;
         }
         const std::uint32_t flags = action->flags;
-        if ((flags & 0x80u) != 0) {
+        if ((flags & YobiActionFlag_LocalPlayer) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             const std::int32_t maxFp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxFp);
@@ -916,12 +916,12 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::int32_t maxHp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxHp);
             const std::int32_t hp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.hp);
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
-        } else if ((flags & 0x80000u) != 0) {
+        } else if ((flags & YobiActionFlag_FollowPetOverlay) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             // 原额外字符串实参不被本格式消费，不增加显示内容。
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
-        } else if ((flags & 0x100u) != 0) {
+        } else if ((flags & YobiActionFlag_NamedCharacterWithTitle) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"等级 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
@@ -962,14 +962,14 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 }
                 cg::world::AppendChatMessage_44B050(message, 4, 3);
             }
-        } else if ((flags & 0x200u) != 0) {
+        } else if ((flags & YobiActionFlag_PetOrRider) != 0) {
             const wchar_t* name = action->titleE1.data();
             if (*name == '\0') {
                 name = action->nameC4.data();
             }
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, name);
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
-        } else if ((flags & 0x400u) != 0) {
+        } else if ((flags & YobiActionFlag_GroundItem) != 0) {
             cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             const std::int32_t count = fixed->payload.mapActor->itemCount18;
@@ -979,10 +979,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", fixed->nameC4.c_str());
             }
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
-        } else if ((flags & 0x800u) != 0) {
+        } else if ((flags & YobiActionFlag_GroundGold) != 0) {
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", action->nameC4.c_str());
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
-        } else if ((flags & 0x1000u) != 0) {
+        } else if ((flags & YobiActionFlag_OtherMapObjectName) != 0) {
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"{}", action->nameC4.c_str());
         }
         return;
@@ -1003,7 +1003,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             }
             cg::ui::detail::gHoverObjectValueD68AC8 = companion;
         } else {
-            if ((action->flags & 0x02000000u) == 0) {
+            if ((action->flags & YobiActionFlag_AuxiliaryBattleGear) == 0) {
                 cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, action->nameC4.c_str());
             }
             return;
@@ -1018,7 +1018,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str());
             return;
         }
-        if ((action->flags & 0x02000000u) != 0) {
+        if ((action->flags & YobiActionFlag_AuxiliaryBattleGear) != 0) {
             return;
         }
     } else {

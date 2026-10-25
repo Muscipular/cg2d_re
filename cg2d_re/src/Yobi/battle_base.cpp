@@ -194,10 +194,10 @@ static std::int32_t CompareBattleDrawActions_405BD0(
     const std::uint32_t firstFlags = first->flags;
     std::int32_t firstY = first->y;
     std::int32_t secondY = second->y;
-    if ((firstFlags & 0x800000u) != 0) {
+    if ((firstFlags & YobiActionFlag_SortByDeltaY) != 0) {
         firstY = first->deltaY;
     }
-    if ((second->flags & 0x800000u) != 0) {
+    if ((second->flags & YobiActionFlag_SortByDeltaY) != 0) {
         secondY = second->deltaY;
     }
     if (firstY > secondY) {
@@ -220,29 +220,29 @@ void UpdateBattleDirectionFromAngle_405CB0(YobiAction* const action)
         action->angle50 = static_cast<float>(action->angle50 + 360.0);
     }
     if (action->angle50 >= 15.0F && action->angle50 < 60.0F) {
-        action->direction = 4;
+        action->direction = YobiDirection_DownRight;
     }
     if (action->angle50 >= 60.0F && action->angle50 < 120.0F) {
-        action->direction = 5;
+        action->direction = YobiDirection_Down;
     }
     if (action->angle50 >= 120.0F && action->angle50 < 165.0F) {
-        action->direction = 6;
+        action->direction = YobiDirection_DownLeft;
     }
     if (action->angle50 >= 165.0F && action->angle50 < 195.0F) {
-        action->direction = 7;
+        action->direction = YobiDirection_Left;
     }
     if (action->angle50 >= 195.0F && action->angle50 < 240.0F) {
-        action->direction = 0;
+        action->direction = YobiDirection_UpLeft;
     }
     if (action->angle50 >= 240.0F && action->angle50 < 300.0F) {
-        action->direction = 1;
+        action->direction = YobiDirection_Up;
     }
     if (action->angle50 >= 300.0F && action->angle50 < 345.0F) {
-        action->direction = 2;
+        action->direction = YobiDirection_UpRight;
     }
     if ((action->angle50 >= 345.0F && action->angle50 < 360.0F)
         || (action->angle50 >= 0.0F && action->angle50 < 15.0F)) {
-        action->direction = 3;
+        action->direction = YobiDirection_Right;
     }
 }
 
@@ -832,7 +832,7 @@ std::int32_t SortBattleActions_405C30()
     YobiAction* current = start->next;
     detail::gDrawYobiCount59E578 = 0;
     while (current != end) {
-        if ((current->flags & 0x20000u) != 0) {
+        if ((current->flags & YobiActionFlag_BattleDepthSort) != 0) {
             detail::gDrawYobiList59E57C[count] = current;
             ++count;
             detail::gDrawYobiCount59E578 = static_cast<std::int32_t>(count);

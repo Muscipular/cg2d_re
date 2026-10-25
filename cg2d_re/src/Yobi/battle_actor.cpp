@@ -59,13 +59,13 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
     }
     const std::uint32_t flags = action->flags;
     action->callback = UpdateBattleActor_404DB0;
-    const std::uint32_t configuredFlags = flags | 0x60054u;
+    const std::uint32_t configuredFlags = flags | YobiActionMask_BattleActorDefaults;
     action->imageNo = 100500;
     action->flags = configuredFlags;
     action->characterAction = CharacterAnimation_Stand;
     action->framePlayingRate = 100;
     action->motionMagnitude54 = 3.0F;
-    action->direction = 1;
+    action->direction = YobiDirection_Up;
     action->displayPriority = 9;
     const std::int32_t firstPointIndex = cg::world::gBattlePointIndices5536FC[position];
     auto* const payload = action->payload.battleActor;
@@ -773,7 +773,7 @@ void UpdateNativeBattleActor(YobiAction* const action)
             static_cast<void>(NewBattleAfterimage_41E5F0(action));
         }
     }
-    if ((action->flags & 0x800000u) == 0) {
+    if ((action->flags & YobiActionFlag_SortByDeltaY) == 0) {
         const std::int32_t x = static_cast<std::int32_t>(action->offset40);
         const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
         const float y = action->offset44;
@@ -846,7 +846,7 @@ void UpdateBattleAction0_406650(YobiAction* const action)
         if ((currentFlags & BattleActorSleepOrStoneMask) == 0) {
             static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         }
-    } else if ((static_cast<std::uint8_t>(action->flags) & 0x40u) != 0
+    } else if ((static_cast<std::uint8_t>(action->flags) & YobiActionFlag_BattleIdleAnimation) != 0
         && (cachedFlags & BattleActorSleepOrStoneMask) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }

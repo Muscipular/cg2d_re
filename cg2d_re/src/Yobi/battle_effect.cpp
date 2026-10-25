@@ -143,7 +143,7 @@ YobiAction* NewBattleAfterimage_41E5F0(YobiAction* const source)
     payload->valueFF0 = 0;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
     const std::uint32_t flags = action->flags;
-    action->flags = flags | (hasDevice ? 0x100000u : 0x8000u);
+    action->flags = flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero);
     return action;
 }
 
@@ -246,7 +246,7 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
     action->phase = oldPhase + 1;
     if (oldPhase < 50) {
         if (action->phase == 40) {
-            parent->flags |= 2u;
+            parent->flags |= YobiActionFlag_Hidden;
         }
         const std::int32_t index = platform::RandomRange_46FAF0(0, 15);
         YobiAction* const particle = NewYobiAction_404AE0(2, 0);
@@ -254,14 +254,14 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
             particle->callback = UpdateBattleRisingEffect_41A200;
             std::uint32_t flags;
             if (render::HasLegacy3DDevice_44B610() != 0) {
-                flags = particle->flags | 0x100000u;
+                flags = particle->flags | YobiActionFlag_ForceAlpha80;
             } else {
                 const std::int32_t mode = platform::RandomRange_46FAF0(0, 1);
-                flags = particle->flags | (mode == 0 ? 0x10000u : 0x8000u);
+                flags = particle->flags | (mode == 0 ? YobiActionFlag_SkipDrawWhenParityOne : YobiActionFlag_SkipDrawWhenParityZero);
             }
             particle->flags = flags;
             particle->displayPriority = 0xCC;
-            particle->flags = flags | 0x40000u;
+            particle->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
             particle->framePlayingRate = 100;
             particle->imageNo = 110004;
             particle->rebirthValue1 = 4;
@@ -324,7 +324,7 @@ void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
             const std::uint32_t flags = particle->flags;
             particle->callback = UpdateBattleFallingEffect_41A530;
             particle->displayPriority = 0xCC;
-            particle->flags = flags | 0x40000u;
+            particle->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
             particle->framePlayingRate = 100;
             // E06／41A6FA：控制器关联受术角色，粒子数量与运动沿原流程。
             particle->imageNo = ResolveSkillEffectImage(
@@ -372,7 +372,7 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
             const std::uint32_t flags = particle->flags;
             particle->callback = UpdateBattleRisingEffect_41A200;
             particle->displayPriority = 0xCC;
-            particle->flags = flags | 0x40000u;
+            particle->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
             particle->framePlayingRate = 100;
             // E06／41A913：控制器本身没有战斗元数据。
             particle->imageNo = ResolveSkillEffectImage(
@@ -415,10 +415,10 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
     action->callback = UpdateBattleRisingEffect_41A200;
     std::uint32_t flags;
     if (render::HasLegacy3DDevice_44B610() != 0) {
-        flags = action->flags | 0x100000u;
+        flags = action->flags | YobiActionFlag_ForceAlpha80;
     } else {
         const std::int32_t mode = platform::RandomRange_46FAF0(0, 1);
-        flags = action->flags | (mode == 0 ? 0x10000u : 0x8000u);
+        flags = action->flags | (mode == 0 ? YobiActionFlag_SkipDrawWhenParityOne : YobiActionFlag_SkipDrawWhenParityZero);
     }
     const std::int32_t xOffset = kBattleRadialXOffsets[index];
     action->flags = flags;
@@ -462,7 +462,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->displayPriority = 204;
             action->offset40 = static_cast<float>(offsetX);
             action->framePlayingRate = 100;
-            action->flags = initialFlags | 0x40000u;
+            action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->pathCountOrDrawOrder_270 = 0;
             action->offset44 = static_cast<float>(third.yValue);
             action->scaleX = static_cast<float>(action->scaleX * 1.5);
@@ -479,9 +479,9 @@ YobiAction* NewBattleEffect_41CD00(
             action->displayPriority = 204;
             action->framePlayingRate = 100;
             const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-            const std::uint32_t deviceFlags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+            const std::uint32_t deviceFlags = action->flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero);
             action->flags = deviceFlags;
-            action->flags = deviceFlags | 0x40000u;
+            action->flags = deviceFlags | YobiActionFlag_FourPhaseUpdateGate;
             const std::int32_t level = sourcePayload->castSkillLevel1044;
             action->imageNo = level >= 12 ? 111019 : kBattleEffectTierOffsets553A38[level] + 110176;
             action->rebirthValue1 = 4;
@@ -502,7 +502,7 @@ YobiAction* NewBattleEffect_41CD00(
             const std::uint32_t initialFlags = action->flags;
             action->callback = UpdateBattleCompletingEffect_41A160;
             action->displayPriority = 204;
-            action->flags = initialFlags | 0x40000u;
+            action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->framePlayingRate = 100;
             action->imageNo = type == BattleEffectType_FixedImage110012 ? 110012 : (type == BattleEffectType_FixedImage110014 ? 110014 : 110013);
             action->rebirthValue1 = 4;
@@ -521,7 +521,7 @@ YobiAction* NewBattleEffect_41CD00(
             const std::uint32_t initialFlags = action->flags;
             action->callback = UpdateBattleRandomEmitter_41A310;
             action->displayPriority = 204;
-            action->flags = initialFlags | 0x40000u;
+            action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->framePlayingRate = 100;
             action->rebirthValue1 = 4;
             action->rebirthValue2 = 4;
@@ -550,7 +550,7 @@ YobiAction* NewBattleEffect_41CD00(
             }
             const std::uint32_t initialFlags = action->flags;
             action->displayPriority = 204;
-            action->flags = initialFlags | 0x40000u;
+            action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->framePlayingRate = 100;
             action->rebirthValue1 = 4;
             action->rebirthValue2 = 4;
@@ -575,7 +575,7 @@ YobiAction* NewBattleEffect_41CD00(
             const std::uint32_t initialFlags = action->flags;
             action->callback = UpdateBattleParentEffect_41A1C0;
             action->displayPriority = 204;
-            action->flags = initialFlags | 0x40000u;
+            action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->framePlayingRate = 100;
             // E07／41DB2C：只替换施法图，音效及定位继续读取原 image1028。
             action->imageNo = type == BattleEffectType_SpellCasting ? ResolveSkillCastingImage(source, sourcePayload->image1028)
@@ -635,7 +635,7 @@ YobiAction* NewBattleEffect_41CD00(
                 auto* const payload = action->payload.battleActor;
                 action->callback = UpdateBattleCarryingEffect_4219D0;
                 action->displayPriority = 201;
-                action->flags = initialFlags | 0x60000u;
+                action->flags = initialFlags | YobiActionMask_BattleDepthSortOrFourPhaseUpdateGate;
                 const std::int32_t effectIndex = sourcePayload->effectRunningC9C;
                 const std::uint32_t effectFlags = sourcePayload->effects1C[effectIndex].flags;
                 const std::int32_t effectValue4 = sourcePayload->effects1C[effectIndex].position4;
@@ -675,9 +675,9 @@ YobiAction* NewBattleEffect_41CD00(
                 action->callback = UpdateBattleImpactEffect_41A9E0;
                 action->displayPriority = 201;
                 const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-                const std::uint32_t deviceFlags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+                const std::uint32_t deviceFlags = action->flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero);
                 action->flags = deviceFlags;
-                action->flags = deviceFlags | 0x40000u;
+                action->flags = deviceFlags | YobiActionFlag_FourPhaseUpdateGate;
                 const std::int32_t effectIndex = sourcePayload->effectRunningC9C;
                 const std::uint32_t effectFlags = sourcePayload->effects1C[effectIndex].flags;
                 const std::int32_t effectValue4 = sourcePayload->effects1C[effectIndex].position4;
@@ -734,7 +734,7 @@ YobiAction* NewBattleEffect_41CD00(
             const std::uint32_t initialFlags = action->flags;
             action->callback = UpdateBattleParentEffect_41A1C0;
             action->displayPriority = 203;
-            action->flags = initialFlags | 0x40000u;
+            action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->battleAttachmentParent10 = source;
             action->framePlayingRate = 100;
             if (type == BattleEffectType_ParentBoundImage110184) {
@@ -769,7 +769,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->framePlayingRate = 100;
             action->rebirthValue1 = 4;
             action->rebirthValue2 = 4;
-            action->flags = initialFlags | 0x40000u;
+            action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->offset40 = static_cast<float>(static_cast<double>(offsetX) + source->offset40);
             const double initialY = static_cast<double>(third.yValue) + source->offset44;
             action->pathCountOrDrawOrder_270 = 0;
@@ -907,7 +907,7 @@ YobiAction* NewBattleEffect_41CD00(
             case BattleEffectType_RandomOffsetImage110474: {
                 action->imageNo = 110474;
                 const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-                action->flags |= hasDevice ? 0x100000u : 0x8000u;
+                action->flags |= hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero;
                 const std::int32_t halfWidth = render::ReadGraphicDxWidth(source->graphicIndex) / 2;
                 const std::int32_t randomX = platform::RandomRange_46FAF0(0, halfWidth);
                 const std::int32_t quarterWidth = render::ReadGraphicDxWidth(source->graphicIndex) / 4;
@@ -927,7 +927,7 @@ YobiAction* NewBattleEffect_41CD00(
             }
             if (deviceBlend) {
                 const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-                action->flags |= hasDevice ? 0x100000u : 0x8000u;
+                action->flags |= hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero;
             }
             if (centerY) {
                 const std::int32_t halfOffset = source->graphicOffsetY / 2;
@@ -947,12 +947,12 @@ YobiAction* NewBattleEffect_41CD00(
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
     if (hasDevice) {
         if (blend == 1 || blend == 2) {
-            action->flags |= 0x100000u;
+            action->flags |= YobiActionFlag_ForceAlpha80;
         }
     } else if (blend == 1) {
-        action->flags |= 0x8000u;
+        action->flags |= YobiActionFlag_SkipDrawWhenParityZero;
     } else if (blend == 2) {
-        action->flags |= 0x10000u;
+        action->flags |= YobiActionFlag_SkipDrawWhenParityOne;
     }
     if (link == 1) {
         action->battleAttachmentParent10 = source;
@@ -965,7 +965,7 @@ YobiAction* NewBattleEffect_41CD00(
         action->imageNo = ResolveSkillEffectImage(source, SkillEffectKind::Recovery, action->imageNo);
     }
     const float x = action->offset40;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     const std::int32_t projectedX = static_cast<std::int32_t>(x);
     const float y = action->offset44;
     action->x = projectedX;
@@ -1060,9 +1060,9 @@ YobiAction* NewBattleTiledEffect_41E9D0(const std::int32_t type, const std::int3
     action->callback = UpdateBattleTiledEffect_41E920;
     action->displayPriority = 0;
     action->framePlayingRate = 100;
-    action->flags = 0x40002u;
+    action->flags = YobiActionMask_HiddenOrFourPhaseUpdateGate;
     action->imageNo = 0;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->phase = type;
     (action->maxHp = static_cast<std::int32_t>(lifetime));
     (action->readiness = 0);
@@ -1094,8 +1094,8 @@ void UpdateBattleArcProjection_418F10(YobiAction* const action)
     const std::int32_t squared = duration * duration - previous * previous;
     const std::int32_t direction = action->direction + 1;
     action->direction = direction;
-    if (direction > 7) {
-        action->direction = 0;
+    if (direction > YobiDirection_Left) {
+        action->direction = YobiDirection_UpLeft;
     }
     const float amplitude = static_cast<float>(squared);
     const double xFactor = world::LookupCosineDegrees_46F950(action->angle50);
@@ -1120,7 +1120,7 @@ YobiAction* NewBattleArcProjection_418FF0(
     if (action == nullptr) {
         return nullptr;
     }
-    const std::uint32_t flags = action->flags | 0x40000u;
+    const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->callback = UpdateBattleArcProjection_418F10;
     action->flags = flags;
     action->characterAction = CharacterAnimation_Stand;
@@ -1192,7 +1192,7 @@ void NewBattleProjection_418DF0(
     if (action == nullptr) {
         return;
     }
-    const std::uint32_t flags = action->flags | 0x40000u;
+    const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->callback = UpdateBattleProjection_418D80;
     action->flags = flags;
     action->characterAction = CharacterAnimation_Stand;
@@ -1240,7 +1240,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
     if (action == nullptr) {
         return nullptr;
     }
-    action->flags |= 0x60002u;
+    action->flags |= YobiActionMask_HiddenDepthSortAndFourPhaseUpdateGate;
     action->callback = UpdateBattleActor_404DB0;
     action->imageNo = 0;
     action->characterAction = CharacterAnimation_Stand;
@@ -1313,7 +1313,7 @@ YobiAction* NewBattleBlastWave_419180(
     if (action == nullptr) {
         return nullptr;
     }
-    const std::uint32_t initialFlags = action->flags | 0x60002u;
+    const std::uint32_t initialFlags = action->flags | YobiActionMask_HiddenDepthSortAndFourPhaseUpdateGate;
     action->callback = UpdateBattleActor_404DB0;
     action->flags = initialFlags;
     action->characterAction = CharacterAnimation_Stand;
@@ -1388,7 +1388,7 @@ YobiAction* NewBattleRangeHit_419390(
     if (action == nullptr) {
         return nullptr;
     }
-    const std::uint32_t initialFlags = action->flags | 0x60000u;
+    const std::uint32_t initialFlags = action->flags | YobiActionMask_BattleDepthSortOrFourPhaseUpdateGate;
     action->callback = UpdateBattleActor_404DB0;
     action->flags = initialFlags;
     action->framePlayingRate = 10;
@@ -1468,7 +1468,7 @@ YobiAction* NewBattleArcShot_419DA0(
         return nullptr;
     }
     auto* const payload = action->payload.battleActor;
-    action->flags |= 0x60002u;
+    action->flags |= YobiActionMask_HiddenDepthSortAndFourPhaseUpdateGate;
     action->callback = UpdateBattleActor_404DB0;
     action->imageNo = 0;
     action->characterAction = CharacterAnimation_Stand;
@@ -1487,7 +1487,7 @@ YobiAction* NewBattleArcShot_419DA0(
         AppendBattleAuxEffects_43BC10(action, position, flags, value3, value4, value5);
     }
     action->phase = mode != BattleArcShotMode_ResolveProjectileHit ? BattleAction_ResolveStraightProjectileHit : BattleAction_ResolveProjectileHit;
-    const std::uint32_t hiddenFlags = action->flags | 2u;
+    const std::uint32_t hiddenFlags = action->flags | YobiActionFlag_Hidden;
     action->imageNo = imageNo;
     action->flags = hiddenFlags;
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
@@ -1526,7 +1526,7 @@ YobiAction* NewBattleCastCopy_4205F0(YobiAction* const parent)
     auto* const payload = action->payload.battleActor;
     action->displayPriority = parent->displayPriority;
     action->imageNo = parent->imageNo;
-    const std::uint32_t flags = action->flags | 0x20000u;
+    const std::uint32_t flags = action->flags | YobiActionFlag_BattleDepthSort;
     action->battleAttachmentParent10 = parent;
     action->flags = flags;
     action->motionMagnitude54 = 0.0F;
@@ -1558,7 +1558,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     if (action == nullptr) {
         return nullptr;
     }
-    const std::uint32_t flags = action->flags | 0x40000u;
+    const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->callback = UpdateBattleActor_404DB0;
     action->characterAction = CharacterAnimation_Stand;
     action->flags = flags;
@@ -1577,7 +1577,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
     action->y = static_cast<std::int32_t>(initialY);
     action->imageNo = parentPayload->castSkill103C == BattleSkill_KarmaCycle ? 111141 : 103000;
     action->imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::Boomerang, action->imageNo); // E08／419692。
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->pathCountOrDrawOrder_270 = 0;
     payload->battlePosition18 = parentPayload->battlePosition18;
     do {
@@ -1764,9 +1764,9 @@ YobiAction* NewBattleScatterEffect_41E510(YobiAction* const parent, const std::i
     const std::int32_t rate = platform::RandomRange_46FAF0(10, 200);
     const std::uint32_t flags = action->flags;
     action->framePlayingRate = rate;
-    action->flags = flags | 0x40000u;
+    action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(0, 359));
     action->motionMagnitude54 = static_cast<float>(platform::RandomRange_46FAF0(5, 20));
     action->offset40 = parent->offset40;
@@ -1800,14 +1800,14 @@ YobiAction* NewBattlePositionEffect_41E680(YobiAction* const parent, const std::
     action->displayPriority = 0xCC;
     action->framePlayingRate = 100;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+    const std::uint32_t flags = action->flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero);
     action->flags = flags;
-    action->flags = flags | 0x60000u;
+    action->flags = flags | YobiActionMask_BattleDepthSortOrFourPhaseUpdateGate;
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
     const float screenX = action->offset40;
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     const std::int32_t x = static_cast<std::int32_t>(screenX);
     const float screenY = action->offset44;
     action->x = x;
@@ -1827,15 +1827,15 @@ YobiAction* NewBattleCoordinateEffect_41E720(const float x, const float y, const
     action->displayPriority = 0xCC;
     action->framePlayingRate = 100;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+    const std::uint32_t flags = action->flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero);
     action->flags = flags;
-    action->flags = flags | 0x60000u;
+    action->flags = flags | YobiActionMask_BattleDepthSortOrFourPhaseUpdateGate;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     action->offset44 = y;
     action->offset40 = x;
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->x = static_cast<std::int32_t>(x);
     action->y = static_cast<std::int32_t>(y);
     action->pathCountOrDrawOrder_270 = 0;
@@ -1855,19 +1855,19 @@ YobiAction* NewBattleTrailEffect_41E7C0(
     action->displayPriority = priority;
     action->framePlayingRate = 200;
     if (render::HasLegacy3DDevice_44B610() != 0) {
-        action->flags |= 0x100000u;
+        action->flags |= YobiActionFlag_ForceAlpha80;
     } else {
         const std::int32_t modeFlag = platform::RandomRange_46FAF0(0, 1);
-        action->flags |= modeFlag == 0 ? 0x10000u : 0x8000u;
+        action->flags |= modeFlag == 0 ? YobiActionFlag_SkipDrawWhenParityOne : YobiActionFlag_SkipDrawWhenParityZero;
     }
     if (mode == BattleTrailRenderMode_AddFlag20000) {
-        action->flags |= 0x20000u;
+        action->flags |= YobiActionFlag_BattleDepthSort;
     }
-    action->flags |= 0x40000u;
+    action->flags |= YobiActionFlag_FourPhaseUpdateGate;
     action->offset40 = x;
     action->offset44 = y;
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->x = static_cast<std::int32_t>(x);
     action->y = static_cast<std::int32_t>(y);
     action->pathCountOrDrawOrder_270 = 0;
@@ -1894,9 +1894,9 @@ YobiAction* NewBattleRandomEffect_419FC0(
     action->displayPriority = 0xCC;
     action->framePlayingRate = 100;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x10000u);
+    const std::uint32_t flags = action->flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityOne);
     action->flags = flags;
-    const std::uint32_t configuredFlags = flags | 0x40000u;
+    const std::uint32_t configuredFlags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->imageNo = imageNo;
     action->flags = configuredFlags;
     action->rebirthValue1 = 4;
@@ -1927,9 +1927,9 @@ YobiAction* NewBattleScreenEffect_41A0D0(
     action->displayPriority = 0xCC;
     action->framePlayingRate = 100;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+    const std::uint32_t flags = action->flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero);
     action->flags = flags;
-    action->flags = flags | 0x40000u;
+    action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->x = x;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
@@ -2081,11 +2081,11 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     action->callback = UpdateBattleDebuffEffect_41F800;
     action->displayPriority = 9;
     action->framePlayingRate = 100;
-    action->flags = flags | 0x60000u;
+    action->flags = flags | YobiActionMask_BattleDepthSortOrFourPhaseUpdateGate;
     action->offset40 = parent->offset40;
     const double y = parent->offset44 + 1.0;
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     action->offset44 = static_cast<float>(y);
@@ -2139,13 +2139,13 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     action->displayPriority = 0xC8;
     action->framePlayingRate = 100;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+    const std::uint32_t flags = action->flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero);
     action->flags = flags;
-    action->flags = flags | 0x40000u;
+    action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->offset40 = parent->offset40;
     const double y = parent->offset44 + 1.0;
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->rebirthValue1 = 4;
     action->offset44 = static_cast<float>(y);
     action->rebirthValue2 = 4;
@@ -2169,7 +2169,7 @@ void UpdateBattleTransitionEffect_419BE0(YobiAction* const action)
     if (action->phase == BattleTransitionPhase_Playing && PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
         const std::uint32_t flags = action->flags;
         action->phase = BattleTransitionPhase_HiddenAfterStop;
-        action->flags = flags | 2u;
+        action->flags = flags | YobiActionFlag_Hidden;
     }
 }
 
@@ -2181,7 +2181,7 @@ YobiAction* NewBattleTransitionEffect_419C10(YobiAction* const parent, const std
         return nullptr;
     }
     action->payload.battleTransitionEffect->parent00 = parent;
-    const std::uint32_t flags = action->flags | 0x40000u;
+    const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->callback = UpdateBattleTransitionEffect_419BE0;
     action->flags = flags;
     action->imageNo = imageNo;
@@ -2230,7 +2230,7 @@ YobiAction* NewBattleOffsetFollowEffect_419CF0(
     }
     auto* const payload = action->payload.battleFollowOffset;
     payload->parent00 = parent;
-    const std::uint32_t flags = action->flags | 0x60000u;
+    const std::uint32_t flags = action->flags | YobiActionMask_BattleDepthSortOrFourPhaseUpdateGate;
     action->callback = UpdateBattleOffsetFollowEffect_419CB0;
     action->flags = flags;
     action->imageNo = imageNo;
@@ -2290,7 +2290,7 @@ YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::
     action->callback = UpdateBattleCenteredEffect_41F950;
     action->displayPriority = 0xC8;
     action->framePlayingRate = 100;
-    action->flags = flags | 0x40000u;
+    action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     const std::int32_t halfWidth = render::ReadGraphicDxWidth(parent->graphicIndex) / 2;
     action->offset40 = static_cast<float>(
@@ -2298,7 +2298,7 @@ YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::
     const std::int32_t halfHeight = render::ReadGraphicDxHeight(parent->graphicIndex) / 2;
     const double centerY = static_cast<double>(halfHeight) + parent->graphicOffsetY + parent->offset44;
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     action->offset44 = static_cast<float>(centerY);
@@ -2335,13 +2335,13 @@ void UpdateBattleAttachedEffect_41FB20(YobiAction* const action)
         }
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         if (world::gCurrentSceneType == 10 && world::gCurrentSceneState == 6) {
-            action->flags &= ~2u;
+            action->flags &= ~YobiActionFlag_Hidden;
         } else {
-            action->flags |= 2u;
+            action->flags |= YobiActionFlag_Hidden;
         }
-        if ((action->batchType & 8u) != 0
+        if ((action->batchType & YobiColorChannelFlag_Alpha) != 0
             && (static_cast<std::uint32_t>(action->color2) >> 24) == 0) {
-            action->flags = 2;
+            action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
         }
         const std::int32_t position = action->deltaX;
         YobiAction* const source = action->battleAttachmentParent10;
@@ -2367,7 +2367,7 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
     if (action == nullptr) {
         return nullptr;
     }
-    const std::uint32_t flags = action->flags | 0x40000u;
+    const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->callback = UpdateBattleAttachedEffect_41FB20;
     action->displayPriority = 0xC8;
     action->framePlayingRate = 100;
@@ -2375,7 +2375,7 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
     action->imageNo = mode == BattleAttachedEffectMode_DisplayImage22326 ? 22326 : 22327;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
@@ -2398,7 +2398,7 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
         if (attached != nullptr) {
             const std::uint8_t flags = static_cast<std::uint8_t>(attached->flags);
             const std::int32_t count = action->deltaX;
-            if ((flags & 2u) != 0) {
+            if ((flags & YobiActionFlag_Hidden) != 0) {
                 if (count > 0) {
                     action->deltaX = count - 1;
                 }
@@ -2477,11 +2477,11 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     const std::uint32_t flags = action->flags;
     action->displayPriority = 0xC8;
     action->framePlayingRate = 100;
-    action->flags = flags | 0x40000u;
+    action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
     action->imageNo = displayImage;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
@@ -2540,7 +2540,7 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
     action->callback = UpdateBattleFieldEffect_41FF90;
     action->displayPriority = 7;
     action->framePlayingRate = 100;
-    action->flags = flags | 0x40000u;
+    action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     const std::int32_t x15Index = cg::world::gBattlePointIndices5536FC[15];
     const std::int32_t x5Index = cg::world::gBattlePointIndices5536FC[5];
     const double x15 = cg::world::gBattleGraphicPoints553758[x15Index][2];
@@ -2551,7 +2551,7 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
     const double y15 = cg::world::gBattleGraphicPoints553758[y15Index][3];
     const double y5 = cg::world::gBattleGraphicPoints553758[y5Index][3];
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     action->offset44 = static_cast<float>((y5 - y15) * 0.5 + y15);
@@ -2590,9 +2590,9 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
         [[fallthrough]];
     }
     case BattleBackgroundFadePhase_ShowingWithAlphaOverride: {
-        const std::uint32_t flags = action->flags & ~2u;
+        const std::uint32_t flags = action->flags & ~YobiActionFlag_Hidden;
         const std::int32_t publish = action->counter28;
-        SetYobiActionField308(action, 8);
+        SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
         action->flags = flags;
         if (publish != 0) {
             cg::world::gBattleBackgroundImage59F9F8 = action->imageNo;
@@ -2603,7 +2603,7 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
     case BattleBackgroundFadePhase_DecreasingAlpha: {
         const std::uint8_t alpha = GetYobiActionField30F(action);
         const std::int32_t step = action->field58;
-        SetYobiActionField308(action, 8);
+        SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
         if (alpha - step > 0) {
             SetYobiActionField30F(action,
                 static_cast<std::uint8_t>(alpha - static_cast<std::uint8_t>(action->field58)));
@@ -2614,8 +2614,8 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
     }
     case BattleBackgroundFadePhase_HidingAndFinishing: {
         const std::uint32_t flags = action->flags;
-        SetYobiActionField308(action, 0);
-        action->flags = flags | 2u;
+        SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_None));
+        action->flags = flags | YobiActionFlag_Hidden;
         [[fallthrough]];
     }
     case BattleBackgroundFadePhase_Finishing:
@@ -2634,7 +2634,7 @@ YobiAction* NewBattleBackgroundFade_421570(
     if (action == nullptr) {
         return nullptr;
     }
-    const std::uint32_t flags = action->flags | 0x40000u;
+    const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->callback = UpdateBattleBackgroundFade_421480;
     action->flags = flags;
     action->imageNo = imageNo;
@@ -2651,7 +2651,7 @@ YobiAction* NewBattleBackgroundFade_421570(
     action->offset44 = 0.0F;
     action->phase = BattleBackgroundFadePhase_IncreasingAlpha;
     action->counter28 = publishBackground;
-    SetYobiActionField308(action, 8);
+    SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
     SetYobiActionField30F(action, 0);
     action->x = 0;
     action->y = 0;
@@ -2764,14 +2764,14 @@ YobiAction* NewBattleScreenEffect_421610(const std::int32_t x, const std::int32_
         action->rebirthValue2 = 0;
         const std::uint32_t flags = action->flags;
         action->rebirthValue1 = 8;
-        action->flags = flags | 0x8000u;
+        action->flags = flags | YobiActionFlag_SkipDrawWhenParityZero;
     }
-    const std::uint32_t flags = action->flags | 0x40000u;
+    const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->imageNo = 110468;
     action->flags = flags;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->x = x;
     action->pathCountOrDrawOrder_270 = 0;
     action->y = y;
@@ -2803,7 +2803,7 @@ YobiAction* NewBattleScreenEmitter_421700(const std::int32_t phase)
     const std::uint32_t flags = action->flags;
     action->callback = UpdateBattleScreenEmitter_4216B0;
     action->characterAction = CharacterAnimation_Stand;
-    action->flags = flags | 2u;
+    action->flags = flags | YobiActionFlag_Hidden;
     action->framePlayingRate = 100;
     action->displayPriority = 3;
     action->phase = phase;

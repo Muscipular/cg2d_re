@@ -705,7 +705,7 @@ static void EnsureTimedMapBackgroundEffect_448290()
     action->callback = UpdateTimedMapBackgroundEffect_4483A0;
     action->displayPriority = 1;
     action->mapY1F0 = static_cast<std::int32_t>(world::gMapFloor);
-    action->flags = 2;
+    action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
     action->motionMagnitude54 = 0.0F;
     action->drawMode.clipMode = 1;
     const std::int16_t sourceX = -320;

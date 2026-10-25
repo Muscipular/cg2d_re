@@ -93,7 +93,7 @@ static bool ApplyYobiAnimeFrame(
     if (flag != 0) {
         if (flag >= 10000) {
             action->frameEvent = flag;
-        } else if (world::gCurrentSceneType != 9 || (action->flags & 0x80200u) == 0) {
+        } else if (world::gCurrentSceneType != 9 || (action->flags & YobiActionMask_PetOrRiderOrFollowPetOverlay) == 0) {
             static_cast<void>(audio::PlaySe_52C450(flag, action->x));
         }
     }
@@ -257,7 +257,7 @@ std::int32_t PlayFrame_517DA0(
         const std::uint32_t color = 0xFFFFFFFFu;
         action->drawMode.color = color;
         action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
-        if (direction >= 2 && direction < 5) {
+        if (direction >= YobiDirection_UpRight && direction < YobiDirection_Down) {
             action->drawMode.mixFlags = cg::render::GraphicMixFlag_FlipX;
         }
         if ((action->drawMode.mixFlags & render::GraphicMixFlag_FlipMask) != 0) {
@@ -396,7 +396,7 @@ std::int32_t AdvanceYobiAnimationFrame_517880(
         if (flipStaticByte != 0) {
             const std::int32_t direction = action->direction;
             action->drawMode.mixFlags = cg::render::GraphicMixFlag_None;
-            if (direction >= 2 && direction < 5) {
+            if (direction >= YobiDirection_UpRight && direction < YobiDirection_Down) {
                 action->drawMode.mixFlags = cg::render::GraphicMixFlag_FlipX;
             }
             if ((action->drawMode.mixFlags & render::GraphicMixFlag_FlipMask) != 0) {

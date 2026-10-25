@@ -698,7 +698,7 @@ YobiAction* CreateWindowOpeningAnimation_475950(
     auto* const payload = action->payload.windowOpening;
     action->callback = &detail::UpdateWindowOpeningAnimation_4758D0;
     action->displayPriority = 0xDF;
-    action->flags |= 6u;
+    action->flags |= YobiActionMask_HiddenOrPendingValue1;
     payload->value1C = 0;
     payload->flag20 = 0;
     if ((static_cast<std::uint8_t>(flags) & 1u) != 0) {
@@ -766,7 +766,7 @@ YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Quantity, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
     action->callback = detail::UpdateQuantityWindowOpeningAnimation_48ABC0;
-    action->flags |= 6u;
+    action->flags |= YobiActionMask_HiddenOrPendingValue1;
     action->graphicIndex = imageNo;
     action->displayPriority = 0xDF;
     payload->flag20 = 0;
@@ -824,7 +824,7 @@ YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
     }
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Bank, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
-    action->flags |= 6u;
+    action->flags |= YobiActionMask_HiddenOrPendingValue1;
     action->callback = detail::UpdateBankWindowOpeningAnimation_4ABE60;
     action->displayPriority = 0xDF;
     payload->value1C = 0;
@@ -881,7 +881,7 @@ YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
     }
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_ItemStorage, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
-    action->flags |= 6u;
+    action->flags |= YobiActionMask_HiddenOrPendingValue1;
     action->callback = detail::UpdateItemStorageWindowOpeningAnimation_4ACDF0;
     action->displayPriority = 0xDF;
     payload->value1C = 0;
@@ -949,7 +949,7 @@ YobiAction* CreateModalAction_5044E0(
     }
 
     auto* const payload = action->payload.windowUi;
-    action->flags |= 6U;
+    action->flags |= YobiActionMask_HiddenOrPendingValue1;
     action->callback = detail::UpdateModalAction_5046D0;
     action->displayPriority = detail::kModalDisplayPriority;
 

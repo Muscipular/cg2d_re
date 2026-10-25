@@ -3138,7 +3138,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
     auto* const element52 = currentWindow->FindElementById(WindowCraftElementId::Element5);
     if (element52) {
         cg::yobi::SetYobiActionField2B8(
-            element52->data.animation->action, 5);
+            element52->data.animation->action, cg::yobi::YobiDirection_Down);
     }
     if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
         WindowInstance* const window = currentWindow;

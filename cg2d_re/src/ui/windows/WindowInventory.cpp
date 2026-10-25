@@ -651,7 +651,7 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
     auto* const element62 = currentWindow->FindElementById(WindowInventoryElementId::Element6);
     if (element62) {
         cg::yobi::SetYobiActionField2B8(
-            element62->data.animation->action, 5);
+            element62->data.animation->action, cg::yobi::YobiDirection_Down);
     }
     const std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
     if (imageNo >= 110350 && imageNo <= 110373) {

@@ -139,7 +139,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             coordinateSource = cg::world::gBattleAllEntries59E980[first];
             coordinateRider = payload->rider13C8;
             coordinateRider->offset44 = coordinateSource->offset44;
-            payload->rider13C8->flags |= 0x14u;
+            payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
             action->nameC4 = cg::world::gBattleAllEntries59E980[second]->nameC4;
             const std::int32_t nextImage = cg::world::gBattleAllEntries59E980[second]->imageNo;
             action->characterAction = CharacterAnimation_Stand;
@@ -232,7 +232,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         if (pastMinimum && action->frameY <= offset) {
             payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
             payload->rider13C8->field58 = 0;
-            payload->rider13C8->flags &= ~0x14u;
+            payload->rider13C8->flags &= ~YobiActionMask_PendingValue1OrHoverDescription;
             action->nameC4 = effect->nameC4;
             action->characterAction = CharacterAnimation_Stand;
             action->field1D0 = effect->field1D0;
@@ -343,7 +343,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     }
     payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = CharacterAnimation_Sit;
-    payload->rider13C8->flags |= 0x14u;
+    payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
     const std::int32_t riderDistancePoint = cg::world::gBattlePointIndices5536FC[first];
     const float riderDistanceY = static_cast<float>(cg::world::gBattleGraphicPoints553758[riderDistancePoint][3]);
     const std::int32_t riderDistanceX = cg::world::gBattleGraphicPoints553758[riderDistancePoint][2];
@@ -493,7 +493,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
     action->characterAction = CharacterAnimation_Run;
     payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = CharacterAnimation_Damage;
-    payload->rider13C8->flags |= 0x14u;
+    payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
     const std::int32_t x = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->offset40);
     const std::int32_t screenX = static_cast<std::int32_t>(gYobiScreenOffsetX);
     YobiAction* const deltaXRider = payload->rider13C8;
@@ -635,7 +635,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
     }
     payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = flags != 0 ? CharacterAnimation_Damage : CharacterAnimation_Sit;
-    payload->rider13C8->flags |= 0x14u;
+    payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const std::int32_t screenX = static_cast<std::int32_t>(gYobiScreenOffsetX);
     YobiAction* const deltaXRider = payload->rider13C8;
@@ -732,7 +732,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         YobiAction* const copyOffsetYRider = payload->rider13C8;
         const float sourceOffsetY = action->offset44;
         copyOffsetYRider->offset44 = sourceOffsetY;
-        payload->rider13C8->flags |= 0x14u;
+        payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
         action->graphicIndex = -1;
         action->lastImageNo = 0;
         FaceBattleActorTowardFormationPosition_406260(action);
@@ -789,7 +789,7 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
     if (previous > 15 && action->frameY <= displacement) {
         payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
-        payload->rider13C8->flags &= ~0x14u;
+        payload->rider13C8->flags &= ~YobiActionMask_PendingValue1OrHoverDescription;
         payload->rider13C8->phase = BattleRiderSyncMode_FollowParent;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));

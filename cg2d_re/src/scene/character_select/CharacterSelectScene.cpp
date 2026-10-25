@@ -417,7 +417,7 @@ void InitializeCharacterAppearanceSelection_462880(const std::uint8_t resetSelec
     if (firstAction != nullptr) {
         cg::yobi::SetYobiActionField30(firstAction, 517);
         cg::yobi::SetYobiActionField34(state::gCreateActions[0], 243);
-        cg::yobi::SetYobiActionField2B8(state::gCreateActions[0], 5);
+        cg::yobi::SetYobiActionField2B8(state::gCreateActions[0], cg::yobi::YobiDirection_Down);
     }
 
     cg::yobi::YobiAction* const secondAction =
@@ -426,7 +426,7 @@ void InitializeCharacterAppearanceSelection_462880(const std::uint8_t resetSelec
     if (secondAction != nullptr) {
         cg::yobi::SetYobiActionField30(secondAction, 517);
         cg::yobi::SetYobiActionField34(state::gCreateActions[1], 396);
-        cg::yobi::SetYobiActionField2B8(state::gCreateActions[1], 5);
+        cg::yobi::SetYobiActionField2B8(state::gCreateActions[1], cg::yobi::YobiDirection_Down);
     }
     input::SetContext_44B330(nullptr);
 }
@@ -543,7 +543,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
                     first, cg::yobi::GetYobiActionField2B8(first) - 1);
                 first = state::gCreateActions[0];
                 if (cg::yobi::GetYobiActionField2B8(first) < 0) {
-                    cg::yobi::SetYobiActionField2B8(first, 7);
+                    cg::yobi::SetYobiActionField2B8(first, cg::yobi::YobiDirection_Left);
                     first = state::gCreateActions[0];
                 }
             }
@@ -553,7 +553,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
                     second, cg::yobi::GetYobiActionField2B8(second) - 1);
                 second = state::gCreateActions[1];
                 if (cg::yobi::GetYobiActionField2B8(second) < 0) {
-                    cg::yobi::SetYobiActionField2B8(second, 7);
+                    cg::yobi::SetYobiActionField2B8(second, cg::yobi::YobiDirection_Left);
                     second = state::gCreateActions[1];
                 }
                 first = state::gCreateActions[0];
@@ -568,7 +568,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
                     first, cg::yobi::GetYobiActionField2B8(first) + 1);
                 cg::yobi::YobiAction* const current = state::gCreateActions[0];
                 if (cg::yobi::GetYobiActionField2B8(current) > 7) {
-                    cg::yobi::SetYobiActionField2B8(current, 0);
+                    cg::yobi::SetYobiActionField2B8(current, cg::yobi::YobiDirection_UpLeft);
                 }
                 second = state::gCreateActions[1];
             }
@@ -577,7 +577,7 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
                     second, cg::yobi::GetYobiActionField2B8(second) + 1);
                 second = state::gCreateActions[1];
                 if (cg::yobi::GetYobiActionField2B8(second) > 7) {
-                    cg::yobi::SetYobiActionField2B8(second, 0);
+                    cg::yobi::SetYobiActionField2B8(second, cg::yobi::YobiDirection_UpLeft);
                 }
             }
         }

@@ -677,7 +677,7 @@ static std::int32_t WindowCrystalShop_Update(const std::int32_t value)
             auto* animation = element9->data.animation;
             const std::int32_t imageNo = gWindow69ImageCB01F0;
             cg::yobi::SetYobiActionField2A8(animation->action, imageNo);
-            cg::yobi::SetYobiActionField2B8(animation->action, 5);
+            cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
         }
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {

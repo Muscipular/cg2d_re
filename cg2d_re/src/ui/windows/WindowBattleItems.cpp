@@ -265,7 +265,7 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
     auto* const element52 = currentWindow->FindElementById(WindowBattleItemsElementId::Element5);
     if (element52) {
         cg::yobi::SetYobiActionField2B8(
-            element52->data.animation->action, 5);
+            element52->data.animation->action, cg::yobi::YobiDirection_Down);
     }
     auto* const element53 = currentWindow->FindElementById(WindowBattleItemsElementId::Element5);
     if (element53) {

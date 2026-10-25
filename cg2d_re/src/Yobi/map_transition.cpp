@@ -489,7 +489,7 @@ static std::int32_t UpdateTransitionTrail(
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
-    if ((action->flags & 2u) == 0) {
+    if ((action->flags & YobiActionFlag_Hidden) == 0) {
         const std::int32_t graphicIndex = action->graphicIndex;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
         const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, yOffsetAxis);
@@ -813,7 +813,7 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
         || characterAction == CharacterAnimation_Sad || characterAction == CharacterAnimation_Walk || characterAction == CharacterAnimation_Stand
         || characterAction == CharacterAnimation_Nod ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, stopAtEnd, 0));
-    if ((action->flags & 2u) != 0) {
+    if ((action->flags & YobiActionFlag_Hidden) != 0) {
         return;
     }
     const render::GraphicDescriptor16* const descriptor = &action->drawMode;
@@ -850,7 +850,7 @@ YobiAction* CreateMapTransitionAction_448040(
     action->imageNo = imageNo;
     action->characterAction = CharacterAnimation_Stand;
     action->displayPriority = 10;
-    action->flags = 0x200034u;
+    action->flags = YobiActionMask_MapTransitionDefaults;
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         target = static_cast<std::int32_t>(value);

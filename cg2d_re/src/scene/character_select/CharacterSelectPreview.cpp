@@ -536,7 +536,7 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
     const std::int32_t x = 315 * static_cast<std::int32_t>(slot) + 163;
     cg::yobi::SetYobiActionField30(state::gPreviewActions[slotIndex], x);
     cg::yobi::SetYobiActionField34(state::gPreviewActions[slotIndex], 292);
-    cg::yobi::SetYobiActionField2B8(state::gPreviewActions[slotIndex], 5);
+    cg::yobi::SetYobiActionField2B8(state::gPreviewActions[slotIndex], cg::yobi::YobiDirection_Down);
 
     cg::yobi::YobiAction* const actionForFrameMove =
         state::gPreviewActions[slotIndex];

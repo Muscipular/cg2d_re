@@ -235,8 +235,8 @@ std::int32_t UpdateCapability3LoginScene_45F190()
             cg::yobi::SetYobiActionField15(gLeftAction9A50C0, 10);
             cg::yobi::SetYobiActionField30(gLeftAction9A50C0, 451);
             cg::yobi::SetYobiActionField34(gLeftAction9A50C0, 193);
-            cg::yobi::SetYobiActionField2B8(gLeftAction9A50C0, 0);
-            cg::yobi::SetYobiActionField308(gLeftAction9A50C0, 8);
+            cg::yobi::SetYobiActionField2B8(gLeftAction9A50C0, cg::yobi::YobiDirection_UpLeft);
+            cg::yobi::SetYobiActionField308(gLeftAction9A50C0, static_cast<std::int32_t>(cg::yobi::YobiColorChannelFlag_Alpha));
             cg::yobi::SetYobiActionField30C(
                 gLeftAction9A50C0,
                 kWhiteColor);
@@ -260,8 +260,8 @@ std::int32_t UpdateCapability3LoginScene_45F190()
         cg::yobi::SetYobiActionField15(gRightAction9A50C4, 10);
         cg::yobi::SetYobiActionField30(gRightAction9A50C4, 189);
         cg::yobi::SetYobiActionField34(gRightAction9A50C4, 287);
-        cg::yobi::SetYobiActionField2B8(gRightAction9A50C4, 0);
-        cg::yobi::SetYobiActionField308(gRightAction9A50C4, 8);
+        cg::yobi::SetYobiActionField2B8(gRightAction9A50C4, cg::yobi::YobiDirection_UpLeft);
+        cg::yobi::SetYobiActionField308(gRightAction9A50C4, static_cast<std::int32_t>(cg::yobi::YobiColorChannelFlag_Alpha));
         cg::yobi::SetYobiActionField30C(
             gRightAction9A50C4,
             kWhiteColor);

@@ -1330,7 +1330,7 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
         if (element9) {
             auto* animation = element9->data.animation;
             cg::yobi::SetYobiActionField2A8(animation->action, gWindow54ImageCC18C4);
-            cg::yobi::SetYobiActionField2B8(animation->action, 5);
+            cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
         }
         gWindow54PetScrollCC31DC = 0;
         const auto mode = std::bit_cast<std::int8_t>(gWindow54ModeC8AF64);

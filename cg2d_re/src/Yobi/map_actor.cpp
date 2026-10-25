@@ -145,7 +145,7 @@ static void DrawActorPhaseEffect(
         payload->transitionEffect08->imageNo = imageNo;
         payload->transitionEffect08->characterAction = CharacterAnimation_Stand;
         payload->transitionEffect08->displayPriority = 10;
-        payload->transitionEffect08->flags = 0x34u;
+        payload->transitionEffect08->flags = YobiActionMask_MapActorDefaults;
     }
     YobiAction* const child = payload->transitionEffect08;
     if (child != nullptr) {
@@ -319,7 +319,7 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
         }
         const std::int32_t savedDirection = action->field58;
         action->direction = savedDirection - ((progress + 8) % 120) / 15;
-        if (action->direction < 0) {
+        if (action->direction < YobiDirection_UpLeft) {
             action->direction += 8;
         }
         action->direction %= 8;
@@ -454,8 +454,8 @@ std::int32_t ParseMapActorAttachments_43DD00(
                     payload->rideActor44->imageNo = imageNo;
                     payload->rideActor44->characterAction = CharacterAnimation_Stand;
                     payload->rideActor44->displayPriority = 10;
-                    payload->rideActor44->flags = 0x34u;
-                    payload->rideActor44->flags |= 0x200u;
+                    payload->rideActor44->flags = YobiActionMask_MapActorDefaults;
+                    payload->rideActor44->flags |= YobiActionFlag_PetOrRider;
                     mapMainImage();
                     RestoreMountedCharacterAction(action);
                 }
@@ -514,7 +514,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         auto* const childPayload = child->payload.mapActor;
         childPayload->index =
             world::gPlayerRuntimeSlots.action == action ? -1 : payload->index;
-        payload->attachedActor2C->flags |= 0x80100u;
+        payload->attachedActor2C->flags |= YobiActionMask_NamedCharacterOrFollowPetOverlay;
         payload->attachedActor2C->nameC4 = cg::text::FromGbkWide(name);
         payload->attachedActor2C->field1D0 = level;
         payload->attachedActor2C->hoverTextColor1D8 = hoverTextColor;
@@ -682,7 +682,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
         DrawActorPhaseAttachment(action, &payload->rideActor44, primaryIndex, 0,
             ActorAttachmentReadOrder::BeforeXAddition);
-    } else if ((action->flags & 0x400u) != 0) {
+    } else if ((action->flags & YobiActionFlag_GroundItem) != 0) {
         if (world::gPlayerRuntimeSlots.action != action) {
             const std::int32_t lowerX =
                 (world::gPlayerX - 16);
@@ -725,9 +725,9 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
                 graphicIndex, worldXBits, worldYBits,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 0, descriptor);
-            action->flags &= ~2u;
+            action->flags &= ~YobiActionFlag_Hidden;
         } else {
-            action->flags |= 2u;
+            action->flags |= YobiActionFlag_Hidden;
         }
     } else {
         const std::int32_t mode = world::gPlayerRuntimeSlots.action == action ? 1 : 0;
@@ -772,7 +772,7 @@ void UpdateMapActorPathMovement_4424B0(YobiAction* const action)
             const float rate =
                 static_cast<float>(StartMapActorMovement_442110(action, nextX, nextY, speed, 0.0F));
             PopMapActorPathPoint_442460(action);
-            if ((action->flags & 0x200000u) == 0) {
+            if ((action->flags & YobiActionFlag_SuppressAttachedPathFollow) == 0) {
                 auto* const payload = action->payload.mapActor;
                 YobiAction* const child = payload->attachedActor2C;
                 if (child != nullptr) {
@@ -846,7 +846,7 @@ YobiAction* CreateMapActorAction_441DB0(
     action->imageNo = imageNo;
     action->characterAction = CharacterAnimation_Stand;
     action->displayPriority = 10;
-    action->flags = 0x34;
+    action->flags = static_cast<std::int32_t>(YobiActionMask_MapActorDefaults);
 
     // 本入口的 count/encoded/mask 写序与通用 同类operator= 不同。
     const auto assignCoordinate = [](
@@ -879,7 +879,7 @@ YobiAction* CreateMapActorAction_441DB0(
 
 void SetYobiPlayerFlag(YobiAction* const action) noexcept
 {
-    action->flags |= 0x80u;
+    action->flags |= YobiActionFlag_LocalPlayer;
 }
 
 void SetYobiWalkSpeed(YobiAction* const action, const std::int32_t speed) noexcept
@@ -1163,8 +1163,8 @@ void ApplyPlayerRideReply(
             ride->callback = nullptr;
             payload->rideActor44->characterAction = CharacterAnimation_Stand;
             payload->rideActor44->displayPriority = 10;
-            payload->rideActor44->flags = 0x34u;
-            payload->rideActor44->flags |= 0x200u;
+            payload->rideActor44->flags = YobiActionMask_MapActorDefaults;
+            payload->rideActor44->flags |= YobiActionFlag_PetOrRider;
         }
         const std::int32_t mappedRide = character_select::ResolveCharacterImageForVersion(imageNo);
         payload->rideActor44->imageNo = mappedRide;

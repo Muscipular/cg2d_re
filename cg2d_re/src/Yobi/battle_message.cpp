@@ -2902,7 +2902,7 @@ static void ProcessBattleMRideHeader(
         firstPayload->battlePosition18 = firstPosition;
         UpdateBattleAlbumFlag_4238F0(first);
         first->phase = BattleAction_Idle;
-        first->flags |= 2u;
+        first->flags |= YobiActionFlag_Hidden;
         first->callback = nullptr;
         carrier->first00 = first;
         existingPayload->rider13C8->nameC4 = first->nameC4;
@@ -2972,7 +2972,7 @@ static void ProcessBattleMRideHeader(
         secondPayload->battlePosition18 = secondPosition;
         UpdateBattleAlbumFlag_4238F0(second);
         second->phase = BattleAction_Idle;
-        second->flags |= 2u;
+        second->flags |= YobiActionFlag_Hidden;
         second->callback = nullptr;
         carrier->second04 = second;
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TransitionRideState);
@@ -3201,7 +3201,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         action->scaleY = 1.0F;
         firstPayload->battlePosition18 = first;
         UpdateBattleAlbumFlag_4238F0(firstActor);
-        const std::uint32_t firstFlags = firstActor->flags | 2u;
+        const std::uint32_t firstFlags = firstActor->flags | YobiActionFlag_Hidden;
         firstActor->phase = BattleAction_Idle;
         firstActor->flags = firstFlags;
         firstActor->callback = nullptr;
@@ -3276,7 +3276,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         action->scaleY = 1.0F;
         secondPayload->battlePosition18 = second;
         UpdateBattleAlbumFlag_4238F0(secondActor);
-        const std::uint32_t secondFlags = secondActor->flags | 2u;
+        const std::uint32_t secondFlags = secondActor->flags | YobiActionFlag_Hidden;
         secondActor->phase = BattleAction_Idle;
         secondActor->flags = secondFlags;
         secondActor->callback = nullptr;

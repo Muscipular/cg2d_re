@@ -153,7 +153,7 @@ YobiAction* CreateDepartingObservationGroup_43F330(
     action->direction = direction;
     action->field58 = direction;
     action->displayPriority = 10;
-    action->flags = 0x20u;
+    action->flags = YobiActionFlag_PendingBatchFF;
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         target = static_cast<std::int32_t>(value);
@@ -198,7 +198,7 @@ YobiAction* CreateArrivingObservationGroup_43FEB0(
     action->imageNo = imageNo;
     action->characterAction = CharacterAnimation_Run;
     action->displayPriority = 10;
-    action->flags = 0x20u;
+    action->flags = YobiActionFlag_PendingBatchFF;
     const auto assignCoordinate = [](
         platform::LegacyCryptInt& target, const std::int32_t value) {
         target = static_cast<std::int32_t>(value);
@@ -263,7 +263,7 @@ static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const pare
     const std::int32_t direction = source->direction;
     action->displayPriority = 10;
     action->direction = direction;
-    action->flags = 2;
+    action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
     action->x = source->x;
     const std::int32_t y = source->y;
     action->field1D0 = index;
@@ -295,7 +295,7 @@ static YobiAction* CreateLandingObservationMember_43FE00(YobiAction* const paren
     const std::int32_t direction = source->direction;
     action->displayPriority = 10;
     action->direction = direction;
-    action->flags = 2;
+    action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
     action->x = source->x;
     const std::int32_t y = source->y;
     action->value1D4 = 0;
@@ -622,7 +622,7 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
             const std::int32_t initialDirection = action->field58;
             const std::int32_t direction = initialDirection - ((frame + 8) % 120) / 15;
             action->direction = direction;
-            if (direction < 0) {
+            if (direction < YobiDirection_UpLeft) {
                 action->direction = direction + 8;
             }
             const std::int32_t angle = angles[initialDirection] + frame * 3;
@@ -956,7 +956,7 @@ YobiAction* CreateObservationTravelFromSnapshot_440B70()
     auto* const payload = action->payload.mapChara;
     action->direction = initialDirection;
     action->displayPriority = 10;
-    action->flags = 0x20;
+    action->flags = static_cast<std::int32_t>(YobiActionFlag_PendingBatchFF);
     action->x = -100;
     action->y = -100;
     static_cast<void>(AppendObservationGroup_43F180(action));
@@ -1097,9 +1097,9 @@ YobiAction* CreateRegisteredMapGraphicAction_46DE50(
     action->callback = nullptr;
     action->imageNo = imageNo;
     action->characterAction = CharacterAnimation_Stand;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->displayPriority = 10;
-    action->flags = 0x30;
+    action->flags = static_cast<std::int32_t>(YobiActionMask_HoverDescriptionOrPendingBatchFF);
     action->mapX200 = static_cast<std::int32_t>(mapX);
     action->mapY210 = static_cast<std::int32_t>(mapY);
     action->pathCountOrDrawOrder_270 = 0;

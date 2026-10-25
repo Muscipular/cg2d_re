@@ -511,7 +511,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
     auto* const element32 = currentWindow->FindElementById(WindowGatherElementId::Element3);
     if (element32) {
         cg::yobi::SetYobiActionField2B8(
-            element32->data.animation->action, 5);
+            element32->data.animation->action, cg::yobi::YobiDirection_Down);
     }
     std::uint8_t mode;
     if (gSkillSendModeC8A970 != 0) {

@@ -238,7 +238,7 @@ static std::int32_t WindowShopChoice_Update(const std::int32_t value)
         if (element2) {
             auto* animation = element2->data.animation;
             cg::yobi::SetYobiActionField2A8(animation->action, gChoiceDialog.imageNo);
-            cg::yobi::SetYobiActionField2B8(animation->action, 5);
+            cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
         }
         const std::uint8_t count = gChoiceDialog.choiceCount;
         auto* const selectRowElement = currentWindow->FindElementById(WindowShopChoiceElementId::SelectRow);

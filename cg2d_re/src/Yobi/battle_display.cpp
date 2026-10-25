@@ -127,7 +127,7 @@ YobiAction* NewBattleText_4217F0(
     const std::uint32_t flags = action->flags;
     auto* const payload = action->payload.battleText;
     action->callback = UpdateBattleText_421750;
-    action->flags = flags | 0x40000u;
+    action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     payload->lineCount08 = 0;
     const wchar_t* current = text;
     payload->remaining10 = duration;
@@ -200,12 +200,12 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
         action->angle50 = angle;
         std::int32_t mapNo;
         if (slot == 0) {
-            action->flags = 2;
+            action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
             mapNo = 23138 + limited;
         } else if (slot == 8) {
             mapNo = 23162;
         } else if (slot == 9) {
-            action->flags = 2;
+            action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
             mapNo = 23165;
         } else {
             mapNo = 23157 + slot;
@@ -347,7 +347,7 @@ void UpdateBattleNumber_41F110(YobiAction* const action)
         } else {
             const double speed = static_cast<double>(action->numberVelocityB8)
                 + 0.8F;
-            const std::uint32_t flags = action->flags & ~2u;
+            const std::uint32_t flags = action->flags & ~YobiActionFlag_Hidden;
             const bool reachedPeak = speed >= 7.2F;
             action->numberVelocityB8 = static_cast<float>(speed);
             action->flags = flags;
@@ -397,7 +397,7 @@ std::int32_t NewBattleNumber_41F1A0(
         action->imageNo = 0;
         action->motionMagnitude54 = 18.0F;
         action->angle50 = x < 320 ? 270.0F : 90.0F;
-        action->flags = 2;
+        action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
         const std::int32_t character = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
         std::int32_t mapNo;
         switch (character) {
@@ -422,7 +422,7 @@ std::int32_t NewBattleNumber_41F1A0(
         const std::uint32_t initialFlags = action->flags;
         action->y = projectedYValue;
         const float nameX = action->nameOffsetAC;
-        const std::uint32_t drawFlags = initialFlags | 0x40000u;
+        const std::uint32_t drawFlags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
         action->numberVelocityB8 = -8.0F;
         action->flags = drawFlags;
         action->field58 = 2 * index;
@@ -471,7 +471,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
         action->imageNo = 0;
         action->motionMagnitude54 = 18.0F;
         action->angle50 = x < 320 ? 270.0F : 90.0F;
-        action->flags = 2;
+        action->flags = static_cast<std::int32_t>(YobiActionFlag_Hidden);
         static_cast<void>(resource::GetGraphicMapNoIndex(mapNo, &action->graphicIndex));
         std::int16_t graphicX;
         std::int16_t graphicY;
@@ -489,7 +489,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
         const std::int32_t screenYInteger = static_cast<std::int32_t>(screenY);
         const float nameX = action->nameOffsetAC;
         action->y = screenYInteger;
-        action->flags |= 0x40000u;
+        action->flags |= YobiActionFlag_FourPhaseUpdateGate;
         action->numberVelocityB8 = -8.0F;
         action->field58 = 2 * index;
         action->rebirthValue1 = 4;
@@ -542,13 +542,13 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     const std::uint32_t flags = action->flags;
     action->callback = UpdateBattleFloatingIcon_41F450;
     action->displayPriority = 0xCC;
-    action->flags = flags | 0x40000u;
+    action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->framePlayingRate = 100;
     action->offset40 = static_cast<float>(static_cast<double>(offsetX) + parent->offset40);
     const double y = static_cast<double>(offsetY) + parent->offset44;
     action->verticalVelocityBits4C = 0xC1000000u;
     action->imageNo = imageNo;
-    action->direction = 0;
+    action->direction = YobiDirection_UpLeft;
     action->rebirthValue1 = 4;
     action->offset44 = static_cast<float>(y);
     action->rebirthValue2 = 4;

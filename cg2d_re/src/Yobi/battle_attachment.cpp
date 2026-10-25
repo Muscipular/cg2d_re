@@ -71,7 +71,7 @@ void SyncBattleRider_421FB0(YobiAction* const action)
             action->characterAction = CharacterAnimation_Stand;
             play = (*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0;
         } else {
-            play = (*reinterpret_cast<const unsigned char*>(&parent->flags) & 0x40u) != 0
+            play = (*reinterpret_cast<const unsigned char*>(&parent->flags) & YobiActionFlag_BattleIdleAnimation) != 0
                 && (*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & BattleActorSleepOrStoneMask) == 0;
         }
         const std::int32_t parentDirection = parent->direction;
@@ -84,11 +84,11 @@ void SyncBattleRider_421FB0(YobiAction* const action)
                 action, action->characterAction == CharacterAnimation_Attack ? AnimationPlayback_Loop : parent->playRevert));
         }
     }
-    std::uint32_t drawFlags = (action->flags & 0xFFEA7FFDu) | 0x820000u;
+    std::uint32_t drawFlags = (action->flags & YobiActionMask_AttachmentRetainedFlags) | YobiActionMask_BattleDepthSortOrSortByDeltaY;
     action->flags = drawFlags;
-    drawFlags |= parent->flags & 0x118000u;
+    drawFlags |= parent->flags & YobiActionMask_BlinkAndAlpha;
     action->flags = drawFlags;
-    drawFlags |= parent->flags & 0x40002u;
+    drawFlags |= parent->flags & YobiActionMask_HiddenOrFourPhaseUpdateGate;
     action->flags = drawFlags;
     action->batchType = parent->batchType;
     action->color2 = parent->color2;
@@ -157,11 +157,11 @@ void SyncBattleGear_4225D0(YobiAction* const action)
         // 4.06@46EA79持续播放，返回值不作为主挂件隐藏条件。
         static_cast<void>(PlayFrame_517DA0(action, stopAtEnd, wing ? parent : nullptr));
     }
-    std::uint32_t drawFlags = (action->flags & 0xFFEA7FFDu) | 0x820000u;
+    std::uint32_t drawFlags = (action->flags & YobiActionMask_AttachmentRetainedFlags) | YobiActionMask_BattleDepthSortOrSortByDeltaY;
     action->flags = drawFlags;
-    drawFlags |= parent->flags & 0x118000u;
+    drawFlags |= parent->flags & YobiActionMask_BlinkAndAlpha;
     action->flags = drawFlags;
-    drawFlags |= parent->flags & 0x40002u;
+    drawFlags |= parent->flags & YobiActionMask_HiddenOrFourPhaseUpdateGate;
     drawFlags |= extraFlags;
     action->flags = drawFlags;
     action->batchType = parent->batchType;
@@ -221,7 +221,7 @@ void ResolveBattleGearLayer406(YobiAction* const action)
     }
     if ((flags & AnimeActionFlag_Wing) != 0) {
         // 本线每个对象独立分配层；保留正常前景层，只把背向挂件放到人物之前。
-        if (parent->direction >= 4 && parent->direction <= 6) {
+        if (parent->direction >= YobiDirection_DownRight && parent->direction <= YobiDirection_DownLeft) {
             action->displayPriority = static_cast<std::uint8_t>(parent->displayPriority - 1);
         }
     } else if ((flags & AnimeActionFlag_Field) != 0) {
@@ -295,14 +295,14 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
             break;
         }
         switch (parent->direction) {
-        case 0: xOffset = 34; yOffset = -4; break;
-        case 1: xOffset = 36; yOffset = 16; break;
-        case 2: xOffset = 16; yOffset = 24; break;
-        case 3: xOffset = -16; yOffset = 26; break;
-        case 4: xOffset = -34; yOffset = 8; break;
-        case 5: xOffset = -36; yOffset = -12; break;
-        case 6: xOffset = -20; yOffset = -20; break;
-        case 7: xOffset = 16; yOffset = -26; break;
+        case YobiDirection_UpLeft: xOffset = 34; yOffset = -4; break;
+        case YobiDirection_Up: xOffset = 36; yOffset = 16; break;
+        case YobiDirection_UpRight: xOffset = 16; yOffset = 24; break;
+        case YobiDirection_Right: xOffset = -16; yOffset = 26; break;
+        case YobiDirection_DownRight: xOffset = -34; yOffset = 8; break;
+        case YobiDirection_Down: xOffset = -36; yOffset = -12; break;
+        case YobiDirection_DownLeft: xOffset = -20; yOffset = -20; break;
+        case YobiDirection_Left: xOffset = 16; yOffset = -26; break;
         default: break;
         }
         break;
@@ -323,7 +323,7 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     }
     action->characterAction = characterAction;
     action->graphicIndex = graphicIndex;
-    action->flags = parent->flags | 0x2000000u;
+    action->flags = parent->flags | YobiActionFlag_AuxiliaryBattleGear;
     action->deltaX = parent->deltaX;
     action->deltaY = parent->deltaY;
     action->offset40 = parent->offset40;
@@ -346,7 +346,7 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     }
     const std::uint32_t flags = action->flags;
     action->imageNo = imageNo;
-    const std::uint32_t configuredFlags = flags | 0x860040u;
+    const std::uint32_t configuredFlags = flags | YobiActionMask_BattleAttachmentDefaults;
     action->callback = UpdateBattleAttachment_421F90;
     action->flags = configuredFlags;
     action->characterAction = CharacterAnimation_Stand;
@@ -378,7 +378,7 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     if (action == nullptr) {
         return nullptr;
     }
-    const std::uint32_t flags = action->flags | 0x860040u;
+    const std::uint32_t flags = action->flags | YobiActionMask_BattleAttachmentDefaults;
     action->callback = UpdateBattleAttachment_421F90;
     action->flags = flags;
     action->imageNo = imageNo;
@@ -622,15 +622,15 @@ void SyncBattleAttachmentAlpha_420F10(
             static_cast<std::uint8_t>(GetYobiActionField30F(adjusted) + delta));
         (*slot)->flags &= ~removeMask;
         (*slot)->flags |= addMask;
-        SetYobiActionField308(*slot, 0);
+        SetYobiActionField308(*slot, static_cast<std::int32_t>(YobiColorChannelFlag_None));
         YobiAction* const batched = *slot;
         if (GetYobiActionField30F(batched) != 255) {
-            SetYobiActionField308(batched, 8);
+            SetYobiActionField308(batched, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
         }
         (*slot)->flags &= ~2u;
         YobiAction* const visible = *slot;
         if (GetYobiActionField30F(visible) == 0) {
-            visible->flags |= 2u;
+            visible->flags |= YobiActionFlag_Hidden;
         }
     }
 }

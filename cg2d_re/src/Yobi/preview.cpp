@@ -19,7 +19,7 @@ void ConfigureWindowElementAction(
     YobiAction* const initialAction, YobiAction*& slot,
     std::int32_t* const& imageNoSlot)
 {
-    initialAction->flags |= 2u;
+    initialAction->flags |= YobiActionFlag_Hidden;
     slot->callback = nullptr;
     const std::int32_t* const imageNo = imageNoSlot;
     YobiAction* const imageAction = slot;
@@ -51,16 +51,16 @@ const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
     const auto* const colorBytes = reinterpret_cast<const unsigned char*>(&action->color2);
     if (flags != 0) {
         auto* const drawColorBytes = reinterpret_cast<unsigned char*>(&action->drawMode.color);
-        if ((flags & 1u) != 0) {
+        if ((flags & YobiColorChannelFlag_Red) != 0) {
             drawColorBytes[2] = colorBytes[2];
         }
-        if ((flags & 2u) != 0) {
+        if ((flags & YobiColorChannelFlag_Green) != 0) {
             drawColorBytes[1] = colorBytes[1];
         }
-        if ((flags & 4u) != 0) {
+        if ((flags & YobiColorChannelFlag_Blue) != 0) {
             drawColorBytes[0] = colorBytes[0];
         }
-        if ((flags & 8u) != 0) {
+        if ((flags & YobiColorChannelFlag_Alpha) != 0) {
             drawColorBytes[3] = colorBytes[3];
         }
     }
@@ -73,9 +73,9 @@ void ConfigureWindowPetPreview(YobiAction*& slot, const std::int32_t imageNo)
     const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(imageNo);
     slot->imageNo = mapped;
     slot->displayPriority = 10;
-    slot->flags |= 2u;
+    slot->flags |= YobiActionFlag_Hidden;
     slot->callback = nullptr;
-    slot->direction = 5;
+    slot->direction = YobiDirection_Down;
 }
 
 
@@ -90,7 +90,7 @@ YobiAction* ConstructWindowSelectorPreview(const std::int32_t index, std::uint32
         +[]() -> YobiAction* { static YobiAction preview{}; return &preview; },
     };
     YobiAction& action = *initialize[index]();
-    flags = action.flags | 2u;
+    flags = action.flags | YobiActionFlag_Hidden;
     return &action;
 }
 
@@ -102,7 +102,7 @@ void FinishWindowSelectorPreview(YobiAction* const action, const std::uint32_t f
     action->callback = nullptr;
     // 原4C6274/4C627F使用pet[-1]图号地址。未选宠物不读取；DrawPreview在有效选择后设置图号。
     action->displayPriority = 0xDF;
-    action->direction = 5;
+    action->direction = YobiDirection_Down;
 }
 
 

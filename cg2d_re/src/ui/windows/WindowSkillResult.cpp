@@ -293,7 +293,7 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
     auto* const element32 = currentWindow->FindElementById(WindowSkillResultElementId::Element3);
     if (element32) {
         cg::yobi::SetYobiActionField2B8(
-            element32->data.animation->action, 5);
+            element32->data.animation->action, cg::yobi::YobiDirection_Down);
     }
     if (gSkillSendModeC8A970 != 0) {
         static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, gSkillPetImageCB0A18));

@@ -133,13 +133,13 @@ YobiAction& YobiAction::operator=(const YobiAction& source)
     return *this;
 }
 
-std::int32_t gYobiUpdateGateMode = 0; // 原全局：0x0059E570。
+std::int32_t gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate; // 原全局：0x0059E570。
 
 std::int32_t gYobiUpdatePhaseCounter = 0; // 原全局：0x0059E574。
 
 namespace detail {
 
-static constexpr std::uint32_t kFourPhaseFlag = 0x00040000U;
+static constexpr std::uint32_t kFourPhaseFlag = YobiActionFlag_FourPhaseUpdateGate;
 
 YobiAction* gYobiActionStart = nullptr; // 原全局：0x0059E56C。
 
@@ -182,7 +182,7 @@ static void DeleteYobiAction_404D10(YobiAction* const action)
 static bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 {
     return (action->flags & kFourPhaseFlag) != 0
-        && gYobiUpdateGateMode == 1
+        && gYobiUpdateGateMode == YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero
         && gYobiUpdatePhaseCounter != 0;
 }
 
@@ -274,7 +274,7 @@ YobiAction* NewYobiAction_404AE0(
     // 原404BB2–404BE0：显式初始化描述符，颜色为全白，其余清零。
     const std::uint32_t descriptorColor = 0xFFFFFFFFu;
     action->drawMode = {0, 0, 0, 0, descriptorColor, 0, render::GraphicMixFlag_None, 0};
-    action->batchType = 0;
+    action->batchType = static_cast<std::int32_t>(YobiColorChannelFlag_None);
     action->color2 = -1;
     action->rebirthValue1 = 0;
     action->rebirthValue2 = 0;

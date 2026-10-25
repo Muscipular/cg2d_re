@@ -24,6 +24,79 @@ void ShutdownBattleEffects();
 // runtime/list 是唯一 owner，场景中的 YobiAction* 均为非拥有观察者。
 struct YobiAction;
 
+// YobiAction.flags的已证位；与BM结果位、BC角色位及地图协议位独立。
+enum YobiActionFlag : std::uint32_t {
+    YobiActionFlag_Hidden = 0x00000002u,
+    YobiActionFlag_PendingValue1 = 0x00000004u, // 队列value4=1，完整交互语义未证。
+    YobiActionFlag_PendingValue2 = 0x00000008u, // 队列value4=2，完整交互语义未证。
+    YobiActionFlag_HoverDescription = 0x00000010u,
+    YobiActionFlag_PendingBatchFF = 0x00000020u,
+    YobiActionFlag_BattleIdleAnimation = 0x00000040u,
+    YobiActionFlag_LocalPlayer = 0x00000080u,
+    YobiActionFlag_NamedCharacterWithTitle = 0x00000100u,
+    YobiActionFlag_PetOrRider = 0x00000200u,
+    YobiActionFlag_GroundItem = 0x00000400u,
+    YobiActionFlag_GroundGold = 0x00000800u,
+    YobiActionFlag_OtherMapObjectName = 0x00001000u, // 只证悬停名称分支，具体对象类别未证。
+    YobiActionFlag_HideBattleHpBar = 0x00002000u,
+    YobiActionFlag_SkipDrawWhenParityZero = 0x00008000u,
+    YobiActionFlag_SkipDrawWhenParityOne = 0x00010000u,
+    YobiActionFlag_BattleDepthSort = 0x00020000u,
+    YobiActionFlag_FourPhaseUpdateGate = 0x00040000u,
+    YobiActionFlag_FollowPetOverlay = 0x00080000u, // 采用随行宠物条值等绘制规则，不等同完整对象类型。
+    YobiActionFlag_ForceAlpha80 = 0x00100000u,
+    YobiActionFlag_SuppressAttachedPathFollow = 0x00200000u,
+    YobiActionFlag_SortByDeltaY = 0x00800000u,
+    YobiActionFlag_AuxiliaryBattleGear = 0x02000000u,
+};
+
+// 对象flags的原组合值及附件继承掩码；保留完整U32运算。
+enum YobiActionMask : std::uint32_t {
+    YobiActionMask_HiddenOrPendingValue1 = 0x00000006u,
+    YobiActionMask_PendingValue1OrHoverDescription = 0x00000014u,
+    YobiActionMask_HoverDescriptionOrPendingBatchFF = 0x00000030u,
+    YobiActionMask_MapActorDefaults = 0x00000034u,
+    YobiActionMask_LocalPlayerOrNamedCharacter = 0x00000180u,
+    YobiActionMask_HiddenOrFourPhaseUpdateGate = 0x00040002u,
+    YobiActionMask_BattleDepthSortOrFourPhaseUpdateGate = 0x00060000u,
+    YobiActionMask_HiddenDepthSortAndFourPhaseUpdateGate = 0x00060002u,
+    YobiActionMask_BattleActorDefaults = 0x00060054u,
+    YobiActionMask_NamedCharacterOrFollowPetOverlay = 0x00080100u,
+    YobiActionMask_PetOrRiderOrFollowPetOverlay = 0x00080200u,
+    YobiActionMask_BlinkAndAlpha = 0x00118000u,
+    YobiActionMask_MapTransitionDefaults = 0x00200034u,
+    YobiActionMask_BattleDepthSortOrSortByDeltaY = 0x00820000u,
+    YobiActionMask_BattleAttachmentDefaults = 0x00860040u,
+    YobiActionMask_AttachmentRetainedFlags = 0xFFEA7FFDu,
+};
+
+// 八方向资源索引及屏幕朝向；无方向特效的0仅表示第0方向资源，不代表移动朝向。
+enum YobiDirection : std::int32_t {
+    YobiDirection_UpLeft = 0,
+    YobiDirection_Up = 1,
+    YobiDirection_UpRight = 2,
+    YobiDirection_Right = 3,
+    YobiDirection_DownRight = 4,
+    YobiDirection_Down = 5,
+    YobiDirection_DownLeft = 6,
+    YobiDirection_Left = 7,
+};
+
+// 59E570策略：仅值1使40000h对象等待四相计数归零；原S32全局保持。
+enum YobiUpdateGatePolicy : std::int32_t {
+    YobiUpdateGatePolicy_FullRate = 0,
+    YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero = 1,
+};
+
+// YobiAction的+308颜色覆盖位；不是绘制队列记录的batchType。
+enum YobiColorChannelFlag : std::uint32_t {
+    YobiColorChannelFlag_None = 0x00000000u,
+    YobiColorChannelFlag_Red = 0x00000001u,
+    YobiColorChannelFlag_Green = 0x00000002u,
+    YobiColorChannelFlag_Blue = 0x00000004u,
+    YobiColorChannelFlag_Alpha = 0x00000008u,
+};
+
 // 5182B0／518300的低字节轴；原U8参数继续承接未知值。
 enum YobiGraphicAxis : std::uint8_t {
     YobiGraphicAxis_X = 0,

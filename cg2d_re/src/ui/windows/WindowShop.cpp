@@ -1649,7 +1649,7 @@ static std::int32_t WindowShop_Update(const std::int32_t value)
         if (element10) {
             auto* animation = element10->data.animation;
             cg::yobi::SetYobiActionField2A8(animation->action, gShopImageD2DAD0);
-            cg::yobi::SetYobiActionField2B8(animation->action, 5);
+            cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
         }
     }
     if (WindowProfile_CheckDistance(2, 2) != 0) {

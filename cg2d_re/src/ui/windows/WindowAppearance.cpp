@@ -237,7 +237,7 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
         cg::yobi::YobiAction* const action = animation->action;
         cg::yobi::SetYobiActionField2A8(action, world::gPlayerRuntimeSlots.imageNo);
         cg::yobi::SetYobiActionField2B0(animation->action, 0);
-        cg::yobi::SetYobiActionField2B8(animation->action, 5);
+        cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
     }
     return 1;
 }

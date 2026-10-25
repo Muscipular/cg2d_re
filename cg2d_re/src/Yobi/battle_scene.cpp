@@ -160,7 +160,7 @@ YobiAction* NewBattleEvent_43B610(
     if (scene == nullptr) {
         return nullptr;
     }
-    const std::uint32_t flags = scene->flags | 2U;
+    const std::uint32_t flags = scene->flags | YobiActionFlag_Hidden;
     auto* const payload = scene->payload.battleScene;
     scene->flags = flags;
     scene->callback = UpdateBattleEvent_427470;
@@ -191,7 +191,7 @@ YobiAction* NewBattleScene_4383B0()
     }
     const std::uint32_t flags = scene->flags;
     scene->callback = DispatchBattleEvents_43B360;
-    const std::uint32_t updatedFlags = flags | 2U;
+    const std::uint32_t updatedFlags = flags | YobiActionFlag_Hidden;
     scene->imageNo = 0;
     scene->flags = updatedFlags;
     scene->payload.battleScene->entryMaskA8 = 0xFFFFFFFFU;
@@ -260,7 +260,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
 void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 {
     YobiAction* const action = world::gBattleEntries59E980[index];
-    if (action == nullptr || (GetYobiActionFlagsLowByte(action) & 8u) == 0) {
+    if (action == nullptr || (GetYobiActionFlagsLowByte(action) & YobiActionFlag_PendingValue2) == 0) {
         return;
     }
     const std::int32_t graphic = action->graphicIndex;
@@ -295,7 +295,7 @@ void InitializeBattleScene_4383F0()
     cg::world::gBattleExitRequested_5ABB20 = 0;
     gYobiScreenOffsetRising = 0;
     gYobiScreenOffsetAmplitude = 0;
-    gYobiUpdateGateMode = 0;
+    gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate;
     ui::detail::WindowBattleCommand_SnapshotPetVitals();
 }
 
@@ -307,7 +307,7 @@ void DrawBattleActorHpBar_4990A0(const std::int32_t index)
     if (initialAction->callback != nullptr
         && !(initialAction->readiness <= 0)) {
         YobiAction* const action = world::gBattleEntries59E980[index];
-        if ((action->flags & 0x2000u) == 0) {
+        if ((action->flags & YobiActionFlag_HideBattleHpBar) == 0) {
             static_cast<void>(detail::ShowHpBar_43DB60(action, -10, 3, -1));
         }
     }
@@ -324,7 +324,7 @@ void EnableCompletedBattleActorIdleAnimation_43BFF0()
     for (std::size_t index = 0; index < cg::world::gBattleEntries59E980.size(); ++index) {
         YobiAction* const action = cg::world::gBattleEntries59E980[index];
         if (action != nullptr && ((std::bit_cast<std::int32_t>(cg::world::gBattleEndBits5ABBC0) >> index) & 1) != 0) {
-            action->flags |= 0x40u;
+            action->flags |= YobiActionFlag_BattleIdleAnimation;
         }
     }
 }
@@ -335,7 +335,7 @@ void DisableBattleActorIdleAnimation_43C040()
 {
     for (YobiAction* const action : world::gBattleEntries59E980) {
         if (action != nullptr) {
-            action->flags &= ~0x40u;
+            action->flags &= ~YobiActionFlag_BattleIdleAnimation;
         }
     }
 }
@@ -355,7 +355,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
     for (std::int32_t position = 0; position < 20; ++position) {
         const YobiAction* const action = world::gBattleEntries59E980[position];
         if (action == nullptr || action->cacheIndex != hitIndex
-            || (GetYobiActionFlagsLowByte(action) & 8u) == 0) {
+            || (GetYobiActionFlagsLowByte(action) & YobiActionFlag_PendingValue2) == 0) {
             continue;
         }
         if ((target & 0x40u) != 0) {
@@ -576,12 +576,12 @@ std::int32_t CheckBattleCommand_43C560(
         const std::int32_t front = rows[1][column];
         for (std::int32_t c = 0; c < 5; ++c) {
             const YobiAction* const ownFront = cg::world::gBattleEntries59E980[front];
-            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {
+            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & YobiActionFlag_PendingValue2) != 0) {
                 const YobiAction* const enemyFront = cg::world::gBattleEntries59E980[rows[2][c]];
-                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {
+                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & YobiActionFlag_PendingValue2) != 0) {
                     YobiAction* const enemyBack = cg::world::gBattleEntries59E980[rows[3][c]];
                     if (enemyBack != nullptr) {
-                        enemyBack->flags &= ~8u;
+                        enemyBack->flags &= ~YobiActionFlag_PendingValue2;
                     }
                 }
             }
@@ -590,12 +590,12 @@ std::int32_t CheckBattleCommand_43C560(
         const std::int32_t front = rows[2][column];
         for (std::int32_t c = 0; c < 5; ++c) {
             const YobiAction* const ownFront = cg::world::gBattleEntries59E980[front];
-            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {
+            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & YobiActionFlag_PendingValue2) != 0) {
                 const YobiAction* const enemyFront = cg::world::gBattleEntries59E980[rows[1][c]];
-                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {
+                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & YobiActionFlag_PendingValue2) != 0) {
                     YobiAction* const enemyBack = cg::world::gBattleEntries59E980[rows[0][c]];
                     if (enemyBack != nullptr) {
-                        enemyBack->flags &= ~8u;
+                        enemyBack->flags &= ~YobiActionFlag_PendingValue2;
                     }
                 }
             }
@@ -612,7 +612,7 @@ void FlushBattleEntries_43C060()
     for (std::size_t slot = 0; slot < entries.size(); ++slot) {
         YobiAction* const action = entries[slot];
         if (action != nullptr) {
-            action->flags &= ~8u;
+            action->flags &= ~YobiActionFlag_PendingValue2;
             entries[slot]->flags |= 4u;
             entries[slot]->cacheIndex = -2;
         }

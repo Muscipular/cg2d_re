@@ -419,7 +419,7 @@ void UpsertGroundItemObject_445D20(
     } else {
         record.action->nameC4 = L"???";
     }
-    record.action->flags |= 0x400u;
+    record.action->flags |= cg::yobi::YobiActionFlag_GroundItem;
     record.action->hoverTextColor1D8 = value48;
     record.action->payload.mapActor->itemCount18 = value50;
 }
@@ -478,7 +478,7 @@ void UpsertGroundGoldObject_445F40(
     } else {
         record.action->nameC4 = L"???";
     }
-    record.action->flags |= 0x800u;
+    record.action->flags |= cg::yobi::YobiActionFlag_GroundGold;
 }
 
 // 原函数：0x00521F20。
@@ -498,8 +498,8 @@ void RenderChara_521F20()
     cg::yobi::YobiAction* end = cg::yobi::detail::gYobiActionEnd;
     for (; action != end; action = action->next, end = cg::yobi::detail::gYobiActionEnd) {
         const std::uint32_t flags = action->flags;
-        if (((flags & 0x8000u) != 0 && render::gFrameParity628FC8 == 0)
-            || ((flags & 0x10000u) != 0 && render::gFrameParity628FC8 == 1)) {
+        if (((flags & cg::yobi::YobiActionFlag_SkipDrawWhenParityZero) != 0 && render::gFrameParity628FC8 == 0)
+            || ((flags & cg::yobi::YobiActionFlag_SkipDrawWhenParityOne) != 0 && render::gFrameParity628FC8 == 1)) {
             action->cacheIndex = -2;
             continue;
         }
@@ -536,7 +536,7 @@ void RenderChara_521F20()
         }
         std::uint8_t hiddenFlags;
         std::memcpy(&hiddenFlags, &action->flags, sizeof(hiddenFlags));
-        if ((hiddenFlags & 2u) != 0) {
+        if ((hiddenFlags & cg::yobi::YobiActionFlag_Hidden) != 0) {
             continue;
         }
 
@@ -571,7 +571,7 @@ void RenderChara_521F20()
 
         const std::uint8_t initialColorMask = action->batchType;
         if (initialColorMask != 0) {
-            if ((initialColorMask & 1u) != 0) {
+            if ((initialColorMask & cg::yobi::YobiColorChannelFlag_Red) != 0) {
                 std::uint8_t red;
                 std::memcpy(
                     &red, reinterpret_cast<const std::uint8_t*>(&action->color2) + 2,
@@ -579,7 +579,7 @@ void RenderChara_521F20()
                 descriptorColorBytes[2] = red;
             }
             const std::uint8_t greenMask = action->batchType;
-            if ((greenMask & 2u) != 0) {
+            if ((greenMask & cg::yobi::YobiColorChannelFlag_Green) != 0) {
                 std::uint8_t green;
                 std::memcpy(
                     &green, reinterpret_cast<const std::uint8_t*>(&action->color2) + 1,
@@ -587,13 +587,13 @@ void RenderChara_521F20()
                 descriptorColorBytes[1] = green;
             }
             const std::uint8_t blueMask = action->batchType;
-            if ((blueMask & 4u) != 0) {
+            if ((blueMask & cg::yobi::YobiColorChannelFlag_Blue) != 0) {
                 std::uint8_t blue;
                 std::memcpy(&blue, &action->color2, sizeof(blue));
                 descriptorColorBytes[0] = blue;
             }
             const std::uint8_t alphaMask = action->batchType;
-            if ((alphaMask & 8u) != 0) {
+            if ((alphaMask & cg::yobi::YobiColorChannelFlag_Alpha) != 0) {
                 std::uint8_t alpha;
                 std::memcpy(
                     &alpha, reinterpret_cast<const std::uint8_t*>(&action->color2) + 3,
@@ -612,15 +612,15 @@ void RenderChara_521F20()
             const std::uint8_t replacementMix = action->rebirthValue2;
             descriptor.mixFlags = clearedMix | (replacementMix & freshMixMask);
         }
-        if ((action->flags & 0x100000u) != 0) {
+        if ((action->flags & cg::yobi::YobiActionFlag_ForceAlpha80) != 0) {
             descriptorColorBytes[3] = 0x80;
         }
 
         record->reference.action = action;
         const std::uint32_t publishedFlags = action->flags;
-        if ((publishedFlags & 8u) != 0) {
+        if ((publishedFlags & cg::yobi::YobiActionFlag_PendingValue2) != 0) {
             record->value4 = 2;
-        } else if ((publishedFlags & 4u) != 0) {
+        } else if ((publishedFlags & cg::yobi::YobiActionFlag_PendingValue1) != 0) {
             record->value4 = 1;
         } else {
             record->value4 = 0;
@@ -636,7 +636,7 @@ void RenderChara_521F20()
         cg::yobi::YobiAction* const queuedAction = record->reference.action;
         std::uint8_t queuedFlags;
         std::memcpy(&queuedFlags, &queuedAction->flags, sizeof(queuedFlags));
-        if ((queuedFlags & 0x20u) != 0) {
+        if ((queuedFlags & cg::yobi::YobiActionFlag_PendingBatchFF) != 0) {
             record->batchType = 0xFF;
         }
         const std::int32_t queuedImageNo = record->imageNo;
@@ -684,9 +684,9 @@ void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* const action)
     } else if (dx > 0) {
         action->direction = dy < 0 ? 1 : (dy == 0 ? 2 : 3);
     } else if (dy < 0) {
-        action->direction = 0;
+        action->direction = cg::yobi::YobiDirection_UpLeft;
     } else if (dy > 0) {
-        action->direction = 4;
+        action->direction = cg::yobi::YobiDirection_DownRight;
     } else {
         // 原43D956读取实参地址低字节；不是旧方向，不伪造x86地址。
         action->direction = std::bit_cast<std::int8_t>(

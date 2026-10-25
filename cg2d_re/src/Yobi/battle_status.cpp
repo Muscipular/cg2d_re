@@ -850,14 +850,14 @@ void UpdateBattleAction171_412020(YobiAction* const action)
         SyncBattleAttachmentAlpha_420F10(action, -1, 3, 0, 0);
         if (render::HasLegacy3DDevice_44B610() == 0) {
             action->flags |= YobiActionFlag_SkipDrawWhenParityZero;
-            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0x8000, 0);
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, static_cast<std::int32_t>(YobiActionFlag_SkipDrawWhenParityZero), 0);
         }
     } else {
         SetYobiActionField30F(action, 255);
         SyncBattleAttachmentAlpha_420F10(action, 255, 0, 0, 0);
         if (render::HasLegacy3DDevice_44B610() == 0) {
             action->flags &= ~YobiActionFlag_SkipDrawWhenParityZero;
-            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 0x8000);
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, static_cast<std::int32_t>(YobiActionFlag_SkipDrawWhenParityZero));
         }
         AdvanceBattleCastState_439340(action);
     }
@@ -873,17 +873,17 @@ void UpdateBattleActions172_173_4120F0(YobiAction* const action)
         SyncBattleAttachmentAlpha_420F10(action, -1, static_cast<std::int8_t>(-step), 0, 0);
         if (render::HasLegacy3DDevice_44B610() == 0) {
             action->flags |= YobiActionFlag_SkipDrawWhenParityZero;
-            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0x8000, 0);
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, static_cast<std::int32_t>(YobiActionFlag_SkipDrawWhenParityZero), 0);
         }
     } else {
         SetYobiActionField30F(action, 0);
         SyncBattleAttachmentAlpha_420F10(action, 0, 0, 0, 0);
         if (render::HasLegacy3DDevice_44B610() == 0) {
             action->flags &= ~YobiActionFlag_SkipDrawWhenParityZero;
-            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 0x8000);
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, static_cast<std::int32_t>(YobiActionFlag_SkipDrawWhenParityZero));
         }
         action->flags |= YobiActionFlag_Hidden;
-        SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0x8000, 0);
+        SyncBattleAttachmentAlpha_420F10(action, -1, 0, static_cast<std::int32_t>(YobiActionFlag_SkipDrawWhenParityZero), 0);
         AdvanceBattleCastState_439340(action);
     }
 }
@@ -1010,14 +1010,14 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
         SyncBattleAttachmentAlpha_420F10(action, -1, 3, 0, 0);
         if (render::HasLegacy3DDevice_44B610() == 0) {
             action->flags |= YobiActionFlag_SkipDrawWhenParityZero;
-            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0x8000, 0);
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, static_cast<std::int32_t>(YobiActionFlag_SkipDrawWhenParityZero), 0);
         }
     } else {
         SetYobiActionField30F(action, 255);
         SyncBattleAttachmentAlpha_420F10(action, 255, 0, 0, 0);
         if (render::HasLegacy3DDevice_44B610() == 0) {
             action->flags &= ~YobiActionFlag_SkipDrawWhenParityZero;
-            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, 0x8000);
+            SyncBattleAttachmentAlpha_420F10(action, -1, 0, 0, static_cast<std::int32_t>(YobiActionFlag_SkipDrawWhenParityZero));
         }
     }
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Completed) {

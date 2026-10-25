@@ -491,8 +491,8 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     payload->queuedTargetIndex13A4 = 0;
     payload->queuedTargetCount13A8 = 0;
     const std::uint8_t flags = *reinterpret_cast<const unsigned char*>(&payload->flagsFDC);
-    payload->castListIndexFC8 = -1;
-    payload->castListCA4[1] = -1;
+    payload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
+    payload->castListCA4[1] = BattleCastQueueValue_End;
     payload->queuedTargets1084[0] = -1;
     payload->queuedTargets1084[1] = -1;
     payload->castSkill103C = -1;
@@ -516,8 +516,8 @@ void ResetBattleCastList_4391E0(const std::int32_t index)
     action->motionMagnitude54 = 1.0F;
     cg::world::gBattleAllEntries59E980[index]->hidden = 0;
     ResetBattleCastEffects(payload);
-    payload->castListIndexFC8 = -1;
-    payload->castListCA4[1] = -1;
+    payload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
+    payload->castListCA4[1] = BattleCastQueueValue_End;
     payload->queuedTargets1084[0] = -1;
     payload->queuedTargets1084[1] = -1;
     payload->castPlayIndexFC4 = 0;
@@ -538,7 +538,7 @@ void AppendBattleCast_4392A0(
     const std::int32_t next = payload->castListIndexFC8 + 1;
     payload->castListIndexFC8 = next;
     payload->castListCA4[next] = state;
-    payload->castListCA4[payload->castListIndexFC8 + 1] = -1;
+    payload->castListCA4[payload->castListIndexFC8 + 1] = BattleCastQueueValue_End;
     payload->busyFD8 = 1;
 }
 
@@ -555,7 +555,7 @@ void AppendBattleCastAt_4392F0(
     const std::int32_t next = index + 1;
     payload->castListIndexFC8 = next;
     payload->castListCA4[next] = state;
-    payload->castListCA4[payload->castListIndexFC8 + 1] = -1;
+    payload->castListCA4[payload->castListIndexFC8 + 1] = BattleCastQueueValue_End;
     payload->busyFD8 = 1;
 }
 
@@ -578,7 +578,7 @@ void AdvanceNativeBattleCastState(YobiAction* const action)
         action->phase = BattleAction_ResetBusyAndIdle;
     } else {
         const std::int32_t state = payload->castListCA4[next];
-        action->phase = state == -1 ? BattleAction_ResetBusyAndIdle : state;
+        action->phase = state == BattleCastQueueValue_End ? BattleAction_ResetBusyAndIdle : state;
     }
 }
 

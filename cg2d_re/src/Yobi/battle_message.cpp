@@ -35,6 +35,13 @@ namespace cg::yobi {
 
 namespace detail {
 
+// YMN17：DSK完整字段等值选择追加技能；未闭合服务端生产，不与BM位混用。
+enum BattleAppendSkillSelector : std::uint32_t {
+    BattleAppendSkillSelector_SpecialGuard = 0x400u,
+    BattleAppendSkillSelector_CrossCounter = 0x1000u,
+};
+
+
 // Transition／Status／POS／ITM／GMN／RID两阶段门禁；不解释MON、CHT、CMB或SKL。
 enum BattleMQueuedPhase : std::int32_t {
     BattleMQueuedPhase_ReadAndQueue = 0,
@@ -1620,12 +1627,12 @@ static void ProcessBattleMDataHeader(
         gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         const std::int32_t technique = TakeBattleMInteger_438F70(scene);
         const std::uint32_t flags = gBattleMResultFlags5A4A20;
-        const bool appendEight = flags == 0x400u;
+        const bool appendEight = flags == BattleAppendSkillSelector_SpecialGuard;
         gBattleMTechnique5A4A38 = technique;
         if (appendEight) {
-            AddBattleAppendEffect_43BE00(8, technique, gBattleMCasterPosition5AAA64);
-        } else if (flags == 0x1000u) {
-            AddBattleAppendEffect_43BE00(11, technique, gBattleMCasterPosition5AAA64);
+            AddBattleAppendEffect_43BE00(BattleSkill_SpecialGuard, technique, gBattleMCasterPosition5AAA64);
+        } else if (flags == BattleAppendSkillSelector_CrossCounter) {
+            AddBattleAppendEffect_43BE00(BattleSkill_CrossCounter, technique, gBattleMCasterPosition5AAA64);
         }
         if (CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_AllowInactiveSkip) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
@@ -2151,9 +2158,9 @@ static void ProcessBattleMMonsterHeader(
             defender->fields288[3] = 1;
         }
         defenderPayload->castPlayIndexFC4 = 0;
-        defenderPayload->castListIndexFC8 = -1;
+        defenderPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         defenderPayload->castListCA4[0] = BattleAction_Idle;
-        defenderPayload->castListCA4[1] = -1;
+        defenderPayload->castListCA4[1] = BattleCastQueueValue_End;
         defender->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][2]);
         defender->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][3]);
         defender->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][2];
@@ -2427,7 +2434,7 @@ static void ProcessBattleMComboHeader(
         std::uint32_t flags = gBattleMResultFlags5A4A20;
         if ((flags & BattleResultMask_PhysicalReaction) == 0) {
             cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor
-                ->value1038 = 1;
+                ->value1038 = BattleComboFrameHitGate_ForceHitPath;
             flags = gBattleMResultFlags5A4A20;
         }
         if ((flags & BattleResultFlag_BounceOut) != 0) {
@@ -2467,7 +2474,7 @@ static void ProcessBattleMComboHeader(
                 flags = gBattleMResultFlags5A4A20;
             }
         }
-        if ((flags & BattleResultMask_DeathOrPhysicalReflect) == 0x2020u) {
+        if ((flags & BattleResultMask_DeathOrPhysicalReflect) == BattleResultMask_DeathOrPhysicalReflect) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ReturnToFormation);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_HandleDeath);
         } else {
@@ -2479,11 +2486,11 @@ static void ProcessBattleMComboHeader(
         gBattleMValue5ABA7C = gBattleMCasterPosition5AAA64;
     }
 
-    cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C]->payload.battleActor->value1038 = 0;
+    cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C]->payload.battleActor->value1038 = BattleComboFrameHitGate_UseFrameEvent;
     std::uint32_t flags = gBattleMResultFlags5A4A20;
     if ((flags & BattleResultMask_PhysicalReaction) != 0) {
         YobiAction* const target = cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
-        AppendBattleCastAt_4392F0(scene, target, -1,
+        AppendBattleCastAt_4392F0(scene, target, BattleCastQueueValue_End,
             target->payload.battleActor->castListIndexFC8 - 1);
     } else {
         if ((flags & BattleResultFlag_BounceOut) != 0) {
@@ -2635,9 +2642,9 @@ static void ProcessBattleMGmnHeader(
     actorPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
     actorPayload->stateFE0 = 0;
     actorPayload->castPlayIndexFC4 = 0;
-    actorPayload->castListIndexFC8 = -1;
+    actorPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
     actorPayload->castListCA4[0] = BattleAction_Idle;
-    actorPayload->castListCA4[1] = -1;
+    actorPayload->castListCA4[1] = BattleCastQueueValue_End;
     actorPayload->effectRunningC9C = 0;
     actorPayload->effectCountCA0 = 0;
     actorPayload->effects1C[0].position = -1;
@@ -2669,7 +2676,7 @@ static void ProcessBattleMGmnHeader(
         AppendBattleCast_4392A0(scene, *slot, BattleAction_GrowIn);
     } else if (entrance == 1) {
         SetYobiActionField30F(*slot, 0);
-        (*slot)->flags |= 2u;
+        (*slot)->flags |= YobiActionFlag_Hidden;
         FaceBattleActorTowardFormationPosition_406260(*slot);
         AppendBattleCast_4392A0(scene, *slot, BattleAction_FadeIn);
     } else if (entrance == 2) {
@@ -2890,9 +2897,9 @@ static void ProcessBattleMRideHeader(
             first->fields288[3] = 1;
         }
         firstPayload->castPlayIndexFC4 = 0;
-        firstPayload->castListIndexFC8 = -1;
+        firstPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         firstPayload->castListCA4[0] = BattleAction_Idle;
-        firstPayload->castListCA4[1] = -1;
+        firstPayload->castListCA4[1] = BattleCastQueueValue_End;
         first->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2]);
         first->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3]);
         first->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2];
@@ -2960,9 +2967,9 @@ static void ProcessBattleMRideHeader(
             second->fields288[3] = 1;
         }
         secondPayload->castPlayIndexFC4 = 0;
-        secondPayload->castListIndexFC8 = -1;
+        secondPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         secondPayload->castListCA4[0] = BattleAction_Idle;
-        secondPayload->castListCA4[1] = -1;
+        secondPayload->castListCA4[1] = BattleCastQueueValue_End;
         second->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2]);
         second->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][3]);
         second->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2];
@@ -3190,9 +3197,9 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
             firstActor->fields288[3] = 1;
         }
         firstPayload->castPlayIndexFC4 = 0;
-        firstPayload->castListIndexFC8 = -1;
+        firstPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         firstPayload->castListCA4[0] = BattleAction_Idle;
-        firstPayload->castListCA4[1] = -1;
+        firstPayload->castListCA4[1] = BattleCastQueueValue_End;
         firstActor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2]);
         firstActor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][3]);
         firstActor->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2];
@@ -3265,8 +3272,8 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         }
         secondPayload->castPlayIndexFC4 = 0;
         secondPayload->castListCA4[0] = BattleAction_Idle;
-        secondPayload->castListIndexFC8 = -1;
-        secondPayload->castListCA4[1] = -1;
+        secondPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
+        secondPayload->castListCA4[1] = BattleCastQueueValue_End;
         // 第二对象仍从首位置取坐标；位置身份独立写入second。
         secondActor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2]);
         secondActor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][3]);
@@ -3491,10 +3498,10 @@ void ParseBattleC_438550()
         std::uint32_t deathState = payload->stateFE0;
         if ((inputFlags & detail::BattleCharacterFlag_Dead) != 0) {
             deathFlags |= detail::BattleActorFlag_Dead;
-            deathState |= 2u;
+            deathState |= detail::BattleRuntimeStateFlag_InactiveSkipReady;
         } else {
             deathFlags &= ~detail::BattleActorFlag_Dead;
-            deathState &= ~2u;
+            deathState &= ~detail::BattleRuntimeStateFlag_InactiveSkipReady;
         }
         payload->flagsFDC = deathFlags;
         std::uint32_t flags = payload->flagsFDC;

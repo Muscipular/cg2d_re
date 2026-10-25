@@ -80,6 +80,23 @@ namespace cg::yobi {
 
 namespace detail {
 
+// YMN17：仅合击的1038帧事件门禁；动作110同字段另属目标遍历阶段。
+enum BattleComboFrameHitGate : std::int32_t {
+    BattleComboFrameHitGate_UseFrameEvent = 0,
+    BattleComboFrameHitGate_ForceHitPath = 1,
+};
+
+// YMN17：动作队列终止值；独立于角色动作编号及其他索引的-1。
+enum BattleCastQueueValue : std::int32_t {
+    BattleCastQueueValue_End = -1,
+};
+
+// YMN17：FC8的首项前索引；不代表FC4播放索引或任意负索引。
+enum BattleCastQueueIndex : std::int32_t {
+    BattleCastQueueIndex_BeforeFirst = -1,
+};
+
+
 // 43C560目标标记及43C120目标编码位；与对象绘制位独立。
 enum BattleTargetFlag : std::uint32_t {
     BattleTargetFlag_Select = 0x00000001u,
@@ -849,7 +866,7 @@ struct BattleActorPayload {
     std::int32_t image102C; // 原成员偏移：+0x102C。 426FC0按技术索引和目标阵营选表。
     std::int32_t value1030; // 原+1030；共用HP／FP数值、选图参数和动作模式，不能仅命名为伤害值，保留原名；非指针。
     std::int32_t numberDisplayType1034; // 原+1034；BattleNumberType的数字样式／资源操作，按159／160／204分别消费。
-    std::int32_t value1038; // 原+1038；409680作强制命中门禁，40E560兼作动作阶段；统一业务含义未定，保留原名。
+    std::int32_t value1038; // 原+1038；合击按BattleComboFrameHitGate门禁，动作110按局部目标遍历阶段解释；混用字段保留原名，通用复位仍写0。
     std::int32_t castSkill103C; // 原+0x103C；分派技能号，已证常量见BattleSkillDispatchId，保留未知整数。
     std::int32_t castLevel1040; // 原成员偏移：+0x1040。 与1044的技术索引独立。
     std::int32_t castSkillLevel1044; // 原成员偏移：+0x1044。

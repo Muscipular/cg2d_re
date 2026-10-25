@@ -150,3 +150,19 @@ YMN15验证：build.bat Debug配置、编译及链接成功，退出码0；仍�
 YMN16实施：九份CPP及既有battle_base.hpp新增四组、扩展既有技能枚举一组，共新增22项，替换116处数字（技能103、动作110状态5、跳舞HP选择2、键码3、键态3）；没有新增头依赖。十份源／头双向逆映射逐词一致，核对新增及既有枚举的数值／顺序／唯一性、引用增量、原S32／U32类型、完整字符串、UTF-8／原换行、历史进度与差异检查通过。旧技能项只要求保持原声明及引用，不把本批未涉及文件中的消费者误当缺失；新增22项均有消费。残余14种数字只见坐标／角度／容量、其他域声明、数值表及历史注释，开始build.bat Debug。
 
 YMN16验证：build.bat Debug配置、编译及链接成功，退出码0；仍有amount／result／lastAmount／statusType／selfFlags的既有C4701，对应原路径保持。精确提交十份源／头、本文及唯一进度，共12份文件。最终残余扫描只见未知技能／资源图号的数字case，另发现AppendSkill报文的两处完整flags等值及局部1038门禁需要单独核对，继续最后一批取证。
+
+## YMN17：追加效果选择、合击门禁及既有枚举漏引
+
+原端427490的DSK分支按完整字段1024／4096等值选择AddAppendEffect的技能8／11，43BE00按技能号保存节点，43BEA0按技能号查询。当前外部服务端没有DSK生产记录，故不把该字段直接归入BM结果位，新增局部U32 BattleAppendSkillSelector的SpecialGuard=1024／CrossCounter=4096，只解释已证客户端选择，保留完整等值及未知值不追加的原分支；15处追加／查询的技能实参复用BattleSkill_SpecialGuard／CrossCounter。
+
+原端427490在合击无物理反应时写1038=1，409680在帧事件达到20000或此值为1时进入命中路径并在原分支清0，41B440以非1控制普通帧事件处理。新增共享S32 BattleComboFrameHitGate的UseFrameEvent=0／ForceHitPath=1，只替换这条合击生产／消费链的五处数字；通用队列及Lua初始化仍清原0，不用合击或动作110枚举替代混用字段的通用复位，也不改变value1038字段名。
+
+动作队列另分两组S32单项：BattleCastQueueValue_End=-1用于4392A0／4392F0写队尾、439340读取终止及同域初始化／传参；BattleCastQueueIndex_BeforeFirst=-1用于FC8的首项前索引及Lua原范围检查，二者不与其他位置／技能／资源索引的-1混用。窗口局部U32 LinkedWindowStateFlag_CloseRequested=32768用于数量窗口旧窗关闭请求，ui/WindowRuntime.cpp:4081读取此位调用WindowRuntime_Free，只替换Yobi内消费，不扩大UI模块重构。合计新增五组七项。
+
+其余只复用既有符号：两段魔法反应的优先选择及完整等值使用NullifyMagic／AbsorbMagic／ReflectMagic，合击DeathOrPhysicalReflect组合比较右值补齐；两个设备分支的对象位及SyncBattleAttachmentAlpha实参沿用既有绘制位，原S32实参显式转换保持；Lua终止常量236复用ResetBusyAndIdle，异常状态影子清位复用U32的~BattleActorAbnormalMask。最后一处需额外核对六异常位组合为3F0h、32位取反为原FFFFFC0Fh，双向逆映射仅对此已证恒值表达式归一。所有原字段、类型、位宽、条件、初始化及调用顺序保持，准备实施及编译验证。
+
+YMN17实施：十一份CPP及既有battle_base.hpp新增五组七项，替换78处数字（追加选择2、合击门禁5、队尾值16、队列索引13、窗口关闭1；复用技能15、魔法反应10、结果组合1、对象位13、Lua终止动作1／异常位取反1）。十二份源／头按原数值及S32／U32做双向逆映射逐词一致，取值／顺序／唯一性、引用增量、完整字符串、UTF-8／原换行、历史进度及差异检查通过；六异常位取反另核对为FFFFFC0Fh，开始build.bat Debug。
+
+首轮build.bat Debug配置、编译及链接成功，退出码0。补充扫描复合赋值及异或运算，另外确认11处对象Hidden位和两处FE0的InactiveSkipReady位（后者由stateFE0取值，不套BC死亡位）；在本批内继续复用既有枚举，共91处引用、十三份CPP及一份既有头。新增组／项保持五组七项，补齐后重新核对并编译。
+
+YMN17最终验证：十四份源／头的双向逆映射逐词、原数值／S32／U32、声明／引用增量、完整字符串、UTF-8／原换行、历史进度及差异检查重新通过。再次build.bat Debug配置、编译及链接成功，退出码0；仍有amount／result／lastAmount／statusType／selfFlags的既有C4701，对应原路径保持。精确提交十四份源／头、本文及唯一进度，共16份文件；剩余说明与九批总表另作最终报告。

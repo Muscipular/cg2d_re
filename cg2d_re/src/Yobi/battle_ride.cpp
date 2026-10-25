@@ -421,7 +421,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         YobiAction* const restoredSecond = carrier->second04;
         *secondSlot = restoredSecond;
         restoredSecond->callback = UpdateBattleActor_404DB0;
-        (*secondSlot)->flags &= ~2u;
+        (*secondSlot)->flags &= ~YobiActionFlag_Hidden;
         carrier->second04 = nullptr;
         RestoreBattleStateEffects_422370(*secondSlot);
         FaceBattleActorTowardFormationPosition_406260(*secondSlot);
@@ -436,7 +436,7 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         YobiAction* const restoredFirst = carrier->first00;
         *firstSlot = restoredFirst;
         restoredFirst->callback = UpdateBattleActor_404DB0;
-        (*firstSlot)->flags &= ~2u;
+        (*firstSlot)->flags &= ~YobiActionFlag_Hidden;
         carrier->first00 = nullptr;
         RestoreBattleRideGear(firstSlot, carrier);
         RestoreBattleStateEffects_422370(*firstSlot);
@@ -475,7 +475,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         cg::world::gBattleAllEntries59E980[second] = restoredSecond;
         restoredSecond->callback = UpdateBattleActor_404DB0;
         cg::world::gBattleAllEntries59E980[second]->phase = BattleAction_WaitIdle;
-        cg::world::gBattleAllEntries59E980[second]->flags &= ~2u;
+        cg::world::gBattleAllEntries59E980[second]->flags &= ~YobiActionFlag_Hidden;
         YobiAction* const secondXTarget = cg::world::gBattleAllEntries59E980[second];
         secondXTarget->offset40 = action->offset40;
         YobiAction* const secondYTarget = cg::world::gBattleAllEntries59E980[second];
@@ -524,7 +524,7 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         YobiAction* const restoredFirst = carrier->first00;
         cg::world::gBattleAllEntries59E980[first] = restoredFirst;
         restoredFirst->callback = UpdateBattleActor_404DB0;
-        cg::world::gBattleAllEntries59E980[first]->flags &= ~2u;
+        cg::world::gBattleAllEntries59E980[first]->flags &= ~YobiActionFlag_Hidden;
         YobiAction* const firstXTarget = cg::world::gBattleAllEntries59E980[first];
         firstXTarget->offset40 = action->offset40;
         YobiAction* const firstYTarget = cg::world::gBattleAllEntries59E980[first];
@@ -571,7 +571,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         cg::world::gBattleAllEntries59E980[second] = restoredSecond;
         restoredSecond->callback = UpdateBattleActor_404DB0;
         cg::world::gBattleAllEntries59E980[second]->phase = BattleAction_Idle;
-        cg::world::gBattleAllEntries59E980[second]->flags &= ~2u;
+        cg::world::gBattleAllEntries59E980[second]->flags &= ~YobiActionFlag_Hidden;
         YobiAction* const secondXTarget = cg::world::gBattleAllEntries59E980[second];
         secondXTarget->offset40 = action->offset40;
         YobiAction* const secondYTarget = cg::world::gBattleAllEntries59E980[second];
@@ -666,7 +666,7 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         YobiAction* const restoredFirst = carrier->first00;
         cg::world::gBattleAllEntries59E980[first] = restoredFirst;
         restoredFirst->callback = UpdateBattleActor_404DB0;
-        cg::world::gBattleAllEntries59E980[first]->flags &= ~2u;
+        cg::world::gBattleAllEntries59E980[first]->flags &= ~YobiActionFlag_Hidden;
         YobiAction* firstTarget = cg::world::gBattleAllEntries59E980[first];
         firstTarget->offset40 = action->offset40;
         firstTarget = cg::world::gBattleAllEntries59E980[first];

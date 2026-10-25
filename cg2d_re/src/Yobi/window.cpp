@@ -15,6 +15,12 @@ namespace cg::yobi {
 
 namespace detail {
 
+// YMN17：关联UI窗口的关闭请求位；主窗口循环消费后释放窗口。
+enum LinkedWindowStateFlag : std::uint32_t {
+    LinkedWindowStateFlag_CloseRequested = 0x8000u,
+};
+
+
 // 窗口入口低mode的几何展开方式；未知模式仍保持原未赋值路径。
 enum WindowOpeningExpansionMode : std::int32_t {
     WindowOpeningExpansionMode_Vertical = 0,
@@ -756,7 +762,7 @@ YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     YobiAction* const action = NewYobiAction_404AE0(3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window != nullptr) {
-        ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window->state |= 0x8000u;
+        ui::detail::gWindowStates[cg::ui::WindowId_Quantity].window->state |= detail::LinkedWindowStateFlag_CloseRequested;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (action == nullptr) {

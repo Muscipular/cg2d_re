@@ -397,7 +397,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
         target->battleOpponent10 = cg::world::gBattleAllEntries59E980[payload->battlePosition18];
         targetPayload->effectFlagsFE4 = std::bit_cast<std::int32_t>(
             payload->effects1C[payload->effectRunningC9C].flags);
-        if (action->frameEvent < 20000 && payload->value1038 != 1) {
+        if (action->frameEvent < 20000 && payload->value1038 != BattleComboFrameHitGate_ForceHitPath) {
             ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
             const std::int32_t resolvedIndex = payload->effectRunningC9C;
             const std::uint32_t resolvedFlags = payload->effects1C[resolvedIndex].flags;

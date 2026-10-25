@@ -820,7 +820,7 @@ YobiAction* NewBattleEffect_41CD00(
                 break;
             case BattleEffectType_ItemUse: action->imageNo = 110104; break;
             case BattleEffectType_CrossCounter:
-                action->imageNo = FindBattleAppendEffectTechnique_43BEA0(11, sourcePayload->battlePosition18) >= 12
+                action->imageNo = FindBattleAppendEffectTechnique_43BEA0(BattleSkill_CrossCounter, sourcePayload->battlePosition18) >= 12
                     ? 111053 : 110153;
                 break;
             case BattleEffectType_PhysicalReflect:

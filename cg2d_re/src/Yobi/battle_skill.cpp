@@ -256,11 +256,11 @@ static void ProcessBattleMSkillWaitingState(
         FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
         FinishBattleEvent_43B6C0(scene);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->frameEvent = 0;
-        cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->flags &= ~2u;
+        cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->flags &= ~YobiActionFlag_Hidden;
         if (render::HasLegacy3DDevice_44B610() != 0) {
-            cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->flags &= ~0x100000u;
+            cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->flags &= ~YobiActionFlag_ForceAlpha80;
         } else {
-            cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->flags &= ~0x8000u;
+            cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->flags &= ~YobiActionFlag_SkipDrawWhenParityZero;
         }
         return;
     case FinishKind::BothCasters: {

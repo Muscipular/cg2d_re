@@ -627,7 +627,7 @@ void SyncBattleAttachmentAlpha_420F10(
         if (GetYobiActionField30F(batched) != 255) {
             SetYobiActionField308(batched, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
         }
-        (*slot)->flags &= ~2u;
+        (*slot)->flags &= ~YobiActionFlag_Hidden;
         YobiAction* const visible = *slot;
         if (GetYobiActionField30F(visible) == 0) {
             visible->flags |= YobiActionFlag_Hidden;

@@ -25,7 +25,7 @@ static constexpr int kBattleEntryCount = 20;
 static constexpr int kMaxQueueItems = 199;
 static constexpr int kMaxPacketFields = 0x1000 / 2;
 static constexpr int kMaxActionState = 256;
-static constexpr int kEndActionState = 236;
+static constexpr int kEndActionState = BattleAction_ResetBusyAndIdle;
 static constexpr int kPacketBufferSize = 0x1000;
 static constexpr int kLuaSkillMetaFlag = 1;
 static constexpr size_t kMaxOperationsPerBatch = 80;
@@ -1511,10 +1511,10 @@ static void InitializeActionQueues(YobiAction* action) {
     data.effectRunningC9C = 0;
     data.effectCountCA0 = 0;
     for (int& cast : data.castListCA4) {
-        cast = -1;
+        cast = BattleCastQueueValue_End;
     }
     data.castPlayIndexFC4 = 0;
-    data.castListIndexFC8 = -1;
+    data.castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
     data.queuedTargets1084[0] = -1;
     data.queuedTargets1084[1] = -1;
     data.queuedTargetIndex13A4 = 0;
@@ -1676,7 +1676,7 @@ static bool AddQueueGrowth(std::vector<QueueGrowth>& growths, YobiAction* action
 
 static bool ValidateQueueGrowth(const QueueGrowth& growth) {
     const BattleActorPayload& data = *growth.action->payload.battleActor;
-    if (data.castListIndexFC8 < -1 || data.castListIndexFC8 >= kMaxQueueItems ||
+    if (data.castListIndexFC8 < BattleCastQueueIndex_BeforeFirst || data.castListIndexFC8 >= kMaxQueueItems ||
         data.effectCountCA0 < 0 || data.effectCountCA0 > kMaxQueueItems) {
         return false;
     }
@@ -2010,7 +2010,7 @@ static bool StageDebuffOperations() {
         }
         if (operation.opId == LuaBattleOperation_ClearDebuff) {
             shadow->state.buffYobi = nullptr;
-            shadow->state.flags &= 0xFFFFFC0F;
+            shadow->state.flags &= ~BattleActorAbnormalMask;
             continue;
         }
         if (shadow->state.buffYobi) {

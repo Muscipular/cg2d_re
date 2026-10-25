@@ -23,6 +23,24 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 原43F330/43FEB0生产、43F520/440070消费；仅用于观察父组的phase。
+enum ObservationGroupPhase : std::int32_t {
+    ObservationGroupPhase_WaitingForBoarding = 1, // 等待成员登载完成。
+    ObservationGroupPhase_SpiralDeparture = 2, // 起步后沿旋转上升轨迹离开。
+    ObservationGroupPhase_ArrivalApproach = 3, // 抵达轨迹，超过原帧阈值后安排落地。
+    ObservationGroupPhase_WaitingForLanding = 4, // 等待所有现有成员恢复地图对象。
+    ObservationGroupPhase_LeavingAfterLanding = 5, // 成员落地后允许离屏清理。
+};
+
+// 原43F290/43FE00生产、43F910/440440消费；同值不等于父组phase。
+enum ObservationMemberPhase : std::int32_t {
+    ObservationMemberPhase_Boarding = 1, // 从地图对象位置登载到父组槽位。
+    ObservationMemberPhase_Boarded = 2, // 已登载，保持父组槽位。
+    ObservationMemberPhase_Carried = 3, // 抵达阶段随父组移动，等待落地。
+    ObservationMemberPhase_Landing = 4, // 从父组槽位落回地图对象位置。
+    ObservationMemberPhase_RestoredToMap = 5, // 已调用玩家／世界对象恢复函数。
+};
+
 // 原 payload +00..+2F；原生指针扩宽后只供三种地图角色及观察链使用。
 struct MapCharaPayload {
     std::array<std::uint32_t, 5> objectIds00; // 原+00；观察成员对象编号，供FindObjectYobi查找，非表槽或地址。
@@ -152,7 +170,7 @@ YobiAction* CreateDepartingObservationGroup_43F330(
     action->worldY = static_cast<float>(mapY * 64.0);
 
     action->readiness = static_cast<std::int32_t>(travelDuration);
-    action->phase = 1;
+    action->phase = ObservationGroupPhase_WaitingForBoarding;
     const float worldY = action->worldY;
     const float worldX = action->worldX;
     float screenX;
@@ -193,7 +211,7 @@ YobiAction* CreateArrivingObservationGroup_43FEB0(
     const double scaledX = mapX * 64.0;
     action->movementStepXBits_27C = 0;
     action->movementStepYBits_280 = 0;
-    action->phase = 3;
+    action->phase = ObservationGroupPhase_ArrivalApproach;
     const float worldX = static_cast<float>(scaledX);
     action->worldX = worldX;
     const float worldY = static_cast<float>(mapY * 64.0);
@@ -251,7 +269,7 @@ static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const pare
     action->field1D0 = index;
     action->observationParent10 = parent;
     action->y = y;
-    action->phase = 1;
+    action->phase = ObservationMemberPhase_Boarding;
     return action;
 }
 
@@ -285,7 +303,7 @@ static YobiAction* CreateLandingObservationMember_43FE00(YobiAction* const paren
     action->field1D0 = index;
     action->observationParent10 = parent;
     action->y = y;
-    action->phase = 3;
+    action->phase = ObservationMemberPhase_Carried;
     return action;
 }
 
@@ -345,7 +363,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
     const std::int32_t frameX = parent->frameX;
     std::int32_t relativeX;
     std::int32_t relativeY;
-    if (initialPhase == 1) {
+    if (initialPhase == ObservationMemberPhase_Boarding) {
         const std::int32_t frame = action->value1D4;
         relativeX = frameX + slotX;
         if (frame < 15) {
@@ -363,12 +381,12 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
         action->characterAction = CharacterAnimation_Sit;
         if (currentFrame > 15 && targetY <= relativeY) {
             const std::int32_t imageNo = action->imageNo;
-            action->phase = 2;
+            action->phase = ObservationMemberPhase_Boarded;
             action->value1D4 = 0;
             SetObservationChildAction(action, imageNo);
             static_cast<void>(audio::PlaySe_52C450(0x1CE, action->x));
         }
-    } else if (initialPhase == 2) {
+    } else if (initialPhase == ObservationMemberPhase_Boarded) {
         relativeX = frameX + slotX;
         const std::int32_t imageNo = action->imageNo;
         relativeY = frameY + slotY;
@@ -382,7 +400,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
     if (payload->objectIds00[index] != 0 && payload->partyActions[index] != nullptr) {
         std::int32_t shiftX = 0;
         std::int32_t shiftY = 0;
-        if (action->phase == 1) {
+        if (action->phase == ObservationMemberPhase_Boarding) {
             const std::int32_t frame = action->value1D4;
             if (frame < 15) {
                 const std::int32_t remaining = 15 - frame;
@@ -411,7 +429,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
     if (source != nullptr) {
         action->imageNo = world::ResolveRidingCharacterImage_51C0D0(source->imageNo);
         action->direction = parent->direction;
-        if (action->phase == 4) {
+        if (action->phase == ObservationMemberPhase_Landing) {
             action->direction = source->direction;
         }
         static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
@@ -431,7 +449,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
     const std::int32_t frameY = parent->frameY;
     std::int32_t relativeX;
     std::int32_t relativeY;
-    if (initialPhase == 4) {
+    if (initialPhase == ObservationMemberPhase_Landing) {
         const float worldY = parent->worldY;
         const float worldX = parent->worldX;
         float screenX;
@@ -472,7 +490,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
         action->characterAction = CharacterAnimation_Sit;
         if (frame > 15 && relativeY >= 0) {
             const std::int32_t soundX = action->x;
-            action->phase = 5;
+            action->phase = ObservationMemberPhase_RestoredToMap;
             action->characterAction = CharacterAnimation_Stand;
             static_cast<void>(audio::PlaySe_52C450(0x1C9, soundX));
             const std::uint32_t currentIndex = payload->objectIds00[action->field1D0];
@@ -482,21 +500,21 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
                 world::ResumeWorldActorAfterObservation_43DB30(source);
             }
         }
-    } else if (initialPhase == 3) {
+    } else if (initialPhase == ObservationMemberPhase_Carried) {
         relativeY = frameY + slotY;
         const std::int32_t imageNo = action->imageNo;
         relativeX = frameX + slotX;
         SetObservationChildAction(action, imageNo);
     }
     const std::int32_t currentPhase = action->phase;
-    if (currentPhase >= 5) {
+    if (currentPhase >= ObservationMemberPhase_RestoredToMap) {
         return;
     }
     const std::int32_t index = action->field1D0;
     if (payload->objectIds00[index] != 0 && payload->partyActions[index] != nullptr) {
         std::int32_t shiftX = 0;
         std::int32_t shiftY = 0;
-        if (source != nullptr && currentPhase == 4) {
+        if (source != nullptr && currentPhase == ObservationMemberPhase_Landing) {
             const std::int32_t travel = action->counter28;
             shiftX = (source->x - parentX) * travel / 15;
             shiftY = (source->y - parentY) * travel / 15;
@@ -516,7 +534,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), descriptor, 0);
     }
-    if (action->phase == 4) {
+    if (action->phase == ObservationMemberPhase_Landing) {
         const std::int32_t nextFrame = action->value1D4 + 1;
         const std::int32_t nextTravel = action->counter28 + 1;
         action->value1D4 = nextFrame;
@@ -585,9 +603,9 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
         static_cast<std::int64_t>(screenY + 0.5));
     const std::int32_t initialPhase = action->phase;
     action->counter1DC = -1;
-    if (initialPhase == 1) {
+    if (initialPhase == ObservationGroupPhase_WaitingForBoarding) {
         static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
-    } else if (initialPhase == 2) {
+    } else if (initialPhase == ObservationGroupPhase_SpiralDeparture) {
         const std::int32_t frame = payload->frame;
         if (frame < 0) {
             action->characterAction = CharacterAnimation_BeginRun;
@@ -640,7 +658,7 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
-    if (action->phase == 1) {
+    if (action->phase == ObservationGroupPhase_WaitingForBoarding) {
         std::int8_t ready = 0;
         for (std::int32_t index = 0; index < 5; ++index) {
             if (payload->objectIds00[index] != 0) {
@@ -648,14 +666,14 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
                     payload->partyActions[index] = CreateBoardingObservationMember_43F290(action, index);
                 }
                 YobiAction* const child = payload->partyActions[index];
-                if (child == nullptr || child->phase != 2) {
+                if (child == nullptr || child->phase != ObservationMemberPhase_Boarded) {
                     continue;
                 }
             }
             ++ready;
         }
         if (payload->frame > 10 && ready >= 5) {
-            action->phase = 2;
+            action->phase = ObservationGroupPhase_SpiralDeparture;
             payload->frame = -1;
         }
     }
@@ -692,13 +710,13 @@ static void UpdateArrivingObservationGroup_440070(YobiAction* const action)
     std::int32_t y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
     const std::int32_t initialPhase = action->phase;
-    if (initialPhase >= 3 && initialPhase <= 5) {
-        if (initialPhase == 3 && payload->frame > 50) {
-            action->phase = 4;
+    if (initialPhase >= ObservationGroupPhase_ArrivalApproach && initialPhase <= ObservationGroupPhase_LeavingAfterLanding) {
+        if (initialPhase == ObservationGroupPhase_ArrivalApproach && payload->frame > 50) {
+            action->phase = ObservationGroupPhase_WaitingForLanding;
             for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
                 YobiAction* const child = payload->partyActions[index];
                 if (child != nullptr) {
-                    child->phase = 4;
+                    child->phase = ObservationMemberPhase_Landing;
                 }
             }
         }
@@ -710,19 +728,19 @@ static void UpdateArrivingObservationGroup_440070(YobiAction* const action)
         const std::int32_t elapsed = frame - 50;
         y += static_cast<std::int32_t>(offset[1]) - elapsed * elapsed / 30;
     }
-    if (action->phase == 4) {
+    if (action->phase == ObservationGroupPhase_WaitingForLanding) {
         std::int32_t index = 0;
         for (; index < 5; ++index) {
             YobiAction* const child = payload->partyActions[index];
-            if (child != nullptr && child->phase != 5) {
+            if (child != nullptr && child->phase != ObservationMemberPhase_RestoredToMap) {
                 break;
             }
         }
         if (index >= 5) {
-            action->phase = 5;
+            action->phase = ObservationGroupPhase_LeavingAfterLanding;
         }
     }
-    if (action->phase == 5 && (x < -300 || x > 940 || y < -300 || y > 780)) {
+    if (action->phase == ObservationGroupPhase_LeavingAfterLanding && (x < -300 || x > 940 || y < -300 || y > 780)) {
         UnlinkObservationGroup_43F1B0(action);
         for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
             YobiAction* const child = payload->partyActions[index];

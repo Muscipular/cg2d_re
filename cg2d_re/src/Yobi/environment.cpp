@@ -28,6 +28,21 @@ volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude = 4; // 原 0x553C58。
 
 namespace detail {
 
+// 原448810/448D90/449700生产，三路回调消费；characterAction在此保存移动模式。
+// mode0分别表示计时配置或直接返回，保留各入口的原解释。
+enum SceneEffectMode : std::int32_t {
+    SceneEffectMode_MovingIn = 1, // 向目标进场，完成后按原递增进入2。
+    SceneEffectMode_Stationary = 2, // 停止进出场移动，仍执行投影和原波纹处理。
+    SceneEffectMode_MovingOut = 3, // 沿各入口原方向离场。
+    SceneEffectMode_RemoveIfPresent = 4, // 有旧节点则标死；无旧节点保留原分配／default路径。
+};
+
+// 原449570解释帧duration；只约束指令值，不替换普通帧时长和目标索引。
+enum SceneEffectFrameCommand : std::int32_t {
+    SceneEffectFrameCommand_End = -1, // 结束并返回1；当前七张表未生产此指令。
+    SceneEffectFrameCommand_Jump = -2, // graphic槽为跳转目标帧。
+};
+
 // 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
 static std::int32_t gMapEffectDurationSeconds_5AC4B8 = 0; // 原全局：0x005AC4B8。
 
@@ -45,38 +60,38 @@ static constexpr SceneEffectFrame kFrames55433C[] { // 原常量参考：0x00554
     {24, 0x38C54}, {24, 0x38C55}, {24, 0x38C56}, {24, 0x38C57},
     {24, 0x38C58}, {24, 0x38C59}, {24, 0x38C5A}, {24, 0x38C5B},
     {24, 0x38C5C}, {24, 0x38C5D}, {24, 0x38C5E}, {24, 0x38C5F},
-    {24, 0x38C60}, {24, 0x38C61}, {24, 0x38C62}, {24, 0x38C63}, {-2, 0},
+    {24, 0x38C60}, {24, 0x38C61}, {24, 0x38C62}, {24, 0x38C63}, {SceneEffectFrameCommand_Jump, 0},
 };
 
 static constexpr SceneEffectFrame kFrames5543C4[] { // 原常量参考：0x005543C4。
     {16, 0x38C54}, {16, 0x38C55}, {16, 0x38C56}, {16, 0x38C57},
     {16, 0x38C58}, {16, 0x38C59}, {16, 0x38C5A}, {16, 0x38C5B},
     {16, 0x38C5C}, {16, 0x38C5D}, {16, 0x38C5E}, {16, 0x38C5F},
-    {16, 0x38C60}, {16, 0x38C61}, {16, 0x38C62}, {16, 0x38C63}, {-2, 0},
+    {16, 0x38C60}, {16, 0x38C61}, {16, 0x38C62}, {16, 0x38C63}, {SceneEffectFrameCommand_Jump, 0},
 };
 
 static constexpr SceneEffectFrame kFrames554454[] { // 原常量参考：0x00554454。
     {8, 0x38C3C}, {8, 0x38C3D}, {8, 0x38C3E}, {8, 0x38C3F},
-    {4, 0x38C40}, {4, 0x38C41}, {-2, 0},
+    {4, 0x38C40}, {4, 0x38C41}, {SceneEffectFrameCommand_Jump, 0},
 };
 
 static constexpr SceneEffectFrame kFrames55448C[] { // 原常量参考：0x0055448C。
     {8, 0x38C48}, {8, 0x38C49}, {8, 0x38C4A}, {8, 0x38C4B},
-    {4, 0x38C4C}, {4, 0x38C4D}, {-2, 0},
+    {4, 0x38C4C}, {4, 0x38C4D}, {SceneEffectFrameCommand_Jump, 0},
 };
 
 static constexpr SceneEffectFrame kFrames5544C4[] { // 原常量参考：0x005544C4。
     {8, 0x38C42}, {8, 0x38C43}, {8, 0x38C44}, {8, 0x38C45},
-    {4, 0x38C46}, {4, 0x38C47}, {-2, 0},
+    {4, 0x38C46}, {4, 0x38C47}, {SceneEffectFrameCommand_Jump, 0},
 };
 
 static constexpr SceneEffectFrame kFrames5544FC[] { // 原常量参考：0x005544FC。
     {8, 0x38C4E}, {8, 0x38C4F}, {8, 0x38C50}, {8, 0x38C51},
-    {4, 0x38C52}, {4, 0x38C53}, {-2, 0},
+    {4, 0x38C52}, {4, 0x38C53}, {SceneEffectFrameCommand_Jump, 0},
 };
 
 static constexpr SceneEffectFrame kFrames554534[] { // 原常量参考：0x00554534。
-    {240, 227336}, {8, 227335}, {30, 227334}, {8, 227335}, {-2, 0},
+    {240, 227336}, {8, 227335}, {30, 227334}, {8, 227335}, {SceneEffectFrameCommand_Jump, 0},
 };
 
 static constexpr const SceneEffectFrame* kFrameGroup55444C[] { // 原常量参考：0x0055444C。
@@ -120,10 +135,10 @@ static std::int32_t AdvanceSceneEffectTableFrame_449570(YobiAction* const action
     if (action->frameRemain == 0) {
         const SceneEffectFrame* frame =
             &kFrameGroups554570[group][image][action->frameIndex];
-        if (frame->duration == -1) {
+        if (frame->duration == SceneEffectFrameCommand_End) {
             return 1;
         }
-        if (frame->duration == -2) {
+        if (frame->duration == SceneEffectFrameCommand_Jump) {
             action->frameIndex = static_cast<std::uint32_t>(frame->graphic);
             frame = &kFrameGroups554570[group][image][action->frameIndex];
         }
@@ -198,7 +213,7 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
         MarkDeath(action);
         return;
     }
-    if (action->characterAction == 1) {
+    if (action->characterAction == SceneEffectMode_MovingIn) {
         if (action->offset40 < 0.0F) {
             if (action->motionMagnitude54 > 0.0F
                 && static_cast<double>(action->motionMagnitude54) - 0.11F <= 0.0) {
@@ -222,7 +237,7 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
             action->offset44 = static_cast<float>(
                 static_cast<double>(action->motionMagnitude54) * 0.14F + action->offset44);
         }
-    } else if (action->characterAction == 3) {
+    } else if (action->characterAction == SceneEffectMode_MovingOut) {
         const double speed = static_cast<double>(action->motionMagnitude54) + 0.002F;
         action->motionMagnitude54 = static_cast<float>(speed);
         if (speed > 1.5F) {
@@ -251,7 +266,7 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
         MarkDeath(action);
         return;
     }
-    if (action->characterAction == 1) {
+    if (action->characterAction == SceneEffectMode_MovingIn) {
         if (action->offset40 > 0.0F) {
             if (action->motionMagnitude54 > 0.0F
                 && static_cast<double>(action->motionMagnitude54) - 0.11F <= 0.0) {
@@ -276,7 +291,7 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
                 action->offset44
                 - static_cast<double>(action->motionMagnitude54) * 0.14F);
         }
-    } else if (action->characterAction == 3) {
+    } else if (action->characterAction == SceneEffectMode_MovingOut) {
         const double speed = static_cast<double>(action->motionMagnitude54) + 0.002F;
         action->motionMagnitude54 = static_cast<float>(speed);
         if (speed > 1.5F) {
@@ -310,7 +325,7 @@ static void ConfigureRightEntrySceneEffect_448810(
     if (world::gCurrentSceneType != 9) {
         return;
     }
-    if (mode == 4) {
+    if (mode == SceneEffectMode_RemoveIfPresent) {
         YobiAction* const previous = FindLiveActionByCallback(UpdateRightEntrySceneEffect_448A50);
         if (previous != nullptr) {
             MarkDeath(previous);
@@ -334,16 +349,16 @@ static void ConfigureRightEntrySceneEffect_448810(
     action->mapX1E0 = std::int32_t{0};
     action->mapY1F0 = static_cast<std::int32_t>(floor);
     switch (mode) {
-    case 1:
+    case SceneEffectMode_MovingIn:
         action->offset40 = 870.0F;
         action->offset44 = -121.8F;
         action->motionMagnitude54 = 1.0F;
         break;
-    case 2:
+    case SceneEffectMode_Stationary:
         action->offset40 = 0.0F;
         action->motionMagnitude54 = 0.0F;
         break;
-    case 3:
+    case SceneEffectMode_MovingOut:
         PlaySceneEffectSounds();
         action->offset40 = 0.0F;
         action->offset44 = 0.0F;
@@ -367,7 +382,7 @@ static void ConfigureLeftEntrySceneEffect_448D90(
     if (mode == 0 || world::gCurrentSceneType != 9) {
         return;
     }
-    if (mode == 4) {
+    if (mode == SceneEffectMode_RemoveIfPresent) {
         YobiAction* const previous = FindLiveActionByCallback(UpdateLeftEntrySceneEffect_448BF0);
         if (previous != nullptr) {
             MarkDeath(previous);
@@ -415,16 +430,16 @@ static void ConfigureLeftEntrySceneEffect_448D90(
     action->mapX1E0 = std::int32_t{0};
     action->mapY1F0 = static_cast<std::int32_t>(floor);
     switch (mode) {
-    case 1:
+    case SceneEffectMode_MovingIn:
         action->offset40 = -870.0F;
         action->offset44 = 121.8F;
         action->motionMagnitude54 = 1.0F;
         break;
-    case 2:
+    case SceneEffectMode_Stationary:
         action->offset40 = 0.0F;
         action->motionMagnitude54 = 0.0F;
         break;
-    case 3:
+    case SceneEffectMode_MovingOut:
         PlaySceneEffectSounds();
         action->offset40 = 0.0F;
         action->offset44 = 0.0F;
@@ -451,7 +466,7 @@ static void UpdateMovingSceneEffect_449A00(YobiAction* const action)
         MarkDeath(action);
         return;
     }
-    if (action->characterAction == 1) {
+    if (action->characterAction == SceneEffectMode_MovingIn) {
         const double x = action->worldX - 0.75;
         action->worldX = static_cast<float>(x);
         action->worldY = static_cast<float>(action->worldY + 0.75);
@@ -467,7 +482,7 @@ static void UpdateMovingSceneEffect_449A00(YobiAction* const action)
                 ++action->characterAction;
             }
         }
-    } else if (action->characterAction == 3) {
+    } else if (action->characterAction == SceneEffectMode_MovingOut) {
         action->worldX = static_cast<float>(action->worldX - 0.5);
         action->worldY = static_cast<float>(action->worldY - 0.5);
     }
@@ -499,7 +514,7 @@ static void UpdateSceneEffectOverlay_449C10(YobiAction* const action)
         MarkDeath(action);
         return;
     }
-    action->imageNo = parent->characterAction == 1 ? 0 : 1;
+    action->imageNo = parent->characterAction == SceneEffectMode_MovingIn ? 0 : 1;
     static_cast<void>(AdvanceSceneEffectTableFrame_449570(action, 0));
     action->x = parent->x;
     action->y = parent->y;
@@ -766,7 +781,7 @@ void ConfigureMapSceneEffect_449700(
     if (mode == 0) {
         return;
     }
-    if (mode == 4) {
+    if (mode == detail::SceneEffectMode_RemoveIfPresent) {
         YobiAction* const previous = detail::FindLiveActionByCallback(detail::UpdateMovingSceneEffect_449A00);
         if (previous != nullptr) {
             MarkDeath(previous);
@@ -788,19 +803,19 @@ void ConfigureMapSceneEffect_449700(
     action->mapX1E0 = std::int32_t{0};
     action->mapY1F0 = static_cast<std::int32_t>(floor);
     switch (mode) {
-    case 1: {
+    case detail::SceneEffectMode_MovingIn: {
         action->mapX200 = static_cast<std::int32_t>(mapX * 64);
         action->mapY210 = static_cast<std::int32_t>(mapY * 64);
         action->worldX = static_cast<float>((mapX + 10) * 64.0);
         action->worldY = static_cast<float>((mapY - 10) * 64.0);
         break;
     }
-    case 3: {
+    case detail::SceneEffectMode_MovingOut: {
         action->mapX200 = static_cast<std::int32_t>((mapX - 10) * 64);
         action->mapY210 = static_cast<std::int32_t>((mapY - 10) * 64);
         [[fallthrough]];
     }
-    case 2:
+    case detail::SceneEffectMode_Stationary:
         action->worldX = static_cast<float>(mapX * 64.0);
         action->worldY = static_cast<float>(mapY * 64.0);
         break;

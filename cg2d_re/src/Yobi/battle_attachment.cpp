@@ -605,8 +605,8 @@ void SyncBattleAttachmentAlpha_420F10(
     auto* const payload = action->payload.battleActor;
     // 保存槽地址而非对象快照，保留每个操作后的重取及多个槽指向同一对象的重复处理。
     const std::array<YobiAction**, 9> slots {
-        &payload->effect1054, &payload->attachedEffect1058, &payload->effect105C,
-        &payload->centeredEffect1064, &payload->effect1068, &payload->rebirthEffect106C,
+        &payload->debuffEffect1054, &payload->attachedEffect1058, &payload->attributeReversalEffect105C,
+        &payload->centeredEffect1064, &payload->statusEffect1068, &payload->rebirthEffect106C,
         &payload->rebirthAuxiliaryEffects1074[0], &payload->rebirthAuxiliaryEffects1074[1],
         &payload->rebirthAuxiliaryEffects1074[2],
     };

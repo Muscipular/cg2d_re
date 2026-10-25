@@ -1737,7 +1737,7 @@ static bool ValidateOperationBatch(uint32_t nodeId) {
                 }
             }
             if (!state) {
-                debuffStates.push_back({target, target->payload.battleActor->effect1054 != nullptr});
+                debuffStates.push_back({target, target->payload.battleActor->debuffEffect1054 != nullptr});
                 state = &debuffStates.back();
             }
             if (operation.opId == 2) {
@@ -1965,7 +1965,7 @@ static void RollbackStagedDebuffs() {
 static DebuffState ReadDebuffState(YobiAction* target) {
     BattleActorPayload& data = *target->payload.battleActor;
     return {static_cast<int>(data.flagsFDC), data.debuffState13CC, data.debuffType13D0,
-            data.effect1054};
+            data.debuffEffect1054};
 }
 
 static void WriteDebuffState(YobiAction* target, const DebuffState& state) {
@@ -1973,7 +1973,7 @@ static void WriteDebuffState(YobiAction* target, const DebuffState& state) {
     data.flagsFDC = static_cast<std::uint32_t>(state.flags);
     data.debuffState13CC = state.debuffState;
     data.debuffType13D0 = state.debuffType;
-    data.effect1054 = state.buffYobi;
+    data.debuffEffect1054 = state.buffYobi;
 }
 
 static bool StageDebuffOperations() {
@@ -2079,9 +2079,9 @@ static void CommitOperations(uint32_t nodeId) {
             WriteDebuffState(staged.target, staged.desiredState);
         } else if (operation.opId == 3) {
             BattleActorPayload& data = *target->payload.battleActor;
-            if (data.effect1054) {
-                MarkActionDeathOnce(data.effect1054);
-                data.effect1054 = nullptr;
+            if (data.debuffEffect1054) {
+                MarkActionDeathOnce(data.debuffEffect1054);
+                data.debuffEffect1054 = nullptr;
             }
             data.flagsFDC = static_cast<std::uint32_t>(static_cast<int>(data.flagsFDC) & ~BattleActorAbnormalMask);
         }

@@ -2055,7 +2055,7 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
 YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::int32_t imageNo)
 {
     auto* const payload = parent->payload.battleActor;
-    if (payload->effect1054 != nullptr) {
+    if (payload->debuffEffect1054 != nullptr) {
         return nullptr;
     }
     std::int32_t type = CG_BATTLE_DEBUFF_NONE;
@@ -2090,7 +2090,7 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     action->rebirthValue2 = 4;
     action->offset44 = static_cast<float>(y);
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
-    parent->payload.battleActor->effect1054 = action;
+    parent->payload.battleActor->debuffEffect1054 = action;
     action->battleAttachmentParent10 = parent;
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
@@ -2128,7 +2128,7 @@ void UpdateBattleDebuffEffect_41F800(YobiAction* const action)
 // 原函数：0x0041F860。
 YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::int32_t imageNo)
 {
-    if (parent->payload.battleActor->effect105C != nullptr) {
+    if (parent->payload.battleActor->attributeReversalEffect105C != nullptr) {
         return nullptr;
     }
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -2150,7 +2150,7 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     action->offset44 = static_cast<float>(y);
     action->rebirthValue2 = 4;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
-    parent->payload.battleActor->effect105C = action;
+    parent->payload.battleActor->attributeReversalEffect105C = action;
     action->battleAttachmentParent10 = parent;
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
@@ -2324,7 +2324,7 @@ void UpdateBattleAttachedEffect_41FB20(YobiAction* const action)
         static_cast<void>(MarkDeath(action));
     } else {
         const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload.battleActor);
-        YobiAction* const effect = payload->effect1068;
+        YobiAction* const effect = payload->statusEffect1068;
         const std::int32_t count = action->deltaX;
         if (effect != nullptr) {
             if (count > -10) {
@@ -2452,7 +2452,7 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
 YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::int32_t imageNo,
     const std::int32_t mode)
 {
-    if (parent->payload.battleActor->effect1068 != nullptr) {
+    if (parent->payload.battleActor->statusEffect1068 != nullptr) {
         return nullptr;
     }
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -2485,7 +2485,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
-    parent->payload.battleActor->effect1068 = action;
+    parent->payload.battleActor->statusEffect1068 = action;
     action->battleAttachmentParent10 = parent;
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const float y = action->offset44;
@@ -2709,10 +2709,10 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
         payload->flagsFDC = currentFlags | BattleActorFlag_ReverseType;
         static_cast<void>(NewBattleReverseEffect_41F860(parent, 110152));
     } else {
-        YobiAction* const effect = payload->effect105C;
+        YobiAction* const effect = payload->attributeReversalEffect105C;
         payload->flagsFDC = currentFlags & ~BattleActorFlag_ReverseType;
         static_cast<void>(MarkDeath(effect));
-        payload->effect105C = nullptr;
+        payload->attributeReversalEffect105C = nullptr;
     }
     if ((flags & BattleActorFlag_Morph) != 0) {
         payload->flagsFDC |= BattleActorFlag_Morph;

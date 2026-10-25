@@ -194,62 +194,62 @@ void ApplyWorldActorActionCommand_444410(
         const std::int32_t recordImage = character_select::ResolveCharacterImageForVersion(option1);
         gWorldObjects[payload->index].imageNo = static_cast<std::uint32_t>(recordImage);
         if (option2 > 0) {
-            if (payload->action30 == nullptr) {
+            if (payload->mainGear30 == nullptr) {
                 const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
-                payload->action30 = cg::yobi::NewYobiGear_4410F0(image);
+                payload->mainGear30 = cg::yobi::NewYobiGear_4410F0(image);
             }
-            if (payload->action30 != nullptr) {
+            if (payload->mainGear30 != nullptr) {
                 const std::int32_t image = character_select::ResolveCharacterImageForVersion(option2);
-                payload->action30->imageNo = image;
+                payload->mainGear30->imageNo = image;
             }
         } else {
-            cg::yobi::YobiAction* const gear = payload->action30;
+            cg::yobi::YobiAction* const gear = payload->mainGear30;
             if (gear != nullptr) {
                 cg::yobi::MarkDeath(gear);
-                payload->action30 = nullptr;
+                payload->mainGear30 = nullptr;
             }
         }
         if (option3 > 0) {
             std::int32_t image = character_select::ResolveCharacterImageForVersion(option3);
-            if (payload->action34 == nullptr) {
+            if (payload->firstAuxiliaryGear34 == nullptr) {
                 const std::int32_t petY =
                     static_cast<std::int32_t>(action->mapY1F0);
                 const std::int32_t petX =
                     static_cast<std::int32_t>(action->mapX1E0);
-                payload->action34 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
+                payload->firstAuxiliaryGear34 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
             }
-            cg::yobi::YobiAction* const firstPet = payload->action34;
+            cg::yobi::YobiAction* const firstPet = payload->firstAuxiliaryGear34;
             if (firstPet != nullptr) {
                 firstPet->imageNo = image;
             }
             if (option4 == 6) {
-                cg::yobi::YobiAction* const previousSecondPet = payload->action38;
+                cg::yobi::YobiAction* const previousSecondPet = payload->secondAuxiliaryGear38;
                 ++image;
                 if (previousSecondPet == nullptr) {
                     const std::int32_t petY =
                         static_cast<std::int32_t>(action->mapY1F0);
                     const std::int32_t petX =
                         static_cast<std::int32_t>(action->mapX1E0);
-                    payload->action38 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
+                    payload->secondAuxiliaryGear38 = cg::yobi::NewYobiGearPet_441130(image, petX, petY);
                 }
-                cg::yobi::YobiAction* const secondPet = payload->action38;
+                cg::yobi::YobiAction* const secondPet = payload->secondAuxiliaryGear38;
                 if (secondPet != nullptr) {
                     secondPet->imageNo = image;
                 }
             }
         } else {
-            cg::yobi::YobiAction* const firstPet = payload->action34;
+            cg::yobi::YobiAction* const firstPet = payload->firstAuxiliaryGear34;
             if (firstPet != nullptr) {
                 cg::yobi::MarkDeath(firstPet);
-                payload->action34 = nullptr;
+                payload->firstAuxiliaryGear34 = nullptr;
             }
-            cg::yobi::YobiAction* const secondPet = payload->action38;
+            cg::yobi::YobiAction* const secondPet = payload->secondAuxiliaryGear38;
             if (secondPet != nullptr) {
                 cg::yobi::MarkDeath(secondPet);
-                payload->action38 = nullptr;
+                payload->secondAuxiliaryGear38 = nullptr;
             }
         }
-        payload->kind3C = option4;
+        payload->firstAuxiliaryGearKind3C = option4;
         return;
     }
     case 63:
@@ -262,17 +262,17 @@ void ApplyWorldActorActionCommand_444410(
         return;
     case 70:
         if (option1 >= 0) {
-            if (payload->action44 == nullptr) {
+            if (payload->rideActor44 == nullptr) {
                 cg::yobi::YobiAction* const ride = cg::yobi::NewYobiAction_404AE0(2, 0);
-                payload->action44 = ride;
+                payload->rideActor44 = ride;
                 ride->callback = nullptr;
-                payload->action44->characterAction = 0;
-                payload->action44->displayPriority = 10;
-                payload->action44->flags = 0x34u;
-                payload->action44->flags |= 0x200u;
+                payload->rideActor44->characterAction = 0;
+                payload->rideActor44->displayPriority = 10;
+                payload->rideActor44->flags = 0x34u;
+                payload->rideActor44->flags |= 0x200u;
             }
             const std::int32_t image = character_select::ResolveCharacterImageForVersion(option1);
-            payload->action44->imageNo = image;
+            payload->rideActor44->imageNo = image;
             const std::int32_t original =
                 std::bit_cast<std::int32_t>(gWorldObjects[payload->index].imageNo);
             action->imageNo = ResolveRidingCharacterImage_51C0D0(original);
@@ -281,13 +281,13 @@ void ApplyWorldActorActionCommand_444410(
             action->phase = 2;
         }
         {
-            cg::yobi::YobiAction* const ride = payload->action44;
+            cg::yobi::YobiAction* const ride = payload->rideActor44;
             const bool resetRide = option1 >= 0 || ride != nullptr;
-            payload->counter48 = 0;
+            payload->transitionProgress48 = 0;
             if (resetRide) {
                 ride->characterAction = 0;
                 if (action->characterAction == 1) {
-                    payload->action44->characterAction = 1;
+                    payload->rideActor44->characterAction = 1;
                 }
             }
         }
@@ -295,7 +295,7 @@ void ApplyWorldActorActionCommand_444410(
     case 80:
         action->phase = 3;
         action->imageNo = character_select::ResolveCharacterImageForVersion(option1);
-        payload->counter48 = 0;
+        payload->transitionProgress48 = 0;
         return;
     case 200:
         if (option1 != 0) {
@@ -778,13 +778,13 @@ void MovePlayerOneStep_46B1B0(
         ? nullptr : player->payload.mapActor;
     const float rate = static_cast<float>(
         static_cast<double>(speed) * 0.01F);
-    if (payload != nullptr && payload->action2C != nullptr) {
+    if (payload != nullptr && payload->attachedActor2C != nullptr) {
         const std::int32_t previousY =
             static_cast<std::int32_t>(player->mapY1F0);
         const std::int32_t previousX =
             static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.action->mapX1E0);
         static_cast<void>(cg::yobi::StartMapActorMovement_442110(
-            payload->action2C, previousX, previousY, speed, rate));
+            payload->attachedActor2C, previousX, previousY, speed, rate));
     }
 
     gPlayerSnapshotX = static_cast<std::int32_t>(x);

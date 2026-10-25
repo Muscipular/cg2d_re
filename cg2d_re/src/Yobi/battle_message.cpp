@@ -3496,10 +3496,10 @@ void ParseBattleC_438550()
             payload->flagsFDC = reverseFlags | detail::BattleActorFlag_ReverseType;
             static_cast<void>(detail::NewBattleReverseEffect_41F860(actor, 110152));
         } else {
-            YobiAction* const effect = payload->effect105C;
+            YobiAction* const effect = payload->attributeReversalEffect105C;
             payload->flagsFDC = reverseFlags & ~detail::BattleActorFlag_ReverseType;
             static_cast<void>(MarkDeath(effect));
-            payload->effect105C = nullptr;
+            payload->attributeReversalEffect105C = nullptr;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Morph) != 0) {
             payload->flagsFDC |= detail::BattleActorFlag_Morph;
@@ -3637,12 +3637,12 @@ void ParseBattleC_438550()
             continue;
         }
         auto* const payload = actor->payload.battleActor;
-        static_cast<void>(MarkDeath(payload->effect1054));
+        static_cast<void>(MarkDeath(payload->debuffEffect1054));
         static_cast<void>(MarkDeath(payload->attachedEffect1058));
-        static_cast<void>(MarkDeath(payload->effect105C));
+        static_cast<void>(MarkDeath(payload->attributeReversalEffect105C));
         static_cast<void>(MarkDeath(payload->effect1060));
         static_cast<void>(MarkDeath(payload->centeredEffect1064));
-        static_cast<void>(MarkDeath(payload->effect1068));
+        static_cast<void>(MarkDeath(payload->statusEffect1068));
         static_cast<void>(MarkDeath(payload->rebirthEffect106C));
         static_cast<void>(MarkDeath(payload->rebirthAuxiliaryEffects1074[0]));
         static_cast<void>(MarkDeath(payload->rebirthAuxiliaryEffects1074[1]));

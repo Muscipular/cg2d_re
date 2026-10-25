@@ -192,7 +192,7 @@ void ResolveGearPetAnimationState_4412D0(
 {
     auto* const payload = action->payload.mapActor;
     for (std::int32_t slot = 0; slot < 2; ++slot) {
-        const std::int32_t kind = slot == 0 ? payload->kind3C : payload->kind40;
+        const std::int32_t kind = slot == 0 ? payload->firstAuxiliaryGearKind3C : payload->secondAuxiliaryGearKind40;
         if (kind == 2) {
             *characterAction = CharacterAnimation_Stand;
             *revert = AnimationPlayback_Loop;
@@ -238,7 +238,7 @@ void ResolveGearPetDrawPlacement_441430(
 {
     auto* const payload = action->payload.mapActor;
     for (std::int32_t slot = 0; slot < 2; ++slot) {
-        const std::int32_t kind = slot == 0 ? payload->kind3C : payload->kind40;
+        const std::int32_t kind = slot == 0 ? payload->firstAuxiliaryGearKind3C : payload->secondAuxiliaryGearKind40;
         if (kind < 3 || kind > 5) {
             continue;
         }
@@ -280,8 +280,8 @@ void DrawGear_441570(
 {
     auto* const payload = action->payload.mapActor;
     for (std::int32_t slot = 0; slot < 2; ++slot) {
-        const std::int32_t kind = slot == 0 ? payload->kind3C : payload->kind40;
-        YobiAction* const child = slot == 0 ? payload->action34 : payload->action38;
+        const std::int32_t kind = slot == 0 ? payload->firstAuxiliaryGearKind3C : payload->secondAuxiliaryGearKind40;
+        YobiAction* const child = slot == 0 ? payload->firstAuxiliaryGear34 : payload->secondAuxiliaryGear38;
         if (child == nullptr) {
             continue;
         }
@@ -318,7 +318,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
 {
     using enum resource::animation::AnimeActionFlag;
     auto* const payload = parent->payload.mapActor;
-    YobiAction* const gear = payload->action30;
+    YobiAction* const gear = payload->mainGear30;
     if (gear == nullptr) {
         return;
     }
@@ -331,7 +331,7 @@ static void DrawMapMainGear406(YobiAction* const parent, const std::int32_t prim
         return;
     }
     const std::uint16_t flags = GetYobiAnimeActionFlags(gear);
-    YobiAction* const ride = payload->action44;
+    YobiAction* const ride = payload->rideActor44;
     std::int32_t offsetX = 0;
     std::int32_t offsetY = 0;
     if ((flags & AnimeActionFlag_LockPos) == 0) {
@@ -452,49 +452,49 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         drawBars = false;
     }
 
-    bool createFirst = action->refresh2EC != 0 && (flags & 0x100u) != 0;
-    if (!createFirst && (flags & 0x100u) != 0 && payload->action04 == nullptr) {
+    bool createFirst = action->overheadMarkerRefresh2EC != 0 && (flags & 0x100u) != 0;
+    if (!createFirst && (flags & 0x100u) != 0 && payload->overheadMarker04 == nullptr) {
         createFirst = (flags & 0x400u) == 0
             || (flags & 0x4000u) == 0 || (flags & 0x8000u) != 0;
     }
     if (createFirst) {
         const std::int32_t kind = action->overheadMarkerMode2E4;
-        action->refresh2EC = 0;
+        action->overheadMarkerRefresh2EC = 0;
         const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-        const std::int32_t imageNo = kind == 1 || kind == 2 ? action->imageNo2E8 : 0x192BC;
-        payload->action04 = CreateMapAttachmentAction_444000(imageNo, mapX, mapY, CharacterAnimation_Stand, 0, 10);
+        const std::int32_t imageNo = kind == 1 || kind == 2 ? action->overheadMarkerImage2E8 : 0x192BC;
+        payload->overheadMarker04 = CreateMapAttachmentAction_444000(imageNo, mapX, mapY, CharacterAnimation_Stand, 0, 10);
     } else if (((flags & 0x100u) == 0 || (flags & 0x400u) != 0)
-               && payload->action04 != nullptr) {
-        MarkDeath(payload->action04);
-        payload->action04 = nullptr;
+               && payload->overheadMarker04 != nullptr) {
+        MarkDeath(payload->overheadMarker04);
+        payload->overheadMarker04 = nullptr;
     } else if ((flags & 0x100u) != 0) {
-        YobiAction* const initialChild = payload->action04;
+        YobiAction* const initialChild = payload->overheadMarker04;
         if (initialChild != nullptr) {
             const std::int32_t parentX = action->x;
             initialChild->x = parentX;
-            YobiAction* const yChild = payload->action04;
+            YobiAction* const yChild = payload->overheadMarker04;
             const std::int32_t parentY = action->y;
             yChild->y = parentY;
-            YobiAction* const worldXChild = payload->action04;
+            YobiAction* const worldXChild = payload->overheadMarker04;
             const float worldX = action->worldX;
             worldXChild->worldX = worldX;
-            YobiAction* const worldYChild = payload->action04;
+            YobiAction* const worldYChild = payload->overheadMarker04;
             const float worldY = action->worldY;
             worldYChild->worldY = worldY;
-            YobiAction* const animatedChild = payload->action04;
+            YobiAction* const animatedChild = payload->overheadMarker04;
             AdvanceYobiAnimationFrame_517880(animatedChild, 100, AnimationPlayback_Loop, 0);
             const std::int32_t imageNo = action->imageNo;
             const std::int32_t height = GetActorOverheadOffset_4417A0(imageNo);
-            YobiAction* const yOffsetChild = payload->action04;
+            YobiAction* const yOffsetChild = payload->overheadMarker04;
             const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(yOffsetChild, 1);
             const std::int32_t currentY = action->y;
             const std::int32_t heightOffsetY = height + offsetY;
-            YobiAction* const xOffsetChild = payload->action04;
+            YobiAction* const xOffsetChild = payload->overheadMarker04;
             const std::int32_t drawY = heightOffsetY + currentY;
             const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(xOffsetChild, 0);
             const std::int32_t currentX = action->x;
-            YobiAction* const graphicChild = payload->action04;
+            YobiAction* const graphicChild = payload->overheadMarker04;
             const std::int32_t drawX = offsetX + currentX;
             const std::int32_t graphicIndex = graphicChild->graphicIndex;
             world::DrawGearNormal_46C060(
@@ -667,107 +667,107 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         if ((state & 0x1000u) != 0) {
             statusImage = 0x1824F;
         }
-        if (payload->action4C == nullptr) {
+        if (payload->statusIcon4C == nullptr) {
             const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
             YobiAction* const child = CreateMapAttachmentAction_444000(statusImage, mapX, mapY, CharacterAnimation_Stand, 0, 10);
-            payload->action4C = child;
+            payload->statusIcon4C = child;
             child->rebirthValue1 = 4;
-            payload->action4C->rebirthValue2 = 4;
+            payload->statusIcon4C->rebirthValue2 = 4;
         }
-        if (payload->action4C != nullptr) {
-            payload->action4C->imageNo = statusImage;
-            positionStatus(payload->action4C);
+        if (payload->statusIcon4C != nullptr) {
+            payload->statusIcon4C->imageNo = statusImage;
+            positionStatus(payload->statusIcon4C);
             if ((state & 1u) != 0 && statusMask == 0) {
-                payload->action4C->x -= 17;
+                payload->statusIcon4C->x -= 17;
             }
-            drawStatus(payload->action4C);
+            drawStatus(payload->statusIcon4C);
         }
-    } else if (payload->action4C != nullptr) {
-        MarkDeath(payload->action4C);
-        payload->action4C = nullptr;
+    } else if (payload->statusIcon4C != nullptr) {
+        MarkDeath(payload->statusIcon4C);
+        payload->statusIcon4C = nullptr;
     }
 
     if ((state & 4u) != 0) {
-        if (payload->action4C == nullptr) {
-            if (payload->action0C == nullptr) {
+        if (payload->statusIcon4C == nullptr) {
+            if (payload->statusIcon1AF4D_0C == nullptr) {
                 const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
                 const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
-                payload->action0C = CreateMapAttachmentAction_444000(0x1AF4D, mapX, mapY, CharacterAnimation_Stand, 0, 10);
+                payload->statusIcon1AF4D_0C = CreateMapAttachmentAction_444000(0x1AF4D, mapX, mapY, CharacterAnimation_Stand, 0, 10);
                 if ((state & 0x20u) != 0) {
                     clearActionState((action->flags & 0x80000u) != 0 ? 0x40 : 0x20);
                     static_cast<void>(audio::PlaySe_52C450(0x1B5, action->x));
                 }
-                payload->action0C->counter1DC = 0;
-                payload->action0C->rebirthValue1 = 4;
-                payload->action0C->rebirthValue2 = 4;
+                payload->statusIcon1AF4D_0C->counter1DC = 0;
+                payload->statusIcon1AF4D_0C->rebirthValue1 = 4;
+                payload->statusIcon1AF4D_0C->rebirthValue2 = 4;
             }
-            if (payload->action0C != nullptr) {
-                positionStatus(payload->action0C);
-                drawStatus(payload->action0C);
+            if (payload->statusIcon1AF4D_0C != nullptr) {
+                positionStatus(payload->statusIcon1AF4D_0C);
+                drawStatus(payload->statusIcon1AF4D_0C);
             }
         }
-        ++payload->action0C->counter1DC;
-        if (payload->action0C->counter1DC > 600) {
+        ++payload->statusIcon1AF4D_0C->counter1DC;
+        if (payload->statusIcon1AF4D_0C->counter1DC > 600) {
             clearActionState((action->flags & 0x80000u) != 0 ? 0x10 : 4);
         }
-    } else if (payload->action0C != nullptr) {
-        MarkDeath(payload->action0C);
-        payload->action0C = nullptr;
+    } else if (payload->statusIcon1AF4D_0C != nullptr) {
+        MarkDeath(payload->statusIcon1AF4D_0C);
+        payload->statusIcon1AF4D_0C = nullptr;
     }
 
     if ((state & 1u) != 0 && statusMask == 0) {
-        if (payload->action10 == nullptr) {
+        if (payload->statusIcon1AF4E_10 == nullptr) {
             const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
             YobiAction* const child = CreateMapAttachmentAction_444000(0x1AF4E, mapX, mapY, CharacterAnimation_Stand, 0, 10);
-            payload->action10 = child;
+            payload->statusIcon1AF4E_10 = child;
             child->rebirthValue1 = 4;
-            payload->action10->rebirthValue2 = 4;
+            payload->statusIcon1AF4E_10->rebirthValue2 = 4;
         }
-        if (payload->action10 != nullptr) {
-            positionStatus(payload->action10);
-            if (payload->action4C != nullptr) {
-                payload->action10->x += 17;
+        if (payload->statusIcon1AF4E_10 != nullptr) {
+            positionStatus(payload->statusIcon1AF4E_10);
+            if (payload->statusIcon4C != nullptr) {
+                payload->statusIcon1AF4E_10->x += 17;
             }
-            drawStatus(payload->action10);
+            drawStatus(payload->statusIcon1AF4E_10);
         }
-    } else if (payload->action10 != nullptr) {
-        MarkDeath(payload->action10);
-        payload->action10 = nullptr;
+    } else if (payload->statusIcon1AF4E_10 != nullptr) {
+        MarkDeath(payload->statusIcon1AF4E_10);
+        payload->statusIcon1AF4E_10 = nullptr;
     }
 
     DrawMapMainGear406(action, primaryIndex);
-    if ((payload->action34 != nullptr || payload->action38 != nullptr)
-        && payload->action44 == nullptr) {
+    if ((payload->firstAuxiliaryGear34 != nullptr || payload->secondAuxiliaryGear38 != nullptr)
+        && payload->rideActor44 == nullptr) {
         std::int32_t characterAction = CharacterAnimation_Stand;
         std::int32_t revert = AnimationPlayback_StopAtEnd;
         std::int32_t x = 0;
         std::int32_t y = 0;
         std::uint8_t before = 1;
-        if (payload->action34 != nullptr) {
-            payload->action34->direction = action->direction;
+        if (payload->firstAuxiliaryGear34 != nullptr) {
+            payload->firstAuxiliaryGear34->direction = action->direction;
         }
-        if (payload->action38 != nullptr) {
-            payload->action38->direction = action->direction;
+        if (payload->secondAuxiliaryGear38 != nullptr) {
+            payload->secondAuxiliaryGear38->direction = action->direction;
         }
         ResolveGearPetAnimationState_4412D0(action, primaryIndex, &characterAction, &revert);
         ResolveGearPetDrawPlacement_441430(action, primaryIndex, &x, &y, &before);
-        if (payload->kind3C == 6 && payload->action34->characterAction == CharacterAnimation_Down) {
-            payload->action34->graphicIndex = -1;
+        if (payload->firstAuxiliaryGearKind3C == 6 && payload->firstAuxiliaryGear34->characterAction == CharacterAnimation_Down) {
+            payload->firstAuxiliaryGear34->graphicIndex = -1;
         }
-        if (payload->kind40 == 6 && payload->action38->characterAction == CharacterAnimation_Down) {
-            payload->action38->graphicIndex = -1;
+        if (payload->secondAuxiliaryGearKind40 == 6 && payload->secondAuxiliaryGear38->characterAction == CharacterAnimation_Down) {
+            payload->secondAuxiliaryGear38->graphicIndex = -1;
         }
         DrawGear_441570(action, primaryIndex, x, y, before);
-        if (payload->action34 != nullptr) {
-            payload->action34->characterAction = characterAction;
+        if (payload->firstAuxiliaryGear34 != nullptr) {
+            payload->firstAuxiliaryGear34->characterAction = characterAction;
         }
-        if (payload->action38 != nullptr) {
-            payload->action38->characterAction = characterAction;
+        if (payload->secondAuxiliaryGear38 != nullptr) {
+            payload->secondAuxiliaryGear38->characterAction = characterAction;
         }
-        PlayFrame_517DA0(payload->action34, revert);
-        PlayFrame_517DA0(payload->action38, revert);
+        PlayFrame_517DA0(payload->firstAuxiliaryGear34, revert);
+        PlayFrame_517DA0(payload->secondAuxiliaryGear38, revert);
     }
     if (drawBars) {
         ShowHpBar_43DB60(action, -10, 3, -1);

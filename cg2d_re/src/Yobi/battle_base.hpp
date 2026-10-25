@@ -657,12 +657,12 @@ struct BattleActorPayload {
     std::int32_t skill98Mode1048; // 原成员偏移：+0x1048。 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
     std::array<std::byte, 4> bytes104C; // 原成员偏移：+0x104C。 原104C..104F：仅保留存储，不按邻接值猜图号或计数。
     std::int32_t attackDebuffType1050; // 原成员偏移：+0x1050。 424F64保存技能94的M整数；409680用于减益图号偏移。
-    YobiAction* effect1054; // 原成员偏移：+0x1054。 41F660发布；416DD0/4072E0先标死再清槽，非拥有引用。
+    YobiAction* debuffEffect1054; // 原+1054；41F660创建的减益特效，含扩展图；416DD0/4072E0标死后清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 原成员偏移：+0x1058。 41FBE0创建并发布的非拥有附属特效引用。
-    YobiAction* effect105C; // 原成员偏移：+0x105C。 41F860发布；4131B0/422370标死并清槽，非拥有引用。
+    YobiAction* attributeReversalEffect105C; // 原+105C；41F860的属性反转特效，422370按FDC位800恢复／清理，非拥有引用。
     YobiAction* effect1060; // 原成员偏移：+0x1060。 非拥有克隆/骑乘/缩放特效；4067F0骑乘路径payload为BattleRideCarrierPayload。
     YobiAction* centeredEffect1064; // 原成员偏移：+0x1064。 41FA00发布的非拥有居中特效；41F950随父对象移动。
-    YobiAction* effect1068; // 原成员偏移：+0x1068。 41FE00发布、41FCD0更新；4131B0标死并清槽，非拥有引用。
+    YobiAction* statusEffect1068; // 原+1068；41FE00创建、41FCD0更新的能力变化／扩展状态特效，4131B0清理，非拥有引用。
     YobiAction* rebirthEffect106C; // 原成员偏移：+0x106C。 4114B0/438CAF发布419CF0结果；497C80只检查空值，79标死后清槽。
     YobiAction* caster1070; // 原成员偏移：+0x1070。 4392A0记录动作发起者，非拥有引用。
     std::array<YobiAction*, 3> rebirthAuxiliaryEffects1074; // 原成员偏移：+0x1074。 原1074/1078/107C三槽，非拥有；79按原顺序清理。

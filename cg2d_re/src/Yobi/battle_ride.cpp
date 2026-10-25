@@ -23,20 +23,20 @@ namespace detail {
 // 三种拆分动作的固定载荷清理段；不含骑乘/1060，也不重取对象表。
 static void ClearBattleRideAttachments(BattleActorPayload* const payload)
 {
-    YobiAction* const reverseEffect = payload->effect105C;
+    YobiAction* const reverseEffect = payload->attributeReversalEffect105C;
     if (reverseEffect != nullptr) {
         static_cast<void>(MarkDeath(reverseEffect));
-        payload->effect105C = nullptr;
+        payload->attributeReversalEffect105C = nullptr;
     }
-    YobiAction* const debuffEffect = payload->effect1054;
+    YobiAction* const debuffEffect = payload->debuffEffect1054;
     if (debuffEffect != nullptr) {
         static_cast<void>(MarkDeath(debuffEffect));
-        payload->effect1054 = nullptr;
+        payload->debuffEffect1054 = nullptr;
     }
-    YobiAction* const statusEffect = payload->effect1068;
+    YobiAction* const statusEffect = payload->statusEffect1068;
     if (statusEffect != nullptr) {
         static_cast<void>(MarkDeath(statusEffect));
-        payload->effect1068 = nullptr;
+        payload->statusEffect1068 = nullptr;
     }
     YobiAction* const attachedEffect = payload->attachedEffect1058;
     if (attachedEffect != nullptr) {

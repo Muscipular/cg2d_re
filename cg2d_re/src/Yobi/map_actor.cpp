@@ -132,45 +132,45 @@ static void DrawActorPhaseAttachment(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), descriptor, 0);
 }
 
-// 原两个阶段的action08创建/播放；分配后的首写原本不判空，不增加失败门禁。
+// 原两个阶段的transitionEffect08创建/播放；分配后的首写原本不判空，不增加失败门禁。
 static void DrawActorPhaseEffect(
     YobiAction* const action, MapActorPayload* const payload,
     const std::int32_t primaryIndex, const std::int32_t imageNo,
     const ActorAttachmentReadOrder readOrder)
 {
-    if (payload->action08 == nullptr) {
+    if (payload->transitionEffect08 == nullptr) {
         YobiAction* const created = NewYobiAction_404AE0(2, 0);
-        payload->action08 = created;
+        payload->transitionEffect08 = created;
         created->callback = nullptr;
-        payload->action08->imageNo = imageNo;
-        payload->action08->characterAction = CharacterAnimation_Stand;
-        payload->action08->displayPriority = 10;
-        payload->action08->flags = 0x34u;
+        payload->transitionEffect08->imageNo = imageNo;
+        payload->transitionEffect08->characterAction = CharacterAnimation_Stand;
+        payload->transitionEffect08->displayPriority = 10;
+        payload->transitionEffect08->flags = 0x34u;
     }
-    YobiAction* const child = payload->action08;
+    YobiAction* const child = payload->transitionEffect08;
     if (child != nullptr) {
         static_cast<void>(AdvanceYobiAnimationFrame_517880(child, 100, AnimationPlayback_Loop, 0));
-        DrawActorPhaseAttachment(action, &payload->action08, primaryIndex, 1, readOrder);
+        DrawActorPhaseAttachment(action, &payload->transitionEffect08, primaryIndex, 1, readOrder);
     }
 }
 
 // 原43E591–43EA01：阶段1的上升、骑乘动作恢复及效果附件清理。
 static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* const payload)
 {
-    YobiAction* const ride = payload->action44;
+    YobiAction* const ride = payload->rideActor44;
     if (ride == nullptr) {
         action->phase = 0;
         RestoreMountedCharacterAction(action);
         return;
     }
     ride->direction = action->direction;
-    YobiAction* const currentRide = payload->action44;
-    const std::int32_t counter = payload->counter48;
+    YobiAction* const currentRide = payload->rideActor44;
+    const std::int32_t counter = payload->transitionProgress48;
     const std::int32_t horizontal = currentRide->frameX * counter / 30;
     const std::int32_t arc = counter - 15;
     std::int32_t vertical = arc * arc - 225;
     if (counter > 15) {
-        const std::int32_t frameY = payload->action44->frameY;
+        const std::int32_t frameY = payload->rideActor44->frameY;
         if (frameY <= vertical) {
             vertical = frameY;
         }
@@ -192,24 +192,24 @@ static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* con
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->action44, 100, AnimationPlayback_Loop, 0));
-    DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->rideActor44, 100, AnimationPlayback_Loop, 0));
+    DrawActorPhaseAttachment(action, &payload->rideActor44, primaryIndex, 0,
         ActorAttachmentReadOrder::AfterYAndXAddition);
     DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE10,
         ActorAttachmentReadOrder::BeforeYAndXAddition);
-    if (payload->counter48 == 0) {
+    if (payload->transitionProgress48 == 0) {
         static_cast<void>(audio::PlaySe_52C450(0x1D1, action->x));
     }
-    const std::int32_t nextCounter = payload->counter48 + 1;
-    payload->counter48 = nextCounter;
-    if (nextCounter > 15 && payload->action44->frameY <= vertical) {
+    const std::int32_t nextCounter = payload->transitionProgress48 + 1;
+    payload->transitionProgress48 = nextCounter;
+    if (nextCounter > 15 && payload->rideActor44->frameY <= vertical) {
         action->phase = 0;
         RestoreMountedCharacterAction(action);
         static_cast<void>(audio::PlaySe_52C450(0x1CE, action->x));
-        YobiAction* const effect = payload->action08;
+        YobiAction* const effect = payload->transitionEffect08;
         if (effect != nullptr) {
             MarkDeath(effect);
-            payload->action08 = nullptr;
+            payload->transitionEffect08 = nullptr;
         }
     }
 }
@@ -217,36 +217,36 @@ static void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* con
 // 原43EAA2–43EDA2：阶段2的下降、骑乘附件退出及原图号恢复。
 static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* const payload)
 {
-    YobiAction* const ride = payload->action44;
+    YobiAction* const ride = payload->rideActor44;
     if (ride == nullptr) {
         action->phase = 0;
         action->characterAction = CharacterAnimation_Stand;
-        MarkDeath(payload->action44);
-        payload->action44 = nullptr;
+        MarkDeath(payload->rideActor44);
+        payload->rideActor44 = nullptr;
         RestoreActorOriginalImage(action, payload);
         return;
     }
     ride->direction = action->direction;
-    YobiAction* const currentRide = payload->action44;
-    const std::int32_t initialCounter = payload->counter48;
+    YobiAction* const currentRide = payload->rideActor44;
+    const std::int32_t initialCounter = payload->transitionProgress48;
     const std::int32_t frameX = currentRide->frameX;
     const std::int32_t horizontal = frameX - frameX * initialCounter / 30;
     if (initialCounter == 0) {
         for (;;) {
-            const std::int32_t counter = payload->counter48;
+            const std::int32_t counter = payload->transitionProgress48;
             const std::int32_t arc = counter - 15;
             const std::int32_t candidate = arc * arc - 225;
-            if (payload->action44->frameY >= candidate) {
+            if (payload->rideActor44->frameY >= candidate) {
                 break;
             }
             const std::int32_t nextCounter = counter + 1;
-            payload->counter48 = nextCounter;
+            payload->transitionProgress48 = nextCounter;
             if (nextCounter >= 15) {
                 break;
             }
         }
     }
-    const std::int32_t counter = payload->counter48;
+    const std::int32_t counter = payload->transitionProgress48;
     const std::int32_t arc = counter - 15;
     std::int32_t vertical = arc * arc - 225;
     if (counter > 15 && vertical >= 0) {
@@ -269,27 +269,27 @@ static void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* 
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
-    static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->action44, 100, AnimationPlayback_Loop, 0));
-    DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
+    static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->rideActor44, 100, AnimationPlayback_Loop, 0));
+    DrawActorPhaseAttachment(action, &payload->rideActor44, primaryIndex, 0,
         ActorAttachmentReadOrder::BeforeYAddition);
     DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE11,
         ActorAttachmentReadOrder::BeforeYAddition);
-    if (payload->counter48 == 0) {
+    if (payload->transitionProgress48 == 0) {
         static_cast<void>(audio::PlaySe_52C450(0x1CF, action->x));
     }
-    const std::int32_t nextCounter = payload->counter48 + 1;
-    payload->counter48 = nextCounter;
+    const std::int32_t nextCounter = payload->transitionProgress48 + 1;
+    payload->transitionProgress48 = nextCounter;
     if (nextCounter > 15 && vertical >= 0) {
         action->phase = 0;
         action->characterAction = CharacterAnimation_Stand;
-        MarkDeath(payload->action44);
-        payload->action44 = nullptr;
+        MarkDeath(payload->rideActor44);
+        payload->rideActor44 = nullptr;
         RestoreActorOriginalImage(action, payload);
         static_cast<void>(audio::PlaySe_52C450(0x1C9, action->x));
-        YobiAction* const effect = payload->action08;
+        YobiAction* const effect = payload->transitionEffect08;
         if (effect != nullptr) {
             MarkDeath(effect);
-            payload->action08 = nullptr;
+            payload->transitionEffect08 = nullptr;
         }
     }
 }
@@ -307,14 +307,14 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
         static_cast<std::int64_t>(projectedX + 0.5));
     std::int32_t screenY = static_cast<std::int32_t>(
         static_cast<std::int64_t>(projectedY + 0.5));
-    const std::int32_t counter = payload->counter48;
+    const std::int32_t counter = payload->transitionProgress48;
     if (counter <= 360) {
         action->characterAction = CharacterAnimation_Run;
         const std::int32_t progress = 360 - counter;
         screenY += static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(progress)
             * -1.4F));
-        if (payload->counter48 == 0) {
+        if (payload->transitionProgress48 == 0) {
             action->field58 = action->direction;
         }
         const std::int32_t savedDirection = action->field58;
@@ -333,7 +333,7 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
         action->characterAction = CharacterAnimation_EndRun;
         if (AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_StopAtEnd, 0) == AnimationFrameResult_StoppedOrUnavailable) {
             action->phase = 0;
-            payload->counter48 = 0;
+            payload->transitionProgress48 = 0;
             action->characterAction = CharacterAnimation_Stand;
         }
     }
@@ -350,7 +350,7 @@ static void UpdateActorSpiralPhase(YobiAction* const action, MapActorPayload* co
         graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor));
-    ++payload->counter48;
+    ++payload->transitionProgress48;
 }
 
 // 原函数：0x0043DD00。
@@ -365,17 +365,17 @@ std::int32_t ParseMapActorAttachments_43DD00(
     const auto flags = static_cast<std::uint8_t>(
         character_select::ResolveCharacterImageForVersion(std::atoi(buffer)));
     if (payload != nullptr) {
-        if (payload->action30 != nullptr) {
-            MarkDeath(payload->action30);
-            payload->action30 = nullptr;
+        if (payload->mainGear30 != nullptr) {
+            MarkDeath(payload->mainGear30);
+            payload->mainGear30 = nullptr;
         }
-        if (payload->action34 != nullptr) {
-            MarkDeath(payload->action34);
-            payload->action34 = nullptr;
+        if (payload->firstAuxiliaryGear34 != nullptr) {
+            MarkDeath(payload->firstAuxiliaryGear34);
+            payload->firstAuxiliaryGear34 = nullptr;
         }
-        if (payload->action38 != nullptr) {
-            MarkDeath(payload->action38);
-            payload->action38 = nullptr;
+        if (payload->secondAuxiliaryGear38 != nullptr) {
+            MarkDeath(payload->secondAuxiliaryGear38);
+            payload->secondAuxiliaryGear38 = nullptr;
         }
     }
 
@@ -392,7 +392,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
                 const std::int32_t imageNo =
                     character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
                 if (payload != nullptr) {
-                    payload->action30 = NewYobiGear_4410F0(imageNo);
+                    payload->mainGear30 = NewYobiGear_4410F0(imageNo);
                 }
             } else if ((flags & 0x10u) != 0) {
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
@@ -405,20 +405,20 @@ std::int32_t ParseMapActorAttachments_43DD00(
                             static_cast<std::int32_t>(action->mapY1F0);
                         const std::int32_t x =
                             static_cast<std::int32_t>(action->mapX1E0);
-                        payload->action34 = NewYobiGearPet_441130(imageNo, x, y);
-                        payload->kind3C = kind;
+                        payload->firstAuxiliaryGear34 = NewYobiGearPet_441130(imageNo, x, y);
+                        payload->firstAuxiliaryGearKind3C = kind;
                     } else if (index == 1) {
                         if (kind >= 3 && kind <= 5
-                            && payload->kind3C >= 3 && payload->kind3C <= 5) {
-                            MarkDeath(payload->action34);
-                            payload->action34 = nullptr;
+                            && payload->firstAuxiliaryGearKind3C >= 3 && payload->firstAuxiliaryGearKind3C <= 5) {
+                            MarkDeath(payload->firstAuxiliaryGear34);
+                            payload->firstAuxiliaryGear34 = nullptr;
                         }
                         const std::int32_t y =
                             static_cast<std::int32_t>(action->mapY1F0);
                         const std::int32_t x =
                             static_cast<std::int32_t>(action->mapX1E0);
-                        payload->action38 = NewYobiGearPet_441130(imageNo, x, y);
-                        payload->kind40 = kind;
+                        payload->secondAuxiliaryGear38 = NewYobiGearPet_441130(imageNo, x, y);
+                        payload->secondAuxiliaryGearKind40 = kind;
                     }
                 }
             }
@@ -443,27 +443,27 @@ std::int32_t ParseMapActorAttachments_43DD00(
                         world::detail::gWorldObjects[payload->index].imageNo);
                 action->imageNo = world::ResolveRidingCharacterImage_51C0D0(original);
             };
-            if (payload->action44 != nullptr) {
-                payload->action44->imageNo = imageNo;
+            if (payload->rideActor44 != nullptr) {
+                payload->rideActor44->imageNo = imageNo;
                 mapMainImage();
             } else {
                 YobiAction* const ride = NewYobiAction_404AE0(2, 0);
-                payload->action44 = ride;
+                payload->rideActor44 = ride;
                 if (ride != nullptr) {
                     ride->callback = nullptr;
-                    payload->action44->imageNo = imageNo;
-                    payload->action44->characterAction = CharacterAnimation_Stand;
-                    payload->action44->displayPriority = 10;
-                    payload->action44->flags = 0x34u;
-                    payload->action44->flags |= 0x200u;
+                    payload->rideActor44->imageNo = imageNo;
+                    payload->rideActor44->characterAction = CharacterAnimation_Stand;
+                    payload->rideActor44->displayPriority = 10;
+                    payload->rideActor44->flags = 0x34u;
+                    payload->rideActor44->flags |= 0x200u;
                     mapMainImage();
                     RestoreMountedCharacterAction(action);
                 }
             }
         }
-    } else if (payload != nullptr && payload->action44 != nullptr) {
+    } else if (payload != nullptr && payload->rideActor44 != nullptr) {
         action->phase = 2;
-        payload->counter48 = 0;
+        payload->transitionProgress48 = 0;
     }
 
     if ((flags & 4u) != 0) {
@@ -494,9 +494,9 @@ std::int32_t ParseMapActorAttachments_43DD00(
         if (payload == nullptr) {
             return field;
         }
-        if (payload->action2C != nullptr) {
-            MarkDeath(payload->action2C);
-            payload->action2C = nullptr;
+        if (payload->attachedActor2C != nullptr) {
+            MarkDeath(payload->attachedActor2C);
+            payload->attachedActor2C = nullptr;
         }
         if (offsetDirection != -1) {
             const std::int16_t dx = world::ReadDirectionDeltaX(
@@ -507,20 +507,20 @@ std::int32_t ParseMapActorAttachments_43DD00(
             y += dy;
         }
         YobiAction* const child = CreateMapActorAction_441DB0(imageNo, x, y, direction);
-        payload->action2C = child;
+        payload->attachedActor2C = child;
         if (child == nullptr) {
             return field;
         }
         auto* const childPayload = child->payload.mapActor;
         childPayload->index =
             world::gPlayerRuntimeSlots.action == action ? -1 : payload->index;
-        payload->action2C->flags |= 0x80100u;
-        payload->action2C->nameC4 = cg::text::FromGbkWide(name);
-        payload->action2C->field1D0 = level;
-        payload->action2C->hoverTextColor1D8 = hoverTextColor;
-    } else if (payload != nullptr && payload->action2C != nullptr) {
-        MarkDeath(payload->action2C);
-        payload->action2C = nullptr;
+        payload->attachedActor2C->flags |= 0x80100u;
+        payload->attachedActor2C->nameC4 = cg::text::FromGbkWide(name);
+        payload->attachedActor2C->field1D0 = level;
+        payload->attachedActor2C->hoverTextColor1D8 = hoverTextColor;
+    } else if (payload != nullptr && payload->attachedActor2C != nullptr) {
+        MarkDeath(payload->attachedActor2C);
+        payload->attachedActor2C = nullptr;
     }
     return field;
 }
@@ -617,7 +617,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
             || characterAction == CharacterAnimation_Animation13 || characterAction == CharacterAnimation_Animation15
             || characterAction == CharacterAnimation_Sit ? AnimationPlayback_Loop : AnimationPlayback_StopAtEnd;
     } else {
-        YobiAction* const ride = payload->action44;
+        YobiAction* const ride = payload->rideActor44;
         const std::int32_t characterAction =
             ride != nullptr ? ride->characterAction : action->characterAction;
         stopAtEnd = characterAction == CharacterAnimation_Animation12 || characterAction == CharacterAnimation_Animation13
@@ -659,17 +659,17 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     } else {
         action->drawMode.mixFlags &= ~cg::render::GraphicMixFlag_OriginalPalette;
     }
-    YobiAction* const ride = payload->action44;
+    YobiAction* const ride = payload->rideActor44;
     if (ride != nullptr) {
         ride->direction = action->direction;
-        static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->action44, 100, stopAtEnd, 0));
+        static_cast<void>(AdvanceYobiAnimationFrame_517880(payload->rideActor44, 100, stopAtEnd, 0));
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
         const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, 1);
-        YobiAction* const rideY = payload->action44;
+        YobiAction* const rideY = payload->rideActor44;
         const std::int32_t y = action->y;
         const std::int32_t drawY = offsetY + rideY->frameY + y;
         const std::int32_t offsetX = GetYobiGraphicOriginOffset_5182B0(action, 0);
-        YobiAction* const rideX = payload->action44;
+        YobiAction* const rideX = payload->rideActor44;
         const std::int32_t x = action->x;
         const std::int32_t frameX = rideX->frameX;
         const std::int32_t graphicIndex = action->graphicIndex;
@@ -680,7 +680,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
             graphicIndex, worldXBits, worldYBits,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
-        DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
+        DrawActorPhaseAttachment(action, &payload->rideActor44, primaryIndex, 0,
             ActorAttachmentReadOrder::BeforeXAddition);
     } else if ((action->flags & 0x400u) != 0) {
         if (world::gPlayerRuntimeSlots.action != action) {
@@ -774,7 +774,7 @@ void UpdateMapActorPathMovement_4424B0(YobiAction* const action)
             PopMapActorPathPoint_442460(action);
             if ((action->flags & 0x200000u) == 0) {
                 auto* const payload = action->payload.mapActor;
-                YobiAction* const child = payload->action2C;
+                YobiAction* const child = payload->attachedActor2C;
                 if (child != nullptr) {
                     StartMapActorMovement_442110(child, previousX, previousY, child->walkSpeed, rate);
                 }
@@ -889,14 +889,14 @@ void SetYobiWalkSpeed(YobiAction* const action, const std::int32_t speed) noexce
 
 YobiAction* ReadMapActorAttachment44(const YobiAction* const action) noexcept
 {
-    return static_cast<const detail::MapActorPayload*>(action->payload.mapActor)->action44;
+    return static_cast<const detail::MapActorPayload*>(action->payload.mapActor)->rideActor44;
 }
 
 void BeginMapActorPhase2(YobiAction* const action)
 {
     auto* const payload = action->payload.mapActor;
     action->phase = 2;
-    payload->counter48 = 0;
+    payload->transitionProgress48 = 0;
 }
 
 std::uint16_t ReadYobiDirectionLow16(const YobiAction* const action) noexcept
@@ -984,13 +984,13 @@ void UpdateMapActorMode(
     YobiAction*& slot, const std::int32_t mode, const std::int32_t imageNo)
 {
     YobiAction* current = slot;
-    if (current->imageNo2E8 != imageNo) {
-        current->refresh2EC = 1;
+    if (current->overheadMarkerImage2E8 != imageNo) {
+        current->overheadMarkerRefresh2EC = 1;
         current = slot;
     }
     const bool explicitMode = mode == 1 || mode == 2;
     current->overheadMarkerMode2E4 = explicitMode ? mode : 0;
-    slot->imageNo2E8 = explicitMode ? imageNo : 0;
+    slot->overheadMarkerImage2E8 = explicitMode ? imageNo : 0;
 }
 
 void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const text)
@@ -1000,9 +1000,9 @@ void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const t
     network::ExtractDelimitedField_52CED0(text, '|', 17, 2047, buffer);
     if (std::strlen(buffer) != 0) {
         detail::ParseMapActorAttachments_43DD00(action, text, 17);
-    } else if (payload->action2C != nullptr) {
-        MarkDeath(payload->action2C);
-        payload->action2C = nullptr;
+    } else if (payload->attachedActor2C != nullptr) {
+        MarkDeath(payload->attachedActor2C);
+        payload->attachedActor2C = nullptr;
     }
 }
 
@@ -1084,42 +1084,42 @@ void ApplyPlayerAppearanceReply(
     world::gPlayerRuntimeSlots.action->imageNo = mappedImage;
     if (gearImage != 0) {
         const std::int32_t mappedGear = character_select::ResolveCharacterImageForVersion(gearImage);
-        bool hasGear = payload->action30 != nullptr;
+        bool hasGear = payload->mainGear30 != nullptr;
         if (!hasGear) {
             YobiAction* const gear = NewYobiGear_4410F0(mappedGear);
             hasGear = gear != nullptr;
-            payload->action30 = gear;
+            payload->mainGear30 = gear;
         }
         if (hasGear) {
             const std::int32_t converted =
                 character_select::ResolveCharacterImageForVersion(mappedGear);
-            payload->action30->imageNo = converted;
+            payload->mainGear30->imageNo = converted;
         }
     } else {
-        YobiAction* const gear = payload->action30;
+        YobiAction* const gear = payload->mainGear30;
         if (gear != nullptr) {
             MarkDeath(gear);
-            payload->action30 = nullptr;
+            payload->mainGear30 = nullptr;
         }
     }
 
     if (petImage != 0) {
         std::int32_t mappedPet = character_select::ResolveCharacterImageForVersion(petImage);
-        bool hasPet = payload->action34 != nullptr;
+        bool hasPet = payload->firstAuxiliaryGear34 != nullptr;
         if (!hasPet) {
             const std::int32_t y = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapY1F0);
             const std::int32_t x = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapX1E0);
             YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
             hasPet = pet != nullptr;
-            payload->action34 = pet;
+            payload->firstAuxiliaryGear34 = pet;
         }
         if (hasPet) {
             const std::int32_t converted =
                 character_select::ResolveCharacterImageForVersion(mappedPet);
-            payload->action34->imageNo = converted;
+            payload->firstAuxiliaryGear34->imageNo = converted;
         }
         if (kind == 6) {
-            YobiAction* const previousSecondPet = payload->action38;
+            YobiAction* const previousSecondPet = payload->secondAuxiliaryGear38;
             ++mappedPet;
             bool hasSecondPet = previousSecondPet != nullptr;
             if (!hasSecondPet) {
@@ -1127,27 +1127,27 @@ void ApplyPlayerAppearanceReply(
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapX1E0);
                 YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
                 hasSecondPet = pet != nullptr;
-                payload->action38 = pet;
+                payload->secondAuxiliaryGear38 = pet;
             }
             if (hasSecondPet) {
                 const std::int32_t converted =
                     character_select::ResolveCharacterImageForVersion(mappedPet);
-                payload->action38->imageNo = converted;
+                payload->secondAuxiliaryGear38->imageNo = converted;
             }
         }
     } else {
-        YobiAction* const firstPet = payload->action34;
+        YobiAction* const firstPet = payload->firstAuxiliaryGear34;
         if (firstPet != nullptr) {
             MarkDeath(firstPet);
-            payload->action34 = nullptr;
+            payload->firstAuxiliaryGear34 = nullptr;
         }
-        YobiAction* const secondPet = payload->action38;
+        YobiAction* const secondPet = payload->secondAuxiliaryGear38;
         if (secondPet != nullptr) {
             MarkDeath(secondPet);
-            payload->action38 = nullptr;
+            payload->secondAuxiliaryGear38 = nullptr;
         }
     }
-    payload->kind3C = kind;
+    payload->firstAuxiliaryGearKind3C = kind;
 }
 
 void ApplyPlayerRideReply(
@@ -1157,26 +1157,26 @@ void ApplyPlayerRideReply(
     YobiAction* const action = world::gPlayerRuntimeSlots.action;
     if (imageNo >= 0) {
         auto* const payload = action->payload.mapActor;
-        if (payload->action44 == nullptr) {
+        if (payload->rideActor44 == nullptr) {
             YobiAction* const ride = NewYobiAction_404AE0(2, 0);
-            payload->action44 = ride;
+            payload->rideActor44 = ride;
             ride->callback = nullptr;
-            payload->action44->characterAction = CharacterAnimation_Stand;
-            payload->action44->displayPriority = 10;
-            payload->action44->flags = 0x34u;
-            payload->action44->flags |= 0x200u;
+            payload->rideActor44->characterAction = CharacterAnimation_Stand;
+            payload->rideActor44->displayPriority = 10;
+            payload->rideActor44->flags = 0x34u;
+            payload->rideActor44->flags |= 0x200u;
         }
         const std::int32_t mappedRide = character_select::ResolveCharacterImageForVersion(imageNo);
-        payload->action44->imageNo = mappedRide;
+        payload->rideActor44->imageNo = mappedRide;
         const std::int32_t mappedPlayer =
             world::ResolveRidingCharacterImage_51C0D0(world::gPlayerRuntimeSlots.imageNo);
         world::gPlayerRuntimeSlots.action->imageNo = mappedPlayer;
         world::gPlayerRuntimeSlots.action->phase = 1;
-        payload->counter48 = 0;
+        payload->transitionProgress48 = 0;
         *remainingSteps = steps;
-        payload->action44->characterAction = CharacterAnimation_Stand;
+        payload->rideActor44->characterAction = CharacterAnimation_Stand;
         if (world::gPlayerRuntimeSlots.action->characterAction == CharacterAnimation_Walk) {
-            payload->action44->characterAction = CharacterAnimation_Walk;
+            payload->rideActor44->characterAction = CharacterAnimation_Walk;
         }
         return;
     }
@@ -1185,12 +1185,12 @@ void ApplyPlayerRideReply(
     }
     auto* const payload = action->payload.mapActor;
     action->phase = 2;
-    YobiAction* const ride = payload->action44;
-    payload->counter48 = 0;
+    YobiAction* const ride = payload->rideActor44;
+    payload->transitionProgress48 = 0;
     if (ride != nullptr) {
         ride->characterAction = CharacterAnimation_Stand;
         if (world::gPlayerRuntimeSlots.action->characterAction == CharacterAnimation_Walk) {
-            payload->action44->characterAction = CharacterAnimation_Walk;
+            payload->rideActor44->characterAction = CharacterAnimation_Walk;
         }
     }
     *remainingSteps = 0;
@@ -1203,7 +1203,7 @@ void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
     action->phase = 3;
     const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(imageNo);
     world::gPlayerRuntimeSlots.action->imageNo = mappedImage;
-    payload->counter48 = 0;
+    payload->transitionProgress48 = 0;
 }
 
 void ResetMapFollowerFromPath(
@@ -1455,7 +1455,7 @@ void SetMapActorAnimationState_43EFC0(
     const std::int32_t restart)
 {
     auto* const payload = action->payload.mapActor;
-    YobiAction* const ride = payload->action44;
+    YobiAction* const ride = payload->rideActor44;
     if (ride != nullptr) {
         ride->characterAction = characterAction;
         const std::int32_t imageNo = action->imageNo;
@@ -1463,7 +1463,7 @@ void SetMapActorAnimationState_43EFC0(
             || (imageNo >= 112000 && imageNo <= 112007)
             || (imageNo >= 112010 && imageNo <= 112028)
             || (imageNo >= 120148 && imageNo <= 120155)) {
-            switch (payload->action44->characterAction) {
+            switch (payload->rideActor44->characterAction) {
             case CharacterAnimation_Stand: action->characterAction = CharacterAnimation_Stand; break;
             case CharacterAnimation_Walk: action->characterAction = CharacterAnimation_Walk; break;
             case CharacterAnimation_BeginRun:
@@ -1476,7 +1476,7 @@ void SetMapActorAnimationState_43EFC0(
             case CharacterAnimation_Guard: action->characterAction = CharacterAnimation_Guard; break;
             default:
                 action->characterAction = CharacterAnimation_Stand;
-                payload->action44->characterAction = CharacterAnimation_Stand;
+                payload->rideActor44->characterAction = CharacterAnimation_Stand;
                 break;
             }
         } else if ((imageNo >= 100000 && imageNo <= 100999)
@@ -1494,15 +1494,15 @@ void SetMapActorAnimationState_43EFC0(
 
     if (restart != 0) {
         action->lastCharacterAction = -1;
-        YobiAction* attachment = payload->action44;
+        YobiAction* attachment = payload->rideActor44;
         if (attachment != nullptr) {
             attachment->lastCharacterAction = -1;
         }
-        attachment = payload->action34;
+        attachment = payload->firstAuxiliaryGear34;
         if (attachment != nullptr) {
             attachment->lastCharacterAction = -1;
         }
-        attachment = payload->action38;
+        attachment = payload->secondAuxiliaryGear38;
         if (attachment != nullptr) {
             attachment->lastCharacterAction = -1;
         }
@@ -1629,9 +1629,9 @@ void ClearMapActorAttachments(YobiAction* const action)
 
     // 原清理不包含 +34/+38；只保存槽地址，每轮调用前才读取对象指针。
     YobiAction** const slots[] {
-        &payload->action04, &payload->action08, &payload->action0C,
-        &payload->action10, &payload->action2C, &payload->action4C,
-        &payload->action30, &payload->action44,
+        &payload->overheadMarker04, &payload->transitionEffect08, &payload->statusIcon1AF4D_0C,
+        &payload->statusIcon1AF4E_10, &payload->attachedActor2C, &payload->statusIcon4C,
+        &payload->mainGear30, &payload->rideActor44,
     };
     for (YobiAction** const slot : slots) {
         YobiAction* const child = *slot;

@@ -25,8 +25,8 @@ namespace detail {
 // YUF01：原448040的+18/+1C按mode解释；0／1为附件引用，其余为S32初始化状态，不跨臂读取。
 union MapTransitionSlots18 {
     struct {
-        YobiAction* action18; // 原+18；446D80／446FA0的首个非拥有特效引用。
-        YobiAction* action1C; // 原+1C；同两回调的第二个非拥有特效引用。
+        YobiAction* firstEffect18; // 原+18；模式0／1先创建的18902特效；模式0还用本槽完成回写，非拥有引用。
+        YobiAction* secondEffect1C; // 原+1C；同两模式后创建的18902特效，模式0完成回写，非拥有引用。
     } attachments;
     struct {
         std::int32_t initialized18; // 原+18；模式2～9在零时置1并完成初始化，保持S32。
@@ -552,8 +552,8 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
         return 0;
     }
     if ((payload->flags10C & 1u) == 0
-        && payload->slots18.attachments.action18 == nullptr) {
-        YobiAction** const slot = &payload->slots18.attachments.action18;
+        && payload->slots18.attachments.firstEffect18 == nullptr) {
+        YobiAction** const slot = &payload->slots18.attachments.firstEffect18;
         const std::uint64_t firstTick = platform::ReadTickCount64();
         if (payload->tick14 + 7200u < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
@@ -566,8 +566,8 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
         }
     }
     if ((payload->flags10C & 2u) == 0
-        && payload->slots18.attachments.action1C == nullptr) {
-        YobiAction** const slot = &payload->slots18.attachments.action1C;
+        && payload->slots18.attachments.secondEffect1C == nullptr) {
+        YobiAction** const slot = &payload->slots18.attachments.secondEffect1C;
         const std::uint64_t secondTick = platform::ReadTickCount64();
         if (payload->tick14 + 7500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
@@ -583,16 +583,16 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
         ChooseWanderingTransitionStep_4469C0(action);
     }
     UpdateMapActorPathMovement_4424B0(action);
-    YobiAction* const first = payload->slots18.attachments.action18;
+    YobiAction* const first = payload->slots18.attachments.firstEffect18;
     if (first != nullptr) {
         first->worldX = action->worldX;
-        YobiAction* const firstY = payload->slots18.attachments.action18;
+        YobiAction* const firstY = payload->slots18.attachments.firstEffect18;
         firstY->worldY = action->worldY;
     }
-    YobiAction* const second = payload->slots18.attachments.action1C;
+    YobiAction* const second = payload->slots18.attachments.secondEffect1C;
     if (second != nullptr) {
         second->worldX = action->worldX;
-        YobiAction* const secondY = payload->slots18.attachments.action1C;
+        YobiAction* const secondY = payload->slots18.attachments.secondEffect1C;
         secondY->worldY = action->worldY;
     }
     return 1;
@@ -602,7 +602,7 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
 static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (payload->slots18.attachments.action18 == nullptr) {
+    if (payload->slots18.attachments.firstEffect18 == nullptr) {
         const std::uint64_t firstTick = platform::ReadTickCount64();
         if (payload->tick14 < firstTick) {
             const std::uint8_t displayPriority = action->displayPriority;
@@ -610,11 +610,11 @@ static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const act
                 static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
-            payload->slots18.attachments.action18 =
+            payload->slots18.attachments.firstEffect18 =
                 CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, nullptr);
         }
     }
-    if (payload->slots18.attachments.action1C == nullptr) {
+    if (payload->slots18.attachments.secondEffect1C == nullptr) {
         const std::uint64_t secondTick = platform::ReadTickCount64();
         if (payload->tick14 + 500u < secondTick) {
             const std::uint8_t displayPriority = action->displayPriority;
@@ -622,7 +622,7 @@ static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const act
                 static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
-            payload->slots18.attachments.action1C =
+            payload->slots18.attachments.secondEffect1C =
                 CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, nullptr);
         }
     }
@@ -887,8 +887,8 @@ YobiAction* CreateMapTransitionAction_448040(
     payload->counter10 = 0;
     payload->tick14 = platform::ReadTickCount64();
     if (mode == 0 || mode == 1) {
-        payload->slots18.attachments.action18 = nullptr;
-        payload->slots18.attachments.action1C = nullptr;
+        payload->slots18.attachments.firstEffect18 = nullptr;
+        payload->slots18.attachments.secondEffect1C = nullptr;
     } else {
         payload->slots18.values.initialized18 = 0;
         payload->slots18.values.state1C = 0;

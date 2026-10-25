@@ -42,6 +42,20 @@ namespace cg::yobi {
 
 namespace detail {
 
+// YMN16：悬停角色名单快捷键使用的Windows虚拟键码。
+enum HoverShortcutKey : std::int32_t {
+    HoverShortcutKey_Control = 17,
+    HoverShortcutKey_Insert = 45,
+    HoverShortcutKey_Delete = 46,
+};
+
+// YMN16：名单快捷键读取的平台键态；4为首次按下，区别于10h的重复按键脉冲。
+enum HoverShortcutKeyStateFlag : std::uint32_t {
+    HoverShortcutKeyStateFlag_Down = 0x2u,
+    HoverShortcutKeyStateFlag_FirstPress = 0x4u,
+};
+
+
 // 地图头顶文本槽；仅按远端角色字段命名，未证业务名称保留。
 enum ActorOverheadTextSlot : std::int16_t {
     ActorOverheadTextSlot_NameC4 = 1,
@@ -930,8 +944,8 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 cg::ui::detail::gHoverTitleD68BF4 = std::format(L"{:<16}", title);
                 cg::ui::detail::gHoverTitleValueD69748 = 4;
             }
-            const std::uint8_t control = platform::gKeyStates[0x11] & 2u;
-            if (control != 0 && (platform::gKeyStates[0x2D] & 4u) != 0) {
+            const std::uint8_t control = platform::gKeyStates[detail::HoverShortcutKey_Control] & detail::HoverShortcutKeyStateFlag_Down;
+            if (control != 0 && (platform::gKeyStates[detail::HoverShortcutKey_Insert] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
                 if (cg::world::blacklist::GetBlacklistCount_401190() >= 72) {
                     cg::world::AppendChatMessage_44B050(L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
@@ -948,7 +962,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                     cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, graphic->reference.action->nameC4.c_str());
                 }
                 cg::world::AppendChatMessage_44B050(message, 4, 3);
-            } else if (control != 0 && (platform::gKeyStates[0x2E] & 4u) != 0) {
+            } else if (control != 0 && (platform::gKeyStates[detail::HoverShortcutKey_Delete] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
                 const wchar_t* const name = graphic->reference.action->nameC4.data();
                 if (name == nullptr) {
                     return;

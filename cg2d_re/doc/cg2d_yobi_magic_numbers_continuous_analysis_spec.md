@@ -136,3 +136,17 @@ map_actor.hpp承接九组U32：附件输入三位及9h装备列表掩码、地�
 YMN15实施：18份CPP及三份既有头新增24组、扩展既有第二字节枚举一组，共新增72项，替换140处数字，包括复用既有角色动作四处和对象绘制位五处；没有新增头依赖。21份源／头在排除新声明并核对旧声明后，对新旧两侧的具名引用按原数值／S32／U32做逆映射，逐词一致；枚举值／顺序／唯一性、引用增量、完整字符串、UTF-8／原换行、历史进度与差异检查通过，开始编译验证。
 
 YMN15验证：build.bat Debug配置、编译及链接成功，退出码0；仍有Yobi的amount／result／lastAmount／statusType／selfFlags／relativeX／relativeY既有C4701，原路径保持。精确提交21份源／头、本文及唯一进度，共23份文件。按原BSI01确认的GBK重新只读核查技能数据，尚有技术函数可进一步对应的编号，继续核对后再作最终汇总。
+
+## YMN16：补证技能名称及最后几类局部解释域
+
+按BSI01既有用户确认的编码与命名规则，只读GBK的skill.txt／tech.txt，技术表有效记录1736条；按TECH_ID第4列除100核对分派ID，TECH_SKILLID仅保留所属来源。新确认14项扩展既有BattleSkillDispatchId：Steal=72、BloodAttack=81、Bomb=82、Sacrifice=83、EnergyDrain=84、EquipBreakAttack=85、Death=86、GoldAttack=87、TreatTypeSilence=88、Summon=93、AttackAll=106、DetectEnemy=107、ThrowItem=2002、BlastWave=2005。同ID的等级／名称变体共享已证技术函数，不合并不同ID；未知108等不以邻号补齐。
+
+证据链：tech.c的1320／1541／1800～2010及tech2.c的66／90／327分别由对应TECH函数调用BATTLE_ActionSelect，携带TECH_ID并选择BLASTWAVE／TREAT_TYPE／STEAL／BLOODATTACK等各自战斗命令；battle.c再调用ItemSteal／BreakAttack／Bomb／Sacrifice／Death／EnergyDrain／Summon／DetectEnemy或对应攻击分支。battle.h定义BATTLE_MAGIC_SKILL_SILENCE=88，BATTLE_Treat_Type按所属技能与可选覆盖选择BC_FIELD_FLAG_SILENCE；客户端88选择110155，与新场地位一致，故共享Treat_Type的88按Silence细分。原端427490大函数中205000阈值及techId／100归一化已只读核对；不把技术号／原始Lua注册ID与分派号混用，不改变归一化算法、条件编译或现有报文。
+
+新增四组八项局部枚举：battle_cast.cpp的S32 BattleAction110TargetPassState以BeforePass=0／AfterPass=1表示1038在目标遍历前后状态，40E864写1、40E93E清0，原60次预备、目标缺失跳过、动画事件搜索及退行倒数保持；battle_skill_special.cpp的S32 BattleDancePairResource仅定义Hp=0，两处判零选择SetHp，其他所有值仍走原SetFp，不臆造Fp=1；map_render.cpp的S32 HoverShortcutKey三项Control=17／Insert=45／Delete=46及U32 HoverShortcutKeyStateFlag的Down=2／FirstPress=4，仅用于现有名单快捷键。平台WindowProcedure的按下写2、仅未锁存时写0Ch、释放清2／8及每轮清4证明键态，不混用另一个10h重复按键位。
+
+既有120项技能枚举追加14项，旧项顺序／值／名称保持；四组新枚举共八项，合计新增22项。只替换Yobi内已归一化skill／castSkill103C／对应case与上述局部状态、选择值和键码／键态；不改函数地址名、标签、坐标、图号、容量72或原始技能注册键。techfuncname.txt与techarea.txt未通过已确认GBK严格解码，不猜换编码，不用其内容命名；当前tech.txt没有SK覆盖记录。准备双向逆映射核对并编译验证。
+
+YMN16实施：九份CPP及既有battle_base.hpp新增四组、扩展既有技能枚举一组，共新增22项，替换116处数字（技能103、动作110状态5、跳舞HP选择2、键码3、键态3）；没有新增头依赖。十份源／头双向逆映射逐词一致，核对新增及既有枚举的数值／顺序／唯一性、引用增量、原S32／U32类型、完整字符串、UTF-8／原换行、历史进度与差异检查通过。旧技能项只要求保持原声明及引用，不把本批未涉及文件中的消费者误当缺失；新增22项均有消费。残余14种数字只见坐标／角度／容量、其他域声明、数值表及历史注释，开始build.bat Debug。
+
+YMN16验证：build.bat Debug配置、编译及链接成功，退出码0；仍有amount／result／lastAmount／statusType／selfFlags的既有C4701，对应原路径保持。精确提交十份源／头、本文及唯一进度，共12份文件。最终残余扫描只见未知技能／资源图号的数字case，另发现AppendSkill报文的两处完整flags等值及局部1038门禁需要单独核对，继续最后一批取证。

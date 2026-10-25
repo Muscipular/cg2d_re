@@ -58,10 +58,10 @@ void UpdateBattleAction14_409680(YobiAction* const action)
             case BattleSkill_GuardBreak: image = payload->castSkillLevel1044 < 12 ? 110139 : 111052; break;
             case BattleSkill_Forcecut: image = payload->castSkillLevel1044 < 12 ? 110137 : 111050; break;
             case 3019: case 3038: image = 110074; break;
-            case 81: image = 110174; break;
-            case 84: image = 110175; break;
-            case 85: image = 110159; break;
-            case 87: image = 110160; break;
+            case BattleSkill_BloodAttack: image = 110174; break;
+            case BattleSkill_EnergyDrain: image = 110175; break;
+            case BattleSkill_EquipBreakAttack: image = 110159; break;
+            case BattleSkill_GoldAttack: image = 110160; break;
             case BattleSkill_Ranbu: image = 110135; break;
             case BattleSkill_DelayAttack257: {
                 const std::int32_t level = payload->castSkillLevel1044;
@@ -512,7 +512,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                 cg::world::gBattleAllEntries59E980[effect.position], 22331, 0, 0));
                         } else {
                             const std::int32_t damageSkill = payload->castSkill103C;
-                            if (damageSkill != 84 && damageSkill != 85 && damageSkill != 87) {
+                            if (damageSkill != BattleSkill_EnergyDrain && damageSkill != BattleSkill_EquipBreakAttack && damageSkill != BattleSkill_GoldAttack) {
                                 (cg::world::gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                                 if ((cg::world::gBattleAllEntries59E980[
                                         payload->effects1C[payload->effectRunningC9C].position]->readiness < 0)) {
@@ -814,7 +814,7 @@ void UpdateBattleAction249_4071C0(YobiAction* const action)
             static_cast<void>(NewBattleBlastWave_419180(action, &payload->effects1C[payload->effectRunningC9C], 111030));
         } else {
             const std::int32_t skill = payload->castSkill103C;
-            if (skill == 2005) {
+            if (skill == BattleSkill_BlastWave) {
                 static_cast<void>(NewBattleBlastWave_419180(action, &payload->effects1C[payload->effectRunningC9C], 104222));
             } else if (skill == BattleSkill_WindRendingStrike) {
                 static_cast<void>(NewBattleBlastWave_419180(action, &payload->effects1C[payload->effectRunningC9C], 104238));
@@ -920,10 +920,10 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             case BattleSkill_Parameter_AllOrNothing: image = payload->castSkillLevel1044 < 12 ? 110135 : 111046; break;
             case BattleSkill_GuardBreak: image = payload->castSkillLevel1044 < 12 ? 110139 : 111052; break;
             case BattleSkill_Forcecut: image = payload->castSkillLevel1044 < 12 ? 110137 : 111050; break;
-            case 81: image = 110174; break;
-            case 84: image = 110175; break;
-            case 85: image = 110159; break;
-            case 87: image = 110160; break;
+            case BattleSkill_BloodAttack: image = 110174; break;
+            case BattleSkill_EnergyDrain: image = 110175; break;
+            case BattleSkill_EquipBreakAttack: image = 110159; break;
+            case BattleSkill_GoldAttack: image = 110160; break;
             case 110: image = 110074; break;
             case BattleSkill_DelayAttack257: {
                 const std::int32_t level = payload->castSkillLevel1044;
@@ -1427,10 +1427,10 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                 case BattleSkill_GuardBreak: image = payload->castSkillLevel1044 < 12 ? 110139 : 111052; break;
                 case BattleSkill_Forcecut: image = payload->castSkillLevel1044 < 12 ? 110137 : 111050; break;
                 case 3019: case 3038: image = 110074; break;
-                case 81: image = 110174; break;
-                case 84: image = 110175; break;
-                case 85: image = 110159; break;
-                case 87: image = 110160; break;
+                case BattleSkill_BloodAttack: image = 110174; break;
+                case BattleSkill_EnergyDrain: image = 110175; break;
+                case BattleSkill_EquipBreakAttack: image = 110159; break;
+                case BattleSkill_GoldAttack: image = 110160; break;
                 case BattleSkill_DelayAttack257: {
                     const std::int32_t level = payload->castSkillLevel1044;
                     secondaryImage = 110476;
@@ -2872,10 +2872,10 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
             case BattleSkill_Parameter_AllOrNothing: imageNo = payload->castSkillLevel1044 < 12 ? 110135 : 111046; break;
             case BattleSkill_GuardBreak: imageNo = payload->castSkillLevel1044 < 12 ? 110139 : 111052; break;
             case BattleSkill_Forcecut: imageNo = payload->castSkillLevel1044 < 12 ? 110137 : 111050; break;
-            case 81: imageNo = 110174; break;
-            case 84: imageNo = 110175; break;
-            case 85: imageNo = 110159; break;
-            case 87: imageNo = 110160; break;
+            case BattleSkill_BloodAttack: imageNo = 110174; break;
+            case BattleSkill_EnergyDrain: imageNo = 110175; break;
+            case BattleSkill_EquipBreakAttack: imageNo = 110159; break;
+            case BattleSkill_GoldAttack: imageNo = 110160; break;
             case 110: imageNo = 110074; break;
             case BattleSkill_DelayAttack257: {
                 const std::int32_t technique = payload->castSkillLevel1044;

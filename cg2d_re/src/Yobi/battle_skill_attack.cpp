@@ -184,7 +184,7 @@ FinishFirstTargetFailure:
     if (static_cast<std::uint32_t>(skill) < 2
         || skill == BattleSkill_Parameter_AllOrNothing
         || skill == BattleSkill_Forcecut
-        || skill == 72
+        || skill == BattleSkill_Steal
         || skill == BattleSkill_StatusAttackPoison
         || skill == BattleSkill_StatusAttackSleep
         || skill == BattleSkill_StatusAttackStone
@@ -197,10 +197,10 @@ FinishFirstTargetFailure:
         || skill == BattleSkill_StatusAttackInebriety2099
         || skill == BattleSkill_StatusAttackConfusion2100
         || skill == BattleSkill_StatusAttackForget2101
-        || skill == 81
-        || skill == 84
-        || skill == 85
-        || skill == 87
+        || skill == BattleSkill_BloodAttack
+        || skill == BattleSkill_EnergyDrain
+        || skill == BattleSkill_EquipBreakAttack
+        || skill == BattleSkill_GoldAttack
         || skill == BattleSkill_Assassin
         || skill == BattleSkill_PanicAttack
         || skill == BattleSkill_GuardBreak
@@ -276,7 +276,7 @@ ReadFirstTarget:
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_ConsumeFp);
     mainFlags = TakeBattleMInteger_438F70(scene);
     primaryValue = TakeBattleMInteger_438F70(scene);
-    if (skill == 81)
+    if (skill == BattleSkill_BloodAttack)
         skill81Value = TakeBattleMInteger_438F70(scene);
     if ((mainFlags & static_cast<std::int32_t>(BattleResultFlag_HasAuxiliaryGraphics)) != 0)
         TakeBattleMAuxGraphics_43BF30(scene, BattleMAuxGraphicsReadMode_ReadObjectFields, &primaryGraphic, &mainSecondGraphic, mainFirstImages, mainSecondImages, mainValues);
@@ -402,11 +402,11 @@ AppendPrimaryEffect:
                 initialReactionPosition = initialPosition;
                 cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->reactionImage1010 = 22341;
                 goto AppendInitialReaction;
-            case 84:
+            case BattleSkill_EnergyDrain:
                 initialReactionPosition = initialPosition;
                 cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->reactionImage1010 = 22343;
                 goto AppendInitialReaction;
-            case 87:
+            case BattleSkill_GoldAttack:
                 initialReactionPosition = initialPosition;
                 cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->reactionImage1010 = 22342;
 // 原函数：0x004392A0。
@@ -458,7 +458,7 @@ AppendMainAuxiliaryEffects:
                 AppendBattleAuxEffects_43BC10(cg::world::gBattleAllEntries59E980[(*sourcePosition)], (*currentTarget), mainFlags, primaryGraphic, mainSecondGraphic, mainFirstImages[mainAuxIndex]);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PerformMeleeAttack);
                 break;
-            case 72:
+            case BattleSkill_Steal:
             case 113:
                 secondaryPosition = 0;
                 lastSecondaryPosition = 0;
@@ -694,7 +694,7 @@ AppendLocalCriticalCast:
                 goto ReloadPrimaryFlags;
             }
             if (skill != BattleSkill_Wattack) {
-                if (skill != 72 && skill != BattleSkill_ShadowHand && skill != 113) {
+                if (skill != BattleSkill_Steal && skill != BattleSkill_ShadowHand && skill != 113) {
                     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*currentTarget)], (mainFlags & static_cast<std::int32_t>(BattleResultFlag_Critical)) != 0 ? BattleAction_ReactToCriticalHit : BattleAction_ReactToHit);
 ReloadPrimaryFlags:
                     currentMainFlags = mainFlags;
@@ -823,7 +823,7 @@ FindMainNextTarget:
                 }
             } else {
                 mainCompletedTarget = (*targetPosition);
-                if ((*targetPosition) != *initialPosition && skill != 72 && skill != BattleSkill_ShadowHand && skill != BattleSkill_Assassin && skill != 113) {
+                if ((*targetPosition) != *initialPosition && skill != BattleSkill_Steal && skill != BattleSkill_ShadowHand && skill != BattleSkill_Assassin && skill != 113) {
                     if (mainNextTarget < 0)
                         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[mainCompletedTarget], BattleAction_ReturnToFormation);
                     else
@@ -856,7 +856,7 @@ DeferMainInitialDeath:
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_MarkDead);
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*targetPosition)], BattleAction_HandleDeath);
 HandleSkill72PostReaction:
-        if (skill == 72 || skill == 113) {
+        if (skill == BattleSkill_Steal || skill == 113) {
             primaryValue = mainFlags & static_cast<std::int32_t>(BattleResultFlag_Normal); // 426376：局部W32后段条件快照。
             if ((mainFlags & static_cast<std::int32_t>(BattleResultFlag_Normal)) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[secondaryPosition], BattleAction_Idle);
@@ -1069,7 +1069,7 @@ HandleSkill2017PostReaction:
                     deferredInitialDeath = 1;
                 }
             }
-        } else if (skill == 81 && !mainFlag8 && (mainFlags & static_cast<std::int32_t>(BattleResultMask_FlashDodgeOrPhysicalAbsorbOrNullify)) == 0 && ((mainFlags & static_cast<std::int32_t>(BattleResultFlag_ReflectPhysical)) == 0 || !nextTargetOrDeathFlag)) {
+        } else if (skill == BattleSkill_BloodAttack && !mainFlag8 && (mainFlags & static_cast<std::int32_t>(BattleResultMask_FlashDodgeOrPhysicalAbsorbOrNullify)) == 0 && ((mainFlags & static_cast<std::int32_t>(BattleResultFlag_ReflectPhysical)) == 0 || !nextTargetOrDeathFlag)) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_SetIdlePose);
             cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->soundId1018 = 271;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlaySound1018);
@@ -1306,8 +1306,8 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FaceFormation);
     std::int32_t skill = gBattleMSkill5AAA78;
     if (skill == BattleSkill_ContinuationAttack || skill == BattleSkill_Parameter_DoubleEdgedBlade
-        || skill == BattleSkill_Parameter_AllOrNothing || skill == BattleSkill_Forcecut || skill == 81 || skill == 84
-        || skill == 85 || skill == 87 || skill == BattleSkill_GuardBreak || skill == BattleSkill_ShortStrike
+        || skill == BattleSkill_Parameter_AllOrNothing || skill == BattleSkill_Forcecut || skill == BattleSkill_BloodAttack || skill == BattleSkill_EnergyDrain
+        || skill == BattleSkill_EquipBreakAttack || skill == BattleSkill_GoldAttack || skill == BattleSkill_GuardBreak || skill == BattleSkill_ShortStrike
             || skill == BattleSkill_RandomShot || skill == 3019
         || skill == 4002 || skill == 3038 || skill == 110 || skill == BattleSkill_Taunt || skill == BattleSkill_MercyStrike
         || (skill >= BattleSkill_StatusAttackPoison && skill <= BattleSkill_StatusAttackForget)

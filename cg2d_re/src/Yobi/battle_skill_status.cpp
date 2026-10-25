@@ -104,7 +104,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FaceFormation);
     const std::int32_t initialSkill = gBattleMSkill5AAA78;
     const std::int32_t level = gBattleMSkillLevelIndex5A3A18;
-    if (initialSkill == 86) {
+    if (initialSkill == BattleSkill_Death) {
         if (level < 12) {
             const std::int32_t imageOffset = kBattleMSkillEffectOffsets553E58[level];
             const std::int32_t imageCasterPosition = gBattleMCasterPosition5AAA64;
@@ -262,7 +262,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             targetPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_PARAMETER;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_ApplyStatusEffect);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_Wait60Ticks);
-        } else if (skill == 86) {
+        } else if (skill == BattleSkill_Death) {
             const std::int32_t technique = gBattleMTechnique5A4A38 / 100;
             const std::int32_t state = technique == 2053 ? BattleAction_PlayDeathScytheTechnique2053Effect : technique == 2054 ? BattleAction_PlayDeathScytheTechnique2054Effect : BattleAction_PlayInstantDeathEffect;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], state);

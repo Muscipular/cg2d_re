@@ -33,6 +33,13 @@ namespace cg::yobi {
 
 namespace detail {
 
+// YMN16：仅动作110的1038目标遍历状态；遍历结束并不保证命中或目标存在。
+enum BattleAction110TargetPassState : std::int32_t {
+    BattleAction110TargetPassState_BeforePass = 0,
+    BattleAction110TargetPassState_AfterPass = 1,
+};
+
+
 // 原57E174的57条三S32记录及全零哨兵；动作85只消费前两列。
 static constexpr std::array<std::array<std::int32_t, 3>, 58> kBattleNamedEffectImages57E174 {{
     {40779, 104201, 99510},
@@ -831,7 +838,7 @@ void UpdateBattleAction85_40CDE0(YobiAction* const action)
         action->direction = direction - 8;
     }
     if (scaleX >= 2.0) {
-        if (payload->castSkill103C == 2002) {
+        if (payload->castSkill103C == BattleSkill_ThrowItem) {
             std::int32_t namedIndex = 0;
             while (cg::world::gBattleNamedEffects5ABCE0[namedIndex].name != action->nameC4) {
                 ++namedIndex;
@@ -1190,7 +1197,7 @@ void UpdateBattleAction98_40D1D0(YobiAction* const action)
             static_cast<void>(DrawBattleTiledEffect_41E890(type));
         }
         const std::int32_t currentSkill = payload->castSkill103C;
-        if (currentSkill == 86 || currentSkill == 2055 || currentSkill == 2056 || currentSkill == 2057) {
+        if (currentSkill == BattleSkill_Death || currentSkill == 2055 || currentSkill == 2056 || currentSkill == 2057) {
             static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_SharedRow5));
         }
     }
@@ -1717,7 +1724,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
     const std::int32_t previous = payload->valueFF0;
     const std::int32_t count = previous + 1;
     payload->valueFF0 = count;
-    if (previous >= 60 && payload->value1038 == 0) {
+    if (previous >= 60 && payload->value1038 == BattleAction110TargetPassState_BeforePass) {
         action->framePlayingRate = 50;
         if (GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[
                 payload->effects1C[payload->effectRunningC9C].position]) >= 70) {
@@ -1790,7 +1797,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
             }
             MoveBattleByAngle_405EA0(action);
             payload->valueFF0 = 0;
-            payload->value1038 = 1;
+            payload->value1038 = BattleAction110TargetPassState_AfterPass;
             payload->flash1004 = 0;
             action->characterAction = CharacterAnimation_Attack;
             action->frameEvent = 0;
@@ -1805,7 +1812,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
         }
     } else {
         const std::int32_t state = payload->value1038;
-        if (state == 0) {
+        if (state == BattleAction110TargetPassState_BeforePass) {
             if (count < 60) {
                 action->framePlayingRate -= 4 * count;
             }
@@ -1820,12 +1827,12 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
             }
         }
     }
-    if (payload->value1038 != 0 && payload->valueFD0 == 0) {
+    if (payload->value1038 != BattleAction110TargetPassState_BeforePass && payload->valueFD0 == 0) {
         action->motionMagnitude54 = 8.0F;
         action->framePlayingRate = 100;
         action->characterAction = CharacterAnimation_Run;
         payload->valueFF0 = 0;
-        payload->value1038 = 0;
+        payload->value1038 = BattleAction110TargetPassState_BeforePass;
         payload->valueFD0 = 0;
         AdvanceBattleCastState_439340(action);
     } else if (!suppressPlayback) {
@@ -2235,7 +2242,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                 static_cast<void>(audio::PlaySe_52C450(5, 320));
                 static_cast<void>(audio::PlaySe_52C450(262, 320));
             } else {
-                if ((skill >= BattleSkill_TreatTypeEarth && skill <= BattleSkill_TreatTypeWind) || skill == 88) {
+                if ((skill >= BattleSkill_TreatTypeEarth && skill <= BattleSkill_TreatTypeWind) || skill == BattleSkill_TreatTypeSilence) {
                     if (payload->effects1C[payload->effectRunningC9C].position != -1) {
                         static_cast<void>(audio::PlaySe_52C450(275, action->x));
                         std::int32_t imageNo = 0;
@@ -2244,7 +2251,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         case BattleSkill_TreatTypeWater: imageNo = 110089; break;
                         case BattleSkill_TreatTypeFire: imageNo = 110090; break;
                         case BattleSkill_TreatTypeWind: imageNo = 110091; break;
-                        case 88: imageNo = 110155; break;
+                        case BattleSkill_TreatTypeSilence: imageNo = 110155; break;
                         default: break;
                         }
                         if (imageNo != 0) {
@@ -2416,7 +2423,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
             static_cast<void>(DrawBattleTiledEffect_41E890(type));
         }
         const std::int32_t currentSkill = payload->castSkill103C;
-        if (currentSkill == 86 || currentSkill == 2055 || currentSkill == 2056 || currentSkill == 2057) {
+        if (currentSkill == BattleSkill_Death || currentSkill == 2055 || currentSkill == 2056 || currentSkill == 2057) {
             static_cast<void>(DrawBattleTiledEffect_41E890(BattleTiledEffect_SharedRow5));
         }
     }
@@ -2455,7 +2462,7 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
         const std::int32_t skill = payload->castSkill103C;
         if (skill == BattleSkill_Dance) {
             imageNo = payload->skill98Mode1048 + BattleStatusGraphic_Poison;
-        } else if (skill == 2002) {
+        } else if (skill == BattleSkill_ThrowItem) {
             imageNo = BattleStatusGraphic_Poison;
         } else {
             const std::int32_t type = payload->statusEffectType13DC;
@@ -3121,7 +3128,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                                 cg::world::gBattleAllEntries59E980[effect.position], 22331, 0, 0));
                         } else {
                             const std::int32_t skill = payload->castSkill103C;
-                            if (skill != 84 && skill != 85 && skill != 87) {
+                            if (skill != BattleSkill_EnergyDrain && skill != BattleSkill_EquipBreakAttack && skill != BattleSkill_GoldAttack) {
                                 (cg::world::gBattleAllEntries59E980[effect.position]->readiness -= static_cast<std::int32_t>(amount));
                                 YobiAction* const compareTarget = cg::world::gBattleAllEntries59E980[
                                     payload->effects1C[payload->effectRunningC9C].position];

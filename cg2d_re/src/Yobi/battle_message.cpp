@@ -134,11 +134,11 @@ static BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t s
 {
     switch (skill) {
     case BattleSkill_ContinuationAttack: case BattleSkill_Parameter_DoubleEdgedBlade:
-    case BattleSkill_Parameter_AllOrNothing: case BattleSkill_GuardBreak: case BattleSkill_Forcecut: case 72:
+    case BattleSkill_Parameter_AllOrNothing: case BattleSkill_GuardBreak: case BattleSkill_Forcecut: case BattleSkill_Steal:
     case BattleSkill_StatusAttackPoison: case BattleSkill_StatusAttackSleep: case BattleSkill_StatusAttackStone:
     case BattleSkill_StatusAttackInebriety: case BattleSkill_StatusAttackConfusion:
-    case BattleSkill_StatusAttackForget: case 81:
-    case 84: case 85: case 87: case BattleSkill_PanicAttack: case BattleSkill_RandomShot: case BattleSkill_Assassin:
+    case BattleSkill_StatusAttackForget: case BattleSkill_BloodAttack:
+    case BattleSkill_EnergyDrain: case BattleSkill_EquipBreakAttack: case BattleSkill_GoldAttack: case BattleSkill_PanicAttack: case BattleSkill_RandomShot: case BattleSkill_Assassin:
     case BattleSkill_Ranbu: case 110: case 113:
     case BattleSkill_DelayAttack257: case BattleSkill_DelayAttack258: case BattleSkill_StatusAttackPoisonStrike:
     case BattleSkill_Wattack: case BattleSkill_FirstAttack: case BattleSkill_Madmax:
@@ -156,8 +156,8 @@ static BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t s
     case BattleSkill_AttackMagicWaterStrong: case BattleSkill_AttackMagicFireStrong:
     case BattleSkill_AttackMagicWindStrong: case BattleSkill_AttackMagicEarthSuper:
     case BattleSkill_AttackMagicWaterSuper: case BattleSkill_AttackMagicFireSuper:
-    case BattleSkill_AttackMagicWindSuper: case BattleSkill_Dorain: case 82: case BattleSkill_EarthQuake:
-    case BattleSkill_MagicMissile: case 2005: case 2055: case 2056: case 2057:
+    case BattleSkill_AttackMagicWindSuper: case BattleSkill_Dorain: case BattleSkill_Bomb: case BattleSkill_EarthQuake:
+    case BattleSkill_MagicMissile: case BattleSkill_BlastWave: case 2055: case 2056: case 2057:
     case 2068: case 2069: case 2070: case 2071: case 2072: case 2073:
     case 2074: case 2075: case 2076: case 2077: case 2078: case 2079:
     case BattleSkill_ConfusionShockwave: case 3037: case BattleSkill_WindRendingStrike:
@@ -175,7 +175,7 @@ static BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t s
     case BattleSkill_AbsorbPhysics: case BattleSkill_AbsorbMagic: case BattleSkill_IneffectivePhysics:
     case BattleSkill_IneffectiveMagic:
     case BattleSkill_LpRecovery: case BattleSkill_LpRecoveryStrong: case BattleSkill_LpRecoverySuper:
-    case BattleSkill_StatusRecover: case BattleSkill_Revive: case 86:
+    case BattleSkill_StatusRecover: case BattleSkill_Revive: case BattleSkill_Death:
     case BattleSkill_Concentration: case BattleSkill_ElementalAmplification: case BattleSkill_Blessing:
     case BattleSkill_DefensiveBarrier: case BattleSkill_VoodooCurse: case BattleSkill_BattleCommand:
     case BattleSkill_BideTime:
@@ -187,19 +187,19 @@ static BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t s
     case 3008: case 3009: case 3010: case 3011: case 3012: case 3013:
     case 3014: case 3015: case 3016:
         return BattlePreviewSkillLayout::ValuesRide;
-    case BattleSkill_HealMagic: case BattleSkill_HealMagicStrong: case BattleSkill_HealMagicSuper: case 83:
+    case BattleSkill_HealMagic: case BattleSkill_HealMagicStrong: case BattleSkill_HealMagicSuper: case BattleSkill_Sacrifice:
     case BattleSkill_EmergencyTransfusion:
         return BattlePreviewSkillLayout::PairRide;
     case BattleSkill_DefUp: case BattleSkill_DefDown: case BattleSkill_AtkUp: case BattleSkill_AtkDown:
     case BattleSkill_AglUp: case BattleSkill_AglDown:
-    case 107: case 109: case BattleSkill_UltimateAttack: case BattleSkill_RecoveryUp: case 117: case 3001:
+    case BattleSkill_DetectEnemy: case 109: case BattleSkill_UltimateAttack: case BattleSkill_RecoveryUp: case 117: case 3001:
         return BattlePreviewSkillLayout::ValuesOnly;
     case 108:
         return BattlePreviewSkillLayout::PairOnly;
     case BattleSkill_Consentration: case BattleSkill_TreatTypeEarth: case BattleSkill_TreatTypeWater:
-    case BattleSkill_TreatTypeFire: case BattleSkill_TreatTypeWind: case 88:
+    case BattleSkill_TreatTypeFire: case BattleSkill_TreatTypeWind: case BattleSkill_TreatTypeSilence:
         return BattlePreviewSkillLayout::SourceValue;
-    case 93:
+    case BattleSkill_Summon:
         return BattlePreviewSkillLayout::NamedTargets;
     case BattleSkill_Dance:
         return BattlePreviewSkillLayout::Mode98;
@@ -213,7 +213,7 @@ static BattlePreviewSkillLayout GetBattlePreviewSkillLayout(const std::int32_t s
         return BattlePreviewSkillLayout::DirectRecords;
     case BattleSkill_RiderBreakAttack: case BattleSkill_RiderBreakMind:
         return BattlePreviewSkillLayout::RideRecords;
-    case 106: case 111: case 2002:
+    case BattleSkill_AttackAll: case 111: case BattleSkill_ThrowItem:
         return BattlePreviewSkillLayout::EffectRecords;
     default:
         return BattlePreviewSkillLayout::None;
@@ -623,7 +623,7 @@ std::int32_t ScanBattleMAttackParticipants_439920(
     std::int32_t flags = TakeBattleMPreviewInteger_439600();
     static_cast<void>(TakeBattleMPreviewInteger_439600());
     std::int32_t currentSkill = skill;
-    if (currentSkill == 81) {
+    if (currentSkill == BattleSkill_BloodAttack) {
         static_cast<void>(TakeBattleMPreviewInteger_439600());
     }
     if ((flags & static_cast<std::int32_t>(BattleResultFlag_HasAuxiliaryGraphics)) != 0) {
@@ -652,7 +652,7 @@ std::int32_t ScanBattleMAttackParticipants_439920(
             }
         } else if (currentSkill == BattleSkill_PanicAttack) {
             static_cast<void>(TakeBattleMPreviewInteger_439600());
-        } else if ((currentSkill == 72 || currentSkill == BattleSkill_ShadowHand) && (flags & static_cast<std::int32_t>(BattleResultFlag_Normal)) != 0) {
+        } else if ((currentSkill == BattleSkill_Steal || currentSkill == BattleSkill_ShadowHand) && (flags & static_cast<std::int32_t>(BattleResultFlag_Normal)) != 0) {
             extraPosition = GetBattlePosition_4237E0(TakeBattleMPreviewInteger_439600());
             ++participants[extraPosition];
             const std::int32_t extraAttackFlags = TakeBattleMPreviewInteger_439600();
@@ -736,7 +736,7 @@ void ScanBattleMParticipants_439B30(
         case BattlePreviewSkillLayout::Attack:
         case BattlePreviewSkillLayout::Mode73: {
             const std::int32_t mode = TakeBattleMPreviewInteger_439600();
-            if (mode == BattleAttackMode_Melee || skill == 72 || skill == BattleSkill_ShadowHand || skill == 113) {
+            if (mode == BattleAttackMode_Melee || skill == BattleSkill_Steal || skill == BattleSkill_ShadowHand || skill == 113) {
                 position = ScanBattleMAttackParticipants_439920(skill, participants);
             } else if (mode > BattleAttackMode_Melee && mode <= BattleAttackMode_Bow) {
                 readSource();
@@ -931,7 +931,7 @@ void ScanBattleMParticipants_439B30(
                 const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
                 skip(1);
                 auto& pair = cg::world::gBattleEffectPairs5A8A40[target];
-                const bool namedEffect = skill == 2002;
+                const bool namedEffect = skill == BattleSkill_ThrowItem;
                 pair[0] = 0;
                 pair[1] = 0;
                 if (namedEffect) {

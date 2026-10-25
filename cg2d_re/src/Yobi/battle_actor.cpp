@@ -831,7 +831,7 @@ void UpdateBattleAction0_406650(YobiAction* const action)
         return;
     }
     const std::int32_t skill = payload->castSkill103C;
-    if (skill == 72 || skill == 113) {
+    if (skill == BattleSkill_Steal || skill == 113) {
         const std::int32_t previous = payload->castPlayIndexFC4 - 1;
         if (previous >= 0) {
             const std::int32_t previousAction = payload->castListCA4[previous];

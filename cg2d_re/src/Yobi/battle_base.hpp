@@ -683,10 +683,25 @@ enum BattleSkillDispatchId : std::int32_t {
     BattleSkill_SwallowSlash = 3100, // 燕斩；用户确认名称，英文为项目译名。
     BattleSkill_BladeSoul = 3101, // 锋上魂；用户确认名称，英文为项目译名。
     BattleSkill_WindRendingStrike = 4003, // 裂风击；用户确认名称，英文为项目译名。
+    // YMN16：GBK技术表、TECH命令选择及客户端分派补证；旧项保持原顺序。
+    BattleSkill_Steal = 72, // 窃盗／劫富济贫；TECH_Steal。
+    BattleSkill_BloodAttack = 81, // 吸血攻击；TECH_BloodAttack。
+    BattleSkill_Bomb = 82, // 舍命的一击；TECH_Bomb。
+    BattleSkill_Sacrifice = 83, // 献祭；TECH_Sacrifice。
+    BattleSkill_EnergyDrain = 84, // 掠夺经验值；TECH_EnergyDrain。
+    BattleSkill_EquipBreakAttack = 85, // 破坏装备；TECH_EquipBreakAttack。
+    BattleSkill_Death = 86, // 即死；TECH_Death。
+    BattleSkill_GoldAttack = 87, // 金钱攻击；TECH_GoldAttack。
+    BattleSkill_TreatTypeSilence = 88, // 魔封攻击；TECH_Treat_Type及服务端SILENCE=88，客户端静寂场地图110155。
+    BattleSkill_Summon = 93, // 召唤；TECH_Summon。
+    BattleSkill_AttackAll = 106, // 分身；TECH_AttackAll，保留技术函数名。
+    BattleSkill_DetectEnemy = 107, // 看穿；TECH_DetectEnemy，技术107xx／100；所属107的11201另属UltimateAttack。
+    BattleSkill_ThrowItem = 2002, // 投掷／精准投掷；TECH_ThrowItem。
+    BattleSkill_BlastWave = 2005, // 追月／鸿雁追月；TECH_BlastWave。
 };
 
 // BSI01未命名项仍保留原数字：不能仅凭共享处理入口或图像推导同一业务。
-// 72、81～88、93、106～111、113、117、2002、2005：尚未完成本编号域的名称对应核实。
+// YMN16已补证72、81～88、93、106、107、2002、2005；108～111、113、117仍缺本编号域名称证据。
 // 2050～2052、2058～2067、2089～2095、3002～3016：仅确认独立技能／图号，未提供业务名。
 // 2055～2057、2068～2079、3001、3019、3037、3038、4002：已有分支不足以确定名称。
 // 4004仅作为现有比较的区间上界保留，不据此定义技能名称。

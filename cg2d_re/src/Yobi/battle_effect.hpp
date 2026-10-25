@@ -64,10 +64,10 @@ enum BattleEffectType : std::uint32_t {
     BattleEffectType_ScaledPayloadImage102CAtPosition = 47, // 绝对X／Y、源102C、XY缩放各乘1.5；创建类型上界。
 };
 
-// 41CD00第三槽：创建类型0..47使用S32 Y槽；其他类型消费已有对象T*，由caller显式选择成员。
+// YUF01：41CD00第三槽按type选择；0..47是S32绝对／相对Y，其他类型借用已有对象，不能跨臂读取。
 union BattleEffectThirdArgument {
-    std::int32_t offsetY;
-    YobiAction* existingAction;
+    std::int32_t yValue; // type47直接作绝对Y，其他消费者可能加源Y／offset44，不能统一叫offsetY。
+    YobiAction* existingAction; // type>47的已有对象引用，直接进入公共尾，不分配或转移所有权。
 };
 
 

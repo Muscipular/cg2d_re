@@ -82,6 +82,7 @@ struct YobiAction {
     YobiAction* next = nullptr; // 原成员偏移：+0x04。
     YobiCallback callback = nullptr; // 原成员偏移：+0x08。
     YobiPayload payload{}; // 原成员偏移：+0x0C。 本机使用带类别的指针联合体。
+    // YUF01：+10按创建入口／callback选择下列非拥有引用；T*与完成槽T**不能交叉解引用。
     union {
         YobiAction** completionSlot10 = nullptr; // 原+10，444260/4441A0的非拥有完成回写槽。
         YobiAction* observationParent10; // 同一原+10，43F290/43FE00的非拥有观察父节点。
@@ -97,6 +98,7 @@ struct YobiAction {
     std::int32_t graphicIndex = 0; // 原成员偏移：+0x20。
     std::uint32_t flags = 0; // 原成员偏移：+0x24。
     std::int32_t counter28 = 0; // 原+28，440440退出轨迹的独立计数。
+    // 普通phase与数量窗口回调互斥；同一payloadKind不能代替callback家族判定。
     union {
         std::int32_t phase; // 原+2C，普通对象的S32阶段。
         ui::WindowValueCallback numberWindowCallback2C = nullptr; // 原成员偏移：+0x2C。 48AC60数量族的非拥有函数指针。
@@ -111,7 +113,7 @@ struct YobiAction {
     std::uint32_t verticalVelocityBits4C = 0; // 原+4C；41F4C0/41F5B0写C1000000，41F450/41A200按F32消费。
     float angle50 = 0.0f; // 原+50；本对象族创建清零，449160另作角度。
     float motionMagnitude54 = 0.0f; // 原+54；三路对象速度及其他回调的幅值，共用F32。
-    std::int32_t field58 = 0; // 原 +58，与 +2B8 的 direction 独立。
+    std::int32_t field58 = 0; // 原+58；共用保存方向、骑乘计时、命中延迟及发射完成计数，不能统一为direction。
     float scaleX = 0.0f; // 原成员偏移：+0x5C。
     float scaleY = 0.0f; // 原成员偏移：+0x60。
     std::wstring displayName; // 原 +64..+A3；绘制文本，内部使用宽字符串。
@@ -138,12 +140,12 @@ struct YobiAction {
     platform::LegacyCryptInt barValue1B0; // 原+1B0；442F70同步玩家/宠物FP，43DB60绘第二条。
     platform::LegacyCryptInt barMaximum1C0; // 原+1C0；同步最大FP，读取仍消费计数/RNG。
     union {
-        std::int32_t field1D0; // 原+1D0数值路径，宽度保持S32。
+        std::int32_t field1D0; // 原+1D0；共用等级、数量上限、观察序号、计数、转向符号／延迟，保持S32。
         YobiAction** windowCompletionSlot1D0 = nullptr; // 原成员偏移：+0x1D0。 475950/4758D0非拥有完成槽。
     };
     std::int32_t value1D4 = 0; // 原+1D4；共用附件位置、观察队列索引／轨迹计数和效果反向标志，不能统一为单一用途，保留原名。
-    std::int32_t field1D8 = 0; // 原 +1D8；51A090 写入完整第四参数。
-    std::int32_t counter1DC = 0; // 原+1DC，442F70图标/420300序列特效计数。
+    std::int32_t hoverTextColor1D8 = 0; // 原+1D8；507140发布悬停文字色，4731E0消费低BYTE，字段保留完整S32。
+    std::int32_t counter1DC = 0; // 原+1DC；图标／序列计数、观察动画覆盖及部分恢复数值，共用槽而非统一计时器。
     platform::LegacyCryptInt mapX1E0; // 原+1E0/+1F0当前位置；420100族复用为序号/计时。
     platform::LegacyCryptInt mapY1F0; // 原成员偏移：+0x1F0。 46DD90仍按X→Y读取坐标并乘64。
     platform::LegacyCryptInt mapX200; // 原 +200/+210 移动目标；46DE50先赋这组，不合并载荷。
@@ -172,10 +174,10 @@ struct YobiAction {
     std::int32_t graphicOffsetY = 0;    // 原 +2CC。
     std::int32_t frameEvent = 0;        // 原+2D0：播放flag>=10000写入；完成族清零，帧事件族消费，41BB00作命中标记。
     std::int32_t hidden = 0;            // 原 +2D4：仅严格等于 1 时跳过播放。
-    std::uint32_t field2D8 = 0;         // 原+2D8；41EB10复制，410E30/4124E0另清零，独立位型。
+    std::uint32_t field2D8 = 0; // 原+2D8；克隆／骑乘复制，410E30/4124E0清零；未证业务读取，不猜动画位。
     std::uint32_t completedLoops = 0;   // 原 +2DC。
     std::int32_t playRevert = AnimationPlayback_Loop; // 原+2E0：见AnimationPlaybackMode，保留caller完整W32。
-    std::int32_t field2E4 = 0;          // 原 +2E4；51A5B0 比较完整 W32 是否为2。
+    std::int32_t overheadMarkerMode2E4 = 0; // 原+2E4；0用默认头顶标记，1／2用+2E8，模式2影响队长标记清理。
     std::int32_t imageNo2E8 = 0;        // 原+2E8，442F70第一附件图号。
     std::uint8_t refresh2EC = 0;        // 原+2EC，创建第一附件时清零。
     std::int32_t frameX = 0;            // 原 +2F0：帧坐标叠加坐标文件偏移。

@@ -966,7 +966,7 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
         default: break;
         }
         if (type >= 0) {
-            static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, type, 0, 1));
+            static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = 0}, type, 0, 1));
         }
     }
     action->phase = BattleAction_FadeInAndResolveEffect;

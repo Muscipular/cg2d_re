@@ -15,25 +15,25 @@ namespace detail {
 // 原 441DB0 的 0x50 载荷，与上方观察链载荷不同；未消费区不猜业务类型。
 struct MapActorPayload {
     std::int32_t index; // 原成员偏移：+0x00。
-    YobiAction* action04; // 原成员偏移：+0x04。
-    YobiAction* action08; // 原成员偏移：+0x08。
-    YobiAction* action0C; // 原成员偏移：+0x0C。
-    YobiAction* action10; // 原成员偏移：+0x10。
+    YobiAction* action04; // 原+04；442F70创建／跟随的头顶标记，非拥有引用。
+    YobiAction* action08; // 原+08；43E490过渡阶段创建／绘制的附属图像，非拥有引用。
+    YobiAction* action0C; // 原+0C；状态位4驱动的0x1AF4D图标，具体业务未核，非拥有引用。
+    YobiAction* action10; // 原+10；状态位1驱动的0x1AF4E图标，具体业务未核，非拥有引用。
     std::uint64_t chatDeadline14; // 原成员偏移：+0x14。
     std::int32_t itemCount18; // 原+18；445D20发布地面物品数量，悬停绘制名称后的数量。
     std::array<std::wstring, 2>* text1C; // 原+0x1C；UTL02拥有两行动态UTF-16正文，载荷仍为指针。
     std::int32_t color20; // 原+20生产完整S32，绘制消费低S8。
     std::int32_t textLength24; // 原成员偏移：+0x24。
     std::int32_t font28; // 原成员偏移：+0x28。
-    YobiAction* action2C; // 原成员偏移：+0x2C。
-    YobiAction* action30; // 原成员偏移：+0x30。
-    YobiAction* action34; // 原成员偏移：+0x34。
-    YobiAction* action38; // 原成员偏移：+0x38。
+    YobiAction* action2C; // 原+2C；43DD00解析的附属地图实体，非拥有引用，不猜具体宠物类别。
+    YobiAction* action30; // 原+30；主挂件，当前4.06接线由DrawMapMainGear406绘制，非拥有引用。
+    YobiAction* action34; // 原+34；kind3C对应的第一路附属挂件，非拥有引用。
+    YobiAction* action38; // 原+38；kind40对应的第二路附属挂件，非拥有引用。
     std::int32_t kind3C; // 原+3C；action34的挂件种类，4412D0/441430/441570消费。
     std::int32_t kind40; // 原+40；action38的挂件种类。
-    YobiAction* action44; // 原成员偏移：+0x44。
+    YobiAction* action44; // 原+44；骑乘对象，复用地图实体运动／绘制，非拥有引用。
     std::int32_t counter48; // 原+48；43E490有符号比较/递增，46A700清零。
-    YobiAction* action4C; // 原成员偏移：+0x4C。
+    YobiAction* action4C; // 原+4C；按地图状态选图的动态图标，具体业务未核，非拥有引用。
 };
 
 static_assert(std::is_standard_layout_v<MapActorPayload>);

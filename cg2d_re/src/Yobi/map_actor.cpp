@@ -481,7 +481,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         const std::int32_t level = std::atoi(buffer);
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
-        const std::int32_t value1D8 = std::atoi(buffer); // 仅证实传给附属对象field1D8，具体业务含义未定，保留原名。
+        const std::int32_t hoverTextColor = std::atoi(buffer); // 附属实体悬停文字色，完整S32传递，显示时消费低BYTE。
         char name[256];
         network::ExtractDelimitedField_52CED0(text, '|', field, 255, name);
         ++field;
@@ -517,7 +517,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         payload->action2C->flags |= 0x80100u;
         payload->action2C->nameC4 = cg::text::FromGbkWide(name);
         payload->action2C->field1D0 = level;
-        payload->action2C->field1D8 = value1D8;
+        payload->action2C->hoverTextColor1D8 = hoverTextColor;
     } else if (payload != nullptr && payload->action2C != nullptr) {
         MarkDeath(payload->action2C);
         payload->action2C = nullptr;
@@ -907,7 +907,7 @@ std::uint16_t ReadYobiDirectionLow16(const YobiAction* const action) noexcept
 YobiAction* PublishPlayerActionIdentity(
     const std::wstring_view name, const std::array<std::wstring, 4>& titles,
     const std::int32_t originalNameLength, const std::int32_t level,
-    const std::int32_t value188)
+    const std::int32_t hoverTextColor)
 {
     YobiAction* action = world::gPlayerRuntimeSlots.action;
     if (action == nullptr) {
@@ -941,7 +941,7 @@ YobiAction* PublishPlayerActionIdentity(
     action = world::gPlayerRuntimeSlots.action;
     action->field1D0 = level;
     action = world::gPlayerRuntimeSlots.action;
-    action->field1D8 = value188; // 当前只承接玩家协议字段到field1D8，业务含义尚未确定，保留参数原名。
+    action->hoverTextColor1D8 = hoverTextColor; // 原51A495完整写第四参数，悬停文字消费另按低BYTE取色。
     return action;
 }
 
@@ -989,7 +989,7 @@ void UpdateMapActorMode(
         current = slot;
     }
     const bool explicitMode = mode == 1 || mode == 2;
-    current->field2E4 = explicitMode ? mode : 0;
+    current->overheadMarkerMode2E4 = explicitMode ? mode : 0;
     slot->imageNo2E8 = explicitMode ? imageNo : 0;
 }
 

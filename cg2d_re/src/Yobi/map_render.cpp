@@ -458,7 +458,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             || (flags & 0x4000u) == 0 || (flags & 0x8000u) != 0;
     }
     if (createFirst) {
-        const std::int32_t kind = action->field2E4;
+        const std::int32_t kind = action->overheadMarkerMode2E4;
         action->refresh2EC = 0;
         const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
@@ -889,7 +889,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         return;
     }
     const std::int32_t scene = world::gCurrentSceneType;
-    std::int32_t companion = action->field1D8;
+    std::int32_t companion = action->hoverTextColor1D8;
     cg::ui::detail::gHoverObjectValueD68AC8 = companion;
     if (scene == 9) {
         action = graphic->reference.action;
@@ -898,7 +898,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         }
         const std::uint32_t flags = action->flags;
         if ((flags & 0x80u) != 0) {
-            cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
+            cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             const std::int32_t maxFp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxFp);
             const std::int32_t fp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.fp);
@@ -906,12 +906,12 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::int32_t hp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.hp);
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
         } else if ((flags & 0x80000u) != 0) {
-            cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
+            cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             // 原额外字符串实参不被本格式消费，不增加显示内容。
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
         } else if ((flags & 0x100u) != 0) {
-            cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
+            cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, L"等级 {:<3} {:<16} [{:<16}]" /* 原常量参考：0x0058AD44。 */, fixed->field1D0, fixed->nameC4.c_str(), fixed->titleE1.c_str());
             const wchar_t* const title = graphic->reference.action->text144.data();
@@ -959,7 +959,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             cg::text::FormatTo(cg::ui::detail::gHoverTextD68AE8, kLevel58AD5C, action->field1D0, name);
             static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
         } else if ((flags & 0x400u) != 0) {
-            cg::ui::detail::gHoverObjectValueD68AC8 = action->field1D8;
+            cg::ui::detail::gHoverObjectValueD68AC8 = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
             const std::int32_t count = fixed->payload.mapActor->itemCount18;
             if (count > 0) {

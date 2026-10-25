@@ -22,15 +22,15 @@ namespace cg::yobi {
 
 namespace detail {
 
-// 原448040的+18/+1C：模式0/1是附件指针，其他模式是S32状态。
+// YUF01：原448040的+18/+1C按mode解释；0／1为附件引用，其余为S32初始化状态，不跨臂读取。
 union MapTransitionSlots18 {
     struct {
-        YobiAction* action18; // 原成员偏移：+0x18。
-        YobiAction* action1C; // 原成员偏移：+0x1C。
+        YobiAction* action18; // 原+18；446D80／446FA0的首个非拥有特效引用。
+        YobiAction* action1C; // 原+1C；同两回调的第二个非拥有特效引用。
     } attachments;
     struct {
-        std::int32_t state18; // 原成员偏移：+0x18。
-        std::int32_t state1C; // 原成员偏移：+0x1C。
+        std::int32_t initialized18; // 原+18；模式2～9在零时置1并完成初始化，保持S32。
+        std::int32_t state1C; // 原+1C；目前仅见448040／447230写零，业务未定，不猜第二阶段。
     } values;
 };
 
@@ -114,8 +114,8 @@ static void UpdateMapTransitionAction_447E60(YobiAction* action);
 static std::int32_t UpdateAcceleratingBlinkTransition_4473B0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (payload->slots18.values.state18 == 0) {
-        payload->slots18.values.state18 = 1;
+    if (payload->slots18.values.initialized18 == 0) {
+        payload->slots18.values.initialized18 = 1;
         payload->visible2C = 1;
         const std::uint32_t frame = render::gFrameParity628FC8;
         payload->step34 = 20;
@@ -167,8 +167,8 @@ static std::int32_t UpdateAcceleratingBlinkTransition_4473B0(YobiAction* const a
 static std::int32_t UpdateDeceleratingBlinkTransition_4474E0(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (payload->slots18.values.state18 == 0) {
-        payload->slots18.values.state18 = 1;
+    if (payload->slots18.values.initialized18 == 0) {
+        payload->slots18.values.initialized18 = 1;
         payload->visible2C = 1;
         const std::uint32_t frame = render::gFrameParity628FC8;
         payload->step34 = -10;
@@ -451,8 +451,8 @@ static std::int32_t UpdateTransitionTrail(
     YobiAction* const action, const std::uint8_t yOffsetAxis)
 {
     auto* const payload = action->payload.mapTransition;
-    if (payload->slots18.values.state18 == 0) {
-        payload->slots18.values.state18 = 1;
+    if (payload->slots18.values.initialized18 == 0) {
+        payload->slots18.values.initialized18 = 1;
         payload->counter10 = 0;
         action->movementStepXBits_27C = 0;
         action->movementStepYBits_280 = 0;
@@ -638,8 +638,8 @@ static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const act
 static std::int32_t UpdateExpandingOrbitTransition_447070(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (payload->slots18.values.state18 == 0) {
-        payload->slots18.values.state18 = 1;
+    if (payload->slots18.values.initialized18 == 0) {
+        payload->slots18.values.initialized18 = 1;
         payload->orbitAngle20 = 0.0F;
         payload->orbitRadius24 = 0;
     }
@@ -648,7 +648,7 @@ static std::int32_t UpdateExpandingOrbitTransition_447070(YobiAction* const acti
         MarkDeath(action);
         return 0;
     }
-    if (payload->slots18.values.state18 != 0) {
+    if (payload->slots18.values.initialized18 != 0) {
         const std::uint64_t now = platform::ReadTickCount64();
         const std::uint64_t deadline = payload->tick14 + 1000u;
         if (deadline < now) {
@@ -665,8 +665,8 @@ static std::int32_t UpdateExpandingOrbitTransition_447070(YobiAction* const acti
 static std::int32_t UpdateContractingOrbitTransition_447230(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (payload->slots18.values.state18 == 0) {
-        payload->slots18.values.state18 = 1;
+    if (payload->slots18.values.initialized18 == 0) {
+        payload->slots18.values.initialized18 = 1;
         payload->slots18.values.state1C = 0;
         payload->orbitAngle20 = 0.0F;
         payload->orbitRadius24 = 800;
@@ -675,7 +675,7 @@ static std::int32_t UpdateContractingOrbitTransition_447230(YobiAction* const ac
         MarkDeath(action);
         return 1;
     }
-    if (payload->slots18.values.state18 != 0) {
+    if (payload->slots18.values.initialized18 != 0) {
         const double angle = payload->orbitAngle20 + 6.0;
         payload->orbitRadius24 -= 4;
         payload->orbitAngle20 = static_cast<float>(angle);
@@ -688,8 +688,8 @@ static std::int32_t UpdateContractingOrbitTransition_447230(YobiAction* const ac
 static std::int32_t UpdateStraightBlinkTransition_447610(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (payload->slots18.values.state18 == 0) {
-        payload->slots18.values.state18 = 1;
+    if (payload->slots18.values.initialized18 == 0) {
+        payload->slots18.values.initialized18 = 1;
         payload->visible2C = 1;
         const std::uint32_t frame = render::gFrameParity628FC8;
         payload->step34 = 20;
@@ -720,8 +720,8 @@ static std::int32_t UpdateStraightBlinkTransition_447610(YobiAction* const actio
 static std::int32_t UpdateApproachingBlinkTransition_447820(YobiAction* const action)
 {
     auto* const payload = action->payload.mapTransition;
-    if (payload->slots18.values.state18 == 0) {
-        payload->slots18.values.state18 = 1;
+    if (payload->slots18.values.initialized18 == 0) {
+        payload->slots18.values.initialized18 = 1;
         payload->visible2C = 1;
         const std::uint32_t frame = render::gFrameParity628FC8;
         payload->step34 = -10;
@@ -890,7 +890,7 @@ YobiAction* CreateMapTransitionAction_448040(
         payload->slots18.attachments.action18 = nullptr;
         payload->slots18.attachments.action1C = nullptr;
     } else {
-        payload->slots18.values.state18 = 0;
+        payload->slots18.values.initialized18 = 0;
         payload->slots18.values.state1C = 0;
     }
     payload->orbitAngle20 = 0.0F;

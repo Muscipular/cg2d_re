@@ -593,7 +593,7 @@ struct BattleRideCarrierPayload {
     YobiAction* second04; // 原成员偏移：+0x04。 429923/42417B写第二个438290结果，非拥有引用，226恢复后清槽。
     std::uint32_t flags08; // 原成员偏移：+0x08。 42912D写M整数、414820恢复FDC；4239D0/RID不写此字段。
     std::int32_t gearImage0C; // 原成员偏移：+0x0C。 428FEC/42933E写51B740结果，恢复时严格>0才建主装备。
-    std::array<std::byte, 8> bytes10; // 原成员偏移：+0x10。
+    std::array<std::byte, 8> bytes10; // 原+10..17；仅见清零，未见独立业务读取，不解释为指针。
 };
 
 static_assert(sizeof(BattleRideCarrierPayload) == 2 * sizeof(YobiAction*) + 16);
@@ -628,13 +628,13 @@ struct BattleActorPayload {
     std::int32_t valueFD4; // 原+FD4；攻击等待帧与REB进入／退出阶段共用，单一含义不能覆盖，保留原名。
     std::int32_t busyFD8; // 原成员偏移：+0xFD8。
     std::uint32_t flagsFDC; // 原成员偏移：+0xFDC；BattleActorFlag位集合，保留未知位和原消息承接。
-    std::uint32_t stateFE0; // 原成员偏移：+0xFE0。
+    std::uint32_t stateFE0; // 原+FE0；位0控制相册关系／属性效果，位1参与死亡退场及等待门禁，非单一阶段。
     std::int32_t effectFlagsFE4; // 原成员偏移：+0xFE4。
     std::int32_t moveTargetXFE8; // 412870按目标坐标侧写入；与00/08/10坐标来源独立。
     std::int32_t moveTargetYFEC;
     std::int32_t valueFF0; // 原+FF0；共用周期／碰撞计数、延时和保存的phase，无法统一为计时器或阶段，保留原名。
     std::int32_t attackModeFF4; // 原+FF4：攻击路径使用BattleAttackMode；动作155借作随机次数，保持完整S32。
-    std::int32_t aliveFF8; // 原成员偏移：+0xFF8。
+    std::int32_t aliveFF8; // 原+FF8；死亡处理／更新与等待门禁，不能据名称当作HP存活判定，保持S32。
     std::array<std::byte, 4> bytesFFC; // 原成员偏移：+0xFFC。 原FFC..FFF：随整个载荷清零/浅复制，用途及地址属性未定。
     std::int32_t flashCounter1000; // 原成员偏移：+0x1000。 404DB0残影节拍；438290沿通用分配零化，不额外写入。
     std::int32_t flash1004; // 原成员偏移：+0x1004。 416DD0的bit100门禁，仅首次写1并播放音效。

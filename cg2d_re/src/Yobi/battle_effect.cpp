@@ -464,7 +464,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->framePlayingRate = 100;
             action->flags = initialFlags | 0x40000u;
             action->pathCountOrDrawOrder_270 = 0;
-            action->offset44 = static_cast<float>(third.offsetY);
+            action->offset44 = static_cast<float>(third.yValue);
             action->scaleX = static_cast<float>(action->scaleX * 1.5);
             action->scaleY = static_cast<float>(action->scaleY * 1.5);
             action->imageNo = sourcePayload->image102C;
@@ -508,7 +508,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->rebirthValue1 = 4;
             action->rebirthValue2 = 4;
             action->offset40 = source->offset40;
-            action->offset44 = static_cast<float>(static_cast<double>(third.offsetY) + source->offset44);
+            action->offset44 = static_cast<float>(static_cast<double>(third.yValue) + source->offset44);
             action->pathCountOrDrawOrder_270 = 0;
             break;
         }
@@ -530,7 +530,7 @@ YobiAction* NewBattleEffect_41CD00(
             const std::int32_t halfWidth = render::ReadGraphicDxWidth(graphic) / 2;
             const std::int32_t projectedX = halfWidth + source->graphicOffsetX + x;
             action->offset40 = static_cast<float>(projectedX);
-            const std::int32_t projectedY = source->y + third.offsetY;
+            const std::int32_t projectedY = source->y + third.yValue;
             action->pathCountOrDrawOrder_270 = 0;
             action->offset44 = static_cast<float>(projectedY);
             break;
@@ -558,7 +558,7 @@ YobiAction* NewBattleEffect_41CD00(
             const std::int32_t x = source->x;
             const std::int32_t projectedX = width / 2 + source->graphicOffsetX + x;
             action->offset40 = static_cast<float>(projectedX);
-            const std::int32_t projectedY = third.offsetY + source->y;
+            const std::int32_t projectedY = third.yValue + source->y;
             action->pathCountOrDrawOrder_270 = 0;
             action->offset44 = static_cast<float>(projectedY);
             break;
@@ -603,7 +603,7 @@ YobiAction* NewBattleEffect_41CD00(
                 const std::int32_t currentImage = sourcePayload->image1028;
                 if (currentImage >= 110180 && currentImage <= 110183) {
                     const std::int32_t halfOffset = source->graphicOffsetY / 2;
-                    const double y = static_cast<double>(halfOffset) + source->offset44 + third.offsetY;
+                    const double y = static_cast<double>(halfOffset) + source->offset44 + third.yValue;
                     action->pathCountOrDrawOrder_270 = 0;
                     action->offset44 = static_cast<float>(y);
                 } else {
@@ -771,7 +771,7 @@ YobiAction* NewBattleEffect_41CD00(
             action->rebirthValue2 = 4;
             action->flags = initialFlags | 0x40000u;
             action->offset40 = static_cast<float>(static_cast<double>(offsetX) + source->offset40);
-            const double initialY = static_cast<double>(third.offsetY) + source->offset44;
+            const double initialY = static_cast<double>(third.yValue) + source->offset44;
             action->pathCountOrDrawOrder_270 = 0;
             action->offset44 = static_cast<float>(initialY);
             bool deviceBlend = false;
@@ -937,7 +937,7 @@ YobiAction* NewBattleEffect_41CD00(
                 const std::int32_t level = sourcePayload->castSkillLevel1044;
                 if (level >= 9) {
                     action->field1D0 = level;
-                    static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, BattleEffectType_ParentImageTierAura, 1, 0));
+                    static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ParentImageTierAura, 1, 0));
                 }
             }
             break;

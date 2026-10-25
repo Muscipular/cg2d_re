@@ -84,7 +84,7 @@ YobiAction& YobiAction::operator=(const YobiAction& source)
     this->barMaximum1C0 = source.barMaximum1C0;
     std::memcpy(&this->windowCompletionSlot1D0, &source.windowCompletionSlot1D0, sizeof(source.windowCompletionSlot1D0));
     this->value1D4 = source.value1D4;
-    this->field1D8 = source.field1D8;
+    this->hoverTextColor1D8 = source.hoverTextColor1D8;
     this->counter1DC = source.counter1DC;
     this->mapX1E0 = source.mapX1E0;
     this->mapY1F0 = source.mapY1F0;
@@ -117,7 +117,7 @@ YobiAction& YobiAction::operator=(const YobiAction& source)
     this->field2D8 = source.field2D8;
     this->completedLoops = source.completedLoops;
     this->playRevert = source.playRevert;
-    this->field2E4 = source.field2E4;
+    this->overheadMarkerMode2E4 = source.overheadMarkerMode2E4;
     this->imageNo2E8 = source.imageNo2E8;
     this->refresh2EC = source.refresh2EC;
     this->frameX = source.frameX;
@@ -488,7 +488,7 @@ void AddYobiActionDrawFlags(YobiAction* const action, const std::uint8_t flags) 
 
 std::int32_t GetYobiActionField2E4(const YobiAction* const action) noexcept
 {
-    return action->field2E4;
+    return action->overheadMarkerMode2E4;
 }
 
 const wchar_t* GetYobiName(const YobiAction* const action) noexcept

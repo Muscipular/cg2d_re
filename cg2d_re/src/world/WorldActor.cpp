@@ -491,7 +491,7 @@ void UpsertWorldActor_445350(
             record.action->titleE1 = cg::text::FromGbkWide(text100);
         }
     }
-    record.action->field1D8 = value40;
+    record.action->hoverTextColor1D8 = value40;
 }
 
 // WGQ01：X→fresh Y→类别/必需flags120，返对象编号或-1；保比较读取/RNG与动态上界。

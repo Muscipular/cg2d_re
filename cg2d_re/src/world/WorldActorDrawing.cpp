@@ -122,7 +122,7 @@ void ClearWorldActorLeaderMarker_442C00(cg::yobi::YobiAction* const action)
     const auto* const payload = static_cast<const cg::yobi::detail::MapActorPayload*>(action->payload.mapActor);
     auto& record = gWorldObjects[payload->index];
     record.marker44 = 0;
-    if (action->field2E4 != 2) {
+    if (action->overheadMarkerMode2E4 != 2) {
         record.flags42 &= 0xFEFFu;
     }
 }
@@ -420,7 +420,7 @@ void UpsertGroundItemObject_445D20(
         record.action->nameC4 = L"???";
     }
     record.action->flags |= 0x400u;
-    record.action->field1D8 = value48;
+    record.action->hoverTextColor1D8 = value48;
     record.action->payload.mapActor->itemCount18 = value50;
 }
 

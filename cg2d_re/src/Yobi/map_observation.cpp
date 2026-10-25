@@ -25,17 +25,17 @@ namespace detail {
 
 // 原 payload +00..+2F；原生指针扩宽后只供三种地图角色及观察链使用。
 struct MapCharaPayload {
-    std::array<std::uint32_t, 5> values;
-    std::array<YobiAction*, 5> partyActions;
-    std::int32_t frame;
-    YobiAction* next;
+    std::array<std::uint32_t, 5> objectIds00; // 原+00；观察成员对象编号，供FindObjectYobi查找，非表槽或地址。
+    std::array<YobiAction*, 5> partyActions; // 原+14；与成员编号对应的非拥有动画节点引用。
+    std::int32_t frame; // 原+28；观察组轨迹／入离场推进计数。
+    YobiAction* next; // 原+2C；观察组链表的非拥有后继，节点仍由Yobi链管理。
 };
 
 static_assert(std::is_standard_layout_v<MapCharaPayload>);
 
 static_assert(std::is_trivially_copyable_v<MapCharaPayload>);
 
-static_assert(offsetof(MapCharaPayload, values) == 0);
+static_assert(offsetof(MapCharaPayload, objectIds00) == 0);
 
 static_assert(offsetof(MapCharaPayload, partyActions) == 0x18);
 
@@ -218,7 +218,7 @@ void SetObservationGroupMembers_4408C0(
     const std::array<std::int32_t, 5> values {first, second, third, fourth, fifth};
     for (std::size_t i = 0; i < values.size(); ++i) {
         if (values[i] > 0) {
-            payload->values[i] = static_cast<std::uint32_t>(values[i]);
+            payload->objectIds00[i] = static_cast<std::uint32_t>(values[i]);
         }
     }
 }
@@ -228,7 +228,7 @@ static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const pare
 {
     const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
-    const std::uint32_t objectIndex = payload->values[index];
+    const std::uint32_t objectIndex = payload->objectIds00[index];
     YobiAction* const source = objectIndex == playerIndex
         ? world::gPlayerRuntimeSlots.action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
@@ -260,7 +260,7 @@ static YobiAction* CreateLandingObservationMember_43FE00(YobiAction* const paren
 {
     const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
-    const std::uint32_t objectIndex = payload->values[index];
+    const std::uint32_t objectIndex = payload->objectIds00[index];
     YobiAction* const source = objectIndex == playerIndex
         ? world::gPlayerRuntimeSlots.action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
@@ -321,7 +321,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
     YobiAction* const parent = action->observationParent10;
     const std::int32_t initialSlot = action->field1D0;
     auto* const payload = parent->payload.mapChara;
-    const std::uint32_t objectIndex = payload->values[initialSlot];
+    const std::uint32_t objectIndex = payload->objectIds00[initialSlot];
     YobiAction* const source = objectIndex == playerIndex
         ? world::gPlayerRuntimeSlots.action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
@@ -379,7 +379,7 @@ static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
         action->characterAction = overrideAction;
     }
     const std::int32_t index = action->field1D0;
-    if (payload->values[index] != 0 && payload->partyActions[index] != nullptr) {
+    if (payload->objectIds00[index] != 0 && payload->partyActions[index] != nullptr) {
         std::int32_t shiftX = 0;
         std::int32_t shiftY = 0;
         if (action->phase == 1) {
@@ -404,7 +404,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
     YobiAction* const parent = action->observationParent10;
     const std::int32_t initialSlot = action->field1D0;
     auto* const payload = parent->payload.mapChara;
-    const std::uint32_t objectIndex = payload->values[initialSlot];
+    const std::uint32_t objectIndex = payload->objectIds00[initialSlot];
     YobiAction* const source = objectIndex == world::gPlayerRuntimeSlots.objectIndex
         ? world::gPlayerRuntimeSlots.action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
@@ -475,7 +475,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
             action->phase = 5;
             action->characterAction = CharacterAnimation_Stand;
             static_cast<void>(audio::PlaySe_52C450(0x1C9, soundX));
-            const std::uint32_t currentIndex = payload->values[action->field1D0];
+            const std::uint32_t currentIndex = payload->objectIds00[action->field1D0];
             if (currentIndex == world::gPlayerRuntimeSlots.objectIndex) {
                 world::ResumePlayerAfterObservation_51BEF0();
             } else {
@@ -493,7 +493,7 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
         return;
     }
     const std::int32_t index = action->field1D0;
-    if (payload->values[index] != 0 && payload->partyActions[index] != nullptr) {
+    if (payload->objectIds00[index] != 0 && payload->partyActions[index] != nullptr) {
         std::int32_t shiftX = 0;
         std::int32_t shiftY = 0;
         if (source != nullptr && currentPhase == 4) {
@@ -643,7 +643,7 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
     if (action->phase == 1) {
         std::int8_t ready = 0;
         for (std::int32_t index = 0; index < 5; ++index) {
-            if (payload->values[index] != 0) {
+            if (payload->objectIds00[index] != 0) {
                 if (payload->partyActions[index] == nullptr) {
                     payload->partyActions[index] = CreateBoardingObservationMember_43F290(action, index);
                 }
@@ -748,7 +748,7 @@ static void UpdateArrivingObservationGroup_440070(YobiAction* const action)
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
     for (std::int32_t index = 0; index < 5; ++index) {
-        if (payload->values[index] != 0 && payload->partyActions[index] == nullptr) {
+        if (payload->objectIds00[index] != 0 && payload->partyActions[index] == nullptr) {
             payload->partyActions[index] = CreateLandingObservationMember_43FE00(action, index);
         }
     }
@@ -942,15 +942,15 @@ YobiAction* CreateObservationTravelFromSnapshot_440B70()
     action->x = -100;
     action->y = -100;
     static_cast<void>(AppendObservationGroup_43F180(action));
-    for (std::size_t index = 0; index < payload->values.size(); ++index) {
-        payload->values[index] = 0;
+    for (std::size_t index = 0; index < payload->objectIds00.size(); ++index) {
+        payload->objectIds00[index] = 0;
         payload->partyActions[index] = nullptr;
         const std::int32_t value = gMapValues5F9720[index];
         if (value <= 0) {
             continue;
         }
 
-        payload->values[index] = static_cast<std::uint32_t>(value);
+        payload->objectIds00[index] = static_cast<std::uint32_t>(value);
         YobiAction* const child = NewYobiAction_404AE0(2, 0);
         payload->partyActions[index] = child;
         if (child != nullptr) {
@@ -1139,7 +1139,7 @@ YobiAction* FindObservationGroupByMember_43F1F0(const std::uint32_t value)
         const auto* const payload =
             static_cast<const detail::MapCharaPayload*>(current->payload.mapChara);
         YobiAction* const next = payload->next;
-        for (const std::uint32_t entry : payload->values) {
+        for (const std::uint32_t entry : payload->objectIds00) {
             if (entry == value) {
                 return current;
             }
@@ -1192,11 +1192,11 @@ void* SavePlayerObservationTravelSnapshot_440F50()
     detail::gMapDirection5F9740 = action->field58;
     detail::gMapDuration5F9744 =
         (action->readiness * 60);
-    for (std::size_t index = 0; index < payload->values.size(); ++index) {
+    for (std::size_t index = 0; index < payload->objectIds00.size(); ++index) {
         detail::gMapValues5F9720[index] = 0;
         detail::gMapImages5AC4A0[index] = 0;
         const std::int32_t value =
-            std::bit_cast<std::int32_t>(payload->values[index]);
+            std::bit_cast<std::int32_t>(payload->objectIds00[index]);
         if (value > 0) {
             detail::gMapValues5F9720[index] = value;
             YobiAction* const child = payload->partyActions[index];

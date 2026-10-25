@@ -2766,12 +2766,12 @@ static LuaSkillPacketResult HandleLuaSkillPacket(YobiAction* scene) {
         return LuaSkillPacketResult::Native;
     }
     BattleScenePayload& sceneData = *scene->payload.battleScene;
-    if (sceneData.packetSubState58 == 1 && gLuaSkillRuntime.active &&
+    if (sceneData.packetSubState58 == BattleMSkillPhase_WaitForTurnReady && gLuaSkillRuntime.active &&
         gLuaSkillRuntime.scene == scene) {
         return UpdateRuntimePacketState(scene) ? LuaSkillPacketResult::Finished
                                                : LuaSkillPacketResult::Handled;
     }
-    if (sceneData.packetSubState58 != 0 || gLuaSkillRuntime.active) {
+    if (sceneData.packetSubState58 != BattleMSkillPhase_ReadAndQueue || gLuaSkillRuntime.active) {
         return LuaSkillPacketResult::Native;
     }
 
@@ -2836,7 +2836,7 @@ static LuaSkillPacketResult HandleLuaSkillPacket(YobiAction* scene) {
         }
     }
     sceneData.packetOffset64 = gPacketView.endOffset;
-    sceneData.packetSubState58 = 1;
+    sceneData.packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
     return LuaSkillPacketResult::Handled;
 }
 

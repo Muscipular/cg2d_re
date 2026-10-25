@@ -1648,7 +1648,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         &gBattleMCasterPosition5AAA64, &gBattleMValue5ABA7C, &gBattleMTargetPosition5AAA40, &gBattleMRedirectPosition5AAA70);
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMValue5ABA7C]);
     ParseBattleMRide_4239D0(scene);
-    payload->packetSubState58 = 1;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
 }
 
 // 原42AE7A..42B229及42B26D..42B282；caller已读mode并分流0，不提前首对象的后置空检查。
@@ -1790,7 +1790,7 @@ void ProcessBattleMSkillAttackTargets(
     MoveBattleCastState_439380(world::gBattleAllEntries59E980[gBattleMValue5ABA7C]);
     ParseBattleMRide_4239D0(scene);
     if (fixedState) {
-        payload->packetSubState58 = 1;
+        payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
     } else {
         ++payload->packetSubState58;
     }

@@ -99,7 +99,7 @@ static void ProcessBattleMSkillWaitingState(
 {
     const std::int32_t skill = gBattleMSkill5AAA78;
     const std::int32_t skill98Mode88 = gBattleMSkill98Mode5A4A34;
-    if (subState == 2) {
+    if (subState == BattleMSkillPhase_WaitForEntryReady) {
         switch (skill) {
         case BattleSkill_AttackMagicEarth: case BattleSkill_AttackMagicWater: case BattleSkill_AttackMagicFire:
         case BattleSkill_AttackMagicWind: case BattleSkill_AttackMagicEarthStrong:
@@ -119,7 +119,7 @@ static void ProcessBattleMSkillWaitingState(
         }
         const std::int32_t count = payload->entryCount04;
         if (count == 0) {
-            payload->packetSubState58 = 1;
+            payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
             return;
         }
         std::int32_t readyCount = 0;
@@ -139,11 +139,11 @@ static void ProcessBattleMSkillWaitingState(
         if (casterPhase == 0 || casterPhase == 1) {
             // 原42A930传最后参与者ECX，而不是用于phase门禁的施法者。
             AdvanceBattleCastState_439340(last);
-            payload->packetSubState58 = 1;
+            payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
         }
         return;
     }
-    if (subState != 1) {
+    if (subState != BattleMSkillPhase_WaitForTurnReady) {
         return;
     }
 
@@ -225,7 +225,7 @@ static void ProcessBattleMSkillWaitingState(
         kind = FinishKind::CasterFlash;
         break;
     case BattleSkill_Dance:
-        kind = skill98Mode88 == 7 ? FinishKind::EffectTargets : FinishKind::Caster;
+        kind = skill98Mode88 == BattleDanceMode_SwapActorAndPetPositions ? FinishKind::EffectTargets : FinishKind::Caster;
         break;
     default:
         return;
@@ -362,7 +362,7 @@ void ProcessBattleMSkillHeader(
     const std::uint32_t flags9C, const std::int32_t feedbackAlternateImageA0)
 {
     const std::int32_t subState = payload->packetSubState58;
-    if (subState != 0) {
+    if (subState != BattleMSkillPhase_ReadAndQueue) {
         ProcessBattleMSkillWaitingState(scene, payload, subState);
         return;
     }

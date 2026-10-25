@@ -773,7 +773,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
     }
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
     ParseBattleMRide_4239D0(scene);
-    payload->packetSubState58 = 2;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForEntryReady;
 }
 
 // 原434EDF..43573F；267保留继承累计值，每目标累计效果与最终累计尾分别生产。
@@ -1053,7 +1053,7 @@ static std::int32_t gBattleMHalfValue5A4A30 = 0;
     }
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
     ParseBattleMRide_4239D0(scene);
-    payload->packetSubState58 = 1;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
 }
 
 } // namespace detail

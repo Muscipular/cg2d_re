@@ -343,7 +343,7 @@ static std::int32_t gBattleMSelectedPosition5ABA98 = 0; // 原全局：0x005ABA9
     }
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
     ParseBattleMRide_4239D0(scene);
-    payload->packetSubState58 = 2;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForEntryReady;
 }
 
 // 原42BEAC..42C053，SKL技能50/51/52/53/88；结果255只跳过自身效果。
@@ -1459,7 +1459,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
         const std::int32_t skillLevel = gBattleMSkillLevelIndex5A3A18;
         levelTarget->payload.battleActor->castSkillLevel1044 = skillLevel;
         const std::int32_t mode = gBattleMSkill98Mode5A4A34;
-        if (mode >= 0 && mode <= 5) {
+        if (mode >= BattleDanceMode_Poison && mode <= BattleDanceMode_Forget) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_PlayDebuffSpellEffect);
             if ((gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
                 const std::int32_t reapplyTargetPosition = gBattleMTargetPosition5AAA40;
@@ -1472,14 +1472,14 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
                 modeTarget->payload.battleActor->skill98Mode1048 = targetMode;
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_ApplyDebuff);
             }
-        } else if (mode == 9) {
+        } else if (mode == BattleDanceMode_InstantDeath) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_PlayInstantDeathEffect);
             if ((gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_MarkDead);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_SetHpZero);
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_HandleDeath);
             }
-        } else if (mode == 10) {
+        } else if (mode == BattleDanceMode_RecoverDebuff) {
             const std::int32_t casterPosition = gBattleMCasterPosition5AAA64;
             const std::int32_t targetPosition = gBattleMTargetPosition5AAA40;
             const bool sameSide = (casterPosition == 20 && targetPosition < 10)
@@ -1488,7 +1488,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
             if ((gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_ClearDebuff);
             }
-        } else if (mode == 11) {
+        } else if (mode == BattleDanceMode_Revive) {
             const std::int32_t amount = TakeBattleMInteger_438F70(scene);
             ResetBattleCastList_4391E0(gBattleMTargetPosition5AAA40);
             cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->phase = BattleAction_Idle;
@@ -1516,35 +1516,35 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
         return;
     }
     switch (gBattleMSkill98Mode5A4A34) {
-    case 0: case 1: case 2: case 3: case 4: case 5:
-    case 9: case 10: case 11: case 18:
+    case BattleDanceMode_Poison: case BattleDanceMode_Sleep: case BattleDanceMode_Stone: case BattleDanceMode_Inebriety: case BattleDanceMode_Confusion: case BattleDanceMode_Forget:
+    case BattleDanceMode_InstantDeath: case BattleDanceMode_RecoverDebuff: case BattleDanceMode_Revive: case BattleDanceMode_ReadTargetFlags:
         ProcessBattleMSkill98StatusTargets(scene, payload);
         break;
-    case 6:
+    case BattleDanceMode_ApplyDamageUpAndAttackAnimation:
         ProcessBattleMSkill98Mode6(scene, payload);
         break;
-    case 7:
+    case BattleDanceMode_SwapActorAndPetPositions:
         ProcessBattleMSkill98Mode7(scene, payload);
         break;
-    case 8:
+    case BattleDanceMode_ShrinkAndRemoveTargets:
         ProcessBattleMSkill98Mode8(scene, payload);
         break;
-    case 12:
+    case BattleDanceMode_SelectedActorSpinAttackAndExit:
         ProcessBattleMSkill98Mode12(scene, payload);
         break;
-    case 13:
+    case BattleDanceMode_SelectedActorHealAndExit:
         ProcessBattleMSkill98Mode13(scene, payload);
         break;
-    case 14:
+    case BattleDanceMode_SetHpOrFpPairs:
         ProcessBattleMSkill98Mode14(scene, payload);
         break;
-    case 15:
+    case BattleDanceMode_DecreaseHpTargets:
         ProcessBattleMSkill98DamageTargets(scene, payload, BattleNumber_DecreaseHp);
         break;
-    case 16:
+    case BattleDanceMode_DecreaseFpTargets:
         ProcessBattleMSkill98DamageTargets(scene, payload, BattleNumber_DecreaseFp);
         break;
-    case 17:
+    case BattleDanceMode_SetHpFpOne:
         ProcessBattleMSkill98Mode17(scene, payload);
         break;
     default:
@@ -2059,7 +2059,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ChangeAppearanceWithCrossFade);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_AdvanceEffectAndCast);
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
-    payload->packetSubState58 = 1;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
 }
 
 // 原42FDCF..430162，SKL400保留异位置两次动作0及正常255/空目标的不同出口。
@@ -2166,7 +2166,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
         }
     }
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
-    payload->packetSubState58 = 2;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForEntryReady;
 }
 
 // 原430162..430463，SKL401正常255才追加结束效果，两种目标出口均执行完整211尾。
@@ -2243,7 +2243,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ApplySceneEffects);
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 0, 1, 0);
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
-    payload->packetSubState58 = 2;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForEntryReady;
 }
 
 // 原430463..43062E，SKL402先消费结果/位置/侧别，再遍历选定一侧的现有角色。
@@ -2303,7 +2303,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
         gBattleMTargetPosition5AAA40 = position;
     }
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
-    payload->packetSubState58 = 2;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForEntryReady;
 }
 
 // 原43062E..43097A，SKL405每目标九字段/四图号转换，全部消费后才追加五条效果。
@@ -2420,7 +2420,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     }
     AppendBattleEffect_439400(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], {-1, 0, 0, 0});
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
-    payload->packetSubState58 = 1;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
 }
 
 // 原43097A..431C9C；404/406共用双角色生产，预读游标不推进正式消息游标。
@@ -2864,7 +2864,7 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
     }
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
     ParseBattleMRide_4239D0(scene);
-    payload->packetSubState58 = 1;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForTurnReady;
 }
 
 // 原431CBA..43222F及42CB37..42CB5E；106/111/2002共享生产，首整数写攻击模式。
@@ -3191,7 +3191,7 @@ static constexpr std::array<std::int32_t, 5> kBattleMSkill2028Images54D6FC {1111
     }
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
     ParseBattleMRide_4239D0(scene);
-    payload->packetSubState58 = 2;
+    payload->packetSubState58 = BattleMSkillPhase_WaitForEntryReady;
 }
 
 // 原54D680按有效档1..5索引；只保存54D684开始的五个实际图号。

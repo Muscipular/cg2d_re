@@ -2225,7 +2225,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
             bool moveSpecialTarget = false;
             if (skill == BattleSkill_Dance) {
                 const std::int32_t attribute = payload->skill98Mode1048;
-                moveSpecialTarget = attribute == 12 || attribute == 13;
+                moveSpecialTarget = attribute == BattleDanceMode_SelectedActorSpinAttackAndExit || attribute == BattleDanceMode_SelectedActorHealAndExit;
             }
             if (moveSpecialTarget) {
                 MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[payload->targetPosition100C]);

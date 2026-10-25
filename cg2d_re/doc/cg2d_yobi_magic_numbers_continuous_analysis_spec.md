@@ -46,3 +46,19 @@ map_render.cpp局部S16的ActorOverheadTextSlot六项为NameC4=1、TitleE1=2、T
 YMN10实施：八份CPP及两份既有头新增七组29项，替换121处数字（轴64、地图挂件22、环境类型8、漂移14、帧组3、头顶文本7、窗口分组3）。地图kind6原有倒地清图消费也具名，第二挂件创建与清图顺序保持。排除新增枚举及animation.cpp的一处既有头引用后，十份源／头逆映射逐词一致；各项数值／顺序／唯一性、同域引用、UTF-8／原换行、历史进度与差异检查通过，开始编译验证。
 
 YMN10验证：build.bat Debug的MSVC x64配置、编译、链接成功，退出码0，报告同一cg2d_re.exe路径。共享头触发相关模块重编译，仍有Yobi的amount／result／lastAmount／statusType／selfFlags／relativeX／relativeY，以及WindowBank／Contacts／Shop／Trade／Skill原路径的C4701，另见WindowShop原S32到S16的C4244；没有改变这些路径。精确提交十份源／头、本文及唯一进度，共12份文件，继续消息内部模式及阶段分析。
+
+## YMN11：跳舞内部模式及消息子阶段
+
+裁决六组32项S32。共享BattleDanceMode的19项按已证处理命名：0～5为Poison／Sleep／Stone／Inebriety／Confusion／Forget；6为ApplyDamageUpAndAttackAnimation；7为SwapActorAndPetPositions；8为ShrinkAndRemoveTargets；9为InstantDeath；10为RecoverDebuff；11为Revive；12为SelectedActorSpinAttackAndExit；13为SelectedActorHealAndExit；14为SetHpOrFpPairs；15／16为DecreaseHpTargets／DecreaseFpTargets；17为SetHpFpOne；18为ReadTargetFlags。除已证状态和资源操作外不猜舞蹈名称，Mode6等既有helper名保持。
+
+共享BattleMSkillPhase三项为ReadAndQueue=0、WaitForTurnReady=1、WaitForEntryReady=2。0和1对应SKL解析／回合就绪，2为已排队目标就绪门禁；保留最后参与者ECX推进、原技能集合和回退到1的顺序，Lua接管SKL的同域阶段也引用此枚举。两组共享枚举置于既有battle_base.hpp，不改变字段或整数参数。
+
+battle_message.cpp内部另定义四组：BattleMQueuedPhase两项ReadAndQueue=0／WaitForTurnReady=1，仅用于Transition／Status／POS／ITM／GMN／RID既有两阶段门禁；BattleMMonsterPhase三项ReadActor=0／WaitForActors=1／WaitForDefenderNotBusy=2；BattleMChatPhase两项ReadAndShow=0／CountDown=1；BattleMGmnMode三项RemoveActorAndRevealTeam=0／EnterWithEntrance2=1／EnterWithRandomEntranceAndEmitter=2。CMB继续使用独立枚举，统一初始化和其他消息子状态不套用本批枚举。GMN的其他非零模式仍创建对象但入口参数保留0，模式0预扫描与执行同域具名。
+
+证据：42CF73写5A4A34，42CFDD及42E901把同值写角色1048。42D0D0起依次判0～5、9～11和18并到42E80D的目标／标志公共读取；其他分支分别于42D13A判6、42D285判7、42D6B4判8、42D7D1判12、42DD12判13、42E015判14、42E1E4／42E43B判15／16、42E69E判17。当前队列明确对应增伤／换槽／缩退／即死／洁净／复活／旋转攻击退出／治疗退出／成对设值／HP或FP减少／HP与FP置1；18只走目标标志与公共收尾。0～5经141动作以mode+Poison基图创建六种已证减益，预扫描19项分派、实际执行19项及cast中的12／13门禁同域。
+
+原SKL的42A76C读取+58，0进入42ACFD解析、1进入42A949等待，2进入目标计数检查，42A8CC／42A93D写1；当前五类生产与Lua路径保持。MON在4288FB读取+58，0／1／2分支分别解析、等待角色及重试旧配对槽；忙碌时保存2，完成后显式写1，不改成递增。CHT在42A22E判0／1，原定时递减完成路径保持。GMN在437207判0／1，等待20／21槽不忙后再判回合就绪；437290读取mode，43729C判断0决定退场，其余路径1指定入口2、2随机入口并创建421700发射器；具体GMN业务身份仍未证。
+
+YMN11实施：七份CPP及既有battle_base.hpp新增六组32项，替换91处数字（跳舞模式48、SKL阶段20、两阶段消息门禁12、MON阶段5、CHT阶段2、GMN模式4），没有新增头依赖。八份源／头逆映射逐词一致，取值／顺序／唯一性、引用闭合、完整字符串、原整数类型／控制流／顺序、UTF-8／原换行、历史进度和差异检查通过，开始编译验证。
+
+YMN11验证：build.bat Debug配置、编译和链接成功，退出码0；仍有既有C4701（amount／result／lastAmount／statusType／selfFlags），原未初始化分支保持。精确提交八份源／头、本文及唯一进度，共10份文件；其他候选继续分析。

@@ -35,6 +35,33 @@ namespace cg::yobi {
 
 namespace detail {
 
+// Transition／Status／POS／ITM／GMN／RID两阶段门禁；不解释MON、CHT、CMB或SKL。
+enum BattleMQueuedPhase : std::int32_t {
+    BattleMQueuedPhase_ReadAndQueue = 0,
+    BattleMQueuedPhase_WaitForTurnReady = 1,
+};
+
+// MON子阶段；2等待旧配对槽不忙后继续解析，完成显式置1。
+enum BattleMMonsterPhase : std::int32_t {
+    BattleMMonsterPhase_ReadActor = 0,
+    BattleMMonsterPhase_WaitForActors = 1,
+    BattleMMonsterPhase_WaitForDefenderNotBusy = 2,
+};
+
+// CHT子阶段；显示消息后逐次减少原计时值。
+enum BattleMChatPhase : std::int32_t {
+    BattleMChatPhase_ReadAndShow = 0,
+    BattleMChatPhase_CountDown = 1,
+};
+
+// GMN仅按退场／入口选择命名；未知非零模式保持原创建路径。
+enum BattleMGmnMode : std::int32_t {
+    BattleMGmnMode_RemoveActorAndRevealTeam = 0,
+    BattleMGmnMode_EnterWithEntrance2 = 1,
+    BattleMGmnMode_EnterWithRandomEntranceAndEmitter = 2,
+};
+
+
 // 原427470的PSN内部模式；具体状态名未证，只按资源变化及表现命名。
 enum BattleMStatusValueMode : std::int32_t {
     BattleMStatusValueMode_DecreaseHpWithHit = 0, // 减HP并播放受击动画。
@@ -779,14 +806,14 @@ void ScanBattleMParticipants_439B30(
             readSource();
             followRide = true;
             switch (mode) {
-            case 0: case 1: case 2: case 3: case 4: case 5:
-            case 9: case 10: case 11: case 18:
-                scanTargets(mode == 11 ? 2 : 1, false);
+            case BattleDanceMode_Poison: case BattleDanceMode_Sleep: case BattleDanceMode_Stone: case BattleDanceMode_Inebriety: case BattleDanceMode_Confusion: case BattleDanceMode_Forget:
+            case BattleDanceMode_InstantDeath: case BattleDanceMode_RecoverDebuff: case BattleDanceMode_Revive: case BattleDanceMode_ReadTargetFlags:
+                scanTargets(mode == BattleDanceMode_Revive ? 2 : 1, false);
                 break;
-            case 6: case 8:
+            case BattleDanceMode_ApplyDamageUpAndAttackAnimation: case BattleDanceMode_ShrinkAndRemoveTargets:
                 scanTargets(0, false);
                 break;
-            case 7:
+            case BattleDanceMode_SwapActorAndPetPositions:
                 for (;;) {
                     const std::int32_t target = readPosition();
                     if (target == 255) {
@@ -796,16 +823,16 @@ void ScanBattleMParticipants_439B30(
                     ++participants[cg::world::GetBattlePetPosition_405B40(target)];
                 }
                 break;
-            case 12: case 13:
+            case BattleDanceMode_SelectedActorSpinAttackAndExit: case BattleDanceMode_SelectedActorHealAndExit:
                 position = readPosition();
                 if (position == 255) {
                     followRide = false;
                     break;
                 }
                 ++participants[position];
-                scanTargets(2, mode == 12);
+                scanTargets(2, mode == BattleDanceMode_SelectedActorSpinAttackAndExit);
                 break;
-            case 14:
+            case BattleDanceMode_SetHpOrFpPairs:
                 for (;;) {
                     skip(1);
                     position = TakeBattleMPreviewInteger_439600();
@@ -821,10 +848,10 @@ void ScanBattleMParticipants_439B30(
                     ++participants[target];
                 }
                 break;
-            case 15: case 16:
+            case BattleDanceMode_DecreaseHpTargets: case BattleDanceMode_DecreaseFpTargets:
                 scanTargets(2, false);
                 break;
-            case 17:
+            case BattleDanceMode_SetHpFpOne:
                 scanTargets(1, false);
                 break;
             default:
@@ -1059,7 +1086,7 @@ void ScanBattleMParticipants_439B30(
     }
     case BattleMHeader_GMN: // GMN，首位置只参与计数，gate0仍输出-1。
         ++participants[readPosition()];
-        if (TakeBattleMPreviewInteger_439600() != 0) {
+        if (TakeBattleMPreviewInteger_439600() != BattleMGmnMode_RemoveActorAndRevealTeam) {
             position = readPosition();
             skip(2);
             TakeBattleMPreviewString_439670(text.data(), 29);
@@ -1328,8 +1355,8 @@ static void ProcessBattleMTransitionHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMTransitionHeader kind)
 {
     const std::int32_t subState = payload->packetSubState58;
-    if (subState != 0) {
-        if (subState == 1
+    if (subState != BattleMQueuedPhase_ReadAndQueue) {
+        if (subState == BattleMQueuedPhase_WaitForTurnReady
             && CheckBattleTurnReady_4394A0(scene, kind == BattleMTransitionHeader::Clear ? 1 : 0) == 1) {
             if (kind == BattleMTransitionHeader::PetNotice || kind == BattleMTransitionHeader::PetLeave) {
                 FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
@@ -1509,7 +1536,7 @@ static void ProcessBattleMDataHeader(
     }
     case BattleMDataHeader::Chat: {
         const std::int32_t subState = payload->packetSubState58;
-        if (subState == 0) {
+        if (subState == BattleMChatPhase_ReadAndShow) {
             gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             const std::int32_t color = TakeBattleMInteger_438F70(scene);
             const std::int32_t font = TakeBattleMInteger_438F70(scene);
@@ -1535,7 +1562,7 @@ static void ProcessBattleMDataHeader(
                 }
             }
             ++payload->packetSubState58;
-        } else if (subState == 1) {
+        } else if (subState == BattleMChatPhase_CountDown) {
             const std::int32_t remaining = payload->messageValueA4 - 1;
             payload->messageValueA4 = remaining;
             gBattleMMessageValue59FA14 = remaining;
@@ -1620,8 +1647,8 @@ static void ProcessBattleMStatusHeader(
     YobiAction* const scene, BattleScenePayload* const payload, const BattleMStatusHeader kind)
 {
     const std::int32_t subState = payload->packetSubState58;
-    if (subState != 0) {
-        if ((kind == BattleMStatusHeader::QueuedValue || subState == 1)
+    if (subState != BattleMQueuedPhase_ReadAndQueue) {
+        if ((kind == BattleMStatusHeader::QueuedValue || subState == BattleMQueuedPhase_WaitForTurnReady)
             && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
@@ -1829,8 +1856,8 @@ static void ProcessBattleMPositionHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t subState = payload->packetSubState58;
-    if (subState != 0) {
-        if (subState == 1 && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+    if (subState != BattleMQueuedPhase_ReadAndQueue) {
+        if (subState == BattleMQueuedPhase_WaitForTurnReady && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             const std::int32_t otherPosition = cg::world::GetBattlePetPosition_405B40(gBattleMCasterPosition5AAA64);
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             YobiAction* const other = cg::world::gBattleAllEntries59E980[otherPosition];
@@ -2006,7 +2033,7 @@ static void ProcessBattleMMonsterHeader(
 {
     std::int32_t defenderPosition = gBattleMDefenderPosition5A4A24;
     const std::int32_t subState = payload->packetSubState58;
-    if (subState == 1) {
+    if (subState == BattleMMonsterPhase_WaitForActors) {
         if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             YobiAction* const defender = cg::world::gBattleAllEntries59E980[gBattleMDefenderPosition5A4A24];
             if (defender == nullptr || defender->payload.battleActor->busyFD8 == 0) {
@@ -2020,7 +2047,7 @@ static void ProcessBattleMMonsterHeader(
         }
         return;
     }
-    if (subState == 0) {
+    if (subState == BattleMMonsterPhase_ReadActor) {
         const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         YobiAction* const actor = cg::world::gBattleAllEntries59E980[position];
         const bool actorPresent = actor != nullptr;
@@ -2031,12 +2058,12 @@ static void ProcessBattleMMonsterHeader(
         }
         defenderPosition = cg::world::GetBattlePetPosition_405B40(position);
         gBattleMDefenderPosition5A4A24 = defenderPosition;
-    } else if (subState != 2) {
+    } else if (subState != BattleMMonsterPhase_WaitForDefenderNotBusy) {
         return;
     }
     YobiAction* const pending = cg::world::gBattleAllEntries59E980[defenderPosition];
     if (pending != nullptr && pending->payload.battleActor->busyFD8 == 1) {
-        payload->packetSubState58 = 2;
+        payload->packetSubState58 = BattleMMonsterPhase_WaitForDefenderNotBusy;
         return;
     }
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FaceTargetFormationPoint);
@@ -2147,7 +2174,7 @@ static void ProcessBattleMMonsterHeader(
     }
     AppendBattleEffectList_4393A0(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
     MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
-    payload->packetSubState58 = 1;
+    payload->packetSubState58 = BattleMMonsterPhase_WaitForActors;
 }
 
 // 原427470的ITM=7；三模式保留不同的目标结束路径，返回后仍由总入口回存。
@@ -2155,9 +2182,9 @@ static void ProcessBattleMItemHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t subState = payload->packetSubState58;
-    if (subState != 0) {
+    if (subState != BattleMQueuedPhase_ReadAndQueue) {
         const std::int32_t mode = gBattleMItemMode59FA10;
-        if (subState == 1 && (mode == BattleMItemMode_RecoverTargetHp || mode == BattleMItemMode_SealCard || mode == BattleMItemMode_PlayNodAndWait)
+        if (subState == BattleMQueuedPhase_WaitForTurnReady && (mode == BattleMItemMode_RecoverTargetHp || mode == BattleMItemMode_SealCard || mode == BattleMItemMode_PlayNodAndWait)
             && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
             FinishBattleEvent_43B6C0(scene);
@@ -2519,8 +2546,8 @@ static void ProcessBattleMGmnHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t subState = payload->packetSubState58;
-    if (subState != 0) {
-        if (subState != 1) {
+    if (subState != BattleMQueuedPhase_ReadAndQueue) {
+        if (subState != BattleMQueuedPhase_WaitForTurnReady) {
             return;
         }
         YobiAction* const first = cg::world::gBattleAllEntries59E980[20];
@@ -2540,7 +2567,7 @@ static void ProcessBattleMGmnHeader(
 
     const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     const std::int32_t mode = TakeBattleMInteger_438F70(scene);
-    if (mode == 0) {
+    if (mode == BattleMGmnMode_RemoveActorAndRevealTeam) {
         YobiAction** const slot = &cg::world::gBattleAllEntries59E980[position];
         const std::int32_t palette = static_cast<std::int32_t>(((*slot)->mapX1E0));
         AppendBattleEffectList_4393A0(*slot, palette, 0, 40);
@@ -2566,9 +2593,9 @@ static void ProcessBattleMGmnHeader(
     }
 
     std::int8_t entrance = 0;
-    if (mode == 1) {
+    if (mode == BattleMGmnMode_EnterWithEntrance2) {
         entrance = 2;
-    } else if (mode == 2) {
+    } else if (mode == BattleMGmnMode_EnterWithRandomEntranceAndEmitter) {
         entrance = static_cast<std::int8_t>((platform::Rand16() & 1) + 1);
         static_cast<void>(NewBattleScreenEmitter_421700(150));
     }
@@ -2729,8 +2756,8 @@ static void ProcessBattleMRideHeader(
     YobiAction* const scene, BattleScenePayload* const payload)
 {
     const std::int32_t subState = payload->packetSubState58;
-    if (subState != 0) {
-        if (subState == 1 && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+    if (subState != BattleMQueuedPhase_ReadAndQueue) {
+        if (subState == BattleMQueuedPhase_WaitForTurnReady && CheckBattleTurnReady_4394A0(scene, 0) == 1) {
             FinishBattleEvent_43B6C0(scene);
         }
         return;

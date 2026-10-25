@@ -79,6 +79,36 @@
 namespace cg::yobi {
 
 namespace detail {
+// SKL技能98的内部模式；与技能号、PSN模式独立，未证舞蹈名按已证行为命名。
+enum BattleDanceMode : std::int32_t {
+    BattleDanceMode_Poison = 0,
+    BattleDanceMode_Sleep = 1,
+    BattleDanceMode_Stone = 2,
+    BattleDanceMode_Inebriety = 3,
+    BattleDanceMode_Confusion = 4,
+    BattleDanceMode_Forget = 5,
+    BattleDanceMode_ApplyDamageUpAndAttackAnimation = 6,
+    BattleDanceMode_SwapActorAndPetPositions = 7,
+    BattleDanceMode_ShrinkAndRemoveTargets = 8,
+    BattleDanceMode_InstantDeath = 9,
+    BattleDanceMode_RecoverDebuff = 10,
+    BattleDanceMode_Revive = 11,
+    BattleDanceMode_SelectedActorSpinAttackAndExit = 12,
+    BattleDanceMode_SelectedActorHealAndExit = 13,
+    BattleDanceMode_SetHpOrFpPairs = 14,
+    BattleDanceMode_DecreaseHpTargets = 15,
+    BattleDanceMode_DecreaseFpTargets = 16,
+    BattleDanceMode_SetHpFpOne = 17,
+    BattleDanceMode_ReadTargetFlags = 18,
+};
+
+// SKL事件packetSubState58；2先等待参与者就绪再回1，整数接口及原最后参与者推进保持。
+enum BattleMSkillPhase : std::int32_t {
+    BattleMSkillPhase_ReadAndQueue = 0,
+    BattleMSkillPhase_WaitForTurnReady = 1,
+    BattleMSkillPhase_WaitForEntryReady = 2,
+};
+
 // BAN01：战斗动作队列编号；用于AppendBattleCast_4392A0及角色phase分派，不是技能号或图号。
 // 原函数编号／地址保留；257项覆盖0～256，逐项依据见doc/cg2d_battle_action_naming_spec.md。
 enum BattleActionId : std::int32_t {

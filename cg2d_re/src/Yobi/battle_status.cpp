@@ -945,9 +945,9 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
         case BattleAction_PlayMagicAttackEffectAndFadeIn: type = BattleEffectType_MagicAttack; break;
         case BattleAction_PlayStatusRecoveryEffectAndFadeIn: type = BattleEffectType_StatusRecoveryEmitter; break;
         case BattleAction_PlayHealEffectAndFadeIn: type = BattleEffectType_Heal; break;
-        case BattleAction_PlayLevelScaledEffect21AndFadeIn: type = BattleEffectType_LevelScaledImage110100; break;
-        case BattleAction_PlayParentBoundEffect22AndFadeIn: type = BattleEffectType_ParentBoundImage110097; break;
-        case BattleAction_PlayParentBoundEffect23AndFadeIn: type = BattleEffectType_ParentBoundImage110096; break;
+        case BattleAction_PlaySkillActivationEffectAndFadeIn: type = BattleEffectType_SkillActivation; break;
+        case BattleAction_PlaySealEffectAndFadeIn: type = BattleEffectType_Seal; break;
+        case BattleAction_PlaySummonEffectAndFadeIn: type = BattleEffectType_Summon; break;
         case BattleAction_PlayDebuffSpellEffectAndFadeIn: type = BattleEffectType_DebuffSpell; break;
         case BattleAction_PlayBarrierSpellEffectAndFadeIn: type = BattleEffectType_BarrierSpell; break;
         case BattleAction_PlayPhysicalReflectEffectAndFadeIn: type = BattleEffectType_PhysicalReflect; break;
@@ -956,9 +956,9 @@ void UpdateBattleActions180_203_412310(YobiAction* const action)
         case BattleAction_PlayMagicReflectEffectAndFadeIn: type = BattleEffectType_MagicReflect; break;
         case BattleAction_PlayMagicAbsorbEffectAndFadeIn: type = BattleEffectType_MagicAbsorb; break;
         case BattleAction_PlayMagicNullifyEffectAndFadeIn: type = BattleEffectType_MagicNullify; break;
-        case BattleAction_PlayEffectType26AndFadeIn: type = BattleEffectType_CenteredImage110156; break;
+        case BattleAction_PlayInstantDeathEffectAndFadeIn: type = BattleEffectType_InstantDeath; break;
         case BattleAction_PlayHealingCastEffectAndFadeIn: type = BattleEffectType_HealingCast; break;
-        case BattleAction_PlayEffectType14AndFadeIn: type = BattleEffectType_LevelScaledImage110165; break;
+        case BattleAction_PlayStatusHpRecoveryEffectAndFadeIn: type = BattleEffectType_StatusHpRecovery; break;
         case BattleAction_PlayEffectType15AndFadeIn: type = BattleEffectType_CenteredLevelScaledImage110170; break;
         case BattleAction_PlayAttributeReversalEffectAndFadeIn: type = BattleEffectType_AttributeReversal; break;
         case BattleAction_PlayParameterChangeEffectAndFadeIn: type = BattleEffectType_ParameterChange; break;

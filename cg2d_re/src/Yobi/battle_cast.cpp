@@ -358,7 +358,7 @@ std::int32_t UpdateBattleAction53_40BF20(YobiAction* const action)
         action->scaleY = 0.0F;
     }
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ParentBoundImage110097, 0, 1);
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_Seal, 0, 1);
     }
     const float currentScaleX = action->scaleX;
     if (!(currentScaleX < 0.0F) && !(currentScaleX > 0.0F)) {
@@ -389,7 +389,7 @@ std::int32_t UpdateBattleAction54_40BFE0(YobiAction* const action)
         action->scaleY = 1.0F;
     }
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ParentBoundImage110096, 0, 1);
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_Summon, 0, 1);
     }
     if (std::bit_cast<std::uint32_t>(action->scaleX) == 0x3F800000u) {
         YobiAction* const effect = action->battleCastEffect10;
@@ -2136,10 +2136,10 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
         case BattleAction_PlayMagicAttackEffect: type = BattleEffectType_MagicAttack; break;
         case BattleAction_PlayStatusRecoveryEffect: type = BattleEffectType_StatusRecoveryEmitter; break;
         case BattleAction_PlayHealEffect: type = BattleEffectType_Heal; break;
-        case BattleAction_PlayAmountTieredRecoveryEffect: type = BattleEffectType_AmountTieredImage111194; break;
-        case BattleAction_PlayLevelScaledEffect21: type = BattleEffectType_LevelScaledImage110100; break;
-        case BattleAction_PlayParentBoundEffect22: type = BattleEffectType_ParentBoundImage110097; break;
-        case BattleAction_PlayParentBoundEffect23: type = BattleEffectType_ParentBoundImage110096; break;
+        case BattleAction_PlayAmountTieredRecoveryEffect: type = BattleEffectType_AmountTieredHpRecovery; break;
+        case BattleAction_PlaySkillActivationEffect: type = BattleEffectType_SkillActivation; break;
+        case BattleAction_PlaySealEffect: type = BattleEffectType_Seal; break;
+        case BattleAction_PlaySummonEffect: type = BattleEffectType_Summon; break;
         case BattleAction_PlayDebuffSpellEffect: type = BattleEffectType_DebuffSpell; break;
         case BattleAction_PlayBarrierSpellEffect: type = BattleEffectType_BarrierSpell; break;
         case BattleAction_PlayPhysicalReflectEffect: type = BattleEffectType_PhysicalReflect; break;
@@ -2148,11 +2148,11 @@ void UpdateBattleFactoryAction_40FC10(YobiAction* const action)
         case BattleAction_PlayMagicReflectEffect: type = BattleEffectType_MagicReflect; break;
         case BattleAction_PlayMagicAbsorbEffect: type = BattleEffectType_MagicAbsorb; break;
         case BattleAction_PlayMagicNullifyEffect: type = BattleEffectType_MagicNullify; break;
-        case BattleAction_PlayEffectType26: type = BattleEffectType_CenteredImage110156; break;
-        case BattleAction_PlayEffectType27: type = BattleEffectType_CenteredImage111162; break;
-        case BattleAction_PlayEffectType28: type = BattleEffectType_CenteredImage111163; break;
+        case BattleAction_PlayInstantDeathEffect: type = BattleEffectType_InstantDeath; break;
+        case BattleAction_PlayDeathScytheTechnique2053Effect: type = BattleEffectType_DeathScytheTechnique2053; break;
+        case BattleAction_PlayDeathScytheTechnique2054Effect: type = BattleEffectType_DeathScytheTechnique2054; break;
         case BattleAction_PlayHealingCastEffect: type = BattleEffectType_HealingCast; break;
-        case BattleAction_PlayEffectType14: type = BattleEffectType_LevelScaledImage110165; break;
+        case BattleAction_PlayStatusHpRecoveryEffect: type = BattleEffectType_StatusHpRecovery; break;
         case BattleAction_PlayEffectType15: type = BattleEffectType_CenteredLevelScaledImage110170; break;
         case BattleAction_PlayAttributeReversalEffect: type = BattleEffectType_AttributeReversal; break;
         case BattleAction_PlayParameterChangeEffect: type = BattleEffectType_ParameterChange; break;
@@ -2213,7 +2213,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     action->characterAction = CharacterAnimation_Cast;
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_CastingImage1028, 0, 1);
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_SpellCasting, 0, 1);
     }
     const std::int32_t event = action->frameEvent;
     if (event >= 10000 && event < 20000) {
@@ -2626,7 +2626,7 @@ void UpdateBattleAction154_40F790(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     if (payload->effect1060 == nullptr) {
-        payload->effect1060 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ScalePulseImage110095, 0, 0);
+        payload->effect1060 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_SealCard, 0, 0);
         static_cast<void>(audio::PlaySe_52C450(212, action->x));
     }
     if (payload->effect1060->phase == 1) {
@@ -2645,7 +2645,7 @@ void UpdateBattleAction155_40F800(YobiAction* const action)
     const double step = 0.01F;
     const double tenth = 0.1F;
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        YobiAction* const effect = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ParentBoundImage110097, 0, 1);
+        YobiAction* const effect = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_Seal, 0, 1);
         const std::int32_t soundX = action->x;
         action->battleCastEffect10 = effect;
         static_cast<void>(audio::PlaySe_52C450(213, soundX));
@@ -3376,7 +3376,7 @@ void UpdateBattleAction216_413400(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     action->characterAction = CharacterAnimation_Cast;
     if (payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_CastingImage1028, 0, 1);
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_SpellCasting, 0, 1);
         payload->valueFF0 = 0;
     }
     const std::int32_t event = action->frameEvent;
@@ -3761,7 +3761,7 @@ void UpdateBattleAction253_40FE50(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     if (action->phase == BattleAction_CreateCastingEffect && payload->effectPlaybackState1024 == BattleEffectPlayback_Idle) {
-        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_ParentBoundImage13E4, 0, 1);
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_CastingAttachment, 0, 1);
     }
     AdvanceBattleCastState_439340(action);
 }

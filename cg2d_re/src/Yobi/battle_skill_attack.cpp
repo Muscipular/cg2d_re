@@ -210,13 +210,13 @@ FinishFirstTargetFailure:
         goto AppendInitialGenericCast;
     }
     if (skill == BattleSkill_ShadowHand) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayLevelScaledEffect21);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlaySkillActivationEffect);
         cg::world::gBattleAllEntries59E980[(*sourcePosition)]->payload.battleActor->image102C = kAttackImages54D6D0[GetBattleValueBand_43BF00(levelIndex + 1)];
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[(*sourcePosition)], BattleAction_PlayConfiguredEffect42);
         goto ReadFirstTarget;
     }
     if (skill == BattleSkill_Recklessness) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayLevelScaledEffect21);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlaySkillActivationEffect);
         cg::world::gBattleAllEntries59E980[*initialPosition]->payload.battleActor->image102C = kAttackImages54D5F4[GetBattleValueBand_43BF00(levelIndex + 1)];
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayConfiguredEffect42);
         goto ReadFirstTarget;
@@ -231,10 +231,10 @@ FinishFirstTargetFailure:
             goto ReadFirstTarget;
 // 原函数：0x004392A0。
 AppendInitialGenericCast:
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayLevelScaledEffect21);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlaySkillActivationEffect);
         goto ReadFirstTarget;
     }
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlayLevelScaledEffect21);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*initialPosition], BattleAction_PlaySkillActivationEffect);
     if (skill != BattleSkill_DelayAttack257) {
         if (skill == BattleSkill_DelayAttack258) {
             coordinateIndex15 = cg::world::gBattlePointIndices5536FC[15];
@@ -1168,7 +1168,7 @@ void TakeBattleMSkillTargets_426FC0(
     cg::world::gBattleAllEntries59E980[*sourcePosition]->payload.battleActor->image102C = initialImage;
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_WaitTargetReady);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_ConsumeFp);
-    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_PlayLevelScaledEffect21);
+    AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_PlaySkillActivationEffect);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_SetIdlePose);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_ApplyAreaAttackOnFrameEvent);
     AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[*sourcePosition], BattleAction_Wait30Ticks);
@@ -1311,14 +1311,14 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         || skill == 4002 || skill == 3038 || skill == 110 || skill == BattleSkill_Taunt || skill == BattleSkill_MercyStrike
         || (skill >= BattleSkill_StatusAttackPoison && skill <= BattleSkill_StatusAttackForget)
             || (skill >= BattleSkill_StatusAttackPoison2096 && skill <= BattleSkill_StatusAttackForget2101)) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayLevelScaledEffect21);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySkillActivationEffect);
         skill = gBattleMSkill5AAA78;
     } else if (skill == BattleSkill_Ranbu) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayLevelScaledEffect21);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySkillActivationEffect);
         cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor->flash1004 = 1;
         skill = gBattleMSkill5AAA78;
     } else if (skill == BattleSkill_Recklessness) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayLevelScaledEffect21);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySkillActivationEffect);
         const std::int32_t band = GetBattleValueBand_43BF00(gBattleMSkillLevelIndex5A3A18 + 1);
         const std::int32_t imageCasterPosition = gBattleMCasterPosition5AAA64;
         YobiAction* const imageCaster = cg::world::gBattleAllEntries59E980[imageCasterPosition];
@@ -1328,7 +1328,7 @@ static constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 { // 
         AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayConfiguredEffect42);
         skill = gBattleMSkill5AAA78;
     } else if (skill >= BattleSkill_DelayAttack257 && skill < 4004) {
-        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlayLevelScaledEffect21);
+        AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_PlaySkillActivationEffect);
         skill = gBattleMSkill5AAA78;
         if (skill == BattleSkill_DelayAttack258) {
             const std::int32_t firstXIndex = cg::world::gBattlePointIndices5536FC[15];

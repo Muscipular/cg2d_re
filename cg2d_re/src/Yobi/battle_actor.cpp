@@ -462,19 +462,19 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_PlayMagicAbsorbEffect:
     case BattleAction_PlayMagicNullifyEffect:
     case BattleAction_PlayRecoveryEffect:
-    case BattleAction_PlayEffectType14:
+    case BattleAction_PlayStatusHpRecoveryEffect:
     case BattleAction_PlayEffectType15:
     case BattleAction_PlayStatusRecoveryEffect:
-    case BattleAction_PlayEffectType26:
-    case BattleAction_PlayEffectType27:
-    case BattleAction_PlayEffectType28:
+    case BattleAction_PlayInstantDeathEffect:
+    case BattleAction_PlayDeathScytheTechnique2053Effect:
+    case BattleAction_PlayDeathScytheTechnique2054Effect:
     case BattleAction_PlayHealingCastEffect:
     case BattleAction_PlayAttributeReversalEffect:
     case BattleAction_PlayHealEffect:
     case BattleAction_PlayAmountTieredRecoveryEffect:
-    case BattleAction_PlayLevelScaledEffect21:
-    case BattleAction_PlayParentBoundEffect22:
-    case BattleAction_PlayParentBoundEffect23:
+    case BattleAction_PlaySkillActivationEffect:
+    case BattleAction_PlaySealEffect:
+    case BattleAction_PlaySummonEffect:
     case BattleAction_PlayParameterChangeEffect:
     case BattleAction_PlayEffectType38:
     case BattleAction_PlayBombLevelEffect:
@@ -518,13 +518,13 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_PlayReviveEffect:
         static_cast<void>(UpdateBattleAction148_40FEF0(action));
         break;
-    case BattleAction_StartScalingEffect24:
+    case BattleAction_StartSealCardEffect:
         static_cast<void>(UpdateBattleAction154_40F790(action));
         break;
-    case BattleAction_PulseScaleWithParentEffect:
+    case BattleAction_PulseScaleWithSealEffect:
         static_cast<void>(UpdateBattleAction155_40F800(action));
         break;
-    case BattleAction_WaitScalingEffect24End:
+    case BattleAction_WaitSealCardEffectEnd:
         static_cast<void>(UpdateBattleAction156_40FB30(action));
         break;
     case BattleAction_ApplyResourceChange:
@@ -590,9 +590,9 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_PlayMagicAttackEffectAndFadeIn:
     case BattleAction_PlayStatusRecoveryEffectAndFadeIn:
     case BattleAction_PlayHealEffectAndFadeIn:
-    case BattleAction_PlayLevelScaledEffect21AndFadeIn:
-    case BattleAction_PlayParentBoundEffect22AndFadeIn:
-    case BattleAction_PlayParentBoundEffect23AndFadeIn:
+    case BattleAction_PlaySkillActivationEffectAndFadeIn:
+    case BattleAction_PlaySealEffectAndFadeIn:
+    case BattleAction_PlaySummonEffectAndFadeIn:
     case BattleAction_EnterFadeInAndResolveEffect:
     case BattleAction_PlayDebuffSpellEffectAndFadeIn:
     case BattleAction_PlayBarrierSpellEffectAndFadeIn:
@@ -602,9 +602,9 @@ void UpdateNativeBattleActor(YobiAction* const action)
     case BattleAction_PlayMagicReflectEffectAndFadeIn:
     case BattleAction_PlayMagicAbsorbEffectAndFadeIn:
     case BattleAction_PlayMagicNullifyEffectAndFadeIn:
-    case BattleAction_PlayEffectType26AndFadeIn:
+    case BattleAction_PlayInstantDeathEffectAndFadeIn:
     case BattleAction_PlayHealingCastEffectAndFadeIn:
-    case BattleAction_PlayEffectType14AndFadeIn:
+    case BattleAction_PlayStatusHpRecoveryEffectAndFadeIn:
     case BattleAction_PlayEffectType15AndFadeIn:
     case BattleAction_PlayAttributeReversalEffectAndFadeIn:
     case BattleAction_PlayParameterChangeEffectAndFadeIn:

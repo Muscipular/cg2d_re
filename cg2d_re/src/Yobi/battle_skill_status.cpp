@@ -264,7 +264,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_Wait60Ticks);
         } else if (skill == 86) {
             const std::int32_t technique = gBattleMTechnique5A4A38 / 100;
-            const std::int32_t state = technique == 2053 ? BattleAction_PlayEffectType27 : technique == 2054 ? BattleAction_PlayEffectType28 : BattleAction_PlayEffectType26;
+            const std::int32_t state = technique == 2053 ? BattleAction_PlayDeathScytheTechnique2053Effect : technique == 2054 ? BattleAction_PlayDeathScytheTechnique2054Effect : BattleAction_PlayInstantDeathEffect;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], state);
             if ((gBattleMResultFlags5A4A20 & 0x80000u) != 0) {
                 AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_MarkDead);

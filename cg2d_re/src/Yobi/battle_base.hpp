@@ -213,12 +213,12 @@ enum BattleActionId : std::int32_t {
     BattleAction_StartPhysicalAbsorbEffect = 128, // 创建物理吸收特效（工厂type8、link=0）后立即推进，不等待效果结束。
     BattleAction_StartPhysicalNullifyEffect = 129, // 创建物理无效化特效（工厂type9、link=0）后立即推进，不等待效果结束。
     BattleAction_PlayRecoveryEffect = 130, // 播放持续回复魔法受术特效（工厂type13），转162等待；本动作不直接施加状态或结算数值。
-    BattleAction_PlayEffectType14 = 131, // 创建工厂type14的等级分档效果并转162等待；可由状态报文mode1安排。
+    BattleAction_PlayStatusHpRecoveryEffect = 131, // 播放状态报文mode1的HP恢复表现（工厂type14）并转162等待；数值另排队。
     BattleAction_PlayEffectType15 = 132, // 创建工厂type15的等级分档效果并转162等待；业务名称未证。
     BattleAction_PlayStatusRecoveryEffect = 133, // 播放异常恢复魔法受术特效（工厂type25），转162等待；本动作不直接施加状态或结算数值。
-    BattleAction_PlayEffectType26 = 134, // 创建工厂type26（图号110156）并转162等待；不同技能可共用。
-    BattleAction_PlayEffectType27 = 135, // 创建工厂type27（图号111162）并转162等待，不按技术号2053猜业务名。
-    BattleAction_PlayEffectType28 = 136, // 创建工厂type28（图号111163）并转162等待，不按技术号2054猜业务名。
+    BattleAction_PlayInstantDeathEffect = 134, // 播放即死受术表现（工厂type26）并转162等待；死亡／HP归零由后续动作处理。
+    BattleAction_PlayDeathScytheTechnique2053Effect = 135, // 死神的镰刀技术2053用type27，转162等待；技术独立业务名未证。
+    BattleAction_PlayDeathScytheTechnique2054Effect = 136, // 死神的镰刀技术2054用type28，转162等待；技术独立业务名未证。
     BattleAction_PlayHealingCastEffect = 137, // 补血技能生产的施放侧效果：工厂type29，创建后转162等待。
     BattleAction_PlayItemUseEffect = 138, // 物品使用入口安排的工厂type20效果，创建后转162等待。
     BattleAction_CastSpellAndTriggerTargets = 139, // 播放施法动画及type34效果，按帧事件启动目标或创建魔法效果；终帧清理并推进。
@@ -233,12 +233,12 @@ enum BattleActionId : std::int32_t {
     BattleAction_PlayReviveEffect = 148, // 播放复活受术特效（工厂type33）并转162等待；死亡位重置及HP恢复由后续动作处理。
     BattleAction_PlayHealEffect = 149, // 播放补血魔法受术特效（工厂type16），转162等待；本动作不直接施加状态或结算数值。
     BattleAction_PlayAmountTieredRecoveryEffect = 150, // 按value1030的2000／3500阈值选恢复图像（工厂type18），转162等待。
-    BattleAction_PlayLevelScaledEffect21 = 151, // 创建工厂type21等级分档效果，部分技能使用castLevel1040；转162等待。
-    BattleAction_PlayParentBoundEffect22 = 152, // 创建工厂type22、图号110097的效果，父对象死亡时结束；转162等待。
-    BattleAction_PlayParentBoundEffect23 = 153, // 创建工厂type23、图号110096的效果，父对象死亡时结束；转162等待。
-    BattleAction_StartScalingEffect24 = 154, // 创建并保存工厂type24缩放效果，等待其phase为1后推进本角色。
-    BattleAction_PulseScaleWithParentEffect = 155, // 创建type22父对象效果，按原计数往复缩放角色并恢复，结束时令保存效果进入phase2。
-    BattleAction_WaitScalingEffect24End = 156, // 等待保存的type24效果phase为3，标死、清槽后推进角色。
+    BattleAction_PlaySkillActivationEffect = 151, // 播放等级分档的技能发动表现（工厂type21），部分技能使用castLevel1040；转162等待。
+    BattleAction_PlaySealEffect = 152, // 播放封印／收回视觉（工厂type22），父对象死亡时结束；转162等待。
+    BattleAction_PlaySummonEffect = 153, // 播放召唤／进入视觉（工厂type23），父对象死亡时结束；转162等待。
+    BattleAction_StartSealCardEffect = 154, // 创建并保存type24封印卡效果，等待其phase为1后推进本角色。
+    BattleAction_PulseScaleWithSealEffect = 155, // 创建type22封印效果并往复缩放角色；恢复后令保存的封印卡效果进入phase2。
+    BattleAction_WaitSealCardEffectEnd = 156, // 等待保存的封印卡效果phase为3，标死、清槽后推进角色。
     BattleAction_PlayParameterChangeEffect = 157, // 播放能力变化魔法受术特效（工厂type37），转162等待；本动作不直接施加状态或结算数值。
     BattleAction_PlayEffectType38 = 158, // 按技能等级选择工厂type38图像并转162等待；业务名称未证。
     BattleAction_ApplyResourceChange = 159, // 按numberDisplayType1034显示数值并更新HP／FP，随后推进动作队列。
@@ -267,9 +267,9 @@ enum BattleActionId : std::int32_t {
     BattleAction_PlayMagicAttackEffectAndFadeIn = 182, // 创建type2攻击魔法受术效果后转204渐显、处理结果及等待。
     BattleAction_PlayStatusRecoveryEffectAndFadeIn = 183, // 播放异常恢复魔法受术特效（工厂type25），转204渐显、按结果结算HP／FP并等待；不同于动作133。
     BattleAction_PlayHealEffectAndFadeIn = 184, // 播放补血魔法受术特效（工厂type16），转204渐显、按结果结算HP／FP并等待；不同于动作149。
-    BattleAction_PlayLevelScaledEffect21AndFadeIn = 185, // 创建工厂type21等级分档效果后转204渐显、处理结果及等待。
-    BattleAction_PlayParentBoundEffect22AndFadeIn = 186, // 创建工厂type22父对象生命周期关联效果后转204渐显、处理结果及等待。
-    BattleAction_PlayParentBoundEffect23AndFadeIn = 187, // 创建工厂type23父对象生命周期关联效果后转204渐显、处理结果及等待。
+    BattleAction_PlaySkillActivationEffectAndFadeIn = 185, // 创建type21技能发动效果后转204渐显、处理结果及等待。
+    BattleAction_PlaySealEffectAndFadeIn = 186, // 创建type22封印／收回视觉后转204渐显、处理结果及等待。
+    BattleAction_PlaySummonEffectAndFadeIn = 187, // 创建type23召唤／进入视觉后转204渐显、处理结果及等待。
     BattleAction_EnterFadeInAndResolveEffect = 188, // 不创建新效果，直接转204渐显、处理结果及等待；保留缺少创建分支的行为。
     BattleAction_PlayDebuffSpellEffectAndFadeIn = 189, // 播放异常魔法受术特效（工厂type4），转204渐显、按结果结算HP／FP并等待；不同于动作119。
     BattleAction_PlayBarrierSpellEffectAndFadeIn = 190, // 播放物理／魔法反射、吸收、无效化共用受术特效（工厂type5），转204渐显、按结果结算HP／FP并等待；不同于动作120。
@@ -279,9 +279,9 @@ enum BattleActionId : std::int32_t {
     BattleAction_PlayMagicReflectEffectAndFadeIn = 194, // 播放魔法反射特效（工厂type10），转204渐显、按结果结算HP／FP并等待；不同于动作124。
     BattleAction_PlayMagicAbsorbEffectAndFadeIn = 195, // 播放魔法吸收特效（工厂type11），转204渐显、按结果结算HP／FP并等待；不同于动作125。
     BattleAction_PlayMagicNullifyEffectAndFadeIn = 196, // 播放魔法无效化特效（工厂type12），转204渐显、按结果结算HP／FP并等待；不同于动作126。
-    BattleAction_PlayEffectType26AndFadeIn = 197, // 创建工厂type26后转204渐显、处理结果及等待；业务名称未证。
+    BattleAction_PlayInstantDeathEffectAndFadeIn = 197, // 创建type26即死受术表现后转204渐显、处理结果及等待。
     BattleAction_PlayHealingCastEffectAndFadeIn = 198, // 创建工厂type29补血施放侧效果后转204渐显、处理结果及等待。
-    BattleAction_PlayEffectType14AndFadeIn = 199, // 创建工厂type14后转204渐显、处理结果及等待；业务名称未证。
+    BattleAction_PlayStatusHpRecoveryEffectAndFadeIn = 199, // 创建type14状态HP恢复表现后转204渐显、处理结果及等待。
     BattleAction_PlayEffectType15AndFadeIn = 200, // 创建工厂type15后转204渐显、处理结果及等待；业务名称未证。
     BattleAction_PlayAttributeReversalEffectAndFadeIn = 201, // 播放属性反转受术特效（工厂type6），转204渐显、按结果结算HP／FP并等待；不同于动作146。
     BattleAction_PlayParameterChangeEffectAndFadeIn = 202, // 播放能力变化魔法受术特效（工厂type37），转204渐显、按结果结算HP／FP并等待；不同于动作157。

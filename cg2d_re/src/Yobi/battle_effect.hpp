@@ -12,10 +12,11 @@ namespace cg::yobi {
 namespace detail {
 
 // BFTN01：41CD00的创建类型，覆盖0～47；不是角色phase、技能号或顶层压缩分支号。
-// 未证业务名按图号／回调行为命名。函数仍接收U32，保留type>47使用已有对象的公共尾。
+// BFTN02补充已证用途；未证业务名仍按图号／行为命名，证据缺口见对应SPEC。
+// 函数仍接收U32，保留type>47使用已有对象的公共尾。
 enum BattleEffectType : std::uint32_t {
     BattleEffectType_AttackClash = 0, // 图110009；动作115普通交锋效果，反击另用type3。
-    BattleEffectType_FixedImage110063 = 1, // 图110063；普通完成通知回调41A160。
+    BattleEffectType_FixedImage110063 = 1, // 图110063、回调41A160；资源宏有dorein线索，缺业务生产证据。
     BattleEffectType_MagicAttack = 2, // 攻击魔法共用表现；等级偏移+110067，高等级111013。
     BattleEffectType_CrossCounter = 3, // 按反击技能11的附加技术等级选110153／111053。
     BattleEffectType_DebuffSpell = 4, // 减益魔法表现；等级偏移+110071，高等级111063。
@@ -28,40 +29,40 @@ enum BattleEffectType : std::uint32_t {
     BattleEffectType_MagicAbsorb = 11, // 查技能58技术等级，两分支均用110121，查询调用保留。
     BattleEffectType_MagicNullify = 12, // 查技能60技术等级，选110129／111022。
     BattleEffectType_Recovery = 13, // 恢复魔法表现；110176族／111019，保留Recovery扩展图替换。
-    BattleEffectType_LevelScaledImage110165 = 14, // 等级偏移+110165；等级>=9递归创建19附加层。
-    BattleEffectType_CenteredLevelScaledImage110170 = 15, // 等级偏移+110170／111001；按源图偏移居中Y。
+    BattleEffectType_StatusHpRecovery = 14, // STV mode1的HP恢复表现；110165族，等级>=9创建19，不执行数值结算。
+    BattleEffectType_CenteredLevelScaledImage110170 = 15, // 等级偏移+110170／111001、居中Y；未证业务生产及图族名称。
     BattleEffectType_Heal = 16, // 补血魔法表现；110085族，等级>=9创建19，随后做Heal扩展图替换。
-    BattleEffectType_ParentBoundImage110184 = 17, // 图110184、层203、回调41A1C0；父死亡时标死，不跟随父坐标。
-    BattleEffectType_AmountTieredImage111194 = 18, // 按1030的2000／3500阈值选111194／111195／111196。
+    BattleEffectType_ParentBoundImage110184 = 17, // 图110184、层203、41A1C0；父死亡时标死，不跟随坐标，业务名未证。
+    BattleEffectType_AmountTieredHpRecovery = 18, // 物品HP恢复表现；按1030的2000／3500阈值分图，具体药品名未证。
     BattleEffectType_ParentImageTierAura = 19, // 按父图及1D0等级选110184／111015／111020／0；14／16递归使用。
     BattleEffectType_ItemUse = 20, // 图110104；物品使用动作138的表现，完成后通知关联父对象。
-    BattleEffectType_LevelScaledImage110100 = 21, // 等级偏移+110100／111016；3100／3101先递减1040取等级。
-    BattleEffectType_ParentBoundImage110097 = 22, // 图110097、回调41A1C0；保持创建坐标，不是跟随特效。
-    BattleEffectType_ParentBoundImage110096 = 23, // 图110096、回调41A1C0；与22独立编号。
-    BattleEffectType_ScalePulseImage110095 = 24, // 图110095、层8、初始缩放0，回调41A270放大／缩小。
+    BattleEffectType_SkillActivation = 21, // 多技能发动侧110100族／111016；3100／3101先递减1040取等级。
+    BattleEffectType_Seal = 22, // 封印／收回视觉图110097、41A1C0；保持创建坐标，不限定捕获成功。
+    BattleEffectType_Summon = 23, // 召唤／进入视觉图110096、41A1C0；保持创建坐标，与22独立。
+    BattleEffectType_SealCard = 24, // ITM mode6封印卡图110095、层8；41A270放大／缩小，不结算捕获结果。
     BattleEffectType_StatusRecoveryEmitter = 25, // 洁净魔法表现；顺序发射41A7D0，音效281。
-    BattleEffectType_CenteredImage110156 = 26, // 图110156，按源图偏移居中Y。
-    BattleEffectType_CenteredImage111162 = 27, // 图111162，按源图偏移居中Y。
-    BattleEffectType_CenteredImage111163 = 28, // 图111163，按源图偏移居中Y。
+    BattleEffectType_InstantDeath = 26, // 即死受术图110156、居中Y；技能86及98模式9使用，死亡结算另排队。
+    BattleEffectType_DeathScytheTechnique2053 = 27, // 死神的镰刀技术号/100==2053：图111162、居中Y；技术业务名未证。
+    BattleEffectType_DeathScytheTechnique2054 = 28, // 死神的镰刀技术号/100==2054：图111163、居中Y；技术业务名未证。
     BattleEffectType_HealingCast = 29, // 补血施放侧图110157，设备混合并居中Y；其他技能可共用。
-    BattleEffectType_FixedImage110012 = 30, // 图110012；源浮点X，源Y加第三数值。
-    BattleEffectType_FixedImage110014 = 31, // 图110014；与30／32保持独立编号。
-    BattleEffectType_FixedImage110013 = 32, // 图110013；与30／31保持独立编号。
+    BattleEffectType_FixedImage110012 = 30, // life系列图110012；源浮点X、源Y加第三数值，缺业务生产证据。
+    BattleEffectType_FixedImage110014 = 31, // life系列图110014；缺业务生产证据，与30／32保持独立编号。
+    BattleEffectType_FixedImage110013 = 32, // 图110013；动画头仅有注释宏线索，业务未证，与30／31独立。
     BattleEffectType_ReviveEmitter = 33, // 复活受术表现；环形载荷、反向发射41A590、音效280，不在此恢复HP。
-    BattleEffectType_CastingImage1028 = 34, // 源1028施法图及扩展替换，保留原图音效／定位选择。
+    BattleEffectType_SpellCasting = 34, // 施法槽效果，源1028施法图及扩展替换；保留原图音效／定位选择。
     BattleEffectType_SkillImpact = 35, // 按103C分派完整命中／移动初始化，保留Magic扩展图替换。
     BattleEffectType_RandomEmitter = 36, // 回调41A310随机发射；分配优先级取源位置低U8*10+1的低U8。
     BattleEffectType_ParameterChange = 37, // 能力变化表现；按等级选110189／111057。
-    BattleEffectType_LevelIndexedImage111239 = 38, // 等级1～7选111240～111246，其余111239。
+    BattleEffectType_LevelIndexedImage111239 = 38, // 技能3001受术侧；等级1～7选111240～111246，其余111239，业务名未证。
     BattleEffectType_BombLevel = 39, // 按全局爆弹等级选110103～110100或111016，居中Y。
-    BattleEffectType_RandomOffsetImage110474 = 40, // 图110474；依次取源宽及Y偏移，随机定位。
-    BattleEffectType_PayloadImage102CType41 = 41, // 直接取源102C；与42共用表现，保留独立类型。
-    BattleEffectType_PayloadImage102CType42 = 42, // 直接取源102C；与41保持独立编号。
-    BattleEffectType_ParentBoundImage13E4 = 43, // 角色载荷、图源13E4、回调41A1C0；复制源坐标。
-    BattleEffectType_FixedImage111179 = 44, // 图111179；技能2070命中链生产。
-    BattleEffectType_FixedImage111188 = 45, // 图111188；技能2076命中链生产。
-    BattleEffectType_FixedImage111191 = 46, // 图111191；技能2079命中链生产。
-    BattleEffectType_ScaledPayloadImage102CAtPosition = 47, // 绝对X／Y、源102C、XY缩放各乘1.5；创建类型上界。
+    BattleEffectType_RandomOffsetImage110474 = 40, // 技能402选侧生产图110474；依次取宽／Y偏移并随机定位，图族名称未证。
+    BattleEffectType_PayloadImage102CType41 = 41, // 多技能直接取源102C；不能冠单一技能名，与42保持独立类型。
+    BattleEffectType_PayloadImage102CType42 = 42, // 多技能直接取源102C；业务生产与41不同，不合并编号。
+    BattleEffectType_CastingAttachment = 43, // 施法附件，现由SoloDance写13E4并排创建／清理；41A1C0，只复制创建坐标。
+    BattleEffectType_FixedImage111179 = 44, // 图111179、技能2070命中链生产；技能业务名缺资料。
+    BattleEffectType_FixedImage111188 = 45, // 图111188、技能2076命中链生产；技能业务名缺资料。
+    BattleEffectType_FixedImage111191 = 46, // 图111191、技能2079命中链生产；技能业务名缺资料。
+    BattleEffectType_AreaAttackImpactAtPosition = 47, // 动作255首目标的范围攻击表现；绝对XY、源102C、各缩放1.5，类型上界。
 };
 
 // YUF01：41CD00第三槽按type选择；0..47是S32绝对／相对Y，其他类型借用已有对象，不能跨臂读取。

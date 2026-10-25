@@ -69,7 +69,7 @@ std::int32_t gBattleMSkillLevel5A4A2C = 0; // 原全局：0x005A4A2C。 SKL状�
 std::int32_t gBattleMSkillLevelIndex5A3A18 = 0; // 原全局：0x005A3A18。 与88/8C独立的归一化等级索引。
 
 enum class BattleMTransitionHeader : std::int32_t {
-    Escape = 1, Clear = 2, Support = 3, PetNotice = 15, PetLeave = 16, PetDown = 18,
+    Escape = BattleMHeader_ESC, Clear = BattleMHeader_CLR, Support = BattleMHeader_SUP, PetNotice = BattleMHeader_PNO, PetLeave = BattleMHeader_PLV, PetDown = BattleMHeader_PDN,
 };
 
 // 439B30的SKL字段布局；同布局合并不改变技能集合、RID尾扫描或特殊字段。
@@ -498,7 +498,7 @@ void ScanBattleMRideParticipants_439770(std::uint8_t* const participants)
             && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
-        if (kind != 22) {
+        if (kind != BattleMHeader_RID) {
             cg::world::gBattleMPreviewOffset5AAA60 = savedOffset;
             return;
         }
@@ -671,7 +671,7 @@ void ScanBattleMParticipants_439B30(
         }
     };
     switch (kind) {
-    case 0: { // SKL
+    case BattleMHeader_SKL: { // SKL
         const std::int32_t technique = TakeBattleMPreviewInteger_439600();
         skip(1);
         std::int32_t skill = TakeBattleMPreviewInteger_439600();
@@ -916,12 +916,12 @@ void ScanBattleMParticipants_439B30(
         *source = position;
         return;
     }
-    case 1: case 20: // ESC/BST
+    case BattleMHeader_ESC: case BattleMHeader_BST: // ESC/BST
         readSource();
         skip(1);
         *flag = 1;
         break;
-    case 2: case 3: // CLR/SUP
+    case BattleMHeader_CLR: case BattleMHeader_SUP: // CLR/SUP
         for (;;) {
             position = readPosition();
             if (position == 255) {
@@ -931,7 +931,7 @@ void ScanBattleMParticipants_439B30(
         }
         *flag = 1;
         break;
-    case 4: { // POS
+    case BattleMHeader_POS: { // POS
         position = readPosition();
         const std::int32_t pet = cg::world::GetBattlePetPosition_405B40(position);
         ++participants[position];
@@ -939,7 +939,7 @@ void ScanBattleMParticipants_439B30(
         *flag = 1;
         break;
     }
-    case 5: // MON
+    case BattleMHeader_MON: // MON
         readSource();
         ++participants[cg::world::GetBattlePetPosition_405B40(position)];
         if (TakeBattleMPreviewInteger_439600() != 0) {
@@ -950,12 +950,12 @@ void ScanBattleMParticipants_439B30(
         skip(1);
         *flag = 1;
         break;
-    case 6: // EQU
+    case BattleMHeader_EQU: // EQU
         readSource();
         skip(2);
         *flag = 1;
         break;
-    case 7: { // ITM
+    case BattleMHeader_ITM: { // ITM
         const std::int32_t mode = TakeBattleMPreviewInteger_439600();
         if (mode == 0) {
             readSource();
@@ -977,35 +977,35 @@ void ScanBattleMParticipants_439B30(
         *flag = 1;
         break;
     }
-    case 8: // CMB，输出循环终止位置FF，不是首参与者。
+    case BattleMHeader_CMB: // CMB，输出循环终止位置FF，不是首参与者。
         ++participants[readPosition()];
         scanTargets(2, true);
         ScanBattleMRideParticipants_439770(participants);
         position = 255;
         *flag = 1;
         break;
-    case 9: // PSN
+    case BattleMHeader_PSN: // PSN
         skip(2);
         readSource();
         skip(2);
         ScanBattleMRideParticipants_439770(participants);
         *flag = 1;
         break;
-    case 10: case 12: // ANR/ACT
+    case BattleMHeader_ANR: case BattleMHeader_ACT: // ANR/ACT
         readSource();
         *flag = 0;
         break;
-    case 11: // PUE
+    case BattleMHeader_PUE: // PUE
         readSource();
         skip(2);
         *flag = 0;
         break;
-    case 13: // CFP
+    case BattleMHeader_CFP: // CFP
         readSource();
         skip(1);
         *flag = 0;
         break;
-    case 14: // CHT
+    case BattleMHeader_CHT: // CHT
         position = readPosition();
         if (static_cast<std::uint32_t>(position) <= 21u) {
             ++participants[position];
@@ -1014,16 +1014,16 @@ void ScanBattleMParticipants_439B30(
         TakeBattleMPreviewString_439670(message.data(), 256);
         *flag = 0;
         break;
-    case 15: case 16: case 18: // PNO/PLV/PDN
+    case BattleMHeader_PNO: case BattleMHeader_PLV: case BattleMHeader_PDN: // PNO/PLV/PDN
         readSource();
         *flag = 1;
         break;
-    case 17: // CBC
+    case BattleMHeader_CBC: // CBC
         readSource();
         skip(7);
         *flag = 0;
         break;
-    case 19: { // REB
+    case BattleMHeader_REB: { // REB
         readSource();
         const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
         skip(1);
@@ -1033,7 +1033,7 @@ void ScanBattleMParticipants_439B30(
         *flag = 1;
         break;
     }
-    case 21: // GMN，首位置只参与计数，gate0仍输出-1。
+    case BattleMHeader_GMN: // GMN，首位置只参与计数，gate0仍输出-1。
         ++participants[readPosition()];
         if (TakeBattleMPreviewInteger_439600() != 0) {
             position = readPosition();
@@ -1046,7 +1046,7 @@ void ScanBattleMParticipants_439B30(
         }
         *flag = 1;
         break;
-    case 22: { // RID，此处零模式19整数，与439770试读20整数不同。
+    case BattleMHeader_RID: { // RID，此处零模式19整数，与439770试读20整数不同。
         const std::int32_t mode = TakeBattleMPreviewInteger_439600();
         position = readPosition();
         const std::int32_t target = readPosition();
@@ -1067,10 +1067,10 @@ void ScanBattleMParticipants_439B30(
         *flag = 1;
         break;
     }
-    case 23: // DSK
+    case BattleMHeader_DSK: // DSK
         skip(3);
         [[fallthrough]];
-    case 24: // END
+    case BattleMHeader_END: // END
         for (std::int32_t index = 0; index < 22; ++index) {
             ++participants[index];
         }
@@ -1223,7 +1223,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
     std::array<char, 256> initialMessage;
     std::array<char, 256> queuedMessage;
     std::array<char, 4> header;
-    if (scene->phase == 14 && payload->packetSubState58 == 0) {
+    if (scene->phase == BattleMHeader_CHT && payload->packetSubState58 == 0) {
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         const std::int32_t color = TakeBattleMInteger_438F70(scene);
         const std::int32_t font = TakeBattleMInteger_438F70(scene);
@@ -1234,7 +1234,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
         }
         cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(initialMessage.data()), color, font);
     }
-    if (scene->phase == 20 && payload->packetSubState58 == 0) {
+    if (scene->phase == BattleMHeader_BST && payload->packetSubState58 == 0) {
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         const std::int32_t seconds = TakeBattleMInteger_438F70(scene);
         if (gBattleMCasterPosition5AAA64 == cg::world::gBattleCurrentPosition5ABCA4) {
@@ -1252,7 +1252,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
             continue;
         }
         const std::int32_t remaining = payload->remainingMessages5C - 1;
-        const bool isChat = kind == 14;
+        const bool isChat = kind == BattleMHeader_CHT;
         payload->remainingMessages5C = remaining;
         if (isChat) {
             gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -1264,7 +1264,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
             cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(queuedMessage.data()), color, font);
-        } else if (kind == 20) {
+        } else if (kind == BattleMHeader_BST) {
             gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             const std::int32_t seconds = TakeBattleMInteger_438F70(scene);
             if (gBattleMCasterPosition5AAA64 == cg::world::gBattleCurrentPosition5ABCA4) {
@@ -2953,7 +2953,7 @@ void UpdateBattleEvent_427470(YobiAction* const scene)
         return;
     }
     switch (scene->phase) {
-    case 0: {
+    case BattleMHeader_SKL: {
         // E10／42A768：完成走437ABA出口，处理中仍走437A29公共回存。
         const auto result = ProcessLuaSkillPacket(scene);
         if (result == LuaSkillPacketResult::Finished) return;
@@ -2962,76 +2962,76 @@ void UpdateBattleEvent_427470(YobiAction* const scene)
         }
         break;
     }
-    case 1:
+    case BattleMHeader_ESC:
         ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::Escape);
         break;
-    case 2:
+    case BattleMHeader_CLR:
         ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::Clear);
         break;
-    case 3:
+    case BattleMHeader_SUP:
         ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::Support);
         break;
-    case 4:
+    case BattleMHeader_POS:
         ProcessBattleMPositionHeader(scene, payload);
         break;
-    case 5:
+    case BattleMHeader_MON:
         ProcessBattleMMonsterHeader(scene, payload);
         break;
-    case 6:
+    case BattleMHeader_EQU:
         ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::Equipment);
         break;
-    case 7:
+    case BattleMHeader_ITM:
         ProcessBattleMItemHeader(scene, payload);
         break;
-    case 8:
+    case BattleMHeader_CMB:
         ProcessBattleMComboHeader(scene, payload);
         break;
-    case 9:
+    case BattleMHeader_PSN:
         ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::StatusValue);
         break;
-    case 10:
+    case BattleMHeader_ANR:
         ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::Debuff);
         break;
-    case 11:
+    case BattleMHeader_PUE:
         ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::Power);
         break;
-    case 12:
+    case BattleMHeader_ACT:
         ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::Action);
         break;
-    case 13:
+    case BattleMHeader_CFP:
         ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::ConsumeFp);
         break;
-    case 14:
+    case BattleMHeader_CHT:
         ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::Chat);
         break;
-    case 15:
+    case BattleMHeader_PNO:
         ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::PetNotice);
         break;
-    case 16:
+    case BattleMHeader_PLV:
         ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::PetLeave);
         break;
-    case 17:
+    case BattleMHeader_CBC:
         ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::ChangeBody);
         break;
-    case 18:
+    case BattleMHeader_PDN:
         ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::PetDown);
         break;
-    case 19:
+    case BattleMHeader_REB:
         ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::Rebirth);
         break;
-    case 20:
+    case BattleMHeader_BST:
         ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::QueuedValue);
         break;
-    case 21:
+    case BattleMHeader_GMN:
         ProcessBattleMGmnHeader(scene, payload);
         break;
-    case 22:
+    case BattleMHeader_RID:
         ProcessBattleMRideHeader(scene, payload);
         break;
-    case 23:
+    case BattleMHeader_DSK:
         ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::AppendSkill);
         break;
-    case 24:
+    case BattleMHeader_END:
         ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::End);
         break;
     default:
@@ -3054,7 +3054,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
             && const_cast<char*>(std::strstr(header.data(), kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
-        if (kind != 22) {
+        if (kind != BattleMHeader_RID) {
             scene->packetOffset64 = initialOffset;
             return;
         }
@@ -3672,11 +3672,11 @@ std::int32_t ConsumeBattleExitMessages_43BAA0()
             && const_cast<char*>(std::strstr(header.data(), detail::kBattleMHeaders553E94[kind])) == nullptr) {
             ++kind;
         }
-        if (kind != 14 && kind != 20) {
+        if (kind != detail::BattleMHeader_CHT && kind != detail::BattleMHeader_BST) {
             continue;
         }
         payload->packetOffset64 = cg::world::gBattleMScanOffset5A8A3C;
-        if (kind == 14) { // CHT
+        if (kind == detail::BattleMHeader_CHT) { // CHT
             static_cast<void>(detail::GetBattlePosition_4237E0(detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94)));
             const std::int32_t color = detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94);
             const std::int32_t font = detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94);

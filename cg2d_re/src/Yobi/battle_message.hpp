@@ -9,6 +9,35 @@ namespace cg::yobi {
 
 namespace detail {
 
+// 原553E94头表索引；439B30预扫描与427470事件phase共用，不是角色动作或技能mode。
+enum BattleMHeaderKind : std::int32_t {
+    BattleMHeader_SKL = 0, // 技能头；内部技能／mode与本枚举独立。
+    BattleMHeader_ESC = 1, // 逃跑头，原Transition分类。
+    BattleMHeader_CLR = 2, // CLR头，原Clear分类。
+    BattleMHeader_SUP = 3, // SUP头，原Support分类。
+    BattleMHeader_POS = 4, // 位置头。
+    BattleMHeader_MON = 5, // MON头，原实体进出处理。
+    BattleMHeader_EQU = 6, // 装备头。
+    BattleMHeader_ITM = 7, // 物品头，内部物品mode独立。
+    BattleMHeader_CMB = 8, // 合击头，预扫描保留原FF终止位置。
+    BattleMHeader_PSN = 9, // PSN头，原StatusValue分类。
+    BattleMHeader_ANR = 10, // ANR头，原Debuff分类。
+    BattleMHeader_PUE = 11, // PUE头，原Power分类。
+    BattleMHeader_ACT = 12, // 动作头。
+    BattleMHeader_CFP = 13, // FP消耗头。
+    BattleMHeader_CHT = 14, // 聊天头。
+    BattleMHeader_PNO = 15, // PNO头，原PetNotice分类。
+    BattleMHeader_PLV = 16, // PLV头，原PetLeave分类。
+    BattleMHeader_CBC = 17, // CBC头，原ChangeBody分类。
+    BattleMHeader_PDN = 18, // PDN头，原PetDown分类。
+    BattleMHeader_REB = 19, // REB头，原Rebirth分类。
+    BattleMHeader_BST = 20, // BST头，原QueuedValue分类及聊天外计时处理。
+    BattleMHeader_GMN = 21, // GMN头，全位置参与预扫描，独立业务名未证。
+    BattleMHeader_RID = 22, // 骑乘头，试读／实际读取差异保持。
+    BattleMHeader_DSK = 23, // 追加技能头，预扫描贯穿END。
+    BattleMHeader_END = 24, // 结束头。
+};
+
 inline constexpr std::array<const char*, 25> kBattleMHeaders553E94 { // 原常量参考：0x00553E94。
     "SKL", "ESC", "CLR", "SUP", "POS", "MON", "EQU", "ITM", "CMB", "PSN",
     "ANR", "PUE", "ACT", "CFP", "CHT", "PNO", "PLV", "CBC", "PDN", "REB",
@@ -55,11 +84,11 @@ extern std::int32_t gBattleMSkillLevel5A4A2C;
 extern std::int32_t gBattleMSkillLevelIndex5A3A18;
 
 enum class BattleMDataHeader : std::int32_t {
-    Action = 12, ConsumeFp = 13, Chat = 14, ChangeBody = 17, AppendSkill = 23, End = 24,
+    Action = BattleMHeader_ACT, ConsumeFp = BattleMHeader_CFP, Chat = BattleMHeader_CHT, ChangeBody = BattleMHeader_CBC, AppendSkill = BattleMHeader_DSK, End = BattleMHeader_END,
 };
 
 enum class BattleMStatusHeader : std::int32_t {
-    Equipment = 6, StatusValue = 9, Debuff = 10, Power = 11, Rebirth = 19, QueuedValue = 20,
+    Equipment = BattleMHeader_EQU, StatusValue = BattleMHeader_PSN, Debuff = BattleMHeader_ANR, Power = BattleMHeader_PUE, Rebirth = BattleMHeader_REB, QueuedValue = BattleMHeader_BST,
 };
 
 

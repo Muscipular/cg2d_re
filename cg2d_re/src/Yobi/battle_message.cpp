@@ -1777,7 +1777,7 @@ static void ProcessBattleMStatusHeader(
             FinishBattleEvent_43B6C0(scene);
             return;
         }
-        if (actorPayload->debuffState13CC != state || actorPayload->debuffType13D0 != type) {
+        if (actorPayload->currentDebuffState_13CC != state || actorPayload->currentDebuffType_13D0 != type) {
             if (state == CG_BATTLE_STATUS_MODE_RESET) {
                 AppendBattleCast_4392A0(scene, current, BattleAction_ClearDebuff);
                 actorPayload->statusEffectType13DC = CG_BATTLE_STATUS_TYPE_CLEAR_REQUEST;
@@ -3695,7 +3695,7 @@ void ParseBattleC_438550()
             continue;
         }
         auto* const payload = actor->payload.battleActor;
-        static_cast<void>(MarkDeath(payload->debuffEffect1054));
+        static_cast<void>(MarkDeath(payload->debuffEffectAction_1054));
         static_cast<void>(MarkDeath(payload->attachedEffect1058));
         static_cast<void>(MarkDeath(payload->attributeReversalEffect105C));
         static_cast<void>(MarkDeath(payload->effect1060));

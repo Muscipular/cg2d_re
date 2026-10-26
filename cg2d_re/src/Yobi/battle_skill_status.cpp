@@ -208,11 +208,11 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
                 : CG_BATTLE_DEBUFF_NONE;
             YobiAction* const target = cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40];
             auto* const targetPayload = target->payload.battleActor;
-            if (targetPayload->debuffState13CC != CG_BATTLE_STATUS_MODE_DEBUFF || targetPayload->debuffType13D0 != type) {
+            if (targetPayload->currentDebuffState_13CC != CG_BATTLE_STATUS_MODE_DEBUFF || targetPayload->currentDebuffType_13D0 != type) {
                 AppendBattleCast_4392A0(scene, target, BattleAction_ClearDebuff);
             }
-            targetPayload->debuffType13D0 = type;
-            targetPayload->debuffState13CC = CG_BATTLE_STATUS_MODE_DEBUFF;
+            targetPayload->currentDebuffType_13D0 = type;
+            targetPayload->currentDebuffState_13CC = CG_BATTLE_STATUS_MODE_DEBUFF;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_ApplyDebuff);
         } else if (skill == BattleSkill_ReverseType) {
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], BattleAction_PlayAttributeReversalEffect);

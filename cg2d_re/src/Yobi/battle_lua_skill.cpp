@@ -1745,7 +1745,7 @@ static bool ValidateOperationBatch(uint32_t nodeId) {
                 }
             }
             if (!state) {
-                debuffStates.push_back({target, target->payload.battleActor->debuffEffect1054 != nullptr});
+                debuffStates.push_back({target, target->payload.battleActor->debuffEffectAction_1054 != nullptr});
                 state = &debuffStates.back();
             }
             if (operation.opId == LuaBattleOperation_ApplyDebuff) {
@@ -1972,16 +1972,16 @@ static void RollbackStagedDebuffs() {
 
 static DebuffState ReadDebuffState(YobiAction* target) {
     BattleActorPayload& data = *target->payload.battleActor;
-    return {static_cast<int>(data.flagsFDC), data.debuffState13CC, data.debuffType13D0,
-            data.debuffEffect1054};
+    return {static_cast<int>(data.flagsFDC), data.currentDebuffState_13CC, data.currentDebuffType_13D0,
+            data.debuffEffectAction_1054};
 }
 
 static void WriteDebuffState(YobiAction* target, const DebuffState& state) {
     BattleActorPayload& data = *target->payload.battleActor;
     data.flagsFDC = static_cast<std::uint32_t>(state.flags);
-    data.debuffState13CC = state.debuffState;
-    data.debuffType13D0 = state.debuffType;
-    data.debuffEffect1054 = state.buffYobi;
+    data.currentDebuffState_13CC = state.debuffState;
+    data.currentDebuffType_13D0 = state.debuffType;
+    data.debuffEffectAction_1054 = state.buffYobi;
 }
 
 static bool StageDebuffOperations() {
@@ -2087,9 +2087,9 @@ static void CommitOperations(uint32_t nodeId) {
             WriteDebuffState(staged.target, staged.desiredState);
         } else if (operation.opId == LuaBattleOperation_ClearDebuff) {
             BattleActorPayload& data = *target->payload.battleActor;
-            if (data.debuffEffect1054) {
-                MarkActionDeathOnce(data.debuffEffect1054);
-                data.debuffEffect1054 = nullptr;
+            if (data.debuffEffectAction_1054) {
+                MarkActionDeathOnce(data.debuffEffectAction_1054);
+                data.debuffEffectAction_1054 = nullptr;
             }
             data.flagsFDC = static_cast<std::uint32_t>(static_cast<int>(data.flagsFDC) & ~BattleActorAbnormalMask);
         }

@@ -124,9 +124,9 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         target->offset40 = static_cast<float>(targetPayload->x10);
                         target->offset44 = static_cast<float>(targetPayload->y14);
                         if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_WakeUp) != 0) {
-                            static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                            static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                             const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                            targetPayload->debuffEffect1054 = nullptr;
+                            targetPayload->debuffEffectAction_1054 = nullptr;
                             targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                         }
                         if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
@@ -203,9 +203,9 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             currentEvent >= 20000 ? currentEvent - 20000 : currentEvent - 10000, action->x));
                     } else {
                         if ((visualFlags & BattleResultFlag_WakeUp) != 0) {
-                            static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                            static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                             const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                            targetPayload->debuffEffect1054 = nullptr;
+                            targetPayload->debuffEffectAction_1054 = nullptr;
                             targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                         }
                         if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
@@ -1138,9 +1138,9 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
             } else {
                 if ((hitFlags & BattleResultFlag_WakeUp) != 0) {
-                    static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                    static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                     const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                    targetPayload->debuffEffect1054 = nullptr;
+                    targetPayload->debuffEffectAction_1054 = nullptr;
                     targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                 }
                 const std::int32_t skill = payload->castSkill103C;
@@ -1569,9 +1569,9 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                     AdvanceBattleCastState_439340(target);
                 } else {
                     if ((hitFlags & BattleResultFlag_WakeUp) != 0) {
-                        static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                        static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                         const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                        targetPayload->debuffEffect1054 = nullptr;
+                        targetPayload->debuffEffectAction_1054 = nullptr;
                         targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                     }
                     AdvanceBattleCastState_439340(target);
@@ -2148,9 +2148,9 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     }
                 } else {
                     if ((flags & BattleResultFlag_WakeUp) != 0) {
-                        static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                        static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                         const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                        targetPayload->debuffEffect1054 = nullptr;
+                        targetPayload->debuffEffectAction_1054 = nullptr;
                         targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                     }
                     if ((flags & BattleResultFlag_Critical) != 0) {
@@ -2482,9 +2482,9 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                     }
                 } else {
                     if ((flags & BattleResultFlag_WakeUp) != 0) {
-                        static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                        static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                         const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                        targetPayload->debuffEffect1054 = nullptr;
+                        targetPayload->debuffEffectAction_1054 = nullptr;
                         targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                     }
                     if ((flags & BattleResultFlag_Critical) != 0) {
@@ -2733,9 +2733,9 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
             } else {
                 if ((flags & BattleResultFlag_WakeUp) != 0) {
-                    static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                    static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                     const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                    targetPayload->debuffEffect1054 = nullptr;
+                    targetPayload->debuffEffectAction_1054 = nullptr;
                     targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                 }
                 AdvanceBattleCastState_439340(target);
@@ -2974,9 +2974,9 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
             } else {
                 if ((flags & BattleResultFlag_WakeUp) != 0) {
-                    static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                    static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                     const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                    targetPayload->debuffEffect1054 = nullptr;
+                    targetPayload->debuffEffectAction_1054 = nullptr;
                     targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                 }
                 AdvanceBattleCastState_439340(target);
@@ -3205,9 +3205,9 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                     AdvanceBattleCastState_439340(target);
                 } else {
                     if ((flags & BattleResultFlag_WakeUp) != 0) {
-                        static_cast<void>(MarkDeath(targetPayload->debuffEffect1054));
+                        static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                         const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                        targetPayload->debuffEffect1054 = nullptr;
+                        targetPayload->debuffEffectAction_1054 = nullptr;
                         targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                     }
                     AdvanceBattleCastState_439340(target);

@@ -2055,7 +2055,7 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
 YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::int32_t imageNo)
 {
     auto* const payload = parent->payload.battleActor;
-    if (payload->debuffEffect1054 != nullptr) {
+    if (payload->debuffEffectAction_1054 != nullptr) {
         return nullptr;
     }
     std::int32_t type = CG_BATTLE_DEBUFF_NONE;
@@ -2070,8 +2070,8 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     }
     if (type != CG_BATTLE_DEBUFF_NONE) {
         auto* const currentPayload = parent->payload.battleActor;
-        currentPayload->debuffType13D0 = type;
-        currentPayload->debuffState13CC = CG_BATTLE_STATUS_MODE_DEBUFF;
+        currentPayload->currentDebuffType_13D0 = type;
+        currentPayload->currentDebuffState_13CC = CG_BATTLE_STATUS_MODE_DEBUFF;
     }
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
     if (action == nullptr) {
@@ -2090,7 +2090,7 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::in
     action->rebirthValue2 = 4;
     action->offset44 = static_cast<float>(y);
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
-    parent->payload.battleActor->debuffEffect1054 = action;
+    parent->payload.battleActor->debuffEffectAction_1054 = action;
     action->battleAttachmentParent10 = parent;
     const std::int32_t x = static_cast<std::int32_t>(action->offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);

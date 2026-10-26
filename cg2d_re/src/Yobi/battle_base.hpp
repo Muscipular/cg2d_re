@@ -873,7 +873,7 @@ struct BattleActorPayload {
     std::int32_t skill98Mode1048; // 原成员偏移：+0x1048。 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
     std::array<std::byte, 4> bytes104C; // 原成员偏移：+0x104C。 原104C..104F：仅保留存储，不按邻接值猜图号或计数。
     std::int32_t attackDebuffType1050; // 原成员偏移：+0x1050。 424F64保存技能94的M整数；409680用于减益图号偏移。
-    YobiAction* debuffEffect1054; // 原+1054；41F660创建的减益特效，含扩展图；416DD0/4072E0标死后清槽，非拥有引用。
+    YobiAction* debuffEffectAction_1054; // 原+1054；41F660创建的减益特效，含扩展图；416DD0/4072E0标死后清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 原成员偏移：+0x1058。 41FBE0创建并发布的非拥有附属特效引用。
     YobiAction* attributeReversalEffect105C; // 原+105C；41F860的属性反转特效，422370按FDC位800恢复／清理，非拥有引用。
     YobiAction* effect1060; // 原成员偏移：+0x1060。 非拥有克隆/骑乘/缩放特效；4067F0骑乘路径payload为BattleRideCarrierPayload。
@@ -893,8 +893,8 @@ struct BattleActorPayload {
     std::array<YobiAction*, 2> auxiliaryGear13B8; // 原成员偏移：+0x13B8。 原13B8/13BC，422C90的0/1槽。
     std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原成员偏移：+0x13C0。 原13C0/13C4，清附件不清类型。
     YobiAction* rider13C8; // 原成员偏移：+0x13C8。 4222B0保存4221F0创建的非拥有引用，移除时MarkDeath再清槽。
-    std::int32_t debuffState13CC; // 原成员偏移：+0x13CC。 41F660分配前写2，失败不回滚。
-    std::int32_t debuffType13D0; // 原成员偏移：+0x13D0。 41F660六图号对应类型1至6。
+    std::int32_t currentDebuffState_13CC; // 原成员偏移：+0x13CC。 41F660分配前写2，失败不回滚。
+    std::int32_t currentDebuffType_13D0; // 原成员偏移：+0x13D0。 41F660六图号对应类型1至6。
     std::array<std::byte, 4> bytes13D4; // 原成员偏移：+0x13D4。 原13D4..13D7：仅保留存储，不解释为减益状态或指针。
     std::int32_t statusEffectMode13D8; // 原+13D8；CG_BATTLE_STATUS_MODE_*解释域，427470生产、41FE00消费完整W32。
     std::int32_t statusEffectType13DC; // 原+13DC；按模式使用CG_BATTLE_DEBUFF_*／PARAMETER_EFFECT_*／EXT_EFFECT_*，保留清理哨兵及未知值。

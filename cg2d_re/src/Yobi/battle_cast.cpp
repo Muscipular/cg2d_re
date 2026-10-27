@@ -2499,6 +2499,11 @@ void UpdateBattleAction142_410F70(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
     // G03：原状态收尾完成后重取载荷，发布当前减益类型并清理变化标记。
     auto* const currentPayload = action->payload.battleActor;
+    if (currentPayload->statusEffectMode13D8 == CG_BATTLE_STATUS_MODE_DEBUFF)
+    {
+        currentPayload->currentDebuffType_13D0 = CG_BATTLE_DEBUFF_NONE;
+        currentPayload->currentDebuffState_13CC = CG_BATTLE_STATUS_MODE_RESET;
+    }
     currentPayload->statusEffectType13DC = CG_BATTLE_PARAMETER_EFFECT_NONE;
     currentPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_RESET;
 }

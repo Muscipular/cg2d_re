@@ -5543,3 +5543,9 @@ BSR01-E依据当前音频完整入口和生产／消费链，完成十七函数�
 - 按用户要求，将YobiAction的rebirthValue1／rebirthValue2改为mixFlagsOverrideMask／mixFlagsOverrideValue，同步两个公开setter、复制／挂件继承、窗口预览、地图与战斗赋值及绘制队列消费者；字段仍为U8，原覆盖公式及读取／发布次序保持。
 - 相关赋值与setter参数统一使用既有GraphicMixFlag_None／OriginalPalette／Additive；新增GraphicMixFlag_AllMask=0xFF，保留动作169覆盖全部八位的语义，包含未具名位。WindowSkillResult显式引用既有枚举声明头。
 - 已完成20份源码／头的字段及setter重命名和139处等值枚举替换；旧名称／相关裸数字残留、源码数值逆映射、UTF-8／原换行、历史进度原文及Git差异检查通过。本批连同本进度共21份文件，精确暂存提交；未构建、测试、运行客户端或算法、检查产物、引入依赖或计算摘要。
+
+## 660. Yobi Lua 移除完整 runtime 与薄引用方案（2026-10-27）
+
+- 用户要求参考 UIWindow 移除完整 Yobi Lua runtime，随后明确旧 Lua 不必保留，C++ 对象 markDeath 后 Lua 不得再操作。已核对当前 E10 的节点树、批提交、阶段调度、独立 Lua 状态及原生接入点，记录于[YLR01](../doc/cg2d_yobi_lua_ref_wrapper_spec.md)。
+- 方案建议由原生对象持有最小引用绑定，Lua 只持弱引用，标死即永久失效，物理释放前断开，不允许同槽位／地址复用重新命中；保留 E02～E09 原生配置及仍有消费者的技能元数据。独立 VM 撤除与首批公开接口仍列方案项，不作为已经批准或实施。
+- 本步仅新增 SPEC 并追加进度，尚未修改源码；待明确首批 Lua 接口及确认方案。按 UTF-8 读写并进行 Git 差异检查，不构建、测试、运行、计算摘要或修改既有未跟踪内容。

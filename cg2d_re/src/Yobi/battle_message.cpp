@@ -1802,10 +1802,10 @@ static void ProcessBattleMStatusHeader(
         const std::int32_t mode = TakeBattleMInteger_438F70(scene) <= 0 ? CG_BATTLE_STATUS_MODE_PARAMETER : CG_BATTLE_STATUS_MODE_EXTENDED;
         const std::int32_t type = TakeBattleMInteger_438F70(scene);
         if (actorPayload->statusEffectMode13D8 != mode || actorPayload->statusEffectType13DC != type) {
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ClearStatusEffect);
+            AppendBattleCast_4392A0(scene, actor, BattleAction_ClearStatusEffect);
             actorPayload->statusEffectType13DC = type;
             actorPayload->statusEffectMode13D8 = mode;
-            AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ApplyStatusEffect);
+            AppendBattleCast_4392A0(scene, actor, BattleAction_ApplyStatusEffect);
         }
         break;
     }

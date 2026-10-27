@@ -1988,7 +1988,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
         if (cg::world::gBattleEffectPairs5A8A40[pairPosition][1] != 0) {
             const std::int32_t type = cg::world::gBattleEffectPairs5A8A40[pairPosition][0];
             if (type >= 1 && type <= 6) {
-                static_cast<void>(NewBattleDebuffEffect_41F660(cg::world::gBattleAllEntries59E980[pairPosition], type + 110074));
+                static_cast<void>(NewBattleBuffEffect_41F660(cg::world::gBattleAllEntries59E980[pairPosition], type + 110074));
             }
         } else {
             payload->flagsFDC &= ~BattleActorAbnormalMask;
@@ -2465,7 +2465,7 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
         } else if (skill == BattleSkill_ThrowItem) {
             imageNo = BattleStatusGraphic_Poison;
         } else {
-            const std::int32_t type = payload->statusEffectType13DC;
+            const std::int32_t type = payload->currentDebuffType_13D0;
             if (type >= CG_BATTLE_DEBUFF_POISON && type <= CG_BATTLE_DEBUFF_FORGET) {
                 imageNo = type + 110074;
             } else {
@@ -2474,7 +2474,7 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
         }
     }
     if (create) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(action, imageNo));
+        static_cast<void>(NewBattleBuffEffect_41F660(action, imageNo));
     }
     const std::uint8_t flags =
         *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
@@ -2497,7 +2497,7 @@ void UpdateBattleAction142_410F70(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
     // G03：原状态收尾完成后重取载荷，发布当前减益类型并清理变化标记。
     auto* const currentPayload = action->payload.battleActor;
-    currentPayload->statusEffectType13DC = currentPayload->currentDebuffType_13D0;
+    currentPayload->statusEffectType13DC = CG_BATTLE_PARAMETER_EFFECT_NONE;
     currentPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_RESET;
 }
 

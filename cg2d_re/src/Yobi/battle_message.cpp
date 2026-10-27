@@ -3511,32 +3511,32 @@ void ParseBattleC_438550()
         flags = (inputFlags & detail::BattleCharacterFlag_Pet) != 0 ? flags | detail::BattleActorFlag_Pet : flags & ~detail::BattleActorFlag_Pet;
         payload->flagsFDC = flags;
         if ((inputFlags & detail::BattleCharacterFlag_Poison) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Poison));
+            static_cast<void>(detail::NewBattleBuffEffect_41F660(actor, detail::BattleStatusGraphic_Poison));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Poison;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Sleep) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Sleep));
+            static_cast<void>(detail::NewBattleBuffEffect_41F660(actor, detail::BattleStatusGraphic_Sleep));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Sleep;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Stone) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Stone));
+            static_cast<void>(detail::NewBattleBuffEffect_41F660(actor, detail::BattleStatusGraphic_Stone));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Stone;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Inebriety) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Inebriety));
+            static_cast<void>(detail::NewBattleBuffEffect_41F660(actor, detail::BattleStatusGraphic_Inebriety));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Inebriety;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Confusion) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Confusion));
+            static_cast<void>(detail::NewBattleBuffEffect_41F660(actor, detail::BattleStatusGraphic_Confusion));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Confusion;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Forget) != 0) {
-            static_cast<void>(detail::NewBattleDebuffEffect_41F660(actor, detail::BattleStatusGraphic_Forget));
+            static_cast<void>(detail::NewBattleBuffEffect_41F660(actor, detail::BattleStatusGraphic_Forget));
         } else {
             payload->flagsFDC &= ~detail::BattleActorFlag_Forget;
         }

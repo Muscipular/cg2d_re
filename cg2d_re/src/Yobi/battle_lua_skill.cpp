@@ -2020,7 +2020,7 @@ static bool StageDebuffOperations() {
 
         DebuffState actualState = ReadDebuffState(target);
         WriteDebuffState(target, shadow->state);
-        YobiAction* effect = NewBattleDebuffEffect_41F660(target, operation.value);
+        YobiAction* effect = NewBattleBuffEffect_41F660(target, operation.value);
         DebuffState desiredState = ReadDebuffState(target);
         WriteDebuffState(target, actualState);
         if (!effect || desiredState.buffYobi != effect) {

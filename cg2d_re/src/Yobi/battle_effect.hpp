@@ -222,7 +222,7 @@ void NewBattleRebirthEffects_4208F0(YobiAction* source, YobiAction* target); // 
 std::uint8_t NewBattleAttributeEffects_4209C0(
     YobiAction* source, YobiAction* target); // BRAE01：四W16非零匹配；U8掩码表示匹配并调用。
 // 原函数：0x0041F660。
-YobiAction* NewBattleDebuffEffect_41F660(YobiAction* parent, std::int32_t imageNo); // BAS01：六图号先改FDC/13D0/13CC，分配失败不回滚；播放后fresh父载荷写1054再绑定父。
+YobiAction* NewBattleBuffEffect_41F660(YobiAction* parent, std::int32_t imageNo); // BAS01：六图号先改FDC/13D0/13CC，分配失败不回滚；播放后fresh父载荷写1054再绑定父。
 // 原函数：0x0041F800。
 void UpdateBattleDebuffEffect_41F800(YobiAction* action); // BAS01：1054/105C共用借父回调，Play后重借父跟随；标死仍投影，Y转换后取屏幕偏移。
 // 原函数：0x0041F860。

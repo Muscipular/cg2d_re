@@ -2052,7 +2052,7 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
 
 // BAS01：六图号先改FDC/13D0/13CC，分配失败不回滚；播放后fresh父载荷写1054再绑定父。
 // 原函数：0x0041F660。
-YobiAction* NewBattleDebuffEffect_41F660(YobiAction* const parent, const std::int32_t imageNo)
+YobiAction* NewBattleBuffEffect_41F660(YobiAction* const parent, const std::int32_t imageNo)
 {
     auto* const payload = parent->payload.battleActor;
     if (payload->debuffEffectAction_1054 != nullptr) {
@@ -2665,32 +2665,32 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
     auto* const payload = parent->payload.battleActor;
     const std::uint32_t flags = payload->flagsFDC;
     if ((flags & BattleActorFlag_Poison) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Poison));
+        static_cast<void>(NewBattleBuffEffect_41F660(parent, BattleStatusGraphic_Poison));
     } else {
         payload->flagsFDC = flags & ~BattleActorFlag_Poison;
     }
     if ((flags & BattleActorFlag_Sleep) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Sleep));
+        static_cast<void>(NewBattleBuffEffect_41F660(parent, BattleStatusGraphic_Sleep));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Sleep;
     }
     if ((flags & BattleActorFlag_Stone) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Stone));
+        static_cast<void>(NewBattleBuffEffect_41F660(parent, BattleStatusGraphic_Stone));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Stone;
     }
     if ((flags & BattleActorFlag_Inebriety) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Inebriety));
+        static_cast<void>(NewBattleBuffEffect_41F660(parent, BattleStatusGraphic_Inebriety));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Inebriety;
     }
     if ((flags & BattleActorFlag_Confusion) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Confusion));
+        static_cast<void>(NewBattleBuffEffect_41F660(parent, BattleStatusGraphic_Confusion));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Confusion;
     }
     if ((flags & BattleActorFlag_Forget) != 0) {
-        static_cast<void>(NewBattleDebuffEffect_41F660(parent, BattleStatusGraphic_Forget));
+        static_cast<void>(NewBattleBuffEffect_41F660(parent, BattleStatusGraphic_Forget));
     } else {
         payload->flagsFDC &= ~BattleActorFlag_Forget;
     }

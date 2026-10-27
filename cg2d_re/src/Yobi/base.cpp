@@ -351,10 +351,10 @@ YobiAction* MarkDeath(YobiAction* const action)
     return action;
 }
 
-void MarkDeathUnchecked(YobiAction* const action)
-{
-    action->deathFlag = 1;
-}
+// void MarkDeathUnchecked(YobiAction* const action)
+// {
+//     action->deathFlag = 1;
+// }
 
 // 原函数：0x00404D30。
 void YobiClearUp_404D30()

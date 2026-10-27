@@ -4,7 +4,7 @@ void WindowElement_PrepareAnimation(WindowAnimationData& data) {
     auto* options = data.options;
     if (!options) return;
     if (!data.action || options->actionAnimeNo != options->animeNo) {
-        if (data.action) yobi::MarkDeathUnchecked(data.action);
+        if (data.action) yobi::MarkDeath(data.action);
         data.action = yobi::NewYobiAction_404AE0(2, 0);
         if (!data.action) return;
         yobi::ConfigureWindowElementAction(data.action, data.action, &options->animeNo);

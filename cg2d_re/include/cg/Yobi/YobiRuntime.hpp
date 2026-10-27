@@ -371,7 +371,7 @@ std::int32_t SortBattleActions_405C30(); // flags筛选、原次序排序及低W
 YobiAction* MarkDeath(YobiAction* action);
 
 // 原471334内联终止写的native边界；不判断空指针，不对应独立原函数。
-void MarkDeathUnchecked(YobiAction* action);
+// void MarkDeathUnchecked(YobiAction* action);
 // 原函数：0x0043BAA0。
 std::int32_t ConsumeBattleExitMessages_43BAA0(); // BEMS01：固定入口载荷、各次取包重取场景对象；CHT入行/BST当前玩家计时，头返回1才结束。
 // 原函数：0x004383F0。

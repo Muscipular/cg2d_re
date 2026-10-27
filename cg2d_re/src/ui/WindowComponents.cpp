@@ -190,7 +190,7 @@ void WindowRuntime_DestroyPayload(WindowElementType type, WindowElementData& dat
     case WindowElementType_Graphic: std::free(data.graphic); break;
     case WindowElementType_Text: delete data.text; break;
     case WindowElementType_Animation:
-        if (data.animation) { if (data.animation->action) yobi::MarkDeathUnchecked(data.animation->action); delete data.animation->options; std::free(data.animation); }
+        if (data.animation) { if (data.animation->action) yobi::MarkDeath(data.animation->action); delete data.animation->options; std::free(data.animation); }
         break;
     case WindowElementType_Input:
         if (data.input) { delete data.input->ownedInput; std::free(data.input); }

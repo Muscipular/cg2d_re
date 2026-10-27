@@ -1745,7 +1745,7 @@ static bool ValidateOperationBatch(uint32_t nodeId) {
                 }
             }
             if (!state) {
-                debuffStates.push_back({target, target->payload.battleActor->debuffEffectAction_1054 != nullptr});
+                debuffStates.push_back({target, target->payload.battleActor->buffEffectAction_1054 != nullptr});
                 state = &debuffStates.back();
             }
             if (operation.opId == LuaBattleOperation_ApplyDebuff) {
@@ -1973,7 +1973,7 @@ static void RollbackStagedDebuffs() {
 static DebuffState ReadDebuffState(YobiAction* target) {
     BattleActorPayload& data = *target->payload.battleActor;
     return {static_cast<int>(data.flagsFDC), data.currentDebuffState_13CC, data.currentDebuffType_13D0,
-            data.debuffEffectAction_1054};
+            data.buffEffectAction_1054};
 }
 
 static void WriteDebuffState(YobiAction* target, const DebuffState& state) {
@@ -1981,7 +1981,7 @@ static void WriteDebuffState(YobiAction* target, const DebuffState& state) {
     data.flagsFDC = static_cast<std::uint32_t>(state.flags);
     data.currentDebuffState_13CC = state.debuffState;
     data.currentDebuffType_13D0 = state.debuffType;
-    data.debuffEffectAction_1054 = state.buffYobi;
+    data.buffEffectAction_1054 = state.buffYobi;
 }
 
 static bool StageDebuffOperations() {
@@ -2087,9 +2087,9 @@ static void CommitOperations(uint32_t nodeId) {
             WriteDebuffState(staged.target, staged.desiredState);
         } else if (operation.opId == LuaBattleOperation_ClearDebuff) {
             BattleActorPayload& data = *target->payload.battleActor;
-            if (data.debuffEffectAction_1054) {
-                MarkActionDeathOnce(data.debuffEffectAction_1054);
-                data.debuffEffectAction_1054 = nullptr;
+            if (data.buffEffectAction_1054) {
+                MarkActionDeathOnce(data.buffEffectAction_1054);
+                data.buffEffectAction_1054 = nullptr;
             }
             data.flagsFDC = static_cast<std::uint32_t>(static_cast<int>(data.flagsFDC) & ~BattleActorAbnormalMask);
         }

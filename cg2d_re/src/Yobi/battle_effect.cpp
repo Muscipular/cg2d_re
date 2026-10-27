@@ -2055,7 +2055,7 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
 YobiAction* NewBattleBuffEffect_41F660(YobiAction* const parent, const std::int32_t imageNo)
 {
     auto* const payload = parent->payload.battleActor;
-    if (payload->debuffEffectAction_1054 != nullptr) {
+    if (payload->buffEffectAction_1054 != nullptr) {
         return nullptr;
     }
     std::int32_t type = CG_BATTLE_DEBUFF_NONE;
@@ -2089,7 +2089,7 @@ YobiAction* NewBattleBuffEffect_41F660(YobiAction* const parent, const std::int3
     action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = parent->origin_y_offset44 + 1.0f;
     PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
-    parent->payload.battleActor->debuffEffectAction_1054 = action;
+    parent->payload.battleActor->buffEffectAction_1054 = action;
     action->battleAttachmentParent10 = parent;
     action->x = static_cast<int32_t>(action->origin_x_offset40) + gYobiScreenOffsetX;
     action->y = static_cast<int32_t>(action->origin_y_offset44) + gYobiScreenOffsetY;

@@ -1769,10 +1769,10 @@ static void ProcessBattleMStatusHeader(
     }
     case BattleMStatusHeader::Debuff: {
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
-        auto* const actorPayload = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload.battleActor;
+        YobiAction* const current = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+        auto* const actorPayload = current->payload.battleActor;
         const std::int32_t state = TakeBattleMInteger_438F70(scene);
         const std::int32_t type = TakeBattleMInteger_438F70(scene);
-        YobiAction* const current = cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
         if (current == nullptr) {
             FinishBattleEvent_43B6C0(scene);
             return;
@@ -1786,7 +1786,7 @@ static void ProcessBattleMStatusHeader(
                 AppendBattleCast_4392A0(scene, current, BattleAction_ClearDebuff);
                 actorPayload->statusEffectType13DC = type;
                 actorPayload->statusEffectMode13D8 = state;
-                AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_ApplyDebuff);
+                AppendBattleCast_4392A0(scene, current, BattleAction_ApplyDebuff);
             }
         }
         break;
@@ -3695,7 +3695,7 @@ void ParseBattleC_438550()
             continue;
         }
         auto* const payload = actor->payload.battleActor;
-        static_cast<void>(MarkDeath(payload->debuffEffectAction_1054));
+        static_cast<void>(MarkDeath(payload->buffEffectAction_1054));
         static_cast<void>(MarkDeath(payload->attachedEffect1058));
         static_cast<void>(MarkDeath(payload->attributeReversalEffect105C));
         static_cast<void>(MarkDeath(payload->effect1060));

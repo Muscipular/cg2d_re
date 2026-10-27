@@ -214,10 +214,10 @@ void UpdateBattleAction46_40B200(YobiAction* const action)
         static_cast<void>(MarkDeath(effect));
         payload->attributeReversalEffect105C = nullptr;
     }
-    effect = payload->debuffEffectAction_1054;
+    effect = payload->buffEffectAction_1054;
     if (effect != nullptr) {
         static_cast<void>(MarkDeath(effect));
-        payload->debuffEffectAction_1054 = nullptr;
+        payload->buffEffectAction_1054 = nullptr;
     }
     effect = payload->statusEffect1068;
     if (effect != nullptr) {
@@ -884,9 +884,9 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
             targetPayload->aliveFF8 = 1;
         }
         if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_WakeUp) != 0) {
-            static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
+            static_cast<void>(MarkDeath(targetPayload->buffEffectAction_1054));
             const std::uint32_t flags = targetPayload->flagsFDC & ~BattleActorFlag_Sleep;
-            targetPayload->debuffEffectAction_1054 = nullptr;
+            targetPayload->buffEffectAction_1054 = nullptr;
             targetPayload->flagsFDC = flags;
         }
         const std::int32_t effectIndex = payload->effectRunningC9C;
@@ -1417,9 +1417,9 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
             } else {
                 if ((flags & BattleResultFlag_WakeUp) != 0) {
-                    static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
+                    static_cast<void>(MarkDeath(targetPayload->buffEffectAction_1054));
                     const std::uint32_t state = targetPayload->flagsFDC & ~BattleActorFlag_Sleep;
-                    targetPayload->debuffEffectAction_1054 = nullptr;
+                    targetPayload->buffEffectAction_1054 = nullptr;
                     targetPayload->flagsFDC = state;
                 }
                 AdvanceBattleCastState_439340(target);
@@ -1667,9 +1667,9 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
                     AdvanceBattleCastState_439340(target);
                 } else {
                     if ((flags & BattleResultFlag_WakeUp) != 0) {
-                        static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
+                        static_cast<void>(MarkDeath(targetPayload->buffEffectAction_1054));
                         const std::uint32_t state = targetPayload->flagsFDC & ~BattleActorFlag_Sleep;
-                        targetPayload->debuffEffectAction_1054 = nullptr;
+                        targetPayload->buffEffectAction_1054 = nullptr;
                         targetPayload->flagsFDC = state;
                     }
                     AdvanceBattleCastState_439340(target);
@@ -2069,9 +2069,9 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                 AdvanceBattleCastState_439340(target);
             } else {
                 if ((flags & BattleResultFlag_WakeUp) != 0) {
-                    static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
+                    static_cast<void>(MarkDeath(targetPayload->buffEffectAction_1054));
                     const std::uint32_t state = targetPayload->flagsFDC & ~BattleActorFlag_Sleep;
-                    targetPayload->debuffEffectAction_1054 = nullptr;
+                    targetPayload->buffEffectAction_1054 = nullptr;
                     targetPayload->flagsFDC = state;
                 }
                 AdvanceBattleCastState_439340(target);
@@ -2491,21 +2491,21 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
 void UpdateBattleAction142_410F70(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
-    static_cast<void>(MarkDeath(payload->debuffEffectAction_1054));
+    static_cast<void>(MarkDeath(payload->buffEffectAction_1054));
     const std::uint32_t flags = payload->flagsFDC & ~BattleActorAbnormalMask;
-    payload->debuffEffectAction_1054 = nullptr;
+    payload->buffEffectAction_1054 = nullptr;
     payload->flagsFDC = flags;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     AdvanceBattleCastState_439340(action);
-    // G03：原状态收尾完成后重取载荷，发布当前减益类型并清理变化标记。
-    auto* const currentPayload = action->payload.battleActor;
-    if (currentPayload->statusEffectMode13D8 == CG_BATTLE_STATUS_MODE_DEBUFF)
-    {
-        currentPayload->currentDebuffType_13D0 = CG_BATTLE_DEBUFF_NONE;
-        currentPayload->currentDebuffState_13CC = CG_BATTLE_STATUS_MODE_RESET;
-    }
-    currentPayload->statusEffectType13DC = CG_BATTLE_PARAMETER_EFFECT_NONE;
-    currentPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_RESET;
+    // // G03：原状态收尾完成后重取载荷，发布当前减益类型并清理变化标记。
+    // auto* const currentPayload = action->payload.battleActor;
+    // if (currentPayload->statusEffectMode13D8 == CG_BATTLE_STATUS_MODE_DEBUFF)
+    // {
+    //     currentPayload->currentDebuffType_13D0 = CG_BATTLE_DEBUFF_NONE;
+    //     currentPayload->currentDebuffState_13CC = CG_BATTLE_STATUS_MODE_RESET;
+    // }
+    // currentPayload->statusEffectType13DC = CG_BATTLE_PARAMETER_EFFECT_NONE;
+    // currentPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_RESET;
 }
 
 // 原函数：0x00410FC0。
@@ -3074,9 +3074,9 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
             } else {
                 if ((flags & BattleResultMask_PhysicalAbsorbOrNullify) == 0 && payload->effects1C[effectIndex].position3 != 0) {
                     if ((flags & BattleResultFlag_ReflectPhysical) == 0 && (flags & BattleResultFlag_WakeUp) != 0) {
-                        static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
+                        static_cast<void>(MarkDeath(targetPayload->buffEffectAction_1054));
                         const std::uint32_t targetFlags = targetPayload->flagsFDC;
-                        targetPayload->debuffEffectAction_1054 = nullptr;
+                        targetPayload->buffEffectAction_1054 = nullptr;
                         targetPayload->flagsFDC = targetFlags & ~BattleActorFlag_Sleep;
                     }
                     const std::uint8_t randomEffectFlags = *reinterpret_cast<const std::uint8_t*>(
@@ -3312,10 +3312,10 @@ std::int32_t UpdateBattleAction213_4131B0(YobiAction* const action)
         static_cast<void>(MarkDeath(effect));
         payload->attributeReversalEffect105C = nullptr;
     }
-    effect = payload->debuffEffectAction_1054;
+    effect = payload->buffEffectAction_1054;
     if (effect != nullptr) {
         static_cast<void>(MarkDeath(effect));
-        payload->debuffEffectAction_1054 = nullptr;
+        payload->buffEffectAction_1054 = nullptr;
     }
     effect = payload->statusEffect1068;
     if (effect != nullptr) {

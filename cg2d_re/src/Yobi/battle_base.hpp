@@ -873,7 +873,7 @@ struct BattleActorPayload {
     std::int32_t skill98Mode1048; // 原成员偏移：+0x1048。 42CFE5/42E90A写S32，141的技能98按图号偏移消费。
     std::array<std::byte, 4> bytes104C; // 原成员偏移：+0x104C。 原104C..104F：仅保留存储，不按邻接值猜图号或计数。
     std::int32_t attackDebuffType1050; // 原成员偏移：+0x1050。 424F64保存技能94的M整数；409680用于减益图号偏移。
-    YobiAction* debuffEffectAction_1054; // 原+1054；41F660创建的减益特效，含扩展图；416DD0/4072E0标死后清槽，非拥有引用。
+    YobiAction* buffEffectAction_1054; // 原+1054；41F660创建的减益特效，含扩展图；416DD0/4072E0标死后清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 原成员偏移：+0x1058。 41FBE0创建并发布的非拥有附属特效引用。
     YobiAction* attributeReversalEffect105C; // 原+105C；41F860的属性反转特效，422370按FDC位800恢复／清理，非拥有引用。
     YobiAction* effect1060; // 原成员偏移：+0x1060。 非拥有克隆/骑乘/缩放特效；4067F0骑乘路径payload为BattleRideCarrierPayload。

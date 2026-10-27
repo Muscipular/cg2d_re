@@ -28,10 +28,10 @@ static void ClearBattleRideAttachments(BattleActorPayload* const payload)
         static_cast<void>(MarkDeath(reverseEffect));
         payload->attributeReversalEffect105C = nullptr;
     }
-    YobiAction* const debuffEffect = payload->debuffEffectAction_1054;
+    YobiAction* const debuffEffect = payload->buffEffectAction_1054;
     if (debuffEffect != nullptr) {
         static_cast<void>(MarkDeath(debuffEffect));
-        payload->debuffEffectAction_1054 = nullptr;
+        payload->buffEffectAction_1054 = nullptr;
     }
     YobiAction* const statusEffect = payload->statusEffect1068;
     if (statusEffect != nullptr) {

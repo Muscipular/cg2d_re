@@ -2468,6 +2468,8 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
             const std::int32_t type = payload->currentDebuffType_13D0;
             if (type >= CG_BATTLE_DEBUFF_POISON && type <= CG_BATTLE_DEBUFF_FORGET) {
                 imageNo = type + 110074;
+                payload->statusEffectType13DC = type;
+                payload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_DEBUFF;
             } else {
                 create = false;
             }

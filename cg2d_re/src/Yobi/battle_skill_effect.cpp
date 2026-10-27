@@ -32,7 +32,7 @@ BattleSkillMeta* GetBattleSkillMeta(YobiAction* const action)
 
 void CaptureBattleSkillMeta(const std::int32_t techId, const std::int32_t skillId)
 {
-    skillContext = {techId, skillId, 0, 0, 0, 0};
+    skillContext = {techId, skillId};
     skillContextActive = true;
 }
 
@@ -43,10 +43,7 @@ void BindBattleSkillMeta(YobiAction* const action)
     if (!meta) return;
     for (std::size_t slot = 0; slot < 20; ++slot) {
         if (world::gBattleAllEntries59E980[slot] != action) continue;
-        BattleSkillMeta bound = skillContext;
-        if (LuaSkillEffectBindMoveState(action, bound)) {
-            *meta = bound;
-        } else if (action->payload.battleActor->castSkill103C == gBattleMSkill5AAA78) {
+        if (action->payload.battleActor->castSkill103C == gBattleMSkill5AAA78) {
             *meta = skillContext;
         }
         return;
@@ -91,12 +88,10 @@ void InitializeBattleEffects()
         static_cast<void>(error); // m_log 关闭时仍保留同一异常处理路径。
         m_log_iw(L"effectHook.yml load failed: %hs\n", error.what());
     }
-    detail::InitializeLuaSkillEffects();
 }
 
 void ShutdownBattleEffects()
 {
-    detail::ShutdownLuaSkillEffects();
     detail::skillContext = {};
     detail::skillContextActive = false;
     for (auto& entries : detail::effectImages) entries.clear();

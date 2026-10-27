@@ -576,7 +576,7 @@ enum BattleEffectPlaybackState : std::int32_t {
 };
 
 // BSI01：客户端分派技能号；用于gBattleMSkill5AAA78、castSkill103C及skill7C的已归一化消费。
-// 保持各字段为有符号整数，允许未知／Lua技能；不用于原始BattleSkillMeta::skillId注册键。
+// 保持各字段为有符号整数，允许未知技能号；与BattleSkillMeta::skillId中的原始报文编号区分。
 // data技术号与所属技能号不一致时取techId / 100；不改变现有205000报文归一化阈值。
 // Strong／Super仅对应data的强力／超强名称；每个成员的业务／用户来源见注释。
 enum BattleSkillDispatchId : std::int32_t {
@@ -814,14 +814,10 @@ struct BattleRideCarrierPayload {
 
 static_assert(sizeof(BattleRideCarrierPayload) == 2 * sizeof(YobiAction*) + 16);
 
-// E01：SKL 归一化前的技能标识与 E10 节点绑定，随战斗载荷复制／清理。
+// E01：SKL 归一化前的技能标识，供原生特效使用，随战斗载荷复制／清理。
 struct BattleSkillMeta {
     std::int32_t techId; // 未归一化的报文技术编号，YAML图号匹配键。
-    std::int32_t skillId; // 未归一化的报文技能编号，与techId组成Lua注册键。
-    std::int32_t runtimeGeneration; // E10运行代次，非地址。
-    std::int32_t runtimeNodeId; // E10运行表节点编号，非拥有引用。
-    std::int32_t flags; // 位0标识Lua技能绑定，沿参考保存。
-    std::int32_t reserved; // 参考保留字段，初始化为零并随载荷复制。
+    std::int32_t skillId; // 未归一化的报文技能编号，保留原生特效日志上下文。
 };
 
 // 战斗专用原生载荷；保留四段用途未定字节，后缀仅标原位置；完整字段/生产仍待证。

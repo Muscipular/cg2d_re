@@ -562,11 +562,6 @@ void AppendBattleCastAt_4392F0(
 // 原函数：0x00439340。
 void AdvanceBattleCastState_439340(YobiAction* const action)
 {
-    AdvanceLuaSkillEffect(action); // E10：未受接管的对象直接执行原推进。
-}
-
-void AdvanceNativeBattleCastState(YobiAction* const action)
-{
     if (action == nullptr) {
         return;
     }
@@ -748,7 +743,7 @@ void MoveBattleCastState_439380(YobiAction* const action)
     if (action == nullptr) {
         return;
     }
-    BindBattleSkillMeta(action); // E01／E10：绑定完成后再发布当前动作。
+    BindBattleSkillMeta(action); // E01：原生特效元数据绑定后再发布当前动作。
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload.battleActor);
     action->phase = payload->castListCA4[payload->castPlayIndexFC4];
 }

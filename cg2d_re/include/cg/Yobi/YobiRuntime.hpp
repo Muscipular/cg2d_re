@@ -16,7 +16,7 @@ struct GraphicCacheItem32;
 
 namespace cg::yobi {
 
-// 脚本运行时启动／关闭战斗特效配置与独立Lua技能状态。
+// 脚本运行时启动／关闭原生战斗特效配置。
 void InitializeBattleEffects();
 void ShutdownBattleEffects();
 

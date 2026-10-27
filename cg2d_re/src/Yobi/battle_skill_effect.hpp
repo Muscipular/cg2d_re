@@ -18,17 +18,4 @@ std::int32_t ResolveSkillEffectImage(
     YobiAction* source, SkillEffectKind kind, std::int32_t originalImage);
 std::int32_t ResolveSkillCastingImage(YobiAction* source, std::int32_t originalImage);
 
-// E10：技能演绎独立 Lua 状态；仅接管已注册的 SKL，原生正文供状态机直接调用。
-enum class LuaSkillPacketResult { Native, Handled, Finished };
-void InitializeLuaSkillEffects();
-void ShutdownLuaSkillEffects();
-LuaSkillPacketResult ProcessLuaSkillPacket(YobiAction* scene);
-bool LuaSkillEffectBindMoveState(YobiAction* action, BattleSkillMeta& meta);
-void UpdateLuaSkillEffect(YobiAction* action);
-void AdvanceLuaSkillEffect(YobiAction* action);
-bool HandleLuaSkillEffectDeath(YobiAction* action);
-void FreeLuaSkillEffectAction(YobiAction* action, YobiCallback releaseStorage);
-void UpdateNativeBattleActor(YobiAction* action);
-void AdvanceNativeBattleCastState(YobiAction* action);
-
 } // namespace cg::yobi::detail

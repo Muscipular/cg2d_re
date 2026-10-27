@@ -124,9 +124,9 @@ YobiAction& YobiAction::operator=(const YobiAction& source)
     this->frameY = source.frameY;
     this->drawMode = source.drawMode;
     this->batchType = source.batchType;
-    this->rebirthValue1 = source.rebirthValue1;
+    this->mixFlagsOverrideMask = source.mixFlagsOverrideMask;
     this->color2 = source.color2;
-    this->rebirthValue2 = source.rebirthValue2;
+    this->mixFlagsOverrideValue = source.mixFlagsOverrideValue;
     this->mapOffsetX = source.mapOffsetX;
     this->mapOffsetY = source.mapOffsetY;
     this->text31C = source.text31C;
@@ -276,8 +276,8 @@ YobiAction* NewYobiAction_404AE0(
     action->drawMode = {0, 0, 0, 0, descriptorColor, 0, render::GraphicMixFlag_None, 0};
     action->batchType = static_cast<std::int32_t>(YobiColorChannelFlag_None);
     action->color2 = -1;
-    action->rebirthValue1 = 0;
-    action->rebirthValue2 = 0;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_None;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_None;
     action->walkSpeed = 100;
 
     YobiAction* const start = detail::gYobiActionStart;
@@ -595,14 +595,14 @@ void SetYobiActionField308(
     action->batchType = value;
 }
 
-void SetYobiActionField309(YobiAction* const action, const std::uint8_t value)
+void SetYobiActionMixFlagsOverrideMask(YobiAction* const action, const std::uint8_t value)
 {
-    action->rebirthValue1 = value;
+    action->mixFlagsOverrideMask = value;
 }
 
-void SetYobiActionField310(YobiAction* const action, const std::uint8_t value)
+void SetYobiActionMixFlagsOverrideValue(YobiAction* const action, const std::uint8_t value)
 {
-    action->rebirthValue2 = value;
+    action->mixFlagsOverrideValue = value;
 }
 
 void SetYobiActionField30C(

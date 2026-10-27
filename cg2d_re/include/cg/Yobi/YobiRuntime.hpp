@@ -498,8 +498,8 @@ void SetYobiActionField2B8(YobiAction* action, std::int32_t value);
 std::int32_t GetYobiActionField2B8(const YobiAction* action) noexcept; // 原方向S32，库存旋转重读。
 void SetYobiActionField308(YobiAction* action, std::uint8_t value);
 std::uint8_t ReadYobiBatchType(const YobiAction* action) noexcept; // 原+308，战斗场景状态条绘制门禁。
-void SetYobiActionField309(YobiAction* action, std::uint8_t value); // 原描述符替换掩码。
-void SetYobiActionField310(YobiAction* action, std::uint8_t value); // 原掩码替换值，与309独立写入。
+void SetYobiActionMixFlagsOverrideMask(YobiAction* action, std::uint8_t value); // 原 +309：绘制 mixFlags 覆盖掩码，位值见 render::GraphicMixFlag。
+void SetYobiActionMixFlagsOverrideValue(YobiAction* action, std::uint8_t value); // 原 +310：掩码选中位的替换值，与覆盖掩码独立写入。
 void SetYobiActionField30C(YobiAction* action, std::int32_t value);
 std::uint8_t GetYobiActionField30F(YobiAction* action);
 void SetYobiActionField30F(YobiAction* action, std::uint8_t value);

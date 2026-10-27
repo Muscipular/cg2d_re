@@ -3208,19 +3208,19 @@ static std::int32_t WindowCraft_Draw(const std::int32_t)
         if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
             auto* const element52 = currentWindow->FindElementById(WindowCraftElementId::Element5);
             if (element52) {
-                cg::yobi::SetYobiActionField309(
-                    element52->data.animation->action, 4);
+                cg::yobi::SetYobiActionMixFlagsOverrideMask(
+                    element52->data.animation->action, render::GraphicMixFlag_OriginalPalette);
             }
             auto* const element53 = currentWindow->FindElementById(WindowCraftElementId::Element5);
             if (element53) {
-                cg::yobi::SetYobiActionField310(
-                    element53->data.animation->action, 4);
+                cg::yobi::SetYobiActionMixFlagsOverrideValue(
+                    element53->data.animation->action, render::GraphicMixFlag_OriginalPalette);
             }
         } else {
             auto* const element52 = currentWindow->FindElementById(WindowCraftElementId::Element5);
             if (element52) {
-                cg::yobi::SetYobiActionField309(
-                    element52->data.animation->action, 0);
+                cg::yobi::SetYobiActionMixFlagsOverrideMask(
+                    element52->data.animation->action, render::GraphicMixFlag_None);
             }
         }
     }

@@ -602,14 +602,14 @@ void RenderChara_521F20()
             }
         }
 
-        const std::uint8_t firstMixMask = action->rebirthValue1;
+        const std::uint8_t firstMixMask = action->mixFlagsOverrideMask;
         if (firstMixMask != 0) {
             const std::uint8_t previousMix = descriptor.mixFlags;
             const std::uint8_t clearedMix =
                 previousMix & static_cast<std::uint8_t>(~firstMixMask);
             descriptor.mixFlags = clearedMix;
-            const std::uint8_t freshMixMask = action->rebirthValue1;
-            const std::uint8_t replacementMix = action->rebirthValue2;
+            const std::uint8_t freshMixMask = action->mixFlagsOverrideMask;
+            const std::uint8_t replacementMix = action->mixFlagsOverrideValue;
             descriptor.mixFlags = clearedMix | (replacementMix & freshMixMask);
         }
         if ((action->flags & cg::yobi::YobiActionFlag_ForceAlpha80) != 0) {

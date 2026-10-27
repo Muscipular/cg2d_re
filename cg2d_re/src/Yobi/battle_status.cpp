@@ -450,8 +450,8 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                 kRebirthEnterImages[payload->effects1C[effectIndex].position][side]);
             payload->rebirthEffect106C = effect;
             if (effect != nullptr) {
-                SetYobiActionField309(effect, 4);
-                SetYobiActionField310(payload->rebirthEffect106C, 4);
+                SetYobiActionMixFlagsOverrideMask(effect, render::GraphicMixFlag_OriginalPalette);
+                SetYobiActionMixFlagsOverrideValue(payload->rebirthEffect106C, render::GraphicMixFlag_OriginalPalette);
             }
             action->characterAction = CharacterAnimation_Cast;
             static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
@@ -475,8 +475,8 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                     const std::int32_t currentImage = payload->effects1C[payload->effectRunningC9C].position4;
                     action->characterAction = CharacterAnimation_Stand;
                     action->imageNo = currentImage;
-                    SetYobiActionField309(action, 4);
-                    SetYobiActionField310(action, 4);
+                    SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_OriginalPalette);
+                    SetYobiActionMixFlagsOverrideValue(action, render::GraphicMixFlag_OriginalPalette);
                     SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_None));
                     SetYobiActionField30F(action, 255);
                     reinterpret_cast<unsigned char*>(&action->drawMode.color)[3] = 255;
@@ -506,8 +506,8 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                 YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(action, 0, 2, imageNo);
                 payload->rebirthEffect106C = effect;
                 if (effect != nullptr) {
-                    SetYobiActionField309(effect, 4);
-                    SetYobiActionField310(payload->rebirthEffect106C, 4);
+                    SetYobiActionMixFlagsOverrideMask(effect, render::GraphicMixFlag_OriginalPalette);
+                    SetYobiActionMixFlagsOverrideValue(payload->rebirthEffect106C, render::GraphicMixFlag_OriginalPalette);
                 }
             }
             imageNo = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][1];
@@ -515,8 +515,8 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                 YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(action, 0, 1, imageNo);
                 payload->rebirthAuxiliaryEffects1074[0] = effect;
                 if (effect != nullptr) {
-                    SetYobiActionField309(effect, 4);
-                    SetYobiActionField310(payload->rebirthAuxiliaryEffects1074[0], 4);
+                    SetYobiActionMixFlagsOverrideMask(effect, render::GraphicMixFlag_OriginalPalette);
+                    SetYobiActionMixFlagsOverrideValue(payload->rebirthAuxiliaryEffects1074[0], render::GraphicMixFlag_OriginalPalette);
                 }
             }
             imageNo = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][2];
@@ -524,8 +524,8 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                 YobiAction* const effect = NewBattleOffsetFollowEffect_419CF0(action, 0, -1, imageNo);
                 payload->rebirthAuxiliaryEffects1074[1] = effect;
                 if (effect != nullptr) {
-                    SetYobiActionField309(effect, 4);
-                    SetYobiActionField310(payload->rebirthAuxiliaryEffects1074[1], 4);
+                    SetYobiActionMixFlagsOverrideMask(effect, render::GraphicMixFlag_OriginalPalette);
+                    SetYobiActionMixFlagsOverrideValue(payload->rebirthAuxiliaryEffects1074[1], render::GraphicMixFlag_OriginalPalette);
                 }
             }
             imageNo = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][3];
@@ -535,15 +535,15 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
                 payload->rebirthAuxiliaryEffects1074[2] = effect;
                 // 原411562按第三槽判定，不改为检查本次创建结果。
                 if (third != nullptr) {
-                    SetYobiActionField309(effect, 4);
-                    SetYobiActionField310(payload->rebirthAuxiliaryEffects1074[2], 4);
+                    SetYobiActionMixFlagsOverrideMask(effect, render::GraphicMixFlag_OriginalPalette);
+                    SetYobiActionMixFlagsOverrideValue(payload->rebirthAuxiliaryEffects1074[2], render::GraphicMixFlag_OriginalPalette);
                 }
             }
             const std::int32_t currentImage = payload->effects1C[payload->effectRunningC9C].position4;
-            SetYobiActionField309(action, 4);
+            SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_OriginalPalette);
             action->imageNo = currentImage;
             const std::uint32_t flags = action->flags & ~YobiActionFlag_SkipDrawWhenParityZero;
-            SetYobiActionField310(action, 4);
+            SetYobiActionMixFlagsOverrideValue(action, render::GraphicMixFlag_OriginalPalette);
             SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_None));
             SetYobiActionField30F(action, 255);
             action->flags = flags;
@@ -614,7 +614,7 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
         SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
         action->imageNo = imageNo;
         SetYobiActionField30F(action, 0);
-        SetYobiActionField309(action, 0);
+        SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_None);
         payload->flagsFDC &= ~BattleActorFlag_Rebirth;
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
         if (render::HasLegacy3DDevice_44B610() == 0) {
@@ -627,8 +627,8 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
         }
         YobiAction* const effect = payload->rebirthEffect106C;
         if (effect != nullptr) {
-            SetYobiActionField309(effect, 4);
-            SetYobiActionField310(payload->rebirthEffect106C, 4);
+            SetYobiActionMixFlagsOverrideMask(effect, render::GraphicMixFlag_OriginalPalette);
+            SetYobiActionMixFlagsOverrideValue(payload->rebirthEffect106C, render::GraphicMixFlag_OriginalPalette);
         }
         payload->valueFD4 = BattleRebirthExitPhase_FadeIn;
     }
@@ -687,7 +687,7 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
     SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
     action->imageNo = imageNo;
     SetYobiActionField30F(action, 0);
-    SetYobiActionField309(action, 0);
+    SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_None);
     payload->flagsFDC &= ~BattleActorFlag_Rebirth;
     payload->appearanceOverrideActive13B0 = 0;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
@@ -701,8 +701,8 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
     }
     YobiAction* const effect = payload->rebirthEffect106C;
     if (effect != nullptr) {
-        SetYobiActionField309(effect, 4);
-        SetYobiActionField310(payload->rebirthEffect106C, 4);
+        SetYobiActionMixFlagsOverrideMask(effect, render::GraphicMixFlag_OriginalPalette);
+        SetYobiActionMixFlagsOverrideValue(payload->rebirthEffect106C, render::GraphicMixFlag_OriginalPalette);
     }
     payload->valueFD4 = BattleRebirthReturnPhase_FadeInAndMarkEffectDead;
 }
@@ -828,14 +828,14 @@ void UpdateBattleAction168_411FC0(YobiAction* const action)
 // 原函数：0x00411FE0。
 void UpdateBattleAction169_411FE0(YobiAction* const action)
 {
-    SetYobiActionField309(action, 255);
+    SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_AllMask);
     AdvanceBattleCastState_439340(action);
 }
 
 // 原函数：0x00412000。
 void UpdateBattleAction170_412000(YobiAction* const action)
 {
-    SetYobiActionField309(action, 0);
+    SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_None);
     AdvanceBattleCastState_439340(action);
 }
 

@@ -269,8 +269,8 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
     }
     auto* const element53 = currentWindow->FindElementById(WindowBattleItemsElementId::Element5);
     if (element53) {
-        cg::yobi::SetYobiActionField309(
-            element53->data.animation->action, 0);
+        cg::yobi::SetYobiActionMixFlagsOverrideMask(
+            element53->data.animation->action, render::GraphicMixFlag_None);
     }
     auto* elementsWindow = currentWindow;
     auto* const element54 = elementsWindow->FindElementById(WindowBattleItemsElementId::Element5);
@@ -281,13 +281,13 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
             if (currentImage >= 110350 && currentImage <= 110373) {
                 auto* const element55 = elementsWindow->FindElementById(WindowBattleItemsElementId::Element5);
                 if (element55) {
-                    cg::yobi::SetYobiActionField309(
-                        element55->data.animation->action, 4);
+                    cg::yobi::SetYobiActionMixFlagsOverrideMask(
+                        element55->data.animation->action, render::GraphicMixFlag_OriginalPalette);
                 }
                 auto* const element56 = currentWindow->FindElementById(WindowBattleItemsElementId::Element5);
                 if (element56) {
-                    cg::yobi::SetYobiActionField310(
-                        element56->data.animation->action, 4);
+                    cg::yobi::SetYobiActionMixFlagsOverrideValue(
+                        element56->data.animation->action, render::GraphicMixFlag_OriginalPalette);
                 }
             }
         }

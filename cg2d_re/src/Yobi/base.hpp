@@ -191,8 +191,8 @@ struct YobiAction {
     render::GraphicDescriptor16 drawMode{}; // 原成员偏移：+0x2F8。
     std::uint8_t batchType = 0; // 原成员偏移：+0x308。
     std::int32_t color2 = 0; // 原成员偏移：+0x30C。
-    std::uint8_t rebirthValue1 = 0; // 原成员偏移：+0x309。
-    std::uint8_t rebirthValue2 = 0; // 原成员偏移：+0x310。
+    std::uint8_t mixFlagsOverrideMask = render::GraphicMixFlag_None; // 原 +0x309：绘制 mixFlags 覆盖掩码，位值见 GraphicMixFlag。
+    std::uint8_t mixFlagsOverrideValue = render::GraphicMixFlag_None; // 原 +0x310：仅替换 mixFlagsOverrideMask 选中的绘制标志位。
     std::int32_t mapOffsetX = 0; // 原 +314/+318；46CF60 写 .cut 偏移，46DD90 在 FrameMove 后读取。
     std::int32_t mapOffsetY = 0; // 原成员偏移：+0x318。
     std::wstring text31C; // 原 +31C；51A090 第四文本的独立槽。

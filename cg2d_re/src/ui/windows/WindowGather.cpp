@@ -733,10 +733,10 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
             }
         }
         if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
-            cg::yobi::SetYobiActionField309(action, 4);
-            cg::yobi::SetYobiActionField310(action, 4);
+            cg::yobi::SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_OriginalPalette);
+            cg::yobi::SetYobiActionMixFlagsOverrideValue(action, render::GraphicMixFlag_OriginalPalette);
         } else {
-            cg::yobi::SetYobiActionField309(action, 0);
+            cg::yobi::SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_None);
         }
         const std::uint32_t stop = element33->data.animation->value04;
         static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(action, 100, stop != 0, 0));

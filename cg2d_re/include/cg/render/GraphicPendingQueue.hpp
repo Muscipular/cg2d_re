@@ -35,6 +35,7 @@ enum GraphicMixFlag : std::uint8_t {
     GraphicMixFlag_OriginalPalette = 0x04, // 使用原始调色板，跳过色调处理。
     GraphicMixFlag_Additive = 0x08, // 加法混合。
     GraphicMixFlag_FlipMask = GraphicMixFlag_FlipX | GraphicMixFlag_FlipY,
+    GraphicMixFlag_AllMask = 0xFF, // 全字节覆盖掩码，包含未具名位。
 };
 
 // 原 KRECT/GraphicMode 的 16 字节描述，队列、Yobi 与地图共用。

@@ -92,8 +92,8 @@ void SyncBattleRider_421FB0(YobiAction* const action)
     action->flags = drawFlags;
     action->batchType = parent->batchType;
     action->color2 = parent->color2;
-    action->rebirthValue1 = parent->rebirthValue1;
-    action->rebirthValue2 = parent->rebirthValue2;
+    action->mixFlagsOverrideMask = parent->mixFlagsOverrideMask;
+    action->mixFlagsOverrideValue = parent->mixFlagsOverrideValue;
     if (followsParent) {
         const std::int32_t frameX = parent->frameX;
         const float xScale = parent->scaleX;
@@ -166,8 +166,8 @@ void SyncBattleGear_4225D0(YobiAction* const action)
     action->flags = drawFlags;
     action->batchType = parent->batchType;
     action->color2 = parent->color2;
-    action->rebirthValue1 = parent->rebirthValue1;
-    action->rebirthValue2 = parent->rebirthValue2;
+    action->mixFlagsOverrideMask = parent->mixFlagsOverrideMask;
+    action->mixFlagsOverrideValue = parent->mixFlagsOverrideValue;
     // AF406：4.06@46E83A之后只叠加Coordinate，不把人物动画帧偏移重复加入挂件。
     std::int32_t xOffset = 0;
     std::int32_t yOffset = 0;

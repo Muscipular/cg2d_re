@@ -452,8 +452,8 @@ enum BattleActionId : std::int32_t {
     BattleAction_ConsumeQueuedTime = 166, // 当前玩家消费排队时间值，显示负时间数字并推进排队值及动作。
     BattleAction_EnableAlphaOverride = 167, // 将batchType设为8，只覆盖绘制颜色的Alpha通道，然后推进。
     BattleAction_ClearColorOverrides = 168, // 将batchType清零，停止覆盖绘制颜色通道，然后推进。
-    BattleAction_OverrideAllMixFlags = 169, // 将混合标志覆盖掩码rebirthValue1设为255，使用既有rebirthValue2覆盖全部混合位。
-    BattleAction_ClearMixFlagOverride = 170, // 将混合标志覆盖掩码rebirthValue1清零，然后推进。
+    BattleAction_OverrideAllMixFlags = 169, // 将mixFlagsOverrideMask设为GraphicMixFlag_AllMask，使用既有mixFlagsOverrideValue覆盖全部混合位。
+    BattleAction_ClearMixFlagOverride = 170, // 将混合标志覆盖掩码mixFlagsOverrideMask清零，然后推进。
     BattleAction_FadeIn = 171, // 递增角色及附属对象透明度至255后推进，保留设备绘制位处理。
     BattleAction_FadeOutStep3 = 172, // 角色及附属对象透明度每次减3；归零后设置隐藏相关位并推进。
     BattleAction_FadeOutStep2 = 173, // 角色及附属对象透明度每次减2；与172保持不同速度。

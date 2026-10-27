@@ -2655,8 +2655,8 @@ static void ProcessBattleMGmnHeader(
     created->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3];
     actorPayload->battlePosition18 = position;
     created->phase = BattleAction_Idle;
-    created->rebirthValue1 = 4;
-    created->rebirthValue2 = 4;
+    created->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    created->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     {
         created->mapX1E0 = static_cast<std::int32_t>(render::gActivePalette);
     }
@@ -3469,10 +3469,10 @@ void ParseBattleC_438550()
             detail::SetBattleAuxGear_422C90(actor, auxiliaryImage, auxiliaryType, index);
         }
         const std::int32_t imageNo = actor->imageNo;
-        actor->rebirthValue1 = 0;
+        actor->mixFlagsOverrideMask = render::GraphicMixFlag_None;
         if (imageNo >= 110350 && imageNo <= 110373) {
-            actor->rebirthValue1 = 4;
-            actor->rebirthValue2 = 4;
+            actor->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            actor->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
         }
         if ((inputFlags & detail::BattleCharacterFlag_Appear) != 0) {
             payload->flagsFDC &= ~detail::BattleActorFlag_EntryComplete;
@@ -3614,8 +3614,8 @@ void ParseBattleC_438550()
                         if (image != 0) {
                             YobiAction* const effect = detail::NewBattleOffsetFollowEffect_419CF0(actor, 0, 2, image);
                             payload->rebirthEffect106C = effect;
-                            effect->rebirthValue1 = 4;
-                            payload->rebirthEffect106C->rebirthValue2 = 4;
+                            effect->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+                            payload->rebirthEffect106C->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
                         }
                     }
                     {
@@ -3623,8 +3623,8 @@ void ParseBattleC_438550()
                         if (image != 0) {
                             YobiAction* const effect = detail::NewBattleOffsetFollowEffect_419CF0(actor, 0, 1, image);
                             payload->rebirthAuxiliaryEffects1074[0] = effect;
-                            effect->rebirthValue1 = 4;
-                            payload->rebirthAuxiliaryEffects1074[0]->rebirthValue2 = 4;
+                            effect->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+                            payload->rebirthAuxiliaryEffects1074[0]->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
                         }
                     }
                     {
@@ -3632,8 +3632,8 @@ void ParseBattleC_438550()
                         if (image != 0) {
                             YobiAction* const effect = detail::NewBattleOffsetFollowEffect_419CF0(actor, 0, -1, image);
                             payload->rebirthAuxiliaryEffects1074[1] = effect;
-                            effect->rebirthValue1 = 4;
-                            payload->rebirthAuxiliaryEffects1074[1]->rebirthValue2 = 4;
+                            effect->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+                            payload->rebirthAuxiliaryEffects1074[1]->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
                         }
                     }
                     {
@@ -3641,8 +3641,8 @@ void ParseBattleC_438550()
                         if (image != 0) {
                             YobiAction* const effect = detail::NewBattleOffsetFollowEffect_419CF0(actor, 0, -2, image);
                             payload->rebirthAuxiliaryEffects1074[2] = effect;
-                            effect->rebirthValue1 = 4;
-                            payload->rebirthAuxiliaryEffects1074[2]->rebirthValue2 = 4;
+                            effect->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+                            payload->rebirthAuxiliaryEffects1074[2]->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
                         }
                     }
                 }

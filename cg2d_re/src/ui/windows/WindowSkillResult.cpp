@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -328,10 +329,10 @@ static std::int32_t WindowSkillResult_Draw(const std::int32_t)
             }
         }
         if (imageNo >= 0x1AF0E && imageNo <= 0x1AF25) {
-            cg::yobi::SetYobiActionField309(action, 4);
-            cg::yobi::SetYobiActionField310(action, 4);
+            cg::yobi::SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_OriginalPalette);
+            cg::yobi::SetYobiActionMixFlagsOverrideValue(action, render::GraphicMixFlag_OriginalPalette);
         } else {
-            cg::yobi::SetYobiActionField309(action, 0);
+            cg::yobi::SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_None);
         }
     }
     WindowRuntime_DrawCurrent();

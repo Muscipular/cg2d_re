@@ -264,8 +264,8 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
             particle->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
             particle->framePlayingRate = 100;
             particle->imageNo = 110004;
-            particle->rebirthValue1 = 4;
-            particle->rebirthValue2 = 4;
+            particle->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            particle->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             const std::int32_t xOffset = kBattleRadialXOffsets[index];
             const std::int32_t particleX = action->x + xOffset;
             const std::int32_t yOffset = kBattleRisingYOffsets[index];
@@ -329,8 +329,8 @@ void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
             // E06／41A6FA：控制器关联受术角色，粒子数量与运动沿原流程。
             particle->imageNo = ResolveSkillEffectImage(
                 action->battleAttachmentParent10, SkillEffectKind::Revive, 110060);
-            particle->rebirthValue1 = 4;
-            particle->rebirthValue2 = 4;
+            particle->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            particle->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             const std::int32_t index = 15 - (i % 16);
             const std::int32_t xOffset = kBattleRadialXOffsets[index];
             const std::int32_t yOffset = kBattleEmitterYOffsets[index];
@@ -377,8 +377,8 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
             // E06／41A913：控制器本身没有战斗元数据。
             particle->imageNo = ResolveSkillEffectImage(
                 action->battleAttachmentParent10, SkillEffectKind::StatusRecover, 110011);
-            particle->rebirthValue1 = 4;
-            particle->rebirthValue2 = 4;
+            particle->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            particle->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             const std::int32_t xOffset = kBattleRadialXOffsets[action->nameX % 16];
             particle->origin_x_offset40 = static_cast<float>(action->x + xOffset);
             const std::int32_t yOffset = kBattleEmitterYOffsets[action->nameX % 16];
@@ -423,8 +423,8 @@ YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
     const std::int32_t xOffset = kBattleRadialXOffsets[index];
     action->flags = flags;
     action->displayPriority = 0xCC;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->framePlayingRate = 100;
     action->imageNo = 110004;
     const std::int32_t yOffset = kBattleRisingYOffsets[index];
@@ -456,8 +456,8 @@ YobiAction* NewBattleEffect_41CD00(
                 return nullptr;
             }
             action->callback = UpdateBattleCompletingEffect_41A160;
-            action->rebirthValue1 = 4;
-            action->rebirthValue2 = 4;
+            action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             const std::uint32_t initialFlags = action->flags;
             action->displayPriority = 204;
             action->origin_x_offset40 = static_cast<float>(offsetX);
@@ -484,8 +484,8 @@ YobiAction* NewBattleEffect_41CD00(
             action->flags = deviceFlags | YobiActionFlag_FourPhaseUpdateGate;
             const std::int32_t level = sourcePayload->castSkillLevel1044;
             action->imageNo = level >= 12 ? 111019 : kBattleEffectTierOffsets553A38[level] + 110176;
-            action->rebirthValue1 = 4;
-            action->rebirthValue2 = 4;
+            action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             action->origin_x_offset40 = source->origin_x_offset40;
             const std::int32_t halfOffset = source->graphicOffsetY / 2;
             action->origin_y_offset44 = static_cast<float>(static_cast<double>(halfOffset) + source->origin_y_offset44);
@@ -505,8 +505,8 @@ YobiAction* NewBattleEffect_41CD00(
             action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->framePlayingRate = 100;
             action->imageNo = type == BattleEffectType_FixedImage110012 ? 110012 : (type == BattleEffectType_FixedImage110014 ? 110014 : 110013);
-            action->rebirthValue1 = 4;
-            action->rebirthValue2 = 4;
+            action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             action->origin_x_offset40 = source->origin_x_offset40;
             action->origin_y_offset44 = static_cast<float>(static_cast<double>(third.yValue) + source->origin_y_offset44);
             action->pathCountOrDrawOrder_270 = 0;
@@ -523,8 +523,8 @@ YobiAction* NewBattleEffect_41CD00(
             action->displayPriority = 204;
             action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->framePlayingRate = 100;
-            action->rebirthValue1 = 4;
-            action->rebirthValue2 = 4;
+            action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             const std::int32_t graphic = source->graphicIndex;
             const std::int32_t x = source->x;
             const std::int32_t halfWidth = render::ReadGraphicDxWidth(graphic) / 2;
@@ -552,8 +552,8 @@ YobiAction* NewBattleEffect_41CD00(
             action->displayPriority = 204;
             action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->framePlayingRate = 100;
-            action->rebirthValue1 = 4;
-            action->rebirthValue2 = 4;
+            action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             const std::int32_t width = render::ReadGraphicDxWidth(source->graphicIndex);
             const std::int32_t x = source->x;
             const std::int32_t projectedX = width / 2 + source->graphicOffsetX + x;
@@ -580,8 +580,8 @@ YobiAction* NewBattleEffect_41CD00(
             // E07／41DB2C：只替换施法图，音效及定位继续读取原 image1028。
             action->imageNo = type == BattleEffectType_SpellCasting ? ResolveSkillCastingImage(source, sourcePayload->image1028)
                 : source->payload.battleActor->image13E4;
-            action->rebirthValue1 = 4;
-            action->rebirthValue2 = 4;
+            action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             if (type == BattleEffectType_SpellCasting) {
                 const std::int32_t image = sourcePayload->image1028;
                 std::int32_t sound = 0; // playSound为true的路径均覆盖此值。
@@ -656,8 +656,8 @@ YobiAction* NewBattleEffect_41CD00(
                     action->field58 = platform::RandomRange_46FAF0(0, 30);
                 }
                 action->imageNo = sourcePayload->image102C;
-                action->rebirthValue1 = 4;
-                action->rebirthValue2 = 4;
+                action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+                action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
                 const std::int32_t speed = platform::RandomRange_46FAF0(4, 8);
                 action->motionMagnitude54 = static_cast<float>(speed);
                 payload->castSkill103C = sourcePayload->castSkill103C;
@@ -698,8 +698,8 @@ YobiAction* NewBattleEffect_41CD00(
                     action->field58 = platform::RandomRange_46FAF0(0, 30);
                 }
                 action->imageNo = sourcePayload->image102C;
-                action->rebirthValue1 = 4;
-                action->rebirthValue2 = 4;
+                action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+                action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
                 payload->castSkill103C = sourcePayload->castSkill103C;
                 payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
                 payload->skillMeta = sourcePayload->skillMeta; // E01／41E114。
@@ -751,8 +751,8 @@ YobiAction* NewBattleEffect_41CD00(
                     action->imageNo = 0;
                 }
             }
-            action->rebirthValue1 = 4;
-            action->rebirthValue2 = 4;
+            action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             action->origin_x_offset40 = source->origin_x_offset40;
             action->origin_y_offset44 = source->origin_y_offset44;
             action->pathCountOrDrawOrder_270 = 0;
@@ -767,8 +767,8 @@ YobiAction* NewBattleEffect_41CD00(
             action->callback = UpdateBattleCompletingEffect_41A160;
             action->displayPriority = 204;
             action->framePlayingRate = 100;
-            action->rebirthValue1 = 4;
-            action->rebirthValue2 = 4;
+            action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             action->flags = initialFlags | YobiActionFlag_FourPhaseUpdateGate;
             action->origin_x_offset40 = static_cast<float>(static_cast<double>(offsetX) + source->origin_x_offset40);
             const double initialY = static_cast<double>(third.yValue) + source->origin_y_offset44;
@@ -1150,8 +1150,8 @@ YobiAction* NewBattleArcProjection_418FF0(
     action->field58 = 2 - duration;
     action->motionMagnitude54 = 10.0F;
     action->pathCountOrDrawOrder_270 = 0;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     payload->flash1004 = 1;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     const std::int32_t screenX = static_cast<std::int32_t>(action->origin_x_offset40);
@@ -1215,8 +1215,8 @@ void NewBattleProjection_418DF0(
     action->motionMagnitude54 = 10.0F;
     action->pathCountOrDrawOrder_270 = 0;
     if (initialImage == 110016 || initialImage == 111055) {
-        action->rebirthValue1 = 4;
-        action->rebirthValue2 = 4;
+        action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+        action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     }
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     const std::int32_t currentImage = action->imageNo;
@@ -1286,8 +1286,8 @@ YobiAction* NewBattleSpiracleShot_418B70(
         * 0.5 + parentGraphicOffsetY + projectionBaseY);
     NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, imageNo);
     if (action->imageNo == 110016 || action->imageNo == 111055) {
-        action->rebirthValue1 = 4;
-        action->rebirthValue2 = 4;
+        action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+        action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     }
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
@@ -1359,8 +1359,8 @@ YobiAction* NewBattleBlastWave_419180(
     const float projectionX = action->origin_x_offset40;
     NewBattleProjection_418DF0(action, projectionX, projectionY, targetX, targetY, projectionImage);
     if (action->imageNo == 110016 || action->imageNo == 111055) {
-        action->rebirthValue1 = 4;
-        action->rebirthValue2 = 4;
+        action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+        action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     }
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
@@ -1498,8 +1498,8 @@ YobiAction* NewBattleArcShot_419DA0(
         const std::int32_t y = render::ReadGraphicDxHeight(parent->graphicIndex) / 2 + parent->graphicOffsetY;
         static_cast<void>(NewBattleArcProjection_418FF0(action, 0, y, parent, target, imageNo));
     }
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     payload->castSkill103C = parent->payload.battleActor->castSkill103C;
     payload->attackModeFF4 = parent->payload.battleActor->attackModeFF4;
     payload->castSkillLevel1044 = parent->payload.battleActor->castSkillLevel1044;
@@ -1830,8 +1830,8 @@ YobiAction* NewBattleCoordinateEffect_41E720(const float x, const float y, const
     const std::uint32_t flags = action->flags | (hasDevice ? YobiActionFlag_ForceAlpha80 : YobiActionFlag_SkipDrawWhenParityZero);
     action->flags = flags;
     action->flags = flags | YobiActionMask_BattleDepthSortOrFourPhaseUpdateGate;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = y;
     action->origin_x_offset40 = x;
     action->imageNo = imageNo;
@@ -1899,8 +1899,8 @@ YobiAction* NewBattleRandomEffect_419FC0(
     const std::uint32_t configuredFlags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->imageNo = imageNo;
     action->flags = configuredFlags;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
     const std::int32_t randomX = platform::RandomRange_46FAF0(
         0, render::ReadGraphicDxWidth(parent->graphicIndex) / 2);
@@ -1931,8 +1931,8 @@ YobiAction* NewBattleScreenEffect_41A0D0(
     action->flags = flags;
     action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->x = x;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->y = y;
     action->direction = direction;
     action->imageNo = imageNo;
@@ -1955,15 +1955,15 @@ void NewBattleRebirthEffects_4208F0(YobiAction* const source, YobiAction* const 
     if (sourceType != 0) {
         YobiAction* const effect = NewBattleRandomEffect_419FC0(target, images[sourceType - 1], 0);
         reinterpret_cast<unsigned char*>(&effect->drawMode.color)[3] = 0x96;
-        effect->rebirthValue1 = 4;
-        effect->rebirthValue2 = 4;
+        effect->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+        effect->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     }
     const std::int8_t targetType = targetPayload->rebirthEffectType1080;
     if (targetType != 0) {
         YobiAction* const effect = NewBattleRandomEffect_419FC0(target, images[targetType + 3], 0);
         reinterpret_cast<unsigned char*>(&effect->drawMode.color)[3] = 0x96;
-        effect->rebirthValue1 = 4;
-        effect->rebirthValue2 = 4;
+        effect->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+        effect->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     }
 }
 
@@ -2085,8 +2085,8 @@ YobiAction* NewBattleBuffEffect_41F660(YobiAction* const parent, const std::int3
     action->origin_x_offset40 = parent->origin_x_offset40;
     action->imageNo = imageNo;
     action->direction = YobiDirection_UpLeft;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = parent->origin_y_offset44 + 1.0f;
     PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
     parent->payload.battleActor->debuffEffectAction_1054 = action;
@@ -2140,9 +2140,9 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     const double y = parent->origin_y_offset44 + 1.0;
     action->imageNo = imageNo;
     action->direction = YobiDirection_UpLeft;
-    action->rebirthValue1 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = static_cast<float>(y);
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     parent->payload.battleActor->attributeReversalEffect105C = action;
     action->battleAttachmentParent10 = parent;
@@ -2293,8 +2293,8 @@ YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::
     const double centerY = static_cast<double>(halfHeight) + parent->graphicOffsetY + parent->origin_y_offset44;
     action->imageNo = imageNo;
     action->direction = YobiDirection_UpLeft;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = static_cast<float>(centerY);
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     parent->payload.battleActor->centeredEffect1064 = action;
@@ -2370,8 +2370,8 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
     action->origin_y_offset44 = parent->origin_y_offset44;
     action->imageNo = mode == BattleAttachedEffectMode_DisplayImage22326 ? 22326 : 22327;
     action->direction = YobiDirection_UpLeft;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     parent->payload.battleActor->attachedEffect1058 = action;
     action->battleAttachmentParent10 = parent;
@@ -2476,8 +2476,8 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     action->origin_y_offset44 = parent->origin_y_offset44;
     action->imageNo = displayImage;
     action->direction = YobiDirection_UpLeft;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     parent->payload.battleActor->statusEffect1068 = action;
     action->battleAttachmentParent10 = parent;
@@ -2546,8 +2546,8 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
     const double y5 = cg::world::gBattleGraphicPoints553758[y5Index][3];
     action->imageNo = imageNo;
     action->direction = YobiDirection_UpLeft;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = static_cast<float>((y5 - y15) * 0.5 + y15);
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0 = action;
@@ -2755,16 +2755,16 @@ YobiAction* NewBattleScreenEffect_421610(const std::int32_t x, const std::int32_
     action->displayPriority = 0xCC;
     action->framePlayingRate = 100;
     if (render::HasLegacy3DDevice_44B610() == 0) {
-        action->rebirthValue2 = 0;
+        action->mixFlagsOverrideValue = render::GraphicMixFlag_None;
         const std::uint32_t flags = action->flags;
-        action->rebirthValue1 = 8;
+        action->mixFlagsOverrideMask = render::GraphicMixFlag_Additive;
         action->flags = flags | YobiActionFlag_SkipDrawWhenParityZero;
     }
     const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->imageNo = 110468;
     action->flags = flags;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->direction = YobiDirection_UpLeft;
     action->x = x;
     action->pathCountOrDrawOrder_270 = 0;

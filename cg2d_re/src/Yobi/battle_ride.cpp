@@ -620,11 +620,11 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         animationTarget = cg::world::gBattleAllEntries59E980[second];
         animationTarget->batchType = action->batchType;
         animationTarget = cg::world::gBattleAllEntries59E980[second];
-        animationTarget->rebirthValue1 = action->rebirthValue1;
+        animationTarget->mixFlagsOverrideMask = action->mixFlagsOverrideMask;
         animationTarget = cg::world::gBattleAllEntries59E980[second];
         animationTarget->color2 = action->color2;
         animationTarget = cg::world::gBattleAllEntries59E980[second];
-        animationTarget->rebirthValue2 = action->rebirthValue2;
+        animationTarget->mixFlagsOverrideValue = action->mixFlagsOverrideValue;
         RestoreBattleStateEffects_422370(cg::world::gBattleAllEntries59E980[second]);
         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[second]);
         static_cast<void>(PlayFrame_517DA0(cg::world::gBattleAllEntries59E980[second], AnimationPlayback_Loop));

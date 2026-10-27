@@ -1398,8 +1398,8 @@ void InitBattleCenterEffect_4231D0(
         action->field58 = platform::RandomRange_46FAF0(0, 30);
     }
     action->imageNo = sourcePayload->image102C;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     const std::int32_t speed = platform::RandomRange_46FAF0(4, 8);
     action->motionMagnitude54 = static_cast<float>(speed);
     payload->castSkill103C = sourcePayload->castSkill103C;
@@ -1453,8 +1453,8 @@ void InitBattleLowerEffect_423350(
     }
     const std::int32_t imageOffset = platform::RandomRange_46FAF0(0, 2);
     action->imageNo = imageOffset + sourcePayload->image102C;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_x_offset40 = target->origin_x_offset40;
     const std::int32_t halfOffset = target->graphicOffsetY / 2;
     const double y = static_cast<double>(halfOffset) + target->origin_y_offset44;
@@ -1507,8 +1507,8 @@ void InitBattleScreenYEffect_4234B0(
         image = imageOffset + sourcePayload->image102C;
     }
     action->imageNo = image;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_x_offset40 = target->origin_x_offset40;
     if (side != nullptr) {
         *side = sourcePayload->effects1C[sourcePayload->effectRunningC9C].position >= 10 ? 1 : -1;
@@ -1554,8 +1554,8 @@ YobiAction* NewBattleHitEffect_41F5B0(
     const double y = static_cast<double>(offsetY) + parent->origin_y_offset44;
     action->verticalVelocityBits4C = 0xC1000000u;
     action->imageNo = imageNo;
-    action->rebirthValue1 = 4;
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = static_cast<float>(y);
     action->deltaY = lifetime;
     action->direction = YobiDirection_UpLeft;

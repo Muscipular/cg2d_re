@@ -33,16 +33,16 @@ void ConfigureWindowElementAction(
 const render::GraphicDescriptor16* ApplyWindowAnimationDrawMode(
     YobiAction* const action, const bool replacementBeforePrevious)
 {
-    const std::uint8_t mask = action->rebirthValue1;
+    const std::uint8_t mask = action->mixFlagsOverrideMask;
     if (mask != 0) {
         std::uint8_t previous;
         std::uint8_t replacement;
         if (replacementBeforePrevious) {
-            replacement = action->rebirthValue2;
+            replacement = action->mixFlagsOverrideValue;
             previous = action->drawMode.mixFlags;
         } else {
             previous = action->drawMode.mixFlags;
-            replacement = action->rebirthValue2;
+            replacement = action->mixFlagsOverrideValue;
         }
         action->drawMode.mixFlags = static_cast<std::uint8_t>(
             (previous & ~mask) | (replacement & mask));

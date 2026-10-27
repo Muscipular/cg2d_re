@@ -697,8 +697,8 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
             YobiAction* const child = CreateMapAttachmentAction_444000(statusImage, mapX, mapY, CharacterAnimation_Stand, 0, 10);
             payload->statusIcon4C = child;
-            child->rebirthValue1 = 4;
-            payload->statusIcon4C->rebirthValue2 = 4;
+            child->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            payload->statusIcon4C->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
         }
         if (payload->statusIcon4C != nullptr) {
             payload->statusIcon4C->imageNo = statusImage;
@@ -724,8 +724,8 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                     static_cast<void>(audio::PlaySe_52C450(0x1B5, action->x));
                 }
                 payload->statusIcon1AF4D_0C->counter1DC = 0;
-                payload->statusIcon1AF4D_0C->rebirthValue1 = 4;
-                payload->statusIcon1AF4D_0C->rebirthValue2 = 4;
+                payload->statusIcon1AF4D_0C->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+                payload->statusIcon1AF4D_0C->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
             }
             if (payload->statusIcon1AF4D_0C != nullptr) {
                 positionStatus(payload->statusIcon1AF4D_0C);
@@ -747,8 +747,8 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
             YobiAction* const child = CreateMapAttachmentAction_444000(0x1AF4E, mapX, mapY, CharacterAnimation_Stand, 0, 10);
             payload->statusIcon1AF4E_10 = child;
-            child->rebirthValue1 = 4;
-            payload->statusIcon1AF4E_10->rebirthValue2 = 4;
+            child->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+            payload->statusIcon1AF4E_10->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
         }
         if (payload->statusIcon1AF4E_10 != nullptr) {
             positionStatus(payload->statusIcon1AF4E_10);

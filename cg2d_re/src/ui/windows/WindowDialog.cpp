@@ -416,13 +416,13 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
             }
             auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(index));
             if (indexedElement3) {
-                cg::yobi::SetYobiActionField310(
-                    indexedElement3->data.animation->action, 4);
+                cg::yobi::SetYobiActionMixFlagsOverrideValue(
+                    indexedElement3->data.animation->action, render::GraphicMixFlag_OriginalPalette);
             }
             auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(index));
             if (indexedElement4) {
-                cg::yobi::SetYobiActionField309(
-                    indexedElement4->data.animation->action, 4);
+                cg::yobi::SetYobiActionMixFlagsOverrideMask(
+                    indexedElement4->data.animation->action, render::GraphicMixFlag_OriginalPalette);
             }
             if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement5) indexedElement5->x = image.x;
             if (auto* const indexedElement6 = currentWindow->FindElementById(NativeElementKey(index)); indexedElement6) indexedElement6->y = image.y;

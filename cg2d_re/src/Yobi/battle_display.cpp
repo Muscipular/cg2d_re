@@ -225,8 +225,8 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
         action->x = static_cast<std::int32_t>(action->origin_x_offset40);
         action->y = static_cast<std::int32_t>(action->origin_y_offset44);
         action->graphicIndex = graphic;
-        action->rebirthValue1 = 4;
-        action->rebirthValue2 = 4;
+        action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+        action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
         action->field1D0 = 4 * index;
         action->counter1DC = 4 * (8 - slot);
         if (limited != 10 && index == 8) {
@@ -426,8 +426,8 @@ std::int32_t NewBattleNumber_41F1A0(
         action->numberVelocityB8 = -8.0F;
         action->flags = drawFlags;
         action->field58 = 2 * index;
-        action->rebirthValue1 = 4;
-        action->rebirthValue2 = 4;
+        action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+        action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
         const std::int32_t projectedNameX = static_cast<std::int32_t>(nameX);
         const float projectedNameY = action->nameOffsetB0;
         action->nameX = projectedNameX;
@@ -492,8 +492,8 @@ std::int32_t NewBattleTimeNumber_4206C0(
         action->flags |= YobiActionFlag_FourPhaseUpdateGate;
         action->numberVelocityB8 = -8.0F;
         action->field58 = 2 * index;
-        action->rebirthValue1 = 4;
-        action->rebirthValue2 = 4;
+        action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
+        action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
         const std::int32_t nameXInteger = static_cast<std::int32_t>(nameX);
         const float nameY = action->nameOffsetB0;
         action->nameX = nameXInteger;
@@ -549,9 +549,9 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     action->verticalVelocityBits4C = 0xC1000000u;
     action->imageNo = imageNo;
     action->direction = YobiDirection_UpLeft;
-    action->rebirthValue1 = 4;
+    action->mixFlagsOverrideMask = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = static_cast<float>(y);
-    action->rebirthValue2 = 4;
+    action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->pathCountOrDrawOrder_270 = 0;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     const std::int32_t projectedX = static_cast<std::int32_t>(action->origin_x_offset40);

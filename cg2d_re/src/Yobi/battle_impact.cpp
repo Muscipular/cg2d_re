@@ -188,9 +188,9 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
             payload->valueFD0 = remaining - 1;
         }
     }
-    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const float y = action->offset44;
+    const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
@@ -355,9 +355,9 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
             payload->valueFD0 = remaining - 1;
         }
     }
-    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const float y = action->offset44;
+    const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
@@ -560,9 +560,9 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
             }
         }
     }
-    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const float y = action->offset44;
+    const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
@@ -589,12 +589,12 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
     static_cast<void>(render::LoadGraphic_522570(targetGraphic));
     if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_Barrier) != 0) {
         const std::int32_t halfHeight = render::ReadGraphicDxHeight(target->graphicIndex) / 2;
-        const double threshold = static_cast<double>(halfHeight) + target->graphicOffsetY + target->offset44 - 50.0;
-        if (!(threshold >= action->offset44) && action->frameEvent == 0) {
+        const double threshold = static_cast<double>(halfHeight) + target->graphicOffsetY + target->origin_y_offset44 - 50.0;
+        if (!(threshold >= action->origin_y_offset44) && action->frameEvent == 0) {
             const std::int32_t halfX = static_cast<std::int32_t>(gYobiScreenOffsetX) / 2;
-            action->offset40 = static_cast<float>(static_cast<double>(halfX) + action->offset40);
+            action->origin_x_offset40 = static_cast<float>(static_cast<double>(halfX) + action->origin_x_offset40);
             const std::int32_t halfY = static_cast<std::int32_t>(gYobiScreenOffsetY) / 2;
-            action->offset44 = static_cast<float>(static_cast<double>(halfY) + action->offset44);
+            action->origin_y_offset44 = static_cast<float>(static_cast<double>(halfY) + action->origin_y_offset44);
             static_cast<void>(MarkDeath(action));
             static_cast<void>(NewBattleRandomEffect_419FC0(action, 110469, 0));
             static_cast<void>(NewBattleRandomEffect_419FC0(target, 110474, 0));
@@ -602,8 +602,8 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
         }
     }
     const std::int32_t halfHeight = render::ReadGraphicDxHeight(target->graphicIndex) / 2;
-    const double threshold = static_cast<double>(halfHeight) + target->graphicOffsetY + target->offset44;
-    if (!(threshold >= action->offset44) && action->frameEvent == 0) {
+    const double threshold = static_cast<double>(halfHeight) + target->graphicOffsetY + target->origin_y_offset44;
+    if (!(threshold >= action->origin_y_offset44) && action->frameEvent == 0) {
         const std::uint32_t initialFlags = payload->effects1C[payload->effectRunningC9C].flags;
         std::int32_t imageNo;
         if ((initialFlags & BattleResultFlag_Guard) != 0) {
@@ -771,9 +771,9 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
         if (payload->valueFD0 == 0) {
             static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             const std::int32_t movingHalfHeight = render::ReadGraphicDxHeight(target->graphicIndex) / 2;
-            const float x = target->offset40;
+            const float x = target->origin_x_offset40;
             const float centerY = static_cast<float>(
-                static_cast<double>(movingHalfHeight) + target->graphicOffsetY + target->offset44);
+                static_cast<double>(movingHalfHeight) + target->graphicOffsetY + target->origin_y_offset44);
             TurnBattleTowardPosition_4060D0(action, x, centerY, 0, 0.0F);
             MoveBattleByAngle_405EA0(action);
             const double speed = action->motionMagnitude54 + 0.5;
@@ -783,18 +783,18 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 const std::int32_t image = action->imageNo;
                 if (image >= 110032 && image <= 110034) {
                     if (action->nameX == 0) {
-                        const float y = action->offset44;
-                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->offset40, y, 110007, BattleTrailRenderMode_LeaveFlag20000, 200));
+                        const float y = action->origin_y_offset44;
+                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->origin_x_offset40, y, 110007, BattleTrailRenderMode_LeaveFlag20000, 200));
                     }
                 } else if (image >= 110035 && image <= 110037) {
                     if (action->nameX == 0) {
-                        const float y = action->offset44;
-                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->offset40, y, 110007, BattleTrailRenderMode_LeaveFlag20000, 200));
+                        const float y = action->origin_y_offset44;
+                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->origin_x_offset40, y, 110007, BattleTrailRenderMode_LeaveFlag20000, 200));
                     }
                 } else if (image >= 110038 && image <= 110040) {
                     if (action->nameX == 0) {
-                        const float y = action->offset44;
-                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->offset40, y, 110006, BattleTrailRenderMode_LeaveFlag20000, 200));
+                        const float y = action->origin_y_offset44;
+                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->origin_x_offset40, y, 110006, BattleTrailRenderMode_LeaveFlag20000, 200));
                     }
                     ++action->nameX;
                 }
@@ -808,11 +808,11 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
         }
     }
     const std::uint8_t targetPriority = target->displayPriority;
-    const float projectedX = action->offset40;
+    const float projectedX = action->origin_x_offset40;
     action->displayPriority = static_cast<std::uint8_t>(targetPriority + 20);
     const std::int32_t x = static_cast<std::int32_t>(projectedX);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const float y = action->offset44;
+    const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
@@ -836,11 +836,11 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
     if ((payload->effects1C[initialIndex].flags & BattleResultFlag_Barrier) != 0 && action->frameEvent == 0
         && GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[payload->effects1C[initialIndex].position]) <= 70) {
         const std::int32_t index = payload->effectRunningC9C;
-        const double x = static_cast<double>(static_cast<std::int32_t>(gYobiScreenOffsetX)) + action->offset40;
+        const double x = static_cast<double>(static_cast<std::int32_t>(gYobiScreenOffsetX)) + action->origin_x_offset40;
         YobiAction* const target = cg::world::gBattleAllEntries59E980[payload->effects1C[index].position];
-        action->offset40 = static_cast<float>(x);
-        action->offset44 = static_cast<float>(
-            static_cast<double>(static_cast<std::int32_t>(gYobiScreenOffsetY)) + action->offset44);
+        action->origin_x_offset40 = static_cast<float>(x);
+        action->origin_y_offset44 = static_cast<float>(
+            static_cast<double>(static_cast<std::int32_t>(gYobiScreenOffsetY)) + action->origin_y_offset44);
         static_cast<void>(MarkDeath(action));
         static_cast<void>(NewBattleRandomEffect_419FC0(action, 110475, 0));
         static_cast<void>(NewBattleRandomEffect_419FC0(target, 110474, 0));
@@ -1010,8 +1010,8 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 YobiAction* const target = cg::world::gBattleAllEntries59E980[
                     payload->effects1C[payload->effectRunningC9C].position];
                 TurnBattleToward_406190(action, target, 0, step);
-            } else if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
-                || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+            } else if (!(action->origin_x_offset40 >= -200.0F) || action->origin_x_offset40 > 840.0F
+                || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
                 static_cast<void>(MarkDeath(action));
             }
             MoveBattleByAngle_405EA0(action);
@@ -1025,7 +1025,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 if (action->nameX == 0) {
                     trailImage = 110007;
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
-                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     randomX = platform::RandomRange_46FAF0(-10, 10);
                     emitTrail = true;
                 }
@@ -1033,7 +1033,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 if (action->nameX == 0) {
                     trailImage = 110007;
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
-                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     randomX = platform::RandomRange_46FAF0(-10, 10);
                     emitTrail = true;
                 }
@@ -1041,16 +1041,16 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 if (action->nameX == 0) {
                     trailImage = 110007;
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-6, 6);
-                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     randomX = platform::RandomRange_46FAF0(-6, 6);
                     emitTrail = true;
                 }
             } else if (image == 110046) {
                 if (action->nameX == 0) {
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-4, 4);
-                    const float y = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    const float y = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     const std::int32_t xOffset = platform::RandomRange_46FAF0(-4, 4);
-                    const float x = static_cast<float>(static_cast<double>(xOffset) + action->offset40);
+                    const float x = static_cast<float>(static_cast<double>(xOffset) + action->origin_x_offset40);
                     static_cast<void>(NewBattleTrailEffect_41E7C0(x, y, 110006, BattleTrailRenderMode_AddFlag20000, 202));
                 }
                 ++action->nameX;
@@ -1058,22 +1058,22 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 if (action->nameX == 0) {
                     trailImage = 110006;
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-2, 2);
-                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     randomX = platform::RandomRange_46FAF0(-2, 2);
                     emitTrail = true;
                 }
             }
             if (emitTrail) {
-                const float x = static_cast<float>(static_cast<double>(randomX) + action->offset40);
+                const float x = static_cast<float>(static_cast<double>(randomX) + action->origin_x_offset40);
                 static_cast<void>(NewBattleTrailEffect_41E7C0(x, trailY, trailImage, BattleTrailRenderMode_AddFlag20000, 202));
             }
             const std::int32_t previousTrail = action->nameX;
             action->nameX = previousTrail < 2 ? previousTrail + 1 : 0;
         }
     }
-    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const float y = action->offset44;
+    const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
@@ -1154,8 +1154,8 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                 if ((flags & BattleResultFlag_Avoidance) == 0 && (flags & BattleResultFlag_RebirthGuard) == 0) {
                     carry = true;
                 }
-                if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
-                    || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+                if (!(action->origin_x_offset40 >= -200.0F) || action->origin_x_offset40 > 840.0F
+                    || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
                     if (carry) {
                         AdvanceBattleCastState_439340(cg::world::gBattleAllEntries59E980[payload->effects1C[index].position]);
                     }
@@ -1178,11 +1178,11 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                 }
                 const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
                 const std::int32_t direction = target->direction + 1;
-                target->offset40 = static_cast<float>(static_cast<double>(offsetX) + action->offset40);
-                const double y = action->offset44 - 35.0 - arc
+                target->origin_x_offset40 = static_cast<float>(static_cast<double>(offsetX) + action->origin_x_offset40);
+                const double y = action->origin_y_offset44 - 35.0 - arc
                     + static_cast<std::int32_t>(gYobiScreenOffsetY);
                 target->direction = direction;
-                target->offset44 = static_cast<float>(y);
+                target->origin_y_offset44 = static_cast<float>(y);
                 if (direction >= 8) {
                     target->direction = direction - 8;
                 }
@@ -1197,7 +1197,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                 if (action->nameX == 0) {
                     trailImage = 110007;
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
-                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     randomX = platform::RandomRange_46FAF0(-10, 10);
                     emitTrail = true;
                 }
@@ -1205,7 +1205,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                 if (action->nameX == 0) {
                     trailImage = 110007;
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-10, 10);
-                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     randomX = platform::RandomRange_46FAF0(-10, 10);
                     emitTrail = true;
                 }
@@ -1213,16 +1213,16 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                 if (action->nameX == 0) {
                     trailImage = 110007;
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-6, 6);
-                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     randomX = platform::RandomRange_46FAF0(-6, 6);
                     emitTrail = true;
                 }
             } else if (image == 110046) {
                 if (action->nameX == 0) {
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-4, 4);
-                    const float y = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    const float y = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     const std::int32_t xOffset = platform::RandomRange_46FAF0(-4, 4);
-                    const float x = static_cast<float>(static_cast<double>(xOffset) + action->offset40);
+                    const float x = static_cast<float>(static_cast<double>(xOffset) + action->origin_x_offset40);
                     static_cast<void>(NewBattleTrailEffect_41E7C0(x, y, 110006, BattleTrailRenderMode_AddFlag20000, 202));
                 }
                 ++action->nameX;
@@ -1230,22 +1230,22 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                 if (action->nameX == 0) {
                     trailImage = 110006;
                     const std::int32_t randomY = platform::RandomRange_46FAF0(-2, 2);
-                    trailY = static_cast<float>(static_cast<double>(randomY) + action->offset44);
+                    trailY = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     randomX = platform::RandomRange_46FAF0(-2, 2);
                     emitTrail = true;
                 }
             }
             if (emitTrail) {
-                const float x = static_cast<float>(static_cast<double>(randomX) + action->offset40);
+                const float x = static_cast<float>(static_cast<double>(randomX) + action->origin_x_offset40);
                 static_cast<void>(NewBattleTrailEffect_41E7C0(x, trailY, trailImage, BattleTrailRenderMode_AddFlag20000, 202));
             }
             const std::int32_t previousTrail = action->nameX;
             action->nameX = previousTrail < 2 ? previousTrail + 1 : 0;
         }
     }
-    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const float y = action->offset44;
+    const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
 }
@@ -1308,8 +1308,8 @@ void InitBattleTargetEffect_422E50(
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
     payload->skillMeta = sourcePayload->skillMeta; // E01／422FB8。
     static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
-    action->offset40 = target->offset40;
-    action->offset44 = target->offset44;
+    action->origin_x_offset40 = target->origin_x_offset40;
+    action->origin_y_offset44 = target->origin_y_offset44;
     action->pathCountOrDrawOrder_270 = 0;
 }
 
@@ -1353,15 +1353,15 @@ void InitBattleOffsetEffect_423040(
     payload->skillMeta = sourcePayload->skillMeta; // E01／423152。
     static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
     const std::int32_t positionIndex = sourcePayload->effectRunningC9C;
-    const double x = target->offset40;
+    const double x = target->origin_x_offset40;
     const std::int32_t position = sourcePayload->effects1C[positionIndex].position;
-    action->offset40 = static_cast<float>(position >= 10 ? x + 100.0 : x - 100.0);
+    action->origin_x_offset40 = static_cast<float>(position >= 10 ? x + 100.0 : x - 100.0);
     const std::int32_t graphic = target->graphicIndex;
-    const double targetY = target->offset44;
+    const double targetY = target->origin_y_offset44;
     const std::int32_t halfHeight = render::ReadGraphicDxHeight(graphic) / 2;
     const double y = targetY - 200.0 - halfHeight;
     action->pathCountOrDrawOrder_270 = 0;
-    action->offset44 = static_cast<float>(y);
+    action->origin_y_offset44 = static_cast<float>(y);
 }
 
 // 原函数：0x004231D0。
@@ -1405,8 +1405,8 @@ void InitBattleCenterEffect_4231D0(
     payload->castSkill103C = sourcePayload->castSkill103C;
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
     payload->skillMeta = sourcePayload->skillMeta; // E01／4232E9。
-    action->offset40 = 320.0F;
-    action->offset44 = 260.0F;
+    action->origin_x_offset40 = 320.0F;
+    action->origin_y_offset44 = 260.0F;
     YobiAction* const target = cg::world::gBattleAllEntries59E980[
         sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
     TurnBattleToward_406190(action, target, 0, 0.0F);
@@ -1455,11 +1455,11 @@ void InitBattleLowerEffect_423350(
     action->imageNo = imageOffset + sourcePayload->image102C;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
-    action->offset40 = target->offset40;
+    action->origin_x_offset40 = target->origin_x_offset40;
     const std::int32_t halfOffset = target->graphicOffsetY / 2;
-    const double y = static_cast<double>(halfOffset) + target->offset44;
+    const double y = static_cast<double>(halfOffset) + target->origin_y_offset44;
     action->pathCountOrDrawOrder_270 = 0;
-    action->offset44 = static_cast<float>(y);
+    action->origin_y_offset44 = static_cast<float>(y);
 }
 
 // 原函数：0x004234B0。
@@ -1509,13 +1509,13 @@ void InitBattleScreenYEffect_4234B0(
     action->imageNo = image;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
-    action->offset40 = target->offset40;
+    action->origin_x_offset40 = target->origin_x_offset40;
     if (side != nullptr) {
         *side = sourcePayload->effects1C[sourcePayload->effectRunningC9C].position >= 10 ? 1 : -1;
     }
     const std::int32_t y = target->y + 1;
     action->pathCountOrDrawOrder_270 = 0;
-    action->offset44 = static_cast<float>(y);
+    action->origin_y_offset44 = static_cast<float>(y);
 }
 
 // BHE01：计数与上限持样保持，标死后仍取Y再发布X，见命中特效SPEC。
@@ -1529,8 +1529,8 @@ void UpdateBattleHitEffect_41F570(YobiAction* const action)
     if (count >= maximum) {
         static_cast<void>(MarkDeath(action));
     }
-    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
-    const float screenY = action->offset44;
+    const std::int32_t screenX = static_cast<std::int32_t>(action->origin_x_offset40);
+    const float screenY = action->origin_y_offset44;
     action->x = screenX;
     action->y = static_cast<std::int32_t>(screenY);
 }
@@ -1550,18 +1550,18 @@ YobiAction* NewBattleHitEffect_41F5B0(
     action->displayPriority = 0xCC;
     action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->framePlayingRate = 100;
-    action->offset40 = static_cast<float>(static_cast<double>(offsetX) + parent->offset40);
-    const double y = static_cast<double>(offsetY) + parent->offset44;
+    action->origin_x_offset40 = static_cast<float>(static_cast<double>(offsetX) + parent->origin_x_offset40);
+    const double y = static_cast<double>(offsetY) + parent->origin_y_offset44;
     action->verticalVelocityBits4C = 0xC1000000u;
     action->imageNo = imageNo;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
-    action->offset44 = static_cast<float>(y);
+    action->origin_y_offset44 = static_cast<float>(y);
     action->deltaY = lifetime;
     action->direction = YobiDirection_UpLeft;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
-    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
-    const float screenY = action->offset44;
+    const std::int32_t screenX = static_cast<std::int32_t>(action->origin_x_offset40);
+    const float screenY = action->origin_y_offset44;
     action->x = screenX;
     action->y = static_cast<std::int32_t>(screenY);
     action->pathCountOrDrawOrder_270 = 0;

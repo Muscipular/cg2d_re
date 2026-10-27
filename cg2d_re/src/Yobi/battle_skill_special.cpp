@@ -710,9 +710,9 @@ static void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleSce
         actorPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         actorPayload->castListCA4[0] = BattleAction_Idle;
         actorPayload->castListCA4[1] = BattleCastQueueValue_End;
-        created->offset40 =
+        created->origin_x_offset40 =
             static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][2]);
-        created->offset44 =
+        created->origin_y_offset44 =
             static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][3]);
         created->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][2];
         created->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMTargetPosition5AAA40]][3];
@@ -2655,8 +2655,8 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
                 first->fields288[3] = 1;
             }
             first->priority = static_cast<std::uint8_t>(static_cast<std::uint8_t>(firstPosition) * 10 + 2);
-            first->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2]);
-            first->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3]);
+            first->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2]);
+            first->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3]);
             first->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2];
             first->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3];
             firstPayload->x00 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2];
@@ -2676,11 +2676,11 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
             const std::int32_t riderXSourcePosition = gBattleMCasterPosition5AAA64;
             YobiAction* const riderX = casterPayload->rider13C8;
             YobiAction* const sourceX = cg::world::gBattleAllEntries59E980[riderXSourcePosition];
-            riderX->offset40 = static_cast<float>(static_cast<double>(sourceX->frameX) + sourceX->offset40);
+            riderX->origin_x_offset40 = static_cast<float>(static_cast<double>(sourceX->frameX) + sourceX->origin_x_offset40);
             const std::int32_t riderYSourcePosition = gBattleMCasterPosition5AAA64;
             YobiAction* const riderY = casterPayload->rider13C8;
             YobiAction* const sourceY = cg::world::gBattleAllEntries59E980[riderYSourcePosition];
-            riderY->offset44 = sourceY->offset44;
+            riderY->origin_y_offset44 = sourceY->origin_y_offset44;
 
             {
                 char nameBytes[29]{};
@@ -2720,8 +2720,8 @@ static void ProcessBattleMSkill98StatusTargets(YobiAction* const scene, BattleSc
                 second->fields288[3] = 1;
             }
             second->priority = static_cast<std::uint8_t>(static_cast<std::uint8_t>(secondPosition) * 10 + 2);
-            second->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2]);
-            second->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][3]);
+            second->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2]);
+            second->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][3]);
             second->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2];
             second->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][3];
             secondPayload->x00 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2];

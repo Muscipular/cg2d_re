@@ -326,12 +326,12 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
     action->flags = parent->flags | YobiActionFlag_AuxiliaryBattleGear;
     action->deltaX = parent->deltaX;
     action->deltaY = parent->deltaY;
-    action->offset40 = parent->offset40;
-    action->offset44 = parent->offset44;
-    const std::int32_t x = static_cast<std::int32_t>(parent->offset40);
+    action->origin_x_offset40 = parent->origin_x_offset40;
+    action->origin_y_offset44 = parent->origin_y_offset44;
+    const std::int32_t x = static_cast<std::int32_t>(parent->origin_x_offset40);
     const std::int32_t deltaX = parent->deltaX;
     action->x = x + deltaX + xOffset;
-    const std::int32_t y = static_cast<std::int32_t>(parent->offset44);
+    const std::int32_t y = static_cast<std::int32_t>(parent->origin_y_offset44);
     const std::int32_t deltaY = parent->deltaY;
     action->y = y + yOffset + deltaY;
     static_cast<void>(PlayFrame_517DA0(action, stopAtEnd));
@@ -361,9 +361,9 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     YobiAction* const source = action->battleAttachmentParent10;
-    const std::int32_t x = static_cast<std::int32_t>(source->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(source->origin_x_offset40);
     action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const std::int32_t y = static_cast<std::int32_t>(source->offset44);
+    const std::int32_t y = static_cast<std::int32_t>(source->origin_y_offset44);
     action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
     return action;
 }
@@ -393,9 +393,9 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     action->value1D4 = static_cast<const BattleActorPayload*>(parent->payload.battleActor)->battlePosition18;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     YobiAction* const source = action->battleAttachmentParent10;
-    const std::int32_t x = static_cast<std::int32_t>(source->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(source->origin_x_offset40);
     action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const std::int32_t y = static_cast<std::int32_t>(source->offset44);
+    const std::int32_t y = static_cast<std::int32_t>(source->origin_y_offset44);
     action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
     return action;
 }
@@ -429,9 +429,9 @@ YobiAction* NewBattleAuxGear_422B00(
     action->value1D4 = position;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     YobiAction* const source = action->battleAttachmentParent10;
-    const std::int32_t x = static_cast<std::int32_t>(source->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(source->origin_x_offset40);
     action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
-    const std::int32_t y = static_cast<std::int32_t>(source->offset44);
+    const std::int32_t y = static_cast<std::int32_t>(source->origin_y_offset44);
     action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
     return action;
 }

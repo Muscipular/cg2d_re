@@ -2161,8 +2161,8 @@ static void ProcessBattleMMonsterHeader(
         defenderPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         defenderPayload->castListCA4[0] = BattleAction_Idle;
         defenderPayload->castListCA4[1] = BattleCastQueueValue_End;
-        defender->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][2]);
-        defender->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][3]);
+        defender->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][2]);
+        defender->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][3]);
         defender->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][2];
         defender->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[gBattleMDefenderPosition5A4A24]][3];
         defender->scaleX = 0.0F;
@@ -2649,8 +2649,8 @@ static void ProcessBattleMGmnHeader(
     actorPayload->effectCountCA0 = 0;
     actorPayload->effects1C[0].position = -1;
     actorPayload->effects1C[1].position = -1;
-    created->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
-    created->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
+    created->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
+    created->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
     created->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2];
     created->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3];
     actorPayload->battlePosition18 = position;
@@ -2683,12 +2683,12 @@ static void ProcessBattleMGmnHeader(
         {
             const std::int32_t pointIndex = cg::world::gBattlePointIndices5536FC[position];
             YobiAction* const actor = *slot;
-            actor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[pointIndex][0]);
+            actor->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[pointIndex][0]);
         }
         {
             const std::int32_t pointIndex = cg::world::gBattlePointIndices5536FC[position];
             YobiAction* const actor = *slot;
-            actor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[pointIndex][1]);
+            actor->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[pointIndex][1]);
         }
         {
             const std::int32_t pointIndex = cg::world::gBattlePointIndices5536FC[position];
@@ -2703,9 +2703,9 @@ static void ProcessBattleMGmnHeader(
             currentPayload->moveTargetYFEC = cg::world::gBattleGraphicPoints553758[pointIndex][3];
         }
         YobiAction* const xActor = *slot;
-        xActor->x = static_cast<std::int32_t>(static_cast<std::int64_t>(xActor->offset40));
+        xActor->x = static_cast<std::int32_t>(static_cast<std::int64_t>(xActor->origin_x_offset40));
         YobiAction* const yActor = *slot;
-        yActor->y = static_cast<std::int32_t>(static_cast<std::int64_t>(yActor->offset44));
+        yActor->y = static_cast<std::int32_t>(static_cast<std::int64_t>(yActor->origin_y_offset44));
         FaceBattleActorTowardFormationPosition_406260(*slot);
         AppendBattleCast_4392A0(scene, *slot, BattleAction_MoveToTargetPosition);
         AppendBattleCast_4392A0(scene, *slot, BattleAction_PlayEndRunAndRestoreFacing);
@@ -2812,9 +2812,9 @@ static void ProcessBattleMRideHeader(
                 carrierAction->barMaximum1C0 = static_cast<std::int32_t>(TakeBattleMInteger_438F70(scene));
             }
             carrier->flags08 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
-            carrierAction->offset40 = static_cast<float>(
+            carrierAction->origin_x_offset40 = static_cast<float>(
                 cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2]);
-            carrierAction->offset44 = static_cast<float>(
+            carrierAction->origin_y_offset44 = static_cast<float>(
                 cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3]);
             existingPayload->effect1060 = carrierAction;
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_TransitionRideState);
@@ -2826,11 +2826,11 @@ static void ProcessBattleMRideHeader(
             const std::int32_t firstPosition = gBattleMCasterPosition5AAA64;
             YobiAction* const effect = NewYobiAction_404AE0(2, 0);
             existingPayload->effect1060 = effect;
-            effect->offset40 = static_cast<float>(
+            effect->origin_x_offset40 = static_cast<float>(
                 cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2]);
             const std::int32_t pointIndexY = cg::world::gBattlePointIndices5536FC[firstPosition];
             YobiAction* const effectY = existingPayload->effect1060;
-            effectY->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[pointIndexY][3]);
+            effectY->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[pointIndexY][3]);
             AppendBattleCast_4392A0(scene, cg::world::gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], BattleAction_FailToMountAndReturn);
             const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;
             const BattleEntryEffectRecord effectRecord {firstPosition, 1u, effectCasterPosition, secondPosition};
@@ -2900,8 +2900,8 @@ static void ProcessBattleMRideHeader(
         firstPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         firstPayload->castListCA4[0] = BattleAction_Idle;
         firstPayload->castListCA4[1] = BattleCastQueueValue_End;
-        first->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2]);
-        first->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3]);
+        first->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2]);
+        first->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3]);
         first->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][2];
         first->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[firstPosition]][3];
         first->scaleX = 1.0F;
@@ -2921,11 +2921,11 @@ static void ProcessBattleMRideHeader(
         const std::int32_t casterPositionX = gBattleMCasterPosition5AAA64;
         YobiAction* const riderX = existingPayload->rider13C8;
         YobiAction* const sourceX = cg::world::gBattleAllEntries59E980[casterPositionX];
-        riderX->offset40 = static_cast<float>(static_cast<double>(sourceX->frameX) + sourceX->offset40);
+        riderX->origin_x_offset40 = static_cast<float>(static_cast<double>(sourceX->frameX) + sourceX->origin_x_offset40);
         const std::int32_t casterPositionY = gBattleMCasterPosition5AAA64;
         YobiAction* const riderY = existingPayload->rider13C8;
         YobiAction* const sourceY = cg::world::gBattleAllEntries59E980[casterPositionY];
-        riderY->offset44 = sourceY->offset44;
+        riderY->origin_y_offset44 = sourceY->origin_y_offset44;
 
         YobiAction* const second = NewBattleActor_438290(secondPosition);
         auto* const secondPayload = second->payload.battleActor;
@@ -2970,8 +2970,8 @@ static void ProcessBattleMRideHeader(
         secondPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         secondPayload->castListCA4[0] = BattleAction_Idle;
         secondPayload->castListCA4[1] = BattleCastQueueValue_End;
-        second->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2]);
-        second->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][3]);
+        second->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2]);
+        second->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][3]);
         second->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][2];
         second->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[secondPosition]][3];
         second->scaleX = 1.0F;
@@ -3200,8 +3200,8 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         firstPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         firstPayload->castListCA4[0] = BattleAction_Idle;
         firstPayload->castListCA4[1] = BattleCastQueueValue_End;
-        firstActor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2]);
-        firstActor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][3]);
+        firstActor->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2]);
+        firstActor->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][3]);
         firstActor->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2];
         firstActor->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][3];
         action->scaleX = 1.0F;
@@ -3222,10 +3222,10 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         YobiAction* const riderX = existingPayload->rider13C8;
         YobiAction** const originalSlot = &cg::world::gBattleAllEntries59E980[first];
         YobiAction* const sourceX = *originalSlot;
-        riderX->offset40 = static_cast<float>(static_cast<double>(sourceX->frameX) + sourceX->offset40);
+        riderX->origin_x_offset40 = static_cast<float>(static_cast<double>(sourceX->frameX) + sourceX->origin_x_offset40);
         YobiAction* const sourceY = *originalSlot;
         YobiAction* const riderY = existingPayload->rider13C8;
-        riderY->offset44 = sourceY->offset44;
+        riderY->origin_y_offset44 = sourceY->origin_y_offset44;
 
         YobiAction* const secondActor = NewBattleActor_438290(second);
         auto* const secondPayload = secondActor->payload.battleActor;
@@ -3275,8 +3275,8 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         secondPayload->castListIndexFC8 = BattleCastQueueIndex_BeforeFirst;
         secondPayload->castListCA4[1] = BattleCastQueueValue_End;
         // 第二对象仍从首位置取坐标；位置身份独立写入second。
-        secondActor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2]);
-        secondActor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][3]);
+        secondActor->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2]);
+        secondActor->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][3]);
         secondActor->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][2];
         secondActor->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[first]][3];
         action->scaleX = 1.0F;
@@ -3476,14 +3476,14 @@ void ParseBattleC_438550()
         }
         if ((inputFlags & detail::BattleCharacterFlag_Appear) != 0) {
             payload->flagsFDC &= ~detail::BattleActorFlag_EntryComplete;
-            actor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][0]);
-            actor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][1]);
+            actor->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][0]);
+            actor->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][1]);
         } else {
             const std::uint32_t flags = payload->flagsFDC | detail::BattleActorFlag_EntryComplete;
             payload->flagsFDC = flags;
             if ((flags & detail::BattleActorFlag_Dead) == 0) {
-                actor->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
-                actor->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
+                actor->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
+                actor->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
                 detail::FaceBattleActorTowardFormationPosition_406260(actor);
                 if ((inputFlags & detail::BattleCharacterFlag_Dead) != 0) {
                     detail::FaceBattleActorTowardFormationPosition_406260(actor);

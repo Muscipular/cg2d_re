@@ -113,8 +113,8 @@ struct YobiAction {
     std::int32_t y = 0; // 原成员偏移：+0x34。
     std::int32_t deltaX = 0; // 原+38；窗口横向步长，41F570/41FB20复用为计数。
     std::int32_t deltaY = 0; // 原+3C；窗口/排序字段，41F570复用为寿命上限，不与y合并。
-    float offset40 = 0.0f; // 原+40；448A50/448BF0/449A00的投影后横向偏移。
-    float offset44 = 0.0f; // 原+44；对应纵向偏移，不与屏幕y合并。
+    float origin_x_offset40 = 0.0f; // 原+40；448A50/448BF0/449A00的投影后横向偏移。
+    float origin_y_offset44 = 0.0f; // 原+44；对应纵向偏移，不与屏幕y合并。
     float effectAcceleration48 = 0.0f; // 原+48，420D50/41A310写0.2，41A7D0写0.1，41A200从4C扣除；4087C0/4090F0复用为回旋转向步长。
     std::uint32_t verticalVelocityBits4C = 0; // 原+4C；41F4C0/41F5B0写C1000000，41F450/41A200按F32消费。
     float angle50 = 0.0f; // 原+50；本对象族创建清零，449160另作角度。

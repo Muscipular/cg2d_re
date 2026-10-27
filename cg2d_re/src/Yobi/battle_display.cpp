@@ -216,14 +216,14 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
         std::int16_t graphicY;
         static_cast<void>(resource::GetGraphicXY(static_cast<std::uint32_t>(graphic), &graphicX, &graphicY));
         const std::int32_t offset = kBattleSequenceOffsets553BF4[slot == 9 ? 4 : slot];
-        action->offset40 = static_cast<float>(static_cast<double>(offset) + graphicX + baseX);
+        action->origin_x_offset40 = static_cast<float>(static_cast<double>(offset) + graphicX + baseX);
         double y = static_cast<double>(graphicY) + baseY;
         if (slot == 9) {
             y -= 32.0;
         }
-        action->offset44 = static_cast<float>(y);
-        action->x = static_cast<std::int32_t>(action->offset40);
-        action->y = static_cast<std::int32_t>(action->offset44);
+        action->origin_y_offset44 = static_cast<float>(y);
+        action->x = static_cast<std::int32_t>(action->origin_x_offset40);
+        action->y = static_cast<std::int32_t>(action->origin_y_offset44);
         action->graphicIndex = graphic;
         action->rebirthValue1 = 4;
         action->rebirthValue2 = 4;
@@ -242,12 +242,12 @@ void MoveBattleSequence_420590(YobiAction* const action)
     world::NormalizeAngleDegrees_46F8F0(&angle);
     const double xFactor = world::LookupCosineDegrees_46F950(angle);
     const double xStep = xFactor * action->motionMagnitude54;
-    action->offset40 = static_cast<float>(action->offset40 - xStep);
+    action->origin_x_offset40 = static_cast<float>(action->origin_x_offset40 - xStep);
     const double yFactor = world::LookupSineDegrees_46F930(angle);
     const double yStep = yFactor * action->motionMagnitude54;
-    const double y = yStep + action->offset44;
-    action->offset44 = static_cast<float>(y);
-    action->x = static_cast<std::int32_t>(action->offset40);
+    const double y = yStep + action->origin_y_offset44;
+    action->origin_y_offset44 = static_cast<float>(y);
+    action->x = static_cast<std::int32_t>(action->origin_x_offset40);
     // 原4205D2是FST；屏幕Y使用仍留在寄存器中的值，而非刚存回的F32。
     action->y = static_cast<std::int32_t>(y);
 }
@@ -413,10 +413,10 @@ std::int32_t NewBattleNumber_41F1A0(
             static_cast<std::uint32_t>(action->graphicIndex), &graphicX, &graphicY));
         const double graphicOffsetX = graphicX;
         const std::int32_t advance = render::GetFontMetrics(fontType).sWidth * index;
-        action->offset40 = static_cast<float>(graphicOffsetX + x - halfWidth + advance);
-        action->offset44 = static_cast<float>(static_cast<double>(graphicY) + y);
-        const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
-        const float projectedY = action->offset44;
+        action->origin_x_offset40 = static_cast<float>(graphicOffsetX + x - halfWidth + advance);
+        action->origin_y_offset44 = static_cast<float>(static_cast<double>(graphicY) + y);
+        const std::int32_t projectedX = static_cast<std::int32_t>(action->origin_x_offset40);
+        const float projectedY = action->origin_y_offset44;
         action->x = projectedX;
         const std::int32_t projectedYValue = static_cast<std::int32_t>(projectedY);
         const std::uint32_t initialFlags = action->flags;
@@ -481,10 +481,10 @@ std::int32_t NewBattleTimeNumber_4206C0(
         const std::int32_t fontWidth = render::GetFontMetrics(2).sWidth;
         const double graphicOffsetX = graphicXValue;
         const std::int32_t advance = fontWidth * index;
-        action->offset40 = static_cast<float>(graphicOffsetX + x - halfWidth + advance);
-        action->offset44 = static_cast<float>(static_cast<double>(graphicY) + y);
-        const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
-        const float screenY = action->offset44;
+        action->origin_x_offset40 = static_cast<float>(graphicOffsetX + x - halfWidth + advance);
+        action->origin_y_offset44 = static_cast<float>(static_cast<double>(graphicY) + y);
+        const std::int32_t screenX = static_cast<std::int32_t>(action->origin_x_offset40);
+        const float screenY = action->origin_y_offset44;
         action->x = screenX;
         const std::int32_t screenYInteger = static_cast<std::int32_t>(screenY);
         const float nameX = action->nameOffsetAC;
@@ -516,7 +516,7 @@ void UpdateBattleFloatingIcon_41F450(YobiAction* const action)
             action->phase = BattleFloatingDisplayPhase_Holding;
         }
         // 原FST不弹出速度，Y使用未舍入和，而非刚存回的F32。
-        action->offset44 = static_cast<float>(speed + action->offset44);
+        action->origin_y_offset44 = static_cast<float>(speed + action->origin_y_offset44);
     } else if (initialPhase == BattleFloatingDisplayPhase_Holding) {
         const std::int32_t count = action->deltaX + 1;
         action->deltaX = count;
@@ -524,8 +524,8 @@ void UpdateBattleFloatingIcon_41F450(YobiAction* const action)
             static_cast<void>(MarkDeath(action));
         }
     }
-    const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
-    const float projectedY = action->offset44;
+    const std::int32_t projectedX = static_cast<std::int32_t>(action->origin_x_offset40);
+    const float projectedY = action->origin_y_offset44;
     action->x = projectedX;
     action->y = static_cast<std::int32_t>(projectedY);
 }
@@ -544,18 +544,18 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     action->displayPriority = 0xCC;
     action->flags = flags | YobiActionFlag_FourPhaseUpdateGate;
     action->framePlayingRate = 100;
-    action->offset40 = static_cast<float>(static_cast<double>(offsetX) + parent->offset40);
-    const double y = static_cast<double>(offsetY) + parent->offset44;
+    action->origin_x_offset40 = static_cast<float>(static_cast<double>(offsetX) + parent->origin_x_offset40);
+    const double y = static_cast<double>(offsetY) + parent->origin_y_offset44;
     action->verticalVelocityBits4C = 0xC1000000u;
     action->imageNo = imageNo;
     action->direction = YobiDirection_UpLeft;
     action->rebirthValue1 = 4;
-    action->offset44 = static_cast<float>(y);
+    action->origin_y_offset44 = static_cast<float>(y);
     action->rebirthValue2 = 4;
     action->pathCountOrDrawOrder_270 = 0;
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
-    const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
-    const float projectedY = action->offset44;
+    const std::int32_t projectedX = static_cast<std::int32_t>(action->origin_x_offset40);
+    const float projectedY = action->origin_y_offset44;
     action->x = projectedX;
     action->y = static_cast<std::int32_t>(projectedY);
     return action;

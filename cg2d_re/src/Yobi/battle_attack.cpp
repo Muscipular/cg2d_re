@@ -121,8 +121,8 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         target->phase = BattleAction_DodgeAndWaitAttacker;
                     } else if ((flags & BattleResultMask_PhysicalAbsorbOrNullifyOrRebirthGuard) == 0
                         && (payload->effects1C[index].position3 != 0 || payload->castSkill103C == BattleSkill_Forcecut)) {
-                        target->offset40 = static_cast<float>(targetPayload->x10);
-                        target->offset44 = static_cast<float>(targetPayload->y14);
+                        target->origin_x_offset40 = static_cast<float>(targetPayload->x10);
+                        target->origin_y_offset44 = static_cast<float>(targetPayload->y14);
                         if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_WakeUp) != 0) {
                             static_cast<void>(MarkDeath(targetPayload->debuffEffectAction_1054));
                             const std::uint32_t targetFlags = targetPayload->flagsFDC;
@@ -177,8 +177,8 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                 }
                 if ((flags & BattleResultMask_PhysicalAbsorbOrNullifyOrRebirthGuard) == 0
                     && (payload->effects1C[index].position3 != 0 || payload->castSkill103C == BattleSkill_Forcecut)) {
-                    target->offset40 = static_cast<float>(targetPayload->x10);
-                    target->offset44 = static_cast<float>(targetPayload->y14);
+                    target->origin_x_offset40 = static_cast<float>(targetPayload->x10);
+                    target->origin_y_offset44 = static_cast<float>(targetPayload->y14);
                     const std::uint32_t visualFlags = payload->effects1C[payload->effectRunningC9C].flags;
                     if ((visualFlags & BattleResultFlag_ReflectPhysical) != 0) {
                         if ((visualFlags & BattleResultFlag_Critical) != 0) {
@@ -862,18 +862,18 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 effect->y -= 103;
             }
         } else if (mode == BattleAttackMode_Bow) {
-            const float x = action->offset40;
-            const float y = action->offset44;
+            const float x = action->origin_x_offset40;
+            const float y = action->origin_y_offset44;
             const float speed = action->motionMagnitude54;
             action->motionMagnitude54 = 20.0F;
             MoveBattleByAngle_405EA0(action);
             YobiAction* const effect = NewBattleRandomEffect_419FC0(action, 110469, 0);
             if (effect != nullptr) {
-                effect->x = static_cast<std::int32_t>(action->offset40);
-                effect->y = static_cast<std::int32_t>(action->offset44) - 90;
+                effect->x = static_cast<std::int32_t>(action->origin_x_offset40);
+                effect->y = static_cast<std::int32_t>(action->origin_y_offset44) - 90;
             }
-            action->offset40 = x;
-            action->offset44 = y;
+            action->origin_x_offset40 = x;
+            action->origin_y_offset44 = y;
             action->motionMagnitude54 = speed;
         } else {
             YobiAction* const effect = NewBattleRandomEffect_419FC0(action, 110473, 0);
@@ -1244,8 +1244,8 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
 void UpdateBattleAction17_4093B0(YobiAction* const action)
 {
     MoveBattleByAngle_405EA0(action);
-    if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
-        || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+    if (!(action->origin_x_offset40 >= -200.0F) || action->origin_x_offset40 > 840.0F
+        || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
         static_cast<void>(MarkDeath(action));
     }
 }
@@ -1824,33 +1824,33 @@ std::int32_t UpdateBattleAction34_40B5E0(YobiAction* const action)
             action->direction = direction - 8;
         }
         if (payload->valueFF0 >= 3) {
-            if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
-                || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+            if (!(action->origin_x_offset40 >= -200.0F) || action->origin_x_offset40 > 840.0F
+                || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
                 AdvanceBattleCastState_439340(action);
                 payload->valueFD0 = 0;
             }
         } else {
             static_cast<void>(render::LoadGraphic_522570(action->graphicIndex));
             const double halfWidth = render::ReadGraphicDxWidth(action->graphicIndex) * 0.5;
-            if (halfWidth > action->offset40 && payload->valueFD0 != 1) {
+            if (halfWidth > action->origin_x_offset40 && payload->valueFD0 != 1) {
                 const double delta = action->angle50 - 90.0;
                 action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
                 static_cast<void>(audio::PlaySe_52C450(208, action->x));
                 payload->valueFD0 = 1;
-            } else if (action->offset40 > static_cast<float>(platform::gWindowWidth) - halfWidth && payload->valueFD0 != 2) {
+            } else if (action->origin_x_offset40 > static_cast<float>(platform::gWindowWidth) - halfWidth && payload->valueFD0 != 2) {
                 const double delta = action->angle50 - 270.0;
                 action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
                 static_cast<void>(audio::PlaySe_52C450(208, action->x));
                 payload->valueFD0 = 2;
-            } else if (static_cast<double>(-action->graphicOffsetY) > action->offset44 && payload->valueFD0 != 3) {
+            } else if (static_cast<double>(-action->graphicOffsetY) > action->origin_y_offset44 && payload->valueFD0 != 3) {
                 const double delta = action->angle50 - 180.0;
                 action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
                 ++payload->valueFF0;
                 static_cast<void>(audio::PlaySe_52C450(208, action->x));
                 payload->valueFD0 = 3;
-            } else if (action->offset44 > static_cast<float>(platform::gWindowHeight) && payload->valueFD0 != 4) {
+            } else if (action->origin_y_offset44 > static_cast<float>(platform::gWindowHeight) && payload->valueFD0 != 4) {
                 const double angle = action->angle50;
                 action->angle50 = static_cast<float>(angle - (angle + angle));
                 ++payload->valueFF0;
@@ -1917,8 +1917,8 @@ std::int32_t UpdateBattleAction35_40B930(YobiAction* const action)
     }
     action->motionMagnitude54 = 15.0F;
     MoveBattleByAngle_405EA0(action);
-    if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
-        || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+    if (!(action->origin_x_offset40 >= -200.0F) || action->origin_x_offset40 > 840.0F
+        || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
         AdvanceBattleCastState_439340(action);
     }
     return PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
@@ -2130,8 +2130,8 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
         } else {
             if ((flags & BattleResultMask_PhysicalAbsorbOrNullify) == 0
                 && payload->effects1C[payload->effectRunningC9C].position3 != 0) {
-                target->offset40 = static_cast<float>(targetPayload->x10);
-                target->offset44 = static_cast<float>(targetPayload->y14);
+                target->origin_x_offset40 = static_cast<float>(targetPayload->x10);
+                target->origin_y_offset44 = static_cast<float>(targetPayload->y14);
                 if ((flags & BattleResultFlag_ReflectPhysical) != 0) {
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(action, 110008, 0));
@@ -2385,33 +2385,33 @@ std::int32_t UpdateBattleAction234_416AB0(YobiAction* const action)
         action->direction = direction - 8;
     }
     if (payload->valueFF0 >= 3) {
-        if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
-            || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+        if (!(action->origin_x_offset40 >= -200.0F) || action->origin_x_offset40 > 840.0F
+            || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
             AdvanceBattleCastState_439340(action);
             payload->valueFD0 = 0;
         }
     } else {
         static_cast<void>(render::LoadGraphic_522570(action->graphicIndex));
         const double halfWidth = render::ReadGraphicDxWidth(action->graphicIndex) * 0.5;
-        if (halfWidth > action->offset40 && payload->valueFD0 != 1) {
+        if (halfWidth > action->origin_x_offset40 && payload->valueFD0 != 1) {
             const double delta = action->angle50 - 90.0;
             action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
             static_cast<void>(audio::PlaySe_52C450(208, action->x));
             payload->valueFD0 = 1;
-        } else if (action->offset40 > static_cast<float>(platform::gWindowWidth) - halfWidth && payload->valueFD0 != 2) {
+        } else if (action->origin_x_offset40 > static_cast<float>(platform::gWindowWidth) - halfWidth && payload->valueFD0 != 2) {
             const double delta = action->angle50 - 270.0;
             action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
             static_cast<void>(audio::PlaySe_52C450(208, action->x));
             payload->valueFD0 = 2;
-        } else if (static_cast<double>(-action->graphicOffsetY) > action->offset44 && payload->valueFD0 != 3) {
+        } else if (static_cast<double>(-action->graphicOffsetY) > action->origin_y_offset44 && payload->valueFD0 != 3) {
             const double delta = action->angle50 - 180.0;
             action->angle50 = static_cast<float>(action->angle50 - (delta + delta));
             ++payload->valueFF0;
             static_cast<void>(audio::PlaySe_52C450(208, action->x));
             payload->valueFD0 = 3;
-        } else if (action->offset44 > static_cast<float>(platform::gWindowHeight) && payload->valueFD0 != 4) {
+        } else if (action->origin_y_offset44 > static_cast<float>(platform::gWindowHeight) && payload->valueFD0 != 4) {
             const double angle = action->angle50;
             const double doubledAngle = angle + angle;
             const double currentAngle = action->angle50;
@@ -2465,8 +2465,8 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
         } else {
             if ((flags & BattleResultMask_PhysicalAbsorbOrNullify) == 0
                 && payload->effects1C[payload->effectRunningC9C].position3 != 0) {
-                target->offset40 = static_cast<float>(targetPayload->x10);
-                target->offset44 = static_cast<float>(targetPayload->y14);
+                target->origin_x_offset40 = static_cast<float>(targetPayload->x10);
+                target->origin_y_offset44 = static_cast<float>(targetPayload->y14);
                 if ((flags & BattleResultFlag_ReflectPhysical) != 0) {
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(action, 110008, 0));
@@ -3067,10 +3067,10 @@ void UpdateBattleAction246_4185C0(YobiAction* const action)
 // 原函数：0x004185F0。
 void UpdateBattleAction247_4185F0(YobiAction* const action)
 {
-    const float x = action->offset40;
+    const float x = action->origin_x_offset40;
     auto* const payload = action->payload.battleActor;
     payload->x10 = static_cast<std::int32_t>(x);
-    payload->y14 = static_cast<std::int32_t>(action->offset44);
+    payload->y14 = static_cast<std::int32_t>(action->origin_y_offset44);
     AdvanceBattleCastState_439340(action);
 }
 
@@ -3088,8 +3088,8 @@ std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
     const float distanceY = static_cast<float>(payload->y14);
     const float distanceX = static_cast<float>(payload->x10);
     if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
-        action->offset40 = static_cast<float>(payload->x10);
-        action->offset44 = static_cast<float>(payload->y14);
+        action->origin_x_offset40 = static_cast<float>(payload->x10);
+        action->origin_y_offset44 = static_cast<float>(payload->y14);
         AdvanceBattleCastState_439340(action);
     }
     return PlayFrame_517DA0(action, AnimationPlayback_Loop);

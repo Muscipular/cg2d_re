@@ -265,9 +265,9 @@ void MoveBattleByAngle_405EA0(YobiAction* const action)
     const double xFactor = world::LookupCosineDegrees_46F950(action->angle50);
     const double xStep = xFactor * action->motionMagnitude54;
     const float yAngle = action->angle50;
-    action->offset40 = static_cast<float>(xStep + action->offset40);
+    action->origin_x_offset40 = static_cast<float>(xStep + action->origin_x_offset40);
     const double yFactor = world::LookupSineDegrees_46F930(yAngle);
-    action->offset44 = static_cast<float>(yFactor * action->motionMagnitude54 + action->offset44);
+    action->origin_y_offset44 = static_cast<float>(yFactor * action->motionMagnitude54 + action->origin_y_offset44);
 }
 
 // 原函数：0x00405ED0。
@@ -319,8 +319,8 @@ double GetBattleAngleDifference_406060(YobiAction* const source, YobiAction* con
     if (source == nullptr || target == nullptr) {
         return 0.0;
     }
-    const float deltaY = static_cast<float>(static_cast<double>(target->offset44) - source->offset44);
-    const float deltaX = static_cast<float>(static_cast<double>(target->offset40) - source->offset40);
+    const float deltaY = static_cast<float>(static_cast<double>(target->origin_y_offset44) - source->origin_y_offset44);
+    const float deltaX = static_cast<float>(static_cast<double>(target->origin_x_offset40) - source->origin_x_offset40);
     const double targetAngle = world::GetVectorAngleDegrees_46F970(deltaX, deltaY);
     const double difference = targetAngle - source->angle50;
     if (difference > 180.0) {
@@ -337,8 +337,8 @@ void TurnBattleTowardPosition_4060D0(
     YobiAction* const action, const float x, const float y,
     const std::int32_t updateDirection, const float step)
 {
-    const float deltaY = static_cast<float>(static_cast<double>(y) - action->offset44);
-    const float deltaX = static_cast<float>(static_cast<double>(x) - action->offset40);
+    const float deltaY = static_cast<float>(static_cast<double>(y) - action->origin_y_offset44);
+    const float deltaX = static_cast<float>(static_cast<double>(x) - action->origin_x_offset40);
     if (step == 0.0F || std::isnan(step)) {
         action->angle50 = static_cast<float>(world::GetVectorAngleDegrees_46F970(deltaX, deltaY));
     } else {
@@ -372,8 +372,8 @@ void TurnBattleToward_406190(
     if (action == nullptr || target == nullptr) {
         return;
     }
-    const float y = static_cast<float>(static_cast<double>(target->offset44) - action->offset44);
-    const float x = static_cast<float>(static_cast<double>(target->offset40) - action->offset40);
+    const float y = static_cast<float>(static_cast<double>(target->origin_y_offset44) - action->origin_y_offset44);
+    const float x = static_cast<float>(static_cast<double>(target->origin_x_offset40) - action->origin_x_offset40);
     if (step == 0.0F || std::isnan(step)) {
         action->angle50 = static_cast<float>(world::GetVectorAngleDegrees_46F970(x, y));
     } else {
@@ -406,8 +406,8 @@ std::int32_t GetBattleDistanceToPosition_4062A0(YobiAction* const action, const 
     if (action == nullptr) {
         return 0;
     }
-    const double deltaX = static_cast<double>(x) - action->offset40;
-    const double deltaY = static_cast<double>(y) - action->offset44;
+    const double deltaX = static_cast<double>(x) - action->origin_x_offset40;
+    const double deltaY = static_cast<double>(y) - action->origin_y_offset44;
     const float squared = static_cast<float>(deltaY * deltaY + deltaX * deltaX);
     if (!(squared > 0.0F)) {
         return 0;
@@ -421,8 +421,8 @@ std::int32_t GetBattleDistance_406300(YobiAction* const first, YobiAction* const
     if (first == nullptr || second == nullptr) {
         return 0;
     }
-    const double y = static_cast<double>(second->offset44) - first->offset44;
-    const double x = static_cast<double>(second->offset40) - first->offset40;
+    const double y = static_cast<double>(second->origin_y_offset44) - first->origin_y_offset44;
+    const double x = static_cast<double>(second->origin_x_offset40) - first->origin_x_offset40;
     const float squared = static_cast<float>(x * x + y * y);
     if (!(squared > 0.0F)) {
         return 0;
@@ -790,11 +790,11 @@ std::int32_t CheckBattleTurnReady_4394A0(
         if (parentPhase != 24) {
             const auto& point = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[index]];
             const double expectedX = point[2];
-            const double actualX = actor->offset40;
+            const double actualX = actor->origin_x_offset40;
             bool displaced = expectedX < actualX || expectedX > actualX;
             if (!displaced) {
                 const double expectedY = point[3];
-                const double actualY = actor->offset44;
+                const double actualY = actor->origin_y_offset44;
                 displaced = expectedY < actualY || expectedY > actualY;
             }
             if (displaced) {

@@ -135,10 +135,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             coordinateRider->y = coordinateSource->y;
             coordinateSource = cg::world::gBattleAllEntries59E980[first];
             coordinateRider = payload->rider13C8;
-            coordinateRider->offset40 = coordinateSource->offset40;
+            coordinateRider->origin_x_offset40 = coordinateSource->origin_x_offset40;
             coordinateSource = cg::world::gBattleAllEntries59E980[first];
             coordinateRider = payload->rider13C8;
-            coordinateRider->offset44 = coordinateSource->offset44;
+            coordinateRider->origin_y_offset44 = coordinateSource->origin_y_offset44;
             payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
             action->nameC4 = cg::world::gBattleAllEntries59E980[second]->nameC4;
             const std::int32_t nextImage = cg::world::gBattleAllEntries59E980[second]->imageNo;
@@ -151,30 +151,30 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             action->barMaximum1C0 = cg::world::gBattleAllEntries59E980[second]->barMaximum1C0;
             action->x = cg::world::gBattleAllEntries59E980[second]->x;
             action->y = cg::world::gBattleAllEntries59E980[second]->y;
-            action->offset40 = cg::world::gBattleAllEntries59E980[second]->offset40;
-            action->offset44 = cg::world::gBattleAllEntries59E980[second]->offset44;
+            action->origin_x_offset40 = cg::world::gBattleAllEntries59E980[second]->origin_x_offset40;
+            action->origin_y_offset44 = cg::world::gBattleAllEntries59E980[second]->origin_y_offset44;
             ClearBattleRideAttachments(cg::world::gBattleAllEntries59E980[first]->payload.battleActor);
             ClearBattleRideAttachments(cg::world::gBattleAllEntries59E980[second]->payload.battleActor);
             FaceBattleActorTowardFormationPosition_406260(action);
             static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
             const std::int32_t frameX = action->frameX;
-            const float targetY = effect->offset44;
-            const float targetX = effect->offset40;
+            const float targetY = effect->origin_y_offset44;
+            const float targetX = effect->origin_x_offset40;
             effect->deltaX = frameX;
             if (GetBattleDistanceToPosition_4062A0(action, targetX, targetY) < 5) {
-                action->offset40 = effect->offset40;
-                action->offset44 = effect->offset44;
+                action->origin_x_offset40 = effect->origin_x_offset40;
+                action->origin_y_offset44 = effect->origin_y_offset44;
                 FaceBattleActorTowardFormationPosition_406260(action);
                 action->characterAction = CharacterAnimation_Stand;
             } else {
-                const float turnY = effect->offset44;
-                const float turnX = effect->offset40;
+                const float turnY = effect->origin_y_offset44;
+                const float turnX = effect->origin_x_offset40;
                 TurnBattleTowardPosition_4060D0(action, turnX, turnY, 1, 0.0F);
             }
             const std::int32_t riderDeltaX = effect->deltaX;
-            const float riderY = effect->offset44;
+            const float riderY = effect->origin_y_offset44;
             YobiAction* const turningRider = payload->rider13C8;
-            const float riderX = static_cast<float>(static_cast<double>(riderDeltaX) + effect->offset40);
+            const float riderX = static_cast<float>(static_cast<double>(riderDeltaX) + effect->origin_x_offset40);
             TurnBattleTowardPosition_4060D0(turningRider, riderX, riderY, 1, 0.0F);
             action->motionMagnitude54 = 8.0F;
             payload->rider13C8->motionMagnitude54 = 8.0F;
@@ -186,11 +186,11 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             return;
         }
         action->characterAction = CharacterAnimation_Run;
-        const float distanceY = effect->offset44;
-        const float distanceX = effect->offset40;
+        const float distanceY = effect->origin_y_offset44;
+        const float distanceX = effect->origin_x_offset40;
         if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
-            action->offset40 = effect->offset40;
-            action->offset44 = effect->offset44;
+            action->origin_x_offset40 = effect->origin_x_offset40;
+            action->origin_y_offset44 = effect->origin_y_offset44;
             FaceBattleActorTowardFormationPosition_406260(action);
             action->characterAction = CharacterAnimation_Stand;
         } else {
@@ -198,23 +198,23 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         }
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         payload->rider13C8->characterAction = CharacterAnimation_Sit;
-        const float riderY = effect->offset44;
+        const float riderY = effect->origin_y_offset44;
         const std::int32_t riderDeltaX = effect->deltaX;
         YobiAction* const distanceRider = payload->rider13C8;
-        const float riderX = static_cast<float>(static_cast<double>(riderDeltaX) + effect->offset40);
+        const float riderX = static_cast<float>(static_cast<double>(riderDeltaX) + effect->origin_x_offset40);
         if (GetBattleDistanceToPosition_4062A0(distanceRider, riderX, riderY) < 5) {
             const std::int32_t snapDeltaX = effect->deltaX;
             YobiAction* const snapXRider = payload->rider13C8;
-            snapXRider->offset40 = static_cast<float>(static_cast<double>(snapDeltaX) + effect->offset40);
+            snapXRider->origin_x_offset40 = static_cast<float>(static_cast<double>(snapDeltaX) + effect->origin_x_offset40);
             YobiAction* const snapYRider = payload->rider13C8;
-            snapYRider->offset44 = effect->offset44;
+            snapYRider->origin_y_offset44 = effect->origin_y_offset44;
         } else {
             MoveBattleByAngle_405EA0(payload->rider13C8);
         }
         YobiAction* const xRider = payload->rider13C8;
-        xRider->deltaX = static_cast<std::int32_t>(xRider->offset40) + static_cast<std::int32_t>(gYobiScreenOffsetX);
+        xRider->deltaX = static_cast<std::int32_t>(xRider->origin_x_offset40) + static_cast<std::int32_t>(gYobiScreenOffsetX);
         YobiAction* const yRider = payload->rider13C8;
-        yRider->deltaY = static_cast<std::int32_t>(yRider->offset44) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+        yRider->deltaY = static_cast<std::int32_t>(yRider->origin_y_offset44) + static_cast<std::int32_t>(gYobiScreenOffsetY);
         YobiAction* const positionXRider = payload->rider13C8;
         positionXRider->x = positionXRider->deltaX;
         YobiAction* const positionYRider = payload->rider13C8;
@@ -243,10 +243,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             const std::uint32_t restoredFlags = carrier->flags08;
             payload->stateFE0 = 0;
             payload->flagsFDC = restoredFlags;
-            action->offset40 = effect->offset40;
-            action->offset44 = effect->offset44;
-            const std::int32_t x = static_cast<std::int32_t>(action->offset40);
-            const float y = action->offset44;
+            action->origin_x_offset40 = effect->origin_x_offset40;
+            action->origin_y_offset44 = effect->origin_y_offset44;
+            const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
+            const float y = action->origin_y_offset44;
             action->x = x;
             action->y = static_cast<std::int32_t>(y);
             YobiAction* const oldGear = payload->gear13B4;
@@ -285,8 +285,8 @@ void UpdateBattleAction224_414050(YobiAction* const action)
                 cg::world::gBattleAllEntries59E980[first] = nullptr;
                 action->priority = priority;
                 payload->battlePosition18 = position;
-                action->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
-                action->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
+                action->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2]);
+                action->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3]);
                 action->x = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2];
                 action->y = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][3];
                 payload->x00 = cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[position]][2];
@@ -330,8 +330,8 @@ void UpdateBattleAction224_414050(YobiAction* const action)
     const float distanceY = static_cast<float>(cg::world::gBattleGraphicPoints553758[distancePoint][3]);
     const float distanceX = static_cast<float>(cg::world::gBattleGraphicPoints553758[distancePoint][2]);
     if (GetBattleDistanceToPosition_4062A0(action, distanceX, distanceY) < 5) {
-        action->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][2]);
-        action->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][3]);
+        action->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][2]);
+        action->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[cg::world::gBattlePointIndices5536FC[second]][3]);
         FaceBattleActorTowardFormationPosition_406260(action);
         action->characterAction = CharacterAnimation_Stand;
     } else {
@@ -352,10 +352,10 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         distanceRider, static_cast<float>(riderDistanceX), riderDistanceY) < 5) {
         const std::int32_t snapXPoint = cg::world::gBattlePointIndices5536FC[first];
         YobiAction* const snapXRider = payload->rider13C8;
-        snapXRider->offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[snapXPoint][2]);
+        snapXRider->origin_x_offset40 = static_cast<float>(cg::world::gBattleGraphicPoints553758[snapXPoint][2]);
         const std::int32_t snapYPoint = cg::world::gBattlePointIndices5536FC[first];
         YobiAction* const snapYRider = payload->rider13C8;
-        snapYRider->offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[snapYPoint][3]);
+        snapYRider->origin_y_offset44 = static_cast<float>(cg::world::gBattleGraphicPoints553758[snapYPoint][3]);
     } else {
         const std::int32_t turnPoint = cg::world::gBattlePointIndices5536FC[first];
         const float turnY = static_cast<float>(cg::world::gBattleGraphicPoints553758[turnPoint][3]);
@@ -393,9 +393,9 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
     }
     YobiAction* const xRider = payload->rider13C8;
-    xRider->deltaX = static_cast<std::int32_t>(xRider->offset40) + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    xRider->deltaX = static_cast<std::int32_t>(xRider->origin_x_offset40) + static_cast<std::int32_t>(gYobiScreenOffsetX);
     YobiAction* const yRider = payload->rider13C8;
-    yRider->deltaY = static_cast<std::int32_t>(yRider->offset44) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    yRider->deltaY = static_cast<std::int32_t>(yRider->origin_y_offset44) + static_cast<std::int32_t>(gYobiScreenOffsetY);
     YobiAction* const positionXRider = payload->rider13C8;
     positionXRider->x = positionXRider->deltaX;
     YobiAction* const positionYRider = payload->rider13C8;
@@ -477,9 +477,9 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         cg::world::gBattleAllEntries59E980[second]->phase = BattleAction_WaitIdle;
         cg::world::gBattleAllEntries59E980[second]->flags &= ~YobiActionFlag_Hidden;
         YobiAction* const secondXTarget = cg::world::gBattleAllEntries59E980[second];
-        secondXTarget->offset40 = action->offset40;
+        secondXTarget->origin_x_offset40 = action->origin_x_offset40;
         YobiAction* const secondYTarget = cg::world::gBattleAllEntries59E980[second];
-        secondYTarget->offset44 = action->offset44;
+        secondYTarget->origin_y_offset44 = action->origin_y_offset44;
         carrier->second04 = nullptr;
         action->graphicIndex = -1;
         action->lastImageNo = 0;
@@ -494,11 +494,11 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
     payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = CharacterAnimation_Damage;
     payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
-    const std::int32_t x = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->origin_x_offset40);
     const std::int32_t screenX = static_cast<std::int32_t>(gYobiScreenOffsetX);
     YobiAction* const deltaXRider = payload->rider13C8;
     deltaXRider->deltaX = x + screenX;
-    const std::int32_t y = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->offset44);
+    const std::int32_t y = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->origin_y_offset44);
     const std::int32_t screenY = static_cast<std::int32_t>(gYobiScreenOffsetY);
     YobiAction* const deltaYRider = payload->rider13C8;
     deltaYRider->deltaY = y + screenY;
@@ -526,9 +526,9 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
         restoredFirst->callback = UpdateBattleActor_404DB0;
         cg::world::gBattleAllEntries59E980[first]->flags &= ~YobiActionFlag_Hidden;
         YobiAction* const firstXTarget = cg::world::gBattleAllEntries59E980[first];
-        firstXTarget->offset40 = action->offset40;
+        firstXTarget->origin_x_offset40 = action->origin_x_offset40;
         YobiAction* const firstYTarget = cg::world::gBattleAllEntries59E980[first];
-        firstYTarget->offset44 = action->offset44;
+        firstYTarget->origin_y_offset44 = action->origin_y_offset44;
         RestoreBattleRideGear(&cg::world::gBattleAllEntries59E980[first], carrier);
         carrier->first00 = nullptr;
         FaceBattleActorTowardFormationPosition_406260(cg::world::gBattleAllEntries59E980[first]);
@@ -573,11 +573,11 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         cg::world::gBattleAllEntries59E980[second]->phase = BattleAction_Idle;
         cg::world::gBattleAllEntries59E980[second]->flags &= ~YobiActionFlag_Hidden;
         YobiAction* const secondXTarget = cg::world::gBattleAllEntries59E980[second];
-        secondXTarget->offset40 = action->offset40;
+        secondXTarget->origin_x_offset40 = action->origin_x_offset40;
         YobiAction* const secondYTarget = cg::world::gBattleAllEntries59E980[second];
-        secondYTarget->offset44 = action->offset44;
-        cg::world::gBattleAllEntries59E980[second]->x = static_cast<std::int32_t>(action->offset40);
-        cg::world::gBattleAllEntries59E980[second]->y = static_cast<std::int32_t>(action->offset44);
+        secondYTarget->origin_y_offset44 = action->origin_y_offset44;
+        cg::world::gBattleAllEntries59E980[second]->x = static_cast<std::int32_t>(action->origin_x_offset40);
+        cg::world::gBattleAllEntries59E980[second]->y = static_cast<std::int32_t>(action->origin_y_offset44);
         carrier->second04 = nullptr;
         YobiAction* animationTarget = cg::world::gBattleAllEntries59E980[second];
         animationTarget->graphicIndex = action->graphicIndex;
@@ -636,11 +636,11 @@ void UpdateBattleAction227_415940(YobiAction* const action)
     payload->rider13C8->phase = BattleRiderSyncMode_DrawAttributesOnly;
     payload->rider13C8->characterAction = flags != 0 ? CharacterAnimation_Damage : CharacterAnimation_Sit;
     payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
-    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
     const std::int32_t screenX = static_cast<std::int32_t>(gYobiScreenOffsetX);
     YobiAction* const deltaXRider = payload->rider13C8;
     deltaXRider->deltaX = x + screenX;
-    const std::int32_t y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t y = static_cast<std::int32_t>(action->origin_y_offset44);
     const std::int32_t screenY = static_cast<std::int32_t>(gYobiScreenOffsetY);
     YobiAction* const deltaYRider = payload->rider13C8;
     deltaYRider->deltaY = y + screenY;
@@ -668,9 +668,9 @@ void UpdateBattleAction227_415940(YobiAction* const action)
         restoredFirst->callback = UpdateBattleActor_404DB0;
         cg::world::gBattleAllEntries59E980[first]->flags &= ~YobiActionFlag_Hidden;
         YobiAction* firstTarget = cg::world::gBattleAllEntries59E980[first];
-        firstTarget->offset40 = action->offset40;
+        firstTarget->origin_x_offset40 = action->origin_x_offset40;
         firstTarget = cg::world::gBattleAllEntries59E980[first];
-        firstTarget->offset44 = action->offset44;
+        firstTarget->origin_y_offset44 = action->origin_y_offset44;
         firstTarget = cg::world::gBattleAllEntries59E980[first];
         firstTarget->x = action->x;
         firstTarget = cg::world::gBattleAllEntries59E980[first];
@@ -727,11 +727,11 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         const std::int32_t sourceY = action->y;
         copyYRider->y = sourceY;
         YobiAction* const copyOffsetXRider = payload->rider13C8;
-        const float sourceOffsetX = action->offset40;
-        copyOffsetXRider->offset40 = sourceOffsetX;
+        const float sourceOffsetX = action->origin_x_offset40;
+        copyOffsetXRider->origin_x_offset40 = sourceOffsetX;
         YobiAction* const copyOffsetYRider = payload->rider13C8;
-        const float sourceOffsetY = action->offset44;
-        copyOffsetYRider->offset44 = sourceOffsetY;
+        const float sourceOffsetY = action->origin_y_offset44;
+        copyOffsetYRider->origin_y_offset44 = sourceOffsetY;
         payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
         action->graphicIndex = -1;
         action->lastImageNo = 0;
@@ -742,8 +742,8 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         YobiAction* const effect = payload->effect1060;
         YobiAction* const currentRider = payload->rider13C8;
         const std::int32_t targetDeltaX = effect->deltaX;
-        const float targetY = effect->offset44;
-        const float targetX = static_cast<float>(static_cast<double>(targetDeltaX) + effect->offset40);
+        const float targetY = effect->origin_y_offset44;
+        const float targetX = static_cast<float>(static_cast<double>(targetDeltaX) + effect->origin_x_offset40);
         TurnBattleTowardPosition_4060D0(currentRider, targetX, targetY, 1, 0.0F);
         payload->rider13C8->motionMagnitude54 = 8.0F;
         static_cast<void>(PlayFrame_517DA0(payload->rider13C8, AnimationPlayback_Loop));
@@ -755,23 +755,23 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
     YobiAction* const effect = payload->effect1060;
     YobiAction* const currentRider = payload->rider13C8;
     const std::int32_t targetDeltaX = effect->deltaX;
-    const float targetY = effect->offset44;
-    const float targetX = static_cast<float>(static_cast<double>(targetDeltaX) + effect->offset40);
+    const float targetY = effect->origin_y_offset44;
+    const float targetX = static_cast<float>(static_cast<double>(targetDeltaX) + effect->origin_x_offset40);
     if (GetBattleDistanceToPosition_4062A0(currentRider, targetX, targetY) >= 5) {
         MoveBattleByAngle_405EA0(payload->rider13C8);
     } else {
         YobiAction* const positionEffect = payload->effect1060;
-        const double x = static_cast<double>(positionEffect->deltaX) + positionEffect->offset40;
-        payload->rider13C8->offset40 = static_cast<float>(x);
+        const double x = static_cast<double>(positionEffect->deltaX) + positionEffect->origin_x_offset40;
+        payload->rider13C8->origin_x_offset40 = static_cast<float>(x);
         YobiAction* const yEffect = payload->effect1060;
         YobiAction* const yRider = payload->rider13C8;
-        yRider->offset44 = yEffect->offset44;
+        yRider->origin_y_offset44 = yEffect->origin_y_offset44;
     }
     YobiAction* const xRider = payload->rider13C8;
-    const std::int32_t projectedX = static_cast<std::int32_t>(xRider->offset40);
+    const std::int32_t projectedX = static_cast<std::int32_t>(xRider->origin_x_offset40);
     xRider->deltaX = projectedX + static_cast<std::int32_t>(gYobiScreenOffsetX);
     YobiAction* const yRider = payload->rider13C8;
-    const std::int32_t projectedY = static_cast<std::int32_t>(yRider->offset44);
+    const std::int32_t projectedY = static_cast<std::int32_t>(yRider->origin_y_offset44);
     yRider->deltaY = projectedY + static_cast<std::int32_t>(gYobiScreenOffsetY);
     YobiAction* const screenXRider = payload->rider13C8;
     screenXRider->x = screenXRider->deltaX;
@@ -795,12 +795,12 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
         static_cast<void>(MarkDeath(payload->rider13C8));
         YobiAction* const restoreEffect = payload->effect1060;
         payload->rider13C8 = nullptr;
-        action->offset40 = restoreEffect->offset40;
+        action->origin_x_offset40 = restoreEffect->origin_x_offset40;
         YobiAction* const restoreYEffect = payload->effect1060;
-        const float x = action->offset40;
-        action->offset44 = restoreYEffect->offset44;
+        const float x = action->origin_x_offset40;
+        action->origin_y_offset44 = restoreYEffect->origin_y_offset44;
         const std::int32_t screenX = static_cast<std::int32_t>(x);
-        const float y = action->offset44;
+        const float y = action->origin_y_offset44;
         action->x = screenX;
         action->y = static_cast<std::int32_t>(y);
         action->imageNo = payload->baseImage13AC;
@@ -856,8 +856,8 @@ void UpdateBattleAction230_4160A0(YobiAction* const action)
     const float targetY = static_cast<float>(std::bit_cast<std::int32_t>(payload->effects1C[currentIndex].flags));
     const float targetX = static_cast<float>(payload->effects1C[currentIndex].position);
     if (GetBattleDistanceToPosition_4062A0(action, targetX, targetY) < 8) {
-        action->offset40 = static_cast<float>(payload->effects1C[payload->effectRunningC9C].position);
-        action->offset44 = static_cast<float>(
+        action->origin_x_offset40 = static_cast<float>(payload->effects1C[payload->effectRunningC9C].position);
+        action->origin_y_offset44 = static_cast<float>(
             std::bit_cast<std::int32_t>(payload->effects1C[payload->effectRunningC9C].flags));
         static_cast<void>(AdvanceBattleEffect_439470(action));
         AdvanceBattleCastState_439340(action);

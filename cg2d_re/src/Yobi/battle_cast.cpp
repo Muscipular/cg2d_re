@@ -126,8 +126,8 @@ void UpdateBattleAction42_40BDB0(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     YobiAction* const target = world::gBattleAllEntries59E980[payload->targetPosition100C];
-    const float y = target->offset44;
-    const float x = target->offset40;
+    const float y = target->origin_y_offset44;
+    const float x = target->origin_x_offset40;
     TurnBattleTowardPosition_4060D0(action, x, y, 1, 0.0F);
     AdvanceBattleCastState_439340(action);
 }
@@ -1036,8 +1036,8 @@ void UpdateBattleAction90_40C910(YobiAction* const action)
         }
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
         MoveBattleByAngle_405EA0(action);
-        if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
-            || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+        if (!(action->origin_x_offset40 >= -200.0F) || action->origin_x_offset40 > 840.0F
+            || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
             static_cast<void>(AdvanceBattleEffect_439470(action));
             AdvanceBattleCastState_439340(action);
         }
@@ -1082,10 +1082,10 @@ void UpdateBattleAction94_40D010(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
     auto* const payload = action->payload.battleActor;
-    action->offset40 = cg::world::gBattleAllEntries59E980[
-        payload->effects1C[payload->effectRunningC9C].position]->offset40;
-    action->offset44 = cg::world::gBattleAllEntries59E980[
-        payload->effects1C[payload->effectRunningC9C].position]->offset44;
+    action->origin_x_offset40 = cg::world::gBattleAllEntries59E980[
+        payload->effects1C[payload->effectRunningC9C].position]->origin_x_offset40;
+    action->origin_y_offset44 = cg::world::gBattleAllEntries59E980[
+        payload->effects1C[payload->effectRunningC9C].position]->origin_y_offset44;
     const float targetAngle = cg::world::gBattleAllEntries59E980[
         payload->effects1C[payload->effectRunningC9C].position]->angle50;
     action->angle50 = static_cast<float>(targetAngle - 180.0);
@@ -1284,15 +1284,15 @@ std::int32_t UpdateBattleAction101_40D580(YobiAction* const action)
     float facingY = 0.0F;
     if (payload->effects1C[payload->effectRunningC9C].position >= 10
         && GetBattleDistanceToPosition_4062A0(action, 278.0F, 278.0F) <= 8) {
-        action->offset40 = 278.0F;
-        action->offset44 = 278.0F;
+        action->origin_x_offset40 = 278.0F;
+        action->origin_y_offset44 = 278.0F;
         facingX = 98.0F;
         facingY = 128.0F;
         arrived = true;
     } else if (payload->effects1C[payload->effectRunningC9C].position <= 9
         && GetBattleDistanceToPosition_4062A0(action, 356.0F, 276.0F) <= 8) {
-        action->offset40 = 356.0F;
-        action->offset44 = 276.0F;
+        action->origin_x_offset40 = 356.0F;
+        action->origin_y_offset44 = 276.0F;
         facingX = 542.0F;
         facingY = 407.0F;
         arrived = true;
@@ -1516,17 +1516,17 @@ std::int32_t UpdateBattleAction105_40DE40(YobiAction* const action)
     if (currentPosition != payload->effects1C[currentIndex].position) {
         const std::int32_t count = payload->valueFF0;
         if (count <= 30) {
-            action->offset40 = target->offset40;
-            action->offset44 = static_cast<float>(target->offset44 - 70.0);
+            action->origin_x_offset40 = target->origin_x_offset40;
+            action->origin_y_offset44 = static_cast<float>(target->origin_y_offset44 - 70.0);
         } else if (count <= 60) {
-            action->offset44 = target->offset44;
-            action->offset40 = static_cast<float>(target->offset40 + 70.0);
+            action->origin_y_offset44 = target->origin_y_offset44;
+            action->origin_x_offset40 = static_cast<float>(target->origin_x_offset40 + 70.0);
         } else if (count <= 90) {
-            action->offset40 = target->offset40;
-            action->offset44 = static_cast<float>(target->offset44 + 70.0);
+            action->origin_x_offset40 = target->origin_x_offset40;
+            action->origin_y_offset44 = static_cast<float>(target->origin_y_offset44 + 70.0);
         } else {
-            action->offset44 = target->offset44;
-            action->offset40 = static_cast<float>(target->offset40 - 70.0);
+            action->origin_y_offset44 = target->origin_y_offset44;
+            action->origin_x_offset40 = static_cast<float>(target->origin_x_offset40 - 70.0);
         }
         TurnBattleToward_406190(action, target, 1, 0.0F);
     }
@@ -1880,8 +1880,8 @@ std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
                 action->angle50 = static_cast<float>(angle - 360.0);
             }
         }
-        if (!(action->offset40 >= -200.0F) || action->offset40 > 840.0F
-            || !(action->offset44 >= -200.0F) || action->offset44 > 680.0F) {
+        if (!(action->origin_x_offset40 >= -200.0F) || action->origin_x_offset40 > 840.0F
+            || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
             AdvanceBattleCastState_439340(action);
             payload->valueFD0 = 0;
             gYobiScreenOffsetMaximumAmplitude = 6;
@@ -1898,27 +1898,27 @@ void UpdateBattleAction113_40EFE0(YobiAction* const action)
 {
     const float baseY = action->worldY;
     auto* const payload = action->payload.battleActor;
-    action->offset44 = baseY;
+    action->origin_y_offset44 = baseY;
     MoveBattleByAngle_405EA0(action);
     YobiAction* const horizontalOpponent = action->battleOpponent10;
-    const float x = action->offset40;
-    horizontalOpponent->offset40 = x;
+    const float x = action->origin_x_offset40;
+    horizontalOpponent->origin_x_offset40 = x;
     YobiAction* const verticalOpponent = action->battleOpponent10;
     const std::int32_t graphicOffsetY = action->graphicOffsetY;
-    const float y = action->offset44;
-    verticalOpponent->offset44 = static_cast<float>(
+    const float y = action->origin_y_offset44;
+    verticalOpponent->origin_y_offset44 = static_cast<float>(
         static_cast<double>(y) - graphicOffsetY);
-    action->worldY = action->offset44;
+    action->worldY = action->origin_y_offset44;
     const std::int32_t duration = action->extraState290.castDuration294;
     const std::int32_t delta = payload->valueFF0 - duration / 2;
     const std::int32_t square = delta * delta;
-    action->offset44 = static_cast<float>(static_cast<double>(square) * action->worldX
-        - action->field58 + action->offset44);
+    action->origin_y_offset44 = static_cast<float>(static_cast<double>(square) * action->worldX
+        - action->field58 + action->origin_y_offset44);
     const std::int32_t previous = payload->valueFF0;
     payload->valueFF0 = previous + 1;
     if (previous >= duration) {
-        action->offset40 = static_cast<float>(payload->moveTargetXFE8);
-        action->offset44 = static_cast<float>(payload->moveTargetYFEC);
+        action->origin_x_offset40 = static_cast<float>(payload->moveTargetXFE8);
+        action->origin_y_offset44 = static_cast<float>(payload->moveTargetYFEC);
         AdvanceBattleCastState_439340(action);
         static_cast<void>(MarkDeath(action->battleOpponent10));
         payload->valueFF0 = 0;
@@ -2886,13 +2886,13 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
         TurnBattleTowardPosition_4060D0(action, targetX, targetY, 1, 0.0F);
     } else {
         copyPayload->moveTargetXFE8 = static_cast<std::int32_t>(
-            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]->offset40);
+            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]->origin_x_offset40);
         copyPayload->moveTargetYFEC = static_cast<std::int32_t>(
-            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]->offset44);
+            cg::world::gBattleAllEntries59E980[payload->effects1C[payload->effectRunningC9C].position]->origin_y_offset44);
     }
-    copy->offset44 = static_cast<float>(static_cast<double>(action->graphicOffsetY / 2) + copy->offset44);
-    const std::int32_t copyX = static_cast<std::int32_t>(copy->offset40);
-    const float copyY = copy->offset44;
+    copy->origin_y_offset44 = static_cast<float>(static_cast<double>(action->graphicOffsetY / 2) + copy->origin_y_offset44);
+    const std::int32_t copyX = static_cast<std::int32_t>(copy->origin_x_offset40);
+    const float copyY = copy->origin_y_offset44;
     copy->x = copyX;
     copy->y = static_cast<std::int32_t>(copyY);
     const float copyTargetY = static_cast<float>(copyPayload->moveTargetYFEC);
@@ -2918,7 +2918,7 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     const float yStep = static_cast<float>(static_cast<double>(verticalDistance) / currentDuration);
     const double sine = world::LookupSineDegrees_46F930(sineAngle);
     currentDuration = copy->extraState290.castDuration294;
-    const float savedY = copy->offset44;
+    const float savedY = copy->origin_y_offset44;
     copy->field58 = 100;
     const double speed = std::abs(sine) * yStep + copy->motionMagnitude54;
     copy->worldY = savedY;
@@ -2965,15 +2965,15 @@ void SetBattleAction208Target_412870(YobiAction* const action)
     auto* const payload = action->payload.battleActor;
     YobiAction* const target = world::gBattleAllEntries59E980[
         payload->effects1C[payload->effectRunningC9C].position];
-    const double boundary = target->offset40 * -0.75 + 480.0;
-    const bool below = !(target->offset44 >= boundary);
-    const std::int32_t x = static_cast<std::int32_t>(target->offset40);
+    const double boundary = target->origin_x_offset40 * -0.75 + 480.0;
+    const bool below = !(target->origin_y_offset44 >= boundary);
+    const std::int32_t x = static_cast<std::int32_t>(target->origin_x_offset40);
     if (below) {
         payload->moveTargetXFE8 = x + 44;
-        payload->moveTargetYFEC = static_cast<std::int32_t>(target->offset44) + 40;
+        payload->moveTargetYFEC = static_cast<std::int32_t>(target->origin_y_offset44) + 40;
     } else {
         payload->moveTargetXFE8 = x - 44;
-        payload->moveTargetYFEC = static_cast<std::int32_t>(target->offset44) - 30;
+        payload->moveTargetYFEC = static_cast<std::int32_t>(target->origin_y_offset44) - 30;
     }
     action->phase = BattleAction_MoveToTargetPosition;
 }

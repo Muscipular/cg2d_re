@@ -1335,7 +1335,7 @@ static bool PushVisualUpdateContext(lua_State* L, const RuntimeNode& node) {
     }
     YobiAction* action = node.action;
     YobiAction* target = battleEntries[node.visualTargetPos];
-    if (!std::isfinite(target->offset40) || !std::isfinite(target->offset44)) {
+    if (!std::isfinite(target->origin_x_offset40) || !std::isfinite(target->origin_y_offset44)) {
         return false;
     }
     PushCallbackContext(L, node.id, 0);
@@ -1348,12 +1348,12 @@ static bool PushVisualUpdateContext(lua_State* L, const RuntimeNode& node) {
     LuaSetIntField(L, "dir", action->direction);
     LuaSetNumberField(L, "scaleX", action->scaleX);
     LuaSetNumberField(L, "scaleY", action->scaleY);
-    LuaSetNumberField(L, "x", action->offset40);
-    LuaSetNumberField(L, "y", action->offset44);
+    LuaSetNumberField(L, "x", action->origin_x_offset40);
+    LuaSetNumberField(L, "y", action->origin_y_offset44);
     LuaSetNumberField(L, "startX", node.visualStartX);
     LuaSetNumberField(L, "startY", node.visualStartY);
-    LuaSetNumberField(L, "targetX", target->offset40);
-    LuaSetNumberField(L, "targetY", target->offset44);
+    LuaSetNumberField(L, "targetX", target->origin_x_offset40);
+    LuaSetNumberField(L, "targetY", target->origin_y_offset44);
     return true;
 }
 
@@ -1856,12 +1856,12 @@ static bool ValidateCallbackBatch(uint32_t nodeId) {
 }
 
 static bool SyncVisualPosition(YobiAction* action) {
-    if (!action || !std::isfinite(action->offset40) || !std::isfinite(action->offset44)) {
+    if (!action || !std::isfinite(action->origin_x_offset40) || !std::isfinite(action->origin_y_offset44)) {
         return false;
     }
-    double gX = std::trunc(static_cast<double>(action->offset40)) +
+    double gX = std::trunc(static_cast<double>(action->origin_x_offset40)) +
                 std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(gYobiScreenOffsetX));
-    double gY = std::trunc(static_cast<double>(action->offset44)) +
+    double gY = std::trunc(static_cast<double>(action->origin_y_offset44)) +
                 std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(gYobiScreenOffsetY));
     if (gX < static_cast<double>(std::numeric_limits<int>::min()) ||
         gX > static_cast<double>(std::numeric_limits<int>::max()) ||
@@ -1902,8 +1902,8 @@ static bool StageChildren() {
         child->scaleX = source->scaleX;
         child->scaleY = source->scaleY;
         if (pending.spawnMode == 1) {
-            child->offset40 = source->offset40;
-            child->offset44 = source->offset44;
+            child->origin_x_offset40 = source->origin_x_offset40;
+            child->origin_y_offset44 = source->origin_y_offset44;
             child->x = source->x;
             child->y = source->y;
         }
@@ -1937,16 +1937,16 @@ static bool StageVisuals() {
             return false;
         }
         YobiAction* source = battleEntries[pending.sourcePos];
-        float startX = source->offset40;
-        float startY = source->offset44;
+        float startX = source->origin_x_offset40;
+        float startY = source->origin_y_offset44;
         visual->phase = pending.actionState;
         visual->imageNo = pending.imageNo;
         visual->characterAction = pending.charAction;
         visual->direction = pending.dir;
         visual->scaleX = pending.scaleX;
         visual->scaleY = pending.scaleY;
-        visual->offset40 = pending.hasX ? pending.x : startX;
-        visual->offset44 = pending.hasY ? pending.y : startY;
+        visual->origin_x_offset40 = pending.hasX ? pending.x : startX;
+        visual->origin_y_offset44 = pending.hasY ? pending.y : startY;
         visual->value1D4 = pending.targetPos;
         InitializeActionQueues(visual);
         visual->callback = LuaVisualUpdate;
@@ -2504,10 +2504,10 @@ static void LuaVisualUpdate(YobiAction* action) {
         action->scaleY = frame.scaleY;
     }
     if (frame.hasX) {
-        action->offset40 = frame.x;
+        action->origin_x_offset40 = frame.x;
     }
     if (frame.hasY) {
-        action->offset44 = frame.y;
+        action->origin_y_offset44 = frame.y;
     }
     bool finishRequested = frame.markDeath;
     if (hasNextActionState) {

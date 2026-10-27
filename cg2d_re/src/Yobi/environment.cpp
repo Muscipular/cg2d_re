@@ -18,9 +18,9 @@ namespace cg::yobi {
 
 volatile std::uint32_t gYobiScreenOffsetRising = 0; // 原 0x59F9F4。
 
-volatile std::uint32_t gYobiScreenOffsetX = 0; // 原 0x59F9FC。
+volatile std::int32_t gYobiScreenOffsetX = 0; // 原 0x59F9FC。
 
-volatile std::uint32_t gYobiScreenOffsetY = 0; // 原 0x59FA00。
+volatile std::int32_t gYobiScreenOffsetY = 0; // 原 0x59FA00。
 
 volatile std::uint32_t gYobiScreenOffsetAmplitude = 0; // 原 0x59FA04。
 
@@ -220,8 +220,8 @@ static void InitializeSceneEffectGraphic(
     action->graphicOffsetX = offsetX;
     action->graphicOffsetY = offsetY;
     if (created) {
-        action->offset40 = 0.0F;
-        action->offset44 = 0.0F;
+        action->origin_x_offset40 = 0.0F;
+        action->origin_y_offset44 = 0.0F;
         action->motionMagnitude54 = 0.25F;
         action->angle50 = 0.0F;
         action->field58 = 0;
@@ -237,28 +237,28 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
         return;
     }
     if (action->characterAction == SceneEffectMode_MovingIn) {
-        if (action->offset40 < 0.0F) {
+        if (action->origin_x_offset40 < 0.0F) {
             if (action->motionMagnitude54 > 0.0F
                 && static_cast<double>(action->motionMagnitude54) - 0.11F <= 0.0) {
                 PlaySceneEffectSounds();
             }
             const double speed = static_cast<double>(action->motionMagnitude54) - 0.11F;
             action->motionMagnitude54 = static_cast<float>(speed);
-            const double x = action->offset40 - speed;
-            action->offset40 = static_cast<float>(x);
-            action->offset44 = static_cast<float>(
-                speed * 0.14F + action->offset44);
+            const double x = action->origin_x_offset40 - speed;
+            action->origin_x_offset40 = static_cast<float>(x);
+            action->origin_y_offset44 = static_cast<float>(
+                speed * 0.14F + action->origin_y_offset44);
             if (x > 0.0) {
-                action->offset40 = 0.0F;
-                action->offset44 = 0.0F;
+                action->origin_x_offset40 = 0.0F;
+                action->origin_y_offset44 = 0.0F;
                 action->motionMagnitude54 = 0.0F;
                 ++action->characterAction;
             }
         } else {
-            action->offset40 = static_cast<float>(
-                static_cast<double>(action->offset40) - action->motionMagnitude54);
-            action->offset44 = static_cast<float>(
-                static_cast<double>(action->motionMagnitude54) * 0.14F + action->offset44);
+            action->origin_x_offset40 = static_cast<float>(
+                static_cast<double>(action->origin_x_offset40) - action->motionMagnitude54);
+            action->origin_y_offset44 = static_cast<float>(
+                static_cast<double>(action->motionMagnitude54) * 0.14F + action->origin_y_offset44);
         }
     } else if (action->characterAction == SceneEffectMode_MovingOut) {
         const double speed = static_cast<double>(action->motionMagnitude54) + 0.002F;
@@ -266,19 +266,19 @@ static void UpdateRightEntrySceneEffect_448A50(YobiAction* const action)
         if (speed > 1.5F) {
             action->motionMagnitude54 = 1.5F;
         }
-        action->offset40 = static_cast<float>(
-            static_cast<double>(action->offset40) + action->motionMagnitude54);
-        action->offset44 = static_cast<float>(
-            action->offset44
+        action->origin_x_offset40 = static_cast<float>(
+            static_cast<double>(action->origin_x_offset40) + action->motionMagnitude54);
+        action->origin_y_offset44 = static_cast<float>(
+            action->origin_y_offset44
             - static_cast<double>(action->motionMagnitude54) * 0.2F);
     }
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(screenX) + action->offset40 + 0.5));
+        static_cast<double>(screenX) + action->origin_x_offset40 + 0.5));
     action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(screenY) + action->offset44 + 0.5));
+        static_cast<double>(screenY) + action->origin_y_offset44 + 0.5));
 }
 
 // 原[448BF0,448D8F)：负类型对象回调，偏移推进方向与448A50相反。
@@ -290,28 +290,28 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
         return;
     }
     if (action->characterAction == SceneEffectMode_MovingIn) {
-        if (action->offset40 > 0.0F) {
+        if (action->origin_x_offset40 > 0.0F) {
             if (action->motionMagnitude54 > 0.0F
                 && static_cast<double>(action->motionMagnitude54) - 0.11F <= 0.0) {
                 PlaySceneEffectSounds();
             }
             const double speed = static_cast<double>(action->motionMagnitude54) - 0.11F;
             action->motionMagnitude54 = static_cast<float>(speed);
-            const double x = speed + action->offset40;
-            action->offset40 = static_cast<float>(x);
-            action->offset44 = static_cast<float>(
-                action->offset44 - speed * 0.14F);
+            const double x = speed + action->origin_x_offset40;
+            action->origin_x_offset40 = static_cast<float>(x);
+            action->origin_y_offset44 = static_cast<float>(
+                action->origin_y_offset44 - speed * 0.14F);
             if (x < 0.0) {
-                action->offset40 = 0.0F;
-                action->offset44 = 0.0F;
+                action->origin_x_offset40 = 0.0F;
+                action->origin_y_offset44 = 0.0F;
                 action->motionMagnitude54 = 0.0F;
                 ++action->characterAction;
             }
         } else {
-            action->offset40 = static_cast<float>(
-                static_cast<double>(action->offset40) + action->motionMagnitude54);
-            action->offset44 = static_cast<float>(
-                action->offset44
+            action->origin_x_offset40 = static_cast<float>(
+                static_cast<double>(action->origin_x_offset40) + action->motionMagnitude54);
+            action->origin_y_offset44 = static_cast<float>(
+                action->origin_y_offset44
                 - static_cast<double>(action->motionMagnitude54) * 0.14F);
         }
     } else if (action->characterAction == SceneEffectMode_MovingOut) {
@@ -320,18 +320,18 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
         if (speed > 1.5F) {
             action->motionMagnitude54 = 1.5F;
         }
-        action->offset40 = static_cast<float>(
-            static_cast<double>(action->offset40) - action->motionMagnitude54);
-        action->offset44 = static_cast<float>(
-            static_cast<double>(action->motionMagnitude54) * 0.2F + action->offset44);
+        action->origin_x_offset40 = static_cast<float>(
+            static_cast<double>(action->origin_x_offset40) - action->motionMagnitude54);
+        action->origin_y_offset44 = static_cast<float>(
+            static_cast<double>(action->motionMagnitude54) * 0.2F + action->origin_y_offset44);
     }
     float screenX;
     float screenY;
     world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
     action->x = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(screenX) + action->offset40 + 0.5));
+        static_cast<double>(screenX) + action->origin_x_offset40 + 0.5));
     action->y = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        static_cast<double>(screenY) + action->offset44 + 0.5));
+        static_cast<double>(screenY) + action->origin_y_offset44 + 0.5));
 }
 
 // 原[448810,448A4F)：mode0写计时槽，此时floor实参表示已过秒数。
@@ -373,18 +373,18 @@ static void ConfigureRightEntrySceneEffect_448810(
     action->mapY1F0 = static_cast<std::int32_t>(floor);
     switch (mode) {
     case SceneEffectMode_MovingIn:
-        action->offset40 = 870.0F;
-        action->offset44 = -121.8F;
+        action->origin_x_offset40 = 870.0F;
+        action->origin_y_offset44 = -121.8F;
         action->motionMagnitude54 = 1.0F;
         break;
     case SceneEffectMode_Stationary:
-        action->offset40 = 0.0F;
+        action->origin_x_offset40 = 0.0F;
         action->motionMagnitude54 = 0.0F;
         break;
     case SceneEffectMode_MovingOut:
         PlaySceneEffectSounds();
-        action->offset40 = 0.0F;
-        action->offset44 = 0.0F;
+        action->origin_x_offset40 = 0.0F;
+        action->origin_y_offset44 = 0.0F;
         action->motionMagnitude54 = 0.0F;
         break;
     default:
@@ -454,18 +454,18 @@ static void ConfigureLeftEntrySceneEffect_448D90(
     action->mapY1F0 = static_cast<std::int32_t>(floor);
     switch (mode) {
     case SceneEffectMode_MovingIn:
-        action->offset40 = -870.0F;
-        action->offset44 = 121.8F;
+        action->origin_x_offset40 = -870.0F;
+        action->origin_y_offset44 = 121.8F;
         action->motionMagnitude54 = 1.0F;
         break;
     case SceneEffectMode_Stationary:
-        action->offset40 = 0.0F;
+        action->origin_x_offset40 = 0.0F;
         action->motionMagnitude54 = 0.0F;
         break;
     case SceneEffectMode_MovingOut:
         PlaySceneEffectSounds();
-        action->offset40 = 0.0F;
-        action->offset44 = 0.0F;
+        action->origin_x_offset40 = 0.0F;
+        action->origin_y_offset44 = 0.0F;
         action->motionMagnitude54 = 0.0F;
         break;
     default:
@@ -513,12 +513,12 @@ static void UpdateMovingSceneEffect_449A00(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
     const auto offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        action->offset40 + 0.5));
+        action->origin_x_offset40 + 0.5));
     const auto projectedX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         screenX + 0.5));
     action->x = offsetX + projectedX;
     const auto offsetY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        action->offset44 + 0.5));
+        action->origin_y_offset44 + 0.5));
     const auto projectedY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         screenY + 0.5));
     action->y = offsetY + projectedY;
@@ -724,11 +724,11 @@ static void MoveSceneEffectAlongAngle_449670(YobiAction* const action)
     float angle = static_cast<float>(270.0 - action->angle50);
     world::NormalizeAngleDegrees_46F8F0(&angle);
     const double xFactor = world::LookupCosineDegrees_46F950(angle);
-    action->offset40 = static_cast<float>(
-        action->offset40 - xFactor * action->motionMagnitude54);
+    action->origin_x_offset40 = static_cast<float>(
+        action->origin_x_offset40 - xFactor * action->motionMagnitude54);
     const double yFactor = world::LookupSineDegrees_46F930(angle);
-    action->offset44 = static_cast<float>(
-        yFactor * action->motionMagnitude54 + action->offset44);
+    action->origin_y_offset44 = static_cast<float>(
+        yFactor * action->motionMagnitude54 + action->origin_y_offset44);
 }
 
 // 原[449400,449552)：漂移对象的移动、帧表、投影及四方向退出。
@@ -749,12 +749,12 @@ static void UpdateDriftingSceneEffect_449400(YobiAction* const action)
     float screenY;
     world::ProjectWorldToScreen_46CE30(action->worldX, action->worldY, &screenX, &screenY);
     const auto offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        action->offset40 + 0.5));
+        action->origin_x_offset40 + 0.5));
     const auto projectedX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         screenX + 0.5));
     action->x = offsetX + projectedX;
     const auto offsetY = static_cast<std::int32_t>(static_cast<std::int64_t>(
-        action->offset44 + 0.5));
+        action->origin_y_offset44 + 0.5));
     const auto projectedY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         screenY + 0.5));
     const std::int32_t image = action->imageNo;

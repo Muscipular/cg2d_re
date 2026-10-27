@@ -1780,8 +1780,8 @@ static void ProcessBattleMStatusHeader(
         if (actorPayload->currentDebuffState_13CC != state || actorPayload->currentDebuffType_13D0 != type) {
             if (state == CG_BATTLE_STATUS_MODE_RESET) {
                 AppendBattleCast_4392A0(scene, current, BattleAction_ClearDebuff);
-                actorPayload->statusEffectType13DC = CG_BATTLE_STATUS_TYPE_CLEAR_REQUEST;
-                actorPayload->statusEffectMode13D8 = CG_BATTLE_STATUS_MODE_RESET;
+                actorPayload->currentDebuffType_13D0 = CG_BATTLE_STATUS_TYPE_CLEAR_REQUEST;
+                actorPayload->currentDebuffState_13CC = CG_BATTLE_STATUS_MODE_RESET;
             } else if (state == CG_BATTLE_STATUS_MODE_DEBUFF || state == CG_BATTLE_STATUS_MODE_EXTENDED) {
                 AppendBattleCast_4392A0(scene, current, BattleAction_ClearDebuff);
                 actorPayload->currentDebuffType_13D0 = type;

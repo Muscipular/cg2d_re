@@ -143,10 +143,10 @@ void CgWindowClose(int id)
     }
 }
 
-// 原生窗口直接读取实例类别；扩展窗口仍不作为默认窗口保留。
+// 原生与扩展窗口统一按实例类别判断默认窗口。
 static bool IsDefaultWindow(const WindowInstance& window)
 {
-    return window.id >= 0 && window.id < WIN_MAX && window.category == 0;
+    return window.category == 0;
 }
 
 void CloseNonDefaultWindows(int exceptId)

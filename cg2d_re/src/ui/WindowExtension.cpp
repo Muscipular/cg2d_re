@@ -170,7 +170,8 @@ bool CloseTopmostNonDefaultWindow()
 {
     UIWindowInstance* target = nullptr;
     const auto consider = [&](UIWindowInstance& window) {
-        if ((window.state & WIN_STATE_CLOSE) || window.scriptHidden || IsDefaultWindow(window)) return;
+        if ((window.state & WIN_STATE_CLOSE) || window.scriptHidden
+            || (window.category & (1 | 2 | 4 | 8)) == 0) return;
         if (!target || IsWindowAbove(window, *target)) target = &window;
     };
     for (auto* window : ui::detail::gWindows) if (window) consider(*window);

@@ -191,11 +191,6 @@ int InitializeClient_4576B0()
     if (render::InitPalette32() == 0) {
         return 0;
     }
-    if (resource::GraphicAlloc_4574E0() == 0) {
-        ShowWideMessage(L"配置错误", kConfirmCaption, kErrorMessageFlags);
-        return 0;
-    }
-    static_cast<void>(render::InvalidateGraphicRefs_523350());
     const std::int32_t graphicResult = resource::GraphicInit_459960(
         resource::gGraphicPaths, resource::gGraphicInfoPaths);
     switch (graphicResult) {
@@ -217,6 +212,25 @@ int InitializeClient_4576B0()
         break;
     }
 
+    // RAC01：先完成索引覆盖和引用整理，首次画面使用前发布稳定图形表。
+    if (resource::animation::AnimeInit_45BB20(
+            resource::gAnimePaths, resource::gAnimeInfoPaths) != 0) {
+        resource::CloseGraphicFiles();
+        resource::FreePrimaryGraphicResourceTables_457670();
+        ShowWideMessage(L"Anime.bin 读取错误", kConfirmCaption, kErrorMessageFlags);
+        return 0;
+    }
+    resource::animation::CoordLoadInit_45C040(
+        resource::gCoordinatePaths, resource::gCoordinateInfoPaths);
+    cg::yobi::RetainSceneEffectGraphicReferences();
+    if (resource::GraphicAlloc_4574E0() == 0) {
+        resource::animation::AnimeUnload_45BEF0();
+        resource::CloseGraphicFiles();
+        resource::FreePrimaryGraphicResourceTables_457670();
+        ShowWideMessage(L"资源引用整理或配置失败", kConfirmCaption, kErrorMessageFlags);
+        return 0;
+    }
+    static_cast<void>(render::InvalidateGraphicRefs_523350());
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());
     SeedRandom_53B4BF(std::random_device()() ^ static_cast<std::uint32_t>(ReadTickCount64()));
     static_cast<void>(world::InitializeRotationTable_46FB20());
@@ -248,14 +262,6 @@ int InitializeClient_4576B0()
 
     login::detail::AppendSystemLog_44B5C0(L"initAutoMapColor Start");
     static_cast<void>(resource::LoadAutoMapColor_45A130(resource::gGraphicInfoPaths));
-    login::detail::AppendSystemLog_44B5C0(L"InitSprBinFileOpen Start");
-    if (resource::animation::AnimeInit_45BB20(
-            resource::gAnimePaths, resource::gAnimeInfoPaths) != 0) {
-        ShowWideMessage(L"Anime.bin 读取错误", kConfirmCaption, kErrorMessageFlags);
-        return 0;
-    }
-    resource::animation::CoordLoadInit_45C040(
-        resource::gCoordinatePaths, resource::gCoordinateInfoPaths);
     login::detail::AppendSystemLog_44B5C0(L"t_music_init Start");
     static_cast<void>(audio::InitializeAudio_5241A0());
     static_cast<void>(cg::audio::InitializeMusic_454C30(gLegacyWindow));

@@ -629,7 +629,7 @@ static void LuaPushMapPoint(lua_State* L, const ui::WindowMapExData::MapExPoint&
 
 LuaFunctionEx(Graphic, GetGrahpicInfo) {
     int mapNo = static_cast<int>(luaL_checkinteger(L, 1));
-    if (mapNo <= 0 || mapNo >= resource::gBinLoaderGraphicCapacity || !resource::gGraphicMapNoIndex || !resource::gGraphicInfo) { lua_pushnil(L); return 1; }
+    if (mapNo <= 0 || mapNo >= resource::gGraphicMapNoCapacity || !resource::gGraphicMapNoIndex || !resource::gGraphicInfo) { lua_pushnil(L); return 1; }
     int seqNo = resource::gGraphicMapNoIndex[mapNo];
     if (seqNo < 0 || seqNo >= resource::gMaxGraphicCount || resource::gGraphicInfo[seqNo].mapNo != mapNo) { lua_pushnil(L); return 1; }
     const auto& info = resource::gGraphicInfo[seqNo];

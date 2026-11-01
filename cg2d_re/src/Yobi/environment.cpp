@@ -129,6 +129,17 @@ static constexpr const SceneEffectFrame* const* kFrameGroups554570[] { // 原常
     kFrameGroup55444C, kFrameGroup55455C,
 };
 
+// 与AdvanceSceneEffectTableFrame_449570共用实际帧表，跳转指令不属于图形引用。
+static void RetainDirectFrameGraphics()
+{
+    for (const SceneEffectFrame& frame : kFrames554534) {
+        if (frame.duration != SceneEffectFrameCommand_Jump
+            && frame.duration != SceneEffectFrameCommand_End) {
+            resource::gGraphicInfo.Retain(static_cast<std::uint32_t>(frame.graphic));
+        }
+    }
+}
+
 // 原 sub_448370@[0x448370,0x44839C)；查找首个 callback 匹配且 deathFlag 为零的普通节点。
 // 调用前提为已初始化的有效链；允许空 callback，返回非拥有指针，未命中返回空。
 static YobiAction* FindLiveActionByCallback(void (*callback)(YobiAction*))
@@ -787,6 +798,11 @@ static void UpdateDriftingSceneEffect_449400(YobiAction* const action)
 }
 
 } // namespace detail
+
+void RetainSceneEffectGraphicReferences()
+{
+    detail::RetainDirectFrameGraphics();
+}
 
 // 原函数：0x00449700。
 void ConfigureMapSceneEffect_449700(

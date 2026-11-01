@@ -4,16 +4,11 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <span>
 #include <type_traits>
+#include <vector>
 
 namespace cg::resource {
-
-// 原553058/55305C：各固定容器构造后立即登记宿主退出，返回实际S32。
-// 当前仅模块适配调用；接原全应用序时必须同时移除适配，不能双执行。
-// 原函数：0x004597E0。
-void InitializeGraphicMapNumbers_4597E0();
-// 原函数：0x00459850。
-void InitializeGraphicFirstRecords_459850();
 
 // GraphicInit@0x459960 建立的运行时记录；不含指针，x64 下步长仍为 0x20。
 // 字段写入证据及磁盘布局区别见 cg2d_re/doc/cg2d_graphic_info.md。
@@ -83,17 +78,36 @@ static_assert(offsetof(GraphicInfoRecord, flag) == 0x1E);
 static_assert(offsetof(GraphicInfoRecord, reserved) == 0x20);
 static_assert(offsetof(GraphicInfoRecord, mapNo) == 0x24);
 
-// 原 VA 0x103CFA0：查询边界；未初始化阶段为 0。
+// RAC01：原SeqNo只作查询键，记录紧凑存储；发布后借用地址稳定至Clear。
+class GraphicInfoTable final {
+public:
+    void Assign(std::vector<GraphicInfo> records, std::size_t indexCount);
+    const GraphicInfo* Find(std::uint32_t index) const noexcept;
+    const GraphicInfo& operator[](std::uint32_t index) const noexcept;
+    explicit operator bool() const noexcept { return !indices_.empty(); }
+    std::span<const GraphicInfo> Records() const noexcept { return records_; }
+    void Retain(std::uint32_t index) noexcept;
+    void Compact();
+    void Clear() noexcept;
+
+private:
+    std::vector<GraphicInfo> records_;
+    std::vector<std::int32_t> indices_; // 原SeqNo到紧凑记录位置；-1为缺失。
+    std::vector<std::uint8_t> referenced_; // 仅引用整理阶段持有，发布后释放。
+};
+
+// 原 VA 0x103CFA0：原SeqNo逻辑查询边界，不是紧凑记录数。
 extern std::int32_t gMaxGraphicCount;
-// 原 VA 0x9A2970：运行时图形表；未初始化阶段为 nullptr，不在本模块分配。
-extern GraphicInfo* gGraphicInfo;
+// 原 VA 0x9A2970：RAC01由表拥有记录及位置索引，不再按SeqNo暴露连续指针。
+extern GraphicInfoTable gGraphicInfo;
 // 原 VA 0x9A2974：MapNo 到图形序号的索引表；未初始化阶段为 nullptr。
 extern std::int32_t* gGraphicMapNoIndex;
+extern std::int32_t gGraphicMapNoCapacity; // RAC01：实际MapNo键空间，与SeqNo分开。
 // 原73F100；BLM01扩为32槽，供AnimeLoadAction/CoordInit共同读取组图号基址。
 extern std::int32_t gGraphicStartIndices[BinLoaderMaxGroups];
 
 // 原[459960,45A12C)；BLM01按配置组读完整40B记录、后组覆盖MapNo，空／缺文件组跳过。
-// 主表须由GraphicAlloc按配置容量分配；0成功、3容量不足、-1分配失败。
+// RAC01批量读取并自动定容候选；0成功、3读取失败、-1分配失败。
 std::int32_t GraphicInit_459960(
     const wchar_t* const* graphicPaths, const wchar_t* const* graphicInfoPaths);
 
@@ -110,8 +124,7 @@ std::int32_t GetGraphicSxSy(std::uint32_t index, std::uint16_t* sx, std::uint16_
 std::int32_t GetGraphicFlag1(std::uint32_t index, std::uint16_t* flag);
 // 原 [0x45A860, 0x45A8A8)：无符号索引比较；输出零扩展 flag / 100，失败清零并返回 0。
 std::int32_t GetGraphicFlag2(std::uint32_t index, std::uint16_t* flag);
-// 原 [0x45A8B0, 0x45A8C9)：不检查 index；调用者必须保证 gGraphicMapNoIndex[index] 可访问。
-// 直接写入查表结果并返回 1，不以 gMaxGraphicCount 检查此索引。
+// 原 [0x45A8B0, 0x45A8C9)；RAC01实际键空间以外按缺失MapNo返回0，仍返回1。
 std::int32_t GetGraphicMapNoIndex(std::int32_t index, std::int32_t* outSeqNo);
 // 原 [0x45C970, 0x45CA1B)：按固定五个图号两阶段探测，返回 -1 或 4-index。
 // 首轮命中后从同一索引重新查询；调用者负责保存返回值。

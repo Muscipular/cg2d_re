@@ -6,12 +6,10 @@
 
 #include <algorithm>
 #include <array>
-#include <format>
 #include <string>
 #include <cstdio> // 原CRT：0x0053B1D0、0x0053B2F1、0x0053BC41、0x0053BCCD、0x0053CB78；直接沿MSVC文件流。 // 原格式化／扫描接口：0x0053B304；直接沿MSVC CRT。
 #include <cstdlib>
 #include <cstring>
-#include <map>
 #include <memory>
 #include <new>
 #include <vector>
@@ -19,31 +17,66 @@
 namespace cg::resource {
 
 std::int32_t gMaxGraphicCount = 0; // 原全局：0x0103CFA0。
-GraphicInfo* gGraphicInfo = nullptr; // 原全局：0x009A2970。
+GraphicInfoTable gGraphicInfo; // 原全局：0x009A2970；RAC01紧凑记录拥有者。
 std::int32_t* gGraphicMapNoIndex = nullptr; // 原全局：0x009A2974。
+std::int32_t gGraphicMapNoCapacity = 0;
 std::int32_t gGraphicStartIndices[BinLoaderMaxGroups] {}; // 原全局：0x0073F100。
 
-// 原 9A2960/73F128：去重值集合与首见记录引用，生命周期按两相邻CRT项配对。
-using GraphicMapNumbers = std::vector<std::int32_t>;
-using GraphicFirstRecords = std::map<std::int32_t, GraphicInfo*>;
-
-static GraphicMapNumbers* gGraphicMapNumbers = nullptr; // 原全局：0x9A2960；仅指向原入口的唯一静态对象。
-static GraphicFirstRecords* gGraphicFirstRecords = nullptr; // 原全局：0x73F128；仅指向原入口的唯一静态对象。
-
-// 原函数：0x004597E0。
-void InitializeGraphicMapNumbers_4597E0()
+void GraphicInfoTable::Assign(std::vector<GraphicInfo> records, const std::size_t indexCount)
 {
-    // 原0x004597F0／0x00459820：同一类型按原入口创建，退出由MSVC原生析构承接。
-    static GraphicMapNumbers storage{};
-    gGraphicMapNumbers = &storage;
+    records_ = std::move(records);
+    indices_.assign(indexCount, -1);
+    referenced_.assign(records_.size(), 0);
+    for (std::size_t index = 0; index < records_.size(); ++index) {
+        indices_[records_[index].seqNo] = static_cast<std::int32_t>(index);
+    }
 }
 
-// 原函数：0x00459850。
-void InitializeGraphicFirstRecords_459850()
+const GraphicInfo* GraphicInfoTable::Find(const std::uint32_t index) const noexcept
 {
-    // 原0x00459860／0x00459890：同一类型按原入口创建，退出由MSVC原生析构承接。
-    static GraphicFirstRecords storage{};
-    gGraphicFirstRecords = &storage;
+    if (index >= indices_.size() || indices_[index] < 0) {
+        return nullptr;
+    }
+    return &records_[static_cast<std::size_t>(indices_[index])];
+}
+
+const GraphicInfo& GraphicInfoTable::operator[](const std::uint32_t index) const noexcept
+{
+    static constexpr GraphicInfo empty {};
+    const GraphicInfo* const record = Find(index);
+    return record != nullptr ? *record : empty;
+}
+
+void GraphicInfoTable::Retain(const std::uint32_t index) noexcept
+{
+    if (index < indices_.size() && indices_[index] >= 0) {
+        referenced_[static_cast<std::size_t>(indices_[index])] = 1;
+    }
+}
+
+void GraphicInfoTable::Compact()
+{
+    std::vector<GraphicInfo> retained;
+    retained.reserve(static_cast<std::size_t>(
+        std::count(referenced_.begin(), referenced_.end(), std::uint8_t{1})));
+    // 按原SeqNo遍历，保留取色及公开记录遍历的原顺序。
+    for (std::int32_t& position : indices_) {
+        if (position >= 0 && referenced_[static_cast<std::size_t>(position)] != 0) {
+            retained.push_back(records_[static_cast<std::size_t>(position)]);
+            position = static_cast<std::int32_t>(retained.size() - 1);
+        } else {
+            position = -1;
+        }
+    }
+    records_.swap(retained);
+    std::vector<std::uint8_t>().swap(referenced_);
+}
+
+void GraphicInfoTable::Clear() noexcept
+{
+    std::vector<GraphicInfo>().swap(records_);
+    std::vector<std::int32_t>().swap(indices_);
+    std::vector<std::uint8_t>().swap(referenced_);
 }
 
 // 原函数：0x00459960。
@@ -52,7 +85,10 @@ std::int32_t GraphicInit_459960(
     const wchar_t* const* graphicPaths, const wchar_t* const* graphicInfoPaths)
 {
     CloseGraphicFiles();
+    gGraphicInfo.Clear();
+    gMaxGraphicCount = 0;
     std::array<std::FILE*, BinLoaderMaxGroups> infoFiles {};
+    std::array<std::size_t, BinLoaderMaxGroups> infoCounts {};
     const auto closeInfoFiles = [&infoFiles] {
         for (std::FILE*& file : infoFiles) {
             if (file != nullptr) {
@@ -64,105 +100,108 @@ std::int32_t GraphicInit_459960(
     const auto fail = [&closeInfoFiles](const std::int32_t error) {
         closeInfoFiles();
         CloseGraphicFiles();
+        gGraphicInfo.Clear();
+        gMaxGraphicCount = 0;
         return error;
     };
 
-    std::uint64_t totalRecords = 0;
-    for (std::size_t slot = 0; slot < gBinLoaderGroupCount; ++slot) {
-        if (graphicPaths[slot][0] == '\0' || graphicInfoPaths[slot][0] == '\0') {
-            continue;
+    try {
+        std::uint64_t totalRecords = 0;
+        for (std::size_t slot = 0; slot < gBinLoaderGroupCount; ++slot) {
+            if (graphicPaths[slot][0] == '\0' || graphicInfoPaths[slot][0] == '\0') {
+                continue;
+            }
+            infoFiles[slot] = _wfopen(graphicInfoPaths[slot], L"rb");
+            if (infoFiles[slot] == nullptr) {
+                platform::ShowWideMessage(
+                    L"图形索引文件开启失败：" + std::wstring(graphicInfoPaths[slot]),
+                    L"资源加载", 0);
+                continue;
+            }
+            gGraphicFiles[slot] = _wfopen(graphicPaths[slot], L"rb");
+            if (gGraphicFiles[slot] == nullptr) {
+                platform::ShowWideMessage(
+                    L"图形文件开启失败：" + std::wstring(graphicPaths[slot]),
+                    L"资源加载", 0);
+                std::fclose(infoFiles[slot]);
+                infoFiles[slot] = nullptr;
+                continue;
+            }
+            if (::_fseeki64(infoFiles[slot], 0, SEEK_END) != 0) {
+                return fail(3);
+            }
+            const std::int64_t length = ::_ftelli64(infoFiles[slot]);
+            if (length < 0 || ::_fseeki64(infoFiles[slot], 0, SEEK_SET) != 0) {
+                return fail(3);
+            }
+            infoCounts[slot] = static_cast<std::size_t>(length) / sizeof(GraphicInfoRecord);
+            totalRecords += infoCounts[slot];
         }
-        infoFiles[slot] = _wfopen(graphicInfoPaths[slot], L"rb");
-        if (infoFiles[slot] == nullptr) {
-            platform::ShowWideMessage(
-                L"图形索引文件开启失败：" + std::wstring(graphicInfoPaths[slot]),
-                L"资源加载", 0);
-            continue;
-        }
-        gGraphicFiles[slot] = _wfopen(graphicPaths[slot], L"rb");
-        if (gGraphicFiles[slot] == nullptr) {
-            platform::ShowWideMessage(
-                L"图形文件开启失败：" + std::wstring(graphicPaths[slot]),
-                L"资源加载", 0);
-            std::fclose(infoFiles[slot]);
-            infoFiles[slot] = nullptr;
-            continue;
-        }
-        if (::_fseeki64(infoFiles[slot], 0, SEEK_END) != 0) {
-            return fail(3);
-        }
-        const std::int64_t length = ::_ftelli64(infoFiles[slot]);
-        if (length < 0 || ::_fseeki64(infoFiles[slot], 0, SEEK_SET) != 0) {
-            return fail(3);
-        }
-        totalRecords += static_cast<std::uint64_t>(length) / sizeof(GraphicInfoRecord);
-    }
-    // 参考固定+10预留不足以承接32组间隙；每个配置槽均保留原组间+1。
-    const std::uint64_t requiredCount = totalRecords
-        + std::max<std::size_t>(10, gBinLoaderGroupCount);
-    if (requiredCount > static_cast<std::uint64_t>(gBinLoaderGraphicCapacity)) {
-        platform::ShowWideMessage(
-            std::format(L"MAX_GRAPHIC={},Need={}", gBinLoaderGraphicCapacity, requiredCount),
-            L"图形容量不足", 0);
-        return fail(3);
-    }
-    const std::size_t indexBytes = sizeof(std::int32_t)
-        * static_cast<std::size_t>(gBinLoaderGraphicCapacity) + 0x28;
-    gGraphicMapNoIndex = static_cast<std::int32_t*>(std::malloc(indexBytes));
-    if (gGraphicMapNoIndex == nullptr) {
-        return fail(-1);
-    }
-    std::memset(gGraphicMapNoIndex, 0, indexBytes);
-    std::memset(gGraphicStartIndices, 0, sizeof(gGraphicStartIndices));
-    gGraphicMapNumbers->clear();
-    gGraphicFirstRecords->clear();
-
-    std::uint32_t base = 0;
-    GraphicInfoRecord record;
-    for (std::size_t slot = 0; slot < gBinLoaderGroupCount; ++slot) {
-        gGraphicStartIndices[slot] = static_cast<std::int32_t>(base);
-        std::uint32_t count = 0;
-        if (infoFiles[slot] != nullptr) {
-            while (std::fread(&record, sizeof(record), 1, infoFiles[slot]) == 1) {
-                const std::uint32_t index = base + record.seqNo;
-                GraphicInfo& target = gGraphicInfo[index];
-                target.seqNo = index;
-                target.offset = static_cast<std::int32_t>(record.offset);
-                target.length = record.length;
-                target.x = static_cast<std::int16_t>(record.x);
-                target.y = static_cast<std::int16_t>(record.y);
-                target.w = static_cast<std::int16_t>(record.w);
-                target.h = static_cast<std::int16_t>(record.h);
-                target.sx = record.sx;
-                target.sy = record.sy;
-                target.flag = record.flag;
-                target.mapNo = record.mapNo;
-                target.fileIndex = static_cast<std::int16_t>(slot);
-                ++count;
-                if (record.mapNo <= 0) {
-                    gGraphicMapNoIndex[0] = 0;
-                    continue;
+        // 参考固定+10预留不足以承接32组间隙；每个配置槽均保留原组间+1。
+        std::uint64_t requiredCount = totalRecords
+            + std::max<std::size_t>(10, gBinLoaderGroupCount);
+        std::memset(gGraphicStartIndices, 0, sizeof(gGraphicStartIndices));
+        std::vector<GraphicInfo> records;
+        records.reserve(static_cast<std::size_t>(totalRecords));
+        std::vector<GraphicInfoRecord> diskRecords;
+        std::vector<std::int32_t> mapIndices(1, 0);
+        std::uint32_t base = 0;
+        for (std::size_t slot = 0; slot < gBinLoaderGroupCount; ++slot) {
+            gGraphicStartIndices[slot] = static_cast<std::int32_t>(base);
+            std::uint32_t count = 0;
+            if (infoFiles[slot] != nullptr) {
+                diskRecords.resize(infoCounts[slot]);
+                count = static_cast<std::uint32_t>(std::fread(
+                    diskRecords.data(), sizeof(GraphicInfoRecord), diskRecords.size(), infoFiles[slot]));
+                if (std::ferror(infoFiles[slot]) != 0) {
+                    return fail(3);
                 }
-                if (record.mapNo < gBinLoaderGraphicCapacity) {
-                    gGraphicMapNoIndex[record.mapNo] = static_cast<std::int32_t>(index);
-                }
-                if (record.mapNo >= static_cast<std::int32_t>(AutoMapColorCapacity)
-                    && slot != 0 && slot != 1 && slot != 6 && slot != 8) {
-                    target.mapNo = 0;
-                }
-                if (std::find(gGraphicMapNumbers->begin(), gGraphicMapNumbers->end(),
-                        record.mapNo) == gGraphicMapNumbers->end()) {
-                    gGraphicMapNumbers->push_back(record.mapNo);
-                    gGraphicFirstRecords->emplace(record.mapNo, &target);
+                for (std::uint32_t item = 0; item < count; ++item) {
+                    const GraphicInfoRecord& record = diskRecords[item];
+                    const std::uint32_t index = base + record.seqNo;
+                    requiredCount = std::max(requiredCount, static_cast<std::uint64_t>(index) + 1);
+                    GraphicInfo& target = records.emplace_back();
+                    target.seqNo = index;
+                    target.offset = static_cast<std::int32_t>(record.offset);
+                    target.length = record.length;
+                    target.x = static_cast<std::int16_t>(record.x);
+                    target.y = static_cast<std::int16_t>(record.y);
+                    target.w = static_cast<std::int16_t>(record.w);
+                    target.h = static_cast<std::int16_t>(record.h);
+                    target.sx = record.sx;
+                    target.sy = record.sy;
+                    target.flag = record.flag;
+                    target.mapNo = record.mapNo;
+                    target.fileIndex = static_cast<std::int16_t>(slot);
+                    if (record.mapNo <= 0) {
+                        continue;
+                    }
+                    if (static_cast<std::size_t>(record.mapNo) >= mapIndices.size()) {
+                        mapIndices.resize(static_cast<std::size_t>(record.mapNo) + 1, 0);
+                    }
+                    mapIndices[record.mapNo] = static_cast<std::int32_t>(index);
+                    if (record.mapNo >= static_cast<std::int32_t>(AutoMapColorCapacity)
+                        && slot != 0 && slot != 1 && slot != 6 && slot != 8) {
+                        target.mapNo = 0;
+                    }
                 }
             }
+            base += count + 1;
         }
-        base += count + 1;
+        gGraphicInfo.Assign(std::move(records), static_cast<std::size_t>(requiredCount));
+        const std::size_t indexBytes = mapIndices.size() * sizeof(std::int32_t);
+        gGraphicMapNoIndex = static_cast<std::int32_t*>(std::malloc(indexBytes));
+        if (gGraphicMapNoIndex == nullptr) {
+            return fail(-1);
+        }
+        std::memcpy(gGraphicMapNoIndex, mapIndices.data(), indexBytes);
+        gGraphicMapNoCapacity = static_cast<std::int32_t>(mapIndices.size());
+        closeInfoFiles();
+        gMaxGraphicCount = static_cast<std::int32_t>(requiredCount);
+        return 0;
+    } catch (const std::bad_alloc&) {
+        return fail(-1);
     }
-    std::sort(gGraphicMapNumbers->begin(), gGraphicMapNumbers->end());
-    closeInfoFiles();
-    gMaxGraphicCount = static_cast<std::int32_t>(requiredCount);
-    return 0;
 }
 
 // 原函数：0x0045A710。
@@ -239,7 +278,8 @@ std::int32_t GetGraphicFlag2(std::uint32_t index, std::uint16_t* flag)
 // 原函数：0x0045A8B0。
 std::int32_t GetGraphicMapNoIndex(std::int32_t index, std::int32_t* outSeqNo)
 {
-    *outSeqNo = gGraphicMapNoIndex[index];
+    *outSeqNo = index >= 0 && index < gGraphicMapNoCapacity
+        ? gGraphicMapNoIndex[index] : 0;
     return 1;
 }
 

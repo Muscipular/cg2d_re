@@ -1,5 +1,7 @@
 # binLoader 迁移 SPEC（BLM01）
 
+> 2026-11-01：[RAC01](cg2d_resource_auto_capacity_spec.md)已实施自动定容与覆盖后引用剔除，覆盖下文MAX_GRAPHIC／MAX_ANIME配置容量、连续图形大表及初始化次序的旧约定；YAML仅保留BinLoader路径配置。下文原迁移依据与历史验证保留，当前源码状态以RAC01及唯一进度为准。
+
 日期：2026-10-16。用户范围：迁移 `twcg_hook` 的 binLoader，并将 `fseek` 改为 64 位定位。
 
 用户进一步明确“只需要业务逻辑搬过来”：全部行为直接落入新端现有资源／初始化函数，不引入hook、地址扫描、注入或二进制补丁机制。

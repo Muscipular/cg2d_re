@@ -724,7 +724,7 @@ struct BigMapWindowState final {
     }
 
     static const resource::GraphicInfo* Graphic(int mapNo) {
-        if (mapNo <= 0 || mapNo >= resource::gBinLoaderGraphicCapacity
+        if (mapNo <= 0 || mapNo >= resource::gGraphicMapNoCapacity
             || !resource::gGraphicMapNoIndex || !resource::gGraphicInfo) return nullptr;
         const int index = resource::gGraphicMapNoIndex[mapNo];
         if (index < 0 || index >= resource::gMaxGraphicCount) return nullptr;
@@ -859,7 +859,7 @@ struct BigMapWindowState final {
             point.placement = static_cast<std::int16_t>(std::atoi(fields[6].c_str()));
             point.hasIcon = point.category == 1 || point.category == 2 || point.category == 3 || point.category == 5;
             if (point.category == 5 && point.extra <= 0) point.extra = 18;
-            if (point.hasIcon && point.extra > 0 && point.extra < resource::gBinLoaderGraphicCapacity
+            if (point.hasIcon && point.extra > 0 && point.extra < resource::gGraphicMapNoCapacity
                 && resource::gGraphicMapNoIndex && resource::gGraphicInfo) {
                 const int image = resource::gGraphicMapNoIndex[point.extra];
                 if (image >= 0 && image < resource::gMaxGraphicCount && resource::gGraphicInfo[image].mapNo == point.extra) {

@@ -174,23 +174,6 @@ platform::LegacyCryptInt gSceneTransitionValue{}; // 原全局：0x0073ECD0。
 
 } // namespace cg::world
 
-namespace cg::platform {
-
-// AIS01原553058/55305C：场景值后，各项仍即时登记；GVC01清理后续无消费动画复制初始化器。
-struct GraphicInfoContainersStartup final {
-    GraphicInfoContainersStartup()
-    {
-        // 原553058 -> 55305C：第一登记失败不跳过第二构造/登记。
-        static_cast<void>(cg::resource::InitializeGraphicMapNumbers_4597E0());
-        static_cast<void>(cg::resource::InitializeGraphicFirstRecords_459850());
-    }
-};
-
-static_assert(std::is_trivially_destructible_v<GraphicInfoContainersStartup>);
-static GraphicInfoContainersStartup gGraphicInfoContainersStartup;
-
-} // namespace cg::platform
-
 namespace cg::world {
 
 // 原0x00467B90／0x00467BA0／0x00467BD0：原中央位置直接构造，MSVC承接逆序析构。

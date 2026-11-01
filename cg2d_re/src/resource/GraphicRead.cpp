@@ -217,7 +217,7 @@ static bool ReadAnimationPaletteSource(
     const std::uint32_t mapNo, IndependentPaletteRecord& palette)
 {
     if (mapNo == 0 || gGraphicMapNoIndex == nullptr
-        || mapNo >= static_cast<std::uint32_t>(gBinLoaderGraphicCapacity)) {
+        || mapNo >= static_cast<std::uint32_t>(gGraphicMapNoCapacity)) {
         return false;
     }
     const std::int32_t imageNo = gGraphicMapNoIndex[mapNo];
@@ -676,12 +676,12 @@ int ReadGraphicDataByIndex(
     std::uint32_t* height,
     std::uint32_t* paletteLength)
 {
-    if (index < 0 || index >= gMaxGraphicCount) {
+    const GraphicInfo* const record = gGraphicInfo.Find(static_cast<std::uint32_t>(index));
+    if (record == nullptr) {
         return 0;
     }
 
     GraphicInfo info;
-    const GraphicInfo* const record = &gGraphicInfo[index];
     std::memcpy(&info, record, sizeof(info));
     const std::int16_t fileIndex = record->fileIndex;
     std::FILE* const file = gGraphicFiles[fileIndex];
@@ -769,6 +769,7 @@ void CloseGraphicFiles()
         std::free(gGraphicMapNoIndex);
         gGraphicMapNoIndex = nullptr;
     }
+    gGraphicMapNoCapacity = 0;
     for (std::FILE*& file : gGraphicFiles) {
         if (file != nullptr) {
             std::fclose(file);

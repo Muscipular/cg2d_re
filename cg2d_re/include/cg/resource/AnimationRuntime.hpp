@@ -67,8 +67,7 @@ static_assert(sizeof(AnimeCacheRecord) == 0x30);
 static_assert(offsetof(AnimeCacheRecord, actionList) == 0x18);
 static_assert(offsetof(AnimeCacheRecord, buffer) == 0x20);
 
-// 原 9A4A58/9A4A60/9A4A4C；GraphicAlloc 分配主表，AnimeInit 发布元素数。
-// 原getIndex仍将元素数作为包含上界；不因此扩分配容量或补一过尾零记录。
+// 原9A4A58/9A4A60/9A4A4C；RAC01按唯一AnimeNo分配，额外保留原查找包含上界的空槽。
 extern AnimateRecord* gAnimateRecords9A4A58; // 原全局：0x009A4A58。
 extern AnimeCacheRecord* gAnimateCache9A4A5C; // 原全局：0x009A4A5C。
 extern std::int32_t gAnimateCount9A4A60; // 原全局：0x009A4A60。
@@ -84,9 +83,12 @@ std::int32_t __cdecl BinarySearch_45B390(
 std::int32_t __cdecl GetIndex_45B400(std::uint32_t animeNo);
 
 // 原[45BB20,45BEE1)；BLM01按配置组去重／覆盖与排序，空／缺文件组跳过。
-// 数据、Info路径顺序保持；0成功、3容量／分配失败、5动作数量异常。
+// 数据、Info路径顺序保持；0成功、3读取／分配失败、5动作数量异常。
 std::int32_t AnimeInit_45BB20(
     wchar_t* const* dataPaths, wchar_t* const* infoPaths);
+
+// RAC01：只扫描最终动画的帧／共享坐标依赖，不发布播放缓存或图形元数据。
+bool RetainAnimationGraphicReferences();
 
 // 原[45C040,45C146)；BLM01每个成功坐标文件替换全部配置组的共享来源。
 void CoordLoadInit_45C040(wchar_t* const* dataPaths, wchar_t* const* infoPaths);

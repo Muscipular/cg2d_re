@@ -31,8 +31,6 @@ extern std::wstring& gBinPath;
 inline constexpr std::size_t BinLoaderMaxGroups = 32;
 inline constexpr std::size_t AutoMapColorCapacity = 800000;
 extern std::size_t gBinLoaderGroupCount;
-extern std::int32_t gBinLoaderGraphicCapacity;
-extern std::int32_t gBinLoaderAnimeCapacity;
 
 // 字符串由ResourcePaths拥有，配置解析完成后绑定，加载期间不再移动字符串。
 extern wchar_t* gGraphicPaths[BinLoaderMaxGroups]; // 原全局：0x0062D108。

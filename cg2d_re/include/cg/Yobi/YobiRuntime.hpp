@@ -420,6 +420,8 @@ void ConfigureMapSceneEffect_449700(
     std::int32_t mapX, std::int32_t mapY);
 // 原函数：0x00449160。
 void UpdateMapEnvironmentEffects_449160(); // 主循环效果生产，计时回调注册后按64次间隔生成漂移对象。
+// RAC01：binLoader发布前标记环境帧表中绕过MapNo的直接图号。
+void RetainSceneEffectGraphicReferences();
 
 // 原 49C5C0/49C5E0：dialog 尺寸的有符号整数分量计算。
 std::int32_t CalculateDialogTextColumns_49C5C0(std::int16_t width);

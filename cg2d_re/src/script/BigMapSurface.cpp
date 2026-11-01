@@ -85,7 +85,7 @@ struct BigMapSurface::State {
     }
 
     static const resource::GraphicInfo* Graphic(int number) {
-        if (number <= 0 || number >= resource::gBinLoaderGraphicCapacity || !resource::gGraphicMapNoIndex) return nullptr;
+        if (number <= 0 || number >= resource::gGraphicMapNoCapacity || !resource::gGraphicMapNoIndex) return nullptr;
         const int index = resource::gGraphicMapNoIndex[number];
         if (!resource::gGraphicInfo || index < 0 || index >= resource::gMaxGraphicCount) return nullptr;
         const auto& info = resource::gGraphicInfo[index];

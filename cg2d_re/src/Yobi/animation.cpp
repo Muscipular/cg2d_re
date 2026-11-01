@@ -273,9 +273,7 @@ std::int32_t PlayFrame_517DA0(
         action->frameY = 0;
         return AnimationFrameResult_Continue;
     }
-    if (imageNo > resource::animation::gMaxAnimateCount9A4A4C + 100000) {
-        return AnimationFrameResult_StoppedOrUnavailable;
-    }
+    // RAC01：记录容量不限制AnimeNo，按最终动画索引查询。
     const std::int32_t animeIndex =
         resource::animation::GetIndex_45B400(static_cast<std::uint32_t>(imageNo - 100000));
     if (animeIndex < 0) {

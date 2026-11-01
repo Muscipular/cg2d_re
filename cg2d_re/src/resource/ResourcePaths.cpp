@@ -26,8 +26,6 @@ namespace cg::resource {
 // 原 [927F48,9A2068)；newMapRes 的已证高下标写入也是本表，不另建影子表。
 std::uint8_t gAutoMapColors927F48[AutoMapColorCapacity] {}; // 原全局：0x00927F48。
 std::size_t gBinLoaderGroupCount = 0;
-std::int32_t gBinLoaderGraphicCapacity = 2500000;
-std::int32_t gBinLoaderAnimeCapacity = 30500;
 
 // BLM01：六类路径的唯一拥有者，不再受旧256字节拼接槽限制。
 struct BinSet {
@@ -127,33 +125,31 @@ static_assert(std::endian::native == std::endian::little);
     return 1;
 }
 
-// 原 45A190：取色调用后才重取图形表；调色板读取失败不清已有颜色。
+// 原45A190；RAC01仅遍历稳定保留记录的最终MapNo，调色板读取失败不清已有颜色。
 static void RebuildAutoMapColors_45A190()
 {
-    const std::int32_t count = gMaxGraphicCount;
+    const auto records = gGraphicInfo.Records();
     render::PaletteEntry palette[256] {};
     if (render::ReadPalette(0, palette) == 0) {
         return;
     }
     std::memset(gAutoMapColors927F48, 0, sizeof(gAutoMapColors927F48));
-    if (count <= 0) {
-        return;
-    }
-    const GraphicInfo* records = gGraphicInfo;
-    for (std::int32_t index = 0; index < count; ++index) {
-        const std::int32_t mapNo = records[index].mapNo;
+    for (const GraphicInfo& record : records) {
+        const std::int32_t mapNo = record.mapNo;
+        if (mapNo > 0 && (mapNo >= gGraphicMapNoCapacity
+            || gGraphicMapNoIndex[mapNo] != static_cast<std::int32_t>(record.seqNo))) {
+            continue; // RAC01：动画保留的旧版本不覆盖最终MapNo取色。
+        }
         if (mapNo <= 0) {
             gAutoMapColors927F48[0] = 0;
         } else if (mapNo >= 1000 && mapNo <= 19999) {
             gAutoMapColors927F48[mapNo] = static_cast<std::uint8_t>(
                 GetGraphicAutoMapColor_451D80(
-                    std::bit_cast<std::int32_t>(records[index].seqNo), palette));
-            records = gGraphicInfo;
+                    std::bit_cast<std::int32_t>(record.seqNo), palette));
         } else if (mapNo >= 220000 && mapNo <= 265535) {
             gAutoMapColors927F48[mapNo - 200000] = static_cast<std::uint8_t>(
                 GetGraphicAutoMapColor_451D80(
-                    std::bit_cast<std::int32_t>(records[index].seqNo), palette));
-            records = gGraphicInfo;
+                    std::bit_cast<std::int32_t>(record.seqNo), palette));
         }
     }
 }
@@ -197,11 +193,6 @@ int BuildResourcePaths()
         if (!sets.IsSequence() || sets.size() == 0 || sets.size() > BinLoaderMaxGroups) {
             throw std::runtime_error("BinLoader requires 1-32 resource groups.");
         }
-        const std::int32_t graphicCapacity = config["MAX_GRAPHIC"].as<std::int32_t>(2500000);
-        const std::int32_t animeCapacity = config["MAX_ANIME"].as<std::int32_t>(30500);
-        if (graphicCapacity <= 0 || animeCapacity <= 0) {
-            throw std::runtime_error("MAX_GRAPHIC and MAX_ANIME must be positive.");
-        }
         for (std::size_t slot = 0; slot < BinLoaderMaxGroups; ++slot) {
             BinSet& set = gBinSets[slot];
             set = {};
@@ -224,8 +215,6 @@ int BuildResourcePaths()
             gCoordinatePaths[slot] = set.coordinate.data();
             gCoordinateInfoPaths[slot] = set.coordinateInfo.data();
         }
-        gBinLoaderGraphicCapacity = graphicCapacity;
-        gBinLoaderAnimeCapacity = animeCapacity;
         gBinLoaderGroupCount = sets.size();
         VM_HARD2_END
     } catch (const std::exception& error) {

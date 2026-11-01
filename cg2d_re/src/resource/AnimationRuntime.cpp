@@ -17,6 +17,7 @@
 #include <format>
 #include <memory>
 #include <new>
+#include <vector>
 
 namespace cg::resource::animation::detail {
 
@@ -40,7 +41,7 @@ AnimeCacheRecord* gAnimateCache9A4A5C = nullptr; // 原全局：0x009A4A5C。
 std::int32_t gAnimateCount9A4A60 = 0; // 原全局：0x009A4A60。
 std::int32_t gMaxAnimateCount9A4A4C = 0; // 原全局：0x009A4A4C。
 
-// 原AnimeInit磁盘记录和临时配对项；BLM01按配置容量分配，字段仍保持原宽度。
+// 原AnimeInit磁盘记录和临时配对项；RAC01按实际唯一数量增长，磁盘字段宽度保持。
 struct AnimeInfoDiskRecord {
     std::uint32_t animeNo; // 原成员偏移：+0x00。
     std::uint32_t offset; // 原成员偏移：+0x04。
@@ -65,7 +66,7 @@ static_assert(offsetof(AnimeInfoPair, flag) == 0x0A);
 static_assert(offsetof(AnimeInfoPair, fileIndex) == 0x0C);
 
 // 原函数：0x0045BB20。
-// BLM01：完整12B记录，后组覆盖同号动画；临时配对容量与主表一致。
+// RAC01：完整12B记录批读，后组覆盖同号动画，主表按实际唯一数量分配。
 std::int32_t AnimeInit_45BB20(
     wchar_t* const* const dataPaths, wchar_t* const* const infoPaths)
 {
@@ -87,83 +88,150 @@ std::int32_t AnimeInit_45BB20(
         }
         return error;
     };
-    std::unique_ptr<AnimeInfoPair[]> pairs(
-        new (std::nothrow) AnimeInfoPair[gMaxAnimateCount9A4A4C]);
-    constexpr std::size_t kAnimeIndexCount = 0x10000u * 4u;
-    std::unique_ptr<std::int32_t[]> indices(new (std::nothrow) std::int32_t[kAnimeIndexCount]);
-    if (pairs == nullptr || indices == nullptr) {
-        return 3;
-    }
-    std::fill_n(indices.get(), kAnimeIndexCount, -1);
-    std::int32_t uniqueCount = 0;
-    AnimeInfoDiskRecord info;
-    for (std::size_t slot = 0; slot < gBinLoaderGroupCount; ++slot) {
-        if (dataPaths[slot][0] == '\0' || infoPaths[slot][0] == '\0') {
-            continue;
-        }
-        std::FILE* const infoFile = _wfopen(infoPaths[slot], L"rb");
-        if (infoFile == nullptr) {
-            platform::ShowWideMessage(
-                L"动画索引文件开启失败：" + std::wstring(infoPaths[slot]),
-                L"资源加载", 0);
-            continue;
-        }
-        detail::gAnimateFiles9A3A20[slot] = _wfopen(dataPaths[slot], L"rb");
-        if (detail::gAnimateFiles9A3A20[slot] == nullptr) {
-            platform::ShowWideMessage(
-                L"动画文件开启失败：" + std::wstring(dataPaths[slot]),
-                L"资源加载", 0);
-            std::fclose(infoFile);
-            continue;
-        }
-        while (std::fread(&info, sizeof(info), 1, infoFile) == 1) {
-            const std::uint32_t key = info.animeNo - 100000u;
-            std::int32_t index = indices[key];
-            if (index == -1) {
-                if (uniqueCount >= gMaxAnimateCount9A4A4C) {
-                    std::fclose(infoFile);
-                    return cleanupFailure(3);
-                }
-                index = uniqueCount++;
-                indices[key] = index;
+    try {
+        std::vector<AnimeInfoPair> pairs;
+        constexpr std::size_t kAnimeIndexCount = 0x10000u * 4u;
+        std::vector<std::int32_t> indices(kAnimeIndexCount, -1);
+        std::vector<AnimeInfoDiskRecord> diskRecords;
+        for (std::size_t slot = 0; slot < gBinLoaderGroupCount; ++slot) {
+            if (dataPaths[slot][0] == '\0' || infoPaths[slot][0] == '\0') {
+                continue;
             }
-            pairs[index].animeNo = key;
-            pairs[index].offset = info.offset;
-            pairs[index].count = info.count;
-            pairs[index].flag = info.flag; // AF406：完整保存格式值，只用bit0决定动作头长度。
-            pairs[index].fileIndex = static_cast<std::int16_t>(slot);
-            if (info.count > 10000u) {
+            std::unique_ptr<std::FILE, decltype(&std::fclose)> infoFile(
+                _wfopen(infoPaths[slot], L"rb"), &std::fclose);
+            if (!infoFile) {
                 platform::ShowWideMessage(
-                    std::format(L"i={},animsize={}", slot, info.count), L"动画资料损坏", 0);
-                std::fclose(infoFile);
-                return cleanupFailure(5);
+                    L"动画索引文件开启失败：" + std::wstring(infoPaths[slot]),
+                    L"资源加载", 0);
+                continue;
+            }
+            detail::gAnimateFiles9A3A20[slot] = _wfopen(dataPaths[slot], L"rb");
+            if (detail::gAnimateFiles9A3A20[slot] == nullptr) {
+                platform::ShowWideMessage(
+                    L"动画文件开启失败：" + std::wstring(dataPaths[slot]),
+                    L"资源加载", 0);
+                continue;
+            }
+            if (::_fseeki64(infoFile.get(), 0, SEEK_END) != 0) {
+                return cleanupFailure(3);
+            }
+            const std::int64_t length = ::_ftelli64(infoFile.get());
+            if (length < 0 || ::_fseeki64(infoFile.get(), 0, SEEK_SET) != 0) {
+                return cleanupFailure(3);
+            }
+            diskRecords.resize(static_cast<std::size_t>(length) / sizeof(AnimeInfoDiskRecord));
+            const std::size_t count = std::fread(
+                diskRecords.data(), sizeof(AnimeInfoDiskRecord), diskRecords.size(), infoFile.get());
+            if (std::ferror(infoFile.get()) != 0) {
+                return cleanupFailure(3);
+            }
+            for (std::size_t item = 0; item < count; ++item) {
+                const AnimeInfoDiskRecord& info = diskRecords[item];
+                const std::uint32_t key = info.animeNo - 100000u;
+                std::int32_t index = indices[key];
+                if (index == -1) {
+                    index = static_cast<std::int32_t>(pairs.size());
+                    pairs.emplace_back();
+                    indices[key] = index;
+                }
+                pairs[index].animeNo = key;
+                pairs[index].offset = info.offset;
+                pairs[index].count = info.count;
+                pairs[index].flag = info.flag; // AF406：完整保存格式值，只用bit0决定动作头长度。
+                pairs[index].fileIndex = static_cast<std::int16_t>(slot);
+                if (info.count > 10000u) {
+                    platform::ShowWideMessage(
+                        std::format(L"i={},animsize={}", slot, info.count), L"动画资料损坏", 0);
+                    return cleanupFailure(5);
+                }
             }
         }
-        std::fclose(infoFile);
-    }
-    if (uniqueCount >= gMaxAnimateCount9A4A4C) {
-        platform::ShowWideMessage(
-            std::format(L"MAX_ANIME={},Need={}", gMaxAnimateCount9A4A4C, uniqueCount),
-            L"动画容量不足", 0);
+        const std::int32_t uniqueCount = static_cast<std::int32_t>(pairs.size());
+        auto* const allocated = static_cast<AnimateRecord*>(
+            std::calloc(pairs.size() + 1, sizeof(AnimateRecord)));
+        if (allocated == nullptr) {
+            return cleanupFailure(3);
+        }
+        std::free(gAnimateRecords9A4A58);
+        gAnimateRecords9A4A58 = allocated;
+        gMaxAnimateCount9A4A4C = uniqueCount + 1;
+        for (std::int32_t index = 0; index < uniqueCount; ++index) {
+            AnimateRecord& record = gAnimateRecords9A4A58[index];
+            record.offset = pairs[index].offset;
+            record.fileIndex = pairs[index].fileIndex;
+            record.animeNo = pairs[index].animeNo;
+            record.count = pairs[index].count;
+            record.flag = pairs[index].flag;
+            record.coordinateOffset = 0xFFFFFFFFu;
+            record.coordinateCount = 0;
+            record.actionList = nullptr;
+            record.listNode = nullptr;
+            record.coordinates = nullptr;
+        }
+        gAnimateCount9A4A60 = uniqueCount;
+        std::qsort(gAnimateRecords9A4A58, static_cast<std::size_t>(uniqueCount),
+            sizeof(AnimateRecord), Compare_45B420);
+        return 0;
+    } catch (const std::bad_alloc&) {
         return cleanupFailure(3);
     }
-    for (std::int32_t index = 0; index < uniqueCount; ++index) {
-        AnimateRecord& record = gAnimateRecords9A4A58[index];
-        record.offset = pairs[index].offset;
-        record.fileIndex = pairs[index].fileIndex;
-        record.animeNo = pairs[index].animeNo;
-        record.count = pairs[index].count;
-        record.flag = pairs[index].flag;
-        record.coordinateOffset = 0xFFFFFFFFu;
-        record.coordinateCount = 0;
-        record.actionList = nullptr;
-        record.listNode = nullptr;
-        record.coordinates = nullptr;
+}
+
+bool RetainAnimationGraphicReferences()
+{
+    try {
+        std::vector<std::uint8_t> frames;
+        for (std::int32_t index = 0; index < gAnimateCount9A4A60; ++index) {
+            const AnimateRecord& record = gAnimateRecords9A4A58[index];
+            std::FILE* const file = detail::gAnimateFiles9A3A20[record.fileIndex];
+            const auto base = static_cast<std::uint32_t>(gGraphicStartIndices[record.fileIndex]);
+            if (::_fseeki64(file, static_cast<std::int64_t>(record.offset), SEEK_SET) != 0) {
+                return false;
+            }
+            for (std::uint16_t action = 0; action < record.count; ++action) {
+                std::uint8_t header[20];
+                const std::size_t headerLength = (record.flag & 1u) != 0 ? 20 : 12;
+                if (std::fread(header, headerLength, 1, file) != 1) {
+                    return false;
+                }
+                std::uint32_t frameCount;
+                std::memcpy(&frameCount, header + 8, sizeof(frameCount));
+                if (frameCount >= 10000) {
+                    return false; // 沿AnimeLoadAction已有门禁，不将未扫描载荷当成零引用。
+                }
+                frames.resize(static_cast<std::size_t>(frameCount) * 10);
+                if (std::fread(frames.data(), 1, frames.size(), file) != frames.size()) {
+                    return false;
+                }
+                for (std::uint32_t frame = 0; frame < frameCount; ++frame) {
+                    std::uint32_t graphic;
+                    std::memcpy(&graphic, frames.data() + frame * 10, sizeof(graphic));
+                    gGraphicInfo.Retain(base + graphic);
+                }
+            }
+            std::FILE* const coordinateFile = detail::gCoordinateFiles9A2988[record.fileIndex];
+            if (coordinateFile == nullptr || record.coordinateCount == 0) {
+                continue;
+            }
+            if (record.coordinateCount > 1000
+                || ::_fseeki64(coordinateFile,
+                    static_cast<std::int64_t>(record.coordinateOffset), SEEK_SET) != 0) {
+                return false;
+            }
+            frames.resize(static_cast<std::size_t>(record.coordinateCount) * 8);
+            if (std::fread(frames.data(), 1, frames.size(), coordinateFile) != frames.size()) {
+                return false;
+            }
+            for (std::uint16_t coordinate = 0; coordinate < record.coordinateCount; ++coordinate) {
+                std::uint32_t graphic;
+                std::memcpy(&graphic, frames.data() + coordinate * 8, sizeof(graphic));
+                gGraphicInfo.Retain(base + graphic);
+            }
+        }
+        return true;
+    } catch (const std::bad_alloc&) {
+        return false;
     }
-    gAnimateCount9A4A60 = uniqueCount;
-    std::qsort(gAnimateRecords9A4A58, static_cast<std::size_t>(uniqueCount),
-        sizeof(AnimateRecord), Compare_45B420);
-    return 0;
 }
 
 // 原函数：0x0045B420。
@@ -407,19 +475,44 @@ std::int32_t CoordLoad_45BF60(
         std::fclose(infoFile);
         return 0;
     }
-    std::uint32_t record[2];
-    std::uint16_t count;
-    while (std::fread(record, sizeof(record), 1, infoFile) == 1
-        && std::fread(&count, sizeof(count), 1, infoFile) == 1) {
-        const std::int32_t index = GetIndex_45B400(record[0] - 100000u);
-        if (index >= 0) {
-            gAnimateRecords9A4A58[index].coordinateOffset = record[1];
-            gAnimateRecords9A4A58[index].coordinateCount = count;
+    try {
+        if (::_fseeki64(infoFile, 0, SEEK_END) != 0) {
+            std::fclose(infoFile);
+            std::fclose(dataFile);
+            return 0;
         }
+        const std::int64_t length = ::_ftelli64(infoFile);
+        if (length < 1 || ::_fseeki64(infoFile, 1, SEEK_SET) != 0) {
+            std::fclose(infoFile);
+            std::fclose(dataFile);
+            return 0;
+        }
+        std::vector<std::uint8_t> records(static_cast<std::size_t>(length - 1));
+        const std::size_t read = std::fread(records.data(), 1, records.size(), infoFile);
+        if (std::ferror(infoFile) != 0) {
+            std::fclose(infoFile);
+            std::fclose(dataFile);
+            return 0;
+        }
+        for (std::size_t offset = 0; offset + 10 <= read; offset += 10) {
+            std::uint32_t record[2];
+            std::uint16_t count;
+            std::memcpy(record, records.data() + offset, sizeof(record));
+            std::memcpy(&count, records.data() + offset + 8, sizeof(count));
+            const std::int32_t index = GetIndex_45B400(record[0] - 100000u);
+            if (index >= 0) {
+                gAnimateRecords9A4A58[index].coordinateOffset = record[1];
+                gAnimateRecords9A4A58[index].coordinateCount = count;
+            }
+        }
+        std::fclose(infoFile);
+        *outputFile = dataFile;
+        return 1;
+    } catch (const std::bad_alloc&) {
+        std::fclose(infoFile);
+        std::fclose(dataFile);
+        return 0;
     }
-    std::fclose(infoFile);
-    *outputFile = dataFile;
-    return 1;
 }
 
 } // namespace cg::resource::animation

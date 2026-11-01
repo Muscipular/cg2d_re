@@ -584,7 +584,7 @@ static void MakeAutoBattleSimple() {
     if (simpleMode == SIMPLE_MODE_OFF) simpleMode = SIMPLE_MODE_FULL;
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE_SIMPLE,
         simpleMode == SIMPLE_MODE_FULL ? -2 : -70, 77, 20, 2);
-    panel->window.category = 5;
+    panel->window.category = 0;
     auto* toggle = panel->window.FindElementById(ui::NativeElementKey(0));
     toggle->type = ui::WindowElementType_EventArea; toggle->x = 65; toggle->width = 10;
     toggle->height = 20; toggle->visible = 1;
@@ -609,6 +609,7 @@ static void MakeAutoBattleSimple() {
 
 static void MakeAutoBattle() {
     auto panel = std::make_shared<AutoBattleWindow>(WIN_AUTOBATTLE, 50, 240, 185, CHK_MAX + 3);
+    panel->window.category = 1;
     for (int ix = 0; ix < CHK_MAX; ++ix) {
         const auto& check = checkboxList[ix];
         panel->AddGraphic(ix, check.x, check.y, check.w, check.h, 641502, +[](ui::ElementId elementId, int mouse) {

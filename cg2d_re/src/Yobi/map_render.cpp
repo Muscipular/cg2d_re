@@ -624,6 +624,10 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             } else if ((actionFlags & YobiActionMask_PetOrRiderOrFollowPetOverlay) != 0) {
                 text = (actionFlags & YobiActionFlag_PetOrRider) != 0 && !action->titleE1.empty()
                     ? action->titleE1.data() : action->nameC4.data();
+            } else if ((actionFlags & YobiActionFlag_OtherMapObjectName) != 0) {
+                if (!action->nameC4.empty() && action->imageNo > 0 && !(action->flags & YobiActionFlag_Hidden)) {
+                    text = action->nameC4.data();
+                }
             }
         }
         if (text != nullptr) {

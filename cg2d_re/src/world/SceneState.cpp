@@ -1835,9 +1835,9 @@ void UpdateDirectionalMapEffects_46F1D0()
 }
 
 // 原函数：0x00440FF0。
-std::int32_t DrawObservationTravelBackground_440FF0()
+std::int32_t DrawObservationTravelBackground_440FF0(session::ClientSession& session)
 {
-    const std::int32_t direction = cg::yobi::ReadMapObservationDirection();
+    const std::int32_t direction = cg::yobi::ReadMapObservationDirection(session);
     constexpr std::array<std::int32_t, 8> angles {315, 270, 225, 180, 135, 90, 45, 0};
     const auto angle = static_cast<std::int16_t>(angles[direction]);
     const render::GraphicDescriptor16 descriptor {
@@ -3572,7 +3572,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         RecreateMissingWorldObjectActions_446640(session);
         ResetCurrentDialogType_4D3170();
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::ResetObservationGroupList_43F220();
+        cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         gCurrentSceneState = 101;
@@ -3765,7 +3765,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
         ApplyPendingMapPaletteReply_51D6F0(session);
-        const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0();
+        const std::int32_t bgm = cg::yobi::BeginObservationTravelScene_440FE0(session);
         audio::gBgmTarget1050818 = bgm;
         static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
         worldScene.worldBgmResumeIndex = audio::gBgmTarget1050818;
@@ -3774,7 +3774,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     }
     case 251:
         session.WorldScene().frameBackgroundMode = 0;
-        static_cast<void>(DrawObservationTravelBackground_440FF0());
+        static_cast<void>(DrawObservationTravelBackground_440FF0(session));
         ApplyPendingMapPaletteReply_51D6F0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
@@ -3850,7 +3850,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         RecreateMissingWorldObjectActions_446640(session);
         ResetCurrentDialogType_4D3170();
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::ResetObservationGroupList_43F220();
+        cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
         if (worldScene.normalSceneInitialized == 1) {
             platform::gPendingGraphicCount = 0;
@@ -3990,7 +3990,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gContinuousMapMovementActive_C8A79C = 0;
         gSceneTransitionResetPending_58B6D0 = 1;
         ui::WindowRuntime_ProcessScene();
-        static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
+        static_cast<void>(cg::yobi::ClearObservationGroups_43F230(session));
         ResumePlayerAfterObservation_51BEF0();
         platform::RequestRender_457010(session);
         static_cast<void>(audio::PlaySe_52C450(201, 320));
@@ -4003,7 +4003,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
         session.WorldScene().frameBackgroundMode = 2;
         ui::WindowRuntime_ProcessScene();
-        static_cast<void>(cg::yobi::ClearObservationGroups_43F230());
+        static_cast<void>(cg::yobi::ClearObservationGroups_43F230(session));
         ++gCurrentSceneState;
         goto inputTail;
     case 5:
@@ -4532,7 +4532,7 @@ void* __cdecl PrepareMapTransitionObservationState_51D5B0(session::ClientSession
         &low, sizeof(low));
 
     if (gate != 0
-        || cg::yobi::FindObservationGroupByMember_43F1F0(cg::world::gPlayerRuntimeSlots.objectIndex)
+        || cg::yobi::FindObservationGroupByMember_43F1F0(session, cg::world::gPlayerRuntimeSlots.objectIndex)
             == nullptr) {
         const std::uint32_t currentGate = gLogoutToTownPending_D67E78;
         session.WorldScene().observationTravelTransitionCount = 0;
@@ -4541,14 +4541,14 @@ void* __cdecl PrepareMapTransitionObservationState_51D5B0(session::ClientSession
         }
     } else if (session.WorldScene().observationTravelTransitionCount == 0) {
         gCurrentSceneState = 250;
-        static_cast<void>(cg::yobi::SavePlayerObservationTravelSnapshot_440F50());
+        static_cast<void>(cg::yobi::SavePlayerObservationTravelSnapshot_440F50(session));
         ++session.WorldScene().observationTravelTransitionCount;
     } else {
         const std::uint32_t count = session.WorldScene().observationTravelTransitionCount;
         gCurrentSceneState = 252;
         session.WorldScene().observationTravelTransitionCount = count + 1u;
     }
-    return cg::yobi::ClearObservationGroups_43F230();
+    return cg::yobi::ClearObservationGroups_43F230(session);
 }
 
 // 原 [0x469030,0x4691C9)：装载后可选重建第四平面，随后斜向扫描 tile。
@@ -6672,7 +6672,7 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
         logout.transitionPhase = next;
         platform::gLastRenderDt = static_cast<double>(tick);
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::ClearObservationGroups_43F230();
+        cg::yobi::ClearObservationGroups_43F230(session);
     }
     return 0;
 }

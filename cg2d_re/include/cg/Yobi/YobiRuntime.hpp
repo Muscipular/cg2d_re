@@ -336,21 +336,21 @@ YobiAction*& MapYobiRegistryActionAt(session::ClientSession& session, std::int32
 void SetYobiMapOffsetX(YobiAction* action, std::int32_t value) noexcept;
 void SetYobiMapOffsetY(YobiAction* action, std::int32_t value) noexcept;
 // 原函数：0x0043F1F0。
-YobiAction* FindObservationGroupByMember_43F1F0(std::uint32_t value);
+YobiAction* FindObservationGroupByMember_43F1F0(session::ClientSession& session, std::uint32_t value);
 // 原函数：0x0043F220。
-void ResetObservationGroupList_43F220();
+void ResetObservationGroupList_43F220(session::ClientSession& session);
 // 原 43F230：标死链上 action 并清头；空链原返回寄存器无对象合同。
-void* ClearObservationGroups_43F230();
+void* ClearObservationGroups_43F230(session::ClientSession& session);
 // 原440920：只拦截动作81/82；未使用方向仍保留，返回完整0/1。
 std::int32_t HandleMapObservationActionReply_440920(
     std::int32_t objectIndex, std::int32_t x, std::int32_t y,
     std::int32_t unusedDirection, std::int32_t characterAction, const char* row);
 // 原 440F50：按玩家对象号发布五槽源表；非空返回为子指针区起点。
-void* SavePlayerObservationTravelSnapshot_440F50();
+void* SavePlayerObservationTravelSnapshot_440F50(session::ClientSession& session);
 // 440FF0 借用同一 5F9740 方向值，不复制观察状态。
-std::int32_t ReadMapObservationDirection() noexcept;
+std::int32_t ReadMapObservationDirection(session::ClientSession& session) noexcept;
 // 原 440FE0：创建地图观察节点、更新 BGM 状态并返回 0x25。
-std::int32_t BeginObservationTravelScene_440FE0();
+std::int32_t BeginObservationTravelScene_440FE0(session::ClientSession& session);
 // 原5182B0：先查询，再按低BYTE轴先取S16输出/后取当前S32偏移；完整合同沿YGOS01。
 std::int32_t GetYobiGraphicOriginOffset_5182B0(YobiAction* action, std::uint8_t axis);
 

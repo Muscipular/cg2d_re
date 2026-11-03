@@ -7,14 +7,14 @@
 namespace cg::yobi::detail {
 
 // 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
-YobiAction* NewMapCharaAction();
+YobiAction* NewMapCharaAction(session::ClientSession& session);
 // 原43F330/43FEB0：观察链两种生产者，43F520/440070绑定及正文已有，完整寿命/运行未验。
 YobiAction* CreateDepartingObservationGroup_43F330(
-    std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
+    YobiAction* source, std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
     std::int32_t direction, std::int32_t travelDuration);
 // 原函数：0x0043FEB0。
 YobiAction* CreateArrivingObservationGroup_43FEB0(
-    std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
+    YobiAction* source, std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
     std::int32_t direction);
 // 原4408C0：仅正编号写观察载荷五槽，入口无action空保护，不改子指针。
 void SetObservationGroupMembers_4408C0(
@@ -28,7 +28,7 @@ YobiAction* AppendObservationGroup_43F180(YobiAction* action);
 void* UnlinkObservationGroup_43F1B0(YobiAction* action);
 
 // 原 440B70：从 440F50 生产的五槽状态创建地图观察节点。
-YobiAction* CreateObservationTravelFromSnapshot_440B70();
+YobiAction* CreateObservationTravelFromSnapshot_440B70(session::ClientSession& session);
 // 原 43FD90：按主图号、子槽号和方向累加原表偏移，返回 y。
 std::int32_t* AddObservationMemberSlotOffset_43FD90(
     std::int32_t imageNo, std::int32_t slot, std::int32_t direction,

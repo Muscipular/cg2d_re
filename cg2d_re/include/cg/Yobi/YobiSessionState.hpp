@@ -32,6 +32,12 @@ struct YobiSessionState {
     detail::BattleAppendEffectNode* battleAppendEffects = nullptr; // 原 0x5ABA8C，清理函数释放链。
     std::array<std::uint8_t, kMapRegistryEntries> mapRegistryFlags {}; // 原 0xB65A80。
     std::array<YobiAction*, kMapRegistryEntries> mapRegistryActions {}; // 原 0xB8C864，非拥有。
+    YobiAction* mapCharaHead = nullptr; // 原 0x5F9750，独立观察组链表头，非拥有。
+    std::array<std::int32_t, 5> mapObservationValues {}; // 原 0x5F9720。
+    std::array<std::int32_t, 5> mapObservationImages {}; // 原 0x5AC4A0。
+    std::int32_t mapObservationImage = 0; // 原 0x5F9734。
+    std::int32_t mapObservationDirection = 0; // 原 0x5F9740。
+    std::int32_t mapObservationDuration = 0; // 原 0x5F9744。
 };
 
 } // namespace cg::yobi

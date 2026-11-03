@@ -133,7 +133,7 @@ void Update(session::ClientSession& session)
         cg::core::NullSub_509080();
         detail::LoadAlbumData_518780();
         ui::WindowRuntime_ProcessScene();
-        cg::yobi::ResetObservationGroupList_43F220();
+        cg::yobi::ResetObservationGroupList_43F220(session);
         session.WorldScene().observationTravelTransitionCount = 0;
         ClearMapName_9DAD30();
         SetCurrentSceneType(6);
@@ -163,7 +163,7 @@ void Update(session::ClientSession& session)
             detail::ResetWorldObjectTable_446470();
             cg::yobi::YobiClearUp_404D30(session);
             ui::WindowRuntime_ProcessScene();
-            cg::yobi::ResetObservationGroupList_43F220();
+            cg::yobi::ResetObservationGroupList_43F220(session);
             gSceneTransitionResetPending_58B6D0 = 1;
             detail::CaptureSceneAndSelectEvenVariant_51D750();
             session.WorldScene().frameBackgroundMode = 2;

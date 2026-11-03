@@ -507,7 +507,7 @@ void UpdateMapEffects_46E4A0();                          // 原 0x46E4A0；三�
 // 原函数：0x0046F1D0。
 void UpdateDirectionalMapEffects_46F1D0();                          // 原 0x46F1D0；kind 6/7/8 生成、推进、入队与回收。
 // 原函数：0x00440FF0。
-std::int32_t DrawObservationTravelBackground_440FF0();                  // 原 0x440FF0；观察效果更新后铺排 100 个背景项。
+std::int32_t DrawObservationTravelBackground_440FF0(session::ClientSession& session); // 原 0x440FF0；观察效果更新后铺排 100 个背景项。
 // 原函数：0x0046E0D0。
 void __cdecl ConfigureDirectionalMapEffects_46E0D0(std::int32_t mask, std::int32_t value); // 原 0x46E0D0；场景效果配置。
 // 原函数：0x0046F160。

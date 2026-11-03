@@ -855,6 +855,19 @@ struct PetSkillChoiceWindowRuntimeState {
     std::wstring moneyText {}; // 原0xC9A9A4。
 };
 
+// 窗口51自有正文、请求与选择，选择在背包换位时保留原单向重映射。
+struct TextListWindowRuntimeState {
+    std::vector<std::wstring> lines; // 原0xD67B70。
+    std::int32_t lineCount = 0; // 原0xD67B74。
+    std::int32_t scroll = 0; // 原0xCF46B8。
+    std::wstring title {}; // 原0xCC4118。
+    std::int32_t request = 0; // 原0xD672B0。
+    std::int32_t target = 0; // 原0xCF46AC。
+    std::int32_t closeRequest = 0; // 原0xCC4B28。
+    std::wstring modalText {}; // 原0xC8AF88。
+    std::int32_t selectedItem = -1; // 原0x57EE0C。
+};
+
 // 通用对话配置与实际借用源；图像、回复及治疗记录保留原独立清理范围。
 struct MessageDialogWindowRuntimeState {
     detail::MessageDialogRuntimeSlots message {};
@@ -1103,6 +1116,7 @@ struct NativeWindowRuntimeState {
     CrystalExchangeShopWindowRuntimeState crystalExchangeShop {};
     ShopChoiceWindowRuntimeState shopChoice {};
     PetSkillChoiceWindowRuntimeState petSkillChoice {};
+    TextListWindowRuntimeState textList {};
     std::array<detail::WindowDialogTextLine, 30> npcDialogLines {}; // 原0xCC24D4，首行标题与其余正文共用。
     MessageDialogWindowRuntimeState dialog {};
     AppearanceWindowRuntimeState appearance {};

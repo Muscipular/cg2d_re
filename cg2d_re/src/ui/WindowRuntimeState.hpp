@@ -689,7 +689,6 @@ extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠
 extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标题伴随值，非主描述值。
 extern std::int32_t gSelectedItemCB1DF4; // 原全局：0x00CB1DF4。
 extern std::int32_t gSelectedItemCB0A44; // 原全局：0x00CB0A44。
-extern std::int32_t gSelectedItem57EE0C; // 原全局：0x0057EE0C。 原装载初值-1，窗口51只做单向迁移。
 extern std::uint64_t gWindowActionTick62B5AC; // 原全局：0x0062B5AC。 跨UI动作共用，不是交易私有计时槽。
 extern std::int32_t gTooltipColorD67D30; // 原全局：0x00D67D30。 分段文本跨行共享颜色，尾串取低S8。
 extern std::int32_t gTooltipSourceD303FC; // 原全局：0x00D303FC。 原提示源分类/编号缓存，非地址。
@@ -830,7 +829,7 @@ void WindowTrade_ResetSelection(std::int32_t first, std::int32_t second); // 窗
 // 原函数：0x0047DCD0。
 void WindowCraft_ResetSelection(session::ClientSession& session, std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
 // 原函数：0x004AD060。
-void WindowTrade_RemapTextListSelection(std::int32_t first, std::int32_t second); // 窗口51仅first命中时迁移。
+void WindowTrade_RemapTextListSelection(session::ClientSession& session, std::int32_t first, std::int32_t second); // 窗口51仅first命中时迁移。
 // 原函数：0x004AD180。
 cg::yobi::YobiAction* WindowTextList_Open(
     session::ClientSession& session,

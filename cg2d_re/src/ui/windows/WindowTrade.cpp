@@ -521,10 +521,11 @@ void WindowTrade_ResetSelection(const std::int32_t first, const std::int32_t sec
 }
 
 // 原函数：0x004AD060。
-void WindowTrade_RemapTextListSelection(const std::int32_t first, const std::int32_t second)
+void WindowTrade_RemapTextListSelection(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
-    if (WindowRuntime_States()[WindowId_TextList].window != nullptr && gSelectedItem57EE0C == first) {
-        gSelectedItem57EE0C = second;
+    auto& textList = session.UiFrame().native.textList;
+    if (WindowRuntime_States(session)[WindowId_TextList].window != nullptr && textList.selectedItem == first) {
+        textList.selectedItem = second;
     }
 }
 

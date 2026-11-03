@@ -262,8 +262,6 @@ std::int32_t gSelectedItemCB0A44 = 0; // 原全局：0x00CB0A44。
 
 std::uint8_t gItemSelectionModeCC40D4 = 0; // 原全局：0x00CC40D4。
 
-std::int32_t gSelectedItem57EE0C = -1; // 原全局：0x0057EE0C。
-
 // 原全局：0x00D2EA1C。 48C130发布，回调分别采点击和绘制模式。
 static std::int32_t gPetDragModeD2EA1C = 0; // 原全局：0x00D2EA1C。
 
@@ -757,7 +755,7 @@ void WindowItemDrag_RemapHover(session::ClientSession& session, const std::int32
     }
     WindowTrade_ResetSelection(first, second);
     WindowCraft_ResetSelection(session, first, second);
-    WindowTrade_RemapTextListSelection(first, second);
+    WindowTrade_RemapTextListSelection(session, first, second);
     WindowSkill_AdjustSpecialHoverCount(session, first, second);
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const unsigned char secondValue = hover[second];

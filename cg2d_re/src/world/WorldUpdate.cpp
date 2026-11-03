@@ -58,7 +58,7 @@ void Update(session::ClientSession& session)
     case 1: {
         const ui::LegacyUiLayoutScope layout;
         session.WorldScene().frameBackgroundMode = 0;
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         const std::int32_t capability = render::gPaletteCapability;
         switch (capability) {
         case 0:
@@ -101,7 +101,7 @@ void Update(session::ClientSession& session)
     }
     case 4:
         session.WorldScene().frameBackgroundMode = 0;
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         character_select::detail::ProcessCreationScene_4626A0(session.Connection(), 1);
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
@@ -198,7 +198,7 @@ void Update(session::ClientSession& session)
         return;
     case 13:
         session.WorldScene().frameBackgroundMode = 0;
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         if (render::gPaletteCapability < 3) {
             character_select::ProcessLegacyVersionScene_45E3D0(session.Connection());
         } else {

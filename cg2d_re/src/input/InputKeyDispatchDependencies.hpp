@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::input {
 class InputContext;
 }
@@ -22,6 +24,6 @@ void DeleteCharacterBeforeInputCaret_44A990();
 // 原函数：0x0044AA90。
 InputContext* DeleteCharacterAtInputCaret_44AA90();
 // 原函数：0x0044AB60。
-void HandleInputEnterKey_44AB60();
+void HandleInputEnterKey_44AB60(session::ClientSession& session);
 
 } // namespace cg::input::detail

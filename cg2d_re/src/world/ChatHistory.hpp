@@ -1,6 +1,7 @@
 #pragma once
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 #include <cstddef>
 #include <cstdio>
@@ -55,7 +56,7 @@ extern std::uint16_t gPendingResultWindowMode_FF0C10; // 原全局：0x00FF0C10�
 void AppendChatMessage_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);
 // 原函数：0x0050C940。
 std::int32_t SendPlayerChatInput_50C940(
-    const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。 // CTS01：见聊天发送完整合同。
+    session::ClientSession& session, const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。 // CTS01：见聊天发送完整合同。
 // 原函数：0x0050C7A0。
 std::uint32_t HandlePlayerTimerReply_50C7A0(cg::network::CgConnection& networkConnection, std::int32_t seconds, std::int32_t mode); // PTP01：原首缩放/mode/剩余缩放/单 tick 序，返完整 gate/tick。
 // 原函数：0x0050CE10。

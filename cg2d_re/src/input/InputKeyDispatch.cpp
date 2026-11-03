@@ -10,7 +10,7 @@
 namespace cg::input {
 
 // 原 sub_4596D0，主块 [0x4596D0,0x45975F)，尾块 [0x401920,0x401953)。
-void ProcessKeyInput_4596D0()
+void ProcessKeyInput_4596D0(session::ClientSession& session)
 {
     try {
         if ((platform::gKeyStates[17] & 0x02u) == 0
@@ -39,7 +39,7 @@ void ProcessKeyInput_4596D0()
             cg::core::NullSub_509080();
         }
         if ((platform::gKeyStates[13] & 0x10u) != 0) {
-            detail::HandleInputEnterKey_44AB60();
+            detail::HandleInputEnterKey_44AB60(session);
         }
 
     } catch (const cg::text::GbkStorageError&) {

@@ -1,4 +1,5 @@
 #include "cg/core/LegacyNoOp.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/ChatHistory.hpp"
 #include "../ui/WindowRuntimeState.hpp"
 #include "cg/input/Input.hpp"
@@ -1019,7 +1020,7 @@ void BrowseChatHistory_44A1B0()
 namespace detail {
 
 // 原函数：0x0044AB60。
-void HandleInputEnterKey_44AB60()
+void HandleInputEnterKey_44AB60(session::ClientSession& session)
 {
     if (platform::gImeComposition[0] != '\0') {
         return;
@@ -1063,7 +1064,7 @@ void HandleInputEnterKey_44AB60()
         }
         const std::int32_t color = cg::ui::detail::gInputContext626AA0.color;
         world::detail::gCursor62683C = -1;
-        static_cast<void>(world::SendPlayerChatInput_50C940(context, color));
+        static_cast<void>(world::SendPlayerChatInput_50C940(session, context, color));
         gCurrentInputData->totalByteLength = 0;
         gCurrentInputData->caretByteOffset = 0;
         gCurrentInputData->clearText();

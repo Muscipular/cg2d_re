@@ -2291,7 +2291,7 @@ void LuaProcessWinMgrWindowClose(int winId) {
     }
 }
 
-int LuaProcessWinMgrChatMessage(std::wstring_view message) {
+int LuaProcessWinMgrChatMessage(session::ClientSession& session, std::wstring_view message) {
     auto& options = WinMgrEventOptions(WinMgrEventType::ChatMessage);
     if (options.empty()) {
         return 0;
@@ -2300,7 +2300,8 @@ int LuaProcessWinMgrChatMessage(std::wstring_view message) {
     size_t count = options.size();
     for (size_t i = 0; i < count; ++i) {
         auto event = options[i];
-        if (!event || !event->active || event->callbackRef == LUA_REF_NONE) {
+        if (!event || !event->active || event->callbackRef == LUA_REF_NONE
+            || &GetLuaConnection(event->owner).Owner() != &session) {
             continue;
         }
 

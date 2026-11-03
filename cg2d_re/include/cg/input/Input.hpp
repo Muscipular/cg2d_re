@@ -6,6 +6,8 @@
 #include <string_view>
 #include <string>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::input {
 
 // 输入数值字段；保留原成员身份，文字位置／长度统一使用UTF-16码元。
@@ -194,7 +196,7 @@ std::int32_t ExtractLegacyLine_503AB0(
 char RemoveLegacyBytes_52D570(std::wstring& text, std::wstring_view excluded);
 
 // 原 sub_4596D0：按唯一旧键状态表分派输入编辑及尾部音频动作。
-void ProcessKeyInput_4596D0();
+void ProcessKeyInput_4596D0(session::ClientSession& session);
 
 // 原44A410：输入光标及IME光标绘制。
 void DrawAndAdvanceInputCaret_44A410();

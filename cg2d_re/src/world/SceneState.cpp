@@ -385,10 +385,6 @@ struct SkillRuntimeSlots {
 // 内部文本对象采用正常赋值，旧清零块的二进制偏移不再约束此类型。
 static SkillRuntimeSlots gSkillRuntimeSlots {};
 
-static std::uint64_t gChatPreviousTickDA3B3C = 0; // 原全局：0x00DA3B3C。
-static std::uint64_t gChatCurrentTickDA3B40 = 0; // 原全局：0x00DA3B40。
-static std::uint8_t gChatDisabledDA3B4C = 0; // 原全局：0x00DA3B4C。
-static std::int32_t gChatGateDA3B54 = 0; // 原全局：0x00DA3B54。 50CAE0写入，50C940读取同一接收门禁。
 // 原 [FF02E0,FF03D0) 的五槽表；与玩家首块分属不同清零区。
 struct PetMapCharaSlot {
     std::uint16_t flags;
@@ -3622,7 +3618,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         audio::ResetBgmPlayback_52B940();
         DrawMapSceneWithMarkers_469020();
         static_cast<void>(ui::WindowRuntime_Render(session));
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0();
         RenderInput_4590E0();
         render::SortTextures_520790();
@@ -3717,7 +3713,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         gMapCharaSceneSlots.valueC8A75C = 0;
         gMapCharaSceneSlots.valueC8A758 = 0;
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0();
         render::SortTextures_520790();
         static_cast<void>(render::ClearSurface_4512C0());
@@ -3799,7 +3795,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
         cg::core::NullSub_509080();
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
@@ -3906,7 +3902,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             }
             gMapCharaSceneSlots.valueC8A75C = 0;
             gMapCharaSceneSlots.valueC8A758 = 0;
-            input::ProcessKeyInput_4596D0();
+            input::ProcessKeyInput_4596D0(session);
             input::BrowseChatHistory_44A1B0();
             RenderInput_4590E0();
             render::SortTextures_520790();
@@ -3938,7 +3934,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             worldScene.normalSceneInitialized = 1;
             gCurrentSceneState = state + 1;
         }
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -3953,7 +3949,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             gMapTransitionReplyPending_C82210 = 0;
             gLogoutToTownPending_D67E78 = 0;
         }
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -3981,7 +3977,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         UpdateMapEffects_46E4A0();
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
@@ -4041,7 +4037,7 @@ waitFrame:
 
 // 原函数：0x004596D0。
 inputTail:
-    input::ProcessKeyInput_4596D0();
+    input::ProcessKeyInput_4596D0(session);
     render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
     RenderInput_4590E0();
     cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -4235,7 +4231,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             const std::uint64_t tick = platform::ReadTickCount64();
             session.WorldScene().frameBackgroundMode = 3;
             platform::gLastRenderDt = static_cast<double>(tick);
-            input::ProcessKeyInput_4596D0();
+            input::ProcessKeyInput_4596D0(session);
             input::BrowseChatHistory_44A1B0();
             static_cast<void>(ui::WindowRuntime_Render(session));
             RenderInput_4590E0();
@@ -4248,13 +4244,13 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             RenderInput_4590E0();
             cg::core::NullSub_509080();
         }
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         break;
     case 2: {
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
@@ -4314,7 +4310,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     }
     case 3:
         ui::detail::WindowBattleStateNotice_Open();
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
@@ -4336,7 +4332,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         }
         break;
     case 4:
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         cg::yobi::DrawBattleActorNames_43CA80();
@@ -4350,7 +4346,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         UpdatePlayerCountdown_458F40();
         break;
     case 5: {
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
@@ -4382,7 +4378,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         break;
     }
     case 6:
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::SortBattleActions_405C30());
         RenderChara_521F20();
@@ -4421,7 +4417,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         [[fallthrough]];
     }
     case 8: {
-        input::ProcessKeyInput_4596D0();
+        input::ProcessKeyInput_4596D0(session);
         render::DrawInputText_4568A0(&cg::ui::detail::gInputContext626AA0);
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -8891,22 +8887,23 @@ std::int32_t HandleNotificationSoundReply_50E210(cg::network::CgConnection&, con
 // CTS01：原两点选项低BYTE现场读取，计时/转义/六字段发送与原返回序保持。
 // 原函数：0x0050C940。
 std::int32_t SendPlayerChatInput_50C940(
-    const input::InputContext* const context, const std::int32_t color)
+    session::ClientSession& session, const input::InputContext* const context, const std::int32_t color)
 {
-    if (script::LuaProcessWinMgrChatMessage(input::ContextText(*context)) == 1) {
+    if (script::LuaProcessWinMgrChatMessage(session, input::ContextText(*context)) == 1) {
         return 0;
     }
+    auto& chat = session.WorldScene().chat;
     const std::int32_t sendColor = color == 4 ? 5 : color;
-    const std::int32_t gate = gChatGateDA3B54;
-    const std::uint8_t disabled = gChatDisabledDA3B4C;
+    const std::int32_t gate = chat.replyGate;
+    const std::uint8_t disabled = chat.disabled;
     const bool restricted = disabled != 0
         || (gate == 0 && detail::gPartyActive_FF0D36 != 0
             && (ReadPlayerOptions194LowByte() & 8u) != 0);
     if (restricted) {
         const std::uint64_t tick = platform::ReadTickCount64();
-        if (tick - gChatCurrentTickDA3B40 > 180000u) {
-            gChatDisabledDA3B4C = 0;
-        } else if (gChatGateDA3B54 != 0 || detail::gPartyActive_FF0D36 == 0
+        if (tick - chat.currentTick > 180000u) {
+            chat.disabled = 0;
+        } else if (chat.replyGate != 0 || detail::gPartyActive_FF0D36 == 0
                    || (ReadPlayerOptions194LowByte() & 8u) == 0) {
             AppendChatMessage_44B050(L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
             const std::int32_t sound = platform::gChatNotificationSoundEnabled_554644;
@@ -8916,17 +8913,17 @@ std::int32_t SendPlayerChatInput_50C940(
             return sound;
         }
     } else {
-        gChatPreviousTickDA3B3C = gChatCurrentTickDA3B40;
+        chat.previousTick = chat.currentTick;
         const std::uint64_t tick = platform::ReadTickCount64();
-        const std::uint64_t previous = gChatPreviousTickDA3B3C;
-        gChatCurrentTickDA3B40 = tick;
-        if (tick - previous < cg::network::GetGameConnection().GameplaySettings().chatMinimumIntervalMs) {
+        const std::uint64_t previous = chat.previousTick;
+        chat.currentTick = tick;
+        if (tick - previous < session.Connection().GameplaySettings().chatMinimumIntervalMs) {
             AppendChatMessage_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
             std::int32_t result = platform::gChatNotificationSoundEnabled_554644;
             if (result != 0) {
                 result = audio::PlaySe_52C450(74, 320);
             }
-            gChatDisabledDA3B4C = 1;
+            chat.disabled = 1;
             return result;
         }
     }
@@ -8936,13 +8933,13 @@ std::int32_t SendPlayerChatInput_50C940(
     const std::int32_t range = platform::gChatRange_554640;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    return static_cast<std::int32_t>(cg::network::GetGameConnection().SendChatMessage(
+    const auto networkSession = session.Connection().CaptureSession();
+    return static_cast<std::int32_t>(session.Connection().SendChatMessage(
         x, y, packet, sendColor, range, mode));
 }
 
 // 原函数：0x0050CAE0。
-void HandlePlayerChatReply_50CAE0(cg::network::CgConnection&, const std::int32_t objectIndex,
+void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, const std::int32_t objectIndex,
     const char* const payload, const std::int32_t color, const std::int32_t font)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
@@ -8961,13 +8958,14 @@ void HandlePlayerChatReply_50CAE0(cg::network::CgConnection&, const std::int32_t
     std::int32_t drawFont = font;
     if (input::gChatLogSuppressed_626C14 == 0) {
         std::wstring name;
-        gChatGateDA3B54 = 0;
+        auto& chat = networkConnection.Owner().WorldScene().chat;
+        chat.replyGate = 0;
         const std::size_t separator = snapshot.find(L": ");
         if (separator != std::wstring::npos) {
             name = snapshot.substr(0, separator);
         }
         if (name.starts_with(L"[MIC]")) {
-            gChatGateDA3B54 = 1;
+            chat.replyGate = 1;
             name.erase(0, 5);
         } else if (name.starts_with(L"[GP]")) {
             name.erase(0, 4);

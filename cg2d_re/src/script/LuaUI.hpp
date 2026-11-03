@@ -63,7 +63,7 @@ void ShutdownLuaUI(session::ClientSession& session);
 void LuaBridgeSetAutoBattleState(lua_State* L);
 void LuaProcessWinMgrKeyPress(session::ClientSession& session);
 void LuaProcessWinMgrSceneStateChanged(session::ClientSession& session, int type, int state);
-int LuaProcessWinMgrChatMessage(std::wstring_view text);
+int LuaProcessWinMgrChatMessage(session::ClientSession& session, std::wstring_view text);
 void LuaProcessWinMgrWindowFocusChanged(int focus, int blur);
 void LuaProcessWinMgrWindowOpen(int winId);
 void LuaProcessWinMgrWindowClose(int winId);

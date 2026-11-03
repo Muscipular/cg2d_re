@@ -77,8 +77,8 @@ void Update(session::ClientSession& session)
         default:
             break;
         }
-        cg::yobi::YobiUpdateAll_404C50();
-        detail::RenderChara_521F20();
+        cg::yobi::YobiUpdateAll_404C50(session);
+        detail::RenderChara_521F20(session);
         detail::RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         return;
@@ -87,24 +87,24 @@ void Update(session::ClientSession& session)
         const ui::LegacyUiLayoutScope layout;
         session.WorldScene().frameBackgroundMode = 0;
         login::ProcessScene_45FEA0(session);
-        cg::yobi::YobiUpdateAll_404C50();
-        detail::RenderChara_521F20();
+        cg::yobi::YobiUpdateAll_404C50(session);
+        detail::RenderChara_521F20(session);
         return;
     }
     case 3: {
         const ui::LegacyUiLayoutScope layout;
         session.WorldScene().frameBackgroundMode = 0;
         character_select::ProcessScene_460FF0(session.Connection());
-        cg::yobi::YobiUpdateAll_404C50();
-        detail::RenderChara_521F20();
+        cg::yobi::YobiUpdateAll_404C50(session);
+        detail::RenderChara_521F20(session);
         return;
     }
     case 4:
         session.WorldScene().frameBackgroundMode = 0;
         input::ProcessKeyInput_4596D0(session);
         character_select::detail::ProcessCreationScene_4626A0(session.Connection(), 1);
-        cg::yobi::YobiUpdateAll_404C50();
-        detail::RenderChara_521F20();
+        cg::yobi::YobiUpdateAll_404C50(session);
+        detail::RenderChara_521F20(session);
         detail::RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         return;
@@ -146,7 +146,7 @@ void Update(session::ClientSession& session)
         goto sceneSixTail;
     case 7:
         detail::ProcessLogoutScene_45EBB0(session);
-        cg::yobi::YobiUpdateAll_404C50();
+        cg::yobi::YobiUpdateAll_404C50(session);
         return;
     case 8:
         return;
@@ -161,7 +161,7 @@ void Update(session::ClientSession& session)
         if (sceneState == 0) {
             detail::DestroyPlayerMapPresence_519D50();
             detail::ResetWorldObjectTable_446470();
-            cg::yobi::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30(session);
             ui::WindowRuntime_ProcessScene();
             cg::yobi::ResetObservationGroupList_43F220();
             gSceneTransitionResetPending_58B6D0 = 1;
@@ -190,7 +190,7 @@ void Update(session::ClientSession& session)
         render::gPaletteCapability = capability;
         render::SelectPalette(paletteIndex, 0);
         SetCurrentSceneType(2);
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(session);
         session.Connection().DisconnectState() = 0;
         return;
     }
@@ -204,8 +204,8 @@ void Update(session::ClientSession& session)
         } else {
             character_select::ProcessScene_462330(session.Connection());
         }
-        cg::yobi::YobiUpdateAll_404C50();
-        detail::RenderChara_521F20();
+        cg::yobi::YobiUpdateAll_404C50(session);
+        detail::RenderChara_521F20(session);
         detail::RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         return;
@@ -215,8 +215,8 @@ void Update(session::ClientSession& session)
 
 // 原函数：0x00404C50。
 sceneSixTail:
-    cg::yobi::YobiUpdateAll_404C50();
-    detail::RenderChara_521F20();
+    cg::yobi::YobiUpdateAll_404C50(session);
+    detail::RenderChara_521F20(session);
 }
 
 namespace detail {

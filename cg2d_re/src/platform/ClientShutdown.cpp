@@ -54,7 +54,7 @@ int ShutdownClient_457A40(session::ClientSession& session)
     cg::resource::FreePrimaryGraphicResourceTables_457670();
     static_cast<void>(render::ReleaseFont_456530());
     ShutdownIme_459040();
-    cg::yobi::ShutdownYobiActionList_404D60();
+    cg::yobi::ShutdownYobiActionList_404D60(session);
     session.Connection().Shutdown();
     session.Connection().DisconnectState() = 0;
 

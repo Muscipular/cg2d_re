@@ -6,6 +6,7 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "../world/PlayerState.hpp"
 #include "../world/WorldMapState.hpp"
 
@@ -145,8 +146,8 @@ static void RetainDirectFrameGraphics()
 static YobiAction* FindLiveActionByCallback(void (*callback)(YobiAction*))
 {
     // 原 0x448370/0x448379/0x448380：先读首槽、缓存尾槽，再读 start->next。
-    YobiAction* const start = gYobiActionStart;
-    YobiAction* const end = gYobiActionEnd;
+    YobiAction* const start = session::GetClientHost().FirstSession().Yobi().start;
+    YobiAction* const end = session::GetClientHost().FirstSession().Yobi().end;
     YobiAction* current = start->next;
     while (current != end) {
         if (current->callback == callback && current->deathFlag == 0) {

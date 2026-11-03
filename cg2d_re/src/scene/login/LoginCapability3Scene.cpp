@@ -180,7 +180,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
 
     switch (state) {
     case 0:
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(connection.Owner());
         intro.phase9A5550 = 0;
         intro.alpha9A4D08 = 0;
         intro.alpha9A4CA0 = 0;
@@ -224,7 +224,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
         intro.phase9A5550 = 0;
         intro.alpha9A4D08 = 255;
 
-        intro.leftAction9A50C0 = cg::yobi::NewYobiAction_404AE0(2, 0);
+        intro.leftAction9A50C0 = cg::yobi::NewYobiAction_404AE0(connection.Owner(), 2, 0);
         if (intro.leftAction9A50C0 != nullptr) {
             cg::yobi::SetYobiActionField2A8(
                 intro.leftAction9A50C0,
@@ -245,7 +245,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
                 0));
         }
 
-        intro.rightAction9A50C4 = cg::yobi::NewYobiAction_404AE0(2, 0);
+        intro.rightAction9A50C4 = cg::yobi::NewYobiAction_404AE0(connection.Owner(), 2, 0);
         if (intro.rightAction9A50C4 == nullptr) {
             world::gCurrentSceneState = 6;
             return ProcessCapability3InputAndDraw(connection);
@@ -412,7 +412,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
 
     case 10:
         static_cast<void>(world::SetCurrentSceneType(2));
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(connection.Owner());
         render::gBackgroundColor = 0;
         return DispatchCapability3FromCurrentState(connection);
     }

@@ -106,7 +106,7 @@ static std::int32_t gBattleTiledEffectReverse59F9F0 = 0; // 原全局：0x0059F9
 YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
 {
     const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload.battleActor);
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
     }

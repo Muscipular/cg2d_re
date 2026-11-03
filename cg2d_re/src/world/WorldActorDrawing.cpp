@@ -21,6 +21,7 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "ChatHistory.hpp"
 #include "PlayerState.hpp"
@@ -482,21 +483,18 @@ void UpsertGroundGoldObject_445F40(
 }
 
 // 原函数：0x00521F20。
-void RenderChara_521F20()
+void RenderChara_521F20(session::ClientSession& session)
 {
-    using cg::yobi::detail::gYobiActionStart;
-    using cg::yobi::detail::gYobiActionEnd;
-
     const std::int16_t initialCount =
         std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-    cg::yobi::YobiAction* const start = cg::yobi::detail::gYobiActionStart;
+    cg::yobi::YobiAction* const start = session.Yobi().start;
     render::GraphicCache3* order =
         render::gLegacyPendingStorage.cache3.data() + initialCount;
     cg::yobi::YobiAction* action = start->next;
     render::GraphicCacheItem32* record =
         render::gLegacyPendingStorage.records.data() + initialCount;
-    cg::yobi::YobiAction* end = cg::yobi::detail::gYobiActionEnd;
-    for (; action != end; action = action->next, end = cg::yobi::detail::gYobiActionEnd) {
+    cg::yobi::YobiAction* end = session.Yobi().end;
+    for (; action != end; action = action->next, end = session.Yobi().end) {
         const std::uint32_t flags = action->flags;
         if (((flags & cg::yobi::YobiActionFlag_SkipDrawWhenParityZero) != 0 && render::gFrameParity628FC8 == 0)
             || ((flags & cg::yobi::YobiActionFlag_SkipDrawWhenParityOne) != 0 && render::gFrameParity628FC8 == 1)) {

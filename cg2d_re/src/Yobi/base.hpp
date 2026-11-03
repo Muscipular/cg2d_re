@@ -212,12 +212,6 @@ namespace detail {
 
 inline constexpr std::uint8_t kSpriteBatch = 0;
 
-// 共享原状态，只在本组实现中定义；原全局：0x0059E56C。
-extern YobiAction* gYobiActionStart;
-
-// 共享原状态，只在本组实现中定义；原全局：0x0059E568。
-extern YobiAction* gYobiActionEnd;
-
 } // namespace detail
 
 } // namespace cg::yobi

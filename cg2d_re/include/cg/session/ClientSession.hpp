@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cg/Yobi/YobiSessionState.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/script/LuaSessionState.hpp"
 #include "cg/ui/UiFrameRuntimeState.hpp"
@@ -25,6 +26,7 @@ public:
 
     [[nodiscard]] network::CgConnection& Connection() noexcept { return connection_; }
     [[nodiscard]] world::WorldSceneRuntimeState& WorldScene() noexcept { return worldScene_; }
+    [[nodiscard]] yobi::YobiSessionState& Yobi() noexcept { return yobi_; }
     [[nodiscard]] LegacyRandomEngine& RandomEngine() noexcept { return randomEngine_; }
     [[nodiscard]] script::LuaSessionState& Lua() noexcept { return lua_; }
     [[nodiscard]] ui::UiFrameRuntimeState& UiFrame() noexcept { return uiFrame_; }
@@ -35,6 +37,7 @@ public:
 private:
     network::CgConnection connection_;
     world::WorldSceneRuntimeState worldScene_;
+    yobi::YobiSessionState yobi_;
     LegacyRandomEngine randomEngine_ {1}; // 原 0x58F870，初始种子 1。
     script::LuaSessionState lua_;
     ui::UiFrameRuntimeState uiFrame_;

@@ -8,6 +8,7 @@
 #include "battle_attachment.hpp"
 #include "battle_display.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "../world/BattleState.hpp"
 #include "../world/WorldMapState.hpp"
 
@@ -819,10 +820,10 @@ void ClearBattleAppendEffects_43BED0()
 }
 
 // 原函数：0x00405C30。
-std::int32_t SortBattleActions_405C30()
+std::int32_t SortBattleActions_405C30(session::ClientSession& session)
 {
-    YobiAction* const start = detail::gYobiActionStart;
-    YobiAction* const end = detail::gYobiActionEnd;
+    YobiAction* const start = session.Yobi().start;
+    YobiAction* const end = session.Yobi().end;
     std::uint32_t count = 0;
     YobiAction* current = start->next;
     detail::gDrawYobiCount59E578 = 0;
@@ -874,6 +875,11 @@ std::int32_t SortBattleActions_405C30()
         }
     }
     return index;
+}
+
+std::int32_t SortBattleActions_405C30()
+{
+    return SortBattleActions_405C30(session::GetClientHost().FirstSession());
 }
 
 YobiAction* const* FindBattleRebirthSlot(const YobiAction* const action) noexcept

@@ -68,7 +68,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, std::int32_t
 std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBounds* rectangle);
 
 // 原 [0x462870,0x46287C)：清理 Yobi 后递增共享场景状态。
-void AdvanceCharacterCreationScene_462870();
+void AdvanceCharacterCreationScene_462870(network::CgConnection& connection);
 
 // 原 [0x462880,0x462926)：创建两枚角色创建界面 action，写共享五槽并清输入上下文。
 void InitializeCharacterAppearanceSelection_462880(network::CgConnection& connection, std::uint8_t resetSelection);

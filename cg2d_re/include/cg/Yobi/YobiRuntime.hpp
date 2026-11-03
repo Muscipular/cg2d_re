@@ -9,6 +9,10 @@ namespace cg::platform {
 class LegacyCryptInt;
 }
 
+namespace cg::session {
+class ClientSession;
+}
+
 namespace cg::render {
 struct GraphicDescriptor16;
 struct GraphicCacheItem32;
@@ -201,10 +205,16 @@ extern volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude; // 原全局：
 // 原 sub_404A40@[0x404A40,0x404AD1)；初始化首尾哨兵并返回尾哨兵。
 // 与原端相同，调用前提是尚未初始化，且不注册进程退出析构。
 YobiAction* InitializeYobiActionList_404A40();
+YobiAction* InitializeYobiActionList_404A40(session::ClientSession& session);
 
 // 原 YobiAction::new@[0x404AE0,0x404C42)。priority 的有效范围为 [0, 0xFE]。
 // payloadKind只标记本机指针类型；默认Raw保留原按字节分配的调用形式。
 YobiAction* NewYobiAction_404AE0(
+    std::uint8_t priority,
+    std::uint32_t payloadSize,
+    YobiPayloadKind payloadKind = YobiPayloadKind::Raw);
+YobiAction* NewYobiAction_404AE0(
+    session::ClientSession& session,
     std::uint8_t priority,
     std::uint32_t payloadSize,
     YobiPayloadKind payloadKind = YobiPayloadKind::Raw);
@@ -364,8 +374,10 @@ YobiAction* NewYobiGearPet_441130(
 
 // 原 Yobi::UpdateAll@[0x404C50,0x404CF7)。
 std::int32_t YobiUpdateAll_404C50();
+std::int32_t YobiUpdateAll_404C50(session::ClientSession& session);
 // 原函数：0x00405C30。
 std::int32_t SortBattleActions_405C30(); // flags筛选、原次序排序及低W8绘制层级发布。
+std::int32_t SortBattleActions_405C30(session::ClientSession& session);
 
 // 原 Yobi::MarkDeath@[0x404D00,0x404D10)，只置死亡标志并返回原指针。
 YobiAction* MarkDeath(YobiAction* action);
@@ -410,8 +422,10 @@ YobiAction* const* FindBattleRiderSlot(const YobiAction* action) noexcept;
 
 // 原 YobiClearUp@[0x404D30,0x404D5B) 与 sub_404D60@[0x404D60,0x404D85)。
 void YobiClearUp_404D30();
+void YobiClearUp_404D30(session::ClientSession& session);
 // 原函数：0x00404D60。
 void ShutdownYobiActionList_404D60();
+void ShutdownYobiActionList_404D60(session::ClientSession& session);
 
 // 原449700：PVfz五参数的三路对象生产，复用唯一Yobi链及回调。
 // mode>=100且余数0时，floor实参改作已过秒数，duration写总时长槽。

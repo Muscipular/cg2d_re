@@ -2,7 +2,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
-#include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientHost.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -142,10 +142,6 @@ namespace detail {
 
 static constexpr std::uint32_t kFourPhaseFlag = YobiActionFlag_FourPhaseUpdateGate;
 
-YobiAction* gYobiActionStart = nullptr; // 原全局：0x0059E56C。
-
-YobiAction* gYobiActionEnd = nullptr; // 原全局：0x0059E568。
-
 // 原函数：0x00404D10。
 static void DeleteYobiAction_404D10(YobiAction* const action)
 {
@@ -184,38 +180,45 @@ static bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 } // namespace detail
 
 // 原函数：0x00404A40。
-YobiAction* InitializeYobiActionList_404A40()
+YobiAction* InitializeYobiActionList_404A40(session::ClientSession& session)
 {
-    detail::gYobiActionStart = static_cast<YobiAction*>(
+    auto& list = session.Yobi();
+    list.start = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
     YobiAction* const allocatedEnd = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
-    YobiAction* const initialStart = detail::gYobiActionStart;
-    detail::gYobiActionEnd = allocatedEnd;
+    YobiAction* const initialStart = list.start;
+    list.end = allocatedEnd;
     std::construct_at(initialStart, YobiAction::RawFields{});
     std::construct_at(allocatedEnd, YobiAction::RawFields{});
 
     initialStart->prev = nullptr;
-    YobiAction* const forwardStart = detail::gYobiActionStart;
-    YobiAction* const forwardEnd = detail::gYobiActionEnd;
+    YobiAction* const forwardStart = list.start;
+    YobiAction* const forwardEnd = list.end;
     forwardStart->next = forwardEnd;
-    detail::gYobiActionStart->callback = nullptr;
-    detail::gYobiActionStart->priority = 0;
-    detail::gYobiActionStart->graphicIndex = -1;
+    list.start->callback = nullptr;
+    list.start->priority = 0;
+    list.start->graphicIndex = -1;
 
-    YobiAction* const backwardEnd = detail::gYobiActionEnd;
-    YobiAction* const backwardStart = detail::gYobiActionStart;
+    YobiAction* const backwardEnd = list.end;
+    YobiAction* const backwardStart = list.start;
     backwardEnd->prev = backwardStart;
-    detail::gYobiActionEnd->next = nullptr;
-    detail::gYobiActionEnd->callback = nullptr;
-    YobiAction* const result = detail::gYobiActionEnd;
+    list.end->next = nullptr;
+    list.end->callback = nullptr;
+    YobiAction* const result = list.end;
     result->priority = 0xFF;
-    detail::gYobiActionEnd->graphicIndex = -1;
+    list.end->graphicIndex = -1;
     return result;
+}
+
+YobiAction* InitializeYobiActionList_404A40()
+{
+    return InitializeYobiActionList_404A40(session::GetClientHost().FirstSession());
 }
 
 // 原函数：0x00404AE0。
 YobiAction* NewYobiAction_404AE0(
+    session::ClientSession& session,
     const std::uint8_t priority,
     const std::uint32_t payloadSize,
     const YobiPayloadKind payloadKind)
@@ -229,7 +232,7 @@ YobiAction* NewYobiAction_404AE0(
     }
 
     std::construct_at(action, YobiAction::RawFields{});
-    action->ownerSession = &network::GetGameConnection().Owner(); // 旧无参创建仅属首会话。
+    action->ownerSession = &session;
     if (payloadSize != 0) {
         void* const payload = std::calloc(std::size_t{1}, payloadSize);
         const bool missingPayload = payload == nullptr;
@@ -276,8 +279,8 @@ YobiAction* NewYobiAction_404AE0(
     action->mixFlagsOverrideValue = render::GraphicMixFlag_None;
     action->walkSpeed = 100;
 
-    YobiAction* const start = detail::gYobiActionStart;
-    YobiAction* const end = detail::gYobiActionEnd;
+    YobiAction* const start = session.Yobi().start;
+    YobiAction* const end = session.Yobi().end;
     YobiAction* insertionPoint = start->next;
     YobiAction* const stop = end->next;
     if (insertionPoint != stop) {
@@ -298,11 +301,19 @@ YobiAction* NewYobiAction_404AE0(
     return action;
 }
 
-// 原函数：0x00404C50。
-std::int32_t YobiUpdateAll_404C50()
+YobiAction* NewYobiAction_404AE0(
+    const std::uint8_t priority,
+    const std::uint32_t payloadSize,
+    const YobiPayloadKind payloadKind)
 {
-    YobiAction* current = detail::gYobiActionStart->next;
-    while (current != detail::gYobiActionEnd) {
+    return NewYobiAction_404AE0(session::GetClientHost().FirstSession(), priority, payloadSize, payloadKind);
+}
+
+// 原函数：0x00404C50。
+std::int32_t YobiUpdateAll_404C50(session::ClientSession& session)
+{
+    YobiAction* current = session.Yobi().start->next;
+    while (current != session.Yobi().end) {
         if (current->deathFlag != 0) {
             if (detail::ShouldDeferForFourPhaseGate(current)) {
                 current = current->next;
@@ -337,6 +348,11 @@ std::int32_t YobiUpdateAll_404C50()
     return result;
 }
 
+std::int32_t YobiUpdateAll_404C50()
+{
+    return YobiUpdateAll_404C50(session::GetClientHost().FirstSession());
+}
+
 // 原函数：0x00404D00。
 YobiAction* MarkDeath(YobiAction* const action)
 {
@@ -352,25 +368,37 @@ YobiAction* MarkDeath(YobiAction* const action)
 // }
 
 // 原函数：0x00404D30。
-void YobiClearUp_404D30()
+void YobiClearUp_404D30(session::ClientSession& session)
 {
-    YobiAction* current = detail::gYobiActionStart->next;
+    YobiAction* current = session.Yobi().start->next;
     ClearRegisteredMapActions_46DD40();
-    while (current != detail::gYobiActionEnd) {
+    while (current != session.Yobi().end) {
         current->deathFlag = 1;
         current = current->next;
     }
 }
 
+void YobiClearUp_404D30()
+{
+    YobiClearUp_404D30(session::GetClientHost().FirstSession());
+}
+
 // 原函数：0x00404D60。
+void ShutdownYobiActionList_404D60(session::ClientSession& session)
+{
+    YobiClearUp_404D30(session);
+    YobiUpdateAll_404C50(session);
+    std::destroy_at(session.Yobi().start);
+    std::free(session.Yobi().start);
+    std::destroy_at(session.Yobi().end);
+    std::free(session.Yobi().end);
+    session.Yobi().start = nullptr;
+    session.Yobi().end = nullptr;
+}
+
 void ShutdownYobiActionList_404D60()
 {
-    YobiClearUp_404D30();
-    YobiUpdateAll_404C50();
-    std::destroy_at(detail::gYobiActionStart);
-    std::free(detail::gYobiActionStart);
-    std::destroy_at(detail::gYobiActionEnd);
-    std::free(detail::gYobiActionEnd);
+    ShutdownYobiActionList_404D60(session::GetClientHost().FirstSession());
 }
 
 bool IsYobiActionReady(

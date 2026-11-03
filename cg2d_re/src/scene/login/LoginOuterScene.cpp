@@ -36,7 +36,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
     if (initialState <= 10u) {
         switch (initialState) {
         case 0:
-            cg::yobi::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30(connection.Owner());
             world::gCurrentSceneState = 1;
             static_cast<void>(render::SelectPalette(30, 0));
             static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
@@ -81,7 +81,7 @@ void ProcessOuterScene_45C2D0(network::CgConnection& connection)
                 320, 240, 3, 22311, 0, nullptr)));
             if (render::gPaletteChanging == 0) {
                 static_cast<void>(world::SetCurrentSceneType(2));
-                cg::yobi::YobiClearUp_404D30();
+                cg::yobi::YobiClearUp_404D30(connection.Owner());
                 return;
             }
             break;

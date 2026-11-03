@@ -247,7 +247,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
     auto& sceneUi = connection.CharacterSelectUi();
     std::int32_t sceneState = world::gCurrentSceneState;
     if (sceneState == 0) {
-        AdvanceCharacterCreationScene_462870();
+        AdvanceCharacterCreationScene_462870(connection);
         sceneState = world::gCurrentSceneState;
     }
     std::int32_t gate = entryGate;
@@ -363,9 +363,9 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
 }
 
 // 原函数：0x00462870。
-void AdvanceCharacterCreationScene_462870()
+void AdvanceCharacterCreationScene_462870(network::CgConnection& connection)
 {
-    cg::yobi::YobiClearUp_404D30();
+    cg::yobi::YobiClearUp_404D30(connection.Owner());
     ++world::gCurrentSceneState;
 }
 
@@ -384,7 +384,7 @@ void InitializeCharacterAppearanceSelection_462880(network::CgConnection& connec
     }
 
     cg::yobi::YobiAction* const firstAction =
-        cg::yobi::NewYobiAction_404AE0(2, 0);
+        cg::yobi::NewYobiAction_404AE0(connection.Owner(), 2, 0);
     draft.createActions[0] = firstAction;
     if (firstAction != nullptr) {
         cg::yobi::SetYobiActionField30(firstAction, 517);
@@ -393,7 +393,7 @@ void InitializeCharacterAppearanceSelection_462880(network::CgConnection& connec
     }
 
     cg::yobi::YobiAction* const secondAction =
-        cg::yobi::NewYobiAction_404AE0(2, 0);
+        cg::yobi::NewYobiAction_404AE0(connection.Owner(), 2, 0);
     draft.createActions[1] = secondAction;
     if (secondAction != nullptr) {
         cg::yobi::SetYobiActionField30(secondAction, 517);
@@ -1240,7 +1240,7 @@ static void EnterSelectedCharacter(network::CgConnection& connection)
     login::detail::PlaySe(59, 320, 240);
     connection.CharacterSelectUi().characterEntryState = 0;
     cg::audio::BeginBgmFadeOut_52B990();
-    cg::yobi::YobiClearUp_404D30();
+    cg::yobi::YobiClearUp_404D30(connection.Owner());
     ClearPreviewActions(connection);
 }
 
@@ -1615,7 +1615,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 cg::world::detail::SaveGuildMailFile_519550();
                 world::SetCurrentSceneType(4);
                 login::detail::PlaySe(53, 320, 240);
-                cg::yobi::YobiClearUp_404D30();
+                cg::yobi::YobiClearUp_404D30(connection.Owner());
                 ClearPreviewActions(connection);
             } else if (actionIndex == 1u) {
                 connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
@@ -1673,7 +1673,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
         if (uiStyle == 0
             && world::gCurrentSceneState == 11
             && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
-            cg::yobi::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30(connection.Owner());
             ClearPreviewActions(connection);
             connection.Shutdown();
             connection.DisconnectState() = 0;

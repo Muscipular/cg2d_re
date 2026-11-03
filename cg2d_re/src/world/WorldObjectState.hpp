@@ -104,7 +104,7 @@ void SynchronizePlayerMapActionPosition_519EE0(); // 原入口不读取参数；
 
 namespace detail {
 // 原函数：0x00521F20。
-void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
+void RenderChara_521F20(session::ClientSession& session); // 原 World::RenderChara@0x521F20。
 // 原函数：0x0046B4B0。
 void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, std::int32_t direction); // 原完整转向门禁、发布与节流发送。
 // 原函数：0x00444FA0。

@@ -3598,8 +3598,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(render::ResetGraphicCache_456D30());
         ui::detail::gSkillRebirthModeEnabled_5F9754 = 0;
         ResetMapDrawCacheCounts_46BD40();
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        RenderChara_521F20(session);
         audio::ResetBgmPlayback_52B940();
         DrawMapSceneWithMarkers_469020();
         static_cast<void>(ui::WindowRuntime_Render(session));
@@ -3686,8 +3686,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         ResetMapDrawCacheCounts_46BD40();
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        RenderChara_521F20(session);
         InvalidateMapDrawPosition_4691D0();
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
@@ -3777,8 +3777,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(DrawObservationTravelBackground_440FF0());
         ApplyPendingMapPaletteReply_51D6F0(session);
         static_cast<void>(NextRotationValue_455C70(session));
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        RenderChara_521F20(session);
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0(session);
         input::BrowseChatHistory_44A1B0(session);
@@ -3800,8 +3800,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         ApplyPendingMapPaletteReply_51D6F0(session);
         ResetMapDrawCacheCounts_46BD40();
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        RenderChara_521F20(session);
         InvalidateMapDrawPosition_4691D0();
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
@@ -3815,8 +3815,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(render::ResetGraphicCache_456D30());
         ResetMapDrawCacheCounts_46BD40();
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        RenderChara_521F20(session);
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
         static_cast<void>(ui::WindowRuntime_Render(session));
@@ -3857,8 +3857,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             platform::gPendingGraphicCount2 = 0;
             static_cast<void>(render::ResetGraphicCache_456D30());
             ResetMapDrawCacheCounts_46BD40();
-            static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-            RenderChara_521F20();
+            static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+            RenderChara_521F20(session);
             audio::ResetBgmPlayback_52B940();
             static_cast<void>(UpdatePlayerMapWindow_468200());
             InvalidateMapDrawPosition_4691D0();
@@ -3957,8 +3957,8 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(UpdateWorldMapInputAndMovement_469C90(session));
         ResetMapDrawCacheCounts_46BD40();
         SynchronizeTimedMapNoticeWindow_455FC0();
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        RenderChara_521F20(session);
         UpdateMapEffects_46E4A0();
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
@@ -4144,7 +4144,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             || static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0) {
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
         }
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(session);
         cg::yobi::InitializeBattleScene_4383F0();
         gBattleEntryNoticeAction5ABFB8 = nullptr;
         battleScene.exitAction = nullptr;
@@ -4237,9 +4237,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         break;
     case 2: {
         input::ProcessKeyInput_4596D0(session);
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        static_cast<void>(cg::yobi::SortBattleActions_405C30());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
+        RenderChara_521F20(session);
         input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render(session));
@@ -4297,9 +4297,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     case 3:
         ui::detail::WindowBattleStateNotice_Open();
         input::ProcessKeyInput_4596D0(session);
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        static_cast<void>(cg::yobi::SortBattleActions_405C30());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
+        RenderChara_521F20(session);
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -4319,8 +4319,8 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         break;
     case 4:
         input::ProcessKeyInput_4596D0(session);
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        static_cast<void>(cg::yobi::SortBattleActions_405C30());
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -4328,14 +4328,14 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70(session));
         ui::detail::WindowBattleCommand_Dispatch();
-        RenderChara_521F20();
+        RenderChara_521F20(session);
         UpdatePlayerCountdown_458F40();
         break;
     case 5: {
         input::ProcessKeyInput_4596D0(session);
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        static_cast<void>(cg::yobi::SortBattleActions_405C30());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
+        RenderChara_521F20(session);
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
@@ -4365,9 +4365,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     }
     case 6:
         input::ProcessKeyInput_4596D0(session);
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
-        static_cast<void>(cg::yobi::SortBattleActions_405C30());
-        RenderChara_521F20();
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
+        static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
+        RenderChara_521F20(session);
         input::BrowseChatHistory_44A1B0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render(session));
@@ -4378,7 +4378,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     case 7: {
         gBattleActiveEventMask5AAA74 = 0;
         gBattleExitRequested_5ABB20 = 1;
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
         cg::yobi::ClearBattleAppendEffects_43BED0();
         battleScene.sceneIndex = 22;
@@ -4414,7 +4414,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         ui::WindowRuntime_ProcessScene();
         render::ClearSurfaceTransformCache_44D490();
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(session);
         DetachWorldObjectActions_446610();
         cg::world::gRippleGate = std::int32_t{0};
         static_cast<void>(session.Connection().AcknowledgeBattleExit(0));
@@ -4423,7 +4423,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     case 9: {
         gBattleExitRequested_5ABB20 = 1;
         gBattleActiveEventMask5AAA74 = 0;
-        static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
+        static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
         battleScene.sceneIndex = 22;
         gBattleAllEntries59E980.fill(nullptr);
@@ -4440,7 +4440,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
         }
         clearBattleEffects();
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(session);
         DetachWorldObjectActions_446610();
         cg::world::gRippleGate = std::int32_t{0};
         gSceneTransitionValue = std::int32_t{0};
@@ -7970,7 +7970,7 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
         logout.transitionPhase = 0;
         DestroyPlayerMapPresence_519D50();
         ResetWorldObjectTable_446470();
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(session);
         sceneState = gCurrentSceneState;
         ++sceneState;
         gCurrentSceneState = sceneState;
@@ -7986,7 +7986,7 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
         if (result == 1) {
             connection.Shutdown();
             connection.DisconnectState() = 0;
-            cg::yobi::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30(session);
             SetCurrentSceneType(2);
         } else if (result == 2) {
             gCurrentSceneState = 200;
@@ -8033,7 +8033,7 @@ std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
         }
         connection.Shutdown();
         connection.DisconnectState() = 0;
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(session);
         return SetCurrentSceneType(2);
     }
     return finalState;
@@ -10057,7 +10057,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
 
         gDirectionalMapTransitionPending_9FB92E = 0;
         static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
-        cg::yobi::YobiClearUp_404D30();
+        cg::yobi::YobiClearUp_404D30(networkConnection.Owner());
         detail::DetachWorldObjectActions_446610();
 
         cg::world::gRippleGate = std::int32_t{0};

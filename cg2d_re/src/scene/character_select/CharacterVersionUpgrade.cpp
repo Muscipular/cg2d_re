@@ -222,7 +222,7 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
     }
     case 101:
         if (login::UpdateLoginMessage(connection, kUpgradeSucceededText) != 0) {
-            cg::yobi::YobiClearUp_404D30();
+            cg::yobi::YobiClearUp_404D30(connection.Owner());
             if (scene.previewActions[0] != nullptr) {
                 scene.previewActions[0] = nullptr;
             }

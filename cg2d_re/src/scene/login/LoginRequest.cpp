@@ -22,12 +22,6 @@ static constexpr char kSuccessfulResult[] = "successful";
 CharacterRecordArray gCharacterRecords {}; // 原全局：0x00FF03E0。
 std::int16_t gSelectedCharacterIndex = 0; // 原全局：0x00FF0C08。
 
-std::uint16_t gRequestReplyCode = 0; // 原全局：0x00DA3B2C。
-std::int32_t gRequestStatus = 0; // 原全局：0x00DA3B34。
-std::uint64_t gRequestStartTick = 0; // 原全局：0x00DA3B38。
-std::wstring gRequestMessage {}; // 原全局：0x00DA34DC。
-
-
 // 原函数：0x0051B3B0。
 std::int32_t ClearCharacterSlot_51B3B0(const std::uint32_t selectedIndex)
 {
@@ -59,48 +53,52 @@ std::int32_t CharacterNameExists_51B140(const std::wstring_view name)
 // 原函数：0x00508AF0。
 std::uint32_t StartLoginRequest()
 {
+    auto& connection = cg::network::GetGameConnection();
+    auto& request = connection.LoginRequests();
     const std::int16_t selected = gSelectedCharacterIndex;
-    gRequestReplyCode = 0;
+    request.loginReplyCode = 0;
 
     const CharacterRecord* const record = gCharacterRecords.data() + selected;
     const std::int32_t field18 = record->graphicNo;
     const std::int32_t field50 = record->previewState;
     const std::int32_t field4C = record->registNumber;
 
-    [[maybe_unused]] const auto queued = cg::network::GetGameConnection().SendCharacterLoginRequest(field4C,
+    [[maybe_unused]] const auto queued = connection.SendCharacterLoginRequest(field4C,
         field50,
         field18);
     m_log_iw(L"CHAR LOGIN QUEUE RESULT=%d POLLING=%u\n", static_cast<std::int32_t>(queued),
-        static_cast<unsigned int>(cg::network::GetGameConnection().IoEnabled()));
-    gRequestStatus = 1;
+        static_cast<unsigned int>(connection.IoEnabled()));
+    request.status = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gRequestStartTick = tick;
+    request.startTick = tick;
     return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00508B50。
 std::int32_t PollLoginRequest()
 {
-    const std::uint8_t pollingEnabled = cg::network::GetGameConnection().IoEnabled();
+    auto& connection = cg::network::GetGameConnection();
+    auto& request = connection.LoginRequests();
+    const std::uint8_t pollingEnabled = connection.IoEnabled();
     if (pollingEnabled == 0) {
         return 0;
     }
 
-    if (gRequestStatus == 2) {
-        gRequestStatus = 0;
-        if (gRequestReplyCode == 1) {
+    if (request.status == 2) {
+        request.status = 0;
+        if (request.loginReplyCode == 1) {
             return 1;
         }
         return -2;
     }
 
     const std::uint64_t now = platform::ReadTickCount64();
-    const std::uint64_t elapsed = now - gRequestStartTick;
+    const std::uint64_t elapsed = now - request.startTick;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"处理登入逾时。" /* 0x55C9F8 原文：處理登入逾時。 */);
+    static_cast<void>(request.message = L"处理登入逾时。" /* 0x55C9F8 原文：處理登入逾時。 */);
     return -1;
 }
 
@@ -109,12 +107,13 @@ void HandleLoginResponse_508BC0(cg::network::CgConnection& networkConnection,
     const char* const result,
     const char*)
 {
-    if (gRequestStatus != 1) {
+    auto& request = networkConnection.LoginRequests();
+    if (request.status != 1) {
         m_log_iw(L"CHAR LOGIN REPLY IGNORED\n");
         return;
     }
 
-    gRequestStatus = 2;
+    request.status = 2;
     std::size_t index = 0;
     for (;;) {
         const auto received = static_cast<unsigned char>(result[index]);
@@ -129,7 +128,7 @@ void HandleLoginResponse_508BC0(cg::network::CgConnection& networkConnection,
         ++index;
     }
 
-    gRequestReplyCode = 1;
+    request.loginReplyCode = 1;
     m_log_iw(L"CHAR LOGIN REPLY SUCCESSFUL\n");
     const std::uint64_t tick = platform::ReadTickCount64();
     static_cast<void>(networkConnection.SendLoginTimestamp(static_cast<std::uint32_t>(tick)));
@@ -139,27 +138,27 @@ void HandleLoginResponse_508BC0(cg::network::CgConnection& networkConnection,
 
 namespace cg::login::detail {
 
-// 原 0xDA3B2E，W16，独立于相邻的 0xDA3B2C 登录回复码。
-std::uint16_t gReplyCodeDA3B2E = 0; // 原全局：0x00DA3B2E。
-
 // 原 sub_508C40@[0x508C40,0x508C81)：登出请求启动。
 std::uint32_t BeginLogoutRequest_508C40()
 {
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    gReplyCodeDA3B2E = 0;
-    static_cast<void>(cg::network::GetGameConnection().SendLogoutRequest());
-    gRequestStatus = 1;
+    auto& connection = cg::network::GetGameConnection();
+    auto& request = connection.LoginRequests();
+    const auto networkSession = connection.CaptureSession();
+    request.logoutReplyCode = 0;
+    static_cast<void>(connection.SendLogoutRequest());
+    request.status = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gRequestStartTick = tick;
+    request.startTick = tick;
     return static_cast<std::uint32_t>(tick);
 }
 
 // 原 sub_508C90@[0x508C90,0x508CF0)：登出回复及超时轮询。
 std::int32_t PollLogoutReply_508C90()
 {
-    if (gRequestStatus == 2) {
-        const std::uint16_t replyCode = gReplyCodeDA3B2E;
-        gRequestStatus = 0;
+    auto& request = cg::network::GetGameConnection().LoginRequests();
+    if (request.status == 2) {
+        const std::uint16_t replyCode = request.logoutReplyCode;
+        request.status = 0;
         if (replyCode == 1) {
             return 1;
         }
@@ -167,22 +166,23 @@ std::int32_t PollLogoutReply_508C90()
     }
 
     const std::uint64_t now = platform::ReadTickCount64();
-    const std::uint64_t start = gRequestStartTick;
+    const std::uint64_t start = request.startTick;
     const std::uint64_t elapsed = now - start;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"处理登出逾时。" /* 0x55CA18 原文：處理登出逾時。 */);
+    static_cast<void>(request.message = L"处理登出逾时。" /* 0x55CA18 原文：處理登出逾時。 */);
     return -1;
 }
 
 // 原函数：0x00508CF0。
-std::int32_t HandleLogoutReply_508CF0(cg::network::CgConnection&, const char* const result, const char*)
+std::int32_t HandleLogoutReply_508CF0(cg::network::CgConnection& connection, const char* const result, const char*)
 {
-    const bool waitingForReply = gRequestStatus == 1;
+    auto& request = connection.LoginRequests();
+    const bool waitingForReply = request.status == 1;
     if (waitingForReply) {
-        gRequestStatus = 2;
+        request.status = 2;
     }
 
     // 原两路均按 result、常量逐字节读取；不匹配返回原无符号比较的 -1/1。
@@ -199,12 +199,12 @@ std::int32_t HandleLogoutReply_508CF0(cg::network::CgConnection&, const char* co
         ++index;
     }
     if (waitingForReply) {
-        gReplyCodeDA3B2E = 1;
+        request.logoutReplyCode = 1;
         return 0;
     }
 
-    gRequestStatus = 2;
-    gReplyCodeDA3B2E = 2;
+    request.status = 2;
+    request.logoutReplyCode = 2;
     // 原先取齐 +8/+4/+C，再按相同顺序发布；目的虚表与保留字节不写。
     // 现由整数赋值统一载荷发布：一次RNG，保留目标token与reserved。
     world::gSceneTransitionValue = std::int32_t{0};

@@ -137,6 +137,7 @@ struct CgConnection::Impl {
     std::uint32_t frameModuloD9F3C8 = 0; // 原全局：0x00D9F3C8。
     std::uint8_t value58ADA4 = 0x80; // 原全局：0x0058ADA4。 原ed回复独立字节，不属于58ADA8的排除链文本。
     std::wstring addressTextDA33D8; // 原全局：0x00DA33D8。 lSZ回复的地址文字。
+    login::LoginRequestState loginRequests;
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
     std::list<std::pair<std::string, ProtocolReceiveHandler>> receiveHandlers;
     bool gameplayHandlersRegistered = false; // G01/G06/G07：业务回调只注册一次，重连保留。
@@ -1077,12 +1078,12 @@ void CgConnection::Impl::HandleResponse_508800(cg::network::CgConnection&,
     const std::int32_t value,
     const char* const text)
 {
-    if (login::gRequestStatus != 1) {
+    if (loginRequests.status != 1) {
         static_cast<void>(login::detail::AppendSystemLog_44B5C0(L"LOGIN REPLY IGNORED"));
         return;
     }
 
-    login::gRequestStatus = 2;
+    loginRequests.status = 2;
     login::gLoginReplyErrorCode_DA3B24 = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(value));
     const auto diagnostic = std::format(L"LOGIN REPLY RESULT={}", value);
@@ -1379,6 +1380,7 @@ CgConnection::SessionScope CgConnection::CaptureSession() noexcept { return Sess
 bool CgConnection::IoEnabled() const noexcept { return impl_->ioEnabled; }
 void CgConnection::ResetLoginReply() noexcept { impl_->protocolModeDA3B22 = 0; }
 bool CgConnection::LoginAccepted() const noexcept { return impl_->protocolModeDA3B22 != 0; }
+login::LoginRequestState& CgConnection::LoginRequests() noexcept { return impl_->loginRequests; }
 void CgConnection::UpdateKeepAlive()
 {
     if (!Active()) {

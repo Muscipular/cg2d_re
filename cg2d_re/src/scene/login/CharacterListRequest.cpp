@@ -113,21 +113,24 @@ std::uint32_t StartCharacterListRequest()
     static_cast<void>(ClearCharacterSlot_51B3B0(0));
     static_cast<void>(ClearCharacterSlot_51B3B0(1));
 
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    auto& connection = cg::network::GetGameConnection();
+    auto& request = connection.LoginRequests();
+    const auto networkSession = connection.CaptureSession();
     gCharacterListReplyCode = 0;
-    static_cast<void>(cg::network::GetGameConnection().SendCharacterListRequest());
-    gRequestStatus = 1;
+    static_cast<void>(connection.SendCharacterListRequest());
+    request.status = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gRequestStartTick = tick;
+    request.startTick = tick;
     return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00508950。
 std::int32_t PollCharacterListRequest()
 {
-    if (gRequestStatus == 2) {
+    auto& request = cg::network::GetGameConnection().LoginRequests();
+    if (request.status == 2) {
         const std::uint16_t replyCode = gCharacterListReplyCode;
-        gRequestStatus = 0;
+        request.status = 0;
         if (replyCode == 1) {
             return 1;
         }
@@ -138,26 +141,27 @@ std::int32_t PollCharacterListRequest()
     }
 
     const std::uint64_t now = platform::ReadTickCount64();
-    const std::uint64_t elapsed = now - gRequestStartTick;
+    const std::uint64_t elapsed = now - request.startTick;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"取得角色列表逾时。" /* 原 0x58AF94“取得角色列表逾時。”的原字节，正文 18B，含隐式 NUL 共 19B。 */);
+    static_cast<void>(request.message = L"取得角色列表逾时。" /* 原 0x58AF94“取得角色列表逾時。”的原字节，正文 18B，含隐式 NUL 共 19B。 */);
     return -1;
 }
 
 // 原函数：0x005089B0。
-std::int32_t HandleCharacterListResponse_5089B0(cg::network::CgConnection&,
+std::int32_t HandleCharacterListResponse_5089B0(cg::network::CgConnection& connection,
     const std::int32_t result,
     const char* const data)
 {
-    if (gRequestStatus != 1) {
+    auto& request = connection.LoginRequests();
+    if (request.status != 1) {
         return 1;
     }
 
     const bool succeeded = result == 0;
-    gRequestStatus = 2;
+    request.status = 2;
     if (!succeeded) {
         const std::int32_t comparison = CompareUnsignedBytes(data, "OUTOFSERVICE");
         if (comparison == 0) {

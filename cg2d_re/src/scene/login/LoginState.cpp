@@ -80,9 +80,10 @@ std::int32_t AdvanceServerLoginConnection_508360()
         return 0;
     }
 
+    auto& request = cg::network::GetGameConnection().LoginRequests();
     std::int32_t step = gConnectionStep;
     if (step == 0) {
-        gRequestStartTick = platform::ReadTickCount64();
+        request.startTick = platform::ReadTickCount64();
 
         std::wstring serverAddress;
         std::uint16_t port;
@@ -90,13 +91,13 @@ std::int32_t AdvanceServerLoginConnection_508360()
                 static_cast<std::int32_t>(gSelectedServerIndex),
                 serverAddress,
                 &port) < 0) {
-            static_cast<void>((gRequestMessage = L"伺服器的名称不正确。"));
+            static_cast<void>((request.message = L"伺服器的名称不正确。"));
             return -2;
         }
 
         world::gNetworkDisconnectState_D9F2CA = 0;
         if (cg::network::GetGameConnection().BeginConnect(serverAddress, port, platform::gNoDelay != 0) == 0) {
-            static_cast<void>((gRequestMessage = L"网路通讯协定（TCP）错误。"));
+            static_cast<void>((request.message = L"网路通讯协定（TCP）错误。"));
             return -3;
         }
         gConnectionStep = 1;
@@ -121,23 +122,23 @@ std::int32_t AdvanceServerLoginConnection_508360()
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
             cg::network::GetGameConnection().Close();
             if (connection.phase == platform::ConnectionPhase::Resolve) {
-                static_cast<void>(cg::text::FormatTo(gRequestMessage,
+                static_cast<void>(cg::text::FormatTo(request.message,
                     L"无法取得伺服器的 IP 位址。({})", connection.host));
                 return -4;
             }
             if (connection.phase == platform::ConnectionPhase::Setup) {
-                gRequestMessage = L"网路通讯协定（TCP）错误。";
+                request.message = L"网路通讯协定（TCP）错误。";
                 return -3;
             }
             if (connection.phase == platform::ConnectionPhase::SocketOptions) {
-                gRequestMessage = L"网路通讯协定（TCP）设置错误。";
+                request.message = L"网路通讯协定（TCP）设置错误。";
                 return -100;
             }
             if (connection.phase == platform::ConnectionPhase::ConnectStart) {
-                gRequestMessage = L"无法开始处理与伺服器的连接。";
+                request.message = L"无法开始处理与伺服器的连接。";
                 return -5;
             }
-            gRequestMessage = L"无法连上伺服器。 ";
+            request.message = L"无法连上伺服器。 ";
             return -6;
         }
     }
@@ -166,14 +167,14 @@ std::int32_t AdvanceServerLoginConnection_508360()
             }
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
             step = gConnectionStep;
-            gRequestStatus = 1;
+            request.status = 1;
             const auto diagnostic = std::format(L"LOGIN QUEUE RESULT={}", static_cast<std::int32_t>(queued));
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
         }
-        else if (gRequestStatus == 2) {
+        else if (request.status == 2) {
             if (cg::network::GetGameConnection().LoginAccepted() == 0) {
-                gRequestStatus = 0;
-                static_cast<void>((gRequestMessage = L"无法登入。"));
+                request.status = 0;
+                static_cast<void>((request.message = L"无法登入。"));
                 cg::network::GetGameConnection().Close();
                 return -7;
             }
@@ -191,14 +192,14 @@ std::int32_t AdvanceServerLoginConnection_508360()
         gConnectionStep = step;
     }
     else if (step == 99) {
-        gRequestStatus = 0;
+        request.status = 0;
         return 1;
     }
 
     const std::uint64_t now = platform::ReadTickCount64();
-    if (now - gRequestStartTick > 600000U) {
+    if (now - request.startTick > 600000U) {
         cg::network::GetGameConnection().Close();
-        static_cast<void>((gRequestMessage = L"与伺服器的连接逾时。"));
+        static_cast<void>((request.message = L"与伺服器的连接逾时。"));
         return -1;
     }
     return 0;

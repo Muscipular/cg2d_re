@@ -8037,7 +8037,7 @@ std::int32_t ProcessLogoutScene_45EBB0()
             SetCurrentSceneType(2);
         } else if (result == 2) {
             gCurrentSceneState = 200;
-            login::detail::gReplyCodeDA3B2E = 0;
+            cg::network::GetGameConnection().LoginRequests().logoutReplyCode = 0;
             gLogoutText9A5B08 = LR"(相当抱歉，为了维持良好的游戏环境
 目前伺服器暂时进行停机维护。
 维护完毕后将重新开机，请稍做等候。)" /* 原常量参考：0x0055CA28。 */;
@@ -8116,7 +8116,7 @@ std::int32_t UpdateLogoutScene_45ED90()
 
     const std::uint32_t phase = gLogoutRequestScenePhase_9A6204;
     if (phase == 1) {
-        if (login::detail::gReplyCodeDA3B2E != 2) {
+        if (cg::network::GetGameConnection().LoginRequests().logoutReplyCode != 2) {
             static_cast<void>(login::detail::BeginLogoutRequest_508C40());
         }
         ++gLogoutRequestScenePhase_9A6204;

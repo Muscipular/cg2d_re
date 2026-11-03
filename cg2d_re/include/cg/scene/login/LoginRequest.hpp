@@ -6,6 +6,7 @@ namespace cg::network { class CgConnection; }
 #include "cg/text/Encoding.hpp"
 #include <cstddef>
 #include <cstdint>
+#include <string>
 #include <type_traits>
 
 namespace cg::login {
@@ -54,11 +55,14 @@ std::int32_t HasCharacterInSlot_51B110(std::uint32_t selectedIndex);
 // 原 sub_51B140@[0x51B140,0x51B1A1)：按名字查找两条角色记录。
 std::int32_t CharacterNameExists_51B140(std::wstring_view name);
 
-// 登录请求与其他网络处理函数共享的固定宽度存储，映像初值均为 0。
-extern std::uint16_t gRequestReplyCode;        // 原 0xDA3B2C，R/W16。
-extern std::int32_t gRequestStatus;            // 原 0xDA3B34，R/W32。
-extern std::uint64_t gRequestStartTick;        // 原 0xDA3B38；CTM01本地64位毫秒。
-extern std::wstring gRequestMessage; // 原 0xDA34DC。
+// NSM01：登录/角色/登出请求共用的状态随连接实例保留，重连不清。
+struct LoginRequestState {
+    std::uint16_t loginReplyCode = 0; // 原 0xDA3B2C，R/W16。
+    std::int32_t status = 0; // 原 0xDA3B34，R/W32。
+    std::uint64_t startTick = 0; // 原 0xDA3B38；CTM01本地64位毫秒。
+    std::wstring message; // 原 0xDA34DC。
+    std::uint16_t logoutReplyCode = 0; // 原 0xDA3B2E，独立于登录回复码。
+};
 
 // 原 sub_508AF0@0x508AF0；前置条件是有符号选择值位于 [0, 1]。
 // 原函数不检查范围，本接口同样不为无效输入增加业务分支。

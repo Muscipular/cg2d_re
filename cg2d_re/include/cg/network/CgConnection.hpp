@@ -8,6 +8,8 @@
 #include <string>
 #include <string_view>
 
+namespace cg::login { struct LoginRequestState; }
+
 namespace cg::network {
 
 class CgConnection;
@@ -80,6 +82,8 @@ public:
     [[nodiscard]] bool LoginAccepted() const noexcept;
     // NSM01：原 457AB0 的时钟与发送顺序随本连接实例保留。
     void UpdateKeepAlive();
+    // NSM01：请求/回复回调使用同一连接的登录请求状态。
+    [[nodiscard]] login::LoginRequestState& LoginRequests() noexcept;
     // 拥有式编码结果，复制原临时区字节；文本容量与编码合同保持。
     std::string EncodeInteger(std::int32_t value);
     std::string EscapeText(std::wstring_view text);

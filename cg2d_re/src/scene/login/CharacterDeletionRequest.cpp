@@ -21,23 +21,26 @@ std::uint32_t StartCharacterDeletionRequest()
     const std::int16_t selected = gSelectedCharacterIndex;
     gCharacterDeletionReplyCode = 0;
 
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    auto& connection = cg::network::GetGameConnection();
+    auto& request = connection.LoginRequests();
+    const auto networkSession = connection.CaptureSession();
     const CharacterRecord* const record = gCharacterRecords.data() + selected;
     const std::int32_t registNumber = record->registNumber;
 
-    cg::network::GetGameConnection().SendCharacterDeletionRequest(registNumber);
-    gRequestStatus = 1;
+    connection.SendCharacterDeletionRequest(registNumber);
+    request.status = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gRequestStartTick = tick;
+    request.startTick = tick;
     return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00508FC0。
 std::int32_t PollCharacterDeletionRequest()
 {
-    if (gRequestStatus == 2) {
+    auto& request = cg::network::GetGameConnection().LoginRequests();
+    if (request.status == 2) {
         const std::uint16_t replyCode = gCharacterDeletionReplyCode;
-        gRequestStatus = 0;
+        request.status = 0;
         if (replyCode != 0) {
             return 1;
         }
@@ -45,25 +48,26 @@ std::int32_t PollCharacterDeletionRequest()
     }
 
     const std::uint64_t now = platform::ReadTickCount64();
-    const std::uint64_t elapsed = now - gRequestStartTick;
+    const std::uint64_t elapsed = now - request.startTick;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"删除角色逾时。" /* 原 sub_508FC0 超时文案“刪除角色逾時。”的原字节，正文 14B，含隐式 NUL 共 15B。 */);
+    static_cast<void>(request.message = L"删除角色逾时。" /* 原 sub_508FC0 超时文案“刪除角色逾時。”的原字节，正文 14B，含隐式 NUL 共 15B。 */);
     return -1;
 }
 
 // 原函数：0x00509020。
-void HandleCharacterDeletionResponse_509020(cg::network::CgConnection&,
+void HandleCharacterDeletionResponse_509020(cg::network::CgConnection& connection,
     const char* const result,
     const char* const)
 {
-    if (gRequestStatus != 1) {
+    auto& request = connection.LoginRequests();
+    if (request.status != 1) {
         return;
     }
 
-    gRequestStatus = 2;
+    request.status = 2;
 
     std::size_t index = 0;
     for (;;) {

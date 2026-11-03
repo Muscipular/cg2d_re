@@ -32,48 +32,52 @@ std::uint32_t StartCharacterCreationRequest()
     const std::int32_t graphic = character_select::state::gSelectedGraphicNo;
     const std::int32_t motion = character_select::state::gCreationSubmittedMotionImage_DE0AFC;
     const std::int32_t selected = gSelectedCharacterIndex;
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    auto& connection = cg::network::GetGameConnection();
+    auto& request = connection.LoginRequests();
+    const auto networkSession = connection.CaptureSession();
     gCharacterCreationReplyCode = 0;
-    cg::network::GetGameConnection().SendCharacterCreationRequest(selected, character_select::state::gCreationNameFF0D18,
+    connection.SendCharacterCreationRequest(selected, character_select::state::gCreationNameFF0D18,
         motion, graphic, attribute0, attribute1, attribute2, attribute3, attribute4,
         element0, element1, element2, element3);
-    gRequestStatus = 1;
+    request.status = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gRequestStartTick = tick;
+    request.startTick = tick;
     return static_cast<std::uint32_t>(tick);
 }
 
 // 原函数：0x00508E90。
 std::int32_t PollCharacterCreationRequest()
 {
-    if (gRequestStatus == 2) {
+    auto& request = cg::network::GetGameConnection().LoginRequests();
+    if (request.status == 2) {
         const std::uint16_t replyCode = gCharacterCreationReplyCode;
-        gRequestStatus = 0;
+        request.status = 0;
         return replyCode == 1 ? 1 : -2;
     }
 
     const std::uint64_t now = platform::ReadTickCount64();
-    const std::uint64_t start = gRequestStartTick;
+    const std::uint64_t start = request.startTick;
     const std::uint64_t elapsed = now - start;
     if (elapsed <= kRequestTimeoutMilliseconds) {
         return 0;
     }
 
-    static_cast<void>(gRequestMessage = L"新建角色逾时。" /* 原 0x58AFC4：新建角色逾時。正文 14 字节，末尾唯一 NUL。 */);
+    static_cast<void>(request.message = L"新建角色逾时。" /* 原 0x58AFC4：新建角色逾時。正文 14 字节，末尾唯一 NUL。 */);
     return -1;
 }
 
 // 原函数：0x00508EE0。
-void HandleCharacterCreationResponse_508EE0(cg::network::CgConnection&,
+void HandleCharacterCreationResponse_508EE0(cg::network::CgConnection& connection,
     const char* const result,
     const std::int32_t registNumber,
     const char* const)
 {
-    if (gRequestStatus != 1) {
+    auto& request = connection.LoginRequests();
+    if (request.status != 1) {
         return;
     }
 
-    gRequestStatus = 2;
+    request.status = 2;
     std::size_t index = 0;
     for (;;) {
         const auto received = static_cast<unsigned char>(result[index]);

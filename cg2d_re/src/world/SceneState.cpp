@@ -2232,7 +2232,6 @@ std::int32_t gBattleSnapshotPetIndex5ABBFC = 0; // 原全局：0x005ABBFC。
 std::int32_t gBattleCommandX553F78 = 490; // 原全局：0x00553F78。
 std::int32_t gBattleCommandY553F7C = -104; // 原全局：0x00553F7C。
 std::int32_t gBattleCommandValue553F80 = 17; // 原全局：0x00553F80。
-std::int32_t gBattlePetSkillGraphicIndex553F8C = -1; // 原全局：0x00553F8C。
 std::array<std::int32_t, 9> gBattleResetValues5ABB84 {}; // 原全局：0x005ABB84。
 cg::yobi::YobiAction* gBattleEntryNoticeAction5ABFB8 = nullptr; // 原全局：0x005ABFB8。
 std::int32_t gBattleSelectionMode5ABC70 = 0; // 原全局：0x005ABC70。

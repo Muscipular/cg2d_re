@@ -1344,7 +1344,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                     cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
                     static_cast<void>(WindowSkill_OpenRidingSkills(&WindowBattleCommand_SelectRidingSkill));
                 }
-                cg::world::gBattlePetSkillGraphicIndex553F8C = -2;
+                session.WorldScene().battle.petSkillGraphicIndex = -2;
                 WindowBattleCommand_ResetSelection();
                 const std::int32_t mode = cg::world::gBattleSelectionMode5ABC70;
                 if (mode > 0) {
@@ -1560,7 +1560,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             cg::world::gSelectedBattlePetTechniqueIndex_553F84 = -1;
             static_cast<void>(WindowSkill_OpenPetSkills(&WindowBattleCommand_SelectPetSkill));
         }
-        cg::world::gBattlePetSkillGraphicIndex553F8C = -2;
+        session.WorldScene().battle.petSkillGraphicIndex = -2;
         cg::world::gBattleCommandState5ABC3C = 4;
         WindowBattleCommand_Open(3, 341, 0);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -1596,7 +1596,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                     static_cast<void>(WindowSkill_OpenRidingSkills(&WindowBattleCommand_SelectRidingSkill));
                 }
             }
-            const std::int32_t graphicIndex = cg::world::gBattlePetSkillGraphicIndex553F8C;
+            const std::int32_t graphicIndex = session.WorldScene().battle.petSkillGraphicIndex;
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
                 const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
@@ -1610,7 +1610,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
             break;
         }
         case 1: {
-            const std::int32_t graphicIndex = cg::world::gBattlePetSkillGraphicIndex553F8C;
+            const std::int32_t graphicIndex = session.WorldScene().battle.petSkillGraphicIndex;
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
@@ -1643,7 +1643,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
                     static_cast<void>(WindowSkill_OpenRidingSkills(&WindowBattleCommand_SelectRidingSkill));
                 }
             }
-            const std::int32_t graphicIndex = cg::world::gBattlePetSkillGraphicIndex553F8C;
+            const std::int32_t graphicIndex = session.WorldScene().battle.petSkillGraphicIndex;
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             bool clickedReturn = false;
             if (graphicIndex == hover) {
@@ -1686,7 +1686,7 @@ void WindowBattleCommand_Dispatch(session::ClientSession& session)
         if (draw) {
             const std::int32_t y = cg::world::gBattleCommandY553F7C;
             const std::int32_t x = cg::world::gBattleCommandX553F78;
-            cg::world::gBattlePetSkillGraphicIndex553F8C = cg::render::DrawGraphic(x, y, 212, imageNo, 2, nullptr);
+            session.WorldScene().battle.petSkillGraphicIndex = cg::render::DrawGraphic(x, y, 212, imageNo, 2, nullptr);
         }
         if (cg::world::gBattlePlayerActionState5ABC74 == 1) {
             const std::int32_t count = cg::world::gBattlePetActionCount5ABBBC;

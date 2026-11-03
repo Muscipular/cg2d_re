@@ -336,7 +336,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
         connection.CharacterSelectUi().selectedCharacterName.clear();
         SetBaseWindowTitle(title);
         connection.DisconnectState() = 0;
-        world::gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         request.serverHighlight = 0;
         static_cast<void>(render::SelectPalette(27, 0));
         cg::audio::LoadAndPlayBGM(17);

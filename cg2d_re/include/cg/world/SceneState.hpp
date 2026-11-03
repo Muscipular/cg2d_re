@@ -22,7 +22,6 @@ extern std::uint32_t gLogoutToTownPending_D67E78;             // 原 0xD67E78，
 const std::wstring& GetMapName_9DAD30() noexcept; // 借用宽字符串地图名，回复入口统一从GBK转换。
 void ClearMapName_9DAD30() noexcept; // 世界重置时清空同一地图名称。
 extern std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08; // 原 0xD67B08，严格 7 个 DWORD。
-extern std::uint32_t gSceneTransitionResetPending_58B6D0;             // 原 0x58B6D0，W32，映像初值 1。
 
 // 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。
 void ResumePlayerAfterObservation_51BEF0() noexcept;

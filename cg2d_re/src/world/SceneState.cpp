@@ -541,7 +541,6 @@ std::uint8_t gMapSurfaceCacheEnabled_C82204 = 0; // 原全局：0x00C82204。
 std::uint32_t gGameplayRepliesSuppressed_9A6E0C = 0; // 原全局：0x009A6E0C。
 std::uint32_t gLogoutToTownPending_D67E78 = 0; // 原全局：0x00D67E78。
 std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08 {}; // 原全局：0x00D67B08。
-std::uint32_t gSceneTransitionResetPending_58B6D0 = 1; // 原全局：0x0058B6D0。
 
 const std::wstring& GetMapName_9DAD30() noexcept
 {
@@ -3622,7 +3621,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         const std::uint64_t tick = platform::ReadTickCount64();
         session.WorldScene().frameBackgroundMode = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
-        gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(session, 15, 8, 0x40000000u));
         gCurrentSceneState = 103;
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3637,7 +3636,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         return;
     case 200:
-        gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750(session));
         platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount64());
         ui::WindowRuntime_ProcessScene();
@@ -3709,7 +3708,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         const std::uint64_t tick = platform::ReadTickCount64();
-        gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3754,7 +3753,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
         const std::uint64_t tick = platform::ReadTickCount64();
-        gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         gCurrentSceneState = 204;
         platform::gLastRenderDt = static_cast<double>(tick);
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3981,7 +3980,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         cg::world::gRippleGate = std::int32_t{1};
         gDirectionalMapTransitionPending_9FB92E = 0;
         gContinuousMapMovementActive_C8A79C = 0;
-        gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         ui::WindowRuntime_ProcessScene();
         static_cast<void>(cg::yobi::ClearObservationGroups_43F230(session));
         ResumePlayerAfterObservation_51BEF0();
@@ -4141,7 +4140,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::yobi::InitializeBattleScene_4383F0(session);
         gBattleEntryNoticeAction5ABFB8 = nullptr;
         battleScene.exitAction = nullptr;
-        gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         gBattleCommandAction5ABC00 = nullptr;
         gPendingResultWindowMode_FF0C10 = 3;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
@@ -4391,7 +4390,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         const std::int32_t currentState = gCurrentSceneState;
         const std::int32_t nextState = currentState + 1;
         clearBattleEffects();
-        gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         gCurrentSceneState = nextState;
         [[fallthrough]];
     }
@@ -6661,7 +6660,7 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
         cg::audio::BeginBgmFadeOut_52B990();
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint32_t next = logout.transitionPhase + 1;
-        gSceneTransitionResetPending_58B6D0 = 1;
+        session.WorldScene().transitionResetPending = 1;
         logout.transitionPhase = next;
         platform::gLastRenderDt = static_cast<double>(tick);
         ui::WindowRuntime_ProcessScene();
@@ -6672,8 +6671,9 @@ std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
 
 // 原[51D790,51E0A0)：完整九模式；FST后仍参与计算的值保留PC53中间精度。
 std::int32_t ProcessSceneSlideOut_51D790(
-    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
+    auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::int32_t completed = 0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
@@ -6964,8 +6964,9 @@ std::int32_t ProcessSceneSlideOut_51D790(
 
 // 原[51E0D0,51EBE0)：完整反向过渡；6/7/8初次预计算与恢复在同次调用完成。
 std::int32_t ProcessSceneSlideIn_51E0D0(
-    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
+    auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
     std::int32_t phase;
@@ -7408,6 +7409,7 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
 std::int32_t ProcessSceneQuadrantTransition_51EC10(
     session::ClientSession& session, const std::int32_t mode, const std::int32_t value)
 {
+    auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& gQuadrantTransitionPhase58B6D8 = session.WorldScene().quadrantTransition.phase;
     auto& gQuadrantTransitionXFF275C = session.WorldScene().quadrantTransition.x;
     auto& gQuadrantTransitionYFF47D0 = session.WorldScene().quadrantTransition.y;
@@ -7569,6 +7571,7 @@ std::int32_t ProcessSceneQuadrantTransition_51EC10(
 std::int32_t ProcessSceneRandomTileTransition_51EF80(
     session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
+    auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     auto& tile = session.WorldScene().tileTransition;
     auto& gTileTransitionPhase58B6DC = tile.phase;
     auto& gTileTransitionCompletedFF46C0 = tile.completed;
@@ -7752,8 +7755,9 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
 }
 
 // 原[51F610,51F85F)：960个20x16画块直接BltFast，绘制后才推进共享比例。
-std::int32_t ProcessSceneGridScaleTransition_51F610(const std::int32_t value)
+std::int32_t ProcessSceneGridScaleTransition_51F610(session::ClientSession& session, const std::int32_t value)
 {
+    auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     bool initialize;
     if (gSceneTransitionResetPending_58B6D0 == 1) {
         gSceneTransitionResetPending_58B6D0 = 0;
@@ -7821,8 +7825,9 @@ enum class ScanlineOrigin {
 
 // 原51F860/51FA70的相同入口/推进尾；两者只改变逐行采样及目标方向。
 static std::int32_t ProcessScanlineTransition(
-    const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
+    session::ClientSession& session, const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
 {
+    auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
     bool initialize;
@@ -7897,20 +7902,24 @@ static std::int32_t ProcessScanlineTransition(
 }
 
 // 原函数：0x0051F860。
-std::int32_t ProcessTopScanlineTransition_51F860(const std::int32_t direction, const std::int32_t value)
+std::int32_t ProcessTopScanlineTransition_51F860(
+    session::ClientSession& session, const std::int32_t direction, const std::int32_t value)
 {
-    return ProcessScanlineTransition(direction, value, ScanlineOrigin::Top);
+    return ProcessScanlineTransition(session, direction, value, ScanlineOrigin::Top);
 }
 
 // 原函数：0x0051FA70。
-std::int32_t ProcessBottomScanlineTransition_51FA70(const std::int32_t direction, const std::int32_t value)
+std::int32_t ProcessBottomScanlineTransition_51FA70(
+    session::ClientSession& session, const std::int32_t direction, const std::int32_t value)
 {
-    return ProcessScanlineTransition(direction, value, ScanlineOrigin::Bottom);
+    return ProcessScanlineTransition(session, direction, value, ScanlineOrigin::Bottom);
 }
 
 // 原[51FC90,51FDDA)：中心上下半幅采样，每次直接复制后独立读取比例。
-std::int32_t ProcessSceneCenterScanlineTransition_51FC90(const std::int32_t mode, const std::int32_t value)
+std::int32_t ProcessSceneCenterScanlineTransition_51FC90(
+    session::ClientSession& session, const std::int32_t mode, const std::int32_t value)
 {
+    auto& gSceneTransitionResetPending_58B6D0 = session.WorldScene().transitionResetPending;
     std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
     if (step == 0) {
         step = 8;

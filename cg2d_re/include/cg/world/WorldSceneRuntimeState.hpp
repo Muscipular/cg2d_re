@@ -101,6 +101,7 @@ struct WorldSceneRuntimeState {
     ChatInputHistoryState chatInputHistory {};
     QuadrantTransitionState quadrantTransition {};
     TileTransitionState tileTransition {};
+    std::uint32_t transitionResetPending = 1; // 原 0x58B6D0，各转场模式共用的首次初始化门禁。
     std::array<MapActorDrawKey, 100> mapActorDrawKeys {}; // 原 0x5ABFE0。
     std::int32_t mapActorDrawKeyCount = 0; // 原 0x5AC494。
     std::uint8_t worldEntryRepliesPendingMask = 0; // 原 0x9A4B94，入场等待与地图回复的两位。

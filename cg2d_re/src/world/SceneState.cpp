@@ -1137,25 +1137,25 @@ static void ApplyMapEffectDirection(MapEffectRecord& record)
     }
 }
 
-static MapEffectRecord* CreateMapEffectKind1AtZero()
+static MapEffectRecord* CreateMapEffectKind1AtZero(session::ClientSession& session)
 {
     MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
     if (record == nullptr) {
         return nullptr;
     }
     record->kind = 1;
-    const std::int32_t randomX = platform::Rand16();
+    const std::int32_t randomX = platform::Rand16(session.Connection());
     record->y = 0;
     record->x = randomX % 840 - 200;
-    const std::int32_t randomSpeed = platform::Rand16();
+    const std::int32_t randomSpeed = platform::Rand16(session.Connection());
     record->value0C = 9;
     record->value08 = randomSpeed % 2 + 2;
     return record;
 }
 
-static void CreateMapEffectKind1()
+static void CreateMapEffectKind1(session::ClientSession& session)
 {
-    MapEffectRecord* const record = CreateMapEffectKind1AtZero();
+    MapEffectRecord* const record = CreateMapEffectKind1AtZero(session);
     if (record == nullptr) {
         return;
     }
@@ -1166,31 +1166,31 @@ static void CreateMapEffectKind1()
 }
 
 // 46E6C0/46E940 共用初始载荷；tick、计数和 Y 尾写由各自调用者按原序处理。
-static MapEffectRecord* CreateMapEffectKind2AtZero()
+static MapEffectRecord* CreateMapEffectKind2AtZero(session::ClientSession& session)
 {
     MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
     if (record == nullptr) {
         return nullptr;
     }
     record->kind = 2;
-    const std::int32_t randomX = platform::Rand16();
+    const std::int32_t randomX = platform::Rand16(session.Connection());
     record->y = 0;
     record->x = randomX % 940 - 200;
-    record->variant = static_cast<std::uint16_t>(platform::Rand16() % 2);
-    const std::int32_t direction = platform::Rand16() % 2;
+    record->variant = static_cast<std::uint16_t>(platform::Rand16(session.Connection()) % 2);
+    const std::int32_t direction = platform::Rand16(session.Connection()) % 2;
     if (direction == 0) {
-        record->value08 = platform::Rand16() % 2;
-        record->value0C = platform::Rand16() % 2 + 3;
+        record->value08 = platform::Rand16(session.Connection()) % 2;
+        record->value0C = platform::Rand16(session.Connection()) % 2 + 3;
     } else if (direction == 1) {
         record->value08 = 1;
-        record->value0C = platform::Rand16() % 2 + 4;
+        record->value0C = platform::Rand16(session.Connection()) % 2 + 4;
     }
     return record;
 }
 
-static void CreateMapEffectKind2()
+static void CreateMapEffectKind2(session::ClientSession& session)
 {
-    MapEffectRecord* const record = CreateMapEffectKind2AtZero();
+    MapEffectRecord* const record = CreateMapEffectKind2AtZero(session);
     if (record == nullptr) {
         return;
     }
@@ -1200,19 +1200,19 @@ static void CreateMapEffectKind2()
     record->y = static_cast<std::int32_t>(0u - static_cast<std::uint32_t>(record->value0C));
 }
 
-static void CreateMapEffectKind4()
+static void CreateMapEffectKind4(session::ClientSession& session)
 {
     MapEffectRecord* const record = AcquireMapEffectRecord_46E340();
     if (record == nullptr) {
         return;
     }
     record->kind = 4;
-    const std::int32_t randomX = platform::Rand16();
+    const std::int32_t randomX = platform::Rand16(session.Connection());
     record->y = 0;
     record->x = randomX % 1240 - 100;
-    record->variant = static_cast<std::uint16_t>(platform::Rand16() % 4);
+    record->variant = static_cast<std::uint16_t>(platform::Rand16(session.Connection()) % 4);
     record->remaining = 4;
-    const std::int32_t direction = platform::Rand16() % 2;
+    const std::int32_t direction = platform::Rand16(session.Connection()) % 2;
     if (direction == 0 || direction == 1) {
         record->value08 = static_cast<std::int32_t>(0xFFFFFFFFu);
         record->value0C = direction + 2;
@@ -1224,7 +1224,7 @@ static void CreateMapEffectKind4()
 }
 
 // 原函数：0x0046E4E0。
-void UpdateMapStreakParticles_46E4E0()
+void UpdateMapStreakParticles_46E4E0(session::ClientSession& session)
 {
     const std::uint8_t started = gMapEffectStartedC8224C;
     if ((started & 1u) == 0) {
@@ -1242,7 +1242,7 @@ void UpdateMapStreakParticles_46E4E0()
             const std::int32_t attempts = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(selected * 4u - 8u));
             for (std::int32_t index = 0; index < attempts; ++index) {
-                CreateMapEffectKind1();
+                CreateMapEffectKind1(session);
             }
         } else {
             const std::uint64_t now = platform::ReadTickCount64();
@@ -1251,7 +1251,7 @@ void UpdateMapStreakParticles_46E4E0()
             const std::uint64_t deadline = gMapEffectTickC8A734
                 + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
-                CreateMapEffectKind1();
+                CreateMapEffectKind1(session);
             }
         }
     }
@@ -1284,7 +1284,7 @@ void UpdateMapStreakParticles_46E4E0()
 }
 
 // 原函数：0x0046E6C0。
-void UpdateMapClusterParticles_46E6C0()
+void UpdateMapClusterParticles_46E6C0(session::ClientSession& session)
 {
     const std::uint8_t started = gMapEffectStartedC82240;
     if ((started & 1u) == 0) {
@@ -1302,7 +1302,7 @@ void UpdateMapClusterParticles_46E6C0()
             const std::int32_t attempts = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(2u * selected - 4u));
             for (std::int32_t index = 0; index < attempts; ++index) {
-                CreateMapEffectKind2();
+                CreateMapEffectKind2(session);
             }
         } else {
             const std::uint64_t now = platform::ReadTickCount64();
@@ -1311,7 +1311,7 @@ void UpdateMapClusterParticles_46E6C0()
             const std::uint64_t deadline = gMapEffectTickC82250
                 + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
-                CreateMapEffectKind2();
+                CreateMapEffectKind2(session);
             }
         }
     }
@@ -1342,7 +1342,8 @@ void UpdateMapClusterParticles_46E6C0()
 }
 
 // 原函数：0x0046E940。
-std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(std::int32_t cycles)
+std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(
+    session::ClientSession& session, std::int32_t cycles)
 {
     const std::uint16_t selected = static_cast<std::uint16_t>(
         gCurrentSceneType == 10
@@ -1360,7 +1361,7 @@ std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(std::int32_t cycles
                 const std::int32_t attempts = std::bit_cast<std::int16_t>(
                     static_cast<std::uint16_t>(2u * selected - 4u));
                 for (std::int32_t index = 0; index < attempts; ++index) {
-                    if (CreateMapEffectKind2AtZero() != nullptr) {
+                    if (CreateMapEffectKind2AtZero(session) != nullptr) {
                         streak = 0;
                         ++gMapCharaSceneSlots.valueC8A748;
                     }
@@ -1369,7 +1370,7 @@ std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(std::int32_t cycles
                 const std::int32_t threshold = std::bit_cast<std::int16_t>(
                     static_cast<std::uint16_t>(2u * (2u - selected)));
                 if (streak >= threshold
-                    && CreateMapEffectKind2AtZero() != nullptr) {
+                    && CreateMapEffectKind2AtZero(session) != nullptr) {
                     streak = 0;
                     ++gMapCharaSceneSlots.valueC8A748;
                 }
@@ -1405,7 +1406,8 @@ std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(std::int32_t cycles
 }
 
 // 原函数：0x0046EBB0。
-std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(std::int32_t cycles)
+std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(
+    session::ClientSession& session, std::int32_t cycles)
 {
     const std::uint16_t selected = static_cast<std::uint16_t>(
         gCurrentSceneType == 10
@@ -1422,7 +1424,7 @@ std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(std::int32_t cycles)
                 const std::int32_t attempts = std::bit_cast<std::int16_t>(
                     static_cast<std::uint16_t>(4u * selected - 8u));
                 for (std::int32_t index = 0; index < attempts; ++index) {
-                    if (CreateMapEffectKind1AtZero() != nullptr) {
+                    if (CreateMapEffectKind1AtZero(session) != nullptr) {
                         ++gMapCharaSceneSlots.valueC8A742;
                     }
                 }
@@ -1430,7 +1432,7 @@ std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(std::int32_t cycles)
                 const std::int16_t threshold = std::bit_cast<std::int16_t>(
                     static_cast<std::uint16_t>(2u * (2u - selected)));
                 if (threshold <= 0
-                    && CreateMapEffectKind1AtZero() != nullptr) {
+                    && CreateMapEffectKind1AtZero(session) != nullptr) {
                     ++gMapCharaSceneSlots.valueC8A742;
                 }
             }
@@ -1464,14 +1466,15 @@ std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(std::int32_t cycles)
 }
 
 // 原函数：0x0046E4C0。
-std::int32_t __cdecl AdvanceMapParticleCycles_46E4C0(const std::int32_t cycles)
+std::int32_t __cdecl AdvanceMapParticleCycles_46E4C0(
+    session::ClientSession& session, const std::int32_t cycles)
 {
-    static_cast<void>(AdvanceMapStreakParticlesCycles_46EBB0(cycles));
-    return AdvanceMapClusterParticlesCycles_46E940(cycles);
+    static_cast<void>(AdvanceMapStreakParticlesCycles_46EBB0(session, cycles));
+    return AdvanceMapClusterParticlesCycles_46E940(session, cycles);
 }
 
 // 原函数：0x0046ED50。
-void UpdateMapFlutterParticles_46ED50()
+void UpdateMapFlutterParticles_46ED50(session::ClientSession& session)
 {
     const std::uint8_t started = gMapEffectStartedC8A728;
     if ((started & 1u) == 0) {
@@ -1489,7 +1492,7 @@ void UpdateMapFlutterParticles_46ED50()
             const std::int32_t attempts = std::bit_cast<std::int16_t>(
                 static_cast<std::uint16_t>(2u * selected - 4u));
             for (std::int32_t index = 0; index < attempts; ++index) {
-                CreateMapEffectKind4();
+                CreateMapEffectKind4(session);
             }
         } else {
             const std::uint64_t now = platform::ReadTickCount64();
@@ -1498,7 +1501,7 @@ void UpdateMapFlutterParticles_46ED50()
             const std::uint64_t deadline = gMapEffectTickC8A730
                 + static_cast<std::uint64_t>(static_cast<std::int64_t>(interval));
             if (deadline < now) {
-                CreateMapEffectKind4();
+                CreateMapEffectKind4(session);
             }
         }
     }
@@ -1506,21 +1509,21 @@ void UpdateMapFlutterParticles_46ED50()
     MapEffectRecord* record = gActiveMapEffectHead;
     while (record != nullptr) {
         if (record->kind == 4) {
-            const std::int32_t randomX = platform::Rand16() % 3;
+            const std::int32_t randomX = platform::Rand16(session.Connection()) % 3;
             const std::int32_t oldX = record->x;
             const std::int32_t velocityX = record->value08;
             record->x = oldX + velocityX + (randomX - 1);
 
-            const std::int32_t randomY = platform::Rand16() % 3;
+            const std::int32_t randomY = platform::Rand16(session.Connection()) % 3;
             const std::int32_t velocityY = record->value0C;
             const std::int32_t oldY = record->y;
             const std::uint32_t remaining = record->remaining;
             record->y = oldY + velocityY + (randomY - 1);
             if (std::bit_cast<std::int32_t>(remaining) <= 0) {
-                record->phase = static_cast<std::uint16_t>(platform::Rand16() % 3);
-                record->value28 = platform::Rand16() % 8 + 1;
+                record->phase = static_cast<std::uint16_t>(platform::Rand16(session.Connection()) % 3);
+                record->value28 = platform::Rand16(session.Connection()) % 8 + 1;
                 const std::uint32_t nextVelocityY =
-                    static_cast<std::uint32_t>(platform::Rand16() % 8 + 1);
+                    static_cast<std::uint32_t>(platform::Rand16(session.Connection()) % 8 + 1);
                 record->remaining = 4;
                 record->value2C = static_cast<std::int32_t>(nextVelocityY);
             } else {
@@ -1543,10 +1546,10 @@ void UpdateMapFlutterParticles_46ED50()
 // 原函数：0x0046E4A0。
 void UpdateMapEffects_46E4A0(session::ClientSession& session)
 {
-    UpdateMapStreakParticles_46E4E0();
-    UpdateMapClusterParticles_46E6C0();
+    UpdateMapStreakParticles_46E4E0(session);
+    UpdateMapClusterParticles_46E6C0(session);
     // 原 46E4AA/46E4AF 两次调用的 509080 仅有 retn。
-    UpdateMapFlutterParticles_46ED50();
+    UpdateMapFlutterParticles_46ED50(session);
     UpdateDirectionalMapEffects_46F1D0(session);
 }
 
@@ -1750,13 +1753,13 @@ void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
         if (divisor == 0) {
             divisor = 1;
         }
-        if (platform::Rand16() % divisor != 0) {
+        if (platform::Rand16(session.Connection()) % divisor != 0) {
             return;
         }
-        const std::int32_t graphicIndex = platform::Rand16() % 3;
+        const std::int32_t graphicIndex = platform::Rand16(session.Connection()) % 3;
         const std::int32_t recordSpeed =
-            platform::Rand16() % 1000 + minimumSpeed;
-        const std::int32_t phase = platform::Rand16();
+            platform::Rand16(session.Connection()) % 1000 + minimumSpeed;
+        const std::int32_t phase = platform::Rand16(session.Connection());
         CreateDirectionalMapEffect_46F090(kind, motion.horizontalSign, motion.verticalSign,
             phase, recordSpeed, graphicIndex);
     };
@@ -3706,7 +3709,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
-            static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
         }
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
@@ -3752,7 +3755,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
-            static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
         }
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
@@ -3796,7 +3799,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
-            static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
         }
         ApplyPendingMapPaletteReply_51D6F0(session);
         ResetMapDrawCacheCounts_46BD40();
@@ -3896,7 +3899,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
                 || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
                     && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
-                static_cast<void>(AdvanceMapParticleCycles_46E4C0(80));
+                static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 80));
             }
             ApplyPendingMapPaletteReply_51D6F0(session);
             static_cast<void>(render::UpdatePalette_450BB0());
@@ -4142,7 +4145,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         }
         if (gMapCharaSceneSlots.valueC8A73E != 0
             || static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0) {
-            static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 160));
         }
         cg::yobi::YobiClearUp_404D30(session);
         cg::yobi::InitializeBattleScene_4383F0(session);
@@ -4393,7 +4396,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {
             clearBattleEffects();
-            static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 160));
         }
         const std::int32_t currentState = gCurrentSceneState;
         const std::int32_t nextState = currentState + 1;
@@ -4437,7 +4440,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
             || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {
             clearBattleEffects();
-            static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
+            static_cast<void>(AdvanceMapParticleCycles_46E4C0(session, 160));
         }
         clearBattleEffects();
         cg::yobi::YobiClearUp_404D30(session);

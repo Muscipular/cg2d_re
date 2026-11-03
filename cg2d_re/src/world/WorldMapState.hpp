@@ -491,17 +491,17 @@ MapEffectRecord* ReleaseMapEffectRecord_46E390(MapEffectRecord* record); // 原 
 // 原函数：0x0046E3E0。
 std::uintptr_t __cdecl OffsetMapEffectForPlayerDirection_46E3E0(std::int32_t* x, std::int32_t* y); // 原 0x46E3E0；混合 EAX 位型。
 // 原函数：0x0046E4E0。
-void UpdateMapStreakParticles_46E4E0();                          // 原 0x46E4E0；EAX 不具统一返回合同。
+void UpdateMapStreakParticles_46E4E0(session::ClientSession& session); // 原 0x46E4E0；EAX 不具统一返回合同。
 // 原函数：0x0046E6C0。
-void UpdateMapClusterParticles_46E6C0();                          // 原 0x46E6C0；活动链 kind 2，EAX 无统一合同。
+void UpdateMapClusterParticles_46E6C0(session::ClientSession& session); // 原 0x46E6C0；活动链 kind 2，EAX 无统一合同。
 // 原函数：0x0046E940。
-std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(std::int32_t cycles); // 原 0x46E940；多轮 kind 2 更新。
+std::int32_t __cdecl AdvanceMapClusterParticlesCycles_46E940(session::ClientSession& session, std::int32_t cycles); // 原 0x46E940；多轮 kind 2 更新。
 // 原函数：0x0046EBB0。
-std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(std::int32_t cycles); // 原 0x46EBB0；多轮 kind 1 更新。
+std::int32_t __cdecl AdvanceMapStreakParticlesCycles_46EBB0(session::ClientSession& session, std::int32_t cycles); // 原 0x46EBB0；多轮 kind 1 更新。
 // 原函数：0x0046E4C0。
-std::int32_t __cdecl AdvanceMapParticleCycles_46E4C0(std::int32_t cycles); // 原 0x46E4C0；双效果更新，透传后者返回。
+std::int32_t __cdecl AdvanceMapParticleCycles_46E4C0(session::ClientSession& session, std::int32_t cycles); // 原 0x46E4C0；双效果更新，透传后者返回。
 // 原函数：0x0046ED50。
-void UpdateMapFlutterParticles_46ED50();                          // 原 0x46ED50；kind 4 创建与活动链更新，返回无统一合同。
+void UpdateMapFlutterParticles_46ED50(session::ClientSession& session); // 原 0x46ED50；kind 4 创建与活动链更新，返回无统一合同。
 // 原函数：0x0046E4A0。
 void UpdateMapEffects_46E4A0(session::ClientSession& session); // 原 0x46E4A0；三效果生产后尾接 46F1D0。
 // 原函数：0x0046F1D0。

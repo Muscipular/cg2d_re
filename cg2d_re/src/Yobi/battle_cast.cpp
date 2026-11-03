@@ -2360,7 +2360,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         if (position == -1) {
                             break;
                         }
-                        static_cast<void>(SeedBattleRandom_4065A0(position + payload->battlePosition18));
+                        static_cast<void>(SeedBattleRandom_4065A0(action, position + payload->battlePosition18));
                         static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_SkillImpact, 0, 0));
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                     }
@@ -2370,7 +2370,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         if (position == -1) {
                             break;
                         }
-                        static_cast<void>(SeedBattleRandom_4065A0(position + payload->battlePosition18));
+                        static_cast<void>(SeedBattleRandom_4065A0(action, position + payload->battlePosition18));
                         MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[
                             payload->effects1C[payload->effectRunningC9C].position]);
                         static_cast<void>(AdvanceBattleEffect_439470(action));
@@ -2665,13 +2665,13 @@ void UpdateBattleAction155_40F800(YobiAction* const action)
         const std::int32_t soundX = action->x;
         action->battleCastEffect10 = effect;
         static_cast<void>(audio::PlaySe_52C450(213, soundX));
-        static_cast<void>(SeedBattleRandom_4065A0(payload->battlePosition18
+        static_cast<void>(SeedBattleRandom_4065A0(action, payload->battlePosition18
             + payload->effects1C[payload->effectRunningC9C].position));
         action->battleTurnStepB4 = static_cast<float>(
-            platform::RandomRange_46FAF0(1, 9) * tenth);
-        static_cast<void>(SeedBattleRandom_4065A0(payload->battlePosition18
+            platform::RandomRange_46FAF0(action->ownerSession->Connection(), 1, 9) * tenth);
+        static_cast<void>(SeedBattleRandom_4065A0(action, payload->battlePosition18
             + payload->effects1C[payload->effectRunningC9C].position));
-        payload->attackModeFF4 = platform::RandomRange_46FAF0(5, 9);
+        payload->attackModeFF4 = platform::RandomRange_46FAF0(action->ownerSession->Connection(), 5, 9);
         action->characterAction = CharacterAnimation_Damage;
         const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
         const std::uint32_t flags = action->flags;
@@ -3216,7 +3216,7 @@ YobiAction* UpdateBattleAction210_412F70(YobiAction* const action)
         MoveBattleByAngle_405EA0(action);
     }
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
-    const std::int32_t imageNo = 110004 + (platform::Rand16() & 3);
+    const std::int32_t imageNo = 110004 + (platform::Rand16(action->ownerSession->Connection()) & 3);
     return NewBattlePositionEffect_41E680(action, imageNo);
 }
 
@@ -3406,7 +3406,7 @@ void UpdateBattleAction216_413400(YobiAction* const action)
                 if (position == 255) {
                     break;
                 }
-                static_cast<void>(SeedBattleRandom_4065A0(position + payload->battlePosition18));
+                static_cast<void>(SeedBattleRandom_4065A0(action, position + payload->battlePosition18));
                 if (payload->castSkill103C == BattleSkill_MonWind) {
                     static_cast<void>(NewBattleEffect_41CD00(action, 0, {.yValue = 0}, BattleEffectType_SkillImpact, 0, 0));
                 }

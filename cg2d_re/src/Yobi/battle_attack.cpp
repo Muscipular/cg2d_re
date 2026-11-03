@@ -2261,7 +2261,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
         static_cast<void>(AdvanceBattleEffect_439470(action));
     }
-    const std::int32_t imageNo = (platform::Rand16() & 1) != 0 ? 110006 : 110004;
+    const std::int32_t imageNo = (platform::Rand16(action->ownerSession->Connection()) & 1) != 0 ? 110006 : 110004;
     static_cast<void>(NewBattlePositionEffect_41E680(action, imageNo));
     return PlayFrame_517DA0(action, AnimationPlayback_Loop);
 }

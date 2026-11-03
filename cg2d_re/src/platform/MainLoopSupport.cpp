@@ -120,16 +120,22 @@ int Rand16(network::CgConnection& connection)
 // 倒置区间保留原Rand16取模算法；合法区间的随机值及引擎消费次数允许变化。
 std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
 {
+    return RandomRange_46FAF0(network::GetGameConnection(), lower, upper);
+}
+
+std::int32_t RandomRange_46FAF0(
+    network::CgConnection& connection, std::int32_t lower, std::int32_t upper)
+{
     if (upper == -1) {
         return 0;
     }
 
     if (lower <= upper) {
         std::uniform_int_distribution<std::int32_t> distribution(lower, upper);
-        return distribution(SharedRandomEngine());
+        return distribution(SharedRandomEngine(connection));
     }
 
-    const std::int32_t random = Rand16();
+    const std::int32_t random = Rand16(connection);
     const std::int32_t divisor = upper - lower + 1;
     return random % divisor + lower;
 }

@@ -1004,7 +1004,7 @@ std::int32_t GetBattleDistance_406300(YobiAction* first, YobiAction* second); //
 // 原函数：0x00406360。
 std::int32_t CountBattleActiveEntries_406360(); // BHRC01：22槽含20/21，FF8完整S32严格==1，无新payload保护。
 // 原函数：0x004065A0。
-std::int32_t SeedBattleRandom_4065A0(std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。
+std::int32_t SeedBattleRandom_4065A0(YobiAction* source, std::int32_t value); // 前20槽非空数乘活动M字节长度与输入，重播同源随机种子。
 // 原函数：0x00406260。
 void FaceBattleActorTowardFormationPosition_406260(YobiAction* action); // 载荷反向坐标差转角度，再更新方向。
 // 原函数：0x004390E0。

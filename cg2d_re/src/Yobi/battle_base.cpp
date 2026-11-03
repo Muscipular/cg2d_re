@@ -440,7 +440,7 @@ std::int32_t CountBattleActiveEntries_406360()
 }
 
 // 原函数：0x004065A0。
-std::int32_t SeedBattleRandom_4065A0(const std::int32_t value)
+std::int32_t SeedBattleRandom_4065A0(YobiAction* const source, const std::int32_t value)
 {
     std::int32_t count = 0;
     for (YobiAction* const action : world::gBattleEntries59E980) {
@@ -450,7 +450,7 @@ std::int32_t SeedBattleRandom_4065A0(const std::int32_t value)
     }
     const auto length = static_cast<std::int32_t>(std::strlen(world::gBattleMText5AAA7C.data()));
     const std::int32_t seed = length * count * value;
-    static_cast<void>(platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(seed)));
+    static_cast<void>(platform::SeedRandom_53B4BF(source->ownerSession->Connection(), static_cast<std::uint32_t>(seed)));
     return seed;
 }
 

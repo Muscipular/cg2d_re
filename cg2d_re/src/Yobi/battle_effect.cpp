@@ -1138,7 +1138,7 @@ YobiAction* NewBattleArcProjection_418FF0(
     payload->x00 = static_cast<std::int32_t>(target->origin_x_offset40) + offsetX;
     payload->y04 = static_cast<std::int32_t>(target->origin_y_offset44) + offsetY;
     TurnBattleToward_406190(action, target, 0, 0.0F);
-    const std::int32_t randomAngle = platform::Rand16() % 90;
+    const std::int32_t randomAngle = platform::Rand16(action->ownerSession->Connection()) % 90;
     const std::int32_t angle = static_cast<std::int32_t>(
         static_cast<double>(randomAngle) + action->angle50 + 135.0) % 360;
     action->angle50 = static_cast<float>(angle);
@@ -2778,8 +2778,8 @@ YobiAction* NewBattleScreenEffect_421610(YobiAction* const source, const std::in
 void UpdateBattleScreenEmitter_4216B0(YobiAction* const action)
 {
     if ((static_cast<std::uint8_t>(action->phase) & 7u) == 0) {
-        const std::int32_t y = platform::Rand16() % 480;
-        const std::int32_t x = platform::Rand16() % 640;
+        const std::int32_t y = platform::Rand16(action->ownerSession->Connection()) % 480;
+        const std::int32_t x = platform::Rand16(action->ownerSession->Connection()) % 640;
         static_cast<void>(NewBattleScreenEffect_421610(action, x, y));
     }
     const std::int32_t phase = action->phase - 1;

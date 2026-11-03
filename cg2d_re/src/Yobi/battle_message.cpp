@@ -6,6 +6,7 @@
 #include "battle_skill.hpp"
 #include "battle_status.hpp"
 #include "../platform/MainLoopDependencies.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/Palette.hpp"
@@ -1482,14 +1483,14 @@ static void ProcessBattleMTransitionHeader(
             FinishBattleEvent_43B6C0(scene);
             return;
         }
-        static_cast<void>(platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(position)));
-        const std::int32_t xIndex = platform::RandomRange_46FAF0(0, 19);
+        static_cast<void>(platform::SeedRandom_53B4BF(scene->ownerSession->Connection(), static_cast<std::uint32_t>(position)));
+        const std::int32_t xIndex = platform::RandomRange_46FAF0(scene->ownerSession->Connection(), 0, 19);
         // 原X先借角色、读坐标，再借载荷；Y先借角色及载荷，再读坐标。
         const std::int32_t xPosition = gBattleMCasterPosition5AAA64;
         YobiAction* const xActor = cg::world::gBattleAllEntries59E980[xPosition];
         const std::int32_t x = cg::world::gBattleGraphicPoints553758[xIndex][0];
         xActor->payload.battleActor->x08 = x;
-        const std::int32_t yIndex = platform::RandomRange_46FAF0(0, 19);
+        const std::int32_t yIndex = platform::RandomRange_46FAF0(scene->ownerSession->Connection(), 0, 19);
         const std::int32_t yPosition = gBattleMCasterPosition5AAA64;
         YobiAction* const yActor = cg::world::gBattleAllEntries59E980[yPosition];
         auto* const yPayload = yActor->payload.battleActor;
@@ -2602,7 +2603,7 @@ static void ProcessBattleMGmnHeader(
     if (mode == BattleMGmnMode_EnterWithEntrance2) {
         entrance = 2;
     } else if (mode == BattleMGmnMode_EnterWithRandomEntranceAndEmitter) {
-        entrance = static_cast<std::int8_t>((platform::Rand16() & 1) + 1);
+        entrance = static_cast<std::int8_t>((platform::Rand16(scene->ownerSession->Connection()) & 1) + 1);
         static_cast<void>(NewBattleScreenEmitter_421700(scene, 150));
     }
     gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));

@@ -1220,6 +1220,7 @@ std::int32_t UpdateBattleAction99_40D390(YobiAction* const action)
 void UpdateBattleAction100_40D3C0(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
+    auto& sequenceIndex = action->ownerSession->Yobi().battleActionSequenceIndex;
     auto* const payload = action->payload.battleActor;
     const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
     const std::int32_t frameIndex = action->frameIndex;
@@ -1227,8 +1228,8 @@ void UpdateBattleAction100_40D3C0(YobiAction* const action)
     auto* const targetPayload = target->payload.battleActor;
     if (frameIndex == 0 && action->frameRemain == 0) {
         action->characterAction = kBattleActionSequence5538F4[
-            payload->castSkillLevel1044 * 20 + gBattleActionSequenceIndex59F9DC];
-        ++gBattleActionSequenceIndex59F9DC;
+            payload->castSkillLevel1044 * 20 + sequenceIndex];
+        ++sequenceIndex;
     }
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) != AnimationFrameResult_StoppedOrUnavailable) {
         return;
@@ -1263,8 +1264,8 @@ void UpdateBattleAction100_40D3C0(YobiAction* const action)
     action->frameIndex = 0;
     action->frameRemain = 0;
     action->frameEvent = 0;
-    if (kBattleActionSequence5538F4[payload->castSkillLevel1044 * 20 + gBattleActionSequenceIndex59F9DC] < 0) {
-        gBattleActionSequenceIndex59F9DC = 0;
+    if (kBattleActionSequence5538F4[payload->castSkillLevel1044 * 20 + sequenceIndex] < 0) {
+        sequenceIndex = 0;
         AdvanceBattleCastState_439340(action);
     }
 }

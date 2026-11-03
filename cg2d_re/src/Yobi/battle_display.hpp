@@ -20,9 +20,6 @@ inline constexpr std::array<std::int8_t, 200> kBattleActionSequence5538F4 { // �
     CharacterAnimation_Down, CharacterAnimation_Down, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
-// 共享原状态，只在本组实现中定义；原全局：0x0059F9DC。
-extern std::int32_t gBattleActionSequenceIndex59F9DC;
-
 // 原函数：0x0041F450。
 void UpdateBattleFloatingIcon_41F450(YobiAction* action); // 未舍入速度推进Y，停留60帧后标死并投影。
 // 原函数：0x0041F110。

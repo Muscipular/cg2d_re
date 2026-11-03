@@ -64,8 +64,6 @@ struct BattleTextPayload {
 
 static_assert(sizeof(BattleTextPayload) == sizeof(YobiAction*) + sizeof(std::wstring*) + 16);
 
-std::int32_t gBattleActionSequenceIndex59F9DC = 0; // 原全局：0x0059F9DC。
-
 // 原54D4E8起十行：数字基图、加号、减号、冒号；41F1A0按style取行。
 static constexpr std::array<std::array<std::int32_t, 4>, 10> kBattleNumberGraphics54D4E8 {{
     {0x3B7F4, 0x3B858, 0x3B859, 0x3B85A},
@@ -535,7 +533,7 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     YobiAction* const parent, const std::int32_t imageNo,
     const std::int32_t offsetX, const std::int32_t offsetY)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }

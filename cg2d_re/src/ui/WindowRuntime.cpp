@@ -185,10 +185,10 @@ static void WindowRuntime_ResetOperationReferences(); // 清两借用Yobi槽与�
 static void WindowRuntime_ResetShortcutFlag(); // 只清CF4AAC。
 
 // 原函数：0x00475C10。
-static void WindowRuntime_RestorePositions(); // 现存窗口恢复原型坐标，仅五类追加原序随机/边界处理。
+static void WindowRuntime_RestorePositions(session::ClientSession& session); // 现存窗口恢复原型坐标，仅五类追加原序随机/边界处理。
 
 // 原函数：0x004C7AE0。
-static void WindowRuntime_ProcessShortcuts(); // 两模式完整快捷键，Ctrl优先；唯一caller弃用原返回。
+static void WindowRuntime_ProcessShortcuts(session::ClientSession& session); // 两模式完整快捷键，Ctrl优先；唯一caller弃用原返回。
 
 // 原函数：0x00470980。
 static void WindowRuntime_OpenNormalScene(); // 普通场景完整重开，保持626C14与22/23门禁。
@@ -3034,7 +3034,7 @@ static void WindowRuntime_ResetShortcutFlag()
 }
 
 // 原函数：0x00475C10。
-static void WindowRuntime_RestorePositions()
+static void WindowRuntime_RestorePositions(session::ClientSession& session)
 {
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         WindowState& state = gWindowStates[index];
@@ -3065,24 +3065,24 @@ static void WindowRuntime_RestorePositions()
         // window->y += offsetY;
         // window = state.window;
         if (window->x < 0) {
-            const std::int32_t x = platform::RandomRange_46FAF0(10, 20);
+            const std::int32_t x = platform::RandomRange_46FAF0(session.Connection(), 10, 20);
             state.window->x = x;
         }
         window = state.window;
         if (window->y < 0) {
-            const std::int32_t y = platform::RandomRange_46FAF0(10, 20);
+            const std::int32_t y = platform::RandomRange_46FAF0(session.Connection(), 10, 20);
             state.window->y = y;
         }
         window = state.window;
         const std::int32_t width = prototype->width;
         if (window->x + width > platform::gWindowWidth) {
-            const std::int32_t x = platform::RandomRange_46FAF0(platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
+            const std::int32_t x = platform::RandomRange_46FAF0(session.Connection(), platform::gWindowWidth - 20 - width, platform::gWindowWidth - width);
             state.window->x = x;
         }
         window = state.window;
         const std::int32_t height = prototype->height;
         if (window->y + height > platform::gWindowHeight) {
-            const std::int32_t y = platform::RandomRange_46FAF0(platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
+            const std::int32_t y = platform::RandomRange_46FAF0(session.Connection(), platform::gWindowHeight - 20 - height, platform::gWindowHeight - height);
             state.window->y = y;
         }
         // 保留上方随机数消费；仅原型中心符合±50规则的窗口按实例尺寸居中。
@@ -3111,7 +3111,7 @@ static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std
 }
 
 // 原函数：0x004C7AE0。
-static void WindowRuntime_ProcessShortcuts()
+static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
 {
     if ((platform::gKeyStates[0x1B] & 4u) != 0) {
         platform::gKeyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
@@ -3268,7 +3268,7 @@ static void WindowRuntime_ProcessShortcuts()
                 }
             }
             if ((platform::gKeyStates[0xDC] & 4u) != 0) {
-                const std::int32_t remainder = platform::Rand16() % 3;
+                const std::int32_t remainder = platform::Rand16(session.Connection()) % 3;
                 if (remainder == 0) {
                     WindowRuntime_PlayShortcutEmote(14, 7);
                 } else if (remainder == 1) {
@@ -3279,7 +3279,7 @@ static void WindowRuntime_ProcessShortcuts()
             }
         }
         if ((platform::gKeyStates[0x7B] & 4u) != 0) {
-            WindowRuntime_RestorePositions();
+            WindowRuntime_RestorePositions(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x7A] & 4u) != 0) {
@@ -4569,7 +4569,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
             }
         }
     }
-    WindowRuntime_ProcessShortcuts();
+    WindowRuntime_ProcessShortcuts(session);
     static_cast<void>(input::ProcessPresetHotkeys_44B340());
     const std::int32_t phase = gMousePhase57C128;
     gCurrentWindowIdD67A1C = 0;

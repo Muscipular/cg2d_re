@@ -19,7 +19,7 @@ int SetWindowedDesktopColor()
 }
 
 // 原 WndInit@0x4669F0；WO01固定窗口模式，保留创建及已有窗口的处理。
-int InitializeWindow()
+int InitializeWindow(session::ClientSession& session)
 {
     // R02：首次 WndInit 前解析原进程参数；重建窗口复用已经发布的布局。
     static bool layoutInitialized = false;
@@ -45,7 +45,7 @@ int InitializeWindow()
         m_log_iw(L"%d %d\n", width, height);
         layoutInitialized = true;
     }
-    world::CenterBattleLayoutToWindow();
+    world::CenterBattleLayoutToWindow(session);
     const DWORD style = 0x00CA0000;
     RECT rect;
     SetWindowedDesktopColor();

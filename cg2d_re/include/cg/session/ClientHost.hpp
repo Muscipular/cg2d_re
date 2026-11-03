@@ -55,6 +55,16 @@ public:
     [[nodiscard]] SessionEntry& AddSession()
     {
         sessions_.emplace_back(nextId_);
+        try {
+            auto& target = sessions_.back().session.WorldScene().slideTransition.lines;
+            const auto extent = sessions_.front().session.WorldScene().slideTransition.lines.speed.size();
+            target.speed.resize(extent);
+            target.x.resize(extent);
+            target.y.resize(extent);
+        } catch (...) {
+            sessions_.pop_back();
+            throw;
+        }
         ++nextId_;
         return sessions_.back();
     }

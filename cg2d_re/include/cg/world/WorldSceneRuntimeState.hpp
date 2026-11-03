@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 namespace cg::yobi { struct YobiAction; }
 namespace cg::world {
@@ -108,8 +109,16 @@ struct ImageTransitionState {
 };
 static_assert(sizeof(ImageTransitionState::offsets) == 0xFF46C0 - 0xFF28C0);
 
-// 九模式滑屏的前向与反向数值；行向量另由窗口尺寸入口预备。
+// 原三组 481 项滑屏行数据；窗口布局仅按尺寸增量扩容，不覆盖已有内容。
+struct SlideTransitionLines {
+    std::vector<float> speed = std::vector<float>(481, 0.0f); // 原 0xFF0FA8。
+    std::vector<float> x = std::vector<float>(481, 0.0f); // 原 0xFF172C。
+    std::vector<float> y = std::vector<float>(481, 0.0f); // 原 0xFF1EB0。
+};
+
+// 九模式滑屏的前向与反向数值。
 struct SlideTransitionState {
+    SlideTransitionLines lines {};
     float x = 0.0f; // 原 0xFF48E8。
     float alternateX = 0.0f; // 原 0xFF48EC。
     float y = 0.0f; // 原 0xFF48F0。

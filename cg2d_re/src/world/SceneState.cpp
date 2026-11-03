@@ -73,14 +73,6 @@
 
 namespace cg::world {
 
-// 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
-struct TransitionLines {
-    std::vector<float> speedFF0FA8 = std::vector<float>(481, 0.0f); // 原全局：0x00FF0FA8。
-    std::vector<float> xFF172C = std::vector<float>(481, 0.0f); // 原全局：0x00FF172C。
-    std::vector<float> yFF1EB0 = std::vector<float>(481, 0.0f); // 原全局：0x00FF1EB0。
-};
-// R02：私有行存储随已发布高度增长，原地址只标识数据身份，不约束现代容器布局。
-static TransitionLines gTransitionLines {};
 // 原51EF80四种初始化的共同网格写序，不在此修改阶段/计数或消费随机数。
 static void InitializeTileTransitionGrid(
     TileTransitionState& tile, const std::int32_t state, const bool aboveScreen)
@@ -6655,6 +6647,7 @@ std::int32_t ProcessSceneSlideOut_51D790(
     auto& gTransitionAlternateYFF48F4 = slide.alternateY;
     auto& gTransitionVelocityFF48F8 = slide.velocity;
     auto& gTransitionActiveLinesFF48FC = slide.activeLines;
+    auto& gTransitionLines = slide.lines;
     const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::int32_t completed = 0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
@@ -6672,9 +6665,9 @@ std::int32_t ProcessSceneSlideOut_51D790(
     constexpr float defaultY = 0.3F;
     // 原FCOMP的C3选择默认值；零及unordered均走默认。
     const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
-    auto& speeds = gTransitionLines.speedFF0FA8;
-    auto& offsetsX = gTransitionLines.xFF172C;
-    auto& offsetsY = gTransitionLines.yFF1EB0;
+    auto& speeds = gTransitionLines.speed;
+    auto& offsetsX = gTransitionLines.x;
+    auto& offsetsY = gTransitionLines.y;
     switch (mode) {
     case 0: {
         const double position = static_cast<double>(gTransitionYFF48F0)
@@ -6956,6 +6949,7 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
     auto& gReverseTransitionAlternateXFF4904 = slide.reverseAlternateX;
     auto& gReverseTransitionYFF4908 = slide.reverseY;
     auto& gReverseTransitionAlternateYFF490C = slide.reverseAlternateY;
+    auto& gTransitionLines = slide.lines;
     const std::uint32_t trigger = gSceneTransitionResetPending_58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
     std::int32_t phase;
@@ -6977,9 +6971,9 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
     constexpr float initialNegativeX = -661.0F;
     constexpr float defaultX = 0.4F;
     constexpr float defaultY = 0.3F;
-    auto& speeds = gTransitionLines.speedFF0FA8;
-    auto& offsetsX = gTransitionLines.xFF172C;
-    auto& offsetsY = gTransitionLines.yFF1EB0;
+    auto& speeds = gTransitionLines.speed;
+    auto& offsetsX = gTransitionLines.x;
+    auto& offsetsY = gTransitionLines.y;
     switch (mode) {
     case 0: {
         double position;
@@ -9913,14 +9907,15 @@ std::int32_t FindTitleIndexById(const std::int32_t id)
 }
 
 // R03：唯一阵位表按尺寸增量更新，重复初始化不累加中心偏移。
-void CenterBattleLayoutToWindow()
+void CenterBattleLayoutToWindow(session::ClientSession& session)
 {
     if (platform::gWindowHeight > 480) {
         const std::size_t extent = static_cast<std::size_t>(platform::gWindowHeight) + 1;
-        if (extent > gTransitionLines.speedFF0FA8.size()) {
-            gTransitionLines.speedFF0FA8.resize(extent);
-            gTransitionLines.xFF172C.resize(extent);
-            gTransitionLines.yFF1EB0.resize(extent);
+        auto& lines = session.WorldScene().slideTransition.lines;
+        if (extent > lines.speed.size()) {
+            lines.speed.resize(extent);
+            lines.x.resize(extent);
+            lines.y.resize(extent);
         }
     }
     static std::int32_t appliedOffsetX = 0;

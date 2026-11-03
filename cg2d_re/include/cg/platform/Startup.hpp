@@ -57,7 +57,7 @@ int SetWindowedDesktopColor();            // 原 0x465A30。
 // 原函数：0x00532E70。
 int CreateSaveDirectories();              // 原 0x532E70；实际运行会改变 CWD/创建目录。
 // 原函数：0x004669F0。
-int InitializeWindow();                   // 原 WndInit@0x4669F0；保留末次 UpdateWindow 的 EAX。
+int InitializeWindow(session::ClientSession& session); // 原 WndInit@0x4669F0；保留末次 UpdateWindow 的 EAX。
 // 原函数：0x00466D50。
 int PumpWindowMessages();                 // 原 0x466D50，WM_QUIT 返回 0，否则 1。
 

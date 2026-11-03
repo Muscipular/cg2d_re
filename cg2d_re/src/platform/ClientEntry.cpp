@@ -365,7 +365,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
         if (cg::resource::BuildResourcePaths() != 0) {
             goto END;
         }
-        InitializeWindow();
+        InitializeWindow(session);
         MainLoop(session);
     }
     END:

@@ -83,7 +83,7 @@ extern std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980; // 原全�
 extern const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980; // 原全局：0x0059E980。 常规路径仅遍历前20槽。
 extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC; // 原全局：0x005536FC。
 // R03：窗口初始化调整这一份阵位，战斗动作／效果继续借用。
-void CenterBattleLayoutToWindow();
+void CenterBattleLayoutToWindow(session::ClientSession& session);
 extern std::array<std::array<std::int32_t, 4>, 22> gBattleGraphicPoints553758; // 原全局：0x00553758。 两组原S32坐标。
 extern std::int32_t gBattleCurrentPosition5ABCA4; // 原全局：0x005ABCA4。 实际gMyPostion；不同于P回复的5ABCA8。
 extern std::int32_t gBattlePlayerActionState5ABC74; // 原全局：0x005ABC74。 UI发布动作完成状态，非5ABB74回合数。

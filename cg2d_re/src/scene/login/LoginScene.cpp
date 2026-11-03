@@ -318,7 +318,6 @@ std::int16_t gSelectedServerIndex = -1; // 原全局：0x0058AD94。
 std::wstring gPassword {}; // 原全局：0x00DA38DC。
 std::wstring gExecutableDigest {}; // 原全局：0x00DA3A1C。
 std::wstring gAccount {}; // 原全局：0x00DA3A5C。
-std::int16_t gLoginReplyErrorCode_DA3B24 = 0; // 原全局：0x00DA3B24。
 
 static_assert(sizeof(gLoginServerGroupCounts_D9F2D4) == 60 * sizeof(std::int32_t));
 
@@ -453,25 +452,26 @@ std::int32_t ProcessScene_45FEA0()
             break;
         case -2: {
             world::gCurrentSceneState = 100;
-            const std::int16_t error = gLoginReplyErrorCode_DA3B24;
+            auto& request = cg::network::GetGameConnection().LoginRequests();
+            const std::int16_t error = request.loginErrorCode;
             if (error > 1234) {
                 CopyText(gLoginSceneMessage, kCannotConnect);
-                gLoginReplyErrorCode_DA3B24 = 0;
+                request.loginErrorCode = 0;
             } else if (error == 1234) {
-                gLoginReplyErrorCode_DA3B24 = 0;
+                request.loginErrorCode = 0;
                 CopyText(gLoginSceneMessage, L"此伺服器很拥挤。" /* 原 0x55CAD0「此伺服器很擁擠。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
             } else {
                 switch (error) {
                 case 1:
                     CopyText(gLoginSceneMessage, L"版本错误" /* 原 0x55C7B8「版本錯誤」正文 8 字节；字符串字面量隐式追加 NUL。 */);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 2:
                 case 5:
                     CopyText(gLoginSceneMessage, kMultiline);
                     CopyAccountHelpLines();
                     // CopyText(gLoginMsgLines_9A620C[10], kAccountHelp4);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     // CopyText(gLoginMsgLines_9A620C[11], kAccountHelp5);
                     break;
                 case 3:
@@ -484,62 +484,62 @@ std::int32_t ProcessScene_45FEA0()
                     // CopyText(gValue9A620C[4], L"" /* 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。 */);
                     // CopyText(gValue9A620C[5], L"" /* 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     CopyAccountHelpLines();
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     // CopyText(gLoginMsgLines_9A620C[2], kAccountHelp4);
                     // CopyText(gLoginMsgLines_9A620C[3], kAccountHelp5);
                     break;
                 case 4:
                     CopyText(gLoginSceneMessage, L"点数不足" /* 原 0x55C6F4「點數不足」正文 8 字节；字符串字面量隐式追加 NUL。 */);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 6:
                     CopyText(gLoginSceneMessage, kAlreadyOnline);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 7:
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     CopyText(gLoginSceneMessage, kAlreadyOnline);
                     break;
                 case 8:
                     CopyText(gLoginSceneMessage, L"登入伺服器发生错误" /* 原 0x55C6D0「登入伺服器發生錯誤」正文 18 字节；字符串字面量隐式追加 NUL。 */);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 9:
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     CopyText(gLoginSceneMessage, L"储值时间已到" /* 原 0x55C6C0「儲值時間已到」正文 12 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 10:
                     CopyText(gLoginSceneMessage, L"计费方式有问题" /* 原 0x55C6B0「計費方式有問題」正文 14 字节；字符串字面量隐式追加 NUL。 */);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 11:
                 case 13:
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     CopyText(gLoginSceneMessage, kSuspended);
                     break;
                 case 12:
                 case 14:
                     CopyText(gLoginSceneMessage, kSuspended);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 15:
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     CopyText(gLoginSceneMessage, L"未知的错误" /* 原 0x55C698「未知的錯誤」正文 10 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 16:
                     CopyText(gLoginSceneMessage, L"伺服器负荷过重，请稍候再试。" /* 原 0x55C678「伺服器負荷過重，請稍候再試。」正文 28 字节；字符串字面量隐式追加 NUL。 */);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 18:
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     CopyText(gLoginSceneMessage, L"请休息一下滑鼠，数秒后再尝试。" /* 原 0x55C658「請休息一下滑鼠，數秒後再嘗試。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 19:
                     CopyText(gLoginSceneMessage, L"此伺服器不提供试玩服务" /* 原 0x55C640「此伺服器不提供試玩服務」正文 22 字节；字符串字面量隐式追加 NUL。 */);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 20:
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     CopyText(gLoginSceneMessage, L"此电脑没有权限登入。（行动锁上锁）" /* 原 0x55CC00「此電腦沒有權限登入。（行動鎖上鎖）」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 21:
@@ -550,20 +550,20 @@ std::int32_t ProcessScene_45FEA0()
                     CopyText(gLoginMsgLines_9A620C[9], L"储值后请稍待数分钟系统处理时间。" /* 原 0x55CB8C「儲值後請稍待數分鐘系統處理時間。」正文 32 字节；字符串字面量隐式追加 NUL。 */);
                     // CopyText(gLoginMsgLines_9A620C[10], L" ");
                     // CopyText(gLoginMsgLines_9A620C[11], L" ");
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 case 22:
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     CopyText(gLoginSceneMessage, L"此帐号已使用行动锁冻结。" /* 原 0x55CB70「此帳號已使用行動鎖凍結。」正文 24 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 23:
                     gOpenUrlAfterMessage = 1;
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     CopyText(gLoginSceneMessage, L"游戏密码已经过期。\n" /* 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。 */);
                     break;
                 default:
                     CopyText(gLoginSceneMessage, kCannotConnect);
-                    gLoginReplyErrorCode_DA3B24 = 0;
+                    request.loginErrorCode = 0;
                     break;
                 }
             }

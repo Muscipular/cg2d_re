@@ -1084,13 +1084,13 @@ void CgConnection::Impl::HandleResponse_508800(cg::network::CgConnection&,
     }
 
     loginRequests.status = 2;
-    login::gLoginReplyErrorCode_DA3B24 = std::bit_cast<std::int16_t>(
+    loginRequests.loginErrorCode = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(value));
     const auto diagnostic = std::format(L"LOGIN REPLY RESULT={}", value);
     static_cast<void>(login::detail::AppendSystemLog_44B5C0(diagnostic));
     if (value != 0) {
         if (std::strcmp(text, "busy") == 0) {
-            login::gLoginReplyErrorCode_DA3B24 = 1234;
+            loginRequests.loginErrorCode = 1234;
         }
         return;
     }

@@ -23,7 +23,6 @@ extern std::int16_t gSelectedServerIndex; // 原 0x58AD94，服务器索引，�
 extern std::wstring gPassword;               // 原DA38DC，密码／NLD01第2文本，映像零填充。
 extern std::wstring gExecutableDigest;       // 原DA3A1C，可执行文件摘要／NLD01第1文本，映像零填充。
 extern std::wstring gAccount;                // 原DA3A5C，账号／NLD01第3文本，映像零填充。
-extern std::int16_t gLoginReplyErrorCode_DA3B24;                       // 原 0xDA3B24，映像零填充。
 
 // 原 LoginScene::Process@0x45FEA0。
 std::int32_t ProcessScene_45FEA0();

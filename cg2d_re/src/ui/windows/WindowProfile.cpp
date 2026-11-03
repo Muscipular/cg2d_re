@@ -11,15 +11,11 @@ namespace detail {
 
 // 原函数：0x0049D8F0。
 static void WindowProfile_RouteReply(
+    session::ClientSession& session,
     std::int32_t type, std::int32_t value, std::int32_t request,
     std::int32_t target, char* text); // 先发布同源对话状态，再生产并打开60/61/62。
 
 // 控件载荷、窗口状态、组件表与原型。
-
-// 原全局：0x00CC4D34。 4D3020保存x/y数值，非CryptInt对象。
-static std::int32_t gWindowInteractionOriginX_CC4D34 = 0; // 原全局：0x00CC4D34。
-
-static std::int32_t gWindowInteractionOriginY_CC4D3C = 0; // 原全局：0x00CC4D3C。
 
 // 窗口函数实现。
 
@@ -144,16 +140,18 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
 }
 
 // 原函数：0x004D3020。
-std::int32_t WindowProfile_SaveOrigin(const std::int32_t x, const std::int32_t y)
+std::int32_t WindowProfile_SaveOrigin(session::ClientSession& session, const std::int32_t x, const std::int32_t y)
 {
-    gWindowInteractionOriginX_CC4D34 = x;
-    gWindowInteractionOriginY_CC4D3C = y;
+    auto& npcDialog = session.WorldScene().npcDialog;
+    npcDialog.originX = x;
+    npcDialog.originY = y;
     return x;
 }
 
 // 原函数：0x004D3040。
-std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::int32_t rangeY)
+std::int32_t WindowProfile_CheckDistance(session::ClientSession& session, const std::int32_t rangeX, const std::int32_t rangeY)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     const double playerX = static_cast<std::int32_t>(world::gPlayerX) * 64.0;
     if (playerX != std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentXBits))) {
@@ -164,7 +162,7 @@ std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::i
             static_cast<std::uint32_t>(world::gWorldCurrentYBits))) {
         return 0;
     }
-    double distanceX = static_cast<double>(gWindowInteractionOriginX_CC4D34 * 64)
+    double distanceX = static_cast<double>(npcDialog.originX * 64)
         - std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentXBits));
     if (distanceX < 0.0) {
@@ -173,7 +171,7 @@ std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::i
     if (distanceX >= rangeX * 64) {
         return 1;
     }
-    double distanceY = static_cast<double>(gWindowInteractionOriginY_CC4D3C * 64)
+    double distanceY = static_cast<double>(npcDialog.originY * 64)
         - std::bit_cast<float>(
             static_cast<std::uint32_t>(world::gWorldCurrentYBits));
     if (distanceY < 0.0) {
@@ -184,10 +182,12 @@ std::int32_t WindowProfile_CheckDistance(const std::int32_t rangeX, const std::i
 
 // 原函数：0x0049D8F0。
 static void WindowProfile_RouteReply(
+    session::ClientSession& session,
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
 {
-    if (world::gCurrentDialogType_581800 >= 0) {
+    auto& npcDialog = session.WorldScene().npcDialog;
+    if (npcDialog.type >= 0) {
         switch (request) {
         case 326:
         case 327:
@@ -196,33 +196,33 @@ static void WindowProfile_RouteReply(
         case 389:
         case 390:
             if (type != 32) {
-                WindowRuntime_CloseByCategory(2);
-                WindowRuntime_CloseByCategory(3);
+                WindowRuntime_CloseByCategory(session, 2);
+                WindowRuntime_CloseByCategory(session, 3);
             }
             break;
         default:
             break;
         }
     }
-    world::gCurrentDialogType_581800 = type;
-    gDialogValueCF4E5C = value;
-    world::gDialogRequestCC21E0 = request;
-    world::gDialogTargetD2DE6C = target;
+    npcDialog.type = type;
+    npcDialog.value = value;
+    npcDialog.request = request;
+    npcDialog.target = target;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     switch (type) {
     case 38:
         world::detail::HandleProfileCategorySelectionReply_4C9E40(value, text);
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileCategory, 1, 0, nullptr));
+        static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_ProfileCategory, 1, 0, nullptr));
         return;
     case 39:
         world::detail::HandleProfileSearchResultsReply_4CA330(value, text);
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileSearch, 1, 0, nullptr));
+        static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_ProfileSearch, 1, 0, nullptr));
         return;
     case 40:
         static_cast<void>(world::detail::HandleViewedPlayerProfileReply_4CAC60(value, text));
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_ProfileView, 1, 0, nullptr));
+        static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_ProfileView, 1, 0, nullptr));
         return;
     default:
         return;
@@ -234,7 +234,7 @@ static void WindowProfile_RouteReply(
 // 窗口函数实现。
 
 // 原函数：0x0050F990。
-void WindowProfile_ReceiveReply(cg::network::CgConnection&, const std::int32_t type, const std::int32_t value,
+void WindowProfile_ReceiveReply(cg::network::CgConnection& connection, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
@@ -246,7 +246,7 @@ void WindowProfile_ReceiveReply(cg::network::CgConnection&, const std::int32_t t
     if (world::ReadRippleGateOnce() != 0) {
         return;
     }
-    detail::WindowProfile_RouteReply(type, value, request, target, text);
+    detail::WindowProfile_RouteReply(connection.Owner(), type, value, request, target, text);
 }
 
 } // namespace cg::ui

@@ -184,6 +184,7 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
 // 原函数：0x004CB6A0。
 static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -223,8 +224,8 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
     const std::wstring escapedText = input::EscapeText(text, 1024);
     const std::wstring combined = std::to_wstring(gMiniMailCompose105F508.target) + L"|" + escapedName + L"|" + escapedText + L"|0";
     const std::wstring packet = input::EscapeTextAndNotify(combined, 1023);
-    const std::int32_t target = world::gDialogTargetD2DE6C;
-    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t target = npcDialog.target;
+    const std::int32_t request = npcDialog.request;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 8, packet));

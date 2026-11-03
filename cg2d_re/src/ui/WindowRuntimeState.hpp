@@ -387,7 +387,7 @@ std::int32_t WindowStatusBar_ButtonMiniMap(WindowInstance& callbackWindow, Eleme
 cg::yobi::YobiAction* WindowMiniMap_Open(
     std::uint32_t flags, std::uint32_t mode, cg::yobi::YobiAction** completionSlot); // 小地图184x159展开，完成槽原生T**。
 // 原函数：0x00495F70。
-std::int32_t WindowEmote_Select(std::int32_t index); // 清18B后选中指定字节，Y/X快照交4D3020。
+std::int32_t WindowEmote_Select(session::ClientSession& session, std::int32_t index); // 清18B后选中指定字节，Y/X快照交4D3020。
 // 原函数：0x00498520。
 void WindowBattleCommand_Dispatch(session::ClientSession& session); // 完整六态战斗命令分派，所有出口共用倒计时尾。
 // 原函数：0x0043C950。
@@ -609,7 +609,6 @@ void WindowDialog_Reset(session::ClientSession& session); // 只清内嵌图号/
 void WindowDialog_AddImage(
     session::ClientSession& session, std::uint8_t used, std::int32_t imageNo, std::uint8_t direction,
     std::int16_t x, std::int16_t y);
-extern std::int32_t gDialogValueCF4E5C; // 原全局：0x00CF4E5C。 原第二协议参数；虚拟零S32，后续UI按位读取。
 // 原函数：0x0049C600。
 cg::yobi::YobiAction* WindowDialog_Open(
     session::ClientSession& session, std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
@@ -701,9 +700,9 @@ extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x
 // 原函数：0x004E54E0。
 void WindowTrade_CopyOwnItem(std::int32_t side, std::int32_t index); // 背包index+8到交易，不复制描述。
 // 原函数：0x004D3020。
-std::int32_t WindowProfile_SaveOrigin(std::int32_t x, std::int32_t y); // 同源坐标依序保存，返回x。
+std::int32_t WindowProfile_SaveOrigin(session::ClientSession& session, std::int32_t x, std::int32_t y); // 同源坐标依序保存，返回x。
 // 原函数：0x004D3040。
-std::int32_t WindowProfile_CheckDistance(std::int32_t rangeX, std::int32_t rangeY); // 到格才判断距快照的范围。
+std::int32_t WindowProfile_CheckDistance(session::ClientSession& session, std::int32_t rangeX, std::int32_t rangeY); // 到格才判断距快照的范围。
 // 原函数：0x004CB9B0。
 WindowInstance* WindowProfileView_RequestCategoryClose(session::ClientSession& session, std::int32_t index); // 借用窗口59+index，只标记关闭并返回原T*。
 // 原函数：0x00478330。
@@ -785,7 +784,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
 // 原函数：0x004E5620。
 cg::yobi::YobiAction* WindowTrade_ReceiveStart(std::wstring_view name); // 全量清交易双侧后复制己方，最后打开43。
 // 原函数：0x0049E800。
-cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(const char* text, WindowListSelectionCallback callback);
+cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(session::ClientSession& session, const char* text, WindowListSelectionCallback callback);
 // 原函数：0x00485110。
 void WindowElement_DrawHoverFrame(WindowElement* element, std::int32_t state, std::uint32_t imageNo); // 元素外扩一像素悬停框。
 // 原函数：0x00474270。

@@ -259,6 +259,16 @@ struct SlideTransitionState {
     float reverseAlternateY = 0.0f; // 原 0xFF490C。
 };
 
+// NPC对话及各操作窗口共用的请求/距离快照，不与窗口51的独立请求槽合并。
+struct NpcDialogRuntimeState {
+    std::int32_t type = -1; // 原0x581800。
+    std::int32_t value = 0; // 原0xCF4E5C，当前保留原第二参数发布。
+    std::int32_t request = 0; // 原0xCC21E0。
+    std::int32_t target = 0; // 原0xD2DE6C。
+    std::int32_t originX = 0; // 原0xCC4D34，普通S32而非CryptInt。
+    std::int32_t originY = 0; // 原0xCC4D3C。
+};
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
@@ -266,6 +276,7 @@ struct WorldSceneRuntimeState {
     BattleSceneState battle {};
     BattleResultState battleResult {};
     MapNoticeState mapNotice {};
+    NpcDialogRuntimeState npcDialog {};
     RotationState rotation {};
     ChatSendState chat {};
     ChatDisplayState chatDisplay {};

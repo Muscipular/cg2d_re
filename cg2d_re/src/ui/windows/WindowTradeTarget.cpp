@@ -128,6 +128,7 @@ WindowPrototype gWindowPrototypeTradeTarget {0, 4, 160, 125, 320, 192, 0x8001010
 
 // 原函数：0x0049E800。
 cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
+    session::ClientSession& session,
     const char* const text, const WindowListSelectionCallback callback)
 {
     gWindowListCountCF46A8 = 0;
@@ -151,8 +152,8 @@ cg::yobi::YobiAction* WindowTradeTarget_ReceiveTargets(
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    return WindowRuntime_CreateAnimation(WindowId_TradeTarget, 1, 0, nullptr);
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
+    return WindowRuntime_CreateAnimation(session, WindowId_TradeTarget, 1, 0, nullptr);
 }
 
 // 原函数：0x0049E990。
@@ -182,7 +183,7 @@ static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, con
         }
         WindowTradeTarget_Refresh(&callbackWindow, gWindowListOffsetCC3EF4);
     }
-    if (WindowProfile_CheckDistance(1, 1) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }

@@ -142,7 +142,7 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
     }
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     skillOperation.extraDelay = 2000;
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
@@ -623,7 +623,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
             gather.petImage = WindowSkill_ReadBattlePetImage();
             gather.crystalLevel = WindowSkill_ReadCrystalLevel();
             gather.mode = 2;
-        } else if (WindowProfile_CheckDistance(1, 1) != 0) {
+        } else if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
             static_cast<void>(WindowGather_Cancel(session, currentWindow));
         }
     } else if (mode == 3) {
@@ -793,7 +793,7 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(WindowProfile_SaveOrigin(x, y));
+            static_cast<void>(WindowProfile_SaveOrigin(*callbackWindow.ownerSession, x, y));
             static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;

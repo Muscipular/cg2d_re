@@ -96,7 +96,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSes
     auto& targets = session.UiFrame().native.itemTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     targets.records.fill({});
     const wchar_t* const ownName = world::GetPlayerDisplayText(1);
     const std::uint32_t ownIndex = world::gPlayerRuntimeSlots.objectIndex;
@@ -214,7 +214,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
     auto& targets = session.UiFrame().native.itemTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     const std::int32_t selected = targets.selected;
     targets.attributeCount = 0;
     if (targets.records[selected].kind == 0) {

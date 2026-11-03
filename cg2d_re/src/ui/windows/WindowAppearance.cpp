@@ -210,11 +210,12 @@ static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, cons
 // 原函数：0x004C5B70。
 static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& appearance = callbackWindow.ownerSession->UiFrame().native.appearance;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
-    if (WindowProfile_CheckDistance(2, 2) != 0 || world::gCurrentDialogType_581800 != appearance.dialogType) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0 || npcDialog.type != appearance.dialogType) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -231,9 +232,10 @@ static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, const 
 // 原函数：0x004C5C00。
 static void WindowAppearance_Release(WindowInstance& releasedWindow)
 {
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& appearance = releasedWindow.ownerSession->UiFrame().native.appearance;
-    if (world::gCurrentDialogType_581800 == appearance.dialogType) {
-        world::gCurrentDialogType_581800 = -1;
+    if (npcDialog.type == appearance.dialogType) {
+        npcDialog.type = -1;
         appearance.dialogType = -1;
     }
 }
@@ -241,6 +243,7 @@ static void WindowAppearance_Release(WindowInstance& releasedWindow)
 // 原函数：0x004C5C30。
 static std::int32_t WindowAppearance_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& appearance = callbackWindow.ownerSession->UiFrame().native.appearance;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -257,8 +260,8 @@ static std::int32_t WindowAppearance_ButtonOk(WindowInstance& callbackWindow, co
             const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
                 base, imageClass, quarter, fifth, ones);
             const auto buffer = std::to_wstring(image);
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
@@ -399,12 +402,13 @@ static std::int32_t WindowAppearance_SendDialogReply(
     session::ClientSession& session, const std::int32_t button, const std::int32_t row, const std::wstring* const unusedTexts,
     const std::uint8_t unusedInputCount)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& imageDialog = session.UiFrame().native.imageDialog;
     static_cast<void>(unusedTexts);
     static_cast<void>(unusedInputCount);
     if (button == 0) {
         if (row < 0) {
-            world::gCurrentDialogType_581800 = -1;
+            npcDialog.type = -1;
         }
         return 1;
     }
@@ -419,7 +423,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(session.Connection().SendDialogResponse(x, y, request, target, button, escaped));
-    world::gCurrentDialogType_581800 = -1;
+    npcDialog.type = -1;
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
@@ -430,9 +434,10 @@ cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
     session::ClientSession& session, const std::int32_t buttons, const std::int32_t request, const std::int32_t target,
     const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& imageDialog = session.UiFrame().native.imageDialog;
     WindowDialog_Reset(session);
-    imageDialog.type = world::gCurrentDialogType_581800;
+    imageDialog.type = npcDialog.type;
     imageDialog.request = request;
     imageDialog.target = target;
     imageDialog.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);

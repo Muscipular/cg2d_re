@@ -330,16 +330,18 @@ WindowPrototype gWindowPrototypeCrystalShop {0, 4, 10, 30, 549, 366, 0x80010101u
 // 原函数：0x004C1390。
 static void WindowCrystalShop_Release(WindowInstance& releasedWindow)
 {
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& crystal = releasedWindow.ownerSession->UiFrame().native.crystalShop;
     const std::int32_t type = crystal.dialogType;
-    if (type == world::gCurrentDialogType_581800) {
-        world::gCurrentDialogType_581800 = -1;
+    if (type == npcDialog.type) {
+        npcDialog.type = -1;
     }
 }
 
 // 原函数：0x004C13B0。
 cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& crystal = session.UiFrame().native.crystalShop;
     auto& shop = session.UiFrame().native.shop;
@@ -404,7 +406,7 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, co
         }
         shop.itemCount = currentCount + 1;
     }
-    const std::int32_t type = world::gCurrentDialogType_581800;
+    const std::int32_t type = npcDialog.type;
     shop.currencyItemId = -1;
     crystal.dialogType = type;
     return WindowRuntime_CreateAnimation(session, WindowId_CrystalShop, 1, 0, nullptr);
@@ -589,6 +591,7 @@ static void WindowCrystalShop_Refresh(WindowInstance& callbackWindow)
 // 原函数：0x004C1C50。
 static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
@@ -654,11 +657,11 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, con
             cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
         }
     }
-    if (WindowProfile_CheckDistance(2, 2) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
     const std::int32_t type = crystal.dialogType;
-    if (type != world::gCurrentDialogType_581800) {
+    if (type != npcDialog.type) {
         currentWindow->state |= 0x8000u;
     }
     if (auto* const element10 = currentWindow->FindElementById(WindowCrystalShopElementId::Element10); element10) element10->visible = 1;
@@ -724,6 +727,7 @@ static std::int32_t WindowCrystalShop_Draw(WindowInstance& callbackWindow, const
 // 原函数：0x004C2060。
 static void WindowCrystalShop_Submit(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
@@ -750,8 +754,8 @@ static void WindowCrystalShop_Submit(WindowInstance& callbackWindow, const std::
         }
     }
     escaped = input::EscapeTextAndNotify(text, 255);
-    const std::int32_t target = world::gDialogTargetD2DE6C;
-    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t target = npcDialog.target;
+    const std::int32_t request = npcDialog.request;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =

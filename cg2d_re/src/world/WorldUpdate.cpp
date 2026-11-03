@@ -116,7 +116,7 @@ void Update(session::ClientSession& session)
         detail::InitializeWorldMapState_467F30(session);
         detail::InitializePlayerRuntimeState_5199A0(session.Connection());
         detail::ResetWorldObjectTable_446470();
-        detail::ResetCurrentDialogType_4D3170();
+        detail::ResetCurrentDialogType_4D3170(session);
         detail::InitializeWorldSceneFlags_455BD0(session);
         detail::InitializeMapEffectPool_46E2A0();
         ResetMapDrawCacheCounts_46BD40();

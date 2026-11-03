@@ -298,7 +298,7 @@ static std::int32_t WindowProfileSearch_Update(WindowInstance& callbackWindow, c
     if (value == -1) {
         WindowProfileSearch_RefreshResults(&callbackWindow);
     }
-    if (WindowProfile_CheckDistance(2, 2) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowProfileSearch_DrawKeyword(&callbackWindow));
@@ -308,7 +308,8 @@ static std::int32_t WindowProfileSearch_Update(WindowInstance& callbackWindow, c
 // 原函数：0x004CAB60。
 static void WindowProfileSearch_Release(WindowInstance& releasedWindow)
 {
-    world::gCurrentDialogType_581800 = -1;
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
+    npcDialog.type = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 4));
 }
@@ -354,6 +355,7 @@ static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWind
 // 原函数：0x004CA6F0。
 static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -391,8 +393,8 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& call
     const std::int32_t group = search.value00;
     const std::wstring combined = std::to_wstring(group) + L"|" + std::to_wstring(entry) + L"|" + keyword;
     const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
-    const std::int32_t target = world::gDialogTargetD2DE6C;
-    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t target = npcDialog.target;
+    const std::int32_t request = npcDialog.request;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, commands[position], packet));
@@ -402,6 +404,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& call
 // 原函数：0x004CA9C0。
 static std::int32_t WindowProfileSearch_SelectResult(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -420,8 +423,8 @@ static std::int32_t WindowProfileSearch_SelectResult(WindowInstance& callbackWin
         const std::int32_t key = record.value104;
         const std::wstring combined = std::to_wstring(key) + L"|" + record.text04;
         const std::wstring packet = input::EscapeTextAndNotify(combined, 255);
-        const std::int32_t target = world::gDialogTargetD2DE6C;
-        const std::int32_t request = world::gDialogRequestCC21E0;
+        const std::int32_t target = npcDialog.target;
+        const std::int32_t request = npcDialog.request;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 4, packet));

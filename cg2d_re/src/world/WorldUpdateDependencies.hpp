@@ -15,11 +15,6 @@ namespace cg::world {
 extern platform::LegacyCryptInt gRippleGate; // 原全局：0x009A7FA8，波纹门禁。
 extern platform::LegacyCryptInt gSceneTransitionValue; // 原全局：0x0073ECD0。
 
-// 原 0x581800：4D3170 重置、World::OpenDialog 读写的独立 W32 槽。
-extern std::int32_t gCurrentDialogType_581800;
-extern std::int32_t gDialogRequestCC21E0; // 原全局：0x00CC21E0。 原对话a3，49D2E0/49D8F0生产，发送共用。
-extern std::int32_t gDialogTargetD2DE6C; // 原全局：0x00D2DE6C。 原对话a4，不是窗口51的独立参数槽。
-
 // World::Update@0x51C430 的直接目标声明；保留原地址及调用契约，提供者按所属模块实现。
 // 原函数：0x0045F190。
 std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connection); // 原 0x45F190。
@@ -86,7 +81,7 @@ std::int32_t IsMapBattleSpectatingAllowed_455A90(); // G05：所有地图允许�
 // 原函数：0x004FA8E0。
 std::uintptr_t RequestEmoteWithResult_4FA8E0(std::int32_t index); // 旧随机快捷键需要的原生action地址/完整W32混合返回。
 // 原函数：0x004D3170。
-void ResetCurrentDialogType_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
+void ResetCurrentDialogType_4D3170(session::ClientSession& session); // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
 // 原函数：0x00455BD0。
 std::int32_t InitializeWorldSceneFlags_455BD0(session::ClientSession& session); // GVC01保留有效状态重置及返回0，已清理原无消费者槽。
 // 原函数：0x00504A30。

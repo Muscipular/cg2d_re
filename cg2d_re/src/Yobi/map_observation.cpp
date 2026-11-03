@@ -1011,6 +1011,7 @@ std::int32_t HandleMapObservationActionReply_440920(
     [[maybe_unused]] const std::int32_t unusedDirection,
     const std::int32_t characterAction, const char* const row)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     if (characterAction < detail::MapObservationReplyAction_DepartingGroup || characterAction > detail::MapObservationReplyAction_ArrivingGroup) {
         return 0;
     }
@@ -1054,7 +1055,7 @@ std::int32_t HandleMapObservationActionReply_440920(
             const std::int32_t member = values[index];
             if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
                 ui::WindowRuntime_CloseByCategory(session, 3);
-                world::gCurrentDialogType_581800 = -1;
+                npcDialog.type = -1;
                 world::SuspendPlayerForObservation_51BEE0();
                 ui::WindowRuntime_ApplyObservationInputGate(session);
             } else {

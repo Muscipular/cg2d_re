@@ -194,17 +194,18 @@ static std::int32_t WindowMessageBoard_Update(WindowInstance& callbackWindow, co
         }
     }
     WindowMessageBoard_RefreshRecords(&callbackWindow);
-    if (WindowProfile_CheckDistance(2, 2) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         static_cast<void>(WindowMessageBoard_Close(&callbackWindow));
     }
     return 1;
 }
 
 // 原函数：0x004B5B50。
-static void WindowMessageBoard_Release(WindowInstance&)
+static void WindowMessageBoard_Release(WindowInstance& releasedWindow)
 {
-    if (world::gCurrentDialogType_581800 == 21) {
-        world::gCurrentDialogType_581800 = -1;
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
+    if (npcDialog.type == 21) {
+        npcDialog.type = -1;
     }
 }
 
@@ -244,6 +245,7 @@ static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindo
 // 原函数：0x004B5C30。
 static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -294,8 +296,8 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
         }
         cg::text::FormatTo(text, L"{}", (index - 5) / 7);
         escaped = input::EscapeTextAndNotify(text, 255);
-        const std::int32_t target = world::gDialogTargetD2DE6C;
-        const std::int32_t request = world::gDialogRequestCC21E0;
+        const std::int32_t target = npcDialog.target;
+        const std::int32_t request = npcDialog.request;
         const std::int32_t y =
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
@@ -322,8 +324,8 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
         input::InputContext* const context = inputs.messageBoardPrototype.input.context;
         if (!context->empty()) {
             const std::wstring escapedText = input::EscapeTextAndNotify(input::ContextText(*context), 256);
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
@@ -353,8 +355,8 @@ static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWin
                 graphic->imageNo = baseImage;
             }
             if ((state & MouseFlag_LDownEvent) != 0) {
-                const std::int32_t target = world::gDialogTargetD2DE6C;
-                const std::int32_t request = world::gDialogRequestCC21E0;
+                const std::int32_t target = npcDialog.target;
+                const std::int32_t request = npcDialog.request;
                 escaped.clear();
                 const std::int32_t y =
                     static_cast<std::int32_t>(world::gPlayerY);
@@ -439,8 +441,9 @@ static std::int32_t WindowMessageBoard_Close(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
+    auto& npcDialog = callbackWindow->ownerSession->WorldScene().npcDialog;
     WindowInstance* const window = currentWindow;
-    world::gCurrentDialogType_581800 = -1;
+    npcDialog.type = -1;
     window->state |= 0x8000u;
     return audio::PlaySe_52C450(57, 320);
 }

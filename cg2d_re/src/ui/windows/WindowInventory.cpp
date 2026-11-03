@@ -542,6 +542,7 @@ static std::int32_t WindowInventory_TabPet(WindowInstance& callbackWindow, const
 // 原函数：0x00488510。
 static void WindowInventory_Release(WindowInstance& releasedWindow)
 {
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     WindowInstance* const quantityWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
     if (quantityWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 14) {
         quantityWindow->state |= 0x8000u;
@@ -557,8 +558,8 @@ static void WindowInventory_Release(WindowInstance& releasedWindow)
         --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
         static_cast<void>(WindowDrag_ResetMouse(*releasedWindow.ownerSession));
     }
-    if (world::gCurrentDialogType_581800 == 29) {
-        world::gCurrentDialogType_581800 = -1;
+    if (npcDialog.type == 29) {
+        npcDialog.type = -1;
     }
     gItemSelectorCF3B10.initialized3E8 = 0;
 }
@@ -566,6 +567,7 @@ static void WindowInventory_Release(WindowInstance& releasedWindow)
 // 原函数：0x00488990。
 static std::int32_t WindowInventory_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t selected;
@@ -593,12 +595,12 @@ static std::int32_t WindowInventory_Update(WindowInstance& callbackWindow, const
         const std::int32_t oldSelection = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
         --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[oldSelection];
-        if (world::gCurrentDialogType_581800 == 29) {
-            world::gCurrentDialogType_581800 = -1;
+        if (npcDialog.type == 29) {
+            npcDialog.type = -1;
         }
         static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
     }
-    if (gItemSelectionModeCC40D4 == 2 && world::gCurrentDialogType_581800 != 29) {
+    if (gItemSelectionModeCC40D4 == 2 && npcDialog.type != 29) {
         if (auto* const handleItemsElement = currentWindow->FindElementById(WindowInventoryElementId::HandleItems); handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItems;
         if (auto* const handleEquipmentElement = currentWindow->FindElementById(WindowInventoryElementId::HandleEquipment); handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t oldSelection = gSelectedItemCB0A44;
@@ -1221,6 +1223,7 @@ static std::int32_t WindowInventory_TabPlayerAttributes(WindowInstance& callback
 // 原函数：0x00489F00。
 std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -1285,11 +1288,11 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
         if (auto* const handleItemsElement = window->FindElementById(WindowInventoryElementId::HandleItems); handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItems;
         if (auto* const handleEquipmentElement = currentWindow->FindElementById(WindowInventoryElementId::HandleEquipment); handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t selected = gSelectedItemCB0A44;
-        const std::int32_t dialog = world::gCurrentDialogType_581800;
+        const std::int32_t dialog = npcDialog.type;
         --occupancy[selected];
         gSelectedItemCB0A44 = -1;
         if (dialog == 29) {
-            world::gCurrentDialogType_581800 = -1;
+            npcDialog.type = -1;
         }
         static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
     };
@@ -1304,8 +1307,8 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
             } else if (mode == 2) {
                 cg::text::FormatTo(buffer, L"{}", hovered + 8);
                 escaped = input::EscapeTextAndNotify(buffer, 15);
-                const std::int32_t target = world::gDialogTargetD2DE6C;
-                const std::int32_t request = world::gDialogRequestCC21E0;
+                const std::int32_t target = npcDialog.target;
+                const std::int32_t request = npcDialog.request;
                 const std::int32_t y =
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =

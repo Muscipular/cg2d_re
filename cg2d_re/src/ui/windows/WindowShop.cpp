@@ -569,10 +569,11 @@ static void WindowShop_RemoveSaleSelection(session::ClientSession& session, Wind
 // 原函数：0x004B6DC0。
 static void WindowShop_Release(WindowInstance& releasedWindow)
 {
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& shop = releasedWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = releasedWindow.ownerSession->UiFrame().native.material;
-    if (shop.dialogType == world::gCurrentDialogType_581800) {
-        world::gCurrentDialogType_581800 = -1;
+    if (shop.dialogType == npcDialog.type) {
+        npcDialog.type = -1;
     }
     if (std::bit_cast<std::int8_t>(materialState.shopMode) > 0) {
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
@@ -585,6 +586,7 @@ static void WindowShop_Release(WindowInstance& releasedWindow)
 // 原函数：0x004B6E00。
 cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
@@ -633,7 +635,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
         record->maximum = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         ++shop.itemCount;
     }
-    const std::int32_t dialogType = world::gCurrentDialogType_581800;
+    const std::int32_t dialogType = npcDialog.type;
     shop.currencyItemId = -1;
     shop.dialogType = dialogType;
     return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
@@ -642,6 +644,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
 // 原函数：0x004B70D0。
 cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
@@ -727,13 +730,14 @@ cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
-    shop.dialogType = world::gCurrentDialogType_581800;
+    shop.dialogType = npcDialog.type;
     return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B74E0。
 cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
@@ -795,13 +799,14 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
-    shop.dialogType = world::gCurrentDialogType_581800;
+    shop.dialogType = npcDialog.type;
     return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
 // 原函数：0x004B77E0。
 cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
@@ -852,7 +857,7 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
-    shop.dialogType = world::gCurrentDialogType_581800;
+    shop.dialogType = npcDialog.type;
     return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
@@ -861,6 +866,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     session::ClientSession& session,
     const char* const text, const char mode, const std::wstring_view prompt)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     auto& shop = session.UiFrame().native.shop;
     auto& materialState = session.UiFrame().native.material;
@@ -946,7 +952,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
     }
-    shop.dialogType = world::gCurrentDialogType_581800;
+    shop.dialogType = npcDialog.type;
     return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
 
@@ -1473,6 +1479,7 @@ static void WindowShop_CountDetailItems(WindowInstance& callbackWindow)
 // 原函数：0x004B9310。
 static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
@@ -1620,10 +1627,10 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
             cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
         }
     }
-    if (WindowProfile_CheckDistance(2, 2) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
-    if (shop.dialogType != world::gCurrentDialogType_581800) {
+    if (shop.dialogType != npcDialog.type) {
         currentWindow->state |= 0x8000u;
     }
     if (auto* const element11 = currentWindow->FindElementById(WindowShopElementId::Element11); element11) element11->visible = 1;
@@ -1702,6 +1709,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
 // 原函数：0x004B9B10。
 static void WindowShop_Submit(WindowInstance& callbackWindow, const std::int32_t selection)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1750,8 +1758,8 @@ static void WindowShop_Submit(WindowInstance& callbackWindow, const std::int32_t
         }
     }
     escaped = input::EscapeTextAndNotify(text, mode == 3 ? 256 : 255);
-    const std::int32_t target = world::gDialogTargetD2DE6C;
-    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t target = npcDialog.target;
+    const std::int32_t request = npcDialog.request;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
@@ -2038,6 +2046,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
 // 原函数：0x004BA950。
 static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& materialState = callbackWindow.ownerSession->UiFrame().native.material;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2054,8 +2063,8 @@ static std::int32_t WindowShop_ButtonCancel(WindowInstance& callbackWindow, cons
             }
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =

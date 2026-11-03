@@ -190,7 +190,7 @@ static std::int32_t WindowProfileView_Update(WindowInstance& callbackWindow, con
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (WindowProfile_CheckDistance(2, 2) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowProfileView_Refresh(&callbackWindow));
@@ -210,7 +210,8 @@ WindowInstance* WindowProfileView_RequestCategoryClose(session::ClientSession& s
 // 原函数：0x004CB530。
 static void WindowProfileView_Release(WindowInstance& releasedWindow)
 {
-    world::gCurrentDialogType_581800 = -1;
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
+    npcDialog.type = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 4));
 }
 

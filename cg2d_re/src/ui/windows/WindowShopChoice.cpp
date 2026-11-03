@@ -136,9 +136,10 @@ static void WindowShopChoice_FillBody(
 // 调用者传原连续32B临时区；不缓存跨回复的目标/请求/坐标。
 static network::SendResult WindowShopChoice_SendReply(session::ClientSession& session, const std::wstring_view buffer)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
-    const std::int32_t target = world::gDialogTargetD2DE6C;
-    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t target = npcDialog.target;
+    const std::int32_t request = npcDialog.request;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
@@ -154,8 +155,9 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
     const wchar_t* const* const choices, const std::uint8_t choiceCount,
     const wchar_t* const* const hints, const WindowChoiceCallback callback)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& choice = session.UiFrame().native.shopChoice;
-    choice.dialog.type = world::gCurrentDialogType_581800;
+    choice.dialog.type = npcDialog.type;
     choice.dialog.title = title;
     choice.dialog.lines.clear();
     for (std::uint8_t row = 0; row < lineCount; ++row) { choice.dialog.lines.push_back(*lines[row]); }
@@ -204,7 +206,7 @@ static std::int32_t WindowShopChoice_Update(WindowInstance& callbackWindow, cons
         }
         choice.dialog.closeEnabled = 1;
     }
-    if (WindowProfile_CheckDistance(2, 2) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
         static_cast<void>(choice.dialog.callback(*callbackWindow.ownerSession, -1));
@@ -215,6 +217,7 @@ static std::int32_t WindowShopChoice_Update(WindowInstance& callbackWindow, cons
 // 原函数：0x0049FE40。
 static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = callbackWindow.ownerSession->UiFrame().native.shopChoice;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -244,7 +247,7 @@ static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const 
         static_cast<std::int16_t>(window->y), static_cast<std::int16_t>(window->width),
         static_cast<std::int16_t>(window->height), 223, -1,
         std::bit_cast<std::int32_t>(std::uint32_t{0x80FFFFFF}), 74, 54);
-    if (world::gCurrentDialogType_581800 != choice.dialog.type) {
+    if (npcDialog.type != choice.dialog.type) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -255,9 +258,10 @@ static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const 
 // 原函数：0x0049FF70。
 static void WindowShopChoice_Release(WindowInstance& releasedWindow)
 {
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = releasedWindow.ownerSession->UiFrame().native.shopChoice;
-    if (choice.dialog.closeEnabled != 0 && world::gCurrentDialogType_581800 == choice.dialog.type) {
-        world::gCurrentDialogType_581800 = -1;
+    if (choice.dialog.closeEnabled != 0 && npcDialog.type == choice.dialog.type) {
+        npcDialog.type = -1;
     }
 }
 
@@ -307,6 +311,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
 // 原函数：0x004A00C0。
 static std::int32_t WindowShopChoice_SendBuySellChoice(session::ClientSession& session, const std::int32_t index)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& choice = session.UiFrame().native.shopChoice;
     if (index < 0 || index > 1) {
         return index;
@@ -314,8 +319,8 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(session::ClientSession& s
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(choice.shopCommands[index]));
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
-    const std::int32_t target = world::gDialogTargetD2DE6C;
-    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t target = npcDialog.target;
+    const std::int32_t request = npcDialog.request;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =

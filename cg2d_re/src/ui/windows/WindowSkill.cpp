@@ -563,7 +563,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
     auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     const std::int32_t selected = targets.selected;
     const std::int32_t kind = targets.kinds[selected];
     targets.attributeCount = 0;
@@ -2656,7 +2656,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
     auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[request.index].skillId);
     request.targetKind = kind;
     targets.count = 0;

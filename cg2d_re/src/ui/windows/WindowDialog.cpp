@@ -388,7 +388,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if ((dialog.message.options & 4u) == 0) {
         const std::int32_t distance = std::bit_cast<std::int8_t>(dialog.message.distance);
-        const std::int32_t close = WindowProfile_CheckDistance(distance, distance);
+        const std::int32_t close = WindowProfile_CheckDistance(*callbackWindow.ownerSession, distance, distance);
         window = currentWindow;
         if (close != 0) {
             window->state |= 0x8000u;
@@ -690,10 +690,11 @@ static std::int32_t WindowDialog_Reply(
     session::ClientSession& session, const std::int32_t button, const std::int32_t row,
     const std::wstring* const texts, const std::uint8_t inputCount)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& dialog = session.UiFrame().native.dialog;
     std::wstring reply;
     if (button == 0) {
-        if (row < 0) { world::gCurrentDialogType_581800 = -1; }
+        if (row < 0) { npcDialog.type = -1; }
     } else {
         if (dialog.reply.type == 2) {
             cg::core::NullSub_509080();
@@ -725,7 +726,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         if (session.Connection().SendDialogResponse(x, y, request, target, button,
                 reply) != network::SendResult::Queued) { return 0; }
-        world::gCurrentDialogType_581800 = -1;
+        npcDialog.type = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -738,7 +739,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         if (session.Connection().SendDialogResponse(x, y, request, target, 0,
                 reply) != network::SendResult::Queued) { return 0; }
-        world::gCurrentDialogType_581800 = -1;
+        npcDialog.type = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
     }
     return 1;
@@ -813,7 +814,8 @@ static void WindowDialog_Route(
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
 {
-    std::int32_t currentType = world::gCurrentDialogType_581800;
+    auto& npcDialog = session.WorldScene().npcDialog;
+    std::int32_t currentType = npcDialog.type;
     cg::yobi::YobiAction* created = nullptr;
     if (currentType >= 0) {
         switch (request) {
@@ -827,7 +829,7 @@ static void WindowDialog_Route(
                 WindowRuntime_CloseByCategory(session, 2);
                 WindowRuntime_CloseByCategory(session, 3);
                 currentType = -1;
-                world::gCurrentDialogType_581800 = -1;
+                npcDialog.type = -1;
             }
             break;
         default:
@@ -838,15 +840,15 @@ static void WindowDialog_Route(
     if (type == currentType) {
         switch (currentType) {
         case 21: {
-            world::gCurrentDialogType_581800 = type;
-            gDialogValueCF4E5C = value;
-            world::gDialogRequestCC21E0 = request;
-            world::gDialogTargetD2DE6C = target;
+            npcDialog.type = type;
+            npcDialog.value = value;
+            npcDialog.request = request;
+            npcDialog.target = target;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(WindowProfile_SaveOrigin(x, y));
+            static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
             static_cast<void>(WindowMessageBoard_ReceiveRecords(session, value, text));
             static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_MessageBoard, 1, 0, nullptr));
             break;
@@ -891,18 +893,18 @@ static void WindowDialog_Route(
             break;
         }
     }
-    if (!enterNewType && world::gCurrentDialogType_581800 >= 0) {
+    if (!enterNewType && npcDialog.type >= 0) {
         return;
     }
-    world::gCurrentDialogType_581800 = type;
-    gDialogValueCF4E5C = value;
-    world::gDialogRequestCC21E0 = request;
-    world::gDialogTargetD2DE6C = target;
+    npcDialog.type = type;
+    npcDialog.value = value;
+    npcDialog.request = request;
+    npcDialog.target = target;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     switch (type) {
     case 0:
     case 1:
@@ -951,7 +953,7 @@ static void WindowDialog_Route(
             created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(session, type == 33 ? 1 : 0, request, target, 1, 0);
         }
         if (created == nullptr && WindowRuntime_States(session)[WindowId_Bank].window == nullptr) {
-            world::gCurrentDialogType_581800 = -1;
+            npcDialog.type = -1;
         }
         return;
     case 24:
@@ -987,7 +989,7 @@ static void WindowDialog_Route(
             created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(session, 0, request, target, 0, 1, 0);
         }
         if (created == nullptr && WindowRuntime_States(session)[WindowId_ItemStorage].window == nullptr) {
-            world::gCurrentDialogType_581800 = -1;
+            npcDialog.type = -1;
         }
         return;
     case 36:
@@ -1024,15 +1026,16 @@ static void WindowDialog_RouteReply(
     cg::network::CgConnection& connection, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
+    auto& npcDialog = connection.Owner().WorldScene().npcDialog;
     if (value == -1) {
-        if (type != world::gCurrentDialogType_581800) {
+        if (type != npcDialog.type) {
             return;
         }
-        if (target != world::gDialogTargetD2DE6C) {
+        if (target != npcDialog.target) {
             return;
         }
         WindowRuntime_CloseByCategory(connection.Owner(), 3);
-        world::gCurrentDialogType_581800 = -1;
+        npcDialog.type = -1;
         return;
     }
     WindowDialog_Route(connection.Owner(), type, value, request, target, text);
@@ -1047,9 +1050,10 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
     const std::int32_t imageNo, const std::int32_t buttons,
     const std::int32_t request, const std::int32_t target, char* text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& dialog = session.UiFrame().native.dialog;
     WindowDialog_Reset(session);
-    dialog.reply.type = world::gCurrentDialogType_581800;
+    dialog.reply.type = npcDialog.type;
     dialog.reply.request = request;
     dialog.reply.target = target;
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
@@ -1060,7 +1064,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
         inputHeight = 28;
         dialog.inputY[0] = static_cast<std::int16_t>(height - buttonHeight - 44);
     }
-    if (world::gCurrentDialogType_581800 == 35) {
+    if (npcDialog.type == 35) {
         const std::int32_t contentHeight = height - inputHeight - buttonHeight;
         dialog.inputY[0] = static_cast<std::int16_t>(contentHeight - 118);
         dialog.inputY[1] = static_cast<std::int16_t>(contentHeight - 67);
@@ -1107,7 +1111,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
     for (std::int32_t row = 0; row < lines; ++row) {
         static_cast<void>(input::ExtractDialogTextLine(dialog.lines[row].text, text, row, columns));
     }
-    if (world::gCurrentDialogType_581800 == 35) {
+    if (npcDialog.type == 35) {
         return WindowDialog_Open(
             session, x, y, width, height, imageNo, buttons, dialog.lines.data(),
             lines, lineHeight, dialog.reply.firstLine, 2, dialog.inputY.data(),
@@ -1185,9 +1189,10 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
     const std::int32_t imageNo, const std::int32_t,
     const std::int32_t request, const std::int32_t target, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& dialog = session.UiFrame().native.dialog;
     WindowDialog_Reset(session);
-    dialog.reply.type = world::gCurrentDialogType_581800;
+    dialog.reply.type = npcDialog.type;
     dialog.reply.request = request;
     dialog.reply.target = target;
     for (auto& record : dialog.healing) {

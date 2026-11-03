@@ -413,7 +413,7 @@ static std::int32_t WindowProfileCategory_Update(WindowInstance& callbackWindow,
     if (value == -1) {
         WindowProfileCategory_Refresh(&callbackWindow);
     }
-    if (WindowProfile_CheckDistance(2, 2) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
     return 1;
@@ -422,7 +422,8 @@ static std::int32_t WindowProfileCategory_Update(WindowInstance& callbackWindow,
 // 原函数：0x004CA300。
 static void WindowProfileCategory_Release(WindowInstance& releasedWindow)
 {
-    world::gCurrentDialogType_581800 = -1;
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
+    npcDialog.type = -1;
     static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 2));
     static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 3));
     static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 4));
@@ -448,6 +449,7 @@ static std::int32_t WindowProfileCategory_ResolveCategory(
 // 原函数：0x004CA1A0。
 static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -469,8 +471,8 @@ static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbac
         std::array<std::wstring, 2> buffers;
         cg::text::FormatTo(buffers[0], L"{}|{}|", group, value);
         buffers[1] = input::EscapeTextAndNotify(buffers[0], 255);
-        const std::int32_t target = world::gDialogTargetD2DE6C;
-        const std::int32_t request = world::gDialogRequestCC21E0;
+        const std::int32_t target = npcDialog.target;
+        const std::int32_t request = npcDialog.request;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, buffers[1]));

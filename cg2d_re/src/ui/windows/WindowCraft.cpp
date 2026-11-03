@@ -756,7 +756,7 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     craft.recipeId = world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
     const std::int32_t currentSkill = craft.skillIndex;
@@ -779,7 +779,7 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, 
     craft.selectionMode = 3;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
@@ -805,7 +805,7 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     }
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
@@ -827,7 +827,7 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(session::ClientSession& session, 
     craft.selectionMode = 9;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
@@ -850,7 +850,7 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(session::ClientSession& session,
     craft.selectionMode = 12;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(WindowProfile_SaveOrigin(x, y));
+    static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
@@ -2877,7 +2877,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             }
         }
     }
-    if (WindowProfile_CheckDistance(1, 1) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }

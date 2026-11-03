@@ -85,9 +85,10 @@ WindowInstance* WindowItemStorage_Open(
 // 原函数：0x004AC0F0。
 static void WindowItemStorage_Release(WindowInstance& releasedWindow)
 {
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& inputs = releasedWindow.ownerSession->UiFrame().native.inputs;
-    if (world::gCurrentDialogType_581800 == 34) {
-        world::gCurrentDialogType_581800 = -1;
+    if (npcDialog.type == 34) {
+        npcDialog.type = -1;
     }
     WindowInstance* const numberWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
     if (numberWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 41) {
@@ -101,13 +102,14 @@ static void WindowItemStorage_Release(WindowInstance& releasedWindow)
 // 原函数：0x004AC140。
 static std::int32_t WindowItemStorage_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (WindowProfile_CheckDistance(1, 1) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    if (world::gCurrentDialogType_581800 != 34) {
+    if (npcDialog.type != 34) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }

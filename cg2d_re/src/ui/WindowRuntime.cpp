@@ -244,8 +244,6 @@ std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18�
 
 std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
 
-std::int32_t gDialogValueCF4E5C = 0; // 原全局：0x00CF4E5C。
-
 std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
 
 static_assert(sizeof(gPetStorageD64E18) == sizeof(WindowStoragePet) * 5); // 原10技能时总大小0x1E00。
@@ -2999,10 +2997,10 @@ static void WindowRuntime_ToggleShortcutWindow(session::ClientSession& session, 
     }
 }
 
-static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std::int32_t selected)
+static void WindowRuntime_PlayShortcutEmote(session::ClientSession& session, const std::int32_t action, const std::int32_t selected)
 {
     world::RequestPlayerEmote_4FA8E0(action);
-    static_cast<void>(WindowEmote_Select(selected));
+    static_cast<void>(WindowEmote_Select(session, selected));
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
@@ -3145,7 +3143,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 world::RequestSpectateFacingBattle_470150(session);
             }
             if (!modeOne && (platform::gKeyStates[0x48] & 4u) != 0) {
-                WindowRuntime_PlayShortcutEmote(9, 13);
+                WindowRuntime_PlayShortcutEmote(session, 9, 13);
             }
             if ((platform::gKeyStates[modeOne ? 0x4C : 0xBF] & 4u) != 0) {
                 world::RequestPartyJoinOrLeave_470270(session);
@@ -3162,17 +3160,17 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             for (const ShortcutEmoteBinding& binding : kShortcutEmotes) {
                 const std::uint8_t key = modeOne ? binding.keyMode1 : binding.keyMode0;
                 if ((platform::gKeyStates[key] & 4u) != 0) {
-                    WindowRuntime_PlayShortcutEmote(binding.action, binding.selected);
+                    WindowRuntime_PlayShortcutEmote(session, binding.action, binding.selected);
                 }
             }
             if ((platform::gKeyStates[0xDC] & 4u) != 0) {
                 const std::int32_t remainder = platform::Rand16(session.Connection()) % 3;
                 if (remainder == 0) {
-                    WindowRuntime_PlayShortcutEmote(14, 7);
+                    WindowRuntime_PlayShortcutEmote(session, 14, 7);
                 } else if (remainder == 1) {
-                    WindowRuntime_PlayShortcutEmote(16, 8);
+                    WindowRuntime_PlayShortcutEmote(session, 16, 8);
                 } else {
-                    WindowRuntime_PlayShortcutEmote(17, 17);
+                    WindowRuntime_PlayShortcutEmote(session, 17, 17);
                 }
             }
         }

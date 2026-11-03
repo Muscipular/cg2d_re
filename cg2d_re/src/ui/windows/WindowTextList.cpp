@@ -265,6 +265,7 @@ void WindowTextList_ContinueDialog(session::ClientSession& session, const char* 
 // 原函数：0x004AD780。
 static void WindowTextList_Release(WindowInstance& releasedWindow)
 {
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& textList = releasedWindow.ownerSession->UiFrame().native.textList;
     WindowTextList_ReleaseLines(*releasedWindow.ownerSession);
     if (textList.selectedItem >= 0) {
@@ -284,12 +285,13 @@ static void WindowTextList_Release(WindowInstance& releasedWindow)
             static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(releasedWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, L"C"));
     }
-    world::gCurrentDialogType_581800 = -1;
+    npcDialog.type = -1;
 }
 
 // 原函数：0x004AD800。
 static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& textList = callbackWindow.ownerSession->UiFrame().native.textList;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -310,8 +312,8 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const 
         textList.closeRequest = 1;
     }
     bool close = true;
-    if (world::gCurrentDialogType_581800 == 32) {
-        close = WindowProfile_CheckDistance(1, 1) != 0;
+    if (npcDialog.type == 32) {
+        close = WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0;
     } else {
         textList.closeRequest = 0;
     }

@@ -436,10 +436,11 @@ WindowPrototype gWindowPrototypePetSkillChoice {0, 4, 10, 30, 549, 366, 0x800101
 // 原函数：0x004BD500。
 static void WindowPetSkillChoice_Release(WindowInstance& releasedWindow)
 {
+    auto& npcDialog = releasedWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = releasedWindow.ownerSession->UiFrame().native.petSkillChoice;
     if (choice.lifecycle != 2
-        && choice.dialogType == world::gCurrentDialogType_581800) {
-        world::gCurrentDialogType_581800 = -1;
+        && choice.dialogType == npcDialog.type) {
+        npcDialog.type = -1;
     }
     choice.lifecycle = 0;
 }
@@ -447,10 +448,11 @@ static void WindowPetSkillChoice_Release(WindowInstance& releasedWindow)
 // 原函数：0x004BD540。
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& choice = session.UiFrame().native.petSkillChoice;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     std::array<char, 1536> buffer;
-    choice.dialogType = world::gCurrentDialogType_581800;
+    choice.dialogType = npcDialog.type;
     choice.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -483,10 +485,11 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(session::ClientSession& ses
 // 原函数：0x004BD680。
 cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& choice = session.UiFrame().native.petSkillChoice;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     std::array<char, 1536> buffer;
-    choice.dialogType = world::gCurrentDialogType_581800;
+    choice.dialogType = npcDialog.type;
     choice.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -530,10 +533,11 @@ static cg::yobi::YobiAction* WindowPetSkillChoice_CreateSkillList(
     session::ClientSession& session,
     const char* const text, const std::uint8_t mode)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& choice = session.UiFrame().native.petSkillChoice;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     std::array<char, 768> buffer;
-    choice.dialogType = world::gCurrentDialogType_581800;
+    choice.dialogType = npcDialog.type;
     choice.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -601,13 +605,14 @@ cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(session::ClientS
 // 原函数：0x004BDD90。
 void WindowPetSkillChoice_ReceivePetCandidates(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& choice = session.UiFrame().native.petSkillChoice;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     if (WindowRuntime_States(session)[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 768> buffer;
-    choice.dialogType = world::gCurrentDialogType_581800;
+    choice.dialogType = npcDialog.type;
     choice.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -649,13 +654,14 @@ void WindowPetSkillChoice_ReceivePetCandidates(session::ClientSession& session, 
 // 原函数：0x004BDF70。
 void WindowPetSkillChoice_ReceiveTribeCandidates(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& choice = session.UiFrame().native.petSkillChoice;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     if (WindowRuntime_States(session)[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 768> buffer;
-    choice.dialogType = world::gCurrentDialogType_581800;
+    choice.dialogType = npcDialog.type;
     choice.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -701,13 +707,14 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(session::ClientSession& session
 // 原函数：0x004BE200。
 void WindowPetSkillChoice_ReceiveSelectedPetSkills(session::ClientSession& session, const char* const text)
 {
+    auto& npcDialog = session.WorldScene().npcDialog;
     auto& choice = session.UiFrame().native.petSkillChoice;
     auto& npcLines = session.UiFrame().native.npcDialogLines;
     if (WindowRuntime_States(session)[WindowId_PetSkillChoice].window == nullptr) {
         return;
     }
     std::array<char, 1536> buffer;
-    choice.dialogType = world::gCurrentDialogType_581800;
+    choice.dialogType = npcDialog.type;
     choice.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
@@ -1238,6 +1245,7 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(session::ClientSession
 // 原函数：0x004BF7C0。
 static std::int32_t WindowPetSkillChoice_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = callbackWindow.ownerSession->UiFrame().native.petSkillChoice;
     auto& npcLines = callbackWindow.ownerSession->UiFrame().native.npcDialogLines;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1294,10 +1302,10 @@ static std::int32_t WindowPetSkillChoice_Update(WindowInstance& callbackWindow, 
         choice.message = -1;
         choice.hover = -1;
     }
-    if (WindowProfile_CheckDistance(2, 2) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
-    const std::int32_t dialogType = world::gCurrentDialogType_581800;
+    const std::int32_t dialogType = npcDialog.type;
     if (dialogType != -2 && choice.dialogType != dialogType) {
         currentWindow->state |= 0x8000u;
     }
@@ -1419,6 +1427,7 @@ static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, co
 // 原函数：0x004BFBC0。
 static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = callbackWindow.ownerSession->UiFrame().native.petSkillChoice;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1435,8 +1444,8 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWin
             if (choice.mode == 0) {
                 std::wstring escaped;
                 escaped = input::EscapeTextAndNotify(L"1", 15);
-                const std::int32_t target = world::gDialogTargetD2DE6C;
-                const std::int32_t request = world::gDialogRequestCC21E0;
+                const std::int32_t target = npcDialog.target;
+                const std::int32_t request = npcDialog.request;
                 const std::int32_t y =
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
@@ -1462,6 +1471,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWin
 // 原函数：0x004BFCB0。
 static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = callbackWindow.ownerSession->UiFrame().native.petSkillChoice;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1494,8 +1504,8 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWind
         case 0: {
             std::wstring escaped;
             escaped = input::EscapeTextAndNotify(L"2", 15);
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
@@ -1509,8 +1519,8 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWind
             std::wstring escaped;
             cg::text::FormatTo(text, L"{}", 99);
             escaped = input::EscapeTextAndNotify(text, 15);
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
@@ -1526,15 +1536,15 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWind
         case 3:
         case 4:
         case 13: {
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::wstring text = L"";
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 2, text));
-            world::gCurrentDialogType_581800 = -2;
+            npcDialog.type = -2;
             break;
         }
         default:
@@ -2019,6 +2029,7 @@ static std::int32_t WindowPetSkillChoice_Scroll(WindowInstance& callbackWindow, 
 // 原函数：0x004C0910。
 static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = callbackWindow.ownerSession->UiFrame().native.petSkillChoice;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -2042,8 +2053,8 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWi
             std::wstring escaped;
             cg::text::FormatTo(text, L"{}", selected + 1);
             escaped = input::EscapeTextAndNotify(text, 15);
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
@@ -2068,6 +2079,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWi
 // 原函数：0x004C0A50。
 static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = callbackWindow.ownerSession->UiFrame().native.petSkillChoice;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
@@ -2120,14 +2132,14 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& call
             std::wstring escaped;
             cg::text::FormatTo(text, L"{}", selected);
             escaped = input::EscapeTextAndNotify(text, 15);
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
-            world::gCurrentDialogType_581800 = -2;
+            npcDialog.type = -2;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -2180,6 +2192,7 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(WindowInstance& callbac
 // 原函数：0x004C0CB0。
 static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = callbackWindow.ownerSession->UiFrame().native.petSkillChoice;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -2234,14 +2247,14 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
     std::wstring escaped;
     cg::text::FormatTo(text, L"{}", selected);
     escaped = input::EscapeTextAndNotify(text, 15);
-    const std::int32_t target = world::gDialogTargetD2DE6C;
-    const std::int32_t request = world::gDialogRequestCC21E0;
+    const std::int32_t target = npcDialog.target;
+    const std::int32_t request = npcDialog.request;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
-    world::gCurrentDialogType_581800 = -2;
+    npcDialog.type = -2;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
 }
@@ -2274,6 +2287,7 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(WindowInstance& 
 // 原函数：0x004C0F20。
 static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t unusedState)
 {
+    auto& npcDialog = callbackWindow.ownerSession->WorldScene().npcDialog;
     auto& choice = callbackWindow.ownerSession->UiFrame().native.petSkillChoice;
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
@@ -2295,8 +2309,8 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             std::wstring requestText;
             cg::text::FormatTo(requestText, L"{}", choice.replacement);
-            const std::int32_t target = world::gDialogTargetD2DE6C;
-            const std::int32_t request = world::gDialogRequestCC21E0;
+            const std::int32_t target = npcDialog.target;
+            const std::int32_t request = npcDialog.request;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =

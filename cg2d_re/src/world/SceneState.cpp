@@ -2147,11 +2147,6 @@ std::int32_t CompareTitleRecordsById_5198F0(const void* const left, const void* 
 
 } // namespace detail
 
-// 原 0x581800：World::OpenDialog 共用的独立 W32 槽，原始初值 -1。
-std::int32_t gCurrentDialogType_581800 = -1;
-std::int32_t gDialogRequestCC21E0 = 0; // 原全局：0x00CC21E0。
-std::int32_t gDialogTargetD2DE6C = 0; // 原全局：0x00D2DE6C。
-
 namespace detail {
 
 // 原455BD0保留的移动门禁；无消费者槽已按GVC01清理。
@@ -3466,7 +3461,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         CreatePlayerMapPresence_519A80(session);
         ResetTimedMapNotice_455C60(session);
         RecreateMissingWorldObjectActions_446640(session);
-        ResetCurrentDialogType_4D3170();
+        ResetCurrentDialogType_4D3170(session);
         ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
@@ -3744,7 +3739,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         CreatePlayerMapPresence_519A80(session);
         ResetTimedMapNotice_455C60(session);
         RecreateMissingWorldObjectActions_446640(session);
-        ResetCurrentDialogType_4D3170();
+        ResetCurrentDialogType_4D3170(session);
         ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
@@ -5331,9 +5326,10 @@ network::SendResult __cdecl SendCurrentPlayerMovementPath_50C8D0(
 }
 
 // 原 [0x4D3170,0x4D317B)：仅将 0x581800 写为 -1 后返回。
-void ResetCurrentDialogType_4D3170()
+void ResetCurrentDialogType_4D3170(session::ClientSession& session)
 {
-    gCurrentDialogType_581800 = -1;
+    auto& npcDialog = session.WorldScene().npcDialog;
+    npcDialog.type = -1;
 }
 
 } // namespace detail
@@ -5641,7 +5637,8 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 // 原函数：0x0051B3E0。
 std::uint32_t RequestAdjacentWorldInteraction_51B3E0(session::ClientSession& session)
 {
-    std::int32_t result = gCurrentDialogType_581800;
+    auto& npcDialog = session.WorldScene().npcDialog;
+    std::int32_t result = npcDialog.type;
     if (result != -1) {
         return std::bit_cast<std::uint32_t>(result);
     }

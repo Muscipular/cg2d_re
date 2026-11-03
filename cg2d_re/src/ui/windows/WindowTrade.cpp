@@ -279,7 +279,7 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
 static void WindowTrade_RequestTargetList(std::int32_t index, const wchar_t* name); // 先发送选择请求，失败仍继续本地打开。
 
 // 原函数：0x004E4E80。
-static cg::yobi::YobiAction* WindowTrade_OpenTargetList(const char* text); // 选择表绑定真实交易回调后打开44。
+static cg::yobi::YobiAction* WindowTrade_OpenTargetList(session::ClientSession& session, const char* text); // 选择表绑定真实交易回调后打开44。
 
 // 原函数：0x004E5770。
 static void WindowTrade_BuildRemoteItemDescription(std::int32_t index, std::int32_t side, const char* text); // 32行及页数。
@@ -782,9 +782,9 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(WindowProfile_SaveOrigin(x, y));
+        static_cast<void>(WindowProfile_SaveOrigin(*callbackWindow.ownerSession, x, y));
     }
-    if (WindowProfile_CheckDistance(1, 1) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -2864,9 +2864,9 @@ static void WindowTrade_RequestTargetList(const std::int32_t index, const wchar_
 }
 
 // 原函数：0x004E4E80。
-static cg::yobi::YobiAction* WindowTrade_OpenTargetList(const char* const text)
+static cg::yobi::YobiAction* WindowTrade_OpenTargetList(session::ClientSession& session, const char* const text)
 {
-    return WindowTradeTarget_ReceiveTargets(text, &WindowTrade_RequestTargetList);
+    return WindowTradeTarget_ReceiveTargets(session, text, &WindowTrade_RequestTargetList);
 }
 
 // 原函数：0x004E0100。
@@ -3132,7 +3132,7 @@ static std::int32_t WindowTrade_ReceiveRemotePetSkills(const std::int32_t index,
 // 窗口函数实现。
 
 // 原函数：0x0050E3C0。
-void WindowTrade_ReceiveTargetReply(cg::network::CgConnection&, const char* const text)
+void WindowTrade_ReceiveTargetReply(cg::network::CgConnection& connection, const char* const text)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -3140,7 +3140,7 @@ void WindowTrade_ReceiveTargetReply(cg::network::CgConnection&, const char* cons
     if (world::ReadRippleGateOnce() != 0) {
         return;
     }
-    static_cast<void>(detail::WindowTrade_OpenTargetList(text));
+    static_cast<void>(detail::WindowTrade_OpenTargetList(connection.Owner(), text));
 }
 
 // 原函数：0x0050E3F0。

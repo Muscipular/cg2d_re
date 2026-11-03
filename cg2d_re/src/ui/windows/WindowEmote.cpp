@@ -145,14 +145,14 @@ static void WindowEmote_ClearSelection()
 // 原函数：0x00495F50。
 static std::int32_t WindowEmote_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    if (WindowProfile_CheckDistance(1, 1) != 0) {
+    if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
         static_cast<void>(WindowEmote_ResetSelection());
     }
     return 1;
 }
 
 // 原函数：0x00495F70。
-std::int32_t WindowEmote_Select(const std::int32_t index)
+std::int32_t WindowEmote_Select(session::ClientSession& session, const std::int32_t index)
 {
     WindowEmote_ClearSelection();
     gEmoteSelectionCF4FC4[index] = 1;
@@ -160,7 +160,7 @@ std::int32_t WindowEmote_Select(const std::int32_t index)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    return WindowProfile_SaveOrigin(x, y);
+    return WindowProfile_SaveOrigin(session, x, y);
 }
 
 // 原函数：0x00495FC0。
@@ -197,7 +197,7 @@ static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, cons
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             world::RequestPlayerEmote_4FA8E0(kEmoteButtonActions[index]);
-            static_cast<void>(WindowEmote_Select(index));
+            static_cast<void>(WindowEmote_Select(*callbackWindow.ownerSession, index));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }

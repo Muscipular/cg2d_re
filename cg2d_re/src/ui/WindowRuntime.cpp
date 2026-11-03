@@ -20,6 +20,21 @@
 #include <algorithm>
 
 namespace cg::ui {
+
+WindowElementLink& WindowElementLink::operator=(WindowElement* const element)
+{
+    windowId = element && element->owner ? element->owner->id : -1;
+    elementId = element ? element->elementId : 0;
+    ownerSession = element && element->owner ? element->owner->ownerSession : nullptr;
+    return *this;
+}
+
+WindowElement* WindowElementLink::get() const
+{
+    auto* window = ownerSession ? WindowRuntime_FindInstance(*ownerSession, windowId) : nullptr;
+    return window ? window->FindElementById(elementId) : nullptr;
+}
+
 namespace detail {
 
 // 原第二原型的内联矩形以借用T*表达；不复制共享表或原矩形数据。
@@ -56,7 +71,7 @@ static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* state); // S
 static void WindowItemSelector_HidePageElements(WindowItemSelectorState* state); // SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。
 
 // 原函数：0x004C6550。
-static void WindowItemSelector_SelectPage(WindowItemSelectorState* state, std::int32_t page); // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
+static void WindowItemSelector_SelectPage(session::ClientSession& session, WindowItemSelectorState* state, std::int32_t page); // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
 
 // 原函数：0x004C6790。
 static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, WindowItemSelectorState* state); // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
@@ -81,7 +96,7 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowInstance* callbackWindo
 static std::int32_t WindowItemSelector_FindPetIndex(std::int32_t ordinal); // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
 
 // 原函数：0x004C7340。
-static bool WindowItemSelector_SetMode(WindowItemSelectorState* state, std::int32_t mode); // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
+static bool WindowItemSelector_SetMode(session::ClientSession& session, WindowItemSelectorState* state, std::int32_t mode); // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
 
 // 原函数：0x004885A0。
 static std::int32_t WindowItem_RequestTransferQuantity(session::ClientSession& session, std::int32_t amount); // IMT01：source7短路/重读、41优先38及转义后状态-Y-X取序保持，原S32返回，全callback/ABI待。
@@ -194,8 +209,6 @@ static_assert(offsetof(WindowDragPrototype, rectangles) == 8);
 
 static_assert(sizeof(WindowDragPrototype) == 16);
 
-WindowItemSelectorState gItemSelectorCF3B10 {}; // 原全局：0x00CF3B10。
-
 std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::ClientSession& session)
 {
     return session.UiFrame().native.windows;
@@ -220,8 +233,6 @@ std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
 static_assert(0x60 + 10 * 0x8C == 0x5D8);
 
 static_assert(sizeof(WindowListSelectionCallback) == 8);
-
-std::uint8_t gItemSelectionModeCC40D4 = 0; // 原全局：0x00CC40D4。
 
 std::int32_t gTooltipColorD67D30 = 0; // 原全局：0x00D67D30。
 
@@ -1056,6 +1067,7 @@ static void WindowItemDrag_Handle(
     session::ClientSession& session,
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& interaction = session.UiFrame().native.interaction;
     auto& storage = session.UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
@@ -1068,7 +1080,7 @@ static void WindowItemDrag_Handle(
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t group =
                 std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection) > 0 && sourceIndex < 6
-                ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
+                ? WindowItemSelector_ReadSelectedPet(&inventory.normalSelector) + 1 : 0;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
@@ -1082,7 +1094,7 @@ static void WindowItemDrag_Handle(
         const world::PlayerItemRecord* item;
         if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection) > 0) {
             item = &world::gPetRuntimeRecords[
-                WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex];
+                WindowItemSelector_ReadSelectedPet(&inventory.normalSelector)].items6E4[sourceIndex];
         } else {
             item = &world::gPlayerRuntimeSlots.items[sourceIndex];
         }
@@ -1121,7 +1133,7 @@ static void WindowItemDrag_Handle(
         drawDescriptor = &descriptor;
         if (mode > 0) {
             imageNo = world::gPetRuntimeRecords[
-                WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex].imageNo;
+                WindowItemSelector_ReadSelectedPet(&inventory.normalSelector)].items6E4[sourceIndex].imageNo;
         } else {
             imageNo = world::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
         }
@@ -1507,51 +1519,51 @@ void WindowItemSelector_BindElements(WindowInstance* callbackWindow, WindowItemS
     state->value64 = mode;
     if (mode != 0) {
         state->mode68 = &WindowRuntime_Settings(*callbackWindow->ownerSession).battleItemActorSelection;
-        state->elements00[0] = WindowElementLink{window->id, NativeElementKey(3)};
-        state->elements00[1] = WindowElementLink{window->id, NativeElementKey(20)};
-        state->elements00[2] = WindowElementLink{window->id, NativeElementKey(16)};
-        state->elements00[3] = WindowElementLink{window->id, NativeElementKey(17)};
-        state->elements00[4] = WindowElementLink{window->id, NativeElementKey(18)};
-        state->elements00[5] = WindowElementLink{window->id, NativeElementKey(19)};
-        state->elements00[6] = WindowElementLink{window->id, NativeElementKey(4)};
-        state->elements00[7] = WindowElementLink{window->id, NativeElementKey(5)};
-        state->elements00[9] = WindowElementLink{window->id, NativeElementKey(10)};
-        state->elements00[10] = WindowElementLink{window->id, NativeElementKey(11)};
-        state->elements00[11] = WindowElementLink{window->id, NativeElementKey(12)};
-        state->elements00[12] = WindowElementLink{window->id, NativeElementKey(13)};
-        state->elements00[13] = WindowElementLink{window->id, NativeElementKey(14)};
-        state->elements00[14] = WindowElementLink{window->id, NativeElementKey(15)};
-        state->elements00[8] = WindowElementLink{window->id, NativeElementKey(6)};
-        state->elements00[15] = WindowElementLink{window->id, NativeElementKey(7)};
-        state->elements00[16] = WindowElementLink{window->id, NativeElementKey(8)};
-        state->elements00[17] = WindowElementLink{window->id, NativeElementKey(9)};
+        state->elements00[0] = WindowElementLink{window->id, NativeElementKey(3), window->ownerSession};
+        state->elements00[1] = WindowElementLink{window->id, NativeElementKey(20), window->ownerSession};
+        state->elements00[2] = WindowElementLink{window->id, NativeElementKey(16), window->ownerSession};
+        state->elements00[3] = WindowElementLink{window->id, NativeElementKey(17), window->ownerSession};
+        state->elements00[4] = WindowElementLink{window->id, NativeElementKey(18), window->ownerSession};
+        state->elements00[5] = WindowElementLink{window->id, NativeElementKey(19), window->ownerSession};
+        state->elements00[6] = WindowElementLink{window->id, NativeElementKey(4), window->ownerSession};
+        state->elements00[7] = WindowElementLink{window->id, NativeElementKey(5), window->ownerSession};
+        state->elements00[9] = WindowElementLink{window->id, NativeElementKey(10), window->ownerSession};
+        state->elements00[10] = WindowElementLink{window->id, NativeElementKey(11), window->ownerSession};
+        state->elements00[11] = WindowElementLink{window->id, NativeElementKey(12), window->ownerSession};
+        state->elements00[12] = WindowElementLink{window->id, NativeElementKey(13), window->ownerSession};
+        state->elements00[13] = WindowElementLink{window->id, NativeElementKey(14), window->ownerSession};
+        state->elements00[14] = WindowElementLink{window->id, NativeElementKey(15), window->ownerSession};
+        state->elements00[8] = WindowElementLink{window->id, NativeElementKey(6), window->ownerSession};
+        state->elements00[15] = WindowElementLink{window->id, NativeElementKey(7), window->ownerSession};
+        state->elements00[16] = WindowElementLink{window->id, NativeElementKey(8), window->ownerSession};
+        state->elements00[17] = WindowElementLink{window->id, NativeElementKey(9), window->ownerSession};
         state->callbacks50[0] = WindowBattleItems_HandleInventory;
-        state->elements00[18] = WindowElementLink{window->id, NativeElementKey(21)};
+        state->elements00[18] = WindowElementLink{window->id, NativeElementKey(21), window->ownerSession};
         state->callbacks50[1] = WindowElement_NoOp;
         state->callbacks50[2] = WindowBattleItems_HandleEquipment;
         state->callbacks50[3] = WindowElement_NoOp;
     } else {
         state->mode68 = &WindowRuntime_Settings(*callbackWindow->ownerSession).inventoryActorSelection;
-        state->elements00[0] = WindowElementLink{window->id, NativeElementKey(4)};
-        state->elements00[1] = WindowElementLink{window->id, NativeElementKey(17)};
-        state->elements00[2] = WindowElementLink{window->id, NativeElementKey(18)};
-        state->elements00[3] = WindowElementLink{window->id, NativeElementKey(19)};
-        state->elements00[4] = WindowElementLink{window->id, NativeElementKey(20)};
-        state->elements00[5] = WindowElementLink{window->id, NativeElementKey(21)};
-        state->elements00[6] = WindowElementLink{window->id, NativeElementKey(5)};
-        state->elements00[7] = WindowElementLink{window->id, NativeElementKey(6)};
-        state->elements00[9] = WindowElementLink{window->id, NativeElementKey(11)};
-        state->elements00[10] = WindowElementLink{window->id, NativeElementKey(12)};
-        state->elements00[11] = WindowElementLink{window->id, NativeElementKey(13)};
-        state->elements00[12] = WindowElementLink{window->id, NativeElementKey(14)};
-        state->elements00[13] = WindowElementLink{window->id, NativeElementKey(15)};
-        state->elements00[14] = WindowElementLink{window->id, NativeElementKey(16)};
-        state->elements00[8] = WindowElementLink{window->id, NativeElementKey(7)};
-        state->elements00[15] = WindowElementLink{window->id, NativeElementKey(8)};
-        state->elements00[16] = WindowElementLink{window->id, NativeElementKey(9)};
-        state->elements00[17] = WindowElementLink{window->id, NativeElementKey(10)};
-        state->elements00[18] = WindowElementLink{window->id, NativeElementKey(23)};
-        state->elements00[19] = WindowElementLink{window->id, NativeElementKey(22)};
+        state->elements00[0] = WindowElementLink{window->id, NativeElementKey(4), window->ownerSession};
+        state->elements00[1] = WindowElementLink{window->id, NativeElementKey(17), window->ownerSession};
+        state->elements00[2] = WindowElementLink{window->id, NativeElementKey(18), window->ownerSession};
+        state->elements00[3] = WindowElementLink{window->id, NativeElementKey(19), window->ownerSession};
+        state->elements00[4] = WindowElementLink{window->id, NativeElementKey(20), window->ownerSession};
+        state->elements00[5] = WindowElementLink{window->id, NativeElementKey(21), window->ownerSession};
+        state->elements00[6] = WindowElementLink{window->id, NativeElementKey(5), window->ownerSession};
+        state->elements00[7] = WindowElementLink{window->id, NativeElementKey(6), window->ownerSession};
+        state->elements00[9] = WindowElementLink{window->id, NativeElementKey(11), window->ownerSession};
+        state->elements00[10] = WindowElementLink{window->id, NativeElementKey(12), window->ownerSession};
+        state->elements00[11] = WindowElementLink{window->id, NativeElementKey(13), window->ownerSession};
+        state->elements00[12] = WindowElementLink{window->id, NativeElementKey(14), window->ownerSession};
+        state->elements00[13] = WindowElementLink{window->id, NativeElementKey(15), window->ownerSession};
+        state->elements00[14] = WindowElementLink{window->id, NativeElementKey(16), window->ownerSession};
+        state->elements00[8] = WindowElementLink{window->id, NativeElementKey(7), window->ownerSession};
+        state->elements00[15] = WindowElementLink{window->id, NativeElementKey(8), window->ownerSession};
+        state->elements00[16] = WindowElementLink{window->id, NativeElementKey(9), window->ownerSession};
+        state->elements00[17] = WindowElementLink{window->id, NativeElementKey(10), window->ownerSession};
+        state->elements00[18] = WindowElementLink{window->id, NativeElementKey(23), window->ownerSession};
+        state->elements00[19] = WindowElementLink{window->id, NativeElementKey(22), window->ownerSession};
         state->callbacks50[0] = WindowInventory_HandleItems;
         state->callbacks50[1] = WindowInventory_HandleItemSelection;
         state->callbacks50[2] = WindowInventory_HandleEquipment;
@@ -1649,13 +1661,14 @@ static void WindowItemSelector_HidePageElements(WindowItemSelectorState* const s
 
 // SPG01：先发布页再隐藏/新页分发；CC40D4仅低BYTE、四回调先取元素；原五页和写序保持，全机器ABI待。
 // 原函数：0x004C6550。
-static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, const std::int32_t page)
+static void WindowItemSelector_SelectPage(session::ClientSession& session, WindowItemSelectorState* const state, const std::int32_t page)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
             || world::gPetRuntimeRecords[state->selectedPet70].used == 0) {
-            static_cast<void>(WindowItemSelector_SetMode(state, 0));
+            static_cast<void>(WindowItemSelector_SetMode(session, state, 0));
         }
     }
     state->value60 = page;
@@ -1665,7 +1678,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
         if (auto* element = state->elements00[1].get()) element->mouseCallback = WindowElement_NoOp;
         if (auto* element = state->elements00[1].get()) element->visible = 0;
         WindowItemSelector_MoveElements(state, 16);
-        static_cast<void>(WindowItemSelector_SetMode(state, -1));
+        static_cast<void>(WindowItemSelector_SetMode(session, state, -1));
         break;
     case 1: {
         const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
@@ -1692,7 +1705,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
         *state->mode68 = 0;
         WindowItemSelector_ShowPlayerPage(state);
         if (state->value64 != 0
-            || *reinterpret_cast<const unsigned char*>(&gItemSelectionModeCC40D4) == 0) {
+            || *reinterpret_cast<const unsigned char*>(&inventory.selectionMode) == 0) {
             WindowElement* const element = state->elements00[1];
             const WindowElementCallback callback = state->callbacks50[2];
             if (element) element->mouseCallback = callback;
@@ -1727,7 +1740,7 @@ static void WindowItemSelector_SelectPage(WindowItemSelectorState* const state, 
         WindowItemSelector_MoveElements(state, 16);
         if (auto* element = state->elements00[1].get()) element->mouseCallback = WindowElement_NoOp;
         if (auto* element = state->elements00[1].get()) element->visible = 0;
-        static_cast<void>(WindowItemSelector_SetMode(state, -1));
+        static_cast<void>(WindowItemSelector_SetMode(session, state, -1));
         break;
     default:
         break;
@@ -1749,7 +1762,7 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
         static_cast<void>(WindowItemSelector_SelectPet(state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
             || world::gPetRuntimeRecords[state->selectedPet70].used == 0) {
-            static_cast<void>(WindowItemSelector_SetMode(state, 0));
+            static_cast<void>(WindowItemSelector_SetMode(*callbackWindow->ownerSession, state, 0));
         }
     }
     switch (state->value60) {
@@ -1769,13 +1782,13 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
                 WindowItemSelector_MoveElements(state, -182);
             }
         } else {
-            WindowItemSelector_SelectPage(state, std::bit_cast<std::int8_t>(*state->mode68) > 0 ? 3 : 2);
+            WindowItemSelector_SelectPage(*callbackWindow->ownerSession, state, std::bit_cast<std::int8_t>(*state->mode68) > 0 ? 3 : 2);
         }
         break;
     }
     case 2:
         if (std::bit_cast<std::int8_t>(*state->mode68) > 0) {
-            WindowItemSelector_SelectPage(state, 3);
+            WindowItemSelector_SelectPage(*callbackWindow->ownerSession, state, 3);
         } else {
             WindowItemSelector_DrawTooltip(callbackWindow, state);
         }
@@ -1787,7 +1800,7 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
             *state->mode68 = 0;
         }
         if (*state->mode68 == 0) {
-            WindowItemSelector_SelectPage(state, 2);
+            WindowItemSelector_SelectPage(*callbackWindow->ownerSession, state, 2);
             break;
         }
         WindowItemSelector_DrawTooltip(callbackWindow, state);
@@ -1822,7 +1835,7 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
         break;
     }
     case 4:
-        WindowItemSelector_SelectPage(state, 0);
+        WindowItemSelector_SelectPage(*callbackWindow->ownerSession, state, 0);
         break;
     default:
         break;
@@ -1926,7 +1939,7 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
             return;
         }
         slot = state->hoverIndex3F8;
-        const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10);
+        const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&inventory.normalSelector);
         item = &world::gPetRuntimeRecords[pet].items6E4[slot];
     }
     if (item->used != 0) {
@@ -2029,17 +2042,17 @@ static std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
 
 // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
 // 原函数：0x004C7340。
-static bool WindowItemSelector_SetMode(WindowItemSelectorState* const state, const std::int32_t mode)
+static bool WindowItemSelector_SetMode(session::ClientSession& session, WindowItemSelectorState* const state, const std::int32_t mode)
 {
     *state->mode68 = static_cast<std::uint8_t>(mode);
     const std::int32_t page = state->value60;
     if (page == 2 || page == 3) {
         if (*state->mode68 == 0) {
             if (page != 2) {
-                WindowItemSelector_SelectPage(state, 2);
+                WindowItemSelector_SelectPage(session, state, 2);
             }
         } else if (page != 2) {
-            WindowItemSelector_SelectPage(state, 3);
+            WindowItemSelector_SelectPage(session, state, 3);
         }
     }
     return true;
@@ -2086,14 +2099,14 @@ bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow,
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         const std::int32_t page = state->value60;
         if (page == 0) {
-            static_cast<void>(WindowItemSelector_SetMode(state, tab));
-            WindowItemSelector_SelectPage(state, 1);
+            static_cast<void>(WindowItemSelector_SetMode(*callbackWindow->ownerSession, state, tab));
+            WindowItemSelector_SelectPage(*callbackWindow->ownerSession, state, 1);
         } else if (page > 1 && page <= 3) {
             if (std::bit_cast<std::int8_t>(*state->mode68) == tab) {
-                WindowItemSelector_SelectPage(state, 4);
+                WindowItemSelector_SelectPage(*callbackWindow->ownerSession, state, 4);
             } else {
-                static_cast<void>(WindowItemSelector_SetMode(state, tab));
-                WindowItemSelector_SelectPage(state, 1);
+                static_cast<void>(WindowItemSelector_SetMode(*callbackWindow->ownerSession, state, tab));
+                WindowItemSelector_SelectPage(*callbackWindow->ownerSession, state, 1);
             }
         }
         consumed = true;
@@ -2205,12 +2218,12 @@ bool WindowItemSelector_RotatePreview(WindowItemSelectorState* const state, cons
 
 // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
 // 原函数：0x004C7A90。
-void WindowItemSelector_Update(WindowInstance* callbackWindow, WindowItemSelectorState* const state)
+void WindowItemSelector_Update(session::ClientSession& session, WindowInstance* callbackWindow, WindowItemSelectorState* const state)
 {
     if (state->initialized3E8 == 0) {
         const std::uint8_t* const mode = state->mode68;
         state->previousPet74 = -1;
-        WindowItemSelector_SelectPage(state, *mode == 0xFFu ? 0 : 1);
+        WindowItemSelector_SelectPage(session, state, *mode == 0xFFu ? 0 : 1);
         state->initialized3E8 = 1;
     }
     WindowItemSelector_UpdatePage(callbackWindow, state);
@@ -2432,6 +2445,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
 // 原函数：0x0048B1A0。
 std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, const std::int32_t index, const std::int32_t page)
 {
+    auto& inventory = session.UiFrame().native.inventory;
     auto& interaction = session.UiFrame().native.interaction;
     if (interaction.tooltipSource != index) {
         interaction.tooltipX = static_cast<std::uint16_t>(
@@ -2450,7 +2464,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, co
     const bool petEquipment = mode > 0 && index < 6;
     const world::PlayerItemRecord* record;
     if (petEquipment) {
-        const std::int32_t petIndex = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10);
+        const std::int32_t petIndex = WindowItemSelector_ReadSelectedPet(&inventory.normalSelector);
         const std::int32_t itemIndex = interaction.tooltipSource;
         record = &world::gPetRuntimeRecords[petIndex].items6E4[itemIndex];
     } else {

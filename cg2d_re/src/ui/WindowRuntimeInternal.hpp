@@ -171,8 +171,6 @@ inline constexpr wchar_t kPetSelectHint586D2C[] = L"切换页数。"; // 原常�
 inline constexpr wchar_t kPetRenameHint586D38[] = L"变更宠物名字。"; // 原常量参考：0x00586D38。
 
 
-extern std::uint8_t gItemSelectionModeCC40D4; // 原全局：0x00CC40D4。
-
 extern std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
 
 extern MiniMailComposeState gMiniMailCompose105F508; // 原全局：0x0105F508。

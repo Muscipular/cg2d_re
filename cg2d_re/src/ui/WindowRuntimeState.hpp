@@ -325,24 +325,6 @@ struct WindowElementCursor {
 // 旧选择器缓存改为身份引用，元素删除后查询返回空。
 WindowInstance* WindowRuntime_FindInstance(int id);
 WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id);
-struct WindowElementLink {
-    int windowId = -1;
-    ElementId elementId = 0;
-    session::ClientSession* ownerSession = nullptr;
-    WindowElementLink& operator=(WindowElement* element) {
-        windowId = element && element->owner ? element->owner->id : -1;
-        elementId = element ? element->elementId : 0;
-        ownerSession = element && element->owner ? element->owner->ownerSession : nullptr;
-        return *this;
-    }
-    WindowElement* get() const {
-        auto* window = ownerSession ? WindowRuntime_FindInstance(*ownerSession, windowId)
-            : WindowRuntime_FindInstance(windowId);
-        return window ? window->FindElementById(elementId) : nullptr;
-    }
-    operator WindowElement*() const { return get(); }
-    WindowElement* operator->() const { return get(); }
-};
 
 namespace detail {
 
@@ -469,35 +451,10 @@ cg::yobi::YobiAction* WindowAttributeTarget_Open(
     WindowTextChoiceCallback callback); // 三槽按序发布后打开46，透传借用Yobi。
 // 原函数：0x00499830。
 std::int32_t WindowRuntime_DrawLargeFrame(WindowInstance& callbackWindow, std::int32_t value); // 31/46共用绘制与九宫格尾。
-// 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
-struct WindowItemSelectorState {
-    std::array<WindowElementLink, 20> elements00; // 选择器关联控件身份，非零模式保留槽19。
-    std::array<WindowElementCallback, 4> callbacks50; // 原成员偏移：+0x50。 4C6550写回元素mouseCallback。
-    std::int32_t value60; // 原成员偏移：+0x60。 4C6550发布的数值页状态，4C75A0仅在2时绘制。
-    std::int32_t value64; // 原成员偏移：+0x64。
-    std::uint8_t* mode68; // 原成员偏移：+0x68。 借用57DA28/57E42C，消费者按S8解释。
-    std::int32_t step6C; // 原成员偏移：+0x6C。
-    std::int32_t selectedPet70; // 原成员偏移：+0x70。
-    std::int32_t previousPet74; // 原成员偏移：+0x74。
-    cg::yobi::YobiAction* preview; // 借用原内嵌+78的静态对象，不负责释放。
-    std::int32_t hoverCount3A8; // 原成员偏移：+0x3A8。
-    std::array<std::byte, 4> bytes3AC; // 原成员偏移：+0x3AC。
-    std::int32_t hoverIndex3B0; // 原成员偏移：+0x3B0。
-    std::array<std::byte, 4> bytes3B4; // 原成员偏移：+0x3B4。
-    std::array<render::GraphicDescriptor16, 3> descriptors3B8; // 原成员偏移：+0x3B8。
-    std::int32_t initialized3E8; // 原成员偏移：+0x3E8。 7A90首次切页后置1，库存更新/释放及构造清零。
-    std::uint8_t value3EC; // 原成员偏移：+0x3EC。
-    std::uint8_t value3ED; // 原成员偏移：+0x3ED。
-    std::int32_t imageIndex3F0; // 原成员偏移：+0x3F0。
-    std::int32_t imageIndex3F4; // 原成员偏移：+0x3F4。
-    std::int32_t hoverIndex3F8; // 原成员偏移：+0x3F8。
-    std::uint8_t value3FC; // 原成员偏移：+0x3FC。
-};
 
 // 原宠物装备栏图98147的六槽中心坐标；详情装备页共用，顺序与items6E4一致。
 extern const std::array<std::int32_t, 6> gSelectorPetX54F5C4;
 extern const std::array<std::int32_t, 6> gSelectorPetY54F5DC;
-extern WindowItemSelectorState gItemSelectorCF3B10; // 原全局：0x00CF3B10。
 // 原函数：0x004C61B0。
 WindowItemSelectorState* WindowItemSelector_ConstructPreview(WindowItemSelectorState* state, std::int32_t previewIndex); // SIC01：入口预览地址贯穿十成员构造与字段发布；原初始化/三descriptor及this返回保持，整对象不清零。
 // SLC01：单读并返回同一选择器selectedPet70的完整S32，不做校验或改owner。
@@ -514,7 +471,7 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* state, std::int3
 // 原函数：0x004C7A10。
 bool WindowItemSelector_RotatePreview(WindowItemSelectorState* state, std::int32_t events); // SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
 // 原函数：0x004C7A90。
-void WindowItemSelector_Update(WindowInstance* callbackWindow, WindowItemSelectorState* state); // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
+void WindowItemSelector_Update(session::ClientSession& session, WindowInstance* callbackWindow, WindowItemSelectorState* state); // SFD01：首次借mode地址、previous=-1、切页后置initialized；尾逐帧分发，上行两窗口回调固定返回1。
 // ISP01：原local负值返-1，成功后取当前窗口，再按元素X/窗口X取样累加。
 // 原函数：0x004C7240。
 std::int32_t WindowItemSelector_ReadScreenX(WindowInstance* callbackWindow,

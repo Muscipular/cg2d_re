@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/input/Input.hpp"
+#include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/ui/WindowStorageRecords.hpp"
 #include "cg/world/PlayerSlots.hpp"
@@ -15,6 +16,23 @@
 #include <string>
 #include <type_traits>
 #include <vector>
+
+namespace cg::ui {
+
+struct WindowElement;
+
+// 选择器的非拥有身份引用；查找始终限定所属会话，元素删除后返回空。
+struct WindowElementLink {
+    int windowId = -1;
+    ElementId elementId = 0;
+    session::ClientSession* ownerSession = nullptr;
+    WindowElementLink& operator=(WindowElement* element);
+    WindowElement* get() const;
+    operator WindowElement*() const { return get(); }
+    WindowElement* operator->() const { return get(); }
+};
+
+} // namespace cg::ui
 
 namespace cg::ui::detail {
 
@@ -310,6 +328,31 @@ struct Window54SkillRecord {
     std::wstring name; // 原成员偏移：+0x0C。
     std::array<std::wstring, 2> description; // 原成员偏移：+0x25。
     std::byte byte5F; // 原成员偏移：+0x5F。
+};
+
+// 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
+struct WindowItemSelectorState {
+    std::array<WindowElementLink, 20> elements00; // 选择器关联控件身份，非零模式保留槽19。
+    std::array<WindowElementCallback, 4> callbacks50; // 原成员偏移：+0x50。 4C6550写回元素mouseCallback。
+    std::int32_t value60; // 原成员偏移：+0x60。 4C6550发布的数值页状态，4C75A0仅在2时绘制。
+    std::int32_t value64; // 原成员偏移：+0x64。
+    std::uint8_t* mode68; // 原成员偏移：+0x68。 借用57DA28/57E42C，消费者按S8解释。
+    std::int32_t step6C; // 原成员偏移：+0x6C。
+    std::int32_t selectedPet70; // 原成员偏移：+0x70。
+    std::int32_t previousPet74; // 原成员偏移：+0x74。
+    cg::yobi::YobiAction* preview; // 借用原内嵌+78的静态对象，不负责释放。
+    std::int32_t hoverCount3A8; // 原成员偏移：+0x3A8。
+    std::array<std::byte, 4> bytes3AC; // 原成员偏移：+0x3AC。
+    std::int32_t hoverIndex3B0; // 原成员偏移：+0x3B0。
+    std::array<std::byte, 4> bytes3B4; // 原成员偏移：+0x3B4。
+    std::array<render::GraphicDescriptor16, 3> descriptors3B8; // 原成员偏移：+0x3B8。
+    std::int32_t initialized3E8; // 原成员偏移：+0x3E8。 7A90首次切页后置1，库存更新/释放及构造清零。
+    std::uint8_t value3EC; // 原成员偏移：+0x3EC。
+    std::uint8_t value3ED; // 原成员偏移：+0x3ED。
+    std::int32_t imageIndex3F0; // 原成员偏移：+0x3F0。
+    std::int32_t imageIndex3F4; // 原成员偏移：+0x3F4。
+    std::int32_t hoverIndex3F8; // 原成员偏移：+0x3F8。
+    std::uint8_t value3FC; // 原成员偏移：+0x3FC。
 };
 
 // 原CF4B78五条独立战斗数值快照；只含S32，不与World宠物CryptInt存储合并。
@@ -971,6 +1014,9 @@ struct InventoryWindowRuntimeState {
     std::int32_t selectedItem = 0; // 原0xCB1DF4。
     std::int32_t currentItem = 0; // 原0xCB0A44。
     std::array<detail::BattlePetVitals, 5> battlePetVitals {}; // 原0xCF4B78。
+    detail::WindowItemSelectorState normalSelector {}; // 原0xCF3B10。
+    detail::WindowItemSelectorState battleSelector {}; // 原0xD2F338。
+    std::uint8_t selectionMode = 0; // 原0xCC40D4。
 };
 static_assert(sizeof(InventoryWindowRuntimeState::slotUseCounts) == 7 * sizeof(std::uint32_t));
 

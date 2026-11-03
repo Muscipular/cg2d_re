@@ -1,4 +1,5 @@
 #include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -74,8 +75,6 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, std::
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static WindowItemSelectorState gItemSelectorD2F338 {}; // 原全局：0x00D2F338。
-
 // 原全局：0x00CF49B0。 窗口27每帧清-1，499C30发布提示槽。
 static std::int32_t gBattleItemHoverCF49B0 = 0; // 原全局：0x00CF49B0。
 
@@ -144,19 +143,22 @@ WindowPrototype gWindowPrototypeBattleItems {0, 4, 100, 100, 276, 253, 0x8001010
 // 原函数：0x00499930。
 static std::int32_t WindowBattleItems_TogglePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    return WindowItemSelector_TogglePreview(&gItemSelectorD2F338, state) ? 1 : 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    return WindowItemSelector_TogglePreview(&inventory.battleSelector, state) ? 1 : 0;
 }
 
 // 原函数：0x00499950。
 static std::int32_t WindowBattleItems_CycleEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    return WindowItemSelector_CycleEquipment(&gItemSelectorD2F338, state) ? 1 : 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    return WindowItemSelector_CycleEquipment(&inventory.battleSelector, state) ? 1 : 0;
 }
 
 // 原函数：0x00499970。
 static std::int32_t WindowBattleItems_RotatePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    static_cast<void>(WindowItemSelector_RotatePreview(&gItemSelectorD2F338, state));
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    static_cast<void>(WindowItemSelector_RotatePreview(&inventory.battleSelector, state));
     return 0;
 }
 
@@ -177,7 +179,8 @@ static std::int32_t WindowBattleItems_RefreshExtraValue(WindowInstance& callback
 // 原函数：0x00499B40。
 static std::int32_t WindowBattleItems_TabEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    static_cast<void>(WindowItemSelector_HandleTab(&callbackWindow, &gItemSelectorD2F338, 0, state));
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    static_cast<void>(WindowItemSelector_HandleTab(&callbackWindow, &inventory.battleSelector, 0, state));
     return 0;
 }
 
@@ -188,6 +191,7 @@ static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, con
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     const std::int32_t ordinal = index - 17;
     std::int32_t remaining = ordinal;
     bool found = false;
@@ -208,7 +212,7 @@ static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, con
     }
     if (found) {
         if (ordinal >= 0) {
-            static_cast<void>(WindowItemSelector_HandleTab(&callbackWindow, &gItemSelectorD2F338, ordinal + 1, state));
+            static_cast<void>(WindowItemSelector_HandleTab(&callbackWindow, &inventory.battleSelector, ordinal + 1, state));
             return 0;
         }
     } else if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection) == ordinal + 1) {
@@ -226,13 +230,14 @@ static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, con
 // 原函数：0x00499990。
 static std::int32_t WindowBattleItems_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     if (value == -1) {
-        WindowItemSelector_BindElements(&callbackWindow, &gItemSelectorD2F338, 1);
-        gItemSelectorD2F338.initialized3E8 = 0;
+        WindowItemSelector_BindElements(&callbackWindow, &inventory.battleSelector, 1);
+        inventory.battleSelector.initialized3E8 = 0;
         gBattleItemPageCB01E0 = 0;
     }
     gBattleItemHoverCF49B0 = -1;
-    WindowItemSelector_Update(&callbackWindow, &gItemSelectorD2F338);
+    WindowItemSelector_Update(*callbackWindow.ownerSession, &callbackWindow, &inventory.battleSelector);
     return 1;
 }
 
@@ -746,7 +751,8 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
 // 原函数：0x0049B610。
 static std::int32_t WindowBattleItems_ShowExtraAttributes(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    return WindowItemSelector_HandlePlayerAttributes(&callbackWindow, &gItemSelectorD2F338, state) ? 1 : 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    return WindowItemSelector_HandlePlayerAttributes(&callbackWindow, &inventory.battleSelector, state) ? 1 : 0;
 }
 
 // BEI01：原755条，三BYTE及区域描边取序明确；宠物禁用/玩家装备/原两Q命令保持，全生产消费及运行待。
@@ -769,19 +775,19 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     world::PlayerItemRecord* items;
     std::int32_t count;
-    if (!WindowItemSelector_GetItemList_4C72C0(&gItemSelectorD2F338, &items, &count)) {
+    if (!WindowItemSelector_GetItemList_4C72C0(&inventory.battleSelector, &items, &count)) {
         return 0;
     }
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection) > 0) {
-        const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorD2F338);
+        const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&inventory.battleSelector);
         const std::int32_t slots = world::gPetRuntimeRecords[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {
             const auto& item = items[position];
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, position, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, position, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, position, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.battleSelector, index, position, -24);
             if (item.used == 0) {
                 continue;
             }
@@ -855,8 +861,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             if (occupancy[position] != 0) {
                 continue;
             }
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, position, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, position, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, position, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.battleSelector, index, position, -24);
             if (cg::ui::HitTestMouseRect_5049A0(left, top, left + 48, top + 48, -1) != 0) {
                 hovered = position;
                 break;
@@ -872,7 +878,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         if (world::gReplyRecordF7C950.used != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             WindowInstance* const window = currentWindow;
-            gItemSelectorD2F338.value3FC = 1;
+            inventory.battleSelector.value3FC = 1;
             if (auto* const handleEquipmentElement = window->FindElementById(WindowBattleItemsElementId::HandleEquipment); handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowBattleItems_ShowExtraAttributes;
             return consumed;
         }
@@ -940,8 +946,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source < count) {
-            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, source, -24);
-            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, source, -24);
+            const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, source, -24);
+            const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.battleSelector, index, source, -24);
             cg::render::DrawGraphicHover(
                 static_cast<std::uint16_t>(left + 2), static_cast<std::uint16_t>(top + 2),
                 static_cast<std::uint16_t>(left + 46), static_cast<std::uint16_t>(top + 46),
@@ -949,8 +955,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         }
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, hovered, -24);
-        const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, hovered, -24);
+        const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, hovered, -24);
+        const std::int32_t top = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.battleSelector, index, hovered, -24);
         cg::render::DrawGraphicHover(
             static_cast<std::uint16_t>(left), static_cast<std::uint16_t>(top),
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
@@ -987,8 +993,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     }
     for (std::int32_t position = 0; position < count; ++position) {
         const auto& record = items[position];
-        const std::int32_t x = WindowItemSelector_ReadScreenX(&callbackWindow, &gItemSelectorD2F338, index, position, 0);
-        const std::int32_t y = WindowItemSelector_ReadScreenY(&callbackWindow, &gItemSelectorD2F338, index, position, 0);
+        const std::int32_t x = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, position, 0);
+        const std::int32_t y = WindowItemSelector_ReadScreenY(&callbackWindow, &inventory.battleSelector, index, position, 0);
         if (record.used == 0) {
             continue;
         }
@@ -1020,15 +1026,16 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
 
 // 原499900固定D2F338；原内嵌+78预览沿已有唯一静态对象绑定。
 // 原函数：0x00499900。
-static detail::WindowItemSelectorState* WindowBattleItems_ConstructSelector()
+static detail::WindowItemSelectorState* WindowBattleItems_ConstructSelector(session::ClientSession& session)
 {
-    return detail::WindowItemSelector_ConstructPreview(&detail::gItemSelectorD2F338, 1);
+    auto& inventory = session.UiFrame().native.inventory;
+    return detail::WindowItemSelector_ConstructPreview(&inventory.battleSelector, 1);
 }
 
 // 原函数：0x004998F0；LCI01启动拥有者替代CRT构造／退出登记。
 SecondItemSelectorStartup::SecondItemSelectorStartup()
 {
-    WindowBattleItems_ConstructSelector();
+    WindowBattleItems_ConstructSelector(session::GetClientHost().FirstSession());
 }
 
 } // namespace cg::ui

@@ -506,7 +506,7 @@ void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint
         SelectGraphicTable(previewState);
 
     cg::yobi::YobiAction* const action = cg::yobi::NewYobiAction_404AE0(
-        std::uint8_t{2},
+        connection.Owner(), std::uint8_t{2},
         std::uint32_t{0});
     actions[slotIndex] = action;
     if (action == nullptr) {

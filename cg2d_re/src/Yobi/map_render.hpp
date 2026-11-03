@@ -22,7 +22,7 @@ YobiAction* CreateOneShotMapAnimation_444260(
 std::int32_t GetActorOverheadOffset_4417A0(std::int32_t imageNo); // 原40项角色高度表及-88回退。
 // 原444000：无回调挂件创建，四次CryptInt赋值和世界/屏幕投影。
 YobiAction* CreateMapAttachmentAction_444000(
-    std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
+    YobiAction* parent, std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
     std::int32_t characterAction, std::int32_t direction, std::uint8_t displayPriority);
 // 原两轮kind调整；primaryIndex未使用，输出按原指针写序，不返回聚合值。
 // 原函数：0x004412D0。

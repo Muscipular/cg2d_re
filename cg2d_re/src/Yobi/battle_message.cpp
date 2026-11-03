@@ -3413,18 +3413,18 @@ void ParseBattleC_438550(session::ClientSession& session)
         return;
     }
     if ((fieldFlags & detail::BattleFieldFlag_Earth) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110092));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(battle.sceneAction, 110092));
     } else if ((fieldFlags & detail::BattleFieldFlag_Water) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110089));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(battle.sceneAction, 110089));
     } else if ((fieldFlags & detail::BattleFieldFlag_Fire) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110090));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(battle.sceneAction, 110090));
     } else if ((fieldFlags & detail::BattleFieldFlag_Wind) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110091));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(battle.sceneAction, 110091));
     } else if ((fieldFlags & detail::BattleFieldFlag_Silence) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110155));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(battle.sceneAction, 110155));
     } else {
-        static_cast<void>(MarkDeath(cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0));
-        cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0 = nullptr;
+        static_cast<void>(MarkDeath(battle.sceneAction->payload.battleScene->fieldEffectB0));
+        battle.sceneAction->payload.battleScene->fieldEffectB0 = nullptr;
     }
 
     while (battle.cText[battle.cOffset] != '\0') {
@@ -3435,7 +3435,7 @@ void ParseBattleC_438550(session::ClientSession& session)
         present |= 1u << position;
         YobiAction** const slot = &cg::world::gBattleAllEntries59E980[position];
         if (*slot == nullptr) {
-            *slot = detail::NewBattleActor_438290(cg::world::gBattleSceneAction5ABA94, position);
+            *slot = detail::NewBattleActor_438290(battle.sceneAction, position);
             detail::ResetBattleCastList_4391E0(position);
         }
         YobiAction* const actor = *slot;
@@ -3722,10 +3722,10 @@ void ParseBattleC_438550(session::ClientSession& session)
 
 // BEMS01：固定入口payload、各次取包fresh场景指针；仅CHT/BST消费，见doc/cg2d_battle_exit_message_scan_spec.md。
 // 原函数：0x0043BAA0。
-std::int32_t ConsumeBattleExitMessages_43BAA0()
+std::int32_t ConsumeBattleExitMessages_43BAA0(session::ClientSession& session)
 {
-    YobiAction* const action = cg::world::gBattleSceneAction5ABA94;
-    auto& battle = action->ownerSession->WorldScene().battle;
+    auto& battle = session.WorldScene().battle;
+    YobiAction* const action = battle.sceneAction;
     auto* const payload = action->payload.battleScene;
     std::array<char, 4> header;
     std::array<char, 256> message;
@@ -3743,19 +3743,19 @@ std::int32_t ConsumeBattleExitMessages_43BAA0()
         }
         payload->packetOffset64 = battle.mScanOffset;
         if (kind == detail::BattleMHeader_CHT) { // CHT
-            static_cast<void>(detail::GetBattlePosition_4237E0(detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94)));
-            const std::int32_t color = detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94);
-            const std::int32_t font = detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94);
-            payload->messageValueA4 = detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94);
-            detail::TakeBattleMString_438FE0(cg::world::gBattleSceneAction5ABA94, message.data(), 256);
+            static_cast<void>(detail::GetBattlePosition_4237E0(detail::TakeBattleMInteger_438F70(battle.sceneAction)));
+            const std::int32_t color = detail::TakeBattleMInteger_438F70(battle.sceneAction);
+            const std::int32_t font = detail::TakeBattleMInteger_438F70(battle.sceneAction);
+            payload->messageValueA4 = detail::TakeBattleMInteger_438F70(battle.sceneAction);
+            detail::TakeBattleMString_438FE0(battle.sceneAction, message.data(), 256);
             if (platform::gChatNotificationSoundEnabled_554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
             cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(message.data()), color, font);
         } else { // BST
             const std::int32_t position = detail::GetBattlePosition_4237E0(
-                detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94));
-            const std::int32_t seconds = detail::TakeBattleMInteger_438F70(cg::world::gBattleSceneAction5ABA94);
+                detail::TakeBattleMInteger_438F70(battle.sceneAction));
+            const std::int32_t seconds = detail::TakeBattleMInteger_438F70(battle.sceneAction);
             if (position == cg::world::gBattleCurrentPosition5ABCA4) {
                 cg::world::ConsumeBattlePlayerTimer(seconds);
             }

@@ -2503,7 +2503,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
 // 原函数：0x0041FF90。
 void UpdateBattleFieldEffect_41FF90(YobiAction* const action)
 {
-    if (world::gBattleSceneAction5ABA94->deathFlag == 1) {
+    if (action->ownerSession->WorldScene().battle.sceneAction->deathFlag == 1) {
         static_cast<void>(MarkDeath(action));
     } else {
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
@@ -2521,10 +2521,10 @@ void UpdateBattleFieldEffect_41FF90(YobiAction* const action)
 // 原函数：0x0041FFE0。
 YobiAction* NewBattleFieldEffect_41FFE0(YobiAction* const source, const std::int32_t imageNo)
 {
-    using world::gBattleSceneAction5ABA94;
     using world::gBattleGraphicPoints553758;
     using world::gBattlePointIndices5536FC;
-    YobiAction* const existing = cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0;
+    auto& battle = source->ownerSession->WorldScene().battle;
+    YobiAction* const existing = battle.sceneAction->payload.battleScene->fieldEffectB0;
     if (existing != nullptr) {
         existing->imageNo = imageNo;
         return nullptr;
@@ -2553,7 +2553,7 @@ YobiAction* NewBattleFieldEffect_41FFE0(YobiAction* const source, const std::int
     action->mixFlagsOverrideValue = render::GraphicMixFlag_OriginalPalette;
     action->origin_y_offset44 = static_cast<float>((y5 - y15) * 0.5 + y15);
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
-    cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0 = action;
+    battle.sceneAction->payload.battleScene->fieldEffectB0 = action;
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
     const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;

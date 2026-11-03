@@ -291,8 +291,8 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 // 原函数：0x004383F0。
 void InitializeBattleScene_4383F0(session::ClientSession& session)
 {
-    cg::world::gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0(session);
     auto& battle = session.WorldScene().battle;
+    battle.sceneAction = detail::NewBattleScene_4383B0(session);
     battle.eventActions.fill(nullptr);
     cg::world::gBattleAllEntries59E980.fill(nullptr);
     battle.activeEventMask = 0;

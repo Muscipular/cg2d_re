@@ -2193,7 +2193,6 @@ std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
 
 const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}; // 原全局：0x0054D93C。
 
-cg::yobi::YobiAction* gBattleSceneAction5ABA94 = nullptr; // 原全局：0x005ABA94。
 std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980 {}; // 原全局：0x0059E980。
 constinit const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980 { // 原全局：0x0059E980。
     gBattleAllEntries59E980.data(), 20
@@ -4299,7 +4298,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         battleScene.activeEventMask = 0;
         battleScene.exitRequested = 1;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
-        static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
+        static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0(session));
         cg::yobi::ClearBattleAppendEffects_43BED0(session);
         battleScene.sceneIndex = 22;
         gBattleAllEntries59E980.fill(nullptr);
@@ -4344,7 +4343,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         battleScene.exitRequested = 1;
         battleScene.activeEventMask = 0;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
-        static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
+        static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0(session));
         battleScene.sceneIndex = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());

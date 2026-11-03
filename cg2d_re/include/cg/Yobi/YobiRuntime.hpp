@@ -373,7 +373,7 @@ YobiAction* MarkDeath(YobiAction* action);
 // 原471334内联终止写的native边界；不判断空指针，不对应独立原函数。
 // void MarkDeathUnchecked(YobiAction* action);
 // 原函数：0x0043BAA0。
-std::int32_t ConsumeBattleExitMessages_43BAA0(); // BEMS01：固定入口载荷、各次取包重取场景对象；CHT入行/BST当前玩家计时，头返回1才结束。
+std::int32_t ConsumeBattleExitMessages_43BAA0(session::ClientSession& session); // BEMS01：固定入口载荷、各次取包重取场景对象；CHT入行/BST当前玩家计时，头返回1才结束。
 // 原函数：0x004383F0。
 void InitializeBattleScene_4383F0(session::ClientSession& session); // 43CBB0先清Yobi再调用；发布创建结果、清两表/六标量并生产宠物快照。
 // 原函数：0x00438550。

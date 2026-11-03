@@ -34,7 +34,7 @@ enum BattleImpactPhase : std::int32_t {
 void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
-    using world::gBattleSceneAction5ABA94;
+    auto& battle = action->ownerSession->WorldScene().battle;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = action->payload.battleActor;
     if (initialPhase == BattleImpactPhase_WaitForTargetIdle) {
@@ -103,13 +103,13 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
             const std::uint32_t categoryFlags = payload->effects1C[payload->effectRunningC9C].flags;
             if ((categoryFlags & BattleResultFlag_ReflectMagic) != 0) {
                 AdvanceBattleCastState_439340(target);
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & BattleResultFlag_NullifyMagic) != 0) {
                 AdvanceBattleCastState_439340(target);
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
@@ -143,7 +143,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
                         cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
                 }
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
@@ -200,7 +200,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
 void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
-    using world::gBattleSceneAction5ABA94;
+    auto& battle = action->ownerSession->WorldScene().battle;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = action->payload.battleActor;
     if (initialPhase == BattleImpactPhase_WaitForTargetIdle) {
@@ -269,13 +269,13 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
             const std::uint32_t categoryFlags = payload->effects1C[payload->effectRunningC9C].flags;
             if ((categoryFlags & BattleResultFlag_ReflectMagic) != 0) {
                 AdvanceBattleCastState_439340(target);
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & BattleResultFlag_NullifyMagic) != 0) {
                 AdvanceBattleCastState_439340(target);
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
@@ -309,7 +309,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
                         cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
                 }
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
@@ -367,7 +367,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
 void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
-    using world::gBattleSceneAction5ABA94;
+    auto& battle = action->ownerSession->WorldScene().battle;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = action->payload.battleActor;
     if (initialPhase == BattleImpactPhase_WaitForTargetIdle) {
@@ -439,13 +439,13 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                 const std::uint32_t categoryFlags = payload->effects1C[payload->effectRunningC9C].flags;
                 if ((categoryFlags & BattleResultFlag_ReflectMagic) != 0) {
                     AdvanceBattleCastState_439340(target);
-                    YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                    YobiAction* const scene = battle.sceneAction;
                     if (scene->phase == 8) {
                         ++scene->payload.battleScene->completedEntryCount00;
                     }
                 } else if ((categoryFlags & BattleResultFlag_NullifyMagic) != 0) {
                     AdvanceBattleCastState_439340(target);
-                    YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                    YobiAction* const scene = battle.sceneAction;
                     if (scene->phase == 8) {
                         ++scene->payload.battleScene->completedEntryCount00;
                     }
@@ -479,7 +479,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                         static_cast<void>(NewBattleAttributeEffects_4209C0(
                             cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
                     }
-                    YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                    YobiAction* const scene = battle.sceneAction;
                     if (scene->phase == 8) {
                         ++scene->payload.battleScene->completedEntryCount00;
                     }
@@ -572,7 +572,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
 void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
-    using world::gBattleSceneAction5ABA94;
+    auto& battle = action->ownerSession->WorldScene().battle;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = action->payload.battleActor;
     if (initialPhase == BattleImpactPhase_WaitForTargetIdle) {
@@ -653,13 +653,13 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
             const std::uint32_t categoryFlags = payload->effects1C[payload->effectRunningC9C].flags;
             if ((categoryFlags & BattleResultFlag_ReflectMagic) != 0) {
                 AdvanceBattleCastState_439340(target);
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & BattleResultFlag_NullifyMagic) != 0) {
                 AdvanceBattleCastState_439340(target);
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
@@ -693,7 +693,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
                         cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
                 }
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
@@ -822,7 +822,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
 void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
-    using world::gBattleSceneAction5ABA94;
+    auto& battle = action->ownerSession->WorldScene().battle;
     const std::int32_t initialPhase = action->phase;
     auto* const payload = action->payload.battleActor;
     if (initialPhase == BattleImpactPhase_WaitForTargetIdle) {
@@ -901,13 +901,13 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
             const std::uint32_t categoryFlags = payload->effects1C[payload->effectRunningC9C].flags;
             if ((categoryFlags & BattleResultFlag_ReflectMagic) != 0) {
                 AdvanceBattleCastState_439340(target);
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
             } else if ((categoryFlags & BattleResultFlag_NullifyMagic) != 0) {
                 AdvanceBattleCastState_439340(target);
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }
@@ -941,7 +941,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
                         cg::world::gBattleAllEntries59E980[payload->battlePosition18], target));
                 }
-                YobiAction* const scene = cg::world::gBattleSceneAction5ABA94;
+                YobiAction* const scene = battle.sceneAction;
                 if (scene->phase == 8) {
                     ++scene->payload.battleScene->completedEntryCount00;
                 }

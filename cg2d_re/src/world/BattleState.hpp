@@ -58,7 +58,6 @@ extern std::int32_t gDpResultTotal_FF0D08; // 原全局：0x00FF0D08。 既有DP
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。
 extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全局：0x0054D93C。
-extern cg::yobi::YobiAction* gBattleSceneAction5ABA94; // 原全局：0x005ABA94。 4383F0发布的非拥有场景对象，43CBB0已调用初始化。
 extern std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980; // 原全局：0x0059E980。 含20/21特殊槽的唯一非拥有对象表。
 extern const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980; // 原全局：0x0059E980。 常规路径仅遍历前20槽。
 extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC; // 原全局：0x005536FC。

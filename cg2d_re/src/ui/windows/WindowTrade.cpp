@@ -3252,7 +3252,7 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection&)
 }
 
 // 原函数：0x0050E570。
-void WindowTrade_ReceiveCloseReply(cg::network::CgConnection&, const std::int32_t value)
+void WindowTrade_ReceiveCloseReply(cg::network::CgConnection& connection, const std::int32_t value)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -3263,7 +3263,7 @@ void WindowTrade_ReceiveCloseReply(cg::network::CgConnection&, const std::int32_
     if (value == 1) {
         detail::gTradeValueCC4224 = 2;
     } else if (value == 0 || value == 2) {
-        WindowInstance* const window = detail::WindowRuntime_States()[WindowId_Trade].window;
+        WindowInstance* const window = detail::WindowRuntime_States(connection.Owner())[WindowId_Trade].window;
         detail::gTradeValueD67B80 = 1;
         if (window != nullptr) {
             window->state |= 0x8000u;

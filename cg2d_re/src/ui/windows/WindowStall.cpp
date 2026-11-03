@@ -151,13 +151,13 @@ struct StallOffer {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004CE700。
-static void WindowStall_ReceiveOpenResult(std::int32_t result); // 开摊结果：玩家标志、名字及窗口67首元素。
+static void WindowStall_ReceiveOpenResult(session::ClientSession& session, std::int32_t result); // 开摊结果：玩家标志、名字及窗口67首元素。
 
 // 原函数：0x004CE8B0。
-static void WindowStall_ReceiveCloseResult(std::int32_t result); // 收摊结果：两路均先清玩家标志/等待/门禁。
+static void WindowStall_ReceiveCloseResult(session::ClientSession& session, std::int32_t result); // 收摊结果：两路均先清玩家标志/等待/门禁。
 
 // 原函数：0x004CE930。
-static void WindowStall_ReceivePurchaseResult(std::int32_t result); // 购买结果：浏览记录和两并行表原序搬移，或显示原提示。
+static void WindowStall_ReceivePurchaseResult(session::ClientSession& session, std::int32_t result); // 购买结果：浏览记录和两并行表原序搬移，或显示原提示。
 
 // 原函数：0x004CF8A0。
 static void WindowStall_BuildItemDescription(world::PlayerItemRecord* item, const char* text); // 固定32行描述及前一行回扫。
@@ -1646,8 +1646,8 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
         const std::int32_t petCount = gStallPetCountD67BD4;
         const std::int32_t itemCount = gStallItemCountD67BCC;
         if (petCount + itemCount <= 0) {
-            static_cast<void>(WindowStallBrowse_RequestClose());
-            static_cast<void>(WindowOwnStall_RequestClose());
+            static_cast<void>(WindowStallBrowse_RequestClose(*callbackWindow.ownerSession));
+            static_cast<void>(WindowOwnStall_RequestClose(*callbackWindow.ownerSession));
         }
     }
     if (gStallModeD67BDC != 0) {
@@ -2891,7 +2891,7 @@ static void WindowStall_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004CE700。
-static void WindowStall_ReceiveOpenResult(const std::int32_t result)
+static void WindowStall_ReceiveOpenResult(session::ClientSession& session, const std::int32_t result)
 {
     if (result != 0) {
         const wchar_t* message;
@@ -2910,7 +2910,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
             break;
         }
         gStallMessageC8A978 = message;
-        WindowInstance* const window = WindowRuntime_States()[WindowId_OwnStall].window;
+        WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;
         world::ClearPlayerActionFlags(0x1000u);
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
@@ -2924,7 +2924,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
     std::wstring name = L"无名店铺";
     world::SetPlayerActionFlags(0x1000u);
     if (!gStallNameD67BE4.empty()) { name = gStallNameD67BE4; }
-    WindowInstance* const window = WindowRuntime_States()[WindowId_OwnStall].window;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;
     world::gPlayerRuntimeSlots.text15BB8 = name;
     if (window != nullptr) {
         if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 0;
@@ -2933,7 +2933,7 @@ static void WindowStall_ReceiveOpenResult(const std::int32_t result)
 }
 
 // 原函数：0x004CE8B0。
-static void WindowStall_ReceiveCloseResult(const std::int32_t result)
+static void WindowStall_ReceiveCloseResult(session::ClientSession& session, const std::int32_t result)
 {
     if (result != 0) {
         gStallMessageC8A978 = L"收摊失败";
@@ -2941,7 +2941,7 @@ static void WindowStall_ReceiveCloseResult(const std::int32_t result)
     world::ClearPlayerActionFlags(0x1000u);
     gStallPendingD67C31 = 0;
     gOwnStallOpenForBusiness_D67BE0 = 0;
-    WindowInstance* const window = WindowRuntime_States()[WindowId_OwnStall].window;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;
     if (result != 0) {
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
@@ -2954,7 +2954,7 @@ static void WindowStall_ReceiveCloseResult(const std::int32_t result)
 }
 
 // 原函数：0x004CE930。
-static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
+static void WindowStall_ReceivePurchaseResult(session::ClientSession& session, const std::int32_t result)
 {
     if (result == 0) {
         const std::int32_t mode = gStallModeD67BDC;
@@ -3001,7 +3001,7 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
                 gStallItemPageD67BC8 = page - 1;
             }
         }
-        WindowInstance* const window = WindowRuntime_States()[WindowId_StallBrowse].window;
+        WindowInstance* const window = WindowRuntime_States(session)[WindowId_StallBrowse].window;
         if (window != nullptr) {
             if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 0;
         }
@@ -3025,7 +3025,7 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
     const wchar_t* const message = result >= 1 && result <= 12
         ? messages[result - 1] : L"购买失败";
     gStallMessageC8A978 = message;
-    WindowInstance* const window = WindowRuntime_States()[WindowId_StallBrowse].window;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_StallBrowse].window;
     gStallMessageModeD67C34 = 1;
     gStallMessageValueD67C38 = 0;
     if (window != nullptr) {
@@ -3039,15 +3039,15 @@ static void WindowStall_ReceivePurchaseResult(const std::int32_t result)
 // 窗口函数实现。
 
 // 原函数：0x0050E7D0。
-void WindowStall_ReceiveOpenReply(cg::network::CgConnection&, const std::int32_t result)
+void WindowStall_ReceiveOpenReply(cg::network::CgConnection& connection, const std::int32_t result)
 {
-    detail::WindowStall_ReceiveOpenResult(result);
+    detail::WindowStall_ReceiveOpenResult(connection.Owner(), result);
 }
 
 // 原函数：0x0050E7E0。
-void WindowStall_ReceiveCloseReply(cg::network::CgConnection&, const std::int32_t result)
+void WindowStall_ReceiveCloseReply(cg::network::CgConnection& connection, const std::int32_t result)
 {
-    detail::WindowStall_ReceiveCloseResult(result);
+    detail::WindowStall_ReceiveCloseResult(connection.Owner(), result);
 }
 
 // 原函数：0x0050E7F0。
@@ -3059,9 +3059,9 @@ void WindowStall_ReceiveBrowseReply(cg::network::CgConnection& connection, const
 }
 
 // 原函数：0x0050E820。
-void WindowStall_ReceivePurchaseReply(cg::network::CgConnection&, const std::int32_t result)
+void WindowStall_ReceivePurchaseReply(cg::network::CgConnection& connection, const std::int32_t result)
 {
-    detail::WindowStall_ReceivePurchaseResult(result);
+    detail::WindowStall_ReceivePurchaseResult(connection.Owner(), result);
 }
 
 // 原函数：0x004CD240；LCI01启动拥有者替代CRT构造／退出登记。
@@ -3078,9 +3078,9 @@ void WindowStall_ConstructBrowsePetValues()
 }
 
 // 原函数：0x004CD3E0。
-WindowInstance* WindowStallBrowse_RequestClose()
+WindowInstance* WindowStallBrowse_RequestClose(session::ClientSession& session)
 {
-    WindowInstance* const window = detail::WindowRuntime_States()[WindowId_StallBrowse].window;
+    WindowInstance* const window = detail::WindowRuntime_States(session)[WindowId_StallBrowse].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -3088,9 +3088,9 @@ WindowInstance* WindowStallBrowse_RequestClose()
 }
 
 // 原函数：0x004CD400。
-WindowInstance* WindowOwnStall_RequestClose()
+WindowInstance* WindowOwnStall_RequestClose(session::ClientSession& session)
 {
-    WindowInstance* const window = detail::WindowRuntime_States()[WindowId_OwnStall].window;
+    WindowInstance* const window = detail::WindowRuntime_States(session)[WindowId_OwnStall].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }

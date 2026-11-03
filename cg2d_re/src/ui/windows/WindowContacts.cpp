@@ -445,7 +445,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
         sortGraphic->imageNo = kMailSortImages54F4C0[category * 5 + sortMode];
     }
     WindowContacts_Sort(*callbackWindow->ownerSession);
-    if (WindowRuntime_Settings().contactsPreviewMode == 0) {
+    if (WindowRuntime_Settings(*callbackWindow->ownerSession).contactsPreviewMode == 0) {
         const std::uint32_t page = world::detail::gMailContactPage_CB1384;
         render::GraphicDescriptor16 descriptor {};
         const std::int32_t currentCategory = business.valuesD67B40[6];
@@ -1548,7 +1548,7 @@ static void WindowContacts_ClampScroll(WindowInstance* callbackWindow)
     // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。
     std::int32_t maximum;
     std::int32_t position;
-    const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
+    const std::int32_t mode = WindowRuntime_Settings(*callbackWindow->ownerSession).contactsPreviewMode;
     if (mode == 0) {
         const std::int32_t category = business.valuesD67B40[6];
         if (business.valuesD67B40[category] < 0) {
@@ -1888,7 +1888,7 @@ static std::int32_t WindowContacts_DragScroll(WindowInstance* callbackWindow, co
     if (handleVerticalScrollElement) {
         auto* const mouse = handleVerticalScrollElement->data.mouse;
         if ((mouse->flags & 1) != 0) {
-            if (WindowRuntime_Settings().contactsPreviewMode == 0) {
+            if (WindowRuntime_Settings(*callbackWindow->ownerSession).contactsPreviewMode == 0) {
                 count = WindowScroll_ReadPosition(handleVerticalScrollElement, count - 3);
                 const std::int32_t category = business.valuesD67B40[6];
                 business.valuesD67B40[category] = count;

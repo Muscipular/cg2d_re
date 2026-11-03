@@ -164,9 +164,9 @@ cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
     cg::yobi::YobiAction** completionSlot);
 
 // 原函数：0x004CD3E0。
-WindowInstance* WindowStallBrowse_RequestClose(); // 原窗口68的state置0x8000，返回原借用引用。
+WindowInstance* WindowStallBrowse_RequestClose(session::ClientSession& session); // 原窗口68的state置0x8000，返回原借用引用。
 // 原函数：0x004CD400。
-WindowInstance* WindowOwnStall_RequestClose(); // 原窗口67，同上；不直接关闭或清表。
+WindowInstance* WindowOwnStall_RequestClose(session::ClientSession& session); // 原窗口67，同上；不直接关闭或清表。
 // 原函数：0x004AFF00。
 std::int32_t WindowGuildDetails_RequestClose(); // 借用窗口48置关闭标记，空返回0，否则透传音效结果。
 std::uint8_t WindowRuntime_ReadUiGate() noexcept; // 共享UI门禁W8，world只读。

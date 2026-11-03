@@ -1562,7 +1562,7 @@ void WindowItemSelector_BindElements(WindowInstance* callbackWindow, WindowItemS
     if (!window) return;
     state->value64 = mode;
     if (mode != 0) {
-        state->mode68 = &WindowRuntime_Settings().battleItemActorSelection;
+        state->mode68 = &WindowRuntime_Settings(*callbackWindow->ownerSession).battleItemActorSelection;
         state->elements00[0] = WindowElementLink{window->id, NativeElementKey(3)};
         state->elements00[1] = WindowElementLink{window->id, NativeElementKey(20)};
         state->elements00[2] = WindowElementLink{window->id, NativeElementKey(16)};
@@ -1587,7 +1587,7 @@ void WindowItemSelector_BindElements(WindowInstance* callbackWindow, WindowItemS
         state->callbacks50[2] = WindowBattleItems_HandleEquipment;
         state->callbacks50[3] = WindowElement_NoOp;
     } else {
-        state->mode68 = &WindowRuntime_Settings().inventoryActorSelection;
+        state->mode68 = &WindowRuntime_Settings(*callbackWindow->ownerSession).inventoryActorSelection;
         state->elements00[0] = WindowElementLink{window->id, NativeElementKey(4)};
         state->elements00[1] = WindowElementLink{window->id, NativeElementKey(17)};
         state->elements00[2] = WindowElementLink{window->id, NativeElementKey(18)};

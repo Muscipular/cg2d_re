@@ -5749,8 +5749,8 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
         const std::int32_t targetX = gPlayerMoveTargetX;
         const std::int32_t objectIndex = FindWorldObjectAtWithActionFlags_445030(targetX, targetY, 8, 0x1000);
         if (objectIndex >= 0) {
-            static_cast<void>(ui::WindowStallBrowse_RequestClose());
-            static_cast<void>(ui::WindowOwnStall_RequestClose());
+            static_cast<void>(ui::WindowStallBrowse_RequestClose(session));
+            static_cast<void>(ui::WindowOwnStall_RequestClose(session));
             static_cast<void>(session.Connection().RequestStallContents(objectIndex));
         }
         TurnPlayerTowardCursorTarget_46B370(session);
@@ -5864,7 +5864,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
                         if (std::bit_cast<std::int16_t>(gPendingDirectionCount_C82202) > 0) {
                             static_cast<void>(DetectPendingPathEvents_46AA00());
                         }
-                        static_cast<void>(ui::WindowStallBrowse_RequestClose());
+                        static_cast<void>(ui::WindowStallBrowse_RequestClose(session));
                         static_cast<void>(SendPendingMovementDirections_46AC10(session));
                     }
                     return std::bit_cast<std::int16_t>(gPendingDirectionCount_C82202);

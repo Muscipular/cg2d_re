@@ -172,7 +172,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
                 if (gWindowActionTick62B5AC + 500u < now) {
                     WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnStall].window;
                     if (window == nullptr) {
-                        static_cast<void>(WindowStallBrowse_RequestClose());
+                        static_cast<void>(WindowStallBrowse_RequestClose(*callbackWindow.ownerSession));
                         static_cast<void>(audio::PlaySe_52C450(56, 320));
                         static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_OwnStall, 1, 0, nullptr));
                     } else {

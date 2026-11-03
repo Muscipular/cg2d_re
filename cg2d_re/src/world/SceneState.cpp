@@ -5735,7 +5735,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
     const std::int32_t protocolAction = kEmoteProtocolActions584BB4[selected];
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendWorldActionRequest(x, y, protocolAction));
+    static_cast<void>(initialAction->ownerSession->Connection().SendWorldActionRequest(x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
     SetPlayerAnimationState_51A060(localAction);
     const std::uint64_t completedAt = platform::ReadTickCount64();

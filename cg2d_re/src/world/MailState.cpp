@@ -895,7 +895,7 @@ void HandleMiniMailReply_50F7F0(cg::network::CgConnection&, const std::int32_t k
 }
 
 // 原函数：0x0050F9E0。
-void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection&, const char* const payload)
+void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& connection, const char* const payload)
 {
     const std::int32_t index = FindFreeMiniMailContactSlot_5343A0();
     if (index == -1) {
@@ -949,7 +949,7 @@ void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection&, const ch
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     std::wstring formattedTimestamp;
     static_cast<void>(FormatMailTimestamp_534520(formattedTimestamp));
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     if (gProfiles1074938[selected].value00 == key) {
         PrependMiniMailMessage_5343C0(index, 1, formattedTimestamp, cg::text::FromGbkWide(text));
         return;
@@ -1160,7 +1160,7 @@ std::int32_t HandleProfileCategoryVersionsReply_50F3A0(cg::network::CgConnection
     const std::int32_t second = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
     gCategory105FA10.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 4);
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::int16_t selected = networkConnection.LoginRequests().selectedCharacterIndex;
     gProfiles1074938[selected].value00 = key;
     const std::int32_t previous = gCategory105FA10.value00;
     std::int32_t mask = previous != first ? 1 : 0;

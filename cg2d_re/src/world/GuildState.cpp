@@ -356,7 +356,7 @@ std::uintptr_t UpdateOrderedRecords_50EEB0(cg::network::CgConnection&, std::uint
 }
 
 // 原函数：0x0050EC50。
-std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection&, const char* const text)
+std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection& connection, const char* const text)
 {
     const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
     if (gate != 0) {
@@ -409,7 +409,7 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection&, const
     }
 
     const std::int32_t count = CountRecordsValue08EqualOne_50EF50();
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     gOrderedRecordCount1051510 = count;
     return world::detail::PruneGuildMailAgainstOrderedRecords_50EE4A(selected);
 }

@@ -26,6 +26,17 @@ struct ServerConnectionLayout {
     std::int32_t y = 0;
 };
 
+// 能力 4 登录界面的删除确认模态状态与动作借用。
+struct Capability4ModalState {
+    std::int32_t initialized = 0; // 原 0x9A57E4。
+    std::int32_t sentinel = -2; // 原 0x55C580。
+    std::int32_t width = 0; // 原 0x9A4EA8。
+    std::int32_t height = 0; // 原 0x9A5448。
+    std::int32_t x = 0; // 原 0x9A4B78。
+    std::int32_t y = 0; // 原 0x9A4E7C。
+    yobi::YobiAction* action = nullptr; // 原 0x9A6EBC。
+};
+
 // 服务器列表图片号会在分类选择后改写，不能跨登录会话共用。
 struct LoginSceneState {
     LoginSceneState() = default;
@@ -53,6 +64,7 @@ struct LoginSceneState {
     std::wstring capability4Message; // 原 0x9A4A78。
     std::wstring outerLoginErrorMessage; // 原 0x9A4BA0。
     std::wstring loginModeMessage; // 原 0x9A5FE0。
+    Capability4ModalState capability4Modal {};
     std::array<input::InputContext*, 3> inputFocusTable {
         &context9A5960, &context9A5678, &context9A5960,
     }; // 原 0x559FFC；借用本实例的两个上下文。

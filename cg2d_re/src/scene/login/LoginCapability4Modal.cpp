@@ -2,7 +2,9 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
+#include "cg/network/CgConnection.hpp"
 #include "LoginCapability4Modal.hpp"
+#include "LoginSceneState.hpp"
 #include <cwchar>
 
 #include "LoginMessageDependencies.hpp"
@@ -18,18 +20,6 @@ namespace cg::login::detail {
 
 static constexpr std::int32_t kScreenWidth = 640;
 static constexpr std::int32_t kScreenHeight = 480;
-
-// 原 dword_9A57E4@0x9A57E4，PE 虚拟零填充。
-static std::int32_t gCapability4ModalInitialized = 0;
-// 原 dword_55C580@0x55C580，文件初值与每次初始化值均为 -2。
-static std::int32_t gCapability4ModalSentinel = -2;
-// 原 0x9A4EA8/0x9A5448/0x9A4B78/0x9A4E7C，PE 虚拟零填充。
-static std::int32_t gCapability4ModalWidth = 0; // 原全局：0x009A4EA8。
-static std::int32_t gCapability4ModalHeight = 0; // 原全局：0x009A5448。
-static std::int32_t gCapability4ModalX = 0; // 原全局：0x009A4B78。
-static std::int32_t gCapability4ModalY = 0; // 原全局：0x009A4E7C。
-// 原 dword_9A6EBC@0x9A6EBC；原生指针宽度观察者，不放入 W32。
-static cg::yobi::YobiAction* gCapability4ModalAction = nullptr;
 
 static constexpr cg::render::GraphicDescriptor16 kGraphicDescriptor {
     0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
@@ -65,12 +55,13 @@ static std::int32_t MultiplyW32(
 // 原函数：0x00464440。
 void ResetCapability4Modal_464440()
 {
-    gCapability4ModalInitialized = 0;
+    cg::network::GetGameConnection().LoginSceneUi().capability4Modal.initialized = 0;
 }
 
 // 原函数：0x00464450。
 std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
 {
+    auto& modal = cg::network::GetGameConnection().LoginSceneUi().capability4Modal;
     std::wstring splitText(text);
 
     std::int32_t lineCount = 1;
@@ -95,9 +86,9 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         lineCount = AddW32(lineCount, 1);
     }
 
-    if (gCapability4ModalInitialized == 0) {
-        gCapability4ModalInitialized = 1;
-        gCapability4ModalSentinel = -2;
+    if (modal.initialized == 0) {
+        modal.initialized = 1;
+        modal.sentinel = -2;
 
         const std::int32_t roundedWidth = MultiplyW32(
             AddW32(maximumTextWidth, 95) / 64,
@@ -112,11 +103,11 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         const std::int32_t modalY =
             SubtractW32(kScreenHeight, modalHeight) / 2;
 
-        gCapability4ModalWidth = roundedWidth;
-        gCapability4ModalHeight = modalHeight;
-        gCapability4ModalX = modalX;
-        gCapability4ModalY = modalY;
-        gCapability4ModalAction = cg::yobi::CreateModalAction_5044E0(
+        modal.width = roundedWidth;
+        modal.height = modalHeight;
+        modal.x = modalX;
+        modal.y = modalY;
+        modal.action = cg::yobi::CreateModalAction_5044E0(
             modalX,
             modalY,
             roundedWidth,
@@ -129,10 +120,10 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
 
     const std::int32_t leftHitLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
     const std::int32_t leftHitBaseY = AddW32(
-        gCapability4ModalY,
+        modal.y,
         MultiplyW32(lastLineIndex, leftHitLineStep));
-    const std::int32_t leftHitWidth = gCapability4ModalWidth;
-    const std::int32_t leftHitX = gCapability4ModalX;
+    const std::int32_t leftHitWidth = modal.width;
+    const std::int32_t leftHitX = modal.x;
     const std::int32_t leftHitCenter = AddW32(
         leftHitX,
         leftHitWidth / 3);
@@ -149,10 +140,10 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
 
     const std::int32_t rightHitLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
     const std::int32_t rightHitBaseY = AddW32(
-        gCapability4ModalY,
+        modal.y,
         MultiplyW32(lastLineIndex, rightHitLineStep));
-    const std::int32_t rightHitWidth = gCapability4ModalWidth;
-    const std::int32_t rightHitX = gCapability4ModalX;
+    const std::int32_t rightHitWidth = modal.width;
+    const std::int32_t rightHitX = modal.x;
     const std::int32_t rightHitCenter = AddW32(
         rightHitX,
         MultiplyW32(rightHitWidth, 2) / 3);
@@ -181,32 +172,32 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
     if (selection != -1) {
         const std::int32_t result = AddW32(selection, 1);
         PlaySe(79, 320, 240);
-        cg::yobi::YobiAction* const action = gCapability4ModalAction;
+        cg::yobi::YobiAction* const action = modal.action;
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
-            gCapability4ModalAction = nullptr;
+            modal.action = nullptr;
         }
         return result;
     }
 
-    cg::yobi::YobiAction* const action = gCapability4ModalAction;
+    cg::yobi::YobiAction* const action = modal.action;
     if (action == nullptr || !cg::yobi::IsYobiActionReady(action, 1)) {
         return 0;
     }
 
     const std::int32_t textHorizontalOffset =
-        SubtractW32(gCapability4ModalWidth, maximumTextWidth) / 2;
+        SubtractW32(modal.width, maximumTextWidth) / 2;
     wchar_t* drawLine = splitText.data();
     std::int32_t lineIndex = 0;
     while (lineIndex < lineCount) {
         const std::int32_t textLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
         const std::int32_t textY = AddW32(
             AddW32(
-                gCapability4ModalY,
+                modal.y,
                 MultiplyW32(lineIndex, textLineStep)),
             30);
         const std::int32_t textX = AddW32(
-            gCapability4ModalX,
+            modal.x,
             textHorizontalOffset);
         cg::render::DrawText_456780(
             static_cast<std::int16_t>(textX),
@@ -224,12 +215,12 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
     const std::int32_t leftGraphicLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
     const std::int32_t leftGraphicY = AddW32(
         AddW32(
-            gCapability4ModalY,
+            modal.y,
             MultiplyW32(lastLineIndex, leftGraphicLineStep)),
         69);
-    const std::int32_t leftGraphicWidth = gCapability4ModalWidth;
+    const std::int32_t leftGraphicWidth = modal.width;
     const std::int32_t leftGraphicX = AddW32(
-        gCapability4ModalX,
+        modal.x,
         leftGraphicWidth / 3);
     cg::render::DrawGraphic(
         leftGraphicX,
@@ -239,15 +230,15 @@ std::int32_t UpdateCapability4Modal_464450(const std::wstring_view text)
         0,
         &kGraphicDescriptor);
 
-    const std::int32_t rightGraphicYBase = gCapability4ModalY;
+    const std::int32_t rightGraphicYBase = modal.y;
     const std::int32_t rightGraphicLineStep = AddW32(cg::render::GetFontMetrics(0).doubleHeight, 2);
     const std::int32_t rightGraphicY = AddW32(
         AddW32(
             rightGraphicYBase,
             MultiplyW32(lastLineIndex, rightGraphicLineStep)),
         69);
-    const std::int32_t rightGraphicXBase = gCapability4ModalX;
-    const std::int32_t rightGraphicWidth = gCapability4ModalWidth;
+    const std::int32_t rightGraphicXBase = modal.x;
+    const std::int32_t rightGraphicWidth = modal.width;
     const std::int32_t rightGraphicX = AddW32(
         rightGraphicXBase,
         MultiplyW32(rightGraphicWidth, 2) / 3);

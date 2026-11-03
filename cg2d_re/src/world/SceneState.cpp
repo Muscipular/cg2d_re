@@ -556,7 +556,6 @@ std::int32_t gCurrentSceneState = 0; // 原全局：0x00FF0D64。
 std::int32_t gPendingSceneType = 0; // 原全局：0x00FF0D6C。
 
 std::uint8_t gMapSurfaceCacheEnabled_C82204 = 0; // 原全局：0x00C82204。
-std::uint32_t gBattleEntryPending_5ABFC4 = 0; // 原全局：0x005ABFC4。
 std::uint32_t gGameplayRepliesSuppressed_9A6E0C = 0; // 原全局：0x009A6E0C。
 std::uint32_t gLogoutToTownPending_D67E78 = 0; // 原全局：0x00D67E78。
 std::uint32_t gObservationTravelTransitionCount_FF0D74 = 0; // 原全局：0x00FF0D74。
@@ -3594,7 +3593,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     case 0:
         gCurrentSceneState = 100;
         worldScene.normalSceneInitialized = 0;
-        gBattleEntryPending_5ABFC4 = 0;
+        worldScene.battle.entryPending = 0;
         [[fallthrough]];
     case 100:
         CreatePlayerMapPresence_519A80();
@@ -3998,7 +3997,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         UpdateDayPeriodPaletteAndTimers_458F00();
-        if (gBattleEntryPending_5ABFC4 != 1) {
+        if (worldScene.battle.entryPending != 1) {
             return;
         }
         static_cast<void>(DestroyPlayerMapPresence_519D50());
@@ -4157,7 +4156,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     };
     switch (state) {
     case 0: {
-        gBattleEntryPending_5ABFC4 = 0;
+        battleScene.entryPending = 0;
         gBattleNamedEffects5ABCE0.fill({});
         std::int32_t title = 0;
         while (title < static_cast<std::int32_t>(gSortedTitlesDE03F8.size())
@@ -10092,7 +10091,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
     }
     if (type > 0) {
         const bool modeTwo = type == 2;
-        gBattleEntryPending_5ABFC4 = 1;
+        networkConnection.Owner().WorldScene().battle.entryPending = 1;
         gBattleType5ABFC8 = type;
         if (modeTwo) {
             gBattleModeFlag5ABFCC = 1;

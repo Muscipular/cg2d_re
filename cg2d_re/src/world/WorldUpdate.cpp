@@ -120,7 +120,7 @@ void Update(session::ClientSession& session)
         detail::InitializeWorldSceneFlags_455BD0();
         detail::InitializeMapEffectPool_46E2A0();
         ResetMapDrawCacheCounts_46BD40();
-        gBattleEntryPending_5ABFC4 = 0;
+        session.WorldScene().battle.entryPending = 0;
         gGameplayRepliesSuppressed_9A6E0C = 0;
         detail::InitializeGameplayNotifications_504A30();
         detail::ResetBattleCommandSelection_43C8F0();

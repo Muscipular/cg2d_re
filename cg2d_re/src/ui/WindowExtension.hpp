@@ -42,19 +42,20 @@ void WindowConsumeMouseWheelDelta();
 void WindowAddMouseWheelDelta(int delta);
 void WindowRuntime_EnsureIdentity(WindowInstance& window);
 WindowInstance* WindowRuntime_FindInstance(int id);
-std::shared_ptr<WindowExtension> GetExtWindowById(int id);
+WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id);
+std::shared_ptr<WindowExtension> GetExtWindowById(session::ClientSession& session, int id);
 void WindowExOpen(std::shared_ptr<WindowExtension>& window);
 // 创建成功后排队，在下一次UI更新中按实例代次派发打开事件。
 void WindowRuntime_QueueWindowOpen(const WindowInstance& window);
-void CgWindowClose(int id);
+void CgWindowClose(session::ClientSession& session, int id);
 void CloseNonDefaultWindows(int exceptId);
-bool CloseTopmostNonDefaultWindow();
-void NativeWindowClosed(int id);
+bool CloseTopmostNonDefaultWindow(session::ClientSession& session);
+void NativeWindowClosed(WindowInstance& window);
 void WindowRuntime_UpdateScene(session::ClientSession& session);
 void PrepareWindowFrame(session::ClientSession& session);
-std::vector<ScheduledWindow> MergeWindowOrder(int nativeCount);
+std::vector<ScheduledWindow> MergeWindowOrder(session::ClientSession& session, int nativeCount);
 void FinishWindowFrame(session::ClientSession& session);
-void ShutdownExtensionWindows();
+void ShutdownExtensionWindows(session::ClientSession& session);
 void WindowRuntime_SetVisible(WindowInstance& window, bool visible);
 void WindowRuntime_ReleaseBindings(WindowInstance& window);
 

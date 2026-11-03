@@ -290,7 +290,7 @@ struct WindowInstance {
     std::int32_t refEvent = -1;
     bool scriptHidden = false; // 旧原生state不含统一visible位，脚本显隐独立门控。
     std::int8_t category = 0; // 窗口类别位码；原生窗口创建时赋值，类别判断直接读取实例。
-    session::ClientSession* ownerSession = nullptr; // NSM01：扩展面板回调的会话身份；原生窗口归属尚未迁移。
+    session::ClientSession* ownerSession = nullptr; // NSM01：扩展窗口与面板回调的会话身份；原生窗口归属尚未迁移。
     // 返回借用指针；跨回调或结构变更后需重新查询。
     WindowElement* FindElementById(ElementId elementId) noexcept {
         return sortedMap.FindElementById(elementId);
@@ -331,16 +331,20 @@ struct WindowElementCursor {
 
 // 旧选择器缓存改为身份引用，元素删除后查询返回空。
 WindowInstance* WindowRuntime_FindInstance(int id);
+WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id);
 struct WindowElementLink {
     int windowId = -1;
     ElementId elementId = 0;
+    session::ClientSession* ownerSession = nullptr;
     WindowElementLink& operator=(WindowElement* element) {
         windowId = element && element->owner ? element->owner->id : -1;
         elementId = element ? element->elementId : 0;
+        ownerSession = element && element->owner ? element->owner->ownerSession : nullptr;
         return *this;
     }
     WindowElement* get() const {
-        auto* window = WindowRuntime_FindInstance(windowId);
+        auto* window = ownerSession ? WindowRuntime_FindInstance(*ownerSession, windowId)
+            : WindowRuntime_FindInstance(windowId);
         return window ? window->FindElementById(elementId) : nullptr;
     }
     operator WindowElement*() const { return get(); }

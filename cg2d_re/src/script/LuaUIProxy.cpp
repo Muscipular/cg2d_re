@@ -8,7 +8,7 @@ struct LuaElementsRef { LuaWindowRef window; };
 
 static ui::WindowInstance* ResolveInstance(LuaWindowRef ref) {
     if (!ref.ownerSession) return nullptr;
-    auto* window = ui::WindowRuntime_FindInstance(ref.winId);
+    auto* window = ui::WindowRuntime_FindInstance(*ref.ownerSession, ref.winId);
     return window && !(window->state & WIN_STATE_CLOSE)
         && (!window->ownerSession || window->ownerSession == ref.ownerSession) ? window : nullptr;
 }

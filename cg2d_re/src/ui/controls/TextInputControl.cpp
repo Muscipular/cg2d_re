@@ -62,7 +62,8 @@ static void UpdateTextInputLineStart(InputContext& context, int maxLength)
     }
 }
 void WindowElement_ForgetInputRestore(const WindowElement& element) {
-    auto* window = WindowRuntime_FindInstance(focusedInput.winId);
+    auto* window = focusedInput.ownerSession ? WindowRuntime_FindInstance(*focusedInput.ownerSession, focusedInput.winId)
+        : WindowRuntime_FindInstance(focusedInput.winId);
     if (!window || window->generation != focusedInput.generation) return;
     auto* focused = window->FindElementById(focusedInput.elementId);
     if (!focused || focused->creationSerial != focusedInput.creationSerial || focused == &element

@@ -20,6 +20,7 @@ struct WindowElementRef {
     std::uint32_t generation = 0;
     ElementId elementId = 0;
     std::uint64_t creationSerial = 0;
+    session::ClientSession* ownerSession = nullptr;
 };
 WindowElementRef WindowRuntime_ElementRef(const WindowElement& element);
 WindowElement* WindowRuntime_ResolveElement(const WindowElementRef& ref);

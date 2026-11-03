@@ -3115,7 +3115,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
 {
     if ((platform::gKeyStates[0x1B] & 4u) != 0) {
         platform::gKeyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
-        if (script::CloseTopmostNonDefaultWindow()) {
+        if (script::CloseTopmostNonDefaultWindow(session)) {
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         } else {
             WindowRuntime_ToggleShortcutWindow(WindowId_Settings);
@@ -4244,7 +4244,8 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
     const auto ownerGeneration = window->generation;
     if (element->visible == 1 && !handled) {
         if (element->mouseCallback) handled = element->mouseCallback(elementId, events);
-        const auto* live = WindowRuntime_FindInstance(ownerId);
+        const auto* live = window->ownerSession ? WindowRuntime_FindInstance(*window->ownerSession, ownerId)
+            : WindowRuntime_FindInstance(ownerId);
         if (live == window && live->generation == ownerGeneration && window->binding
             && WindowRuntime_ResolveElement(identity) == element && WindowRuntime_IsElementInteractive(*window, *element)) {
             if (WindowRuntime_BeginPointerDrag(*window, *element, events)) handled |= 1;
@@ -4455,7 +4456,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
     PrepareWindowFrame(session);
     WindowRuntime_BeginPointerDragFrame();
     const std::int32_t count = WindowRuntime_CompactAndReorder();
-    const auto scheduledWindows = MergeWindowOrder(count);
+    const auto scheduledWindows = MergeWindowOrder(session, count);
     const bool hasWindows = !scheduledWindows.empty();
     gWindowUpdateCountCC4844 = count;
     if (hasWindows) {
@@ -4536,7 +4537,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
             if (!extension && pagePresentation.targetId >= 0
                 && gWindowStates[pagePresentation.sourceId].window == window
                 && window->generation == pagePresentation.sourceGeneration && (window->state & 0x8000u)) {
-                auto* const target = WindowRuntime_FindInstance(pagePresentation.targetId);
+                auto* const target = WindowRuntime_FindInstance(session, pagePresentation.targetId);
                 if (target && target->generation == pagePresentation.targetGeneration
                     && !(target->state & 0x8000u) && !target->scriptHidden
                     && std::none_of(scheduledWindows.begin(), scheduledWindows.end(),
@@ -4551,7 +4552,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                     gCurrentElementId57C12C = 0;
                     // 宠物页的update(-1)只初始化；正常update补齐属性/技能，沿各页自己的draw。
                     const auto targetResult = invoke([&] { return target->update(carried); });
-                    if (WindowRuntime_FindInstance(pagePresentation.targetId) == target
+                    if (WindowRuntime_FindInstance(session, pagePresentation.targetId) == target
                         && target->generation == pagePresentation.targetGeneration
                         && !(target->state & 0x8000u) && !target->scriptHidden) {
                         carried = invoke([&] { return target->draw(targetResult); });
@@ -4935,7 +4936,7 @@ void WindowRuntime_Free(WindowInstance* const window)
 {
     using namespace detail;
     window->state |= 0x8000u;
-    NativeWindowClosed(window->id);
+    NativeWindowClosed(*window);
     window->release();
     WindowRuntime_DestroyElements(*window);
     WindowRuntime_ReleaseBindings(*window);

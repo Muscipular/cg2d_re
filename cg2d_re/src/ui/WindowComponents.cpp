@@ -8,6 +8,7 @@ using namespace component_detail;
 static struct ElementPointerDrag {
     int windowId = -1;
     std::uint32_t generation = 0;
+    session::ClientSession* ownerSession = nullptr;
     ElementId elementId = 0;
     std::uint64_t creationSerial = 0;
     int lastX = 0;
@@ -29,7 +30,8 @@ bool WindowRuntime_IsElementInteractive(const WindowInstance& window, const Wind
 }
 
 static WindowElement* ResolvePointerDrag(WindowInstance*& window) {
-    window = WindowRuntime_FindInstance(pointerDrag.windowId);
+    window = pointerDrag.ownerSession ? WindowRuntime_FindInstance(*pointerDrag.ownerSession, pointerDrag.windowId)
+        : WindowRuntime_FindInstance(pointerDrag.windowId);
     if (!window || window->generation != pointerDrag.generation || (window->state & WIN_STATE_CLOSE)
         || window->scriptHidden || platform::gWindowActiveState != 2) return nullptr;
     WindowElement* element = window->FindElementById(static_cast<ElementId>(pointerDrag.elementId));
@@ -69,6 +71,7 @@ bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& eleme
         || platform::gWindowActiveState != 2) return false;
     pointerDrag.windowId = window.id;
     pointerDrag.generation = window.generation;
+    pointerDrag.ownerSession = window.ownerSession;
     pointerDrag.elementId = element.elementId;
     pointerDrag.creationSerial = element.creationSerial;
     pointerDrag.lastX = platform::gLegacyMouseState.buttonCoordinates[0];
@@ -133,10 +136,12 @@ void WindowRuntime_EndPointerDragFrame() {
 
 
 WindowElementRef WindowRuntime_ElementRef(const WindowElement& element) {
-    return {element.owner->id, element.owner->generation, element.elementId, element.creationSerial};
+    return {element.owner->id, element.owner->generation, element.elementId,
+        element.creationSerial, element.owner->ownerSession};
 }
 WindowElement* WindowRuntime_ResolveElement(const WindowElementRef& ref) {
-    auto* window = WindowRuntime_FindInstance(ref.winId);
+    auto* window = ref.ownerSession ? WindowRuntime_FindInstance(*ref.ownerSession, ref.winId)
+        : WindowRuntime_FindInstance(ref.winId);
     if (!window || window->generation != ref.generation || (window->state & WIN_STATE_CLOSE)) return nullptr;
     auto* element = window->FindElementById(ref.elementId);
     return element && element->creationSerial == ref.creationSerial ? element : nullptr;

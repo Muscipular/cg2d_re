@@ -1,22 +1,14 @@
 #include "WindowComponents.hpp"
 #include "../script/LuaUI.hpp"
 #include "cg/script/LuaRuntime.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/session/ClientSession.hpp"
-#include <unordered_map>
 #include <utility>
 
 namespace cg::ui {
 using namespace component_detail;
 
-static std::vector<std::shared_ptr<WindowExtension>> windows;
-static std::unordered_map<int, std::uint64_t> windowOrder;
-static std::uint64_t orderSequence = 0;
-static int focusedWindow = -1;
-static std::vector<std::pair<int, std::uint32_t>> pendingWindowOpens; // ID和实例代次，不持有窗口。
-
-
 static std::uint32_t nextGeneration = 0;
-static int dragOwner = -1;
 static int mouseWheelDelta = 0;
 
 int WindowPeekMouseWheelDelta() { return mouseWheelDelta; }
@@ -30,8 +22,14 @@ void WindowRuntime_EnsureIdentity(WindowInstance& window) {
     }
 }
 WindowInstance* WindowRuntime_FindInstance(int id) {
-    if (id >= 0 && id < WIN_MAX) return gWindowState[id].window;
-    const auto extension = GetExtWindowById(id);
+    return id >= 0 && id < WIN_MAX ? gWindowState[id].window : nullptr;
+}
+WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id) {
+    if (id >= 0 && id < WIN_MAX) {
+        auto* window = gWindowState[id].window;
+        return window && (!window->ownerSession || window->ownerSession == &session) ? window : nullptr;
+    }
+    const auto extension = GetExtWindowById(session, id);
     return extension ? &extension->window : nullptr;
 }
 WindowExtension::WindowExtension() {
@@ -46,7 +44,10 @@ void WindowRuntime_ReleaseBindings(WindowInstance& window) {
     window.properties = nullptr;
 }
 WindowExtension::~WindowExtension() {
-    if (dragOwner == window.id) dragOwner = -1;
+    if (window.ownerSession) {
+        auto& dragOwner = window.ownerSession->UiFrame().extension.dragOwner;
+        if (dragOwner == window.id) dragOwner = -1;
+    }
     WindowRuntime_DestroyElements(window);
     WindowRuntime_ReleaseBindings(window);
 }
@@ -68,13 +69,15 @@ void WindowRuntime_SetVisible(WindowInstance& window, bool visible) {
     }
     if (visible) window.state |= WIN_STATE_ACTIVE;
     else {
+        auto& dragOwner = window.ownerSession->UiFrame().extension.dragOwner;
         window.state &= ~WIN_STATE_ACTIVE;
         if (dragOwner == window.id) dragOwner = -1;
-        if (auto extension = GetExtWindowById(window.id)) extension->dragMoving = false;
+        if (auto extension = GetExtWindowById(*window.ownerSession, window.id)) extension->dragMoving = false;
         WindowRuntime_ResetElements(window);
     }
 }
 int WindowExtension::update(int, int hasFocused) {
+    auto& dragOwner = window.ownerSession->UiFrame().extension.dragOwner;
     if ((window.state & WIN_STATE_CLOSE) || !(window.state & WIN_STATE_ACTIVE)) {
         if (dragOwner == window.id) dragOwner = -1;
         dragMoving = false;
@@ -107,36 +110,39 @@ int WindowExtension::render(int) {
     return 1;
 }
 
-std::shared_ptr<WindowExtension> GetExtWindowById(int id)
+std::shared_ptr<WindowExtension> GetExtWindowById(session::ClientSession& session, int id)
 {
     if (id < 0) return nullptr; // 未捕获鼠标/输入焦点的空身份。
-    for (const auto& window : windows) if (window && window->window.id == id) return window;
+    for (const auto& window : session.UiFrame().extension.windows)
+        if (window && window->window.id == id) return window;
     return nullptr;
 }
 
 void WindowExOpen(std::shared_ptr<WindowExtension>& window)
 {
+    auto& state = window->window.ownerSession->UiFrame().extension;
     WindowRuntime_EnsureIdentity(window->window);
     WindowRuntime_UpdateElementOrder(window->window);
-    windows.push_back(window);
-    windowOrder[window->window.id] = ++orderSequence;
+    state.windows.push_back(window);
+    state.windowOrder[window->window.id] = ++state.orderSequence;
     window->window.state |= WIN_STATE_FOCUS;
     WindowRuntime_QueueWindowOpen(window->window);
 }
 
 void WindowRuntime_QueueWindowOpen(const WindowInstance& window)
 {
-    pendingWindowOpens.emplace_back(window.id, window.generation);
+    auto& owner = window.ownerSession ? *window.ownerSession : session::GetClientHost().FirstSession();
+    owner.UiFrame().extension.pendingWindowOpens.emplace_back(window.id, window.generation);
 }
 
-void CgWindowClose(int id)
+void CgWindowClose(session::ClientSession& session, int id)
 {
     if (id >= 0 && id < WIN_MAX) {
-        if (auto* window = gWindowState[id].window) {
+        if (auto* window = WindowRuntime_FindInstance(session, id)) {
             WindowRuntime_CancelPointerDrag(*window);
             window->state |= WIN_STATE_CLOSE;
         }
-    } else if (auto window = GetExtWindowById(id)) {
+    } else if (auto window = GetExtWindowById(session, id)) {
         // 回调期间仅标记；当前调度快照持有对象，下一帧统一释放。
         WindowRuntime_CancelPointerDrag(window->window);
         window->window.state |= WIN_STATE_CLOSE;
@@ -151,41 +157,44 @@ static bool IsDefaultWindow(const WindowInstance& window)
 
 void CloseNonDefaultWindows(int exceptId)
 {
+    auto& state = session::GetClientHost().FirstSession().UiFrame().extension;
     const auto close = [exceptId](UIWindowInstance& window) {
         if (window.id != exceptId && !IsDefaultWindow(window))
             window.state |= WIN_STATE_CLOSE;
     };
     for (auto* window : ui::detail::gWindows) if (window) close(*window);
-    for (const auto& entry : windows) close(entry->window);
+    for (const auto& entry : state.windows) close(entry->window);
 }
 
 // 层号较小的窗口在前，同层按既有置前次序；关闭与绘制使用相同规则。
-static bool IsWindowAbove(const UIWindowInstance& first, const UIWindowInstance& second)
+static bool IsWindowAbove(ExtensionWindowState& state, const UIWindowInstance& first, const UIWindowInstance& second)
 {
     if (first.layer != second.layer) return first.layer < second.layer;
-    return windowOrder[first.id] > windowOrder[second.id];
+    return state.windowOrder[first.id] > state.windowOrder[second.id];
 }
 
-bool CloseTopmostNonDefaultWindow()
+bool CloseTopmostNonDefaultWindow(session::ClientSession& session)
 {
+    auto& state = session.UiFrame().extension;
     UIWindowInstance* target = nullptr;
     const auto consider = [&](UIWindowInstance& window) {
         if ((window.state & WIN_STATE_CLOSE) || window.scriptHidden
             || (window.category & (1 | 2 | 4 | 8)) == 0) return;
-        if (!target || IsWindowAbove(window, *target)) target = &window;
+        if (!target || IsWindowAbove(state, window, *target)) target = &window;
     };
     for (auto* window : ui::detail::gWindows) if (window) consider(*window);
-    for (const auto& entry : windows)
+    for (const auto& entry : state.windows)
         if (entry->window.state & WIN_STATE_ACTIVE) consider(entry->window);
     if (!target) return false;
     target->state |= WIN_STATE_CLOSE;
     return true;
 }
 
-void NativeWindowClosed(int id)
+void NativeWindowClosed(WindowInstance& window)
 {
-    windowOrder.erase(id);
-    script::LuaProcessWinMgrWindowClose(id);
+    auto& owner = window.ownerSession ? *window.ownerSession : cg::session::GetClientHost().FirstSession();
+    owner.UiFrame().extension.windowOrder.erase(window.id);
+    script::LuaProcessWinMgrWindowClose(owner, window.id);
 }
 
 void WindowRuntime_UpdateScene(session::ClientSession& session)
@@ -201,66 +210,68 @@ void WindowRuntime_UpdateScene(session::ClientSession& session)
 
 void PrepareWindowFrame(session::ClientSession& session)
 {
+    auto& state = session.UiFrame().extension;
     for (auto* window : detail::gWindows) if (window) WindowRuntime_CollectElements(*window);
-    for (const auto& entry : windows) WindowRuntime_CollectElements(entry->window);
+    for (const auto& entry : state.windows) WindowRuntime_CollectElements(entry->window);
     WindowRuntime_UpdateScene(session);
     // 先移除再通知，关闭事件可以安全重建同ID窗口。
     std::vector<int> closed;
     std::vector<std::shared_ptr<WindowExtension>> retiring;
-    closed.reserve(windows.size());
-    retiring.reserve(windows.size());
-    std::erase_if(windows, [&](const auto& entry) {
+    closed.reserve(state.windows.size());
+    retiring.reserve(state.windows.size());
+    std::erase_if(state.windows, [&](const auto& entry) {
         if (!(entry->window.state & WIN_STATE_CLOSE)) return false;
         closed.push_back(entry->window.id);
         retiring.push_back(entry); // 压缩列表期间保活，避免析构中的输入清理重入半移动的windows。
-        windowOrder.erase(entry->window.id);
+        state.windowOrder.erase(entry->window.id);
         return true;
     });
     retiring.clear(); // 活动列表已稳定；先释放关闭对象，再通知Lua。
-    for (int id : closed) script::LuaProcessWinMgrWindowClose(id);
+    for (int id : closed) script::LuaProcessWinMgrWindowClose(session, id);
 
     // 移走当前批次；打开回调中新建的窗口留到下一次UI更新，避免递归派发。
     std::vector<std::pair<int, std::uint32_t>> opened;
-    opened.swap(pendingWindowOpens);
+    opened.swap(state.pendingWindowOpens);
     for (const auto& [id, generation] : opened) {
-        const auto* window = WindowRuntime_FindInstance(id);
+        const auto* window = WindowRuntime_FindInstance(session, id);
         if (window && window->generation == generation && !(window->state & WIN_STATE_CLOSE))
-            script::LuaProcessWinMgrWindowOpen(id);
+            script::LuaProcessWinMgrWindowOpen(session, id);
     }
 
     int nextFocus = -1;
     const auto track = [&](UIWindowInstance& window) {
         if (window.state & WIN_STATE_CLOSE) return;
-        if (!windowOrder.contains(window.id)) windowOrder[window.id] = ++orderSequence;
+        if (!state.windowOrder.contains(window.id)) state.windowOrder[window.id] = ++state.orderSequence;
         if (window.state & WIN_STATE_FOCUS) {
-            windowOrder[window.id] = ++orderSequence;
+            state.windowOrder[window.id] = ++state.orderSequence;
             nextFocus = window.id;
         }
     };
     for (auto* window : ui::detail::gWindows) if (window) track(*window);
-    const auto current = windows;
+    const auto current = state.windows;
     for (const auto& entry : current) {
         track(entry->window);
         entry->window.state &= ~WIN_STATE_FOCUS;
     }
-    if (nextFocus >= 0 && focusedWindow != nextFocus) {
-        const int previous = focusedWindow;
-        focusedWindow = nextFocus;
-        script::LuaProcessWinMgrWindowFocusChanged(nextFocus, previous);
+    if (nextFocus >= 0 && state.focusedWindow != nextFocus) {
+        const int previous = state.focusedWindow;
+        state.focusedWindow = nextFocus;
+        script::LuaProcessWinMgrWindowFocusChanged(session, nextFocus, previous);
     }
 }
 
-std::vector<ScheduledWindow> MergeWindowOrder(int nativeCount)
+std::vector<ScheduledWindow> MergeWindowOrder(session::ClientSession& session, int nativeCount)
 {
+    auto& state = session.UiFrame().extension;
     std::vector<ScheduledWindow> result;
     for (int i = 0; i < nativeCount; ++i)
         if (!detail::gWindows[i]->scriptHidden) result.push_back({detail::gWindows[i]->id, detail::gWindows[i], {}});
-    for (const auto& entry : windows) {
+    for (const auto& entry : state.windows) {
         if (!(entry->window.state & WIN_STATE_CLOSE) && (entry->window.state & WIN_STATE_ACTIVE))
             result.push_back({entry->window.id, &entry->window, entry});
     }
-    std::stable_sort(result.begin(), result.end(), [](const auto& a, const auto& b) {
-        return IsWindowAbove(*a.window, *b.window);
+    std::stable_sort(result.begin(), result.end(), [&state](const auto& a, const auto& b) {
+        return IsWindowAbove(state, *a.window, *b.window);
     });
     return result;
 }
@@ -274,21 +285,24 @@ void FinishWindowFrame(session::ClientSession& session)
     script::CopilotProc();
 }
 
-void ShutdownExtensionWindows()
+void ShutdownExtensionWindows(session::ClientSession& session)
 {
-    pendingWindowOpens.clear();
+    auto& state = session.UiFrame().extension;
+    state.pendingWindowOpens.clear();
     std::vector<std::shared_ptr<WindowExtension>> retiring;
-    retiring.swap(windows); // 先清空活动注册表，析构查询不能看到正在销毁的shared_ptr。
+    retiring.swap(state.windows); // 先清空活动注册表，析构查询不能看到正在销毁的shared_ptr。
     retiring.clear(); // 元素和窗口绑定销毁后，调用方才可关闭Lua state。
-    dragOwner = -1;
-    mouseWheelDelta = 0;
-    for (auto* window : detail::gWindows) if (window) {
-        delete window->binding;
-        window->binding = nullptr;
+    state.dragOwner = -1;
+    if (&session == session::GetClientHost().CurrentSession()) mouseWheelDelta = 0;
+    if (&session == &session::GetClientHost().FirstSession()) {
+        for (auto* window : detail::gWindows) if (window) {
+            delete window->binding;
+            window->binding = nullptr;
+        }
     }
-    windowOrder.clear();
-    orderSequence = 0;
-    focusedWindow = -1;
+    state.windowOrder.clear();
+    state.orderSequence = 0;
+    state.focusedWindow = -1;
 }
 
 } // namespace cg::ui

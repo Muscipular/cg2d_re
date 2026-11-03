@@ -704,8 +704,8 @@ void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::s
 
 void AutoBattleProc(session::ClientSession& session) {
     auto& runtime = session.Lua();
-    auto winAutoBattle = GetExtWindowById(WIN_AUTOBATTLE);
-    auto winAutoBattleSimple = GetExtWindowById(WIN_AUTOBATTLE_SIMPLE);
+    auto winAutoBattle = GetExtWindowById(session, WIN_AUTOBATTLE);
+    auto winAutoBattleSimple = GetExtWindowById(session, WIN_AUTOBATTLE_SIMPLE);
     bool isOpen = winAutoBattle || winAutoBattleSimple;
     if (world::gCurrentSceneType == SCENE_BATTLE) {
         if (world::gCurrentSceneState == 1) {
@@ -724,8 +724,8 @@ void AutoBattleProc(session::ClientSession& session) {
                 autobattle_detail::MakeAutoBattle(session);
             }
         } else if (world::gCurrentSceneState >= 7) {
-            CgWindowClose(WIN_AUTOBATTLE);
-            CgWindowClose(WIN_AUTOBATTLE_SIMPLE);
+            CgWindowClose(session, WIN_AUTOBATTLE);
+            CgWindowClose(session, WIN_AUTOBATTLE_SIMPLE);
         }
         if (runtime.autoBattlePanel.enabled) {
             autobattle_detail::DoAutoBattle(session);
@@ -733,10 +733,10 @@ void AutoBattleProc(session::ClientSession& session) {
     }
     if ((world::gPendingSceneType >= 0 && world::gPendingSceneType != SCENE_BATTLE) || world::gCurrentSceneType != SCENE_BATTLE) {
         if (winAutoBattle != nullptr) {
-            CgWindowClose(WIN_AUTOBATTLE);
+            CgWindowClose(session, WIN_AUTOBATTLE);
         }
         if (winAutoBattleSimple != nullptr) {
-            CgWindowClose(WIN_AUTOBATTLE_SIMPLE);
+            CgWindowClose(session, WIN_AUTOBATTLE_SIMPLE);
         }
     }
 }

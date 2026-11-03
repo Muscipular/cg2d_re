@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/session/ClientSession.hpp"
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -801,14 +802,14 @@ ui::WindowElement* LuaWindow::AddMapEx(std::wstring_view name, int x, int y, int
 
 static std::optional<LuaWindow> ResolveWindow(const LuaWindowRef& ref) {
     if (!ref.ownerSession) return std::nullopt;
-    auto* instance = ui::WindowRuntime_FindInstance(ref.winId);
+    auto* instance = ui::WindowRuntime_FindInstance(*ref.ownerSession, ref.winId);
     if (!instance || (instance->state & WIN_STATE_CLOSE)
         || (instance->ownerSession && instance->ownerSession != ref.ownerSession)) return std::nullopt;
     return LuaWindow(*instance, nullptr);
 }
 ui::WindowElement* ResolveLuaElement(const LuaControlRef& ref) {
     if (!ref.ownerSession) return nullptr;
-    auto* window = ui::WindowRuntime_FindInstance(ref.winId);
+    auto* window = ui::WindowRuntime_FindInstance(*ref.ownerSession, ref.winId);
     return window && !(window->state & WIN_STATE_CLOSE)
         && (!window->ownerSession || window->ownerSession == ref.ownerSession)
         ? window->FindElementById(ref.controlId) : nullptr;
@@ -926,7 +927,8 @@ static void LuaApplyNewWindowParam(lua_State* L, int index, LuaWindow* window) {
     window->window.height = static_cast<short>(LuaGetIntField(L, index, "height", 0));
     window->window.layer = static_cast<uint8_t>(LuaGetIntField(L, index, "layer", 4));
     window->window.state = LuaGetBoolField(L, index, "visible", true) ? WIN_STATE_ACTIVE : 0;
-    if (auto ext = GetExtWindowById(window->window.id)) ext->dragMove = LuaGetIntField(L, index, "dragMove", 0);
+    if (auto ext = GetExtWindowById(GetLuaConnection(L).Owner(), window->window.id))
+        ext->dragMove = LuaGetIntField(L, index, "dragMove", 0);
     LuaApplyWindowCallbacks(L, index, window);
 }
 
@@ -949,7 +951,8 @@ static void LuaApplyExistingWindowParam(lua_State* L, int index, LuaWindow* wind
         LuaSetWindowVisible(window, LuaGetBoolField(L, index, "visible", window->window.id < WIN_MAX ? !window->window.scriptHidden : (window->window.state & WIN_STATE_ACTIVE) != 0));
     }
     if (LuaHasField(L, index, "dragMove")) {
-        if (auto ext = GetExtWindowById(window->window.id)) ext->dragMove = LuaGetIntField(L, index, "dragMove", ext->dragMove);
+        if (auto ext = GetExtWindowById(GetLuaConnection(L).Owner(), window->window.id))
+            ext->dragMove = LuaGetIntField(L, index, "dragMove", ext->dragMove);
     }
     LuaApplyWindowCallbacks(L, index, window);
 }
@@ -1169,7 +1172,7 @@ static void LuaPushWindowField(lua_State* L, const std::optional<LuaWindow>& win
     } else if (strcmp(key, "layer") == 0) {
         lua_pushinteger(L, window->window.layer);
     } else if (strcmp(key, "dragMove") == 0) {
-        const auto ext = GetExtWindowById(window->window.id);
+        const auto ext = GetExtWindowById(GetLuaConnection(L).Owner(), window->window.id);
         lua_pushinteger(L, ext ? ext->dragMove : 0);
     } else {
         lua_pushnil(L);
@@ -1431,7 +1434,7 @@ LuaFunctionEx(LuaWindowRef, Close) {
         lua_pushboolean(L, false);
         return 1;
     }
-    CgWindowClose(window->window.id);
+    CgWindowClose(*ref->ownerSession, window->window.id);
     lua_pushboolean(L, true);
     return 1;
 }
@@ -2068,10 +2071,9 @@ LuaFunction(WinMgr_newWindow) {
         return luaL_argerror(L, 1, "x, y, width and height are required");
     }
 
-    auto existing = GetExtWindowById(id);
+    auto& session = GetLuaConnection(L).Owner();
+    auto existing = GetExtWindowById(session, id);
     if (existing) {
-        if (existing->window.ownerSession != &GetLuaConnection(L).Owner())
-            return luaL_error(L, "window belongs to another session");
         auto view = LuaWindow(existing->window, L);
         auto* window = &view;
         LuaApplyExistingWindowParam(L, 1, window);
@@ -2094,9 +2096,10 @@ LuaFunction(WinMgr_newWindow) {
 
 LuaFunction(WinMgr_findWindow) {
     const int id = static_cast<int>(luaL_checkinteger(L, 1));
-    auto* window = ui::WindowRuntime_FindInstance(id);
+    auto& session = GetLuaConnection(L).Owner();
+    auto* window = ui::WindowRuntime_FindInstance(session, id);
     if (!window || (window->state & WIN_STATE_CLOSE)
-        || (window->ownerSession && window->ownerSession != &GetLuaConnection(L).Owner())) {
+        || (window->ownerSession && window->ownerSession != &session)) {
         lua_pushnil(L); return 1;
     }
     PushWindowRef(L, {id});
@@ -2105,9 +2108,10 @@ LuaFunction(WinMgr_findWindow) {
 
 LuaFunction(WinMgr_close) {
     int id = static_cast<int>(lua_tointeger(L, 1));
-    auto* window = ui::WindowRuntime_FindInstance(id);
-    if (window && (!window->ownerSession || window->ownerSession == &GetLuaConnection(L).Owner()))
-        CgWindowClose(id);
+    auto& session = GetLuaConnection(L).Owner();
+    auto* window = ui::WindowRuntime_FindInstance(session, id);
+    if (window && (!window->ownerSession || window->ownerSession == &session))
+        CgWindowClose(session, id);
     return 0;
 }
 
@@ -2146,13 +2150,13 @@ LuaFunction(WinMgr_getAutoCopliotRoute) {
 LuaFunction(WinMgr_focus) {
     int id = static_cast<int>(lua_tointeger(L, 1));
     if (id >= 0 && id < WIN_MAX) {
-        if (gWindowState[id].window) {
-            gWindowState[id].window->state |= WIN_STATE_FOCUS;
+        if (auto* window = ui::WindowRuntime_FindInstance(GetLuaConnection(L).Owner(), id)) {
+            window->state |= WIN_STATE_FOCUS;
             lua_pushinteger(L, 1);
             return 1;
         }
     } else {
-        auto ptr = GetExtWindowById(id);
+        auto ptr = GetExtWindowById(GetLuaConnection(L).Owner(), id);
         if (ptr && ptr->window.ownerSession == &GetLuaConnection(L).Owner()) {
             ptr->window.state |= WIN_STATE_FOCUS;
             lua_pushinteger(L, 1);
@@ -2234,7 +2238,7 @@ void LuaProcessWinMgrSceneStateChanged(session::ClientSession& session, int scen
     }
 }
 
-void LuaProcessWinMgrWindowFocusChanged(int focusWinId, int blurWinId) {
+void LuaProcessWinMgrWindowFocusChanged(session::ClientSession& session, int focusWinId, int blurWinId) {
     auto& options = WinMgrEventOptions(WinMgrEventType::WindowFocusChanged);
     if (options.empty()) {
         return;
@@ -2243,7 +2247,8 @@ void LuaProcessWinMgrWindowFocusChanged(int focusWinId, int blurWinId) {
     size_t count = options.size();
     for (size_t i = 0; i < count; ++i) {
         auto event = options[i];
-        if (!event || !event->active || event->callbackRef == LUA_REF_NONE) {
+        if (!event || !event->active || event->callbackRef == LUA_REF_NONE
+            || &GetLuaConnection(event->owner).Owner() != &session) {
             continue;
         }
 
@@ -2261,16 +2266,17 @@ void LuaProcessWinMgrWindowFocusChanged(int focusWinId, int blurWinId) {
     }
 }
 
-void LuaProcessWinMgrWindowOpen(int winId) {
-    auto* window = ui::WindowRuntime_FindInstance(winId);
+void LuaProcessWinMgrWindowOpen(session::ClientSession& session, int winId) {
+    auto* window = ui::WindowRuntime_FindInstance(session, winId);
     if (!window || (window->state & WIN_STATE_CLOSE)) return;
     const auto generation = window->generation;
     // 快照允许回调新增/注销订阅；新订阅从下一次打开事件开始接收。
     const auto events = WinMgrEventOptions(WinMgrEventType::WindowOpen);
     for (const auto& event : events) {
-        window = ui::WindowRuntime_FindInstance(winId);
+        window = ui::WindowRuntime_FindInstance(session, winId);
         if (!window || window->generation != generation || (window->state & WIN_STATE_CLOSE)) break;
-        if (!event || !event->active || event->callbackRef == LUA_REF_NONE) continue;
+        if (!event || !event->active || event->callbackRef == LUA_REF_NONE
+            || &GetLuaConnection(event->owner).Owner() != &session) continue;
         lua_State* L = event->owner;
         const int top = lua_gettop(L);
         lua_rawgeti(L, LUA_REGISTRYINDEX, event->callbackRef);
@@ -2284,7 +2290,7 @@ void LuaProcessWinMgrWindowOpen(int winId) {
     }
 }
 
-void LuaProcessWinMgrWindowClose(int winId) {
+void LuaProcessWinMgrWindowClose(session::ClientSession& session, int winId) {
     auto& options = WinMgrEventOptions(WinMgrEventType::WindowClose);
     if (options.empty()) {
         return;
@@ -2293,7 +2299,8 @@ void LuaProcessWinMgrWindowClose(int winId) {
     size_t count = options.size();
     for (size_t i = 0; i < count; ++i) {
         auto event = options[i];
-        if (!event || !event->active || event->callbackRef == LUA_REF_NONE) {
+        if (!event || !event->active || event->callbackRef == LUA_REF_NONE
+            || &GetLuaConnection(event->owner).Owner() != &session) {
             continue;
         }
 
@@ -2763,6 +2770,7 @@ void ShutdownLuaUIEvents(session::ClientSession& session)
         state->bridgeStateTypes.clear();
         state.reset();
     }
-    ui::WindowConsumeMouseWheelDelta();
+    if (session::GetClientHost().CurrentSession() == &session)
+        ui::WindowConsumeMouseWheelDelta();
 }
 } // namespace cg::script

@@ -48,6 +48,7 @@ std::int32_t ClearCharacterSlot_51B3B0(network::CgConnection& connection, std::u
 
 // 原 sub_51B110@[0x51B110,0x51B136)：合法槽读首字节返回 0/1，越界返回 -1。
 std::int32_t HasCharacterInSlot_51B110(std::uint32_t selectedIndex);
+std::int32_t HasCharacterInSlot_51B110(network::CgConnection& connection, std::uint32_t selectedIndex);
 
 // 原 sub_51B140@[0x51B140,0x51B1A1)：按名字查找两条角色记录。
 std::int32_t CharacterNameExists_51B140(std::wstring_view name);

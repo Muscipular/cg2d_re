@@ -33,9 +33,9 @@ static constexpr wchar_t kUpgradeFailedText[] =
 static constexpr wchar_t kCannotUpgradeText[] =
     L"无法更新版本。";
 // 原函数：0x0045E3D0。
-std::int32_t ProcessLegacyVersionScene_45E3D0()
+std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection)
 {
-    auto& scene = cg::network::GetGameConnection().CharacterSelectUi();
+    auto& scene = connection.CharacterSelectUi();
     switch (static_cast<std::uint32_t>(world::gCurrentSceneState)) {
     case 0:
         scene.legacyVersionUpgradeAction = nullptr;
@@ -45,9 +45,9 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         break;
     case 2:
         if (render::gPaletteCapability >= 2) {
-            const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
+            const std::uint8_t pukVersion = connection.PukVersion();
             if (pukVersion == 0 || pukVersion == 2) {
-                static_cast<void>(cg::network::GetGameConnection().SendVersionUpgradeRequest(2,
+                static_cast<void>(connection.SendVersionUpgradeRequest(2,
                     L"abcdefg" /* 原 0x55C910。 */));
                 world::gCurrentSceneState = 3;
             } else {
@@ -98,11 +98,11 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
             cg::yobi::MarkDeath(action);
         }
         world::gCurrentSceneState = 101;
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         break;
     }
     case 101:
-        if (login::UpdateLoginMessage(kUpgradeSucceededText) != 0) {
+        if (login::UpdateLoginMessage(connection, kUpgradeSucceededText) != 0) {
             world::SetCurrentSceneType(3);
         }
         break;
@@ -111,21 +111,21 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
         }
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         world::gCurrentSceneState = 201;
         break;
     }
     case 201:
-        if (login::UpdateLoginMessage(kUpgradeFailedText) != 0) {
+        if (login::UpdateLoginMessage(connection, kUpgradeFailedText) != 0) {
             world::gCurrentSceneState = 1;
         }
         break;
     case 202:
         world::gCurrentSceneState = 203;
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         break;
     case 203:
-        if (login::UpdateLoginMessage(kCannotUpgradeText) != 0) {
+        if (login::UpdateLoginMessage(connection, kCannotUpgradeText) != 0) {
             world::gCurrentSceneState = 1;
         }
         break;
@@ -137,9 +137,9 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
 }
 
 // 原函数：0x00462330。
-std::int32_t ProcessScene_462330()
+std::int32_t ProcessScene_462330(network::CgConnection& connection)
 {
-    auto& scene = cg::network::GetGameConnection().CharacterSelectUi();
+    auto& scene = connection.CharacterSelectUi();
     switch (static_cast<std::uint32_t>(world::gCurrentSceneState)) {
     case 0:
         scene.versionUpgradeAction = nullptr;
@@ -149,22 +149,22 @@ std::int32_t ProcessScene_462330()
         break;
     case 2:
         if (render::gPaletteCapability >= 2) {
-            const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
+            const std::uint8_t pukVersion = connection.PukVersion();
             switch (pukVersion) {
             case 7:
-                cg::network::GetGameConnection().SendVersionUpgradeRequest(5,
+                connection.SendVersionUpgradeRequest(5,
                     detail::gVersionPayload9A5C10);
                 world::gCurrentSceneState = 3;
                 break;
             case 5:
             case 6:
-                cg::network::GetGameConnection().SendVersionUpgradeRequest(4,
+                connection.SendVersionUpgradeRequest(4,
                     state::kVersion30);
                 world::gCurrentSceneState = 3;
                 break;
             case 0:
             case 2:
-                cg::network::GetGameConnection().SendVersionUpgradeRequest(2,
+                connection.SendVersionUpgradeRequest(2,
                     state::kVersion20);
                 world::gCurrentSceneState = 3;
                 break;
@@ -217,11 +217,11 @@ std::int32_t ProcessScene_462330()
             cg::yobi::MarkDeath(action);
         }
         world::gCurrentSceneState = 101;
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         break;
     }
     case 101:
-        if (login::UpdateLoginMessage(kUpgradeSucceededText) != 0) {
+        if (login::UpdateLoginMessage(connection, kUpgradeSucceededText) != 0) {
             cg::yobi::YobiClearUp_404D30();
             if (state::gPreviewActions[0] != nullptr) {
                 state::gPreviewActions[0] = nullptr;
@@ -237,21 +237,21 @@ std::int32_t ProcessScene_462330()
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
         }
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         world::gCurrentSceneState = 201;
         break;
     }
     case 201:
-        if (login::UpdateLoginMessage(kUpgradeFailedText) != 0) {
+        if (login::UpdateLoginMessage(connection, kUpgradeFailedText) != 0) {
             world::gCurrentSceneState = 1;
         }
         break;
     case 202:
         world::gCurrentSceneState = 203;
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         break;
     case 203:
-        if (login::UpdateLoginMessage(kCannotUpgradeText) != 0) {
+        if (login::UpdateLoginMessage(connection, kCannotUpgradeText) != 0) {
             world::gCurrentSceneState = 1;
         }
         break;
@@ -260,8 +260,8 @@ std::int32_t ProcessScene_462330()
     }
 
     render::gGraphicCache4Queue[3] = 0;
-    static_cast<void>(ProcessCharacterSlot_461B30(0, 1));
-    static_cast<void>(ProcessCharacterSlot_461B30(1, 1));
+    static_cast<void>(ProcessCharacterSlot_461B30(connection, 0, 1));
+    static_cast<void>(ProcessCharacterSlot_461B30(connection, 1, 1));
     return cg::render::QueueOriginalPaletteGraphic_45F090(0, 0, 3, 245060, 0, -1);
 }
 

@@ -1648,7 +1648,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             login::CharacterRecord& record =
                 connection.LoginRequests().characters[static_cast<std::size_t>(slot)];
             const std::int32_t action =
-                ProcessCharacterSlot_461B30(slot, interactive);
+                ProcessCharacterSlot_461B30(connection, slot, interactive);
 #ifndef _DEBUG
             if (world::gCurrentSceneState == kUsageNoticeState) {
                 continue; // 原空槽按钮仍可能返回创建动作；模态等待时只绘制、不派发。

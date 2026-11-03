@@ -200,9 +200,9 @@ void Update(session::ClientSession& session)
         platform::gFrameBackgroundMode_73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
         if (render::gPaletteCapability < 3) {
-            character_select::ProcessLegacyVersionScene_45E3D0();
+            character_select::ProcessLegacyVersionScene_45E3D0(session.Connection());
         } else {
-            character_select::ProcessScene_462330();
+            character_select::ProcessScene_462330(session.Connection());
         }
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();

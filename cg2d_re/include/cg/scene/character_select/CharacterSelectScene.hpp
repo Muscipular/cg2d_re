@@ -62,16 +62,17 @@ std::int32_t ProcessCharacterModal_462090(
     std::int32_t y);
 
 // 原 sub_462330@[0x462330,0x4625A0)。
-std::int32_t ProcessScene_462330();
+std::int32_t ProcessScene_462330(network::CgConnection& connection);
 
 // 原 sub_45E3D0@[0x45E3D0,0x45E5E2)；低调色板能力的版本升级场景。
-std::int32_t ProcessLegacyVersionScene_45E3D0();
+std::int32_t ProcessLegacyVersionScene_45E3D0(network::CgConnection& connection);
 
 // 原 sub_460FF0@[0x460FF0,0x461A77)。
 std::int32_t ProcessScene_460FF0(network::CgConnection& connection);
 
 // 原 sub_461B30@[0x461B30,0x46208F)；前置条件是 slot 位于 [0, 1]。
 std::int32_t ProcessCharacterSlot_461B30(
+    network::CgConnection& connection,
     std::uint32_t slot,
     std::int32_t mode);
 

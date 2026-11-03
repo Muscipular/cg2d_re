@@ -50,6 +50,7 @@ static constexpr std::array<SlotCoordinate, kUiCount> kCoordinateTemplates {{
 
 // 原函数：0x00461B30。
 std::int32_t ProcessCharacterSlot_461B30(
+    network::CgConnection& connection,
     std::uint32_t slot,
     std::int32_t mode)
 {
@@ -71,9 +72,9 @@ std::int32_t ProcessCharacterSlot_461B30(
     std::int32_t result = -1;
     std::int32_t style;
     const login::CharacterRecord& record =
-        cg::network::GetGameConnection().LoginRequests().characters[static_cast<std::size_t>(slot)];
+        connection.LoginRequests().characters[static_cast<std::size_t>(slot)];
 
-    if (cg::login::HasCharacterInSlot_51B110(slot) != 0) {
+    if (cg::login::HasCharacterInSlot_51B110(connection, slot) != 0) {
         style = mode;
         for (std::int32_t item = 1; item < 3; ++item) {
             detail::CharacterSelectUiRecord& uiRecord =
@@ -85,7 +86,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         }
 
         std::int8_t color;
-        const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
+        const std::uint8_t pukVersion = connection.PukVersion();
         if (pukVersion == 1u || pukVersion == 2u) {
             color = 3;
         } else if (pukVersion < 5u) {
@@ -166,15 +167,15 @@ std::int32_t ProcessCharacterSlot_461B30(
     }
 
     cg::render::DrawText3_456560(30, 450, 0, 4,
-        cg::network::GetGameConnection().CharacterSelectUi().loginNotice, 0);
+        connection.CharacterSelectUi().loginNotice, 0);
 
-    if (cg::network::GetGameConnection().PukVersion() >= 5u && cg::login::HasCharacterInSlot_51B110(slot) != 0) {
+    if (connection.PukVersion() >= 5u && cg::login::HasCharacterInSlot_51B110(connection, slot) != 0) {
         for (std::int32_t item = 3; item < 7; ++item) {
             const std::uint32_t toggle = static_cast<std::uint32_t>(
                 record.previewState);
             const bool enabled = item < 5
                 ? toggle < 2u
-                    || (cg::network::GetGameConnection().PukVersion() >= 7u && toggle != 3u)
+                    || (connection.PukVersion() >= 7u && toggle != 3u)
                 : toggle <= 1u;
             if (!enabled) {
                 continue;
@@ -200,7 +201,7 @@ std::int32_t ProcessCharacterSlot_461B30(
     // A08：绘制完成后返回原选择动作，由场景既有分支继续入场。
     if (world::gCurrentSceneState == 11 && record.name[0] != '\0'
         && platform::ConsumeAutoLoginCharacterSlot(slot)) {
-        cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
+        connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
         result = 1;
     }
     return result;

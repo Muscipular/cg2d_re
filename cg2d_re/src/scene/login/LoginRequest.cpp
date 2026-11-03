@@ -37,10 +37,15 @@ std::int32_t ClearCharacterSlot_51B3B0(network::CgConnection& connection, const 
 // 原函数：0x0051B110。
 std::int32_t HasCharacterInSlot_51B110(const std::uint32_t selectedIndex)
 {
+    return HasCharacterInSlot_51B110(cg::network::GetGameConnection(), selectedIndex);
+}
+
+std::int32_t HasCharacterInSlot_51B110(network::CgConnection& connection, const std::uint32_t selectedIndex)
+{
     if (selectedIndex >= CharacterRecordCount) {
         return -1;
     }
-    return cg::network::GetGameConnection().LoginRequests().characters[selectedIndex].name[0] != '\0' ? 1 : 0;
+    return connection.LoginRequests().characters[selectedIndex].name[0] != '\0' ? 1 : 0;
 }
 
 // 原函数：0x0051B140。

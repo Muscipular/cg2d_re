@@ -31,10 +31,6 @@ static constexpr Capability3InputButton32 kPrimaryButton {
 static constexpr Capability3InputButton32 kSecondaryButton {
     {332, 438, 64, 16}, 245153, 245155, 245154,
 };
-// 原 dword_9A6EA0 与 dword_9A6E9C；仅 sub_45FA70 引用。
-static std::int32_t gFocus9A6EA0 = 0; // 原全局：0x009A6EA0。
-static std::int32_t gPending9A6E9C = 0; // 原全局：0x009A6E9C。
-
 // 原函数：0x0045FA70。
 std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
 {
@@ -99,7 +95,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         keyTriggered = platform::ReadKeyPressFlag_4597B0(13) != 0;
     }
     if (keyTriggered) {
-        const std::int32_t focus = gFocus9A6EA0;
+        const std::int32_t focus = sceneUi.capability3InputFocus;
         if (focus == 1) {
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
                 && sceneUi.context9A5960.length() != 0
@@ -152,20 +148,20 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
 
     if (mode > 0) {
         input::SetContext_44B330(nullptr);
-        gPending9A6E9C = 1;
+        sceneUi.capability3InputPending = 1;
     } else {
         std::int32_t selectedFocus = requestedFocus;
         bool applyFocus = requestedFocus >= 0 && requestedFocus <= 2;
-        if (gPending9A6E9C != 0) {
-            selectedFocus = gFocus9A6EA0;
+        if (sceneUi.capability3InputPending != 0) {
+            selectedFocus = sceneUi.capability3InputFocus;
             applyFocus = true;
         }
 
         if (applyFocus) {
             input::SetContext_44B330(
                 sceneUi.inputFocusTable[selectedFocus]);
-            gPending9A6E9C = 0;
-            gFocus9A6EA0 = selectedFocus;
+            sceneUi.capability3InputPending = 0;
+            sceneUi.capability3InputFocus = selectedFocus;
         }
     }
 

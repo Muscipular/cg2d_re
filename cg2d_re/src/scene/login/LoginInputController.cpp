@@ -53,10 +53,6 @@ static constexpr Capability4InputButton32 kCapability4ExitButton {
     {332, 421, 64, 16}, 245153, 245155, 245154,
 };
 
-// 原 dword_55A048@0x55A048 与 dword_9A6E28@0x9A6E28；仅本函数引用。
-static std::int32_t gFocus55A048 = 1; // 原全局：0x0055A048。
-static std::int32_t gPending9A6E28 = 0; // 原全局：0x009A6E28。
-
 // 原函数：0x00464E30。
 std::int32_t ProcessCapability4Input_464E30()
 {
@@ -252,7 +248,7 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
         keyTriggered = platform::ReadKeyPressFlag_4597B0(13) != 0;
     }
     if (keyTriggered) {
-        const std::int32_t rawFocus = gFocus55A048;
+        const std::int32_t rawFocus = sceneUi.loginInputFocus;
         if (rawFocus == 0) {
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
                 && sceneUi.context9A5960.length() != 0
@@ -329,12 +325,12 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
 
     if (mode > 0) {
         input::SetContext_44B330(nullptr);
-        gPending9A6E28 = 1;
+        sceneUi.loginInputPending = 1;
     } else {
         std::int32_t selectedFocus = candidate;
         bool applyFocus = candidate >= 0 && candidate <= 1;
-        if (gPending9A6E28 != 0) {
-            selectedFocus = gFocus55A048;
+        if (sceneUi.loginInputPending != 0) {
+            selectedFocus = sceneUi.loginInputFocus;
             applyFocus = true;
         }
 
@@ -345,8 +341,8 @@ std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
                 : std::size_t{0};
             input::SetContext_44B330(
                 sceneUi.inputFocusTable[focusIndex]);
-            gPending9A6E28 = 0;
-            gFocus55A048 = selectedFocus;
+            sceneUi.loginInputPending = 0;
+            sceneUi.loginInputFocus = selectedFocus;
         }
     }
 

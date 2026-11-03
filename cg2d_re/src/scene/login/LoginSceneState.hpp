@@ -43,6 +43,10 @@ struct LoginSceneState {
     std::int16_t context9A5678Y = 0; // 原 0x9A4B9C。
     std::int32_t inputFocusIndex = 0; // 原 0x9A6E20。
     std::uint32_t capability3OverlayAlpha = 0; // 原 0x9A6200。
+    std::int32_t capability3InputFocus = 0; // 原 0x9A6EA0。
+    std::int32_t capability3InputPending = 0; // 原 0x9A6E9C。
+    std::int32_t loginInputFocus = 1; // 原 0x55A048。
+    std::int32_t loginInputPending = 0; // 原 0x9A6E28。
     std::array<input::InputContext*, 3> inputFocusTable {
         &context9A5960, &context9A5678, &context9A5960,
     }; // 原 0x559FFC；借用本实例的两个上下文。

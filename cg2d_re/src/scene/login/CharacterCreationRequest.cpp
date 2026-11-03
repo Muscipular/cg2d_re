@@ -29,7 +29,7 @@ std::uint32_t StartCharacterCreationRequest()
     const std::int32_t attribute0 = character_select::state::gCreationSubmittedAttribute0_F633EC;
     const std::int32_t graphic = character_select::state::gSelectedGraphicNo;
     const std::int32_t motion = character_select::state::gCreationSubmittedMotionImage_DE0AFC;
-    const std::int32_t selected = gSelectedCharacterIndex;
+    const std::int32_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
     const auto networkSession = connection.CaptureSession();
@@ -89,7 +89,7 @@ void HandleCharacterCreationResponse_508EE0(cg::network::CgConnection& connectio
         ++index;
     }
 
-    const std::int16_t selected = gSelectedCharacterIndex;
+    const std::int16_t selected = request.selectedCharacterIndex;
     request.characterCreationReplyCode = 1;
     const std::int32_t previewToggle =
         character_select::state::gPreviewToggleState;

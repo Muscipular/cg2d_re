@@ -1,6 +1,8 @@
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/network/CgConnection.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "../../world/MailState.hpp"
@@ -257,7 +259,7 @@ static void WindowMailRead_FindUnread()
     cg::world::detail::gViewedMailMessageIndex_D046D4 = 0;
     switch (category) {
     case 0: {
-        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
         for (std::int32_t page = 9; page >= 0; --page) {
             if (*cg::world::GetMailMessageF7CA08(selected, contact, page).unread00 != std::byte{0}) {
@@ -278,7 +280,7 @@ static void WindowMailRead_FindUnread()
             cg::world::detail::gViewedMailMessageIndex_D046D4 = 0;
             return;
         }
-        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         for (std::int32_t page = 9; page >= 0; --page) {
             if (*cg::world::GetGuildMailMessageDE0B30(selected, slot, page).unread00 != std::byte{0}) {
                 cg::world::detail::gViewedMailMessageIndex_D046D4 = page;
@@ -323,13 +325,13 @@ static std::uint32_t WindowMailRead_Refresh()
     // 每次调用都重新采样；颜色与正文不能共用一次消息快照。
     const auto readCurrentMessage = [category, mailSlot]() -> cg::world::MailMessageView {
         if (category == 0) {
-            const std::int16_t selected = login::gSelectedCharacterIndex;
+            const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
             const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
             const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
             return cg::world::GetMailMessageF7CA08(selected, contact, page);
         }
         if (category == 1) {
-            const std::int16_t selected = login::gSelectedCharacterIndex;
+            const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
             const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
             return cg::world::GetGuildMailMessageDE0B30(selected, mailSlot, page);
         }
@@ -416,7 +418,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const ElementId, const std::int3
     std::int32_t identity;
     switch (category) {
     case 0: {
-        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         identity = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
         message = cg::world::GetMailMessageF7CA08(selected, identity, page);
@@ -429,7 +431,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const ElementId, const std::int3
         const std::int32_t mailMember = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
         const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
-        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
         message = cg::world::GetGuildMailMessageDE0B30(selected, slot, page);
         break;

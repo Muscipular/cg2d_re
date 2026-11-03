@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "../../scene/login/LoginSavedState.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -432,7 +433,7 @@ static void WindowSettings_Release()
 {
     static_cast<void>(login::detail::CaptureAudioPreferences_520470());
     static_cast<void>(login::detail::CaptureClientPreferenceBytes_520590());
-    const std::int32_t selected = login::gSelectedCharacterIndex;
+    const std::int32_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     static_cast<void>(login::detail::CaptureCharacterDisplaySettings_520510(selected));
     static_cast<void>(login::detail::CapturePresetChatTexts_520640());
     static_cast<void>(login::detail::CaptureContactSortMode_5206F0());

@@ -1,4 +1,6 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/network/CgConnection.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "../../world/AlbumState.hpp"
 
@@ -313,7 +315,7 @@ static void WindowAlbumDetail_Refresh()
             if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(33 + slot)); indexedElement3) indexedElement3->visible = 1;
             if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(43 + slot)); indexedElement4) indexedElement4->visible = 1;
         }
-        const std::int16_t nameCharacter = login::gSelectedCharacterIndex;
+        const std::int16_t nameCharacter = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         const std::int32_t nameIndex = gLoginWindowRuntime.valueCB2200;
         const auto& name = world::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
         copyBeforeScan(2, name);

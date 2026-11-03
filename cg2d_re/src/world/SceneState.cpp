@@ -810,7 +810,7 @@ void LoadAlbumData_518780()
 
 // 原[518870,518A36)：相册记录更新，分行调用后重读角色而不固定首记录地址。
 void UpdateAlbumEntry_518870(
-    const std::int32_t number, const std::int32_t imageNo,
+    network::CgConnection& connection, const std::int32_t number, const std::int32_t imageNo,
     const std::int32_t mark1, const std::int32_t mark2, const std::int32_t tribe,
     const std::int32_t value0C, const std::int32_t value10, const std::int32_t value14,
     const std::int32_t value18, const std::int32_t value1C, const std::int32_t value20,
@@ -821,7 +821,7 @@ void UpdateAlbumEntry_518870(
         return;
     }
     const std::int32_t index = number - 1;
-    AlbumRecord* record = AlbumRecordAt(index, login::gSelectedCharacterIndex);
+    AlbumRecord* record = AlbumRecordAt(index, connection.LoginRequests().selectedCharacterIndex);
     const bool added = record->used == 0;
     record->used = 1;
     record->number = number;
@@ -833,14 +833,14 @@ void UpdateAlbumEntry_518870(
     record->attributes = {value20, value24, value28, value2C};
     record->value30 = value30;
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
-    std::int16_t selected = login::gSelectedCharacterIndex;
+    std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     for (std::int32_t line = 0; line < 2; ++line) {
         auto& destination = AlbumRecordAt(index, selected)->description[line];
         char bytes[29]{}; // 协议行按原28字节容量提取后解码。
         const std::int32_t result = input::ExtractLegacyLine_503AB0(
             bytes, 29, text, line, 28);
         destination = cg::text::FromGbkWide(bytes);
-        selected = login::gSelectedCharacterIndex;
+        selected = connection.LoginRequests().selectedCharacterIndex;
         if (result == 0) {
             AlbumRecordAt(index, selected)->description[line].clear();
         }
@@ -857,7 +857,7 @@ static void SendNextAlbumBatch(network::CgConnection& connection)
 {
     auto& sync = gAlbumSynchronization;
     if (sync.connection != &connection || sync.connectionId != connection.Id()
-        || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
+        || sync.selected != connection.LoginRequests().selectedCharacterIndex || !connection.IoEnabled()) {
         ResetAlbumSynchronization();
         return;
     }
@@ -883,7 +883,7 @@ static void SendNextAlbumBatch(network::CgConnection& connection)
     }
     if (result != network::SendResult::Queued
         || sync.connectionId != connection.Id()
-        || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
+        || sync.selected != connection.LoginRequests().selectedCharacterIndex || !connection.IoEnabled()) {
         ResetAlbumSynchronization();
     }
 }
@@ -894,7 +894,7 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
 {
     auto& sync = gAlbumSynchronization;
     if (sync.connection != &connection || sync.connectionId != connection.Id()
-        || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
+        || sync.selected != connection.LoginRequests().selectedCharacterIndex || !connection.IoEnabled()) {
         ResetAlbumSynchronization();
     }
     if (!sync.waiting.empty()) {
@@ -917,7 +917,7 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
             break;
         }
         limit = std::bit_cast<std::int32_t>(resource::gAlbumEntryLimit_D2D5FC);
-        std::int16_t selected = login::gSelectedCharacterIndex;
+        std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
         std::uint32_t bit = 1;
         for (std::int32_t position = 0; position < 32 && index < limit; ++position) {
             AlbumRecord* const record = AlbumRecordAt(index, selected);
@@ -930,7 +930,7 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
                 if (request) {
                     requests.push_back(index + 1);
                     limit = std::bit_cast<std::int32_t>(resource::gAlbumEntryLimit_D2D5FC);
-                    selected = login::gSelectedCharacterIndex;
+                    selected = connection.LoginRequests().selectedCharacterIndex;
                 }
             } else {
                 record->used = 0;
@@ -943,7 +943,7 @@ void SynchronizeAlbumEntryMask_518A40(network::CgConnection& connection,
     ResetAlbumSynchronization();
     sync.connection = &connection;
     sync.connectionId = connection.Id();
-    sync.selected = login::gSelectedCharacterIndex;
+    sync.selected = connection.LoginRequests().selectedCharacterIndex;
     sync.version = version;
     sync.requests = std::move(requests);
     if (sync.requests.empty()) {
@@ -3670,7 +3670,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(render::ResetGraphicCache_456D30());
         if (gMapBgmChangePending_FF0D58 != 0) {
             static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
-            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
+            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex));
             static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
             gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
@@ -3788,7 +3788,7 @@ void DrawNormalScene_51C7D0()
             gLogoutToTownPending_D67E78 = 0;
             if (changeBgm != 0) {
                 static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
-                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
+                static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex));
                 static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
                 static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
                 gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
@@ -3877,7 +3877,7 @@ void DrawNormalScene_51C7D0()
         gLogoutToTownPending_D67E78 = 0;
         if (changeBgm != 0) {
             static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
-            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
+            static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex));
             static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
             static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
             gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
@@ -3919,7 +3919,7 @@ void DrawNormalScene_51C7D0()
             if (audio::gBgmRequest1050810 == 0) {
                 if (gMapBgmChangePending_FF0D58 != 0) {
                     static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gPendingMapBgmIndex_FF0D5C)));
-                    static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(login::gSelectedCharacterIndex));
+                    static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex));
                     static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
                     static_cast<void>(cg::audio::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
                     gWorldBgmResumeIndex_FF0D68 = audio::gBgmTarget1050818;
@@ -6636,7 +6636,7 @@ void InitializePlayerRuntimeState_5199A0()
     gContactsF19FB0.fill({});
     std::memset(gPetPairsDE0B08.data(), 0, sizeof(gPetPairsDE0B08));
 
-    const volatile std::int16_t& selected = login::gSelectedCharacterIndex;
+    const volatile std::int16_t& selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     const std::int16_t unusedSelected = selected;
     static_cast<void>(unusedSelected);
     cg::core::NullSub_509080();
@@ -8238,7 +8238,7 @@ namespace cg::world {
 
 const AlbumRecord* GetSelectedAlbumRecords()
 {
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     return AlbumRecordAt(0, selected);
 }
 
@@ -8284,7 +8284,7 @@ void SaveAlbumData_5186A0()
 void ClearCurrentCharacterAlbum_518BE0()
 {
     ResetAlbumSynchronization();
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     gAlbumStorage.versions[selected] = 0;
     std::fill_n(AlbumRecordAt(0, selected), 960, AlbumRecord{});
     SaveAlbumData_5186A0();
@@ -8306,14 +8306,14 @@ void HandleAlbumEntryReply_50E5D0(cg::network::CgConnection& connection, const s
     const std::int32_t value30, char* const text, const char* const name)
 {
     const auto generation = gAlbumSynchronization.generation;
-    detail::UpdateAlbumEntry_518870(number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
+    detail::UpdateAlbumEntry_518870(connection, number, imageNo, mark1, mark2, tribe, value0C, value10, value14,
         value18, value1C, value20, value24, value28, value2C, value30, text, name);
     auto& sync = gAlbumSynchronization;
     if (sync.generation != generation || sync.connection == nullptr) {
         return;
     }
     if (sync.connection != &connection || sync.connectionId != connection.Id()
-        || sync.selected != login::gSelectedCharacterIndex || !connection.IoEnabled()) {
+        || sync.selected != connection.LoginRequests().selectedCharacterIndex || !connection.IoEnabled()) {
         ResetAlbumSynchronization();
         return;
     }

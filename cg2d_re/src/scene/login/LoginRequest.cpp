@@ -19,8 +19,6 @@ namespace cg::login {
 static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 static constexpr char kSuccessfulResult[] = "successful";
 
-std::int16_t gSelectedCharacterIndex = 0; // 原全局：0x00FF0C08。
-
 // 原函数：0x0051B3B0。
 std::int32_t ClearCharacterSlot_51B3B0(const std::uint32_t selectedIndex)
 {
@@ -54,7 +52,7 @@ std::uint32_t StartLoginRequest()
 {
     auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
-    const std::int16_t selected = gSelectedCharacterIndex;
+    const std::int16_t selected = request.selectedCharacterIndex;
     request.loginReplyCode = 0;
 
     const CharacterRecord* const record = request.characters.data() + selected;

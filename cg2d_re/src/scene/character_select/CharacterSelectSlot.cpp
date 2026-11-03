@@ -198,7 +198,7 @@ std::int32_t ProcessCharacterSlot_461B30(
     // A08：绘制完成后返回原选择动作，由场景既有分支继续入场。
     if (world::gCurrentSceneState == 11 && record.name[0] != '\0'
         && platform::ConsumeAutoLoginCharacterSlot(slot)) {
-        login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
+        cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
         result = 1;
     }
     return result;

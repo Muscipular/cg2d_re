@@ -373,7 +373,7 @@ namespace cg::world::detail {
 
 const ProfileRuntimeRecord& ReadSelectedProfile1074938()
 {
-    return gProfiles1074938[login::gSelectedCharacterIndex];
+    return gProfiles1074938[cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex];
 }
 
 std::int32_t ReadCategoryValue105FA20()
@@ -383,7 +383,7 @@ std::int32_t ReadCategoryValue105FA20()
 
 std::int32_t& SelectedProfileValue04()
 {
-    return gProfiles1074938[login::gSelectedCharacterIndex].value04;
+    return gProfiles1074938[cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex].value04;
 }
 
 const wchar_t* ReadCategoryText105FA24(const std::int32_t group, const std::int32_t index)
@@ -542,7 +542,7 @@ void PrependContactMailMessage_5191C0(
     if (gContactsF19FB0[index].used == 0) {
         return;
     }
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     MailMessage* const entry = gMailStorageF7CA08.data()
         + selected * 60 * 10 + static_cast<std::ptrdiff_t>(index) * 10;
     for (std::ptrdiff_t message = 9; message > 0; --message) {
@@ -558,7 +558,7 @@ void PrependContactMailMessage_5191C0(
 // 原函数：0x00518DA0。
 std::int32_t UpdateUnreadMailPageHint_518DA0()
 {
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     for (std::int32_t position = 0; position < 60; ++position) {
         const std::int32_t index = gContactIndicesFDA608[position];
         if (gContactsF19FB0[index].used == 0) {
@@ -583,7 +583,7 @@ std::int32_t UpdateUnreadMailPageHint_518DA0()
         if (index == -1) {
             continue;
         }
-        const std::ptrdiff_t currentSelected = login::gSelectedCharacterIndex;
+        const std::ptrdiff_t currentSelected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         const GuildMailEntry* const entry = gGuildMailStorageDE0B30.data()
             + currentSelected * 200 + static_cast<std::ptrdiff_t>(index);
         const std::uint32_t active = entry->active;
@@ -622,7 +622,7 @@ std::int32_t UpdateUnreadMailPageHint_518DA0()
 // 原函数：0x00518F00。
 void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_t* const index)
 {
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     for (std::int32_t position = 0; position < 60; ++position) {
         const std::int32_t contact = gContactIndicesFDA608[position];
         if (gContactsF19FB0[contact].used == 0) {
@@ -647,7 +647,7 @@ void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_
         if (slot == -1) {
             continue;
         }
-        const std::ptrdiff_t currentSelected = login::gSelectedCharacterIndex;
+        const std::ptrdiff_t currentSelected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         const GuildMailEntry* const entry = gGuildMailStorageDE0B30.data()
             + currentSelected * 200 + static_cast<std::ptrdiff_t>(slot);
         const std::uint32_t active = entry->active;
@@ -657,7 +657,7 @@ void FindFirstUnreadMailContact_518F00(std::int32_t* const category, std::int32_
         for (std::ptrdiff_t message = 0; message < 10; ++message) {
             if (entry->messages[message].unread != std::byte{0}) {
                 *category = 1;
-                const std::ptrdiff_t selectedForKey = login::gSelectedCharacterIndex;
+                const std::ptrdiff_t selectedForKey = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
                 const GuildMailEntry* const keyEntry = gGuildMailStorageDE0B30.data()
                     + selectedForKey * 200 + static_cast<std::ptrdiff_t>(slot);
                 const std::int32_t key = keyEntry->key;
@@ -693,7 +693,7 @@ std::int32_t HasUnreadContactMail_519090(const std::int32_t index)
     if (gContactsF19FB0[index].used == 0) {
         return 0;
     }
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     const MailMessage* const entry = gMailStorageF7CA08.data()
         + selected * 60 * 10 + static_cast<std::ptrdiff_t>(index) * 10;
     for (std::int32_t message = 0; message < 10; ++message) {
@@ -719,7 +719,7 @@ std::int32_t HasUnreadGuildMail_5190F0(const std::int32_t index)
     if (record.value08 == 0) {
         return 0;
     }
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     const MailMessage* const entry = gGuildMailStorageDE0B30[
         selected * 200 + static_cast<std::ptrdiff_t>(slot)].messages.data();
     for (std::int32_t message = 0; message < 10; ++message) {
@@ -949,7 +949,7 @@ void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection&, const ch
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     std::wstring formattedTimestamp;
     static_cast<void>(FormatMailTimestamp_534520(formattedTimestamp));
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     if (gProfiles1074938[selected].value00 == key) {
         PrependMiniMailMessage_5343C0(index, 1, formattedTimestamp, cg::text::FromGbkWide(text));
         return;
@@ -996,7 +996,7 @@ void InitializeDefaultProfiles_533950()
         entry.text08 = kProfileDefault58F614;
     }
     // 原533AB5在最后文本复制完成前取S16角色，两次整条复制共用此值。
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     first.text728 = kProfileDefault58F614;
     gProfiles1074938[1] = first;
     gCurrentProfile10738E8 = gProfiles1074938[selected];
@@ -1005,7 +1005,7 @@ void InitializeDefaultProfiles_533950()
 // 原函数：0x00533B00。
 std::int32_t HasProfileDraftChanges_533B00()
 {
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     const ProfileRuntimeRecord& saved = gProfiles1074938[selected];
     const std::int32_t firstCurrent = gCurrentProfile10738E8.entries410[0].value00;
     const std::int32_t firstSaved = saved.entries410[0].value00;
@@ -1053,7 +1053,7 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
         const wchar_t* source = L"不公开"; // 原常量参考：0x0058F61C。
         if (gCurrentProfile10738E8.entries410[index].value00 != 0) {
             if (mode == 1) {
-                const std::int16_t selected = login::gSelectedCharacterIndex;
+                const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
                 source = gProfiles1074938[selected].entries410[index].text08.data();
             } else {
                 source = gCurrentProfile10738E8.entries410[index].text08.data();
@@ -1064,7 +1064,7 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
         escaped[index] = input::EscapeText(sourceText, 256);
     }
     if (mode == 1) {
-        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         sourceText = gProfiles1074938[selected].text728;
     } else {
         sourceText = gCurrentProfile10738E8.text728;
@@ -1073,7 +1073,7 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
     escaped[3] = input::EscapeText(sourceText, 256);
 
     if (mode == 1) {
-        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         const std::int32_t third = gProfiles1074938[selected].entries410[2].value00;
         const std::int32_t second = gProfiles1074938[selected].entries410[1].value00;
         const std::int32_t first = gProfiles1074938[selected].entries410[0].value00;
@@ -1089,7 +1089,7 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
     static_cast<void>(cg::network::GetGameConnection().SendPlayerProfile(first, escaped[0], second, escaped[1],
         third, escaped[2], escaped[3]));
 
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     ProfileRuntimeRecord& target = gProfiles1074938[selected];
     target.text08 = gCurrentProfile10738E8.text08;
     target.entries410[0].value00 = gCurrentProfile10738E8.entries410[0].value00;
@@ -1112,7 +1112,7 @@ std::int32_t PublishPlayerProfile_533C80(const std::int32_t mode)
 // 原函数：0x00534290。
 network::SendResult ResendSavedPlayerProfile_534290()
 {
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     const std::int32_t enabled = gProfiles1074938[selected].value04;
     static_cast<void>(PublishPlayerProfile_533C80(1));
     const auto networkSession = cg::network::GetGameConnection().CaptureSession();
@@ -1160,7 +1160,7 @@ std::int32_t HandleProfileCategoryVersionsReply_50F3A0(cg::network::CgConnection
     const std::int32_t second = network::ParseDelimitedInteger_52CFA0(payload, '|', 2);
     gCategory105FA10.value10 = network::ParseDelimitedInteger_52CFA0(payload, '|', 3);
     const std::int32_t key = network::ParseDelimitedInteger_52CFA0(payload, '|', 4);
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     gProfiles1074938[selected].value00 = key;
     const std::int32_t previous = gCategory105FA10.value00;
     std::int32_t mask = previous != first ? 1 : 0;
@@ -1424,7 +1424,7 @@ std::int32_t ResetCharacterProfile_5345A0(const std::int32_t index)
         entry.text08 = kProfileDefault58F614;
     }
     // 原534737在末条文本的movsd与movsb之间读取当前角色，不沿用重置实参。
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     record.text728 = kProfileDefault58F614;
     gCurrentProfile10738E8 = gProfiles1074938[selected];
     return selected;
@@ -1464,7 +1464,7 @@ std::int32_t LoadPlayerProfilesFile_5347F0()
         if (bytes <= offset) { break; }
         DecodeProfile(gProfiles1074938[i], disk[i], bytes - offset);
     }
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     gCurrentProfile10738E8 = gProfiles1074938[selected];
     return 1;
 }
@@ -1545,7 +1545,7 @@ std::int32_t SaveGuildMailFile_519550()
 // 原函数：0x00519290。
 std::int32_t ClearCurrentCharacterContactMail_519290()
 {
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     std::fill_n(gMailStorageF7CA08.data() + selected * 60 * 10, 60 * 10, MailMessage{});
     return 0;
 }
@@ -1553,7 +1553,7 @@ std::int32_t ClearCurrentCharacterContactMail_519290()
 // 原函数：0x005194C0。
 std::int32_t ClearCurrentCharacterGuildMail_5194C0()
 {
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     std::fill_n(gGuildMailStorageDE0B30.data() + selected * 200, 200, GuildMailEntry{});
     return 0;
 }
@@ -1561,7 +1561,7 @@ std::int32_t ClearCurrentCharacterGuildMail_5194C0()
 // 原函数：0x005192C0。
 std::int32_t ClearContactMailMessages_5192C0(const std::int32_t number)
 {
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     std::fill_n(gMailStorageF7CA08.data() + selected * 60 * 10
         + static_cast<std::ptrdiff_t>(number) * 10, 10, MailMessage{});
     return 0;
@@ -1571,7 +1571,7 @@ std::int32_t ClearContactMailMessages_5192C0(const std::int32_t number)
 // 原函数：0x005195F0。
 std::int32_t FindLastActiveGuildMailEntry_5195F0(const std::int32_t key)
 {
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     const GuildMailEntry* entry =
         gGuildMailStorageDE0B30.data() + selected * 200;
     std::int32_t result = -1;
@@ -1596,7 +1596,7 @@ std::int32_t DeleteGuildMailEntry_5194F0(const std::int32_t key)
     if (index == -1) {
         return index;
     }
-    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     GuildMailEntry* const entry = gGuildMailStorageDE0B30.data()
         + selected * 200 + static_cast<std::ptrdiff_t>(index);
     *entry = {};
@@ -1615,7 +1615,7 @@ std::uintptr_t PrependGuildMailMessage_519370(
     const std::int32_t existingIndex = FindLastActiveGuildMailEntry_5195F0(key);
     GuildMailEntry* entry;
     if (existingIndex == -1) {
-        const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+        const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         const std::ptrdiff_t groupBytes = 200 * sizeof(GuildMailEntry);
         const std::ptrdiff_t groupOffset = selected * groupBytes;
         std::int32_t index = 0;
@@ -1635,7 +1635,7 @@ std::uintptr_t PrependGuildMailMessage_519370(
         entry->key = key;
         entry->active = active;
     } else {
-        const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+        const std::ptrdiff_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
         entry = gGuildMailStorageDE0B30.data() + selected * 200 + existingIndex;
         for (std::ptrdiff_t message = 9; message != 0; --message) {
             entry->messages[message] = entry->messages[message - 1];

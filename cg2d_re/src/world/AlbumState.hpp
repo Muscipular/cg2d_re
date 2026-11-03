@@ -50,7 +50,7 @@ namespace detail {
 void LoadAlbumData_518780(); // ANP01：读取完整编码相册，长度不符调用5186A0。
 // 原函数：0x00518870。
 void UpdateAlbumEntry_518870(
-    std::int32_t number, std::int32_t imageNo,
+    cg::network::CgConnection& networkConnection, std::int32_t number, std::int32_t imageNo,
     std::int32_t mark1, std::int32_t mark2, std::int32_t tribe,
     std::int32_t value0C, std::int32_t value10, std::int32_t value14,
     std::int32_t value18, std::int32_t value1C, std::int32_t value20,

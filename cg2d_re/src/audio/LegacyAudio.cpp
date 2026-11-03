@@ -7,6 +7,7 @@
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/LegacyAudioMath.hpp"
 
+#include "cg/network/CgConnection.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/resource/ResourcePaths.hpp"
 #include "cg/platform/SdlAudioBackend.hpp"
@@ -528,7 +529,7 @@ std::int32_t UpdateBgmRequest_52C910()
             result = current;
             if (current != target) {
                 const volatile std::int16_t& selected =
-                    login::gSelectedCharacterIndex;
+                    cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
                 const std::int32_t selectedValue = selected;
                 gBgmStage1050814 = 1;
                 static_cast<void>(login::detail::CaptureCharacterBgmTarget_520750(selectedValue));

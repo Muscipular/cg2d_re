@@ -210,7 +210,7 @@ std::uint8_t HandlePukVersionReply_50E770(cg::network::CgConnection&, const std:
 // 原函数：0x0045E7B0。
 std::int32_t ResetCharacterCreationRequest_45E7B0()
 {
-    const std::int32_t selected = login::gSelectedCharacterIndex;
+    const std::int32_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     gCreationRequestProgress.phase = 0;
     world::detail::ResetCharacterProfile_5345A0(selected);
     return world::detail::SavePlayerProfilesFile_534770();
@@ -327,10 +327,10 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
             }
             gate = UpdateCharacterCreationAttributes_4631D0();
             if (gate == 1) {
-                const std::int32_t selected = login::gSelectedCharacterIndex;
+                const std::int32_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
                 world::gCurrentSceneState = 30;
                 cg::login::ClearCharacterSlot_51B3B0(static_cast<std::uint32_t>(selected));
-                const std::int32_t unusedSelected = login::gSelectedCharacterIndex;
+                const std::int32_t unusedSelected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
                 static_cast<void>(unusedSelected);
                 cg::core::NullSub_509080();
                 cg::login::detail::SaveCurrentLoginRecord_520200();
@@ -1290,9 +1290,9 @@ static void EnterSelectedCharacter()
 {
     auto& characters = cg::network::GetGameConnection().LoginRequests().characters;
     const login::CharacterRecord& record =
-        characters[static_cast<std::size_t>(login::gSelectedCharacterIndex)];
+        characters[static_cast<std::size_t>(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex)];
     CopyRecordName(state::gSelectedCharacterName, record);
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     const login::CharacterRecord* const selectedRecord =
         characters.data() + selected;
     state::gSelectedGraphicNo = selectedRecord->graphicNo;
@@ -1580,8 +1580,8 @@ std::int32_t ProcessScene_460FF0()
                 const std::int32_t result = UpdateCharacterDeletionProgress_45DC00();
                 if (result == 1) {
                     cg::login::ClearCharacterSlot_51B3B0(static_cast<std::uint32_t>(
-                        static_cast<std::int32_t>(login::gSelectedCharacterIndex)));
-                    const std::int16_t unusedSelected = login::gSelectedCharacterIndex;
+                        static_cast<std::int32_t>(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex)));
+                    const std::int16_t unusedSelected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
                     static_cast<void>(unusedSelected);
                     cg::core::NullSub_509080();
                     cg::login::detail::SaveCurrentLoginRecord_520200();
@@ -1664,7 +1664,7 @@ std::int32_t ProcessScene_460FF0()
             }
 
             if (actionIndex == 0u) {
-                login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
+                cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
                 world::ClearCurrentCharacterAlbum_518BE0();
                 cg::world::detail::ClearCurrentCharacterContactMail_519290();
                 cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
@@ -1675,7 +1675,7 @@ std::int32_t ProcessScene_460FF0()
                 cg::yobi::YobiClearUp_404D30();
                 ClearPreviewActions();
             } else if (actionIndex == 1u) {
-                login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
+                cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
                 // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
                 const std::int16_t selectedServerIndex =
                     cg::network::GetGameConnection().LoginRequests().selectedServerIndex;
@@ -1688,7 +1688,7 @@ std::int32_t ProcessScene_460FF0()
                     interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
                 }
             } else if (actionIndex == 2u) {
-                login::gSelectedCharacterIndex = static_cast<std::int16_t>(slot);
+                cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
                 if (record.deleteFlag != 0) {
                     const std::wstring name = record.name;
                     cg::core::NullSub_509080();

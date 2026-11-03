@@ -16,7 +16,7 @@ static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 原函数：0x00508F70。
 std::uint32_t StartCharacterDeletionRequest()
 {
-    const std::int16_t selected = gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
     request.characterDeletionReplyCode = 0;

@@ -409,7 +409,7 @@ std::uintptr_t UpdateOrderedRecordBatch_50EC50(cg::network::CgConnection&, const
     }
 
     const std::int32_t count = CountRecordsValue08EqualOne_50EF50();
-    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     gOrderedRecordCount1051510 = count;
     return world::detail::PruneGuildMailAgainstOrderedRecords_50EE4A(selected);
 }

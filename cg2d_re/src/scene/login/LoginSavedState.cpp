@@ -7,6 +7,7 @@
 
 #include "cg/input/Input.hpp"
 #include "cg/audio/LegacyAudio.hpp"
+#include "cg/network/CgConnection.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "cg/scene/login/LoginInput.hpp"
 #include "cg/platform/CommandOptions.hpp"
@@ -920,7 +921,7 @@ std::uint8_t Sub_520720()
 std::int32_t SaveCurrentClientPreferences_520160()
 try {
     const volatile std::int16_t& selectedCharacter =
-        cg::login::gSelectedCharacterIndex;
+        cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
     static_cast<void>(CaptureAudioPreferences_520470());
     static_cast<void>(CaptureClientPreferenceBytes_520590());
 

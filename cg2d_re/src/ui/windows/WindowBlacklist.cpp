@@ -311,6 +311,7 @@ static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, const
 // 原函数：0x004CC6E0。
 static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -347,7 +348,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     const wchar_t* const currentRecord = cg::world::blacklist::gRecords[currentIndex].c_str();
     if (currentRecord[0] != L'\0') {
         cg::ui::detail::gInputContextC8B1B8.reset();
-        input::SetContext_44B330(*callbackWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.chat);
         world::AppendChatMessage_44B050(L"此栏位已有名单" /* 原常量参考：0x005885FC。 */, 4, 3);
         return 1;
     }

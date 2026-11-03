@@ -246,11 +246,6 @@ std::int32_t gHoverDescriptionEnabled_58589C = 1; // 原全局：0x0058589C。
 
 std::uint32_t gWindowHasFocusCA0AB4 = 0; // 原全局：0x00CA0AB4。
 
-WindowInputPrototype gMailInputPrototype57E740 { // 原全局：0x0057E740。
-    {{&cg::ui::detail::gInputContextD66CA8}, WindowInputReferenceKind::Context},
-    22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
-};
-
 std::int32_t gChatScrollOffsetC9A940 = 0; // 原全局：0x00C9A940。
 
 std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
@@ -560,11 +555,6 @@ static std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {}; // 原全局：0x00
 std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0]; // 原全局：0x00CF4E50。
 
 std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1]; // 原全局：0x00CF4E54。
-
-WindowInputPrototype gPetNameInputPrototype57DCF8 { // 原全局：0x0057DCF8。
-    {{&cg::ui::detail::gInputContextD2D4A0}, WindowInputReferenceKind::Context},
-    66, 31, 3, 12, 6, {}, 1, 16, 0, 0,
-};
 
 // 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
 static std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C { // 原全局：0x0057C24C。
@@ -3430,7 +3420,7 @@ static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
 // 原函数：0x004705D0。
 std::int32_t WindowRuntime_Initialize(session::ClientSession& session)
 {
-    static_cast<void>(WindowChat_ResetState());
+    static_cast<void>(WindowChat_ResetState(session));
     static_cast<void>(WindowRuntime_LoadSettings(session));
     WindowRuntime_ClearSavedWindowMarkers(session);
     return world::detail::LoadProfileCategoryFile_534910();
@@ -5083,6 +5073,7 @@ void WindowRuntime_UpdateElementOrder(WindowInstance& window)
 // WDP01：完整元素分发、低W16裁剪与现场取样；见doc/cg2d_window_element_draw_pipeline_spec.md。
 // 原函数：0x004729B0。
 void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int oy, const UIClipRect* clip) {
+    auto& inputs = window.ownerSession->UiFrame().native.inputs;
     using namespace detail;
     WindowElementCursor lease(window);
     auto* element = window.FindElementById(id);
@@ -5186,7 +5177,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
         WindowElement_PrepareInput(*element, ox, oy, clip);
         const auto* const data = element->data.input;
         if (data == window.ownerSession->UiFrame().native.pointer.focusedElementData) {
-            if (window.ownerSession->UiFrame().inputState.currentContext == &cg::ui::detail::gInputContext626AA0) {
+            if (window.ownerSession->UiFrame().inputState.currentContext == &inputs.chat) {
                 if (window.ownerSession->UiFrame().inputState.chatPanelVisible == 1) {
                     WindowChat_DrawInput(*window.ownerSession, data->context);
                 }
@@ -5202,7 +5193,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
         break;
     }
     case WindowElementType_InputCaret:
-        WindowChat_DrawHistory(x + 5, y);
+        WindowChat_DrawHistory(*window.ownerSession, x + 5, y);
         break;
     case WindowElementType_Number: {
         const auto* const data = element->data.number;

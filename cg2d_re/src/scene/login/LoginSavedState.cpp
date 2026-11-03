@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "LoginSavedState.hpp"
 #include "../character_select/CharacterSelectSceneDependencies.hpp"
@@ -684,10 +685,11 @@ static void RestoreSavedScalarSettings_5205E0(
 }
 
 // 原 sub_520690@[0x520690,0x5206EE)：恢复 24 项保存输入文本。
-static std::int32_t RestoreSavedInputContexts_520690(const SavedPhysicalRecord& current)
+static std::int32_t RestoreSavedInputContexts_520690(session::ClientSession& session, const SavedPhysicalRecord& current)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     for (std::size_t i = 0; i < current.presetsB2.size(); ++i) {
-        auto& context = cg::ui::detail::gInputContexts5F9758[i];
+        auto& context = inputs.hotkeys[i];
         context.setText(current.presetsB2[i]);
         context.totalByteLength = static_cast<std::int32_t>(context.text.size());
         context.caretByteOffset = context.totalByteLength;
@@ -717,7 +719,7 @@ static std::uint8_t RestoreCurrentSavedValue_520730()
 }
 
 // 原函数：0x005201B0。
-std::int32_t RestoreCurrentSavedState_5201B0()
+std::int32_t RestoreCurrentSavedState_5201B0(session::ClientSession& session)
 {
     if (ReturnOne_4A4210() == 0) {
         return 0;
@@ -726,7 +728,7 @@ std::int32_t RestoreCurrentSavedState_5201B0()
     auto& current = gCurrentSavedRecord;
     (void)RestoreAudioSettings_5204C0(current);
     (void)RestoreSavedScalarSettings_5205E0(current);
-    (void)RestoreSavedInputContexts_520690(current);
+    (void)RestoreSavedInputContexts_520690(session, current);
     (void)RestoreSavedByteState_520700(current);
     (void)RestoreCurrentSavedValue_520730();
     return 1;
@@ -766,12 +768,13 @@ std::int32_t InitializeSavedState_533300()
 }
 
 // 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
-std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected)
+std::int32_t CaptureCharacterDisplaySettings_520510(session::ClientSession& session, const std::int32_t selected)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     const volatile std::int32_t& color =
-        cg::ui::detail::gInputContext626AA0.color;
+        inputs.chat.color;
     const volatile std::int32_t& first = cg::platform::gValue55463C;
     const volatile std::int32_t& second = cg::platform::gChatRange_554640;
     const volatile std::int32_t& third = cg::platform::gChatNotificationSoundEnabled_554644;
@@ -787,13 +790,14 @@ std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected)
 }
 
 // 原 [0x520550,0x52058D)：按两组读取、零扩展并发布四项显示状态。
-std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected)
+std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& session, const std::int32_t selected)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     const std::int32_t color = current.display30A[0 + selected];
     const std::int32_t first = current.display30A[2 + selected];
-    cg::ui::detail::gInputContext626AA0.color = color;
+    inputs.chat.color = color;
     cg::platform::gValue55463C = first;
     const std::int32_t second = current.display30A[4 + selected];
     const std::int32_t third = current.display30A[6 + selected];
@@ -881,12 +885,13 @@ std::uint8_t CaptureClientPreferenceBytes_520590()
 }
 
 // 原 sub_520640@[0x520640,0x520681)：保存 24 个输入上下文的零结尾文本。
-std::uint32_t CapturePresetChatTexts_520640()
+std::uint32_t CapturePresetChatTexts_520640(session::ClientSession& session)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     std::array<std::wstring, 24> texts;
     std::uint32_t result = 0;
     for (std::size_t i = 0; i < texts.size(); ++i) {
-        texts[i] = cg::input::ContextText(cg::ui::detail::gInputContexts5F9758[i]);
+        texts[i] = cg::input::ContextText(inputs.hotkeys[i]);
         const auto bytes = cg::text::ToGbk(texts[i]).size();
         if (bytes >= 0x19) {
             throw cg::text::GbkStorageError(122, std::system_category(), "快捷文字超过原存档字段容量");
@@ -930,8 +935,8 @@ try {
     cg::core::NullSub_509080();
 
     const std::int32_t selectedForDisplay = selectedCharacter;
-    static_cast<void>(CaptureCharacterDisplaySettings_520510(selectedForDisplay));
-    static_cast<void>(CapturePresetChatTexts_520640());
+    static_cast<void>(CaptureCharacterDisplaySettings_520510(connection.Owner(), selectedForDisplay));
+    static_cast<void>(CapturePresetChatTexts_520640(connection.Owner()));
     static_cast<void>(CaptureContactSortMode_5206F0());
 
     const std::int32_t selectedForAudio = selectedCharacter;
@@ -983,12 +988,12 @@ std::int32_t DeleteSavedAccountFiles_533860(const std::int32_t physicalSlot)
     return DeleteSavedFiles_533860(physicalSlot);
 }
 
-void RestoreCapability4CurrentSavedRecord()
+void RestoreCapability4CurrentSavedRecord(session::ClientSession& session)
 {
     auto& current = gCurrentSavedRecord;
     (void)RestoreAudioSettings_5204C0(current);
     (void)RestoreSavedScalarSettings_5205E0(current);
-    (void)RestoreSavedInputContexts_520690(current);
+    (void)RestoreSavedInputContexts_520690(session, current);
     (void)RestoreSavedByteState_520700(current);
 }
 

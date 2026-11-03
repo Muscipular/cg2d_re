@@ -432,8 +432,8 @@ static void WindowSettings_Release(WindowInstance& releasedWindow)
     static_cast<void>(login::detail::CaptureAudioPreferences_520470());
     static_cast<void>(login::detail::CaptureClientPreferenceBytes_520590());
     const std::int32_t selected = releasedWindow.ownerSession->Connection().LoginRequests().selectedCharacterIndex;
-    static_cast<void>(login::detail::CaptureCharacterDisplaySettings_520510(selected));
-    static_cast<void>(login::detail::CapturePresetChatTexts_520640());
+    static_cast<void>(login::detail::CaptureCharacterDisplaySettings_520510(*releasedWindow.ownerSession, selected));
+    static_cast<void>(login::detail::CapturePresetChatTexts_520640(*releasedWindow.ownerSession));
     static_cast<void>(login::detail::CaptureContactSortMode_5206F0());
     static_cast<void>(login::detail::SaveCurrentLoginRecord_520200());
     static_cast<void>(audio::PlaySe_52C450(57, 320));

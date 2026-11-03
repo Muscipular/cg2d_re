@@ -103,6 +103,7 @@ WindowPrototype gWindowPrototypePetEquipment {0, 4, 365, 83, 245, 306, 0x8001010
 // value10为悬停槽（-1无），value14为说明页，value20记录真实宠物槽；不拥有或复制装备记录。
 static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     if (value == -1) {
@@ -128,7 +129,7 @@ static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, co
         }
     }
     auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
-    if (value == -1 && callbackWindow.ownerSession->UiFrame().inputState.currentContext == &gInputContextD2D4A0) {
+    if (value == -1 && callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.petName) {
         static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     }
     const auto petIndex = std::bit_cast<std::int16_t>(

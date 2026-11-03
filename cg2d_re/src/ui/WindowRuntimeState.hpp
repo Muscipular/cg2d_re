@@ -356,9 +356,6 @@ std::int32_t WindowInventory_GetPageElementCount(std::int32_t windowId);
 bool WindowInventory_CreatePageElements(WindowInstance* window, std::int32_t originalCount);
 
 // 各窗口持有的输入上下文；输入模块仅提供类型和操作。
-extern input::InputContext gInputContext626AA0;
-extern input::InputContext gInputContexts5F9758[24]; // 原全局：0x005F9758。
-extern input::InputContext gInputContextD66CA8; // 原全局：0x00D66CA8。
 extern input::InputContext gInputContextCB03F0; // 原全局：0x00CB03F0。
 extern input::InputContext gInputContextCC2080; // 原全局：0x00CC2080。
 extern input::InputContext gInputContextD2D828; // 原全局：0x00D2D828。
@@ -369,7 +366,6 @@ extern input::InputContext gInputContextCC2378; // 原全局：0x00CC2378。 原
 extern input::InputContext gInputContextCF4E60; // 原全局：0x00CF4E60。 原摆摊定价输入，独立15CH虚拟零对象。
 extern input::InputContext gInputContextD2DE70; // 原全局：0x00D2DE70。 原窗口11输入，不包含紧邻D2DFCC的结果经验槽。
 extern input::InputContext gInputContextD2DC10; // 原全局：0x00D2DC10。 原窗口9称号输入，独立15CH虚拟零对象。
-extern input::InputContext gInputContextD2D4A0; // 原全局：0x00D2D4A0。 原宠物详情共享名称输入，独立15CH虚拟零对象。
 extern input::InputContext gInputContextD64CB0; // 原全局：0x00D64CB0。 原窗口58第一条资料输入。
 extern input::InputContext gInputContextD2D670; // 原全局：0x00D2D670。 原窗口58第二条资料输入。
 extern input::InputContext gInputContextCAFEC8; // 原全局：0x00CAFEC8。 原窗口58第三条资料输入。
@@ -677,8 +673,6 @@ struct WindowElementPrototype {
     ElementId elementId = 0; // C++原型由对应窗口的enum显式指定固定ID。
 };
 
-extern WindowInputPrototype gPetNameInputPrototype57DCF8; // 原全局：0x0057DCF8。 窗口15与16/17/18共用名称输入原型。
-extern WindowInputPrototype gMailInputPrototype57E740; // 原全局：0x0057E740。 窗口22/23共用，借Input唯一D66CA8。
 // 原函数：0x0048F380。
 std::int32_t WindowPetDetail_EditName(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 共享名称输入焦点。
 // 原函数：0x0048F410。
@@ -891,7 +885,7 @@ void WindowChat_DrawInput(session::ClientSession& session, input::InputContext* 
 void WindowChat_DrawFixedWidthInput(session::ClientSession& session, input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。
 // CLD01：日志分行/字体回写与尺寸合同；见doc/cg2d_chat_log_line_drawing_spec.md。
 // 原函数：0x004A7750。
-void WindowChat_DrawHistory(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
+void WindowChat_DrawHistory(session::ClientSession& session, std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
 // 原函数：0x0046FBC0。
 std::int32_t WindowRuntime_DrawDefault(WindowInstance& callbackWindow, std::int32_t unused); // 原默认draw回调，完整绘制后返回1。
 // 原函数：0x0049BDB0。
@@ -933,7 +927,7 @@ void WindowDrag_Reset(session::ClientSession& session); // 仅阶段4/5调用mes
 // 原函数：0x00503CB0。
 std::int32_t WindowRuntime_CycleNameMode(); // 73ECBC先减后负值归2，返回归位前结果。
 // 原函数：0x004A6D80。
-std::int32_t WindowChat_ResetState(); // 聊天初始范围、回看、数量、调整请求和颜色。
+std::int32_t WindowChat_ResetState(session::ClientSession& session); // 聊天初始范围、回看、数量、调整请求和颜色。
 // 原函数：0x004C9130。
 std::int32_t WindowRuntime_SaveSettings(session::ClientSession& session); // 打开成功才捕获并保存；原打开失败同样返回1。
 // 原函数：0x004A53D0。

@@ -138,6 +138,7 @@ static std::uint32_t WindowPetAttributes_Refresh()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
+    auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     const auto selectedPet = []() -> world::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
             world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -179,18 +180,18 @@ static std::uint32_t WindowPetAttributes_Refresh()
         input::InputContext* const activeInput = currentWindow->ownerSession->UiFrame().inputState.currentContext;
         // 原名分支在输入身份判断前固定elements，自定义名分支在判断后读取。
         auto* originalNameElement = customName ? nullptr : currentWindow->FindElementById(WindowPetAttributesElementId::Element15);
-        if (activeInput == &cg::ui::detail::gInputContextD2D4A0) {
+        if (activeInput == &inputs.petName) {
             if (customName) {
                 if (auto* const element15 = currentWindow->FindElementById(WindowPetAttributesElementId::Element15); element15) element15->visible = 0;
             } else {
                 if (originalNameElement) originalNameElement->visible = 0;
             }
-            const std::wstring text = input::ContextText(*gPetNameInputPrototype57DCF8.input.context);
+            const std::wstring text = input::ContextText(*inputs.petNamePrototype.input.context);
             WindowInstance* const window = currentWindow;
             gLoginWindowRuntime.petNameDraftD45E74 = text;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &gPetNameInputPrototype57DCF8, x, y, 1));
+            static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.petNamePrototype, x, y, 1));
         } else {
             if (customName) {
                 if (auto* const element15 = currentWindow->FindElementById(WindowPetAttributesElementId::Element15); element15) element15->visible = 1;
@@ -269,6 +270,7 @@ static std::uint32_t WindowPetAttributes_Refresh()
 // 原函数：0x0048DAB0。
 static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
@@ -286,10 +288,10 @@ static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, c
         WindowPetDetail_InitializeDraft();
         WindowPetDetail_ResetDraftFlag();
         WindowInstance* const window = currentWindow;
-        gPetNameInputPrototype57DCF8.text = gLoginWindowRuntime.petNameDraftD45E74;
+        inputs.petNamePrototype.text = gLoginWindowRuntime.petNameDraftD45E74;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
-        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
+        static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.petNamePrototype, x, y, 0));
     }
     const auto selected = std::bit_cast<std::int16_t>(
         world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
@@ -316,6 +318,7 @@ static void WindowPetAttributes_Release(WindowInstance& releasedWindow)
 // 原函数：0x0048E430。
 static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -336,7 +339,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
             setImage(0x3B56E);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
+            const std::wstring text = input::ContextText(inputs.petName);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
@@ -420,11 +423,11 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
             gLoginWindowRuntime.selectedPetCC3E5C = position;
             const auto& pet = world::gPetRuntimeRecords[selected];
             const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            gPetNameInputPrototype57DCF8.text = name;
+            inputs.petNamePrototype.text = name;
             WindowInstance* const window = currentWindow;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
-            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
+            static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.petNamePrototype, x, y, 0));
             static_cast<void>(WindowPetAttributes_Update(*currentWindow, -1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;

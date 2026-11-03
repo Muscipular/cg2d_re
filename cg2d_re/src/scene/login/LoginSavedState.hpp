@@ -5,6 +5,7 @@
 #include <cstdint>
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 namespace cg::login::detail {
 
@@ -26,16 +27,16 @@ std::int32_t DecodeLegacyBytes_52D460(
     std::int32_t* const decodedBytes);
 
 // 原函数：0x005201B0。
-std::int32_t RestoreCurrentSavedState_5201B0();
+std::int32_t RestoreCurrentSavedState_5201B0(session::ClientSession& session);
 
 // 原函数：0x00533300。
 std::int32_t InitializeSavedState_533300();
 
 // 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
-std::int32_t CaptureCharacterDisplaySettings_520510(const std::int32_t selected);
+std::int32_t CaptureCharacterDisplaySettings_520510(session::ClientSession& session, const std::int32_t selected);
 
 // 原 [0x520550,0x52058D)：按两组读取、零扩展并发布四项显示状态。
-std::int32_t RestoreCharacterDisplaySettings_520550(const std::int32_t selected);
+std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& session, const std::int32_t selected);
 
 // 原 [0x520750,0x520764)：只存 BGM 目标低 W16，返回原索引。
 std::int32_t CaptureCharacterBgmTarget_520750(const std::int32_t selected);
@@ -50,7 +51,7 @@ std::int32_t CaptureAudioPreferences_520470();
 std::uint8_t CaptureClientPreferenceBytes_520590();
 
 // 原 sub_520640@[0x520640,0x520681)：保存 24 个输入上下文的零结尾文本。
-std::uint32_t CapturePresetChatTexts_520640();
+std::uint32_t CapturePresetChatTexts_520640(session::ClientSession& session);
 
 // 原 sub_5206F0@[0x5206F0,0x5206FB)：保存单字节状态并返回 AL。
 std::uint8_t CaptureContactSortMode_5206F0();
@@ -77,7 +78,7 @@ std::int32_t LoadSelectedLoginRecord_5336D0();
 // 原函数：0x00533860。
 std::int32_t DeleteSavedAccountFiles_533860(const std::int32_t physicalSlot);
 
-void RestoreCapability4CurrentSavedRecord();
+void RestoreCapability4CurrentSavedRecord(session::ClientSession& session);
 
 // ALM02：参数已按50字节验证；同步当前记录和选中账号槽，仅写内存，供返回登录界面使用。
 void CacheAutoLoginInputValues(std::wstring_view account, std::wstring_view password);

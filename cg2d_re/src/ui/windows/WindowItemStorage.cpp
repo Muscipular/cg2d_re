@@ -84,6 +84,7 @@ WindowInstance* WindowItemStorage_Open(
 // 原函数：0x004AC0F0。
 static void WindowItemStorage_Release(WindowInstance& releasedWindow)
 {
+    auto& inputs = releasedWindow.ownerSession->UiFrame().native.inputs;
     if (world::gCurrentDialogType_581800 == 34) {
         world::gCurrentDialogType_581800 = -1;
     }
@@ -92,7 +93,7 @@ static void WindowItemStorage_Release(WindowInstance& releasedWindow)
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(*releasedWindow.ownerSession, nullptr)) {
-        input::SetContext_44B330(*releasedWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(*releasedWindow.ownerSession, &inputs.chat);
     }
 }
 

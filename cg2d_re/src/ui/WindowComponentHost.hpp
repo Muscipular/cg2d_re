@@ -68,7 +68,6 @@ inline auto& gWindowHasFocus = ui::detail::gWindowHasFocusCA0AB4;
 inline auto& gCurrentWindow = ui::detail::gCurrentWindow;
 inline auto& gCurrentWindowState = ui::detail::gCurrentWindowState;
 using ui::detail::WindowRuntime_States;
-inline auto* const gDefaultInputData = &ui::detail::gInputContext626AA0;
 
 inline bool MouseIsInRect(int x, int y, int w, int h) {
     const int mx = static_cast<std::int32_t>(gMouseX), my = static_cast<std::int32_t>(gMouseY);

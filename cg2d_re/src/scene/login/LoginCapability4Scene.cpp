@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "LoginSavedState.hpp"
 #include "../../platform/StartupNative.hpp"
 #include <string>
@@ -187,7 +188,7 @@ std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connectio
     case 4: {
         const std::uint32_t previousShow = platform::gNativeCursorEnabled_D67AE4;
         static_cast<void>(login::detail::LoadSelectedLoginRecord_5336D0());
-        login::detail::RestoreCapability4CurrentSavedRecord();
+        login::detail::RestoreCapability4CurrentSavedRecord(connection.Owner());
         const std::uint32_t currentShow = platform::gNativeCursorEnabled_D67AE4;
         if (currentShow != previousShow) {
             static_cast<void>(::ShowCursor(

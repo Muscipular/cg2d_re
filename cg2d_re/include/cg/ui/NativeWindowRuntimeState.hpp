@@ -707,6 +707,32 @@ struct ItemTargetRuntimeState {
     std::uint8_t references = 0; // 原0xD67B24，保留W8增减和S8门禁。
 };
 
+// 同会话跨窗共用输入；原型仅借本对象内的稳定实体，不拆邮件/宠物页及快捷文字别名。
+struct NativeInputRuntimeState {
+    input::InputContext chat {}; // 原0x626AA0。
+    input::InputContext chatDefaults {}; // 原0x626840，聊天恢复源。
+    std::array<input::InputContext, 24> hotkeys {}; // 原0x5F9758，末项visibleStartOffset另供聊天借用。
+    input::InputContext mail {}; // 原0xD66CA8，普通/宠物邮件共用。
+    input::InputContext petName {}; // 原0xD2D4A0，多宠物页共用。
+    std::int8_t hotkeySelected = 0; // 原0xCC4B20，窗口初始化另写-1。
+    detail::WindowInputPrototype chatPrototype { // 原0x57E970。
+        {{&chat}, detail::WindowInputReferenceKind::Context},
+        8, 5, 3, 9, 0, {}, 1, 76, 0, 0,
+    };
+    detail::WindowInputPrototype mailPrototype { // 原0x57E740。
+        {{&mail}, detail::WindowInputReferenceKind::Context},
+        22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
+    };
+    detail::WindowInputPrototype petNamePrototype { // 原0x57DCF8。
+        {{&petName}, detail::WindowInputReferenceKind::Context},
+        66, 31, 3, 12, 6, {}, 1, 16, 0, 0,
+    };
+    detail::WindowInputPrototype hotkeyPrototype { // 原0x57DF48，编辑时借当前快捷文字项。
+        {{nullptr}, detail::WindowInputReferenceKind::Context},
+        0, 0, 3, 8, 0, {}, 1, 24, 0, 0,
+    };
+};
+
 // 原生窗口实例地址稳定，状态记录与排序数组由同一账号会话持有。
 struct NativeWindowRuntimeState {
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
@@ -727,6 +753,7 @@ struct NativeWindowRuntimeState {
     CraftWindowRuntimeState craft {};
     WindowOperationRuntimeState operations {};
     WindowPointerRuntimeState pointer {};
+    NativeInputRuntimeState inputs {};
     ItemTransferRuntimeState itemTransfer {};
     ShopWindowRuntimeState shop {};
     CrystalShopWindowRuntimeState crystalShop {};

@@ -87,11 +87,12 @@ static void AdvanceCaretPhase(session::ClientSession& session)
 // 原 sub_44A410@[0x44A410,0x44A535)。
 void DrawAndAdvanceInputCaret_44A410(session::ClientSession& session)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     input::InputContext* const initialContext = session.UiFrame().inputState.currentContext;
     if (initialContext == nullptr) {
         return;
     }
-    if (initialContext == &cg::ui::detail::gInputContext626AA0
+    if (initialContext == &inputs.chat
         && session.UiFrame().inputState.chatPanelVisible == 0) {
         return;
     }

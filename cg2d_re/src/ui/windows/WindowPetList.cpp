@@ -642,6 +642,7 @@ static network::SendResult WindowPetList_SubmitStates()
 // 原函数：0x0048C1E0。
 static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -684,11 +685,11 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
                     || WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetSkills].window != nullptr) {
                     const wchar_t* const name =
                         pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-                    gPetNameInputPrototype57DCF8.text = name;
+                    inputs.petNamePrototype.text = name;
                     WindowInstance* const window = currentWindow;
                     const std::int32_t y = window->y;
                     const std::int32_t x = window->x;
-                    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &gPetNameInputPrototype57DCF8, x, y, 0));
+                    static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.petNamePrototype, x, y, 0));
                 } else {
                     static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetDetail, 1, 0, nullptr));
                 }

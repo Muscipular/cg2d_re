@@ -56,8 +56,6 @@ volatile std::uint32_t gValue626C10 = 0; // 原全局：0x00626C10。
 } // namespace cg::world::detail
 
 namespace cg::world {
-input::InputContext gInputContext626840 {}; // 原全局：0x00626840。
-
 } // namespace cg::world
 
 namespace cg::world {
@@ -122,12 +120,13 @@ std::int32_t LoadChatInputHistory_44A090(session::ClientSession& session)
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
 void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     for (auto& record : gRecords5FB7F8) record = {};
-    cg::ui::detail::gInputContext626AA0.reset();
+    inputs.chat.reset();
     input::InitializeContext_449CF0(
         session,
-        &cg::ui::detail::gInputContext626AA0, 8, 440, 0, 1, 0, {}, 1, 78, 0, 0);
-    gInputContext626840 = cg::ui::detail::gInputContext626AA0;
+        &inputs.chat, 8, 440, 0, 1, 0, {}, 1, 78, 0, 0);
+    inputs.chatDefaults = inputs.chat;
 
     for (std::size_t index = 0; index < 19; ++index) {
         gRecords5FB7F8[index].state = 1;

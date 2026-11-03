@@ -780,6 +780,7 @@ void AppendChar_44ADB0(session::ClientSession& session, const wchar_t character)
 // 原函数：0x0044B340。
 std::int32_t ProcessPresetHotkeys_44B340(session::ClientSession& session)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     std::int32_t base = 0;
     if ((platform::gKeyStates[0x10] & 2u) != 0) {
         base = 16;
@@ -795,7 +796,7 @@ std::int32_t ProcessPresetHotkeys_44B340(session::ClientSession& session)
         }
     }
     if (selected >= 0) {
-        LoadInitialText_44A160(session, ContextText(cg::ui::detail::gInputContexts5F9758[selected]).c_str());
+        LoadInitialText_44A160(session, ContextText(inputs.hotkeys[selected]).c_str());
         return audio::PlaySe_52C450(51, 320);
     }
     return result;
@@ -956,10 +957,11 @@ void InitializeContext_449CF0(
 // 原函数：0x0044A1B0。
 void BrowseChatHistory_44A1B0(session::ClientSession& session)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     auto& history = session.WorldScene().chatInputHistory;
     cg::core::NullSub_509080();
     InputContext* const initialContext = session.UiFrame().inputState.currentContext;
-    if (initialContext != &cg::ui::detail::gInputContext626AA0 || platform::gImeComposition[0] != '\0') {
+    if (initialContext != &inputs.chat || platform::gImeComposition[0] != '\0') {
         return;
     }
     const std::uint8_t control = platform::gKeyStates[17] & 2u;
@@ -1016,11 +1018,12 @@ namespace detail {
 // 原函数：0x0044AB60。
 void HandleInputEnterKey_44AB60(session::ClientSession& session)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     if (platform::gImeComposition[0] != '\0') {
         return;
     }
     InputContext* context = session.UiFrame().inputState.currentContext;
-    if (context == &cg::ui::detail::gInputContext626AA0) {
+    if (context == &inputs.chat) {
         if (context->totalByteLength == 0) {
             return;
         }
@@ -1056,14 +1059,14 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
                 session, std::bit_cast<std::int32_t>(history.tail626838)));
             context = session.UiFrame().inputState.currentContext;
         }
-        const std::int32_t color = cg::ui::detail::gInputContext626AA0.color;
+        const std::int32_t color = inputs.chat.color;
         history.cursor62683C = -1;
         static_cast<void>(world::SendPlayerChatInput_50C940(session, context, color));
         session.UiFrame().inputState.currentContext->totalByteLength = 0;
         session.UiFrame().inputState.currentContext->caretByteOffset = 0;
         session.UiFrame().inputState.currentContext->clearText();
         context = session.UiFrame().inputState.currentContext;
-    } else if (context == &cg::ui::detail::gInputContextD66CA8
+    } else if (context == &inputs.mail
                || context == &cg::ui::detail::gInputContextCB03F0
                || context == &gInputContextCC46E0
                || context == &cg::ui::detail::gInputContextCC2080
@@ -1090,7 +1093,7 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
         cg::ui::detail::gInputContextC8B1B8.caretByteOffset = 0;
         cg::ui::detail::gInputContextC8B1B8.totalByteLength = 0;
         world::AppendChatMessage_44B050(message, 4, 3);
-        SetContext_44B330(session, &cg::ui::detail::gInputContext626AA0);
+        SetContext_44B330(session, &inputs.chat);
     }
     session.UiFrame().inputState.caretBlinkPhase = 20;
 }

@@ -240,7 +240,7 @@ int InitializeClient_4576B0(session::ClientSession& session)
     static_cast<void>(cg::yobi::InitializeYobiActionList_404A40(session));
     static_cast<void>(render::InitializeFont_456190(0));
     static_cast<void>(InitializeIme_458FD0());
-    if (cg::login::detail::RestoreCurrentSavedState_5201B0() == 0) {
+    if (cg::login::detail::RestoreCurrentSavedState_5201B0(session) == 0) {
         const std::wstring message = std::format(L"读入存档失败。(code = {})", static_cast<int>(gSavedStateLoadErrorCode_FF4E28));
         ShowWideMessage(message, kConfirmCaption, kErrorMessageFlags);
         return 0;

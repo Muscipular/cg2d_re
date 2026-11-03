@@ -3453,6 +3453,7 @@ void OpenPendingBattleResultWindow_504A50(session::ClientSession& session)
 // 原[51C7D0,51D447)完整22状态；共享尾保持原同帧跳转，见场景明细normal-scene-complete。
 void DrawNormalScene_51C7D0(session::ClientSession& session)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& worldScene = session.WorldScene();
     switch (gCurrentSceneState) {
@@ -3469,7 +3470,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ui::WindowRuntime_ProcessScene(session);
         cg::yobi::ResetObservationGroupList_43F220(session);
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
-        input::SetContext_44B330(session, &cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(session, &inputs.chat);
         gCurrentSceneState = 101;
         [[fallthrough]];
     case 101:
@@ -3815,7 +3816,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             gCurrentSceneState = state + 1;
         }
         input::ProcessKeyInput_4596D0(session);
-        render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+        render::DrawInputText_4568A0(session, &inputs.chat);
         RenderInput_4590E0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410(session);
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3830,7 +3831,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             gLogoutToTownPending_D67E78 = 0;
         }
         input::ProcessKeyInput_4596D0(session);
-        render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+        render::DrawInputText_4568A0(session, &inputs.chat);
         RenderInput_4590E0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410(session);
         ApplyPendingMapPaletteReply_51D6F0(session);
@@ -3918,7 +3919,7 @@ waitFrame:
 // 原函数：0x004596D0。
 inputTail:
     input::ProcessKeyInput_4596D0(session);
-    render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+    render::DrawInputText_4568A0(session, &inputs.chat);
     RenderInput_4590E0(session);
     cg::input::DrawAndAdvanceInputCaret_44A410(session);
 }
@@ -4003,6 +4004,7 @@ std::int32_t __cdecl SetPlayerObjectIndex_519EB0(const std::int32_t value)
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0(session::ClientSession& session)
 {
+    auto& inputs = session.UiFrame().native.inputs;
     auto& battleScene = session.WorldScene().battle;
     std::int32_t state = gCurrentSceneState;
     if (static_cast<std::uint32_t>(state) >= 2U
@@ -4046,7 +4048,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         session.WorldScene().transitionResetPending = 1;
         gBattleCommandAction5ABC00 = nullptr;
         session.WorldScene().battleResult.pendingMode = 3;
-        input::SetContext_44B330(session, &cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(session, &inputs.chat);
         CaptureBattleBackgroundSnapshot_43CB10(session);
         session.WorldScene().frameBackgroundMode = 2;
         input::BrowseChatHistory_44A1B0(session);
@@ -4126,7 +4128,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             cg::core::NullSub_509080();
         }
         input::ProcessKeyInput_4596D0(session);
-        render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+        render::DrawInputText_4568A0(session, &inputs.chat);
         RenderInput_4590E0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410(session);
         break;
@@ -4299,7 +4301,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     }
     case 8: {
         input::ProcessKeyInput_4596D0(session);
-        render::DrawInputText_4568A0(session, &cg::ui::detail::gInputContext626AA0);
+        render::DrawInputText_4568A0(session, &inputs.chat);
         RenderInput_4590E0(session);
         cg::input::DrawAndAdvanceInputCaret_44A410(session);
         const std::int32_t selector = gLogoutToTownPending_D67E78 == 1 ? 14 : 12;
@@ -6486,7 +6488,7 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
     const std::int16_t unusedSelected = selected;
     static_cast<void>(unusedSelected);
     cg::core::NullSub_509080();
-    static_cast<void>(login::detail::RestoreCharacterDisplaySettings_520550(selected));
+    static_cast<void>(login::detail::RestoreCharacterDisplaySettings_520550(connection.Owner(), selected));
     static_cast<void>(login::detail::RestoreCharacterBgmTarget_520770(selected));
 
     gPartyActive_FF0D36 = 0;

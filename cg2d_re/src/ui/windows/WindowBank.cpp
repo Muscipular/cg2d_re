@@ -389,6 +389,7 @@ WindowInstance* WindowBank_Open(
 // 原函数：0x004A83D0。
 static void WindowBank_Release(WindowInstance& releasedWindow)
 {
+    auto& inputs = releasedWindow.ownerSession->UiFrame().native.inputs;
     const std::uint32_t kind = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Bank].value10;
     if ((kind == 0 && world::gCurrentDialogType_581800 == 23)
         || (kind == 1 && world::gCurrentDialogType_581800 == 33)) {
@@ -408,7 +409,7 @@ static void WindowBank_Release(WindowInstance& releasedWindow)
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(*releasedWindow.ownerSession, nullptr)) {
-        input::SetContext_44B330(*releasedWindow.ownerSession, &cg::ui::detail::gInputContext626AA0);
+        input::SetContext_44B330(*releasedWindow.ownerSession, &inputs.chat);
     }
 }
 

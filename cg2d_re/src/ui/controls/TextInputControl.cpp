@@ -86,12 +86,13 @@ void WindowElement_ForgetInputRestore(const WindowElement& element) {
 void WindowElement_BlurInput(WindowElement& element) {
     if (element.type != WindowElementType_Input || !element.data.input || !element.data.input->ownedInput) return;
     auto& owner = InputOwnerFor(element);
+    auto& inputs = owner.UiFrame().native.inputs;
     auto& focusedInput = owner.UiFrame().focusedInput;
     auto& inputState = owner.UiFrame().inputState;
     auto& pointer = owner.UiFrame().native.pointer;
     auto& data = *element.data.input->ownedInput;
     if (!data.focused && inputState.currentContext != &data.context) return;
-    auto* restoreInput = data.previousInput ? data.previousInput : gDefaultInputData;
+    auto* restoreInput = data.previousInput ? data.previousInput : &inputs.chat;
     data.focused = false;
     data.previousInput = nullptr;
     if (focusedInput.winId == element.owner->id && focusedInput.elementId == element.elementId) focusedInput = {};
@@ -102,13 +103,14 @@ void WindowElement_BlurInput(WindowElement& element) {
 void WindowElement_FocusInput(WindowElement& element) {
     if (element.type != WindowElementType_Input || !element.data.input || !element.data.input->ownedInput) return;
     auto& owner = InputOwnerFor(element);
+    auto& inputs = owner.UiFrame().native.inputs;
     auto& focusedInput = owner.UiFrame().focusedInput;
     auto& inputState = owner.UiFrame().inputState;
     auto& pointer = owner.UiFrame().native.pointer;
     if (auto* previous = WindowRuntime_ResolveElement(focusedInput); previous && previous != &element) WindowElement_BlurInput(*previous);
     auto& data = *element.data.input->ownedInput;
     if (!data.focused) {
-        data.previousInput = inputState.currentContext && inputState.currentContext != &data.context ? inputState.currentContext : gDefaultInputData;
+        data.previousInput = inputState.currentContext && inputState.currentContext != &data.context ? inputState.currentContext : &inputs.chat;
         data.previousElement = pointer.focusedElementData;
         data.focused = true;
     }

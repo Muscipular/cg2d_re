@@ -2362,7 +2362,6 @@ std::int32_t gDpResultTotal_FF0D08 = 0; // 原全局：0x00FF0D08。
 namespace detail {
 // 原 519A80 公共尾；协议与普通场景后续复用，初值为 PE 零填充。
 std::uint16_t gPartyActive_FF0D36 = 0; // 原全局：0x00FF0D36。
-std::uint64_t gLastAdjacentInteractionTick_FF0D38 = 0; // 原全局：0x00FF0D38。
 
 } // namespace detail
 
@@ -5766,7 +5765,7 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 
 // NFI01：邻格fIM生产，保两轴双读/F32桥/两tick和先Y后X；现发送普通空格，父主体保持。
 // 原函数：0x0051B3E0。
-std::uint32_t RequestAdjacentWorldInteraction_51B3E0()
+std::uint32_t RequestAdjacentWorldInteraction_51B3E0(session::ClientSession& session)
 {
     std::int32_t result = gCurrentDialogType_581800;
     if (result != -1) {
@@ -5806,14 +5805,14 @@ std::uint32_t RequestAdjacentWorldInteraction_51B3E0()
     const std::int32_t direction = static_cast<std::int32_t>(
         GetEightWayMapDirection_46CDF0(differenceX, differenceY));
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gLastAdjacentInteractionTick_FF0D38 + 500u >= now) {
+    if (session.WorldScene().lastAdjacentInteractionTick + 500u >= now) {
         return static_cast<std::uint32_t>(now);
     }
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendPositionDirectionInteraction(x, y, direction));
+    static_cast<void>(session.Connection().SendPositionDirectionInteraction(x, y, direction));
     const std::uint64_t sentAt = platform::ReadTickCount64();
-    gLastAdjacentInteractionTick_FF0D38 = sentAt;
+    session.WorldScene().lastAdjacentInteractionTick = sentAt;
     return static_cast<std::uint32_t>(sentAt);
 }
 
@@ -5881,7 +5880,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& sessi
             static_cast<void>(session.Connection().RequestStallContents(objectIndex));
         }
         TurnPlayerTowardCursorTarget_46B370();
-        static_cast<void>(RequestAdjacentWorldInteraction_51B3E0());
+        static_cast<void>(RequestAdjacentWorldInteraction_51B3E0(session));
         const std::int32_t secondY = gPlayerMoveTargetY;
         const std::int32_t secondX = gPlayerMoveTargetX;
         const std::int32_t secondIndex = FindWorldObjectAt_445160(secondX, secondY, 8);

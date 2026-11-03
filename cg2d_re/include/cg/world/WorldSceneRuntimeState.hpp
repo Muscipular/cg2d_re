@@ -57,6 +57,7 @@ struct WorldSceneRuntimeState {
     std::int32_t normalSceneInitialized = 0; // 原 0xFF0D50，普通场景初始化门禁。
     std::int32_t normalSceneWaitFrames = 0; // 原 0xFF0D54，普通场景等待帧数。
     std::uint32_t observationTravelTransitionCount = 0; // 原 0xFF0D74，观察转场次数。
+    std::uint64_t lastAdjacentInteractionTick = 0; // 原 0xFF0D38，邻格交互节流。
 };
 
 } // namespace cg::world

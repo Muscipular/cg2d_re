@@ -6,6 +6,7 @@ namespace cg::network {
 class CgConnection;
 enum class SendResult : std::int32_t;
 }
+namespace cg::session { class ClientSession; }
 
 #include <array>
 #include <cstddef>
@@ -424,11 +425,10 @@ void CreatePlayerMapPresence_519A80(); // 原普通场景玩家创建/身份发�
 cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
     std::wstring_view name, const std::array<std::wstring, 4>& titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
-// 协议与场景共用的队伍状态、邻格交互节流时间。
+// 协议与场景共用的队伍状态。
 extern std::uint16_t gPartyActive_FF0D36; // 原全局：0x00FF0D36。 原跟随gate；协议和场景共享，不默认启用。
-extern std::uint64_t gLastAdjacentInteractionTick_FF0D38; // 原全局：0x00FF0D38。 原51B3E0邻格请求的独立时间槽。
 // 原函数：0x0051B3E0。
-std::uint32_t RequestAdjacentWorldInteraction_51B3E0(); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
+std::uint32_t RequestAdjacentWorldInteraction_51B3E0(session::ClientSession& session); // NFI01：完整邻格fIM父，原EAX位型/两tick保持；现普通空格明文。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
 // 原函数：0x00519CD0。

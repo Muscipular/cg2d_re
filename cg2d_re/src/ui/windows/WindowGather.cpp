@@ -222,7 +222,7 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
 // 原函数：0x00485690。
 static void WindowGather_Release(WindowInstance& releasedWindow)
 {
-    WindowRuntime_DecrementOperationCount();
+    WindowRuntime_DecrementOperationCount(*releasedWindow.ownerSession);
     const std::uint8_t mode = gWindow12ModeCC3E80;
     if (mode == 1 || mode == 2) {
         WindowRuntime_DecrementGatherOperationCount();

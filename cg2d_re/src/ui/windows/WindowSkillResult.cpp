@@ -163,7 +163,7 @@ static cg::yobi::YobiAction* WindowSkillResult_Open()
 // 原函数：0x00487660。
 static void WindowSkillResult_Release(WindowInstance& releasedWindow)
 {
-    WindowRuntime_DecrementOperationCount();
+    WindowRuntime_DecrementOperationCount(*releasedWindow.ownerSession);
     const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
     const auto skillReferences = static_cast<std::uint8_t>(gSkillStatusIconReferences_D67AFE - 1);
     gSkillOperationCount_D67AFD = references;

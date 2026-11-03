@@ -3689,6 +3689,11 @@ void WindowRuntime_IncrementOperationCount()
 // 原函数：0x00479660。
 void WindowRuntime_DecrementOperationCount()
 {
+    WindowRuntime_DecrementOperationCount(session::GetClientHost().FirstSession());
+}
+
+void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
+{
     const std::int32_t remainingCount = gWindowOperationCount_D67AF8 - 1;
     gWindowOperationCount_D67AF8 = remainingCount;
     if (remainingCount != 0 || gSkillRebirthModeEnabled_5F9754 == 0) {
@@ -3696,13 +3701,13 @@ void WindowRuntime_DecrementOperationCount()
     }
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendWorldActionRequest(x, y, 62));
+    static_cast<void>(session.Connection().SendWorldActionRequest(x, y, 62));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const std::uint8_t previous = occupancy[7];
     const auto next = static_cast<std::uint8_t>(previous - 1);
     gSkillRebirthModeEnabled_5F9754 = 0;
     occupancy[7] = next;
-    WindowSkill_SyncStates();
+    WindowSkill_SyncStates(session);
 }
 
 // 原函数：0x00499830。
@@ -4607,7 +4612,7 @@ std::int32_t WindowRuntime_Render(session::ClientSession& session)
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
         gSkillRebirthModeEnabled_5F9754 = 0;
         occupancy[7] = decreased;
-        WindowSkill_SyncStates();
+        WindowSkill_SyncStates(session);
     }
     return WindowRuntime_Update(session);
 }

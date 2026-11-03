@@ -390,7 +390,7 @@ extern input::InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
 using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const wchar_t* text); // text借用宽文本名称，取消／关闭时可为nullptr。
 // 原函数：0x0047A140。
-void WindowSkill_SyncStates(); // 窗口10模式2的技能状态差异请求，原返回无人消费。
+void WindowSkill_SyncStates(session::ClientSession& session); // 窗口10模式2的技能状态差异请求，原返回无人消费。
 // 原函数：0x0047A490。
 cg::yobi::YobiAction* WindowSkill_Open(session::ClientSession& session); // 清选择回调并创建普通技能窗。
 // 原函数：0x0047A4C0。
@@ -436,6 +436,7 @@ std::int32_t WindowSkill_Back(session::ClientSession& session); // 战斗返回�
 void WindowRuntime_IncrementOperationCount(); // 原窗口操作S32计数加1。
 // 原函数：0x00479660。
 void WindowRuntime_DecrementOperationCount(); // 原操作计数减1及严格零时的退出发送/技能状态刷新。
+void WindowRuntime_DecrementOperationCount(session::ClientSession& session);
 // 原函数：0x0047D170。
 std::int32_t WindowCraft_SetPreviewPositions(
     WindowInstance* window, std::int32_t anchor, std::int32_t first, std::int32_t second,

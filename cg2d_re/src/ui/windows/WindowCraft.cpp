@@ -3162,7 +3162,7 @@ static void WindowCraft_Release(WindowInstance& releasedWindow)
         quantityWindow->state |= 0x8000u;
     }
     gCraftPetAssistActive_D67B00 = 0;
-    WindowRuntime_DecrementOperationCount();
+    WindowRuntime_DecrementOperationCount(*releasedWindow.ownerSession);
     WindowRuntime_DecrementGatherOperationCount();
     --gSkillOperationCount_D67AFD;
     for (std::int32_t index = 0; index < 6; ++index) {

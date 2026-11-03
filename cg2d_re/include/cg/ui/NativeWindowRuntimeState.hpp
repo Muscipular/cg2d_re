@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/ui/WindowRuntime.hpp"
+#include "cg/world/PlayerSlots.hpp"
 
 #include <array>
 #include <cstddef>
@@ -81,10 +82,18 @@ struct BattleCommandWindowState {
     std::uint8_t targetSelectionReady = 0; // 原0xCB054C。
 };
 
-// 技能窗仅向发起会话回送选择；业务页状态另沿其窗口回调迁移。
-struct SkillWindowSelectionState {
-    detail::SkillWindowSelectionCallback skill = nullptr; // 原0xCC4230。
-    detail::PetSkillSelectionCallback pet = nullptr; // 原0xCC4D14。
+// 技能窗的页状态和选择回送；目标名单与制作业务另沿各自链迁移。
+struct SkillWindowRuntimeState {
+    detail::SkillWindowSelectionCallback selectionCallback = nullptr; // 原0xCC4230。
+    detail::PetSkillSelectionCallback petSelectionCallback = nullptr; // 原0xCC4D14。
+    std::int32_t mode = 0; // 原0xD672AC。
+    std::int32_t index = 0; // 原0xD2EA60。
+    std::int32_t scroll = 0; // 原0xD2D648。
+    std::int32_t hover = 0; // 原0xD2F744。
+    std::int32_t recipeLevel = 0; // 原0xC8B1B4。
+    std::int32_t maximum = 0; // 原0xCA000C。
+    // 原前15项为配对行号；现有30行仅统计有效槽，保留原S8存储。
+    std::array<std::int8_t, world::kSkillSlotCount> battleRows {}; // 原0xD3FABC。
 };
 
 // 原生窗口实例地址稳定，状态记录与排序数组由同一账号会话持有。
@@ -93,7 +102,7 @@ struct NativeWindowRuntimeState {
     std::array<detail::WindowState, detail::kWindowCount> states {}; // 原0xC9A9B0，按ID寻址。
     WindowLayoutSettings settings {};
     BattleCommandWindowState battleCommand {};
-    SkillWindowSelectionState skillSelection {};
+    SkillWindowRuntimeState skill {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。
 };

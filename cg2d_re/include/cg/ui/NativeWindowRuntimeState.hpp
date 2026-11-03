@@ -139,6 +139,13 @@ struct WindowLayoutSettings {
     std::uint32_t actorBarsEnabled = 0; // 原0x5AC490，地图角色绘制与快捷键共用。
 };
 
+// 设置侧栏的动画现场；音量及其显示文本仍随进程共享的音频设置保存。
+struct SettingsPanelRuntimeState {
+    std::int8_t panel = 0; // 原0xCC4234。
+    std::int32_t offset = 0; // 原0xCA02DC。
+    std::int32_t step = 0; // 原0xD2D610。
+};
+
 // 战斗命令窗口借用的四类开窗动作及目标选择门禁。
 struct BattleCommandWindowState {
     yobi::YobiAction* skillOpening = nullptr; // 原0xCC1A10。
@@ -366,6 +373,7 @@ struct NativeWindowRuntimeState {
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
     std::array<detail::WindowState, detail::kWindowCount> states {}; // 原0xC9A9B0，按ID寻址。
     WindowLayoutSettings settings {};
+    SettingsPanelRuntimeState settingsPanel {};
     BattleCommandWindowState battleCommand {};
     SkillWindowRuntimeState skill {};
     TextTargetWindowState textTarget {};

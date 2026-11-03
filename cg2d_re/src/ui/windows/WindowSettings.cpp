@@ -139,12 +139,7 @@ static void WindowSettings_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static std::int8_t gSettingsPanelCC4234 = 0; // 原全局：0x00CC4234。
-
-static std::int32_t gSettingsOffsetCA02DC = 0; // 原全局：0x00CA02DC。
-
-static std::int32_t gSettingsStepD2D610 = 0; // 原全局：0x00D2D610。
-
+// 数字载荷只借用进程共用的音量显示，不携带角色或侧栏现场。
 // 原全局：0x00D3041C。 5689C0借用，音乐音量S32的%d文本。
 static std::wstring gSettingsMusicTextD3041C {}; // 原全局：0x00D3041C。
 
@@ -394,14 +389,15 @@ static void WindowSettings_RefreshDisplayPanel(WindowInstance& callbackWindow, c
 // 原函数：0x00493D60。
 static std::int32_t WindowSettings_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         for (std::int32_t index = 8; index <= 30; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
-        gSettingsPanelCC4234 = -1;
-        gSettingsOffsetCA02DC = 0;
+        settingsPanel.panel = -1;
+        settingsPanel.offset = 0;
     }
     return 1;
 }
@@ -410,17 +406,18 @@ static std::int32_t WindowSettings_Update(WindowInstance& callbackWindow, const 
 // 关联原入口：0x00493DF9（共享尾已并入本函数正文）。
 static std::int32_t WindowSettings_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    const std::int8_t panel = gSettingsPanelCC4234;
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
+    const std::int8_t panel = settingsPanel.panel;
     if (panel >= 0) {
-        std::int32_t offset = gSettingsOffsetCA02DC;
+        std::int32_t offset = settingsPanel.offset;
         if (offset > -146) {
-            const std::int32_t step = gSettingsStepD2D610;
+            const std::int32_t step = settingsPanel.step;
             offset -= step;
-            gSettingsOffsetCA02DC = offset;
-            gSettingsStepD2D610 = step - 1;
+            settingsPanel.offset = offset;
+            settingsPanel.step = step - 1;
             if (offset < -146) {
                 offset = -146;
-                gSettingsOffsetCA02DC = offset;
+                settingsPanel.offset = offset;
             }
             kSettingsPanelCallbacks57DF38[panel](callbackWindow, offset);
         }
@@ -445,6 +442,7 @@ static void WindowSettings_Release(WindowInstance& releasedWindow)
 // 原函数：0x00493EE0。
 static std::int32_t WindowSettings_ButtonLogoutPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -462,11 +460,11 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(WindowInstance& callbackWin
             for (std::int32_t element = 8; element <= 30; ++element) {
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
             }
-            gSettingsPanelCC4234 = -1;
-            gSettingsOffsetCA02DC = 0;
+            settingsPanel.panel = -1;
+            settingsPanel.offset = 0;
             if (visible == 0) {
-                gSettingsPanelCC4234 = 0;
-                gSettingsStepD2D610 = 17;
+                settingsPanel.panel = 0;
+                settingsPanel.step = 17;
                 if (auto* const buttonLogoutElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonLogout); buttonLogoutElement) buttonLogoutElement->visible = 1;
                 if (auto* const buttonServerSelectElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonServerSelect); buttonServerSelectElement) buttonServerSelectElement->visible = 1;
                 if (auto* const handleSideAreaElement2 = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea); handleSideAreaElement2) handleSideAreaElement2->visible = 1;
@@ -487,6 +485,7 @@ static std::int32_t WindowSettings_ButtonLogoutPanel(WindowInstance& callbackWin
 // 原函数：0x00494000。
 static std::int32_t WindowSettings_ButtonInputPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -504,11 +503,11 @@ static std::int32_t WindowSettings_ButtonInputPanel(WindowInstance& callbackWind
             for (std::int32_t element = 8; element <= 30; ++element) {
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
             }
-            gSettingsPanelCC4234 = -1;
-            gSettingsOffsetCA02DC = 0;
+            settingsPanel.panel = -1;
+            settingsPanel.offset = 0;
             if (visible == 0) {
-                gSettingsPanelCC4234 = 1;
-                gSettingsStepD2D610 = 17;
+                settingsPanel.panel = 1;
+                settingsPanel.step = 17;
                 if (auto* const toggleItemStackingElement = currentWindow->FindElementById(WindowSettingsElementId::ToggleItemStacking); toggleItemStackingElement) toggleItemStackingElement->visible = 1;
                 if (auto* const toggleCursorElement = currentWindow->FindElementById(WindowSettingsElementId::ToggleCursor); toggleCursorElement) toggleCursorElement->visible = 1;
                 if (auto* const cycleHotkeyModeElement = currentWindow->FindElementById(WindowSettingsElementId::CycleHotkeyMode); cycleHotkeyModeElement) cycleHotkeyModeElement->visible = 1;
@@ -545,6 +544,7 @@ static std::int32_t WindowSettings_ButtonInputPanel(WindowInstance& callbackWind
 // 原函数：0x00494180。
 static std::int32_t WindowSettings_ButtonAudioPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -562,11 +562,11 @@ static std::int32_t WindowSettings_ButtonAudioPanel(WindowInstance& callbackWind
             for (std::int32_t element = 8; element <= 30; ++element) {
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
             }
-            gSettingsPanelCC4234 = -1;
-            gSettingsOffsetCA02DC = 0;
+            settingsPanel.panel = -1;
+            settingsPanel.offset = 0;
             if (visible == 0) {
-                gSettingsPanelCC4234 = 2;
-                gSettingsStepD2D610 = 17;
+                settingsPanel.panel = 2;
+                settingsPanel.step = 17;
                 if (auto* const toggleChannelsElement = currentWindow->FindElementById(WindowSettingsElementId::ToggleChannels); toggleChannelsElement) toggleChannelsElement->visible = 1;
                 if (auto* const element14 = currentWindow->FindElementById(WindowSettingsElementId::Element14); element14) element14->visible = 1;
                 if (auto* const buttonMusicDecreaseElement = currentWindow->FindElementById(WindowSettingsElementId::ButtonMusicDecrease); buttonMusicDecreaseElement) buttonMusicDecreaseElement->visible = 1;
@@ -580,14 +580,14 @@ static std::int32_t WindowSettings_ButtonAudioPanel(WindowInstance& callbackWind
                 auto* const element142 = currentWindow->FindElementById(WindowSettingsElementId::Element14);
                 if (element142) {
                     element142->x =
-                        ((37 - musicWidth) >> 1) + gSettingsOffsetCA02DC + 69;
+                        ((37 - musicWidth) >> 1) + settingsPanel.offset + 69;
                 }
                 cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
                 const std::int32_t effectWidth = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
                 auto* const element172 = currentWindow->FindElementById(WindowSettingsElementId::Element17);
                 if (element172) {
                     element172->x =
-                        ((37 - effectWidth) >> 1) + gSettingsOffsetCA02DC + 69;
+                        ((37 - effectWidth) >> 1) + settingsPanel.offset + 69;
                 }
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -606,6 +606,7 @@ static std::int32_t WindowSettings_ButtonAudioPanel(WindowInstance& callbackWind
 // 原函数：0x00494370。
 static std::int32_t WindowSettings_ButtonDisplayPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -623,11 +624,11 @@ static std::int32_t WindowSettings_ButtonDisplayPanel(WindowInstance& callbackWi
             for (std::int32_t element = 8; element <= 30; ++element) {
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
             }
-            gSettingsPanelCC4234 = -1;
-            gSettingsOffsetCA02DC = 0;
+            settingsPanel.panel = -1;
+            settingsPanel.offset = 0;
             if (visible == 0) {
-                gSettingsPanelCC4234 = 3;
-                gSettingsStepD2D610 = 17;
+                settingsPanel.panel = 3;
+                settingsPanel.step = 17;
                 if (auto* const toggleScanlinesElement = currentWindow->FindElementById(WindowSettingsElementId::ToggleScanlines); toggleScanlinesElement) toggleScanlinesElement->visible = 1;
                 if (auto* const handleSideArea_31Element2 = currentWindow->FindElementById(WindowSettingsElementId::HandleSideArea_31); handleSideArea_31Element2) handleSideArea_31Element2->visible = 1;
                 // 原49444C改写EBP，后续选中图仍写元素21。
@@ -894,6 +895,7 @@ static std::int32_t WindowSettings_CycleHotkeyMode(WindowInstance& callbackWindo
 // 原函数：0x004949C0。
 static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -915,7 +917,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackW
             static_cast<void>(audio::ApplyBgmVolume_52C3D0());
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
-            const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
+            const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
             if (auto* const element14 = currentWindow->FindElementById(WindowSettingsElementId::Element14); element14) element14->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -934,6 +936,7 @@ static std::int32_t WindowSettings_ButtonMusicDecrease(WindowInstance& callbackW
 // 原函数：0x00494AE0。
 static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -955,7 +958,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackW
             static_cast<void>(audio::ApplyBgmVolume_52C3D0());
             cg::text::FormatTo(gSettingsMusicTextD3041C, L"{}", platform::gMusicVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsMusicTextD3041C, 3);
-            const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
+            const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
             if (auto* const element14 = currentWindow->FindElementById(WindowSettingsElementId::Element14); element14) element14->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -974,6 +977,7 @@ static std::int32_t WindowSettings_ButtonMusicIncrease(WindowInstance& callbackW
 // 原函数：0x00494C10。
 static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -995,7 +999,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackW
             static_cast<void>(audio::ApplyBgmVolume_52C3D0());
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
-            const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
+            const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
             if (auto* const element17 = currentWindow->FindElementById(WindowSettingsElementId::Element17); element17) element17->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -1014,6 +1018,7 @@ static std::int32_t WindowSettings_ButtonSoundDecrease(WindowInstance& callbackW
 // 原函数：0x00494D30。
 static std::int32_t WindowSettings_ButtonSoundIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& settingsPanel = callbackWindow.ownerSession->UiFrame().native.settingsPanel;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -1035,7 +1040,7 @@ static std::int32_t WindowSettings_ButtonSoundIncrease(WindowInstance& callbackW
             static_cast<void>(audio::ApplyBgmVolume_52C3D0());
             cg::text::FormatTo(gSettingsEffectTextD2EA64, L"{}", platform::gEffectVolume);
             const std::int32_t width = WindowNumber_MeasureWidth(gSettingsEffectTextD2EA64, 3);
-            const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
+            const std::int32_t x = ((37 - width) >> 1) + settingsPanel.offset + 69;
             if (auto* const element17 = currentWindow->FindElementById(WindowSettingsElementId::Element17); element17) element17->x = x;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }

@@ -121,7 +121,7 @@ enum {
 
 static void MakeAutoBattle(session::ClientSession& session);
 
-static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags);
+static int takeRandomTarget(session::ClientSession& session, int attacker, B_TARGET_FLAGS flags);
 
 static int getSkillId(int index) {
     return index >= 0 && index < cg::world::kSkillSlotCount ? cg::world::gSkillsF1BAFC[index].skillId : -1;
@@ -263,7 +263,7 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             if (param4 < 0) {
-                param4 = takeRandomTarget(cg::world::gBattleCurrentPosition5ABCA4, targetFlags);
+                param4 = takeRandomTarget(connection.Owner(), cg::world::gBattleCurrentPosition5ABCA4, targetFlags);
             }
             auto target = checkAndGetTarget(cg::world::gBattleCurrentPosition5ABCA4, param4, targetFlags);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
@@ -294,7 +294,7 @@ static int SendBattleAction(lua_State* L)
             auto flg = (B_TARGET_FLAGS) (B_TARGET_IN_ENEMY | B_TARGET_SORO | B_TARGET_CHECK_WEAPON);
             if (param2 < 0) {
                 m_log_iw(L"B_ACTION_ATTACK takeRandomTarget %d target %d\n", attacker, param2);
-                param2 = takeRandomTarget(attacker, flg);
+                param2 = takeRandomTarget(connection.Owner(), attacker, flg);
             }
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", attacker, param2);
             auto target = checkAndGetTarget(attacker, param2, flg);
@@ -453,7 +453,7 @@ static void DoAutoBattle(session::ClientSession& session) {
         else session.Lua().autoBattlePanel.enabled = false;
     }
 }
-static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
+static int takeRandomTarget(session::ClientSession& session, int attacker, B_TARGET_FLAGS flags) {
     std::vector<int> list;
     int min = 10, max = 19;
     if (flags & B_TARGET_IN_FRIEND && !(flags & B_TARGET_IN_ENEMY)) {
@@ -469,9 +469,10 @@ static int takeRandomTarget(int attacker, B_TARGET_FLAGS flags) {
         return -1;
     }
     if (list.size() > 1) {
-        static std::minstd_rand rnd(std::random_device().operator()() ^ _getpid());
-        std::shuffle(list.begin(), list.end(), rnd);
-        std::shuffle(list.begin(), list.end(), rnd);
+        auto& rnd = session.Lua().autoBattleTargetRandom;
+        if (!rnd) rnd.emplace(std::random_device().operator()() ^ _getpid());
+        std::shuffle(list.begin(), list.end(), *rnd);
+        std::shuffle(list.begin(), list.end(), *rnd);
     }
     for (auto id: list) {
         m_log_iw(L"enemy %d %ls\n", id, cg::world::gBattleEntries59E980[id]->nameC4.c_str());
@@ -624,7 +625,8 @@ static int LuaCheckTarget(lua_State* L) {
 static int LuaBattleTime(lua_State* L) { Push(L, _time64(nullptr)); return 1; }
 static int LuaBattleLog(lua_State* L) { m_log_iw(L"[AutoBattle] %hs\n", luaL_checkstring(L, 1)); return 0; }
 static int LuaRandomTarget(lua_State* L) {
-    Push(L, takeRandomTarget(static_cast<int>(lua_tointeger(L, 1)), static_cast<B_TARGET_FLAGS>(lua_tointeger(L, 2)))); return 1;
+    Push(L, takeRandomTarget(GetLuaConnection(L).Owner(),
+        static_cast<int>(lua_tointeger(L, 1)), static_cast<B_TARGET_FLAGS>(lua_tointeger(L, 2)))); return 1;
 }
 static int LuaCheckedTarget(lua_State* L) {
     Push(L, checkAndGetTarget(static_cast<int>(lua_tointeger(L, 1)), static_cast<int>(lua_tointeger(L, 2)), static_cast<B_TARGET_FLAGS>(lua_tointeger(L, 3)))); return 1;

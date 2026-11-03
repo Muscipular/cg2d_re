@@ -2,6 +2,8 @@
 
 #include <array>
 #include <memory>
+#include <optional>
+#include <random>
 
 struct lua_State;
 
@@ -79,6 +81,7 @@ struct LuaSessionState {
     bool autoBattleRequireAction = false; // 收齐两条后等待采纳。
     bool autoBattleActionSetup = false; // 上轮动作可用于自动发送。
     autobattle_detail::AutoBattlePanelState autoBattlePanel {};
+    std::optional<std::minstd_rand> autoBattleTargetRandom; // 首次需洗牌时播种；Lua 重启不重置序列。
 };
 
 } // namespace cg::script

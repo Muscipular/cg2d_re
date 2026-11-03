@@ -435,7 +435,7 @@ static void PushBattleInfo(session::ClientSession& session, lua_State* L) {
     lua_newtable(L);
     lua_pushinteger(L, session.WorldScene().battle.turn);
     lua_setfield(L, -2, "battleTurn");
-    lua_pushinteger(L, cg::world::gBattleType5ABFC8);
+    lua_pushinteger(L, session.WorldScene().battle.battleType);
     lua_setfield(L, -2, "battleType");
     lua_pushinteger(L, session.WorldScene().battle.fieldFlags);
     lua_setfield(L, -2, "battleField");
@@ -703,7 +703,7 @@ void ShutdownAutoBattle() {
 // 实际Rg发送前记录手动动作；不占用N01的首匹配注册槽。
 void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::string_view packet) {
     if (!GetBattleLuaState(networkConnection.Owner()) || autobattle_detail::enableAutoBattle || !packet.starts_with("Rg ")) return;
-    switch (cg::world::gBattleType5ABFC8) { case 0: case 2: case 3: case 7: return; default: break; }
+    switch (networkConnection.Owner().WorldScene().battle.battleType) { case 0: case 2: case 3: case 7: return; default: break; }
     const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
     if (count < 0 || count >= 2) {
         m_log_iw(L"[AutoBattle] action slot out of range: %d\n", count);

@@ -2189,10 +2189,7 @@ std::uint32_t gMapAttachmentDrawCount_9A7F78 = 0; // 原全局：0x009A7F78。
 
 } // namespace detail
 
-std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0; // 原全局：0x0059F9E0。
-std::int32_t gBattleType5ABFC8 = 0; // 原全局：0x005ABFC8。
 std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
-std::uint32_t gBattleExitRequested_5ABB20 = 0xFFFFFFFFu; // 原全局：0x005ABB20。
 
 const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}; // 原全局：0x0054D93C。
 
@@ -4062,9 +4059,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             ++title;
         }
         const bool titleFound = title < static_cast<std::int32_t>(gSortedTitlesDE03F8.size());
-        gBattleAttributeEffectFlags59F9E0 = 0;
+        battleScene.attributeEffectFlags = 0;
         if (titleFound) {
-            gBattleAttributeEffectFlags59F9E0 = 5;
+            battleScene.attributeEffectFlags = 5;
         }
         if (gMapCharaSceneSlots.valueC8A73E != 0
             || static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0) {
@@ -4084,7 +4081,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         if (gMapResourceMode_9DAD68 == 1) {
             const std::int32_t image = battleScene.backgroundImage;
             const bool specialBackground = image >= 238607 && image <= 238618;
-            switch (gBattleType5ABFC8) {
+            switch (battleScene.battleType) {
             case 1:
             case 4:
                 static_cast<void>(cg::audio::LoadAndPlayBGM(specialBackground ? 34 : 25));
@@ -4103,7 +4100,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
                 break;
             }
         } else {
-            switch (gBattleType5ABFC8) {
+            switch (battleScene.battleType) {
             case 1:
             case 4:
                 static_cast<void>(cg::audio::LoadAndPlayBGM(13));
@@ -4303,7 +4300,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         break;
     case 7: {
         battleScene.activeEventMask = 0;
-        gBattleExitRequested_5ABB20 = 1;
+        battleScene.exitRequested = 1;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
         cg::yobi::ClearBattleAppendEffects_43BED0(session);
@@ -4347,7 +4344,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         return;
     }
     case 9: {
-        gBattleExitRequested_5ABB20 = 1;
+        battleScene.exitRequested = 1;
         battleScene.activeEventMask = 0;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
@@ -10043,7 +10040,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
     if (type > 0) {
         const bool modeTwo = type == 2;
         networkConnection.Owner().WorldScene().battle.entryPending = 1;
-        gBattleType5ABFC8 = type;
+        networkConnection.Owner().WorldScene().battle.battleType = type;
         if (modeTwo) {
             gBattleModeFlag5ABFCC = 1;
         } else {

@@ -56,10 +56,7 @@ void HandleBattleResultsReply_50D500(cg::network::CgConnection& networkConnectio
 extern std::int32_t gDpResultDelta_FF0D04; // 原全局：0x00FF0D04。 既有DP回复变化值，窗口31直接读取。
 extern std::int32_t gDpResultTotal_FF0D08; // 原全局：0x00FF0D08。 既有DP回复总量，与变化值分别采样。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
-extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 原全局：0x0059F9E0。 4209C0门禁；43CBB0按称号value生产0/5。
-extern std::int32_t gBattleType5ABFC8; // 原全局：0x005ABFC8。 50D120写完整S32类型。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。
-extern std::uint32_t gBattleExitRequested_5ABB20; // 原全局：0x005ABB20。 原W32初值FFFFFFFF，4383F0清零，418B50/43CBB0置1。
 extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全局：0x0054D93C。
 extern std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40; // 原全局：0x005A8A40。 仅映射439B30已消费位置，40F2B1同源读取。
 struct BattleNamedEffectRecord {

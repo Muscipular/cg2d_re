@@ -41,6 +41,9 @@ struct BattleSceneState {
     std::uint32_t exitNotificationPending = 0; // 原 0x5ABCB0。
     std::uint32_t entryPending = 0; // 原 0x5ABFC4，入战回复与世界场景共用。
     std::uint32_t firstTurnPending = 0; // 原 0x5ABC6C，首条 A 回复更新回合快照。
+    std::uint8_t attributeEffectFlags = 0; // 原 0x59F9E0，称号值决定属性效果门禁。
+    std::int32_t battleType = 0; // 原 0x5ABFC8，入战回复完整 S32 类型。
+    std::uint32_t exitRequested = 0xFFFFFFFFu; // 原 0x5ABB20，初值、初始化和退出动作共用。
     std::uint32_t endBits = 0; // 原 0x5ABBC0，A 回复中的角色结束位。
     std::uint32_t turn = 0; // 原 0x5ABB74，A 回复回合数。
     std::uint32_t turnSnapshot = 0; // 原 0x5ABC08，首包及事件分发回合快照。

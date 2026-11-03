@@ -3258,7 +3258,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
 void UpdateBattleAction256_418B50(YobiAction* const action)
 {
     action->ownerSession->WorldScene().battle.eventDispatchBusy = 0;
-    world::gBattleExitRequested_5ABB20 = 1;
+    action->ownerSession->WorldScene().battle.exitRequested = 1;
 }
 
 } // namespace detail

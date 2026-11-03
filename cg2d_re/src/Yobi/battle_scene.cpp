@@ -36,7 +36,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     std::int32_t source = -1;
     std::int32_t previousSource = -1;
     const std::int32_t sceneType = world::gCurrentSceneType;
-    const std::uint32_t exitRequested = cg::world::gBattleExitRequested_5ABB20;
+    const std::uint32_t exitRequested = battle.exitRequested;
     if (!(sceneType == 10
             && static_cast<std::uint32_t>(world::gCurrentSceneState) > 5U)
         && exitRequested != 1) {
@@ -297,7 +297,7 @@ void InitializeBattleScene_4383F0(session::ClientSession& session)
     cg::world::gBattleAllEntries59E980.fill(nullptr);
     battle.activeEventMask = 0;
     battle.pendingGroupCount = 0;
-    cg::world::gBattleExitRequested_5ABB20 = 0;
+    battle.exitRequested = 0;
     session.Yobi().screenOffsetRising = 0;
     session.Yobi().screenOffsetAmplitude = 0;
     session.Yobi().gateMode = YobiUpdateGatePolicy_FullRate;

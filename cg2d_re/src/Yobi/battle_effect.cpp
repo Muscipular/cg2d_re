@@ -1981,8 +1981,9 @@ std::uint8_t NewBattleAttributeEffects_4209C0(YobiAction* const source, YobiActi
     if ((static_cast<std::uint8_t>(targetPayload->stateFE0) & BattleRuntimeStateFlag_AttributeEffectsEligible) == 0) {
         return 0;
     }
-    const std::uint8_t flags = cg::world::gBattleAttributeEffectFlags59F9E0;
-    const std::int32_t battleType = cg::world::gBattleType5ABFC8;
+    const auto& battle = source->ownerSession->WorldScene().battle;
+    const std::uint8_t flags = battle.attributeEffectFlags;
+    const std::int32_t battleType = battle.battleType;
     if ((flags & BattleAttributeEffectPolicyFlag_OutsideTypes5And6) == 0 && battleType != 5 && battleType != 6) {
         return 0;
     }

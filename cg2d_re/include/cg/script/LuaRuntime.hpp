@@ -1,6 +1,7 @@
 #pragma once
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 #include <string_view>
 
 #include <cstdint>
@@ -9,7 +10,7 @@ namespace cg::network { class CgConnection; }
 namespace cg::script {
 
 // LUM01：仅主线程调用；在资源/UI准备后初始化，在资源销毁前关闭。
-bool InitializeLua();
+bool InitializeLua(session::ClientSession& session);
 void ShutdownLua();
 void UpdateLuaScene();
 void AddLuaMouseWheel(int delta);

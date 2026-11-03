@@ -10,8 +10,11 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/text/Encoding.hpp"
 
+namespace cg::network { class CgConnection; }
+
 namespace cg::script {
 
+cg::network::CgConnection& GetLuaConnection(lua_State* state);
 lua_State* GetLuaState();
 lua_State* GetBattleLuaState();
 bool IsLuaShuttingDown();

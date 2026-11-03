@@ -280,7 +280,7 @@ int InitializeClient_4576B0(session::ClientSession& session)
     render::gRenderQueueMode103CF10 = 1;
     login::detail::AppendSystemLog_44B5C0(L"initGame OK");
     static_cast<void>(ui::detail::WindowRuntime_Initialize());
-    return script::InitializeLua() ? 1 : 0;
+    return script::InitializeLua(session) ? 1 : 0;
 }
 
 } // namespace cg::platform

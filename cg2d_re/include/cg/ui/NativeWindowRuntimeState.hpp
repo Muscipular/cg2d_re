@@ -189,6 +189,15 @@ struct SkillRequestRuntimeState {
     std::wstring targetName {}; // 原0xD2F748。
 };
 
+// 技能、制作与采集在同一会话内共用，不拆为各窗口的独立副本。
+struct SkillOperationRuntimeState {
+    std::int32_t sendMode = 0; // 原0xC8A970。
+    std::uint8_t rebirthEnabled = 0; // 原0x5F9754，观察进入也会清零。
+    std::int32_t petImage = 0; // 原0xCB0A18。
+    std::uint64_t previewTick = 0; // 原0xCF46C8，辅助预览同源计时槽。
+    std::uint32_t extraDelay = 0; // 原0xCF46C4。
+};
+
 // JgO第三分支由连接生产，窗口13及其文本只借同一会话的数据。
 struct SkillResultRuntimeState {
     std::int32_t result = 0; // 原0xD66E2C。
@@ -337,6 +346,7 @@ struct NativeWindowRuntimeState {
     AttributeTargetWindowState attributeTarget {};
     SkillTargetRuntimeState skillTargets {};
     SkillRequestRuntimeState skillRequest {};
+    SkillOperationRuntimeState skillOperation {};
     SkillResultRuntimeState skillResult {};
     GatherWindowRuntimeState gather {};
     CraftWindowRuntimeState craft {};

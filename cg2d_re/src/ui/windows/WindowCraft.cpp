@@ -434,15 +434,16 @@ static void WindowCraft_SetWorkingAction(WindowInstance* const window, const boo
 // 五等待入口共有的倍率/通知/双tick尾；调用者在本函数返回后才发布模式。
 static WindowAnimationData* WindowCraft_FinishWait(session::ClientSession& session, WindowInstance* const window, std::uint32_t duration)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
-    const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
+    const std::uint8_t rebirthMode = skillOperation.rebirthEnabled;
     craft.deadline = duration;
     if (rebirthMode != 0) {
         const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
         craft.deadline = duration;
     }
-    if (gSkillSendModeC8A970 != 0) {
+    if (skillOperation.sendMode != 0) {
         const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
         duration = static_cast<std::uint32_t>(craft.deadline) * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
         craft.deadline = duration;
@@ -454,10 +455,10 @@ static WindowAnimationData* WindowCraft_FinishWait(session::ClientSession& sessi
     if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
     if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
     craft.displayImage = -1;
-    gSkillPreviewTickCF46C8 = platform::ReadTickCount64();
+    skillOperation.previewTick = platform::ReadTickCount64();
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    if (gSkillSendModeC8A970 != 0) {
+    if (skillOperation.sendMode != 0) {
         return WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
     }
     return WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
@@ -541,12 +542,13 @@ static void WindowCraft_PrepareMaterialElements(session::ClientSession& session,
 // 原函数：0x0047E1B0。
 static WindowAnimationData* WindowCraft_WaitCraft(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasRecipeCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
-        gSkillSendModeC8A970 = 1;
+        skillOperation.sendMode = 1;
     }
-    craft.petAssistActive = gSkillSendModeC8A970;
+    craft.petAssistActive = skillOperation.sendMode;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　...　作成中　..." /* 原常量参考：0x005865C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -578,18 +580,19 @@ static WindowAnimationData* WindowCraft_WaitCraft(session::ClientSession& sessio
 // 原函数：0x0047EF00。
 static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     std::int32_t skill;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
         skill = craft.skillIndex;
         if (world::gSkillsF1BAFC[skill].skillId != 220) {
-            gSkillSendModeC8A970 = 1;
+            skillOperation.sendMode = 1;
         }
     } else {
         skill = craft.skillIndex;
     }
-    const std::int32_t active = gSkillSendModeC8A970;
+    const std::int32_t active = skillOperation.sendMode;
     const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
     craft.petAssistActive = active;
     const wchar_t* hint = nullptr;
@@ -636,13 +639,14 @@ static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& ses
 // 原函数：0x004801B0。
 static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0
         && world::gSkillsF1BAFC[craft.skillIndex].skillId != 2026) {
-        gSkillSendModeC8A970 = 1;
+        skillOperation.sendMode = 1;
     }
-    craft.petAssistActive = gSkillSendModeC8A970;
+    craft.petAssistActive = skillOperation.sendMode;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　打包中　…" /* 原常量参考：0x00586830。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -674,12 +678,13 @@ static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& sess
 // 原函数：0x00480600。
 static void WindowCraft_WaitDecoration(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasMaterialCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
-        gSkillSendModeC8A970 = 1;
+        skillOperation.sendMode = 1;
     }
-    craft.petAssistActive = gSkillSendModeC8A970;
+    craft.petAssistActive = skillOperation.sendMode;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　装饰中　…" /* 原常量参考：0x00586848。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -710,12 +715,13 @@ static void WindowCraft_WaitDecoration(session::ClientSession& session, WindowIn
 // 原函数：0x00480C20。
 static WindowAnimationData* WindowCraft_WaitRefining(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasFirstMaterialCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
-        gSkillSendModeC8A970 = 1;
+        skillOperation.sendMode = 1;
     }
-    craft.petAssistActive = gSkillSendModeC8A970;
+    craft.petAssistActive = skillOperation.sendMode;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　精炼中　…" /* 原常量参考：0x005866C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -927,6 +933,7 @@ static WindowAnimationData* WindowCraft_InitializePacking(session::ClientSession
 // 原函数：0x00480A00。
 static WindowAnimationData* WindowCraft_InitializeRefining(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     WindowCraft_ResetMaterialMode(session);
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"精炼" /* 原常量参考：0x00586860。 */;
@@ -937,10 +944,10 @@ static WindowAnimationData* WindowCraft_InitializeRefining(session::ClientSessio
         }
     }
     WindowCraft_PrepareMaterialElements(session, window);
-    gSkillPreviewTickCF46C8 = platform::ReadTickCount64();
+    skillOperation.previewTick = platform::ReadTickCount64();
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    WindowAnimationData* const result = gSkillSendModeC8A970 != 0
+    WindowAnimationData* const result = skillOperation.sendMode != 0
         ? WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5)
         : WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
     craft.selectionMode = 9;
@@ -1419,6 +1426,7 @@ static std::int32_t WindowCraft_ReadFirstMaterialId(session::ClientSession& sess
 // 原函数：0x004881D0。
 static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session, const std::int32_t destination, const std::int32_t source)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     std::int32_t flags = 0;
     std::int32_t material = 5;
@@ -1448,7 +1456,7 @@ static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session
     if (item->count < requiredCount) {
         return;
     }
-    const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
+    const std::uint8_t crystal = skillOperation.rebirthEnabled;
     const std::int32_t level = item->level;
     if (level > WindowCraft_ReadRequiredSkillLevel(2026, crystal != 0 ? 1 : 0)) {
         return;
@@ -1569,6 +1577,7 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 // 原函数：0x00482270。
 static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1628,7 +1637,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 enabled = false;
             } else {
                 const std::int32_t level =
-                    world::gSkillsF1BAFC[skill].level + (gSkillRebirthModeEnabled_5F9754 != 0 ? 1 : 0);
+                    world::gSkillsF1BAFC[skill].level + (skillOperation.rebirthEnabled != 0 ? 1 : 0);
                 if (item->level > level) {
                     enabled = false;
                 }
@@ -1655,7 +1664,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 enabled = false;
             } else {
                 const std::int32_t currentSkill = craft.skillIndex;
-                const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
+                const std::uint8_t crystal = skillOperation.rebirthEnabled;
                 const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
                 const std::int32_t slot = craft.selectedItem;
                 if (world::gPlayerRuntimeSlots.items[slot].level > level + (crystal != 0 ? 1 : 0)) {
@@ -1793,10 +1802,10 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 }
                 cg::core::NullSub_509080();
                 std::int32_t offset = 0;
-                if (gSkillRebirthModeEnabled_5F9754 != 0) {
+                if (skillOperation.rebirthEnabled != 0) {
                     offset = 100;
-                } else if (gSkillSendModeC8A970 != 0) {
-                    gSkillPetImageCB0A18 = WindowSkill_ReadBattlePetImage();
+                } else if (skillOperation.sendMode != 0) {
+                    skillOperation.petImage = WindowSkill_ReadBattlePetImage();
                     offset = 200;
                 }
                 const std::int32_t request = std::bit_cast<std::int8_t>(craft.requestByte);
@@ -1954,6 +1963,7 @@ static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, cons
 // 原函数：0x00483150。
 static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2139,7 +2149,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                                 fail();
                                 return;
                             }
-                            const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
+                            const std::uint8_t crystal = skillOperation.rebirthEnabled;
                             const std::int32_t level = world::gSkillsF1BAFC[skill].level;
                             if (item->level > level + (crystal != 0 ? 1 : 0)) {
                                 world::AppendChatMessage_44B050(L"不可鉴定的物品", 4, 3);
@@ -2161,7 +2171,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                                     rejected = true;
                                 } else {
                                     const std::int32_t currentSkill = craft.skillIndex;
-                                    const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
+                                    const std::uint8_t crystal = skillOperation.rebirthEnabled;
                                     const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
                                     rejected = item->level > level + (crystal != 0 ? 1 : 0);
                                 }
@@ -2485,6 +2495,7 @@ static std::int32_t WindowCraft_DrawEmptyEngravingNotice(WindowInstance& callbac
 // 原函数：0x004847C0。
 static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2546,7 +2557,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                 world::AppendChatMessage_44B050(L"不需鉴定的物品", 4, 3);
             } else {
                 const std::int32_t level =
-                    world::gSkillsF1BAFC[skill].level + (gSkillRebirthModeEnabled_5F9754 != 0 ? 1 : 0);
+                    world::gSkillsF1BAFC[skill].level + (skillOperation.rebirthEnabled != 0 ? 1 : 0);
                 if (item->level > level) {
                     static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
                     world::AppendChatMessage_44B050(L"不可鉴定的物品", 4, 3);
@@ -2570,7 +2581,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                     rejected = true;
                 } else {
                     const std::int32_t currentSkill = craft.skillIndex;
-                    const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
+                    const std::uint8_t crystal = skillOperation.rebirthEnabled;
                     const std::int32_t skillLevel = world::gSkillsF1BAFC[currentSkill].level;
                     const std::int32_t slot = craft.selectedItem;
                     rejected = world::gPlayerRuntimeSlots.items[slot].level
@@ -2792,6 +2803,7 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel(session::ClientSess
 // 原函数：0x004810A0。
 static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2902,7 +2914,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             }
             break;
         case 1: case 4: case 7: case 10: case 13: case 16:
-            if (gSkillSendModeC8A970 != 0) {
+            if (skillOperation.sendMode != 0) {
                 const std::int32_t imageNo = WindowSkill_ReadBattlePetImage();
                 static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, imageNo));
             } else {
@@ -2916,7 +2928,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             [[fallthrough]];
         case 2:
             static_cast<void>(WindowCraft_SetPreviewImages(
-                currentWindow, 3, 5, gSkillSendModeC8A970 != 0 ? gSkillPetImageCB0A18 : 0));
+                currentWindow, 3, 5, skillOperation.sendMode != 0 ? skillOperation.petImage : 0));
             break;
         default:
             break;
@@ -2924,7 +2936,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     } else {
         static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, 0));
     }
-    if (gSkillSendModeC8A970 != 0) {
+    if (skillOperation.sendMode != 0) {
         const std::uint8_t mode = craft.selectionMode;
         if (mode == 1 || mode == 4 || mode == 7 || mode == 16 || mode == 10 || mode == 13) {
             if (petAvailable && craft.petAssistActive != 0) {
@@ -2944,10 +2956,10 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     // 三种参数合同在读取共享状态时才选取，不能把请求值预先截为同一宽度。
     const auto sendRequest = [&](const bool recipeRequest, const bool singleTarget) {
         std::int32_t offset = 0;
-        if (gSkillRebirthModeEnabled_5F9754 != 0) {
+        if (skillOperation.rebirthEnabled != 0) {
             offset = 100;
-        } else if (gSkillSendModeC8A970 != 0) {
-            gSkillPetImageCB0A18 = WindowSkill_ReadBattlePetImage();
+        } else if (skillOperation.sendMode != 0) {
+            skillOperation.petImage = WindowSkill_ReadBattlePetImage();
             offset = 200;
         }
         std::int32_t skill;
@@ -3317,6 +3329,7 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(WindowInstance& callbackWi
 // 原函数：0x0047E5E0。
 static WindowAnimationData* WindowCraft_ShowRecipeResult(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     craft.petAssistActive = 0;
     for (std::int32_t index = 0; index < 6; ++index) {
@@ -3415,7 +3428,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(session::ClientSession&
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* last;
-    if (gSkillSendModeC8A970 != 0) {
+    if (skillOperation.sendMode != 0) {
         last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, craft.result != 0 ? 6 : 8, 5);
     } else {
         last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
@@ -3555,6 +3568,7 @@ static std::int32_t WindowCraft_HandleItemTooltip(WindowInstance& callbackWindow
 // 原函数：0x0047F3D0。
 static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     const std::int32_t entryResult = craft.itemWorkResult;
     const std::int32_t selected = craft.selectedItem;
@@ -3668,7 +3682,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSessio
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* last;
-    if (gSkillSendModeC8A970 != 0) {
+    if (skillOperation.sendMode != 0) {
         last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, craft.itemWorkResult != 0 ? 6 : 8, 5);
     } else {
         last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
@@ -3746,15 +3760,16 @@ WindowAnimationData* WindowCraft_AnimatePreviewPositions(
     const std::int32_t first, const std::int32_t second, const std::uint64_t deadline)
 {
     if (!currentWindow) return nullptr;
+    auto& skillOperation = currentWindow->ownerSession->UiFrame().native.skillOperation;
     const std::uint64_t tick = platform::ReadTickCount64();
-    const std::uint64_t start = gSkillPreviewTickCF46C8;
+    const std::uint64_t start = skillOperation.previewTick;
     const std::int64_t interval = std::bit_cast<std::int64_t>(deadline - start) / 11;
     const std::int64_t phase = interval == 0 ? 0 : std::bit_cast<std::int64_t>(tick - start) / interval;
     if (static_cast<std::uint64_t>(phase) <= 10) {
         if ((phase & 1) == 0) {
             const std::int32_t index = static_cast<std::int32_t>(phase / 2);
             const std::int32_t next = index + 1 >= 6 ? 0 : index + 1;
-            const std::int64_t elapsed = std::bit_cast<std::int64_t>(tick - gSkillPreviewTickCF46C8);
+            const std::int64_t elapsed = std::bit_cast<std::int64_t>(tick - skillOperation.previewTick);
             const std::int64_t remainder = elapsed % interval;
             const auto& from = kSkillPreviewPoints57D7D0[index];
             const auto& to = kSkillPreviewPoints57D7D0[next];

@@ -253,8 +253,6 @@ WindowInputPrototype gMailInputPrototype57E740 { // 原全局：0x0057E740。
     22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
 };
 
-std::uint8_t gSkillRebirthModeEnabled_5F9754 = 0; // 原全局：0x005F9754。
-
 std::int32_t gChatScrollOffsetC9A940 = 0; // 原全局：0x00C9A940。
 
 std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
@@ -374,20 +372,12 @@ const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}
 
 cg::yobi::YobiAction* gPreviewActionD67B84 = nullptr; // 原全局：0x00D67B84。
 
-std::int32_t gSkillSendModeC8A970 = 0; // 原全局：0x00C8A970。
-
 std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {}; // 原全局：0x00CF4B78。
 
 // 原CF4FC4表情选择区；4BAA50的-1商品映射复用首字节。
 std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4 {};
 
 static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
-
-std::int32_t gSkillPetImageCB0A18 = 0; // 原全局：0x00CB0A18。
-
-std::uint64_t gSkillPreviewTickCF46C8 = 0; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
-
-std::uint32_t gSkillExtraDelayCF46C4 = 0; // 原全局：0x00CF46C4。
 
 std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
 
@@ -819,7 +809,7 @@ void WindowItemDrag_RemapHover(session::ClientSession& session, const std::int32
     WindowTrade_ResetSelection(first, second);
     WindowCraft_ResetSelection(session, first, second);
     WindowTrade_RemapTextListSelection(first, second);
-    WindowSkill_AdjustSpecialHoverCount(first, second);
+    WindowSkill_AdjustSpecialHoverCount(session, first, second);
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const unsigned char secondValue = hover[second];
     const unsigned char firstValue = hover[first];
@@ -3643,10 +3633,11 @@ void WindowRuntime_IncrementOperationCount(session::ClientSession& session)
 // 原函数：0x00479660。
 void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& operations = session.UiFrame().native.operations;
     const std::int32_t remainingCount = operations.count - 1;
     operations.count = remainingCount;
-    if (remainingCount != 0 || gSkillRebirthModeEnabled_5F9754 == 0) {
+    if (remainingCount != 0 || skillOperation.rebirthEnabled == 0) {
         return;
     }
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
@@ -3655,7 +3646,7 @@ void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     const std::uint8_t previous = occupancy[7];
     const auto next = static_cast<std::uint8_t>(previous - 1);
-    gSkillRebirthModeEnabled_5F9754 = 0;
+    skillOperation.rebirthEnabled = 0;
     occupancy[7] = next;
     WindowSkill_SyncStates(session);
 }
@@ -4580,14 +4571,15 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
 // 原函数：0x00504120。
 std::int32_t WindowRuntime_Render(session::ClientSession& session)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     using namespace detail;
-    if (gSkillRebirthModeEnabled_5F9754 != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
+    if (skillOperation.rebirthEnabled != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(session.Connection().SendWorldActionRequest(x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
-        gSkillRebirthModeEnabled_5F9754 = 0;
+        skillOperation.rebirthEnabled = 0;
         occupancy[7] = decreased;
         WindowSkill_SyncStates(session);
     }
@@ -4904,9 +4896,10 @@ std::uint8_t WindowRuntime_ReadUiGate() noexcept
     return detail::gOwnStallOpenForBusiness_D67BE0;
 }
 
-std::uint8_t WindowRuntime_ReadObservationFlag() noexcept
+std::uint8_t WindowRuntime_ReadObservationFlag(session::ClientSession& session) noexcept
 {
-    return detail::gSkillRebirthModeEnabled_5F9754;
+    auto& skillOperation = session.UiFrame().native.skillOperation;
+    return skillOperation.rebirthEnabled;
 }
 
 // 原数据：0x00584DA4。
@@ -4978,6 +4971,7 @@ void WindowRuntime_Close(WindowInstance* const window)
 // 原函数：0x00472190。
 std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     using namespace detail;
     auto& windows = WindowRuntime_Windows(session);
     for (std::size_t index = 0; index < windows.size(); ++index) {
@@ -4988,7 +4982,7 @@ std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
         }
     }
     world::gInventorySlotUseCounts_D67B08.fill(0);
-    if (gSkillRebirthModeEnabled_5F9754 == 0) {
+    if (skillOperation.rebirthEnabled == 0) {
         return 0;
     }
     const std::int32_t y =
@@ -4997,7 +4991,7 @@ std::int32_t WindowRuntime_CloseAll(session::ClientSession& session)
         static_cast<std::int32_t>(world::gPlayerX);
     const auto networkSession = session.Connection().CaptureSession();
     const auto result = session.Connection().SendWorldActionRequest(x, y, 62);
-    gSkillRebirthModeEnabled_5F9754 = 0;
+    skillOperation.rebirthEnabled = 0;
     return static_cast<std::int32_t>(result);
 }
 
@@ -5266,12 +5260,13 @@ void WindowRuntime_DrawCurrent(WindowInstance& target)
 }
 
 // 原代码位置：0x00440ADB。
-void WindowRuntime_ApplyObservationInputGate()
+void WindowRuntime_ApplyObservationInputGate(session::ClientSession& session)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto* const bytes = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
-    if (detail::gSkillRebirthModeEnabled_5F9754 != 0) {
+    if (skillOperation.rebirthEnabled != 0) {
         const unsigned char previous = bytes[7];
-        detail::gSkillRebirthModeEnabled_5F9754 = 0;
+        skillOperation.rebirthEnabled = 0;
         bytes[7] = static_cast<unsigned char>(previous - 1);
     }
     for (std::size_t index = 0; index < 8; ++index) {

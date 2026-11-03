@@ -3453,6 +3453,7 @@ void OpenPendingBattleResultWindow_504A50(session::ClientSession& session)
 // 原[51C7D0,51D447)完整22状态；共享尾保持原同帧跳转，见场景明细normal-scene-complete。
 void DrawNormalScene_51C7D0(session::ClientSession& session)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& worldScene = session.WorldScene();
     switch (gCurrentSceneState) {
     case 0:
@@ -3490,7 +3491,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gPendingGraphicCount = 0;
         platform::gPendingGraphicCount2 = 0;
         static_cast<void>(render::ResetGraphicCache_456D30());
-        ui::detail::gSkillRebirthModeEnabled_5F9754 = 0;
+        skillOperation.rebirthEnabled = 0;
         ResetMapDrawCacheCounts_46BD40();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
@@ -8589,7 +8590,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
 }
 
 // 原函数：0x0050BCD0。
-void HandleWorldActorActionsReply_50BCD0(cg::network::CgConnection&, const char* const payload)
+void HandleWorldActorActionsReply_50BCD0(cg::network::CgConnection& networkConnection, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
@@ -8614,7 +8615,7 @@ void HandleWorldActorActionsReply_50BCD0(cg::network::CgConnection&, const char*
         const std::int32_t y = network::ParseDelimitedInteger_52CFA0(row, '|', 3);
         const std::int32_t characterAction = network::ParseDelimitedInteger_52CFA0(row, '|', 4);
         const std::int32_t direction = network::ParseDelimitedInteger_52CFA0(row, '|', 5);
-        if (cg::yobi::HandleMapObservationActionReply_440920(objectIndex, x, y, direction, characterAction, row) != 0) {
+        if (cg::yobi::HandleMapObservationActionReply_440920(networkConnection.Owner(), objectIndex, x, y, direction, characterAction, row) != 0) {
             continue;
         }
         const std::int32_t option1 = network::ParseDelimitedInteger_52CFA0(row, '|', 6);
@@ -9232,7 +9233,7 @@ void HandlePlayerSkillsReply_509EB0(cg::network::CgConnection& networkConnection
             record.fpReduce = fpReduce;
             record.sequence = sequence;
             if (canRebirth == 1) {
-                const std::uint8_t flag = ui::WindowRuntime_ReadObservationFlag();
+                const std::uint8_t flag = ui::WindowRuntime_ReadObservationFlag(networkConnection.Owner());
                 const auto networkSession = networkConnection.CaptureSession();
                 const std::int32_t value = index + (flag != 0 ? 100 : 0);
                 static_cast<void>(networkConnection.SendSkillRebirthSelection(value));
@@ -9292,13 +9293,13 @@ void HandlePlayerSkillTechniquesReply_50A120(cg::network::CgConnection&, const s
 }
 
 // 原函数：0x0050C580。
-void HandleSkillRecipesReply_50C580(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
+void HandleSkillRecipesReply_50C580(cg::network::CgConnection& networkConnection, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= kSkillSlotCount) {
         return;
     }
     SkillRuntimeRecord& record = gSkillsF1BAFC[index];
-    record.rebirthState4C48 = std::bit_cast<std::int8_t>(ui::WindowRuntime_ReadObservationFlag());
+    record.rebirthState4C48 = std::bit_cast<std::int8_t>(ui::WindowRuntime_ReadObservationFlag(networkConnection.Owner()));
     char name[256];
     char description[256];
     std::int32_t field = 1;

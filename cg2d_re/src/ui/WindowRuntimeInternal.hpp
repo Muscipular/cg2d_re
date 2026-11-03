@@ -294,12 +294,6 @@ extern std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78; // 原全局：0x0
 // 原CF4FC4表情选择区；4BAA50的-1商品映射复用首字节。
 extern std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4;
 
-extern std::int32_t gSkillPetImageCB0A18; // 原全局：0x00CB0A18。
-
-extern std::uint64_t gSkillPreviewTickCF46C8; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
-
-extern std::uint32_t gSkillExtraDelayCF46C4; // 原全局：0x00CF46C4。
-
 extern std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。
 
 extern MiniMailComposeState gMiniMailCompose105F508; // 原全局：0x0105F508。

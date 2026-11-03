@@ -1006,6 +1006,7 @@ void SetYobiMapOffsetY(YobiAction* const action, const std::int32_t value) noexc
 
 // 原函数：0x00440920。
 std::int32_t HandleMapObservationActionReply_440920(
+    session::ClientSession& session,
     const std::int32_t objectIndex, const std::int32_t x, const std::int32_t y,
     [[maybe_unused]] const std::int32_t unusedDirection,
     const std::int32_t characterAction, const char* const row)
@@ -1052,10 +1053,10 @@ std::int32_t HandleMapObservationActionReply_440920(
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
             if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
-                ui::WindowRuntime_CloseByCategory(3);
+                ui::WindowRuntime_CloseByCategory(session, 3);
                 world::gCurrentDialogType_581800 = -1;
                 world::SuspendPlayerForObservation_51BEE0();
-                ui::WindowRuntime_ApplyObservationInputGate();
+                ui::WindowRuntime_ApplyObservationInputGate(session);
             } else {
                 world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));
             }

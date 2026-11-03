@@ -320,9 +320,10 @@ WindowPrototype gWindowPrototypeSkill {0, 4, 25, 122, 241, 258, 0x80010101u, 30,
 // 窗口函数实现。
 
 // 原函数：0x004797C0。
-void WindowSkill_AdjustSpecialHoverCount(const std::int32_t first, const std::int32_t second)
+void WindowSkill_AdjustSpecialHoverCount(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
-    if (gSkillRebirthModeEnabled_5F9754 == 0) {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
+    if (skillOperation.rebirthEnabled == 0) {
         return;
     }
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
@@ -469,6 +470,7 @@ static std::int32_t WindowSkill_MatchesCrystalLevel(session::ClientSession& sess
 // 原函数：0x004872E0。
 static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& operations = session.UiFrame().native.operations;
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
@@ -491,22 +493,22 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
     if (index == -2) {
         return 1;
     }
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     if (WindowSkill_CanUseSpecialSkill() != 0 && WindowSkill_MatchesCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
-        gSkillSendModeC8A970 = 1;
-        gSkillPetImageCB0A18 = WindowSkill_ReadBattlePetImage();
+        skillOperation.sendMode = 1;
+        skillOperation.petImage = WindowSkill_ReadBattlePetImage();
     }
     if (request.targetKind <= 1) {
-        gSkillSendModeC8A970 = 0;
+        skillOperation.sendMode = 0;
     }
     char extra[256];
     extra[0] = '\0';
     request.targetName = targets.attributeNames[index];
     // 原509080只有ret；后续三分支均发送此空串，但不清局部其余字节。
     std::int32_t offset = 0;
-    if (gSkillRebirthModeEnabled_5F9754 != 0) {
+    if (skillOperation.rebirthEnabled != 0) {
         offset = 100;
-    } else if (gSkillSendModeC8A970 != 0) {
+    } else if (skillOperation.sendMode != 0) {
         offset = 200;
     }
     const std::int32_t target = targets.targetIndices[index];
@@ -520,11 +522,12 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
 // 原函数：0x004874B0。
 static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSession& session)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& operations = session.UiFrame().native.operations;
     auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t count = targets.attributeCount;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     for (std::int32_t index = 0; index < count; ++index) {
         auto& view = targets.attributeViews[index];
         const std::int32_t level = targets.levels[index];
@@ -1720,6 +1723,7 @@ std::int32_t WindowSkill_Back(session::ClientSession& session)
 // 原函数：0x0047B210。
 static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1739,7 +1743,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             return 0;
         }
-        const std::uint8_t rebirth = gSkillRebirthModeEnabled_5F9754;
+        const std::uint8_t rebirth = skillOperation.rebirthEnabled;
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = rebirth != 0
@@ -1756,7 +1760,7 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
             static_cast<void>(session.Connection().SendWorldActionRequest(x, y, rebirth != 0 ? 62 : 61));
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             const std::uint8_t previous = occupancy[7];
-            gSkillRebirthModeEnabled_5F9754 = rebirth != 0 ? 0 : 1;
+            skillOperation.rebirthEnabled = rebirth != 0 ? 0 : 1;
             occupancy[7] = static_cast<std::uint8_t>(previous + (rebirth != 0 ? -1 : 1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -2290,6 +2294,7 @@ static void WindowSkill_ShowRecipes(session::ClientSession& session, WindowInsta
 // 原函数：0x0047C3A0。
 static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -2299,7 +2304,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t recipe = skillState.scroll + index - 17;
     const auto* const record = &world::gSkillsF1BAFC[skillState.index];
-    const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
+    const std::uint8_t rebirthMode = skillOperation.rebirthEnabled;
     if ((record->rebirthState4C48 != 0) != (rebirthMode != 0)
         || record->recipes8E8[recipe].itemId < 0) {
         return 0;
@@ -2356,6 +2361,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
 // 原函数：0x0047BC00。
 static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
@@ -2479,7 +2485,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                     const std::int32_t skill = skillState.index;
                     operations.skillCount = static_cast<std::uint8_t>(previous + 1);
                     const std::int32_t rebirth = world::gSkillsF1BAFC[skill].rebirthState4C48;
-                    const bool enabled = gSkillRebirthModeEnabled_5F9754 != 0;
+                    const bool enabled = skillOperation.rebirthEnabled != 0;
                     if ((rebirth != 0) != enabled) {
                         static_cast<void>(session.Connection().SendSkillRebirthSelection(skill + (enabled ? 100 : 0)));
                     }
@@ -2497,7 +2503,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         fail();
                         return;
                     }
-                    const std::uint8_t rebirth = gSkillRebirthModeEnabled_5F9754;
+                    const std::uint8_t rebirth = skillOperation.rebirthEnabled;
                     const std::int32_t skill = skillState.index;
                     const auto networkSession = session.Connection().CaptureSession();
                     static_cast<void>(session.Connection().SendSkillUseRequest(skill + (rebirth != 0 ? 100 : 0), technique, -1, L""));
@@ -2527,13 +2533,14 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
 // 原函数：0x0047A140。
 void WindowSkill_SyncStates(session::ClientSession& session)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& skillState = session.UiFrame().native.skill;
     if (WindowRuntime_States(session)[WindowId_Skill].window == nullptr || skillState.mode != 2) {
         return;
     }
     const std::int32_t index = skillState.index;
     const std::int32_t rebirth = world::gSkillsF1BAFC[index].rebirthState4C48;
-    const bool enabled = gSkillRebirthModeEnabled_5F9754 != 0;
+    const bool enabled = skillOperation.rebirthEnabled != 0;
     if ((rebirth != 0) != enabled) {
         static_cast<void>(session.Connection().SendSkillRebirthSelection(index + (enabled ? 100 : 0)));
     }
@@ -2542,6 +2549,7 @@ void WindowSkill_SyncStates(session::ClientSession& session)
 // 原函数：0x00487020。
 static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session, const std::int32_t index, const wchar_t* const text)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& operations = session.UiFrame().native.operations;
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
@@ -2566,18 +2574,18 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
             targets.pending = 1;
             return 0;
         }
-        gSkillSendModeC8A970 = 0;
+        skillOperation.sendMode = 0;
         char extra[256];
         extra[0] = '\0';
         request.targetName = text;
         // 原509080只有ret；保留调用前的文本和状态写入，不伪造文本生产。
         std::int32_t skill;
         std::int32_t level;
-        if (gSkillRebirthModeEnabled_5F9754 != 0) {
+        if (skillOperation.rebirthEnabled != 0) {
             skill = request.index;
             level = request.level;
             skill += 100;
-        } else if (gSkillSendModeC8A970 != 0) {
+        } else if (skillOperation.sendMode != 0) {
             skill = request.index;
             level = request.level;
             skill += 200;
@@ -2594,11 +2602,12 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
 // 原函数：0x004871B0。
 static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession& session)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& operations = session.UiFrame().native.operations;
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     for (std::int32_t index = 0; index < 10; ++index) {
         const std::int32_t kind = targets.kinds[index];
         targets.nameViews[index] = targets.names[index].data();

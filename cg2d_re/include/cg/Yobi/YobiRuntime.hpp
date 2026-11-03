@@ -348,6 +348,7 @@ void ResetObservationGroupList_43F220(session::ClientSession& session);
 void* ClearObservationGroups_43F230(session::ClientSession& session);
 // 原440920：只拦截动作81/82；未使用方向仍保留，返回完整0/1。
 std::int32_t HandleMapObservationActionReply_440920(
+    session::ClientSession& session,
     std::int32_t objectIndex, std::int32_t x, std::int32_t y,
     std::int32_t unusedDirection, std::int32_t characterAction, const char* row);
 // 原 440F50：按玩家对象号发布五槽源表；非空返回为子指针区起点。

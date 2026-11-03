@@ -160,7 +160,7 @@ WindowInstance* WindowOwnStall_RequestClose(); // 原窗口67，同上；不直�
 // 原函数：0x004AFF00。
 std::int32_t WindowGuildDetails_RequestClose(); // 借用窗口48置关闭标记，空返回0，否则透传音效结果。
 std::uint8_t WindowRuntime_ReadUiGate() noexcept; // 共享UI门禁W8，world只读。
-std::uint8_t WindowRuntime_ReadObservationFlag() noexcept; // 技能回复与观察进入共用的UI标志。
+std::uint8_t WindowRuntime_ReadObservationFlag(session::ClientSession& session) noexcept; // 技能回复与观察进入共用的UI标志。
 // 原数据：0x00584DA4。
 std::int32_t WindowItemDrag_ReadIndex() noexcept; // 原S32拖动编号，初值-1。
 // 原函数：0x004A80E0。
@@ -185,7 +185,7 @@ void WindowRuntime_CloseByCategory(session::ClientSession& session, std::uint32_
 // 原函数：0x00476410。
 void WindowDrag_Cancel(session::ClientSession& session); // 回调后重读阶段，最后进入2或6，不等同通用重置。
 // 原代码位置：0x00440ADB。
-void WindowRuntime_ApplyObservationInputGate(); // 同源5F9754及D67B08前八个U8的观察进入写序。
+void WindowRuntime_ApplyObservationInputGate(session::ClientSession& session); // 同源5F9754及D67B08前八个U8的观察进入写序。
 // 原CRT 553098入口仅尾跳既有初始化，无退出登记。
 // 原函数：0x00477160。
 void WindowNumber_InitializeLegacySpacing();

@@ -262,6 +262,7 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(session::ClientSessi
 // 原函数：0x00487AE0。
 static std::int32_t WindowSkillResult_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
@@ -280,8 +281,8 @@ static std::int32_t WindowSkillResult_Update(WindowInstance& callbackWindow, con
         cg::yobi::SetYobiActionField2B8(
             element32->data.animation->action, cg::yobi::YobiDirection_Down);
     }
-    if (gSkillSendModeC8A970 != 0) {
-        static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, gSkillPetImageCB0A18));
+    if (skillOperation.sendMode != 0) {
+        static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, skillOperation.petImage));
     } else {
         static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, 0));
     }

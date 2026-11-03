@@ -110,6 +110,7 @@ WindowPrototype gWindowPrototypeGather {0, 4, 383, 118, 198, 232, 0x80010101u, 1
 // 原函数：0x004854A0。
 cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const std::int32_t skill, const std::int32_t level)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& operations = session.UiFrame().native.operations;
     auto& gather = session.UiFrame().native.gather;
     const auto skillByte = static_cast<std::uint8_t>(skill);
@@ -117,7 +118,7 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
     gather.skillLevel = static_cast<std::uint8_t>(level);
     const std::int32_t skillId =
         world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(skillByte)].skillId;
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     gather.extra = 0;
     switch (skillId) {
         case 225:
@@ -142,7 +143,7 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    gSkillExtraDelayCF46C4 = 2000;
+    skillOperation.extraDelay = 2000;
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
@@ -211,6 +212,7 @@ static void WindowGather_Release(WindowInstance& releasedWindow)
 // 原函数：0x00485700。
 static WindowAnimationData* WindowGather_Cancel(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& gather = session.UiFrame().native.gather;
     const std::uint8_t mode = gather.mode;
     if (mode != 0 && mode != 3 && mode != 4) {
@@ -235,7 +237,7 @@ static WindowAnimationData* WindowGather_Cancel(session::ClientSession& session,
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const data = WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, 0, 5);
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     gather.extra = 0;
     return data;
 }
@@ -243,17 +245,18 @@ static WindowAnimationData* WindowGather_Cancel(session::ClientSession& session,
 // 原函数：0x00485890。
 static WindowAnimationData* WindowGather_InitializeAction(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& gather = session.UiFrame().native.gather;
     if (gather.mode != 1) {
         WindowRuntime_IncrementGatherOperationCount(session);
     }
     const std::int32_t previousValue = gather.extra;
     gather.mode = 1;
-    gSkillSendModeC8A970 = 0;
+    skillOperation.sendMode = 0;
     if (previousValue > 0) {
         const std::int32_t imageNo = gather.petImage;
-        gSkillSendModeC8A970 = 1;
-        gSkillPetImageCB0A18 = imageNo;
+        skillOperation.sendMode = 1;
+        skillOperation.petImage = imageNo;
     }
     for (std::int32_t index = 4; index <= 7; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -275,24 +278,24 @@ static WindowAnimationData* WindowGather_InitializeAction(session::ClientSession
     gather.resultImage = -1;
     gather.flag = 0;
     const std::uint64_t tick = platform::ReadTickCount64();
-    std::uint32_t duration = gSkillExtraDelayCF46C4 + 4500u;
+    std::uint32_t duration = skillOperation.extraDelay + 4500u;
     gather.tick = tick;
-    const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
+    const std::uint8_t rebirthMode = skillOperation.rebirthEnabled;
     gather.deadline = duration;
     if (rebirthMode != 0) {
         const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
         gather.deadline = duration;
     }
-    if (gSkillSendModeC8A970 != 0) {
+    if (skillOperation.sendMode != 0) {
         duration = duration * kSkillCrystalRates57D7B4[gather.crystalLevel] / 100u;
     }
     const std::uint64_t deadline = duration + tick;
-    gSkillPreviewTickCF46C8 = tick;
+    skillOperation.previewTick = tick;
     gather.deadline = deadline;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    if (gSkillSendModeC8A970 != 0) {
+    if (skillOperation.sendMode != 0) {
         return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, 0, 5);
     }
     return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 0, 10, 5);
@@ -301,6 +304,7 @@ static WindowAnimationData* WindowGather_InitializeAction(session::ClientSession
 // 原函数：0x00485AF0。
 static WindowAnimationData* WindowGather_ShowResult(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& gather = session.UiFrame().native.gather;
     std::uint8_t mode = gather.mode;
     if (mode != 0 && mode != 3 && mode != 4) {
@@ -383,10 +387,10 @@ static WindowAnimationData* WindowGather_ShowResult(session::ClientSession& sess
     gather.flag = 0;
     const std::uint64_t tick = platform::ReadTickCount64();
     gather.tick = tick;
-    gSkillPreviewTickCF46C8 = tick;
+    skillOperation.previewTick = tick;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
-    if (gSkillSendModeC8A970 != 0) {
+    if (skillOperation.sendMode != 0) {
         return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, gather.result != 0 ? 6 : 8, 5);
     }
     return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 0, 10, 5);
@@ -460,6 +464,7 @@ WindowAnimationData* WindowGather_ReceiveResult(session::ClientSession& session,
 // 原函数：0x00486040。
 static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& skillOperation = callbackWindow.ownerSession->UiFrame().native.skillOperation;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     auto& session = *callbackWindow.ownerSession;
     auto& gather = session.UiFrame().native.gather;
@@ -487,8 +492,8 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
             element32->data.animation->action, cg::yobi::YobiDirection_Down);
     }
     std::uint8_t mode;
-    if (gSkillSendModeC8A970 != 0) {
-        const std::int32_t imageNo = WindowSkill_CanUseSpecialSkill() != 0 ? gSkillPetImageCB0A18 : 0;
+    if (skillOperation.sendMode != 0) {
+        const std::int32_t imageNo = WindowSkill_CanUseSpecialSkill() != 0 ? skillOperation.petImage : 0;
         static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, imageNo));
         mode = gather.mode;
         if (mode == 1) {
@@ -602,8 +607,8 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
         }
         const std::uint64_t tick = platform::ReadTickCount64();
         if (gather.deadline < tick) {
-            const std::uint8_t sendMode = gSkillRebirthModeEnabled_5F9754;
-            gSkillExtraDelayCF46C4 = 0;
+            const std::uint8_t sendMode = skillOperation.rebirthEnabled;
+            skillOperation.extraDelay = 0;
             std::int32_t skill;
             std::int32_t level;
             if (sendMode != 0) {
@@ -611,7 +616,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                 skill = std::bit_cast<std::int8_t>(gather.skillIndex) + 100;
             } else {
                 level = std::bit_cast<std::int8_t>(gather.skillLevel);
-                static_cast<void>(gSkillSendModeC8A970); // 原cmp未被后续分支消费，没有+200。
+                static_cast<void>(skillOperation.sendMode); // 原cmp未被后续分支消费，没有+200。
                 skill = std::bit_cast<std::int8_t>(gather.skillIndex);
             }
             static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill, level, -1, L""));

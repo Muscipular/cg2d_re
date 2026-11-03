@@ -806,8 +806,6 @@ extern void* gFocusedElementDataD45F94; // 原全局：0x00D45F94。 原异型�
 extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
-extern std::uint8_t gSkillRebirthModeEnabled_5F9754; // 原全局：0x005F9754。 原多窗口/物品UI共享字节，观察进入可能清零。
-extern std::int32_t gSkillSendModeC8A970; // 原全局：0x00C8A970。
 extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相对共享写指针的回看条数。
 
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
@@ -973,7 +971,7 @@ cg::yobi::YobiAction* WindowTextList_Open(
 // 原函数：0x004AD470。
 void WindowTextList_ContinueDialog(const char* text); // 同类对话续接，唯一caller不消费原混合返回。
 // 原函数：0x004797C0。
-void WindowSkill_AdjustSpecialHoverCount(std::int32_t first, std::int32_t second); // 槽7特殊悬停计数，两条件独立。
+void WindowSkill_AdjustSpecialHoverCount(session::ClientSession& session, std::int32_t first, std::int32_t second); // 槽7特殊悬停计数，两条件独立。
 // 原函数：0x004F4630。
 std::int32_t WindowCraft_CountRecipeMaterial(session::ClientSession& session, std::int32_t itemId); // 当前配方五材料首匹配数量，不读used。
 

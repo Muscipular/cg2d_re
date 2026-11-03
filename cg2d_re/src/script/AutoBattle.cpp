@@ -449,7 +449,7 @@ static bool EmitAutoBattle(session::ClientSession& session) {
 
 static void DoAutoBattle(session::ClientSession& session) {
     if (world::gCurrentSceneType == SCENE_BATTLE && world::gCurrentSceneState == 4) {
-        if (session.Lua().autoBattleActionSetup && EmitAutoBattle(session)) ui::detail::WindowBattleCommand_FinishAutoAction();
+        if (session.Lua().autoBattleActionSetup && EmitAutoBattle(session)) ui::detail::WindowBattleCommand_FinishAutoAction(session);
         else session.Lua().autoBattlePanel.enabled = false;
     }
 }

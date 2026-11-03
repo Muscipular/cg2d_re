@@ -355,7 +355,7 @@ namespace detail {
 
 // L05：扩展自动战斗面板复用原生元素鼠标分派；当前窗口由统一调度设置。
 void WindowRuntime_UpdateExtendedElements();
-void WindowBattleCommand_FinishAutoAction();
+void WindowBattleCommand_FinishAutoAction(session::ClientSession& session);
 
 // G07：创建窗口时预留页按钮；载荷沿原type1分配／释放，原控件地址不变。
 std::int32_t WindowInventory_GetPageElementCount(std::int32_t windowId);
@@ -389,32 +389,30 @@ extern input::InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗
 
 // 窗口45/46选择回调：非零返回允许关闭，文本只借用；释放通知index=-1。
 using WindowTextChoiceCallback = std::int32_t (*)(std::int32_t index, const wchar_t* text); // text借用宽文本名称，取消／关闭时可为nullptr。
-// CC4230原回调实际接收技能和等级两个S32，47C7B2/47C7B3压栈，返回不用。
-using SkillWindowSelectionCallback = void (*)(std::int32_t skillIndex, std::int32_t technique);
 // 原函数：0x0047A140。
 void WindowSkill_SyncStates(); // 窗口10模式2的技能状态差异请求，原返回无人消费。
 // 原函数：0x0047A490。
-cg::yobi::YobiAction* WindowSkill_Open(); // 清选择回调并创建普通技能窗。
+cg::yobi::YobiAction* WindowSkill_Open(session::ClientSession& session); // 清选择回调并创建普通技能窗。
 // 原函数：0x0047A4C0。
-cg::yobi::YobiAction* WindowSkill_OpenBattleSkills(SkillWindowSelectionCallback callback); // 设置回调并创建战斗列表窗。
+cg::yobi::YobiAction* WindowSkill_OpenBattleSkills(session::ClientSession& session, SkillWindowSelectionCallback callback); // 设置回调并创建战斗列表窗。
 // 原函数：0x0047A500。
-cg::yobi::YobiAction* WindowSkill_OpenBattleTechniques(std::int32_t skillIndex, SkillWindowSelectionCallback callback); // 战斗技术窗。
+cg::yobi::YobiAction* WindowSkill_OpenBattleTechniques(session::ClientSession& session, std::int32_t skillIndex, SkillWindowSelectionCallback callback); // 战斗技术窗。
 // 原函数：0x0047A540。
-cg::yobi::YobiAction* WindowSkill_OpenPetSkills(WindowValueCallback callback); // 设置CC4D14并创建宠物技能窗。
+cg::yobi::YobiAction* WindowSkill_OpenPetSkills(session::ClientSession& session, PetSkillSelectionCallback callback); // 设置CC4D14并创建宠物技能窗。
 // 原函数：0x0047A580。
-cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(WindowValueCallback callback); // 设置CC4D14并创建骑乘技能窗。
+cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(session::ClientSession& session, PetSkillSelectionCallback callback); // 设置CC4D14并创建骑乘技能窗。
 // 原函数：0x00497000。
-void WindowBattleCommand_OpenSkills(); // 战斗技能快捷入口，保留actionFlags低S8门槛；原返回不用。
+void WindowBattleCommand_OpenSkills(session::ClientSession& session); // 战斗技能快捷入口，保留actionFlags低S8门槛；原返回不用。
 // 原函数：0x00496FB0。
-std::int32_t WindowBattleCommand_CanSelectSkill(); // 技能可用性：门禁失败/已选返回0，否则-1。
+std::int32_t WindowBattleCommand_CanSelectSkill(session::ClientSession& session); // 技能可用性：门禁失败/已选返回0，否则-1。
 // 原函数：0x004970B0。
-std::int32_t WindowBattleCommand_CanSelectItem(); // 同一门禁，读取物品选择槽3。
+std::int32_t WindowBattleCommand_CanSelectItem(session::ClientSession& session); // 同一门禁，读取物品选择槽3。
 // 原函数：0x00497100。
-void WindowBattleCommand_OpenItems(); // 物品快捷入口，清目标待选状态并打开27。
+void WindowBattleCommand_OpenItems(session::ClientSession& session); // 物品快捷入口，清目标待选状态并打开27。
 // 原函数：0x004971C0。
-std::int32_t WindowBattleCommand_CanSelectPet(); // 同一门禁，读取宠物选择槽4。
+std::int32_t WindowBattleCommand_CanSelectPet(session::ClientSession& session); // 同一门禁，读取宠物选择槽4。
 // 原函数：0x00497210。
-void WindowBattleCommand_OpenPets(); // 宠物快捷入口，打开28，不清物品待选状态。
+void WindowBattleCommand_OpenPets(session::ClientSession& session); // 宠物快捷入口，打开28，不清物品待选状态。
 // 原函数：0x004708A0。
 std::int32_t WindowStatusBar_ButtonEmote(ElementId elementId, std::int32_t state); // 窗口34存在时更新图形，点击开关。
 // 原函数：0x00470910。
@@ -433,7 +431,7 @@ void WindowBattleCommand_SnapshotPetVitals(); // 五宠物四项CryptInt快照�
 // 原函数：0x004965D0。
 void WindowBattleCommand_SyncActorVitals(); // 战斗对象四值更新，保留独立5ABBFC及原空值门禁。
 // 原函数：0x0047A5C0。
-std::int32_t WindowSkill_Back(); // 战斗返回：模式4退列表，0/3/5/6关闭。
+std::int32_t WindowSkill_Back(session::ClientSession& session); // 战斗返回：模式4退列表，0/3/5/6关闭。
 // 原函数：0x00479650。
 void WindowRuntime_IncrementOperationCount(); // 原窗口操作S32计数加1。
 // 原函数：0x00479660。

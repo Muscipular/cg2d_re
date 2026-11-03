@@ -3097,11 +3097,11 @@ static void WindowRuntime_RestorePositions(session::ClientSession& session)
     }
 }
 
-static void WindowRuntime_ToggleShortcutWindow(const std::int32_t id)
+static void WindowRuntime_ToggleShortcutWindow(session::ClientSession& session, const std::int32_t id)
 {
-    WindowInstance* const window = WindowRuntime_States()[id].window;
+    WindowInstance* const window = WindowRuntime_States(session)[id].window;
     if (window == nullptr) {
-        static_cast<void>(WindowRuntime_CreateAnimation(id, 1, 0, nullptr));
+        static_cast<void>(WindowRuntime_CreateAnimation(session, id, 1, 0, nullptr));
     } else {
         window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -3123,7 +3123,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         if (script::CloseTopmostNonDefaultWindow(session)) {
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         } else {
-            WindowRuntime_ToggleShortcutWindow(WindowId_Settings);
+            WindowRuntime_ToggleShortcutWindow(session, WindowId_Settings);
         }
         return;
     }
@@ -3133,17 +3133,17 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
     }
     const bool modeOne = mode == 1;
     if ((platform::gKeyStates[0x23] & 4u) != 0) {
-        WindowRuntime_ToggleShortcutWindow(65);
+        WindowRuntime_ToggleShortcutWindow(session, 65);
     }
     if ((platform::gKeyStates[0x78] & 4u) != 0) {
-        WindowRuntime_ToggleShortcutWindow(66);
+        WindowRuntime_ToggleShortcutWindow(session, 66);
     }
     if ((platform::gKeyStates[0x11] & 2u) != 0) {
         if ((platform::gKeyStates[modeOne ? 0x51 : 0x57] & 4u) != 0) {
             constexpr std::int32_t ids[] {7, 8, 9, 58};
             bool found = false;
             for (const std::int32_t id : ids) {
-                WindowInstance* const window = WindowRuntime_States()[id].window;
+                WindowInstance* const window = WindowRuntime_States(session)[id].window;
                 if (window != nullptr) {
                     found = true;
                     window->state |= 0x8000u;
@@ -3151,16 +3151,16 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
                 }
             }
             if (!found) {
-                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PlayerProfile, 1, 0, nullptr));
+                static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_PlayerProfile, 1, 0, nullptr));
             }
         }
         if ((platform::gKeyStates[modeOne ? 0x57 : 0x45] & 4u) != 0) {
             if (world::gCurrentSceneType == 10) {
-                WindowBattleCommand_OpenSkills();
+                WindowBattleCommand_OpenSkills(session);
             } else {
-                WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
+                WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
                 if (window == nullptr) {
-                    static_cast<void>(WindowSkill_Open());
+                    static_cast<void>(WindowSkill_Open(session));
                 } else {
                     window->state |= 0x8000u;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -3169,34 +3169,34 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         }
         if ((platform::gKeyStates[modeOne ? 0x45 : 0x52] & 4u) != 0) {
             if (world::gCurrentSceneType == 10) {
-                WindowBattleCommand_OpenItems();
+                WindowBattleCommand_OpenItems(session);
             } else {
-                WindowRuntime_ToggleShortcutWindow(14);
+                WindowRuntime_ToggleShortcutWindow(session, 14);
             }
         }
         if ((platform::gKeyStates[modeOne ? 0x52 : 0x41] & 4u) != 0) {
             if (world::gCurrentSceneType == 10) {
-                WindowBattleCommand_OpenPets();
+                WindowBattleCommand_OpenPets(session);
             } else {
-                WindowRuntime_ToggleShortcutWindow(15);
+                WindowRuntime_ToggleShortcutWindow(session, 15);
             }
         }
         if ((platform::gKeyStates[modeOne ? 0x54 : 0x53] & 4u) != 0) {
-            WindowRuntime_ToggleShortcutWindow(21);
+            WindowRuntime_ToggleShortcutWindow(session, 21);
         }
         if ((platform::gKeyStates[modeOne ? 0x59 : 0x44] & 4u) != 0) {
-            WindowRuntime_ToggleShortcutWindow(19);
+            WindowRuntime_ToggleShortcutWindow(session, 19);
         }
         if ((platform::gKeyStates[modeOne ? 0x41 : 0x46] & 4u) != 0
             && world::gCurrentSceneType != 10) {
-            WindowRuntime_ToggleShortcutWindow(34);
+            WindowRuntime_ToggleShortcutWindow(session, 34);
         }
         if ((platform::gKeyStates[modeOne ? 0x53 : 0x51] & 4u) != 0
             && world::gCurrentSceneType != 10) {
-            WindowRuntime_ToggleShortcutWindow(33);
+            WindowRuntime_ToggleShortcutWindow(session, 33);
         }
         if ((platform::gKeyStates[modeOne ? 0x44 : 0x59] & 4u) != 0) {
-            WindowRuntime_ToggleShortcutWindow(25);
+            WindowRuntime_ToggleShortcutWindow(session, 25);
         }
         if ((platform::gKeyStates[modeOne ? 0x5A : 0x4F] & 4u) != 0) {
             static_cast<void>(WindowRuntime_CycleNameMode());
@@ -3299,7 +3299,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
     }
     if ((platform::gKeyStates[0x10] & 2u) != 0) {
         if ((platform::gKeyStates[0x7B] & 4u) != 0) {
-            WindowRuntime_CloseByCategory(7);
+            WindowRuntime_CloseByCategory(session, 7);
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         if ((platform::gKeyStates[0x24] & 4u) != 0) {

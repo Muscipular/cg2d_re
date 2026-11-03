@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -217,10 +218,6 @@ static std::int32_t gSkillWindowMaximumCA000C = 0; // 原全局：0x00CA000C。
 
 // 原前15项为配对行号、末字节D3FACB参与479FA9门槛；现扩为30行，仅统计有效槽。
 static std::array<std::int8_t, world::kSkillSlotCount> gBattleSkillRowsD3FABC {}; // 原全局：0x00D3FABC。
-
-static SkillWindowSelectionCallback gSkillSelectionCallbackCC4230 = nullptr; // 原全局：0x00CC4230。
-
-static WindowValueCallback gPetSkillSelectionCallbackCC4D14 = nullptr; // 原全局：0x00CC4D14。
 
 static std::array<std::wstring, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。 独立宽文本名单，非LY表。
 
@@ -1235,9 +1232,9 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const ElementId elementId,
     const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
         if (allowed) {
-            const SkillWindowSelectionCallback callback = gSkillSelectionCallbackCC4230;
+            const SkillWindowSelectionCallback callback = currentWindow->ownerSession->UiFrame().native.skillSelection.skill;
             if (callback != nullptr) {
-                callback(gSkillWindowIndexD2EA60, technique);
+                callback(*currentWindow->ownerSession, gSkillWindowIndexD2EA60, technique);
             }
             currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1287,42 +1284,43 @@ static std::int32_t WindowSkill_SelectBattleTechnique(const ElementId elementId,
 }
 
 // 原函数：0x0047A490。
-cg::yobi::YobiAction* WindowSkill_Open()
+cg::yobi::YobiAction* WindowSkill_Open(session::ClientSession& session)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
     const bool hasWindow = window != nullptr;
-    gSkillSelectionCallbackCC4230 = nullptr;
+    session.UiFrame().native.skillSelection.skill = nullptr;
     gSkillWindowModeD672AC = 0;
     if (hasWindow) {
         window->state &= ~0x8000u;
     }
-    return WindowRuntime_CreateAnimation(WindowId_Skill, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047A4C0。
-cg::yobi::YobiAction* WindowSkill_OpenBattleSkills(const SkillWindowSelectionCallback callback)
+cg::yobi::YobiAction* WindowSkill_OpenBattleSkills(
+    session::ClientSession& session, const SkillWindowSelectionCallback callback)
 {
     gSkillWindowModeD672AC = 3;
-    gSkillSelectionCallbackCC4230 = callback;
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
+    session.UiFrame().native.skillSelection.skill = callback;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
-    return WindowRuntime_CreateAnimation(WindowId_Skill, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047A500。
 cg::yobi::YobiAction* WindowSkill_OpenBattleTechniques(
-    const std::int32_t skillIndex, const SkillWindowSelectionCallback callback)
+    session::ClientSession& session, const std::int32_t skillIndex, const SkillWindowSelectionCallback callback)
 {
-    gSkillSelectionCallbackCC4230 = callback;
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
+    session.UiFrame().native.skillSelection.skill = callback;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
     gSkillWindowModeD672AC = 4;
     gSkillWindowIndexD2EA60 = skillIndex;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
-    return WindowRuntime_CreateAnimation(WindowId_Skill, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047CB00。
@@ -1428,11 +1426,11 @@ static std::int32_t WindowSkill_SelectPetSkill(const ElementId elementId, const 
         const std::int32_t position = world::GetBattlePetPosition_405B40(playerPosition);
         if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
-            if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
+            if (currentWindow->ownerSession->UiFrame().native.skillSelection.pet != nullptr) {
                 const std::int32_t pet = world::FindBattlePetIndex_43C4B0();
                 const auto selected = std::bit_cast<std::int16_t>(
                     world::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
-                gPetSkillSelectionCallbackCC4D14(selected);
+                currentWindow->ownerSession->UiFrame().native.skillSelection.pet(*currentWindow->ownerSession, selected);
             }
             currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1493,12 +1491,12 @@ static std::int32_t WindowSkill_SelectRidingSkill(const ElementId elementId, con
         const std::int32_t cost = record->fp;
         if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
-            const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
+            const PetSkillSelectionCallback callback = currentWindow->ownerSession->UiFrame().native.skillSelection.pet;
             if (callback != nullptr) {
                 const auto pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
                 const auto selected = std::bit_cast<std::int16_t>(
                     world::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
-                callback(selected);
+                callback(*currentWindow->ownerSession, selected);
             }
             currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1636,27 +1634,29 @@ static void WindowSkill_ShowRidingSkills(WindowInstance* const window)
 }
 
 // 原函数：0x0047A540。
-cg::yobi::YobiAction* WindowSkill_OpenPetSkills(const WindowValueCallback callback)
+cg::yobi::YobiAction* WindowSkill_OpenPetSkills(
+    session::ClientSession& session, const PetSkillSelectionCallback callback)
 {
     gSkillWindowModeD672AC = 5;
-    gPetSkillSelectionCallbackCC4D14 = callback;
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
+    session.UiFrame().native.skillSelection.pet = callback;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
-    return WindowRuntime_CreateAnimation(WindowId_Skill, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047A580。
-cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(const WindowValueCallback callback)
+cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(
+    session::ClientSession& session, const PetSkillSelectionCallback callback)
 {
     gSkillWindowModeD672AC = 6;
-    gPetSkillSelectionCallbackCC4D14 = callback;
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
+    session.UiFrame().native.skillSelection.pet = callback;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
     if (window != nullptr) {
         window->state &= ~0x8000u;
     }
-    return WindowRuntime_CreateAnimation(WindowId_Skill, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Skill, 1, 0, nullptr);
 }
 
 // 原函数：0x0047B110。
@@ -1710,9 +1710,9 @@ static std::int32_t WindowSkill_ButtonBack(const ElementId elementId, const std:
 }
 
 // 原函数：0x0047A5C0。
-std::int32_t WindowSkill_Back()
+std::int32_t WindowSkill_Back(session::ClientSession& session)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Skill].window;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Skill].window;
     if (window == nullptr) {
         return 0;
     }
@@ -1837,9 +1837,9 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const ElementId elementId, co
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
+        const PetSkillSelectionCallback callback = currentWindow->ownerSession->UiFrame().native.skillSelection.pet;
         if (callback != nullptr) {
-            callback(-1);
+            callback(*currentWindow->ownerSession, -1);
         }
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(51, 320));

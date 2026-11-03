@@ -94,18 +94,6 @@ static float gReverseTransitionXFF4900 = 0.0f; // 原全局：0x00FF4900。
 static float gReverseTransitionAlternateXFF4904 = 0.0f; // 原全局：0x00FF4904。
 static float gReverseTransitionYFF4908 = 0.0f; // 原全局：0x00FF4908。
 static float gReverseTransitionAlternateYFF490C = 0.0f; // 原全局：0x00FF490C。
-// 原51EF80的64画块同源状态；阶段加载初值-1，其余为未加载区零初值。
-// 状态1/2的含义随显隐/下落模式变化，源坐标与运动坐标不可合并。
-static std::int32_t gTileTransitionPhase58B6DC = -1; // 原全局：0x0058B6DC。
-static std::int32_t gTileTransitionCompletedFF46C0 = 0; // 原全局：0x00FF46C0。
-static std::int32_t gTileTransitionStartedFF28BC = 0; // 原全局：0x00FF28BC。
-static std::array<std::int32_t, 64> gTileTransitionStateFF27B8 {}; // 原全局：0x00FF27B8。
-static std::array<std::int32_t, 64> gTileTransitionSpeedFF46C4 {}; // 原全局：0x00FF46C4。
-static std::array<std::int32_t, 64> gTileTransitionSourceYFF47E4 {}; // 原全局：0x00FF47E4。
-static std::array<std::int32_t, 64> gTileTransitionYFF0D7C {}; // 原全局：0x00FF0D7C。
-static std::array<std::int32_t, 64> gTileTransitionXFF265C {}; // 原全局：0x00FF265C。
-static std::array<std::int32_t, 64> gTileTransitionSourceXFF0E7C {}; // 原全局：0x00FF0E7C。
-
 // 原51F610/51F860/51FA70共用，不随入口拆成独立比例或初始化标志。
 static std::uint32_t gImageTransitionInitializedFF4910 = 0; // 原全局：0x00FF4910。
 static std::int32_t gImageTransitionScaleFF0D78 = 0; // 原全局：0x00FF0D78。
@@ -120,8 +108,15 @@ static std::array<GridTransitionOffset, 960> gGridTransitionOffsetsFF28C0 {}; //
 static_assert(sizeof(gGridTransitionOffsetsFF28C0) == 0xFF46C0 - 0xFF28C0);
 
 // 原51EF80四种初始化的共同网格写序，不在此修改阶段/计数或消费随机数。
-static void InitializeTileTransitionGrid(const std::int32_t state, const bool aboveScreen)
+static void InitializeTileTransitionGrid(
+    TileTransitionState& tile, const std::int32_t state, const bool aboveScreen)
 {
+    auto& gTileTransitionStateFF27B8 = tile.state;
+    auto& gTileTransitionSpeedFF46C4 = tile.speed;
+    auto& gTileTransitionSourceYFF47E4 = tile.sourceY;
+    auto& gTileTransitionYFF0D7C = tile.y;
+    auto& gTileTransitionXFF265C = tile.x;
+    auto& gTileTransitionSourceXFF0E7C = tile.sourceX;
     for (std::int32_t row = 0; row < 8; ++row) {
         const std::int32_t first = row * 8;
         const std::int32_t y = row * 60;
@@ -7574,6 +7569,16 @@ std::int32_t ProcessSceneQuadrantTransition_51EC10(
 std::int32_t ProcessSceneRandomTileTransition_51EF80(
     session::ClientSession& session, const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
+    auto& tile = session.WorldScene().tileTransition;
+    auto& gTileTransitionPhase58B6DC = tile.phase;
+    auto& gTileTransitionCompletedFF46C0 = tile.completed;
+    auto& gTileTransitionStartedFF28BC = tile.started;
+    auto& gTileTransitionStateFF27B8 = tile.state;
+    auto& gTileTransitionSpeedFF46C4 = tile.speed;
+    auto& gTileTransitionSourceYFF47E4 = tile.sourceY;
+    auto& gTileTransitionYFF0D7C = tile.y;
+    auto& gTileTransitionXFF265C = tile.x;
+    auto& gTileTransitionSourceXFF0E7C = tile.sourceX;
     std::int32_t selected = platform::RandomRange_46FAF0(session.Connection(), 0, 63);
     std::int32_t acceleration = static_cast<std::int32_t>(
         static_cast<std::int64_t>(std::bit_cast<float>(payloadBits)));
@@ -7591,7 +7596,7 @@ std::int32_t ProcessSceneRandomTileTransition_51EF80(
         phase = gTileTransitionPhase58B6DC;
     }
     if (phase == -1 && mode >= 0 && mode <= 3) {
-        InitializeTileTransitionGrid(mode == 0 ? 1 : (mode == 2 ? 2 : 0), mode == 3);
+        InitializeTileTransitionGrid(tile, mode == 0 ? 1 : (mode == 2 ? 2 : 0), mode == 3);
         gTileTransitionPhase58B6DC = 0;
         gTileTransitionCompletedFF46C0 = 0;
         if (mode >= 2) {

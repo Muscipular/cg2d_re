@@ -78,6 +78,19 @@ struct QuadrantTransitionState {
 static_assert(sizeof(QuadrantTransitionState::x) == 16);
 static_assert(sizeof(QuadrantTransitionState::y) == 16);
 
+// 64 画块随机显隐/下落转场；状态 1/2 的意义由模式决定。
+struct TileTransitionState {
+    std::int32_t phase = -1; // 原 0x58B6DC，加载区初值 -1。
+    std::int32_t completed = 0; // 原 0xFF46C0。
+    std::int32_t started = 0; // 原 0xFF28BC。
+    std::array<std::int32_t, 64> state {}; // 原 0xFF27B8。
+    std::array<std::int32_t, 64> speed {}; // 原 0xFF46C4。
+    std::array<std::int32_t, 64> sourceY {}; // 原 0xFF47E4。
+    std::array<std::int32_t, 64> y {}; // 原 0xFF0D7C。
+    std::array<std::int32_t, 64> x {}; // 原 0xFF265C。
+    std::array<std::int32_t, 64> sourceX {}; // 原 0xFF0E7C。
+};
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
@@ -87,6 +100,7 @@ struct WorldSceneRuntimeState {
     ChatSendState chat {};
     ChatInputHistoryState chatInputHistory {};
     QuadrantTransitionState quadrantTransition {};
+    TileTransitionState tileTransition {};
     std::array<MapActorDrawKey, 100> mapActorDrawKeys {}; // 原 0x5ABFE0。
     std::int32_t mapActorDrawKeyCount = 0; // 原 0x5AC494。
     std::uint8_t worldEntryRepliesPendingMask = 0; // 原 0x9A4B94，入场等待与地图回复的两位。

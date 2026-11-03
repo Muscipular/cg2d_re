@@ -135,7 +135,6 @@ std::int32_t ProcessBottomScanlineTransition_51FA70(std::int32_t index, std::int
 std::int32_t ProcessSceneCenterScanlineTransition_51FC90(std::int32_t index, std::int32_t value);
 // 原函数：0x00455C90。
 std::int32_t UpdateDisconnectDialog_455C90();                 // 原 0x455C90，返回值按任意非零判断。
-extern std::wstring gDisconnectText9A4D10;   // 原 [0x9A4D10,0x9A4D20)，独立空初值宽正文。
 
 } // namespace detail
 

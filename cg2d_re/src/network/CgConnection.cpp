@@ -1342,7 +1342,8 @@ void CgConnection::Impl::Shutdown()
     ReleaseProtocolWorkspace();
 }
 
-CgConnection::CgConnection() : impl_(std::make_unique<Impl>(*this)) {}
+CgConnection::CgConnection(session::ClientSession& owner)
+    : owner_(owner), impl_(std::make_unique<Impl>(*this)) {}
 CgConnection::~CgConnection() = default;
 bool CgConnection::Initialize() { return impl_->Initialize() != 0; }
 void CgConnection::Shutdown() { impl_->Shutdown(); }

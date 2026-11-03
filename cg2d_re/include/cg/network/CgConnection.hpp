@@ -10,6 +10,7 @@
 
 namespace cg::login { struct LoginRequestState; struct LoginMessageState; struct LoginSceneState; }
 namespace cg::character_select { struct CharacterSelectSceneState; }
+namespace cg::session { class ClientSession; }
 
 namespace cg::network {
 
@@ -44,7 +45,7 @@ struct GameplayServerSettings {
 // CTO01：主线程协议与会话owner，组合私有CgTransport；当前业务仅接入一个实例。
 class CgConnection final {
 public:
-    CgConnection();
+    explicit CgConnection(session::ClientSession& owner);
     ~CgConnection();
     CgConnection(const CgConnection&) = delete;
     CgConnection& operator=(const CgConnection&) = delete;
@@ -57,6 +58,7 @@ public:
     [[nodiscard]] platform::ConnectionSnapshot PollConnection();
     [[nodiscard]] platform::ConnectionId Id() const noexcept;
     [[nodiscard]] bool Active() const noexcept;
+    [[nodiscard]] session::ClientSession& Owner() noexcept { return owner_; }
     [[nodiscard]] std::int32_t Error() const noexcept;
     // 原 0xD9F2CA；主循环的断线阶段随连接实例保留。
     [[nodiscard]] std::uint8_t& DisconnectState() noexcept;
@@ -315,6 +317,7 @@ public:
 
 private:
     struct Impl;
+    session::ClientSession& owner_;
     std::unique_ptr<Impl> impl_;
 };
 

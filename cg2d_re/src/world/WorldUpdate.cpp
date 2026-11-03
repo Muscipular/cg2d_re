@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
@@ -220,35 +221,27 @@ sceneSixTail:
 
 namespace detail {
 
-std::wstring gDisconnectText9A4D10; // 原全局：0x009A4D10。
-
-static cg::yobi::YobiAction* gDisconnectAction62B5B4 = nullptr; // 原全局：0x0062B5B4。
-static std::int32_t gDisconnectState62B3A8 = 0; // 原全局：0x0062B3A8。
-static std::int32_t gDisconnectWidth62B32C = 0; // 原全局：0x0062B32C。
-static std::int32_t gDisconnectHeight62B304 = 0; // 原全局：0x0062B304。
-static std::int32_t gDisconnectX62B390 = 0; // 原全局：0x0062B390。
-static std::int32_t gDisconnectY62B2EC = 0; // 原全局：0x0062B2EC。
-
 // 原函数：0x00455C90。
 std::int32_t UpdateDisconnectDialog_455C90()
 {
+    auto& dialog = cg::network::GetGameConnection().Owner().WorldScene().disconnectDialog;
     cg::render::GraphicDescriptor16 descriptor {
         0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
     };
     std::int32_t clicked = 0;
     bool hovered = false;
-    cg::yobi::YobiAction* action = gDisconnectAction62B5B4;
+    cg::yobi::YobiAction* action = dialog.action;
     if (action == nullptr) {
-        gDisconnectState62B3A8 = -2;
+        dialog.sentinel = -2;
         // 模态背景按64×48瓦片取整，布局使用实际尺寸，统一背景、文字及命中位置。
-        gDisconnectWidth62B32C = 384;
-        gDisconnectHeight62B304 = 144;
-        gDisconnectX62B390 = (platform::gWindowWidth - gDisconnectWidth62B32C) / 2;
-        gDisconnectY62B2EC = (platform::gWindowHeight - gDisconnectHeight62B304) / 2;
+        dialog.width = 384;
+        dialog.height = 144;
+        dialog.x = (platform::gWindowWidth - dialog.width) / 2;
+        dialog.y = (platform::gWindowHeight - dialog.height) / 2;
         action = cg::yobi::CreateModalAction_5044E0(
-            gDisconnectX62B390, gDisconnectY62B2EC,
-            gDisconnectWidth62B32C, gDisconnectHeight62B304, 4, 1);
-        gDisconnectAction62B5B4 = action;
+            dialog.x, dialog.y,
+            dialog.width, dialog.height, 4, 1);
+        dialog.action = action;
         if (action == nullptr) {
             return 0;
         }
@@ -257,13 +250,13 @@ std::int32_t UpdateDisconnectDialog_455C90()
         return 0;
     }
 
-    const std::int32_t scaledHitHeight = gDisconnectHeight62B304 * 4;
-    const std::int32_t hitWidth = gDisconnectWidth62B32C;
+    const std::int32_t scaledHitHeight = dialog.height * 4;
+    const std::int32_t hitWidth = dialog.width;
     const std::int32_t hitWidthDelta = hitWidth - 66;
     const std::int32_t hitHeightStep = scaledHitHeight / 5;
-    const std::int32_t hitY = gDisconnectY62B2EC;
+    const std::int32_t hitY = dialog.y;
     const std::int32_t hitBaseY = hitY + hitHeightStep;
-    const std::int32_t hitX = gDisconnectX62B390;
+    const std::int32_t hitX = dialog.x;
     const std::int32_t left = (hitWidthDelta >> 1) + hitX;
     const std::int32_t bottom = hitBaseY + 18;
     const std::int32_t top = hitBaseY + 1;
@@ -272,23 +265,23 @@ std::int32_t UpdateDisconnectDialog_455C90()
         left, top, right, bottom, -1) != 0;
     if (hovered
         && (static_cast<std::uint8_t>(cg::platform::gLegacyMouseState.edgeButtons) & 1U) != 0) {
-        cg::yobi::MarkDeath(gDisconnectAction62B5B4);
-        gDisconnectAction62B5B4 = nullptr;
+        cg::yobi::MarkDeath(dialog.action);
+        dialog.action = nullptr;
         clicked = 1;
     }
 
-    const std::int32_t row = gDisconnectHeight62B304 / 5;
-    std::int32_t width = cg::render::TextMeasure(gDisconnectText9A4D10, 2);
-    const std::int32_t firstWindowWidth = gDisconnectWidth62B32C;
-    const std::int32_t firstWindowY = gDisconnectY62B2EC;
+    const std::int32_t row = dialog.height / 5;
+    std::int32_t width = cg::render::TextMeasure(dialog.text, 2);
+    const std::int32_t firstWindowWidth = dialog.width;
+    const std::int32_t firstWindowY = dialog.y;
     const std::int32_t firstWidthDelta = firstWindowWidth - width;
     const std::int32_t firstTextY = firstWindowY + row - 4;
-    const std::int32_t firstWindowX = gDisconnectX62B390;
+    const std::int32_t firstWindowX = dialog.x;
     const std::int32_t firstTextX = firstWindowX + firstWidthDelta / 2;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(firstTextX),
         static_cast<std::int16_t>(firstTextY),
-        2, 2, 0, gDisconnectText9A4D10, 0, 0));
+        2, 2, 0, dialog.text, 0, 0));
 
     std::wstring_view secondText;
     std::wstring_view thirdText;
@@ -304,18 +297,18 @@ std::int32_t UpdateDisconnectDialog_455C90()
     }
 
     width = cg::render::TextMeasure(secondText, 0);
-    const std::int32_t secondWindowWidth = gDisconnectWidth62B32C;
+    const std::int32_t secondWindowWidth = dialog.width;
     std::int32_t secondWidthDelta;
     std::int32_t secondWindowY;
     if (connectionError) {
         secondWidthDelta = secondWindowWidth - width;
-        secondWindowY = gDisconnectY62B2EC;
+        secondWindowY = dialog.y;
     } else {
-        secondWindowY = gDisconnectY62B2EC;
+        secondWindowY = dialog.y;
         secondWidthDelta = secondWindowWidth - width;
     }
     const std::int32_t secondTextY = secondWindowY + 2 * row - 4;
-    const std::int32_t secondWindowX = gDisconnectX62B390;
+    const std::int32_t secondWindowX = dialog.x;
     const std::int32_t secondTextX = secondWindowX + secondWidthDelta / 2;
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(secondTextX),
@@ -323,23 +316,23 @@ std::int32_t UpdateDisconnectDialog_455C90()
         2, 0, 0, secondText, 0, 0));
 
     width = cg::render::TextMeasure(thirdText, 0);
-    const std::int32_t thirdWindowWidth = gDisconnectWidth62B32C;
+    const std::int32_t thirdWindowWidth = dialog.width;
     std::int32_t thirdTextX;
     std::int32_t thirdTextY;
     if (connectionError) {
         const std::int32_t thirdWidthDelta = thirdWindowWidth - width;
-        const std::int32_t thirdWindowY = gDisconnectY62B2EC;
+        const std::int32_t thirdWindowY = dialog.y;
         const std::int32_t thirdHalfWidth = thirdWidthDelta / 2;
         const std::int32_t thirdBaseY = thirdWindowY + 2 * row;
         thirdTextY = thirdBaseY + row - 4;
-        const std::int32_t thirdWindowX = gDisconnectX62B390;
+        const std::int32_t thirdWindowX = dialog.x;
         thirdTextX = thirdWindowX + thirdHalfWidth;
     } else {
-        const std::int32_t thirdWindowY = gDisconnectY62B2EC;
+        const std::int32_t thirdWindowY = dialog.y;
         const std::int32_t thirdWidthDelta = thirdWindowWidth - width;
         const std::int32_t thirdBaseY = thirdWindowY + 2 * row;
         thirdTextY = thirdBaseY + row - 4;
-        const std::int32_t thirdWindowX = gDisconnectX62B390;
+        const std::int32_t thirdWindowX = dialog.x;
         thirdTextX = thirdWindowX + thirdWidthDelta / 2;
     }
     static_cast<void>(render::DrawText_456780(
@@ -347,11 +340,11 @@ std::int32_t UpdateDisconnectDialog_455C90()
         static_cast<std::int16_t>(thirdTextY),
         2, 0, 0, thirdText, 0, 0));
 
-    const std::int32_t imageWindowY = gDisconnectY62B2EC;
-    const std::int32_t imageWindowWidth = gDisconnectWidth62B32C;
+    const std::int32_t imageWindowY = dialog.y;
+    const std::int32_t imageWindowWidth = dialog.width;
     const std::int32_t imageNo = hovered ? 243050 : 243048;
     const std::int32_t imageY = imageWindowY + 4 * row + 9;
-    const std::int32_t imageWindowX = gDisconnectX62B390;
+    const std::int32_t imageWindowX = dialog.x;
     const std::int32_t imageX = (imageWindowWidth >> 1) + imageWindowX;
     static_cast<void>(cg::render::DrawGraphic(
         imageX, imageY, 0xDF, imageNo, 0, &descriptor));

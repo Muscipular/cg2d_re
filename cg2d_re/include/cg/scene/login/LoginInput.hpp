@@ -5,6 +5,10 @@
 #include <cstddef>
 #include <cstdint>
 
+namespace cg::network {
+class CgConnection;
+}
+
 namespace cg::login {
 
 // 原登录控件固定 8×W32 布局。
@@ -58,7 +62,7 @@ void DrawLoginControl_503780(
     std::int32_t renderMode);
 
 // 原 sub_45C7C0@[0x45C7C0,0x45C96E)。
-void InitializeInputContexts_45C7C0();
+void InitializeInputContexts_45C7C0(network::CgConnection& connection);
 
 // 原 sub_45F970@[0x45F970,0x45FA6C)：能力 3 登录输入初始化。
 void InitializeCapabilityInput_45F970();
@@ -79,6 +83,6 @@ std::int32_t ProcessCapability3Input_45FA70(std::int32_t mode);
 std::int32_t ProcessCapability4Input_464E30();
 
 // 原 sub_45CA20@[0x45CA20,0x45CDF6)：登录输入与两个提交控件控制器。
-std::int32_t ProcessLoginInput_45CA20(std::int32_t mode);
+std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, std::int32_t mode);
 
 } // namespace cg::login

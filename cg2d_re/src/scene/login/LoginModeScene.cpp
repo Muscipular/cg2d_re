@@ -24,16 +24,16 @@
 namespace cg::login {
 
 // 原函数：0x0045C5A0。
-void ProcessModeScene_45C5A0()
+void ProcessModeScene_45C5A0(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     std::int32_t inputMode = 2;
     const std::int32_t initialState = world::gCurrentSceneState;
     if (initialState == 0) {
         world::gCurrentSceneState = 1;
         render::gPaletteCapability =
             resource::ProbePaletteCapability_45C970();
-        InitializeInputContexts_45C7C0();
+        InitializeInputContexts_45C7C0(connection);
 
         const std::int32_t capability = render::gPaletteCapability;
         if (capability == 3) {
@@ -67,7 +67,7 @@ void ProcessModeScene_45C5A0()
         static_cast<void>(world::SetCurrentSceneType(2));
     }
 
-    const std::int32_t result = ProcessLoginInput_45CA20(inputMode);
+    const std::int32_t result = ProcessLoginInput_45CA20(connection, inputMode);
     if (result == 1) {
         cg::core::NullSub_509080();
         if (!SaveInputValues(input::ContextText(sceneUi.context9A5960), input::ContextText(sceneUi.context9A5678))) {
@@ -92,12 +92,12 @@ void ProcessModeScene_45C5A0()
     }
 
     if (result < 0 || world::gCurrentSceneState == 100) {
-        ResetLoginMessage();
+        ResetLoginMessage(connection);
         static_cast<void>(detail::PlaySe(56, 320, 240));
         ++world::gCurrentSceneState;
     }
     if (world::gCurrentSceneState == 101
-        && UpdateLoginMessage(sceneUi.loginModeMessage) != 0) {
+        && UpdateLoginMessage(connection, sceneUi.loginModeMessage) != 0) {
         world::gCurrentSceneState = 1;
     }
 }

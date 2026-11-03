@@ -63,10 +63,10 @@ void Update(session::ClientSession& session)
         switch (capability) {
         case 0:
         case 1:
-            login::ProcessModeScene_45C5A0();
+            login::ProcessModeScene_45C5A0(session.Connection());
             break;
         case 2:
-            login::ProcessOuterScene_45C2D0();
+            login::ProcessOuterScene_45C2D0(session.Connection());
             break;
         case 3:
             UpdateCapability3LoginScene_45F190();

@@ -26,9 +26,9 @@
 namespace cg::login {
 
 // 原函数：0x0045C2D0。
-void ProcessOuterScene_45C2D0()
+void ProcessOuterScene_45C2D0(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     bool processLoginInput = false;
     const std::uint32_t initialState =
         std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
@@ -42,7 +42,7 @@ void ProcessOuterScene_45C2D0()
             static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
                 320, 240, 3, 22312, 0, nullptr)));
             static_cast<void>(cg::yobi::MarkDeath(nullptr));
-            InitializeInputContexts_45C7C0();
+            InitializeInputContexts_45C7C0(connection);
             world::gCurrentSceneState = 6;
             static_cast<void>(render::SelectPalette(32, 60));
             static_cast<void>(cg::render::StretchGraphicToScreen(cg::render::DrawGraphic(
@@ -65,13 +65,13 @@ void ProcessOuterScene_45C2D0()
             }
             break;
         case 8:
-            ResetLoginMessage();
+            ResetLoginMessage(connection);
             static_cast<void>(detail::PlaySe(56, 320, 240));
             world::gCurrentSceneState = 9;
             input::SetContext_44B330(nullptr);
             return;
         case 9:
-            if (UpdateLoginMessage(sceneUi.outerLoginErrorMessage) != 0) {
+            if (UpdateLoginMessage(connection, sceneUi.outerLoginErrorMessage) != 0) {
                 world::gCurrentSceneState = 6;
                 processLoginInput = true;
             }
@@ -110,7 +110,7 @@ void ProcessOuterScene_45C2D0()
         return;
     }
 
-    const std::int32_t result = ProcessLoginInput_45CA20(0);
+    const std::int32_t result = ProcessLoginInput_45CA20(connection, 0);
     if (result == 1) {
         cg::core::NullSub_509080();
         if (!SaveInputValues(input::ContextText(sceneUi.context9A5960), input::ContextText(sceneUi.context9A5678))) {

@@ -196,9 +196,9 @@ std::int32_t ProcessCapability4Input_464E30()
 }
 
 // 原函数：0x0045CA20。
-std::int32_t ProcessLoginInput_45CA20(const std::int32_t mode)
+std::int32_t ProcessLoginInput_45CA20(network::CgConnection& connection, const std::int32_t mode)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     std::int32_t result = 0;
 
     const std::int32_t probedCapability =

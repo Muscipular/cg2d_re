@@ -296,9 +296,9 @@ void DrawLoginControl_503780(
 }
 
 // 原函数：0x0045C7C0。
-void InitializeInputContexts_45C7C0()
+void InitializeInputContexts_45C7C0(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     std::wstring firstInitialText;
     std::wstring secondInitialText;
 

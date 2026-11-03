@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
@@ -171,7 +172,7 @@ static std::int32_t WindowStall_RequestPurchase(); // 选择索引直接查询�
 static std::int32_t WindowStall_ButtonClose(ElementId elementId, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
 
 // 原函数：0x004CDE00。
-static void WindowStall_Release(); // 67/68共用释放，条件发送后无条件SE57。
+static void WindowStall_Release(WindowInstance&); // 67/68共用释放，条件发送后无条件SE57。
 
 // 原函数：0x004CDB10。
 static std::int32_t WindowStall_Draw(std::int32_t unusedValue); // 两类摊位预览、失效上架剔除与提示绘制。
@@ -2883,10 +2884,10 @@ static std::int32_t WindowStall_ButtonClose(const ElementId elementId, const std
 }
 
 // 原函数：0x004CDE00。
-static void WindowStall_Release()
+static void WindowStall_Release(WindowInstance& releasedWindow)
 {
     if (gStallOwn58111C != 0 && gOwnStallOpenForBusiness_D67BE0 != 0) {
-        static_cast<void>(cg::network::GetGameConnection().CloseStallRequest());
+        static_cast<void>(releasedWindow.ownerSession->Connection().CloseStallRequest());
     }
     static_cast<void>(audio::PlaySe_52C450(57, 320));
 }

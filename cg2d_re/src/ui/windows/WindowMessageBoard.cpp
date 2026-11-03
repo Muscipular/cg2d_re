@@ -72,7 +72,7 @@ static std::int32_t WindowMessageBoard_Close(); // 清对话类型、关闭入�
 static std::int32_t WindowMessageBoard_Update(std::int32_t value);
 
 // 原函数：0x004B5B50。
-static void WindowMessageBoard_Release();
+static void WindowMessageBoard_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -203,7 +203,7 @@ static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
 }
 
 // 原函数：0x004B5B50。
-static void WindowMessageBoard_Release()
+static void WindowMessageBoard_Release(WindowInstance&)
 {
     if (world::gCurrentDialogType_581800 == 21) {
         world::gCurrentDialogType_581800 = -1;

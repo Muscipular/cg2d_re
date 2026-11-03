@@ -90,7 +90,7 @@ namespace detail {
 static std::int32_t WindowPlayerProfile_HandleButtons(ElementId elementId, std::int32_t state); // 窗口7资料切页及前后排请求。
 
 // 原函数：0x00474310。
-static void WindowPlayerProfile_Release();
+static void WindowPlayerProfile_Release(WindowInstance&);
 
 // 原函数：0x00474540。
 static std::int32_t WindowPlayerProfile_Update(std::int32_t value);
@@ -591,16 +591,16 @@ static std::int32_t WindowPlayerProfile_Update(const std::int32_t)
 }
 
 // 原函数：0x00474310。
-static void WindowPlayerProfile_Release()
+static void WindowPlayerProfile_Release(WindowInstance& releasedWindow)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_PlayerProfile].window;
+    WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerProfile].window;
     if (window != nullptr) {
-        WindowRuntime_States()[WindowId_PlayerAttributes].x = window->x;
-        WindowRuntime_States()[WindowId_PlayerAttributes].y = window->y;
-        WindowRuntime_States()[WindowId_PlayerTitles].x = window->x;
-        WindowRuntime_States()[WindowId_PlayerTitles].y = window->y;
-        WindowRuntime_States()[WindowId_OwnProfile].x = window->x;
-        WindowRuntime_States()[WindowId_OwnProfile].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerAttributes].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerAttributes].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerTitles].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerTitles].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_OwnProfile].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_OwnProfile].y = window->y;
     }
 }
 

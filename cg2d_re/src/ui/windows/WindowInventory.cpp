@@ -254,7 +254,7 @@ static std::int32_t WindowInventory_RefreshExtraValue(ElementId elementId, std::
 static std::int32_t WindowInventory_TabPlayerAttributes(ElementId elementId, std::int32_t state);
 
 // 原函数：0x00488510。
-static void WindowInventory_Release();
+static void WindowInventory_Release(WindowInstance&);
 
 // 原函数：0x00488990。
 static std::int32_t WindowInventory_Update(std::int32_t value);
@@ -532,18 +532,18 @@ static std::int32_t WindowInventory_TabPet(const ElementId elementId, const std:
 }
 
 // 原函数：0x00488510。
-static void WindowInventory_Release()
+static void WindowInventory_Release(WindowInstance& releasedWindow)
 {
-    WindowInstance* const quantityWindow = WindowRuntime_States()[WindowId_Quantity].window;
-    if (quantityWindow != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 14) {
+    WindowInstance* const quantityWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
+    if (quantityWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 14) {
         quantityWindow->state |= 0x8000u;
     }
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 1 || mode == 2) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_Inventory].window;
+        WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Inventory].window;
         gItemSelectionModeCC40D4 = 0;
         if (auto* const handleItemsElement = window ? window->FindElementById(WindowInventoryElementId::HandleItems) : nullptr; handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItems;
-        if (auto* const handleEquipmentElement = WindowRuntime_States()[WindowId_Inventory].window ? WindowRuntime_States()[WindowId_Inventory].window->FindElementById(WindowInventoryElementId::HandleEquipment) : nullptr; handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_HandleEquipment;
+        if (auto* const handleEquipmentElement = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Inventory].window ? WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Inventory].window->FindElementById(WindowInventoryElementId::HandleEquipment) : nullptr; handleEquipmentElement) handleEquipmentElement->mouseCallback = WindowInventory_HandleEquipment;
         const std::int32_t selected = gSelectedItemCB0A44;
         gSelectedItemCB0A44 = -1;
         --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];

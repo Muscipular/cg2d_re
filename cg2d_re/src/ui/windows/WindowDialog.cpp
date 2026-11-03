@@ -143,7 +143,7 @@ static std::int32_t WindowDialog_Update(std::int32_t value);
 static std::int32_t WindowDialog_Draw(std::int32_t value);
 
 // 原函数：0x0049CDF0。
-static void WindowDialog_Release();
+static void WindowDialog_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -573,7 +573,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
 }
 
 // 原函数：0x0049CDF0。
-static void WindowDialog_Release()
+static void WindowDialog_Release(WindowInstance&)
 {
     if (gMessageDialog.closeCallbackPending != 0) {
         const WindowDialogReplyCallback reply = gMessageDialog.reply;

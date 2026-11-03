@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -122,7 +123,7 @@ static std::int32_t WindowTrade_RemoveItem(std::int32_t index); // 释放物品�
 static std::int32_t WindowTrade_RemovePet(std::int32_t index); // 只释放宠物选择及标记。
 
 // 原函数：0x004B0200。
-static void WindowTrade_Release(); // 窗口43释放回调，原返回值弃用。
+static void WindowTrade_Release(WindowInstance&); // 窗口43释放回调，原返回值弃用。
 
 // 原函数：0x004B0290。
 static std::int32_t WindowTrade_Update(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
@@ -679,14 +680,14 @@ static std::int32_t WindowTrade_RemovePet(const std::int32_t index)
 }
 
 // 原函数：0x004B0200。
-static void WindowTrade_Release()
+static void WindowTrade_Release(WindowInstance& releasedWindow)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Quantity].window;
-    if (window != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 43) {
+    WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
+    if (window != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 43) {
         window->state |= 0x8000u;
     }
     if (gTradeValueD67B80 == 0) {
-        static_cast<void>(cg::network::GetGameConnection().SendTradeDecision(0));
+        static_cast<void>(releasedWindow.ownerSession->Connection().SendTradeDecision(0));
         gTradeValueD67CBC = 1;
     }
     for (std::int32_t index = 0; index < 20; ++index) {

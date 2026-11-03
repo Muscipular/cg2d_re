@@ -241,8 +241,8 @@ static std::int32_t WindowMiniMail_Send(const ElementId elementId, const std::in
             year + 1900, month + 1, day, hour, minute);
         world::detail::PrependMiniMailMessage_5343C0(contact, 1, timestamp, storedText);
     }
-    static_cast<void>(WindowProfileView_RequestCategoryClose(3));
-    static_cast<void>(WindowProfileView_RequestCategoryClose(4));
+    static_cast<void>(WindowProfileView_RequestCategoryClose(*currentWindow->ownerSession, 3));
+    static_cast<void>(WindowProfileView_RequestCategoryClose(*currentWindow->ownerSession, 4));
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     cg::ui::detail::gInputContextCA0180.clearText();
     world::detail::gMiniMailSelectionD673E4 = -1;

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -53,7 +54,7 @@ static void WindowTextList_ReleaseLines(); // 释放窗口51的行文本及原�
 static std::uint32_t WindowTextList_RefreshLines(WindowInstance* window); // 九行刷新，返回末行含NUL长度。
 
 // 原函数：0x004AD780。
-static void WindowTextList_Release(); // 51释放回调：行表、物品标记、条件关闭请求。
+static void WindowTextList_Release(WindowInstance&); // 51释放回调：行表、物品标记、条件关闭请求。
 
 // 原函数：0x004AD800。
 static std::int32_t WindowTextList_Update(std::int32_t value); // 51初始化、移动关闭及权限可见性。
@@ -95,7 +96,7 @@ static std::int32_t WindowTextList_HandleItemSelection(ElementId elementId, std:
 static std::int32_t WindowTextList_DrawBackgroundTooltip(ElementId elementId, std::int32_t state); // 仅在提示为空时填背景提示。
 
 // 原函数：0x004AD780。
-static void WindowTextList_Release();
+static void WindowTextList_Release(WindowInstance&);
 
 // 原函数：0x004AD800。
 static std::int32_t WindowTextList_Update(std::int32_t value);
@@ -278,7 +279,7 @@ void WindowTextList_ContinueDialog(const char* const text)
 }
 
 // 原函数：0x004AD780。
-static void WindowTextList_Release()
+static void WindowTextList_Release(WindowInstance& releasedWindow)
 {
     WindowTextList_ReleaseLines();
     if (gSelectedItem57EE0C >= 0) {
@@ -296,7 +297,7 @@ static void WindowTextList_Release()
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, L"C"));
+        static_cast<void>(releasedWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, L"C"));
     }
     world::gCurrentDialogType_581800 = -1;
 }

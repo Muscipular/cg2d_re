@@ -221,7 +221,7 @@ static_assert(NativeElementKey(CustomTextCancel) == static_cast<ElementId>(Windo
 static int WindowBigMap_Update(int stage);
 static int WindowBigMap_Draw(int stage);
 static int WindowBigMap_Element(ElementId elementId, int events);
-static void WindowBigMap_Release();
+static void WindowBigMap_Release(WindowInstance&);
 // 与其它原生窗口一致：具名载荷、固定坐标/尺寸/初始显隐及回调直接预定义。
 static WindowGraphicData gBigMapToggleGraphic{243033, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gBigMapCloseGraphic{22509, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1415,7 +1415,7 @@ static int WindowBigMap_Update(int stage) {
 }
 static int WindowBigMap_Element(ElementId elementId, int events) { return gBigMapState->OnElement(elementId, events); }
 static int WindowBigMap_Draw(int stage) { return gBigMapState->Draw(stage); }
-static void WindowBigMap_Release() { gBigMapState.reset(); }
+static void WindowBigMap_Release(WindowInstance&) { gBigMapState.reset(); }
 
 } // namespace cg::ui::detail
 

@@ -192,7 +192,7 @@ static std::int32_t WindowSkill_Update(std::int32_t value);
 static std::int32_t WindowSkill_Draw(std::int32_t value);
 
 // 原函数：0x0047B0E0。
-static void WindowSkill_Release();
+static void WindowSkill_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -1022,7 +1022,7 @@ static void WindowSkill_ShowTechniques(WindowInstance* const window, const std::
 }
 
 // 原函数：0x0047B0E0。
-static void WindowSkill_Release()
+static void WindowSkill_Release(WindowInstance&)
 {
     const std::int32_t mode = gSkillWindowModeD672AC;
     if (mode == 1 || mode == 2) {

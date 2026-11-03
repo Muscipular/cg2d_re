@@ -169,7 +169,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A5650。
-void WindowMailCompose_Release()
+void WindowMailCompose_Release(WindowInstance& releasedWindow)
 {
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
@@ -190,7 +190,7 @@ void WindowMailCompose_Release()
         gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
         occupancy[oldSlot] = count;
     }
-    WindowInstance* const groupWindow = WindowRuntime_States()[WindowId_GroupSelect].window;
+    WindowInstance* const groupWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_GroupSelect].window;
     if (groupWindow != nullptr) {
         groupWindow->state |= 0x8000u;
     }

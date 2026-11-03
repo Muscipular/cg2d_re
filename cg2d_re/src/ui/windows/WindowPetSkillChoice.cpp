@@ -228,7 +228,7 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(ElementId elemen
 static std::int32_t WindowPetSkillChoice_HandleConfirmation(ElementId elementId, std::int32_t unusedState); // 确认覆盖层，发原选槽文本后请求关闭。
 
 // 原函数：0x004BD500。
-static void WindowPetSkillChoice_Release();
+static void WindowPetSkillChoice_Release(WindowInstance&);
 
 // 原函数：0x004BF7C0。
 static std::int32_t WindowPetSkillChoice_Update(std::int32_t value);
@@ -543,7 +543,7 @@ WindowPrototype gWindowPrototypePetSkillChoice {0, 4, 10, 30, 549, 366, 0x800101
 // 窗口函数实现。
 
 // 原函数：0x004BD500。
-static void WindowPetSkillChoice_Release()
+static void WindowPetSkillChoice_Release(WindowInstance&)
 {
     if (gWindow54LifecycleD67434 != 2
         && gWindow54DialogTypeCB2224 == world::gCurrentDialogType_581800) {

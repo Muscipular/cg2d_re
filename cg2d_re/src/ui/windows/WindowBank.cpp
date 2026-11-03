@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -119,7 +120,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(ElementId elementId, std::int32_t
 static std::int32_t WindowBank_HandleStoredPetRow(ElementId elementId, std::int32_t state); // 外部宠物提领行。
 
 // 原函数：0x004A83D0。
-static void WindowBank_Release();
+static void WindowBank_Release(WindowInstance&);
 
 // 原函数：0x004A9020。
 static std::int32_t WindowBank_Update(std::int32_t value);
@@ -386,24 +387,24 @@ WindowInstance* WindowBank_Open(
 }
 
 // 原函数：0x004A83D0。
-static void WindowBank_Release()
+static void WindowBank_Release(WindowInstance& releasedWindow)
 {
-    const std::uint32_t kind = WindowRuntime_States()[WindowId_Bank].value10;
+    const std::uint32_t kind = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Bank].value10;
     if ((kind == 0 && world::gCurrentDialogType_581800 == 23)
         || (kind == 1 && world::gCurrentDialogType_581800 == 33)) {
         world::gCurrentDialogType_581800 = -1;
     }
     std::wstring buffer;
     buffer = input::EscapeTextAndNotify(L"C", 255);
-    const std::int32_t userState = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].userState.value);
-    const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value14);
+    const std::int32_t userState = std::bit_cast<std::int32_t>(WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Bank].userState.value);
+    const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Bank].value14);
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, buffer));
-    WindowInstance* const numberWindow = WindowRuntime_States()[WindowId_Quantity].window;
-    if (numberWindow != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 41) {
+    static_cast<void>(releasedWindow.ownerSession->Connection().SendDialogResponse(x, y, value14, userState, 0, buffer));
+    WindowInstance* const numberWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
+    if (numberWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 41) {
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(nullptr)) {

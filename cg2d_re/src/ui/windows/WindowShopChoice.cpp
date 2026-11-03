@@ -66,7 +66,7 @@ static std::int32_t WindowShopChoice_Update(std::int32_t value);
 static std::int32_t WindowShopChoice_Draw(std::int32_t value);
 
 // 原函数：0x0049FF70。
-static void WindowShopChoice_Release();
+static void WindowShopChoice_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -296,7 +296,7 @@ static std::int32_t WindowShopChoice_Draw(const std::int32_t)
 }
 
 // 原函数：0x0049FF70。
-static void WindowShopChoice_Release()
+static void WindowShopChoice_Release(WindowInstance&)
 {
     if (gChoiceDialog.closeEnabled != 0 && world::gCurrentDialogType_581800 == gChoiceDialog.type) {
         world::gCurrentDialogType_581800 = -1;

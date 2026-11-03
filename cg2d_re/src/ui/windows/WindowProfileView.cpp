@@ -45,7 +45,7 @@ static std::int32_t WindowProfileView_Update(std::int32_t unusedValue); // 窗�
 static std::uint32_t WindowProfileView_Refresh(); // 四图号、八资料文本和四分行，返回末行含NUL字节数。
 
 // 原函数：0x004CB530。
-static void WindowProfileView_Release(); // 先清对话类型，再标记关联窗口63。
+static void WindowProfileView_Release(WindowInstance&); // 先清对话类型，再标记关联窗口63。
 
 // 原函数：0x004CB2F0。
 static std::int32_t WindowProfileView_ButtonMail(ElementId elementId, std::int32_t state); // 查看资料发信，先金额门禁再打开63。
@@ -197,9 +197,9 @@ static std::int32_t WindowProfileView_Update(const std::int32_t)
 }
 
 // 原函数：0x004CB9B0。
-WindowInstance* WindowProfileView_RequestCategoryClose(const std::int32_t index)
+WindowInstance* WindowProfileView_RequestCategoryClose(session::ClientSession& session, const std::int32_t index)
 {
-    WindowInstance* const window = WindowRuntime_States()[59 + index].window;
+    WindowInstance* const window = WindowRuntime_States(session)[59 + index].window;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -207,10 +207,10 @@ WindowInstance* WindowProfileView_RequestCategoryClose(const std::int32_t index)
 }
 
 // 原函数：0x004CB530。
-static void WindowProfileView_Release()
+static void WindowProfileView_Release(WindowInstance& releasedWindow)
 {
     world::gCurrentDialogType_581800 = -1;
-    static_cast<void>(WindowProfileView_RequestCategoryClose(4));
+    static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 4));
 }
 
 // 原函数：0x004CB2F0。

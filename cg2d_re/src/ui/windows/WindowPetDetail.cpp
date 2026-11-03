@@ -92,7 +92,7 @@ static std::int32_t WindowPetDetail_HandleButtons(ElementId elementId, std::int3
 static std::int32_t WindowPetDetail_Update(std::int32_t value);
 
 // 原函数：0x0048DCC0。
-static void WindowPetDetail_Release();
+static void WindowPetDetail_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -487,14 +487,14 @@ static std::int32_t WindowPetDetail_Update(const std::int32_t value)
 }
 
 // 原函数：0x0048DCC0。
-static void WindowPetDetail_Release()
+static void WindowPetDetail_Release(WindowInstance& releasedWindow)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_PetDetail].window;
+    WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetDetail].window;
     if (window != nullptr) {
-        WindowRuntime_States()[WindowId_PetAttributes].x = window->x;
-        WindowRuntime_States()[WindowId_PetAttributes].y = window->y;
-        WindowRuntime_States()[WindowId_PetSkills].x = window->x;
-        WindowRuntime_States()[WindowId_PetSkills].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetAttributes].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetAttributes].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetSkills].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetSkills].y = window->y;
     }
 }
 

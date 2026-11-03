@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "../../scene/login/LoginSavedState.hpp"
@@ -67,7 +68,7 @@ static std::int32_t WindowSettings_Update(std::int32_t value); // -1仅隐藏侧
 static std::int32_t WindowSettings_Draw(std::int32_t unusedValue); // 四侧栏减速展开与公共绘制尾。
 
 // 原函数：0x00493E10。
-static void WindowSettings_Release(); // 设置写回/持久化后播放关闭音效。
+static void WindowSettings_Release(WindowInstance&); // 设置写回/持久化后播放关闭音效。
 
 // 原函数：0x00493EE0。
 static std::int32_t WindowSettings_ButtonLogoutPanel(ElementId elementId, std::int32_t state); // 登出侧栏开关。
@@ -134,7 +135,7 @@ static std::int32_t WindowSettings_Update(std::int32_t value);
 static std::int32_t WindowSettings_Draw(std::int32_t value);
 
 // 原函数：0x00493E10。
-static void WindowSettings_Release();
+static void WindowSettings_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -429,11 +430,11 @@ static std::int32_t WindowSettings_Draw(const std::int32_t)
 }
 
 // 原函数：0x00493E10。
-static void WindowSettings_Release()
+static void WindowSettings_Release(WindowInstance& releasedWindow)
 {
     static_cast<void>(login::detail::CaptureAudioPreferences_520470());
     static_cast<void>(login::detail::CaptureClientPreferenceBytes_520590());
-    const std::int32_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::int32_t selected = releasedWindow.ownerSession->Connection().LoginRequests().selectedCharacterIndex;
     static_cast<void>(login::detail::CaptureCharacterDisplaySettings_520510(selected));
     static_cast<void>(login::detail::CapturePresetChatTexts_520640());
     static_cast<void>(login::detail::CaptureContactSortMode_5206F0());

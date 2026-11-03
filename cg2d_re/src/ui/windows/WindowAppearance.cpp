@@ -61,7 +61,7 @@ static std::int32_t WindowAppearance_Update(std::int32_t value);
 static std::int32_t WindowAppearance_Draw(std::int32_t value);
 
 // 原函数：0x004C5C00。
-static void WindowAppearance_Release();
+static void WindowAppearance_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -263,7 +263,7 @@ static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
 }
 
 // 原函数：0x004C5C00。
-static void WindowAppearance_Release()
+static void WindowAppearance_Release(WindowInstance&)
 {
     if (world::gCurrentDialogType_581800 == gWindow56DialogTypeCB1DE0) {
         world::gCurrentDialogType_581800 = -1;

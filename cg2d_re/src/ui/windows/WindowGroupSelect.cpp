@@ -52,7 +52,7 @@ namespace detail {
 static std::int32_t WindowGroupSelect_Update(std::int32_t value); // 群组选人初始化/恢复与父窗门禁。
 
 // 原函数：0x004B4B70。
-static void WindowGroupSelect_Release(); // 释放时仅关闭仍处于群发方式的22。
+static void WindowGroupSelect_Release(WindowInstance&); // 释放时仅关闭仍处于群发方式的22。
 
 // 原函数：0x004B4B90。
 static std::int32_t WindowGroupSelect_Draw(std::int32_t value); // 滚动反求、七行刷新、公共绘制。
@@ -100,7 +100,7 @@ static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* left
 static std::int32_t WindowGroupSelect_Update(std::int32_t value);
 
 // 原函数：0x004B4B70。
-static void WindowGroupSelect_Release();
+static void WindowGroupSelect_Release(WindowInstance&);
 
 // 原函数：0x004B4B90。
 static std::int32_t WindowGroupSelect_Draw(std::int32_t value);
@@ -235,9 +235,9 @@ static std::int32_t WindowGroupSelect_Update(const std::int32_t value)
 }
 
 // 原函数：0x004B4B70。
-static void WindowGroupSelect_Release()
+static void WindowGroupSelect_Release(WindowInstance& releasedWindow)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_MailCompose].window;
+    WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_MailCompose].window;
     if (window != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 == 1) {
         window->state |= 0x8000u;
     }

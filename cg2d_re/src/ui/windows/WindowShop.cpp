@@ -234,7 +234,7 @@ static std::int32_t WindowShop_StartSaleDrag(std::int32_t sourceIndex); // 透�
 static void WindowShop_RemoveSaleSelection(); // 三次读取来源，撤销选择并刷新窗口53。
 
 // 原函数：0x004B6DC0。
-static void WindowShop_Release();
+static void WindowShop_Release(WindowInstance&);
 
 // 原函数：0x004B9310。
 static std::int32_t WindowShop_Update(std::int32_t value);
@@ -655,7 +655,7 @@ static void WindowShop_RemoveSaleSelection()
 }
 
 // 原函数：0x004B6DC0。
-static void WindowShop_Release()
+static void WindowShop_Release(WindowInstance&)
 {
     if (gShopDialogTypeCC3EC8 == world::gCurrentDialogType_581800) {
         world::gCurrentDialogType_581800 = -1;

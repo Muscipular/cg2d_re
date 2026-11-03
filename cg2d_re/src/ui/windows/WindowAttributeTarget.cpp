@@ -47,7 +47,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049F790。
-static void WindowAttributeTarget_Release();
+static void WindowAttributeTarget_Release(WindowInstance&);
 
 // 原函数：0x0049F7B0。
 static std::int32_t WindowAttributeTarget_Update(std::int32_t value);
@@ -159,7 +159,7 @@ cg::yobi::YobiAction* WindowAttributeTarget_Open(
 }
 
 // 原函数：0x0049F790。
-static void WindowAttributeTarget_Release()
+static void WindowAttributeTarget_Release(WindowInstance&)
 {
     const WindowTextChoiceCallback callback = gStatusChoiceCallbackCF47D4;
     if (callback != nullptr) {

@@ -148,7 +148,7 @@ static std::int32_t WindowCrystalShop_ShowTooltip(
     std::int32_t index, std::int32_t page, std::int32_t unused); // 保留caller第三实参。
 
 // 原函数：0x004C1390。
-static void WindowCrystalShop_Release();
+static void WindowCrystalShop_Release(WindowInstance&);
 
 // 原函数：0x004C1C50。
 static std::int32_t WindowCrystalShop_Update(std::int32_t value);
@@ -383,7 +383,7 @@ WindowPrototype gWindowPrototypeCrystalShop {0, 4, 10, 30, 549, 366, 0x80010101u
 // 窗口函数实现。
 
 // 原函数：0x004C1390。
-static void WindowCrystalShop_Release()
+static void WindowCrystalShop_Release(WindowInstance&)
 {
     const std::int32_t type = gWindow69DialogTypeD2D810;
     if (type == world::gCurrentDialogType_581800) {

@@ -43,7 +43,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(ElementId elementId, std::i
 static std::int32_t WindowSkillResult_ButtonClose(ElementId elementId, std::int32_t state); // 关闭入口窗口，音效后写图号。
 
 // 原函数：0x00487660。
-static void WindowSkillResult_Release();
+static void WindowSkillResult_Release(WindowInstance&);
 
 // 原函数：0x00487AE0。
 static std::int32_t WindowSkillResult_Update(std::int32_t value);
@@ -161,7 +161,7 @@ static cg::yobi::YobiAction* WindowSkillResult_Open()
 }
 
 // 原函数：0x00487660。
-static void WindowSkillResult_Release()
+static void WindowSkillResult_Release(WindowInstance& releasedWindow)
 {
     WindowRuntime_DecrementOperationCount();
     const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
@@ -171,7 +171,7 @@ static void WindowSkillResult_Release()
     if (skillReferences == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
     }
-    WindowRuntime_States()[WindowId_SkillResult].window->state |= 0x8000u;
+    WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_SkillResult].window->state |= 0x8000u;
 }
 
 // 原函数：0x004876B0。

@@ -146,7 +146,7 @@ static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
     std::int32_t index, std::int32_t page, std::int32_t unused); // 共用D303FC提示键。
 
 // 原函数：0x004C3530。
-static void WindowCrystalExchangeShop_Release();
+static void WindowCrystalExchangeShop_Release(WindowInstance&);
 
 // 原函数：0x004C3F00。
 static std::int32_t WindowCrystalExchangeShop_Update(std::int32_t value);
@@ -378,7 +378,7 @@ WindowPrototype gWindowPrototypeCrystalExchangeShop {0, 4, 10, 30, 549, 366, 0x8
 // 窗口函数实现。
 
 // 原函数：0x004C3530。
-static void WindowCrystalExchangeShop_Release()
+static void WindowCrystalExchangeShop_Release(WindowInstance&)
 {
     const std::int32_t type = gWindow70DialogTypeD45D6C;
     if (type == world::gCurrentDialogType_581800) {

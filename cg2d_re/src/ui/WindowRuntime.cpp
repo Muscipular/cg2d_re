@@ -4416,7 +4416,7 @@ static void WindowInput_FormatSkillSlotCount(std::wstring& destination)
 // 同一4A4210在原表也用于release；仅适配未消费返回值，不转换函数指针。
 // WCL01：窗口release家族丢弃原4A4210常量1；真实七类资源回收留在FreeWindow，非此适配。
 // 原函数：0x004A4210。
-void WindowRuntime_ReleaseDefault()
+void WindowRuntime_ReleaseDefault(WindowInstance&)
 {
     static_cast<void>(WindowRuntime_ReturnOne(0));
 }
@@ -4963,7 +4963,7 @@ void WindowRuntime_Free(WindowInstance* const window)
     using namespace detail;
     window->state |= 0x8000u;
     NativeWindowClosed(*window);
-    window->release();
+    window->release(*window);
     WindowRuntime_DestroyElements(*window);
     WindowRuntime_ReleaseBindings(*window);
     gCurrentWindowState = &WindowRuntime_States(*window->ownerSession)[window->id];

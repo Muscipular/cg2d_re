@@ -28,7 +28,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(ElementId elementId, std::i
 static std::int32_t WindowItemStorage_HandleStoredItems(ElementId elementId, std::int32_t state); // SEP01：完整窗口38外部物品消费，低BYTE/坐标原序与S32 consumed保持。
 
 // 原函数：0x004AC0F0。
-static void WindowItemStorage_Release();
+static void WindowItemStorage_Release(WindowInstance&);
 
 // 原函数：0x004AC140。
 static std::int32_t WindowItemStorage_Update(std::int32_t value);
@@ -81,13 +81,13 @@ WindowInstance* WindowItemStorage_Open(
 }
 
 // 原函数：0x004AC0F0。
-static void WindowItemStorage_Release()
+static void WindowItemStorage_Release(WindowInstance& releasedWindow)
 {
     if (world::gCurrentDialogType_581800 == 34) {
         world::gCurrentDialogType_581800 = -1;
     }
-    WindowInstance* const numberWindow = WindowRuntime_States()[WindowId_Quantity].window;
-    if (numberWindow != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 41) {
+    WindowInstance* const numberWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
+    if (numberWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 41) {
         numberWindow->state |= 0x8000u;
     }
     if (input::IsCurrentContext_503E40(nullptr)) {

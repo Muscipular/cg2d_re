@@ -91,7 +91,7 @@ static std::int32_t WindowPetSkills_Update(std::int32_t value);
 static std::int32_t WindowPetSkills_Draw(std::int32_t value);
 
 // 原函数：0x0048DD40。
-static void WindowPetSkills_Release();
+static void WindowPetSkills_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -450,14 +450,14 @@ static std::int32_t WindowPetSkills_Draw(const std::int32_t)
 }
 
 // 原函数：0x0048DD40。
-static void WindowPetSkills_Release()
+static void WindowPetSkills_Release(WindowInstance& releasedWindow)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_PetSkills].window;
+    WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetSkills].window;
     if (window != nullptr) {
-        WindowRuntime_States()[WindowId_PetDetail].x = window->x;
-        WindowRuntime_States()[WindowId_PetDetail].y = window->y;
-        WindowRuntime_States()[WindowId_PetAttributes].x = window->x;
-        WindowRuntime_States()[WindowId_PetAttributes].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetDetail].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetDetail].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetAttributes].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetAttributes].y = window->y;
     }
 }
 

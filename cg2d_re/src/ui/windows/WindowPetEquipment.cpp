@@ -42,7 +42,7 @@ static std::int32_t WindowPetEquipment_Update(std::int32_t value);
 // 共用物品提示和宠物外框，绘制本页五个装备槽。
 static std::int32_t WindowPetEquipment_Draw(std::int32_t value);
 // 将装备页位置同步给另外三个宠物详情页。
-static void WindowPetEquipment_Release();
+static void WindowPetEquipment_Release(WindowInstance&);
 // 前后跳过空宠物槽，沿用详情页的当前排序位置。
 static std::int32_t WindowPetEquipment_SelectPet(ElementId elementId, std::int32_t state);
 // 背包装入、双击卸下及右键说明翻页；装备变动交给既有Cpa回包。
@@ -280,12 +280,12 @@ static std::int32_t WindowPetEquipment_Draw(const std::int32_t)
     return 1;
 }
 
-static void WindowPetEquipment_Release()
+static void WindowPetEquipment_Release(WindowInstance& releasedWindow)
 {
-    if (const auto* const window = WindowRuntime_States()[WindowId_PetEquipment].window) {
+    if (const auto* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PetEquipment].window) {
         for (const auto id : {WindowId_PetDetail, WindowId_PetAttributes, WindowId_PetSkills}) {
-            WindowRuntime_States()[id].x = window->x;
-            WindowRuntime_States()[id].y = window->y;
+            WindowRuntime_States(*releasedWindow.ownerSession)[id].x = window->x;
+            WindowRuntime_States(*releasedWindow.ownerSession)[id].y = window->y;
         }
     }
 }

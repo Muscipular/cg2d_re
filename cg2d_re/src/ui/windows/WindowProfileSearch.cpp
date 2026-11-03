@@ -105,7 +105,7 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(ElementId elementId,
 static std::int32_t WindowProfileSearch_SelectResult(ElementId elementId, std::int32_t state); // 按行发查看请求，随后重读窗口62高亮。
 
 // 原函数：0x004CAB60。
-static void WindowProfileSearch_Release(); // 先清对话类型，再标记62/63。
+static void WindowProfileSearch_Release(WindowInstance&); // 先清对话类型，再标记62/63。
 
 // 原函数：0x004CAB90。
 static std::int32_t WindowProfileSearch_EditKeyword(ElementId elementId, std::int32_t state); // 固定元素7关键词编辑入口。
@@ -308,11 +308,11 @@ static std::int32_t WindowProfileSearch_Update(const std::int32_t value)
 }
 
 // 原函数：0x004CAB60。
-static void WindowProfileSearch_Release()
+static void WindowProfileSearch_Release(WindowInstance& releasedWindow)
 {
     world::gCurrentDialogType_581800 = -1;
-    static_cast<void>(WindowProfileView_RequestCategoryClose(3));
-    static_cast<void>(WindowProfileView_RequestCategoryClose(4));
+    static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 3));
+    static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 4));
 }
 
 // 原函数：0x004CAB90。

@@ -70,7 +70,7 @@ static std::int32_t WindowPlayerTitles_Scroll(ElementId elementId, std::int32_t 
 static std::int32_t WindowPlayerTitles_DragScroll(ElementId elementId, std::int32_t state); // WSP01：原称号拖动页码；旧X代码1959。
 
 // 原函数：0x004744A0。
-static void WindowPlayerTitles_Release();
+static void WindowPlayerTitles_Release(WindowInstance&);
 
 // 原函数：0x004774C0。
 // 关联原入口：0x0047752C（共享尾已并入本函数正文）。
@@ -579,16 +579,16 @@ static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
 }
 
 // 原函数：0x004744A0。
-static void WindowPlayerTitles_Release()
+static void WindowPlayerTitles_Release(WindowInstance& releasedWindow)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_PlayerTitles].window;
+    WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerTitles].window;
     if (window != nullptr) {
-        WindowRuntime_States()[WindowId_PlayerProfile].x = window->x;
-        WindowRuntime_States()[WindowId_PlayerProfile].y = window->y;
-        WindowRuntime_States()[WindowId_PlayerAttributes].x = window->x;
-        WindowRuntime_States()[WindowId_PlayerAttributes].y = window->y;
-        WindowRuntime_States()[WindowId_OwnProfile].x = window->x;
-        WindowRuntime_States()[WindowId_OwnProfile].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerProfile].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerProfile].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerAttributes].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerAttributes].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_OwnProfile].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_OwnProfile].y = window->y;
     }
 }
 

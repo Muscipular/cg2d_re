@@ -6,7 +6,7 @@
 namespace cg::ui::detail {
 
 // 原函数：0x004A5650。
-void WindowMailCompose_Release();
+void WindowMailCompose_Release(WindowInstance&);
 
 // 71槽注册表直接引用这些原型；窗口36／37共用Dialog。
 extern WindowPrototype gWindowPrototypeStatusBar; // 原全局：0x0054E2A0。
@@ -103,6 +103,6 @@ extern WindowTextPrototype gWindowText562C78; // 原全局：0x00562C78。 // �
 extern WindowGraphicData gWindowGraphicD678E0; // 原全局：0x00D678E0。
 
 // 原函数：0x004A4210；原型释放回调共用的返回值适配。
-void WindowRuntime_ReleaseDefault();
+void WindowRuntime_ReleaseDefault(WindowInstance& window);
 
 } // namespace cg::ui::detail

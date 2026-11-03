@@ -62,7 +62,7 @@ input::InputContext gInputContextCAFEC8 {}; // 原全局：0x00CAFEC8。
 static std::int32_t WindowOwnProfile_EditField(ElementId elementId, std::int32_t state); // 窗口58元素5..8编辑焦点。
 
 // 原函数：0x004744F0。
-static void WindowOwnProfile_Release();
+static void WindowOwnProfile_Release(WindowInstance&);
 
 // 原函数：0x00478320。
 static std::int32_t WindowOwnProfile_Update(std::int32_t value);
@@ -352,16 +352,16 @@ static std::int32_t WindowOwnProfile_Update(const std::int32_t)
 }
 
 // 原函数：0x004744F0。
-static void WindowOwnProfile_Release()
+static void WindowOwnProfile_Release(WindowInstance& releasedWindow)
 {
-    if (WindowRuntime_States()[WindowId_PlayerTitles].window != nullptr) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_OwnProfile].window;
-        WindowRuntime_States()[WindowId_PlayerProfile].x = window->x;
-        WindowRuntime_States()[WindowId_PlayerProfile].y = window->y;
-        WindowRuntime_States()[WindowId_PlayerAttributes].x = window->x;
-        WindowRuntime_States()[WindowId_PlayerAttributes].y = window->y;
-        WindowRuntime_States()[WindowId_PlayerTitles].x = window->x;
-        WindowRuntime_States()[WindowId_PlayerTitles].y = window->y;
+    if (WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerTitles].window != nullptr) {
+        WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_OwnProfile].window;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerProfile].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerProfile].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerAttributes].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerAttributes].y = window->y;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerTitles].x = window->x;
+        WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_PlayerTitles].y = window->y;
     }
 }
 

@@ -178,7 +178,7 @@ static WindowAnimationData* WindowCraft_RefreshItemWorkResult(); // 仅已有窗
 static std::int32_t WindowCraft_ReleaseMaterials(std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。
 
 // 原函数：0x00481010。
-static void WindowCraft_Release();
+static void WindowCraft_Release(WindowInstance&);
 
 // 原函数：0x004810A0。
 static std::int32_t WindowCraft_Update(std::int32_t value);
@@ -3155,10 +3155,10 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
 }
 
 // 原函数：0x00481010。
-static void WindowCraft_Release()
+static void WindowCraft_Release(WindowInstance& releasedWindow)
 {
-    WindowInstance* const quantityWindow = WindowRuntime_States()[WindowId_Quantity].window;
-    if (quantityWindow != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 11) {
+    WindowInstance* const quantityWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
+    if (quantityWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 11) {
         quantityWindow->state |= 0x8000u;
     }
     gCraftPetAssistActive_D67B00 = 0;

@@ -73,7 +73,7 @@ static_assert(sizeof(WindowElementType) == sizeof(std::int32_t));
 enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_Hover, WindowMouseState_Press };
 
 using WindowCallback = std::int32_t (*)(std::int32_t value);
-using WindowReleaseCallback = void (*)();
+using WindowReleaseCallback = void (*)(WindowInstance& window); // 释放对象显式携owner，不借当前窗口现场。
 using WindowElementCallback = std::int32_t (*)(ElementId elementId, std::int32_t state); // 窗口内稳定元素ID，非排序位置。
 using WindowDragCallback = void (*)(
     std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
@@ -876,7 +876,7 @@ std::int32_t WindowProfile_SaveOrigin(std::int32_t x, std::int32_t y); // 同源
 // 原函数：0x004D3040。
 std::int32_t WindowProfile_CheckDistance(std::int32_t rangeX, std::int32_t rangeY); // 到格才判断距快照的范围。
 // 原函数：0x004CB9B0。
-WindowInstance* WindowProfileView_RequestCategoryClose(std::int32_t index); // 借用窗口59+index，只标记关闭并返回原T*。
+WindowInstance* WindowProfileView_RequestCategoryClose(session::ClientSession& session, std::int32_t index); // 借用窗口59+index，只标记关闭并返回原T*。
 // 原函数：0x00478330。
 std::int32_t WindowProfile_HandleButtons(ElementId elementId, std::int32_t state); // 资料公开/切窗/三目录/确认的完整八分支。
 extern std::int32_t gProfileCategory1085DA0; // 原全局：0x01085DA0。 478330生产，窗口59按0/1/2选择类别，非地址。
@@ -1087,7 +1087,7 @@ std::int32_t WindowMail_DeleteGuildMember(ElementId elementId, std::int32_t unus
 // 原函数：0x004A36B0。
 std::int32_t WindowMail_DeleteMiniMailContact(ElementId elementId, std::int32_t unusedState); // 迷你姓名转义、发送及重读清理。
 // 原函数：0x004A5650。
-void WindowMailCompose_Release(); // 22/23共享释放：保存草稿、释放占用、关闭49。
+void WindowMailCompose_Release(WindowInstance&); // 22/23共享释放：保存草稿、释放占用、关闭49。
 // 原函数：0x004A58E0。
 std::int32_t WindowMailCompose_HandleInput(ElementId elementId, std::int32_t state); // 输入聚焦及非当前输入补绘。
 // 原函数：0x0047D4A0。

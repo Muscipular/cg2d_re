@@ -56,7 +56,7 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* window); // 
 static WindowAnimationData* WindowGather_RefreshResult(); // 仅更新已有窗口12，不自动创建。
 
 // 原函数：0x00485690。
-static void WindowGather_Release();
+static void WindowGather_Release(WindowInstance&);
 
 // 原函数：0x00486040。
 static std::int32_t WindowGather_Update(std::int32_t value);
@@ -220,7 +220,7 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
 }
 
 // 原函数：0x00485690。
-static void WindowGather_Release()
+static void WindowGather_Release(WindowInstance& releasedWindow)
 {
     WindowRuntime_DecrementOperationCount();
     const std::uint8_t mode = gWindow12ModeCC3E80;
@@ -228,7 +228,7 @@ static void WindowGather_Release()
         WindowRuntime_DecrementGatherOperationCount();
     }
     const std::uint8_t previousReferences = gSkillOperationCount_D67AFD;
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Gather].window;
+    WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Gather].window;
     gSkillOperationCount_D67AFD = static_cast<std::uint8_t>(previousReferences - 1);
     window->state |= 0x8000u;
     // 原4856C1..4856CD：W8减后发布，分支消费同一结果。

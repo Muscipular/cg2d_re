@@ -186,7 +186,7 @@ static void WindowProfileCategory_Refresh(); // 固定32/32/15项分类的显隐
 static std::int32_t WindowProfileCategory_SelectCategory(ElementId elementId, std::int32_t state); // 分类点击发送后复制共享默认关键词。
 
 // 原函数：0x004CA300。
-static void WindowProfileCategory_Release(); // 先清对话类型，再标记61/62/63。
+static void WindowProfileCategory_Release(WindowInstance&); // 先清对话类型，再标记61/62/63。
 
 // 原函数：0x004CB4A0。
 static std::int32_t WindowProfileCategory_ResolveCategory(std::int32_t index, std::int32_t* group, std::int32_t* value);
@@ -419,12 +419,12 @@ static std::int32_t WindowProfileCategory_Update(const std::int32_t value)
 }
 
 // 原函数：0x004CA300。
-static void WindowProfileCategory_Release()
+static void WindowProfileCategory_Release(WindowInstance& releasedWindow)
 {
     world::gCurrentDialogType_581800 = -1;
-    static_cast<void>(WindowProfileView_RequestCategoryClose(2));
-    static_cast<void>(WindowProfileView_RequestCategoryClose(3));
-    static_cast<void>(WindowProfileView_RequestCategoryClose(4));
+    static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 2));
+    static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 3));
+    static_cast<void>(WindowProfileView_RequestCategoryClose(*releasedWindow.ownerSession, 4));
 }
 
 // 原函数：0x004CB4A0。

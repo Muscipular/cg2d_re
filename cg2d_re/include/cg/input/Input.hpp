@@ -103,7 +103,7 @@ extern InputContext gInputContextD2DFD0; // 原全局：0x00D2DFD0。 旧22宠�
 // 原CB0878：窗口42数量输入，独立于交易输入与聊天输入。
 // 原CA0018：窗口41存取数值输入，不包含相邻CA0174对象槽。
 // 原CC49C0：窗口51标题编辑，末尾不包含CC4B1C状态。
-// 原CA02E0：通用对话36/37共享输入上下文，UI只借用。
+// 原CA02E0：通用对话36/37共享输入上下文，现由所属会话的原生对话状态持有。
 extern InputContext gInputContextD2E2E0; // 原全局：0x00D2E2E0。 旧人物501FD0称号编辑，独立于现代窗口9。
 extern InputContext gInputContextCB01F8; // 原全局：0x00CB01F8。 旧选择32物品名称输入；CB0320/24为本对象字段别名。
 extern InputContext gInputContextCF47E0; // 原全局：0x00CF47E0。 旧53输入；只承载15CH虚拟零，完整初始化生产仍待。

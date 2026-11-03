@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cg/input/Input.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/world/PlayerSlots.hpp"
 
@@ -36,6 +37,36 @@ static_assert(offsetof(WindowPrototype, update) == 0x28);
 static_assert(offsetof(WindowPrototype, draw) == 0x30);
 static_assert(offsetof(WindowPrototype, release) == 0x38);
 static_assert(sizeof(WindowPrototype) == 0x40);
+
+// 原输入原型首W32的两种解释；不对原生T*进行原x86高字节测试。
+enum class WindowInputReferenceKind : std::uint8_t {
+    Context,
+    RejectedValue,
+};
+
+struct WindowInputReference {
+    union {
+        input::InputContext* context;
+        std::uint32_t rejectedValue; // 原高字节非零的拒绝值，低24位也保留。
+    };
+    WindowInputReferenceKind kind;
+};
+static_assert(sizeof(WindowInputReference) == 16);
+
+// 原57E970的0x22C输入原型，不同于窗口type1的图形原型。
+struct WindowInputPrototype {
+    WindowInputReference input; // 原成员偏移：+0x00。
+    std::int32_t x; // 原成员偏移：+0x04。
+    std::int32_t y; // 原成员偏移：+0x08。
+    std::int32_t renderMode; // 原成员偏移：+0x0C。
+    std::int32_t fontType; // 原成员偏移：+0x10。
+    std::int32_t color; // 原成员偏移：+0x14。
+    std::wstring text; // 原+18文本；UTL02动态UTF-16输入原型正文。
+    std::int32_t maxLine; // 原成员偏移：+0x21C。
+    std::int32_t maxCharPerLine; // 原成员偏移：+0x220。
+    std::int32_t value224; // 原成员偏移：+0x224。
+    std::int32_t encrypt; // 原成员偏移：+0x228。
+};
 
 // 原CC4230接收技能、等级两个S32；宿主回调另携发起会话，不改变命令字段。
 using SkillWindowSelectionCallback = void (*)(
@@ -622,6 +653,11 @@ struct CrystalExchangeShopWindowRuntimeState {
 // 通用对话配置与实际借用源；图像、回复及治疗记录保留原独立清理范围。
 struct MessageDialogWindowRuntimeState {
     detail::MessageDialogRuntimeSlots message {};
+    input::InputContext input {}; // 原0xCA02E0，36/37共用的实体输入。
+    detail::WindowInputPrototype inputPrototype { // 原0x57E478，容量成员原0x57E698。
+        {{&input}, detail::WindowInputReferenceKind::Context},
+        0, 0, 3, 0, 0, {}, 1, 32, 0, 0,
+    };
     std::array<detail::MessageDialogImageRecord, 10> images {}; // 原0xCC4B70。
     std::uint8_t imageCount = 0; // 原0xD67B30，按S8消费。
     detail::DialogReplyRuntimeSlots reply {};

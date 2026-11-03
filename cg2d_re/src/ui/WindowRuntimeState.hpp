@@ -378,7 +378,6 @@ extern input::InputContext gInputContextCC21E8; // 原全局：0x00CC21E8。
 extern input::InputContext gInputContextCB0878;
 extern input::InputContext gInputContextCA0018; // 原全局：0x00CA0018。
 extern input::InputContext gInputContextCC49C0; // 原全局：0x00CC49C0。
-extern input::InputContext gInputContextCA02E0;
 extern input::InputContext gInputContextD2E130; // 原全局：0x00D2E130。 窗口48九个输入原型共用的唯一上下文。
 
 // 原函数：0x0047A140。
@@ -678,34 +677,6 @@ struct WindowElementPrototype {
     ElementId elementId = 0; // C++原型由对应窗口的enum显式指定固定ID。
 };
 
-// 原输入原型首W32的两种解释；不对原生T*进行原x86高字节测试。
-enum class WindowInputReferenceKind : std::uint8_t {
-    Context,
-    RejectedValue,
-};
-
-struct WindowInputReference {
-    union {
-        input::InputContext* context;
-        std::uint32_t rejectedValue; // 原高字节非零的拒绝值，低24位也保留。
-    };
-    WindowInputReferenceKind kind;
-};
-
-// 原57E970的0x22C输入原型，不同于窗口type1的图形原型。
-struct WindowInputPrototype {
-    WindowInputReference input; // 原成员偏移：+0x00。
-    std::int32_t x; // 原成员偏移：+0x04。
-    std::int32_t y; // 原成员偏移：+0x08。
-    std::int32_t renderMode; // 原成员偏移：+0x0C。
-    std::int32_t fontType; // 原成员偏移：+0x10。
-    std::int32_t color; // 原成员偏移：+0x14。
-    std::wstring text; // 原+18文本；UTL02动态UTF-16输入原型正文。
-    std::int32_t maxLine; // 原成员偏移：+0x21C。
-    std::int32_t maxCharPerLine; // 原成员偏移：+0x220。
-    std::int32_t value224; // 原成员偏移：+0x224。
-    std::int32_t encrypt; // 原成员偏移：+0x228。
-};
 extern WindowInputPrototype gPetNameInputPrototype57DCF8; // 原全局：0x0057DCF8。 窗口15与16/17/18共用名称输入原型。
 extern WindowInputPrototype gMailInputPrototype57E740; // 原全局：0x0057E740。 窗口22/23共用，借Input唯一D66CA8。
 // 原函数：0x0048F380。
@@ -1061,7 +1032,6 @@ void WindowNumber_Draw(
 // 原函数：0x00477460。
 std::int32_t WindowNumber_MeasureWidth(std::wstring_view text, std::int8_t style); // 原数字字符数乘运行步进减扣宽。
 
-static_assert(sizeof(WindowInputReference) == 16);
 static_assert(sizeof(WindowElementPrototypeSource) == 8);
 static_assert(offsetof(WindowElementPrototype, source) == 0x18);
 static_assert(offsetof(WindowElementPrototype, mouseCallback) == 0x20);

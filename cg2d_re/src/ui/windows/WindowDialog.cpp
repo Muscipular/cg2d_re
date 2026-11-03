@@ -40,10 +40,6 @@ enum class WindowDialogElementId : ElementId {
 
 namespace detail {
 
-// 控件载荷、窗口状态、组件表与原型。
-
-input::InputContext gInputContextCA02E0 {}; // 原全局：0x00CA02E0。
-
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049CE70。
@@ -100,12 +96,6 @@ static void WindowDialog_Release(WindowInstance&);
 // 控件载荷、窗口状态、组件表与原型。
 
 static constexpr std::array<std::int32_t, 5> gHealthImages57CBA4 {22520, 22521, 22522, 22523, 22524}; // 原全局：0x0057CBA4。
-
-// 原全局：0x0057E478。 同源可写输入原型，57E698为容量成员。
-static WindowInputPrototype gDialogInputPrototype57E478 { // 原全局：0x0057E478。
-    {{&cg::ui::detail::gInputContextCA02E0}, WindowInputReferenceKind::Context},
-    0, 0, 3, 0, 0, {}, 1, 32, 0, 0,
-};
 
 static_assert(std::is_same_v<decltype(&WindowDialog_Reply), WindowDialogReplyCallback>);
 
@@ -314,20 +304,20 @@ static std::int32_t WindowDialog_Update(WindowInstance& callbackWindow, const st
             dialog.message.inputTexts.clear();
             try { dialog.message.inputTexts.resize(static_cast<std::size_t>(count)); }
             catch (const std::bad_alloc&) { dialog.message.inputTexts.clear(); }
-            gDialogInputPrototype57E478.maxCharPerLine = dialog.message.inputCapacity;
+            dialog.inputPrototype.maxCharPerLine = dialog.message.inputCapacity;
             if (auto* const element8 = currentWindow->FindElementById(WindowDialogElementId::Element8); element8) element8->visible = 1;
             const std::int16_t inputY = dialog.message.inputY[0];
             window = currentWindow;
             const std::int32_t y = window->y + inputY;
             const std::int32_t inputX = window->x + 24;
-            static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
-            input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
+            static_cast<void>(WindowInput_ActivateElement(&dialog.inputPrototype, inputX, y, 0));
+            input::SetContext_44B330(&dialog.input);
             window = currentWindow;
             auto* const element82 = window->FindElementById(WindowDialogElementId::Element8);
             if (element82) {
                 gFocusedElementDataD45F94 = element82->data.input;
             }
-            if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &cg::ui::detail::gInputContextCA02E0;
+            if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &dialog.input;
             dialog.message.selectedInput = 0;
         }
         dialog.message.closeCallbackPending = 1;
@@ -439,8 +429,8 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
     if (inputCount > 0) {
         const std::int32_t inputX = window->x + 24;
         std::int32_t selected = dialog.message.selectedInput;
-        if (selected >= 0 && input::gCurrentInputData != &cg::ui::detail::gInputContextCA02E0) {
-            dialog.message.inputTexts[selected] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
+        if (selected >= 0 && input::gCurrentInputData != &dialog.input) {
+            dialog.message.inputTexts[selected] = input::ContextText(dialog.input);
             selected = -1;
             window = currentWindow;
             inputCount = std::bit_cast<std::int8_t>(dialog.message.inputCount);
@@ -549,7 +539,7 @@ static std::int32_t WindowDialog_HandleButtons(WindowInstance& callbackWindow, c
             if (dialog.message.reply != nullptr) {
                 const std::int32_t selected = dialog.message.selectedInput;
                 if (selected >= 0) {
-                    dialog.message.inputTexts[selected] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
+                    dialog.message.inputTexts[selected] = input::ContextText(dialog.input);
                 }
                 const std::uint8_t count = dialog.message.inputCount;
                 const std::wstring* const texts = dialog.message.inputTexts.data();
@@ -611,19 +601,19 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
             if ((state & MouseFlag_LDownEvent) != 0) {
                 const std::int32_t previous = dialog.message.selectedInput;
                 if (previous >= 0) {
-                    dialog.message.inputTexts[previous] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
+                    dialog.message.inputTexts[previous] = input::ContextText(dialog.input);
                 }
                 if (auto* const element8 = currentWindow->FindElementById(WindowDialogElementId::Element8); element8) element8->visible = 1;
                 const std::int16_t inputY = dialog.message.inputY[selected];
                 const std::int32_t y = inputY + currentWindow->y;
-                static_cast<void>(WindowInput_ActivateElement(&gDialogInputPrototype57E478, inputX, y, 0));
-                input::SetContext_44B330(&cg::ui::detail::gInputContextCA02E0);
+                static_cast<void>(WindowInput_ActivateElement(&dialog.inputPrototype, inputX, y, 0));
+                input::SetContext_44B330(&dialog.input);
                 window = currentWindow;
                 auto* const element82 = window->FindElementById(WindowDialogElementId::Element8);
                 if (element82) {
                     gFocusedElementDataD45F94 = element82->data.input;
                 }
-                if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &cg::ui::detail::gInputContextCA02E0;
+                if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &dialog.input;
                 const std::wstring* const texts = dialog.message.inputTexts.data();
                 dialog.message.selectedInput = selected;
                 input::LoadInitialText_44A160(texts[selected]);
@@ -675,7 +665,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
                 if ((state & MouseFlag_LDownEvent) != 0) {
                     const std::int32_t previous = dialog.message.selectedInput;
                     if (previous >= 0) {
-                        dialog.message.inputTexts[previous] = input::ContextText(cg::ui::detail::gInputContextCA02E0);
+                        dialog.message.inputTexts[previous] = input::ContextText(dialog.input);
                     }
                     const WindowDialogReplyCallback reply = dialog.message.reply;
                     if (reply != nullptr) {

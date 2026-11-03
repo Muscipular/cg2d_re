@@ -3,6 +3,10 @@
 #include <cstdint>
 #include <string_view>
 
+namespace cg::network {
+class CgConnection;
+}
+
 namespace cg::character_select {
 
 // 原 [0x51B740,0x51B7CE)：采样覆盖/Puk版本后按类别决定保留或回退图号。
@@ -11,10 +15,10 @@ std::int32_t ResolveCharacterImageForVersion(std::int32_t imageNo);
 
 
 // 原 sub_45DD50@[0x45DD50,0x45DD5A)。
-void ResetCharacterListProgress_45DD50();
+void ResetCharacterListProgress_45DD50(network::CgConnection& connection);
 
 // 原 sub_45DD60@[0x45DD60,0x45DED9)。
-std::int32_t UpdateCharacterListProgress_45DD60();
+std::int32_t UpdateCharacterListProgress_45DD60(network::CgConnection& connection);
 
 // 原 sub_45D7D0@[0x45D7D0,0x45D7DA)；只清认证失败提示阶段。
 void ResetAuthenticationFailure_45D7D0();
@@ -64,7 +68,7 @@ std::int32_t ProcessScene_462330();
 std::int32_t ProcessLegacyVersionScene_45E3D0();
 
 // 原 sub_460FF0@[0x460FF0,0x461A77)。
-std::int32_t ProcessScene_460FF0();
+std::int32_t ProcessScene_460FF0(network::CgConnection& connection);
 
 // 原 sub_461B30@[0x461B30,0x46208F)；前置条件是 slot 位于 [0, 1]。
 std::int32_t ProcessCharacterSlot_461B30(

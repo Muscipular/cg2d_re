@@ -44,6 +44,7 @@ using CharacterRecordArray = std::array<CharacterRecord, CharacterRecordCount>;
 
 // 原 sub_51B3B0@[0x51B3B0,0x51B3DC)：只清合法的 0/1 角色记录。
 std::int32_t ClearCharacterSlot_51B3B0(std::uint32_t selectedIndex);
+std::int32_t ClearCharacterSlot_51B3B0(network::CgConnection& connection, std::uint32_t selectedIndex);
 
 // 原 sub_51B110@[0x51B110,0x51B136)：合法槽读首字节返回 0/1，越界返回 -1。
 std::int32_t HasCharacterInSlot_51B110(std::uint32_t selectedIndex);

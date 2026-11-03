@@ -94,7 +94,7 @@ void Update(session::ClientSession& session)
     case 3: {
         const ui::LegacyUiLayoutScope layout;
         platform::gFrameBackgroundMode_73ECC0 = 0;
-        character_select::ProcessScene_460FF0();
+        character_select::ProcessScene_460FF0(session.Connection());
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         return;

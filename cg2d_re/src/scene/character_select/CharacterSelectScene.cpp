@@ -1445,7 +1445,7 @@ static void UpdateCharacterGraphic(
 
 // 原函数：0x00460FF0。
 #pragma optimize("", off)
-std::int32_t ProcessScene_460FF0()
+std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
 {
     VM_DOLPHIN_WHITE_START
     std::int32_t sceneResult;
@@ -1457,41 +1457,41 @@ std::int32_t ProcessScene_460FF0()
         if (mainState <= 22u) {
             if (mainState == 0u) {
                 world::gCurrentSceneState = 1;
-                cg::network::GetGameConnection().PukVersion() = 0;
-                ResetCharacterListProgress_45DD50();
+                connection.PukVersion() = 0;
+                ResetCharacterListProgress_45DD50(connection);
                 gUpdateAvailable = 0;
                 render::SelectPalette(0, 0);
             } else if (mainState == 1u) {
-                const std::int32_t result = UpdateCharacterListProgress_45DD60();
+                const std::int32_t result = UpdateCharacterListProgress_45DD60(connection);
                 if (result == 1) {
                     world::gCurrentSceneState = 9;
                 } else if (result == -3) {
                     world::gCurrentSceneState = 2;
-                    cg::network::GetGameConnection().Shutdown();
-                    cg::network::GetGameConnection().DisconnectState() = 0;
+                    connection.Shutdown();
+                    connection.DisconnectState() = 0;
                 } else if (result == -4) {
                     world::gCurrentSceneState = 7;
-                    cg::network::GetGameConnection().Shutdown();
-                    cg::network::GetGameConnection().DisconnectState() = 0;
+                    connection.Shutdown();
+                    connection.DisconnectState() = 0;
                 } else if (result < 0) {
                     world::gCurrentSceneState = 4;
-                    cg::network::GetGameConnection().Shutdown();
-                    cg::network::GetGameConnection().DisconnectState() = 0;
+                    connection.Shutdown();
+                    connection.DisconnectState() = 0;
                 }
             } else if (mainState == 2u) {
-                login::ResetLoginMessage();
+                login::ResetLoginMessage(connection);
                 world::gCurrentSceneState = 6;
             } else if (mainState == 3u) {
                 // 原状态3不执行操作。
             } else if (mainState == 4u) {
-                login::ResetLoginMessage();
+                login::ResetLoginMessage(connection);
                 world::gCurrentSceneState = 5;
             } else if (mainState == 5u) {
-                if (login::UpdateLoginMessage(L"角色资料读取失败。" /* 原 0x55CD68: 角色资料读取失败提示。 */) != 0) {
+                if (login::UpdateLoginMessage(connection, L"角色资料读取失败。" /* 原 0x55CD68: 角色资料读取失败提示。 */) != 0) {
                     world::SetCurrentSceneType(2);
                 }
             } else if (mainState == 6u) {
-                if (login::UpdateLoginMessage(L"目前伺服器正在停机维护中。" /* 原 0x55CD4C: 服务器维护提示。 */) != 0) {
+                if (login::UpdateLoginMessage(connection, L"目前伺服器正在停机维护中。" /* 原 0x55CD4C: 服务器维护提示。 */) != 0) {
                     world::SetCurrentSceneType(2);
                 }
             } else if (mainState == 7u) {
@@ -1503,7 +1503,7 @@ std::int32_t ProcessScene_460FF0()
                 }
             } else if (mainState == 9u) {
                 const std::int32_t capability = resource::ProbePaletteCapability_45C970();
-                const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
+                const std::uint8_t pukVersion = connection.PukVersion();
                 render::gPaletteCapability = capability;
                 if (pukVersion == 1u) {
                     world::gCurrentSceneState = 10;
@@ -1577,9 +1577,9 @@ std::int32_t ProcessScene_460FF0()
             } else if (mainState == 14u) {
                 const std::int32_t result = UpdateCharacterDeletionProgress_45DC00();
                 if (result == 1) {
-                    cg::login::ClearCharacterSlot_51B3B0(static_cast<std::uint32_t>(
-                        static_cast<std::int32_t>(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex)));
-                    const std::int16_t unusedSelected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+                    cg::login::ClearCharacterSlot_51B3B0(connection, static_cast<std::uint32_t>(
+                        static_cast<std::int32_t>(connection.LoginRequests().selectedCharacterIndex)));
+                    const std::int16_t unusedSelected = connection.LoginRequests().selectedCharacterIndex;
                     static_cast<void>(unusedSelected);
                     cg::core::NullSub_509080();
                     cg::login::detail::SaveCurrentLoginRecord_520200();
@@ -1591,14 +1591,14 @@ std::int32_t ProcessScene_460FF0()
                     world::gCurrentSceneState = 15;
                 }
             } else if (mainState == 15u) {
-                login::ResetLoginMessage();
+                login::ResetLoginMessage(connection);
                 world::gCurrentSceneState = 16;
             } else if (mainState == 16u) {
-                if (login::UpdateLoginMessage(L"无法删除此角色。" /* 原 0x55CD38: 无法删除角色提示。 */) != 0) {
+                if (login::UpdateLoginMessage(connection, L"无法删除此角色。" /* 原 0x55CD38: 无法删除角色提示。 */) != 0) {
                     world::gCurrentSceneState = 0;
                 }
             } else if (mainState == 17u) {
-                login::ResetLoginMessage();
+                login::ResetLoginMessage(connection);
                 world::gCurrentSceneState = 18;
             } else if (mainState == 18u) {
                 const std::int32_t result =
@@ -1615,10 +1615,10 @@ std::int32_t ProcessScene_460FF0()
                     world::gCurrentSceneState = 10;
                 }
             } else if (mainState == 19u) {
-                login::ResetLoginMessage();
+                login::ResetLoginMessage(connection);
                 world::gCurrentSceneState = 20;
             } else if (mainState == 20u) {
-                if (login::UpdateLoginMessage(L"这个帐号仅适用于资料片版本，请将用户端的版本更新至资料片。" /* 原 0x55C818: 资料片专用账号及客户端更新提示。 */) != 0) {
+                if (login::UpdateLoginMessage(connection, L"这个帐号仅适用于资料片版本，请将用户端的版本更新至资料片。" /* 原 0x55C818: 资料片专用账号及客户端更新提示。 */) != 0) {
                     world::SetCurrentSceneType(2);
                 }
             } else if (mainState == 21u) {
@@ -1648,7 +1648,7 @@ std::int32_t ProcessScene_460FF0()
 
         for (std::uint32_t slot = 0; slot < login::CharacterRecordCount; ++slot) {
             login::CharacterRecord& record =
-                cg::network::GetGameConnection().LoginRequests().characters[static_cast<std::size_t>(slot)];
+                connection.LoginRequests().characters[static_cast<std::size_t>(slot)];
             const std::int32_t action =
                 ProcessCharacterSlot_461B30(slot, interactive);
 #ifndef _DEBUG
@@ -1662,7 +1662,7 @@ std::int32_t ProcessScene_460FF0()
             }
 
             if (actionIndex == 0u) {
-                cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
+                connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
                 world::ClearCurrentCharacterAlbum_518BE0();
                 cg::world::detail::ClearCurrentCharacterContactMail_519290();
                 cg::world::detail::ClearCurrentCharacterGuildMail_5194C0();
@@ -1673,10 +1673,10 @@ std::int32_t ProcessScene_460FF0()
                 cg::yobi::YobiClearUp_404D30();
                 ClearPreviewActions();
             } else if (actionIndex == 1u) {
-                cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
+                connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
                 // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
                 const std::int16_t selectedServerIndex =
-                    cg::network::GetGameConnection().LoginRequests().selectedServerIndex;
+                    connection.LoginRequests().selectedServerIndex;
                 const wchar_t* const serverAddress = login::gLoginServerRecords_D69798[
                     static_cast<std::size_t>(selectedServerIndex)].address.data();
                 if (std::wstring_view(serverAddress) == L"taomoli") {
@@ -1686,7 +1686,7 @@ std::int32_t ProcessScene_460FF0()
                     interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
                 }
             } else if (actionIndex == 2u) {
-                cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
+                connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
                 if (record.deleteFlag != 0) {
                     const std::wstring name = record.name;
                     cg::core::NullSub_509080();
@@ -1730,8 +1730,8 @@ std::int32_t ProcessScene_460FF0()
             && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
             cg::yobi::YobiClearUp_404D30();
             ClearPreviewActions();
-            cg::network::GetGameConnection().Shutdown();
-            cg::network::GetGameConnection().DisconnectState() = 0;
+            connection.Shutdown();
+            connection.DisconnectState() = 0;
             world::SetCurrentSceneType(2);
             login::detail::PlaySe(54, 320, 240);
         }
@@ -1747,14 +1747,14 @@ std::int32_t ProcessScene_460FF0()
 
         sceneResult = gUpdateAvailable;
         if (sceneResult != 0) {
-            const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
+            const std::uint8_t pukVersion = connection.PukVersion();
             sceneResult = static_cast<std::int32_t>(pukVersion);
             if (pukVersion == 0u || pukVersion == 2u) {
-                sceneResult = static_cast<std::int32_t>(cg::network::GetGameConnection().SendVersionUpgradeRequest(2, state::kVersion20));
+                sceneResult = static_cast<std::int32_t>(connection.SendVersionUpgradeRequest(2, state::kVersion20));
             } else if (pukVersion == 5u || pukVersion == 6u) {
-                sceneResult = static_cast<std::int32_t>(cg::network::GetGameConnection().SendVersionUpgradeRequest(4, state::kVersion30));
+                sceneResult = static_cast<std::int32_t>(connection.SendVersionUpgradeRequest(4, state::kVersion30));
             } else if (pukVersion == 7u) {
-                sceneResult = static_cast<std::int32_t>(cg::network::GetGameConnection().SendVersionUpgradeRequest(5, detail::gVersionPayload9A5C10));
+                sceneResult = static_cast<std::int32_t>(connection.SendVersionUpgradeRequest(5, detail::gVersionPayload9A5C10));
             }
             world::gCurrentSceneState = 0;
         }

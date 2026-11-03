@@ -107,12 +107,11 @@ static std::int32_t WriteCharacterRecord_51B1B0(
 }
 
 // 原函数：0x00508910。
-std::uint32_t StartCharacterListRequest()
+std::uint32_t StartCharacterListRequest(network::CgConnection& connection)
 {
-    static_cast<void>(ClearCharacterSlot_51B3B0(0));
-    static_cast<void>(ClearCharacterSlot_51B3B0(1));
+    static_cast<void>(ClearCharacterSlot_51B3B0(connection, 0));
+    static_cast<void>(ClearCharacterSlot_51B3B0(connection, 1));
 
-    auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
     const auto networkSession = connection.CaptureSession();
     request.characterListReplyCode = 0;
@@ -124,9 +123,9 @@ std::uint32_t StartCharacterListRequest()
 }
 
 // 原函数：0x00508950。
-std::int32_t PollCharacterListRequest()
+std::int32_t PollCharacterListRequest(network::CgConnection& connection)
 {
-    auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& request = connection.LoginRequests();
     if (request.status == 2) {
         const std::uint16_t replyCode = request.characterListReplyCode;
         request.status = 0;

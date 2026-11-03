@@ -20,15 +20,15 @@ static constexpr std::int32_t kRowHeight = 48;
 static constexpr std::int32_t kTextHeight = 16;
 
 // 原函数：0x0045DD50。
-void ResetCharacterListProgress_45DD50()
+void ResetCharacterListProgress_45DD50(network::CgConnection& connection)
 {
-    cg::network::GetGameConnection().CharacterSelectUi().listProgress.stage = 0;
+    connection.CharacterSelectUi().listProgress.stage = 0;
 }
 
 // 原函数：0x0045DD60。
-std::int32_t UpdateCharacterListProgress_45DD60()
+std::int32_t UpdateCharacterListProgress_45DD60(network::CgConnection& connection)
 {
-    auto& progress = cg::network::GetGameConnection().CharacterSelectUi().listProgress;
+    auto& progress = connection.CharacterSelectUi().listProgress;
     std::uint16_t stage = progress.stage;
     std::int32_t result = 0;
 
@@ -58,10 +58,10 @@ std::int32_t UpdateCharacterListProgress_45DD60()
     }
 
     if (stage == 1) {
-        login::StartCharacterListRequest();
+        login::StartCharacterListRequest(connection);
         ++progress.stage;
     } else if (stage == 2) {
-        result = login::PollCharacterListRequest();
+        result = login::PollCharacterListRequest(connection);
         if (result != 0) {
             cg::yobi::YobiAction* const action = progress.action;
             if (action != nullptr) {

@@ -22,10 +22,15 @@ static constexpr char kSuccessfulResult[] = "successful";
 // 原函数：0x0051B3B0。
 std::int32_t ClearCharacterSlot_51B3B0(const std::uint32_t selectedIndex)
 {
+    return ClearCharacterSlot_51B3B0(cg::network::GetGameConnection(), selectedIndex);
+}
+
+std::int32_t ClearCharacterSlot_51B3B0(network::CgConnection& connection, const std::uint32_t selectedIndex)
+{
     if (selectedIndex >= CharacterRecordCount) {
         return -1;
     }
-    cg::network::GetGameConnection().LoginRequests().characters[selectedIndex] = {};
+    connection.LoginRequests().characters[selectedIndex] = {};
     return 0;
 }
 

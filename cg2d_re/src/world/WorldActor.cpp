@@ -312,7 +312,7 @@ void ApplyWorldActorActionCommand_444410(
 
 // WBR01：批量补建空action；未知类别仍保创建，仅跳过名字/flags尾，原主体保持。
 // 原函数：0x00446640。
-void RecreateMissingWorldObjectActions_446640()
+void RecreateMissingWorldObjectActions_446640(session::ClientSession& session)
 {
     for (std::size_t index = 0; index < kWorldObjectCapacity; ++index) {
         auto& record = gWorldObjects[index];
@@ -326,7 +326,7 @@ void RecreateMissingWorldObjectActions_446640()
             static_cast<std::int32_t>(record.coordinate0C);
         const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
         cg::yobi::YobiAction* action =
-            cg::yobi::CreateMapActorAction_441DB0(imageNo, mapX, mapY, direction);
+            cg::yobi::CreateMapActorAction_441DB0(session, imageNo, mapX, mapY, direction);
         record.action = action;
         if (action == nullptr) {
             continue;
@@ -359,7 +359,7 @@ void RecreateMissingWorldObjectActions_446640()
 // MOP01：完整对象生产/更新；两坐标三值先取、四256B文本槽原复用关系沿SPEC，原失败/字段宽度保持。
 // 原函数：0x00445350。
 void UpsertWorldActor_445350(
-    const std::int32_t objectIndex, const std::int32_t imageNo,
+    session::ClientSession& session, const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
     const std::int32_t direction, const char* const name,
     const char* const titles, const char* const extraText,
@@ -378,7 +378,7 @@ void UpsertWorldActor_445350(
             selectedDirection = 0;
         }
         cg::yobi::YobiAction* const action =
-            cg::yobi::CreateMapActorAction_441DB0(imageNo, mapX, mapY, selectedDirection);
+            cg::yobi::CreateMapActorAction_441DB0(session, imageNo, mapX, mapY, selectedDirection);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
@@ -933,7 +933,8 @@ void HandlePartyActorVitalsReply_50AEF0(cg::network::CgConnection&, const char* 
 
 // WLR01：仅已占用/空action恢复，方向→第二/第一坐标→图号，创建后按原借用/字节复制/flags发布。
 // 原函数：0x004467D0。
-void RecreateWorldObjectAction_4467D0(const std::int32_t objectIndex)
+void RecreateWorldObjectAction_4467D0(
+    cg::yobi::YobiAction* const source, const std::int32_t objectIndex)
 {
     if (objectIndex < 0) {
         return;
@@ -953,7 +954,7 @@ void RecreateWorldObjectAction_4467D0(const std::int32_t objectIndex)
         static_cast<std::int32_t>(record.coordinate0C);
     const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
     cg::yobi::YobiAction* action =
-        cg::yobi::CreateMapActorAction_441DB0(imageNo, mapX, mapY, direction);
+        cg::yobi::CreateMapActorAction_441DB0(*source->ownerSession, imageNo, mapX, mapY, direction);
     record.action = action;
     if (action == nullptr) {
         return;

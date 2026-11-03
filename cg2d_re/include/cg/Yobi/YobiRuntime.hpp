@@ -241,7 +241,7 @@ YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
 
 // 原441DB0：独立载荷、四次坐标赋值/投影；4417E0与实体尾442F70正文已有，完整链/运行未验。
 YobiAction* CreateMapActorAction_441DB0(
-    std::int32_t imageNo, std::int32_t mapX,
+    session::ClientSession& session, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction);
 // LDT01／原448040：独立载荷、同临时槽四次坐标赋值/投影与tick；447E60及十种模式已有本体。
 YobiAction* CreateMapTransitionAction_448040(

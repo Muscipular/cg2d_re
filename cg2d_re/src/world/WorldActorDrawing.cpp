@@ -368,7 +368,7 @@ void MarkWorldActorAsPartyLeader_442BD0(cg::yobi::YobiAction* const action)
 // WOP01：类别2记录更新；两坐标mask/encoded/count先取齐，保创建失败与fresh action序。
 // 原函数：0x00445D20。
 void UpsertGroundItemObject_445D20(
-    const std::int32_t objectIndex, const std::int32_t imageNo,
+    session::ClientSession& session, const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
     const std::int32_t direction, const std::int32_t value48,
     const char* const name, const std::int32_t value50)
@@ -380,7 +380,7 @@ void UpsertGroundItemObject_445D20(
             return;
         }
         cg::yobi::YobiAction* const action =
-            cg::yobi::CreateMapActorAction_441DB0(imageNo, mapX, mapY, direction);
+            cg::yobi::CreateMapActorAction_441DB0(session, imageNo, mapX, mapY, direction);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {
@@ -428,7 +428,7 @@ void UpsertGroundItemObject_445D20(
 // WOP01：类别4记录更新；两坐标encoded/mask/count先取齐，不补类别2专用字段。
 // 原函数：0x00445F40。
 void UpsertGroundGoldObject_445F40(
-    const std::int32_t objectIndex, const std::int32_t imageNo,
+    session::ClientSession& session, const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,
     const std::int32_t direction, const std::int32_t value4C,
     const std::wstring_view name)
@@ -440,7 +440,7 @@ void UpsertGroundGoldObject_445F40(
             return;
         }
         cg::yobi::YobiAction* const action =
-            cg::yobi::CreateMapActorAction_441DB0(imageNo, mapX, mapY, direction);
+            cg::yobi::CreateMapActorAction_441DB0(session, imageNo, mapX, mapY, direction);
         auto& record = gWorldObjects[static_cast<std::size_t>(index)];
         record.action = action;
         if (action == nullptr) {

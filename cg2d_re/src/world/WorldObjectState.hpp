@@ -98,7 +98,7 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
 // 原函数：0x004462E0。
 void RemoveWorldObject_4462E0(std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
 // 原函数：0x004467D0。
-void RecreateWorldObjectAction_4467D0(std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
+void RecreateWorldObjectAction_4467D0(cg::yobi::YobiAction* source, std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
 // 原函数：0x00519EE0。
 void SynchronizePlayerMapActionPosition_519EE0(); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
 
@@ -166,7 +166,7 @@ std::int32_t IsAnimationImageNumber_5183B0(std::int32_t imageNo); // 原图号[1
 void ResetMapActorDrawKeys_4468F0(); // 原普通场景51D246：只清三值去重计数，不清表。
 // 原445350完整实体生产/更新；仅新建方向门禁、两坐标取样与四文本槽两阶段复用沿MOP01 SPEC。
 void UpsertWorldActor_445350(
-    std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
+    session::ClientSession& session, std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, const char* name,
     const char* titles, const char* extraText, std::int32_t level,
     std::int32_t value40, std::int32_t flag1, std::int32_t flag2,
@@ -174,13 +174,13 @@ void UpsertWorldActor_445350(
 // WOP01：类别2生产或更新；已有记录不补建action，保领取/创建失败及两坐标取样序。
 // 原函数：0x00445D20。
 void UpsertGroundItemObject_445D20(
-    std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
+    session::ClientSession& session, std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, std::int32_t value48,
     const char* name, std::int32_t value50);
 // WOP01：类别4生产或更新；原两坐标先取齐再发布，保原名字门槛和flags尾。
 // 原函数：0x00445F40。
 void UpsertGroundGoldObject_445F40(
-    std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
+    session::ClientSession& session, std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction, std::int32_t value4C,
     std::wstring_view name);
 // WGQ01：类别/必需flags120命中返对象编号，否则-1；掩码0不命中。
@@ -223,7 +223,7 @@ std::int32_t ReadPlayerMovementActive_51A680(); // 空玩家为0，否则MOVSX�
 // 原函数：0x004464D0。
 void __cdecl ClearWorldObjectsAndActions_4464D0(); // WLR01：已占用槽附件/text清理后fresh主标死，保名称。
 // 原函数：0x00446640。
-void RecreateMissingWorldObjectActions_446640(); // WBR01：全1000槽补建，原四类名字/flags尾；未知类创建仍保。
+void RecreateMissingWorldObjectActions_446640(session::ClientSession& session); // WBR01：全1000槽补建，原四类名字/flags尾；未知类创建仍保。
 
 } // namespace detail
 

@@ -3567,9 +3567,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         worldScene.battle.entryPending = 0;
         [[fallthrough]];
     case 100:
-        CreatePlayerMapPresence_519A80();
+        CreatePlayerMapPresence_519A80(session);
         ResetTimedMapNotice_455C60();
-        RecreateMissingWorldObjectActions_446640();
+        RecreateMissingWorldObjectActions_446640(session);
         ResetCurrentDialogType_4D3170();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
@@ -3845,9 +3845,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             goto waitFrame;
         }
         gCurrentSceneState = 1;
-        CreatePlayerMapPresence_519A80();
+        CreatePlayerMapPresence_519A80(session);
         ResetTimedMapNotice_455C60();
-        RecreateMissingWorldObjectActions_446640();
+        RecreateMissingWorldObjectActions_446640(session);
         ResetCurrentDialogType_4D3170();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
@@ -6148,12 +6148,12 @@ void AdvancePlayerWorldMovement_46A700(session::ClientSession& session)
 }
 
 // 原函数：0x00519A80。
-void CreatePlayerMapPresence_519A80()
+void CreatePlayerMapPresence_519A80(session::ClientSession& session)
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    CreateOrUpdatePlayerMapActor_519CD0(gPlayerRuntimeSlots.imageNo, x, y, direction);
+    CreateOrUpdatePlayerMapActor_519CD0(session, gPlayerRuntimeSlots.imageNo, x, y, direction);
     const auto flags = static_cast<std::uint8_t>(gPlayerRuntimeSlots.flags18A);
     const std::int32_t flag40 = (flags & 0x40u) != 0;
     const std::int32_t flag80 = (flags & 0x80u) != 0;
@@ -6236,7 +6236,7 @@ void CopyPlayerIdentityToMapAction_51A4B0()
 
 // 原函数：0x00519CD0。
 void CreateOrUpdatePlayerMapActor_519CD0(
-    const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
+    session::ClientSession& session, const std::int32_t imageNo, const std::int32_t x, const std::int32_t y,
     const std::int32_t direction)
 {
     cg::yobi::YobiAction* const oldAction = gPlayerRuntimeSlots.action;
@@ -6250,7 +6250,7 @@ void CreateOrUpdatePlayerMapActor_519CD0(
     }
 
     cg::yobi::YobiAction* const action =
-        cg::yobi::CreateMapActorAction_441DB0(imageNo, x, y, direction);
+        cg::yobi::CreateMapActorAction_441DB0(session, imageNo, x, y, direction);
     gPlayerRuntimeSlots.action = action;
     if (action != nullptr) {
         cg::yobi::SetYobiPlayerFlag(action);
@@ -8516,7 +8516,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
                     gPlayerRuntimeSlots.direction = direction;
                 }
                 if (gPlayerRuntimeSlots.action == nullptr) {
-                    detail::CreateOrUpdatePlayerMapActor_519CD0(mappedImage, x, y, direction);
+                    detail::CreateOrUpdatePlayerMapActor_519CD0(connection.Owner(), mappedImage, x, y, direction);
                     detail::CopyPlayerIdentityToMapAction_51A4B0();
                 } else {
                     detail::SetPlayerMapAppearance_519E50(mappedImage, gPlayerRuntimeSlots.direction);
@@ -8562,7 +8562,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
                 const std::int32_t mappedImage =
                     character_select::ResolveCharacterImageForVersion(imageNo);
                 detail::UpsertWorldActor_445350(
-                    objectIndex, mappedImage, x, y, direction, name, titles,
+                    connection.Owner(), objectIndex, mappedImage, x, y, direction, name, titles,
                     extraText, level, value40, flag1, flag2, type);
                 object = FindObjectYobi_4462B0(objectIndex);
                 if (object != nullptr) {
@@ -8606,7 +8606,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
             input::UnescapeLegacyTextAndNotify_52D2F0(label);
             const std::int32_t value50 =
                 network::ParseDelimitedInteger_52CFA0(row, '|', 7);
-            detail::UpsertGroundItemObject_445D20(objectIndex, imageNo, x, y, 0, value48, label, value50);
+            detail::UpsertGroundItemObject_445D20(connection.Owner(), objectIndex, imageNo, x, y, 0, value48, label, value50);
             continue;
         }
 
@@ -8643,7 +8643,7 @@ void HandleMapObjectListReply_50B380(cg::network::CgConnection& connection, cons
             } else {
                 imageNo = 0x6B11;
             }
-            detail::UpsertGroundGoldObject_445F40(objectIndex, imageNo, x, y, 0, count, moneyLabel);
+            detail::UpsertGroundGoldObject_445F40(connection.Owner(), objectIndex, imageNo, x, y, 0, count, moneyLabel);
         }
     }
 }

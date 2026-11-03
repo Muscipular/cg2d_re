@@ -420,7 +420,7 @@ cg::yobi::YobiAction* ClearPartyMembershipState_51B080(); // 解散地图五槽�
 // 原函数：0x0051B0F0。
 void DetachPartyMapActions_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
 // 原函数：0x00519A80。
-void CreatePlayerMapPresence_519A80(); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
+void CreatePlayerMapPresence_519A80(session::ClientSession& session); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
 // 原函数：0x0051A090。
 cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
     std::wstring_view name, const std::array<std::wstring, 4>& titles, std::int32_t level,
@@ -433,7 +433,7 @@ std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 // 519EE0 每个原读取点借用唯一 FF02B4，不暴露可写槽或对象布局。
 // 原函数：0x00519CD0。
 void CreateOrUpdatePlayerMapActor_519CD0(
-    std::int32_t imageNo, std::int32_t x, std::int32_t y,
+    session::ClientSession& session, std::int32_t imageNo, std::int32_t x, std::int32_t y,
     std::int32_t direction); // 原 519CD0：创建并发布玩家，或更新已有玩家。
 // 原函数：0x00519E50。
 void SetPlayerMapAppearance_519E50(std::int32_t imageNo, std::int32_t direction);

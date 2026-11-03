@@ -506,7 +506,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
             x += dx;
             y += dy;
         }
-        YobiAction* const child = CreateMapActorAction_441DB0(imageNo, x, y, direction);
+        YobiAction* const child = CreateMapActorAction_441DB0(*action->ownerSession, imageNo, x, y, direction);
         payload->attachedActor2C = child;
         if (child == nullptr) {
             return field;
@@ -834,10 +834,10 @@ void UpdateMapActorPathMovement_4424B0(YobiAction* const action)
 
 // 原函数：0x00441DB0。
 YobiAction* CreateMapActorAction_441DB0(
-    const std::int32_t imageNo, const std::int32_t mapX,
+    session::ClientSession& session, const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(detail::MapActorPayload), YobiPayloadKind::MapActor);
+    YobiAction* const action = NewYobiAction_404AE0(session, 2, sizeof(detail::MapActorPayload), YobiPayloadKind::MapActor);
     if (action == nullptr) {
         return nullptr;
     }

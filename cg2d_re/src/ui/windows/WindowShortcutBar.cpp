@@ -148,6 +148,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& interaction = callbackWindow.ownerSession->UiFrame().native.interaction;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -169,7 +170,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
             }
             if (world::gCurrentSceneType != 10) {
                 const std::uint64_t now = platform::ReadTickCount64();
-                if (gWindowActionTick62B5AC + 500u < now) {
+                if (interaction.actionTick + 500u < now) {
                     WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnStall].window;
                     if (window == nullptr) {
                         static_cast<void>(WindowStallBrowse_RequestClose(*callbackWindow.ownerSession));
@@ -179,7 +180,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
                         window->state |= 0x8000u;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));
                     }
-                    gWindowActionTick62B5AC = platform::ReadTickCount64();
+                    interaction.actionTick = platform::ReadTickCount64();
                 } else {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 }

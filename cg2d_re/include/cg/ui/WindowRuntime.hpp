@@ -172,7 +172,7 @@ std::int32_t WindowGuildDetails_RequestClose(session::ClientSession& session); /
 std::uint8_t WindowRuntime_ReadUiGate() noexcept; // 共享UI门禁W8，world只读。
 std::uint8_t WindowRuntime_ReadObservationFlag(session::ClientSession& session) noexcept; // 技能回复与观察进入共用的UI标志。
 // 原数据：0x00584DA4。
-std::int32_t WindowItemDrag_ReadIndex() noexcept; // 原S32拖动编号，初值-1。
+std::int32_t WindowItemDrag_ReadIndex(session::ClientSession& session) noexcept; // 原S32拖动编号，初值-1。
 // 原函数：0x004A80E0。
 std::int32_t WindowChat_ReadInputByteWidth(session::ClientSession& session); // 原C9A930两倍，供历史翻页计算原字节滚动量。 // HBN01：见历史浏览/字节滚动完整合同。
 

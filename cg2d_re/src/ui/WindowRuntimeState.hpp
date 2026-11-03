@@ -667,25 +667,14 @@ std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::Client
 std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSession& session);
 WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session);
 extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
-extern std::int32_t gDragItemIndex584DA4; // 原全局：0x00584DA4。 4FB8F0重置与旧14的4FAEF0拖动生产共用。
-extern std::int32_t gDragImageNoD67D24; // 原全局：0x00D67D24。
-extern std::int32_t gItemDragXCC4880; // 原全局：0x00CC4880。
-extern std::int32_t gItemDragYCC4884; // 原全局：0x00CC4884。
-extern std::int32_t gDraggingCA0B28; // 原全局：0x00CA0B28。
-extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C。 原初值1，命中描述门禁与物品拖动重置共享。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
-extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
 
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
 extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
 extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标题伴随值，非主描述值。
 extern std::int32_t gSelectedItemCB1DF4; // 原全局：0x00CB1DF4。
 extern std::int32_t gSelectedItemCB0A44; // 原全局：0x00CB0A44。
-extern std::uint64_t gWindowActionTick62B5AC; // 原全局：0x0062B5AC。 跨UI动作共用，不是交易私有计时槽。
 extern std::int32_t gTooltipColorD67D30; // 原全局：0x00D67D30。 分段文本跨行共享颜色，尾串取低S8。
-extern std::int32_t gTooltipSourceD303FC; // 原全局：0x00D303FC。 原提示源分类/编号缓存，非地址。
-extern std::uint16_t gTooltipXCF46C0; // 原全局：0x00CF46C0。 同源低W16坐标，绘制按S16解释。
-extern std::uint16_t gTooltipYCF46CC; // 原全局：0x00CF46CC。
 extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 原全局：0x0057E434。 left/middle/right/single。
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030; // 原全局：0x0054F030。
 extern const std::array<const wchar_t*, 20> gTribeNames57CB54; // 原全局：0x0057CB54。 后八项共用585C50原字节串。
@@ -775,6 +764,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     std::int32_t x, std::int32_t y, std::int32_t index); // 外部宠物提示，重量行固定Y=31。
 // 原函数：0x004B3BF0。
 std::int32_t WindowTrade_DrawOwnPetTooltip(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t index,
     bool showEquipmentPage = false); // 完整己方宠物提示；银行／交易开启第三页装备名称。
 // 原函数：0x004E5620。
@@ -805,9 +795,9 @@ WindowInstance* WindowItemStorage_Open(
     std::int32_t kind, std::int32_t value14, std::int32_t userState,
     std::int32_t unusedPhase); // 原38窗口发布，两个caller均保留第四实参。
 // 原函数：0x004FB8F0。
-std::int32_t WindowItem_ResetItemDrag(); // 物品拖动重置，不等同窗口拖动。
+std::int32_t WindowItem_ResetItemDrag(session::ClientSession& session); // 物品拖动重置，不等同窗口拖动。
 // 原函数：0x004FB920。
-std::int32_t WindowItem_CancelMatchingItemDrag(std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。
+std::int32_t WindowItem_CancelMatchingItemDrag(session::ClientSession& session, std::int32_t index); // 仅清与本次回复槽号相同的非负拖动编号。
 // 原函数：0x004E5DA0。
 void WindowTrade_SwapRemoteItems(session::ClientSession& session, std::int32_t side, std::int32_t first, std::int32_t second); // 交易整条换位。
 // 原函数：0x004E1840。

@@ -501,7 +501,7 @@ static std::int32_t WindowBank_Draw(WindowInstance& callbackWindow, const std::i
             const std::int32_t index =
                 std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C);
             if (index < 100) {
-                static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, 0, index, true));
+                static_cast<void>(WindowTrade_DrawOwnPetTooltip(*callbackWindow.ownerSession, x, 0, index, true));
             } else {
                 const std::uint8_t externalIndex = static_cast<std::uint8_t>(
                     static_cast<std::uint8_t>(index) - 100);

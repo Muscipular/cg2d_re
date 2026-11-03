@@ -213,18 +213,6 @@ WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session)
 
 std::uint8_t gOwnStallOpenForBusiness_D67BE0 = 0; // 原全局：0x00D67BE0。
 
-std::int32_t gDragItemIndex584DA4 = -1; // 原全局：0x00584DA4。
-
-std::int32_t gDragImageNoD67D24 = 0; // 原全局：0x00D67D24。
-
-std::int32_t gItemDragXCC4880 = 0; // 原全局：0x00CC4880。
-
-std::int32_t gItemDragYCC4884 = 0; // 原全局：0x00CC4884。
-
-std::int32_t gDraggingCA0B28 = 0; // 原全局：0x00CA0B28。
-
-std::int32_t gHoverDescriptionEnabled_58589C = 1; // 原全局：0x0058589C。
-
 std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
 
 // IWT01：存放区为含宽文本的内部对象，不再固定旧字节大小。
@@ -239,21 +227,7 @@ std::int32_t gSelectedItemCB0A44 = 0; // 原全局：0x00CB0A44。
 
 std::uint8_t gItemSelectionModeCC40D4 = 0; // 原全局：0x00CC40D4。
 
-// 原全局：0x00D2EA1C。 48C130发布，回调分别采点击和绘制模式。
-static std::int32_t gPetDragModeD2EA1C = 0; // 原全局：0x00D2EA1C。
-
-// 原全局：0x00CC4C9C。 48BF10发布，仅门禁48BC90的message2请求。
-static std::int32_t gItemDragModeCC4C9C = 0; // 原全局：0x00CC4C9C。
-
-std::uint64_t gWindowActionTick62B5AC = 0; // 原全局：0x0062B5AC。
-
 std::int32_t gTooltipColorD67D30 = 0; // 原全局：0x00D67D30。
-
-std::int32_t gTooltipSourceD303FC = 0; // 原全局：0x00D303FC。
-
-std::uint16_t gTooltipXCF46C0 = 0; // 原全局：0x00CF46C0。
-
-std::uint16_t gTooltipYCF46CC = 0; // 原全局：0x00CF46CC。
 
 const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434 {{ // 原全局：0x0057E434。
     {243151, 243152, 243153, 243154},
@@ -307,8 +281,6 @@ static const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 1
 const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165}; // 原全局：0x0054F5C4。
 
 const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
-
-cg::yobi::YobiAction* gPreviewActionD67B84 = nullptr; // 原全局：0x00D67B84。
 
 std::array<BattlePetVitals, 5> gBattlePetVitalsCF4B78 {}; // 原全局：0x00CF4B78。
 
@@ -737,23 +709,25 @@ void WindowItemDrag_RemapHover(session::ClientSession& session, const std::int32
 }
 
 // 原函数：0x004FB8F0。
-std::int32_t WindowItem_ResetItemDrag()
+std::int32_t WindowItem_ResetItemDrag(session::ClientSession& session)
 {
-    gDragItemIndex584DA4 = -1;
-    gDragImageNoD67D24 = 0;
-    gItemDragXCC4880 = 0;
-    gItemDragYCC4884 = 0;
-    gDraggingCA0B28 = 0;
-    gHoverDescriptionEnabled_58589C = 1;
+    auto& interaction = session.UiFrame().native.interaction;
+    interaction.dragItemIndex = -1;
+    interaction.dragImageNo = 0;
+    interaction.itemDragX = 0;
+    interaction.itemDragY = 0;
+    interaction.dragging = 0;
+    interaction.hoverDescriptionEnabled = 1;
     return 0;
 }
 
 // 原函数：0x004FB920。
-std::int32_t WindowItem_CancelMatchingItemDrag(const std::int32_t index)
+std::int32_t WindowItem_CancelMatchingItemDrag(session::ClientSession& session, const std::int32_t index)
 {
-    const std::int32_t previous = gDragItemIndex584DA4;
+    auto& interaction = session.UiFrame().native.interaction;
+    const std::int32_t previous = interaction.dragItemIndex;
     if (previous >= 0 && previous == index) {
-        return WindowItem_ResetItemDrag();
+        return WindowItem_ResetItemDrag(session);
     }
     return previous;
 }
@@ -994,6 +968,7 @@ static void WindowPetDrag_Handle(
     session::ClientSession& session,
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& storage = session.UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
@@ -1014,7 +989,7 @@ static void WindowPetDrag_Handle(
             static_cast<void>(WindowDrag_ResetMouse(session));
         }
     }
-    const std::int32_t clickMode = gPetDragModeD2EA1C;
+    const std::int32_t clickMode = interaction.petDragMode;
     const auto clicked = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
     if (clickMode == 0) {
         if ((clicked & platform::LegacyMouseEdge_RDown) != 0) {
@@ -1039,7 +1014,7 @@ static void WindowPetDrag_Handle(
         }
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
-    const std::int32_t drawMode = gPetDragModeD2EA1C;
+    const std::int32_t drawMode = interaction.petDragMode;
     if (drawMode == 1) {
         const std::int32_t drawKind = WindowItem_ClassifyPetSlot(sourceIndex);
         if (drawKind == 1) {
@@ -1075,7 +1050,8 @@ static void WindowPetDrag_Handle(
 // 原函数：0x0048C130。
 std::int32_t WindowPetDrag_Start(session::ClientSession& session, const std::int32_t sourceIndex, const std::int32_t mode)
 {
-    gPetDragModeD2EA1C = mode;
+    auto& interaction = session.UiFrame().native.interaction;
+    interaction.petDragMode = mode;
     return WindowDrag_Start(session, 3, sourceIndex, WindowPetDrag_Handle);
 }
 
@@ -1085,13 +1061,14 @@ static void WindowItemDrag_Handle(
     session::ClientSession& session,
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& storage = session.UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
-        if (message == 2 && gItemDragModeCC4C9C != 0
+        if (message == 2 && interaction.itemDragMode != 0
             && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t group =
@@ -1174,7 +1151,8 @@ static void WindowItemDrag_Handle(
 // 原函数：0x0048BF10。
 std::int32_t WindowItemDrag_Start(session::ClientSession& session, const std::int32_t sourceIndex, const std::int32_t mode)
 {
-    gItemDragModeCC4C9C = mode;
+    auto& interaction = session.UiFrame().native.interaction;
+    interaction.itemDragMode = mode;
     return WindowDrag_Start(session, 2, sourceIndex, WindowItemDrag_Handle);
 }
 
@@ -2458,25 +2436,26 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
 // 原函数：0x0048B1A0。
 std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, const std::int32_t index, const std::int32_t page)
 {
-    if (gTooltipSourceD303FC != index) {
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+    auto& interaction = session.UiFrame().native.interaction;
+    if (interaction.tooltipSource != index) {
+        interaction.tooltipX = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
-        gTooltipYCF46CC = static_cast<std::uint16_t>(
+        interaction.tooltipY = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
             (platform::gLegacyMouseState.mouseY < 240);
-        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+        interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
     const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection);
-    gTooltipSourceD303FC = index;
+    interaction.tooltipSource = index;
     const bool petEquipment = mode > 0 && index < 6;
     const world::PlayerItemRecord* record;
     if (petEquipment) {
         const std::int32_t petIndex = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10);
-        const std::int32_t itemIndex = gTooltipSourceD303FC;
+        const std::int32_t itemIndex = interaction.tooltipSource;
         record = &world::gPetRuntimeRecords[petIndex].items6E4[itemIndex];
     } else {
         record = &world::gPlayerRuntimeSlots.items[index];
@@ -2487,12 +2466,12 @@ std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, co
         ? 5 : static_cast<std::int8_t>((flags & 0x200u) >> 9);
     const std::wstring* const lines = record->description.data() + page * 8;
     if (petEquipment) {
-        const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-        const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+        const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
+        const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
         return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
     }
-    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
+    const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
 }
 
@@ -2500,21 +2479,22 @@ std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, co
 // 原函数：0x0048B350。
 std::int32_t WindowItem_DrawDescriptionTooltip(session::ClientSession& session, const std::int32_t index, const std::int32_t page)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& storage = session.UiFrame().native.storage;
     const std::int32_t key = index + 100;
-    if (gTooltipSourceD303FC != key) {
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+    if (interaction.tooltipSource != key) {
+        interaction.tooltipX = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
-        gTooltipYCF46CC = static_cast<std::uint16_t>(
+        interaction.tooltipY = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
             (platform::gLegacyMouseState.mouseY < 240);
-        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+        interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
-    gTooltipSourceD303FC = key;
+    interaction.tooltipSource = key;
     const auto* const record = &storage.groups[0].items[index];
     std::uint32_t flags;
     std::memcpy(&flags, &record->flags, sizeof(flags));
@@ -2522,30 +2502,31 @@ std::int32_t WindowItem_DrawDescriptionTooltip(session::ClientSession& session, 
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
     const auto* const lines = record->description.data() + page * 8;
-    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
+    const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
 }
 
 // 原函数：0x0048B750。
 std::int32_t WindowItem_DrawWorkTooltip(session::ClientSession& session, const std::int32_t page)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& shop = session.UiFrame().native.shop;
-    if (gTooltipSourceD303FC != 400) {
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+    if (interaction.tooltipSource != 400) {
+        interaction.tooltipX = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
-        gTooltipYCF46CC = static_cast<std::uint16_t>(
+        interaction.tooltipY = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
             (platform::gLegacyMouseState.mouseY < 240);
-        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+        interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
-    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    gTooltipSourceD303FC = 400;
+    const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
+    const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
+    interaction.tooltipSource = 400;
     const auto& title = shop.detail.name;
     return WindowItem_DrawTooltip(
         x, y, title.c_str(), 0, shop.detail.description.data() + page * 8,
@@ -3296,6 +3277,7 @@ static void WindowRuntime_OpenConfiguredWindows(session::ClientSession& session)
 // 原函数：0x004707C0。
 static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     WindowRuntime_ResetReferences(session);
     WindowRuntime_OpenConfiguredWindows(session);
     WindowRuntime_RestoreMarkedWindows(session);
@@ -3303,7 +3285,7 @@ static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
     gSelectedItemCB1DF4 = -1;
     session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences(session);
-    gPreviewActionD67B84 = nullptr;
+    interaction.previewAction = nullptr;
     session.UiFrame().inputState.chatPanelVisible = 1;
     static_cast<void>(WindowChat_RestoreInput(session));
 }
@@ -3311,6 +3293,7 @@ static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
 // 原函数：0x00471170。
 static void WindowRuntime_OpenBattleScene(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& states = WindowRuntime_States(session);
     WindowRuntime_ResetReferences(session);
     WindowRuntime_ClearElementFocus(session);
@@ -3343,7 +3326,7 @@ static void WindowRuntime_OpenBattleScene(session::ClientSession& session)
     }
     WindowRuntime_ResetOperationReferences(session);
     WindowInstance* const window22 = states[WindowId_MailCompose].window;
-    gPreviewActionD67B84 = nullptr;
+    interaction.previewAction = nullptr;
     session.UiFrame().inputState.chatPanelVisible = 1;
     if (window22 == nullptr && states[WindowId_PetMailCompose].window == nullptr) {
         static_cast<void>(WindowChat_RestoreInput(session));
@@ -3362,6 +3345,7 @@ static void WindowRuntime_MarkSceneWindows(session::ClientSession& session)
 // 原函数：0x00470980。
 static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     WindowRuntime_ResetReferences(session);
     WindowRuntime_ClearElementFocus(session);
     WindowRuntime_OpenConfiguredWindows(session);
@@ -3370,7 +3354,7 @@ static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
     session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences(session);
     const std::int32_t inputGate = session.UiFrame().inputState.chatLogSuppressed;
-    gPreviewActionD67B84 = nullptr;
+    interaction.previewAction = nullptr;
     if (inputGate == 0) {
         session.UiFrame().inputState.chatPanelVisible = 1;
     }
@@ -4843,9 +4827,10 @@ std::uint8_t WindowRuntime_ReadObservationFlag(session::ClientSession& session) 
 }
 
 // 原数据：0x00584DA4。
-std::int32_t WindowItemDrag_ReadIndex() noexcept
+std::int32_t WindowItemDrag_ReadIndex(session::ClientSession& session) noexcept
 {
-    return detail::gDragItemIndex584DA4;
+    auto& interaction = session.UiFrame().native.interaction;
+    return interaction.dragItemIndex;
 }
 
 // DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。

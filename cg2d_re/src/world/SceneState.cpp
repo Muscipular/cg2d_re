@@ -5520,7 +5520,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
     if ((platform::gLegacyMouseState.mouseY < platform::gWindowHeight - 24)
         && ((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
-                && ui::WindowItemDrag_ReadIndex() < 0)
+                && ui::WindowItemDrag_ReadIndex(session) < 0)
             || gMapTargetDrawOverride_C8A780 != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)
         && gContinuousMapMovementActive_C8A79C == 0) {
         render::GraphicDescriptor16 descriptor {};
@@ -5538,7 +5538,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
     if (!mouseBelowLimit
         || !((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
-                && ui::WindowItemDrag_ReadIndex() < 0)
+                && ui::WindowItemDrag_ReadIndex(session) < 0)
             || gMapTargetInputOverride_C8A77C != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)) {
         gMapLeftHoldDurationMs_C8A778 = 0;
         gMapLeftPressTick_C8A794 = 0;
@@ -9365,7 +9365,7 @@ void HandleFullPlayerInventoryReply_50BFD0(cg::network::CgConnection& connection
     char memo[256];
     char description[768];
     for (std::int32_t index = 0; index < 28; ++index) {
-        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
+        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(connection.Owner(), index));
         const std::int32_t nameField = 2 + index * 13;
         network::ExtractDelimitedField_52CED0(payload, '|', nameField, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
@@ -9392,7 +9392,7 @@ void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection& connect
     char description[768];
     std::int32_t field = 1;
     std::int32_t index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(connection.Owner(), index));
     std::int32_t status =
         network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
     while (status != 1) {
@@ -9408,7 +9408,7 @@ void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection& connect
         }
         field += 14;
         index = network::ParseDelimitedInteger_52CFA0(payload, '|', field);
-        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(index));
+        static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(connection.Owner(), index));
         status = network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 255, name);
     }
 }
@@ -9436,8 +9436,8 @@ void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection& connection, 
         return;
     }
     detail::SwapPlayerInventorySlots_51B530(connection.Owner(), first, second);
-    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(first));
-    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(second));
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(connection.Owner(), first));
+    static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(connection.Owner(), second));
     ui::detail::WindowTrade_SwapRemoteItems(connection.Owner(), 1, first, second);
     ui::detail::WindowTrade_SwapDisplayItems(connection.Owner(), 1, first, second);
 }
@@ -10716,6 +10716,7 @@ std::uint16_t ReadPetMapFlags(const std::int16_t index) noexcept
 // 原函数：0x00470050。
 void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -10736,11 +10737,11 @@ void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+    if (interaction.actionTick + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(session.Connection().SendDuelRequest(x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+        interaction.actionTick = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -10748,6 +10749,7 @@ void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
 // 原函数：0x00470150。
 void RequestSpectateFacingBattle_470150(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -10771,11 +10773,11 @@ void RequestSpectateFacingBattle_470150(session::ClientSession& session)
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+    if (interaction.actionTick + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(session.Connection().SendSpectateRequest(x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+        interaction.actionTick = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -10783,6 +10785,7 @@ void RequestSpectateFacingBattle_470150(session::ClientSession& session)
 // 原函数：0x00470270。
 void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     const bool joinTeam = detail::gPartyActive_FF0D36 == 0;
     if (joinTeam) {
         const std::int32_t direction = gPlayerRuntimeSlots.direction;
@@ -10807,7 +10810,7 @@ void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+    if (interaction.actionTick + 500u < now) {
         if (joinTeam && (ReadPlayerFlags18A() & 0x100u) != 0) {
             return;
         }
@@ -10815,7 +10818,7 @@ void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(session.Connection().SendTeamJoinLeaveRequest(x, y, mode));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+        interaction.actionTick = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -10823,6 +10826,7 @@ void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
 // 原函数：0x004703C0。
 void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -10841,11 +10845,11 @@ void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session)
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+    if (interaction.actionTick + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(session.Connection().SendContactCardRequest(x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+        interaction.actionTick = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -10853,6 +10857,7 @@ void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session)
 // 原函数：0x004704A0。
 void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -10878,9 +10883,9 @@ void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
     if (gMapTransitionRequestPending_9A86D8 == 0 && gDirectionalMapTransitionPending_9FB92E == 0
         && (gPlayerCoordinateSyncPending_C821D8 == 0)) {
         const std::uint64_t now = platform::ReadTickCount64();
-        if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        if (interaction.actionTick + 500u < now) {
             static_cast<void>(session.Connection().SendTradeRequest());
-            ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+            interaction.actionTick = platform::ReadTickCount64();
         }
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -10889,6 +10894,7 @@ void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
 // 原函数：0x00470670。
 void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -10913,11 +10919,11 @@ void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session)
         return;
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+    if (interaction.actionTick + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
         static_cast<void>(session.Connection().SendGuildInvitation(x, y));
-        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
+        interaction.actionTick = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }

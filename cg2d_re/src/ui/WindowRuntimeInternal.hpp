@@ -67,7 +67,7 @@ namespace detail {
 void WindowRuntime_QueuePagePresentation(const WindowInstance& source, const WindowInstance& target);
 
 // 悬停宠物预览分页：银行／交易含装备共3页，其他默认2页；identity仅比较借用记录身份。
-std::int32_t WindowPetSkills_GetPreviewPage(const void* identity, std::int32_t pageCount = 2);
+std::int32_t WindowPetSkills_GetPreviewPage(session::ClientSession& session, const void* identity, std::int32_t pageCount = 2);
 
 
 // 原CF4B78五条独立战斗数值快照；只含S32，不与World宠物CryptInt存储合并。

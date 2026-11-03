@@ -1384,22 +1384,23 @@ static std::int32_t WindowCrystalExchangeShop_HandleConfirmation(WindowInstance&
 static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
     session::ClientSession& session, const std::int32_t index, const std::int32_t page, const std::int32_t unused)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& crystal = session.UiFrame().native.crystalExchangeShop;
     static_cast<void>(unused);
     const std::int32_t key = index + 300;
-    if (gTooltipSourceD303FC != key) {
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+    if (interaction.tooltipSource != key) {
+        interaction.tooltipX = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
-        gTooltipYCF46CC = static_cast<std::uint16_t>(
+        interaction.tooltipY = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
             (platform::gLegacyMouseState.mouseY < 240);
-        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+        interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
-    gTooltipSourceD303FC = key;
+    interaction.tooltipSource = key;
     const WindowCrystalItem* const item = &crystal.items[index];
     const std::uint32_t flags = item->flags;
     std::wstring title = item->tips;
@@ -1411,8 +1412,8 @@ static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
         titleColor = static_cast<std::int8_t>((flags >> 9) & 1u);
     }
     const auto* const lines = item->description.data() + page * 8;
-    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
+    const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 4);
 }
 

@@ -195,6 +195,7 @@ static void DrawQueuedGraphicHover(const render::GraphicCacheItem32& graphic, co
 // 原函数：0x00507140。
 void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& uiFrame = session.UiFrame();
     const std::int16_t initialCount = std::bit_cast<std::int16_t>(gPendingGraphicCount);
     std::int32_t orderIndex = static_cast<std::int32_t>(initialCount) - 1;
@@ -245,7 +246,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
             render::gHoveredGraphicPendingIndex = -1;
             const bool inputGateIsZero = inputGate == 0;
             *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 0xD4;
-            if (inputGateIsZero && ui::detail::gHoverDescriptionEnabled_58589C != 0) {
+            if (inputGateIsZero && interaction.hoverDescriptionEnabled != 0) {
                 ui::detail::gHoverObjectValueD68AC8 = 0;
             }
             return;
@@ -276,7 +277,7 @@ void UpdateQueuedTextAndGraphicHover_507140(session::ClientSession& session)
                 render::DrawMatchingGraphicHover_507090(value4);
             }
             render::SortTextures_520790();
-            if (world::gInputAndHoverSuppressed_D460C8 == 0 && ui::detail::gHoverDescriptionEnabled_58589C != 0) {
+            if (world::gInputAndHoverSuppressed_D460C8 == 0 && interaction.hoverDescriptionEnabled != 0) {
                 cg::yobi::DescribeHoveredYobi_507140(&graphic);
                 if (uiFrame.hoverText.find(L"[han]") != std::wstring::npos) {
                     ui::detail::gHoverObjectValueD68AC8 = 1;

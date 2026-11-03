@@ -262,6 +262,7 @@ static std::int32_t WindowStall_DrawPetSkills(
 
 // 原函数：0x004D0A80。
 static std::int32_t WindowStall_DrawPetDetails(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t index); // 完整浏览宠物详情，复用D67B84预览。
 
 // 原函数：0x004D0EB0。
@@ -1242,8 +1243,10 @@ static std::int32_t WindowStall_DrawPetSkills(
 
 // 原函数：0x004D0A80。
 static std::int32_t WindowStall_DrawPetDetails(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::int32_t index)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     render::GraphicDescriptor16 descriptor {};
     const auto byteIndex = static_cast<std::uint8_t>(index);
     const std::int32_t shortIndex = std::bit_cast<std::int8_t>(byteIndex);
@@ -1274,13 +1277,13 @@ static std::int32_t WindowStall_DrawPetDetails(
             static_cast<std::int16_t>(x + 144), static_cast<std::int16_t>(shortY + 23 + row * 15),
             5, 12, 0, buffer, 0, 0));
     }
-    if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = cg::yobi::NewYobiAction_404AE0(2, 0);
+    if (interaction.previewAction == nullptr) {
+        interaction.previewAction = cg::yobi::NewYobiAction_404AE0(session, 2, 0);
     }
     const std::int32_t imageNo = pet.imageNo6A0;
-    cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(gPreviewActionD67B84, 100, 0, 0));
-    cg::yobi::YobiAction* const action = gPreviewActionD67B84;
+    cg::yobi::ConfigureWindowPetPreview(interaction.previewAction, imageNo);
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(interaction.previewAction, 100, 0, 0));
+    cg::yobi::YobiAction* const action = interaction.previewAction;
     const std::int32_t shortX = static_cast<std::int16_t>(x);
     const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(action);
     const render::GraphicDescriptor16* const mode = cg::yobi::GetYobiActionDrawMode(action);
@@ -1306,7 +1309,7 @@ static std::int32_t WindowStall_DrawPetDetails(
                 shortX + 149, barY, 230, images[3], 0, 1, 0, &descriptor));
         }
     }
-    const std::int32_t skillPage = WindowPetSkills_GetPreviewPage(&pet);
+    const std::int32_t skillPage = WindowPetSkills_GetPreviewPage(session, &pet);
     for (std::int32_t row = 0; row < 10; ++row) {
         static_cast<void>(WindowStall_DrawPetSkills(shortX + 10, shortY + 141 + row * 16, shortIndex, skillPage * 10 + row));
     }
@@ -1471,10 +1474,10 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
         if (priceOwn) {
             const auto petIndex = static_cast<std::uint8_t>(
                 gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].slot);
-            static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, y, petIndex));
+            static_cast<void>(WindowTrade_DrawOwnPetTooltip(*callbackWindow.ownerSession, x, y, petIndex));
         } else {
             const auto petIndex = static_cast<std::uint8_t>(gStallPetPageD67BD0 + row);
-            static_cast<void>(WindowStall_DrawPetDetails(x, y, petIndex));
+            static_cast<void>(WindowStall_DrawPetDetails(*callbackWindow.ownerSession, x, y, petIndex));
         }
     }
     return consumed;
@@ -1618,7 +1621,7 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
             x += window->width;
         }
         const auto petIndex = static_cast<std::uint8_t>(gStallPetCandidatePageD67BD8 + row);
-        static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, y, petIndex));
+        static_cast<void>(WindowTrade_DrawOwnPetTooltip(*callbackWindow.ownerSession, x, y, petIndex));
     }
     if (gStallOwn58111C != 0 && gStallPetUsedCF400C[gStallPetCandidatePageD67BD8 + row] != 0) {
         WindowInstance* const window = currentWindow;

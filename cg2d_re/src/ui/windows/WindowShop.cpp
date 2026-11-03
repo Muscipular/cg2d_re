@@ -432,21 +432,22 @@ WindowPrototype gWindowPrototypeShop {0, 4, 10, 30, 549, 366, 0x80010101u, 66, g
 static std::int32_t WindowItem_DrawShopTooltip(
     session::ClientSession& session, const std::int32_t index, const std::int32_t page, const std::int32_t showUnavailable)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& shop = session.UiFrame().native.shop;
     std::int32_t key = index + 300;
-    if (gTooltipSourceD303FC != key) {
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+    if (interaction.tooltipSource != key) {
+        interaction.tooltipX = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
-        gTooltipYCF46CC = static_cast<std::uint16_t>(
+        interaction.tooltipY = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
             (platform::gLegacyMouseState.mouseY < 240);
-        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+        interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
-    gTooltipSourceD303FC = key;
+    interaction.tooltipSource = key;
     const auto* record = &shop.items[index];
     std::uint32_t flags;
     std::memcpy(&flags, &record->flags, sizeof(flags));
@@ -461,7 +462,7 @@ static std::int32_t WindowItem_DrawShopTooltip(
             title = record->name;
         } else {
             title = std::format(L"{}({})", record->name, count);
-            key = gTooltipSourceD303FC;
+            key = interaction.tooltipSource;
         }
         record = &shop.items[key - 300];
         std::memcpy(&flags, &record->flags, sizeof(flags));
@@ -470,8 +471,8 @@ static std::int32_t WindowItem_DrawShopTooltip(
     const wchar_t* const footer = record->allowed == 0 && showUnavailable != 0
         ? kShopUnavailableHint586BF4 : nullptr;
     const auto* const lines = record->description.data() + page * 8;
-    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
-    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
+    const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
+    const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, footer, 4);
 }
 

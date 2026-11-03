@@ -956,6 +956,26 @@ struct StorageWindowRuntimeState {
 };
 static_assert(sizeof(StorageWindowRuntimeState::pets) == sizeof(detail::WindowStoragePet) * 5);
 
+// 同会话跨窗口共用的拖动、提示、预览和请求节流，不合并为某个业务窗的私有状态。
+struct WindowInteractionRuntimeState {
+    std::int32_t dragItemIndex = -1; // 原0x584DA4。
+    std::int32_t dragImageNo = 0; // 原0xD67D24。
+    std::int32_t itemDragX = 0; // 原0xCC4880。
+    std::int32_t itemDragY = 0; // 原0xCC4884。
+    std::int32_t dragging = 0; // 原0xCA0B28。
+    std::int32_t hoverDescriptionEnabled = 1; // 原0x58589C。
+    std::int32_t petDragMode = 0; // 原0xD2EA1C。
+    std::int32_t itemDragMode = 0; // 原0xCC4C9C。
+    std::uint64_t actionTick = 0; // 原0x62B5AC，同会话全部UI请求共用。
+    std::int32_t tooltipSource = 0; // 原0xD303FC，数值分类键而非地址。
+    std::uint16_t tooltipX = 0; // 原0xCF46C0，绘制按S16解释。
+    std::uint16_t tooltipY = 0; // 原0xCF46CC。
+    cg::yobi::YobiAction* previewAction = nullptr; // 原0xD67B84，非拥有，重开仅清引用。
+    const void* previewIdentity = nullptr; // 只比较借用记录身份，不拥有或解引用。
+    std::int32_t previewPageCount = 0;
+    std::int32_t previewPage = 0;
+};
+
 // 窗口44的十条交易候选及回送，名称在点击期间借用所属会话字符串。
 struct TradeTargetWindowRuntimeState {
     std::array<std::wstring, 10> names {}; // 原0xCF3F20。
@@ -1240,6 +1260,7 @@ struct NativeWindowRuntimeState {
     TradeTargetWindowRuntimeState tradeTarget {};
     TradeWindowRuntimeState trade {};
     StorageWindowRuntimeState storage {};
+    WindowInteractionRuntimeState interaction {};
     TextListWindowRuntimeState textList {};
     BigMapWindowRuntimeState bigMap {};
     std::array<std::uint8_t, 18> emoteSelection {}; // 原0xCF4FC4，商店-1映射仍借首字节。

@@ -198,23 +198,21 @@ WindowPrototype gWindowPrototypePetSkills {0, 4, 365, 83, 245, 306, 0x80010101u,
 
 // 窗口函数实现。
 
-std::int32_t WindowPetSkills_GetPreviewPage(const void* const identity, const std::int32_t pageCount)
+std::int32_t WindowPetSkills_GetPreviewPage(session::ClientSession& session, const void* const identity, const std::int32_t pageCount)
 {
-    static const void* previousIdentity = nullptr; // 仅比较身份，不解引用或拥有记录。
-    static std::int32_t previousPageCount = 0;
-    static std::int32_t page = 0;
-    if (previousIdentity != identity || previousPageCount != pageCount) {
-        previousIdentity = identity;
-        previousPageCount = pageCount;
-        page = 0;
+    auto& interaction = session.UiFrame().native.interaction;
+    if (interaction.previewIdentity != identity || interaction.previewPageCount != pageCount) {
+        interaction.previewIdentity = identity;
+        interaction.previewPageCount = pageCount;
+        interaction.previewPage = 0;
     }
-    if ((platform::gKeyStates[0x21] & 4u) != 0 && page > 0) { // PageUp。
-        --page;
+    if ((platform::gKeyStates[0x21] & 4u) != 0 && interaction.previewPage > 0) { // PageUp。
+        --interaction.previewPage;
     }
-    if ((platform::gKeyStates[0x22] & 4u) != 0 && page + 1 < pageCount) { // PageDown。
-        ++page;
+    if ((platform::gKeyStates[0x22] & 4u) != 0 && interaction.previewPage + 1 < pageCount) { // PageDown。
+        ++interaction.previewPage;
     }
-    return page;
+    return interaction.previewPage;
 }
 
 // 原函数：0x00491AA0。

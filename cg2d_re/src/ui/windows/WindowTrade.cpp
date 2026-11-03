@@ -327,23 +327,24 @@ static std::int32_t WindowItem_DrawPetTooltip(
     session::ClientSession& session,
     const std::int32_t side, const std::int32_t index, const std::int32_t page)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& trade = session.UiFrame().native.trade;
     const std::int32_t key = index + 200;
-    if (gTooltipSourceD303FC != key) {
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(
+    if (interaction.tooltipSource != key) {
+        interaction.tooltipX = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
-        gTooltipYCF46CC = static_cast<std::uint16_t>(
+        interaction.tooltipY = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
         const bool left =
             (platform::gLegacyMouseState.mouseX < 320);
-        gTooltipXCF46C0 = static_cast<std::uint16_t>(gTooltipXCF46C0 + (left ? 60 : -257));
+        interaction.tooltipX = static_cast<std::uint16_t>(interaction.tooltipX + (left ? 60 : -257));
         const bool top =
             (platform::gLegacyMouseState.mouseY < 240);
-        gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
+        interaction.tooltipY = static_cast<std::uint16_t>(interaction.tooltipY + (top ? 60 : -174));
     }
     const std::int32_t sideOffset =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(side)) - 10;
-    gTooltipSourceD303FC = key;
+    interaction.tooltipSource = key;
     const auto* const record = &trade.items[key + sideOffset * 20];
     std::uint32_t flags;
     std::memcpy(&flags, &record->flags, sizeof(flags));
@@ -351,8 +352,8 @@ static std::int32_t WindowItem_DrawPetTooltip(
     const std::int8_t titleColor = (flags & 0x100u) != 0
         ? 5 : static_cast<std::int8_t>((flags >> 9) & 1u);
     const auto* const lines = record->description.data() + page * 8;
-    const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
-    const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
+    const std::int16_t x = std::bit_cast<std::int16_t>(interaction.tooltipX);
+    const std::int16_t y = std::bit_cast<std::int16_t>(interaction.tooltipY);
     return WindowItem_DrawTooltip(x, y, title.c_str(), titleColor, lines, 8, nullptr, 0);
 }
 
@@ -844,7 +845,7 @@ static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, const std::
                 const std::int32_t x = left ? 413 : 0;
                 const std::uint8_t index = static_cast<std::uint8_t>(trade.preview);
                 if (ownPet != 0) {
-                    static_cast<void>(WindowTrade_DrawOwnPetTooltip(x, 0, index, true));
+                    static_cast<void>(WindowTrade_DrawOwnPetTooltip(*callbackWindow.ownerSession, x, 0, index, true));
                 } else {
                     static_cast<void>(WindowTrade_DrawSelectedPetTooltip(*callbackWindow.ownerSession, x, 0, 0, index));
                 }
@@ -2225,6 +2226,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
     session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::int32_t index)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& storage = session.UiFrame().native.storage;
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
@@ -2270,14 +2272,14 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
             31, 5, 12, 0, buffer, 0, 0));
     }
-    if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = cg::yobi::NewYobiAction_404AE0(2, 0);
+    if (interaction.previewAction == nullptr) {
+        interaction.previewAction = cg::yobi::NewYobiAction_404AE0(session, 2, 0);
     }
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-    cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(gPreviewActionD67B84, 100, 0, 0));
-    cg::yobi::YobiAction* const action = gPreviewActionD67B84;
+    cg::yobi::ConfigureWindowPetPreview(interaction.previewAction, imageNo);
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(interaction.previewAction, 100, 0, 0));
+    cg::yobi::YobiAction* const action = interaction.previewAction;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
@@ -2307,7 +2309,7 @@ std::int32_t WindowTrade_DrawRemotePetTooltip(
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
-    const std::int32_t page = WindowPetSkills_GetPreviewPage(record, 3);
+    const std::int32_t page = WindowPetSkills_GetPreviewPage(session, record, 3);
     for (std::int32_t row = 0; row < 10; ++row) {
         if (page == 2) {
             const std::wstring name = row < static_cast<std::int32_t>(record->equipmentNames.size())
@@ -2362,6 +2364,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
     const std::int32_t x, const std::int32_t y,
     const std::int32_t side, const std::int32_t index)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     auto& trade = session.UiFrame().native.trade;
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
@@ -2400,14 +2403,14 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
             5, 12, 0, buffer, 0, 0));
     }
-    if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = cg::yobi::NewYobiAction_404AE0(2, 0);
+    if (interaction.previewAction == nullptr) {
+        interaction.previewAction = cg::yobi::NewYobiAction_404AE0(session, 2, 0);
     }
     std::int32_t imageNo;
     std::memcpy(&imageNo, &record->imageNo, sizeof(imageNo));
-    cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(gPreviewActionD67B84, 100, 0, 0));
-    cg::yobi::YobiAction* const action = gPreviewActionD67B84;
+    cg::yobi::ConfigureWindowPetPreview(interaction.previewAction, imageNo);
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(interaction.previewAction, 100, 0, 0));
+    cg::yobi::YobiAction* const action = interaction.previewAction;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
@@ -2437,7 +2440,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
-    const std::int32_t page = WindowPetSkills_GetPreviewPage(record, 3);
+    const std::int32_t page = WindowPetSkills_GetPreviewPage(session, record, 3);
     for (std::int32_t row = 0; row < 10; ++row) {
         if (page == 2) {
             const std::wstring name = row < static_cast<std::int32_t>(record->equipmentNames.size())
@@ -2485,9 +2488,11 @@ static std::int32_t WindowTrade_DrawOwnPetSkillRow(
 
 // 原函数：0x004B3BF0。
 std::int32_t WindowTrade_DrawOwnPetTooltip(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::int32_t index,
     const bool showEquipmentPage)
 {
+    auto& interaction = session.UiFrame().native.interaction;
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));
@@ -2528,13 +2533,13 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 31)),
             5, 12, 0, buffer, 0, 0));
     }
-    if (gPreviewActionD67B84 == nullptr) {
-        gPreviewActionD67B84 = cg::yobi::NewYobiAction_404AE0(2, 0);
+    if (interaction.previewAction == nullptr) {
+        interaction.previewAction = cg::yobi::NewYobiAction_404AE0(session, 2, 0);
     }
     const std::int32_t imageNo = pet.imageNo6A0;
-    cg::yobi::ConfigureWindowPetPreview(gPreviewActionD67B84, imageNo);
-    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(gPreviewActionD67B84, 100, 0, 0));
-    cg::yobi::YobiAction* const action = gPreviewActionD67B84;
+    cg::yobi::ConfigureWindowPetPreview(interaction.previewAction, imageNo);
+    static_cast<void>(cg::yobi::AdvanceYobiAnimationFrame_517880(interaction.previewAction, 100, 0, 0));
+    cg::yobi::YobiAction* const action = interaction.previewAction;
     const std::int32_t shortX =
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x));
     const render::GraphicDescriptor16* const mode =
@@ -2562,7 +2567,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
                 shortX + 149, barY, 0xE6, images[3], 0, 1, 0, &descriptor));
         }
     }
-    const std::int32_t page = WindowPetSkills_GetPreviewPage(&pet, showEquipmentPage ? 3 : 2);
+    const std::int32_t page = WindowPetSkills_GetPreviewPage(session, &pet, showEquipmentPage ? 3 : 2);
     for (std::int32_t row = 0; row < 10; ++row) {
         if (page == 2) {
             const std::wstring_view name = row < static_cast<std::int32_t>(pet.items6E4.size())
@@ -2707,6 +2712,7 @@ static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, co
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& interaction = callbackWindow.ownerSession->UiFrame().native.interaction;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -2719,7 +2725,7 @@ static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, co
             const std::int32_t phase = trade.valueD2E2B0;
             if ((phase == 1 && trade.valueCC4224 >= 1) || phase == 2) {
                 const std::uint64_t tick = platform::ReadTickCount64();
-                if (gWindowActionTick62B5AC + 500u < tick) {
+                if (interaction.actionTick + 500u < tick) {
                     if (phase == 1) {
                         static_cast<void>(callbackWindow.ownerSession->Connection().SendTradeDecision(1));
                         trade.valueD2E2B0 = 2;
@@ -2733,7 +2739,7 @@ static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, co
                             trade.valueCC4224 = 1;
                         }
                     }
-                    gWindowActionTick62B5AC = platform::ReadTickCount64();
+                    interaction.actionTick = platform::ReadTickCount64();
                     static_cast<void>(audio::PlaySe_52C450(78, 320));
                 }
             } else {

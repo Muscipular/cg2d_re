@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "StartupNative.hpp"
 #include "MainLoopDependencies.hpp"
 
@@ -15,14 +16,14 @@
 
 namespace cg::platform {
 
-using LegacyRandomEngine =
-    std::linear_congruential_engine<std::uint32_t, 0x343FDu, 0x269EC3u, 0>;
-
-// 原0x0058F870：唯一共享W32状态，初始种子1；首次使用初始化不推进序列。
-static LegacyRandomEngine& SharedRandomEngine()
+static session::LegacyRandomEngine& SharedRandomEngine(network::CgConnection& connection)
 {
-    static LegacyRandomEngine engine{1};
-    return engine;
+    return connection.Owner().RandomEngine();
+}
+
+static session::LegacyRandomEngine& SharedRandomEngine()
+{
+    return SharedRandomEngine(network::GetGameConnection());
 }
 
 // 原 W32 0x73ED38；能力探测包装入口先写此槽，再比较返回码。
@@ -93,14 +94,24 @@ void KeepAlive_457AB0()
 // 原函数：0x0053B4BF。
 std::uint32_t SeedRandom_53B4BF(std::uint32_t seed)
 {
-    SharedRandomEngine().seed(seed);
+    return SeedRandom_53B4BF(network::GetGameConnection(), seed);
+}
+
+std::uint32_t SeedRandom_53B4BF(network::CgConnection& connection, std::uint32_t seed)
+{
+    SharedRandomEngine(connection).seed(seed);
     return seed;
 }
 
 // 原函数：0x0053B4C9。
 int Rand16()
 {
-    const std::uint32_t seed = SharedRandomEngine()();
+    return Rand16(network::GetGameConnection());
+}
+
+int Rand16(network::CgConnection& connection)
+{
+    const std::uint32_t seed = SharedRandomEngine(connection)();
     // 原 sar 后的 0x7FFF 掩码只保留原位 16..30，无符号移位得到相同结果。
     return static_cast<int>((seed >> 16) & 0x7FFFu);
 }

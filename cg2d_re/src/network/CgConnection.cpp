@@ -2063,8 +2063,8 @@ SendResult CgConnection::SendPositionDirectionInteraction(const std::int32_t x,
         if (spaces > 0) {
             const __time64_t seconds = ::_time64(nullptr);
             static_cast<void>(
-                platform::SeedRandom_53B4BF(static_cast<std::uint32_t>(seconds)));
-            selected = platform::Rand16() % spaces;
+                platform::SeedRandom_53B4BF(*this, static_cast<std::uint32_t>(seconds)));
+            selected = platform::Rand16(*this) % spaces;
             if (selected == 0) {
                 selected = 1;
             }

@@ -67,7 +67,6 @@ void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, 
 void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。
 // 原函数：0x00449FA0。
 std::int32_t SaveChatInputHistoryEntry_449FA0(std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。
-extern std::uint32_t gChatMinimumIntervalMs; // G06：SpDt重复发言间隔，默认200毫秒。
 
 namespace detail {
 extern std::wstring gLogPath62699C; // 原全局：0x0062699C。

@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/network/CgConnection.hpp"
 #include "map_render.hpp"
 #include "base.hpp"
 #include "window.hpp"
@@ -1015,7 +1016,8 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
     if (position < 10) {
         // G02：只对应参考首匹配507AD4，其他位置分支的门禁保持。
         if (payload != nullptr
-            && (world::gBattleShowEnemyHpBars || payload->battlePosition18 < 10)) {
+            && (cg::network::GetGameConnection().GameplaySettings().showEnemyHpBars
+                || payload->battlePosition18 < 10)) {
             if ((payload->flagsFDC & detail::BattleActorFlag_Morph) != 0) {
                 companion = 4;
             }

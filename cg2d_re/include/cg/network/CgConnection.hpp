@@ -33,6 +33,13 @@ struct ConnectionPumpResult {
     platform::ConnectionSnapshot terminal;
 };
 
+// 服务端 BtWt/SpDt 发布、世界与 Yobi 消费的连接级配置。
+struct GameplayServerSettings {
+    std::uint32_t battleCommandWaitMs = 300000;
+    bool showEnemyHpBars = false;
+    std::uint32_t chatMinimumIntervalMs = 200;
+};
+
 // CTO01：主线程协议与会话owner，组合私有CgTransport；当前业务仅接入一个实例。
 class CgConnection final {
 public:
@@ -52,6 +59,7 @@ public:
     [[nodiscard]] std::int32_t Error() const noexcept;
     // 原 0xD9F2CA；主循环的断线阶段随连接实例保留。
     [[nodiscard]] std::uint8_t& DisconnectState() noexcept;
+    [[nodiscard]] GameplayServerSettings& GameplaySettings() noexcept;
     void SetIoEnabled(bool enabled);
     // 完整明文消息，不添加LF、不识别协议；会话身份由对象捕获并在回调后校验。
     // replacePending由业务选择是否替换旧待发字节，默认追加。

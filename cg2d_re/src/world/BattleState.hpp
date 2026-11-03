@@ -97,8 +97,6 @@ extern std::int32_t gBattleSkillActionCount5ABBF4; // 原全局：0x005ABBF4。
 extern std::int32_t gBattlePetActionCount5ABBBC; // 原全局：0x005ABBBC。
 extern std::int32_t gBattleCountdownActive5ABCB8; // 原全局：0x005ABCB8。 43C4E0置1，4982C0到期清零。
 extern std::uint64_t gBattleCommandDeadline5ABBF8; // 原全局：0x005ABBF8。 原32位tick截止值，不是地址。
-extern std::uint32_t gBattleCommandWaitMs; // G01：BtWt命令等待毫秒，默认五分钟。
-extern bool gBattleShowEnemyHpBars; // G02：战斗追加血条及原第一处悬停信息门禁共享。
 extern std::int32_t gBattleCountdownSecond5ABB80; // 原全局：0x005ABB80。 低于十秒时的独立提示秒数。
 extern std::int32_t gBattleSnapshotPetIndex5ABBFC; // 原全局：0x005ABBFC。 4965D0每次解码后重取，非553F90。
 extern std::int32_t gBattleCommandX553F78; // 原全局：0x00553F78。 映像490，43C4E0覆盖493。

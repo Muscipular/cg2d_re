@@ -2112,7 +2112,7 @@ void BeginBattleCommandSelection_43C4E0()
 {
     gBattleCountdownActive5ABCB8 = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gBattleCommandDeadline5ABBF8 = tick + gBattleCommandWaitMs;
+    gBattleCommandDeadline5ABBF8 = tick + cg::network::GetGameConnection().GameplaySettings().battleCommandWaitMs;
     gBattleCountdownSecond5ABB80 = 0;
     gBattleCommandState5ABC3C = 0;
     gBattleSkillActionCount5ABBF4 = 0;
@@ -2321,9 +2321,6 @@ std::int32_t gBattleSkillActionCount5ABBF4 = 0; // 原全局：0x005ABBF4。
 std::int32_t gBattlePetActionCount5ABBBC = 0; // 原全局：0x005ABBBC。
 std::int32_t gBattleCountdownActive5ABCB8 = 0; // 原全局：0x005ABCB8。
 std::uint64_t gBattleCommandDeadline5ABBF8 = 0; // 原全局：0x005ABBF8。
-std::uint32_t gBattleCommandWaitMs = 300000; // G01：BtWt更新，下次命令计时生效。
-bool gBattleShowEnemyHpBars = false; // G02：BtWt血条及敌方悬停数值开关。
-std::uint32_t gChatMinimumIntervalMs = 200; // G06：SpDt与Sub_50C940共享；唯一定义位于cg::world::detail。
 std::int32_t gBattleCountdownSecond5ABB80 = 0; // 原全局：0x005ABB80。
 std::int32_t gBattleSnapshotPetIndex5ABBFC = 0; // 原全局：0x005ABBFC。
 std::int32_t gBattleCommandX553F78 = 490; // 原全局：0x00553F78。
@@ -4505,7 +4502,7 @@ void DrawBattleScene_43CBB0()
         return;
     }
     // G02：参考43D07B前置业务；保留Sub_4990A0内部的存活与可见门禁。
-    if (gBattleShowEnemyHpBars) {
+    if (cg::network::GetGameConnection().GameplaySettings().showEnemyHpBars) {
         for (std::int32_t enemy = 10; enemy < 20; ++enemy) {
             cg::yobi::YobiAction* const actor = gBattleEntries59E980[enemy];
             if (actor != nullptr && cg::yobi::ReadYobiBatchType(actor) == 0
@@ -8946,7 +8943,7 @@ std::int32_t SendPlayerChatInput_50C940(
         const std::uint64_t tick = platform::ReadTickCount64();
         const std::uint64_t previous = gChatPreviousTickDA3B3C;
         gChatCurrentTickDA3B40 = tick;
-        if (tick - previous < gChatMinimumIntervalMs) {
+        if (tick - previous < cg::network::GetGameConnection().GameplaySettings().chatMinimumIntervalMs) {
             AppendChatMessage_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
             std::int32_t result = platform::gChatNotificationSoundEnabled_554644;
             if (result != 0) {

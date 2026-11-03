@@ -679,6 +679,7 @@ void __declspec(noinline) RegGraphic(lua_State* L) {
 
 LuaWindow::LuaWindow(UIWindowInstance& value, lua_State* state)
     : window(value), owner(state), generation(value.generation) {}
+LuaWindowRef LuaWindowBinding::ref() const { return {window.id, &GetLuaConnection(owner).Owner()}; }
 LuaWindowBinding::~LuaWindowBinding() {
     LuaUnref(owner, window.refUpdate);
     LuaUnref(owner, window.refDraw);
@@ -694,7 +695,9 @@ LuaWindowBinding::~LuaWindowBinding() {
     }
 }
 
-LuaWindowRef LuaWindow::ref() const { return {window.id}; }
+LuaWindowRef LuaWindow::ref() const {
+    return {window.id, owner ? &GetLuaConnection(owner).Owner() : window.ownerSession};
+}
 // 创建未提交前统一拥有载荷和待转移引用，失败不泄漏到活动元素表。
 struct PendingLuaElement {
     ui::WindowElementType type;
@@ -797,23 +800,30 @@ ui::WindowElement* LuaWindow::AddMapEx(std::wstring_view name, int x, int y, int
 }
 
 static std::optional<LuaWindow> ResolveWindow(const LuaWindowRef& ref) {
+    if (!ref.ownerSession) return std::nullopt;
     auto* instance = ui::WindowRuntime_FindInstance(ref.winId);
-    if (!instance || (instance->state & WIN_STATE_CLOSE)) return std::nullopt;
+    if (!instance || (instance->state & WIN_STATE_CLOSE)
+        || (instance->ownerSession && instance->ownerSession != ref.ownerSession)) return std::nullopt;
     return LuaWindow(*instance, nullptr);
 }
 ui::WindowElement* ResolveLuaElement(const LuaControlRef& ref) {
+    if (!ref.ownerSession) return nullptr;
     auto* window = ui::WindowRuntime_FindInstance(ref.winId);
-    return window && !(window->state & WIN_STATE_CLOSE) ? window->FindElementById(ref.controlId) : nullptr;
+    return window && !(window->state & WIN_STATE_CLOSE)
+        && (!window->ownerSession || window->ownerSession == ref.ownerSession)
+        ? window->FindElementById(ref.controlId) : nullptr;
 }
 bool IsLuaControlAttached(const LuaControlRef& ref) { return ResolveLuaElement(ref) != nullptr; }
 static void PushWindowRef(lua_State* L, LuaWindowRef ref) {
     auto* data = static_cast<LuaWindowRef*>(lua_newuserdata(L, sizeof(LuaWindowRef)));
+    ref.ownerSession = &GetLuaConnection(L).Owner();
     *data = ref;
     luaL_setmetatable(L, CName(LuaWindowRef));
 }
 
 static void PushControlRef(lua_State* L, LuaControlRef ref) {
     auto data = static_cast<LuaControlRef*>(lua_newuserdata(L, sizeof(LuaControlRef)));
+    ref.ownerSession = &GetLuaConnection(L).Owner();
     *data = ref;
     luaL_setmetatable(L, CName(LuaControlRef));
 }
@@ -832,7 +842,8 @@ static int LuaReadParentId(lua_State* L, int index, const LuaWindow* window) {
     lua_getfield(L, index, "parent");
     if (!lua_isnil(L, -1)) {
         auto parentRef = static_cast<LuaControlRef*>(luaL_checkudata(L, -1, CName(LuaControlRef)));
-        if (!parentRef || !window || parentRef->winId != window->window.id) {
+        if (!parentRef || !window || parentRef->winId != window->window.id
+            || parentRef->ownerSession != &GetLuaConnection(L).Owner()) {
             lua_pop(L, 1);
             return -1;
         }
@@ -907,6 +918,7 @@ static void LuaApplyWindowCallbacks(lua_State* L, int index, LuaWindow* window) 
 }
 
 static void LuaApplyNewWindowParam(lua_State* L, int index, LuaWindow* window) {
+    window->window.ownerSession = &GetLuaConnection(L).Owner();
     window->window.id = LuaGetIntField(L, index, "id", WIN_LUA_START);
     window->window.x = static_cast<short>(LuaGetIntField(L, index, "x", 0));
     window->window.y = static_cast<short>(LuaGetIntField(L, index, "y", 0));
@@ -2058,6 +2070,8 @@ LuaFunction(WinMgr_newWindow) {
 
     auto existing = GetExtWindowById(id);
     if (existing) {
+        if (existing->window.ownerSession != &GetLuaConnection(L).Owner())
+            return luaL_error(L, "window belongs to another session");
         auto view = LuaWindow(existing->window, L);
         auto* window = &view;
         LuaApplyExistingWindowParam(L, 1, window);
@@ -2081,14 +2095,19 @@ LuaFunction(WinMgr_newWindow) {
 LuaFunction(WinMgr_findWindow) {
     const int id = static_cast<int>(luaL_checkinteger(L, 1));
     auto* window = ui::WindowRuntime_FindInstance(id);
-    if (!window || (window->state & WIN_STATE_CLOSE)) { lua_pushnil(L); return 1; }
+    if (!window || (window->state & WIN_STATE_CLOSE)
+        || (window->ownerSession && window->ownerSession != &GetLuaConnection(L).Owner())) {
+        lua_pushnil(L); return 1;
+    }
     PushWindowRef(L, {id});
     return 1;
 }
 
 LuaFunction(WinMgr_close) {
     int id = static_cast<int>(lua_tointeger(L, 1));
-    CgWindowClose(id);
+    auto* window = ui::WindowRuntime_FindInstance(id);
+    if (window && (!window->ownerSession || window->ownerSession == &GetLuaConnection(L).Owner()))
+        CgWindowClose(id);
     return 0;
 }
 
@@ -2134,7 +2153,7 @@ LuaFunction(WinMgr_focus) {
         }
     } else {
         auto ptr = GetExtWindowById(id);
-        if (ptr) {
+        if (ptr && ptr->window.ownerSession == &GetLuaConnection(L).Owner()) {
             ptr->window.state |= WIN_STATE_FOCUS;
             lua_pushinteger(L, 1);
             return 1;

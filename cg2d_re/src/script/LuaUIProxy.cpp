@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "LuaUI.hpp"
 #include <stdexcept>
 
@@ -6,8 +7,10 @@ namespace cg::script {
 struct LuaElementsRef { LuaWindowRef window; };
 
 static ui::WindowInstance* ResolveInstance(LuaWindowRef ref) {
+    if (!ref.ownerSession) return nullptr;
     auto* window = ui::WindowRuntime_FindInstance(ref.winId);
-    return window && !(window->state & WIN_STATE_CLOSE) ? window : nullptr;
+    return window && !(window->state & WIN_STATE_CLOSE)
+        && (!window->ownerSession || window->ownerSession == ref.ownerSession) ? window : nullptr;
 }
 static int AbsIndex(lua_State* L, int index) { return index > 0 || index <= LUA_REGISTRYINDEX ? index : lua_gettop(L) + index + 1; }
 static void Unref(lua_State* L, int& ref) {
@@ -36,6 +39,8 @@ static int* WindowRef(ui::WindowInstance& window, const char* key) {
     return nullptr;
 }
 LuaWindowBinding* EnsureLuaWindowBinding(lua_State* L, ui::WindowInstance& window) {
+    if (window.ownerSession && window.ownerSession != &GetLuaConnection(L).Owner())
+        throw std::runtime_error("window belongs to another session");
     ui::WindowRuntime_EnsureIdentity(window);
     if (!window.binding) {
         window.binding = new LuaWindowBinding(window, L);
@@ -93,12 +98,12 @@ static void SetProperty(lua_State* L, ui::WindowPropertyMap*& properties, const 
 
 void PushLuaElement(lua_State* L, ui::WindowInstance& window, ui::WindowElement& element) {
     auto* ref = static_cast<LuaControlRef*>(lua_newuserdata(L, sizeof(LuaControlRef)));
-    *ref = {window.id, element.elementId};
+    *ref = {window.id, element.elementId, &GetLuaConnection(L).Owner()};
     luaL_setmetatable(L, "LuaControlRef");
 }
 static void PushElements(lua_State* L, ui::WindowInstance& window) {
     auto* ref = static_cast<LuaElementsRef*>(lua_newuserdata(L, sizeof(LuaElementsRef)));
-    ref->window = {window.id};
+    ref->window = {window.id, &GetLuaConnection(L).Owner()};
     luaL_setmetatable(L, "LuaElementsRef");
 }
 bool LuaPushElementProperty(lua_State* L, ui::WindowElement& element, const char* key) {

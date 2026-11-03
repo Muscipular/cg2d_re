@@ -1,14 +1,19 @@
 #pragma once
 #include "LuaHost.hpp"
+
+namespace cg::session { class ClientSession; }
+
 namespace cg::script {
 struct LuaWindowRef {
     int winId = -1;
+    session::ClientSession* ownerSession = nullptr; // 所属 Lua VM 的会话，ID 只在此会话内解析。
 };
 
 
 struct LuaControlRef {
     int winId = -1;
     std::uint32_t controlId = 0; // elementId，兼容字段名。
+    session::ClientSession* ownerSession = nullptr;
 };
 
 struct LuaCallbackRefs {

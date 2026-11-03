@@ -13,7 +13,7 @@ struct LuaWindowBinding final : ui::WindowBinding {
     lua_State* owner = nullptr;
     LuaWindowBinding(UIWindowInstance& value, lua_State* state) : window(value), owner(state) {}
     ~LuaWindowBinding() override;
-    LuaWindowRef ref() const { return {window.id}; }
+    LuaWindowRef ref() const;
     void update() override;
     void draw() override;
     int event(int elementIndex, int flags) override;

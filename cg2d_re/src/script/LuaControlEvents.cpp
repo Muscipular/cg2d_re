@@ -1,3 +1,4 @@
+#include "cg/network/CgConnection.hpp"
 #include "LuaUI.hpp"
 
 namespace cg::script {
@@ -46,6 +47,7 @@ void AttachLuaElementRefs(LuaCallbackRefs& refs, ui::WindowElement& element) {
 int LuaWindowBinding::elementText(ui::WindowElement& element, bool enter, std::wstring_view value) {
     if (element.removed || element.detaching || (window.state & WIN_STATE_CLOSE)) return 0;
     return CallControlTextCallback(owner, enter ? element.refEnter : element.refChange,
-        enter ? "WindowElement.onEnter" : "WindowElement.onChange", {window.id, element.elementId}, value);
+        enter ? "WindowElement.onEnter" : "WindowElement.onChange",
+        {window.id, element.elementId, &GetLuaConnection(owner).Owner()}, value);
 }
 } // namespace cg::script

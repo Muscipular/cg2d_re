@@ -175,6 +175,22 @@ struct WindowShopDetail {
     std::int32_t valueC34; // 原成员偏移：+0xC34；原分支显示值／现有数量，不归并用途。
 };
 
+// 原CB2230/D30428晶石商品；不同于普通商店C38H记录，保留区尚不定语义。
+struct WindowCrystalItem {
+    std::uint8_t used; // 原成员偏移：+0x00。
+    std::wstring name; // 原成员偏移：+0x01。
+    std::array<std::wstring, 32> description; // 原+0x1E；内部按行存放。
+    std::array<std::byte, 2> bytesC1E; // 原成员偏移：+0xC1E。
+    std::int32_t imageNo; // 原成员偏移：+0xC20。
+    std::int32_t valueC24; // 原成员偏移：+0xC24。
+    std::int32_t selectedCount; // +C28，两种晶石商店共用的数量字段语义。
+    std::int32_t valueC2C; // 原成员偏移：+0xC2C。
+    std::uint32_t flags; // 原成员偏移：+0xC30。
+    std::wstring tips; // 原成员偏移：+0xC34。
+    std::int32_t limitC4C; // 原成员偏移：+0xC4C。
+    std::int32_t remainingC50; // 原成员偏移：+0xC50。
+};
+
 } // namespace cg::ui::detail
 
 namespace cg::ui {
@@ -450,6 +466,65 @@ struct ShopWindowRuntimeState {
 };
 static_assert(sizeof(ShopWindowRuntimeState::selectedSlots) == 20);
 
+// 窗口69的商品及确认层，不与同会话窗口70的独立状态混用。
+struct CrystalShopWindowRuntimeState {
+    std::array<detail::WindowCrystalItem, 20> items {}; // 原0xCB2230。
+    std::int32_t initialized = 0; // 原0xD67B98。
+    std::uint8_t flag = 0; // 原0xD2EA5B。
+    std::int32_t imageNo = 0; // 原0xCB01F0。
+    std::int32_t dialogType = 0; // 原0xD2D810。
+    std::int32_t scroll = 0; // 原0xD2D604。
+    std::int32_t dirty = 0; // 原0xD67B9C。
+    std::int32_t cachedScroll = -1; // 原0x580858。
+    std::int32_t total = 0; // 原0xD45E70。
+    std::int32_t slots = 0; // 原0xCA0AC8。
+    std::array<std::wstring, 5> priceTexts {}; // 原0xD2D7CC。
+    std::array<std::wstring, 5> countTexts {}; // 原0xD2EA24。
+    std::wstring totalText; // 原0xCC48B0。
+    std::int32_t tooltip = -1; // 原0x580850。
+    std::int32_t message = -1; // 原0x580854。
+    std::int32_t tooltipPage = 0; // 原0xD67B94。
+    std::int32_t inventoryHover = -2; // 原0x58085C。
+    std::wstring balanceText; // 原0xD2E448。
+    WindowValueCallback confirmCallback = nullptr; // 原0xCF4E48。
+    std::array<detail::WindowConfirmationItem, 20> confirmItems {}; // 原0xD2E458。
+    std::array<detail::WindowConfirmationAmount, 2> confirmAmounts {}; // 原0xD2E2B8。
+    std::wstring confirmHeading; // 原0xCC3F68。
+    std::wstring confirmQuestion; // 原0xCC3F04。
+    std::wstring confirmAccept; // 原0xD2E81C。
+    std::wstring confirmCancel; // 原0xCB076C。
+};
+
+// 窗口70保留额外第十协议字段及独立的数量、分页与确认区。
+struct CrystalExchangeShopWindowRuntimeState {
+    std::array<detail::WindowCrystalItem, 20> items {}; // 原0xD30428。
+    std::int32_t initialized = 0; // 原0xD67BA4。
+    std::uint8_t flag = 0; // 原0xD673D8。
+    std::int32_t imageNo = 0; // 原0xD2E43C。
+    std::int32_t exchangeItemId = 0; // 原0xD6791C，第十协议字段S32。
+    std::int32_t dialogType = 0; // 原0xD45D6C。
+    std::int32_t scroll = 0; // 原0xCC4B68。
+    std::int32_t dirty = 0; // 原0xD67BA8。
+    std::int32_t cachedScroll = -1; // 原0x580868。
+    std::int32_t total = 0; // 原0xCB0F74。
+    std::int32_t slots = 0; // 原0xCF4E44。
+    std::array<std::wstring, 5> priceTexts {}; // 原0xCF49C4。
+    std::array<std::wstring, 5> countTexts {}; // 原0xCC4848。
+    std::wstring totalText; // 原0xD2D804。
+    std::int32_t tooltip = -1; // 原0x580860。
+    std::int32_t message = -1; // 原0x580864。
+    std::int32_t tooltipPage = 0; // 原0xD67BA0。
+    std::int32_t inventoryHover = -2; // 原0x58086C。
+    std::wstring balanceText; // 原0xCF3F14。
+    WindowValueCallback confirmCallback = nullptr; // 原0xCF4AA4。
+    std::array<detail::WindowConfirmationItem, 20> confirmItems {}; // 原0xCB0AE8。
+    std::array<detail::WindowConfirmationAmount, 2> confirmAmounts {}; // 原0xD2E290。
+    std::wstring confirmHeading; // 原0xCF4A40。
+    std::wstring confirmQuestion; // 原0xCF4ABC。
+    std::wstring confirmAccept; // 原0xD2DD6C。
+    std::wstring confirmCancel; // 原0xCC48BC。
+};
+
 // 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
 struct ItemTargetRuntimeState {
     std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
@@ -485,6 +560,8 @@ struct NativeWindowRuntimeState {
     WindowPointerRuntimeState pointer {};
     ItemTransferRuntimeState itemTransfer {};
     ShopWindowRuntimeState shop {};
+    CrystalShopWindowRuntimeState crystalShop {};
+    CrystalExchangeShopWindowRuntimeState crystalExchangeShop {};
     detail::WindowMaterialState material {}; // 原0xCC4894，含商店模式别名。
     detail::Window47RuntimeSlots confirmation {};
     ItemTargetRuntimeState itemTargets {};

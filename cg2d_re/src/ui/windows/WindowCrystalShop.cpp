@@ -91,19 +91,19 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004C1700。
-static void WindowCrystalShop_RefreshRemaining(); // 窗口69五条剩余量文本。
+static void WindowCrystalShop_RefreshRemaining(WindowInstance& callbackWindow); // 窗口69五条剩余量文本。
 
 // 原函数：0x004C17B0。
-static void WindowCrystalShop_RefreshRows(); // 名称两行和价格，保留原分行空隙字节。
+static void WindowCrystalShop_RefreshRows(WindowInstance& callbackWindow); // 名称两行和价格，保留原分行空隙字节。
 
 // 原函数：0x004C1AA0。
-static void WindowCrystalShop_RefreshQuantities(); // 五条已选数量。
+static void WindowCrystalShop_RefreshQuantities(WindowInstance& callbackWindow); // 五条已选数量。
 
 // 原函数：0x004C1B00。
-static void WindowCrystalShop_RefreshAmount(); // 总额与玩家晶石比较，写type7 color。
+static void WindowCrystalShop_RefreshAmount(WindowInstance& callbackWindow); // 总额与玩家晶石比较，写type7 color。
 
 // 原函数：0x004C1B70。
-static void WindowCrystalShop_CountSlots(); // 二十条选中商品占槽。
+static void WindowCrystalShop_CountSlots(WindowInstance& callbackWindow); // 二十条选中商品占槽。
 
 // 原函数：0x004C1BC0。
 static void WindowCrystalShop_Refresh(WindowInstance& callbackWindow); // 首次/分页/数量脏标刷新。
@@ -146,7 +146,7 @@ static std::int32_t WindowCrystalShop_ButtonIncrease(WindowInstance& callbackWin
 
 // 原函数：0x004C33B0。
 static std::int32_t WindowCrystalShop_ShowTooltip(
-    std::int32_t index, std::int32_t page, std::int32_t unused); // 保留caller第三实参。
+    session::ClientSession& session, std::int32_t index, std::int32_t page, std::int32_t unused); // 保留caller第三实参。
 
 // 原函数：0x004C1390。
 static void WindowCrystalShop_Release(WindowInstance&);
@@ -158,62 +158,6 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, std
 static std::int32_t WindowCrystalShop_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
-
-static std::array<WindowCrystalItem, 20> gWindow69ItemsCB2230 {}; // 原全局：0x00CB2230。
-
-static std::int32_t gWindow69ValueD67B98 = 0; // 原全局：0x00D67B98。
-
-static std::uint8_t gWindow69FlagD2EA5B = 0; // 原全局：0x00D2EA5B。
-
-static std::int32_t gWindow69ImageCB01F0 = 0; // 原全局：0x00CB01F0。
-
-static std::int32_t gWindow69DialogTypeD2D810 = 0; // 原全局：0x00D2D810。
-
-static std::int32_t gWindow69ScrollD2D604 = 0; // 原全局：0x00D2D604。
-
-static std::int32_t gWindow69DirtyD67B9C = 0; // 原全局：0x00D67B9C。
-
-// 原全局：0x00580858。 原文件初值-1。
-static std::int32_t gWindow69CachedScroll580858 = -1; // 原全局：0x00580858。
-
-static std::int32_t gWindow69TotalD45E70 = 0; // 原全局：0x00D45E70。
-
-static std::int32_t gWindow69SlotsCA0AC8 = 0; // 原全局：0x00CA0AC8。
-
-static std::array<std::wstring, 5> gWindow69PriceTextsD2D7CC {}; // 原全局：0x00D2D7CC。
-
-static std::array<std::wstring, 5> gWindow69CountTextsD2EA24 {}; // 原全局：0x00D2EA24。
-
-static std::wstring gWindow69TotalTextCC48B0 {}; // 原全局：0x00CC48B0。
-
-// 原全局：0x00580850。 悬停编号，原文件初值-1。
-static std::int32_t gWindow69Tooltip580850 = -1; // 原全局：0x00580850。
-
-// 原全局：0x00580854。 NPC正文组，原文件初值-1。
-static std::int32_t gWindow69Message580854 = -1; // 原全局：0x00580854。
-
-static std::int32_t gWindow69TooltipPageD67B94 = 0; // 原全局：0x00D67B94。
-
-// 原全局：0x0058085C。 原文件初值-2；背包命中变化才更新。
-static std::int32_t gWindow69InventoryHover58085C = -2; // 原全局：0x0058085C。
-
-// 原全局：0x00D2E448。 完整S32格式化前缀，不冻结未消费尾区。
-static std::wstring gWindow69BalanceTextD2E448 {}; // 原全局：0x00D2E448。
-
-static WindowValueCallback gWindow69ConfirmCallbackCF4E48 = nullptr; // 原全局：0x00CF4E48。
-
-static std::array<WindowConfirmationItem, 20> gWindow69ConfirmItemsD2E458 {}; // 原全局：0x00D2E458。
-
-static std::array<WindowConfirmationAmount, 2> gWindow69ConfirmAmountsD2E2B8 {}; // 原全局：0x00D2E2B8。
-
-// 固定原文及NUL的已消费前缀，不据此冻结未消费尾区容量。
-static std::wstring gWindow69ConfirmHeadingCC3F68 {}; // 原全局：0x00CC3F68。
-
-static std::wstring gWindow69ConfirmQuestionCC3F04 {}; // 原全局：0x00CC3F04。
-
-static std::wstring gWindow69ConfirmAcceptD2E81C {}; // 原全局：0x00D2E81C。
-
-static std::wstring gWindow69ConfirmCancelCB076C {}; // 原全局：0x00CB076C。
 
 // IWT01：晶石商品为含宽文本的内部记录。
 
@@ -277,29 +221,29 @@ static WindowTextPrototype gWindowText575910 { // 原全局：0x00575910。
 
 static std::int32_t gWindowAnimationImage575918 = 100000; // 原全局：0x00575918。
 
-static WindowNumberData gWindowNumber575920 {&gWindow69BalanceTextD2E448, 10, 3, 1, 0}; // 原全局：0x00575920。
+static WindowNumberData gWindowNumber575920 {nullptr, 10, 3, 1, 0}; // 原全局：0x00575920。
 
-static WindowNumberData gWindowNumber575930 {&gWindow69TotalTextCC48B0, 0, 3, 1, 0}; // 原全局：0x00575930。
+static WindowNumberData gWindowNumber575930 {nullptr, 0, 3, 1, 0}; // 原全局：0x00575930。
 
-static WindowNumberData gWindowNumber575938 {&gWindow69PriceTextsD2D7CC[0], 10, 3, 1, 0}; // 原全局：0x00575938。
+static WindowNumberData gWindowNumber575938 {nullptr, 10, 3, 1, 0}; // 原全局：0x00575938。
 
-static WindowNumberData gWindowNumber575940 {&gWindow69PriceTextsD2D7CC[1], 10, 3, 1, 0}; // 原全局：0x00575940。
+static WindowNumberData gWindowNumber575940 {nullptr, 10, 3, 1, 0}; // 原全局：0x00575940。
 
-static WindowNumberData gWindowNumber575948 {&gWindow69PriceTextsD2D7CC[2], 10, 3, 1, 0}; // 原全局：0x00575948。
+static WindowNumberData gWindowNumber575948 {nullptr, 10, 3, 1, 0}; // 原全局：0x00575948。
 
-static WindowNumberData gWindowNumber575950 {&gWindow69PriceTextsD2D7CC[3], 10, 3, 1, 0}; // 原全局：0x00575950。
+static WindowNumberData gWindowNumber575950 {nullptr, 10, 3, 1, 0}; // 原全局：0x00575950。
 
-static WindowNumberData gWindowNumber575958 {&gWindow69PriceTextsD2D7CC[4], 10, 3, 1, 0}; // 原全局：0x00575958。
+static WindowNumberData gWindowNumber575958 {nullptr, 10, 3, 1, 0}; // 原全局：0x00575958。
 
-static WindowNumberData gWindowNumber575960 {&gWindow69CountTextsD2EA24[0], 0, 3, 1, 0}; // 原全局：0x00575960。
+static WindowNumberData gWindowNumber575960 {nullptr, 0, 3, 1, 0}; // 原全局：0x00575960。
 
-static WindowNumberData gWindowNumber575968 {&gWindow69CountTextsD2EA24[1], 0, 3, 1, 0}; // 原全局：0x00575968。
+static WindowNumberData gWindowNumber575968 {nullptr, 0, 3, 1, 0}; // 原全局：0x00575968。
 
-static WindowNumberData gWindowNumber575970 {&gWindow69CountTextsD2EA24[2], 0, 3, 1, 0}; // 原全局：0x00575970。
+static WindowNumberData gWindowNumber575970 {nullptr, 0, 3, 1, 0}; // 原全局：0x00575970。
 
-static WindowNumberData gWindowNumber575978 {&gWindow69CountTextsD2EA24[3], 0, 3, 1, 0}; // 原全局：0x00575978。
+static WindowNumberData gWindowNumber575978 {nullptr, 0, 3, 1, 0}; // 原全局：0x00575978。
 
-static WindowNumberData gWindowNumber575980 {&gWindow69CountTextsD2EA24[4], 0, 3, 1, 0}; // 原全局：0x00575980。
+static WindowNumberData gWindowNumber575980 {nullptr, 0, 3, 1, 0}; // 原全局：0x00575980。
 
 static std::uint32_t gWindowMouseFlagsD67910 = 0; // 原全局：0x00D67910。
 
@@ -384,9 +328,10 @@ WindowPrototype gWindowPrototypeCrystalShop {0, 4, 10, 30, 549, 366, 0x80010101u
 // 窗口函数实现。
 
 // 原函数：0x004C1390。
-static void WindowCrystalShop_Release(WindowInstance&)
+static void WindowCrystalShop_Release(WindowInstance& releasedWindow)
 {
-    const std::int32_t type = gWindow69DialogTypeD2D810;
+    auto& crystal = releasedWindow.ownerSession->UiFrame().native.crystalShop;
+    const std::int32_t type = crystal.dialogType;
     if (type == world::gCurrentDialogType_581800) {
         world::gCurrentDialogType_581800 = -1;
     }
@@ -395,10 +340,11 @@ static void WindowCrystalShop_Release(WindowInstance&)
 // 原函数：0x004C13B0。
 cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, const char* const text)
 {
+    auto& crystal = session.UiFrame().native.crystalShop;
     auto& shop = session.UiFrame().native.shop;
-    gWindow69ValueD67B98 = 0;
-    gWindow69FlagD2EA5B = 0;
-    gWindow69ImageCB01F0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    crystal.initialized = 0;
+    crystal.flag = 0;
+    crystal.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
@@ -414,19 +360,19 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, co
         }
     }
     shop.itemCount = 0;
-    gWindow69ItemsCB2230.fill({});
+    crystal.items.fill({});
     std::int32_t field = 8;
-    for (WindowCrystalItem* item = gWindow69ItemsCB2230.data();
-         item != gWindow69ItemsCB2230.data() + gWindow69ItemsCB2230.size(); ++item, field += 7) {
+    for (WindowCrystalItem* item = crystal.items.data();
+         item != crystal.items.data() + crystal.items.size(); ++item, field += 7) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field - 2, 767, buffer.data()) == 1) {
             break;
         }
-        gWindow69ItemsCB2230[shop.itemCount].used = 1;
+        crystal.items[shop.itemCount].used = 1;
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         if (std::strlen(buffer.data()) > 28) {
             item->name = L"???";
         } else {
-            gWindow69ItemsCB2230[shop.itemCount].name = cg::text::FromGbkWide(buffer.data());
+            crystal.items[shop.itemCount].name = cg::text::FromGbkWide(buffer.data());
         }
         item->imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field - 1);
         item->valueC24 = network::ParseDelimitedInteger_52CFA0(text, '|', field);
@@ -435,7 +381,7 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, co
         const std::int32_t remaining = network::ParseDelimitedInteger_52CFA0(text, '|', field + 3);
         item->remainingC50 = remaining;
         if (remaining != -1) {
-            WindowCrystalItem& current = gWindow69ItemsCB2230[shop.itemCount];
+            WindowCrystalItem& current = crystal.items[shop.itemCount];
             if (remaining < current.limitC4C) {
                 current.limitC4C = current.remainingC50;
             }
@@ -445,37 +391,38 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, co
         input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
         std::int32_t currentCount = shop.itemCount;
         for (std::int32_t row = 0; row < 32; ++row) {
-            auto& destination = gWindow69ItemsCB2230[currentCount].description[row];
+            auto& destination = crystal.items[currentCount].description[row];
             char line[3072]{};
             const std::int32_t copied = input::ExtractLegacyLine_503AB0(
                 line, 3072, buffer.data(), row, 32);
             destination = cg::text::FromGbkWide(line);
             currentCount = shop.itemCount;
             if (copied == 0) {
-                gWindow69ItemsCB2230[currentCount].description[row].clear();
+                crystal.items[currentCount].description[row].clear();
             }
         }
         shop.itemCount = currentCount + 1;
     }
     const std::int32_t type = world::gCurrentDialogType_581800;
     shop.currencyItemId = -1;
-    gWindow69DialogTypeD2D810 = type;
+    crystal.dialogType = type;
     return WindowRuntime_CreateAnimation(session, WindowId_CrystalShop, 1, 0, nullptr);
 }
 
 // 原函数：0x004C1700。
-static void WindowCrystalShop_RefreshRemaining()
+static void WindowCrystalShop_RefreshRemaining(WindowInstance& callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     for (std::int32_t row = 0; row < 5; ++row) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(row + 31)); indexedElement) indexedElement->visible = 0;
-        const WindowCrystalItem& item = gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
+        const WindowCrystalItem& item = crystal.items[crystal.scroll + row];
         if (item.used != 0 && item.remainingC50 >= 0) {
             if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(row + 31)); indexedElement2) indexedElement2->visible = 1;
-            const std::int32_t index = gWindow69ScrollD2D604 + row;
+            const std::int32_t index = crystal.scroll + row;
             WindowInstance* const window = currentWindow;
-            const std::int32_t remaining = gWindow69ItemsCB2230[index].remainingC50;
+            const std::int32_t remaining = crystal.items[index].remainingC50;
             auto* const indexedElement3 = window->FindElementById(NativeElementKey(row + 31));
             if (indexedElement3) {
                 cg::text::FormatTo(indexedElement3->data.text->text, L"剩余 {:2} 个", remaining);
@@ -485,14 +432,15 @@ static void WindowCrystalShop_RefreshRemaining()
 }
 
 // 原函数：0x004C17B0。
-static void WindowCrystalShop_RefreshRows()
+static void WindowCrystalShop_RefreshRows(WindowInstance& callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     std::wstring buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         WindowInstance* const initial = currentWindow;
-        std::wstring& price = gWindow69PriceTextsD2D7CC[row];
+        std::wstring& price = crystal.priceTexts[row];
         price.clear();
         auto* const indexedElement = initial->FindElementById(NativeElementKey(row + 16));
         if (indexedElement) {
@@ -503,12 +451,12 @@ static void WindowCrystalShop_RefreshRows()
             indexedElement2->data.text->text.clear();
         }
         if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(row + 26)); indexedElement3) indexedElement3->visible = 0;
-        const WindowCrystalItem* item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
+        const WindowCrystalItem* item = &crystal.items[crystal.scroll + row];
         if (item->used == 0) {
             continue;
         }
         cg::text::FormatTo(price, L"{:10}", item->valueC24);
-        item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
+        item = &crystal.items[crystal.scroll + row];
         if ((item->flags & 0x100u) != 0) {
             buffer = item->tips;
             auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(row + 16));
@@ -529,7 +477,7 @@ static void WindowCrystalShop_RefreshRows()
                 static_cast<void>(cg::text::FormatTo(buffer, L"{}({})", item->name, L"不可堆叠"));
             }
             const std::uint32_t flags =
-                gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row].flags;
+                crystal.items[crystal.scroll + row].flags;
             const std::byte color = (flags & 0x200u) != 0 ? std::byte{1} : std::byte{0};
             if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(row + 16)); indexedElement4) indexedElement4->data.text->style.color = color;
             if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(row + 21)); indexedElement5) indexedElement5->data.text->style.color = color;
@@ -543,13 +491,14 @@ static void WindowCrystalShop_RefreshRows()
 }
 
 // 原函数：0x004C1AA0。
-static void WindowCrystalShop_RefreshQuantities()
+static void WindowCrystalShop_RefreshQuantities(WindowInstance& callbackWindow)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     for (std::int32_t row = 0; row < 5; ++row) {
-        const std::int32_t scroll = gWindow69ScrollD2D604;
-        std::wstring& text = gWindow69CountTextsD2EA24[row];
+        const std::int32_t scroll = crystal.scroll;
+        std::wstring& text = crystal.countTexts[row];
         text.clear();
-        const WindowCrystalItem& item = gWindow69ItemsCB2230[scroll + row];
+        const WindowCrystalItem& item = crystal.items[scroll + row];
         if (item.used != 0) {
             cg::text::FormatTo(text, L"{:2}", item.selectedCount);
         }
@@ -557,21 +506,22 @@ static void WindowCrystalShop_RefreshQuantities()
 }
 
 // 原函数：0x004C1B00。
-static void WindowCrystalShop_RefreshAmount()
+static void WindowCrystalShop_RefreshAmount(WindowInstance& callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     std::int32_t total = 0;
-    gWindow69TotalD45E70 = 0;
-    for (const WindowCrystalItem& item : gWindow69ItemsCB2230) {
+    crystal.total = 0;
+    for (const WindowCrystalItem& item : crystal.items) {
         if (item.used != 0) {
             const std::int32_t quantity = item.selectedCount;
             total += quantity * item.valueC24;
         }
     }
-    gWindow69TotalD45E70 = total;
-    cg::text::FormatTo(gWindow69TotalTextCC48B0, L"{:10}", total);
-    const std::int32_t currentTotal = gWindow69TotalD45E70;
+    crystal.total = total;
+    cg::text::FormatTo(crystal.totalText, L"{:10}", total);
+    const std::int32_t currentTotal = crystal.total;
     const std::int32_t owned = world::gPlayerRuntimeSlots.value15BCC;
     auto* const element7 = currentWindow->FindElementById(WindowCrystalShopElementId::Element7);
     if (element7) {
@@ -582,11 +532,12 @@ static void WindowCrystalShop_RefreshAmount()
 }
 
 // 原函数：0x004C1B70。
-static void WindowCrystalShop_CountSlots()
+static void WindowCrystalShop_CountSlots(WindowInstance& callbackWindow)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     std::int32_t slots = 0;
-    gWindow69SlotsCA0AC8 = 0;
-    for (const WindowCrystalItem& item : gWindow69ItemsCB2230) {
+    crystal.slots = 0;
+    for (const WindowCrystalItem& item : crystal.items) {
         if (item.used != 0) {
             std::int32_t stack = item.valueC2C;
             const std::int32_t quantity = item.selectedCount;
@@ -596,34 +547,35 @@ static void WindowCrystalShop_CountSlots()
             slots += (stack + quantity - 1) / stack;
         }
     }
-    gWindow69SlotsCA0AC8 = slots;
+    crystal.slots = slots;
 }
 
 // 原函数：0x004C1BC0。
 static void WindowCrystalShop_Refresh(WindowInstance& callbackWindow)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
-    const std::int32_t initialized = gWindow69ValueD67B98;
-    const std::int32_t scroll = gWindow69ScrollD2D604;
-    if (initialized != 0 && gWindow69CachedScroll580858 == scroll) {
-        if (gWindow69DirtyD67B9C != 0) {
-            gWindow69DirtyD67B9C = 0;
-            WindowCrystalShop_RefreshAmount();
-            WindowCrystalShop_RefreshQuantities();
-            WindowCrystalShop_CountSlots();
+    const std::int32_t initialized = crystal.initialized;
+    const std::int32_t scroll = crystal.scroll;
+    if (initialized != 0 && crystal.cachedScroll == scroll) {
+        if (crystal.dirty != 0) {
+            crystal.dirty = 0;
+            WindowCrystalShop_RefreshAmount(callbackWindow);
+            WindowCrystalShop_RefreshQuantities(callbackWindow);
+            WindowCrystalShop_CountSlots(callbackWindow);
         }
         return;
     }
-    gWindow69ValueD67B98 = 1;
-    gWindow69CachedScroll580858 = scroll;
-    WindowCrystalShop_RefreshRows();
-    WindowCrystalShop_RefreshAmount();
-    WindowCrystalShop_RefreshQuantities();
-    WindowCrystalShop_CountSlots();
-    WindowCrystalShop_RefreshRemaining();
-    const std::int32_t position = gWindow69ScrollD2D604;
+    crystal.initialized = 1;
+    crystal.cachedScroll = scroll;
+    WindowCrystalShop_RefreshRows(callbackWindow);
+    WindowCrystalShop_RefreshAmount(callbackWindow);
+    WindowCrystalShop_RefreshQuantities(callbackWindow);
+    WindowCrystalShop_CountSlots(callbackWindow);
+    WindowCrystalShop_RefreshRemaining(callbackWindow);
+    const std::int32_t position = crystal.scroll;
     WindowInstance* const window = currentWindow;
     const std::int32_t maximum = shop.itemCount - 5;
     auto* const handleVerticalScrollElement = window->FindElementById(WindowCrystalShopElementId::HandleVerticalScroll);
@@ -636,12 +588,28 @@ static void WindowCrystalShop_Refresh(WindowInstance& callbackWindow)
 // 原函数：0x004C1C50。
 static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const entryWindow = currentWindow;
     if (value == -1) {
-        gWindow69ScrollD2D604 = 0;
+        // 数字原型只留样式，实例借所属会话的稳定文本。
+        if (auto* const element = currentWindow->FindElementById(WindowCrystalShopElementId::Element7); element && element->data.number) {
+            element->data.number->text = &crystal.totalText;
+        }
+        if (auto* const element = currentWindow->FindElementById(WindowCrystalShopElementId::Element8); element && element->data.number) {
+            element->data.number->text = &crystal.balanceText;
+        }
+        for (std::int32_t row = 0; row < 5; ++row) {
+            if (auto* const element = currentWindow->FindElementById(NativeElementKey(36 + row)); element && element->data.number) {
+                element->data.number->text = &crystal.priceTexts[row];
+            }
+            if (auto* const element = currentWindow->FindElementById(NativeElementKey(41 + row)); element && element->data.number) {
+                element->data.number->text = &crystal.countTexts[row];
+            }
+        }
+        crystal.scroll = 0;
         shop.available = -1;
         if (auto* const handleConfirmationElement = entryWindow->FindElementById(WindowCrystalShopElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 0;
         for (std::int32_t row = 0; row < 5; ++row) {
@@ -664,11 +632,11 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, con
         if (auto* const drawButtonElement = currentWindow->FindElementById(WindowCrystalShopElementId::DrawButton); drawButtonElement) drawButtonElement->visible = 0;
         WindowInstance* const window = currentWindow;
         shop.rowKeys[0] = -2;
-        gWindow69Tooltip580850 = -1;
+        crystal.tooltip = -1;
         shop.rowKeys[1] = -2;
-        gWindow69Message580854 = -1;
+        crystal.message = -1;
         shop.rowKeys[2] = -2;
-        gWindow69TooltipPageD67B94 = 0;
+        crystal.tooltipPage = 0;
         shop.rowKeys[3] = -2;
         shop.rowKeys[4] = -2;
         auto* const element6 = window->FindElementById(WindowCrystalShopElementId::Element6);
@@ -679,7 +647,7 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, con
         auto* const element9 = currentWindow->FindElementById(WindowCrystalShopElementId::Element9);
         if (element9) {
             auto* animation = element9->data.animation;
-            const std::int32_t imageNo = gWindow69ImageCB01F0;
+            const std::int32_t imageNo = crystal.imageNo;
             cg::yobi::SetYobiActionField2A8(animation->action, imageNo);
             cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
         }
@@ -687,7 +655,7 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, con
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         currentWindow->state |= 0x8000u;
     }
-    const std::int32_t type = gWindow69DialogTypeD2D810;
+    const std::int32_t type = crystal.dialogType;
     if (type != world::gCurrentDialogType_581800) {
         currentWindow->state |= 0x8000u;
     }
@@ -701,40 +669,41 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, con
         if ((handleVerticalScrollElement->data.mouse->flags & 1u) != 0) {
             auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowCrystalShopElementId::HandleVerticalScroll);
             if (handleVerticalScrollElement2) {
-                gWindow69ScrollD2D604 = WindowScroll_ReadPosition(handleVerticalScrollElement2, shop.itemCount - 5);
+                crystal.scroll = WindowScroll_ReadPosition(handleVerticalScrollElement2, shop.itemCount - 5);
             }
         }
     }
-    cg::text::FormatTo(gWindow69BalanceTextD2E448, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
-    if (gWindow69Message580854 >= 0) {
-        gWindow69Message580854 = -1;
+    cg::text::FormatTo(crystal.balanceText, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
+    if (crystal.message >= 0) {
+        crystal.message = -1;
     }
-    gWindow69Tooltip580850 = -1;
+    crystal.tooltip = -1;
     return 1;
 }
 
 // 原函数：0x004C1EC0。
 static std::int32_t WindowCrystalShop_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
     const WindowInstance* const window = currentWindow;
     const std::int32_t x = window->x + 298;
     std::int32_t y = window->y + 50;
-    const std::int32_t tooltip = gWindow69Tooltip580850;
+    const std::int32_t tooltip = crystal.tooltip;
     if (tooltip >= 0) {
         if (tooltip < 100) {
-            static_cast<void>(WindowItem_DrawEquipmentTooltip(tooltip, gWindow69TooltipPageD67B94));
+            static_cast<void>(WindowItem_DrawEquipmentTooltip(tooltip, crystal.tooltipPage));
         } else if (tooltip < 200) {
-            const std::uint8_t flag = gWindow69FlagD2EA5B;
-            const std::int32_t page = gWindow69TooltipPageD67B94;
-            static_cast<void>(WindowCrystalShop_ShowTooltip(tooltip - 100, page, flag == 0));
+            const std::uint8_t flag = crystal.flag;
+            const std::int32_t page = crystal.tooltipPage;
+            static_cast<void>(WindowCrystalShop_ShowTooltip(*callbackWindow.ownerSession, tooltip - 100, page, flag == 0));
         } else {
-            static_cast<void>(WindowItem_DrawWorkTooltip(*callbackWindow.ownerSession, gWindow69TooltipPageD67B94));
+            static_cast<void>(WindowItem_DrawWorkTooltip(*callbackWindow.ownerSession, crystal.tooltipPage));
         }
     }
-    const std::int32_t message = gWindow69Message580854;
+    const std::int32_t message = crystal.message;
     gTooltipColorD67D30 = 0;
     const WindowDialogTextLine* line = gNpcDialogLinesCC24D4.data() + 1 + 4 * (-1 - message);
     for (std::int32_t row = 0; row < 4; ++row) {
@@ -752,6 +721,7 @@ static std::int32_t WindowCrystalShop_Draw(WindowInstance& callbackWindow, const
 // 原函数：0x004C2060。
 static void WindowCrystalShop_Submit(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     if (static_cast<std::uint8_t>(value) != 0) {
@@ -763,7 +733,7 @@ static void WindowCrystalShop_Submit(WindowInstance& callbackWindow, const std::
     text.clear();
     std::int32_t count = 0;
     for (std::int32_t index = 0; index < 20; ++index) {
-        const WindowCrystalItem& item = gWindow69ItemsCB2230[index];
+        const WindowCrystalItem& item = crystal.items[index];
         if (item.used != 0) {
             const std::int32_t quantity = item.selectedCount;
             if (quantity != 0) {
@@ -790,6 +760,7 @@ static void WindowCrystalShop_Submit(WindowInstance& callbackWindow, const std::
 // 原函数：0x004C21B0。
 static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -799,24 +770,24 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
     if (hover) {
         gHoverTextD68AE8 = L"买进指定的物品。" /* 原常量参考：0x00587FA8。 */;
     }
-    if (gWindow69SlotsCA0AC8 <= 0) {
+    if (crystal.slots <= 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t balance = world::gPlayerRuntimeSlots.value15BCC;
-        if (balance < gWindow69TotalD45E70) {
-            gWindow69Message580854 = -2;
+        if (balance < crystal.total) {
+            crystal.message = -2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
             const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60();
-            if (gWindow69SlotsCA0AC8 > freeSlots) {
-                gWindow69Message580854 = -3;
+            if (crystal.slots > freeSlots) {
+                crystal.message = -3;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
-                gWindow69ConfirmCallbackCF4E48 = &WindowCrystalShop_Submit;
+                crystal.confirmCallback = &WindowCrystalShop_Submit;
                 std::int32_t count = 0;
-                for (const WindowCrystalItem& item : gWindow69ItemsCB2230) {
+                for (const WindowCrystalItem& item : crystal.items) {
                     if (item.used == 0) {
                         continue;
                     }
@@ -824,7 +795,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
                     if (quantity == 0) {
                         continue;
                     }
-                    WindowConfirmationItem& preview = gWindow69ConfirmItemsD2E458[count];
+                    WindowConfirmationItem& preview = crystal.confirmItems[count];
                     preview.visible = 1;
                     preview.name = item.name;
                     const std::int32_t imageNo = item.imageNo;
@@ -835,24 +806,24 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
                     ++count;
                 }
                 for (; count < 20; ++count) {
-                    gWindow69ConfirmItemsD2E458[count].visible = 0;
+                    crystal.confirmItems[count].visible = 0;
                 }
-                WindowConfirmationAmount& left = gWindow69ConfirmAmountsD2E2B8[0];
-                WindowConfirmationAmount& right = gWindow69ConfirmAmountsD2E2B8[1];
+                WindowConfirmationAmount& left = crystal.confirmAmounts[0];
+                WindowConfirmationAmount& right = crystal.confirmAmounts[1];
                 const std::int32_t currentBalance = world::gPlayerRuntimeSlots.value15BCC;
                 left.y = 343;
                 right.y = 343;
-                const std::int32_t total = gWindow69TotalD45E70;
+                const std::int32_t total = crystal.total;
                 left.visible = 1;
                 left.x = 296;
                 left.value = currentBalance;
                 right.visible = 1;
                 right.x = 454;
                 right.value = total;
-                (gWindow69ConfirmHeadingCC3F68 = L"持有水晶            颗     花费水晶            颗" /* 原常量参考：0x00588378。 */);
-                (gWindow69ConfirmQuestionCC3F04 = L"确认要购买这些物品？" /* 原常量参考：0x00587F0C。 */);
-                gWindow69ConfirmAcceptD2E81C = L"买进物品。" /* 原常量参考：0x00587F00。 */;
-                gWindow69ConfirmCancelCB076C = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
+                (crystal.confirmHeading = L"持有水晶            颗     花费水晶            颗" /* 原常量参考：0x00588378。 */);
+                (crystal.confirmQuestion = L"确认要购买这些物品？" /* 原常量参考：0x00587F0C。 */);
+                crystal.confirmAccept = L"买进物品。" /* 原常量参考：0x00587F00。 */;
+                crystal.confirmCancel = L"还是算了。" /* 原常量参考：0x00585AD0。 */;
                 if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowCrystalShopElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 1;
                 currentWindow->state |= 2u;
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -867,7 +838,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
     if ((state & MouseFlag_LHoldPhysical) != 0) {
         if (graphic) graphic->imageNo = 243049;
     }
-    if (gWindow69SlotsCA0AC8 <= 0) {
+    if (crystal.slots <= 0) {
         if (graphic) graphic->imageNo = 243049;
     }
     return consumed;
@@ -876,6 +847,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
 // 原函数：0x004C2530。
 static std::int32_t WindowCrystalShop_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -883,9 +855,9 @@ static std::int32_t WindowCrystalShop_ButtonPreviousRow(WindowInstance& callback
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t position = gWindow69ScrollD2D604;
+            const std::int32_t position = crystal.scroll;
             if (position > 0) {
-                gWindow69ScrollD2D604 = position - 1;
+                crystal.scroll = position - 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -907,6 +879,7 @@ static std::int32_t WindowCrystalShop_ButtonPreviousRow(WindowInstance& callback
 // 原函数：0x004C25B0。
 static std::int32_t WindowCrystalShop_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -916,9 +889,9 @@ static std::int32_t WindowCrystalShop_ButtonNextRow(WindowInstance& callbackWind
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
             const std::int32_t count = shop.itemCount;
-            const std::int32_t position = gWindow69ScrollD2D604;
+            const std::int32_t position = crystal.scroll;
             if (position < count - 5) {
-                gWindow69ScrollD2D604 = position + 1;
+                crystal.scroll = position + 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -940,6 +913,7 @@ static std::int32_t WindowCrystalShop_ButtonNextRow(WindowInstance& callbackWind
 // 原函数：0x004C2630。
 static std::int32_t WindowCrystalShop_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -947,11 +921,11 @@ static std::int32_t WindowCrystalShop_ButtonPreviousPage(WindowInstance& callbac
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(audio::PlaySe_52C450(gWindow69ScrollD2D604 > 0 ? 51 : 55, 320));
-            const std::int32_t position = gWindow69ScrollD2D604 - 5;
-            gWindow69ScrollD2D604 = position;
+            static_cast<void>(audio::PlaySe_52C450(crystal.scroll > 0 ? 51 : 55, 320));
+            const std::int32_t position = crystal.scroll - 5;
+            crystal.scroll = position;
             if (position < 0) {
-                gWindow69ScrollD2D604 = 0;
+                crystal.scroll = 0;
             }
             consumed = 1;
         }
@@ -970,6 +944,7 @@ static std::int32_t WindowCrystalShop_ButtonPreviousPage(WindowInstance& callbac
 // 原函数：0x004C26B0。
 static std::int32_t WindowCrystalShop_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -979,17 +954,17 @@ static std::int32_t WindowCrystalShop_ButtonNextPage(WindowInstance& callbackWin
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t oldMaximum = shop.itemCount - 5;
-            const bool canAdvance = oldMaximum > 0 && gWindow69ScrollD2D604 < oldMaximum;
+            const bool canAdvance = oldMaximum > 0 && crystal.scroll < oldMaximum;
             static_cast<void>(audio::PlaySe_52C450(canAdvance ? 51 : 55, 320));
-            std::int32_t position = gWindow69ScrollD2D604 + 5;
+            std::int32_t position = crystal.scroll + 5;
             const std::int32_t maximum = shop.itemCount - 5;
-            gWindow69ScrollD2D604 = position;
+            crystal.scroll = position;
             if (position > maximum) {
                 position = maximum;
-                gWindow69ScrollD2D604 = position;
+                crystal.scroll = position;
             }
             if (position < 0) {
-                gWindow69ScrollD2D604 = 0;
+                crystal.scroll = 0;
             }
             consumed = 1;
         }
@@ -1008,6 +983,7 @@ static std::int32_t WindowCrystalShop_ButtonNextPage(WindowInstance& callbackWin
 // 原函数：0x004C2760。
 static std::int32_t WindowCrystalShop_Scroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -1015,11 +991,11 @@ static std::int32_t WindowCrystalShop_Scroll(WindowInstance& callbackWindow, con
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = shop.itemCount;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-        const std::int32_t position = gWindow69ScrollD2D604;
+        const std::int32_t position = crystal.scroll;
         WindowInstance* const window = currentWindow;
         auto* const indexedElement = window->FindElementById(NativeElementKey(index - 5));
         if (indexedElement) {
-            gWindow69ScrollD2D604 =
+            crystal.scroll =
                 WindowScroll_ApplyWheel(indexedElement, position, count - 5, wheel);
         }
     }
@@ -1029,6 +1005,7 @@ static std::int32_t WindowCrystalShop_Scroll(WindowInstance& callbackWindow, con
 // 原函数：0x004C27B0。
 static std::int32_t WindowCrystalShop_ButtonDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1036,7 +1013,7 @@ static std::int32_t WindowCrystalShop_ButtonDecrease(WindowInstance& callbackWin
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
-        WindowCrystalItem* const item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + index - 46];
+        WindowCrystalItem* const item = &crystal.items[crystal.scroll + index - 46];
         std::int32_t consumed = 0;
         if (hover) {
             const wchar_t* const hint = item->selectedCount > 0
@@ -1048,12 +1025,12 @@ static std::int32_t WindowCrystalShop_ButtonDecrease(WindowInstance& callbackWin
             const std::int32_t count = item->selectedCount;
             if (count > 0) {
                 item->selectedCount = count - 1;
-                gWindow69DirtyD67B9C = 1;
+                crystal.dirty = 1;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             }
-            gWindow69Message580854 = -1;
+            crystal.message = -1;
             consumed = 1;
         }
         graphic->imageNo = 243006;
@@ -1071,6 +1048,7 @@ static std::int32_t WindowCrystalShop_ButtonDecrease(WindowInstance& callbackWin
 // 原函数：0x004C28C0。
 static std::int32_t WindowCrystalShop_ButtonIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1078,7 +1056,7 @@ static std::int32_t WindowCrystalShop_ButtonIncrease(WindowInstance& callbackWin
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const bool hover = (state & MouseFlag_Hover) != 0;
-        WindowCrystalItem* const item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + index - 51];
+        WindowCrystalItem* const item = &crystal.items[crystal.scroll + index - 51];
         std::int32_t consumed = 0;
         if (hover) {
             const std::int32_t limit = item->limitC4C;
@@ -1099,7 +1077,7 @@ static std::int32_t WindowCrystalShop_ButtonIncrease(WindowInstance& callbackWin
                 const std::int32_t limit = item->limitC4C;
                 if (count < limit) {
                     item->selectedCount = count + 1;
-                    gWindow69DirtyD67B9C = 1;
+                    crystal.dirty = 1;
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                 } else {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1122,33 +1100,34 @@ static std::int32_t WindowCrystalShop_ButtonIncrease(WindowInstance& callbackWin
 // 原函数：0x004C29E0。
 static std::int32_t WindowCrystalShop_HandleItemIcon(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t selected = gWindow69ScrollD2D604 + index - 56;
+    const std::int32_t selected = crystal.scroll + index - 56;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
-    const WindowCrystalItem* const item = &gWindow69ItemsCB2230[selected];
+    const WindowCrystalItem* const item = &crystal.items[selected];
     if (item->used == 0) {
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
         if (shop.rowKeys[index - 56] != selected) {
-            gWindow69TooltipPageD67B94 = 0;
+            crystal.tooltipPage = 0;
         }
         shop.rowKeys[index - 56] = selected;
         if ((state & MouseFlag_RDownEvent) != 0) {
-            ++gWindow69TooltipPageD67B94;
-            if (gWindow69TooltipPageD67B94 >= 4) {
-                gWindow69TooltipPageD67B94 = 0;
+            ++crystal.tooltipPage;
+            if (crystal.tooltipPage >= 4) {
+                crystal.tooltipPage = 0;
             }
             consumed = 1;
         }
-        gWindow69Tooltip580850 = selected + 100;
+        crystal.tooltip = selected + 100;
     }
     if (item->remainingC50 == 0) {
         const WindowInstance* const window = currentWindow;
@@ -1179,6 +1158,7 @@ static std::int32_t WindowCrystalShop_HandleItemIcon(WindowInstance& callbackWin
 // 原函数：0x004C2B20。
 static std::int32_t WindowCrystalShop_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1208,21 +1188,21 @@ static std::int32_t WindowCrystalShop_HandleInventory(WindowInstance& callbackWi
             }
         }
     }
-    if (gWindow69InventoryHover58085C != hovered) {
-        gWindow69TooltipPageD67B94 = 0;
-        gWindow69InventoryHover58085C = hovered;
+    if (crystal.inventoryHover != hovered) {
+        crystal.tooltipPage = 0;
+        crystal.inventoryHover = hovered;
     }
     const auto& items = world::gPlayerRuntimeSlots.items;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && (events & MouseFlag_RDownEvent) != 0) {
         if (items[hovered + 8].used != 0) {
-            std::int32_t page = gWindow69TooltipPageD67B94;
+            std::int32_t page = crystal.tooltipPage;
             const std::int32_t pages = items[hovered + 8].pages;
             ++page;
-            gWindow69TooltipPageD67B94 = page;
+            crystal.tooltipPage = page;
             if (page >= pages) {
-                gWindow69TooltipPageD67B94 = 0;
+                crystal.tooltipPage = 0;
             }
         }
         consumed = 1;
@@ -1258,7 +1238,7 @@ static std::int32_t WindowCrystalShop_HandleInventory(WindowInstance& callbackWi
         }
         const world::PlayerItemRecord& item = items[hovered + 8];
         if (item.used != 0) {
-            gWindow69Tooltip580850 = hovered + 8;
+            crystal.tooltip = hovered + 8;
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
                 gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
@@ -1304,6 +1284,7 @@ static std::int32_t WindowCrystalShop_HandleInventory(WindowInstance& callbackWi
 // 原函数：0x004C2FA0。
 static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t unusedState)
 {
+    auto& crystal = callbackWindow.ownerSession->UiFrame().native.crystalShop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unusedState);
@@ -1317,10 +1298,10 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
     if (acceptHover) {
         acceptImage = 245325;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
-        gHoverTextD68AE8 = gWindow69ConfirmAcceptD2E81C;
+        gHoverTextD68AE8 = crystal.confirmAccept;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
-            const WindowValueCallback callback = gWindow69ConfirmCallbackCF4E48;
+            const WindowValueCallback callback = crystal.confirmCallback;
             if (callback != nullptr) {
                 callback(callbackWindow, 0);
             }
@@ -1332,12 +1313,12 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        gHoverTextD68AE8 = gWindow69ConfirmCancelCB076C;
+        gHoverTextD68AE8 = crystal.confirmCancel;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
-            const WindowValueCallback callback = gWindow69ConfirmCallbackCF4E48;
+            const WindowValueCallback callback = crystal.confirmCallback;
             if (callback != nullptr) {
                 callback(callbackWindow, 1);
             }
@@ -1353,7 +1334,7 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
         const std::int32_t x = 18 + column * 152;
         for (std::int32_t row = 0; row < 5; ++row) {
             const std::int32_t y = 47 + row * 65;
-            const WindowConfirmationItem& item = gWindow69ConfirmItemsD2E458[column * 5 + row];
+            const WindowConfirmationItem& item = crystal.confirmItems[column * 5 + row];
             if (item.visible != 0) {
                 static_cast<void>(cg::render::DrawGraphic(
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
@@ -1377,9 +1358,9 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
                 x + 24, y + 24, 226, 243139, 0, &descriptor));
         }
     }
-    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, gWindow69ConfirmHeadingCC3F68, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
-    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, gWindow69ConfirmQuestionCC3F04, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
-    for (const WindowConfirmationAmount& amount : gWindow69ConfirmAmountsD2E2B8) {
+    static_cast<void>(render::DrawText_456780(190, 377, 4, 12, 0, crystal.confirmHeading, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
+    static_cast<void>(render::DrawText_456780(190, 393, 4, 12, 0, crystal.confirmQuestion, 0, static_cast<std::uint8_t>(cg::render::gHoverFramePaletteIndex_D69768)));
+    for (const WindowConfirmationAmount& amount : crystal.confirmAmounts) {
         if (amount.visible != 0) {
             cg::text::FormatTo(buffer, L"{}", amount.value);
             const std::int32_t y = amount.y;
@@ -1396,8 +1377,9 @@ static std::int32_t WindowCrystalShop_HandleConfirmation(WindowInstance& callbac
 
 // 原函数：0x004C33B0。
 static std::int32_t WindowCrystalShop_ShowTooltip(
-    const std::int32_t index, const std::int32_t page, const std::int32_t unused)
+    session::ClientSession& session, const std::int32_t index, const std::int32_t page, const std::int32_t unused)
 {
+    auto& crystal = session.UiFrame().native.crystalShop;
     static_cast<void>(unused);
     const std::int32_t key = index + 300;
     if (gTooltipSourceD303FC != key) {
@@ -1413,7 +1395,7 @@ static std::int32_t WindowCrystalShop_ShowTooltip(
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
     gTooltipSourceD303FC = key;
-    const WindowCrystalItem* const item = &gWindow69ItemsCB2230[index];
+    const WindowCrystalItem* const item = &crystal.items[index];
     const std::uint32_t flags = item->flags;
     std::wstring title = item->tips;
     std::int8_t titleColor;

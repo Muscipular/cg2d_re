@@ -582,22 +582,6 @@ struct WindowDialogTextLine {
     std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
 };
 
-// 原CB2230/D30428晶石商品；不同于普通商店C38H记录，保留区尚不定语义。
-struct WindowCrystalItem {
-    std::uint8_t used; // 原成员偏移：+0x00。
-    std::wstring name; // 原成员偏移：+0x01。
-    std::array<std::wstring, 32> description; // 原+0x1E；内部按行存放。
-    std::array<std::byte, 2> bytesC1E; // 原成员偏移：+0xC1E。
-    std::int32_t imageNo; // 原成员偏移：+0xC20。
-    std::int32_t valueC24; // 原成员偏移：+0xC24。
-    std::int32_t selectedCount; // +C28，两种晶石商店共用的数量字段语义。
-    std::int32_t valueC2C; // 原成员偏移：+0xC2C。
-    std::uint32_t flags; // 原成员偏移：+0xC30。
-    std::wstring tips; // 原成员偏移：+0xC34。
-    std::int32_t limitC4C; // 原成员偏移：+0xC4C。
-    std::int32_t remainingC50; // 原成员偏移：+0xC50。
-};
-
 using WindowDialogReplyCallback = std::int32_t (*)(
     std::int32_t button, std::int32_t row, const std::wstring* texts, std::uint8_t inputCount);
 using WindowDialogFrameCallback = std::int32_t (*)(

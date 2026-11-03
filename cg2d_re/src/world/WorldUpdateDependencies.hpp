@@ -108,11 +108,11 @@ void DrawNormalScene_51C7D0(session::ClientSession& session); // 原 World::Draw
 // 原函数：0x0051D5B0。
 void* __cdecl PrepareMapTransitionObservationState_51D5B0(session::ClientSession& session); // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 // 原函数：0x0051D750。
-std::uint32_t CaptureSceneAndSelectEvenVariant_51D750();              // 原 0x51D750；完整 EAX 写入/返回，六调用点均弃值。
+std::uint32_t CaptureSceneAndSelectEvenVariant_51D750(session::ClientSession& session); // 原 0x51D750；完整 EAX 写入/返回，六调用点均弃值。
 
 // 原 0x51FDE0；第三槽保持原 32 位载荷，浮点目标自行解释位模式。
 std::int32_t ProcessSceneTransitionEffect_51FDE0(
-    std::int32_t selector, std::int32_t value, std::uint32_t payloadBits);
+    session::ClientSession& session, std::int32_t selector, std::int32_t value, std::uint32_t payloadBits);
 // 51FDE0 原调用均压入三个 W32 槽；新端声明只保留目标实际读取的逻辑参数。
 // 原函数：0x0051D790。
 std::int32_t ProcessSceneSlideOut_51D790(
@@ -124,7 +124,7 @@ std::int32_t ProcessSceneSlideIn_51E0D0(
 std::int32_t ProcessSceneQuadrantTransition_51EC10(std::int32_t index, std::int32_t value);
 // 原函数：0x0051EF80。
 std::int32_t ProcessSceneRandomTileTransition_51EF80(
-    std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
+    session::ClientSession& session, std::int32_t index, std::int32_t value, std::uint32_t payloadBits);
 // 原函数：0x0051F610。
 std::int32_t ProcessSceneGridScaleTransition_51F610(std::int32_t value);
 // 原函数：0x0051F860。

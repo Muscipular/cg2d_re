@@ -165,14 +165,14 @@ void Update(session::ClientSession& session)
             ui::WindowRuntime_ProcessScene();
             cg::yobi::ResetObservationGroupList_43F220(session);
             gSceneTransitionResetPending_58B6D0 = 1;
-            detail::CaptureSceneAndSelectEvenVariant_51D750();
+            detail::CaptureSceneAndSelectEvenVariant_51D750(session);
             session.WorldScene().frameBackgroundMode = 2;
             cg::audio::BeginBgmFadeOut_52B990();
             const std::uint64_t tick = platform::ReadTickCount64();
             platform::gLastRenderDt = static_cast<double>(tick);
             ++gCurrentSceneState;
         } else if (sceneState == 1
-            && detail::ProcessSceneTransitionEffect_51FDE0(2, 0, 0x3F19999Au) == 1) {
+            && detail::ProcessSceneTransitionEffect_51FDE0(session, 2, 0, 0x3F19999Au) == 1) {
             session.WorldScene().frameBackgroundMode = 0;
             ++gCurrentSceneState;
         }
@@ -353,7 +353,7 @@ std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
 
 // 原 sub_51FDE0@[0x51FDE0,0x5200D0)：按 W32 selector 分派并透传目标返回。
 std::int32_t ProcessSceneTransitionEffect_51FDE0(
-    std::int32_t selector, std::int32_t value, std::uint32_t payloadBits)
+    session::ClientSession& session, std::int32_t selector, std::int32_t value, std::uint32_t payloadBits)
 {
     switch (selector) {
     case 0: return ProcessSceneSlideOut_51D790(0, value, payloadBits);
@@ -376,10 +376,10 @@ std::int32_t ProcessSceneTransitionEffect_51FDE0(
     case 17: return ProcessSceneSlideIn_51E0D0(8, value, payloadBits);
     case 18: return ProcessSceneQuadrantTransition_51EC10(0, value);
     case 19: return ProcessSceneQuadrantTransition_51EC10(1, value);
-    case 20: return ProcessSceneRandomTileTransition_51EF80(0, value, 0);
-    case 21: return ProcessSceneRandomTileTransition_51EF80(1, value, 0);
-    case 22: return ProcessSceneRandomTileTransition_51EF80(2, value, payloadBits);
-    case 23: return ProcessSceneRandomTileTransition_51EF80(3, value, payloadBits);
+    case 20: return ProcessSceneRandomTileTransition_51EF80(session, 0, value, 0);
+    case 21: return ProcessSceneRandomTileTransition_51EF80(session, 1, value, 0);
+    case 22: return ProcessSceneRandomTileTransition_51EF80(session, 2, value, payloadBits);
+    case 23: return ProcessSceneRandomTileTransition_51EF80(session, 3, value, payloadBits);
     case 24:
     case 25: {
         const std::int32_t signedLow =

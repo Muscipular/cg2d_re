@@ -4193,7 +4193,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
         if (WindowRuntime_HitTestRect(left, top, width, height) != 0
                 && UIPointInClipRect(platform::gLegacyMouseState.mouseX, platform::gLegacyMouseState.mouseY, clip)) {
             events = WindowRuntime_AppendMouseEvents(MouseFlag_Hover);
-            WindowInstance* const currentWindow = gCurrentWindow;
+            WindowInstance* const currentWindow = &target;
             WindowElement* const currentElement = currentWindow->FindElementById(elementId);
             if (currentElement && currentElement->type == WindowElementType_MouseArea) {
                 auto* const data = currentElement->data.mouse;
@@ -4263,17 +4263,17 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
     return handled;
 }
 
-void WindowRuntime_UpdateExtendedElements()
+void WindowRuntime_UpdateExtendedElements(WindowInstance& window)
 {
-    WindowRuntime_UpdateElementOrder(*gCurrentWindow);
-    WindowElementCursor cursor(*gCurrentWindow);
+    WindowRuntime_UpdateElementOrder(window);
+    WindowElementCursor cursor(window);
     while (auto* element = cursor.next()) {
         if (element->parentId) continue;
         const auto id = element->elementId;
         const auto identity = WindowRuntime_ElementRef(*element);
-        if (gCurrentWindow->binding) gCurrentWindow->binding->elementUpdate(*element);
+        if (window.binding) window.binding->elementUpdate(*element);
         element = WindowRuntime_ResolveElement(identity);
-        if (!element || (gCurrentWindow->state & 0x8000u)) continue;
+        if (!element || (window.state & 0x8000u)) continue;
         gCurrentElementId57C12C = element->elementId;
         WindowRuntime_DispatchElementMouse(*element->owner, id, element->owner->x, element->owner->y, nullptr);
     }

@@ -54,7 +54,7 @@ static void WindowAttributeTarget_Release(WindowInstance&);
 static std::int32_t WindowAttributeTarget_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049F7E0。
-static void WindowAttributeTarget_Refresh(std::int32_t offset); // 六行名称/等级/HP/FP及伤势图标。
+static void WindowAttributeTarget_Refresh(WindowInstance& callbackWindow, std::int32_t offset); // 六行名称/等级/HP/FP及伤势图标。
 
 // 原函数：0x0049FA40。
 static std::int32_t WindowAttributeTarget_ButtonCancel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
@@ -167,16 +167,16 @@ static std::int32_t WindowAttributeTarget_Update(WindowInstance& callbackWindow,
     if (value == -1) {
         auto& session = *callbackWindow.ownerSession;
         auto& choice = session.UiFrame().native.attributeTarget;
-        WindowAttributeTarget_Refresh(choice.offset);
+        WindowAttributeTarget_Refresh(callbackWindow, choice.offset);
         choice.enabled = 1;
     }
     return 1;
 }
 
 // 原函数：0x0049F7E0。
-static void WindowAttributeTarget_Refresh(const std::int32_t offset)
+static void WindowAttributeTarget_Refresh(WindowInstance& callbackWindow, const std::int32_t offset)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.attributeTarget;

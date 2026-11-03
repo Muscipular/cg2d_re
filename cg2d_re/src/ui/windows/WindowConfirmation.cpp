@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/session/ClientSession.hpp"
 
 namespace cg::ui {
 
@@ -67,13 +68,13 @@ static std::int32_t WindowConfirmation_ButtonActionFour(WindowInstance& callback
 static std::int32_t WindowConfirmation_ButtonActionFive(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 动作槽5，音效51。
 
 // 原函数：0x004AE8C0。
-static WindowInstance* WindowConfirmation_RequestClose(); // 固定窗口47标关闭，返回同一实例。
+static WindowInstance* WindowConfirmation_RequestClose(WindowInstance& callbackWindow); // 固定窗口47标关闭，返回同一实例。
 
 // 原函数：0x004AE8D0。
-static wchar_t* WindowConfirmation_RefreshText(); // 十一文本清理与宽字符LF分行刷新。
+static wchar_t* WindowConfirmation_RefreshText(WindowInstance& callbackWindow); // 十一文本清理与宽字符LF分行刷新。
 
 // 原函数：0x004AE9C0。
-static std::int32_t WindowConfirmation_RefreshButtons(); // 六按钮逐项显隐，原最终偏移216。
+static std::int32_t WindowConfirmation_RefreshButtons(WindowInstance& callbackWindow); // 六按钮逐项显隐，原最终偏移216。
 
 // 原函数：0x004AEA10。
 static std::int32_t WindowConfirmation_PadText(std::wstring& destination, std::wstring_view text); // 按原GBK列宽单位补空格，正文保持UTF-16。
@@ -174,7 +175,7 @@ static std::int32_t WindowConfirmation_HandleButton(
     if ((state & MouseFlag_LDownEvent) == 0 || (requiresControl && (platform::gKeyStates[17] & 2) == 0)) {
         return 0;
     }
-    static_cast<void>(WindowConfirmation_RequestClose());
+    static_cast<void>(WindowConfirmation_RequestClose(callbackWindow));
     const WindowElementCallback callback = *callbackSlot;
     if (callback != nullptr) {
         static_cast<void>(callback(callbackWindow, elementId, state));
@@ -187,8 +188,8 @@ static std::int32_t WindowConfirmation_HandleButton(
 static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
-        static_cast<void>(WindowConfirmation_RefreshButtons());
-        static_cast<void>(WindowConfirmation_RefreshText());
+        static_cast<void>(WindowConfirmation_RefreshButtons(callbackWindow));
+        static_cast<void>(WindowConfirmation_RefreshText(callbackWindow));
         const WindowCallback callback = gWindow47Runtime.initializeCC4250;
         if (callback != nullptr) {
             static_cast<void>(callback(callbackWindow, -1));
@@ -234,17 +235,17 @@ static std::int32_t WindowConfirmation_ButtonActionFive(WindowInstance& callback
 }
 
 // 原函数：0x004AE8C0。
-static WindowInstance* WindowConfirmation_RequestClose()
+static WindowInstance* WindowConfirmation_RequestClose(WindowInstance& callbackWindow)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Confirmation].window;
+    WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Confirmation].window;
     window->state |= 0x8000u;
     return window;
 }
 
 // 原函数：0x004AE8D0。
-static wchar_t* WindowConfirmation_RefreshText()
+static wchar_t* WindowConfirmation_RefreshText(WindowInstance& callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return nullptr;
     for (std::int32_t index = 0; index < 11; ++index) {
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(index));
@@ -272,9 +273,9 @@ static wchar_t* WindowConfirmation_RefreshText()
 }
 
 // 原函数：0x004AE9C0。
-static std::int32_t WindowConfirmation_RefreshButtons()
+static std::int32_t WindowConfirmation_RefreshButtons(WindowInstance& callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t mask = gWindow47Runtime.visibleMaskCC4240;
     for (std::int32_t index = 11; index < 17; ++index) {

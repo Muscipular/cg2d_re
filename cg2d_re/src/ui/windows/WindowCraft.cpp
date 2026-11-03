@@ -2485,9 +2485,9 @@ static std::int32_t WindowCraft_ButtonCloseIcon(WindowInstance& callbackWindow, 
 }
 
 static std::int32_t WindowCraft_DrawInputNotice(
-    const std::int32_t index, const std::wstring_view first, const std::wstring_view second)
+    WindowInstance& callbackWindow, const std::int32_t index, const std::wstring_view first, const std::wstring_view second)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -2521,7 +2521,7 @@ static std::int32_t WindowCraft_DrawInputNotice(
 static std::int32_t WindowCraft_DrawInvalidEngravingNotice(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    return WindowCraft_DrawInputNotice(index,
+    return WindowCraft_DrawInputNotice(callbackWindow, index,
         LR"(包含\ 或 | 的字元。)",
         LR"(包含\ 或 | 的字元不能用来刻印。)");
 }
@@ -2530,7 +2530,7 @@ static std::int32_t WindowCraft_DrawInvalidEngravingNotice(WindowInstance& callb
 static std::int32_t WindowCraft_DrawEmptyEngravingNotice(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    return WindowCraft_DrawInputNotice(index,
+    return WindowCraft_DrawInputNotice(callbackWindow, index,
         L"没有包含空白以外的字元",
         L"刻印名称不能包含空白。");
 }

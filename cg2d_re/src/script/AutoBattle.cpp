@@ -519,7 +519,7 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
             window.x += gMouseX - panel.lastX; window.y += gMouseY - panel.lastY;
             panel.lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); panel.lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY));
         }
-        ui::detail::WindowRuntime_UpdateExtendedElements();
+        ui::detail::WindowRuntime_UpdateExtendedElements(window);
         return stage;
     }
     int render(int) override { ui::WindowRuntime_DrawCurrent(window); return 1; }

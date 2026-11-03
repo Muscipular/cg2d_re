@@ -39,7 +39,7 @@ static void WindowTextTarget_Release(WindowInstance&);
 static std::int32_t WindowTextTarget_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049F0A0。
-static void WindowTextTarget_Refresh(std::int32_t offset); // 刷新五行，未用行清空正文但保留颜色。
+static void WindowTextTarget_Refresh(WindowInstance& callbackWindow, std::int32_t offset); // 刷新五行，未用行清空正文但保留颜色。
 
 // 原函数：0x0049F1A0。
 static std::int32_t WindowTextTarget_Draw(WindowInstance& callbackWindow, std::int32_t value);
@@ -146,7 +146,7 @@ static std::int32_t WindowTextTarget_Update(WindowInstance& callbackWindow, cons
         auto& session = *callbackWindow.ownerSession;
         auto& choice = session.UiFrame().native.textTarget;
         choice.offset = 0;
-        WindowTextTarget_Refresh(0);
+        WindowTextTarget_Refresh(callbackWindow, 0);
         const WindowTextChoiceCallback callback = choice.pending;
         choice.enabled = 1;
         choice.callback = callback;
@@ -155,9 +155,9 @@ static std::int32_t WindowTextTarget_Update(WindowInstance& callbackWindow, cons
 }
 
 // 原函数：0x0049F0A0。
-static void WindowTextTarget_Refresh(const std::int32_t offset)
+static void WindowTextTarget_Refresh(WindowInstance& callbackWindow, const std::int32_t offset)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;
@@ -203,7 +203,7 @@ static std::int32_t WindowTextTarget_Draw(WindowInstance& callbackWindow, const 
             if (handleVerticalScrollElement2) {
                 choice.offset = WindowScroll_ReadPosition(handleVerticalScrollElement2, choice.count - 5);
             }
-            WindowTextTarget_Refresh(choice.offset);
+            WindowTextTarget_Refresh(callbackWindow, choice.offset);
         }
     }
     WindowRuntime_DrawCurrent(callbackWindow);
@@ -245,7 +245,7 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(WindowInstance& callbackW
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
-            WindowTextTarget_Refresh(choice.offset);
+            WindowTextTarget_Refresh(callbackWindow, choice.offset);
             consumed = 1;
         }
         graphic->imageNo = 243090;
@@ -285,7 +285,7 @@ static std::int32_t WindowTextTarget_ButtonNextRow(WindowInstance& callbackWindo
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
-            WindowTextTarget_Refresh(choice.offset);
+            WindowTextTarget_Refresh(callbackWindow, choice.offset);
             consumed = 1;
         }
         graphic->imageNo = 243093;
@@ -324,7 +324,7 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(WindowInstance& callback
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
-            WindowTextTarget_Refresh(choice.offset);
+            WindowTextTarget_Refresh(callbackWindow, choice.offset);
             consumed = 1;
         }
         graphic->imageNo = 243030;
@@ -370,7 +370,7 @@ static std::int32_t WindowTextTarget_ButtonNextPage(WindowInstance& callbackWind
             if (indexedElement) {
                 static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, offset));
             }
-            WindowTextTarget_Refresh(choice.offset);
+            WindowTextTarget_Refresh(callbackWindow, choice.offset);
             consumed = 1;
         }
         graphic->imageNo = 243033;

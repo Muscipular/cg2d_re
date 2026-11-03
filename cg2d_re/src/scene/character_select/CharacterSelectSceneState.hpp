@@ -66,6 +66,24 @@ struct CharacterCreationSubmissionState {
     std::wstring nameFF0D18;
 };
 
+// 创建中的外观、属性、输入和动作借用；与提交后的请求字段分开。
+struct CharacterCreationDraftState {
+    std::uint8_t characterFamily9A57E0 = 0;
+    std::uint8_t characterIndex9A4CFC = 0;
+    std::uint8_t variantIndex9A5B00 = 0;
+    std::array<yobi::YobiAction*, 2> createActions {};
+    input::InputContext input9A51E8;
+    std::uint32_t attributePointBytes9A5FD4 = 0;
+    std::uint32_t elementPointBytes9A50D0 = 0;
+    std::uint8_t fifthAttributePoints9A5FD8 = 0;
+    std::uint8_t styleIndex9A5668 = 0;
+    std::uint8_t colorIndex9A4B80 = 0;
+    std::uint8_t remainingAttributePoints9A4D04 = 0;
+    std::uint8_t remainingElementPoints9A50C8 = 0;
+    std::uint8_t graphicGeneration9A4B88 = 0;
+    std::int32_t attributePhase9A5AFC = 0;
+};
+
 // 原十四项离散备份及输入上下文，创建失败返回编辑页时恢复。
 struct CharacterCreationDraftSnapshotState {
     std::int32_t value9A50A4 = 0;
@@ -95,6 +113,7 @@ struct CharacterSelectSceneState {
     yobi::YobiAction* deleteConfirmationAction = nullptr; // 原 0x9A6EB0；删除确认动作借用。
     std::array<yobi::YobiAction*, 2> previewActions {}; // 原 0x9A6E44、0x9A6E48。
     CharacterCreationProgressState creationProgress {};
+    CharacterCreationDraftState creationDraft {};
     CharacterCreationSubmissionState creationSubmission {};
     CharacterCreationDraftSnapshotState creationSnapshot {};
     std::uint8_t creationRestore = 0; // 原 0x9A6EB8，创建场景同次调用的恢复回边。

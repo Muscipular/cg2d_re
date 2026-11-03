@@ -71,12 +71,12 @@ std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBound
 void AdvanceCharacterCreationScene_462870();
 
 // 原 [0x462880,0x462926)：创建两枚角色创建界面 action，写共享五槽并清输入上下文。
-void InitializeCharacterAppearanceSelection_462880(std::uint8_t resetSelection);
+void InitializeCharacterAppearanceSelection_462880(network::CgConnection& connection, std::uint8_t resetSelection);
 
 // 原函数：0x00462930。
-std::int32_t UpdateCharacterAppearanceSelection_462930(); // 创建角色选择页，完整命中/版本/变体/双预览与绘制。
+std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& connection); // 创建角色选择页，完整命中/版本/变体/双预览与绘制。
 // 原函数：0x00463100。
-std::uint32_t InitializeCharacterCreationAttributes_463100(); // 标死两预览对象但不清槽，初始化创建输入与字段，返回采样的PUK。
+std::uint32_t InitializeCharacterCreationAttributes_463100(network::CgConnection& connection); // 标死两预览对象但不清槽，初始化创建输入与字段，返回采样的PUK。
 // 原函数：0x004631D0。
 std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& connection); // 创建页完整交互/确认/绘制，返回0继续、1确认、2返回。
 // 原函数：0x004642C0。

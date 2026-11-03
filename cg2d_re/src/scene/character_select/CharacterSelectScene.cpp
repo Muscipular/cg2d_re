@@ -149,15 +149,16 @@ static std::uint8_t CreationMouseByte(const std::uint32_t& value)
 }
 
 // 两处模式0/1映射均在外调后重取变体/样式/颜色，不能提前快照。
-static std::int32_t MapCreationGraphic(const std::int32_t base, const std::int32_t mode)
+static std::int32_t MapCreationGraphic(
+    const CharacterCreationDraftState& draft, const std::int32_t base, const std::int32_t mode)
 {
     std::int32_t graphic = ConvertModernCharacterGraphicToEarlier_51BF00(base);
     if (mode == 0) {
         graphic = ConvertCompactCharacterGraphicToClassic_51BAC0(graphic);
     }
-    const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
-    const std::int32_t style = static_cast<std::int8_t>(state::gCreationStyleIndex_9A5668);
-    const std::int32_t color = static_cast<std::int8_t>(state::gCreationColorIndex_9A4B80);
+    const std::int32_t variant = static_cast<std::int8_t>(draft.variantIndex9A5B00);
+    const std::int32_t style = static_cast<std::int8_t>(draft.styleIndex9A5668);
+    const std::int32_t color = static_cast<std::int8_t>(draft.colorIndex9A4B80);
     return graphic + color + (mode == 0
         ? 10 * (style + 100 * variant) : 5 * (style + 5 * variant));
 }
@@ -252,12 +253,12 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
     std::int32_t gate = entryGate;
     bool selectCharacter = false;
     if (sceneState == 1) {
-        InitializeCharacterAppearanceSelection_462880(1);
+        InitializeCharacterAppearanceSelection_462880(connection, 1);
         world::gCurrentSceneState = 3;
         selectCharacter = true;
     } else {
         if (sceneState == 2) {
-            InitializeCharacterAppearanceSelection_462880(0);
+            InitializeCharacterAppearanceSelection_462880(connection, 0);
             sceneState = world::gCurrentSceneState;
             ++sceneState;
             world::gCurrentSceneState = sceneState;
@@ -265,7 +266,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
         selectCharacter = sceneState == 3;
     }
     if (selectCharacter) {
-        gate = UpdateCharacterAppearanceSelection_462930();
+        gate = UpdateCharacterAppearanceSelection_462930(connection);
         if (gate == 1) {
             sceneState = 10;
             world::gCurrentSceneState = sceneState;
@@ -284,7 +285,7 @@ void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::i
         if (sceneState == 10 && gate != 1) {
             skipRemainingStages = true;
         } else if (sceneState == 10 || sceneState == 11) {
-            InitializeCharacterCreationAttributes_463100();
+            InitializeCharacterCreationAttributes_463100(connection);
             world::gCurrentSceneState = 12;
             editCharacter = true;
         } else if (sceneState == 12) {
@@ -369,42 +370,44 @@ void AdvanceCharacterCreationScene_462870()
 }
 
 // 原函数：0x00462880。
-void InitializeCharacterAppearanceSelection_462880(const std::uint8_t resetSelection)
+void InitializeCharacterAppearanceSelection_462880(network::CgConnection& connection, const std::uint8_t resetSelection)
 {
+    auto& draft = connection.CharacterSelectUi().creationDraft;
     if (resetSelection != 0) {
-        const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
-        state::gCreationCharacterFamily_9A57E0 = 0;
+        const std::uint8_t pukVersion = connection.PukVersion();
+        draft.characterFamily9A57E0 = 0;
         if (pukVersion >= 5) {
-            state::gCreationCharacterFamily_9A57E0 = 1;
+            draft.characterFamily9A57E0 = 1;
         }
-        state::gCreationCharacterIndex_9A4CFC = 0;
-        state::gCreationVariantIndex_9A5B00 = 0;
+        draft.characterIndex9A4CFC = 0;
+        draft.variantIndex9A5B00 = 0;
     }
 
     cg::yobi::YobiAction* const firstAction =
         cg::yobi::NewYobiAction_404AE0(2, 0);
-    state::gCreateActions[0] = firstAction;
+    draft.createActions[0] = firstAction;
     if (firstAction != nullptr) {
         cg::yobi::SetYobiActionField30(firstAction, 517);
-        cg::yobi::SetYobiActionField34(state::gCreateActions[0], 243);
-        cg::yobi::SetYobiActionField2B8(state::gCreateActions[0], cg::yobi::YobiDirection_Down);
+        cg::yobi::SetYobiActionField34(draft.createActions[0], 243);
+        cg::yobi::SetYobiActionField2B8(draft.createActions[0], cg::yobi::YobiDirection_Down);
     }
 
     cg::yobi::YobiAction* const secondAction =
         cg::yobi::NewYobiAction_404AE0(2, 0);
-    state::gCreateActions[1] = secondAction;
+    draft.createActions[1] = secondAction;
     if (secondAction != nullptr) {
         cg::yobi::SetYobiActionField30(secondAction, 517);
-        cg::yobi::SetYobiActionField34(state::gCreateActions[1], 396);
-        cg::yobi::SetYobiActionField2B8(state::gCreateActions[1], cg::yobi::YobiDirection_Down);
+        cg::yobi::SetYobiActionField34(draft.createActions[1], 396);
+        cg::yobi::SetYobiActionField2B8(draft.createActions[1], cg::yobi::YobiDirection_Down);
     }
     input::SetContext_44B330(nullptr);
 }
 
 // 原函数：0x00462930。
-std::int32_t UpdateCharacterAppearanceSelection_462930()
+std::int32_t UpdateCharacterAppearanceSelection_462930(network::CgConnection& connection)
 {
-    std::uint8_t selected = state::gCreationCharacterIndex_9A4CFC;
+    auto& draft = connection.CharacterSelectUi().creationDraft;
+    std::uint8_t selected = draft.characterIndex9A4CFC;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x3FFFFFFF;
     descriptor.color = color;
@@ -420,12 +423,12 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
     };
 
     for (std::int32_t index = 0; index < 14; ++index) {
-        const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
+        const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
         const std::int32_t image = kCreationGraphic55C354[14 * version + index];
         if (image >= 206000 && image <= 206300) {
             if (static_cast<std::int8_t>(selected) >= 7 && selected != 10) {
                 selected = 0;
-                state::gCreationCharacterIndex_9A4CFC = 0;
+                draft.characterIndex9A4CFC = 0;
             }
             continue;
         }
@@ -436,11 +439,11 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
         const std::int32_t width = kCreationSelectSize54DFE0[0];
         if (cg::ui::HitTestMouseRect_5049A0(left, top, left + width, top + height, -1) != 0
             && (CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-            state::gCreationCharacterIndex_9A4CFC = static_cast<std::uint8_t>(index);
-            state::gCreationVariantIndex_9A5B00 = 0;
+            draft.characterIndex9A4CFC = static_cast<std::uint8_t>(index);
+            draft.variantIndex9A5B00 = 0;
             break;
         }
-        selected = state::gCreationCharacterIndex_9A4CFC;
+        selected = draft.characterIndex9A4CFC;
     }
     if (HitTestCharacterCreationControl_464290(&kCreationSelectButtons54DFE8[0].bounds) != 0) {
         confirmState = hover();
@@ -456,27 +459,27 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
             result = 2;
         }
     }
-    if (cg::network::GetGameConnection().PukVersion() >= 5) {
+    if (connection.PukVersion() >= 5) {
         if (HitTestCharacterCreationControl_464290(&kCreationVersionHit54E020[0]) != 0) {
             versionPlus = hover();
             if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-                const std::uint8_t puk = cg::network::GetGameConnection().PukVersion();
-                const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
+                const std::uint8_t puk = connection.PukVersion();
+                const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
                 const std::int32_t limit = puk >= 8 ? 2 : 1;
                 if (version < limit) {
-                    ++state::gCreationCharacterFamily_9A57E0;
+                    ++draft.characterFamily9A57E0;
                 } else {
-                    state::gCreationCharacterFamily_9A57E0 = static_cast<std::uint8_t>(limit);
+                    draft.characterFamily9A57E0 = static_cast<std::uint8_t>(limit);
                 }
             }
         }
         if (HitTestCharacterCreationControl_464290(&kCreationVersionHit54E020[1]) != 0) {
             versionMinus = hover();
             if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-                if (static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0) > 0) {
-                    --state::gCreationCharacterFamily_9A57E0;
+                if (static_cast<std::int8_t>(draft.characterFamily9A57E0) > 0) {
+                    --draft.characterFamily9A57E0;
                 } else {
-                    state::gCreationCharacterFamily_9A57E0 = 0;
+                    draft.characterFamily9A57E0 = 0;
                 }
             }
         }
@@ -484,20 +487,20 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
     if (HitTestCharacterCreationControl_464290(&kCreationVariantButtons54E084[0].bounds) != 0) {
         variantMinus = hover();
         if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-            const auto next = static_cast<std::uint8_t>(state::gCreationVariantIndex_9A5B00 - 1);
-            state::gCreationVariantIndex_9A5B00 = next;
+            const auto next = static_cast<std::uint8_t>(draft.variantIndex9A5B00 - 1);
+            draft.variantIndex9A5B00 = next;
             if (static_cast<std::int8_t>(next) < 0) {
-                state::gCreationVariantIndex_9A5B00 = 3;
+                draft.variantIndex9A5B00 = 3;
             }
         }
     }
     if (HitTestCharacterCreationControl_464290(&kCreationVariantButtons54E084[1].bounds) != 0) {
         variantPlus = hover();
         if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-            const auto next = static_cast<std::uint8_t>(state::gCreationVariantIndex_9A5B00 + 1);
-            state::gCreationVariantIndex_9A5B00 = next;
+            const auto next = static_cast<std::uint8_t>(draft.variantIndex9A5B00 + 1);
+            draft.variantIndex9A5B00 = next;
             if (static_cast<std::int8_t>(next) > 3) {
-                state::gCreationVariantIndex_9A5B00 = 0;
+                draft.variantIndex9A5B00 = 0;
             }
         }
     }
@@ -507,45 +510,45 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
         cg::yobi::YobiAction* first;
         cg::yobi::YobiAction* second;
         if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-            first = state::gCreateActions[0];
+            first = draft.createActions[0];
             if (first != nullptr) {
                 cg::yobi::SetYobiActionField2B8(
                     first, cg::yobi::GetYobiActionField2B8(first) - 1);
-                first = state::gCreateActions[0];
+                first = draft.createActions[0];
                 if (cg::yobi::GetYobiActionField2B8(first) < 0) {
                     cg::yobi::SetYobiActionField2B8(first, cg::yobi::YobiDirection_Left);
-                    first = state::gCreateActions[0];
+                    first = draft.createActions[0];
                 }
             }
-            second = state::gCreateActions[1];
+            second = draft.createActions[1];
             if (second != nullptr) {
                 cg::yobi::SetYobiActionField2B8(
                     second, cg::yobi::GetYobiActionField2B8(second) - 1);
-                second = state::gCreateActions[1];
+                second = draft.createActions[1];
                 if (cg::yobi::GetYobiActionField2B8(second) < 0) {
                     cg::yobi::SetYobiActionField2B8(second, cg::yobi::YobiDirection_Left);
-                    second = state::gCreateActions[1];
+                    second = draft.createActions[1];
                 }
-                first = state::gCreateActions[0];
+                first = draft.createActions[0];
             }
         } else {
-            second = state::gCreateActions[1];
-            first = state::gCreateActions[0];
+            second = draft.createActions[1];
+            first = draft.createActions[0];
         }
         if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 2) != 0) {
             if (first != nullptr) {
                 cg::yobi::SetYobiActionField2B8(
                     first, cg::yobi::GetYobiActionField2B8(first) + 1);
-                cg::yobi::YobiAction* const current = state::gCreateActions[0];
+                cg::yobi::YobiAction* const current = draft.createActions[0];
                 if (cg::yobi::GetYobiActionField2B8(current) > 7) {
                     cg::yobi::SetYobiActionField2B8(current, cg::yobi::YobiDirection_UpLeft);
                 }
-                second = state::gCreateActions[1];
+                second = draft.createActions[1];
             }
             if (second != nullptr) {
                 cg::yobi::SetYobiActionField2B8(
                     second, cg::yobi::GetYobiActionField2B8(second) + 1);
-                second = state::gCreateActions[1];
+                second = draft.createActions[1];
                 if (cg::yobi::GetYobiActionField2B8(second) > 7) {
                     cg::yobi::SetYobiActionField2B8(second, cg::yobi::YobiDirection_UpLeft);
                 }
@@ -553,31 +556,31 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
         }
     }
 
-    const auto& selectedPosition = kCreationSelectDraw54DF00[static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC)];
+    const auto& selectedPosition = kCreationSelectDraw54DF00[static_cast<std::int8_t>(draft.characterIndex9A4CFC)];
     cg::render::DrawGraphic(selectedPosition[0], selectedPosition[1], 10, 245042, 0, nullptr);
     if (render::HasLegacy3DDevice_44B610() != 0) {
-        const auto& position = kCreationSelectDraw54DF00[static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC)];
+        const auto& position = kCreationSelectDraw54DF00[static_cast<std::int8_t>(draft.characterIndex9A4CFC)];
         cg::render::DrawGraphic(position[0], position[1], 10, 245043, 0, &descriptor);
     }
     cg::render::DrawGraphic(
         138, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[1])[4 + cancelState], 0, nullptr);
     cg::render::DrawGraphic(
         289, 409, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationSelectButtons54DFE8[0])[4 + confirmState], 0, nullptr);
-    if (cg::network::GetGameConnection().PukVersion() >= 5) {
+    if (connection.PukVersion() >= 5) {
         cg::render::DrawGraphic(230, 429, 10, kCreationVersionImages54E040[0][versionPlus], 0, nullptr);
         cg::render::DrawGraphic(194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
     }
     cg::render::DrawGraphic(
-        203, 412, 10, kCreationVersionLabels54E058[static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0)], 0, nullptr);
-    const std::uint8_t labelPuk = cg::network::GetGameConnection().PukVersion();
+        203, 412, 10, kCreationVersionLabels54E058[static_cast<std::int8_t>(draft.characterFamily9A57E0)], 0, nullptr);
+    const std::uint8_t labelPuk = connection.PukVersion();
     cg::render::DrawGraphic(
         221, 412, 10, labelPuk < 5 ? 245481 : (labelPuk < 8 ? 245482 : 245483), 0, nullptr);
 
-    const std::uint8_t listPuk = cg::network::GetGameConnection().PukVersion();
+    const std::uint8_t listPuk = connection.PukVersion();
     const std::int32_t* const graphicTable = listPuk >= 7 ? kCreationGraphic55C354.data()
         : (listPuk >= 5 ? kCreationGraphic55C3FC.data() : kCreationGraphic55C46C.data());
     for (std::int32_t index = 0; index < 14; ++index) {
-        const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
+        const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
         const auto& position = kCreationSelectDraw54DF00[index];
         cg::render::DrawGraphic(
             position[0], position[1], 10, graphicTable[14 * version + index], 0, nullptr);
@@ -588,44 +591,44 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
     cg::render::DrawGraphic(
         568, 277, 10, std::bit_cast<std::array<std::int32_t, 7>>(kCreationVariantButtons54E084[1])[4 + variantPlus], 0, nullptr);
 
-    cg::yobi::YobiAction* const second = state::gCreateActions[1];
+    cg::yobi::YobiAction* const second = draft.createActions[1];
     if (second != nullptr) {
         cg::yobi::SetYobiActionField15(second, 2);
-        const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
-        const std::int32_t character = static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC);
-        const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
+        const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
+        const std::int32_t character = static_cast<std::int8_t>(draft.characterIndex9A4CFC);
+        const std::int32_t variant = static_cast<std::int8_t>(draft.variantIndex9A5B00);
         const std::int32_t motion = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
-        cg::yobi::SetYobiActionField2A8(state::gCreateActions[1], motion);
-        cg::yobi::AdvanceYobiAnimationFrame_517880(state::gCreateActions[1], 100, 1, 0);
-        if (cg::network::GetGameConnection().PukVersion() >= 5 && state::gCreationCharacterFamily_9A57E0 == 0) {
-            const std::int32_t graphic = cg::yobi::GetYobiActionField20(state::gCreateActions[1]);
+        cg::yobi::SetYobiActionField2A8(draft.createActions[1], motion);
+        cg::yobi::AdvanceYobiAnimationFrame_517880(draft.createActions[1], 100, 1, 0);
+        if (connection.PukVersion() >= 5 && draft.characterFamily9A57E0 == 0) {
+            const std::int32_t graphic = cg::yobi::GetYobiActionField20(draft.createActions[1]);
             render::DrawGraphic2_521DD0(517, 396, 10, graphic, 0, 0, nullptr);
         }
     }
-    cg::yobi::YobiAction* const first = state::gCreateActions[0];
+    cg::yobi::YobiAction* const first = draft.createActions[0];
     if (first != nullptr) {
         cg::yobi::SetYobiActionField15(first, 2);
-        const std::uint8_t puk = cg::network::GetGameConnection().PukVersion();
-        const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
-        const std::int32_t character = static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC);
+        const std::uint8_t puk = connection.PukVersion();
+        const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
+        const std::int32_t character = static_cast<std::int8_t>(draft.characterIndex9A4CFC);
         std::int32_t motion;
         if (puk < 5) {
             const std::int32_t graphic = kCreationGraphic55C46C[14 * version + character];
             if (graphic == 33100 || graphic == 33101) {
-                const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
+                const std::int32_t variant = static_cast<std::int8_t>(draft.variantIndex9A5B00);
                 motion = (graphic == 33100 ? 100900 : 100901) + 6 * variant;
             } else {
-                const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
+                const std::int32_t variant = static_cast<std::int8_t>(draft.variantIndex9A5B00);
                 motion = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
             }
         } else {
-            const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
+            const std::int32_t variant = static_cast<std::int8_t>(draft.variantIndex9A5B00);
             motion = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
         }
-        cg::yobi::SetYobiActionField2A8(state::gCreateActions[0], motion);
-        if (cg::yobi::AdvanceYobiAnimationFrame_517880(state::gCreateActions[0], 100, 1, 0) != 0) {
-            cg::yobi::AdvanceCharacterPreviewAnimation(state::gCreateActions[0]);
-            cg::yobi::YobiAction* const currentSecond = state::gCreateActions[1];
+        cg::yobi::SetYobiActionField2A8(draft.createActions[0], motion);
+        if (cg::yobi::AdvanceYobiAnimationFrame_517880(draft.createActions[0], 100, 1, 0) != 0) {
+            cg::yobi::AdvanceCharacterPreviewAnimation(draft.createActions[0]);
+            cg::yobi::YobiAction* const currentSecond = draft.createActions[1];
             if (currentSecond != nullptr) {
                 cg::yobi::AdvanceCharacterPreviewAnimation(currentSecond);
             }
@@ -637,33 +640,34 @@ std::int32_t UpdateCharacterAppearanceSelection_462930()
 }
 
 // 原函数：0x00463100。
-std::uint32_t InitializeCharacterCreationAttributes_463100()
+std::uint32_t InitializeCharacterCreationAttributes_463100(network::CgConnection& connection)
 {
-    cg::yobi::YobiAction* const first = state::gCreateActions[0];
+    auto& draft = connection.CharacterSelectUi().creationDraft;
+    cg::yobi::YobiAction* const first = draft.createActions[0];
     if (first != nullptr) {
         cg::yobi::MarkDeath(first);
     }
-    cg::yobi::YobiAction* const second = state::gCreateActions[1];
+    cg::yobi::YobiAction* const second = draft.createActions[1];
     if (second != nullptr) {
         cg::yobi::MarkDeath(second);
     }
     input::InitializeContext_449CF0(
-        &state::gCreationInput9A51E8, 352, 108, 0, 13, 131, {}, 1, 16, 0, 0);
-    input::SetContext_44B330(&state::gCreationInput9A51E8);
-    state::gCreationAttributePointBytes_9A5FD4 = 0;
-    state::gCreationElementPointBytes_9A50D0 = 0;
-    state::gCreationFifthAttributePoints_9A5FD8 = 0;
-    const std::uint32_t version = cg::network::GetGameConnection().PukVersion();
-    state::gCreationStyleIndex_9A5668 = 0;
-    state::gCreationColorIndex_9A4B80 = 0;
-    state::gCreationRemainingAttributePoints_9A4D04 = 30;
-    state::gCreationRemainingElementPoints_9A50C8 = 10;
+        &draft.input9A51E8, 352, 108, 0, 13, 131, {}, 1, 16, 0, 0);
+    input::SetContext_44B330(&draft.input9A51E8);
+    draft.attributePointBytes9A5FD4 = 0;
+    draft.elementPointBytes9A50D0 = 0;
+    draft.fifthAttributePoints9A5FD8 = 0;
+    const std::uint32_t version = connection.PukVersion();
+    draft.styleIndex9A5668 = 0;
+    draft.colorIndex9A4B80 = 0;
+    draft.remainingAttributePoints9A4D04 = 30;
+    draft.remainingElementPoints9A50C8 = 10;
     if (version >= 7) {
-        state::gCreationGraphicGeneration_9A4B88 = 2;
-        state::gCreationAttributePhase_9A5AFC = 1;
+        draft.graphicGeneration9A4B88 = 2;
+        draft.attributePhase9A5AFC = 1;
     } else {
-        state::gCreationAttributePhase_9A5AFC = 1;
-        state::gCreationGraphicGeneration_9A4B88 = version >= 5 ? 1 : 0;
+        draft.attributePhase9A5AFC = 1;
+        draft.graphicGeneration9A4B88 = version >= 5 ? 1 : 0;
     }
     return version;
 }
@@ -671,12 +675,13 @@ std::uint32_t InitializeCharacterCreationAttributes_463100()
 // 原函数：0x004631D0。
 std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& connection)
 {
-    auto* const attributeBytes = reinterpret_cast<std::uint8_t*>(&state::gCreationAttributePointBytes_9A5FD4);
+    auto& draft = connection.CharacterSelectUi().creationDraft;
+    auto* const attributeBytes = reinterpret_cast<std::uint8_t*>(&draft.attributePointBytes9A5FD4);
     const std::array<std::uint8_t*, 5> attributes {{
         attributeBytes, attributeBytes + 1, attributeBytes + 2, attributeBytes + 3,
-        &state::gCreationFifthAttributePoints_9A5FD8,
+        &draft.fifthAttributePoints9A5FD8,
     }};
-    auto* const elements = reinterpret_cast<std::uint8_t*>(&state::gCreationElementPointBytes_9A50D0);
+    auto* const elements = reinterpret_cast<std::uint8_t*>(&draft.elementPointBytes9A50D0);
     std::array<std::int8_t, 6> arrows {};
     std::array<std::int8_t, 5> attributeMinus {};
     std::array<std::int8_t, 5> attributePlus {};
@@ -692,11 +697,11 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     total += static_cast<std::int8_t>(*attributes[4]);
     total += static_cast<std::int8_t>(*attributes[1]);
     total += static_cast<std::int8_t>(*attributes[0]);
-    total += static_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04);
+    total += static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04);
     const std::int32_t attributeLimit = total >> 1;
-    const std::uint8_t puk = cg::network::GetGameConnection().PukVersion();
+    const std::uint8_t puk = connection.PukVersion();
     const std::uint8_t maxVersion = puk >= 7 ? 2 : (puk >= 5 ? 1 : 0);
-    const bool showVersionControls = maxVersion != state::gCreationCharacterFamily_9A57E0;
+    const bool showVersionControls = maxVersion != draft.characterFamily9A57E0;
 
     const auto hover = []() -> std::int8_t {
         return (CreationMouseByte(platform::gLegacyMouseState.heldButtons) & 1) != 0 ? 1 : 2;
@@ -707,12 +712,12 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             bounds.left, top, bounds.left + bounds.width, top + bounds.height, -1);
     };
 
-    if (state::gCreationAttributePhase_9A5AFC == 1) {
+    if (draft.attributePhase9A5AFC == 1) {
         for (std::size_t index = 0; index < 4; ++index) {
             if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[index].bounds) != 0) {
                 arrows[index] = hover();
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
-                    auto& value = index < 2 ? state::gCreationStyleIndex_9A5668 : state::gCreationColorIndex_9A4B80;
+                    auto& value = index < 2 ? draft.styleIndex9A5668 : draft.colorIndex9A4B80;
                     if ((index & 1) == 0) {
                         const auto next = static_cast<std::uint8_t>(value - 1);
                         value = next;
@@ -734,12 +739,12 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[4].bounds) != 0) {
                 arrows[4] = hover();
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
-                    const std::uint8_t value = state::gCreationGraphicGeneration_9A4B88;
-                    const std::uint8_t version = state::gCreationCharacterFamily_9A57E0;
+                    const std::uint8_t value = draft.graphicGeneration9A4B88;
+                    const std::uint8_t version = draft.characterFamily9A57E0;
                     const auto next = static_cast<std::uint8_t>(value - 1);
-                    state::gCreationGraphicGeneration_9A4B88 = next;
+                    draft.graphicGeneration9A4B88 = next;
                     if (static_cast<std::int8_t>(next) < (version != 0 ? 1 : 0)) {
-                        state::gCreationGraphicGeneration_9A4B88 = maxVersion;
+                        draft.graphicGeneration9A4B88 = maxVersion;
                     }
                     audio::PlaySe_52C450(51, 320);
                 }
@@ -747,19 +752,19 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[5].bounds) != 0) {
                 arrows[5] = hover();
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
-                    const std::uint8_t value = state::gCreationGraphicGeneration_9A4B88;
-                    const std::uint8_t version = state::gCreationCharacterFamily_9A57E0;
+                    const std::uint8_t value = draft.graphicGeneration9A4B88;
+                    const std::uint8_t version = draft.characterFamily9A57E0;
                     const auto next = static_cast<std::uint8_t>(value + 1);
-                    state::gCreationGraphicGeneration_9A4B88 = next;
+                    draft.graphicGeneration9A4B88 = next;
                     if (static_cast<std::int8_t>(next) > maxVersion) {
-                        state::gCreationGraphicGeneration_9A4B88 = version != 0 ? 1 : 0;
+                        draft.graphicGeneration9A4B88 = version != 0 ? 1 : 0;
                     }
                     audio::PlaySe_52C450(51, 320);
                 }
             }
         }
 
-        const std::int32_t remaining = static_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04);
+        const std::int32_t remaining = static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04);
         for (std::size_t row = 0; row < attributes.size(); ++row) {
             const std::int32_t value = static_cast<std::int8_t>(*attributes[row]);
             if (value <= 0) {
@@ -777,9 +782,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
                     const std::uint8_t value = *attributes[row];
                     if (static_cast<std::int8_t>(value) > 0) {
-                        const std::uint8_t left = state::gCreationRemainingAttributePoints_9A4D04;
+                        const std::uint8_t left = draft.remainingAttributePoints9A4D04;
                         *attributes[row] = static_cast<std::uint8_t>(value - 1);
-                        state::gCreationRemainingAttributePoints_9A4D04 = static_cast<std::uint8_t>(left + 1);
+                        draft.remainingAttributePoints9A4D04 = static_cast<std::uint8_t>(left + 1);
                         audio::PlaySe_52C450(51, 320);
                     } else {
                         audio::PlaySe_52C450(55, 320);
@@ -787,17 +792,17 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                 }
                 break;
             }
-            if (static_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04) > 0
+            if (static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04) > 0
                 && static_cast<std::int8_t>(*attributes[row]) < attributeLimit && hitRow(7, top) != 0) {
                 attributePlus[row] = hover();
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
                     bool changed = false;
-                    if (static_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04) > 0) {
+                    if (static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04) > 0) {
                         const std::uint8_t value = *attributes[row];
                         if (static_cast<std::int8_t>(value) < attributeLimit) {
-                            const std::uint8_t left = state::gCreationRemainingAttributePoints_9A4D04;
+                            const std::uint8_t left = draft.remainingAttributePoints9A4D04;
                             *attributes[row] = static_cast<std::uint8_t>(value + 1);
-                            state::gCreationRemainingAttributePoints_9A4D04 = static_cast<std::uint8_t>(left - 1);
+                            draft.remainingAttributePoints9A4D04 = static_cast<std::uint8_t>(left - 1);
                             changed = true;
                         }
                     }
@@ -824,9 +829,9 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
                     const std::uint8_t value = elements[row];
                     if (static_cast<std::int8_t>(value) > 0) {
-                        const std::uint8_t left = state::gCreationRemainingElementPoints_9A50C8;
+                        const std::uint8_t left = draft.remainingElementPoints9A50C8;
                         elements[row] = static_cast<std::uint8_t>(value - 1);
-                        state::gCreationRemainingElementPoints_9A50C8 = static_cast<std::uint8_t>(left + 1);
+                        draft.remainingElementPoints9A50C8 = static_cast<std::uint8_t>(left + 1);
                         audio::PlaySe_52C450(51, 320);
                     } else {
                         audio::PlaySe_52C450(55, 320);
@@ -839,11 +844,11 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
                 if ((CreationMouseByte(platform::gLegacyMouseState.pulseButtons) & 1) != 0) {
                     const std::size_t opposite = row < 2 ? row + 2 : row - 2;
                     if (elements[opposite] == 0) {
-                        if (static_cast<std::int8_t>(state::gCreationRemainingElementPoints_9A50C8) > 0) {
+                        if (static_cast<std::int8_t>(draft.remainingElementPoints9A50C8) > 0) {
                             const std::uint8_t value = elements[row];
-                            const std::uint8_t left = state::gCreationRemainingElementPoints_9A50C8;
+                            const std::uint8_t left = draft.remainingElementPoints9A50C8;
                             elements[row] = static_cast<std::uint8_t>(value + 1);
-                            state::gCreationRemainingElementPoints_9A50C8 = static_cast<std::uint8_t>(left - 1);
+                            draft.remainingElementPoints9A50C8 = static_cast<std::uint8_t>(left - 1);
                             audio::PlaySe_52C450(51, 320);
                         } else {
                             std::size_t donor = 0;
@@ -868,35 +873,35 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
         if (HitTestCharacterCreationControl_464290(&kCreationUi54E0BC[10].bounds) != 0) {
             confirmState = hover();
             if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
-                const std::int32_t cursor = state::gCreationInput9A51E8.caretByteOffset;
+                const std::int32_t cursor = draft.input9A51E8.caretByteOffset;
                 if (cursor <= 0) {
-                    state::gCreationAttributePhase_9A5AFC = 100;
-                } else if (static_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04) > 0) {
-                    state::gCreationAttributePhase_9A5AFC = 104;
-                } else if (static_cast<std::int8_t>(state::gCreationRemainingElementPoints_9A50C8) > 0) {
-                    state::gCreationAttributePhase_9A5AFC = 106;
+                    draft.attributePhase9A5AFC = 100;
+                } else if (static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04) > 0) {
+                    draft.attributePhase9A5AFC = 104;
+                } else if (static_cast<std::int8_t>(draft.remainingElementPoints9A50C8) > 0) {
+                    draft.attributePhase9A5AFC = 106;
                 } else {
-                    const std::wstring utf16Name(state::gCreationInput9A51E8.text,
-                        cg::text::Prefix(state::gCreationInput9A51E8.text, static_cast<std::size_t>(cursor)));
+                    const std::wstring utf16Name(draft.input9A51E8.text,
+                        cg::text::Prefix(draft.input9A51E8.text, static_cast<std::size_t>(cursor)));
                     std::optional<std::string> stored;
                     try { stored = cg::text::ToGbk(utf16Name); }
-                    catch (const std::system_error&) { state::gCreationAttributePhase_9A5AFC = 108; }
+                    catch (const std::system_error&) { draft.attributePhase9A5AFC = 108; }
                     if (stored) {
                         if (stored->size() >= 24) {
-                            state::gCreationAttributePhase_9A5AFC = 108;
+                            draft.attributePhase9A5AFC = 108;
                         } else {
                             connection.CharacterSelectUi().creationSubmission.nameFF0D18 = utf16Name;
                             const auto& name = connection.CharacterSelectUi().creationSubmission.nameFF0D18;
                             if (login::CharacterNameExists_51B140(connection, name) != 0) {
-                                state::gCreationAttributePhase_9A5AFC = 102;
+                                draft.attributePhase9A5AFC = 102;
                             } else if (name.find(L' ') != std::wstring::npos
                                 || stored->find("\x81\x40") != std::string::npos
                                 || input::IsRejectedInputText_404060(utf16Name)) {
-                                state::gCreationAttributePhase_9A5AFC = 108;
+                                draft.attributePhase9A5AFC = 108;
                             } else if (input::ContainsPipeOrBackslash_45E770(utf16Name) == 1) {
-                                state::gCreationAttributePhase_9A5AFC = 110;
+                                draft.attributePhase9A5AFC = 110;
                             } else {
-                                state::gCreationAttributePhase_9A5AFC = 10;
+                                draft.attributePhase9A5AFC = 10;
                                 audio::PlaySe_52C450(53, 320);
                             }
                         }
@@ -921,16 +926,16 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
         }
     }
     bool skipMessages = false;
-    if (state::gCreationAttributePhase_9A5AFC == 10) {
+    if (draft.attributePhase9A5AFC == 10) {
         const std::int32_t answer = ProcessDefaultConfirmationDialog_45E090(
             320, 240, L"可以吗？" /* 原常量参考：0x0055C9B0。 */, 0);
         if (answer == 1) {
-            const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
-            const std::uint8_t mode = state::gCreationGraphicGeneration_9A4B88;
+            const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
+            const std::uint8_t mode = draft.graphicGeneration9A4B88;
             result = 1;
-            const std::int32_t character = static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC);
-            const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
-            state::gCreationAttributePhase_9A5AFC = 11;
+            const std::int32_t character = static_cast<std::int8_t>(draft.characterIndex9A4CFC);
+            const std::int32_t variant = static_cast<std::int8_t>(draft.variantIndex9A5B00);
+            draft.attributePhase9A5AFC = 11;
             if (mode == 0) {
                 connection.CharacterSelectUi().previewToggleState = 0;
                 connection.CharacterSelectUi().creationSubmission.motionImageDE0AFC = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
@@ -941,12 +946,12 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             // 原ESI沿用上方四项互斥循环终值，未知模式不是零图号。
             std::int32_t graphic = 4;
             if (mode == 2) {
-                const std::int32_t style = static_cast<std::int8_t>(state::gCreationStyleIndex_9A5668);
+                const std::int32_t style = static_cast<std::int8_t>(draft.styleIndex9A5668);
                 graphic = kCreationGraphic55C354[14 * version + character];
-                const std::int32_t color = static_cast<std::int8_t>(state::gCreationColorIndex_9A4B80);
+                const std::int32_t color = static_cast<std::int8_t>(draft.colorIndex9A4B80);
                 graphic += 5 * (5 * variant + style) + color;
             } else if (mode == 1 || mode == 0) {
-                graphic = MapCreationGraphic(kCreationGraphic55C354[14 * version + character], mode);
+                graphic = MapCreationGraphic(draft, kCreationGraphic55C354[14 * version + character], mode);
             }
 
             const std::int32_t attribute0 = static_cast<std::int8_t>(*attributes[0]);
@@ -958,7 +963,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             const std::int32_t attribute3 = static_cast<std::int8_t>(*attributes[3]);
             const std::int32_t attribute4 = static_cast<std::int8_t>(*attributes[4]);
             submission.attribute3DE0AF8 = attribute3;
-            const std::uint32_t elementSnapshot = state::gCreationElementPointBytes_9A50D0;
+            const std::uint32_t elementSnapshot = draft.elementPointBytes9A50D0;
             submission.attribute2DE03F4 = attribute2;
             submission.attribute4F7CA00 = attribute4;
             const std::int32_t element2 = static_cast<std::int8_t>(elements[2]);
@@ -972,21 +977,21 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             cg::audio::BeginBgmFadeOut_52B990();
             SaveCharacterCreationDraftSnapshot_4642C0(connection);
         } else if (answer == 2) {
-            state::gCreationAttributePhase_9A5AFC = 1;
+            draft.attributePhase9A5AFC = 1;
             skipMessages = true;
         }
     }
     if (!skipMessages) {
         for (std::size_t index = 0; index < kCreationErrors.size(); ++index) {
             const std::int32_t phase = 100 + 2 * static_cast<std::int32_t>(index);
-            if (state::gCreationAttributePhase_9A5AFC == phase) {
+            if (draft.attributePhase9A5AFC == phase) {
                 login::ResetLoginMessage(connection);
-                ++state::gCreationAttributePhase_9A5AFC;
+                ++draft.attributePhase9A5AFC;
                 audio::PlaySe_52C450(55, 320);
             }
-            if (state::gCreationAttributePhase_9A5AFC == phase + 1
+            if (draft.attributePhase9A5AFC == phase + 1
                 && login::UpdateLoginMessage(connection, kCreationErrors[index]) != 0) {
-                state::gCreationAttributePhase_9A5AFC = 1;
+                draft.attributePhase9A5AFC = 1;
                 break;
             }
         }
@@ -1022,12 +1027,12 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     drawButton(403, 381, 11, cancelState);
     drawButton(483, 381, 10, confirmState);
 
-    std::uint32_t elementSnapshot = state::gCreationElementPointBytes_9A50D0;
+    std::uint32_t elementSnapshot = draft.elementPointBytes9A50D0;
     std::int32_t count = 0;
     if (static_cast<std::int8_t>(elementSnapshot) > 0) {
         do {
             cg::render::DrawGraphic(406 + 10 * count, 313, 10, 245052, 0, nullptr);
-            elementSnapshot = state::gCreationElementPointBytes_9A50D0;
+            elementSnapshot = draft.elementPointBytes9A50D0;
             ++count;
         } while (count < static_cast<std::int8_t>(elementSnapshot));
     }
@@ -1060,34 +1065,34 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     }
     // 与确认路径不同，此处未知模式沿用第四元素条的计数终值。
     std::int32_t graphic = count;
-    const std::int32_t mode = static_cast<std::int8_t>(state::gCreationGraphicGeneration_9A4B88);
+    const std::int32_t mode = static_cast<std::int8_t>(draft.graphicGeneration9A4B88);
     if (mode == 2) {
-        const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
-        const std::int32_t character = static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC);
-        const std::int32_t variant = static_cast<std::int8_t>(state::gCreationVariantIndex_9A5B00);
-        const std::int32_t style = static_cast<std::int8_t>(state::gCreationStyleIndex_9A5668);
+        const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
+        const std::int32_t character = static_cast<std::int8_t>(draft.characterIndex9A4CFC);
+        const std::int32_t variant = static_cast<std::int8_t>(draft.variantIndex9A5B00);
+        const std::int32_t style = static_cast<std::int8_t>(draft.styleIndex9A5668);
         graphic = kCreationGraphic55C354[14 * version + character];
-        const std::int32_t color = static_cast<std::int8_t>(state::gCreationColorIndex_9A4B80);
+        const std::int32_t color = static_cast<std::int8_t>(draft.colorIndex9A4B80);
         graphic += 5 * (5 * variant + style) + color;
     } else if (mode == 1 || mode == 0) {
-        const std::int32_t version = static_cast<std::int8_t>(state::gCreationCharacterFamily_9A57E0);
-        const std::int32_t character = static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC);
-        graphic = MapCreationGraphic(kCreationGraphic55C354[14 * version + character], mode);
+        const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
+        const std::int32_t character = static_cast<std::int8_t>(draft.characterIndex9A4CFC);
+        graphic = MapCreationGraphic(draft, kCreationGraphic55C354[14 * version + character], mode);
     }
-    if (static_cast<std::int8_t>(state::gCreationGraphicGeneration_9A4B88) > maxVersion) {
-        graphic = static_cast<std::int8_t>(state::gCreationCharacterIndex_9A4CFC) >= 14 ? 33101 : 33100;
+    if (static_cast<std::int8_t>(draft.graphicGeneration9A4B88) > maxVersion) {
+        graphic = static_cast<std::int8_t>(draft.characterIndex9A4CFC) >= 14 ? 33101 : 33100;
     }
     cg::render::DrawGraphic(500, 126, 10, graphic, 0, nullptr);
-    render::DrawInputText_4568A0(&state::gCreationInput9A51E8);
+    render::DrawInputText_4568A0(&draft.input9A51E8);
     constexpr std::int8_t color = std::bit_cast<std::int8_t>(std::uint8_t{131});
-    cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04)));
+    cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(draft.remainingAttributePoints9A4D04)));
     render::DrawText_456780(518, 185, 0, 13, color, buffer, 0, 0);
     for (std::size_t row = 0; row < attributes.size(); ++row) {
         cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(*attributes[row])));
         render::DrawText_456780(
             479, static_cast<std::int16_t>(199 + 14 * row), 0, 13, color, buffer, 0, 0);
     }
-    cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(state::gCreationRemainingElementPoints_9A50C8)));
+    cg::text::FormatTo(buffer, L"{:02}", static_cast<std::int32_t>(static_cast<std::int8_t>(draft.remainingElementPoints9A50C8)));
     render::DrawText_456780(518, 293, 0, 13, color, buffer, 0, 0);
     cg::render::DrawGraphic(442, 241, 10, 245051, 0, nullptr);
     cg::render::DrawGraphic(320, 240, 3, 245050, 0, nullptr);
@@ -1097,6 +1102,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
 // 原函数：0x004642C0。
 std::int32_t SaveCharacterCreationDraftSnapshot_4642C0(network::CgConnection& connection)
 {
+    auto& draft = connection.CharacterSelectUi().creationDraft;
     auto& submission = connection.CharacterSelectUi().creationSubmission;
     auto& snapshot = connection.CharacterSelectUi().creationSnapshot;
     const std::int32_t valueF633F0 = submission.attribute1F633F0;
@@ -1109,23 +1115,23 @@ std::int32_t SaveCharacterCreationDraftSnapshot_4642C0(network::CgConnection& co
     snapshot.value9A50A0 = valueF633EC;
     const std::int32_t valueDE0AF8 = submission.attribute3DE0AF8;
     snapshot.value9A5670 = valueF633F4;
-    const std::int32_t value9A50C8 = std::bit_cast<std::int8_t>(state::gCreationRemainingElementPoints_9A50C8);
+    const std::int32_t value9A50C8 = std::bit_cast<std::int8_t>(draft.remainingElementPoints9A50C8);
     snapshot.value9A4E98 = valueDE0AF8;
     const std::int32_t valueFF03D0 = submission.element1FF03D0;
     snapshot.value9A4E84 = valueDE03F4;
     const std::int32_t valueF7C948 = submission.element0F7C948;
     snapshot.value9A50E4 = value9A50C8;
     snapshot.value9A60E8 = valueFF03D0;
-    const std::int32_t value9A4B88 = std::bit_cast<std::int8_t>(state::gCreationGraphicGeneration_9A4B88);
-    const std::int32_t value9A4D04 = std::bit_cast<std::int8_t>(state::gCreationRemainingAttributePoints_9A4D04);
+    const std::int32_t value9A4B88 = std::bit_cast<std::int8_t>(draft.graphicGeneration9A4B88);
+    const std::int32_t value9A4D04 = std::bit_cast<std::int8_t>(draft.remainingAttributePoints9A4D04);
     snapshot.value9A5094 = valueF7C948;
     const std::int32_t valueDE0B04 = submission.element3DE0B04;
     snapshot.value9A57E8 = value9A4B88;
     snapshot.value9A61F4 = valueDE0B04;
-    const std::int32_t value9A5668 = std::bit_cast<std::int8_t>(state::gCreationStyleIndex_9A5668);
+    const std::int32_t value9A5668 = std::bit_cast<std::int8_t>(draft.styleIndex9A5668);
     snapshot.value9A554C = value9A4D04;
-    const std::int32_t value9A4B80 = std::bit_cast<std::int8_t>(state::gCreationColorIndex_9A4B80);
-    snapshot.input9A4F38 = state::gCreationInput9A51E8;
+    const std::int32_t value9A4B80 = std::bit_cast<std::int8_t>(draft.colorIndex9A4B80);
+    snapshot.input9A4F38 = draft.input9A51E8;
     snapshot.value9A5664 = value9A5668;
     snapshot.value9A5954 = value9A4B80;
     return value9A4B80;
@@ -1134,9 +1140,10 @@ std::int32_t SaveCharacterCreationDraftSnapshot_4642C0(network::CgConnection& co
 // 原函数：0x00464380。
 std::uint8_t RestoreCharacterCreationDraftSnapshot_464380(network::CgConnection& connection)
 {
+    auto& draft = connection.CharacterSelectUi().creationDraft;
     auto& snapshot = connection.CharacterSelectUi().creationSnapshot;
-    auto* const firstBytes = reinterpret_cast<std::uint8_t*>(&state::gCreationAttributePointBytes_9A5FD4);
-    auto* const secondBytes = reinterpret_cast<std::uint8_t*>(&state::gCreationElementPointBytes_9A50D0);
+    auto* const firstBytes = reinterpret_cast<std::uint8_t*>(&draft.attributePointBytes9A5FD4);
+    auto* const secondBytes = reinterpret_cast<std::uint8_t*>(&draft.elementPointBytes9A50D0);
     const std::uint8_t value9A50A4 = ReadCreationSnapshotByte(snapshot.value9A50A4);
     const std::uint8_t value9A50A0 = ReadCreationSnapshotByte(snapshot.value9A50A0);
     const std::uint8_t value9A4E84 = ReadCreationSnapshotByte(snapshot.value9A4E84);
@@ -1144,7 +1151,7 @@ std::uint8_t RestoreCharacterCreationDraftSnapshot_464380(network::CgConnection&
     const std::uint8_t value9A4B98 = ReadCreationSnapshotByte(snapshot.value9A4B98);
     firstBytes[0] = value9A50A0;
     const std::uint8_t value9A4E98 = ReadCreationSnapshotByte(snapshot.value9A4E98);
-    state::gCreationFifthAttributePoints_9A5FD8 = value9A4B98;
+    draft.fifthAttributePoints9A5FD8 = value9A4B98;
     const std::uint8_t value9A5670 = ReadCreationSnapshotByte(snapshot.value9A5670);
     firstBytes[2] = value9A4E84;
     const std::uint8_t value9A5094 = ReadCreationSnapshotByte(snapshot.value9A5094);
@@ -1152,20 +1159,20 @@ std::uint8_t RestoreCharacterCreationDraftSnapshot_464380(network::CgConnection&
     const std::uint8_t value9A50E4 = ReadCreationSnapshotByte(snapshot.value9A50E4);
     firstBytes[3] = value9A4E98;
     const std::uint8_t value9A60E8 = ReadCreationSnapshotByte(snapshot.value9A60E8);
-    state::gCreationRemainingElementPoints_9A50C8 = value9A50E4;
+    draft.remainingElementPoints9A50C8 = value9A50E4;
     const std::uint8_t value9A57E8 = ReadCreationSnapshotByte(snapshot.value9A57E8);
     secondBytes[0] = value9A5094;
     const std::uint8_t value9A61F4 = ReadCreationSnapshotByte(snapshot.value9A61F4);
     secondBytes[1] = value9A60E8;
     const std::uint8_t value9A554C = ReadCreationSnapshotByte(snapshot.value9A554C);
-    state::gCreationGraphicGeneration_9A4B88 = value9A57E8;
+    draft.graphicGeneration9A4B88 = value9A57E8;
     secondBytes[3] = value9A61F4;
     const std::uint8_t value9A5664 = ReadCreationSnapshotByte(snapshot.value9A5664);
-    state::gCreationRemainingAttributePoints_9A4D04 = value9A554C;
+    draft.remainingAttributePoints9A4D04 = value9A554C;
     const std::uint8_t value9A5954 = ReadCreationSnapshotByte(snapshot.value9A5954);
-    state::gCreationStyleIndex_9A5668 = value9A5664;
-    state::gCreationInput9A51E8 = snapshot.input9A4F38;
-    state::gCreationColorIndex_9A4B80 = value9A5954;
+    draft.styleIndex9A5668 = value9A5664;
+    draft.input9A51E8 = snapshot.input9A4F38;
+    draft.colorIndex9A4B80 = value9A5954;
     return value9A5954;
 }
 
@@ -1186,25 +1193,9 @@ std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBound
 namespace cg::character_select::state {
 
 std::uint8_t gGraphicVersionOverride58B6A0 = 0xFF; // 原全局：0x0058B6A0。
-std::uint8_t gCreationCharacterFamily_9A57E0 = 0; // 原全局：0x009A57E0。
-std::uint8_t gCreationCharacterIndex_9A4CFC = 0; // 原全局：0x009A4CFC。
-std::uint8_t gCreationVariantIndex_9A5B00 = 0; // 原全局：0x009A5B00。
-std::array<cg::yobi::YobiAction*, 2> gCreateActions {};
-input::InputContext gCreationInput9A51E8 {}; // 原全局：0x009A51E8。
-std::uint32_t gCreationAttributePointBytes_9A5FD4 = 0; // 原全局：0x009A5FD4。
-std::uint32_t gCreationElementPointBytes_9A50D0 = 0; // 原全局：0x009A50D0。
-std::uint8_t gCreationFifthAttributePoints_9A5FD8 = 0; // 原全局：0x009A5FD8。
-std::uint8_t gCreationStyleIndex_9A5668 = 0; // 原全局：0x009A5668。
-std::uint8_t gCreationColorIndex_9A4B80 = 0; // 原全局：0x009A4B80。
-std::uint8_t gCreationRemainingAttributePoints_9A4D04 = 0; // 原全局：0x009A4D04。
-std::uint8_t gCreationRemainingElementPoints_9A50C8 = 0; // 原全局：0x009A50C8。
-std::uint8_t gCreationGraphicGeneration_9A4B88 = 0; // 原全局：0x009A4B88。
-std::int32_t gCreationAttributePhase_9A5AFC = 0; // 原全局：0x009A5AFC。
 cg::yobi::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
 std::wstring gSelectedCharacterName {}; // 原全局：0x00DA391C。
 std::wstring gDeleteCharacterName {}; // 原全局：0x00DA3A9C。
-
-static_assert(sizeof(gCreateActions) == 2 * sizeof(cg::yobi::YobiAction*));
 
 } // namespace cg::character_select::state
 
@@ -1318,10 +1309,10 @@ RET:
 #endif
 
 static void UpdateCharacterGraphic(
-    login::CharacterRecord& record,
+    network::CgConnection& connection, login::CharacterRecord& record,
     std::int32_t action)
 {
-    const std::uint8_t pukVersion = cg::network::GetGameConnection().PukVersion();
+    const std::uint8_t pukVersion = connection.PukVersion();
     if (pukVersion >= 7u) {
         const std::int32_t imageNo = record.graphicNo;
         if (imageNo == 33100 || imageNo == 33101) {
@@ -1652,7 +1643,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 }
                 login::detail::PlaySe(55, 320, 240);
             } else if (actionIndex == 3u || actionIndex == 4u) {
-                UpdateCharacterGraphic(record, static_cast<std::int32_t>(actionIndex));
+                UpdateCharacterGraphic(connection, record, static_cast<std::int32_t>(actionIndex));
                 login::detail::PlaySe(51, 320, 240);
             } else if (actionIndex == 5u || actionIndex == 6u) {
                 const std::int32_t value = record.previewState;

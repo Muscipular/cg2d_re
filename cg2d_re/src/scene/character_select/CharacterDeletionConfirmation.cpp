@@ -3,10 +3,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
+#include "cg/network/CgConnection.hpp"
 #include <string>
 
 #include "CharacterSelectSceneDependencies.hpp"
-#include "CharacterSelectState.hpp"
+#include "CharacterSelectSceneState.hpp"
 
 #include <cstdint>
 #include <cstring>
@@ -14,6 +15,7 @@
 namespace cg::character_select {
 // 原函数：0x0045DEE0。
 std::int32_t ProcessConfirmationDialog_45DEE0(
+    network::CgConnection& connection,
     std::int32_t x,
     std::int32_t y,
     std::wstring_view text,
@@ -33,7 +35,8 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
     std::int32_t hover = 0;
     std::int32_t result = 0;
 
-    cg::yobi::YobiAction* modalAction = state::gCharacterModalAction;
+    auto& actionSlot = connection.CharacterSelectUi().characterModalAction;
+    cg::yobi::YobiAction* modalAction = actionSlot;
     if (modalAction == nullptr) {
         modalAction = cg::yobi::CreateModalAction_5044E0(
             left,
@@ -42,7 +45,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
             height,
             4,
             1);
-        state::gCharacterModalAction = modalAction;
+        actionSlot = modalAction;
         if (modalAction == nullptr) {
             return 0;
         }
@@ -79,10 +82,10 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
         if ((mouseClickState & 1U) != 0) {
             result = hover;
             login::detail::PlaySe(79, 320, 240);
-            cg::yobi::YobiAction* const clickedAction = state::gCharacterModalAction;
+            cg::yobi::YobiAction* const clickedAction = actionSlot;
             if (clickedAction != nullptr) {
                 cg::yobi::MarkDeath(clickedAction);
-                state::gCharacterModalAction = nullptr;
+                actionSlot = nullptr;
             }
         }
     }
@@ -117,16 +120,18 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
 
 // 原函数：0x0045E090。
 std::int32_t ProcessDefaultConfirmationDialog_45E090(
+    network::CgConnection& connection,
     std::int32_t x,
     std::int32_t y,
     std::wstring_view text,
     std::int8_t color)
 {
-    return ProcessConfirmationDialog_45DEE0(x, y, text, color, 0, 0);
+    return ProcessConfirmationDialog_45DEE0(connection, x, y, text, color, 0, 0);
 }
 
 // 原函数：0x0045E0C0。
 std::int32_t ProcessCharacterDeletionWarning_45E0C0(
+    network::CgConnection& connection,
     std::int32_t x,
     std::int32_t y)
 {
@@ -150,7 +155,8 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
     };
     std::int32_t result = 0;
 
-    cg::yobi::YobiAction* modalAction = state::gCharacterModalAction;
+    auto& actionSlot = connection.CharacterSelectUi().characterModalAction;
+    cg::yobi::YobiAction* modalAction = actionSlot;
     if (modalAction == nullptr) {
         modalAction = cg::yobi::CreateModalAction_5044E0(
             x - 192,
@@ -159,7 +165,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
             192,
             4,
             1);
-        state::gCharacterModalAction = modalAction;
+        actionSlot = modalAction;
         if (modalAction == nullptr) {
             return 0;
         }
@@ -179,10 +185,10 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
 
     if (result != 0) {
         login::detail::PlaySe(79, 320, 240);
-        cg::yobi::YobiAction* const clickedAction = state::gCharacterModalAction;
+        cg::yobi::YobiAction* const clickedAction = actionSlot;
         if (clickedAction != nullptr) {
             cg::yobi::MarkDeath(clickedAction);
-            state::gCharacterModalAction = nullptr;
+            actionSlot = nullptr;
         }
     }
 

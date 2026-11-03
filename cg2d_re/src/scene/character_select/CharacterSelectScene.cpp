@@ -928,7 +928,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
     bool skipMessages = false;
     if (draft.attributePhase9A5AFC == 10) {
         const std::int32_t answer = ProcessDefaultConfirmationDialog_45E090(
-            320, 240, L"可以吗？" /* 原常量参考：0x0055C9B0。 */, 0);
+            connection, 320, 240, L"可以吗？" /* 原常量参考：0x0055C9B0。 */, 0);
         if (answer == 1) {
             const std::int32_t version = static_cast<std::int8_t>(draft.characterFamily9A57E0);
             const std::uint8_t mode = draft.graphicGeneration9A4B88;
@@ -1193,9 +1193,6 @@ std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBound
 namespace cg::character_select::state {
 
 std::uint8_t gGraphicVersionOverride58B6A0 = 0xFF; // 原全局：0x0058B6A0。
-cg::yobi::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
-std::wstring gSelectedCharacterName {}; // 原全局：0x00DA391C。
-std::wstring gDeleteCharacterName {}; // 原全局：0x00DA3A9C。
 
 } // namespace cg::character_select::state
 
@@ -1234,7 +1231,7 @@ static void EnterSelectedCharacter(network::CgConnection& connection)
     auto& characters = connection.LoginRequests().characters;
     const login::CharacterRecord& record =
         characters[static_cast<std::size_t>(connection.LoginRequests().selectedCharacterIndex)];
-    CopyRecordName(state::gSelectedCharacterName, record);
+    CopyRecordName(connection.CharacterSelectUi().selectedCharacterName, record);
     const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     const login::CharacterRecord* const selectedRecord =
         characters.data() + selected;
@@ -1257,7 +1254,7 @@ thread_local cg::platform::LegacyCryptInt state2(std::random_device().operator()
 #define MXTRUE 0x8ef61
 
 // CUN01：沿现有游戏模态动作与文字按钮，返回0等待、1同意、2退出。
-static std::int32_t ProcessUsageNotice()
+static std::int32_t ProcessUsageNotice(network::CgConnection& connection)
 {
     std::int32_t iRet = 0;
     VM_DOLPHIN_WHITE_START
@@ -1274,7 +1271,7 @@ static std::int32_t ProcessUsageNotice()
         {360-12, 368, 336, 366, 64, 24, L"结束"},
     }};
 
-    auto*& action = state::gCharacterModalAction;
+    auto*& action = connection.CharacterSelectUi().characterModalAction;
     if (action == nullptr) {
         action = cg::yobi::CreateModalAction_5044E0(32, 72, 576, 336, 4, 1);
         goto RET; // 创建当帧不消费人物选择的点击；失败时下一帧重试。
@@ -1483,7 +1480,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 interactive = 0;
             } else if (mainState == 12u) {
                 const std::int32_t result =
-                    ProcessCharacterDeletionWarning_45E0C0(320, 240);
+                    ProcessCharacterDeletionWarning_45E0C0(connection, 320, 240);
                 if (result == 1) {
                     world::gCurrentSceneState = 13;
                     sceneUi.deleteConfirmationAction =
@@ -1494,6 +1491,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             } else if (mainState == 13u) {
                 const std::int32_t result =
                     ProcessDefaultConfirmationDialog_45E090(
+                        connection,
                         320,
                         240,
                         L"真的要删除吗？" /* 原 0x55C854: 删除角色确认提示。 */,
@@ -1549,6 +1547,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             } else if (mainState == 18u) {
                 const std::int32_t result =
                     ProcessConfirmationDialog_45DEE0(
+                        connection,
                         320,
                         240,
                         L"要进行更新吗？" /* 原 0x55CD28: 更新确认提示。 */,
@@ -1568,13 +1567,13 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     world::SetCurrentSceneType(2);
                 }
             } else if (mainState == 21u) {
-                if (ProcessCharacterModal_462090(320, 240) == 1) {
+                if (ProcessCharacterModal_462090(connection, 320, 240) == 1) {
                     world::gCurrentSceneState = 10;
                 }
             }
 #ifndef _DEBUG
             else if (mainState == kUsageNoticeState) {
-                const std::int32_t choice = ProcessUsageNotice();
+                const std::int32_t choice = ProcessUsageNotice(connection);
                 if (choice == 1) {
                     EnterSelectedCharacter(connection);
                 } else if (choice == 2) {
@@ -1637,7 +1636,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     const std::wstring name = record.name;
                     cg::core::NullSub_509080();
                     world::gCurrentSceneState = 12;
-                    state::gDeleteCharacterName = name;
+                    connection.CharacterSelectUi().deleteCharacterName = name;
                 } else {
                     world::gCurrentSceneState = 21;
                 }

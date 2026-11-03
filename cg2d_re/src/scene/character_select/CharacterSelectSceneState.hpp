@@ -111,6 +111,9 @@ struct CharacterSelectSceneState {
     yobi::YobiAction* legacyVersionUpgradeAction = nullptr; // 原 0x9A6E68。
     std::int32_t updateAvailable = 0; // 原 0x9A6EAC；选角升级按钮门禁。
     yobi::YobiAction* deleteConfirmationAction = nullptr; // 原 0x9A6EB0；删除确认动作借用。
+    yobi::YobiAction* characterModalAction = nullptr; // 原 0x9A6E64，确认框动作借用。
+    std::wstring selectedCharacterName; // 原 0xDA391C。
+    std::wstring deleteCharacterName; // 原 0xDA3A9C。
     std::array<yobi::YobiAction*, 2> previewActions {}; // 原 0x9A6E44、0x9A6E48。
     CharacterCreationProgressState creationProgress {};
     CharacterCreationDraftState creationDraft {};

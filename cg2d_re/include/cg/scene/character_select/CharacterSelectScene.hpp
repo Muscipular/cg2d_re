@@ -34,6 +34,7 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00(network::CgConnection& conne
 
 // 原 sub_45DEE0@[0x45DEE0,0x45E089)。
 std::int32_t ProcessConfirmationDialog_45DEE0(
+    network::CgConnection& connection,
     std::int32_t x,
     std::int32_t y,
     std::wstring_view text,
@@ -43,6 +44,7 @@ std::int32_t ProcessConfirmationDialog_45DEE0(
 
 // 原 sub_45E090@[0x45E090,0x45E0B1)。
 std::int32_t ProcessDefaultConfirmationDialog_45E090(
+    network::CgConnection& connection,
     std::int32_t x,
     std::int32_t y,
     std::wstring_view text,
@@ -50,6 +52,7 @@ std::int32_t ProcessDefaultConfirmationDialog_45E090(
 
 // 原 sub_45E0C0@[0x45E0C0,0x45E3C1)。
 std::int32_t ProcessCharacterDeletionWarning_45E0C0(
+    network::CgConnection& connection,
     std::int32_t x,
     std::int32_t y);
 
@@ -58,6 +61,7 @@ void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint
 
 // 原 sub_462090@[0x462090,0x462327)。
 std::int32_t ProcessCharacterModal_462090(
+    network::CgConnection& connection,
     std::int32_t x,
     std::int32_t y);
 

@@ -149,9 +149,8 @@ void HandleLoginResponse_508BC0(cg::network::CgConnection& networkConnection,
 namespace cg::login::detail {
 
 // 原 sub_508C40@[0x508C40,0x508C81)：登出请求启动。
-std::uint32_t BeginLogoutRequest_508C40()
+std::uint32_t BeginLogoutRequest_508C40(cg::network::CgConnection& connection)
 {
-    auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
     const auto networkSession = connection.CaptureSession();
     request.logoutReplyCode = 0;
@@ -163,9 +162,9 @@ std::uint32_t BeginLogoutRequest_508C40()
 }
 
 // 原 sub_508C90@[0x508C90,0x508CF0)：登出回复及超时轮询。
-std::int32_t PollLogoutReply_508C90()
+std::int32_t PollLogoutReply_508C90(cg::network::CgConnection& connection)
 {
-    auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& request = connection.LoginRequests();
     if (request.status == 2) {
         const std::uint16_t replyCode = request.logoutReplyCode;
         request.status = 0;

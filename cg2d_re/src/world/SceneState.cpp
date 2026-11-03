@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/script/LuaRuntime.hpp"
@@ -78,8 +79,6 @@ static std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
 static std::int32_t gWorldSceneInitialized_FF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初始化标志，11分支只认恰1。
 static std::int32_t gWorldSceneWaitFrames_FF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
 static std::int32_t gWorldBgmResumeIndex_FF0D68 = 0; // 原全局：0x00FF0D68。 原普通场景BGM恢复号，不是当前播放号owner。
-static std::uint32_t gLogoutTransition9A6E94 = 0; // 原全局：0x009A6E94。 原45EBB0/45EEE0共享过渡阶段。
-static std::wstring gLogoutText9A5B08; // 原全局：0x009A5B08。 动态UTF-16消息，排他尾9A5C10独立。
 static cg::yobi::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
 static std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
@@ -2377,15 +2376,6 @@ namespace detail {
 // 原 519A80 公共尾；协议与普通场景后续复用，初值为 PE 零填充。
 std::uint16_t gPartyActive_FF0D36 = 0; // 原全局：0x00FF0D36。
 std::uint64_t gLastAdjacentInteractionTick_FF0D38 = 0; // 原全局：0x00FF0D38。
-
-// 原 0x9A6204：45ED80 重置、45ED90 读取并推进的场景 7 W32 状态。
-std::uint32_t gLogoutRequestScenePhase_9A6204 = 0;
-// 原 45ED90 的四个布局 W32 与非拥有 action 槽，均只由本体直接读写。
-std::int32_t gLogoutPanelRows_9A5674 = 0; // 原全局：0x009A5674。
-std::int32_t gLogoutPanelColumns_9A594C = 0; // 原全局：0x009A594C。
-std::int32_t gLogoutPanelTop_9A61F8 = 0; // 原全局：0x009A61F8。
-std::int32_t gLogoutPanelLeft_9A5AC0 = 0; // 原全局：0x009A5AC0。
-cg::yobi::YobiAction* gAction9A6E98 = nullptr; // 原全局：0x009A6E98。
 
 } // namespace detail
 
@@ -6697,9 +6687,10 @@ std::int32_t ResetSceneUiState_504100()
 }
 
 // 原函数：0x0045EEE0。
-std::int32_t ProcessLogoutTransition_45EEE0()
+std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session)
 {
-    const std::uint32_t phase = gLogoutTransition9A6E94;
+    auto& logout = session.WorldScene().logout;
+    const std::uint32_t phase = logout.transitionPhase;
     if (phase == 1) {
         if (ProcessSceneTransitionEffect_51FDE0(14, 8, 0x40000000U) == 1) {
             platform::gFrameBackgroundMode_73ECC0 = 0;
@@ -6711,9 +6702,9 @@ std::int32_t ProcessLogoutTransition_45EEE0()
         platform::gFrameBackgroundMode_73ECC0 = 2;
         cg::audio::BeginBgmFadeOut_52B990();
         const std::uint64_t tick = platform::ReadTickCount64();
-        const std::uint32_t next = gLogoutTransition9A6E94 + 1;
+        const std::uint32_t next = logout.transitionPhase + 1;
         gSceneTransitionResetPending_58B6D0 = 1;
-        gLogoutTransition9A6E94 = next;
+        logout.transitionPhase = next;
         platform::gLastRenderDt = static_cast<double>(tick);
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ClearObservationGroups_43F230();
@@ -8001,17 +7992,19 @@ std::int32_t ProcessSceneCenterScanlineTransition_51FC90(const std::int32_t mode
 }
 
 // 原函数：0x0045EBB0。
-std::int32_t ProcessLogoutScene_45EBB0()
+std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session)
 {
+    auto& connection = session.Connection();
+    auto& logout = session.WorldScene().logout;
     std::int32_t sceneState = gCurrentSceneState;
     if (sceneState == 0) {
         gGameplayRepliesSuppressed_9A6E0C = 1;
-        const std::int32_t transition = ProcessLogoutTransition_45EEE0();
+        const std::int32_t transition = ProcessLogoutTransition_45EEE0(session);
         if (transition == 0) {
             return transition;
         }
         cg::login::detail::SaveCurrentClientPreferences_520160();
-        gLogoutTransition9A6E94 = 0;
+        logout.transitionPhase = 0;
         DestroyPlayerMapPresence_519D50();
         ResetWorldObjectTable_446470();
         cg::yobi::YobiClearUp_404D30();
@@ -8023,33 +8016,33 @@ std::int32_t ProcessLogoutScene_45EBB0()
     bool resetFailure = false;
     bool resetMaintenance = false;
     if (sceneState == 1) {
-        ResetLogoutScene_45ED80();
+        ResetLogoutScene_45ED80(session);
         ++gCurrentSceneState;
     } else if (sceneState == 2) {
-        const std::int32_t result = UpdateLogoutScene_45ED90();
+        const std::int32_t result = UpdateLogoutScene_45ED90(session);
         if (result == 1) {
-            cg::network::GetGameConnection().Shutdown();
-            cg::network::GetGameConnection().DisconnectState() = 0;
+            connection.Shutdown();
+            connection.DisconnectState() = 0;
             cg::yobi::YobiClearUp_404D30();
             SetCurrentSceneType(2);
         } else if (result == 2) {
             gCurrentSceneState = 200;
-            cg::network::GetGameConnection().LoginRequests().logoutReplyCode = 0;
-            gLogoutText9A5B08 = LR"(相当抱歉，为了维持良好的游戏环境
+            connection.LoginRequests().logoutReplyCode = 0;
+            logout.text = LR"(相当抱歉，为了维持良好的游戏环境
 目前伺服器暂时进行停机维护。
 维护完毕后将重新开机，请稍做等候。)" /* 原常量参考：0x0055CA28。 */;
             resetMaintenance = true;
         } else if (result == -1) {
-            cg::network::GetGameConnection().Shutdown();
-            cg::network::GetGameConnection().DisconnectState() = 0;
+            connection.Shutdown();
+            connection.DisconnectState() = 0;
             gCurrentSceneState = 100;
-            gLogoutText9A5B08 = L"处理登出逾时。" /* 原常量参考：0x0055CA18。 */;
+            logout.text = L"处理登出逾时。" /* 原常量参考：0x0055CA18。 */;
             resetFailure = true;
         } else if (result == -2) {
-            cg::network::GetGameConnection().Shutdown();
-            cg::network::GetGameConnection().DisconnectState() = 0;
+            connection.Shutdown();
+            connection.DisconnectState() = 0;
             gCurrentSceneState = 100;
-            gLogoutText9A5B08 = L"登出处理失败。" /* 原常量参考：0x0055CA08。 */;
+            logout.text = L"登出处理失败。" /* 原常量参考：0x0055CA08。 */;
             resetFailure = true;
         }
     }
@@ -8057,26 +8050,26 @@ std::int32_t ProcessLogoutScene_45EBB0()
     // 原维护结果直接跳200重置，超时/失败直接跳100重置，均不重复入口分派。
     if (!resetMaintenance) {
         if (resetFailure || gCurrentSceneState == 100) {
-            login::ResetLoginMessage();
+            login::ResetLoginMessage(connection);
             ++gCurrentSceneState;
         }
-        if (gCurrentSceneState == 101 && login::UpdateLoginMessage(gLogoutText9A5B08) != 0) {
+        if (gCurrentSceneState == 101 && login::UpdateLoginMessage(connection, logout.text) != 0) {
             SetCurrentSceneType(2);
         }
         resetMaintenance = gCurrentSceneState == 200;
     }
     if (resetMaintenance) {
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         ++gCurrentSceneState;
     }
     const std::int32_t finalState = gCurrentSceneState;
     if (finalState == 201) {
-        const std::int32_t result = login::UpdateLoginMessage(gLogoutText9A5B08);
+        const std::int32_t result = login::UpdateLoginMessage(connection, logout.text);
         if (result == 0) {
             return result;
         }
-        cg::network::GetGameConnection().Shutdown();
-        cg::network::GetGameConnection().DisconnectState() = 0;
+        connection.Shutdown();
+        connection.DisconnectState() = 0;
         cg::yobi::YobiClearUp_404D30();
         return SetCurrentSceneType(2);
     }
@@ -8084,60 +8077,62 @@ std::int32_t ProcessLogoutScene_45EBB0()
 }
 
 // 原 [0x45ED80,0x45ED8B)：只清场景 7 阶段槽，不定义返回值。
-void ResetLogoutScene_45ED80()
+void ResetLogoutScene_45ED80(session::ClientSession& session)
 {
-    gLogoutRequestScenePhase_9A6204 = 0;
+    session.WorldScene().logout.requestPhase = 0;
 }
 
 // 原 [0x45ED90,0x45EEDA)：场景 7 请求进度与结果展示。
-std::int32_t UpdateLogoutScene_45ED90()
+std::int32_t UpdateLogoutScene_45ED90(session::ClientSession& session)
 {
+    auto& connection = session.Connection();
+    auto& logout = session.WorldScene().logout;
     std::int32_t result = 0;
-    if (gLogoutRequestScenePhase_9A6204 == 0) {
+    if (logout.requestPhase == 0) {
         const std::uint32_t initialTextWidth = static_cast<std::uint32_t>(cg::render::TextMeasure(gText55BAE0, 0));
-        gLogoutRequestScenePhase_9A6204 = 1;
+        logout.requestPhase = 1;
         const std::int32_t columns =
             static_cast<std::int32_t>((initialTextWidth >> 6) + 2U);
-        gLogoutPanelRows_9A5674 = 2;
-        gLogoutPanelColumns_9A594C = columns;
+        logout.rows = 2;
+        logout.columns = columns;
         const std::int32_t actionWidth = columns * 64;
-        const std::int32_t actionHeight = gLogoutPanelRows_9A5674 * 48;
+        const std::int32_t actionHeight = logout.rows * 48;
         // 原45ED90按640×480居中；场景7无布局偏移，背景与文字共用当前画布中心。
         const std::int32_t left = (platform::gWindowWidth - actionWidth) / 2;
         const std::int32_t top = (platform::gWindowHeight - actionHeight) / 2;
-        gLogoutPanelTop_9A61F8 = top;
-        gLogoutPanelLeft_9A5AC0 = left;
-        gAction9A6E98 = cg::yobi::CreateModalAction_5044E0(
+        logout.top = top;
+        logout.left = left;
+        logout.action = cg::yobi::CreateModalAction_5044E0(
             left, top, actionWidth, actionHeight, 4, 1);
     }
 
-    const std::uint32_t phase = gLogoutRequestScenePhase_9A6204;
+    const std::uint32_t phase = logout.requestPhase;
     if (phase == 1) {
-        if (cg::network::GetGameConnection().LoginRequests().logoutReplyCode != 2) {
-            static_cast<void>(login::detail::BeginLogoutRequest_508C40());
+        if (connection.LoginRequests().logoutReplyCode != 2) {
+            static_cast<void>(login::detail::BeginLogoutRequest_508C40(connection));
         }
-        ++gLogoutRequestScenePhase_9A6204;
+        ++logout.requestPhase;
     } else if (phase == 2) {
-        result = login::detail::PollLogoutReply_508C90();
+        result = login::detail::PollLogoutReply_508C90(connection);
         if (result != 0) {
-            cg::yobi::YobiAction* const action = gAction9A6E98;
+            cg::yobi::YobiAction* const action = logout.action;
             if (action != nullptr) {
                 cg::yobi::MarkDeath(action);
-                gAction9A6E98 = nullptr;
+                logout.action = nullptr;
             }
             return result;
         }
     }
 
-    cg::yobi::YobiAction* const action = gAction9A6E98;
+    cg::yobi::YobiAction* const action = logout.action;
     if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
-        const std::int32_t rows = gLogoutPanelRows_9A5674;
-        const std::int32_t top = gLogoutPanelTop_9A61F8;
+        const std::int32_t rows = logout.rows;
+        const std::int32_t top = logout.top;
         const std::int32_t drawY = top + (48 * rows - 16) / 2;
         const std::int32_t textWidth = cg::render::TextMeasure(gText55BAE0, 0);
-        const std::int32_t columns = gLogoutPanelColumns_9A594C;
+        const std::int32_t columns = logout.columns;
         const std::int32_t horizontalWidth = columns * 64 - textWidth;
-        const std::int32_t left = gLogoutPanelLeft_9A5AC0;
+        const std::int32_t left = logout.left;
         const std::int32_t drawX = horizontalWidth / 2 + left;
         static_cast<void>(render::DrawText3_456560(
             static_cast<std::int16_t>(drawX),

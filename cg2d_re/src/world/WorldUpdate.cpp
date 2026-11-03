@@ -145,7 +145,7 @@ void Update(session::ClientSession& session)
         login::ProcessState_45E960(session.Connection());
         goto sceneSixTail;
     case 7:
-        detail::ProcessLogoutScene_45EBB0();
+        detail::ProcessLogoutScene_45EBB0(session);
         cg::yobi::YobiUpdateAll_404C50();
         return;
     case 8:

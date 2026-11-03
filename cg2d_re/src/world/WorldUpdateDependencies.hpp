@@ -96,14 +96,13 @@ std::int32_t InitializeGameplayNotifications_504A30();                 // 原 [0
 // 原函数：0x00504100。
 std::int32_t ResetSceneUiState_504100();                 // 原 [0x504100,0x504113)，顺序清三槽、返回 0。
 // 原函数：0x0045EBB0。
-std::int32_t ProcessLogoutScene_45EBB0();                 // 原 0x45EBB0。
+std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session); // 原 0x45EBB0。
 // 原函数：0x0045EEE0。
-std::int32_t ProcessLogoutTransition_45EEE0();                 // 原45EEE0，场景7过渡初始化/绘制，仅完成时返回1。
+std::int32_t ProcessLogoutTransition_45EEE0(session::ClientSession& session); // 原45EEE0，场景7过渡初始化/绘制，仅完成时返回1。
 // 原函数：0x0045ED80。
-void ResetLogoutScene_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。
-extern std::uint32_t gLogoutRequestScenePhase_9A6204;         // 原 0x9A6204；45ED90 后续复用。
+void ResetLogoutScene_45ED80(session::ClientSession& session); // 原 [0x45ED80,0x45ED8B)，重置 9A6204。
 // 原函数：0x0045ED90。
-std::int32_t UpdateLogoutScene_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
+std::int32_t UpdateLogoutScene_45ED90(session::ClientSession& session); // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。
 // 原函数：0x0051C7D0。
 void DrawNormalScene_51C7D0();             // 原 World::DrawNormalScene@0x51C7D0。
 // 原函数：0x0051D5B0。

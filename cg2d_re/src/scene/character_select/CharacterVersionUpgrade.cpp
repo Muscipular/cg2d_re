@@ -5,6 +5,7 @@
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
+#include "CharacterSelectSceneState.hpp"
 #include "CharacterSelectState.hpp"
 
 #include "cg/scene/login/LoginMessage.hpp"
@@ -31,17 +32,13 @@ static constexpr wchar_t kUpgradeFailedText[] =
     L"版本升级失败。";
 static constexpr wchar_t kCannotUpgradeText[] =
     L"无法更新版本。";
-// 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。
-static cg::yobi::YobiAction* gVersionUpgradeAction = nullptr;
-// 原 0x9A6E68，仅 sub_45E3D0 直接读写，与 0x9A6EB4 分槽。
-static cg::yobi::YobiAction* gLegacyVersionUpgradeAction = nullptr;
-
 // 原函数：0x0045E3D0。
 std::int32_t ProcessLegacyVersionScene_45E3D0()
 {
+    auto& scene = cg::network::GetGameConnection().CharacterSelectUi();
     switch (static_cast<std::uint32_t>(world::gCurrentSceneState)) {
     case 0:
-        gLegacyVersionUpgradeAction = nullptr;
+        scene.legacyVersionUpgradeAction = nullptr;
         [[fallthrough]];
     case 1:
         world::gCurrentSceneState = 2;
@@ -59,13 +56,13 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         }
         break;
     case 3: {
-        gLegacyVersionUpgradeAction = nullptr;
+        scene.legacyVersionUpgradeAction = nullptr;
         std::int32_t columns =
             (cg::render::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;
         if (columns < 2) {
             columns = 2;
         }
-        gLegacyVersionUpgradeAction = cg::yobi::CreateModalAction_5044E0(
+        scene.legacyVersionUpgradeAction = cg::yobi::CreateModalAction_5044E0(
             ((10 - columns) * 64) / 2,
             192,
             columns * 64,
@@ -76,7 +73,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         break;
     }
     case 4: {
-        cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = scene.legacyVersionUpgradeAction;
         if (action != nullptr
             && cg::yobi::IsYobiActionStateEqual(
                 action,
@@ -96,7 +93,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         break;
     }
     case 100: {
-        cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = scene.legacyVersionUpgradeAction;
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
         }
@@ -110,7 +107,7 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
         }
         break;
     case 200: {
-        cg::yobi::YobiAction* const action = gLegacyVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = scene.legacyVersionUpgradeAction;
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
         }
@@ -142,9 +139,10 @@ std::int32_t ProcessLegacyVersionScene_45E3D0()
 // 原函数：0x00462330。
 std::int32_t ProcessScene_462330()
 {
+    auto& scene = cg::network::GetGameConnection().CharacterSelectUi();
     switch (static_cast<std::uint32_t>(world::gCurrentSceneState)) {
     case 0:
-        gVersionUpgradeAction = nullptr;
+        scene.versionUpgradeAction = nullptr;
         [[fallthrough]];
     case 1:
         world::gCurrentSceneState = 2;
@@ -177,13 +175,13 @@ std::int32_t ProcessScene_462330()
         }
         break;
     case 3: {
-        gVersionUpgradeAction = nullptr;
+        scene.versionUpgradeAction = nullptr;
         std::int32_t columns =
             (cg::render::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;
         if (columns < 2) {
             columns = 2;
         }
-        gVersionUpgradeAction = cg::yobi::CreateModalAction_5044E0(
+        scene.versionUpgradeAction = cg::yobi::CreateModalAction_5044E0(
             ((10 - columns) * 64) / 2,
             192,
             columns * 64,
@@ -194,7 +192,7 @@ std::int32_t ProcessScene_462330()
         break;
     }
     case 4: {
-        cg::yobi::YobiAction* const action = gVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = scene.versionUpgradeAction;
         if (action != nullptr
             && cg::yobi::IsYobiActionStateEqual(
                 action,
@@ -214,7 +212,7 @@ std::int32_t ProcessScene_462330()
         break;
     }
     case 100: {
-        cg::yobi::YobiAction* const action = gVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = scene.versionUpgradeAction;
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
         }
@@ -235,7 +233,7 @@ std::int32_t ProcessScene_462330()
         }
         break;
     case 200: {
-        cg::yobi::YobiAction* const action = gVersionUpgradeAction;
+        cg::yobi::YobiAction* const action = scene.versionUpgradeAction;
         if (action != nullptr) {
             cg::yobi::MarkDeath(action);
         }

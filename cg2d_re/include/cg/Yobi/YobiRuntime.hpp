@@ -245,7 +245,7 @@ YobiAction* CreateMapActorAction_441DB0(
     std::int32_t mapY, std::int32_t direction);
 // LDT01／原448040：独立载荷、同临时槽四次坐标赋值/投影与tick；447E60及十种模式已有本体。
 YobiAction* CreateMapTransitionAction_448040(
-    std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
+    session::ClientSession& session, std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
     std::int32_t direction, std::int16_t mode, std::int16_t searchDirection02,
     std::int32_t objectIndex);
 // WLR01：519D50/4462E0/4464D0共用八槽/text清理；逐槽标死清引用，不处理+34/+38或释放主action/payload。

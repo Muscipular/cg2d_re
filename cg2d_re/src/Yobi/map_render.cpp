@@ -124,12 +124,12 @@ static void UpdateOneShotMapAnimation_4441A0(YobiAction* const action)
 
 // 原444260：无payload附件，仅借用可选的父引用槽，不改变通用释放逻辑。
 YobiAction* CreateOneShotMapAnimation_444260(
-    const std::int32_t imageNo, const std::int32_t mapX,
+    YobiAction* const source, const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t characterAction,
     const std::int32_t direction, const std::uint8_t displayPriority,
     YobiAction** const completionSlot)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }

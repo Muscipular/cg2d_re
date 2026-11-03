@@ -276,7 +276,7 @@ std::int32_t HandleDuelPointResultReply_50D700(cg::network::CgConnection&,
 
 // LDT01：外层图号先转换；有记录先生产12字段再检查mode，无记录先检查mode。
 // 原函数：0x0050DD80。
-void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection&, const std::int32_t objectIndex,
+void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection& connection, const std::int32_t objectIndex,
     const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
     const std::int32_t withRecord, const std::int32_t mode,
@@ -311,7 +311,7 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection&, const std:
         default:
             return;
         }
-        static_cast<void>(cg::yobi::CreateMapTransitionAction_448040(
+        static_cast<void>(cg::yobi::CreateMapTransitionAction_448040(connection.Owner(),
             convertedImageNo, mapX, mapY, direction, actionMode, value02, -1));
         return;
     }
@@ -367,7 +367,7 @@ void HandleMapActorTransitionReply_50DD80(cg::network::CgConnection&, const std:
     default:
         return;
     }
-    static_cast<void>(cg::yobi::CreateMapTransitionAction_448040(
+    static_cast<void>(cg::yobi::CreateMapTransitionAction_448040(connection.Owner(),
         convertedImageNo, recordX, recordY, recordDirection,
         actionMode, 0, objectIndex));
 }

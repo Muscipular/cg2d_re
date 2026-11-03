@@ -568,7 +568,7 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
                 static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
-            *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, slot);
+            *slot = CreateOneShotMapAnimation_444260(action, 0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, slot);
             payload->flags10C |= WanderingTransitionEffectFlag_FirstEffectAttempted;
         }
     }
@@ -582,7 +582,7 @@ static std::int32_t UpdateWanderingMapTransition_446D80(YobiAction* const action
                 static_cast<std::int32_t>(action->mapY1F0);
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
-            *slot = CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, slot);
+            *slot = CreateOneShotMapAnimation_444260(action, 0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, slot);
             payload->flags10C |= WanderingTransitionEffectFlag_SecondEffectAttempted;
         }
     }
@@ -618,7 +618,7 @@ static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const act
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
             payload->slots18.attachments.firstEffect18 =
-                CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, nullptr);
+                CreateOneShotMapAnimation_444260(action, 0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, nullptr);
         }
     }
     if (payload->slots18.attachments.secondEffect1C == nullptr) {
@@ -630,7 +630,7 @@ static std::int32_t UpdatePairedEffectMapTransition_446FA0(YobiAction* const act
             const std::int32_t x =
                 static_cast<std::int32_t>(action->mapX1E0);
             payload->slots18.attachments.secondEffect1C =
-                CreateOneShotMapAnimation_444260(0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, nullptr);
+                CreateOneShotMapAnimation_444260(action, 0x18902, x, y, CharacterAnimation_Stand, 0, displayPriority, nullptr);
         }
     }
     const std::uint64_t tick = platform::ReadTickCount64();
@@ -843,12 +843,12 @@ static void UpdateMapTransitionAction_447E60(YobiAction* const action)
 // LDT01：四次构造复用同一临时槽，count/encoded/mask全部取齐后再同序发布。
 // 原函数：0x00448040。
 YobiAction* CreateMapTransitionAction_448040(
-    const std::int32_t imageNo, const std::int32_t mapX,
+    session::ClientSession& session, const std::int32_t imageNo, const std::int32_t mapX,
     const std::int32_t mapY, const std::int32_t direction,
     const std::int16_t mode, const std::int16_t searchDirection02,
     const std::int32_t objectIndex)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(detail::MapTransitionPayload), YobiPayloadKind::MapTransition);
+    YobiAction* const action = NewYobiAction_404AE0(session, 2, sizeof(detail::MapTransitionPayload), YobiPayloadKind::MapTransition);
     if (action == nullptr) {
         return nullptr;
     }

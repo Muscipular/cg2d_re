@@ -2477,11 +2477,7 @@ std::uint32_t gMapTargetLeftHeld_C8A7A4 = 0; // 原全局：0x00C8A7A4。
 std::uint32_t gMapTargetInteractionClick_C8A7A8 = 0; // 原全局：0x00C8A7A8。
 std::uint32_t gMapTargetRightHeld_C8A7AC = 0; // 原全局：0x00C8A7AC。
 std::uint64_t gLastMapMoveTargetTick_55DDAC = UINT64_MAX; // 原全局：0x0055DDAC。
-std::uint32_t gMapRectangleRequestPending_C82208 = 0; // 原全局：0x00C82208。
 std::uint32_t gMapTransitionObservationPrepared_C8220C = 0; // 原全局：0x00C8220C。
-std::uint32_t gMapTransitionReplyPending_C82210 = 0; // 原全局：0x00C82210。
-std::uint32_t gMapTransitionAwaitingRectangle_C82214 = 0; // 原全局：0x00C82214。
-std::uint32_t gMapNameReceivedDuringTransition_C82218 = 0; // 原全局：0x00C82218。
 std::int32_t gDayPeriodPaletteEnabled_73ED44 = 0; // 原全局：0x0073ED44。
 
 } // namespace detail
@@ -3372,9 +3368,9 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     gMapLeftHoldDurationMs_C8A778 = 0;
     gMapLeftPressTick_C8A794 = 0;
     gMapTransitionObservationPrepared_C8220C = 0;
-    gMapTransitionReplyPending_C82210 = 0;
-    gMapTransitionAwaitingRectangle_C82214 = 0;
-    gMapNameReceivedDuringTransition_C82218 = 0;
+    session.WorldScene().mapTransitionReplyPending = 0;
+    session.WorldScene().mapTransitionAwaitingRectangle = 0;
+    session.WorldScene().mapNameReceivedDuringTransition = 0;
     gPendingMapTransitionSequence_9DAD54 = 0xFFFFu;
     gPendingDirectionalTransitionSequence_9FB92C = 0xFFFFu;
     gPlayerPathFinalFacingDirection_55D9FC = 0xFFFFu;
@@ -3671,13 +3667,13 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         goto inputTail;
     }
     case 202:
-        if (gMapTransitionReplyPending_C82210 != 0) {
+        if (session.WorldScene().mapTransitionReplyPending != 0) {
             session.WorldScene().frameBackgroundMode = 0;
             static_cast<void>(ui::WindowRuntime_Render(session));
             RenderInput_4590E0();
             return;
         }
-        gMapTransitionReplyPending_C82210 = 0;
+        session.WorldScene().mapTransitionReplyPending = 0;
         [[fallthrough]];
     case 203:
         worldScene.normalSceneWaitFrames = 0;
@@ -3941,7 +3937,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         const std::int32_t selector = gLogoutToTownPending_D67E78 == 1 ? 15 : 13;
         if (ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000u) == 1) {
             gCurrentSceneState = 20;
-            gMapTransitionReplyPending_C82210 = 0;
+            session.WorldScene().mapTransitionReplyPending = 0;
             gLogoutToTownPending_D67E78 = 0;
         }
         input::ProcessKeyInput_4596D0(session);
@@ -5020,10 +5016,10 @@ void* __cdecl RequestDetectedMapTransition_46ADA0(session::ClientSession& sessio
     gMapTransitionRequestSequence_C8221C = nextSequence;
     void* const result = PrepareMapTransitionObservationState_51D5B0(session);
     gMapTransitionObservationPrepared_C8220C = 1;
-    gMapTransitionReplyPending_C82210 = 1;
-    gMapRectangleRequestPending_C82208 = 1;
-    gMapTransitionAwaitingRectangle_C82214 = 0;
-    gMapNameReceivedDuringTransition_C82218 = 0;
+    session.WorldScene().mapTransitionReplyPending = 1;
+    session.WorldScene().mapRectangleRequestPending = 1;
+    session.WorldScene().mapTransitionAwaitingRectangle = 0;
+    session.WorldScene().mapNameReceivedDuringTransition = 0;
     return result;
 }
 
@@ -10217,7 +10213,7 @@ void HandleBattleResultsReply_50D500(cg::network::CgConnection&, const char* con
 }
 
 // 原 [0x50CF90,0x50CFF7)：回复序号按 S16 比较，成功时清地图请求状态。
-void __cdecl HandleMapTransitionReply_50CF90(cg::network::CgConnection&, const std::int32_t sequence,
+void __cdecl HandleMapTransitionReply_50CF90(cg::network::CgConnection& connection, const std::int32_t sequence,
     const std::int32_t status)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
@@ -10227,10 +10223,10 @@ void __cdecl HandleMapTransitionReply_50CF90(cg::network::CgConnection&, const s
         gMapTransitionRequestPending_9A86D8 = 0;
         if (status == 0) {
             detail::InvalidateMapDrawPosition_4691D0();
-            detail::gMapRectangleRequestPending_C82208 = 0;
-            detail::gMapTransitionReplyPending_C82210 = 0;
-        } else if (detail::gMapTransitionAwaitingRectangle_C82214 == 0) {
-            detail::gMapTransitionReplyPending_C82210 = 0;
+            connection.Owner().WorldScene().mapRectangleRequestPending = 0;
+            connection.Owner().WorldScene().mapTransitionReplyPending = 0;
+        } else if (connection.Owner().WorldScene().mapTransitionAwaitingRectangle == 0) {
+            connection.Owner().WorldScene().mapTransitionReplyPending = 0;
         }
     } else if (std::bit_cast<std::int16_t>(detail::gPendingDirectionalTransitionSequence_9FB92C) == sequence &&
                status == 0) {
@@ -10252,7 +10248,7 @@ void __cdecl HandleMapRectangleCrcReply_509090(cg::network::CgConnection& connec
         return;
     }
     if (gMapFloor == floor) {
-        detail::gMapRectangleRequestPending_C82208 = 0;
+        connection.Owner().WorldScene().mapRectangleRequestPending = 0;
     }
     if ((connection.Owner().WorldScene().worldEntryRepliesPendingMask & 1u) != 0) {
         detail::InvalidateMapDrawPosition_4691D0();
@@ -10332,10 +10328,10 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnectio
 
     static_cast<void>(detail::WriteMapCacheRectangle_4688A0(
         mapId, floor, xStart, yStart, xEnd, yEnd, tile, obj, hit));
-    if ((detail::gWaitingForMapRectangleData_9EE8B8 != 0 || detail::gMapRectangleRequestPending_C82208 != 0)
+    if ((detail::gWaitingForMapRectangleData_9EE8B8 != 0 || connection.Owner().WorldScene().mapRectangleRequestPending != 0)
         && gMapFloor == floor) {
         detail::InvalidateMapDrawPosition_4691D0();
-        detail::gMapRectangleRequestPending_C82208 = 0;
+        connection.Owner().WorldScene().mapRectangleRequestPending = 0;
     }
     // 原先取 BYTE 标记和当前地图号，再发布清位后的同一样本。
     const std::uint8_t replyFlags = connection.Owner().WorldScene().worldEntryRepliesPendingMask;
@@ -10351,7 +10347,7 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnectio
         detail::gMapWindowReloadPending_9EE910 = 1;
     }
 
-    const std::uint32_t state = detail::gMapTransitionAwaitingRectangle_C82214;
+    const std::uint32_t state = connection.Owner().WorldScene().mapTransitionAwaitingRectangle;
     if (state != 1) {
         return std::bit_cast<std::int32_t>(state);
     }
@@ -10359,9 +10355,9 @@ std::int32_t __cdecl HandleMapRectangleDataReply_509100(cg::network::CgConnectio
     if (currentFloor != floor) {
         return currentFloor;
     }
-    detail::gMapTransitionReplyPending_C82210 = 0;
-    detail::gMapTransitionAwaitingRectangle_C82214 = 0;
-    detail::gMapNameReceivedDuringTransition_C82218 = 0;
+    connection.Owner().WorldScene().mapTransitionReplyPending = 0;
+    connection.Owner().WorldScene().mapTransitionAwaitingRectangle = 0;
+    connection.Owner().WorldScene().mapNameReceivedDuringTransition = 0;
     return 0;
 }
 
@@ -10373,7 +10369,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
     const std::int32_t a13)
 {
     const std::uint8_t priorFlag = connection.Owner().WorldScene().worldEntryRepliesPendingMask;
-    detail::gMapRectangleRequestPending_C82208 = 1;
+    connection.Owner().WorldScene().mapRectangleRequestPending = 1;
     if (priorFlag == 0 && gCurrentSceneType == 9) {
         if (detail::gMapTransitionObservationPrepared_C8220C == 0) {
             gCurrentSceneState = 200;
@@ -10439,8 +10435,8 @@ std::int32_t __cdecl HandleMapNameReply_509550(cg::network::CgConnection& connec
             connection.Owner().WorldScene().pendingMapPaletteIndex = -1;
         }
     }
-    if (detail::gMapTransitionReplyPending_C82210 == 1) {
-        detail::gMapNameReceivedDuringTransition_C82218 = 1;
+    if (connection.Owner().WorldScene().mapTransitionReplyPending == 1) {
+        connection.Owner().WorldScene().mapNameReceivedDuringTransition = 1;
     }
     return 1;
 }

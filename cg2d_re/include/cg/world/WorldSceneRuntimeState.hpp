@@ -70,6 +70,10 @@ struct WorldSceneRuntimeState {
     ChatInputHistoryState chatInputHistory {};
     std::uint8_t worldEntryRepliesPendingMask = 0; // 原 0x9A4B94，入场等待与地图回复的两位。
     std::int32_t pendingMapPaletteIndex = 0; // 原 0xFF0D4C，地图名回复生产、场景调色板消费。
+    std::uint32_t mapRectangleRequestPending = 0; // 原 0xC82208，请求、CRC/数据回复共用。
+    std::uint32_t mapTransitionReplyPending = 0; // 原 0xC82210，转场等待与回复共用。
+    std::uint32_t mapTransitionAwaitingRectangle = 0; // 原 0xC82214，转场及矩形回复共用。
+    std::uint32_t mapNameReceivedDuringTransition = 0; // 原 0xC82218，地图名及矩形回复共用。
     std::int32_t frameBackgroundMode = 0; // 原 0x73ECC0，世界场景生产、主循环清屏消费。
     std::int32_t forceRender = 0; // 原 0x73ECE4，普通场景请求、主循环消费。
     std::uint32_t pendingMapBgmIndex = 0; // 原 0xFF0D5C，地图回复生产、普通场景消费。

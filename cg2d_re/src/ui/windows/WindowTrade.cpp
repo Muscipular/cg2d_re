@@ -501,9 +501,9 @@ void WindowTrade_SwapDisplayItems(
 }
 
 // 原函数：0x004B0000。
-void WindowTrade_ResetSelection(const std::int32_t first, const std::int32_t second)
+void WindowTrade_ResetSelection(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
-    if (WindowRuntime_States()[WindowId_Trade].window == nullptr) {
+    if (WindowRuntime_States(session)[WindowId_Trade].window == nullptr) {
         return;
     }
     for (std::uint8_t& slot : gTradeItemSlotsCF3AE8) {
@@ -926,7 +926,7 @@ static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, const std::
             if (preview >= 0) {
                 const std::int32_t page = std::bit_cast<std::int8_t>(gTradeTooltipPageCB10D4);
                 if (ownItem) {
-                    static_cast<void>(WindowItem_DrawEquipmentTooltip(preview, page));
+                    static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, preview, page));
                 } else {
                     static_cast<void>(WindowItem_DrawPetTooltip(0, preview, page));
                 }
@@ -1391,7 +1391,7 @@ static void WindowTrade_HandleOwnPets(
                 const std::int32_t target =
                     std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
                 if (gTradePetMarksCF3AFC[target] == 0) {
-                    WindowItem_RequestPetTransfer(43, 11, source, target);
+                    WindowItem_RequestPetTransfer(session, 43, 11, source, target);
                 }
             }
             break;

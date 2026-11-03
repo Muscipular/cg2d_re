@@ -669,7 +669,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         if ((events & MouseFlag_DragFinish) != 0) {
             const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             const std::int16_t target = petIndex(row);
-            WindowItem_RequestPetTransfer(15, index, source, target);
+            WindowItem_RequestPetTransfer(*callbackWindow.ownerSession, 15, index, source, target);
             WindowDrag_Reset(*callbackWindow.ownerSession);
         }
         if ((events & MouseFlag_Hover) != 0) {

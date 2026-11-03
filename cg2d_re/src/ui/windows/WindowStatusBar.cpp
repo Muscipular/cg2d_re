@@ -324,7 +324,7 @@ std::int32_t WindowStatusBar_ButtonMiniMap(WindowInstance& callbackWindow, const
         return 0;
     }
     if (window == nullptr) {
-        static_cast<void>(WindowMiniMap_Open(0, 0, nullptr));
+        static_cast<void>(WindowMiniMap_Open(*callbackWindow.ownerSession, 0, 0, nullptr));
     } else {
         window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));

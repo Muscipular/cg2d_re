@@ -638,7 +638,7 @@ static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, const s
         const std::int32_t selected = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10);
         if (selected >= 0) {
             const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14);
-            static_cast<void>(WindowItem_DrawEquipmentTooltip(selected, page));
+            static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, selected, page));
         }
     } else if (mode == 1 || mode == 2) {
         const std::wstring_view* const text = mode == 1 ? selectionText586B14 : selectionText586B5C;

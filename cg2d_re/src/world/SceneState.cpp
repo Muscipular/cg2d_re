@@ -2209,7 +2209,6 @@ std::int32_t gBattleCommandX553F78 = 490; // 原全局：0x00553F78。
 std::int32_t gBattleCommandY553F7C = -104; // 原全局：0x00553F7C。
 std::int32_t gBattleCommandValue553F80 = 17; // 原全局：0x00553F80。
 std::array<std::int32_t, 9> gBattleResetValues5ABB84 {}; // 原全局：0x005ABB84。
-cg::yobi::YobiAction* gBattleEntryNoticeAction5ABFB8 = nullptr; // 原全局：0x005ABFB8。
 std::int32_t gBattleSelectionMode5ABC70 = 0; // 原全局：0x005ABC70。
 std::int32_t gBattleSkillUsed5ABC68 = 0; // 原全局：0x005ABC68。
 std::int32_t gBattlePetCommandPhase553F88 = 1; // 原全局：0x00553F88。
@@ -4039,7 +4038,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         }
         cg::yobi::YobiClearUp_404D30(session);
         cg::yobi::InitializeBattleScene_4383F0(session);
-        gBattleEntryNoticeAction5ABFB8 = nullptr;
+        session.WorldScene().battle.entryNoticeAction = nullptr;
         battleScene.exitAction = nullptr;
         session.WorldScene().transitionResetPending = 1;
         gBattleCommandAction5ABC00 = nullptr;
@@ -4188,7 +4187,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         break;
     }
     case 3:
-        ui::detail::WindowBattleStateNotice_Open();
+        ui::detail::WindowBattleStateNotice_Open(session);
         input::ProcessKeyInput_4596D0(session);
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         static_cast<void>(cg::yobi::SortBattleActions_405C30(session));
@@ -4200,10 +4199,10 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         RenderInput_4590E0(session);
         static_cast<void>(NextRotationValue_455C70(session));
         if (cg::yobi::ReturnBattleActorsToFormation_43C910() == 1) {
-            if (gBattleEntryNoticeAction5ABFB8 != nullptr) {
-                static_cast<void>(cg::yobi::MarkDeath(gBattleEntryNoticeAction5ABFB8));
+            if (session.WorldScene().battle.entryNoticeAction != nullptr) {
+                static_cast<void>(cg::yobi::MarkDeath(session.WorldScene().battle.entryNoticeAction));
                 const std::uint32_t flags = gBattlePlayerFlags5ABCAC & ~3U;
-                gBattleEntryNoticeAction5ABFB8 = nullptr;
+                session.WorldScene().battle.entryNoticeAction = nullptr;
                 gBattlePlayerFlags5ABCAC = flags;
             }
             BeginBattleCommandSelection_43C4E0(session);

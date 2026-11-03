@@ -41,7 +41,7 @@ int InitializeWindow(session::ClientSession& session)
         if (option != nullptr && std::sscanf(std::strchr(option, ':') + 1, "%d", &height) == 1) {
             gWindowHeight = height;
         }
-        ui::InitializeWindowLayout();
+        ui::InitializeWindowLayout(session);
         m_log_iw(L"%d %d\n", width, height);
         layoutInitialized = true;
     }

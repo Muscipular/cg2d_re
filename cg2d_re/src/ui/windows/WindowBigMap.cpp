@@ -1405,32 +1405,35 @@ struct BigMapWindowState final {
 
 };
 
-// 原生原型只允许一个实例；release在原生元素载荷释放之前结束地图缓存寿命。
-static std::unique_ptr<BigMapWindowState> gBigMapState;
+// 每会话只允许一个实例；release在原生元素载荷释放之前结束地图缓存寿命。
 static int WindowBigMap_Update(WindowInstance& callbackWindow, int stage) {
+    auto& state = callbackWindow.ownerSession->UiFrame().native.bigMap.state;
     if (stage == -1) {
-        gBigMapState = std::make_unique<BigMapWindowState>(callbackWindow);
+        state = std::make_unique<BigMapWindowState>(callbackWindow);
         return 1;
     }
-    return gBigMapState->Update(stage);
+    return state->Update(stage);
 }
-static int WindowBigMap_Element(WindowInstance& callbackWindow, ElementId elementId, int events) { return gBigMapState->OnElement(elementId, events); }
-static int WindowBigMap_Draw(WindowInstance& callbackWindow, int stage) { return gBigMapState->Draw(stage); }
-static void WindowBigMap_Release(WindowInstance&) { gBigMapState.reset(); }
+static int WindowBigMap_Element(WindowInstance& callbackWindow, ElementId elementId, int events) { return callbackWindow.ownerSession->UiFrame().native.bigMap.state->OnElement(elementId, events); }
+static int WindowBigMap_Draw(WindowInstance& callbackWindow, int stage) { return callbackWindow.ownerSession->UiFrame().native.bigMap.state->Draw(stage); }
+static void WindowBigMap_Release(WindowInstance& releasedWindow) { releasedWindow.ownerSession->UiFrame().native.bigMap.state.reset(); }
 
 } // namespace cg::ui::detail
 
 namespace cg::ui {
-void WindowBigMap_Open() {
+BigMapWindowRuntimeState::BigMapWindowRuntimeState() noexcept = default;
+BigMapWindowRuntimeState::~BigMapWindowRuntimeState() = default;
+
+void WindowBigMap_Open(session::ClientSession& session) {
     if (world::gCurrentSceneType != 9) return;
-    if (auto* existing = detail::WindowRuntime_States()[WindowId_BigMap].window) {
+    if (auto* existing = detail::WindowRuntime_States(session)[WindowId_BigMap].window) {
         existing->state &= ~std::uint32_t{0x8000};
         existing->state |= 0x2000u;
-        script::CloseNonDefaultWindows(WindowId_BigMap);
+        script::CloseNonDefaultWindows(session, WindowId_BigMap);
         return;
     }
-    if (WindowRuntime_Open(WindowId_BigMap)) {
-        script::CloseNonDefaultWindows(WindowId_BigMap);
+    if (WindowRuntime_Open(session, WindowId_BigMap)) {
+        script::CloseNonDefaultWindows(session, WindowId_BigMap);
     }
 }
 } // namespace cg::ui

@@ -211,21 +211,6 @@ WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session)
     return session.UiFrame().native.settings;
 }
 
-std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows()
-{
-    return WindowRuntime_Windows(session::GetClientHost().FirstSession());
-}
-
-std::array<WindowState, kWindowCount>& WindowRuntime_States()
-{
-    return WindowRuntime_States(session::GetClientHost().FirstSession());
-}
-
-WindowLayoutSettings& WindowRuntime_Settings()
-{
-    return WindowRuntime_Settings(session::GetClientHost().FirstSession());
-}
-
 std::uint8_t gOwnStallOpenForBusiness_D67BE0 = 0; // 原全局：0x00D67BE0。
 
 std::int32_t gDragItemIndex584DA4 = -1; // 原全局：0x00584DA4。
@@ -751,7 +736,7 @@ void WindowItemDrag_RemapHover(session::ClientSession& session, const std::int32
             gSelectedItemCB0A44 = first;
         }
     }
-    WindowTrade_ResetSelection(first, second);
+    WindowTrade_ResetSelection(session, first, second);
     WindowCraft_ResetSelection(session, first, second);
     WindowTrade_RemapTextListSelection(session, first, second);
     WindowSkill_AdjustSpecialHoverCount(session, first, second);
@@ -906,6 +891,7 @@ void WindowItem_RequestTransfer(
 
 // 原函数：0x0048BB90。
 void WindowItem_RequestPetTransfer(
+    session::ClientSession& session,
     const std::int32_t, const std::int32_t,
     const std::int32_t source, const std::int32_t target)
 {
@@ -913,20 +899,20 @@ void WindowItem_RequestPetTransfer(
         return;
     }
     if (source < 100 && target < 100) {
-        static_cast<void>(cg::network::GetGameConnection().MovePetSlotRequest(source, target));
+        static_cast<void>(session.Connection().MovePetSlotRequest(source, target));
         return;
     }
-    if (WindowRuntime_States()[WindowId_Bank].window == nullptr) {
+    if (WindowRuntime_States(session)[WindowId_Bank].window == nullptr) {
         return;
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"P|{}|{}", source, target);
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
-    const auto userState = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].userState.value);
-    const auto value14 = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value14);
+    const auto userState = std::bit_cast<std::int32_t>(WindowRuntime_States(session)[WindowId_Bank].userState.value);
+    const auto value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(session)[WindowId_Bank].value14);
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
+    static_cast<void>(session.Connection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
 }
 
 // 原函数：0x004EA670。
@@ -2478,7 +2464,7 @@ bool WindowItemSelector_HandlePlayerAttributes(WindowInstance* callbackWindow, W
 }
 
 // 原函数：0x0048B1A0。
-std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std::int32_t page)
+std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, const std::int32_t index, const std::int32_t page)
 {
     if (gTooltipSourceD303FC != index) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
@@ -2492,7 +2478,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std
             (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
-    const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection);
+    const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection);
     gTooltipSourceD303FC = index;
     const bool petEquipment = mode > 0 && index < 6;
     const world::PlayerItemRecord* record;

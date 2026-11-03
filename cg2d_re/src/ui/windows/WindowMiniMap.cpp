@@ -45,7 +45,7 @@ static std::int32_t WindowMiniMap_OpenBigMap(WindowInstance& callbackWindow, Ele
     auto* const graphic = element->data.graphic;
     graphic->imageNo = (events & MouseFlag_Hover) ? 0x3B53D : 0x3B53B;
     if (events & MouseFlag_Hover) uiFrame.hoverText = L"打开大地图";
-    if (events & MouseFlag_LDownEvent) WindowBigMap_Open();
+    if (events & MouseFlag_LDownEvent) WindowBigMap_Open(*callbackWindow.ownerSession);
     return events != 0;
 }
 
@@ -174,22 +174,23 @@ static std::int32_t WindowMiniMap_RefreshPlayerY(WindowInstance& callbackWindow,
 
 // 原函数：0x00495F00。
 cg::yobi::YobiAction* WindowMiniMap_Open(
+    session::ClientSession& session,
     const std::uint32_t flags, const std::uint32_t mode,
     cg::yobi::YobiAction** const completionSlot)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_MiniMap].window;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_MiniMap].window;
     std::int32_t x;
     std::int32_t y;
     if (window != nullptr) {
         window->state |= 0x8000u;
-        WindowInstance* const current = WindowRuntime_States()[WindowId_MiniMap].window;
+        WindowInstance* const current = WindowRuntime_States(session)[WindowId_MiniMap].window;
         x = current->x;
         y = current->y;
     } else {
-        x = WindowRuntime_States()[WindowId_MiniMap].x;
-        y = WindowRuntime_States()[WindowId_MiniMap].y;
+        x = WindowRuntime_States(session)[WindowId_MiniMap].x;
+        y = WindowRuntime_States(session)[WindowId_MiniMap].y;
     }
-    return cg::yobi::CreateWindowOpeningAnimation_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
+    return cg::yobi::CreateWindowOpeningAnimation_475950(session, x, y, 184, 159, 33, flags, mode, completionSlot);
 }
 
 } // namespace detail

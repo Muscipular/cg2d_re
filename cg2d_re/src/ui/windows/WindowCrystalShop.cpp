@@ -700,7 +700,7 @@ static std::int32_t WindowCrystalShop_Draw(WindowInstance& callbackWindow, const
     const std::int32_t tooltip = crystal.tooltip;
     if (tooltip >= 0) {
         if (tooltip < 100) {
-            static_cast<void>(WindowItem_DrawEquipmentTooltip(tooltip, crystal.tooltipPage));
+            static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, tooltip, crystal.tooltipPage));
         } else if (tooltip < 200) {
             const std::uint8_t flag = crystal.flag;
             const std::int32_t page = crystal.tooltipPage;

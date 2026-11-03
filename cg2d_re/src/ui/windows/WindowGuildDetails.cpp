@@ -966,9 +966,9 @@ std::int32_t WindowGuildDetails_CanEditRank(const std::int32_t index, const std:
 // 窗口函数实现。
 
 // 原函数：0x004AFF00。
-std::int32_t WindowGuildDetails_RequestClose()
+std::int32_t WindowGuildDetails_RequestClose(session::ClientSession& session)
 {
-    WindowInstance* const window = detail::WindowRuntime_States()[WindowId_GuildDetails].window;
+    WindowInstance* const window = detail::WindowRuntime_States(session)[WindowId_GuildDetails].window;
     if (window == nullptr) {
         return 0;
     }

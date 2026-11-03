@@ -90,6 +90,7 @@ struct BattleSceneState {
     std::int32_t sceneIndex = 0; // 原 0x5ABFD8。
     yobi::YobiAction* sceneAction = nullptr; // 原 0x5ABA94，非拥有场景根动作。
     yobi::YobiAction* exitAction = nullptr; // 原 0x5ABCDC。
+    yobi::YobiAction* entryNoticeAction = nullptr; // 原0x5ABFB8，窗口32开窗动作的非拥有引用。
     std::int32_t backgroundImage = 0; // 原 0x59F9F8，入战回复、淡变动作和重建共用。
     std::int32_t backgroundSnapshot = 0; // 原 0x5ABCD8，绘制后重读的背景图号。
     std::uint32_t exitNotificationPending = 0; // 原 0x5ABCB0。

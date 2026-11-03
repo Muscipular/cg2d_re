@@ -298,7 +298,7 @@ std::int32_t ProcessState_45E960(network::CgConnection& connection)
     auto& request = connection.LoginRequests();
     if (world::gCurrentSceneState == 0) {
         ResetLoginProgress(connection);
-        cg::world::ResetGuildStateAndCloseDetails_532D80();
+        cg::world::ResetGuildStateAndCloseDetails_532D80(connection.Owner());
         ++world::gCurrentSceneState;
     }
 

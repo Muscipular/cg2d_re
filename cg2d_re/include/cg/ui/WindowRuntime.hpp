@@ -142,7 +142,7 @@ void AdaptWindowPosition(
 bool CenterPopupWindowPosition(std::int32_t id, std::int32_t width, std::int32_t height,
     std::int32_t& x, std::int32_t& y);
 // 首次窗口初始化按已发布客户区尺寸调整原型和当前坐标，支持只指定一个轴。
-void InitializeWindowLayout();
+void InitializeWindowLayout(session::ClientSession& session);
 
 // G07：INVCF发布背包／银行页数及0基背包页；新增按钮在下次开窗时创建。
 void WindowRuntime_SetInventoryPages(session::ClientSession& session,
@@ -152,7 +152,7 @@ void WindowRuntime_SetInventoryPages(session::ClientSession& session,
 // 原函数：0x00471440。
 WindowInstance* WindowRuntime_Open(std::int32_t id); // 完整七类创建；原型表绑定仍是外部依赖。
 WindowInstance* WindowRuntime_Open(session::ClientSession& session, std::int32_t id);
-void WindowBigMap_Open(); // 小地图按钮唯一入口，复用原生原型与单实例生命周期。
+void WindowBigMap_Open(session::ClientSession& session); // 小地图按钮唯一入口，复用原生原型与各会话单实例生命周期。
 // 原函数：0x005342E0。
 WindowInstance* WindowProfileReply_Open(); // DpSY回复打开窗口64，透传借用实例指针。
 // 原函数：0x00475AA0。
@@ -168,7 +168,7 @@ WindowInstance* WindowStallBrowse_RequestClose(session::ClientSession& session);
 // 原函数：0x004CD400。
 WindowInstance* WindowOwnStall_RequestClose(session::ClientSession& session); // 原窗口67，同上；不直接关闭或清表。
 // 原函数：0x004AFF00。
-std::int32_t WindowGuildDetails_RequestClose(); // 借用窗口48置关闭标记，空返回0，否则透传音效结果。
+std::int32_t WindowGuildDetails_RequestClose(session::ClientSession& session); // 借用窗口48置关闭标记，空返回0，否则透传音效结果。
 std::uint8_t WindowRuntime_ReadUiGate() noexcept; // 共享UI门禁W8，world只读。
 std::uint8_t WindowRuntime_ReadObservationFlag(session::ClientSession& session) noexcept; // 技能回复与观察进入共用的UI标志。
 // 原数据：0x00584DA4。

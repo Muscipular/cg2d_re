@@ -233,7 +233,7 @@ void HandleGuildRankDefinitionsReply_50EB40(cg::network::CgConnection&, const ch
 }
 
 // 原函数：0x0050F280。
-void HandleGuildRemovalReply_50F280(cg::network::CgConnection&, const std::int32_t key)
+void HandleGuildRemovalReply_50F280(cg::network::CgConnection& connection, const std::int32_t key)
 {
     if (gGuildHeader10514A8.key00 != key) {
         return;
@@ -241,14 +241,14 @@ void HandleGuildRemovalReply_50F280(cg::network::CgConnection&, const std::int32
     ResetGuildRuntimeFields();
     static_cast<void>(cg::world::detail::ClearCurrentCharacterGuildMail_5194C0());
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
-    static_cast<void>(ui::WindowGuildDetails_RequestClose());
+    static_cast<void>(ui::WindowGuildDetails_RequestClose(connection.Owner()));
 }
 
 // 原函数：0x00532D80。
-std::int32_t ResetGuildStateAndCloseDetails_532D80()
+std::int32_t ResetGuildStateAndCloseDetails_532D80(session::ClientSession& session)
 {
     ResetGuildRuntimeFields();
-    return ui::WindowGuildDetails_RequestClose();
+    return ui::WindowGuildDetails_RequestClose(session);
 }
 
 // GMR01：原200排序记录W16==1计数，S32结果0..200，正文正确保持。

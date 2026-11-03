@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <ctime>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -16,6 +17,7 @@
 namespace cg::ui::detail {
 
 struct WindowElementPrototype;
+struct BigMapWindowState;
 
 // 原48B可变原型的原生x64表示，36/37等同源原型须共用对象。
 struct WindowPrototype {
@@ -1086,6 +1088,18 @@ struct NativeInputRuntimeState {
     };
 };
 
+// 大地图实现仍在窗口模块定义；该会话独占地图缓存及编辑器寿命。
+struct BigMapWindowRuntimeState {
+    BigMapWindowRuntimeState() noexcept;
+    ~BigMapWindowRuntimeState();
+    BigMapWindowRuntimeState(const BigMapWindowRuntimeState&) = delete;
+    BigMapWindowRuntimeState& operator=(const BigMapWindowRuntimeState&) = delete;
+    BigMapWindowRuntimeState(BigMapWindowRuntimeState&&) = delete;
+    BigMapWindowRuntimeState& operator=(BigMapWindowRuntimeState&&) = delete;
+
+    std::unique_ptr<detail::BigMapWindowState> state;
+};
+
 // 原生窗口实例地址稳定，状态记录与排序数组由同一账号会话持有。
 struct NativeWindowRuntimeState {
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
@@ -1117,6 +1131,7 @@ struct NativeWindowRuntimeState {
     ShopChoiceWindowRuntimeState shopChoice {};
     PetSkillChoiceWindowRuntimeState petSkillChoice {};
     TextListWindowRuntimeState textList {};
+    BigMapWindowRuntimeState bigMap {};
     std::array<detail::WindowDialogTextLine, 30> npcDialogLines {}; // 原0xCC24D4，首行标题与其余正文共用。
     MessageDialogWindowRuntimeState dialog {};
     AppearanceWindowRuntimeState appearance {};

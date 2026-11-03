@@ -125,7 +125,7 @@ static std::int32_t WindowItemStorage_Draw(WindowInstance& callbackWindow, const
     if (preview >= 0) {
         const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20);
         if (preview < 100) {
-            static_cast<void>(WindowItem_DrawEquipmentTooltip(preview, page));
+            static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, preview, page));
         } else {
             static_cast<void>(WindowItem_DrawDescriptionTooltip(preview - 100, page));
         }

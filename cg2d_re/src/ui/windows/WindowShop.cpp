@@ -3835,7 +3835,7 @@ static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::i
     const std::int32_t tooltip = shop.tooltipIndex;
     if (tooltip >= 0) {
         if (tooltip < 100) {
-            static_cast<void>(WindowItem_DrawEquipmentTooltip(tooltip, shop.tooltipPage));
+            static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, tooltip, shop.tooltipPage));
         } else if (tooltip < 200) {
             static_cast<void>(WindowItem_DrawShopTooltip(*callbackWindow.ownerSession, tooltip - 100, shop.tooltipPage, mode == 0));
         } else {

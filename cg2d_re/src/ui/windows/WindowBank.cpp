@@ -512,7 +512,7 @@ static std::int32_t WindowBank_Draw(WindowInstance& callbackWindow, const std::i
             if (preview >= 100) {
                 static_cast<void>(WindowItem_DrawDescriptionTooltip(preview - 100, page));
             } else {
-                static_cast<void>(WindowItem_DrawEquipmentTooltip(preview, page));
+                static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, preview, page));
             }
         }
     }
@@ -1382,7 +1382,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
                 allowed = pet.values6D8[1] <= 0 && empty;
             }
             if (allowed) {
-                WindowItem_RequestPetTransfer(41, index, source, petIndex);
+                WindowItem_RequestPetTransfer(*callbackWindow.ownerSession, 41, index, source, petIndex);
             } else {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
             }
@@ -1425,7 +1425,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
                     allowed = pet.values6D8[1] <= 0 && empty;
                 }
                 if (allowed) {
-                    WindowItem_RequestPetTransfer(41, index, petIndex, target + 100);
+                    WindowItem_RequestPetTransfer(*callbackWindow.ownerSession, 41, index, petIndex, target + 100);
                 } else {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
                 }
@@ -1508,7 +1508,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
                 }
             }
             if (allowed) {
-                WindowItem_RequestPetTransfer(41, index, source, petIndex + 100);
+                WindowItem_RequestPetTransfer(*callbackWindow.ownerSession, 41, index, source, petIndex + 100);
             } else {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"宠物欲放入家族宠物库，请卸下宠物身上的装备后再操作。" /* 原常量参考：0x00587900。 */, 4, 3);
             }

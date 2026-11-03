@@ -3219,7 +3219,7 @@ static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, const std::
     }
     const std::int32_t hovered = craft.materialHoveredItem;
     if (hovered >= 0) {
-        static_cast<void>(WindowItem_DrawEquipmentTooltip(hovered, craft.materialHintPage));
+        static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hovered, craft.materialHintPage));
     }
     if (craft.selectedItem >= 0) {
         WindowInstance* const window = currentWindow;

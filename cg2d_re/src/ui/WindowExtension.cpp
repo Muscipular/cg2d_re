@@ -22,7 +22,7 @@ void WindowRuntime_EnsureIdentity(WindowInstance& window) {
     }
 }
 WindowInstance* WindowRuntime_FindInstance(int id) {
-    return id >= 0 && id < WIN_MAX ? WindowRuntime_States()[id].window : nullptr;
+    return id >= 0 && id < WIN_MAX ? WindowRuntime_States(session::GetClientHost().FirstSession())[id].window : nullptr;
 }
 WindowInstance* WindowRuntime_FindInstance(session::ClientSession& session, int id) {
     if (id >= 0 && id < WIN_MAX) {

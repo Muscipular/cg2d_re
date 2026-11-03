@@ -34,11 +34,11 @@ WindowPrototype gWindowPrototypeBattleStateNotice {2, 3, 224, 162, 192, 96, 0x80
 // 窗口函数实现。
 
 // 原函数：0x0043C950。
-void WindowBattleStateNotice_Open()
+void WindowBattleStateNotice_Open(session::ClientSession& session)
 {
     if ((cg::world::gBattlePlayerFlags5ABCAC & 3u) != 0
-        && cg::world::gBattleEntryNoticeAction5ABFB8 == nullptr && WindowRuntime_States()[WindowId_BattleStateNotice].window == nullptr) {
-        cg::world::gBattleEntryNoticeAction5ABFB8 = WindowRuntime_CreateAnimation(WindowId_BattleStateNotice, 1, 0, nullptr);
+        && session.WorldScene().battle.entryNoticeAction == nullptr && WindowRuntime_States(session)[WindowId_BattleStateNotice].window == nullptr) {
+        session.WorldScene().battle.entryNoticeAction = WindowRuntime_CreateAnimation(session, WindowId_BattleStateNotice, 1, 0, nullptr);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
     }
 }
@@ -49,7 +49,7 @@ static std::int32_t WindowBattleStateNotice_Update(WindowInstance& callbackWindo
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const initialWindow = currentWindow;
-    world::gBattleEntryNoticeAction5ABFB8 = nullptr;
+    callbackWindow.ownerSession->WorldScene().battle.entryNoticeAction = nullptr;
     if (auto* const element1 = initialWindow->FindElementById(WindowBattleStateNoticeElementId::Element1); element1) element1->visible = 0;
     if (auto* const element2 = currentWindow->FindElementById(WindowBattleStateNoticeElementId::Element2); element2) element2->visible = 0;
     if (world::gCurrentSceneState != 3) {

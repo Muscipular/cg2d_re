@@ -101,7 +101,7 @@ bool CenterPopupWindowPosition(const std::int32_t id,
     return true;
 }
 
-void InitializeWindowLayout()
+void InitializeWindowLayout(session::ClientSession& session)
 {
     const auto& original = GetOriginalWindowBounds();
     for (std::size_t index = 0; index < detail::kWindowCount; ++index) {
@@ -109,8 +109,8 @@ void InitializeWindowLayout()
         prototype.defaultX = original[index].x;
         prototype.defaultY = original[index].y;
         AdaptWindowPosition(prototype.defaultX, prototype.defaultY, original[index].width, original[index].height);
-        detail::WindowRuntime_States()[index].x = prototype.defaultX;
-        detail::WindowRuntime_States()[index].y = prototype.defaultY;
+        detail::WindowRuntime_States(session)[index].x = prototype.defaultX;
+        detail::WindowRuntime_States(session)[index].y = prototype.defaultY;
     }
 }
 

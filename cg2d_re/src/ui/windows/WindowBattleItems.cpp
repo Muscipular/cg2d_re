@@ -243,7 +243,7 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
     if (!currentWindow) return 0;
     const std::int32_t hovered = gBattleItemHoverCF49B0;
     if (hovered >= 0) {
-        static_cast<void>(WindowItem_DrawEquipmentTooltip(hovered, gBattleItemPageCB01E0));
+        static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hovered, gBattleItemPageCB01E0));
     } else {
         const std::int32_t kind = WindowDrag_ReadKind(*callbackWindow.ownerSession);
         if (kind == 2) {

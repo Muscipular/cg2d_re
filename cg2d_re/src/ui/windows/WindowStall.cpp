@@ -2505,7 +2505,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
         if (gStallModeD67BDC != 1) {
             const std::int32_t hover = gStallHover581120;
             if (hover >= 0) {
-                static_cast<void>(WindowItem_DrawEquipmentTooltip(hover, gStallDescriptionPageD67C3C));
+                static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hover, gStallDescriptionPageD67C3C));
             }
         }
         std::int32_t itemCount = gStallItemCountD67BCC;
@@ -2574,7 +2574,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
         if (gStallModeD67BDC != 1) {
             const std::int32_t hover = gStallHover581120;
             if (hover >= 0 && hover < 200) {
-                static_cast<void>(WindowItem_DrawEquipmentTooltip(hover, gStallDescriptionPageD67C3C));
+                static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hover, gStallDescriptionPageD67C3C));
             } else if (hover >= 200) {
                 const auto& item = gStallBrowseData->items[hover - 200];
                 const std::uint16_t flags = item.flags;

@@ -385,13 +385,14 @@ std::int32_t WindowStatusBar_ButtonEmote(WindowInstance& callbackWindow, Element
 std::int32_t WindowStatusBar_ButtonMiniMap(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口33开关，创建使用专有尺寸入口。
 // 原函数：0x00495F00。
 cg::yobi::YobiAction* WindowMiniMap_Open(
+    session::ClientSession& session,
     std::uint32_t flags, std::uint32_t mode, cg::yobi::YobiAction** completionSlot); // 小地图184x159展开，完成槽原生T**。
 // 原函数：0x00495F70。
 std::int32_t WindowEmote_Select(session::ClientSession& session, std::int32_t index); // 清18B后选中指定字节，Y/X快照交4D3020。
 // 原函数：0x00498520。
 void WindowBattleCommand_Dispatch(session::ClientSession& session); // 完整六态战斗命令分派，所有出口共用倒计时尾。
 // 原函数：0x0043C950。
-void WindowBattleStateNotice_Open(); // 玩家入场位且动画/窗口32均空才创建，失败也播放原音效。
+void WindowBattleStateNotice_Open(session::ClientSession& session); // 玩家入场位且动画/窗口32均空才创建，失败也播放原音效。
 // 原函数：0x00496570。
 void WindowBattleCommand_SnapshotPetVitals(); // 五宠物四项CryptInt快照，唯一CF4B78数组生产。
 // 原函数：0x004965D0。
@@ -666,10 +667,6 @@ extern WindowPrototype& gWindowPrototype54E330; // 原全局：0x0054E330。
 std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::ClientSession& session);
 std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSession& session);
 WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session);
-// 旧无身份消费者固定借首会话，不随当前菜单项变化；完成显式迁移前不得多会话调度。
-std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows();
-std::array<WindowState, kWindowCount>& WindowRuntime_States();
-WindowLayoutSettings& WindowRuntime_Settings();
 extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
 extern std::int32_t gDragItemIndex584DA4; // 原全局：0x00584DA4。 4FB8F0重置与旧14的4FAEF0拖动生产共用。
 extern std::int32_t gDragImageNoD67D24; // 原全局：0x00D67D24。
@@ -733,6 +730,7 @@ WindowInstance* WindowQuantity_Open(
 std::int32_t WindowElement_HandleSideArea(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WCL01：bit2置bit13，hover优先，否则低BYTE bit5。
 // 原函数：0x0048BB90。
 void WindowItem_RequestPetTransfer(
+    session::ClientSession& session,
     std::int32_t unusedWindow, std::int32_t unusedElement,
     std::int32_t source, std::int32_t target); // 普通/窗口41两路宠物换位请求。
 // 原函数：0x004AAB70。
@@ -765,7 +763,7 @@ std::int32_t WindowItem_DrawTooltip(
     std::int32_t x, std::int32_t y, const wchar_t* title, std::int8_t titleColor,
     const std::wstring* lines, std::int32_t lineCount, const wchar_t* footer, std::int8_t footerColor);
 // 原函数：0x0048B1A0。
-std::int32_t WindowItem_DrawEquipmentTooltip(std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
+std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, std::int32_t index, std::int32_t page); // 玩家/所选宠物装备提示。
 // 原函数：0x0048B350。
 std::int32_t WindowItem_DrawDescriptionTooltip(std::int32_t index, std::int32_t page); // SPD01：W32标题字段/页*768八行描述，四次CryptInt及真实提示返回保持。
 // 原函数：0x0048B750。
@@ -824,7 +822,7 @@ std::int32_t WindowElement_NoOp(WindowInstance& callbackWindow, ElementId elemen
 std::int32_t WindowRuntime_ReturnOne(std::int32_t unused) noexcept; // WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。
 std::int32_t WindowRuntime_UpdateDefault(WindowInstance& window, std::int32_t unused) noexcept; // 原恒1更新的实例回调适配。
 // 原函数：0x004B0000。
-void WindowTrade_ResetSelection(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
+void WindowTrade_ResetSelection(session::ClientSession& session, std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
 // 原函数：0x0047DCD0。
 void WindowCraft_ResetSelection(session::ClientSession& session, std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
 // 原函数：0x004AD060。

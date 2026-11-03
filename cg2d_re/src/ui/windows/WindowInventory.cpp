@@ -40,13 +40,14 @@ enum class WindowInventoryElementId : ElementId {
     HandleSideArea_24 = 24,
 };
 
-void WindowRuntime_SetInventoryPages(
+void WindowRuntime_SetInventoryPages(session::ClientSession& session,
     const std::int32_t bagPageCount, const std::int32_t bankPageCount,
     const std::int32_t bagCurrentPage)
 {
-    detail::gLoginWindowRuntime.bagPageCount = bagPageCount;
-    detail::gLoginWindowRuntime.bankPageCount = bankPageCount;
-    detail::gLoginWindowRuntime.bagCurrentPage = bagCurrentPage;
+    auto& business = session.UiFrame().native.business;
+    business.bagPageCount = bagPageCount;
+    business.bankPageCount = bankPageCount;
+    business.bagCurrentPage = bagCurrentPage;
 }
 
 namespace detail {
@@ -77,6 +78,7 @@ static void RefreshInventoryPageSelection(
 // 背包、战斗背包、合成与银行右侧共用页号；银行内只切页，其余入口支持拖物跨页。
 static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -85,7 +87,7 @@ static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow
         WindowElement& element = (*elementPtr);
         auto* const graphic = element.data.graphic;
         const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
-        auto& currentPage = gLoginWindowRuntime.bagCurrentPage;
+        auto& currentPage = business.bagCurrentPage;
         if ((state & MouseFlag_Hover) != 0) {
             cg::text::FormatTo(gHoverTextD68AE8,
                 window->id == WindowId_Bank ? L"切换到第{}页" : L"切换背包{}", page + 1);
@@ -120,6 +122,7 @@ static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow
 // 银行左侧页按钮；点击当前页也沿参考重新请求银行数据。
 static std::int32_t WindowInventory_SwitchBankPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -127,7 +130,7 @@ static std::int32_t WindowInventory_SwitchBankPage(WindowInstance& callbackWindo
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         const std::int32_t page = (graphic->imageNo - kInventoryPageImages[0][0]) / 3;
-        auto& currentPage = gLoginWindowRuntime.bankCurrentPage;
+        auto& currentPage = business.bankCurrentPage;
         if ((state & MouseFlag_Hover) != 0) {
             cg::text::FormatTo(gHoverTextD68AE8, L"切换到第{}页", page + 1);
         }
@@ -142,15 +145,16 @@ static std::int32_t WindowInventory_SwitchBankPage(WindowInstance& callbackWindo
     return 0;
 }
 
-std::int32_t WindowInventory_GetPageElementCount(const std::int32_t windowId)
+std::int32_t WindowInventory_GetPageElementCount(session::ClientSession& session, const std::int32_t windowId)
 {
+    auto& business = session.UiFrame().native.business;
     switch (windowId) {
     case WindowId_Inventory:
     case WindowId_BattleItems:
     case WindowId_Craft:
-        return gLoginWindowRuntime.bagPageCount > 1 ? gLoginWindowRuntime.bagPageCount : 0;
+        return business.bagPageCount > 1 ? business.bagPageCount : 0;
     case WindowId_Bank: {
-        const std::int32_t count = gLoginWindowRuntime.bankPageCount + gLoginWindowRuntime.bagPageCount;
+        const std::int32_t count = business.bankPageCount + business.bagPageCount;
         return count > 1 ? count : 0;
     }
     default:
@@ -160,11 +164,12 @@ std::int32_t WindowInventory_GetPageElementCount(const std::int32_t windowId)
 
 bool WindowInventory_CreatePageElements(WindowInstance* const window, const std::int32_t originalCount)
 {
+    auto& business = window->ownerSession->UiFrame().native.business;
     for (std::int32_t index = originalCount; index < window->elementCount; ++index) {
         const std::int32_t offset = index - originalCount;
         const bool bank = window->id == WindowId_Bank;
-        const bool bankPage = bank && offset < gLoginWindowRuntime.bankPageCount;
-        const std::int32_t page = bank && !bankPage ? offset - gLoginWindowRuntime.bankPageCount : offset;
+        const bool bankPage = bank && offset < business.bankPageCount;
+        const std::int32_t page = bank && !bankPage ? offset - business.bankPageCount : offset;
         auto* const elementPtr = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
         if (elementPtr) {
             WindowElement& element = (*elementPtr);

@@ -86,16 +86,16 @@ static std::int32_t WindowGroupSelect_SelectRow(WindowInstance& callbackWindow, 
 static std::int32_t WindowGroupSelect_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 零wheel仍调用4743B0。
 
 // 原函数：0x004B5630。
-static void WindowGroupSelect_ResetRecipients(); // 清计数/模式及两200项数组，不清初始化标志。
+static void WindowGroupSelect_ResetRecipients(session::ClientSession& session); // 清计数/模式及两200项数组，不清初始化标志。
 
 // 原函数：0x004B5660。
-static void WindowGroupSelect_BuildRecipients(std::int32_t mode); // 稀疏名单生产，不按count压紧槽位。
+static void WindowGroupSelect_BuildRecipients(session::ClientSession& session, std::int32_t mode); // 稀疏名单生产，不按count压紧槽位。
 
 // 原函数：0x004B5760。
-static void WindowGroupSelect_SortRecipients(std::int32_t category); // 原CRT次序排序60或200个S32索引。
+static void WindowGroupSelect_SortRecipients(session::ClientSession& session, std::int32_t category); // 原CRT次序排序60或200个S32索引。
 
 // 原函数：0x004B57B0。
-static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* left, const std::int32_t* right);
+static std::int32_t WindowGroupSelect_CompareRecipients(session::ClientSession& session, const std::int32_t* left, const std::int32_t* right);
 
 // 原函数：0x004B4B00。
 static std::int32_t WindowGroupSelect_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -216,17 +216,18 @@ WindowPrototype gWindowPrototypeGroupSelect {0, 4, 68, 84, 280, 317, 0x80010101u
 // 原函数：0x004B4B00。
 static std::int32_t WindowGroupSelect_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        if (gLoginWindowRuntime.mailGroupCC1A30.initialize == 0) {
-            gLoginWindowRuntime.mailGroupScrollD67B88 = 0;
-            WindowGroupSelect_ResetRecipients();
-            gLoginWindowRuntime.mailGroupCC1A30.mode = 0;
-            WindowGroupSelect_BuildRecipients(0);
+        if (business.mailGroupCC1A30.initialize == 0) {
+            business.mailGroupScrollD67B88 = 0;
+            WindowGroupSelect_ResetRecipients(*callbackWindow.ownerSession);
+            business.mailGroupCC1A30.mode = 0;
+            WindowGroupSelect_BuildRecipients(*callbackWindow.ownerSession, 0);
             if (auto* const buttonSelectAllElement = currentWindow->FindElementById(WindowGroupSelectElementId::ButtonSelectAll); buttonSelectAllElement) buttonSelectAllElement->visible = 1;
         }
-        gLoginWindowRuntime.mailGroupCC1A30.initialize = 0;
+        business.mailGroupCC1A30.initialize = 0;
         return 1;
     }
     if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_MailCompose].window == nullptr) {
@@ -238,8 +239,9 @@ static std::int32_t WindowGroupSelect_Update(WindowInstance& callbackWindow, con
 // 原函数：0x004B4B70。
 static void WindowGroupSelect_Release(WindowInstance& releasedWindow)
 {
+    auto& business = releasedWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const window = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_MailCompose].window;
-    if (window != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 == 1) {
+    if (window != nullptr && business.prefixD2F0B8.value10 == 1) {
         window->state |= 0x8000u;
     }
 }
@@ -256,6 +258,7 @@ static std::int32_t WindowGroupSelect_Draw(WindowInstance& callbackWindow, const
 // 原函数：0x004B4BB0。
 static std::int32_t WindowGroupSelect_HandlePageButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons) && elementId != static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons_8)) {
@@ -273,8 +276,8 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(WindowInstance& callback
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = idle + 1;
-            const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
-            gLoginWindowRuntime.mailGroupScrollD67B88 = position + (elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons) ? -7 : 7);
+            const std::int32_t position = business.mailGroupScrollD67B88;
+            business.mailGroupScrollD67B88 = position + (elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandlePageButtons) ? -7 : 7);
             static_cast<void>(WindowGroupSelect_ClampScroll(&callbackWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -289,6 +292,7 @@ static std::int32_t WindowGroupSelect_HandlePageButtons(WindowInstance& callback
 // 原函数：0x004B4CA0。
 static std::int32_t WindowGroupSelect_HandleScrollButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons) && elementId != static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons_3)) {
@@ -308,18 +312,18 @@ static std::int32_t WindowGroupSelect_HandleScrollButtons(WindowInstance& callba
             graphic->imageNo = idle + 1;
             std::int32_t sound = 51;
             if (elementId == static_cast<ElementId>(WindowGroupSelectElementId::HandleScrollButtons)) {
-                const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88 - 1;
-                gLoginWindowRuntime.mailGroupScrollD67B88 = position;
+                const std::int32_t position = business.mailGroupScrollD67B88 - 1;
+                business.mailGroupScrollD67B88 = position;
                 if (position < 0) {
-                    gLoginWindowRuntime.mailGroupScrollD67B88 = 0;
+                    business.mailGroupScrollD67B88 = 0;
                     sound = 55;
                 }
             } else {
-                const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
-                const std::int32_t maximum = gLoginWindowRuntime.mailGroupCC1A30.count - 7;
-                gLoginWindowRuntime.mailGroupScrollD67B88 = position + 1;
+                const std::int32_t position = business.mailGroupScrollD67B88;
+                const std::int32_t maximum = business.mailGroupCC1A30.count - 7;
+                business.mailGroupScrollD67B88 = position + 1;
                 if (position + 1 > maximum) {
-                    gLoginWindowRuntime.mailGroupScrollD67B88 = maximum;
+                    business.mailGroupScrollD67B88 = maximum;
                     sound = 55;
                 }
             }
@@ -337,15 +341,16 @@ static std::int32_t WindowGroupSelect_ClampScroll(WindowInstance* callbackWindow
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
-    std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
+    std::int32_t position = business.mailGroupScrollD67B88;
     if (position < 0) {
         position = 0;
-        gLoginWindowRuntime.mailGroupScrollD67B88 = position;
+        business.mailGroupScrollD67B88 = position;
     }
-    const std::int32_t maximum = gLoginWindowRuntime.mailGroupCC1A30.count - 7;
+    const std::int32_t maximum = business.mailGroupCC1A30.count - 7;
     if (position > maximum) {
         position = maximum;
-        gLoginWindowRuntime.mailGroupScrollD67B88 = position;
+        business.mailGroupScrollD67B88 = position;
     }
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowGroupSelectElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {
@@ -359,13 +364,14 @@ static std::int32_t WindowGroupSelect_DragScroll(WindowInstance* callbackWindow,
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
+    const std::int32_t count = business.mailGroupCC1A30.count;
     WindowInstance* const window = currentWindow;
     const std::int32_t maximum = count - 7;
     auto* const handleVerticalScrollElement = window->FindElementById(WindowGroupSelectElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {
         const std::int32_t position = WindowScroll_ReadPosition(handleVerticalScrollElement, maximum < 0 ? 0 : maximum);
-        gLoginWindowRuntime.mailGroupScrollD67B88 = position;
+        business.mailGroupScrollD67B88 = position;
         return position;
     }
     return 0;
@@ -376,7 +382,8 @@ static void WindowGroupSelect_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
-    const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
+    const std::int32_t mode = business.mailGroupCC1A30.mode;
     if (mode != 0 && mode != 1 && mode != 2) {
         return;
     }
@@ -397,9 +404,9 @@ static void WindowGroupSelect_Refresh(WindowInstance* callbackWindow)
         subtitleData->text = subtitle;
     }
     for (std::int32_t row = 0; row < 7; ++row) {
-        const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
+        const std::int32_t scroll = business.mailGroupScrollD67B88;
         const std::int32_t position = scroll + row;
-        const std::int32_t source = gLoginWindowRuntime.mailGroupCC1A30.indices[position];
+        const std::int32_t source = business.mailGroupCC1A30.indices[position];
         const std::int32_t visible = source != -1 ? 1 : 0;
         if (visible != 0) {
             WindowInstance* const window = currentWindow;
@@ -421,6 +428,7 @@ static void WindowGroupSelect_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x004B5210。
 static std::int32_t WindowGroupSelect_TabCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowGroupSelectElementId::TabCategory) && elementId != static_cast<ElementId>(WindowGroupSelectElementId::TabCategory_10)) {
@@ -441,22 +449,22 @@ static std::int32_t WindowGroupSelect_TabCategory(WindowInstance& callbackWindow
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (elementId == static_cast<ElementId>(WindowGroupSelectElementId::TabCategory)) {
-            const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode - 1;
-            gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
+            const std::int32_t mode = business.mailGroupCC1A30.mode - 1;
+            business.mailGroupCC1A30.mode = mode;
             if (mode < 0) {
-                gLoginWindowRuntime.mailGroupCC1A30.mode = 2;
+                business.mailGroupCC1A30.mode = 2;
             }
-            WindowGroupSelect_BuildRecipients(gLoginWindowRuntime.mailGroupCC1A30.mode);
+            WindowGroupSelect_BuildRecipients(*callbackWindow.ownerSession, business.mailGroupCC1A30.mode);
         } else {
-            std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode + 1;
-            gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
+            std::int32_t mode = business.mailGroupCC1A30.mode + 1;
+            business.mailGroupCC1A30.mode = mode;
             if (mode > 2) {
                 mode = 0;
-                gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
+                business.mailGroupCC1A30.mode = mode;
             }
-            WindowGroupSelect_BuildRecipients(mode);
+            WindowGroupSelect_BuildRecipients(*callbackWindow.ownerSession, mode);
         }
-        gLoginWindowRuntime.mailGroupScrollD67B88 = 0;
+        business.mailGroupScrollD67B88 = 0;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         result = 1;
     }
@@ -473,6 +481,7 @@ static std::int32_t WindowGroupSelect_TabCategory(WindowInstance& callbackWindow
 // 原函数：0x004B53C0。
 static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t result = 0;
@@ -481,7 +490,7 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWi
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3BA20;
-            const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
+            const std::int32_t mode = business.mailGroupCC1A30.mode;
             if (mode == 0 || mode == 1 || mode == 2) {
                 gHoverTextD68AE8 = L"准备寄送邮件给此集团。";
             }
@@ -491,27 +500,27 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWi
         }
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
+        const std::int32_t mode = business.mailGroupCC1A30.mode;
         if (mode == 0 || mode == 1 || mode == 2) {
-            std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
+            std::int32_t count = business.mailGroupCC1A30.count;
             for (std::int32_t row = 0; row < count; ++row) {
-                const std::int32_t source = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
+                const std::int32_t source = business.mailGroupCC1A30.indices[row];
                 if (source != -1) {
                     if (mode == 2) {
-                        gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
+                        business.mailGroupCC1A30.selected[row] = 1;
                     } else if (mode == 1) {
                         if (cg::world::gOrderedRecords1051B14[source].value0A != 0) {
-                            gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
+                            business.mailGroupCC1A30.selected[row] = 1;
                         }
                     } else {
                         // 原普通分支查CC2E6C排序表，不用CC1A38名单值取联系人。
-                        const std::int32_t ordered = gLoginWindowRuntime.mailGroupOrderCC2E6C[row];
+                        const std::int32_t ordered = business.mailGroupOrderCC2E6C[row];
                         if (world::detail::gContactsF19FB0[ordered].value02 != 0) {
-                            gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
+                            business.mailGroupCC1A30.selected[row] = 1;
                         }
                     }
                 }
-                count = gLoginWindowRuntime.mailGroupCC1A30.count;
+                count = business.mailGroupCC1A30.count;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -527,11 +536,12 @@ static std::int32_t WindowGroupSelect_ButtonSelectAll(WindowInstance& callbackWi
 // 原函数：0x004B5550。
 static std::int32_t WindowGroupSelect_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
-    const std::int32_t selected = gLoginWindowRuntime.mailGroupCC1A30.selected[scroll + index - 20];
+    const std::int32_t scroll = business.mailGroupScrollD67B88;
+    const std::int32_t selected = business.mailGroupCC1A30.selected[scroll + index - 20];
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -545,14 +555,14 @@ static std::int32_t WindowGroupSelect_SelectRow(WindowInstance& callbackWindow, 
         result = 1;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t currentScroll = gLoginWindowRuntime.mailGroupScrollD67B88;
+        const std::int32_t currentScroll = business.mailGroupScrollD67B88;
         const std::int32_t row = currentScroll + index - 20;
-        const std::int32_t current = gLoginWindowRuntime.mailGroupCC1A30.selected[row];
+        const std::int32_t current = business.mailGroupCC1A30.selected[row];
         if (current != 0) {
-            gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 0;
+            business.mailGroupCC1A30.selected[row] = 0;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
+            business.mailGroupCC1A30.selected[row] = 1;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
     }
@@ -562,17 +572,18 @@ static std::int32_t WindowGroupSelect_SelectRow(WindowInstance& callbackWindow, 
 // 原函数：0x004B5A40。
 static std::int32_t WindowGroupSelect_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
+        const std::int32_t count = business.mailGroupCC1A30.count;
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t maximum = count - 7;
         WindowInstance* const window = currentWindow;
-        const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
+        const std::int32_t position = business.mailGroupScrollD67B88;
         auto* const handleVerticalScrollElement = window->FindElementById(WindowGroupSelectElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement) {
-            gLoginWindowRuntime.mailGroupScrollD67B88 =
+            business.mailGroupScrollD67B88 =
                 WindowScroll_ApplyWheel(handleVerticalScrollElement, position, maximum < 0 ? 0 : maximum, wheel);
         }
     }
@@ -580,51 +591,53 @@ static std::int32_t WindowGroupSelect_Scroll(WindowInstance& callbackWindow, con
 }
 
 // 原函数：0x004B5630。
-static void WindowGroupSelect_ResetRecipients()
+static void WindowGroupSelect_ResetRecipients(session::ClientSession& session)
 {
-    gLoginWindowRuntime.mailGroupCC1A30.count = 0;
-    gLoginWindowRuntime.mailGroupCC1A30.mode = 0;
+    auto& business = session.UiFrame().native.business;
+    business.mailGroupCC1A30.count = 0;
+    business.mailGroupCC1A30.mode = 0;
     for (std::int32_t index = 0; index < 200; ++index) {
-        gLoginWindowRuntime.mailGroupCC1A30.indices[index] = 0;
-        gLoginWindowRuntime.mailGroupCC1A30.selected[index] = 0;
+        business.mailGroupCC1A30.indices[index] = 0;
+        business.mailGroupCC1A30.selected[index] = 0;
     }
 }
 
 // 原函数：0x004B5660。
-static void WindowGroupSelect_BuildRecipients(const std::int32_t mode)
+static void WindowGroupSelect_BuildRecipients(session::ClientSession& session, const std::int32_t mode)
 {
-    gLoginWindowRuntime.mailGroupCC1A30.count = 0;
-    gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
+    auto& business = session.UiFrame().native.business;
+    business.mailGroupCC1A30.count = 0;
+    business.mailGroupCC1A30.mode = mode;
     for (std::int32_t index = 0; index < 200; ++index) {
-        gLoginWindowRuntime.mailGroupCC1A30.indices[index] = -1;
-        gLoginWindowRuntime.mailGroupCC1A30.selected[index] = 0;
+        business.mailGroupCC1A30.indices[index] = -1;
+        business.mailGroupCC1A30.selected[index] = 0;
     }
     switch (mode) {
     case 0:
-        WindowGroupSelect_SortRecipients(0);
+        WindowGroupSelect_SortRecipients(session, 0);
         for (std::int32_t index = 0; index < 60; ++index) {
-            const std::int32_t source = gLoginWindowRuntime.mailGroupOrderCC2E6C[index];
+            const std::int32_t source = business.mailGroupOrderCC2E6C[index];
             if (world::detail::gContactsF19FB0[source].used == 1) {
-                gLoginWindowRuntime.mailGroupCC1A30.indices[index] = source;
-                ++gLoginWindowRuntime.mailGroupCC1A30.count;
+                business.mailGroupCC1A30.indices[index] = source;
+                ++business.mailGroupCC1A30.count;
             }
         }
         break;
     case 1:
-        WindowGroupSelect_SortRecipients(1);
+        WindowGroupSelect_SortRecipients(session, 1);
         for (std::int32_t index = 0; index < 200; ++index) {
-            const std::int32_t source = gLoginWindowRuntime.mailGroupOrderCC2E6C[index];
+            const std::int32_t source = business.mailGroupOrderCC2E6C[index];
             if (cg::world::gOrderedRecords1051B14[source].value08 == 1) {
-                gLoginWindowRuntime.mailGroupCC1A30.indices[index] = source;
-                ++gLoginWindowRuntime.mailGroupCC1A30.count;
+                business.mailGroupCC1A30.indices[index] = source;
+                ++business.mailGroupCC1A30.count;
             }
         }
         break;
     case 2:
         for (std::int32_t index = 0; index < 32; ++index) {
             if (cg::world::ReadGuildRankFlags1051514(index) != 0) {
-                gLoginWindowRuntime.mailGroupCC1A30.indices[index] = index;
-                ++gLoginWindowRuntime.mailGroupCC1A30.count;
+                business.mailGroupCC1A30.indices[index] = index;
+                ++business.mailGroupCC1A30.count;
             }
         }
         break;
@@ -632,20 +645,22 @@ static void WindowGroupSelect_BuildRecipients(const std::int32_t mode)
 }
 
 // 原函数：0x004B5760。
-static void WindowGroupSelect_SortRecipients(const std::int32_t category)
+static void WindowGroupSelect_SortRecipients(session::ClientSession& session, const std::int32_t category)
 {
-    gLoginWindowRuntime.mailGroupSortCategoryCB0600 = category;
+    auto& business = session.UiFrame().native.business;
+    business.mailGroupSortCategoryCB0600 = category;
     for (std::int32_t index = 0; index < 200; ++index) {
-        gLoginWindowRuntime.mailGroupOrderCC2E6C[index] = index;
+        business.mailGroupOrderCC2E6C[index] = index;
     }
-    WindowMail_SortIndices(gLoginWindowRuntime.mailGroupOrderCC2E6C.data(),
+    WindowMail_SortIndices(session, business.mailGroupOrderCC2E6C.data(),
         category == 0 ? 60u : 200u, WindowGroupSelect_CompareRecipients);
 }
 
 // 原函数：0x004B57B0。
-static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* const left, const std::int32_t* const right)
+static std::int32_t WindowGroupSelect_CompareRecipients(session::ClientSession& session, const std::int32_t* const left, const std::int32_t* const right)
 {
-    const std::int32_t category = gLoginWindowRuntime.mailGroupSortCategoryCB0600;
+    auto& business = session.UiFrame().native.business;
+    const std::int32_t category = business.mailGroupSortCategoryCB0600;
     const std::int32_t rightIndex = *right;
     const std::int32_t leftIndex = *left;
     const bool leftUsed = category == 0

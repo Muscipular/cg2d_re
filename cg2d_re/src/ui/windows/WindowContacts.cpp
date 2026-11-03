@@ -159,7 +159,7 @@ static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, E
 static std::int32_t WindowContacts_ButtonGuildDetails(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 动画打开窗口48公会详情。
 
 // 原函数：0x004A37E0。
-static std::int32_t WindowContacts_ResolveRecordIndex(std::int32_t index); // 三行/九行元素编号到同源排序后记录索引。
+static std::int32_t WindowContacts_ResolveRecordIndex(session::ClientSession& session, std::int32_t index); // 三行/九行元素编号到同源排序后记录索引。
 
 // 原函数：0x004A40C0。
 static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 滚轮推进，重读类别写回，恒返回0。
@@ -168,13 +168,13 @@ static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, Elemen
 static std::int32_t WindowContacts_HandleRankButton(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六职级按钮，bit400转交完整4A38C0。
 
 // 原函数：0x004A38C0。
-static void WindowContacts_OpenRankSelection(std::int32_t index); // 两次联系人索引读取，生产职级状态后直接打开55。
+static void WindowContacts_OpenRankSelection(session::ClientSession& session, std::int32_t index); // 两次联系人索引读取，生产职级状态后直接打开55。
 
 // 原函数：0x004A2B00。
 static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 发布同源记录/两类别槽，动画打开40。
 
 // 原函数：0x004A3780。
-static std::int32_t WindowContacts_ResolveButtonRecord(std::int32_t index); // 三行/九行分组按钮到实际记录索引。
+static std::int32_t WindowContacts_ResolveButtonRecord(session::ClientSession& session, std::int32_t index); // 三行/九行分组按钮到实际记录索引。
 
 // 原函数：0x004A39C0。
 static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 九行头像悬停及独立TLKH双击发送。
@@ -201,10 +201,10 @@ static void WindowContacts_ClampScroll(WindowInstance* callbackWindow); // 修�
 static std::int32_t WindowContacts_DragScroll(WindowInstance* callbackWindow, std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 
 // 原函数：0x004A2C60。
-static void WindowContacts_Sort(); // 填200项C9FCE4后按类别依原CRT次序排序60/200/20项。
+static void WindowContacts_Sort(session::ClientSession& session); // 填200项C9FCE4后按类别依原CRT次序排序60/200/20项。
 
 // 原函数：0x004A2CC0。
-static std::int32_t WindowContacts_CompareRecords(const std::int32_t* left, const std::int32_t* right); // MC01-C8标准索引比较，有效性对称，同键返回0。
+static std::int32_t WindowContacts_CompareRecords(session::ClientSession& session, const std::int32_t* left, const std::int32_t* right); // MC01-C8标准索引比较，有效性对称，同键返回0。
 
 // 原函数：0x004A3230。
 static std::int32_t WindowContacts_CompareMiniMailNumber(
@@ -408,11 +408,12 @@ WindowPrototype gWindowPrototypeContacts {0, 4, 2, 64, 331, 381, 0x80010101u, 11
 // 原函数：0x004A0970。
 static std::int32_t WindowContacts_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     if (value == -1) {
-        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+        const std::int32_t category = business.valuesD67B40[6];
         const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
         const std::uint32_t sortMode = platform::gContactSortMode_D67CD0;
-        gLoginWindowRuntime.mailSortModeD67B3C = sortMode;
+        business.mailSortModeD67B3C = sortMode;
         WindowContacts_SetDisplayMode(&callbackWindow, mode, category);
         static_cast<void>(world::detail::UpdateUnreadMailPageHint_518DA0());
         WindowContacts_ClampScroll(&callbackWindow);
@@ -424,7 +425,7 @@ static std::int32_t WindowContacts_Update(WindowInstance& callbackWindow, const 
 static std::int32_t WindowContacts_Draw(WindowInstance& callbackWindow, const std::int32_t value)
 {
     static_cast<void>(WindowContacts_DragScroll(&callbackWindow, value));
-    static_cast<void>(WindowMail_AdvanceUnreadBlink());
+    static_cast<void>(WindowMail_AdvanceUnreadBlink(*callbackWindow.ownerSession));
     static_cast<void>(WindowContacts_Refresh(&callbackWindow));
     WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
@@ -435,18 +436,19 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-    const std::uint32_t sortMode = gLoginWindowRuntime.mailSortModeD67B3C;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
+    const std::int32_t category = business.valuesD67B40[6];
+    const std::uint32_t sortMode = business.mailSortModeD67B3C;
     auto* const element9 = currentWindow->FindElementById(WindowContactsElementId::Element9);
     if (element9) {
         auto* const sortGraphic = element9->data.graphic;
         sortGraphic->imageNo = kMailSortImages54F4C0[category * 5 + sortMode];
     }
-    WindowContacts_Sort();
+    WindowContacts_Sort(*callbackWindow->ownerSession);
     if (WindowRuntime_Settings().contactsPreviewMode == 0) {
         const std::uint32_t page = world::detail::gMailContactPage_CB1384;
         render::GraphicDescriptor16 descriptor {};
-        const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
+        const std::int32_t currentCategory = business.valuesD67B40[6];
         world::detail::gMailFallbackPage_CB0354 = page;
         if (currentCategory == 1) {
             for (std::int32_t index = 21; index < 27; ++index) {
@@ -455,9 +457,9 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             }
             if (WindowGuildDetails_ReadRankPermissions() != 0) {
                 for (std::int32_t row = 0; row < 3; ++row) {
-                    const std::int32_t rowCategory = gLoginWindowRuntime.valuesD67B40[6];
-                    const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[rowCategory];
-                    const std::int32_t memberIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
+                    const std::int32_t rowCategory = business.valuesD67B40[6];
+                    const std::int32_t scroll = business.valuesD67B40[rowCategory];
+                    const std::int32_t memberIndex = business.mailIndicesC9FCE4[scroll + row];
                     const std::int32_t rank = cg::world::gOrderedRecords1051B14[memberIndex].value00;
                     const std::uint8_t flags = cg::world::ReadGuildRankFlagsByte1051514(rank);
                     if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(21 + row * 2)); indexedElement) indexedElement->visible = 0;
@@ -482,7 +484,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                 auto* const element212 = window->FindElementById(WindowContactsElementId::Element21);
                 if (element212) {
                     auto* const data = element212->data.text;
-                    WindowMail_WriteGuildStatus(data, status);
+                    WindowMail_WriteGuildStatus(*callbackWindow->ownerSession, data, status);
                 }
             }
         }
@@ -492,15 +494,15 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
         std::int32_t privileged;
         std::wstring numberText;
         for (std::int32_t row = 0; row < 3; ++row) {
-            const std::int32_t rowCategory = gLoginWindowRuntime.valuesD67B40[6];
-            const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[rowCategory];
+            const std::int32_t rowCategory = business.valuesD67B40[6];
+            const std::int32_t scroll = business.valuesD67B40[rowCategory];
             WindowInstance* const entryWindow = currentWindow;
             auto* entryElementsWindow = entryWindow;
-            const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
+            const std::int32_t recordIndex = business.mailIndicesC9FCE4[scroll + row];
             if (auto* const indexedElement = entryElementsWindow->FindElementById(NativeElementKey(29 + row * 8)); indexedElement) indexedElement->visible = 1;
             if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(28 + row * 8)); indexedElement2) indexedElement2->visible = 1;
             if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(27 + row * 8)); indexedElement3) indexedElement3->visible = 1;
-            switch (gLoginWindowRuntime.valuesD67B40[6]) {
+            switch (business.valuesD67B40[6]) {
             case 0:
                 record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
                 if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(51 + row)); indexedElement4) indexedElement4->data.graphic->imageNo = 0x3B9E0;
@@ -550,7 +552,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                 auto* const numberData = numberDataElement->data.text;
                 numberData->text = numberText;
             }
-            switch (gLoginWindowRuntime.valuesD67B40[6]) {
+            switch (business.valuesD67B40[6]) {
             case 0:
             case 2: {
                 auto* const dataElement = currentWindow->FindElementById(NativeElementKey(textIndex + 2));
@@ -586,7 +588,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
                 auto* const statusData = statusDataElement->data.text;
                 WindowMail_WriteContactStatus(record, statusData, status);
             }
-            switch (gLoginWindowRuntime.valuesD67B40[6]) {
+            switch (business.valuesD67B40[6]) {
             case 0:
                 if (world::detail::HasUnreadContactMail_519090(recordIndex) != 0) {
                     WindowMail_SetUnreadGraphic(callbackWindow, 27 + row * 8);
@@ -614,28 +616,28 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
         return 108;
     }
 
-    if (gLoginWindowRuntime.valuesD67B40[6] == 1) {
+    if (business.valuesD67B40[6] == 1) {
         if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 1;
         WindowInstance* const window = currentWindow;
         const std::int32_t status = cg::world::ReadGuildStatus10514AC();
         auto* const element212 = window->FindElementById(WindowContactsElementId::Element21);
         if (element212) {
             auto* const data = element212->data.text;
-            WindowMail_WriteGuildStatus(data, status);
+            WindowMail_WriteGuildStatus(*callbackWindow->ownerSession, data, status);
         }
     } else {
         if (auto* const element21 = currentWindow->FindElementById(WindowContactsElementId::Element21); element21) element21->visible = 0;
     }
     MailContactView record;
     for (std::int32_t row = 0; row < 9; ++row) {
-        const std::int32_t rowCategory = gLoginWindowRuntime.valuesD67B40[6];
-        const std::int32_t scroll = gLoginWindowRuntime.valuesD67B40[3 + rowCategory];
+        const std::int32_t rowCategory = business.valuesD67B40[6];
+        const std::int32_t scroll = business.valuesD67B40[3 + rowCategory];
         WindowInstance* const entryWindow = currentWindow;
-        const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[scroll + row];
+        const std::int32_t recordIndex = business.mailIndicesC9FCE4[scroll + row];
         if (auto* const indexedElement = entryWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement) indexedElement->visible = 1;
         if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(55 + row * 5)); indexedElement2) indexedElement2->visible = 1;
         if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(54 + row * 5)); indexedElement3) indexedElement3->visible = 1;
-        switch (gLoginWindowRuntime.valuesD67B40[6]) {
+        switch (business.valuesD67B40[6]) {
         case 0:
             record = WindowMail_MakeContactView(world::detail::gContactsF19FB0[recordIndex]);
             if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(56 + row * 5)); indexedElement4) indexedElement4->visible = 1;
@@ -682,7 +684,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             const std::int16_t status = record.ReadStatus();
             WindowMail_WriteContactStatus(record, statusData, status);
         }
-        switch (gLoginWindowRuntime.valuesD67B40[6]) {
+        switch (business.valuesD67B40[6]) {
         case 0:
             if (world::detail::HasUnreadContactMail_519090(recordIndex) != 0) {
                 WindowMail_SetUnreadGraphic(callbackWindow, 54 + row * 5);
@@ -690,7 +692,7 @@ static std::int32_t WindowContacts_Refresh(WindowInstance* callbackWindow)
             break;
         case 1:
             if (world::detail::HasUnreadGuildMail_5190F0(recordIndex) != 0) {
-                const std::int32_t blink = gLoginWindowRuntime.mailBlinkFlagD67B60;
+                const std::int32_t blink = business.mailBlinkFlagD67B60;
                 auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(54 + row * 5));
                 if (graphicElement) {
                     auto* const graphic = graphicElement->data.graphic;
@@ -829,6 +831,7 @@ static void WindowContacts_ApplyCategoryLayout(WindowInstance* callbackWindow, c
 // 原函数：0x004A1C30。
 static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -848,8 +851,8 @@ static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, con
     }
 
     const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-    std::int32_t& position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
+    const std::int32_t category = business.valuesD67B40[6];
+    std::int32_t& position = business.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     position += elementId == static_cast<ElementId>(WindowContactsElementId::ScrollRow) ? -1 : 1;
     if ((mode == 0 || mode == 1) && category >= 0 && category <= 2) {
         std::int32_t maximum;
@@ -879,6 +882,7 @@ static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, con
 // 原函数：0x004A1EF0。
 static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -886,9 +890,9 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
         if ((state & MouseFlag_RDownEvent) == 0) {
             return 0;
         }
-        switch (gLoginWindowRuntime.valuesD67B40[6]) {
+        switch (business.valuesD67B40[6]) {
         case 0: {
-            const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(index);
+            const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
             if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
                 return 1;
             }
@@ -896,7 +900,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
             break;
         }
         case 1: {
-            const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(index);
+            const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
             const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
             if (record.value08 == 0) {
                 return 1;
@@ -906,7 +910,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
             break;
         }
         case 2: {
-            const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(index);
+            const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
             const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
             if (record.used == 0) {
                 return 1;
@@ -942,24 +946,24 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)) {
             const std::int32_t oldMode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
-            const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+            const std::int32_t category = business.valuesD67B40[6];
             const std::int32_t mode = oldMode == 0 ? 1 : 0;
             WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode = mode;
             WindowContacts_SetDisplayMode(&callbackWindow, mode, category);
-            const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
-            gLoginWindowRuntime.valuesD67B40[3 + currentCategory] = 0;
-            gLoginWindowRuntime.valuesD67B40[currentCategory] = 0;
+            const std::int32_t currentCategory = business.valuesD67B40[6];
+            business.valuesD67B40[3 + currentCategory] = 0;
+            business.valuesD67B40[currentCategory] = 0;
             WindowContacts_ClampScroll(&callbackWindow);
         } else if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_5)) {
-            const std::int32_t oldSort = std::bit_cast<std::int32_t>(gLoginWindowRuntime.mailSortModeD67B3C);
+            const std::int32_t oldSort = std::bit_cast<std::int32_t>(business.mailSortModeD67B3C);
             const std::int32_t sort = (oldSort + (elementId == static_cast<ElementId>(WindowContactsElementId::HandleNavigation_4) ? 4 : 6)) % 5;
-            gLoginWindowRuntime.mailSortModeD67B3C = std::bit_cast<std::uint32_t>(sort);
+            business.mailSortModeD67B3C = std::bit_cast<std::uint32_t>(sort);
             platform::gContactSortMode_D67CD0 = std::bit_cast<std::uint32_t>(sort);
         } else {
             const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
-            const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+            const std::int32_t category = business.valuesD67B40[6];
             const std::int32_t step = mode == 0 ? 3 : 9;
-            gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category] += elementId == static_cast<ElementId>(WindowContactsElementId::HandleNavigation_6) ? -step : step;
+            business.valuesD67B40[(mode == 0 ? 0 : 3) + category] += elementId == static_cast<ElementId>(WindowContactsElementId::HandleNavigation_6) ? -step : step;
             WindowContacts_ClampScroll(&callbackWindow);
         }
         login::detail::SaveCurrentLoginRecord_520200();
@@ -980,6 +984,7 @@ static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWind
 // 原函数：0x004A2610。
 static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -998,8 +1003,8 @@ static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindo
                 window->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             } else {
-                gLoginWindowRuntime.prefixD2F0B8.value10 = 1;
-                gLoginWindowRuntime.prefixD2F0B8.value00 = 0;
+                business.prefixD2F0B8.value10 = 1;
+                business.prefixD2F0B8.value00 = 0;
                 static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1016,6 +1021,7 @@ static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindo
 // 原函数：0x004A2870。
 static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1023,7 +1029,7 @@ static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, c
         return 0;
     }
     const std::int32_t category = index - 10;
-    if (gLoginWindowRuntime.valuesD67B40[6] == category) {
+    if (business.valuesD67B40[6] == category) {
         return 0;
     }
     const std::int32_t idle = category == 0 ? 0x3B57D : (category == 1 ? 0x3B580 : 0x3C115);
@@ -1054,10 +1060,10 @@ static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, c
             }
         }
         if (auto* const buttonGuildDetailsElement = currentWindow->FindElementById(WindowContactsElementId::ButtonGuildDetails); buttonGuildDetailsElement) buttonGuildDetailsElement->visible = category == 1 ? 1 : 0;
-        gLoginWindowRuntime.valuesD67B40[6] = category;
+        business.valuesD67B40[6] = category;
         WindowContacts_ClampScroll(&callbackWindow);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
-        const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
+        const std::int32_t currentCategory = business.valuesD67B40[6];
         const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
         WindowContacts_SetDisplayMode(&callbackWindow, mode, currentCategory);
         consumed = 1;
@@ -1093,27 +1099,29 @@ static std::int32_t WindowContacts_ButtonGuildDetails(WindowInstance& callbackWi
 }
 
 // 原函数：0x004A37E0。
-static std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
+static std::int32_t WindowContacts_ResolveRecordIndex(session::ClientSession& session, const std::int32_t index)
 {
-    if (WindowRuntime_Settings().contactsPreviewMode == 0) {
-        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-        const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
-        return gLoginWindowRuntime.mailIndicesC9FCE4[position + index - 51];
+    auto& business = session.UiFrame().native.business;
+    if (WindowRuntime_Settings(session).contactsPreviewMode == 0) {
+        const std::int32_t category = business.valuesD67B40[6];
+        const std::int32_t position = business.valuesD67B40[category];
+        return business.mailIndicesC9FCE4[position + index - 51];
     }
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category];
-    return gLoginWindowRuntime.mailIndicesC9FCE4[position + index - 99];
+    const std::int32_t category = business.valuesD67B40[6];
+    const std::int32_t position = business.valuesD67B40[3 + category];
+    return business.mailIndicesC9FCE4[position + index - 99];
 }
 
 // 原函数：0x004A40C0。
 static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) == 0) {
         return 0;
     }
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    const std::int32_t category = business.valuesD67B40[6];
     std::int32_t count;
     switch (category) {
     case 0:
@@ -1134,13 +1142,13 @@ static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, const 
     }
     const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
+    const std::int32_t position = business.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowContactsElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {
         const std::int32_t result = WindowScroll_ApplyWheel(
             handleVerticalScrollElement, position, count - (mode == 0 ? 3 : 9), wheel);
-        const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
-        gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + currentCategory] = result;
+        const std::int32_t currentCategory = business.valuesD67B40[6];
+        business.valuesD67B40[(mode == 0 ? 0 : 3) + currentCategory] = result;
     }
     return 0;
 }
@@ -1165,7 +1173,7 @@ static std::int32_t WindowContacts_HandleRankButton(WindowInstance& callbackWind
         if ((state & MouseFlag_LRepeatDown) != 0) {
             graphic->imageNo = 0x3B557 + imageOffset;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            WindowContacts_OpenRankSelection(index);
+            WindowContacts_OpenRankSelection(*callbackWindow.ownerSession, index);
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -1177,26 +1185,28 @@ static std::int32_t WindowContacts_HandleRankButton(WindowInstance& callbackWind
 }
 
 // 原函数：0x004A38C0。
-static void WindowContacts_OpenRankSelection(const std::int32_t index)
+static void WindowContacts_OpenRankSelection(session::ClientSession& session, const std::int32_t index)
 {
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    auto& business = session.UiFrame().native.business;
+    const std::int32_t category = business.valuesD67B40[6];
     const std::int32_t row = (index - 21) / 2;
-    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
-    const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
+    const std::int32_t position = business.valuesD67B40[category];
+    const std::int32_t recordIndex = business.mailIndicesC9FCE4[position + row];
     const std::int32_t key = cg::world::gOrderedRecords1051B14[recordIndex].value0C;
     const std::int32_t memberIndex = cg::world::FindActiveOrderedRecordIndex_5195C0(key);
-    const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
-    gLoginWindowRuntime.mailMemberIndexCB1D18 = memberIndex;
-    const std::int32_t currentPosition = gLoginWindowRuntime.valuesD67B40[currentCategory];
-    const std::int32_t currentIndex = gLoginWindowRuntime.mailIndicesC9FCE4[currentPosition + row];
-    gLoginWindowRuntime.mailMemberKeyD45F88 = cg::world::gOrderedRecords1051B14[currentIndex].value0C;
-    gLoginWindowRuntime.mailRankCF4A14 = cg::world::gOrderedRecords1051B14[memberIndex].value00 - 1;
+    const std::int32_t currentCategory = business.valuesD67B40[6];
+    business.mailMemberIndexCB1D18 = memberIndex;
+    const std::int32_t currentPosition = business.valuesD67B40[currentCategory];
+    const std::int32_t currentIndex = business.mailIndicesC9FCE4[currentPosition + row];
+    business.mailMemberKeyD45F88 = cg::world::gOrderedRecords1051B14[currentIndex].value0C;
+    business.mailRankCF4A14 = cg::world::gOrderedRecords1051B14[memberIndex].value00 - 1;
     static_cast<void>(WindowRuntime_Open(WindowId_GuildRank));
 }
 
 // 原函数：0x004A2B00。
 static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1205,7 +1215,7 @@ static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, cons
     if (graphic) graphic->imageNo = 0x3B547;
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B549;
-        switch (gLoginWindowRuntime.valuesD67B40[6]) {
+        switch (business.valuesD67B40[6]) {
         case 0:
             gHoverTextD68AE8 = L"察看此名片之主人的邮件纪录" /* 原常量参考：0x005874F4。 */;
             break;
@@ -1220,10 +1230,10 @@ static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, cons
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (graphic) graphic->imageNo = 0x3B548;
-        world::detail::gViewedMailContactId_CF4FC0 = WindowContacts_ResolveButtonRecord(index);
-        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-        gLoginWindowRuntime.mailCategoryD67B64 = category;
-        gLoginWindowRuntime.mailCategoryCC4D50 = category;
+        world::detail::gViewedMailContactId_CF4FC0 = WindowContacts_ResolveButtonRecord(*callbackWindow.ownerSession, index);
+        const std::int32_t category = business.valuesD67B40[6];
+        business.mailCategoryD67B64 = category;
+        business.mailCategoryCC4D50 = category;
         static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailRead, 1, 0, nullptr));
         consumed = 1;
     }
@@ -1234,28 +1244,30 @@ static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, cons
 }
 
 // 原函数：0x004A3780。
-static std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
+static std::int32_t WindowContacts_ResolveButtonRecord(session::ClientSession& session, const std::int32_t index)
 {
-    if (WindowRuntime_Settings().contactsPreviewMode == 0) {
-        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    auto& business = session.UiFrame().native.business;
+    if (WindowRuntime_Settings(session).contactsPreviewMode == 0) {
+        const std::int32_t category = business.valuesD67B40[6];
         const std::int32_t row = (index - 27) / 8;
-        const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
-        return gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
+        const std::int32_t position = business.valuesD67B40[category];
+        return business.mailIndicesC9FCE4[position + row];
     }
     const std::int32_t row = (index - 54) / 5;
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category];
-    return gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
+    const std::int32_t category = business.valuesD67B40[6];
+    const std::int32_t position = business.valuesD67B40[3 + category];
+    return business.mailIndicesC9FCE4[position + row];
 }
 
 // 原函数：0x004A39C0。
 static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category] + index - 99;
+    const std::int32_t category = business.valuesD67B40[6];
+    const std::int32_t position = business.valuesD67B40[3 + category] + index - 99;
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t* recordImage = nullptr;
     switch (category) {
@@ -1264,7 +1276,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
             return 0;
         }
         if ((state & MouseFlag_Hover) != 0) {
-            const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
+            const std::int32_t recordIndex = business.mailIndicesC9FCE4[position];
             const auto& record = world::detail::gContactsF19FB0[recordIndex];
             if (record.used != 0) {
                 recordImage = &record.value0C;
@@ -1279,7 +1291,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
             return 0;
         }
         if ((state & MouseFlag_Hover) != 0) {
-            const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
+            const std::int32_t recordIndex = business.mailIndicesC9FCE4[position];
             const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
             if (record.value08 != 0) {
                 recordImage = &record.value14;
@@ -1288,7 +1300,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
         break;
     case 2:
         if ((state & MouseFlag_Hover) != 0) {
-            const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
+            const std::int32_t recordIndex = business.mailIndicesC9FCE4[position];
             const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
             if (record.used != 0) {
                 recordImage = &record.value0C;
@@ -1336,9 +1348,9 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
     if ((state & MouseFlag_RDownEvent) == 0) {
         return consumed;
     }
-    switch (gLoginWindowRuntime.valuesD67B40[6]) {
+    switch (business.valuesD67B40[6]) {
     case 0: {
-        const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(index);
+        const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
         if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
             return 1;
         }
@@ -1346,7 +1358,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
         break;
     }
     case 1: {
-        const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(index);
+        const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
         const auto& record = cg::world::gOrderedRecords1051B14[recordIndex];
         if (record.value08 == 0) {
             return 1;
@@ -1356,7 +1368,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
         break;
     }
     case 2: {
-        const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(index);
+        const std::int32_t recordIndex = WindowContacts_ResolveRecordIndex(*callbackWindow.ownerSession, index);
         const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
         if (record.used == 0) {
             return 1;
@@ -1372,6 +1384,7 @@ static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, 
 // 原函数：0x004A3C70。
 static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -1396,7 +1409,7 @@ static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow,
     case WindowContactsElementId::ButtonCompose_96: nineRows = true; row = 8; break;
     default: return consumed;
     }
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    const std::int32_t category = business.valuesD67B40[6];
     if (!nineRows && (category < 0 || category > 2)) {
         return consumed;
     }
@@ -1416,10 +1429,10 @@ static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow,
     if ((state & MouseFlag_LDownEvent) == 0) {
         return consumed;
     }
-    gLoginWindowRuntime.prefixD2F0B8.value10 = 0;
-    gLoginWindowRuntime.prefixD2F0B8.value00 = category;
-    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(nineRows ? 3 : 0) + category];
-    gLoginWindowRuntime.prefixD2F0B8.value04 = gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
+    business.prefixD2F0B8.value10 = 0;
+    business.prefixD2F0B8.value00 = category;
+    const std::int32_t position = business.valuesD67B40[(nineRows ? 3 : 0) + category];
+    business.prefixD2F0B8.value04 = business.mailIndicesC9FCE4[position + row];
     static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
     return 1;
 }
@@ -1427,6 +1440,7 @@ static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow,
 // 原函数：0x004A32E0。
 static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1435,7 +1449,7 @@ static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, 
     if (graphic) graphic->imageNo = 0x3B54A;
     if ((state & MouseFlag_Hover) != 0) {
         if (graphic) graphic->imageNo = 0x3B54C;
-        switch (gLoginWindowRuntime.valuesD67B40[6]) {
+        switch (business.valuesD67B40[6]) {
         case 0:
             gHoverTextD68AE8 = L"删除此名片。" /* 原常量参考：0x0058755C。 */;
             break;
@@ -1449,9 +1463,9 @@ static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, 
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t recordIndex = WindowContacts_ResolveButtonRecord(index);
-        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-        gLoginWindowRuntime.mailDeleteIndexD2DA8C = recordIndex;
+        const std::int32_t recordIndex = WindowContacts_ResolveButtonRecord(*callbackWindow.ownerSession, index);
+        const std::int32_t category = business.valuesD67B40[6];
+        business.mailDeleteIndexD2DA8C = recordIndex;
         switch (category) {
         case 0: static_cast<void>(WindowContacts_ConfirmDeleteContact(*callbackWindow.ownerSession, recordIndex)); break;
         case 1: static_cast<void>(WindowContacts_ConfirmDeleteGuildMember(*callbackWindow.ownerSession, recordIndex)); break;
@@ -1522,66 +1536,67 @@ static void WindowContacts_ClampScroll(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。
     std::int32_t maximum;
     std::int32_t position;
     const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
     if (mode == 0) {
-        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-        if (gLoginWindowRuntime.valuesD67B40[category] < 0) {
-            gLoginWindowRuntime.valuesD67B40[category] = 0;
+        const std::int32_t category = business.valuesD67B40[6];
+        if (business.valuesD67B40[category] < 0) {
+            business.valuesD67B40[category] = 0;
         }
         switch (category) {
         case 0:
             maximum = 57;
-            if (gLoginWindowRuntime.valuesD67B40[0] > maximum) {
-                gLoginWindowRuntime.valuesD67B40[0] = maximum;
+            if (business.valuesD67B40[0] > maximum) {
+                business.valuesD67B40[0] = maximum;
             }
             break;
         case 1: {
             const std::int32_t count = cg::world::gOrderedRecordCount1051510;
             maximum = count < 100 ? 97 : count - 3;
-            if (gLoginWindowRuntime.valuesD67B40[1] > maximum) {
-                gLoginWindowRuntime.valuesD67B40[1] = maximum;
+            if (business.valuesD67B40[1] > maximum) {
+                business.valuesD67B40[1] = maximum;
             }
             break;
         }
         case 2:
             maximum = 17;
-            if (gLoginWindowRuntime.valuesD67B40[2] > maximum) {
-                gLoginWindowRuntime.valuesD67B40[2] = maximum;
+            if (business.valuesD67B40[2] > maximum) {
+                business.valuesD67B40[2] = maximum;
             }
             break;
         }
-        position = gLoginWindowRuntime.valuesD67B40[category];
+        position = business.valuesD67B40[category];
     } else if (mode == 1) {
-        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-        if (gLoginWindowRuntime.valuesD67B40[3 + category] < 0) {
-            gLoginWindowRuntime.valuesD67B40[3 + category] = 0;
+        const std::int32_t category = business.valuesD67B40[6];
+        if (business.valuesD67B40[3 + category] < 0) {
+            business.valuesD67B40[3 + category] = 0;
         }
         switch (category) {
         case 0:
             maximum = 51;
-            if (gLoginWindowRuntime.valuesD67B40[3] > maximum) {
-                gLoginWindowRuntime.valuesD67B40[3] = maximum;
+            if (business.valuesD67B40[3] > maximum) {
+                business.valuesD67B40[3] = maximum;
             }
             break;
         case 1: {
             const std::int32_t count = cg::world::gOrderedRecordCount1051510;
             maximum = count < 100 ? 91 : count - 9;
-            if (gLoginWindowRuntime.valuesD67B40[4] > maximum) {
-                gLoginWindowRuntime.valuesD67B40[4] = maximum;
+            if (business.valuesD67B40[4] > maximum) {
+                business.valuesD67B40[4] = maximum;
             }
             break;
         }
         case 2:
             maximum = 11;
-            if (gLoginWindowRuntime.valuesD67B40[5] > maximum) {
-                gLoginWindowRuntime.valuesD67B40[5] = maximum;
+            if (business.valuesD67B40[5] > maximum) {
+                business.valuesD67B40[5] = maximum;
             }
             break;
         }
-        position = gLoginWindowRuntime.valuesD67B40[3 + category];
+        position = business.valuesD67B40[3 + category];
     }
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowContactsElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {
@@ -1591,14 +1606,15 @@ static void WindowContacts_ClampScroll(WindowInstance* callbackWindow)
 }
 
 // 原函数：0x004A2C60。
-static void WindowContacts_Sort()
+static void WindowContacts_Sort(session::ClientSession& session)
 {
+    auto& business = session.UiFrame().native.business;
     for (std::int32_t index = 0; index < 200; ++index) {
-        gLoginWindowRuntime.mailIndicesC9FCE4[index] = index;
+        business.mailIndicesC9FCE4[index] = index;
     }
     // 原异常类别的入口寄存器暂存不专项模拟，不补默认项数。
     std::uint32_t count;
-    switch (gLoginWindowRuntime.valuesD67B40[6]) {
+    switch (business.valuesD67B40[6]) {
     case 0:
         count = 60;
         break;
@@ -1609,13 +1625,14 @@ static void WindowContacts_Sort()
         count = 20;
         break;
     }
-    WindowMail_SortIndices(gLoginWindowRuntime.mailIndicesC9FCE4.data(), count, WindowContacts_CompareRecords);
+    WindowMail_SortIndices(session, business.mailIndicesC9FCE4.data(), count, WindowContacts_CompareRecords);
 }
 
 // 原函数：0x004A2CC0。
-static std::int32_t WindowContacts_CompareRecords(const std::int32_t* const left, const std::int32_t* const right)
+static std::int32_t WindowContacts_CompareRecords(session::ClientSession& session, const std::int32_t* const left, const std::int32_t* const right)
 {
-    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    auto& business = session.UiFrame().native.business;
+    const std::int32_t category = business.valuesD67B40[6];
     if (category == 0 || category == 1 || category == 2) {
         bool leftUsed;
         bool rightUsed;
@@ -1841,9 +1858,10 @@ static std::int32_t WindowContacts_DragScroll(WindowInstance* callbackWindow, co
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     // 类别0/1/2均有真实计数；无效类别的入口寄存器值不专项模拟。
     std::int32_t count;
-    switch (gLoginWindowRuntime.valuesD67B40[6]) {
+    switch (business.valuesD67B40[6]) {
     case 0:
         count = 60;
         break;
@@ -1864,12 +1882,12 @@ static std::int32_t WindowContacts_DragScroll(WindowInstance* callbackWindow, co
         if ((mouse->flags & 1) != 0) {
             if (WindowRuntime_Settings().contactsPreviewMode == 0) {
                 count = WindowScroll_ReadPosition(handleVerticalScrollElement, count - 3);
-                const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-                gLoginWindowRuntime.valuesD67B40[category] = count;
+                const std::int32_t category = business.valuesD67B40[6];
+                business.valuesD67B40[category] = count;
             } else {
                 count = WindowScroll_ReadPosition(handleVerticalScrollElement, count - 9);
-                const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-                gLoginWindowRuntime.valuesD67B40[3 + category] = count;
+                const std::int32_t category = business.valuesD67B40[6];
+                business.valuesD67B40[3 + category] = count;
             }
         }
     }

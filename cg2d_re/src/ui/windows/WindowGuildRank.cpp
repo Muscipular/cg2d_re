@@ -133,8 +133,9 @@ WindowPrototype gWindowPrototypeGuildRank {0, 4, 100, 100, 243, 206, 0x80000080u
 // 原函数：0x004A4180。
 static std::int32_t WindowGuildRank_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     if (value == -1) {
-        gLoginWindowRuntime.mailRankScrollCA0474 = 0;
+        business.mailRankScrollCA0474 = 0;
     }
     return 1;
 }
@@ -142,13 +143,14 @@ static std::int32_t WindowGuildRank_Update(WindowInstance& callbackWindow, const
 // 原函数：0x004A41A0。
 static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(WindowGuildRank_Refresh(&callbackWindow));
     WindowRuntime_DrawCurrent(callbackWindow);
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowGuildRankElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {
-        gLoginWindowRuntime.mailRankScrollCA0474 = WindowScroll_ReadPosition(handleVerticalScrollElement, 21);
+        business.mailRankScrollCA0474 = WindowScroll_ReadPosition(handleVerticalScrollElement, 21);
     }
     WindowInstance* const window = currentWindow;
     const std::int16_t height = static_cast<std::int16_t>(window->height);
@@ -164,6 +166,7 @@ static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, const s
 // 原函数：0x004A4220。
 static std::int32_t WindowGuildRank_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -172,12 +175,12 @@ static std::int32_t WindowGuildRank_SelectRow(WindowInstance& callbackWindow, co
         gHoverTextD68AE8 = L"选择此称号。" /* 原常量参考：0x005876F4。 */;
         consumed = 1;
     }
-    const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
+    const std::int32_t scroll = business.mailRankScrollCA0474;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        gLoginWindowRuntime.mailRankCF4A14 = scroll + index - 19;
+        business.mailRankCF4A14 = scroll + index - 19;
         consumed = 1;
     }
-    const std::int32_t selected = gLoginWindowRuntime.mailRankCF4A14;
+    const std::int32_t selected = business.mailRankCF4A14;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -219,6 +222,7 @@ static std::int32_t WindowGuildRank_ButtonClose(WindowInstance& callbackWindow, 
 // 原函数：0x004A4370。
 static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -233,8 +237,8 @@ static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, con
             graphic->imageNo = 0x3B56E;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t rank = gLoginWindowRuntime.mailRankCF4A14;
-            const std::int32_t key = gLoginWindowRuntime.mailMemberKeyD45F88;
+            const std::int32_t rank = business.mailRankCF4A14;
+            const std::int32_t key = business.mailMemberKeyD45F88;
             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMemberRankChange(key, rank + 1));
             WindowInstance* const window = currentWindow;
@@ -249,6 +253,7 @@ static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, con
 // 原函数：0x004A4420。
 static std::int32_t WindowGuildRank_HandleScrollButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons) && elementId != static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons_17)) {
@@ -263,18 +268,18 @@ static std::int32_t WindowGuildRank_HandleScrollButtons(WindowInstance& callback
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         std::int32_t position;
         if (elementId == static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons)) {
-            const std::int32_t previous = gLoginWindowRuntime.mailRankScrollCA0474;
-            gLoginWindowRuntime.mailRankScrollCA0474 = previous - 1;
+            const std::int32_t previous = business.mailRankScrollCA0474;
+            business.mailRankScrollCA0474 = previous - 1;
             if (previous - 1 < 0) {
-                gLoginWindowRuntime.mailRankScrollCA0474 = 0;
+                business.mailRankScrollCA0474 = 0;
             }
-            position = gLoginWindowRuntime.mailRankScrollCA0474;
+            position = business.mailRankScrollCA0474;
         } else {
-            position = gLoginWindowRuntime.mailRankScrollCA0474 + 1;
-            gLoginWindowRuntime.mailRankScrollCA0474 = position;
+            position = business.mailRankScrollCA0474 + 1;
+            business.mailRankScrollCA0474 = position;
             if (position > 21) {
                 position = 21;
-                gLoginWindowRuntime.mailRankScrollCA0474 = position;
+                business.mailRankScrollCA0474 = position;
             }
         }
         auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowGuildRankElementId::HandleVerticalScroll);
@@ -290,8 +295,9 @@ static std::uint32_t WindowGuildRank_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     for (std::int32_t row = 0; row < 10; ++row) {
-        const std::int32_t scroll = gLoginWindowRuntime.mailRankScrollCA0474;
+        const std::int32_t scroll = business.mailRankScrollCA0474;
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(row));
         if (dataElement) {
             auto* const data = dataElement->data.text;
@@ -299,7 +305,7 @@ static std::uint32_t WindowGuildRank_Refresh(WindowInstance* callbackWindow)
             data->text = rank;
         }
     }
-    const std::int32_t member = gLoginWindowRuntime.mailMemberIndexCB1D18;
+    const std::int32_t member = business.mailMemberIndexCB1D18;
     auto* const element11 = currentWindow->FindElementById(WindowGuildRankElementId::Element11);
     if (element11) {
         auto* const data = element11->data.text;
@@ -314,16 +320,17 @@ static std::uint32_t WindowGuildRank_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x004A45E0。
 static std::int32_t WindowGuildRank_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         if (wheel != 0) {
             WindowInstance* const window = currentWindow;
-            const std::int32_t position = gLoginWindowRuntime.mailRankScrollCA0474;
+            const std::int32_t position = business.mailRankScrollCA0474;
             auto* const handleVerticalScrollElement = window->FindElementById(WindowGuildRankElementId::HandleVerticalScroll);
             if (handleVerticalScrollElement) {
-                gLoginWindowRuntime.mailRankScrollCA0474 = WindowScroll_ApplyWheel(handleVerticalScrollElement, position, 21, wheel);
+                business.mailRankScrollCA0474 = WindowScroll_ApplyWheel(handleVerticalScrollElement, position, 21, wheel);
             }
         }
     }

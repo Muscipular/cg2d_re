@@ -352,7 +352,7 @@ void WindowRuntime_UpdateExtendedElements(WindowInstance& window);
 void WindowBattleCommand_FinishAutoAction(session::ClientSession& session);
 
 // G07：创建窗口时预留页按钮；载荷沿原type1分配／释放，原控件地址不变。
-std::int32_t WindowInventory_GetPageElementCount(std::int32_t windowId);
+std::int32_t WindowInventory_GetPageElementCount(session::ClientSession& session, std::int32_t windowId);
 bool WindowInventory_CreatePageElements(WindowInstance* window, std::int32_t originalCount);
 
 // 原函数：0x0047A140。
@@ -656,8 +656,6 @@ struct WindowElementPrototype {
 std::int32_t WindowPetDetail_EditName(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 共享名称输入焦点。
 // 原函数：0x0048F410。
 std::int32_t WindowPetDetail_SwitchPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 三详情页切换。
-extern std::int32_t& gTitleModeCF4E50; // 原全局：0x00CF4E50。 借既有登录窗口状态槽0，0选择/1删除。
-extern std::int32_t& gTitlePageCF4E54; // 原全局：0x00CF4E54。 借既有登录窗口状态槽1，重置/刷新/滚动同源。
 
 // 两表已按原地址共享绑定；主表的其余元素与回调依赖见WindowPrototypeDependencies。
 extern std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130; // 原全局：0x0057C130。
@@ -804,7 +802,7 @@ std::int32_t WindowScroll_ApplyWheel(
 // 原函数：0x004E0100。
 void WindowTrade_CopyDisplayItems(std::int32_t side, std::int32_t index); // 另一展示副本，逐行复制描述。
 // 原函数：0x004A84A0。
-std::int32_t WindowBank_ReceiveStorageData(const char* text); // SGM01：完整A/G/I/P数据生产，固定A/增量I-P字段续行与fresh金额组保持，只有A返回1。
+std::int32_t WindowBank_ReceiveStorageData(session::ClientSession& session, const char* text); // SGM01：完整A/G/I/P数据生产，固定A/增量I-P字段续行与fresh金额组保持，只有A返回1。
 // 原函数：0x004A83A0。
 WindowInstance* WindowBank_Open(std::int32_t kind, std::int32_t value14, std::int32_t userState);
 // 原函数：0x004AC0C0。
@@ -911,15 +909,15 @@ WindowInstance* WindowMailCompose_Open(session::ClientSession& session); // 先�
 // 原函数：0x004705D0。
 std::int32_t WindowRuntime_Initialize(session::ClientSession& session); // 启动UI完整初始化，返回category加载结果。
 // 原函数：0x004B5A90。
-void WindowMessageBoard_ResetRecords(); // 四条记录只清已证字段和四个文本首字节。
+void WindowMessageBoard_ResetRecords(session::ClientSession& session); // 四条记录只清已证字段和四个文本首字节。
 // 原函数：0x004B6970。
-std::int32_t WindowMessageBoard_ReceiveRecords(std::int32_t flags, char* text); // 原位反转义后生产同源四记录。
+std::int32_t WindowMessageBoard_ReceiveRecords(session::ClientSession& session, std::int32_t flags, char* text); // 原位反转义后生产同源四记录。
 // 原函数：0x004A5390。
-std::int32_t WindowMail_ResetComposeState(); // 五组选择槽及D2F0B8已证前缀重置。
+std::int32_t WindowMail_ResetComposeState(session::ClientSession& session); // 五组选择槽及D2F0B8已证前缀重置。
 // 原函数：0x0048C150。
-std::int32_t WindowPetList_ResetSelection(); // 所选宠物与两组五槽按原序重置。
+std::int32_t WindowPetList_ResetSelection(session::ClientSession& session); // 所选宠物与两组五槽按原序重置。
 // 原函数：0x004A0940。
-std::int32_t WindowMail_ResetSelectionState(); // D67B40七槽交错清零。
+std::int32_t WindowMail_ResetSelectionState(session::ClientSession& session); // D67B40七槽交错清零。
 // 原函数：0x004A3600。
 std::int32_t WindowMail_DeleteContact(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // FPkR发送、重读清理及保存。
 // 原函数：0x004A3660。
@@ -933,7 +931,7 @@ std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, Eleme
 // 原函数：0x0047D4A0。
 std::int32_t WindowCraft_ReadItemSelection(session::ClientSession& session); // 原S32 D67B00窄读，不返回其他状态。
 // 原函数：0x004A32B0。
-std::int32_t WindowMail_AdvanceUnreadBlink(); // 邮件闪烁相位推进；开窗不重置。
+std::int32_t WindowMail_AdvanceUnreadBlink(session::ClientSession& session); // 邮件闪烁相位推进；开窗不重置。
 // 原函数：0x004A3010。
 std::int32_t WindowContacts_CompareContactName(
     const world::detail::ContactRuntimeRecord* left,
@@ -976,7 +974,7 @@ std::int32_t WindowGuildDetails_CanEdit(std::int32_t mask); // 当前职级-1才
 // 原函数：0x004A3990。
 std::int32_t WindowGuildDetails_CanEditRank(std::int32_t index, std::int32_t mask); // 当前职级门禁通过后读取指定职级。
 // 原函数：0x004CC6A0。
-std::int32_t WindowBlacklist_ResetState(); // 三个UI数值依序写5/0/0。
+std::int32_t WindowBlacklist_ResetState(session::ClientSession& session); // 三个UI数值依序写5/0/0。
 // 原函数：0x004CBD30。
 void WindowAdventureLog_InitializeDate(session::ClientSession& session); // 首次借用会话日历并写同源日志文件名。
 // 原函数：0x004A8330。

@@ -359,6 +359,7 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     render::GraphicDescriptor16 descriptor {};
     std::wstring buffer;
     WindowStatusBar_FormatVitals(buffer);
@@ -381,24 +382,24 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
 
     const std::int32_t points = world::FindAttributeAllocationHintTarget_504B10();
     const std::int32_t initialInjury = world::gPlayerRuntimeSlots.valueF4;
-    gLoginWindowRuntime.statusHasPointsD66E24 = points != 6 ? 1 : 0;
+    business.statusHasPointsD66E24 = points != 6 ? 1 : 0;
     if (initialInjury == 0) {
         const std::int32_t pet = world::FindFirstInjuredPet_504B60();
-        gLoginWindowRuntime.statusHasInjuryD046C8 = 0;
+        business.statusHasInjuryD046C8 = 0;
         if (pet != -1) {
-            gLoginWindowRuntime.statusHasInjuryD046C8 = 1;
+            business.statusHasInjuryD046C8 = 1;
         }
     } else {
-        gLoginWindowRuntime.statusHasInjuryD046C8 = 1;
+        business.statusHasInjuryD046C8 = 1;
     }
-    gLoginWindowRuntime.statusHasMailCC4B5C = world::detail::UpdateUnreadMailPageHint_518DA0() != 0 ? 1 : 0;
-    std::int32_t phase = gLoginWindowRuntime.statusBlinkPhaseCF4FBC + 1;
-    gLoginWindowRuntime.statusBlinkPhaseCF4FBC = phase;
+    business.statusHasMailCC4B5C = world::detail::UpdateUnreadMailPageHint_518DA0() != 0 ? 1 : 0;
+    std::int32_t phase = business.statusBlinkPhaseCF4FBC + 1;
+    business.statusBlinkPhaseCF4FBC = phase;
     if (phase > 60) {
         phase = 0;
-        gLoginWindowRuntime.statusBlinkPhaseCF4FBC = phase;
+        business.statusBlinkPhaseCF4FBC = phase;
     }
-    const bool pointsBlink = gLoginWindowRuntime.statusHasPointsD66E24 != 0 && phase >= 30;
+    const bool pointsBlink = business.statusHasPointsD66E24 != 0 && phase >= 30;
     auto* const handleHintButton_14Element = currentWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_14);
     if (handleHintButton_14Element) {
         handleHintButton_14Element->data.graphic->imageNo =
@@ -406,8 +407,8 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
     }
 
     bool injuryBlink = false;
-    if (gLoginWindowRuntime.statusHasInjuryD046C8 != 0) {
-        injuryBlink = gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
+    if (business.statusHasInjuryD046C8 != 0) {
+        injuryBlink = business.statusBlinkPhaseCF4FBC >= 30;
     }
     const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
     const std::int32_t injuryImage = injury == 0 ? 0x3B941
@@ -419,8 +420,8 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
         handleHintButtonElement->data.graphic->imageNo =
             injuryImage - (injuryBlink ? 1 : 0);
     }
-    const bool mailBlink = gLoginWindowRuntime.statusHasMailCC4B5C != 0
-        && gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
+    const bool mailBlink = business.statusHasMailCC4B5C != 0
+        && business.statusBlinkPhaseCF4FBC >= 30;
     auto* const handleHintButton_13Element = currentWindow->FindElementById(WindowStatusBarElementId::HandleHintButton_13);
     if (handleHintButton_13Element) {
         handleHintButton_13Element->data.graphic->imageNo =
@@ -581,6 +582,7 @@ static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 // 原函数：0x004723D0。
 static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -590,7 +592,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
         const std::int32_t candidate = world::FindAttributeAllocationHintTarget_504B10();
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
-            if (gLoginWindowRuntime.statusHasPointsD66E24 != 0) {
+            if (business.statusHasPointsD66E24 != 0) {
                 if (candidate <= 4) {
                     const std::int16_t petIndex =
                         std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[candidate].index);
@@ -607,7 +609,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
             }
             gHoverTextD68AE8 = buffer;
         }
-        if (gLoginWindowRuntime.statusHasPointsD66E24 == 0) {
+        if (business.statusHasPointsD66E24 == 0) {
             return 0;
         }
         if (hover) {
@@ -618,7 +620,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (candidate <= 4) {
                 WindowInstance* const details = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetDetail].window;
-                gLoginWindowRuntime.selectedPetCC3E5C = candidate;
+                business.selectedPetCC3E5C = candidate;
                 if (details != nullptr) {
                     details->state |= 0x8000u;
                 }
@@ -646,7 +648,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
         return consumed;
     }
     case WindowStatusBarElementId::HandleHintButton_13: {
-        const std::int32_t hasMail = gLoginWindowRuntime.statusHasMailCC4B5C;
+        const std::int32_t hasMail = business.statusHasMailCC4B5C;
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             gHoverTextD68AE8 = hasMail != 0 ? L"现在有新邮件。" /* 原常量参考：0x00556D24。 */ : L"现在没有邮件。" /* 原常量参考：0x00556D14。 */;
@@ -664,13 +666,13 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             world::detail::FindFirstUnreadMailContact_518F00(
-                &gLoginWindowRuntime.statusMailCategoryD66E34, &gLoginWindowRuntime.statusMailIndexD2E2D8);
-            const std::int32_t category = gLoginWindowRuntime.statusMailCategoryD66E34;
+                &business.statusMailCategoryD66E34, &business.statusMailIndexD2E2D8);
+            const std::int32_t category = business.statusMailCategoryD66E34;
             if (category == 0 || category == 1 || category == 2) {
-                const std::int32_t mailIndex = gLoginWindowRuntime.statusMailIndexD2E2D8;
-                gLoginWindowRuntime.mailCategoryD67B64 = category;
+                const std::int32_t mailIndex = business.statusMailIndexD2E2D8;
+                business.mailCategoryD67B64 = category;
                 world::detail::gViewedMailContactId_CF4FC0 = mailIndex;
-                gLoginWindowRuntime.mailCategoryCC4D50 = category;
+                business.mailCategoryCC4D50 = category;
                 static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailRead, 1, 0, nullptr));
             }
             consumed = 1;
@@ -713,7 +715,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
                 static_cast<void>(0);
             }
         }
-        if (gLoginWindowRuntime.statusHasInjuryD046C8 == 0) {
+        if (business.statusHasInjuryD046C8 == 0) {
             return 0;
         }
         if (hover) {
@@ -759,8 +761,8 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
                     if (WindowInstance* const equipment = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment].window) {
                         equipment->state |= 0x8000u;
                     }
-                    gLoginWindowRuntime.selectedPetCC3E5C = WindowStatusBar_FindSortedPetIndex(petIndex);
-                    gLoginWindowRuntime.valueD673D0 = 5;
+                    business.selectedPetCC3E5C = WindowStatusBar_FindSortedPetIndex(petIndex);
+                    business.valueD673D0 = 5;
                     static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetDetail, 1, 0, nullptr));
                 }
             }

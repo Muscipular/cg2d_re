@@ -103,6 +103,7 @@ WindowPrototype gWindowPrototypePetEquipment {0, 4, 365, 83, 245, 306, 0x8001010
 // value10为悬停槽（-1无），value14为说明页，value20记录真实宠物槽；不拥有或复制装备记录。
 static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
@@ -133,7 +134,7 @@ static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, co
         static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     }
     const auto petIndex = std::bit_cast<std::int16_t>(
-        world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+        world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
     if (value == -1 || state.value20 != static_cast<std::uint32_t>(petIndex)) {
         state.value10 = static_cast<std::uint32_t>(-1);
         state.value14 = 0;
@@ -149,13 +150,14 @@ static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, co
         element->data.text->text = pet.name6BD[0] != L'\0' ? pet.name6BD.data() : pet.name6AC.data();
     }
     if (auto* const element = window->FindElementById(WindowPetEquipmentElementId::PetNumber)) {
-        element->data.text->text = std::format(L"{}/5", gLoginWindowRuntime.selectedPetCC3E5C + 1);
+        element->data.text->text = std::format(L"{}/5", business.selectedPetCC3E5C + 1);
     }
     return 1;
 }
 
 static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     const bool previous = elementId == static_cast<ElementId>(WindowPetEquipmentElementId::PreviousPet);
@@ -165,13 +167,13 @@ static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow,
     }
     if ((state & MouseFlag_Hover) != 0) gHoverTextD68AE8 = kPetSelectHint586D2C;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
+        std::int32_t position = business.selectedPetCC3E5C;
         for (std::int32_t attempt = 0; attempt < 5; ++attempt) {
             position = (position + (previous ? 4 : 1)) % 5;
             const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
             if (world::gPetRuntimeRecords[petIndex].used != 0) break;
         }
-        gLoginWindowRuntime.selectedPetCC3E5C = position;
+        business.selectedPetCC3E5C = position;
         static_cast<void>(WindowPetEquipment_Update(*window, -1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         return 1;
@@ -181,10 +183,11 @@ static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow,
 
 static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindow, const ElementId, const std::int32_t events)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
-    const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+    const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     std::int32_t hovered = -1;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -239,10 +242,11 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
 
 static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
-    const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+    const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     const auto hovered = std::bit_cast<std::int32_t>(state.value10);
     if (hovered >= 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) == 0) {

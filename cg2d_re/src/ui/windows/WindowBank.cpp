@@ -550,12 +550,13 @@ static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, 
 // 原函数：0x004A93E0。
 static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    if (gLoginWindowRuntime.valueD67618 == 0) {
+    if (business.valueD67618 == 0) {
         if (auto* const buttonFirstPageElement = elementsWindow->FindElementById(WindowBankElementId::ButtonFirstPage); buttonFirstPageElement) buttonFirstPageElement->visible = 0;
         if (auto* const buttonSecondPageElement = currentWindow->FindElementById(WindowBankElementId::ButtonSecondPage); buttonSecondPageElement) buttonSecondPageElement->visible = 1;
     }
@@ -563,7 +564,7 @@ static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, c
         gHoverTextD68AE8 = L"请选择银行分页";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        gLoginWindowRuntime.valueD67618 = 0;
+        business.valueD67618 = 0;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         static_cast<void>(callbackWindow.ownerSession->Connection().SelectBankPageRequest(1));
     }
@@ -577,12 +578,13 @@ static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, c
 // 原函数：0x004A94A0。
 static std::int32_t WindowBank_ButtonSecondPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    if (gLoginWindowRuntime.valueD67618 == 1) {
+    if (business.valueD67618 == 1) {
         if (auto* const buttonFirstPageElement = elementsWindow->FindElementById(WindowBankElementId::ButtonFirstPage); buttonFirstPageElement) buttonFirstPageElement->visible = 1;
         if (auto* const buttonSecondPageElement = currentWindow->FindElementById(WindowBankElementId::ButtonSecondPage); buttonSecondPageElement) buttonSecondPageElement->visible = 0;
     }
@@ -590,7 +592,7 @@ static std::int32_t WindowBank_ButtonSecondPage(WindowInstance& callbackWindow, 
         gHoverTextD68AE8 = L"请选择银行分页";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        gLoginWindowRuntime.valueD67618 = 1;
+        business.valueD67618 = 1;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         static_cast<void>(callbackWindow.ownerSession->Connection().SelectBankPageRequest(2));
     }
@@ -1615,6 +1617,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
 // 原函数：0x004ABB20。
 static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1624,7 +1627,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
     if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount)) {
         const std::uint32_t kind = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10;
         if (kind == 0 || kind == 1) {
-            const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+            const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
             if (side == 0 || side == 1) {
                 if (kind == 0) {
                     const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(side + 1)];
@@ -1651,7 +1654,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
     } else if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount_32)) {
         const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
         maximum = limit - world::gPlayerRuntimeSlots.valueFC;
-        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
         std::int32_t amount;
         std::memcpy(&amount,
             &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
@@ -1698,7 +1701,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
             auto* const confirmedElement = window->FindElementById(elementId);
             if (confirmedElement) {
                 const std::int32_t confirmed = std::bit_cast<std::int32_t>(confirmedElement->state);
-                const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+                const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
                 gStorageLastAmountsD67B68[side] = confirmed;
             }
         }
@@ -1710,14 +1713,14 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
         if (handleAmountElement) {
             cg::text::FormatTo(gStorageAmountTextsCB1DF8[0], L"{:9}", std::bit_cast<std::int32_t>(handleAmountElement->state));
         }
-        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
         cg::text::FormatTo(gStorageAmountTextsCB1DF8[1], L"{:9}", gStorageLastAmountsD67B68[side]);
     } else if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount_32)) {
         auto* const handleAmount_32Element = window->FindElementById(WindowBankElementId::HandleAmount_32);
         if (handleAmount_32Element) {
             cg::text::FormatTo(gStorageAmountTextsCB1DF8[1], L"{:9}", std::bit_cast<std::int32_t>(handleAmount_32Element->state));
         }
-        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
         cg::text::FormatTo(gStorageAmountTextsCB1DF8[0], L"{:9}", gStorageLastAmountsD67B68[side]);
     }
     return 0;
@@ -1726,6 +1729,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
 // 原函数：0x004A9B00。
 static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::wstring buffer;
@@ -1782,7 +1786,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     y = window->y + 285;
     x = window->x + 170;
     WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
-    const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+    const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
     std::int32_t amount;
     std::memcpy(&amount,
         &gItemDetailStorageCC4D58[side].amount, sizeof(amount));
@@ -1850,8 +1854,9 @@ std::int32_t WindowBank_ButtonClose(WindowInstance& callbackWindow, const Elemen
 
 // SGM01：原4A84A0完整1002条；A/G/I/P及记录失败续行、金额解析后fresh组写入保，仅A返回S32 1。
 // 原函数：0x004A84A0。
-std::int32_t WindowBank_ReceiveStorageData(const char* const text)
+std::int32_t WindowBank_ReceiveStorageData(session::ClientSession& session, const char* const text)
 {
+    auto& business = session.UiFrame().native.business;
     char buffer[3072];
     if (network::ExtractDelimitedField_52CED0(text, '|', 1, 1023, buffer) != 0) {
         return 0;
@@ -1944,13 +1949,13 @@ std::int32_t WindowBank_ReceiveStorageData(const char* const text)
             readPet(&gPetStorageD64E18[index], 122 + index * petFieldCount);
         }
         const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 122 + 5 * petFieldCount);
-        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
         gItemDetailStorageCC4D58[side].amount = amount;
         return 1;
     }
     case 'G': {
         const std::int32_t amount = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
-        const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
+        const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
         gItemDetailStorageCC4D58[side].amount = amount;
         return 0;
     }

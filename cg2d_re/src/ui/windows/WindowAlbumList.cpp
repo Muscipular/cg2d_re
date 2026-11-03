@@ -215,11 +215,12 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return nullptr;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     render::GraphicDescriptor16 descriptor {};
     void* result = nullptr;
     for (std::int32_t row = 0; row < 10; ++row) {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
-        const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
+        const std::int32_t scroll = business.valueC8A95C;
         const bool used = records[scroll + row].used != 0;
         const std::int32_t firstDigit = 8 + row * 3;
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(firstDigit)); indexedElement) indexedElement->visible = 0;
@@ -266,7 +267,7 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
 
             const world::AlbumRecord* const nameRecords = world::GetSelectedAlbumRecords();
             WindowInstance* const nameWindow = currentWindow;
-            const std::int32_t nameScroll = gLoginWindowRuntime.valueC8A95C;
+            const std::int32_t nameScroll = business.valueC8A95C;
             auto* const textElement = nameWindow->FindElementById(NativeElementKey(48 + row));
             if (textElement) {
                 auto* const text = textElement->data.text;
@@ -274,7 +275,7 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
                 text->text = name;
             }
             const world::AlbumRecord* const flagRecords = world::GetSelectedAlbumRecords();
-            const std::int32_t flagScroll = gLoginWindowRuntime.valueC8A95C;
+            const std::int32_t flagScroll = business.valueC8A95C;
             const bool fresh = flagRecords[flagScroll + row].fresh != 0;
             WindowInstance* const flagWindow = currentWindow;
             if (auto* const indexedElement4 = flagWindow->FindElementById(NativeElementKey(38 + row)); indexedElement4) indexedElement4->visible = fresh ? 1 : 0;
@@ -296,8 +297,9 @@ static void* WindowAlbumList_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x004923F0。
 static std::int32_t WindowAlbumList_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     if (value == -1) {
-        gLoginWindowRuntime.valueC8A95C = 0;
+        business.valueC8A95C = 0;
     }
     static_cast<void>(WindowAlbumList_Refresh(&callbackWindow));
     return 1;
@@ -306,6 +308,7 @@ static std::int32_t WindowAlbumList_Update(WindowInstance& callbackWindow, const
 // 原函数：0x00492430。
 static std::int32_t WindowAlbumList_SelectEntry(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -319,14 +322,14 @@ static std::int32_t WindowAlbumList_SelectEntry(WindowInstance& callbackWindow, 
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
-        const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
+        const std::int32_t scroll = business.valueC8A95C;
         if (records[scroll + index - 58].used != 0) {
             if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_AlbumDetail].window == nullptr) {
-                gLoginWindowRuntime.valueCB2200 = scroll + index - 58;
+                business.valueCB2200 = scroll + index - 58;
                 static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_AlbumDetail, 1, 0, nullptr));
                 return 1;
             }
-            gLoginWindowRuntime.valueCB2200 = scroll + index - 58;
+            business.valueCB2200 = scroll + index - 58;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
         }
         return 1;
@@ -337,6 +340,7 @@ static std::int32_t WindowAlbumList_SelectEntry(WindowInstance& callbackWindow, 
 // 原函数：0x00492520。
 static std::int32_t WindowAlbumList_HandleScrollButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const auto setImage = [elementId, currentWindow](const std::int32_t image) {
@@ -357,16 +361,16 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(WindowInstance& callback
             consumed = 1;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t next = gLoginWindowRuntime.valueC8A95C + (elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? -1 : 1);
-            gLoginWindowRuntime.valueC8A95C = next;
+            const std::int32_t next = business.valueC8A95C + (elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? -1 : 1);
+            business.valueC8A95C = next;
             if (elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? next < 0 : next > 949) {
-                gLoginWindowRuntime.valueC8A95C = elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? 0 : 950;
+                business.valueC8A95C = elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons) ? 0 : 950;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             WindowInstance* const window = currentWindow;
-            const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
+            const std::int32_t scroll = business.valueC8A95C;
             auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
             if (dragScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 950, scroll));
@@ -380,23 +384,23 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(WindowInstance& callback
                            : ((state & MouseFlag_Hover) != 0 ? 0x3B55B : 0x3B559));
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (elementId == static_cast<ElementId>(WindowAlbumListElementId::HandleScrollButtons_6)) {
-                const std::int32_t next = gLoginWindowRuntime.valueC8A95C - 10;
-                gLoginWindowRuntime.valueC8A95C = next;
+                const std::int32_t next = business.valueC8A95C - 10;
+                business.valueC8A95C = next;
                 if (next < 0) {
-                    gLoginWindowRuntime.valueC8A95C = 0;
+                    business.valueC8A95C = 0;
                 }
                 WindowInstance* const window = currentWindow;
-                const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
+                const std::int32_t scroll = business.valueC8A95C;
                 auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
                 if (dragScrollElement) {
                     static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 950, scroll));
                 }
             } else {
-                std::int32_t next = gLoginWindowRuntime.valueC8A95C + 10;
-                gLoginWindowRuntime.valueC8A95C = next;
+                std::int32_t next = business.valueC8A95C + 10;
+                business.valueC8A95C = next;
                 if (next > 949) {
                     next = 950;
-                    gLoginWindowRuntime.valueC8A95C = next;
+                    business.valueC8A95C = next;
                 }
                 WindowInstance* const window = currentWindow;
                 auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
@@ -420,6 +424,7 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(WindowInstance& callback
 // 原函数：0x00492800。
 static std::int32_t WindowAlbumList_DragScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t result = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
@@ -427,7 +432,7 @@ static std::int32_t WindowAlbumList_DragScroll(WindowInstance& callbackWindow, c
         WindowInstance* const window = currentWindow;
         auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
         if (dragScrollElement) {
-            gLoginWindowRuntime.valueC8A95C = WindowScroll_ReadPosition(dragScrollElement, 950);
+            business.valueC8A95C = WindowScroll_ReadPosition(dragScrollElement, 950);
         }
     }
     return result;
@@ -436,15 +441,16 @@ static std::int32_t WindowAlbumList_DragScroll(WindowInstance& callbackWindow, c
 // 原函数：0x00492840。
 static std::int32_t WindowAlbumList_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = currentWindow;
-        const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
+        const std::int32_t scroll = business.valueC8A95C;
         auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
         if (dragScrollElement) {
-            gLoginWindowRuntime.valueC8A95C = WindowScroll_ApplyWheel(dragScrollElement, scroll, 950, wheel);
+            business.valueC8A95C = WindowScroll_ApplyWheel(dragScrollElement, scroll, 950, wheel);
         }
     }
     return 0;

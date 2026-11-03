@@ -86,6 +86,7 @@ WindowPrototype gWindowPrototypePetMailCompose {0, 4, 383, 81, 211, 259, 0x80010
 // 原函数：0x004A56F0。
 static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -94,21 +95,21 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
         if (normalWindow != nullptr) {
             normalWindow->state |= 0x8000u;
         }
-        gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
+        business.choicesCC4CA0.value00 = 0;
         for (std::int32_t index = 0; index < 5; ++index) {
             const auto pet = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
             if (world::gPetRuntimeRecords[pet].used != 0
                 && world::HasPetMailTechnique_52E1D0(pet) == 1) {
-                ++gLoginWindowRuntime.choicesCC4CA0.value00;
+                ++business.choicesCC4CA0.value00;
             }
         }
-        if (gLoginWindowRuntime.choicesCC4CA0.value00 > 0) {
-            gLoginWindowRuntime.prefixD2F0B8.value08 = 0;
+        if (business.choicesCC4CA0.value00 > 0) {
+            business.prefixD2F0B8.value08 = 0;
         }
-        const WindowRuntimePrefixD2F0B8 previous = gLoginWindowRuntime.mailDraftCF4BC8;
-        const WindowRuntimePrefixD2F0B8 current = gLoginWindowRuntime.prefixD2F0B8;
+        const WindowRuntimePrefixD2F0B8 previous = business.mailDraftCF4BC8;
+        const WindowRuntimePrefixD2F0B8 current = business.prefixD2F0B8;
         if (WindowRuntime_MatchesRuntimePrefix(current, previous) != 0) {
-            inputs.mailPrototype.text = cg::text::FromGbkWide(reinterpret_cast<const char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()));
+            inputs.mailPrototype.text = cg::text::FromGbkWide(reinterpret_cast<const char*>(business.mailDraftCF4BC8.bytes14.data()));
         }
         const WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
@@ -123,7 +124,7 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
         }
         if (auto* const handleInputElement2 = focused->FindElementById(WindowPetMailComposeElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &inputs.mail;
     }
-    gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
+    business.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
         const auto pet = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
         if (world::gPetRuntimeRecords[pet].used == 0) {
@@ -131,28 +132,28 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
         }
         const std::int32_t available = world::HasPetMailTechnique_52E1D0(pet);
         if (available == 1) {
-            gLoginWindowRuntime.choicesCC4CA0.pairs18[index][1] = available;
-            gLoginWindowRuntime.choicesCC4CA0.pairs18[index][0] = pet;
-            const std::int32_t output = gLoginWindowRuntime.choicesCC4CA0.value00;
-            gLoginWindowRuntime.choicesCC4CA0.values04[output] = pet;
-            const std::int32_t count = gLoginWindowRuntime.choicesCC4CA0.value00;
-            gLoginWindowRuntime.choicesCC4CA0.value00 = count + 1;
+            business.choicesCC4CA0.pairs18[index][1] = available;
+            business.choicesCC4CA0.pairs18[index][0] = pet;
+            const std::int32_t output = business.choicesCC4CA0.value00;
+            business.choicesCC4CA0.values04[output] = pet;
+            const std::int32_t count = business.choicesCC4CA0.value00;
+            business.choicesCC4CA0.value00 = count + 1;
         } else {
-            gLoginWindowRuntime.choicesCC4CA0.pairs18[index][1] = 0;
-            gLoginWindowRuntime.choicesCC4CA0.pairs18[index][0] = pet;
+            business.choicesCC4CA0.pairs18[index][1] = 0;
+            business.choicesCC4CA0.pairs18[index][0] = pet;
         }
     }
-    if (gLoginWindowRuntime.choicesCC4CA0.value00 == 0) {
+    if (business.choicesCC4CA0.value00 == 0) {
         currentWindow->state |= 0x8000u;
     }
-    const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
-    const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
+    const std::int32_t position = business.prefixD2F0B8.value08;
+    const std::int32_t pet = business.choicesCC4CA0.values04[position];
     if (world::gPetRuntimeRecords[pet].used == 0) {
         currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowPetMailCompose_RefreshPet(callbackWindow));
     WindowInstance* const groupWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
-    if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
+    if (groupWindow != nullptr && business.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
     }
     return 1;
@@ -161,6 +162,7 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
 // 原函数：0x004A6300。
 static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
@@ -173,12 +175,12 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8 && (static_cast<std::uint8_t>(world::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
-            const std::int32_t previous = gLoginWindowRuntime.prefixD2F0B8.value0C;
+            const std::int32_t previous = business.prefixD2F0B8.value0C;
             if (previous != -1) {
                 --occupancy[previous];
             }
             auto count = occupancy[source];
-            gLoginWindowRuntime.prefixD2F0B8.value0C = source;
+            business.prefixD2F0B8.value0C = source;
             ++count;
             events &= ~MouseFlag_DragFinish;
             occupancy[source] = count;
@@ -188,13 +190,13 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
         WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     if ((events & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t selected = gLoginWindowRuntime.prefixD2F0B8.value0C;
+        const std::int32_t selected = business.prefixD2F0B8.value0C;
         if (selected >= 0) {
             static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, selected, 1));
-            const std::int32_t current = gLoginWindowRuntime.prefixD2F0B8.value0C;
+            const std::int32_t current = business.prefixD2F0B8.value0C;
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             auto count = occupancy[current];
-            gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
+            business.prefixD2F0B8.value0C = -1;
             --count;
             occupancy[current] = count;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -253,6 +255,7 @@ static std::int32_t WindowPetMailCompose_HasGiftItem(session::ClientSession& ses
 // 原函数：0x004A6450。
 static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -278,18 +281,18 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
                 currentWindow->state |= 0x8000u;
                 static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
             } else if (elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons_9)) {
-                const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08 - 1;
-                gLoginWindowRuntime.prefixD2F0B8.value08 = position;
+                const std::int32_t position = business.prefixD2F0B8.value08 - 1;
+                business.prefixD2F0B8.value08 = position;
                 if (position < 0) {
-                    gLoginWindowRuntime.prefixD2F0B8.value08 = gLoginWindowRuntime.choicesCC4CA0.value00 - 1;
+                    business.prefixD2F0B8.value08 = business.choicesCC4CA0.value00 - 1;
                 }
             } else {
-                const std::int32_t previous = gLoginWindowRuntime.prefixD2F0B8.value08;
-                const std::int32_t count = gLoginWindowRuntime.choicesCC4CA0.value00;
+                const std::int32_t previous = business.prefixD2F0B8.value08;
+                const std::int32_t count = business.choicesCC4CA0.value00;
                 const std::int32_t position = previous + 1;
-                gLoginWindowRuntime.prefixD2F0B8.value08 = position;
+                business.prefixD2F0B8.value08 = position;
                 if (position > count - 1) {
-                    gLoginWindowRuntime.prefixD2F0B8.value08 = 0;
+                    business.prefixD2F0B8.value08 = 0;
                 }
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -305,7 +308,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
     default:
         return 0;
     }
-    const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
+    const std::int32_t category = business.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
         auto* const graphicElement = currentWindow->FindElementById(elementId);
         if (graphicElement) {
@@ -321,13 +324,13 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
         if ((state & MouseFlag_LDownEvent) != 0) {
             bool allowed = !inputs.mail.empty();
             if (allowed) {
-                const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
-                const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
+                const std::int32_t position = business.prefixD2F0B8.value08;
+                const std::int32_t pet = business.choicesCC4CA0.values04[position];
                 allowed = WindowPetMailCompose_HasGiftPet(pet) == 0;
             }
             if (allowed) {
-                const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
-                const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
+                const std::int32_t position = business.prefixD2F0B8.value08;
+                const std::int32_t pet = business.choicesCC4CA0.values04[position];
                 allowed = WindowPetMailCompose_HasGiftItem(*callbackWindow.ownerSession, pet) == 0;
             }
             if (allowed) {
@@ -336,11 +339,11 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
                 std::wstring timestamp;
                 std::int32_t target;
                 if (category == 1) {
-                    const std::int32_t member = gLoginWindowRuntime.prefixD2F0B8.value04;
+                    const std::int32_t member = business.prefixD2F0B8.value04;
                     target = cg::world::gOrderedRecords1051B14[member].value0C;
                     text = input::ContextText(inputs.mail);
                 } else {
-                    target = gLoginWindowRuntime.prefixD2F0B8.value04;
+                    target = business.prefixD2F0B8.value04;
                     text = input::ContextText(inputs.mail);
                 }
                 {
@@ -349,9 +352,9 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
                     storedText = text;
                 }
                 const std::wstring packet = input::EscapeTextAndNotify(text, 600);
-                const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
-                const std::int32_t item = gLoginWindowRuntime.prefixD2F0B8.value0C;
-                const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
+                const std::int32_t position = business.prefixD2F0B8.value08;
+                const std::int32_t item = business.prefixD2F0B8.value0C;
+                const std::int32_t pet = business.choicesCC4CA0.values04[position];
                 const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                 if (category == 1) {
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildPetMail(target, pet, item, packet, 0));
@@ -386,12 +389,13 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
 // 原函数：0x004A6AC0。
 static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWindow)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
+    const std::int32_t category = business.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
-        const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
+        const std::int32_t target = business.prefixD2F0B8.value04;
         auto* const element7 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element7);
         if (element7) {
             auto* const text = element7->data.text;
@@ -399,8 +403,8 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
                 : cg::world::gOrderedRecords1051B14[target].name18;
         }
     }
-    const std::int32_t namePosition = gLoginWindowRuntime.prefixD2F0B8.value08;
-    const std::int32_t namePet = gLoginWindowRuntime.choicesCC4CA0.values04[namePosition];
+    const std::int32_t namePosition = business.prefixD2F0B8.value08;
+    const std::int32_t namePet = business.choicesCC4CA0.values04[namePosition];
     const auto& pet = world::gPetRuntimeRecords[namePet];
     const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
     auto* const element8 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element8);
@@ -408,12 +412,12 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
         auto* const nameData = element8->data.text;
         nameData->text = name;
     }
-    const std::int32_t firstPosition = gLoginWindowRuntime.prefixD2F0B8.value08;
-    const std::int32_t firstPet = gLoginWindowRuntime.choicesCC4CA0.values04[firstPosition];
+    const std::int32_t firstPosition = business.prefixD2F0B8.value08;
+    const std::int32_t firstPet = business.choicesCC4CA0.values04[firstPosition];
     bool unavailable = WindowPetMailCompose_HasGiftPet(firstPet) != 0;
     if (!unavailable) {
-        const std::int32_t secondPosition = gLoginWindowRuntime.prefixD2F0B8.value08;
-        const std::int32_t secondPet = gLoginWindowRuntime.choicesCC4CA0.values04[secondPosition];
+        const std::int32_t secondPosition = business.prefixD2F0B8.value08;
+        const std::int32_t secondPet = business.choicesCC4CA0.values04[secondPosition];
         unavailable = WindowPetMailCompose_HasGiftItem(*callbackWindow.ownerSession, secondPet) != 0;
     }
     auto* const element82 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element8);
@@ -421,16 +425,16 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
         auto* const colorData = element82->data.text;
         colorData->style.color = unavailable ? std::byte{7} : std::byte{0};
     }
-    const bool hasItem = gLoginWindowRuntime.prefixD2F0B8.value0C != -1;
+    const bool hasItem = business.prefixD2F0B8.value0C != -1;
     if (auto* const element5 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element5); element5) element5->visible = 0;
     if (hasItem) {
-        const std::int32_t imageSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
+        const std::int32_t imageSlot = business.prefixD2F0B8.value0C;
         const std::int32_t image = world::gPlayerRuntimeSlots.items[imageSlot].imageNo;
         const WindowInstance* const graphicWindow = currentWindow;
         const std::int32_t y = graphicWindow->y;
         const std::int32_t x = graphicWindow->x;
         static_cast<void>(cg::render::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
-        const std::int32_t countSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
+        const std::int32_t countSlot = business.prefixD2F0B8.value0C;
         const std::int32_t count = world::gPlayerRuntimeSlots.items[countSlot].count;
         if (count > 0) {
             std::wstring buffer;

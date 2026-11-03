@@ -145,7 +145,7 @@ bool CenterPopupWindowPosition(std::int32_t id, std::int32_t width, std::int32_t
 void InitializeWindowLayout();
 
 // G07：INVCF发布背包／银行页数及0基背包页；新增按钮在下次开窗时创建。
-void WindowRuntime_SetInventoryPages(
+void WindowRuntime_SetInventoryPages(session::ClientSession& session,
     std::int32_t bagPageCount, std::int32_t bankPageCount, std::int32_t bagCurrentPage);
 
 // WPL01：完整创建/载荷owner合同，见doc/cg2d_window_payload_creation_spec.md。

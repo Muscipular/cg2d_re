@@ -157,10 +157,11 @@ WindowPrototype gWindowPrototypeMessageBoard {0, 4, 5, 20, 634, 424, 0x80010101u
 // 窗口函数实现。
 
 // 原函数：0x004B5A90。
-void WindowMessageBoard_ResetRecords()
+void WindowMessageBoard_ResetRecords(session::ClientSession& session)
 {
-    gLoginWindowRuntime.valueD3FAD0 = 0;
-    for (WindowListRecordD3FAD4& record : gLoginWindowRuntime.recordsD3FAD4) {
+    auto& business = session.UiFrame().native.business;
+    business.valueD3FAD0 = 0;
+    for (WindowListRecordD3FAD4& record : business.recordsD3FAD4) {
         record.value00 = 0;
         record.value408 = 0;
         record.texts08[1].clear();
@@ -377,10 +378,11 @@ static void WindowMessageBoard_RefreshRecords(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     std::wstring buffer;
     for (std::int32_t index = 0; index < 4; ++index) {
-        const auto& record = gLoginWindowRuntime.recordsD3FAD4[index];
+        const auto& record = business.recordsD3FAD4[index];
         const std::int32_t first = 2 + index * 7;
         auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(first));
         if (graphicElement) {
@@ -418,8 +420,8 @@ static void WindowMessageBoard_RefreshRecords(WindowInstance* callbackWindow)
         }
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(first + 3)); indexedElement) indexedElement->visible = record.value408 != 0 ? 1 : 0;
     }
-    if (auto* const handleButtons_33Element = currentWindow->FindElementById(WindowMessageBoardElementId::HandleButtons_33); handleButtons_33Element) handleButtons_33Element->visible = (gLoginWindowRuntime.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
-    if (auto* const handleButtons_34Element = currentWindow->FindElementById(WindowMessageBoardElementId::HandleButtons_34); handleButtons_34Element) handleButtons_34Element->visible = (gLoginWindowRuntime.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
+    if (auto* const handleButtons_33Element = currentWindow->FindElementById(WindowMessageBoardElementId::HandleButtons_33); handleButtons_33Element) handleButtons_33Element->visible = (business.valueD3FAD0 & 0x20u) != 0 ? 1 : 0;
+    if (auto* const handleButtons_34Element = currentWindow->FindElementById(WindowMessageBoardElementId::HandleButtons_34); handleButtons_34Element) handleButtons_34Element->visible = (business.valueD3FAD0 & 0x10u) != 0 ? 1 : 0;
     WindowInstance* const window = currentWindow;
     auto* const handleInputElement = window->FindElementById(WindowMessageBoardElementId::HandleInput);
     if (handleInputElement) {
@@ -442,9 +444,10 @@ static std::int32_t WindowMessageBoard_Close(WindowInstance* callbackWindow)
 }
 
 // 原函数：0x004B6970。
-std::int32_t WindowMessageBoard_ReceiveRecords(const std::int32_t flags, char* const text)
+std::int32_t WindowMessageBoard_ReceiveRecords(session::ClientSession& session, const std::int32_t flags, char* const text)
 {
-    gLoginWindowRuntime.valueD3FAD0 = static_cast<std::uint32_t>(flags);
+    auto& business = session.UiFrame().native.business;
+    business.valueD3FAD0 = static_cast<std::uint32_t>(flags);
     input::UnescapeLegacyText_52D150(text);
     gWindow50AlternateRecordsD30138.fill(std::byte{0});
     char titleGbk[17]{};
@@ -456,7 +459,7 @@ std::int32_t WindowMessageBoard_ReceiveRecords(const std::int32_t flags, char* c
     std::int32_t field = 2;
     std::int32_t offset = 0;
     do {
-        auto& record = gLoginWindowRuntime.recordsD3FAD4[offset / 0x40C];
+        auto& record = business.recordsD3FAD4[offset / 0x40C];
         const std::int32_t imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         record.value00 = character_select::detail::ResolveCompatibleCharacterGraphic_51BC50(imageNo);
         record.value04 = network::ParseDelimitedInteger_52CFA0(text, '|', field++);

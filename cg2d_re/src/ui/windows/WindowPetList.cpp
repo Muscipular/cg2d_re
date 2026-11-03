@@ -278,7 +278,7 @@ namespace detail {
 static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口15完整五组交互。
 
 // 原函数：0x0048D4E0。
-static network::SendResult WindowPetList_SubmitStates(); // 五状态局部快照叠加真实跟随位，透传发送结果。
+static network::SendResult WindowPetList_SubmitStates(session::ClientSession& session); // 五状态局部快照叠加真实跟随位，透传发送结果。
 
 // 原函数：0x0048C1B0。
 // 关联原入口：0x0048C1CF（共享尾已并入本函数正文）。
@@ -594,60 +594,63 @@ WindowPrototype gWindowPrototypePetList {0, 4, 3, 85, 323, 281, 0x80010101u, 259
 // 窗口函数实现。
 
 // 原函数：0x0048C150。
-std::int32_t WindowPetList_ResetSelection()
+std::int32_t WindowPetList_ResetSelection(session::ClientSession& session)
 {
-    gLoginWindowRuntime.valueD673D0 = 5;
-    gLoginWindowRuntime.selectedPetCC3E5C = 0;
-    for (std::int32_t& value : gLoginWindowRuntime.valuesCC1A18) {
+    auto& business = session.UiFrame().native.business;
+    business.valueD673D0 = 5;
+    business.selectedPetCC3E5C = 0;
+    for (std::int32_t& value : business.valuesCC1A18) {
         value = 0;
     }
-    gLoginWindowRuntime.valuesCC4CE8[0] = 0;
-    gLoginWindowRuntime.valuesCC4CE8[2] = 0;
-    gLoginWindowRuntime.valuesCC4CE8[3] = 0;
-    gLoginWindowRuntime.valuesCC4CE8[4] = 0;
-    gLoginWindowRuntime.valuesCC4CE8[1] = 0;
-    gLoginWindowRuntime.valuesD2EAA0[0] = 0;
-    gLoginWindowRuntime.valuesD2EAA0[1] = -1;
-    gLoginWindowRuntime.valuesD2EAA0[2] = -1;
+    business.valuesCC4CE8[0] = 0;
+    business.valuesCC4CE8[2] = 0;
+    business.valuesCC4CE8[3] = 0;
+    business.valuesCC4CE8[4] = 0;
+    business.valuesCC4CE8[1] = 0;
+    business.valuesD2EAA0[0] = 0;
+    business.valuesD2EAA0[1] = -1;
+    business.valuesD2EAA0[2] = -1;
     return -1;
 }
 
 // 原511AE0三处调用均先逆序读取五状态，最后读取socket。
-static network::SendResult WindowPetList_SendStates(const std::array<std::int32_t, 5>& values)
+static network::SendResult WindowPetList_SendStates(session::ClientSession& session, const std::array<std::int32_t, 5>& values)
 {
     const std::int32_t fifth = values[4];
     const std::int32_t fourth = values[3];
     const std::int32_t third = values[2];
     const std::int32_t second = values[1];
     const std::int32_t first = values[0];
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    return cg::network::GetGameConnection().SendPetStates(first, second, third, fourth, fifth);
+    const auto networkSession = session.Connection().CaptureSession();
+    return session.Connection().SendPetStates(first, second, third, fourth, fifth);
 }
 
 // 原函数：0x0048D4E0。
-static network::SendResult WindowPetList_SubmitStates()
+static network::SendResult WindowPetList_SubmitStates(session::ClientSession& session)
 {
+    auto& business = session.UiFrame().native.business;
     std::array<std::int32_t, 5> values;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
         const std::int32_t follow = world::gPetRuntimeRecords[slot].follow6D4;
-        const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[slot];
+        const std::int32_t state = business.valuesCC1A18[slot];
         values[slot] = state;
         if (follow != 0) {
             values[slot] = state | 0x10;
         }
     }
-    return WindowPetList_SendStates(values);
+    return WindowPetList_SendStates(session, values);
 }
 
 // 原函数：0x0048C1E0。
 static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
-    auto& states = gLoginWindowRuntime.valuesCC1A18;
+    auto& states = business.valuesCC1A18;
     const auto petIndex = [](const std::int32_t row) {
         return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
     };
@@ -677,8 +680,8 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             const auto& pet = world::gPetRuntimeRecords[selected];
             if (pet.used != 0) {
                 WindowInstance* const detailsWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetDetail].window;
-                gLoginWindowRuntime.selectedPetCC3E5C = row;
-                gLoginWindowRuntime.valueD673D0 = 5;
+                business.selectedPetCC3E5C = row;
+                business.valueD673D0 = 5;
                 if (WindowInstance* const equipment = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment].window) {
                     equipment->state |= 0x2000u;
                 } else if (detailsWindow != nullptr || WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetAttributes].window != nullptr
@@ -703,12 +706,12 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
         }
-        gLoginWindowRuntime.valuesD2EAA0[0] = 0;
-        gLoginWindowRuntime.valuesD2EAA0[1] = -1;
+        business.valuesD2EAA0[0] = 0;
+        business.valuesD2EAA0[1] = -1;
         if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 3) {
             const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
-            gLoginWindowRuntime.valuesD2EAA0[0] = 1;
-            gLoginWindowRuntime.valuesD2EAA0[1] = WindowItem_FindSortedPetIndex(source);
+            business.valuesD2EAA0[0] = 1;
+            business.valuesD2EAA0[1] = WindowItem_FindSortedPetIndex(source);
         }
         return consumed;
     }
@@ -733,7 +736,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         }
         const std::int16_t selected = petIndex(row);
         if (world::gPetRuntimeRecords[selected].follow6D4 != 0) {
-            static_cast<void>(WindowPetList_SendStates(states));
+            static_cast<void>(WindowPetList_SendStates(*callbackWindow.ownerSession, states));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
         }
@@ -752,7 +755,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             return consumed;
         }
         states[selected] |= 0x10;
-        static_cast<void>(WindowPetList_SendStates(states));
+        static_cast<void>(WindowPetList_SendStates(*callbackWindow.ownerSession, states));
         states[petIndex(row)] &= ~0x10;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         return consumed;
@@ -775,7 +778,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         }
         if (previous == 1) {
             states[selected] = 0;
-            static_cast<void>(WindowPetList_SubmitStates());
+            static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
             return consumed;
         }
         if (previous == 2) {
@@ -793,11 +796,11 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         }
         const std::int16_t target = petIndex(row);
         if (count >= 3 && states[target] != 2) {
-            const std::int32_t firstReady = gLoginWindowRuntime.valuesCC4CE8[2];
+            const std::int32_t firstReady = business.valuesCC4CE8[2];
             states[firstReady] &= ~1;
         }
         states[target] = 1;
-        static_cast<void>(WindowPetList_SubmitStates());
+        static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         return consumed;
     }
@@ -820,13 +823,13 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         if (previous == 2) {
             states[selected] = 0;
         } else {
-            const std::int32_t oldBattle = gLoginWindowRuntime.valuesCC4CE8[0];
+            const std::int32_t oldBattle = business.valuesCC4CE8[0];
             if (oldBattle != -1) {
                 states[oldBattle] &= ~2;
             }
             states[selected] = 2;
         }
-        static_cast<void>(WindowPetList_SubmitStates());
+        static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
         WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         return consumed;
@@ -848,11 +851,11 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         const std::int16_t selected = petIndex(row);
         if (states[selected] == 3) {
             states[selected] = 0;
-            static_cast<void>(WindowPetList_SubmitStates());
+            static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
         } else if ((world::ReadPlayerActionFlags() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             states[petIndex(row)] = 3;
-            static_cast<void>(WindowPetList_SubmitStates());
+            static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         return consumed;
@@ -861,27 +864,28 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
 }
 
 // 原函数：0x0048D460。
-static void WindowPetList_RefreshStates()
+static void WindowPetList_RefreshStates(session::ClientSession& session)
 {
-    gLoginWindowRuntime.valuesCC4CE8[0] = -1;
-    gLoginWindowRuntime.valuesCC4CE8[2] = -1;
-    gLoginWindowRuntime.valuesCC4CE8[3] = -1;
-    gLoginWindowRuntime.valuesCC4CE8[4] = -1;
-    gLoginWindowRuntime.valuesCC4CE8[1] = -1;
-    gLoginWindowRuntime.countCC4CFC = 0;
+    auto& business = session.UiFrame().native.business;
+    business.valuesCC4CE8[0] = -1;
+    business.valuesCC4CE8[2] = -1;
+    business.valuesCC4CE8[3] = -1;
+    business.valuesCC4CE8[4] = -1;
+    business.valuesCC4CE8[1] = -1;
+    business.countCC4CFC = 0;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
         const auto& pet = world::gPetRuntimeRecords[slot];
         const std::int32_t state = std::bit_cast<std::int16_t>(pet.flags6AA);
-        gLoginWindowRuntime.valuesCC1A18[slot] = state;
+        business.valuesCC1A18[slot] = state;
         if (state == 2) {
-            gLoginWindowRuntime.valuesCC4CE8[0] = slot;
+            business.valuesCC4CE8[0] = slot;
         } else if (state == 1) {
-            const std::int32_t count = gLoginWindowRuntime.countCC4CFC;
-            gLoginWindowRuntime.valuesCC4CE8[count + 2] = slot;
-            gLoginWindowRuntime.countCC4CFC = gLoginWindowRuntime.countCC4CFC + 1;
+            const std::int32_t count = business.countCC4CFC;
+            business.valuesCC4CE8[count + 2] = slot;
+            business.countCC4CFC = business.countCC4CFC + 1;
         }
         if (pet.follow6D4 != 0) {
-            gLoginWindowRuntime.valuesCC4CE8[1] = slot;
+            business.valuesCC4CE8[1] = slot;
         }
     }
 }
@@ -926,7 +930,8 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
-    WindowPetList_RefreshStates();
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
+    WindowPetList_RefreshStates(*callbackWindow->ownerSession);
     std::wstring buffer;
     const auto copyNumber = [&buffer, currentWindow](const std::int32_t element) {
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(element));
@@ -977,7 +982,7 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
         }
         const std::int16_t loyaltyIndex = petIndex();
         const bool canSelect = world::gPetRuntimeRecords[loyaltyIndex].values70[10] == 100
-            || gLoginWindowRuntime.valuesCC1A18[loyaltyIndex] == 3;
+            || business.valuesCC1A18[loyaltyIndex] == 3;
         if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(241 + row)); indexedElement5) indexedElement5->visible = canSelect ? 1 : 0;
 
         const auto& namePet = world::gPetRuntimeRecords[petIndex()];
@@ -992,7 +997,7 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
 
         const std::int16_t colorIndex = petIndex();
         WindowInstance* const colorWindow = currentWindow;
-        const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
+        const std::int32_t colorState = business.valuesCC1A18[colorIndex];
         auto* const indexedElement6 = colorWindow->FindElementById(NativeElementKey(textBase));
         if (indexedElement6) {
             indexedElement6->data.text->style.color =
@@ -1021,7 +1026,7 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
             tribeData->text = tribeName;
         }
 
-        const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[petIndex()];
+        const std::int32_t state = business.valuesCC1A18[petIndex()];
         if (state >= 0 && state <= 3) {
             setImage(231 + row, state == 1 ? 0x3B589 : 0x3B58A);
             setImage(236 + row, state == 2 ? 0x3B58C : 0x3B58D);
@@ -1045,8 +1050,8 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
         WindowPetList_RefreshAttributeBar(callbackWindow, row, pair, 3, 0x3B5E1, 0x3B5DF, 0x3B5DE, 0x3B5E0);
     }
     for (std::int32_t row = 0; row < 5; ++row) {
-        const bool selected = gLoginWindowRuntime.valuesD2EAA0[0] == 1
-            && gLoginWindowRuntime.valuesD2EAA0[1] == row;
+        const bool selected = business.valuesD2EAA0[0] == 1
+            && business.valuesD2EAA0[1] == row;
         setImage(246 + row, selected ? 0x3BAE4 : 0x3B5C4);
     }
 }
@@ -1055,10 +1060,11 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
 // 关联原入口：0x0048C1CF（共享尾已并入本函数正文）。
 static std::int32_t WindowPetList_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     if (value == -1) {
-        gLoginWindowRuntime.valuesD2EAA0[0] = 0;
-        gLoginWindowRuntime.valuesD2EAA0[1] = -1;
-        gLoginWindowRuntime.valuesD2EAA0[2] = -1;
+        business.valuesD2EAA0[0] = 0;
+        business.valuesD2EAA0[1] = -1;
+        business.valuesD2EAA0[2] = -1;
     }
     WindowPetList_Refresh(&callbackWindow);
     return 1;

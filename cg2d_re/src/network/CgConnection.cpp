@@ -1215,7 +1215,7 @@ std::int32_t CgConnection::Impl::Initialize()
             const std::int32_t bagPages = ParseProtocolInteger_517190(arguments[1]);
             const std::int32_t bankPages = ParseProtocolInteger_517190(arguments[2]);
             const std::int32_t bagPage = ParseProtocolInteger_517190(arguments[3]);
-            ui::WindowRuntime_SetInventoryPages(bagPages, bankPages, bagPage);
+            ui::WindowRuntime_SetInventoryPages(owner.Owner(), bagPages, bankPages, bagPage);
         });
         this->gameplayHandlersRegistered = true;
     }

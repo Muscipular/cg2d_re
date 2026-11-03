@@ -228,11 +228,12 @@ WindowPrototype gWindowPrototypeBlacklist {0, 4, 38, 95, 251, 210, 0x80010101u, 
 // 窗口函数实现。
 
 // 原函数：0x004CC6A0。
-std::int32_t WindowBlacklist_ResetState()
+std::int32_t WindowBlacklist_ResetState(session::ClientSession& session)
 {
-    gLoginWindowRuntime.valueCC31A4 = 5;
-    gLoginWindowRuntime.valueD2E444 = 0;
-    gLoginWindowRuntime.valueCB0604 = 0;
+    auto& business = session.UiFrame().native.business;
+    business.valueCC31A4 = 5;
+    business.valueD2E444 = 0;
+    business.valueCB0604 = 0;
     return 0;
 }
 
@@ -241,6 +242,7 @@ static void WindowBlacklist_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     render::GraphicDescriptor16 descriptor {};
     for (std::int32_t row = 0; row < 10; ++row) {
@@ -253,7 +255,7 @@ static void WindowBlacklist_Refresh(WindowInstance* callbackWindow)
         WindowTextData* destination;
         // 原门禁比较静态记录地址，不是记录首字节；空记录也绘行号。
         if (recordAddress != nullptr) {
-            const std::int32_t page = gLoginWindowRuntime.valueD2E444;
+            const std::int32_t page = business.valueD2E444;
             const std::uint32_t color = 0xFFFFFFFFu;
             descriptor.color = color;
             descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
@@ -272,7 +274,7 @@ static void WindowBlacklist_Refresh(WindowInstance* callbackWindow)
                         x, y, 223, digit + 0x3B6B4, 0, &descriptor));
                 }
             }
-            const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;
+            const std::int32_t currentPage = business.valueD2E444;
             text = cg::world::blacklist::gRecords[currentPage + row].c_str();
             auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(49 + row));
             destination = indexedElement4 ? indexedElement4->data.text : nullptr;
@@ -297,8 +299,9 @@ static void WindowBlacklist_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x004CC6C0。
 static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     if (value == -1) {
-        gLoginWindowRuntime.valueD2E444 = 0;
+        business.valueD2E444 = 0;
     }
     WindowBlacklist_Refresh(&callbackWindow);
     return 1;
@@ -307,13 +310,14 @@ static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, const
 // 原函数：0x004CC6E0。
 static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
-        const wchar_t* const hint = gLoginWindowRuntime.blacklistDeleteModeD67BC4 != 0
+        const wchar_t* const hint = business.blacklistDeleteModeD67BC4 != 0
             ? L"删除此笔黑名单。" /* 原常量参考：0x00588654。 */ : L"拒绝接收此人的发话。" /* 原常量参考：0x00588668。 */;
         gHoverTextD68AE8 = hint;
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x8FCC;
@@ -324,8 +328,8 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     if ((state & MouseFlag_LDownEvent) == 0) {
         return consumed;
     }
-    if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 1) {
-        const std::int32_t recordIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
+    if (business.blacklistDeleteModeD67BC4 == 1) {
+        const std::int32_t recordIndex = business.valueD2E444 + index - 59;
         const wchar_t* const record = cg::world::blacklist::gRecords[recordIndex].c_str();
         if (record[0] != L'\0') {
             std::wstring message;
@@ -340,7 +344,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
             world::AppendChatMessage_44B050(*callbackWindow.ownerSession, message, 4, 3);
         }
     }
-    const std::int32_t currentIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
+    const std::int32_t currentIndex = business.valueD2E444 + index - 59;
     const wchar_t* const currentRecord = cg::world::blacklist::gRecords[currentIndex].c_str();
     if (currentRecord[0] != L'\0') {
         inputs.blacklist.reset();
@@ -375,6 +379,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
 // 原函数：0x004CC9B0。
 static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -395,15 +400,15 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
             consumed = 1;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t page = gLoginWindowRuntime.valueD2E444 + (elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons) ? -1 : 1);
-            gLoginWindowRuntime.valueD2E444 = page;
+            const std::int32_t page = business.valueD2E444 + (elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons) ? -1 : 1);
+            business.valueD2E444 = page;
             const bool boundary = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons) ? page < 0 : page > 89;
             if (boundary) {
-                gLoginWindowRuntime.valueD2E444 = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons) ? 0 : 90;
+                business.valueD2E444 = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons) ? 0 : 90;
             }
             static_cast<void>(audio::PlaySe_52C450(boundary ? 55 : 51, 320));
             WindowInstance* const window = currentWindow;
-            const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;
+            const std::int32_t currentPage = business.valueD2E444;
             auto* const dragScrollElement = window->FindElementById(WindowBlacklistElementId::DragScroll);
             if (dragScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 90, currentPage));
@@ -424,15 +429,15 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
             gHoverTextD68AE8 = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? L"显示前十笔的黑名单。" /* 原常量参考：0x005886CC。 */ : L"显示后十笔的黑名单。" /* 原常量参考：0x005886B4。 */;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t page = gLoginWindowRuntime.valueD2E444 + (elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? -10 : 10);
-            gLoginWindowRuntime.valueD2E444 = page;
+            const std::int32_t page = business.valueD2E444 + (elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? -10 : 10);
+            business.valueD2E444 = page;
             const bool boundary = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? page < 0 : page > 90;
             if (boundary) {
-                gLoginWindowRuntime.valueD2E444 = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? 0 : 90;
+                business.valueD2E444 = elementId == static_cast<ElementId>(WindowBlacklistElementId::HandleButtons_6) ? 0 : 90;
             }
             static_cast<void>(audio::PlaySe_52C450(boundary ? 55 : 51, 320));
             WindowInstance* const window = currentWindow;
-            const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;
+            const std::int32_t currentPage = business.valueD2E444;
             auto* const dragScrollElement = window->FindElementById(WindowBlacklistElementId::DragScroll);
             if (dragScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 90, currentPage));
@@ -445,22 +450,22 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
         break;
     }
     case WindowBlacklistElementId::HandleButtons_8:
-        if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 1) {
+        if (business.blacklistDeleteModeD67BC4 == 1) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x8FC7;
             gHoverTextD68AE8 = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
         }
         if ((state & MouseFlag_Hover) != 0) {
-            if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 0) {
+            if (business.blacklistDeleteModeD67BC4 == 0) {
                 if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x8FC8;
             }
             gHoverTextD68AE8 = L"删除所选择的黑名单。" /* 原常量参考：0x0058869C。 */;
             consumed = 1;
-        } else if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 0) {
+        } else if (business.blacklistDeleteModeD67BC4 == 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x8FC6;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            gLoginWindowRuntime.blacklistDeleteModeD67BC4 =
-                gLoginWindowRuntime.blacklistDeleteModeD67BC4 != 1 ? 1 : 0;
+            business.blacklistDeleteModeD67BC4 =
+                business.blacklistDeleteModeD67BC4 != 1 ? 1 : 0;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         break;
@@ -491,13 +496,14 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
 // 原函数：0x004CCE90。
 static std::int32_t WindowBlacklist_DragScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     if (consumed == 1) {
         auto* const dragScrollElement = currentWindow->FindElementById(WindowBlacklistElementId::DragScroll);
         if (dragScrollElement) {
-            gLoginWindowRuntime.valueD2E444 = WindowScroll_ReadPosition(dragScrollElement, 90);
+            business.valueD2E444 = WindowScroll_ReadPosition(dragScrollElement, 90);
         }
     }
     return consumed;

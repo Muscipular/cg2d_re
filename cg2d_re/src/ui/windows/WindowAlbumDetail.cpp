@@ -274,9 +274,10 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
-    const auto selectedRecord = []() {
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
+    const auto selectedRecord = [&business]() {
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
-        const std::int32_t index = gLoginWindowRuntime.valueCB2200;
+        const std::int32_t index = business.valueCB2200;
         return records + index;
     };
     const auto copyBeforeScan = [currentWindow](const std::int32_t index, const std::wstring_view source) {
@@ -316,7 +317,7 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
             if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(43 + slot)); indexedElement4) indexedElement4->visible = 1;
         }
         const std::int16_t nameCharacter = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-        const std::int32_t nameIndex = gLoginWindowRuntime.valueCB2200;
+        const std::int32_t nameIndex = business.valueCB2200;
         const auto& name = world::ClearAlbumNewFlagAndGetName(nameCharacter, nameIndex);
         copyBeforeScan(2, name);
 
@@ -330,11 +331,11 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
         auto* const element22 = currentWindow->FindElementById(WindowAlbumDetailElementId::Element2);
         if (element22) {
             auto* const directionData = element22->data.animation;
-            const std::int32_t direction = gLoginWindowRuntime.valueCF4A00;
+            const std::int32_t direction = business.valueCF4A00;
             cg::yobi::SetYobiActionField2B8(directionData->action, direction);
         }
 
-        buffer = std::format(L"{:3}", gLoginWindowRuntime.valueCB2200 + 1);
+        buffer = std::format(L"{:3}", business.valueCB2200 + 1);
         copyAfterScan(3, buffer);
         buffer = std::format(L"{:2}", selectedRecord()->value30);
         copyAfterScan(4, buffer);
@@ -348,7 +349,7 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
             auto* const tribeData = element6->data.text;
             tribeData->text = tribeName;
         }
-        buffer = std::format(L"{:3}/{:3}", gLoginWindowRuntime.valueCB2200 + 1, 960);
+        buffer = std::format(L"{:3}/{:3}", business.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
 
         const world::AlbumRecord* const firstMarkRecord = selectedRecord();
@@ -368,7 +369,7 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
             secondMarkData->imageNo = kAlbumMarkImages57DF2C[secondMark];
         }
 
-        const std::int32_t firstRatingIndex = gLoginWindowRuntime.valueCB2200;
+        const std::int32_t firstRatingIndex = business.valueCB2200;
         const world::AlbumRecord* const firstRatingRecords = world::GetSelectedAlbumRecords();
         WindowAlbumDetail_DrawRating(callbackWindow, firstRatingRecords[firstRatingIndex].ratings[0], 53);
         for (std::int32_t rating = 1; rating < 5; ++rating) {
@@ -417,9 +418,9 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
             if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(33 + slot)); indexedElement3) indexedElement3->visible = 0;
             if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(43 + slot)); indexedElement4) indexedElement4->visible = 0;
         }
-        buffer = std::format(L"{:3}", gLoginWindowRuntime.valueCB2200 + 1);
+        buffer = std::format(L"{:3}", business.valueCB2200 + 1);
         copyBeforeScan(3, buffer);
-        buffer = std::format(L"{:3}/{:3}", gLoginWindowRuntime.valueCB2200 + 1, 960);
+        buffer = std::format(L"{:3}/{:3}", business.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
     }
 }
@@ -427,8 +428,9 @@ static void WindowAlbumDetail_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x00492410。
 static std::int32_t WindowAlbumDetail_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     if (value == -1) {
-        gLoginWindowRuntime.valueCF4A00 = 5;
+        business.valueCF4A00 = 5;
     }
     WindowAlbumDetail_Refresh(&callbackWindow);
     return 1;
@@ -437,6 +439,7 @@ static std::int32_t WindowAlbumDetail_Update(WindowInstance& callbackWindow, con
 // 原函数：0x00492880。
 static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t delta;
@@ -465,18 +468,18 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackW
         break;
     case WindowAlbumDetailElementId::HandleNavigation_81:
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t direction = gLoginWindowRuntime.valueCF4A00 + 1;
-            gLoginWindowRuntime.valueCF4A00 = direction;
+            const std::int32_t direction = business.valueCF4A00 + 1;
+            business.valueCF4A00 = direction;
             if (direction > 7) {
-                gLoginWindowRuntime.valueCF4A00 = 0;
+                business.valueCF4A00 = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & MouseFlag_RRepeatDown) != 0) {
-            const std::int32_t direction = gLoginWindowRuntime.valueCF4A00 - 1;
-            gLoginWindowRuntime.valueCF4A00 = direction;
+            const std::int32_t direction = business.valueCF4A00 - 1;
+            business.valueCF4A00 = direction;
             if (direction < 0) {
-                gLoginWindowRuntime.valueCF4A00 = 7;
+                business.valueCF4A00 = 7;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
@@ -493,14 +496,14 @@ static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackW
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = idle;
     }
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        const std::int32_t selected = gLoginWindowRuntime.valueCB2200 + delta;
-        gLoginWindowRuntime.valueCB2200 = selected;
+        const std::int32_t selected = business.valueCB2200 + delta;
+        business.valueCB2200 = selected;
         if (delta < 0) {
             if (selected < 0) {
-                gLoginWindowRuntime.valueCB2200 = 0;
+                business.valueCB2200 = 0;
             }
         } else if (selected > 959) {
-            gLoginWindowRuntime.valueCB2200 = 959;
+            business.valueCB2200 = 959;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;

@@ -217,6 +217,7 @@ static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow,
 // 原函数：0x00477600。
 static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -235,9 +236,9 @@ static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindo
             return consumed;
         }
     }
-    const std::int32_t mode = gTitleModeCF4E50;
+    const std::int32_t mode = business.valuesCF4E50[0];
     if (mode == 0 || mode == 1) {
-        const std::int32_t id = world::gSortedTitlesDE03F8[gTitlePageCF4E54 + index - 26].id;
+        const std::int32_t id = world::gSortedTitlesDE03F8[business.valuesCF4E50[1] + index - 26].id;
         // 删除模式直接查原表，只有普通选择先拒绝负id。
         if (mode == 1 || id >= 0) {
             const std::int32_t originalIndex = world::FindTitleIndexById(id);
@@ -257,6 +258,7 @@ static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindo
 // 原函数：0x00477710。
 static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -334,11 +336,11 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
         }
         return consumed;
     case WindowPlayerTitlesElementId::HandleButtons_24: {
-        if (gTitleModeCF4E50 == 1) {
+        if (business.valuesCF4E50[0] == 1) {
             setImage(0x3B578);
             gHoverTextD68AE8 = L"删除所选择的称号。" /* 原常量参考：0x005863E8。 */;
         }
-        const std::int32_t mode = gTitleModeCF4E50;
+        const std::int32_t mode = business.valuesCF4E50[0];
         if ((state & MouseFlag_Hover) != 0) {
             if (mode == 0) {
                 setImage(0x3B579);
@@ -348,7 +350,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
             setImage(0x3B577);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            gTitleModeCF4E50 = gTitleModeCF4E50 != 1 ? 1 : 0;
+            business.valuesCF4E50[0] = business.valuesCF4E50[0] != 1 ? 1 : 0;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         return consumed;
@@ -362,9 +364,9 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
             setImage(elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons) ? 0x3B592 : 0x3B595);
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t page = gTitlePageCF4E54;
+            const std::int32_t page = business.valuesCF4E50[1];
             if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons) && page > 0) {
-                gTitlePageCF4E54 = page - 1;
+                business.valuesCF4E50[1] = page - 1;
                 WindowInstance* const window = currentWindow;
                 auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
                 if (dragScrollElement) {
@@ -373,7 +375,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             } else if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_5) && page < 58) {
                 WindowInstance* const window = currentWindow;
-                gTitlePageCF4E54 = page + 1;
+                business.valuesCF4E50[1] = page + 1;
                 auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
                 if (dragScrollElement) {
                     static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page + 1));
@@ -397,11 +399,11 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
             setImage(0x3B559);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            std::int32_t page = gTitlePageCF4E54 + 6;
-            gTitlePageCF4E54 = page;
+            std::int32_t page = business.valuesCF4E50[1] + 6;
+            business.valuesCF4E50[1] = page;
             if (page > 58) {
                 page = 58;
-                gTitlePageCF4E54 = page;
+                business.valuesCF4E50[1] = page;
             }
             WindowInstance* const window = currentWindow;
             auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
@@ -422,13 +424,13 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
             setImage(0x3B556);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t previousPage = gTitlePageCF4E54 - 6;
-            gTitlePageCF4E54 = previousPage;
+            const std::int32_t previousPage = business.valuesCF4E50[1] - 6;
+            business.valuesCF4E50[1] = previousPage;
             if (previousPage < 0) {
-                gTitlePageCF4E54 = 0;
+                business.valuesCF4E50[1] = 0;
             }
             WindowInstance* const window = currentWindow;
-            const std::int32_t page = gTitlePageCF4E54;
+            const std::int32_t page = business.valuesCF4E50[1];
             auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
             if (dragScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(dragScrollElement, 58, page));
@@ -441,7 +443,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
         return consumed;
     case WindowPlayerTitlesElementId::HandleButtons_36:
         if ((state & MouseFlag_LDownEvent) != 0) {
-            gTitleModeCF4E50 = 0;
+            business.valuesCF4E50[0] = 0;
             return 1;
         }
         return 0;
@@ -453,15 +455,16 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
 // 原函数：0x004782A0。
 static std::int32_t WindowPlayerTitles_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         WindowInstance* const window = currentWindow;
-        const std::int32_t page = gTitlePageCF4E54;
+        const std::int32_t page = business.valuesCF4E50[1];
         auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
         if (dragScrollElement) {
-            gTitlePageCF4E54 = WindowScroll_ApplyWheel(dragScrollElement, page, 58, wheel);
+            business.valuesCF4E50[1] = WindowScroll_ApplyWheel(dragScrollElement, page, 58, wheel);
         }
     }
     return 0;
@@ -471,6 +474,7 @@ static std::int32_t WindowPlayerTitles_Scroll(WindowInstance& callbackWindow, co
 // 原函数：0x004782E0。
 static std::int32_t WindowPlayerTitles_DragScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t result = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
@@ -478,7 +482,7 @@ static std::int32_t WindowPlayerTitles_DragScroll(WindowInstance& callbackWindow
         WindowInstance* const window = currentWindow;
         auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);
         if (dragScrollElement) {
-            gTitlePageCF4E54 = WindowScroll_ReadPosition(dragScrollElement, 58);
+            business.valuesCF4E50[1] = WindowScroll_ReadPosition(dragScrollElement, 58);
         }
     }
     return result;
@@ -490,6 +494,7 @@ static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     auto* const element7 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element7);
     if (element7) {
@@ -540,7 +545,7 @@ static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
     if (auto* const handleButtons_22Element = currentWindow->FindElementById(WindowPlayerTitlesElementId::HandleButtons_22); handleButtons_22Element) handleButtons_22Element->visible = unchanged ? 0 : 1;
 
     const world::TitleRecord* record =
-        world::gSortedTitlesDE03F8.data() + gTitlePageCF4E54;
+        world::gSortedTitlesDE03F8.data() + business.valuesCF4E50[1];
     for (std::int32_t index = 10; index < 16; ++index) {
         WindowInstance* const window = currentWindow;
         const wchar_t* const text = record->text.data();
@@ -557,11 +562,12 @@ static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x004774C0。
 static std::int32_t WindowPlayerTitles_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
-        gTitlePageCF4E54 = 0;
+        business.valuesCF4E50[1] = 0;
         gTitleDraftD45FC0 = ownTitle;
 
         auto* elementsWindow = currentWindow;

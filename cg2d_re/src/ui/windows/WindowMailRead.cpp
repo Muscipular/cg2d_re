@@ -57,7 +57,7 @@ static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, El
 static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 回复上下文与旧物品占用释放。
 
 // 原函数：0x004A48A0。
-static void WindowMailRead_FindUnread(); // 最后未读位置；原唯一caller不消费混合地址/整数返回。
+static void WindowMailRead_FindUnread(session::ClientSession& session); // 最后未读位置；原唯一caller不消费混合地址/整数返回。
 
 // 原函数：0x004A49B0。
 static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow); // 三类邮件十行、姓名、时间和页码，返回末复制长度。
@@ -128,7 +128,7 @@ WindowPrototype gWindowPrototypeMailRead {0, 4, 383, 71, 211, 206, 0x80010101u, 
 static std::int32_t WindowMailRead_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
-        WindowMailRead_FindUnread();
+        WindowMailRead_FindUnread(*callbackWindow.ownerSession);
         static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
         static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
         static_cast<void>(world::detail::UpdateUnreadMailPageHint_518DA0());
@@ -214,6 +214,7 @@ static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, co
 // 原函数：0x004A47C0。
 static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -228,17 +229,17 @@ static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, c
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t contact = world::detail::gViewedMailContactId_CF4FC0;
-            const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
-            const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
-            gLoginWindowRuntime.prefixD2F0B8.value04 = contact;
-            gLoginWindowRuntime.prefixD2F0B8.value10 = 0;
-            gLoginWindowRuntime.prefixD2F0B8.value00 = category;
+            const std::int32_t oldSlot = business.prefixD2F0B8.value0C;
+            const std::int32_t category = business.mailCategoryD67B64;
+            business.prefixD2F0B8.value04 = contact;
+            business.prefixD2F0B8.value10 = 0;
+            business.prefixD2F0B8.value00 = category;
             if (oldSlot != -1) {
                 auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                 auto value = occupancy[oldSlot];
-                gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
+                business.prefixD2F0B8.value0C = -1;
                 --value;
-                gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
+                business.prefixD2F0B8.value08 = -1;
                 occupancy[oldSlot] = value;
             }
             static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
@@ -254,13 +255,14 @@ static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, c
 }
 
 // 原函数：0x004A48A0。
-static void WindowMailRead_FindUnread()
+static void WindowMailRead_FindUnread(session::ClientSession& session)
 {
-    const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
+    auto& business = session.UiFrame().native.business;
+    const std::int32_t category = business.mailCategoryD67B64;
     cg::world::detail::gViewedMailMessageIndex_D046D4 = 0;
     switch (category) {
     case 0: {
-        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+        const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
         const std::int32_t contact = cg::world::detail::gViewedMailContactId_CF4FC0;
         for (std::int32_t page = 9; page >= 0; --page) {
             if (*cg::world::GetMailMessageF7CA08(selected, contact, page).unread00 != std::byte{0}) {
@@ -281,7 +283,7 @@ static void WindowMailRead_FindUnread()
             cg::world::detail::gViewedMailMessageIndex_D046D4 = 0;
             return;
         }
-        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+        const std::int16_t selected = session.Connection().LoginRequests().selectedCharacterIndex;
         for (std::int32_t page = 9; page >= 0; --page) {
             if (*cg::world::GetGuildMailMessageDE0B30(selected, slot, page).unread00 != std::byte{0}) {
                 cg::world::detail::gViewedMailMessageIndex_D046D4 = page;
@@ -308,7 +310,8 @@ static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
+    const std::int32_t category = business.mailCategoryCC4D50;
     if (category != 0 && category != 1 && category != 2) {
         return static_cast<std::uint32_t>(category) - 2u;
     }
@@ -408,13 +411,14 @@ static std::uint32_t WindowMailRead_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x004A4FC0。
 static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     if ((state & MouseFlag_Hover) == 0) {
         return 0;
     }
-    const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;
+    const std::int32_t category = business.mailCategoryCC4D50;
     cg::world::MailMessageView message;
     std::int32_t identity;
     switch (category) {

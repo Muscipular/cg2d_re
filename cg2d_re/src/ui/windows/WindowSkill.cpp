@@ -558,6 +558,7 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSes
 // 原函数：0x004EF750。
 static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::ClientSession& session, const char* const text)
 {
+    auto& business = session.UiFrame().native.business;
     auto& request = session.UiFrame().native.skillRequest;
     auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
@@ -590,7 +591,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
             auto& pet = world::gPetRuntimeRecords[slot];
-            if (pet.used == 0 || gLoginWindowRuntime.valuesCC1A18[slot] == 3) {
+            if (pet.used == 0 || business.valuesCC1A18[slot] == 3) {
                 continue;
             }
             const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();

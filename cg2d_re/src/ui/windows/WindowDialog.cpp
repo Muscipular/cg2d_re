@@ -847,13 +847,13 @@ static void WindowDialog_Route(
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(WindowProfile_SaveOrigin(x, y));
-            static_cast<void>(WindowMessageBoard_ReceiveRecords(value, text));
+            static_cast<void>(WindowMessageBoard_ReceiveRecords(session, value, text));
             static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_MessageBoard, 1, 0, nullptr));
             break;
         }
         case 23:
         case 33:
-            if (WindowBank_ReceiveStorageData(text) != 0) {
+            if (WindowBank_ReceiveStorageData(session, text) != 0) {
                 if (WindowRuntime_States(session)[WindowId_Bank].window != nullptr) {
                     break;
                 }
@@ -867,7 +867,7 @@ static void WindowDialog_Route(
             }
             break;
         case 34:
-            if (WindowBank_ReceiveStorageData(text) != 0) {
+            if (WindowBank_ReceiveStorageData(session, text) != 0) {
                 if (WindowRuntime_States(session)[WindowId_ItemStorage].window != nullptr) {
                     break;
                 }
@@ -939,7 +939,7 @@ static void WindowDialog_Route(
         static_cast<void>(WindowShop_OpenIdentify(session, text));
         return;
     case 21:
-        static_cast<void>(WindowMessageBoard_ReceiveRecords(value, text));
+        static_cast<void>(WindowMessageBoard_ReceiveRecords(session, value, text));
         static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_MessageBoard, 1, 0, nullptr));
         return;
     case 22:
@@ -947,7 +947,7 @@ static void WindowDialog_Route(
         return;
     case 23:
     case 33:
-        if (WindowBank_ReceiveStorageData(text) != 0 && WindowRuntime_States(session)[WindowId_Bank].window == nullptr) {
+        if (WindowBank_ReceiveStorageData(session, text) != 0 && WindowRuntime_States(session)[WindowId_Bank].window == nullptr) {
             created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
         }
         if (created == nullptr && WindowRuntime_States(session)[WindowId_Bank].window == nullptr) {
@@ -983,7 +983,7 @@ static void WindowDialog_Route(
         static_cast<void>(WindowTextList_Open(request, target, text));
         return;
     case 34:
-        if (WindowBank_ReceiveStorageData(text) != 0 && WindowRuntime_States(session)[WindowId_ItemStorage].window == nullptr) {
+        if (WindowBank_ReceiveStorageData(session, text) != 0 && WindowRuntime_States(session)[WindowId_ItemStorage].window == nullptr) {
             created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(0, request, target, 0, 1, 0);
         }
         if (created == nullptr && WindowRuntime_States(session)[WindowId_ItemStorage].window == nullptr) {

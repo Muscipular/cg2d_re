@@ -229,36 +229,39 @@ void WindowPetDetail_InitializeDraft(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     WindowInstance* const window = currentWindow;
     // 九处caller均属于详情页16/17/18；异常ID的原未写栈下标不专项模拟。
     constexpr std::int32_t nameElements[] {9, 14, 11};
     const std::int32_t element = nameElements[window->id - 16];
     const auto selected = std::bit_cast<std::int16_t>(
-        world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+        world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
     const auto& pet = world::gPetRuntimeRecords[selected];
     const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-    gLoginWindowRuntime.petNameDraftD45E74 = name;
+    business.petNameDraftD45E74 = name;
     if (auto* const indexedElement = window->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.text->text = name;
 }
 
 // 原函数：0x00492350。
-std::int32_t WindowPetDetail_SavePetSequences()
+std::int32_t WindowPetDetail_SavePetSequences(session::ClientSession& session)
 {
+    auto& business = session.UiFrame().native.business;
     std::int32_t sequence;
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
         sequence = world::gPetRuntimeRecords[index].value6D0;
-        gLoginWindowRuntime.petSequencesCAFEB0[row] = sequence;
+        business.petSequencesCAFEB0[row] = sequence;
     }
     return sequence;
 }
 
 // 原函数：0x00492390。
-std::int32_t WindowPetDetail_HasPetSequenceChanges()
+std::int32_t WindowPetDetail_HasPetSequenceChanges(session::ClientSession& session)
 {
+    auto& business = session.UiFrame().native.business;
     for (std::int32_t row = 0; row < 5; ++row) {
         const auto index = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
-        const std::int32_t previous = gLoginWindowRuntime.petSequencesCAFEB0[row];
+        const std::int32_t previous = business.petSequencesCAFEB0[row];
         if (previous != world::gPetRuntimeRecords[index].value6D0) {
             return 1;
         }
@@ -272,10 +275,11 @@ static std::uint32_t WindowPetDetail_Refresh(WindowInstance* callbackWindow)
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return 0;
+    auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
-    const auto selectedPet = []() -> world::PetRuntimeRecord& {
+    const auto selectedPet = [&business]() -> world::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
-            world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+            world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
         return world::gPetRuntimeRecords[index];
     };
     // 保留原复制段对elements或data的取样阶段；正文直接使用UTF-16。
@@ -310,20 +314,20 @@ static std::uint32_t WindowPetDetail_Refresh(WindowInstance* callbackWindow)
             if (auto* const element10 = currentWindow->FindElementById(WindowPetDetailElementId::Element10); element10) element10->visible = 0;
             const std::wstring text = input::ContextText(*inputs.petNamePrototype.input.context);
             WindowInstance* const window = currentWindow;
-            gLoginWindowRuntime.petNameDraftD45E74 = text;
+            business.petNameDraftD45E74 = text;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.petNamePrototype, x, y, 1));
         } else {
             if (auto* const element10 = currentWindow->FindElementById(WindowPetDetailElementId::Element10); element10) element10->visible = 1;
             if (customName) {
-                static_cast<void>(copyTextBeforeScan(9, gLoginWindowRuntime.petNameDraftD45E74));
+                static_cast<void>(copyTextBeforeScan(9, business.petNameDraftD45E74));
             } else {
-                copyTextAfterScan(9, gLoginWindowRuntime.petNameDraftD45E74);
+                copyTextAfterScan(9, business.petNameDraftD45E74);
             }
             const auto& compared = selectedPet();
             const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
-            const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
+            const bool changed = business.petNameDraftD45E74.compare(name) != 0;
             auto* const element102 = currentWindow->FindElementById(WindowPetDetailElementId::Element10);
             if (element102) {
                 auto* const data = element102->data.text;
@@ -332,7 +336,7 @@ static std::uint32_t WindowPetDetail_Refresh(WindowInstance* callbackWindow)
         }
         const auto& compared = selectedPet();
         const wchar_t* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
-        const bool changed = gLoginWindowRuntime.petNameDraftD45E74.compare(name) != 0;
+        const bool changed = business.petNameDraftD45E74.compare(name) != 0;
         if (auto* const handleButtonsElement = currentWindow->FindElementById(WindowPetDetailElementId::HandleButtons); handleButtonsElement) handleButtonsElement->visible = changed ? 1 : 0;
 
         if ((selectedPet().values0C[5] == -1)) {
@@ -386,7 +390,7 @@ static std::uint32_t WindowPetDetail_Refresh(WindowInstance* callbackWindow)
         auto* const element212 = currentWindow->FindElementById(WindowPetDetailElementId::Element21);
         if (element212) {
             auto* const directionData = element212->data.animation;
-            const std::int32_t direction = gLoginWindowRuntime.valueD673D0;
+            const std::int32_t direction = business.valueD673D0;
             cg::yobi::SetYobiActionField2B8(directionData->action, direction);
         }
 
@@ -443,7 +447,7 @@ static std::uint32_t WindowPetDetail_Refresh(WindowInstance* callbackWindow)
         }
         if (auto* const element11 = currentWindow->FindElementById(WindowPetDetailElementId::Element11); element11) element11->visible = 0;
     }
-    buffer = std::format(L"{}/{}", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    buffer = std::format(L"{}/{}", business.selectedPetCC3E5C + 1, 5);
     return static_cast<std::uint32_t>(copyTextBeforeScan(17, buffer));
 }
 
@@ -451,34 +455,35 @@ static std::uint32_t WindowPetDetail_Refresh(WindowInstance* callbackWindow)
 // 原函数：0x0048D9A0。
 static std::int32_t WindowPetDetail_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
-        static_cast<void>(WindowPetDetail_SavePetSequences());
+        business.previousPetCC4888 = business.selectedPetCC3E5C;
+        static_cast<void>(WindowPetDetail_SavePetSequences(*callbackWindow.ownerSession));
         WindowPetDetail_InitializeDraft(&callbackWindow);
-        gLoginWindowRuntime.petTechniqueD2D66C = -1;
-        gLoginWindowRuntime.petTechniqueValueD2F784 = -1;
-        gLoginWindowRuntime.petTechniqueDragD460CC = 0;
+        business.petTechniqueD2D66C = -1;
+        business.petTechniqueValueD2F784 = -1;
+        business.petTechniqueDragD460CC = 0;
         return 1;
     }
-    if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
+    if (business.selectedPetCC3E5C != business.previousPetCC4888) {
         WindowPetDetail_InitializeDraft(&callbackWindow);
     }
-    gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
-    if (WindowPetDetail_HasPetSequenceChanges() != 0 || WindowPetDetail_ReadDraftFlag() != 0) {
-        static_cast<void>(WindowPetDetail_SavePetSequences());
+    business.previousPetCC4888 = business.selectedPetCC3E5C;
+    if (WindowPetDetail_HasPetSequenceChanges(*callbackWindow.ownerSession) != 0 || WindowPetDetail_ReadDraftFlag() != 0) {
+        static_cast<void>(WindowPetDetail_SavePetSequences(*callbackWindow.ownerSession));
         WindowPetDetail_InitializeDraft(&callbackWindow);
         WindowPetDetail_ResetDraftFlag();
-        inputs.petNamePrototype.text = gLoginWindowRuntime.petNameDraftD45E74;
+        inputs.petNamePrototype.text = business.petNameDraftD45E74;
         WindowInstance* const window = currentWindow;
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.petNamePrototype, x, y, 0));
     }
     const auto selected = std::bit_cast<std::int16_t>(
-        world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+        world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
     if (world::gPetRuntimeRecords[selected].used == 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -502,6 +507,7 @@ static void WindowPetDetail_Release(WindowInstance& releasedWindow)
 // 原函数：0x0048DD80。
 static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -524,16 +530,16 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::wstring text = input::ContextText(inputs.petName);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
-            const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
+            const std::int32_t position = business.selectedPetCC3E5C;
             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             const std::int16_t pet = petIndex(position);
             static_cast<void>(callbackWindow.ownerSession->Connection().RenamePetRequest(pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             WindowChat_RestoreInput(*callbackWindow.ownerSession);
             if (text.empty()) {
-                const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
+                const std::int16_t selected = petIndex(business.selectedPetCC3E5C);
                 const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();
-                gLoginWindowRuntime.petNameDraftD45E74 = name;
+                business.petNameDraftD45E74 = name;
                 auto* const element10 = currentWindow->FindElementById(WindowPetDetailElementId::Element10);
                 if (element10) {
                     auto* const data = element10->data.text;
@@ -555,16 +561,16 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
             setImage(0x3BAF7);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].used != 0
+            if (world::gPetPairsDE0B08[business.selectedPetCC3E5C].used != 0
                 && (world::ReadPlayerActionFlags() & 0x80u) == 0
                 && world::IsObservationSceneTransitionActive_440B50() == 0) {
-                const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
+                const std::int16_t pet = petIndex(business.selectedPetCC3E5C);
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
                 const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                 static_cast<void>(callbackWindow.ownerSession->Connection().DropPetRequest(x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
-                const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
+                const std::int16_t selected = petIndex(business.selectedPetCC3E5C);
                 if (world::gPetRuntimeRecords[selected].flags6AA == 2) {
                     WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
                 }
@@ -585,7 +591,7 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
             setImage(elementId == static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8) ? 0x3B556 : 0x3B559);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
+            std::int32_t position = business.selectedPetCC3E5C;
             for (std::int32_t attempt = 0; attempt < 6; ++attempt) {
                 if (elementId == static_cast<ElementId>(WindowPetDetailElementId::HandleButtons_8)) {
                     --position;
@@ -603,7 +609,7 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
                 }
             }
             const std::int16_t selected = petIndex(position);
-            gLoginWindowRuntime.selectedPetCC3E5C = position;
+            business.selectedPetCC3E5C = position;
             const auto& pet = world::gPetRuntimeRecords[selected];
             const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             inputs.petNamePrototype.text = name;
@@ -621,19 +627,19 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
         return consumed;
     case WindowPetDetailElementId::HandleButtons_65:
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t direction = gLoginWindowRuntime.valueD673D0 + 1;
-            gLoginWindowRuntime.valueD673D0 = direction;
+            const std::int32_t direction = business.valueD673D0 + 1;
+            business.valueD673D0 = direction;
             if (direction > 7) {
-                gLoginWindowRuntime.valueD673D0 = 0;
+                business.valueD673D0 = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_RRepeatDown) != 0) {
-            const std::int32_t direction = gLoginWindowRuntime.valueD673D0 - 1;
-            gLoginWindowRuntime.valueD673D0 = direction;
+            const std::int32_t direction = business.valueD673D0 - 1;
+            business.valueD673D0 = direction;
             if (direction < 0) {
-                gLoginWindowRuntime.valueD673D0 = 7;
+                business.valueD673D0 = 7;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -647,13 +653,14 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
 // 原函数：0x0048F380。
 std::int32_t WindowPetDetail_EditName(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& business = callbackWindow.ownerSession->UiFrame().native.business;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    inputs.petNamePrototype.text = gLoginWindowRuntime.petNameDraftD45E74;
+    inputs.petNamePrototype.text = business.petNameDraftD45E74;
     WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;

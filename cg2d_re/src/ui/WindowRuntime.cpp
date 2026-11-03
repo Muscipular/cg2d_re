@@ -180,10 +180,10 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session); // 
 static void WindowRuntime_OpenNormalScene(session::ClientSession& session); // 普通场景完整重开，保持626C14与22/23门禁。
 
 // 原函数：0x004923D0。
-static std::int32_t WindowRuntime_ResetAlbumState(); // 三个UI数值依序写5/0/0。
+static std::int32_t WindowRuntime_ResetAlbumState(session::ClientSession& session); // 三个UI数值依序写5/0/0。
 
 // 原函数：0x004742B0。
-static std::int32_t WindowScroll_ResetPosition(); // 只清CF4E50/54。
+static std::int32_t WindowScroll_ResetPosition(session::ClientSession& session); // 只清CF4E50/54。
 
 // 原函数：0x00470600。
 static void WindowRuntime_InitializeLogin(session::ClientSession& session); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。
@@ -372,7 +372,6 @@ static_assert(offsetof(WindowSavedData, records) == 4);
 
 static_assert(sizeof(WindowSavedData) == 0x521C);
 
-LoginWindowRuntimeSlots gLoginWindowRuntime {};
 
 
 // CC24D4首行标题和CC2525起正文必须同源，其他NPC窗口也消费这一区域。
@@ -546,9 +545,7 @@ static constexpr std::array<std::int32_t, 4> kNumberSpacingDeductions54F2A8 {2, 
 
 static std::array<std::int32_t, 4> gNumberAdvancesD67AC4 {}; // 原全局：0x00D67AC4。
 
-std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0]; // 原全局：0x00CF4E50。
 
-std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1]; // 原全局：0x00CF4E54。
 
 // 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
 static std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C { // 原全局：0x0057C24C。
@@ -3423,47 +3420,50 @@ std::int32_t WindowRuntime_Initialize(session::ClientSession& session)
 }
 
 // 原函数：0x004923D0。
-static std::int32_t WindowRuntime_ResetAlbumState()
+static std::int32_t WindowRuntime_ResetAlbumState(session::ClientSession& session)
 {
-    gLoginWindowRuntime.valueCF4A00 = 5;
-    gLoginWindowRuntime.valueC8A95C = 0;
-    gLoginWindowRuntime.valueCB2200 = 0;
+    auto& business = session.UiFrame().native.business;
+    business.valueCF4A00 = 5;
+    business.valueC8A95C = 0;
+    business.valueCB2200 = 0;
     return 0;
 }
 
 // 原函数：0x004742B0。
-static std::int32_t WindowScroll_ResetPosition()
+static std::int32_t WindowScroll_ResetPosition(session::ClientSession& session)
 {
-    gLoginWindowRuntime.valuesCF4E50[0] = 0;
-    gLoginWindowRuntime.valuesCF4E50[1] = 0;
+    auto& business = session.UiFrame().native.business;
+    business.valuesCF4E50[0] = 0;
+    business.valuesCF4E50[1] = 0;
     return 0;
 }
 
 // 原函数：0x00470600。
 static void WindowRuntime_InitializeLogin(session::ClientSession& session)
 {
+    auto& business = session.UiFrame().native.business;
     auto& states = WindowRuntime_States(session);
     static_cast<void>(WindowRuntime_LoadSettings(session));
-    static_cast<void>(WindowRuntime_ResetAlbumState());
-    WindowMessageBoard_ResetRecords();
+    static_cast<void>(WindowRuntime_ResetAlbumState(session));
+    WindowMessageBoard_ResetRecords(session);
     static_cast<void>(WindowChat_ResetScrollRequests(session));
-    static_cast<void>(WindowMail_ResetComposeState());
-    static_cast<void>(WindowPetList_ResetSelection());
-    static_cast<void>(WindowScroll_ResetPosition());
+    static_cast<void>(WindowMail_ResetComposeState(session));
+    static_cast<void>(WindowPetList_ResetSelection(session));
+    static_cast<void>(WindowScroll_ResetPosition(session));
     world::detail::ResetMiniMailSequenceAndSelection_4C9490();
     world::detail::ClearMiniMailAndProfiles_533910();
     if (world::detail::LoadPlayerProfilesFile_5347F0() == 0) {
         world::detail::InitializeDefaultProfiles_533950();
     }
-    static_cast<void>(WindowMail_ResetSelectionState());
+    static_cast<void>(WindowMail_ResetSelectionState(session));
     states[WindowId_Contacts].marker50 = 0;
     states[WindowId_MailCompose].marker50 = 0;
     states[WindowId_PetMailCompose].marker50 = 0;
     states[WindowId_MailRead].marker50 = 0;
-    static_cast<void>(WindowBlacklist_ResetState());
+    static_cast<void>(WindowBlacklist_ResetState(session));
     WindowAdventureLog_InitializeDate(session);
-    gLoginWindowRuntime.valueD67618 = 0;
-    gLoginWindowRuntime.bankCurrentPage = 0; // G07：与原银行入口同一生命周期，金额组仍独立。
+    business.valueD67618 = 0;
+    business.bankCurrentPage = 0; // G07：与原银行入口同一生命周期，金额组仍独立。
 }
 
 // 原函数：0x00477490。
@@ -4608,7 +4608,7 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
     window->draw = prototype->draw;
     window->release = prototype->release;
     const std::int32_t count = prototype->elementCount;
-    const std::int32_t pageCount = WindowInventory_GetPageElementCount(id);
+    const std::int32_t pageCount = WindowInventory_GetPageElementCount(session, id);
     window->elementCount = count + pageCount;
     if (window->elementCount != 0) {
         ElementId previousId = 0;

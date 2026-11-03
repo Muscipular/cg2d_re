@@ -9,6 +9,8 @@
 
 #include "cg/input/Input.hpp"
 #include "cg/scene/login/LoginInput.hpp"
+#include "cg/network/CgConnection.hpp"
+#include "LoginSceneState.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -30,6 +32,7 @@ static std::wstring gOuterLoginErrorMessage_9A4BA0 {};
 // 原函数：0x0045C2D0。
 void ProcessOuterScene_45C2D0()
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     bool processLoginInput = false;
     const std::uint32_t initialState =
         std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
@@ -114,7 +117,7 @@ void ProcessOuterScene_45C2D0()
     const std::int32_t result = ProcessLoginInput_45CA20(0);
     if (result == 1) {
         cg::core::NullSub_509080();
-        if (!SaveInputValues(input::ContextText(gInputContext9A5960), input::ContextText(gInputContext9A5678))) {
+        if (!SaveInputValues(input::ContextText(sceneUi.context9A5960), input::ContextText(sceneUi.context9A5678))) {
             return;
         }
         static_cast<void>(detail::SaveCurrentLoginRecord_520200());

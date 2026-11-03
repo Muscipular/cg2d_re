@@ -9,6 +9,8 @@
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/scene/login/LoginInput.hpp"
+#include "cg/network/CgConnection.hpp"
+#include "LoginSceneState.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -27,6 +29,7 @@ static std::wstring gLoginModeMessage {};
 // 原函数：0x0045C5A0。
 void ProcessModeScene_45C5A0()
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     std::int32_t inputMode = 2;
     const std::int32_t initialState = world::gCurrentSceneState;
     if (initialState == 0) {
@@ -70,7 +73,7 @@ void ProcessModeScene_45C5A0()
     const std::int32_t result = ProcessLoginInput_45CA20(inputMode);
     if (result == 1) {
         cg::core::NullSub_509080();
-        if (!SaveInputValues(input::ContextText(gInputContext9A5960), input::ContextText(gInputContext9A5678))) {
+        if (!SaveInputValues(input::ContextText(sceneUi.context9A5960), input::ContextText(sceneUi.context9A5678))) {
             return;
         }
         static_cast<void>(detail::SaveCurrentLoginRecord_520200());

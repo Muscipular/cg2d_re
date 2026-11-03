@@ -5,7 +5,7 @@
 | 边界 | 当前入口/存储 | 目标 owner 与迁移门槛 |
 | --- | --- | --- |
 | 网络 | `CgConnection::Impl` 已持协议缓冲、`CgTransport`、连接身份、回调注册、保活、登录请求/消息及主循环断线阶段；`GetGameConnection()` 仍返回唯一 `gGameConnection`，登录/世界/脚本/窗口大量调用它 | 每个 `ClientSession` 持独立连接；所有业务发送与回复回调显式沿所属会话传递，不能只让 `GetGameConnection()` 改为返回一个隐藏的“当前连接”。其余回调写入目标尚未隔离 |
-| 登录与选角 | `LoginRequestState` 已持请求码、时钟、错误、凭据、选服索引、两条角色记录、所选槽位、连接提示阶段、分类/分页/高亮及登录错误正文；`LoginMessageState` 已持消息与动作借用，`LoginSceneState` 已持可变服务器控件和连接/登录进度模态布局、阶段、正文与动作借用。登录输入和其他场景状态仍散落在登录模块 | 图鉴回复按回调连接取槽位；其余世界/存档/UI及登录入口仍从单例连接取状态，不能用于多会话调度。Yobi 动作池、画面/输入/进度及动作寿命须整组会话化；服务器表和可执行文件摘要仅在核对所有写者及生命周期后共享 |
+| 登录与选角 | `LoginRequestState` 已持请求码、时钟、错误、凭据、选服索引、两条角色记录、所选槽位、连接提示阶段、分类/分页/高亮及登录错误正文；`LoginMessageState` 已持消息与动作借用，`LoginSceneState` 已持服务器控件、模态状态、三份登录输入上下文、坐标及指向自身的焦点表。其他场景状态仍散落在登录模块 | 图鉴回复按回调连接取槽位；其余世界/存档/UI及登录入口仍从单例连接取状态，不能用于多会话调度。`input::gCurrentInputData`、IME、Yobi 动作池与其他焦点/动作寿命仍属进程级，切换前必须沿全部借用链隔离；服务器表和可执行文件摘要仅在核对所有写者及生命周期后共享 |
 | 场景/世界 | `world::gCurrentSceneType` 借 `platform::gCurrentSceneTypeStorage_FF0D40`；`World::Update` 读取待切换状态、更新场景，内部又执行输入、UI及绘制。`PlayerState`、地图缓冲/对象、战斗、邮件、相册和断线状态均有跨模块消费者 | 按完整别名组归入会话；场景分发必须对该会话的网络回复、角色记录和资源借用生效。不得仅保存四个场景整数便循环调用旧 `World::Update()` |
 | UI/输入 | `WindowRuntime.cpp` 的 `gWindows`、`gWindowStates`、焦点/拖拽指针和各窗口文件的静态状态共享；`WindowRuntimeState.hpp` 定义多份输入上下文，`WindowComponentHost.hpp` 又借鼠标、当前窗口和输入指针 | 窗口实例、文本草稿、焦点、拖拽及绑定的 `YobiAction*` 按会话保持地址和寿命；原型/回调表是否可共享须逐项核对其可变字段。主窗口的键鼠/IME只路由当前会话，切换不模拟业务释放事件 |
 | Lua/自动行为 | `LuaRuntime.cpp` 持静态 UI/战斗 `lua_State*`，`LuaUI.cpp` 持注册/桥接表，`AutoBattle.cpp` 和 `Copilot.cpp` 有独立运行期状态且后者借世界全局 | 每会话独立 VM、回调表和自动行为状态；C++ 对象、Lua 句柄及异步回调不能跨会话引用。后台继续执行，不能只更新当前 VM |

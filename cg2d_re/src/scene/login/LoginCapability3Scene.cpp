@@ -7,6 +7,8 @@
 
 #include "cg/input/Input.hpp"
 #include "cg/scene/login/LoginInput.hpp"
+#include "cg/network/CgConnection.hpp"
+#include "LoginSceneState.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -68,7 +70,8 @@ static void DrawFiveCapability3Images()
 
 static std::int32_t DrawCapability3CommonTail()
 {
-    const std::uint32_t firstAlpha = cg::login::gCapability3LoginOverlayAlpha_9A6200;
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    const std::uint32_t firstAlpha = sceneUi.capability3OverlayAlpha;
     if (firstAlpha != 0U) {
         static_cast<void>(cg::render::QueueOriginalPaletteGraphic_45F090(
             139,
@@ -116,12 +119,13 @@ static std::int32_t DrawCapability3CommonTail()
 
 static std::int32_t ProcessCapability3InputAndDraw()
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     const std::int32_t result = cg::login::ProcessCapability3Input_45FA70(0);
     if (result == 1) {
         cg::core::NullSub_509080();
         if (!cg::login::SaveInputValues(
-                cg::input::ContextText(cg::login::gInputContext9A5678),
-                cg::input::ContextText(cg::login::gInputContext9A5960))) {
+                cg::input::ContextText(sceneUi.context9A5678),
+                cg::input::ContextText(sceneUi.context9A5960))) {
             return DrawCapability3CommonTail();
         }
         static_cast<void>(cg::login::detail::SaveCurrentLoginRecord_520200());
@@ -138,8 +142,8 @@ static std::int32_t ProcessCapability3InputAndDraw()
     } else if (result < 0) {
         cg::world::gCurrentSceneState = 8;
         gMessage9A50E8 = L"请设定ID、PASSWORD。" /* 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。 */;
-        cg::login::gInputContext9A5960.clearText();
-        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::input::ContextText(cg::login::gInputContext9A5960).c_str()));
+        sceneUi.context9A5960.clearText();
+        static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::input::ContextText(sceneUi.context9A5960).c_str()));
     }
     return DrawCapability3CommonTail();
 }
@@ -174,6 +178,7 @@ static std::int32_t DispatchCapability3FromCurrentState()
 // 原函数：0x0045F190。
 std::int32_t UpdateCapability3LoginScene_45F190()
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     const std::uint32_t state =
         std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
     if (state > 10U) {
@@ -187,7 +192,7 @@ std::int32_t UpdateCapability3LoginScene_45F190()
         gAlpha9A4D08 = 0;
         gAlpha9A4CA0 = 0;
         gAlpha9A5E70 = 0;
-        login::gCapability3LoginOverlayAlpha_9A6200 = 0;
+        sceneUi.capability3OverlayAlpha = 0;
         DrawFiveCapability3Images();
         world::gCurrentSceneState = 1;
         return ProcessCapability3CommonDispatch(1);

@@ -1,6 +1,8 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "cg/scene/login/LoginInput.hpp"
+#include "cg/network/CgConnection.hpp"
+#include "LoginSceneState.hpp"
 #include "cg/text/Encoding.hpp"
 
 #include "LoginInputDependencies.hpp"
@@ -36,6 +38,7 @@ static std::int32_t gPending9A6E9C = 0; // 原全局：0x009A6E9C。
 // 原函数：0x0045FA70。
 std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     Capability3InputButton32 primaryButton = kPrimaryButton;
     Capability3InputButton32 secondaryButton = kSecondaryButton;
     std::int32_t result = 0;
@@ -44,18 +47,18 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
     if ((cg::ui::QueryUiControlInputState_45F100(&primaryButton) & 1) != 0
         && mode == 0) {
         primaryButton.normalImageNo = primaryButton.clickedImageNo;
-        if (gInputContext9A5678.length() == 0
-            || gInputContext9A5960.length() == 0) {
+        if (sceneUi.context9A5678.length() == 0
+            || sceneUi.context9A5960.length() == 0) {
             result = -1;
         } else {
             const std::int32_t accountByteLength =
-                gInputContext9A5960.totalByteLength;
+                sceneUi.context9A5960.totalByteLength;
             const std::int32_t passwordByteLength =
-                gInputContext9A5678.totalByteLength;
+                sceneUi.context9A5678.totalByteLength;
             result = 1;
-            gInputContext9A5960.text.resize(cg::text::Prefix(gInputContext9A5960.text, static_cast<std::size_t>(
+            sceneUi.context9A5960.text.resize(cg::text::Prefix(sceneUi.context9A5960.text, static_cast<std::size_t>(
                 accountByteLength)));
-            gInputContext9A5678.text.resize(cg::text::Prefix(gInputContext9A5678.text, static_cast<std::size_t>(
+            sceneUi.context9A5678.text.resize(cg::text::Prefix(sceneUi.context9A5678.text, static_cast<std::size_t>(
                 passwordByteLength)));
         }
     } else if ((cg::ui::QueryUiControlInputState_45F100(&secondaryButton) & 1) != 0
@@ -85,9 +88,9 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
             211,
             0,
             1);
-        render::DrawInputText_4568A0(&gInputContext9A4D20);
-        render::DrawInputText_4568A0(&gInputContext9A5960);
-        render::DrawInputText_4568A0(&gInputContext9A5678);
+        render::DrawInputText_4568A0(&sceneUi.context9A4D20);
+        render::DrawInputText_4568A0(&sceneUi.context9A5960);
+        render::DrawInputText_4568A0(&sceneUi.context9A5678);
     }
 
     std::int32_t requestedFocus = -1;
@@ -99,18 +102,18 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
         const std::int32_t focus = gFocus9A6EA0;
         if (focus == 1) {
             if (platform::ReadKeyPressFlag_4597B0(13) != 0
-                && gInputContext9A5960.length() != 0
-                && gInputContext9A5678.length() != 0
-                && !input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5960))
-                && !input::IsRejectedInputText_404060(input::ContextText(gInputContext9A5678))) {
+                && sceneUi.context9A5960.length() != 0
+                && sceneUi.context9A5678.length() != 0
+                && !input::IsRejectedInputText_404060(input::ContextText(sceneUi.context9A5960))
+                && !input::IsRejectedInputText_404060(input::ContextText(sceneUi.context9A5678))) {
                 const std::int32_t accountByteLength =
-                    gInputContext9A5960.totalByteLength;
+                    sceneUi.context9A5960.totalByteLength;
                 const std::int32_t passwordByteLength =
-                    gInputContext9A5678.totalByteLength;
+                    sceneUi.context9A5678.totalByteLength;
                 result = 1;
-                gInputContext9A5960.text.resize(cg::text::Prefix(gInputContext9A5960.text, static_cast<std::size_t>(
+                sceneUi.context9A5960.text.resize(cg::text::Prefix(sceneUi.context9A5960.text, static_cast<std::size_t>(
                     accountByteLength)));
-                gInputContext9A5678.text.resize(cg::text::Prefix(gInputContext9A5678.text, static_cast<std::size_t>(
+                sceneUi.context9A5678.text.resize(cg::text::Prefix(sceneUi.context9A5678.text, static_cast<std::size_t>(
                     passwordByteLength)));
             } else {
                 requestedFocus = 0;
@@ -122,8 +125,8 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
     }
 
     if (platform::gMonitorKeyboard == 0 && mode == 0) {
-        const std::int32_t passwordY = gInputContext9A5678Y;
-        const std::int32_t passwordX = gInputContext9A5678X;
+        const std::int32_t passwordY = sceneUi.context9A5678Y;
+        const std::int32_t passwordX = sceneUi.context9A5678X;
         if (cg::ui::HitTestMouseRect_5049A0(
                 passwordX - 5,
                 passwordY - 4,
@@ -134,8 +137,8 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
             requestedFocus = 1;
         }
 
-        const std::int32_t accountY = gInputContext9A5960Y;
-        const std::int32_t accountX = gInputContext9A5960X;
+        const std::int32_t accountY = sceneUi.context9A5960Y;
+        const std::int32_t accountX = sceneUi.context9A5960X;
         if (cg::ui::HitTestMouseRect_5049A0(
                 accountX - 5,
                 accountY - 4,
@@ -160,7 +163,7 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
 
         if (applyFocus) {
             input::SetContext_44B330(
-                gInputContextFocusTable[selectedFocus]);
+                sceneUi.inputFocusTable[selectedFocus]);
             gPending9A6E9C = 0;
             gFocus9A6EA0 = selectedFocus;
         }

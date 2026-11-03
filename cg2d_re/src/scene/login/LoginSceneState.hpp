@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../ui/UiControlRecord.hpp"
+#include "cg/input/Input.hpp"
 
 #include <array>
 #include <cstdint>
@@ -27,6 +28,24 @@ struct ServerConnectionLayout {
 
 // 服务器列表图片号会在分类选择后改写，不能跨登录会话共用。
 struct LoginSceneState {
+    LoginSceneState() = default;
+    LoginSceneState(const LoginSceneState&) = delete;
+    LoginSceneState& operator=(const LoginSceneState&) = delete;
+    LoginSceneState(LoginSceneState&&) = delete;
+    LoginSceneState& operator=(LoginSceneState&&) = delete;
+
+    input::InputContext context9A4D20 {}; // 原 0x9A4D20。
+    input::InputContext context9A5960 {}; // 原 0x9A5960。
+    input::InputContext context9A5678 {}; // 原 0x9A5678。
+    std::int16_t context9A5960X = 0; // 原 0x9A4B8C。
+    std::int16_t context9A5960Y = 0; // 原 0x9A4B8A。
+    std::int16_t context9A5678X = 0; // 原 0x9A4B9E。
+    std::int16_t context9A5678Y = 0; // 原 0x9A4B9C。
+    std::int32_t inputFocusIndex = 0; // 原 0x9A6E20。
+    std::uint32_t capability3OverlayAlpha = 0; // 原 0x9A6200。
+    std::array<input::InputContext*, 3> inputFocusTable {
+        &context9A5960, &context9A5678, &context9A5960,
+    }; // 原 0x559FFC；借用本实例的两个上下文。
     LoginProgressLayout loginProgressLayout {};
     ServerConnectionLayout serverConnectionLayout {};
     std::uint16_t loginProgressPhase = 0; // 原 0x9A6E8C。

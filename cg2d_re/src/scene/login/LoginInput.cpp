@@ -4,10 +4,12 @@
 #include "cg/text/Encoding.hpp"
 
 #include "LoginInputDependencies.hpp"
+#include "LoginSceneState.hpp"
 #include "LoginMessageDependencies.hpp"
 #include "../../ui/UiControlRecord.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"
+#include "cg/network/CgConnection.hpp"
 #include "cg/render/Palette.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -22,23 +24,6 @@
 #include "cg/core/m_log.hpp"
 
 namespace cg::login {
-
-input::InputContext gInputContext9A4D20 {}; // 原全局：0x009A4D20。
-input::InputContext gInputContext9A5960 {}; // 原全局：0x009A5960。
-input::InputContext gInputContext9A5678 {}; // 原全局：0x009A5678。
-
-std::int16_t gInputContext9A5960X = 0; // 原全局：0x009A4B8C。
-std::int16_t gInputContext9A5960Y = 0; // 原全局：0x009A4B8A。
-std::int16_t gInputContext9A5678X = 0; // 原全局：0x009A4B9E。
-std::int16_t gInputContext9A5678Y = 0; // 原全局：0x009A4B9C。
-std::int32_t gLoginInputFocusIndex_9A6E20 = 0; // 原全局：0x009A6E20。
-std::uint32_t gCapability3LoginOverlayAlpha_9A6200 = 0; // 原全局：0x009A6200。
-
-input::InputContext* gInputContextFocusTable[3] { // 原全局：0x00559FFC。
-    &gInputContext9A5960,
-    &gInputContext9A5678,
-    &gInputContext9A5960,
-};
 
 static inline constexpr std::size_t kStoredInputValueSize = LoginInputValueCapacity;
 
@@ -128,18 +113,19 @@ bool SaveInputValues(const std::wstring_view first, const std::wstring_view seco
 // 原0x00533570/0x005335B0/0x00533640：三个51字节字段先全组校验，再发布。
 bool SaveCapability4InputSlot()
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     std::array<std::array<char, kStoredInputValueSize>, 3> stored;
     try {
-        cg::text::StoreGbk(stored[0].data(), stored[0].size(), input::ContextText(gInputContext9A4D20));
-        cg::text::StoreGbk(stored[1].data(), stored[1].size(), input::ContextText(gInputContext9A5960));
-        cg::text::StoreGbk(stored[2].data(), stored[2].size(), input::ContextText(gInputContext9A5678));
+        cg::text::StoreGbk(stored[0].data(), stored[0].size(), input::ContextText(sceneUi.context9A4D20));
+        cg::text::StoreGbk(stored[1].data(), stored[1].size(), input::ContextText(sceneUi.context9A5960));
+        cg::text::StoreGbk(stored[2].data(), stored[2].size(), input::ContextText(sceneUi.context9A5678));
     } catch (const cg::text::GbkStorageError&) {
         m_log_iw(L"文字无法保存为GBK，或超过登录字段容量。");
         return false;
     }
-    detail::Sub_533570(input::ContextText(gInputContext9A4D20), detail::gSelectedSavedSlot105C394);
-    detail::WriteSavedPassword_5335B0(input::ContextText(gInputContext9A5960), detail::gSelectedSavedSlot105C394);
-    detail::WriteSavedAccount_533640(input::ContextText(gInputContext9A5678), detail::gSelectedSavedSlot105C394);
+    detail::Sub_533570(input::ContextText(sceneUi.context9A4D20), detail::gSelectedSavedSlot105C394);
+    detail::WriteSavedPassword_5335B0(input::ContextText(sceneUi.context9A5960), detail::gSelectedSavedSlot105C394);
+    detail::WriteSavedAccount_533640(input::ContextText(sceneUi.context9A5678), detail::gSelectedSavedSlot105C394);
     return true;
 }
 
@@ -312,6 +298,7 @@ void DrawLoginControl_503780(
 // 原函数：0x0045C7C0。
 void InitializeInputContexts_45C7C0()
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     std::wstring firstInitialText;
     std::wstring secondInitialText;
 
@@ -321,16 +308,16 @@ void InitializeInputContexts_45C7C0()
     render::gPaletteCapability = capability;
 
     if (useHighLayout) {
-        gInputContext9A5960X = 114;
-        gInputContext9A5960Y = 341;
-        gInputContext9A5960.clearText();
-        gInputContext9A5960.totalByteLength = 0;
-        gInputContext9A5960.caretByteOffset = 0;
+        sceneUi.context9A5960X = 114;
+        sceneUi.context9A5960Y = 341;
+        sceneUi.context9A5960.clearText();
+        sceneUi.context9A5960.totalByteLength = 0;
+        sceneUi.context9A5960.caretByteOffset = 0;
         ReadInputValueFF494F_5203E0(firstInitialText);
         input::InitializeContext_449CF0(
-            &gInputContext9A5960,
-            gInputContext9A5960X,
-            gInputContext9A5960Y,
+            &sceneUi.context9A5960,
+            sceneUi.context9A5960X,
+            sceneUi.context9A5960Y,
             0,
             0,
             3,
@@ -339,18 +326,18 @@ void InitializeInputContexts_45C7C0()
             20,
             0,
             1);
-        gInputContext9A5960.encrypt = 1;
+        sceneUi.context9A5960.encrypt = 1;
 
-        gInputContext9A5678X = 114;
-        gInputContext9A5678Y = 309;
-        gInputContext9A5678.clearText();
-        gInputContext9A5678.totalByteLength = 0;
-        gInputContext9A5678.caretByteOffset = 0;
+        sceneUi.context9A5678X = 114;
+        sceneUi.context9A5678Y = 309;
+        sceneUi.context9A5678.clearText();
+        sceneUi.context9A5678.totalByteLength = 0;
+        sceneUi.context9A5678.caretByteOffset = 0;
         ReadInputValueFF4982_520440(secondInitialText);
         input::InitializeContext_449CF0(
-            &gInputContext9A5678,
-            gInputContext9A5678X,
-            gInputContext9A5678Y,
+            &sceneUi.context9A5678,
+            sceneUi.context9A5678X,
+            sceneUi.context9A5678Y,
             0,
             0,
             3,
@@ -360,16 +347,16 @@ void InitializeInputContexts_45C7C0()
             0,
             0);
     } else {
-        gInputContext9A5960X = 335;
-        gInputContext9A5960Y = 300;
-        gInputContext9A5960.clearText();
-        gInputContext9A5960.totalByteLength = 0;
-        gInputContext9A5960.caretByteOffset = 0;
+        sceneUi.context9A5960X = 335;
+        sceneUi.context9A5960Y = 300;
+        sceneUi.context9A5960.clearText();
+        sceneUi.context9A5960.totalByteLength = 0;
+        sceneUi.context9A5960.caretByteOffset = 0;
         ReadInputValueFF494F_5203E0(firstInitialText);
         input::InitializeContext_449CF0(
-            &gInputContext9A5960,
-            gInputContext9A5960X,
-            gInputContext9A5960Y,
+            &sceneUi.context9A5960,
+            sceneUi.context9A5960X,
+            sceneUi.context9A5960Y,
             0,
             0,
             3,
@@ -378,18 +365,18 @@ void InitializeInputContexts_45C7C0()
             20,
             0,
             0);
-        gInputContext9A5960.encrypt = 1;
+        sceneUi.context9A5960.encrypt = 1;
 
-        gInputContext9A5678X = 335;
-        gInputContext9A5678Y = 260;
-        gInputContext9A5678.clearText();
-        gInputContext9A5678.totalByteLength = 0;
-        gInputContext9A5678.caretByteOffset = 0;
+        sceneUi.context9A5678X = 335;
+        sceneUi.context9A5678Y = 260;
+        sceneUi.context9A5678.clearText();
+        sceneUi.context9A5678.totalByteLength = 0;
+        sceneUi.context9A5678.caretByteOffset = 0;
         ReadInputValueFF4982_520440(secondInitialText);
         input::InitializeContext_449CF0(
-            &gInputContext9A5678,
-            gInputContext9A5678X,
-            gInputContext9A5678Y,
+            &sceneUi.context9A5678,
+            sceneUi.context9A5678X,
+            sceneUi.context9A5678Y,
             0,
             0,
             3,
@@ -401,30 +388,31 @@ void InitializeInputContexts_45C7C0()
     }
 
     input::InputContext* const initialContext =
-        gInputContextFocusTable[1];
-    gLoginInputFocusIndex_9A6E20 = 1;
+        sceneUi.inputFocusTable[1];
+    sceneUi.inputFocusIndex = 1;
     input::SetContext_44B330(initialContext);
 }
 
 // 原函数：0x0045F970。
 void InitializeCapabilityInput_45F970()
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     std::wstring firstInitialText;
     std::wstring secondInitialText;
 
     render::gPaletteCapability =
         resource::ProbePaletteCapability_45C970();
 
-    gInputContext9A5960X = 257;
-    gInputContext9A5960Y = 358;
-    gInputContext9A5960.clearText();
-    gInputContext9A5960.totalByteLength = 0;
-    gInputContext9A5960.caretByteOffset = 0;
+    sceneUi.context9A5960X = 257;
+    sceneUi.context9A5960Y = 358;
+    sceneUi.context9A5960.clearText();
+    sceneUi.context9A5960.totalByteLength = 0;
+    sceneUi.context9A5960.caretByteOffset = 0;
     ReadInputValueFF4982_520440(firstInitialText);
     input::InitializeContext_449CF0(
-        &gInputContext9A5960,
-        gInputContext9A5960X,
-        gInputContext9A5960Y,
+        &sceneUi.context9A5960,
+        sceneUi.context9A5960X,
+        sceneUi.context9A5960Y,
         0,
         0,
         3,
@@ -433,18 +421,18 @@ void InitializeCapabilityInput_45F970()
         20,
         0,
         1);
-    gInputContext9A5960.encrypt = 0;
+    sceneUi.context9A5960.encrypt = 0;
 
-    gInputContext9A5678X = 257;
-    gInputContext9A5678Y = 389;
-    gInputContext9A5678.clearText();
-    gInputContext9A5678.totalByteLength = 0;
-    gInputContext9A5678.caretByteOffset = 0;
+    sceneUi.context9A5678X = 257;
+    sceneUi.context9A5678Y = 389;
+    sceneUi.context9A5678.clearText();
+    sceneUi.context9A5678.totalByteLength = 0;
+    sceneUi.context9A5678.caretByteOffset = 0;
     ReadInputValueFF494F_5203E0(secondInitialText);
     input::InitializeContext_449CF0(
-        &gInputContext9A5678,
-        gInputContext9A5678X,
-        gInputContext9A5678Y,
+        &sceneUi.context9A5678,
+        sceneUi.context9A5678X,
+        sceneUi.context9A5678Y,
         0,
         0,
         3,
@@ -453,16 +441,17 @@ void InitializeCapabilityInput_45F970()
         20,
         0,
         0);
-    gInputContext9A5678.encrypt = 1;
+    sceneUi.context9A5678.encrypt = 1;
 
-    gLoginInputFocusIndex_9A6E20 = 0;
-    input::SetContext_44B330(gInputContextFocusTable[0]);
-    gCapability3LoginOverlayAlpha_9A6200 = 255;
+    sceneUi.inputFocusIndex = 0;
+    input::SetContext_44B330(sceneUi.inputFocusTable[0]);
+    sceneUi.capability3OverlayAlpha = 255;
 }
 
 // 原函数：0x00465320。
 void InitializeCapability4Input_465320()
 {
+    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
     std::wstring initialText;
 
     render::gPaletteCapability =
@@ -470,16 +459,16 @@ void InitializeCapability4Input_465320()
 
     const std::int32_t firstSelectedSlot =
         detail::gSelectedSavedSlot105C394;
-    gInputContext9A5678X = 187;
-    gInputContext9A5678Y = 358;
-    gInputContext9A5678.clearText();
-    gInputContext9A5678.totalByteLength = 0;
-    gInputContext9A5678.caretByteOffset = 0;
+    sceneUi.context9A5678X = 187;
+    sceneUi.context9A5678Y = 358;
+    sceneUi.context9A5678.clearText();
+    sceneUi.context9A5678.totalByteLength = 0;
+    sceneUi.context9A5678.caretByteOffset = 0;
     detail::ReadSavedAccount_533680(initialText, firstSelectedSlot);
-    const std::int32_t firstY = gInputContext9A5678Y;
-    const std::int32_t firstX = gInputContext9A5678X;
+    const std::int32_t firstY = sceneUi.context9A5678Y;
+    const std::int32_t firstX = sceneUi.context9A5678X;
     input::InitializeContext_449CF0(
-        &gInputContext9A5678,
+        &sceneUi.context9A5678,
         firstX + 2,
         firstY + 2,
         0,
@@ -493,16 +482,16 @@ void InitializeCapability4Input_465320()
 
     const std::int32_t secondSelectedSlot =
         detail::gSelectedSavedSlot105C394;
-    gInputContext9A5960X = 187;
-    gInputContext9A5960Y = 389;
-    gInputContext9A5960.clearText();
-    gInputContext9A5960.totalByteLength = 0;
-    gInputContext9A5960.caretByteOffset = 0;
+    sceneUi.context9A5960X = 187;
+    sceneUi.context9A5960Y = 389;
+    sceneUi.context9A5960.clearText();
+    sceneUi.context9A5960.totalByteLength = 0;
+    sceneUi.context9A5960.caretByteOffset = 0;
     detail::ReadSavedPassword_5335F0(initialText, secondSelectedSlot);
-    const std::int32_t secondY = gInputContext9A5960Y;
-    const std::int32_t secondX = gInputContext9A5960X;
+    const std::int32_t secondY = sceneUi.context9A5960Y;
+    const std::int32_t secondX = sceneUi.context9A5960X;
     input::InitializeContext_449CF0(
-        &gInputContext9A5960,
+        &sceneUi.context9A5960,
         secondX + 2,
         secondY + 2,
         0,
@@ -515,10 +504,10 @@ void InitializeCapability4Input_465320()
         1);
 
     input::InputContext* const initialContext =
-        gInputContextFocusTable[1];
-    gLoginInputFocusIndex_9A6E20 = 1;
+        sceneUi.inputFocusTable[1];
+    sceneUi.inputFocusIndex = 1;
     input::SetContext_44B330(initialContext);
-    gCapability3LoginOverlayAlpha_9A6200 = 255;
+    sceneUi.capability3OverlayAlpha = 255;
 }
 
 // 原函数：0x00465740。

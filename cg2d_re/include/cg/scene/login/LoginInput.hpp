@@ -29,23 +29,6 @@ static_assert(offsetof(LoginSceneControl32, normalImageNo) == 0x18);
 static_assert(offsetof(LoginSceneControl32, activeImageNo) == 0x1C);
 static_assert(sizeof(LoginSceneControl32) == 0x20);
 
-// 原 stru_9A4D20@[0x9A4D20,0x9A4E7C)，完整 0x15C 字节；PE 虚拟零填充。
-extern input::InputContext gInputContext9A4D20; // 原全局：0x009A4D20。
-
-// 两个上下文会被多个场景函数共享，只按原地址区分，不固定账号或密码语义。
-extern input::InputContext gInputContext9A5960; // 原全局：0x009A5960。
-extern input::InputContext gInputContext9A5678; // 原全局：0x009A5678。
-
-extern std::int16_t gInputContext9A5960X; // 原 0x9A4B8C，映像零填充。
-extern std::int16_t gInputContext9A5960Y; // 原 0x9A4B8A，映像零填充。
-extern std::int16_t gInputContext9A5678X; // 原 0x9A4B9E，映像零填充。
-extern std::int16_t gInputContext9A5678Y; // 原 0x9A4B9C，映像零填充。
-extern std::int32_t gLoginInputFocusIndex_9A6E20;         // 原 0x9A6E20，映像零填充。
-extern std::uint32_t gCapability3LoginOverlayAlpha_9A6200;        // 原 0x9A6200，共享 W32，映像零填充。
-
-// 原 0x559FFC 的三项焦点表；x64 下保留原生指针宽度。
-extern input::InputContext* gInputContextFocusTable[3];
-
 // 原登录缓存每项51字节（含NUL）；ALM02自动入口沿同一50字节正文上限。
 inline constexpr std::size_t LoginInputValueCapacity = 51;
 

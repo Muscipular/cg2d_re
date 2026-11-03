@@ -73,9 +73,6 @@
 
 namespace cg::world {
 
-// 原 [C8A7B0,C8A940) 的 100 项 W32 表；C8A940 是独立消费游标。
-static std::array<std::int32_t, 100> gRotationTableC8A7B0 {}; // 原全局：0x00C8A7B0。
-static std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
     std::vector<float> speedFF0FA8 = std::vector<float>(481, 0.0f); // 原全局：0x00FF0FA8。
@@ -186,7 +183,7 @@ static void DrawTransitionRectangle(
     }
 }
 
-static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
+static_assert(sizeof(decltype(RotationState::table)) == 0x190);
 
 // 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
 static std::array<char, 100> gMoveDirectionText9E03D0 {}; // 原全局：0x009E03D0。
@@ -700,12 +697,13 @@ std::uint32_t CopyWorldProjectionState_468FF0()
     return d;
 }
 
-// 原 [46FB20,46FB45)：仅消费一次共享 RAND，生产表时不重置消费游标。
-std::int32_t InitializeRotationTable_46FB20()
+// 原 [46FB20,46FB45)：仅消费一次所属会话 RAND，生产表时不重置消费游标。
+std::int32_t InitializeRotationTable_46FB20(session::ClientSession& session)
 {
-    std::int32_t index = platform::Rand16() % 100;
+    auto& rotation = session.WorldScene().rotation;
+    std::int32_t index = platform::Rand16(session.Connection()) % 100;
     for (std::int32_t value = 0; value < 100; ++value) {
-        gRotationTableC8A7B0[static_cast<std::size_t>(index)] = value;
+        rotation.table[static_cast<std::size_t>(index)] = value;
         ++index;
         if (index >= 100) {
             index = 0;
@@ -715,15 +713,16 @@ std::int32_t InitializeRotationTable_46FB20()
 }
 
 // 原 455C70 跳入独占尾块 [46FB50,46FB74)：先清状态，再推进游标。
-std::int32_t NextRotationValue_455C70()
+std::int32_t NextRotationValue_455C70(session::ClientSession& session)
 {
     detail::gMapTargetInputAndDrawOverride_62B308 = 0;
+    auto& rotation = session.WorldScene().rotation;
     const std::int32_t value =
-        gRotationTableC8A7B0[static_cast<std::size_t>(gRotationCursorC8A940)];
-    const std::int32_t next = gRotationCursorC8A940 + 1;
-    gRotationCursorC8A940 = next;
+        rotation.table[static_cast<std::size_t>(rotation.cursor)];
+    const std::int32_t next = rotation.cursor + 1;
+    rotation.cursor = next;
     if (next >= 100) {
-        gRotationCursorC8A940 = 0;
+        rotation.cursor = 0;
     }
     return value;
 }
@@ -3807,7 +3806,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         platform::gFrameBackgroundMode_73ECC0 = 0;
         static_cast<void>(DrawObservationTravelBackground_440FF0());
         ApplyPendingMapPaletteReply_51D6F0();
-        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(NextRotationValue_455C70(session));
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         RenderChara_521F20();
         cg::core::NullSub_509080();
@@ -3984,7 +3983,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ResetMapActorDrawKeys_4468F0();
         static_cast<void>(UpdateMapMouseTargetAndButtons_46F680());
         OpenPendingBattleResultWindow_504A50();
-        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(NextRotationValue_455C70(session));
         static_cast<void>(UpdateWorldMapInputAndMovement_469C90());
         ResetMapDrawCacheCounts_46BD40();
         SynchronizeTimedMapNoticeWindow_455FC0();
@@ -4274,7 +4273,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(NextRotationValue_455C70(session));
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
             ui::detail::gHoverTextD68AE8 = L"等待战斗开始。" /* 原常量参考：0x005541CC。 */;
         }
@@ -4335,7 +4334,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(NextRotationValue_455C70(session));
         if (cg::yobi::ReturnBattleActorsToFormation_43C910() == 1) {
             if (gBattleEntryNoticeAction5ABFB8 != nullptr) {
                 static_cast<void>(cg::yobi::MarkDeath(gBattleEntryNoticeAction5ABFB8));
@@ -4356,7 +4355,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(NextRotationValue_455C70(session));
         ui::detail::WindowBattleCommand_Dispatch();
         RenderChara_521F20();
         UpdatePlayerCountdown_458F40();
@@ -4371,7 +4370,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(NextRotationValue_455C70(session));
         UpdatePlayerCountdown_458F40();
         const std::int32_t readIndex = gBattleMReadIndex5AAA68;
         if (readIndex != gBattleMWriteIndex5A3A1C) {
@@ -4402,7 +4401,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::input::DrawAndAdvanceInputCaret_44A410();
         static_cast<void>(ui::WindowRuntime_Render());
         RenderInput_4590E0();
-        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(NextRotationValue_455C70(session));
         UpdatePlayerCountdown_458F40();
         break;
     case 7: {

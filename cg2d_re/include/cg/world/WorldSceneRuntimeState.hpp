@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
 #include <string>
 
@@ -37,11 +38,18 @@ struct BattleSceneState {
     std::uint32_t exitNotificationPending = 0; // 原 0x5ABCB0。
 };
 
+// 100 项随机旋转表及跨场景消费游标，表初始化不重置游标。
+struct RotationState {
+    std::array<std::int32_t, 100> table {}; // 原 0xC8A7B0，长度 0x190。
+    std::int32_t cursor = 0; // 原 0xC8A940。
+};
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
     LogoutSceneState logout {};
     BattleSceneState battle {};
+    RotationState rotation {};
     std::uint32_t pendingMapBgmIndex = 0; // 原 0xFF0D5C，地图回复生产、普通场景消费。
     std::uint32_t mapBgmChangePending = 0; // 原 0xFF0D58。
     std::int32_t worldBgmResumeIndex = 0; // 原 0xFF0D68，普通场景恢复号。

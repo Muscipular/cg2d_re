@@ -11,6 +11,7 @@
 
 #include "cg/resource/AnimationRuntime.hpp"
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/resource/GraphicAlloc.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
@@ -233,8 +234,9 @@ int InitializeClient_4576B0()
     }
     static_cast<void>(render::InvalidateGraphicRefs_523350());
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());
-    SeedRandom_53B4BF(std::random_device()() ^ static_cast<std::uint32_t>(ReadTickCount64()));
-    static_cast<void>(world::InitializeRotationTable_46FB20());
+    auto& session = network::GetGameConnection().Owner();
+    SeedRandom_53B4BF(session.Connection(), std::random_device()() ^ static_cast<std::uint32_t>(ReadTickCount64()));
+    static_cast<void>(world::InitializeRotationTable_46FB20(session));
     static_cast<void>(ResetLegacyMouseState_506870());
     static_cast<void>(cg::yobi::InitializeYobiActionList_404A40());
     static_cast<void>(render::InitializeFont_456190(0));

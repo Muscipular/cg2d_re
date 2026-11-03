@@ -250,7 +250,7 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
             parent->flags |= YobiActionFlag_Hidden;
         }
         const std::int32_t index = platform::RandomRange_46FAF0(0, 15);
-        YobiAction* const particle = NewYobiAction_404AE0(2, 0);
+        YobiAction* const particle = NewYobiAction_404AE0(*action->ownerSession, 2, 0);
         if (particle != nullptr) {
             particle->callback = UpdateBattleRisingEffect_41A200;
             std::uint32_t flags;
@@ -318,7 +318,7 @@ void UpdateBattleReverseEmitter_41A590(YobiAction* const action)
             if (payload->counts00[i] >= 4) {
                 continue;
             }
-            YobiAction* const particle = NewYobiAction_404AE0(2, 0);
+            YobiAction* const particle = NewYobiAction_404AE0(*action->ownerSession, 2, 0);
             if (particle == nullptr) {
                 continue;
             }
@@ -368,7 +368,7 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
     action->phase = oldPhase + 1;
     if (oldPhase > 0 && action->nameX < 32) {
         action->phase = 0;
-        YobiAction* const particle = NewYobiAction_404AE0(2, 0);
+        YobiAction* const particle = NewYobiAction_404AE0(*action->ownerSession, 2, 0);
         if (particle != nullptr) {
             const std::uint32_t flags = particle->flags;
             particle->callback = UpdateBattleRisingEffect_41A200;
@@ -409,7 +409,7 @@ void UpdateBattleIndexedEmitter_41A7D0(YobiAction* const action)
 YobiAction* NewBattleRisingEffect_420D50(YobiAction* const parent)
 {
     const std::int32_t index = platform::RandomRange_46FAF0(0, 15);
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -452,7 +452,7 @@ YobiAction* NewBattleEffect_41CD00(
     } else {
         switch (type) {
         case BattleEffectType_AreaAttackImpactAtPosition: {
-            action = NewYobiAction_404AE0(2, 0);
+            action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
             if (action == nullptr) {
                 return nullptr;
             }
@@ -472,7 +472,7 @@ YobiAction* NewBattleEffect_41CD00(
             break;
         }
         case BattleEffectType_Recovery: {
-            action = NewYobiAction_404AE0(2, 0);
+            action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
             if (action == nullptr) {
                 return nullptr;
             }
@@ -496,7 +496,7 @@ YobiAction* NewBattleEffect_41CD00(
         case BattleEffectType_FixedImage110012:
         case BattleEffectType_FixedImage110014:
         case BattleEffectType_FixedImage110013: {
-            action = NewYobiAction_404AE0(2, 0);
+            action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
             if (action == nullptr) {
                 return nullptr;
             }
@@ -515,7 +515,7 @@ YobiAction* NewBattleEffect_41CD00(
         }
         case BattleEffectType_RandomEmitter: {
             const auto position = static_cast<std::uint8_t>(sourcePayload->battlePosition18);
-            action = NewYobiAction_404AE0(static_cast<std::uint8_t>(position * 10 + 1), 0);
+            action = NewYobiAction_404AE0(*source->ownerSession, static_cast<std::uint8_t>(position * 10 + 1), 0);
             if (action == nullptr) {
                 return nullptr;
             }
@@ -538,7 +538,7 @@ YobiAction* NewBattleEffect_41CD00(
         }
         case BattleEffectType_StatusRecoveryEmitter:
         case BattleEffectType_ReviveEmitter: {
-            action = NewYobiAction_404AE0(2, sizeof(BattleRingEmitterPayload), YobiPayloadKind::BattleRingEmitter);
+            action = NewYobiAction_404AE0(*source->ownerSession, 2, sizeof(BattleRingEmitterPayload), YobiPayloadKind::BattleRingEmitter);
             if (action == nullptr) {
                 return nullptr;
             }
@@ -566,7 +566,7 @@ YobiAction* NewBattleEffect_41CD00(
         }
         case BattleEffectType_SpellCasting:
         case BattleEffectType_CastingAttachment: {
-            action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+            action = NewYobiAction_404AE0(*source->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
             gBattleFactoryEffect59F9E8 = action;
             // 原34/43先写1C再走判空分支；RPLAN.24不改为安全失败。
             action->deathFlag = 0;
@@ -627,7 +627,7 @@ YobiAction* NewBattleEffect_41CD00(
                 fixedTarget = cg::world::gBattleAllEntries59E980[
                     sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
             }
-            action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+            action = NewYobiAction_404AE0(*source->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
             if (action == nullptr) {
                 return nullptr;
             }
@@ -728,7 +728,7 @@ YobiAction* NewBattleEffect_41CD00(
         }
         case BattleEffectType_ParentBoundImage110184:
         case BattleEffectType_ParentImageTierAura: {
-            action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+            action = NewYobiAction_404AE0(*source->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
             if (action == nullptr) {
                 return nullptr;
             }
@@ -760,7 +760,7 @@ YobiAction* NewBattleEffect_41CD00(
             break;
         }
         default: {
-            action = NewYobiAction_404AE0(2, 0);
+            action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
             if (action == nullptr) {
                 return nullptr;
             }
@@ -1117,7 +1117,7 @@ YobiAction* NewBattleArcProjection_418FF0(
     YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
     YobiAction* const distanceSource, YobiAction* const target, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1189,7 +1189,7 @@ void NewBattleProjection_418DF0(
     YobiAction* const parent, const float x, const float y,
     const float targetX, const float targetY, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return;
     }
@@ -1237,7 +1237,7 @@ YobiAction* NewBattleSpiracleShot_418B70(
 {
     using world::gBattleAllEntries59E980;
     imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::SpiracleShot, imageNo); // E02。
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1310,7 +1310,7 @@ YobiAction* NewBattleBlastWave_419180(
 {
     using world::gBattleAllEntries59E980;
     imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::BlastWave, imageNo); // E03。
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1385,7 +1385,7 @@ YobiAction* NewBattleRangeHit_419390(
     // E08：只识别原弓箭／小刀图号，不影响其他弹道。
     if (imageNo == 22050) imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::Bow, imageNo);
     else if (imageNo == 22090) imageNo = ResolveSkillEffectImage(parent, SkillEffectKind::Knife, imageNo);
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1464,7 +1464,7 @@ YobiAction* NewBattleArcShot_419DA0(
     const std::int32_t imageNo, const std::int32_t count, const std::int32_t mode)
 {
     using world::gBattleAllEntries59E980;
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1519,7 +1519,7 @@ YobiAction* NewBattleArcShot_419DA0(
 // 原函数：0x004205F0。
 YobiAction* NewBattleCastCopy_4205F0(YobiAction* const parent)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1555,7 +1555,7 @@ YobiAction* NewBattleBoomerang_4195F0(YobiAction* const parent)
 {
     using world::gBattleAllEntries59E980;
     auto* const parentPayload = parent->payload.battleActor;
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleActorPayload), YobiPayloadKind::BattleActor);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1756,7 +1756,7 @@ void UpdateBattleScatterEffect_41E4D0(YobiAction* const action)
 // 原函数：0x0041E510。
 YobiAction* NewBattleScatterEffect_41E510(YobiAction* const parent, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1793,7 +1793,7 @@ void UpdateBattlePositionEffect_41E640(YobiAction* const action)
 // 原函数：0x0041E680。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* const parent, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1887,7 +1887,7 @@ void UpdateBattleOneShotEffect_419FA0(YobiAction* const action)
 YobiAction* NewBattleRandomEffect_419FC0(
     YobiAction* const parent, const std::int32_t imageNo, const std::int32_t direction)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2074,7 +2074,7 @@ YobiAction* NewBattleBuffEffect_41F660(YobiAction* const parent, const std::int3
         currentPayload->currentDebuffType_13D0 = type;
         currentPayload->currentDebuffState_13CC = CG_BATTLE_STATUS_MODE_DEBUFF;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2126,7 +2126,7 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     if (parent->payload.battleActor->attributeReversalEffect105C != nullptr) {
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2171,7 +2171,7 @@ void UpdateBattleTransitionEffect_419BE0(YobiAction* const action)
 // 原函数：0x00419C10。
 YobiAction* NewBattleTransitionEffect_419C10(YobiAction* const parent, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleTransitionEffectPayload), YobiPayloadKind::BattleTransitionEffect);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleTransitionEffectPayload), YobiPayloadKind::BattleTransitionEffect);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2219,7 +2219,7 @@ YobiAction* NewBattleOffsetFollowEffect_419CF0(
     YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
     const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleFollowOffsetPayload), YobiPayloadKind::BattleFollowOffset);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, sizeof(BattleFollowOffsetPayload), YobiPayloadKind::BattleFollowOffset);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2277,7 +2277,7 @@ YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::
     if (parent->payload.battleActor->centeredEffect1064 != nullptr) {
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2358,7 +2358,7 @@ YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* const parent, const std::
         existing->imageNo = mode == BattleAttachedEffectMode_DisplayImage22326 ? 22326 : 22327;
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2450,7 +2450,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* const parent, const std::in
     if (parent->payload.battleActor->statusEffect1068 != nullptr) {
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2624,7 +2624,7 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
 YobiAction* NewBattleBackgroundFade_421570(
     YobiAction* const source, const std::int32_t imageNo, const std::uint8_t step, const std::int32_t publishBackground)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }

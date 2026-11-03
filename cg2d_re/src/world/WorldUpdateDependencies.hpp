@@ -1,6 +1,7 @@
 #pragma once
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 #include "cg/platform/LegacyCryptInt.hpp"
 
@@ -134,7 +135,7 @@ std::int32_t ProcessBottomScanlineTransition_51FA70(std::int32_t index, std::int
 // 原函数：0x0051FC90。
 std::int32_t ProcessSceneCenterScanlineTransition_51FC90(std::int32_t index, std::int32_t value);
 // 原函数：0x00455C90。
-std::int32_t UpdateDisconnectDialog_455C90();                 // 原 0x455C90，返回值按任意非零判断。
+std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session); // 原 0x455C90，返回值按任意非零判断。
 
 } // namespace detail
 

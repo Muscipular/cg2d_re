@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
 #include <format>
 #include "StartupNative.hpp"
@@ -142,12 +143,13 @@ int MainLoop()
             ShutdownClient_457A40();
             return 0;
         }
-        KeepAlive_457AB0();
+        auto& session = network::GetGameConnection().Owner();
+        auto& connection = session.Connection();
+        KeepAlive_457AB0(connection);
         world::UpdateGameTime(&world::gCgTime);
         gPendingGraphicCount = 0;
         gPendingGraphicCount2 = 0;
         render::ResetGraphicCache_456D30();
-        auto& connection = network::GetGameConnection();
         if (connection.Active()) {
             const auto disconnect = connection.DisconnectState();
             if (disconnect == 1) {
@@ -164,7 +166,7 @@ int MainLoop()
             }
         }
         UpdateAudioAndSkipMciClose_52CD30(-1);
-        world::Update();
+        world::Update(session);
         script::UpdateLuaScene();
         if (gWindowActiveState != 0) {
             UpdateCursor_506E00();

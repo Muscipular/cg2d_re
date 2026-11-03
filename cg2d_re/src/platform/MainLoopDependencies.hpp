@@ -28,6 +28,7 @@ int InitializeClient_4576B0();
 void ShowModeChange_458A40();
 // 原函数：0x00457AB0。
 void KeepAlive_457AB0();
+void KeepAlive_457AB0(network::CgConnection& connection);
 // 原函数：0x0052CD30。
 int UpdateAudioAndSkipMciClose_52CD30(std::int32_t value);
 // 原函数：0x00507140。

@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <string>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::world {
 
 // 原 0xFF0D40；引用 platform::gCurrentSceneTypeStorage_FF0D40，不建立第二份当前场景类型存储。
@@ -89,6 +91,6 @@ std::int32_t NextRotationValue_455C70();
 std::uint32_t InitializeAlbum_518C20();
 
 // 原 World::Update@0x51C430；场景状态消费与分发，实现在WorldUpdate.cpp，依赖按所属模块接入。
-void Update();
+void Update(session::ClientSession& session);
 
 } // namespace cg::world

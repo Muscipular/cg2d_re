@@ -42,7 +42,7 @@
 namespace cg::world {
 
 // 原 [0x51C430,0x51C726)，188 条指令、13 项主分发表和 5 项次分发表。
-void Update()
+void Update(session::ClientSession& session)
 {
     const std::int32_t pendingSceneType = gPendingSceneType;
     if (pendingSceneType >= 0) {
@@ -177,21 +177,21 @@ void Update()
             ++gCurrentSceneState;
         }
 
-        if (detail::UpdateDisconnectDialog_455C90() == 0) {
+        if (detail::UpdateDisconnectDialog_455C90(session) == 0) {
             goto sceneSixTail;
         }
         cg::login::detail::SaveCurrentClientPreferences_520160();
         detail::DestroyPlayerMapPresence_519D50();
         detail::ResetWorldObjectTable_446470();
-        cg::network::GetGameConnection().Shutdown();
-        cg::network::GetGameConnection().DisconnectState() = 0;
+        session.Connection().Shutdown();
+        session.Connection().DisconnectState() = 0;
         const std::int32_t capability = resource::ProbePaletteCapability_45C970();
         const std::int32_t paletteIndex = capability == 3 ? 27 : 0;
         render::gPaletteCapability = capability;
         render::SelectPalette(paletteIndex, 0);
         SetCurrentSceneType(2);
         cg::yobi::YobiClearUp_404D30();
-        cg::network::GetGameConnection().DisconnectState() = 0;
+        session.Connection().DisconnectState() = 0;
         return;
     }
     case 12:
@@ -222,9 +222,9 @@ sceneSixTail:
 namespace detail {
 
 // 原函数：0x00455C90。
-std::int32_t UpdateDisconnectDialog_455C90()
+std::int32_t UpdateDisconnectDialog_455C90(session::ClientSession& session)
 {
-    auto& dialog = cg::network::GetGameConnection().Owner().WorldScene().disconnectDialog;
+    auto& dialog = session.WorldScene().disconnectDialog;
     cg::render::GraphicDescriptor16 descriptor {
         0, 0, 0, 0, 0xFFFFFFFFu, 0, cg::render::GraphicMixFlag_OriginalPalette, 0,
     };
@@ -286,9 +286,9 @@ std::int32_t UpdateDisconnectDialog_455C90()
     std::wstring_view secondText;
     std::wstring_view thirdText;
     std::wstring errorText;
-    const bool connectionError = cg::network::GetGameConnection().LoginRequests().connectionErrorPresent != 0;
+    const bool connectionError = session.Connection().LoginRequests().connectionErrorPresent != 0;
     if (connectionError) {
-        cg::text::FormatTo(errorText, L"伺服器连线中断({})", cg::network::GetGameConnection().Error());
+        cg::text::FormatTo(errorText, L"伺服器连线中断({})", session.Connection().Error());
         secondText = errorText;
         thirdText = L"请尝试其他的伺服器。";
     } else {

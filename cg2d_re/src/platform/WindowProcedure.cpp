@@ -5,6 +5,7 @@
 #include "imeImpl.hpp"
 #include "MainLoopDependencies.hpp"
 #include "cg/render/SdlPresenter.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "WindowProcedureState.hpp"
 
 #include "cg/input/Input.hpp"
@@ -119,8 +120,10 @@ struct MouseCoordinates {
 static void RebuildRendererIfGraphicDirty()
 {
     if (render::gGraphicDirty == 1) {
+        auto* const session = session::GetClientHost().CurrentSession();
+        if (session == nullptr) return;
         render::gGraphicDirty = 0;
-        render::RebuildRenderer_466B80();
+        render::RebuildRenderer_466B80(*session);
     }
 }
 

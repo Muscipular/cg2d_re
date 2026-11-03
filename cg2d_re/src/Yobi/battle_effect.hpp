@@ -256,7 +256,7 @@ YobiAction* NewBattleFieldEffect_41FFE0(std::int32_t imageNo); // BFL01：B0已�
 void UpdateBattleBackgroundFade_421480(YobiAction* action); // 完整五态淡变，同源背景发布与延后标死。
 // 原函数：0x00421570。
 YobiAction* NewBattleBackgroundFade_421570(
-    std::int32_t imageNo, std::uint8_t step, std::int32_t publishBackground);
+    YobiAction* source, std::int32_t imageNo, std::uint8_t step, std::int32_t publishBackground);
 // 原函数：0x00422370。
 void RestoreBattleStateEffects_422370(YobiAction* parent); // 固定入口FDC快照，保留成对共用清位掩码。
 // 原函数：0x00421610。

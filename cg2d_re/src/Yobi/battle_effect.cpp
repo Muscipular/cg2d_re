@@ -10,6 +10,7 @@
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/RendererResources.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include "animation.hpp"
@@ -2565,7 +2566,6 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
 // 原函数：0x00421480。
 void UpdateBattleBackgroundFade_421480(YobiAction* const action)
 {
-    using world::gBattleBackgroundImage59F9F8;
     switch (action->phase) {
     case BattleBackgroundFadePhase_IncreasingAlpha: {
         const std::uint8_t alpha = GetYobiActionField30F(action);
@@ -2578,7 +2578,7 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
         const std::int32_t publish = action->counter28;
         SetYobiActionField30F(action, 255);
         if (publish != 0) {
-            cg::world::gBattleBackgroundImage59F9F8 = action->imageNo;
+            action->ownerSession->WorldScene().battle.backgroundImage = action->imageNo;
             action->phase = BattleBackgroundFadePhase_Finishing;
         }
         [[fallthrough]];
@@ -2589,7 +2589,7 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
         SetYobiActionField308(action, static_cast<std::int32_t>(YobiColorChannelFlag_Alpha));
         action->flags = flags;
         if (publish != 0) {
-            cg::world::gBattleBackgroundImage59F9F8 = action->imageNo;
+            action->ownerSession->WorldScene().battle.backgroundImage = action->imageNo;
             action->phase = BattleBackgroundFadePhase_Finishing;
         }
         break;
@@ -2622,12 +2622,13 @@ void UpdateBattleBackgroundFade_421480(YobiAction* const action)
 
 // 原函数：0x00421570。
 YobiAction* NewBattleBackgroundFade_421570(
-    const std::int32_t imageNo, const std::uint8_t step, const std::int32_t publishBackground)
+    YobiAction* const source, const std::int32_t imageNo, const std::uint8_t step, const std::int32_t publishBackground)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);
     if (action == nullptr) {
         return nullptr;
     }
+    action->ownerSession = source->ownerSession;
     const std::uint32_t flags = action->flags | YobiActionFlag_FourPhaseUpdateGate;
     action->callback = UpdateBattleBackgroundFade_421480;
     action->flags = flags;

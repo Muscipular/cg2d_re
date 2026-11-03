@@ -2,6 +2,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/network/CgConnection.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -36,6 +37,7 @@ YobiAction& YobiAction::operator=(const YobiAction& source)
     this->callback = source.callback;
     this->payload = source.payload;
     this->payloadKind = source.payloadKind;
+    this->ownerSession = source.ownerSession;
     std::memcpy(&this->completionSlot10, &source.completionSlot10, sizeof(source.completionSlot10));
     this->priority = source.priority;
     this->displayPriority = source.displayPriority;
@@ -227,6 +229,7 @@ YobiAction* NewYobiAction_404AE0(
     }
 
     std::construct_at(action, YobiAction::RawFields{});
+    action->ownerSession = &network::GetGameConnection().Owner(); // 旧无参创建仅属首会话。
     if (payloadSize != 0) {
         void* const payload = std::calloc(std::size_t{1}, payloadSize);
         const bool missingPayload = payload == nullptr;

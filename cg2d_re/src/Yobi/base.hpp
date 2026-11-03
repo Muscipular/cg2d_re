@@ -11,6 +11,8 @@
 #include <string>
 #include <type_traits>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::yobi {
 
 // Yobi对象cacheIndex的未入队哨兵；其他索引及容量不属于此域。
@@ -99,6 +101,7 @@ struct YobiAction {
     std::uint8_t priority = 0; // 原成员偏移：+0x14。
     std::uint8_t displayPriority = 0; // 原成员偏移：+0x15。
     YobiPayloadKind payloadKind = YobiPayloadKind::None; // 本机载荷类别，使用原生对齐空隙，不复用业务字段。
+    session::ClientSession* ownerSession = nullptr; // 本机动态动作所属会话，回调期间非拥有借用。
     std::int32_t cacheIndex = 0; // 原成员偏移：+0x18。
     std::int32_t deathFlag = 0; // 原成员偏移：+0x1C。
     std::int32_t graphicIndex = 0; // 原成员偏移：+0x20。

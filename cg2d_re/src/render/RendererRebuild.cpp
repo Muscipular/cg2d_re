@@ -8,6 +8,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/render/SurfaceState.hpp"
@@ -21,7 +22,7 @@
 namespace cg::render {
 
 // 原 [466B80,466D41)：失败投递后仍继续；分支与资源顺序见 cg2d_sdl_presenter.md。
-void RebuildRenderer_466B80()
+void RebuildRenderer_466B80(session::ClientSession& session)
 {
     const std::uint32_t previousQueueMode = gRenderQueueMode103CF10;
     RendererDestroy_44C3C0();
@@ -43,7 +44,7 @@ void RebuildRenderer_466B80()
         static_cast<void>(world::ResetMapDrawCacheCounts_46BD40());
         world::DrawMapScene_46CF60(0);
         static_cast<void>(cg::render::DrawBattleBackgroundScaled(
-            200, world::gBattleBackgroundImage59F9F8));
+            200, session.WorldScene().battle.backgroundImage));
         SortTextures_520790();
         static_cast<void>(ClearSurface_4512C0());
         gRenderQueueMode103CF10 = 0;

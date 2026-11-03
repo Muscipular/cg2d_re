@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::render {
 
 // 原 gCRenderer@0x627360 的 x64 不透明资源 owner；由 Init 发布、Destroy 最后释放。
@@ -54,6 +56,6 @@ std::int32_t SetPaletteEntries(
 
 
 // 原466B80：按原顺序重建渲染资源及缓存。
-void RebuildRenderer_466B80();
+void RebuildRenderer_466B80(session::ClientSession& session);
 
 } // namespace cg::render

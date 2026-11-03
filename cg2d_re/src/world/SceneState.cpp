@@ -2231,8 +2231,6 @@ std::uint32_t gMapAttachmentDrawCount_9A7F78 = 0; // 原全局：0x009A7F78。
 
 } // namespace detail
 
-// 原59F9F8；50D120生产，421480后续复用。
-std::int32_t gBattleBackgroundImage59F9F8 = 0;
 std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0; // 原全局：0x0059F9E0。
 std::int32_t gBattleType5ABFC8 = 0; // 原全局：0x005ABFC8。
 std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
@@ -4114,7 +4112,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     std::int32_t state = gCurrentSceneState;
     if (static_cast<std::uint32_t>(state) >= 2U
         && static_cast<std::uint32_t>(state) <= 6U
-        && gBattleBackgroundImage59F9F8 != battleScene.backgroundSnapshot) {
+        && battleScene.backgroundImage != battleScene.backgroundSnapshot) {
         CaptureBattleBackgroundSnapshot_43CB10(session);
         state = gCurrentSceneState;
     }
@@ -4158,7 +4156,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         session.WorldScene().frameBackgroundMode = 2;
         input::BrowseChatHistory_44A1B0(session);
         if (gMapResourceMode_9DAD68 == 1) {
-            const std::int32_t image = gBattleBackgroundImage59F9F8;
+            const std::int32_t image = battleScene.backgroundImage;
             const bool specialBackground = image >= 238607 && image <= 238618;
             switch (gBattleType5ABFC8) {
             case 1:
@@ -10076,7 +10074,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
             gBattleModeFlag5ABFCC = 0;
         }
         gBattleEventDispatchBusy_5ABB1C = 0;
-        gBattleBackgroundImage59F9F8 = imageNo;
+        networkConnection.Owner().WorldScene().battle.backgroundImage = imageNo;
         gBattleTurnMessagesExhausted_5ABB28 = 0;
         detail::gBattleCWriteIndex5AAA6C = 0;
         detail::gBattleCReadIndex5AAA44 = 0;

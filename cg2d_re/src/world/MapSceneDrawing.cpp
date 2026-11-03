@@ -210,7 +210,7 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
     static_cast<void>(render::ResetGraphicCache_456D30());
     static_cast<void>(ResetMapDrawCacheCounts_46BD40());
     DrawMapScene_46CF60(0);
-    const std::int32_t imageNo = gBattleBackgroundImage59F9F8;
+    const std::int32_t imageNo = session.WorldScene().battle.backgroundImage;
     static_cast<void>(cg::render::DrawBattleBackgroundScaled(200, imageNo));
     render::SortTextures_520790();
     static_cast<void>(render::ClearSurface_4512C0());
@@ -221,7 +221,7 @@ void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
     platform::gPendingGraphicCount = 0;
     platform::gPendingGraphicCount2 = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
-    session.WorldScene().battle.backgroundSnapshot = gBattleBackgroundImage59F9F8;
+    session.WorldScene().battle.backgroundSnapshot = session.WorldScene().battle.backgroundImage;
 }
 
 } // namespace cg::world::detail

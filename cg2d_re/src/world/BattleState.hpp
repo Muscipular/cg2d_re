@@ -56,8 +56,6 @@ void HandleBattleResultsReply_50D500(cg::network::CgConnection& networkConnectio
 extern std::int32_t gDpResultDelta_FF0D04; // 原全局：0x00FF0D04。 既有DP回复变化值，窗口31直接读取。
 extern std::int32_t gDpResultTotal_FF0D08; // 原全局：0x00FF0D08。 既有DP回复总量，与变化值分别采样。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
-// 原 59F9F8，战斗背景 W32 图号；Yobi 淡变回调和渲染器重建仍共享。
-extern std::int32_t gBattleBackgroundImage59F9F8;
 extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 原全局：0x0059F9E0。 4209C0门禁；43CBB0按称号value生产0/5。
 extern std::int32_t gBattleType5ABFC8; // 原全局：0x005ABFC8。 50D120写完整S32类型。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。

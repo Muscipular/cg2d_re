@@ -2262,7 +2262,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                 } else if (skill == BattleSkill_LvSet) {
                     static_cast<void>(audio::PlaySe_52C450(275, action->x));
                     static_cast<void>(NewBattleBackgroundFade_421570(
-                        payload->effects1C[payload->effectRunningC9C].position4, 1, 1));
+                        action, payload->effects1C[payload->effectRunningC9C].position4, 1, 1));
                     static_cast<void>(AdvanceBattleEffect_439470(action));
                     for (;;) {
                         const auto& levelEffect = payload->effects1C[payload->effectRunningC9C];

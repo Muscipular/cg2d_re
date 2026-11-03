@@ -11,7 +11,6 @@ struct TextureSurface;
 
 // 原 gBackgroundColor@0x62B0A8；固定 32bpp 路径使用 0x00RRGGBB 位模式。
 extern std::uint32_t gBackgroundColor;
-extern std::uint32_t gCapturedSceneTransitionVariant_FF48E4; // 原 0xFF48E4；51D750 写入的完整 W32 随机状态。
 
 // RHM01/R02：查询既有启动尺寸；CPU Back、缓存、输入和呈现共用同一逻辑画布。
 std::int32_t GetCpuSurfaceWidth() noexcept;

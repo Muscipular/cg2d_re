@@ -3994,7 +3994,7 @@ std::uint32_t CaptureSceneAndSelectEvenVariant_51D750(session::ClientSession& se
         platform::RandomRange_46FAF0(session.Connection(), 0, 35));
     const std::uint8_t low = static_cast<std::uint8_t>(bits) & 0xFEu;
     const std::uint32_t result = (bits & 0xFFFFFF00u) | low;
-    render::gCapturedSceneTransitionVariant_FF48E4 = result;
+    session.WorldScene().capturedTransitionVariant = result;
     return result;
 }
 

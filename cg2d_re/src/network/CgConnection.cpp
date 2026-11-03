@@ -9,6 +9,7 @@
 #include "cg/platform/platformTool.hpp"
 
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
+#include "../scene/character_select/CharacterSelectSceneState.hpp"
 #include "../scene/login/LoginRequestDependencies.hpp"
 #include "../scene/login/LoginSceneState.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
@@ -144,6 +145,7 @@ struct CgConnection::Impl {
     login::LoginRequestState loginRequests;
     login::LoginMessageState loginMessages;
     login::LoginSceneState loginSceneUi;
+    character_select::CharacterSelectSceneState characterSelectUi;
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
     std::list<std::pair<std::string, ProtocolReceiveHandler>> receiveHandlers;
     bool gameplayHandlersRegistered = false; // G01/G06/G07：业务回调只注册一次，重连保留。
@@ -1391,6 +1393,7 @@ bool CgConnection::LoginAccepted() const noexcept { return impl_->protocolModeDA
 login::LoginRequestState& CgConnection::LoginRequests() noexcept { return impl_->loginRequests; }
 login::LoginMessageState& CgConnection::LoginMessages() noexcept { return impl_->loginMessages; }
 login::LoginSceneState& CgConnection::LoginSceneUi() noexcept { return impl_->loginSceneUi; }
+character_select::CharacterSelectSceneState& CgConnection::CharacterSelectUi() noexcept { return impl_->characterSelectUi; }
 void CgConnection::UpdateKeepAlive()
 {
     if (!Active()) {

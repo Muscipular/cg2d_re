@@ -1,6 +1,8 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
+#include "cg/network/CgConnection.hpp"
+#include "CharacterSelectSceneState.hpp"
 
 #include "cg/scene/login/CharacterDeletionRequest.hpp"
 
@@ -17,75 +19,68 @@ static constexpr wchar_t kCharacterDeletionProgressText[] =
 static constexpr std::int32_t kColumnWidth = 64;
 static constexpr std::int32_t kRowHeight = 48;
 
-// 下列原存储的全部引用都只在 sub_45DBF0/sub_45DC00 内。
-static std::uint16_t gCharacterDeletionProgressStage = 0; // 原 0x9A6E54，R/W16。
-static cg::yobi::YobiAction* gCharacterDeletionProgressAction = nullptr; // 原 0x9A6E58。
-static std::int32_t gCharacterDeletionProgressX = 0;       // 原 0x9A4EA4，R/W32。
-static std::int32_t gCharacterDeletionProgressY = 0;       // 原 0x9A5FDC，R/W32。
-static std::int32_t gCharacterDeletionProgressColumns = 0; // 原 0x9A50DC，R/W32。
-static std::int32_t gCharacterDeletionProgressRows = 0;    // 原 0x9A5950，R/W32。
-
 // 原函数：0x0045DBF0。
 void ResetCharacterDeletionProgress_45DBF0()
 {
-    gCharacterDeletionProgressStage = 0;
+    cg::network::GetGameConnection().CharacterSelectUi().deletionProgress.stage = 0;
 }
 
 // 原函数：0x0045DC00。
 std::int32_t UpdateCharacterDeletionProgress_45DC00()
 {
-    std::uint16_t stage = gCharacterDeletionProgressStage;
+    auto& progress = cg::network::GetGameConnection().CharacterSelectUi().deletionProgress;
+    std::uint16_t stage = progress.stage;
     std::int32_t result = 0;
 
     if (stage == 0) {
         const std::uint32_t textWidth =
             static_cast<std::uint32_t>(cg::render::TextMeasure(kCharacterDeletionProgressText, 0));
-        gCharacterDeletionProgressStage = 1;
+        progress.stage = 1;
         const std::int32_t columns =
             static_cast<std::int32_t>((textWidth >> 6U) + 2U);
-        gCharacterDeletionProgressRows = 2;
+        progress.rows = 2;
         const std::int32_t unscaledX = 10 - columns;
-        gCharacterDeletionProgressColumns = columns;
+        progress.columns = columns;
         const std::int32_t centeredWidth = unscaledX * kColumnWidth;
-        gCharacterDeletionProgressY = 192;
+        progress.y = 192;
         const std::int32_t width = columns * kColumnWidth;
         const std::int32_t x = centeredWidth / 2;
-        gCharacterDeletionProgressX = x;
-        gCharacterDeletionProgressAction = cg::yobi::CreateModalAction_5044E0(
+        progress.x = x;
+        progress.action = cg::yobi::CreateModalAction_5044E0(
             x,
             192,
             width,
             96,
             4,
             1);
-        stage = gCharacterDeletionProgressStage;
+        stage = progress.stage;
     }
 
     if (stage == 1) {
         login::StartCharacterDeletionRequest();
-        ++gCharacterDeletionProgressStage;
+        ++progress.stage;
     } else if (stage == 2) {
         result = login::PollCharacterDeletionRequest();
         if (result != 0) {
-            cg::yobi::YobiAction* const action = gCharacterDeletionProgressAction;
+            cg::yobi::YobiAction* const action = progress.action;
             if (action != nullptr) {
                 cg::yobi::MarkDeath(action);
-                gCharacterDeletionProgressAction = nullptr;
+                progress.action = nullptr;
             }
             return result;
         }
     }
 
-    cg::yobi::YobiAction* const action = gCharacterDeletionProgressAction;
+    cg::yobi::YobiAction* const action = progress.action;
     if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
-        const std::int32_t rows = gCharacterDeletionProgressRows;
-        const std::int32_t y = gCharacterDeletionProgressY;
+        const std::int32_t rows = progress.rows;
+        const std::int32_t y = progress.y;
         const std::int32_t verticalHeight = rows * kRowHeight - 16;
         const std::int32_t textY = verticalHeight / 2 + y;
         const std::int32_t textWidth = cg::render::TextMeasure(kCharacterDeletionProgressText, 0);
-        const std::int32_t columns = gCharacterDeletionProgressColumns;
+        const std::int32_t columns = progress.columns;
         const std::int32_t horizontalWidth = columns * kColumnWidth - textWidth;
-        const std::int32_t x = gCharacterDeletionProgressX;
+        const std::int32_t x = progress.x;
         const std::int32_t textX = horizontalWidth / 2 + x;
         cg::render::DrawText3_456560(
             static_cast<std::int16_t>(textX),

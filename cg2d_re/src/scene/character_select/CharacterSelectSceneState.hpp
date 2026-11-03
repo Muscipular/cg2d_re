@@ -27,10 +27,22 @@ struct CharacterDeletionProgressState {
     std::int32_t rows = 0; // 原 0x9A5950。
 };
 
+// 角色认证失败确认框的阶段、布局及 Yobi 动作借用。
+struct AuthenticationFailureState {
+    std::uint16_t stage = 0; // 原 0x9A6E34。
+    yobi::YobiAction* action = nullptr; // 原 0x9A6E38。
+    std::int32_t sentinel = -2; // 原 0x55A050。
+    std::int32_t width = 0; // 原 0x9A50CC。
+    std::int32_t height = 0; // 原 0x9A5E6C。
+    std::int32_t x = 0; // 原 0x9A5654。
+    std::int32_t y = 0; // 原 0x9A57DC。
+};
+
 // 角色选择场景的可变运行期状态；动作本体尚待随场景隔离。
 struct CharacterSelectSceneState {
     CharacterListProgressState listProgress {};
     CharacterDeletionProgressState deletionProgress {};
+    AuthenticationFailureState authenticationFailure {};
 };
 
 } // namespace cg::character_select

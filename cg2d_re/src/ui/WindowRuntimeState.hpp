@@ -685,7 +685,6 @@ extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C�
 extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
-extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相对共享写指针的回看条数。
 
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
 extern std::array<WindowStoragePet, 5> gPetStorageD64E18; // 原全局：0x00D64E18。 外部存放宠物，4A84A0原回复区。
@@ -855,7 +854,7 @@ std::uint8_t WindowInput_ActivateElement(
 // 原函数：0x004A7B00。
 std::int32_t WindowChat_RestoreInput(session::ClientSession& session);
 // 原函数：0x00477490。
-WindowInstance* WindowRuntime_FindById(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
+WindowInstance* WindowRuntime_FindById(session::ClientSession& session, std::int32_t id); // 顺序扫描所属会话原生显示槽；原循环不跳过空槽。
 // CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。
 // 原函数：0x004A7590。
 void WindowChat_DrawInput(session::ClientSession& session, input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。
@@ -985,17 +984,17 @@ void WindowAdventureLog_InitializeDate(); // 首次借用原localtime对象并�
 // 原函数：0x004A8330。
 WindowInstance* WindowChat_SwitchMode(session::ClientSession& session); // 标旧聊天窗关闭、开另一窗后发布模式，透传新窗T*。
 // 原函数：0x004A6DB0。
-std::int32_t WindowChat_ResetScrollRequests(); // 仅重置回看、两调整请求与数量。
+std::int32_t WindowChat_ResetScrollRequests(session::ClientSession& session); // 仅重置回看、两调整请求与数量。
 // 原函数：0x0044B170。
-std::int32_t WindowChat_ClearHistory(); // 清512条日志首字节，再清数量与回看。
+std::int32_t WindowChat_ClearHistory(session::ClientSession& session); // 清512条日志首字节，再清数量与回看。
 // 原函数：0x004A7710。
-void WindowChat_RequestHeightIncrease(); // 请求高度+1。
+void WindowChat_RequestHeightIncrease(session::ClientSession& session); // 请求高度+1。
 // 原函数：0x004A7720。
-void WindowChat_RequestHeightDecrease(); // 请求高度-1。
+void WindowChat_RequestHeightDecrease(session::ClientSession& session); // 请求高度-1。
 // 原函数：0x004A7730。
-void WindowChat_RequestWidthIncrease(); // 请求宽度+1。
+void WindowChat_RequestWidthIncrease(session::ClientSession& session); // 请求宽度+1。
 // 原函数：0x004A7740。
-void WindowChat_RequestWidthDecrease(); // 请求宽度-1。
+void WindowChat_RequestWidthDecrease(session::ClientSession& session); // 请求宽度-1。
 // WND01：数字与四符号原字节正反绘制，见doc/cg2d_window_number_draw_spec.md。
 // 原函数：0x004771B0。
 void WindowNumber_Draw(

@@ -707,6 +707,13 @@ struct ItemTargetRuntimeState {
     std::uint8_t references = 0; // 原0xD67B24，保留W8增减和S8门禁。
 };
 
+// 普通/紧凑聊天窗共用的回看与尺寸请求，独立于实际布局尺寸。
+struct ChatWindowRuntimeState {
+    std::int32_t scrollOffset = 0; // 原0xC9A940。
+    std::int32_t widthRequest = 0; // 原0xC9A934。
+    std::int32_t heightRequest = 0; // 原0xC9A93C。
+};
+
 // 同会话跨窗共用输入；原型仅借本对象内的稳定实体，不拆邮件/宠物页及快捷文字别名。
 struct NativeInputRuntimeState {
     input::InputContext chat {}; // 原0x626AA0。
@@ -861,6 +868,7 @@ struct NativeWindowRuntimeState {
     WindowOperationRuntimeState operations {};
     WindowPointerRuntimeState pointer {};
     NativeInputRuntimeState inputs {};
+    ChatWindowRuntimeState chat {};
     ItemTransferRuntimeState itemTransfer {};
     ShopWindowRuntimeState shop {};
     CrystalShopWindowRuntimeState crystalShop {};

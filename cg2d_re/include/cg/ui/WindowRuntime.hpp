@@ -174,7 +174,7 @@ std::uint8_t WindowRuntime_ReadObservationFlag(session::ClientSession& session) 
 // 原数据：0x00584DA4。
 std::int32_t WindowItemDrag_ReadIndex() noexcept; // 原S32拖动编号，初值-1。
 // 原函数：0x004A80E0。
-std::int32_t WindowChat_ReadInputByteWidth(); // 原C9A930两倍，供历史翻页计算原字节滚动量。 // HBN01：见历史浏览/字节滚动完整合同。
+std::int32_t WindowChat_ReadInputByteWidth(session::ClientSession& session); // 原C9A930两倍，供历史翻页计算原字节滚动量。 // HBN01：见历史浏览/字节滚动完整合同。
 
 // 原函数：0x00471270。
 void WindowRuntime_Free(WindowInstance* window); // release回调、记录回存、七类元素释放。

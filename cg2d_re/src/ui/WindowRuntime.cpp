@@ -246,8 +246,6 @@ std::int32_t gHoverDescriptionEnabled_58589C = 1; // 原全局：0x0058589C。
 
 std::uint32_t gWindowHasFocusCA0AB4 = 0; // 原全局：0x00CA0AB4。
 
-std::int32_t gChatScrollOffsetC9A940 = 0; // 原全局：0x00C9A940。
-
 std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18。
 
 std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
@@ -3026,6 +3024,7 @@ static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std
 // 原函数：0x004C7AE0。
 static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
 {
+    auto& chatWindow = session.UiFrame().native.chat;
     if ((platform::gKeyStates[0x1B] & 4u) != 0) {
         platform::gKeyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
         if (script::CloseTopmostNonDefaultWindow(session)) {
@@ -3111,19 +3110,19 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x26] & 4u) != 0) {
-            WindowChat_RequestHeightIncrease();
+            WindowChat_RequestHeightIncrease(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x28] & 4u) != 0) {
-            WindowChat_RequestHeightDecrease();
+            WindowChat_RequestHeightDecrease(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x27] & 4u) != 0) {
-            WindowChat_RequestWidthDecrease();
+            WindowChat_RequestWidthDecrease(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x25] & 4u) != 0) {
-            WindowChat_RequestWidthIncrease();
+            WindowChat_RequestWidthIncrease(session);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[modeOne ? 0x55 : 0x50] & 4u) != 0) {
@@ -3241,24 +3240,24 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x26] & 0x10u) != 0) {
-            const std::int32_t previous = gChatScrollOffsetC9A940;
+            const std::int32_t previous = chatWindow.scrollOffset;
             const std::int32_t count = world::gChatRecordCount_C9A944;
             const std::int32_t scroll = previous + 1;
             const bool pastChatCount = scroll > count;
-            gChatScrollOffsetC9A940 = scroll;
+            chatWindow.scrollOffset = scroll;
             if (pastChatCount) {
-                gChatScrollOffsetC9A940 = count;
+                chatWindow.scrollOffset = count;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
         }
         if ((platform::gKeyStates[0x28] & 0x10u) != 0) {
-            const std::int32_t scroll = gChatScrollOffsetC9A940 - 1;
+            const std::int32_t scroll = chatWindow.scrollOffset - 1;
             const bool belowFirstChatLine = scroll < 0;
-            gChatScrollOffsetC9A940 = scroll;
+            chatWindow.scrollOffset = scroll;
             if (belowFirstChatLine) {
-                gChatScrollOffsetC9A940 = 0;
+                chatWindow.scrollOffset = 0;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -3276,7 +3275,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
     }
     if ((platform::gKeyStates[0x24] & 4u) != 0) {
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(WindowChat_ClearHistory());
+        static_cast<void>(WindowChat_ClearHistory(session));
     }
 }
 
@@ -3450,7 +3449,7 @@ static void WindowRuntime_InitializeLogin(session::ClientSession& session)
     static_cast<void>(WindowRuntime_LoadSettings(session));
     static_cast<void>(WindowRuntime_ResetAlbumState());
     WindowMessageBoard_ResetRecords();
-    static_cast<void>(WindowChat_ResetScrollRequests());
+    static_cast<void>(WindowChat_ResetScrollRequests(session));
     static_cast<void>(WindowMail_ResetComposeState());
     static_cast<void>(WindowPetList_ResetSelection());
     static_cast<void>(WindowScroll_ResetPosition());
@@ -3471,12 +3470,12 @@ static void WindowRuntime_InitializeLogin(session::ClientSession& session)
 }
 
 // 原函数：0x00477490。
-WindowInstance* WindowRuntime_FindById(const std::int32_t id)
+WindowInstance* WindowRuntime_FindById(session::ClientSession& session, const std::int32_t id)
 {
-    for (std::size_t index = 0; index < WindowRuntime_Windows().size(); ++index) {
-        WindowInstance* const window = WindowRuntime_Windows()[index];
+    for (std::size_t index = 0; index < WindowRuntime_Windows(session).size(); ++index) {
+        WindowInstance* const window = WindowRuntime_Windows(session)[index];
         if (window->id == id) {
-            return WindowRuntime_Windows()[index];
+            return WindowRuntime_Windows(session)[index];
         }
     }
     return nullptr;

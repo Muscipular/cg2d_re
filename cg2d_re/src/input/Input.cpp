@@ -998,7 +998,7 @@ void BrowseChatHistory_44A1B0(session::ClientSession& session)
     session.UiFrame().inputState.currentContext->caretByteOffset = 0;
     LoadInitialText_44A160(session, history.records[history.cursor62683C].c_str());
     const std::wstring contents = ContextText(*session.UiFrame().inputState.currentContext);
-    const std::size_t width = static_cast<std::size_t>(ui::WindowChat_ReadInputByteWidth());
+    const std::size_t width = static_cast<std::size_t>(ui::WindowChat_ReadInputByteWidth(session));
     std::size_t offset = contents.size() > width ? contents.size() - width : 0;
     offset = text::Prefix(contents, offset);
     SetVisibleUtf16Offset(*session.UiFrame().inputState.currentContext, offset);

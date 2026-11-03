@@ -56,19 +56,19 @@ static std::int32_t WindowChat_DragScroll(WindowInstance& callbackWindow, Elemen
 static std::int32_t WindowChat_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
 
 // 原函数：0x004A7C40。
-static void WindowChat_RefreshGeometry(); // 窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。
+static void WindowChat_RefreshGeometry(WindowInstance& callbackWindow); // 窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。
 
 // 原函数：0x004A8140。
-static void WindowChat_SyncScrollThumb(); // 查显示中的35，按回看比例更新滑块。 // CWC01：见聊天窗口控制完整合同。
+static void WindowChat_SyncScrollThumb(session::ClientSession& session); // 查显示中的35，按回看比例更新滑块。 // CWC01：见聊天窗口控制完整合同。
 
 // 原函数：0x004A6FC0。
 static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。 // CWC01：见聊天窗口控制完整合同。
 
 // 原函数：0x004A7700。
-static std::int32_t WindowChat_ResetScroll(); // 不清日志正文或写指针。
+static std::int32_t WindowChat_ResetScroll(session::ClientSession& session); // 不清日志正文或写指针。
 
 // 原函数：0x004A82E0。
-static std::int32_t WindowChat_RefreshCompactHeight(); // 窗口57高度循环调整并清两个请求。
+static std::int32_t WindowChat_RefreshCompactHeight(session::ClientSession& session); // 窗口57高度循环调整并清两个请求。
 
 // 原函数：0x004A6DD0。
 static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, std::int32_t value); // CWC01：见聊天窗口控制完整合同。
@@ -81,12 +81,6 @@ static std::int32_t WindowCompactChat_Update(WindowInstance& callbackWindow, std
 static std::int32_t WindowChat_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
-
-// 原全局：0x00C9A934。 原宽度调整请求，独立于实际宽度。
-static std::int32_t gChatWidthRequestC9A934 = 0; // 原全局：0x00C9A934。
-
-// 原全局：0x00C9A93C。 原高度调整请求，消费后清零。
-static std::int32_t gChatHeightRequestC9A93C = 0; // 原全局：0x00C9A93C。
 
 static WindowGraphicData gWindowGraphic570B10 {245167, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00570B10。
 
@@ -190,23 +184,25 @@ static std::int32_t& WindowChat_PreviousFont(session::ClientSession& session, co
 // 原函数：0x004A6D80。
 std::int32_t WindowChat_ResetState(session::ClientSession& session)
 {
+    auto& chatWindow = session.UiFrame().native.chat;
     auto& inputs = session.UiFrame().native.inputs;
     platform::gChatRange_554640 = 1;
-    gChatScrollOffsetC9A940 = 0;
+    chatWindow.scrollOffset = 0;
     world::gChatRecordCount_C9A944 = 0;
-    gChatWidthRequestC9A934 = 0;
-    gChatHeightRequestC9A93C = 0;
+    chatWindow.widthRequest = 0;
+    chatWindow.heightRequest = 0;
     inputs.chat.color = 0;
     return 0;
 }
 
 // 原函数：0x004A6DB0。
-std::int32_t WindowChat_ResetScrollRequests()
+std::int32_t WindowChat_ResetScrollRequests(session::ClientSession& session)
 {
-    gChatScrollOffsetC9A940 = 0;
-    gChatWidthRequestC9A934 = 0;
+    auto& chatWindow = session.UiFrame().native.chat;
+    chatWindow.scrollOffset = 0;
+    chatWindow.widthRequest = 0;
     world::gChatRecordCount_C9A944 = 0;
-    gChatHeightRequestC9A93C = 0;
+    chatWindow.heightRequest = 0;
     return 0;
 }
 
@@ -238,13 +234,14 @@ WindowInstance* WindowChat_SwitchMode(session::ClientSession& session)
 
 // CWC01：持有实际窗口/新count与elements，原浮点比例/低S32位置和正常分支保持。
 // 原函数：0x004A8140。
-static void WindowChat_SyncScrollThumb()
+static void WindowChat_SyncScrollThumb(session::ClientSession& session)
 {
-    WindowInstance* const window = WindowRuntime_FindById(WindowId_Chat);
+    auto& chatWindow = session.UiFrame().native.chat;
+    WindowInstance* const window = WindowRuntime_FindById(session, WindowId_Chat);
     if (window == nullptr) {
         return;
     }
-    const std::int32_t scroll = gChatScrollOffsetC9A940;
+    const std::int32_t scroll = chatWindow.scrollOffset;
     auto* beforeWindow = window;
     const std::int32_t count = world::gChatRecordCount_C9A944;
     auto* const dragScrollElement = beforeWindow ? beforeWindow->FindElementById(WindowChatElementId::DragScroll) : nullptr;
@@ -257,7 +254,7 @@ static void WindowChat_SyncScrollThumb()
         if (auto* const element9 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element9) : nullptr, * const handleButtons_15Element = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::HandleButtons_15) : nullptr; element9 && handleButtons_15Element) element9->y = handleButtons_15Element->y - 14;
         return;
     }
-    const double currentScroll = gChatScrollOffsetC9A940;
+    const double currentScroll = chatWindow.scrollOffset;
     auto* const handleButtons_11Element = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::HandleButtons_11) : nullptr;
     if (!handleButtons_11Element) { return; }
     const std::int32_t span = handleButtons_11Element->height - 14;
@@ -270,48 +267,49 @@ static void WindowChat_SyncScrollThumb()
 
 // CWP01：原请求/字体高度各点顺序取样，尺寸环/现场窗口载荷及完整几何保持。
 // 原函数：0x004A7C40。
-static void WindowChat_RefreshGeometry()
+static void WindowChat_RefreshGeometry(WindowInstance& callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    auto& chatWindow = callbackWindow.ownerSession->UiFrame().native.chat;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
-    const std::int32_t previousHeight = WindowRuntime_Settings().chatHeightUnits;
-    const std::int32_t heightRequest = gChatHeightRequestC9A93C;
+    const std::int32_t previousHeight = WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits;
+    const std::int32_t heightRequest = chatWindow.heightRequest;
     const std::int32_t height = previousHeight + heightRequest;
-    WindowRuntime_Settings().chatHeightUnits = height;
+    WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits = height;
     if (height > 26) {
-        WindowRuntime_Settings().chatHeightUnits = 4;
+        WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits = 4;
     } else if (height < 4) {
-        WindowRuntime_Settings().chatHeightUnits = 26;
+        WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits = 26;
     }
-    const std::int32_t previousWidth = WindowRuntime_Settings().chatWidthUnits;
-    const std::int32_t widthRequest = gChatWidthRequestC9A934;
+    const std::int32_t previousWidth = WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits;
+    const std::int32_t widthRequest = chatWindow.widthRequest;
     const std::int32_t width = previousWidth + widthRequest;
-    gChatHeightRequestC9A93C = 0;
-    WindowRuntime_Settings().chatWidthUnits = width;
+    chatWindow.heightRequest = 0;
+    WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits = width;
     if (width > 37) {
         const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
-        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
-        WindowRuntime_Settings().chatWidthUnits = 12;
+        WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Chat].window;
+        WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits = 12;
         window->x += 26 * fontWidth;
     }
-    if (WindowRuntime_Settings().chatWidthUnits < 12) {
+    if (WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits < 12) {
         const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
-        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
-        WindowRuntime_Settings().chatWidthUnits = 37;
+        WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Chat].window;
+        WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits = 37;
         window->x -= 26 * fontWidth;
     }
-    if (gChatWidthRequestC9A934 == 1) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
+    if (chatWindow.widthRequest == 1) {
+        WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Chat].window;
         window->x -= render::GetFontMetrics(9).doubleWidth;
     }
-    if (gChatWidthRequestC9A934 == -1) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
+    if (chatWindow.widthRequest == -1) {
+        WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Chat].window;
         window->x += render::GetFontMetrics(9).doubleWidth;
     }
-    const std::int32_t currentWidth = WindowRuntime_Settings().chatWidthUnits;
+    const std::int32_t currentWidth = WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits;
     WindowInstance* const firstWindow = currentWindow;
-    gChatWidthRequestC9A934 = 0;
+    chatWindow.widthRequest = 0;
     auto* firstElementsWindow = firstWindow;
     const std::int32_t inputWidth = (currentWidth + 1) * render::GetFontMetrics(9).doubleWidth;
     auto* const element16 = firstElementsWindow->FindElementById(WindowChatElementId::Element16);
@@ -329,7 +327,7 @@ static void WindowChat_RefreshGeometry()
     }
     if (auto* const element17 = currentWindow->FindElementById(WindowChatElementId::Element17); element17) element17->x = inputWidth;
     auto* const element18 = currentWindow->FindElementById(WindowChatElementId::Element18);
-    const std::int32_t backgroundRows = WindowRuntime_Settings().chatHeightUnits - 1;
+    const std::int32_t backgroundRows = WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits - 1;
     const std::int32_t backgroundHeight =
         backgroundRows * render::GetFontMetrics(9).doubleWidth;
     if (element18) {
@@ -339,12 +337,12 @@ static void WindowChat_RefreshGeometry()
         element18->y = -backgroundHeight;
     }
     auto* elementsWindow = currentWindow;
-    const std::int32_t backgroundWidth = WindowRuntime_Settings().chatWidthUnits;
+    const std::int32_t backgroundWidth = WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits;
     auto* const element19 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element19) : nullptr;
     if (element19) {
         auto* const graphic = element19->data.graphic;
         graphic->width = backgroundWidth * 12 + 111;
-        graphic->height = WindowRuntime_Settings().chatHeightUnits == 0 ? 0 : 12;
+        graphic->height = WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits == 0 ? 0 : 12;
     }
     elementsWindow = currentWindow;
     if (auto* const element192 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element19) : nullptr, * const element183 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element18) : nullptr; element192 && element183) element192->y = element183->y - 12;
@@ -353,50 +351,50 @@ static void WindowChat_RefreshGeometry()
     elementsWindow = currentWindow;
     if (auto* const scrollElement2 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Scroll) : nullptr, * const element194 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element19) : nullptr; scrollElement2 && element194) scrollElement2->y = element194->y;
     if (auto* const scrollElement3 = currentWindow->FindElementById(WindowChatElementId::Scroll); scrollElement3) scrollElement3->width = inputWidth + 125;
-    const std::int32_t rows = WindowRuntime_Settings().chatHeightUnits - 1;
+    const std::int32_t rows = WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits - 1;
     WindowInstance* const hitWindow = currentWindow;
     const std::int32_t hitHeight = rows * render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollX = inputWidth + 97;
     if (auto* const scrollElement4 = hitWindow->FindElementById(WindowChatElementId::Scroll); scrollElement4) scrollElement4->height = hitHeight + 16;
     if (auto* const dragScrollElement = currentWindow->FindElementById(WindowChatElementId::DragScroll); dragScrollElement) dragScrollElement->x = scrollX;
     const std::int32_t scrollFontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t scrollY = 17 - scrollFontWidth * WindowRuntime_Settings().chatHeightUnits;
+    const std::int32_t scrollY = 17 - scrollFontWidth * WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits;
     if (auto* const dragScrollElement2 = currentWindow->FindElementById(WindowChatElementId::DragScroll); dragScrollElement2) dragScrollElement2->y = scrollY;
     if (auto* const dragScrollElement3 = currentWindow->FindElementById(WindowChatElementId::DragScroll); dragScrollElement3) dragScrollElement3->width = 14;
     const std::int32_t scrollHeightFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollHeight =
-        scrollHeightFontWidth * WindowRuntime_Settings().chatHeightUnits - 28;
+        scrollHeightFontWidth * WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits - 28;
     if (auto* const dragScrollElement4 = currentWindow->FindElementById(WindowChatElementId::DragScroll); dragScrollElement4) dragScrollElement4->height = scrollHeight;
     if (auto* const handleButtons_11Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element) handleButtons_11Element->x = scrollX;
     const std::int32_t trackYFontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t trackY = 17 - trackYFontWidth * WindowRuntime_Settings().chatHeightUnits;
+    const std::int32_t trackY = 17 - trackYFontWidth * WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits;
     if (auto* const handleButtons_11Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element2) handleButtons_11Element2->y = trackY;
     if (auto* const handleButtons_11Element3 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element3) handleButtons_11Element3->width = 14;
     const std::int32_t trackHeightFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackHeight =
-        trackHeightFontWidth * WindowRuntime_Settings().chatHeightUnits - 28;
+        trackHeightFontWidth * WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits - 28;
     if (auto* const handleButtons_11Element4 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element4) handleButtons_11Element4->height = trackHeight;
     if (auto* const handleButtons_11Element5 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element5) handleButtons_11Element5->data.graphic->width = 14;
     const std::int32_t trackGraphicFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackGraphicHeight =
-        trackGraphicFontWidth * WindowRuntime_Settings().chatHeightUnits - 28;
+        trackGraphicFontWidth * WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits - 28;
     if (auto* const handleButtons_11Element6 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element6) handleButtons_11Element6->data.graphic->height = trackGraphicHeight;
     if (auto* const handleButtons_12Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_12); handleButtons_12Element) handleButtons_12Element->x = scrollX;
     const std::int32_t upFontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t upY = 4 - upFontWidth * WindowRuntime_Settings().chatHeightUnits;
+    const std::int32_t upY = 4 - upFontWidth * WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits;
     if (auto* const handleButtons_12Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_12); handleButtons_12Element2) handleButtons_12Element2->y = upY;
     if (auto* const handleButtons_13Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_13); handleButtons_13Element) handleButtons_13Element->x = scrollX;
     if (auto* const handleButtons_13Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_13); handleButtons_13Element2) handleButtons_13Element2->y = -12;
     if (auto* const handleButtons_14Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_14); handleButtons_14Element) handleButtons_14Element->x = scrollX;
     const std::int32_t upHitFontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t upHitY = -upHitFontWidth * WindowRuntime_Settings().chatHeightUnits;
+    const std::int32_t upHitY = -upHitFontWidth * WindowRuntime_Settings(*callbackWindow.ownerSession).chatHeightUnits;
     if (auto* const handleButtons_14Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_14); handleButtons_14Element2) handleButtons_14Element2->y = upHitY;
     if (auto* const handleButtons_15Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_15); handleButtons_15Element) handleButtons_15Element->x = scrollX;
     if (auto* const handleButtons_15Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_15); handleButtons_15Element2) handleButtons_15Element2->y = -11;
     if (auto* const element9 = currentWindow->FindElementById(WindowChatElementId::Element9); element9) element9->x = scrollX;
-    WindowChat_SyncScrollThumb();
+    WindowChat_SyncScrollThumb(*callbackWindow.ownerSession);
     currentWindow->dragRects40[0].width = dragWidth;
-    const std::int32_t finalWidth = WindowRuntime_Settings().chatWidthUnits;
+    const std::int32_t finalWidth = WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits;
     currentWindow->width = finalWidth * 12 + 123;
     if (auto* const handleInputElement = currentWindow->FindElementById(WindowChatElementId::HandleInput); handleInputElement) handleInputElement->width = inputWidth;
     if (auto* const handleInputElement2 = currentWindow->FindElementById(WindowChatElementId::HandleInput); handleInputElement2) handleInputElement2->height = 25;
@@ -463,7 +461,7 @@ static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std:
         if (auto* const element19 = currentWindow->FindElementById(WindowChatElementId::Element19); element19) element19->visible = 0;
         if (auto* const element18 = currentWindow->FindElementById(WindowChatElementId::Element18); element18) element18->visible = 0;
     }
-    WindowChat_RefreshGeometry();
+    WindowChat_RefreshGeometry(callbackWindow);
     WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
     const std::int32_t x = window->x;
@@ -475,6 +473,7 @@ static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std:
 // 原函数：0x004A6FC0。
 static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& chatWindow = callbackWindow.ownerSession->UiFrame().native.chat;
     auto& inputs = callbackWindow.ownerSession->UiFrame().native.inputs;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -492,12 +491,12 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
             if (auto* const handleButtons_5Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_5); handleButtons_5Element) handleButtons_5Element->data.graphic->imageNo = 0x3BDC4;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            WindowChat_RequestHeightIncrease();
+            WindowChat_RequestHeightIncrease(*callbackWindow.ownerSession);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_RRepeatDown) != 0) {
-            WindowChat_RequestHeightDecrease();
+            WindowChat_RequestHeightDecrease(*callbackWindow.ownerSession);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -585,12 +584,12 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
             if (auto* const handleButtonsElement = hoverElementsWindow->FindElementById(WindowChatElementId::HandleButtons); handleButtonsElement) handleButtonsElement->data.graphic->imageNo = 0x3BDAA;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            WindowChat_RequestWidthIncrease();
+            WindowChat_RequestWidthIncrease(*callbackWindow.ownerSession);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
         if ((state & MouseFlag_RRepeatDown) != 0) {
-            WindowChat_RequestWidthDecrease();
+            WindowChat_RequestWidthDecrease(*callbackWindow.ownerSession);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -641,19 +640,19 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
         }
         consumed = hovered ? 1 : 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t previousScroll = gChatScrollOffsetC9A940;
+            const std::int32_t previousScroll = chatWindow.scrollOffset;
             const std::int32_t count = world::gChatRecordCount_C9A944;
             const std::int32_t scroll = previousScroll + 1;
-            gChatScrollOffsetC9A940 = scroll;
+            chatWindow.scrollOffset = scroll;
             if (scroll > count) {
                 WindowInstance* const window = currentWindow;
-                gChatScrollOffsetC9A940 = count;
+                chatWindow.scrollOffset = count;
                 if (auto* const handleButtons_12Element2 = window->FindElementById(WindowChatElementId::HandleButtons_12); handleButtons_12Element2) handleButtons_12Element2->data.graphic->imageNo = 0x3B593;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
-            WindowChat_SyncScrollThumb();
+            WindowChat_SyncScrollThumb(*callbackWindow.ownerSession);
             consumed = 1;
         }
         break;
@@ -666,17 +665,17 @@ static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, con
         }
         consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t scroll = gChatScrollOffsetC9A940 - 1;
-            gChatScrollOffsetC9A940 = scroll;
+            const std::int32_t scroll = chatWindow.scrollOffset - 1;
+            chatWindow.scrollOffset = scroll;
             if (scroll < 0) {
                 WindowInstance* const window = currentWindow;
-                gChatScrollOffsetC9A940 = 0;
+                chatWindow.scrollOffset = 0;
                 if (auto* const handleButtons_13Element2 = window->FindElementById(WindowChatElementId::HandleButtons_13); handleButtons_13Element2) handleButtons_13Element2->data.graphic->imageNo = 0x3B596;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
-            WindowChat_SyncScrollThumb();
+            WindowChat_SyncScrollThumb(*callbackWindow.ownerSession);
             consumed = 1;
         }
         break;
@@ -771,7 +770,7 @@ static std::int32_t WindowCompactChat_Update(WindowInstance& callbackWindow, con
         input::SetContext_44B330(*callbackWindow.ownerSession, &inputs.chat);
     } else {
         static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.chatPrototype, x, y, 2));
-        static_cast<void>(WindowChat_RefreshCompactHeight());
+        static_cast<void>(WindowChat_RefreshCompactHeight(*callbackWindow.ownerSession));
     }
     return 1;
 }
@@ -790,6 +789,7 @@ static std::int32_t WindowChat_Draw(WindowInstance& callbackWindow, const std::i
 // 原函数：0x004A80F0。
 static std::int32_t WindowChat_DragScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& chatWindow = callbackWindow.ownerSession->UiFrame().native.chat;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t consumed = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
@@ -799,7 +799,7 @@ static std::int32_t WindowChat_DragScroll(WindowInstance& callbackWindow, const 
         auto* const dragScrollElement = window->FindElementById(WindowChatElementId::DragScroll);
         if (dragScrollElement) {
             const std::int32_t position = WindowScroll_ReadPosition(dragScrollElement, count);
-            gChatScrollOffsetC9A940 = world::gChatRecordCount_C9A944 - position;
+            chatWindow.scrollOffset = world::gChatRecordCount_C9A944 - position;
         }
     }
     return consumed;
@@ -809,6 +809,7 @@ static std::int32_t WindowChat_DragScroll(WindowInstance& callbackWindow, const 
 // 原函数：0x004A81D0。
 static std::int32_t WindowChat_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
+    auto& chatWindow = callbackWindow.ownerSession->UiFrame().native.chat;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
@@ -824,68 +825,74 @@ static std::int32_t WindowChat_Scroll(WindowInstance& callbackWindow, const Elem
         return 0;
     }
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
-    const std::int32_t position = count - gChatScrollOffsetC9A940;
+    const std::int32_t position = count - chatWindow.scrollOffset;
     auto* const dragScrollElement = window->FindElementById(WindowChatElementId::DragScroll);
     if (dragScrollElement) {
         const std::int32_t next = WindowScroll_ApplyWheel(dragScrollElement, position, count, wheel);
-        gChatScrollOffsetC9A940 = world::gChatRecordCount_C9A944 - next;
+        chatWindow.scrollOffset = world::gChatRecordCount_C9A944 - next;
     }
     return 0;
 }
 
 // 原函数：0x004A7700。
-static std::int32_t WindowChat_ResetScroll()
+static std::int32_t WindowChat_ResetScroll(session::ClientSession& session)
 {
+    auto& chatWindow = session.UiFrame().native.chat;
     world::gChatRecordCount_C9A944 = 0;
-    gChatScrollOffsetC9A940 = 0;
+    chatWindow.scrollOffset = 0;
     return 0;
 }
 
 // 原函数：0x0044B170。
-std::int32_t WindowChat_ClearHistory()
+std::int32_t WindowChat_ClearHistory(session::ClientSession& session)
 {
     for (auto& record : world::gRecords5FB7F8) {
         record.text[0] = '\0';
     }
-    return WindowChat_ResetScroll();
+    return WindowChat_ResetScroll(session);
 }
 
 // 原函数：0x004A7710。
-void WindowChat_RequestHeightIncrease()
+void WindowChat_RequestHeightIncrease(session::ClientSession& session)
 {
-    gChatHeightRequestC9A93C = 1;
+    auto& chatWindow = session.UiFrame().native.chat;
+    chatWindow.heightRequest = 1;
 }
 
 // 原函数：0x004A7720。
-void WindowChat_RequestHeightDecrease()
+void WindowChat_RequestHeightDecrease(session::ClientSession& session)
 {
-    gChatHeightRequestC9A93C = -1;
+    auto& chatWindow = session.UiFrame().native.chat;
+    chatWindow.heightRequest = -1;
 }
 
 // 原函数：0x004A7730。
-void WindowChat_RequestWidthIncrease()
+void WindowChat_RequestWidthIncrease(session::ClientSession& session)
 {
-    gChatWidthRequestC9A934 = 1;
+    auto& chatWindow = session.UiFrame().native.chat;
+    chatWindow.widthRequest = 1;
 }
 
 // 原函数：0x004A7740。
-void WindowChat_RequestWidthDecrease()
+void WindowChat_RequestWidthDecrease(session::ClientSession& session)
 {
-    gChatWidthRequestC9A934 = -1;
+    auto& chatWindow = session.UiFrame().native.chat;
+    chatWindow.widthRequest = -1;
 }
 
 // 原函数：0x004A82E0。
-static std::int32_t WindowChat_RefreshCompactHeight()
+static std::int32_t WindowChat_RefreshCompactHeight(session::ClientSession& session)
 {
-    const std::int32_t height = WindowRuntime_Settings().chatHeightUnits + gChatHeightRequestC9A93C;
-    WindowRuntime_Settings().chatHeightUnits = height;
+    auto& chatWindow = session.UiFrame().native.chat;
+    const std::int32_t height = WindowRuntime_Settings(session).chatHeightUnits + chatWindow.heightRequest;
+    WindowRuntime_Settings(session).chatHeightUnits = height;
     if (height > 26) {
-        WindowRuntime_Settings().chatHeightUnits = 4;
+        WindowRuntime_Settings(session).chatHeightUnits = 4;
     } else if (height < 4) {
-        WindowRuntime_Settings().chatHeightUnits = 26;
+        WindowRuntime_Settings(session).chatHeightUnits = 26;
     }
-    gChatHeightRequestC9A93C = 0;
-    gChatWidthRequestC9A934 = 0;
+    chatWindow.heightRequest = 0;
+    chatWindow.widthRequest = 0;
     return 0;
 }
 
@@ -914,6 +921,7 @@ void WindowChat_DrawFixedWidthInput(session::ClientSession& session, input::Inpu
 // 原函数：0x004A7750。
 void WindowChat_DrawHistory(session::ClientSession& session, const std::int32_t x, const std::int32_t y)
 {
+    auto& chatWindow = session.UiFrame().native.chat;
     std::int32_t totalHeight = 0;
     std::int32_t width;
     if (WindowRuntime_Settings(session).chatMode == 1) {
@@ -924,7 +932,7 @@ void WindowChat_DrawHistory(session::ClientSession& session, const std::int32_t 
         width = widthUnits * fontWidth;
     }
     std::int32_t logIndex = world::gChatWriteIndex_626C08;
-    logIndex -= gChatScrollOffsetC9A940;
+    logIndex -= chatWindow.scrollOffset;
     --logIndex;
     if (logIndex < 0) {
         logIndex = 511;
@@ -1051,9 +1059,9 @@ std::int32_t WindowChat_RestoreInput(session::ClientSession& session)
 
 // HBN01：同一C9A930 W32正常两倍返S32，正确正文保持，不新增数值模型。
 // 原函数：0x004A80E0。
-std::int32_t WindowChat_ReadInputByteWidth()
+std::int32_t WindowChat_ReadInputByteWidth(session::ClientSession& session)
 {
-    return detail::WindowRuntime_Settings().chatWidthUnits * 2;
+    return detail::WindowRuntime_Settings(session).chatWidthUnits * 2;
 }
 
 } // namespace cg::ui

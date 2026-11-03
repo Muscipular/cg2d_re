@@ -271,6 +271,41 @@ struct ChoiceDialogRuntimeSlots {
     std::uint8_t closeEnabled;
 };
 
+// 原D67448五个候选宠物28H记录，协议索引不等同于玩家宠物槽。
+struct Window54PetOption {
+    std::uint16_t used;
+    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t slots; // 原成员偏移：+0x08。
+    std::wstring name; // 原成员偏移：+0x0C。
+    std::uint8_t allowed; // 原成员偏移：+0x1D。
+    std::array<std::byte, 2> bytes1E; // 原成员偏移：+0x1E。
+    std::int32_t tribe; // 原成员偏移：+0x20。
+    std::uint8_t hintFlag; // 原成员偏移：+0x24。
+    std::array<std::byte, 3> bytes25; // 原成员偏移：+0x25。
+};
+
+// 原D66E38十条5CH技能槽，供模式4显示及确认覆盖层借用。
+struct Window54TechniqueSlot {
+    std::uint16_t used;
+    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::wstring name; // 原成员偏移：+0x08。
+    std::array<std::wstring, 2> description; // 原成员偏移：+0x21。
+    std::byte byte5B; // 原成员偏移：+0x5B。
+};
+
+// 原D2EAB8的60H技能报价记录；未消费字节不据此定业务语义。
+struct Window54SkillRecord {
+    std::uint16_t used;
+    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
+    std::int32_t price; // 原成员偏移：+0x08。
+    std::wstring name; // 原成员偏移：+0x0C。
+    std::array<std::wstring, 2> description; // 原成员偏移：+0x25。
+    std::byte byte5F; // 原成员偏移：+0x5F。
+};
+
 // 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
 struct MessageDialogRuntimeSlots {
     std::int32_t width;
@@ -786,6 +821,40 @@ struct ShopChoiceWindowRuntimeState {
     std::array<const wchar_t*, 2> giveReceiveChoices; // 原0x57E728，构造时保留原常量指针。
 };
 
+// 窗口54候选、报价、映射和显示文本；保留所有模式之间的共用状态。
+struct PetSkillChoiceWindowRuntimeState {
+    std::int32_t dialogType = 0; // 原0xCB2224。
+    std::int32_t imageNo = 0; // 原0xCC18C4。
+    std::int32_t valueCC2E68 = 0;
+    std::int32_t valueCF4A3C = 0;
+    std::int32_t firstCount = 0; // 原0xCB01E4。
+    std::int32_t secondCount = 0; // 原0xCB01E8。
+    std::uint8_t mode = 0; // 原0xC8AF64。
+    std::int32_t lifecycle = 0; // 原0xD67434。
+    std::array<detail::WindowDialogTextLine, 15> names {}; // 原0xC8AAA0。
+    std::array<std::int32_t, 15> firstValues {}; // 原0xCB01A4。
+    std::array<std::int32_t, 15> secondValues {}; // 原0xCB09D8。
+    std::array<detail::Window54SkillRecord, 16> skills {}; // 原0xD2EAB8。
+    std::int32_t skillScroll = 0; // 原0xCC31F4。
+    std::int32_t message = 0; // 原0xC9FCE0。
+    std::int32_t hover = 0; // 原0xD2DAD8。
+    std::int32_t selected = 0; // 原0xD2DC04。
+    std::wstring amountText {}; // 原0xD45F78。
+    std::array<std::wstring, 10> firstValueTexts {}; // 原0xCB035C。
+    std::array<std::wstring, 10> secondValueTexts {}; // 原0xC8B318。
+    std::array<std::wstring, 5> skillValueTexts {}; // 原0xCF4978。
+    std::array<std::wstring, 5> skillPriceTexts {}; // 原0xCF493C。
+    std::array<detail::Window54PetOption, 5> petOptions {}; // 原0xD67448。
+    std::array<std::int8_t, 5> petMap {}; // 原0xCF4AB0。
+    std::int32_t tribe = 0; // 原0xCA0B2C。
+    std::int32_t petChoice = 0; // 原0xC8AA90。
+    std::int32_t petScroll = 0; // 原0xCC31DC。
+    std::array<detail::Window54TechniqueSlot, world::kPetTechniqueSlotCount> techniqueSlots {}; // 原0xD66E38。
+    std::int32_t replacement = 0; // 原0xC8B08C。
+    std::array<std::int8_t, world::kSkillSlotCount> skillMap {}; // 原0xCC4D04。
+    std::wstring moneyText {}; // 原0xC9A9A4。
+};
+
 // 通用对话配置与实际借用源；图像、回复及治疗记录保留原独立清理范围。
 struct MessageDialogWindowRuntimeState {
     detail::MessageDialogRuntimeSlots message {};
@@ -1033,6 +1102,7 @@ struct NativeWindowRuntimeState {
     CrystalShopWindowRuntimeState crystalShop {};
     CrystalExchangeShopWindowRuntimeState crystalExchangeShop {};
     ShopChoiceWindowRuntimeState shopChoice {};
+    PetSkillChoiceWindowRuntimeState petSkillChoice {};
     std::array<detail::WindowDialogTextLine, 30> npcDialogLines {}; // 原0xCC24D4，首行标题与其余正文共用。
     MessageDialogWindowRuntimeState dialog {};
     AppearanceWindowRuntimeState appearance {};

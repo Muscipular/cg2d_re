@@ -341,7 +341,7 @@ void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index
 // 原函数：0x004221F0。
 YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -375,7 +375,7 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     if (parent == nullptr) {
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -408,7 +408,7 @@ YobiAction* NewBattleAuxGear_422B00(
     if (parent == nullptr) {
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*parent->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }

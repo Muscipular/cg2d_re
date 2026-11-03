@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <string>
 #include <type_traits>
+#include <vector>
 
 namespace cg::ui::detail {
 
@@ -189,6 +190,74 @@ struct WindowCrystalItem {
     std::wstring tips; // 原成员偏移：+0xC34。
     std::int32_t limitC4C; // 原成员偏移：+0xC4C。
     std::int32_t remainingC50; // 原成员偏移：+0xC50。
+};
+
+// 原CB1398等固定81B对话行；创建入口只借用，不负责释放。
+struct WindowDialogTextLine {
+    std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
+};
+
+// 原CB0FA8..CB0FD8的唯一UI状态；借用指针原生化，不沿用x86字段偏移。
+struct MessageDialogRuntimeSlots {
+    std::int32_t width;
+    std::int32_t height;
+    WindowDialogTextLine* lines;
+    std::int32_t imageNo;
+    std::int32_t buttons;
+    std::int32_t lineCount;
+    std::int32_t lineHeight;
+    std::int32_t firstSelectableLine;
+    std::int32_t inputCapacity;
+    std::int16_t* inputY;
+    std::uint8_t inputCount;
+    std::uint8_t distance;
+    std::uint8_t options;
+    WindowDialogReplyCallback reply;
+    WindowDialogFrameCallback frame;
+    std::vector<std::wstring> inputTexts; // 原C9A968；UTL02动态UTF-16多输入正文。
+    std::int32_t selectedInput; // 原D66E30。
+    std::int32_t closeCallbackPending; // 原CC31A8，不是bool。
+    std::int32_t hoveredButton; // 原CC18C0的完整W32按钮位。
+    std::int32_t hoveredRow; // 原CF4A20。
+    std::int32_t events; // 原D2DA90。
+};
+
+struct MessageDialogImageRecord {
+    std::int32_t imageNo;
+    std::uint8_t direction; // 原成员偏移：+0x04。
+    std::byte byte05; // 原成员偏移：+0x05。
+    std::int16_t x; // 原成员偏移：+0x06。
+    std::int16_t y; // 原成员偏移：+0x08。
+    std::uint8_t used; // 原成员偏移：+0x0A。
+    std::byte byte0B; // 原成员偏移：+0x0B。
+};
+static_assert(sizeof(MessageDialogImageRecord) == 12);
+static_assert(offsetof(MessageDialogImageRecord, direction) == 4);
+static_assert(offsetof(MessageDialogImageRecord, x) == 6);
+static_assert(offsetof(MessageDialogImageRecord, y) == 8);
+static_assert(offsetof(MessageDialogImageRecord, used) == 10);
+
+// 原CB1388..CB1394；49DF30/49E400共同生产，49DA30回复逐次读取。
+struct DialogReplyRuntimeSlots {
+    std::int32_t type;
+    std::int32_t request;
+    std::int32_t target;
+    std::int32_t firstLine;
+};
+
+// 原D672F0七个32B记录；第七条同源D673B0/B8用于合计，4DC290也消费此表。
+struct HealingDialogRecord {
+    std::int32_t level;
+    std::int32_t health;
+    std::int32_t cost; // 原成员偏移：+0x08。
+    std::wstring name; // 原成员偏移：+0x0C。
+    std::array<std::byte, 3> reserved1D; // 原成员偏移：+0x1D。
+};
+
+// 原580870..580900：解析后的姓名与两行正文，GBK字节容量仅约束输入边界。
+struct Window56TextStorage {
+    std::wstring name;
+    std::array<std::wstring, 2> messages;
 };
 
 } // namespace cg::ui::detail
@@ -525,6 +594,42 @@ struct CrystalExchangeShopWindowRuntimeState {
     std::wstring confirmCancel; // 原0xCC48BC。
 };
 
+// 通用对话配置与实际借用源；图像、回复及治疗记录保留原独立清理范围。
+struct MessageDialogWindowRuntimeState {
+    detail::MessageDialogRuntimeSlots message {};
+    std::array<detail::MessageDialogImageRecord, 10> images {}; // 原0xCC4B70。
+    std::uint8_t imageCount = 0; // 原0xD67B30，按S8消费。
+    detail::DialogReplyRuntimeSlots reply {};
+    std::array<detail::WindowDialogTextLine, 30> lines {}; // 原0xCB1398。
+    std::array<std::int16_t, 2> inputY {}; // 原0xD67B34。
+    std::array<detail::HealingDialogRecord, 7> healing {}; // 原0xD672F0。
+    std::int32_t health = 0; // 原0xD2DC00。
+};
+
+// 窗口56的文本、版本上下界及五个外观分量。
+struct AppearanceWindowRuntimeState {
+    detail::Window56TextStorage texts {L"NPCNAME", {L"MESSAGE", L"MESSAGE"}}; // 原0x580870。
+    std::int32_t dialogType = 0; // 原0xCB1DE0。
+    std::int32_t request = 0; // 原0xCF49C0，确认仍按原读取公共对话参数。
+    std::int32_t target = 0; // 原0xC8AF60。
+    std::int32_t minimum = 0; // 原0xCB0F80。
+    std::int32_t maximum = 0; // 原0xC8A958。
+    std::int32_t base = 0; // 原0xCB0F8C。
+    std::int32_t imageClass = 0; // 原0xCC466C。
+    std::int32_t quarter = 0; // 原0xCC3E88。
+    std::int32_t fifth = 0; // 原0xCB0F88。
+    std::int32_t ones = 0; // 原0xCF4680。
+};
+
+// 类型37的图像预览对话，行表由通用对话借用，不转移所有权。
+struct ImageDialogRuntimeState {
+    std::int32_t type = 0; // 原0xD2F7A0。
+    std::int32_t request = 0; // 原0xD2F7A4。
+    std::int32_t target = 0; // 原0xD2F7A8。
+    std::int32_t imageNo = 0; // 原0xD2F7AC。
+    std::array<detail::WindowDialogTextLine, 13> lines {}; // 原0xD2F7B0，固定240高的可消费行。
+};
+
 // 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
 struct ItemTargetRuntimeState {
     std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
@@ -562,6 +667,9 @@ struct NativeWindowRuntimeState {
     ShopWindowRuntimeState shop {};
     CrystalShopWindowRuntimeState crystalShop {};
     CrystalExchangeShopWindowRuntimeState crystalExchangeShop {};
+    MessageDialogWindowRuntimeState dialog {};
+    AppearanceWindowRuntimeState appearance {};
+    ImageDialogRuntimeState imageDialog {};
     detail::WindowMaterialState material {}; // 原0xCC4894，含商店模式别名。
     detail::Window47RuntimeSlots confirmation {};
     ItemTargetRuntimeState itemTargets {};

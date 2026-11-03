@@ -30,12 +30,6 @@ enum class WindowAppearanceElementId : ElementId {
 
 namespace detail {
 
-// 原580870..580900：解析后的姓名与两行正文，GBK字节容量仅约束输入边界。
-struct Window56TextStorage {
-    std::wstring name;
-    std::array<std::wstring, 2> messages;
-};
-
 // 回调与内部函数前置声明。
 
 // 原函数：0x004C5C30。
@@ -65,39 +59,6 @@ static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, std::i
 static void WindowAppearance_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
-
-static Window56TextStorage gWindow56Texts580870 {L"NPCNAME", {L"MESSAGE", L"MESSAGE"}}; // 原全局：0x00580870。
-
-static std::int32_t gWindow56DialogTypeCB1DE0 = 0; // 原全局：0x00CB1DE0。
-
-static std::int32_t gWindow56RequestCF49C0 = 0; // 原全局：0x00CF49C0。 创建保留，确认请求实际读取共享对话参数。
-
-static std::int32_t gWindow56TargetC8AF60 = 0; // 原全局：0x00C8AF60。
-
-static std::int32_t gWindow56MinimumCB0F80 = 0; // 原全局：0x00CB0F80。
-
-static std::int32_t gWindow56MaximumC8A958 = 0; // 原全局：0x00C8A958。
-
-static std::int32_t gWindow56BaseCB0F8C = 0; // 原全局：0x00CB0F8C。
-
-static std::int32_t gWindow56ClassCC466C = 0; // 原全局：0x00CC466C。
-
-static std::int32_t gWindow56QuarterCC3E88 = 0; // 原全局：0x00CC3E88。
-
-static std::int32_t gWindow56FifthCB0F88 = 0; // 原全局：0x00CB0F88。
-
-static std::int32_t gWindow56OnesCF4680 = 0; // 原全局：0x00CF4680。
-
-// 原D2F7A0..AC四个数值槽；D2F7B0只映射固定240高所能消费的13行。
-static std::int32_t gImageDialogTypeD2F7A0 = 0; // 原全局：0x00D2F7A0。
-
-static std::int32_t gImageDialogRequestD2F7A4 = 0; // 原全局：0x00D2F7A4。
-
-static std::int32_t gImageDialogTargetD2F7A8 = 0; // 原全局：0x00D2F7A8。
-
-static std::int32_t gImageDialogImageD2F7AC = 0; // 原全局：0x00D2F7AC。
-
-static std::array<WindowDialogTextLine, 13> gImageDialogLinesD2F7B0 {}; // 原全局：0x00D2F7B0。
 
 static WindowGraphicData gWindowGraphic576EF0 {243048, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00576EF0。
 
@@ -148,16 +109,17 @@ WindowPrototype gWindowPrototypeAppearance {0, 4, 96, 108, 448, 240, 0x80010101u
 cg::yobi::YobiAction* WindowAppearance_Open(
     session::ClientSession& session, const std::int32_t request, const std::int32_t target, const char* const text)
 {
+    auto& appearance = session.UiFrame().native.appearance;
     auto& shop = session.UiFrame().native.shop;
-    gWindow56DialogTypeCB1DE0 = 36;
-    gWindow56RequestCF49C0 = request;
-    gWindow56TargetC8AF60 = target;
+    appearance.dialogType = 36;
+    appearance.request = request;
+    appearance.target = target;
     shop.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char name[52];
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         text, '|', 2, 16, name));
     input::UnescapeLegacyTextAndNotify_52D2F0(name);
-    gWindow56Texts580870.name = cg::text::FromGbkWide(name);
+    appearance.texts.name = cg::text::FromGbkWide(name);
     std::array<char, 3072> buffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 3, 1023, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
@@ -165,7 +127,7 @@ cg::yobi::YobiAction* WindowAppearance_Open(
         char message[46];
         static_cast<void>(input::ExtractLegacyLine_503AB0(
             message, 46, buffer.data(), row, 45));
-        gWindow56Texts580870.messages[row] = cg::text::FromGbkWide(message);
+        appearance.texts.messages[row] = cg::text::FromGbkWide(message);
     }
     return WindowRuntime_CreateAnimation(session, WindowId_Appearance, 1, 0, nullptr);
 }
@@ -173,6 +135,7 @@ cg::yobi::YobiAction* WindowAppearance_Open(
 // 原函数：0x004C5850。
 static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& appearance = callbackWindow.ownerSession->UiFrame().native.appearance;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value != -1) {
@@ -184,31 +147,31 @@ static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, cons
     }
     const std::int32_t converted = character_select::detail::ConvertEarlierCharacterGraphicToModern_51BFF0(
         character_select::detail::ConvertClassicCharacterGraphicToCompact_51BB80(world::gPlayerRuntimeSlots.value17C));
-    gWindow56MinimumCB0F80 = 0;
+    appearance.minimum = 0;
     if (converted >= 241400) {
-        gWindow56MinimumCB0F80 = 1;
+        appearance.minimum = 1;
     }
-    gWindow56MaximumC8A958 = 0;
+    appearance.maximum = 0;
     if (version >= 5) {
-        gWindow56MaximumC8A958 = 1;
+        appearance.maximum = 1;
     }
     if (version >= 7) {
-        gWindow56MaximumC8A958 = 2;
+        appearance.maximum = 2;
     }
     if (converted >= 205000 && converted <= 205600) {
-        gWindow56MinimumCB0F80 = 0;
-        gWindow56MaximumC8A958 = 0;
+        appearance.minimum = 0;
+        appearance.maximum = 0;
     }
     if (converted >= 270000 && converted <= 270200) {
-        gWindow56MinimumCB0F80 = 0;
-        gWindow56MaximumC8A958 = 0;
+        appearance.minimum = 0;
+        appearance.maximum = 0;
     }
-    if (auto* const element14 = currentWindow->FindElementById(WindowAppearanceElementId::Element14); element14) element14->data.text->text = gWindow56Texts580870.messages[0];
-    if (auto* const element15 = currentWindow->FindElementById(WindowAppearanceElementId::Element15); element15) element15->data.text->text = gWindow56Texts580870.messages[1];
+    if (auto* const element14 = currentWindow->FindElementById(WindowAppearanceElementId::Element14); element14) element14->data.text->text = appearance.texts.messages[0];
+    if (auto* const element15 = currentWindow->FindElementById(WindowAppearanceElementId::Element15); element15) element15->data.text->text = appearance.texts.messages[1];
     for (std::int32_t index = 3; index <= 5; ++index) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
     }
-    if (gWindow56MaximumC8A958 - gWindow56MinimumCB0F80 > 0) {
+    if (appearance.maximum - appearance.minimum > 0) {
         for (std::int32_t index = 3; index <= 5; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
         }
@@ -217,20 +180,20 @@ static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, cons
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 1;
     }
     // 原门禁读取上次分类；本次玩家图号分解在可见性处理之后。
-    const std::int32_t previousBase = gWindow56BaseCB0F8C;
+    const std::int32_t previousBase = appearance.base;
     if (previousBase == 33100 || previousBase == 33101) {
         for (std::int32_t index = 3; index <= 11; ++index) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         }
     }
     static_cast<void>(character_select::detail::DecomposeCharacterAppearanceGraphic_4C56E0(
-        world::gPlayerRuntimeSlots.value17C, &gWindow56BaseCB0F8C, &gWindow56ClassCC466C,
-        &gWindow56QuarterCC3E88, &gWindow56FifthCB0F88, &gWindow56OnesCF4680));
-    const std::int32_t ones = gWindow56OnesCF4680;
-    const std::int32_t fifth = gWindow56FifthCB0F88;
-    const std::int32_t quarter = gWindow56QuarterCC3E88;
-    const std::int32_t imageClass = gWindow56ClassCC466C;
-    const std::int32_t base = gWindow56BaseCB0F8C;
+        world::gPlayerRuntimeSlots.value17C, &appearance.base, &appearance.imageClass,
+        &appearance.quarter, &appearance.fifth, &appearance.ones));
+    const std::int32_t ones = appearance.ones;
+    const std::int32_t fifth = appearance.fifth;
+    const std::int32_t quarter = appearance.quarter;
+    const std::int32_t imageClass = appearance.imageClass;
+    const std::int32_t base = appearance.base;
     const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
         base, imageClass, quarter, fifth, ones);
     if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
@@ -247,10 +210,11 @@ static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, cons
 // 原函数：0x004C5B70。
 static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
+    auto& appearance = callbackWindow.ownerSession->UiFrame().native.appearance;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
-    if (WindowProfile_CheckDistance(2, 2) != 0 || world::gCurrentDialogType_581800 != gWindow56DialogTypeCB1DE0) {
+    if (WindowProfile_CheckDistance(2, 2) != 0 || world::gCurrentDialogType_581800 != appearance.dialogType) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -265,17 +229,19 @@ static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, const 
 }
 
 // 原函数：0x004C5C00。
-static void WindowAppearance_Release(WindowInstance&)
+static void WindowAppearance_Release(WindowInstance& releasedWindow)
 {
-    if (world::gCurrentDialogType_581800 == gWindow56DialogTypeCB1DE0) {
+    auto& appearance = releasedWindow.ownerSession->UiFrame().native.appearance;
+    if (world::gCurrentDialogType_581800 == appearance.dialogType) {
         world::gCurrentDialogType_581800 = -1;
-        gWindow56DialogTypeCB1DE0 = -1;
+        appearance.dialogType = -1;
     }
 }
 
 // 原函数：0x004C5C30。
 static std::int32_t WindowAppearance_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& appearance = callbackWindow.ownerSession->UiFrame().native.appearance;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -283,11 +249,11 @@ static std::int32_t WindowAppearance_ButtonOk(WindowInstance& callbackWindow, co
         auto* const graphic = graphicElement->data.graphic;
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            const std::int32_t ones = gWindow56OnesCF4680;
-            const std::int32_t fifth = gWindow56FifthCB0F88;
-            const std::int32_t quarter = gWindow56QuarterCC3E88;
-            const std::int32_t imageClass = gWindow56ClassCC466C;
-            const std::int32_t base = gWindow56BaseCB0F8C;
+            const std::int32_t ones = appearance.ones;
+            const std::int32_t fifth = appearance.fifth;
+            const std::int32_t quarter = appearance.quarter;
+            const std::int32_t imageClass = appearance.imageClass;
+            const std::int32_t base = appearance.base;
             const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
                 base, imageClass, quarter, fifth, ones);
             const auto buffer = std::to_wstring(image);
@@ -316,26 +282,27 @@ static std::int32_t WindowAppearance_ButtonOk(WindowInstance& callbackWindow, co
 // 原函数：0x004C5D00。
 static std::int32_t WindowAppearance_CycleClass(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& appearance = callbackWindow.ownerSession->UiFrame().native.appearance;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        std::int32_t imageClass = gWindow56ClassCC466C + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element5) ? -1 : 1);
-        const std::int32_t minimum = gWindow56MinimumCB0F80;
-        gWindow56ClassCC466C = imageClass;
+        std::int32_t imageClass = appearance.imageClass + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element5) ? -1 : 1);
+        const std::int32_t minimum = appearance.minimum;
+        appearance.imageClass = imageClass;
         if (imageClass < minimum) {
-            imageClass = gWindow56MaximumC8A958;
-            gWindow56ClassCC466C = imageClass;
-        } else if (imageClass > gWindow56MaximumC8A958) {
+            imageClass = appearance.maximum;
+            appearance.imageClass = imageClass;
+        } else if (imageClass > appearance.maximum) {
             imageClass = minimum;
-            gWindow56ClassCC466C = imageClass;
+            appearance.imageClass = imageClass;
         }
-        const std::int32_t ones = gWindow56OnesCF4680;
-        const std::int32_t fifth = gWindow56FifthCB0F88;
-        const std::int32_t quarter = gWindow56QuarterCC3E88;
-        const std::int32_t base = gWindow56BaseCB0F8C;
+        const std::int32_t ones = appearance.ones;
+        const std::int32_t fifth = appearance.fifth;
+        const std::int32_t quarter = appearance.quarter;
+        const std::int32_t base = appearance.base;
         const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
         if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
@@ -354,25 +321,26 @@ static std::int32_t WindowAppearance_CycleClass(WindowInstance& callbackWindow, 
 // 原函数：0x004C5DE0。
 static std::int32_t WindowAppearance_CycleFifthDigit(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& appearance = callbackWindow.ownerSession->UiFrame().native.appearance;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        std::int32_t fifth = gWindow56FifthCB0F88 + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element8) ? -1 : 1);
-        gWindow56FifthCB0F88 = fifth;
+        std::int32_t fifth = appearance.fifth + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element8) ? -1 : 1);
+        appearance.fifth = fifth;
         if (fifth < 0) {
             fifth = 4;
-            gWindow56FifthCB0F88 = fifth;
+            appearance.fifth = fifth;
         } else if (fifth >= 5) {
             fifth = 0;
-            gWindow56FifthCB0F88 = fifth;
+            appearance.fifth = fifth;
         }
-        const std::int32_t ones = gWindow56OnesCF4680;
-        const std::int32_t quarter = gWindow56QuarterCC3E88;
-        const std::int32_t base = gWindow56BaseCB0F8C;
-        const std::int32_t imageClass = gWindow56ClassCC466C;
+        const std::int32_t ones = appearance.ones;
+        const std::int32_t quarter = appearance.quarter;
+        const std::int32_t base = appearance.base;
+        const std::int32_t imageClass = appearance.imageClass;
         const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
         if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
@@ -391,25 +359,26 @@ static std::int32_t WindowAppearance_CycleFifthDigit(WindowInstance& callbackWin
 // 原函数：0x004C5EB0。
 static std::int32_t WindowAppearance_CycleOnesDigit(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& appearance = callbackWindow.ownerSession->UiFrame().native.appearance;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        std::int32_t ones = gWindow56OnesCF4680 + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element11) ? -1 : 1);
-        gWindow56OnesCF4680 = ones;
+        std::int32_t ones = appearance.ones + (elementId < static_cast<ElementId>(WindowAppearanceElementId::Element11) ? -1 : 1);
+        appearance.ones = ones;
         if (ones < 0) {
             ones = 4;
-            gWindow56OnesCF4680 = ones;
+            appearance.ones = ones;
         } else if (ones >= 5) {
             ones = 0;
-            gWindow56OnesCF4680 = ones;
+            appearance.ones = ones;
         }
-        const std::int32_t quarter = gWindow56QuarterCC3E88;
-        const std::int32_t imageClass = gWindow56ClassCC466C;
-        const std::int32_t fifth = gWindow56FifthCB0F88;
-        const std::int32_t base = gWindow56BaseCB0F8C;
+        const std::int32_t quarter = appearance.quarter;
+        const std::int32_t imageClass = appearance.imageClass;
+        const std::int32_t fifth = appearance.fifth;
+        const std::int32_t base = appearance.base;
         const std::int32_t image = character_select::detail::ComposeCharacterAppearanceGraphic_4C5650(
             base, imageClass, quarter, fifth, ones);
         if (auto* const element3 = currentWindow->FindElementById(WindowAppearanceElementId::Element3); element3) element3->data.graphic->imageNo = image;
@@ -430,6 +399,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
     session::ClientSession& session, const std::int32_t button, const std::int32_t row, const std::wstring* const unusedTexts,
     const std::uint8_t unusedInputCount)
 {
+    auto& imageDialog = session.UiFrame().native.imageDialog;
     static_cast<void>(unusedTexts);
     static_cast<void>(unusedInputCount);
     if (button == 0) {
@@ -440,10 +410,10 @@ static std::int32_t WindowAppearance_SendDialogReply(
     }
     std::wstring text;
     std::wstring escaped;
-    cg::text::FormatTo(text, L"{}", gImageDialogImageD2F7AC);
+    cg::text::FormatTo(text, L"{}", imageDialog.imageNo);
     escaped = input::EscapeTextAndNotify(text, 255);
-    const std::int32_t target = gImageDialogTargetD2F7A8;
-    const std::int32_t request = gImageDialogRequestD2F7A4;
+    const std::int32_t target = imageDialog.target;
+    const std::int32_t request = imageDialog.request;
     const std::int32_t y =
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
@@ -457,32 +427,33 @@ static std::int32_t WindowAppearance_SendDialogReply(
 
 // 原函数：0x004C6060。
 cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
-    const std::int32_t buttons, const std::int32_t request, const std::int32_t target,
+    session::ClientSession& session, const std::int32_t buttons, const std::int32_t request, const std::int32_t target,
     const char* const text)
 {
-    WindowDialog_Reset();
-    gImageDialogTypeD2F7A0 = world::gCurrentDialogType_581800;
-    gImageDialogRequestD2F7A4 = request;
-    gImageDialogTargetD2F7A8 = target;
-    gImageDialogImageD2F7AC = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    auto& imageDialog = session.UiFrame().native.imageDialog;
+    WindowDialog_Reset(session);
+    imageDialog.type = world::gCurrentDialogType_581800;
+    imageDialog.request = request;
+    imageDialog.target = target;
+    imageDialog.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     std::array<char, 3000> buffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 1000, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     const std::int32_t columns = cg::yobi::CalculateDialogTextColumns_49C5C0(448);
     const std::int32_t count = cg::yobi::CalculateDialogVisibleLines_49C5E0(240, buttons, 16);
-    gImageDialogLinesD2F7B0[0].text.clear();
-    gImageDialogLinesD2F7B0[1].text.clear();
-    gImageDialogLinesD2F7B0[2].text.clear();
+    imageDialog.lines[0].text.clear();
+    imageDialog.lines[1].text.clear();
+    imageDialog.lines[2].text.clear();
     for (std::int32_t row = 3; row < count; ++row) {
-        std::wstring& destination = gImageDialogLinesD2F7B0[row].text;
+        std::wstring& destination = imageDialog.lines[row].text;
         std::wstring suffix;
         static_cast<void>(input::ExtractGbkTextLine(suffix, buffer.data(), row - 3, columns - 14));
         destination.assign(14, L' ');
         destination.append(suffix);
     }
-    WindowDialog_AddImage(1, gImageDialogImageD2F7AC, 0, 86, 98);
+    WindowDialog_AddImage(session, 1, imageDialog.imageNo, 0, 86, 98);
     return WindowDialog_Open(
-        96, 108, 448, 240, 245300, buttons, gImageDialogLinesD2F7B0.data(),
+        session, 96, 108, 448, 240, 245300, buttons, imageDialog.lines.data(),
         count, 16, 0, 0, nullptr, columns, 2, 0, &WindowAppearance_SendDialogReply, nullptr, 1, 0);
 }
 

@@ -577,11 +577,6 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, E
 // 原函数：0x0049AC40。
 std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // BEI01：战斗装备/宠物禁用页完整原根，三BYTE及区域描边取序明确，全callback/命令与运行待。
 
-// 原CB1398等固定81B对话行；创建入口只借用，不负责释放。
-struct WindowDialogTextLine {
-    std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
-};
-
 // 原函数：0x004A0140。
 cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(const char* text); // 商店图号/标题/五行正文及买卖选择。
 // 原函数：0x004B6E00。
@@ -615,7 +610,7 @@ cg::yobi::YobiAction* WindowAppearance_Open(
     session::ClientSession& session, std::int32_t request, std::int32_t target, const char* text); // 两行正文后打开外观选择56。
 // 原函数：0x004C6060。
 cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
-    std::int32_t buttons, std::int32_t request, std::int32_t target,
+    session::ClientSession& session, std::int32_t buttons, std::int32_t request, std::int32_t target,
     const char* text); // 类型37内嵌图号及左侧14空格正文。
 // 原函数：0x004C13B0。
 cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, const char* text); // 窗口69商品，remaining非-1才可能下调limit。
@@ -636,15 +631,15 @@ cg::yobi::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* text); // 
 // 原函数：0x004A0850。
 cg::yobi::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* text); // 给出/接收标签，正文取第四字段。
 // 原函数：0x0049C4D0。
-void WindowDialog_Reset(); // 只清内嵌图号/计数及窗口36十元素可见性。
+void WindowDialog_Reset(session::ClientSession& session); // 只清内嵌图号/计数及窗口36十元素可见性。
 // 原函数：0x0049C510。
 void WindowDialog_AddImage(
-    std::uint8_t used, std::int32_t imageNo, std::uint8_t direction,
+    session::ClientSession& session, std::uint8_t used, std::int32_t imageNo, std::uint8_t direction,
     std::int16_t x, std::int16_t y);
 extern std::int32_t gDialogValueCF4E5C; // 原全局：0x00CF4E5C。 原第二协议参数；虚拟零S32，后续UI按位读取。
 // 原函数：0x0049C600。
 cg::yobi::YobiAction* WindowDialog_Open(
-    std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
+    session::ClientSession& session, std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height,
     std::int32_t imageNo, std::int32_t buttons, WindowDialogTextLine* lines,
     std::int32_t lineCount, std::int32_t lineHeight, std::int32_t firstSelectableLine,
     std::uint8_t inputCount, std::int16_t* inputY, std::int32_t inputCapacity,

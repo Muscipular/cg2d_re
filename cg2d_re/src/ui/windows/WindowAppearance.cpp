@@ -52,7 +52,7 @@ static std::int32_t WindowAppearance_CycleOnesDigit(WindowInstance& callbackWind
 
 // 原函数：0x004C5F80。
 static std::int32_t WindowAppearance_SendDialogReply(
-    std::int32_t button, std::int32_t row, const std::wstring* unusedTexts,
+    session::ClientSession& session, std::int32_t button, std::int32_t row, const std::wstring* unusedTexts,
     std::uint8_t unusedInputCount); // 类型37回复，图号转义后发完整button。
 
 // 原函数：0x004C5850。
@@ -427,7 +427,7 @@ static std::int32_t WindowAppearance_CycleOnesDigit(WindowInstance& callbackWind
 
 // 原函数：0x004C5F80。
 static std::int32_t WindowAppearance_SendDialogReply(
-    const std::int32_t button, const std::int32_t row, const std::wstring* const unusedTexts,
+    session::ClientSession& session, const std::int32_t button, const std::int32_t row, const std::wstring* const unusedTexts,
     const std::uint8_t unusedInputCount)
 {
     static_cast<void>(unusedTexts);
@@ -448,7 +448,7 @@ static std::int32_t WindowAppearance_SendDialogReply(
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, button, escaped));
+    static_cast<void>(session.Connection().SendDialogResponse(x, y, request, target, button, escaped));
     world::gCurrentDialogType_581800 = -1;
     static_cast<void>(audio::PlaySe_52C450(79, 320));
     static_cast<void>(audio::PlaySe_52C450(57, 320));

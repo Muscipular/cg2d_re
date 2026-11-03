@@ -582,10 +582,6 @@ struct WindowDialogTextLine {
     std::wstring text; // UTL02动态UTF-16分行正文；原81字节私有容量退休。
 };
 
-using WindowDialogReplyCallback = std::int32_t (*)(
-    std::int32_t button, std::int32_t row, const std::wstring* texts, std::uint8_t inputCount);
-using WindowDialogFrameCallback = std::int32_t (*)(
-    WindowInstance* window, std::int32_t button, std::int32_t row, std::int32_t events);
 // 原函数：0x004A0140。
 cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(const char* text); // 商店图号/标题/五行正文及买卖选择。
 // 原函数：0x004B6E00。

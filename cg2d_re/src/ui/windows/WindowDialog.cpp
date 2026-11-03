@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/core/m_log.hpp"
@@ -105,7 +106,8 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
 
 // 原函数：0x0049DA30。
 static std::int32_t WindowDialog_Reply(
-    std::int32_t button, std::int32_t row, const std::wstring* texts, std::uint8_t inputCount);
+    session::ClientSession& session, std::int32_t button, std::int32_t row,
+    const std::wstring* texts, std::uint8_t inputCount);
 
 // 原函数：0x0049D2E0。
 static void WindowDialog_Route(
@@ -129,7 +131,8 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
 
 // 原函数：0x0049E1D0。
 static std::int32_t WindowDialog_DrawHealing(
-    WindowInstance* window, std::int32_t button, std::int32_t row, std::int32_t unusedEvents);
+    session::ClientSession&, WindowInstance* window,
+    std::int32_t button, std::int32_t row, std::int32_t unusedEvents);
 
 // 原函数：0x0049E400。
 static cg::yobi::YobiAction* WindowDialog_OpenHealing(
@@ -486,7 +489,7 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
             gMessageDialog.events = MouseFlag_None;
         }
         const std::int32_t events = gMessageDialog.events;
-        const std::int32_t close = frame(window, button, row, events);
+        const std::int32_t close = frame(*callbackWindow.ownerSession, window, button, row, events);
         window = currentWindow;
         if (close != 0) {
             window->state |= 0x8000u;
@@ -574,12 +577,12 @@ static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std:
 }
 
 // 原函数：0x0049CDF0。
-static void WindowDialog_Release(WindowInstance&)
+static void WindowDialog_Release(WindowInstance& releasedWindow)
 {
     if (gMessageDialog.closeCallbackPending != 0) {
         const WindowDialogReplyCallback reply = gMessageDialog.reply;
         if (reply != nullptr) {
-            static_cast<void>(reply(0, -1, nullptr, 0));
+            static_cast<void>(reply(*releasedWindow.ownerSession, 0, -1, nullptr, 0));
         }
     }
     std::int32_t count = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
@@ -622,7 +625,7 @@ static std::int32_t WindowDialog_HandleButtons(WindowInstance& callbackWindow, c
                 const std::wstring* const texts = gMessageDialog.inputTexts.data();
                 const auto button =
                     std::bit_cast<std::int32_t>(1u << (static_cast<std::uint32_t>(index) & 31u));
-                if (gMessageDialog.reply(button, -1, texts, count) != 0) {
+                if (gMessageDialog.reply(*callbackWindow.ownerSession, button, -1, texts, count) != 0) {
                     currentWindow->state |= 0x8000u;
                     gMessageDialog.closeCallbackPending = 0;
                 }
@@ -748,7 +751,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
                         const std::uint8_t count = gMessageDialog.inputCount;
                         const std::int32_t first = gMessageDialog.firstSelectableLine;
                         const std::wstring* const texts = gMessageDialog.inputTexts.data();
-                        if (reply(0, row - first, texts, count) != 0) {
+                        if (reply(*callbackWindow.ownerSession, 0, row - first, texts, count) != 0) {
                             currentWindow->state |= 0x8000u;
                             gMessageDialog.closeCallbackPending = 0;
                         }
@@ -763,7 +766,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
 
 // 原函数：0x0049DA30。
 static std::int32_t WindowDialog_Reply(
-    const std::int32_t button, const std::int32_t row,
+    session::ClientSession& session, const std::int32_t button, const std::int32_t row,
     const std::wstring* const texts, const std::uint8_t inputCount)
 {
     std::wstring reply;
@@ -798,7 +801,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        if (cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, button,
+        if (session.Connection().SendDialogResponse(x, y, request, target, button,
                 reply) != network::SendResult::Queued) { return 0; }
         world::gCurrentDialogType_581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -811,7 +814,7 @@ static std::int32_t WindowDialog_Reply(
         const std::int32_t request = gDialogReply.request;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        if (cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0,
+        if (session.Connection().SendDialogResponse(x, y, request, target, 0,
                 reply) != network::SendResult::Queued) { return 0; }
         world::gCurrentDialogType_581800 = -1;
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -1196,7 +1199,7 @@ static cg::yobi::YobiAction* WindowDialog_OpenText(
 
 // 原函数：0x0049E1D0。
 static std::int32_t WindowDialog_DrawHealing(
-    WindowInstance* const window, const std::int32_t button,
+    session::ClientSession&, WindowInstance* const window, const std::int32_t button,
     std::int32_t row, const std::int32_t)
 {
     static_cast<void>(cg::yobi::CalculateDialogTextColumns_49C5C0(static_cast<std::int16_t>(window->width)));

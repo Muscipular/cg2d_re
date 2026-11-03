@@ -16,7 +16,7 @@ namespace cg::login {
 static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 
 // 原函数：0x00508E00。
-std::uint32_t StartCharacterCreationRequest()
+std::uint32_t StartCharacterCreationRequest(network::CgConnection& connection)
 {
     const std::int32_t element3 = character_select::state::gCreationSubmittedElement3_DE0B04;
     const std::int32_t element2 = character_select::state::gCreationSubmittedElement2_F633F4;
@@ -29,8 +29,7 @@ std::uint32_t StartCharacterCreationRequest()
     const std::int32_t attribute0 = character_select::state::gCreationSubmittedAttribute0_F633EC;
     const std::int32_t graphic = character_select::state::gSelectedGraphicNo;
     const std::int32_t motion = character_select::state::gCreationSubmittedMotionImage_DE0AFC;
-    const std::int32_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    auto& connection = cg::network::GetGameConnection();
+    const std::int32_t selected = connection.LoginRequests().selectedCharacterIndex;
     auto& request = connection.LoginRequests();
     const auto networkSession = connection.CaptureSession();
     request.characterCreationReplyCode = 0;
@@ -44,9 +43,9 @@ std::uint32_t StartCharacterCreationRequest()
 }
 
 // 原函数：0x00508E90。
-std::int32_t PollCharacterCreationRequest()
+std::int32_t PollCharacterCreationRequest(network::CgConnection& connection)
 {
-    auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& request = connection.LoginRequests();
     if (request.status == 2) {
         const std::uint16_t replyCode = request.characterCreationReplyCode;
         request.status = 0;

@@ -183,18 +183,6 @@ struct CreationSnapshot {
 
 static CreationSnapshot gCreationSnapshot {};
 
-// 原五个离散S32和9A6E88观察槽，仅45E7B0/45E7D0使用。
-struct CreationRequestProgress {
-    std::int32_t phase; // 9A50E0。
-    std::int32_t columns; // 9A565C。
-    std::int32_t rows; // 9A566C。
-    std::int32_t x; // 9A4E90。
-    std::int32_t y; // 9A50D8。
-    cg::yobi::YobiAction* action; // 9A6E88，非拥有，完成时标死后清槽。
-};
-
-static CreationRequestProgress gCreationRequestProgress {};
-static std::uint8_t gCreationRestore9A6EB8 = 0; // 原全局：0x009A6EB8。 原创建场景同次调用的恢复回边标志。
 static std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 {
     return *reinterpret_cast<const std::uint8_t*>(&value);
@@ -209,62 +197,63 @@ std::uint8_t HandlePukVersionReply_50E770(cg::network::CgConnection& networkConn
 }
 
 // 原函数：0x0045E7B0。
-std::int32_t ResetCharacterCreationRequest_45E7B0()
+std::int32_t ResetCharacterCreationRequest_45E7B0(network::CgConnection& connection)
 {
-    const std::int32_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
-    gCreationRequestProgress.phase = 0;
+    const std::int32_t selected = connection.LoginRequests().selectedCharacterIndex;
+    connection.CharacterSelectUi().creationProgress.phase = 0;
     world::detail::ResetCharacterProfile_5345A0(selected);
     return world::detail::SavePlayerProfilesFile_534770();
 }
 
 // 原函数：0x0045E7D0。
-std::int32_t UpdateCharacterCreationRequest_45E7D0()
+std::int32_t UpdateCharacterCreationRequest_45E7D0(network::CgConnection& connection)
 {
+    auto& progress = connection.CharacterSelectUi().creationProgress;
     const std::wstring_view text = L"创造角色中" /* 原常量参考：0x0055C9C0。 */;
-    if (gCreationRequestProgress.phase == 0) {
-        gCreationRequestProgress.phase = 1;
+    if (progress.phase == 0) {
+        progress.phase = 1;
         const auto textWidth = static_cast<std::uint32_t>(cg::render::TextMeasure(text, 0));
         std::int32_t columns = std::bit_cast<std::int32_t>((textWidth + 63U) >> 6);
-        gCreationRequestProgress.columns = columns;
+        progress.columns = columns;
         if (columns < 2) {
             columns = 2;
-            gCreationRequestProgress.columns = 2;
+            progress.columns = 2;
         }
         const std::int32_t unscaledX = (10 - columns) * 64;
         const std::int32_t width = columns * 64;
         const std::int32_t x = unscaledX / 2;
-        gCreationRequestProgress.rows = 2;
-        gCreationRequestProgress.x = x;
-        gCreationRequestProgress.y = 192;
-        gCreationRequestProgress.action = cg::yobi::CreateModalAction_5044E0(
+        progress.rows = 2;
+        progress.x = x;
+        progress.y = 192;
+        progress.action = cg::yobi::CreateModalAction_5044E0(
             x, 192, width, 96, 4, 1);
     }
-    if (gCreationRequestProgress.phase == 1) {
-        login::StartCharacterCreationRequest();
-        ++gCreationRequestProgress.phase;
+    if (progress.phase == 1) {
+        login::StartCharacterCreationRequest(connection);
+        ++progress.phase;
     }
-    if (gCreationRequestProgress.phase == 2) {
-        const std::int32_t status = login::PollCharacterCreationRequest();
+    if (progress.phase == 2) {
+        const std::int32_t status = login::PollCharacterCreationRequest(connection);
         if (status == 1 || status < 0) {
             const std::int32_t result = status == 1 ? 1 : 2;
-            cg::yobi::YobiAction* const action = gCreationRequestProgress.action;
+            cg::yobi::YobiAction* const action = progress.action;
             if (action != nullptr) {
                 cg::yobi::MarkDeath(action);
-                gCreationRequestProgress.action = nullptr;
+                progress.action = nullptr;
             }
             return result;
         }
     }
-    cg::yobi::YobiAction* const action = gCreationRequestProgress.action;
+    cg::yobi::YobiAction* const action = progress.action;
     if (action != nullptr && cg::yobi::IsYobiActionReady(action, 1)) {
-        const std::int32_t rows = gCreationRequestProgress.rows;
+        const std::int32_t rows = progress.rows;
         const std::int32_t unscaledY = 48 * rows - 16;
-        const std::int32_t top = gCreationRequestProgress.y;
+        const std::int32_t top = progress.y;
         const std::int32_t y = unscaledY / 2 + top;
         const auto textWidth = static_cast<std::uint32_t>(cg::render::TextMeasure(text, 0));
-        const std::int32_t columns = gCreationRequestProgress.columns;
+        const std::int32_t columns = progress.columns;
         const std::int32_t unscaledX = 64 * columns - static_cast<std::int32_t>(textWidth);
-        const std::int32_t left = gCreationRequestProgress.x;
+        const std::int32_t left = progress.x;
         const std::int32_t x = unscaledX / 2 + left;
         cg::render::DrawText3_456560(
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, text, 0);
@@ -273,8 +262,9 @@ std::int32_t UpdateCharacterCreationRequest_45E7D0()
 }
 
 // 原函数：0x004626A0。
-void ProcessCreationScene_4626A0(const std::int32_t entryGate)
+void ProcessCreationScene_4626A0(network::CgConnection& connection, const std::int32_t entryGate)
 {
+    auto& sceneUi = connection.CharacterSelectUi();
     std::int32_t sceneState = world::gCurrentSceneState;
     if (sceneState == 0) {
         AdvanceCharacterCreationScene_462870();
@@ -322,16 +312,16 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
             editCharacter = true;
         }
         if (editCharacter) {
-            if (gCreationRestore9A6EB8 == 1) {
+            if (sceneUi.creationRestore == 1) {
                 RestoreCharacterCreationDraftSnapshot_464380();
-                gCreationRestore9A6EB8 = 0;
+                sceneUi.creationRestore = 0;
             }
             gate = UpdateCharacterCreationAttributes_4631D0();
             if (gate == 1) {
-                const std::int32_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+                const std::int32_t selected = connection.LoginRequests().selectedCharacterIndex;
                 world::gCurrentSceneState = 30;
-                cg::login::ClearCharacterSlot_51B3B0(static_cast<std::uint32_t>(selected));
-                const std::int32_t unusedSelected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+                cg::login::ClearCharacterSlot_51B3B0(connection, static_cast<std::uint32_t>(selected));
+                const std::int32_t unusedSelected = connection.LoginRequests().selectedCharacterIndex;
                 static_cast<void>(unusedSelected);
                 cg::core::NullSub_509080();
                 cg::login::detail::SaveCurrentLoginRecord_520200();
@@ -348,19 +338,19 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
         if (!skipRemainingStages) {
             bool processRequest = false;
             if (sceneState == 30) {
-                ResetCharacterCreationRequest_45E7B0();
+                ResetCharacterCreationRequest_45E7B0(connection);
                 world::gCurrentSceneState = 31;
                 processRequest = true;
             } else if (sceneState == 31) {
                 processRequest = true;
             }
             if (processRequest) {
-                gate = UpdateCharacterCreationRequest_45E7D0();
+                gate = UpdateCharacterCreationRequest_45E7D0(connection);
                 if (gate == 1) {
-                    state::gPendingCharacterCount =
-                        static_cast<std::int16_t>(state::gPendingCharacterCount + 1);
+                    sceneUi.pendingCharacterCount =
+                        static_cast<std::int16_t>(sceneUi.pendingCharacterCount + 1);
                     world::SetCurrentSceneType(3);
-                    state::gCharacterEntryState = 1;
+                    sceneUi.characterEntryState = 1;
                     sceneState = world::gCurrentSceneState;
                 } else if (gate == 2) {
                     world::gCurrentSceneState = 100;
@@ -370,15 +360,15 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
                 }
             }
             if (sceneState == 100) {
-                login::ResetLoginMessage();
+                login::ResetLoginMessage(connection);
                 sceneState = world::gCurrentSceneState;
                 ++sceneState;
                 world::gCurrentSceneState = sceneState;
             }
             if (sceneState == 101) {
-                if (login::UpdateLoginMessage(L"已经有相同名字的角色存在了！" /* 原常量参考：0x0055C980。 */) != 0) {
+                if (login::UpdateLoginMessage(connection, L"已经有相同名字的角色存在了！" /* 原常量参考：0x0055C980。 */) != 0) {
                     sceneState = 10;
-                    gCreationRestore9A6EB8 = 1;
+                    sceneUi.creationRestore = 1;
                     world::gCurrentSceneState = sceneState;
                     gate = 1;
                     continue;
@@ -386,7 +376,7 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
                 sceneState = world::gCurrentSceneState;
             }
         }
-        if (gCreationRestore9A6EB8 != 1) {
+        if (sceneUi.creationRestore != 1) {
             return;
         }
     }
@@ -1239,9 +1229,7 @@ std::int32_t gCreationSubmittedElement3_DE0B04 = 0; // 原全局：0x00DE0B04。
 std::int32_t gCreationSubmittedMotionImage_DE0AFC = 0; // 原全局：0x00DE0AFC。
 std::wstring gCreationNameFF0D18 {}; // 原全局：0x00FF0D18。
 cg::yobi::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
-std::int16_t gPendingCharacterCount = 0; // 原全局：0x00F7CA06。
 std::int32_t gSelectedGraphicNo = 0; // 原全局：0x00F7C9FC。
-std::uint16_t gCharacterEntryState = 0; // 原全局：0x009A6E10。
 std::int32_t gPreviewToggleState = 0; // 原全局：0x009A6E14。
 std::wstring gSelectedCharacterName {}; // 原全局：0x00DA391C。
 std::wstring gDeleteCharacterName {}; // 原全局：0x00DA3A9C。
@@ -1292,7 +1280,7 @@ static void EnterSelectedCharacter(network::CgConnection& connection)
     state::gSelectedGraphicNo = selectedRecord->graphicNo;
     world::SetCurrentSceneType(5);
     login::detail::PlaySe(59, 320, 240);
-    state::gCharacterEntryState = 0;
+    connection.CharacterSelectUi().characterEntryState = 0;
     cg::audio::BeginBgmFadeOut_52B990();
     cg::yobi::YobiClearUp_404D30();
     ClearPreviewActions(connection);
@@ -1580,8 +1568,8 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     static_cast<void>(unusedSelected);
                     cg::core::NullSub_509080();
                     cg::login::detail::SaveCurrentLoginRecord_520200();
-                    if (state::gPendingCharacterCount > 0) {
-                        --state::gPendingCharacterCount;
+                    if (sceneUi.pendingCharacterCount > 0) {
+                        --sceneUi.pendingCharacterCount;
                     }
                     world::gCurrentSceneState = 10;
                 } else if (result == -2) {

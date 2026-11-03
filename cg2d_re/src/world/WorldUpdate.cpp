@@ -102,7 +102,7 @@ void Update(session::ClientSession& session)
     case 4:
         platform::gFrameBackgroundMode_73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
-        character_select::detail::ProcessCreationScene_4626A0(1);
+        character_select::detail::ProcessCreationScene_4626A0(session.Connection(), 1);
         cg::yobi::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();

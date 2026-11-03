@@ -57,12 +57,12 @@ std::int32_t DrawCharacterModalButton_503A20(
 
 
 // 原函数：0x0045E7B0。
-std::int32_t ResetCharacterCreationRequest_45E7B0(); // 创建请求前局部重置当前资料并保存，透传保存结果。
+std::int32_t ResetCharacterCreationRequest_45E7B0(network::CgConnection& connection); // 创建请求前局部重置当前资料并保存，透传保存结果。
 // 原函数：0x0045E7D0。
-std::int32_t UpdateCharacterCreationRequest_45E7D0(); // 创建请求消息父入口；0等待、1成功、2失败。
+std::int32_t UpdateCharacterCreationRequest_45E7D0(network::CgConnection& connection); // 创建请求消息父入口；0等待、1成功、2失败。
 
 // 原4626A0完整本体；WorldUpdate按D01显式传入口gate=1，不使用默认参数。
-void ProcessCreationScene_4626A0(std::int32_t entryGate);
+void ProcessCreationScene_4626A0(network::CgConnection& connection, std::int32_t entryGate);
 
 // 原 [0x464290,0x4642B4)：四项 left/top/width/height 转换为鼠标命中矩形。
 std::int32_t HitTestCharacterCreationControl_464290(const cg::ui::UiControlBounds* rectangle);

@@ -45,9 +45,7 @@ extern std::int32_t gCreationSubmittedElement3_DE0B04; // 原全局：0x00DE0B04
 extern std::int32_t gCreationSubmittedMotionImage_DE0AFC; // 原全局：0x00DE0AFC。 4631D0生产、508E00读取的创建动作图号。
 extern std::wstring gCreationNameFF0D18; // 原全局：0x00FF0D18。 至FF0D30前的同源原字节名称区。
 extern cg::yobi::YobiAction* gCharacterModalAction; // 原 0x9A6E64，原生指针。
-extern std::int16_t gPendingCharacterCount; // 原 0xF7CA06，R/W16。
 extern std::int32_t gSelectedGraphicNo;      // 原 0xF7C9FC，R/W32。
-extern std::uint16_t gCharacterEntryState;  // 原 0x9A6E10，R/W16。
 extern std::int32_t gPreviewToggleState;     // 原 0x9A6E14，R/W32。
 extern std::wstring gSelectedCharacterName;     // 原 0xDA391C。
 extern std::wstring gDeleteCharacterName;       // 原 0xDA3A9C。

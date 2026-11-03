@@ -39,6 +39,16 @@ struct AuthenticationFailureState {
     std::int32_t y = 0; // 原 0x9A57DC。
 };
 
+// 创建请求进度框的阶段、布局及 Yobi 动作借用。
+struct CharacterCreationProgressState {
+    std::int32_t phase = 0; // 原 0x9A50E0。
+    std::int32_t columns = 0; // 原 0x9A565C。
+    std::int32_t rows = 0; // 原 0x9A566C。
+    std::int32_t x = 0; // 原 0x9A4E90。
+    std::int32_t y = 0; // 原 0x9A50D8。
+    yobi::YobiAction* action = nullptr; // 原 0x9A6E88，非拥有。
+};
+
 // 角色选择场景的可变运行期状态；动作本体尚待随场景隔离。
 struct CharacterSelectSceneState {
     std::uint8_t pukVersion = 0; // 原 0x9A6E1C；网络回复生产，选角和窗口消费。
@@ -48,6 +58,10 @@ struct CharacterSelectSceneState {
     std::int32_t updateAvailable = 0; // 原 0x9A6EAC；选角升级按钮门禁。
     yobi::YobiAction* deleteConfirmationAction = nullptr; // 原 0x9A6EB0；删除确认动作借用。
     std::array<yobi::YobiAction*, 2> previewActions {}; // 原 0x9A6E44、0x9A6E48。
+    CharacterCreationProgressState creationProgress {};
+    std::uint8_t creationRestore = 0; // 原 0x9A6EB8，创建场景同次调用的恢复回边。
+    std::int16_t pendingCharacterCount = 0; // 原 0xF7CA06。
+    std::uint16_t characterEntryState = 0; // 原 0x9A6E10。
     CharacterListProgressState listProgress {};
     CharacterDeletionProgressState deletionProgress {};
     AuthenticationFailureState authenticationFailure {};

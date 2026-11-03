@@ -14,16 +14,12 @@ namespace cg::session { class ClientSession; }
 #include <type_traits>
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/world/PlayerSlots.hpp"
 #include "PetTechniqueRecord.hpp"
 
 // 玩家、技能、宠物与称号的共享声明。
 
 namespace cg::world {
-
-// 角色技能及每项技能的技术栏位容量；协议索引仍从0开始。
-inline constexpr std::int32_t kSkillSlotCount = 30;
-inline constexpr std::int32_t kTechniqueSlotCount = 30;
-static_assert(kSkillSlotCount <= 32); // 现有战斗P封包以32位掩码表示技能可用状态。
 
 // 原[509650,509B96)，玩家属性掩码回复，socket未用。
 std::int32_t HandlePlayerPrimaryStatsReply_509650(cg::network::CgConnection& networkConnection, const char* payload); // MPR01：aPc掩码主属性，六CryptInt原序/金额和双尾字段，真实S32分界。

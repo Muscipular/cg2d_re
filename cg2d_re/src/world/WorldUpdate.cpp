@@ -117,14 +117,14 @@ void Update(session::ClientSession& session)
         detail::InitializePlayerRuntimeState_5199A0(session.Connection());
         detail::ResetWorldObjectTable_446470();
         detail::ResetCurrentDialogType_4D3170();
-        detail::InitializeWorldSceneFlags_455BD0();
+        detail::InitializeWorldSceneFlags_455BD0(session);
         detail::InitializeMapEffectPool_46E2A0();
         ResetMapDrawCacheCounts_46BD40();
         session.WorldScene().battle.entryPending = 0;
         gGameplayRepliesSuppressed_9A6E0C = 0;
         detail::InitializeGameplayNotifications_504A30(session);
         detail::ResetBattleCommandSelection_43C8F0();
-        detail::ResetSceneUiState_504100();
+        detail::ResetSceneUiState_504100(session);
         detail::ClearContactAndGuildMailStorage_518C80();
         detail::LoadContactAndGuildMailFiles_518CB0();
         session.WorldScene().pendingMapBgmIndex = 0xFFFFFFFFu;

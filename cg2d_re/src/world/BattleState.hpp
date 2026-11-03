@@ -10,6 +10,7 @@ namespace cg::session { class ClientSession; }
 #include <span>
 #include "PlayerState.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/world/WorldSceneRuntimeState.hpp"
 
 // 战斗状态、协议结果与场景绘制的共享声明。
 
@@ -24,37 +25,8 @@ extern std::int32_t gSelectedBattlePetTechniqueIndex_553F84; // 原全局：0x00
 void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection, std::int32_t type, std::int32_t imageNo); // 完整战斗进入回复，socket未用。
 // 原函数：0x0050D3C0。
 void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& networkConnection, const char* text); // C/P/A/第二字节U/M完整分派。
-// 原FF0C14四条结果记录；50D500按两次W16、一次S32的顺序发布。
-struct BattleResultRecord {
-    std::uint16_t value00; // 原成员偏移：+0x00。
-    std::uint16_t value02; // 原成员偏移：+0x02。
-    std::int32_t value04; // 原成员偏移：+0x04。
-};
-static_assert(offsetof(BattleResultRecord, value00) == 0);
-static_assert(offsetof(BattleResultRecord, value02) == 2);
-static_assert(offsetof(BattleResultRecord, value04) == 4);
-static_assert(sizeof(BattleResultRecord) == 8);
-
-// 原FF0C8C十五条技能结果；+2两字节不由50D500写入，末条止FF0D04。
-struct BattleSkillResultRecord {
-    std::int16_t value00; // 原成员偏移：+0x00。
-    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
-    std::int32_t value04; // 原成员偏移：+0x04。
-};
-static_assert(offsetof(BattleSkillResultRecord, value00) == 0);
-static_assert(offsetof(BattleSkillResultRecord, bytes02) == 2);
-static_assert(offsetof(BattleSkillResultRecord, value04) == 4);
-static_assert(sizeof(BattleSkillResultRecord) == 8);
-
-// 窗口30只读借用50D500唯一结果存储，各字段仍按原指令时机读取。
-extern std::array<BattleResultRecord, 4> gBattleResultsFF0C14; // 原全局：0x00FF0C14。
-extern std::array<BattleSkillResultRecord, kSkillSlotCount> gBattleSkillResultsFF0C8C; // 原全局：0x00FF0C8C。
-extern std::array<std::wstring, 3> gBattleResultNamesFF0C34; // 原全局：0x00FF0C34。
-extern std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C; // 原全局：0x00FF0D0C。
 // 原函数：0x0050D500。
 void HandleBattleResultsReply_50D500(cg::network::CgConnection& networkConnection, const char* payload); // 三阶段战斗结果生产，socket未用。
-extern std::int32_t gDpResultDelta_FF0D04; // 原全局：0x00FF0D04。 既有DP回复变化值，窗口31直接读取。
-extern std::int32_t gDpResultTotal_FF0D08; // 原全局：0x00FF0D08。 既有DP回复总量，与变化值分别采样。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。
 extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全局：0x0054D93C。
@@ -104,9 +76,9 @@ namespace detail {
 // 原函数：0x0043CB10。
 void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session);
 // 原函数：0x004ED670。
-std::int32_t ShouldPlayBattleResultSound_4ED670(); // 四角色/宠物与十五技能结果字段恰1检查，完整扫描不提前返回。
+std::int32_t ShouldPlayBattleResultSound_4ED670(session::ClientSession& session); // 四角色/宠物与技能结果字段恰1检查，完整扫描不提前返回。
 // 原函数：0x00504A50。
-void OpenPendingBattleResultWindow_504A50(); // S16结果模式分派30/31或既有BGM控制，原唯一caller弃返回。
+void OpenPendingBattleResultWindow_504A50(session::ClientSession& session); // S16结果模式分派30/31或既有BGM控制，原唯一caller弃返回。
 // 原函数：0x0043C8F0。
 std::int32_t ResetBattleCommandSelection_43C8F0();                 // 原 [0x43C8F0,0x43C90A)，四槽顺序写入并返回 -1。
 extern std::uint32_t gBattlePosition5ABCA8; // 原全局：0x005ABCA8。

@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -106,8 +107,6 @@ static std::int32_t WindowBattleResult_Draw(std::int32_t value);
 static std::int32_t WindowDpResult_Update(std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
-
-static std::uint64_t gBattleResultCloseTickCB0F78 = 0; // 原全局：0x00CB0F78。 原窗口30/31共用到期tick，不按窗口复制。
 
 static WindowGraphicData gWindowGraphic56B918 {0x3BA7E, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056B918。
 
@@ -261,7 +260,7 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        const auto& results = world::gBattleResultsFF0C14;
+        const auto& results = currentWindow->ownerSession->WorldScene().battleResult.records;
         for (std::int32_t row = 0; row < 4; ++row) {
             const world::BattleResultRecord* const result = &results[row];
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(row + 5)); indexedElement) indexedElement->visible = 0;
@@ -317,14 +316,14 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
                 }
             }
         }
-        const auto& names = world::gBattleResultNamesFF0C34;
+        const auto& names = currentWindow->ownerSession->WorldScene().battleResult.names;
         for (std::int32_t row = 0; row < 3; ++row) {
             WindowInstance* const window = currentWindow;
             const wchar_t* const name = names[row].data();
             if (auto* const indexedElement = window->FindElementById(NativeElementKey(row + 59)); indexedElement) indexedElement->data.text->text = name;
         }
 
-        const auto& skillResults = world::gBattleSkillResultsFF0C8C;
+        const auto& skillResults = currentWindow->ownerSession->WorldScene().battleResult.skills;
         std::int32_t row = 0;
         for (const auto& pair : world::gSkillPairsF63370) {
             const std::uint16_t used = pair.used;
@@ -376,10 +375,10 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
             if (auto* const indexedElement2 = window->FindElementById(NativeElementKey(row + 45)); indexedElement2) indexedElement2->data.text->text = cg::text::FromGbkWide(text);
             if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(row + 17)); indexedElement3) indexedElement3->visible = 0;
         }
-        gBattleResultCloseTickCB0F78 = platform::ReadTickCount64() + 5000u;
+        currentWindow->ownerSession->WorldScene().battleResult.closeTick = platform::ReadTickCount64() + 5000u;
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gBattleResultCloseTickCB0F78 < now) {
+    if (currentWindow->ownerSession->WorldScene().battleResult.closeTick < now) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -394,7 +393,7 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const auto& graphics = world::gBattleResultGraphicsFF0D0C;
+    const auto& graphics = currentWindow->ownerSession->WorldScene().battleResult.graphics;
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t image = graphics[row];
         if (image >= 0) {
@@ -430,21 +429,21 @@ static std::int32_t WindowDpResult_Update(const std::int32_t value)
     if (value == -1) {
         const std::uint64_t now = platform::ReadTickCount64();
         WindowInstance* window = currentWindow;
-        gBattleResultCloseTickCB0F78 = now + 5000u;
-        const std::int32_t delta = world::gDpResultDelta_FF0D04;
+        currentWindow->ownerSession->WorldScene().battleResult.closeTick = now + 5000u;
+        const std::int32_t delta = currentWindow->ownerSession->WorldScene().battleResult.dpDelta;
         auto* const element3 = window->FindElementById(WindowBattleResultElementId::Element3);
         if (element3) {
             cg::text::FormatTo(element3->data.text->text, L"DP   {:+9}", delta);
         }
         window = currentWindow;
-        const std::int32_t total = world::gDpResultTotal_FF0D08;
+        const std::int32_t total = currentWindow->ownerSession->WorldScene().battleResult.dpTotal;
         auto* const element4 = window->FindElementById(WindowBattleResultElementId::Element4);
         if (element4) {
             cg::text::FormatTo(element4->data.text->text, L"Total{:9}", total);
         }
     }
     const std::uint64_t now = platform::ReadTickCount64();
-    if (gBattleResultCloseTickCB0F78 < now) {
+    if (currentWindow->ownerSession->WorldScene().battleResult.closeTick < now) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }

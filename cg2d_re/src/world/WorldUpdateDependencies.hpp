@@ -19,7 +19,6 @@ extern platform::LegacyCryptInt gSceneTransitionValue; // 原全局：0x0073ECD0
 extern std::int32_t gCurrentDialogType_581800;
 extern std::int32_t gDialogRequestCC21E0; // 原全局：0x00CC21E0。 原对话a3，49D2E0/49D8F0生产，发送共用。
 extern std::int32_t gDialogTargetD2DE6C; // 原全局：0x00D2DE6C。 原对话a4，不是窗口51的独立参数槽。
-extern std::uint64_t gMapNoticeStartTick_62B5B0; // 原全局：0x0062B5B0。
 
 // World::Update@0x51C430 的直接目标声明；保留原地址及调用契约，提供者按所属模块实现。
 // 原函数：0x0045F190。
@@ -70,7 +69,6 @@ namespace detail {
 // 原455BD0等入口仍有消费者的共享门禁；无消费者槽已按GVC01清理。
 extern std::uint16_t gPlayerMovementAndFacingBlocked_62B5AA; // 原全局：0x0062B5AA。
 extern std::uint32_t gMapTargetInputAndDrawOverride_62B308; // 原全局：0x0062B308。
-extern std::uint32_t gMapTargetInputAndDrawOverride_62B398; // 原全局：0x0062B398。 原455FC0发布，目标格门禁共用。
 // 原函数：0x004590E0。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，已完整还原。
 // 原函数：0x00458F40。
@@ -80,9 +78,9 @@ void __cdecl UpdateDayPeriodPaletteAndTimers_458F00(); // GTP01：类别变化�
 // 原函数：0x00519EB0。
 std::int32_t __cdecl SetPlayerObjectIndex_519EB0(std::int32_t value); // GTP01：真实玩家 W32 对象号写回/原 S32 透传。
 // 原函数：0x00455C60。
-void ResetTimedMapNotice_455C60(); // 仅清既有62B5B0，不关闭窗口。
+void ResetTimedMapNotice_455C60(session::ClientSession& session); // 仅清既有62B5B0，不关闭窗口。
 // 原函数：0x00455FC0。
-void SynchronizeTimedMapNoticeWindow_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
+void SynchronizeTimedMapNoticeWindow_455FC0(session::ClientSession& session); // 窗口39创建/动画清理父入口，保留额外SE56。
 // 原函数：0x00455A90。
 std::int32_t IsMapBattleSpectatingAllowed_455A90(); // G05：所有地图允许通过观战地图门禁。
 // 原函数：0x004FA8E0。
@@ -90,11 +88,11 @@ std::uintptr_t RequestEmoteWithResult_4FA8E0(std::int32_t index); // 旧随机�
 // 原函数：0x004D3170。
 void ResetCurrentDialogType_4D3170();                         // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
 // 原函数：0x00455BD0。
-std::int32_t InitializeWorldSceneFlags_455BD0();                 // GVC01保留有效状态重置及返回0，已清理原无消费者槽。
+std::int32_t InitializeWorldSceneFlags_455BD0(session::ClientSession& session); // GVC01保留有效状态重置及返回0，已清理原无消费者槽。
 // 原函数：0x00504A30。
 std::int32_t InitializeGameplayNotifications_504A30(session::ClientSession& session); // 原 [0x504A30,0x504A43)，调用 44A090、清两槽并返回 0。
 // 原函数：0x00504100。
-std::int32_t ResetSceneUiState_504100();                 // 原 [0x504100,0x504113)，顺序清三槽、返回 0。
+std::int32_t ResetSceneUiState_504100(session::ClientSession& session); // 原 [0x504100,0x504113)，顺序清三槽、返回 0。
 // 原函数：0x0045EBB0。
 std::int32_t ProcessLogoutScene_45EBB0(session::ClientSession& session); // 原 0x45EBB0。
 // 原函数：0x0045EEE0。

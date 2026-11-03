@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cg/world/PlayerSlots.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -36,6 +38,50 @@ struct LogoutSceneState {
     std::int32_t top = 0; // 原 0x9A61F8。
     std::int32_t left = 0; // 原 0x9A5AC0。
     yobi::YobiAction* action = nullptr; // 原 0x9A6E98。
+};
+
+// 原FF0C14四条结果记录；50D500按两次W16、一次S32的顺序发布。
+struct BattleResultRecord {
+    std::uint16_t value00; // 原成员偏移：+0x00。
+    std::uint16_t value02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
+};
+static_assert(offsetof(BattleResultRecord, value00) == 0);
+static_assert(offsetof(BattleResultRecord, value02) == 2);
+static_assert(offsetof(BattleResultRecord, value04) == 4);
+static_assert(sizeof(BattleResultRecord) == 8);
+
+// 原FF0C8C十五条技能结果；+2两字节不由50D500写入，现随技能容量扩展。
+struct BattleSkillResultRecord {
+    std::int16_t value00; // 原成员偏移：+0x00。
+    std::array<std::byte, 2> bytes02; // 原成员偏移：+0x02。
+    std::int32_t value04; // 原成员偏移：+0x04。
+};
+static_assert(offsetof(BattleSkillResultRecord, value00) == 0);
+static_assert(offsetof(BattleSkillResultRecord, bytes02) == 2);
+static_assert(offsetof(BattleSkillResultRecord, value04) == 4);
+static_assert(sizeof(BattleSkillResultRecord) == 8);
+
+// 网络结果、场景待显示模式与窗口30/31共用到期时钟属于同一会话。
+struct BattleResultState {
+    std::uint16_t pendingMode = 0; // 原0xFF0C10，分发按S16读取。
+    std::array<BattleResultRecord, 4> records {}; // 原0xFF0C14。
+    std::array<BattleSkillResultRecord, kSkillSlotCount> skills {}; // 原0xFF0C8C。
+    std::array<std::wstring, 3> names {}; // 原0xFF0C34。
+    std::array<std::int32_t, 3> graphics {}; // 原0xFF0D0C。
+    std::int32_t dpDelta = 0; // 原0xFF0D04。
+    std::int32_t dpTotal = 0; // 原0xFF0D08。
+    std::uint64_t closeTick = 0; // 原0xCB0F78，两个结果窗共用，不按窗口复制。
+};
+static_assert(sizeof(BattleResultState::records) == 0x20);
+static_assert(sizeof(BattleResultState::skills) == sizeof(BattleSkillResultRecord) * kSkillSlotCount);
+static_assert(sizeof(BattleResultState::graphics) == 0x0C);
+
+// 地图名计时提示的时间、非拥有开窗动作及目标格门禁。
+struct MapNoticeState {
+    std::uint64_t startTick = 0; // 原0x62B5B0。
+    yobi::YobiAction* opening = nullptr; // 原0x62B5B8，动画完成通过此稳定槽清空。
+    std::uint32_t inputAndDrawOverride = 0; // 原0x62B398。
 };
 
 // 战斗场景的遍历游标与退出动作借用；动作本体由 Yobi 持有。
@@ -181,6 +227,8 @@ struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
     LogoutSceneState logout {};
     BattleSceneState battle {};
+    BattleResultState battleResult {};
+    MapNoticeState mapNotice {};
     RotationState rotation {};
     ChatSendState chat {};
     ChatInputHistoryState chatInputHistory {};

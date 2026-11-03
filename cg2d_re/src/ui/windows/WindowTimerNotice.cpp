@@ -1,4 +1,5 @@
 #include "cg/render/Font.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -48,9 +49,10 @@ static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
         }
     } else {
         const std::uint64_t tick = platform::ReadTickCount64();
-        if (world::gMapNoticeStartTick_62B5B0 + 2000u <= tick) {
+        auto& notice = currentWindow->ownerSession->WorldScene().mapNotice;
+        if (notice.startTick + 2000u <= tick) {
             currentWindow->state |= 0x8000u;
-            world::gMapNoticeStartTick_62B5B0 = 0;
+            notice.startTick = 0;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
     }

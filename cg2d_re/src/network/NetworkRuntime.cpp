@@ -257,7 +257,7 @@ void HandlePaletteTransitionReply_50E630(cg::network::CgConnection&,
 }
 
 // 原 [0x50D700,0x50D73A)：非零门禁直接返回，零时按原序发布三槽。
-std::int32_t HandleDuelPointResultReply_50D700(cg::network::CgConnection&,
+std::int32_t HandleDuelPointResultReply_50D700(cg::network::CgConnection& connection,
     const char* const payload)
 {
     const std::uint32_t gate = world::gGameplayRepliesSuppressed_9A6E0C;
@@ -265,12 +265,12 @@ std::int32_t HandleDuelPointResultReply_50D700(cg::network::CgConnection&,
         return std::bit_cast<std::int32_t>(gate);
     }
 
-    world::gPendingResultWindowMode_FF0C10 = 2;
-    world::gDpResultDelta_FF0D04 =
+    connection.Owner().WorldScene().battleResult.pendingMode = 2;
+    connection.Owner().WorldScene().battleResult.dpDelta =
         ParseDelimitedBase62_52D0D0(payload, '|', 1);
     const std::int32_t second =
         ParseDelimitedBase62_52D0D0(payload, '|', 2);
-    world::gDpResultTotal_FF0D08 = second;
+    connection.Owner().WorldScene().battleResult.dpTotal = second;
     return second;
 }
 

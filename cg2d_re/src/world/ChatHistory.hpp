@@ -34,9 +34,8 @@ extern input::InputContext gInputContext626840; // 原全局：0x00626840。
 extern std::uint32_t gChatRangeOverlayFrames_626BFC; // 原全局：0x00626BFC。
 extern std::wstring gLogFileName554648; // 原全局：0x00554648。
 
-// 原 0xD2F788/0xFF0C10：504A30 重置的独立 S32/W16 槽。
+// 原0xD2F788：504A30重置的独立S32槽。
 extern std::int32_t gPlayerUnspentAttributePoints_D2F788; // 原全局：0x00D2F788。
-extern std::uint16_t gPendingResultWindowMode_FF0C10; // 原全局：0x00FF0C10。
 
 // 原函数：0x0044B050。
 void AppendChatMessage_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);

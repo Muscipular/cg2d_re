@@ -271,11 +271,6 @@ static AlbumRecord* AlbumRecordAt(const std::int32_t index, const std::int16_t s
     return gAlbumStorage.records.data() + record;
 }
 
-// 原62B5B8；455FC0持有非拥有动画引用，4758D0经借用槽地址完成清空。
-static cg::yobi::YobiAction* gWindow39Action62B5B8 = nullptr;
-
-// 原FF0C34三条29B名称与FF0D0C三个图号；结果展示须借用同一存储。
-
 static constexpr std::array<std::int32_t, 6> kAllowedMapFloors {
     59000,
     59001,
@@ -683,18 +678,6 @@ std::uint32_t InitializeAlbum_518C20()
     std::memcpy(gAlbumStorage.signature.data(), kAlbumSignature, sizeof(kAlbumSignature));
     return 4;
 }
-
-std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {}; // 原全局：0x00FF0C14。
-std::array<BattleSkillResultRecord, kSkillSlotCount> gBattleSkillResultsFF0C8C {}; // 原全局：0x00FF0C8C。
-std::array<std::wstring, 3> gBattleResultNamesFF0C34 {}; // 原全局：0x00FF0C34。
-std::array<std::int32_t, 3> gBattleResultGraphicsFF0D0C {}; // 原全局：0x00FF0D0C。
-
-namespace detail {
-static_assert(sizeof(gBattleResultsFF0C14) == 0x20);
-static_assert(sizeof(gBattleSkillResultsFF0C8C) == sizeof(BattleSkillResultRecord) * kSkillSlotCount); // 原15条共0x78字节。
-static_assert(sizeof(gBattleResultGraphicsFF0D0C) == 0x0C);
-
-} // namespace detail
 
  // 原全局：0x0073ECD0。
 
@@ -2175,11 +2158,9 @@ namespace detail {
 std::uint16_t gPlayerMovementAndFacingBlocked_62B5AA = 0; // 原全局：0x0062B5AA。
 
 } // namespace detail
-std::uint64_t gMapNoticeStartTick_62B5B0 = 0; // 原全局：0x0062B5B0。
 
 namespace detail {
 std::uint32_t gMapTargetInputAndDrawOverride_62B308 = 0; // 原全局：0x0062B308。
-std::uint32_t gMapTargetInputAndDrawOverride_62B398 = 0; // 原全局：0x0062B398。
 
 // 原 46BD40 的四个独立 W32 计数槽；仅承载原位模式。
 std::uint32_t gPrimaryMapGraphicCount_9FB934 = 0; // 原全局：0x009FB934。
@@ -2259,13 +2240,8 @@ static_assert(decltype(gBattleEntries59E980)::extent == 20);
 
 } // namespace detail
 
-// 原 0xD2F788/0xFF0C10：504A30 清零的独立 S32/W16 状态槽。
+// 原0xD2F788：504A30清零的独立S32状态槽。
 std::int32_t gPlayerUnspentAttributePoints_D2F788 = 0; // 原全局：0x00D2F788。
-std::uint16_t gPendingResultWindowMode_FF0C10 = 0; // 原全局：0x00FF0C10。
-
-// 原 0xFF0D04/0xFF0D08：50D700 写入、展示侧按 S32 读取的独立槽。
-std::int32_t gDpResultDelta_FF0D04 = 0; // 原全局：0x00FF0D04。
-std::int32_t gDpResultTotal_FF0D08 = 0; // 原全局：0x00FF0D08。
 
 namespace detail {
 // 原 519A80 公共尾；协议与普通场景后续复用，初值为 PE 零填充。
@@ -3410,42 +3386,42 @@ void __cdecl InvalidateMapDrawPosition_4691D0()
 }
 
 // 原函数：0x00455C60。
-void ResetTimedMapNotice_455C60()
+void ResetTimedMapNotice_455C60(session::ClientSession& session)
 {
-    gMapNoticeStartTick_62B5B0 = 0;
+    session.WorldScene().mapNotice.startTick = 0;
 }
 
 // 原函数：0x00455FC0。
-void SynchronizeTimedMapNoticeWindow_455FC0()
+void SynchronizeTimedMapNoticeWindow_455FC0(session::ClientSession& session)
 {
-    const std::uint64_t value = gMapNoticeStartTick_62B5B0;
-    gMapTargetInputAndDrawOverride_62B398 = 0;
+    const std::uint64_t value = session.WorldScene().mapNotice.startTick;
+    session.WorldScene().mapNotice.inputAndDrawOverride = 0;
     if (value == 0) {
-        cg::yobi::YobiAction* const action = gWindow39Action62B5B8;
+        cg::yobi::YobiAction* const action = session.WorldScene().mapNotice.opening;
         if (action != nullptr) {
             static_cast<void>(cg::yobi::MarkDeath(action));
-            gWindow39Action62B5B8 = nullptr;
+            session.WorldScene().mapNotice.opening = nullptr;
         }
         return;
     }
-    if (ui::detail::WindowRuntime_States()[cg::ui::WindowId_TimerNotice].window == nullptr
-        && gWindow39Action62B5B8 == nullptr) {
-        gWindow39Action62B5B8 = ui::WindowRuntime_CreateAnimation(
-            39, 0, 0, &gWindow39Action62B5B8);
+    if (ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_TimerNotice].window == nullptr
+        && session.WorldScene().mapNotice.opening == nullptr) {
+        session.WorldScene().mapNotice.opening = ui::WindowRuntime_CreateAnimation(
+            session, 39, 0, 0, &session.WorldScene().mapNotice.opening);
         static_cast<void>(audio::PlaySe_52C450(56, 320));
     }
 }
 
 // 原函数：0x004ED670。
-std::int32_t ShouldPlayBattleResultSound_4ED670()
+std::int32_t ShouldPlayBattleResultSound_4ED670(session::ClientSession& session)
 {
     std::int32_t result = 0;
-    for (const BattleResultRecord& record : gBattleResultsFF0C14) {
+    for (const BattleResultRecord& record : session.WorldScene().battleResult.records) {
         if (record.value02 == 1) {
             result = 1;
         }
     }
-    for (const BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {
+    for (const BattleSkillResultRecord& record : session.WorldScene().battleResult.skills) {
         if (record.value00 == 1) {
             result = 1;
         }
@@ -3454,23 +3430,23 @@ std::int32_t ShouldPlayBattleResultSound_4ED670()
 }
 
 // 原函数：0x00504A50。
-void OpenPendingBattleResultWindow_504A50()
+void OpenPendingBattleResultWindow_504A50(session::ClientSession& session)
 {
-    const std::int16_t mode = std::bit_cast<std::int16_t>(gPendingResultWindowMode_FF0C10);
+    const std::int16_t mode = std::bit_cast<std::int16_t>(session.WorldScene().battleResult.pendingMode);
     if (mode <= 0) {
         return;
     }
     if (mode == 1) {
-        static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_BattleResult, 1, 0, nullptr));
-        if (ShouldPlayBattleResultSound_4ED670() != 0) {
+        static_cast<void>(ui::WindowRuntime_CreateAnimation(session, cg::ui::WindowId_BattleResult, 1, 0, nullptr));
+        if (ShouldPlayBattleResultSound_4ED670(session) != 0) {
             static_cast<void>(audio::PlaySe_52C450(64, 320));
         }
-        gPendingResultWindowMode_FF0C10 = 0;
+        session.WorldScene().battleResult.pendingMode = 0;
     } else if (mode == 2) {
-        static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_DpResult, 1, 0, nullptr));
-        gPendingResultWindowMode_FF0C10 = 0;
+        static_cast<void>(ui::WindowRuntime_CreateAnimation(session, cg::ui::WindowId_DpResult, 1, 0, nullptr));
+        session.WorldScene().battleResult.pendingMode = 0;
     } else {
-        gPendingResultWindowMode_FF0C10 = 0;
+        session.WorldScene().battleResult.pendingMode = 0;
     }
 }
 
@@ -3486,7 +3462,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         [[fallthrough]];
     case 100:
         CreatePlayerMapPresence_519A80(session);
-        ResetTimedMapNotice_455C60();
+        ResetTimedMapNotice_455C60(session);
         RecreateMissingWorldObjectActions_446640(session);
         ResetCurrentDialogType_4D3170();
         ui::WindowRuntime_ProcessScene(session);
@@ -3557,7 +3533,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         session.WorldScene().frameBackgroundMode = 2;
         if (ProcessSceneTransitionEffect_51FDE0(session, 15, 8, 0x40000000u) == 1) {
             worldScene.normalSceneInitialized = 1;
-            gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
+            session.WorldScene().mapNotice.startTick = platform::ReadTickCount64();
             gCurrentSceneState = 20;
         }
         return;
@@ -3647,7 +3623,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         const std::int32_t steps = gate == 1 ? 8 : 32;
         if (ProcessSceneTransitionEffect_51FDE0(session, selector, steps, 0x40000000u) == 1) {
             ui::WindowRuntime_ProcessScene(session);
-            gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
+            session.WorldScene().mapNotice.startTick = platform::ReadTickCount64();
             const std::uint32_t changeBgm = worldScene.mapBgmChangePending;
             gCurrentSceneState = 20;
             gLogoutToTownPending_D67E78 = 0;
@@ -3709,7 +3685,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         cg::core::NullSub_509080();
         session.WorldScene().observationTravelTransitionCount = 0;
         ui::WindowRuntime_ProcessScene(session);
-        gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
+        session.WorldScene().mapNotice.startTick = platform::ReadTickCount64();
         ClearDirectionalMapEffects_46F160();
         if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
@@ -3764,7 +3740,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         gCurrentSceneState = 1;
         CreatePlayerMapPresence_519A80(session);
-        ResetTimedMapNotice_455C60();
+        ResetTimedMapNotice_455C60(session);
         RecreateMissingWorldObjectActions_446640(session);
         ResetCurrentDialogType_4D3170();
         ui::WindowRuntime_ProcessScene(session);
@@ -3869,12 +3845,12 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gMapSurfaceCacheEnabled_C82204 = 0;
         ApplyPendingMapPaletteReply_51D6F0(session);
         ResetMapActorDrawKeys_4468F0(session);
-        static_cast<void>(UpdateMapMouseTargetAndButtons_46F680());
-        OpenPendingBattleResultWindow_504A50();
+        static_cast<void>(UpdateMapMouseTargetAndButtons_46F680(session));
+        OpenPendingBattleResultWindow_504A50(session);
         static_cast<void>(NextRotationValue_455C70(session));
         static_cast<void>(UpdateWorldMapInputAndMovement_469C90(session));
         ResetMapDrawCacheCounts_46BD40();
-        SynchronizeTimedMapNoticeWindow_455FC0();
+        SynchronizeTimedMapNoticeWindow_455FC0(session);
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
         UpdateMapEffects_46E4A0(session);
@@ -3893,9 +3869,9 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
         DetachPartyMapActions_51B0F0();
-        gMapNoticeStartTick_62B5B0 = 0;
-        SynchronizeTimedMapNoticeWindow_455FC0();
-        ResetTimedMapNotice_455C60();
+        session.WorldScene().mapNotice.startTick = 0;
+        SynchronizeTimedMapNoticeWindow_455FC0(session);
+        ResetTimedMapNotice_455C60(session);
         const std::uint32_t mask = gValue9FB918.mask;
         const std::uint32_t encoded = gValue9FB918.encoded;
         const std::uint8_t readCount = gValue9FB918.readCount;
@@ -4068,7 +4044,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         battleScene.exitAction = nullptr;
         session.WorldScene().transitionResetPending = 1;
         gBattleCommandAction5ABC00 = nullptr;
-        gPendingResultWindowMode_FF0C10 = 3;
+        session.WorldScene().battleResult.pendingMode = 3;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         CaptureBattleBackgroundSnapshot_43CB10(session);
         session.WorldScene().frameBackgroundMode = 2;
@@ -4201,8 +4177,8 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             }
             gBattleSnapshotPetIndex5ABBFC = FindBattlePetIndex_43C4B0();
             ui::detail::WindowBattleCommand_SyncActorVitals();
-            if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::WindowRuntime_States()[cg::ui::WindowId_Spectator].window == nullptr) {
-                static_cast<void>(ui::WindowRuntime_CreateAnimation(cg::ui::WindowId_Spectator, 1, 0, nullptr));
+            if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Spectator].window == nullptr) {
+                static_cast<void>(ui::WindowRuntime_CreateAnimation(session, cg::ui::WindowId_Spectator, 1, 0, nullptr));
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
             }
             gCurrentSceneState = 3;
@@ -5511,7 +5487,7 @@ void AdvancePlayerLeaderFollowers_46A940()
 }
 
 // 原函数：0x0046F680。
-std::uint8_t UpdateMapMouseTargetAndButtons_46F680()
+std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& session)
 {
     const float mouseY = static_cast<float>(
         static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
@@ -5546,7 +5522,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680()
         && ((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex() < 0)
-            || gMapTargetDrawOverride_C8A780 != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || gMapTargetInputAndDrawOverride_62B398 != 0)
+            || gMapTargetDrawOverride_C8A780 != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)
         && gContinuousMapMovementActive_C8A79C == 0) {
         render::GraphicDescriptor16 descriptor {};
         const std::uint32_t color = 0xFFFFFFFFu;
@@ -5564,7 +5540,7 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680()
         || !((*reinterpret_cast<const unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::WindowItemDrag_ReadIndex() < 0)
-            || gMapTargetInputOverride_C8A77C != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || gMapTargetInputAndDrawOverride_62B398 != 0)) {
+            || gMapTargetInputOverride_C8A77C != 0 || gMapTargetInputAndDrawOverride_62B308 != 0 || session.WorldScene().mapNotice.inputAndDrawOverride != 0)) {
         gMapLeftHoldDurationMs_C8A778 = 0;
         gMapLeftPressTick_C8A794 = 0;
         return static_cast<std::uint8_t>(mouseBelowLimit);
@@ -6533,10 +6509,10 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
 }
 
 // 原 [0x455BD0,0x455C56)：GVC01清理无消费者槽，保留有效状态重置顺序及返回零。
-std::int32_t InitializeWorldSceneFlags_455BD0()
+std::int32_t InitializeWorldSceneFlags_455BD0(session::ClientSession& session)
 {
     gPlayerMovementAndFacingBlocked_62B5AA = 0;
-    gMapNoticeStartTick_62B5B0 = 0;
+    session.WorldScene().mapNotice.startTick = 0;
     gMapTargetInputAndDrawOverride_62B308 = 0;
     return 0;
 }
@@ -6546,7 +6522,7 @@ std::int32_t InitializeGameplayNotifications_504A30(session::ClientSession& sess
 {
     LoadChatInputHistory_44A090(session);
     gPlayerUnspentAttributePoints_D2F788 = 0;
-    gPendingResultWindowMode_FF0C10 = 0;
+    session.WorldScene().battleResult.pendingMode = 0;
     return 0;
 }
 
@@ -6561,10 +6537,10 @@ std::int32_t ResetBattleCommandSelection_43C8F0()
 }
 
 // 原 [0x504100,0x504113)；LWR03移除旧选择备份CAFEA0，其余两槽清理及返回0保持。
-std::int32_t ResetSceneUiState_504100()
+std::int32_t ResetSceneUiState_504100(session::ClientSession& session)
 {
     gPlayerUnspentAttributePoints_D2F788 = 0;
-    gPendingResultWindowMode_FF0C10 = 0;
+    session.WorldScene().battleResult.pendingMode = 0;
     return 0;
 }
 
@@ -9999,6 +9975,7 @@ void Sub_50D080(cg::network::CgConnection&, const std::int32_t first, const std:
 // 原函数：0x0050D120。
 void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection, const std::int32_t type, const std::int32_t imageNo)
 {
+    auto& session = networkConnection.Owner();
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
@@ -10007,9 +9984,9 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
         detail::ClearWorldObjectsAndActions_4464D0();
         static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
         detail::DetachPartyMapActions_51B0F0();
-        gMapNoticeStartTick_62B5B0 = 0;
-        detail::SynchronizeTimedMapNoticeWindow_455FC0();
-        detail::ResetTimedMapNotice_455C60();
+        session.WorldScene().mapNotice.startTick = 0;
+        detail::SynchronizeTimedMapNoticeWindow_455FC0(session);
+        detail::ResetTimedMapNotice_455C60(session);
 
         const std::uint32_t mask = gValue9FB918.mask;
         const std::uint32_t encoded = gValue9FB918.encoded;
@@ -10123,17 +10100,18 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& connection, const
 }
 
 // 原函数：0x0050D500。
-void HandleBattleResultsReply_50D500(cg::network::CgConnection&, const char* const payload)
+void HandleBattleResultsReply_50D500(cg::network::CgConnection& connection, const char* const payload)
 {
+    auto& session = connection.Owner();
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
-    gPendingResultWindowMode_FF0C10 = 1;
+    session.WorldScene().battleResult.pendingMode = 1;
     char row[2048];
     char entry[2048];
     char name[2048];
     std::int32_t field = 1;
-    for (BattleResultRecord& record : gBattleResultsFF0C14) {
+    for (BattleResultRecord& record : session.WorldScene().battleResult.records) {
         network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
         ++field;
         record.value00 = static_cast<std::uint16_t>(
@@ -10148,18 +10126,18 @@ void HandleBattleResultsReply_50D500(cg::network::CgConnection&, const char* con
     for (std::int32_t index = 0; index < 3; ++index) {
         network::ExtractDelimitedField_52CED0(row, '|', index + 1, 2047, entry);
         input::UnescapeLegacyText_52D150(entry);
-        gBattleResultGraphicsFF0D0C[index] =
+        session.WorldScene().battleResult.graphics[index] =
             network::ParseDelimitedInteger_52CFA0(entry, '|', 1);
         network::ExtractDelimitedField_52CED0(entry, '|', 2, 2047, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) <= 28) {
-            gBattleResultNamesFF0C34[index] = cg::text::FromGbkWide(name);
+            session.WorldScene().battleResult.names[index] = cg::text::FromGbkWide(name);
         } else {
-            gBattleResultNamesFF0C34[index].clear();
+            session.WorldScene().battleResult.names[index].clear();
         }
     }
 
-    for (BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {
+    for (BattleSkillResultRecord& record : session.WorldScene().battleResult.skills) {
         network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
         ++field;
         const auto bits = static_cast<std::uint16_t>(

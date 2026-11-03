@@ -522,7 +522,7 @@ std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* x, s
 // 原函数：0x00469C90。
 std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& session); // 完整移动输入、目标交互与普通/跟随分流。
 // 原函数：0x0046F680。
-std::uint8_t UpdateMapMouseTargetAndButtons_46F680(); // 完整鼠标目标格投影/绘制与四种事件生产。
+std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& session); // 完整鼠标目标格投影/绘制与四种事件生产。
 // 原函数：0x0046A990。
 void RebuildPartyFollowOrder_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。
 // 原函数：0x0046A5A0。

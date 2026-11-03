@@ -3,6 +3,7 @@
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/audio/LegacyAudio.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../../world/BattleState.hpp"
 #include "../../world/PlayerState.hpp"
 
@@ -82,7 +83,7 @@ static void WindowBattleCommand_SelectRidingSkill(std::int32_t technique); // �
 static std::int32_t WindowBattleCommand_ButtonPetSkills(ElementId elementId, std::int32_t state); // 宠物/骑乘技能窗开关。
 
 // 原函数：0x004982C0。
-static void WindowBattleCommand_DrawTimer(); // 完整倒计时/超时发送，本帧超时后仍绘制。
+static void WindowBattleCommand_DrawTimer(session::ClientSession& session); // 完整倒计时/超时发送，本帧超时后仍绘制。
 
 // 原函数：0x0043C3E0。
 static void WindowBattleCommand_DrawTargetHint(); // 553F80门禁及首个可选对象的目标提示，不要求鼠标命中。
@@ -1281,7 +1282,7 @@ static void WindowBattleCommand_ResetTargets(std::int32_t* const values, const s
 }
 
 // 原函数：0x00498520。
-void WindowBattleCommand_Dispatch()
+void WindowBattleCommand_Dispatch(session::ClientSession& session)
 {
     std::wstring buffer;
     const std::int32_t hitIndex = render::gHoveredGraphicPendingIndex;
@@ -1712,12 +1713,12 @@ void WindowBattleCommand_Dispatch()
     }
     const auto flags = reinterpret_cast<const std::uint8_t*>(&cg::world::gBattlePlayerFlags5ABCAC)[0];
     if ((flags & 0x1Cu) != 0x1Cu) {
-        WindowBattleCommand_DrawTimer();
+        WindowBattleCommand_DrawTimer(session);
     }
 }
 
 // 原函数：0x004982C0。
-static void WindowBattleCommand_DrawTimer()
+static void WindowBattleCommand_DrawTimer(session::ClientSession& session)
 {
     const std::uint64_t tick = platform::ReadTickCount64();
     std::int64_t remaining = std::bit_cast<std::int64_t>(cg::world::gBattleCommandDeadline5ABBF8 - tick);
@@ -1788,7 +1789,7 @@ static void WindowBattleCommand_DrawTimer()
             firstDigitX + index * 32, platform::gWindowHeight / 2, 209, imageBase + digit - '0', 0, nullptr));
     }
     if (cg::world::gBattleModeFlag5ABFCC == 1) {
-        const auto turn = std::bit_cast<std::int32_t>(cg::world::gBattleTurnSnapshot5ABC08 + 1u);
+        const auto turn = std::bit_cast<std::int32_t>(session.WorldScene().battle.turnSnapshot + 1u);
         cg::text::FormatTo(buffer, L"第 {} 回合", turn);
         const std::int32_t screenWidth = platform::gWindowWidth > 0 ? platform::gWindowWidth : 640;
         std::int32_t textWidth = render::TextMeasure(buffer, 0);

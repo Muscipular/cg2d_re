@@ -41,6 +41,9 @@ struct BattleSceneState {
     std::uint32_t exitNotificationPending = 0; // 原 0x5ABCB0。
     std::uint32_t entryPending = 0; // 原 0x5ABFC4，入战回复与世界场景共用。
     std::uint32_t firstTurnPending = 0; // 原 0x5ABC6C，首条 A 回复更新回合快照。
+    std::uint32_t endBits = 0; // 原 0x5ABBC0，A 回复中的角色结束位。
+    std::uint32_t turn = 0; // 原 0x5ABB74，A 回复回合数。
+    std::uint32_t turnSnapshot = 0; // 原 0x5ABC08，首包及事件分发回合快照。
     std::int32_t cWriteIndex = 0; // 原 0x5AAA6C，C 四槽写索引。
     std::int32_t cReadIndex = 0; // 原 0x5AAA44，C 四槽读索引。
     std::int32_t mWriteIndex = 0; // 原 0x5A3A1C，M 四槽写索引。

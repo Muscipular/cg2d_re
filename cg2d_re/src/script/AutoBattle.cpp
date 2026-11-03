@@ -433,7 +433,7 @@ static void PushAction(lua_State* L, const Action& action) {
 static void PushBattleInfo(session::ClientSession& session, lua_State* L) {
     autoBattleActionCount = 0;
     lua_newtable(L);
-    lua_pushinteger(L, cg::world::gBattleTurn5ABB74);
+    lua_pushinteger(L, session.WorldScene().battle.turn);
     lua_setfield(L, -2, "battleTurn");
     lua_pushinteger(L, cg::world::gBattleType5ABFC8);
     lua_setfield(L, -2, "battleType");

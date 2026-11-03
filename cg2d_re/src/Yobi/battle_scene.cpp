@@ -56,11 +56,11 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     }
     if (battle.turnMessagesExhausted == 1) {
         if (activeEvents == 0 && CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_CheckAllSelectedEntries) != 0) {
-            const std::uint32_t turn = cg::world::gBattleTurnSnapshot5ABC08;
+            const std::uint32_t turn = battle.turnSnapshot;
             battle.turnMessagesExhausted = 0;
             battle.eventDispatchBusy = 0;
             battle.pendingGroupCount = 0;
-            cg::world::gBattleTurnSnapshot5ABC08 = turn + 1U;
+            battle.turnSnapshot = turn + 1U;
             world::gCurrentSceneState = 2;
         }
         return;
@@ -320,15 +320,16 @@ void DrawBattleActorHpBar_4990A0(const std::int32_t index)
 
 
 // 原函数：0x0043BFF0。
-void EnableCompletedBattleActorIdleAnimation_43BFF0()
+void EnableCompletedBattleActorIdleAnimation_43BFF0(session::ClientSession& session)
 {
+    const auto& battle = session.WorldScene().battle;
     if (world::gCurrentSceneType != 10
-        || cg::world::gBattleTurnSnapshot5ABC08 != cg::world::gBattleTurn5ABB74) {
+        || battle.turnSnapshot != battle.turn) {
         return;
     }
     for (std::size_t index = 0; index < cg::world::gBattleEntries59E980.size(); ++index) {
         YobiAction* const action = cg::world::gBattleEntries59E980[index];
-        if (action != nullptr && ((std::bit_cast<std::int32_t>(cg::world::gBattleEndBits5ABBC0) >> index) & 1) != 0) {
+        if (action != nullptr && ((std::bit_cast<std::int32_t>(battle.endBits) >> index) & 1) != 0) {
             action->flags |= YobiActionFlag_BattleIdleAnimation;
         }
     }

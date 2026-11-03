@@ -420,7 +420,7 @@ cg::yobi::YobiAction* WindowMiniMap_Open(
 // 原函数：0x00495F70。
 std::int32_t WindowEmote_Select(std::int32_t index); // 清18B后选中指定字节，Y/X快照交4D3020。
 // 原函数：0x00498520。
-void WindowBattleCommand_Dispatch(); // 完整六态战斗命令分派，所有出口共用倒计时尾。
+void WindowBattleCommand_Dispatch(session::ClientSession& session); // 完整六态战斗命令分派，所有出口共用倒计时尾。
 // 原函数：0x0043C950。
 void WindowBattleStateNotice_Open(); // 玩家入场位且动画/窗口32均空才创建，失败也播放原音效。
 // 原函数：0x00496570。

@@ -2058,7 +2058,7 @@ void BeginBattleCommandSelection_43C4E0(session::ClientSession& session)
     gBattleSkillActionCount5ABBF4 = 0;
     gBattlePetActionCount5ABBBC = 0;
     cg::yobi::DisableBattleActorIdleAnimation_43C040();
-    cg::yobi::EnableCompletedBattleActorIdleAnimation_43BFF0();
+    cg::yobi::EnableCompletedBattleActorIdleAnimation_43BFF0(session);
     gBattleCommandX553F78 = platform::gWindowWidth - 147;
     gBattleCommandY553F7C = -106;
     gBattleCommandValue553F80 = 17;
@@ -2260,9 +2260,6 @@ std::uint32_t gBattleRebirthLevel5ABB7C = 0; // 原全局：0x005ABB7C。
 
 } // namespace detail
 std::uint32_t gBattleRidePet5ABC38 = 0; // 原全局：0x005ABC38。
-std::uint32_t gBattleEndBits5ABBC0 = 0; // 原全局：0x005ABBC0。
-std::uint32_t gBattleTurn5ABB74 = 0; // 原全局：0x005ABB74。
-std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
 
 namespace detail {
 static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(cg::yobi::YobiAction*));
@@ -4256,7 +4253,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70(session));
-        ui::detail::WindowBattleCommand_Dispatch();
+        ui::detail::WindowBattleCommand_Dispatch(session);
         RenderChara_521F20(session);
         UpdatePlayerCountdown_458F40();
         break;
@@ -10101,15 +10098,15 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& connection, const
         return;
     }
     if (kind == 'A') {
-        static_cast<void>(std::sscanf(text + 2, "%X|%X",
-            &gBattleEndBits5ABBC0, &gBattleTurn5ABB74));
         auto& battleScene = connection.Owner().WorldScene().battle;
+        static_cast<void>(std::sscanf(text + 2, "%X|%X",
+            &battleScene.endBits, &battleScene.turn));
         if (battleScene.firstTurnPending == 1) {
-            const std::uint32_t turn = gBattleTurn5ABB74;
+            const std::uint32_t turn = battleScene.turn;
             battleScene.firstTurnPending = 0;
-            gBattleTurnSnapshot5ABC08 = turn;
+            battleScene.turnSnapshot = turn;
         }
-        cg::yobi::EnableCompletedBattleActorIdleAnimation_43BFF0();
+        cg::yobi::EnableCompletedBattleActorIdleAnimation_43BFF0(connection.Owner());
         return;
     }
     if (text[1] == 'U') {

@@ -110,9 +110,6 @@ extern std::uint32_t gBattlePlayerFlags5ABCAC; // 原全局：0x005ABCAC。
 extern std::uint32_t gBattleSkillFlags5ABC04; // 原全局：0x005ABC04。
 extern std::uint32_t gBattlePetSkillFlags5ABB78; // 原全局：0x005ABB78。
 extern std::uint32_t gBattleRidePet5ABC38; // 原全局：0x005ABC38。
-extern std::uint32_t gBattleEndBits5ABBC0; // 原全局：0x005ABBC0。
-extern std::uint32_t gBattleTurn5ABB74; // 原全局：0x005ABB74。
-extern std::uint32_t gBattleTurnSnapshot5ABC08; // 原全局：0x005ABC08。
 
 namespace detail {
 // 原函数：0x0043CB10。

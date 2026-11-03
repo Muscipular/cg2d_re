@@ -386,7 +386,7 @@ void ClearBattleAppendEffects_43BED0(session::ClientSession& session); // 每次
 void DrawBattleActorHpBar_4990A0(std::int32_t index); // callback/独立HP解码门禁，重取对象后按flags绘双条。
 
 // 原43BFF0：场景10且回合一致时，按结束位给同源20槽非空对象flags置40H。
-void EnableCompletedBattleActorIdleAnimation_43BFF0();
+void EnableCompletedBattleActorIdleAnimation_43BFF0(session::ClientSession& session);
 // 原函数：0x0043C040。
 void DisableBattleActorIdleAnimation_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位或对象生命周期。
 // 原函数：0x0043C120。

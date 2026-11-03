@@ -1,4 +1,5 @@
 #include "WindowComponents.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../script/LuaUI.hpp"
 #include <algorithm>
 #include <limits>
@@ -133,7 +134,7 @@ bool WindowRuntime_RemoveElement(WindowInstance& window, ElementId id) {
     }
     if (element->type == WindowElementType_Input && element->data.input
         && component_detail::gCurrentInputData == element->data.input->context)
-        detail::WindowChat_RestoreInput();
+        detail::WindowChat_RestoreInput(*window.ownerSession);
     return true;
 }
 

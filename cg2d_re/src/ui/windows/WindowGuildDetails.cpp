@@ -118,13 +118,13 @@ static std::int32_t WindowGuildDetails_HasChangedRank(std::int32_t index); // �
 static std::int32_t WindowGuildDetails_HasChangedRanks(); // 完整扫描32职级，不首个差异早返。
 
 // 原函数：0x004AFB10。
-static std::int32_t WindowGuildDetails_SubmitName(); // 公会名称变更校验/转义/Ufm类型2发送。
+static std::int32_t WindowGuildDetails_SubmitName(session::ClientSession& session); // 公会名称变更校验/转义/Ufm类型2发送。
 
 // 原函数：0x004AFC00。
-static std::int32_t WindowGuildDetails_SubmitDescription(); // 公会第二文本变更校验/转义/Ufm类型3发送。
+static std::int32_t WindowGuildDetails_SubmitDescription(session::ClientSession& session); // 公会第二文本变更校验/转义/Ufm类型3发送。
 
 // 原函数：0x004AFCF0。
-static std::int32_t WindowGuildDetails_SubmitRanks(); // 先验证全体变化文本，再逐条GY发送并恢复聊天。
+static std::int32_t WindowGuildDetails_SubmitRanks(session::ClientSession& session); // 先验证全体变化文本，再逐条GY发送并恢复聊天。
 
 // 原函数：0x004AF180。
 static void WindowGuildDetails_RefreshReadOnly(); // 权限分流与只读刷新，原混合返回由caller弃用。
@@ -406,7 +406,7 @@ static void WindowGuildDetails_RefreshEditor()
     auto* elementsWindow = window;
     auto* const handleInputElement = elementsWindow->FindElementById(WindowGuildDetailsElementId::HandleInput);
     if (handleInputElement) {
-        if (gFocusedElementDataD45F94 == handleInputElement->data.input) {
+        if (currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData == handleInputElement->data.input) {
             char fieldBytes[41]{};
             cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[0].input.context));
             gGuildDraftCF4018.name604 = input::ContextText(*gGuildInputs57F040[0].input.context);
@@ -437,7 +437,7 @@ static void WindowGuildDetails_RefreshEditor()
     elementsWindow = window;
     auto* const handleInput_2Element = elementsWindow->FindElementById(WindowGuildDetailsElementId::HandleInput_2);
     if (handleInput_2Element) {
-        if (gFocusedElementDataD45F94 == handleInput_2Element->data.input) {
+        if (currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData == handleInput_2Element->data.input) {
             if (auto* const element11 = elementsWindow->FindElementById(WindowGuildDetailsElementId::Element11); element11) element11->visible = 0;
             char fieldBytes[41]{};
             cg::text::StoreGbk(fieldBytes, sizeof(fieldBytes), input::ContextText(*gGuildInputs57F040[1].input.context));
@@ -469,7 +469,7 @@ static void WindowGuildDetails_RefreshEditor()
         elementsWindow = window;
         auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(row + 2));
         if (indexedElement) {
-            if (gFocusedElementDataD45F94 == indexedElement->data.input) {
+            if (currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData == indexedElement->data.input) {
                 if (auto* const indexedElement2 = elementsWindow->FindElementById(NativeElementKey(row + 11)); indexedElement2) indexedElement2->visible = 0;
                 WindowGuildDetails_SaveInputDraft(row + 2);
                 WindowInstance* const current = currentWindow;
@@ -572,7 +572,7 @@ static std::int32_t WindowGuildDetails_CommitFocusedInput()
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    void* const focused = gFocusedElementDataD45F94;
+    void* const focused = currentWindow->ownerSession->UiFrame().native.pointer.focusedElementData;
     auto* elementsWindow = window;
     for (std::int32_t index = 0; index < 9; ++index) {
         auto* const indexedElement = elementsWindow->FindElementById(NativeElementKey(index));
@@ -671,9 +671,9 @@ static std::int32_t WindowGuildDetails_HandleActionButton(WindowInstance& callba
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (graphic) graphic->imageNo = 0x3B56F;
         switch (static_cast<WindowGuildDetailsElementId>(elementId)) {
-        case WindowGuildDetailsElementId::HandleActionButton: static_cast<void>(WindowGuildDetails_SubmitName()); break;
-        case WindowGuildDetailsElementId::HandleActionButton_66: static_cast<void>(WindowGuildDetails_SubmitDescription()); break;
-        case WindowGuildDetailsElementId::HandleActionButton_73: static_cast<void>(WindowGuildDetails_SubmitRanks()); break;
+        case WindowGuildDetailsElementId::HandleActionButton: static_cast<void>(WindowGuildDetails_SubmitName(*callbackWindow.ownerSession)); break;
+        case WindowGuildDetailsElementId::HandleActionButton_66: static_cast<void>(WindowGuildDetails_SubmitDescription(*callbackWindow.ownerSession)); break;
+        case WindowGuildDetailsElementId::HandleActionButton_73: static_cast<void>(WindowGuildDetails_SubmitRanks(*callbackWindow.ownerSession)); break;
         }
         if (graphic) graphic->imageNo = 0x3B56F;
         return 1;
@@ -695,7 +695,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
     auto* elementsWindow = window;
     auto* const indexedElement = elementsWindow->FindElementById(elementId);
     if (indexedElement) {
-        if (gFocusedElementDataD45F94 == indexedElement->data.input) {
+        if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData == indexedElement->data.input) {
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gGuildInputs57F040[index], x, y, 2));
@@ -720,7 +720,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         WindowInstance* const focused = currentWindow;
         auto* const indexedElement3 = focused->FindElementById(elementId);
         if (indexedElement3) {
-            gFocusedElementDataD45F94 = indexedElement3->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = indexedElement3->data.input;
         }
         auto* const indexedElement4 = focused->FindElementById(elementId);
         if (indexedElement4) {
@@ -744,7 +744,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
         WindowInstance* const focused = currentWindow;
         auto* const indexedElement3 = focused->FindElementById(elementId);
         if (indexedElement3) {
-            gFocusedElementDataD45F94 = indexedElement3->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = indexedElement3->data.input;
         }
         auto* const indexedElement4 = focused->FindElementById(elementId);
         if (indexedElement4) {
@@ -778,7 +778,7 @@ static std::int32_t WindowGuildDetails_HandleScrollButtons(WindowInstance& callb
     if ((state & MouseFlag_LRepeatDown) != 0) {
         gGuildPageD67B78 += elementId == static_cast<ElementId>(WindowGuildDetailsElementId::HandleScrollButtons) ? -1 : 1;
         WindowGuildDetails_ScrollRow();
-        static_cast<void>(WindowChat_RestoreInput());
+        static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
         return 1;
     }
     return 0;
@@ -790,7 +790,7 @@ static std::int32_t WindowGuildDetails_HandleScrollFocus(WindowInstance& callbac
 {
     const std::int32_t result = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     if (result == 1) {
-        static_cast<void>(WindowChat_RestoreInput());
+        static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     }
     return result;
 }
@@ -809,7 +809,7 @@ static std::int32_t WindowGuildDetails_Scroll(WindowInstance& callbackWindow, co
             if (handleScrollFocusElement) {
                 gGuildPageD67B78 = WindowScroll_ApplyWheel(handleScrollFocusElement, page, 25, wheel);
             }
-            static_cast<void>(WindowChat_RestoreInput());
+            static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
         }
     }
     return 0;
@@ -880,7 +880,7 @@ static std::int32_t WindowGuildDetails_HasChangedRanks()
 }
 
 // 原函数：0x004AFB10。
-static std::int32_t WindowGuildDetails_SubmitName()
+static std::int32_t WindowGuildDetails_SubmitName(session::ClientSession& session)
 {
     std::int32_t result = gGuildDraftCF4018.name604.compare(cg::world::GetGuildName());
     if (result == 0) {
@@ -895,13 +895,13 @@ static std::int32_t WindowGuildDetails_SubmitName()
         return result;
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(gGuildDraftCF4018.name604, 256);
-    static_cast<void>(cg::network::GetGameConnection().SendGuildTextUpdate(2, escapedText));
+    static_cast<void>(session.Connection().SendGuildTextUpdate(2, escapedText));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
-    return WindowChat_RestoreInput();
+    return WindowChat_RestoreInput(session);
 }
 
 // 原函数：0x004AFC00。
-static std::int32_t WindowGuildDetails_SubmitDescription()
+static std::int32_t WindowGuildDetails_SubmitDescription(session::ClientSession& session)
 {
     std::int32_t result = gGuildDraftCF4018.secondText634.compare(cg::world::GetGuildSecondText());
     if (result == 0) {
@@ -916,13 +916,13 @@ static std::int32_t WindowGuildDetails_SubmitDescription()
         return result;
     }
     const std::wstring escapedText = input::EscapeTextAndNotify(gGuildDraftCF4018.secondText634, 256);
-    static_cast<void>(cg::network::GetGameConnection().SendGuildTextUpdate(3, escapedText));
+    static_cast<void>(session.Connection().SendGuildTextUpdate(3, escapedText));
     static_cast<void>(audio::PlaySe_52C450(79, 320));
-    return WindowChat_RestoreInput();
+    return WindowChat_RestoreInput(session);
 }
 
 // 原函数：0x004AFCF0。
-static std::int32_t WindowGuildDetails_SubmitRanks()
+static std::int32_t WindowGuildDetails_SubmitRanks(session::ClientSession& session)
 {
     for (std::int32_t index = 0; index < 32; ++index) {
         const wchar_t* const text = gGuildDraftCF4018.ranks[index].text.data();
@@ -943,12 +943,12 @@ static std::int32_t WindowGuildDetails_SubmitRanks()
             || cg::world::ReadGuildRankFlags1051514(index) != gGuildDraftCF4018.ranks[index].flags) {
             const std::wstring escapedText = input::EscapeTextAndNotify(draft, 256);
             const std::int32_t flags = gGuildDraftCF4018.ranks[index].flags;
-            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-            static_cast<void>(cg::network::GetGameConnection().SendGuildRankDefinition(index, flags, escapedText));
+            const auto networkSession = session.Connection().CaptureSession();
+            static_cast<void>(session.Connection().SendGuildRankDefinition(index, flags, escapedText));
             static_cast<void>(audio::PlaySe_52C450(79, 320));
         }
     }
-    return WindowChat_RestoreInput();
+    return WindowChat_RestoreInput(session);
 }
 
 // 原函数：0x004A3950。

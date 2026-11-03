@@ -452,7 +452,7 @@ static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std:
         WindowInstance* const current = currentWindow;
         auto* const handleInputElement = current->FindElementById(WindowChatElementId::HandleInput);
         if (handleInputElement) {
-            gFocusedElementDataD45F94 = handleInputElement->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
         auto* const handleInputElement2 = current->FindElementById(WindowChatElementId::HandleInput);
         if (handleInputElement2) {
@@ -735,7 +735,7 @@ static std::int32_t WindowChat_HandleInput(WindowInstance& callbackWindow, const
         WindowInstance* const current = currentWindow;
         auto* const handleInputElement = focusedElementsWindow ? focusedElementsWindow->FindElementById(WindowChatElementId::HandleInput) : nullptr;
         if (handleInputElement) {
-            gFocusedElementDataD45F94 = handleInputElement->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
         auto* const handleInputElement2 = current->FindElementById(WindowChatElementId::HandleInput);
         if (handleInputElement2) {
@@ -764,7 +764,7 @@ static std::int32_t WindowCompactChat_Update(WindowInstance& callbackWindow, con
         WindowInstance* const current = currentWindow;
         auto* const handleInputElement = current->FindElementById(WindowChatElementId::HandleInput);
         if (handleInputElement) {
-            gFocusedElementDataD45F94 = handleInputElement->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
         auto* const handleInputElement2 = current->FindElementById(WindowChatElementId::HandleInput);
         if (handleInputElement2) {
@@ -990,20 +990,20 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
 }
 
 // 原函数：0x004A7B00。
-std::int32_t WindowChat_RestoreInput()
+std::int32_t WindowChat_RestoreInput(session::ClientSession& session)
 {
-    const std::int32_t mode = WindowRuntime_Settings().chatMode;
+    const std::int32_t mode = WindowRuntime_Settings(session).chatMode;
     if (mode == 1) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_CompactChat].window;
+        WindowInstance* const window = WindowRuntime_States(session)[WindowId_CompactChat].window;
         if (window == nullptr) {
             return 0;
         }
         const std::int32_t y = window->y;
         const std::int32_t x = window->x;
         static_cast<void>(WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3));
-        auto* const handleInputElement = WindowRuntime_States()[WindowId_CompactChat].window ? WindowRuntime_States()[WindowId_CompactChat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
+        auto* const handleInputElement = WindowRuntime_States(session)[WindowId_CompactChat].window ? WindowRuntime_States(session)[WindowId_CompactChat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
         if (handleInputElement) {
-            gFocusedElementDataD45F94 = handleInputElement->data.input;
+            session.UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
         return 1;
@@ -1011,7 +1011,7 @@ std::int32_t WindowChat_RestoreInput()
     if (mode != 0) {
         return 0;
     }
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Chat].window;
     if (window == nullptr) {
         return 0;
     }
@@ -1019,7 +1019,7 @@ std::int32_t WindowChat_RestoreInput()
     const std::int32_t x = window->x;
     if (WindowInput_ActivateElement(&gChatInputPrototype57E970, x, y, 3) == 0) {
         for (;;) {
-            WindowInstance* const currentWindow = WindowRuntime_States()[WindowId_Chat].window;
+            WindowInstance* const currentWindow = WindowRuntime_States(session)[WindowId_Chat].window;
             gChatInputPrototype57E970.input.context = &cg::ui::detail::gInputContext626AA0;
             gChatInputPrototype57E970.input.kind = WindowInputReferenceKind::Context;
             gChatInputPrototype57E970.x = 8;
@@ -1039,9 +1039,9 @@ std::int32_t WindowChat_RestoreInput()
             }
         }
     }
-    auto* const handleInputElement = WindowRuntime_States()[WindowId_Chat].window ? WindowRuntime_States()[WindowId_Chat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
+    auto* const handleInputElement = WindowRuntime_States(session)[WindowId_Chat].window ? WindowRuntime_States(session)[WindowId_Chat].window->FindElementById(WindowChatElementId::HandleInput) : nullptr;
     if (handleInputElement) {
-        gFocusedElementDataD45F94 = handleInputElement->data.input;
+        session.UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
     }
     input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
     return 1;

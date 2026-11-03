@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/MailState.hpp"
 #include "../../world/PlayerState.hpp"
@@ -402,7 +403,7 @@ static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, c
     WindowInstance* const window = currentWindow;
     auto* const indexedElement = window->FindElementById(elementId);
     if (indexedElement) {
-        if (gFocusedElementDataD45F94 != indexedElement->data.input) {
+        if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != indexedElement->data.input) {
             const auto& current = world::detail::gCurrentProfile10738E8;
             const wchar_t* const source =
                 elementId == static_cast<ElementId>(WindowOwnProfileElementId::EditField_9) ? current.text728.data() : current.entries410[index - 5].text08.data();
@@ -414,7 +415,7 @@ static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, c
             WindowInstance* const focused = currentWindow;
             auto* const indexedElement2 = focused->FindElementById(elementId);
             if (indexedElement2) {
-                gFocusedElementDataD45F94 = indexedElement2->data.input;
+                callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = indexedElement2->data.input;
             }
             if (auto* const indexedElement3 = focused->FindElementById(elementId); indexedElement3) indexedElement3->data.input->context = context;
         }

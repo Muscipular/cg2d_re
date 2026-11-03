@@ -92,7 +92,7 @@ void WindowElement_BlurInput(WindowElement& element) {
     data.focused = false;
     data.previousInput = nullptr;
     if (focusedInput.winId == element.owner->id && focusedInput.elementId == element.elementId) focusedInput = {};
-    if (detail::gFocusedElementDataD45F94 == element.data.input) detail::gFocusedElementDataD45F94 = data.previousElement;
+    if (element.owner->ownerSession->UiFrame().native.pointer.focusedElementData == element.data.input) element.owner->ownerSession->UiFrame().native.pointer.focusedElementData = data.previousElement;
     data.previousElement = nullptr;
     if (gCurrentInputData == &data.context || !gCurrentInputData) InputSetContext(restoreInput);
 }
@@ -103,12 +103,12 @@ void WindowElement_FocusInput(WindowElement& element) {
     auto& data = *element.data.input->ownedInput;
     if (!data.focused) {
         data.previousInput = gCurrentInputData && gCurrentInputData != &data.context ? gCurrentInputData : gDefaultInputData;
-        data.previousElement = detail::gFocusedElementDataD45F94;
+        data.previousElement = element.owner->ownerSession->UiFrame().native.pointer.focusedElementData;
         data.focused = true;
     }
     focusedInput = WindowRuntime_ElementRef(element);
     ClampInputContextText(data.context, data.maxLength);
-    detail::gFocusedElementDataD45F94 = element.data.input;
+    element.owner->ownerSession->UiFrame().native.pointer.focusedElementData = element.data.input;
     InputSetContext(&data.context);
 }
 void WindowInput_SetText(WindowInputData& input, std::wstring_view text) {

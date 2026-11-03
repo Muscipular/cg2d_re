@@ -2232,7 +2232,7 @@ static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
             auto* const handleAmountInputElement = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
             if (handleAmountInputElement) {
-                gFocusedElementDataD45F94 = handleAmountInputElement->data.input;
+                callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleAmountInputElement->data.input;
             }
             auto* const handleAmountInputElement2 = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
             if (handleAmountInputElement2) {
@@ -2241,7 +2241,7 @@ static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow
             }
         }
     } else if (input::gCurrentInputData == &cg::ui::detail::gInputContextCC21E8) {
-        static_cast<void>(WindowChat_RestoreInput());
+        static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     }
     return 0;
 }

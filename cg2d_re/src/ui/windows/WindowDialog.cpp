@@ -315,7 +315,7 @@ static std::int32_t WindowDialog_Update(WindowInstance& callbackWindow, const st
             window = currentWindow;
             auto* const element82 = window->FindElementById(WindowDialogElementId::Element8);
             if (element82) {
-                gFocusedElementDataD45F94 = element82->data.input;
+                callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = element82->data.input;
             }
             if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &dialog.input;
             dialog.message.selectedInput = 0;
@@ -611,7 +611,7 @@ static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWin
                 window = currentWindow;
                 auto* const element82 = window->FindElementById(WindowDialogElementId::Element8);
                 if (element82) {
-                    gFocusedElementDataD45F94 = element82->data.input;
+                    callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = element82->data.input;
                 }
                 if (auto* const element83 = window->FindElementById(WindowDialogElementId::Element8); element83) element83->data.input->context = &dialog.input;
                 const std::wstring* const texts = dialog.message.inputTexts.data();

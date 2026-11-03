@@ -324,7 +324,7 @@ static std::int32_t WindowCraft_ReleaseMaterials(session::ClientSession& session
     craft.selectedItem = -1;
     craft.selectedImage = -1;
     craft.selectedCount = -1;
-    return WindowChat_RestoreInput();
+    return WindowChat_RestoreInput(session);
 }
 
 // 原函数：0x0047DCD0。
@@ -1756,7 +1756,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
         } else if (world::gSkillsF1BAFC[craft.skillIndex].skillId != 220) {
             static_cast<void>(WindowCraft_WaitItemWork(*callbackWindow.ownerSession, currentWindow));
             if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
-                static_cast<void>(WindowChat_RestoreInput());
+                static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
@@ -1798,7 +1798,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             if (notice >= 0) {
                 if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(notice)); indexedElement) indexedElement->visible = 1;
                 if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
-                    static_cast<void>(WindowChat_RestoreInput());
+                    static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
                 }
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (send) {
@@ -1822,7 +1822,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 input::InputContext* const current = input::gCurrentInputData;
                 craft.selectionMode = 5;
                 if (current == &cg::ui::detail::gInputContextD2DE70) {
-                    static_cast<void>(WindowChat_RestoreInput());
+                    static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
                 }
                 cg::ui::detail::gInputContextD2DE70.clearText();
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2408,7 +2408,7 @@ static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWin
     WindowInstance* const current = currentWindow;
     auto* const element82 = current->FindElementById(WindowCraftElementId::Element8);
     if (element82) {
-        gFocusedElementDataD45F94 = element82->data.input;
+        callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = element82->data.input;
     }
     auto* const element83 = current->FindElementById(WindowCraftElementId::Element8);
     if (element83) {

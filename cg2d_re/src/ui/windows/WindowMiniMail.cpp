@@ -133,7 +133,7 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
         input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
         auto* const handleInputElement = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
         if (handleInputElement) {
-            gFocusedElementDataD45F94 = handleInputElement->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
         auto* const handleInputElement2 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
         if (handleInputElement2) {
@@ -158,13 +158,13 @@ static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, c
         WindowInstance* const window = currentWindow;
         auto* const handleInputElement = window->FindElementById(WindowMiniMailElementId::HandleInput);
         if (handleInputElement) {
-            if (gFocusedElementDataD45F94 != handleInputElement->data.input) {
+            if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != handleInputElement->data.input) {
                 static_cast<void>(WindowInput_ActivateElement(
                     &gMiniMailInputPrototype580CB0, window->x, window->y, 1));
                 input::SetContext_44B330(&cg::ui::detail::gInputContextCA0180);
                 auto* const handleInputElement2 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
                 if (handleInputElement2) {
-                    gFocusedElementDataD45F94 = handleInputElement2->data.input;
+                    callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement2->data.input;
                 }
                 auto* const handleInputElement3 = currentWindow->FindElementById(WindowMiniMailElementId::HandleInput);
                 if (handleInputElement3) {

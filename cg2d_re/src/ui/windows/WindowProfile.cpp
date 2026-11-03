@@ -131,7 +131,7 @@ std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const E
             }
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(WindowChat_RestoreInput());
+            static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
             static_cast<void>(world::detail::PublishPlayerProfile_533C80(0));
             return 1;
         }

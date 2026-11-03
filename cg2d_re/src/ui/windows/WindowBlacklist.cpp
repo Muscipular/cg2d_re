@@ -352,7 +352,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
         return 1;
     }
     WindowInstance* const window = currentWindow;
-    void* const focused = gFocusedElementDataD45F94;
+    void* const focused = callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData;
     auto* elementsWindow = window;
     auto* const buttonCloseElement = elementsWindow->FindElementById(WindowBlacklistElementId::ButtonClose);
     if (!buttonCloseElement) { return 0; }
@@ -369,7 +369,7 @@ static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, cons
     if (changeFocus) {
         auto* const buttonCloseElement2 = currentWindow->FindElementById(WindowBlacklistElementId::ButtonClose);
         if (buttonCloseElement2) {
-            gFocusedElementDataD45F94 = buttonCloseElement2->data.graphic;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = buttonCloseElement2->data.graphic;
         }
     }
     return 1;

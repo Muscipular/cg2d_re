@@ -528,7 +528,7 @@ static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow
             const std::int16_t pet = petIndex(position);
             static_cast<void>(callbackWindow.ownerSession->Connection().RenamePetRequest(pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
-            WindowChat_RestoreInput();
+            WindowChat_RestoreInput(*callbackWindow.ownerSession);
             if (text.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();
@@ -660,7 +660,7 @@ std::int32_t WindowPetDetail_EditName(WindowInstance& callbackWindow, const Elem
     WindowInstance* const focused = currentWindow;
     auto* const indexedElement = focused->FindElementById(elementId);
     if (indexedElement) {
-        gFocusedElementDataD45F94 = indexedElement->data.input;
+        callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = indexedElement->data.input;
     }
     if (auto* const indexedElement2 = focused->FindElementById(elementId); indexedElement2) indexedElement2->data.input->context = &cg::ui::detail::gInputContextD2D4A0;
     return 1;

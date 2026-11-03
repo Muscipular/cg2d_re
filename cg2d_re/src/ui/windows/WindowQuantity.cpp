@@ -146,7 +146,7 @@ static std::int32_t WindowQuantity_HandleInput(WindowInstance& callbackWindow, c
         WindowInstance* const window = currentWindow;
         auto* const handleInputElement = window->FindElementById(WindowQuantityElementId::HandleInput);
         if (handleInputElement) {
-            gFocusedElementDataD45F94 = handleInputElement->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
         if (auto* const handleInputElement2 = window->FindElementById(WindowQuantityElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &cg::ui::detail::gInputContextCB0878;
     }

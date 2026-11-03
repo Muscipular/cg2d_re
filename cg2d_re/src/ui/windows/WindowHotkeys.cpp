@@ -432,7 +432,7 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
         const auto firstInput = reinterpret_cast<std::uintptr_t>(&cg::ui::detail::gInputContexts5F9758[0]);
         const auto lastInput = reinterpret_cast<std::uintptr_t>(&cg::ui::detail::gInputContexts5F9758[23]);
         if (currentInput >= firstInput && currentInput <= lastInput) {
-            WindowChat_RestoreInput();
+            WindowChat_RestoreInput(*callbackWindow.ownerSession);
             gHotkeySelectedCC4B20 = -1;
         }
     }
@@ -878,7 +878,7 @@ static std::int32_t WindowHotkeys_EditPresetText(WindowInstance& callbackWindow,
         WindowInstance* const window = currentWindow;
         auto* const element1 = window->FindElementById(WindowHotkeysElementId::Element1);
         if (element1) {
-            gFocusedElementDataD45F94 = element1->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = element1->data.input;
         }
         input::InputContext* const selectedContext = &cg::ui::detail::gInputContexts5F9758[gHotkeySelectedCC4B20];
         auto* const element12 = window->FindElementById(WindowHotkeysElementId::Element1);

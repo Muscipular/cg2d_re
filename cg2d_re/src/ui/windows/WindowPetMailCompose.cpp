@@ -118,7 +118,7 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
         gMailInputPrototype57E740.text.clear();
         auto* const handleInputElement = focused->FindElementById(WindowPetMailComposeElementId::HandleInput);
         if (handleInputElement) {
-            gFocusedElementDataD45F94 = handleInputElement->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
         if (auto* const handleInputElement2 = focused->FindElementById(WindowPetMailComposeElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &cg::ui::detail::gInputContextD66CA8;
     }

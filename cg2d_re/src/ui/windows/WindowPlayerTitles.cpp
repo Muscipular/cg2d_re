@@ -197,7 +197,7 @@ static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow,
     WindowInstance* const window = currentWindow;
     auto* const editDraftElement = window->FindElementById(WindowPlayerTitlesElementId::EditDraft);
     if (editDraftElement) {
-        if (gFocusedElementDataD45F94 != editDraftElement->data.input) {
+        if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editDraftElement->data.input) {
             gTitleInputPrototype57CCB8.text = gTitleDraftD45FC0;
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
@@ -206,7 +206,7 @@ static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow,
             WindowInstance* const focused = currentWindow;
             auto* const editDraftElement2 = focused->FindElementById(WindowPlayerTitlesElementId::EditDraft);
             if (editDraftElement2) {
-                gFocusedElementDataD45F94 = editDraftElement2->data.input;
+                callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = editDraftElement2->data.input;
             }
             auto* const editDraftElement3 = focused->FindElementById(WindowPlayerTitlesElementId::EditDraft);
             if (editDraftElement3) {
@@ -313,7 +313,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWin
             const std::wstring escapedText = input::EscapeTextAndNotify(gTitleDraftD45FC0, 128);
             static_cast<void>(callbackWindow.ownerSession->Connection().SetCustomPlayerTitleRequest(escapedText));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(WindowChat_RestoreInput());
+            static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {

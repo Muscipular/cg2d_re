@@ -1266,7 +1266,7 @@ LuaFunctionEx(LuaControlRef, Set) {
             ui::WindowRuntime_BlurElement(*control);
             if (control->type == ui::WindowElementType_Input && control->data.input
                 && !control->data.input->ownedInput && gCurrentInputData == control->data.input->context)
-                ui::detail::WindowChat_RestoreInput();
+                ui::detail::WindowChat_RestoreInput(*control->owner->ownerSession);
         }
     }
     if (LuaHasField(L, 2, "hitable")) {

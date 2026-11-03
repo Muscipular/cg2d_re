@@ -540,6 +540,7 @@ struct WindowPointerRuntimeState {
     std::int32_t phase = 0; // 原0x57C128。
     ElementId currentElementId = 0; // 原0x57C12C，MEI01以0表示无当前元素。
     std::int32_t currentWindowId = 0; // 原0xD67A1C。
+    void* focusedElementData = nullptr; // 原0xD45F94，异型元素载荷借用，不是InputContext。
 };
 
 // 拆分数量框回送时读取的物品来源/目标，保留原独立发布顺序。

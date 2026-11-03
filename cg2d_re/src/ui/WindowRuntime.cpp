@@ -150,7 +150,7 @@ static void WindowRuntime_MarkExistingWindows(session::ClientSession& session); 
 static void WindowRuntime_ResetMouseAndItemFlags(session::ClientSession& session); // 完整鼠标/拖动重置，先清D67B08七W32。
 
 // 原函数：0x004722E0。
-static void WindowRuntime_ClearElementFocus(); // 只清异型元素焦点引用。
+static void WindowRuntime_ClearElementFocus(session::ClientSession& session); // 只清异型元素焦点引用。
 
 // 原函数：0x004722F0。
 static void WindowRuntime_RestoreMarkedWindows(session::ClientSession& session); // marker严格1才分派，四个特殊窗口按原序恢复。
@@ -243,8 +243,6 @@ std::int32_t gItemDragYCC4884 = 0; // 原全局：0x00CC4884。
 std::int32_t gDraggingCA0B28 = 0; // 原全局：0x00CA0B28。
 
 std::int32_t gHoverDescriptionEnabled_58589C = 1; // 原全局：0x0058589C。
-
-void* gFocusedElementDataD45F94 = nullptr; // 原全局：0x00D45F94。
 
 std::uint32_t gWindowHasFocusCA0AB4 = 0; // 原全局：0x00CA0AB4。
 
@@ -2870,9 +2868,9 @@ static void WindowRuntime_ResetMouseAndItemFlags(session::ClientSession& session
 }
 
 // 原函数：0x004722E0。
-static void WindowRuntime_ClearElementFocus()
+static void WindowRuntime_ClearElementFocus(session::ClientSession& session)
 {
-    gFocusedElementDataD45F94 = nullptr;
+    session.UiFrame().native.pointer.focusedElementData = nullptr;
 }
 
 // 原函数：0x004722F0。
@@ -3349,13 +3347,13 @@ static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
     WindowRuntime_ResetReferences(session);
     WindowRuntime_OpenConfiguredWindows(session);
     WindowRuntime_RestoreMarkedWindows(session);
-    WindowRuntime_ClearElementFocus();
+    WindowRuntime_ClearElementFocus(session);
     gSelectedItemCB1DF4 = -1;
     session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences(session);
     gPreviewActionD67B84 = nullptr;
     input::gChatPanelVisible_C9A96C = 1;
-    static_cast<void>(WindowChat_RestoreInput());
+    static_cast<void>(WindowChat_RestoreInput(session));
 }
 
 // 原函数：0x00471170。
@@ -3363,7 +3361,7 @@ static void WindowRuntime_OpenBattleScene(session::ClientSession& session)
 {
     auto& states = WindowRuntime_States(session);
     WindowRuntime_ResetReferences(session);
-    WindowRuntime_ClearElementFocus();
+    WindowRuntime_ClearElementFocus(session);
     static_cast<void>(WindowRuntime_Open(session, WindowId_BottomBar));
     static_cast<void>(WindowRuntime_Open(session, WindowId_CompactStatusBar));
     switch (WindowRuntime_Settings(session).chatMode) {
@@ -3396,7 +3394,7 @@ static void WindowRuntime_OpenBattleScene(session::ClientSession& session)
     gPreviewActionD67B84 = nullptr;
     input::gChatPanelVisible_C9A96C = 1;
     if (window22 == nullptr && states[WindowId_PetMailCompose].window == nullptr) {
-        static_cast<void>(WindowChat_RestoreInput());
+        static_cast<void>(WindowChat_RestoreInput(session));
     }
 }
 
@@ -3413,7 +3411,7 @@ static void WindowRuntime_MarkSceneWindows(session::ClientSession& session)
 static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
 {
     WindowRuntime_ResetReferences(session);
-    WindowRuntime_ClearElementFocus();
+    WindowRuntime_ClearElementFocus(session);
     WindowRuntime_OpenConfiguredWindows(session);
     WindowRuntime_RestoreMarkedWindows(session);
     gSelectedItemCB1DF4 = -1;
@@ -3425,7 +3423,7 @@ static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
         input::gChatPanelVisible_C9A96C = 1;
     }
     if (WindowRuntime_States(session)[WindowId_MailCompose].window == nullptr && WindowRuntime_States(session)[WindowId_PetMailCompose].window == nullptr) {
-        static_cast<void>(WindowChat_RestoreInput());
+        static_cast<void>(WindowChat_RestoreInput(session));
     }
 }
 
@@ -5185,7 +5183,7 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
     case WindowElementType_Input: {
         WindowElement_PrepareInput(*element, ox, oy, clip);
         const auto* const data = element->data.input;
-        if (data == gFocusedElementDataD45F94) {
+        if (data == window.ownerSession->UiFrame().native.pointer.focusedElementData) {
             if (input::gCurrentInputData == &cg::ui::detail::gInputContext626AA0) {
                 if (input::gChatPanelVisible_C9A96C == 1) {
                     WindowChat_DrawInput(data->context);

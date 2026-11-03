@@ -609,7 +609,7 @@ static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, c
                 const std::wstring name = input::EscapeTextAndNotify(proposedTitle, 255);
                 const std::wstring packet = input::EscapeText(L"N|" + name, 255);
                 gWindowTitleCC4118 = proposedTitle;
-                static_cast<void>(WindowChat_RestoreInput());
+                static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
                 auto* const element4 = currentWindow->FindElementById(WindowTextListElementId::Element4);
                 if (element4) {
                     auto* const title = element4->data.text;
@@ -712,7 +712,7 @@ static std::int32_t WindowTextList_EditTitle(WindowInstance& callbackWindow, con
     WindowInstance* const focusedWindow = currentWindow;
     auto* const element54 = focusedWindow->FindElementById(WindowTextListElementId::Element5);
     if (element54) {
-        gFocusedElementDataD45F94 = element54->data.input;
+        callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = element54->data.input;
     }
     if (auto* const element55 = focusedWindow->FindElementById(WindowTextListElementId::Element5); element55) element55->data.input->context = &cg::ui::detail::gInputContextCC49C0;
     static_cast<void>(audio::PlaySe_52C450(51, 320));

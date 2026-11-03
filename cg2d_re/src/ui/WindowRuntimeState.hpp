@@ -709,7 +709,6 @@ extern std::int32_t gItemDragXCC4880; // 原全局：0x00CC4880。
 extern std::int32_t gItemDragYCC4884; // 原全局：0x00CC4884。
 extern std::int32_t gDraggingCA0B28; // 原全局：0x00CA0B28。
 extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C。 原初值1，命中描述门禁与物品拖动重置共享。
-extern void* gFocusedElementDataD45F94; // 原全局：0x00D45F94。 原异型元素载荷地址，仅借用，不是InputContext。
 extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
@@ -880,7 +879,7 @@ std::uint8_t WindowInput_ActivateElement(
     WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,
     std::uint32_t mode);
 // 原函数：0x004A7B00。
-std::int32_t WindowChat_RestoreInput();
+std::int32_t WindowChat_RestoreInput(session::ClientSession& session);
 // 原函数：0x00477490。
 WindowInstance* WindowRuntime_FindById(std::int32_t id); // 顺序扫描71显示槽；原循环不跳过空槽。
 // CIG01：IME测量后先字体宽度再聊天单位取样；见doc/cg2d_input_scroll_draw_spec.md。

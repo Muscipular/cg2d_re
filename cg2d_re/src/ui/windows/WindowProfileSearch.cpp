@@ -330,14 +330,14 @@ static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWind
         WindowInstance* const window = currentWindow;
         auto* const editKeywordElement = window->FindElementById(WindowProfileSearchElementId::EditKeyword);
         if (editKeywordElement) {
-            if (gFocusedElementDataD45F94 != editKeywordElement->data.input) {
+            if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != editKeywordElement->data.input) {
                 gProfileSearchInputPrototype580A80.text = gProfileSearchKeyword1075988;
                 static_cast<void>(WindowInput_ActivateElement(
                     &gProfileSearchInputPrototype580A80, window->x, window->y, 0));
                 input::SetContext_44B330(&cg::ui::detail::gInputContextCB0610);
                 auto* const editKeywordElement2 = currentWindow->FindElementById(WindowProfileSearchElementId::EditKeyword);
                 if (editKeywordElement2) {
-                    gFocusedElementDataD45F94 = editKeywordElement2->data.input;
+                    callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = editKeywordElement2->data.input;
                 }
                 auto* const editKeywordElement3 = currentWindow->FindElementById(WindowProfileSearchElementId::EditKeyword);
                 if (editKeywordElement3) {

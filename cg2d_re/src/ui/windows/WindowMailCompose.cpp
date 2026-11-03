@@ -124,7 +124,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
         gMailInputPrototype57E740.text.clear();
         auto* const handleInputElement = focused->FindElementById(WindowMailComposeElementId::HandleInput);
         if (handleInputElement) {
-            gFocusedElementDataD45F94 = handleInputElement->data.input;
+            callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement->data.input;
         }
         if (auto* const handleInputElement2 = focused->FindElementById(WindowMailComposeElementId::HandleInput); handleInputElement2) handleInputElement2->data.input->context = &cg::ui::detail::gInputContextD66CA8;
         gLoginWindowRuntime.prefixD2F0B8.value26C = 0;
@@ -207,7 +207,7 @@ std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, const
         WindowInstance* const window = currentWindow;
         auto* const handleInputElement = window->FindElementById(WindowMailComposeElementId::HandleInput);
         if (handleInputElement) {
-            if (gFocusedElementDataD45F94 != handleInputElement->data.input) {
+            if (callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData != handleInputElement->data.input) {
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
                 static_cast<void>(WindowInput_ActivateElement(&gMailInputPrototype57E740, x, y, 1));
@@ -215,7 +215,7 @@ std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, const
                 WindowInstance* const focused = currentWindow;
                 auto* const handleInputElement2 = focused->FindElementById(WindowMailComposeElementId::HandleInput);
                 if (handleInputElement2) {
-                    gFocusedElementDataD45F94 = handleInputElement2->data.input;
+                    callbackWindow.ownerSession->UiFrame().native.pointer.focusedElementData = handleInputElement2->data.input;
                 }
                 if (auto* const handleInputElement3 = focused->FindElementById(WindowMailComposeElementId::HandleInput); handleInputElement3) handleInputElement3->data.input->context = &cg::ui::detail::gInputContextD66CA8;
                 static_cast<void>(audio::PlaySe_52C450(51, 320));

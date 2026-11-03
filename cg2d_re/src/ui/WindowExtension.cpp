@@ -61,7 +61,7 @@ void WindowRuntime_SetVisible(WindowInstance& window, bool visible) {
             WindowElementCursor cursor(window);
             while (auto* element = cursor.next()) {
                 if (element->type == WindowElementType_Input && element->data.input
-                    && gCurrentInputData == element->data.input->context) detail::WindowChat_RestoreInput();
+                    && gCurrentInputData == element->data.input->context) detail::WindowChat_RestoreInput(*window.ownerSession);
             }
             if (gCurrentWindow == &window) WindowDrag_Cancel(*window.ownerSession);
         }

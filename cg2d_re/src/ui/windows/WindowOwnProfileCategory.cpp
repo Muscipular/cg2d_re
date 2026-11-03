@@ -220,7 +220,7 @@ static std::int32_t WindowOwnProfileCategory_SelectCategory(WindowInstance& call
         entry.value00 = value;
         entry.value04 = image;
     }
-    static_cast<void>(WindowChat_RestoreInput());
+    static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     return 1;
 }
 

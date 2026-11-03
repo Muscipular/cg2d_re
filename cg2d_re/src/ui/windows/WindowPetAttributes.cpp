@@ -343,7 +343,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
             const std::int16_t pet = petIndex(position);
             static_cast<void>(callbackWindow.ownerSession->Connection().RenamePetRequest(pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
-            WindowChat_RestoreInput();
+            WindowChat_RestoreInput(*callbackWindow.ownerSession);
             if (text.empty()) {
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();

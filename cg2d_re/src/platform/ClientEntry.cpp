@@ -6,8 +6,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
-#include "cg/network/CgConnection.hpp"
-#include "cg/session/ClientSession.hpp"
+#include "cg/session/ClientHost.hpp"
 
 #include <dbghelp.h>
 #include <mmsystem.h>
@@ -360,7 +359,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE previousInstance, LPWSTR comma
         ParseClientVersion();
         CreateSaveDirectories();
         cg::login::detail::InitializeSavedState_533300();
-        auto& session = cg::network::GetGameConnection().Owner();
+        auto& session = cg::session::GetClientHost().FirstSession();
         ParseCommandOptions(session.Connection());
         const ClientDiagnosticsConsole diagnosticsConsole(gCommandLine);
         if (cg::resource::BuildResourcePaths() != 0) {

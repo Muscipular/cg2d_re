@@ -4,6 +4,7 @@
 #include "cg/script/LuaRuntime.hpp"
 #include "cg/core/m_log.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "cg/session/ClientSession.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -1373,9 +1374,19 @@ void CgConnection::RegisterSend(const char* header, ProtocolSendHandler handler)
 void CgConnection::Close() { impl_->Close(); }
 void CgConnection::StopIo() { impl_->StopIo(); }
 
-// 旧单会话入口暂借首个 owner；全部业务显式迁移前不得创建第二会话。
-static session::ClientSession gFirstSession;
-CgConnection& GetGameConnection() noexcept { return gFirstSession.Connection(); }
+} // namespace cg::network
+
+namespace cg::session {
+
+static ClientHost gClientHost;
+ClientHost& GetClientHost() noexcept { return gClientHost; }
+
+} // namespace cg::session
+
+namespace cg::network {
+
+// 旧单会话入口暂借宿主首会话；全部业务显式迁移前不得创建第二会话。
+CgConnection& GetGameConnection() noexcept { return session::GetClientHost().FirstSession().Connection(); }
 
 CgConnection::SessionScope::SessionScope(CgConnection& owner) noexcept
     : owner_(owner), previousBound_(owner.impl_->contextBound), previousId_(owner.impl_->contextId)

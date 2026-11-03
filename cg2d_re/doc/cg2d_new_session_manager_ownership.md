@@ -4,10 +4,10 @@
 
 | 边界 | 当前入口/存储 | 目标 owner 与迁移门槛 |
 | --- | --- | --- |
-| 网络 | `CgConnection::Impl` 已持协议缓冲、`CgTransport`、连接身份、回调注册、保活、登录请求/消息、主循环断线阶段和 BtWt/SpDt 三项服务端参数；`GetGameConnection()` 仍返回唯一 `gGameConnection`，登录/世界/脚本/窗口大量调用它 | 每个 `ClientSession` 持独立连接；所有业务发送与回复回调显式沿所属会话传递，不能只让 `GetGameConnection()` 改为返回一个隐藏的“当前连接”。世界战斗对象与聊天计时等其他回调目标尚未隔离 |
+| 网络 | `CgConnection::Impl` 已持协议缓冲、`CgTransport`、连接身份、回调注册、保活、登录请求/消息、主循环断线阶段和 BtWt/SpDt 三项服务端参数；`GetGameConnection()` 仍返回唯一 `gFirstSession.Connection()`，登录/世界/脚本/窗口大量调用它 | 每个 `ClientSession` 持独立连接；所有业务发送与回复回调显式沿所属会话传递，不能只让 `GetGameConnection()` 改为返回一个隐藏的“当前连接”。世界战斗对象与聊天计时等其他回调目标尚未隔离 |
 | 登录与选角 | `LoginRequestState` 已持请求码、时钟、错误、凭据、选服索引、两条角色记录、所选槽位、连接提示阶段、分类/分页/高亮及登录错误正文；`LoginMessageState` 已持消息与动作借用，`LoginSceneState` 已持服务器控件、输入上下文/两类焦点、能力3/4动画及模态状态。其他场景状态仍散落在登录模块 | 图鉴回复按回调连接取槽位；其余世界/存档/UI及登录入口仍从单例连接取状态，不能用于多会话调度。`input::gCurrentInputData`、IME、Yobi 动作池与其他焦点/动作寿命仍属进程级，切换前必须沿全部借用链隔离；服务器表仅由启动 `ParseIpOptions_507C80` 生产，宿主只在创建首会话前解析一次即可共享，运行中重解析不在此证明范围。可执行文件摘要仍待核所有写者 |
 | 角色选择 | `CharacterSelectSceneState` 随连接持有角色列表/删除进度、认证失败弹窗、版本升级动作借用、Puk版本W8及登录成功正文；版本与正文的网络生产者使用回调所属连接 | 创建资料/预览和保存状态仍共享，Yobi动作池仍进程级；场景函数和多个窗口仍从唯一 `GetGameConnection()` 读取，不能据局部实例字段并行调度 |
-| 场景/世界 | `world::gCurrentSceneType` 借 `platform::gCurrentSceneTypeStorage_FF0D40`；`World::Update` 读取待切换状态、更新场景，内部又执行输入、UI及绘制。`PlayerState`、地图缓冲/对象、战斗、邮件、相册和断线状态均有跨模块消费者 | 按完整别名组归入会话；场景分发必须对该会话的网络回复、角色记录和资源借用生效。不得仅保存四个场景整数便循环调用旧 `World::Update()` |
+| 场景/世界 | `world::gCurrentSceneType` 借 `platform::gCurrentSceneTypeStorage_FF0D40`；`World::Update` 读取待切换状态、更新场景，内部又执行输入、UI及绘制。`PlayerState`、地图缓冲/对象、战斗、邮件、相册和断线状态均有跨模块消费者；战斗背景图号的网络生产、Yobi 淡变回调写入及渲染器重建读取横跨三处 owner | 按完整别名组归入会话；场景分发必须对该会话的网络回复、角色记录和资源借用生效。背景图号要在 Yobi 动作能定位会话且重建能定位当前呈现会话后整组迁移，不得仅迁网络写入或保存四个场景整数便循环调用旧 `World::Update()` |
 | UI/输入 | `WindowRuntime.cpp` 的 `gWindows`、`gWindowStates`、焦点/拖拽指针和各窗口文件的静态状态共享；`WindowRuntimeState.hpp` 定义多份输入上下文，`WindowComponentHost.hpp` 又借鼠标、当前窗口和输入指针 | 窗口实例、文本草稿、焦点、拖拽及绑定的 `YobiAction*` 按会话保持地址和寿命；原型/回调表是否可共享须逐项核对其可变字段。主窗口的键鼠/IME只路由当前会话，切换不模拟业务释放事件 |
 | Lua/自动行为 | `LuaRuntime.cpp` 持静态 UI/战斗 `lua_State*`，`LuaUI.cpp` 持注册/桥接表，`AutoBattle.cpp` 和 `Copilot.cpp` 有独立运行期状态且后者借世界全局 | 每会话独立 VM、回调表和自动行为状态；C++ 对象、Lua 句柄及异步回调不能跨会话引用。后台继续执行，不能只更新当前 VM |
 | 绘制/声音 | `MainLoop` 清共享图形队列并在一次 `World::Update()` 后提交；世界/窗口/Yobi 的更新与绘制交织。SDL 呈现设备、CPU 面及当前音频播放仍为单套 | 将游戏副作用与实际呈现分开；后台保留必要生产/消费次序，但不能污染当前画面或提交像素。音量/音效设置进程共享，播放仅当前会话，最小化时当前音频继续 |

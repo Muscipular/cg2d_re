@@ -56,7 +56,7 @@ void HandleBattleResultsReply_50D500(cg::network::CgConnection& networkConnectio
 extern std::int32_t gDpResultDelta_FF0D04; // 原全局：0x00FF0D04。 既有DP回复变化值，窗口31直接读取。
 extern std::int32_t gDpResultTotal_FF0D08; // 原全局：0x00FF0D08。 既有DP回复总量，与变化值分别采样。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
-// 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。
+// 原 59F9F8，战斗背景 W32 图号；Yobi 淡变回调和渲染器重建仍共享。
 extern std::int32_t gBattleBackgroundImage59F9F8;
 extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 原全局：0x0059F9E0。 4209C0门禁；43CBB0按称号value生产0/5。
 extern std::int32_t gBattleType5ABFC8; // 原全局：0x005ABFC8。 50D120写完整S32类型。
@@ -129,7 +129,7 @@ extern std::uint32_t gBattleTurnSnapshot5ABC08; // 原全局：0x005ABC08。
 
 namespace detail {
 // 原函数：0x0043CB10。
-void CaptureBattleBackgroundSnapshot_43CB10();
+void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session);
 // 原函数：0x004ED670。
 std::int32_t ShouldPlayBattleResultSound_4ED670(); // 四角色/宠物与十五技能结果字段恰1检查，完整扫描不提前返回。
 // 原函数：0x00504A50。
@@ -147,8 +147,6 @@ extern std::uint32_t gBattlePosition5ABCA8; // 原全局：0x005ABCA8。
 // 原函数：0x0043C4E0。
 void BeginBattleCommandSelection_43C4E0(); // 完整命令计时初始化、对象标志与技能选择同步。
 extern std::uint32_t gBattleRebirthLevel5ABB7C; // 原全局：0x005ABB7C。
-extern std::uint32_t gBattleExitNotificationPending_5ABCB0; // 原全局：0x005ABCB0。
-extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 原全局：0x005ABCD8。 43CB10末尾写，DrawBattleScene比较。
 // 原函数：0x0043CBB0。
 void DrawBattleScene_43CBB0(session::ClientSession& session); // 完整十状态及绘制/退出尾；427470/完整事件寿命与画面运行门禁仍未闭合。
 

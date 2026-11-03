@@ -2345,15 +2345,12 @@ std::uint32_t gBattleTurn5ABB74 = 0; // 原全局：0x005ABB74。
 std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
 
 namespace detail {
-std::uint32_t gBattleExitNotificationPending_5ABCB0 = 0; // 原全局：0x005ABCB0。
 static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(cg::yobi::YobiAction*));
 static_assert(decltype(gBattleEntries59E980)::extent == 20);
 static_assert(sizeof(gBattleCQueue5A4A3C) == 4 * 0x1000);
 static_assert(sizeof(gBattleMQueue59FA18) == 4 * 0x1000);
 static_assert(sizeof(gBattleCText5A3A20) == 0x1000);
 static_assert(sizeof(gBattleMText5AAA7C) == 0x1000);
-// 原5ABCD8；43CB10末尾重读图号后发布，DrawBattleScene用于重建判断。
-std::int32_t gBattleBackgroundSnapshot5ABCD8 = 0;
 
 } // namespace detail
 
@@ -4145,8 +4142,8 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     std::int32_t state = gCurrentSceneState;
     if (static_cast<std::uint32_t>(state) >= 2U
         && static_cast<std::uint32_t>(state) <= 6U
-        && gBattleBackgroundImage59F9F8 != gBattleBackgroundSnapshot5ABCD8) {
-        CaptureBattleBackgroundSnapshot_43CB10();
+        && gBattleBackgroundImage59F9F8 != battleScene.backgroundSnapshot) {
+        CaptureBattleBackgroundSnapshot_43CB10(session);
         state = gCurrentSceneState;
     }
     // 原退出门禁逐项读W16，保持短路，不读取整个W32后截断。
@@ -4185,7 +4182,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         gBattleCommandAction5ABC00 = nullptr;
         gPendingResultWindowMode_FF0C10 = 3;
         input::SetContext_44B330(&cg::ui::detail::gInputContext626AA0);
-        CaptureBattleBackgroundSnapshot_43CB10();
+        CaptureBattleBackgroundSnapshot_43CB10(session);
         platform::gFrameBackgroundMode_73ECC0 = 2;
         input::BrowseChatHistory_44A1B0();
         if (gMapResourceMode_9DAD68 == 1) {
@@ -4245,7 +4242,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     }
     case 1:
         if (ProcessSceneTransitionEffect_51FDE0(13, 8, 0x40000000U) == 1) {
-            CaptureBattleBackgroundSnapshot_43CB10();
+            CaptureBattleBackgroundSnapshot_43CB10(session);
             platform::gFrameBackgroundMode_73ECC0 = 3;
             const std::uint64_t tick = platform::ReadTickCount64();
             platform::gFrameBackgroundMode_73ECC0 = 3;
@@ -4522,9 +4519,9 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         return;
     }
     UpdateMapEffects_46E4A0();
-    if (gBattleExitNotificationPending_5ABCB0 == 1) {
+    if (battleScene.exitNotificationPending == 1) {
         gCurrentSceneState = 7;
-        gBattleExitNotificationPending_5ABCB0 = 0;
+        battleScene.exitNotificationPending = 0;
     }
     cg::yobi::YobiAction* const exitAction = battleScene.exitAction;
     if (exitAction != nullptr && cg::yobi::ReadYobiActionHpOnce(exitAction) > 0) {
@@ -10123,7 +10120,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
 }
 
 // 原函数：0x0050D3C0。
-void HandleBattleStreamReply_50D3C0(cg::network::CgConnection&, const char* const text)
+void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& connection, const char* const text)
 {
     const char kind = text[0];
     if (kind == 'C') {
@@ -10161,7 +10158,7 @@ void HandleBattleStreamReply_50D3C0(cg::network::CgConnection&, const char* cons
         return;
     }
     if (text[1] == 'U') {
-        detail::gBattleExitNotificationPending_5ABCB0 = 1;
+        connection.Owner().WorldScene().battle.exitNotificationPending = 1;
         return;
     }
     if (kind == 'M') {

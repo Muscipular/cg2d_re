@@ -8,6 +8,7 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/world/SceneState.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "BattleState.hpp"
@@ -202,7 +203,7 @@ void DrawMapSceneWithMarkers_469020()
 
 // 原战斗快照；与 renderer 重建不同，queueMode 固定恢复为 1，不更新时间戳。
 // 原函数：0x0043CB10。
-void CaptureBattleBackgroundSnapshot_43CB10()
+void CaptureBattleBackgroundSnapshot_43CB10(session::ClientSession& session)
 {
     platform::gPendingGraphicCount = 0;
     platform::gPendingGraphicCount2 = 0;
@@ -220,7 +221,7 @@ void CaptureBattleBackgroundSnapshot_43CB10()
     platform::gPendingGraphicCount = 0;
     platform::gPendingGraphicCount2 = 0;
     static_cast<void>(render::ResetGraphicCache_456D30());
-    gBattleBackgroundSnapshot5ABCD8 = gBattleBackgroundImage59F9F8;
+    session.WorldScene().battle.backgroundSnapshot = gBattleBackgroundImage59F9F8;
 }
 
 } // namespace cg::world::detail

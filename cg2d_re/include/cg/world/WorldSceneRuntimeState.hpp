@@ -33,6 +33,8 @@ struct LogoutSceneState {
 struct BattleSceneState {
     std::int32_t sceneIndex = 0; // 原 0x5ABFD8。
     yobi::YobiAction* exitAction = nullptr; // 原 0x5ABCDC。
+    std::int32_t backgroundSnapshot = 0; // 原 0x5ABCD8，绘制后重读的背景图号。
+    std::uint32_t exitNotificationPending = 0; // 原 0x5ABCB0。
 };
 
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。

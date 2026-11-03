@@ -1541,13 +1541,13 @@ void UpdateMapFlutterParticles_46ED50()
 }
 
 // 原函数：0x0046E4A0。
-void UpdateMapEffects_46E4A0()
+void UpdateMapEffects_46E4A0(session::ClientSession& session)
 {
     UpdateMapStreakParticles_46E4E0();
     UpdateMapClusterParticles_46E6C0();
     // 原 46E4AA/46E4AF 两次调用的 509080 仅有 retn。
     UpdateMapFlutterParticles_46ED50();
-    UpdateDirectionalMapEffects_46F1D0();
+    UpdateDirectionalMapEffects_46F1D0(session);
 }
 
 // 原函数：0x0046E0D0。
@@ -1691,7 +1691,7 @@ std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* cons
 }
 
 // 原函数：0x0046F1D0。
-void UpdateDirectionalMapEffects_46F1D0()
+void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session)
 {
     if (gCurrentSceneType == 10) {
         return;
@@ -1715,7 +1715,7 @@ void UpdateDirectionalMapEffects_46F1D0()
         CreateDirectionalMapEffect_46F090(8, motion.horizontalSign, motion.verticalSign,
             phase, 2000, phase % 3);
         gMapCharaSceneSlots.actionC8A764 =
-            cg::yobi::NewYobiAction_404AE0(3, 0);
+            cg::yobi::NewYobiAction_404AE0(session, 3, 0);
         if (gMapCharaSceneSlots.actionC8A764 != nullptr) {
             cg::yobi::SetYobiActionField2A8(
                 gMapCharaSceneSlots.actionC8A764, 110308);
@@ -1847,7 +1847,7 @@ std::int32_t DrawObservationTravelBackground_440FF0(session::ClientSession& sess
     gMapCharaSceneSlots.valueC8A754 = 2;
     gMapCharaSceneSlots.value55DE9C = 6.0F;
     gMapCharaSceneSlots.value55DEA0 = angle;
-    UpdateDirectionalMapEffects_46F1D0();
+    UpdateDirectionalMapEffects_46F1D0(session);
 
     std::int32_t result = 0;
     for (std::int32_t y = 0; y < 480; y += 48) {
@@ -3959,7 +3959,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         SynchronizeTimedMapNoticeWindow_455FC0();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         RenderChara_521F20(session);
-        UpdateMapEffects_46E4A0();
+        UpdateMapEffects_46E4A0(session);
         DrawMapSceneWithMarkers_469020(session);
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0(session);
@@ -4488,7 +4488,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     if (session.WorldScene().frameBackgroundMode == 2) {
         return;
     }
-    UpdateMapEffects_46E4A0();
+    UpdateMapEffects_46E4A0(session);
     if (battleScene.exitNotificationPending == 1) {
         gCurrentSceneState = 7;
         battleScene.exitNotificationPending = 0;

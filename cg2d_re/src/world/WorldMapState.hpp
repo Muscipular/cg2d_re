@@ -503,9 +503,9 @@ std::int32_t __cdecl AdvanceMapParticleCycles_46E4C0(std::int32_t cycles); // �
 // 原函数：0x0046ED50。
 void UpdateMapFlutterParticles_46ED50();                          // 原 0x46ED50；kind 4 创建与活动链更新，返回无统一合同。
 // 原函数：0x0046E4A0。
-void UpdateMapEffects_46E4A0();                          // 原 0x46E4A0；三效果生产后尾接 46F1D0。
+void UpdateMapEffects_46E4A0(session::ClientSession& session); // 原 0x46E4A0；三效果生产后尾接 46F1D0。
 // 原函数：0x0046F1D0。
-void UpdateDirectionalMapEffects_46F1D0();                          // 原 0x46F1D0；kind 6/7/8 生成、推进、入队与回收。
+void UpdateDirectionalMapEffects_46F1D0(session::ClientSession& session); // 原 0x46F1D0；kind 6/7/8 生成、推进、入队与回收。
 // 原函数：0x00440FF0。
 std::int32_t DrawObservationTravelBackground_440FF0(session::ClientSession& session); // 原 0x440FF0；观察效果更新后铺排 100 个背景项。
 // 原函数：0x0046E0D0。

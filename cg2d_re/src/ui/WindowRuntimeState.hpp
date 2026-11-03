@@ -624,8 +624,6 @@ std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::Client
 std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSession& session);
 WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session);
 extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
-extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
-
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
 extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
 extern std::int32_t gHoverTitleValueD69748; // 原全局：0x00D69748。 副标题伴随值，非主描述值。

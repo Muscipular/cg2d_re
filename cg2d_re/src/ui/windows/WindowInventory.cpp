@@ -274,12 +274,6 @@ static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, std::in
 
 // 控件载荷、窗口状态、组件表与原型。
 
-// 原全局：0x00CB086C。 488E60格式化，type7载荷借用。
-static std::wstring gInventoryMoneyTextCB086C {}; // 原全局：0x00CB086C。
-
-// 原全局：0x00CC3ECC。 488E80格式化FF02CC，独立于输入区。
-static std::wstring gInventoryValueTextCC3ECC {}; // 原全局：0x00CC3ECC。
-
 static WindowGraphicData gWindowGraphic562B98 {243000, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562B98。
 
 static WindowGraphicData gWindowGraphic562BB0 {244290, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562BB0。
@@ -300,9 +294,9 @@ static WindowGraphicData gWindowGraphic562C58 {244297, 0, 0, 0, 0, 0xFFFFFFFFu};
 
 static std::int32_t gWindowAnimationImage562C80 = 100000; // 原全局：0x00562C80。
 
-static WindowNumberData gWindowNumber562CB0 {&gInventoryMoneyTextCB086C, 10, 3, 1, 0}; // 原全局：0x00562CB0。
+static WindowNumberData gWindowNumber562CB0 {nullptr, 10, 3, 1, 0}; // 原全局：0x00562CB0。
 
-static WindowNumberData gWindowNumber562CB8 {&gInventoryValueTextCC3ECC, 10, 3, 1, 0}; // 原全局：0x00562CB8。
+static WindowNumberData gWindowNumber562CB8 {nullptr, 10, 3, 1, 0}; // 原全局：0x00562CB8。
 
 static WindowElementPrototype gWindowElements562CD8[24] { // 原全局：0x00562CD8。
     {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic562B98}, &WindowInventory_ButtonClose, -1, static_cast<ElementId>(WindowInventoryElementId::ButtonClose)},
@@ -585,6 +579,12 @@ static std::int32_t WindowInventory_Update(WindowInstance& callbackWindow, const
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     std::int32_t selected;
     if (value == -1) {
+        if (auto* const element = currentWindow->FindElementById(WindowInventoryElementId::RefreshMoney); element) {
+            element->data.number->text = &inventory.moneyText;
+        }
+        if (auto* const element = currentWindow->FindElementById(WindowInventoryElementId::RefreshExtraValue); element) {
+            element->data.number->text = &inventory.valueText;
+        }
         WindowItemSelector_BindElements(&callbackWindow, &inventory.normalSelector, 0);
         WindowInstance* const window = currentWindow;
         inventory.normalSelector.initialized3E8 = 0;
@@ -775,14 +775,16 @@ static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, 
 // 原函数：0x00488E60。
 static std::int32_t WindowInventory_RefreshMoney(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
-    cg::text::FormatTo(gInventoryMoneyTextCB086C, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    cg::text::FormatTo(inventory.moneyText, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00488E80。
 static std::int32_t WindowInventory_RefreshExtraValue(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
-    cg::text::FormatTo(gInventoryValueTextCC3ECC, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    cg::text::FormatTo(inventory.valueText, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 
@@ -794,7 +796,6 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    static std::int32_t previousHoveredSlot = -2; // 原全局：0x0057DA2C。
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -866,10 +867,10 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
     if ((events & MouseFlag_LDownEvent) != 0) {
         currentWindow->state |= 0x2000u;
     }
-    if (previousHoveredSlot != hovered) {
+    if (inventory.backpackHover != hovered) {
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = 0;
     }
-    previousHoveredSlot = hovered;
+    inventory.backpackHover = hovered;
     if (inventory.selectedItem < 0 && hovered >= 0
         && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
@@ -1011,7 +1012,6 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    static std::int32_t previousHoveredSlot = -2; // 原全局：0x0057DA68。
     static constexpr const wchar_t* playerHints[] {
         L"装备头部防具的位置。",
         L"装备身体防具的位置。",
@@ -1114,11 +1114,11 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
             return consumed;
         }
     }
-    if (previousHoveredSlot != hovered) {
+    if (inventory.equipmentHover != hovered) {
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = 0;
     }
     const std::int32_t selectedItem = inventory.selectedItem;
-    previousHoveredSlot = hovered;
+    inventory.equipmentHover = hovered;
     if (selectedItem < 0 && hovered >= 0
         && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {

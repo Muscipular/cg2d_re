@@ -1017,6 +1017,16 @@ struct InventoryWindowRuntimeState {
     detail::WindowItemSelectorState normalSelector {}; // 原0xCF3B10。
     detail::WindowItemSelectorState battleSelector {}; // 原0xD2F338。
     std::uint8_t selectionMode = 0; // 原0xCC40D4。
+    std::wstring moneyText {}; // 原0xCB086C。
+    std::wstring valueText {}; // 原0xCC3ECC。
+    std::int32_t backpackHover = -2; // 原0x57DA2C。
+    std::int32_t equipmentHover = -2; // 原0x57DA68。
+    std::int32_t battleHover = 0; // 原0xCF49B0，每帧先清-1。
+    std::int32_t battleTooltipPage = 0; // 原0xCB01E0。
+    std::int32_t battleBackpackHover = -2; // 原0x57E430。
+    std::wstring battleMoneyText {}; // 原0xCF469C。
+    std::wstring battleValueText {}; // 原0xC8A960。
+    std::uint8_t battleItemTargetFlag = 0; // 原0xCC4D40。
 };
 static_assert(sizeof(InventoryWindowRuntimeState::slotUseCounts) == 7 * sizeof(std::uint32_t));
 

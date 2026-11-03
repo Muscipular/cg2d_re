@@ -279,8 +279,6 @@ const std::array<const wchar_t*, 20> gTribeNames57CB54 {{ // 原全局：0x0057C
     kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50, kTribeUnopened585C50,
 }};
 
-std::uint8_t gBattleItemTargetFlagCC4D40 = 0; // 原全局：0x00CC4D40。
-
 static const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165}; // 原全局：0x0054F584。
 
 static const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 130, 30, 30, 180}; // 原全局：0x0054F5A4。

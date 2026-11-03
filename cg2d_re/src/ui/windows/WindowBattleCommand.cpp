@@ -263,13 +263,14 @@ static std::int32_t WindowBattleCommand_Update(WindowInstance& callbackWindow, c
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     auto& session = *currentWindow->ownerSession;
     if (value == -1) {
         WindowRuntime_States(session)[WindowId_BattleCommand].value10 = 0;
         WindowRuntime_States(session)[WindowId_BattleCommand].value14 = 0;
         WindowRuntime_States(session)[WindowId_BattleCommand].userState.value = 0;
         session.UiFrame().native.battleCommand.skillTargetPending = 0;
-        gBattleItemTargetFlagCC4D40 = 0;
+        inventory.battleItemTargetFlag = 0;
         return 1;
     }
     const std::uint32_t phase = WindowRuntime_States(session)[WindowId_BattleCommand].userState.value;
@@ -590,6 +591,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
     auto& uiFrame = callbackWindow.ownerSession->UiFrame();
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -624,9 +626,9 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
                 consumed = 1;
             }
         } else if ((*reinterpret_cast<const std::uint8_t*>(
-            &platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
+            &platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0 && inventory.battleItemTargetFlag != 0) {
             session.UiFrame().native.battleCommand.itemOpening = WindowRuntime_CreateAnimation(session, WindowId_BattleItems, 1, 0, nullptr);
-            gBattleItemTargetFlagCC4D40 = 0;
+            inventory.battleItemTargetFlag = 0;
             cg::yobi::FlushBattleEntries_43C060();
         }
         graphic->imageNo = 0x3B9D3;
@@ -638,7 +640,7 @@ static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindo
         }
         if (WindowRuntime_States(session)[WindowId_BattleItems].window != nullptr) {
             session.UiFrame().native.battleCommand.itemOpening = nullptr;
-        } else if (session.UiFrame().native.battleCommand.itemOpening == nullptr && gBattleItemTargetFlagCC4D40 == 0) {
+        } else if (session.UiFrame().native.battleCommand.itemOpening == nullptr && inventory.battleItemTargetFlag == 0) {
             world::gBattleSelectionModes5ABC7C[3] = 0;
         }
         return consumed;

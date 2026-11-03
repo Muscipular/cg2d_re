@@ -75,19 +75,6 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, std::
 
 // 控件载荷、窗口状态、组件表与原型。
 
-// 原全局：0x00CF49B0。 窗口27每帧清-1，499C30发布提示槽。
-static std::int32_t gBattleItemHoverCF49B0 = 0; // 原全局：0x00CF49B0。
-
-static std::int32_t gBattleItemPageCB01E0 = 0; // 原全局：0x00CB01E0。 窗口27物品提示页，同源于两战斗交互。
-
-static std::int32_t gBattleBackpackHover57E430 = -2; // 原全局：0x0057E430。
-
-// 原全局：0x00CF469C。 499B00格式化，type7原型借用。
-static std::wstring gBattleMoneyTextCF469C {}; // 原全局：0x00CF469C。
-
-// 原全局：0x00C8A960。 499B20格式化，独立于普通库存文本。
-static std::wstring gBattleValueTextC8A960 {}; // 原全局：0x00C8A960。
-
 static WindowGraphicData gWindowGraphic56C348 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C348。
 
 static WindowGraphicData gWindowGraphic56C360 {0x3BA42, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0056C360。
@@ -106,9 +93,9 @@ static WindowGraphicData gWindowGraphic56C3F0 {0x3BA49, 0, 0, 0, 0, 0xFFFFFFFFu}
 
 static std::int32_t gWindowAnimationImage56C418 = 100000; // 原全局：0x0056C418。
 
-static WindowNumberData gWindowNumber56C420 {&gBattleMoneyTextCF469C, 10, 3, 1, 0}; // 原全局：0x0056C420。
+static WindowNumberData gWindowNumber56C420 {nullptr, 10, 3, 1, 0}; // 原全局：0x0056C420。
 
-static WindowNumberData gWindowNumber56C428 {&gBattleValueTextC8A960, 10, 3, 1, 0}; // 原全局：0x0056C428。
+static WindowNumberData gWindowNumber56C428 {nullptr, 10, 3, 1, 0}; // 原全局：0x0056C428。
 
 static WindowElementPrototype gWindowElements56C430[22] { // 原全局：0x0056C430。
     {WindowElementType_Graphic, 258, 8, 11, 11, 1, {.graphic = &gWindowGraphic56C348}, &WindowRuntime_ButtonClose, -1, static_cast<ElementId>(WindowBattleItemsElementId::ButtonClose)},
@@ -165,14 +152,16 @@ static std::int32_t WindowBattleItems_RotatePreview(WindowInstance& callbackWind
 // 原函数：0x00499B00。
 static std::int32_t WindowBattleItems_RefreshMoney(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
-    cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    cg::text::FormatTo(inventory.battleMoneyText, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00499B20。
 static std::int32_t WindowBattleItems_RefreshExtraValue(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
-    cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    cg::text::FormatTo(inventory.battleValueText, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 
@@ -232,11 +221,17 @@ static std::int32_t WindowBattleItems_Update(WindowInstance& callbackWindow, con
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
     if (value == -1) {
+        if (auto* const element = callbackWindow.FindElementById(WindowBattleItemsElementId::RefreshMoney); element) {
+            element->data.number->text = &inventory.battleMoneyText;
+        }
+        if (auto* const element = callbackWindow.FindElementById(WindowBattleItemsElementId::RefreshExtraValue); element) {
+            element->data.number->text = &inventory.battleValueText;
+        }
         WindowItemSelector_BindElements(&callbackWindow, &inventory.battleSelector, 1);
         inventory.battleSelector.initialized3E8 = 0;
-        gBattleItemPageCB01E0 = 0;
+        inventory.battleTooltipPage = 0;
     }
-    gBattleItemHoverCF49B0 = -1;
+    inventory.battleHover = -1;
     WindowItemSelector_Update(*callbackWindow.ownerSession, &callbackWindow, &inventory.battleSelector);
     return 1;
 }
@@ -246,9 +241,10 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
 {
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t hovered = gBattleItemHoverCF49B0;
+    auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
+    const std::int32_t hovered = inventory.battleHover;
     if (hovered >= 0) {
-        static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hovered, gBattleItemPageCB01E0));
+        static_cast<void>(WindowItem_DrawEquipmentTooltip(*callbackWindow.ownerSession, hovered, inventory.battleTooltipPage));
     } else {
         const std::int32_t kind = WindowDrag_ReadKind(*callbackWindow.ownerSession);
         if (kind == 2) {
@@ -508,10 +504,10 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             uiFrame.hoverText = hint;
         }
     }
-    if (gBattleBackpackHover57E430 != hovered) {
-        gBattleItemPageCB01E0 = 0;
+    if (inventory.battleBackpackHover != hovered) {
+        inventory.battleTooltipPage = 0;
     }
-    gBattleBackpackHover57E430 = hovered;
+    inventory.battleBackpackHover = hovered;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             const auto& item = items[hovered + 8];
@@ -571,7 +567,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     world::gBattleSelectedItem5ABC48 = hovered + 8;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                     world::gBattleItemTargetPending5ABCC4 = 1;
-                    gBattleItemTargetFlagCC4D40 = 1;
+                    inventory.battleItemTargetFlag = 1;
                 } else {
                     const std::int32_t currentPosition = world::gBattleCurrentPosition5ABCA4;
                     world::gBattleSelectedItem5ABC48 = hovered + 8;
@@ -616,10 +612,10 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             const auto& item = items[hovered + 8];
             if (item.used != 0) {
                 const std::int32_t pages = item.pages;
-                const std::int32_t page = gBattleItemPageCB01E0 + 1;
-                gBattleItemPageCB01E0 = page;
+                const std::int32_t page = inventory.battleTooltipPage + 1;
+                inventory.battleTooltipPage = page;
                 if (page >= pages) {
-                    gBattleItemPageCB01E0 = 0;
+                    inventory.battleTooltipPage = 0;
                 }
             }
             consumed = 1;
@@ -662,7 +658,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
         if (items[hovered + 8].used != 0) {
-            gBattleItemHoverCF49B0 = hovered + 8;
+            inventory.battleHover = hovered + 8;
         }
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) < 8) {
@@ -935,9 +931,9 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (item->used != 0) {
-                ++gBattleItemPageCB01E0;
-                if (gBattleItemPageCB01E0 >= item->pages) {
-                    gBattleItemPageCB01E0 = 0;
+                ++inventory.battleTooltipPage;
+                if (inventory.battleTooltipPage >= item->pages) {
+                    inventory.battleTooltipPage = 0;
                 }
             }
             consumed = 1;

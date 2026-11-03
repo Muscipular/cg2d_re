@@ -2458,7 +2458,6 @@ std::uint32_t gWaitingForMapRectangleData_9EE8B8 = 0; // 原全局：0x009EE8B8�
 std::uint16_t gRequestedMapRectangleDirection_9EE8A4 = 0; // 原全局：0x009EE8A4。
 std::int32_t gMapRectangleRequestPlayerX_9A7F7C = 0; // 原全局：0x009A7F7C。
 std::int32_t gMapRectangleRequestPlayerY_9A7F80 = 0; // 原全局：0x009A7F80。
-std::uint64_t gMapRectangleRequestStartTick_AF10C8 = 0; // 原全局：0x00AF10C8。
 std::uint16_t gContinuousMapMovementActive_C8A79C = 0; // 原全局：0x00C8A79C。
 
 } // namespace detail
@@ -2837,7 +2836,7 @@ std::int32_t FindMissingMapRectanglesAhead_469870(const std::int32_t direction)
 }
 
 // 原 [0x46AF30,0x46AFDE)：探测成功后逐项发送 UUN 并发布玩家快照。
-std::uint32_t RequestMissingMapRectanglesAhead_46AF30()
+std::uint32_t RequestMissingMapRectanglesAhead_46AF30(session::ClientSession& session)
 {
     const std::int32_t direction =
         std::bit_cast<std::int16_t>(gPendingDirections9A86D4[0]);
@@ -2854,8 +2853,8 @@ std::uint32_t RequestMissingMapRectanglesAhead_46AF30()
         const std::int32_t startX = gMapWindowStartX9A86D0[position];
         const std::int32_t floor = gMapFloor;
         const std::int32_t mapId = std::bit_cast<std::int32_t>(gCurrentMapId_9A86DC);
-        const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-        static_cast<void>(cg::network::GetGameConnection().RequestMapRectangle(mapId, floor, startX, startY, endX, endY));
+        const auto networkSession = session.Connection().CaptureSession();
+        static_cast<void>(session.Connection().RequestMapRectangle(mapId, floor, startX, startY, endX, endY));
         ++index;
     }
 
@@ -2864,7 +2863,7 @@ std::uint32_t RequestMissingMapRectanglesAhead_46AF30()
     gMapRectangleRequestPlayerX_9A7F7C = static_cast<std::int32_t>(gPlayerX);
     gMapRectangleRequestPlayerY_9A7F80 = static_cast<std::int32_t>(gPlayerY);
     const std::uint64_t tick = platform::ReadTickCount64();
-    gMapRectangleRequestStartTick_AF10C8 = tick;
+    session.WorldScene().mapRectangleRequestStartTick = tick;
     return static_cast<std::uint32_t>(tick);
 }
 
@@ -3457,7 +3456,7 @@ std::int32_t __cdecl CalculateMapDataCrc_469240(
 
 // 原 [0x469290,0x4693E9)：装载失败仍校验局部平面并可能发送 UUN。
 std::int32_t __cdecl CheckMapRectangleCrcAndRequest_469290(
-    const std::int32_t first, const std::int32_t floor,
+    network::CgConnection& connection, const std::int32_t first, const std::int32_t floor,
     const std::int32_t xStart, const std::int32_t yStart,
     const std::int32_t xEnd, const std::int32_t yEnd,
     const std::int32_t expectedTile, const std::int32_t expectedObj,
@@ -3495,7 +3494,7 @@ std::int32_t __cdecl CheckMapRectangleCrcAndRequest_469290(
         && expectedHit == hitCheck) {
         return 1;
     }
-    static_cast<void>(cg::network::GetGameConnection().RequestMapRectangle(first, floor, xStart, yStart, xEnd, yEnd));
+    static_cast<void>(connection.RequestMapRectangle(first, floor, xStart, yStart, xEnd, yEnd));
     return 0;
 }
 
@@ -5990,7 +5989,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
                     return std::bit_cast<std::int16_t>(gPendingDirectionCount_C82202);
                 }();
                 if (queuedCount > 0) {
-                    static_cast<void>(RequestMissingMapRectanglesAhead_46AF30());
+                    static_cast<void>(RequestMissingMapRectanglesAhead_46AF30(session));
                     const std::int16_t direction =
                         std::bit_cast<std::int16_t>(gPendingDirections9A86D4[0]);
                     PopPendingMovementDirection_46BCF0();
@@ -10246,7 +10245,7 @@ void __cdecl HandleMapTransitionReply_50CF90(cg::network::CgConnection&, const s
 }
 
 // 原 [0x509090,0x5090FC)：校验成功才清地图请求及一次性状态位。
-void __cdecl HandleMapRectangleCrcReply_509090(cg::network::CgConnection&, const std::int32_t first,
+void __cdecl HandleMapRectangleCrcReply_509090(cg::network::CgConnection& connection, const std::int32_t first,
     const std::int32_t floor, const std::int32_t xStart,
     const std::int32_t yStart, const std::int32_t xEnd,
     const std::int32_t yEnd, const std::int32_t expectedTile,
@@ -10254,7 +10253,7 @@ void __cdecl HandleMapRectangleCrcReply_509090(cg::network::CgConnection&, const
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 ||
         detail::CheckMapRectangleCrcAndRequest_469290(
-            first, floor, xStart, yStart, xEnd, yEnd,
+            connection, first, floor, xStart, yStart, xEnd, yEnd,
             expectedTile, expectedObj, expectedHit) == 0) {
         return;
     }

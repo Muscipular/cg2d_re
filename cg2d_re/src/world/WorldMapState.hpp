@@ -304,7 +304,7 @@ std::int32_t __cdecl WriteMapCacheRectangle_4688A0(
 // 原函数：0x00469870。
 std::int32_t FindMissingMapRectanglesAhead_469870(std::int32_t direction); // 原 [0x469870,0x469C87)，四向探测依赖。
 // 原函数：0x0046AF30。
-std::uint32_t RequestMissingMapRectanglesAhead_46AF30(); // 原 [0x46AF30,0x46AFDE)，探测后发送 UUN 和发布状态。
+std::uint32_t RequestMissingMapRectanglesAhead_46AF30(session::ClientSession& session); // 原 [0x46AF30,0x46AFDE)，探测后发送 UUN 和发布状态。
 // 原函数：0x00468C40。
 std::int32_t __cdecl ReadMapCacheRectangle_468C40(
     std::int32_t mapId, std::int32_t floor,
@@ -427,7 +427,7 @@ std::int32_t __cdecl CalculateMapDataCrc_469240(
 void __cdecl InvalidateMapDrawPosition_4691D0(); // 原 [0x4691D0,0x469239)，两次 -1 临时赋值给地图状态。
 // 原函数：0x00469290。
 std::int32_t __cdecl CheckMapRectangleCrcAndRequest_469290(
-    std::int32_t first, std::int32_t floor,
+    network::CgConnection& connection, std::int32_t first, std::int32_t floor,
     std::int32_t xStart, std::int32_t yStart,
     std::int32_t xEnd, std::int32_t yEnd,
     std::int32_t expectedTile, std::int32_t expectedObj,

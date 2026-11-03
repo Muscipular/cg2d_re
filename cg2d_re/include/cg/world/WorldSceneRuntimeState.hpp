@@ -62,6 +62,7 @@ struct WorldSceneRuntimeState {
     std::uint64_t lastCursorFacingRequestTick = 0; // 原 0xC82238，目标格转向节流。
     std::uint64_t lastExplicitFacingRequestTick = 0; // 原 0xC8223C，显式转向节流。
     std::array<char, 100> moveDirectionText {}; // 原 0x9E03D0，先写前缀，发送门禁后才写 NUL。
+    std::uint64_t mapRectangleRequestStartTick = 0; // 原 0xAF10C8，缺块请求取时钟后发布。
 };
 
 } // namespace cg::world

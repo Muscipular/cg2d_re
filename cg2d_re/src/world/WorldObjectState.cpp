@@ -1,4 +1,5 @@
 #include "WorldObjectState.hpp"
+#include "cg/session/ClientSession.hpp"
 
 #include "cg/input/Input.hpp"
 #include "cg/text/Encoding.hpp"
@@ -18,18 +19,6 @@ std::int32_t gWorldObjectFreeCursor = 0; // 原全局：0x005AC49C。
 std::int32_t gWorldObjectUsedCount = 0; // 原全局：0x005AC4B4。
 std::int32_t gWorldObjectUpperBound = 0; // 原全局：0x005F9738。
 
-// 原[5ABFE0,5AC490)三列数值缓存，与后方World对象表独立。
-struct MapActorDrawKey {
-    std::int32_t graphicIndex;
-    std::int32_t mapX;
-    std::int32_t mapY;
-};
-
-static std::array<MapActorDrawKey, 100> gMapActorDrawKeys {};
-static std::int32_t gMapActorDrawKeyCount = 0; // 原5AC494。
-static_assert(sizeof(MapActorDrawKey) == 12);
-static_assert(sizeof(gMapActorDrawKeys) == 0x4B0);
-
 // WBR01：只清占用槽action/value34，无释放/标死；两个父的三个调用点先YobiClearUp。
 // 原函数：0x00446610。
 void DetachWorldObjectActions_446610()
@@ -43,9 +32,9 @@ void DetachWorldObjectActions_446610()
 }
 
 // 原函数：0x004468F0。
-void ResetMapActorDrawKeys_4468F0()
+void ResetMapActorDrawKeys_4468F0(session::ClientSession& session)
 {
-    gMapActorDrawKeyCount = 0;
+    session.WorldScene().mapActorDrawKeyCount = 0;
 }
 
 // WOL01：完整两段查槽，start/end各持样一次，used W16非零/编号W32命中后发布查找游标。
@@ -191,23 +180,25 @@ namespace cg::world {
 
 // 原函数：0x00446900。
 std::int32_t RegisterMapActorDrawKey_446900(
+    cg::yobi::YobiAction* const source,
     const std::int32_t graphicIndex, const std::int32_t mapX,
     const std::int32_t mapY)
 {
-    const std::int32_t count = detail::gMapActorDrawKeyCount;
+    auto& scene = source->ownerSession->WorldScene();
+    const std::int32_t count = scene.mapActorDrawKeyCount;
     for (std::int32_t index = 0; index < count; ++index) {
-        const auto& key = detail::gMapActorDrawKeys[static_cast<std::size_t>(index)];
+        const auto& key = scene.mapActorDrawKeys[static_cast<std::size_t>(index)];
         if (key.graphicIndex == graphicIndex && key.mapX == mapX && key.mapY == mapY) {
             return 1;
         }
     }
     if (count < 100) {
-        auto& key = detail::gMapActorDrawKeys[static_cast<std::size_t>(count)];
+        auto& key = scene.mapActorDrawKeys[static_cast<std::size_t>(count)];
         const std::int32_t nextCount = count + 1;
         key.graphicIndex = graphicIndex;
         key.mapX = mapX;
         key.mapY = mapY;
-        detail::gMapActorDrawKeyCount = nextCount;
+        scene.mapActorDrawKeyCount = nextCount;
     }
     return 0;
 }

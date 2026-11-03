@@ -61,6 +61,14 @@ struct ChatInputHistoryState {
     std::int32_t cursor62683C = 0; // 原 0x62683C。
 };
 
+// 地图角色图号/坐标去重键；每帧只清计数，表尾保留原内容。
+struct MapActorDrawKey {
+    std::int32_t graphicIndex;
+    std::int32_t mapX;
+    std::int32_t mapY;
+};
+static_assert(sizeof(MapActorDrawKey) == 12);
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
@@ -69,6 +77,8 @@ struct WorldSceneRuntimeState {
     RotationState rotation {};
     ChatSendState chat {};
     ChatInputHistoryState chatInputHistory {};
+    std::array<MapActorDrawKey, 100> mapActorDrawKeys {}; // 原 0x5ABFE0。
+    std::int32_t mapActorDrawKeyCount = 0; // 原 0x5AC494。
     std::uint8_t worldEntryRepliesPendingMask = 0; // 原 0x9A4B94，入场等待与地图回复的两位。
     std::int32_t pendingMapPaletteIndex = 0; // 原 0xFF0D4C，地图名回复生产、场景调色板消费。
     std::uint32_t mapRectangleRequestPending = 0; // 原 0xC82208，请求、CRC/数据回复共用。

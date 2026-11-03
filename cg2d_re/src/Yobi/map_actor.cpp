@@ -711,7 +711,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         const std::int32_t mapY = static_cast<std::int32_t>(action->mapY1F0);
         const std::int32_t mapX = static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t firstGraphicIndex = action->graphicIndex;
-        if (world::RegisterMapActorDrawKey_446900(firstGraphicIndex, mapX, mapY) == 0) {
+        if (world::RegisterMapActorDrawKey_446900(action, firstGraphicIndex, mapX, mapY) == 0) {
             const render::GraphicDescriptor16* const descriptor = &action->drawMode;
             const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
             const std::int32_t drawY = offsetY + action->y;

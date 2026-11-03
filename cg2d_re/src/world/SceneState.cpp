@@ -3950,7 +3950,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         session.WorldScene().frameBackgroundMode = 0;
         gMapSurfaceCacheEnabled_C82204 = 0;
         ApplyPendingMapPaletteReply_51D6F0(session);
-        ResetMapActorDrawKeys_4468F0();
+        ResetMapActorDrawKeys_4468F0(session);
         static_cast<void>(UpdateMapMouseTargetAndButtons_46F680());
         OpenPendingBattleResultWindow_504A50();
         static_cast<void>(NextRotationValue_455C70(session));

@@ -87,7 +87,7 @@ std::uint16_t* SuspendWorldActorForObservation_43DB00(cg::yobi::YobiAction* acti
 std::uint16_t* ResumeWorldActorAfterObservation_43DB30(cg::yobi::YobiAction* action); // flags120原W16清80，返同字段非拥有地址；NULL返nullptr。
 // 原函数：0x00446900。
 std::int32_t RegisterMapActorDrawKey_446900(
-    std::int32_t graphicIndex, std::int32_t mapX, std::int32_t mapY);
+    cg::yobi::YobiAction* source, std::int32_t graphicIndex, std::int32_t mapX, std::int32_t mapY);
 // WOP01：只生产无action记录；已存在/领取失败返0，原字段/文本生产完成返1。
 // 原函数：0x00445A60。
 std::int32_t RegisterWorldObjectWithoutAction_445A60(
@@ -163,7 +163,7 @@ std::uint32_t MapWorldObjectTypeToCategory_446210(std::int32_t type); // WOL01�
 // 原函数：0x005183B0。
 std::int32_t IsAnimationImageNumber_5183B0(std::int32_t imageNo); // 原图号[100000,200000)判断，不读取资源表。
 // 原函数：0x004468F0。
-void ResetMapActorDrawKeys_4468F0(); // 原普通场景51D246：只清三值去重计数，不清表。
+void ResetMapActorDrawKeys_4468F0(session::ClientSession& session); // 原普通场景51D246：只清三值去重计数，不清表。
 // 原445350完整实体生产/更新；仅新建方向门禁、两坐标取样与四文本槽两阶段复用沿MOP01 SPEC。
 void UpsertWorldActor_445350(
     session::ClientSession& session, std::int32_t objectIndex, std::int32_t imageNo, std::int32_t mapX,

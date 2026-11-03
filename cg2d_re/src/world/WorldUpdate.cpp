@@ -154,7 +154,7 @@ void Update(session::ClientSession& session)
         detail::DrawNormalScene_51C7D0(session);
         return;
     case 10:
-        detail::DrawBattleScene_43CBB0();
+        detail::DrawBattleScene_43CBB0(session);
         return;
     case 11: {
         const std::int32_t sceneState = gCurrentSceneState;

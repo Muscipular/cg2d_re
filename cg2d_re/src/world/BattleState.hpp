@@ -1,6 +1,7 @@
 #pragma once
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 #include <array>
 #include <string>
@@ -149,7 +150,7 @@ extern std::uint32_t gBattleRebirthLevel5ABB7C; // 原全局：0x005ABB7C。
 extern std::uint32_t gBattleExitNotificationPending_5ABCB0; // 原全局：0x005ABCB0。
 extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 原全局：0x005ABCD8。 43CB10末尾写，DrawBattleScene比较。
 // 原函数：0x0043CBB0。
-void DrawBattleScene_43CBB0(); // 完整十状态及绘制/退出尾；427470/完整事件寿命与画面运行门禁仍未闭合。
+void DrawBattleScene_43CBB0(session::ClientSession& session); // 完整十状态及绘制/退出尾；427470/完整事件寿命与画面运行门禁仍未闭合。
 
 } // namespace detail
 

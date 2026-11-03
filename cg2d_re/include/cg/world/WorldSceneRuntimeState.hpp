@@ -29,10 +29,17 @@ struct LogoutSceneState {
     yobi::YobiAction* action = nullptr; // 原 0x9A6E98。
 };
 
+// 战斗场景的遍历游标与退出动作借用；动作本体由 Yobi 持有。
+struct BattleSceneState {
+    std::int32_t sceneIndex = 0; // 原 0x5ABFD8。
+    yobi::YobiAction* exitAction = nullptr; // 原 0x5ABCDC。
+};
+
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     DisconnectDialogState disconnectDialog {};
     LogoutSceneState logout {};
+    BattleSceneState battle {};
     std::uint32_t pendingMapBgmIndex = 0; // 原 0xFF0D5C，地图回复生产、普通场景消费。
     std::uint32_t mapBgmChangePending = 0; // 原 0xFF0D58。
     std::int32_t worldBgmResumeIndex = 0; // 原 0xFF0D68，普通场景恢复号。

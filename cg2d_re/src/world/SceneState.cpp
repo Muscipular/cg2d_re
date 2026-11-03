@@ -78,8 +78,6 @@ static std::array<std::int32_t, 100> gRotationTableC8A7B0 {}; // 原全局：0x0
 static std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
 static std::int32_t gWorldSceneInitialized_FF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初始化标志，11分支只认恰1。
 static std::int32_t gWorldSceneWaitFrames_FF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
-static cg::yobi::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原全局：0x005ABCDC。 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
-static std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原全局：0x005ABFD8。 原场景循环游标，回调之后重读，非对象地址。
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
     std::vector<float> speedFF0FA8 = std::vector<float>(481, 0.0f); // 原全局：0x00FF0FA8。
@@ -4143,8 +4141,9 @@ std::int32_t __cdecl SetPlayerObjectIndex_519EB0(const std::int32_t value)
 }
 
 // 原函数：0x0043CBB0。
-void DrawBattleScene_43CBB0()
+void DrawBattleScene_43CBB0(session::ClientSession& session)
 {
+    auto& battleScene = session.WorldScene().battle;
     std::int32_t state = gCurrentSceneState;
     if (static_cast<std::uint32_t>(state) >= 2U
         && static_cast<std::uint32_t>(state) <= 6U
@@ -4183,7 +4182,7 @@ void DrawBattleScene_43CBB0()
         cg::yobi::YobiClearUp_404D30();
         cg::yobi::InitializeBattleScene_4383F0();
         gBattleEntryNoticeAction5ABFB8 = nullptr;
-        gBattleExitAction5ABCDC = nullptr;
+        battleScene.exitAction = nullptr;
         gSceneTransitionResetPending_58B6D0 = 1;
         gBattleCommandAction5ABC00 = nullptr;
         gPendingResultWindowMode_FF0C10 = 3;
@@ -4308,13 +4307,13 @@ void DrawBattleScene_43CBB0()
             gBattleCurrentPosition5ABCA4 = position;
             if (changed) {
                 std::int32_t index = 0;
-                gBattleSceneIndex5ABFD8 = 0;
+                battleScene.sceneIndex = 0;
                 do {
                     if (gBattleAllEntries59E980[index] != nullptr) {
                         cg::yobi::UpdateBattleAlbumFlag_4238F0(gBattleAllEntries59E980[index]);
-                        index = gBattleSceneIndex5ABFD8;
+                        index = battleScene.sceneIndex;
                     }
-                    gBattleSceneIndex5ABFD8 = ++index;
+                    battleScene.sceneIndex = ++index;
                 } while (index < 20);
             }
             gBattleSnapshotPetIndex5ABBFC = FindBattlePetIndex_43C4B0();
@@ -4417,7 +4416,7 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
         cg::yobi::ClearBattleAppendEffects_43BED0();
-        gBattleSceneIndex5ABFD8 = 22;
+        battleScene.sceneIndex = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
@@ -4453,7 +4452,7 @@ void DrawBattleScene_43CBB0()
         cg::yobi::YobiClearUp_404D30();
         DetachWorldObjectActions_446610();
         cg::world::gRippleGate = std::int32_t{0};
-        static_cast<void>(cg::network::GetGameConnection().AcknowledgeBattleExit(0));
+        static_cast<void>(session.Connection().AcknowledgeBattleExit(0));
         return;
     }
     case 9: {
@@ -4461,7 +4460,7 @@ void DrawBattleScene_43CBB0()
         gBattleActiveEventMask5AAA74 = 0;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
-        gBattleSceneIndex5ABFD8 = 22;
+        battleScene.sceneIndex = 22;
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(cg::audio::BeginBgmFadeOut_52B990());
         static_cast<void>(CaptureSceneAndSelectEvenVariant_51D750());
@@ -4491,7 +4490,7 @@ void DrawBattleScene_43CBB0()
         return;
     }
     // G02：参考43D07B前置业务；保留Sub_4990A0内部的存活与可见门禁。
-    if (cg::network::GetGameConnection().GameplaySettings().showEnemyHpBars) {
+    if (session.Connection().GameplaySettings().showEnemyHpBars) {
         for (std::int32_t enemy = 10; enemy < 20; ++enemy) {
             cg::yobi::YobiAction* const actor = gBattleEntries59E980[enemy];
             if (actor != nullptr && cg::yobi::ReadYobiBatchType(actor) == 0
@@ -4503,7 +4502,7 @@ void DrawBattleScene_43CBB0()
     const std::int32_t position = gBattleCurrentPosition5ABCA4;
     std::int32_t index = position < 10 || position >= 20 ? 0 : 10;
     const std::int32_t end = position < 10 ? 10 : 20;
-    gBattleSceneIndex5ABFD8 = index;
+    battleScene.sceneIndex = index;
     do {
         cg::yobi::YobiAction* const actor = gBattleAllEntries59E980[index];
         if (actor != nullptr) {
@@ -4516,10 +4515,10 @@ void DrawBattleScene_43CBB0()
             }
             if (atRest && cg::yobi::ReadYobiBatchType(actor) == 0 && (cg::yobi::GetYobiActionFlagsLowByte(actor) & 2U) == 0) {
                 cg::yobi::DrawBattleActorHpBar_4990A0(index);
-                index = gBattleSceneIndex5ABFD8;
+                index = battleScene.sceneIndex;
             }
         }
-        gBattleSceneIndex5ABFD8 = ++index;
+        battleScene.sceneIndex = ++index;
     } while (index < end);
     if (platform::gFrameBackgroundMode_73ECC0 == 2) {
         return;
@@ -4529,9 +4528,9 @@ void DrawBattleScene_43CBB0()
         gCurrentSceneState = 7;
         gBattleExitNotificationPending_5ABCB0 = 0;
     }
-    cg::yobi::YobiAction* const exitAction = gBattleExitAction5ABCDC;
+    cg::yobi::YobiAction* const exitAction = battleScene.exitAction;
     if (exitAction != nullptr && cg::yobi::ReadYobiActionHpOnce(exitAction) > 0) {
-        cg::yobi::YobiAction* const action = gBattleExitAction5ABCDC;
+        cg::yobi::YobiAction* const action = battleScene.exitAction;
         const std::int32_t y = cg::yobi::GetYobiActionField34(action);
         const std::int32_t x = cg::yobi::GetYobiActionField30(action);
         if (cg::ui::HitTestMouseRect_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
@@ -4542,11 +4541,11 @@ void DrawBattleScene_43CBB0()
             static_cast<void>(0);
             if (exitClicked) {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
-                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"U" /* 原常量参考：0x00554190。 */));
+                static_cast<void>(session.Connection().SendBattlePacket(L"U" /* 原常量参考：0x00554190。 */));
                 gCurrentSceneState = 7;
             }
         }
-        cg::yobi::YobiAction* const drawAction = gBattleExitAction5ABCDC;
+        cg::yobi::YobiAction* const drawAction = battleScene.exitAction;
         const std::int32_t drawY = cg::yobi::GetYobiActionField34(drawAction);
         const std::int32_t drawX = cg::yobi::GetYobiActionField30(drawAction);
         static_cast<void>(render::DrawText2_456670(

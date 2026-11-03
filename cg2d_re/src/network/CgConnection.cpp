@@ -1175,7 +1175,7 @@ SendResult CgConnection::Impl::SendPacket(
 
     // L04：回调可重入发送；持有字节快照，避免共享格式化缓冲被覆盖。
     const std::string packet(static_cast<const char*>(data), size);
-    script::RecordAutoBattleAction(packet);
+    script::RecordAutoBattleAction(owner, packet);
     script::LuaSendPacket(owner, packet);
     if (id != connectionId || !ioEnabled) return SendResult::Unavailable;
     for (auto& [header, handler] : this->sendHandlers) {

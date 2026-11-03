@@ -286,6 +286,7 @@ static int SendBattleAction(lua_State* L)
         LuaPush(L, false);
         return 1;
     }
+    auto& connection = GetLuaConnection(L);
     autoBattleActionCount++;
     const auto param1 = static_cast<B_ACTION>(luaL_optinteger(L, 1, B_ACTION_ATTACK));
     int param2 = static_cast<int>(luaL_optinteger(L, 2, -1));
@@ -296,7 +297,7 @@ static int SendBattleAction(lua_State* L)
     int n = 0;
     auto sendNone = [&]() {
         n = sprintf_s(buff, "Rg N\n");
-        static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+        static_cast<void>(connection.SendPacket(buff, n));
     };
     switch (param1) {
         case B_ACTION_SKILL: {
@@ -324,7 +325,7 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             n = sprintf_s(buff, "Rg S|%X|%X|%X\n", skIndex, param3, target);
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         }
         case B_ACTION_ITEM: {
@@ -339,7 +340,7 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             n = sprintf_s(buff, "Rg I|%X|%X\n", itemIndex, target);
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         }
         case B_ACTION_ATTACK: {
@@ -357,35 +358,35 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             n = sprintf_s(buff, "Rg H|%X\n", target);
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         }
         case B_ACTION_DEF:
             n = sprintf_s(buff, "Rg G\n");
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         case B_ACTION_ESCAPE:
             n = sprintf_s(buff, "Rg E\n");
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         case B_ACTION_MOVE:
             n = sprintf_s(buff, "Rg P\n");
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         case B_ACTION_PET:
             n = sprintf_s(buff, "Rg M|%X\n", param2);
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         case B_ACTION_NONE:
             sendNone();
             break;
         case B_ACTION_EQUIP:
             n = sprintf_s(buff, "Rg Q|%X\n", param2 < 0 ? 255 : param2);
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         case B_ACTION_REBIRTH:
             n = sprintf_s(buff, "Rg R|%X\n", param2 ? 1 : 0);
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         case B_ACTION_PET_SKILL: {
             auto techIndex = getPetTechIndex(param2);
@@ -399,7 +400,7 @@ static int SendBattleAction(lua_State* L)
             }
             if (techIndex < 0) {
                 n = sprintf_s(buff, "Rg W|FF|FF\n");
-                static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+                static_cast<void>(connection.SendPacket(buff, n));
                 break;
             }
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
@@ -409,11 +410,11 @@ static int SendBattleAction(lua_State* L)
             m_log_iw(L"B_ACTION_ATTACK checkAndGetTarget %d target %d\n", petPos, target);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
                 n = sprintf_s(buff, "Rg W|FF|FF\n");
-                static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+                static_cast<void>(connection.SendPacket(buff, n));
                 break;
             }
             n = sprintf_s(buff, "Rg W|%X|%X\n", techIndex, target);
-            static_cast<void>(cg::network::GetGameConnection().SendPacket(buff, n));
+            static_cast<void>(connection.SendPacket(buff, n));
             break;
         }
     }
@@ -699,8 +700,9 @@ void ShutdownAutoBattle() {
 }
 
 // 实际Rg发送前记录手动动作；不占用N01的首匹配注册槽。
-void RecordAutoBattleAction(std::string_view packet) {
+void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::string_view packet) {
     if (!GetBattleLuaState() || autobattle_detail::enableAutoBattle || !packet.starts_with("Rg ")) return;
+    if (&GetLuaConnection(GetBattleLuaState()) != &networkConnection) return;
     switch (cg::world::gBattleType5ABFC8) { case 0: case 2: case 3: case 7: return; default: break; }
     const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
     if (count < 0 || count >= 2) {

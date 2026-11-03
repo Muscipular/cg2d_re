@@ -1,4 +1,5 @@
 #include "cg/render/TextPendingQueue.hpp"
+#include "cg/network/CgConnection.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "cg/text/Encoding.hpp"
 
@@ -69,7 +70,7 @@ std::int32_t ProcessCharacterSlot_461B30(
     std::int32_t result = -1;
     std::int32_t style;
     const login::CharacterRecord& record =
-        login::gCharacterRecords[static_cast<std::size_t>(slot)];
+        cg::network::GetGameConnection().LoginRequests().characters[static_cast<std::size_t>(slot)];
 
     if (cg::login::HasCharacterInSlot_51B110(slot) != 0) {
         style = mode;

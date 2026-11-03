@@ -34,8 +34,9 @@ static std::int32_t CompareUnsignedBytes(const char* left, const char* right)
     }
 }
 
-// 原 sub_51B1B0@[0x51B1B0,0x51B3A2)；唯一调用者为 sub_5089B0。
+// 原 sub_51B1B0@[0x51B1B0,0x51B3A2)；NSM01额外传入回调所属连接的记录数组。
 static std::int32_t WriteCharacterRecord_51B1B0(
+    CharacterRecordArray& characters,
     const char* legacyName,
     char* mutableLegacyDetail)
 {
@@ -47,7 +48,7 @@ static std::int32_t WriteCharacterRecord_51B1B0(
         return -1;
     }
 
-    cg::login::CharacterRecord& record = cg::login::gCharacterRecords[
+    cg::login::CharacterRecord& record = characters[
         static_cast<std::size_t>(slot)];
     record = {};
 
@@ -182,6 +183,7 @@ std::int32_t HandleCharacterListResponse_5089B0(cg::network::CgConnection& conne
         data, '|', 2, static_cast<std::int32_t>(kOuterTokenCapacity - 1),
         mutableLegacyDetail));
     std::int32_t writeResult = WriteCharacterRecord_51B1B0(
+        request.characters,
         legacyName,
         mutableLegacyDetail);
 
@@ -194,7 +196,7 @@ std::int32_t HandleCharacterListResponse_5089B0(cg::network::CgConnection& conne
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         data, '|', 4, static_cast<std::int32_t>(kOuterTokenCapacity - 1),
         mutableLegacyDetail));
-    writeResult = WriteCharacterRecord_51B1B0(legacyName, mutableLegacyDetail);
+    writeResult = WriteCharacterRecord_51B1B0(request.characters, legacyName, mutableLegacyDetail);
     return writeResult;
 }
 

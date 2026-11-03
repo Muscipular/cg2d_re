@@ -1288,12 +1288,13 @@ static void ClearPreviewActions()
 // CUN01：原460FF0角色进入分支，供Debug直入及非Debug确认后共用，调用顺序保持。
 static void EnterSelectedCharacter()
 {
+    auto& characters = cg::network::GetGameConnection().LoginRequests().characters;
     const login::CharacterRecord& record =
-        login::gCharacterRecords[static_cast<std::size_t>(login::gSelectedCharacterIndex)];
+        characters[static_cast<std::size_t>(login::gSelectedCharacterIndex)];
     CopyRecordName(state::gSelectedCharacterName, record);
     const std::int16_t selected = login::gSelectedCharacterIndex;
     const login::CharacterRecord* const selectedRecord =
-        login::gCharacterRecords.data() + selected;
+        characters.data() + selected;
     state::gSelectedGraphicNo = selectedRecord->graphicNo;
     world::SetCurrentSceneType(5);
     login::detail::PlaySe(59, 320, 240);
@@ -1649,7 +1650,7 @@ std::int32_t ProcessScene_460FF0()
 
         for (std::uint32_t slot = 0; slot < login::CharacterRecordCount; ++slot) {
             login::CharacterRecord& record =
-                login::gCharacterRecords[static_cast<std::size_t>(slot)];
+                cg::network::GetGameConnection().LoginRequests().characters[static_cast<std::size_t>(slot)];
             const std::int32_t action =
                 ProcessCharacterSlot_461B30(slot, interactive);
 #ifndef _DEBUG

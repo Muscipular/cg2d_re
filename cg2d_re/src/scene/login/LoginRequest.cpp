@@ -19,7 +19,6 @@ namespace cg::login {
 static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 static constexpr char kSuccessfulResult[] = "successful";
 
-CharacterRecordArray gCharacterRecords {}; // 原全局：0x00FF03E0。
 std::int16_t gSelectedCharacterIndex = 0; // 原全局：0x00FF0C08。
 
 // 原函数：0x0051B3B0。
@@ -28,7 +27,7 @@ std::int32_t ClearCharacterSlot_51B3B0(const std::uint32_t selectedIndex)
     if (selectedIndex >= CharacterRecordCount) {
         return -1;
     }
-    gCharacterRecords[selectedIndex] = {};
+    cg::network::GetGameConnection().LoginRequests().characters[selectedIndex] = {};
     return 0;
 }
 
@@ -38,13 +37,13 @@ std::int32_t HasCharacterInSlot_51B110(const std::uint32_t selectedIndex)
     if (selectedIndex >= CharacterRecordCount) {
         return -1;
     }
-    return gCharacterRecords[selectedIndex].name[0] != '\0' ? 1 : 0;
+    return cg::network::GetGameConnection().LoginRequests().characters[selectedIndex].name[0] != '\0' ? 1 : 0;
 }
 
 // 原函数：0x0051B140。
 std::int32_t CharacterNameExists_51B140(const std::wstring_view name)
 {
-    for (const CharacterRecord& record : gCharacterRecords) {
+    for (const CharacterRecord& record : cg::network::GetGameConnection().LoginRequests().characters) {
         if (record.name == name) { return 1; }
     }
     return 0;
@@ -58,7 +57,7 @@ std::uint32_t StartLoginRequest()
     const std::int16_t selected = gSelectedCharacterIndex;
     request.loginReplyCode = 0;
 
-    const CharacterRecord* const record = gCharacterRecords.data() + selected;
+    const CharacterRecord* const record = request.characters.data() + selected;
     const std::int32_t field18 = record->graphicNo;
     const std::int32_t field50 = record->previewState;
     const std::int32_t field4C = record->registNumber;

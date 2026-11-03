@@ -93,7 +93,7 @@ void HandleCharacterCreationResponse_508EE0(cg::network::CgConnection& connectio
     request.characterCreationReplyCode = 1;
     const std::int32_t previewToggle =
         character_select::state::gPreviewToggleState;
-    CharacterRecord* const record = gCharacterRecords.data() + selected;
+    CharacterRecord* const record = request.characters.data() + selected;
     record->registNumber = registNumber;
     record->previewState = previewToggle;
 }

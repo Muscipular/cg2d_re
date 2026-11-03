@@ -21,7 +21,7 @@ std::uint32_t StartCharacterDeletionRequest()
     auto& request = connection.LoginRequests();
     request.characterDeletionReplyCode = 0;
     const auto networkSession = connection.CaptureSession();
-    const CharacterRecord* const record = gCharacterRecords.data() + selected;
+    const CharacterRecord* const record = request.characters.data() + selected;
     const std::int32_t registNumber = record->registNumber;
 
     connection.SendCharacterDeletionRequest(registNumber);

@@ -1,4 +1,5 @@
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
+#include "cg/network/CgConnection.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
 #include "CharacterSelectState.hpp"
@@ -474,7 +475,8 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
         return;
     }
 
-    login::CharacterRecord& record = login::gCharacterRecords[slotIndex];
+    login::CharacterRecord& record =
+        cg::network::GetGameConnection().LoginRequests().characters[slotIndex];
     if (record.graphicNo < 30000) {
         record.graphicNo = 33100;
     }

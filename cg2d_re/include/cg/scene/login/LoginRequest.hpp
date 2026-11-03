@@ -42,8 +42,7 @@ struct CharacterRecord {
 using CharacterRecordArray = std::array<CharacterRecord, CharacterRecordCount>;
 
 
-// 原 [0xFF03E0,0xFF0508) 与 0xFF0C08；均有跨场景引用，映像初值为 0。
-extern CharacterRecordArray gCharacterRecords; // 原全局：0x00FF03E0。
+// 原 0xFF0C08；跨场景引用，映像初值为 0。
 extern std::int16_t gSelectedCharacterIndex; // 原全局：0x00FF0C08。
 
 // 原 sub_51B3B0@[0x51B3B0,0x51B3DC)：只清合法的 0/1 角色记录。
@@ -57,6 +56,7 @@ std::int32_t CharacterNameExists_51B140(std::wstring_view name);
 
 // NSM01：登录/角色/登出请求共用的状态随连接实例保留，重连不清。
 struct LoginRequestState {
+    CharacterRecordArray characters {}; // 原 0xFF03E0，两条角色列表记录。
     std::uint16_t characterListReplyCode = 0; // 原 0xDA3B26，R/W16。
     std::uint16_t characterDeletionReplyCode = 0; // 原 0xDA3B28，R/W16。
     std::uint16_t characterCreationReplyCode = 0; // 原 0xDA3B2A，R/W16。

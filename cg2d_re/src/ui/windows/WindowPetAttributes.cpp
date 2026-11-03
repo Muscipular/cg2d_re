@@ -380,7 +380,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 if (world::gPetRuntimeRecords[selected].flags6AA == 2) {
-                    WindowCraft_ResetItemSelection();
+                    WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
                 }
             }
             consumed = 1;

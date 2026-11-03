@@ -376,7 +376,7 @@ void BuildSortedSkillDisplayEntries_518600(
 // 原函数：0x00518660。
 std::int32_t CompareSkillDisplayEntries_518660(const SkillPairRecord* left, const SkillPairRecord* right);
 // 原函数：0x0051B530。
-void SwapPlayerInventorySlots_51B530(std::int32_t first, std::int32_t second); // 整条C5C交换，装备位标志及UI迁移。
+void SwapPlayerInventorySlots_51B530(session::ClientSession& session, std::int32_t first, std::int32_t second); // 整条C5C交换，装备位标志及UI迁移。
 // 原函数：0x005196B0。
 void SetPlayerItemDescription_5196B0(std::int32_t index, const char* text); // 32行描述与最多4页的原回扫。
 extern std::int32_t gPetCountDE0B00; // 原全局：0x00DE0B00。

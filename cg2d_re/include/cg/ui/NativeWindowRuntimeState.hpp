@@ -229,6 +229,58 @@ struct GatherWindowRuntimeState {
     std::wstring details {}; // 原0xCC190C。
 };
 
+// 制作窗的选择、请求、阶段与两类结果；保留查询索引和实际请求索引的独立身份。
+struct CraftWindowRuntimeState {
+    std::uint8_t lookupSkillPair = 0; // 原0xD67AD8，按S8解释。
+    std::int32_t lookupRecipe = -1; // 原0x5846BC。
+    std::int32_t petAssistActive = 0; // 原0xD67B00，非地址。
+    std::array<std::int32_t, 6> selectedSlots {}; // 原0xCA0A90。
+    std::array<std::int32_t, 6> materialIndices {}; // 原0xCA0458。
+    std::array<std::int32_t, 6> selectionCounts {}; // 原0xD66E0C。
+    std::array<std::int32_t, 6> selectionImages {}; // 原0xCF3FF4。
+    std::int32_t selectedItem = 0; // 原0xD460C0。
+    std::int32_t selectedImage = 0; // 原0xCC3ED8。
+    std::int32_t selectedCount = 0; // 原0xCC483C。
+    std::uint8_t selectionMode = 0; // 原0xD2D650。
+    std::array<std::uint8_t, 28> itemMarks {}; // 原0xD67290。
+    std::array<std::uint8_t, 20> materialItemMarks {}; // 原0xD68A90，不扩展原越界访问。
+    std::int32_t backpackHover = -2; // 原0x57DA24，独立于材料/单选悬停。
+    std::int32_t recipeId = 0; // 原0xD2E440，配方重定位快照。
+    std::uint64_t deadline = 0; // 原0xCF3B04，等待阶段同源64位截止值。
+    std::int32_t result = 0; // 原0xCC46D8。
+    std::int32_t experience = 0; // 原0xCC3204。
+    std::int32_t value = 0; // 原0xCC4840。
+    std::int32_t levelUp = 0; // 原0xCF4974。
+    std::int32_t endurance = 0; // 原0xD2F328。
+    std::int32_t dexterity = 0; // 原0xCA0448。
+    std::int32_t intelligence = 0; // 原0xCB0F84。
+    std::int32_t injury = 0; // 原0xD2EA78。
+    std::int32_t resultImage = 0; // 原0xCF4B60。
+    std::int32_t displayImage = 0; // 原0xCB2204。
+    std::wstring name {}; // 原0xCF46D4。
+    std::wstring resultSuffix {}; // 原0xD672B4。
+    std::wstring resultDetails {}; // 原0xD2E92C，既有NUL文本合同，不猜容量。
+    std::array<std::int32_t, 6> materialHoverSlots {}; // 原0xCB0A8C。
+    std::int32_t materialHintPage = 0; // 原0xCF4FD8。
+    std::int32_t materialHoveredItem = 0; // 原0xD67424。
+    std::int32_t itemWorkResult = 0; // 原0xCB05FC。
+    std::int32_t itemWorkExperience = 0; // 原0xC8A950。
+    std::int32_t itemWorkValue = 0; // 原0xD2E2AC。
+    std::int32_t itemWorkLevelUp = 0; // 原0xCB03D8。
+    std::int32_t itemWorkEndurance = 0; // 原0xCF46B4。
+    std::int32_t itemWorkDexterity = 0; // 原0xCB0A14。
+    std::int32_t itemWorkIntelligence = 0; // 原0xD30418。
+    std::int32_t itemWorkInjury = 0; // 原0xD2E2A8。
+    std::int32_t itemWorkSkillId = 0; // 原0xD67CF0。
+    std::wstring itemWorkSuffix {}; // 原0xD2DADC。
+    std::wstring itemWorkDetails {}; // 原0xD2DB00，独立于制造详情。
+    std::int32_t materialSingleHover = 0; // 原0xCB0AA4。
+    std::int32_t skillIndex = 0; // 原0xCC2368。
+    std::int32_t recipeIndex = 0; // 原0xD2D638。
+    std::int32_t requestValue = 0; // 原0xD30400，制造发送完整S32。
+    std::uint8_t requestByte = 0; // 原0xD64E13，其他加工按S8读取。
+};
+
 // 同一会话内制作、采集和技能选择共用，保留原计数宽度与两独立借用槽。
 struct WindowOperationRuntimeState {
     std::int32_t count = 0; // 原0xD67AF8。
@@ -287,6 +339,7 @@ struct NativeWindowRuntimeState {
     SkillRequestRuntimeState skillRequest {};
     SkillResultRuntimeState skillResult {};
     GatherWindowRuntimeState gather {};
+    CraftWindowRuntimeState craft {};
     WindowOperationRuntimeState operations {};
     WindowPointerRuntimeState pointer {};
     ItemTransferRuntimeState itemTransfer {};

@@ -60,52 +60,53 @@ input::InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
 static std::int32_t WindowCraft_HandleMaterialTooltip(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六材料槽悬停、翻页与图形绘制。
 
 // 原函数：0x0047D4B0。
-static std::int32_t WindowCraft_HasRecipeCrystalLevel(); // 晶石等级读取后比较当前配方等级。
+static std::int32_t WindowCraft_HasRecipeCrystalLevel(session::ClientSession& session); // 晶石等级读取后比较当前配方等级。
 
 // 原函数：0x0047D4F0。
-static std::int32_t WindowCraft_HasSelectedCrystalLevel(); // 单选物品不加8，晶石读取后重新取得选择索引。
+static std::int32_t WindowCraft_HasSelectedCrystalLevel(session::ClientSession& session); // 单选物品不加8，晶石读取后重新取得选择索引。
 
 // 原函数：0x0047D530。
-static std::int32_t WindowCraft_HasMaterialCrystalLevel(); // 六材料首个匹配类别，晶石读取后重取槽号再比较等级。
+static std::int32_t WindowCraft_HasMaterialCrystalLevel(session::ClientSession& session); // 六材料首个匹配类别，晶石读取后重取槽号再比较等级。
 
 // 原函数：0x0047D5B0。
-static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel(); // 首材料slot+8等级在晶石读取前快照。
+static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel(session::ClientSession& session); // 首材料slot+8等级在晶石读取前快照。
 
 // 原函数：0x0047E1B0。
-static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* window); // 制造等待模式1，按配方等级生成同源截止。
+static WindowAnimationData* WindowCraft_WaitCraft(session::ClientSession& session, WindowInstance* window); // 制造等待模式1，按配方等级生成同源截止。
 
 // 原函数：0x0047EF00。
-static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* window); // 单选等待模式4，刻印排除宠物辅助。
+static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& session, WindowInstance* window); // 单选等待模式4，刻印排除宠物辅助。
 
 // 原函数：0x004801B0。
-static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* window); // 打包等待模式13，仍读取绝对单选槽等级。
+static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& session, WindowInstance* window); // 打包等待模式13，仍读取绝对单选槽等级。
 
 // 原函数：0x00480600。
-static void WindowCraft_WaitDecoration(WindowInstance* window); // 装饰等待固定8000ms，原被AL覆盖的返回值由caller弃用。
+static void WindowCraft_WaitDecoration(session::ClientSession& session, WindowInstance* window); // 装饰等待固定8000ms，原被AL覆盖的返回值由caller弃用。
 
 // 原函数：0x00480C20。
-static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* window); // 精炼等待模式10，一次RAND且不读物品等级。
+static WindowAnimationData* WindowCraft_WaitRefining(session::ClientSession& session, WindowInstance* window); // 精炼等待模式10，一次RAND且不读物品等级。
 
 // 原函数：0x00483EB0。
 static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
 
 // 原函数：0x0047DF50。
-static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
+static WindowAnimationData* WindowCraft_InitializeRecipe(session::ClientSession& session, WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
 
 // 原函数：0x0047FAE0。
-static WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* window); // 装饰模式6，固定魔力100。
+static WindowAnimationData* WindowCraft_InitializeDecoration(session::ClientSession& session, WindowInstance* window); // 装饰模式6，固定魔力100。
 
 // 原函数：0x0047FD00。
-static WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* window); // 宠物装备装饰模式15，独立标题。
+static WindowAnimationData* WindowCraft_InitializePetDecoration(session::ClientSession& session, WindowInstance* window); // 宠物装备装饰模式15，独立标题。
 
 // 原函数：0x0047FF20。
-static WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* window); // 模式12材料类别文本与完整六材料交互。
+static WindowAnimationData* WindowCraft_InitializePacking(session::ClientSession& session, WindowInstance* window); // 模式12材料类别文本与完整六材料交互。
 
 // 原函数：0x00480A00。
-static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* window); // 精炼模式9，采样同源计时并按发送模式配置动作。
+static WindowAnimationData* WindowCraft_InitializeRefining(session::ClientSession& session, WindowInstance* window); // 精炼模式9，采样同源计时并按发送模式配置动作。
 
 // 原函数：0x00483E30。
 static void WindowCraft_ReleaseMaterialSlot(
+    session::ClientSession& session,
     std::int32_t destination, std::int32_t source, std::int32_t material); // 先释放再发布材料槽/占用。
 
 // 原函数：0x004880D0。
@@ -115,10 +116,10 @@ static std::int32_t WindowCraft_ReadRequiredSkillLevel(std::int32_t skillId, std
 static std::int32_t WindowCraft_ReadMaxMaterialLevel(); // 前三材料占用等级与0的最大值。
 
 // 原函数：0x00488180。
-static std::int32_t WindowCraft_ReadFirstMaterialId(); // 六槽中首个材料类别0/1/2对应的itemId。
+static std::int32_t WindowCraft_ReadFirstMaterialId(session::ClientSession& session); // 六槽中首个材料类别0/1/2对应的itemId。
 
 // 原函数：0x004881D0。
-static void WindowCraft_ValidatePackingMaterials(std::int32_t destination, std::int32_t source); // 模式12完整材料校验、清理与发布。
+static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session, std::int32_t destination, std::int32_t source); // 模式12完整材料校验、清理与发布。
 
 // 原函数：0x0047DE00。
 static void WindowCraft_HandleMaterialDrag(
@@ -159,25 +160,25 @@ static std::int32_t WindowCraft_DrawEmptyEngravingNotice(WindowInstance& callbac
 static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 单选投放/校验/拖动与绘制。
 
 // 原函数：0x0047EC00。
-static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* window); // 单选模式3完整初始化，返回借用载荷。
+static WindowAnimationData* WindowCraft_InitializeItemWork(session::ClientSession& session, WindowInstance* window); // 单选模式3完整初始化，返回借用载荷。
 
 // 原函数：0x0047E5E0。
-static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* window); // 制造结果完整窗口11展示。
+static WindowAnimationData* WindowCraft_ShowRecipeResult(session::ClientSession& session, WindowInstance* window); // 制造结果完整窗口11展示。
 
 // 原函数：0x0047EBE0。
-static WindowAnimationData* WindowCraft_RefreshRecipeResult(); // 仅已有窗口11才更新，不自动创建。
+static WindowAnimationData* WindowCraft_RefreshRecipeResult(session::ClientSession& session); // 仅已有窗口11才更新，不自动创建。
 
 // 原函数：0x00484E90。
 static std::int32_t WindowCraft_HandleItemTooltip(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 单物品悬停/翻页，物品编号不加8。
 
 // 原函数：0x0047F3D0。
-static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* window); // 物品加工结果展示，保留入口选择快照及交叉门禁。
+static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSession& session, WindowInstance* window); // 物品加工结果展示，保留入口选择快照及交叉门禁。
 
 // 原函数：0x0047FAC0。
-static WindowAnimationData* WindowCraft_RefreshItemWorkResult(); // 仅已有窗口11才展示物品结果。
+static WindowAnimationData* WindowCraft_RefreshItemWorkResult(session::ClientSession& session); // 仅已有窗口11才展示物品结果。
 
 // 原函数：0x0047DC20。
-static std::int32_t WindowCraft_ReleaseMaterials(std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。
+static std::int32_t WindowCraft_ReleaseMaterials(session::ClientSession& session, std::int32_t index); // 六槽/单选两路释放，单选尾接聊天恢复。
 
 // 原函数：0x00481010。
 static void WindowCraft_Release(WindowInstance&);
@@ -190,101 +191,11 @@ static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, std::int32_
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static std::uint8_t gSkillPairIndexD67AD8 = 0; // 原全局：0x00D67AD8。 配方查询按S8解释。
-
-static std::int32_t gRecipeIndex5846BC = -1; // 原全局：0x005846BC。 原装载初值-1。
-
-// 原全局：0x00D67B00。 原数值状态，47D490清零；非地址。
-static std::int32_t gCraftPetAssistActive_D67B00 = 0; // 原全局：0x00D67B00。
-
-static std::array<std::int32_t, 6> gSelectedSlotsCA0A90 {}; // 原全局：0x00CA0A90。
-
-static std::array<std::int32_t, 6> gMaterialIndicesCA0458 {}; // 原全局：0x00CA0458。
-
-static std::array<std::int32_t, 6> gSelectionCountsD66E0C {}; // 原全局：0x00D66E0C。
-
-static std::array<std::int32_t, 6> gSelectionImagesCF3FF4 {}; // 原全局：0x00CF3FF4。
-
-static std::int32_t gSelectedItemD460C0 = 0; // 原全局：0x00D460C0。
-
-static std::int32_t gSelectedImageCC3ED8 = 0; // 原全局：0x00CC3ED8。
-
-static std::int32_t gSelectedCountCC483C = 0; // 原全局：0x00CC483C。
-
-static std::uint8_t gSelectionModeD2D650 = 0; // 原全局：0x00D2D650。
-
-static std::array<std::uint8_t, 28> gItemMarksD67290 {}; // 原全局：0x00D67290。
-
-static std::array<std::uint8_t, 20> gItemMarksD68A90 {}; // 原全局：0x00D68A90。 不为原越界访问扩展为28B。
-
-static std::int32_t gCraftBackpackHover57DA24 = -2; // 原全局：0x0057DA24。 483150唯一读写，区别于材料/单选悬停槽。
-
-static std::int32_t gCraftRecipeIdD2E440 = 0; // 原全局：0x00D2E440。 主更新重定位配方使用的原id快照。
-
-static std::uint64_t gCraftDeadlineCF3B04 = 0; // 原全局：0x00CF3B04。 CTM01制作等待阶段的同源64位截止值。
-
-static std::int32_t gCraftResultCC46D8 = 0; // 原全局：0x00CC46D8。
-
-static std::int32_t gCraftExperienceCC3204 = 0; // 原全局：0x00CC3204。
-
-static std::int32_t gCraftValueCC4840 = 0; // 原全局：0x00CC4840。
-
-static std::int32_t gCraftLevelUpCF4974 = 0; // 原全局：0x00CF4974。
-
-static std::int32_t gCraftEnduranceD2F328 = 0; // 原全局：0x00D2F328。
-
-static std::int32_t gCraftDexterityCA0448 = 0; // 原全局：0x00CA0448。
-
-static std::int32_t gCraftIntelligenceCB0F84 = 0; // 原全局：0x00CB0F84。
-
-static std::int32_t gCraftInjuryD2EA78 = 0; // 原全局：0x00D2EA78。
-
-static std::int32_t gCraftResultImageCF4B60 = 0; // 原全局：0x00CF4B60。
-
-static std::int32_t gCraftDisplayImageCB2204 = 0; // 原全局：0x00CB2204。
-
-static std::wstring gCraftNameCF46D4 {}; // 原全局：0x00CF46D4。
-
-static std::wstring gCraftResultSuffixD672B4; // 原全局：0x00D672B4。
-
-// 只承接已证NUL文本合同；原固定容量未证，不猜数组上界或保留邻区。
-static std::wstring gCraftResultDetailsD2E92C; // 原全局：0x00D2E92C。
-
-static std::array<std::int32_t, 6> gMaterialHoverSlotsCB0A8C {}; // 原全局：0x00CB0A8C。
-
-static std::int32_t gMaterialHintPageCF4FD8 = 0; // 原全局：0x00CF4FD8。
-
-static std::int32_t gMaterialHoveredItemD67424 = 0; // 原全局：0x00D67424。
-
 // 原57D7F8：单选加工输入原型，只借用Input拥有的D2DE70。
 static WindowInputPrototype gCraftInputPrototype57D7F8 { // 原全局：0x0057D7F8。
     {{&cg::ui::detail::gInputContextD2DE70}, WindowInputReferenceKind::Context},
     0, 0, 3, 12, 127, {}, 1, 16, 0, 0,
 };
-
-static std::int32_t gItemWorkResultCB05FC = 0; // 原全局：0x00CB05FC。
-
-static std::int32_t gItemWorkExperienceC8A950 = 0; // 原全局：0x00C8A950。
-
-static std::int32_t gItemWorkValueD2E2AC = 0; // 原全局：0x00D2E2AC。
-
-static std::int32_t gItemWorkLevelUpCB03D8 = 0; // 原全局：0x00CB03D8。
-
-static std::int32_t gItemWorkEnduranceCF46B4 = 0; // 原全局：0x00CF46B4。
-
-static std::int32_t gItemWorkDexterityCB0A14 = 0; // 原全局：0x00CB0A14。
-
-static std::int32_t gItemWorkIntelligenceD30418 = 0; // 原全局：0x00D30418。
-
-static std::int32_t gItemWorkInjuryD2E2A8 = 0; // 原全局：0x00D2E2A8。
-
-static std::int32_t gItemWorkSkillIdD67CF0 = 0; // 原全局：0x00D67CF0。
-
-static std::wstring gItemWorkSuffixD2DADC; // 原全局：0x00D2DADC。
-
-static std::wstring gItemWorkDetailsD2DB00; // 原全局：0x00D2DB00。 独立NUL文本合同，与制造详情不共用。
-
-static std::int32_t gMaterialSingleHoverCB0AA4 = 0; // 原全局：0x00CB0AA4。
 
 static constexpr std::array<std::array<std::int16_t, 3>, 6> kSkillPreviewPoints57D7D0 {{ // 原常量参考：0x0057D7D0。
     {30, -45, 0}, {-30, -45, 7}, {-50, -20, 6},
@@ -359,14 +270,15 @@ WindowPrototype gWindowPrototypeCraft {0, 4, 37, 102, 563, 239, 0x80010101u, 31,
 // 窗口函数实现。
 
 // 原函数：0x004F4630。
-std::int32_t WindowCraft_CountRecipeMaterial(const std::int32_t itemId)
+std::int32_t WindowCraft_CountRecipeMaterial(session::ClientSession& session, const std::int32_t itemId)
 {
-    const std::int8_t pairIndex = std::bit_cast<std::int8_t>(gSkillPairIndexD67AD8);
+    auto& craft = session.UiFrame().native.craft;
+    const std::int8_t pairIndex = std::bit_cast<std::int8_t>(craft.lookupSkillPair);
     if (pairIndex < 0 || pairIndex >= world::kSkillSlotCount) return 0;
     const std::int16_t skillIndex = std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
     if (skillIndex < 0 || skillIndex >= world::kSkillSlotCount) return 0;
     const auto& recipes = world::gSkillsF1BAFC[skillIndex].recipes8E8;
-    const std::int32_t recipeIndex = gRecipeIndex5846BC;
+    const std::int32_t recipeIndex = craft.lookupRecipe;
     // IWT01：未选择时不再将技术区解释为配方；有效索引直接按材料结构读取。
     if (recipeIndex < 0 || recipeIndex >= static_cast<std::int32_t>(recipes.size())) return 0;
     for (const auto& item : recipes[recipeIndex].items6C) {
@@ -376,111 +288,115 @@ std::int32_t WindowCraft_CountRecipeMaterial(const std::int32_t itemId)
 }
 
 // 原函数：0x0047DC20。
-static std::int32_t WindowCraft_ReleaseMaterials(const std::int32_t index)
+static std::int32_t WindowCraft_ReleaseMaterials(session::ClientSession& session, const std::int32_t index)
 {
+    auto& craft = session.UiFrame().native.craft;
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     if (index < 6) {
-        const std::int32_t slot = gSelectedSlotsCA0A90[index];
+        const std::int32_t slot = craft.selectedSlots[index];
         if (slot < 0) {
             return slot;
         }
-        const std::uint8_t mode = gSelectionModeD2D650;
+        const std::uint8_t mode = craft.selectionMode;
         if (mode == 6 || mode == 15) {
-            gItemMarksD68A90[slot] = 0;
+            craft.materialItemMarks[slot] = 0;
         }
-        const std::int32_t material = gMaterialIndicesCA0458[index];
+        const std::int32_t material = craft.materialIndices[index];
         if (material >= 0) {
             gMaterialOccupancyCC4894.materialValues[material] = 0;
         }
         hover[slot + 8] = static_cast<unsigned char>(hover[slot + 8] - 1);
-        gItemMarksD67290[slot + 8] = 0;
-        gSelectionCountsD66E0C[index] = 0;
-        gSelectedSlotsCA0A90[index] = -1;
-        gSelectionImagesCF3FF4[index] = -1;
-        gMaterialIndicesCA0458[index] = -1;
+        craft.itemMarks[slot + 8] = 0;
+        craft.selectionCounts[index] = 0;
+        craft.selectedSlots[index] = -1;
+        craft.selectionImages[index] = -1;
+        craft.materialIndices[index] = -1;
         return -1;
     }
-    const std::int32_t slot = gSelectedItemD460C0;
+    const std::int32_t slot = craft.selectedItem;
     if (slot < 0) {
         return slot;
     }
     const unsigned char previous = hover[slot];
-    gItemMarksD67290[slot] = 0;
+    craft.itemMarks[slot] = 0;
     hover[slot] = static_cast<unsigned char>(previous - 1);
-    gSelectedItemD460C0 = -1;
-    gSelectedImageCC3ED8 = -1;
-    gSelectedCountCC483C = -1;
+    craft.selectedItem = -1;
+    craft.selectedImage = -1;
+    craft.selectedCount = -1;
     return WindowChat_RestoreInput();
 }
 
 // 原函数：0x0047DCD0。
-void WindowCraft_ResetSelection(const std::int32_t first, const std::int32_t second)
+void WindowCraft_ResetSelection(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
-    if (WindowRuntime_States()[WindowId_Craft].window == nullptr) {
+    auto& craft = session.UiFrame().native.craft;
+    if (WindowRuntime_States(session)[WindowId_Craft].window == nullptr) {
         return;
     }
     const std::int32_t firstSlot = first - 8;
     const std::int32_t secondSlot = second - 8;
     for (std::int32_t index = 0; index < 6; ++index) {
-        const std::int32_t slot = gSelectedSlotsCA0A90[index];
+        const std::int32_t slot = craft.selectedSlots[index];
         if (slot < 0) {
             continue;
         }
         if (slot == firstSlot) {
             if (secondSlot < 0) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(index));
+                static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
             } else {
-                gSelectedSlotsCA0A90[index] = secondSlot;
+                craft.selectedSlots[index] = secondSlot;
             }
         } else if (slot == secondSlot) {
             if (firstSlot < 0) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(index));
+                static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
             } else {
-                gSelectedSlotsCA0A90[index] = firstSlot;
+                craft.selectedSlots[index] = firstSlot;
             }
         }
     }
-    const std::int32_t selected = gSelectedItemD460C0;
+    const std::int32_t selected = craft.selectedItem;
     if (selected == first) {
-        gSelectedItemD460C0 = second;
+        craft.selectedItem = second;
         const std::int32_t imageNo = world::gPlayerRuntimeSlots.items[second].imageNo;
         // 原47DD63使用Items.itemId+62E0，确与另一分支的基址相差八条。
         const std::int32_t itemId = world::gPlayerRuntimeSlots.items[second + 8].itemId;
-        gSelectedImageCC3ED8 = imageNo;
-        gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
+        craft.selectedImage = imageNo;
+        craft.selectedCount = WindowCraft_CountRecipeMaterial(session, itemId);
     } else if (selected == second) {
-        gSelectedItemD460C0 = first;
+        craft.selectedItem = first;
         const std::int32_t imageNo = world::gPlayerRuntimeSlots.items[first].imageNo;
         const std::int32_t itemId = world::gPlayerRuntimeSlots.items[first].itemId;
-        gSelectedImageCC3ED8 = imageNo;
-        gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
+        craft.selectedImage = imageNo;
+        craft.selectedCount = WindowCraft_CountRecipeMaterial(session, itemId);
     }
     if (first < 0 || second < 0) {
         return;
     }
-    const std::uint8_t firstMark = gItemMarksD67290[first];
-    const std::uint8_t secondMark = gItemMarksD67290[second];
-    gItemMarksD67290[first] = secondMark;
-    gItemMarksD67290[second] = firstMark;
-    const std::uint8_t mode = gSelectionModeD2D650;
+    const std::uint8_t firstMark = craft.itemMarks[first];
+    const std::uint8_t secondMark = craft.itemMarks[second];
+    craft.itemMarks[first] = secondMark;
+    craft.itemMarks[second] = firstMark;
+    const std::uint8_t mode = craft.selectionMode;
     if (mode == 6 || mode == 15) {
-        const std::uint8_t firstValue = gItemMarksD68A90[first];
-        const std::uint8_t secondValue = gItemMarksD68A90[second];
-        gItemMarksD68A90[first] = secondValue;
-        gItemMarksD68A90[second] = firstValue;
+        const std::uint8_t firstValue = craft.materialItemMarks[first];
+        const std::uint8_t secondValue = craft.materialItemMarks[second];
+        craft.materialItemMarks[first] = secondValue;
+        craft.materialItemMarks[second] = firstValue;
     }
 }
 
 // 原函数：0x0047D490。
-void WindowCraft_ResetItemSelection()
+void WindowCraft_ResetItemSelection(session::ClientSession& session)
 {
-    gCraftPetAssistActive_D67B00 = 0;
+    auto& craft = session.UiFrame().native.craft;
+    craft.petAssistActive = 0;
 }
 
 // 原函数：0x0047D4A0。
-std::int32_t WindowCraft_ReadItemSelection()
+std::int32_t WindowCraft_ReadItemSelection(session::ClientSession& session)
 {
-    return gCraftPetAssistActive_D67B00;
+    auto& craft = session.UiFrame().native.craft;
+    return craft.petAssistActive;
 }
 
 // 装饰/精炼无18A26回退，也不在末区间命中后重读玩家图号。
@@ -516,27 +432,28 @@ static void WindowCraft_SetWorkingAction(WindowInstance* const window, const boo
 }
 
 // 五等待入口共有的倍率/通知/双tick尾；调用者在本函数返回后才发布模式。
-static WindowAnimationData* WindowCraft_FinishWait(WindowInstance* const window, std::uint32_t duration)
+static WindowAnimationData* WindowCraft_FinishWait(session::ClientSession& session, WindowInstance* const window, std::uint32_t duration)
 {
+    auto& craft = session.UiFrame().native.craft;
     const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
-    gCraftDeadlineCF3B04 = duration;
+    craft.deadline = duration;
     if (rebirthMode != 0) {
         const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
-        gCraftDeadlineCF3B04 = duration;
+        craft.deadline = duration;
     }
     if (gSkillSendModeC8A970 != 0) {
         const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
-        duration = static_cast<std::uint32_t>(gCraftDeadlineCF3B04) * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
-        gCraftDeadlineCF3B04 = duration;
+        duration = static_cast<std::uint32_t>(craft.deadline) * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
+        craft.deadline = duration;
     }
-    static_cast<void>(cg::network::GetGameConnection().SendCraftDuration(static_cast<std::int32_t>(duration / 1000u)));
+    static_cast<void>(session.Connection().SendCraftDuration(static_cast<std::int32_t>(duration / 1000u)));
     const std::uint64_t tick = platform::ReadTickCount64();
-    gCraftDeadlineCF3B04 = gCraftDeadlineCF3B04 + tick;
+    craft.deadline = craft.deadline + tick;
     if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
     if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
     if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
-    gCraftDisplayImageCB2204 = -1;
+    craft.displayImage = -1;
     gSkillPreviewTickCF46C8 = platform::ReadTickCount64();
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -574,26 +491,28 @@ static cg::yobi::YobiAction* WindowCraft_Create(session::ClientSession& session)
 }
 
 // 仅模式6/15/12/9共有的原释放/清表序列，进入时仍使用旧模式释放。
-static void WindowCraft_ResetMaterialMode()
+static void WindowCraft_ResetMaterialMode(session::ClientSession& session)
 {
+    auto& craft = session.UiFrame().native.craft;
     for (std::int32_t index = 0; index < 6; ++index) {
-        static_cast<void>(WindowCraft_ReleaseMaterials(index));
+        static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
     }
-    static_cast<void>(WindowCraft_ReleaseMaterials(6));
-    gItemMarksD67290.fill(0);
-    gItemMarksD68A90.fill(0);
-    gMaterialHoverSlotsCB0A8C.fill(-2);
-    gMaterialSingleHoverCB0AA4 = -2;
+    static_cast<void>(WindowCraft_ReleaseMaterials(session, 6));
+    craft.itemMarks.fill(0);
+    craft.materialItemMarks.fill(0);
+    craft.materialHoverSlots.fill(-2);
+    craft.materialSingleHover = -2;
     gMaterialOccupancyCC4894 = {};
-    gMaterialIndicesCA0458.fill(-1);
-    gSelectedSlotsCA0A90.fill(-1);
-    gSelectionCountsD66E0C.fill(0);
-    gSelectionImagesCF3FF4.fill(-1);
+    craft.materialIndices.fill(-1);
+    craft.selectedSlots.fill(-1);
+    craft.selectionCounts.fill(0);
+    craft.selectionImages.fill(-1);
 }
 
 // 四新增模式共用的元素写序；计时、动作创建与模式发布仍留在各原入口。
-static void WindowCraft_PrepareMaterialElements(WindowInstance* const window)
+static void WindowCraft_PrepareMaterialElements(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& craft = session.UiFrame().native.craft;
     if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA38;
     if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3E;
     for (std::int32_t index = 15; index <= 20; ++index) {
@@ -616,17 +535,18 @@ static void WindowCraft_PrepareMaterialElements(WindowInstance* const window)
     if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
     if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
     if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
-    gCraftDisplayImageCB2204 = -1;
+    craft.displayImage = -1;
 }
 
 // 原函数：0x0047E1B0。
-static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_WaitCraft(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& craft = session.UiFrame().native.craft;
     gSkillSendModeC8A970 = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasRecipeCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasRecipeCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
-    gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
+    craft.petAssistActive = gSkillSendModeC8A970;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　...　作成中　..." /* 原常量参考：0x005865C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -645,32 +565,33 @@ static WindowAnimationData* WindowCraft_WaitCraft(WindowInstance* const window)
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window);
-    const std::int32_t random = platform::Rand16() % 6;
-    const std::int32_t skill = gCraftSkillIndexCC2368;
-    const std::int32_t recipe = gCraftRecipeIndexD2D638;
+    const std::int32_t random = platform::Rand16(session.Connection()) % 6;
+    const std::int32_t skill = craft.skillIndex;
+    const std::int32_t recipe = craft.recipeIndex;
     const std::int32_t level = world::gSkillsF1BAFC[skill].recipes8E8[recipe].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
-    WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
-    gSelectionModeD2D650 = 1;
+    WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
+    craft.selectionMode = 1;
     return result;
 }
 
 // 原函数：0x0047EF00。
-static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& craft = session.UiFrame().native.craft;
     gSkillSendModeC8A970 = 0;
     std::int32_t skill;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
-        skill = gCraftSkillIndexCC2368;
+    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
+        skill = craft.skillIndex;
         if (world::gSkillsF1BAFC[skill].skillId != 220) {
             gSkillSendModeC8A970 = 1;
         }
     } else {
-        skill = gCraftSkillIndexCC2368;
+        skill = craft.skillIndex;
     }
     const std::int32_t active = gSkillSendModeC8A970;
     const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
-    gCraftPetAssistActive_D67B00 = active;
+    craft.petAssistActive = active;
     const wchar_t* hint = nullptr;
     switch (skillId) {
     case 220: hint = L"　　　…　刻印中　…" /* 原常量参考：0x005866DC。 */; break;
@@ -696,31 +617,32 @@ static WindowAnimationData* WindowCraft_WaitItemWork(WindowInstance* const windo
     if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 1;
     if (auto* const handleSingleMaterialElement2 = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement2) handleSingleMaterialElement2->mouseCallback = WindowCraft_HandleItemTooltip;
     if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 1;
-    if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+    if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
         if (auto* const drawResultImage_24Element2 = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element2) drawResultImage_24Element2->visible = 0;
     }
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window);
-    const std::int32_t random = platform::Rand16() % 6;
-    const std::int32_t selected = gSelectedItemD460C0;
+    const std::int32_t random = platform::Rand16(session.Connection()) % 6;
+    const std::int32_t selected = craft.selectedItem;
     const std::int32_t level = world::gPlayerRuntimeSlots.items[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
-    WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
-    gSelectionModeD2D650 = 4;
+    WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
+    craft.selectionMode = 4;
     return result;
 }
 
 // 原函数：0x004801B0。
-static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& craft = session.UiFrame().native.craft;
     gSkillSendModeC8A970 = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0
-        && world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 2026) {
+    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0
+        && world::gSkillsF1BAFC[craft.skillIndex].skillId != 2026) {
         gSkillSendModeC8A970 = 1;
     }
-    gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
+    craft.petAssistActive = gSkillSendModeC8A970;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　打包中　…" /* 原常量参考：0x00586830。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -740,23 +662,24 @@ static WindowAnimationData* WindowCraft_WaitPacking(WindowInstance* const window
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window);
-    const std::int32_t random = platform::Rand16() % 6;
-    const std::int32_t selected = gSelectedItemD460C0;
+    const std::int32_t random = platform::Rand16(session.Connection()) % 6;
+    const std::int32_t selected = craft.selectedItem;
     const std::int32_t level = world::gPlayerRuntimeSlots.items[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
-    WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
-    gSelectionModeD2D650 = 13;
+    WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
+    craft.selectionMode = 13;
     return result;
 }
 
 // 原函数：0x00480600。
-static void WindowCraft_WaitDecoration(WindowInstance* const window)
+static void WindowCraft_WaitDecoration(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& craft = session.UiFrame().native.craft;
     gSkillSendModeC8A970 = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasMaterialCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasMaterialCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
-    gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
+    craft.petAssistActive = gSkillSendModeC8A970;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　装饰中　…" /* 原常量参考：0x00586848。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -775,23 +698,24 @@ static void WindowCraft_WaitDecoration(WindowInstance* const window)
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window, false);
-    static_cast<void>(WindowCraft_FinishWait(window, 8000));
-    const std::uint8_t mode = gSelectionModeD2D650;
+    static_cast<void>(WindowCraft_FinishWait(session, window, 8000));
+    const std::uint8_t mode = craft.selectionMode;
     if (mode == 6) {
-        gSelectionModeD2D650 = 7;
+        craft.selectionMode = 7;
     } else if (mode == 15) {
-        gSelectionModeD2D650 = 16;
+        craft.selectionMode = 16;
     }
 }
 
 // 原函数：0x00480C20。
-static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_WaitRefining(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& craft = session.UiFrame().native.craft;
     gSkillSendModeC8A970 = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasFirstMaterialCrystalLevel() != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasFirstMaterialCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
         gSkillSendModeC8A970 = 1;
     }
-    gCraftPetAssistActive_D67B00 = gSkillSendModeC8A970;
+    craft.petAssistActive = gSkillSendModeC8A970;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"　　　…　精炼中　…" /* 原常量参考：0x005866C4。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
@@ -810,9 +734,9 @@ static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const windo
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
     WindowCraft_SetWorkingAction(window, false);
-    const auto duration = static_cast<std::uint32_t>(platform::Rand16() % 6 + 5) * 1000u;
-    WindowAnimationData* const result = WindowCraft_FinishWait(window, duration);
-    gSelectionModeD2D650 = 10;
+    const auto duration = static_cast<std::uint32_t>(platform::Rand16(session.Connection()) % 6 + 5) * 1000u;
+    WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
+    craft.selectionMode = 10;
     return result;
 }
 
@@ -820,18 +744,19 @@ static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* const windo
 cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     session::ClientSession& session, const std::int32_t skill, const std::int32_t recipe, const std::int32_t request)
 {
+    auto& craft = session.UiFrame().native.craft;
     auto& operations = session.UiFrame().native.operations;
-    gCraftSkillIndexCC2368 = skill;
-    gCraftRequestValueD30400 = request;
-    gCraftRecipeIndexD2D638 = recipe;
-    gSelectionModeD2D650 = 0;
-    gCraftRecipeIdD2E440 = world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
+    craft.skillIndex = skill;
+    craft.requestValue = request;
+    craft.recipeIndex = recipe;
+    craft.selectionMode = 0;
+    craft.recipeId = world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     WindowRuntime_IncrementOperationCount(session);
     WindowRuntime_IncrementGatherOperationCount(session);
-    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+    const std::int32_t currentSkill = craft.skillIndex;
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
     const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
     operations.skillCount = references;
@@ -844,10 +769,11 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
 // 原函数：0x0047D780。
 cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, const std::int32_t skill, const std::int32_t request)
 {
+    auto& craft = session.UiFrame().native.craft;
     auto& operations = session.UiFrame().native.operations;
-    gCraftRequestValueD30400 = request;
-    gCraftSkillIndexCC2368 = skill;
-    gSelectionModeD2D650 = 3;
+    craft.requestValue = request;
+    craft.skillIndex = skill;
+    craft.selectionMode = 3;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
@@ -856,7 +782,7 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, 
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
     const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
     operations.statusIconReferences = skillReferences;
-    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+    const std::int32_t currentSkill = craft.skillIndex;
     operations.skillCount = references;
     WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
     return WindowCraft_Create(session);
@@ -866,12 +792,13 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, 
 cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     session::ClientSession& session, const std::int32_t skill, const std::int32_t request, const std::int32_t kind)
 {
+    auto& craft = session.UiFrame().native.craft;
     auto& operations = session.UiFrame().native.operations;
-    gCraftSkillIndexCC2368 = skill;
-    gCraftRequestValueD30400 = request;
-    gSelectionModeD2D650 = 6;
+    craft.skillIndex = skill;
+    craft.requestValue = request;
+    craft.selectionMode = 6;
     if (kind == 1) {
-        gSelectionModeD2D650 = 15;
+        craft.selectionMode = 15;
     }
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
@@ -881,7 +808,7 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     const auto references = static_cast<std::uint8_t>(operations.skillCount + 1);
     const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
     operations.statusIconReferences = skillReferences;
-    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+    const std::int32_t currentSkill = craft.skillIndex;
     operations.skillCount = references;
     WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
     return WindowCraft_Create(session);
@@ -890,10 +817,11 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
 // 原函数：0x0047DA70。
 cg::yobi::YobiAction* WindowCraft_OpenRefining(session::ClientSession& session, const std::int32_t skill, const std::int32_t request)
 {
+    auto& craft = session.UiFrame().native.craft;
     auto& operations = session.UiFrame().native.operations;
-    gCraftRequestValueD30400 = request;
-    gCraftSkillIndexCC2368 = skill;
-    gSelectionModeD2D650 = 9;
+    craft.requestValue = request;
+    craft.skillIndex = skill;
+    craft.selectionMode = 9;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
@@ -912,10 +840,11 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(session::ClientSession& session, 
 // 原函数：0x0047DB50。
 cg::yobi::YobiAction* WindowCraft_OpenMaterials(session::ClientSession& session, const std::int32_t skill, const std::int32_t request)
 {
+    auto& craft = session.UiFrame().native.craft;
     auto& operations = session.UiFrame().native.operations;
-    gCraftRequestValueD30400 = request;
-    gCraftSkillIndexCC2368 = skill;
-    gSelectionModeD2D650 = 12;
+    craft.requestValue = request;
+    craft.skillIndex = skill;
+    craft.selectionMode = 12;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
@@ -930,9 +859,10 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(session::ClientSession& session,
 }
 
 // 原函数：0x0047FAE0。
-static WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializeDecoration(session::ClientSession& session, WindowInstance* const window)
 {
-    WindowCraft_ResetMaterialMode();
+    auto& craft = session.UiFrame().native.craft;
+    WindowCraft_ResetMaterialMode(session);
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"装饰" /* 原常量参考：0x00586784。 */;
     auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr;
     if (element11) {
@@ -944,18 +874,19 @@ static WindowAnimationData* WindowCraft_InitializeDecoration(WindowInstance* con
             indexedElement->data.text->text.clear();
         }
     }
-    WindowCraft_PrepareMaterialElements(window);
+    WindowCraft_PrepareMaterialElements(session, window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
-    gSelectionModeD2D650 = 6;
+    craft.selectionMode = 6;
     return result;
 }
 
 // 原函数：0x0047FD00。
-static WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializePetDecoration(session::ClientSession& session, WindowInstance* const window)
 {
-    WindowCraft_ResetMaterialMode();
+    auto& craft = session.UiFrame().native.craft;
+    WindowCraft_ResetMaterialMode(session);
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"装饰宠物装备" /* 原常量参考：0x005867AC。 */;
     auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr;
     if (element11) {
@@ -967,35 +898,37 @@ static WindowAnimationData* WindowCraft_InitializePetDecoration(WindowInstance* 
             indexedElement->data.text->text.clear();
         }
     }
-    WindowCraft_PrepareMaterialElements(window);
+    WindowCraft_PrepareMaterialElements(session, window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
-    gSelectionModeD2D650 = 15;
+    craft.selectionMode = 15;
     return result;
 }
 
 // 原函数：0x0047FF20。
-static WindowAnimationData* WindowCraft_InitializePacking(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializePacking(session::ClientSession& session, WindowInstance* const window)
 {
-    WindowCraft_ResetMaterialMode();
+    auto& craft = session.UiFrame().native.craft;
+    WindowCraft_ResetMaterialMode(session);
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"请选择制作材料。" /* 原常量参考：0x0058681C。 */;
     if (auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr; element11) element11->data.text->text = L"                   料理/药水" /* 原常量参考：0x005867FC。 */;
     if (auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr; element12) element12->data.text->text = L"                        木材" /* 原常量参考：0x005867DC。 */;
     if (auto* const element13 = window ? window->FindElementById(WindowCraftElementId::Element13) : nullptr; element13) element13->data.text->text = L"                        布料" /* 原常量参考：0x005867BC。 */;
     if (auto* const element14 = window ? window->FindElementById(WindowCraftElementId::Element14) : nullptr; element14) element14->data.text->text = L"";
-    WindowCraft_PrepareMaterialElements(window);
+    WindowCraft_PrepareMaterialElements(session, window);
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
-    gSelectionModeD2D650 = 12;
+    craft.selectionMode = 12;
     return result;
 }
 
 // 原函数：0x00480A00。
-static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializeRefining(session::ClientSession& session, WindowInstance* const window)
 {
-    WindowCraft_ResetMaterialMode();
+    auto& craft = session.UiFrame().native.craft;
+    WindowCraft_ResetMaterialMode(session);
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = L"精炼" /* 原常量参考：0x00586860。 */;
     for (std::int32_t index = 10; index <= 13; ++index) {
         auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr;
@@ -1003,20 +936,21 @@ static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const
             indexedElement->data.text->text.clear();
         }
     }
-    WindowCraft_PrepareMaterialElements(window);
+    WindowCraft_PrepareMaterialElements(session, window);
     gSkillPreviewTickCF46C8 = platform::ReadTickCount64();
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const result = gSkillSendModeC8A970 != 0
         ? WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5)
         : WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
-    gSelectionModeD2D650 = 9;
+    craft.selectionMode = 9;
     return result;
 }
 
 // 原函数：0x00483EB0。
 static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -1036,7 +970,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
             const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             // 各模式早退汇合到同一次InvDragReset，保留释放与占用写入的不同顺序。
             const auto receiveInventory = [&] {
-                const std::uint8_t mode = gSelectionModeD2D650;
+                const std::uint8_t mode = craft.selectionMode;
                 if (mode == 0) {
                     if (source < 8 || source >= 100) {
                         return;
@@ -1049,15 +983,15 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     if (count == 0) {
                         count = 1;
                     }
-                    std::int32_t skill = gCraftSkillIndexCC2368;
+                    std::int32_t skill = craft.skillIndex;
                     const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
                     if (skillId != 215 && skillId != 216) {
                         if (WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0) {
                             for (std::int32_t position = 0; position < 6; ++position) {
-                                const std::int32_t selected = gSelectedSlotsCA0A90[position];
+                                const std::int32_t selected = craft.selectedSlots[position];
                                 if (selected >= 0) {
                                     const std::int32_t currentId =
-                                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
                                     const std::int32_t type =
                                         world::gPlayerRuntimeSlots.items[selected + 8].itemType;
                                     if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
@@ -1065,24 +999,24 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                                     }
                                 }
                             }
-                            if (gSelectedSlotsCA0A90[destination] >= 0) {
-                                static_cast<void>(WindowCraft_ReleaseMaterials(destination));
+                            if (craft.selectedSlots[destination] >= 0) {
+                                static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, destination));
                             }
                             const std::int32_t itemId = item->itemId;
                             const std::int32_t imageNo = item->imageNo;
-                            gSelectedSlotsCA0A90[destination] = source - 8;
-                            gSelectionImagesCF3FF4[destination] = imageNo;
-                            gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
-                            gMaterialIndicesCA0458[destination] = -1;
+                            craft.selectedSlots[destination] = source - 8;
+                            craft.selectionImages[destination] = imageNo;
+                            craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
+                            craft.materialIndices[destination] = -1;
                             auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                             const unsigned char previous = hover[source];
-                            gItemMarksD67290[source] = 1;
+                            craft.itemMarks[source] = 1;
                             hover[source] = static_cast<unsigned char>(previous + 1);
                             return;
                         }
-                        skill = gCraftSkillIndexCC2368;
+                        skill = craft.skillIndex;
                     }
-                    const std::int32_t recipeIndex = gCraftRecipeIndexD2D638;
+                    const std::int32_t recipeIndex = craft.recipeIndex;
                     const auto* const materials =
                         world::gSkillsF1BAFC[skill].recipes8E8[recipeIndex].items6C.data();
                     std::int32_t material = 0;
@@ -1092,7 +1026,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                             continue;
                         }
                         const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[material];
-                        if (occupied == 0 && gItemMarksD67290[source] == 0
+                        if (occupied == 0 && craft.itemMarks[source] == 0
                             && item->itemId == itemId && count >= materials[material].count) {
                             break;
                         }
@@ -1100,19 +1034,19 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     if (material >= 5) {
                         return;
                     }
-                    if (gSelectedSlotsCA0A90[destination] >= 0) {
-                        static_cast<void>(WindowCraft_ReleaseMaterials(destination));
+                    if (craft.selectedSlots[destination] >= 0) {
+                        static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, destination));
                     }
                     const std::int32_t itemId = item->itemId;
                     const std::int32_t imageNo = item->imageNo;
                     gMaterialOccupancyCC4894.materialValues[material] = 1;
-                    gSelectedSlotsCA0A90[destination] = source - 8;
-                    gSelectionImagesCF3FF4[destination] = imageNo;
-                    gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
-                    gMaterialIndicesCA0458[destination] = material;
+                    craft.selectedSlots[destination] = source - 8;
+                    craft.selectionImages[destination] = imageNo;
+                    craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
+                    craft.materialIndices[destination] = material;
                     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                     const unsigned char previous = hover[source];
-                    gItemMarksD67290[source] = 1;
+                    craft.itemMarks[source] = 1;
                     hover[source] = static_cast<unsigned char>(previous + 1);
                     return;
                 }
@@ -1122,8 +1056,8 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     if (accepted == 0) {
                         return;
                     }
-                    if (gSelectedSlotsCA0A90[destination] >= 0) {
-                        static_cast<void>(WindowCraft_ReleaseMaterials(destination));
+                    if (craft.selectedSlots[destination] >= 0) {
+                        static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, destination));
                     }
                     const std::int32_t type = world::gPlayerRuntimeSlots.items[source].itemType;
                     const std::int32_t material = mode == 6
@@ -1134,36 +1068,36 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                         return;
                     }
                     gMaterialOccupancyCC4894.materialValues[material] = 1;
-                    WindowCraft_ReleaseMaterialSlot(destination, source, material);
-                    gItemMarksD68A90[source - 8] = 1;
+                    WindowCraft_ReleaseMaterialSlot(*callbackWindow.ownerSession, destination, source, material);
+                    craft.materialItemMarks[source - 8] = 1;
                     return;
                 }
                 if (mode == 9) {
                     if (world::IsItemEligibleForRefining_505110(source) == 0) {
                         return;
                     }
-                    if (gSelectedSlotsCA0A90[destination] >= 0) {
-                        static_cast<void>(WindowCraft_ReleaseMaterials(destination));
+                    if (craft.selectedSlots[destination] >= 0) {
+                        static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, destination));
                     }
                     const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[0];
                     if (occupied != 0) {
                         return;
                     }
                     gMaterialOccupancyCC4894.materialValues[0] = 1;
-                    gSelectedSlotsCA0A90[destination] = source - 8;
+                    craft.selectedSlots[destination] = source - 8;
                     const auto* const item = &world::gPlayerRuntimeSlots.items[source];
                     const std::int32_t itemId = item->itemId;
-                    gSelectionImagesCF3FF4[destination] = item->imageNo;
-                    gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
-                    gMaterialIndicesCA0458[destination] = 0;
+                    craft.selectionImages[destination] = item->imageNo;
+                    craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
+                    craft.materialIndices[destination] = 0;
                     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
                     const unsigned char previous = hover[source];
-                    gItemMarksD67290[source] = 1;
+                    craft.itemMarks[source] = 1;
                     hover[source] = static_cast<unsigned char>(previous + 1);
                     return;
                 }
                 if (mode == 12) {
-                    WindowCraft_ValidatePackingMaterials(destination, source);
+                    WindowCraft_ValidatePackingMaterials(*callbackWindow.ownerSession, destination, source);
                 }
             };
             receiveInventory();
@@ -1171,30 +1105,30 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
         } else if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 10) {
             const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             if (source != destination) {
-                const std::int32_t sourceSlot = gSelectedSlotsCA0A90[source];
-                const std::int32_t destinationSlot = gSelectedSlotsCA0A90[destination];
-                gSelectedSlotsCA0A90[destination] = sourceSlot;
-                const std::int32_t sourceImage = gSelectionImagesCF3FF4[source];
-                gSelectedSlotsCA0A90[source] = destinationSlot;
-                const std::int32_t destinationImage = gSelectionImagesCF3FF4[destination];
-                gSelectionImagesCF3FF4[destination] = sourceImage;
-                const std::int32_t sourceCount = gSelectionCountsD66E0C[source];
-                gSelectionImagesCF3FF4[source] = destinationImage;
-                const std::int32_t destinationCount = gSelectionCountsD66E0C[destination];
-                gSelectionCountsD66E0C[destination] = sourceCount;
-                const std::int32_t sourceMaterial = gMaterialIndicesCA0458[source];
-                gSelectionCountsD66E0C[source] = destinationCount;
-                const std::int32_t destinationMaterial = gMaterialIndicesCA0458[destination];
-                gMaterialIndicesCA0458[destination] = sourceMaterial;
-                gMaterialIndicesCA0458[source] = destinationMaterial;
+                const std::int32_t sourceSlot = craft.selectedSlots[source];
+                const std::int32_t destinationSlot = craft.selectedSlots[destination];
+                craft.selectedSlots[destination] = sourceSlot;
+                const std::int32_t sourceImage = craft.selectionImages[source];
+                craft.selectedSlots[source] = destinationSlot;
+                const std::int32_t destinationImage = craft.selectionImages[destination];
+                craft.selectionImages[destination] = sourceImage;
+                const std::int32_t sourceCount = craft.selectionCounts[source];
+                craft.selectionImages[source] = destinationImage;
+                const std::int32_t destinationCount = craft.selectionCounts[destination];
+                craft.selectionCounts[destination] = sourceCount;
+                const std::int32_t sourceMaterial = craft.materialIndices[source];
+                craft.selectionCounts[source] = destinationCount;
+                const std::int32_t destinationMaterial = craft.materialIndices[destination];
+                craft.materialIndices[destination] = sourceMaterial;
+                craft.materialIndices[source] = destinationMaterial;
             }
             WindowDrag_Reset(*callbackWindow.ownerSession);
         }
     }
-    const std::uint8_t mode = gSelectionModeD2D650;
+    const std::uint8_t mode = craft.selectionMode;
     if (mode == 0) {
         for (std::int32_t position = 0; position < 6; ++position) {
-            const std::int32_t slot = gSelectedSlotsCA0A90[position];
+            const std::int32_t slot = craft.selectedSlots[position];
             if (slot < 0) {
                 continue;
             }
@@ -1203,65 +1137,65 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
             if (count == 0) {
                 count = 1;
             }
-            const std::int32_t material = gMaterialIndicesCA0458[position];
+            const std::int32_t material = craft.materialIndices[position];
             bool accepted;
             if (material >= 0) {
-                const std::int32_t skill = gCraftSkillIndexCC2368;
-                const std::int32_t recipe = gCraftRecipeIndexD2D638;
+                const std::int32_t skill = craft.skillIndex;
+                const std::int32_t recipe = craft.recipeIndex;
                 const std::int32_t itemId = item->itemId;
                 const auto* const requirement =
                     &world::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
                 accepted = itemId == requirement->itemId && count >= requirement->count;
             } else {
                 const std::int32_t skillId =
-                    world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                    world::gSkillsF1BAFC[craft.skillIndex].skillId;
                 accepted = skillId != 215 && skillId != 216
                     && WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0;
             }
             if (!accepted) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(position));
+                static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, position));
             }
         }
     } else if (mode == 6 || mode == 15) {
         bool foundSpecial = false;
         bool foundOther = false;
         for (std::int32_t position = 0; position < 6; ++position) {
-            const std::int32_t slot = gSelectedSlotsCA0A90[position];
+            const std::int32_t slot = craft.selectedSlots[position];
             if (slot < 0) {
                 continue;
             }
             const std::int32_t accepted = mode == 6
                 ? world::IsItemEligibleForDecoration_505040(slot + 8) : world::IsItemEligibleForPetDecoration_5050B0(slot + 8);
             if (accepted == 0) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(position));
+                static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, position));
                 continue;
             }
-            const std::int32_t selected = gSelectedSlotsCA0A90[position];
+            const std::int32_t selected = craft.selectedSlots[position];
             const std::int32_t type = world::gPlayerRuntimeSlots.items[selected + 8].itemType;
             const bool special = mode == 6
                 ? type == 38 || type == 25 || type == 39 : type == 80;
             if (special) {
                 if (foundSpecial) {
-                    static_cast<void>(WindowCraft_ReleaseMaterials(position));
+                    static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, position));
                 }
                 foundSpecial = true;
             } else {
                 if (foundOther) {
-                    static_cast<void>(WindowCraft_ReleaseMaterials(position));
+                    static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, position));
                 }
                 foundOther = true;
             }
         }
     } else if (mode == 9) {
         for (std::int32_t position = 0; position < 6; ++position) {
-            const std::int32_t slot = gSelectedSlotsCA0A90[position];
+            const std::int32_t slot = craft.selectedSlots[position];
             if (slot >= 0 && world::IsItemEligibleForRefining_505110(slot + 8) == 0) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(position));
+                static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, position));
             }
         }
     }
     const bool hovered = (events & MouseFlag_Hover) != 0;
-    if (hovered && gSelectedSlotsCA0A90[destination] >= 0 && (events & MouseFlag_LDownEvent) != 0) {
+    if (hovered && craft.selectedSlots[destination] >= 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowCraft_StartMaterialDrag(*callbackWindow.ownerSession, destination));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -1307,26 +1241,26 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
     if (hovered) {
         gHoverTextD68AE8 = L"以滑鼠拖放方式，将素材置放于此处。";
     }
-    const std::int32_t selected = gSelectedSlotsCA0A90[destination];
+    const std::int32_t selected = craft.selectedSlots[destination];
     if (selected < 0) {
         return 0;
     }
     if (hovered) {
-        if (gMaterialHoverSlotsCB0A8C[destination] != destination) {
-            gMaterialHintPageCF4FD8 = 0;
+        if (craft.materialHoverSlots[destination] != destination) {
+            craft.materialHintPage = 0;
         }
-        gMaterialHoverSlotsCB0A8C[destination] = destination;
+        craft.materialHoverSlots[destination] = destination;
         if ((events & MouseFlag_RDownEvent) != 0) {
-            ++gMaterialHintPageCF4FD8;
-            if (gMaterialHintPageCF4FD8 >= 4) {
-                gMaterialHintPageCF4FD8 = 0;
+            ++craft.materialHintPage;
+            if (craft.materialHintPage >= 4) {
+                craft.materialHintPage = 0;
             }
             consumed = 1;
         }
-        gMaterialHoveredItemD67424 = selected + 8;
+        craft.materialHoveredItem = selected + 8;
     }
     WindowInstance* const window = currentWindow;
-    const std::int32_t imageNo = gSelectionImagesCF3FF4[destination];
+    const std::int32_t imageNo = craft.selectionImages[destination];
     auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
@@ -1338,24 +1272,25 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
 }
 
 // 原函数：0x0047DF50。
-static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializeRecipe(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& craft = session.UiFrame().native.craft;
     for (std::int32_t index = 0; index < 6; ++index) {
-        static_cast<void>(WindowCraft_ReleaseMaterials(index));
+        static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
     }
-    static_cast<void>(WindowCraft_ReleaseMaterials(6));
-    gItemMarksD67290.fill(0);
-    gMaterialHoverSlotsCB0A8C.fill(-2);
-    gMaterialSingleHoverCB0AA4 = -2;
+    static_cast<void>(WindowCraft_ReleaseMaterials(session, 6));
+    craft.itemMarks.fill(0);
+    craft.materialHoverSlots.fill(-2);
+    craft.materialSingleHover = -2;
     gMaterialOccupancyCC4894 = {};
-    gMaterialIndicesCA0458.fill(-1);
-    gSelectedSlotsCA0A90.fill(-1);
-    gSelectionCountsD66E0C.fill(0);
-    gSelectionImagesCF3FF4.fill(-1);
-    std::int32_t recipe = gCraftRecipeIndexD2D638;
+    craft.materialIndices.fill(-1);
+    craft.selectedSlots.fill(-1);
+    craft.selectionCounts.fill(0);
+    craft.selectionImages.fill(-1);
+    std::int32_t recipe = craft.recipeIndex;
     std::int32_t row = 0;
     for (std::int32_t material = 4; material >= 0; --material) {
-        const std::int32_t skill = gCraftSkillIndexCC2368;
+        const std::int32_t skill = craft.skillIndex;
         gMaterialOccupancyCC4894.materialValues[material] = 1;
         const auto* const requirement =
             &world::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material];
@@ -1368,7 +1303,7 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
             row = 1;
         }
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(9 + row)) : nullptr; indexedElement) indexedElement->data.text->text = std::format(L"{:<24}{:3}", requirement->name, count);
-        recipe = gCraftRecipeIndexD2D638;
+        recipe = craft.recipeIndex;
         ++row;
     }
     for (; row < 5; ++row) {
@@ -1399,11 +1334,11 @@ static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* const w
     if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
     if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
     if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
-    gCraftDisplayImageCB2204 = -1;
+    craft.displayImage = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
-    gSelectionModeD2D650 = 0;
+    craft.selectionMode = 0;
     return result;
 }
 
@@ -1418,18 +1353,20 @@ std::int32_t WindowCraft_ClassifySpecialMaterial(const std::int32_t itemType, co
 
 // 原函数：0x00483E30。
 static void WindowCraft_ReleaseMaterialSlot(
+    session::ClientSession& session,
     const std::int32_t destination, const std::int32_t source, const std::int32_t material)
 {
-    static_cast<void>(WindowCraft_ReleaseMaterials(destination));
-    gSelectedSlotsCA0A90[destination] = source - 8;
+    auto& craft = session.UiFrame().native.craft;
+    static_cast<void>(WindowCraft_ReleaseMaterials(session, destination));
+    craft.selectedSlots[destination] = source - 8;
     const auto* const item = &world::gPlayerRuntimeSlots.items[source];
     const std::int32_t itemId = item->itemId;
-    gSelectionImagesCF3FF4[destination] = item->imageNo;
-    gSelectionCountsD66E0C[destination] = WindowCraft_CountRecipeMaterial(itemId);
-    gMaterialIndicesCA0458[destination] = material;
+    craft.selectionImages[destination] = item->imageNo;
+    craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(session, itemId);
+    craft.materialIndices[destination] = material;
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     hover[source] = static_cast<unsigned char>(hover[source] + 1);
-    gItemMarksD67290[source] = 1;
+    craft.itemMarks[source] = 1;
 }
 
 // 原函数：0x004880D0。
@@ -1466,12 +1403,13 @@ static std::int32_t WindowCraft_ReadMaxMaterialLevel()
 }
 
 // 原函数：0x00488180。
-static std::int32_t WindowCraft_ReadFirstMaterialId()
+static std::int32_t WindowCraft_ReadFirstMaterialId(session::ClientSession& session)
 {
+    auto& craft = session.UiFrame().native.craft;
     for (std::int32_t index = 0; index < 6; ++index) {
-        const std::int32_t material = gMaterialIndicesCA0458[index];
+        const std::int32_t material = craft.materialIndices[index];
         if (material == 0 || material == 1 || material == 2) {
-            const std::int32_t slot = gSelectedSlotsCA0A90[index];
+            const std::int32_t slot = craft.selectedSlots[index];
             return world::gPlayerRuntimeSlots.items[slot + 8].itemId;
         }
     }
@@ -1479,8 +1417,9 @@ static std::int32_t WindowCraft_ReadFirstMaterialId()
 }
 
 // 原函数：0x004881D0。
-static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination, const std::int32_t source)
+static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session, const std::int32_t destination, const std::int32_t source)
 {
+    auto& craft = session.UiFrame().native.craft;
     std::int32_t flags = 0;
     std::int32_t material = 5;
     const std::int32_t maximum = WindowCraft_ReadMaxMaterialLevel();
@@ -1517,7 +1456,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
     if (material >= 0 && material <= 2) {
         flags = 5;
         if (maximum > 0) {
-            const std::int32_t itemId = WindowCraft_ReadFirstMaterialId();
+            const std::int32_t itemId = WindowCraft_ReadFirstMaterialId(session);
             if (item->itemId == itemId) {
                 for (material = 0; material < 3; ++material) {
                     const std::int32_t occupied = gMaterialOccupancyCC4894.materialValues[material];
@@ -1545,26 +1484,26 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
         if (index == destination) {
             continue;
         }
-        if ((flags & 2) != 0 && gMaterialIndicesCA0458[index] == material) {
-            static_cast<void>(WindowCraft_ReleaseMaterials(index));
+        if ((flags & 2) != 0 && craft.materialIndices[index] == material) {
+            static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
         }
         if ((flags & 4) != 0) {
-            const std::int32_t slot = gSelectedSlotsCA0A90[index];
+            const std::int32_t slot = craft.selectedSlots[index];
             const std::int32_t sourceLevel = item->level;
             if (world::gPlayerRuntimeSlots.items[slot + 8].level != sourceLevel) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(index));
+                static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
             }
         }
         if ((flags & 8) != 0) {
-            const std::int32_t otherMaterial = gMaterialIndicesCA0458[index];
+            const std::int32_t otherMaterial = craft.materialIndices[index];
             if (otherMaterial == 0 || otherMaterial == 1 || otherMaterial == 2) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(index));
+                static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
             }
         }
     }
-    static_cast<void>(WindowCraft_ReleaseMaterials(6));
+    static_cast<void>(WindowCraft_ReleaseMaterials(session, 6));
     if (accepted) {
-        WindowCraft_ReleaseMaterialSlot(destination, source, material);
+        WindowCraft_ReleaseMaterialSlot(session, destination, source, material);
         gMaterialOccupancyCC4894.materialValues[material] = item->level;
     }
 }
@@ -1574,17 +1513,18 @@ static void WindowCraft_HandleMaterialDrag(
     session::ClientSession& session,
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
+    auto& craft = session.UiFrame().native.craft;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0x80FFFFFFu;
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 || message == 3 || message == 4) {
-            static_cast<void>(WindowCraft_ReleaseMaterials(sourceIndex));
+            static_cast<void>(WindowCraft_ReleaseMaterials(session, sourceIndex));
         }
         return;
     }
-    if (sourceIndex >= 6 && gSelectedImageCC3ED8 < 0) {
+    if (sourceIndex >= 6 && craft.selectedImage < 0) {
         WindowDrag_Cancel(session);
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
@@ -1600,7 +1540,7 @@ static void WindowCraft_HandleMaterialDrag(
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t imageNo =
-        sourceIndex < 6 ? gSelectionImagesCF3FF4[sourceIndex] : gSelectedImageCC3ED8;
+        sourceIndex < 6 ? craft.selectionImages[sourceIndex] : craft.selectedImage;
     const std::int32_t y =
         static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
     const std::int32_t x =
@@ -1629,6 +1569,7 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 // 原函数：0x00482270。
 static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const elementPtr = currentWindow->FindElementById(elementId);
@@ -1638,12 +1579,12 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
     std::int32_t consumed = 0;
     bool enabled = false;
     const auto recipeCost = [] {
-        const std::int32_t skill = gCraftSkillIndexCC2368;
-        const std::int32_t recipe = gCraftRecipeIndexD2D638;
+        const std::int32_t skill = craft.skillIndex;
+        const std::int32_t recipe = craft.recipeIndex;
         const auto* const record = &world::gSkillsF1BAFC[skill];
         return record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     };
-    switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
+    switch (std::bit_cast<std::int8_t>(craft.selectionMode)) {
     case 0:
         for (std::int32_t slot = 0; slot < 5; ++slot) {
             if (gMaterialOccupancyCC4894.materialValues[slot] == 0) {
@@ -1654,27 +1595,27 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
         enabled = !(world::gPlayerRuntimeSlots.fp < recipeCost());
         break;
     case 3: {
-        const std::int32_t selected = gSelectedItemD460C0;
+        const std::int32_t selected = craft.selectedItem;
         if (selected < 0) {
             element->visible = 0;
             if (auto* const element12 = currentWindow->FindElementById(WindowCraftElementId::Element12); element12) element12->data.text->text = L"";
             return 0;
         }
-        if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+        if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
             enabled = !(world::gPlayerRuntimeSlots.fp < 10);
         } else {
             enabled = !(world::gPlayerRuntimeSlots.fp <
                 world::gPlayerRuntimeSlots.items[selected].level * 10);
-            const std::int32_t level = world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level;
+            const std::int32_t level = world::gPlayerRuntimeSlots.items[craft.selectedItem].level;
             auto* const element12 = currentWindow->FindElementById(WindowCraftElementId::Element12);
             if (element12) {
                 cg::text::FormatTo(element12->data.text->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, level * 10);
             }
         }
-        const std::int32_t skill = gCraftSkillIndexCC2368;
+        const std::int32_t skill = craft.skillIndex;
         const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
         if (skillId == 220) {
-            const auto* const item = &world::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
+            const auto* const item = &world::gPlayerRuntimeSlots.items[craft.selectedItem];
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
                 || ((flags & 0x100u) != 0 && (flags & 0x400u) == 0)
@@ -1682,7 +1623,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 enabled = false;
             }
         } else if (skillId == 219 || skillId == 2033) {
-            const auto* const item = &world::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
+            const auto* const item = &world::gPlayerRuntimeSlots.items[craft.selectedItem];
             if (item->hasDescription != 0) {
                 enabled = false;
             } else {
@@ -1693,30 +1634,30 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 }
             }
         } else if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
-            const auto* const item = &world::gPlayerRuntimeSlots.items[gSelectedItemD460C0];
+            const auto* const item = &world::gPlayerRuntimeSlots.items[craft.selectedItem];
             if (item->hasDescription == 0) {
                 enabled = false;
             } else if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                 const std::int32_t currentId =
-                    world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                    world::gSkillsF1BAFC[craft.skillIndex].skillId;
                 if (currentId == 217 || currentId == 2031) {
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
-                           world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 1) {
+                           world::gPlayerRuntimeSlots.items[craft.selectedItem].itemType) == 1) {
                 const std::int32_t currentId =
-                    world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                    world::gSkillsF1BAFC[craft.skillIndex].skillId;
                 if (currentId == 218 || currentId == 2032) {
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
-                           world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 0) {
+                           world::gPlayerRuntimeSlots.items[craft.selectedItem].itemType) == 0) {
                 enabled = false;
             } else {
-                const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+                const std::int32_t currentSkill = craft.skillIndex;
                 const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
                 const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
-                const std::int32_t slot = gSelectedItemD460C0;
+                const std::int32_t slot = craft.selectedItem;
                 if (world::gPlayerRuntimeSlots.items[slot].level > level + (crystal != 0 ? 1 : 0)) {
                     enabled = false;
                 }
@@ -1761,16 +1702,16 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             gHoverTextD68AE8 = L"执行。" /* 原常量参考：0x005868D8。 */;
         }
         bool insufficient = false;
-        switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
+        switch (std::bit_cast<std::int8_t>(craft.selectionMode)) {
         case 0:
             insufficient = (world::gPlayerRuntimeSlots.fp < recipeCost());
             break;
         case 3:
-            if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+            if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
                 insufficient = (world::gPlayerRuntimeSlots.fp < 10);
             } else {
                 insufficient = (world::gPlayerRuntimeSlots.fp <
-                world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].level * 10);
+                world::gPlayerRuntimeSlots.items[craft.selectedItem].level * 10);
             }
             break;
         case 6:
@@ -1784,20 +1725,20 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             gHoverTextD68AE8 = kWindow12NoFp5864F0;
         }
     }
-    if (gSelectionModeD2D650 == 0 && (state & MouseFlag_LDownEvent) != 0) {
+    if (craft.selectionMode == 0 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
-            static_cast<void>(WindowCraft_WaitCraft(currentWindow));
+            static_cast<void>(WindowCraft_WaitCraft(*callbackWindow.ownerSession, currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if (gSelectionModeD2D650 == 3
+    if (craft.selectionMode == 3
         && ((state & MouseFlag_LDownEvent) != 0 || platform::ReadKeyFlag4_4597A0(13) != 0)) {
         if (!enabled) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
-        } else if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
-            static_cast<void>(WindowCraft_WaitItemWork(currentWindow));
+        } else if (world::gSkillsF1BAFC[craft.skillIndex].skillId != 220) {
+            static_cast<void>(WindowCraft_WaitItemWork(*callbackWindow.ownerSession, currentWindow));
             if (input::gCurrentInputData == &cg::ui::detail::gInputContextD2DE70) {
                 static_cast<void>(WindowChat_RestoreInput());
             }
@@ -1815,7 +1756,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             };
             bool send = false;
             std::int32_t notice = -1;
-            const auto flags = world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].flags;
+            const auto flags = world::gPlayerRuntimeSlots.items[craft.selectedItem].flags;
             if ((flags & 0x400u) != 0) {
                 if (input::ContainsPipeOrBackslash_45E770(input::ContextText(cg::ui::detail::gInputContextD2DE70)) == 1) {
                     notice = 0;
@@ -1845,7 +1786,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 }
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (send) {
-                if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+                if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
                     buffer = input::ContextText(cg::ui::detail::gInputContextD2DE70);
                 } else {
                     buffer.clear();
@@ -1858,12 +1799,12 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                     gSkillPetImageCB0A18 = WindowSkill_ReadBattlePetImage();
                     offset = 200;
                 }
-                const std::int32_t request = std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
-                const std::int32_t selected = gSelectedItemD460C0;
-                const std::int32_t skill = gCraftSkillIndexCC2368;
+                const std::int32_t request = std::bit_cast<std::int8_t>(craft.requestByte);
+                const std::int32_t selected = craft.selectedItem;
+                const std::int32_t skill = craft.skillIndex;
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill + offset, request, selected, buffer));
                 input::InputContext* const current = input::gCurrentInputData;
-                gSelectionModeD2D650 = 5;
+                craft.selectionMode = 5;
                 if (current == &cg::ui::detail::gInputContextD2DE70) {
                     static_cast<void>(WindowChat_RestoreInput());
                 }
@@ -1873,26 +1814,26 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
         }
         consumed = 1;
     }
-    const std::uint8_t mode = gSelectionModeD2D650;
+    const std::uint8_t mode = craft.selectionMode;
     if ((mode == 6 || mode == 15) && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
-            WindowCraft_WaitDecoration(currentWindow);
+            WindowCraft_WaitDecoration(*callbackWindow.ownerSession, currentWindow);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if (gSelectionModeD2D650 == 9 && (state & MouseFlag_LDownEvent) != 0) {
+    if (craft.selectionMode == 9 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
-            static_cast<void>(WindowCraft_WaitRefining(currentWindow));
+            static_cast<void>(WindowCraft_WaitRefining(*callbackWindow.ownerSession, currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if (gSelectionModeD2D650 == 12 && (state & MouseFlag_LDownEvent) != 0) {
+    if (craft.selectionMode == 12 && (state & MouseFlag_LDownEvent) != 0) {
         if (enabled) {
-            static_cast<void>(WindowCraft_WaitPacking(currentWindow));
+            static_cast<void>(WindowCraft_WaitPacking(*callbackWindow.ownerSession, currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1916,11 +1857,11 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
         graphic->imageNo = 0x3BAC3;
     }
     if (enabled) {
-        if (gSelectionModeD2D650 == 3) {
+        if (craft.selectionMode == 3) {
             if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"请输入名称。" /* 原常量参考：0x005868C8。 */;
             if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"                     魔力 10" /* 原常量参考：0x005868A8。 */;
         }
-        if (gSelectionModeD2D650 == 5) {
+        if (craft.selectionMode == 5) {
             if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"";
             if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"";
         }
@@ -1935,6 +1876,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
 // 原函数：0x00482FA0。
 static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
@@ -1945,30 +1887,30 @@ static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, c
         gHoverTextD68AE8 = L"继续执行。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        if (gSelectionModeD2D650 == 2) {
+        if (craft.selectionMode == 2) {
             const std::int32_t skillId =
-                world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                world::gSkillsF1BAFC[craft.skillIndex].skillId;
             switch (skillId) {
             case 255:
-                static_cast<void>(WindowCraft_InitializeDecoration(window));
+                static_cast<void>(WindowCraft_InitializeDecoration(*callbackWindow.ownerSession, window));
                 break;
             case 606:
-                static_cast<void>(WindowCraft_InitializePetDecoration(window));
+                static_cast<void>(WindowCraft_InitializePetDecoration(*callbackWindow.ownerSession, window));
                 break;
             case 2025:
-                static_cast<void>(WindowCraft_InitializeRefining(window));
+                static_cast<void>(WindowCraft_InitializeRefining(*callbackWindow.ownerSession, window));
                 break;
             case 2026:
-                static_cast<void>(WindowCraft_InitializePacking(window));
+                static_cast<void>(WindowCraft_InitializePacking(*callbackWindow.ownerSession, window));
                 break;
             default:
-                static_cast<void>(WindowCraft_InitializeRecipe(window));
+                static_cast<void>(WindowCraft_InitializeRecipe(*callbackWindow.ownerSession, window));
                 break;
             }
             window = currentWindow;
         }
-        if (gSelectionModeD2D650 == 5) {
-            static_cast<void>(WindowCraft_InitializeItemWork(window));
+        if (craft.selectionMode == 5) {
+            static_cast<void>(WindowCraft_InitializeItemWork(*callbackWindow.ownerSession, window));
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
@@ -2012,6 +1954,7 @@ static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, cons
 // 原函数：0x00483150。
 static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2081,14 +2024,14 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
-    if (gCraftBackpackHover57DA24 != hovered) {
-        gMaterialHintPageCF4FD8 = 0;
+    if (craft.backpackHover != hovered) {
+        craft.materialHintPage = 0;
     }
-    gCraftBackpackHover57DA24 = hovered;
+    craft.backpackHover = hovered;
     if (hovered >= 0 && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0
         && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 11 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
-            const std::uint8_t mode = gSelectionModeD2D650;
+            const std::uint8_t mode = craft.selectionMode;
             if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
                 static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
                 const auto selectItem = [&] {
@@ -2098,7 +2041,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                     };
                     const auto firstFreeSlot = [] {
                         std::int32_t slot = 0;
-                        while (slot < 6 && gSelectedSlotsCA0A90[slot] >= 0) {
+                        while (slot < 6 && craft.selectedSlots[slot] >= 0) {
                             ++slot;
                         }
                         return slot;
@@ -2112,18 +2055,18 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         if (material >= 0) {
                             gMaterialOccupancyCC4894.materialValues[material] = 1;
                         }
-                        gSelectedSlotsCA0A90[slot] = hovered;
-                        gSelectionImagesCF3FF4[slot] = imageNo;
-                        gSelectionCountsD66E0C[slot] = WindowCraft_CountRecipeMaterial(itemId);
-                        gMaterialIndicesCA0458[slot] = material;
+                        craft.selectedSlots[slot] = hovered;
+                        craft.selectionImages[slot] = imageNo;
+                        craft.selectionCounts[slot] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
+                        craft.materialIndices[slot] = material;
                         const unsigned char previous = hoverMarks[hovered + 8];
-                        gItemMarksD67290[hovered + 8] = 1;
+                        craft.itemMarks[hovered + 8] = 1;
                         if (extraMark) {
-                            gItemMarksD68A90[hovered] = 1;
+                            craft.materialItemMarks[hovered] = 1;
                         }
                         hoverMarks[hovered + 8] = static_cast<unsigned char>(previous + 1);
                     };
-                    switch (gSelectionModeD2D650) {
+                    switch (craft.selectionMode) {
                     case 0: {
                         const std::int32_t slot = firstFreeSlot();
                         if (slot >= 6 || hovered + 8 < 8 || hovered + 8 >= 100
@@ -2135,15 +2078,15 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         if (count == 0) {
                             count = 1;
                         }
-                        std::int32_t skill = gCraftSkillIndexCC2368;
+                        std::int32_t skill = craft.skillIndex;
                         const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
                         if (skillId != 215 && skillId != 216) {
                             if (WindowCraft_ClassifySpecialMaterial(item->itemType, skillId) != 0) {
                                 for (std::int32_t current = 0; current < 6; ++current) {
-                                    const std::int32_t selected = gSelectedSlotsCA0A90[current];
+                                    const std::int32_t selected = craft.selectedSlots[current];
                                     if (selected >= 0) {
                                         const std::int32_t currentId =
-                                            world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                            world::gSkillsF1BAFC[craft.skillIndex].skillId;
                                         const std::int32_t type =
                                             world::gPlayerRuntimeSlots.items[selected + 8].itemType;
                                         if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
@@ -2155,15 +2098,15 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                                 publishMaterial(slot, -1, false);
                                 return;
                             }
-                            skill = gCraftSkillIndexCC2368;
+                            skill = craft.skillIndex;
                         }
-                        const std::int32_t recipeIndex = gCraftRecipeIndexD2D638;
+                        const std::int32_t recipeIndex = craft.recipeIndex;
                         const auto* const recipe = &world::gSkillsF1BAFC[skill].recipes8E8[recipeIndex];
                         for (std::int32_t material = 0; material < 5; ++material) {
                             const auto* const required = &recipe->items6C[material];
                             const std::int32_t itemId = required->itemId;
                             if (itemId >= 0 && gMaterialOccupancyCC4894.materialValues[material] == 0
-                                && gItemMarksD67290[hovered + 8] == 0
+                                && craft.itemMarks[hovered + 8] == 0
                                 && item->itemId == itemId && count >= required->count) {
                                 publishMaterial(slot, material, false);
                                 return;
@@ -2177,10 +2120,10 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         if (selected < 8 || selected >= 100) {
                             return;
                         }
-                        if (gSelectedItemD460C0 >= 0) {
-                            static_cast<void>(WindowCraft_ReleaseMaterials(6));
+                        if (craft.selectedItem >= 0) {
+                            static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
                         }
-                        const std::int32_t skill = gCraftSkillIndexCC2368;
+                        const std::int32_t skill = craft.skillIndex;
                         const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
                         if (skillId == 220) {
                             const std::uint16_t flags = item->flags;
@@ -2208,16 +2151,16 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                             if (!rejected) {
                                 if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                                     const std::int32_t currentId =
-                                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
                                     rejected = currentId == 217 || currentId == 2031;
                                 } else if (WindowCraft_ClassifyWork(item->itemType) == 1) {
                                     const std::int32_t currentId =
-                                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
                                     rejected = currentId == 218 || currentId == 2032;
                                 } else if (WindowCraft_ClassifyWork(item->itemType) == 0) {
                                     rejected = true;
                                 } else {
-                                    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+                                    const std::int32_t currentSkill = craft.skillIndex;
                                     const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
                                     const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
                                     rejected = item->level > level + (crystal != 0 ? 1 : 0);
@@ -2230,14 +2173,14 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         }
                         const std::int32_t itemId = item->itemId;
                         const std::int32_t imageNo = item->imageNo;
-                        gSelectedItemD460C0 = selected;
-                        gSelectedImageCC3ED8 = imageNo;
-                        gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
-                        const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+                        craft.selectedItem = selected;
+                        craft.selectedImage = imageNo;
+                        craft.selectedCount = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
+                        const std::int32_t currentSkill = craft.skillIndex;
                         const unsigned char previous = hoverMarks[hovered + 8];
                         const std::int32_t currentId = world::gSkillsF1BAFC[currentSkill].skillId;
                         hoverMarks[hovered + 8] = static_cast<unsigned char>(previous + 1);
-                        gItemMarksD67290[hovered + 8] = 1;
+                        craft.itemMarks[hovered + 8] = 1;
                         if (currentId == 220) {
                             WindowInstance* const window = currentWindow;
                             auto* const element12 = window->FindElementById(WindowCraftElementId::Element12);
@@ -2252,7 +2195,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                     }
                     case 6:
                     case 15: {
-                        const std::uint8_t currentMode = gSelectionModeD2D650;
+                        const std::uint8_t currentMode = craft.selectionMode;
                         const std::int32_t allowed = currentMode == 6
                             ? world::IsItemEligibleForDecoration_505040(hovered + 8)
                             : world::IsItemEligibleForPetDecoration_5050B0(hovered + 8);
@@ -2293,7 +2236,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                             fail();
                             return;
                         }
-                        WindowCraft_ValidatePackingMaterials(slot, hovered + 8);
+                        WindowCraft_ValidatePackingMaterials(*callbackWindow.ownerSession, slot, hovered + 8);
                         return;
                     }
                     default:
@@ -2314,11 +2257,11 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-                const std::int32_t page = gMaterialHintPageCF4FD8 + 1;
+                const std::int32_t page = craft.materialHintPage + 1;
                 const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
-                gMaterialHintPageCF4FD8 = page;
+                craft.materialHintPage = page;
                 if (page >= pages) {
-                    gMaterialHintPageCF4FD8 = 0;
+                    craft.materialHintPage = 0;
                 }
             }
             consumed = 1;
@@ -2352,7 +2295,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                 static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
         }
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-            gMaterialHoveredItemD67424 = hovered + 8;
+            craft.materialHoveredItem = hovered + 8;
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -2393,9 +2336,10 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
 // 原函数：0x00484FB0。
 static std::int32_t WindowCraft_DrawResultImage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t imageNo = gCraftDisplayImageCB2204;
+    const std::int32_t imageNo = craft.displayImage;
     if (imageNo < 0) {
         return 0;
     }
@@ -2417,9 +2361,10 @@ static std::int32_t WindowCraft_DrawResultImage(WindowInstance& callbackWindow, 
 // 原函数：0x00485030。
 static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    if (gSelectedItemD460C0 < 0) {
+    if (craft.selectedItem < 0) {
         return 0;
     }
     auto* const indexedElement = currentWindow->FindElementById(elementId);
@@ -2540,6 +2485,7 @@ static std::int32_t WindowCraft_DrawEmptyEngravingNotice(WindowInstance& callbac
 // 原函数：0x004847C0。
 static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -2555,20 +2501,20 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
     if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8 && source < 100) {
-            if (gSelectedItemD460C0 >= 0) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(6));
+            if (craft.selectedItem >= 0) {
+                static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
             }
-            gSelectedItemD460C0 = source;
+            craft.selectedItem = source;
             const auto* const item = &world::gPlayerRuntimeSlots.items[source];
             const std::int32_t itemId = item->itemId;
-            gSelectedImageCC3ED8 = item->imageNo;
-            gSelectedCountCC483C = WindowCraft_CountRecipeMaterial(itemId);
-            const std::int32_t skill = gCraftSkillIndexCC2368;
+            craft.selectedImage = item->imageNo;
+            craft.selectedCount = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
+            const std::int32_t skill = craft.skillIndex;
             auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             const unsigned char previous = hover[source];
             const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
             hover[source] = static_cast<unsigned char>(previous + 1);
-            gItemMarksD67290[source] = 1;
+            craft.itemMarks[source] = 1;
             if (skillId == 220) {
                 WindowInstance* const window = currentWindow;
                 auto* const element12 = window->FindElementById(WindowCraftElementId::Element12);
@@ -2582,9 +2528,9 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
         }
         WindowDrag_Reset(*callbackWindow.ownerSession);
     }
-    const std::int32_t selected = gSelectedItemD460C0;
+    const std::int32_t selected = craft.selectedItem;
     if (selected >= 0) {
-        const std::int32_t skill = gCraftSkillIndexCC2368;
+        const std::int32_t skill = craft.skillIndex;
         const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
         const auto* const item = &world::gPlayerRuntimeSlots.items[selected];
         if (skillId == 220) {
@@ -2592,17 +2538,17 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
                 || ((flags & 0x100u) != 0 && (flags & 0x400u) == 0)
                 || item->hasDescription == 0 || item->count > 0 || item->itemType == 47) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(6));
+                static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
             }
         } else if (skillId == 219 || skillId == 2033) {
             if (item->hasDescription != 0) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(6));
+                static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
                 world::AppendChatMessage_44B050(L"不需鉴定的物品", 4, 3);
             } else {
                 const std::int32_t level =
                     world::gSkillsF1BAFC[skill].level + (gSkillRebirthModeEnabled_5F9754 != 0 ? 1 : 0);
                 if (item->level > level) {
-                    static_cast<void>(WindowCraft_ReleaseMaterials(6));
+                    static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
                     world::AppendChatMessage_44B050(L"不可鉴定的物品", 4, 3);
                 }
             }
@@ -2612,32 +2558,32 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                 // 原分类1/2分支直接结束校验，不落入末尾等级判断。
                 if (WindowCraft_ClassifyWork(item->itemType) == 2) {
                     const std::int32_t currentId =
-                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
                     rejected = currentId == 217 || currentId == 2031;
                 } else if (WindowCraft_ClassifyWork(
-                               world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 1) {
+                               world::gPlayerRuntimeSlots.items[craft.selectedItem].itemType) == 1) {
                     const std::int32_t currentId =
-                        world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+                        world::gSkillsF1BAFC[craft.skillIndex].skillId;
                     rejected = currentId == 218 || currentId == 2032;
                 } else if (WindowCraft_ClassifyWork(
-                               world::gPlayerRuntimeSlots.items[gSelectedItemD460C0].itemType) == 0) {
+                               world::gPlayerRuntimeSlots.items[craft.selectedItem].itemType) == 0) {
                     rejected = true;
                 } else {
-                    const std::int32_t currentSkill = gCraftSkillIndexCC2368;
+                    const std::int32_t currentSkill = craft.skillIndex;
                     const std::uint8_t crystal = gSkillRebirthModeEnabled_5F9754;
                     const std::int32_t skillLevel = world::gSkillsF1BAFC[currentSkill].level;
-                    const std::int32_t slot = gSelectedItemD460C0;
+                    const std::int32_t slot = craft.selectedItem;
                     rejected = world::gPlayerRuntimeSlots.items[slot].level
                         > skillLevel + (crystal != 0 ? 1 : 0);
                 }
             }
             if (rejected) {
-                static_cast<void>(WindowCraft_ReleaseMaterials(6));
+                static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
             }
         }
     }
     const bool hovered = (events & MouseFlag_Hover) != 0;
-    if (hovered && gSelectedItemD460C0 >= 0 && (events & MouseFlag_LDownEvent) != 0) {
+    if (hovered && craft.selectedItem >= 0 && (events & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowCraft_StartMaterialDrag(*callbackWindow.ownerSession, 6));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -2683,30 +2629,30 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
     if (hovered) {
         gHoverTextD68AE8 = L"以滑鼠拖放方式，将素材置放于此处。";
     }
-    const std::int32_t currentSelected = gSelectedItemD460C0;
+    const std::int32_t currentSelected = craft.selectedItem;
     if (currentSelected < 0) {
         return 0;
     }
     if (hovered) {
-        if (gMaterialSingleHoverCB0AA4 != 6) {
-            gMaterialHintPageCF4FD8 = 0;
+        if (craft.materialSingleHover != 6) {
+            craft.materialHintPage = 0;
         }
-        gMaterialSingleHoverCB0AA4 = 6;
+        craft.materialSingleHover = 6;
         if ((events & MouseFlag_RDownEvent) != 0) {
-            ++gMaterialHintPageCF4FD8;
-            if (gMaterialHintPageCF4FD8 >= 4) {
-                gMaterialHintPageCF4FD8 = 0;
+            ++craft.materialHintPage;
+            if (craft.materialHintPage >= 4) {
+                craft.materialHintPage = 0;
             }
             consumed = 1;
         }
-        gMaterialHoveredItemD67424 = currentSelected;
+        craft.materialHoveredItem = currentSelected;
     }
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
         const std::int32_t windowY = window->y;
-        const std::int32_t imageNo = gSelectedImageCC3ED8;
+        const std::int32_t imageNo = craft.selectedImage;
         const std::int32_t y = element->y + windowY + 24;
         const std::int32_t x = element->x + window->x + 24;
         static_cast<void>(cg::render::DrawGraphic(x, y, 223, imageNo, 0, &descriptor));
@@ -2715,21 +2661,22 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
 }
 
 // 原函数：0x0047EC00。
-static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_InitializeItemWork(session::ClientSession& session, WindowInstance* const window)
 {
+    auto& craft = session.UiFrame().native.craft;
     for (std::int32_t index = 0; index < 6; ++index) {
-        static_cast<void>(WindowCraft_ReleaseMaterials(index));
+        static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
     }
-    static_cast<void>(WindowCraft_ReleaseMaterials(6));
-    gItemMarksD67290.fill(0);
-    gMaterialHoverSlotsCB0A8C.fill(-2);
-    gMaterialSingleHoverCB0AA4 = -2;
+    static_cast<void>(WindowCraft_ReleaseMaterials(session, 6));
+    craft.itemMarks.fill(0);
+    craft.materialHoverSlots.fill(-2);
+    craft.materialSingleHover = -2;
     gMaterialOccupancyCC4894 = {};
-    gMaterialIndicesCA0458.fill(-1);
-    gSelectedSlotsCA0A90.fill(-1);
-    gSelectionCountsD66E0C.fill(0);
-    gSelectionImagesCF3FF4.fill(-1);
-    const std::int32_t skillId = world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+    craft.materialIndices.fill(-1);
+    craft.selectedSlots.fill(-1);
+    craft.selectionCounts.fill(0);
+    craft.selectionImages.fill(-1);
+    const std::int32_t skillId = world::gSkillsF1BAFC[craft.skillIndex].skillId;
     const wchar_t* hint = nullptr;
     switch (skillId) {
     case 220:
@@ -2780,46 +2727,49 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* const
     if (auto* const handleEngravingInputElement = window ? window->FindElementById(WindowCraftElementId::HandleEngravingInput) : nullptr; handleEngravingInputElement) handleEngravingInputElement->visible = 0;
     if (auto* const element8 = window ? window->FindElementById(WindowCraftElementId::Element8) : nullptr; element8) element8->visible = 0;
     if (auto* const buttonExecuteElement = window ? window->FindElementById(WindowCraftElementId::ButtonExecute) : nullptr; buttonExecuteElement) buttonExecuteElement->visible = 0;
-    gCraftDisplayImageCB2204 = -1;
+    craft.displayImage = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const result = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, 0, 5);
-    gSelectionModeD2D650 = 3;
+    craft.selectionMode = 3;
     return result;
 }
 
 // 原函数：0x0047D4B0。
-static std::int32_t WindowCraft_HasRecipeCrystalLevel()
+static std::int32_t WindowCraft_HasRecipeCrystalLevel(session::ClientSession& session)
 {
+    auto& craft = session.UiFrame().native.craft;
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
-    const std::int32_t skill = gCraftSkillIndexCC2368;
-    const std::int32_t recipe = gCraftRecipeIndexD2D638;
+    const std::int32_t skill = craft.skillIndex;
+    const std::int32_t recipe = craft.recipeIndex;
     return world::gSkillsF1BAFC[skill].recipes8E8[recipe].level == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x0047D4F0。
-static std::int32_t WindowCraft_HasSelectedCrystalLevel()
+static std::int32_t WindowCraft_HasSelectedCrystalLevel(session::ClientSession& session)
 {
-    if (gSelectedItemD460C0 < 0) {
+    auto& craft = session.UiFrame().native.craft;
+    if (craft.selectedItem < 0) {
         return 0;
     }
     const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
-    const std::int32_t slot = gSelectedItemD460C0;
+    const std::int32_t slot = craft.selectedItem;
     return world::gPlayerRuntimeSlots.items[slot].level == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x0047D530。
-static std::int32_t WindowCraft_HasMaterialCrystalLevel()
+static std::int32_t WindowCraft_HasMaterialCrystalLevel(session::ClientSession& session)
 {
+    auto& craft = session.UiFrame().native.craft;
     for (std::int32_t index = 0; index < 6; ++index) {
-        const std::int32_t slot = gSelectedSlotsCA0A90[index];
+        const std::int32_t slot = craft.selectedSlots[index];
         if (slot < 0) {
             continue;
         }
         const std::int32_t type = world::gPlayerRuntimeSlots.items[slot + 8].itemType;
         if (type == 38 || type == 25 || type == 39 || type == 80) {
             const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
-            const std::int32_t selected = gSelectedSlotsCA0A90[index];
+            const std::int32_t selected = craft.selectedSlots[index];
             return world::gPlayerRuntimeSlots.items[selected + 8].level == crystalLevel ? 1 : 0;
         }
     }
@@ -2827,9 +2777,10 @@ static std::int32_t WindowCraft_HasMaterialCrystalLevel()
 }
 
 // 原函数：0x0047D5B0。
-static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
+static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel(session::ClientSession& session)
 {
-    const std::int32_t slot = gSelectedSlotsCA0A90[0];
+    auto& craft = session.UiFrame().native.craft;
+    const std::int32_t slot = craft.selectedSlots[0];
     if (slot < 0) {
         return 0;
     }
@@ -2841,43 +2792,44 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
 // 原函数：0x004810A0。
 static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const auto initializeMode = [currentWindow](const std::uint8_t mode) {
         switch (mode) {
-        case 0: static_cast<void>(WindowCraft_InitializeRecipe(currentWindow)); break;
-        case 3: static_cast<void>(WindowCraft_InitializeItemWork(currentWindow)); break;
-        case 6: static_cast<void>(WindowCraft_InitializeDecoration(currentWindow)); break;
-        case 15: static_cast<void>(WindowCraft_InitializePetDecoration(currentWindow)); break;
-        case 9: static_cast<void>(WindowCraft_InitializeRefining(currentWindow)); break;
-        case 12: static_cast<void>(WindowCraft_InitializePacking(currentWindow)); break;
+        case 0: static_cast<void>(WindowCraft_InitializeRecipe(*currentWindow->ownerSession, currentWindow)); break;
+        case 3: static_cast<void>(WindowCraft_InitializeItemWork(*currentWindow->ownerSession, currentWindow)); break;
+        case 6: static_cast<void>(WindowCraft_InitializeDecoration(*currentWindow->ownerSession, currentWindow)); break;
+        case 15: static_cast<void>(WindowCraft_InitializePetDecoration(*currentWindow->ownerSession, currentWindow)); break;
+        case 9: static_cast<void>(WindowCraft_InitializeRefining(*currentWindow->ownerSession, currentWindow)); break;
+        case 12: static_cast<void>(WindowCraft_InitializePacking(*currentWindow->ownerSession, currentWindow)); break;
         default: break;
         }
     };
     if (value == -1) {
-        gItemMarksD67290.fill(0);
+        craft.itemMarks.fill(0);
         operations.craftOpening = nullptr;
-        gMaterialHoverSlotsCB0A8C.fill(-2);
-        gMaterialHoveredItemD67424 = -1;
-        gMaterialIndicesCA0458.fill(-1);
-        gSelectedSlotsCA0A90.fill(-1);
-        gMaterialHintPageCF4FD8 = 0;
-        gSelectionCountsD66E0C.fill(0);
-        gSelectedItemD460C0 = -1;
-        gSelectionImagesCF3FF4.fill(-1);
-        const std::uint8_t mode = gSelectionModeD2D650;
-        gSelectedImageCC3ED8 = -1;
-        gSelectedCountCC483C = -1;
+        craft.materialHoverSlots.fill(-2);
+        craft.materialHoveredItem = -1;
+        craft.materialIndices.fill(-1);
+        craft.selectedSlots.fill(-1);
+        craft.materialHintPage = 0;
+        craft.selectionCounts.fill(0);
+        craft.selectedItem = -1;
+        craft.selectionImages.fill(-1);
+        const std::uint8_t mode = craft.selectionMode;
+        craft.selectedImage = -1;
+        craft.selectedCount = -1;
         initializeMode(mode);
         if (auto* const drawInvalidEngravingNoticeElement = currentWindow->FindElementById(WindowCraftElementId::DrawInvalidEngravingNotice); drawInvalidEngravingNoticeElement) drawInvalidEngravingNoticeElement->visible = 0;
         if (auto* const drawEmptyEngravingNoticeElement = currentWindow->FindElementById(WindowCraftElementId::DrawEmptyEngravingNotice); drawEmptyEngravingNoticeElement) drawEmptyEngravingNoticeElement->visible = 0;
         return 1;
     }
-    if (std::bit_cast<std::int8_t>(gSelectionModeD2D650) <= 2) {
-        const std::int32_t skill = gCraftSkillIndexCC2368;
-        const std::int32_t recipe = gCraftRecipeIndexD2D638;
-        const std::int32_t expected = gCraftRecipeIdD2E440;
+    if (std::bit_cast<std::int8_t>(craft.selectionMode) <= 2) {
+        const std::int32_t skill = craft.skillIndex;
+        const std::int32_t recipe = craft.recipeIndex;
+        const std::int32_t expected = craft.recipeId;
         const auto* const record = &world::gSkillsF1BAFC[skill];
         if (expected != record->recipes8E8[recipe].itemId) {
             const std::int32_t skillId = record->skillId;
@@ -2890,7 +2842,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
                         break;
                     }
                     if (itemId == expected) {
-                        gCraftRecipeIndexD2D638 = index;
+                        craft.recipeIndex = index;
                         break;
                     }
                 }
@@ -2912,25 +2864,25 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
                 static_cast<void>(WindowCraft_ConfigurePreviews_47D220(currentWindow, 3, 5, 0, 10, 5));
             }
         };
-        if (gSelectionModeD2D650 == 0 && WindowCraft_HasRecipeCrystalLevel() != 0) {
+        if (craft.selectionMode == 0 && WindowCraft_HasRecipeCrystalLevel(*callbackWindow.ownerSession) != 0) {
             matchingCrystal = true;
             configureCrystal();
         }
         bool engraving = false;
-        if (gSelectionModeD2D650 == 3) {
-            if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+        if (craft.selectionMode == 3) {
+            if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
                 engraving = true;
-            } else if (WindowCraft_HasSelectedCrystalLevel() != 0) {
+            } else if (WindowCraft_HasSelectedCrystalLevel(*callbackWindow.ownerSession) != 0) {
                 matchingCrystal = true;
                 configureCrystal();
             }
         }
         if (!engraving) {
-            const std::uint8_t mode = gSelectionModeD2D650;
+            const std::uint8_t mode = craft.selectionMode;
             const bool matches = mode == 6 || mode == 15
-                ? WindowCraft_HasMaterialCrystalLevel() != 0
-                : mode == 9 ? WindowCraft_HasFirstMaterialCrystalLevel() != 0
-                : mode == 12 && WindowCraft_HasMaterialCrystalLevel() != 0;
+                ? WindowCraft_HasMaterialCrystalLevel(*callbackWindow.ownerSession) != 0
+                : mode == 9 ? WindowCraft_HasFirstMaterialCrystalLevel(*callbackWindow.ownerSession) != 0
+                : mode == 12 && WindowCraft_HasMaterialCrystalLevel(*callbackWindow.ownerSession) != 0;
             if (matches) {
                 matchingCrystal = true;
                 static_cast<void>(WindowCraft_SetPreviewPositions(
@@ -2938,7 +2890,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
                 configureCrystal();
             }
         }
-        switch (std::bit_cast<std::int8_t>(gSelectionModeD2D650)) {
+        switch (std::bit_cast<std::int8_t>(craft.selectionMode)) {
         case 0: case 3: case 6: case 9: case 12: case 15:
             if (matchingCrystal) {
                 const std::int32_t imageNo = WindowSkill_ReadBattlePetImage();
@@ -2958,7 +2910,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             }
             break;
         case 5:
-            if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+            if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
                 break;
             }
             [[fallthrough]];
@@ -2973,10 +2925,10 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, 0));
     }
     if (gSkillSendModeC8A970 != 0) {
-        const std::uint8_t mode = gSelectionModeD2D650;
+        const std::uint8_t mode = craft.selectionMode;
         if (mode == 1 || mode == 4 || mode == 7 || mode == 16 || mode == 10 || mode == 13) {
-            if (petAvailable && gCraftPetAssistActive_D67B00 != 0) {
-                static_cast<void>(WindowCraft_AnimatePreviewPositions(currentWindow, 4, 3, 5, gCraftDeadlineCF3B04));
+            if (petAvailable && craft.petAssistActive != 0) {
+                static_cast<void>(WindowCraft_AnimatePreviewPositions(currentWindow, 4, 3, 5, craft.deadline));
             } else {
                 initializeMode(static_cast<std::uint8_t>(mode - 1));
             }
@@ -2987,7 +2939,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     std::wstring temporary;
     const auto expired = [] {
         const std::uint64_t tick = platform::ReadTickCount64();
-        return gCraftDeadlineCF3B04 <= tick;
+        return craft.deadline <= tick;
     };
     // 三种参数合同在读取共享状态时才选取，不能把请求值预先截为同一宽度。
     const auto sendRequest = [&](const bool recipeRequest, const bool singleTarget) {
@@ -3002,59 +2954,59 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         std::int32_t request;
         std::int32_t target = -1;
         if (recipeRequest) {
-            skill = gCraftSkillIndexCC2368;
-            request = gCraftRequestValueD30400;
+            skill = craft.skillIndex;
+            request = craft.requestValue;
         } else {
-            request = std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
+            request = std::bit_cast<std::int8_t>(craft.requestByte);
             if (singleTarget) {
-                target = gSelectedItemD460C0;
+                target = craft.selectedItem;
             }
-            skill = gCraftSkillIndexCC2368;
+            skill = craft.skillIndex;
         }
         static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill + offset, request, target, requestText));
     };
     bool hideControls = false;
-    if (gSelectionModeD2D650 == 1 && expired()) {
-        const std::int32_t skill = gCraftSkillIndexCC2368;
-        const std::int32_t recipe = gCraftRecipeIndexD2D638;
+    if (craft.selectionMode == 1 && expired()) {
+        const std::int32_t skill = craft.skillIndex;
+        const std::int32_t recipe = craft.recipeIndex;
         cg::text::FormatTo(buffer, L"{}", world::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
         for (std::int32_t index = 0; index < 6; ++index) {
-            const std::int32_t slot = gSelectedSlotsCA0A90[index];
-            if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
+            const std::int32_t slot = craft.selectedSlots[index];
+            if (slot >= 0 && craft.materialIndices[index] >= 0) {
                 cg::text::FormatTo(temporary, L"|{}", slot + 8);
                 buffer += temporary;
             }
         }
         for (std::int32_t index = 0; index < 6; ++index) {
-            const std::int32_t slot = gSelectedSlotsCA0A90[index];
-            if (slot >= 0 && gMaterialIndicesCA0458[index] < 0) {
+            const std::int32_t slot = craft.selectedSlots[index];
+            if (slot >= 0 && craft.materialIndices[index] < 0) {
                 cg::text::FormatTo(temporary, L"|{}", slot + 8);
                 buffer += temporary;
             }
         }
         cg::core::NullSub_509080();
         sendRequest(true, false);
-        gSelectionModeD2D650 = 2;
+        craft.selectionMode = 2;
         hideControls = true;
-    } else if (gSelectionModeD2D650 == 4 && expired()) {
-        if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+    } else if (craft.selectionMode == 4 && expired()) {
+        if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
             buffer = input::ContextText(cg::ui::detail::gInputContextD2DE70);
         } else {
             buffer.clear();
         }
         cg::core::NullSub_509080();
         sendRequest(false, true);
-        gSelectionModeD2D650 = 5;
+        craft.selectionMode = 5;
         hideControls = true;
     } else {
-        const std::uint8_t mode = gSelectionModeD2D650;
+        const std::uint8_t mode = craft.selectionMode;
         if ((mode == 7 || mode == 16) && expired()) {
             // 原两局部未赋初值；正常分组由材料写入，不补默认值或模拟栈残留。
             std::array<std::int32_t, 2> groupedSlots;
             std::int32_t& ordinarySlot = groupedSlots[0];
             std::int32_t& specialSlot = groupedSlots[1];
             for (std::int32_t index = 0; index < 6; ++index) {
-                const std::int32_t slot = gSelectedSlotsCA0A90[index];
+                const std::int32_t slot = craft.selectedSlots[index];
                 if (slot < 0) {
                     continue;
                 }
@@ -3069,54 +3021,54 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             cg::core::NullSub_509080();
             sendRequest(false, false);
             const std::wstring& name = world::gPlayerRuntimeSlots.items[ordinarySlot].name;
-            const std::uint8_t currentMode = gSelectionModeD2D650;
-            gCraftNameCF46D4 = name;
+            const std::uint8_t currentMode = craft.selectionMode;
+            craft.name = name;
             if (currentMode == 7) {
-                gSelectionModeD2D650 = 8;
+                craft.selectionMode = 8;
                 hideControls = true;
             } else if (currentMode == 16) {
-                gSelectionModeD2D650 = 17;
+                craft.selectionMode = 17;
                 hideControls = true;
             }
         } else if (mode == 10 && expired()) {
             std::int32_t selected = -1;
             for (std::int32_t index = 0; index < 6; ++index) {
-                const std::int32_t slot = gSelectedSlotsCA0A90[index];
+                const std::int32_t slot = craft.selectedSlots[index];
                 if (slot >= 0 && world::IsItemEligibleForRefining_505110(slot + 8) != 0) {
-                    selected = gSelectedSlotsCA0A90[index] + 8;
+                    selected = craft.selectedSlots[index] + 8;
                     break;
                 }
             }
             cg::text::FormatTo(buffer, L"{}", selected);
             cg::core::NullSub_509080();
             sendRequest(false, false);
-            gSelectionModeD2D650 = 11;
-            gCraftNameCF46D4 = world::gPlayerRuntimeSlots.items[selected].name;
+            craft.selectionMode = 11;
+            craft.name = world::gPlayerRuntimeSlots.items[selected].name;
             hideControls = true;
         } else if (mode == 13 && expired()) {
             buffer.clear();
             temporary = buffer;
             for (std::int32_t index = 0; index < 6; ++index) {
-                const std::int32_t slot = gSelectedSlotsCA0A90[index];
-                if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
+                const std::int32_t slot = craft.selectedSlots[index];
+                if (slot >= 0 && craft.materialIndices[index] >= 0) {
                     cg::text::FormatTo(temporary, L"{}|", slot + 8);
                     buffer += temporary;
-                    if (gMaterialIndicesCA0458[index] == 0) {
-                        const std::int32_t selected = gSelectedSlotsCA0A90[index];
-                        gCraftNameCF46D4 = world::gPlayerRuntimeSlots.items[selected + 8].name;
+                    if (craft.materialIndices[index] == 0) {
+                        const std::int32_t selected = craft.selectedSlots[index];
+                        craft.name = world::gPlayerRuntimeSlots.items[selected + 8].name;
                     }
                 }
             }
             cg::core::NullSub_509080();
             sendRequest(false, false);
-            gSelectionModeD2D650 = 14;
+            craft.selectionMode = 14;
             hideControls = true;
         }
     }
     if (!hideControls) {
-        const std::uint8_t mode = gSelectionModeD2D650;
+        const std::uint8_t mode = craft.selectionMode;
         if (mode == 3) {
-            if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+            if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
                 if (auto* const element10 = currentWindow->FindElementById(WindowCraftElementId::Element10); element10) element10->data.text->text = L"刻印的物品";
                 if (auto* const element11 = currentWindow->FindElementById(WindowCraftElementId::Element11); element11) element11->data.text->text = L"　请选择。";
                 if (input::gCurrentInputData != &cg::ui::detail::gInputContextD2DE70) {
@@ -3159,26 +3111,27 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             static_cast<void>(WindowInput_ActivateElement(&gCraftInputPrototype57D7F8, x, y, 2));
         }
     }
-    gMaterialHoveredItemD67424 = -1;
+    craft.materialHoveredItem = -1;
     return 1;
 }
 
 // 原函数：0x00481010。
 static void WindowCraft_Release(WindowInstance& releasedWindow)
 {
+    auto& craft = releasedWindow.ownerSession->UiFrame().native.craft;
     auto& operations = releasedWindow.ownerSession->UiFrame().native.operations;
     WindowInstance* const quantityWindow = WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].window;
     if (quantityWindow != nullptr && WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_Quantity].value20 == 11) {
         quantityWindow->state |= 0x8000u;
     }
-    gCraftPetAssistActive_D67B00 = 0;
+    craft.petAssistActive = 0;
     WindowRuntime_DecrementOperationCount(*releasedWindow.ownerSession);
     WindowRuntime_DecrementGatherOperationCount(*releasedWindow.ownerSession);
     --operations.skillCount;
     for (std::int32_t index = 0; index < 6; ++index) {
-        static_cast<void>(WindowCraft_ReleaseMaterials(index));
+        static_cast<void>(WindowCraft_ReleaseMaterials(*releasedWindow.ownerSession, index));
     }
-    static_cast<void>(WindowCraft_ReleaseMaterials(6));
+    static_cast<void>(WindowCraft_ReleaseMaterials(*releasedWindow.ownerSession, 6));
     --operations.statusIconReferences;
     if (operations.statusIconReferences == 0) {
         const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
@@ -3191,13 +3144,14 @@ static void WindowCraft_Release(WindowInstance& releasedWindow)
 // 原函数：0x00482000。
 static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const element5 = currentWindow->FindElementById(WindowCraftElementId::Element5);
     if (element5) {
         cg::yobi::YobiAction* const action =
             element5->data.animation->action;
-        const std::uint8_t mode = gSelectionModeD2D650;
+        const std::uint8_t mode = craft.selectionMode;
         const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
         if (mode == 2 || mode == 5) {
             const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
@@ -3234,11 +3188,11 @@ static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, const std::
             }
         }
     }
-    const std::int32_t hovered = gMaterialHoveredItemD67424;
+    const std::int32_t hovered = craft.materialHoveredItem;
     if (hovered >= 0) {
-        static_cast<void>(WindowItem_DrawEquipmentTooltip(hovered, gMaterialHintPageCF4FD8));
+        static_cast<void>(WindowItem_DrawEquipmentTooltip(hovered, craft.materialHintPage));
     }
-    if (gSelectedItemD460C0 >= 0) {
+    if (craft.selectedItem >= 0) {
         WindowInstance* const window = currentWindow;
         auto* const element12 = window->FindElementById(WindowCraftElementId::Element12);
         if (element12) {
@@ -3305,6 +3259,7 @@ WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
 // 原函数：0x00484D60。
 static std::int32_t WindowCraft_HandleMaterialTooltip(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -3329,29 +3284,29 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(WindowInstance& callbackWi
                 0xDF, imageNo, 0);
         }
     }
-    const std::int32_t selected = gSelectedSlotsCA0A90[slot];
+    const std::int32_t selected = craft.selectedSlots[slot];
     if (selected < 0) {
         return 0;
     }
     if ((events & MouseFlag_Hover) != 0) {
-        if (gMaterialHoverSlotsCB0A8C[slot] != slot) {
-            gMaterialHintPageCF4FD8 = 0;
+        if (craft.materialHoverSlots[slot] != slot) {
+            craft.materialHintPage = 0;
         }
-        gMaterialHoverSlotsCB0A8C[slot] = slot;
+        craft.materialHoverSlots[slot] = slot;
         if ((events & MouseFlag_RDownEvent) != 0) {
-            ++gMaterialHintPageCF4FD8;
-            if (gMaterialHintPageCF4FD8 >= 4) {
-                gMaterialHintPageCF4FD8 = 0;
+            ++craft.materialHintPage;
+            if (craft.materialHintPage >= 4) {
+                craft.materialHintPage = 0;
             }
             consumed = 1;
         }
-        gMaterialHoveredItemD67424 = selected + 8;
+        craft.materialHoveredItem = selected + 8;
     }
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
-        const std::int32_t imageNo = gSelectionImagesCF3FF4[slot];
+        const std::int32_t imageNo = craft.selectionImages[slot];
         const std::int32_t y = window->y + element->y + 24;
         const std::int32_t x = window->x + element->x + 24;
         static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
@@ -3360,19 +3315,20 @@ static std::int32_t WindowCraft_HandleMaterialTooltip(WindowInstance& callbackWi
 }
 
 // 原函数：0x0047E5E0。
-static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_ShowRecipeResult(session::ClientSession& session, WindowInstance* const window)
 {
-    gCraftPetAssistActive_D67B00 = 0;
+    auto& craft = session.UiFrame().native.craft;
+    craft.petAssistActive = 0;
     for (std::int32_t index = 0; index < 6; ++index) {
-        static_cast<void>(WindowCraft_ReleaseMaterials(index));
+        static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
     }
-    const std::int32_t skillIndex = gCraftSkillIndexCC2368;
+    const std::int32_t skillIndex = craft.skillIndex;
     const std::int32_t skillId = world::gSkillsF1BAFC[skillIndex].skillId;
     const std::wstring name = skillId == 255 || skillId == 2026
-        ? gCraftNameCF46D4
-        : world::gSkillsF1BAFC[skillIndex].recipes8E8[gCraftRecipeIndexD2D638].name;
+        ? craft.name
+        : world::gSkillsF1BAFC[skillIndex].recipes8E8[craft.recipeIndex].name;
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = name;
-    const std::int32_t result = gCraftResultCC46D8;
+    const std::int32_t result = craft.result;
     auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr;
     if (element11) {
         auto* const resultText = element11->data.text;
@@ -3384,34 +3340,34 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
             static_cast<void>(audio::PlaySe_52C450(58, 320));
         }
     }
-    if (gCraftLevelUpCF4974 != 0) {
+    if (craft.levelUp != 0) {
         if (auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr; element12) element12->data.text->text = kCraftLevelUp58661C;
     } else {
         auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr;
         if (element12) {
             auto* const data = element12->data.text;
-            cg::text::FormatTo(data->text, kCraftExperience58660C, gCraftExperienceCC3204);
+            cg::text::FormatTo(data->text, kCraftExperience58660C, craft.experience);
         }
     }
     auto* const element13 = window ? window->FindElementById(WindowCraftElementId::Element13) : nullptr;
     if (element13) {
         std::wstring& increments = element13->data.text->text;
         increments.clear();
-        if (gCraftEnduranceD2F328 != 0) {
-            increments.append(std::format(kCraftEndurance586600, gCraftEnduranceD2F328));
+        if (craft.endurance != 0) {
+            increments.append(std::format(kCraftEndurance586600, craft.endurance));
         }
-        if (gCraftDexterityCA0448 != 0) {
-            increments.append(std::format(kCraftDexterity5865F4, gCraftDexterityCA0448));
+        if (craft.dexterity != 0) {
+            increments.append(std::format(kCraftDexterity5865F4, craft.dexterity));
         }
-        if (gCraftIntelligenceCB0F84 != 0) {
-            increments.append(std::format(kCraftIntelligence5865E8, gCraftIntelligenceCB0F84));
+        if (craft.intelligence != 0) {
+            increments.append(std::format(kCraftIntelligence5865E8, craft.intelligence));
         }
     }
-    if (auto* const element14 = window ? window->FindElementById(WindowCraftElementId::Element14) : nullptr; element14) element14->data.text->text = gCraftInjuryD2EA78 != 0 ? L"受伤了！" /* 原常量参考：0x005865DC。 */ : L"";
-    const std::int32_t imageResult = gCraftResultCC46D8;
-    gCraftDisplayImageCB2204 = -1;
+    if (auto* const element14 = window ? window->FindElementById(WindowCraftElementId::Element14) : nullptr; element14) element14->data.text->text = craft.injury != 0 ? L"受伤了！" /* 原常量参考：0x005865DC。 */ : L"";
+    const std::int32_t imageResult = craft.result;
+    craft.displayImage = -1;
     if (imageResult != 0) {
-        gCraftDisplayImageCB2204 = gCraftResultImageCF4B60;
+        craft.displayImage = craft.resultImage;
     }
     if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA38;
     if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3A;
@@ -3427,7 +3383,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 1;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 1;
     if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 1;
-    const bool succeeded = gCraftResultCC46D8 != 0;
+    const bool succeeded = craft.result != 0;
     const std::int32_t defaultAction = succeeded ? 5 : 10;
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
@@ -3460,64 +3416,65 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* const w
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* last;
     if (gSkillSendModeC8A970 != 0) {
-        last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, gCraftResultCC46D8 != 0 ? 6 : 8, 5);
+        last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, craft.result != 0 ? 6 : 8, 5);
     } else {
         last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
     }
-    gSelectionModeD2D650 = 2;
+    craft.selectionMode = 2;
     return last;
 }
 
 // 原函数：0x0047EBE0。
-static WindowAnimationData* WindowCraft_RefreshRecipeResult()
+static WindowAnimationData* WindowCraft_RefreshRecipeResult(session::ClientSession& session)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Craft].window;
-    return window != nullptr ? WindowCraft_ShowRecipeResult(window) : nullptr;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Craft].window;
+    return window != nullptr ? WindowCraft_ShowRecipeResult(session, window) : nullptr;
 }
 
 // 原函数：0x004F39F0。
-WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, const char* const text)
+WindowAnimationData* WindowCraft_ReceiveRecipeResult(session::ClientSession& session, const std::int32_t result, const char* const text)
 {
-    gCraftResultDetailsD2E92C.clear();
-    gCraftResultCC46D8 = result;
-    gCraftExperienceCC3204 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
-    gCraftValueCC4840 = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
-    gCraftLevelUpCF4974 = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
-    gCraftEnduranceD2F328 = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
-    gCraftDexterityCA0448 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
-    gCraftIntelligenceCB0F84 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
-    gCraftInjuryD2EA78 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
-    gCraftResultImageCF4B60 = network::ParseDelimitedInteger_52CFA0(text, '|', 8);
+    auto& craft = session.UiFrame().native.craft;
+    craft.resultDetails.clear();
+    craft.result = result;
+    craft.experience = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    craft.value = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    craft.levelUp = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
+    craft.endurance = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    craft.dexterity = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
+    craft.intelligence = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    craft.injury = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    craft.resultImage = network::ParseDelimitedInteger_52CFA0(text, '|', 8);
     if (result != 0) {
-        gCraftResultSuffixD672B4 = L"的合成成功了。" /* 原常量参考：0x00589FB8。 */;
+        craft.resultSuffix = L"的合成成功了。" /* 原常量参考：0x00589FB8。 */;
     } else {
-        gCraftResultImageCF4B60 = 0;
-        gCraftResultSuffixD672B4 = L"的合成失败了。" /* 原常量参考：0x00589FA8。 */;
+        craft.resultImage = 0;
+        craft.resultSuffix = L"的合成失败了。" /* 原常量参考：0x00589FA8。 */;
     }
     char buffer[768];
     std::wstring lostItem;
     std::int32_t lines = 0;
     const auto appendValue = [&](const std::wstring_view format, const std::int32_t value) {
         // 四种数值行按原GBK最多22字节，始终低于28列换行门槛。
-        gCraftResultDetailsD2E92C += std::vformat(format, std::make_wformat_args(value)) + L'\n';
+        craft.resultDetails += std::vformat(format, std::make_wformat_args(value)) + L'\n';
         ++lines;
     };
-    if (gCraftExperienceCC3204 > 0) {
-        appendValue(kCraftExperience589820, gCraftExperienceCC3204);
+    if (craft.experience > 0) {
+        appendValue(kCraftExperience589820, craft.experience);
     }
-    if (gCraftLevelUpCF4974 != 0 && lines < 8) {
-        gCraftResultDetailsD2E92C += kCraftLevelUp589814;
+    if (craft.levelUp != 0 && lines < 8) {
+        craft.resultDetails += kCraftLevelUp589814;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));
     }
-    if (gCraftEnduranceD2F328 != 0 && lines < 8) {
-        appendValue(kCraftEndurance589808, gCraftEnduranceD2F328);
+    if (craft.endurance != 0 && lines < 8) {
+        appendValue(kCraftEndurance589808, craft.endurance);
     }
-    if (gCraftDexterityCA0448 != 0 && lines < 8) {
-        appendValue(kCraftDexterity5897FC, gCraftDexterityCA0448);
+    if (craft.dexterity != 0 && lines < 8) {
+        appendValue(kCraftDexterity5897FC, craft.dexterity);
     }
-    if (gCraftIntelligenceCB0F84 != 0 && lines < 8) {
-        appendValue(kCraftIntelligence5897F0, gCraftIntelligenceCB0F84);
+    if (craft.intelligence != 0 && lines < 8) {
+        appendValue(kCraftIntelligence5897F0, craft.intelligence);
     }
     for (std::int32_t index = 0; index < 6 && lines < 8; ++index) {
         static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', index + 9, 255, buffer));
@@ -3529,19 +3486,20 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, 
         if (std::strlen(buffer) + 9 < 28) { // 原GBK行宽：名称字节数 + 空格1B +「失去了！」8B。
             lostItem += L'\n';
         }
-        gCraftResultDetailsD2E92C += lostItem;
+        craft.resultDetails += lostItem;
         ++lines;
     }
-    if (gCraftInjuryD2EA78 != 0 && lines < 8) {
-        gCraftResultDetailsD2E92C += LR"(受伤了！
+    if (craft.injury != 0 && lines < 8) {
+        craft.resultDetails += LR"(受伤了！
 )" /* 原常量参考：0x00589CD4。 */;
     }
-    return WindowCraft_RefreshRecipeResult();
+    return WindowCraft_RefreshRecipeResult(session);
 }
 
 // 原函数：0x00484E90。
 static std::int32_t WindowCraft_HandleItemTooltip(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
@@ -3564,29 +3522,29 @@ static std::int32_t WindowCraft_HandleItemTooltip(WindowInstance& callbackWindow
                 0xDF, imageNo, 0);
         }
     }
-    const std::int32_t selected = gSelectedItemD460C0;
+    const std::int32_t selected = craft.selectedItem;
     if (selected < 0) {
         return 0;
     }
     if ((events & MouseFlag_Hover) != 0) {
-        if (gMaterialSingleHoverCB0AA4 != 6) {
-            gMaterialHintPageCF4FD8 = 0;
+        if (craft.materialSingleHover != 6) {
+            craft.materialHintPage = 0;
         }
-        gMaterialSingleHoverCB0AA4 = 6;
+        craft.materialSingleHover = 6;
         if ((events & MouseFlag_RDownEvent) != 0) {
-            ++gMaterialHintPageCF4FD8;
-            if (gMaterialHintPageCF4FD8 >= 4) {
-                gMaterialHintPageCF4FD8 = 0;
+            ++craft.materialHintPage;
+            if (craft.materialHintPage >= 4) {
+                craft.materialHintPage = 0;
             }
             consumed = 1;
         }
-        gMaterialHoveredItemD67424 = selected;
+        craft.materialHoveredItem = selected;
     }
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(elementId);
     if (elementPtr) {
         const WindowElement* const element = elementPtr;
-        const std::int32_t imageNo = gSelectedImageCC3ED8;
+        const std::int32_t imageNo = craft.selectedImage;
         const std::int32_t y = window->y + element->y + 24;
         const std::int32_t x = window->x + element->x + 24;
         static_cast<void>(cg::render::DrawGraphic(x, y, 0xDF, imageNo, 0, &descriptor));
@@ -3595,47 +3553,48 @@ static std::int32_t WindowCraft_HandleItemTooltip(WindowInstance& callbackWindow
 }
 
 // 原函数：0x0047F3D0。
-static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const window)
+static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSession& session, WindowInstance* const window)
 {
-    const std::int32_t entryResult = gItemWorkResultCB05FC;
-    const std::int32_t selected = gSelectedItemD460C0;
-    gCraftPetAssistActive_D67B00 = 0;
-    if (entryResult != 0 && world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId != 220) {
-        static_cast<void>(WindowCraft_ReleaseMaterials(6));
+    auto& craft = session.UiFrame().native.craft;
+    const std::int32_t entryResult = craft.itemWorkResult;
+    const std::int32_t selected = craft.selectedItem;
+    craft.petAssistActive = 0;
+    if (entryResult != 0 && world::gSkillsF1BAFC[craft.skillIndex].skillId != 220) {
+        static_cast<void>(WindowCraft_ReleaseMaterials(session, 6));
     }
     const auto* const item = &world::gPlayerRuntimeSlots.items[selected];
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = item->name;
-    const std::int32_t skillId = world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId;
+    const std::int32_t skillId = world::gSkillsF1BAFC[craft.skillIndex].skillId;
     const wchar_t* message = nullptr;
     switch (skillId) {
     case 217:
     case 218:
     case 2031:
     case 2032:
-        message = gItemWorkResultCB05FC != 0 ? L"　的修理成功了！" /* 原常量参考：0x00586708。 */ : L"　的修理失败了。" /* 原常量参考：0x005866F4。 */;
+        message = craft.itemWorkResult != 0 ? L"　的修理成功了！" /* 原常量参考：0x00586708。 */ : L"　的修理失败了。" /* 原常量参考：0x005866F4。 */;
         break;
     case 219:
     case 2033:
-        message = gItemWorkResultCB05FC != 0 ? L"　的鉴定成功了！" /* 原常量参考：0x00586730。 */ : L"　的鉴定失败了。" /* 原常量参考：0x0058671C。 */;
+        message = craft.itemWorkResult != 0 ? L"　的鉴定成功了！" /* 原常量参考：0x00586730。 */ : L"　的鉴定失败了。" /* 原常量参考：0x0058671C。 */;
         break;
     case 220:
-        message = gItemWorkResultCB05FC != 0 ? L"　刻印上去了！" /* 原常量参考：0x00586774。 */ : L"　刻印失败了。" /* 原常量参考：0x00586764。 */;
+        message = craft.itemWorkResult != 0 ? L"　刻印上去了！" /* 原常量参考：0x00586774。 */ : L"　刻印失败了。" /* 原常量参考：0x00586764。 */;
         break;
     case 2025:
-        message = gItemWorkResultCB05FC != 0 ? L"精炼成功了！" /* 原常量参考：0x00586754。 */ : L"精炼失败了！" /* 原常量参考：0x00586744。 */;
+        message = craft.itemWorkResult != 0 ? L"精炼成功了！" /* 原常量参考：0x00586754。 */ : L"精炼失败了！" /* 原常量参考：0x00586744。 */;
         break;
     }
     if (message != nullptr) {
         if (auto* const element11 = window ? window->FindElementById(WindowCraftElementId::Element11) : nullptr; element11) element11->data.text->text = message;
     }
-    static_cast<void>(audio::PlaySe_52C450(gItemWorkResultCB05FC != 0 ? 57 : 58, 320));
-    if (gItemWorkLevelUpCB03D8 != 0) {
+    static_cast<void>(audio::PlaySe_52C450(craft.itemWorkResult != 0 ? 57 : 58, 320));
+    if (craft.itemWorkLevelUp != 0) {
         if (auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr; element12) element12->data.text->text = kCraftLevelUp58661C;
     } else {
         auto* const element12 = window ? window->FindElementById(WindowCraftElementId::Element12) : nullptr;
         if (element12) {
             auto* const data = element12->data.text;
-            cg::text::FormatTo(data->text, kCraftExperience58660C, gItemWorkExperienceC8A950);
+            cg::text::FormatTo(data->text, kCraftExperience58660C, craft.itemWorkExperience);
         }
     }
     auto* const element13 = window ? window->FindElementById(WindowCraftElementId::Element13) : nullptr;
@@ -3643,21 +3602,21 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
         std::wstring& increments = element13->data.text->text;
         increments.clear();
         // 原门禁取制造回复，显示值取本次物品回复；不能收敛成同一来源。
-        if (gCraftEnduranceD2F328 != 0) {
-            increments.append(std::format(kCraftEndurance586600, gItemWorkEnduranceCF46B4));
+        if (craft.endurance != 0) {
+            increments.append(std::format(kCraftEndurance586600, craft.itemWorkEndurance));
         }
-        if (gCraftDexterityCA0448 != 0) {
-            increments.append(std::format(kCraftDexterity5865F4, gItemWorkDexterityCB0A14));
+        if (craft.dexterity != 0) {
+            increments.append(std::format(kCraftDexterity5865F4, craft.itemWorkDexterity));
         }
-        if (gCraftIntelligenceCB0F84 != 0) {
-            increments.append(std::format(kCraftIntelligence5865E8, gItemWorkIntelligenceD30418));
+        if (craft.intelligence != 0) {
+            increments.append(std::format(kCraftIntelligence5865E8, craft.itemWorkIntelligence));
         }
     }
-    if (auto* const element14 = window ? window->FindElementById(WindowCraftElementId::Element14) : nullptr; element14) element14->data.text->text = gItemWorkInjuryD2E2A8 != 0 ? L"受伤了！" /* 原常量参考：0x005865DC。 */ : L"";
-    const std::int32_t imageResult = gItemWorkResultCB05FC;
-    gCraftDisplayImageCB2204 = -1;
+    if (auto* const element14 = window ? window->FindElementById(WindowCraftElementId::Element14) : nullptr; element14) element14->data.text->text = craft.itemWorkInjury != 0 ? L"受伤了！" /* 原常量参考：0x005865DC。 */ : L"";
+    const std::int32_t imageResult = craft.itemWorkResult;
+    craft.displayImage = -1;
     if (imageResult != 0) {
-        gCraftDisplayImageCB2204 = item->imageNo;
+        craft.displayImage = item->imageNo;
     }
     if (auto* const element30 = window ? window->FindElementById(WindowCraftElementId::Element30) : nullptr; element30) element30->data.graphic->imageNo = 0x3BA39;
     if (auto* const element15 = window ? window->FindElementById(WindowCraftElementId::Element15) : nullptr; element15) element15->data.graphic->imageNo = 0x3BA3A;
@@ -3670,14 +3629,14 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
     if (auto* const handleSingleMaterialElement = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement) handleSingleMaterialElement->visible = 1;
     if (auto* const handleSingleMaterialElement2 = window ? window->FindElementById(WindowCraftElementId::HandleSingleMaterial) : nullptr; handleSingleMaterialElement2) handleSingleMaterialElement2->mouseCallback = WindowCraft_HandleItemTooltip;
     if (auto* const drawResultImage_24Element = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element) drawResultImage_24Element->visible = 1;
-    if (world::gSkillsF1BAFC[gCraftSkillIndexCC2368].skillId == 220) {
+    if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
         if (auto* const drawResultImage_24Element2 = window ? window->FindElementById(WindowCraftElementId::DrawResultImage_24) : nullptr; drawResultImage_24Element2) drawResultImage_24Element2->visible = 0;
     }
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 1;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 1;
     if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 1;
-    const bool succeeded = gItemWorkResultCB05FC != 0;
+    const bool succeeded = craft.itemWorkResult != 0;
     const std::int32_t defaultAction = succeeded ? 5 : 10;
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
@@ -3710,34 +3669,35 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* const
         window, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* last;
     if (gSkillSendModeC8A970 != 0) {
-        last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, gItemWorkResultCB05FC != 0 ? 6 : 8, 5);
+        last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 1, craft.itemWorkResult != 0 ? 6 : 8, 5);
     } else {
         last = WindowCraft_ConfigurePreviews_47D220(window, 3, 5, 0, 10, 5);
     }
-    gSelectionModeD2D650 = 5;
+    craft.selectionMode = 5;
     return last;
 }
 
 // 原函数：0x0047FAC0。
-static WindowAnimationData* WindowCraft_RefreshItemWorkResult()
+static WindowAnimationData* WindowCraft_RefreshItemWorkResult(session::ClientSession& session)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Craft].window;
-    return window != nullptr ? WindowCraft_ShowItemWorkResult(window) : nullptr;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Craft].window;
+    return window != nullptr ? WindowCraft_ShowItemWorkResult(session, window) : nullptr;
 }
 
 // 原函数：0x004F1800。
-WindowAnimationData* WindowCraft_ReceiveItemWorkResult(const std::int32_t result, const char* const text)
+WindowAnimationData* WindowCraft_ReceiveItemWorkResult(session::ClientSession& session, const std::int32_t result, const char* const text)
 {
-    gItemWorkDetailsD2DB00.clear();
-    gItemWorkResultCB05FC = result;
-    gItemWorkExperienceC8A950 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
-    gItemWorkValueD2E2AC = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
-    gItemWorkLevelUpCB03D8 = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
-    gItemWorkEnduranceCF46B4 = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
-    gItemWorkDexterityCB0A14 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
-    gItemWorkIntelligenceD30418 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
-    gItemWorkInjuryD2E2A8 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
-    const std::int32_t skillId = gItemWorkSkillIdD67CF0;
+    auto& craft = session.UiFrame().native.craft;
+    craft.itemWorkDetails.clear();
+    craft.itemWorkResult = result;
+    craft.itemWorkExperience = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    craft.itemWorkValue = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    craft.itemWorkLevelUp = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
+    craft.itemWorkEndurance = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    craft.itemWorkDexterity = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
+    craft.itemWorkIntelligence = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    craft.itemWorkInjury = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    const std::int32_t skillId = craft.itemWorkSkillId;
     const wchar_t* prefix;
     switch (skillId) {
     case 217:
@@ -3748,44 +3708,43 @@ WindowAnimationData* WindowCraft_ReceiveItemWorkResult(const std::int32_t result
     case 2033: prefix = L"的鉴定" /* 原常量参考：0x00589D00。 */; break;
     default: prefix = L"的刻印" /* 原常量参考：0x00589D08。 */; break;
     }
-    gItemWorkSuffixD2DADC = prefix;
-    gItemWorkSuffixD2DADC += result != 0 ? L"成功了。" /* 原常量参考：0x00589CEC。 */ : L"失败了。" /* 原常量参考：0x00589CE0。 */;
+    craft.itemWorkSuffix = prefix;
+    craft.itemWorkSuffix += result != 0 ? L"成功了。" /* 原常量参考：0x00589CEC。 */ : L"失败了。" /* 原常量参考：0x00589CE0。 */;
     std::int32_t lines = 0;
     const auto appendValue = [&](const std::wstring_view format, const std::int32_t value) {
         // 四种数值行按原GBK最多22字节，始终低于28列换行门槛。
-        gItemWorkDetailsD2DB00 += std::vformat(format, std::make_wformat_args(value)) + L'\n';
+        craft.itemWorkDetails += std::vformat(format, std::make_wformat_args(value)) + L'\n';
         ++lines;
     };
-    if (gItemWorkExperienceC8A950 > 0) {
-        appendValue(kCraftExperience589820, gItemWorkExperienceC8A950);
+    if (craft.itemWorkExperience > 0) {
+        appendValue(kCraftExperience589820, craft.itemWorkExperience);
     }
-    if (gItemWorkLevelUpCB03D8 != 0 && lines < 8) {
-        gItemWorkDetailsD2DB00 += kCraftLevelUp589814;
+    if (craft.itemWorkLevelUp != 0 && lines < 8) {
+        craft.itemWorkDetails += kCraftLevelUp589814;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));
     }
-    if (gItemWorkEnduranceCF46B4 != 0 && lines < 8) {
-        appendValue(kCraftEndurance589808, gItemWorkEnduranceCF46B4);
+    if (craft.itemWorkEndurance != 0 && lines < 8) {
+        appendValue(kCraftEndurance589808, craft.itemWorkEndurance);
     }
-    if (gItemWorkDexterityCB0A14 != 0 && lines < 8) {
-        appendValue(kCraftDexterity5897FC, gItemWorkDexterityCB0A14);
+    if (craft.itemWorkDexterity != 0 && lines < 8) {
+        appendValue(kCraftDexterity5897FC, craft.itemWorkDexterity);
     }
-    if (gItemWorkIntelligenceD30418 != 0 && lines < 8) {
-        appendValue(kCraftIntelligence5897F0, gItemWorkIntelligenceD30418);
+    if (craft.itemWorkIntelligence != 0 && lines < 8) {
+        appendValue(kCraftIntelligence5897F0, craft.itemWorkIntelligence);
     }
-    if (gItemWorkInjuryD2E2A8 != 0 && lines < 8) {
-        gItemWorkDetailsD2DB00 += LR"(受伤了！
+    if (craft.itemWorkInjury != 0 && lines < 8) {
+        craft.itemWorkDetails += LR"(受伤了！
 )" /* 原常量参考：0x00589CD4。 */;
     }
-    return WindowCraft_RefreshItemWorkResult();
+    return WindowCraft_RefreshItemWorkResult(session);
 }
 
 // 原函数：0x0047D2E0。
 WindowAnimationData* WindowCraft_AnimatePreviewPositions(
-    WindowInstance*, const std::int32_t anchor,
+    WindowInstance* const currentWindow, const std::int32_t anchor,
     const std::int32_t first, const std::int32_t second, const std::uint64_t deadline)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return nullptr;
     const std::uint64_t tick = platform::ReadTickCount64();
     const std::uint64_t start = gSkillPreviewTickCF46C8;

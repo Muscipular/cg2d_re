@@ -296,14 +296,6 @@ extern std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4;
 
 extern std::int32_t gSkillPetImageCB0A18; // 原全局：0x00CB0A18。
 
-extern std::int32_t gCraftSkillIndexCC2368; // 原全局：0x00CC2368。
-
-extern std::int32_t gCraftRecipeIndexD2D638; // 原全局：0x00D2D638。
-
-extern std::int32_t gCraftRequestValueD30400; // 原全局：0x00D30400。 制造发送保留完整S32值。
-
-extern std::uint8_t gSkillRequestByteD64E13; // 原全局：0x00D64E13。 其他加工发送按S8读取。
-
 extern std::uint64_t gSkillPreviewTickCF46C8; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
 
 extern std::uint32_t gSkillExtraDelayCF46C4; // 原全局：0x00CF46C4。

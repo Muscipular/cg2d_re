@@ -778,7 +778,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             return consumed;
         }
         if (previous == 2) {
-            WindowCraft_ResetItemSelection();
+            WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
         }
         std::int32_t count = 0;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
@@ -826,7 +826,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             states[selected] = 2;
         }
         static_cast<void>(WindowPetList_SubmitStates());
-        WindowCraft_ResetItemSelection();
+        WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         return consumed;
     }
@@ -842,7 +842,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             return consumed;
         }
         if (states[petIndex(row)] == 2) {
-            WindowCraft_ResetItemSelection();
+            WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
         }
         const std::int16_t selected = petIndex(row);
         if (states[selected] == 3) {

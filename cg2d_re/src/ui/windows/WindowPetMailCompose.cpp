@@ -37,13 +37,13 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
 static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 四按钮，两类发送保留不同失败声音。
 
 // 原函数：0x004A6AC0。
-static std::uint8_t WindowPetMailCompose_RefreshPet(); // 宠物名称/颜色和携带物品图、数量刷新。
+static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& window); // 宠物名称/颜色和携带物品图、数量刷新。
 
 // 原函数：0x004A6D30。
 static std::int32_t WindowPetMailCompose_HasGiftPet(std::int32_t index); // 同源flags6AA完整W16恰3。
 
 // 原函数：0x004A6D50。
-static std::int32_t WindowPetMailCompose_HasGiftItem(std::int32_t index); // 先47D4A0，非零才读取flags6AA恰2。
+static std::int32_t WindowPetMailCompose_HasGiftItem(session::ClientSession& session, std::int32_t index); // 先47D4A0，非零才读取flags6AA恰2。
 
 // 原函数：0x004A56F0。
 static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -149,7 +149,7 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
     if (world::gPetRuntimeRecords[pet].used == 0) {
         currentWindow->state |= 0x8000u;
     }
-    static_cast<void>(WindowPetMailCompose_RefreshPet());
+    static_cast<void>(WindowPetMailCompose_RefreshPet(callbackWindow));
     WindowInstance* const groupWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
     if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
@@ -241,9 +241,9 @@ static std::int32_t WindowPetMailCompose_HasGiftPet(const std::int32_t index)
 }
 
 // 原函数：0x004A6D50。
-static std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
+static std::int32_t WindowPetMailCompose_HasGiftItem(session::ClientSession& session, const std::int32_t index)
 {
-    if (WindowCraft_ReadItemSelection() == 0) {
+    if (WindowCraft_ReadItemSelection(session) == 0) {
         return 0;
     }
     return world::gPetRuntimeRecords[index].flags6AA == 2 ? 1 : 0;
@@ -326,7 +326,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
             if (allowed) {
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
                 const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
-                allowed = WindowPetMailCompose_HasGiftItem(pet) == 0;
+                allowed = WindowPetMailCompose_HasGiftItem(*callbackWindow.ownerSession, pet) == 0;
             }
             if (allowed) {
                 std::wstring text;
@@ -382,9 +382,9 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
 }
 
 // 原函数：0x004A6AC0。
-static std::uint8_t WindowPetMailCompose_RefreshPet()
+static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
     if (category == 0 || category == 1) {
@@ -411,7 +411,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet()
     if (!unavailable) {
         const std::int32_t secondPosition = gLoginWindowRuntime.prefixD2F0B8.value08;
         const std::int32_t secondPet = gLoginWindowRuntime.choicesCC4CA0.values04[secondPosition];
-        unavailable = WindowPetMailCompose_HasGiftItem(secondPet) != 0;
+        unavailable = WindowPetMailCompose_HasGiftItem(*callbackWindow.ownerSession, secondPet) != 0;
     }
     auto* const element82 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element8);
     if (element82) {

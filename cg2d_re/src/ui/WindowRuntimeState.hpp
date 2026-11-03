@@ -456,9 +456,9 @@ std::int32_t WindowCraft_ClassifySpecialMaterial(std::int32_t itemType, std::int
 // 原函数：0x00482F70。
 std::int32_t WindowCraft_ClassifyWork(std::int32_t itemType); // 加工分类；类别7优先归2。
 // 原函数：0x004F39F0。
-WindowAnimationData* WindowCraft_ReceiveRecipeResult(std::int32_t result, const char* text); // JgO制造分支，原字节摘要与展示。
+WindowAnimationData* WindowCraft_ReceiveRecipeResult(session::ClientSession& session, std::int32_t result, const char* text); // JgO制造分支，原字节摘要与展示。
 // 原函数：0x004F1800。
-WindowAnimationData* WindowCraft_ReceiveItemWorkResult(std::int32_t result, const char* text); // JgO第二分支七字段及独立摘要。
+WindowAnimationData* WindowCraft_ReceiveItemWorkResult(session::ClientSession& session, std::int32_t result, const char* text); // JgO第二分支七字段及独立摘要。
 // 原函数：0x004796E0。
 void WindowRuntime_DecrementGatherOperationCount(session::ClientSession& session); // 只递减既有D67AFC低U8，不清其他操作计数。
 // 原函数：0x004796D0。
@@ -858,7 +858,7 @@ std::int32_t WindowItem_ClassifyPetSlot(std::int32_t slot); // 宠物槽分类1/
 // 原函数：0x0048BC60。
 std::int32_t WindowItem_FindSortedPetIndex(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
 // 原函数：0x0047D490。
-void WindowCraft_ResetItemSelection(); // 仅清D67B00，不改变其他物品状态。
+void WindowCraft_ResetItemSelection(session::ClientSession& session); // 仅清D67B00，不改变其他物品状态。
 // 原函数：0x004886E0。
 void WindowItem_RequestTransfer(
     session::ClientSession& session,
@@ -955,7 +955,7 @@ void WindowTrade_SwapRemoteItems(std::int32_t side, std::int32_t first, std::int
 // 原函数：0x004E1840。
 void WindowTrade_SwapDisplayItems(std::int32_t side, std::int32_t first, std::int32_t second); // 展示整条换位。
 // 原函数：0x0048BA60。
-void WindowItemDrag_RemapHover(std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
+void WindowItemDrag_RemapHover(session::ClientSession& session, std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
 // 原函数：0x004B0F10。
 std::int32_t WindowElement_NoOp(WindowInstance& callbackWindow, ElementId elementId, std::int32_t events); // WSB01：原完整零返回事件回调。
 // 原函数：0x004A4210。
@@ -964,7 +964,7 @@ std::int32_t WindowRuntime_UpdateDefault(WindowInstance& window, std::int32_t un
 // 原函数：0x004B0000。
 void WindowTrade_ResetSelection(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
 // 原函数：0x0047DCD0。
-void WindowCraft_ResetSelection(std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
+void WindowCraft_ResetSelection(session::ClientSession& session, std::int32_t first, std::int32_t second); // 窗口11选择/材料及两组标记。
 // 原函数：0x004AD060。
 void WindowTrade_RemapTextListSelection(std::int32_t first, std::int32_t second); // 窗口51仅first命中时迁移。
 // 原函数：0x004AD180。
@@ -975,7 +975,7 @@ void WindowTextList_ContinueDialog(const char* text); // 同类对话续接，�
 // 原函数：0x004797C0。
 void WindowSkill_AdjustSpecialHoverCount(std::int32_t first, std::int32_t second); // 槽7特殊悬停计数，两条件独立。
 // 原函数：0x004F4630。
-std::int32_t WindowCraft_CountRecipeMaterial(std::int32_t itemId); // 当前配方五材料首匹配数量，不读used。
+std::int32_t WindowCraft_CountRecipeMaterial(session::ClientSession& session, std::int32_t itemId); // 当前配方五材料首匹配数量，不读used。
 
 // 原输入原型四模式更新及聊天恢复，复用既有InputContext owner。
 // WIC01：原型四模式、现场context与BYTE结果合同，见doc/cg2d_window_input_context_dispatch_spec.md。
@@ -1065,7 +1065,7 @@ void WindowMailCompose_Release(WindowInstance&); // 22/23共享释放：保存�
 // 原函数：0x004A58E0。
 std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 输入聚焦及非当前输入补绘。
 // 原函数：0x0047D4A0。
-std::int32_t WindowCraft_ReadItemSelection(); // 原S32 D67B00窄读，不返回其他状态。
+std::int32_t WindowCraft_ReadItemSelection(session::ClientSession& session); // 原S32 D67B00窄读，不返回其他状态。
 // 原函数：0x004A32B0。
 std::int32_t WindowMail_AdvanceUnreadBlink(); // 邮件闪烁相位推进；开窗不重置。
 // 原函数：0x004A3010。

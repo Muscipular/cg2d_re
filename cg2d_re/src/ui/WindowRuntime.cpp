@@ -385,14 +385,6 @@ static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
 
 std::int32_t gSkillPetImageCB0A18 = 0; // 原全局：0x00CB0A18。
 
-std::int32_t gCraftSkillIndexCC2368 = 0; // 原全局：0x00CC2368。
-
-std::int32_t gCraftRecipeIndexD2D638 = 0; // 原全局：0x00D2D638。
-
-std::int32_t gCraftRequestValueD30400 = 0; // 原全局：0x00D30400。 制造发送保留完整S32值。
-
-std::uint8_t gSkillRequestByteD64E13 = 0; // 原全局：0x00D64E13。 其他加工发送按S8读取。
-
 std::uint64_t gSkillPreviewTickCF46C8 = 0; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
 
 std::uint32_t gSkillExtraDelayCF46C4 = 0; // 原全局：0x00CF46C4。
@@ -804,7 +796,7 @@ std::int32_t WindowRuntime_ReturnOne(const std::int32_t) noexcept
 }
 
 // 原函数：0x0048BA60。
-void WindowItemDrag_RemapHover(const std::int32_t first, const std::int32_t second)
+void WindowItemDrag_RemapHover(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
     if (first >= 100 || second >= 100) {
         return;
@@ -825,7 +817,7 @@ void WindowItemDrag_RemapHover(const std::int32_t first, const std::int32_t seco
         }
     }
     WindowTrade_ResetSelection(first, second);
-    WindowCraft_ResetSelection(first, second);
+    WindowCraft_ResetSelection(session, first, second);
     WindowTrade_RemapTextListSelection(first, second);
     WindowSkill_AdjustSpecialHoverCount(first, second);
     auto* const hover = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
@@ -905,7 +897,7 @@ static std::int32_t WindowItem_RequestTransferQuantity(session::ClientSession& s
     std::int32_t source = transfer.source;
     std::int32_t target;
     if (source == 7 || (target = transfer.target) == 7) {
-        WindowCraft_ResetItemSelection();
+        WindowCraft_ResetItemSelection(session);
         source = transfer.source;
         target = transfer.target;
     }

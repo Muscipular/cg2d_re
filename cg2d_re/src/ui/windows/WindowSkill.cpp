@@ -2290,6 +2290,7 @@ static void WindowSkill_ShowRecipes(session::ClientSession& session, WindowInsta
 // 原函数：0x0047C3A0。
 static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2314,9 +2315,9 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
             if (allowed) {
                 bool create;
                 if (WindowRuntime_States(session)[WindowId_Craft].window != nullptr) {
-                    create = gCraftSkillIndexCC2368 != skill
-                        || gCraftRequestValueD30400 != skillState.recipeLevel
-                        || gCraftRecipeIndexD2D638 != recipe;
+                    create = craft.skillIndex != skill
+                        || craft.requestValue != skillState.recipeLevel
+                        || craft.recipeIndex != recipe;
                 } else {
                     create = operations.craftOpening == nullptr;
                 }
@@ -2336,9 +2337,9 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
         visualState = 1;
     }
     if (WindowRuntime_States(session)[WindowId_Craft].window != nullptr
-        && gCraftSkillIndexCC2368 == skillState.index
-        && gCraftRequestValueD30400 == skillState.recipeLevel
-        && gCraftRecipeIndexD2D638 == recipe) {
+        && craft.skillIndex == skillState.index
+        && craft.requestValue == skillState.recipeLevel
+        && craft.recipeIndex == recipe) {
         visualState = 1;
     }
     const WindowInstance* const window = currentWindow;
@@ -2355,6 +2356,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
 // 原函数：0x0047BC00。
 static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& craft = callbackWindow.ownerSession->UiFrame().native.craft;
     auto& operations = callbackWindow.ownerSession->UiFrame().native.operations;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
@@ -2448,7 +2450,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                     }
                     if (WindowRuntime_States(session)[WindowId_Craft].window != nullptr) {
                         const std::int32_t skill = skillState.index;
-                        if (gCraftSkillIndexCC2368 != skill || gCraftRequestValueD30400 != technique) {
+                        if (craft.skillIndex != skill || craft.requestValue != technique) {
                             operations.craftOpening = WindowCraft_OpenItemWork(*callbackWindow.ownerSession, skill, technique);
                         }
                     } else if (operations.craftOpening == nullptr) {

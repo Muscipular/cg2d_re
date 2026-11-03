@@ -14,10 +14,10 @@ void WindowWorkResult_ReceiveReply(cg::network::CgConnection& connection, const 
     }
     switch (kind) {
         case 1:
-            static_cast<void>(detail::WindowCraft_ReceiveRecipeResult(result, text));
+            static_cast<void>(detail::WindowCraft_ReceiveRecipeResult(connection.Owner(), result, text));
             break;
         case 2:
-            static_cast<void>(detail::WindowCraft_ReceiveItemWorkResult(result, text));
+            static_cast<void>(detail::WindowCraft_ReceiveItemWorkResult(connection.Owner(), result, text));
             break;
         case 3:
             static_cast<void>(detail::WindowSkillResult_ReceiveResult(connection.Owner(), result, text));

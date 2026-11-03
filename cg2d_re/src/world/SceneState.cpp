@@ -1975,7 +1975,7 @@ void SetPlayerItemDescription_5196B0(const std::int32_t index, const char* const
 }
 
 // 原函数：0x0051B530。
-void SwapPlayerInventorySlots_51B530(const std::int32_t first, const std::int32_t second)
+void SwapPlayerInventorySlots_51B530(session::ClientSession& session, const std::int32_t first, const std::int32_t second)
 {
     if (first < 0 || second < 0) {
         return;
@@ -1991,7 +1991,7 @@ void SwapPlayerInventorySlots_51B530(const std::int32_t first, const std::int32_
     if (second < 8) {
         right->flags |= 0x80u;
     }
-    ui::detail::WindowItemDrag_RemapHover(first, second);
+    ui::detail::WindowItemDrag_RemapHover(session, first, second);
 }
 
 } // namespace detail
@@ -9428,12 +9428,12 @@ std::int32_t CountInventoryItemQuantity_51B5F0(const std::int32_t itemId)
 }
 
 // 原函数：0x0050C900。
-void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection&, const std::int32_t first, const std::int32_t second)
+void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection& connection, const std::int32_t first, const std::int32_t second)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
-    detail::SwapPlayerInventorySlots_51B530(first, second);
+    detail::SwapPlayerInventorySlots_51B530(connection.Owner(), first, second);
     static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(first));
     static_cast<void>(ui::detail::WindowItem_CancelMatchingItemDrag(second));
     ui::detail::WindowTrade_SwapRemoteItems(1, first, second);

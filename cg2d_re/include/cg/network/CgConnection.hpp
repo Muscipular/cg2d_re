@@ -8,7 +8,7 @@
 #include <string>
 #include <string_view>
 
-namespace cg::login { struct LoginRequestState; struct LoginMessageState; }
+namespace cg::login { struct LoginRequestState; struct LoginMessageState; struct LoginSceneState; }
 
 namespace cg::network {
 
@@ -88,6 +88,8 @@ public:
     [[nodiscard]] login::LoginRequestState& LoginRequests() noexcept;
     // 登录消息正文、弹窗进度及动作借用随连接实例保留。
     [[nodiscard]] login::LoginMessageState& LoginMessages() noexcept;
+    // 可变登录服务器控件图片号由连接所属场景实例持有。
+    [[nodiscard]] login::LoginSceneState& LoginSceneUi() noexcept;
     // 拥有式编码结果，复制原临时区字节；文本容量与编码合同保持。
     std::string EncodeInteger(std::int32_t value);
     std::string EscapeText(std::wstring_view text);

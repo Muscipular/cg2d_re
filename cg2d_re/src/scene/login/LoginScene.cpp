@@ -7,6 +7,7 @@
 #include "cg/text/Encoding.hpp"
 
 #include "LoginSceneDependencies.hpp"
+#include "LoginSceneState.hpp"
 
 #include "cg/scene/login/LoginInput.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
@@ -109,41 +110,18 @@ static constexpr std::array<const wchar_t*, 20> kServerLabels {
 // 与角色选择及登录输入按钮共用同一七W32布局。
 using LoginUiRecord = cg::ui::UiControlRecord;
 
-static LoginUiRecord gSwitchSceneUi {
+static const LoginUiRecord gSwitchSceneUi {
     {540, 360, 64, 16}, 245045, 245047, 245046,
 };
-static LoginUiRecord gCloseUi {
+static const LoginUiRecord gCloseUi {
     {540, 392, 64, 16}, 245153, 245155, 245154,
 };
-static LoginUiRecord gPreviousPageUi {
+static const LoginUiRecord gPreviousPageUi {
     {130, 310, 16, 16}, 243030, 243032, 243031,
 };
-static LoginUiRecord gNextPageUi {
+static const LoginUiRecord gNextPageUi {
     {254, 310, 16, 16}, 243033, 243035, 243034,
 };
-
-static std::array<LoginUiRecord, 20> gServerUi {{
-    {{109, 108, 98, 34}, 30151, 30161, 30161},
-    {{109, 140, 98, 34}, 30152, 30162, 30162},
-    {{109, 172, 98, 34}, 30153, 30163, 30163},
-    {{109, 204, 98, 34}, 30154, 30164, 30164},
-    {{109, 236, 98, 34}, 30155, 30165, 30165},
-    {{209, 108, 98, 34}, 30156, 30166, 30166},
-    {{209, 140, 98, 34}, 30157, 30167, 30167},
-    {{209, 172, 98, 34}, 30158, 30168, 30168},
-    {{209, 204, 98, 34}, 30159, 30169, 30169},
-    {{209, 236, 98, 34}, 30160, 30170, 30170},
-    {{109, 108, 98, 34}, 30151, 30161, 30161},
-    {{109, 140, 98, 34}, 30152, 30162, 30162},
-    {{109, 172, 98, 34}, 30153, 30163, 30163},
-    {{109, 204, 98, 34}, 30154, 30164, 30164},
-    {{109, 236, 98, 34}, 30155, 30165, 30165},
-    {{209, 108, 98, 34}, 30156, 30166, 30166},
-    {{209, 140, 98, 34}, 30157, 30167, 30167},
-    {{209, 172, 98, 34}, 30158, 30168, 30168},
-    {{209, 204, 98, 34}, 30159, 30169, 30169},
-    {{209, 236, 98, 34}, 30160, 30170, 30170},
-}};
 
 // 原 [0x55C038,0x55C6C8) 是一次 60 * 0x1C 的扫描视图，不是同质记录数组。
 // 前 25 项后，扫描会穿过 4 字节填充、0x55C2F8 控件及相邻表/旧编码文本。
@@ -345,6 +323,7 @@ std::int32_t GetServerAddressInfo_507D90(
 std::int32_t ProcessScene_45FEA0()
 {
     auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& serverUi = cg::network::GetGameConnection().LoginSceneUi().serverUi;
     auto& messageLines = cg::network::GetGameConnection().LoginMessages().lines;
     std::int32_t interactiveTail = 0;
     std::wstring title;
@@ -392,9 +371,9 @@ std::int32_t ProcessScene_45FEA0()
                     const std::int32_t imageDelta = sourceB - sourceA;
                     std::int32_t imageNo = sourceA + 2;
                     for (std::int32_t server = 0; server < 20; ++server) {
-                        gServerUi[static_cast<std::size_t>(server)].normalImageNo =
+                        serverUi[static_cast<std::size_t>(server)].normalImageNo =
                             imageDelta + imageNo;
-                        gServerUi[static_cast<std::size_t>(server)].activeImageNo =
+                        serverUi[static_cast<std::size_t>(server)].activeImageNo =
                             imageNo;
                         imageNo += 2;
                     }
@@ -405,7 +384,7 @@ std::int32_t ProcessScene_45FEA0()
             for (std::int32_t slot = 0; slot < 10; ++slot) {
                 if (category >= 0) {
                     const std::uint8_t input = static_cast<std::uint8_t>(
-                        cg::ui::QueryUiControlInputState_45F100(&gServerUi[static_cast<std::size_t>(slot)]));
+                        cg::ui::QueryUiControlInputState_45F100(&serverUi[static_cast<std::size_t>(slot)]));
                     if ((input & 0x40u) != 0) {
                         request.serverHighlight = slot;
                     }
@@ -640,10 +619,10 @@ std::int32_t ProcessScene_45FEA0()
             if (available && request.selectedLoginServerGroup >= 0) {
                 if (request.serverPage == 0) {
                     cg::ui::DrawUiControl_45EFD0(
-                        &gServerUi[static_cast<std::size_t>(slot)], 10, 0, 0, 0);
+                        &serverUi[static_cast<std::size_t>(slot)], 10, 0, 0, 0);
                 } else if (request.serverPage == 1) {
                     cg::ui::DrawUiControl_45EFD0(
-                        &gServerUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, 0);
+                        &serverUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, 0);
                 }
             }
         }
@@ -654,10 +633,10 @@ std::int32_t ProcessScene_45FEA0()
                 const std::int32_t style = slot == request.serverHighlight ? 2 : 1;
                 if (request.serverPage == 0) {
                     cg::ui::DrawUiControl_45EFD0(
-                        &gServerUi[static_cast<std::size_t>(slot)], 10, 0, 0, style);
+                        &serverUi[static_cast<std::size_t>(slot)], 10, 0, 0, style);
                 } else if (request.serverPage == 1) {
                     cg::ui::DrawUiControl_45EFD0(
-                        &gServerUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, style);
+                        &serverUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, style);
                 }
             }
         }

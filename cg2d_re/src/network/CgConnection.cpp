@@ -10,6 +10,7 @@
 
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../scene/login/LoginRequestDependencies.hpp"
+#include "../scene/login/LoginSceneState.hpp"
 #include "../scene/login/LoginStateDependencies.hpp"
 #include "../world/MailState.hpp"
 #include "../platform/MainLoopDependencies.hpp"
@@ -141,6 +142,7 @@ struct CgConnection::Impl {
     std::wstring addressTextDA33D8; // 原全局：0x00DA33D8。 lSZ回复的地址文字。
     login::LoginRequestState loginRequests;
     login::LoginMessageState loginMessages;
+    login::LoginSceneState loginSceneUi;
     // N01：稳定节点持有注册头／闭包，回调内追加注册不使当前函数对象失效。
     std::list<std::pair<std::string, ProtocolReceiveHandler>> receiveHandlers;
     bool gameplayHandlersRegistered = false; // G01/G06/G07：业务回调只注册一次，重连保留。
@@ -1386,6 +1388,7 @@ void CgConnection::ResetLoginReply() noexcept { impl_->protocolModeDA3B22 = 0; }
 bool CgConnection::LoginAccepted() const noexcept { return impl_->protocolModeDA3B22 != 0; }
 login::LoginRequestState& CgConnection::LoginRequests() noexcept { return impl_->loginRequests; }
 login::LoginMessageState& CgConnection::LoginMessages() noexcept { return impl_->loginMessages; }
+login::LoginSceneState& CgConnection::LoginSceneUi() noexcept { return impl_->loginSceneUi; }
 void CgConnection::UpdateKeepAlive()
 {
     if (!Active()) {

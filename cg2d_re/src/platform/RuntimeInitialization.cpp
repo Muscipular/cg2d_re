@@ -253,9 +253,16 @@ LegacyMouseState gLegacyMouseState{}; // 原全局：0x00D68CF8。
 
 namespace cg::world {
 
-// 原CRT5530FC，原0x005183D0／0x005183E0／0x00518400：紧接鼠标，原生逆序析构。
+// 原CRT5530FC，原0x005183D0／0x005183E0／0x00518400：紧接鼠标，玩家实际寿命归会话。
 // 原0x005184A0／0x00518410：六CryptInt原声明序构造，普通字段保留零初值。
-PlayerRuntimeSlots gPlayerRuntimeSlots{}; // 原全局：0x00FDA700。
+struct PlayerRuntimeStartup final {
+    PlayerRuntimeStartup()
+    {
+        InitializePlayerRuntimeStorage(cg::session::GetClientHost().FirstSession());
+    }
+};
+static_assert(std::is_trivially_destructible_v<PlayerRuntimeStartup>);
+static const PlayerRuntimeStartup gPlayerRuntimeStartup;
 
 // 原CRT553100，原0x00518520／0x00518530／0x00518560：紧接玩家，独立于摊位浏览宠物。
 // 原0x004CD360／0x004CD2D0：五元素各六成员构造；退出元素及成员逆序。

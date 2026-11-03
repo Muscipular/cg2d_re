@@ -502,19 +502,19 @@ static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
     auto* const element7 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element7);
     if (element7) {
         auto* const nameData = element7->data.text;
-        const wchar_t* const name = world::GetPlayerDisplayText(1);
+        const wchar_t* const name = world::GetPlayerDisplayText(*callbackWindow->ownerSession, 1);
         nameData->text = name;
     }
 
     std::wstring buffer;
-    cg::text::FormatTo(buffer, L"{:3}", world::gPlayerRuntimeSlots.level);
+    cg::text::FormatTo(buffer, L"{:3}", callbackWindow->ownerSession->WorldScene().player->level);
     auto* const element8 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element8);
     if (element8) {
         auto* const levelData = element8->data.text;
         levelData->text = buffer;
     }
 
-    const std::int32_t titleIndex = world::gPlayerRuntimeSlots.titleIndex100;
+    const std::int32_t titleIndex = callbackWindow->ownerSession->WorldScene().player->titleIndex100;
     auto* const element10 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element10);
     if (element10) {
         auto* const titleData = element10->data.text;
@@ -529,7 +529,7 @@ static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
             auto* const draftData = element92->data.text;
             draftData->text = gTitleDraftD45FC0;
         }
-        const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
+        const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(*callbackWindow->ownerSession, 2)) == 0;
         auto* const element93 = currentWindow->FindElementById(WindowPlayerTitlesElementId::Element9);
         if (element93) {
             auto* const colorData = element93->data.text;
@@ -544,7 +544,7 @@ static void WindowPlayerTitles_Refresh(WindowInstance* callbackWindow)
         static_cast<void>(WindowInput_ActivateElement(*currentWindow->ownerSession, &inputs.playerTitlePrototype, x, y, 1));
     }
 
-    const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(2)) == 0;
+    const bool unchanged = gTitleDraftD45FC0.compare(world::GetPlayerDisplayText(*callbackWindow->ownerSession, 2)) == 0;
     if (auto* const handleButtons_22Element = currentWindow->FindElementById(WindowPlayerTitlesElementId::HandleButtons_22); handleButtons_22Element) handleButtons_22Element->visible = unchanged ? 0 : 1;
 
     const world::TitleRecord* record =
@@ -569,12 +569,12 @@ static std::int32_t WindowPlayerTitles_Update(WindowInstance& callbackWindow, co
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);
+        const wchar_t* const ownTitle = world::GetPlayerDisplayText(*callbackWindow.ownerSession, 2);
         business.valuesCF4E50[1] = 0;
         gTitleDraftD45FC0 = ownTitle;
 
         auto* elementsWindow = currentWindow;
-        const wchar_t* const displayTitle = world::GetPlayerDisplayText(2);
+        const wchar_t* const displayTitle = world::GetPlayerDisplayText(*callbackWindow.ownerSession, 2);
         auto* const element9 = elementsWindow->FindElementById(WindowPlayerTitlesElementId::Element9);
         if (element9) {
             auto* const data = element9->data.text;

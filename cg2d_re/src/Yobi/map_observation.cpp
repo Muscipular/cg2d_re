@@ -219,11 +219,11 @@ void SetObservationGroupMembers_4408C0(
 // 原函数：0x0043F290。
 static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const parent, const std::int32_t index)
 {
-    const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
+    const std::uint32_t playerIndex = parent->ownerSession->WorldScene().player->objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
     const std::uint32_t objectIndex = payload->objectIds00[index];
     YobiAction* const source = objectIndex == playerIndex
-        ? world::gPlayerRuntimeSlots.action
+        ? parent->ownerSession->WorldScene().player->action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source == nullptr) {
         return nullptr;
@@ -251,11 +251,11 @@ static YobiAction* CreateBoardingObservationMember_43F290(YobiAction* const pare
 // 原函数：0x0043FE00。
 static YobiAction* CreateLandingObservationMember_43FE00(YobiAction* const parent, const std::int32_t index)
 {
-    const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
+    const std::uint32_t playerIndex = parent->ownerSession->WorldScene().player->objectIndex;
     const auto* const payload = static_cast<const MapCharaPayload*>(parent->payload.mapChara);
     const std::uint32_t objectIndex = payload->objectIds00[index];
     YobiAction* const source = objectIndex == playerIndex
-        ? world::gPlayerRuntimeSlots.action
+        ? parent->ownerSession->WorldScene().player->action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source == nullptr) {
         return nullptr;
@@ -310,13 +310,13 @@ static void SetObservationChildAction(
 // 原函数：0x0043F910。
 static void UpdateBoardingObservationMember_43F910(YobiAction* const action)
 {
-    const std::uint32_t playerIndex = world::gPlayerRuntimeSlots.objectIndex;
+    const std::uint32_t playerIndex = action->ownerSession->WorldScene().player->objectIndex;
     YobiAction* const parent = action->observationParent10;
     const std::int32_t initialSlot = action->field1D0;
     auto* const payload = parent->payload.mapChara;
     const std::uint32_t objectIndex = payload->objectIds00[initialSlot];
     YobiAction* const source = objectIndex == playerIndex
-        ? world::gPlayerRuntimeSlots.action
+        ? action->ownerSession->WorldScene().player->action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source != nullptr) {
         action->imageNo = world::ResolveRidingCharacterImage_51C0D0(source->imageNo);
@@ -398,8 +398,8 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
     const std::int32_t initialSlot = action->field1D0;
     auto* const payload = parent->payload.mapChara;
     const std::uint32_t objectIndex = payload->objectIds00[initialSlot];
-    YobiAction* const source = objectIndex == world::gPlayerRuntimeSlots.objectIndex
-        ? world::gPlayerRuntimeSlots.action
+    YobiAction* const source = objectIndex == action->ownerSession->WorldScene().player->objectIndex
+        ? action->ownerSession->WorldScene().player->action
         : world::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
     if (source != nullptr) {
         action->imageNo = world::ResolveRidingCharacterImage_51C0D0(source->imageNo);
@@ -469,8 +469,8 @@ static void UpdateLandingObservationMember_440440(YobiAction* const action)
             action->characterAction = CharacterAnimation_Stand;
             static_cast<void>(audio::PlaySe_52C450(0x1C9, soundX));
             const std::uint32_t currentIndex = payload->objectIds00[action->field1D0];
-            if (currentIndex == world::gPlayerRuntimeSlots.objectIndex) {
-                world::ResumePlayerAfterObservation_51BEF0();
+            if (currentIndex == action->ownerSession->WorldScene().player->objectIndex) {
+                world::ResumePlayerAfterObservation_51BEF0(*action->ownerSession);
             } else {
                 world::ResumeWorldActorAfterObservation_43DB30(source);
             }
@@ -606,7 +606,7 @@ static void UpdateDepartingObservationGroup_43F520(YobiAction* const action)
             x += static_cast<std::int32_t>(offset[0]);
             y += static_cast<std::int32_t>(offset[1]);
             static_cast<void>(AdvanceYobiAnimationFrame_517880(action, 100, AnimationPlayback_Loop, 0));
-            if (FindObservationGroupByMember_43F1F0(*action->ownerSession, world::gPlayerRuntimeSlots.objectIndex) == nullptr
+            if (FindObservationGroupByMember_43F1F0(*action->ownerSession, action->ownerSession->WorldScene().player->objectIndex) == nullptr
                 && frame > 300 && (x < -300 || x > 940)) {
                 UnlinkObservationGroup_43F1B0(action);
                 for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
@@ -1016,8 +1016,8 @@ std::int32_t HandleMapObservationActionReply_440920(
         return 0;
     }
     YobiAction* const target =
-        static_cast<std::uint32_t>(objectIndex) == world::gPlayerRuntimeSlots.objectIndex
-        ? world::gPlayerRuntimeSlots.action
+        static_cast<std::uint32_t>(objectIndex) == session.WorldScene().player->objectIndex
+        ? session.WorldScene().player->action
         : world::FindObjectYobi_4462B0(objectIndex);
     if (target == nullptr) {
         return 1;
@@ -1032,8 +1032,8 @@ std::int32_t HandleMapObservationActionReply_440920(
         detail::SetObservationGroupMembers_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
-            if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
-                world::SuspendPlayerForObservation_51BEE0();
+            if (static_cast<std::uint32_t>(member) == session.WorldScene().player->objectIndex) {
+                world::SuspendPlayerForObservation_51BEE0(session);
             } else {
                 world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));
             }
@@ -1053,10 +1053,10 @@ std::int32_t HandleMapObservationActionReply_440920(
         detail::SetObservationGroupMembers_4408C0(observer, values[2], values[3], values[4], values[5], values[6]);
         for (std::size_t index = 2; index < values.size(); ++index) {
             const std::int32_t member = values[index];
-            if (static_cast<std::uint32_t>(member) == world::gPlayerRuntimeSlots.objectIndex) {
+            if (static_cast<std::uint32_t>(member) == session.WorldScene().player->objectIndex) {
                 ui::WindowRuntime_CloseByCategory(session, 3);
                 npcDialog.type = -1;
-                world::SuspendPlayerForObservation_51BEE0();
+                world::SuspendPlayerForObservation_51BEE0(session);
                 ui::WindowRuntime_ApplyObservationInputGate(session);
             } else {
                 world::SuspendWorldActorForObservation_43DB00(world::FindObjectYobi_4462B0(member));
@@ -1182,7 +1182,7 @@ void* ClearObservationGroups_43F230(session::ClientSession& session)
 void* SavePlayerObservationTravelSnapshot_440F50(session::ClientSession& session)
 {
     YobiAction* const action =
-        FindObservationGroupByMember_43F1F0(session, world::gPlayerRuntimeSlots.objectIndex);
+        FindObservationGroupByMember_43F1F0(session, session.WorldScene().player->objectIndex);
     if (action == nullptr) {
         return nullptr;
     }

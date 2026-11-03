@@ -210,7 +210,7 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
         if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2
             && source >= 8 && source < static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().playerItems.size())
             && callbackWindow.ownerSession->WorldScene().playerItems[source].used != 0
-            && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
+            && (world::ReadPlayerActionFlagsByte(*callbackWindow.ownerSession) & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t x = WindowDrag_ReadX(*callbackWindow.ownerSession);
             const std::int32_t y = WindowDrag_ReadY(*callbackWindow.ownerSession);
@@ -231,7 +231,7 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
     const auto& item = pet.items6E4[hovered];
     uiFrame.hoverText = item.used != 0 ? item.name : gPetEquipmentLabels[hovered].text;
     if (item.used != 0 && (events & MouseFlag_LDblClickEvent) != 0) {
-        if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
+        if ((world::ReadPlayerActionFlagsByte(*callbackWindow.ownerSession) & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemBetweenOwnersRequest(petIndex + 1, hovered, 0, -1, -1));
             static_cast<void>(audio::PlaySe_52C450(77, 320));

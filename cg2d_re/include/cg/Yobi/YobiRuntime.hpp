@@ -269,6 +269,7 @@ void BeginMapActorPhase2(YobiAction* action);
 std::uint16_t ReadYobiDirectionLow16(const YobiAction* action) noexcept;
 // 51A090 对象阶段：重新提取四段文本，每次写入按原顺序重读共享玩家。
 YobiAction* PublishPlayerActionIdentity(
+    session::ClientSession& session,
     const std::wstring_view name, const std::array<std::wstring, 4>& titles, std::int32_t originalNameLength,
     std::int32_t level, std::int32_t hoverTextColor);
 // 519A80 分别复制 +170/+180 的载荷；前者复用 readiness，调用方负责重读玩家。
@@ -276,6 +277,7 @@ void CopyYobiPlayerHp(YobiAction* action, const platform::LegacyCryptInt* source
 void CopyYobiPlayerMaxHp(YobiAction* action, const platform::LegacyCryptInt* source);
 // 51A4B0跨私有布局边界；借用同一玩家来源，按原位置重读共享action。
 void CopyInitialPlayerActionIdentity(
+    session::ClientSession& session,
     const std::wstring_view name, const std::wstring_view title, const std::int32_t* level,
     const platform::LegacyCryptInt* hp, const platform::LegacyCryptInt* maxHp);
 // 50B380的2E4/2E8/2EC写序；slot可指向玩家共享槽或本行固定T*。
@@ -294,14 +296,17 @@ bool IsMapActorIdleAtTarget(YobiAction* action); // 46AFE0的S16路径数与逐�
 bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current);
 // 51A840动作60：借用玩家原图号槽，payload固定而共享action按原位置重读。
 void ApplyPlayerAppearanceReply(
+    session::ClientSession& session,
     std::int32_t imageNo, std::int32_t gearImage, std::int32_t petImage,
     std::int32_t kind, std::int32_t* playerImageNo);
 // 51A840动作70：借用玩家value174，保留原创建失败无空保护和重复阶段早退。
 void ApplyPlayerRideReply(
+    session::ClientSession& session,
     std::int32_t imageNo, std::int32_t steps, std::int32_t* remainingSteps);
-void ApplyPlayerPhase3Reply(std::int32_t imageNo); // 51A840动作80，不改玩家原图号。
+void ApplyPlayerPhase3Reply(session::ClientSession& session, std::int32_t imageNo); // 51A840动作80，不改玩家原图号。
 // 444410满路径回摆的单槽对象阶段；slot为地图五槽原生借用，不等同共享玩家action。
 void ResetMapFollowerFromPath(
+    session::ClientSession& session,
     YobiAction* leader, std::int32_t position, YobiAction*& slot,
     bool isPlayer, std::int32_t* playerDirection);
 // 地图实体的目标格坐标/路径/动作链；指针只借用，布局保持 runtime 私有。

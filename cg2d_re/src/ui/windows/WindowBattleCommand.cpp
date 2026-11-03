@@ -816,8 +816,8 @@ static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWi
         WindowElement* const element = elementPtr;
         auto* const graphic = element->data.graphic;
         if (world::gBattleRebirthDisabled5ABC40 != 0
-            || world::gPlayerRuntimeSlots.value08 == 0
-            || world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
+            || callbackWindow.ownerSession->WorldScene().player->value08 == 0
+            || callbackWindow.ownerSession->WorldScene().player->timerRemaining0C <= 0) {
             element->visible = 0;
             graphic->imageNo = 0x3B9CE;
             return 0;

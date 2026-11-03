@@ -1,4 +1,5 @@
 #include "map_actor.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
 #include "base.hpp"
@@ -74,13 +75,13 @@ static void RestoreMountedCharacterAction(YobiAction* const action)
 // 原43ECCF/43ED51：先采玩家指针，非当前玩家时才重读payload索引。
 static void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload* const payload)
 {
-    YobiAction* const player = world::gPlayerRuntimeSlots.action;
+    YobiAction* const player = action->ownerSession->WorldScene().player->action;
     if (player != nullptr && player == action) {
-        action->imageNo = world::gPlayerRuntimeSlots.imageNo;
+        action->imageNo = action->ownerSession->WorldScene().player->imageNo;
         return;
     }
     const std::int32_t index = payload->index;
-    action->imageNo = index == -1 ? world::gPlayerRuntimeSlots.imageNo
+    action->imageNo = index == -1 ? action->ownerSession->WorldScene().player->imageNo
         : std::bit_cast<std::int32_t>(
             world::detail::gWorldObjects[static_cast<std::size_t>(index)].imageNo);
 }
@@ -435,10 +436,10 @@ std::int32_t ParseMapActorAttachments_43DD00(
             character_select::ResolveCharacterImageForVersion(std::atoi(buffer));
         if (payload != nullptr) {
             const auto mapMainImage = [&]() {
-                YobiAction* const player = world::gPlayerRuntimeSlots.action;
+                YobiAction* const player = action->ownerSession->WorldScene().player->action;
                 const std::int32_t original =
                     (player != nullptr && player == action) || payload->index == -1
-                    ? world::gPlayerRuntimeSlots.imageNo
+                    ? action->ownerSession->WorldScene().player->imageNo
                     : std::bit_cast<std::int32_t>(
                         world::detail::gWorldObjects[payload->index].imageNo);
                 action->imageNo = world::ResolveRidingCharacterImage_51C0D0(original);
@@ -513,7 +514,7 @@ std::int32_t ParseMapActorAttachments_43DD00(
         }
         auto* const childPayload = child->payload.mapActor;
         childPayload->index =
-            world::gPlayerRuntimeSlots.action == action ? -1 : payload->index;
+            action->ownerSession->WorldScene().player->action == action ? -1 : payload->index;
         payload->attachedActor2C->flags |= YobiActionMask_NamedCharacterOrFollowPetOverlay;
         payload->attachedActor2C->nameC4 = cg::text::FromGbkWide(name);
         payload->attachedActor2C->field1D0 = level;
@@ -571,9 +572,9 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         return;
     }
-    YobiAction* player = world::gPlayerRuntimeSlots.action;
+    YobiAction* player = action->ownerSession->WorldScene().player->action;
     if ((player != nullptr && player == action) || index == -1) {
-        if ((world::ReadPlayerActionFlagsByte() & MapActorActionFlag_SuspendUpdate) != 0) {
+        if ((world::ReadPlayerActionFlagsByte(*action->ownerSession) & MapActorActionFlag_SuspendUpdate) != 0) {
             return;
         }
     } else if ((reinterpret_cast<const unsigned char*>(
@@ -584,7 +585,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
     if (UpdateMapActorTransitionPhase_43E490(action) != 0) {
         return;
     }
-    if (world::gPlayerRuntimeSlots.action != action) {
+    if (action->ownerSession->WorldScene().player->action != action) {
         payload = action->payload.mapActor;
         index = payload->index;
         if ((reinterpret_cast<const unsigned char*>(
@@ -606,7 +607,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         static_cast<std::int64_t>(screenX + 0.5));
     action->y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(screenY + 0.5));
-    player = world::gPlayerRuntimeSlots.action;
+    player = action->ownerSession->WorldScene().player->action;
     std::int32_t stopAtEnd;
     if (player != action
         && (world::detail::gWorldObjects[
@@ -683,7 +684,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
         DrawActorPhaseAttachment(action, &payload->rideActor44, primaryIndex, 0,
             ActorAttachmentReadOrder::BeforeXAddition);
     } else if ((action->flags & YobiActionFlag_GroundItem) != 0) {
-        if (world::gPlayerRuntimeSlots.action != action) {
+        if (action->ownerSession->WorldScene().player->action != action) {
             const std::int32_t lowerX =
                 (world::gPlayerX - 16);
             bool outside = (action->mapX1E0 < static_cast<std::int32_t>(lowerX));
@@ -703,7 +704,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
                 outside = (upperY < action->mapY1F0);
             }
             if (outside) {
-                world::RemoveWorldObject_4462E0(world::detail::gWorldObjects[
+                world::RemoveWorldObject_4462E0(*action->ownerSession, world::detail::gWorldObjects[
                     static_cast<std::size_t>(index)].objectIndex);
                 return;
             }
@@ -730,7 +731,7 @@ static void UpdateAndQueueMapActor_4417E0(YobiAction* const action)
             action->flags |= YobiActionFlag_Hidden;
         }
     } else {
-        const std::int32_t mode = world::gPlayerRuntimeSlots.action == action ? 1 : 0;
+        const std::int32_t mode = action->ownerSession->WorldScene().player->action == action ? 1 : 0;
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
         const std::int32_t offsetY = GetYobiGraphicOriginOffset_5182B0(action, YobiGraphicAxis_Y);
         const std::int32_t drawY = offsetY + action->y;
@@ -905,11 +906,12 @@ std::uint16_t ReadYobiDirectionLow16(const YobiAction* const action) noexcept
 }
 
 YobiAction* PublishPlayerActionIdentity(
+    session::ClientSession& session,
     const std::wstring_view name, const std::array<std::wstring, 4>& titles,
     const std::int32_t originalNameLength, const std::int32_t level,
     const std::int32_t hoverTextColor)
 {
-    YobiAction* action = world::gPlayerRuntimeSlots.action;
+    YobiAction* action = session.WorldScene().player->action;
     if (action == nullptr) {
         return nullptr;
     }
@@ -920,27 +922,27 @@ YobiAction* PublishPlayerActionIdentity(
     // 使用原始回复的独立文本快照，不借用上一轮写回的共享称号。
     cg::core::NullSub_509080();
     if (cg::text::ToGbk(titles[0]).size() <= 16) {
-        action = world::gPlayerRuntimeSlots.action;
+        action = session.WorldScene().player->action;
         action->titleE1 = titles[0];
     }
     cg::core::NullSub_509080();
     if (cg::text::ToGbk(titles[1]).size() <= 32) {
-        action = world::gPlayerRuntimeSlots.action;
+        action = session.WorldScene().player->action;
         action->text102 = titles[1];
     }
     cg::core::NullSub_509080();
     if (cg::text::ToGbk(titles[2]).size() <= 32) {
-        action = world::gPlayerRuntimeSlots.action;
+        action = session.WorldScene().player->action;
         action->text123 = titles[2];
     }
     cg::core::NullSub_509080();
     if (cg::text::ToGbk(titles[3]).size() <= 16) {
-        action = world::gPlayerRuntimeSlots.action;
+        action = session.WorldScene().player->action;
         action->text31C = titles[3];
     }
-    action = world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->field1D0 = level;
-    action = world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->hoverTextColor1D8 = hoverTextColor; // 原51A495完整写第四参数，悬停文字消费另按低BYTE取色。
     return action;
 }
@@ -958,25 +960,26 @@ void CopyYobiPlayerMaxHp(
 }
 
 void CopyInitialPlayerActionIdentity(
+    session::ClientSession& session,
     const std::wstring_view name, const std::wstring_view title, const std::int32_t* const level,
     const platform::LegacyCryptInt* const hp, const platform::LegacyCryptInt* const maxHp)
 {
-    YobiAction* action = world::gPlayerRuntimeSlots.action;
+    YobiAction* action = session.WorldScene().player->action;
     if (action == nullptr) {
         return;
     }
     if (cg::text::ToGbk(name).size() <= 16) {
         action->nameC4 = name;
-        action = world::gPlayerRuntimeSlots.action;
+        action = session.WorldScene().player->action;
     }
     if (cg::text::ToGbk(title).size() <= 16) {
         action->titleE1 = title;
-        action = world::gPlayerRuntimeSlots.action;
+        action = session.WorldScene().player->action;
     }
     action->field1D0 = *level;
-    action = world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->readiness = *hp;
-    action = world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->maxHp = *maxHp;
 }
 
@@ -1070,23 +1073,24 @@ bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current)
 }
 
 void ApplyPlayerAppearanceReply(
+    session::ClientSession& session,
     const std::int32_t imageNo, const std::int32_t gearImage,
     const std::int32_t petImage, const std::int32_t kind,
     std::int32_t* const playerImageNo)
 {
     auto* const payload =
-        world::gPlayerRuntimeSlots.action->payload.mapActor;
+        session.WorldScene().player->action->payload.mapActor;
     if (payload == nullptr) {
         return;
     }
     *playerImageNo = character_select::ResolveCharacterImageForVersion(imageNo);
     const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(imageNo);
-    world::gPlayerRuntimeSlots.action->imageNo = mappedImage;
+    session.WorldScene().player->action->imageNo = mappedImage;
     if (gearImage != 0) {
         const std::int32_t mappedGear = character_select::ResolveCharacterImageForVersion(gearImage);
         bool hasGear = payload->mainGear30 != nullptr;
         if (!hasGear) {
-            YobiAction* const gear = NewYobiGear_4410F0(world::gPlayerRuntimeSlots.action, mappedGear);
+            YobiAction* const gear = NewYobiGear_4410F0(session.WorldScene().player->action, mappedGear);
             hasGear = gear != nullptr;
             payload->mainGear30 = gear;
         }
@@ -1107,9 +1111,9 @@ void ApplyPlayerAppearanceReply(
         std::int32_t mappedPet = character_select::ResolveCharacterImageForVersion(petImage);
         bool hasPet = payload->firstAuxiliaryGear34 != nullptr;
         if (!hasPet) {
-            const std::int32_t y = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapY1F0);
-            const std::int32_t x = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapX1E0);
-            YobiAction* const pet = NewYobiGearPet_441130(world::gPlayerRuntimeSlots.action, mappedPet, x, y);
+            const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().player->action->mapY1F0);
+            const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().player->action->mapX1E0);
+            YobiAction* const pet = NewYobiGearPet_441130(session.WorldScene().player->action, mappedPet, x, y);
             hasPet = pet != nullptr;
             payload->firstAuxiliaryGear34 = pet;
         }
@@ -1123,9 +1127,9 @@ void ApplyPlayerAppearanceReply(
             ++mappedPet;
             bool hasSecondPet = previousSecondPet != nullptr;
             if (!hasSecondPet) {
-                const std::int32_t y = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapY1F0);
-                const std::int32_t x = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.action->mapX1E0);
-                YobiAction* const pet = NewYobiGearPet_441130(world::gPlayerRuntimeSlots.action, mappedPet, x, y);
+                const std::int32_t y = static_cast<std::int32_t>(session.WorldScene().player->action->mapY1F0);
+                const std::int32_t x = static_cast<std::int32_t>(session.WorldScene().player->action->mapX1E0);
+                YobiAction* const pet = NewYobiGearPet_441130(session.WorldScene().player->action, mappedPet, x, y);
                 hasSecondPet = pet != nullptr;
                 payload->secondAuxiliaryGear38 = pet;
             }
@@ -1151,10 +1155,11 @@ void ApplyPlayerAppearanceReply(
 }
 
 void ApplyPlayerRideReply(
+    session::ClientSession& session,
     const std::int32_t imageNo, const std::int32_t steps,
     std::int32_t* const remainingSteps)
 {
-    YobiAction* const action = world::gPlayerRuntimeSlots.action;
+    YobiAction* const action = session.WorldScene().player->action;
     if (imageNo >= 0) {
         auto* const payload = action->payload.mapActor;
         if (payload->rideActor44 == nullptr) {
@@ -1169,13 +1174,13 @@ void ApplyPlayerRideReply(
         const std::int32_t mappedRide = character_select::ResolveCharacterImageForVersion(imageNo);
         payload->rideActor44->imageNo = mappedRide;
         const std::int32_t mappedPlayer =
-            world::ResolveRidingCharacterImage_51C0D0(world::gPlayerRuntimeSlots.imageNo);
-        world::gPlayerRuntimeSlots.action->imageNo = mappedPlayer;
-        world::gPlayerRuntimeSlots.action->phase = MapActorPhase_Mounting;
+            world::ResolveRidingCharacterImage_51C0D0(session.WorldScene().player->imageNo);
+        session.WorldScene().player->action->imageNo = mappedPlayer;
+        session.WorldScene().player->action->phase = MapActorPhase_Mounting;
         payload->transitionProgress48 = 0;
         *remainingSteps = steps;
         payload->rideActor44->characterAction = CharacterAnimation_Stand;
-        if (world::gPlayerRuntimeSlots.action->characterAction == CharacterAnimation_Walk) {
+        if (session.WorldScene().player->action->characterAction == CharacterAnimation_Walk) {
             payload->rideActor44->characterAction = CharacterAnimation_Walk;
         }
         return;
@@ -1189,29 +1194,30 @@ void ApplyPlayerRideReply(
     payload->transitionProgress48 = 0;
     if (ride != nullptr) {
         ride->characterAction = CharacterAnimation_Stand;
-        if (world::gPlayerRuntimeSlots.action->characterAction == CharacterAnimation_Walk) {
+        if (session.WorldScene().player->action->characterAction == CharacterAnimation_Walk) {
             payload->rideActor44->characterAction = CharacterAnimation_Walk;
         }
     }
     *remainingSteps = 0;
 }
 
-void ApplyPlayerPhase3Reply(const std::int32_t imageNo)
+void ApplyPlayerPhase3Reply(session::ClientSession& session, const std::int32_t imageNo)
 {
-    YobiAction* const action = world::gPlayerRuntimeSlots.action;
+    YobiAction* const action = session.WorldScene().player->action;
     auto* const payload = action->payload.mapActor;
     action->phase = MapActorPhase_Spiral;
     const std::int32_t mappedImage = character_select::ResolveCharacterImageForVersion(imageNo);
-    world::gPlayerRuntimeSlots.action->imageNo = mappedImage;
+    session.WorldScene().player->action->imageNo = mappedImage;
     payload->transitionProgress48 = 0;
 }
 
 void ResetMapFollowerFromPath(
+    session::ClientSession& session,
     YobiAction* const leader, const std::int32_t position, YobiAction*& slot,
     const bool isPlayer, std::int32_t* const playerDirection)
 {
     if (isPlayer) {
-        YobiAction* const player = world::gPlayerRuntimeSlots.action;
+        YobiAction* const player = session.WorldScene().player->action;
         if (player != nullptr) {
             player->pathCountOrDrawOrder_270 = 0;
         }
@@ -1229,7 +1235,7 @@ void ResetMapFollowerFromPath(
         const std::int32_t x = leader->pathX220[index];
         SnapMapActorToPosition_442AB0(follower, x, y);
     }
-    if (!isPlayer || world::gPlayerRuntimeSlots.action != nullptr) {
+    if (!isPlayer || session.WorldScene().player->action != nullptr) {
         const std::int32_t index =
             std::bit_cast<std::int16_t>(leader->pathCountOrDrawOrder_270) - position;
         const std::int32_t dy = leader->pathY248[index - 1] - leader->pathY248[index];
@@ -1244,7 +1250,7 @@ void ResetMapFollowerFromPath(
         }
     }
     if (isPlayer) {
-        world::SynchronizePlayerMapActionPosition_519EE0();
+        world::SynchronizePlayerMapActionPosition_519EE0(session);
         static_cast<void>(world::RestorePlayerMovementSnapshot_4681B0());
     }
 }

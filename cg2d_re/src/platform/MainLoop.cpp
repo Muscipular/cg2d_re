@@ -43,7 +43,7 @@ std::uint32_t gFrameCount = 3; // 原全局：0x0058B7E4。
 std::int32_t gPendingPaletteReload = 0; // 原全局：0x0062A65C。
 
 __declspec(noinline)
-static void UpdateWndTitle(float& fps, std::size_t& frameIndex, std::array<std::uint32_t, 3>& frameCounts)
+static void UpdateWndTitle(session::ClientSession& session, float& fps, std::size_t& frameIndex, std::array<std::uint32_t, 3>& frameCounts)
 {
     VM_LIGHT_START
     fps = static_cast<float>(frameCounts[0] + frameCounts[1] + frameCounts[2])
@@ -51,7 +51,7 @@ static void UpdateWndTitle(float& fps, std::size_t& frameIndex, std::array<std::
     frameIndex = (frameIndex + 1) % frameCounts.size();
     frameCounts[frameIndex] = 0;
     std::wstring title(L"CG2D RE");
-    const wchar_t* const playerName = world::GetPlayerDisplayText(1);
+    const wchar_t* const playerName = world::GetPlayerDisplayText(session, 1);
     if (playerName[0] != '\0') {
         title += L" - [";
         title += playerName;
@@ -63,7 +63,7 @@ static void UpdateWndTitle(float& fps, std::size_t& frameIndex, std::array<std::
 }
 
 // CTM01/A11：参考UIExt::DrawFps，按实际提交帧统计三秒桶，沿现有文本队列绘制。
-static void UpdateFrameDiagnostics()
+static void UpdateFrameDiagnostics(session::ClientSession& session)
 {
     static std::uint64_t previousTick = ReadTickCount64();
     static float fps = 0;
@@ -74,7 +74,7 @@ static void UpdateFrameDiagnostics()
     const std::uint64_t interval = now - previousTick;
     ++frameCounts[frameIndex];
     if (previousTick / 1000u != now / 1000u) {
-        UpdateWndTitle(fps, frameIndex, frameCounts);
+        UpdateWndTitle(session, fps, frameIndex, frameCounts);
     }
     previousTick = now;
 #ifdef MY_DEBUG
@@ -219,7 +219,7 @@ int MainLoop(session::ClientSession& session)
         } else if (clearMode == 3) {
             ApplyScreenShake_423640(session);
         }
-        UpdateFrameDiagnostics();
+        UpdateFrameDiagnostics(session);
         render::DrawAllQueued_520DD0();
         world::CopyWorldProjectionState_468FF0();
         render::Flip_44C560();

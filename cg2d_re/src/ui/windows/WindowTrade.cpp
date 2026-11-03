@@ -665,7 +665,7 @@ static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std
             otherName->text = std::format(L"{:>16}", trade.name);
         }
         auto* elementsWindow = currentWindow;
-        const wchar_t* const playerName = world::GetPlayerDisplayText(1);
+        const wchar_t* const playerName = world::GetPlayerDisplayText(*callbackWindow.ownerSession, 1);
         auto* const element17 = elementsWindow->FindElementById(WindowTradeElementId::Element17);
         if (element17) {
             auto* const separator = element17->data.text;
@@ -1413,7 +1413,7 @@ static std::int32_t WindowTrade_HandleOwnPanel(WindowInstance& callbackWindow, c
         descriptor.color = color;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F530 {243143, 243145, 243144};
-    const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
+    const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
     return WindowTrade_HandlePanel(
         window, index, state, backgrounds54F530.data(), &trade.valueD6742C,
         10, &trade.scrollCF3B0C, 5, amount, 0, 0, amount, &descriptor, WindowTrade_RefreshOwnPanel);
@@ -1894,7 +1894,7 @@ static std::int32_t WindowTrade_HandleSelectedPanel(WindowInstance& callbackWind
         reinterpret_cast<unsigned char*>(&descriptor.color)[3] >>= 1;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F53C {244367, 244371, 244369};
-    const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
+    const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
     return WindowTrade_HandlePanel(
         window, index, state, backgrounds54F53C.data(), &trade.valueC8AF81,
         7, &trade.scrollCC4C90, -1, 0, 0, 0, amount, &descriptor, WindowTrade_RefreshSelectedPanel);
@@ -1954,7 +1954,7 @@ static std::int32_t WindowTrade_HandleRemoteSelection(WindowInstance& callbackWi
         reinterpret_cast<unsigned char*>(&descriptor.color)[3] >>= 1;
     }
     static constexpr std::array<std::int32_t, 3> backgrounds54F548 {244368, 244372, 244370};
-    const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
+    const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
     return WindowTrade_HandlePanel(
         window, index, state, backgrounds54F548.data(), &trade.tabCC4D1A,
         13, &trade.scrollD67430, -1, 0, 0, 0, amount, &descriptor, WindowTrade_HandleRemoteItem);

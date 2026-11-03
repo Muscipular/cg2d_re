@@ -481,8 +481,8 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
         const auto skillCount = static_cast<std::uint8_t>(operations.statusIconReferences - 1);
         operations.skillCount = count;
         operations.statusIconReferences = skillCount;
-        if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
-            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
+        if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0(session) == 13) {
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, 0));
         }
         return 1;
     }
@@ -571,18 +571,18 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
     if (kind == 0) {
         std::int32_t count = 0;
         if (request.targetKind != 1) {
-            const wchar_t* const name = world::GetPlayerDisplayText(1);
-            targets.levels[0] = world::gPlayerRuntimeSlots.level;
+            const wchar_t* const name = world::GetPlayerDisplayText(session, 1);
+            targets.levels[0] = session.WorldScene().player->level;
             targets.attributeNames[0] = name;
-            targets.injuries[0] = world::gPlayerRuntimeSlots.valueF4;
-            const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
+            targets.injuries[0] = session.WorldScene().player->valueF4;
+            const std::int32_t hp = static_cast<std::int32_t>(session.WorldScene().player->hp);
             targets.hp[targets.attributeCount] = hp;
-            const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
+            const std::int32_t maxHp = static_cast<std::int32_t>(session.WorldScene().player->maxHp);
             targets.maxHp[targets.attributeCount] = maxHp;
-            const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
+            const std::int32_t fp = static_cast<std::int32_t>(session.WorldScene().player->fp);
             const std::int32_t output = targets.attributeCount;
             targets.fp[output] = fp;
-            const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
+            const std::int32_t maxFp = static_cast<std::int32_t>(session.WorldScene().player->maxFp);
             count = targets.attributeCount + 1;
             targets.maxFp[output] = maxFp;
             targets.attributeKinds[output] = 0;
@@ -1741,14 +1741,14 @@ static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const 
     auto& skillState = session.UiFrame().native.skill;
     WindowInstance* const initialWindow = currentWindow;
     auto* elementsWindow = initialWindow;
-    const std::uint8_t actionFlags = world::ReadPlayerActionFlagsByte();
+    const std::uint8_t actionFlags = world::ReadPlayerActionFlagsByte(*callbackWindow.ownerSession);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((actionFlags & 0x80u) != 0
             || world::IsObservationSceneTransitionActive_440B50() != 0
-            || world::gPlayerRuntimeSlots.value08 == 0
-            || world::gPlayerRuntimeSlots.timerRemaining0C <= 0
+            || callbackWindow.ownerSession->WorldScene().player->value08 == 0
+            || callbackWindow.ownerSession->WorldScene().player->timerRemaining0C <= 0
             || world::gSkillsF1BAFC[skillState.index].canRebirth == 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             return 0;
@@ -1986,7 +1986,7 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
                 usedSlots += std::bit_cast<std::int8_t>(record->requiredSlots19[0]);
             }
         }
-        const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
+        const std::int32_t totalSlots = callbackWindow.ownerSession->WorldScene().player->value16C;
         cg::text::FormatTo(buffer, L"{:2}/{:2}", usedSlots, totalSlots);
         if (auto* const element4 = currentWindow->FindElementById(WindowSkillElementId::Element4); element4) element4->data.text->text = buffer;
         break;
@@ -2324,7 +2324,7 @@ static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, con
     std::int8_t visualState = 0;
     const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
-        bool allowed = (world::ReadPlayerActionFlags() & 0x80u) == 0
+        bool allowed = (world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0;
         if (allowed) {
             const std::int32_t skill = skillState.index;
@@ -2394,7 +2394,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
         uiFrame.hoverText = record->techniques3C[technique].value8C != 0 ? L"使用此一等级的技能。" /* 原常量参考：0x00586518。 */ : L"无法使用此一等级的技能。" /* 原常量参考：0x005864FC。 */;
         if (record->canRebirth >= 3 && record->canRebirth <= 4) {
             const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
-            if ((world::gPlayerRuntimeSlots.fp < cost)) {
+            if ((callbackWindow.ownerSession->WorldScene().player->fp < cost)) {
                 uiFrame.hoverText = kWindow12NoFp5864F0;
             }
         }
@@ -2408,15 +2408,15 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
         } else {
             // 可用技术所有分支最终还播放SE51，包括动作门禁与部分FP失败。
             const auto activate = [&] {
-                const auto actionBlocked = [] {
-                    return (world::ReadPlayerActionFlags() & 0x80u) != 0
+                const auto actionBlocked = [&callbackWindow] {
+                    return (world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) != 0
                         || world::IsObservationSceneTransitionActive_440B50() != 0;
                 };
                 const auto insufficientFp = [&] {
                     const auto* const current = &world::gSkillsF1BAFC[skillState.index];
                     const std::int32_t cost =
                         current->techniques3C[technique].value7C * current->fpReduce / 100;
-                    return (world::gPlayerRuntimeSlots.fp < cost);
+                    return (callbackWindow.ownerSession->WorldScene().player->fp < cost);
                 };
                 const auto fail = [] {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2510,7 +2510,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         fail();
                         return;
                     }
-                    if (cg::yobi::ReadMapActorAttachment44(world::gPlayerRuntimeSlots.action) == nullptr
+                    if (cg::yobi::ReadMapActorAttachment44(callbackWindow.ownerSession->WorldScene().player->action) == nullptr
                         && insufficientFp()) {
                         world::AppendChatMessage_44B050(*callbackWindow.ownerSession, kWindow12NoFp5864F0, 4, 3);
                         fail();
@@ -2572,8 +2572,8 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
         const auto skillCount = static_cast<std::uint8_t>(operations.statusIconReferences - 1);
         operations.skillCount = count;
         operations.statusIconReferences = skillCount;
-        if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
-            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
+        if (skillCount == 0 && world::GetPlayerStatusIcon_51BEC0(session) == 13) {
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, 0));
         }
         return 1;
     }
@@ -2630,11 +2630,11 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession&
     ++operations.statusIconReferences;
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[skillIndex].skillId);
     if (kind >= 2 && kind <= 3) {
-        if (world::GetPlayerStatusIcon_51BEC0() != 13) {
-            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(13));
+        if (world::GetPlayerStatusIcon_51BEC0(session) != 13) {
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, 13));
         }
     } else {
-        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, 0));
     }
     WindowRuntime_IncrementOperationCount(session);
     ++operations.skillCount;
@@ -2669,7 +2669,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
     }
     std::int32_t count = 0;
     if (kind != 0) {
-        const wchar_t* const name = world::GetPlayerDisplayText(1);
+        const wchar_t* const name = world::GetPlayerDisplayText(session, 1);
         count = 1;
         targets.kinds[0] = 0;
         targets.count = count;
@@ -2679,7 +2679,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
         if (world::ReadPetMapFlags(slot) == 0) {
             continue;
         }
-        const std::uint32_t ownIndex = world::gPlayerRuntimeSlots.objectIndex;
+        const std::uint32_t ownIndex = session.WorldScene().player->objectIndex;
         if (world::ReadPetMapObjectIndex(slot) == ownIndex) {
             continue;
         }

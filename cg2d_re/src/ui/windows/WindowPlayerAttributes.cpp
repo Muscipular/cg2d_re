@@ -263,12 +263,12 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbac
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::array<std::int32_t, 6> values;
-    values[1] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
-    values[2] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
-    values[3] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(3)];
-    values[4] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(4)];
+    values[1] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(1)];
+    values[2] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(2)];
+    values[3] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(3)];
+    values[4] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(4)];
     values[5] = world::gPlayerUnspentAttributePoints_D2F788;
-    values[0] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(0)];
+    values[0] = callbackWindow.ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(0)];
     std::int32_t total = 0;
     for (const std::int32_t value : values) {
         total += value;
@@ -370,7 +370,7 @@ static void WindowPlayerAttributes_Refresh(WindowInstance* callbackWindow)
     auto* const element1 = currentWindow->FindElementById(WindowPlayerAttributesElementId::Element1);
     if (element1) {
         auto* const nameData = element1->data.text;
-        const wchar_t* const name = world::GetPlayerDisplayText(1);
+        const wchar_t* const name = world::GetPlayerDisplayText(*callbackWindow->ownerSession, 1);
         nameData->text = name;
     }
 
@@ -385,45 +385,45 @@ static void WindowPlayerAttributes_Refresh(WindowInstance* callbackWindow)
         }
         return;
     };
-    writeNumber(1, world::gPlayerRuntimeSlots.level, L"{:3}");
+    writeNumber(1, callbackWindow->ownerSession->WorldScene().player->level, L"{:3}");
     writeNumber(2, world::gPlayerUnspentAttributePoints_D2F788, L"{:5}");
     for (std::int32_t index = 0; index < 5; ++index) {
-        writeNumber(index + 3, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
+        writeNumber(index + 3, callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(index)], L"{:5}");
     }
     for (std::int32_t index = 8; index < 11; ++index) {
-        writeNumber(index, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
+        writeNumber(index, callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(index)], L"{:5}");
     }
-    writeNumber(11, world::gPlayerRuntimeSlots.valuesB0[static_cast<std::int32_t>(0)], L"{:5}");
+    writeNumber(11, callbackWindow->ownerSession->WorldScene().player->valuesB0[static_cast<std::int32_t>(0)], L"{:5}");
     for (std::int32_t index = 11; index < 14; ++index) {
-        writeNumber(index + 1, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:5}");
+        writeNumber(index + 1, callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(index)], L"{:5}");
     }
-    writeNumber(15, world::gPlayerRuntimeSlots.valuesB0[static_cast<std::int32_t>(1)], L"{:5}");
+    writeNumber(15, callbackWindow->ownerSession->WorldScene().player->valuesB0[static_cast<std::int32_t>(1)], L"{:5}");
     for (std::int32_t index = 0; index < 6; ++index) {
-        writeNumber(index + 16, world::gPlayerRuntimeSlots.valuesBC[static_cast<std::int32_t>(index)], L"{:4}");
+        writeNumber(index + 16, callbackWindow->ownerSession->WorldScene().player->valuesBC[static_cast<std::int32_t>(index)], L"{:4}");
     }
     for (std::int32_t index = 0; index < 4; ++index) {
-        writeNumber(index + 22, world::gPlayerRuntimeSlots.valuesD4[static_cast<std::int32_t>(index)], L"{:4}");
+        writeNumber(index + 22, callbackWindow->ownerSession->WorldScene().player->valuesD4[static_cast<std::int32_t>(index)], L"{:4}");
     }
     for (std::int32_t index = 5; index < 8; ++index) {
-        writeNumber(index + 21, world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)], L"{:4}");
+        writeNumber(index + 21, callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(index)], L"{:4}");
     }
 
     const std::int32_t remainingPoints = world::gPlayerUnspentAttributePoints_D2F788;
     if (remainingPoints > 0) {
-        const std::int32_t quick = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(3)];
-        std::int32_t total = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(4)];
-        const std::int32_t toughness = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(2)];
+        const std::int32_t quick = callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(3)];
+        std::int32_t total = callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(4)];
+        const std::int32_t toughness = callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(2)];
         total += quick;
-        const std::int32_t strength = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
+        const std::int32_t strength = callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(1)];
         total += toughness;
         total += strength;
-        const std::int32_t vitality = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(0)];
+        const std::int32_t vitality = callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(0)];
         total += vitality;
         total += remainingPoints;
         const std::int32_t limit = total / 2;
         if (auto* const handleButtonsElement = currentWindow->FindElementById(WindowPlayerAttributesElementId::HandleButtons); handleButtonsElement) handleButtonsElement->visible = vitality < limit ? 1 : 0;
         for (std::int32_t index = 1; index < 5; ++index) {
-            const std::int32_t value = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(index)];
+            const std::int32_t value = callbackWindow->ownerSession->WorldScene().player->values78[static_cast<std::int32_t>(index)];
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(29 + index)); indexedElement) indexedElement->visible = value < limit ? 1 : 0;
         }
     } else {

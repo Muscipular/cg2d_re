@@ -23,7 +23,7 @@ const std::wstring& GetMapName_9DAD30() noexcept; // 借用宽字符串地图名
 void ClearMapName_9DAD30() noexcept; // 世界重置时清空同一地图名称。
 
 // 原 51BEF0：仅清玩家首块 FDA88E 高半字 bit 7，保留同 W32 其余位。
-void ResumePlayerAfterObservation_51BEF0() noexcept;
+void ResumePlayerAfterObservation_51BEF0(session::ClientSession& session) noexcept;
 
 // 原世界等距投影状态的当前值与帧末快照；八槽均为独立 uint32_t，映像初值 0。
 extern std::uint32_t gWorldProjectionSourceA;   // 原 0x9EE908，R32。

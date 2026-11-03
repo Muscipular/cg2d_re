@@ -397,7 +397,7 @@ std::int32_t WindowCraft_ReadItemSelection(session::ClientSession& session)
 }
 
 // 装饰/精炼无18A26回退，也不在末区间命中后重读玩家图号。
-static void WindowCraft_SetWorkingAction(WindowInstance* const window, const bool specialImageFallback = true)
+static void WindowCraft_SetWorkingAction(session::ClientSession& session, WindowInstance* const window, const bool specialImageFallback = true)
 {
     if (auto* const element5 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr; element5) element5->data.animation->value04 = 0;
     auto* const element52 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
@@ -405,7 +405,7 @@ static void WindowCraft_SetWorkingAction(WindowInstance* const window, const boo
         cg::yobi::SetYobiActionField2B0(
             element52->data.animation->action, 6);
     }
-    std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
+    std::int32_t imageNo = session.WorldScene().player->imageNo;
     for (std::size_t index = 0; index < kCraftAlternateActionImages.size(); ++index) {
         const auto& range = kCraftAlternateActionImages[index];
         if (imageNo >= range[0] && imageNo <= range[1]) {
@@ -415,7 +415,7 @@ static void WindowCraft_SetWorkingAction(WindowInstance* const window, const boo
                     element53->data.animation->action, 16);
             }
             if (specialImageFallback || index + 1 < kCraftAlternateActionImages.size()) {
-                imageNo = world::gPlayerRuntimeSlots.imageNo;
+                imageNo = session.WorldScene().player->imageNo;
             }
         }
     }
@@ -436,7 +436,7 @@ static WindowAnimationData* WindowCraft_FinishWait(session::ClientSession& sessi
     const std::uint8_t rebirthMode = skillOperation.rebirthEnabled;
     craft.deadline = duration;
     if (rebirthMode != 0) {
-        const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
+        const std::int32_t rebirth = session.WorldScene().player->value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
         craft.deadline = duration;
     }
@@ -462,7 +462,7 @@ static WindowAnimationData* WindowCraft_FinishWait(session::ClientSession& sessi
 }
 
 // 仅新补的制造/单选/装饰创建入口共用；材料模式12另有无条件状态写。
-static void WindowCraft_SelectState(const std::int32_t skillId)
+static void WindowCraft_SelectState(session::ClientSession& session, const std::int32_t skillId)
 {
     std::int32_t state = 9;
     switch (skillId) {
@@ -471,8 +471,8 @@ static void WindowCraft_SelectState(const std::int32_t skillId)
     case 217: case 218: case 2031: case 2032: state = 12; break;
     default: break;
     }
-    if (world::GetPlayerStatusIcon_51BEC0() != state) {
-        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(state));
+    if (world::GetPlayerStatusIcon_51BEC0(session) != state) {
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, state));
     }
 }
 
@@ -564,7 +564,7 @@ static WindowAnimationData* WindowCraft_WaitCraft(session::ClientSession& sessio
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
-    WindowCraft_SetWorkingAction(window);
+    WindowCraft_SetWorkingAction(session, window);
     const std::int32_t random = platform::Rand16(session.Connection()) % 6;
     const std::int32_t skill = craft.skillIndex;
     const std::int32_t recipe = craft.recipeIndex;
@@ -624,7 +624,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& ses
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
-    WindowCraft_SetWorkingAction(window);
+    WindowCraft_SetWorkingAction(session, window);
     const std::int32_t random = platform::Rand16(session.Connection()) % 6;
     const std::int32_t selected = craft.selectedItem;
     const std::int32_t level = session.WorldScene().playerItems[selected].level;
@@ -663,7 +663,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& sess
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
-    WindowCraft_SetWorkingAction(window);
+    WindowCraft_SetWorkingAction(session, window);
     const std::int32_t random = platform::Rand16(session.Connection()) % 6;
     const std::int32_t selected = craft.selectedItem;
     const std::int32_t level = session.WorldScene().playerItems[selected].level;
@@ -700,7 +700,7 @@ static void WindowCraft_WaitDecoration(session::ClientSession& session, WindowIn
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
-    WindowCraft_SetWorkingAction(window, false);
+    WindowCraft_SetWorkingAction(session, window, false);
     static_cast<void>(WindowCraft_FinishWait(session, window, 8000));
     const std::uint8_t mode = craft.selectionMode;
     if (mode == 6) {
@@ -737,7 +737,7 @@ static WindowAnimationData* WindowCraft_WaitRefining(session::ClientSession& ses
     if (auto* const buttonExecute_26Element = window ? window->FindElementById(WindowCraftElementId::ButtonExecute_26) : nullptr; buttonExecute_26Element) buttonExecute_26Element->visible = 0;
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowCraftElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonCloseElement = window ? window->FindElementById(WindowCraftElementId::ButtonClose) : nullptr; buttonCloseElement) buttonCloseElement->visible = 0;
-    WindowCraft_SetWorkingAction(window, false);
+    WindowCraft_SetWorkingAction(session, window, false);
     const auto duration = static_cast<std::uint32_t>(platform::Rand16(session.Connection()) % 6 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
     craft.selectionMode = 10;
@@ -766,7 +766,7 @@ cg::yobi::YobiAction* WindowCraft_OpenRecipe(
     operations.skillCount = references;
     const std::int32_t skillId = world::gSkillsF1BAFC[currentSkill].skillId;
     operations.statusIconReferences = skillReferences;
-    WindowCraft_SelectState(skillId);
+    WindowCraft_SelectState(session, skillId);
     return WindowCraft_Create(session);
 }
 
@@ -788,7 +788,7 @@ cg::yobi::YobiAction* WindowCraft_OpenItemWork(session::ClientSession& session, 
     operations.statusIconReferences = skillReferences;
     const std::int32_t currentSkill = craft.skillIndex;
     operations.skillCount = references;
-    WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
+    WindowCraft_SelectState(session, world::gSkillsF1BAFC[currentSkill].skillId);
     return WindowCraft_Create(session);
 }
 
@@ -814,7 +814,7 @@ cg::yobi::YobiAction* WindowCraft_OpenDecoration(
     operations.statusIconReferences = skillReferences;
     const std::int32_t currentSkill = craft.skillIndex;
     operations.skillCount = references;
-    WindowCraft_SelectState(world::gSkillsF1BAFC[currentSkill].skillId);
+    WindowCraft_SelectState(session, world::gSkillsF1BAFC[currentSkill].skillId);
     return WindowCraft_Create(session);
 }
 
@@ -835,8 +835,8 @@ cg::yobi::YobiAction* WindowCraft_OpenRefining(session::ClientSession& session, 
     const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
     operations.skillCount = references;
     operations.statusIconReferences = skillReferences;
-    if (world::GetPlayerStatusIcon_51BEC0() != 9) {
-        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(9));
+    if (world::GetPlayerStatusIcon_51BEC0(session) != 9) {
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, 9));
     }
     return WindowCraft_Create(session);
 }
@@ -858,7 +858,7 @@ cg::yobi::YobiAction* WindowCraft_OpenMaterials(session::ClientSession& session,
     const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences + 1);
     operations.skillCount = references;
     operations.statusIconReferences = skillReferences;
-    static_cast<void>(world::RequestPlayerStatusIcon_51BE50(9));
+    static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, 9));
     return WindowCraft_Create(session);
 }
 
@@ -1609,7 +1609,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 return 0;
             }
         }
-        enabled = !(world::gPlayerRuntimeSlots.fp < recipeCost());
+        enabled = !(callbackWindow.ownerSession->WorldScene().player->fp < recipeCost());
         break;
     case 3: {
         const std::int32_t selected = craft.selectedItem;
@@ -1619,9 +1619,9 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             return 0;
         }
         if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
-            enabled = !(world::gPlayerRuntimeSlots.fp < 10);
+            enabled = !(callbackWindow.ownerSession->WorldScene().player->fp < 10);
         } else {
-            enabled = !(world::gPlayerRuntimeSlots.fp <
+            enabled = !(callbackWindow.ownerSession->WorldScene().player->fp <
                 callbackWindow.ownerSession->WorldScene().playerItems[selected].level * 10);
             const std::int32_t level = callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].level;
             auto* const element12 = currentWindow->FindElementById(WindowCraftElementId::Element12);
@@ -1688,7 +1688,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             element->visible = 0;
             return 0;
         }
-        enabled = !(world::gPlayerRuntimeSlots.fp < 100);
+        enabled = !(callbackWindow.ownerSession->WorldScene().player->fp < 100);
         break;
     case 9:
         if (materialState.materialValues[0] == 0) {
@@ -1721,19 +1721,19 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
         bool insufficient = false;
         switch (std::bit_cast<std::int8_t>(craft.selectionMode)) {
         case 0:
-            insufficient = (world::gPlayerRuntimeSlots.fp < recipeCost());
+            insufficient = (callbackWindow.ownerSession->WorldScene().player->fp < recipeCost());
             break;
         case 3:
             if (world::gSkillsF1BAFC[craft.skillIndex].skillId == 220) {
-                insufficient = (world::gPlayerRuntimeSlots.fp < 10);
+                insufficient = (callbackWindow.ownerSession->WorldScene().player->fp < 10);
             } else {
-                insufficient = (world::gPlayerRuntimeSlots.fp <
+                insufficient = (callbackWindow.ownerSession->WorldScene().player->fp <
                 callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].level * 10);
             }
             break;
         case 6:
         case 15:
-            insufficient = (world::gPlayerRuntimeSlots.fp < 100);
+            insufficient = (callbackWindow.ownerSession->WorldScene().player->fp < 100);
             break;
         default:
             break;
@@ -3122,7 +3122,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         if (auto* const buttonExecute_26Element = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute_26); buttonExecute_26Element) buttonExecute_26Element->visible = 0;
         if (auto* const buttonExecuteElement = currentWindow->FindElementById(WindowCraftElementId::ButtonExecute); buttonExecuteElement) buttonExecuteElement->visible = 0;
     }
-    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
+    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(callbackWindow.ownerSession->WorldScene().player->imageNo);
     const std::int32_t imageNo = WindowSkillResult_ReadPreviewImage(mapped, 0);
     auto* const element5 = currentWindow->FindElementById(WindowCraftElementId::Element5);
     if (element5) {
@@ -3167,9 +3167,9 @@ static void WindowCraft_Release(WindowInstance& releasedWindow)
     static_cast<void>(WindowCraft_ReleaseMaterials(*releasedWindow.ownerSession, 6));
     --operations.statusIconReferences;
     if (operations.statusIconReferences == 0) {
-        const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
+        const std::int32_t state = world::GetPlayerStatusIcon_51BEC0(*releasedWindow.ownerSession);
         if (state >= 9 && state <= 12) {
-            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(*releasedWindow.ownerSession, 0));
         }
     }
 }
@@ -3426,7 +3426,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(session::ClientSession&
         cg::yobi::SetYobiActionField2B0(
             element52->data.animation->action, defaultAction);
     }
-    std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
+    std::int32_t imageNo = session.WorldScene().player->imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             auto* const element53 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
@@ -3434,7 +3434,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(session::ClientSession&
                 cg::yobi::SetYobiActionField2B0(
                     element53->data.animation->action, alternateAction);
             }
-            imageNo = world::gPlayerRuntimeSlots.imageNo;
+            imageNo = session.WorldScene().player->imageNo;
         }
     }
     if (imageNo == 0x18A26) {
@@ -3680,7 +3680,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSessio
         cg::yobi::SetYobiActionField2B0(
             element52->data.animation->action, defaultAction);
     }
-    std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
+    std::int32_t imageNo = session.WorldScene().player->imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             auto* const element53 = window ? window->FindElementById(WindowCraftElementId::Element5) : nullptr;
@@ -3688,7 +3688,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSessio
                 cg::yobi::SetYobiActionField2B0(
                     element53->data.animation->action, alternateAction);
             }
-            imageNo = world::gPlayerRuntimeSlots.imageNo;
+            imageNo = session.WorldScene().player->imageNo;
         }
     }
     if (imageNo == 0x18A26) {

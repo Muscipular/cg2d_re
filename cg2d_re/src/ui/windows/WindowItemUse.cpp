@@ -100,8 +100,8 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSes
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(session, x, y));
     targets.records.fill({});
-    const wchar_t* const ownName = world::GetPlayerDisplayText(1);
-    const std::uint32_t ownIndex = world::gPlayerRuntimeSlots.objectIndex;
+    const wchar_t* const ownName = world::GetPlayerDisplayText(session, 1);
+    const std::uint32_t ownIndex = session.WorldScene().player->objectIndex;
     targets.records[0].name = ownName;
     std::int32_t count = 1;
     targets.count = count;
@@ -222,20 +222,20 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
     const std::int32_t selected = targets.selected;
     targets.attributeCount = 0;
     if (targets.records[selected].kind == 0) {
-        const wchar_t* const name = world::GetPlayerDisplayText(1);
-        const std::int32_t level = world::gPlayerRuntimeSlots.level;
+        const wchar_t* const name = world::GetPlayerDisplayText(session, 1);
+        const std::int32_t level = session.WorldScene().player->level;
         targets.attributes[0].name = name;
-        const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
+        const std::int32_t injury = session.WorldScene().player->valueF4;
         targets.attributes[0].level = level;
         targets.attributes[0].injury = injury;
-        const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
+        const std::int32_t hp = static_cast<std::int32_t>(session.WorldScene().player->hp);
         targets.attributes[targets.attributeCount].hp = hp;
-        const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
+        const std::int32_t maxHp = static_cast<std::int32_t>(session.WorldScene().player->maxHp);
         targets.attributes[targets.attributeCount].maxHp = maxHp;
-        const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
+        const std::int32_t fp = static_cast<std::int32_t>(session.WorldScene().player->fp);
         const std::int32_t own = targets.attributeCount;
         targets.attributes[own].fp = fp;
-        const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
+        const std::int32_t maxFp = static_cast<std::int32_t>(session.WorldScene().player->maxFp);
         targets.attributes[own].maxFp = maxFp;
         std::int32_t count = targets.attributeCount + 1;
         targets.attributes[own].kind = 0;

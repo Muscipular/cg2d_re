@@ -89,7 +89,7 @@ void ApplyWorldActorActionCommand_444410(
             if (action->pathCountOrDrawOrder_270 < 10) {
                 cg::yobi::AppendInterpolatedMapActorPath_441FC0(action, x, y);
             } else {
-                ResetMapFollowersFromPath(action);
+                ResetMapFollowersFromPath(*action->ownerSession, action);
                 cg::yobi::AppendMapActorPathPoint_441F60(action, x, y);
                 gWorldObjects[index].value34 = -1;
             }
@@ -644,7 +644,7 @@ void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, const st
     if (direction < 0 || direction > 7) {
         return;
     }
-    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = session.WorldScene().player->action;
     if (action == nullptr) {
         return;
     }
@@ -662,7 +662,7 @@ void TurnPlayerAndSendDirection_46B4B0(session::ClientSession& session, const st
     if (session.WorldScene().lastExplicitFacingRequestTick + 500u >= now) {
         return;
     }
-    static_cast<void>(SetPlayerFacingDirection_51A040(direction));
+    static_cast<void>(SetPlayerFacingDirection_51A040(session, direction));
     const std::uint32_t encoded = EncodeMovementDirectionByte_46BD20(direction, 1);
     const char text[2] {
         std::bit_cast<char>(static_cast<std::uint8_t>(encoded)), '\0',
@@ -681,7 +681,7 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
         if (index < 0) {
             break;
         }
-        const std::uint32_t playerIndex = cg::world::gPlayerRuntimeSlots.objectIndex;
+        const std::uint32_t playerIndex = session.WorldScene().player->objectIndex;
         cg::yobi::YobiAction* const action = ReadPetMapAction(index);
         const bool isPlayer = ReadPetMapObjectIndex(index) == playerIndex;
         if (isPlayer) {
@@ -729,7 +729,7 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
         const std::int32_t speed = first->walkSpeed;
         const std::int32_t nextX = action->pathX220[0];
         if (isPlayer) {
-            SetPlayerMovementTarget_46A410(nextX, nextY, speed);
+            SetPlayerMovementTarget_46A410(session, nextX, nextY, speed);
         } else {
             cg::yobi::StartPartyMemberMovement_4422F0(action, nextX, nextY, speed);
         }
@@ -755,7 +755,7 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
         if (index < 0) {
             break;
         }
-        const std::uint32_t playerIndex = cg::world::gPlayerRuntimeSlots.objectIndex;
+        const std::uint32_t playerIndex = session.WorldScene().player->objectIndex;
         if (ReadPetMapObjectIndex(index) == playerIndex) {
             AdvancePlayerWorldMovement_46A700(session);
         } else {
@@ -772,9 +772,10 @@ std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session)
 
 // 原函数：0x0046B1B0。
 void MovePlayerOneStep_46B1B0(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y, const std::int32_t speed)
 {
-    cg::yobi::YobiAction* const player = cg::world::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const player = session.WorldScene().player->action;
     auto* const payload = player == nullptr
         ? nullptr : player->payload.mapActor;
     const float rate = static_cast<float>(
@@ -783,7 +784,7 @@ void MovePlayerOneStep_46B1B0(
         const std::int32_t previousY =
             static_cast<std::int32_t>(player->mapY1F0);
         const std::int32_t previousX =
-            static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.action->mapX1E0);
+            static_cast<std::int32_t>(session.WorldScene().player->action->mapX1E0);
         static_cast<void>(cg::yobi::StartMapActorMovement_442110(
             payload->attachedActor2C, previousX, previousY, speed, rate));
     }
@@ -813,16 +814,16 @@ void MovePlayerOneStep_46B1B0(
         || direction.y < 0.0F || direction.y > 0.0F) {
         const auto value = static_cast<std::int32_t>(
             GetEightWayMapDirection_46CDF0(direction.x, direction.y));
-        static_cast<void>(SetPlayerFacingDirection_51A040(value));
-        static_cast<void>(MarkPlayerMovementActive_51A640());
+        static_cast<void>(SetPlayerFacingDirection_51A040(session, value));
+        static_cast<void>(MarkPlayerMovementActive_51A640(session));
     }
-    SynchronizePlayerMapActionPosition_519EE0();
+    SynchronizePlayerMapActionPosition_519EE0(session);
 }
 
 // 原函数：0x0046A5F0。
-void AdvanceFollowersBehindPlayerLeader_46A5F0()
+void AdvanceFollowersBehindPlayerLeader_46A5F0(session::ClientSession& session)
 {
-    if (gPartyActive_FF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) == 0) {
+    if (gPartyActive_FF0D36 == 0 || (ReadPlayerFlags18A(session) & 0x100u) == 0) {
         return;
     }
     for (std::size_t position = 1; position < 5; ++position) {
@@ -843,7 +844,7 @@ void AdvanceFollowersBehindPlayerLeader_46A5F0()
             continue;
         }
 
-        const std::int32_t speed = cg::world::gPlayerRuntimeSlots.walkSpeed;
+        const std::int32_t speed = session.WorldScene().player->walkSpeed;
         const std::int32_t nextY = action->pathY248[0];
         const std::int32_t nextX = action->pathX220[0];
         static_cast<void>(
@@ -867,9 +868,9 @@ void AdvanceFollowersBehindPlayerLeader_46A5F0()
 }
 
 // 原函数：0x0051A640。
-cg::yobi::YobiAction* MarkPlayerMovementActive_51A640()
+cg::yobi::YobiAction* MarkPlayerMovementActive_51A640(session::ClientSession& session)
 {
-    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = session.WorldScene().player->action;
     if (action != nullptr) {
         action->movementActive_272 = 1;
     }
@@ -877,9 +878,9 @@ cg::yobi::YobiAction* MarkPlayerMovementActive_51A640()
 }
 
 // 原函数：0x0051A660。
-cg::yobi::YobiAction* ClearPlayerMovementActive_51A660()
+cg::yobi::YobiAction* ClearPlayerMovementActive_51A660(session::ClientSession& session)
 {
-    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = session.WorldScene().player->action;
     if (action != nullptr) {
         action->movementActive_272 = 0;
     }
@@ -887,9 +888,9 @@ cg::yobi::YobiAction* ClearPlayerMovementActive_51A660()
 }
 
 // 原函数：0x0051A680。
-std::int32_t ReadPlayerMovementActive_51A680()
+std::int32_t ReadPlayerMovementActive_51A680(session::ClientSession& session)
 {
-    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = session.WorldScene().player->action;
     return action == nullptr ? 0 : std::bit_cast<std::int16_t>(action->movementActive_272);
 }
 
@@ -972,15 +973,15 @@ void RecreateWorldObjectAction_4467D0(
 }
 
 // 原函数：0x00519EE0。
-void SynchronizePlayerMapActionPosition_519EE0()
+void SynchronizePlayerMapActionPosition_519EE0(session::ClientSession& session)
 {
-    if (cg::world::gPlayerRuntimeSlots.action == nullptr) {
+    if (session.WorldScene().player->action == nullptr) {
         return;
     }
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::int32_t blocked = IsMapCellBlocked_469810(x, y);
-    cg::yobi::YobiAction* action = cg::world::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* action = session.WorldScene().player->action;
     if (blocked != 0) {
         gPlayerX = action->mapX1E0;
         gPlayerY = action->mapY1F0;
@@ -988,21 +989,21 @@ void SynchronizePlayerMapActionPosition_519EE0()
 
     const std::uint32_t worldXBits = gWorldCurrentXBits;
     action->worldX = std::bit_cast<float>(worldXBits);
-    action = cg::world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     const std::uint32_t worldYBits = gWorldCurrentYBits;
     action->worldY = std::bit_cast<float>(worldYBits);
-    action = cg::world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->mapX1E0 = gPlayerX;
-    action = cg::world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->mapY1F0 = gPlayerY;
-    action = cg::world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->movementStepXBits_27C = detail::gPlayerMovementStepXBits_9EE8FC;
     const std::uint32_t movementY = detail::gPlayerMovementStepYBits_9EE900;
-    action = cg::world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->movementStepYBits_280 = movementY;
-    action = cg::world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->mapX200 = gPlayerSnapshotX;
-    action = cg::world::gPlayerRuntimeSlots.action;
+    action = session.WorldScene().player->action;
     action->mapY210 = gPlayerSnapshotY;
 }
 

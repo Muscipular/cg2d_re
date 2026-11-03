@@ -84,7 +84,7 @@ void SetWorldActorChatBubble_442DC0(
     flagBytes[1] |= 0x20u;
     const std::uint64_t tick = platform::ReadTickCount64();
     payload->chatDeadline14 = tick + static_cast<std::uint64_t>(duration);
-    FaceWorldActorTowardPlayer_43D860(action);
+    FaceWorldActorTowardPlayer_43D860(*action->ownerSession, action);
     auto* const previousText = payload->text1C;
     if (previousText != nullptr) {
         delete previousText;
@@ -95,14 +95,15 @@ void SetWorldActorChatBubble_442DC0(
 
 // 原函数：0x0051A6A0。
 void SetPlayerChatBubble_51A6A0(
+    session::ClientSession& session,
     const std::int32_t duration, const std::wstring_view text, const std::int32_t color,
     const std::int32_t font)
 {
-    cg::yobi::YobiAction* const action = cg::world::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const action = session.WorldScene().player->action;
     if (action == nullptr) {
         return;
     }
-    MarkPlayerChatActive();
+    MarkPlayerChatActive(session);
     auto* const payload = action->payload.mapActor;
     const std::uint64_t tick = platform::ReadTickCount64();
     payload->chatDeadline14 = tick + static_cast<std::uint64_t>(duration);
@@ -111,7 +112,7 @@ void SetPlayerChatBubble_51A6A0(
         delete previousText;
         payload->text1C = nullptr;
     }
-    AllocateActorChatText(payload, cg::world::gPlayerRuntimeSlots.action->nameC4.data(), text, color, font);
+    AllocateActorChatText(payload, session.WorldScene().player->action->nameC4.data(), text, color, font);
 }
 
 // 原函数：0x00442C00。
@@ -659,9 +660,9 @@ void RenderChara_521F20(session::ClientSession& session)
 namespace cg::world {
 
 // 原函数：0x0043D860。
-void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* const action)
+void FaceWorldActorTowardPlayer_43D860(session::ClientSession& session, cg::yobi::YobiAction* const action)
 {
-    cg::yobi::YobiAction* const player = cg::world::gPlayerRuntimeSlots.action;
+    cg::yobi::YobiAction* const player = session.WorldScene().player->action;
     if (player == nullptr || action == nullptr || gMapResourceMode_9DAD68 != 1) {
         return;
     }

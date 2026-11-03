@@ -149,8 +149,8 @@ static void WindowSkillResult_Release(WindowInstance& releasedWindow)
     const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences - 1);
     operations.skillCount = references;
     operations.statusIconReferences = skillReferences;
-    if (skillReferences == 0 && world::GetPlayerStatusIcon_51BEC0() == 13) {
-        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
+    if (skillReferences == 0 && world::GetPlayerStatusIcon_51BEC0(*releasedWindow.ownerSession) == 13) {
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(*releasedWindow.ownerSession, 0));
     }
     WindowRuntime_States(*releasedWindow.ownerSession)[WindowId_SkillResult].window->state |= 0x8000u;
 }
@@ -270,7 +270,7 @@ static std::int32_t WindowSkillResult_Update(WindowInstance& callbackWindow, con
         static_cast<void>(WindowSkillResult_RefreshResult(session, currentWindow));
     }
     const std::int32_t imageNo =
-        WindowSkillResult_ReadPreviewImage(character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo), 0);
+        WindowSkillResult_ReadPreviewImage(character_select::ResolveCharacterImageForVersion(callbackWindow.ownerSession->WorldScene().player->imageNo), 0);
     auto* const element3 = currentWindow->FindElementById(WindowSkillResultElementId::Element3);
     if (element3) {
         cg::yobi::SetYobiActionField2A8(
@@ -340,7 +340,7 @@ static std::int32_t WindowSkillResult_ButtonContinue(WindowInstance& callbackWin
         const std::int32_t skill = request.index;
         const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
             * world::gSkillsF1BAFC[skill].fpReduce / 100;
-        if ((world::gPlayerRuntimeSlots.fp < cost)) {
+        if ((callbackWindow.ownerSession->WorldScene().player->fp < cost)) {
             graphic->imageNo = 0x3BA32;
             if ((state & MouseFlag_LDownEvent) != 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));

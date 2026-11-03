@@ -2263,7 +2263,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
                 }
             }
         }
-        if (auto* const element5 = activeWindow->FindElementById(WindowStallElementId::Element5); element5) element5->data.text->text = world::GetPlayerDisplayText(1);
+        if (auto* const element5 = activeWindow->FindElementById(WindowStallElementId::Element5); element5) element5->data.text->text = world::GetPlayerDisplayText(*callbackWindow.ownerSession, 1);
         if (auto* const element8 = activeWindow->FindElementById(WindowStallElementId::Element8); element8) element8->visible = 0;
         if (callbackWindow.ownerSession->UiFrame().inputState.currentContext == &inputs.stallDescription
             && gOwnStallOpenForBusiness_D67BE0 == 0 && gStallOwn58111C != 0) {
@@ -2385,7 +2385,7 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
         }
         gStallHover581120 = -1;
     }
-    cg::text::FormatTo(gStallMoneyText57B440, L"{}", world::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(gStallMoneyText57B440, L"{}", callbackWindow.ownerSession->WorldScene().player->valueFC);
     return 1;
 }
 
@@ -2479,7 +2479,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
             auto* const element10 = currentWindow->FindElementById(WindowStallElementId::Element10);
             if (element10) {
                 auto* const data = element10->data.animation;
-                cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
+                cg::yobi::YobiAction* const source = callbackWindow.ownerSession->WorldScene().player->action;
                 cg::yobi::YobiAction* const target = data->action;
                 const std::int32_t value = cg::yobi::GetYobiActionField2A8(source);
                 cg::yobi::SetYobiActionField2A8(target, value);
@@ -2489,7 +2489,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
             auto* const element10 = currentWindow->FindElementById(WindowStallElementId::Element10);
             if (element10) {
                 auto* const data = element10->data.animation;
-                cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
+                cg::yobi::YobiAction* const source = callbackWindow.ownerSession->WorldScene().player->action;
                 cg::yobi::YobiAction* const target = data->action;
                 const std::int32_t value = cg::yobi::GetYobiActionField2B0(source);
                 cg::yobi::SetYobiActionField2B0(target, value);
@@ -2499,7 +2499,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
             auto* const element10 = currentWindow->FindElementById(WindowStallElementId::Element10);
             if (element10) {
                 auto* const data = element10->data.animation;
-                cg::yobi::YobiAction* const source = world::gPlayerRuntimeSlots.action;
+                cg::yobi::YobiAction* const source = callbackWindow.ownerSession->WorldScene().player->action;
                 cg::yobi::YobiAction* const target = data->action;
                 const std::int32_t value = cg::yobi::GetYobiActionField2B8(source);
                 cg::yobi::SetYobiActionField2B8(target, value);
@@ -2914,7 +2914,7 @@ static void WindowStall_ReceiveOpenResult(session::ClientSession& session, const
         }
         gStallMessageC8A978 = message;
         WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;
-        world::ClearPlayerActionFlags(0x1000u);
+        world::ClearPlayerActionFlags(session, 0x1000u);
         gStallMessageModeD67C34 = 1;
         gStallMessageValueD67C38 = 0;
         if (window != nullptr) {
@@ -2925,10 +2925,10 @@ static void WindowStall_ReceiveOpenResult(session::ClientSession& session, const
         return;
     }
     std::wstring name = L"无名店铺";
-    world::SetPlayerActionFlags(0x1000u);
+    world::SetPlayerActionFlags(session, 0x1000u);
     if (!gStallNameD67BE4.empty()) { name = gStallNameD67BE4; }
     WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;
-    world::gPlayerRuntimeSlots.text15BB8 = name;
+    session.WorldScene().player->text15BB8 = name;
     if (window != nullptr) {
         if (auto* const drawTooltipOverlayElement = window ? window->FindElementById(WindowStallElementId::DrawTooltipOverlay) : nullptr; drawTooltipOverlayElement) drawTooltipOverlayElement->visible = 0;
     }
@@ -2941,7 +2941,7 @@ static void WindowStall_ReceiveCloseResult(session::ClientSession& session, cons
     if (result != 0) {
         gStallMessageC8A978 = L"收摊失败";
     }
-    world::ClearPlayerActionFlags(0x1000u);
+    world::ClearPlayerActionFlags(session, 0x1000u);
     gStallPendingD67C31 = 0;
     gOwnStallOpenForBusiness_D67BE0 = 0;
     WindowInstance* const window = WindowRuntime_States(session)[WindowId_OwnStall].window;

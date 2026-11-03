@@ -853,7 +853,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         if (states[selected] == 3) {
             states[selected] = 0;
             static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));
-        } else if ((world::ReadPlayerActionFlags() & 0x80u) == 0
+        } else if ((world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             states[petIndex(row)] = 3;
             static_cast<void>(WindowPetList_SubmitStates(*callbackWindow.ownerSession));

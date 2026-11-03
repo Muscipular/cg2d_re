@@ -2,11 +2,13 @@
 
 #include "cg/world/PlayerSlots.hpp"
 #include "cg/world/PlayerItemRecord.hpp"
+#include "cg/world/PlayerRuntimeSlots.hpp"
 
 #include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -273,6 +275,7 @@ struct NpcDialogRuntimeState {
 
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
+    std::unique_ptr<PlayerRuntimeSlots> player; // 原FDA700，中央初始化前为空，独占玩家主记录。
     DisconnectDialogState disconnectDialog {};
     LogoutSceneState logout {};
     BattleSceneState battle {};

@@ -27,7 +27,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
 void HandleBattleStreamReply_50D3C0(cg::network::CgConnection& networkConnection, const char* text); // C/P/A/第二字节U/M完整分派。
 // 原函数：0x0050D500。
 void HandleBattleResultsReply_50D500(cg::network::CgConnection& networkConnection, const char* payload); // 三阶段战斗结果生产，socket未用。
-void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
+void ConsumeBattlePlayerTimer(session::ClientSession& session, std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。
 extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全局：0x0054D93C。
 extern std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980; // 原全局：0x0059E980。 含20/21特殊槽的唯一非拥有对象表。

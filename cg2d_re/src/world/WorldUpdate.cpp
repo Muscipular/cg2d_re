@@ -160,7 +160,7 @@ void Update(session::ClientSession& session)
     case 11: {
         const std::int32_t sceneState = gCurrentSceneState;
         if (sceneState == 0) {
-            detail::DestroyPlayerMapPresence_519D50();
+            detail::DestroyPlayerMapPresence_519D50(session);
             detail::ResetWorldObjectTable_446470();
             cg::yobi::YobiClearUp_404D30(session);
             ui::WindowRuntime_ProcessScene(session);
@@ -182,7 +182,7 @@ void Update(session::ClientSession& session)
             goto sceneSixTail;
         }
         cg::login::detail::SaveCurrentClientPreferences_520160(session.Connection());
-        detail::DestroyPlayerMapPresence_519D50();
+        detail::DestroyPlayerMapPresence_519D50(session);
         detail::ResetWorldObjectTable_446470();
         session.Connection().Shutdown();
         session.Connection().DisconnectState() = 0;

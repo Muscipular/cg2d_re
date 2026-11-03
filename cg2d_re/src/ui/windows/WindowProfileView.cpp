@@ -235,7 +235,7 @@ static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow,
         if (auto* const buttonMailElement = currentWindow->FindElementById(WindowProfileViewElementId::ButtonMail); buttonMailElement) buttonMailElement->data.graphic->imageNo = 244251;
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
         if (money >= world::detail::ReadCategoryValue105FA20()) {
             const auto& profile = world::detail::gViewedProfile105ECE0;
             gMiniMailCompose105F508.target = profile.value00;

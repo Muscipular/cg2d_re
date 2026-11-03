@@ -775,13 +775,13 @@ static void WindowPetSkillChoice_RefreshLearn(session::ClientSession& session, W
             ++count;
         }
     }
-    const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
+    const std::int32_t totalSlots = session.WorldScene().player->value16C;
     choice.firstCount = count;
     auto* const element62 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr;
     if (element62) {
         cg::text::FormatTo(element62->data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
     }
-    std::int32_t freeSlots = world::gPlayerRuntimeSlots.value16C - usedSlots;
+    std::int32_t freeSlots = session.WorldScene().player->value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
     }
@@ -852,13 +852,13 @@ static void WindowPetSkillChoice_RefreshForget(session::ClientSession& session, 
             ++count;
         }
     }
-    const std::int32_t totalSlots = world::gPlayerRuntimeSlots.value16C;
+    const std::int32_t totalSlots = session.WorldScene().player->value16C;
     choice.firstCount = count;
     auto* const element62 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element6) : nullptr;
     if (element62) {
         cg::text::FormatTo(element62->data.text->text, L"{:2}/{:2}", usedSlots, totalSlots);
     }
-    std::int32_t freeSlots = world::gPlayerRuntimeSlots.value16C - usedSlots;
+    std::int32_t freeSlots = session.WorldScene().player->value16C - usedSlots;
     if (freeSlots < 0) {
         freeSlots = 0;
     }
@@ -1193,7 +1193,7 @@ static void WindowPetSkillChoice_RefreshPetRows(session::ClientSession& session,
             if (auto* const indexedElement7 = window ? window->FindElementById(NativeElementKey(row + 79)) : nullptr; indexedElement7) indexedElement7->data.text->text = record.name;
             cg::text::FormatTo(choice.skillValueTexts[row], L"{:5}", record.value04);
             cg::text::FormatTo(choice.skillPriceTexts[row], L"{:10}", record.price);
-            const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t money = session.WorldScene().player->valueFC;
             const std::int32_t price = record.price;
             auto* const indexedElement8 = window ? window->FindElementById(NativeElementKey(row + 89)) : nullptr;
             if (indexedElement8) {
@@ -1309,7 +1309,7 @@ static std::int32_t WindowPetSkillChoice_Update(WindowInstance& callbackWindow, 
     if (dialogType != -2 && choice.dialogType != dialogType) {
         currentWindow->state |= 0x8000u;
     }
-    cg::text::FormatTo(choice.moneyText, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(choice.moneyText, L"{:10}", callbackWindow.ownerSession->WorldScene().player->valueFC);
     if (choice.message >= 0) {
         choice.message = -1;
     }
@@ -2227,7 +2227,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
-    const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+    const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
     if (money < record.price) {
         choice.message = -2;
         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2362,7 +2362,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     width = cg::render::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
-    cg::text::FormatTo(buffer, L"所持金　 {:7}金币" /* 原常量参考：0x005882D4。 */, world::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(buffer, L"所持金　 {:7}金币" /* 原常量参考：0x005882D4。 */, callbackWindow.ownerSession->WorldScene().player->valueFC);
     static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer, 0, 0));
     cg::text::FormatTo(buffer, L"购入金额 {:7}金币" /* 原常量参考：0x005882C0。 */, choice.skills[choice.selected].price);
     static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer, 0, 0));

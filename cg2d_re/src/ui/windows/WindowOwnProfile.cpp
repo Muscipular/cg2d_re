@@ -217,7 +217,7 @@ static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
     auto& current = world::detail::gCurrentProfile10738E8;
     auto* portraitElementsWindow = currentWindow;
-    const std::int32_t portrait = world::gPlayerRuntimeSlots.value17C;
+    const std::int32_t portrait = callbackWindow->ownerSession->WorldScene().player->value17C;
     if (auto* const element19 = portraitElementsWindow->FindElementById(WindowOwnProfileElementId::Element19); element19) element19->data.graphic->imageNo = portrait;
     const std::int32_t publicFlag = world::detail::SelectedProfileValue04();
     auto* const handleButtonsElement = currentWindow->FindElementById(WindowOwnProfileElementId::HandleButtons);
@@ -229,11 +229,11 @@ static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
     auto* const element1 = currentWindow->FindElementById(WindowOwnProfileElementId::Element1);
     if (element1) {
         auto* const nameData = element1->data.text;
-        const wchar_t* const name = world::GetPlayerDisplayText(1);
+        const wchar_t* const name = world::GetPlayerDisplayText(*callbackWindow->ownerSession, 1);
         nameData->text = name;
     }
     std::wstring number;
-    cg::text::FormatTo(number, L"{:3}", world::gPlayerRuntimeSlots.level);
+    cg::text::FormatTo(number, L"{:3}", callbackWindow->ownerSession->WorldScene().player->level);
     auto* const element2 = currentWindow->FindElementById(WindowOwnProfileElementId::Element2);
     if (element2) {
         auto* const levelData = element2->data.text;
@@ -241,7 +241,7 @@ static void WindowOwnProfile_Refresh(WindowInstance* callbackWindow)
     }
 
     auto* titleElementsWindow = currentWindow;
-    const wchar_t* const title = world::GetPlayerDisplayText(2);
+    const wchar_t* const title = world::GetPlayerDisplayText(*callbackWindow->ownerSession, 2);
     auto* const element3 = titleElementsWindow->FindElementById(WindowOwnProfileElementId::Element3);
     if (element3) {
         auto* const titleData = element3->data.text;

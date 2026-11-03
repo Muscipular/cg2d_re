@@ -435,11 +435,11 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
     std::uint16_t state;
     std::int32_t value;
     bool drawBars = false;
-    YobiAction* const player = world::gPlayerRuntimeSlots.action;
+    YobiAction* const player = action->ownerSession->WorldScene().player->action;
     if ((player != nullptr && player == action) || stateIndex == -1) {
-        flags = static_cast<std::uint16_t>(world::ReadPlayerFlags18A());
-        state = world::ReadPlayerActionFlags();
-        value = world::gPlayerRuntimeSlots.value190;
+        flags = static_cast<std::uint16_t>(world::ReadPlayerFlags18A(*action->ownerSession));
+        state = world::ReadPlayerActionFlags(*action->ownerSession);
+        value = action->ownerSession->WorldScene().player->value190;
         if ((action->flags & YobiActionFlag_FollowPetOverlay) != 0) {
             flags &= MapActorDisplayMask_FollowPetStatusImages;
             state = static_cast<std::uint16_t>(
@@ -457,7 +457,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                 }
             }
         } else {
-            world::CopyPlayerBarValues(
+            world::CopyPlayerBarValues(*action->ownerSession,
                 &action->readiness, &action->maxHp, &action->barValue1B0, &action->barMaximum1C0);
             drawBars = true;
         }
@@ -603,10 +603,10 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
     if (nameMode > 0) {
         const wchar_t* text = nullptr;
         std::int8_t color = 0;
-        if (action == world::gPlayerRuntimeSlots.action) {
+        if (action == action->ownerSession->WorldScene().player->action) {
             if (nameMode <= ActorOverheadTextSlot_Text31C) {
                 constexpr std::array<std::int8_t, 6> colors {1, 4, 5, 2, 0, 0};
-                text = world::GetPlayerDisplayText(nameMode);
+                text = world::GetPlayerDisplayText(*action->ownerSession, nameMode);
                 color = colors[nameMode - 1];
             }
         } else {
@@ -668,9 +668,9 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), descriptor, 0);
     };
     const auto clearActionState = [&](const std::uint16_t bits) {
-        YobiAction* const currentPlayer = world::gPlayerRuntimeSlots.action;
+        YobiAction* const currentPlayer = action->ownerSession->WorldScene().player->action;
         if ((currentPlayer != nullptr && currentPlayer == action) || stateIndex == -1) {
-            world::ClearPlayerActionFlags(bits);
+            world::ClearPlayerActionFlags(*action->ownerSession, bits);
         } else {
             world::detail::gWorldObjects[stateIndex].flags120 &=
                 static_cast<std::uint16_t>(~bits);
@@ -933,10 +933,10 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
         if ((flags & YobiActionFlag_LocalPlayer) != 0) {
             interaction.hoverObjectValue = action->hoverTextColor1D8;
             YobiAction* const fixed = graphic->reference.action;
-            const std::int32_t maxFp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxFp);
-            const std::int32_t fp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.fp);
-            const std::int32_t maxHp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.maxHp);
-            const std::int32_t hp = static_cast<std::int32_t>(cg::world::gPlayerRuntimeSlots.hp);
+            const std::int32_t maxFp = static_cast<std::int32_t>(action->ownerSession->WorldScene().player->maxFp);
+            const std::int32_t fp = static_cast<std::int32_t>(action->ownerSession->WorldScene().player->fp);
+            const std::int32_t maxHp = static_cast<std::int32_t>(action->ownerSession->WorldScene().player->maxHp);
+            const std::int32_t hp = static_cast<std::int32_t>(action->ownerSession->WorldScene().player->hp);
             cg::text::FormatTo(action->ownerSession->UiFrame().hoverText, kFull58AD04, fixed->field1D0, fixed->nameC4.c_str(), hp, maxHp, fp, maxFp);
         } else if ((flags & YobiActionFlag_FollowPetOverlay) != 0) {
             interaction.hoverObjectValue = action->hoverTextColor1D8;

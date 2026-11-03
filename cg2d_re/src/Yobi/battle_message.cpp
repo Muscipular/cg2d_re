@@ -1305,7 +1305,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         const std::int32_t seconds = TakeBattleMInteger_438F70(scene);
         if (gBattleMCasterPosition5AAA64 == cg::world::gBattleCurrentPosition5ABCA4) {
-            cg::world::ConsumeBattlePlayerTimer(seconds);
+            cg::world::ConsumeBattlePlayerTimer(*scene->ownerSession, seconds);
         }
     }
     --payload->remainingMessages5C;
@@ -1335,7 +1335,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
             gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             const std::int32_t seconds = TakeBattleMInteger_438F70(scene);
             if (gBattleMCasterPosition5AAA64 == cg::world::gBattleCurrentPosition5ABCA4) {
-                cg::world::ConsumeBattlePlayerTimer(seconds);
+                cg::world::ConsumeBattlePlayerTimer(*scene->ownerSession, seconds);
             }
         }
     }
@@ -3757,7 +3757,7 @@ std::int32_t ConsumeBattleExitMessages_43BAA0(session::ClientSession& session)
                 detail::TakeBattleMInteger_438F70(battle.sceneAction));
             const std::int32_t seconds = detail::TakeBattleMInteger_438F70(battle.sceneAction);
             if (position == cg::world::gBattleCurrentPosition5ABCA4) {
-                cg::world::ConsumeBattlePlayerTimer(seconds);
+                cg::world::ConsumeBattlePlayerTimer(session, seconds);
             }
         }
     }

@@ -630,7 +630,7 @@ updateSelector:
     WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10 = 0xFFFFFFFFu;
     if (quantityWindow != nullptr
         && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value20 == 14 && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value24 == 1) {
-        const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
@@ -670,7 +670,7 @@ static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, const s
             x, y, L"", 0, text, 31, 4, nullptr, 0));
     }
     const std::int32_t mappedImage =
-        character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
+        character_select::ResolveCharacterImageForVersion(callbackWindow.ownerSession->WorldScene().player->imageNo);
     auto* const element6 = currentWindow->FindElementById(WindowInventoryElementId::Element6);
     if (element6) {
         cg::yobi::SetYobiActionField2A8(
@@ -681,7 +681,7 @@ static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, const s
         cg::yobi::SetYobiActionField2B8(
             element62->data.animation->action, cg::yobi::YobiDirection_Down);
     }
-    const std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
+    const std::int32_t imageNo = callbackWindow.ownerSession->WorldScene().player->imageNo;
     if (imageNo >= 110350 && imageNo <= 110373) {
         auto* const element63 = currentWindow->FindElementById(WindowInventoryElementId::Element6);
         if (element63) {
@@ -723,7 +723,7 @@ static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, 
 // 原函数：0x00488CF0。
 static void WindowInventory_DropMoney(session::ClientSession& session, const std::int32_t amount)
 {
-    if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
+    if ((world::ReadPlayerActionFlagsByte(session) & 0x80u) == 0
         && world::IsObservationSceneTransitionActive_440B50() == 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
@@ -751,7 +751,7 @@ static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, 
                 && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
-                const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
+                const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
                 static_cast<void>(cg::yobi::CreateQuantityWindowOpeningAnimation_48AC60(
                     *callbackWindow.ownerSession, 14, index, 244310, amount, amount, 0, WindowInventory_DropMoney, 1, 0, 0));
             }
@@ -759,7 +759,7 @@ static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, 
         }
         if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].window != nullptr && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value20 == 14
             && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
-            const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
         }
@@ -780,7 +780,7 @@ static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, 
 static std::int32_t WindowInventory_RefreshMoney(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    cg::text::FormatTo(inventory.moneyText, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(inventory.moneyText, L"{:10}", callbackWindow.ownerSession->WorldScene().player->valueFC);
     return 0;
 }
 
@@ -788,7 +788,7 @@ static std::int32_t WindowInventory_RefreshMoney(WindowInstance& callbackWindow,
 static std::int32_t WindowInventory_RefreshExtraValue(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    cg::text::FormatTo(inventory.valueText, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
+    cg::text::FormatTo(inventory.valueText, L"{:10}", callbackWindow.ownerSession->WorldScene().player->value15BCC);
     return 0;
 }
 
@@ -891,7 +891,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
                     static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
                     static_cast<void>(WindowDrag_Start(*callbackWindow.ownerSession, 1, 0, nullptr));
                 } else {
-                    if ((world::ReadPlayerActionFlags() & 0x80u) == 0
+                    if ((world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) == 0
                         && world::IsObservationSceneTransitionActive_440B50() == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection);
                         inventory.currentItem = hovered + 8;
@@ -1139,7 +1139,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
                     static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
                     static_cast<void>(WindowDrag_Start(*callbackWindow.ownerSession, 1, 0, nullptr));
                 } else {
-                    if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
+                    if ((world::ReadPlayerActionFlagsByte(*callbackWindow.ownerSession) & 0x80u) == 0
                         && world::IsObservationSceneTransitionActive_440B50() == 0) {
                         const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection);
                         inventory.currentItem = hovered;

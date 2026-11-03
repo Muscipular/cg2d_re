@@ -158,7 +158,7 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
         }
         business.choicesCC4CA0.value00 = 0;
     }
-    if ((world::ReadPlayerActionFlags() & 0x80u) != 0
+    if ((world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) != 0
         || world::IsObservationSceneTransitionActive_440B50() != 0) {
         for (auto& pair : business.choicesCC4CA0.pairs18) {
             pair[1] = 0;

@@ -525,7 +525,7 @@ static void WindowCrystalShop_RefreshAmount(WindowInstance& callbackWindow)
     crystal.total = total;
     cg::text::FormatTo(crystal.totalText, L"{:10}", total);
     const std::int32_t currentTotal = crystal.total;
-    const std::int32_t owned = world::gPlayerRuntimeSlots.value15BCC;
+    const std::int32_t owned = callbackWindow.ownerSession->WorldScene().player->value15BCC;
     auto* const element7 = currentWindow->FindElementById(WindowCrystalShopElementId::Element7);
     if (element7) {
         auto* const number = element7->data.number;
@@ -678,7 +678,7 @@ static std::int32_t WindowCrystalShop_Update(WindowInstance& callbackWindow, con
             }
         }
     }
-    cg::text::FormatTo(crystal.balanceText, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
+    cg::text::FormatTo(crystal.balanceText, L"{:10}", callbackWindow.ownerSession->WorldScene().player->value15BCC);
     if (crystal.message >= 0) {
         crystal.message = -1;
     }
@@ -784,7 +784,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t balance = world::gPlayerRuntimeSlots.value15BCC;
+        const std::int32_t balance = callbackWindow.ownerSession->WorldScene().player->value15BCC;
         if (balance < crystal.total) {
             crystal.message = -2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -819,7 +819,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
                 }
                 WindowConfirmationAmount& left = crystal.confirmAmounts[0];
                 WindowConfirmationAmount& right = crystal.confirmAmounts[1];
-                const std::int32_t currentBalance = world::gPlayerRuntimeSlots.value15BCC;
+                const std::int32_t currentBalance = callbackWindow.ownerSession->WorldScene().player->value15BCC;
                 left.y = 343;
                 right.y = 343;
                 const std::int32_t total = crystal.total;

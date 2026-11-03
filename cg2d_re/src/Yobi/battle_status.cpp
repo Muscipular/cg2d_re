@@ -801,7 +801,7 @@ void UpdateBattleAction166_411CB0(YobiAction* const action)
     const std::int32_t playerPosition = world::gBattleCurrentPosition5ABCA4;
     auto* const payload = action->payload.battleActor;
     if (payload->battlePosition18 == playerPosition) {
-        world::ConsumeBattlePlayerTimer(payload->queuedTargets1084[payload->queuedTargetIndex13A4]);
+        world::ConsumeBattlePlayerTimer(*action->ownerSession, payload->queuedTargets1084[payload->queuedTargetIndex13A4]);
     }
     const std::int32_t index = payload->queuedTargetIndex13A4;
     const std::int32_t y = action->y;

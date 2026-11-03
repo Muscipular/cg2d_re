@@ -35,7 +35,7 @@ std::int32_t HandleSystemChatReply_50CE10(cg::network::CgConnection& networkConn
 void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, std::int32_t objectIndex, const char* payload,
     std::int32_t color, std::int32_t font); // 聊天回复：原名字过滤、日志与头顶生产。
 // 原函数：0x0043D860。
-void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。
+void FaceWorldActorTowardPlayer_43D860(session::ClientSession& session, cg::yobi::YobiAction* action); // 指定地图模式下，类别1对象面向玩家。
 // 原函数：0x00449FA0。
 std::int32_t SaveChatInputHistoryEntry_449FA0(session::ClientSession& session, std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。
 
@@ -44,13 +44,14 @@ namespace detail {
 std::int32_t IncrementChatRecordCount_4A76E0(session::ClientSession& session);
 // 原函数：0x00449DA0。
 void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session); // 原 [0x449DA0,0x449F9C)。
-void MarkPlayerChatActive() noexcept; // 51A6A0在固定载荷前置flags18A的2000。
+void MarkPlayerChatActive(session::ClientSession& session) noexcept; // 51A6A0在固定载荷前置flags18A的2000。
 // 原函数：0x00442DC0。
 void SetWorldActorChatBubble_442DC0(
     cg::yobi::YobiAction* action, std::int32_t duration, std::wstring_view text,
     std::int32_t color, std::int32_t font);
 // 原函数：0x0051A6A0。
 void SetPlayerChatBubble_51A6A0(
+    session::ClientSession& session,
     std::int32_t duration, std::wstring_view text, std::int32_t color,
     std::int32_t font); // 同源玩家头顶文本生产。
 // 原函数：0x0044A090。

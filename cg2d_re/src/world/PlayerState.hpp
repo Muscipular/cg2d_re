@@ -15,6 +15,7 @@ namespace cg::session { class ClientSession; }
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/world/PlayerItemRecord.hpp"
+#include "cg/world/PlayerRuntimeSlots.hpp"
 #include "cg/world/PlayerSlots.hpp"
 #include "PetTechniqueRecord.hpp"
 
@@ -111,64 +112,6 @@ void HandlePlayerSkillsReply_509EB0(cg::network::CgConnection& networkConnection
 void HandlePlayerSkillTechniquesReply_50A120(cg::network::CgConnection& networkConnection, std::int32_t skillIndex, const char* payload); // 清技术区后按六字段生产。
 // 原函数：0x0050C580。
 void HandleSkillRecipesReply_50C580(cg::network::CgConnection& networkConnection, std::int32_t index, const char* payload); // 固定56行、每行五材料。
-
-// 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
-struct PlayerRuntimeSlots {
-    // 原0x005184A0：成员正序构造及失败前缀清理由C++承接。
-    PlayerRuntimeSlots() = default;
-    // 原0x00518410：成员自动逆序析构。
-    ~PlayerRuntimeSlots() = default;
-    void ClearRaw(std::array<PlayerItemRecord, 28>& items) noexcept; // 原序清理所属会话物品，不消费六次构造RNG。
-    std::uint16_t value00; // 原成员偏移：+0x00。 原FDA700；509BA0仅写低W16。
-    std::int32_t level; // 原 FDA704。
-    std::int32_t value08; // 原成员偏移：+0x08。 原FDA708。
-    std::int32_t timerRemaining0C; // 原成员偏移：+0x0C。 原FDA70C；458F40按帧扣减的S32。
-    std::int32_t timerMode10; // 原成员偏移：+0x10。 原FDA710；保留完整模式，非零才扣减。
-    std::uint64_t timerTick14; // 原成员偏移：+0x14。 原FDA714；50C7A0与458F40同源。
-    platform::LegacyCryptInt hp; // 原 FDA718；与 action +170 的载荷同步。
-    platform::LegacyCryptInt maxHp; // 原 FDA728。
-    platform::LegacyCryptInt fp; // 原 FDA738；与宠物数据独立。
-    platform::LegacyCryptInt maxFp; // 原 FDA748。
-    platform::LegacyCryptInt value58; // 原成员偏移：+0x58。 原 FDA758；5184A0第五构造对象。
-    platform::LegacyCryptInt value68; // 原成员偏移：+0x68。 原 FDA768；5184A0第六构造对象。
-    std::array<std::int32_t, 14> values78; // 原成员偏移：+0x78。 原FDA778..FDA7AC，509650两段数值。
-    std::array<std::int32_t, 2> valuesB0; // 原成员偏移：+0xB0。 原FDA7B0/FDA7B4，509BA0尾部两值。
-    std::int32_t valueB8; // 原成员偏移：+0xB8。 原FDA7B8。
-    std::array<std::int32_t, 6> valuesBC; // 原成员偏移：+0xBC。 原FDA7BC..FDA7D0。
-    std::array<std::int32_t, 4> valuesD4; // 原成员偏移：+0xD4。 原FDA7D4..FDA7E0。
-    std::array<std::int32_t, 4> valuesE4; // 原成员偏移：+0xE4。 原FDA7E4..FDA7F0。
-    std::int32_t valueF4; // 原成员偏移：+0xF4。 原FDA7F4。
-    std::int32_t valueF8; // 原成员偏移：+0xF8。 原FDA7F8。
-    std::int32_t valueFC; // 原成员偏移：+0xFC。 原FDA7FC；与末尾15BCC共用回复门禁。
-    std::int32_t titleIndex100; // 原成员偏移：+0x100。 原FDA800，直接索引FF0508原表。
-    std::int32_t value104; // 原成员偏移：+0x104。 原FDA804。
-    std::wstring name; // 原 FDA808；内部玩家名称。
-    std::wstring ownTitle; // 原 FDA819。
-    std::wstring text12A; // 原成员偏移：+0x12A。 原 FDA82A。
-    std::wstring text14B; // 原成员偏移：+0x14B。 原 FDA84B。
-    std::int32_t value16C; // 原成员偏移：+0x16C。 原FDA86C。
-    std::int32_t walkSpeed; // 原 FDA870；独立于通用 action 的初始步速。
-    std::int32_t value174; // 原成员偏移：+0x174。 原 FDA874；46A700仅在到达时按S32递减。
-    std::int32_t imageNo; // 原 FDA878，不是 FDA87C。
-    std::int32_t value17C; // 原成员偏移：+0x17C。 原FDA87C，不与imageNo合并。
-    std::uint32_t objectIndex; // 原0x00FDA880；玩家对象索引。
-    std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
-    std::uint16_t value188; // 原成员偏移：+0x188。 原 FDA888；519A80 符号扩展读取。
-    std::uint16_t flags18A; // 原成员偏移：+0x18A。 原FDA88A W16；与flags18C低W16组成跨字段W32观察。
-    std::uint32_t flags18C; // 原成员偏移：+0x18C。 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
-    std::int32_t value190; // 原成员偏移：+0x190。 原 FDA890；51BDD0/51BE50 写入的完整动作值。
-    std::uint16_t options194; // 原成员偏移：+0x194。 原FDA894低W16；选项切换/回复与聊天门禁共用。
-    std::uint16_t value1A0; // 原成员偏移：+0x1A0。 原FDA8A0；50BFC0写入低W16。
-    cg::yobi::YobiAction* action;
-    std::wstring text15BB8; // 原成员偏移：+0x15BB8。 原 FF02B8，不紧接新端的指针字节布局。
-    std::int32_t value15BCC; // 原成员偏移：+0x15BCC。 原FF02CC；509650尾字段。
-    std::array<std::int32_t, 3> values15BD0; // 原成员偏移：+0x15BD0。 原FF02D0/FF02D4/FF02D8。
-};
-
-static_assert(offsetof(PlayerRuntimeSlots, flags18C)
-    == offsetof(PlayerRuntimeSlots, flags18A) + sizeof(std::uint16_t));
-
-extern PlayerRuntimeSlots gPlayerRuntimeSlots; // 原全局：0x00FDA700；中央有序构造。
 
 // 原函数：0x0050BFD0。
 void HandleFullPlayerInventoryReply_50BFD0(cg::network::CgConnection& networkConnection, const char* payload); // 固定28槽全量回复。
@@ -303,47 +246,48 @@ std::uint32_t HandlePlayerOptionsReply_50BFA0(cg::network::CgConnection& network
 // 原函数：0x0050BFC0。
 std::uint16_t HandlePlayerBattleRowReply_50BFC0(cg::network::CgConnection& networkConnection, std::int32_t value); // 玩家+1A0低W16写入；原返回仅定义AX。
 // 原函数：0x00472F40。
-network::SendResult ToggleDuelPermission_472F40(); // 同源玩家选项切换04后发送。
-std::uint8_t ReadPlayerOptions194LowByte() noexcept; // 原FDA894低U8，状态栏提示与图号用同一快照。
+network::SendResult ToggleDuelPermission_472F40(session::ClientSession& session); // 同源玩家选项切换04后发送。
+std::uint8_t ReadPlayerOptions194LowByte(session::ClientSession& session) noexcept; // 原FDA894低U8，状态栏提示与图号用同一快照。
 // 原函数：0x00472F70。
-network::SendResult TogglePartyChat_472F70(); // 切换08后发送。
+network::SendResult TogglePartyChat_472F70(session::ClientSession& session); // 切换08后发送。
 // 原函数：0x00472FA0。
-network::SendResult TogglePartyJoinPermission_472FA0(); // 切换01后发送。
+network::SendResult TogglePartyJoinPermission_472FA0(session::ClientSession& session); // 切换01后发送。
 // 原函数：0x00472FD0。
-network::SendResult ToggleContactCardExchangePermission_472FD0(); // 切换10后发送。
+network::SendResult ToggleContactCardExchangePermission_472FD0(session::ClientSession& session); // 切换10后发送。
 // 原函数：0x00473000。
-network::SendResult ToggleTradePermission_473000(); // 切换20后发送。
+network::SendResult ToggleTradePermission_473000(session::ClientSession& session); // 切换20后发送。
 // 原函数：0x00473030。
-network::SendResult ToggleGuildInvitePermission_473030(); // 切换40后发送。
+network::SendResult ToggleGuildInvitePermission_473030(session::ClientSession& session); // 切换40后发送。
 // YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
-std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
-std::uint8_t ReadPlayerActionFlagsByte() noexcept; // 原FDA88E单次W8；读取flags18C第2字节，保留既有W16接口。
-std::uint16_t ReadPlayerActionFlags() noexcept; // 原FDA88E，与flags18C高W16同源。
-void ClearPlayerActionFlags(std::uint16_t mask) noexcept; // 只清FDA88E，不改FDA88C低W16。
-void SetPlayerActionFlags(std::uint16_t mask) noexcept; // 同源FDA88E置位，保留其他字节。
+std::uint32_t ReadPlayerFlags18A(session::ClientSession& session) noexcept; // 原FDA88A跨W32读取。
+std::uint8_t ReadPlayerActionFlagsByte(session::ClientSession& session) noexcept; // 原FDA88E单次W8；读取flags18C第2字节，保留既有W16接口。
+std::uint16_t ReadPlayerActionFlags(session::ClientSession& session) noexcept; // 原FDA88E，与flags18C高W16同源。
+void ClearPlayerActionFlags(session::ClientSession& session, std::uint16_t mask) noexcept; // 只清FDA88E，不改FDA88C低W16。
+void SetPlayerActionFlags(session::ClientSession& session, std::uint16_t mask) noexcept; // 同源FDA88E置位，保留其他字节。
 void CopyPlayerBarValues(
+    session::ClientSession& session,
     platform::LegacyCryptInt* hp, platform::LegacyCryptInt* maxHp,
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
 const wchar_t* GetTitleText(std::int32_t index) noexcept; // 合法索引读取称号表；未装备／无效索引返回空文本。
-const wchar_t* GetPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6宽文本，只读借用。
+const wchar_t* GetPlayerDisplayText(session::ClientSession& session, std::int16_t mode) noexcept; // 模式1..6宽文本，只读借用。
 // 原函数：0x00504B10。
 std::int32_t FindAttributeAllocationHintTarget_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
 // 原函数：0x00504B60。
 std::int32_t FindFirstInjuredPet_504B60(); // G04：五S16配对中首个used且伤势>0的宠物原编号，无则-1。
-std::int16_t ReadPlayerTribe() noexcept; // 原FDA700，窗口7按S16读取。
+std::int16_t ReadPlayerTribe(session::ClientSession& session) noexcept; // 原FDA700，窗口7按S16读取。
 cg::yobi::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
 std::uint32_t ReadPetMapObjectIndex(std::int16_t index) noexcept;
 // 原函数：0x00519EC0。
 std::uint32_t SetPlayerMapCoordinates_519EC0(std::int32_t x, std::int32_t y); // 透传468330。
 // 原函数：0x0051BEE0。
-void SuspendPlayerForObservation_51BEE0(); // 观察处理置FDA88E的0x80，复用flags18C高W16。
+void SuspendPlayerForObservation_51BEE0(session::ClientSession& session); // 观察处理置FDA88E的0x80，复用flags18C高W16。
 // 原函数：0x0051C0D0。
 std::int32_t ResolveRidingCharacterImage_51C0D0(std::int32_t imageNo); // 原骑乘图号映射，未命中原值返回。
 // 原函数：0x0051BEC0。
-std::int32_t GetPlayerStatusIcon_51BEC0(); // 原 51BEC0：按动作 bit1 返回同一动作值或0。
+std::int32_t GetPlayerStatusIcon_51BEC0(session::ClientSession& session); // 原 51BEC0：按动作 bit1 返回同一动作值或0。
 // 原函数：0x0051BE50。
-std::int8_t RequestPlayerStatusIcon_51BE50(std::int32_t requested); // 原 51BE50：去重、klF 发送及低 S8 返回。
+std::int8_t RequestPlayerStatusIcon_51BE50(session::ClientSession& session, std::int32_t requested); // 原 51BE50：去重、klF 发送及低 S8 返回。
 
 namespace detail {
 // 原函数：0x00504F10。
@@ -385,19 +329,20 @@ std::int32_t CompareTitleRecordsById_5198F0(const void* left, const void* right)
 // 原函数：0x005199A0。
 void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
 // 原函数：0x0051A4B0。
-void CopyPlayerIdentityToMapAction_51A4B0(); // 玩家初始姓名/称号/等级/HP同步。
+void CopyPlayerIdentityToMapAction_51A4B0(session::ClientSession& session); // 玩家初始姓名/称号/等级/HP同步。
 // 原函数：0x0051A5E0。
-void MarkPlayerAsPartyMember_51A5E0(); // 玩家flags18A置200。
+void MarkPlayerAsPartyMember_51A5E0(session::ClientSession& session); // 玩家flags18A置200。
 // 原函数：0x0051A5F0。
-void ClearPlayerPartyMembership_51A5F0(); // 仅清玩家flags18A的200。
+void ClearPlayerPartyMembership_51A5F0(session::ClientSession& session); // 仅清玩家flags18A的200。
 // 原函数：0x0051B080。
-cg::yobi::YobiAction* ClearPartyMembershipState_51B080(); // 解散地图五槽；返回51A5B0的非拥有T*。
+cg::yobi::YobiAction* ClearPartyMembershipState_51B080(session::ClientSession& session); // 解散地图五槽；返回51A5B0的非拥有T*。
 // 原函数：0x0051B0F0。
 void DetachPartyMapActions_51B0F0(); // 仅清地图五槽的非拥有action，不释放或清占用。
 // 原函数：0x00519A80。
 void CreatePlayerMapPresence_519A80(session::ClientSession& session); // 原普通场景玩家创建/身份发布、HP复制与宠物地图槽匹配。
 // 原函数：0x0051A090。
 cg::yobi::YobiAction* SetPlayerMapIdentity_51A090(
+    session::ClientSession& session,
     std::wstring_view name, const std::array<std::wstring, 4>& titles, std::int32_t level,
     std::int32_t value188, std::int32_t flag40, std::int32_t flag80);
 // 协议与场景共用的队伍状态。
@@ -411,47 +356,48 @@ void CreateOrUpdatePlayerMapActor_519CD0(
     session::ClientSession& session, std::int32_t imageNo, std::int32_t x, std::int32_t y,
     std::int32_t direction); // 原 519CD0：创建并发布玩家，或更新已有玩家。
 // 原函数：0x00519E50。
-void SetPlayerMapAppearance_519E50(std::int32_t imageNo, std::int32_t direction);
+void SetPlayerMapAppearance_519E50(session::ClientSession& session, std::int32_t imageNo, std::int32_t direction);
 // 原函数：0x0051A040。
-std::int32_t SetPlayerFacingDirection_51A040(std::int32_t direction); // 同源方向发布，返回完整输入。
+std::int32_t SetPlayerFacingDirection_51A040(session::ClientSession& session, std::int32_t direction); // 同源方向发布，返回完整输入。
 // 原函数：0x0051A060。
-void SetPlayerAnimationState_51A060(std::int32_t characterAction); // 动作1不重启，其余动作请求重启。
+void SetPlayerAnimationState_51A060(session::ClientSession& session, std::int32_t characterAction); // 动作1不重启，其余动作请求重启。
 // 原函数：0x0051A840。
 void ApplyPlayerActionCommand_51A840(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t direction,
     std::int32_t characterAction, std::int32_t option1, std::int32_t option2,
     std::int32_t option3, std::int32_t option4); // 完整玩家动作回复分支。
 // 原函数：0x0051A600。
-void Sub_51A600(); // flags18A置0x4000。
+void Sub_51A600(session::ClientSession& session); // flags18A置0x4000。
 // 原函数：0x0051A610。
-void Sub_51A610(); // flags18A清0x4000。
+void Sub_51A610(session::ClientSession& session); // flags18A清0x4000。
 // 原函数：0x0051A620。
-void Sub_51A620(); // flags18A置0x8000。
+void Sub_51A620(session::ClientSession& session); // flags18A置0x8000。
 // 原函数：0x0051A630。
-void Sub_51A630(); // flags18A清0x8000。
+void Sub_51A630(session::ClientSession& session); // flags18A清0x8000。
 // 原函数：0x0051BDB0。
-void ShowPlayerPersistentStatusIcon_51BDB0(); // FDA88E置1，复用flags18C高W16。
+void ShowPlayerPersistentStatusIcon_51BDB0(session::ClientSession& session); // FDA88E置1，复用flags18C高W16。
 // 原函数：0x0051BDC0。
-void HidePlayerPersistentStatusIcon_51BDC0(); // FDA88E清1。
+void HidePlayerPersistentStatusIcon_51BDC0(session::ClientSession& session); // FDA88E清1。
 // 原函数：0x0051BE10。
-void ShowPlayerTimedStatusIcon_51BE10(); // FDA88E置0x24。
+void ShowPlayerTimedStatusIcon_51BE10(session::ClientSession& session); // FDA88E置0x24。
 // 原函数：0x0051BE20。
-void ShowPlayerPetPersistentStatusIcon_51BE20(); // FDA88E置8。
+void ShowPlayerPetPersistentStatusIcon_51BE20(session::ClientSession& session); // FDA88E置8。
 // 原函数：0x0051BE30。
-void HidePlayerPetPersistentStatusIcon_51BE30(); // FDA88E清8。
+void HidePlayerPetPersistentStatusIcon_51BE30(session::ClientSession& session); // FDA88E清8。
 // 原函数：0x0051BE40。
-void ShowPlayerPetTimedStatusIcon_51BE40(); // FDA88E置0x50。
+void ShowPlayerPetTimedStatusIcon_51BE40(session::ClientSession& session); // FDA88E置0x50。
 // 原函数：0x00519D50。
-std::int8_t DestroyPlayerMapPresence_519D50();                  // 原 0x519D50：附件清理、重读玩家标死与动作尾链，返回低 S8。
+std::int8_t DestroyPlayerMapPresence_519D50(session::ClientSession& session);                  // 原 0x519D50：附件清理、重读玩家标死与动作尾链，返回低 S8。
 // 519D50 尾链及 51A840 状态生产共用的玩家位槽，不复制 FDA88E 动作标志。
 // 原函数：0x0051A5A0。
-void MarkPlayerAsPartyLeader_51A5A0(); // 原 51A5A0：先置 FDA88A bit8，再只写 FDA88C 低 W8。
+void MarkPlayerAsPartyLeader_51A5A0(session::ClientSession& session); // 原 51A5A0：先置 FDA88A bit8，再只写 FDA88C 低 W8。
 // 原函数：0x0051A5B0。
-cg::yobi::YobiAction* ClearPlayerLeaderMarker_51A5B0(); // 原 51A5B0：条件清标志并返回入口借用指针。
+cg::yobi::YobiAction* ClearPlayerLeaderMarker_51A5B0(session::ClientSession& session); // 原 51A5B0：条件清标志并返回入口借用指针。
 // 原函数：0x0051BDD0。
-std::int32_t SetPlayerStatusIcon_51BDD0(std::int32_t value); // 原 51BDD0：发布动作值，透传输入。
+std::int32_t SetPlayerStatusIcon_51BDD0(session::ClientSession& session, std::int32_t value); // 原 51BDD0：发布动作值，透传输入。
 // 原函数：0x0051BDF0。
-void ClearPlayerStatusIcon_51BDF0(); // 原 51BDF0：清动作 bit1 后清动作值，不发送。
+void ClearPlayerStatusIcon_51BDF0(session::ClientSession& session); // 原 51BDF0：清动作 bit1 后清动作值，不发送。
 
 } // namespace detail
 

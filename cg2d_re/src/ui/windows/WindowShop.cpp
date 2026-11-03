@@ -1096,7 +1096,7 @@ static void WindowShop_RefreshBuyAmount(WindowInstance& callbackWindow)
     shop.total = total;
     cg::text::FormatTo(shop.totalText, L"{:10}", total);
     const std::int32_t currentTotal = shop.total;
-    const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+    const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
     auto* const element8 = currentWindow->FindElementById(WindowShopElementId::Element8);
     if (element8) {
         element8->data.number->color =
@@ -1669,10 +1669,10 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
             break;
         }
     }
-    cg::text::FormatTo(shop.moneyText, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(shop.moneyText, L"{:10}", callbackWindow.ownerSession->WorldScene().player->valueFC);
     if (materialState.shopMode == 0) {
         const std::int32_t total = shop.total;
-        const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
         auto* const element8 = currentWindow->FindElementById(WindowShopElementId::Element8);
         if (element8) {
             element8->data.number->color =
@@ -1805,7 +1805,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
         case 0:
         case 2: {
             if (mode == 0) {
-                const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+                const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
                 if (money < shop.total) {
                     shop.message = -2;
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1847,7 +1847,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
             WindowConfirmationAmount& left = shop.confirmationAmounts[0];
             WindowConfirmationAmount& right = shop.confirmationAmounts[1];
             if (mode == 0) {
-                const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+                const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
                 left.y = 343;
                 right.y = 343;
                 const std::int32_t total = shop.total;
@@ -1912,7 +1912,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
             for (; count < 20; ++count) {
                 shop.confirmationItems[count].visible = 0;
             }
-            const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
             WindowConfirmationAmount& left = shop.confirmationAmounts[0];
             WindowConfirmationAmount& right = shop.confirmationAmounts[1];
             left.y = 343;
@@ -1957,7 +1957,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
         }
         case 4:
         case 5: {
-            const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
             if (money < shop.total) {
                 shop.message = -2;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1995,7 +1995,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
             for (; count < 20; ++count) {
                 shop.confirmationItems[count].visible = 0;
             }
-            const std::int32_t currentMoney = world::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t currentMoney = callbackWindow.ownerSession->WorldScene().player->valueFC;
             WindowConfirmationAmount& left = shop.confirmationAmounts[0];
             WindowConfirmationAmount& right = shop.confirmationAmounts[1];
             left.y = 343;
@@ -2174,8 +2174,8 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
                             std::int32_t amount;
                             std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += shop.total;
-                            amount += world::gPlayerRuntimeSlots.valueFC;
-                            exceedsLimit = amount > world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+                            amount += callbackWindow.ownerSession->WorldScene().player->valueFC;
+                            exceedsLimit = amount > callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
                         }
                         if (exceedsLimit) {
                             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2267,8 +2267,8 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
                             std::int32_t amount;
                             std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += shop.total;
-                            amount += world::gPlayerRuntimeSlots.valueFC;
-                            exceedsLimit = amount > world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+                            amount += callbackWindow.ownerSession->WorldScene().player->valueFC;
+                            exceedsLimit = amount > callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
                         }
                         if (exceedsLimit) {
                             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2864,10 +2864,10 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             std::memcpy(&maximum, &record->maximum, sizeof(maximum));
             permitted = selected < maximum;
             const std::int32_t total = shop.total;
-            const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+            const std::int32_t limit = callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
             std::int32_t price;
             std::memcpy(&price, &shop.items[row].price, sizeof(price));
-            const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
             if (price + total + money > limit) {
                 permitted = 0;
             }
@@ -2977,7 +2977,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                         std::memcpy(&current, &shop.detail.valueC34, sizeof(current));
                         if (current - detailSelected > 0) {
                             const std::int32_t total = shop.total;
-                            const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+                            const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
                             if (total < money && detailSelected < gQuantityLimit581C94) {
                                 permitted = 1;
                             }
@@ -3053,8 +3053,8 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             bool canIncrease = false;
             if (selected < maximum) {
                 const std::int32_t total = shop.total;
-                const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
-                const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+                const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
+                const std::int32_t limit = callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
                 std::int32_t price;
                 std::memcpy(&price, &shop.items[row].price, sizeof(price));
                 canIncrease = price + total + money <= limit;
@@ -3068,9 +3068,9 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             WindowShop_RefreshSellQuantities(callbackWindow);
             WindowShop_RefreshSellAmount(callbackWindow);
             WindowShop_CountSellItems(callbackWindow);
-            const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+            const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
             const std::int32_t total = shop.total;
-            const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+            const std::int32_t limit = callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
             if (total + money > limit) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 shop.message = -2;
@@ -3137,11 +3137,11 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                         shop.message = -3;
                     } else {
                         const std::int32_t total = shop.total;
-                        const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+                        const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
                         if (total < money && detailSelected < gQuantityLimit581C94) {
                             canIncrease = true;
                         } else {
-                            const std::int32_t updatedMoney = world::gPlayerRuntimeSlots.valueFC;
+                            const std::int32_t updatedMoney = callbackWindow.ownerSession->WorldScene().player->valueFC;
                             const std::int32_t updatedTotal = shop.total;
                             if (updatedTotal >= updatedMoney) {
                                 shop.message = -4;
@@ -3527,8 +3527,8 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                             std::int32_t amount;
                             std::memcpy(&amount, &record->price, sizeof(amount));
                             amount += shop.total;
-                            amount += world::gPlayerRuntimeSlots.valueFC;
-                            exceedsLimit = amount > world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+                            amount += callbackWindow.ownerSession->WorldScene().player->valueFC;
+                            exceedsLimit = amount > callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
                         }
                         if (exceedsLimit) {
                             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -3827,9 +3827,9 @@ static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::i
     std::int32_t y = window->y + 50;
     char mode = materialState.shopMode;
     if (mode == 1) {
-        const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t money = callbackWindow.ownerSession->WorldScene().player->valueFC;
         const std::int32_t total = money + shop.total;
-        const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
+        const std::int32_t limit = callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
         if (total > limit) {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
             mode = materialState.shopMode;

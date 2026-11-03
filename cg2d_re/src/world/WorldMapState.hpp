@@ -469,7 +469,7 @@ network::SendResult __cdecl SendCurrentPlayerMovementPath_50C8D0(
     session::ClientSession& session,
     std::int32_t x, std::int32_t y,
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
-void ResetMapFollowersFromPath(cg::yobi::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。
+void ResetMapFollowersFromPath(session::ClientSession& session, cg::yobi::YobiAction* leader); // 444410仅扫描占用的地图槽1..4。
 // 原函数：0x0046AFE0。
 void PropagatePartyFollowerPath_46AFE0(
     std::int32_t index, std::int32_t x, std::int32_t y); // 移除后的五槽路径续接。
@@ -526,13 +526,14 @@ std::uint8_t UpdateMapMouseTargetAndButtons_46F680(session::ClientSession& sessi
 // 原函数：0x0046A990。
 void RebuildPartyFollowOrder_46A990(); // 从同一宠物五槽生成9FB938顺序表，gate为0不清表。
 // 原函数：0x0046A5A0。
-void AppendFirstFollowerPathPoint_46A5A0(std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
+void AppendFirstFollowerPathPoint_46A5A0(session::ClientSession& session, std::int32_t x, std::int32_t y); // 给顺序表第2项调用441F60。
 // 原函数：0x0046A940。
-void AdvancePlayerLeaderFollowers_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。
+void AdvancePlayerLeaderFollowers_46A940(session::ClientSession& session); // 从顺序表第2项起调用442730，首个负S16终止。
 // 原函数：0x00469FC0。
 std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session); // 普通玩家完整移动调度，承接原AX返回。
 // 原函数：0x0046A410。
 void SetPlayerMovementTarget_46A410(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t speed); // 玩家快照/共享移动分量初始化。
 // 原函数：0x0046A700。
 void AdvancePlayerWorldMovement_46A700(session::ClientSession& session); // 原完整玩家移动推进、到达计数及MIS动作请求。

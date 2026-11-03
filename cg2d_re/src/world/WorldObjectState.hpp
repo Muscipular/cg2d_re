@@ -96,11 +96,11 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
     const char* titles, std::int32_t level, std::uint16_t value40,
     std::int32_t flag1, std::int32_t flag2, std::int32_t type);
 // 原函数：0x004462E0。
-void RemoveWorldObject_4462E0(std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
+void RemoveWorldObject_4462E0(session::ClientSession& session, std::int32_t objectIndex); // WLR01：玩家专用/世界删除，按原清理与上界收尾。
 // 原函数：0x004467D0。
 void RecreateWorldObjectAction_4467D0(cg::yobi::YobiAction* source, std::int32_t objectIndex); // WLR01：空action恢复，原坐标读序/借用/字节发布保持。
 // 原函数：0x00519EE0。
-void SynchronizePlayerMapActionPosition_519EE0(); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
+void SynchronizePlayerMapActionPosition_519EE0(session::ClientSession& session); // 原入口不读取参数；检查当前坐标并同步 action 载荷。
 
 namespace detail {
 // 原函数：0x00521F20。
@@ -208,18 +208,19 @@ void ResetWorldObjectTable_446470(); // WLR01：只清引用/原字段的整表�
 // 原函数：0x00446610。
 void DetachWorldObjectActions_446610(); // WBR01：全表仅占用项清action/value34，无标死/free或计数重置。
 // 原函数：0x0046A5F0。
-void AdvanceFollowersBehindPlayerLeader_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
+void AdvanceFollowersBehindPlayerLeader_46A5F0(session::ClientSession& session); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
 // 原函数：0x0046A190。
 std::uint32_t UpdatePartyFollowMovement_46A190(session::ClientSession& session); // 完整两轮跟随调度，返回公共尾先读取的世界X位型。
 // 原函数：0x0046B1B0。
 void MovePlayerOneStep_46B1B0(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t speed); // 普通移动：先通知跟随对象，再快照/计算速度。
 // 原函数：0x0051A640。
-cg::yobi::YobiAction* MarkPlayerMovementActive_51A640(); // 原+272置1，返回入口借用指针。
+cg::yobi::YobiAction* MarkPlayerMovementActive_51A640(session::ClientSession& session); // 原+272置1，返回入口借用指针。
 // 原函数：0x0051A660。
-cg::yobi::YobiAction* ClearPlayerMovementActive_51A660(); // 原+272清0，返回入口借用指针。
+cg::yobi::YobiAction* ClearPlayerMovementActive_51A660(session::ClientSession& session); // 原+272清0，返回入口借用指针。
 // 原函数：0x0051A680。
-std::int32_t ReadPlayerMovementActive_51A680(); // 空玩家为0，否则MOVSX读取原+272，非指针返回。
+std::int32_t ReadPlayerMovementActive_51A680(session::ClientSession& session); // 空玩家为0，否则MOVSX读取原+272，非指针返回。
 // 原函数：0x004464D0。
 void __cdecl ClearWorldObjectsAndActions_4464D0(); // WLR01：已占用槽附件/text清理后fresh主标死，保名称。
 // 原函数：0x00446640。

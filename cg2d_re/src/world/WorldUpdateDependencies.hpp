@@ -50,7 +50,7 @@ void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session); // 交易
 // 原函数：0x00470670。
 void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session); // 家族邀请，读取同源职级权限低U8。
 // 原函数：0x004FA8E0。
-void RequestPlayerEmote_4FA8E0(std::int32_t index); // 既有弃返回调用的动作命令接口。
+void RequestPlayerEmote_4FA8E0(session::ClientSession& session, std::int32_t index); // 既有弃返回调用的动作命令接口。
 // 原函数：0x004410E0。
 std::int32_t GetActorStatusIconCount_4410E0();                 // 原 [0x4410E0,0x4410E6)，无参返回 17。
 // 原 [51D640,51D6E3)：场景地图画入 Back 后复制到 Temp，返回同次 tick。
@@ -67,11 +67,11 @@ extern std::uint32_t gMapTargetInputAndDrawOverride_62B308; // 原全局：0x006
 // 原函数：0x004590E0。
 void RenderInput_4590E0(session::ClientSession& session); // 原 World::RenderInput@0x4590E0，已完整还原。
 // 原函数：0x00458F40。
-void __cdecl UpdatePlayerCountdown_458F40(); // GTP01：同源倒计时旧字段先齐取/持有判负，场景9要求玩家 T*。
+void __cdecl UpdatePlayerCountdown_458F40(session::ClientSession& session); // GTP01：同源倒计时旧字段先齐取/持有判负，场景9要求玩家 T*。
 // 原函数：0x00458F00。
-void __cdecl UpdateDayPeriodPaletteAndTimers_458F00(); // GTP01：类别变化后可选过渡，末尾总推进同源倒计时；原残值 ABI 待。
+void __cdecl UpdateDayPeriodPaletteAndTimers_458F00(session::ClientSession& session); // GTP01：类别变化后可选过渡，末尾总推进同源倒计时；原残值 ABI 待。
 // 原函数：0x00519EB0。
-std::int32_t __cdecl SetPlayerObjectIndex_519EB0(std::int32_t value); // GTP01：真实玩家 W32 对象号写回/原 S32 透传。
+std::int32_t __cdecl SetPlayerObjectIndex_519EB0(session::ClientSession& session, std::int32_t value); // GTP01：真实玩家 W32 对象号写回/原 S32 透传。
 // 原函数：0x00455C60。
 void ResetTimedMapNotice_455C60(session::ClientSession& session); // 仅清既有62B5B0，不关闭窗口。
 // 原函数：0x00455FC0。
@@ -79,7 +79,7 @@ void SynchronizeTimedMapNoticeWindow_455FC0(session::ClientSession& session); //
 // 原函数：0x00455A90。
 std::int32_t IsMapBattleSpectatingAllowed_455A90(); // G05：所有地图允许通过观战地图门禁。
 // 原函数：0x004FA8E0。
-std::uintptr_t RequestEmoteWithResult_4FA8E0(std::int32_t index); // 旧随机快捷键需要的原生action地址/完整W32混合返回。
+std::uintptr_t RequestEmoteWithResult_4FA8E0(session::ClientSession& session, std::int32_t index); // 旧随机快捷键需要的原生action地址/完整W32混合返回。
 // 原函数：0x004D3170。
 void ResetCurrentDialogType_4D3170(session::ClientSession& session); // 原 [0x4D3170,0x4D317B)，重置 0x581800 为 -1。
 // 原函数：0x00455BD0。

@@ -86,7 +86,7 @@ static std::int32_t WindowStatusBar_HandleHover(WindowInstance& callbackWindow, 
 static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
 
 // 原函数：0x00473080。
-static std::int32_t WindowStatusBar_ReadInjuredPetIndex(); // SHP01：玩家伤势优先返0，否则宠物原编号+10/未命中-1。
+static std::int32_t WindowStatusBar_ReadInjuredPetIndex(session::ClientSession& session); // SHP01：玩家伤势优先返0，否则宠物原编号+10/未命中-1。
 
 // 原函数：0x004731B0。
 static std::int32_t WindowStatusBar_FindSortedPetIndex(std::int32_t index); // SHP01：五个S16配对首匹配位置，无则-1，不查used。
@@ -201,7 +201,7 @@ WindowPrototype gWindowPrototypeCollapsedStatusBar {0, 5, 0, 0, 19, 34, 0x800000
 // 窗口函数实现。
 
 // 两刷新同序读取/复制HP并格式化FP；FP复制阶段的窗口采样差别留给caller。
-static void WindowStatusBar_FormatVitals(std::wstring& buffer)
+static void WindowStatusBar_FormatVitals(session::ClientSession& session, std::wstring& buffer)
 {
     cg::yobi::YobiAction* battlePlayer = nullptr;
     if (world::gCurrentSceneType == 10) {
@@ -223,12 +223,12 @@ static void WindowStatusBar_FormatVitals(std::wstring& buffer)
         const std::int32_t fp = cg::yobi::ReadYobiActionFpOnce(world::gBattleEntries59E980[fpPosition]);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     } else {
-        const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
-        const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
+        const std::int32_t maxHp = static_cast<std::int32_t>(session.WorldScene().player->maxHp);
+        const std::int32_t hp = static_cast<std::int32_t>(session.WorldScene().player->hp);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, hp, maxHp);
         gStatusHpTextD40B18 = buffer;
-        const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
-        const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
+        const std::int32_t maxFp = static_cast<std::int32_t>(session.WorldScene().player->maxFp);
+        const std::int32_t fp = static_cast<std::int32_t>(session.WorldScene().player->fp);
         cg::text::FormatTo(buffer, L"{:4}/{:4}" /* 原常量参考：0x00553FE8。 */, fp, maxFp);
     }
 }
@@ -238,7 +238,7 @@ static void WindowStatusBar_DrawTimer(WindowInstance* callbackWindow, const std:
 {
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
-    const std::int32_t duration = world::gPlayerRuntimeSlots.timerRemaining0C;
+    const std::int32_t duration = callbackWindow->ownerSession->WorldScene().player->timerRemaining0C;
     const std::int32_t hours = duration / 3600000;
     const std::int32_t hoursTens = hours / 10;
     const std::int32_t hoursUnits = hours % 10;
@@ -247,7 +247,7 @@ static void WindowStatusBar_DrawTimer(WindowInstance* callbackWindow, const std:
     if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(firstElement)); indexedElement) indexedElement->visible = 0;
     if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(firstElement + 1)); indexedElement2) indexedElement2->visible = 0;
     if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(firstElement + 2)); indexedElement3) indexedElement3->visible = 0;
-    const std::int32_t mode = world::gPlayerRuntimeSlots.timerMode10;
+    const std::int32_t mode = callbackWindow->ownerSession->WorldScene().player->timerMode10;
     WindowInstance* firstWindow = nullptr; // firstElement的互补分支在使用前必定覆盖。
     if (firstElement == 8) {
         firstWindow = currentWindow;
@@ -362,7 +362,7 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
     auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     render::GraphicDescriptor16 descriptor {};
     std::wstring buffer;
-    WindowStatusBar_FormatVitals(buffer);
+    WindowStatusBar_FormatVitals(*callbackWindow->ownerSession, buffer);
     WindowInstance* const timeWindow = currentWindow;
     gStatusFpTextD45D50 = buffer;
     auto* elementsWindow = timeWindow;
@@ -381,7 +381,7 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
     WindowStatusBar_DrawTimer(callbackWindow, 8, &descriptor);
 
     const std::int32_t points = world::FindAttributeAllocationHintTarget_504B10();
-    const std::int32_t initialInjury = world::gPlayerRuntimeSlots.valueF4;
+    const std::int32_t initialInjury = callbackWindow->ownerSession->WorldScene().player->valueF4;
     business.statusHasPointsD66E24 = points != 6 ? 1 : 0;
     if (initialInjury == 0) {
         const std::int32_t pet = world::FindFirstInjuredPet_504B60();
@@ -410,7 +410,7 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
     if (business.statusHasInjuryD046C8 != 0) {
         injuryBlink = business.statusBlinkPhaseCF4FBC >= 30;
     }
-    const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
+    const std::int32_t injury = callbackWindow->ownerSession->WorldScene().player->valueF4;
     const std::int32_t injuryImage = injury == 0 ? 0x3B941
         : injury <= 25 ? 0x3B944
         : injury <= 50 ? 0x3B947
@@ -436,7 +436,7 @@ static void WindowCompactStatusBar_Refresh(WindowInstance* callbackWindow)
 {
     render::GraphicDescriptor16 descriptor {};
     std::wstring buffer;
-    WindowStatusBar_FormatVitals(buffer);
+    WindowStatusBar_FormatVitals(*callbackWindow->ownerSession, buffer);
     gStatusFpTextD45D50 = buffer;
     WindowStatusBar_DrawTimer(callbackWindow, 2, &descriptor);
 }
@@ -522,7 +522,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callback
             }
             return consumed;
         }
-        const std::uint8_t options = world::ReadPlayerOptions194LowByte();
+        const std::uint8_t options = world::ReadPlayerOptions194LowByte(*callbackWindow.ownerSession);
         constexpr std::uint8_t masks[6] {0x04, 0x08, 0x01, 0x10, 0x20, 0x40};
         const wchar_t* const hints[6][2] {
             {L"现在不能跟别人对战。" /* 原常量参考：0x00556E14。 */, L"现在可以跟别人对战。" /* 原常量参考：0x00556E2C。 */},
@@ -532,7 +532,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callback
             {L"现在禁止别人与自己交易。" /* 原常量参考：0x00556EEC。 */, L"现在允许别人与自己交易。" /* 原常量参考：0x00556F08。 */},
             {L"现在禁止别人邀请自己参加家族。" /* 原常量参考：0x005862D4。 */, L"现在允许别人邀请自己参加家族。" /* 原常量参考：0x005862F4。 */},
         };
-        network::SendResult (*const toggleCallbacks[6])() {
+        network::SendResult (*const toggleCallbacks[6])(session::ClientSession&) {
             &world::ToggleDuelPermission_472F40, &world::TogglePartyChat_472F70, &world::TogglePartyJoinPermission_472FA0,
             &world::ToggleContactCardExchangePermission_472FD0, &world::ToggleTradePermission_473000, &world::ToggleGuildInvitePermission_473030,
         };
@@ -545,7 +545,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callback
             graphic->imageNo = 0x3B92E + slot * 3;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(toggleCallbacks[slot]());
+            static_cast<void>(toggleCallbacks[slot](*callbackWindow.ownerSession));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -556,9 +556,9 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callback
 
 // SHP01：原玩家伤势优先返0，否则宠物编号+10或-1。
 // 原函数：0x00473080。
-static std::int32_t WindowStatusBar_ReadInjuredPetIndex()
+static std::int32_t WindowStatusBar_ReadInjuredPetIndex(session::ClientSession& session)
 {
-    if (world::gPlayerRuntimeSlots.valueF4 != 0) {
+    if (session.WorldScene().player->valueF4 != 0) {
         return 0;
     }
     const std::int32_t pet = world::FindFirstInjuredPet_504B60();
@@ -682,8 +682,8 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
         return consumed;
     }
     case WindowStatusBarElementId::HandleHintButton: {
-        const std::int32_t target = WindowStatusBar_ReadInjuredPetIndex();
-        std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
+        const std::int32_t target = WindowStatusBar_ReadInjuredPetIndex(*callbackWindow.ownerSession);
+        std::int32_t injury = callbackWindow.ownerSession->WorldScene().player->valueF4;
         const bool hover = (state & MouseFlag_Hover) != 0;
         const std::int32_t petIndex = target - 10;
         if (hover) {
@@ -713,7 +713,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
                 }
                 cg::text::FormatTo(buffer, format, name);
                 uiFrame.hoverText = buffer;
-                injury = world::gPlayerRuntimeSlots.valueF4;
+                injury = callbackWindow.ownerSession->WorldScene().player->valueF4;
                 static_cast<void>(0);
             }
         }

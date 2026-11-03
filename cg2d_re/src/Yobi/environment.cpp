@@ -484,7 +484,7 @@ static void UpdateMovingSceneEffect_449A00(YobiAction* const action)
     }
     const std::int32_t floor = world::gMapFloor;
     if (static_cast<std::int32_t>(action->mapY1F0) != floor
-        || world::gPlayerRuntimeSlots.action == nullptr) {
+        || action->ownerSession->WorldScene().player->action == nullptr) {
         MarkDeath(action);
         return;
     }
@@ -687,7 +687,7 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
 // 原[448290,44836B)：限定场景与地图的计时回调注册，不清既有偏移。
 static void EnsureTimedMapBackgroundEffect_448290(session::ClientSession& session)
 {
-    if (world::gCurrentSceneType != 9 || world::gPlayerRuntimeSlots.action == nullptr) {
+    if (world::gCurrentSceneType != 9 || session.WorldScene().player->action == nullptr) {
         return;
     }
     const std::int32_t floor = world::gMapFloor;
@@ -857,7 +857,7 @@ void ConfigureMapSceneEffect_449700(
 // 原[449160,4493AA)：共享玩家只作入口门禁，生成时按轴重取玩家T*。
 void UpdateMapEnvironmentEffects_449160(session::ClientSession& session)
 {
-    if (world::gPlayerRuntimeSlots.action == nullptr) {
+    if (session.WorldScene().player->action == nullptr) {
         return;
     }
     detail::EnsureTimedMapBackgroundEffect_448290(session);
@@ -887,30 +887,30 @@ void UpdateMapEnvironmentEffects_449160(session::ClientSession& session)
     case detail::SceneDriftVariant_FromPositiveWorldX:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(session.Connection(), 0, 40) + 213);
         action->worldX = static_cast<float>(
-            world::gPlayerRuntimeSlots.action->worldX + 550.0);
+            session.WorldScene().player->action->worldX + 550.0);
         action->worldY = static_cast<float>(
-            static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldY);
+            static_cast<double>(offset) + session.WorldScene().player->action->worldY);
         break;
     case detail::SceneDriftVariant_FromNegativeWorldX:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(session.Connection(), 0, 40) + 33);
         action->worldX = static_cast<float>(
-            world::gPlayerRuntimeSlots.action->worldX - 400.0 - 150.0F);
+            session.WorldScene().player->action->worldX - 400.0 - 150.0F);
         action->worldY = static_cast<float>(
-            static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldY);
+            static_cast<double>(offset) + session.WorldScene().player->action->worldY);
         break;
     case detail::SceneDriftVariant_FromNegativeWorldY:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(session.Connection(), 0, 40) + 107);
         action->worldX = static_cast<float>(
-            static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldX);
+            static_cast<double>(offset) + session.WorldScene().player->action->worldX);
         action->worldY = static_cast<float>(
-            world::gPlayerRuntimeSlots.action->worldY - 400.0 - 150.0F);
+            session.WorldScene().player->action->worldY - 400.0 - 150.0F);
         break;
     case detail::SceneDriftVariant_FromPositiveWorldY:
         action->angle50 = static_cast<float>(platform::RandomRange_46FAF0(session.Connection(), 0, 40) + 287);
         action->worldX = static_cast<float>(
-            static_cast<double>(offset) + world::gPlayerRuntimeSlots.action->worldX);
+            static_cast<double>(offset) + session.WorldScene().player->action->worldX);
         action->worldY = static_cast<float>(
-            world::gPlayerRuntimeSlots.action->worldY + 550.0);
+            session.WorldScene().player->action->worldY + 550.0);
         break;
     }
 }

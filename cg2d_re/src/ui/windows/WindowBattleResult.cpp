@@ -276,9 +276,9 @@ static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, co
             const std::uint16_t target = result->value00;
             std::wstring name;
             if (target == 0xFFFEu) {
-                const std::int32_t health = WindowItem_HealthImageLevel(world::gPlayerRuntimeSlots.valueF4);
+                const std::int32_t health = WindowItem_HealthImageLevel(callbackWindow.ownerSession->WorldScene().player->valueF4);
                 WindowInstance* const window = currentWindow;
-                name = world::GetPlayerDisplayText(1);
+                name = world::GetPlayerDisplayText(*callbackWindow.ownerSession, 1);
                 auto* const graphicElement = window->FindElementById(NativeElementKey(row + 5));
                 if (graphicElement) {
                     auto* const graphic = graphicElement->data.graphic;
@@ -303,7 +303,7 @@ static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, co
             }
             const std::uint16_t experienceTarget = result->value00;
             const bool atLimit = experienceTarget == 0xFFFEu
-                ? (world::gPlayerRuntimeSlots.value68 == -1)
+                ? (callbackWindow.ownerSession->WorldScene().player->value68 == -1)
                 : (world::gPetRuntimeRecords[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
                 if (auto* const indexedElement9 = currentWindow->FindElementById(NativeElementKey(row + 13)); indexedElement9) indexedElement9->data.text->text = L"  ---  ";

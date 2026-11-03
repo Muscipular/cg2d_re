@@ -480,9 +480,9 @@ static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, 
         window = currentWindow;
     } else if (category == 2) {
         window = currentWindow;
-        image = cg::world::gPlayerRuntimeSlots.value17C;
+        image = callbackWindow.ownerSession->WorldScene().player->value17C;
     } else {
-        image = cg::world::gPlayerRuntimeSlots.value17C;
+        image = callbackWindow.ownerSession->WorldScene().player->value17C;
         window = currentWindow;
     }
     const std::int32_t y = window->y;

@@ -48,7 +48,7 @@ static int ReadItem(lua_State* L, int index, std::string_view key)
 }
 static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
 {
-    auto& p = cg::world::gPlayerRuntimeSlots;
+    auto& p = (*GetLuaConnection(L).Owner().WorldScene().player);
     if (key == "tribeType") { Push(L, p.value00); return 1; }
     if (key == "lv") { Push(L, p.level); return 1; }
     if (key == "rebirth") { Push(L, p.value08); return 1; }

@@ -1040,7 +1040,7 @@ static void WindowDialog_RouteReply(
     }
     WindowDialog_Route(connection.Owner(), type, value, request, target, text);
     cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(target);
-    world::FaceWorldActorTowardPlayer_43D860(action);
+    world::FaceWorldActorTowardPlayer_43D860(connection.Owner(), action);
 }
 
 // 原函数：0x0049DF30。
@@ -1153,7 +1153,7 @@ static std::int32_t WindowDialog_DrawHealing(
             }
         }
     }
-    cg::text::FormatTo(buffer, L"               所持金 {:7} 金币", world::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(buffer, L"               所持金 {:7} 金币", session.WorldScene().player->valueFC);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(window->x + 24),
         static_cast<std::int16_t>(window->y + 7 * 16 + 68),

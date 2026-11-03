@@ -273,10 +273,10 @@ std::int32_t RegisterWorldObjectWithoutAction_445A60(
 
 // WLR01：完整编号删除，先共享附件清理/fresh主标死，按原计数/游标收尾；全空保旧上界。
 // 原函数：0x004462E0。
-void RemoveWorldObject_4462E0(const std::int32_t objectIndex)
+void RemoveWorldObject_4462E0(session::ClientSession& session, const std::int32_t objectIndex)
 {
-    if (cg::world::gPlayerRuntimeSlots.objectIndex == static_cast<std::uint32_t>(objectIndex)) {
-        static_cast<void>(detail::DestroyPlayerMapPresence_519D50());
+    if (session.WorldScene().player->objectIndex == static_cast<std::uint32_t>(objectIndex)) {
+        static_cast<void>(detail::DestroyPlayerMapPresence_519D50(session));
         return;
     }
     const std::int32_t index = detail::FindWorldObjectSlot_444FA0(objectIndex);

@@ -1,4 +1,5 @@
 #include "../WindowRuntimeInternal.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../../world/WorldMapState.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
 
@@ -196,7 +197,7 @@ static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, cons
             uiFrame.hoverText = kEmoteHints5871B0[index];
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            world::RequestPlayerEmote_4FA8E0(kEmoteButtonActions[index]);
+            world::RequestPlayerEmote_4FA8E0(*callbackWindow.ownerSession, kEmoteButtonActions[index]);
             static_cast<void>(WindowEmote_Select(*callbackWindow.ownerSession, index));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;

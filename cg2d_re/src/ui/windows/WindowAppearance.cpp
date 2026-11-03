@@ -146,7 +146,7 @@ static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, cons
         version = callbackWindow.ownerSession->Connection().PukVersion();
     }
     const std::int32_t converted = character_select::detail::ConvertEarlierCharacterGraphicToModern_51BFF0(
-        character_select::detail::ConvertClassicCharacterGraphicToCompact_51BB80(world::gPlayerRuntimeSlots.value17C));
+        character_select::detail::ConvertClassicCharacterGraphicToCompact_51BB80(callbackWindow.ownerSession->WorldScene().player->value17C));
     appearance.minimum = 0;
     if (converted >= 241400) {
         appearance.minimum = 1;
@@ -187,7 +187,7 @@ static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, cons
         }
     }
     static_cast<void>(character_select::detail::DecomposeCharacterAppearanceGraphic_4C56E0(
-        world::gPlayerRuntimeSlots.value17C, &appearance.base, &appearance.imageClass,
+        callbackWindow.ownerSession->WorldScene().player->value17C, &appearance.base, &appearance.imageClass,
         &appearance.quarter, &appearance.fifth, &appearance.ones));
     const std::int32_t ones = appearance.ones;
     const std::int32_t fifth = appearance.fifth;
@@ -200,7 +200,7 @@ static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, cons
     if (auto* const element13 = currentWindow->FindElementById(WindowAppearanceElementId::Element13)) {
         auto* const animation = element13->data.animation;
         cg::yobi::YobiAction* const action = animation->action;
-        cg::yobi::SetYobiActionField2A8(action, world::gPlayerRuntimeSlots.imageNo);
+        cg::yobi::SetYobiActionField2A8(action, callbackWindow.ownerSession->WorldScene().player->imageNo);
         cg::yobi::SetYobiActionField2B0(animation->action, 0);
         cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
     }

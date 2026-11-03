@@ -171,8 +171,8 @@ cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const s
         default:
             break;
     }
-    if (mode != 0 && world::GetPlayerStatusIcon_51BEC0() != mode) {
-        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(mode));
+    if (mode != 0 && world::GetPlayerStatusIcon_51BEC0(session) != mode) {
+        static_cast<void>(world::RequestPlayerStatusIcon_51BE50(session, mode));
     }
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
         WindowInstance* const window = WindowRuntime_States(session)[id].window;
@@ -202,9 +202,9 @@ static void WindowGather_Release(WindowInstance& releasedWindow)
     const auto skillReferences = static_cast<std::uint8_t>(operations.statusIconReferences - 1);
     operations.statusIconReferences = skillReferences;
     if (skillReferences == 0) {
-        const std::int32_t state = world::GetPlayerStatusIcon_51BEC0();
+        const std::int32_t state = world::GetPlayerStatusIcon_51BEC0(*releasedWindow.ownerSession);
         if ((state >= 5 && state <= 7) || state == 16) {
-            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(0));
+            static_cast<void>(world::RequestPlayerStatusIcon_51BE50(*releasedWindow.ownerSession, 0));
         }
     }
 }
@@ -283,7 +283,7 @@ static WindowAnimationData* WindowGather_InitializeAction(session::ClientSession
     const std::uint8_t rebirthMode = skillOperation.rebirthEnabled;
     gather.deadline = duration;
     if (rebirthMode != 0) {
-        const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
+        const std::int32_t rebirth = session.WorldScene().player->value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
         gather.deadline = duration;
     }
@@ -366,7 +366,7 @@ static WindowAnimationData* WindowGather_ShowResult(session::ClientSession& sess
         cg::yobi::SetYobiActionField2B0(
             element32->data.animation->action, defaultAction);
     }
-    std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
+    std::int32_t imageNo = session.WorldScene().player->imageNo;
     for (const auto& range : kCraftAlternateActionImages) {
         if (imageNo >= range[0] && imageNo <= range[1]) {
             auto* const element33 = window ? window->FindElementById(WindowGatherElementId::Element3) : nullptr;
@@ -374,7 +374,7 @@ static WindowAnimationData* WindowGather_ShowResult(session::ClientSession& sess
                 cg::yobi::SetYobiActionField2B0(
                     element33->data.animation->action, alternateAction);
             }
-            imageNo = world::gPlayerRuntimeSlots.imageNo;
+            imageNo = session.WorldScene().player->imageNo;
         }
     }
     if (imageNo == 0x18A26) {
@@ -477,7 +477,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
         static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
         return 1;
     }
-    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
+    const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(callbackWindow.ownerSession->WorldScene().player->imageNo);
     const std::int32_t kind = std::bit_cast<std::int8_t>(gather.kind);
     const std::int32_t offset = kind == 0 ? -2 : kind == 1 ? -1 : kind == 3 ? 1 : 0;
     const std::int32_t previewImage = WindowSkillResult_ReadPreviewImage(mapped, offset);
@@ -508,7 +508,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
         // 四条阶段路径共用原6/16选择；每次命中仍重取当前窗口和玩家图号。
         const auto setWorkingAction = [currentWindow](cg::yobi::YobiAction* const initialAction) {
             cg::yobi::SetYobiActionField2B0(initialAction, 6);
-            std::int32_t imageNo = world::gPlayerRuntimeSlots.imageNo;
+            std::int32_t imageNo = currentWindow->ownerSession->WorldScene().player->imageNo;
             for (const auto& range : kCraftAlternateActionImages) {
                 if (imageNo >= range[0] && imageNo <= range[1]) {
                     auto* const element33 = currentWindow->FindElementById(WindowGatherElementId::Element3);
@@ -516,7 +516,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                         cg::yobi::SetYobiActionField2B0(
                             element33->data.animation->action, 16);
                     }
-                    imageNo = world::gPlayerRuntimeSlots.imageNo;
+                    imageNo = currentWindow->ownerSession->WorldScene().player->imageNo;
                 }
             }
             if (imageNo == 0x18A26) {
@@ -633,7 +633,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
             const std::int32_t level = std::bit_cast<std::int8_t>(gather.skillLevel);
             const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
                 * world::gSkillsF1BAFC[skill].fpReduce / 100;
-            if ((world::gPlayerRuntimeSlots.fp < cost)) {
+            if ((callbackWindow.ownerSession->WorldScene().player->fp < cost)) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, kWindow12NoFp5864F0, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
@@ -778,7 +778,7 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
         const std::int32_t skill = std::bit_cast<std::int8_t>(gather.skillIndex);
         const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
             * world::gSkillsF1BAFC[skill].fpReduce / 100;
-        const bool enoughFp = !(world::gPlayerRuntimeSlots.fp < cost);
+        const bool enoughFp = !(callbackWindow.ownerSession->WorldScene().player->fp < cost);
         if (!enoughFp && (state & MouseFlag_Hover) != 0) {
             uiFrame.hoverText = kWindow12NoFp5864F0;
         }

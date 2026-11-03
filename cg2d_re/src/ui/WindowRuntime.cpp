@@ -113,7 +113,7 @@ static void WindowPetDrag_Handle(session::ClientSession& session, std::int32_t m
 static void WindowItemDrag_Handle(session::ClientSession& session, std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // IDE01：物品回调，两fresh分类/两点击BYTE及descriptor持址，reset/取消后原继续，完整分发及运行待。
 
 // 原函数：0x004740F0。
-static void WindowInput_FormatSkillSlotCount(std::wstring& destination); // 前10项技能索引的S16槽数，直接宽格式化。
+static void WindowInput_FormatSkillSlotCount(session::ClientSession& session, std::wstring& destination); // 前10项技能索引的S16槽数，直接宽格式化。
 
 // 原函数：0x00472F00。
 static std::int32_t WindowRuntime_HitTestRect(
@@ -1072,7 +1072,7 @@ static void WindowItemDrag_Handle(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 && interaction.itemDragMode != 0
-            && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
+            && (world::ReadPlayerActionFlagsByte(session) & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t group =
                 std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection) > 0 && sourceIndex < 6
@@ -2974,7 +2974,7 @@ static void WindowRuntime_ToggleShortcutWindow(session::ClientSession& session, 
 
 static void WindowRuntime_PlayShortcutEmote(session::ClientSession& session, const std::int32_t action, const std::int32_t selected)
 {
-    world::RequestPlayerEmote_4FA8E0(action);
+    world::RequestPlayerEmote_4FA8E0(session, action);
     static_cast<void>(WindowEmote_Select(session, selected));
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
@@ -3086,27 +3086,27 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         }
         if ((platform::gKeyStates[modeOne ? 0x55 : 0x50] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::ToggleDuelPermission_472F40());
+            static_cast<void>(world::ToggleDuelPermission_472F40(session));
         }
         if ((platform::gKeyStates[modeOne ? 0x49 : 0xBA] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::TogglePartyChat_472F70());
+            static_cast<void>(world::TogglePartyChat_472F70(session));
         }
         if ((platform::gKeyStates[modeOne ? 0x4F : 0xBE] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::TogglePartyJoinPermission_472FA0());
+            static_cast<void>(world::TogglePartyJoinPermission_472FA0(session));
         }
         if ((platform::gKeyStates[modeOne ? 0x50 : 0x4C] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::ToggleContactCardExchangePermission_472FD0());
+            static_cast<void>(world::ToggleContactCardExchangePermission_472FD0(session));
         }
         if ((platform::gKeyStates[modeOne ? 0x46 : 0xBC] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::ToggleTradePermission_473000());
+            static_cast<void>(world::ToggleTradePermission_473000(session));
         }
         if ((platform::gKeyStates[modeOne ? 0xDB : 0x4E] & 4u) != 0) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(world::ToggleGuildInvitePermission_473030());
+            static_cast<void>(world::ToggleGuildInvitePermission_473030(session));
         }
 
         // 该门禁只采一次场景，覆盖全部请求和动作；门内回调不触发再次判场景。
@@ -4304,7 +4304,7 @@ std::uint8_t WindowInput_ActivateElement(
 }
 
 // 原函数：0x004740F0。
-static void WindowInput_FormatSkillSlotCount(std::wstring& destination)
+static void WindowInput_FormatSkillSlotCount(session::ClientSession& session, std::wstring& destination)
 {
     std::int32_t count = 0;
     for (std::size_t position = 0; position < world::kSkillSlotCount; ++position) {
@@ -4317,7 +4317,7 @@ static void WindowInput_FormatSkillSlotCount(std::wstring& destination)
             count += requiredSlots;
         }
     }
-    cg::text::FormatTo(destination, L"{:2}/{}", count, world::gPlayerRuntimeSlots.value16C);
+    cg::text::FormatTo(destination, L"{:2}/{}", count, session.WorldScene().player->value16C);
 }
 
 // 同一4A4210在原表也用于release；仅适配未消费返回值，不转换函数指针。
@@ -4515,7 +4515,7 @@ std::int32_t WindowRuntime_Render(session::ClientSession& session)
     auto& inventory = session.UiFrame().native.inventory;
     auto& skillOperation = session.UiFrame().native.skillOperation;
     using namespace detail;
-    if (skillOperation.rebirthEnabled != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
+    if (skillOperation.rebirthEnabled != 0 && session.WorldScene().player->timerRemaining0C <= 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(session.Connection().SendWorldActionRequest(x, y, 62));
@@ -4651,7 +4651,7 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
                     const WindowTextPrototype* const original = source->source.text;
                     data->text = original->text;
                     std::wstring text;
-                    WindowInput_FormatSkillSlotCount(text);
+                    WindowInput_FormatSkillSlotCount(session, text);
                     if (data->text == L"10/10") { data->text = text; }
                     data->style.color = original->style.color;
                     data->style.font = original->style.font;

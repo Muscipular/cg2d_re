@@ -1359,7 +1359,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
                         }
                     }
                 }
-                const std::int32_t level = world::gPlayerRuntimeSlots.level;
+                const std::int32_t level = callbackWindow.ownerSession->WorldScene().player->level;
                 storage.value += level;
             }
         }
@@ -1395,8 +1395,8 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
     }
     const bool hover = (events & MouseFlag_Hover) != 0;
     if (hover && world::gPetRuntimeRecords[petIndex].used != 0) {
-        const std::int32_t level = world::gPlayerRuntimeSlots.level;
-        const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t level = callbackWindow.ownerSession->WorldScene().player->level;
+        const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
         if (amount >= level) {
             uiFrame.hoverText = L"用滑鼠拖放来存放宠物。";
         }
@@ -1461,7 +1461,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
             WindowElement_DrawHoverFrame(indexedElement, 1, imageNo);
         }
         if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 3 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100) {
-            const std::int32_t level = world::gPlayerRuntimeSlots.level;
+            const std::int32_t level = callbackWindow.ownerSession->WorldScene().player->level;
             storage.value += level;
         }
     }
@@ -1570,7 +1570,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source < 100) {
             WindowInstance* const window = currentWindow;
-            const std::int32_t level = world::gPlayerRuntimeSlots.level;
+            const std::int32_t level = callbackWindow.ownerSession->WorldScene().player->level;
             auto* const element14 = window->FindElementById(WindowBankElementId::Element14);
             if (element14) {
                 auto* const text = element14->data.text;
@@ -1649,7 +1649,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
             const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
             if (side == 0 || side == 1) {
                 if (kind == 0) {
-                    const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(side + 1)];
+                    const std::int32_t limit = callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(side + 1)];
                     std::int32_t amount;
                     std::memcpy(&amount,
                         &storage.groups[side].amount, sizeof(amount));
@@ -1662,7 +1662,7 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
                 }
             }
         }
-        const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
         if (maximum > amount) {
             maximum = amount;
         }
@@ -1671,8 +1671,8 @@ static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, cons
         result = WindowInput_HandleNumber(currentWindow, 30, state, maximum, 223,
             gStorageDepositHints57EDD4.data(), keyboard, 0xFFFFFFFFu);
     } else if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount_32)) {
-        const std::int32_t limit = world::gPlayerRuntimeSlots.values15BD0[static_cast<std::int32_t>(0)];
-        maximum = limit - world::gPlayerRuntimeSlots.valueFC;
+        const std::int32_t limit = callbackWindow.ownerSession->WorldScene().player->values15BD0[static_cast<std::int32_t>(0)];
+        maximum = limit - callbackWindow.ownerSession->WorldScene().player->valueFC;
         const std::int32_t side = std::bit_cast<std::int32_t>(business.valueD67618);
         std::int32_t amount;
         std::memcpy(&amount,
@@ -1775,7 +1775,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     y = window->y + 285;
     x = window->x + 442;
     WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
-    cg::text::FormatTo(buffer, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(buffer, L"{:10}", callbackWindow.ownerSession->WorldScene().player->valueFC);
     window = currentWindow;
     y = window->y + 285;
     x = window->x + 527;

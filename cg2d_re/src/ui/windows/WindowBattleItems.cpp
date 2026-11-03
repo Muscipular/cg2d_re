@@ -152,7 +152,7 @@ static std::int32_t WindowBattleItems_RotatePreview(WindowInstance& callbackWind
 static std::int32_t WindowBattleItems_RefreshMoney(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    cg::text::FormatTo(inventory.battleMoneyText, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
+    cg::text::FormatTo(inventory.battleMoneyText, L"{:10}", callbackWindow.ownerSession->WorldScene().player->valueFC);
     return 0;
 }
 
@@ -160,7 +160,7 @@ static std::int32_t WindowBattleItems_RefreshMoney(WindowInstance& callbackWindo
 static std::int32_t WindowBattleItems_RefreshExtraValue(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    cg::text::FormatTo(inventory.battleValueText, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
+    cg::text::FormatTo(inventory.battleValueText, L"{:10}", callbackWindow.ownerSession->WorldScene().player->value15BCC);
     return 0;
 }
 
@@ -334,7 +334,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
         }
         break;
     }
-    const std::int32_t playerLevel = world::gPlayerRuntimeSlots.level;
+    const std::int32_t playerLevel = callbackWindow.ownerSession->WorldScene().player->level;
     std::int32_t levelLimit = 1;
     while (levelLimit < 15 && playerLevel > levelLimits[levelLimit - 1]) {
         ++levelLimit;
@@ -489,7 +489,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                         world::gBattleBombLevelD67B2C = level;
                         const std::int32_t cost = readBombCost(level);
                         if (usableLevel >= level && items[2].used == 0 && items[3].used == 0
-                            && !(world::gPlayerRuntimeSlots.fp < cost)
+                            && !(callbackWindow.ownerSession->WorldScene().player->fp < cost)
                             && world::gBattleModeFlag5ABFCC != 1) {
                             hint = canUse;
                         }
@@ -516,7 +516,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) != 0 && item.itemType == kBombType) {
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 if (usableLevel < item.level || items[2].used != 0 || items[3].used != 0
-                    || (world::gPlayerRuntimeSlots.fp < cost)
+                    || (callbackWindow.ownerSession->WorldScene().player->fp < cost)
                     || world::gBattleModeFlag5ABFCC == 1) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
@@ -590,7 +590,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             if (item.itemType == kBombType) {
                 const std::int32_t cost = readBombCost(items[hovered + 8].level);
                 canDrag = usableLevel >= item.level && items[2].used == 0 && items[3].used == 0
-                    && !(world::gPlayerRuntimeSlots.fp < cost)
+                    && !(callbackWindow.ownerSession->WorldScene().player->fp < cost)
                     && world::gBattleModeFlag5ABFCC != 1;
             } else {
                 canDrag = item.used != 0;
@@ -705,7 +705,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 const std::int32_t level = item.level;
                 const std::int32_t cost = readBombCost(level);
                 if (usableLevel < level || items[2].used != 0 || items[3].used != 0
-                    || (world::gPlayerRuntimeSlots.fp < cost)
+                    || (callbackWindow.ownerSession->WorldScene().player->fp < cost)
                     || world::gBattleModeFlag5ABFCC == 1) {
                     static_cast<void>(cg::render::DrawGraphic(
                         x + 105, y + 93, 223, 22738, 0, nullptr));

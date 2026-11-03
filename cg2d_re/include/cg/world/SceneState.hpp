@@ -19,7 +19,6 @@ extern std::int32_t gPendingSceneType;  // 原 0xFF0D6C。
 extern std::uint8_t gMapSurfaceCacheEnabled_C82204;              // 原 0xC82204，W8。
 extern std::uint32_t gGameplayRepliesSuppressed_9A6E0C;             // 原 0x9A6E0C，W32。
 extern std::uint32_t gLogoutToTownPending_D67E78;             // 原 0xD67E78，W32。
-extern std::uint32_t gObservationTravelTransitionCount_FF0D74;             // 原 0xFF0D74，W32。
 const std::wstring& GetMapName_9DAD30() noexcept; // 借用宽字符串地图名，回复入口统一从GBK转换。
 void ClearMapName_9DAD30() noexcept; // 世界重置时清空同一地图名称。
 extern std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08; // 原 0xD67B08，严格 7 个 DWORD。

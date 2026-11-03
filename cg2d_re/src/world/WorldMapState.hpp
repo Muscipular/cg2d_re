@@ -6,6 +6,7 @@ namespace cg::network {
 class CgConnection;
 enum class SendResult : std::int32_t;
 }
+namespace cg::session { class ClientSession; }
 
 #include <array>
 #include <cstddef>
@@ -484,13 +485,13 @@ void ResetMapFollowersFromPath(cg::yobi::YobiAction* leader); // 444410仅扫描
 void PropagatePartyFollowerPath_46AFE0(
     std::int32_t index, std::int32_t x, std::int32_t y); // 移除后的五槽路径续接。
 // 原函数：0x0046ADA0。
-void* __cdecl RequestDetectedMapTransition_46ADA0();               // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。
+void* __cdecl RequestDetectedMapTransition_46ADA0(session::ClientSession& session); // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。
 // 原函数：0x0046AC90。
-network::SendResult __cdecl RequestPlayerCoordinateSynchronization_46AC90(); // 原 [0x46AC90,0x46AD00)，type 2 的真实后继。
+network::SendResult __cdecl RequestPlayerCoordinateSynchronization_46AC90(session::ClientSession& session); // 原 [0x46AC90,0x46AD00)，type 2 的真实后继。
 // 原函数：0x0046AEA0。
-std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0();        // 原 [0x46AEA0,0x46AF24)，type 3 的真实后继。
+std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0(session::ClientSession& session); // 原 [0x46AEA0,0x46AF24)，type 3 的真实后继。
 // 原函数：0x0046AB60。
-std::int32_t __cdecl DispatchPendingPathEvent_46AB60();        // 原 [0x46AB60,0x46ABCD)，pending 倒计时与分发。
+std::int32_t __cdecl DispatchPendingPathEvent_46AB60(session::ClientSession& session); // 原 [0x46AB60,0x46ABCD)，pending 倒计时与分发。
 // render 只借用活动链及已证数值字段；不公开记录布局，不截断原生 next。
 // 原函数：0x0046E2A0。
 MapEffectRecord* InitializeMapEffectPool_46E2A0();             // 原 0x46E2A0；返回末项非拥有指针。
@@ -530,7 +531,7 @@ MapEffectRecord* CreateDirectionalMapEffect_46F090(
 // 原函数：0x0046F000。
 std::int32_t __cdecl ApplyMapCameraDeltaToEffectOffset_46F000(std::int32_t* x, std::int32_t* y); // 原 0x46F000；投影偏移增量。
 // 原函数：0x00469C90。
-std::uint8_t UpdateWorldMapInputAndMovement_469C90(); // 完整移动输入、目标交互与普通/跟随分流。
+std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& session); // 完整移动输入、目标交互与普通/跟随分流。
 // 原函数：0x0046F680。
 std::uint8_t UpdateMapMouseTargetAndButtons_46F680(); // 完整鼠标目标格投影/绘制与四种事件生产。
 // 原函数：0x0046A990。
@@ -540,7 +541,7 @@ void AppendFirstFollowerPathPoint_46A5A0(std::int32_t x, std::int32_t y); // 给
 // 原函数：0x0046A940。
 void AdvancePlayerLeaderFollowers_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。
 // 原函数：0x00469FC0。
-std::uint16_t UpdatePlayerPathMovement_469FC0(); // 普通玩家完整移动调度，承接原AX返回。
+std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session); // 普通玩家完整移动调度，承接原AX返回。
 // 原函数：0x0046A410。
 void SetPlayerMovementTarget_46A410(
     std::int32_t x, std::int32_t y, std::int32_t speed); // 玩家快照/共享移动分量初始化。

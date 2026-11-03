@@ -558,7 +558,6 @@ std::int32_t gPendingSceneType = 0; // 原全局：0x00FF0D6C。
 std::uint8_t gMapSurfaceCacheEnabled_C82204 = 0; // 原全局：0x00C82204。
 std::uint32_t gGameplayRepliesSuppressed_9A6E0C = 0; // 原全局：0x009A6E0C。
 std::uint32_t gLogoutToTownPending_D67E78 = 0; // 原全局：0x00D67E78。
-std::uint32_t gObservationTravelTransitionCount_FF0D74 = 0; // 原全局：0x00FF0D74。
 std::array<std::uint32_t, 7> gInventorySlotUseCounts_D67B08 {}; // 原全局：0x00D67B08。
 std::uint32_t gSceneTransitionResetPending_58B6D0 = 1; // 原全局：0x0058B6D0。
 
@@ -3818,7 +3817,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         return;
     case 252: {
         cg::core::NullSub_509080();
-        gObservationTravelTransitionCount_FF0D74 = 0;
+        session.WorldScene().observationTravelTransitionCount = 0;
         ui::WindowRuntime_ProcessScene();
         gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
         ClearDirectionalMapEffects_46F160();
@@ -3983,7 +3982,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         static_cast<void>(UpdateMapMouseTargetAndButtons_46F680());
         OpenPendingBattleResultWindow_504A50();
         static_cast<void>(NextRotationValue_455C70(session));
-        static_cast<void>(UpdateWorldMapInputAndMovement_469C90());
+        static_cast<void>(UpdateWorldMapInputAndMovement_469C90(session));
         ResetMapDrawCacheCounts_46BD40();
         SynchronizeTimedMapNoticeWindow_455FC0();
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50());
@@ -4548,7 +4547,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
 }
 
 // 原函数：0x0051D5B0。
-void* __cdecl PrepareMapTransitionObservationState_51D5B0()
+void* __cdecl PrepareMapTransitionObservationState_51D5B0(session::ClientSession& session)
 {
     const std::uint16_t current = gMapCharaSceneSlots.valueC8A73E;
     std::uint16_t low;
@@ -4563,18 +4562,18 @@ void* __cdecl PrepareMapTransitionObservationState_51D5B0()
         || cg::yobi::FindObservationGroupByMember_43F1F0(cg::world::gPlayerRuntimeSlots.objectIndex)
             == nullptr) {
         const std::uint32_t currentGate = gLogoutToTownPending_D67E78;
-        gObservationTravelTransitionCount_FF0D74 = 0;
+        session.WorldScene().observationTravelTransitionCount = 0;
         if (currentGate != 0) {
             ResumePlayerAfterObservation_51BEF0();
         }
-    } else if (gObservationTravelTransitionCount_FF0D74 == 0) {
+    } else if (session.WorldScene().observationTravelTransitionCount == 0) {
         gCurrentSceneState = 250;
         static_cast<void>(cg::yobi::SavePlayerObservationTravelSnapshot_440F50());
-        ++gObservationTravelTransitionCount_FF0D74;
+        ++session.WorldScene().observationTravelTransitionCount;
     } else {
-        const std::uint32_t count = gObservationTravelTransitionCount_FF0D74;
+        const std::uint32_t count = session.WorldScene().observationTravelTransitionCount;
         gCurrentSceneState = 252;
-        gObservationTravelTransitionCount_FF0D74 = count + 1u;
+        session.WorldScene().observationTravelTransitionCount = count + 1u;
     }
     return cg::yobi::ClearObservationGroups_43F230();
 }
@@ -5012,7 +5011,7 @@ void __cdecl PopPendingMovementDirection_46BCF0()
 }
 
 // 原 [0x46ADA0,0x46AE53)：type 1 当次读取探测值，发送后更新请求状态。
-void* __cdecl RequestDetectedMapTransition_46ADA0()
+void* __cdecl RequestDetectedMapTransition_46ADA0(session::ClientSession& session)
 {
     static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
 
@@ -5027,7 +5026,7 @@ void* __cdecl RequestDetectedMapTransition_46ADA0()
     const std::int32_t detectedCode =
         std::bit_cast<std::int16_t>(gLastDetectedCode);
     const std::uint32_t sequence = gMapTransitionRequestSequence_C8221C;
-    static_cast<void>(cg::network::GetGameConnection().SendMapTransitionRequest(detectedCode,
+    static_cast<void>(session.Connection().SendMapTransitionRequest(detectedCode,
         std::bit_cast<std::int32_t>(sequence),
         x,
         y,
@@ -5036,7 +5035,7 @@ void* __cdecl RequestDetectedMapTransition_46ADA0()
     const std::uint32_t nextSequence = gMapTransitionRequestSequence_C8221C + 1U;
     gCurrentSceneState = 200;
     gMapTransitionRequestSequence_C8221C = nextSequence;
-    void* const result = PrepareMapTransitionObservationState_51D5B0();
+    void* const result = PrepareMapTransitionObservationState_51D5B0(session);
     gMapTransitionObservationPrepared_C8220C = 1;
     gMapTransitionReplyPending_C82210 = 1;
     gMapRectangleRequestPending_C82208 = 1;
@@ -5046,7 +5045,7 @@ void* __cdecl RequestDetectedMapTransition_46ADA0()
 }
 
 // 原 [0x46AB60,0x46ABCD)：先分发，再只清 active/countdown。
-std::int32_t __cdecl DispatchPendingPathEvent_46AB60()
+std::int32_t __cdecl DispatchPendingPathEvent_46AB60(session::ClientSession& session)
 {
     if (gPendingPathEventActive_C82230 == 0) {
         return 0;
@@ -5064,13 +5063,13 @@ std::int32_t __cdecl DispatchPendingPathEvent_46AB60()
 
     switch (gPendingPathEventType_C82236) {
     case 1:
-        RequestDetectedMapTransition_46ADA0();
+        RequestDetectedMapTransition_46ADA0(session);
         break;
     case 2:
-        RequestPlayerCoordinateSynchronization_46AC90();
+        RequestPlayerCoordinateSynchronization_46AC90(session);
         break;
     case 3:
-        RequestDirectionalMapTransition_46AEA0();
+        RequestDirectionalMapTransition_46AEA0(session);
         break;
     default:
         break;
@@ -5081,7 +5080,7 @@ std::int32_t __cdecl DispatchPendingPathEvent_46AB60()
 }
 
 // 原 [0x46AC90,0x46AD00)：临时 CryptInt 赋值后发送玩家坐标。
-network::SendResult __cdecl RequestPlayerCoordinateSynchronization_46AC90()
+network::SendResult __cdecl RequestPlayerCoordinateSynchronization_46AC90(session::ClientSession& session)
 {
     static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
 
@@ -5091,11 +5090,11 @@ network::SendResult __cdecl RequestPlayerCoordinateSynchronization_46AC90()
     gMapMovementInputBlocked_C82220 = 1;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    return cg::network::GetGameConnection().SendPlayerCoordinates(x, y);
+    return session.Connection().SendPlayerCoordinates(x, y);
 }
 
 // 原 [0x46AEA0,0x46AF24)：恢复地图后发送五整数请求，重读序号再自增。
-std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0()
+std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0(session::ClientSession& session)
 {
     static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
 
@@ -5108,7 +5107,7 @@ std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0()
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::uint32_t sequence = gMapTransitionRequestSequence_C8221C;
-    static_cast<void>(cg::network::GetGameConnection().SendMapTransitionRequest(2,
+    static_cast<void>(session.Connection().SendMapTransitionRequest(2,
         std::bit_cast<std::int32_t>(sequence),
         x,
         y,
@@ -5862,7 +5861,7 @@ void TurnPlayerTowardCursorTarget_46B370()
 }
 
 // 原函数：0x00469C90。
-std::uint8_t UpdateWorldMapInputAndMovement_469C90()
+std::uint8_t UpdateWorldMapInputAndMovement_469C90(session::ClientSession& session)
 {
     const bool pendingIsZero =
         (gPlayerCoordinateSyncPending_C821D8 == 0);
@@ -5879,7 +5878,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
         if (objectIndex >= 0) {
             static_cast<void>(ui::WindowStallBrowse_RequestClose());
             static_cast<void>(ui::WindowOwnStall_RequestClose());
-            static_cast<void>(cg::network::GetGameConnection().RequestStallContents(objectIndex));
+            static_cast<void>(session.Connection().RequestStallContents(objectIndex));
         }
         TurnPlayerTowardCursorTarget_46B370();
         static_cast<void>(RequestAdjacentWorldInteraction_51B3E0());
@@ -5887,7 +5886,7 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
         const std::int32_t secondX = gPlayerMoveTargetX;
         const std::int32_t secondIndex = FindWorldObjectAt_445160(secondX, secondY, 8);
         if (secondIndex != -1) {
-            static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(3, secondIndex));
+            static_cast<void>(session.Connection().RequestPlayerProfile(3, secondIndex));
         }
     }
     if ((gPartyActive_FF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) != 0)
@@ -5940,11 +5939,11 @@ std::uint8_t UpdateWorldMapInputAndMovement_469C90()
     if (gPartyActive_FF0D36 != 0 && (ReadPlayerFlags18A() & 0x100u) == 0) {
         return static_cast<std::uint8_t>(UpdatePartyFollowMovement_46A190());
     }
-    return static_cast<std::uint8_t>(UpdatePlayerPathMovement_469FC0());
+    return static_cast<std::uint8_t>(UpdatePlayerPathMovement_469FC0(session));
 }
 
 // 原函数：0x00469FC0。
-std::uint16_t UpdatePlayerPathMovement_469FC0()
+std::uint16_t UpdatePlayerPathMovement_469FC0(session::ClientSession& session)
 {
     const std::uint32_t stopped = gWaitingForMapRectangleData_9EE8B8;
     gPartyCatchUpRateBits_9DAD78 = 0x3F800000u;
@@ -5953,7 +5952,7 @@ std::uint16_t UpdatePlayerPathMovement_469FC0()
     }
     if ((gPlayerCoordinateSyncPending_C821D8 == 0)
         && gMapTransitionRequestPending_9A86D8 == 0 && gDirectionalMapTransitionPending_9FB92E == 0) {
-        const std::int32_t pending = DispatchPendingPathEvent_46AB60();
+        const std::int32_t pending = DispatchPendingPathEvent_46AB60(session);
         if (pending != 0) {
             return static_cast<std::uint16_t>(pending);
         }
@@ -10392,7 +10391,7 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
     if (priorFlag == 0 && gCurrentSceneType == 9) {
         if (detail::gMapTransitionObservationPrepared_C8220C == 0) {
             gCurrentSceneState = 200;
-            static_cast<void>(detail::PrepareMapTransitionObservationState_51D5B0());
+            static_cast<void>(detail::PrepareMapTransitionObservationState_51D5B0(connection.Owner()));
         }
         static_cast<void>(detail::DestroyPlayerMapPresence_519D50());
         detail::gMapTransitionObservationPrepared_C8220C = 0;

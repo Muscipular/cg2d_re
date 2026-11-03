@@ -134,7 +134,7 @@ void Update(session::ClientSession& session)
         detail::LoadAlbumData_518780();
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
-        gObservationTravelTransitionCount_FF0D74 = 0;
+        session.WorldScene().observationTravelTransitionCount = 0;
         ClearMapName_9DAD30();
         SetCurrentSceneType(6);
         cg::audio::BeginBgmFadeOut_52B990();

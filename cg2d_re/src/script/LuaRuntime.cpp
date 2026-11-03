@@ -9,14 +9,11 @@
 
 namespace cg::script {
 
-static lua_State* uiState = nullptr;
-static lua_State* battleState = nullptr;
-static bool shuttingDown = false;
 static std::uint8_t connectionRegistryKey;
 
-lua_State* GetLuaState() { return uiState; }
-lua_State* GetBattleLuaState() { return battleState; }
-bool IsLuaShuttingDown() { return shuttingDown; }
+lua_State* GetLuaState(session::ClientSession& session) { return session.Lua().uiState; }
+lua_State* GetBattleLuaState(session::ClientSession& session) { return session.Lua().battleState; }
+bool IsLuaShuttingDown(lua_State* L) { return GetLuaConnection(L).Owner().Lua().shuttingDown; }
 
 network::CgConnection& GetLuaConnection(lua_State* L)
 {
@@ -50,30 +47,33 @@ static lua_State* CreateState(session::ClientSession& session)
 
 bool InitializeLua(session::ClientSession& session)
 {
-    if (uiState && battleState) { return true; }
-    shuttingDown = false;
+    auto& runtime = session.Lua();
+    if (runtime.uiState && runtime.battleState) { return true; }
+    runtime.shuttingDown = false;
     LUAJIT_VERSION_SYM();
-    uiState = CreateState(session);
-    battleState = CreateState(session);
-    if (!uiState || !battleState) { ShutdownLua(); return false; }
+    runtime.uiState = CreateState(session);
+    runtime.battleState = CreateState(session);
+    if (!runtime.uiState || !runtime.battleState) { ShutdownLua(session); return false; }
     yobi::InitializeBattleEffects();
-    RegisterLuaUI(uiState);
-    RegisterLuaUI(battleState);
-    InitializeAutoBattle();
-    LoadLuaUIEntry();
+    RegisterLuaUI(runtime.uiState);
+    RegisterLuaUI(runtime.battleState);
+    InitializeAutoBattle(session);
+    LoadLuaUIEntry(session);
     return true;
 }
 
-void ShutdownLua()
+void ShutdownLua(session::ClientSession& session)
 {
-    shuttingDown = true;
+    auto& runtime = session.Lua();
+    runtime.shuttingDown = true;
     audio::ShutdownFileBgm();
     yobi::ShutdownBattleEffects();
     stopCopilot();
     ShutdownAutoBattle();
     ShutdownLuaUI();
-    if (battleState) { lua_close(battleState); battleState = nullptr; }
-    if (uiState) { lua_close(uiState); uiState = nullptr; }
+    session.UiFrame().lastScene = session.UiFrame().lastSceneState = -1;
+    if (runtime.battleState) { lua_close(runtime.battleState); runtime.battleState = nullptr; }
+    if (runtime.uiState) { lua_close(runtime.uiState); runtime.uiState = nullptr; }
 }
 
 } // namespace cg::script

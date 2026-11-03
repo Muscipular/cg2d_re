@@ -1,6 +1,7 @@
 #include "WindowComponents.hpp"
 #include "../script/LuaUI.hpp"
 #include "cg/script/LuaRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include <unordered_map>
 #include <utility>
 
@@ -11,7 +12,6 @@ static std::vector<std::shared_ptr<WindowExtension>> windows;
 static std::unordered_map<int, std::uint64_t> windowOrder;
 static std::uint64_t orderSequence = 0;
 static int focusedWindow = -1;
-static int lastScene = -1, lastSceneState = -1;
 static std::vector<std::pair<int, std::uint32_t>> pendingWindowOpens; // ID和实例代次，不持有窗口。
 
 
@@ -188,21 +188,22 @@ void NativeWindowClosed(int id)
     script::LuaProcessWinMgrWindowClose(id);
 }
 
-void WindowRuntime_UpdateScene()
+void WindowRuntime_UpdateScene(session::ClientSession& session)
 {
+    auto& frame = session.UiFrame();
     const int scene = world::gCurrentSceneType, state = world::gCurrentSceneState;
-    if (scene != lastScene || state != lastSceneState) {
-        lastScene = scene;
-        lastSceneState = state;
-        script::LuaProcessWinMgrSceneStateChanged(scene, state);
+    if (scene != frame.lastScene || state != frame.lastSceneState) {
+        frame.lastScene = scene;
+        frame.lastSceneState = state;
+        script::LuaProcessWinMgrSceneStateChanged(session, scene, state);
     }
 }
 
-void PrepareWindowFrame()
+void PrepareWindowFrame(session::ClientSession& session)
 {
     for (auto* window : detail::gWindows) if (window) WindowRuntime_CollectElements(*window);
     for (const auto& entry : windows) WindowRuntime_CollectElements(entry->window);
-    WindowRuntime_UpdateScene();
+    WindowRuntime_UpdateScene(session);
     // 先移除再通知，关闭事件可以安全重建同ID窗口。
     std::vector<int> closed;
     std::vector<std::shared_ptr<WindowExtension>> retiring;
@@ -264,12 +265,12 @@ std::vector<ScheduledWindow> MergeWindowOrder(int nativeCount)
     return result;
 }
 
-void FinishWindowFrame()
+void FinishWindowFrame(session::ClientSession& session)
 {
-    script::LuaProcessWinMgrKeyPress();
+    script::LuaProcessWinMgrKeyPress(session);
     WindowRuntime_EndPointerDragFrame();
     WindowConsumeMouseWheelDelta();
-    script::AutoBattleProc();
+    script::AutoBattleProc(session);
     script::CopilotProc();
 }
 
@@ -288,7 +289,6 @@ void ShutdownExtensionWindows()
     windowOrder.clear();
     orderSequence = 0;
     focusedWindow = -1;
-    lastScene = lastSceneState = -1;
 }
 
 } // namespace cg::ui

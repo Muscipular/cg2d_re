@@ -164,7 +164,7 @@ int MainLoop(session::ClientSession& session)
         }
         UpdateAudioAndSkipMciClose_52CD30(-1);
         world::Update(session);
-        script::UpdateLuaScene();
+        script::UpdateLuaScene(session);
         if (gWindowActiveState != 0) {
             UpdateCursor_506E00();
             render::SortTextures_520790();

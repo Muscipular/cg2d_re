@@ -484,8 +484,8 @@ static void PushBattleInfo(lua_State* L) {
     lua_setfield(L, -2, "SendAction");
 }
 
-static bool EmitAutoBattle() {
-    auto* L = GetBattleLuaState();
+static bool EmitAutoBattle(session::ClientSession& session) {
+    auto* L = GetBattleLuaState(session);
     if (!L) return false;
     const int top = lua_gettop(L);
     lua_getglobal(L, "AutoBattleEvent");
@@ -499,9 +499,9 @@ static bool EmitAutoBattle() {
     return accepted;
 }
 
-static void DoAutoBattle() {
+static void DoAutoBattle(session::ClientSession& session) {
     if (world::gCurrentSceneType == SCENE_BATTLE && world::gCurrentSceneState == 4) {
-        if (actionSetup && EmitAutoBattle()) ui::detail::WindowBattleCommand_FinishAutoAction();
+        if (actionSetup && EmitAutoBattle(session)) ui::detail::WindowBattleCommand_FinishAutoAction();
         else enableAutoBattle = false;
     }
 }
@@ -676,8 +676,8 @@ static int LuaCheckedTarget(lua_State* L) {
 } // namespace autobattle_detail
 
 
-void InitializeAutoBattle() {
-    auto* L = GetBattleLuaState();
+void InitializeAutoBattle(session::ClientSession& session) {
+    auto* L = GetBattleLuaState(session);
     const int top = lua_gettop(L);
     lua_pushcfunction(L, SafeLuaCall<autobattle_detail::LuaCheckTarget>); lua_setglobal(L, "CheckTarget");
     lua_pushcfunction(L, SafeLuaCall<autobattle_detail::LuaBattleTime>); lua_setglobal(L, "GetTime");
@@ -701,8 +701,7 @@ void ShutdownAutoBattle() {
 
 // 实际Rg发送前记录手动动作；不占用N01的首匹配注册槽。
 void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::string_view packet) {
-    if (!GetBattleLuaState() || autobattle_detail::enableAutoBattle || !packet.starts_with("Rg ")) return;
-    if (&GetLuaConnection(GetBattleLuaState()) != &networkConnection) return;
+    if (!GetBattleLuaState(networkConnection.Owner()) || autobattle_detail::enableAutoBattle || !packet.starts_with("Rg ")) return;
     switch (cg::world::gBattleType5ABFC8) { case 0: case 2: case 3: case 7: return; default: break; }
     const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
     if (count < 0 || count >= 2) {
@@ -742,7 +741,7 @@ void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::s
     if (autobattle_detail::autoBattleActionCount == 2) autobattle_detail::requireAction = true;
 }
 
-void AutoBattleProc() {
+void AutoBattleProc(session::ClientSession& session) {
     auto winAutoBattle = GetExtWindowById(WIN_AUTOBATTLE);
     auto winAutoBattleSimple = GetExtWindowById(WIN_AUTOBATTLE_SIMPLE);
     bool isOpen = winAutoBattle || winAutoBattleSimple;
@@ -767,7 +766,7 @@ void AutoBattleProc() {
             CgWindowClose(WIN_AUTOBATTLE_SIMPLE);
         }
         if (autobattle_detail::enableAutoBattle) {
-            autobattle_detail::DoAutoBattle();
+            autobattle_detail::DoAutoBattle(session);
         }
     }
     if ((world::gPendingSceneType >= 0 && world::gPendingSceneType != SCENE_BATTLE) || world::gCurrentSceneType != SCENE_BATTLE) {

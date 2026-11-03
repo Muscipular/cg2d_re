@@ -2170,7 +2170,7 @@ static void LuaCallPacketSendEvent(const std::shared_ptr<LuaEventRegistration>& 
     lua_settop(L, top);
 }
 
-void LuaProcessWinMgrSceneStateChanged(int sceneType, int sceneState) {
+void LuaProcessWinMgrSceneStateChanged(session::ClientSession& session, int sceneType, int sceneState) {
     auto& options = WinMgrEventOptions(WinMgrEventType::SceneStateChanged);
     if (options.empty()) {
         return;
@@ -2179,7 +2179,8 @@ void LuaProcessWinMgrSceneStateChanged(int sceneType, int sceneState) {
     size_t count = options.size();
     for (size_t i = 0; i < count; ++i) {
         auto event = options[i];
-        if (!event || !event->active || event->callbackRef == LUA_REF_NONE) {
+        if (!event || !event->active || event->callbackRef == LUA_REF_NONE
+            || &GetLuaConnection(event->owner).Owner() != &session) {
             continue;
         }
 
@@ -2403,7 +2404,7 @@ static bool WinMgrKeyPressed(const WinMgrKeyPressOption& option) {
     return true;
 }
 
-void LuaProcessWinMgrKeyPress() {
+void LuaProcessWinMgrKeyPress(session::ClientSession& session) {
     if (gWinMgrKeyPressOptions.empty()) {
         return;
     }
@@ -2412,7 +2413,8 @@ void LuaProcessWinMgrKeyPress() {
     for (size_t i = 0; i < count; ++i) {
         const auto option = gWinMgrKeyPressOptions[i];
         auto event = option.event;
-        if (!event || !event->active || event->callbackRef == LUA_REF_NONE || !WinMgrKeyPressed(option)) {
+        if (!event || !event->active || event->callbackRef == LUA_REF_NONE
+            || &GetLuaConnection(event->owner).Owner() != &session || !WinMgrKeyPressed(option)) {
             continue;
         }
 
@@ -2628,9 +2630,9 @@ void RegWinMgr(lua_State* L) {
 
 }
 
-void LoadLuaUIEntry()
+void LoadLuaUIEntry(session::ClientSession& session)
 {
-    auto* L = GetLuaState();
+    auto* L = GetLuaState(session);
     if (!std::filesystem::exists(L"luaUI/init.lua")) { m_log_iw(L"[Lua] luaUI/init.lua not found\n"); return; }
     const int top = lua_gettop(L);
     if (luaL_dofile(L, "luaUI/init.lua") != 0) m_log_iw(L"[Lua] UI init failed: %hs\n", lua_tostring(L, -1));
@@ -2649,7 +2651,7 @@ void RegisterLuaUI(lua_State* L)
     RegLuaAudio(L);
     RegGraphic(L);
     RegLuaIO(L);
-    if (L == GetLuaState()) LuaBridgeSetLuaUIState(L); else LuaBridgeSetAutoBattleState(L);
+    if (L == GetLuaState(GetLuaConnection(L).Owner())) LuaBridgeSetLuaUIState(L); else LuaBridgeSetAutoBattleState(L);
 }
 void LuaReceivePacket(cg::network::CgConnection& networkConnection, const char* header, char** arguments)
 {

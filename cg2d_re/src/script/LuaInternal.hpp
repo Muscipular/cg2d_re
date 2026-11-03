@@ -11,13 +11,14 @@
 #include "cg/text/Encoding.hpp"
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 namespace cg::script {
 
 cg::network::CgConnection& GetLuaConnection(lua_State* state);
-lua_State* GetLuaState();
-lua_State* GetBattleLuaState();
-bool IsLuaShuttingDown();
+lua_State* GetLuaState(session::ClientSession& session);
+lua_State* GetBattleLuaState(session::ClientSession& session);
+bool IsLuaShuttingDown(lua_State* state);
 void RegisterLuaData(lua_State* state);
 void PushPlayer(lua_State* state);
 void PushBattleEntry(lua_State* state, int slot);
@@ -25,8 +26,10 @@ void PushBattleEntry(lua_State* state, int slot);
 // C++文本/分配异常在C API边界转换；离开catch后再触发Lua错误跳转。
 template<lua_CFunction Function> int SafeLuaCall(lua_State* L) {
     // lua_close中的脚本终结器不能重新创建已释放的窗口/事件或访问旧句柄。
-    if (IsLuaShuttingDown()) return 0;
-    try { return Function(L); }
+    try {
+        if (IsLuaShuttingDown(L)) return 0;
+        return Function(L);
+    }
     catch (const std::exception& error) { lua_pushstring(L, error.what()); }
     return lua_error(L);
 }

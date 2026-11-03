@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -4425,13 +4426,11 @@ void WindowRuntime_QueuePagePresentation(const WindowInstance& source, const Win
 // 窗口函数实现。
 
 // 原函数：0x00473F80。
-std::int32_t WindowRuntime_Update()
+std::int32_t WindowRuntime_Update(session::ClientSession& session)
 {
     using namespace detail;
     // 仅诊断去重，不参与字段／协议状态；失败回调结束后仍继续输入和绘制。
-    static input::InputContext* reportedContext = nullptr;
-    static std::wstring reportedText;
-    static bool reportedFailure = false;
+    auto& frame = session.UiFrame();
     bool encodingFailed = false;
     const auto invoke = [&](auto&& callback) -> std::int32_t {
         try { return callback(); }
@@ -4439,10 +4438,10 @@ std::int32_t WindowRuntime_Update()
             encodingFailed = true;
             input::InputContext* const context = input::gCurrentInputData;
             const std::wstring contents = context != nullptr ? input::ContextText(*context) : std::wstring{};
-            if (!reportedFailure || reportedContext != context || reportedText != contents) {
-                reportedContext = context;
-                reportedText = contents;
-                reportedFailure = true;
+            if (!frame.reportedFailure || frame.reportedContext != context || frame.reportedText != contents) {
+                frame.reportedContext = context;
+                frame.reportedText = contents;
+                frame.reportedFailure = true;
                 m_log_iw(L"文字无法按GBK保存，或已超出字段容量。");
             }
             return 0;
@@ -4453,7 +4452,7 @@ std::int32_t WindowRuntime_Update()
     world::gMapTargetDrawOverride_C8A780 = 0;
     gWindowHasFocusCA0AB4 = 0;
     WindowRuntime_AdvanceMousePhase();
-    PrepareWindowFrame();
+    PrepareWindowFrame(session);
     WindowRuntime_BeginPointerDragFrame();
     const std::int32_t count = WindowRuntime_CompactAndReorder();
     const auto scheduledWindows = MergeWindowOrder(count);
@@ -4580,27 +4579,27 @@ std::int32_t WindowRuntime_Update()
         *reinterpret_cast<unsigned char*>(
             &platform::gLegacyMouseState.valueD68DB4) = 212;
     }
-    if (!encodingFailed) { reportedFailure = false; reportedContext = nullptr; reportedText.clear(); }
-    FinishWindowFrame();
+    if (!encodingFailed) { frame.reportedFailure = false; frame.reportedContext = nullptr; frame.reportedText.clear(); }
+    FinishWindowFrame(session);
     return 1;
 
 }
 
 // 原函数：0x00504120。
-std::int32_t WindowRuntime_Render()
+std::int32_t WindowRuntime_Render(session::ClientSession& session)
 {
     using namespace detail;
     if (gSkillRebirthModeEnabled_5F9754 != 0 && world::gPlayerRuntimeSlots.timerRemaining0C <= 0) {
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendWorldActionRequest(x, y, 62));
+        static_cast<void>(session.Connection().SendWorldActionRequest(x, y, 62));
         auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
         const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
         gSkillRebirthModeEnabled_5F9754 = 0;
         occupancy[7] = decreased;
         WindowSkill_SyncStates();
     }
-    return WindowRuntime_Update();
+    return WindowRuntime_Update(session);
 }
 
 // WPL01：七类载荷创建/owner与动画现场源槽，见doc/cg2d_window_payload_creation_spec.md。

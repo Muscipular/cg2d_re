@@ -40,7 +40,7 @@ static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 int ShutdownClient_457A40(session::ClientSession& session)
 {
     session.Connection().StopIo();
-    script::ShutdownLua();
+    script::ShutdownLua(session);
     shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0();
     resource::ReleaseIndependentPalettes_522C50();
     render::ReleaseGraphicPaletteCache_44E110();

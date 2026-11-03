@@ -3621,7 +3621,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         RenderChara_521F20();
         audio::ResetBgmPlayback_52B940();
         DrawMapSceneWithMarkers_469020();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
         RenderInput_4590E0();
@@ -3682,7 +3682,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     case 202:
         if (gMapTransitionReplyPending_C82210 != 0) {
             session.WorldScene().frameBackgroundMode = 0;
-            static_cast<void>(ui::WindowRuntime_Render());
+            static_cast<void>(ui::WindowRuntime_Render(session));
             RenderInput_4590E0();
             return;
         }
@@ -3761,7 +3761,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
                 worldScene.mapBgmChangePending = 0;
                 audio::gBgmRequest1050810 = 1;
             }
-            static_cast<void>(ui::WindowRuntime_Render());
+            static_cast<void>(ui::WindowRuntime_Render(session));
         }
         goto inputTail;
     }
@@ -3801,7 +3801,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         UpdateDayPeriodPaletteAndTimers_458F00();
@@ -3824,7 +3824,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         InvalidateMapDrawPosition_4691D0();
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
         render::gRenderQueueMode103CF10 = 1;
@@ -3838,7 +3838,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         RenderChara_521F20();
         DrawMapSceneWithMarkers_469020();
         cg::core::NullSub_509080();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         const std::uint32_t changeBgm = worldScene.mapBgmChangePending;
         gLogoutToTownPending_D67E78 = 0;
         if (changeBgm != 0) {
@@ -3898,7 +3898,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
                 }
                 audio::gBgmRequest1050810 = 1;
             }
-            static_cast<void>(ui::WindowRuntime_Render());
+            static_cast<void>(ui::WindowRuntime_Render(session));
             if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
                 || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
                     && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
@@ -3983,7 +3983,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         cg::core::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
         UpdateDayPeriodPaletteAndTimers_458F00();
@@ -4222,7 +4222,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         session.WorldScene().frameBackgroundMode = 2;
         platform::gLastRenderDt = static_cast<double>(tick);
         static_cast<void>(ProcessSceneTransitionEffect_51FDE0(13, 8, 0x40000000U));
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         cg::core::NullSub_509080();
         ++gCurrentSceneState;
@@ -4237,14 +4237,14 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             platform::gLastRenderDt = static_cast<double>(tick);
             input::ProcessKeyInput_4596D0();
             input::BrowseChatHistory_44A1B0();
-            static_cast<void>(ui::WindowRuntime_Render());
+            static_cast<void>(ui::WindowRuntime_Render(session));
             RenderInput_4590E0();
             cg::input::DrawAndAdvanceInputCaret_44A410();
             cg::core::NullSub_509080();
             ui::WindowRuntime_ProcessScene();
             ++gCurrentSceneState;
         } else {
-            static_cast<void>(ui::WindowRuntime_Render());
+            static_cast<void>(ui::WindowRuntime_Render(session));
             RenderInput_4590E0();
             cg::core::NullSub_509080();
         }
@@ -4260,7 +4260,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70(session));
         if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
@@ -4321,7 +4321,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70(session));
         if (cg::yobi::ReturnBattleActorsToFormation_43C910() == 1) {
@@ -4342,7 +4342,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70(session));
         ui::detail::WindowBattleCommand_Dispatch();
@@ -4357,7 +4357,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         cg::yobi::DrawBattleActorNames_43CA80();
         input::BrowseChatHistory_44A1B0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70(session));
         UpdatePlayerCountdown_458F40();
@@ -4388,7 +4388,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         RenderChara_521F20();
         input::BrowseChatHistory_44A1B0();
         cg::input::DrawAndAdvanceInputCaret_44A410();
-        static_cast<void>(ui::WindowRuntime_Render());
+        static_cast<void>(ui::WindowRuntime_Render(session));
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70(session));
         UpdatePlayerCountdown_458F40();

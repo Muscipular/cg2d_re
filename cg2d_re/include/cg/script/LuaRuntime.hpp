@@ -11,8 +11,8 @@ namespace cg::script {
 
 // LUM01：仅主线程调用；在资源/UI准备后初始化，在资源销毁前关闭。
 bool InitializeLua(session::ClientSession& session);
-void ShutdownLua();
-void UpdateLuaScene();
+void ShutdownLua(session::ClientSession& session);
+void UpdateLuaScene(session::ClientSession& session);
 void AddLuaMouseWheel(int delta);
 int LuaProcessWinMgrChatMessage(std::wstring_view text);
 void LuaReceivePacket(cg::network::CgConnection& networkConnection, const char* header, char** arguments);

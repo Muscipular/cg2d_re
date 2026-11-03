@@ -1,6 +1,7 @@
 #pragma once
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 #include <cstdint>
 
@@ -162,9 +163,9 @@ std::int32_t WindowRuntime_CloseAll(); // 完整关闭与观察退出请求，�
 // 原函数：0x00503E80。
 void WindowRuntime_ProcessScene(); // 场景切换的标记、关闭、保存和三路重开；原caller弃返回。
 // 原函数：0x00473F80。
-std::int32_t WindowRuntime_Update(); // 完整鼠标/窗口/快捷键/预设输入父循环，返回1。
+std::int32_t WindowRuntime_Update(session::ClientSession& session); // 完整鼠标/窗口/快捷键/预设输入父循环，返回1。
 // 原函数：0x00504120。
-std::int32_t WindowRuntime_Render(); // 转生计时到期发送/清标志后，透传完整窗口更新返回。
+std::int32_t WindowRuntime_Render(session::ClientSession& session); // 转生计时到期发送/清标志后，透传完整窗口更新返回。
 // 原函数：0x00472240。
 void WindowRuntime_CloseByCategory(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
 // DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。

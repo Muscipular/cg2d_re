@@ -1,7 +1,7 @@
 #include "LuaUI.hpp"
 
 namespace cg::script {
-void UpdateLuaScene() { ui::WindowRuntime_UpdateScene(); }
+void UpdateLuaScene(session::ClientSession& session) { ui::WindowRuntime_UpdateScene(session); }
 void ShutdownLuaUI() {
     ShutdownLuaUIEvents();
     ui::ShutdownExtensionWindows();

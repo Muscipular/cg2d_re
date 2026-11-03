@@ -70,7 +70,7 @@ static int PlayBgmFile(lua_State* L)
     audio::FileBgmResult result;
     try {
         result = audio::PlayFileBgm(text::FromGbkWide(std::string_view(path, length)), mode, loop,
-            L == GetLuaState() ? audio::FileBgmOwner::Ui : audio::FileBgmOwner::Battle);
+            L == GetLuaState(GetLuaConnection(L).Owner()) ? audio::FileBgmOwner::Ui : audio::FileBgmOwner::Battle);
     } catch (const std::exception&) {
         result.error = "Cannot prepare BGM file (path conversion or allocation failed)";
     }

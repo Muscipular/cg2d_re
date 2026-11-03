@@ -209,11 +209,6 @@ static const std::array<std::uint32_t, 420> gCategoryScanImage {
 
 static_assert(sizeof(gCategoryScanImage) == 0x690);
 
-static std::int32_t gSelectedServerGroup = 0; // 原 0x9A5B04，映像零填充。
-static std::int32_t gServerPage = 0;          // 原 0x9A6EA4，映像零填充。
-static std::wstring gLoginSceneMessage {};       // 原 0x9A60F0，映像零填充。
-static std::int32_t gOpenUrlAfterMessage = 0; // 原 0x9A6EA8，映像零填充。
-
 // 该映像只读且不全是控件；转换不外借异型指针或引入持久副本。
 static cg::ui::UiControlRecord CategoryScanRecord(std::int32_t index)
 {
@@ -288,13 +283,14 @@ static void CopyAccountHelpLines()
 
 static void DrawCategoryControls()
 {
+    auto& request = cg::network::GetGameConnection().LoginRequests();
     for (std::int32_t index = 0; index < 60; ++index) {
         if (cg::login::gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index)] > 0) {
-            if (cg::login::gSelectedLoginServerGroup_55A054 == index) {
+            if (request.selectedLoginServerGroup == index) {
                 const auto controlRecord = SelectedCategoryControl();
                 cg::ui::DrawUiControl_45EFD0(
                     &controlRecord, 10, 0, 0, 0);
-            } else if (cg::login::gSelectedLoginServerGroup_55A054 < 0) {
+            } else if (request.selectedLoginServerGroup < 0) {
                 const auto controlRecord = CategoryScanRecord(index);
                 cg::ui::DrawUiControl_45EFD0(
                     &controlRecord, 10, 0, 0, 0);
@@ -358,7 +354,7 @@ std::int32_t ProcessScene_45FEA0()
         SetBaseWindowTitle(title);
         cg::network::GetGameConnection().DisconnectState() = 0;
         world::gSceneTransitionResetPending_58B6D0 = 1;
-        gSelectedServerGroup = 0;
+        request.serverHighlight = 0;
         static_cast<void>(render::SelectPalette(27, 0));
         cg::audio::LoadAndPlayBGM(17);
     }
@@ -376,19 +372,19 @@ std::int32_t ProcessScene_45FEA0()
             cg::audio::BeginBgmFadeOut_52B990();
         } else if (const auto selectedControl = SelectedCategoryControl();
             (cg::ui::QueryUiControlInputState_45F100(&selectedControl) & 1) != 0) {
-            gSelectedLoginServerGroup_55A054 = -1;
-            gServerPage = 0;
+            request.selectedLoginServerGroup = -1;
+            request.serverPage = 0;
             detail::PlaySe(54, 320, 240);
         } else {
             std::int32_t category;
             for (std::int32_t index = 0; index < 60; ++index) {
                 const auto categoryControl = CategoryScanRecord(index);
                 const std::int32_t input = cg::ui::QueryUiControlInputState_45F100(&categoryControl);
-                category = gSelectedLoginServerGroup_55A054;
+                category = request.selectedLoginServerGroup;
                 if ((input & 1) != 0
                     && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index)] > 0
                     && category < 0) {
-                    gSelectedLoginServerGroup_55A054 = index;
+                    request.selectedLoginServerGroup = index;
                     detail::PlaySe(51, 320, 240);
 
                     const std::int32_t sourceA = categoryControl.activeImageNo;
@@ -402,7 +398,7 @@ std::int32_t ProcessScene_45FEA0()
                             imageNo;
                         imageNo += 2;
                     }
-                    category = gSelectedLoginServerGroup_55A054;
+                    category = request.selectedLoginServerGroup;
                     break;
                 }
             }
@@ -411,16 +407,16 @@ std::int32_t ProcessScene_45FEA0()
                     const std::uint8_t input = static_cast<std::uint8_t>(
                         cg::ui::QueryUiControlInputState_45F100(&gServerUi[static_cast<std::size_t>(slot)]));
                     if ((input & 0x40u) != 0) {
-                        gSelectedServerGroup = slot;
+                        request.serverHighlight = slot;
                     }
                     if (static_cast<std::int8_t>(input) < 0) {
-                        const std::int32_t page = gServerPage;
+                        const std::int32_t page = request.serverPage;
                         const std::int32_t serverIndex =
                             category * 20 + page * 10 + slot;
                         if (gLoginServerRecords_D69798[static_cast<std::size_t>(serverIndex)].available != 0) {
                             SetServerWindowTitle(title, serverIndex, page, slot);
                             request.selectedServerIndex = static_cast<std::int16_t>(serverIndex);
-                            gSelectedServerGroup = slot;
+                            request.serverHighlight = slot;
                             detail::PlaySe(53, 320, 240);
                             platform::ComputeExecutableDigest_5202E0(gExecutableDigest);
                             ReadInputValueFF494F_5203E0(request.password);
@@ -447,7 +443,7 @@ std::int32_t ProcessScene_45FEA0()
             break;
         case -1:
             world::gCurrentSceneState = 100;
-            CopyText(gLoginSceneMessage, L"NETWORK还没准备好。" /* 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。 */);
+            CopyText(request.sceneMessage, L"NETWORK还没准备好。" /* 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::GetGameConnection().Shutdown();
             cg::network::GetGameConnection().DisconnectState() = 0;
             break;
@@ -455,28 +451,28 @@ std::int32_t ProcessScene_45FEA0()
             world::gCurrentSceneState = 100;
             const std::int16_t error = request.loginErrorCode;
             if (error > 1234) {
-                CopyText(gLoginSceneMessage, kCannotConnect);
+                CopyText(request.sceneMessage, kCannotConnect);
                 request.loginErrorCode = 0;
             } else if (error == 1234) {
                 request.loginErrorCode = 0;
-                CopyText(gLoginSceneMessage, L"此伺服器很拥挤。" /* 原 0x55CAD0「此伺服器很擁擠。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
+                CopyText(request.sceneMessage, L"此伺服器很拥挤。" /* 原 0x55CAD0「此伺服器很擁擠。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
             } else {
                 switch (error) {
                 case 1:
-                    CopyText(gLoginSceneMessage, L"版本错误" /* 原 0x55C7B8「版本錯誤」正文 8 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"版本错误" /* 原 0x55C7B8「版本錯誤」正文 8 字节；字符串字面量隐式追加 NUL。 */);
                     request.loginErrorCode = 0;
                     break;
                 case 2:
                 case 5:
-                    CopyText(gLoginSceneMessage, kMultiline);
+                    CopyText(request.sceneMessage, kMultiline);
                     CopyAccountHelpLines();
                     // CopyText(messageLines[10], kAccountHelp4);
                     request.loginErrorCode = 0;
                     // CopyText(messageLines[11], kAccountHelp5);
                     break;
                 case 3:
-                    CopyText(gLoginSceneMessage, kMultiline);
-                    CopyText(gLoginSceneMessage, L"Multiline_New");
+                    CopyText(request.sceneMessage, kMultiline);
+                    CopyText(request.sceneMessage, L"Multiline_New");
                     CopyText(messageLines[0], L"        密码错误请重试        " /* 原 0x55CCEC「＝＝＝＝ 為了維護玩家帳號安全性 ＝＝＝＝」正文 40 字节；字符串字面量隐式追加 NUL。 */);
                     CopyText(messageLines[1], L"" /* 原 0x55CCC0「大宇資訊已於２００５／０５／１３全面變更」正文 40 字节；字符串字面量隐式追加 NUL。 */);
                     // CopyText(gValue9A620C[2], L"" /* 原 0x55CC94「所有玩家會員密碼、以及魔力寶貝遊戲密碼，」正文 40 字节；字符串字面量隐式追加 NUL。 */);
@@ -489,61 +485,61 @@ std::int32_t ProcessScene_45FEA0()
                     // CopyText(messageLines[3], kAccountHelp5);
                     break;
                 case 4:
-                    CopyText(gLoginSceneMessage, L"点数不足" /* 原 0x55C6F4「點數不足」正文 8 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"点数不足" /* 原 0x55C6F4「點數不足」正文 8 字节；字符串字面量隐式追加 NUL。 */);
                     request.loginErrorCode = 0;
                     break;
                 case 6:
-                    CopyText(gLoginSceneMessage, kAlreadyOnline);
+                    CopyText(request.sceneMessage, kAlreadyOnline);
                     request.loginErrorCode = 0;
                     break;
                 case 7:
                     request.loginErrorCode = 0;
-                    CopyText(gLoginSceneMessage, kAlreadyOnline);
+                    CopyText(request.sceneMessage, kAlreadyOnline);
                     break;
                 case 8:
-                    CopyText(gLoginSceneMessage, L"登入伺服器发生错误" /* 原 0x55C6D0「登入伺服器發生錯誤」正文 18 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"登入伺服器发生错误" /* 原 0x55C6D0「登入伺服器發生錯誤」正文 18 字节；字符串字面量隐式追加 NUL。 */);
                     request.loginErrorCode = 0;
                     break;
                 case 9:
                     request.loginErrorCode = 0;
-                    CopyText(gLoginSceneMessage, L"储值时间已到" /* 原 0x55C6C0「儲值時間已到」正文 12 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"储值时间已到" /* 原 0x55C6C0「儲值時間已到」正文 12 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 10:
-                    CopyText(gLoginSceneMessage, L"计费方式有问题" /* 原 0x55C6B0「計費方式有問題」正文 14 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"计费方式有问题" /* 原 0x55C6B0「計費方式有問題」正文 14 字节；字符串字面量隐式追加 NUL。 */);
                     request.loginErrorCode = 0;
                     break;
                 case 11:
                 case 13:
                     request.loginErrorCode = 0;
-                    CopyText(gLoginSceneMessage, kSuspended);
+                    CopyText(request.sceneMessage, kSuspended);
                     break;
                 case 12:
                 case 14:
-                    CopyText(gLoginSceneMessage, kSuspended);
+                    CopyText(request.sceneMessage, kSuspended);
                     request.loginErrorCode = 0;
                     break;
                 case 15:
                     request.loginErrorCode = 0;
-                    CopyText(gLoginSceneMessage, L"未知的错误" /* 原 0x55C698「未知的錯誤」正文 10 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"未知的错误" /* 原 0x55C698「未知的錯誤」正文 10 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 16:
-                    CopyText(gLoginSceneMessage, L"伺服器负荷过重，请稍候再试。" /* 原 0x55C678「伺服器負荷過重，請稍候再試。」正文 28 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"伺服器负荷过重，请稍候再试。" /* 原 0x55C678「伺服器負荷過重，請稍候再試。」正文 28 字节；字符串字面量隐式追加 NUL。 */);
                     request.loginErrorCode = 0;
                     break;
                 case 18:
                     request.loginErrorCode = 0;
-                    CopyText(gLoginSceneMessage, L"请休息一下滑鼠，数秒后再尝试。" /* 原 0x55C658「請休息一下滑鼠，數秒後再嘗試。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"请休息一下滑鼠，数秒后再尝试。" /* 原 0x55C658「請休息一下滑鼠，數秒後再嘗試。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 19:
-                    CopyText(gLoginSceneMessage, L"此伺服器不提供试玩服务" /* 原 0x55C640「此伺服器不提供試玩服務」正文 22 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"此伺服器不提供试玩服务" /* 原 0x55C640「此伺服器不提供試玩服務」正文 22 字节；字符串字面量隐式追加 NUL。 */);
                     request.loginErrorCode = 0;
                     break;
                 case 20:
                     request.loginErrorCode = 0;
-                    CopyText(gLoginSceneMessage, L"此电脑没有权限登入。（行动锁上锁）" /* 原 0x55CC00「此電腦沒有權限登入。（行動鎖上鎖）」正文 34 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"此电脑没有权限登入。（行动锁上锁）" /* 原 0x55CC00「此電腦沒有權限登入。（行動鎖上鎖）」正文 34 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 21:
-                    CopyText(gLoginSceneMessage, kMultiline);
+                    CopyText(request.sceneMessage, kMultiline);
                     CopyText(messageLines[6], L"本台机器之机码已停用。" /* 原 0x55CBE8「本台機器之機碼已停用。」正文 22 字节；字符串字面量隐式追加 NUL。 */);
                     CopyText(messageLines[7], L"请检查游戏点数。" /* 原 0x55CBD4「請檢查遊戲點數。」正文 16 字节；字符串字面量隐式追加 NUL。 */);
                     CopyText(messageLines[8], L"可能是点数不足导致登录之机码停用。" /* 原 0x55CBB0「可能是點數不足導致登錄之機碼停用。」正文 34 字节；字符串字面量隐式追加 NUL。 */);
@@ -554,15 +550,15 @@ std::int32_t ProcessScene_45FEA0()
                     break;
                 case 22:
                     request.loginErrorCode = 0;
-                    CopyText(gLoginSceneMessage, L"此帐号已使用行动锁冻结。" /* 原 0x55CB70「此帳號已使用行動鎖凍結。」正文 24 字节；字符串字面量隐式追加 NUL。 */);
+                    CopyText(request.sceneMessage, L"此帐号已使用行动锁冻结。" /* 原 0x55CB70「此帳號已使用行動鎖凍結。」正文 24 字节；字符串字面量隐式追加 NUL。 */);
                     break;
                 case 23:
-                    gOpenUrlAfterMessage = 1;
+                    request.openUrlAfterMessage = 1;
                     request.loginErrorCode = 0;
-                    CopyText(gLoginSceneMessage, L"游戏密码已经过期。\n" /* 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。 */);
+                    CopyText(request.sceneMessage, L"游戏密码已经过期。\n" /* 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。 */);
                     break;
                 default:
-                    CopyText(gLoginSceneMessage, kCannotConnect);
+                    CopyText(request.sceneMessage, kCannotConnect);
                     request.loginErrorCode = 0;
                     break;
                 }
@@ -573,13 +569,13 @@ std::int32_t ProcessScene_45FEA0()
         }
         case -3:
             world::gCurrentSceneState = 100;
-            CopyText(gLoginSceneMessage, L"无法连上更新伺服器" /* 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。 */);
+            CopyText(request.sceneMessage, L"无法连上更新伺服器" /* 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::GetGameConnection().Shutdown();
             cg::network::GetGameConnection().DisconnectState() = 0;
             break;
         case -4:
             world::gCurrentSceneState = 100;
-            CopyText(gLoginSceneMessage, L"版本错误，请重新启动魔力宝贝。" /* 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
+            CopyText(request.sceneMessage, L"版本错误，请重新启动魔力宝贝。" /* 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
             cg::network::GetGameConnection().Shutdown();
             cg::network::GetGameConnection().DisconnectState() = 0;
             break;
@@ -593,8 +589,8 @@ std::int32_t ProcessScene_45FEA0()
         IncrementSceneState();
     }
 
-    if (world::gCurrentSceneState == 101 && UpdateLoginMessage(gLoginSceneMessage) != 0) {
-        if (gOpenUrlAfterMessage != 0) {
+    if (world::gCurrentSceneState == 101 && UpdateLoginMessage(request.sceneMessage) != 0) {
+        if (request.openUrlAfterMessage != 0) {
             // ::ShellExecuteA(
             //     reinterpret_cast<HWND>(platform::gLegacyWindow),
             //     nullptr,
@@ -602,7 +598,7 @@ std::int32_t ProcessScene_45FEA0()
             //     nullptr,
             //     nullptr,
             //     1);
-            gOpenUrlAfterMessage = 0;
+            request.openUrlAfterMessage = 0;
             world::SetPendingSceneType(1);
         }
         world::gCurrentSceneState = 1;
@@ -610,7 +606,7 @@ std::int32_t ProcessScene_45FEA0()
     }
 
     if (world::gCurrentSceneState == 102) {
-        if (UpdateLoginMessage(gLoginSceneMessage) != 0) {
+        if (UpdateLoginMessage(request.sceneMessage) != 0) {
             world::gCurrentSceneState = 1;
         }
         SetBaseWindowTitle(title);
@@ -620,19 +616,19 @@ std::int32_t ProcessScene_45FEA0()
     cg::ui::DrawUiControl_45EFD0(&gSwitchSceneUi, 10, 0, 0, 0);
     if (interactiveTail != 0) {
         DrawCategoryControls();
-        if (gSelectedLoginServerGroup_55A054 >= 0
-            && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(gSelectedLoginServerGroup_55A054)] > 10) {
+        if (request.selectedLoginServerGroup >= 0
+            && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(request.selectedLoginServerGroup)] > 10) {
             cg::ui::DrawUiControl_45EFD0(&gNextPageUi, 10, 0, 0, 0);
             cg::ui::DrawUiControl_45EFD0(&gPreviousPageUi, 10, 0, 0, 0);
             if ((cg::ui::QueryUiControlInputState_45F100(&gNextPageUi) & 1) != 0) {
-                if (gServerPage < 1) {
-                    ++gServerPage;
+                if (request.serverPage < 1) {
+                    ++request.serverPage;
                 }
                 detail::PlaySe(51, 320, 240);
             }
             if ((cg::ui::QueryUiControlInputState_45F100(&gPreviousPageUi) & 1) != 0) {
-                if (gServerPage > 0) {
-                    --gServerPage;
+                if (request.serverPage > 0) {
+                    --request.serverPage;
                 }
                 detail::PlaySe(51, 320, 240);
             }
@@ -640,12 +636,12 @@ std::int32_t ProcessScene_45FEA0()
 
         for (std::int32_t slot = 0; slot < 10; ++slot) {
             const bool available =
-                ReadServerAvailability(gSelectedLoginServerGroup_55A054, gServerPage, slot);
-            if (available && gSelectedLoginServerGroup_55A054 >= 0) {
-                if (gServerPage == 0) {
+                ReadServerAvailability(request.selectedLoginServerGroup, request.serverPage, slot);
+            if (available && request.selectedLoginServerGroup >= 0) {
+                if (request.serverPage == 0) {
                     cg::ui::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot)], 10, 0, 0, 0);
-                } else if (gServerPage == 1) {
+                } else if (request.serverPage == 1) {
                     cg::ui::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, 0);
                 }
@@ -654,12 +650,12 @@ std::int32_t ProcessScene_45FEA0()
     } else {
         DrawCategoryControls();
         for (std::int32_t slot = 0; slot < 10; ++slot) {
-            if (ReadServerAvailability(gSelectedLoginServerGroup_55A054, gServerPage, slot)) {
-                const std::int32_t style = slot == gSelectedServerGroup ? 2 : 1;
-                if (gServerPage == 0) {
+            if (ReadServerAvailability(request.selectedLoginServerGroup, request.serverPage, slot)) {
+                const std::int32_t style = slot == request.serverHighlight ? 2 : 1;
+                if (request.serverPage == 0) {
                     cg::ui::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot)], 10, 0, 0, style);
-                } else if (gServerPage == 1) {
+                } else if (request.serverPage == 1) {
                     cg::ui::DrawUiControl_45EFD0(
                         &gServerUi[static_cast<std::size_t>(slot + 10)], 10, 0, 0, style);
                 }

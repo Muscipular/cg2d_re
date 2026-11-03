@@ -16,6 +16,7 @@
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/input/Input.hpp"
 #include "cg/scene/login/LoginConnection.hpp"
+#include "cg/scene/login/LoginRequest.hpp"
 #include "cg/scene/login/LoginScene.hpp"
 #include "cg/scene/login/LoginState.hpp"
 #include "cg/render/Palette.hpp"
@@ -292,7 +293,7 @@ std::int32_t UpdateDisconnectDialog_455C90()
     std::wstring_view secondText;
     std::wstring_view thirdText;
     std::wstring errorText;
-    const bool connectionError = login::gServerConnectionErrorPresent_593FC0 != 0;
+    const bool connectionError = cg::network::GetGameConnection().LoginRequests().connectionErrorPresent != 0;
     if (connectionError) {
         cg::text::FormatTo(errorText, L"伺服器连线中断({})", cg::network::GetGameConnection().Error());
         secondText = errorText;

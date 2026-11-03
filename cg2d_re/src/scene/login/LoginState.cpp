@@ -207,21 +207,19 @@ std::int32_t AdvanceServerLoginConnection_508360()
 
 } // namespace detail
 
-std::uint16_t gServerConnectionPhase_9A6E3C = 0; // 原全局：0x009A6E3C。
-std::int32_t gSelectedLoginServerGroup_55A054 = -1; // 原全局：0x0055A054。
-std::wstring gLoginProcessingErrorMessage_9A5348 {}; // 原全局：0x009A5348。
-
 // 原函数：0x0045D980。
 std::int32_t ResetValues_45D980()
 {
-    gServerConnectionPhase_9A6E3C = 0;
+    auto& request = cg::network::GetGameConnection().LoginRequests();
+    request.serverConnectionPhase = 0;
     return 0;
 }
 
 // 原函数：0x0045D990。
 std::int32_t UpdateServerConnection()
 {
-    std::uint16_t phase = gServerConnectionPhase_9A6E3C;
+    auto& request = cg::network::GetGameConnection().LoginRequests();
+    std::uint16_t phase = request.serverConnectionPhase;
     std::int32_t result = 0;
 
     if (phase == 0) {
@@ -247,36 +245,36 @@ std::int32_t UpdateServerConnection()
             96,
             4,
             1);
-        gServerConnectionPhase_9A6E3C = 2;
+        request.serverConnectionPhase = 2;
         phase = 2;
     }
 
     if (phase == 1) {
-        gServerConnectionPhase_9A6E3C = 2;
+        request.serverConnectionPhase = 2;
         phase = 2;
     }
 
     if (phase == 2) {
         cg::network::GetGameConnection().Shutdown();
         cg::network::GetGameConnection().DisconnectState() = 0;
-        cg::world::blacklist::PersistAndReset_401000(gSelectedLoginServerGroup_55A054);
+        cg::world::blacklist::PersistAndReset_401000(request.selectedLoginServerGroup);
         if (cg::network::GetGameConnection().Initialize()) {
             cg::network::GetGameConnection().DisconnectState() = 0;
-            gServerConnectionPhase_9A6E3C = 3;
+            request.serverConnectionPhase = 3;
             ResetServerConnectionState_508350();
-            gServerConnectionPhase_9A6E3C = 4;
+            request.serverConnectionPhase = 4;
             phase = 4;
         } else {
             result = -1;
-            phase = gServerConnectionPhase_9A6E3C;
+            phase = request.serverConnectionPhase;
         }
     } else {
-        phase = gServerConnectionPhase_9A6E3C;
+        phase = request.serverConnectionPhase;
     }
 
     if (phase == 3) {
         ResetServerConnectionState_508350();
-        gServerConnectionPhase_9A6E3C = 4;
+        request.serverConnectionPhase = 4;
         phase = 4;
     }
 
@@ -294,7 +292,7 @@ std::int32_t UpdateServerConnection()
             cg::yobi::MarkDeath(gServerConnectionAction);
             gServerConnectionAction = nullptr;
         }
-        cg::world::blacklist::LoadBlacklistFile(gSelectedLoginServerGroup_55A054);
+        cg::world::blacklist::LoadBlacklistFile(request.selectedLoginServerGroup);
     }
 
     cg::yobi::YobiAction* const action = gServerConnectionAction;
@@ -324,6 +322,7 @@ std::int32_t UpdateServerConnection()
 // 原函数：0x0045E960。
 std::int32_t ProcessState_45E960()
 {
+    auto& request = cg::network::GetGameConnection().LoginRequests();
     if (world::gCurrentSceneState == 0) {
         ResetLoginProgress();
         cg::world::ResetGuildStateAndCloseDetails_532D80();
@@ -337,10 +336,10 @@ std::int32_t ProcessState_45E960()
             world::SetCurrentSceneType(9);
         } else if (result == -1) {
             world::gCurrentSceneState = 100;
-            gLoginProcessingErrorMessage_9A5348 = L"处理登入逾时。" /* 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。 */;
+            request.processingErrorMessage = L"处理登入逾时。" /* 原 0x55C9F8「處理登入逾時。」正文 14 字节；字符串字面量隐式追加唯一 NUL。 */;
         } else if (result == -2) {
             world::gCurrentSceneState = 100;
-            gLoginProcessingErrorMessage_9A5348 = L"登入处理失败，或断线后，数分钟内无法登入。" /* 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。 */;
+            request.processingErrorMessage = L"登入处理失败，或断线后，数分钟内无法登入。" /* 原 0x55C9CC「登入處理失敗，或斷線後，數分鐘內無法登入。」正文 42 字节；字符串字面量隐式追加唯一 NUL。 */;
         }
     }
 
@@ -354,7 +353,7 @@ std::int32_t ProcessState_45E960()
         return sceneState;
     }
 
-    const std::int32_t result = UpdateLoginMessage(gLoginProcessingErrorMessage_9A5348);
+    const std::int32_t result = UpdateLoginMessage(request.processingErrorMessage);
     if (result == 0) {
         return 0;
     }

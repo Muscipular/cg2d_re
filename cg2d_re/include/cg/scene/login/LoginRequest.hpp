@@ -66,6 +66,14 @@ struct LoginRequestState {
     std::int32_t connectionStep = 0; // 原 0xDA3B50，服务器连接步骤/轮询计数。
     std::int16_t loginErrorCode = 0; // 原 0xDA3B24，账号登录回复错误码。
     std::int16_t selectedServerIndex = -1; // 原 0x58AD94，登录服务器索引。
+    std::uint16_t serverConnectionPhase = 0; // 原 0x9A6E3C，连接提示阶段。
+    std::int32_t selectedLoginServerGroup = -1; // 原 0x55A054，分类与邮件读取共用。
+    std::int32_t serverHighlight = 0; // 原 0x9A5B04，登录服务器高亮槽。
+    std::int32_t serverPage = 0; // 原 0x9A6EA4，登录服务器分页。
+    std::uint32_t connectionErrorPresent = 0; // 原 0x593FC0，断线说明标志。
+    std::wstring processingErrorMessage; // 原 0x9A5348，角色登录失败提示。
+    std::wstring sceneMessage; // 原 0x9A60F0，登录场景错误提示。
+    std::int32_t openUrlAfterMessage = 0; // 原 0x9A6EA8，提示完成后的链接请求。
     std::wstring password; // 原 0xDA38DC，账号登录第2文本。
     std::wstring account; // 原 0xDA3A5C，账号登录第3文本。
 };

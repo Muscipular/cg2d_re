@@ -14,6 +14,7 @@
 #include <cstdint>
 
 namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
 
 namespace cg::platform {
 
@@ -23,7 +24,7 @@ std::uint32_t ResetSystemLog_44B5A0(); // 打开失败返回 0，成功透传 fc
 
 // 原 MainLoop 的直接依赖，不提供占位函数；每个后续实现仍须对照其完整原函数。
 // 原函数：0x004576B0。
-int InitializeClient_4576B0();
+int InitializeClient_4576B0(session::ClientSession& session);
 // 原函数：0x00458A40。
 void ShowModeChange_458A40();
 // 原函数：0x00457AB0。

@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "ClientShutdown.hpp"
 #include "cg/script/LuaRuntime.hpp"
 #include "imeImpl.hpp"
@@ -36,9 +37,9 @@ static std::int32_t SaveUiAndAlbumThenCloseWindows_4705F0()
 static_assert(sizeof(gDesktopColor) == sizeof(COLORREF));
 
 // 原函数：0x00457A40。
-int ShutdownClient_457A40()
+int ShutdownClient_457A40(session::ClientSession& session)
 {
-    cg::network::GetGameConnection().StopIo();
+    session.Connection().StopIo();
     script::ShutdownLua();
     shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0();
     resource::ReleaseIndependentPalettes_522C50();
@@ -54,8 +55,8 @@ int ShutdownClient_457A40()
     static_cast<void>(render::ReleaseFont_456530());
     ShutdownIme_459040();
     cg::yobi::ShutdownYobiActionList_404D60();
-    cg::network::GetGameConnection().Shutdown();
-    cg::network::GetGameConnection().DisconnectState() = 0;
+    session.Connection().Shutdown();
+    session.Connection().DisconnectState() = 0;
 
     const INT element = COLOR_BACKGROUND;
     const COLORREF color = static_cast<COLORREF>(gDesktopColor);

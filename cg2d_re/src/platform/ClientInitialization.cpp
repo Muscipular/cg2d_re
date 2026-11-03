@@ -95,7 +95,7 @@ static void AdvanceLoadingFadeFrame()
 namespace initialization_detail {
 
 // 原函数：0x00458390。
-static std::int32_t FadeInLoading_458390()
+static std::int32_t FadeInLoading_458390(session::ClientSession& session)
 {
     const std::int32_t capability = resource::ProbePaletteCapability_45C970();
     render::gPaletteCapability = capability;
@@ -113,7 +113,7 @@ static std::int32_t FadeInLoading_458390()
     bool keepRunning = true;
     for (;;) {
         if (PumpWindowMessages() == 0) {
-            static_cast<void>(ShutdownClient_457A40());
+            static_cast<void>(ShutdownClient_457A40(session));
             return 0;
         }
         if (firstFrame) {
@@ -142,14 +142,14 @@ static std::int32_t FadeInLoading_458390()
 }
 
 // 原函数：0x004585F0。
-static std::int32_t FadeOutLoading_4585F0()
+static std::int32_t FadeOutLoading_4585F0(session::ClientSession& session)
 {
     gLastRenderDt = static_cast<double>(ReadTickCount64());
     bool firstFrame = true;
     bool keepRunning = true;
     for (;;) {
         if (PumpWindowMessages() == 0) {
-            static_cast<void>(ShutdownClient_457A40());
+            static_cast<void>(ShutdownClient_457A40(session));
             return 0;
         }
         if (firstFrame) {
@@ -174,7 +174,7 @@ static std::int32_t FadeOutLoading_4585F0()
 } // namespace initialization_detail
 
 // 原函数：0x004576B0。
-int InitializeClient_4576B0()
+int InitializeClient_4576B0(session::ClientSession& session)
 {
     static_cast<void>(ResetSystemLog_44B5A0());
     const std::int8_t rendererResult = render::RendererInit_44B630();
@@ -234,7 +234,6 @@ int InitializeClient_4576B0()
     }
     static_cast<void>(render::InvalidateGraphicRefs_523350());
     static_cast<void>(resource::InitializeIndependentPalettes_522B30());
-    auto& session = network::GetGameConnection().Owner();
     SeedRandom_53B4BF(session.Connection(), std::random_device()() ^ static_cast<std::uint32_t>(ReadTickCount64()));
     static_cast<void>(world::InitializeRotationTable_46FB20(session));
     static_cast<void>(ResetLegacyMouseState_506870());
@@ -255,11 +254,11 @@ int InitializeClient_4576B0()
         static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     }
     render::gRenderQueueMode103CF10 = 0;
-    if (initialization_detail::InitLoading_457B10(network::GetGameConnection()) == 0) {
+    if (initialization_detail::InitLoading_457B10(session.Connection()) == 0) {
         return 0;
     }
     login::detail::AppendSystemLog_44B5C0(L"fadeInNowLoading Start");
-    if (initialization_detail::FadeInLoading_458390() == 0) {
+    if (initialization_detail::FadeInLoading_458390(session) == 0) {
         return 0;
     }
 
@@ -275,7 +274,7 @@ int InitializeClient_4576B0()
     world::gPendingSceneType = -1;
     gLastRenderDt = initialFrameTime;
     login::detail::AppendSystemLog_44B5C0(L"fadeOutNowLoading Start");
-    if (initialization_detail::FadeOutLoading_4585F0() == 0) {
+    if (initialization_detail::FadeOutLoading_4585F0(session) == 0) {
         return 0;
     }
     render::gRenderQueueMode103CF10 = 1;

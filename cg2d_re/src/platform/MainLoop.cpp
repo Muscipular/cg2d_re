@@ -117,7 +117,8 @@ void ShowModeChange_458A40()
 // 原 [0x457020,0x4574DA)，分支、调用及数值边界见 doc/cg2d_main_loop.md。
 int MainLoop()
 {
-    if (InitializeClient_4576B0() == 0) {
+    auto& session = network::GetGameConnection().Owner();
+    if (InitializeClient_4576B0(session) == 0) {
         return 0;
     }
     const auto getTickCount = &ReadTickCount64;
@@ -140,10 +141,9 @@ int MainLoop()
         }
 
         if (PumpWindowMessages() == 0) {
-            ShutdownClient_457A40();
+            ShutdownClient_457A40(session);
             return 0;
         }
-        auto& session = network::GetGameConnection().Owner();
         auto& connection = session.Connection();
         KeepAlive_457AB0(connection);
         world::UpdateGameTime(&world::gCgTime);

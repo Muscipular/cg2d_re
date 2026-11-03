@@ -10,6 +10,7 @@
 #include "../ui/WindowRuntimeState.hpp"
 
 #include "cg/resource/AnimationRuntime.hpp"
+#include "cg/network/CgConnection.hpp"
 #include "cg/resource/GraphicAlloc.hpp"
 #include "cg/resource/GraphicInfo.hpp"
 #include "cg/resource/GraphicRead.hpp"
@@ -37,7 +38,7 @@ namespace initialization_detail {
 
 // 原加载入口，完整本体位于 LoadingScreen.cpp。
 // 原函数：0x00457B10。
-std::int32_t InitLoading_457B10();
+std::int32_t InitLoading_457B10(network::CgConnection& connection);
 // 原直接目标的SDL音乐提供者，实现在LegacyAudio.cpp；保留本父调用顺序。
 
 } // namespace initialization_detail
@@ -252,7 +253,7 @@ int InitializeClient_4576B0()
         static_cast<void>(cg::render::DrawGraphic(x, y, 231, 22000, 0, nullptr));
     }
     render::gRenderQueueMode103CF10 = 0;
-    if (initialization_detail::InitLoading_457B10() == 0) {
+    if (initialization_detail::InitLoading_457B10(network::GetGameConnection()) == 0) {
         return 0;
     }
     login::detail::AppendSystemLog_44B5C0(L"fadeInNowLoading Start");

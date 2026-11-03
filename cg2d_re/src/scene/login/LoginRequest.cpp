@@ -20,11 +20,6 @@ static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 static constexpr char kSuccessfulResult[] = "successful";
 
 // 原函数：0x0051B3B0。
-std::int32_t ClearCharacterSlot_51B3B0(const std::uint32_t selectedIndex)
-{
-    return ClearCharacterSlot_51B3B0(cg::network::GetGameConnection(), selectedIndex);
-}
-
 std::int32_t ClearCharacterSlot_51B3B0(network::CgConnection& connection, const std::uint32_t selectedIndex)
 {
     if (selectedIndex >= CharacterRecordCount) {
@@ -35,11 +30,6 @@ std::int32_t ClearCharacterSlot_51B3B0(network::CgConnection& connection, const 
 }
 
 // 原函数：0x0051B110。
-std::int32_t HasCharacterInSlot_51B110(const std::uint32_t selectedIndex)
-{
-    return HasCharacterInSlot_51B110(cg::network::GetGameConnection(), selectedIndex);
-}
-
 std::int32_t HasCharacterInSlot_51B110(network::CgConnection& connection, const std::uint32_t selectedIndex)
 {
     if (selectedIndex >= CharacterRecordCount) {
@@ -49,11 +39,6 @@ std::int32_t HasCharacterInSlot_51B110(network::CgConnection& connection, const 
 }
 
 // 原函数：0x0051B140。
-std::int32_t CharacterNameExists_51B140(const std::wstring_view name)
-{
-    return CharacterNameExists_51B140(cg::network::GetGameConnection(), name);
-}
-
 std::int32_t CharacterNameExists_51B140(network::CgConnection& connection, const std::wstring_view name)
 {
     for (const CharacterRecord& record : connection.LoginRequests().characters) {

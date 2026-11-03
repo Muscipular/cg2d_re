@@ -5,6 +5,7 @@
 #include "../scene/login/LoginMessageDependencies.hpp"
 
 #include "cg/resource/GraphicInfo.hpp"
+#include "cg/network/CgConnection.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
@@ -22,7 +23,7 @@ namespace cg::platform::initialization_detail {
 static render::GraphicDescriptor16 gLoadingDescriptor{};
 
 // 原 InitLoading@[457B10,4582FE)，完整阶段及公共帧尾见 cg2d_loading_screen.md。
-std::int32_t InitLoading_457B10()
+std::int32_t InitLoading_457B10(network::CgConnection& connection)
 {
     std::int32_t phase = 21; // 自动跳过片头，复用原按键跳过后的清理阶段。
     std::int32_t image = 0;
@@ -207,10 +208,10 @@ std::int32_t InitLoading_457B10()
             break;
         case 24:
             phase = 25;
-            login::ResetLoginMessage();
+            login::ResetLoginMessage(connection);
             break;
         case 25:
-            if (login::UpdateLoginMessage(L"没有按照正常程序安装") == 1) {
+            if (login::UpdateLoginMessage(connection, L"没有按照正常程序安装") == 1) {
                 return 0;
             }
             break;

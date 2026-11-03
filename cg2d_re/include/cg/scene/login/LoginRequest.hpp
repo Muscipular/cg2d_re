@@ -43,15 +43,12 @@ using CharacterRecordArray = std::array<CharacterRecord, CharacterRecordCount>;
 
 
 // 原 sub_51B3B0@[0x51B3B0,0x51B3DC)：只清合法的 0/1 角色记录。
-std::int32_t ClearCharacterSlot_51B3B0(std::uint32_t selectedIndex);
 std::int32_t ClearCharacterSlot_51B3B0(network::CgConnection& connection, std::uint32_t selectedIndex);
 
 // 原 sub_51B110@[0x51B110,0x51B136)：合法槽读首字节返回 0/1，越界返回 -1。
-std::int32_t HasCharacterInSlot_51B110(std::uint32_t selectedIndex);
 std::int32_t HasCharacterInSlot_51B110(network::CgConnection& connection, std::uint32_t selectedIndex);
 
 // 原 sub_51B140@[0x51B140,0x51B1A1)：按名字查找两条角色记录。
-std::int32_t CharacterNameExists_51B140(std::wstring_view name);
 std::int32_t CharacterNameExists_51B140(network::CgConnection& connection, std::wstring_view name);
 
 // NSM01：登录/角色/登出请求共用的状态随连接实例保留，重连不清。

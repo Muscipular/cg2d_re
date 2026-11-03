@@ -2193,9 +2193,6 @@ std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
 
 const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}; // 原全局：0x0054D93C。
 
-std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40 {}; // 原全局：0x005A8A40。
-std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0 {}; // 原全局：0x005ABCE0。
-
 cg::yobi::YobiAction* gBattleSceneAction5ABA94 = nullptr; // 原全局：0x005ABA94。
 std::array<cg::yobi::YobiAction*, 22> gBattleAllEntries59E980 {}; // 原全局：0x0059E980。
 constinit const std::span<cg::yobi::YobiAction*, 20> gBattleEntries59E980 { // 原全局：0x0059E980。
@@ -4052,7 +4049,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     switch (state) {
     case 0: {
         battleScene.entryPending = 0;
-        gBattleNamedEffects5ABCE0.fill({});
+        battleScene.namedEffects.fill({});
         std::int32_t title = 0;
         while (title < static_cast<std::int32_t>(gSortedTitlesDE03F8.size())
             && gSortedTitlesDE03F8[title].value != 1101) {

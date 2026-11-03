@@ -824,7 +824,7 @@ void UpdateBattleAction84_40CD70(YobiAction* const action)
 void UpdateBattleAction85_40CDE0(YobiAction* const action)
 {
     // BAN01：技能82、跳舞mode12及特定复制体共用的旋转放大表现，不是DamageUp状态建立。
-    using world::gBattleNamedEffects5ABCE0;
+    auto& battle = action->ownerSession->WorldScene().battle;
     const double step = 0.01F;
     const double scaleX = action->scaleX + step;
     const std::int32_t previousDirection = action->direction;
@@ -841,12 +841,12 @@ void UpdateBattleAction85_40CDE0(YobiAction* const action)
     if (scaleX >= 2.0) {
         if (payload->castSkill103C == BattleSkill_ThrowItem) {
             std::int32_t namedIndex = 0;
-            while (cg::world::gBattleNamedEffects5ABCE0[namedIndex].name != action->nameC4) {
+            while (battle.namedEffects[namedIndex].name != action->nameC4) {
                 ++namedIndex;
             }
             std::int32_t imageNo = 110154;
             for (std::int32_t index = 0; kBattleNamedEffectImages57E174[index][0] != 0; ++index) {
-                if (kBattleNamedEffectImages57E174[index][0] == cg::world::gBattleNamedEffects5ABCE0[namedIndex].value) {
+                if (kBattleNamedEffectImages57E174[index][0] == battle.namedEffects[namedIndex].value) {
                     imageNo = kBattleNamedEffectImages57E174[index][1];
                     break;
                 }
@@ -1932,8 +1932,7 @@ void UpdateBattleAction113_40EFE0(YobiAction* const action)
 void UpdateBattleAction114_40F0A0(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
-    using world::gBattleEffectPairs5A8A40;
-    using world::gBattleNamedEffects5ABCE0;
+    auto& battle = action->ownerSession->WorldScene().battle;
     auto* const payload = action->payload.battleActor;
     do {
         const std::int32_t cacheIndex = payload->effectRunningC9C;
@@ -1964,7 +1963,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
         if (payload->effectRunningC9C == 0 && payload->castSkillLevel1044 < 90) {
             std::int32_t namedImage = 110158;
             std::int32_t namedIndex = 0;
-            while (cg::world::gBattleNamedEffects5ABCE0[namedIndex].name != action->nameC4) {
+            while (battle.namedEffects[namedIndex].name != action->nameC4) {
                 ++namedIndex;
                 if (namedIndex >= 20) {
                     break;
@@ -1972,7 +1971,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
             }
             if (namedIndex < 20) {
                 for (std::int32_t index = 0; kBattleNamedEffectImages57E174[index][0] != 0; ++index) {
-                    if (kBattleNamedEffectImages57E174[index][0] == cg::world::gBattleNamedEffects5ABCE0[namedIndex].value) {
+                    if (kBattleNamedEffectImages57E174[index][0] == battle.namedEffects[namedIndex].value) {
                         namedImage = kBattleNamedEffectImages57E174[index][1];
                         break;
                     }
@@ -1987,8 +1986,8 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
         }
         const BattleEntryEffectRecord& paired = payload->effects1C[payload->effectRunningC9C];
         const std::int32_t pairPosition = paired.position;
-        if (cg::world::gBattleEffectPairs5A8A40[pairPosition][1] != 0) {
-            const std::int32_t type = cg::world::gBattleEffectPairs5A8A40[pairPosition][0];
+        if (battle.effectPairs[pairPosition][1] != 0) {
+            const std::int32_t type = battle.effectPairs[pairPosition][0];
             if (type >= 1 && type <= 6) {
                 static_cast<void>(NewBattleBuffEffect_41F660(cg::world::gBattleAllEntries59E980[pairPosition], type + 110074));
             }
@@ -2832,7 +2831,7 @@ void UpdateBattleAction109_40E4B0(YobiAction* const action)
 void UpdateBattleAction112_40EB00(YobiAction* const action)
 {
     using world::gBattleAllEntries59E980;
-    using world::gBattleNamedEffects5ABCE0;
+    auto& battle = action->ownerSession->WorldScene().battle;
     auto* const payload = action->payload.battleActor;
     YobiAction* const caster = payload->caster1070;
     if (PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd) == AnimationFrameResult_StoppedOrUnavailable) {
@@ -2860,11 +2859,11 @@ void UpdateBattleAction112_40EB00(YobiAction* const action)
     auto* const copyPayload = copy->payload.battleActor;
     copy->imageNo = 26220;
     std::int32_t namedIndex = 0;
-    while (cg::world::gBattleNamedEffects5ABCE0[namedIndex].name != action->nameC4) {
+    while (battle.namedEffects[namedIndex].name != action->nameC4) {
         ++namedIndex;
     }
     for (std::int32_t index = 0; kBattleNamedEffectImages57E174[index][0] != 0; ++index) {
-        if (kBattleNamedEffectImages57E174[index][0] == cg::world::gBattleNamedEffects5ABCE0[namedIndex].value) {
+        if (kBattleNamedEffectImages57E174[index][0] == battle.namedEffects[namedIndex].value) {
             copy->imageNo = kBattleNamedEffectImages57E174[index][2];
             break;
         }

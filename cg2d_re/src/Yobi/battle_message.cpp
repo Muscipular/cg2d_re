@@ -944,7 +944,7 @@ void ScanBattleMParticipants_439B30(
                 ++participants[target];
                 const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600(battle);
                 skip(1);
-                auto& pair = cg::world::gBattleEffectPairs5A8A40[target];
+                auto& pair = battle.effectPairs[target];
                 const bool namedEffect = skill == BattleSkill_ThrowItem;
                 pair[0] = 0;
                 pair[1] = 0;
@@ -953,7 +953,7 @@ void ScanBattleMParticipants_439B30(
                     pair[1] = TakeBattleMPreviewInteger_439600(battle);
                     TakeBattleMPreviewString_439670(battle, text.data(), 29);
                     const std::int32_t value = TakeBattleMPreviewInteger_439600(battle);
-                    for (auto& record : cg::world::gBattleNamedEffects5ABCE0) {
+                    for (auto& record : battle.namedEffects) {
                         if (record.name.empty()) {
                             record.name = cg::text::FromGbkWide(text.data());
                             record.value = value;

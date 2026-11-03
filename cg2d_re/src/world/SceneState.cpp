@@ -2477,17 +2477,13 @@ std::uint32_t gMapTargetLeftHeld_C8A7A4 = 0; // 原全局：0x00C8A7A4。
 std::uint32_t gMapTargetInteractionClick_C8A7A8 = 0; // 原全局：0x00C8A7A8。
 std::uint32_t gMapTargetRightHeld_C8A7AC = 0; // 原全局：0x00C8A7AC。
 std::uint64_t gLastMapMoveTargetTick_55DDAC = UINT64_MAX; // 原全局：0x0055DDAC。
-std::uint32_t gMapTransitionObservationPrepared_C8220C = 0; // 原全局：0x00C8220C。
 std::int32_t gDayPeriodPaletteEnabled_73ED44 = 0; // 原全局：0x0073ED44。
 
 } // namespace detail
 std::int32_t gCurrentDayPeriod_73ED48 = 0; // 原全局：0x0073ED48。
 
 namespace detail {
-std::uint32_t gMapTransitionRequestSequence_C8221C = 0; // 原全局：0x00C8221C。
-std::uint16_t gPendingMapTransitionSequence_9DAD54 = 0; // 原全局：0x009DAD54。
 std::uint16_t gMissingMapRectangleCount_9DAD56 = 0; // 原全局：0x009DAD56。
-std::uint16_t gPendingDirectionalTransitionSequence_9FB92C = 0; // 原全局：0x009FB92C。
 std::uint16_t gPlayerPathFinalFacingDirection_55D9FC = 0xFFFFu; // 原全局：0x0055D9FC。
 std::uint16_t gMapWindowReloadPending_9EE910 = 0; // 原全局：0x009EE910。
 
@@ -3367,12 +3363,12 @@ std::int32_t* InitializeWorldMapState_467F30(session::ClientSession& session)
     gMapMovementInputBlocked_C82220 = 0;
     gMapLeftHoldDurationMs_C8A778 = 0;
     gMapLeftPressTick_C8A794 = 0;
-    gMapTransitionObservationPrepared_C8220C = 0;
+    session.WorldScene().mapTransitionObservationPrepared = 0;
     session.WorldScene().mapTransitionReplyPending = 0;
     session.WorldScene().mapTransitionAwaitingRectangle = 0;
     session.WorldScene().mapNameReceivedDuringTransition = 0;
-    gPendingMapTransitionSequence_9DAD54 = 0xFFFFu;
-    gPendingDirectionalTransitionSequence_9FB92C = 0xFFFFu;
+    session.WorldScene().pendingMapTransitionSequence = 0xFFFFu;
+    session.WorldScene().pendingDirectionalTransitionSequence = 0xFFFFu;
     gPlayerPathFinalFacingDirection_55D9FC = 0xFFFFu;
 
     static_cast<void>(ResetMapProjectionState_468F30());
@@ -4995,27 +4991,27 @@ void* __cdecl RequestDetectedMapTransition_46ADA0(session::ClientSession& sessio
     static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
 
     const std::uint16_t sequenceLow =
-        static_cast<std::uint16_t>(gMapTransitionRequestSequence_C8221C);
+        static_cast<std::uint16_t>(session.WorldScene().mapTransitionRequestSequence);
     gMapTransitionRequestPending_9A86D8 = 1;
     gMapMovementInputBlocked_C82220 = 1;
-    gPendingMapTransitionSequence_9DAD54 = sequenceLow;
+    session.WorldScene().pendingMapTransitionSequence = sequenceLow;
 
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const std::int32_t detectedCode =
         std::bit_cast<std::int16_t>(gLastDetectedCode);
-    const std::uint32_t sequence = gMapTransitionRequestSequence_C8221C;
+    const std::uint32_t sequence = session.WorldScene().mapTransitionRequestSequence;
     static_cast<void>(session.Connection().SendMapTransitionRequest(detectedCode,
         std::bit_cast<std::int32_t>(sequence),
         x,
         y,
         -1));
 
-    const std::uint32_t nextSequence = gMapTransitionRequestSequence_C8221C + 1U;
+    const std::uint32_t nextSequence = session.WorldScene().mapTransitionRequestSequence + 1U;
     gCurrentSceneState = 200;
-    gMapTransitionRequestSequence_C8221C = nextSequence;
+    session.WorldScene().mapTransitionRequestSequence = nextSequence;
     void* const result = PrepareMapTransitionObservationState_51D5B0(session);
-    gMapTransitionObservationPrepared_C8220C = 1;
+    session.WorldScene().mapTransitionObservationPrepared = 1;
     session.WorldScene().mapTransitionReplyPending = 1;
     session.WorldScene().mapRectangleRequestPending = 1;
     session.WorldScene().mapTransitionAwaitingRectangle = 0;
@@ -5078,22 +5074,22 @@ std::int32_t __cdecl RequestDirectionalMapTransition_46AEA0(session::ClientSessi
     static_cast<void>(RestorePlayerMovementSnapshot_4681B0());
 
     const std::uint32_t mapValue = gDirectionalMapTransitionHeading_9ED440;
-    const std::uint16_t sequenceLow = static_cast<std::uint16_t>(gMapTransitionRequestSequence_C8221C);
+    const std::uint16_t sequenceLow = static_cast<std::uint16_t>(session.WorldScene().mapTransitionRequestSequence);
     gDirectionalMapTransitionPending_9FB92E = 1;
     gMapMovementInputBlocked_C82220 = 1;
-    gPendingDirectionalTransitionSequence_9FB92C = sequenceLow;
+    session.WorldScene().pendingDirectionalTransitionSequence = sequenceLow;
 
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-    const std::uint32_t sequence = gMapTransitionRequestSequence_C8221C;
+    const std::uint32_t sequence = session.WorldScene().mapTransitionRequestSequence;
     static_cast<void>(session.Connection().SendMapTransitionRequest(2,
         std::bit_cast<std::int32_t>(sequence),
         x,
         y,
         std::bit_cast<std::int32_t>(mapValue)));
 
-    const std::uint32_t nextSequence = gMapTransitionRequestSequence_C8221C + 1U;
-    gMapTransitionRequestSequence_C8221C = nextSequence;
+    const std::uint32_t nextSequence = session.WorldScene().mapTransitionRequestSequence + 1U;
+    session.WorldScene().mapTransitionRequestSequence = nextSequence;
     return std::bit_cast<std::int32_t>(nextSequence);
 }
 
@@ -10219,7 +10215,7 @@ void __cdecl HandleMapTransitionReply_50CF90(cg::network::CgConnection& connecti
     if (gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
-    if (std::bit_cast<std::int16_t>(detail::gPendingMapTransitionSequence_9DAD54) == sequence) {
+    if (std::bit_cast<std::int16_t>(connection.Owner().WorldScene().pendingMapTransitionSequence) == sequence) {
         gMapTransitionRequestPending_9A86D8 = 0;
         if (status == 0) {
             detail::InvalidateMapDrawPosition_4691D0();
@@ -10228,7 +10224,7 @@ void __cdecl HandleMapTransitionReply_50CF90(cg::network::CgConnection& connecti
         } else if (connection.Owner().WorldScene().mapTransitionAwaitingRectangle == 0) {
             connection.Owner().WorldScene().mapTransitionReplyPending = 0;
         }
-    } else if (std::bit_cast<std::int16_t>(detail::gPendingDirectionalTransitionSequence_9FB92C) == sequence &&
+    } else if (std::bit_cast<std::int16_t>(connection.Owner().WorldScene().pendingDirectionalTransitionSequence) == sequence &&
                status == 0) {
         gDirectionalMapTransitionPending_9FB92E = 0;
     }
@@ -10371,12 +10367,12 @@ std::int32_t __cdecl HandleMapChangeReply_5093F0(cg::network::CgConnection& conn
     const std::uint8_t priorFlag = connection.Owner().WorldScene().worldEntryRepliesPendingMask;
     connection.Owner().WorldScene().mapRectangleRequestPending = 1;
     if (priorFlag == 0 && gCurrentSceneType == 9) {
-        if (detail::gMapTransitionObservationPrepared_C8220C == 0) {
+        if (connection.Owner().WorldScene().mapTransitionObservationPrepared == 0) {
             gCurrentSceneState = 200;
             static_cast<void>(detail::PrepareMapTransitionObservationState_51D5B0(connection.Owner()));
         }
         static_cast<void>(detail::DestroyPlayerMapPresence_519D50());
-        detail::gMapTransitionObservationPrepared_C8220C = 0;
+        connection.Owner().WorldScene().mapTransitionObservationPrepared = 0;
     }
 
     static_cast<void>(detail::EnsureMapCacheFile_468570(

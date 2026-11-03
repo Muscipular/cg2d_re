@@ -269,11 +269,7 @@ extern std::uint32_t gMapTargetLeftHeld_C8A7A4; // 原全局：0x00C8A7A4。 原
 extern std::uint32_t gMapTargetInteractionClick_C8A7A8; // 原全局：0x00C8A7A8。 原目标对象交互事件，非鼠标edge位槽。
 extern std::uint32_t gMapTargetRightHeld_C8A7AC; // 原全局：0x00C8A7AC。 原右键持续事件，单次事件优先。
 extern std::uint64_t gLastMapMoveTargetTick_55DDAC; // 原全局：0x0055DDAC。 原点击目标时间，映像初值FFFFFFFF。
-extern std::uint32_t gMapTransitionObservationPrepared_C8220C; // 原全局：0x00C8220C。
 extern std::int32_t gDayPeriodPaletteEnabled_73ED44; // 原全局：0x0073ED44。 原当前调色板选择标志 W32，458F00 读取。
-extern std::uint32_t gMapTransitionRequestSequence_C8221C; // 原全局：0x00C8221C。 原 46ADA0/46AEA0 共用的 W32 请求序号。
-extern std::uint16_t gPendingMapTransitionSequence_9DAD54; // 原全局：0x009DAD54。
-extern std::uint16_t gPendingDirectionalTransitionSequence_9FB92C; // 原全局：0x009FB92C。
 extern std::uint16_t gPlayerPathFinalFacingDirection_55D9FC; // 原全局：0x0055D9FC。
 extern std::uint16_t gMapWindowReloadPending_9EE910; // 原全局：0x009EE910。
 

@@ -23,7 +23,7 @@ void WindowWorkResult_ReceiveReply(cg::network::CgConnection& connection, const 
             static_cast<void>(detail::WindowSkillResult_ReceiveResult(connection.Owner(), result, text));
             break;
         case 4:
-            static_cast<void>(detail::WindowGather_ReceiveResult(result, text));
+            static_cast<void>(detail::WindowGather_ReceiveResult(connection.Owner(), result, text));
             break;
         default:
             break;

@@ -204,6 +204,31 @@ struct SkillResultRuntimeState {
     std::wstring details {}; // 原0xCB0FDC。
 };
 
+// 窗口12的采集请求、阶段与结果；W8请求索引仍按原S8路径消费。
+struct GatherWindowRuntimeState {
+    std::uint8_t skillIndex = 0; // 原0xCA0470。
+    std::uint8_t skillLevel = 0; // 原0xCB0608。
+    std::uint8_t kind = 0; // 原0xD046CC。
+    std::uint8_t mode = 0; // 原0xCC3E80。
+    std::uint8_t flag = 0; // 原0xCC4D27。
+    std::uint64_t tick = 0; // 原0xD45D4C。
+    std::uint64_t deadline = 0; // 原0xCB0F7C。
+    std::int32_t result = 0; // 原0xD2D820。
+    std::int32_t experience = 0; // 原0xD2DFCC。
+    std::int32_t value = 0; // 原0xD40B08。
+    std::int32_t levelUp = 0; // 原0xC9C0FC。
+    std::int32_t endurance = 0; // 原0xCB0358。
+    std::int32_t dexterity = 0; // 原0xCC3EC0。
+    std::int32_t intelligence = 0; // 原0xCC4B60。
+    std::int32_t resultImage = 0; // 原0xCF3FF0。
+    std::int32_t extra = 0; // 原0xD66E28。
+    std::int32_t petImage = 0; // 原0xCB10CC。
+    std::int32_t crystalLevel = 0; // 原0xCC3E90。
+    std::wstring name {}; // 原0xD2DA94。
+    std::wstring suffix {}; // 原0xCB1E1C。
+    std::wstring details {}; // 原0xCC190C。
+};
+
 // 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
 struct ItemTargetRuntimeState {
     std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
@@ -231,6 +256,7 @@ struct NativeWindowRuntimeState {
     SkillTargetRuntimeState skillTargets {};
     SkillRequestRuntimeState skillRequest {};
     SkillResultRuntimeState skillResult {};
+    GatherWindowRuntimeState gather {};
     ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。

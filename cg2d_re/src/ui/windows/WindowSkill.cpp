@@ -2406,13 +2406,13 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         return;
                     }
                     if (WindowRuntime_States(session)[WindowId_Gather].window != nullptr) {
-                        const std::int32_t current = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
+                        const std::int32_t current = std::bit_cast<std::int8_t>(session.UiFrame().native.gather.skillIndex);
                         const std::int32_t skill = skillState.index;
                         if (current != skill || request.level != technique) {
-                            gWindowActionD2E928 = WindowGather_Open(skill, technique);
+                            gWindowActionD2E928 = WindowGather_Open(session, skill, technique);
                         }
                     } else if (gWindowActionD2E928 == nullptr) {
-                        gWindowActionD2E928 = WindowGather_Open(skillState.index, technique);
+                        gWindowActionD2E928 = WindowGather_Open(session, skillState.index, technique);
                     }
                     return;
                 case 3: {

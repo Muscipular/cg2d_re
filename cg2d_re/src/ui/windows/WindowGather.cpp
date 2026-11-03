@@ -36,10 +36,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00485700。
-static WindowAnimationData* WindowGather_Cancel(WindowInstance* window); // 取消窗口12操作并归空闲，保留末动画载荷返回。
+static WindowAnimationData* WindowGather_Cancel(session::ClientSession& session, WindowInstance* window); // 取消窗口12操作并归空闲，保留末动画载荷返回。
 
 // 原函数：0x00485890。
-static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* window); // 窗口12计时/操作初始化。
+static WindowAnimationData* WindowGather_InitializeAction(session::ClientSession& session, WindowInstance* window); // 窗口12计时/操作初始化。
 
 // 原函数：0x00486CF0。
 static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // FP/背包检查与重启。
@@ -51,10 +51,10 @@ static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, Ele
 static std::int32_t WindowGather_DrawResultImage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 结果图及固定框，恒返0。
 
 // 原函数：0x00485AF0。
-static WindowAnimationData* WindowGather_ShowResult(WindowInstance* window); // 窗口12完整结果展示及双计时槽发布。
+static WindowAnimationData* WindowGather_ShowResult(session::ClientSession& session, WindowInstance* window); // 窗口12完整结果展示及双计时槽发布。
 
 // 原函数：0x00486020。
-static WindowAnimationData* WindowGather_RefreshResult(); // 仅更新已有窗口12，不自动创建。
+static WindowAnimationData* WindowGather_RefreshResult(session::ClientSession& session); // 仅更新已有窗口12，不自动创建。
 
 // 原函数：0x00485690。
 static void WindowGather_Release(WindowInstance&);
@@ -63,46 +63,6 @@ static void WindowGather_Release(WindowInstance&);
 static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
-
-static std::int32_t gWindow12ResultD2D820 = 0; // 原全局：0x00D2D820。
-
-static std::int32_t gWindow12ExperienceD2DFCC = 0; // 原全局：0x00D2DFCC。
-
-static std::int32_t gWindow12ValueD40B08 = 0; // 原全局：0x00D40B08。
-
-static std::int32_t gWindow12LevelUpC9C0FC = 0; // 原全局：0x00C9C0FC。
-
-static std::int32_t gWindow12EnduranceCB0358 = 0; // 原全局：0x00CB0358。
-
-static std::int32_t gWindow12DexterityCC3EC0 = 0; // 原全局：0x00CC3EC0。
-
-static std::int32_t gWindow12IntelligenceCC4B60 = 0; // 原全局：0x00CC4B60。
-
-static std::int32_t gWindow12ValueCF3FF0 = 0; // 原全局：0x00CF3FF0。 回复第七字段，486F20按结果图号消费。
-
-static std::int32_t gWindow12ValueD66E28 = 0; // 原全局：0x00D66E28。
-
-static std::wstring gWindow12NameD2DA94; // 原全局：0x00D2DA94。
-
-static std::wstring gWindow12SuffixCB1E1C; // 原全局：0x00CB1E1C。
-
-static std::wstring gWindow12DetailsCC190C; // 原全局：0x00CC190C。 只承接已证NUL文本，不与前两结果摘要混用。
-
-static std::uint8_t gWindow12ModeCC3E80 = 0; // 原全局：0x00CC3E80。
-
-static std::uint8_t gWindow12FlagCC4D27 = 0; // 原全局：0x00CC4D27。
-
-static std::uint64_t gWindow12TickD45D4C = 0; // 原全局：0x00D45D4C。
-
-static std::uint8_t gWindow12SkillLevelCB0608 = 0; // 原全局：0x00CB0608。
-
-static std::uint8_t gWindow12KindD046CC = 0; // 原全局：0x00D046CC。
-
-static std::uint64_t gWindow12DeadlineCB0F7C = 0; // 原全局：0x00CB0F7C。
-
-static std::int32_t gWindow12PetImageCB10CC = 0; // 原全局：0x00CB10CC。
-
-static std::int32_t gWindow12CrystalLevelCC3E90 = 0; // 原全局：0x00CC3E90。
 
 static WindowGraphicData gWindowGraphic562568 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x00562568。
 
@@ -148,31 +108,32 @@ WindowPrototype gWindowPrototypeGather {0, 4, 383, 118, 198, 232, 0x80010101u, 1
 // 窗口函数实现。
 
 // 原函数：0x004854A0。
-cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int32_t level)
+cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, const std::int32_t skill, const std::int32_t level)
 {
+    auto& gather = session.UiFrame().native.gather;
     const auto skillByte = static_cast<std::uint8_t>(skill);
-    gWindow12SkillIndexCA0470 = skillByte;
-    gWindow12SkillLevelCB0608 = static_cast<std::uint8_t>(level);
+    gather.skillIndex = skillByte;
+    gather.skillLevel = static_cast<std::uint8_t>(level);
     const std::int32_t skillId =
         world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(skillByte)].skillId;
     gSkillSendModeC8A970 = 0;
-    gWindow12ValueD66E28 = 0;
+    gather.extra = 0;
     switch (skillId) {
         case 225:
         case 251:
-            gWindow12KindD046CC = 0;
+            gather.kind = 0;
             break;
         case 226:
         case 253:
-            gWindow12KindD046CC = 1;
+            gather.kind = 1;
             break;
         case 227:
         case 250:
-            gWindow12KindD046CC = 2;
+            gather.kind = 2;
             break;
         case 2000:
         case 2003:
-            gWindow12KindD046CC = 3;
+            gather.kind = 3;
             break;
         default:
             break;
@@ -188,7 +149,7 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
     gSkillOperationCount_D67AFD = references;
     gSkillStatusIconReferences_D67AFE = skillReferences;
     std::int32_t mode = 0;
-    switch (world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470)].skillId) {
+    switch (world::gSkillsF1BAFC[std::bit_cast<std::int8_t>(gather.skillIndex)].skillId) {
         case 225:
         case 251:
             mode = 5;
@@ -212,19 +173,21 @@ cg::yobi::YobiAction* WindowGather_Open(const std::int32_t skill, const std::int
         static_cast<void>(world::RequestPlayerStatusIcon_51BE50(mode));
     }
     for (const std::int32_t id : {11, 12, 45, 46, 13}) {
-        WindowInstance* const window = WindowRuntime_States()[id].window;
+        WindowInstance* const window = WindowRuntime_States(session)[id].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
     }
-    return WindowRuntime_CreateAnimation(WindowId_Gather, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Gather, 1, 0, nullptr);
 }
 
 // 原函数：0x00485690。
 static void WindowGather_Release(WindowInstance& releasedWindow)
 {
+    auto& session = *releasedWindow.ownerSession;
+    auto& gather = session.UiFrame().native.gather;
     WindowRuntime_DecrementOperationCount(*releasedWindow.ownerSession);
-    const std::uint8_t mode = gWindow12ModeCC3E80;
+    const std::uint8_t mode = gather.mode;
     if (mode == 1 || mode == 2) {
         WindowRuntime_DecrementGatherOperationCount();
     }
@@ -244,13 +207,14 @@ static void WindowGather_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x00485700。
-static WindowAnimationData* WindowGather_Cancel(WindowInstance* const window)
+static WindowAnimationData* WindowGather_Cancel(session::ClientSession& session, WindowInstance* const window)
 {
-    const std::uint8_t mode = gWindow12ModeCC3E80;
+    auto& gather = session.UiFrame().native.gather;
+    const std::uint8_t mode = gather.mode;
     if (mode != 0 && mode != 3 && mode != 4) {
         WindowRuntime_DecrementGatherOperationCount();
     }
-    gWindow12ModeCC3E80 = 0;
+    gather.mode = 0;
     for (std::int32_t index = 4; index <= 7; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->data.text->text = L"";
     }
@@ -265,26 +229,27 @@ static WindowAnimationData* WindowGather_Cancel(WindowInstance* const window)
             element3->data.animation->action, 0);
     }
     if (auto* const element32 = window ? window->FindElementById(WindowGatherElementId::Element3) : nullptr; element32) element32->data.animation->value04 = 0;
-    gWindow12ValueCF3FF0 = -1;
+    gather.resultImage = -1;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     WindowAnimationData* const data = WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, 0, 5);
     gSkillSendModeC8A970 = 0;
-    gWindow12ValueD66E28 = 0;
+    gather.extra = 0;
     return data;
 }
 
 // 原函数：0x00485890。
-static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const window)
+static WindowAnimationData* WindowGather_InitializeAction(session::ClientSession& session, WindowInstance* const window)
 {
-    if (gWindow12ModeCC3E80 != 1) {
+    auto& gather = session.UiFrame().native.gather;
+    if (gather.mode != 1) {
         WindowRuntime_IncrementGatherOperationCount();
     }
-    const std::int32_t previousValue = gWindow12ValueD66E28;
-    gWindow12ModeCC3E80 = 1;
+    const std::int32_t previousValue = gather.extra;
+    gather.mode = 1;
     gSkillSendModeC8A970 = 0;
     if (previousValue > 0) {
-        const std::int32_t imageNo = gWindow12PetImageCB10CC;
+        const std::int32_t imageNo = gather.petImage;
         gSkillSendModeC8A970 = 1;
         gSkillPetImageCB0A18 = imageNo;
     }
@@ -305,24 +270,24 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
             element3->data.animation->action, 0);
     }
     if (auto* const element32 = window ? window->FindElementById(WindowGatherElementId::Element3) : nullptr; element32) element32->data.animation->value04 = 0;
-    gWindow12ValueCF3FF0 = -1;
-    gWindow12FlagCC4D27 = 0;
+    gather.resultImage = -1;
+    gather.flag = 0;
     const std::uint64_t tick = platform::ReadTickCount64();
     std::uint32_t duration = gSkillExtraDelayCF46C4 + 4500u;
-    gWindow12TickD45D4C = tick;
+    gather.tick = tick;
     const std::uint8_t rebirthMode = gSkillRebirthModeEnabled_5F9754;
-    gWindow12DeadlineCB0F7C = duration;
+    gather.deadline = duration;
     if (rebirthMode != 0) {
         const std::int32_t rebirth = world::gPlayerRuntimeSlots.value08;
         duration = duration * kSkillRebirthRates57D7A4[rebirth] / 100u;
-        gWindow12DeadlineCB0F7C = duration;
+        gather.deadline = duration;
     }
     if (gSkillSendModeC8A970 != 0) {
-        duration = duration * kSkillCrystalRates57D7B4[gWindow12CrystalLevelCC3E90] / 100u;
+        duration = duration * kSkillCrystalRates57D7B4[gather.crystalLevel] / 100u;
     }
     const std::uint64_t deadline = duration + tick;
     gSkillPreviewTickCF46C8 = tick;
-    gWindow12DeadlineCB0F7C = deadline;
+    gather.deadline = deadline;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     if (gSkillSendModeC8A970 != 0) {
@@ -332,14 +297,15 @@ static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* const 
 }
 
 // 原函数：0x00485AF0。
-static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window)
+static WindowAnimationData* WindowGather_ShowResult(session::ClientSession& session, WindowInstance* const window)
 {
-    std::uint8_t mode = gWindow12ModeCC3E80;
+    auto& gather = session.UiFrame().native.gather;
+    std::uint8_t mode = gather.mode;
     if (mode != 0 && mode != 3 && mode != 4) {
         WindowRuntime_DecrementGatherOperationCount();
-        mode = gWindow12ModeCC3E80;
+        mode = gather.mode;
     }
-    gWindow12ModeCC3E80 = mode == 0 ? 4 : 3;
+    gather.mode = mode == 0 ? 4 : 3;
     if (auto* const element5 = window ? window->FindElementById(WindowGatherElementId::Element5) : nullptr; element5) element5->visible = 1;
     if (auto* const element6 = window ? window->FindElementById(WindowGatherElementId::Element6) : nullptr; element6) element6->visible = 1;
     if (auto* const element7 = window ? window->FindElementById(WindowGatherElementId::Element7) : nullptr; element7) element7->visible = 1;
@@ -349,17 +315,17 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
     if (auto* const drawResultImageElement = window ? window->FindElementById(WindowGatherElementId::DrawResultImage) : nullptr; drawResultImageElement) drawResultImageElement->visible = 1;
     if (auto* const buttonContinueElement = window ? window->FindElementById(WindowGatherElementId::ButtonContinue) : nullptr; buttonContinueElement) buttonContinueElement->visible = 0;
     if (auto* const buttonClose_13Element = window ? window->FindElementById(WindowGatherElementId::ButtonClose_13) : nullptr; buttonClose_13Element) buttonClose_13Element->visible = 1;
-    if (gWindow12ResultD2D820 != 0) {
-        if (auto* const element52 = window ? window->FindElementById(WindowGatherElementId::Element5) : nullptr; element52) element52->data.text->text = gWindow12NameD2DA94;
+    if (gather.result != 0) {
+        if (auto* const element52 = window ? window->FindElementById(WindowGatherElementId::Element5) : nullptr; element52) element52->data.text->text = gather.name;
         if (auto* const element62 = window ? window->FindElementById(WindowGatherElementId::Element6) : nullptr; element62) element62->data.text->text = L"　发现了。" /* 原常量参考：0x005869D4。 */;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     } else {
         if (auto* const element52 = window ? window->FindElementById(WindowGatherElementId::Element5) : nullptr; element52) element52->data.text->text = L"什么都没发现。" /* 原常量参考：0x005869C4。 */;
         if (auto* const element62 = window ? window->FindElementById(WindowGatherElementId::Element6) : nullptr; element62) element62->data.text->text = L"";
         static_cast<void>(audio::PlaySe_52C450(58, 320));
-        gWindow12ValueCF3FF0 = -1;
+        gather.resultImage = -1;
     }
-    if (gWindow12LevelUpC9C0FC != 0) {
+    if (gather.levelUp != 0) {
         auto* const element72 = window ? window->FindElementById(WindowGatherElementId::Element7) : nullptr;
         if (element72) {
             (element72->data.text->text = kCraftLevelUp58661C);
@@ -368,25 +334,25 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
         auto* const element72 = window ? window->FindElementById(WindowGatherElementId::Element7) : nullptr;
         if (element72) {
             auto* const data = element72->data.text;
-            cg::text::FormatTo(data->text, kCraftExperience58660C, gWindow12ExperienceD2DFCC);
+            cg::text::FormatTo(data->text, kCraftExperience58660C, gather.experience);
         }
     }
     auto* const element82 = window ? window->FindElementById(WindowGatherElementId::Element8) : nullptr;
     if (element82) {
         std::wstring& increments = element82->data.text->text;
         increments.clear();
-        if (gWindow12EnduranceCB0358 != 0) {
-            increments.append(std::format(kCraftEndurance586600, gWindow12EnduranceCB0358));
+        if (gather.endurance != 0) {
+            increments.append(std::format(kCraftEndurance586600, gather.endurance));
         }
-        if (gWindow12DexterityCC3EC0 != 0) {
-            increments.append(std::format(kCraftDexterity5865F4, gWindow12DexterityCC3EC0));
+        if (gather.dexterity != 0) {
+            increments.append(std::format(kCraftDexterity5865F4, gather.dexterity));
         }
-        if (gWindow12IntelligenceCC4B60 != 0) {
-            increments.append(std::format(kCraftIntelligence5865E8, gWindow12IntelligenceCC4B60));
+        if (gather.intelligence != 0) {
+            increments.append(std::format(kCraftIntelligence5865E8, gather.intelligence));
         }
     }
     if (auto* const element3 = window ? window->FindElementById(WindowGatherElementId::Element3) : nullptr; element3) element3->data.animation->value04 = 1;
-    const bool succeeded = gWindow12ResultD2D820 != 0;
+    const bool succeeded = gather.result != 0;
     const std::int32_t defaultAction = succeeded ? 5 : 10;
     const std::int32_t alternateAction = succeeded ? 18 : 15;
     auto* const element32 = window ? window->FindElementById(WindowGatherElementId::Element3) : nullptr;
@@ -412,96 +378,99 @@ static WindowAnimationData* WindowGather_ShowResult(WindowInstance* const window
                 element33->data.animation->action, defaultAction);
         }
     }
-    gWindow12FlagCC4D27 = 0;
+    gather.flag = 0;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gWindow12TickD45D4C = tick;
+    gather.tick = tick;
     gSkillPreviewTickCF46C8 = tick;
     static_cast<void>(WindowCraft_SetPreviewPositions(
         window, 2, 1, 3, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
     if (gSkillSendModeC8A970 != 0) {
-        return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, gWindow12ResultD2D820 != 0 ? 6 : 8, 5);
+        return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 1, gather.result != 0 ? 6 : 8, 5);
     }
     return WindowCraft_ConfigurePreviews_47D220(window, 1, 3, 0, 10, 5);
 }
 
 // 原函数：0x00486020。
-static WindowAnimationData* WindowGather_RefreshResult()
+static WindowAnimationData* WindowGather_RefreshResult(session::ClientSession& session)
 {
-    WindowInstance* const window = WindowRuntime_States()[WindowId_Gather].window;
-    return window != nullptr ? WindowGather_ShowResult(window) : nullptr;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_Gather].window;
+    return window != nullptr ? WindowGather_ShowResult(session, window) : nullptr;
 }
 
 // 原函数：0x004ED6B0。
-WindowAnimationData* WindowGather_ReceiveResult(const std::int32_t result, const char* const text)
+WindowAnimationData* WindowGather_ReceiveResult(session::ClientSession& session, const std::int32_t result, const char* const text)
 {
-    gWindow12ResultD2D820 = result;
-    gWindow12DetailsCC190C.clear();
-    gWindow12ValueD66E28 = 0;
+    auto& gather = session.UiFrame().native.gather;
+    gather.result = result;
+    gather.details.clear();
+    gather.extra = 0;
     char buffer[768];
     if (result == 0) {
-        gWindow12ExperienceD2DFCC = 0;
+        gather.experience = 0;
         // 原四个dword文字复制后清两槽，再复制末尾LF/NUL；string只保存逻辑文本。
-        gWindow12DetailsCC190C += LR"(没看到任何东西。)" /* 原常量参考：0x005897DC。 */;
-        gWindow12LevelUpC9C0FC = 0;
-        gWindow12EnduranceCB0358 = 0;
+        gather.details += LR"(没看到任何东西。)" /* 原常量参考：0x005897DC。 */;
+        gather.levelUp = 0;
+        gather.endurance = 0;
         // 原两段拼接并为完整UTF-16正文追加。
-        gWindow12DexterityCC3EC0 = 0;
-        gWindow12IntelligenceCC4B60 = 0;
-        return WindowGather_RefreshResult();
+        gather.dexterity = 0;
+        gather.intelligence = 0;
+        return WindowGather_RefreshResult(session);
     }
-    gWindow12ExperienceD2DFCC = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
-    gWindow12ValueD40B08 = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
-    gWindow12LevelUpC9C0FC = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
-    gWindow12EnduranceCB0358 = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
-    gWindow12DexterityCC3EC0 = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
-    gWindow12IntelligenceCC4B60 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
-    gWindow12ValueCF3FF0 = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
+    gather.experience = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    gather.value = network::ParseDelimitedInteger_52CFA0(text, '|', 2);
+    gather.levelUp = network::ParseDelimitedInteger_52CFA0(text, '|', 3);
+    gather.endurance = network::ParseDelimitedInteger_52CFA0(text, '|', 4);
+    gather.dexterity = network::ParseDelimitedInteger_52CFA0(text, '|', 5);
+    gather.intelligence = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    gather.resultImage = network::ParseDelimitedInteger_52CFA0(text, '|', 7);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 8, 255, buffer));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer);
-    gWindow12NameD2DA94 = std::strlen(buffer) <= 28 ? cg::text::FromGbkWide(buffer) : kWindow12Unknown554590;
-    gWindow12ValueD66E28 = network::ParseDelimitedInteger_52CFA0(text, '|', 9);
-    const std::int32_t experience = gWindow12ExperienceD2DFCC;
-    gWindow12SuffixCB1E1C = L"得到了！" /* 原常量参考：0x00589830。 */;
+    gather.name = std::strlen(buffer) <= 28 ? cg::text::FromGbkWide(buffer) : kWindow12Unknown554590;
+    gather.extra = network::ParseDelimitedInteger_52CFA0(text, '|', 9);
+    const std::int32_t experience = gather.experience;
+    gather.suffix = L"得到了！" /* 原常量参考：0x00589830。 */;
     std::int32_t lines = 0;
     const auto appendValue = [&](const std::wstring_view format, const std::int32_t value) {
         // 四种数值行按原GBK最多22字节，始终低于28列换行门槛。
-        gWindow12DetailsCC190C += std::vformat(format, std::make_wformat_args(value)) + L'\n';
+        gather.details += std::vformat(format, std::make_wformat_args(value)) + L'\n';
         ++lines;
     };
     if (experience > 0) {
         appendValue(kCraftExperience589820, experience);
     }
-    if (gWindow12LevelUpC9C0FC != 0 && lines < 8) {
-        gWindow12DetailsCC190C += kCraftLevelUp589814;
+    if (gather.levelUp != 0 && lines < 8) {
+        gather.details += kCraftLevelUp589814;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));
     }
-    if (gWindow12EnduranceCB0358 != 0 && lines < 8) {
-        appendValue(kCraftEndurance589808, gWindow12EnduranceCB0358);
+    if (gather.endurance != 0 && lines < 8) {
+        appendValue(kCraftEndurance589808, gather.endurance);
     }
-    if (gWindow12DexterityCC3EC0 != 0 && lines < 8) {
-        appendValue(kCraftDexterity5897FC, gWindow12DexterityCC3EC0);
+    if (gather.dexterity != 0 && lines < 8) {
+        appendValue(kCraftDexterity5897FC, gather.dexterity);
     }
-    if (gWindow12IntelligenceCC4B60 != 0 && lines < 8) {
-        appendValue(kCraftIntelligence5897F0, gWindow12IntelligenceCC4B60);
+    if (gather.intelligence != 0 && lines < 8) {
+        appendValue(kCraftIntelligence5897F0, gather.intelligence);
     }
-    return WindowGather_RefreshResult();
+    return WindowGather_RefreshResult(session);
 }
 
 // 原函数：0x00486040。
 static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& session = *callbackWindow.ownerSession;
+    auto& gather = session.UiFrame().native.gather;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gWindowActionD2E928 = nullptr;
-        gWindow12ModeCC3E80 = 0;
+        gather.mode = 0;
         WindowRuntime_DecrementGatherOperationCount();
-        static_cast<void>(WindowGather_InitializeAction(currentWindow));
+        static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
         return 1;
     }
     const std::int32_t mapped = character_select::ResolveCharacterImageForVersion(world::gPlayerRuntimeSlots.imageNo);
-    const std::int32_t kind = std::bit_cast<std::int8_t>(gWindow12KindD046CC);
+    const std::int32_t kind = std::bit_cast<std::int8_t>(gather.kind);
     const std::int32_t offset = kind == 0 ? -2 : kind == 1 ? -1 : kind == 3 ? 1 : 0;
     const std::int32_t previewImage = WindowSkillResult_ReadPreviewImage(mapped, offset);
     auto* const element3 = currentWindow->FindElementById(WindowGatherElementId::Element3);
@@ -518,14 +487,14 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
     if (gSkillSendModeC8A970 != 0) {
         const std::int32_t imageNo = WindowSkill_CanUseSpecialSkill() != 0 ? gSkillPetImageCB0A18 : 0;
         static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, imageNo));
-        mode = gWindow12ModeCC3E80;
+        mode = gather.mode;
         if (mode == 1) {
-            static_cast<void>(WindowCraft_AnimatePreviewPositions(currentWindow, 2, 1, 3, gWindow12DeadlineCB0F7C));
-            mode = gWindow12ModeCC3E80;
+            static_cast<void>(WindowCraft_AnimatePreviewPositions(currentWindow, 2, 1, 3, gather.deadline));
+            mode = gather.mode;
         }
     } else {
         static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, 0));
-        mode = gWindow12ModeCC3E80;
+        mode = gather.mode;
     }
     if (mode == 1) {
         // 四条阶段路径共用原6/16选择；每次命中仍重取当前窗口和玩家图号。
@@ -550,77 +519,77 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                 }
             }
         };
-        switch (std::bit_cast<std::int8_t>(gWindow12KindD046CC)) {
+        switch (std::bit_cast<std::int8_t>(gather.kind)) {
             case 0:
             case 1:
-                if (gWindow12FlagCC4D27 == 0) {
+                if (gather.flag == 0) {
                     auto* const element33 = currentWindow->FindElementById(WindowGatherElementId::Element3);
                     if (element33) {
                         cg::yobi::SetYobiActionField2B0(
                             element33->data.animation->action, 1);
                     }
                     if (auto* const element34 = currentWindow->FindElementById(WindowGatherElementId::Element3); element34) element34->data.animation->value04 = 0;
-                    ++gWindow12FlagCC4D27;
-                } else if (gWindow12FlagCC4D27 == 1) {
+                    ++gather.flag;
+                } else if (gather.flag == 1) {
                     const std::uint64_t tick = platform::ReadTickCount64();
-                    if (gWindow12TickD45D4C + 2000u < tick) {
+                    if (gather.tick + 2000u < tick) {
                         auto* const element33 = currentWindow->FindElementById(WindowGatherElementId::Element3);
                         if (element33) {
                             cg::yobi::SetYobiActionField2B0(
                                 element33->data.animation->action, 5);
                         }
-                        ++gWindow12FlagCC4D27;
+                        ++gather.flag;
                     }
-                } else if (gWindow12FlagCC4D27 == 2) {
+                } else if (gather.flag == 2) {
                     auto* const element33 = currentWindow->FindElementById(WindowGatherElementId::Element3);
                     if (element33) {
                         cg::yobi::YobiAction* const action =
                             element33->data.animation->action;
                         if (cg::yobi::GetYobiActionField2DC(action) >= 2) {
                             setWorkingAction(action);
-                            ++gWindow12FlagCC4D27;
+                            ++gather.flag;
                         }
                     }
                 }
                 break;
             case 2:
-                if (gWindow12FlagCC4D27 == 0) {
+                if (gather.flag == 0) {
                     auto* const element33 = currentWindow->FindElementById(WindowGatherElementId::Element3);
                     if (element33) {
                         cg::yobi::SetYobiActionField2B0(
                             element33->data.animation->action, 5);
                     }
                     if (auto* const element34 = currentWindow->FindElementById(WindowGatherElementId::Element3); element34) element34->data.animation->value04 = 0;
-                    ++gWindow12FlagCC4D27;
-                } else if (gWindow12FlagCC4D27 == 1) {
+                    ++gather.flag;
+                } else if (gather.flag == 1) {
                     auto* const element33 = currentWindow->FindElementById(WindowGatherElementId::Element3);
                     if (element33) {
                         cg::yobi::YobiAction* const action =
                             element33->data.animation->action;
                         if (cg::yobi::GetYobiActionField2DC(action) >= 2) {
                             setWorkingAction(action);
-                            ++gWindow12FlagCC4D27;
+                            ++gather.flag;
                         }
                     }
                 }
                 [[fallthrough]]; // 原486562递增后落入486568，再检查同一阶段。
             case 3:
-                if (gWindow12FlagCC4D27 == 0) {
+                if (gather.flag == 0) {
                     auto* const element33 = currentWindow->FindElementById(WindowGatherElementId::Element3);
                     if (element33) {
                         cg::yobi::SetYobiActionField2B0(
                             element33->data.animation->action, 5);
                     }
                     if (auto* const element34 = currentWindow->FindElementById(WindowGatherElementId::Element3); element34) element34->data.animation->value04 = 0;
-                    ++gWindow12FlagCC4D27;
-                } else if (gWindow12FlagCC4D27 == 1) {
+                    ++gather.flag;
+                } else if (gather.flag == 1) {
                     auto* const element33 = currentWindow->FindElementById(WindowGatherElementId::Element3);
                     if (element33) {
                         cg::yobi::YobiAction* const action =
                             element33->data.animation->action;
                         if (cg::yobi::GetYobiActionField2DC(action) >= 2) {
                             setWorkingAction(action);
-                            ++gWindow12FlagCC4D27;
+                            ++gather.flag;
                         }
                     }
                 }
@@ -629,51 +598,51 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                 break;
         }
         const std::uint64_t tick = platform::ReadTickCount64();
-        if (gWindow12DeadlineCB0F7C < tick) {
+        if (gather.deadline < tick) {
             const std::uint8_t sendMode = gSkillRebirthModeEnabled_5F9754;
             gSkillExtraDelayCF46C4 = 0;
             std::int32_t skill;
             std::int32_t level;
             if (sendMode != 0) {
-                level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
-                skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470) + 100;
+                level = std::bit_cast<std::int8_t>(gather.skillLevel);
+                skill = std::bit_cast<std::int8_t>(gather.skillIndex) + 100;
             } else {
-                level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
+                level = std::bit_cast<std::int8_t>(gather.skillLevel);
                 static_cast<void>(gSkillSendModeC8A970); // 原cmp未被后续分支消费，没有+200。
-                skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
+                skill = std::bit_cast<std::int8_t>(gather.skillIndex);
             }
             static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill, level, -1, L""));
-            gWindow12PetImageCB10CC = WindowSkill_ReadBattlePetImage();
-            gWindow12CrystalLevelCC3E90 = WindowSkill_ReadCrystalLevel();
-            gWindow12ModeCC3E80 = 2;
+            gather.petImage = WindowSkill_ReadBattlePetImage();
+            gather.crystalLevel = WindowSkill_ReadCrystalLevel();
+            gather.mode = 2;
         } else if (WindowProfile_CheckDistance(1, 1) != 0) {
-            static_cast<void>(WindowGather_Cancel(currentWindow));
+            static_cast<void>(WindowGather_Cancel(session, currentWindow));
         }
     } else if (mode == 3) {
         const std::uint64_t tick = platform::ReadTickCount64();
-        if (gWindow12TickD45D4C + 2000u < tick) {
-            const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
-            const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
+        if (gather.tick + 2000u < tick) {
+            const std::int32_t skill = std::bit_cast<std::int8_t>(gather.skillIndex);
+            const std::int32_t level = std::bit_cast<std::int8_t>(gather.skillLevel);
             const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
                 * world::gSkillsF1BAFC[skill].fpReduce / 100;
             if ((world::gPlayerRuntimeSlots.fp < cost)) {
                 world::AppendChatMessage_44B050(kWindow12NoFp5864F0, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
-                static_cast<void>(WindowGather_Cancel(currentWindow));
+                static_cast<void>(WindowGather_Cancel(session, currentWindow));
             } else if (world::CountFreeInventorySlots_518C60() <= 0) {
                 world::AppendChatMessage_44B050(L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
-                static_cast<void>(WindowGather_Cancel(currentWindow));
+                static_cast<void>(WindowGather_Cancel(session, currentWindow));
             } else {
-                static_cast<void>(WindowGather_InitializeAction(currentWindow));
+                static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
             }
         }
     } else if (mode == 4) {
         const std::uint64_t tick = platform::ReadTickCount64();
-        if (gWindow12TickD45D4C + 2000u < tick) {
-            static_cast<void>(WindowGather_Cancel(currentWindow));
+        if (gather.tick + 2000u < tick) {
+            static_cast<void>(WindowGather_Cancel(session, currentWindow));
         }
     }
     auto* const element2 = currentWindow->FindElementById(WindowGatherElementId::Element2);
@@ -715,7 +684,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
     if (element33) {
         cg::yobi::YobiAction* const action =
             element33->data.animation->action;
-        const std::uint8_t currentMode = gWindow12ModeCC3E80;
+        const std::uint8_t currentMode = gather.mode;
         const std::int32_t imageNo = cg::yobi::GetYobiActionField2A8(action);
         if (currentMode == 4) {
             const std::int32_t actionId = cg::yobi::GetYobiActionField2B0(action);
@@ -788,14 +757,16 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
 // 原函数：0x00486CF0。
 static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& session = *callbackWindow.ownerSession;
+    auto& gather = session.UiFrame().native.gather;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
-    const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
+    const std::int32_t level = std::bit_cast<std::int8_t>(gather.skillLevel);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
-        const std::int32_t skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
+        const std::int32_t skill = std::bit_cast<std::int8_t>(gather.skillIndex);
         const std::int32_t cost = world::gSkillsF1BAFC[skill].techniques3C[level].value7C
             * world::gSkillsF1BAFC[skill].fpReduce / 100;
         const bool enoughFp = !(world::gPlayerRuntimeSlots.fp < cost);
@@ -814,7 +785,7 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
             const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
             static_cast<void>(WindowProfile_SaveOrigin(x, y));
-            static_cast<void>(WindowGather_InitializeAction(currentWindow));
+            static_cast<void>(WindowGather_InitializeAction(session, currentWindow));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -833,6 +804,8 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
 // 原函数：0x00486E50。
 static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& session = *callbackWindow.ownerSession;
+    auto& gather = session.UiFrame().native.gather;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
@@ -840,16 +813,16 @@ static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, con
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
         if ((state & MouseFlag_Hover) != 0) {
-            gHoverTextD68AE8 = gWindow12ModeCC3E80 == 0 ? kWindow13Text5868EC : L"暂时中断。" /* 原常量参考：0x00586A00。 */;
+            gHoverTextD68AE8 = gather.mode == 0 ? kWindow13Text5868EC : L"暂时中断。" /* 原常量参考：0x00586A00。 */;
             window = currentWindow;
         }
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (gWindow12ModeCC3E80 == 0) {
+            if (gather.mode == 0) {
                 window->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             } else {
-                static_cast<void>(WindowGather_Cancel(window));
+                static_cast<void>(WindowGather_Cancel(session, window));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
@@ -869,9 +842,11 @@ static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, con
 // 原函数：0x00486F20。
 static std::int32_t WindowGather_DrawResultImage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
+    auto& session = *callbackWindow.ownerSession;
+    auto& gather = session.UiFrame().native.gather;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t resultImage = gWindow12ValueCF3FF0;
+    const std::int32_t resultImage = gather.resultImage;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;

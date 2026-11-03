@@ -306,8 +306,6 @@ extern std::uint8_t gSkillRequestByteD64E13; // 原全局：0x00D64E13。 其他
 
 extern std::uint64_t gSkillPreviewTickCF46C8; // 原全局：0x00CF46C8。 多个技能窗口共用的另一计时槽。
 
-extern std::uint8_t gWindow12SkillIndexCA0470; // 原全局：0x00CA0470。 原低U8发布，索引消费按S8。
-
 extern std::uint32_t gSkillExtraDelayCF46C4; // 原全局：0x00CF46C4。
 
 extern std::wstring gProfileSearchKeyword1075988; // 原全局：0x01075988。

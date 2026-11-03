@@ -467,13 +467,13 @@ void WindowRuntime_DecrementGatherOperationCount(); // 只递减既有D67AFC低U
 // 原函数：0x004796D0。
 void WindowRuntime_IncrementGatherOperationCount(); // 仅递增既有D67AFC低U8。
 // 原函数：0x004854A0。
-cg::yobi::YobiAction* WindowGather_Open(std::int32_t skill, std::int32_t level); // 低U8请求状态及窗口12创建。
+cg::yobi::YobiAction* WindowGather_Open(session::ClientSession& session, std::int32_t skill, std::int32_t level); // 低U8请求状态及窗口12创建。
 // 原函数：0x0047D2E0。
 WindowAnimationData* WindowCraft_AnimatePreviewPositions(
     WindowInstance* unusedWindow, std::int32_t anchor,
     std::int32_t first, std::int32_t second, std::uint64_t deadline); // 双预览六点插值，实际借当前窗口。
 // 原函数：0x004ED6B0。
-WindowAnimationData* WindowGather_ReceiveResult(std::int32_t result, const char* text); // JgO第四分支，失败不解析正文。
+WindowAnimationData* WindowGather_ReceiveResult(session::ClientSession& session, std::int32_t result, const char* text); // JgO第四分支，失败不解析正文。
 // 原函数：0x0047D280。
 std::int32_t WindowCraft_SetPreviewImages(
     WindowInstance* window, std::int32_t first, std::int32_t second,

@@ -65,6 +65,7 @@ struct LoginRequestState {
     std::uint64_t startTick = 0; // 原 0xDA3B38；CTM01本地64位毫秒。
     std::wstring message; // 原 0xDA34DC。
     std::uint16_t logoutReplyCode = 0; // 原 0xDA3B2E，独立于登录回复码。
+    std::int32_t connectionStep = 0; // 原 0xDA3B50，服务器连接步骤/轮询计数。
 };
 
 // 原 sub_508AF0@0x508AF0；前置条件是有符号选择值位于 [0, 1]。

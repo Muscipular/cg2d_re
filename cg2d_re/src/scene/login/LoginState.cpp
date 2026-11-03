@@ -81,7 +81,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
     }
 
     auto& request = cg::network::GetGameConnection().LoginRequests();
-    std::int32_t step = gConnectionStep;
+    std::int32_t step = request.connectionStep;
     if (step == 0) {
         request.startTick = platform::ReadTickCount64();
 
@@ -100,18 +100,18 @@ std::int32_t AdvanceServerLoginConnection_508360()
             static_cast<void>((request.message = L"网路通讯协定（TCP）错误。"));
             return -3;
         }
-        gConnectionStep = 1;
+        request.connectionStep = 1;
     }
     else if (step >= 1 && step <= 70) {
         ++step;
-        gConnectionStep = step;
+        request.connectionStep = step;
         if (step == 70) {
-            gConnectionStep = 69;
+            request.connectionStep = 69;
         }
 
         const auto connection = cg::network::GetGameConnection().PollConnection();
         if (connection.state == platform::ConnectionState::Connected) {
-            gConnectionStep = 71;
+            request.connectionStep = 71;
             cg::network::GetGameConnection().SetIoEnabled(true);
             static_cast<void>(AppendSystemLog_44B5C0(L"CONNECT OK"));
         }
@@ -166,7 +166,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
                     adapterId);
             }
             // 原508748：登录发送返回后先重读阶段，再发布请求状态。
-            step = gConnectionStep;
+            step = request.connectionStep;
             request.status = 1;
             const auto diagnostic = std::format(L"LOGIN QUEUE RESULT={}", static_cast<std::int32_t>(queued));
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
@@ -182,14 +182,14 @@ std::int32_t AdvanceServerLoginConnection_508360()
         }
 
         ++step;
-        gConnectionStep = step;
+        request.connectionStep = step;
         if (step == 81) {
-            gConnectionStep = 80;
+            request.connectionStep = 80;
         }
     }
     else if (step >= 81 && step <= 98) {
         ++step;
-        gConnectionStep = step;
+        request.connectionStep = step;
     }
     else if (step == 99) {
         request.status = 0;

@@ -1281,8 +1281,8 @@ ConnectionPumpResult CgConnection::Impl::Pump()
             if (receiveBudget && this->receiveLengthD69790 < beforeParse) continue;
             break;
         }
-        const bool diagnoseLogin = login::gConnectionStep >= 71
-            && login::gConnectionStep <= 80;
+        const bool diagnoseLogin = loginRequests.connectionStep >= 71
+            && loginRequests.connectionStep <= 80;
         const std::int32_t dispatchResult = NetworkDispatch_512E40(
             connectionId, dispatch);
         if (id != connectionId || !this->active || !ioEnabled) return {};

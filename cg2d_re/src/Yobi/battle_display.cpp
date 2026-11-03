@@ -115,10 +115,10 @@ void UpdateBattleText_421750(YobiAction* const action)
 
 // 原函数：0x004217F0。
 YobiAction* NewBattleText_4217F0(
-    const std::int8_t style, const wchar_t* const text,
+    YobiAction* const source, const std::int8_t style, const wchar_t* const text,
     const std::int32_t fontType, const std::int32_t duration)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleTextPayload), YobiPayloadKind::BattleText);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, sizeof(BattleTextPayload), YobiPayloadKind::BattleText);
     if (action == nullptr) {
         return nullptr;
     }
@@ -171,13 +171,13 @@ YobiAction* NewBattleText_4217F0(
     if (count > 1) {
         height += count * (render::GetFontMetrics(payload->fontType0C).sHeight + 1);
     }
-    payload->panel00 = CreateModalAction_5044E0((640 - width) >> 1, (480 - height) >> 1, width, height, style, 0);
+    payload->panel00 = CreateModalAction_5044E0(*source->ownerSession, (640 - width) >> 1, (480 - height) >> 1, width, height, style, 0);
     static_cast<void>(audio::PlaySe_52C450(56, 320));
     return action;
 }
 
 // 原函数：0x00420100。
-void NewBattleSequence_420100(const std::int8_t value, const std::int32_t position)
+void NewBattleSequence_420100(YobiAction* const source, const std::int8_t value, const std::int32_t position)
 {
     const std::int8_t limited = value > 10 ? 10 : value;
     const bool directOrder = position < 10;
@@ -186,7 +186,7 @@ void NewBattleSequence_420100(const std::int8_t value, const std::int32_t positi
     const std::int32_t baseY = directOrder ? 384 : 96;
     for (std::int32_t index = 0; index < 10; ++index) {
         const std::int32_t slot = directOrder ? index : kBattleSequenceOrder553C1C[index];
-        YobiAction* const action = NewYobiAction_404AE0(11, 0);
+        YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 11, 0);
         if (action == nullptr) {
             return;
         }
@@ -369,7 +369,7 @@ void UpdateBattleNumber_41F110(YobiAction* const action)
 
 // 原函数：0x0041F1A0。
 std::int32_t NewBattleNumber_41F1A0(
-    const std::int32_t x, const std::int32_t y, const std::int32_t value,
+    YobiAction* const source, const std::int32_t x, const std::int32_t y, const std::int32_t value,
     const std::int32_t style, const std::int32_t fontType, const std::uint32_t flags)
 {
     std::wstring buffer;
@@ -385,7 +385,7 @@ std::int32_t NewBattleNumber_41F1A0(
     const std::int32_t halfWidth = cg::render::MeasureDefaultText_44B260(buffer) / 2;
     const std::int32_t length = static_cast<std::int32_t>(buffer.size());
     for (std::int32_t index = 0; index < length; ++index) {
-        YobiAction* const action = NewYobiAction_404AE0(2, 0);
+        YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
         if (action == nullptr) {
             break;
         }
@@ -437,7 +437,7 @@ std::int32_t NewBattleNumber_41F1A0(
 
 // 原函数：0x004206C0。
 std::int32_t NewBattleTimeNumber_4206C0(
-    const std::int32_t x, const std::int32_t y, const std::int32_t seconds)
+    YobiAction* const source, const std::int32_t x, const std::int32_t y, const std::int32_t seconds)
 {
     const std::int32_t magnitude = seconds < 0 ? -seconds : seconds;
     const wchar_t* const prefix = seconds < 0 ? L"-" : L"";
@@ -459,7 +459,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
         if (mapNo == 0) {
             continue;
         }
-        YobiAction* const action = NewYobiAction_404AE0(2, 0);
+        YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
         if (action == nullptr) {
             return 0;
         }

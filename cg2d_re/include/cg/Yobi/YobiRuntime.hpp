@@ -436,6 +436,10 @@ std::int32_t CalculateDialogVisibleLines_49C5E0(
 
 // 原 modal creator sub_5044E0@[0x5044E0,0x5046C6)。
 YobiAction* CreateModalAction_5044E0(
+    session::ClientSession& session,
+    std::int32_t x, std::int32_t y, std::int32_t width,
+    std::int32_t height, std::int32_t winId, std::int32_t param6);
+YobiAction* CreateModalAction_5044E0(
     std::int32_t x,
     std::int32_t y,
     std::int32_t width,

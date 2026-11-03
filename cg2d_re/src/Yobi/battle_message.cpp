@@ -2336,7 +2336,7 @@ static void ProcessBattleMComboHeader(
                 const std::int32_t sequenceValue = gBattleMValue5ABA7C;
                 const std::uint8_t sequenceCount =
                     *reinterpret_cast<const unsigned char*>(&payload->entryCount04);
-                NewBattleSequence_420100(std::bit_cast<std::int8_t>(sequenceCount), sequenceValue);
+                NewBattleSequence_420100(scene, std::bit_cast<std::int8_t>(sequenceCount), sequenceValue);
             }
             ++payload->packetSubState58;
         }
@@ -2660,7 +2660,7 @@ static void ProcessBattleMGmnHeader(
         created->mapX1E0 = static_cast<std::int32_t>(render::gActivePalette);
     }
     static_cast<void>(PlayFrame_517DA0(*slot, AnimationPlayback_Loop));
-    static_cast<void>(NewBattleText_4217F0(4, created->nameC4.data(), 0, 100));
+    static_cast<void>(NewBattleText_4217F0(created, 4, created->nameC4.data(), 0, 100));
     (*slot)->payload.battleActor->soundId1018 = soundId1018;
     AppendBattleCast_4392A0(scene, *slot, BattleAction_PlaySound1018);
     AppendBattleEffect_439400(*slot, {13, 0, 40, effectValue});

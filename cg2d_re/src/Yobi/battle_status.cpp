@@ -337,7 +337,7 @@ static void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
     if (displayType != BattleNumber_Style0) {
         const std::int32_t y = action->y - 80;
         const std::int32_t x = action->x;
-        static_cast<void>(NewBattleNumber_41F1A0(x, y, payload->value1030, displayType, 2, 0));
+        static_cast<void>(NewBattleNumber_41F1A0(action, x, y, payload->value1030, displayType, 2, 0));
     }
     switch (payload->numberDisplayType1034) {
     case BattleNumber_DecreaseHp:
@@ -807,7 +807,7 @@ void UpdateBattleAction166_411CB0(YobiAction* const action)
     const std::int32_t y = action->y;
     const std::int32_t value = payload->queuedTargets1084[index];
     const std::int32_t x = action->x;
-    static_cast<void>(NewBattleTimeNumber_4206C0(x, y, -value));
+    static_cast<void>(NewBattleTimeNumber_4206C0(action, x, y, -value));
     static_cast<void>(AdvanceBattleQueuedTarget_43B830(action));
     AdvanceBattleCastState_439340(action);
 }
@@ -1034,7 +1034,7 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
                 const std::int32_t value = payload->value1030;
                 const std::int32_t x = action->x;
                 const std::int32_t y = action->y - 80;
-                static_cast<void>(NewBattleNumber_41F1A0(x, y, value, displayType, 2, 0));
+                static_cast<void>(NewBattleNumber_41F1A0(action, x, y, value, displayType, 2, 0));
             }
             switch (payload->numberDisplayType1034) {
             case BattleNumber_DecreaseHp:

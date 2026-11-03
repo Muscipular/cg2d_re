@@ -281,7 +281,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                             const std::int32_t displayed = payload->effects1C[numberIndex].position3;
                             const std::int32_t y = target->y - 80;
-                            static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseFp, 2, numberFlags));
+                            static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseFp, 2, numberFlags));
                             if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                                 static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                             }
@@ -320,7 +320,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                             const std::int32_t displayed = payload->effects1C[numberIndex].position3;
                             const std::int32_t y = target->y - 80;
-                            static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseFp, 2, numberFlags));
+                            static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseFp, 2, numberFlags));
                             if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                                 static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                             }
@@ -364,7 +364,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                        static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_IncreaseHp, 2, numberFlags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_IncreaseHp, 2, numberFlags));
                         if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                         }
@@ -394,7 +394,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                             const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                             const std::int32_t y = action->y - 80;
                             const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                            static_cast<void>(NewBattleNumber_41F1A0(action->x, y, displayed, BattleNumber_DecreaseFp, 2, numberFlags));
+                            static_cast<void>(NewBattleNumber_41F1A0(action, action->x, y, displayed, BattleNumber_DecreaseFp, 2, numberFlags));
                             if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                                 static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22454, 0, 0));
                             }
@@ -435,7 +435,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                         const std::int32_t displayed = payload->effects1C[numberIndex].position3;
                         const std::int32_t y = action->y - 80;
-                        static_cast<void>(NewBattleNumber_41F1A0(action->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, action->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
                         if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22454, 0, 0));
                         }
@@ -475,7 +475,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                        static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseFp, 2, numberFlags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseFp, 2, numberFlags));
                         if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                         }
@@ -534,7 +534,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
                                 const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                                 const std::int32_t y = target->y - 80;
                                 const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                                static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
+                                static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
                                 if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                                 }
@@ -1108,7 +1108,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                     const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                    static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_IncreaseHp, 2, numberFlags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_IncreaseHp, 2, numberFlags));
                     if ((*reinterpret_cast<const unsigned char*>(
                             &payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
@@ -1187,7 +1187,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
                 } else {
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                    static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
                     if ((*reinterpret_cast<const unsigned char*>(
                             &payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
@@ -1337,7 +1337,7 @@ void UpdateBattleAction20_408410(YobiAction* const action)
             } else {
                 const std::int32_t y = target->y - 80;
                 const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
+                static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
                 const std::uint8_t iconFlags = *reinterpret_cast<const std::uint8_t*>(
                     &payload->effects1C[payload->effectRunningC9C].flags);
                 if ((iconFlags & BattleResultFlag_Critical) != 0) {
@@ -1557,7 +1557,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                         const std::uint32_t numberFlags = payload->effects1C[numberIndex].flags;
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                        static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_IncreaseHp, 2, numberFlags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_IncreaseHp, 2, numberFlags));
                         const std::uint8_t restoreIconFlags = *reinterpret_cast<const std::uint8_t*>(
                             &payload->effects1C[payload->effectRunningC9C].flags);
                         if ((restoreIconFlags & BattleResultFlag_Critical) != 0) {
@@ -1584,7 +1584,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                     } else {
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[numberIndex].position3;
-                        static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseHp, 2, numberFlags));
                         const std::uint8_t damageIconFlags = *reinterpret_cast<const std::uint8_t*>(
                             &payload->effects1C[payload->effectRunningC9C].flags);
                         if ((damageIconFlags & BattleResultFlag_Critical) != 0) {
@@ -2188,7 +2188,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     const std::int32_t recoveryDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[recoveryDisplayIndex].position3;
-                    static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_IncreaseHp, 2, flags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_IncreaseHp, 2, flags));
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                     }
@@ -2209,7 +2209,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     const std::int32_t reflectionDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = action->y - 80;
                     const std::int32_t displayed = payload->effects1C[reflectionDisplayIndex].position3;
-                    static_cast<void>(NewBattleNumber_41F1A0(action->x, y, displayed, BattleNumber_DecreaseHp, 2, flags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, action->x, y, displayed, BattleNumber_DecreaseHp, 2, flags));
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22454, 0, 0));
                     }
@@ -2242,7 +2242,7 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                         const std::int32_t damageDisplayIndex = payload->effectRunningC9C;
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[damageDisplayIndex].position3;
-                        static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseHp, 2, flags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseHp, 2, flags));
                         if ((flags & BattleResultFlag_Critical) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                         }
@@ -2522,7 +2522,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                     const std::int32_t recoveryDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[recoveryDisplayIndex].position3;
-                    static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_IncreaseHp, 2, flags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_IncreaseHp, 2, flags));
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                     }
@@ -2544,7 +2544,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                     const std::int32_t reflectionDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = action->y - 80;
                     const std::int32_t displayed = payload->effects1C[reflectionDisplayIndex].position3;
-                    static_cast<void>(NewBattleNumber_41F1A0(action->x, y, displayed, BattleNumber_DecreaseHp, 2, flags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, action->x, y, displayed, BattleNumber_DecreaseHp, 2, flags));
                     if ((flags & BattleResultFlag_Critical) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22454, 0, 0));
                     }
@@ -2577,7 +2577,7 @@ std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)
                         const std::int32_t damageDisplayIndex = payload->effectRunningC9C;
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = payload->effects1C[damageDisplayIndex].position3;
-                        static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, BattleNumber_DecreaseHp, 2, flags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, target->x, y, displayed, BattleNumber_DecreaseHp, 2, flags));
                         if ((flags & BattleResultFlag_Critical) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                         }
@@ -2727,7 +2727,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                     const std::int32_t displayed = display.position3;
                     const std::int32_t y = target->y - 80;
                     const std::int32_t x = target->x;
-                    static_cast<void>(NewBattleNumber_41F1A0(x, y, displayed, BattleNumber_IncreaseHp, 2, displayFlags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, x, y, displayed, BattleNumber_IncreaseHp, 2, displayFlags));
                     showAttributes = true;
                 }
             } else if ((flags & BattleResultFlag_ReflectPhysical) != 0) {
@@ -2749,7 +2749,7 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = payload->effects1C[displayIndex].position3;
                     const std::int32_t x = target->x;
-                    static_cast<void>(NewBattleNumber_41F1A0(x, y, displayed, BattleNumber_DecreaseHp, 2, displayFlags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, x, y, displayed, BattleNumber_DecreaseHp, 2, displayFlags));
                     showAttributes = true;
                 }
             }
@@ -2968,7 +2968,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                     const std::int32_t y = target->y - 80;
                     const std::int32_t displayed = display.position3;
                     const std::int32_t x = target->x;
-                    static_cast<void>(NewBattleNumber_41F1A0(x, y, displayed, BattleNumber_IncreaseHp, 2, displayFlags));
+                    static_cast<void>(NewBattleNumber_41F1A0(action, x, y, displayed, BattleNumber_IncreaseHp, 2, displayFlags));
                     showAttributes = true;
                 }
             } else if ((flags & BattleResultMask_Reflection) != 0) {
@@ -3199,7 +3199,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = effect.position3;
                         const std::int32_t x = target->x;
-                        static_cast<void>(NewBattleNumber_41F1A0(x, y, displayed, BattleNumber_IncreaseHp, 2, displayFlags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, x, y, displayed, BattleNumber_IncreaseHp, 2, displayFlags));
                         showAttributes = true;
                     }
                 } else if ((flags & BattleResultFlag_ReflectPhysical) != 0) {
@@ -3222,7 +3222,7 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
                         const std::int32_t y = target->y - 80;
                         const std::int32_t displayed = effect.position3;
                         const std::int32_t x = target->x;
-                        static_cast<void>(NewBattleNumber_41F1A0(x, y, displayed, BattleNumber_DecreaseHp, 2, displayFlags));
+                        static_cast<void>(NewBattleNumber_41F1A0(action, x, y, displayed, BattleNumber_DecreaseHp, 2, displayFlags));
                         showAttributes = true;
                     }
                 }

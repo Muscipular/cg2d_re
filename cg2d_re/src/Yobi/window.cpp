@@ -1,4 +1,5 @@
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/session/ClientHost.hpp"
 #include "window.hpp"
 #include "base.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
@@ -952,6 +953,7 @@ std::int32_t CalculateDialogVisibleLines_49C5E0(
 
 // 原函数：0x005044E0。
 YobiAction* CreateModalAction_5044E0(
+    session::ClientSession& session,
     const std::int32_t x,
     const std::int32_t y,
     std::int32_t width,
@@ -960,7 +962,7 @@ YobiAction* CreateModalAction_5044E0(
     const std::int32_t param6)
 {
     YobiAction* const action = NewYobiAction_404AE0(
-        detail::kModalPriority,
+        session, detail::kModalPriority,
         static_cast<std::uint32_t>(sizeof(detail::YobiUIData)), YobiPayloadKind::WindowUi);
     if (action == nullptr) {
         return nullptr;
@@ -1031,6 +1033,15 @@ YobiAction* CreateModalAction_5044E0(
         payload->currentHalfWidth = payload->centerX - x;
     }
     return action;
+}
+
+YobiAction* CreateModalAction_5044E0(
+    const std::int32_t x, const std::int32_t y,
+    const std::int32_t width, const std::int32_t height,
+    const std::int32_t winId, const std::int32_t param6)
+{
+    return CreateModalAction_5044E0(
+        session::GetClientHost().FirstSession(), x, y, width, height, winId, param6);
 }
 
 } // namespace cg::yobi

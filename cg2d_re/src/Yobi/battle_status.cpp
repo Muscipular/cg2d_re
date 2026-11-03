@@ -10,6 +10,7 @@
 #include "battle_display.hpp"
 #include "battle_effect.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/BattleState.hpp"
 
 #include <array>
@@ -91,7 +92,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
             action->angle50 = static_cast<float>(angle - 360.0);
         }
         if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
-            gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+            action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
             payload->aliveFF8 = 1;
         }
         MoveBattleByAngle_405EA0(action);
@@ -110,7 +111,7 @@ std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
             action->motionMagnitude54 = 5.0F;
             if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
-                    gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate;
+                    action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
                 }
                 payload->aliveFF8 = 0;
             }
@@ -730,7 +731,7 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
         const std::uint8_t movingFlags =
             *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
         if ((movingFlags & BattleActorFlag_Dead) != 0) {
-            gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+            action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
             payload->aliveFF8 = 1;
         }
         MoveBattleByAngle_405EA0(action);
@@ -749,7 +750,7 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
                 *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
             if ((thresholdFlags & BattleActorFlag_Dead) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
-                    gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate;
+                    action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
                 }
                 payload->aliveFF8 = 0;
             }

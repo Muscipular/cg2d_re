@@ -11,6 +11,7 @@
 #include "battle_display.hpp"
 #include "battle_effect.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "../world/BattleState.hpp"
 
@@ -94,7 +95,7 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
                 if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_Death) != 0) {
                     targetPayload->flagsFDC |= BattleActorFlag_Dead;
                     if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_BounceOut) != 0) {
-                        gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                        action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                         targetPayload->aliveFF8 = 1;
                     }
                 }
@@ -260,7 +261,7 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
                 if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_Death) != 0) {
                     targetPayload->flagsFDC |= BattleActorFlag_Dead;
                     if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_BounceOut) != 0) {
-                        gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                        action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                         targetPayload->aliveFF8 = 1;
                     }
                 }
@@ -429,7 +430,7 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
                     }
                     if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_Death) != 0) {
                         targetPayload->flagsFDC |= BattleActorFlag_Dead;
-                        gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                        action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                         targetPayload->aliveFF8 = 1;
                     }
                     const std::int32_t sound = action->frameEvent - 10000;
@@ -645,7 +646,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 }
                 if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_Death) != 0) {
                     targetPayload->flagsFDC |= BattleActorFlag_Dead;
-                    gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                    action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                     targetPayload->aliveFF8 = 1;
                 }
             }
@@ -893,7 +894,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                 }
                 if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_Death) != 0) {
                     targetPayload->flagsFDC |= BattleActorFlag_Dead;
-                    gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                    action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                     targetPayload->aliveFF8 = 1;
                 }
             }

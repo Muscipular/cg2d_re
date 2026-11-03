@@ -138,8 +138,8 @@ std::int32_t RandomRange_46FAF0(std::int32_t lower, std::int32_t upper)
 void ApplyScreenShake_423640(session::ClientSession& session)
 {
     std::uint32_t offsetYBits;
-    if (cg::yobi::gYobiUpdateGateMode == 1
-        && cg::yobi::gYobiUpdatePhaseCounter != 0) {
+    if (session.Yobi().gateMode == 1
+        && session.Yobi().phaseCounter != 0) {
         offsetYBits = cg::yobi::gYobiScreenOffsetY;
     } else {
         const std::uint32_t amplitudeX =

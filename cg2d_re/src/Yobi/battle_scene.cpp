@@ -13,6 +13,7 @@
 #include "animation.hpp"
 #include "map_render.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/BattleState.hpp"
 #include "../world/WorldMapState.hpp"
 
@@ -285,7 +286,7 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 
 
 // 原函数：0x004383F0。
-void InitializeBattleScene_4383F0()
+void InitializeBattleScene_4383F0(session::ClientSession& session)
 {
     cg::world::gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0();
     cg::world::gBattleEventActions5ABA9C.fill(nullptr);
@@ -295,7 +296,7 @@ void InitializeBattleScene_4383F0()
     cg::world::gBattleExitRequested_5ABB20 = 0;
     gYobiScreenOffsetRising = 0;
     gYobiScreenOffsetAmplitude = 0;
-    gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate;
+    session.Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
     ui::detail::WindowBattleCommand_SnapshotPetVitals();
 }
 

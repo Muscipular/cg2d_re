@@ -134,10 +134,6 @@ YobiAction& YobiAction::operator=(const YobiAction& source)
     return *this;
 }
 
-std::int32_t gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate; // 原全局：0x0059E570。
-
-std::int32_t gYobiUpdatePhaseCounter = 0; // 原全局：0x0059E574。
-
 namespace detail {
 
 static constexpr std::uint32_t kFourPhaseFlag = YobiActionFlag_FourPhaseUpdateGate;
@@ -173,8 +169,8 @@ static void DeleteYobiAction_404D10(YobiAction* const action)
 static bool ShouldDeferForFourPhaseGate(const YobiAction* const action)
 {
     return (action->flags & kFourPhaseFlag) != 0
-        && gYobiUpdateGateMode == YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero
-        && gYobiUpdatePhaseCounter != 0;
+        && action->ownerSession->Yobi().gateMode == YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero
+        && action->ownerSession->Yobi().phaseCounter != 0;
 }
 
 } // namespace detail
@@ -339,11 +335,11 @@ std::int32_t YobiUpdateAll_404C50(session::ClientSession& session)
         current = current->next;
     }
 
-    const std::int32_t result = gYobiUpdatePhaseCounter + 1;
+    const std::int32_t result = session.Yobi().phaseCounter + 1;
     const bool resetPhase = result >= 4;
-    gYobiUpdatePhaseCounter = result;
+    session.Yobi().phaseCounter = result;
     if (resetPhase) {
-        gYobiUpdatePhaseCounter = 0;
+        session.Yobi().phaseCounter = 0;
     }
     return result;
 }

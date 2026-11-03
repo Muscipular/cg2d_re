@@ -4145,7 +4145,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             static_cast<void>(AdvanceMapParticleCycles_46E4C0(160));
         }
         cg::yobi::YobiClearUp_404D30(session);
-        cg::yobi::InitializeBattleScene_4383F0();
+        cg::yobi::InitializeBattleScene_4383F0(session);
         gBattleEntryNoticeAction5ABFB8 = nullptr;
         battleScene.exitAction = nullptr;
         gSceneTransitionResetPending_58B6D0 = 1;

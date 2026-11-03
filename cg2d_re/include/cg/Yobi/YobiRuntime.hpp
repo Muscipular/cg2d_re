@@ -190,10 +190,6 @@ void DrawNineGrid_49BE00(
     std::int16_t tileWidth,
     std::int16_t tileHeight);
 
-// 原 dword_59E570 与 dword_59E574；后者由 UpdateAll 在 [0, 3] 间循环。
-extern std::int32_t gYobiUpdateGateMode; // 原全局：0x0059E570。
-extern std::int32_t gYobiUpdatePhaseCounter; // 原全局：0x0059E574。
-
 // 原 0x59F9F4/0x59F9FC/0x59FA00/0x59FA04/0x553C58；
 // volatile 保留 sub_423640 的独立 W32 读取及越界值、钳位值两次写入。
 extern volatile std::uint32_t gYobiScreenOffsetRising; // 原全局：0x0059F9F4。
@@ -387,7 +383,7 @@ YobiAction* MarkDeath(YobiAction* action);
 // 原函数：0x0043BAA0。
 std::int32_t ConsumeBattleExitMessages_43BAA0(); // BEMS01：固定入口载荷、各次取包重取场景对象；CHT入行/BST当前玩家计时，头返回1才结束。
 // 原函数：0x004383F0。
-void InitializeBattleScene_4383F0(); // 43CBB0先清Yobi再调用；发布创建结果、清两表/六标量并生产宠物快照。
+void InitializeBattleScene_4383F0(session::ClientSession& session); // 43CBB0先清Yobi再调用；发布创建结果、清两表/六标量并生产宠物快照。
 // 原函数：0x00438550。
 void ParseBattleC_438550(); // 完整C角色/附件生产及22槽缺席清理；43CBB0消费一槽C后调用。
 // 原函数：0x004238F0。

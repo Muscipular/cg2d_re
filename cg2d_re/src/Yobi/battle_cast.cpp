@@ -13,6 +13,7 @@
 #include "battle_impact.hpp"
 #include "battle_status.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "../world/BattleState.hpp"
 #include "../world/ChatHistory.hpp"
@@ -880,7 +881,7 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
         if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Death) != 0) {
             targetPayload->flagsFDC |= BattleActorFlag_Dead;
-            gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+            action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
             targetPayload->aliveFF8 = 1;
         }
         if ((payload->effects1C[payload->effectRunningC9C].flags & BattleResultFlag_WakeUp) != 0) {
@@ -1070,7 +1071,7 @@ void UpdateBattleAction93_40CF70(YobiAction* const action)
 {
     auto* const payload = action->payload.battleActor;
     if (CountBattleActiveEntries_406360() <= 1) {
-        gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate;
+        action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
     }
     payload->aliveFF8 = 0;
     AdvanceBattleCastState_439340(action);
@@ -1381,7 +1382,7 @@ void UpdateBattleAction102_40D6C0(YobiAction* const action)
                 }
                 if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Death) != 0) {
                     targetPayload->flagsFDC |= BattleActorFlag_Dead;
-                    gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                    action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                     targetPayload->aliveFF8 = 1;
                 }
             }
@@ -1631,7 +1632,7 @@ void UpdateBattleAction108_40DF80(YobiAction* const action)
                     }
                     if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Death) != 0) {
                         targetPayload->flagsFDC |= BattleActorFlag_Dead;
-                        gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                        action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                         targetPayload->aliveFF8 = 1;
                     }
                 }
@@ -1762,7 +1763,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             temporary.reset();
                             if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Death) != 0) {
                                 targetPayload->flagsFDC |= BattleActorFlag_Dead;
-                                gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                                action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                                 targetPayload->aliveFF8 = 1;
                             }
                         }
@@ -1784,7 +1785,7 @@ void UpdateBattleAction110_40E560(YobiAction* const action)
                             temporary.reset();
                             if ((static_cast<std::uint8_t>(payload->effects1C[payload->effectRunningC9C].flags) & BattleResultFlag_Death) != 0) {
                                 payload->flagsFDC |= BattleActorFlag_Dead;
-                                gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                                action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                                 payload->aliveFF8 = 1;
                             }
                             AdvanceBattleCastState_439340(action);
@@ -1854,7 +1855,7 @@ std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
     if (count < duration) {
         action->motionMagnitude54 = -2.0F;
         if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
-            gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+            action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
             payload->aliveFF8 = 1;
         }
     } else {
@@ -1862,7 +1863,7 @@ std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
             static_cast<void>(audio::PlaySe_52C450(207, action->x));
             if ((static_cast<std::uint8_t>(payload->flagsFDC) & BattleActorFlag_Dead) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
-                    gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate;
+                    action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
                 }
                 const std::uint32_t state = payload->stateFE0;
                 payload->aliveFF8 = 0;
@@ -2033,7 +2034,7 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                     &payload->effects1C[payload->effectRunningC9C].flags);
                 if ((effectFlags & BattleResultFlag_Death) != 0) {
                     targetPayload->flagsFDC |= BattleActorFlag_Dead;
-                    gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                    action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                     targetPayload->aliveFF8 = 1;
                 }
             }
@@ -3002,7 +3003,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
         const std::uint8_t movingFlags =
             *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
         if ((movingFlags & BattleActorFlag_Dead) != 0) {
-            gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+            action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
             payload->aliveFF8 = 1;
         }
         MoveBattleByAngle_405EA0(action);
@@ -3026,7 +3027,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                 *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
             if ((thresholdFlags & BattleActorFlag_Dead) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
-                    gYobiUpdateGateMode = YobiUpdateGatePolicy_FullRate;
+                    action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
                 }
                 payload->aliveFF8 = 0;
             }
@@ -3117,7 +3118,7 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                         &payload->effects1C[payload->effectRunningC9C].flags);
                     if ((rebirthFlags & BattleResultFlag_Death) != 0) {
                         targetPayload->flagsFDC |= BattleActorFlag_Dead;
-                        gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                        action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                         targetPayload->aliveFF8 = 1;
                     }
                 }
@@ -3691,7 +3692,7 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
                 &payload->effects1C[payload->effectRunningC9C].flags);
             if ((activateFlags & BattleResultFlag_Death) != 0) {
                 payload->flagsFDC |= BattleActorFlag_Dead;
-                gYobiUpdateGateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
+                action->ownerSession->Yobi().gateMode = YobiUpdateGatePolicy_DeferFlaggedUntilPhaseZero;
                 payload->aliveFF8 = 1;
             }
         }

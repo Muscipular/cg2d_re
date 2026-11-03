@@ -144,6 +144,25 @@ struct ChatSendState {
     std::int32_t replyGate = 0; // 原 0xDA3B54。
 };
 
+// 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。
+struct Record5FB7F8 {
+    std::wstring text; // 原成员偏移：+0x00。
+    std::int32_t color; // 原成员偏移：+0x124。
+    std::int32_t state; // 原成员偏移：+0x128。
+    std::int32_t field12C; // 原成员偏移：+0x12C。
+    std::int32_t fontType; // 原成员偏移：+0x130。
+};
+
+// 显示环表及范围提示由会话持有；原 volatile 发布和前项字体别名保持。
+struct ChatDisplayState {
+    Record5FB7F8 records[512] {}; // 原 0x5FB7F8。
+    volatile std::int32_t writeIndex = 0; // 原 0x626C08。
+    volatile std::int32_t count = 0; // 原 0xC9A944。
+    volatile std::uint32_t lifetime = 0; // 原 0x626C10。
+    std::uint32_t rangeOverlayFrames = 0; // 原 0x626BFC。
+    std::int32_t range = 5; // 原 0x554640。
+};
+
 // 64 条聊天输入历史、磁盘尾索引与当前浏览游标，运行期由会话持有。
 struct ChatInputHistoryState {
     std::array<std::wstring, 64> records {}; // 原 0x621FF8。
@@ -231,6 +250,7 @@ struct WorldSceneRuntimeState {
     MapNoticeState mapNotice {};
     RotationState rotation {};
     ChatSendState chat {};
+    ChatDisplayState chatDisplay {};
     ChatInputHistoryState chatInputHistory {};
     QuadrantTransitionState quadrantTransition {};
     TileTransitionState tileTransition {};

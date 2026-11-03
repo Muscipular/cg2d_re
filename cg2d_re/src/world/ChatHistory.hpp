@@ -18,19 +18,6 @@ class InputContext;
 
 namespace cg::world {
 
-// 原 [0x5FB7F8, 0x621FF8)：512 项、每项 0x134 字节，保留未明字段。
-struct Record5FB7F8 {
-    std::wstring text; // 原成员偏移：+0x00。
-    std::int32_t color; // 原成员偏移：+0x124。
-    std::int32_t state; // 原成员偏移：+0x128。
-    std::int32_t field12C; // 原成员偏移：+0x12C。
-    std::int32_t fontType; // 原成员偏移：+0x130。
-};
-
-extern Record5FB7F8 gRecords5FB7F8[512]; // 原全局：0x005FB7F8。
-extern volatile std::int32_t gChatWriteIndex_626C08; // 原全局：0x00626C08。
-extern volatile std::int32_t gChatRecordCount_C9A944; // 原全局：0x00C9A944。
-extern std::uint32_t gChatRangeOverlayFrames_626BFC; // 原全局：0x00626BFC。
 extern std::wstring gLogFileName554648; // 原全局：0x00554648。
 
 // 原0xD2F788：504A30重置的独立S32槽。
@@ -57,9 +44,8 @@ std::int32_t SaveChatInputHistoryEntry_449FA0(session::ClientSession& session, s
 namespace detail {
 extern std::wstring gLogPath62699C; // 原全局：0x0062699C。
 extern std::FILE* volatile gLogStream626C1C; // 原全局：0x00626C1C。
-extern volatile std::uint32_t gValue626C10; // 原全局：0x00626C10。
 // 原函数：0x004A76E0。
-std::int32_t IncrementChatRecordCount_4A76E0();
+std::int32_t IncrementChatRecordCount_4A76E0(session::ClientSession& session);
 // 原函数：0x00449DA0。
 void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session); // 原 [0x449DA0,0x449F9C)。
 void MarkPlayerChatActive() noexcept; // 51A6A0在固定载荷前置flags18A的2000。

@@ -26,7 +26,7 @@ std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connectio
 // 原函数：0x00464840。
 std::int32_t UpdateCapability4LoginScene_464840(network::CgConnection& connection); // 原 0x464840。
 // 原函数：0x00476680。
-void DrawChatRangeOverlay_476680();                         // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
+void DrawChatRangeOverlay_476680(session::ClientSession& session); // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
 // 原函数：0x0050C870。
 std::int32_t __cdecl HandlePlayerWorldTimeReply_50C870(cg::network::CgConnection& networkConnection, std::int32_t playerValue,
     std::int32_t timeOffset, std::int32_t pathValue,

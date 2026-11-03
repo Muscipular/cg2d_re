@@ -32,13 +32,6 @@
 
 #include "cg/core/m_log.hpp"
 
-namespace cg::world {
-
-Record5FB7F8 gRecords5FB7F8[512] {}; // 原全局：0x005FB7F8。
-volatile std::int32_t gChatWriteIndex_626C08 = 0; // 原全局：0x00626C08。
-
-} // namespace cg::world
-
 namespace cg::world::detail {
 std::wstring gLogPath62699C; // 原全局：0x0062699C。
 std::FILE* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
@@ -46,20 +39,6 @@ std::FILE* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
 } // namespace cg::world::detail
 
 namespace cg::world {
-volatile std::int32_t gChatRecordCount_C9A944 = 0; // 原全局：0x00C9A944。
-
-} // namespace cg::world
-
-namespace cg::world::detail {
-volatile std::uint32_t gValue626C10 = 0; // 原全局：0x00626C10。
-
-} // namespace cg::world::detail
-
-namespace cg::world {
-} // namespace cg::world
-
-namespace cg::world {
-std::uint32_t gChatRangeOverlayFrames_626BFC = 0; // 原全局：0x00626BFC。
 std::wstring gLogFileName554648 = L"chat_000000.txt"; // 原全局：0x00554648。
 
 } // namespace cg::world
@@ -120,8 +99,9 @@ std::int32_t LoadChatInputHistory_44A090(session::ClientSession& session)
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
 void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
 {
+    auto& chatDisplay = session.WorldScene().chatDisplay;
     auto& inputs = session.UiFrame().native.inputs;
-    for (auto& record : gRecords5FB7F8) record = {};
+    for (auto& record : chatDisplay.records) record = {};
     inputs.chat.reset();
     input::InitializeContext_449CF0(
         session,
@@ -129,9 +109,9 @@ void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
     inputs.chatDefaults = inputs.chat;
 
     for (std::size_t index = 0; index < 19; ++index) {
-        gRecords5FB7F8[index].state = 1;
+        chatDisplay.records[index].state = 1;
     }
-    gChatRangeOverlayFrames_626BFC = 0;
+    chatDisplay.rangeOverlayFrames = 0;
 
     __time64_t timeValue = 0;
     std::FILE* const existingStream = gLogStream626C1C;
@@ -196,12 +176,13 @@ void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
 }
 
 // 原 sub_4A76E0@[0x4A76E0,0x4A76FD)：先写未封顶值，超过 512 再写封顶值。
-std::int32_t IncrementChatRecordCount_4A76E0()
+std::int32_t IncrementChatRecordCount_4A76E0(session::ClientSession& session)
 {
-    const std::int32_t increased = gChatRecordCount_C9A944 + 1;
-    gChatRecordCount_C9A944 = increased;
+    auto& chatDisplay = session.WorldScene().chatDisplay;
+    const std::int32_t increased = chatDisplay.count + 1;
+    chatDisplay.count = increased;
     if (increased > 512) {
-        gChatRecordCount_C9A944 = 512;
+        chatDisplay.count = 512;
     }
     return increased;
 }
@@ -241,6 +222,7 @@ void AppendChatMessage_44B050(
     const std::int32_t color,
     const std::int32_t fontType)
 {
+    auto& chatDisplay = session.WorldScene().chatDisplay;
     if (color >= 13) {
         return;
     }
@@ -258,15 +240,15 @@ void AppendChatMessage_44B050(
             return;
         }
     }
-    std::int32_t index = gChatWriteIndex_626C08;
-    gRecords5FB7F8[index].text = message;
+    std::int32_t index = chatDisplay.writeIndex;
+    chatDisplay.records[index].text = message;
 
     if (gate != nullptr) {
         __time64_t timeValue = color;
         timeValue = ::_time64(nullptr);
         const std::tm* const legacyTime =
             ::_localtime64(&timeValue);
-        index = gChatWriteIndex_626C08;
+        index = chatDisplay.writeIndex;
         const std::int32_t second = legacyTime->tm_sec;
         const std::int32_t minute = legacyTime->tm_min;
         const std::int32_t hour = legacyTime->tm_hour;
@@ -277,21 +259,21 @@ void AppendChatMessage_44B050(
             hour, minute, second, logBytes.c_str());
         std::fclose(detail::gLogStream626C1C);
         std::FILE* const newStream = _wfopen(detail::gLogPath62699C.c_str(), L"a");
-        index = gChatWriteIndex_626C08;
+        index = chatDisplay.writeIndex;
         detail::gLogStream626C1C = newStream;
     }
 
-    Record5FB7F8& record = gRecords5FB7F8[index];
+    Record5FB7F8& record = chatDisplay.records[index];
     record.color = color;
     record.fontType = render::ResolveFontId(fontType);
     record.state = 0;
     const std::int32_t nextIndex = index + 1;
-    gChatWriteIndex_626C08 = nextIndex;
+    chatDisplay.writeIndex = nextIndex;
     if (nextIndex >= 512) {
-        gChatWriteIndex_626C08 = 0;
+        chatDisplay.writeIndex = 0;
     }
-    detail::IncrementChatRecordCount_4A76E0();
-    detail::gValue626C10 = 20;
+    detail::IncrementChatRecordCount_4A76E0(session);
+    chatDisplay.lifetime = 20;
 }
 
 } // namespace cg::world

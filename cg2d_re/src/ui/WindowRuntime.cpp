@@ -3024,6 +3024,7 @@ static void WindowRuntime_PlayShortcutEmote(const std::int32_t action, const std
 // 原函数：0x004C7AE0。
 static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
 {
+    auto& chatDisplay = session.WorldScene().chatDisplay;
     auto& chatWindow = session.UiFrame().native.chat;
     if ((platform::gKeyStates[0x1B] & 4u) != 0) {
         platform::gKeyStates[0x1B] &= static_cast<std::uint8_t>(~4u);
@@ -3220,28 +3221,28 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x27] & 4u) != 0) {
-            const std::int32_t range = platform::gChatRange_554640 + 1;
+            const std::int32_t range = chatDisplay.range + 1;
             const bool pastLastRange = range > 5;
-            platform::gChatRange_554640 = range;
+            chatDisplay.range = range;
             if (pastLastRange) {
-                platform::gChatRange_554640 = 1;
+                chatDisplay.range = 1;
             }
-            world::gChatRangeOverlayFrames_626BFC = 180;
+            chatDisplay.rangeOverlayFrames = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x25] & 4u) != 0) {
-            const std::int32_t range = platform::gChatRange_554640 - 1;
+            const std::int32_t range = chatDisplay.range - 1;
             const bool belowFirstRange = range < 1;
-            platform::gChatRange_554640 = range;
+            chatDisplay.range = range;
             if (belowFirstRange) {
-                platform::gChatRange_554640 = 5;
+                chatDisplay.range = 5;
             }
-            world::gChatRangeOverlayFrames_626BFC = 180;
+            chatDisplay.rangeOverlayFrames = 180;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x26] & 0x10u) != 0) {
             const std::int32_t previous = chatWindow.scrollOffset;
-            const std::int32_t count = world::gChatRecordCount_C9A944;
+            const std::int32_t count = chatDisplay.count;
             const std::int32_t scroll = previous + 1;
             const bool pastChatCount = scroll > count;
             chatWindow.scrollOffset = scroll;
@@ -5226,7 +5227,7 @@ void WindowRuntime_DrawCurrent(WindowInstance& target)
         WindowRuntime_DrawElement(*window, element->elementId, window->x, window->y, nullptr);
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
-    world::DrawChatRangeOverlay_476680();
+    world::DrawChatRangeOverlay_476680(*target.ownerSession);
 }
 
 // 原代码位置：0x00440ADB。

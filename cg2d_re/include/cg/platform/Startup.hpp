@@ -37,7 +37,6 @@ extern std::uint32_t gContactSortMode_D67CD0;     // 原 0xD67CD0，W32；保存
 extern std::int32_t gValue553438;
 // 原 0x55463C/40/44：显示、聊天与存档恢复共用的三个独立 W32 槽。
 extern std::int32_t gValue55463C;
-extern std::int32_t gChatRange_554640; // 原全局：0x00554640。
 extern std::int32_t gChatNotificationSoundEnabled_554644; // 原全局：0x00554644。
 extern std::uint32_t gValueD68858;     // 原 0xD68858，W32，virtual-zero 初值。
 extern std::uint32_t gRequestedCursorState_D68DC4;     // 原全局：0x00D68DC4。 原逐帧光标状态请求；CursorUpdate 尾部消费后清零。

@@ -8244,17 +8244,18 @@ void DrawPendingMapEffects_46E480()
 }
 
 // 原函数：0x00476680。
-void DrawChatRangeOverlay_476680()
+void DrawChatRangeOverlay_476680(session::ClientSession& session)
 {
+    auto& chatDisplay = session.WorldScene().chatDisplay;
     cg::yobi::YobiAction* const action = gPlayerRuntimeSlots.action;
     if (action == nullptr) {
         return;
     }
 
-    std::int32_t radius = platform::gChatRange_554640;
+    std::int32_t radius = chatDisplay.range;
     std::int32_t x = cg::yobi::GetYobiActionField30(action) - radius * 64;
     std::int32_t y = cg::yobi::GetYobiActionField34(action);
-    const auto countdown = std::bit_cast<std::int32_t>(gChatRangeOverlayFrames_626BFC);
+    const auto countdown = std::bit_cast<std::int32_t>(chatDisplay.rangeOverlayFrames);
     x -= 31;
     y -= 23;
     if (countdown > 0) {
@@ -8268,7 +8269,7 @@ void DrawChatRangeOverlay_476680()
                 if (sideCount > 0) {
                     do {
                         static_cast<void>(render::QueueGraphicWithResourceOffset_521C80(x, y, 100, 3, 0, nullptr));
-                        radius = platform::gChatRange_554640;
+                        radius = chatDisplay.range;
                         ++column;
                         x += 32;
                         sideCount = radius * 2 + 1;
@@ -8286,10 +8287,10 @@ void DrawChatRangeOverlay_476680()
     }
 
     // 原尾部先发布递减值，再按符号位决定是否写零。
-    const std::uint32_t remaining = gChatRangeOverlayFrames_626BFC - 1u;
-    gChatRangeOverlayFrames_626BFC = remaining;
+    const std::uint32_t remaining = chatDisplay.rangeOverlayFrames - 1u;
+    chatDisplay.rangeOverlayFrames = remaining;
     if (std::bit_cast<std::int32_t>(remaining) < 0) {
-        gChatRangeOverlayFrames_626BFC = 0;
+        chatDisplay.rangeOverlayFrames = 0;
     }
 }
 
@@ -8820,6 +8821,7 @@ std::int32_t HandleNotificationSoundReply_50E210(cg::network::CgConnection&, con
 std::int32_t SendPlayerChatInput_50C940(
     session::ClientSession& session, const input::InputContext* const context, const std::int32_t color)
 {
+    auto& chatDisplay = session.WorldScene().chatDisplay;
     if (script::LuaProcessWinMgrChatMessage(session, input::ContextText(*context)) == 1) {
         return 0;
     }
@@ -8861,7 +8863,7 @@ std::int32_t SendPlayerChatInput_50C940(
     // 原1024字节发送字段：P|占2字节，正文转义后按GBK检查，宽正文不限长。
     const std::wstring packet = L"P|" + input::EscapeInputText_52D2D0(context, 1022);
     const std::int32_t mode = platform::gChatTextSizeMode_73ECBC;
-    const std::int32_t range = platform::gChatRange_554640;
+    const std::int32_t range = chatDisplay.range;
     const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
     const auto networkSession = session.Connection().CaptureSession();

@@ -770,13 +770,14 @@ std::int32_t InitializeSavedState_533300()
 // 原 [0x520510,0x520545)：四项显示状态交错读写当前保存记录。
 std::int32_t CaptureCharacterDisplaySettings_520510(session::ClientSession& session, const std::int32_t selected)
 {
+    auto& chatDisplay = session.WorldScene().chatDisplay;
     auto& inputs = session.UiFrame().native.inputs;
     if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
     const volatile std::int32_t& color =
         inputs.chat.color;
     const volatile std::int32_t& first = cg::platform::gValue55463C;
-    const volatile std::int32_t& second = cg::platform::gChatRange_554640;
+    const volatile std::int32_t& second = chatDisplay.range;
     const volatile std::int32_t& third = cg::platform::gChatNotificationSoundEnabled_554644;
     const std::uint8_t colorByte = static_cast<std::uint8_t>(color);
     const std::uint8_t firstByte = static_cast<std::uint8_t>(first);
@@ -792,6 +793,7 @@ std::int32_t CaptureCharacterDisplaySettings_520510(session::ClientSession& sess
 // 原 [0x520550,0x52058D)：按两组读取、零扩展并发布四项显示状态。
 std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& session, const std::int32_t selected)
 {
+    auto& chatDisplay = session.WorldScene().chatDisplay;
     auto& inputs = session.UiFrame().native.inputs;
     if (selected < 0 || selected >= 2) { return -1; }
     auto& current = gCurrentSavedRecord;
@@ -801,7 +803,7 @@ std::int32_t RestoreCharacterDisplaySettings_520550(session::ClientSession& sess
     cg::platform::gValue55463C = first;
     const std::int32_t second = current.display30A[4 + selected];
     const std::int32_t third = current.display30A[6 + selected];
-    cg::platform::gChatRange_554640 = second;
+    chatDisplay.range = second;
     cg::platform::gChatNotificationSoundEnabled_554644 = third;
     return selected;
 }

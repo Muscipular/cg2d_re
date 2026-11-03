@@ -5,6 +5,9 @@
 #include <cstdint>
 #include <string_view>
 
+namespace cg::network { class CgConnection; }
+namespace cg::session { class ClientSession; }
+
 namespace cg::platform {
 
 extern std::wstring gCommandLine;                // 原 0x9A6EC4；原生指针。
@@ -60,8 +63,8 @@ int PumpWindowMessages();                 // 原 0x466D50，WM_QUIT 返回 0，�
 
 // 原入口所用初始化与主循环接口已有本体；完整客户端仍受其他待决依赖及链接验收限制。
 // 原函数：0x00465F00。
-int ParseCommandOptions();                // 原 0x465F00；返回末次 0x507C80 的 0/sscanf 结果，入口忽略。
+int ParseCommandOptions(network::CgConnection& connection); // 原 0x465F00；返回末次 0x507C80 的 0/sscanf 结果，入口忽略。
 // 原函数：0x00457020。
-int MainLoop();                           // 原 0x457020；两个正常出口的 EAX 均为 0。
+int MainLoop(session::ClientSession& session); // 原 0x457020；两个正常出口的 EAX 均为 0。
 
 } // namespace cg::platform

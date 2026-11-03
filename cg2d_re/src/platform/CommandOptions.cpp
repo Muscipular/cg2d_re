@@ -113,7 +113,7 @@ static bool ParseCommandArgumentValue(
 
 // A08：既有 IP 表解析完成后，向实际登录消费者发布参数及场景。
 __declspec(noinline)
-static void ApplyAutoLoginCommandLine(const wchar_t* commandLine)
+static void ApplyAutoLoginCommandLine(network::CgConnection& connection, const wchar_t* commandLine)
 {
     std::wstring account;
     std::wstring password;
@@ -145,7 +145,7 @@ static void ApplyAutoLoginCommandLine(const wchar_t* commandLine)
         login::detail::CacheAutoLoginInputValues(account, password);
         world::gCurrentSceneState = 2;
         world::gCurrentSceneType = 2;
-        auto& request = network::GetGameConnection().LoginRequests();
+        auto& request = connection.LoginRequests();
         request.password = password;
         request.account = account;
         request.selectedServerIndex = std::bit_cast<std::int16_t>(
@@ -172,7 +172,7 @@ bool ConsumeAutoLoginCharacterSlot(const std::uint32_t slot) noexcept
 
 // 原 ParseCmdOpt@0x465F00；原参数见 doc/cg2d_command_options.md，A08扩展见ALM01 SPEC。
 __declspec(noinline)
-int ParseCommandOptions()
+int ParseCommandOptions(network::CgConnection& connection)
 {
     VM_LIGHT_START
     wchar_t savedata[128] = L"";
@@ -234,7 +234,7 @@ int ParseCommandOptions()
     }
     gCurrentSceneTypeStorage_FF0D40 = 1;
     const int result = ParseIpOptions_507C80(gCommandLine.c_str());
-    ApplyAutoLoginCommandLine(::GetCommandLineW());
+    ApplyAutoLoginCommandLine(connection, ::GetCommandLineW());
     VM_LIGHT_END
     return result;
 }

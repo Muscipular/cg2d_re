@@ -86,11 +86,6 @@ std::int32_t CheckLegacyDxCapability_458DC0()
 }
 
 // 原KeepAlive@[0x457AB0,0x457B03)；CTM01基线／差值64位，零哨兵与60000ms门槛保持。
-void KeepAlive_457AB0()
-{
-    KeepAlive_457AB0(cg::network::GetGameConnection());
-}
-
 void KeepAlive_457AB0(network::CgConnection& connection)
 {
     connection.UpdateKeepAlive();

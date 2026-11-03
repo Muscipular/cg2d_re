@@ -115,9 +115,8 @@ void ShowModeChange_458A40()
 }
 
 // 原 [0x457020,0x4574DA)，分支、调用及数值边界见 doc/cg2d_main_loop.md。
-int MainLoop()
+int MainLoop(session::ClientSession& session)
 {
-    auto& session = network::GetGameConnection().Owner();
     if (InitializeClient_4576B0(session) == 0) {
         return 0;
     }

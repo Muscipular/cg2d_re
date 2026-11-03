@@ -6,6 +6,10 @@
 #include <cstdint>
 #include <type_traits>
 
+namespace cg::session {
+class ClientSession;
+}
+
 namespace cg::login {
 
 // 原 0xD69798 的服务器记录；507C80生产，登录查询读取同一地址／端口文本。
@@ -22,7 +26,7 @@ extern std::array<std::int32_t, 60> gLoginServerGroupCounts_D9F2D4;       // 原
 extern std::wstring gExecutableDigest;       // 原DA3A1C，可执行文件摘要／NLD01第1文本，映像零填充。
 
 // 原 LoginScene::Process@0x45FEA0。
-std::int32_t ProcessScene_45FEA0();
+std::int32_t ProcessScene_45FEA0(session::ClientSession& session);
 
 // 原 sub_45C2D0@[0x45C2D0,0x45C566)：登录入口外层子状态机。
 void ProcessOuterScene_45C2D0();

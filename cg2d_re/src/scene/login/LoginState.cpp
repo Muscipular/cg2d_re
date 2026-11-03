@@ -47,13 +47,13 @@ std::uint32_t AppendSystemLog_44B5C0(std::wstring_view text)
 }
 
 // 原函数：0x00508360。
-std::int32_t AdvanceServerLoginConnection_508360()
+std::int32_t AdvanceServerLoginConnection_508360(network::CgConnection& connection)
 {
-    if (cg::network::GetGameConnection().Active() == 0) {
+    if (connection.Active() == 0) {
         return 0;
     }
 
-    auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& request = connection.LoginRequests();
     std::int32_t step = request.connectionStep;
     if (step == 0) {
         request.startTick = platform::ReadTickCount64();
@@ -68,8 +68,8 @@ std::int32_t AdvanceServerLoginConnection_508360()
             return -2;
         }
 
-        cg::network::GetGameConnection().DisconnectState() = 0;
-        if (cg::network::GetGameConnection().BeginConnect(serverAddress, port, platform::gNoDelay != 0) == 0) {
+        connection.DisconnectState() = 0;
+        if (connection.BeginConnect(serverAddress, port, platform::gNoDelay != 0) == 0) {
             static_cast<void>((request.message = L"网路通讯协定（TCP）错误。"));
             return -3;
         }
@@ -82,32 +82,32 @@ std::int32_t AdvanceServerLoginConnection_508360()
             request.connectionStep = 69;
         }
 
-        const auto connection = cg::network::GetGameConnection().PollConnection();
-        if (connection.state == platform::ConnectionState::Connected) {
+        const auto connectionState = connection.PollConnection();
+        if (connectionState.state == platform::ConnectionState::Connected) {
             request.connectionStep = 71;
-            cg::network::GetGameConnection().SetIoEnabled(true);
+            connection.SetIoEnabled(true);
             static_cast<void>(AppendSystemLog_44B5C0(L"CONNECT OK"));
         }
-        else if (connection.state == platform::ConnectionState::Failed
-            || connection.state == platform::ConnectionState::Closed) {
+        else if (connectionState.state == platform::ConnectionState::Failed
+            || connectionState.state == platform::ConnectionState::Closed) {
             const auto diagnostic = std::format(L"CONNECT ERROR={} PHASE={} ENDPOINT={} ATTEMPT={}",
-                connection.error, static_cast<int>(connection.phase), connection.endpoint, connection.attempt);
+                connectionState.error, static_cast<int>(connectionState.phase), connectionState.endpoint, connectionState.attempt);
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
-            cg::network::GetGameConnection().Close();
-            if (connection.phase == platform::ConnectionPhase::Resolve) {
+            connection.Close();
+            if (connectionState.phase == platform::ConnectionPhase::Resolve) {
                 static_cast<void>(cg::text::FormatTo(request.message,
-                    L"无法取得伺服器的 IP 位址。({})", connection.host));
+                    L"无法取得伺服器的 IP 位址。({})", connectionState.host));
                 return -4;
             }
-            if (connection.phase == platform::ConnectionPhase::Setup) {
+            if (connectionState.phase == platform::ConnectionPhase::Setup) {
                 request.message = L"网路通讯协定（TCP）错误。";
                 return -3;
             }
-            if (connection.phase == platform::ConnectionPhase::SocketOptions) {
+            if (connectionState.phase == platform::ConnectionPhase::SocketOptions) {
                 request.message = L"网路通讯协定（TCP）设置错误。";
                 return -100;
             }
-            if (connection.phase == platform::ConnectionPhase::ConnectStart) {
+            if (connectionState.phase == platform::ConnectionPhase::ConnectStart) {
                 request.message = L"无法开始处理与伺服器的连接。";
                 return -5;
             }
@@ -117,7 +117,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
     }
     else if (step >= 71 && step <= 80) {
         if (step == 71) {
-            cg::network::GetGameConnection().ResetLoginReply();
+            connection.ResetLoginReply();
 
             std::wstring adapterScratch;
             std::wstring passwordCopy;
@@ -126,7 +126,6 @@ std::int32_t AdvanceServerLoginConnection_508360()
             passwordCopy = request.password;
             adapterId = adapterScratch;
             request.password = passwordCopy;
-            auto& connection = network::GetGameConnection();
             const auto networkSession = connection.CaptureSession();
             // 登录业务先发XCNY并替换旧待发内容，成功后才追加账号登录请求。
             constexpr char loginPrelude[] = "XCNY 3 \n";
@@ -145,10 +144,10 @@ std::int32_t AdvanceServerLoginConnection_508360()
             static_cast<void>(AppendSystemLog_44B5C0(diagnostic));
         }
         else if (request.status == 2) {
-            if (cg::network::GetGameConnection().LoginAccepted() == 0) {
+            if (connection.LoginAccepted() == 0) {
                 request.status = 0;
                 static_cast<void>((request.message = L"无法登入。"));
-                cg::network::GetGameConnection().Close();
+                connection.Close();
                 return -7;
             }
             step = 81;
@@ -171,7 +170,7 @@ std::int32_t AdvanceServerLoginConnection_508360()
 
     const std::uint64_t now = platform::ReadTickCount64();
     if (now - request.startTick > 600000U) {
-        cg::network::GetGameConnection().Close();
+        connection.Close();
         static_cast<void>((request.message = L"与伺服器的连接逾时。"));
         return -1;
     }
@@ -181,18 +180,18 @@ std::int32_t AdvanceServerLoginConnection_508360()
 } // namespace detail
 
 // 原函数：0x0045D980。
-std::int32_t ResetValues_45D980()
+std::int32_t ResetValues_45D980(network::CgConnection& connection)
 {
-    auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& request = connection.LoginRequests();
     request.serverConnectionPhase = 0;
     return 0;
 }
 
 // 原函数：0x0045D990。
-std::int32_t UpdateServerConnection()
+std::int32_t UpdateServerConnection(network::CgConnection& connection)
 {
-    auto& request = cg::network::GetGameConnection().LoginRequests();
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& request = connection.LoginRequests();
+    auto& sceneUi = connection.LoginSceneUi();
     std::uint16_t phase = request.serverConnectionPhase;
     std::int32_t result = 0;
 
@@ -229,13 +228,13 @@ std::int32_t UpdateServerConnection()
     }
 
     if (phase == 2) {
-        cg::network::GetGameConnection().Shutdown();
-        cg::network::GetGameConnection().DisconnectState() = 0;
+        connection.Shutdown();
+        connection.DisconnectState() = 0;
         cg::world::blacklist::PersistAndReset_401000(request.selectedLoginServerGroup);
-        if (cg::network::GetGameConnection().Initialize()) {
-            cg::network::GetGameConnection().DisconnectState() = 0;
+        if (connection.Initialize()) {
+            connection.DisconnectState() = 0;
             request.serverConnectionPhase = 3;
-            ResetServerConnectionState_508350();
+            ResetServerConnectionState_508350(connection);
             request.serverConnectionPhase = 4;
             phase = 4;
         } else {
@@ -247,13 +246,13 @@ std::int32_t UpdateServerConnection()
     }
 
     if (phase == 3) {
-        ResetServerConnectionState_508350();
+        ResetServerConnectionState_508350(connection);
         request.serverConnectionPhase = 4;
         phase = 4;
     }
 
     if (phase == 4) {
-        const std::int32_t updateResult = detail::AdvanceServerLoginConnection_508360();
+        const std::int32_t updateResult = detail::AdvanceServerLoginConnection_508360(connection);
         if (updateResult == 1) {
             result = 1;
         } else if (updateResult < 0) {

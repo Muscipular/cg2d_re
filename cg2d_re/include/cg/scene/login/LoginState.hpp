@@ -3,13 +3,17 @@
 #include <cstdint>
 #include <string>
 
+namespace cg::network {
+class CgConnection;
+}
+
 namespace cg::login {
 
 // 原 sub_45D980@0x45D980；依次清零两个 16 位存储并返回 0。
-std::int32_t ResetValues_45D980();
+std::int32_t ResetValues_45D980(network::CgConnection& connection);
 
 // 原 sub_45D990@0x45D990；推进服务器连接阶段并按条件绘制连接提示。
-std::int32_t UpdateServerConnection();
+std::int32_t UpdateServerConnection(network::CgConnection& connection);
 
 // 原 sub_45E960@0x45E960；顺序处理当前场景子状态 0、1、100、101。
 std::int32_t ProcessState_45E960();

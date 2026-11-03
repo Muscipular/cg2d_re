@@ -5,10 +5,10 @@
 namespace cg::login {
 
 // 原函数：0x00508350。
-std::int32_t ResetServerConnectionState_508350()
+std::int32_t ResetServerConnectionState_508350(network::CgConnection& connection)
 {
-    cg::network::GetGameConnection().LoginRequests().connectionStep = 0;
-    cg::network::GetGameConnection().LoginRequests().connectionErrorPresent = 0;
+    connection.LoginRequests().connectionStep = 0;
+    connection.LoginRequests().connectionErrorPresent = 0;
     return 0;
 }
 

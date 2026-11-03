@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/render/Font.hpp"
 #include "version.h"
@@ -250,18 +251,18 @@ static void SetServerWindowTitle(
     ::SetWindowTextW(reinterpret_cast<HWND>(cg::platform::gLegacyWindow), buffer.c_str());
 }
 
-static void CopyAccountHelpLines()
+static void CopyAccountHelpLines(network::CgConnection& connection)
 {
-    auto& messageLines = cg::network::GetGameConnection().LoginMessages().lines;
+    auto& messageLines = connection.LoginMessages().lines;
     CopyText(messageLines[3], L"您可能遇到以下情形之一：" /* 原 0x55C798「您可能遇到以下 3 種情形之一：」正文 29 字节；字符串字面量隐式追加 NUL。 */);
     CopyText(messageLines[4], L"1.密码错误，请查明后重新输入" /* 原 0x55C778「1.密碼錯誤，請查明後重新輸入」正文 28 字节；字符串字面量隐式追加 NUL。 */);
     CopyText(messageLines[5], L"2.角色已经在线或者卡号" /* 原 0x55C754「2.未儲值，請至 SOFTSTAR 網站儲值」正文 32 字节；字符串字面量隐式追加 NUL。 */);
     // CopyText(messageLines[6], L"3.卡号" /* 原 0x55C738「3.新會員系統中查無此帳號」正文 24 字节；字符串字面量隐式追加 NUL。 */);
 }
 
-static void DrawCategoryControls()
+static void DrawCategoryControls(network::CgConnection& connection)
 {
-    auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& request = connection.LoginRequests();
     for (std::int32_t index = 0; index < 60; ++index) {
         if (cg::login::gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(index)] > 0) {
             if (request.selectedLoginServerGroup == index) {
@@ -320,18 +321,19 @@ std::int32_t GetServerAddressInfo_507D90(
 } // namespace detail
 
 // 原函数：0x0045FEA0。
-std::int32_t ProcessScene_45FEA0()
+std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
 {
-    auto& request = cg::network::GetGameConnection().LoginRequests();
-    auto& serverUi = cg::network::GetGameConnection().LoginSceneUi().serverUi;
-    auto& messageLines = cg::network::GetGameConnection().LoginMessages().lines;
+    auto& connection = session.Connection();
+    auto& request = connection.LoginRequests();
+    auto& serverUi = connection.LoginSceneUi().serverUi;
+    auto& messageLines = connection.LoginMessages().lines;
     std::int32_t interactiveTail = 0;
     std::wstring title;
 
     if (world::gCurrentSceneState == 0) {
         world::gCurrentSceneState = 1;
         SetBaseWindowTitle(title);
-        cg::network::GetGameConnection().DisconnectState() = 0;
+        connection.DisconnectState() = 0;
         world::gSceneTransitionResetPending_58B6D0 = 1;
         request.serverHighlight = 0;
         static_cast<void>(render::SelectPalette(27, 0));
@@ -410,12 +412,12 @@ std::int32_t ProcessScene_45FEA0()
     }
 
     if (world::gCurrentSceneState == 2) {
-        ResetValues_45D980();
+        ResetValues_45D980(connection);
         IncrementSceneState();
     }
 
     if (world::gCurrentSceneState == 3) {
-        const std::int32_t result = UpdateServerConnection();
+        const std::int32_t result = UpdateServerConnection(connection);
         switch (result) {
         case 1:
             world::SetCurrentSceneType(3);
@@ -423,8 +425,8 @@ std::int32_t ProcessScene_45FEA0()
         case -1:
             world::gCurrentSceneState = 100;
             CopyText(request.sceneMessage, L"NETWORK还没准备好。" /* 原 0x55C7C4「NETWORK還沒準備好。」正文 19 字节；字符串字面量隐式追加 NUL。 */);
-            cg::network::GetGameConnection().Shutdown();
-            cg::network::GetGameConnection().DisconnectState() = 0;
+            connection.Shutdown();
+            connection.DisconnectState() = 0;
             break;
         case -2: {
             world::gCurrentSceneState = 100;
@@ -444,7 +446,7 @@ std::int32_t ProcessScene_45FEA0()
                 case 2:
                 case 5:
                     CopyText(request.sceneMessage, kMultiline);
-                    CopyAccountHelpLines();
+                    CopyAccountHelpLines(connection);
                     // CopyText(messageLines[10], kAccountHelp4);
                     request.loginErrorCode = 0;
                     // CopyText(messageLines[11], kAccountHelp5);
@@ -458,7 +460,7 @@ std::int32_t ProcessScene_45FEA0()
                     // CopyText(gValue9A620C[3], L"" /* 原 0x55CC6C「請玩家至SOFTSTAR會員中心領取新的密碼，」正文 38 字节；字符串字面量隐式追加 NUL。 */);
                     // CopyText(gValue9A620C[4], L"" /* 原 0x55CC48「詳情請參閱SOFTSTAR官方網站資訊：」正文 32 字节；字符串字面量隐式追加 NUL。 */);
                     // CopyText(gValue9A620C[5], L"" /* 原 0x55CC24「　　　　http://www.softstar.com.tw」正文 34 字节；字符串字面量隐式追加 NUL。 */);
-                    CopyAccountHelpLines();
+                    CopyAccountHelpLines(connection);
                     request.loginErrorCode = 0;
                     // CopyText(messageLines[2], kAccountHelp4);
                     // CopyText(messageLines[3], kAccountHelp5);
@@ -542,21 +544,21 @@ std::int32_t ProcessScene_45FEA0()
                     break;
                 }
             }
-            cg::network::GetGameConnection().Shutdown();
-            cg::network::GetGameConnection().DisconnectState() = 0;
+            connection.Shutdown();
+            connection.DisconnectState() = 0;
             break;
         }
         case -3:
             world::gCurrentSceneState = 100;
             CopyText(request.sceneMessage, L"无法连上更新伺服器" /* 原 0x55C618「無法連上更新伺服器」正文 18 字节；字符串字面量隐式追加 NUL。 */);
-            cg::network::GetGameConnection().Shutdown();
-            cg::network::GetGameConnection().DisconnectState() = 0;
+            connection.Shutdown();
+            connection.DisconnectState() = 0;
             break;
         case -4:
             world::gCurrentSceneState = 100;
             CopyText(request.sceneMessage, L"版本错误，请重新启动魔力宝贝。" /* 原 0x55C5F8「版本錯誤，請重新啟動魔力寶貝。」正文 30 字节；字符串字面量隐式追加 NUL。 */);
-            cg::network::GetGameConnection().Shutdown();
-            cg::network::GetGameConnection().DisconnectState() = 0;
+            connection.Shutdown();
+            connection.DisconnectState() = 0;
             break;
         default:
             break;
@@ -564,11 +566,11 @@ std::int32_t ProcessScene_45FEA0()
     }
 
     if (world::gCurrentSceneState == 100) {
-        ResetLoginMessage();
+        ResetLoginMessage(connection);
         IncrementSceneState();
     }
 
-    if (world::gCurrentSceneState == 101 && UpdateLoginMessage(request.sceneMessage) != 0) {
+    if (world::gCurrentSceneState == 101 && UpdateLoginMessage(connection, request.sceneMessage) != 0) {
         if (request.openUrlAfterMessage != 0) {
             // ::ShellExecuteA(
             //     reinterpret_cast<HWND>(platform::gLegacyWindow),
@@ -585,7 +587,7 @@ std::int32_t ProcessScene_45FEA0()
     }
 
     if (world::gCurrentSceneState == 102) {
-        if (UpdateLoginMessage(request.sceneMessage) != 0) {
+        if (UpdateLoginMessage(connection, request.sceneMessage) != 0) {
             world::gCurrentSceneState = 1;
         }
         SetBaseWindowTitle(title);
@@ -594,7 +596,7 @@ std::int32_t ProcessScene_45FEA0()
     cg::ui::DrawUiControl_45EFD0(&gCloseUi, 10, 0, 0, 0);
     cg::ui::DrawUiControl_45EFD0(&gSwitchSceneUi, 10, 0, 0, 0);
     if (interactiveTail != 0) {
-        DrawCategoryControls();
+        DrawCategoryControls(connection);
         if (request.selectedLoginServerGroup >= 0
             && gLoginServerGroupCounts_D9F2D4[static_cast<std::size_t>(request.selectedLoginServerGroup)] > 10) {
             cg::ui::DrawUiControl_45EFD0(&gNextPageUi, 10, 0, 0, 0);
@@ -627,7 +629,7 @@ std::int32_t ProcessScene_45FEA0()
             }
         }
     } else {
-        DrawCategoryControls();
+        DrawCategoryControls(connection);
         for (std::int32_t slot = 0; slot < 10; ++slot) {
             if (ReadServerAvailability(request.selectedLoginServerGroup, request.serverPage, slot)) {
                 const std::int32_t style = slot == request.serverHighlight ? 2 : 1;

@@ -15,8 +15,6 @@ namespace cg::login {
 
 static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 
-std::uint16_t gCharacterCreationReplyCode = 0; // 原全局：0x00DA3B2A。
-
 // 原函数：0x00508E00。
 std::uint32_t StartCharacterCreationRequest()
 {
@@ -35,7 +33,7 @@ std::uint32_t StartCharacterCreationRequest()
     auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
     const auto networkSession = connection.CaptureSession();
-    gCharacterCreationReplyCode = 0;
+    request.characterCreationReplyCode = 0;
     connection.SendCharacterCreationRequest(selected, character_select::state::gCreationNameFF0D18,
         motion, graphic, attribute0, attribute1, attribute2, attribute3, attribute4,
         element0, element1, element2, element3);
@@ -50,7 +48,7 @@ std::int32_t PollCharacterCreationRequest()
 {
     auto& request = cg::network::GetGameConnection().LoginRequests();
     if (request.status == 2) {
-        const std::uint16_t replyCode = gCharacterCreationReplyCode;
+        const std::uint16_t replyCode = request.characterCreationReplyCode;
         request.status = 0;
         return replyCode == 1 ? 1 : -2;
     }
@@ -92,7 +90,7 @@ void HandleCharacterCreationResponse_508EE0(cg::network::CgConnection& connectio
     }
 
     const std::int16_t selected = gSelectedCharacterIndex;
-    gCharacterCreationReplyCode = 1;
+    request.characterCreationReplyCode = 1;
     const std::int32_t previewToggle =
         character_select::state::gPreviewToggleState;
     CharacterRecord* const record = gCharacterRecords.data() + selected;

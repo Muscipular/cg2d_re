@@ -6,9 +6,6 @@ namespace cg::network { class CgConnection; }
 
 namespace cg::login {
 
-// 原 0xDA3B26，角色列表异步响应写入的 W16 回复码，映像初值为 0。
-extern std::uint16_t gCharacterListReplyCode;
-
 // 原 sub_508910@[0x508910,0x508950)；清空两条记录并发起角色列表请求。
 std::uint32_t StartCharacterListRequest();
 

@@ -57,6 +57,9 @@ std::int32_t CharacterNameExists_51B140(std::wstring_view name);
 
 // NSM01：登录/角色/登出请求共用的状态随连接实例保留，重连不清。
 struct LoginRequestState {
+    std::uint16_t characterListReplyCode = 0; // 原 0xDA3B26，R/W16。
+    std::uint16_t characterDeletionReplyCode = 0; // 原 0xDA3B28，R/W16。
+    std::uint16_t characterCreationReplyCode = 0; // 原 0xDA3B2A，R/W16。
     std::uint16_t loginReplyCode = 0; // 原 0xDA3B2C，R/W16。
     std::int32_t status = 0; // 原 0xDA3B34，R/W32。
     std::uint64_t startTick = 0; // 原 0xDA3B38；CTM01本地64位毫秒。

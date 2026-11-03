@@ -13,16 +13,13 @@ namespace cg::login {
 
 static constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 
-std::uint16_t gCharacterDeletionReplyCode = 0; // 原全局：0x00DA3B28。
-
 // 原函数：0x00508F70。
 std::uint32_t StartCharacterDeletionRequest()
 {
     const std::int16_t selected = gSelectedCharacterIndex;
-    gCharacterDeletionReplyCode = 0;
-
     auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
+    request.characterDeletionReplyCode = 0;
     const auto networkSession = connection.CaptureSession();
     const CharacterRecord* const record = gCharacterRecords.data() + selected;
     const std::int32_t registNumber = record->registNumber;
@@ -39,7 +36,7 @@ std::int32_t PollCharacterDeletionRequest()
 {
     auto& request = cg::network::GetGameConnection().LoginRequests();
     if (request.status == 2) {
-        const std::uint16_t replyCode = gCharacterDeletionReplyCode;
+        const std::uint16_t replyCode = request.characterDeletionReplyCode;
         request.status = 0;
         if (replyCode != 0) {
             return 1;
@@ -82,7 +79,7 @@ void HandleCharacterDeletionResponse_509020(cg::network::CgConnection& connectio
         ++index;
     }
 
-    gCharacterDeletionReplyCode = 1;
+    request.characterDeletionReplyCode = 1;
 }
 
 } // namespace cg::login

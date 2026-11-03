@@ -105,8 +105,6 @@ static std::int32_t WriteCharacterRecord_51B1B0(
     return 0;
 }
 
-std::uint16_t gCharacterListReplyCode = 0; // 原全局：0x00DA3B26。
-
 // 原函数：0x00508910。
 std::uint32_t StartCharacterListRequest()
 {
@@ -116,7 +114,7 @@ std::uint32_t StartCharacterListRequest()
     auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
     const auto networkSession = connection.CaptureSession();
-    gCharacterListReplyCode = 0;
+    request.characterListReplyCode = 0;
     static_cast<void>(connection.SendCharacterListRequest());
     request.status = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
@@ -129,7 +127,7 @@ std::int32_t PollCharacterListRequest()
 {
     auto& request = cg::network::GetGameConnection().LoginRequests();
     if (request.status == 2) {
-        const std::uint16_t replyCode = gCharacterListReplyCode;
+        const std::uint16_t replyCode = request.characterListReplyCode;
         request.status = 0;
         if (replyCode == 1) {
             return 1;
@@ -165,12 +163,12 @@ std::int32_t HandleCharacterListResponse_5089B0(cg::network::CgConnection& conne
     if (!succeeded) {
         const std::int32_t comparison = CompareUnsignedBytes(data, "OUTOFSERVICE");
         if (comparison == 0) {
-            gCharacterListReplyCode = 2;
+            request.characterListReplyCode = 2;
         }
         return comparison;
     }
 
-    gCharacterListReplyCode = 1;
+    request.characterListReplyCode = 1;
 
     char legacyName[kOuterTokenCapacity];
     char mutableLegacyDetail[kOuterTokenCapacity];

@@ -114,7 +114,7 @@ void Update(session::ClientSession& session)
         detail::InitializeChatInputAndLog_449DA0();
         detail::ResetPendingPathEvent_46A9E0();
         detail::InitializeWorldMapState_467F30();
-        detail::InitializePlayerRuntimeState_5199A0();
+        detail::InitializePlayerRuntimeState_5199A0(session.Connection());
         detail::ResetWorldObjectTable_446470();
         detail::ResetCurrentDialogType_4D3170();
         detail::InitializeWorldSceneFlags_455BD0();

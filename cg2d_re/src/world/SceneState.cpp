@@ -10,6 +10,7 @@
 #include "cg/text/Encoding.hpp"
 
 #include "../scene/character_select/CharacterSelectState.hpp"
+#include "../scene/character_select/CharacterSelectSceneState.hpp"
 #include "../scene/login/LoginMessageDependencies.hpp"
 #include "../scene/login/LoginInputDependencies.hpp"
 #include "../scene/login/LoginRequestDependencies.hpp"
@@ -6615,7 +6616,7 @@ std::int32_t gInitialPlayerDuelPoints_FDA6F8 = 0;
 namespace detail {
 
 // 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
-void InitializePlayerRuntimeState_5199A0()
+void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
 {
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
 
@@ -6632,7 +6633,7 @@ void InitializePlayerRuntimeState_5199A0()
     gContactsF19FB0.fill({});
     std::memset(gPetPairsDE0B08.data(), 0, sizeof(gPetPairsDE0B08));
 
-    const volatile std::int16_t& selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const volatile std::int16_t& selected = connection.LoginRequests().selectedCharacterIndex;
     const std::int16_t unusedSelected = selected;
     static_cast<void>(unusedSelected);
     cg::core::NullSub_509080();
@@ -6646,7 +6647,7 @@ void InitializePlayerRuntimeState_5199A0()
         slot.action = nullptr;
     }
 
-    const std::int32_t selectedGraphic = character_select::state::gSelectedGraphicNo;
+    const std::int32_t selectedGraphic = connection.CharacterSelectUi().selectedGraphicNo;
     const std::int32_t value = gInitialPlayerDuelPoints_FDA6F8;
     gPlayerRuntimeSlots.value17C = selectedGraphic;
     gPlayerRuntimeSlots.value104 = value;

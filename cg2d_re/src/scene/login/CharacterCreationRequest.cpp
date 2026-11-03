@@ -28,7 +28,7 @@ std::uint32_t StartCharacterCreationRequest(network::CgConnection& connection)
     const std::int32_t attribute2 = character_select::state::gCreationSubmittedAttribute2_DE03F4;
     const std::int32_t attribute1 = character_select::state::gCreationSubmittedAttribute1_F633F0;
     const std::int32_t attribute0 = character_select::state::gCreationSubmittedAttribute0_F633EC;
-    const std::int32_t graphic = character_select::state::gSelectedGraphicNo;
+    const std::int32_t graphic = connection.CharacterSelectUi().selectedGraphicNo;
     const std::int32_t motion = character_select::state::gCreationSubmittedMotionImage_DE0AFC;
     const std::int32_t selected = connection.LoginRequests().selectedCharacterIndex;
     auto& request = connection.LoginRequests();

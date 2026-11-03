@@ -407,7 +407,7 @@ void CopyTitleRecords_5198A0(
 // 原函数：0x005198F0。
 std::int32_t CompareTitleRecordsById_5198F0(const void* left, const void* right);
 // 原函数：0x005199A0。
-void InitializePlayerRuntimeState_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
+void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
 // 原函数：0x0051A4B0。
 void CopyPlayerIdentityToMapAction_51A4B0(); // 玩家初始姓名/称号/等级/HP同步。
 // 原函数：0x0051A5E0。

@@ -983,7 +983,7 @@ std::int32_t UpdateCharacterCreationAttributes_4631D0(network::CgConnection& con
             state::gCreationSubmittedAttribute4_F7CA00 = attribute4;
             const std::int32_t element2 = static_cast<std::int8_t>(elements[2]);
             state::gCreationSubmittedElement0_F7C948 = static_cast<std::int8_t>(elementSnapshot);
-            state::gSelectedGraphicNo = graphic;
+            connection.CharacterSelectUi().selectedGraphicNo = graphic;
             const std::int32_t element3 = static_cast<std::int8_t>(elements[3]);
             state::gCreationSubmittedElement1_FF03D0 = static_cast<std::int8_t>(elementSnapshot >> 8);
             state::gCreationSubmittedElement2_F633F4 = element2;
@@ -1229,7 +1229,6 @@ std::int32_t gCreationSubmittedElement3_DE0B04 = 0; // 原全局：0x00DE0B04。
 std::int32_t gCreationSubmittedMotionImage_DE0AFC = 0; // 原全局：0x00DE0AFC。
 std::wstring gCreationNameFF0D18 {}; // 原全局：0x00FF0D18。
 cg::yobi::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
-std::int32_t gSelectedGraphicNo = 0; // 原全局：0x00F7C9FC。
 std::wstring gSelectedCharacterName {}; // 原全局：0x00DA391C。
 std::wstring gDeleteCharacterName {}; // 原全局：0x00DA3A9C。
 
@@ -1276,7 +1275,7 @@ static void EnterSelectedCharacter(network::CgConnection& connection)
     const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     const login::CharacterRecord* const selectedRecord =
         characters.data() + selected;
-    state::gSelectedGraphicNo = selectedRecord->graphicNo;
+    connection.CharacterSelectUi().selectedGraphicNo = selectedRecord->graphicNo;
     world::SetCurrentSceneType(5);
     login::detail::PlaySe(59, 320, 240);
     connection.CharacterSelectUi().characterEntryState = 0;

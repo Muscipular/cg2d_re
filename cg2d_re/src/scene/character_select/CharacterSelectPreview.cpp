@@ -2,6 +2,7 @@
 #include "cg/network/CgConnection.hpp"
 
 #include "CharacterSelectSceneDependencies.hpp"
+#include "CharacterSelectSceneState.hpp"
 #include "CharacterSelectState.hpp"
 
 #include "cg/scene/login/LoginRequest.hpp"
@@ -458,11 +459,12 @@ std::int32_t ComposeCharacterAppearanceGraphic_4C5650(
 void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint32_t slot)
 {
     const std::size_t slotIndex = static_cast<std::size_t>(slot);
+    auto& actions = connection.CharacterSelectUi().previewActions;
     cg::yobi::YobiAction* const actionToDestroy =
-        state::gPreviewActions[slotIndex];
+        actions[slotIndex];
     if (actionToDestroy != nullptr) {
         cg::yobi::MarkDeath(actionToDestroy);
-        state::gPreviewActions[slotIndex] = nullptr;
+        actions[slotIndex] = nullptr;
     }
 
     if (cg::login::HasCharacterInSlot_51B110(connection, slot) == 0) {
@@ -470,7 +472,7 @@ void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint
     }
 
     cg::yobi::YobiAction* const existingAction =
-        state::gPreviewActions[slotIndex];
+        actions[slotIndex];
     if (existingAction != nullptr) {
         return;
     }
@@ -506,7 +508,7 @@ void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint
     cg::yobi::YobiAction* const action = cg::yobi::NewYobiAction_404AE0(
         std::uint8_t{2},
         std::uint32_t{0});
-    state::gPreviewActions[slotIndex] = action;
+    actions[slotIndex] = action;
     if (action == nullptr) {
         return;
     }
@@ -524,7 +526,7 @@ void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint
             graphics[static_cast<std::size_t>(graphicIndex)]);
         const std::int32_t remainder = converted % 100;
         cg::yobi::YobiAction* const actionForVariant =
-            state::gPreviewActions[slotIndex];
+            actions[slotIndex];
         const std::int32_t variant = remainder / 25;
         const std::int32_t baseGraphic =
             cg::yobi::GetYobiActionField2A8(actionForVariant);
@@ -533,15 +535,15 @@ void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint
             baseGraphic + 6 * variant);
     }
 
-    cg::yobi::SetYobiActionField2B0(state::gPreviewActions[slotIndex], 0);
-    cg::yobi::SetYobiActionField15(state::gPreviewActions[slotIndex], 10);
+    cg::yobi::SetYobiActionField2B0(actions[slotIndex], 0);
+    cg::yobi::SetYobiActionField15(actions[slotIndex], 10);
     const std::int32_t x = 315 * static_cast<std::int32_t>(slot) + 163;
-    cg::yobi::SetYobiActionField30(state::gPreviewActions[slotIndex], x);
-    cg::yobi::SetYobiActionField34(state::gPreviewActions[slotIndex], 292);
-    cg::yobi::SetYobiActionField2B8(state::gPreviewActions[slotIndex], cg::yobi::YobiDirection_Down);
+    cg::yobi::SetYobiActionField30(actions[slotIndex], x);
+    cg::yobi::SetYobiActionField34(actions[slotIndex], 292);
+    cg::yobi::SetYobiActionField2B8(actions[slotIndex], cg::yobi::YobiDirection_Down);
 
     cg::yobi::YobiAction* const actionForFrameMove =
-        state::gPreviewActions[slotIndex];
+        actions[slotIndex];
     cg::yobi::AdvanceYobiAnimationFrame_517880(actionForFrameMove, 100, 0, 0);
 }
 

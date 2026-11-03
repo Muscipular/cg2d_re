@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
 #include <string>
 
@@ -46,6 +47,7 @@ struct CharacterSelectSceneState {
     yobi::YobiAction* legacyVersionUpgradeAction = nullptr; // 原 0x9A6E68。
     std::int32_t updateAvailable = 0; // 原 0x9A6EAC；选角升级按钮门禁。
     yobi::YobiAction* deleteConfirmationAction = nullptr; // 原 0x9A6EB0；删除确认动作借用。
+    std::array<yobi::YobiAction*, 2> previewActions {}; // 原 0x9A6E44、0x9A6E48。
     CharacterListProgressState listProgress {};
     CharacterDeletionProgressState deletionProgress {};
     AuthenticationFailureState authenticationFailure {};

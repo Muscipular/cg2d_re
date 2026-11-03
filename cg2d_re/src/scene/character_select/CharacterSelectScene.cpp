@@ -1238,7 +1238,6 @@ std::int32_t gCreationSubmittedElement0_F7C948 = 0; // 原全局：0x00F7C948。
 std::int32_t gCreationSubmittedElement3_DE0B04 = 0; // 原全局：0x00DE0B04。
 std::int32_t gCreationSubmittedMotionImage_DE0AFC = 0; // 原全局：0x00DE0AFC。
 std::wstring gCreationNameFF0D18 {}; // 原全局：0x00FF0D18。
-std::array<cg::yobi::YobiAction*, 2> gPreviewActions {};
 cg::yobi::YobiAction* gCharacterModalAction = nullptr; // 原全局：0x009A6E64。
 std::int16_t gPendingCharacterCount = 0; // 原全局：0x00F7CA06。
 std::int32_t gSelectedGraphicNo = 0; // 原全局：0x00F7C9FC。
@@ -1248,7 +1247,6 @@ std::wstring gSelectedCharacterName {}; // 原全局：0x00DA391C。
 std::wstring gDeleteCharacterName {}; // 原全局：0x00DA3A9C。
 
 static_assert(sizeof(gCreateActions) == 2 * sizeof(cg::yobi::YobiAction*));
-static_assert(sizeof(gPreviewActions) == 2 * sizeof(cg::yobi::YobiAction*));
 
 } // namespace cg::character_select::state
 
@@ -1270,24 +1268,25 @@ static void CopyRecordName(std::wstring& destination, const login::CharacterReco
     destination = name;
 }
 
-static void ClearPreviewActions()
+static void ClearPreviewActions(network::CgConnection& connection)
 {
-    if (state::gPreviewActions[0] != nullptr) {
-        state::gPreviewActions[0] = nullptr;
+    auto& actions = connection.CharacterSelectUi().previewActions;
+    if (actions[0] != nullptr) {
+        actions[0] = nullptr;
     }
-    if (state::gPreviewActions[1] != nullptr) {
-        state::gPreviewActions[1] = nullptr;
+    if (actions[1] != nullptr) {
+        actions[1] = nullptr;
     }
 }
 
 // CUN01：原460FF0角色进入分支，供Debug直入及非Debug确认后共用，调用顺序保持。
-static void EnterSelectedCharacter()
+static void EnterSelectedCharacter(network::CgConnection& connection)
 {
-    auto& characters = cg::network::GetGameConnection().LoginRequests().characters;
+    auto& characters = connection.LoginRequests().characters;
     const login::CharacterRecord& record =
-        characters[static_cast<std::size_t>(cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex)];
+        characters[static_cast<std::size_t>(connection.LoginRequests().selectedCharacterIndex)];
     CopyRecordName(state::gSelectedCharacterName, record);
-    const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+    const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     const login::CharacterRecord* const selectedRecord =
         characters.data() + selected;
     state::gSelectedGraphicNo = selectedRecord->graphicNo;
@@ -1296,7 +1295,7 @@ static void EnterSelectedCharacter()
     state::gCharacterEntryState = 0;
     cg::audio::BeginBgmFadeOut_52B990();
     cg::yobi::YobiClearUp_404D30();
-    ClearPreviewActions();
+    ClearPreviewActions(connection);
 }
 
 #ifndef _DEBUG
@@ -1628,7 +1627,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             else if (mainState == kUsageNoticeState) {
                 const std::int32_t choice = ProcessUsageNotice();
                 if (choice == 1) {
-                    EnterSelectedCharacter();
+                    EnterSelectedCharacter(connection);
                 } else if (choice == 2) {
                     // CUN02：直接结束进程，跳过存在纹理寿命冲突的CRT静态析构。
                     std::_Exit(cg::platform::Rand16());
@@ -1669,7 +1668,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 world::SetCurrentSceneType(4);
                 login::detail::PlaySe(53, 320, 240);
                 cg::yobi::YobiClearUp_404D30();
-                ClearPreviewActions();
+                ClearPreviewActions(connection);
             } else if (actionIndex == 1u) {
                 connection.LoginRequests().selectedCharacterIndex = static_cast<std::int16_t>(slot);
                 // CUN01：连接阶段已校验索引；服务器记录保留地址映射前的名称。
@@ -1678,7 +1677,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 const wchar_t* const serverAddress = login::gLoginServerRecords_D69798[
                     static_cast<std::size_t>(selectedServerIndex)].address.data();
                 if (std::wstring_view(serverAddress) == L"taomoli") {
-                    EnterSelectedCharacter();
+                    EnterSelectedCharacter(connection);
                 } else {
                     world::gCurrentSceneState = kUsageNoticeState;
                     interactive = 1; // 同帧即锁住其他槽位，等待下一帧显示提示。
@@ -1727,7 +1726,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
             && world::gCurrentSceneState == 11
             && (cg::ui::QueryUiControlInputState_45F100(&gReturnUi) & 1) != 0) {
             cg::yobi::YobiClearUp_404D30();
-            ClearPreviewActions();
+            ClearPreviewActions(connection);
             connection.Shutdown();
             connection.DisconnectState() = 0;
             world::SetCurrentSceneType(2);

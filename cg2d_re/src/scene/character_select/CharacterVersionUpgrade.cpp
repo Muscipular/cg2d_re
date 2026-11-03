@@ -223,11 +223,11 @@ std::int32_t ProcessScene_462330(network::CgConnection& connection)
     case 101:
         if (login::UpdateLoginMessage(connection, kUpgradeSucceededText) != 0) {
             cg::yobi::YobiClearUp_404D30();
-            if (state::gPreviewActions[0] != nullptr) {
-                state::gPreviewActions[0] = nullptr;
+            if (scene.previewActions[0] != nullptr) {
+                scene.previewActions[0] = nullptr;
             }
-            if (state::gPreviewActions[1] != nullptr) {
-                state::gPreviewActions[1] = nullptr;
+            if (scene.previewActions[1] != nullptr) {
+                scene.previewActions[1] = nullptr;
             }
             world::SetCurrentSceneType(3);
         }

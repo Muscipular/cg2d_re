@@ -151,11 +151,11 @@ std::int32_t ProcessCharacterSlot_461B30(
             0);
 
         cg::yobi::YobiAction* const actionForFieldWrite =
-            state::gPreviewActions[static_cast<std::size_t>(slot)];
+            connection.CharacterSelectUi().previewActions[static_cast<std::size_t>(slot)];
         if (actionForFieldWrite != nullptr) {
             cg::yobi::SetYobiActionField2B0(actionForFieldWrite, 1);
             cg::yobi::YobiAction* const actionForFrameMove =
-                state::gPreviewActions[static_cast<std::size_t>(slot)];
+                connection.CharacterSelectUi().previewActions[static_cast<std::size_t>(slot)];
             cg::yobi::AdvanceYobiAnimationFrame_517880(actionForFrameMove, 100, 0, 0);
         }
     } else {

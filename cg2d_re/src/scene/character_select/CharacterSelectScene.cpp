@@ -1529,8 +1529,8 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 }
             } else if (mainState == 10u) {
                 world::gCurrentSceneState = 11;
-                ProcessCharacterPreview_460D00(0);
-                ProcessCharacterPreview_460D00(1);
+                ProcessCharacterPreview_460D00(connection, 0);
+                ProcessCharacterPreview_460D00(connection, 1);
             } else if (mainState == 11u) {
                 interactive = 0;
             } else if (mainState == 12u) {
@@ -1706,7 +1706,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 }
                 state::gPreviewToggleState =
                     record.previewState;
-                ProcessCharacterPreview_460D00(slot);
+                ProcessCharacterPreview_460D00(connection, slot);
                 login::detail::PlaySe(51, 320, 240);
             }
         }

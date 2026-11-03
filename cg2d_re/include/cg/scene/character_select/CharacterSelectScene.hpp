@@ -54,7 +54,7 @@ std::int32_t ProcessCharacterDeletionWarning_45E0C0(
     std::int32_t y);
 
 // 原 sub_460D00@[0x460D00,0x460FD8)；前置条件是 slot 位于 [0, 1]。
-void ProcessCharacterPreview_460D00(std::uint32_t slot);
+void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint32_t slot);
 
 // 原 sub_462090@[0x462090,0x462327)。
 std::int32_t ProcessCharacterModal_462090(

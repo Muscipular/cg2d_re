@@ -455,7 +455,7 @@ std::int32_t ComposeCharacterAppearanceGraphic_4C5650(
 } // namespace detail
 
 // 原函数：0x00460D00。
-void ProcessCharacterPreview_460D00(std::uint32_t slot)
+void ProcessCharacterPreview_460D00(network::CgConnection& connection, std::uint32_t slot)
 {
     const std::size_t slotIndex = static_cast<std::size_t>(slot);
     cg::yobi::YobiAction* const actionToDestroy =
@@ -465,7 +465,7 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
         state::gPreviewActions[slotIndex] = nullptr;
     }
 
-    if (cg::login::HasCharacterInSlot_51B110(slot) == 0) {
+    if (cg::login::HasCharacterInSlot_51B110(connection, slot) == 0) {
         return;
     }
 
@@ -476,7 +476,7 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
     }
 
     login::CharacterRecord& record =
-        cg::network::GetGameConnection().LoginRequests().characters[slotIndex];
+        connection.LoginRequests().characters[slotIndex];
     if (record.graphicNo < 30000) {
         record.graphicNo = 33100;
     }

@@ -32,9 +32,9 @@ static constexpr Capability3InputButton32 kSecondaryButton {
     {332, 438, 64, 16}, 245153, 245155, 245154,
 };
 // 原函数：0x0045FA70。
-std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
+std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, const std::int32_t mode)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     Capability3InputButton32 primaryButton = kPrimaryButton;
     Capability3InputButton32 secondaryButton = kSecondaryButton;
     std::int32_t result = 0;

@@ -23,7 +23,7 @@ extern std::uint64_t gMapNoticeStartTick_62B5B0; // 原全局：0x0062B5B0。
 
 // World::Update@0x51C430 的直接目标声明；保留原地址及调用契约，提供者按所属模块实现。
 // 原函数：0x0045F190。
-std::int32_t UpdateCapability3LoginScene_45F190();                 // 原 0x45F190。
+std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connection); // 原 0x45F190。
 // 原函数：0x00464840。
 std::int32_t UpdateCapability4LoginScene_464840();                 // 原 0x464840。
 // 原函数：0x00476680。

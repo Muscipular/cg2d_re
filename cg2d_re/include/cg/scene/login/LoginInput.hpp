@@ -65,7 +65,7 @@ void DrawLoginControl_503780(
 void InitializeInputContexts_45C7C0(network::CgConnection& connection);
 
 // 原 sub_45F970@[0x45F970,0x45FA6C)：能力 3 登录输入初始化。
-void InitializeCapabilityInput_45F970();
+void InitializeCapabilityInput_45F970(network::CgConnection& connection);
 
 // 原 sub_465320@[0x465320,0x465429)：能力 4 登录输入初始化。
 void InitializeCapability4Input_465320();
@@ -77,7 +77,7 @@ void SaveAndSwitchCapability4InputSlot_465740(std::int32_t newSlot);
 std::int32_t ProcessCapability4SavedSlotSelector_465430();
 
 // 原 sub_45FA70@[0x45FA70,0x45FE9C)：能力 3 登录输入控制器。
-std::int32_t ProcessCapability3Input_45FA70(std::int32_t mode);
+std::int32_t ProcessCapability3Input_45FA70(network::CgConnection& connection, std::int32_t mode);
 
 // 原 sub_464E30@[0x464E30,0x46531E)：能力 4 登录输入控制器。
 std::int32_t ProcessCapability4Input_464E30();

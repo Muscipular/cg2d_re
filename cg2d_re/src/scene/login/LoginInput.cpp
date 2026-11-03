@@ -394,9 +394,9 @@ void InitializeInputContexts_45C7C0(network::CgConnection& connection)
 }
 
 // 原函数：0x0045F970。
-void InitializeCapabilityInput_45F970()
+void InitializeCapabilityInput_45F970(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     std::wstring firstInitialText;
     std::wstring secondInitialText;
 

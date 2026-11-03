@@ -59,9 +59,9 @@ static void DrawFiveCapability3Images()
         cg::render::QueueOriginalPaletteGraphic_45F090(638, 478, 3, 245151, 0, -1));
 }
 
-static std::int32_t DrawCapability3CommonTail()
+static std::int32_t DrawCapability3CommonTail(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     auto& intro = sceneUi.capability3Intro;
     const std::uint32_t firstAlpha = sceneUi.capability3OverlayAlpha;
     if (firstAlpha != 0U) {
@@ -109,16 +109,16 @@ static std::int32_t DrawCapability3CommonTail()
     return fourthAlpha;
 }
 
-static std::int32_t ProcessCapability3InputAndDraw()
+static std::int32_t ProcessCapability3InputAndDraw(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
-    const std::int32_t result = cg::login::ProcessCapability3Input_45FA70(0);
+    auto& sceneUi = connection.LoginSceneUi();
+    const std::int32_t result = cg::login::ProcessCapability3Input_45FA70(connection, 0);
     if (result == 1) {
         cg::core::NullSub_509080();
         if (!cg::login::SaveInputValues(
                 cg::input::ContextText(sceneUi.context9A5678),
                 cg::input::ContextText(sceneUi.context9A5960))) {
-            return DrawCapability3CommonTail();
+            return DrawCapability3CommonTail(connection);
         }
         static_cast<void>(cg::login::detail::SaveCurrentLoginRecord_520200());
         static_cast<void>(cg::login::detail::PlaySe(53, 320, 240));
@@ -137,11 +137,11 @@ static std::int32_t ProcessCapability3InputAndDraw()
         sceneUi.context9A5960.clearText();
         static_cast<void>(cg::login::WriteInputValueFF494F_5203B0(cg::input::ContextText(sceneUi.context9A5960).c_str()));
     }
-    return DrawCapability3CommonTail();
+    return DrawCapability3CommonTail(connection);
 }
 
 static std::int32_t ProcessCapability3CommonDispatch(
-    const std::int32_t sampledState)
+    network::CgConnection& connection, const std::int32_t sampledState)
 {
     if (std::bit_cast<std::uint32_t>(sampledState) < 4U) {
         const std::uint8_t clickState =
@@ -149,33 +149,33 @@ static std::int32_t ProcessCapability3CommonDispatch(
         if ((clickState & 1U) != 0U) {
             cg::world::gCurrentSceneState = 5;
             cg::input::SetContext_44B330(nullptr);
-            return DrawCapability3CommonTail();
+            return DrawCapability3CommonTail(connection);
         }
     }
 
     if (sampledState == 6) {
-        return ProcessCapability3InputAndDraw();
+        return ProcessCapability3InputAndDraw(connection);
     }
 
     cg::input::SetContext_44B330(nullptr);
-    return DrawCapability3CommonTail();
+    return DrawCapability3CommonTail(connection);
 }
 
-static std::int32_t DispatchCapability3FromCurrentState()
+static std::int32_t DispatchCapability3FromCurrentState(network::CgConnection& connection)
 {
     const std::int32_t sampledState = cg::world::gCurrentSceneState;
-    return ProcessCapability3CommonDispatch(sampledState);
+    return ProcessCapability3CommonDispatch(connection, sampledState);
 }
 
 // 原函数：0x0045F190。
-std::int32_t UpdateCapability3LoginScene_45F190()
+std::int32_t UpdateCapability3LoginScene_45F190(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     auto& intro = sceneUi.capability3Intro;
     const std::uint32_t state =
         std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
     if (state > 10U) {
-        return DispatchCapability3FromCurrentState();
+        return DispatchCapability3FromCurrentState(connection);
     }
 
     switch (state) {
@@ -188,12 +188,12 @@ std::int32_t UpdateCapability3LoginScene_45F190()
         sceneUi.capability3OverlayAlpha = 0;
         DrawFiveCapability3Images();
         world::gCurrentSceneState = 1;
-        return ProcessCapability3CommonDispatch(1);
+        return ProcessCapability3CommonDispatch(connection, 1);
 
     case 1: {
         DrawFiveCapability3Images();
         if (HasLoginIntroFrameDeadlineElapsed_45EF80()) {
-            return DispatchCapability3FromCurrentState();
+            return DispatchCapability3FromCurrentState(connection);
         }
 
         const std::int32_t fade = intro.phase9A5550 + 4;
@@ -202,13 +202,13 @@ std::int32_t UpdateCapability3LoginScene_45F190()
         render::gBackgroundColor =
             fadeBits | ((fadeBits | (fadeBits << 8U)) << 8U);
         if (fade < 255) {
-            return DispatchCapability3FromCurrentState();
+            return DispatchCapability3FromCurrentState(connection);
         }
 
         intro.phase9A5550 = 0;
         render::gBackgroundColor = 0x00FFFFFFU;
         world::gCurrentSceneState = 2;
-        return ProcessCapability3CommonDispatch(2);
+        return ProcessCapability3CommonDispatch(connection, 2);
     }
 
     case 2: {
@@ -218,7 +218,7 @@ std::int32_t UpdateCapability3LoginScene_45F190()
             (phase << 8U) - phase;
         intro.alpha9A4D08 = numerator / 40;
         if (phase < 40) {
-            return DispatchCapability3FromCurrentState();
+            return DispatchCapability3FromCurrentState(connection);
         }
 
         intro.phase9A5550 = 0;
@@ -248,7 +248,7 @@ std::int32_t UpdateCapability3LoginScene_45F190()
         intro.rightAction9A50C4 = cg::yobi::NewYobiAction_404AE0(2, 0);
         if (intro.rightAction9A50C4 == nullptr) {
             world::gCurrentSceneState = 6;
-            return ProcessCapability3InputAndDraw();
+            return ProcessCapability3InputAndDraw(connection);
         }
 
         cg::yobi::SetYobiActionField2A8(
@@ -269,7 +269,7 @@ std::int32_t UpdateCapability3LoginScene_45F190()
             0,
             0));
         world::gCurrentSceneState = 3;
-        return ProcessCapability3CommonDispatch(3);
+        return ProcessCapability3CommonDispatch(connection, 3);
     }
 
     case 3: {
@@ -312,7 +312,7 @@ std::int32_t UpdateCapability3LoginScene_45F190()
 
         cg::yobi::YobiAction* const leftForCompare = intro.leftAction9A50C0;
         if (cg::yobi::GetYobiActionField30(leftForCompare) > 320) {
-            return DispatchCapability3FromCurrentState();
+            return DispatchCapability3FromCurrentState(connection);
         }
 
         cg::yobi::SetYobiActionField30(leftForCompare, 320);
@@ -326,7 +326,7 @@ std::int32_t UpdateCapability3LoginScene_45F190()
         world::gCurrentSceneState = 4;
         intro.phase9A5550 = 16;
         static_cast<void>(cg::audio::LoadAndPlayBGM(33));
-        return DispatchCapability3FromCurrentState();
+        return DispatchCapability3FromCurrentState(connection);
     }
 
     case 4:
@@ -339,7 +339,7 @@ std::int32_t UpdateCapability3LoginScene_45F190()
                     intro.alpha9A4D08 = 255;
                 }
             }
-            return DispatchCapability3FromCurrentState();
+            return DispatchCapability3FromCurrentState(connection);
         }
 
         if (intro.alpha9A4CA0 < 255) {
@@ -353,18 +353,18 @@ std::int32_t UpdateCapability3LoginScene_45F190()
                 render::gBackgroundColor = 0;
                 intro.alpha9A4D08 = 0;
             }
-            return DispatchCapability3FromCurrentState();
+            return DispatchCapability3FromCurrentState(connection);
         }
 
         intro.alpha9A5E70 = intro.alpha9A5E70 + 4;
         if (intro.alpha9A5E70 <= 255) {
-            return DispatchCapability3FromCurrentState();
+            return DispatchCapability3FromCurrentState(connection);
         }
         intro.alpha9A4CA0 = 0;
         intro.alpha9A5E70 = 255;
-        login::InitializeCapabilityInput_45F970();
+        login::InitializeCapabilityInput_45F970(connection);
         world::gCurrentSceneState = 6;
-        return ProcessCapability3InputAndDraw();
+        return ProcessCapability3InputAndDraw(connection);
 
     case 5: {
         cg::yobi::YobiAction* const leftAction = intro.leftAction9A50C0;
@@ -377,47 +377,47 @@ std::int32_t UpdateCapability3LoginScene_45F190()
         cg::yobi::MarkDeath(rightAction);
         intro.rightAction9A50C4 = nullptr;
         intro.leftAction9A50C0 = nullptr;
-        login::InitializeCapabilityInput_45F970();
+        login::InitializeCapabilityInput_45F970(connection);
         world::gCurrentSceneState = 6;
         static_cast<void>(cg::audio::LoadAndPlayBGM(33));
-        return DispatchCapability3FromCurrentState();
+        return DispatchCapability3FromCurrentState(connection);
     }
 
     case 6:
-        return DispatchCapability3FromCurrentState();
+        return DispatchCapability3FromCurrentState(connection);
 
     case 7:
         if (render::gPaletteChanging != 0) {
-            return DispatchCapability3FromCurrentState();
+            return DispatchCapability3FromCurrentState(connection);
         }
         static_cast<void>(render::SelectPalette(19, 60));
         world::gCurrentSceneState = 10;
         input::SetContext_44B330(nullptr);
-        return DrawCapability3CommonTail();
+        return DrawCapability3CommonTail(connection);
 
     case 8:
-        login::ResetLoginMessage();
+        login::ResetLoginMessage(connection);
         static_cast<void>(login::detail::PlaySe(56, 320, 240));
         world::gCurrentSceneState = 9;
         input::SetContext_44B330(nullptr);
-        return DrawCapability3CommonTail();
+        return DrawCapability3CommonTail(connection);
 
     case 9:
-        if (login::UpdateLoginMessage(intro.message9A50E8) != 0) {
+        if (login::UpdateLoginMessage(connection, intro.message9A50E8) != 0) {
             world::gCurrentSceneState = 5;
             input::SetContext_44B330(nullptr);
-            return DrawCapability3CommonTail();
+            return DrawCapability3CommonTail(connection);
         }
-        return DispatchCapability3FromCurrentState();
+        return DispatchCapability3FromCurrentState(connection);
 
     case 10:
         static_cast<void>(world::SetCurrentSceneType(2));
         cg::yobi::YobiClearUp_404D30();
         render::gBackgroundColor = 0;
-        return DispatchCapability3FromCurrentState();
+        return DispatchCapability3FromCurrentState(connection);
     }
 
-    return DispatchCapability3FromCurrentState();
+    return DispatchCapability3FromCurrentState(connection);
 }
 
 } // namespace cg::world

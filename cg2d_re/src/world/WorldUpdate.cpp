@@ -69,7 +69,7 @@ void Update(session::ClientSession& session)
             login::ProcessOuterScene_45C2D0(session.Connection());
             break;
         case 3:
-            UpdateCapability3LoginScene_45F190();
+            UpdateCapability3LoginScene_45F190(session.Connection());
             break;
         case 4:
             UpdateCapability4LoginScene_464840();

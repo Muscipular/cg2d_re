@@ -1,4 +1,6 @@
 #include "LuaInternal.hpp"
+#include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../Yobi/battle_base.hpp"
 #include "cg/world/SceneState.hpp"
 #include "../world/BattleState.hpp"
@@ -25,7 +27,7 @@ void PushBattleEntry(lua_State* L, int slot)
 }
 static int ReadItem(lua_State* L, int index, std::string_view key)
 {
-    const auto& p = cg::world::gPlayerRuntimeSlots.items[index];
+    const auto& p = GetLuaConnection(L).Owner().WorldScene().playerItems[index];
     if (key == "use") { Push(L, (p.used != 0)); return 1; }
     if (key == "name") { Push(L, p.name); return 1; }
     if (key == "memo") { Push(L, p.memo); return 1; }
@@ -157,7 +159,7 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
                 for (const char* field : {"use","name","memo","desc","descLine","color","imageNo","lv","itemId","count","itemType","canUseInField","battleUseFlag","target","flag","hasDesc"}) {
                     ReadItem(L, i, field); lua_setfield(L, -2, field);
                 }
-            } else if (p.items[i].used) PushData(L, DataKind::Item, i); else lua_pushnil(L);
+            } else if (GetLuaConnection(L).Owner().WorldScene().playerItems[i].used) PushData(L, DataKind::Item, i); else lua_pushnil(L);
             lua_rawseti(L, -2, i + 1);
         }
         return 1;

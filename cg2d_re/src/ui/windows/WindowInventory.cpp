@@ -428,7 +428,7 @@ std::int32_t WindowInventory_DrawBlockedEquipment(WindowInstance& callbackWindow
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     world::PlayerItemRecord* items;
     std::int32_t count;
-    if (!WindowItemSelector_GetItemList_4C72C0(&inventory.normalSelector, &items, &count)) {
+    if (!WindowItemSelector_GetItemList_4C72C0(*callbackWindow.ownerSession, &inventory.normalSelector, &items, &count)) {
         return 0;
     }
     if ((*reinterpret_cast<const unsigned char*>(&state) & MouseFlag_LDownEvent) != 0) {
@@ -601,7 +601,7 @@ static std::int32_t WindowInventory_Update(WindowInstance& callbackWindow, const
         selected = inventory.currentItem;
     }
     if (inventory.selectionMode == 1) {
-        if (world::gPlayerRuntimeSlots.items[selected].imageNo == 26569) {
+        if (callbackWindow.ownerSession->WorldScene().playerItems[selected].imageNo == 26569) {
             goto updateSelector;
         }
         WindowInstance* const window = currentWindow;
@@ -865,7 +865,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
         }
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100
-        && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
+        && (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if ((events & MouseFlag_LDownEvent) != 0) {
@@ -878,7 +878,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
     if (inventory.selectedItem < 0 && hovered >= 0
         && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
-            const auto& item = world::gPlayerRuntimeSlots.items[hovered + 8];
+            const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8];
             if (item.used != 0 && (item.canUseInField & 1u) != 0) {
                 if (item.imageNo == 26569) {
                     WindowInstance* const window = currentWindow;
@@ -914,16 +914,16 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
         consumed = 1;
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         if ((events & MouseFlag_LDownEvent) != 0) {
-            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
-            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14);
-                const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
+                const std::int32_t pages = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].pages;
                 ++page;
                 WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -962,7 +962,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
-        const auto& item = world::gPlayerRuntimeSlots.items[hovered + 8];
+        const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8];
         if (item.used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
@@ -975,7 +975,7 @@ std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const E
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     static_cast<void>(render::DrawText_456780(0, 0, 3, 1, 0, L"", 0, 0));
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::gPlayerRuntimeSlots.items[position + 8];
+        const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -1044,7 +1044,7 @@ std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, con
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     world::PlayerItemRecord* items;
     std::int32_t count;
-    if (!WindowItemSelector_GetItemList_4C72C0(&inventory.normalSelector, &items, &count)) {
+    if (!WindowItemSelector_GetItemList_4C72C0(*callbackWindow.ownerSession, &inventory.normalSelector, &items, &count)) {
         return 0;
     }
     auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
@@ -1279,7 +1279,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
         const std::int8_t mode = std::bit_cast<std::int8_t>(inventory.selectionMode);
         if (mode == 1 || mode == 2) {
             for (std::int32_t position = 0; position < 20; ++position) {
-                const auto& item = world::gPlayerRuntimeSlots.items[position + 8];
+                const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[position + 8];
                 if (item.used == 0 || occupancy[position + 8] != 0) {
                     continue;
                 }
@@ -1322,7 +1322,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
     std::wstring buffer;
     std::wstring escaped;
     if (hovered >= 0 && (events & MouseFlag_LDownEvent) != 0) {
-        if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+        if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
             const std::uint8_t mode = inventory.selectionMode;
             if (mode == 1) {
                 const std::int32_t selected = inventory.currentItem;
@@ -1345,7 +1345,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
     if ((*reinterpret_cast<const unsigned char*>(&platform::gLegacyMouseState.edgeButtons) & platform::LegacyMouseEdge_RDown) != 0) {
         leaveSelection();
     }
-    const std::int32_t imageNo = world::gPlayerRuntimeSlots.items[inventory.currentItem].imageNo;
+    const std::int32_t imageNo = callbackWindow.ownerSession->WorldScene().playerItems[inventory.currentItem].imageNo;
     const std::int32_t mouseY =
         static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
     const std::int32_t mouseX =
@@ -1371,7 +1371,7 @@ std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow,
         return consumed;
     }
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::gPlayerRuntimeSlots.items[position + 8];
+        const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[position + 8];
         if (item.used == 0) {
             continue;
         }

@@ -1665,7 +1665,7 @@ static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, co
     world::PlayerItemRecord* item;
     if (own) {
         const std::int32_t slot = gStallItemOffersD671D8[position].slot;
-        item = &world::gPlayerRuntimeSlots.items[slot + 8];
+        item = &callbackWindow.ownerSession->WorldScene().playerItems[slot + 8];
         if (item->used == 0) {
             return 0;
         }
@@ -1824,7 +1824,7 @@ static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, 
     std::int32_t hovered = -1;
     std::wstring buffer;
     for (std::int32_t slot = 0; slot < 20; ++slot) {
-        auto* const item = &world::gPlayerRuntimeSlots.items[slot + 8];
+        auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[slot + 8];
         if (item->used == 0) {
             continue;
         }
@@ -2515,7 +2515,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
         for (std::int32_t index = itemCount - 1; index >= 0; --index) {
             StallOffer* const offer = gStallItemOffersD671D8.data() + index;
             const std::int32_t slot = offer->slot;
-            if (world::gPlayerRuntimeSlots.items[slot + 8].used == 0) {
+            if (callbackWindow.ownerSession->WorldScene().playerItems[slot + 8].used == 0) {
                 --itemCount;
                 gStallItemUsedCC31AC[slot] = 0;
                 gStallItemCountD67BCC = itemCount;

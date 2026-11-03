@@ -433,13 +433,13 @@ std::int32_t WindowSkillResult_ReadPreviewImage(std::int32_t imageNo, std::int32
 // 原函数：0x004EEA40。
 cg::yobi::YobiAction* WindowSkillResult_ReceiveResult(session::ClientSession& session, std::int32_t result, const char* text); // JgO第三分支，七字段及窗口13。
 // 原函数：0x00479860。
-std::int32_t WindowSkill_ReadCrystalLevel(); // 玩家物品槽7的晶石等级，未用/未知返回0。
+std::int32_t WindowSkill_ReadCrystalLevel(session::ClientSession& session); // 玩家物品槽7的晶石等级，未用/未知返回0。
 // 原函数：0x004799D0。
 std::int32_t WindowSkill_ReadBattlePetImage(); // 重新选取出战宠物并读取原图号，未命中0。
 // 原函数：0x00479AB0。
-std::int32_t WindowSkill_CheckPetFp(); // 当前宠物FP的单次CryptInt比较。
+std::int32_t WindowSkill_CheckPetFp(session::ClientSession& session); // 当前宠物FP的单次CryptInt比较。
 // 原函数：0x00479B00。
-std::int32_t WindowSkill_CanUseSpecialSkill(); // 技能/晶石/宠物技术/属性/等级条件链。
+std::int32_t WindowSkill_CanUseSpecialSkill(session::ClientSession& session); // 技能/晶石/宠物技术/属性/等级条件链。
 // 原函数：0x0049F000。names借用宽文本名单，刷新时直接设置正文。
 cg::yobi::YobiAction* WindowTextTarget_Open(
     session::ClientSession& session, const wchar_t* const* names, const std::uint8_t* colors,
@@ -485,6 +485,7 @@ std::int32_t WindowItemSelector_ReadScreenY(WindowInstance* callbackWindow,
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
 // 原函数：0x004C72C0。
 bool WindowItemSelector_GetItemList_4C72C0(
+    session::ClientSession& session,
     const WindowItemSelectorState* state, world::PlayerItemRecord** items,
     std::int32_t* count); // 借用同源物品表；失败不写输出。
 // ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。

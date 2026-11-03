@@ -65,7 +65,7 @@ extern std::int32_t gBattleBombLevelD67B2C; // 原全局：0x00D67B2C。 仅炸�
 // 原函数：0x00405B40。
 std::int32_t GetBattlePetPosition_405B40(std::int32_t position);
 // 原函数：0x00518C60。
-std::int32_t CountFreeInventorySlots_518C60(); // BEI01：玩家slot8..27逐used W16统计空槽，S32返回；十九调用点仅来源/本父两消费有据，全owner/运行待。
+std::int32_t CountFreeInventorySlots_518C60(session::ClientSession& session); // BEI01：所属会话玩家slot8..27逐used W16统计空槽，S32返回；运行待。
 extern std::uint32_t gBattlePlayerFlags5ABCAC; // 原全局：0x005ABCAC。
 extern std::uint32_t gBattleSkillFlags5ABC04; // 原全局：0x005ABC04。
 extern std::uint32_t gBattlePetSkillFlags5ABB78; // 原全局：0x005ABB78。

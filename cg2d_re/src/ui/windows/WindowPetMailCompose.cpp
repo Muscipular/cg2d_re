@@ -174,7 +174,7 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
     }
     if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
-        if (source >= 8 && (static_cast<std::uint8_t>(world::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
+        if (source >= 8 && (static_cast<std::uint8_t>(callbackWindow.ownerSession->WorldScene().playerItems[source].flags) & 1u) != 0) {
             auto* const occupancy = reinterpret_cast<unsigned char*>(inventory.slotUseCounts.data());
             const std::int32_t previous = business.prefixD2F0B8.value0C;
             if (previous != -1) {
@@ -431,13 +431,13 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
     if (auto* const element5 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element5); element5) element5->visible = 0;
     if (hasItem) {
         const std::int32_t imageSlot = business.prefixD2F0B8.value0C;
-        const std::int32_t image = world::gPlayerRuntimeSlots.items[imageSlot].imageNo;
+        const std::int32_t image = callbackWindow.ownerSession->WorldScene().playerItems[imageSlot].imageNo;
         const WindowInstance* const graphicWindow = currentWindow;
         const std::int32_t y = graphicWindow->y;
         const std::int32_t x = graphicWindow->x;
         static_cast<void>(cg::render::DrawGraphic(x + 176, y + 224, 223, image, 0, nullptr));
         const std::int32_t countSlot = business.prefixD2F0B8.value0C;
-        const std::int32_t count = world::gPlayerRuntimeSlots.items[countSlot].count;
+        const std::int32_t count = callbackWindow.ownerSession->WorldScene().playerItems[countSlot].count;
         if (count > 0) {
             std::wstring buffer;
             cg::text::FormatTo(buffer, L"{:3}", count);

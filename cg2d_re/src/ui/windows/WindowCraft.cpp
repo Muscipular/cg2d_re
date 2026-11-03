@@ -354,15 +354,15 @@ void WindowCraft_ResetSelection(session::ClientSession& session, const std::int3
     const std::int32_t selected = craft.selectedItem;
     if (selected == first) {
         craft.selectedItem = second;
-        const std::int32_t imageNo = world::gPlayerRuntimeSlots.items[second].imageNo;
+        const std::int32_t imageNo = session.WorldScene().playerItems[second].imageNo;
         // 原47DD63使用Items.itemId+62E0，确与另一分支的基址相差八条。
-        const std::int32_t itemId = world::gPlayerRuntimeSlots.items[second + 8].itemId;
+        const std::int32_t itemId = session.WorldScene().playerItems[second + 8].itemId;
         craft.selectedImage = imageNo;
         craft.selectedCount = WindowCraft_CountRecipeMaterial(session, itemId);
     } else if (selected == second) {
         craft.selectedItem = first;
-        const std::int32_t imageNo = world::gPlayerRuntimeSlots.items[first].imageNo;
-        const std::int32_t itemId = world::gPlayerRuntimeSlots.items[first].itemId;
+        const std::int32_t imageNo = session.WorldScene().playerItems[first].imageNo;
+        const std::int32_t itemId = session.WorldScene().playerItems[first].itemId;
         craft.selectedImage = imageNo;
         craft.selectedCount = WindowCraft_CountRecipeMaterial(session, itemId);
     }
@@ -441,7 +441,7 @@ static WindowAnimationData* WindowCraft_FinishWait(session::ClientSession& sessi
         craft.deadline = duration;
     }
     if (skillOperation.sendMode != 0) {
-        const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
+        const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel(session);
         duration = static_cast<std::uint32_t>(craft.deadline) * kSkillCrystalRates57D7B4[crystalLevel] / 100u;
         craft.deadline = duration;
     }
@@ -543,7 +543,7 @@ static WindowAnimationData* WindowCraft_WaitCraft(session::ClientSession& sessio
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     skillOperation.sendMode = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasRecipeCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowCraft_HasRecipeCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0) {
         skillOperation.sendMode = 1;
     }
     craft.petAssistActive = skillOperation.sendMode;
@@ -582,7 +582,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& ses
     auto& craft = session.UiFrame().native.craft;
     skillOperation.sendMode = 0;
     std::int32_t skill;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0) {
         skill = craft.skillIndex;
         if (world::gSkillsF1BAFC[skill].skillId != 220) {
             skillOperation.sendMode = 1;
@@ -627,7 +627,7 @@ static WindowAnimationData* WindowCraft_WaitItemWork(session::ClientSession& ses
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16(session.Connection()) % 6;
     const std::int32_t selected = craft.selectedItem;
-    const std::int32_t level = world::gPlayerRuntimeSlots.items[selected].level;
+    const std::int32_t level = session.WorldScene().playerItems[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
     craft.selectionMode = 4;
@@ -640,7 +640,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& sess
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     skillOperation.sendMode = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0
+    if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowCraft_HasSelectedCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0
         && world::gSkillsF1BAFC[craft.skillIndex].skillId != 2026) {
         skillOperation.sendMode = 1;
     }
@@ -666,7 +666,7 @@ static WindowAnimationData* WindowCraft_WaitPacking(session::ClientSession& sess
     WindowCraft_SetWorkingAction(window);
     const std::int32_t random = platform::Rand16(session.Connection()) % 6;
     const std::int32_t selected = craft.selectedItem;
-    const std::int32_t level = world::gPlayerRuntimeSlots.items[selected].level;
+    const std::int32_t level = session.WorldScene().playerItems[selected].level;
     const auto duration = static_cast<std::uint32_t>(random + level * 3 + 5) * 1000u;
     WindowAnimationData* const result = WindowCraft_FinishWait(session, window, duration);
     craft.selectionMode = 13;
@@ -679,7 +679,7 @@ static void WindowCraft_WaitDecoration(session::ClientSession& session, WindowIn
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     skillOperation.sendMode = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasMaterialCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowCraft_HasMaterialCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0) {
         skillOperation.sendMode = 1;
     }
     craft.petAssistActive = skillOperation.sendMode;
@@ -716,7 +716,7 @@ static WindowAnimationData* WindowCraft_WaitRefining(session::ClientSession& ses
     auto& skillOperation = session.UiFrame().native.skillOperation;
     auto& craft = session.UiFrame().native.craft;
     skillOperation.sendMode = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowCraft_HasFirstMaterialCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowCraft_HasFirstMaterialCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0) {
         skillOperation.sendMode = 1;
     }
     craft.petAssistActive = skillOperation.sendMode;
@@ -983,7 +983,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     if (source < 8 || source >= 100) {
                         return;
                     }
-                    const auto* const item = &world::gPlayerRuntimeSlots.items[source];
+                    const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[source];
                     if (item->hasDescription == 0) {
                         return;
                     }
@@ -1001,7 +1001,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                                     const std::int32_t currentId =
                                         world::gSkillsF1BAFC[craft.skillIndex].skillId;
                                     const std::int32_t type =
-                                        world::gPlayerRuntimeSlots.items[selected + 8].itemType;
+                                        callbackWindow.ownerSession->WorldScene().playerItems[selected + 8].itemType;
                                     if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
                                         return;
                                     }
@@ -1060,14 +1060,14 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                 }
                 if (mode == 6 || mode == 15) {
                     const std::int32_t accepted = mode == 6
-                        ? world::IsItemEligibleForDecoration_505040(source) : world::IsItemEligibleForPetDecoration_5050B0(source);
+                        ? world::IsItemEligibleForDecoration_505040(*callbackWindow.ownerSession, source) : world::IsItemEligibleForPetDecoration_5050B0(*callbackWindow.ownerSession, source);
                     if (accepted == 0) {
                         return;
                     }
                     if (craft.selectedSlots[destination] >= 0) {
                         static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, destination));
                     }
-                    const std::int32_t type = world::gPlayerRuntimeSlots.items[source].itemType;
+                    const std::int32_t type = callbackWindow.ownerSession->WorldScene().playerItems[source].itemType;
                     const std::int32_t material = mode == 6
                         ? (type == 38 || type == 25 || type == 39 ? 1 : 0)
                         : (type == 80 ? 1 : 0);
@@ -1081,7 +1081,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     return;
                 }
                 if (mode == 9) {
-                    if (world::IsItemEligibleForRefining_505110(source) == 0) {
+                    if (world::IsItemEligibleForRefining_505110(*callbackWindow.ownerSession, source) == 0) {
                         return;
                     }
                     if (craft.selectedSlots[destination] >= 0) {
@@ -1093,7 +1093,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                     }
                     materialState.materialValues[0] = 1;
                     craft.selectedSlots[destination] = source - 8;
-                    const auto* const item = &world::gPlayerRuntimeSlots.items[source];
+                    const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[source];
                     const std::int32_t itemId = item->itemId;
                     craft.selectionImages[destination] = item->imageNo;
                     craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
@@ -1140,7 +1140,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
             if (slot < 0) {
                 continue;
             }
-            const auto* const item = &world::gPlayerRuntimeSlots.items[slot + 8];
+            const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[slot + 8];
             std::int32_t count = item->count;
             if (count == 0) {
                 count = 1;
@@ -1173,13 +1173,13 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                 continue;
             }
             const std::int32_t accepted = mode == 6
-                ? world::IsItemEligibleForDecoration_505040(slot + 8) : world::IsItemEligibleForPetDecoration_5050B0(slot + 8);
+                ? world::IsItemEligibleForDecoration_505040(*callbackWindow.ownerSession, slot + 8) : world::IsItemEligibleForPetDecoration_5050B0(*callbackWindow.ownerSession, slot + 8);
             if (accepted == 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, position));
                 continue;
             }
             const std::int32_t selected = craft.selectedSlots[position];
-            const std::int32_t type = world::gPlayerRuntimeSlots.items[selected + 8].itemType;
+            const std::int32_t type = callbackWindow.ownerSession->WorldScene().playerItems[selected + 8].itemType;
             const bool special = mode == 6
                 ? type == 38 || type == 25 || type == 39 : type == 80;
             if (special) {
@@ -1197,7 +1197,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
     } else if (mode == 9) {
         for (std::int32_t position = 0; position < 6; ++position) {
             const std::int32_t slot = craft.selectedSlots[position];
-            if (slot >= 0 && world::IsItemEligibleForRefining_505110(slot + 8) == 0) {
+            if (slot >= 0 && world::IsItemEligibleForRefining_505110(*callbackWindow.ownerSession, slot + 8) == 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, position));
             }
         }
@@ -1369,7 +1369,7 @@ static void WindowCraft_ReleaseMaterialSlot(
     auto& craft = session.UiFrame().native.craft;
     static_cast<void>(WindowCraft_ReleaseMaterials(session, destination));
     craft.selectedSlots[destination] = source - 8;
-    const auto* const item = &world::gPlayerRuntimeSlots.items[source];
+    const auto* const item = &session.WorldScene().playerItems[source];
     const std::int32_t itemId = item->itemId;
     craft.selectionImages[destination] = item->imageNo;
     craft.selectionCounts[destination] = WindowCraft_CountRecipeMaterial(session, itemId);
@@ -1421,7 +1421,7 @@ static std::int32_t WindowCraft_ReadFirstMaterialId(session::ClientSession& sess
         const std::int32_t material = craft.materialIndices[index];
         if (material == 0 || material == 1 || material == 2) {
             const std::int32_t slot = craft.selectedSlots[index];
-            return world::gPlayerRuntimeSlots.items[slot + 8].itemId;
+            return session.WorldScene().playerItems[slot + 8].itemId;
         }
     }
     return -1;
@@ -1436,7 +1436,7 @@ static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session
     std::int32_t flags = 0;
     std::int32_t material = 5;
     const std::int32_t maximum = WindowCraft_ReadMaxMaterialLevel(session);
-    const auto* const item = &world::gPlayerRuntimeSlots.items[source];
+    const auto* const item = &session.WorldScene().playerItems[source];
     if (item->hasDescription == 0) {
         return;
     }
@@ -1503,7 +1503,7 @@ static void WindowCraft_ValidatePackingMaterials(session::ClientSession& session
         if ((flags & 4) != 0) {
             const std::int32_t slot = craft.selectedSlots[index];
             const std::int32_t sourceLevel = item->level;
-            if (world::gPlayerRuntimeSlots.items[slot + 8].level != sourceLevel) {
+            if (session.WorldScene().playerItems[slot + 8].level != sourceLevel) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(session, index));
             }
         }
@@ -1622,8 +1622,8 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             enabled = !(world::gPlayerRuntimeSlots.fp < 10);
         } else {
             enabled = !(world::gPlayerRuntimeSlots.fp <
-                world::gPlayerRuntimeSlots.items[selected].level * 10);
-            const std::int32_t level = world::gPlayerRuntimeSlots.items[craft.selectedItem].level;
+                callbackWindow.ownerSession->WorldScene().playerItems[selected].level * 10);
+            const std::int32_t level = callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].level;
             auto* const element12 = currentWindow->FindElementById(WindowCraftElementId::Element12);
             if (element12) {
                 cg::text::FormatTo(element12->data.text->text, L"                     魔力{:3}" /* 原常量参考：0x0058678C。 */, level * 10);
@@ -1632,7 +1632,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
         const std::int32_t skill = craft.skillIndex;
         const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
         if (skillId == 220) {
-            const auto* const item = &world::gPlayerRuntimeSlots.items[craft.selectedItem];
+            const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem];
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
                 || ((flags & 0x100u) != 0 && (flags & 0x400u) == 0)
@@ -1640,7 +1640,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 enabled = false;
             }
         } else if (skillId == 219 || skillId == 2033) {
-            const auto* const item = &world::gPlayerRuntimeSlots.items[craft.selectedItem];
+            const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem];
             if (item->hasDescription != 0) {
                 enabled = false;
             } else {
@@ -1651,7 +1651,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 }
             }
         } else if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
-            const auto* const item = &world::gPlayerRuntimeSlots.items[craft.selectedItem];
+            const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem];
             if (item->hasDescription == 0) {
                 enabled = false;
             } else if (WindowCraft_ClassifyWork(item->itemType) == 2) {
@@ -1661,21 +1661,21 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
-                           world::gPlayerRuntimeSlots.items[craft.selectedItem].itemType) == 1) {
+                           callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].itemType) == 1) {
                 const std::int32_t currentId =
                     world::gSkillsF1BAFC[craft.skillIndex].skillId;
                 if (currentId == 218 || currentId == 2032) {
                     enabled = false;
                 }
             } else if (WindowCraft_ClassifyWork(
-                           world::gPlayerRuntimeSlots.items[craft.selectedItem].itemType) == 0) {
+                           callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].itemType) == 0) {
                 enabled = false;
             } else {
                 const std::int32_t currentSkill = craft.skillIndex;
                 const std::uint8_t crystal = skillOperation.rebirthEnabled;
                 const std::int32_t level = world::gSkillsF1BAFC[currentSkill].level;
                 const std::int32_t slot = craft.selectedItem;
-                if (world::gPlayerRuntimeSlots.items[slot].level > level + (crystal != 0 ? 1 : 0)) {
+                if (callbackWindow.ownerSession->WorldScene().playerItems[slot].level > level + (crystal != 0 ? 1 : 0)) {
                     enabled = false;
                 }
             }
@@ -1728,7 +1728,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 insufficient = (world::gPlayerRuntimeSlots.fp < 10);
             } else {
                 insufficient = (world::gPlayerRuntimeSlots.fp <
-                world::gPlayerRuntimeSlots.items[craft.selectedItem].level * 10);
+                callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].level * 10);
             }
             break;
         case 6:
@@ -1773,7 +1773,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
             };
             bool send = false;
             std::int32_t notice = -1;
-            const auto flags = world::gPlayerRuntimeSlots.items[craft.selectedItem].flags;
+            const auto flags = callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].flags;
             if ((flags & 0x400u) != 0) {
                 if (input::ContainsPipeOrBackslash_45E770(input::ContextText(inputs.engraving)) == 1) {
                     notice = 0;
@@ -2045,21 +2045,21 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
         uiFrame.hoverText = L"以滑鼠拖放＆点选方式，来选择物品。";
     }
     if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100
-        && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
+        && (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (craft.backpackHover != hovered) {
         craft.materialHintPage = 0;
     }
     craft.backpackHover = hovered;
-    if (hovered >= 0 && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0
+    if (hovered >= 0 && callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0
         && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 11 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             const std::uint8_t mode = craft.selectionMode;
             if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
                 static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
                 const auto selectItem = [&] {
-                    auto* const item = &world::gPlayerRuntimeSlots.items[hovered + 8];
+                    auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8];
                     const auto fail = [] {
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     };
@@ -2112,7 +2112,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                                         const std::int32_t currentId =
                                             world::gSkillsF1BAFC[craft.skillIndex].skillId;
                                         const std::int32_t type =
-                                            world::gPlayerRuntimeSlots.items[selected + 8].itemType;
+                                            callbackWindow.ownerSession->WorldScene().playerItems[selected + 8].itemType;
                                         if (WindowCraft_ClassifySpecialMaterial(type, currentId) != 0) {
                                             fail();
                                             return;
@@ -2221,8 +2221,8 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                     case 15: {
                         const std::uint8_t currentMode = craft.selectionMode;
                         const std::int32_t allowed = currentMode == 6
-                            ? world::IsItemEligibleForDecoration_505040(hovered + 8)
-                            : world::IsItemEligibleForPetDecoration_5050B0(hovered + 8);
+                            ? world::IsItemEligibleForDecoration_505040(*callbackWindow.ownerSession, hovered + 8)
+                            : world::IsItemEligibleForPetDecoration_5050B0(*callbackWindow.ownerSession, hovered + 8);
                         if (allowed == 0) {
                             return;
                         }
@@ -2241,7 +2241,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                         return;
                     }
                     case 9: {
-                        if (world::IsItemEligibleForRefining_505110(hovered + 8) == 0) {
+                        if (world::IsItemEligibleForRefining_505110(*callbackWindow.ownerSession, hovered + 8) == 0) {
                             return;
                         }
                         const std::int32_t slot = firstFreeSlot();
@@ -2273,16 +2273,16 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
         consumed = 1;
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         if ((events & MouseFlag_LDownEvent) != 0) {
-            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
-            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 const std::int32_t page = craft.materialHintPage + 1;
-                const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
+                const std::int32_t pages = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].pages;
                 craft.materialHintPage = page;
                 if (page >= pages) {
                     craft.materialHintPage = 0;
@@ -2318,7 +2318,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                 static_cast<std::uint16_t>(left + 1), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(left + 49), static_cast<std::uint16_t>(top + 48), 223, imageNo, 0);
         }
-        if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+        if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
             craft.materialHoveredItem = hovered + 8;
         }
     }
@@ -2327,7 +2327,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
     descriptor.color = color;
     std::wstring countText;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto* const item = &world::gPlayerRuntimeSlots.items[position + 8];
+        const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[position + 8];
         if (item->used == 0) {
             continue;
         }
@@ -2535,7 +2535,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                 static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
             }
             craft.selectedItem = source;
-            const auto* const item = &world::gPlayerRuntimeSlots.items[source];
+            const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[source];
             const std::int32_t itemId = item->itemId;
             craft.selectedImage = item->imageNo;
             craft.selectedCount = WindowCraft_CountRecipeMaterial(*callbackWindow.ownerSession, itemId);
@@ -2562,7 +2562,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
     if (selected >= 0) {
         const std::int32_t skill = craft.skillIndex;
         const std::int32_t skillId = world::gSkillsF1BAFC[skill].skillId;
-        const auto* const item = &world::gPlayerRuntimeSlots.items[selected];
+        const auto* const item = &callbackWindow.ownerSession->WorldScene().playerItems[selected];
         if (skillId == 220) {
             const std::uint16_t flags = item->flags;
             if (((flags & 0x200u) != 0 && (flags & 0x400u) == 0)
@@ -2591,19 +2591,19 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                         world::gSkillsF1BAFC[craft.skillIndex].skillId;
                     rejected = currentId == 217 || currentId == 2031;
                 } else if (WindowCraft_ClassifyWork(
-                               world::gPlayerRuntimeSlots.items[craft.selectedItem].itemType) == 1) {
+                               callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].itemType) == 1) {
                     const std::int32_t currentId =
                         world::gSkillsF1BAFC[craft.skillIndex].skillId;
                     rejected = currentId == 218 || currentId == 2032;
                 } else if (WindowCraft_ClassifyWork(
-                               world::gPlayerRuntimeSlots.items[craft.selectedItem].itemType) == 0) {
+                               callbackWindow.ownerSession->WorldScene().playerItems[craft.selectedItem].itemType) == 0) {
                     rejected = true;
                 } else {
                     const std::int32_t currentSkill = craft.skillIndex;
                     const std::uint8_t crystal = skillOperation.rebirthEnabled;
                     const std::int32_t skillLevel = world::gSkillsF1BAFC[currentSkill].level;
                     const std::int32_t slot = craft.selectedItem;
-                    rejected = world::gPlayerRuntimeSlots.items[slot].level
+                    rejected = callbackWindow.ownerSession->WorldScene().playerItems[slot].level
                         > skillLevel + (crystal != 0 ? 1 : 0);
                 }
             }
@@ -2770,7 +2770,7 @@ static WindowAnimationData* WindowCraft_InitializeItemWork(session::ClientSessio
 static std::int32_t WindowCraft_HasRecipeCrystalLevel(session::ClientSession& session)
 {
     auto& craft = session.UiFrame().native.craft;
-    const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
+    const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel(session);
     const std::int32_t skill = craft.skillIndex;
     const std::int32_t recipe = craft.recipeIndex;
     return world::gSkillsF1BAFC[skill].recipes8E8[recipe].level == crystalLevel ? 1 : 0;
@@ -2783,9 +2783,9 @@ static std::int32_t WindowCraft_HasSelectedCrystalLevel(session::ClientSession& 
     if (craft.selectedItem < 0) {
         return 0;
     }
-    const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
+    const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel(session);
     const std::int32_t slot = craft.selectedItem;
-    return world::gPlayerRuntimeSlots.items[slot].level == crystalLevel ? 1 : 0;
+    return session.WorldScene().playerItems[slot].level == crystalLevel ? 1 : 0;
 }
 
 // 原函数：0x0047D530。
@@ -2797,11 +2797,11 @@ static std::int32_t WindowCraft_HasMaterialCrystalLevel(session::ClientSession& 
         if (slot < 0) {
             continue;
         }
-        const std::int32_t type = world::gPlayerRuntimeSlots.items[slot + 8].itemType;
+        const std::int32_t type = session.WorldScene().playerItems[slot + 8].itemType;
         if (type == 38 || type == 25 || type == 39 || type == 80) {
-            const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
+            const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel(session);
             const std::int32_t selected = craft.selectedSlots[index];
-            return world::gPlayerRuntimeSlots.items[selected + 8].level == crystalLevel ? 1 : 0;
+            return session.WorldScene().playerItems[selected + 8].level == crystalLevel ? 1 : 0;
         }
     }
     return 0;
@@ -2815,8 +2815,8 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel(session::ClientSess
     if (slot < 0) {
         return 0;
     }
-    const std::int32_t level = world::gPlayerRuntimeSlots.items[slot + 8].level;
-    const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
+    const std::int32_t level = session.WorldScene().playerItems[slot + 8].level;
+    const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel(session);
     return level == crystalLevel ? 1 : 0;
 }
 
@@ -2888,10 +2888,10 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
     }
     bool matchingCrystal = false;
     bool petAvailable = false;
-    if (WindowSkill_CanUseSpecialSkill() != 0) {
+    if (WindowSkill_CanUseSpecialSkill(*callbackWindow.ownerSession) != 0) {
         petAvailable = true;
         const auto configureCrystal = [currentWindow] {
-            if (WindowSkill_CheckPetFp() != 0) {
+            if (WindowSkill_CheckPetFp(*currentWindow->ownerSession) != 0) {
                 static_cast<void>(WindowCraft_ConfigurePreviews_47D220(currentWindow, 3, 5, 1, 0, 5));
             } else {
                 static_cast<void>(WindowCraft_ConfigurePreviews_47D220(currentWindow, 3, 5, 0, 10, 5));
@@ -3043,7 +3043,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
                 if (slot < 0) {
                     continue;
                 }
-                const std::int32_t type = world::gPlayerRuntimeSlots.items[slot + 8].itemType;
+                const std::int32_t type = callbackWindow.ownerSession->WorldScene().playerItems[slot + 8].itemType;
                 if (type == 38 || type == 25 || type == 39 || type == 80) {
                     specialSlot = slot + 8;
                 } else {
@@ -3053,7 +3053,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             cg::text::FormatTo(buffer, L"{}|{}", ordinarySlot, specialSlot);
             cg::core::NullSub_509080();
             sendRequest(false, false);
-            const std::wstring& name = world::gPlayerRuntimeSlots.items[ordinarySlot].name;
+            const std::wstring& name = callbackWindow.ownerSession->WorldScene().playerItems[ordinarySlot].name;
             const std::uint8_t currentMode = craft.selectionMode;
             craft.name = name;
             if (currentMode == 7) {
@@ -3067,7 +3067,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             std::int32_t selected = -1;
             for (std::int32_t index = 0; index < 6; ++index) {
                 const std::int32_t slot = craft.selectedSlots[index];
-                if (slot >= 0 && world::IsItemEligibleForRefining_505110(slot + 8) != 0) {
+                if (slot >= 0 && world::IsItemEligibleForRefining_505110(*callbackWindow.ownerSession, slot + 8) != 0) {
                     selected = craft.selectedSlots[index] + 8;
                     break;
                 }
@@ -3076,7 +3076,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             cg::core::NullSub_509080();
             sendRequest(false, false);
             craft.selectionMode = 11;
-            craft.name = world::gPlayerRuntimeSlots.items[selected].name;
+            craft.name = callbackWindow.ownerSession->WorldScene().playerItems[selected].name;
             hideControls = true;
         } else if (mode == 13 && expired()) {
             buffer.clear();
@@ -3088,7 +3088,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
                     buffer += temporary;
                     if (craft.materialIndices[index] == 0) {
                         const std::int32_t selected = craft.selectedSlots[index];
-                        craft.name = world::gPlayerRuntimeSlots.items[selected + 8].name;
+                        craft.name = callbackWindow.ownerSession->WorldScene().playerItems[selected + 8].name;
                     }
                 }
             }
@@ -3598,7 +3598,7 @@ static WindowAnimationData* WindowCraft_ShowItemWorkResult(session::ClientSessio
     if (entryResult != 0 && world::gSkillsF1BAFC[craft.skillIndex].skillId != 220) {
         static_cast<void>(WindowCraft_ReleaseMaterials(session, 6));
     }
-    const auto* const item = &world::gPlayerRuntimeSlots.items[selected];
+    const auto* const item = &session.WorldScene().playerItems[selected];
     if (auto* const element10 = window ? window->FindElementById(WindowCraftElementId::Element10) : nullptr; element10) element10->data.text->text = item->name;
     const std::int32_t skillId = world::gSkillsF1BAFC[craft.skillIndex].skillId;
     const wchar_t* message = nullptr;

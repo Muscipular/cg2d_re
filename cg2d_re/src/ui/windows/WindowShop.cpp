@@ -939,7 +939,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
                 }
             }
         }
-        const std::uint16_t used = world::gPlayerRuntimeSlots.items[slot + 8].used;
+        const std::uint16_t used = session.WorldScene().playerItems[slot + 8].used;
         shop.inventoryMap[slot] = -1;
         if (used != 0) {
             shop.inventoryMap[slot] = 20;
@@ -1474,7 +1474,7 @@ static void WindowShop_CountDetailItems(WindowInstance& callbackWindow)
     std::int32_t itemId;
     std::memcpy(&itemId, &shop.detail.itemId, sizeof(itemId));
     std::int32_t total = 0;
-    for (const world::PlayerItemRecord& record : world::gPlayerRuntimeSlots.items) {
+    for (const world::PlayerItemRecord& record : callbackWindow.ownerSession->WorldScene().playerItems) {
         if (record.used != 0 && record.itemId == itemId) {
             total += record.count;
         }
@@ -1684,7 +1684,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         const std::int32_t itemId = shop.currencyItemId;
         shop.available = 0;
         std::int32_t total = 0;
-        for (const world::PlayerItemRecord& record : world::gPlayerRuntimeSlots.items) {
+        for (const world::PlayerItemRecord& record : callbackWindow.ownerSession->WorldScene().playerItems) {
             if (record.used != 0 && record.itemId == itemId) {
                 total += record.count;
             }
@@ -1811,7 +1811,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                     break;
                 }
-                const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60();
+                const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
                 if (shop.quantity > freeSlots) {
                     shop.message = -3;
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2626,7 +2626,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             remaining -= price;
             std::int32_t released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
-                const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[slot];
+                const world::PlayerItemRecord& item = callbackWindow.ownerSession->WorldScene().playerItems[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -2635,7 +2635,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
                     ++released;
                 }
             }
-            std::int32_t available = released + world::CountFreeInventorySlots_518C60();
+            std::int32_t available = released + world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
                 std::memcpy(&count, &shop.items[item].count, sizeof(count));
@@ -2663,7 +2663,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             remaining -= cost;
             released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
-                const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[slot];
+                const world::PlayerItemRecord& item = callbackWindow.ownerSession->WorldScene().playerItems[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -2672,7 +2672,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
                     ++released;
                 }
             }
-            available = released + world::CountFreeInventorySlots_518C60();
+            available = released + world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
             std::int32_t occupied = 0;
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
@@ -2893,7 +2893,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             std::int32_t released = 0;
             std::int32_t slot = 8;
             for (; slot < 28; ++slot) {
-                const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[slot];
+                const world::PlayerItemRecord& item = callbackWindow.ownerSession->WorldScene().playerItems[slot];
                 if (item.used != 0 && item.itemId == itemId) {
                     remaining -= item.count;
                     if (remaining < 0) {
@@ -2903,7 +2903,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                     ++released;
                 }
             }
-            std::int32_t available = released + world::CountFreeInventorySlots_518C60();
+            std::int32_t available = released + world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
             for (std::int32_t item = 0; item < 20; ++item) {
                 std::int32_t count;
                 std::memcpy(&count, &shop.items[item].count, sizeof(count));
@@ -2927,7 +2927,7 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             std::int32_t accumulated = 0;
             std::int32_t deficit = -available;
             for (; slot < 28; ++slot) {
-                const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[slot];
+                const world::PlayerItemRecord& item = callbackWindow.ownerSession->WorldScene().playerItems[slot];
                 if (item.used != 0 && item.itemId == shop.currencyItemId) {
                     const std::int32_t count = item.count;
                     std::memcpy(&price, &record->price, sizeof(price));
@@ -3503,7 +3503,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
         shop.tooltipPage = 0;
     }
     shop.inventoryHover = hovered;
-    const auto& items = world::gPlayerRuntimeSlots.items;
+    const auto& items = callbackWindow.ownerSession->WorldScene().playerItems;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (mode == 1 || mode == 4 || mode == 5) {
             if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 53 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {

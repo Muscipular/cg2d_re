@@ -175,7 +175,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
 static std::int32_t WindowSkill_FindSpecialSkill(); // 技能索引对中查1009，按S16读取槽号。
 
 // 原函数：0x00479920。
-static std::int32_t WindowSkill_ReadCrystalElement(); // 同一槽7的属性0..3；未用0，未知ID为-1。
+static std::int32_t WindowSkill_ReadCrystalElement(session::ClientSession& session); // 同一槽7的属性0..3；未用0，未知ID为-1。
 
 // 原函数：0x00479A00。
 static std::int32_t WindowSkill_FindPetTechnique(std::int32_t petIndex); // 宠物技术索引对中查40330..40332。
@@ -353,9 +353,9 @@ static std::int32_t WindowSkill_FindSpecialSkill()
 }
 
 // 原函数：0x00479860。
-std::int32_t WindowSkill_ReadCrystalLevel()
+std::int32_t WindowSkill_ReadCrystalLevel(session::ClientSession& session)
 {
-    const auto& item = world::gPlayerRuntimeSlots.items[7];
+    const auto& item = session.WorldScene().playerItems[7];
     if (item.used == 0) {
         return 0;
     }
@@ -370,9 +370,9 @@ std::int32_t WindowSkill_ReadCrystalLevel()
 }
 
 // 原函数：0x00479920。
-static std::int32_t WindowSkill_ReadCrystalElement()
+static std::int32_t WindowSkill_ReadCrystalElement(session::ClientSession& session)
 {
-    const auto& item = world::gPlayerRuntimeSlots.items[7];
+    const auto& item = session.WorldScene().playerItems[7];
     if (item.used == 0) {
         return 0;
     }
@@ -423,13 +423,13 @@ static std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const
 }
 
 // 原函数：0x00479AB0。
-std::int32_t WindowSkill_CheckPetFp()
+std::int32_t WindowSkill_CheckPetFp(session::ClientSession& session)
 {
     const std::int32_t index = world::FindBattlePetIndex_43C4B0();
     if (index < 0) {
         return 0;
     }
-    const std::int32_t level = WindowSkill_ReadCrystalLevel();
+    const std::int32_t level = WindowSkill_ReadCrystalLevel(session);
     if (level < 1 || level > 15) {
         return 0;
     }
@@ -438,12 +438,12 @@ std::int32_t WindowSkill_CheckPetFp()
 }
 
 // 原函数：0x00479B00。
-std::int32_t WindowSkill_CanUseSpecialSkill()
+std::int32_t WindowSkill_CanUseSpecialSkill(session::ClientSession& session)
 {
     if (WindowSkill_FindSpecialSkill() == 0) {
         return 0;
     }
-    const std::int32_t level = WindowSkill_ReadCrystalLevel();
+    const std::int32_t level = WindowSkill_ReadCrystalLevel(session);
     if (level < 1) {
         return 0;
     }
@@ -451,7 +451,7 @@ std::int32_t WindowSkill_CanUseSpecialSkill()
     if (index < 0 || WindowSkill_FindPetTechnique(index) == 0) {
         return 0;
     }
-    const std::int32_t attribute = WindowSkill_ReadCrystalElement();
+    const std::int32_t attribute = WindowSkill_ReadCrystalElement(session);
     if (world::gPetRuntimeRecords[index].values70[21 + attribute] < 50) {
         return 0;
     }
@@ -462,7 +462,7 @@ std::int32_t WindowSkill_CanUseSpecialSkill()
 static std::int32_t WindowSkill_MatchesCrystalLevel(session::ClientSession& session)
 {
     auto& request = session.UiFrame().native.skillRequest;
-    const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel();
+    const std::int32_t crystalLevel = WindowSkill_ReadCrystalLevel(session);
     const std::int32_t skill = request.index;
     const std::int32_t level = request.level;
     return world::gSkillsF1BAFC[skill].techniques3C[level].value90 == crystalLevel ? 1 : 0;
@@ -495,7 +495,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
         return 1;
     }
     skillOperation.sendMode = 0;
-    if (WindowSkill_CanUseSpecialSkill() != 0 && WindowSkill_MatchesCrystalLevel(session) != 0 && WindowSkill_CheckPetFp() != 0) {
+    if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowSkill_MatchesCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0) {
         skillOperation.sendMode = 1;
         skillOperation.petImage = WindowSkill_ReadBattlePetImage();
     }
@@ -1139,7 +1139,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
             consumed = 1;
         } else {
             if (world::gSkillsF1BAFC[skillIndex].skillId == 72
-                && world::CountFreeInventorySlots_518C60() == 0) {
+                && world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) == 0) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
             }
             static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -2432,7 +2432,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         fail();
                         return;
                     }
-                    if (world::CountFreeInventorySlots_518C60() <= 0) {
+                    if (world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) <= 0) {
                         world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"物品栏已满" /* 原常量参考：0x005864E4。 */, 4, 3);
                         fail();
                         return;

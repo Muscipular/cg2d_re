@@ -1904,11 +1904,12 @@ void BuildSortedSkillDisplayEntries_518600(
 
 // 两物品回复仅非空名称的字段尾相同，外层停止、清理及UI同步各自保留。
 static void ApplyPlayerItemFields(
+    session::ClientSession& session,
     const std::int32_t index, const std::int32_t nameField,
     const char* const payload, const char* const name,
     char* const memo, char* const description)
 {
-    PlayerItemRecord& record = gPlayerRuntimeSlots.items[index];
+    PlayerItemRecord& record = session.WorldScene().playerItems[index];
     record.used = 1;
     if (std::strlen(name) <= 28) {
         record.name = cg::text::FromGbkWide(name);
@@ -1921,7 +1922,7 @@ static void ApplyPlayerItemFields(
     }
     network::ExtractDelimitedField_52CED0(payload, '|', nameField + 2, 767, description);
     input::UnescapeLegacyTextAndNotify_52D2F0(description);
-    SetPlayerItemDescription_5196B0(index, description);
+    SetPlayerItemDescription_5196B0(session, index, description);
     record.hasDescription = !record.description[0].empty() ? 1 : 0;
     record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', nameField + 3);
     record.canUseInField = static_cast<std::uint16_t>(
@@ -1944,9 +1945,9 @@ static void ApplyPlayerItemFields(
 }
 
 // 原函数：0x005196B0。
-void SetPlayerItemDescription_5196B0(const std::int32_t index, const char* const text)
+void SetPlayerItemDescription_5196B0(session::ClientSession& session, const std::int32_t index, const char* const text)
 {
-    PlayerItemRecord& record = gPlayerRuntimeSlots.items[index];
+    PlayerItemRecord& record = session.WorldScene().playerItems[index];
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
         char row[96]; // 原每行最多32B；旧分行仍在GBK边界执行。
@@ -1977,8 +1978,8 @@ void SwapPlayerInventorySlots_51B530(session::ClientSession& session, const std:
     if (first < 0 || second < 0) {
         return;
     }
-    PlayerItemRecord* const left = &gPlayerRuntimeSlots.items[first];
-    PlayerItemRecord* const right = &gPlayerRuntimeSlots.items[second];
+    PlayerItemRecord* const left = &session.WorldScene().playerItems[first];
+    PlayerItemRecord* const right = &session.WorldScene().playerItems[second];
     const PlayerItemRecord temporary = *left;
     *left = *right;
     *right = temporary;
@@ -6466,7 +6467,7 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
     static_assert(sizeof(gPetPairsDE0B08) == 0x28);
 
     // 玩家／宠物的宽物品与CryptInt按类型清理，其余原字节存储保持整块清零。
-    gPlayerRuntimeSlots.ClearRaw();
+    gPlayerRuntimeSlots.ClearRaw(connection.Owner().WorldScene().playerItems);
     for (PetRuntimeRecord& record : gPetRuntimeRecords) {
         record.ClearRaw();
     }
@@ -8046,7 +8047,7 @@ std::int32_t UpdateLogoutScene_45ED90(session::ClientSession& session)
 
 } // namespace detail
 
-void PlayerRuntimeSlots::ClearRaw() noexcept
+void PlayerRuntimeSlots::ClearRaw(std::array<PlayerItemRecord, 28>& items) noexcept
 {
     value00 = 0;
     level = 0;
@@ -9127,9 +9128,9 @@ std::uint16_t ReadSkillPairUsed(const std::int8_t pairIndex)
 }
 
 // 原函数：0x00505040。
-std::int32_t IsItemEligibleForDecoration_505040(const std::int32_t slot)
+std::int32_t IsItemEligibleForDecoration_505040(session::ClientSession& session, const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
+    const PlayerItemRecord* const item = &session.WorldScene().playerItems[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -9144,9 +9145,9 @@ std::int32_t IsItemEligibleForDecoration_505040(const std::int32_t slot)
 }
 
 // 原函数：0x005050B0。
-std::int32_t IsItemEligibleForPetDecoration_5050B0(const std::int32_t slot)
+std::int32_t IsItemEligibleForPetDecoration_5050B0(session::ClientSession& session, const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
+    const PlayerItemRecord* const item = &session.WorldScene().playerItems[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -9160,9 +9161,9 @@ std::int32_t IsItemEligibleForPetDecoration_5050B0(const std::int32_t slot)
 }
 
 // 原函数：0x00505110。
-std::int32_t IsItemEligibleForRefining_505110(const std::int32_t slot)
+std::int32_t IsItemEligibleForRefining_505110(session::ClientSession& session, const std::int32_t slot)
 {
-    const PlayerItemRecord* const item = &gPlayerRuntimeSlots.items[slot];
+    const PlayerItemRecord* const item = &session.WorldScene().playerItems[slot];
     if (item->hasDescription == 0) {
         return 0;
     }
@@ -9367,10 +9368,10 @@ void HandleFullPlayerInventoryReply_50BFD0(cg::network::CgConnection& connection
         network::ExtractDelimitedField_52CED0(payload, '|', nameField, 255, name);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) == 0) {
-            gPlayerRuntimeSlots.items[index].used = 0;
-            gPlayerRuntimeSlots.items[index].name.clear();
+            connection.Owner().WorldScene().playerItems[index].used = 0;
+            connection.Owner().WorldScene().playerItems[index].name.clear();
         } else {
-            detail::ApplyPlayerItemFields(index, nameField, payload, name, memo, description);
+            detail::ApplyPlayerItemFields(connection.Owner(), index, nameField, payload, name, memo, description);
         }
         if (index >= 8) {
             ui::detail::WindowTrade_CopyOwnItem(connection.Owner(), 1, index - 8);
@@ -9395,9 +9396,9 @@ void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection& connect
     while (status != 1) {
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
         if (std::strlen(name) == 0) {
-            gPlayerRuntimeSlots.items[index].used = 0;
+            connection.Owner().WorldScene().playerItems[index].used = 0;
         } else {
-            detail::ApplyPlayerItemFields(index, field + 1, payload, name, memo, description);
+            detail::ApplyPlayerItemFields(connection.Owner(), index, field + 1, payload, name, memo, description);
         }
         if (index >= 8) {
             ui::detail::WindowTrade_CopyOwnItem(connection.Owner(), 1, index - 8);
@@ -9411,14 +9412,14 @@ void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection& connect
 }
 
 // 原函数：0x0051B5F0。
-std::int32_t CountInventoryItemQuantity_51B5F0(const std::int32_t itemId)
+std::int32_t CountInventoryItemQuantity_51B5F0(session::ClientSession& session, const std::int32_t itemId)
 {
     std::int32_t count = 0;
     if (itemId <= 0) {
         return count;
     }
-    for (const PlayerItemRecord* item = gPlayerRuntimeSlots.items.data() + 8;
-         item != gPlayerRuntimeSlots.items.data() + gPlayerRuntimeSlots.items.size(); ++item) {
+    for (const PlayerItemRecord* item = session.WorldScene().playerItems.data() + 8;
+         item != session.WorldScene().playerItems.data() + session.WorldScene().playerItems.size(); ++item) {
         if (item != nullptr && item->used != 0 && item->itemId == itemId) {
             count += item->count;
         }
@@ -9441,6 +9442,7 @@ void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection& connection, 
 
 // 原函数：0x0051B630。
 void SwapPlayerOrPetItemSlots_51B630(
+    session::ClientSession& session,
     const std::int32_t firstGroup, const std::int32_t firstIndex,
     const std::int32_t secondGroup, const std::int32_t secondIndex)
 {
@@ -9453,7 +9455,7 @@ void SwapPlayerOrPetItemSlots_51B630(
         if (firstIndex >= 28) {
             return;
         }
-        firstBase = gPlayerRuntimeSlots.items.data();
+        firstBase = session.WorldScene().playerItems.data();
     } else if (firstGroup >= 1 && firstGroup <= 5) {
         if (firstIndex >= 6) {
             return;
@@ -9464,7 +9466,7 @@ void SwapPlayerOrPetItemSlots_51B630(
         if (secondIndex >= 28) {
             return;
         }
-        secondBase = gPlayerRuntimeSlots.items.data();
+        secondBase = session.WorldScene().playerItems.data();
     } else if (secondGroup >= 1 && secondGroup <= 5) {
         if (secondIndex >= 6) {
             return;
@@ -10567,13 +10569,13 @@ std::int32_t GetBattlePetPosition_405B40(const std::int32_t position)
     return position - 5;
 }
 
-// BEI01：原九条，唯一玩家item区8..27逐used W16统计；现正确正文保持，十九调用点的完整外父/owner与运行待。
+// BEI01：原九条，所属会话玩家item区8..27逐used W16统计；原正文保持，运行待。
 // 原函数：0x00518C60。
-std::int32_t CountFreeInventorySlots_518C60()
+std::int32_t CountFreeInventorySlots_518C60(session::ClientSession& session)
 {
     std::int32_t count = 0;
     for (std::int32_t slot = 8; slot < 28; ++slot) {
-        if (gPlayerRuntimeSlots.items[slot].used == 0) {
+        if (session.WorldScene().playerItems[slot].used == 0) {
             ++count;
         }
     }

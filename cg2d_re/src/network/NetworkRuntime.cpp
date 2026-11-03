@@ -429,13 +429,13 @@ void HandleGuildMailReply_50F190(cg::network::CgConnection& connection, const st
 }
 
 // 原函数：0x00510460。
-void HandleInventorySlotSwapReply_510460(cg::network::CgConnection&, const std::int32_t firstGroup, const std::int32_t firstIndex,
+void HandleInventorySlotSwapReply_510460(cg::network::CgConnection& connection, const std::int32_t firstGroup, const std::int32_t firstIndex,
     const std::int32_t secondGroup, const std::int32_t secondIndex)
 {
     if (world::gGameplayRepliesSuppressed_9A6E0C != 0) {
         return;
     }
-    world::SwapPlayerOrPetItemSlots_51B630(firstGroup, firstIndex, secondGroup, secondIndex);
+    world::SwapPlayerOrPetItemSlots_51B630(connection.Owner(), firstGroup, firstIndex, secondGroup, secondIndex);
 }
 
 // IER01：原78条；首字段失败只used0，成功两文本/单空格及24属性按原序写唯一记录；当前TgX明文分发保持，运行待。

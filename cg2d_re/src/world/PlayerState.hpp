@@ -14,6 +14,7 @@ namespace cg::session { class ClientSession; }
 #include <type_traits>
 #include "cg/Yobi/YobiRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/world/PlayerItemRecord.hpp"
 #include "cg/world/PlayerSlots.hpp"
 #include "PetTechniqueRecord.hpp"
 
@@ -99,11 +100,11 @@ extern std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370; // 原�
 std::uint16_t ReadSkillPairUsed(std::int8_t pairIndex);
 extern std::uint16_t gSkillReorderPending_DA3B20; // 原全局：0x00DA3B20。 原技能拖放门禁，509EB0尾部清零。
 // 原函数：0x00505040。
-std::int32_t IsItemEligibleForDecoration_505040(std::int32_t slot); // 说明/类别/flag800及制造配方条件。
+std::int32_t IsItemEligibleForDecoration_505040(session::ClientSession& session, std::int32_t slot); // 说明/类别/flag800及制造配方条件。
 // 原函数：0x005050B0。
-std::int32_t IsItemEligibleForPetDecoration_5050B0(std::int32_t slot); // 类别80或flag800与601..605技能配方条件。
+std::int32_t IsItemEligibleForPetDecoration_5050B0(session::ClientSession& session, std::int32_t slot); // 类别80或flag800与601..605技能配方条件。
 // 原函数：0x00505110。
-std::int32_t IsItemEligibleForRefining_505110(std::int32_t slot); // 说明、两段物品类别及flag1000条件。
+std::int32_t IsItemEligibleForRefining_505110(session::ClientSession& session, std::int32_t slot); // 说明、两段物品类别及flag1000条件。
 // 原函数：0x00509EB0。
 void HandlePlayerSkillsReply_509EB0(cg::network::CgConnection& networkConnection, const char* payload);
 // 原函数：0x0050A120。
@@ -111,34 +112,13 @@ void HandlePlayerSkillTechniquesReply_50A120(cg::network::CgConnection& networkC
 // 原函数：0x0050C580。
 void HandleSkillRecipesReply_50C580(cg::network::CgConnection& networkConnection, std::int32_t index, const char* payload); // 固定56行、每行五材料。
 
-// 原FDA8A4起的28条玩家物品；NIO01在网络字段解析后持有UTF-16，注释偏移仅作原端参考。
-struct PlayerItemRecord {
-    std::uint16_t used; // 原成员偏移：+0x00。
-    std::wstring name; // 原成员偏移：+0x02；输入GBK上限28B。
-    std::wstring memo; // 原成员偏移：+0x1F；输入GBK上限16B。
-    std::array<std::wstring, 32> description; // 原成员偏移：+0x30；32行按原GBK列规则解析。
-    std::int32_t pages; // 原成员偏移：+0xC30。
-    std::int32_t color; // 原成员偏移：+0xC34。
-    std::int32_t imageNo; // 原成员偏移：+0xC38。
-    std::int32_t level; // 原成员偏移：+0xC3C。
-    std::int32_t itemId; // 原成员偏移：+0xC40。
-    std::int32_t count; // 原成员偏移：+0xC44。
-    std::int32_t itemType; // 原成员偏移：+0xC48。
-    std::uint16_t canUseInField; // 原成员偏移：+0xC4C。
-    std::uint16_t battleUseFlag; // 原成员偏移：+0xC4E。
-    std::uint16_t target; // 原成员偏移：+0xC50。
-    std::uint16_t flags; // 原成员偏移：+0xC52。
-    std::uint16_t hasDescription; // 原成员偏移：+0xC54。
-    std::array<std::byte, 6> bytesC56; // 原成员偏移：+0xC56。
-};
-
 // 原首块 [FDA700,FF02E0) 已证玩家槽；不将此原生结构当作原连续内存。
 struct PlayerRuntimeSlots {
     // 原0x005184A0：成员正序构造及失败前缀清理由C++承接。
     PlayerRuntimeSlots() = default;
     // 原0x00518410：成员自动逆序析构。
     ~PlayerRuntimeSlots() = default;
-    void ClearRaw() noexcept; // 原主数据整块清零，不消费六次构造RNG。
+    void ClearRaw(std::array<PlayerItemRecord, 28>& items) noexcept; // 原序清理所属会话物品，不消费六次构造RNG。
     std::uint16_t value00; // 原成员偏移：+0x00。 原FDA700；509BA0仅写低W16。
     std::int32_t level; // 原 FDA704。
     std::int32_t value08; // 原成员偏移：+0x08。 原FDA708。
@@ -179,7 +159,6 @@ struct PlayerRuntimeSlots {
     std::int32_t value190; // 原成员偏移：+0x190。 原 FDA890；51BDD0/51BE50 写入的完整动作值。
     std::uint16_t options194; // 原成员偏移：+0x194。 原FDA894低W16；选项切换/回复与聊天门禁共用。
     std::uint16_t value1A0; // 原成员偏移：+0x1A0。 原FDA8A0；50BFC0写入低W16。
-    std::array<PlayerItemRecord, 28> items; // 原FDA8A4..FF02B4，唯一物品owner。
     cg::yobi::YobiAction* action;
     std::wstring text15BB8; // 原成员偏移：+0x15BB8。 原 FF02B8，不紧接新端的指针字节布局。
     std::int32_t value15BCC; // 原成员偏移：+0x15BCC。 原FF02CC；509650尾字段。
@@ -198,9 +177,10 @@ void HandlePlayerInventoryUpdatesReply_50C260(cg::network::CgConnection& network
 // 原函数：0x0050C900。
 void HandleInventorySlotSwapReply_50C900(cg::network::CgConnection& networkConnection, std::int32_t first, std::int32_t second); // 玩家/UI/拖动/副本按序换位。
 // 原函数：0x0051B5F0。
-std::int32_t CountInventoryItemQuantity_51B5F0(std::int32_t itemId); // 仅背包8..27槽，完整W16占用/匹配S32编号后累加数量。
+std::int32_t CountInventoryItemQuantity_51B5F0(session::ClientSession& session, std::int32_t itemId); // 仅背包8..27槽，完整W16占用/匹配S32编号后累加数量。
 // 原51B630：玩家/宠物容器间整条换位，不改装备标志或同步UI。
 void SwapPlayerOrPetItemSlots_51B630(
+    session::ClientSession& session,
     std::int32_t firstGroup, std::int32_t firstIndex,
     std::int32_t secondGroup, std::int32_t secondIndex);
 
@@ -378,7 +358,7 @@ std::int32_t CompareSkillDisplayEntries_518660(const SkillPairRecord* left, cons
 // 原函数：0x0051B530。
 void SwapPlayerInventorySlots_51B530(session::ClientSession& session, std::int32_t first, std::int32_t second); // 整条C5C交换，装备位标志及UI迁移。
 // 原函数：0x005196B0。
-void SetPlayerItemDescription_5196B0(std::int32_t index, const char* text); // 32行描述与最多4页的原回扫。
+void SetPlayerItemDescription_5196B0(session::ClientSession& session, std::int32_t index, const char* text); // 32行描述与最多4页的原回扫。
 extern std::int32_t gPetCountDE0B00; // 原全局：0x00DE0B00。
 // 原519770：同源宠物物品32行描述与前行回扫，保持独立页数写序。
 void SetPetItemDescription_519770(std::int32_t petIndex, std::int32_t itemIndex, const char* text);

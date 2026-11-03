@@ -878,16 +878,16 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
         }
     }
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0
-        && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-        if ((world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
+        && callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
+        if ((callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].flags & 0x60u) != 0) {
             uiFrame.hoverText = L"此物品无法存放。";
         } else {
             uiFrame.hoverText = L"用滑鼠拖放来存放物品。";
         }
     }
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100
-        && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0
-        && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
+        && callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0
+        && (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
     if (storage.bankOwnHover != hovered) {
@@ -905,7 +905,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
                     break;
                 }
             }
-            if (target >= 20 || world::gPlayerRuntimeSlots.items[hovered + 8].used == 0) {
+            if (target >= 20 || callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used == 0) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 WindowItem_RequestTransfer(*callbackWindow.ownerSession, 41, index, hovered + 8, target + 100);
@@ -914,16 +914,16 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
         consumed = 1;
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         if ((events & MouseFlag_LDownEvent) != 0) {
-            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
-            if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+            if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
                 std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20);
-                const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
+                const std::int32_t pages = callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].pages;
                 ++page;
                 WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
@@ -961,7 +961,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
                 static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
-        if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
+        if (callbackWindow.ownerSession->WorldScene().playerItems[hovered + 8].used != 0) {
             WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100) {
                 ++storage.value;
@@ -974,7 +974,7 @@ static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, co
     descriptor.color = color;
     std::wstring buffer;
     for (std::int32_t position = 0; position < 20; ++position) {
-        const auto& item = world::gPlayerRuntimeSlots.items[position + 8];
+        const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[position + 8];
         if (item.used == 0) {
             continue;
         }
@@ -1047,7 +1047,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
                 }
                 if (source != position + 100
                     && (source >= 100 || (*reinterpret_cast<const unsigned char*>(
-                        &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) == 0)) {
+                        &callbackWindow.ownerSession->WorldScene().playerItems[source].flags) & 0x60u) == 0)) {
                     WindowItem_RequestTransfer(*callbackWindow.ownerSession, 41, index, source, position + 100);
                 }
                 break;
@@ -1078,7 +1078,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
     if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source < 100 && (*reinterpret_cast<const unsigned char*>(
-                    &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) != 0) {
+                    &callbackWindow.ownerSession->WorldScene().playerItems[source].flags) & 0x60u) != 0) {
             hovered = -1;
         }
     }
@@ -1097,7 +1097,7 @@ static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow,
         if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             std::int32_t target = 0;
-            while (target < 20 && world::gPlayerRuntimeSlots.items[target + 8].used != 0) {
+            while (target < 20 && callbackWindow.ownerSession->WorldScene().playerItems[target + 8].used != 0) {
                 ++target;
             }
             if (target >= 20) {
@@ -1755,7 +1755,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     std::wstring buffer;
     std::int32_t count = 0;
     for (std::int32_t index = 8; index < 28; ++index) {
-        if (world::gPlayerRuntimeSlots.items[index].used != 0) {
+        if (callbackWindow.ownerSession->WorldScene().playerItems[index].used != 0) {
             ++count;
         }
     }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cg/world/PlayerSlots.hpp"
+#include "cg/world/PlayerItemRecord.hpp"
 
 #include <array>
 #include <cstddef>
@@ -278,6 +279,7 @@ struct WorldSceneRuntimeState {
     BattleResultState battleResult {};
     MapNoticeState mapNotice {};
     NpcDialogRuntimeState npcDialog {};
+    std::array<PlayerItemRecord, 28> playerItems {}; // 原FDA8A4..FF02B4，实际玩家物品唯一owner。
     RotationState rotation {};
     ChatSendState chat {};
     ChatDisplayState chatDisplay {};

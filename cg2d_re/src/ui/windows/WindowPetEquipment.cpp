@@ -208,8 +208,8 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         // kind2与8～27明确表示背包物品；落点重建后的焦点不再是稳定来源。
         if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2
-            && source >= 8 && source < static_cast<std::int32_t>(world::gPlayerRuntimeSlots.items.size())
-            && world::gPlayerRuntimeSlots.items[source].used != 0
+            && source >= 8 && source < static_cast<std::int32_t>(callbackWindow.ownerSession->WorldScene().playerItems.size())
+            && callbackWindow.ownerSession->WorldScene().playerItems[source].used != 0
             && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t x = WindowDrag_ReadX(*callbackWindow.ownerSession);

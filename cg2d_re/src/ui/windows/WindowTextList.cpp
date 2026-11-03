@@ -347,7 +347,7 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const 
         if (auto* const submitSelectionElement2 = currentWindow->FindElementById(WindowTextListElementId::SubmitSelection); submitSelectionElement2) submitSelectionElement2->visible = 1;
     }
     if (textList.selectedItem >= 0
-        && world::gPlayerRuntimeSlots.items[textList.selectedItem].itemType == 53) {
+        && callbackWindow.ownerSession->WorldScene().playerItems[textList.selectedItem].itemType == 53) {
         if (auto* const submitSelectionElement2 = currentWindow->FindElementById(WindowTextListElementId::SubmitSelection); submitSelectionElement2) submitSelectionElement2->visible = 1;
     }
     return 1;
@@ -755,7 +755,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8) {
             if ((static_cast<std::uint8_t>(cg::world::ReadGuildValue10514B4()) & 4u) != 0
-                || world::gPlayerRuntimeSlots.items[source].itemType == 53) {
+                || callbackWindow.ownerSession->WorldScene().playerItems[source].itemType == 53) {
                 const unsigned char previous = occupancy[textList.selectedItem];
                 if (std::bit_cast<std::int8_t>(previous) >= 0) {
                     occupancy[textList.selectedItem] = static_cast<unsigned char>(previous - 1);
@@ -798,7 +798,7 @@ static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackW
         selected = textList.selectedItem;
     }
     if (selected >= 0) {
-        const auto& item = world::gPlayerRuntimeSlots.items[selected];
+        const auto& item = callbackWindow.ownerSession->WorldScene().playerItems[selected];
         if (item.used != 0) {
             static_cast<void>(cg::render::DrawGraphic(
                 x + 24, y + 24, 223, item.imageNo, 0, &descriptor));

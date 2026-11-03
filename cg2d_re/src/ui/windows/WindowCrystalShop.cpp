@@ -789,7 +789,7 @@ static std::int32_t WindowCrystalShop_ButtonOk(WindowInstance& callbackWindow, c
             crystal.message = -2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60();
+            const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
             if (crystal.slots > freeSlots) {
                 crystal.message = -3;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -1204,7 +1204,7 @@ static std::int32_t WindowCrystalShop_HandleInventory(WindowInstance& callbackWi
         crystal.tooltipPage = 0;
         crystal.inventoryHover = hovered;
     }
-    const auto& items = world::gPlayerRuntimeSlots.items;
+    const auto& items = callbackWindow.ownerSession->WorldScene().playerItems;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && (events & MouseFlag_RDownEvent) != 0) {

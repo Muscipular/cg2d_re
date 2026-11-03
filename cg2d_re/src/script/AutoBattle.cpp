@@ -169,16 +169,16 @@ static int getPetTechId(int techIndex) {
     return -1;
 }
 
-static int getItemId(int itemIndex) {
-    if (itemIndex >= 0 && itemIndex < 28 && cg::world::gPlayerRuntimeSlots.items[itemIndex].used) {
-        return cg::world::gPlayerRuntimeSlots.items[itemIndex].itemId;
+static int getItemId(session::ClientSession& session, int itemIndex) {
+    if (itemIndex >= 0 && itemIndex < 28 && session.WorldScene().playerItems[itemIndex].used) {
+        return session.WorldScene().playerItems[itemIndex].itemId;
     }
     return -1;
 }
 
-static int getItemIndex(int itemId) {
+static int getItemIndex(session::ClientSession& session, int itemId) {
     for (int i = 8; i < 28; ++i) {
-        if (cg::world::gPlayerRuntimeSlots.items[i].used && cg::world::gPlayerRuntimeSlots.items[i].itemId == itemId) {
+        if (session.WorldScene().playerItems[i].used && session.WorldScene().playerItems[i].itemId == itemId) {
             return i;
         }
     }
@@ -275,12 +275,12 @@ static int SendBattleAction(lua_State* L)
             break;
         }
         case B_ACTION_ITEM: {
-            auto itemIndex = getItemIndex(param2);
+            auto itemIndex = getItemIndex(connection.Owner(), param2);
             if (itemIndex < 0) {
                 sendNone();
                 break;
             }
-            auto target = checkAndGetTarget(cg::world::gBattleCurrentPosition5ABCA4, param3, cg::world::gPlayerRuntimeSlots.items[itemIndex].target);
+            auto target = checkAndGetTarget(cg::world::gBattleCurrentPosition5ABCA4, param3, connection.Owner().WorldScene().playerItems[itemIndex].target);
             if (target < 0) {
                 sendNone();
                 break;
@@ -690,7 +690,7 @@ void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::s
     case 'W': action.type = autobattle_detail::B_ACTION_PET_SKILL; action.techId = autobattle_detail::getPetTechId(values[0]); action.target = values[1]; break;
     case 'H': action.type = autobattle_detail::B_ACTION_ATTACK; action.target = values[0]; break;
     case 'Q': case 'M': case 'R': action.type = autobattle_detail::B_ACTION_ATTACK; break;
-    case 'I': action.type = autobattle_detail::B_ACTION_ITEM; action.itemId = autobattle_detail::getItemId(values[0]); action.target = values[1]; break;
+    case 'I': action.type = autobattle_detail::B_ACTION_ITEM; action.itemId = autobattle_detail::getItemId(networkConnection.Owner(), values[0]); action.target = values[1]; break;
     case 'P': action.type = autobattle_detail::B_ACTION_MOVE; break;
     case 'N': case 'U': action.type = autobattle_detail::B_ACTION_NONE; break;
     case 'G': action.type = autobattle_detail::B_ACTION_DEF; break;

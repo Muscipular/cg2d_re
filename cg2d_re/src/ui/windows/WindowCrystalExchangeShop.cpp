@@ -516,7 +516,7 @@ static void WindowCrystalExchangeShop_RefreshAmount(WindowInstance& callbackWind
     }
     crystal.total = total;
     cg::text::FormatTo(crystal.totalText, L"{:10}", total);
-    const std::int32_t owned = world::CountInventoryItemQuantity_51B5F0(crystal.exchangeItemId);
+    const std::int32_t owned = world::CountInventoryItemQuantity_51B5F0(*callbackWindow.ownerSession, crystal.exchangeItemId);
     const std::int32_t currentTotal = crystal.total;
     auto* const element7 = currentWindow->FindElementById(WindowCrystalExchangeShopElementId::Element7);
     if (element7) {
@@ -670,7 +670,7 @@ static std::int32_t WindowCrystalExchangeShop_Update(WindowInstance& callbackWin
             }
         }
     }
-    const std::int32_t owned = world::CountInventoryItemQuantity_51B5F0(crystal.exchangeItemId);
+    const std::int32_t owned = world::CountInventoryItemQuantity_51B5F0(*callbackWindow.ownerSession, crystal.exchangeItemId);
     cg::text::FormatTo(crystal.balanceText, L"{:10}", owned);
     if (crystal.message >= 0) {
         crystal.message = -1;
@@ -777,12 +777,12 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(WindowInstance& callbackW
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     } else if ((state & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t balance = world::CountInventoryItemQuantity_51B5F0(crystal.exchangeItemId);
+        const std::int32_t balance = world::CountInventoryItemQuantity_51B5F0(*callbackWindow.ownerSession, crystal.exchangeItemId);
         if (balance < crystal.total) {
             crystal.message = -2;
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         } else {
-            const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60();
+            const std::int32_t freeSlots = world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession);
             if (crystal.slots > freeSlots) {
                 crystal.message = -3;
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -816,7 +816,7 @@ static std::int32_t WindowCrystalExchangeShop_ButtonOk(WindowInstance& callbackW
                 left.visible = 1;
                 left.x = 296;
                 left.y = 343;
-                left.value = world::CountInventoryItemQuantity_51B5F0(itemId);
+                left.value = world::CountInventoryItemQuantity_51B5F0(*callbackWindow.ownerSession, itemId);
                 const std::int32_t total = crystal.total;
                 right.visible = 1;
                 right.x = 454;
@@ -1197,7 +1197,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
         crystal.tooltipPage = 0;
         crystal.inventoryHover = hovered;
     }
-    const auto& items = world::gPlayerRuntimeSlots.items;
+    const auto& items = callbackWindow.ownerSession->WorldScene().playerItems;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0 && (events & MouseFlag_RDownEvent) != 0) {

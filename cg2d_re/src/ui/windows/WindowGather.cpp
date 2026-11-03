@@ -493,7 +493,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
     }
     std::uint8_t mode;
     if (skillOperation.sendMode != 0) {
-        const std::int32_t imageNo = WindowSkill_CanUseSpecialSkill() != 0 ? skillOperation.petImage : 0;
+        const std::int32_t imageNo = WindowSkill_CanUseSpecialSkill(*callbackWindow.ownerSession) != 0 ? skillOperation.petImage : 0;
         static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 1, 3, imageNo));
         mode = gather.mode;
         if (mode == 1) {
@@ -621,7 +621,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
             }
             static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill, level, -1, L""));
             gather.petImage = WindowSkill_ReadBattlePetImage();
-            gather.crystalLevel = WindowSkill_ReadCrystalLevel();
+            gather.crystalLevel = WindowSkill_ReadCrystalLevel(*callbackWindow.ownerSession);
             gather.mode = 2;
         } else if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {
             static_cast<void>(WindowGather_Cancel(session, currentWindow));
@@ -638,7 +638,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
                 static_cast<void>(WindowGather_Cancel(session, currentWindow));
-            } else if (world::CountFreeInventorySlots_518C60() <= 0) {
+            } else if (world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) <= 0) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"物品栏没有空位。" /* 原常量参考：0x005869E0。 */, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 static_cast<void>(audio::PlaySe_52C450(58, 320));
@@ -782,7 +782,7 @@ static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, 
         if (!enoughFp && (state & MouseFlag_Hover) != 0) {
             uiFrame.hoverText = kWindow12NoFp5864F0;
         }
-        if (world::CountFreeInventorySlots_518C60() <= 0 || !enoughFp) {
+        if (world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) <= 0 || !enoughFp) {
             graphic->imageNo = 0x3B56C;
             return 0;
         }

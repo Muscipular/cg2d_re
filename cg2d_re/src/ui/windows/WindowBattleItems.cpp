@@ -356,7 +356,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
     dimmed.color = dimmedColor;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    auto& items = world::gPlayerRuntimeSlots.items;
+    auto& items = callbackWindow.ownerSession->WorldScene().playerItems;
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
@@ -432,7 +432,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             if (items[3].used == 1 && items[3].itemType != 7) {
                 ++weapons;
             }
-            if (world::CountFreeInventorySlots_518C60() < weapons) {
+            if (world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) < weapons) {
                 world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (weapons == 0) {
@@ -530,7 +530,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                         ++occupiedHands;
                     }
                     // 原49A510以未加8的hover索引读取battleUseFlag。
-                    if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60() == 0
+                    if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) == 0
                         && (*reinterpret_cast<const unsigned char*>(&items[hovered].battleUseFlag) & 8u) != 0) {
                         world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
@@ -770,7 +770,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     world::PlayerItemRecord* items;
     std::int32_t count;
-    if (!WindowItemSelector_GetItemList_4C72C0(&inventory.battleSelector, &items, &count)) {
+    if (!WindowItemSelector_GetItemList_4C72C0(*callbackWindow.ownerSession, &inventory.battleSelector, &items, &count)) {
         return 0;
     }
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(inventory.slotUseCounts.data());
@@ -823,19 +823,19 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     std::array<char, 768> buffer;
     if ((events & MouseFlag_DragFinish) != 0) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
-        if (source >= count && world::gPlayerRuntimeSlots.items[source].used == 1) {
-            const std::int32_t type = world::gPlayerRuntimeSlots.items[source].itemType;
+        if (source >= count && callbackWindow.ownerSession->WorldScene().playerItems[source].used == 1) {
+            const std::int32_t type = callbackWindow.ownerSession->WorldScene().playerItems[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
-                std::int32_t occupiedHands = world::gPlayerRuntimeSlots.items[2].used == 1;
-                if (world::gPlayerRuntimeSlots.items[3].used == 1) {
+                std::int32_t occupiedHands = callbackWindow.ownerSession->WorldScene().playerItems[2].used == 1;
+                if (callbackWindow.ownerSession->WorldScene().playerItems[3].used == 1) {
                     ++occupiedHands;
                 }
-                if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60() == 0
+                if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) == 0
                     && (*reinterpret_cast<const unsigned char*>(
-                        &world::gPlayerRuntimeSlots.items[source].battleUseFlag) & 8u) != 0) {
+                        &callbackWindow.ownerSession->WorldScene().playerItems[source].battleUseFlag) & 8u) != 0) {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
-                } else if (world::gPlayerRuntimeSlots.items[source].hasDescription == 0) {
+                } else if (callbackWindow.ownerSession->WorldScene().playerItems[source].hasDescription == 0) {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"无法装备未鉴定物品！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
@@ -902,7 +902,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                 if (items[3].used == 1 && items[3].itemType != 7) {
                     ++weapons;
                 }
-                if (world::CountFreeInventorySlots_518C60() < weapons) {
+                if (world::CountFreeInventorySlots_518C60(*callbackWindow.ownerSession) < weapons) {
                     world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (weapons == 0) {

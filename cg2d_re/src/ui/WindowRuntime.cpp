@@ -690,8 +690,8 @@ void WindowItemDrag_RemapHover(session::ClientSession& session, const std::int32
     } else if (selected == second) {
         inventory.selectedItem = first;
     }
-    if (world::gPlayerRuntimeSlots.items[first].imageNo == 0x67C9
-        || world::gPlayerRuntimeSlots.items[second].imageNo == 0x67C9) {
+    if (session.WorldScene().playerItems[first].imageNo == 0x67C9
+        || session.WorldScene().playerItems[second].imageNo == 0x67C9) {
         const std::int32_t previous = inventory.currentItem;
         if (previous == first) {
             inventory.currentItem = second;
@@ -828,14 +828,14 @@ void WindowItem_RequestTransfer(
     }
     std::int32_t count;
     if (source < 100) {
-        count = world::gPlayerRuntimeSlots.items[source].count;
+        count = session.WorldScene().playerItems[source].count;
     } else {
         std::memcpy(
             &count, &storage.groups[0].items[source - 100].count, sizeof(count));
     }
     std::int16_t used;
     if (target < 100) {
-        used = std::bit_cast<std::int16_t>(world::gPlayerRuntimeSlots.items[target].used);
+        used = std::bit_cast<std::int16_t>(session.WorldScene().playerItems[target].used);
     } else {
         std::memcpy(
             &used, &storage.groups[0].items[target - 100], sizeof(used));
@@ -1092,13 +1092,13 @@ static void WindowItemDrag_Handle(
             item = &world::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&inventory.normalSelector)].items6E4[sourceIndex];
         } else {
-            item = &world::gPlayerRuntimeSlots.items[sourceIndex];
+            item = &session.WorldScene().playerItems[sourceIndex];
         }
         if (item->used == 0) {
             static_cast<void>(WindowDrag_ResetMouse(session));
         }
     } else if (kind == 2) {
-        if (world::gPlayerRuntimeSlots.items[sourceIndex].used == 0) {
+        if (session.WorldScene().playerItems[sourceIndex].used == 0) {
             static_cast<void>(WindowDrag_ResetMouse(session));
         }
     } else if (kind == 3) {
@@ -1131,11 +1131,11 @@ static void WindowItemDrag_Handle(
             imageNo = world::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&inventory.normalSelector)].items6E4[sourceIndex].imageNo;
         } else {
-            imageNo = world::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
+            imageNo = session.WorldScene().playerItems[sourceIndex].imageNo;
         }
     } else if (drawKind == 2) {
         drawDescriptor = &descriptor;
-        imageNo = world::gPlayerRuntimeSlots.items[sourceIndex].imageNo;
+        imageNo = session.WorldScene().playerItems[sourceIndex].imageNo;
     } else if (drawKind == 3) {
         drawDescriptor = &descriptor;
         std::memcpy(&imageNo,
@@ -1935,7 +1935,7 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
     world::PlayerItemRecord* item;
     if (mode == 0) {
         slot = state->hoverIndex3F8;
-        item = &world::gPlayerRuntimeSlots.items[slot];
+        item = &callbackWindow->ownerSession->WorldScene().playerItems[slot];
     } else {
         if (mode < 0 || state->selectedPet70 < 0) {
             return;
@@ -2278,12 +2278,13 @@ std::int32_t WindowItemSelector_ReadScreenY(WindowInstance* callbackWindow,
 // ISP01：S8模式0借玩家前8槽，正模式经原宠物校验后两次重读索引借列表/数量；失败不改输出。
 // 原函数：0x004C72C0。
 bool WindowItemSelector_GetItemList_4C72C0(
+    session::ClientSession& session,
     const WindowItemSelectorState* const state, world::PlayerItemRecord** const items,
     std::int32_t* const count)
 {
     const std::int8_t mode = std::bit_cast<std::int8_t>(*state->mode68);
     if (mode == 0) {
-        *items = world::gPlayerRuntimeSlots.items.data();
+        *items = session.WorldScene().playerItems.data();
         *count = 8;
         return true;
     }
@@ -2470,7 +2471,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, co
         const std::int32_t itemIndex = interaction.tooltipSource;
         record = &world::gPetRuntimeRecords[petIndex].items6E4[itemIndex];
     } else {
-        record = &world::gPlayerRuntimeSlots.items[index];
+        record = &session.WorldScene().playerItems[index];
     }
     const std::uint16_t flags = record->flags;
     const std::wstring title = (flags & 0x100u) != 0 ? record->memo : record->name;

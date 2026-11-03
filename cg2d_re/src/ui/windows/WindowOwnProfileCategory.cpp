@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -57,7 +58,7 @@ static std::int32_t WindowOwnProfileCategory_Scroll(ElementId elementId, std::in
 
 // 原函数：0x004C94B0。
 // 关联原入口：0x004C94D6（共享尾已并入本函数正文）。
-static std::int32_t WindowOwnProfileCategory_Update(std::int32_t value);
+static std::int32_t WindowOwnProfileCategory_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -159,14 +160,14 @@ static void WindowOwnProfileCategory_Refresh()
 
 // 原函数：0x004C94B0。
 // 关联原入口：0x004C94D6（共享尾已并入本函数正文）。
-static std::int32_t WindowOwnProfileCategory_Update(const std::int32_t value)
+static std::int32_t WindowOwnProfileCategory_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gProfileScrollCA0444 = 0;
     }
-    if (WindowRuntime_States()[WindowId_OwnProfile].window == nullptr) {
+    if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfile].window == nullptr) {
         currentWindow->state |= 0x8000u;
     }
     WindowOwnProfileCategory_Refresh();

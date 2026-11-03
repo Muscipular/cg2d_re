@@ -101,7 +101,7 @@ namespace detail {
 static std::int32_t WindowAlbumDetail_HandleNavigation(ElementId elementId, std::int32_t state); // 图鉴详情四种翻页与旋转。
 
 // 原函数：0x00492410。
-static std::int32_t WindowAlbumDetail_Update(std::int32_t value);
+static std::int32_t WindowAlbumDetail_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -425,7 +425,7 @@ static void WindowAlbumDetail_Refresh()
 }
 
 // 原函数：0x00492410。
-static std::int32_t WindowAlbumDetail_Update(const std::int32_t value)
+static std::int32_t WindowAlbumDetail_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueCF4A00 = 5;

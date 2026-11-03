@@ -47,10 +47,10 @@ static std::int32_t WindowSkillResult_ButtonClose(ElementId elementId, std::int3
 static void WindowSkillResult_Release(WindowInstance&);
 
 // 原函数：0x00487AE0。
-static std::int32_t WindowSkillResult_Update(std::int32_t value);
+static std::int32_t WindowSkillResult_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x00487B80。
-static std::int32_t WindowSkillResult_Draw(std::int32_t value);
+static std::int32_t WindowSkillResult_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -258,9 +258,9 @@ static WindowAnimationData* WindowSkillResult_RefreshResult(session::ClientSessi
 }
 
 // 原函数：0x00487AE0。
-static std::int32_t WindowSkillResult_Update(const std::int32_t value)
+static std::int32_t WindowSkillResult_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     if (value == -1) {
@@ -287,9 +287,9 @@ static std::int32_t WindowSkillResult_Update(const std::int32_t value)
 }
 
 // 原函数：0x00487B80。
-static std::int32_t WindowSkillResult_Draw(const std::int32_t)
+static std::int32_t WindowSkillResult_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const element3 = currentWindow->FindElementById(WindowSkillResultElementId::Element3);
     if (element3) {
@@ -317,7 +317,7 @@ static std::int32_t WindowSkillResult_Draw(const std::int32_t)
             cg::yobi::SetYobiActionMixFlagsOverrideMask(action, render::GraphicMixFlag_None);
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

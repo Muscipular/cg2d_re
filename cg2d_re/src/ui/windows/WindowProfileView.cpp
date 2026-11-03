@@ -39,7 +39,7 @@ namespace detail {
 
 // 原函数：0x004CAF60。
 // 关联原入口：0x004CAF88（共享尾已并入本函数正文）。
-static std::int32_t WindowProfileView_Update(std::int32_t unusedValue); // 窗口62更新，标关闭后仍刷新全部资料。
+static std::int32_t WindowProfileView_Update(WindowInstance& callbackWindow, std::int32_t unusedValue); // 窗口62更新，标关闭后仍刷新全部资料。
 
 // 原函数：0x004CAFA0。
 static std::uint32_t WindowProfileView_Refresh(); // 四图号、八资料文本和四分行，返回末行含NUL字节数。
@@ -185,9 +185,9 @@ static std::uint32_t WindowProfileView_Refresh()
 
 // 原函数：0x004CAF60。
 // 关联原入口：0x004CAF88（共享尾已并入本函数正文）。
-static std::int32_t WindowProfileView_Update(const std::int32_t)
+static std::int32_t WindowProfileView_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         currentWindow->state |= 0x8000u;

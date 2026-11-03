@@ -60,10 +60,10 @@ static std::int32_t WindowShopChoice_SendExchangeChoice(std::int32_t index); // 
 static std::int32_t WindowShopChoice_SendGiveReceiveChoice(std::int32_t index); // 仅索引0发送原字节1。
 
 // 原函数：0x0049FD20。
-static std::int32_t WindowShopChoice_Update(std::int32_t value);
+static std::int32_t WindowShopChoice_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049FE40。
-static std::int32_t WindowShopChoice_Draw(std::int32_t value);
+static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049FF70。
 static void WindowShopChoice_Release(WindowInstance&);
@@ -221,9 +221,9 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
 }
 
 // 原函数：0x0049FD20。
-static std::int32_t WindowShopChoice_Update(const std::int32_t value)
+static std::int32_t WindowShopChoice_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         auto* const element1 = currentWindow->FindElementById(WindowShopChoiceElementId::Element1);
@@ -257,11 +257,11 @@ static std::int32_t WindowShopChoice_Update(const std::int32_t value)
 }
 
 // 原函数：0x0049FE40。
-static std::int32_t WindowShopChoice_Draw(const std::int32_t)
+static std::int32_t WindowShopChoice_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     for (std::int32_t row = 0; row < std::bit_cast<std::int8_t>(gChoiceDialog.lineCount); ++row) {
         const std::wstring& text = gChoiceDialog.lines[row];
             WindowInstance* const window = currentWindow;

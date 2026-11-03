@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -27,7 +28,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004A56F0。
-static std::int32_t WindowPetMailCompose_Update(std::int32_t value); // 宠物邮件两遍候选与刷新，标关闭后仍继续。
+static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, std::int32_t value); // 宠物邮件两遍候选与刷新，标关闭后仍继续。
 
 // 原函数：0x004A6300。
 static std::int32_t WindowPetMailCompose_HandleGiftItem(ElementId elementId, std::int32_t state); // 物品占用迁移、取出拖动及悬停框。
@@ -45,7 +46,7 @@ static std::int32_t WindowPetMailCompose_HasGiftPet(std::int32_t index); // 同�
 static std::int32_t WindowPetMailCompose_HasGiftItem(std::int32_t index); // 先47D4A0，非零才读取flags6AA恰2。
 
 // 原函数：0x004A56F0。
-static std::int32_t WindowPetMailCompose_Update(std::int32_t value);
+static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -83,12 +84,12 @@ WindowPrototype gWindowPrototypePetMailCompose {0, 4, 383, 81, 211, 259, 0x80010
 // 窗口函数实现。
 
 // 原函数：0x004A56F0。
-static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
+static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
-        WindowInstance* const normalWindow = WindowRuntime_States()[WindowId_MailCompose].window;
+        WindowInstance* const normalWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_MailCompose].window;
         if (normalWindow != nullptr) {
             normalWindow->state |= 0x8000u;
         }
@@ -149,7 +150,7 @@ static std::int32_t WindowPetMailCompose_Update(const std::int32_t value)
         currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowPetMailCompose_RefreshPet());
-    WindowInstance* const groupWindow = WindowRuntime_States()[WindowId_GroupSelect].window;
+    WindowInstance* const groupWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
     if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
     }

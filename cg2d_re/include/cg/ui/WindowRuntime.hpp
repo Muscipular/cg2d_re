@@ -217,7 +217,7 @@ public:
 void WindowStall_ConstructBrowsePetValues(); // 原CRT 5530A4，浏览区五宠物各六CryptInt顺序构造。
 // WDP01：完整分发与字段取样合同，见doc/cg2d_window_element_draw_pipeline_spec.md。
 // 原函数：0x004729B0。
-void WindowRuntime_DrawCurrent(); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。
+void WindowRuntime_DrawCurrent(WindowInstance& window); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。
 
 // 对话BZ回复：三重门禁、关闭/完整路由及对象朝向，socket保持未使用实参。
 // 原函数：0x0050E110。

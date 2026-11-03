@@ -72,7 +72,7 @@ static_assert(sizeof(WindowElementType) == sizeof(std::int32_t));
 
 enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_Hover, WindowMouseState_Press };
 
-using WindowCallback = std::int32_t (*)(std::int32_t value);
+using WindowCallback = std::int32_t (*)(WindowInstance& window, std::int32_t value); // 更新/绘制显式携所属实例。
 using WindowReleaseCallback = void (*)(WindowInstance& window); // 释放对象显式携owner，不借当前窗口现场。
 using WindowElementCallback = std::int32_t (*)(ElementId elementId, std::int32_t state); // 窗口内稳定元素ID，非排序位置。
 using WindowDragCallback = void (*)(
@@ -500,7 +500,7 @@ cg::yobi::YobiAction* WindowAttributeTarget_Open(
     session::ClientSession& session, const WindowStatusChoiceRecord* records, std::int32_t count,
     WindowTextChoiceCallback callback); // 三槽按序发布后打开46，透传借用Yobi。
 // 原函数：0x00499830。
-std::int32_t WindowRuntime_DrawLargeFrame(std::int32_t value); // 31/46共用绘制与九宫格尾。
+std::int32_t WindowRuntime_DrawLargeFrame(WindowInstance& callbackWindow, std::int32_t value); // 31/46共用绘制与九宫格尾。
 // 原CF3B10/D2F338的已消费字段；不是x86字节布局，不冻结未消费前缀。
 struct WindowItemSelectorState {
     std::array<WindowElementLink, 20> elements00; // 选择器关联控件身份，非零模式保留槽19。
@@ -966,6 +966,7 @@ void WindowItemDrag_RemapHover(std::int32_t first, std::int32_t second); // UI�
 std::int32_t WindowElement_NoOp(ElementId elementId, std::int32_t events); // WSB01：原完整零返回事件回调。
 // 原函数：0x004A4210。
 std::int32_t WindowRuntime_ReturnOne(std::int32_t unused) noexcept; // WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。
+std::int32_t WindowRuntime_UpdateDefault(WindowInstance& window, std::int32_t unused) noexcept; // 原恒1更新的实例回调适配。
 // 原函数：0x004B0000。
 void WindowTrade_ResetSelection(std::int32_t first, std::int32_t second); // 窗口43的20个槽号及28B标记。
 // 原函数：0x0047DCD0。
@@ -1002,9 +1003,9 @@ void WindowChat_DrawFixedWidthInput(input::InputContext* context); // 按固定1
 // 原函数：0x004A7750。
 void WindowChat_DrawHistory(std::int32_t x, std::int32_t y); // 原字节分行、底部逆序绘制及前项字体回写。
 // 原函数：0x0046FBC0。
-std::int32_t WindowRuntime_DrawDefault(std::int32_t unused); // 原默认draw回调，完整绘制后返回1。
+std::int32_t WindowRuntime_DrawDefault(WindowInstance& callbackWindow, std::int32_t unused); // 原默认draw回调，完整绘制后返回1。
 // 原函数：0x0049BDB0。
-std::int32_t WindowRuntime_DrawCompactFrame(std::int32_t unused); // 完整元素绘制后叠加九宫格背景。
+std::int32_t WindowRuntime_DrawCompactFrame(WindowInstance& callbackWindow, std::int32_t unused); // 完整元素绘制后叠加九宫格背景。
 // 原函数：0x004741A0。
 std::int32_t WindowElement_HandleVerticalScroll(ElementId elementId, std::int32_t state); // WSB01：低BYTE/W32标志与前项垂直滚动，保原边界取样序。
 // DLP01：只清焦点元素ID/kind/焦点窗口/回调/phase五槽，来源及两坐标保持，返S32 0。

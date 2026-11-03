@@ -35,10 +35,10 @@ namespace detail {
 static void WindowBattleCommand_Open(session::ClientSession& session, std::int32_t mode, std::int16_t x, std::int16_t y); // 窗口26五模式创建/配置及入场偏移。
 
 // 原函数：0x00496B90。
-static std::int32_t WindowBattleCommand_Update(std::int32_t value); // 窗口26初始化、入退场与按钮显隐。
+static std::int32_t WindowBattleCommand_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口26初始化、入退场与按钮显隐。
 
 // 原函数：0x00496D50。
-static std::int32_t WindowBattleCommand_Draw(std::int32_t unused); // 先绘制再更新技术名，按命中索引追加目标说明。
+static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 先绘制再更新技术名，按命中索引追加目标说明。
 
 // 原函数：0x00496AE0。
 static void WindowBattleCommand_Close(session::ClientSession& session); // 窗口26存在才收尾、关闭10/27/28及清三展开引用，原返回无人消费。
@@ -92,10 +92,10 @@ static void WindowBattleCommand_DrawTargetHint(); // 553F80门禁及首个可选
 static void WindowBattleCommand_ResetTargets(std::int32_t* values, std::int32_t count); // 正数count逐槽写-2，原caller弃返回。
 
 // 原函数：0x00496B90。
-static std::int32_t WindowBattleCommand_Update(std::int32_t value);
+static std::int32_t WindowBattleCommand_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x00496D50。
-static std::int32_t WindowBattleCommand_Draw(std::int32_t value);
+static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -259,9 +259,9 @@ static void WindowBattleCommand_Open(
 }
 
 // 原函数：0x00496B90。
-static std::int32_t WindowBattleCommand_Update(const std::int32_t value)
+static std::int32_t WindowBattleCommand_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     if (value == -1) {
@@ -333,12 +333,12 @@ static std::int32_t WindowBattleCommand_Update(const std::int32_t value)
 }
 
 // 原函数：0x00496D50。
-static std::int32_t WindowBattleCommand_Draw(const std::int32_t)
+static std::int32_t WindowBattleCommand_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     const auto mode = static_cast<std::uint8_t>(WindowRuntime_States(session)[WindowId_BattleCommand].actionFlags1C);
     if (mode == 3 || mode == 4) {
         std::wstring_view name;

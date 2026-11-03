@@ -177,7 +177,7 @@ namespace detail {
 
 // 原函数：0x004C9EE0。
 // 关联原入口：0x004C9F08（共享尾已并入本函数正文）。
-static std::int32_t WindowProfileCategory_Update(std::int32_t value); // 窗口60仅初始化刷新，随后检查距离。
+static std::int32_t WindowProfileCategory_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口60仅初始化刷新，随后检查距离。
 
 // 原函数：0x004C9F20。
 static void WindowProfileCategory_Refresh(); // 固定32/32/15项分类的显隐、文本和选择颜色。
@@ -405,9 +405,9 @@ static void WindowProfileCategory_Refresh()
 
 // 原函数：0x004C9EE0。
 // 关联原入口：0x004C9F08（共享尾已并入本函数正文）。
-static std::int32_t WindowProfileCategory_Update(const std::int32_t value)
+static std::int32_t WindowProfileCategory_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         WindowProfileCategory_Refresh();

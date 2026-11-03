@@ -93,7 +93,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(ElementId elementId, std::
 static void WindowPlayerProfile_Release(WindowInstance&);
 
 // 原函数：0x00474540。
-static std::int32_t WindowPlayerProfile_Update(std::int32_t value);
+static std::int32_t WindowPlayerProfile_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -584,7 +584,7 @@ static void WindowPlayerProfile_Refresh()
 }
 
 // 原函数：0x00474540。
-static std::int32_t WindowPlayerProfile_Update(const std::int32_t)
+static std::int32_t WindowPlayerProfile_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
     WindowPlayerProfile_Refresh();
     return 1;

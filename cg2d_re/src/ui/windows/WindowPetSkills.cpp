@@ -85,10 +85,10 @@ static std::int32_t WindowPetSkills_HandleScroll(ElementId elementId, std::int32
 static std::int32_t WindowPetSkills_HandleMouseWheel(ElementId elementId, std::int32_t state);
 
 // 原函数：0x0048DBB0。
-static std::int32_t WindowPetSkills_Update(std::int32_t value);
+static std::int32_t WindowPetSkills_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0048DCB0。
-static std::int32_t WindowPetSkills_Draw(std::int32_t value);
+static std::int32_t WindowPetSkills_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0048DD40。
 static void WindowPetSkills_Release(WindowInstance&);
@@ -404,9 +404,9 @@ static std::int32_t WindowPetSkills_DrawDraggedSkillTooltip()
 }
 
 // 原函数：0x0048DBB0。
-static std::int32_t WindowPetSkills_Update(const std::int32_t value)
+static std::int32_t WindowPetSkills_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gPetTechniqueScroll = 0;
@@ -442,10 +442,10 @@ static std::int32_t WindowPetSkills_Update(const std::int32_t value)
 }
 
 // 原函数：0x0048DCB0。
-static std::int32_t WindowPetSkills_Draw(const std::int32_t)
+static std::int32_t WindowPetSkills_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
     static_cast<void>(WindowPetSkills_DrawDraggedSkillTooltip());
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 
@@ -580,7 +580,7 @@ static std::int32_t WindowPetSkills_HandleButtons(const ElementId elementId, con
                 const std::int32_t y = window->y;
                 const std::int32_t x = window->x;
                 static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
-                static_cast<void>(WindowPetSkills_Update(-1));
+                static_cast<void>(WindowPetSkills_Update(*currentWindow, -1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 consumed = 1;
             }

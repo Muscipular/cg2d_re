@@ -41,10 +41,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004A4620。
-static std::int32_t WindowMailRead_Update(std::int32_t value); // 读信初始化：选页后保存，再扫描未读。
+static std::int32_t WindowMailRead_Update(WindowInstance& callbackWindow, std::int32_t value); // 读信初始化：选页后保存，再扫描未读。
 
 // 原函数：0x004A4650。
-static std::int32_t WindowMailRead_Draw(std::int32_t unused); // 刷新清当前未读，再公共绘制。
+static std::int32_t WindowMailRead_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 刷新清当前未读，再公共绘制。
 
 // 原函数：0x004A4660。
 static std::int32_t WindowMailRead_ButtonPrevious(ElementId elementId, std::int32_t state); // 上一封，负页跳9。
@@ -65,10 +65,10 @@ static std::uint32_t WindowMailRead_Refresh(); // 三类邮件十行、姓名、
 static std::int32_t WindowMailRead_HandleAvatar(ElementId elementId, std::int32_t state); // 悬停双图，区分三类头像采样序。
 
 // 原函数：0x004A4620。
-static std::int32_t WindowMailRead_Update(std::int32_t value);
+static std::int32_t WindowMailRead_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004A4650。
-static std::int32_t WindowMailRead_Draw(std::int32_t value);
+static std::int32_t WindowMailRead_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -124,7 +124,7 @@ WindowPrototype gWindowPrototypeMailRead {0, 4, 383, 71, 211, 206, 0x80010101u, 
 // 窗口函数实现。
 
 // 原函数：0x004A4620。
-static std::int32_t WindowMailRead_Update(const std::int32_t value)
+static std::int32_t WindowMailRead_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         WindowMailRead_FindUnread();
@@ -137,10 +137,10 @@ static std::int32_t WindowMailRead_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A4650。
-static std::int32_t WindowMailRead_Draw(const std::int32_t)
+static std::int32_t WindowMailRead_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
     static_cast<void>(WindowMailRead_Refresh());
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

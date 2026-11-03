@@ -46,7 +46,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004AE5F0。
-static std::int32_t WindowConfirmation_Update(std::int32_t value); // 窗口47初始化：显隐、文本、初始化回调。
+static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口47初始化：显隐、文本、初始化回调。
 
 // 原函数：0x004AE620。
 static std::int32_t WindowConfirmation_ButtonOk(ElementId elementId, std::int32_t state); // CTRL确认，动作槽0。
@@ -79,7 +79,7 @@ static std::int32_t WindowConfirmation_RefreshButtons(); // 六按钮逐项显�
 static std::int32_t WindowConfirmation_PadText(std::wstring& destination, std::wstring_view text); // 按原GBK列宽单位补空格，正文保持UTF-16。
 
 // 原函数：0x004AE5F0。
-static std::int32_t WindowConfirmation_Update(std::int32_t value);
+static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -184,14 +184,14 @@ static std::int32_t WindowConfirmation_HandleButton(
 }
 
 // 原函数：0x004AE5F0。
-static std::int32_t WindowConfirmation_Update(const std::int32_t value)
+static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         static_cast<void>(WindowConfirmation_RefreshButtons());
         static_cast<void>(WindowConfirmation_RefreshText());
         const WindowCallback callback = gWindow47Runtime.initializeCC4250;
         if (callback != nullptr) {
-            static_cast<void>(callback(-1));
+            static_cast<void>(callback(callbackWindow, -1));
         }
     }
     return 1;

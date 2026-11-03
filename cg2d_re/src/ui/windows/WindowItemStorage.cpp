@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -31,11 +32,11 @@ static std::int32_t WindowItemStorage_HandleStoredItems(ElementId elementId, std
 static void WindowItemStorage_Release(WindowInstance&);
 
 // 原函数：0x004AC140。
-static std::int32_t WindowItemStorage_Update(std::int32_t value);
+static std::int32_t WindowItemStorage_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004AC1B0。
 // 关联原入口：0x004AC1EC（共享尾已并入本函数正文）。
-static std::int32_t WindowItemStorage_Draw(std::int32_t value);
+static std::int32_t WindowItemStorage_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -96,9 +97,9 @@ static void WindowItemStorage_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004AC140。
-static std::int32_t WindowItemStorage_Update(const std::int32_t)
+static std::int32_t WindowItemStorage_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (WindowProfile_CheckDistance(1, 1) != 0) {
         currentWindow->state |= 0x8000u;
@@ -108,24 +109,24 @@ static std::int32_t WindowItemStorage_Update(const std::int32_t)
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    WindowRuntime_States()[WindowId_ItemStorage].actionFlags1C = 0xFFFFFFFFu;
+    WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C = 0xFFFFFFFFu;
     return 1;
 }
 
 // SPD01：原4AC1B0完整19条及4AC1EC三条共享尾；页数/内外物品预览分派后绘制并返回1。
 // 原函数：0x004AC1B0。
-static std::int32_t WindowItemStorage_Draw(const std::int32_t)
+static std::int32_t WindowItemStorage_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    const std::int32_t preview = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_ItemStorage].actionFlags1C);
+    const std::int32_t preview = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C);
     if (preview >= 0) {
-        const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_ItemStorage].value20);
+        const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20);
         if (preview < 100) {
             static_cast<void>(WindowItem_DrawEquipmentTooltip(preview, page));
         } else {
             static_cast<void>(WindowItem_DrawDescriptionTooltip(preview - 100, page));
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

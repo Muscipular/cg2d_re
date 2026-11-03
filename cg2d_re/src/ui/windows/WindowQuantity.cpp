@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -25,7 +26,7 @@ input::InputContext gInputContextCB0878 {}; // 原全局：0x00CB0878。
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048A8C0。
-static std::int32_t WindowQuantity_Update(std::int32_t value); // QVC01：-1初始化后总返回1。
+static std::int32_t WindowQuantity_Update(WindowInstance& callbackWindow, std::int32_t value); // QVC01：-1初始化后总返回1。
 
 // 原函数：0x0048A900。
 static std::int32_t WindowQuantity_HandleInput(ElementId elementId, std::int32_t state); // QVC01：输入bit2切换/焦点发布，返回0。
@@ -40,7 +41,7 @@ static std::int32_t WindowQuantity_ButtonIncrease(ElementId elementId, std::int3
 static std::int32_t WindowQuantity_ButtonDecrease(ElementId elementId, std::int32_t state); // QVC01：减少数量S32正值门槛，原图号/声效。
 
 // 原函数：0x0048A8C0。
-static std::int32_t WindowQuantity_Update(std::int32_t value);
+static std::int32_t WindowQuantity_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -117,15 +118,15 @@ WindowInstance* WindowQuantity_Open(
 
 // QVC01：原48A8C0完整15条；仅-1重置上限/参数/callback与当前元素2，然后激活输入，总返回1。
 // 原函数：0x0048A8C0。
-static std::int32_t WindowQuantity_Update(const std::int32_t value)
+static std::int32_t WindowQuantity_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const window = currentWindow;
-        WindowRuntime_States()[WindowId_Quantity].value10 = 999999999;
-        WindowRuntime_States()[WindowId_Quantity].value14 = 0;
-        WindowRuntime_States()[WindowId_Quantity].userState.callback = nullptr;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10 = 999999999;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14 = 0;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].userState.callback = nullptr;
         if (auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk); buttonOkElement) buttonOkElement->state = 0;
         static_cast<void>(WindowQuantity_HandleInput(NativeElementKey(0), 2));
     }

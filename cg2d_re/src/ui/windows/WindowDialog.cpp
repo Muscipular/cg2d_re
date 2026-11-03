@@ -137,10 +137,10 @@ static cg::yobi::YobiAction* WindowDialog_OpenHealing(
     std::int32_t target, const char* text); // 六治疗记录及第七合计项，共借CB1398行表。
 
 // 原函数：0x0049C710。
-static std::int32_t WindowDialog_Update(std::int32_t value);
+static std::int32_t WindowDialog_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049CAD0。
-static std::int32_t WindowDialog_Draw(std::int32_t value);
+static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049CDF0。
 static void WindowDialog_Release(WindowInstance&);
@@ -332,9 +332,9 @@ cg::yobi::YobiAction* WindowDialog_Open(
 }
 
 // 原函数：0x0049C710。
-static std::int32_t WindowDialog_Update(const std::int32_t value)
+static std::int32_t WindowDialog_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const initialWindow = currentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (initialWindow->state & 0x8000u) != 0) {
@@ -445,9 +445,9 @@ static std::int32_t WindowDialog_Update(const std::int32_t value)
 }
 
 // 原函数：0x0049CAD0。
-static std::int32_t WindowDialog_Draw(const std::int32_t)
+static std::int32_t WindowDialog_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
     if (gMessageDialog.closeCallbackPending != 0 && (window->state & 0x8000u) != 0) {
@@ -561,7 +561,7 @@ static std::int32_t WindowDialog_Draw(const std::int32_t)
             }
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     window = currentWindow;
     cg::yobi::DrawNineGrid_49BE00(
         gMessageDialog.imageNo, static_cast<std::int16_t>(window->x),

@@ -36,10 +36,10 @@ namespace detail {
 static void WindowTradeTarget_Refresh(std::int32_t offset); // 逐项复制五行选择文本，重读当前窗口载荷。
 
 // 原函数：0x0049E8F0。
-static std::int32_t WindowTradeTarget_Update(std::int32_t value); // 窗口44初始化与移动关闭。
+static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口44初始化与移动关闭。
 
 // 原函数：0x0049EAA0。
-static std::int32_t WindowTradeTarget_Draw(std::int32_t unused); // 窗口44滚动消费、完整绘制和九宫格。
+static std::int32_t WindowTradeTarget_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 窗口44滚动消费、完整绘制和九宫格。
 
 // 原函数：0x0049EB50。
 static std::int32_t WindowTradeTarget_ButtonPreviousRow(ElementId elementId, std::int32_t state); // 上一行。
@@ -170,9 +170,9 @@ static void WindowTradeTarget_Refresh(const std::int32_t offset)
 }
 
 // 原函数：0x0049E8F0。
-static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
+static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         const std::int32_t visible = gWindowListCountCF46A8 > 5 ? 1 : 0;
@@ -190,9 +190,9 @@ static std::int32_t WindowTradeTarget_Update(const std::int32_t value)
 }
 
 // 原函数：0x0049EAA0。
-static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
+static std::int32_t WindowTradeTarget_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (auto* const element1 = currentWindow->FindElementById(WindowTradeTargetElementId::Element1); element1) element1->visible = 1;
     if (gWindowListCountCF46A8 - 5 <= 0) {
@@ -210,7 +210,7 @@ static std::int32_t WindowTradeTarget_Draw(const std::int32_t)
             WindowTradeTarget_Refresh(gWindowListOffsetCC3EF4);
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     WindowInstance* const window = currentWindow;
     const auto height = static_cast<std::int16_t>(window->height);
     const auto width = static_cast<std::int16_t>(window->width);

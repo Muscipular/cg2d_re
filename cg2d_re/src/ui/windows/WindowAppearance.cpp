@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
@@ -55,10 +56,10 @@ static std::int32_t WindowAppearance_SendDialogReply(
     std::uint8_t unusedInputCount); // 类型37回复，图号转义后发完整button。
 
 // 原函数：0x004C5850。
-static std::int32_t WindowAppearance_Update(std::int32_t value);
+static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004C5B70。
-static std::int32_t WindowAppearance_Draw(std::int32_t value);
+static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004C5C00。
 static void WindowAppearance_Release(WindowInstance&);
@@ -169,16 +170,16 @@ cg::yobi::YobiAction* WindowAppearance_Open(
 }
 
 // 原函数：0x004C5850。
-static std::int32_t WindowAppearance_Update(const std::int32_t value)
+static std::int32_t WindowAppearance_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value != -1) {
         return 1;
     }
     std::int32_t version = character_select::state::gGraphicVersionOverride58B6A0;
     if (version == 0xFF) {
-        version = network::GetGameConnection().PukVersion();
+        version = callbackWindow.ownerSession->Connection().PukVersion();
     }
     const std::int32_t converted = character_select::detail::ConvertEarlierCharacterGraphicToModern_51BFF0(
         character_select::detail::ConvertClassicCharacterGraphicToCompact_51BB80(world::gPlayerRuntimeSlots.value17C));
@@ -243,16 +244,16 @@ static std::int32_t WindowAppearance_Update(const std::int32_t value)
 }
 
 // 原函数：0x004C5B70。
-static std::int32_t WindowAppearance_Draw(const std::int32_t unused)
+static std::int32_t WindowAppearance_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
     if (WindowProfile_CheckDistance(2, 2) != 0 || world::gCurrentDialogType_581800 != gWindow56DialogTypeCB1DE0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     WindowInstance* const window = currentWindow;
     cg::yobi::DrawNineGrid_49BE00(
         245300, static_cast<std::int16_t>(window->x), static_cast<std::int16_t>(window->y),

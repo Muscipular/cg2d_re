@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../../scene/login/LoginSavedState.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -125,10 +126,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004A0970。
-static std::int32_t WindowContacts_Update(std::int32_t value); // 窗口21布局、未读扫描与滚动条初始化。
+static std::int32_t WindowContacts_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口21布局、未读扫描与滚动条初始化。
 
 // 原函数：0x004A09B0。
-static std::int32_t WindowContacts_Draw(std::int32_t value); // 完整滚动/闪烁/内容刷新后绘制窗口21。
+static std::int32_t WindowContacts_Draw(WindowInstance& callbackWindow, std::int32_t value); // 完整滚动/闪烁/内容刷新后绘制窗口21。
 
 // 原函数：0x004A09E0。
 static std::int32_t WindowContacts_Refresh(); // 三行/九行联系人完整内容刷新，不调用公共Draw。
@@ -211,10 +212,10 @@ static std::int32_t WindowContacts_CompareMiniMailNumber(
     const world::detail::MiniMailContactRecord* right); // 迷你序号按S16比较，零不替换。
 
 // 原函数：0x004A0970。
-static std::int32_t WindowContacts_Update(std::int32_t value);
+static std::int32_t WindowContacts_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004A09B0。
-static std::int32_t WindowContacts_Draw(std::int32_t value);
+static std::int32_t WindowContacts_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -405,11 +406,11 @@ WindowPrototype gWindowPrototypeContacts {0, 4, 2, 64, 331, 381, 0x80010101u, 11
 // 窗口函数实现。
 
 // 原函数：0x004A0970。
-static std::int32_t WindowContacts_Update(const std::int32_t value)
+static std::int32_t WindowContacts_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-        const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
+        const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
         const std::uint32_t sortMode = platform::gContactSortMode_D67CD0;
         gLoginWindowRuntime.mailSortModeD67B3C = sortMode;
         WindowContacts_SetDisplayMode(mode, category);
@@ -420,12 +421,12 @@ static std::int32_t WindowContacts_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A09B0。
-static std::int32_t WindowContacts_Draw(const std::int32_t value)
+static std::int32_t WindowContacts_Draw(WindowInstance& callbackWindow, const std::int32_t value)
 {
     static_cast<void>(WindowContacts_DragScroll(value));
     static_cast<void>(WindowMail_AdvanceUnreadBlink());
     static_cast<void>(WindowContacts_Refresh());
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

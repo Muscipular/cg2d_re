@@ -65,7 +65,7 @@ static std::int32_t WindowOwnProfile_EditField(ElementId elementId, std::int32_t
 static void WindowOwnProfile_Release(WindowInstance&);
 
 // 原函数：0x00478320。
-static std::int32_t WindowOwnProfile_Update(std::int32_t value);
+static std::int32_t WindowOwnProfile_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -345,7 +345,7 @@ static void WindowOwnProfile_Refresh()
 }
 
 // 原函数：0x00478320。
-static std::int32_t WindowOwnProfile_Update(const std::int32_t)
+static std::int32_t WindowOwnProfile_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
     WindowOwnProfile_Refresh();
     return 1;

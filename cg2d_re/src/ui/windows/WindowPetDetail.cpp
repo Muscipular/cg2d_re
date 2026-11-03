@@ -89,7 +89,7 @@ input::InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
 static std::int32_t WindowPetDetail_HandleButtons(ElementId elementId, std::int32_t state); // 宠物详情名称/放地/选择/旋转。
 
 // 原函数：0x0048D9A0。
-static std::int32_t WindowPetDetail_Update(std::int32_t value);
+static std::int32_t WindowPetDetail_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0048DCC0。
 static void WindowPetDetail_Release(WindowInstance&);
@@ -449,9 +449,9 @@ static std::uint32_t WindowPetDetail_Refresh()
 
 // 窗口16主更新，入口-1负责共享详情拖动槽的初始化。
 // 原函数：0x0048D9A0。
-static std::int32_t WindowPetDetail_Update(const std::int32_t value)
+static std::int32_t WindowPetDetail_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
@@ -609,7 +609,7 @@ static std::int32_t WindowPetDetail_HandleButtons(const ElementId elementId, con
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
-            static_cast<void>(WindowPetDetail_Update(-1));
+            static_cast<void>(WindowPetDetail_Update(*currentWindow, -1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }

@@ -74,7 +74,7 @@ static void WindowPlayerTitles_Release(WindowInstance&);
 
 // 原函数：0x004774C0。
 // 关联原入口：0x0047752C（共享尾已并入本函数正文）。
-static std::int32_t WindowPlayerTitles_Update(std::int32_t value);
+static std::int32_t WindowPlayerTitles_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -557,9 +557,9 @@ static void WindowPlayerTitles_Refresh()
 
 // 原4774C0及47752C公共尾，IDA分段不改变同一主更新的正常出口。
 // 原函数：0x004774C0。
-static std::int32_t WindowPlayerTitles_Update(const std::int32_t value)
+static std::int32_t WindowPlayerTitles_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         const wchar_t* const ownTitle = world::GetPlayerDisplayText(2);

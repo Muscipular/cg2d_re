@@ -32,7 +32,7 @@ static std::int32_t WindowBottomBar_HandleButtons(ElementId elementId, std::int3
 
 // HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
 // 原函数：0x004731E0。
-static std::int32_t WindowBottomBar_Update(std::int32_t value);
+static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -361,9 +361,9 @@ static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, con
 // 原4731E0：窗口6主更新；忽略参数，复制描述后仅清共享缓冲首字节。
 // HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
 // 原函数：0x004731E0。
-static std::int32_t WindowBottomBar_Update(const std::int32_t)
+static std::int32_t WindowBottomBar_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gWindow6HoverD2EA70 == 1 || gHoverTextD68AE8.empty()) {
         for (std::int32_t index = 1; index <= 7; ++index) {

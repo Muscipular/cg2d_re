@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
 namespace cg::ui {
@@ -49,13 +50,13 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004B4B00。
-static std::int32_t WindowGroupSelect_Update(std::int32_t value); // 群组选人初始化/恢复与父窗门禁。
+static std::int32_t WindowGroupSelect_Update(WindowInstance& callbackWindow, std::int32_t value); // 群组选人初始化/恢复与父窗门禁。
 
 // 原函数：0x004B4B70。
 static void WindowGroupSelect_Release(WindowInstance&); // 释放时仅关闭仍处于群发方式的22。
 
 // 原函数：0x004B4B90。
-static std::int32_t WindowGroupSelect_Draw(std::int32_t value); // 滚动反求、七行刷新、公共绘制。
+static std::int32_t WindowGroupSelect_Draw(WindowInstance& callbackWindow, std::int32_t value); // 滚动反求、七行刷新、公共绘制。
 
 // 原函数：0x004B4BB0。
 static std::int32_t WindowGroupSelect_HandlePageButtons(ElementId elementId, std::int32_t state); // 前后翻七行，仅hover消费。
@@ -97,13 +98,13 @@ static void WindowGroupSelect_SortRecipients(std::int32_t category); // 原CRT�
 static std::int32_t WindowGroupSelect_CompareRecipients(const std::int32_t* left, const std::int32_t* right);
 
 // 原函数：0x004B4B00。
-static std::int32_t WindowGroupSelect_Update(std::int32_t value);
+static std::int32_t WindowGroupSelect_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004B4B70。
 static void WindowGroupSelect_Release(WindowInstance&);
 
 // 原函数：0x004B4B90。
-static std::int32_t WindowGroupSelect_Draw(std::int32_t value);
+static std::int32_t WindowGroupSelect_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -213,9 +214,9 @@ WindowPrototype gWindowPrototypeGroupSelect {0, 4, 68, 84, 280, 317, 0x80010101u
 // 窗口函数实现。
 
 // 原函数：0x004B4B00。
-static std::int32_t WindowGroupSelect_Update(const std::int32_t value)
+static std::int32_t WindowGroupSelect_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         if (gLoginWindowRuntime.mailGroupCC1A30.initialize == 0) {
@@ -228,8 +229,8 @@ static std::int32_t WindowGroupSelect_Update(const std::int32_t value)
         gLoginWindowRuntime.mailGroupCC1A30.initialize = 0;
         return 1;
     }
-    if (WindowRuntime_States()[WindowId_MailCompose].window == nullptr) {
-        WindowRuntime_States()[WindowId_GroupSelect].window->state |= 0x8000u;
+    if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_MailCompose].window == nullptr) {
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window->state |= 0x8000u;
     }
     return 1;
 }
@@ -244,11 +245,11 @@ static void WindowGroupSelect_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004B4B90。
-static std::int32_t WindowGroupSelect_Draw(const std::int32_t value)
+static std::int32_t WindowGroupSelect_Draw(WindowInstance& callbackWindow, const std::int32_t value)
 {
     static_cast<void>(WindowGroupSelect_DragScroll(value));
     WindowGroupSelect_Refresh();
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

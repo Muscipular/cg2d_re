@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
@@ -181,10 +182,10 @@ static std::int32_t WindowCraft_ReleaseMaterials(std::int32_t index); // 六槽/
 static void WindowCraft_Release(WindowInstance&);
 
 // 原函数：0x004810A0。
-static std::int32_t WindowCraft_Update(std::int32_t value);
+static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x00482000。
-static std::int32_t WindowCraft_Draw(std::int32_t value);
+static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -2831,9 +2832,9 @@ static std::int32_t WindowCraft_HasFirstMaterialCrystalLevel()
 }
 
 // 原函数：0x004810A0。
-static std::int32_t WindowCraft_Update(const std::int32_t value)
+static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const auto initializeMode = [currentWindow](const std::uint8_t mode) {
         switch (mode) {
@@ -2889,7 +2890,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
         }
     }
     if (WindowProfile_CheckDistance(1, 1) != 0) {
-        WindowRuntime_States()[WindowId_Craft].window->state |= 0x8000u;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     bool matchingCrystal = false;
@@ -3002,7 +3003,7 @@ static std::int32_t WindowCraft_Update(const std::int32_t value)
             }
             skill = gCraftSkillIndexCC2368;
         }
-        static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill + offset, request, target, requestText));
+        static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill + offset, request, target, requestText));
     };
     bool hideControls = false;
     if (gSelectionModeD2D650 == 1 && expired()) {
@@ -3179,9 +3180,9 @@ static void WindowCraft_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x00482000。
-static std::int32_t WindowCraft_Draw(const std::int32_t)
+static std::int32_t WindowCraft_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const element5 = currentWindow->FindElementById(WindowCraftElementId::Element5);
     if (element5) {
@@ -3239,7 +3240,7 @@ static std::int32_t WindowCraft_Draw(const std::int32_t)
                 x, y, 3, 12, 127, cg::ui::detail::gInputContextD2DE70.text, 0, 0));
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

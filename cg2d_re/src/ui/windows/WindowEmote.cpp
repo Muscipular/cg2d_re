@@ -40,7 +40,7 @@ static std::int32_t WindowEmote_ResetSelection(); // 清零唯一18B选择区，
 static std::int32_t WindowEmote_ButtonEmote(ElementId elementId, std::int32_t state); // 情绪窗18按钮，请求被拒仍更新选择并发声。
 
 // 原函数：0x00495F50。
-static std::int32_t WindowEmote_Update(std::int32_t value);
+static std::int32_t WindowEmote_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -143,7 +143,7 @@ static void WindowEmote_ClearSelection()
 }
 
 // 原函数：0x00495F50。
-static std::int32_t WindowEmote_Update(const std::int32_t)
+static std::int32_t WindowEmote_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
     if (WindowProfile_CheckDistance(1, 1) != 0) {
         static_cast<void>(WindowEmote_ResetSelection());

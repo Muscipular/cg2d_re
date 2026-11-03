@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -92,10 +93,10 @@ static std::int32_t WindowStatusBar_FindSortedPetIndex(std::int32_t index); // S
 
 // 原函数：0x00470A80。
 // 关联原入口：0x00470A9F（共享尾已并入本函数正文）。
-static std::int32_t WindowStatusBar_Update(std::int32_t value);
+static std::int32_t WindowStatusBar_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x00470AB0。
-static std::int32_t WindowCompactStatusBar_Update(std::int32_t value);
+static std::int32_t WindowCompactStatusBar_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -195,7 +196,7 @@ WindowPrototype gWindowPrototypeStatusBar {0, 5, 0, 0, 197, 40, 0x80000080u, 24,
 WindowPrototype gWindowPrototypeCompactStatusBar {0, 5, 0, 0, 197, 32, 0x80000080u, 7, gWindowElements55F3A0, &WindowCompactStatusBar_Update, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 2: 54E2D0
 
 // 原型：窗口3；原全局：0x0054E300。
-WindowPrototype gWindowPrototypeCollapsedStatusBar {0, 5, 0, 0, 19, 34, 0x80000080u, 2, gWindowElements55F480, &WindowRuntime_ReturnOne, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 3: 54E300
+WindowPrototype gWindowPrototypeCollapsedStatusBar {0, 5, 0, 0, 19, 34, 0x80000080u, 2, gWindowElements55F480, &WindowRuntime_UpdateDefault, &WindowRuntime_DrawDefault, &WindowRuntime_ReleaseDefault}; // 3: 54E300
 
 // 窗口函数实现。
 
@@ -333,20 +334,20 @@ std::int32_t WindowStatusBar_ButtonMiniMap(const ElementId elementId, const std:
 
 // 原函数：0x00470A80。
 // 关联原入口：0x00470A9F（共享尾已并入本函数正文）。
-static std::int32_t WindowStatusBar_Update(const std::int32_t)
+static std::int32_t WindowStatusBar_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (world::gCurrentSceneType == 10) {
         currentWindow->state |= 0x8000u;
-        static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
+        static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CompactStatusBar));
     }
     WindowStatusBar_Refresh();
     return 1;
 }
 
 // 原函数：0x00470AB0。
-static std::int32_t WindowCompactStatusBar_Update(const std::int32_t)
+static std::int32_t WindowCompactStatusBar_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
     WindowCompactStatusBar_Refresh();
     return 1;

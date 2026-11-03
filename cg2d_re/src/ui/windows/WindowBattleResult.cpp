@@ -98,13 +98,13 @@ static std::int32_t WindowRuntime_ButtonCloseResult(ElementId elementId, std::in
 static std::int32_t WindowBattleResult_ButtonClose(ElementId elementId, std::int32_t state); // 窗口30点击关闭，索引未使用。
 
 // 原函数：0x004991C0。
-static std::int32_t WindowBattleResult_Update(std::int32_t value);
+static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004996C0。
-static std::int32_t WindowBattleResult_Draw(std::int32_t value);
+static std::int32_t WindowBattleResult_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x00499790。
-static std::int32_t WindowDpResult_Update(std::int32_t value);
+static std::int32_t WindowDpResult_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -255,9 +255,9 @@ static std::int32_t WindowRuntime_ButtonCloseResult(const ElementId elementId, c
 }
 
 // 原函数：0x004991C0。
-static std::int32_t WindowBattleResult_Update(const std::int32_t value)
+static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         const auto& results = currentWindow->ownerSession->WorldScene().battleResult.records;
@@ -386,9 +386,9 @@ static std::int32_t WindowBattleResult_Update(const std::int32_t value)
 }
 
 // 原函数：0x004996C0。
-static std::int32_t WindowBattleResult_Draw(const std::int32_t)
+static std::int32_t WindowBattleResult_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = 0xFFFFFFFFu;
@@ -403,7 +403,7 @@ static std::int32_t WindowBattleResult_Draw(const std::int32_t)
             cg::render::DrawGraphic(x + 39, y + 166 + row * 49, 223, image, 0, &descriptor);
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 
@@ -422,9 +422,9 @@ static std::int32_t WindowBattleResult_ButtonClose(const ElementId, const std::i
 }
 
 // 原函数：0x00499790。
-static std::int32_t WindowDpResult_Update(const std::int32_t value)
+static std::int32_t WindowDpResult_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         const std::uint64_t now = platform::ReadTickCount64();

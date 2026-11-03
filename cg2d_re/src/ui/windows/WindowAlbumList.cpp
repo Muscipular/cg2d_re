@@ -97,7 +97,7 @@ static std::int32_t WindowAlbumList_DragScroll(ElementId elementId, std::int32_t
 static std::int32_t WindowAlbumList_Scroll(ElementId elementId, std::int32_t state); // 图鉴滚轮，恒返0。
 
 // 原函数：0x004923F0。
-static std::int32_t WindowAlbumList_Update(std::int32_t value);
+static std::int32_t WindowAlbumList_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -293,7 +293,7 @@ static void* WindowAlbumList_Refresh()
 }
 
 // 原函数：0x004923F0。
-static std::int32_t WindowAlbumList_Update(const std::int32_t value)
+static std::int32_t WindowAlbumList_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueC8A95C = 0;

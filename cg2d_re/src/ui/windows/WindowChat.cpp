@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/Font.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/ChatHistory.hpp"
@@ -75,14 +76,14 @@ static std::int32_t WindowChat_ResetScroll(); // 不清日志正文或写指针�
 static std::int32_t WindowChat_RefreshCompactHeight(); // 窗口57高度循环调整并清两个请求。
 
 // 原函数：0x004A6DD0。
-static std::int32_t WindowChat_Update(std::int32_t value); // CWC01：见聊天窗口控制完整合同。
+static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, std::int32_t value); // CWC01：见聊天窗口控制完整合同。
 
 // 原函数：0x004A8240。
-static std::int32_t WindowCompactChat_Update(std::int32_t value);
+static std::int32_t WindowCompactChat_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // CFD01：窗口35/57共用C9A96C绘制门禁与原返1，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A82C0。
-static std::int32_t WindowChat_Draw(std::int32_t value);
+static std::int32_t WindowChat_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -431,14 +432,14 @@ static void WindowChat_RefreshGeometry()
 
 // CWC01：原输入创建/可见性/焦点与context接线、现场坐标和返1保持。
 // 原函数：0x004A6DD0。
-static std::int32_t WindowChat_Update(const std::int32_t value)
+static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const window = currentWindow;
         // R02：仅当前位置仍在适配后的默认位置±10内时贴右，保留拖动后的位置。
-        const std::int32_t adaptedX = platform::gWindowWidth - (WindowRuntime_Settings().chatWidthUnits * 12 + 123) - 9;
+        const std::int32_t adaptedX = platform::gWindowWidth - (WindowRuntime_Settings(*callbackWindow.ownerSession).chatWidthUnits * 12 + 123) - 9;
         const std::int32_t adaptedY = gWindowPrototypes57C130[WindowId_Chat]->defaultY;
         const std::int64_t offsetX = static_cast<std::int64_t>(window->x) - adaptedX;
         const std::int64_t offsetY = static_cast<std::int64_t>(window->y) - adaptedY;
@@ -751,9 +752,9 @@ static std::int32_t WindowChat_HandleInput(const ElementId, const std::int32_t s
 }
 
 // 原函数：0x004A8240。
-static std::int32_t WindowCompactChat_Update(const std::int32_t value)
+static std::int32_t WindowCompactChat_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     const std::int32_t y = window->y;
@@ -780,10 +781,10 @@ static std::int32_t WindowCompactChat_Update(const std::int32_t value)
 
 // CFD01：窗口35/57共用C9A96C绘制门禁与原返1，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A82C0。
-static std::int32_t WindowChat_Draw(const std::int32_t)
+static std::int32_t WindowChat_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
     if (input::gChatPanelVisible_C9A96C != 0) {
-        WindowRuntime_DrawCurrent();
+        WindowRuntime_DrawCurrent(callbackWindow);
     }
     return 1;
 }

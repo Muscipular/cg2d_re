@@ -126,10 +126,10 @@ static std::int32_t WindowTrade_RemovePet(std::int32_t index); // 只释放宠�
 static void WindowTrade_Release(WindowInstance&); // 窗口43释放回调，原返回值弃用。
 
 // 原函数：0x004B0290。
-static std::int32_t WindowTrade_Update(std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
+static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口43初始化、关闭检查与四阶段更新。
 
 // 原函数：0x004B08D0。
-static std::int32_t WindowTrade_Draw(std::int32_t unused); // 四类提示后绘制完整当前窗口。
+static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 四类提示后绘制完整当前窗口。
 
 // 原函数：0x004AFF30。
 static std::int32_t WindowTrade_AddItem(std::int32_t index, std::int32_t slot); // 空槽领取并标记物品。
@@ -701,9 +701,9 @@ static void WindowTrade_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004B0290。
-static std::int32_t WindowTrade_Update(const std::int32_t value)
+static std::int32_t WindowTrade_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         WindowInstance* const initialWindow = currentWindow;
@@ -909,7 +909,7 @@ static std::int32_t WindowTrade_Update(const std::int32_t value)
 }
 
 // 原函数：0x004B08D0。
-static std::int32_t WindowTrade_Draw(const std::int32_t)
+static std::int32_t WindowTrade_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
     std::int32_t preview = gTradePreviewCC2E64;
     if (preview >= 0) {
@@ -951,7 +951,7 @@ static std::int32_t WindowTrade_Draw(const std::int32_t)
             }
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

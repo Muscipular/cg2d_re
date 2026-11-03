@@ -186,10 +186,10 @@ static std::int32_t WindowSkill_CheckPetLevel(std::int32_t petIndex, std::int32_
 static std::int32_t WindowSkill_MatchesCrystalLevel(session::ClientSession& session); // 当前技能技术value90与重读晶石等级等值。
 
 // 原函数：0x0047A620。
-static std::int32_t WindowSkill_Update(std::int32_t value);
+static std::int32_t WindowSkill_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0047A7A0。
-static std::int32_t WindowSkill_Draw(std::int32_t value);
+static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0047B0E0。
 static void WindowSkill_Release(WindowInstance&);
@@ -1838,9 +1838,9 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(const ElementId elementId, co
 }
 
 // 原函数：0x0047A620。
-static std::int32_t WindowSkill_Update(const std::int32_t value)
+static std::int32_t WindowSkill_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -1897,9 +1897,9 @@ static std::int32_t WindowSkill_Update(const std::int32_t value)
 }
 
 // 原函数：0x0047A7A0。
-static std::int32_t WindowSkill_Draw(const std::int32_t)
+static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -2072,7 +2072,7 @@ static std::int32_t WindowSkill_Draw(const std::int32_t)
     default:
         break;
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

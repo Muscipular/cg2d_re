@@ -41,10 +41,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004A4180。
-static std::int32_t WindowGuildRank_Update(std::int32_t value); // 窗口55只初始化滚动位置。
+static std::int32_t WindowGuildRank_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口55只初始化滚动位置。
 
 // 原函数：0x004A41A0。
-static std::int32_t WindowGuildRank_Draw(std::int32_t unused); // 刷新/公共绘制后反求滚动，再画九宫格。
+static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 刷新/公共绘制后反求滚动，再画九宫格。
 
 // 原函数：0x004A4220。
 static std::int32_t WindowGuildRank_SelectRow(ElementId elementId, std::int32_t state); // 职级行选择及当前选择图号。
@@ -65,10 +65,10 @@ static std::uint32_t WindowGuildRank_Refresh(); // 十行职级/成员姓名刷�
 static std::int32_t WindowGuildRank_Scroll(ElementId elementId, std::int32_t state); // 非零滚轮推进，恒返回0。
 
 // 原函数：0x004A4180。
-static std::int32_t WindowGuildRank_Update(std::int32_t value);
+static std::int32_t WindowGuildRank_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004A41A0。
-static std::int32_t WindowGuildRank_Draw(std::int32_t value);
+static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -130,7 +130,7 @@ WindowPrototype gWindowPrototypeGuildRank {0, 4, 100, 100, 243, 206, 0x80000080u
 // 窗口函数实现。
 
 // 原函数：0x004A4180。
-static std::int32_t WindowGuildRank_Update(const std::int32_t value)
+static std::int32_t WindowGuildRank_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.mailRankScrollCA0474 = 0;
@@ -139,12 +139,12 @@ static std::int32_t WindowGuildRank_Update(const std::int32_t value)
 }
 
 // 原函数：0x004A41A0。
-static std::int32_t WindowGuildRank_Draw(const std::int32_t)
+static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(WindowGuildRank_Refresh());
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowGuildRankElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {
         gLoginWindowRuntime.mailRankScrollCA0474 = WindowScroll_ReadPosition(handleVerticalScrollElement, 21);

@@ -41,7 +41,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(ElementId elementId, std::in
 
 // 主原型中的真实回调依赖；本声明只约束窗口调用侧，不替代各本体取证。
 // 原函数：0x0046FBA0。
-static std::int32_t WindowShortcutBar_Update(std::int32_t value);
+static std::int32_t WindowShortcutBar_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -100,9 +100,9 @@ WindowPrototype gWindowPrototypeCollapsedShortcutBar {0, 5, 626, 0, 14, 33, 0x80
 // 窗口函数实现。
 
 // 原函数：0x0046FBA0。
-static std::int32_t WindowShortcutBar_Update(const std::int32_t)
+static std::int32_t WindowShortcutBar_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (world::gCurrentSceneType == 10) {
         currentWindow->state |= 0x8000u;

@@ -61,11 +61,11 @@ static void WindowSettings_RefreshAudioPanel(std::int32_t offset); // 设置窗�
 static void WindowSettings_RefreshDisplayPanel(std::int32_t offset); // 设置窗口显示侧栏，读取当前模式S8。
 
 // 原函数：0x00493D60。
-static std::int32_t WindowSettings_Update(std::int32_t value); // -1仅隐藏侧栏、清活动索引和位移。
+static std::int32_t WindowSettings_Update(WindowInstance& callbackWindow, std::int32_t value); // -1仅隐藏侧栏、清活动索引和位移。
 
 // 原函数：0x00493DB0。
 // 关联原入口：0x00493DF9（共享尾已并入本函数正文）。
-static std::int32_t WindowSettings_Draw(std::int32_t unusedValue); // 四侧栏减速展开与公共绘制尾。
+static std::int32_t WindowSettings_Draw(WindowInstance& callbackWindow, std::int32_t unusedValue); // 四侧栏减速展开与公共绘制尾。
 
 // 原函数：0x00493E10。
 static void WindowSettings_Release(WindowInstance&); // 设置写回/持久化后播放关闭音效。
@@ -128,11 +128,11 @@ static std::int32_t WindowSettings_ToggleScanlines(ElementId elementId, std::int
 static std::int32_t WindowSettings_DrawRenderModeButton(ElementId elementId, std::int32_t state); // 当前渲染模式提示/图号，恒返0。
 
 // 原函数：0x00493D60。
-static std::int32_t WindowSettings_Update(std::int32_t value);
+static std::int32_t WindowSettings_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x00493DB0。
 // 关联原入口：0x00493DF9（共享尾已并入本函数正文）。
-static std::int32_t WindowSettings_Draw(std::int32_t value);
+static std::int32_t WindowSettings_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x00493E10。
 static void WindowSettings_Release(WindowInstance&);
@@ -392,9 +392,9 @@ static void WindowSettings_RefreshDisplayPanel(const std::int32_t offset)
 }
 
 // 原函数：0x00493D60。
-static std::int32_t WindowSettings_Update(const std::int32_t value)
+static std::int32_t WindowSettings_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         for (std::int32_t index = 8; index <= 30; ++index) {
@@ -408,7 +408,7 @@ static std::int32_t WindowSettings_Update(const std::int32_t value)
 
 // 原函数：0x00493DB0。
 // 关联原入口：0x00493DF9（共享尾已并入本函数正文）。
-static std::int32_t WindowSettings_Draw(const std::int32_t)
+static std::int32_t WindowSettings_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
     const std::int8_t panel = gSettingsPanelCC4234;
     if (panel >= 0) {
@@ -425,7 +425,7 @@ static std::int32_t WindowSettings_Draw(const std::int32_t)
             kSettingsPanelCallbacks57DF38[panel](offset);
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

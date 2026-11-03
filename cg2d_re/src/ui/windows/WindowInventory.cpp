@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
@@ -257,10 +258,10 @@ static std::int32_t WindowInventory_TabPlayerAttributes(ElementId elementId, std
 static void WindowInventory_Release(WindowInstance&);
 
 // 原函数：0x00488990。
-static std::int32_t WindowInventory_Update(std::int32_t value);
+static std::int32_t WindowInventory_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x00488B10。
-static std::int32_t WindowInventory_Draw(std::int32_t value);
+static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -556,16 +557,16 @@ static void WindowInventory_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x00488990。
-static std::int32_t WindowInventory_Update(const std::int32_t value)
+static std::int32_t WindowInventory_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t selected;
     if (value == -1) {
         WindowItemSelector_BindElements(&gItemSelectorCF3B10, 0);
         WindowInstance* const window = currentWindow;
         gItemSelectorCF3B10.initialized3E8 = 0;
-        WindowRuntime_States()[WindowId_Inventory].value14 = 0;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = 0;
         gItemSelectionModeCC40D4 = 0;
         if (auto* const handleItemsElement = window->FindElementById(WindowInventoryElementId::HandleItems); handleItemsElement) handleItemsElement->mouseCallback = WindowInventory_HandleItems;
         selected = -1;
@@ -600,22 +601,22 @@ static std::int32_t WindowInventory_Update(const std::int32_t value)
         static_cast<void>(WindowDrag_ResetMouse());
     }
 updateSelector:
-    WindowInstance* const quantityWindow = WindowRuntime_States()[WindowId_Quantity].window;
-    WindowRuntime_States()[WindowId_Inventory].value10 = 0xFFFFFFFFu;
+    WindowInstance* const quantityWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].window;
+    WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10 = 0xFFFFFFFFu;
     if (quantityWindow != nullptr
-        && WindowRuntime_States()[WindowId_Quantity].value20 == 14 && WindowRuntime_States()[WindowId_Quantity].value24 == 1) {
+        && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value20 == 14 && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value24 == 1) {
         const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
-        WindowRuntime_States()[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
-        WindowRuntime_States()[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
     }
     WindowItemSelector_Update(&gItemSelectorCF3B10);
     return 1;
 }
 
 // 原函数：0x00488B10。
-static std::int32_t WindowInventory_Draw(const std::int32_t)
+static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static constexpr std::wstring_view selectionText586B14[] { // 原常量参考：0x00586B14。
         L"选好想盖印的物品，", L"单点滑鼠左键，", L"可盖下印记。", L"单点滑鼠右键即结束。",
@@ -625,9 +626,9 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
     };
     const std::uint8_t mode = gItemSelectionModeCC40D4;
     if (mode == 0) {
-        const std::int32_t selected = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Inventory].value10);
+        const std::int32_t selected = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10);
         if (selected >= 0) {
-            const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Inventory].value14);
+            const std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14);
             static_cast<void>(WindowItem_DrawEquipmentTooltip(selected, page));
         }
     } else if (mode == 1 || mode == 2) {
@@ -661,7 +662,7 @@ static std::int32_t WindowInventory_Draw(const std::int32_t)
                 element63->data.animation->action, 4);
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

@@ -522,7 +522,7 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
         ui::detail::WindowRuntime_UpdateExtendedElements();
         return stage;
     }
-    int render(int) override { ui::WindowRuntime_DrawCurrent(); return 1; }
+    int render(int) override { ui::WindowRuntime_DrawCurrent(window); return 1; }
 };
 
 static ui::WindowGraphicData* CurrentGraphic(ui::ElementId elementId) {

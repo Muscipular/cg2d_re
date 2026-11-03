@@ -168,10 +168,10 @@ static std::int32_t WindowGuildDetails_Scroll(ElementId elementId, std::int32_t 
 static std::int32_t WindowGuildDetails_ButtonClose(ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AEAE0。
-static std::int32_t WindowGuildDetails_Update(std::int32_t value);
+static std::int32_t WindowGuildDetails_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004AEC10。
-static std::int32_t WindowGuildDetails_Draw(std::int32_t value);
+static std::int32_t WindowGuildDetails_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -318,9 +318,9 @@ WindowPrototype gWindowPrototypeGuildDetails {0, 4, 100, 60, 317, 325, 0x8001010
 // 窗口函数实现。
 
 // 原函数：0x004AEAE0。
-static std::int32_t WindowGuildDetails_Update(const std::int32_t value)
+static std::int32_t WindowGuildDetails_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gGuildPageD67B78 = 0;
@@ -351,11 +351,11 @@ static std::int32_t WindowGuildDetails_Update(const std::int32_t value)
 }
 
 // 原函数：0x004AEC10。
-static std::int32_t WindowGuildDetails_Draw(const std::int32_t value)
+static std::int32_t WindowGuildDetails_Draw(WindowInstance& callbackWindow, const std::int32_t value)
 {
     WindowGuildDetails_DragScroll(value);
     WindowGuildDetails_RefreshReadOnly();
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

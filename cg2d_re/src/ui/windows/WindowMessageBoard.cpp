@@ -69,7 +69,7 @@ static void WindowMessageBoard_RefreshRecords(); // 四条记录刷新元素及�
 static std::int32_t WindowMessageBoard_Close(); // 清对话类型、关闭入口时实例并透传SE57结果。
 
 // 原函数：0x004B5AD0。
-static std::int32_t WindowMessageBoard_Update(std::int32_t value);
+static std::int32_t WindowMessageBoard_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004B5B50。
 static void WindowMessageBoard_Release(WindowInstance&);
@@ -176,9 +176,9 @@ void WindowMessageBoard_ResetRecords()
 }
 
 // 原函数：0x004B5AD0。
-static std::int32_t WindowMessageBoard_Update(const std::int32_t value)
+static std::int32_t WindowMessageBoard_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gWindow50InputPrototype580618.input.context->clearText();

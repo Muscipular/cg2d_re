@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/scene/character_select/CharacterSelectScene.hpp"
@@ -59,7 +60,7 @@ static WindowAnimationData* WindowGather_RefreshResult(); // 仅更新已有窗�
 static void WindowGather_Release(WindowInstance&);
 
 // 原函数：0x00486040。
-static std::int32_t WindowGather_Update(std::int32_t value);
+static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -488,9 +489,9 @@ WindowAnimationData* WindowGather_ReceiveResult(const std::int32_t result, const
 }
 
 // 原函数：0x00486040。
-static std::int32_t WindowGather_Update(const std::int32_t value)
+static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gWindowActionD2E928 = nullptr;
@@ -641,7 +642,7 @@ static std::int32_t WindowGather_Update(const std::int32_t value)
                 static_cast<void>(gSkillSendModeC8A970); // 原cmp未被后续分支消费，没有+200。
                 skill = std::bit_cast<std::int8_t>(gWindow12SkillIndexCA0470);
             }
-            static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill, level, -1, L""));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill, level, -1, L""));
             gWindow12PetImageCB10CC = WindowSkill_ReadBattlePetImage();
             gWindow12CrystalLevelCC3E90 = WindowSkill_ReadCrystalLevel();
             gWindow12ModeCC3E80 = 2;

@@ -36,13 +36,13 @@ namespace detail {
 static void WindowTextTarget_Release(WindowInstance&);
 
 // 原函数：0x0049F060。
-static std::int32_t WindowTextTarget_Update(std::int32_t value);
+static std::int32_t WindowTextTarget_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049F0A0。
 static void WindowTextTarget_Refresh(std::int32_t offset); // 刷新五行，未用行清空正文但保留颜色。
 
 // 原函数：0x0049F1A0。
-static std::int32_t WindowTextTarget_Draw(std::int32_t value);
+static std::int32_t WindowTextTarget_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049F260。
 static std::int32_t WindowTextTarget_ButtonPreviousRow(ElementId elementId, std::int32_t state);
@@ -140,10 +140,10 @@ static void WindowTextTarget_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x0049F060。
-static std::int32_t WindowTextTarget_Update(const std::int32_t value)
+static std::int32_t WindowTextTarget_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
-        auto& session = *gCurrentWindow->ownerSession;
+        auto& session = *callbackWindow.ownerSession;
         auto& choice = session.UiFrame().native.textTarget;
         choice.offset = 0;
         WindowTextTarget_Refresh(0);
@@ -185,9 +185,9 @@ static void WindowTextTarget_Refresh(const std::int32_t offset)
 }
 
 // 原函数：0x0049F1A0。
-static std::int32_t WindowTextTarget_Draw(const std::int32_t)
+static std::int32_t WindowTextTarget_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;
@@ -206,7 +206,7 @@ static std::int32_t WindowTextTarget_Draw(const std::int32_t)
             WindowTextTarget_Refresh(choice.offset);
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     WindowInstance* const window = currentWindow;
     const auto height = static_cast<std::int16_t>(window->height);
     const auto width = static_cast<std::int16_t>(window->width);

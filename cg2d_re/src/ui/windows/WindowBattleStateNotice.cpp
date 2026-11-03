@@ -15,7 +15,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049BD40。
-static std::int32_t WindowBattleStateNotice_Update(std::int32_t value);
+static std::int32_t WindowBattleStateNotice_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -44,9 +44,9 @@ void WindowBattleStateNotice_Open()
 }
 
 // 原函数：0x0049BD40。
-static std::int32_t WindowBattleStateNotice_Update(const std::int32_t)
+static std::int32_t WindowBattleStateNotice_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const initialWindow = currentWindow;
     world::gBattleEntryNoticeAction5ABFB8 = nullptr;

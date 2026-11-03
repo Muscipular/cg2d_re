@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/PlayerState.hpp"
@@ -23,7 +24,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004A53F0。
-static std::int32_t WindowMailCompose_Update(std::int32_t value); // 发信初始化、宠物候选和收件人刷新。
+static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, std::int32_t value); // 发信初始化、宠物候选和收件人刷新。
 
 // 原函数：0x004A5970。
 static std::int32_t WindowMailCompose_HandleRecipients(ElementId elementId, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
@@ -32,7 +33,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(ElementId elementId, std:
 static std::uint8_t WindowMailCompose_RefreshRecipients(); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
 
 // 原函数：0x004A53F0。
-static std::int32_t WindowMailCompose_Update(std::int32_t value);
+static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -69,13 +70,13 @@ WindowInstance* WindowMailCompose_Open(session::ClientSession& session)
 }
 
 // 原函数：0x004A53F0。
-static std::int32_t WindowMailCompose_Update(const std::int32_t value)
+static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         if (gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
-            WindowInstance* const window = WindowRuntime_States()[WindowId_GroupSelect].window;
+            WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
             if (window != nullptr) {
                 window->state |= 0x8000u;
             }
@@ -83,9 +84,9 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
             if (gLoginWindowRuntime.prefixD2F0B8.value26C != 0) {
                 gLoginWindowRuntime.mailGroupCC1A30.initialize = 1;
             }
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_GroupSelect, 1, 0, nullptr));
+            static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_GroupSelect, 1, 0, nullptr));
         }
-        WindowInstance* const petWindow = WindowRuntime_States()[WindowId_PetMailCompose].window;
+        WindowInstance* const petWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetMailCompose].window;
         if (petWindow != nullptr) {
             petWindow->state |= 0x8000u;
             const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
@@ -161,7 +162,7 @@ static std::int32_t WindowMailCompose_Update(const std::int32_t value)
         gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
     }
     static_cast<void>(WindowMailCompose_RefreshRecipients());
-    WindowInstance* const groupWindow = WindowRuntime_States()[WindowId_GroupSelect].window;
+    WindowInstance* const groupWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
     if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
         groupWindow->state |= 0x8000u;
     }

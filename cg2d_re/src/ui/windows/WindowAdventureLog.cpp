@@ -51,7 +51,7 @@ static void WindowAdventureLog_Load(); // 日志文件重开/计数，保留原�
 static std::int32_t WindowAdventureLog_HandleNavigation(ElementId elementId, std::int32_t state); // 上下翻与原非标准日期前后切换。
 
 // 原函数：0x004CBD90。
-static std::int32_t WindowAdventureLog_Update(std::int32_t value);
+static std::int32_t WindowAdventureLog_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -229,7 +229,7 @@ static void WindowAdventureLog_Refresh()
 }
 
 // 原函数：0x004CBD90。
-static std::int32_t WindowAdventureLog_Update(const std::int32_t value)
+static std::int32_t WindowAdventureLog_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueD67BB0 = 0;

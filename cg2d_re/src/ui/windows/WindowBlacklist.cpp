@@ -111,7 +111,7 @@ static std::int32_t WindowBlacklist_Clear(ElementId elementId, std::int32_t unus
 static std::int32_t WindowBlacklist_CancelClear(ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x004CC6C0。
-static std::int32_t WindowBlacklist_Update(std::int32_t value);
+static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -298,7 +298,7 @@ static void WindowBlacklist_Refresh()
 }
 
 // 原函数：0x004CC6C0。
-static std::int32_t WindowBlacklist_Update(const std::int32_t value)
+static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valueD2E444 = 0;

@@ -33,7 +33,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004CB9E0。
-static std::int32_t WindowProfileReply_Update(std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
+static std::int32_t WindowProfileReply_Update(WindowInstance& callbackWindow, std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
 
 // 原函数：0x004CB9F0。
 static std::uint32_t WindowProfileReply_Refresh(); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
@@ -154,7 +154,7 @@ static std::uint32_t WindowProfileReply_Refresh()
 }
 
 // 原函数：0x004CB9E0。
-static std::int32_t WindowProfileReply_Update(const std::int32_t)
+static std::int32_t WindowProfileReply_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
     static_cast<void>(WindowProfileReply_Refresh());
     return 1;

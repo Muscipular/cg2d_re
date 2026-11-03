@@ -231,10 +231,10 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(ElementId elementId,
 static void WindowPetSkillChoice_Release(WindowInstance&);
 
 // 原函数：0x004BF7C0。
-static std::int32_t WindowPetSkillChoice_Update(std::int32_t value);
+static std::int32_t WindowPetSkillChoice_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004BF950。
-static std::int32_t WindowPetSkillChoice_Draw(std::int32_t value);
+static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -1319,9 +1319,9 @@ static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* const 
 }
 
 // 原函数：0x004BF7C0。
-static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
+static std::int32_t WindowPetSkillChoice_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowPetSkillChoiceElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 0;
@@ -1367,9 +1367,9 @@ static std::int32_t WindowPetSkillChoice_Update(const std::int32_t value)
 }
 
 // 原函数：0x004BF950。
-static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
+static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
     WindowInstance* window = currentWindow;
@@ -1468,7 +1468,7 @@ static std::int32_t WindowPetSkillChoice_Draw(const std::int32_t unused)
             y += 10;
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

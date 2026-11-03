@@ -57,10 +57,10 @@ static std::uint32_t WindowTextList_RefreshLines(WindowInstance* window); // 九
 static void WindowTextList_Release(WindowInstance&); // 51释放回调：行表、物品标记、条件关闭请求。
 
 // 原函数：0x004AD800。
-static std::int32_t WindowTextList_Update(std::int32_t value); // 51初始化、移动关闭及权限可见性。
+static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, std::int32_t value); // 51初始化、移动关闭及权限可见性。
 
 // 原函数：0x004AD9F0。
-static std::int32_t WindowTextList_Draw(std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
+static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
 
 // 原函数：0x004ADAA0。
 static std::int32_t WindowTextList_DrawConfirmation(ElementId elementId, std::int32_t unused); // 51模态提示及固定确认按钮。
@@ -99,10 +99,10 @@ static std::int32_t WindowTextList_DrawBackgroundTooltip(ElementId elementId, st
 static void WindowTextList_Release(WindowInstance&);
 
 // 原函数：0x004AD800。
-static std::int32_t WindowTextList_Update(std::int32_t value);
+static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004AD9F0。
-static std::int32_t WindowTextList_Draw(std::int32_t value);
+static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -303,9 +303,9 @@ static void WindowTextList_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004AD800。
-static std::int32_t WindowTextList_Update(const std::int32_t value)
+static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gSelectedItem57EE0C = -1;
@@ -364,9 +364,9 @@ static std::int32_t WindowTextList_Update(const std::int32_t value)
 }
 
 // 原函数：0x004AD9F0。
-static std::int32_t WindowTextList_Draw(const std::int32_t)
+static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (auto* const element15 = currentWindow->FindElementById(WindowTextListElementId::Element15); element15) element15->visible = 1;
     if (gWindowLineCountD67B74 - 9 <= 0) {
@@ -395,7 +395,7 @@ static std::int32_t WindowTextList_Draw(const std::int32_t)
             static_cast<void>(WindowInput_ActivateElement(&gTitleInputPrototype57EE10, x, y, 2));
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

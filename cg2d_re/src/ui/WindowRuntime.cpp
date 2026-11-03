@@ -3636,17 +3636,17 @@ std::int32_t WindowNumber_MeasureWidth(const std::wstring_view text, const std::
 }
 
 // 原函数：0x0046FBC0。
-std::int32_t WindowRuntime_DrawDefault(const std::int32_t)
+std::int32_t WindowRuntime_DrawDefault(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 
 // 原函数：0x0049BDB0。
-std::int32_t WindowRuntime_DrawCompactFrame(const std::int32_t)
+std::int32_t WindowRuntime_DrawCompactFrame(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowRuntime_DrawCurrent();
-    WindowInstance* const window = gCurrentWindow;
+    WindowRuntime_DrawCurrent(callbackWindow);
+    WindowInstance* const window = &callbackWindow;
     const auto height = static_cast<std::int16_t>(window->height);
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
@@ -3696,10 +3696,10 @@ void WindowRuntime_DecrementOperationCount(session::ClientSession& session)
 }
 
 // 原函数：0x00499830。
-std::int32_t WindowRuntime_DrawLargeFrame(const std::int32_t)
+std::int32_t WindowRuntime_DrawLargeFrame(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowRuntime_DrawCurrent();
-    WindowInstance* const window = gCurrentWindow;
+    WindowRuntime_DrawCurrent(callbackWindow);
+    WindowInstance* const window = &callbackWindow;
     const auto height = static_cast<std::int16_t>(window->height);
     const auto width = static_cast<std::int16_t>(window->width);
     const auto y = static_cast<std::int16_t>(window->y);
@@ -4411,6 +4411,11 @@ void WindowRuntime_ReleaseDefault(WindowInstance&)
     static_cast<void>(WindowRuntime_ReturnOne(0));
 }
 
+std::int32_t WindowRuntime_UpdateDefault(WindowInstance&, const std::int32_t value) noexcept
+{
+    return WindowRuntime_ReturnOne(value);
+}
+
 void WindowRuntime_QueuePagePresentation(const WindowInstance& source, const WindowInstance& target)
 {
     if (!gPagePresentation || !gPagePresentation->accepting
@@ -4480,7 +4485,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                 updateResult = (window->state & 0x8000u) ? 0
                     : invoke([&] { return extension->update(carried, focused); });
             } else {
-                updateResult = invoke([&] { return gCurrentWindow->update(carried); });
+                updateResult = invoke([&] { return window->update(*window, carried); });
                 window = gCurrentWindow;
                 if (window->binding && !(window->state & 0x8000u)) window->binding->update();
                 // WEO01：update维护排序缓存，分页的前景顺序由创建时的seqNo表达。
@@ -4529,7 +4534,7 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                 }
             }
             if (!(window->state & 0x8000u) && !window->scriptHidden) {
-                carried = invoke([&] { return extension ? extension->render(updateResult) : window->draw(updateResult); });
+                carried = invoke([&] { return extension ? extension->render(updateResult) : window->draw(*window, updateResult); });
                 if (window->binding && !(window->state & 0x8000u) && !window->scriptHidden) window->binding->draw();
             }
             // 切页回调已消费点击；新页只刷新原生内容并接替旧页的绘制位置，不参与本帧输入。
@@ -4550,11 +4555,11 @@ std::int32_t WindowRuntime_Update(session::ClientSession& session)
                     gCurrentWindowIdD67A1C = target->id;
                     gCurrentElementId57C12C = 0;
                     // 宠物页的update(-1)只初始化；正常update补齐属性/技能，沿各页自己的draw。
-                    const auto targetResult = invoke([&] { return target->update(carried); });
+                    const auto targetResult = invoke([&] { return target->update(*target, carried); });
                     if (WindowRuntime_FindInstance(session, pagePresentation.targetId) == target
                         && target->generation == pagePresentation.targetGeneration
                         && !(target->state & 0x8000u) && !target->scriptHidden) {
-                        carried = invoke([&] { return target->draw(targetResult); });
+                        carried = invoke([&] { return target->draw(*target, targetResult); });
                     }
                     gCurrentWindow = previousWindow;
                     gCurrentWindowState = previousState;
@@ -4802,7 +4807,7 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
     states[id].flags = flags | 0x80u;
     gCurrentWindow = window;
     window->elementCount = count;
-    static_cast<void>(window->update(-1));
+    static_cast<void>(window->update(*window, -1));
     states[id].window = window;
     window->elementCount = count + pageCount;
     switch (id) {
@@ -4810,7 +4815,7 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
     case WindowId_BattleItems:
     case WindowId_Craft:
         window->height += 30;
-        static_cast<void>(window->update(-1));
+        static_cast<void>(window->update(*window, -1));
         break;
     case WindowId_Bank:
         for (std::int32_t index = 3; index <= 6; ++index) {
@@ -5256,16 +5261,15 @@ void WindowRuntime_DrawElement(WindowInstance& window, ElementId id, int ox, int
     if (clip) WindowRuntime_ClipGraphics(firstGraphic, *clip);
 }
 
-void WindowRuntime_DrawCurrent()
+void WindowRuntime_DrawCurrent(WindowInstance& target)
 {
     using namespace detail;
-    WindowInstance* window = gCurrentWindow;
+    WindowInstance* const window = &target;
     WindowRuntime_UpdateElementOrder(*window);
     WindowElementCursor cursor(*window);
     while (auto* element = cursor.next()) {
         if (element->parentId) continue;
         WindowRuntime_DrawElement(*window, element->elementId, window->x, window->y, nullptr);
-        window = gCurrentWindow;
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
     world::DrawChatRangeOverlay_476680();

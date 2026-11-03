@@ -16,7 +16,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049E750。
-static std::int32_t WindowTimerNotice_Update(std::int32_t value); // 窗口39文本居中/到时关闭请求。
+static std::int32_t WindowTimerNotice_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口39文本居中/到时关闭请求。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -33,9 +33,9 @@ WindowPrototype gWindowPrototypeTimerNotice {3, 3, 196, 180, 256, 96, 0x80010101
 // 窗口函数实现。
 
 // 原函数：0x0049E750。
-static std::int32_t WindowTimerNotice_Update(const std::int32_t value)
+static std::int32_t WindowTimerNotice_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         auto* const element1 = currentWindow->FindElementById(WindowTimerNoticeElementId::Element1);

@@ -38,7 +38,7 @@ input::InputContext gInputContextCA0180 {}; // 原全局：0x00CA0180。
 // 回调与内部函数前置声明。
 
 // 原函数：0x004CB550。
-static std::int32_t WindowMiniMail_Update(std::int32_t value); // 窗口63首次按目标决定保留输入，再每帧刷新。
+static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口63首次按目标决定保留输入，再每帧刷新。
 
 // 原函数：0x004CB5D0。
 static void WindowMiniMail_Refresh(); // 同源收件人与八位费用刷新，原混合返回无人消费。
@@ -120,9 +120,9 @@ static void WindowMiniMail_Refresh()
 }
 
 // 原函数：0x004CB550。
-static std::int32_t WindowMiniMail_Update(const std::int32_t value)
+static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         const std::int32_t mode =

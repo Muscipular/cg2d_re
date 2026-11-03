@@ -175,13 +175,13 @@ static std::int32_t WindowStall_ButtonClose(ElementId elementId, std::int32_t st
 static void WindowStall_Release(WindowInstance&); // 67/68共用释放，条件发送后无条件SE57。
 
 // 原函数：0x004CDB10。
-static std::int32_t WindowStall_Draw(std::int32_t unusedValue); // 两类摊位预览、失效上架剔除与提示绘制。
+static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, std::int32_t unusedValue); // 两类摊位预览、失效上架剔除与提示绘制。
 
 // 原函数：0x004D27C0。
 static std::int32_t WindowStall_AddListing(std::int32_t value); // 当前选择追加到自身上架表，先清选择最后发布数量。
 
 // 原函数：0x004CD4F0。
-static std::int32_t WindowStall_Update(std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
+static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
 
 // 原函数：0x004D2080。
 static std::int32_t WindowStall_EditDescription(ElementId elementId, std::int32_t state); // 固定元素8说明编辑，hover不消费。
@@ -2197,9 +2197,9 @@ static std::int32_t WindowStall_HandlePurchaseConfirmation(const ElementId, cons
 }
 
 // 原函数：0x004CD4F0。
-static std::int32_t WindowStall_Update(const std::int32_t value)
+static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const activeWindow = gCurrentWindow;
+    WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     if (value == -1) {
         WindowInstance* const initial = activeWindow;
@@ -2471,9 +2471,9 @@ static std::int32_t WindowStall_EditName(const ElementId, const std::int32_t sta
 }
 
 // 原函数：0x004CDB10。
-static std::int32_t WindowStall_Draw(const std::int32_t)
+static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gStallOwn58111C != 0) {
         {
@@ -2596,7 +2596,7 @@ static std::int32_t WindowStall_Draw(const std::int32_t)
             }
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

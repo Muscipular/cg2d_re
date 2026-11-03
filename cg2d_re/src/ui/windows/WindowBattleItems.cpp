@@ -66,10 +66,10 @@ static std::int32_t WindowBattleItems_TabPet(ElementId elementId, std::int32_t s
 static std::int32_t WindowBattleItems_ShowExtraAttributes(ElementId elementId, std::int32_t state); // D2F338附加属性页包装。
 
 // 原函数：0x00499990。
-static std::int32_t WindowBattleItems_Update(std::int32_t value);
+static std::int32_t WindowBattleItems_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004999D0。
-static std::int32_t WindowBattleItems_Draw(std::int32_t value);
+static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -223,7 +223,7 @@ static std::int32_t WindowBattleItems_TabPet(const ElementId elementId, const st
 }
 
 // 原函数：0x00499990。
-static std::int32_t WindowBattleItems_Update(const std::int32_t value)
+static std::int32_t WindowBattleItems_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         WindowItemSelector_BindElements(&gItemSelectorD2F338, 1);
@@ -236,9 +236,9 @@ static std::int32_t WindowBattleItems_Update(const std::int32_t value)
 }
 
 // 原函数：0x004999D0。
-static std::int32_t WindowBattleItems_Draw(const std::int32_t)
+static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t hovered = gBattleItemHoverCF49B0;
     if (hovered >= 0) {
@@ -292,7 +292,7 @@ static std::int32_t WindowBattleItems_Draw(const std::int32_t)
             }
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

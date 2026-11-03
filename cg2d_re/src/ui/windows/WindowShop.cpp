@@ -237,10 +237,10 @@ static void WindowShop_RemoveSaleSelection(); // 三次读取来源，撤销选�
 static void WindowShop_Release(WindowInstance&);
 
 // 原函数：0x004B9310。
-static std::int32_t WindowShop_Update(std::int32_t value);
+static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004B99D0。
-static std::int32_t WindowShop_Draw(std::int32_t value);
+static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -1524,9 +1524,9 @@ static void WindowShop_CountDetailItems()
 }
 
 // 原函数：0x004B9310。
-static std::int32_t WindowShop_Update(const std::int32_t value)
+static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         gShopScrollCC488C = 0;
@@ -3791,9 +3791,9 @@ static std::int32_t WindowShop_HandleConfirmation(const ElementId elementId, con
 }
 
 // 原函数：0x004B99D0。
-static std::int32_t WindowShop_Draw(const std::int32_t unused)
+static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
     const WindowInstance* const window = currentWindow;
@@ -3833,7 +3833,7 @@ static std::int32_t WindowShop_Draw(const std::int32_t unused)
         ++line;
         y += 10;
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

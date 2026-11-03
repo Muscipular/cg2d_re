@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/ui/HitTest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -38,9 +39,9 @@ enum class WindowPetEquipmentElementId : ElementId {
 namespace detail {
 
 // 同步宠物名字、排序位置及说明状态，宠物消失时关闭装备页。
-static std::int32_t WindowPetEquipment_Update(std::int32_t value);
+static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, std::int32_t value);
 // 共用物品提示和宠物外框，绘制本页五个装备槽。
-static std::int32_t WindowPetEquipment_Draw(std::int32_t value);
+static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, std::int32_t value);
 // 将装备页位置同步给另外三个宠物详情页。
 static void WindowPetEquipment_Release(WindowInstance&);
 // 前后跳过空宠物槽，沿用详情页的当前排序位置。
@@ -100,9 +101,9 @@ WindowPrototype gWindowPrototypePetEquipment {0, 4, 365, 83, 245, 306, 0x8001010
     &WindowPetEquipment_Update, &WindowPetEquipment_Draw, &WindowPetEquipment_Release};
 
 // value10为悬停槽（-1无），value14为说明页，value20记录真实宠物槽；不拥有或复制装备记录。
-static std::int32_t WindowPetEquipment_Update(const std::int32_t value)
+static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     if (value == -1) {
         // NativeAnchor会减去控件宽高；新页面的尺寸表示文字框，不沿用旧锚点。
@@ -126,7 +127,7 @@ static std::int32_t WindowPetEquipment_Update(const std::int32_t value)
             }
         }
     }
-    auto& state = WindowRuntime_States()[WindowId_PetEquipment];
+    auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
     if (value == -1 && input::gCurrentInputData == &gInputContextD2D4A0) {
         static_cast<void>(WindowChat_RestoreInput());
     }
@@ -170,7 +171,7 @@ static std::int32_t WindowPetEquipment_SelectPet(const ElementId elementId, cons
             if (world::gPetRuntimeRecords[petIndex].used != 0) break;
         }
         gLoginWindowRuntime.selectedPetCC3E5C = position;
-        static_cast<void>(WindowPetEquipment_Update(-1));
+        static_cast<void>(WindowPetEquipment_Update(*window, -1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         return 1;
     }
@@ -235,11 +236,11 @@ static std::int32_t WindowPetEquipment_HandleItems(const ElementId, const std::i
     return 1;
 }
 
-static std::int32_t WindowPetEquipment_Draw(const std::int32_t)
+static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
-    auto& state = WindowRuntime_States()[WindowId_PetEquipment];
+    auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
     const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     const auto hovered = std::bit_cast<std::int32_t>(state.value10);
@@ -276,7 +277,7 @@ static std::int32_t WindowPetEquipment_Draw(const std::int32_t)
             static_cast<void>(render::DrawGraphic(left + 24, top + 24, 223, pet.items6E4[slot].imageNo, 0, &descriptor));
         }
     }
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

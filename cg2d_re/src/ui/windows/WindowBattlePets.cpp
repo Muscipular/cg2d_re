@@ -23,7 +23,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049B630。
-static std::int32_t WindowBattlePets_Update(std::int32_t unused); // 窗口28归还按钮显隐。
+static std::int32_t WindowBattlePets_Update(WindowInstance& callbackWindow, std::int32_t unused); // 窗口28归还按钮显隐。
 
 // 原函数：0x0049BA10。
 static std::int32_t WindowBattlePets_ButtonReturn(ElementId elementId, std::int32_t state); // 窗口28宠物归还M|FF。
@@ -64,9 +64,9 @@ WindowPrototype gWindowPrototypeBattlePets {0, 4, 100, 100, 356, 223, 0x80010101
 // 窗口函数实现。
 
 // 原函数：0x0049B630。
-static std::int32_t WindowBattlePets_Update(const std::int32_t)
+static std::int32_t WindowBattlePets_Update(WindowInstance& callbackWindow, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (auto* const buttonReturnElement = currentWindow->FindElementById(WindowBattlePetsElementId::ButtonReturn); buttonReturnElement) buttonReturnElement->visible = 0;
     if (world::FindBattlePetIndex_43C4B0() != -1) {

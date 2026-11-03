@@ -218,8 +218,8 @@ enum BigMapElement : int {
 };
 static_assert(NativeElementKey(CustomSource) == static_cast<ElementId>(WindowBigMapElementId::CustomSource));
 static_assert(NativeElementKey(CustomTextCancel) == static_cast<ElementId>(WindowBigMapElementId::CustomTextCancel));
-static int WindowBigMap_Update(int stage);
-static int WindowBigMap_Draw(int stage);
+static int WindowBigMap_Update(WindowInstance& callbackWindow, int stage);
+static int WindowBigMap_Draw(WindowInstance& callbackWindow, int stage);
 static int WindowBigMap_Element(ElementId elementId, int events);
 static void WindowBigMap_Release(WindowInstance&);
 // 与其它原生窗口一致：具名载荷、固定坐标/尺寸/初始显隐及回调直接预定义。
@@ -1406,15 +1406,15 @@ struct BigMapWindowState final {
 
 // 原生原型只允许一个实例；release在原生元素载荷释放之前结束地图缓存寿命。
 static std::unique_ptr<BigMapWindowState> gBigMapState;
-static int WindowBigMap_Update(int stage) {
+static int WindowBigMap_Update(WindowInstance& callbackWindow, int stage) {
     if (stage == -1) {
-        gBigMapState = std::make_unique<BigMapWindowState>(*gCurrentWindow);
+        gBigMapState = std::make_unique<BigMapWindowState>(callbackWindow);
         return 1;
     }
     return gBigMapState->Update(stage);
 }
 static int WindowBigMap_Element(ElementId elementId, int events) { return gBigMapState->OnElement(elementId, events); }
-static int WindowBigMap_Draw(int stage) { return gBigMapState->Draw(stage); }
+static int WindowBigMap_Draw(WindowInstance& callbackWindow, int stage) { return gBigMapState->Draw(stage); }
 static void WindowBigMap_Release(WindowInstance&) { gBigMapState.reset(); }
 
 } // namespace cg::ui::detail

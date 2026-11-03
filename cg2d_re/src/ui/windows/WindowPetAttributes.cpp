@@ -65,7 +65,7 @@ namespace detail {
 static std::int32_t WindowPetAttributes_HandleButtons(ElementId elementId, std::int32_t state); // 宠物详细属性九按钮，9..13发送加点。
 
 // 原函数：0x0048DAB0。
-static std::int32_t WindowPetAttributes_Update(std::int32_t value);
+static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0048DD00。
 static void WindowPetAttributes_Release(WindowInstance&);
@@ -266,9 +266,9 @@ static std::uint32_t WindowPetAttributes_Refresh()
 
 // 窗口17初始化仅采样名称/序号并发声，不代替窗口16的拖动槽初始化。
 // 原函数：0x0048DAB0。
-static std::int32_t WindowPetAttributes_Update(const std::int32_t value)
+static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         static_cast<void>(WindowPetDetail_SavePetSequences());
@@ -424,7 +424,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(const ElementId elementId,
             const std::int32_t y = window->y;
             const std::int32_t x = window->x;
             static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
-            static_cast<void>(WindowPetAttributes_Update(-1));
+            static_cast<void>(WindowPetAttributes_Update(*currentWindow, -1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }

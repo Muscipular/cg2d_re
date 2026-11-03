@@ -51,7 +51,7 @@ namespace detail {
 static void WindowAttributeTarget_Release(WindowInstance&);
 
 // 原函数：0x0049F7B0。
-static std::int32_t WindowAttributeTarget_Update(std::int32_t value);
+static std::int32_t WindowAttributeTarget_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049F7E0。
 static void WindowAttributeTarget_Refresh(std::int32_t offset); // 六行名称/等级/HP/FP及伤势图标。
@@ -162,10 +162,10 @@ static void WindowAttributeTarget_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x0049F7B0。
-static std::int32_t WindowAttributeTarget_Update(const std::int32_t value)
+static std::int32_t WindowAttributeTarget_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
-        auto& session = *gCurrentWindow->ownerSession;
+        auto& session = *callbackWindow.ownerSession;
         auto& choice = session.UiFrame().native.attributeTarget;
         WindowAttributeTarget_Refresh(choice.offset);
         choice.enabled = 1;

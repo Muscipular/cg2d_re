@@ -281,7 +281,7 @@ static network::SendResult WindowPetList_SubmitStates(); // 五状态局部快�
 
 // 原函数：0x0048C1B0。
 // 关联原入口：0x0048C1CF（共享尾已并入本函数正文）。
-static std::int32_t WindowPetList_Update(std::int32_t value);
+static std::int32_t WindowPetList_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -1051,7 +1051,7 @@ static void WindowPetList_Refresh()
 
 // 原函数：0x0048C1B0。
 // 关联原入口：0x0048C1CF（共享尾已并入本函数正文）。
-static std::int32_t WindowPetList_Update(const std::int32_t value)
+static std::int32_t WindowPetList_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
     if (value == -1) {
         gLoginWindowRuntime.valuesD2EAA0[0] = 0;

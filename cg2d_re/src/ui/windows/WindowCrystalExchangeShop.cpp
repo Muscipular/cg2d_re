@@ -149,10 +149,10 @@ static std::int32_t WindowCrystalExchangeShop_ShowTooltip(
 static void WindowCrystalExchangeShop_Release(WindowInstance&);
 
 // 原函数：0x004C3F00。
-static std::int32_t WindowCrystalExchangeShop_Update(std::int32_t value);
+static std::int32_t WindowCrystalExchangeShop_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x004C4180。
-static std::int32_t WindowCrystalExchangeShop_Draw(std::int32_t value);
+static std::int32_t WindowCrystalExchangeShop_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -620,9 +620,9 @@ static void WindowCrystalExchangeShop_Refresh()
 }
 
 // 原函数：0x004C3F00。
-static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
+static std::int32_t WindowCrystalExchangeShop_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const entryWindow = currentWindow;
     if (value == -1) {
@@ -700,9 +700,9 @@ static std::int32_t WindowCrystalExchangeShop_Update(const std::int32_t value)
 }
 
 // 原函数：0x004C4180。
-static std::int32_t WindowCrystalExchangeShop_Draw(const std::int32_t unused)
+static std::int32_t WindowCrystalExchangeShop_Draw(WindowInstance& callbackWindow, const std::int32_t unused)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unused);
     const WindowInstance* const window = currentWindow;
@@ -731,7 +731,7 @@ static std::int32_t WindowCrystalExchangeShop_Draw(const std::int32_t unused)
         y += 10;
     }
     WindowCrystalExchangeShop_Refresh();
-    WindowRuntime_DrawCurrent();
+    WindowRuntime_DrawCurrent(callbackWindow);
     return 1;
 }
 

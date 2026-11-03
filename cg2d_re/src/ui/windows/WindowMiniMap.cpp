@@ -32,7 +32,7 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(ElementId elementId, std::int32
 static std::int32_t WindowMiniMap_RefreshPlayerY(ElementId elementId, std::int32_t unused); // 固定文本实例，门禁后刷新玩家Y。
 
 // 原函数：0x00495D70。
-static std::int32_t WindowMiniMap_Update(std::int32_t value);
+static std::int32_t WindowMiniMap_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // BMUI01：唯一大地图入口，复用属性加点按钮的普通/悬停图态。
 static std::int32_t WindowMiniMap_OpenBigMap(ElementId elementId, std::int32_t events)
@@ -87,9 +87,9 @@ WindowPrototype gWindowPrototypeMiniMap {0, 4, 353, 55, 184, 21, 0x80010101u, 8,
 // 窗口函数实现。
 
 // 原函数：0x00495D70。
-static std::int32_t WindowMiniMap_Update(const std::int32_t value)
+static std::int32_t WindowMiniMap_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (value == -1) {
         auto* const element = currentWindow->FindElementById(WindowMiniMapElementId::Element4);

@@ -23,6 +23,9 @@ struct YobiSessionState {
     volatile std::int32_t screenOffsetY = 0; // 原 0x59FA00。
     volatile std::uint32_t screenOffsetAmplitude = 0; // 原 0x59FA04。
     volatile std::uint32_t screenOffsetMaximumAmplitude = 4; // 原 0x553C58。
+    std::int32_t mapEffectDurationSeconds = 0; // 原 0x5AC4B8。
+    std::uint64_t mapEffectStartTick = 0; // 原 0x5F973C。
+    std::uint8_t mapEffectSpawnCounter = 0; // 原 0x5F9755。
     std::array<std::uint8_t, kMapRegistryEntries> mapRegistryFlags {}; // 原 0xB65A80。
     std::array<YobiAction*, kMapRegistryEntries> mapRegistryActions {}; // 原 0xB8C864，非拥有。
 };

@@ -6,7 +6,7 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
-#include "cg/session/ClientHost.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/PlayerState.hpp"
 #include "../world/WorldMapState.hpp"
 
@@ -56,12 +56,6 @@ enum SceneEffectFrameCommand : std::int32_t {
     SceneEffectFrameCommand_End = -1, // 结束并返回1；当前七张表未生产此指令。
     SceneEffectFrameCommand_Jump = -2, // graphic槽为跳转目标帧。
 };
-
-// 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
-static std::int32_t gMapEffectDurationSeconds_5AC4B8 = 0; // 原全局：0x005AC4B8。
-
-static std::uint64_t gMapEffectStartTick_5F973C = 0; // 原全局：0x005F973C。
-
 
 struct SceneEffectFrame {
     std::int32_t duration; // -1终止、-2跳转，其他值为帧时长。
@@ -133,11 +127,12 @@ static void RetainDirectFrameGraphics()
 
 // 原 sub_448370@[0x448370,0x44839C)；查找首个 callback 匹配且 deathFlag 为零的普通节点。
 // 调用前提为已初始化的有效链；允许空 callback，返回非拥有指针，未命中返回空。
-static YobiAction* FindLiveActionByCallback(void (*callback)(YobiAction*))
+static YobiAction* FindLiveActionByCallback(
+    session::ClientSession& session, void (*callback)(YobiAction*))
 {
     // 原 0x448370/0x448379/0x448380：先读首槽、缓存尾槽，再读 start->next。
-    YobiAction* const start = session::GetClientHost().FirstSession().Yobi().start;
-    YobiAction* const end = session::GetClientHost().FirstSession().Yobi().end;
+    YobiAction* const start = session.Yobi().start;
+    YobiAction* const end = session.Yobi().end;
     YobiAction* current = start->next;
     while (current != end) {
         if (current->callback == callback && current->deathFlag == 0) {
@@ -338,29 +333,30 @@ static void UpdateLeftEntrySceneEffect_448BF0(YobiAction* const action)
 
 // 原[448810,448A4F)：mode0写计时槽，此时floor实参表示已过秒数。
 static void ConfigureRightEntrySceneEffect_448810(
+    session::ClientSession& session,
     const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
     const std::int32_t mapX, const std::int32_t mapY)
 {
     if (mode == 0) {
-        gMapEffectDurationSeconds_5AC4B8 = duration;
+        session.Yobi().mapEffectDurationSeconds = duration;
         const std::uint64_t tick = platform::ReadTickCount64();
-        gMapEffectStartTick_5F973C = tick - static_cast<std::uint64_t>(static_cast<std::int64_t>(floor) * 1000);
+        session.Yobi().mapEffectStartTick = tick - static_cast<std::uint64_t>(static_cast<std::int64_t>(floor) * 1000);
         return;
     }
     if (world::gCurrentSceneType != 9) {
         return;
     }
     if (mode == SceneEffectMode_RemoveIfPresent) {
-        YobiAction* const previous = FindLiveActionByCallback(UpdateRightEntrySceneEffect_448A50);
+        YobiAction* const previous = FindLiveActionByCallback(session, UpdateRightEntrySceneEffect_448A50);
         if (previous != nullptr) {
             MarkDeath(previous);
             return;
         }
     }
-    YobiAction* action = FindLiveActionByCallback(UpdateRightEntrySceneEffect_448A50);
+    YobiAction* action = FindLiveActionByCallback(session, UpdateRightEntrySceneEffect_448A50);
     const bool created = action == nullptr;
     if (created) {
-        action = NewYobiAction_404AE0(3, 0);
+        action = NewYobiAction_404AE0(session, 3, 0);
         if (action == nullptr) {
             return;
         }
@@ -399,6 +395,7 @@ static void ConfigureRightEntrySceneEffect_448810(
 
 // 原[448D90,44905A)：四种负类型图形生产，先按mode4查重再筛类型。
 static void ConfigureLeftEntrySceneEffect_448D90(
+    session::ClientSession& session,
     const std::int32_t value, const std::int32_t /*unused*/,
     const std::int32_t floor, const std::int32_t mapX, const std::int32_t mapY)
 {
@@ -408,7 +405,7 @@ static void ConfigureLeftEntrySceneEffect_448D90(
         return;
     }
     if (mode == SceneEffectMode_RemoveIfPresent) {
-        YobiAction* const previous = FindLiveActionByCallback(UpdateLeftEntrySceneEffect_448BF0);
+        YobiAction* const previous = FindLiveActionByCallback(session, UpdateLeftEntrySceneEffect_448BF0);
         if (previous != nullptr) {
             MarkDeath(previous);
             return;
@@ -422,10 +419,10 @@ static void ConfigureLeftEntrySceneEffect_448D90(
     case SceneEffectGraphicType_Image1002065: image = 1002065; break;
     default: return;
     }
-    YobiAction* action = FindLiveActionByCallback(UpdateLeftEntrySceneEffect_448BF0);
+    YobiAction* action = FindLiveActionByCallback(session, UpdateLeftEntrySceneEffect_448BF0);
     const bool created = action == nullptr;
     if (created) {
-        action = NewYobiAction_404AE0(3, 0);
+        action = NewYobiAction_404AE0(session, 3, 0);
         if (action == nullptr) {
             return;
         }
@@ -534,7 +531,7 @@ static void UpdateMovingSceneEffect_449A00(YobiAction* const action)
 // 原[449C10,449C8B)：每轮重查普通路父节点，播放后复制父屏幕坐标。
 static void UpdateSceneEffectOverlay_449C10(YobiAction* const action)
 {
-    YobiAction* const parent = FindLiveActionByCallback(UpdateMovingSceneEffect_449A00);
+    YobiAction* const parent = FindLiveActionByCallback(*action->ownerSession, UpdateMovingSceneEffect_449A00);
     if (parent == nullptr || world::IsMapFloorAllowed_448240() == 0) {
         MarkDeath(action);
         return;
@@ -546,17 +543,17 @@ static void UpdateSceneEffectOverlay_449C10(YobiAction* const action)
 }
 
 // 原[449BC0,449C0A)：按callback去重附属节点，不拥有父引用。
-static YobiAction* EnsureSceneEffectOverlay_449BC0()
+static YobiAction* EnsureSceneEffectOverlay_449BC0(session::ClientSession& session)
 {
-    YobiAction* action = FindLiveActionByCallback(UpdateSceneEffectOverlay_449C10);
+    YobiAction* action = FindLiveActionByCallback(session, UpdateSceneEffectOverlay_449C10);
     if (action != nullptr) {
         return action;
     }
-    YobiAction* const parent = FindLiveActionByCallback(UpdateMovingSceneEffect_449A00);
+    YobiAction* const parent = FindLiveActionByCallback(session, UpdateMovingSceneEffect_449A00);
     if (parent == nullptr) {
         return nullptr;
     }
-    action = NewYobiAction_404AE0(static_cast<std::uint8_t>(parent->priority + 1), 0);
+    action = NewYobiAction_404AE0(session, static_cast<std::uint8_t>(parent->priority + 1), 0);
     if (action != nullptr) {
         action->callback = UpdateSceneEffectOverlay_449C10;
         action->displayPriority = static_cast<std::uint8_t>(parent->displayPriority + 1);
@@ -578,10 +575,10 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
         MarkDeath(action);
         return;
     }
-    YobiAction* const associated = FindLiveActionByCallback(UpdateLeftEntrySceneEffect_448BF0);
+    YobiAction* const associated = FindLiveActionByCallback(*action->ownerSession, UpdateLeftEntrySceneEffect_448BF0);
     const std::uint64_t tick = platform::ReadTickCount64();
-    const auto elapsed = std::bit_cast<std::int64_t>(tick - gMapEffectStartTick_5F973C);
-    std::int32_t duration = gMapEffectDurationSeconds_5AC4B8;
+    const auto elapsed = std::bit_cast<std::int64_t>(tick - action->ownerSession->Yobi().mapEffectStartTick);
+    std::int32_t duration = action->ownerSession->Yobi().mapEffectDurationSeconds;
     const std::int32_t total = duration * 1000;
     std::int32_t progress = 0;
     if (total != 0) {
@@ -655,11 +652,11 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
     } else {
         if (elapsed <= 200 * (5 * duration - 150) && elapsed % 120 == 0) {
             static_cast<void>(audio::PlaySe_52C450(0x1C7, 320));
-            duration = gMapEffectDurationSeconds_5AC4B8;
+            duration = action->ownerSession->Yobi().mapEffectDurationSeconds;
         }
         if (elapsed % 120 == 80) {
             static_cast<void>(audio::PlaySe_52C450(0x1C6, 320));
-            duration = gMapEffectDurationSeconds_5AC4B8;
+            duration = action->ownerSession->Yobi().mapEffectDurationSeconds;
         }
         const bool increasing = elapsed <= 200 * (5 * duration - 125);
         platform::detail::Cg2dMapTimedOffset(
@@ -688,7 +685,7 @@ static void UpdateTimedMapBackgroundEffect_4483A0(YobiAction* const action)
 }
 
 // 原[448290,44836B)：限定场景与地图的计时回调注册，不清既有偏移。
-static void EnsureTimedMapBackgroundEffect_448290()
+static void EnsureTimedMapBackgroundEffect_448290(session::ClientSession& session)
 {
     if (world::gCurrentSceneType != 9 || world::gPlayerRuntimeSlots.action == nullptr) {
         return;
@@ -697,10 +694,10 @@ static void EnsureTimedMapBackgroundEffect_448290()
     if (floor != 59529 && floor != 38251) {
         return;
     }
-    if (FindLiveActionByCallback(UpdateTimedMapBackgroundEffect_4483A0) != nullptr) {
+    if (FindLiveActionByCallback(session, UpdateTimedMapBackgroundEffect_4483A0) != nullptr) {
         return;
     }
-    YobiAction* const action = NewYobiAction_404AE0(3, 0);
+    YobiAction* const action = NewYobiAction_404AE0(session, 3, 0);
     if (action == nullptr) {
         return;
     }
@@ -797,31 +794,32 @@ void RetainSceneEffectGraphicReferences()
 
 // 原函数：0x00449700。
 void ConfigureMapSceneEffect_449700(
+    session::ClientSession& session,
     const std::int32_t mode, const std::int32_t duration, const std::int32_t floor,
     const std::int32_t mapX, const std::int32_t mapY)
 {
     if (mode >= 100) {
-        detail::ConfigureRightEntrySceneEffect_448810(mode % 100, duration, floor, mapX, mapY);
+        detail::ConfigureRightEntrySceneEffect_448810(session, mode % 100, duration, floor, mapX, mapY);
         return;
     }
     if (mode < 0) {
-        detail::ConfigureLeftEntrySceneEffect_448D90(mode, duration, floor, mapX, mapY);
+        detail::ConfigureLeftEntrySceneEffect_448D90(session, mode, duration, floor, mapX, mapY);
         return;
     }
     if (mode == 0) {
         return;
     }
     if (mode == detail::SceneEffectMode_RemoveIfPresent) {
-        YobiAction* const previous = detail::FindLiveActionByCallback(detail::UpdateMovingSceneEffect_449A00);
+        YobiAction* const previous = detail::FindLiveActionByCallback(session, detail::UpdateMovingSceneEffect_449A00);
         if (previous != nullptr) {
             MarkDeath(previous);
             return;
         }
     }
-    YobiAction* action = detail::FindLiveActionByCallback(detail::UpdateMovingSceneEffect_449A00);
+    YobiAction* action = detail::FindLiveActionByCallback(session, detail::UpdateMovingSceneEffect_449A00);
     const bool created = action == nullptr;
     if (created) {
-        action = NewYobiAction_404AE0(3, 0);
+        action = NewYobiAction_404AE0(session, 3, 0);
         if (action == nullptr) {
             return;
         }
@@ -853,27 +851,26 @@ void ConfigureMapSceneEffect_449700(
         MarkDeath(action);
         return;
     }
-    static_cast<void>(detail::EnsureSceneEffectOverlay_449BC0());
+    static_cast<void>(detail::EnsureSceneEffectOverlay_449BC0(session));
 }
 
 // 原[449160,4493AA)：共享玩家只作入口门禁，生成时按轴重取玩家T*。
-void UpdateMapEnvironmentEffects_449160()
+void UpdateMapEnvironmentEffects_449160(session::ClientSession& session)
 {
-    static std::uint8_t effectSpawnCounter = 0; // 原全局：0x005F9755。 原449160独占的U8生成计数，非相邻UI标志。
     if (world::gPlayerRuntimeSlots.action == nullptr) {
         return;
     }
-    detail::EnsureTimedMapBackgroundEffect_448290();
+    detail::EnsureTimedMapBackgroundEffect_448290(session);
     render::AdvanceRipplePhase_520910();
     if (world::IsMapDriftEffectAllowed_4493C0() == 0) {
         return;
     }
-    const auto counter = static_cast<std::uint8_t>(effectSpawnCounter + 1);
-    effectSpawnCounter = counter;
+    const auto counter = static_cast<std::uint8_t>(session.Yobi().mapEffectSpawnCounter + 1);
+    session.Yobi().mapEffectSpawnCounter = counter;
     if ((counter & 0x3Fu) != 0) {
         return;
     }
-    YobiAction* const action = NewYobiAction_404AE0(3, 0);
+    YobiAction* const action = NewYobiAction_404AE0(session, 3, 0);
     if (action == nullptr) {
         return;
     }

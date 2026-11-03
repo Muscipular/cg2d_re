@@ -418,10 +418,11 @@ void ShutdownYobiActionList_404D60(session::ClientSession& session);
 // 原449700：PVfz五参数的三路对象生产，复用唯一Yobi链及回调。
 // mode>=100且余数0时，floor实参改作已过秒数，duration写总时长槽。
 void ConfigureMapSceneEffect_449700(
+    session::ClientSession& session,
     std::int32_t mode, std::int32_t duration, std::int32_t floor,
     std::int32_t mapX, std::int32_t mapY);
 // 原函数：0x00449160。
-void UpdateMapEnvironmentEffects_449160(); // 主循环效果生产，计时回调注册后按64次间隔生成漂移对象。
+void UpdateMapEnvironmentEffects_449160(session::ClientSession& session); // 主循环效果生产，计时回调注册后按64次间隔生成漂移对象。
 // RAC01：binLoader发布前标记环境帧表中绕过MapNo的直接图号。
 void RetainSceneEffectGraphicReferences();
 

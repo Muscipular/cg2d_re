@@ -173,7 +173,7 @@ int MainLoop(session::ClientSession& session)
         }
         render::UpdatePalette_450BB0();
         if (gWindowActiveState != 0) {
-            cg::yobi::UpdateMapEnvironmentEffects_449160();
+            cg::yobi::UpdateMapEnvironmentEffects_449160(session);
         }
         ClearKeyFlags_459760();
 

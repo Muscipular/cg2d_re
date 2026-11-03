@@ -8842,11 +8842,11 @@ void HandleDirectionalMapEffectsReply_50E1A0(cg::network::CgConnection&, const s
 }
 
 // 原函数：0x0050E650。
-void HandleMapSceneEffectReply_50E650(cg::network::CgConnection&, const std::int32_t mode,
+void HandleMapSceneEffectReply_50E650(cg::network::CgConnection& connection, const std::int32_t mode,
     const std::int32_t duration, const std::int32_t floor,
     const std::int32_t mapX, const std::int32_t mapY)
 {
-    cg::yobi::ConfigureMapSceneEffect_449700(mode, duration, floor, mapX, mapY);
+    cg::yobi::ConfigureMapSceneEffect_449700(connection.Owner(), mode, duration, floor, mapX, mapY);
 }
 
 // 原函数：0x0050E210。

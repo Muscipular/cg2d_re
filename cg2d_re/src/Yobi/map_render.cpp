@@ -446,7 +446,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
                 ((state & MapActorActionFlag_FollowPetStatusImage1AF4E) != 0 ? MapActorActionFlag_StatusImage1AF4E : 0u)
                 | ((state & MapActorActionFlag_FollowPetStatusImage1AF4D) != 0 ? MapActorActionFlag_StatusImage1AF4D : 0u)
                 | ((state & MapActorActionFlag_FollowPetStatusImage1AF4DSound) != 0 ? MapActorActionFlag_StatusImage1AF4DSound : 0u));
-            for (const world::PetRuntimeRecord& pet : world::gPetRuntimeRecords) {
+            for (const world::PetRuntimeRecord& pet : (*action->ownerSession->WorldScene().petRecords)) {
                 if (pet.used != 0 && pet.follow6D4 != 0) {
                     action->readiness = pet.values0C[0];
                     action->maxHp = pet.values0C[1];

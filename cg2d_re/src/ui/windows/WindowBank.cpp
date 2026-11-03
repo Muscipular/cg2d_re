@@ -266,10 +266,11 @@ static void WindowItem_BuildStorageDescription(
 
 // 原函数：0x004AAB70。
 void WindowBank_DrawOwnPetTooltip(
+    session::ClientSession& session,
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer)
 {
-    world::PetRuntimeRecord& pet = world::gPetRuntimeRecords[index];
+    world::PetRuntimeRecord& pet = (*session.WorldScene().petRecords)[index];
     if (pet.used == 0) {
         return;
     }
@@ -1325,7 +1326,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
     auto& storage = callbackWindow.ownerSession->UiFrame().native.storage;
     const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
     const std::int32_t petIndex = std::bit_cast<std::int16_t>(
-        world::gPetPairsDE0B08[index + scroll - 14].index);
+        callbackWindow.ownerSession->WorldScene().petPairs[index + scroll - 14].index);
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     // 原4AAEEC/4AB245各执行一次，三次索引查询和费用累计都不能复用前次结果。
@@ -1333,14 +1334,14 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
         if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 3) {
             const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             if (source < 100 && WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 41 && WindowDrag_ReadFocusElement(*callbackWindow.ownerSession) == elementId) {
-                const std::int32_t firstPosition = WindowItem_FindSortedPetIndex(source);
+                const std::int32_t firstPosition = WindowItem_FindSortedPetIndex(*callbackWindow.ownerSession, source);
                 const std::int32_t firstScroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
                 if (firstPosition - firstScroll >= 0) {
-                    const std::int32_t secondPosition = WindowItem_FindSortedPetIndex(source);
+                    const std::int32_t secondPosition = WindowItem_FindSortedPetIndex(*callbackWindow.ownerSession, source);
                     const std::int32_t secondScroll =
                         std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
                     if (secondPosition - secondScroll < 3) {
-                        const std::int32_t position = WindowItem_FindSortedPetIndex(source);
+                        const std::int32_t position = WindowItem_FindSortedPetIndex(*callbackWindow.ownerSession, source);
                         const std::int32_t currentScroll =
                             std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
                         const std::int32_t elementIndex = 14 - currentScroll + position;
@@ -1374,7 +1375,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
         if (source != petIndex) {
             bool allowed = true;
             if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10 == 1 && petIndex < 5 && source >= 100) {
-                const auto& pet = world::gPetRuntimeRecords[petIndex];
+                const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
                 const std::int32_t itemSlots = pet.values6D8[0];
                 bool empty = true;
                 for (std::int32_t slot = 0; slot < itemSlots; ++slot) {
@@ -1394,14 +1395,14 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
         WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     const bool hover = (events & MouseFlag_Hover) != 0;
-    if (hover && world::gPetRuntimeRecords[petIndex].used != 0) {
+    if (hover && (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex].used != 0) {
         const std::int32_t level = callbackWindow.ownerSession->WorldScene().player->level;
         const std::int32_t amount = callbackWindow.ownerSession->WorldScene().player->valueFC;
         if (amount >= level) {
             uiFrame.hoverText = L"用滑鼠拖放来存放宠物。";
         }
     }
-    const auto& pet = world::gPetRuntimeRecords[petIndex];
+    const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
     const std::uint16_t used = pet.used;
     if (used != 0 && (events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0
         && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
@@ -1473,7 +1474,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, c
             static_cast<std::uint16_t>(element.y + window->y));
         const std::int16_t x = std::bit_cast<std::int16_t>(
             static_cast<std::uint16_t>(element.x + window->x));
-        WindowBank_DrawOwnPetTooltip(x, y, petIndex, 3);
+        WindowBank_DrawOwnPetTooltip(*callbackWindow.ownerSession, x, y, petIndex, 3);
     }
     return consumed;
 }
@@ -1500,7 +1501,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
         if (source != petIndex + 100) {
             bool allowed = true;
             if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10 == 1 && source < 5) {
-                const auto& sourcePet = world::gPetRuntimeRecords[source];
+                const auto& sourcePet = (*callbackWindow.ownerSession->WorldScene().petRecords)[source];
                 const std::int32_t weight = sourcePet.values6D8[1];
                 const std::int32_t itemSlots = sourcePet.values6D8[0];
                 const bool hasWeight = weight > 0;
@@ -1538,14 +1539,14 @@ static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow
             std::int32_t position = 0;
             for (; position < 5; ++position) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
-                    world::gPetPairsDE0B08[position].index);
-                if (world::gPetRuntimeRecords[target].used == 0) {
+                    callbackWindow.ownerSession->WorldScene().petPairs[position].index);
+                if ((*callbackWindow.ownerSession->WorldScene().petRecords)[target].used == 0) {
                     break;
                 }
             }
             if (position < 5) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
-                    world::gPetPairsDE0B08[position].index);
+                    callbackWindow.ownerSession->WorldScene().petPairs[position].index);
                 cg::text::FormatTo(buffer, L"P|{}|{}", petIndex + 100, target);
                 const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
                 const std::int32_t userState =
@@ -1766,7 +1767,7 @@ static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const 
     WindowNumber_Draw(x, y, buffer, 3, 0, 1, 223);
     count = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
-        if (world::gPetRuntimeRecords[index].used != 0) {
+        if ((*callbackWindow.ownerSession->WorldScene().petRecords)[index].used != 0) {
             ++count;
         }
     }

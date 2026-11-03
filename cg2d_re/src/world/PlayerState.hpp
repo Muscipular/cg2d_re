@@ -16,6 +16,7 @@ namespace cg::session { class ClientSession; }
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/world/PlayerItemRecord.hpp"
 #include "cg/world/PlayerRuntimeSlots.hpp"
+#include "cg/world/PetRuntimeRecord.hpp"
 #include "cg/world/PlayerSlots.hpp"
 #include "PetTechniqueRecord.hpp"
 
@@ -83,18 +84,6 @@ struct SkillRuntimeRecord {
     std::int32_t rebirthState4C48; // 原F20744；不是旧文档的+744。
 };
 
-struct SkillPairRecord {
-    std::uint16_t used; // 原成员偏移：+0x00。
-    std::uint16_t index; // 原成员偏移：+0x02。 原技能/宠物技术表下标，UI按S16消费，不是地址。
-    std::int32_t sequence; // 原成员偏移：+0x04。
-};
-
-// IWT01：以上为内部对象，文本宽化后不再断言旧字节布局；SkillPair仍为纯数值记录。
-static_assert(offsetof(SkillPairRecord, used) == 0);
-static_assert(offsetof(SkillPairRecord, index) == 2);
-static_assert(offsetof(SkillPairRecord, sequence) == 4);
-static_assert(sizeof(SkillPairRecord) == 8);
-
 extern std::array<SkillRuntimeRecord, kSkillSlotCount>& gSkillsF1BAFC; // 原全局：0x00F1BAFC。 同一第四清零块成员别名。
 extern std::array<SkillPairRecord, kSkillSlotCount>& gSkillPairsF63370; // 原全局：0x00F63370。
 // 原479FBE按S8索引读取U16；按用户确认，-1现表示未选中，不再读取原末条技能+4C44。
@@ -127,55 +116,6 @@ void SwapPlayerOrPetItemSlots_51B630(
     std::int32_t firstGroup, std::int32_t firstIndex,
     std::int32_t secondGroup, std::int32_t secondIndex);
 
-// 原F633F8五条宠物数据，不是FF02E0地图槽；未消费间隔不计最终类型冻结。
-struct PetRuntimeRecord {
-    // 原0x004CD360：成员正序构造及失败前缀清理由C++承接。
-    PetRuntimeRecord() = default;
-    // 原0x004CD2D0：成员自动逆序析构。
-    ~PetRuntimeRecord() = default;
-    PetRuntimeRecord(const PetRuntimeRecord&) = default;
-    PetRuntimeRecord& operator=(const PetRuntimeRecord&) = default;
-    void ClearRaw() noexcept; // 原零字节回复／场景清理，不构造整数或消费RNG。
-    std::uint16_t used; // 原+0占用。
-    std::uint16_t value02; // 原成员偏移：+0x02。 主回复掩码200001。
-    std::uint16_t value04; // 原成员偏移：+0x04。 主回复掩码5。
-    std::array<std::byte, 2> bytes06; // 原成员偏移：+0x06。
-    std::int32_t value08; // 原成员偏移：+0x08。 主回复掩码201。
-    std::array<platform::LegacyCryptInt, 6> values0C; // HP/最大HP/FP/最大FP/+4C/+5C。
-    std::int32_t lvFlag6C; // 原成员偏移：+0x6C。 原F63464；50CF70写入完整W32。
-    std::array<std::int32_t, 26> values70; // 原+70..+D4，两回复共享。
-    std::array<detail::PetTechniqueRecord, kPetTechniqueSlotCount> techniquesD8; // 原成员偏移：+0xD8。
-    std::array<SkillPairRecord, kPetTechniqueSlotCount> techniquePairs650; // 原成员偏移：+0x650。 5185C0只生成索引，不排序。
-    std::int32_t imageNo6A0; // 原成员偏移：+0x6A0。
-    std::int32_t value6A4; // 原成员偏移：+0x6A4。
-    std::array<std::byte, 2> bytes6A8; // 原成员偏移：+0x6A8。
-    std::uint16_t flags6AA; // 原成员偏移：+0x6AA。 不含跟随bit0x10的状态。
-    std::wstring name6AC; // 原成员偏移：+0x6AC。
-    std::wstring name6BD; // 原成员偏移：+0x6BD。
-    std::array<std::byte, 2> bytes6CE; // 原成员偏移：+0x6CE。
-    std::int32_t value6D0; // 原成员偏移：+0x6D0。 518580复制到索引对。
-    std::int32_t follow6D4; // 原成员偏移：+0x6D4。
-    std::array<std::int32_t, 3> values6D8; // 原成员偏移：+0x6D8。
-    std::array<PlayerItemRecord, 6> items6E4; // 原成员偏移：+0x6E4。 原51B630复用的六条C5C物品。
-    std::uint8_t updated510C; // 原成员偏移：+0x510C。 仅50A6B0尾部置1。
-    std::array<std::byte, 3> bytes510D; // 原成员偏移：+0x510D。
-};
-
-static_assert(!std::is_trivially_destructible_v<PetRuntimeRecord>);
-static_assert(offsetof(PetRuntimeRecord, used) == 0);
-static_assert(offsetof(PetRuntimeRecord, value02) == 2);
-static_assert(offsetof(PetRuntimeRecord, value04) == 4);
-static_assert(offsetof(PetRuntimeRecord, value08) == 8);
-static_assert(offsetof(PetRuntimeRecord, values0C) == 0x0C);
-static_assert(offsetof(PetRuntimeRecord, lvFlag6C) == 0x6C);
-static_assert(offsetof(PetRuntimeRecord, values70) == 0x70);
-static_assert(offsetof(PetRuntimeRecord, techniquesD8) == 0xD8);
-// 原0x650／0x6A0之后的成员随两张技能表扩容，旧偏移保留在成员注释中。
-static_assert(offsetof(PetRuntimeRecord, techniquePairs650) == 0xD8 + sizeof(detail::PetTechniqueRecord) * kPetTechniqueSlotCount);
-static_assert(offsetof(PetRuntimeRecord, imageNo6A0) == offsetof(PetRuntimeRecord, techniquePairs650) + sizeof(SkillPairRecord) * kPetTechniqueSlotCount);
-static_assert(offsetof(PetRuntimeRecord, value6A4) == offsetof(PetRuntimeRecord, imageNo6A0) + 4);
-static_assert(offsetof(PetRuntimeRecord, flags6AA) == offsetof(PetRuntimeRecord, imageNo6A0) + 0xA);
-
 // 原F7C950的已消费AC字节前缀；510490生产，4C75A0等UI读取，非完整业务布局。
 struct ReplyRecordF7C950 {
     std::int32_t used; // 原成员偏移：+0x00。
@@ -189,25 +129,12 @@ struct ReplyRecordF7C950 {
 
 extern ReplyRecordF7C950 gReplyRecordF7C950; // 原全局：0x00F7C950。
 
-// 原DE0B08，每项8B；索引是数值，不是地址。
-struct PetPairRecord {
-    std::uint16_t used; // 原成员偏移：+0x00。
-    std::uint16_t index; // 原成员偏移：+0x02。
-    std::int32_t value; // 原成员偏移：+0x04。
-};
-
-static_assert(offsetof(PetPairRecord, used) == 0);
-static_assert(offsetof(PetPairRecord, index) == 2);
-static_assert(offsetof(PetPairRecord, value) == 4);
-static_assert(sizeof(PetPairRecord) == 8);
-extern std::array<PetRuntimeRecord, 5> gPetRuntimeRecords; // 原全局：0x00F633F8。
-extern std::array<PetPairRecord, 5> gPetPairsDE0B08; // 原全局：0x00DE0B08。
 // 原函数：0x0052E1D0。
-std::int32_t HasPetMailTechnique_52E1D0(std::int32_t index); // 四个邮件技能按原顺序逐次查询，任一命中即1。
+std::int32_t HasPetMailTechnique_52E1D0(session::ClientSession& session, std::int32_t index); // 四个邮件技能按原顺序逐次查询，任一命中即1。
 // 原函数：0x0052E180。
 std::int32_t HasPetTechnique_52E180(
+    session::ClientSession& session,
     std::int32_t index, std::int32_t techniqueId); // 原十个真实技能记录，非排序索引表。
-extern std::uint32_t gPetDetailDraftChanged_D67B28; // 原全局：0x00D67B28。 492250置1，UI后续复用。
 
 // 原510150：宠物物品带槽号回复；level重复解析图号字段，不同步UI。
 void HandlePetInventoryUpdatesReply_510150(cg::network::CgConnection& networkConnection, std::int32_t petIndex, const char* payload);
@@ -225,7 +152,7 @@ void BuildPetTechniqueDisplayEntries_5185C0(
 // 原函数：0x0050CF70。
 std::int32_t HandlePetAttributePointsReply_50CF70(cg::network::CgConnection& networkConnection, std::int32_t index, std::int32_t value); // 仅写宠物+6C并返回index。
 // 原函数：0x0043C4B0。
-std::int32_t FindBattlePetIndex_43C4B0(); // 首个used严格1且flags6AA严格2的宠物槽，未命中-1。
+std::int32_t FindBattlePetIndex_43C4B0(session::ClientSession& session); // 首个used严格1且flags6AA严格2的宠物槽，未命中-1。
 
 // 原 FF0508/DE03F8 两张称号表共用记录；地址不存入数值字段。
 struct TitleRecord {
@@ -271,9 +198,9 @@ void CopyPlayerBarValues(
 const wchar_t* GetTitleText(std::int32_t index) noexcept; // 合法索引读取称号表；未装备／无效索引返回空文本。
 const wchar_t* GetPlayerDisplayText(session::ClientSession& session, std::int16_t mode) noexcept; // 模式1..6宽文本，只读借用。
 // 原函数：0x00504B10。
-std::int32_t FindAttributeAllocationHintTarget_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
+std::int32_t FindAttributeAllocationHintTarget_504B10(session::ClientSession& session); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
 // 原函数：0x00504B60。
-std::int32_t FindFirstInjuredPet_504B60(); // G04：五S16配对中首个used且伤势>0的宠物原编号，无则-1。
+std::int32_t FindFirstInjuredPet_504B60(session::ClientSession& session); // G04：五S16配对中首个used且伤势>0的宠物原编号，无则-1。
 std::int16_t ReadPlayerTribe(session::ClientSession& session) noexcept; // 原FDA700，窗口7按S16读取。
 cg::yobi::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;
 std::uint16_t ReadPetMapFlags(std::int16_t index) noexcept; // 原FF02E0五槽W16占用，名单按完整非零判断。
@@ -303,16 +230,15 @@ std::int32_t CompareSkillDisplayEntries_518660(const SkillPairRecord* left, cons
 void SwapPlayerInventorySlots_51B530(session::ClientSession& session, std::int32_t first, std::int32_t second); // 整条C5C交换，装备位标志及UI迁移。
 // 原函数：0x005196B0。
 void SetPlayerItemDescription_5196B0(session::ClientSession& session, std::int32_t index, const char* text); // 32行描述与最多4页的原回扫。
-extern std::int32_t gPetCountDE0B00; // 原全局：0x00DE0B00。
 // 原519770：同源宠物物品32行描述与前行回扫，保持独立页数写序。
-void SetPetItemDescription_519770(std::int32_t petIndex, std::int32_t itemIndex, const char* text);
+void SetPetItemDescription_519770(session::ClientSession& session, std::int32_t petIndex, std::int32_t itemIndex, const char* text);
 // 原函数：0x00519920。
-std::int32_t RefreshPetCount_519920(); // 先清计数，再扫描占用并发布。
+std::int32_t RefreshPetCount_519920(session::ClientSession& session); // 先清计数，再扫描占用并发布。
 // 原函数：0x00518580。
 void BuildPetDisplayEntries_518580(
     const PetRuntimeRecord* source, PetPairRecord* destination, std::int32_t count);
 // 原函数：0x00492250。
-void MarkPetDetailDraftChanged_492250(); // 原[492250,49225B)，置刷新标志。
+void MarkPetDetailDraftChanged_492250(session::ClientSession& session); // 原[492250,49225B)，置刷新标志。
 extern std::array<TitleRecord, 64> gTitlesFF0508; // 原全局：0x00FF0508。
 // 原函数：0x005198D0。
 void SortTitleRecords_5198D0(TitleRecord* records, std::uint32_t count); // 原CRT次序的称号排序。

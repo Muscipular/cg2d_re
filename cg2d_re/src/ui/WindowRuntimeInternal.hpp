@@ -211,10 +211,10 @@ void WindowMail_SortIndices(session::ClientSession& session,
 void WindowMail_FormatTimestamp(session::ClientSession& session, std::wstring& destination);
 
 // 原函数：0x00492260。
-void WindowPetDetail_ResetDraftFlag();
+void WindowPetDetail_ResetDraftFlag(session::ClientSession& session);
 
 // 原函数：0x00492270。
-std::int32_t WindowPetDetail_ReadDraftFlag();
+std::int32_t WindowPetDetail_ReadDraftFlag(session::ClientSession& session);
 
 // 原函数：0x00492280。
 void WindowPetDetail_InitializeDraft(WindowInstance* callbackWindow);

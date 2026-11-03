@@ -915,7 +915,7 @@ static void WindowPetSkillChoice_RefreshPetNames(session::ClientSession& session
     cg::text::FormatTo(choice.amountText, L"{:10}", 0);
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t petIndex =
-            std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
+            std::bit_cast<std::int16_t>(session.WorldScene().petPairs[row].index);
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement) indexedElement->visible = 1;
         if (auto* const indexedElement2 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement2) indexedElement2->mouseCallback = &WindowElement_NoOp;
         if (auto* const indexedElement3 = window ? window->FindElementById(NativeElementKey(row + 69)) : nullptr; indexedElement3) indexedElement3->data.graphic->imageNo = 243100;
@@ -934,7 +934,7 @@ static void WindowPetSkillChoice_RefreshPetNames(session::ClientSession& session
         if (indexedElement9) {
             indexedElement9->data.text->text.clear();
         }
-        const world::PetRuntimeRecord& pet = world::gPetRuntimeRecords[petIndex];
+        const world::PetRuntimeRecord& pet = (*session.WorldScene().petRecords)[petIndex];
         const bool used = pet.used != 0;
         choice.firstValueTexts[row].clear();
         choice.secondValueTexts[row].clear();
@@ -975,12 +975,12 @@ static void WindowPetSkillChoice_RefreshPetCandidates(session::ClientSession& se
     if (auto* const element7 = window ? window->FindElementById(WindowPetSkillChoiceElementId::Element7) : nullptr; element7) element7->visible = 1;
     cg::text::FormatTo(choice.amountText, L"{:10}", choice.skills[choice.selected].price);
     for (std::int32_t row = 0; row < 5; ++row) {
-        const world::PetPairRecord& pair = world::gPetPairsDE0B08[row];
+        const world::PetPairRecord& pair = session.WorldScene().petPairs[row];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
             std::int32_t empty = 0;
             for (std::int32_t pet = 0; pet < index; ++pet) {
-                if (world::gPetRuntimeRecords[pet].used == 0) {
+                if ((*session.WorldScene().petRecords)[pet].used == 0) {
                     ++empty;
                 }
             }
@@ -2234,7 +2234,7 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callback
         return 1;
     }
     std::int32_t petCount = 0;
-    for (const world::PetRuntimeRecord& pet : world::gPetRuntimeRecords) {
+    for (const world::PetRuntimeRecord& pet : (*callbackWindow.ownerSession->WorldScene().petRecords)) {
         if (pet.used != 0) {
             ++petCount;
         }

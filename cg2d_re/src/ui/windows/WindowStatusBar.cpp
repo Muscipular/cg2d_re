@@ -89,7 +89,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callback
 static std::int32_t WindowStatusBar_ReadInjuredPetIndex(session::ClientSession& session); // SHP01：玩家伤势优先返0，否则宠物原编号+10/未命中-1。
 
 // 原函数：0x004731B0。
-static std::int32_t WindowStatusBar_FindSortedPetIndex(std::int32_t index); // SHP01：五个S16配对首匹配位置，无则-1，不查used。
+static std::int32_t WindowStatusBar_FindSortedPetIndex(session::ClientSession& session, std::int32_t index); // SHP01：五个S16配对首匹配位置，无则-1，不查used。
 
 // 原函数：0x00470A80。
 // 关联原入口：0x00470A9F（共享尾已并入本函数正文）。
@@ -380,11 +380,11 @@ static void WindowStatusBar_Refresh(WindowInstance* callbackWindow)
     }
     WindowStatusBar_DrawTimer(callbackWindow, 8, &descriptor);
 
-    const std::int32_t points = world::FindAttributeAllocationHintTarget_504B10();
+    const std::int32_t points = world::FindAttributeAllocationHintTarget_504B10(*callbackWindow->ownerSession);
     const std::int32_t initialInjury = callbackWindow->ownerSession->WorldScene().player->valueF4;
     business.statusHasPointsD66E24 = points != 6 ? 1 : 0;
     if (initialInjury == 0) {
-        const std::int32_t pet = world::FindFirstInjuredPet_504B60();
+        const std::int32_t pet = world::FindFirstInjuredPet_504B60(*callbackWindow->ownerSession);
         business.statusHasInjuryD046C8 = 0;
         if (pet != -1) {
             business.statusHasInjuryD046C8 = 1;
@@ -561,17 +561,17 @@ static std::int32_t WindowStatusBar_ReadInjuredPetIndex(session::ClientSession& 
     if (session.WorldScene().player->valueF4 != 0) {
         return 0;
     }
-    const std::int32_t pet = world::FindFirstInjuredPet_504B60();
+    const std::int32_t pet = world::FindFirstInjuredPet_504B60(session);
     return pet == -1 ? -1 : pet + 10;
 }
 
 // SHP01：原五S16配对首个编号匹配位置，无则-1。
 // 原函数：0x004731B0。
-static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
+static std::int32_t WindowStatusBar_FindSortedPetIndex(session::ClientSession& session, const std::int32_t index)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
         const std::int16_t candidate =
-            std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
+            std::bit_cast<std::int16_t>(session.WorldScene().petPairs[position].index);
         if (index == candidate) {
             return position;
         }
@@ -591,14 +591,14 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
     std::wstring buffer;
     switch (static_cast<WindowStatusBarElementId>(elementId)) {
     case WindowStatusBarElementId::HandleHintButton_14: {
-        const std::int32_t candidate = world::FindAttributeAllocationHintTarget_504B10();
+        const std::int32_t candidate = world::FindAttributeAllocationHintTarget_504B10(*callbackWindow.ownerSession);
         const bool hover = (state & MouseFlag_Hover) != 0;
         if (hover) {
             if (business.statusHasPointsD66E24 != 0) {
                 if (candidate <= 4) {
                     const std::int16_t petIndex =
-                        std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[candidate].index);
-                    const auto& pet = world::gPetRuntimeRecords[petIndex];
+                        std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[candidate].index);
+                    const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
                     const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
                     cg::text::FormatTo(buffer, L"现在{}拥有{}点的能力点数。" /* 原常量参考：0x00586314。 */, name, points);
@@ -695,7 +695,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
             } else if (target == -1) {
                 uiFrame.hoverText = L"现在十分健康。" /* 原常量参考：0x00556D68。 */;
             } else {
-                const auto& pet = world::gPetRuntimeRecords[petIndex];
+                const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
                 const std::int32_t petInjury = pet.values70[25];
                 const wchar_t* name;
                 const wchar_t* format;
@@ -763,7 +763,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWin
                     if (WindowInstance* const equipment = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment].window) {
                         equipment->state |= 0x8000u;
                     }
-                    business.selectedPetCC3E5C = WindowStatusBar_FindSortedPetIndex(petIndex);
+                    business.selectedPetCC3E5C = WindowStatusBar_FindSortedPetIndex(*callbackWindow.ownerSession, petIndex);
                     business.valueD673D0 = 5;
                     static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetDetail, 1, 0, nullptr));
                 }

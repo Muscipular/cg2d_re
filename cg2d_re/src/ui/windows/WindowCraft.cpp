@@ -1813,7 +1813,7 @@ static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, co
                 if (skillOperation.rebirthEnabled != 0) {
                     offset = 100;
                 } else if (skillOperation.sendMode != 0) {
-                    skillOperation.petImage = WindowSkill_ReadBattlePetImage();
+                    skillOperation.petImage = WindowSkill_ReadBattlePetImage(*callbackWindow.ownerSession);
                     offset = 200;
                 }
                 const std::int32_t request = std::bit_cast<std::int8_t>(craft.requestByte);
@@ -2926,7 +2926,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         switch (std::bit_cast<std::int8_t>(craft.selectionMode)) {
         case 0: case 3: case 6: case 9: case 12: case 15:
             if (matchingCrystal) {
-                const std::int32_t imageNo = WindowSkill_ReadBattlePetImage();
+                const std::int32_t imageNo = WindowSkill_ReadBattlePetImage(*callbackWindow.ownerSession);
                 static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, imageNo));
                 static_cast<void>(WindowCraft_SetPreviewPositions(
                     currentWindow, 4, 3, 5, kCraftPreviewOffsetX57D7D0, kCraftPreviewOffsetY57D7D2));
@@ -2936,7 +2936,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
             break;
         case 1: case 4: case 7: case 10: case 13: case 16:
             if (skillOperation.sendMode != 0) {
-                const std::int32_t imageNo = WindowSkill_ReadBattlePetImage();
+                const std::int32_t imageNo = WindowSkill_ReadBattlePetImage(*callbackWindow.ownerSession);
                 static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, imageNo));
             } else {
                 static_cast<void>(WindowCraft_SetPreviewImages(currentWindow, 3, 5, 0));
@@ -2980,7 +2980,7 @@ static std::int32_t WindowCraft_Update(WindowInstance& callbackWindow, const std
         if (skillOperation.rebirthEnabled != 0) {
             offset = 100;
         } else if (skillOperation.sendMode != 0) {
-            skillOperation.petImage = WindowSkill_ReadBattlePetImage();
+            skillOperation.petImage = WindowSkill_ReadBattlePetImage(*callbackWindow.ownerSession);
             offset = 200;
         }
         std::int32_t skill;

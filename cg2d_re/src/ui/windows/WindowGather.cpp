@@ -620,7 +620,7 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
                 skill = std::bit_cast<std::int8_t>(gather.skillIndex);
             }
             static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill, level, -1, L""));
-            gather.petImage = WindowSkill_ReadBattlePetImage();
+            gather.petImage = WindowSkill_ReadBattlePetImage(*callbackWindow.ownerSession);
             gather.crystalLevel = WindowSkill_ReadCrystalLevel(*callbackWindow.ownerSession);
             gather.mode = 2;
         } else if (WindowProfile_CheckDistance(*callbackWindow.ownerSession, 1, 1) != 0) {

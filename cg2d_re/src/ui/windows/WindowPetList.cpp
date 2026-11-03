@@ -631,7 +631,7 @@ static network::SendResult WindowPetList_SubmitStates(session::ClientSession& se
     auto& business = session.UiFrame().native.business;
     std::array<std::int32_t, 5> values;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
-        const std::int32_t follow = world::gPetRuntimeRecords[slot].follow6D4;
+        const std::int32_t follow = (*session.WorldScene().petRecords)[slot].follow6D4;
         const std::int32_t state = business.valuesCC1A18[slot];
         values[slot] = state;
         if (follow != 0) {
@@ -652,8 +652,8 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     auto& states = business.valuesCC1A18;
-    const auto petIndex = [](const std::int32_t row) {
-        return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[row].index);
+    const auto petIndex = [&callbackWindow](const std::int32_t row) {
+        return std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[row].index);
     };
     const auto setImage = [elementId, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
@@ -678,7 +678,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         }
         if ((events & MouseFlag_LDownEvent) != 0) {
             const std::int16_t selected = petIndex(row);
-            const auto& pet = world::gPetRuntimeRecords[selected];
+            const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[selected];
             if (pet.used != 0) {
                 WindowInstance* const detailsWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetDetail].window;
                 business.selectedPetCC3E5C = row;
@@ -702,7 +702,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             consumed = 1;
         } else if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_RDownEvent) != 0) {
             const std::int16_t selected = petIndex(row);
-            if (world::gPetRuntimeRecords[selected].used != 0) {
+            if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].used != 0) {
                 static_cast<void>(WindowPetDrag_Start(*callbackWindow.ownerSession, selected, 0));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
@@ -712,7 +712,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
         if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 3) {
             const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             business.valuesD2EAA0[0] = 1;
-            business.valuesD2EAA0[1] = WindowItem_FindSortedPetIndex(source);
+            business.valuesD2EAA0[1] = WindowItem_FindSortedPetIndex(*callbackWindow.ownerSession, source);
         }
         return consumed;
     }
@@ -723,12 +723,12 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             return 0;
         }
-        if (WindowPet_HasSkill25600(petIndex(row)) != 1) {
+        if (WindowPet_HasSkill25600(*callbackWindow.ownerSession, petIndex(row)) != 1) {
             return 0;
         }
         if ((state & MouseFlag_Hover) != 0) {
             setImage(0x3B588);
-            const std::int32_t follow = world::gPetRuntimeRecords[petIndex(row)].follow6D4;
+            const std::int32_t follow = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex(row)].follow6D4;
             uiFrame.hoverText = follow != 0 ? L"无法将此宠物带在身后散步。" /* 原常量参考：0x00586CF0。 */ : L"将此宠物带在身后散步。" /* 原常量参考：0x00586CD8。 */;
             consumed = 1;
         }
@@ -736,21 +736,21 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             return consumed;
         }
         const std::int16_t selected = petIndex(row);
-        if (world::gPetRuntimeRecords[selected].follow6D4 != 0) {
+        if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].follow6D4 != 0) {
             static_cast<void>(WindowPetList_SendStates(*callbackWindow.ownerSession, states));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
         }
         std::int32_t followCount = 0;
         for (std::int32_t position = 0; position < 5; ++position) {
-            if (world::gPetRuntimeRecords[petIndex(position)].follow6D4 != 0) {
+            if ((*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex(position)].follow6D4 != 0) {
                 ++followCount;
             }
         }
         if (followCount > 0) {
             return consumed;
         }
-        if (world::gPetRuntimeRecords[selected].values70[10] < 60) {
+        if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].values70[10] < 60) {
             world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"宠物忠诚度需达到60以上才可以带它散步喔!" /* 原常量参考：0x00586CB0。 */, 4, 3);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
@@ -875,7 +875,7 @@ static void WindowPetList_RefreshStates(session::ClientSession& session)
     business.valuesCC4CE8[1] = -1;
     business.countCC4CFC = 0;
     for (std::int32_t slot = 0; slot < 5; ++slot) {
-        const auto& pet = world::gPetRuntimeRecords[slot];
+        const auto& pet = (*session.WorldScene().petRecords)[slot];
         const std::int32_t state = std::bit_cast<std::int16_t>(pet.flags6AA);
         business.valuesCC1A18[slot] = state;
         if (state == 2) {
@@ -906,7 +906,7 @@ static void WindowPetList_RefreshAttributeBar(WindowInstance* callbackWindow,
     }
     const std::int16_t petIndex = std::bit_cast<std::int16_t>(pair->index);
     const std::int32_t segments =
-        world::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
+        (*callbackWindow->ownerSession->WorldScene().petRecords)[petIndex].values70[21 + attribute] / 10;
     const auto show = [currentWindow](const std::int32_t element, const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.graphic->imageNo = image;
         if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(element)); indexedElement2) indexedElement2->visible = 1;
@@ -946,7 +946,7 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
     for (std::int32_t row = 0; row < 5; ++row) {
-        const auto* const pair = &world::gPetPairsDE0B08[row];
+        const auto* const pair = &callbackWindow->ownerSession->WorldScene().petPairs[row];
         // 只固定索引对地址，技能查询和各次CryptInt读取之间重新取编号。
         const auto petIndex = [pair]() {
             return std::bit_cast<std::int16_t>(pair->index);
@@ -954,7 +954,7 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
         const std::int16_t initialIndex = petIndex();
         WindowInstance* const initialWindow = currentWindow;
         const std::int32_t textBase = 1 + row * 5;
-        if (world::gPetRuntimeRecords[initialIndex].used == 0) {
+        if ((*callbackWindow->ownerSession->WorldScene().petRecords)[initialIndex].used == 0) {
             if (auto* const indexedElement = initialWindow->FindElementById(NativeElementKey(textBase)); indexedElement) indexedElement->visible = 0;
             for (std::int32_t column = 1; column < 5; ++column) {
                 if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(textBase + column)); indexedElement2) indexedElement2->visible = 0;
@@ -978,15 +978,15 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
         if (auto* const indexedElement2 = currentWindow->FindElementById(NativeElementKey(226 + row)); indexedElement2) indexedElement2->visible = 1;
         if (auto* const indexedElement3 = currentWindow->FindElementById(NativeElementKey(231 + row)); indexedElement3) indexedElement3->visible = 1;
         if (auto* const indexedElement4 = currentWindow->FindElementById(NativeElementKey(236 + row)); indexedElement4) indexedElement4->visible = 1;
-        if (WindowPet_HasSkill25600(petIndex()) == 1) {
+        if (WindowPet_HasSkill25600(*callbackWindow->ownerSession, petIndex()) == 1) {
             if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(226 + row)); indexedElement5) indexedElement5->visible = 1;
         }
         const std::int16_t loyaltyIndex = petIndex();
-        const bool canSelect = world::gPetRuntimeRecords[loyaltyIndex].values70[10] == 100
+        const bool canSelect = (*callbackWindow->ownerSession->WorldScene().petRecords)[loyaltyIndex].values70[10] == 100
             || business.valuesCC1A18[loyaltyIndex] == 3;
         if (auto* const indexedElement5 = currentWindow->FindElementById(NativeElementKey(241 + row)); indexedElement5) indexedElement5->visible = canSelect ? 1 : 0;
 
-        const auto& namePet = world::gPetRuntimeRecords[petIndex()];
+        const auto& namePet = (*callbackWindow->ownerSession->WorldScene().petRecords)[petIndex()];
         const wchar_t* const name =
             namePet.name6BD[0] != '\0' ? namePet.name6BD.data() : namePet.name6AC.data();
         auto* nameElementsWindow = currentWindow;
@@ -1004,21 +1004,21 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
             indexedElement6->data.text->style.color =
                 colorState == 3 ? std::byte{7} : std::byte{0};
         }
-        cg::text::FormatTo(buffer, L"{:3}", world::gPetRuntimeRecords[petIndex()].value08);
+        cg::text::FormatTo(buffer, L"{:3}", (*callbackWindow->ownerSession->WorldScene().petRecords)[petIndex()].value08);
         copyNumber(textBase + 1);
-        const std::int32_t maxHp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[1]);
-        const std::int32_t hp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[0]);
+        const std::int32_t maxHp = static_cast<std::int32_t>((*callbackWindow->ownerSession->WorldScene().petRecords)[petIndex()].values0C[1]);
+        const std::int32_t hp = static_cast<std::int32_t>((*callbackWindow->ownerSession->WorldScene().petRecords)[petIndex()].values0C[0]);
         cg::text::FormatTo(buffer, L"{:6}/{:6}", hp, maxHp);
         copyNumber(textBase + 2);
-        const std::int32_t maxFp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[3]);
-        const std::int32_t fp = static_cast<std::int32_t>(world::gPetRuntimeRecords[petIndex()].values0C[2]);
+        const std::int32_t maxFp = static_cast<std::int32_t>((*callbackWindow->ownerSession->WorldScene().petRecords)[petIndex()].values0C[3]);
+        const std::int32_t fp = static_cast<std::int32_t>((*callbackWindow->ownerSession->WorldScene().petRecords)[petIndex()].values0C[2]);
         cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         copyNumber(textBase + 3);
 
         const std::int16_t tribeIndex = petIndex();
         WindowInstance* const tribeWindow = currentWindow;
         const std::int16_t tribe =
-            std::bit_cast<std::int16_t>(world::gPetRuntimeRecords[tribeIndex].value04);
+            std::bit_cast<std::int16_t>((*callbackWindow->ownerSession->WorldScene().petRecords)[tribeIndex].value04);
         auto* tribeElementsWindow = tribeWindow;
         const wchar_t* const tribeName = gTribeNames57CB54[tribe];
         auto* const tribeDataElement = tribeElementsWindow->FindElementById(NativeElementKey(textBase + 4));
@@ -1033,10 +1033,10 @@ static void WindowPetList_Refresh(WindowInstance* callbackWindow)
             setImage(236 + row, state == 2 ? 0x3B58C : 0x3B58D);
             setImage(241 + row, state == 3 ? 0x3B58F : 0x3B590);
         }
-        if (WindowPet_HasSkill25600(petIndex()) == 1) {
+        if (WindowPet_HasSkill25600(*callbackWindow->ownerSession, petIndex()) == 1) {
             const std::int16_t followIndex = petIndex();
             WindowInstance* const followWindow = currentWindow;
-            const std::int32_t follow = world::gPetRuntimeRecords[followIndex].follow6D4;
+            const std::int32_t follow = (*callbackWindow->ownerSession->WorldScene().petRecords)[followIndex].follow6D4;
             auto* const indexedElement7 = followWindow->FindElementById(NativeElementKey(226 + row));
             if (indexedElement7) {
                 indexedElement7->data.graphic->imageNo =

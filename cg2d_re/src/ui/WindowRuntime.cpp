@@ -65,7 +65,7 @@ static std::int32_t WindowItemSelector_ReadSlotY(const WindowItemSelectorState* 
 static void WindowItemSelector_ShowPlayerPage(WindowItemSelectorState* state); // SPG01：玩家页2显示槽6；W32装配模式0显示槽19，两门槛独立，原正文保持。
 
 // 原函数：0x004C6470。
-static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* state); // SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。
+static void WindowItemSelector_ShowPetPage(session::ClientSession& session, WindowItemSelectorState* state); // SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。
 
 // 原函数：0x004C6500。
 static void WindowItemSelector_HidePageElements(WindowItemSelectorState* state); // SPG01：按原顺序隐藏槽6/7/8/15/16、六装备槽与17；模式0才隐藏19，主元素不改。
@@ -77,10 +77,10 @@ static void WindowItemSelector_SelectPage(session::ClientSession& session, Windo
 static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, WindowItemSelectorState* state); // SFD01：原四页分发/业务钳制保持；两按钮按原顺序取样，共借descriptor[0]；已知上行由窗口回调返回1。
 
 // 原函数：0x004C6990。
-static std::int32_t WindowItemSelector_SelectPet(WindowItemSelectorState* state); // PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
+static std::int32_t WindowItemSelector_SelectPet(session::ClientSession& session, WindowItemSelectorState* state); // PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
 
 // 原函数：0x004C69B0。
-static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* state); // PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。
+static void WindowItemSelector_RefreshPetHeader(session::ClientSession& session, WindowItemSelectorState* state); // PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。
 
 // 原函数：0x004C6AC0。
 static void WindowItemSelector_MoveElements(WindowItemSelectorState* state, std::int32_t x); // SPG01：依原序移动主元素、四按钮及六表坐标；原S32结果与固定循环保持，不新增钳制。
@@ -93,7 +93,7 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
 static std::int32_t WindowItemSelector_DrawPreview(WindowInstance* callbackWindow, WindowItemSelectorState* state); // PSP01：同一非拥有预览推进/两轴/队列；掩码替换字节先旧字节，返回/原读取门槛保持。
 
 // 原函数：0x004C71C0。
-static std::int32_t WindowItemSelector_FindPetIndex(std::int32_t ordinal); // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
+static std::int32_t WindowItemSelector_FindPetIndex(session::ClientSession& session, std::int32_t ordinal); // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
 
 // 原函数：0x004C7340。
 static bool WindowItemSelector_SetMode(session::ClientSession& session, WindowItemSelectorState* state, std::int32_t mode); // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
@@ -103,6 +103,7 @@ static std::int32_t WindowItem_RequestTransferQuantity(session::ClientSession& s
 
 // 原函数：0x0048D540。
 static std::int32_t WindowPet_DrawTooltip(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int32_t index,
     std::uint8_t textLayer, std::uint8_t graphicLayer, std::uint32_t color);
 
@@ -754,10 +755,10 @@ std::int32_t WindowItem_ClassifyPetSlot(const std::int32_t slot)
 }
 
 // 原函数：0x0048BC60。
-std::int32_t WindowItem_FindSortedPetIndex(const std::int32_t slot)
+std::int32_t WindowItem_FindSortedPetIndex(session::ClientSession& session, const std::int32_t slot)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
-        if (std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index) == slot) {
+        if (std::bit_cast<std::int16_t>(session.WorldScene().petPairs[position].index) == slot) {
             return position;
         }
     }
@@ -882,13 +883,14 @@ void WindowItem_RequestPetTransfer(
 }
 
 // 原函数：0x004EA670。
-std::int32_t WindowPet_HasSkill25600(const std::int32_t index)
+std::int32_t WindowPet_HasSkill25600(session::ClientSession& session, const std::int32_t index)
 {
-    return world::HasPetTechnique_52E180(index, 25600) != 0 ? 1 : 0;
+    return world::HasPetTechnique_52E180(session, index, 25600) != 0 ? 1 : 0;
 }
 
 // 原函数：0x0048D540。
 static std::int32_t WindowPet_DrawTooltip(
+    session::ClientSession& session,
     const std::int16_t x, const std::int16_t y, const std::int32_t index,
     const std::uint8_t textLayer, const std::uint8_t graphicLayer, const std::uint32_t color)
 {
@@ -897,7 +899,7 @@ static std::int32_t WindowPet_DrawTooltip(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto originX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 150));
     const auto originY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y - 24));
-    world::PetRuntimeRecord& pet = world::gPetRuntimeRecords[index];
+    world::PetRuntimeRecord& pet = (*session.WorldScene().petRecords)[index];
     if (pet.used != 0) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
@@ -927,7 +929,7 @@ static std::int32_t WindowPet_DrawTooltip(
         const std::int32_t fp = static_cast<std::int32_t>(pet.values0C[2]);
         cg::text::FormatTo(buffer, L"{:6}/{:6}", fp, maxFp);
         drawText(buffer, 37, 32);
-        if (WindowPet_HasSkill25600(index) == 1) {
+        if (WindowPet_HasSkill25600(session, index) == 1) {
             static_cast<void>(render::DrawGraphic3_520970(
                 originX + 244, originY + 26, graphicLayer,
                 pet.follow6D4 != 0 ? 243078 : 243079, 0, 1, 0, &descriptor));
@@ -981,7 +983,7 @@ static void WindowPetDrag_Handle(
     }
     const std::int32_t kind = WindowItem_ClassifyPetSlot(sourceIndex);
     if (kind == 1) {
-        if (world::gPetRuntimeRecords[sourceIndex].used == 0) {
+        if ((*session.WorldScene().petRecords)[sourceIndex].used == 0) {
             static_cast<void>(WindowDrag_ResetMouse(session));
         }
     } else if (kind == 2) {
@@ -1024,7 +1026,7 @@ static void WindowPetDrag_Handle(
                 (platform::gLegacyMouseState.mouseY - 35)));
             const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
                 (platform::gLegacyMouseState.mouseX - 120)));
-            WindowBank_DrawOwnPetTooltip(x, y, sourceIndex, 5);
+            WindowBank_DrawOwnPetTooltip(session, x, y, sourceIndex, 5);
         } else if (drawKind == 2) {
             const std::int32_t slot = sourceIndex - 100;
             const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
@@ -1045,7 +1047,7 @@ static void WindowPetDrag_Handle(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
-        static_cast<void>(WindowPet_DrawTooltip(x, y, sourceIndex, 5, 230, color));
+        static_cast<void>(WindowPet_DrawTooltip(session, x, y, sourceIndex, 5, 230, color));
     }
 }
 
@@ -1089,7 +1091,7 @@ static void WindowItemDrag_Handle(
     if (kind == 1) {
         const world::PlayerItemRecord* item;
         if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection) > 0) {
-            item = &world::gPetRuntimeRecords[
+            item = &(*session.WorldScene().petRecords)[
                 WindowItemSelector_ReadSelectedPet(&inventory.normalSelector)].items6E4[sourceIndex];
         } else {
             item = &session.WorldScene().playerItems[sourceIndex];
@@ -1128,7 +1130,7 @@ static void WindowItemDrag_Handle(
         const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(session).inventoryActorSelection);
         drawDescriptor = &descriptor;
         if (mode > 0) {
-            imageNo = world::gPetRuntimeRecords[
+            imageNo = (*session.WorldScene().petRecords)[
                 WindowItemSelector_ReadSelectedPet(&inventory.normalSelector)].items6E4[sourceIndex].imageNo;
         } else {
             imageNo = session.WorldScene().playerItems[sourceIndex].imageNo;
@@ -1623,7 +1625,7 @@ static void WindowItemSelector_ShowPlayerPage(WindowItemSelectorState* const sta
 
 // SPG01：宠物页/名称负重及原动态空位显示保持；只判低AL，不钳制itemSlots或补保护。
 // 原函数：0x004C6470。
-static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
+static void WindowItemSelector_ShowPetPage(session::ClientSession& session, WindowItemSelectorState* const state)
 {
     if (state->value60 == 3) {
         if (auto* element = state->elements00[7].get()) element->visible = 1;
@@ -1633,7 +1635,7 @@ static void WindowItemSelector_ShowPetPage(WindowItemSelectorState* const state)
     if (auto* element = state->elements00[16].get()) element->visible = 1;
     const std::int32_t itemSlots =
         state->value3ED != 0 && world::IsValidPetIndex_51C410(state->selectedPet70)
-        ? world::gPetRuntimeRecords[state->selectedPet70].values6D8[0] : 0;
+        ? (*session.WorldScene().petRecords)[state->selectedPet70].values6D8[0] : 0;
     for (std::int32_t position = itemSlots; position < 6; ++position) {
         if (auto* element = state->elements00[9 + position].get()) element->visible = 1;
     }
@@ -1667,9 +1669,9 @@ static void WindowItemSelector_SelectPage(session::ClientSession& session, Windo
 {
     auto& inventory = session.UiFrame().native.inventory;
     if (page == 1 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
-        static_cast<void>(WindowItemSelector_SelectPet(state));
+        static_cast<void>(WindowItemSelector_SelectPet(session, state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::gPetRuntimeRecords[state->selectedPet70].used == 0) {
+            || (*session.WorldScene().petRecords)[state->selectedPet70].used == 0) {
             static_cast<void>(WindowItemSelector_SetMode(session, state, 0));
         }
     }
@@ -1688,11 +1690,11 @@ static void WindowItemSelector_SelectPage(session::ClientSession& session, Windo
             WindowItemSelector_ShowPlayerPage(state);
             if (auto* element = state->elements00[1].get()) element->data.graphic->imageNo = 98146;
         } else if (mode > 0) {
-            WindowItemSelector_ShowPetPage(state);
+            WindowItemSelector_ShowPetPage(session, state);
             if (auto* element = state->elements00[1].get()) element->data.graphic->imageNo = 98147;
             if (world::IsValidPetIndex_51C410(state->selectedPet70)) {
                 for (std::int32_t position = 0;
-                     position < world::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
+                     position < (*session.WorldScene().petRecords)[state->selectedPet70].values6D8[0];
                      ++position) {
                     if (auto* element = state->elements00[9 + position].get()) element->visible = 1;
                 }
@@ -1725,8 +1727,8 @@ static void WindowItemSelector_SelectPage(session::ClientSession& session, Windo
         break;
     case 3:
         WindowItemSelector_MoveElements(state, -182);
-        WindowItemSelector_RefreshPetHeader(state);
-        WindowItemSelector_ShowPetPage(state);
+        WindowItemSelector_RefreshPetHeader(session, state);
+        WindowItemSelector_ShowPetPage(session, state);
         if (state->value3ED == 1) {
             WindowElement* const element = state->elements00[1];
             const WindowElementCallback callback = state->callbacks50[2];
@@ -1761,16 +1763,16 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
     static constexpr std::int32_t kEquipmentToggleImages[] {98137, 98137, 98139, 98138};
     const std::int32_t page = state->value60;
     if (page > 0 && page <= 2 && std::bit_cast<std::int8_t>(*state->mode68) > 0) {
-        static_cast<void>(WindowItemSelector_SelectPet(state));
+        static_cast<void>(WindowItemSelector_SelectPet(*callbackWindow->ownerSession, state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::gPetRuntimeRecords[state->selectedPet70].used == 0) {
+            || (*callbackWindow->ownerSession->WorldScene().petRecords)[state->selectedPet70].used == 0) {
             static_cast<void>(WindowItemSelector_SetMode(*callbackWindow->ownerSession, state, 0));
         }
     }
     switch (state->value60) {
     case 1: {
         if (std::bit_cast<std::int8_t>(*state->mode68) > 0) {
-            static_cast<void>(WindowItemSelector_SelectPet(state));
+            static_cast<void>(WindowItemSelector_SelectPet(*callbackWindow->ownerSession, state));
         }
         auto* const panelElement = state->elements00[1].get();
         if (!panelElement) break;
@@ -1796,9 +1798,9 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
         }
         break;
     case 3: {
-        static_cast<void>(WindowItemSelector_SelectPet(state));
+        static_cast<void>(WindowItemSelector_SelectPet(*callbackWindow->ownerSession, state));
         if (!world::IsValidPetIndex_51C410(state->selectedPet70)
-            || world::gPetRuntimeRecords[state->selectedPet70].used == 0) {
+            || (*callbackWindow->ownerSession->WorldScene().petRecords)[state->selectedPet70].used == 0) {
             *state->mode68 = 0;
         }
         if (*state->mode68 == 0) {
@@ -1806,7 +1808,7 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
             break;
         }
         WindowItemSelector_DrawTooltip(callbackWindow, state);
-        WindowItemSelector_RefreshPetHeader(state);
+        WindowItemSelector_RefreshPetHeader(*callbackWindow->ownerSession, state);
         const std::int32_t firstIndex = state->imageIndex3F0;
         const WindowElement* const firstElement = state->elements00[1].get();
         if (!firstElement) break;
@@ -1846,22 +1848,22 @@ static void WindowItemSelector_UpdatePage(WindowInstance* callbackWindow, Window
 
 // PSP01：同state mode按S8映射，回调返回的S32索引原序发布到selectedPet70并返回。
 // 原函数：0x004C6990。
-static std::int32_t WindowItemSelector_SelectPet(WindowItemSelectorState* const state)
+static std::int32_t WindowItemSelector_SelectPet(session::ClientSession& session, WindowItemSelectorState* const state)
 {
-    const std::int32_t index = WindowItemSelector_FindPetIndex(std::bit_cast<std::int8_t>(*state->mode68));
+    const std::int32_t index = WindowItemSelector_FindPetIndex(session, std::bit_cast<std::int8_t>(*state->mode68));
     state->selectedPet70 = index;
     return index;
 }
 
 // PSP01：同宠物previous/updated BYTE及名字/负重原序保持；首次测宽先字体后文本，负重先文本后字体。
 // 原函数：0x004C69B0。
-static void WindowItemSelector_RefreshPetHeader(WindowItemSelectorState* const state)
+static void WindowItemSelector_RefreshPetHeader(session::ClientSession& session, WindowItemSelectorState* const state)
 {
     if (state->selectedPet70 == -1 || !world::IsValidPetIndex_51C410(state->selectedPet70)) {
         return;
     }
     const std::int32_t selected = state->selectedPet70;
-    auto* const pet = &world::gPetRuntimeRecords[selected];
+    auto* const pet = &(*session.WorldScene().petRecords)[selected];
     if (selected == state->previousPet74 && pet->updated510C == 0) {
         return;
     }
@@ -1942,7 +1944,7 @@ static void WindowItemSelector_DrawTooltip(WindowInstance* callbackWindow, Windo
         }
         slot = state->hoverIndex3F8;
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&inventory.normalSelector);
-        item = &world::gPetRuntimeRecords[pet].items6E4[slot];
+        item = &(*callbackWindow->ownerSession->WorldScene().petRecords)[pet].items6E4[slot];
     }
     if (item->used != 0) {
         const auto* const occupancy =
@@ -1997,7 +1999,7 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowInstance* callbackWindo
         return selected;
     }
     cg::yobi::YobiAction* const preview = state->preview;
-    const std::int32_t imageNo = world::gPetRuntimeRecords[selected].imageNo6A0;
+    const std::int32_t imageNo = (*callbackWindow->ownerSession->WorldScene().petRecords)[selected].imageNo6A0;
     cg::yobi::SetYobiActionField2A8(preview, imageNo);
     const std::int32_t result = cg::yobi::AdvanceYobiAnimationFrame_517880(preview, 100, 0, 0);
     const std::int32_t graphicIndex = cg::yobi::GetYobiActionField20(preview);
@@ -2017,7 +2019,7 @@ static std::int32_t WindowItemSelector_DrawPreview(WindowInstance* callbackWindo
 
 // PSP01：五排序对按used W16/索引S16/状态W16计数；不足仍取末扫描项，不新增匹配/索引保护。
 // 原函数：0x004C71C0。
-static std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
+static std::int32_t WindowItemSelector_FindPetIndex(session::ClientSession& session, const std::int32_t ordinal)
 {
     if (ordinal == -1) {
         return -1;
@@ -2028,10 +2030,10 @@ static std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
         if (matched >= ordinal) {
             break;
         }
-        const auto& pair = world::gPetPairsDE0B08[position];
+        const auto& pair = session.WorldScene().petPairs[position];
         if (pair.used != 0) {
             const std::int32_t index = std::bit_cast<std::int16_t>(pair.index);
-            const std::uint16_t flags = world::gPetRuntimeRecords[index].flags6AA;
+            const std::uint16_t flags = (*session.WorldScene().petRecords)[index].flags6AA;
             if (flags == 2 || flags == 1) {
                 ++matched;
             }
@@ -2039,7 +2041,7 @@ static std::int32_t WindowItemSelector_FindPetIndex(const std::int32_t ordinal)
     }
     --position;
     return position < 0 ? -1
-        : std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
+        : std::bit_cast<std::int16_t>(session.WorldScene().petPairs[position].index);
 }
 
 // SPG01：写mode低BYTE后持旧页；页3按新mode切2/3、页2不切；bool仅承接原AL=1，高位ABI待。
@@ -2158,7 +2160,7 @@ bool WindowItemSelector_TogglePreview(WindowItemSelectorState* const state, cons
 
 // SEV01：先翻BYTE装备/回调，失效AL早返保部分写；目标先回调、尾selected先推进/count后取，不钳制数量。
 // 原函数：0x004C7910。
-bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, const std::int32_t events)
+bool WindowItemSelector_CycleEquipment(session::ClientSession& session, WindowItemSelectorState* const state, const std::int32_t events)
 {
     bool consumed = false;
     if ((events & MouseFlag_LDownEvent) != 0) {
@@ -2180,13 +2182,13 @@ bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* const state, con
             }
             const std::int32_t selected = state->selectedPet70;
             std::int32_t position = 0;
-            std::int32_t itemSlots = world::gPetRuntimeRecords[selected].values6D8[0];
+            std::int32_t itemSlots = (*session.WorldScene().petRecords)[selected].values6D8[0];
             while (position < itemSlots) {
                 const std::uint8_t visible = state->value3ED == 0;
                 if (auto* element = state->elements00[9 + position].get()) element->visible = visible;
                 const std::int32_t nextSelected = state->selectedPet70;
                 ++position;
-                itemSlots = world::gPetRuntimeRecords[nextSelected].values6D8[0];
+                itemSlots = (*session.WorldScene().petRecords)[nextSelected].values6D8[0];
             }
         }
         consumed = true;
@@ -2289,8 +2291,8 @@ bool WindowItemSelector_GetItemList_4C72C0(
         return true;
     }
     if (mode > 0 && world::IsValidPetIndex_51C410(state->selectedPet70)) {
-        *items = world::gPetRuntimeRecords[state->selectedPet70].items6E4.data();
-        *count = world::gPetRuntimeRecords[state->selectedPet70].values6D8[0];
+        *items = (*session.WorldScene().petRecords)[state->selectedPet70].items6E4.data();
+        *count = (*session.WorldScene().petRecords)[state->selectedPet70].values6D8[0];
         return true;
     }
     return false;
@@ -2469,7 +2471,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(session::ClientSession& session, co
     if (petEquipment) {
         const std::int32_t petIndex = WindowItemSelector_ReadSelectedPet(&inventory.normalSelector);
         const std::int32_t itemIndex = interaction.tooltipSource;
-        record = &world::gPetRuntimeRecords[petIndex].items6E4[itemIndex];
+        record = &(*session.WorldScene().petRecords)[petIndex].items6E4[itemIndex];
     } else {
         record = &session.WorldScene().playerItems[index];
     }

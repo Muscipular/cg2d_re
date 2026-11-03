@@ -145,7 +145,7 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
     if (key == "petList") {
         lua_createtable(L, 5, 0);
         for (int i = 0; i < 5; ++i) {
-            if (cg::world::gPetRuntimeRecords[i].used) PushData(L, DataKind::Pet, i); else lua_pushnil(L);
+            if ((*GetLuaConnection(L).Owner().WorldScene().petRecords)[i].used) PushData(L, DataKind::Pet, i); else lua_pushnil(L);
             lua_rawseti(L, -2, i + 1);
         }
         return 1;
@@ -168,7 +168,7 @@ static int ReadPlayer(lua_State* L, std::string_view key, bool allItems)
 }
 static int ReadPet(lua_State* L, int index, std::string_view key)
 {
-    auto& p = cg::world::gPetRuntimeRecords[index];
+    auto& p = (*GetLuaConnection(L).Owner().WorldScene().petRecords)[index];
     if (key == "use") { Push(L, (p.used != 0)); return 1; }
     if (key == "lv") { Push(L, p.value08); return 1; }
     if (key == "name") { Push(L, p.name6AC); return 1; }
@@ -239,7 +239,7 @@ static int ReadTechnique(lua_State* L, int index, int sub, std::string_view key)
 }
 static int ReadPetTechnique(lua_State* L, int index, int sub, std::string_view key)
 {
-    const auto& pet = cg::world::gPetRuntimeRecords[index];
+    const auto& pet = (*GetLuaConnection(L).Owner().WorldScene().petRecords)[index];
     const auto& p = pet.techniquesD8[sub];
     if (key == "use") { Push(L, (p.used != 0)); return 1; }
     if (key == "name") { Push(L, p.name); return 1; }

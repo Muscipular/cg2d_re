@@ -40,7 +40,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
 static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& window); // 宠物名称/颜色和携带物品图、数量刷新。
 
 // 原函数：0x004A6D30。
-static std::int32_t WindowPetMailCompose_HasGiftPet(std::int32_t index); // 同源flags6AA完整W16恰3。
+static std::int32_t WindowPetMailCompose_HasGiftPet(session::ClientSession& session, std::int32_t index); // 同源flags6AA完整W16恰3。
 
 // 原函数：0x004A6D50。
 static std::int32_t WindowPetMailCompose_HasGiftItem(session::ClientSession& session, std::int32_t index); // 先47D4A0，非零才读取flags6AA恰2。
@@ -97,9 +97,9 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
         }
         business.choicesCC4CA0.value00 = 0;
         for (std::int32_t index = 0; index < 5; ++index) {
-            const auto pet = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
-            if (world::gPetRuntimeRecords[pet].used != 0
-                && world::HasPetMailTechnique_52E1D0(pet) == 1) {
+            const auto pet = std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[index].index);
+            if ((*callbackWindow.ownerSession->WorldScene().petRecords)[pet].used != 0
+                && world::HasPetMailTechnique_52E1D0(*callbackWindow.ownerSession, pet) == 1) {
                 ++business.choicesCC4CA0.value00;
             }
         }
@@ -126,11 +126,11 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
     }
     business.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
-        const auto pet = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
-        if (world::gPetRuntimeRecords[pet].used == 0) {
+        const auto pet = std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[index].index);
+        if ((*callbackWindow.ownerSession->WorldScene().petRecords)[pet].used == 0) {
             continue;
         }
-        const std::int32_t available = world::HasPetMailTechnique_52E1D0(pet);
+        const std::int32_t available = world::HasPetMailTechnique_52E1D0(*callbackWindow.ownerSession, pet);
         if (available == 1) {
             business.choicesCC4CA0.pairs18[index][1] = available;
             business.choicesCC4CA0.pairs18[index][0] = pet;
@@ -148,7 +148,7 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
     }
     const std::int32_t position = business.prefixD2F0B8.value08;
     const std::int32_t pet = business.choicesCC4CA0.values04[position];
-    if (world::gPetRuntimeRecords[pet].used == 0) {
+    if ((*callbackWindow.ownerSession->WorldScene().petRecords)[pet].used == 0) {
         currentWindow->state |= 0x8000u;
     }
     static_cast<void>(WindowPetMailCompose_RefreshPet(callbackWindow));
@@ -239,9 +239,9 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
 }
 
 // 原函数：0x004A6D30。
-static std::int32_t WindowPetMailCompose_HasGiftPet(const std::int32_t index)
+static std::int32_t WindowPetMailCompose_HasGiftPet(session::ClientSession& session, const std::int32_t index)
 {
-    return world::gPetRuntimeRecords[index].flags6AA == 3 ? 1 : 0;
+    return (*session.WorldScene().petRecords)[index].flags6AA == 3 ? 1 : 0;
 }
 
 // 原函数：0x004A6D50。
@@ -250,7 +250,7 @@ static std::int32_t WindowPetMailCompose_HasGiftItem(session::ClientSession& ses
     if (WindowCraft_ReadItemSelection(session) == 0) {
         return 0;
     }
-    return world::gPetRuntimeRecords[index].flags6AA == 2 ? 1 : 0;
+    return (*session.WorldScene().petRecords)[index].flags6AA == 2 ? 1 : 0;
 }
 
 // 原函数：0x004A6450。
@@ -328,7 +328,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
             if (allowed) {
                 const std::int32_t position = business.prefixD2F0B8.value08;
                 const std::int32_t pet = business.choicesCC4CA0.values04[position];
-                allowed = WindowPetMailCompose_HasGiftPet(pet) == 0;
+                allowed = WindowPetMailCompose_HasGiftPet(*callbackWindow.ownerSession, pet) == 0;
             }
             if (allowed) {
                 const std::int32_t position = business.prefixD2F0B8.value08;
@@ -407,7 +407,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
     }
     const std::int32_t namePosition = business.prefixD2F0B8.value08;
     const std::int32_t namePet = business.choicesCC4CA0.values04[namePosition];
-    const auto& pet = world::gPetRuntimeRecords[namePet];
+    const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[namePet];
     const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
     auto* const element8 = currentWindow->FindElementById(WindowPetMailComposeElementId::Element8);
     if (element8) {
@@ -416,7 +416,7 @@ static std::uint8_t WindowPetMailCompose_RefreshPet(WindowInstance& callbackWind
     }
     const std::int32_t firstPosition = business.prefixD2F0B8.value08;
     const std::int32_t firstPet = business.choicesCC4CA0.values04[firstPosition];
-    bool unavailable = WindowPetMailCompose_HasGiftPet(firstPet) != 0;
+    bool unavailable = WindowPetMailCompose_HasGiftPet(*callbackWindow.ownerSession, firstPet) != 0;
     if (!unavailable) {
         const std::int32_t secondPosition = business.prefixD2F0B8.value08;
         const std::int32_t secondPet = business.choicesCC4CA0.values04[secondPosition];

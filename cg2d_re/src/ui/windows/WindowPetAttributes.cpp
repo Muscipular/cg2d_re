@@ -140,10 +140,10 @@ static std::uint32_t WindowPetAttributes_Refresh(WindowInstance* callbackWindow)
     if (!currentWindow) return 0;
     auto& business = callbackWindow->ownerSession->UiFrame().native.business;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
-    const auto selectedPet = [&business]() -> world::PetRuntimeRecord& {
+    const auto selectedPet = [&business, callbackWindow]() -> world::PetRuntimeRecord& {
         const auto index = std::bit_cast<std::int16_t>(
-            world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
-        return world::gPetRuntimeRecords[index];
+            callbackWindow->ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].index);
+        return (*callbackWindow->ownerSession->WorldScene().petRecords)[index];
     };
     const auto copyTextAfterScan = [currentWindow](const std::int32_t element, const std::wstring_view text) {
         auto* elementsWindow = currentWindow;
@@ -285,10 +285,10 @@ static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, c
         WindowPetDetail_InitializeDraft(&callbackWindow);
     }
     business.previousPetCC4888 = business.selectedPetCC3E5C;
-    if (WindowPetDetail_HasPetSequenceChanges(*callbackWindow.ownerSession) != 0 || WindowPetDetail_ReadDraftFlag() != 0) {
+    if (WindowPetDetail_HasPetSequenceChanges(*callbackWindow.ownerSession) != 0 || WindowPetDetail_ReadDraftFlag(*callbackWindow.ownerSession) != 0) {
         static_cast<void>(WindowPetDetail_SavePetSequences(*callbackWindow.ownerSession));
         WindowPetDetail_InitializeDraft(&callbackWindow);
-        WindowPetDetail_ResetDraftFlag();
+        WindowPetDetail_ResetDraftFlag(*callbackWindow.ownerSession);
         WindowInstance* const window = currentWindow;
         inputs.petNamePrototype.text = business.petNameDraftD45E74;
         const std::int32_t y = window->y;
@@ -296,8 +296,8 @@ static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, c
         static_cast<void>(WindowInput_ActivateElement(*callbackWindow.ownerSession, &inputs.petNamePrototype, x, y, 0));
     }
     const auto selected = std::bit_cast<std::int16_t>(
-        world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
-    if (world::gPetRuntimeRecords[selected].used == 0) {
+        callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].index);
+    if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].used == 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
@@ -330,8 +330,8 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
     const auto setImage = [elementId, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
     };
-    const auto petIndex = [](const std::int32_t position) {
-        return std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
+    const auto petIndex = [&callbackWindow](const std::int32_t position) {
+        return std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[position].index);
     };
     switch (static_cast<WindowPetAttributesElementId>(elementId)) {
     case WindowPetAttributesElementId::HandleButtons:
@@ -353,7 +353,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
             WindowChat_RestoreInput(*callbackWindow.ownerSession);
             if (text.empty()) {
                 const std::int16_t selected = petIndex(business.selectedPetCC3E5C);
-                const wchar_t* const name = world::gPetRuntimeRecords[selected].name6AC.data();
+                const wchar_t* const name = (*callbackWindow.ownerSession->WorldScene().petRecords)[selected].name6AC.data();
                 business.petNameDraftD45E74 = name;
                 auto* const element15 = currentWindow->FindElementById(WindowPetAttributesElementId::Element15);
                 if (element15) {
@@ -376,7 +376,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
             setImage(0x3BAF7);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (world::gPetPairsDE0B08[business.selectedPetCC3E5C].used != 0
+            if (callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].used != 0
                 && (world::ReadPlayerActionFlags(*callbackWindow.ownerSession) & 0x80u) == 0
                 && world::IsObservationSceneTransitionActive_440B50() == 0) {
                 const std::int16_t pet = petIndex(business.selectedPetCC3E5C);
@@ -386,7 +386,7 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
                 static_cast<void>(callbackWindow.ownerSession->Connection().DropPetRequest(x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(business.selectedPetCC3E5C);
-                if (world::gPetRuntimeRecords[selected].flags6AA == 2) {
+                if ((*callbackWindow.ownerSession->WorldScene().petRecords)[selected].flags6AA == 2) {
                     WindowCraft_ResetItemSelection(*callbackWindow.ownerSession);
                 }
             }
@@ -419,13 +419,13 @@ static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWi
                         position = 0;
                     }
                 }
-                if (world::gPetRuntimeRecords[petIndex(position)].used != 0) {
+                if ((*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex(position)].used != 0) {
                     break;
                 }
             }
             const std::int16_t selected = petIndex(position);
             business.selectedPetCC3E5C = position;
-            const auto& pet = world::gPetRuntimeRecords[selected];
+            const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[selected];
             const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             inputs.petNamePrototype.text = name;
             WindowInstance* const window = currentWindow;

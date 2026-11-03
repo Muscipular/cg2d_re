@@ -108,11 +108,13 @@ static void WindowSkill_ShowRidingSkills(session::ClientSession& session, Window
 
 // 原函数：0x0047CB00。
 static void WindowSkill_DrawPetSkillRow(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
     std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 宠物行绘制，两次宠物查询。
 
 // 原函数：0x0047CE70。
 static void WindowSkill_DrawRidingSkillRow(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int8_t visualState, std::int32_t pairIndex,
     std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 骑乘行绘制，固定技术记录。
 
@@ -178,10 +180,10 @@ static std::int32_t WindowSkill_FindSpecialSkill(); // 技能索引对中查1009
 static std::int32_t WindowSkill_ReadCrystalElement(session::ClientSession& session); // 同一槽7的属性0..3；未用0，未知ID为-1。
 
 // 原函数：0x00479A00。
-static std::int32_t WindowSkill_FindPetTechnique(std::int32_t petIndex); // 宠物技术索引对中查40330..40332。
+static std::int32_t WindowSkill_FindPetTechnique(session::ClientSession& session, std::int32_t petIndex); // 宠物技术索引对中查40330..40332。
 
 // 原函数：0x00479A70。
-static std::int32_t WindowSkill_CheckPetLevel(std::int32_t petIndex, std::int32_t crystalLevel); // 宠物等级闭区间。
+static std::int32_t WindowSkill_CheckPetLevel(session::ClientSession& session, std::int32_t petIndex, std::int32_t crystalLevel); // 宠物等级闭区间。
 
 // 原函数：0x00486FE0。
 static std::int32_t WindowSkill_MatchesCrystalLevel(session::ClientSession& session); // 当前技能技术value90与重读晶石等级等值。
@@ -387,16 +389,16 @@ static std::int32_t WindowSkill_ReadCrystalElement(session::ClientSession& sessi
 }
 
 // 原函数：0x004799D0。
-std::int32_t WindowSkill_ReadBattlePetImage()
+std::int32_t WindowSkill_ReadBattlePetImage(session::ClientSession& session)
 {
-    const std::int32_t index = world::FindBattlePetIndex_43C4B0();
-    return index < 0 ? 0 : world::gPetRuntimeRecords[index].imageNo6A0;
+    const std::int32_t index = world::FindBattlePetIndex_43C4B0(session);
+    return index < 0 ? 0 : (*session.WorldScene().petRecords)[index].imageNo6A0;
 }
 
 // 原函数：0x00479A00。
-static std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
+static std::int32_t WindowSkill_FindPetTechnique(session::ClientSession& session, const std::int32_t petIndex)
 {
-    const auto& pet = world::gPetRuntimeRecords[petIndex];
+    const auto& pet = (*session.WorldScene().petRecords)[petIndex];
     const std::int32_t count = pet.value6A4;
     for (std::int32_t index = 0; index < count; ++index) {
         const auto slot = std::bit_cast<std::int16_t>(pet.techniquePairs650[index].index);
@@ -412,9 +414,9 @@ static std::int32_t WindowSkill_FindPetTechnique(const std::int32_t petIndex)
 }
 
 // 原函数：0x00479A70。
-static std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const std::int32_t crystalLevel)
+static std::int32_t WindowSkill_CheckPetLevel(session::ClientSession& session, const std::int32_t petIndex, const std::int32_t crystalLevel)
 {
-    const std::int32_t level = world::gPetRuntimeRecords[petIndex].value08;
+    const std::int32_t level = (*session.WorldScene().petRecords)[petIndex].value08;
     const auto& range = kPetCrystalLevels54F2C8[crystalLevel - 1];
     if (level < range[0]) {
         return 0;
@@ -425,7 +427,7 @@ static std::int32_t WindowSkill_CheckPetLevel(const std::int32_t petIndex, const
 // 原函数：0x00479AB0。
 std::int32_t WindowSkill_CheckPetFp(session::ClientSession& session)
 {
-    const std::int32_t index = world::FindBattlePetIndex_43C4B0();
+    const std::int32_t index = world::FindBattlePetIndex_43C4B0(session);
     if (index < 0) {
         return 0;
     }
@@ -434,7 +436,7 @@ std::int32_t WindowSkill_CheckPetFp(session::ClientSession& session)
         return 0;
     }
     const std::int32_t required = kPetCrystalFp54F340[level - 1];
-    return (world::gPetRuntimeRecords[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
+    return ((*session.WorldScene().petRecords)[index].values0C[2] < static_cast<std::int32_t>(required)) ? 0 : 1;
 }
 
 // 原函数：0x00479B00。
@@ -447,15 +449,15 @@ std::int32_t WindowSkill_CanUseSpecialSkill(session::ClientSession& session)
     if (level < 1) {
         return 0;
     }
-    const std::int32_t index = world::FindBattlePetIndex_43C4B0();
-    if (index < 0 || WindowSkill_FindPetTechnique(index) == 0) {
+    const std::int32_t index = world::FindBattlePetIndex_43C4B0(session);
+    if (index < 0 || WindowSkill_FindPetTechnique(session, index) == 0) {
         return 0;
     }
     const std::int32_t attribute = WindowSkill_ReadCrystalElement(session);
-    if (world::gPetRuntimeRecords[index].values70[21 + attribute] < 50) {
+    if ((*session.WorldScene().petRecords)[index].values70[21 + attribute] < 50) {
         return 0;
     }
-    return WindowSkill_CheckPetLevel(index, level) != 0 ? 1 : 0;
+    return WindowSkill_CheckPetLevel(session, index, level) != 0 ? 1 : 0;
 }
 
 // 原函数：0x00486FE0。
@@ -497,7 +499,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
     skillOperation.sendMode = 0;
     if (WindowSkill_CanUseSpecialSkill(session) != 0 && WindowSkill_MatchesCrystalLevel(session) != 0 && WindowSkill_CheckPetFp(session) != 0) {
         skillOperation.sendMode = 1;
-        skillOperation.petImage = WindowSkill_ReadBattlePetImage();
+        skillOperation.petImage = WindowSkill_ReadBattlePetImage(session);
     }
     if (request.targetKind <= 1) {
         skillOperation.sendMode = 0;
@@ -591,7 +593,7 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
         }
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            auto& pet = world::gPetRuntimeRecords[slot];
+            auto& pet = (*session.WorldScene().petRecords)[slot];
             if (pet.used == 0 || business.valuesCC1A18[slot] == 3) {
                 continue;
             }
@@ -1306,18 +1308,19 @@ cg::yobi::YobiAction* WindowSkill_OpenBattleTechniques(
 
 // 原函数：0x0047CB00。
 static void WindowSkill_DrawPetSkillRow(
+    session::ClientSession& session,
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
 {
-    const std::int32_t petIndex = world::FindBattlePetIndex_43C4B0();
-    const std::int32_t pairPetIndex = world::FindBattlePetIndex_43C4B0();
+    const std::int32_t petIndex = world::FindBattlePetIndex_43C4B0(session);
+    const std::int32_t pairPetIndex = world::FindBattlePetIndex_43C4B0(session);
     const auto technique = std::bit_cast<std::int16_t>(
-        world::gPetRuntimeRecords[pairPetIndex].techniquePairs650[pairIndex].index);
+        (*session.WorldScene().petRecords)[pairPetIndex].techniquePairs650[pairIndex].index);
     render::GraphicDescriptor16 descriptor {};
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
-    const auto* const record = &world::gPetRuntimeRecords[petIndex].techniquesD8[technique];
+    const auto* const record = &(*session.WorldScene().petRecords)[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
     }
@@ -1345,6 +1348,7 @@ static void WindowSkill_DrawPetSkillRow(
 
 // 原函数：0x0047CE70。
 static void WindowSkill_DrawRidingSkillRow(
+    session::ClientSession& session,
     const std::int16_t x, const std::int16_t y, const std::int8_t visualState,
     const std::int32_t pairIndex, const std::int32_t textLayer,
     const std::int32_t graphicLayer, const std::uint32_t color)
@@ -1353,9 +1357,9 @@ static void WindowSkill_DrawRidingSkillRow(
     render::GraphicDescriptor16 descriptor {};
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     const auto technique = std::bit_cast<std::int16_t>(
-        world::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
+        (*session.WorldScene().petRecords)[petIndex].techniquePairs650[pairIndex].index);
     descriptor.color = color;
-    const auto* const record = &world::gPetRuntimeRecords[petIndex].techniquesD8[technique];
+    const auto* const record = &(*session.WorldScene().petRecords)[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return;
     }
@@ -1390,30 +1394,30 @@ static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, c
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
     const std::int32_t pairIndex = index - 17;
-    std::int32_t pairPet = world::FindBattlePetIndex_43C4B0();
+    std::int32_t pairPet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
     auto technique = std::bit_cast<std::int16_t>(
-        world::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
-    const std::int32_t namePet = world::FindBattlePetIndex_43C4B0();
-    if (world::gPetRuntimeRecords[namePet].techniquesD8[technique].name[0] == '\0') {
+        (*callbackWindow.ownerSession->WorldScene().petRecords)[pairPet].techniquePairs650[pairIndex].index);
+    const std::int32_t namePet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
+    if ((*callbackWindow.ownerSession->WorldScene().petRecords)[namePet].techniquesD8[technique].name[0] == '\0') {
         return 0;
     }
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
     const std::uint32_t flags = world::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) != 0) {
-        pairPet = world::FindBattlePetIndex_43C4B0();
+        pairPet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
         technique = std::bit_cast<std::int16_t>(
-            world::gPetRuntimeRecords[pairPet].techniquePairs650[pairIndex].index);
-        const std::int32_t costPet = world::FindBattlePetIndex_43C4B0();
+            (*callbackWindow.ownerSession->WorldScene().petRecords)[pairPet].techniquePairs650[pairIndex].index);
+        const std::int32_t costPet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
         const std::int32_t playerPosition = world::gBattleCurrentPosition5ABCA4;
-        const std::int32_t cost = world::gPetRuntimeRecords[costPet].techniquesD8[technique].fp;
+        const std::int32_t cost = (*callbackWindow.ownerSession->WorldScene().petRecords)[costPet].techniquesD8[technique].fp;
         const std::int32_t position = world::GetBattlePetPosition_405B40(playerPosition);
         if (cg::yobi::IsYobiActionFpGreaterEqual(world::gBattleEntries59E980[position], cost)
             && (reinterpret_cast<const std::uint8_t*>(&state)[0] & MouseFlag_LDownEvent) != 0) {
             if (skillState.petSelectionCallback != nullptr) {
-                const std::int32_t pet = world::FindBattlePetIndex_43C4B0();
+                const std::int32_t pet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
                 const auto selected = std::bit_cast<std::int16_t>(
-                    world::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
+                    (*callbackWindow.ownerSession->WorldScene().petRecords)[pet].techniquePairs650[pairIndex].index);
                 skillState.petSelectionCallback(*currentWindow->ownerSession, selected);
             }
             currentWindow->state |= 0x8000u;
@@ -1449,7 +1453,7 @@ static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, c
             std::bit_cast<std::int16_t>(elementYBits) + std::bit_cast<std::int16_t>(windowYBits));
         const auto x = static_cast<std::int16_t>(
             std::bit_cast<std::int16_t>(elementXBits) + std::bit_cast<std::int16_t>(windowXBits));
-        WindowSkill_DrawPetSkillRow(x, y, visualState, pairIndex, 3, 223, 0xFFFFFFFFu);
+        WindowSkill_DrawPetSkillRow(*callbackWindow.ownerSession, x, y, visualState, pairIndex, 3, 223, 0xFFFFFFFFu);
     }
     return consumed;
 }
@@ -1466,8 +1470,8 @@ static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow
     const auto petIndex = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
     const std::int32_t pairIndex = index - 17;
     const auto technique = std::bit_cast<std::int16_t>(
-        world::gPetRuntimeRecords[petIndex].techniquePairs650[pairIndex].index);
-    const auto* const record = &world::gPetRuntimeRecords[petIndex].techniquesD8[technique];
+        (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex].techniquePairs650[pairIndex].index);
+    const auto* const record = &(*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex].techniquesD8[technique];
     if (record->name[0] == '\0') {
         return 0;
     }
@@ -1482,7 +1486,7 @@ static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow
             if (callback != nullptr) {
                 const auto pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
                 const auto selected = std::bit_cast<std::int16_t>(
-                    world::gPetRuntimeRecords[pet].techniquePairs650[pairIndex].index);
+                    (*callbackWindow.ownerSession->WorldScene().petRecords)[pet].techniquePairs650[pairIndex].index);
                 callback(*currentWindow->ownerSession, selected);
             }
             currentWindow->state |= 0x8000u;
@@ -1518,7 +1522,7 @@ static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow
             std::bit_cast<std::int16_t>(elementYBits) + std::bit_cast<std::int16_t>(windowYBits));
         const auto x = static_cast<std::int16_t>(
             std::bit_cast<std::int16_t>(elementXBits) + std::bit_cast<std::int16_t>(windowXBits));
-        WindowSkill_DrawRidingSkillRow(x, y, visualState, pairIndex, 3, 223, 0xFFFFFFFFu);
+        WindowSkill_DrawRidingSkillRow(*callbackWindow.ownerSession, x, y, visualState, pairIndex, 3, 223, 0xFFFFFFFFu);
     }
     return consumed;
 }
@@ -1537,11 +1541,11 @@ static void WindowSkill_ShowPetSkills(session::ClientSession& session, WindowIns
     for (std::int32_t index = 10; index <= 16; ++index) {
         if (auto* const indexedElement = window ? window->FindElementById(NativeElementKey(index)) : nullptr; indexedElement) indexedElement->visible = 1;
     }
-    const std::int32_t petIndex = world::FindBattlePetIndex_43C4B0();
+    const std::int32_t petIndex = world::FindBattlePetIndex_43C4B0(session);
     if (petIndex < 0) {
         return;
     }
-    const auto* const pet = &world::gPetRuntimeRecords[petIndex];
+    const auto* const pet = &(*session.WorldScene().petRecords)[petIndex];
     const wchar_t* name = pet->name6BD.data();
     if (name[0] == '\0') {
         name = pet->name6AC.data();
@@ -1598,7 +1602,7 @@ static void WindowSkill_ShowRidingSkills(session::ClientSession& session, Window
         const wchar_t* const name = cg::yobi::GetYobiName(displayAction);
         textData->text = name;
     }
-    const auto* const pet = &world::gPetRuntimeRecords[petIndex];
+    const auto* const pet = &(*session.WorldScene().petRecords)[petIndex];
     std::int32_t index = 0;
     std::int32_t count = std::min(pet->value6A4, world::kPetTechniqueSlotCount);
     while (index < count) {
@@ -1804,7 +1808,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindo
     std::int32_t petIndex;
     std::int32_t position; // 原仅mode5/6写入；其他模式未初始化路径不模拟，见SPEC。
     if (mode == 5) {
-        petIndex = world::FindBattlePetIndex_43C4B0();
+        petIndex = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
         position = world::GetBattlePetPosition_405B40(world::gBattleCurrentPosition5ABCA4);
     } else if (mode == 6) {
         position = world::gBattleCurrentPosition5ABCA4;
@@ -1812,7 +1816,7 @@ static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindo
     } else {
         petIndex = state;
     }
-    const auto* const pet = &world::gPetRuntimeRecords[petIndex];
+    const auto* const pet = &(*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
     std::int32_t count = 0;
     std::int32_t unavailable = 0;
     std::int32_t row = 0;
@@ -2082,13 +2086,13 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
                 std::int32_t pet;
                 std::int32_t hover;
                 if (mode == 5) {
-                    pet = world::FindBattlePetIndex_43C4B0();
+                    pet = world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession);
                     hover = skillState.hover;
                 } else {
                     hover = skillState.hover;
                     pet = std::bit_cast<std::int32_t>(world::gBattleRidePet5ABC38);
                 }
-                drawDescription(world::gPetRuntimeRecords[pet].techniquesD8[hover].description, line, 26);
+                drawDescription((*callbackWindow.ownerSession->WorldScene().petRecords)[pet].techniquesD8[hover].description, line, 26);
             }
         }
         break;

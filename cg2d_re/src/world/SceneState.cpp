@@ -1994,14 +1994,6 @@ void SwapPlayerInventorySlots_51B530(session::ClientSession& session, const std:
 
 } // namespace detail
 
-std::array<PetPairRecord, 5> gPetPairsDE0B08 {}; // 原全局：0x00DE0B08。
-
-namespace detail {
-std::int32_t gPetCountDE0B00 = 0; // 原全局：0x00DE0B00。
-
-} // namespace detail
-std::uint32_t gPetDetailDraftChanged_D67B28 = 0; // 原全局：0x00D67B28。
-
 // 原F7C950同属PE虚拟零区，独立于宠物表与F7C9FC之后的状态。
 ReplyRecordF7C950 gReplyRecordF7C950 {}; // 原全局：0x00F7C950。
 
@@ -2009,9 +2001,10 @@ namespace detail {
 
 // 原函数：0x00519770。
 void SetPetItemDescription_519770(
+    session::ClientSession& session,
     const std::int32_t petIndex, const std::int32_t itemIndex, const char* const text)
 {
-    PlayerItemRecord& record = gPetRuntimeRecords[petIndex].items6E4[itemIndex];
+    PlayerItemRecord& record = (*session.WorldScene().petRecords)[petIndex].items6E4[itemIndex];
     std::int32_t last = -1;
     for (std::int32_t line = 0; line < 32; ++line) {
         char row[96]; // 原每行最多32B；旧分行仍在GBK边界执行。
@@ -2044,23 +2037,23 @@ void BeginBattleCommandSelection_43C4E0(session::ClientSession& session)
     gBattleCommandY553F7C = -106;
     gBattleCommandValue553F80 = 17;
     gBattleSkillUsed5ABC68 = 0;
-    const std::int32_t pet = FindBattlePetIndex_43C4B0();
+    const std::int32_t pet = FindBattlePetIndex_43C4B0(session);
     if (gLastBattleCommandPetIndex_553F90 != pet) {
         gSelectedBattlePetTechniqueIndex_553F84 = -1;
     }
 }
 
 // 原函数：0x00519920。
-std::int32_t RefreshPetCount_519920()
+std::int32_t RefreshPetCount_519920(session::ClientSession& session)
 {
     std::int32_t count = 0;
-    gPetCountDE0B00 = 0;
-    for (const PetRuntimeRecord& record : gPetRuntimeRecords) {
+    session.WorldScene().petCount = 0;
+    for (const PetRuntimeRecord& record : (*session.WorldScene().petRecords)) {
         if (record.used != 0) {
             ++count;
         }
     }
-    gPetCountDE0B00 = count;
+    session.WorldScene().petCount = count;
     return count;
 }
 
@@ -2078,9 +2071,9 @@ void BuildPetDisplayEntries_518580(
 }
 
 // 原函数：0x00492250。
-void MarkPetDetailDraftChanged_492250()
+void MarkPetDetailDraftChanged_492250(session::ClientSession& session)
 {
-    gPetDetailDraftChanged_D67B28 = 1;
+    session.WorldScene().petDetailDraftChanged = 1;
 }
 
 // 原两表均位于PE虚拟零区；5199A0后续只重置原表编号，不能清副本。
@@ -4171,7 +4164,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
                     battleScene.sceneIndex = ++index;
                 } while (index < 20);
             }
-            gBattleSnapshotPetIndex5ABBFC = FindBattlePetIndex_43C4B0();
+            gBattleSnapshotPetIndex5ABBFC = FindBattlePetIndex_43C4B0(session);
             ui::detail::WindowBattleCommand_SyncActorVitals(session);
             if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Spectator].window == nullptr) {
                 static_cast<void>(ui::WindowRuntime_CreateAnimation(session, cg::ui::WindowId_Spectator, 1, 0, nullptr));
@@ -6467,11 +6460,11 @@ namespace detail {
 // 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
 void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
 {
-    static_assert(sizeof(gPetPairsDE0B08) == 0x28);
+    static_assert(sizeof(connection.Owner().WorldScene().petPairs) == 0x28);
 
     // 玩家／宠物的宽物品与CryptInt按类型清理，其余原字节存储保持整块清零。
     connection.Owner().WorldScene().player->ClearRaw(connection.Owner().WorldScene().playerItems);
-    for (PetRuntimeRecord& record : gPetRuntimeRecords) {
+    for (PetRuntimeRecord& record : (*connection.Owner().WorldScene().petRecords)) {
         record.ClearRaw();
     }
     gPetMapCharaSlots.fill({});
@@ -6480,7 +6473,7 @@ void InitializePlayerRuntimeState_5199A0(network::CgConnection& connection)
     gSkillRuntimeSlots.pairs = {};
     gSkillRuntimeSlots.valueF633E8 = 0;
     gContactsF19FB0.fill({});
-    std::memset(gPetPairsDE0B08.data(), 0, sizeof(gPetPairsDE0B08));
+    std::memset(connection.Owner().WorldScene().petPairs.data(), 0, sizeof(connection.Owner().WorldScene().petPairs));
 
     const volatile std::int16_t& selected = connection.LoginRequests().selectedCharacterIndex;
     const std::int16_t unusedSelected = selected;
@@ -8109,6 +8102,14 @@ void PlayerRuntimeSlots::ClearRaw(std::array<PlayerItemRecord, 28>& items) noexc
 }
 
 // 原宠物表、索引对和两独立标量均为PE虚拟零区；构造由LegacyMouse按CRT顺序接入。
+void InitializePetRuntimeStorage(session::ClientSession& session)
+{
+    auto& records = session.WorldScene().petRecords;
+    if (records == nullptr) {
+        records = std::make_unique<std::array<PetRuntimeRecord, 5>>();
+    }
+}
+
 void PetRuntimeRecord::ClearRaw() noexcept
 {
     used = 0;
@@ -8719,10 +8720,10 @@ std::uint16_t HandlePlayerBattleRowReply_50BFC0(cg::network::CgConnection& conne
 }
 
 // 原函数：0x0050CF70。
-std::int32_t HandlePetAttributePointsReply_50CF70(cg::network::CgConnection&, const std::int32_t index,
+std::int32_t HandlePetAttributePointsReply_50CF70(cg::network::CgConnection& connection, const std::int32_t index,
     const std::int32_t value)
 {
-    gPetRuntimeRecords[index].lvFlag6C = value;
+    (*connection.Owner().WorldScene().petRecords)[index].lvFlag6C = value;
     return index;
 }
 
@@ -9471,7 +9472,7 @@ void SwapPlayerOrPetItemSlots_51B630(
         if (firstIndex >= 6) {
             return;
         }
-        firstBase = gPetRuntimeRecords[firstGroup - 1].items6E4.data();
+        firstBase = (*session.WorldScene().petRecords)[firstGroup - 1].items6E4.data();
     }
     if (secondGroup == 0) {
         if (secondIndex >= 28) {
@@ -9482,7 +9483,7 @@ void SwapPlayerOrPetItemSlots_51B630(
         if (secondIndex >= 6) {
             return;
         }
-        secondBase = gPetRuntimeRecords[secondGroup - 1].items6E4.data();
+        secondBase = (*session.WorldScene().petRecords)[secondGroup - 1].items6E4.data();
     }
     if (firstBase == nullptr || secondBase == nullptr) {
         return;
@@ -9495,12 +9496,12 @@ void SwapPlayerOrPetItemSlots_51B630(
 }
 
 // 原函数：0x0052E180。
-std::int32_t HasPetTechnique_52E180(const std::int32_t index, const std::int32_t techniqueId)
+std::int32_t HasPetTechnique_52E180(session::ClientSession& session, const std::int32_t index, const std::int32_t techniqueId)
 {
     if (index < 0 || index >= 5) {
         return 0;
     }
-    const PetRuntimeRecord& pet = gPetRuntimeRecords[index];
+    const PetRuntimeRecord& pet = (*session.WorldScene().petRecords)[index];
     if (pet.used == 0) {
         return 0;
     }
@@ -9513,22 +9514,22 @@ std::int32_t HasPetTechnique_52E180(const std::int32_t index, const std::int32_t
 }
 
 // 原函数：0x0052E1D0。
-std::int32_t HasPetMailTechnique_52E1D0(const std::int32_t index)
+std::int32_t HasPetMailTechnique_52E1D0(session::ClientSession& session, const std::int32_t index)
 {
-    if (HasPetTechnique_52E180(index, 0x22C4) != 0) {
+    if (HasPetTechnique_52E180(session, index, 0x22C4) != 0) {
         return 1;
     }
-    if (HasPetTechnique_52E180(index, 0x22C5) != 0) {
+    if (HasPetTechnique_52E180(session, index, 0x22C5) != 0) {
         return 1;
     }
-    if (HasPetTechnique_52E180(index, 0x22C6) != 0) {
+    if (HasPetTechnique_52E180(session, index, 0x22C6) != 0) {
         return 1;
     }
-    return HasPetTechnique_52E180(index, 0x22C7) != 0 ? 1 : 0;
+    return HasPetTechnique_52E180(session, index, 0x22C7) != 0 ? 1 : 0;
 }
 
 // 原函数：0x00510150。
-void HandlePetInventoryUpdatesReply_510150(cg::network::CgConnection&, const std::int32_t petIndex, const char* const payload)
+void HandlePetInventoryUpdatesReply_510150(cg::network::CgConnection& connection, const std::int32_t petIndex, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || petIndex < 0 || petIndex >= 5) {
         return;
@@ -9544,7 +9545,7 @@ void HandlePetInventoryUpdatesReply_510150(cg::network::CgConnection&, const std
             return;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        PlayerItemRecord& record = gPetRuntimeRecords[petIndex].items6E4[index];
+        PlayerItemRecord& record = (*connection.Owner().WorldScene().petRecords)[petIndex].items6E4[index];
         if (std::strlen(name) == 0) {
             record.used = 0;
             record.name.clear();
@@ -9562,7 +9563,7 @@ void HandlePetInventoryUpdatesReply_510150(cg::network::CgConnection&, const std
             network::ExtractDelimitedField_52CED0(
                 payload, '|', field + 3, 767, description);
             input::UnescapeLegacyTextAndNotify_52D2F0(description);
-            detail::SetPetItemDescription_519770(petIndex, index, description);
+            detail::SetPetItemDescription_519770(connection.Owner(), petIndex, index, description);
             record.hasDescription = !record.description[0].empty() ? 1 : 0;
             record.imageNo = network::ParseDelimitedInteger_52CFA0(payload, '|', field + 4);
             record.canUseInField = static_cast<std::uint16_t>(
@@ -9590,14 +9591,14 @@ void HandlePetInventoryUpdatesReply_510150(cg::network::CgConnection&, const std
 }
 
 // 原函数：0x0050A6B0。
-void HandlePetPrimaryStatsReply_50A6B0(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
+void HandlePetPrimaryStatsReply_50A6B0(cg::network::CgConnection& connection, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
     }
     const auto flags = static_cast<std::uint32_t>(
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    PetRuntimeRecord& record = gPetRuntimeRecords[index];
+    PetRuntimeRecord& record = (*connection.Owner().WorldScene().petRecords)[index];
     std::int32_t field = 2;
     if (flags == 0) {
         record.ClearRaw();
@@ -9681,21 +9682,21 @@ void HandlePetPrimaryStatsReply_50A6B0(cg::network::CgConnection&, const std::in
                 network::ParseDelimitedInteger_52CFA0(payload, '|', field);
         }
     }
-    detail::RefreshPetCount_519920();
-    detail::BuildPetDisplayEntries_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
-    detail::MarkPetDetailDraftChanged_492250();
+    detail::RefreshPetCount_519920(connection.Owner());
+    detail::BuildPetDisplayEntries_518580(connection.Owner().WorldScene().petRecords->data(), connection.Owner().WorldScene().petPairs.data(), 5);
+    detail::MarkPetDetailDraftChanged_492250(connection.Owner());
     record.updated510C = 1;
 }
 
 // 原函数：0x0050AC20。
-void HandlePetSecondaryStatsReply_50AC20(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
+void HandlePetSecondaryStatsReply_50AC20(cg::network::CgConnection& connection, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
     }
     const auto flags = static_cast<std::uint32_t>(
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
-    PetRuntimeRecord& record = gPetRuntimeRecords[index];
+    PetRuntimeRecord& record = (*connection.Owner().WorldScene().petRecords)[index];
     if (flags == 0) {
         record.used = 0;
         record.name6AC.clear();
@@ -9722,18 +9723,18 @@ void HandlePetSecondaryStatsReply_50AC20(cg::network::CgConnection&, const std::
             bit <<= 1;
         }
     }
-    detail::RefreshPetCount_519920();
-    detail::BuildPetDisplayEntries_518580(gPetRuntimeRecords.data(), gPetPairsDE0B08.data(), 5);
-    detail::MarkPetDetailDraftChanged_492250();
+    detail::RefreshPetCount_519920(connection.Owner());
+    detail::BuildPetDisplayEntries_518580(connection.Owner().WorldScene().petRecords->data(), connection.Owner().WorldScene().petPairs.data(), 5);
+    detail::MarkPetDetailDraftChanged_492250(connection.Owner());
 }
 
 // 原函数：0x0050B0D0。
-void HandlePetTechniquesReply_50B0D0(cg::network::CgConnection&, const std::int32_t index, const char* const payload)
+void HandlePetTechniquesReply_50B0D0(cg::network::CgConnection& connection, const std::int32_t index, const char* const payload)
 {
     if (gGameplayRepliesSuppressed_9A6E0C != 0 || index < 0 || index >= 5) {
         return;
     }
-    PetRuntimeRecord& record = gPetRuntimeRecords[index];
+    PetRuntimeRecord& record = (*connection.Owner().WorldScene().petRecords)[index];
     if (record.used == 0) {
         return;
     }
@@ -9800,10 +9801,10 @@ void BuildPetTechniqueDisplayEntries_5185C0(
 }
 
 // 原函数：0x0043C4B0。
-std::int32_t FindBattlePetIndex_43C4B0()
+std::int32_t FindBattlePetIndex_43C4B0(session::ClientSession& session)
 {
     for (std::int32_t index = 0; index < 5; ++index) {
-        const PetRuntimeRecord& pet = gPetRuntimeRecords[index];
+        const PetRuntimeRecord& pet = (*session.WorldScene().petRecords)[index];
         if (pet.used == 1 && pet.flags6AA == 2) {
             return index;
         }
@@ -10610,14 +10611,14 @@ void ConsumeBattlePlayerTimer(session::ClientSession& session, const std::int32_
 
 // SHP01：原玩家正加点优先，否则五S16配对首个宠物非零加点位置；返回5/6原哨兵。
 // 原函数：0x00504B10。
-std::int32_t FindAttributeAllocationHintTarget_504B10()
+std::int32_t FindAttributeAllocationHintTarget_504B10(session::ClientSession& session)
 {
     if (gPlayerUnspentAttributePoints_D2F788 > 0) {
         return 5;
     }
     for (std::int32_t position = 0; position < 5; ++position) {
-        const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if (gPetRuntimeRecords[index].lvFlag6C != 0) {
+        const std::int16_t index = std::bit_cast<std::int16_t>(session.WorldScene().petPairs[position].index);
+        if ((*session.WorldScene().petRecords)[index].lvFlag6C != 0) {
             return position;
         }
     }
@@ -10626,14 +10627,14 @@ std::int32_t FindAttributeAllocationHintTarget_504B10()
 
 // G04：五S16配对顺序，used且伤势大于0才返回原宠物编号，未命中-1。
 // 原函数：0x00504B60。
-std::int32_t FindFirstInjuredPet_504B60()
+std::int32_t FindFirstInjuredPet_504B60(session::ClientSession& session)
 {
     for (std::int32_t position = 0; position < 5; ++position) {
-        if (gPetPairsDE0B08[position].used == 0) {
+        if (session.WorldScene().petPairs[position].used == 0) {
             continue;
         }
-        const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
-        if (gPetRuntimeRecords[index].values70[25] > 0) {
+        const std::int16_t index = std::bit_cast<std::int16_t>(session.WorldScene().petPairs[position].index);
+        if ((*session.WorldScene().petRecords)[index].values70[25] > 0) {
             return index;
         }
     }

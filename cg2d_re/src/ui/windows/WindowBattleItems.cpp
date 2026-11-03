@@ -137,7 +137,7 @@ static std::int32_t WindowBattleItems_TogglePreview(WindowInstance& callbackWind
 static std::int32_t WindowBattleItems_CycleEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    return WindowItemSelector_CycleEquipment(&inventory.battleSelector, state) ? 1 : 0;
+    return WindowItemSelector_CycleEquipment(*callbackWindow.ownerSession, &inventory.battleSelector, state) ? 1 : 0;
 }
 
 // 原函数：0x00499970。
@@ -184,12 +184,12 @@ static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, con
     std::int32_t remaining = ordinal;
     bool found = false;
     for (std::int32_t position = 0; position < 5; ++position) {
-        const auto& pair = world::gPetPairsDE0B08[position];
+        const auto& pair = callbackWindow.ownerSession->WorldScene().petPairs[position];
         if (pair.used == 0) {
             continue;
         }
         const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
-        const std::uint16_t flags = world::gPetRuntimeRecords[pet].flags6AA;
+        const std::uint16_t flags = (*callbackWindow.ownerSession->WorldScene().petRecords)[pet].flags6AA;
         if (flags == 2 || flags == 1) {
             --remaining;
             if (remaining < 0) {
@@ -778,7 +778,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection) > 0) {
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&inventory.battleSelector);
-        const std::int32_t slots = world::gPetRuntimeRecords[pet].values6D8[0];
+        const std::int32_t slots = (*callbackWindow.ownerSession->WorldScene().petRecords)[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {
             const auto& item = items[position];
             const std::int32_t left = WindowItemSelector_ReadScreenX(&callbackWindow, &inventory.battleSelector, index, position, -24);

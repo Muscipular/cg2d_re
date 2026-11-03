@@ -265,8 +265,15 @@ static_assert(std::is_trivially_destructible_v<PlayerRuntimeStartup>);
 static const PlayerRuntimeStartup gPlayerRuntimeStartup;
 
 // 原CRT553100，原0x00518520／0x00518530／0x00518560：紧接玩家，独立于摊位浏览宠物。
-// 原0x004CD360／0x004CD2D0：五元素各六成员构造；退出元素及成员逆序。
-std::array<PetRuntimeRecord, 5> gPetRuntimeRecords{}; // 原全局：0x00F633F8。
+// 原0x004CD360／0x004CD2D0：五元素各六成员构造；实际寿命归所属会话。
+struct PetRuntimeStartup final {
+    PetRuntimeStartup()
+    {
+        InitializePetRuntimeStorage(cg::session::GetClientHost().FirstSession());
+    }
+};
+static_assert(std::is_trivially_destructible_v<PetRuntimeStartup>);
+static const PetRuntimeStartup gPetRuntimeStartup;
 
 } // namespace cg::world
 

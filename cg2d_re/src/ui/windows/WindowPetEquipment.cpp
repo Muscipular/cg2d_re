@@ -134,13 +134,13 @@ static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, co
         static_cast<void>(WindowChat_RestoreInput(*callbackWindow.ownerSession));
     }
     const auto petIndex = std::bit_cast<std::int16_t>(
-        world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
+        callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].index);
     if (value == -1 || state.value20 != static_cast<std::uint32_t>(petIndex)) {
         state.value10 = static_cast<std::uint32_t>(-1);
         state.value14 = 0;
         state.value20 = static_cast<std::uint32_t>(petIndex);
     }
-    const auto& pet = world::gPetRuntimeRecords[petIndex];
+    const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
     if (pet.used == 0) {
         window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -171,8 +171,8 @@ static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow,
         std::int32_t position = business.selectedPetCC3E5C;
         for (std::int32_t attempt = 0; attempt < 5; ++attempt) {
             position = (position + (previous ? 4 : 1)) % 5;
-            const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
-            if (world::gPetRuntimeRecords[petIndex].used != 0) break;
+            const auto petIndex = std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[position].index);
+            if ((*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex].used != 0) break;
         }
         business.selectedPetCC3E5C = position;
         static_cast<void>(WindowPetEquipment_Update(*window, -1));
@@ -189,8 +189,8 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
-    const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
-    const auto& pet = world::gPetRuntimeRecords[petIndex];
+    const auto petIndex = std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].index);
+    const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
     std::int32_t hovered = -1;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(std::size(gPetEquipmentLabels)) && slot < pet.values6D8[0]; ++slot) {
@@ -248,8 +248,8 @@ static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, cons
     WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
-    const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[business.selectedPetCC3E5C].index);
-    const auto& pet = world::gPetRuntimeRecords[petIndex];
+    const auto petIndex = std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[business.selectedPetCC3E5C].index);
+    const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
     const auto hovered = std::bit_cast<std::int32_t>(state.value10);
     if (hovered >= 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) == 0) {
         const auto& item = pet.items6E4[hovered];

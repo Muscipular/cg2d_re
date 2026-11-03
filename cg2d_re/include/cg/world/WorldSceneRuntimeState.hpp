@@ -3,6 +3,7 @@
 #include "cg/world/PlayerSlots.hpp"
 #include "cg/world/PlayerItemRecord.hpp"
 #include "cg/world/PlayerRuntimeSlots.hpp"
+#include "cg/world/PetRuntimeRecord.hpp"
 
 #include <array>
 #include <cstddef>
@@ -276,6 +277,10 @@ struct NpcDialogRuntimeState {
 // 世界场景的会话运行期数据；进程设备及只读资源不在此复制。
 struct WorldSceneRuntimeState {
     std::unique_ptr<PlayerRuntimeSlots> player; // 原FDA700，中央初始化前为空，独占玩家主记录。
+    std::unique_ptr<std::array<PetRuntimeRecord, 5>> petRecords; // 原F633F8，原中央位置构造五宠物。
+    std::array<PetPairRecord, 5> petPairs {}; // 原DE0B08，同会话宠物显示排序对。
+    std::int32_t petCount = 0; // 原DE0B00。
+    std::uint32_t petDetailDraftChanged = 0; // 原D67B28，详情与属性/技能窗口共用。
     DisconnectDialogState disconnectDialog {};
     LogoutSceneState logout {};
     BattleSceneState battle {};

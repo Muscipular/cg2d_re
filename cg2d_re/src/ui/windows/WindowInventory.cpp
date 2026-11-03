@@ -487,7 +487,7 @@ static std::int32_t WindowInventory_TogglePreview(WindowInstance& callbackWindow
 static std::int32_t WindowInventory_CycleEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     auto& inventory = callbackWindow.ownerSession->UiFrame().native.inventory;
-    return WindowItemSelector_CycleEquipment(&inventory.normalSelector, state) ? 1 : 0;
+    return WindowItemSelector_CycleEquipment(*callbackWindow.ownerSession, &inventory.normalSelector, state) ? 1 : 0;
 }
 
 // 原函数：0x00488970。
@@ -517,12 +517,12 @@ static std::int32_t WindowInventory_TabPet(WindowInstance& callbackWindow, const
     std::int32_t remaining = ordinal;
     bool found = false;
     for (std::int32_t position = 0; position < 5; ++position) {
-        const auto& pair = world::gPetPairsDE0B08[position];
+        const auto& pair = callbackWindow.ownerSession->WorldScene().petPairs[position];
         if (pair.used == 0) {
             continue;
         }
         const std::int32_t pet = std::bit_cast<std::int16_t>(pair.index);
-        const std::uint16_t flags = world::gPetRuntimeRecords[pet].flags6AA;
+        const std::uint16_t flags = (*callbackWindow.ownerSession->WorldScene().petRecords)[pet].flags6AA;
         if (flags == 1 || flags == 2) {
             --remaining;
             if (remaining < 0) {

@@ -239,6 +239,7 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
 
 // 原函数：0x004B3B00。
 static std::int32_t WindowTrade_DrawOwnPetSkillRow(
+    session::ClientSession& session,
     std::int32_t x, std::int32_t y, std::int32_t petIndex,
     std::int32_t skillPosition); // 己方技能按S16索引对取名称。
 
@@ -1293,7 +1294,7 @@ static void WindowTrade_HandleOwnPets(
             const std::int32_t position = scroll + row;
             if (position >= 0) {
                 const std::int32_t target =
-                    std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[position].index);
+                    std::bit_cast<std::int16_t>(session.WorldScene().petPairs[position].index);
                 if (trade.petMarks[target] == 0) {
                     WindowItem_RequestPetTransfer(session, 43, 11, source, target);
                 }
@@ -1318,12 +1319,12 @@ static void WindowTrade_HandleOwnPets(
     }
     std::int32_t petIndex = -1;
     if (hovered >= 0) {
-        petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[hovered].index);
+        petIndex = std::bit_cast<std::int16_t>(session.WorldScene().petPairs[hovered].index);
         if (petIndex >= 0) {
             uiFrame.hoverText = L"用滑鼠拖放方式，登录此笔宠物交易。";
             if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0
                 && (WindowDrag_ReadFocusWindowId(session) == 43 || WindowDrag_ReadFocusWindowId(session) == 0)) {
-                if (world::gPetRuntimeRecords[petIndex].used != 0
+                if ((*session.WorldScene().petRecords)[petIndex].used != 0
                     && trade.petMarks[petIndex] == 0) {
                     std::int32_t target = 0;
                     while (target < 5 && WindowTrade_ReadSelectedPet(session, target) >= 0) {
@@ -1344,7 +1345,7 @@ static void WindowTrade_HandleOwnPets(
         }
     }
     if ((events & MouseFlag_Hover) != 0 && petIndex >= 0 && trade.phase == 0
-        && (events & MouseFlag_LDownEvent) != 0 && world::gPetRuntimeRecords[petIndex].used != 0
+        && (events & MouseFlag_LDownEvent) != 0 && (*session.WorldScene().petRecords)[petIndex].used != 0
         && trade.petMarks[petIndex] == 0) {
         static_cast<void>(WindowPetDrag_Start(session, petIndex, 1));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -1352,7 +1353,7 @@ static void WindowTrade_HandleOwnPets(
     if (WindowDrag_ReadKind(session) == 3) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(session);
         if (WindowDrag_ReadFocusWindowId(session) == 43 && WindowDrag_ReadFocusElement(session) == static_cast<ElementId>(WindowTradeElementId::HandleOwnPanel)) {
-            const std::int32_t row = WindowItem_FindSortedPetIndex(source) - scroll;
+            const std::int32_t row = WindowItem_FindSortedPetIndex(session, source) - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
                 cg::render::DrawGraphicHover(
@@ -1370,14 +1371,14 @@ static void WindowTrade_HandleOwnPets(
                 static_cast<std::uint16_t>(x + 11), static_cast<std::uint16_t>(top),
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
-            if (world::gPetRuntimeRecords[petIndex].used != 0) {
+            if ((*session.WorldScene().petRecords)[petIndex].used != 0) {
                 trade.preview = petIndex + 300;
             }
         }
     }
     for (std::int32_t row = 0; row < 3; ++row) {
         const std::int32_t slot =
-            std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[scroll + row].index);
+            std::bit_cast<std::int16_t>(session.WorldScene().petPairs[scroll + row].index);
         const std::int32_t left = x + 11;
         const std::int32_t top = y + rowY[row];
         if (std::bit_cast<std::int8_t>(trade.petMarks[slot]) > 0) {
@@ -1387,8 +1388,8 @@ static void WindowTrade_HandleOwnPets(
                 223, 251, 0);
         }
         const std::int32_t current =
-            std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[scroll + row].index);
-        WindowBank_DrawOwnPetTooltip(
+            std::bit_cast<std::int16_t>(session.WorldScene().petPairs[scroll + row].index);
+        WindowBank_DrawOwnPetTooltip(session,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), current, 3);
         static_cast<void>(cg::render::DrawGraphic(
@@ -1517,7 +1518,7 @@ static void WindowTrade_HandleOwnPetDrag(
         return;
     }
     if (WindowTrade_ReadSelectedPet(session, sourceIndex) < 0
-        || world::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(session, sourceIndex)].used == 0) {
+        || (*session.WorldScene().petRecords)[WindowTrade_ReadSelectedPet(session, sourceIndex)].used == 0) {
         static_cast<void>(WindowDrag_ResetMouse(session));
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
@@ -1537,7 +1538,7 @@ static void WindowTrade_HandleOwnPetDrag(
         (platform::gLegacyMouseState.mouseY - 35)));
     const auto petX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
         (platform::gLegacyMouseState.mouseX - 120)));
-    WindowBank_DrawOwnPetTooltip(petX, petY, slot, 5);
+    WindowBank_DrawOwnPetTooltip(session, petX, petY, slot, 5);
     const std::int32_t y =
         static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY);
     const std::int32_t x =
@@ -1832,7 +1833,7 @@ static void WindowTrade_HandleSelectedPet(
     if (WindowDrag_ReadKind(session) == 7 && WindowDrag_ReadFocusWindowId(session) == 43 && WindowDrag_ReadFocusElement(session) == static_cast<ElementId>(WindowTradeElementId::HandleSelectedPanel)) {
         const std::int32_t source = WindowDrag_ReadSourceIndex(session);
         if (WindowTrade_ReadSelectedPet(session, source) >= 0
-            && world::gPetRuntimeRecords[WindowTrade_ReadSelectedPet(session, source)].used != 0) {
+            && (*session.WorldScene().petRecords)[WindowTrade_ReadSelectedPet(session, source)].used != 0) {
             const std::int32_t row = source - scroll;
             if (row >= 0 && row < 3) {
                 const std::int32_t top = y + rowY[row];
@@ -1852,7 +1853,7 @@ static void WindowTrade_HandleSelectedPet(
                 static_cast<std::uint16_t>(x + 251), static_cast<std::uint16_t>(top + 69),
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
             const std::int32_t slot = WindowTrade_ReadSelectedPet(session, hovered);
-            if (slot >= 0 && world::gPetRuntimeRecords[slot].used != 0) {
+            if (slot >= 0 && (*session.WorldScene().petRecords)[slot].used != 0) {
                 trade.preview = slot + 300;
             }
         }
@@ -1861,8 +1862,8 @@ static void WindowTrade_HandleSelectedPet(
         const std::int32_t left = x + 11;
         const std::int32_t top = y + rowY[row];
         const std::int32_t slot = WindowTrade_ReadSelectedPet(session, scroll + row);
-        if (slot >= 0 && world::gPetRuntimeRecords[slot].used != 0) {
-            WindowBank_DrawOwnPetTooltip(
+        if (slot >= 0 && (*session.WorldScene().petRecords)[slot].used != 0) {
+            WindowBank_DrawOwnPetTooltip(session,
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(left)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(top)), slot, 3);
             static_cast<void>(cg::render::DrawGraphic(
@@ -2461,11 +2462,12 @@ static std::int32_t WindowTrade_DrawSelectedPetTooltip(
 
 // 原函数：0x004B3B00。
 static std::int32_t WindowTrade_DrawOwnPetSkillRow(
+    session::ClientSession& session,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t petIndex, const std::int32_t skillPosition)
 {
     render::GraphicDescriptor16 descriptor {};
-    const auto& pet = world::gPetRuntimeRecords[petIndex];
+    const auto& pet = (*session.WorldScene().petRecords)[petIndex];
     const std::int16_t skillIndex =
         std::bit_cast<std::int16_t>(pet.techniquePairs650[skillPosition].index);
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -2499,7 +2501,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
     render::GraphicDescriptor16 descriptor {};
     const std::int32_t shortIndex =
         std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(index));
-    const auto& pet = world::gPetRuntimeRecords[shortIndex];
+    const auto& pet = (*session.WorldScene().petRecords)[shortIndex];
     if (pet.used == 0) {
         return 0;
     }
@@ -2577,7 +2579,7 @@ std::int32_t WindowTrade_DrawOwnPetTooltip(
                 && pet.items6E4[row].used != 0 ? std::wstring_view{pet.items6E4[row].name} : std::wstring_view{};
             WindowTrade_DrawPetEquipmentRow(shortX + 10, shortY + 141 + row * 16, name);
         } else {
-            static_cast<void>(WindowTrade_DrawOwnPetSkillRow(
+            static_cast<void>(WindowTrade_DrawOwnPetSkillRow(session,
                 shortX + 10, shortY + 141 + row * 16, shortIndex, page * 10 + row));
         }
     }
@@ -2841,7 +2843,7 @@ static void WindowTrade_CopyOwnPet(session::ClientSession& session, const std::i
 {
     auto& trade = session.UiFrame().native.trade;
     for (std::int32_t index = 0; index < 5; ++index) {
-        world::PetRuntimeRecord& source = world::gPetRuntimeRecords[index];
+        world::PetRuntimeRecord& source = (*session.WorldScene().petRecords)[index];
         if (source.used == 0) {
             continue;
         }

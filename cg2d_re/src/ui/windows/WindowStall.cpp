@@ -254,6 +254,7 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
 
 // 原函数：0x004D1C00。
 static std::int32_t WindowStall_DrawCandidateAttributes(
+    session::ClientSession& session,
     std::int32_t petIndex, std::int32_t attribute, std::int32_t x, std::int32_t y); // 候选属性条，透传末绘制返回。
 
 // 原函数：0x004D0990。
@@ -884,7 +885,7 @@ static void WindowStall_EditPetPrice(WindowInstance* callbackWindow, const std::
     WindowInstance* const currentWindow = callbackWindow;
     if (!currentWindow) return;
     auto& inputs = currentWindow->ownerSession->UiFrame().native.inputs;
-    const auto& pet = world::gPetRuntimeRecords[petIndex];
+    const auto& pet = (*callbackWindow->ownerSession->WorldScene().petRecords)[petIndex];
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
@@ -1334,7 +1335,7 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
         return 0;
     }
     world::PetRuntimeRecord* const pet = own
-        ? &world::gPetRuntimeRecords[gStallPetOffersCC3E98[position].slot]
+        ? &(*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetOffersCC3E98[position].slot]
         : &gStallBrowseData->pets[position];
     if (pet->used == 0) {
         return 0;
@@ -1485,10 +1486,11 @@ static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, con
 
 // 原函数：0x004D1C00。
 static std::int32_t WindowStall_DrawCandidateAttributes(
+    session::ClientSession& session,
     const std::int32_t petIndex, const std::int32_t attribute,
     const std::int32_t x, const std::int32_t y)
 {
-    const std::int32_t segments = world::gPetRuntimeRecords[petIndex].values70[21 + attribute] / 10;
+    const std::int32_t segments = (*session.WorldScene().petRecords)[petIndex].values70[21 + attribute] / 10;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
     descriptor.color = color;
@@ -1523,7 +1525,7 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
         return 0;
     }
     const std::int32_t row = index - (gStallOwn58111C != 0 ? 26 : 24);
-    const auto* const initialPet = &world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row];
+    const auto* const initialPet = &(*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row];
     if (initialPet->used == 0) {
         if ((state & MouseFlag_LDownEvent) != 0) {
             gStallPetSelection581128 = -1;
@@ -1539,18 +1541,18 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
     };
     cg::text::FormatTo(buffer, L"{}", initialPet->name6AC.data());
     drawText(298, 132);
-    cg::text::FormatTo(buffer, L"{:3}", world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value08);
+    cg::text::FormatTo(buffer, L"{:3}", (*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
-    const std::int32_t maxHp = static_cast<std::int32_t>(world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[1]);
-    const std::int32_t hp = static_cast<std::int32_t>(world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[0]);
+    const std::int32_t maxHp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].values0C[1]);
+    const std::int32_t hp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].values0C[0]);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", hp, maxHp);
     drawText(333, 146);
-    const std::int32_t maxFp = static_cast<std::int32_t>(world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[3]);
-    const std::int32_t fp = static_cast<std::int32_t>(world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].values0C[2]);
+    const std::int32_t maxFp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].values0C[3]);
+    const std::int32_t fp = static_cast<std::int32_t>((*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].values0C[2]);
     cg::text::FormatTo(buffer, L"{:4}/{:4}", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
-        world::gPetRuntimeRecords[gStallPetCandidatePageD67BD8 + row].value04);
+        (*callbackWindow.ownerSession->WorldScene().petRecords)[gStallPetCandidatePageD67BD8 + row].value04);
     if (tribe >= 0 && tribe < 20) {
         cg::text::FormatTo(buffer, L"{}", gTribeNames57CB54[tribe]);
     } else {
@@ -1565,7 +1567,7 @@ static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindo
         const std::int32_t y = window->y + barPositions[attribute][1] + 50 * row + 127;
         const std::int32_t x = window->x + barPositions[attribute][0] + 292;
         const std::int32_t petIndex = gStallPetCandidatePageD67BD8 + row;
-        static_cast<void>(WindowStall_DrawCandidateAttributes(petIndex, attribute, x, y));
+        static_cast<void>(WindowStall_DrawCandidateAttributes(*callbackWindow.ownerSession, petIndex, attribute, x, y));
     }
     std::int32_t consumed = 0;
     if (gOwnStallOpenForBusiness_D67BE0 == 0) {
@@ -2534,7 +2536,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
         for (std::int32_t index = petCount - 1; index >= 0; --index) {
             StallOffer* const offer = gStallPetOffersCC3E98.data() + index;
             const std::int32_t slot = offer->slot;
-            if (world::gPetRuntimeRecords[slot].used == 0) {
+            if ((*callbackWindow.ownerSession->WorldScene().petRecords)[slot].used == 0) {
                 --petCount;
                 gStallPetUsedCF400C[slot] = 0;
                 gStallPetCountD67BD4 = petCount;

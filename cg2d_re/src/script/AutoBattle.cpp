@@ -136,36 +136,36 @@ static int getSkillIndex(int id) {
     return -1;
 }
 
-static int getCurrentPet() {
+static int getCurrentPet(session::ClientSession& session) {
     for (int i = 0; i < 5; ++i) {
-        if (cg::world::gPetRuntimeRecords[i].flags6AA & 2) {
+        if ((*session.WorldScene().petRecords)[i].flags6AA & 2) {
             return i;
         }
     }
     return -1;
 }
 
-static int getPetTechIndex(int techId) {
-    int pet = getCurrentPet();
+static int getPetTechIndex(session::ClientSession& session, int techId) {
+    int pet = getCurrentPet(session);
     if (pet < 0) {
         return -1;
     }
     for (int ix = 0; ix < cg::world::kPetTechniqueSlotCount; ++ix) {
-        auto& data = cg::world::gPetRuntimeRecords[pet].techniquePairs650[ix];
-        if (data.used && data.index < cg::world::kPetTechniqueSlotCount && cg::world::gPetRuntimeRecords[pet].techniquesD8[data.index].techniqueId == techId) {
+        auto& data = (*session.WorldScene().petRecords)[pet].techniquePairs650[ix];
+        if (data.used && data.index < cg::world::kPetTechniqueSlotCount && (*session.WorldScene().petRecords)[pet].techniquesD8[data.index].techniqueId == techId) {
             return data.index;
         }
     }
     return -1;
 }
 
-static int getPetTechId(int techIndex) {
-    int pet = getCurrentPet();
+static int getPetTechId(session::ClientSession& session, int techIndex) {
+    int pet = getCurrentPet(session);
     if (pet < 0) {
         return -1;
     }
-    if (techIndex >= 0 && techIndex < cg::world::kPetTechniqueSlotCount && cg::world::gPetRuntimeRecords[pet].techniquesD8[techIndex].used)
-        return cg::world::gPetRuntimeRecords[pet].techniquesD8[techIndex].techniqueId;
+    if (techIndex >= 0 && techIndex < cg::world::kPetTechniqueSlotCount && (*session.WorldScene().petRecords)[pet].techniquesD8[techIndex].used)
+        return (*session.WorldScene().petRecords)[pet].techniquesD8[techIndex].techniqueId;
     return -1;
 }
 
@@ -335,9 +335,9 @@ static int SendBattleAction(lua_State* L)
             static_cast<void>(connection.SendPacket(buff, n));
             break;
         case B_ACTION_PET_SKILL: {
-            auto techIndex = getPetTechIndex(param2);
+            auto techIndex = getPetTechIndex(connection.Owner(), param2);
             auto petPos = (cg::world::gBattleCurrentPosition5ABCA4 % 10 + 5) % 10 + cg::world::gBattleCurrentPosition5ABCA4 / 10 * 10;
-            int petIndex = getCurrentPet();
+            int petIndex = getCurrentPet(connection.Owner());
             m_log_iw(L"B_ACTION_ATTACK techIndex %d petIndex %d\n", techIndex, petIndex);
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
             if (petIndex < 0) {
@@ -350,8 +350,8 @@ static int SendBattleAction(lua_State* L)
                 break;
             }
             m_log_iw(L"B_ACTION_ATTACK attacker %d target %d\n", petPos, param3);
-            B_TARGET_FLAGS targetFlags = cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].target;
-            m_log_iw(L"B_ACTION_ATTACK tech %d %d %ls\n", cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].techniqueId, targetFlags, cg::world::gPetRuntimeRecords[petIndex].techniquesD8[techIndex].name.data());
+            B_TARGET_FLAGS targetFlags = (*connection.Owner().WorldScene().petRecords)[petIndex].techniquesD8[techIndex].target;
+            m_log_iw(L"B_ACTION_ATTACK tech %d %d %ls\n", (*connection.Owner().WorldScene().petRecords)[petIndex].techniquesD8[techIndex].techniqueId, targetFlags, (*connection.Owner().WorldScene().petRecords)[petIndex].techniquesD8[techIndex].name.data());
             auto target = checkAndGetTarget(petPos, param3, targetFlags);
             m_log_iw(L"B_ACTION_ATTACK checkAndGetTarget %d target %d\n", petPos, target);
             if (target < 0 && (targetFlags & B_TARGET_WHO)) {
@@ -687,7 +687,7 @@ void RecordAutoBattleAction(cg::network::CgConnection& networkConnection, std::s
     action.target = -1;
     switch (body[0]) {
     case 'S': action.type = autobattle_detail::B_ACTION_SKILL; action.skillId = autobattle_detail::getSkillId(values[0]); action.techId = values[1]; action.target = values[2]; break;
-    case 'W': action.type = autobattle_detail::B_ACTION_PET_SKILL; action.techId = autobattle_detail::getPetTechId(values[0]); action.target = values[1]; break;
+    case 'W': action.type = autobattle_detail::B_ACTION_PET_SKILL; action.techId = autobattle_detail::getPetTechId(networkConnection.Owner(), values[0]); action.target = values[1]; break;
     case 'H': action.type = autobattle_detail::B_ACTION_ATTACK; action.target = values[0]; break;
     case 'Q': case 'M': case 'R': action.type = autobattle_detail::B_ACTION_ATTACK; break;
     case 'I': action.type = autobattle_detail::B_ACTION_ITEM; action.itemId = autobattle_detail::getItemId(networkConnection.Owner(), values[0]); action.target = values[1]; break;

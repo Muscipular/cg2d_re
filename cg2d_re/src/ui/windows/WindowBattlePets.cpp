@@ -71,7 +71,7 @@ static std::int32_t WindowBattlePets_Update(WindowInstance& callbackWindow, cons
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (auto* const buttonReturnElement = currentWindow->FindElementById(WindowBattlePetsElementId::ButtonReturn); buttonReturnElement) buttonReturnElement->visible = 0;
-    if (world::FindBattlePetIndex_43C4B0() != -1) {
+    if (world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession) != -1) {
         if (auto* const buttonReturnElement2 = currentWindow->FindElementById(WindowBattlePetsElementId::ButtonReturn); buttonReturnElement2) buttonReturnElement2->visible = 1;
     }
     return 1;
@@ -91,7 +91,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(WindowInstance& callbackWindow
             uiFrame.hoverText = L"让这只宠物归还。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (world::FindBattlePetIndex_43C4B0() != -1) {
+            if (world::FindBattlePetIndex_43C4B0(*callbackWindow.ownerSession) != -1) {
                 std::array<char, 768> buffer;
                 std::sprintf(buffer.data(), "M|%X", 255u);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
@@ -123,7 +123,7 @@ static void WindowBattlePets_Refresh(
     auto& inventory = session.UiFrame().native.inventory;
     std::int32_t battleImage = 0x3B58D;
     std::int32_t readyImage = 0x3B58A;
-    const auto& pet = world::gPetRuntimeRecords[petIndex];
+    const auto& pet = (*session.WorldScene().petRecords)[petIndex];
     if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
         static_cast<void>(render::ClearTextQueueTail_456D50(textLayer));
         static_cast<void>(render::DrawText_456780(
@@ -210,9 +210,9 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
         descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
         std::int32_t selected = -1;
         std::int32_t visible = -1;
-        for (const auto& pair : world::gPetPairsDE0B08) {
+        for (const auto& pair : callbackWindow.ownerSession->WorldScene().petPairs) {
             const std::int32_t petIndex = std::bit_cast<std::int16_t>(pair.index);
-            const auto& pet = world::gPetRuntimeRecords[petIndex];
+            const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex];
             if (pet.used == 1 && (pet.flags6AA == 1 || pet.flags6AA == 2)) {
                 ++visible;
             }
@@ -225,7 +225,7 @@ static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, c
             return 0;
         }
         std::int32_t consumed = 0;
-        const auto& pet = world::gPetRuntimeRecords[selected];
+        const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[selected];
         if (pet.used == 1) {
             std::uint16_t flags = pet.flags6AA;
             if (flags == 1 || flags == 2) {

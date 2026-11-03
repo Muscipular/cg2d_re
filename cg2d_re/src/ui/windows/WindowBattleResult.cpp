@@ -286,7 +286,7 @@ static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, co
                 }
             } else {
                 const auto slot = static_cast<std::int16_t>(target);
-                const std::int32_t health = WindowItem_HealthImageLevel(world::gPetRuntimeRecords[slot].values70[25]);
+                const std::int32_t health = WindowItem_HealthImageLevel((*callbackWindow.ownerSession->WorldScene().petRecords)[slot].values70[25]);
                 WindowInstance* const window = currentWindow;
                 auto* const graphicElement = window->FindElementById(NativeElementKey(row + 5));
                 if (graphicElement) {
@@ -294,7 +294,7 @@ static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, co
                     graphic->imageNo = gHealthImages57E6A4[health];
                 }
                 const auto nameSlot = static_cast<std::int16_t>(result->value00);
-                const auto& pet = world::gPetRuntimeRecords[nameSlot];
+                const auto& pet = (*callbackWindow.ownerSession->WorldScene().petRecords)[nameSlot];
                 name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
             }
             if (auto* const indexedElement8 = currentWindow->FindElementById(NativeElementKey(row + 9)); indexedElement8) indexedElement8->data.text->text = name;
@@ -304,7 +304,7 @@ static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, co
             const std::uint16_t experienceTarget = result->value00;
             const bool atLimit = experienceTarget == 0xFFFEu
                 ? (callbackWindow.ownerSession->WorldScene().player->value68 == -1)
-                : (world::gPetRuntimeRecords[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
+                : ((*callbackWindow.ownerSession->WorldScene().petRecords)[static_cast<std::int16_t>(experienceTarget)].values0C[5] == -1);
             if (atLimit) {
                 if (auto* const indexedElement9 = currentWindow->FindElementById(NativeElementKey(row + 13)); indexedElement9) indexedElement9->data.text->text = L"  ---  ";
             } else {

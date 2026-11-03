@@ -243,7 +243,7 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
         targets.attributeCount = count;
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
-            auto& pet = world::gPetRuntimeRecords[slot];
+            auto& pet = (*session.WorldScene().petRecords)[slot];
             if (pet.used == 0 || business.valuesCC1A18[slot] == 3) {
                 continue;
             }

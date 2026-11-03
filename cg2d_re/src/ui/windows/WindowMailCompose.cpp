@@ -135,11 +135,11 @@ static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, con
     }
     business.choicesCC4CA0.value00 = 0;
     for (std::int32_t index = 0; index < 5; ++index) {
-        const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[index].index);
-        if (world::gPetRuntimeRecords[petIndex].used == 0) {
+        const auto petIndex = std::bit_cast<std::int16_t>(callbackWindow.ownerSession->WorldScene().petPairs[index].index);
+        if ((*callbackWindow.ownerSession->WorldScene().petRecords)[petIndex].used == 0) {
             continue;
         }
-        const std::int32_t available = world::HasPetMailTechnique_52E1D0(petIndex);
+        const std::int32_t available = world::HasPetMailTechnique_52E1D0(*callbackWindow.ownerSession, petIndex);
         if (available == 1) {
             business.choicesCC4CA0.pairs18[index][1] = available;
             business.choicesCC4CA0.pairs18[index][0] = petIndex;

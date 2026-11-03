@@ -435,7 +435,7 @@ cg::yobi::YobiAction* WindowSkillResult_ReceiveResult(session::ClientSession& se
 // 原函数：0x00479860。
 std::int32_t WindowSkill_ReadCrystalLevel(session::ClientSession& session); // 玩家物品槽7的晶石等级，未用/未知返回0。
 // 原函数：0x004799D0。
-std::int32_t WindowSkill_ReadBattlePetImage(); // 重新选取出战宠物并读取原图号，未命中0。
+std::int32_t WindowSkill_ReadBattlePetImage(session::ClientSession& session); // 重新选取出战宠物并读取原图号，未命中0。
 // 原函数：0x00479AB0。
 std::int32_t WindowSkill_CheckPetFp(session::ClientSession& session); // 当前宠物FP的单次CryptInt比较。
 // 原函数：0x00479B00。
@@ -467,7 +467,7 @@ bool WindowItemSelector_HandleTab(WindowInstance* callbackWindow, WindowItemSele
 // 原函数：0x004C78A0。
 bool WindowItemSelector_TogglePreview(WindowItemSelectorState* state, std::int32_t events); // SEV01：原event低BYTE bit2触发声音后翻转BYTE预览开关，图号8/1优先，正确body保持，bool仅原AL。
 // 原函数：0x004C7910。
-bool WindowItemSelector_CycleEquipment(WindowItemSelectorState* state, std::int32_t events); // SEV01：先翻BYTE装备/回调，失效AL早返保部分写；目标先回调、尾selected先推进/count后取，不钳制数量。
+bool WindowItemSelector_CycleEquipment(session::ClientSession& session, WindowItemSelectorState* state, std::int32_t events); // SEV01：先翻BYTE装备/回调，失效AL早返保部分写；目标先回调、尾selected先推进/count后取，不钳制数量。
 // 原函数：0x004C7A10。
 bool WindowItemSelector_RotatePreview(WindowItemSelectorState* state, std::int32_t events); // SEV01：低U16两个方向门槛独立，先正向S32余8再反向减1/原加8；两声效/原顺序保，父固定返回0。
 // 原函数：0x004C7A90。
@@ -647,7 +647,7 @@ std::int32_t WindowItem_ClassifyItemSlot(std::int32_t slot); // IDE01：signed�
 // 原函数：0x0048BB70。
 std::int32_t WindowItem_ClassifyPetSlot(std::int32_t slot); // 宠物槽分类1/2。
 // 原函数：0x0048BC60。
-std::int32_t WindowItem_FindSortedPetIndex(std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
+std::int32_t WindowItem_FindSortedPetIndex(session::ClientSession& session, std::int32_t slot); // DE0B08五个S16索引的首匹配位置。
 // 原函数：0x0047D490。
 void WindowCraft_ResetItemSelection(session::ClientSession& session); // 仅清D67B00，不改变其他物品状态。
 // 原函数：0x004886E0。
@@ -670,13 +670,14 @@ void WindowItem_RequestPetTransfer(
     std::int32_t source, std::int32_t target); // 普通/窗口41两路宠物换位请求。
 // 原函数：0x004AAB70。
 void WindowBank_DrawOwnPetTooltip(
+    session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
 // 原函数：0x004AB400。
 void WindowBank_DrawStoredPetTooltip(
     session::ClientSession& session,
     std::int16_t x, std::int16_t y, std::int32_t index, std::uint8_t textLayer);
 // 原函数：0x004EA670。
-std::int32_t WindowPet_HasSkill25600(std::int32_t index); // 原25600技能检查，返回0/1。
+std::int32_t WindowPet_HasSkill25600(session::ClientSession& session, std::int32_t index); // 原25600技能检查，返回0/1。
 // 原函数：0x0048C130。
 std::int32_t WindowPetDrag_Start(session::ClientSession& session, std::int32_t sourceIndex, std::int32_t mode);
 // 原函数：0x0048BF10。

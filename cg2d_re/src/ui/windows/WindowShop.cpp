@@ -546,7 +546,7 @@ static void WindowShop_RemoveSaleSelection(session::ClientSession& session, Wind
     source = WindowDrag_ReadSourceIndex(session);
     std::int32_t position = shop.scroll;
     shop.selectedSlots[source] = static_cast<char>(-1);
-    const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+    const std::int32_t maximum = shop.itemCount - 5;
     if (position > maximum) {
         position = maximum;
         shop.scroll = position;
@@ -589,7 +589,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
     materialState.shopMode = 0;
-    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    shop.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
@@ -604,7 +604,7 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
             static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
         }
     }
-    gShopItemCountCB1E10 = 0;
+    shop.itemCount = 0;
     shop.items.fill({});
     std::int32_t field = 6;
     for (std::int32_t index = 0; index < 20; ++index) {
@@ -630,10 +630,10 @@ cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const 
         record->allowed = static_cast<char>(
             network::ParseDelimitedInteger_52CFA0(text, '|', field++));
         record->maximum = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        ++gShopItemCountCB1E10;
+        ++shop.itemCount;
     }
     const std::int32_t dialogType = world::gCurrentDialogType_581800;
-    gShopExchangeCurrencyItemId_D2D608 = -1;
+    shop.currencyItemId = -1;
     shop.dialogType = dialogType;
     return WindowRuntime_CreateAnimation(session, WindowId_Shop, 1, 0, nullptr);
 }
@@ -645,7 +645,7 @@ cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
     materialState.shopMode = 1;
-    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    shop.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
@@ -719,8 +719,8 @@ cg::yobi::YobiAction* WindowShop_OpenSell(session::ClientSession& session, const
     }
     shop.selectionMask = 0;
     shop.selectedSlots.fill(static_cast<char>(-1));
-    gShopItemCountCB1E10 = 20;
-    gShopExchangeCurrencyItemId_D2D608 = -1;
+    shop.itemCount = 20;
+    shop.currencyItemId = -1;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
@@ -736,7 +736,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
     materialState.shopMode = 2;
-    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    shop.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
@@ -751,13 +751,13 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
             static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
         }
     }
-    gShopExchangeCurrencyItemId_D2D608 = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
+    shop.currencyItemId = network::ParseDelimitedInteger_52CFA0(text, '|', 6);
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         text, '|', 7, 28, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     shop.exchangeText = cg::text::FromGbkWide(buffer.data());
     shop.items.fill({});
-    gShopItemCountCB1E10 = 0;
+    shop.itemCount = 0;
     std::int32_t field = 8;
     for (std::int32_t index = 0; index < 20; ++index) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 767, buffer.data()) == 1) {
@@ -786,7 +786,7 @@ cg::yobi::YobiAction* WindowShop_OpenExchange(session::ClientSession& session, c
             }
             record->description[row] = cg::text::FromGbkWide(line);
         }
-        ++gShopItemCountCB1E10;
+        ++shop.itemCount;
     }
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
@@ -803,8 +803,8 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
     materialState.shopMode = 3;
-    gShopDetailCC3210 = {};
-    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    shop.detail = {};
+    shop.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
@@ -820,7 +820,7 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session
             static_cast<void>(input::ExtractGbkTextLine(line, buffer.data(), row, 20));
         }
     }
-    auto* const detail = &gShopDetailCC3210;
+    auto* const detail = &shop.detail;
     detail->price = network::ParseDelimitedInteger_52CFA0(text, '|', 8);
     detail->itemId = network::ParseDelimitedInteger_52CFA0(text, '|', 9);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 10, 768, buffer.data()));
@@ -842,7 +842,7 @@ cg::yobi::YobiAction* WindowShop_OpenItemDetails(session::ClientSession& session
     std::int32_t value;
     std::memcpy(&value, &detail->itemId, sizeof(value));
     shop.detailSelected = 0;
-    gShopExchangeCurrencyItemId_D2D608 = value;
+    shop.currencyItemId = value;
     shop.valueD672D4 = 0;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
@@ -861,7 +861,7 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
     auto& materialState = session.UiFrame().native.material;
     std::array<char, 2304> buffer;
     materialState.shopMode = mode;
-    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    shop.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
     char* const title = titleGbkBuffer;
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 16, title));
@@ -932,11 +932,11 @@ static cg::yobi::YobiAction* WindowShop_CreateService(
         }
     }
     std::int32_t value;
-    std::memcpy(&value, &gShopDetailCC3210.itemId, sizeof(value));
+    std::memcpy(&value, &shop.detail.itemId, sizeof(value));
     shop.selectedSlots.fill(static_cast<char>(-1));
     shop.selectionMask = 0;
-    gShopItemCountCB1E10 = 20;
-    gShopExchangeCurrencyItemId_D2D608 = value;
+    shop.itemCount = 20;
+    shop.currencyItemId = value;
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     for (std::int32_t slot = 0; slot < 28; ++slot) {
         ++occupancy[slot];
@@ -988,7 +988,7 @@ static void WindowShop_RefreshBuyRows(WindowInstance& callbackWindow)
         std::memcpy(&price, &record->price, sizeof(price));
         cg::text::FormatTo(priceText, L"{:10}", price);
         if (row == 4) {
-            gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
+            shop.priceTail = static_cast<std::uint16_t>(priceText[8])
                 | static_cast<std::uint16_t>(priceText[9] << 8);
         }
         record = &shop.items[shop.scroll + row];
@@ -1139,7 +1139,7 @@ static void WindowShop_RefreshSellRows(WindowInstance& callbackWindow)
         std::memcpy(&price, &record->price, sizeof(price));
         cg::text::FormatTo(priceText, L"{:10}", price);
         if (row == 4) {
-            gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
+            shop.priceTail = static_cast<std::uint16_t>(priceText[8])
                 | static_cast<std::uint16_t>(priceText[9] << 8);
         }
         index = std::bit_cast<std::int8_t>(shop.selectedSlots[shop.scroll + row]);
@@ -1300,7 +1300,7 @@ static void WindowShop_RefreshExchangeRows(WindowInstance& callbackWindow)
         std::memcpy(&price, &record->price, sizeof(price));
         cg::text::FormatTo(priceText, L"{:10}", price);
         if (row == 4) {
-            gShopPriceTailD67420 = static_cast<std::uint16_t>(priceText[8])
+            shop.priceTail = static_cast<std::uint16_t>(priceText[8])
                 | static_cast<std::uint16_t>(priceText[9] << 8);
         }
         record = &shop.items[shop.scroll + row];
@@ -1338,7 +1338,7 @@ static void WindowShop_RefreshExchangeRows(WindowInstance& callbackWindow)
             WindowRuntime_FillTwoTextLines(indexedElement4->data.text, indexedElement5->data.text, buffer);
         }
         record = &shop.items[shop.scroll + row];
-        const std::int32_t available = gShopAvailableCF4A24;
+        const std::int32_t available = shop.available;
         std::memcpy(&price, &record->price, sizeof(price));
         const std::int32_t total = shop.total;
         if (available >= price + total) {
@@ -1422,13 +1422,13 @@ static void WindowShop_RefreshDetailName(WindowInstance& callbackWindow)
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     std::int32_t price;
-    std::memcpy(&price, &gShopDetailCC3210.valueC34, sizeof(price));
+    std::memcpy(&price, &shop.detail.valueC34, sizeof(price));
     cg::text::FormatTo(shop.priceTexts[0], L"{:10}", price);
     auto* const element18 = currentWindow->FindElementById(WindowShopElementId::Element18);
     auto* const element23 = currentWindow->FindElementById(WindowShopElementId::Element23);
     if (element18 && element23) {
         WindowRuntime_FillTwoTextLines(element18->data.text,
-            element23->data.text, gShopDetailCC3210.name);
+            element23->data.text, shop.detail.name);
     }
     return;
 }
@@ -1440,7 +1440,7 @@ static void WindowShop_RefreshDetailAmount(WindowInstance& callbackWindow)
     cg::text::FormatTo(shop.countTexts[0], L"{:2}", shop.detailSelected);
     cg::text::FormatTo(shop.valueText, L"{:10}", shop.detailSelected);
     std::int32_t price;
-    std::memcpy(&price, &gShopDetailCC3210.price, sizeof(price));
+    std::memcpy(&price, &shop.detail.price, sizeof(price));
     shop.total = price * shop.detailSelected;
 }
 
@@ -1451,11 +1451,11 @@ static void WindowShop_CountDetailItems(WindowInstance& callbackWindow)
     const std::int32_t mode = shop.detailMode;
     shop.quantity = 0;
     if (mode == 0) {
-        std::memcpy(&shop.quantity, &gShopDetailCC3210.quantity, sizeof(shop.quantity));
+        std::memcpy(&shop.quantity, &shop.detail.quantity, sizeof(shop.quantity));
         return;
     }
     std::int32_t itemId;
-    std::memcpy(&itemId, &gShopDetailCC3210.itemId, sizeof(itemId));
+    std::memcpy(&itemId, &shop.detail.itemId, sizeof(itemId));
     std::int32_t total = 0;
     for (const world::PlayerItemRecord& record : world::gPlayerRuntimeSlots.items) {
         if (record.used != 0 && record.itemId == itemId) {
@@ -1492,7 +1492,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
             }
         }
         shop.scroll = 0;
-        gShopAvailableCF4A24 = -1;
+        shop.available = -1;
         if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowShopElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 0;
         for (std::int32_t row = 0; row < 5; ++row) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(17 + row)); indexedElement) indexedElement->visible = 1;
@@ -1594,14 +1594,14 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         default:
             break;
         }
-        gShopRowKeysC9A954[0] = -2;
+        shop.rowKeys[0] = -2;
         shop.tooltipIndex = -1;
-        gShopRowKeysC9A954[1] = -2;
+        shop.rowKeys[1] = -2;
         shop.message = -1;
-        gShopRowKeysC9A954[2] = -2;
+        shop.rowKeys[2] = -2;
         shop.tooltipPage = 0;
-        gShopRowKeysC9A954[3] = -2;
-        gShopRowKeysC9A954[4] = -2;
+        shop.rowKeys[3] = -2;
+        shop.rowKeys[4] = -2;
         auto* const element6 = currentWindow->FindElementById(WindowShopElementId::Element6);
         if (element6) {
             auto* const title = element6->data.text;
@@ -1610,7 +1610,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         auto* const element10 = currentWindow->FindElementById(WindowShopElementId::Element10);
         if (element10) {
             auto* animation = element10->data.animation;
-            cg::yobi::SetYobiActionField2A8(animation->action, gShopImageD2DAD0);
+            cg::yobi::SetYobiActionField2A8(animation->action, shop.imageNo);
             cg::yobi::SetYobiActionField2B8(animation->action, cg::yobi::YobiDirection_Down);
         }
     }
@@ -1621,7 +1621,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         currentWindow->state |= 0x8000u;
     }
     if (auto* const element11 = currentWindow->FindElementById(WindowShopElementId::Element11); element11) element11->visible = 1;
-    if (gShopItemCountCB1E10 - 5 <= 0) {
+    if (shop.itemCount - 5 <= 0) {
         if (auto* const element112 = currentWindow->FindElementById(WindowShopElementId::Element11); element112) element112->visible = 0;
     }
     auto* elementsWindow = currentWindow;
@@ -1629,7 +1629,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
     if (handleVerticalScrollElement && (handleVerticalScrollElement->data.mouse->flags & 1u) != 0) {
         auto* const handleVerticalScrollElement2 = elementsWindow->FindElementById(WindowShopElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement2) {
-            shop.scroll = WindowScroll_ReadPosition(handleVerticalScrollElement2, gShopItemCountCB1E10 - 5);
+            shop.scroll = WindowScroll_ReadPosition(handleVerticalScrollElement2, shop.itemCount - 5);
         }
         switch (std::bit_cast<std::int8_t>(materialState.shopMode)) {
         case 0:
@@ -1661,19 +1661,19 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         }
     }
     if (materialState.shopMode == 2) {
-        const std::int32_t previous = gShopAvailableCF4A24;
-        const std::int32_t itemId = gShopExchangeCurrencyItemId_D2D608;
-        gShopAvailableCF4A24 = 0;
+        const std::int32_t previous = shop.available;
+        const std::int32_t itemId = shop.currencyItemId;
+        shop.available = 0;
         std::int32_t total = 0;
         for (const world::PlayerItemRecord& record : world::gPlayerRuntimeSlots.items) {
             if (record.used != 0 && record.itemId == itemId) {
                 total += record.count;
             }
         }
-        gShopAvailableCF4A24 = total;
+        shop.available = total;
         if (total != previous) {
             WindowShop_RefreshExchangeRows(callbackWindow);
-            cg::text::FormatTo(shop.totalText, L"{:10}", gShopAvailableCF4A24);
+            cg::text::FormatTo(shop.totalText, L"{:10}", shop.available);
         }
     }
     if (shop.message >= 0) {
@@ -1686,7 +1686,7 @@ static std::int32_t WindowShop_Update(WindowInstance& callbackWindow, const std:
         if (shop.detailMode != 0) {
             amount = shop.quantity;
         } else {
-            std::memcpy(&amount, &gShopDetailCC3210.quantity, sizeof(amount));
+            std::memcpy(&amount, &shop.detail.quantity, sizeof(amount));
         }
         cg::text::FormatTo(shop.totalText, L"{:10}", amount);
     }
@@ -1838,7 +1838,7 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
                 right.value = total;
             } else {
                 const std::int32_t total = shop.total;
-                const std::int32_t materialCount = gShopAvailableCF4A24;
+                const std::int32_t materialCount = shop.available;
                 left.visible = 1;
                 left.x = 354;
                 left.y = 343;
@@ -1910,9 +1910,9 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
             WindowConfirmationItem& preview = shop.confirmationItems[0];
             preview.visible = 1;
             shop.confirmationCallback = &WindowShop_Submit;
-            preview.name = gShopDetailCC3210.name;
+            preview.name = shop.detail.name;
             std::int32_t imageNo;
-            std::memcpy(&imageNo, &gShopDetailCC3210.imageNo, sizeof(imageNo));
+            std::memcpy(&imageNo, &shop.detail.imageNo, sizeof(imageNo));
             preview.color = 0;
             preview.imageNo = imageNo;
             const std::int32_t quantity = shop.detailSelected;
@@ -2000,14 +2000,14 @@ static std::int32_t WindowShop_ButtonOk(WindowInstance& callbackWindow, const El
                 cg::text::FormatTo(shop.confirmationHeading, kShopConfirmHeadings[textMode]);
             }
             cg::text::FormatTo(shop.confirmationQuestion, kShopConfirmQuestions[textMode]);
-            gConfirmationAcceptHintCC3FCC = kShopConfirmAcceptHints[textMode];
+            shop.confirmationAcceptHint = kShopConfirmAcceptHints[textMode];
             const wchar_t* const cancelHint = kShopHints57E6C4[2];
             if (mode == 2) {
                 WindowInstance* const window = currentWindow;
-                gConfirmationCancelHintD45D70 = cancelHint;
+                shop.confirmationCancelHint = cancelHint;
                 if (auto* const handleConfirmationElement = window->FindElementById(WindowShopElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 1;
             } else {
-                gConfirmationCancelHintD45D70 = cancelHint;
+                shop.confirmationCancelHint = cancelHint;
                 if (auto* const handleConfirmationElement = currentWindow->FindElementById(WindowShopElementId::HandleConfirmation); handleConfirmationElement) handleConfirmationElement->visible = 1;
             }
             currentWindow->state |= 2u;
@@ -2166,7 +2166,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
                             }
                             const auto mask = static_cast<std::uint32_t>(shop.selectionMask);
                             WindowInstance* const window = currentWindow;
-                            const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+                            const std::int32_t maximum = shop.itemCount - 5;
                             shop.selectionMask = std::bit_cast<std::int32_t>(mask | (1u << inventorySlot));
                             const std::int32_t position = shop.scroll;
                             auto* const handleVerticalScrollElement = window->FindElementById(WindowShopElementId::HandleVerticalScroll);
@@ -2258,7 +2258,7 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
                             }
                             const auto mask = static_cast<std::uint32_t>(shop.selectionMask);
                             const std::int32_t position = shop.scroll;
-                            const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+                            const std::int32_t maximum = shop.itemCount - 5;
                             shop.selectionMask = std::bit_cast<std::int32_t>(mask | (1u << inventorySlot));
                             auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowShopElementId::HandleVerticalScroll);
                             if (handleVerticalScrollElement) {
@@ -2312,7 +2312,7 @@ static std::int32_t WindowShop_ButtonPreviousRow(WindowInstance& callbackWindow,
         }
         const std::int32_t position = shop.scroll;
         WindowInstance* const window = currentWindow;
-        const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+        const std::int32_t maximum = shop.itemCount - 5;
         auto* const indexedElement = window->FindElementById(NativeElementKey(index - 1));
         if (indexedElement) {
             static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
@@ -2359,7 +2359,7 @@ static std::int32_t WindowShop_ButtonNextRow(WindowInstance& callbackWindow, con
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
-        const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
+        const std::int32_t oldMaximum = shop.itemCount - 5;
         if (shop.scroll < oldMaximum) {
             ++shop.scroll;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -2367,7 +2367,7 @@ static std::int32_t WindowShop_ButtonNextRow(WindowInstance& callbackWindow, con
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
         const std::int32_t position = shop.scroll;
-        const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+        const std::int32_t maximum = shop.itemCount - 5;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 2));
         if (indexedElement) {
             static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
@@ -2420,7 +2420,7 @@ static std::int32_t WindowShop_ButtonPreviousPage(WindowInstance& callbackWindow
             shop.scroll = 0;
         }
         const std::int32_t position = shop.scroll;
-        const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+        const std::int32_t maximum = shop.itemCount - 5;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 3));
         if (indexedElement) {
             static_cast<void>(WindowScroll_SetPosition(indexedElement, maximum, position));
@@ -2467,11 +2467,11 @@ static std::int32_t WindowShop_ButtonNextPage(WindowInstance& callbackWindow, co
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t oldMaximum = gShopItemCountCB1E10 - 5;
+        const std::int32_t oldMaximum = shop.itemCount - 5;
         const bool canMove = oldMaximum > 0 && shop.scroll < oldMaximum;
         static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
         std::int32_t position = shop.scroll + 5;
-        const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+        const std::int32_t maximum = shop.itemCount - 5;
         shop.scroll = position;
         if (position > maximum) {
             position = maximum;
@@ -2524,7 +2524,7 @@ static std::int32_t WindowShop_Scroll(WindowInstance& callbackWindow, const Elem
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
-        const std::int32_t count = gShopItemCountCB1E10;
+        const std::int32_t count = shop.itemCount;
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t position = shop.scroll;
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
@@ -2596,7 +2596,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             std::int32_t remaining = shop.total;
             std::int32_t price;
             std::memcpy(&price, &record->price, sizeof(price));
-            std::int32_t itemId = gShopExchangeCurrencyItemId_D2D608;
+            std::int32_t itemId = shop.currencyItemId;
             remaining -= price;
             std::int32_t released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
@@ -2633,7 +2633,7 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
             std::memcpy(&price, &record->price, sizeof(price));
             remaining = shop.total;
             const std::int32_t cost = price * candidate;
-            itemId = gShopExchangeCurrencyItemId_D2D608;
+            itemId = shop.currencyItemId;
             remaining -= cost;
             released = 0;
             for (std::int32_t slot = 8; slot < 28; ++slot) {
@@ -2761,8 +2761,8 @@ static std::int32_t WindowShop_ButtonDecrease(WindowInstance& callbackWindow, co
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
                 std::int32_t capacity;
                 std::int32_t current;
-                std::memcpy(&capacity, &gShopDetailCC3210.capacity, sizeof(capacity));
-                std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
+                std::memcpy(&capacity, &shop.detail.capacity, sizeof(capacity));
+                std::memcpy(&current, &shop.detail.valueC34, sizeof(current));
                 const std::int32_t available = shop.quantity;
                 std::int32_t amount = capacity - current;
                 if (amount >= available) {
@@ -2856,11 +2856,11 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             const std::int32_t total = shop.total;
             message = -1;
             const std::int32_t cost = total + price;
-            if (gShopAvailableCF4A24 < cost) {
+            if (shop.available < cost) {
                 message = -2;
                 break;
             }
-            const std::int32_t itemId = gShopExchangeCurrencyItemId_D2D608;
+            const std::int32_t itemId = shop.currencyItemId;
             std::int32_t remaining = cost;
             increment = remaining;
             std::int32_t released = 0;
@@ -2901,13 +2901,13 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
             std::int32_t deficit = -available;
             for (; slot < 28; ++slot) {
                 const world::PlayerItemRecord& item = world::gPlayerRuntimeSlots.items[slot];
-                if (item.used != 0 && item.itemId == gShopExchangeCurrencyItemId_D2D608) {
+                if (item.used != 0 && item.itemId == shop.currencyItemId) {
                     const std::int32_t count = item.count;
                     std::memcpy(&price, &record->price, sizeof(price));
                     std::int32_t candidate = (count - increment + price - 1) / price;
                     const std::int32_t currentTotal = shop.total;
                     ++candidate;
-                    if (gShopAvailableCF4A24 < price * candidate + currentTotal) {
+                    if (shop.available < price * candidate + currentTotal) {
                         message = -3;
                         break;
                     }
@@ -2934,8 +2934,8 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                     if (available - detailSelected > 0) {
                         std::int32_t current;
                         std::int32_t capacity;
-                        std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
-                        std::memcpy(&capacity, &gShopDetailCC3210.capacity, sizeof(capacity));
+                        std::memcpy(&current, &shop.detail.valueC34, sizeof(current));
+                        std::memcpy(&capacity, &shop.detail.capacity, sizeof(capacity));
                         if (current + detailSelected < capacity && detailSelected < gQuantityLimit581C94) {
                             permitted = 1;
                         }
@@ -2944,10 +2944,10 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                     detailSelected = shop.detailSelected;
                     detailSelectedRead = true;
                     std::int32_t quantity;
-                    std::memcpy(&quantity, &gShopDetailCC3210.quantity, sizeof(quantity));
+                    std::memcpy(&quantity, &shop.detail.quantity, sizeof(quantity));
                     if (detailSelected < quantity) {
                         std::int32_t current;
-                        std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
+                        std::memcpy(&current, &shop.detail.valueC34, sizeof(current));
                         if (current - detailSelected > 0) {
                             const std::int32_t total = shop.total;
                             const std::int32_t money = world::gPlayerRuntimeSlots.valueFC;
@@ -3086,13 +3086,13 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                 } else {
                     std::int32_t current;
                     std::int32_t capacity;
-                    std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
-                    std::memcpy(&capacity, &gShopDetailCC3210.capacity, sizeof(capacity));
+                    std::memcpy(&current, &shop.detail.valueC34, sizeof(current));
+                    std::memcpy(&capacity, &shop.detail.capacity, sizeof(capacity));
                     if (current + detailSelected < capacity && detailSelected < gQuantityLimit581C94) {
                         canIncrease = true;
                     } else {
-                        std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
-                        std::memcpy(&capacity, &gShopDetailCC3210.capacity, sizeof(capacity));
+                        std::memcpy(&current, &shop.detail.valueC34, sizeof(current));
+                        std::memcpy(&capacity, &shop.detail.capacity, sizeof(capacity));
                         if (current + detailSelected >= capacity) {
                             shop.message = -3;
                         }
@@ -3100,12 +3100,12 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, co
                 }
             } else {
                 std::int32_t quantity;
-                std::memcpy(&quantity, &gShopDetailCC3210.quantity, sizeof(quantity));
+                std::memcpy(&quantity, &shop.detail.quantity, sizeof(quantity));
                 if (detailSelected >= quantity) {
                     shop.message = -2;
                 } else {
                     std::int32_t current;
-                    std::memcpy(&current, &gShopDetailCC3210.valueC34, sizeof(current));
+                    std::memcpy(&current, &shop.detail.valueC34, sizeof(current));
                     if (current - detailSelected <= 0) {
                         shop.message = -3;
                     } else {
@@ -3181,10 +3181,10 @@ static std::int32_t WindowShop_HandleItemIcon(WindowInstance& callbackWindow, co
         return 0;
     }
     if ((state & MouseFlag_Hover) != 0) {
-        if (gShopRowKeysC9A954[index - 52] != item) {
+        if (shop.rowKeys[index - 52] != item) {
             shop.tooltipPage = 0;
         }
-        gShopRowKeysC9A954[index - 52] = item;
+        shop.rowKeys[index - 52] = item;
         if ((state & MouseFlag_RDownEvent) != 0) {
             ++shop.tooltipPage;
             if (shop.tooltipPage >= 4) {
@@ -3256,7 +3256,7 @@ static std::int32_t WindowShop_HandleDetailIcon(WindowInstance& callbackWindow, 
     if (elementPtr) {
         const WindowElement& element = (*elementPtr);
         std::int32_t imageNo;
-        std::memcpy(&imageNo, &gShopDetailCC3210.imageNo, sizeof(imageNo));
+        std::memcpy(&imageNo, &shop.detail.imageNo, sizeof(imageNo));
         static_cast<void>(cg::render::DrawGraphic(
             element.x + window->x + 24, element.y + window->y + 24, 223, imageNo, 0, &descriptor));
     }
@@ -3277,10 +3277,10 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
     descriptor.color = color;
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
-    if (gShopRowKeysC9A954[index - 52] != row) {
+    if (shop.rowKeys[index - 52] != row) {
         shop.tooltipPage = 0;
     }
-    gShopRowKeysC9A954[index - 52] = row;
+    shop.rowKeys[index - 52] = row;
     auto events = static_cast<std::uint8_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 9 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         consumed = 1;
@@ -3371,10 +3371,10 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
         return 0;
     }
     if (hover) {
-        if (gShopRowKeysC9A954[index - 52] != row) {
+        if (shop.rowKeys[index - 52] != row) {
             shop.tooltipPage = 0;
         }
-        gShopRowKeysC9A954[index - 52] = row;
+        shop.rowKeys[index - 52] = row;
         if ((events & MouseFlag_RDownEvent) != 0) {
             ++shop.tooltipPage;
             if (shop.tooltipPage >= 4) {
@@ -3514,7 +3514,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                             }
                             const auto mask = static_cast<std::uint32_t>(shop.selectionMask);
                             const std::int32_t position = shop.scroll;
-                            const std::int32_t maximum = gShopItemCountCB1E10 - 5;
+                            const std::int32_t maximum = shop.itemCount - 5;
                             shop.selectionMask = std::bit_cast<std::int32_t>(mask | (1u << hovered));
                             auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowShopElementId::HandleVerticalScroll);
                             if (handleVerticalScrollElement) {
@@ -3619,7 +3619,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                 const WindowElement& element = (*elementPtr);
                 const std::int32_t x = element.x + 50 * (position % 5) + window->x + 26;
                 const std::int32_t y = element.y + 50 * (position / 5) + window->y + 26;
-                if (item.itemId == gShopExchangeCurrencyItemId_D2D608) {
+                if (item.itemId == shop.currencyItemId) {
                     cg::render::DrawGraphicHover(
                         static_cast<std::uint16_t>(x - 22), static_cast<std::uint16_t>(y - 22),
                         static_cast<std::uint16_t>(x + 22), static_cast<std::uint16_t>(y + 22),
@@ -3705,7 +3705,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
     if (acceptHover) {
         acceptImage = 245325;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
-        gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
+        gHoverTextD68AE8 = shop.confirmationAcceptHint;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             const WindowValueCallback callback = shop.confirmationCallback;
@@ -3720,7 +3720,7 @@ static std::int32_t WindowShop_HandleConfirmation(WindowInstance& callbackWindow
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        gHoverTextD68AE8 = gConfirmationCancelHintD45D70;
+        gHoverTextD68AE8 = shop.confirmationCancelHint;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
@@ -3814,7 +3814,7 @@ static std::int32_t WindowShop_Draw(WindowInstance& callbackWindow, const std::i
         } else if (tooltip < 200) {
             static_cast<void>(WindowItem_DrawShopTooltip(*callbackWindow.ownerSession, tooltip - 100, shop.tooltipPage, mode == 0));
         } else {
-            static_cast<void>(WindowItem_DrawWorkTooltip(shop.tooltipPage));
+            static_cast<void>(WindowItem_DrawWorkTooltip(*callbackWindow.ownerSession, shop.tooltipPage));
         }
     }
     const std::int32_t message = shop.message;

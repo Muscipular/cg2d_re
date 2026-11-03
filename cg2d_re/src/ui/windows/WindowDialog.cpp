@@ -1066,7 +1066,7 @@ static void WindowDialog_Route(
         }
         return;
     case 36:
-        static_cast<void>(WindowAppearance_Open(request, target, text));
+        static_cast<void>(WindowAppearance_Open(session, request, target, text));
         return;
     case 37:
         static_cast<void>(WindowAppearance_OpenDialogPreview(value, request, target, text));
@@ -1081,13 +1081,13 @@ static void WindowDialog_Route(
         static_cast<void>(WindowShopChoice_OpenFirstCommandList(text));
         return;
     case 46:
-        static_cast<void>(WindowCrystalShop_Open(text));
+        static_cast<void>(WindowCrystalShop_Open(session, text));
         return;
     case 47:
         static_cast<void>(WindowShopChoice_OpenSecondCommandList(text));
         return;
     case 48:
-        static_cast<void>(WindowCrystalExchangeShop_Open(text));
+        static_cast<void>(WindowCrystalExchangeShop_Open(session, text));
         return;
     default:
         return;

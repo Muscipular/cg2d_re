@@ -2114,6 +2114,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWi
 // 原函数：0x004C0A50。
 static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
@@ -2127,7 +2128,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& call
         // 原4C0A97：候选-1先读D67420的U16，别名为商店价格文本D673EC+34。
         std::uint16_t used;
         if (selected == -1) {
-            used = gShopPriceTailD67420;
+            used = shop.priceTail;
         } else {
             used = gWindow54PetOptionsD67448[selected].used;
         }
@@ -2312,6 +2313,7 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(WindowInstance& 
 // 原函数：0x004C0F20。
 static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t unusedState)
 {
+    auto& shop = callbackWindow.ownerSession->UiFrame().native.shop;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unusedState);
@@ -2325,7 +2327,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     if (acceptHover) {
         acceptImage = 245325;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
-        gHoverTextD68AE8 = gConfirmationAcceptHintCC3FCC;
+        gHoverTextD68AE8 = shop.confirmationAcceptHint;
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             std::wstring requestText;
@@ -2346,7 +2348,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& call
     std::int32_t cancelImage = 245326;
     if (cancelHover) {
         cancelImage = 245328;
-        gHoverTextD68AE8 = gConfirmationCancelHintD45D70;
+        gHoverTextD68AE8 = shop.confirmationCancelHint;
         const auto buttons = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
         static_cast<void>(0);
         if ((buttons & platform::LegacyMouseEdge_LDown) != 0) {

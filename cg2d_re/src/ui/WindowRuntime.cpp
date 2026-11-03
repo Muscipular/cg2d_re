@@ -259,27 +259,9 @@ std::array<WindowStoragePet, 5> gPetStorageD64E18 {}; // 原全局：0x00D64E18�
 
 std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58 {}; // 原全局：0x00CC4D58。
 
-std::int32_t gShopItemCountCB1E10 = 0; // 原全局：0x00CB1E10。
-
-std::int32_t gShopImageD2DAD0 = 0; // 原全局：0x00D2DAD0。
-
-std::int32_t gShopExchangeCurrencyItemId_D2D608 = 0; // 原全局：0x00D2D608。
-
 std::int32_t gDialogValueCF4E5C = 0; // 原全局：0x00CF4E5C。
 
 std::int32_t gProfileCategory1085DA0 = 0; // 原全局：0x01085DA0。
-
-WindowShopDetail gShopDetailCC3210 {}; // 原全局：0x00CC3210。
-
-std::uint16_t gShopPriceTailD67420 = 0; // 原D673EC+0x34：第五行价格末两位的非文本别名。
-
-std::int32_t gShopAvailableCF4A24 = 0; // 原全局：0x00CF4A24。
-
-std::array<std::int32_t, 5> gShopRowKeysC9A954 {}; // 原全局：0x00C9A954。
-
-std::wstring gConfirmationAcceptHintCC3FCC {}; // 原全局：0x00CC3FCC。
-
-std::wstring gConfirmationCancelHintD45D70 {}; // 原全局：0x00D45D70。
 
 static_assert(sizeof(gPetStorageD64E18) == sizeof(WindowStoragePet) * 5); // 原10技能时总大小0x1E00。
 
@@ -2598,8 +2580,9 @@ std::int32_t WindowItem_DrawDescriptionTooltip(const std::int32_t index, const s
 }
 
 // 原函数：0x0048B750。
-std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
+std::int32_t WindowItem_DrawWorkTooltip(session::ClientSession& session, const std::int32_t page)
 {
+    auto& shop = session.UiFrame().native.shop;
     if (gTooltipSourceD303FC != 400) {
         gTooltipXCF46C0 = static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
@@ -2615,9 +2598,9 @@ std::int32_t WindowItem_DrawWorkTooltip(const std::int32_t page)
     const std::int16_t y = std::bit_cast<std::int16_t>(gTooltipYCF46CC);
     const std::int16_t x = std::bit_cast<std::int16_t>(gTooltipXCF46C0);
     gTooltipSourceD303FC = 400;
-    const auto& title = gShopDetailCC3210.name;
+    const auto& title = shop.detail.name;
     return WindowItem_DrawTooltip(
-        x, y, title.c_str(), 0, gShopDetailCC3210.description.data() + page * 8,
+        x, y, title.c_str(), 0, shop.detail.description.data() + page * 8,
         8, nullptr, 0);
 }
 

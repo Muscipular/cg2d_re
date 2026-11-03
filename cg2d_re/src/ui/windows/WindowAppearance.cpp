@@ -146,12 +146,13 @@ WindowPrototype gWindowPrototypeAppearance {0, 4, 96, 108, 448, 240, 0x80010101u
 
 // 原函数：0x004C5790。
 cg::yobi::YobiAction* WindowAppearance_Open(
-    const std::int32_t request, const std::int32_t target, const char* const text)
+    session::ClientSession& session, const std::int32_t request, const std::int32_t target, const char* const text)
 {
+    auto& shop = session.UiFrame().native.shop;
     gWindow56DialogTypeCB1DE0 = 36;
     gWindow56RequestCF49C0 = request;
     gWindow56TargetC8AF60 = target;
-    gShopImageD2DAD0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
+    shop.imageNo = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char name[52];
     static_cast<void>(network::ExtractDelimitedField_52CED0(
         text, '|', 2, 16, name));
@@ -166,7 +167,7 @@ cg::yobi::YobiAction* WindowAppearance_Open(
             message, 46, buffer.data(), row, 45));
         gWindow56Texts580870.messages[row] = cg::text::FromGbkWide(message);
     }
-    return WindowRuntime_CreateAnimation(WindowId_Appearance, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Appearance, 1, 0, nullptr);
 }
 
 // 原函数：0x004C5850。

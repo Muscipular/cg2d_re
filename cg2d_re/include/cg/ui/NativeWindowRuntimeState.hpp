@@ -162,6 +162,19 @@ static_assert(offsetof(WindowConfirmationAmount, x) == 4);
 static_assert(offsetof(WindowConfirmationAmount, y) == 6);
 static_assert(offsetof(WindowConfirmationAmount, visible) == 8);
 
+// 原CC3210独立详情；4B77E0整区清零／生产，六个S32仍属同一对象。
+struct WindowShopDetail {
+    std::wstring name; // 原成员偏移：+0x00；内部宽文本。
+    std::array<std::wstring, 32> description; // 原成员偏移：+0x1D；内部描述行。
+    std::array<std::byte, 3> reservedC1D; // 原成员偏移：+0xC1D。
+    std::int32_t imageNo; // 原成员偏移：+0xC20。
+    std::int32_t quantity; // 原成员偏移：+0xC24。
+    std::int32_t itemId; // 原成员偏移：+0xC28。
+    std::int32_t price; // 原成员偏移：+0xC2C。
+    std::int32_t capacity; // 原成员偏移：+0xC30。
+    std::int32_t valueC34; // 原成员偏移：+0xC34；原分支显示值／现有数量，不归并用途。
+};
+
 } // namespace cg::ui::detail
 
 namespace cg::ui {
@@ -394,7 +407,7 @@ struct ItemTransferRuntimeState {
     std::int32_t target = 0; // 原0xD2DBF8。
 };
 
-// 窗口53的商品、选择、五行数字文本及确认覆盖层；控件仅借本会话的稳定成员。
+// 普通商店及相关窗口共用槽；控件仅借本会话的稳定成员，不拆原跨窗别名。
 struct ShopWindowRuntimeState {
     std::array<detail::WindowShopItem, 20> items {}; // 原0xCF4FE0。
     std::int32_t replyItemCount = 0; // 原0xCF4B58。
@@ -425,6 +438,15 @@ struct ShopWindowRuntimeState {
     std::wstring confirmationHeading; // 原0xCB1320。
     std::wstring confirmationQuestion; // 原0xCB1210。
     std::array<std::uint64_t, 2> pressedTicks {}; // G08：加减各自计时。
+    std::int32_t itemCount = 0; // 原0xCB1E10，普通/晶石商店共用，独立于回复商品数。
+    std::int32_t imageNo = 0; // 原0xD2DAD0，外观入口也写入。
+    std::int32_t currencyItemId = 0; // 原0xD2D608，数值而非地址。
+    detail::WindowShopDetail detail {}; // 原0xCC3210，提示及晶石窗口也借用。
+    std::uint16_t priceTail = 0; // 原0xD67420，第五行价格尾两字节，宠物候选-1读取。
+    std::int32_t available = 0; // 原0xCF4A24，初始化另写-1。
+    std::array<std::int32_t, 5> rowKeys {}; // 原0xC9A954，多窗口共用。
+    std::wstring confirmationAcceptHint; // 原0xCC3FCC，宠物技能确认也借用。
+    std::wstring confirmationCancelHint; // 原0xD45D70。
 };
 static_assert(sizeof(ShopWindowRuntimeState::selectedSlots) == 20);
 

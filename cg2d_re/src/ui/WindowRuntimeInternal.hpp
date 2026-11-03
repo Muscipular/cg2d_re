@@ -274,7 +274,6 @@ inline constexpr wchar_t kPetSelectHint586D2C[] = L"切换页数。"; // 原常�
 
 inline constexpr wchar_t kPetRenameHint586D38[] = L"变更宠物名字。"; // 原常量参考：0x00586D38。
 
-extern std::uint16_t gShopPriceTailD67420; // 原D673EC+0x34：第五行价格末两位的非文本别名。
 
 extern std::uint8_t gItemSelectionModeCC40D4; // 原全局：0x00CC40D4。
 

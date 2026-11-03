@@ -74,17 +74,4 @@ struct WindowItemDetailGroup {
     std::int32_t amount; // 原组内偏移：+0xFBF4。
 };
 
-// 原CC3210独立详情；4B77E0整区清零／生产，六个S32仍属同一对象。
-struct WindowShopDetail {
-    std::wstring name; // 原成员偏移：+0x00；内部宽文本。
-    std::array<std::wstring, 32> description; // 原成员偏移：+0x1D；内部描述行。
-    std::array<std::byte, 3> reservedC1D; // 原成员偏移：+0xC1D。
-    std::int32_t imageNo; // 原成员偏移：+0xC20。
-    std::int32_t quantity; // 原成员偏移：+0xC24。
-    std::int32_t itemId; // 原成员偏移：+0xC28。
-    std::int32_t price; // 原成员偏移：+0xC2C。
-    std::int32_t capacity; // 原成员偏移：+0xC30。
-    std::int32_t valueC34; // 原成员偏移：+0xC34；原分支显示值／现有数量，不归并用途。
-};
-
 } // namespace cg::ui::detail

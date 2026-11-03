@@ -632,15 +632,15 @@ void WindowPetSkillChoice_ReceiveTribeCandidates(const char* text); // 模式13�
 void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* text); // 模式4固定十槽回复，空名不终止后续槽。
 // 原函数：0x004C5790。
 cg::yobi::YobiAction* WindowAppearance_Open(
-    std::int32_t request, std::int32_t target, const char* text); // 两行正文后打开外观选择56。
+    session::ClientSession& session, std::int32_t request, std::int32_t target, const char* text); // 两行正文后打开外观选择56。
 // 原函数：0x004C6060。
 cg::yobi::YobiAction* WindowAppearance_OpenDialogPreview(
     std::int32_t buttons, std::int32_t request, std::int32_t target,
     const char* text); // 类型37内嵌图号及左侧14空格正文。
 // 原函数：0x004C13B0。
-cg::yobi::YobiAction* WindowCrystalShop_Open(const char* text); // 窗口69商品，remaining非-1才可能下调limit。
+cg::yobi::YobiAction* WindowCrystalShop_Open(session::ClientSession& session, const char* text); // 窗口69商品，remaining非-1才可能下调limit。
 // 原函数：0x004C3550。
-cg::yobi::YobiAction* WindowCrystalExchangeShop_Open(const char* text); // 窗口70七组正文/附加值，不下调limit。
+cg::yobi::YobiAction* WindowCrystalExchangeShop_Open(session::ClientSession& session, const char* text); // 窗口70七组正文/附加值，不下调limit。
 // 原函数：0x004C2460。
 std::int32_t WindowCrystalTrade_ButtonCancel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两窗口共用取消，发送command2。
 // 原函数：0x004C4680。
@@ -787,14 +787,6 @@ extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
 extern std::array<WindowStoragePet, 5> gPetStorageD64E18; // 原全局：0x00D64E18。 外部存放宠物，4A84A0原回复区。
 extern std::array<WindowItemDetailGroup, 2> gItemDetailStorageCC4D58; // 原全局：0x00CC4D58。 每组20条C44物品、5条154宠物摘要、末S32金额。
-extern std::int32_t gShopItemCountCB1E10; // 原全局：0x00CB1E10。 买入实际数量/出售固定20，与回复商品数独立。
-extern std::int32_t gShopImageD2DAD0; // 原全局：0x00D2DAD0。
-extern std::int32_t gShopExchangeCurrencyItemId_D2D608; // 原全局：0x00D2D608。 商店和其他窗口共用数值，不是地址。
-extern WindowShopDetail gShopDetailCC3210; // 原全局：0x00CC3210。 名称/32行说明/六W32同源，见窗口53 SPEC。
-extern std::int32_t gShopAvailableCF4A24; // 原全局：0x00CF4A24。 模式2指定物品数量，装载0，窗口初始化再写-1。
-extern std::array<std::int32_t, 5> gShopRowKeysC9A954; // 原全局：0x00C9A954。 多窗口共用的行编号缓存，非地址。
-extern std::wstring gConfirmationAcceptHintCC3FCC; // 原全局：0x00CC3FCC。 4C0F20也借用，不建窗口私有副本。
-extern std::wstring gConfirmationCancelHintD45D70; // 原全局：0x00D45D70。
 extern std::wstring gHoverTextD68AE8; // 原全局：0x00D68AE8。 已识别地址跨度，不是新增文本长度限制。
 extern std::int32_t gHoverObjectValueD68AC8; // 原全局：0x00D68AC8。 507140命中伴随值，4731E0后续须共享。
 extern std::wstring gHoverTitleD68BF4; // 原全局：0x00D68BF4。 至既有鼠标D68CF8之前的原字节区。
@@ -883,7 +875,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(std::int32_t index, std::int32_t pa
 // 原函数：0x0048B350。
 std::int32_t WindowItem_DrawDescriptionTooltip(std::int32_t index, std::int32_t page); // SPD01：W32标题字段/页*768八行描述，四次CryptInt及真实提示返回保持。
 // 原函数：0x0048B750。
-std::int32_t WindowItem_DrawWorkTooltip(std::int32_t page); // CC3210独立详情提示，缓存数值键400。
+std::int32_t WindowItem_DrawWorkTooltip(session::ClientSession& session, std::int32_t page); // CC3210独立详情提示，缓存数值键400。
 // 原函数：0x004AC200。
 std::int32_t WindowBank_ButtonCloseIcon(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口38右上关闭。
 // 原函数：0x004A9350。

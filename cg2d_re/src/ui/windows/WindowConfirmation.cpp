@@ -77,7 +77,7 @@ static wchar_t* WindowConfirmation_RefreshText(WindowInstance& callbackWindow); 
 static std::int32_t WindowConfirmation_RefreshButtons(WindowInstance& callbackWindow); // 六按钮逐项显隐，原最终偏移216。
 
 // 原函数：0x004AEA10。
-static std::int32_t WindowConfirmation_PadText(std::wstring& destination, std::wstring_view text); // 按原GBK列宽单位补空格，正文保持UTF-16。
+static std::int32_t WindowConfirmation_PadText(WindowInstance& callbackWindow, std::wstring& destination, std::wstring_view text); // 按原GBK列宽单位补空格，正文保持UTF-16。
 
 // 原函数：0x004AE5F0。
 static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -187,10 +187,11 @@ static std::int32_t WindowConfirmation_HandleButton(
 // 原函数：0x004AE5F0。
 static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
     if (value == -1) {
         static_cast<void>(WindowConfirmation_RefreshButtons(callbackWindow));
         static_cast<void>(WindowConfirmation_RefreshText(callbackWindow));
-        const WindowCallback callback = gWindow47Runtime.initializeCC4250;
+        const WindowCallback callback = confirmation.initializeCC4250;
         if (callback != nullptr) {
             static_cast<void>(callback(callbackWindow, -1));
         }
@@ -201,37 +202,43 @@ static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, co
 // 原函数：0x004AE620。
 static std::int32_t WindowConfirmation_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE4B, &gWindow47Runtime.actionsCC4254[0], 51, true);
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE4B, &confirmation.actionsCC4254[0], 51, true);
 }
 
 // 原函数：0x004AE690。
 static std::int32_t WindowConfirmation_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE4E, &gWindow47Runtime.actionsCC4254[1], 55, false);
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE4E, &confirmation.actionsCC4254[1], 55, false);
 }
 
 // 原函数：0x004AE700。
 static std::int32_t WindowConfirmation_ButtonActionTwo(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3B568, &gWindow47Runtime.actionsCC4254[2], 51, false);
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3B568, &confirmation.actionsCC4254[2], 51, false);
 }
 
 // 原函数：0x004AE770。
 static std::int32_t WindowConfirmation_ButtonActionThree(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE48, &gWindow47Runtime.actionsCC4254[3], 55, false);
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE48, &confirmation.actionsCC4254[3], 55, false);
 }
 
 // 原函数：0x004AE7E0。
 static std::int32_t WindowConfirmation_ButtonActionFour(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE54, &gWindow47Runtime.actionsCC4254[4], 51, false);
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE54, &confirmation.actionsCC4254[4], 51, false);
 }
 
 // 原函数：0x004AE850。
 static std::int32_t WindowConfirmation_ButtonActionFive(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE51, &gWindow47Runtime.actionsCC4254[5], 51, false);
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE51, &confirmation.actionsCC4254[5], 51, false);
 }
 
 // 原函数：0x004AE8C0。
@@ -245,6 +252,7 @@ static WindowInstance* WindowConfirmation_RequestClose(WindowInstance& callbackW
 // 原函数：0x004AE8D0。
 static wchar_t* WindowConfirmation_RefreshText(WindowInstance& callbackWindow)
 {
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return nullptr;
     for (std::int32_t index = 0; index < 11; ++index) {
@@ -254,13 +262,13 @@ static wchar_t* WindowConfirmation_RefreshText(WindowInstance& callbackWindow)
             data->text = L"";
         }
     }
-    std::wstring text = gWindow47Runtime.textCC426C;
+    std::wstring text = confirmation.textCC426C;
     std::wstring line;
     wchar_t* context = nullptr;
     wchar_t* token = std::wcstok(text.data(), L"\n" /* 原常量参考：0x005531C4。 */, &context);
     std::int32_t row = 0;
     while (token != nullptr) {
-        static_cast<void>(WindowConfirmation_PadText(line, token));
+        static_cast<void>(WindowConfirmation_PadText(callbackWindow, line, token));
         auto* const dataElement = currentWindow->FindElementById(NativeElementKey(row));
         if (dataElement) {
             auto* const data = dataElement->data.text;
@@ -275,9 +283,10 @@ static wchar_t* WindowConfirmation_RefreshText(WindowInstance& callbackWindow)
 // 原函数：0x004AE9C0。
 static std::int32_t WindowConfirmation_RefreshButtons(WindowInstance& callbackWindow)
 {
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    std::int32_t mask = gWindow47Runtime.visibleMaskCC4240;
+    std::int32_t mask = confirmation.visibleMaskCC4240;
     for (std::int32_t index = 11; index < 17; ++index) {
         if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index)); indexedElement) indexedElement->visible = 0;
         if ((mask & 1) != 0) {
@@ -289,13 +298,14 @@ static std::int32_t WindowConfirmation_RefreshButtons(WindowInstance& callbackWi
 }
 
 // 原函数：0x004AEA10。
-static std::int32_t WindowConfirmation_PadText(std::wstring& destination, const std::wstring_view text)
+static std::int32_t WindowConfirmation_PadText(WindowInstance& callbackWindow, std::wstring& destination, const std::wstring_view text)
 {
+    auto& confirmation = callbackWindow.ownerSession->UiFrame().native.confirmation;
     std::int32_t length = 0; // 原GBK排版单位：ASCII一列，其余完整字符两列。
     for (std::size_t offset = 0; offset < text.size(); offset = cg::text::Next(text, offset)) {
         length += text[offset] < 0x80 ? 1 : 2;
     }
-    const std::int32_t widthUnits = gWindow47Runtime.widthUnitsCC4244;
+    const std::int32_t widthUnits = confirmation.widthUnitsCC4244;
     std::int32_t spaces = ((widthUnits * 74 - length * 12 - 20) / 2) / 12;
     destination = L"";
     while (spaces > 0) {

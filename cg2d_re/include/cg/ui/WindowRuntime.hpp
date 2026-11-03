@@ -17,6 +17,8 @@ struct WindowInstance;
 using WindowValueCallback = void (*)(WindowInstance& window, std::int32_t value);
 using WindowQuantityCallback = void (*)(session::ClientSession& session, std::int32_t value);
 using ElementId = std::uint32_t;
+using WindowCallback = std::int32_t (*)(WindowInstance& window, std::int32_t value); // 更新/绘制显式携所属实例。
+using WindowElementCallback = std::int32_t (*)(WindowInstance& window, ElementId elementId, std::int32_t state); // 所属窗口及窗口内稳定元素ID，非排序位置。
 // 原拖放消息及来源编号不变，额外携带发起会话。
 using WindowDragCallback = void (*)(
     session::ClientSession& session, std::int32_t message,

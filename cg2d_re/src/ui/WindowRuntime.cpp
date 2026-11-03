@@ -405,7 +405,6 @@ static_assert(sizeof(WindowSavedData) == 0x521C);
 
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
 
-Window47RuntimeSlots gWindow47Runtime {};
 
 // CC24D4首行标题和CC2525起正文必须同源，其他NPC窗口也消费这一区域。
 std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4 {}; // 原全局：0x00CC24D4。

@@ -186,13 +186,13 @@ static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow,
 static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 三类联系人删除确认分派。
 
 // 原函数：0x004A33C0。
-static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(session::ClientSession& session, std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
 
 // 原函数：0x004A3480。
-static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(std::int32_t index); // 公会成员除名确认。
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(session::ClientSession& session, std::int32_t index); // 公会成员除名确认。
 
 // 原函数：0x004A3540。
-static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(std::int32_t index); // 迷你邮件联系人删除确认。
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(session::ClientSession& session, std::int32_t index); // 迷你邮件联系人删除确认。
 
 // 原函数：0x004A2700。
 static void WindowContacts_ClampScroll(); // 修正当前名单位置并更新元素17滚动条。
@@ -1453,9 +1453,9 @@ static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, 
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         gLoginWindowRuntime.mailDeleteIndexD2DA8C = recordIndex;
         switch (category) {
-        case 0: static_cast<void>(WindowContacts_ConfirmDeleteContact(recordIndex)); break;
-        case 1: static_cast<void>(WindowContacts_ConfirmDeleteGuildMember(recordIndex)); break;
-        case 2: static_cast<void>(WindowContacts_ConfirmDeleteMiniMail(recordIndex)); break;
+        case 0: static_cast<void>(WindowContacts_ConfirmDeleteContact(*callbackWindow.ownerSession, recordIndex)); break;
+        case 1: static_cast<void>(WindowContacts_ConfirmDeleteGuildMember(*callbackWindow.ownerSession, recordIndex)); break;
+        case 2: static_cast<void>(WindowContacts_ConfirmDeleteMiniMail(*callbackWindow.ownerSession, recordIndex)); break;
         }
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
@@ -1467,10 +1467,11 @@ static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, 
 }
 
 // 原函数：0x004A33C0。
-static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int32_t index)
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(session::ClientSession& session, const std::int32_t index)
 {
-    WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteContact);
-    gWindow47Runtime.textCC426C = std::format(L"" LR"(
+    auto& confirmation = session.UiFrame().native.confirmation;
+    WindowMail_InitializeDeleteConfirmation(session, &WindowMail_DeleteContact);
+    confirmation.textCC426C = std::format(L"" LR"(
 )" L"     确定将" LR"(
 )" L"　" LR"(
 )" L"　{}" LR"(
@@ -1479,14 +1480,15 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(const std::int3
 )" L" " LR"(
 )" L" (确定删除时，请按住" LR"(
 )" L"  CTRL键再选择「是」)" /* 原常量参考：0x0058759C。 */, world::detail::gContactsF19FB0[index].name10);
-    return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004A3480。
-static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::int32_t index)
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(session::ClientSession& session, const std::int32_t index)
 {
-    WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteGuildMember);
-    gWindow47Runtime.textCC426C = std::format(LR"(
+    auto& confirmation = session.UiFrame().native.confirmation;
+    WindowMail_InitializeDeleteConfirmation(session, &WindowMail_DeleteGuildMember);
+    confirmation.textCC426C = std::format(LR"(
      确定将
 　
 　{}
@@ -1495,14 +1497,15 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteGuildMember(const std::
 
  (确定删除时，请按住
   CTRL键再选择「是」))" /* 原常量参考：0x005875F4。 */, cg::world::gOrderedRecords1051B14[index].name18.c_str());
-    return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004A3540。
-static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int32_t index)
+static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(session::ClientSession& session, const std::int32_t index)
 {
-    WindowMail_InitializeDeleteConfirmation(&WindowMail_DeleteMiniMailContact);
-    gWindow47Runtime.textCC426C = std::format(LR"(
+    auto& confirmation = session.UiFrame().native.confirmation;
+    WindowMail_InitializeDeleteConfirmation(session, &WindowMail_DeleteMiniMailContact);
+    confirmation.textCC426C = std::format(LR"(
      确定将
 　
 　{}
@@ -1511,7 +1514,7 @@ static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteMiniMail(const std::int
 
  (确定删除时，请按住
   CTRL键再选择「是」))" /* 原常量参考：0x00587654。 */, world::detail::ReadMiniMailContact1075A90(index).name10);
-    return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004A2700。

@@ -71,9 +71,7 @@ static_assert(sizeof(WindowElementType) == sizeof(std::int32_t));
 
 enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_Hover, WindowMouseState_Press };
 
-using WindowCallback = std::int32_t (*)(WindowInstance& window, std::int32_t value); // 更新/绘制显式携所属实例。
 using WindowReleaseCallback = void (*)(WindowInstance& window); // 释放对象显式携owner，不借当前窗口现场。
-using WindowElementCallback = std::int32_t (*)(WindowInstance& window, ElementId elementId, std::int32_t state); // 所属窗口及窗口内稳定元素ID，非排序位置。
 using WindowListSelectionCallback = void (*)(std::int32_t index, const wchar_t* text);
 
 // 原type1的24B前缀保留；NEU01在宿主载荷末尾扩充图态配置。

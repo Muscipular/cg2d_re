@@ -123,19 +123,20 @@ std::int32_t WindowMail_ResetComposeState()
     return -1;
 }
 
-void WindowMail_InitializeDeleteConfirmation(const WindowElementCallback callback)
+void WindowMail_InitializeDeleteConfirmation(session::ClientSession& session, const WindowElementCallback callback)
 {
-    gWindow47Runtime.visibleMaskCC4240 = 3;
-    gWindow47Runtime.widthUnitsCC4244 = 3;
-    gWindow47Runtime.valueCC424C = 0;
-    gWindow47Runtime.valueCC4248 = 0;
-    gWindow47Runtime.initializeCC4250 = nullptr;
-    gWindow47Runtime.actionsCC4254[5] = nullptr;
-    gWindow47Runtime.actionsCC4254[4] = nullptr;
-    gWindow47Runtime.actionsCC4254[3] = nullptr;
-    gWindow47Runtime.actionsCC4254[2] = nullptr;
-    gWindow47Runtime.actionsCC4254[0] = callback;
-    gWindow47Runtime.actionsCC4254[1] = &WindowMail_CancelDelete;
+    auto& confirmation = session.UiFrame().native.confirmation;
+    confirmation.visibleMaskCC4240 = 3;
+    confirmation.widthUnitsCC4244 = 3;
+    confirmation.valueCC424C = 0;
+    confirmation.valueCC4248 = 0;
+    confirmation.initializeCC4250 = nullptr;
+    confirmation.actionsCC4254[5] = nullptr;
+    confirmation.actionsCC4254[4] = nullptr;
+    confirmation.actionsCC4254[3] = nullptr;
+    confirmation.actionsCC4254[2] = nullptr;
+    confirmation.actionsCC4254[0] = callback;
+    confirmation.actionsCC4254[1] = &WindowMail_CancelDelete;
 }
 
 MailContactView WindowMail_MakeContactView(const world::detail::ContactRuntimeRecord& record)

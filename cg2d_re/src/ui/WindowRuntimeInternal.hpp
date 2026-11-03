@@ -228,17 +228,6 @@ struct LoginWindowRuntimeSlots {
     std::int32_t dayD67BC0; // 原全局：0x00D67BC0。
 };
 
-// 原CC4240..CC466C确认上下文；函数指针原生化，不沿用x86字段偏移。
-struct Window47RuntimeSlots {
-    std::int32_t visibleMaskCC4240; // 原全局：0x00CC4240。
-    std::int32_t widthUnitsCC4244; // 原全局：0x00CC4244。
-    std::uint32_t valueCC4248; // 原全局：0x00CC4248。
-    std::uint32_t valueCC424C; // 原全局：0x00CC424C。
-    WindowCallback initializeCC4250; // 原全局：0x00CC4250。
-    std::array<WindowElementCallback, 6> actionsCC4254; // 原全局：0x00CC4254。
-    std::wstring textCC426C; // 原全局：0x00CC426C。
-};
-
 inline constexpr std::array<const wchar_t*, 3> kShopHints57E6C4 { // 原常量参考：0x0057E6C4。
     L"在这家店买物品。",
     L"在这家店卖物品。",
@@ -304,7 +293,6 @@ std::int32_t WindowRuntime_MatchesRuntimePrefix(
 
 extern LoginWindowRuntimeSlots gLoginWindowRuntime;
 
-extern Window47RuntimeSlots gWindow47Runtime;
 
 // CC24D4首行标题和CC2525起正文必须同源，其他NPC窗口也消费这一区域。
 extern std::array<WindowDialogTextLine, 30> gNpcDialogLinesCC24D4; // 原全局：0x00CC24D4。
@@ -315,7 +303,7 @@ std::int32_t WindowItem_HealthImageLevel(const std::int32_t health);
 
 void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData* const second, const std::wstring_view contents);
 
-void WindowMail_InitializeDeleteConfirmation(const WindowElementCallback callback);
+void WindowMail_InitializeDeleteConfirmation(session::ClientSession& session, const WindowElementCallback callback);
 
 MailContactView WindowMail_MakeContactView(const world::detail::ContactRuntimeRecord& record);
 

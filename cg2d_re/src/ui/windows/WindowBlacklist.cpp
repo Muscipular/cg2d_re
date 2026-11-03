@@ -103,7 +103,7 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
 static std::int32_t WindowBlacklist_DragScroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WSP01：原90参数拖动换算；旧X代码1999。
 
 // 原函数：0x004CD150。
-static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear(); // 生产窗口47的清空确认及两个真实回调。
+static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear(session::ClientSession& session); // 生产窗口47的清空确认及两个真实回调。
 
 // 原函数：0x004CD1E0。
 static std::int32_t WindowBlacklist_Clear(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState);
@@ -479,7 +479,7 @@ static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (auto* const indexedElement2 = currentWindow->FindElementById(elementId); indexedElement2) indexedElement2->data.graphic->imageNo = 0x8FCA;
-            static_cast<void>(WindowBlacklist_ConfirmClear());
+            static_cast<void>(WindowBlacklist_ConfirmClear(*callbackWindow.ownerSession));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         break;
@@ -507,27 +507,28 @@ static std::int32_t WindowBlacklist_DragScroll(WindowInstance& callbackWindow, c
 }
 
 // 原函数：0x004CD150。
-static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear()
+static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear(session::ClientSession& session)
 {
-    gWindow47Runtime.visibleMaskCC4240 = 3;
-    gWindow47Runtime.widthUnitsCC4244 = 3;
-    gWindow47Runtime.valueCC424C = 0;
-    gWindow47Runtime.valueCC4248 = 0;
-    gWindow47Runtime.initializeCC4250 = nullptr;
-    gWindow47Runtime.actionsCC4254[5] = nullptr;
-    gWindow47Runtime.actionsCC4254[4] = nullptr;
-    gWindow47Runtime.actionsCC4254[3] = nullptr;
-    gWindow47Runtime.actionsCC4254[2] = nullptr;
-    gWindow47Runtime.actionsCC4254[0] = &WindowBlacklist_Clear;
-    gWindow47Runtime.actionsCC4254[1] = &WindowBlacklist_CancelClear;
-    gWindow47Runtime.textCC426C = L"" LR"(
+    auto& confirmation = session.UiFrame().native.confirmation;
+    confirmation.visibleMaskCC4240 = 3;
+    confirmation.widthUnitsCC4244 = 3;
+    confirmation.valueCC424C = 0;
+    confirmation.valueCC4248 = 0;
+    confirmation.initializeCC4250 = nullptr;
+    confirmation.actionsCC4254[5] = nullptr;
+    confirmation.actionsCC4254[4] = nullptr;
+    confirmation.actionsCC4254[3] = nullptr;
+    confirmation.actionsCC4254[2] = nullptr;
+    confirmation.actionsCC4254[0] = &WindowBlacklist_Clear;
+    confirmation.actionsCC4254[1] = &WindowBlacklist_CancelClear;
+    confirmation.textCC426C = L"" LR"(
 )" L"  " LR"(
 )" L"    确定删除" LR"(
 )" L"   所有的黑名单吗？" LR"(
 )" L" " LR"(
 )" L" (确定删除时，请按住" LR"(
 )" L" CTRL键再选择「是」)" /* 原常量参考：0x005886E4。 */;
-    return WindowRuntime_CreateAnimation(WindowId_Confirmation, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_Confirmation, 1, 0, nullptr);
 }
 
 // 原函数：0x004CD1E0。

@@ -110,6 +110,17 @@ static_assert(offsetof(WindowMaterialState, materialValues) == 0x00);
 static_assert(offsetof(WindowMaterialState, shopMode) == 0x14);
 static_assert(offsetof(WindowMaterialState, reserved15) == 0x15);
 
+// 原CC4240..CC466C确认上下文；函数指针原生化，不沿用x86字段偏移。
+struct Window47RuntimeSlots {
+    std::int32_t visibleMaskCC4240; // 原全局：0x00CC4240。
+    std::int32_t widthUnitsCC4244; // 原全局：0x00CC4244。
+    std::uint32_t valueCC4248; // 原全局：0x00CC4248。
+    std::uint32_t valueCC424C; // 原全局：0x00CC424C。
+    WindowCallback initializeCC4250; // 原全局：0x00CC4250。
+    std::array<WindowElementCallback, 6> actionsCC4254; // 原全局：0x00CC4254。
+    std::wstring textCC426C; // 原全局：0x00CC426C。
+};
+
 } // namespace cg::ui::detail
 
 namespace cg::ui {
@@ -369,6 +380,7 @@ struct NativeWindowRuntimeState {
     WindowPointerRuntimeState pointer {};
     ItemTransferRuntimeState itemTransfer {};
     detail::WindowMaterialState material {}; // 原0xCC4894，含商店模式别名。
+    detail::Window47RuntimeSlots confirmation {};
     ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。

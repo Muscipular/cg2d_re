@@ -3317,13 +3317,13 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
 }
 
 // 原函数：0x00438450。
-std::int32_t TakeBattleCInteger_438450()
+std::int32_t TakeBattleCInteger_438450(world::BattleSceneState& battle)
 {
-    std::int32_t offset = cg::world::gBattleCOffset5ABA80;
+    std::int32_t offset = battle.cOffset;
     std::uint32_t result = 0;
     bool hasDigit = false;
     for (;;) {
-        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(cg::world::gBattleCText5A3A20[offset]));
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(battle.cText[offset]));
         if (value == 0) {
             break;
         }
@@ -3336,53 +3336,53 @@ std::int32_t TakeBattleCInteger_438450()
             result += static_cast<std::uint32_t>(value - (value < 'A' ? '0' : '7'));
             ++offset;
         } else if (hasDigit || value == '|') {
-            cg::world::gBattleCOffset5ABA80 = offset;
+            battle.cOffset = offset;
             ++offset;
             break;
         } else {
             ++offset;
         }
     }
-    cg::world::gBattleCOffset5ABA80 = offset;
+    battle.cOffset = offset;
     return std::bit_cast<std::int32_t>(result);
 }
 
 // 原函数：0x004384C0。
-void TakeBattleCString_4384C0(char* const destination, const std::int32_t capacity)
+void TakeBattleCString_4384C0(world::BattleSceneState& battle, char* const destination, const std::int32_t capacity)
 {
     std::int32_t written = 0;
     for (;;) {
-        const char byte = cg::world::gBattleCText5A3A20[cg::world::gBattleCOffset5ABA80];
+        const char byte = battle.cText[battle.cOffset];
         const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(byte));
         if (byte == '\0') {
             break;
         }
         if (byte == '|') {
-            ++cg::world::gBattleCOffset5ABA80;
+            ++battle.cOffset;
             break;
         }
         if (written >= capacity - 1) {
             if (value < 0) {
-                ++cg::world::gBattleCOffset5ABA80;
+                ++battle.cOffset;
             }
-            ++cg::world::gBattleCOffset5ABA80;
+            ++battle.cOffset;
             continue;
         }
         destination[written] = byte;
         if (value < 0) {
-            const std::int32_t offset = cg::world::gBattleCOffset5ABA80;
+            const std::int32_t offset = battle.cOffset;
             ++written;
             if (written >= capacity - 1) {
-                cg::world::gBattleCOffset5ABA80 = offset + 1;
-                ++cg::world::gBattleCOffset5ABA80;
+                battle.cOffset = offset + 1;
+                ++battle.cOffset;
                 continue;
             }
-            const char nextByte = cg::world::gBattleCText5A3A20[offset + 1];
-            cg::world::gBattleCOffset5ABA80 = offset + 1;
+            const char nextByte = battle.cText[offset + 1];
+            battle.cOffset = offset + 1;
             destination[written] = nextByte;
         }
         ++written;
-        ++cg::world::gBattleCOffset5ABA80;
+        ++battle.cOffset;
     }
     destination[written] = '\0';
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
@@ -3391,12 +3391,13 @@ void TakeBattleCString_4384C0(char* const destination, const std::int32_t capaci
 } // namespace detail
 
 // 原函数：0x00438550。
-void ParseBattleC_438550()
+void ParseBattleC_438550(session::ClientSession& session)
 {
+    auto& battle = session.WorldScene().battle;
     std::uint32_t present = 0;
-    cg::world::gBattleCOffset5ABA80 = 2;
-    const auto fieldFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450());
-    cg::world::gBattleFieldFlags5ABB58 = fieldFlags;
+    battle.cOffset = 2;
+    const auto fieldFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450(battle));
+    battle.fieldFlags = fieldFlags;
     if ((fieldFlags & detail::BattleFieldFlag_End) != 0) {
         return;
     }
@@ -3415,8 +3416,8 @@ void ParseBattleC_438550()
         cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0 = nullptr;
     }
 
-    while (cg::world::gBattleCText5A3A20[cg::world::gBattleCOffset5ABA80] != '\0') {
-        std::int32_t position = detail::TakeBattleCInteger_438450();
+    while (battle.cText[battle.cOffset] != '\0') {
+        std::int32_t position = detail::TakeBattleCInteger_438450(battle);
         if (position < 0 || position >= 22) {
             position = 0;
         }
@@ -3429,36 +3430,36 @@ void ParseBattleC_438550()
         YobiAction* const actor = *slot;
         auto* const payload = actor->payload.battleActor;
         char nameBytes[29]{};
-        detail::TakeBattleCString_4384C0(nameBytes, 29);
+        detail::TakeBattleCString_4384C0(battle, nameBytes, 29);
         // 4384C0内部已反转义；原438673仍独立再次执行。
         input::UnescapeLegacyText_52D150(nameBytes);
         actor->nameC4 = cg::text::FromGbkWide(nameBytes);
-        actor->imageNo = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
-        payload->baseImage13AC = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
-        actor->field1D0 = detail::TakeBattleCInteger_438450();
+        actor->imageNo = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450(battle));
+        payload->baseImage13AC = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450(battle));
+        actor->field1D0 = detail::TakeBattleCInteger_438450(battle);
         {
-            const std::int32_t value = detail::TakeBattleCInteger_438450();
+            const std::int32_t value = detail::TakeBattleCInteger_438450(battle);
             actor->readiness = static_cast<std::int32_t>(value);
         }
         {
-            const std::int32_t value = detail::TakeBattleCInteger_438450();
+            const std::int32_t value = detail::TakeBattleCInteger_438450(battle);
             actor->maxHp = static_cast<std::int32_t>(value);
         }
         {
-            const std::int32_t value = detail::TakeBattleCInteger_438450();
+            const std::int32_t value = detail::TakeBattleCInteger_438450(battle);
             actor->barValue1B0 = static_cast<std::int32_t>(value);
         }
         {
-            const std::int32_t value = detail::TakeBattleCInteger_438450();
+            const std::int32_t value = detail::TakeBattleCInteger_438450(battle);
             actor->barMaximum1C0 = static_cast<std::int32_t>(value);
         }
-        const auto inputFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450());
-        const std::int32_t ridingImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
+        const auto inputFlags = static_cast<std::uint32_t>(detail::TakeBattleCInteger_438450(battle));
+        const std::int32_t ridingImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450(battle));
         static_cast<void>(detail::SetBattleRider_4222B0(actor, actor->imageNo, ridingImage));
         for (std::int32_t index = 0; index < 2; ++index) {
-            const std::int32_t gearImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
-            const std::int32_t auxiliaryImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450());
-            const std::int32_t auxiliaryType = detail::TakeBattleCInteger_438450();
+            const std::int32_t gearImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450(battle));
+            const std::int32_t auxiliaryImage = character_select::ResolveCharacterImageForVersion(detail::TakeBattleCInteger_438450(battle));
+            const std::int32_t auxiliaryType = detail::TakeBattleCInteger_438450(battle);
             detail::SetBattleGear_422C20(actor, gearImage, index);
             detail::SetBattleAuxGear_422C90(actor, auxiliaryImage, auxiliaryType, index);
         }

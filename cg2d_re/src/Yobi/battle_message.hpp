@@ -5,6 +5,8 @@
 #include <array>
 #include <cstdint>
 
+namespace cg::world { struct BattleSceneState; }
+
 namespace cg::yobi {
 
 namespace detail {
@@ -133,9 +135,9 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination
 // 原函数：0x004239D0。
 void ParseBattleMRide_4239D0(YobiAction* action); // RID预读/实际消费差异，双新对象交226恢复发布。
 // 原函数：0x00438450。
-std::int32_t TakeBattleCInteger_438450(); // C独立全局游标，大写十六进制读取。
+std::int32_t TakeBattleCInteger_438450(world::BattleSceneState& battle); // C会话游标，大写十六进制读取。
 // 原函数：0x004384C0。
-void TakeBattleCString_4384C0(char* destination, std::int32_t capacity); // 原双字节截断，尾部反转义/空叶。
+void TakeBattleCString_4384C0(world::BattleSceneState& battle, char* destination, std::int32_t capacity); // 原双字节截断，尾部反转义/空叶。
 // 原43B9B0：只推进局部游标，flags&1010h非零且位置匹配时返回次位置，否则-1。
 std::int32_t FindBattleMTarget_43B9B0(YobiAction* scene, std::int32_t position, std::int32_t skip);
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。

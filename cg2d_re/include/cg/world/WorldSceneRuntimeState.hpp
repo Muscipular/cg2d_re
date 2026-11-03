@@ -46,9 +46,13 @@ struct BattleSceneState {
     std::int32_t mReadIndex = 0; // 原 0x5AAA68，M 四槽读索引。
     std::array<char, 0x4000> cQueue {}; // 原 0x5A4A3C，四槽各 0x1000。
     std::array<char, 0x4000> mQueue {}; // 原 0x59FA18，四槽各 0x1000。
+    std::array<char, 0x1000> cText {}; // 原 0x5A3A20，活动 C 消息。
+    std::int32_t cOffset = 0; // 原 0x5ABA80，C 字段解析游标。
+    std::uint32_t fieldFlags = 0; // 原 0x5ABB58，C 消息字段标志。
 };
 static_assert(sizeof(BattleSceneState::cQueue) == 4 * 0x1000);
 static_assert(sizeof(BattleSceneState::mQueue) == 4 * 0x1000);
+static_assert(sizeof(BattleSceneState::cText) == 0x1000);
 
 // 100 项随机旋转表及跨场景消费游标，表初始化不重置游标。
 struct RotationState {

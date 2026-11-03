@@ -2200,9 +2200,6 @@ namespace detail {
 std::uint32_t gBattleFirstTurnPending5ABC6C = 0; // 原全局：0x005ABC6C。
 
 } // namespace detail
-std::array<char, 0x1000> gBattleCText5A3A20 {}; // 原全局：0x005A3A20。
-std::int32_t gBattleCOffset5ABA80 = 0; // 原全局：0x005ABA80。
-std::uint32_t gBattleFieldFlags5ABB58 = 0; // 原全局：0x005ABB58。
 std::array<char, 0x1000> gBattleMText5AAA7C {}; // 原全局：0x005AAA7C。
 std::int32_t gBattleMScanOffset5A8A3C = 0; // 原全局：0x005A8A3C。
 std::int32_t gBattleMPreviewOffset5AAA60 = 0; // 原全局：0x005AAA60。
@@ -2286,7 +2283,6 @@ std::uint32_t gBattleTurnSnapshot5ABC08 = 0; // 原全局：0x005ABC08。
 namespace detail {
 static_assert(sizeof(gBattleAllEntries59E980) == 22 * sizeof(cg::yobi::YobiAction*));
 static_assert(decltype(gBattleEntries59E980)::extent == 20);
-static_assert(sizeof(gBattleCText5A3A20) == 0x1000);
 static_assert(sizeof(gBattleMText5AAA7C) == 0x1000);
 
 } // namespace detail
@@ -4203,16 +4199,16 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
             const char* const source = battleScene.cQueue.data() + readIndex * 0x1000;
             const std::uint32_t size = static_cast<std::uint32_t>(std::strlen(source)) + 1U;
             const std::uint32_t wordBytes = size & ~3U;
-            std::memcpy(gBattleCText5A3A20.data(), source, wordBytes);
+            std::memcpy(battleScene.cText.data(), source, wordBytes);
             const std::int32_t nextIndex = readIndex + 1;
             const bool consumedLastSlot = nextIndex >= 4;
             battleScene.cReadIndex = nextIndex;
-            std::memcpy(gBattleCText5A3A20.data() + wordBytes, source + wordBytes, size & 3U);
+            std::memcpy(battleScene.cText.data() + wordBytes, source + wordBytes, size & 3U);
             if (consumedLastSlot) {
                 battleScene.cReadIndex = 0;
             }
-            cg::yobi::ParseBattleC_438550();
-            if ((*reinterpret_cast<const unsigned char*>(&gBattleFieldFlags5ABB58) & 0x20U) != 0) {
+            cg::yobi::ParseBattleC_438550(session);
+            if ((*reinterpret_cast<const unsigned char*>(&battleScene.fieldFlags) & 0x20U) != 0) {
                 gCurrentSceneState = 7;
                 break;
             }
@@ -10081,7 +10077,7 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
         battleScene.cReadIndex = 0;
         battleScene.mWriteIndex = 0;
         battleScene.mReadIndex = 0;
-        gBattleCText5A3A20[0] = '\0';
+        battleScene.cText[0] = '\0';
         gBattleMText5AAA7C[0] = '\0';
         for (std::size_t offset = 0; offset < 0x4000; offset += 0x1000) {
             battleScene.cQueue[offset] = '\0';

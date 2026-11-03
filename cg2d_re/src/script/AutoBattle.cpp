@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "LuaUI.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "../world/BattleState.hpp"
@@ -429,14 +430,14 @@ static void PushAction(lua_State* L, const Action& action) {
     Field(L, "target", action.target); Field(L, "itemId", action.itemId);
 }
 
-static void PushBattleInfo(lua_State* L) {
+static void PushBattleInfo(session::ClientSession& session, lua_State* L) {
     autoBattleActionCount = 0;
     lua_newtable(L);
     lua_pushinteger(L, cg::world::gBattleTurn5ABB74);
     lua_setfield(L, -2, "battleTurn");
     lua_pushinteger(L, cg::world::gBattleType5ABFC8);
     lua_setfield(L, -2, "battleType");
-    lua_pushinteger(L, cg::world::gBattleFieldFlags5ABB58);
+    lua_pushinteger(L, session.WorldScene().battle.fieldFlags);
     lua_setfield(L, -2, "battleField");
     int n = 0;
     for (int j = 0; j < 10; ++j) {
@@ -491,7 +492,7 @@ static bool EmitAutoBattle(session::ClientSession& session) {
     lua_getglobal(L, "AutoBattleEvent");
     bool accepted = false;
     if (lua_isfunction(L, -1)) {
-        PushBattleInfo(L); PushPlayer(L);
+        PushBattleInfo(session, L); PushPlayer(L);
         if (lua_pcall(L, 2, 1, 0) == 0) accepted = lua_isnumber(L, -1) && lua_tointeger(L, -1) != 0;
         else m_log_iw(L"[Lua] AutoBattleEvent failed: %hs\n", lua_tostring(L, -1));
     }

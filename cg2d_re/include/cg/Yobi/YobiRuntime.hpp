@@ -377,7 +377,7 @@ std::int32_t ConsumeBattleExitMessages_43BAA0(); // BEMS01：固定入口载荷�
 // 原函数：0x004383F0。
 void InitializeBattleScene_4383F0(session::ClientSession& session); // 43CBB0先清Yobi再调用；发布创建结果、清两表/六标量并生产宠物快照。
 // 原函数：0x00438550。
-void ParseBattleC_438550(); // 完整C角色/附件生产及22槽缺席清理；43CBB0消费一槽C后调用。
+void ParseBattleC_438550(session::ClientSession& session); // 完整C角色/附件生产及22槽缺席清理；43CBB0消费一槽C后调用。
 // 原函数：0x004238F0。
 void UpdateBattleAlbumFlag_4238F0(YobiAction* action); // 固定载荷，先清FE0 bit0，再按本人/宠物/相册置位。
 // 原函数：0x0043BED0。

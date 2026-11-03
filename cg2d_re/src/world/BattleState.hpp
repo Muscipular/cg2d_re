@@ -62,9 +62,6 @@ extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类�
 extern std::uint32_t gBattleEventDispatchBusy_5ABB1C; // 原全局：0x005ABB1C。
 extern std::uint32_t gBattleExitRequested_5ABB20; // 原全局：0x005ABB20。 原W32初值FFFFFFFF，4383F0清零，418B50/43CBB0置1。
 extern std::uint32_t gBattleTurnMessagesExhausted_5ABB28; // 原全局：0x005ABB28。
-extern std::array<char, 0x1000> gBattleCText5A3A20; // 原全局：0x005A3A20。 场景从C队列复制的活动原字节文本。
-extern std::int32_t gBattleCOffset5ABA80; // 原全局：0x005ABA80。 438550先写2；438450/4384C0消费，与C队列索引独立。
-extern std::uint32_t gBattleFieldFlags5ABB58; // 原全局：0x005ABB58。 438550发布完整W32，43CBB0随后检查bit20。
 extern std::array<char, 0x1000> gBattleMText5AAA7C; // 原全局：0x005AAA7C。
 extern std::int32_t gBattleMScanOffset5A8A3C; // 原全局：0x005A8A3C。 M头扫描S32游标，非队列索引或对象载荷64游标。
 extern std::int32_t gBattleMPreviewOffset5AAA60; // 原全局：0x005AAA60。 439600/439700预扫描游标，由43B290复制头游标。

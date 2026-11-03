@@ -156,7 +156,7 @@ static void LuaReadVkList(lua_State* L, int index, std::vector<int>& vkList);
 
 static bool WinMgrKeyPressed(const WinMgrKeyPressOption& option);
 
-static void CliSendMsg(std::wstring_view msg, const MsgOption& option) {
+static void CliSendMsg(session::ClientSession& session, std::wstring_view msg, const MsgOption& option) {
     if (msg.empty()) return;
     const std::wstring value = option.sender.empty()
         ? std::wstring(msg) : option.sender + L": " + std::wstring(msg);
@@ -168,7 +168,7 @@ static void CliSendMsg(std::wstring_view msg, const MsgOption& option) {
         if (next > 290 || next > encoded.size()) break;
         end = next;
     }
-    world::AppendChatMessage_44B050(text::FromGbkWide(std::string_view(encoded).substr(0, end)).c_str(), option.color, option.font);
+    world::AppendChatMessage_44B050(session, text::FromGbkWide(std::string_view(encoded).substr(0, end)).c_str(), option.color, option.font);
 }
 
 static int LuaAbsIndex(lua_State* L, int index) {
@@ -2571,7 +2571,7 @@ LuaFunction(WinMgr_cliSendMsg) {
         static_cast<int>(luaL_optinteger(L, 2, 0)),
         static_cast<int>(luaL_optinteger(L, 3, 0))
     };
-    CliSendMsg(msg, option);
+    CliSendMsg(GetLuaConnection(L).Owner(), msg, option);
     return 0;
 }
 

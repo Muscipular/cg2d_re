@@ -8738,7 +8738,7 @@ std::uint32_t HandlePlayerTimerReply_50C7A0(cg::network::CgConnection& connectio
 }
 
 // 原函数：0x0050CE10。
-std::int32_t HandleSystemChatReply_50CE10(cg::network::CgConnection&, const char* const text)
+std::int32_t HandleSystemChatReply_50CE10(cg::network::CgConnection& connection, const char* const text)
 {
     char source[2024];
     char command[512];
@@ -8752,7 +8752,7 @@ std::int32_t HandleSystemChatReply_50CE10(cg::network::CgConnection&, const char
         std::strncpy(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
-    AppendChatMessage_44B050(cg::text::FromGbkWide(source).c_str(), 4, 3);
+    AppendChatMessage_44B050(connection.Owner(), cg::text::FromGbkWide(source).c_str(), 4, 3);
     const std::int32_t soundEnabled = platform::gChatNotificationSoundEnabled_554644;
     if (soundEnabled != 0) {
         return audio::PlaySe_52C450(74, 320);
@@ -8836,7 +8836,7 @@ std::int32_t SendPlayerChatInput_50C940(
             chat.disabled = 0;
         } else if (chat.replyGate != 0 || detail::gPartyActive_FF0D36 == 0
                    || (ReadPlayerOptions194LowByte() & 8u) == 0) {
-            AppendChatMessage_44B050(L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
+            AppendChatMessage_44B050(session, L"目前禁言中" /* 原常量参考：0x0058AFEC。 */, 4, 3);
             const std::int32_t sound = platform::gChatNotificationSoundEnabled_554644;
             if (sound != 0) {
                 return audio::PlaySe_52C450(74, 320);
@@ -8849,7 +8849,7 @@ std::int32_t SendPlayerChatInput_50C940(
         const std::uint64_t previous = chat.previousTick;
         chat.currentTick = tick;
         if (tick - previous < session.Connection().GameplaySettings().chatMinimumIntervalMs) {
-            AppendChatMessage_44B050(L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
+            AppendChatMessage_44B050(session, L"重复发言，禁言三分钟" /* 原常量参考：0x0058B000。 */, 4, 3);
             std::int32_t result = platform::gChatNotificationSoundEnabled_554644;
             if (result != 0) {
                 result = audio::PlaySe_52C450(74, 320);
@@ -8909,7 +8909,7 @@ void HandlePlayerChatReply_50CAE0(cg::network::CgConnection& networkConnection, 
             drawFont = 1;
         }
         if (!snapshot.empty()) {
-            AppendChatMessage_44B050(snapshot, drawColor, drawFont);
+            AppendChatMessage_44B050(networkConnection.Owner(), snapshot, drawColor, drawFont);
         }
     }
     if (platform::gChatNotificationSoundEnabled_554644 != 0) {
@@ -10715,7 +10715,7 @@ std::uint16_t ReadPetMapFlags(const std::int16_t index) noexcept
 
 // 六请求的门禁、声音和计时差异见doc/ui_windows/window_4.md。
 // 原函数：0x00470050。
-void RequestDuelWithFacingPlayer_470050()
+void RequestDuelWithFacingPlayer_470050(session::ClientSession& session)
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -10740,14 +10740,14 @@ void RequestDuelWithFacingPlayer_470050()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendDuelRequest(x, y));
+        static_cast<void>(session.Connection().SendDuelRequest(x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
 // 原函数：0x00470150。
-void RequestSpectateFacingBattle_470150()
+void RequestSpectateFacingBattle_470150(session::ClientSession& session)
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -10775,14 +10775,14 @@ void RequestSpectateFacingBattle_470150()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendSpectateRequest(x, y));
+        static_cast<void>(session.Connection().SendSpectateRequest(x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
 // 原函数：0x00470270。
-void RequestPartyJoinOrLeave_470270()
+void RequestPartyJoinOrLeave_470270(session::ClientSession& session)
 {
     const bool joinTeam = detail::gPartyActive_FF0D36 == 0;
     if (joinTeam) {
@@ -10815,14 +10815,14 @@ void RequestPartyJoinOrLeave_470270()
         const std::int32_t mode = joinTeam ? 1 : 0;
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendTeamJoinLeaveRequest(x, y, mode));
+        static_cast<void>(session.Connection().SendTeamJoinLeaveRequest(x, y, mode));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
 // 原函数：0x004703C0。
-void RequestFacingPlayerContactCard_4703C0()
+void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session)
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -10845,14 +10845,14 @@ void RequestFacingPlayerContactCard_4703C0()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendContactCardRequest(x, y));
+        static_cast<void>(session.Connection().SendContactCardRequest(x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
 // 原函数：0x004704A0。
-void RequestNearbyPlayerTrade_4704A0()
+void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session)
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -10872,7 +10872,7 @@ void RequestNearbyPlayerTrade_4704A0()
         (gPlayerX + static_cast<std::int32_t>(deltaX * 2));
     const std::int32_t second = detail::HasWorldObjectAt_4450D0(secondX, secondY, 8);
     if (detail::gPartyActive_FF0D36 != 1 && first != 1 && second != 1) {
-        AppendChatMessage_44B050(L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
+        AppendChatMessage_44B050(session, L"没有可交易的对象！" /* 原常量参考：0x00556CC4。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -10880,7 +10880,7 @@ void RequestNearbyPlayerTrade_4704A0()
         && (gPlayerCoordinateSyncPending_C821D8 == 0)) {
         const std::uint64_t now = platform::ReadTickCount64();
         if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
-            static_cast<void>(cg::network::GetGameConnection().SendTradeRequest());
+            static_cast<void>(session.Connection().SendTradeRequest());
             ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
         }
     }
@@ -10888,7 +10888,7 @@ void RequestNearbyPlayerTrade_4704A0()
 }
 
 // 原函数：0x00470670。
-void RequestFacingPlayerGuildInvitation_470670()
+void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session)
 {
     const std::int32_t direction = gPlayerRuntimeSlots.direction;
     if (direction < 0) {
@@ -10909,7 +10909,7 @@ void RequestFacingPlayerGuildInvitation_470670()
     }
     const std::int32_t rank = cg::world::ReadGuildTextIndex10514B0();
     if ((cg::world::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
-        AppendChatMessage_44B050(LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
+        AppendChatMessage_44B050(session, LR"(您没有家族唷，所以不能邀请对方捏...^^")" /* 原常量参考：0x005862AC。 */, 4, 0);
         static_cast<void>(audio::PlaySe_52C450(55, 320));
         return;
     }
@@ -10917,7 +10917,7 @@ void RequestFacingPlayerGuildInvitation_470670()
     if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
         const std::int32_t y = static_cast<std::int32_t>(gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendGuildInvitation(x, y));
+        static_cast<void>(session.Connection().SendGuildInvitation(x, y));
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount64();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));

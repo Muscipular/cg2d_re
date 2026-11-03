@@ -43,17 +43,17 @@ void HandleMapSceneEffectReply_50E650(cg::network::CgConnection& networkConnecti
 std::int32_t IsObservationSceneTransitionActive_440B50(); // 原当前场景U32闭区间250..252门禁。
 // 原快捷按钮与两条键盘路径共用；caller均不消费EAX，复用唯一62B5AC计时槽。
 // 原函数：0x00470050。
-void RequestDuelWithFacingPlayer_470050(); // 对战请求。
+void RequestDuelWithFacingPlayer_470050(session::ClientSession& session); // 对战请求。
 // 原函数：0x00470150。
-void RequestSpectateFacingBattle_470150(); // 观战请求，先查地图名单。
+void RequestSpectateFacingBattle_470150(session::ClientSession& session); // 观战请求，先查地图名单。
 // 原函数：0x00470270。
-void RequestPartyJoinOrLeave_470270(); // 组队请求，保留跟随分支和静默返回。
+void RequestPartyJoinOrLeave_470270(session::ClientSession& session); // 组队请求，保留跟随分支和静默返回。
 // 原函数：0x004703C0。
-void RequestFacingPlayerContactCard_4703C0(); // 名片请求，无跟随门禁。
+void RequestFacingPlayerContactCard_4703C0(session::ClientSession& session); // 名片请求，无跟随门禁。
 // 原函数：0x004704A0。
-void RequestNearbyPlayerTrade_4704A0(); // 交易请求，两格查询均执行。
+void RequestNearbyPlayerTrade_4704A0(session::ClientSession& session); // 交易请求，两格查询均执行。
 // 原函数：0x00470670。
-void RequestFacingPlayerGuildInvitation_470670(); // 家族邀请，读取同源职级权限低U8。
+void RequestFacingPlayerGuildInvitation_470670(session::ClientSession& session); // 家族邀请，读取同源职级权限低U8。
 // 原函数：0x004FA8E0。
 void RequestPlayerEmote_4FA8E0(std::int32_t index); // 既有弃返回调用的动作命令接口。
 // 原函数：0x004410E0。

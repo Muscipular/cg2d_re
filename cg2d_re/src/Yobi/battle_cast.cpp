@@ -1483,15 +1483,15 @@ void UpdateBattleAction104_40DC90(YobiAction* const action)
                     const wchar_t* const name = target->nameC4.data();
                     std::memcpy(arguments.data(), &target->readiness, sizeof(platform::LegacyCryptInt));
                     cg::text::FormatTo(message, L"{} 的生命为 {} / {}" /* 原常量参考：0x005539E8。 */, name, std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
-                    world::AppendChatMessage_44B050(message, 4, 3);
+                    world::AppendChatMessage_44B050(*action->ownerSession, message, 4, 3);
                     std::memcpy(arguments.data() + 4, &target->barMaximum1C0, sizeof(platform::LegacyCryptInt));
                     std::memcpy(arguments.data(), &target->barValue1B0, sizeof(platform::LegacyCryptInt));
                     cg::text::FormatTo(message, L"{} 的魔力为 {} / {}" /* 原常量参考：0x005539D4。 */, name, std::bit_cast<std::int32_t>(arguments[0]), std::bit_cast<std::int32_t>(arguments[1]));
-                    world::AppendChatMessage_44B050(message, 4, 3);
+                    world::AppendChatMessage_44B050(*action->ownerSession, message, 4, 3);
                 }
             } else {
                 cg::text::FormatTo(message, L"无法调查出 {} 的情报" /* 原常量参考：0x005539BC。 */, target->nameC4.c_str());
-                world::AppendChatMessage_44B050(message, 4, 3);
+                world::AppendChatMessage_44B050(*action->ownerSession, message, 4, 3);
             }
             static_cast<void>(AdvanceBattleEffect_439470(action));
         }

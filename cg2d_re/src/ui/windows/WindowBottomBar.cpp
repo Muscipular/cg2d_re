@@ -347,7 +347,7 @@ static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow
                 static_cast<void>(session.Connection().SendIuEPacket());
                 gWindow6RequestTimeD67AF0 = platform::ReadSystemSeconds_4589D0();
             } else {
-                world::AppendChatMessage_44B050(L"请等待30秒后再操作", 4, 3);
+                world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"请等待30秒后再操作", 4, 3);
             }
             return 1;
         }

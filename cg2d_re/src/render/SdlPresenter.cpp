@@ -617,7 +617,7 @@ std::int32_t SaveScreenshotBitmap_453E80(
 }
 
 // 原函数：0x00453760。
-void TakeScreenshot_453760()
+void TakeScreenshot_453760(session::ClientSession& session)
 {
     POINT origin {0, 0};
     static_cast<void>(ClientToScreen(reinterpret_cast<HWND>(platform::gLegacyWindow), &origin));
@@ -642,7 +642,7 @@ void TakeScreenshot_453760()
         static_cast<void>(std::fclose(probe));
     }
     if (sequence >= 1000) {
-        world::AppendChatMessage_44B050(L"今天已经不能存取更多的画面了。" /* 原常量参考：0x005566F4。 */, 4, 3);
+        world::AppendChatMessage_44B050(session, L"今天已经不能存取更多的画面了。" /* 原常量参考：0x005566F4。 */, 4, 3);
         return;
     }
     if (GetLegacyTextureState().pixelBitCount == 32) {
@@ -696,19 +696,19 @@ void TakeScreenshot_453760()
             }
         }
     }
-    world::AppendChatMessage_44B050(message, 4, 3);
+    world::AppendChatMessage_44B050(session, message, 4, 3);
     std::free(pixels);
 }
 
 // 原函数：0x00503C80。
-std::uint32_t TakeScreenshotThrottled_503C80()
+std::uint32_t TakeScreenshotThrottled_503C80(session::ClientSession& session)
 {
     static std::uint64_t lastScreenshotTick = 0; // 原全局：0x00D68A78。
     const std::uint64_t now = platform::ReadTickCount64();
     if (lastScreenshotTick + 500u > now) {
         return static_cast<std::uint32_t>(now);
     }
-    TakeScreenshot_453760();
+    TakeScreenshot_453760(session);
     const std::uint64_t completed = platform::ReadTickCount64();
     lastScreenshotTick = completed;
     return static_cast<std::uint32_t>(completed);

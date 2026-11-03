@@ -1136,7 +1136,7 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWin
         } else {
             if (world::gSkillsF1BAFC[skillIndex].skillId == 72
                 && world::CountFreeInventorySlots_518C60() == 0) {
-                world::AppendChatMessage_44B050(L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
+                world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"由于持有物品满了，无法使用。" /* 原常量参考：0x00586548。 */, 4, 3);
             }
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
@@ -2415,12 +2415,12 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                         return;
                     }
                     if (insufficientFp()) {
-                        world::AppendChatMessage_44B050(kWindow12NoFp5864F0, 4, 3);
+                        world::AppendChatMessage_44B050(*callbackWindow.ownerSession, kWindow12NoFp5864F0, 4, 3);
                         fail();
                         return;
                     }
                     if (world::CountFreeInventorySlots_518C60() <= 0) {
-                        world::AppendChatMessage_44B050(L"物品栏已满" /* 原常量参考：0x005864E4。 */, 4, 3);
+                        world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"物品栏已满" /* 原常量参考：0x005864E4。 */, 4, 3);
                         fail();
                         return;
                     }
@@ -2499,7 +2499,7 @@ static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, 
                     }
                     if (cg::yobi::ReadMapActorAttachment44(world::gPlayerRuntimeSlots.action) == nullptr
                         && insufficientFp()) {
-                        world::AppendChatMessage_44B050(kWindow12NoFp5864F0, 4, 3);
+                        world::AppendChatMessage_44B050(*callbackWindow.ownerSession, kWindow12NoFp5864F0, 4, 3);
                         fail();
                         return;
                     }
@@ -2704,7 +2704,7 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
     if (count > 0) {
         static_cast<void>(WindowSkill_OpenTextTargets(session));
     } else if (request.targetKind == 0) {
-        world::AppendChatMessage_44B050(L"没有可变装的角色！", 4, 3);
+        world::AppendChatMessage_44B050(session, L"没有可变装的角色！", 4, 3);
         static_cast<void>(audio::PlaySe_52C450(51, 320));
     }
 }

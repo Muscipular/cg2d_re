@@ -1299,7 +1299,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
         if (platform::gChatNotificationSoundEnabled_554644 != 0) {
             static_cast<void>(audio::PlaySe_52C450(74, 320));
         }
-        cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(initialMessage.data()), color, font);
+        cg::world::AppendChatMessage_44B050(*scene->ownerSession, cg::text::FromGbkWide(initialMessage.data()), color, font);
     }
     if (scene->phase == BattleMHeader_BST && payload->packetSubState58 == 0) {
         gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
@@ -1330,7 +1330,7 @@ static void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayloa
             if (platform::gChatNotificationSoundEnabled_554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
-            cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(queuedMessage.data()), color, font);
+            cg::world::AppendChatMessage_44B050(*scene->ownerSession, cg::text::FromGbkWide(queuedMessage.data()), color, font);
         } else if (kind == BattleMHeader_BST) {
             gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             const std::int32_t seconds = TakeBattleMInteger_438F70(scene);
@@ -1565,7 +1565,7 @@ static void ProcessBattleMDataHeader(
             if (platform::gChatNotificationSoundEnabled_554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
-            cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(message.data()), color, font);
+            cg::world::AppendChatMessage_44B050(*scene->ownerSession, cg::text::FromGbkWide(message.data()), color, font);
             const std::int32_t position = gBattleMCasterPosition5AAA64;
             if (position < 20) {
                 YobiAction* const actor = cg::world::gBattleAllEntries59E980[position];
@@ -3751,7 +3751,7 @@ std::int32_t ConsumeBattleExitMessages_43BAA0(session::ClientSession& session)
             if (platform::gChatNotificationSoundEnabled_554644 != 0) {
                 static_cast<void>(audio::PlaySe_52C450(74, 320));
             }
-            cg::world::AppendChatMessage_44B050(cg::text::FromGbkWide(message.data()), color, font);
+            cg::world::AppendChatMessage_44B050(session, cg::text::FromGbkWide(message.data()), color, font);
         } else { // BST
             const std::int32_t position = detail::GetBattlePosition_4237E0(
                 detail::TakeBattleMInteger_438F70(battle.sceneAction));

@@ -747,7 +747,7 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
             return consumed;
         }
         if (world::gPetRuntimeRecords[selected].values70[10] < 60) {
-            world::AppendChatMessage_44B050(L"宠物忠诚度需达到60以上才可以带它散步喔!" /* 原常量参考：0x00586CB0。 */, 4, 3);
+            world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"宠物忠诚度需达到60以上才可以带它散步喔!" /* 原常量参考：0x00586CB0。 */, 4, 3);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             return consumed;
         }

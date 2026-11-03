@@ -209,7 +209,7 @@ std::int32_t HandleRemainingAttributePointsReply_50CF60(cg::network::CgConnectio
 }
 
 // 原 [0x50CF20,0x50CF55)：仅第二参数控制固定提示入队。
-void HandleFailureNoticeReply_50CF20(cg::network::CgConnection&,
+void HandleFailureNoticeReply_50CF20(cg::network::CgConnection& connection,
     const std::int32_t status,
     const std::int32_t,
     const std::int32_t,
@@ -219,7 +219,7 @@ void HandleFailureNoticeReply_50CF20(cg::network::CgConnection&,
         return;
     }
 
-    world::AppendChatMessage_44B050(L"失败了！", 4, 3);
+    world::AppendChatMessage_44B050(connection.Owner(), L"失败了！", 4, 3);
 }
 
 // 原 [0x50D3B0,0x50D3BC)：GVC01清理无消费存储，保留低W16转换、返回及协议入口。
@@ -407,7 +407,7 @@ std::int32_t HandleGuildMemberRemovalReply_50F130(cg::network::CgConnection&, co
 
 // GMR01：原字段/反转义→持有排序index→生产→外部记录名通知→存档/SE63/消息，四参未读边界保。
 // 原函数：0x0050F190。
-void HandleGuildMailReply_50F190(cg::network::CgConnection&, const std::int32_t key,
+void HandleGuildMailReply_50F190(cg::network::CgConnection& connection, const std::int32_t key,
     const char* const payload, const std::int32_t)
 {
     char name[32];
@@ -425,7 +425,7 @@ void HandleGuildMailReply_50F190(cg::network::CgConnection&, const std::int32_t 
     cg::text::FormatTo(message, kind == -1 ? L"您收到来自家族 {} 的信件～" /* 原常量参考：0x0058B0EC。 */ : L"您收到来自家族成员 {} 的宠物信件～" /* 原常量参考：0x0058B0C8。 */, recordName);
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    world::AppendChatMessage_44B050(message, 4, 3);
+    world::AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }
 
 // 原函数：0x00510460。

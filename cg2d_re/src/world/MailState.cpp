@@ -750,7 +750,7 @@ std::int32_t HasUnreadMiniMail_519170(const std::int32_t index)
 }
 
 // 原函数：0x0050DC70。
-void HandleContactMailReply_50DC70(cg::network::CgConnection&, const std::int32_t index,
+void HandleContactMailReply_50DC70(cg::network::CgConnection& connection, const std::int32_t index,
     const char* const payload, const std::int32_t)
 {
     char name[32];
@@ -772,7 +772,7 @@ void HandleContactMailReply_50DC70(cg::network::CgConnection&, const std::int32_
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    AppendChatMessage_44B050(message, 4, 3);
+    AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }
 
 // 原函数：0x00534370。
@@ -868,7 +868,7 @@ void HandleMiniMailContactRemovalReply_50F430(cg::network::CgConnection&, const 
 }
 
 // 原函数：0x0050F7F0。
-void HandleMiniMailReply_50F7F0(cg::network::CgConnection&, const std::int32_t key,
+void HandleMiniMailReply_50F7F0(cg::network::CgConnection& connection, const std::int32_t key,
     const char* const payload, const std::int32_t)
 {
     const std::int32_t index = FindMiniMailContactByKey_534370(key);
@@ -891,7 +891,7 @@ void HandleMiniMailReply_50F7F0(cg::network::CgConnection&, const std::int32_t k
         }
     }
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    AppendChatMessage_44B050(message, 4, 3);
+    AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }
 
 // 原函数：0x0050F9E0。
@@ -957,7 +957,7 @@ void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& connectio
     PrependMiniMailMessage_5343C0(index, 0, formattedTimestamp, cg::text::FromGbkWide(text));
     static_cast<void>(audio::PlaySe_52C450(63, 320));
     cg::text::FormatTo(message, kReceivedMiniMailFormat58B108, record.name10);
-    AppendChatMessage_44B050(message, 4, 3);
+    AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
 }
 
 // 原函数：0x00518C80。

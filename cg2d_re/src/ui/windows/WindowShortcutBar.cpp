@@ -198,7 +198,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
                 L"要求进行对战。" /* 原常量参考：0x00556C80。 */, L"要求进行观战。" /* 原常量参考：0x00556C90。 */, L"要求加入冒险队伍。" /* 原常量参考：0x00556CA0。 */,
                 L"要求交换名片。" /* 原常量参考：0x00556CB4。 */, L"要求进行交易。" /* 原常量参考：0x00556CD8。 */,
             };
-            void (*const requests[5])() {
+            void (*const requests[5])(session::ClientSession&) {
                 &world::RequestDuelWithFacingPlayer_470050, &world::RequestSpectateFacingBattle_470150,
                 &world::RequestPartyJoinOrLeave_470270, &world::RequestFacingPlayerContactCard_4703C0,
                 &world::RequestNearbyPlayerTrade_4704A0,
@@ -207,7 +207,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
                 gHoverTextD68AE8 = hints[index];
             }
             if ((state & MouseFlag_LDownEvent) != 0) {
-                requests[index]();
+                requests[index](*callbackWindow.ownerSession);
                 return 1;
             }
             return consumed;
@@ -224,7 +224,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWind
                 gHoverTextD68AE8 = L"邀请对方加入自己的家族。" /* 原常量参考：0x00586284。 */;
             }
             if ((state & MouseFlag_LDownEvent) != 0) {
-                world::RequestFacingPlayerGuildInvitation_470670();
+                world::RequestFacingPlayerGuildInvitation_470670(*callbackWindow.ownerSession);
                 return 1;
             }
             return consumed;

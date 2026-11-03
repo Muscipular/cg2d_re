@@ -688,7 +688,7 @@ static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindo
     }
     switch (static_cast<WindowGuildDetailsElementId>(elementId)) {
     case WindowGuildDetailsElementId::HandleInput:
-        world::AppendChatMessage_44B050(L"家族名称不得更改喔!!" /* 原常量参考：0x00587B04。 */, 4, 3);
+        world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"家族名称不得更改喔!!" /* 原常量参考：0x00587B04。 */, 4, 3);
         break;
     case WindowGuildDetailsElementId::HandleInput_2: {
         inputs.guildPrototypes[1].text = gGuildDraftCF4018.secondText634;

@@ -911,7 +911,7 @@ std::int32_t CgConnection::Impl::NetworkDispatch_512E40(
     return -1;
 }
 
-void CgConnection::Impl::HandleServerAddressChangeReply_50E6E0(cg::network::CgConnection&, const char* const text)
+void CgConnection::Impl::HandleServerAddressChangeReply_50E6E0(cg::network::CgConnection& connection, const char* const text)
 {
     auto& previous = this->addressTextDA33D8;
     const auto address = cg::text::FromGbkWide(text);
@@ -921,8 +921,8 @@ void CgConnection::Impl::HandleServerAddressChangeReply_50E6E0(cg::network::CgCo
         }
         std::wstring message;
         cg::text::FormatTo(message, L"IP 位址由[{}]变成[{}]。" /* 原常量参考：0x0058B0B0。 */, previous, address);
-        world::AppendChatMessage_44B050(message, 4, 3);
-        world::AppendChatMessage_44B050(L"网路有可能是被再连接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
+        world::AppendChatMessage_44B050(connection.Owner(), message, 4, 3);
+        world::AppendChatMessage_44B050(connection.Owner(), L"网路有可能是被再连接了。" /* 原常量参考：0x0058B094。 */, 4, 3);
     }
     previous = address;
 }

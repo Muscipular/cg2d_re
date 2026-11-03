@@ -37,7 +37,8 @@ extern std::wstring gLogFileName554648; // 原全局：0x00554648。
 extern std::int32_t gPlayerUnspentAttributePoints_D2F788; // 原全局：0x00D2F788。
 
 // 原函数：0x0044B050。
-void AppendChatMessage_44B050(std::wstring_view text, std::int32_t color, std::int32_t fontType);
+void AppendChatMessage_44B050(
+    session::ClientSession& session, std::wstring_view text, std::int32_t color, std::int32_t fontType);
 // 原函数：0x0050C940。
 std::int32_t SendPlayerChatInput_50C940(
     session::ClientSession& session, const input::InputContext* context, std::int32_t color); // 聊天时间/选项门禁后转义发送。 // CTS01：见聊天发送完整合同。

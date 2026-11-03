@@ -236,6 +236,7 @@ std::int32_t SaveChatInputHistoryEntry_449FA0(session::ClientSession& session, c
 
 // 原 sub_44B050@[0x44B050,0x44B170)。
 void AppendChatMessage_44B050(
+    session::ClientSession& session,
     const std::wstring_view message,
     const std::int32_t color,
     const std::int32_t fontType)

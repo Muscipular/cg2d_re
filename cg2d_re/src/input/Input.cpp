@@ -1083,7 +1083,7 @@ void HandleInputEnterKey_44AB60(session::ClientSession& session)
         inputs.blacklist.clearText();
         inputs.blacklist.caretByteOffset = 0;
         inputs.blacklist.totalByteLength = 0;
-        world::AppendChatMessage_44B050(message, 4, 3);
+        world::AppendChatMessage_44B050(session, message, 4, 3);
         SetContext_44B330(session, &inputs.chat);
     }
     session.UiFrame().inputState.caretBlinkPhase = 20;

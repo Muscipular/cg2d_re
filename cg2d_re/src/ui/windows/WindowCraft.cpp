@@ -2150,14 +2150,14 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
                             }
                         } else if (skillId == 219 || skillId == 2033) {
                             if (item->hasDescription != 0) {
-                                world::AppendChatMessage_44B050(L"不需鉴定的物品", 4, 3);
+                                world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"不需鉴定的物品", 4, 3);
                                 fail();
                                 return;
                             }
                             const std::uint8_t crystal = skillOperation.rebirthEnabled;
                             const std::int32_t level = world::gSkillsF1BAFC[skill].level;
                             if (item->level > level + (crystal != 0 ? 1 : 0)) {
-                                world::AppendChatMessage_44B050(L"不可鉴定的物品", 4, 3);
+                                world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"不可鉴定的物品", 4, 3);
                                 fail();
                                 return;
                             }
@@ -2561,13 +2561,13 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
         } else if (skillId == 219 || skillId == 2033) {
             if (item->hasDescription != 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
-                world::AppendChatMessage_44B050(L"不需鉴定的物品", 4, 3);
+                world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"不需鉴定的物品", 4, 3);
             } else {
                 const std::int32_t level =
                     world::gSkillsF1BAFC[skill].level + (skillOperation.rebirthEnabled != 0 ? 1 : 0);
                 if (item->level > level) {
                     static_cast<void>(WindowCraft_ReleaseMaterials(*callbackWindow.ownerSession, 6));
-                    world::AppendChatMessage_44B050(L"不可鉴定的物品", 4, 3);
+                    world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"不可鉴定的物品", 4, 3);
                 }
             }
         } else if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {

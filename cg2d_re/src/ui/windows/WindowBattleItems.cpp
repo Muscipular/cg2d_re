@@ -431,10 +431,10 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 ++weapons;
             }
             if (world::CountFreeInventorySlots_518C60() < weapons) {
-                world::AppendChatMessage_44B050(noSpace, 4, 3);
+                world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else if (weapons == 0) {
-                world::AppendChatMessage_44B050(L"没有装备武器！", 4, 3);
+                world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"没有装备武器！", 4, 3);
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 currentWindow->state |= 0x8000u;
@@ -530,10 +530,10 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     // 原49A510以未加8的hover索引读取battleUseFlag。
                     if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60() == 0
                         && (*reinterpret_cast<const unsigned char*>(&items[hovered].battleUseFlag) & 8u) != 0) {
-                        world::AppendChatMessage_44B050(noSpace, 4, 3);
+                        world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else if (item.hasDescription == 0) {
-                        world::AppendChatMessage_44B050(unidentified, 4, 3);
+                        world::AppendChatMessage_44B050(*callbackWindow.ownerSession, unidentified, 4, 3);
                         static_cast<void>(audio::PlaySe_52C450(55, 320));
                     } else {
                         currentWindow->state |= 0x8000u;
@@ -546,7 +546,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 } else if ((*reinterpret_cast<const unsigned char*>(&item.battleUseFlag) & 1u) == 0) {
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (item.hasDescription == 0) {
-                    world::AppendChatMessage_44B050(unidentified, 4, 3);
+                    world::AppendChatMessage_44B050(*callbackWindow.ownerSession, unidentified, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (item.itemType == kMedicineType
                     && (world::gBattlePlayerFlags5ABCAC & 0x40000u) != 0) {
@@ -828,10 +828,10 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                 if (occupiedHands == 2 && world::CountFreeInventorySlots_518C60() == 0
                     && (*reinterpret_cast<const unsigned char*>(
                         &world::gPlayerRuntimeSlots.items[source].battleUseFlag) & 8u) != 0) {
-                    world::AppendChatMessage_44B050(noSpace, 4, 3);
+                    world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (world::gPlayerRuntimeSlots.items[source].hasDescription == 0) {
-                    world::AppendChatMessage_44B050(L"无法装备未鉴定物品！", 4, 3);
+                    world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"无法装备未鉴定物品！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     currentWindow->state |= 0x8000u;
@@ -898,10 +898,10 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                     ++weapons;
                 }
                 if (world::CountFreeInventorySlots_518C60() < weapons) {
-                    world::AppendChatMessage_44B050(noSpace, 4, 3);
+                    world::AppendChatMessage_44B050(*callbackWindow.ownerSession, noSpace, 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else if (weapons == 0) {
-                    world::AppendChatMessage_44B050(L"没有装备武器！", 4, 3);
+                    world::AppendChatMessage_44B050(*callbackWindow.ownerSession, L"没有装备武器！", 4, 3);
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     currentWindow->state |= 0x8000u;

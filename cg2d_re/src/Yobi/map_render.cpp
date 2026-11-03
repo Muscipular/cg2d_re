@@ -954,7 +954,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
             const std::uint8_t control = platform::gKeyStates[detail::HoverShortcutKey_Control] & detail::HoverShortcutKeyStateFlag_Down;
             if (control != 0 && (platform::gKeyStates[detail::HoverShortcutKey_Insert] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
                 if (cg::world::blacklist::GetBlacklistCount_401190() >= 72) {
-                    cg::world::AppendChatMessage_44B050(L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
+                    cg::world::AppendChatMessage_44B050(*action->ownerSession, L"你的黑名单已满，无法再加入" /* 原常量参考：0x00553294。 */, 4, 3);
                     return;
                 }
                 const wchar_t* const name = graphic->reference.action->nameC4.data();
@@ -968,7 +968,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 } else {
                     cg::text::FormatTo(message, L"{}已在黑名单中" /* 原常量参考：0x00554928。 */, graphic->reference.action->nameC4.c_str());
                 }
-                cg::world::AppendChatMessage_44B050(message, 4, 3);
+                cg::world::AppendChatMessage_44B050(*action->ownerSession, message, 4, 3);
             } else if (control != 0 && (platform::gKeyStates[detail::HoverShortcutKey_Delete] & detail::HoverShortcutKeyStateFlag_FirstPress) != 0) {
                 const wchar_t* const name = graphic->reference.action->nameC4.data();
                 if (name == nullptr) {
@@ -981,7 +981,7 @@ void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
                 } else {
                     cg::text::FormatTo(message, L"{}不在黑名单中" /* 原常量参考：0x0058AD34。 */, graphic->reference.action->nameC4.c_str());
                 }
-                cg::world::AppendChatMessage_44B050(message, 4, 3);
+                cg::world::AppendChatMessage_44B050(*action->ownerSession, message, 4, 3);
             }
         } else if ((flags & YobiActionFlag_PetOrRider) != 0) {
             const wchar_t* name = action->titleE1.data();

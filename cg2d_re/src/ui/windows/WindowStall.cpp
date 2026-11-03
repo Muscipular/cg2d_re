@@ -224,6 +224,7 @@ static WindowInstance* WindowStall_ShowPurchaseConfirmation(); // 显示购买�
 
 // 原函数：0x004CED60。
 static void WindowStall_OpenBrowse(
+    session::ClientSession& session,
     std::int32_t status, std::int32_t target, const char* stallName,
     const char* description, const char* itemPayload, const char* petPayload); // 浏览区完整生产后打开68。
 
@@ -886,7 +887,7 @@ static void WindowStall_EditPetPrice(const std::int32_t petIndex)
     const std::int32_t itemSlots = pet.values6D8[0];
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
-            world::AppendChatMessage_44B050(L"请卸下宠物身上的装备后再操作。", 4, 3);
+            world::AppendChatMessage_44B050(*currentWindow->ownerSession, L"请卸下宠物身上的装备后再操作。", 4, 3);
             return;
         }
     }
@@ -2595,6 +2596,7 @@ static std::int32_t WindowStall_Draw(WindowInstance& callbackWindow, const std::
 
 // 原函数：0x004CED60。
 static void WindowStall_OpenBrowse(
+    session::ClientSession& session,
     const std::int32_t status, const std::int32_t target,
     const char* const stallName, const char* const description,
     const char* const itemPayload, const char* const petPayload)
@@ -2605,16 +2607,16 @@ static void WindowStall_OpenBrowse(
     if (status != 0 || action == nullptr) {
         switch (status) {
         case 1:
-            world::AppendChatMessage_44B050(L"没有可以浏览的摊位", 4, 0);
+            world::AppendChatMessage_44B050(session, L"没有可以浏览的摊位", 4, 0);
             break;
         case 2:
-            world::AppendChatMessage_44B050(L"浏览的摊位已经收摊", 4, 0);
+            world::AppendChatMessage_44B050(session, L"浏览的摊位已经收摊", 4, 0);
             break;
         case 3:
-            world::AppendChatMessage_44B050(L"浏览的摊位正在忙，请稍后再试", 4, 0);
+            world::AppendChatMessage_44B050(session, L"浏览的摊位正在忙，请稍后再试", 4, 0);
             break;
         }
-        WindowInstance* const window = WindowRuntime_States()[WindowId_StallBrowse].window;
+        WindowInstance* const window = WindowRuntime_States(session)[WindowId_StallBrowse].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
         }
@@ -2793,7 +2795,7 @@ static void WindowStall_OpenBrowse(
         world::BuildPetTechniqueDisplayEntries_5185C0(pet.techniquesD8.data(), pet.techniquePairs650.data(), world::kPetTechniqueSlotCount);
     }
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    static_cast<void>(WindowRuntime_CreateAnimation(WindowId_StallBrowse, 1, 0, nullptr));
+    static_cast<void>(WindowRuntime_CreateAnimation(session, WindowId_StallBrowse, 1, 0, nullptr));
 }
 
 // 原函数：0x004CF8A0。
@@ -3046,11 +3048,11 @@ void WindowStall_ReceiveCloseReply(cg::network::CgConnection&, const std::int32_
 }
 
 // 原函数：0x0050E7F0。
-void WindowStall_ReceiveBrowseReply(cg::network::CgConnection&, const std::int32_t status, const std::int32_t target,
+void WindowStall_ReceiveBrowseReply(cg::network::CgConnection& connection, const std::int32_t status, const std::int32_t target,
     const char* const stallName, const char* const description,
     const char* const itemPayload, const char* const petPayload)
 {
-    detail::WindowStall_OpenBrowse(status, target, stallName, description, itemPayload, petPayload);
+    detail::WindowStall_OpenBrowse(connection.Owner(), status, target, stallName, description, itemPayload, petPayload);
 }
 
 // 原函数：0x0050E820。

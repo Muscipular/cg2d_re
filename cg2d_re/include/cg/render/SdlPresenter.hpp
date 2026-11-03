@@ -6,6 +6,8 @@
 #include <memory>
 #include <span>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::render {
 
 struct TextureSurface;
@@ -92,10 +94,10 @@ std::int32_t SaveScreenshotBitmap_453E80(
     const std::uint8_t* pixels, std::int32_t width, std::int32_t height, const wchar_t* path);
 
 // 原 453760：SDL 后端沿原 GDI 路径截取客户区屏幕原点的 640x480，并写原序文件/消息。
-void TakeScreenshot_453760();
+void TakeScreenshot_453760(session::ClientSession& session);
 
 // 原 503C80：U32 旧 tick+500 门槛；截图返回后再采样并发布，返回实际 tick。
-std::uint32_t TakeScreenshotThrottled_503C80();
+std::uint32_t TakeScreenshotThrottled_503C80(session::ClientSession& session);
 
 // 原 44C3C0：节点、缓存面、设备、接口、调色板、Back、SDL 呈现器与 renderer owner。
 void RendererDestroy_44C3C0() noexcept;

@@ -409,7 +409,7 @@ static std::int32_t WindowContacts_Update(const std::int32_t value)
 {
     if (value == -1) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
-        const std::int32_t mode = gContactsPreviewMode_D67B38;
+        const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
         const std::uint32_t sortMode = platform::gContactSortMode_D67CD0;
         gLoginWindowRuntime.mailSortModeD67B3C = sortMode;
         WindowContacts_SetDisplayMode(mode, category);
@@ -442,7 +442,7 @@ static std::int32_t WindowContacts_Refresh()
         sortGraphic->imageNo = kMailSortImages54F4C0[category * 5 + sortMode];
     }
     WindowContacts_Sort();
-    if (gContactsPreviewMode_D67B38 == 0) {
+    if (WindowRuntime_Settings().contactsPreviewMode == 0) {
         const std::uint32_t page = world::detail::gMailContactPage_CB1384;
         render::GraphicDescriptor16 descriptor {};
         const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
@@ -846,7 +846,7 @@ static std::int32_t WindowContacts_ScrollRow(const ElementId elementId, const st
         return 0;
     }
 
-    const std::int32_t mode = gContactsPreviewMode_D67B38;
+    const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     std::int32_t& position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     position += elementId == static_cast<ElementId>(WindowContactsElementId::ScrollRow) ? -1 : 1;
@@ -928,7 +928,7 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B558 + imageOffset;
             if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)) {
-                gHoverTextD68AE8 = gContactsPreviewMode_D67B38 != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
+                gHoverTextD68AE8 = WindowRuntime_Settings().contactsPreviewMode != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
             } else if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_5)) {
                 gHoverTextD68AE8 = L"切换名片的排序方式。" /* 原常量参考：0x0058746C。 */;
             }
@@ -940,10 +940,10 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)) {
-            const std::int32_t oldMode = gContactsPreviewMode_D67B38;
+            const std::int32_t oldMode = WindowRuntime_Settings().contactsPreviewMode;
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t mode = oldMode == 0 ? 1 : 0;
-            gContactsPreviewMode_D67B38 = mode;
+            WindowRuntime_Settings().contactsPreviewMode = mode;
             WindowContacts_SetDisplayMode(mode, category);
             const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
             gLoginWindowRuntime.valuesD67B40[3 + currentCategory] = 0;
@@ -955,7 +955,7 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
             gLoginWindowRuntime.mailSortModeD67B3C = std::bit_cast<std::uint32_t>(sort);
             platform::gContactSortMode_D67CD0 = std::bit_cast<std::uint32_t>(sort);
         } else {
-            const std::int32_t mode = gContactsPreviewMode_D67B38;
+            const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t step = mode == 0 ? 3 : 9;
             gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category] += elementId == static_cast<ElementId>(WindowContactsElementId::HandleNavigation_6) ? -step : step;
@@ -1057,7 +1057,7 @@ static std::int32_t WindowContacts_TabCategory(const ElementId elementId, const 
         WindowContacts_ClampScroll();
         static_cast<void>(audio::PlaySe_52C450(56, 320));
         const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
-        const std::int32_t mode = gContactsPreviewMode_D67B38;
+        const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
         WindowContacts_SetDisplayMode(mode, currentCategory);
         consumed = 1;
     }
@@ -1094,7 +1094,7 @@ static std::int32_t WindowContacts_ButtonGuildDetails(const ElementId elementId,
 // 原函数：0x004A37E0。
 static std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
 {
-    if (gContactsPreviewMode_D67B38 == 0) {
+    if (WindowRuntime_Settings().contactsPreviewMode == 0) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
         return gLoginWindowRuntime.mailIndicesC9FCE4[position + index - 51];
@@ -1131,7 +1131,7 @@ static std::int32_t WindowContacts_Scroll(const ElementId, const std::int32_t st
         count = state;
         break;
     }
-    const std::int32_t mode = gContactsPreviewMode_D67B38;
+    const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowContactsElementId::HandleVerticalScroll);
@@ -1235,7 +1235,7 @@ static std::int32_t WindowContacts_OpenMail(const ElementId elementId, const std
 // 原函数：0x004A3780。
 static std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
 {
-    if (gContactsPreviewMode_D67B38 == 0) {
+    if (WindowRuntime_Settings().contactsPreviewMode == 0) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         const std::int32_t row = (index - 27) / 8;
         const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
@@ -1521,7 +1521,7 @@ static void WindowContacts_ClampScroll()
     // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。
     std::int32_t maximum;
     std::int32_t position;
-    const std::int32_t mode = gContactsPreviewMode_D67B38;
+    const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
     if (mode == 0) {
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         if (gLoginWindowRuntime.valuesD67B40[category] < 0) {
@@ -1858,7 +1858,7 @@ static std::int32_t WindowContacts_DragScroll(const std::int32_t)
     if (handleVerticalScrollElement) {
         auto* const mouse = handleVerticalScrollElement->data.mouse;
         if ((mouse->flags & 1) != 0) {
-            if (gContactsPreviewMode_D67B38 == 0) {
+            if (WindowRuntime_Settings().contactsPreviewMode == 0) {
                 count = WindowScroll_ReadPosition(handleVerticalScrollElement, count - 3);
                 const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
                 gLoginWindowRuntime.valuesD67B40[category] = count;

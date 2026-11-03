@@ -811,9 +811,11 @@ extern WindowPrototype& gWindowPrototype54E240; // 原全局：0x0054E240。
 extern WindowPrototype& gWindowPrototype54E330; // 原全局：0x0054E330。
 std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows(session::ClientSession& session);
 std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSession& session);
+WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session);
 // 旧无身份消费者固定借首会话，不随当前菜单项变化；完成显式迁移前不得多会话调度。
 std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows();
 std::array<WindowState, kWindowCount>& WindowRuntime_States();
+WindowLayoutSettings& WindowRuntime_Settings();
 extern WindowInstance* gCurrentWindow; // 原CF4694。
 extern WindowState* gCurrentWindowState; // 原CF4684。
 extern std::uint8_t gOwnStallOpenForBusiness_D67BE0; // 原全局：0x00D67BE0。 原多个UI生产/消费入口共用，不并入窗口记录。
@@ -825,14 +827,7 @@ extern std::int32_t gDraggingCA0B28; // 原全局：0x00CA0B28。
 extern std::int32_t gHoverDescriptionEnabled_58589C; // 原全局：0x0058589C。 原初值1，命中描述门禁与物品拖动重置共享。
 extern void* gFocusedElementDataD45F94; // 原全局：0x00D45F94。 原异型元素载荷地址，仅借用，不是InputContext。
 extern std::uint32_t gWindowHasFocusCA0AB4; // 原全局：0x00CA0AB4。 元素回调成功后占用，独立于焦点窗口id。
-extern std::int32_t gChatWindowModeD66E04; // 原全局：0x00D66E04。 原独立S32，窗口35/57选择与设置文件共用。
-extern std::uint8_t gInventoryActorSelectionMode_57DA28; // 原全局：0x0057DA28。 原独立U8，初值FF，设置文件与物品窗口共用。
-extern std::uint8_t gBattleItemActorSelectionMode_57E42C; // 原全局：0x0057E42C。 原独立U8，初值FF，设置文件与宠物窗口共用。
 extern std::uint8_t gBattleItemTargetFlagCC4D40; // 原全局：0x00CC4D40。 499C30发布，496B90/497770后续消费。
-extern std::int32_t gHotkeyLayoutMode_CF4AAC; // 原全局：0x00CF4AAC。 原设置文件回填与多个UI入口共用的数值。
-extern std::int32_t gStatusBarLayoutMode_CF4690; // 原全局：0x00CF4690。
-extern std::int32_t gShortcutBarCollapsed_CA0440; // 原全局：0x00CA0440。
-extern std::int32_t gContactsPreviewMode_D67B38; // 原全局：0x00D67B38。
 extern cg::yobi::YobiAction* gWindowActionCA0174; // 原全局：0x00CA0174。 原475AA0返回的借用对象，不是W32标志。
 extern cg::yobi::YobiAction* gWindowActionD2E928; // 原全局：0x00D2E928。 另一窗口动画引用，479610仅清槽。
 extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 原404AE0生产，重开只清引用不释放。
@@ -846,8 +841,6 @@ extern std::int32_t gUsingSkillLevelCA0AC4; // 原全局：0x00CA0AC4。
 extern std::int32_t gSkillTargetKindCF4A10; // 原全局：0x00CF4A10。
 extern std::int32_t gSkillSendModeC8A970; // 原全局：0x00C8A970。
 extern std::wstring gSkillTargetNameD2F748; // 原全局：0x00D2F748。 选择发送前复制；后续属性/技能消费者共享。
-extern std::int32_t gChatWidthUnitsC9A930; // 原全局：0x00C9A930。 原聊天宽度单位，输入滚动/聊天绘制共用。
-extern std::int32_t gChatHeightUnitsC9A938; // 原全局：0x00C9A938。 原聊天可见高度的字体9行高倍数。
 extern std::int32_t gChatScrollOffsetC9A940; // 原全局：0x00C9A940。 原相对共享写指针的回看条数。
 
 // 交易UI唯一原字节区，非玩家背包/宠物owner；未知字段不冻结语义。
@@ -1075,10 +1068,11 @@ std::int32_t WindowRuntime_CycleNameMode(); // 73ECBC先减后负值归2，返�
 std::int32_t WindowChat_ResetState(); // 聊天初始范围、回看、数量、调整请求和颜色。
 // 原函数：0x004C9130。
 std::int32_t WindowRuntime_SaveSettings(); // 打开成功才捕获并保存；原打开失败同样返回1。
+std::int32_t WindowRuntime_SaveSettings(session::ClientSession& session);
 // 原函数：0x004A53D0。
 WindowInstance* WindowMailCompose_Open(); // 先写D2F0B8.+26C，再真实打开22，返回借用窗口。
 // 原函数：0x004705D0。
-std::int32_t WindowRuntime_Initialize(); // 启动UI完整初始化，返回category加载结果。
+std::int32_t WindowRuntime_Initialize(session::ClientSession& session); // 启动UI完整初始化，返回category加载结果。
 // 原函数：0x004B5A90。
 void WindowMessageBoard_ResetRecords(); // 四条记录只清已证字段和四个文本首字节。
 // 原函数：0x004B6970。

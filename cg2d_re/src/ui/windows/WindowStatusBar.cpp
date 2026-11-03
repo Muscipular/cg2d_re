@@ -450,7 +450,7 @@ static std::int32_t WindowStatusBar_ButtonCompact(const ElementId, const std::in
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
-    gStatusBarLayoutMode_CF4690 = 1;
+    WindowRuntime_Settings().statusBarMode = 1;
     return 1;
 }
 
@@ -465,7 +465,7 @@ static std::int32_t WindowCompactStatusBar_ButtonCollapse(const ElementId, const
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_CollapsedStatusBar));
-    gStatusBarLayoutMode_CF4690 = 2;
+    WindowRuntime_Settings().statusBarMode = 2;
     return 1;
 }
 
@@ -482,10 +482,10 @@ static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const ElementId, const
     currentWindow->state |= 0x8000u;
     if (scene == 10) {
         static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
-        gStatusBarLayoutMode_CF4690 = 1;
+        WindowRuntime_Settings().statusBarMode = 1;
     } else {
         static_cast<void>(WindowRuntime_Open(WindowId_StatusBar));
-        gStatusBarLayoutMode_CF4690 = 0;
+        WindowRuntime_Settings().statusBarMode = 0;
     }
     return 1;
 }

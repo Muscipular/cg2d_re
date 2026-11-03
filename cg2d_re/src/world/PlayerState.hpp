@@ -350,7 +350,6 @@ void CopyPlayerBarValues(
     platform::LegacyCryptInt* fp, platform::LegacyCryptInt* maxFp);
 const wchar_t* GetTitleText(std::int32_t index) noexcept; // 合法索引读取称号表；未装备／无效索引返回空文本。
 const wchar_t* GetPlayerDisplayText(std::int16_t mode) noexcept; // 模式1..6宽文本，只读借用。
-extern std::uint32_t gActorBarsEnabled5AC490; // 原全局：0x005AC490。 原虚拟零区，442F70与后续设置UI共享。
 // 原函数：0x00504B10。
 std::int32_t FindAttributeAllocationHintTarget_504B10(); // SHP01：玩家正加点返5；五S16配对首个宠物非零加点位置，无则6。
 // 原函数：0x00504B60。

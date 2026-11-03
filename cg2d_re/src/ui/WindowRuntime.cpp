@@ -28,21 +28,6 @@ struct WindowDragPrototype {
     WindowDragRect* rectangles;
 };
 
-// 原D40B30的521CH设置文件；不与含原生指针的WindowState布局混用。
-struct WindowSavedRecord {
-    std::int32_t x; // 原成员偏移：+0x00。
-    std::int32_t y; // 原成员偏移：+0x04。
-    std::int32_t value08; // 原成员偏移：+0x08。
-    std::int32_t value0C; // 原成员偏移：+0x0C。
-    std::int32_t value10; // 原成员偏移：+0x10。
-    std::array<std::byte, 0x114> bytes14; // 原成员偏移：+0x14。
-};
-
-struct WindowSavedData {
-    std::int32_t version;
-    std::array<WindowSavedRecord, kSavedWindowCount> records; // 原成员偏移：+0x04。
-};
-
 // 4C803D/4C8B07两段顺序指令的归纳，不是原端存储表；每项执行后才读取下一键。
 struct ShortcutEmoteBinding {
     std::uint8_t keyMode0;
@@ -135,28 +120,28 @@ static void WindowRuntime_AdvanceMousePhase(); // 每轮窗口处理前的鼠标
 static std::int32_t WindowRuntime_IncrementNameMode(); // 名称模式S16递增，保存标量后持久化。
 
 // 原函数：0x004C9240。
-static std::int32_t WindowRuntime_ResetSettings(); // 原型默认坐标和设置默认值，不清窗口实例。 // CWP01：见聊天几何生产完整合同。
+static std::int32_t WindowRuntime_ResetSettings(session::ClientSession& session); // 原型默认坐标和设置默认值，不清窗口实例。 // CWP01：见聊天几何生产完整合同。
 
 // 原函数：0x004C93A0。
-static std::int32_t WindowRuntime_HasChangedDefaultPositions(); // 文件三处x与固定原型比较，首差异返回1。
+static std::int32_t WindowRuntime_HasChangedDefaultPositions(session::ClientSession& session); // 文件三处x与固定原型比较，首差异返回1。
 
 // 原函数：0x004C93E0。
-static std::int32_t WindowRuntime_RepairSettingsTail(); // 原文件长度尾部修复，不增加索引保护。
+static std::int32_t WindowRuntime_RepairSettingsTail(session::ClientSession& session); // 原文件长度尾部修复，不增加索引保护。
 
 // 原函数：0x004C9170。
-static std::int32_t WindowRuntime_ApplySettings(); // 文件坐标和设置回填，共用原UI/世界状态。 // CWP01：见聊天几何生产完整合同。
+static std::int32_t WindowRuntime_ApplySettings(session::ClientSession& session); // 文件坐标和设置回填，共用原UI/世界状态。 // CWP01：见聊天几何生产完整合同。
 
 // 原函数：0x004C9060。
-static std::int32_t WindowRuntime_LoadSettings(); // WinSaveDate完整加载/默认回退，保留双打开与返回差别。
+static std::int32_t WindowRuntime_LoadSettings(session::ClientSession& session); // WinSaveDate完整加载/默认回退，保留双打开与返回差别。
 
 // 原函数：0x004C92B0。
-static std::int32_t WindowRuntime_ClearSavedSettings(); // 仅清521CH设置文件区。
+static std::int32_t WindowRuntime_ClearSavedSettings(session::ClientSession& session); // 仅清521CH设置文件区。
 
 // 原函数：0x004C92D0。
-static std::uint32_t WindowRuntime_CaptureSettings(); // 原序捕获窗口设置，返回窗口33的marker快照。
+static std::uint32_t WindowRuntime_CaptureSettings(session::ClientSession& session); // 原序捕获窗口设置，返回窗口33的marker快照。
 
 // 原函数：0x00472200。
-static void WindowRuntime_ClearSavedWindowMarkers(); // 仅清71个marker50，不释放窗口。
+static void WindowRuntime_ClearSavedWindowMarkers(session::ClientSession& session); // 仅清71个marker50，不释放窗口。
 
 // 原函数：0x00472220。
 static void WindowRuntime_MarkExistingWindows(); // 只将现存窗口marker写1，空窗口保留旧值。
@@ -221,6 +206,11 @@ std::array<WindowState, kWindowCount>& WindowRuntime_States(session::ClientSessi
     return session.UiFrame().native.states;
 }
 
+WindowLayoutSettings& WindowRuntime_Settings(session::ClientSession& session)
+{
+    return session.UiFrame().native.settings;
+}
+
 std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows()
 {
     return WindowRuntime_Windows(session::GetClientHost().FirstSession());
@@ -229,6 +219,11 @@ std::array<WindowInstance*, kWindowCount>& WindowRuntime_Windows()
 std::array<WindowState, kWindowCount>& WindowRuntime_States()
 {
     return WindowRuntime_States(session::GetClientHost().FirstSession());
+}
+
+WindowLayoutSettings& WindowRuntime_Settings()
+{
+    return WindowRuntime_Settings(session::GetClientHost().FirstSession());
 }
 
 WindowInstance* gCurrentWindow = nullptr; // 原全局：0x00CF4694。
@@ -279,13 +274,7 @@ WindowInputPrototype gMailInputPrototype57E740 { // 原全局：0x0057E740。
     22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
 };
 
-std::int32_t gChatWindowModeD66E04 = 0; // 原全局：0x00D66E04。
-
 std::uint8_t gSkillRebirthModeEnabled_5F9754 = 0; // 原全局：0x005F9754。
-
-std::int32_t gChatWidthUnitsC9A930 = 0; // 原全局：0x00C9A930。
-
-std::int32_t gChatHeightUnitsC9A938 = 0; // 原全局：0x00C9A938。
 
 std::int32_t gChatScrollOffsetC9A940 = 0; // 原全局：0x00C9A940。
 
@@ -400,11 +389,7 @@ const std::array<const wchar_t*, 20> gTribeNames57CB54 {{ // 原全局：0x0057C
 
 WindowMaterialState gMaterialOccupancyCC4894 {}; // 原全局：0x00CC4894。
 
-std::uint8_t gInventoryActorSelectionMode_57DA28 = 0xFF; // 原全局：0x0057DA28。
-
 std::uint8_t gBattleItemTargetFlagCC4D40 = 0; // 原全局：0x00CC4D40。
-
-std::uint8_t gBattleItemActorSelectionMode_57E42C = 0xFF; // 原全局：0x0057E42C。
 
 static const std::array<std::int32_t, 8> gSelectorOwnX54F584 {100, 36, 36, 165, 165, 36, 165, 165}; // 原全局：0x0054F584。
 
@@ -413,14 +398,6 @@ static const std::array<std::int32_t, 8> gSelectorOwnY54F5A4 {30, 130, 80, 80, 1
 const std::array<std::int32_t, 6> gSelectorPetX54F5C4 {36, 165, 36, 165, 36, 165}; // 原全局：0x0054F5C4。
 
 const std::array<std::int32_t, 6> gSelectorPetY54F5DC {80, 80, 130, 130, 30, 30}; // 原全局：0x0054F5DC。
-
-std::int32_t gHotkeyLayoutMode_CF4AAC = 0; // 原全局：0x00CF4AAC。
-
-std::int32_t gStatusBarLayoutMode_CF4690 = 0; // 原全局：0x00CF4690。
-
-std::int32_t gShortcutBarCollapsed_CA0440 = 0; // 原全局：0x00CA0440。
-
-std::int32_t gContactsPreviewMode_D67B38 = 0; // 原全局：0x00D67B38。
 
 cg::yobi::YobiAction* gWindowActionCA0174 = nullptr; // 原全局：0x00CA0174。
 
@@ -497,10 +474,6 @@ static_assert(std::is_trivially_copyable_v<WindowSavedData>);
 static_assert(offsetof(WindowSavedData, records) == 4);
 
 static_assert(sizeof(WindowSavedData) == 0x521C);
-
-static WindowSavedData gWindowSavedDataD40B30 {}; // 原全局：0x00D40B30。
-
-static std::int32_t gWindowSavedLengthCC4238 = 0; // 原全局：0x00CC4238。
 
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
 
@@ -1264,7 +1237,7 @@ static void WindowItemDrag_Handle(
             && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
             const std::int32_t group =
-                std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28) > 0 && sourceIndex < 6
+                std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection) > 0 && sourceIndex < 6
                 ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
@@ -1277,7 +1250,7 @@ static void WindowItemDrag_Handle(
     const std::int32_t kind = WindowItem_ClassifyItemSlot(sourceIndex);
     if (kind == 1) {
         const world::PlayerItemRecord* item;
-        if (std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28) > 0) {
+        if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection) > 0) {
             item = &world::gPetRuntimeRecords[
                 WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10)].items6E4[sourceIndex];
         } else {
@@ -1314,7 +1287,7 @@ static void WindowItemDrag_Handle(
     std::int32_t imageNo;
     const render::GraphicDescriptor16* drawDescriptor;
     if (drawKind == 1) {
-        const std::int8_t mode = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
+        const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection);
         drawDescriptor = &descriptor;
         if (mode > 0) {
             imageNo = world::gPetRuntimeRecords[
@@ -1700,7 +1673,7 @@ void WindowItemSelector_BindElements(WindowItemSelectorState* const state, const
     if (!window) return;
     state->value64 = mode;
     if (mode != 0) {
-        state->mode68 = &gBattleItemActorSelectionMode_57E42C;
+        state->mode68 = &WindowRuntime_Settings().battleItemActorSelection;
         state->elements00[0] = WindowElementLink{window->id, NativeElementKey(3)};
         state->elements00[1] = WindowElementLink{window->id, NativeElementKey(20)};
         state->elements00[2] = WindowElementLink{window->id, NativeElementKey(16)};
@@ -1725,7 +1698,7 @@ void WindowItemSelector_BindElements(WindowItemSelectorState* const state, const
         state->callbacks50[2] = WindowBattleItems_HandleEquipment;
         state->callbacks50[3] = WindowElement_NoOp;
     } else {
-        state->mode68 = &gInventoryActorSelectionMode_57DA28;
+        state->mode68 = &WindowRuntime_Settings().inventoryActorSelection;
         state->elements00[0] = WindowElementLink{window->id, NativeElementKey(4)};
         state->elements00[1] = WindowElementLink{window->id, NativeElementKey(17)};
         state->elements00[2] = WindowElementLink{window->id, NativeElementKey(18)};
@@ -2636,7 +2609,7 @@ std::int32_t WindowItem_DrawEquipmentTooltip(const std::int32_t index, const std
             (platform::gLegacyMouseState.mouseY < 240);
         gTooltipYCF46CC = static_cast<std::uint16_t>(gTooltipYCF46CC + (top ? 60 : -174));
     }
-    const std::int8_t mode = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
+    const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection);
     gTooltipSourceD303FC = index;
     const bool petEquipment = mode > 0 && index < 6;
     const world::PlayerItemRecord* record;
@@ -2743,49 +2716,54 @@ static std::int32_t WindowRuntime_IncrementNameMode()
 
 // CWP01：原71项默认坐标/设置与返回保持，地址索引仅作原生寻址。
 // 原函数：0x004C9240。
-static std::int32_t WindowRuntime_ResetSettings()
+static std::int32_t WindowRuntime_ResetSettings(session::ClientSession& session)
 {
+    auto& states = WindowRuntime_States(session);
+    auto& settings = WindowRuntime_Settings(session);
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
-        WindowRuntime_States()[index].x = prototype->defaultX;
-        WindowRuntime_States()[index].y = prototype->defaultY;
+        states[index].x = prototype->defaultX;
+        states[index].y = prototype->defaultY;
     }
-    gHotkeyLayoutMode_CF4AAC = 1;
-    gInventoryActorSelectionMode_57DA28 = 0xFF;
-    gBattleItemActorSelectionMode_57E42C = 0xFF;
-    gChatWidthUnitsC9A930 = 12;
-    gChatHeightUnitsC9A938 = 4;
-    gStatusBarLayoutMode_CF4690 = 0;
-    gShortcutBarCollapsed_CA0440 = 0;
-    WindowRuntime_States()[WindowId_MiniMap].marker50 = 0;
-    WindowRuntime_States()[WindowId_Emote].marker50 = 0;
-    gContactsPreviewMode_D67B38 = 0;
+    settings.hotkeyLayoutMode = 1;
+    settings.inventoryActorSelection = 0xFF;
+    settings.battleItemActorSelection = 0xFF;
+    settings.chatWidthUnits = 12;
+    settings.chatHeightUnits = 4;
+    settings.statusBarMode = 0;
+    settings.shortcutBarCollapsed = 0;
+    states[WindowId_MiniMap].marker50 = 0;
+    states[WindowId_Emote].marker50 = 0;
+    settings.contactsPreviewMode = 0;
     return 0;
 }
 
 // 原函数：0x004C93A0。
-static std::int32_t WindowRuntime_HasChangedDefaultPositions()
+static std::int32_t WindowRuntime_HasChangedDefaultPositions(session::ClientSession& session)
 {
-    if (gWindowSavedDataD40B30.records[1].x != gWindowPrototype54E2A0.defaultX) {
+    auto& savedData = session.UiFrame().native.savedData;
+    if (savedData.records[1].x != gWindowPrototype54E2A0.defaultX) {
         return 1;
     }
-    if (gWindowSavedDataD40B30.records[4].x != gWindowPrototype54E240.defaultX) {
+    if (savedData.records[4].x != gWindowPrototype54E240.defaultX) {
         return 1;
     }
-    return gWindowSavedDataD40B30.records[6].x != gWindowPrototype54E330.defaultX ? 1 : 0;
+    return savedData.records[6].x != gWindowPrototype54E330.defaultX ? 1 : 0;
 }
 
 // 原函数：0x004C93E0。
-static std::int32_t WindowRuntime_RepairSettingsTail()
+static std::int32_t WindowRuntime_RepairSettingsTail(session::ClientSession& session)
 {
-    const std::int32_t fileLength = gWindowSavedLengthCC4238;
+    auto& savedData = session.UiFrame().native.savedData;
+    auto& states = WindowRuntime_States(session);
+    const std::int32_t fileLength = session.UiFrame().native.savedLength;
     if (fileLength == 0x521C) {
         return 1;
     }
     const std::int32_t missingBytes = 0x521C - fileLength;
     const std::uint32_t first =
         (static_cast<std::uint32_t>(fileLength)
-            - static_cast<std::uint32_t>(gWindowSavedDataD40B30.version)) / 0x128u;
+            - static_cast<std::uint32_t>(savedData.version)) / 0x128u;
     const std::uint32_t count = static_cast<std::uint32_t>(missingBytes) / 0x128u;
     if (missingBytes < 0 || static_cast<std::uint32_t>(missingBytes) % 0x128u != 0) {
         return 0;
@@ -2795,8 +2773,8 @@ static std::int32_t WindowRuntime_RepairSettingsTail()
         for (std::uint32_t offset = 0; offset < count; ++offset) {
             const std::uint32_t index = first + offset + 1u;
             const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
-            WindowRuntime_States()[index].x = prototype->defaultX;
-            WindowRuntime_States()[index].y = prototype->defaultY;
+            states[index].x = prototype->defaultX;
+            states[index].y = prototype->defaultY;
         }
     }
     return 1;
@@ -2804,50 +2782,54 @@ static std::int32_t WindowRuntime_RepairSettingsTail()
 
 // CWP01：原两设置BYTE现场读取，完整S32字段/交错发布与返回保持。
 // 原函数：0x004C9170。
-static std::int32_t WindowRuntime_ApplySettings()
+static std::int32_t WindowRuntime_ApplySettings(session::ClientSession& session)
 {
+    auto& savedData = session.UiFrame().native.savedData;
+    auto& states = WindowRuntime_States(session);
+    auto& settings = WindowRuntime_Settings(session);
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         // R02：旧分辨率的保存坐标不覆盖当前布局；下方非坐标设置仍按原流程恢复。
         const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
-        WindowRuntime_States()[index].x = prototype->defaultX;
-        WindowRuntime_States()[index].y = prototype->defaultY;
+        states[index].x = prototype->defaultX;
+        states[index].y = prototype->defaultY;
     }
-    static_cast<void>(WindowRuntime_RepairSettingsTail());
-    const auto firstByte = *reinterpret_cast<const unsigned char*>(&gWindowSavedDataD40B30.records[14].value08);
-    const std::int32_t valueCF4AAC = gWindowSavedDataD40B30.records[24].value08;
-    const auto secondByte = *reinterpret_cast<const unsigned char*>(&gWindowSavedDataD40B30.records[14].value0C);
-    gInventoryActorSelectionMode_57DA28 = firstByte;
-    const std::int32_t width = gWindowSavedDataD40B30.records[35].value08;
-    gHotkeyLayoutMode_CF4AAC = valueCF4AAC;
-    const std::int32_t mode = gWindowSavedDataD40B30.records[35].value10;
-    gChatWidthUnitsC9A930 = width;
-    const std::int32_t valueCF4690 = gWindowSavedDataD40B30.records[1].value08;
-    gBattleItemActorSelectionMode_57E42C = secondByte;
-    const std::int32_t height = gWindowSavedDataD40B30.records[35].value0C;
-    gChatWindowModeD66E04 = mode;
-    const std::int32_t actorBars = gWindowSavedDataD40B30.records[1].value0C;
-    gStatusBarLayoutMode_CF4690 = valueCF4690;
-    gChatHeightUnitsC9A938 = height;
-    const std::int32_t valueCA0440 = gWindowSavedDataD40B30.records[4].value08;
-    world::gActorBarsEnabled5AC490 = actorBars == 1 ? 1u : 0u;
-    const std::int32_t marker33 = gWindowSavedDataD40B30.records[33].value08;
-    gShortcutBarCollapsed_CA0440 = valueCA0440;
-    const std::int32_t marker34 = gWindowSavedDataD40B30.records[34].value08;
-    WindowRuntime_States()[WindowId_MiniMap].marker50 = static_cast<std::uint32_t>(marker33);
-    const std::int32_t valueD67B38 = gWindowSavedDataD40B30.records[21].value08;
-    WindowRuntime_States()[WindowId_Emote].marker50 = static_cast<std::uint32_t>(marker34);
-    gContactsPreviewMode_D67B38 = valueD67B38;
+    static_cast<void>(WindowRuntime_RepairSettingsTail(session));
+    const auto firstByte = *reinterpret_cast<const unsigned char*>(&savedData.records[14].value08);
+    const std::int32_t valueCF4AAC = savedData.records[24].value08;
+    const auto secondByte = *reinterpret_cast<const unsigned char*>(&savedData.records[14].value0C);
+    settings.inventoryActorSelection = firstByte;
+    const std::int32_t width = savedData.records[35].value08;
+    settings.hotkeyLayoutMode = valueCF4AAC;
+    const std::int32_t mode = savedData.records[35].value10;
+    settings.chatWidthUnits = width;
+    const std::int32_t valueCF4690 = savedData.records[1].value08;
+    settings.battleItemActorSelection = secondByte;
+    const std::int32_t height = savedData.records[35].value0C;
+    settings.chatMode = mode;
+    const std::int32_t actorBars = savedData.records[1].value0C;
+    settings.statusBarMode = valueCF4690;
+    settings.chatHeightUnits = height;
+    const std::int32_t valueCA0440 = savedData.records[4].value08;
+    settings.actorBarsEnabled = actorBars == 1 ? 1u : 0u;
+    const std::int32_t marker33 = savedData.records[33].value08;
+    settings.shortcutBarCollapsed = valueCA0440;
+    const std::int32_t marker34 = savedData.records[34].value08;
+    states[WindowId_MiniMap].marker50 = static_cast<std::uint32_t>(marker33);
+    const std::int32_t valueD67B38 = savedData.records[21].value08;
+    states[WindowId_Emote].marker50 = static_cast<std::uint32_t>(marker34);
+    settings.contactsPreviewMode = valueD67B38;
     return 1;
 }
 
 // 原函数：0x004C9060。
-static std::int32_t WindowRuntime_LoadSettings()
+static std::int32_t WindowRuntime_LoadSettings(session::ClientSession& session)
 {
-    static_cast<void>(WindowRuntime_ResetSettings());
+    auto& savedData = session.UiFrame().native.savedData;
+    static_cast<void>(WindowRuntime_ResetSettings(session));
     std::FILE* const stream =
         _wfopen(L"data\\WinSaveDate", L"rb+");
     if (stream == nullptr) {
-        static_cast<void>(WindowRuntime_ResetSettings());
+        static_cast<void>(WindowRuntime_ResetSettings(session));
         return 0;
     }
     // 原0x0053D435：同一MSVC描述符的创建／读写及权限。
@@ -2855,89 +2837,99 @@ static std::int32_t WindowRuntime_LoadSettings()
         "data\\WinSaveDate", _O_RDWR | _O_CREAT, _S_IREAD | _S_IWRITE);
     if (descriptor != -1) {
         // 原0x0053D3BD：保留S32文件长度。
-        gWindowSavedLengthCC4238 = static_cast<std::int32_t>(::_filelength(descriptor));
+        session.UiFrame().native.savedLength = static_cast<std::int32_t>(::_filelength(descriptor));
         // 原0x0053D30A：关闭上述描述符，原返回值不消费。
         static_cast<void>(::_close(descriptor));
         // 原4C90B8/4C90D4均读取flags低U8，只有20H是错误。
         if (std::ferror(stream) == 0) {
             static_cast<void>(static_cast<std::uint32_t>(std::fread(
-                &gWindowSavedDataD40B30, 1, 0x521C, stream)));
+                &savedData, 1, 0x521C, stream)));
             if (std::ferror(stream) == 0) {
-                if (gWindowSavedDataD40B30.version != 0x13
-                    || WindowRuntime_HasChangedDefaultPositions() == 1 || WindowRuntime_ApplySettings() == 0) {
-                    static_cast<void>(WindowRuntime_ResetSettings());
+                if (savedData.version != 0x13
+                    || WindowRuntime_HasChangedDefaultPositions(session) == 1 || WindowRuntime_ApplySettings(session) == 0) {
+                    static_cast<void>(WindowRuntime_ResetSettings(session));
                 }
                 static_cast<void>(std::fclose(stream));
                 return 1;
             }
         }
     }
-    static_cast<void>(WindowRuntime_ResetSettings());
+    static_cast<void>(WindowRuntime_ResetSettings(session));
     static_cast<void>(std::fclose(stream));
     return 0;
 }
 
 // 原函数：0x004C92B0。
-static std::int32_t WindowRuntime_ClearSavedSettings()
+static std::int32_t WindowRuntime_ClearSavedSettings(session::ClientSession& session)
 {
-    std::memset(&gWindowSavedDataD40B30, 0, sizeof(gWindowSavedDataD40B30));
+    auto& savedData = session.UiFrame().native.savedData;
+    std::memset(&savedData, 0, sizeof(savedData));
     return 0;
 }
 
 // 原函数：0x004C92D0。
-static std::uint32_t WindowRuntime_CaptureSettings()
+static std::uint32_t WindowRuntime_CaptureSettings(session::ClientSession& session)
 {
-    static_cast<void>(WindowRuntime_ClearSavedSettings());
-    gWindowSavedDataD40B30.version = 0x13;
+    auto& savedData = session.UiFrame().native.savedData;
+    const auto& states = WindowRuntime_States(session);
+    const auto& settings = WindowRuntime_Settings(session);
+    static_cast<void>(WindowRuntime_ClearSavedSettings(session));
+    savedData.version = 0x13;
     for (std::size_t index = 0; index < kSavedWindowCount; ++index) {
-        gWindowSavedDataD40B30.records[index].x = WindowRuntime_States()[index].x;
-        gWindowSavedDataD40B30.records[index].y = WindowRuntime_States()[index].y;
+        savedData.records[index].x = states[index].x;
+        savedData.records[index].y = states[index].y;
     }
-    const std::int32_t firstByte = std::bit_cast<std::int8_t>(gInventoryActorSelectionMode_57DA28);
-    const std::int32_t secondByte = std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C);
-    const std::int32_t valueCF4AAC = gHotkeyLayoutMode_CF4AAC;
-    gWindowSavedDataD40B30.records[14].value08 = firstByte;
-    const std::int32_t width = gChatWidthUnitsC9A930;
-    gWindowSavedDataD40B30.records[14].value0C = secondByte;
-    const std::int32_t height = gChatHeightUnitsC9A938;
-    gWindowSavedDataD40B30.records[35].value08 = width;
-    const std::int32_t valueCF4690 = gStatusBarLayoutMode_CF4690;
-    gWindowSavedDataD40B30.records[24].value08 = valueCF4AAC;
-    const std::int32_t mode = gChatWindowModeD66E04;
-    gWindowSavedDataD40B30.records[1].value08 = valueCF4690;
-    const std::uint32_t actorBars = world::gActorBarsEnabled5AC490;
-    gWindowSavedDataD40B30.records[35].value0C = height;
-    const std::uint32_t marker33 = WindowRuntime_States()[WindowId_MiniMap].marker50;
-    gWindowSavedDataD40B30.records[35].value10 = mode;
-    const std::int32_t valueCA0440 = gShortcutBarCollapsed_CA0440;
-    gWindowSavedDataD40B30.records[33].value08 = std::bit_cast<std::int32_t>(marker33);
-    gWindowSavedDataD40B30.records[1].value0C = actorBars == 1 ? 1 : 0;
-    const std::uint32_t marker34 = WindowRuntime_States()[WindowId_Emote].marker50;
-    gWindowSavedDataD40B30.records[4].value08 = valueCA0440;
-    const std::int32_t valueD67B38 = gContactsPreviewMode_D67B38;
-    gWindowSavedDataD40B30.records[34].value08 = std::bit_cast<std::int32_t>(marker34);
-    gWindowSavedDataD40B30.records[21].value08 = valueD67B38;
+    const std::int32_t firstByte = std::bit_cast<std::int8_t>(settings.inventoryActorSelection);
+    const std::int32_t secondByte = std::bit_cast<std::int8_t>(settings.battleItemActorSelection);
+    const std::int32_t valueCF4AAC = settings.hotkeyLayoutMode;
+    savedData.records[14].value08 = firstByte;
+    const std::int32_t width = settings.chatWidthUnits;
+    savedData.records[14].value0C = secondByte;
+    const std::int32_t height = settings.chatHeightUnits;
+    savedData.records[35].value08 = width;
+    const std::int32_t valueCF4690 = settings.statusBarMode;
+    savedData.records[24].value08 = valueCF4AAC;
+    const std::int32_t mode = settings.chatMode;
+    savedData.records[1].value08 = valueCF4690;
+    const std::uint32_t actorBars = settings.actorBarsEnabled;
+    savedData.records[35].value0C = height;
+    const std::uint32_t marker33 = states[WindowId_MiniMap].marker50;
+    savedData.records[35].value10 = mode;
+    const std::int32_t valueCA0440 = settings.shortcutBarCollapsed;
+    savedData.records[33].value08 = std::bit_cast<std::int32_t>(marker33);
+    savedData.records[1].value0C = actorBars == 1 ? 1 : 0;
+    const std::uint32_t marker34 = states[WindowId_Emote].marker50;
+    savedData.records[4].value08 = valueCA0440;
+    const std::int32_t valueD67B38 = settings.contactsPreviewMode;
+    savedData.records[34].value08 = std::bit_cast<std::int32_t>(marker34);
+    savedData.records[21].value08 = valueD67B38;
     return marker33;
 }
 
 // 原函数：0x004C9130。
 std::int32_t WindowRuntime_SaveSettings()
 {
+    return WindowRuntime_SaveSettings(session::GetClientHost().FirstSession());
+}
+
+std::int32_t WindowRuntime_SaveSettings(session::ClientSession& session)
+{
+    auto& savedData = session.UiFrame().native.savedData;
     std::FILE* const stream =
         _wfopen(L"data\\WinSaveDate", L"wb+");
     if (stream != nullptr) {
-        static_cast<void>(WindowRuntime_CaptureSettings());
+        static_cast<void>(WindowRuntime_CaptureSettings(session));
         static_cast<void>(static_cast<std::uint32_t>(std::fwrite(
-            &gWindowSavedDataD40B30, 1, 0x521C, stream)));
+            &savedData, 1, 0x521C, stream)));
         static_cast<void>(std::fclose(stream));
     }
     return 1;
 }
 
 // 原函数：0x00472200。
-static void WindowRuntime_ClearSavedWindowMarkers()
+static void WindowRuntime_ClearSavedWindowMarkers(session::ClientSession& session)
 {
-    for (WindowState& state : WindowRuntime_States()) {
+    for (WindowState& state : WindowRuntime_States(session)) {
         state.marker50 = 0;
     }
 }
@@ -3047,7 +3039,7 @@ static void WindowRuntime_ResetOperationReferences()
 // 原函数：0x004C7AD0。
 static void WindowRuntime_ResetShortcutFlag()
 {
-    gHotkeyLayoutMode_CF4AAC = 0;
+    WindowRuntime_Settings().hotkeyLayoutMode = 0;
 }
 
 // 原函数：0x00475C10。
@@ -3066,7 +3058,7 @@ static void WindowRuntime_RestorePositions(session::ClientSession& session)
         window->y = prototype->defaultY;
         if (!isPrimaryOffsetWindow && index != 11 && index != 12 && index != 14 && index != 27) {
             if (index == WindowId_Chat) {
-                window->x = platform::gWindowWidth - (gChatWidthUnitsC9A930 * 12 + 123) - 9;
+                window->x = platform::gWindowWidth - (WindowRuntime_Settings(session).chatWidthUnits * 12 + 123) - 9;
             }
             static_cast<void>(CenterPopupWindowPosition(static_cast<std::int32_t>(index),
                 window->width, window->height, window->x, window->y));
@@ -3139,7 +3131,7 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
         }
         return;
     }
-    const std::int32_t mode = gHotkeyLayoutMode_CF4AAC;
+    const std::int32_t mode = WindowRuntime_Settings(session).hotkeyLayoutMode;
     if (mode != 0 && mode != 1) {
         return;
     }
@@ -3300,8 +3292,8 @@ static void WindowRuntime_ProcessShortcuts(session::ClientSession& session)
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x7A] & 4u) != 0) {
-            world::gActorBarsEnabled5AC490 =
-                world::gActorBarsEnabled5AC490 != 1 ? 1u : 0u;
+            auto& enabled = WindowRuntime_Settings(session).actorBarsEnabled;
+            enabled = enabled != 1 ? 1u : 0u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((platform::gKeyStates[0x24] & 4u) != 0) {
@@ -3399,7 +3391,7 @@ static void WindowRuntime_ResetReferences()
 static void WindowRuntime_OpenConfiguredWindows()
 {
     static_cast<void>(WindowRuntime_Open(WindowId_BottomBar));
-    switch (gStatusBarLayoutMode_CF4690) {
+    switch (WindowRuntime_Settings().statusBarMode) {
     case 0:
         static_cast<void>(WindowRuntime_Open(WindowId_StatusBar));
         break;
@@ -3412,7 +3404,7 @@ static void WindowRuntime_OpenConfiguredWindows()
     default:
         break;
     }
-    switch (gShortcutBarCollapsed_CA0440) {
+    switch (WindowRuntime_Settings().shortcutBarCollapsed) {
     case 0:
         static_cast<void>(WindowRuntime_Open(WindowId_ShortcutBar));
         break;
@@ -3422,7 +3414,7 @@ static void WindowRuntime_OpenConfiguredWindows()
     default:
         break;
     }
-    switch (gChatWindowModeD66E04) {
+    switch (WindowRuntime_Settings().chatMode) {
     case 0:
         static_cast<void>(WindowRuntime_Open(WindowId_Chat));
         break;
@@ -3456,7 +3448,7 @@ static void WindowRuntime_OpenBattleScene()
     WindowRuntime_ClearElementFocus();
     static_cast<void>(WindowRuntime_Open(WindowId_BottomBar));
     static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
-    switch (gChatWindowModeD66E04) {
+    switch (WindowRuntime_Settings().chatMode) {
     case 0:
         static_cast<void>(WindowRuntime_Open(WindowId_Chat));
         break;
@@ -3520,11 +3512,11 @@ static void WindowRuntime_OpenNormalScene()
 }
 
 // 原函数：0x004705D0。
-std::int32_t WindowRuntime_Initialize()
+std::int32_t WindowRuntime_Initialize(session::ClientSession& session)
 {
     static_cast<void>(WindowChat_ResetState());
-    static_cast<void>(WindowRuntime_LoadSettings());
-    WindowRuntime_ClearSavedWindowMarkers();
+    static_cast<void>(WindowRuntime_LoadSettings(session));
+    WindowRuntime_ClearSavedWindowMarkers(session);
     return world::detail::LoadProfileCategoryFile_534910();
 }
 
@@ -3548,7 +3540,7 @@ static std::int32_t WindowScroll_ResetPosition()
 // 原函数：0x00470600。
 static void WindowRuntime_InitializeLogin()
 {
-    static_cast<void>(WindowRuntime_LoadSettings());
+    static_cast<void>(WindowRuntime_LoadSettings(session::GetClientHost().FirstSession()));
     static_cast<void>(WindowRuntime_ResetAlbumState());
     WindowMessageBoard_ResetRecords();
     static_cast<void>(WindowChat_ResetScrollRequests());

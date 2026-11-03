@@ -873,17 +873,17 @@ static std::int32_t WindowSettings_CycleHotkeyMode(const ElementId elementId, co
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             window->state |= 0x2000u;
-            const std::int32_t mode = gHotkeyLayoutMode_CF4AAC + 1;
-            gHotkeyLayoutMode_CF4AAC = mode;
+            const std::int32_t mode = WindowRuntime_Settings().hotkeyLayoutMode + 1;
+            WindowRuntime_Settings().hotkeyLayoutMode = mode;
             if (mode == 2) {
-                gHotkeyLayoutMode_CF4AAC = 0;
+                WindowRuntime_Settings().hotkeyLayoutMode = 0;
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-        graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC];
+        graphic->imageNo = kSettingsKeyImages54F460[3 * WindowRuntime_Settings().hotkeyLayoutMode];
         if ((state & MouseFlag_Hover) != 0) {
-            graphic->imageNo = kSettingsKeyImages54F460[3 * gHotkeyLayoutMode_CF4AAC + 2];
+            graphic->imageNo = kSettingsKeyImages54F460[3 * WindowRuntime_Settings().hotkeyLayoutMode + 2];
         }
         return consumed;
     }

@@ -475,7 +475,7 @@ void DrawMapActorOverlaysAndAttachments_442F70(YobiAction* const action, const s
         }
         drawBars = (originalFlags & MapActorDisplayFlag_SharedMovementAndBars) != 0;
     }
-    if (world::gActorBarsEnabled5AC490 == 0) {
+    if (action->ownerSession->UiFrame().native.settings.actorBarsEnabled == 0) {
         drawBars = false;
     }
 

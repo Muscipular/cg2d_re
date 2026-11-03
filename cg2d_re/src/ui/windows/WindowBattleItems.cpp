@@ -210,8 +210,8 @@ static std::int32_t WindowBattleItems_TabPet(const ElementId elementId, const st
             static_cast<void>(WindowItemSelector_HandleTab(&gItemSelectorD2F338, ordinal + 1, state));
             return 0;
         }
-    } else if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) == ordinal + 1) {
-        --gBattleItemActorSelectionMode_57E42C;
+    } else if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().battleItemActorSelection) == ordinal + 1) {
+        --WindowRuntime_Settings().battleItemActorSelection;
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -358,7 +358,7 @@ std::int32_t WindowBattleItems_HandleInventory(const ElementId elementId, const 
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
     std::wstring countText;
-    if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) > 0) {
+    if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().battleItemActorSelection) > 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);
@@ -770,7 +770,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const ElementId elementId, const 
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if (std::bit_cast<std::int8_t>(gBattleItemActorSelectionMode_57E42C) > 0) {
+    if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().battleItemActorSelection) > 0) {
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorD2F338);
         const std::int32_t slots = world::gPetRuntimeRecords[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {

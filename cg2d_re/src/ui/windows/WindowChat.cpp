@@ -221,14 +221,14 @@ std::int32_t WindowChat_ResetScrollRequests()
 WindowInstance* WindowChat_SwitchMode()
 {
     WindowInstance* result;
-    if (gChatWindowModeD66E04 == 0) {
+    if (WindowRuntime_Settings().chatMode == 0) {
         WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
         if (window == nullptr) {
             return nullptr;
         }
         window->state |= 0x8000u;
         result = WindowRuntime_Open(WindowId_CompactChat);
-        gChatWindowModeD66E04 = 1;
+        WindowRuntime_Settings().chatMode = 1;
     } else {
         WindowInstance* const window = WindowRuntime_States()[WindowId_CompactChat].window;
         if (window == nullptr) {
@@ -236,7 +236,7 @@ WindowInstance* WindowChat_SwitchMode()
         }
         window->state |= 0x8000u;
         result = WindowRuntime_Open(WindowId_Chat);
-        gChatWindowModeD66E04 = 0;
+        WindowRuntime_Settings().chatMode = 0;
     }
     input::gChatLogSuppressed_626C14 = 0;
     input::gChatPanelVisible_C9A96C = 1;
@@ -281,30 +281,30 @@ static void WindowChat_RefreshGeometry()
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
-    const std::int32_t previousHeight = gChatHeightUnitsC9A938;
+    const std::int32_t previousHeight = WindowRuntime_Settings().chatHeightUnits;
     const std::int32_t heightRequest = gChatHeightRequestC9A93C;
     const std::int32_t height = previousHeight + heightRequest;
-    gChatHeightUnitsC9A938 = height;
+    WindowRuntime_Settings().chatHeightUnits = height;
     if (height > 26) {
-        gChatHeightUnitsC9A938 = 4;
+        WindowRuntime_Settings().chatHeightUnits = 4;
     } else if (height < 4) {
-        gChatHeightUnitsC9A938 = 26;
+        WindowRuntime_Settings().chatHeightUnits = 26;
     }
-    const std::int32_t previousWidth = gChatWidthUnitsC9A930;
+    const std::int32_t previousWidth = WindowRuntime_Settings().chatWidthUnits;
     const std::int32_t widthRequest = gChatWidthRequestC9A934;
     const std::int32_t width = previousWidth + widthRequest;
     gChatHeightRequestC9A93C = 0;
-    gChatWidthUnitsC9A930 = width;
+    WindowRuntime_Settings().chatWidthUnits = width;
     if (width > 37) {
         const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
         WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
-        gChatWidthUnitsC9A930 = 12;
+        WindowRuntime_Settings().chatWidthUnits = 12;
         window->x += 26 * fontWidth;
     }
-    if (gChatWidthUnitsC9A930 < 12) {
+    if (WindowRuntime_Settings().chatWidthUnits < 12) {
         const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
         WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
-        gChatWidthUnitsC9A930 = 37;
+        WindowRuntime_Settings().chatWidthUnits = 37;
         window->x -= 26 * fontWidth;
     }
     if (gChatWidthRequestC9A934 == 1) {
@@ -315,7 +315,7 @@ static void WindowChat_RefreshGeometry()
         WindowInstance* const window = WindowRuntime_States()[WindowId_Chat].window;
         window->x += render::GetFontMetrics(9).doubleWidth;
     }
-    const std::int32_t currentWidth = gChatWidthUnitsC9A930;
+    const std::int32_t currentWidth = WindowRuntime_Settings().chatWidthUnits;
     WindowInstance* const firstWindow = currentWindow;
     gChatWidthRequestC9A934 = 0;
     auto* firstElementsWindow = firstWindow;
@@ -335,7 +335,7 @@ static void WindowChat_RefreshGeometry()
     }
     if (auto* const element17 = currentWindow->FindElementById(WindowChatElementId::Element17); element17) element17->x = inputWidth;
     auto* const element18 = currentWindow->FindElementById(WindowChatElementId::Element18);
-    const std::int32_t backgroundRows = gChatHeightUnitsC9A938 - 1;
+    const std::int32_t backgroundRows = WindowRuntime_Settings().chatHeightUnits - 1;
     const std::int32_t backgroundHeight =
         backgroundRows * render::GetFontMetrics(9).doubleWidth;
     if (element18) {
@@ -345,12 +345,12 @@ static void WindowChat_RefreshGeometry()
         element18->y = -backgroundHeight;
     }
     auto* elementsWindow = currentWindow;
-    const std::int32_t backgroundWidth = gChatWidthUnitsC9A930;
+    const std::int32_t backgroundWidth = WindowRuntime_Settings().chatWidthUnits;
     auto* const element19 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element19) : nullptr;
     if (element19) {
         auto* const graphic = element19->data.graphic;
         graphic->width = backgroundWidth * 12 + 111;
-        graphic->height = gChatHeightUnitsC9A938 == 0 ? 0 : 12;
+        graphic->height = WindowRuntime_Settings().chatHeightUnits == 0 ? 0 : 12;
     }
     elementsWindow = currentWindow;
     if (auto* const element192 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element19) : nullptr, * const element183 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element18) : nullptr; element192 && element183) element192->y = element183->y - 12;
@@ -359,50 +359,50 @@ static void WindowChat_RefreshGeometry()
     elementsWindow = currentWindow;
     if (auto* const scrollElement2 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Scroll) : nullptr, * const element194 = elementsWindow ? elementsWindow->FindElementById(WindowChatElementId::Element19) : nullptr; scrollElement2 && element194) scrollElement2->y = element194->y;
     if (auto* const scrollElement3 = currentWindow->FindElementById(WindowChatElementId::Scroll); scrollElement3) scrollElement3->width = inputWidth + 125;
-    const std::int32_t rows = gChatHeightUnitsC9A938 - 1;
+    const std::int32_t rows = WindowRuntime_Settings().chatHeightUnits - 1;
     WindowInstance* const hitWindow = currentWindow;
     const std::int32_t hitHeight = rows * render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollX = inputWidth + 97;
     if (auto* const scrollElement4 = hitWindow->FindElementById(WindowChatElementId::Scroll); scrollElement4) scrollElement4->height = hitHeight + 16;
     if (auto* const dragScrollElement = currentWindow->FindElementById(WindowChatElementId::DragScroll); dragScrollElement) dragScrollElement->x = scrollX;
     const std::int32_t scrollFontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t scrollY = 17 - scrollFontWidth * gChatHeightUnitsC9A938;
+    const std::int32_t scrollY = 17 - scrollFontWidth * WindowRuntime_Settings().chatHeightUnits;
     if (auto* const dragScrollElement2 = currentWindow->FindElementById(WindowChatElementId::DragScroll); dragScrollElement2) dragScrollElement2->y = scrollY;
     if (auto* const dragScrollElement3 = currentWindow->FindElementById(WindowChatElementId::DragScroll); dragScrollElement3) dragScrollElement3->width = 14;
     const std::int32_t scrollHeightFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t scrollHeight =
-        scrollHeightFontWidth * gChatHeightUnitsC9A938 - 28;
+        scrollHeightFontWidth * WindowRuntime_Settings().chatHeightUnits - 28;
     if (auto* const dragScrollElement4 = currentWindow->FindElementById(WindowChatElementId::DragScroll); dragScrollElement4) dragScrollElement4->height = scrollHeight;
     if (auto* const handleButtons_11Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element) handleButtons_11Element->x = scrollX;
     const std::int32_t trackYFontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t trackY = 17 - trackYFontWidth * gChatHeightUnitsC9A938;
+    const std::int32_t trackY = 17 - trackYFontWidth * WindowRuntime_Settings().chatHeightUnits;
     if (auto* const handleButtons_11Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element2) handleButtons_11Element2->y = trackY;
     if (auto* const handleButtons_11Element3 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element3) handleButtons_11Element3->width = 14;
     const std::int32_t trackHeightFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackHeight =
-        trackHeightFontWidth * gChatHeightUnitsC9A938 - 28;
+        trackHeightFontWidth * WindowRuntime_Settings().chatHeightUnits - 28;
     if (auto* const handleButtons_11Element4 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element4) handleButtons_11Element4->height = trackHeight;
     if (auto* const handleButtons_11Element5 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element5) handleButtons_11Element5->data.graphic->width = 14;
     const std::int32_t trackGraphicFontWidth = render::GetFontMetrics(9).doubleWidth;
     const std::int32_t trackGraphicHeight =
-        trackGraphicFontWidth * gChatHeightUnitsC9A938 - 28;
+        trackGraphicFontWidth * WindowRuntime_Settings().chatHeightUnits - 28;
     if (auto* const handleButtons_11Element6 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_11); handleButtons_11Element6) handleButtons_11Element6->data.graphic->height = trackGraphicHeight;
     if (auto* const handleButtons_12Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_12); handleButtons_12Element) handleButtons_12Element->x = scrollX;
     const std::int32_t upFontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t upY = 4 - upFontWidth * gChatHeightUnitsC9A938;
+    const std::int32_t upY = 4 - upFontWidth * WindowRuntime_Settings().chatHeightUnits;
     if (auto* const handleButtons_12Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_12); handleButtons_12Element2) handleButtons_12Element2->y = upY;
     if (auto* const handleButtons_13Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_13); handleButtons_13Element) handleButtons_13Element->x = scrollX;
     if (auto* const handleButtons_13Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_13); handleButtons_13Element2) handleButtons_13Element2->y = -12;
     if (auto* const handleButtons_14Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_14); handleButtons_14Element) handleButtons_14Element->x = scrollX;
     const std::int32_t upHitFontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t upHitY = -upHitFontWidth * gChatHeightUnitsC9A938;
+    const std::int32_t upHitY = -upHitFontWidth * WindowRuntime_Settings().chatHeightUnits;
     if (auto* const handleButtons_14Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_14); handleButtons_14Element2) handleButtons_14Element2->y = upHitY;
     if (auto* const handleButtons_15Element = currentWindow->FindElementById(WindowChatElementId::HandleButtons_15); handleButtons_15Element) handleButtons_15Element->x = scrollX;
     if (auto* const handleButtons_15Element2 = currentWindow->FindElementById(WindowChatElementId::HandleButtons_15); handleButtons_15Element2) handleButtons_15Element2->y = -11;
     if (auto* const element9 = currentWindow->FindElementById(WindowChatElementId::Element9); element9) element9->x = scrollX;
     WindowChat_SyncScrollThumb();
     currentWindow->dragRects40[0].width = dragWidth;
-    const std::int32_t finalWidth = gChatWidthUnitsC9A930;
+    const std::int32_t finalWidth = WindowRuntime_Settings().chatWidthUnits;
     currentWindow->width = finalWidth * 12 + 123;
     if (auto* const handleInputElement = currentWindow->FindElementById(WindowChatElementId::HandleInput); handleInputElement) handleInputElement->width = inputWidth;
     if (auto* const handleInputElement2 = currentWindow->FindElementById(WindowChatElementId::HandleInput); handleInputElement2) handleInputElement2->height = 25;
@@ -438,7 +438,7 @@ static std::int32_t WindowChat_Update(const std::int32_t value)
     if (value == -1) {
         WindowInstance* const window = currentWindow;
         // R02：仅当前位置仍在适配后的默认位置±10内时贴右，保留拖动后的位置。
-        const std::int32_t adaptedX = platform::gWindowWidth - (gChatWidthUnitsC9A930 * 12 + 123) - 9;
+        const std::int32_t adaptedX = platform::gWindowWidth - (WindowRuntime_Settings().chatWidthUnits * 12 + 123) - 9;
         const std::int32_t adaptedY = gWindowPrototypes57C130[WindowId_Chat]->defaultY;
         const std::int64_t offsetX = static_cast<std::int64_t>(window->x) - adaptedX;
         const std::int64_t offsetY = static_cast<std::int64_t>(window->y) - adaptedY;
@@ -879,12 +879,12 @@ void WindowChat_RequestWidthDecrease()
 // 原函数：0x004A82E0。
 static std::int32_t WindowChat_RefreshCompactHeight()
 {
-    const std::int32_t height = gChatHeightUnitsC9A938 + gChatHeightRequestC9A93C;
-    gChatHeightUnitsC9A938 = height;
+    const std::int32_t height = WindowRuntime_Settings().chatHeightUnits + gChatHeightRequestC9A93C;
+    WindowRuntime_Settings().chatHeightUnits = height;
     if (height > 26) {
-        gChatHeightUnitsC9A938 = 4;
+        WindowRuntime_Settings().chatHeightUnits = 4;
     } else if (height < 4) {
-        gChatHeightUnitsC9A938 = 26;
+        WindowRuntime_Settings().chatHeightUnits = 26;
     }
     gChatHeightRequestC9A93C = 0;
     gChatWidthRequestC9A934 = 0;
@@ -898,7 +898,7 @@ void WindowChat_DrawInput(input::InputContext* const context)
     const std::int32_t font = input::gCurrentInputData->fontType;
     static_cast<void>(cg::render::TextMeasure(platform::gImeComposition, font));
     const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
-    const std::int32_t widthUnits = gChatWidthUnitsC9A930;
+    const std::int32_t widthUnits = WindowRuntime_Settings().chatWidthUnits;
     const std::int32_t width = fontWidth * widthUnits;
     WindowInput_ScrollAndDraw(context, width);
 }
@@ -918,10 +918,10 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
 {
     std::int32_t totalHeight = 0;
     std::int32_t width;
-    if (gChatWindowModeD66E04 == 1) {
+    if (WindowRuntime_Settings().chatMode == 1) {
         width = render::GetFontMetrics(9).doubleWidth * 44;
     } else {
-        const std::int32_t widthUnits = gChatWidthUnitsC9A930 + 7;
+        const std::int32_t widthUnits = WindowRuntime_Settings().chatWidthUnits + 7;
         const std::int32_t fontWidth = render::GetFontMetrics(9).doubleWidth;
         width = widthUnits * fontWidth;
     }
@@ -950,7 +950,7 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
                 const std::int32_t font = record.fontType;
                 totalHeight += render::GetFontMetrics(font).doubleHeight;
                 const std::int32_t fontHeight = render::GetFontMetrics(9).doubleHeight;
-                const std::int32_t heightUnits = gChatHeightUnitsC9A938;
+                const std::int32_t heightUnits = WindowRuntime_Settings().chatHeightUnits;
                 const std::int32_t heightLimit = fontHeight * heightUnits;
                 if (totalHeight > heightLimit) {
                     return;
@@ -991,7 +991,7 @@ void WindowChat_DrawHistory(const std::int32_t x, const std::int32_t y)
 // 原函数：0x004A7B00。
 std::int32_t WindowChat_RestoreInput()
 {
-    const std::int32_t mode = gChatWindowModeD66E04;
+    const std::int32_t mode = WindowRuntime_Settings().chatMode;
     if (mode == 1) {
         WindowInstance* const window = WindowRuntime_States()[WindowId_CompactChat].window;
         if (window == nullptr) {
@@ -1054,7 +1054,7 @@ std::int32_t WindowChat_RestoreInput()
 // 原函数：0x004A80E0。
 std::int32_t WindowChat_ReadInputByteWidth()
 {
-    return detail::gChatWidthUnitsC9A930 * 2;
+    return detail::WindowRuntime_Settings().chatWidthUnits * 2;
 }
 
 } // namespace cg::ui

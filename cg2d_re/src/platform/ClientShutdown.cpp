@@ -26,11 +26,11 @@ namespace shutdown_detail {
 
 
 // 原 [0x4705F0,0x4705FF)：两个调用后尾透传窗口关闭结果。
-static std::int32_t SaveUiAndAlbumThenCloseWindows_4705F0()
+static std::int32_t SaveUiAndAlbumThenCloseWindows_4705F0(session::ClientSession& session)
 {
-    static_cast<void>(ui::detail::WindowRuntime_SaveSettings());
+    static_cast<void>(ui::detail::WindowRuntime_SaveSettings(session));
     world::SaveAlbumData_5186A0();
-    return ui::WindowRuntime_CloseAll();
+    return ui::WindowRuntime_CloseAll(session);
 }
 } // namespace shutdown_detail
 
@@ -41,7 +41,7 @@ int ShutdownClient_457A40(session::ClientSession& session)
 {
     session.Connection().StopIo();
     script::ShutdownLua(session);
-    shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0();
+    shutdown_detail::SaveUiAndAlbumThenCloseWindows_4705F0(session);
     resource::ReleaseIndependentPalettes_522C50();
     render::ReleaseGraphicPaletteCache_44E110();
     render::RendererDestroy_44C3C0();

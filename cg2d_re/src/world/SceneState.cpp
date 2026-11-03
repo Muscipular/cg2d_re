@@ -5358,7 +5358,6 @@ void ResetCurrentDialogType_4D3170()
 
 } // namespace detail
 
-std::uint32_t gActorBarsEnabled5AC490 = 0; // 原全局：0x005AC490。
 
 namespace detail {
 

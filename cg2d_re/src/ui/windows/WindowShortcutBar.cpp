@@ -121,7 +121,7 @@ static std::int32_t WindowShortcutBar_ButtonCollapse(const ElementId, const std:
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_CollapsedShortcutBar));
-    gShortcutBarCollapsed_CA0440 = 1;
+    WindowRuntime_Settings().shortcutBarCollapsed = 1;
     return 1;
 }
 
@@ -136,7 +136,7 @@ static std::int32_t WindowShortcutBar_ButtonExpand(const ElementId, const std::i
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     currentWindow->state |= 0x8000u;
     static_cast<void>(WindowRuntime_Open(WindowId_ShortcutBar));
-    gShortcutBarCollapsed_CA0440 = 0;
+    WindowRuntime_Settings().shortcutBarCollapsed = 0;
     return 1;
 }
 

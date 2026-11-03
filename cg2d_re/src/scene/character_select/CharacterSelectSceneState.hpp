@@ -44,6 +44,8 @@ struct CharacterSelectSceneState {
     std::wstring loginNotice; // 原 0x9A4EAC；登录回复生产、角色选择绘制。
     yobi::YobiAction* versionUpgradeAction = nullptr; // 原 0x9A6EB4。
     yobi::YobiAction* legacyVersionUpgradeAction = nullptr; // 原 0x9A6E68。
+    std::int32_t updateAvailable = 0; // 原 0x9A6EAC；选角升级按钮门禁。
+    yobi::YobiAction* deleteConfirmationAction = nullptr; // 原 0x9A6EB0；删除确认动作借用。
     CharacterListProgressState listProgress {};
     CharacterDeletionProgressState deletionProgress {};
     AuthenticationFailureState authenticationFailure {};

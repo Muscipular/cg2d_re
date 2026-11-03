@@ -12,6 +12,7 @@
 #include <string>
 
 #include "CharacterSelectSceneDependencies.hpp"
+#include "CharacterSelectSceneState.hpp"
 #include "CharacterSelectState.hpp"
 
 #include "cg/scene/login/CharacterCreationRequest.hpp"
@@ -1255,16 +1256,12 @@ namespace cg::character_select {
 
 static constexpr std::size_t kLegacyNameCapacity = 20;
 
-static detail::CharacterSelectUiRecord gReturnUi {
+static constexpr detail::CharacterSelectUiRecord gReturnUi {
     {534, 438, 64, 16}, 245045, 245047, 245046,
 };
-static detail::CharacterSelectUiRecord gUpdateUi {
+static constexpr detail::CharacterSelectUiRecord gUpdateUi {
     {296, 433, 49, 17}, 244542, 244544, 244543,
 };
-
-// 原 0x9A6EAC 与 0x9A6EB0 只被本控制器直接持有。
-static std::int32_t gUpdateAvailable = 0;
-static cg::yobi::YobiAction* gDeleteConfirmationAction = nullptr;
 
 static void CopyRecordName(std::wstring& destination, const login::CharacterRecord& record)
 {
@@ -1449,6 +1446,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
 {
     VM_DOLPHIN_WHITE_START
     std::int32_t sceneResult;
+    auto& sceneUi = connection.CharacterSelectUi();
     // 单次执行块使普通提前退出先经过VM结束标记，不改变后续帧的状态流转。
     do {
         std::int32_t interactive = 1;
@@ -1459,7 +1457,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 world::gCurrentSceneState = 1;
                 connection.PukVersion() = 0;
                 ResetCharacterListProgress_45DD50(connection);
-                gUpdateAvailable = 0;
+                sceneUi.updateAvailable = 0;
                 render::SelectPalette(0, 0);
             } else if (mainState == 1u) {
                 const std::int32_t result = UpdateCharacterListProgress_45DD60(connection);
@@ -1515,17 +1513,17 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                 } else {
                     if (capability == 1) {
                         if (pukVersion == 0u || pukVersion == 2u) {
-                            gUpdateAvailable = 1;
+                            sceneUi.updateAvailable = 1;
                         }
                     } else if (capability >= 2
                         && (pukVersion == 0u || pukVersion == 2u)) {
-                        gUpdateAvailable = 1;
+                        sceneUi.updateAvailable = 1;
                     } else if (capability >= 3
                         && pukVersion >= 5u
                         && pukVersion <= 6u) {
-                        gUpdateAvailable = 1;
+                        sceneUi.updateAvailable = 1;
                     } else if (capability == 4 && pukVersion == 7u) {
-                        gUpdateAvailable = 1;
+                        sceneUi.updateAvailable = 1;
                     }
                     world::gCurrentSceneState = 10;
                 }
@@ -1540,7 +1538,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                     ProcessCharacterDeletionWarning_45E0C0(320, 240);
                 if (result == 1) {
                     world::gCurrentSceneState = 13;
-                    gDeleteConfirmationAction =
+                    sceneUi.deleteConfirmationAction =
                         cg::yobi::CreateModalAction_5044E0(130, 300, 340, 52, 4, 1);
                 } else if (result == 2) {
                     world::gCurrentSceneState = 10;
@@ -1552,25 +1550,25 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
                         240,
                         L"真的要删除吗？" /* 原 0x55C854: 删除角色确认提示。 */,
                         0);
-                if (cg::yobi::IsYobiActionReady(gDeleteConfirmationAction, 1)) {
+                if (cg::yobi::IsYobiActionReady(sceneUi.deleteConfirmationAction, 1)) {
                     cg::render::DrawText3_456560(166, 326, 2, 4, L"想要删除时，请按着 CTRL键不放" /* 原 0x55CD94: 按住 CTRL 删除角色提示。 */, 0);
                     cg::render::DrawText3_456560(166, 346, 2, 4, L"再点选『是』。        " /* 原 0x55CD7C: 再次点击“是”的提示，保留八个尾空格。 */, 0);
                     if (result == 1) {
                         if ((platform::gKeyStates[17] & 2u) != 0) {
                             world::gCurrentSceneState = 14;
                             login::detail::PlaySe(284, 320, 240);
-                            if (gDeleteConfirmationAction != nullptr) {
-                                cg::yobi::MarkDeath(gDeleteConfirmationAction);
-                                gDeleteConfirmationAction = nullptr;
+                            if (sceneUi.deleteConfirmationAction != nullptr) {
+                                cg::yobi::MarkDeath(sceneUi.deleteConfirmationAction);
+                                sceneUi.deleteConfirmationAction = nullptr;
                             }
                             ResetCharacterDeletionProgress_45DBF0(connection);
                             world::gCurrentSceneState = 14;
                         }
                     } else if (result == 2) {
                         world::gCurrentSceneState = 10;
-                        if (gDeleteConfirmationAction != nullptr) {
-                            cg::yobi::MarkDeath(gDeleteConfirmationAction);
-                            gDeleteConfirmationAction = nullptr;
+                        if (sceneUi.deleteConfirmationAction != nullptr) {
+                            cg::yobi::MarkDeath(sceneUi.deleteConfirmationAction);
+                            sceneUi.deleteConfirmationAction = nullptr;
                         }
                     }
                 }
@@ -1714,7 +1712,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
         }
 
         std::int32_t uiStyle = interactive;
-        if (gUpdateAvailable != 0) {
+        if (sceneUi.updateAvailable != 0) {
             if (uiStyle == 0
                 && world::gCurrentSceneState == 11
                 && (cg::ui::QueryUiControlInputState_45F100(&gUpdateUi) & 1) != 0) {
@@ -1745,7 +1743,7 @@ std::int32_t ProcessScene_460FF0(network::CgConnection& connection)
         }
 #endif
 
-        sceneResult = gUpdateAvailable;
+        sceneResult = sceneUi.updateAvailable;
         if (sceneResult != 0) {
             const std::uint8_t pukVersion = connection.PukVersion();
             sceneResult = static_cast<std::int32_t>(pukVersion);

@@ -239,6 +239,20 @@ struct WindowOperationRuntimeState {
     yobi::YobiAction* gatherOpening = nullptr; // 原0xD2E928，非拥有。
 };
 
+// 原生物品/技能拖放现场；当前派发元素与焦点元素分开保存。
+struct WindowPointerRuntimeState {
+    std::int32_t kind = 0; // 原0x57C110。
+    std::int32_t sourceIndex = 0; // 原0x57C114。
+    WindowDragCallback callback = nullptr; // 原0x57C118，非拥有。
+    std::int16_t x = 0; // 原0x57C11C。
+    std::int16_t y = 0; // 原0x57C11E。
+    std::int32_t focusWindowId = 0; // 原0x57C120。
+    ElementId focusElementId = 0; // 原0x57C124，MEI01以0表示无焦点元素。
+    std::int32_t phase = 0; // 原0x57C128。
+    ElementId currentElementId = 0; // 原0x57C12C，MEI01以0表示无当前元素。
+    std::int32_t currentWindowId = 0; // 原0xD67A1C。
+};
+
 // 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
 struct ItemTargetRuntimeState {
     std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
@@ -268,6 +282,7 @@ struct NativeWindowRuntimeState {
     SkillResultRuntimeState skillResult {};
     GatherWindowRuntimeState gather {};
     WindowOperationRuntimeState operations {};
+    WindowPointerRuntimeState pointer {};
     ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。

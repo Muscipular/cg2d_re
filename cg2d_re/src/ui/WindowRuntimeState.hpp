@@ -46,7 +46,6 @@ struct WindowAnimationOptions;
 struct WindowTextInputState;
 // LUP01：Lua扩展属性由UI对象拥有，仅允许原始字符串和S32整数。
 using WindowPropertyMap = std::map<std::string, std::variant<std::string, std::int32_t>>;
-using ElementId = std::uint32_t;
 // 原型业务槽使用固定ID：首项为1，后续槽按枚举基址展开，0留给自动分配。
 enum class NativeElementId : ElementId { First = 1 };
 constexpr ElementId NativeElementKey(std::int32_t slot) noexcept {
@@ -75,8 +74,6 @@ enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_H
 using WindowCallback = std::int32_t (*)(WindowInstance& window, std::int32_t value); // 更新/绘制显式携所属实例。
 using WindowReleaseCallback = void (*)(WindowInstance& window); // 释放对象显式携owner，不借当前窗口现场。
 using WindowElementCallback = std::int32_t (*)(WindowInstance& window, ElementId elementId, std::int32_t state); // 所属窗口及窗口内稳定元素ID，非排序位置。
-using WindowDragCallback = void (*)(
-    std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
 using WindowListSelectionCallback = void (*)(std::int32_t index, const wchar_t* text);
 
 // 原type1的24B前缀保留；NEU01在宿主载荷末尾扩充图态配置。
@@ -570,7 +567,7 @@ std::int32_t WindowInventory_DrawBlockedEquipment(WindowInstance& callbackWindow
 std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两模式物品选择/退出与完整绘制。
 // ISP01：对话29选物先占用/发布两个回调与mode2，启动返回丢弃，再透传焦点绑定S32结果。
 // 原函数：0x004888C0。
-std::int32_t WindowInventory_OpenSpecialSelection(const char* text); // 对话29选择入口，发布特殊回调后绑定焦点。
+std::int32_t WindowInventory_OpenSpecialSelection(session::ClientSession& session, const char* text); // 对话29选择入口，发布特殊回调后绑定焦点。
 // 原函数：0x00488FB0。
 std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 普通背包完整交互/绘制。
 // 原函数：0x00489760。
@@ -886,9 +883,9 @@ void WindowBank_DrawStoredPetTooltip(
 // 原函数：0x004EA670。
 std::int32_t WindowPet_HasSkill25600(std::int32_t index); // 原25600技能检查，返回0/1。
 // 原函数：0x0048C130。
-std::int32_t WindowPetDrag_Start(std::int32_t sourceIndex, std::int32_t mode);
+std::int32_t WindowPetDrag_Start(session::ClientSession& session, std::int32_t sourceIndex, std::int32_t mode);
 // 原函数：0x0048BF10。
-std::int32_t WindowItemDrag_Start(std::int32_t sourceIndex, std::int32_t mode); // IDE01：mode先发布/真实kind2入口及S32透传，十三CALL只来源，完整回调/owner及运行待。
+std::int32_t WindowItemDrag_Start(session::ClientSession& session, std::int32_t sourceIndex, std::int32_t mode); // IDE01：mode先发布/真实kind2入口及S32透传，十三CALL只来源，完整回调/owner及运行待。
 // 原函数：0x00474550。
 std::uint8_t WindowInput_HandleNumber(
     WindowInstance* window, std::int32_t index, std::int32_t state,
@@ -1005,34 +1002,36 @@ std::int32_t WindowRuntime_DrawCompactFrame(WindowInstance& callbackWindow, std:
 std::int32_t WindowElement_HandleVerticalScroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WSB01：低BYTE/W32标志与前项垂直滚动，保原边界取样序。
 // DLP01：只清焦点元素ID/kind/焦点窗口/回调/phase五槽，来源及两坐标保持，返S32 0。
 // 原函数：0x004763E0。
-std::int32_t WindowDrag_ResetMouse(); // 通用鼠标重置，不清来源索引/坐标。
+std::int32_t WindowDrag_ResetMouse(session::ClientSession& session); // 通用鼠标重置，不清来源索引/坐标。
 // DLP01/MEI01：已有kind才绑定焦点窗口与元素ID，不改变会话阶段，返S32 0/1。
 // 原函数：0x004763B0。
-std::int32_t WindowDrag_SetFocus(std::int32_t windowId, ElementId elementId); // 已有kind才写焦点窗口与元素ID。
+std::int32_t WindowDrag_SetFocus(session::ClientSession& session, std::int32_t windowId, ElementId elementId); // 已有kind才写焦点窗口与元素ID。
 // 原函数：0x00475D50。
-ElementId WindowDrag_ReadFocusElement(); // 焦点元素ID，0表示无焦点元素。
+ElementId WindowDrag_ReadFocusElement(session::ClientSession& session); // 焦点元素ID，0表示无焦点元素。
 // 原函数：0x00475D40。
-std::int32_t WindowDrag_ReadFocusWindowId(); // 同源焦点窗口，不是当前窗口。
+std::int32_t WindowDrag_ReadFocusWindowId(session::ClientSession& session); // 同源焦点窗口，不是当前窗口。
 // 原函数：0x00475D60。
-std::int32_t WindowDrag_ReadKind(); // 同源拖动种类。
+std::int32_t WindowDrag_ReadKind(session::ClientSession& session); // 同源拖动种类。
 // 原函数：0x00475D70。
-std::int32_t WindowDrag_ReadX(); // 同源落点X，S16扩展。
+std::int32_t WindowDrag_ReadX(session::ClientSession& session); // 同源落点X，S16扩展。
 // 原函数：0x00475D80。
-std::int32_t WindowDrag_ReadY(); // 同源落点Y，S16扩展。
+std::int32_t WindowDrag_ReadY(session::ClientSession& session); // 同源落点Y，S16扩展。
 // 原函数：0x00475D90。
-std::int32_t WindowDrag_ReadSourceIndex(); // 同源来源索引。
+std::int32_t WindowDrag_ReadSourceIndex(session::ClientSession& session); // 同源来源索引。
 // DLP01：仅phase0且kind非零启动阶段1，按原焦点/回调/来源写序发布，返S32 0/1。
 // 原函数：0x00475DA0。
 std::int32_t WindowDrag_Start(
+    session::ClientSession& session,
     std::int32_t kind, std::int32_t sourceIndex, WindowDragCallback callback);
 // DLP01：仅phase0且kind非零启动阶段3，坐标保S16，原焦点与回调写序保持，返S32 0/1。
 // 原函数：0x00476490。
 std::int32_t WindowDrag_StartAtPosition(
+    session::ClientSession& session,
     std::int32_t kind, std::int32_t sourceIndex, std::int16_t x, std::int16_t y,
     WindowDragCallback callback);
 // DLP01：入口phase4/5才可选回调message3，之后按原八槽顺序清理；不重验回调后phase。
 // 原函数：0x00476500。
-void WindowDrag_Reset(); // 仅阶段4/5调用message3后完整清理。
+void WindowDrag_Reset(session::ClientSession& session); // 仅阶段4/5调用message3后完整清理。
 // 原函数：0x00503CB0。
 std::int32_t WindowRuntime_CycleNameMode(); // 73ECBC先减后负值归2，返回归位前结果。
 // 原函数：0x004A6D80。

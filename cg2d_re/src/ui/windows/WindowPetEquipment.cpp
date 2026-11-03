@@ -199,15 +199,15 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
     if (state.value10 != static_cast<std::uint32_t>(hovered)) state.value14 = 0;
     state.value10 = static_cast<std::uint32_t>(hovered);
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         // kind2与8～27明确表示背包物品；落点重建后的焦点不再是稳定来源。
-        if (WindowDrag_ReadKind() == 2
+        if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2
             && source >= 8 && source < static_cast<std::int32_t>(world::gPlayerRuntimeSlots.items.size())
             && world::gPlayerRuntimeSlots.items[source].used != 0
             && (world::ReadPlayerActionFlagsByte() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
-            const std::int32_t x = WindowDrag_ReadX();
-            const std::int32_t y = WindowDrag_ReadY();
+            const std::int32_t x = WindowDrag_ReadX(*callbackWindow.ownerSession);
+            const std::int32_t y = WindowDrag_ReadY(*callbackWindow.ownerSession);
             for (std::int32_t slot = 0; slot < static_cast<std::int32_t>(std::size(gPetEquipmentLabels)) && slot < pet.values6D8[0]; ++slot) {
                 const std::int32_t left = window->x + kPetEquipmentOriginX + gSelectorPetX54F5C4[slot] - 24;
                 const std::int32_t top = window->y + kPetEquipmentOriginY + gSelectorPetY54F5DC[slot] - 24;
@@ -218,7 +218,7 @@ static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindo
                 }
             }
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
         return 1;
     }
     if (hovered < 0) return 0;
@@ -244,7 +244,7 @@ static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, cons
     const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     const auto hovered = std::bit_cast<std::int32_t>(state.value10);
-    if (hovered >= 0 && WindowDrag_ReadKind() == 0) {
+    if (hovered >= 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) == 0) {
         const auto& item = pet.items6E4[hovered];
         if (item.used != 0) {
             if (state.value14 >= static_cast<std::uint32_t>(item.pages)) state.value14 = 0;

@@ -657,15 +657,15 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
     if (elementId >= static_cast<ElementId>(WindowPetListElementId::HandleButtons_254) && elementId <= static_cast<ElementId>(WindowPetListElementId::HandleButtons_258)) {
         const std::int32_t row = index - 253;
         std::uint32_t events = static_cast<std::uint32_t>(state);
-        if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 3) {
+        if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 3) {
             consumed = 1;
             events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         }
         if ((events & MouseFlag_DragFinish) != 0) {
-            const std::int32_t source = WindowDrag_ReadSourceIndex();
+            const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             const std::int16_t target = petIndex(row);
             WindowItem_RequestPetTransfer(15, index, source, target);
-            WindowDrag_Reset();
+            WindowDrag_Reset(*callbackWindow.ownerSession);
         }
         if ((events & MouseFlag_Hover) != 0) {
             gHoverTextD68AE8 = L"打开此宠物的能力视窗。" /* 原常量参考：0x00586D0C。 */;
@@ -693,19 +693,19 @@ static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, 
                     static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetDetail, 1, 0, nullptr));
                 }
             }
-            static_cast<void>(WindowDrag_ResetMouse());
+            static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             consumed = 1;
         } else if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_RDownEvent) != 0) {
             const std::int16_t selected = petIndex(row);
             if (world::gPetRuntimeRecords[selected].used != 0) {
-                static_cast<void>(WindowPetDrag_Start(selected, 0));
+                static_cast<void>(WindowPetDrag_Start(*callbackWindow.ownerSession, selected, 0));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
         }
         gLoginWindowRuntime.valuesD2EAA0[0] = 0;
         gLoginWindowRuntime.valuesD2EAA0[1] = -1;
-        if (WindowDrag_ReadKind() == 3) {
-            const std::int32_t source = WindowDrag_ReadSourceIndex();
+        if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 3) {
+            const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             gLoginWindowRuntime.valuesD2EAA0[0] = 1;
             gLoginWindowRuntime.valuesD2EAA0[1] = WindowItem_FindSortedPetIndex(source);
         }

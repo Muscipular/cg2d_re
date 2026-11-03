@@ -226,13 +226,14 @@ static std::int32_t WindowShop_ButtonIncrease(WindowInstance& callbackWindow, El
 
 // 原函数：0x004B6C50。
 static void WindowShop_HandleSaleDrag(
+    session::ClientSession& session,
     std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind9出售拖动生命周期。
 
 // 原函数：0x004B6DA0。
-static std::int32_t WindowShop_StartSaleDrag(std::int32_t sourceIndex); // 透传kind9注册返回。
+static std::int32_t WindowShop_StartSaleDrag(session::ClientSession& session, std::int32_t sourceIndex); // 透传kind9注册返回。
 
 // 原函数：0x004BC150。
-static void WindowShop_RemoveSaleSelection(); // 三次读取来源，撤销选择并刷新窗口53。
+static void WindowShop_RemoveSaleSelection(session::ClientSession& session); // 三次读取来源，撤销选择并刷新窗口53。
 
 // 原函数：0x004B6DC0。
 static void WindowShop_Release(WindowInstance&);
@@ -565,6 +566,7 @@ static std::int32_t WindowItem_DrawShopTooltip(
 
 // 原函数：0x004B6C50。
 static void WindowShop_HandleSaleDrag(
+    session::ClientSession& session,
     const std::int32_t message, const std::int32_t unused, const std::int32_t sourceIndex)
 {
     static_cast<void>(unused);
@@ -574,28 +576,28 @@ static void WindowShop_HandleSaleDrag(
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     if (message != 0) {
         if (message == 2 || message == 4) {
-            WindowInstance* const target = WindowRuntime_States()[WindowId_Shop].window;
+            WindowInstance* const target = WindowRuntime_States(session)[WindowId_Shop].window;
             WindowInstance* const previous = gCurrentWindow;
             gCurrentWindow = target;
-            WindowShop_RemoveSaleSelection();
+            WindowShop_RemoveSaleSelection(session);
             gCurrentWindow = previous;
         }
         return;
     }
     std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[sourceIndex]);
     if (gShopItemsCF4FE0[item].used == 0) {
-        static_cast<void>(WindowDrag_ResetMouse());
+        static_cast<void>(WindowDrag_ResetMouse(session));
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
-        static_cast<void>(WindowDrag_ResetMouse());
+        static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX)));
         const auto y = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY)));
-        static_cast<void>(WindowDrag_StartAtPosition(9, sourceIndex, x, y, &WindowShop_HandleSaleDrag));
+        static_cast<void>(WindowDrag_StartAtPosition(session, 9, sourceIndex, x, y, &WindowShop_HandleSaleDrag));
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
-        WindowDrag_Cancel();
+        WindowDrag_Cancel(session);
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[sourceIndex]);
@@ -609,13 +611,13 @@ static void WindowShop_HandleSaleDrag(
 }
 
 // 原函数：0x004B6DA0。
-static std::int32_t WindowShop_StartSaleDrag(const std::int32_t sourceIndex)
+static std::int32_t WindowShop_StartSaleDrag(session::ClientSession& session, const std::int32_t sourceIndex)
 {
-    return WindowDrag_Start(9, sourceIndex, &WindowShop_HandleSaleDrag);
+    return WindowDrag_Start(session, 9, sourceIndex, &WindowShop_HandleSaleDrag);
 }
 
 // 原函数：0x004BC150。
-static void WindowShop_RemoveSaleSelection()
+static void WindowShop_RemoveSaleSelection(session::ClientSession& session)
 {
     WindowInstance* const currentWindow = gCurrentWindow;
     if (!currentWindow) return;
@@ -623,16 +625,16 @@ static void WindowShop_RemoveSaleSelection()
         gShopDragFlagD67B90 = 0;
         return;
     }
-    std::int32_t source = WindowDrag_ReadSourceIndex();
+    std::int32_t source = WindowDrag_ReadSourceIndex(session);
     std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[source]);
     gShopItemsCF4FE0[item].selected = std::int32_t{0};
-    source = WindowDrag_ReadSourceIndex();
+    source = WindowDrag_ReadSourceIndex(session);
     item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[source]);
     const auto selectedMask = static_cast<std::uint32_t>(gShopValueCF467C);
     std::int32_t inventoryIndex;
     std::memcpy(&inventoryIndex, &gShopItemsCF4FE0[item].inventoryIndex, sizeof(inventoryIndex));
     gShopValueCF467C = std::bit_cast<std::int32_t>(selectedMask & ~(1u << (inventoryIndex - 8)));
-    source = WindowDrag_ReadSourceIndex();
+    source = WindowDrag_ReadSourceIndex(session);
     std::int32_t position = gShopScrollCC488C;
     gShopSelectedSlotsCB03DC[source] = static_cast<char>(-1);
     const std::int32_t maximum = gShopItemCountCB1E10 - 5;
@@ -2213,7 +2215,7 @@ static std::int32_t WindowShop_ButtonAddAll(WindowInstance& callbackWindow, cons
                     }
                 }
             }
-            static_cast<void>(WindowDrag_ResetMouse());
+            static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         consumed = 1;
@@ -2251,11 +2253,11 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
         }
         gHoverTextD68AE8 = hint;
     }
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t inventorySlot = WindowDrag_ReadSourceIndex() - 8;
+        const std::int32_t inventorySlot = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) - 8;
         if (inventorySlot >= 0) {
             const std::int32_t item = gShopInventoryMapD2DAB8[inventorySlot];
             if (item >= 0 && item < 20
@@ -2303,9 +2305,9 @@ static std::int32_t WindowShop_HandleSaleDrop(WindowInstance& callbackWindow, co
                 }
             }
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
-    if (WindowDrag_ReadKind() != 0 && (events & MouseFlag_Dragging) != 0) {
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0) {
         const WindowInstance* const window = currentWindow;
         const std::int32_t frame = cg::render::gHoverFramePaletteIndex_D69768;
         auto* const elementPtr = window->FindElementById(elementId);
@@ -3294,12 +3296,12 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
     }
     gShopRowKeysC9A954[index - 52] = row;
     auto events = static_cast<std::uint8_t>(state);
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 9 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 9 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         consumed = 1;
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
     }
-    if ((events & MouseFlag_DragFinish) != 0 && WindowDrag_ReadKind() == 9) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if ((events & MouseFlag_DragFinish) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) == 9) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source != row) {
             const char sourceItem = gShopSelectedSlotsCB03DC[source];
             const char targetItem = gShopSelectedSlotsCB03DC[row];
@@ -3308,7 +3310,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
             WindowShop_RefreshSellRows();
             WindowShop_RefreshSellQuantities();
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     const bool hover = (events & MouseFlag_Hover) != 0;
     if (hover && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]) >= 0) {
@@ -3318,7 +3320,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
         }
     }
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
-        static_cast<void>(WindowDrag_ResetMouse());
+        static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
         const std::int32_t item = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]);
         gShopSelectedSlotsCB03DC[row] = static_cast<char>(-1);
         auto* const record = &gShopItemsCF4FE0[item];
@@ -3335,11 +3337,11 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
     }
     if (hover && std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[row]) >= 0
         && (events & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(WindowShop_StartSaleDrag(row));
+        static_cast<void>(WindowShop_StartSaleDrag(*callbackWindow.ownerSession, row));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (WindowDrag_ReadKind() == 9 && WindowDrag_ReadSourceIndex() == row) {
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 9 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) == row) {
         const WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
@@ -3365,7 +3367,7 @@ static std::int32_t WindowShop_HandleSaleSelection(WindowInstance& callbackWindo
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
     }
-    if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadKind() == 9) {
+    if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) == 9) {
         const WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
@@ -3437,7 +3439,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
     auto events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
     std::int32_t hovered = -1;
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;
     }
@@ -3487,7 +3489,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
     const auto& items = world::gPlayerRuntimeSlots.items;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
         if (mode == 1 || mode == 4 || mode == 5) {
-            if (WindowDrag_ReadFocusWindowId() == 53 || WindowDrag_ReadFocusWindowId() == 0) {
+            if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 53 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
                 const std::int32_t item = gShopInventoryMapD2DAB8[hovered];
                 if (item < 0 || item >= 20
                     || (static_cast<std::uint32_t>(gShopValueCF467C) & (1u << hovered)) != 0
@@ -3537,7 +3539,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                         }
                     }
                 }
-                static_cast<void>(WindowDrag_ResetMouse());
+                static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             }
             consumed = 1;
         } else {
@@ -3550,7 +3552,7 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
                 && (static_cast<std::uint32_t>(gShopValueCF467C) & (1u << hovered)) == 0) {
                 const std::int32_t mappedItem = gShopInventoryMapD2DAB8[scanSlot];
                 if (gShopItemsCF4FE0[mappedItem].allowed != 0) {
-                    static_cast<void>(WindowItemDrag_Start(hovered + 8, 0));
+                    static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 0));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                 }
             }
@@ -3569,8 +3571,8 @@ static std::int32_t WindowShop_HandleInventory(WindowInstance& callbackWindow, c
             consumed = 1;
         }
     }
-    if (WindowDrag_ReadKind() == 2) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);

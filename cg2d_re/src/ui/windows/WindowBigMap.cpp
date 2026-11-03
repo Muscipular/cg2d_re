@@ -913,7 +913,7 @@ struct BigMapWindowState final {
         SyncControls();
         const int mx = static_cast<int>(gMouseX), my = static_cast<int>(gMouseY);
         const bool held = (gMouseBtnDown2 & platform::LegacyMouseButton_Left) != 0;
-        const bool available = gWindowHasFocus == 0 && ui::WindowDrag_ReadMousePhase() == 0
+        const bool available = gWindowHasFocus == 0 && ui::WindowDrag_ReadMousePhase(*window.ownerSession) == 0
             && platform::gWindowActiveState == 2 && platform::IsClientWindowForeground();
         acceptsMouse = available && Hit(0, 0, window.width, window.height);
         if (listOpen && acceptsMouse && ElementHit(ListPanelArea)) {

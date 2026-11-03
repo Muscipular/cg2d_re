@@ -245,10 +245,10 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
     if (hovered >= 0) {
         static_cast<void>(WindowItem_DrawEquipmentTooltip(hovered, gBattleItemPageCB01E0));
     } else {
-        const std::int32_t kind = WindowDrag_ReadKind();
+        const std::int32_t kind = WindowDrag_ReadKind(*callbackWindow.ownerSession);
         if (kind == 2) {
-            if (WindowDrag_ReadFocusWindowId() == 27 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
-                static_cast<void>(WindowDrag_ResetMouse());
+            if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
+                static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             }
         } else if (kind == 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             currentWindow->state |= 0x8000u;
@@ -415,13 +415,13 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
         }
         return consumed;
     }
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;
     }
     std::array<char, 768> buffer;
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source == 2 || source == 3) {
             std::int32_t weapons = 0;
             if (items[2].used == 1 && items[2].itemType != 7) {
@@ -445,7 +445,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     std::int32_t hovered = -1;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -506,7 +506,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
     }
     gBattleBackpackHover57E430 = hovered;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
-        if (WindowDrag_ReadFocusWindowId() == 27 || WindowDrag_ReadFocusWindowId() == 0) {
+        if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 27 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             const auto& item = items[hovered + 8];
             bool useItem = false;
             if (item.used != 1) {
@@ -578,7 +578,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
             }
-            static_cast<void>(WindowDrag_ResetMouse());
+            static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
         }
         consumed = 1;
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
@@ -599,7 +599,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
                         || (type >= 0 && type <= 7) || (type >= 70 && type <= 79))
                     && (item.itemType != kMedicineType
                         || (world::gBattlePlayerFlags5ABCAC & 0x40000u) == 0)) {
-                    static_cast<void>(WindowItemDrag_Start(hovered + 8, 0));
+                    static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 0));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                 }
             }
@@ -618,8 +618,8 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             consumed = 1;
         }
     }
-    if (WindowDrag_ReadKind() == 2) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);
@@ -658,7 +658,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, c
             gBattleItemHoverCF49B0 = hovered + 8;
         }
     }
-    if (WindowDrag_ReadKind() != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex() < 8) {
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) < 8) {
         const WindowInstance* const window = currentWindow;
         const std::uint32_t hoverColor = cg::render::gHoverFramePaletteIndex_D69768;
         auto* elementsWindow = window;
@@ -811,13 +811,13 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         }
         return consumed;
     }
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && (WindowDrag_ReadKind() != 2 || WindowDrag_ReadSourceIndex() >= 100)) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2 || WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100)) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;
     }
     std::array<char, 768> buffer;
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= count && world::gPlayerRuntimeSlots.items[source].used == 1) {
             const std::int32_t type = world::gPlayerRuntimeSlots.items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {
@@ -843,7 +843,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                 }
             }
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     std::int32_t hovered = -1;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -888,7 +888,7 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
         gHoverTextD68AE8 = hint;
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0 && hovered >= 0 && item->used != 0) {
-        if (WindowDrag_ReadFocusWindowId() == 14 || WindowDrag_ReadFocusWindowId() == 0) {
+        if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 14 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             if (hovered == 2 || hovered == 3) {
                 std::int32_t weapons = 0;
                 if (items[2].used == 1 && items[2].itemType != 7) {
@@ -912,13 +912,13 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }
             }
-            static_cast<void>(WindowDrag_ResetMouse());
+            static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
         }
         consumed = 1;
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         if ((events & MouseFlag_LDownEvent) != 0) {
             if ((hovered == 2 || hovered == 3) && item->used != 0 && item->itemType != 7) {
-                static_cast<void>(WindowItemDrag_Start(hovered, 0));
+                static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered, 0));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
@@ -933,8 +933,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             consumed = 1;
         }
     }
-    if (WindowDrag_ReadKind() == 2) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source < count) {
             const std::int32_t left = WindowItemSelector_ReadScreenX(&gItemSelectorD2F338, index, source, -24);
             const std::int32_t top = WindowItemSelector_ReadScreenY(&gItemSelectorD2F338, index, source, -24);
@@ -952,8 +952,8 @@ std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, c
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, cg::render::gHoverFramePaletteIndex_D69768, 0);
     }
-    if (WindowDrag_ReadKind() != 0 && (events & MouseFlag_Dragging) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= count) {
             const std::int32_t type = items[source].itemType;
             if ((type >= 0 && type <= 7) || (type >= 70 && type <= 79)) {

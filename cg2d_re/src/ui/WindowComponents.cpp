@@ -46,7 +46,7 @@ void WindowRuntime_BeginPointerDragFrame(session::ClientSession& session) {
     auto& pointerDragReserved = session.UiFrame().pointerDragReserved;
     pointerDragReserved = pointerDrag.windowId >= 0;
     pointerDrag.startedThisFrame = false;
-    if (WindowDrag_ReadMousePhase() != 0) {
+    if (WindowDrag_ReadMousePhase(session) != 0) {
         CancelPointerDrag(session);
         pointerDragReserved = false; // 原生物品拖放保持其既有调度。
         return;
@@ -68,7 +68,7 @@ bool WindowRuntime_BeginPointerDrag(WindowInstance& window, WindowElement& eleme
     auto& pointerDrag = session.UiFrame().pointerDrag;
     auto& pointerDragReserved = session.UiFrame().pointerDragReserved;
     if (pointerDragReserved || element.refDrag < 0 || !(events & MouseFlag_LDownEvent)
-        || !(gMouseBtnDown2 & platform::LegacyMouseButton_Left) || WindowDrag_ReadMousePhase() != 0
+        || !(gMouseBtnDown2 & platform::LegacyMouseButton_Left) || WindowDrag_ReadMousePhase(session) != 0
         || platform::gWindowActiveState != 2) return false;
     pointerDrag.windowId = window.id;
     pointerDrag.generation = window.generation;
@@ -101,7 +101,7 @@ int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     if (pointerDrag.windowId != window.id || pointerDrag.generation != window.generation) return 1;
     WindowInstance* owner = nullptr;
     auto* element = ResolvePointerDrag(session, owner);
-    if (!element || WindowDrag_ReadMousePhase() != 0) { CancelPointerDrag(session); return 1; }
+    if (!element || WindowDrag_ReadMousePhase(session) != 0) { CancelPointerDrag(session); return 1; }
     const bool released = (gMouseClickState & platform::LegacyMouseEdge_LUp) != 0;
     const bool held = (gMouseBtnDown2 & platform::LegacyMouseButton_Left) != 0;
     if (!held && !released) { CancelPointerDrag(session); return 1; }
@@ -118,7 +118,7 @@ int WindowRuntime_ProcessPointerDrag(WindowInstance& window) {
     if (flags) EmitPointerDrag(window, *element, flags);
     // 回调可隐藏、清空、关闭或取消onDrag；重新解析，不持有旧元素地址。
     element = ResolvePointerDrag(session, owner);
-    if (!element || WindowDrag_ReadMousePhase() != 0) { CancelPointerDrag(session); return 1; }
+    if (!element || WindowDrag_ReadMousePhase(session) != 0) { CancelPointerDrag(session); return 1; }
     if (released) {
         const bool finish = pointerDrag.moved;
         CancelPointerDrag(session); // 先释放捕获，回调不能导致第二次结束。
@@ -136,7 +136,7 @@ void WindowRuntime_CancelPointerDrag(WindowInstance& window) {
 
 void WindowRuntime_EndPointerDragFrame(session::ClientSession& session) {
     WindowInstance* window = nullptr;
-    if (!ResolvePointerDrag(session, window) || WindowDrag_ReadMousePhase() != 0) CancelPointerDrag(session);
+    if (!ResolvePointerDrag(session, window) || WindowDrag_ReadMousePhase(session) != 0) CancelPointerDrag(session);
 }
 
 

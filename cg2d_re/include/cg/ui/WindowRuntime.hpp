@@ -12,6 +12,11 @@ struct YobiAction;
 namespace cg::ui {
 
 using WindowValueCallback = void (*)(std::int32_t value);
+using ElementId = std::uint32_t;
+// 原拖放消息及来源编号不变，额外携带发起会话。
+using WindowDragCallback = void (*)(
+    session::ClientSession& session, std::int32_t message,
+    std::int32_t flags, std::int32_t sourceIndex);
 
 // 原生窗口、控件及 Lua MouseFlags 共用的事件位；由底层鼠标状态映射产生。
 enum MouseFlags : std::uint32_t {
@@ -177,7 +182,7 @@ void WindowRuntime_CloseByCategory(std::uint32_t mask); // 按原71槽顺序关�
 void WindowRuntime_CloseByCategory(session::ClientSession& session, std::uint32_t mask);
 // DLP01：非零phase才取消，可选message1/4后重取phase；八槽清理末按该样本进入2/6。
 // 原函数：0x00476410。
-void WindowDrag_Cancel(); // 回调后重读阶段，最后进入2或6，不等同通用重置。
+void WindowDrag_Cancel(session::ClientSession& session); // 回调后重读阶段，最后进入2或6，不等同通用重置。
 // 原代码位置：0x00440ADB。
 void WindowRuntime_ApplyObservationInputGate(); // 同源5F9754及D67B08前八个U8的观察进入写序。
 // 原CRT 553098入口仅尾跳既有初始化，无退出登记。
@@ -275,8 +280,8 @@ std::int32_t WindowTrade_ReceiveRemoteResetReply(cg::network::CgConnection& netw
 void WindowTrade_ReceiveCloseReply(cg::network::CgConnection& networkConnection, std::int32_t value); // 关闭只置标志，弃原混合返回。
 
 // 读取原生拖动阶段，供脚本控件判断当前鼠标操作。
-int WindowDrag_ReadMousePhase();
+int WindowDrag_ReadMousePhase(session::ClientSession& session);
 // 消费阶段4的拖放回调，并按原顺序重置鼠标拖动状态。
-void WindowDrag_ConsumeDrop();
+void WindowDrag_ConsumeDrop(session::ClientSession& session);
 
 } // namespace cg::ui

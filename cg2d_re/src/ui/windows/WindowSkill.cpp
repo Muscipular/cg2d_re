@@ -76,10 +76,11 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, E
 
 // 原函数：0x00479700。
 static void WindowSkill_HandleDrag(
+    session::ClientSession& session,
     std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // kind4拖动，仅message0推进。
 
 // 原函数：0x004797A0。
-static std::int32_t WindowSkill_StartDrag(std::int32_t sourceIndex); // 安装479700并透传返回。
+static std::int32_t WindowSkill_StartDrag(session::ClientSession& session, std::int32_t sourceIndex); // 安装479700并透传返回。
 
 // 原函数：0x00479C80。
 static void WindowSkill_ShowTechniques(session::ClientSession& session, WindowInstance* window, std::int32_t pairIndex); // 切技术模式，负参数保留原技能。
@@ -696,21 +697,22 @@ static void WindowSkill_DrawSkillRow(
 
 // 原函数：0x00479700。
 static void WindowSkill_HandleDrag(
+    session::ClientSession& session,
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
     if (message != 0) {
         return;
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
-        static_cast<void>(WindowDrag_ResetMouse());
+        static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         const auto y = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
-        static_cast<void>(WindowDrag_StartAtPosition(4, sourceIndex, x, y, WindowSkill_HandleDrag));
+        static_cast<void>(WindowDrag_StartAtPosition(session, 4, sourceIndex, x, y, WindowSkill_HandleDrag));
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
-        WindowDrag_Cancel();
+        WindowDrag_Cancel(session);
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t y =
@@ -722,9 +724,9 @@ static void WindowSkill_HandleDrag(
 }
 
 // 原函数：0x004797A0。
-static std::int32_t WindowSkill_StartDrag(const std::int32_t sourceIndex)
+static std::int32_t WindowSkill_StartDrag(session::ClientSession& session, const std::int32_t sourceIndex)
 {
-    return WindowDrag_Start(4, sourceIndex, WindowSkill_HandleDrag);
+    return WindowDrag_Start(session, 4, sourceIndex, WindowSkill_HandleDrag);
 }
 
 // 原函数：0x0047B820。
@@ -743,12 +745,12 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, c
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 4) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 4) {
         events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source != pairIndex && world::gSkillReorderPending_DA3B20 == 0) {
             const std::int32_t targetSkill =
                 std::bit_cast<std::int16_t>(world::gSkillPairsF63370[pairIndex].index);
@@ -757,18 +759,18 @@ static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, c
             static_cast<void>(session.Connection().SwapPlayerSkillOrderRequest(sourceSkill, targetSkill));
             world::gSkillReorderPending_DA3B20 = 1;
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     const bool clicked = (events & MouseFlag_LDownEvent) != 0;
     if (clicked) {
         if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
             WindowSkill_ShowTechniques(session, currentWindow, pairIndex);
             WindowRuntime_IncrementOperationCount(*callbackWindow.ownerSession);
-            static_cast<void>(WindowDrag_ResetMouse());
+            static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
             consumed = 1;
         }
     } else if ((events & MouseFlag_Hover) != 0 && (events & MouseFlag_RDownEvent) != 0 && operations.skillCount == 0) {
-        static_cast<void>(WindowSkill_StartDrag(pairIndex));
+        static_cast<void>(WindowSkill_StartDrag(*callbackWindow.ownerSession, pairIndex));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }

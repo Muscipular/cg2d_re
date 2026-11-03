@@ -1170,7 +1170,7 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
     auto events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
     std::int32_t hovered = -1;
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
@@ -1208,8 +1208,8 @@ static std::int32_t WindowCrystalExchangeShop_HandleInventory(WindowInstance& ca
         }
         consumed = 1;
     }
-    if (WindowDrag_ReadKind() == 2) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);

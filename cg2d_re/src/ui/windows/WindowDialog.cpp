@@ -109,6 +109,7 @@ static std::int32_t WindowDialog_Reply(
 
 // 原函数：0x0049D2E0。
 static void WindowDialog_Route(
+    session::ClientSession& session,
     std::int32_t type, std::int32_t value, std::int32_t request,
     std::int32_t target, char* text); // SRD01：完整同类续接/重入新建及原五参数分派，原位text与副作用保持，非全机器返回等价。
 
@@ -883,6 +884,7 @@ static void WindowDialog_ParseGraphicTag(const char* const text, std::int16_t x,
 // SRD01：原49D2E0完整515条；三阶段分派/原六处存放解析合并条件、fresh窗口与Y-X RNG/状态发布保持。
 // 原函数：0x0049D2E0。
 static void WindowDialog_Route(
+    session::ClientSession& session,
     const std::int32_t type, const std::int32_t value, const std::int32_t request,
     const std::int32_t target, char* const text)
 {
@@ -1044,7 +1046,7 @@ static void WindowDialog_Route(
         static_cast<void>(WindowShop_OpenExchange(text));
         return;
     case 29:
-        static_cast<void>(WindowInventory_OpenSpecialSelection(text));
+        static_cast<void>(WindowInventory_OpenSpecialSelection(session, text));
         return;
     case 30:
         static_cast<void>(WindowShopChoice_OpenGiveReceiveChoice(text));
@@ -1094,7 +1096,7 @@ static void WindowDialog_Route(
 
 // 原函数：0x0050E130。
 static void WindowDialog_RouteReply(
-    cg::network::CgConnection&, const std::int32_t type, const std::int32_t value,
+    cg::network::CgConnection& connection, const std::int32_t type, const std::int32_t value,
     const std::int32_t request, const std::int32_t target, char* const text)
 {
     if (value == -1) {
@@ -1108,7 +1110,7 @@ static void WindowDialog_RouteReply(
         world::gCurrentDialogType_581800 = -1;
         return;
     }
-    WindowDialog_Route(type, value, request, target, text);
+    WindowDialog_Route(connection.Owner(), type, value, request, target, text);
     cg::yobi::YobiAction* const action = world::FindObjectYobi_4462B0(target);
     world::FaceWorldActorTowardPlayer_43D860(action);
 }

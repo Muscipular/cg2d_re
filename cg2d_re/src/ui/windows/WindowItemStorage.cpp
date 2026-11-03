@@ -146,14 +146,14 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
     dimmed.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t dropX = WindowDrag_ReadX();
-        const std::int32_t dropY = WindowDrag_ReadY();
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t dropX = WindowDrag_ReadX(*callbackWindow.ownerSession);
+        const std::int32_t dropY = WindowDrag_ReadY(*callbackWindow.ownerSession);
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source < 100) {
             const WindowInstance* const window = currentWindow;
             const std::int32_t windowX = window->x;
@@ -178,7 +178,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
                 }
             }
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     std::int32_t hovered = -1;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -199,7 +199,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         gHoverTextD68AE8 = L"把身上的物品用滑鼠拖放到饲料箱。";
     }
-    if (WindowDrag_ReadKind() != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex() >= 100
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
@@ -210,7 +210,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         if ((events & MouseFlag_LDownEvent) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-                static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
+                static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
@@ -228,8 +228,8 @@ static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWin
             consumed = 1;
         }
     }
-    if (WindowDrag_ReadKind() == 2) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);
@@ -319,14 +319,14 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0
-        && ((WindowDrag_ReadKind() != 2 && WindowDrag_ReadKind() != 5) || WindowDrag_ReadSourceIndex() < 8)) {
+        && ((WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 5) || WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) < 8)) {
         events &= static_cast<std::uint8_t>(~(MouseFlag_Dragging | MouseFlag_DragFinish));
         consumed = 1;
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t dropX = WindowDrag_ReadX();
-        const std::int32_t dropY = WindowDrag_ReadY();
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t dropX = WindowDrag_ReadX(*callbackWindow.ownerSession);
+        const std::int32_t dropY = WindowDrag_ReadY(*callbackWindow.ownerSession);
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         const WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
@@ -353,7 +353,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
                 break;
             }
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     std::int32_t hovered = -1;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -375,8 +375,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             }
         }
     }
-    if (WindowDrag_ReadKind() != 0 && (events & MouseFlag_Dragging) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) != 0 && (events & MouseFlag_Dragging) != 0) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source < 100 && (*reinterpret_cast<const unsigned char*>(
                     &world::gPlayerRuntimeSlots.items[source].flags) & 0x60u) != 0) {
             hovered = -1;
@@ -392,7 +392,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
-                static_cast<void>(WindowItemDrag_Start(hovered + 100, 1));
+                static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 100, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
@@ -413,8 +413,8 @@ static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callback
             consumed = 1;
         }
     }
-    if (WindowDrag_ReadKind() == 2 || WindowDrag_ReadKind() == 5) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2 || WindowDrag_ReadKind(*callbackWindow.ownerSession) == 5) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 100) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);

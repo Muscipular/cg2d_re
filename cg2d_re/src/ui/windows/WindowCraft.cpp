@@ -122,10 +122,11 @@ static void WindowCraft_ValidatePackingMaterials(std::int32_t destination, std::
 
 // 原函数：0x0047DE00。
 static void WindowCraft_HandleMaterialDrag(
+    session::ClientSession& session,
     std::int32_t message, std::int32_t unused, std::int32_t sourceIndex); // 材料/单选拖动与释放。
 
 // 原函数：0x0047DF30。
-static std::int32_t WindowCraft_StartMaterialDrag(std::int32_t sourceIndex); // 安装类型10的47DE00拖动回调。
+static std::int32_t WindowCraft_StartMaterialDrag(session::ClientSession& session, std::int32_t sourceIndex); // 安装类型10的47DE00拖动回调。
 
 // 原函数：0x00482270。
 static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 执行资格、五等待及刻印直接发送。
@@ -1026,13 +1027,13 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
     const std::int32_t destination = index - 15;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 10 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 10 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        if (WindowDrag_ReadKind() == 2) {
-            const std::int32_t source = WindowDrag_ReadSourceIndex();
+        if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
+            const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             // 各模式早退汇合到同一次InvDragReset，保留释放与占用写入的不同顺序。
             const auto receiveInventory = [&] {
                 const std::uint8_t mode = gSelectionModeD2D650;
@@ -1166,9 +1167,9 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                 }
             };
             receiveInventory();
-            WindowDrag_Reset();
-        } else if (WindowDrag_ReadKind() == 10) {
-            const std::int32_t source = WindowDrag_ReadSourceIndex();
+            WindowDrag_Reset(*callbackWindow.ownerSession);
+        } else if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 10) {
+            const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
             if (source != destination) {
                 const std::int32_t sourceSlot = gSelectedSlotsCA0A90[source];
                 const std::int32_t destinationSlot = gSelectedSlotsCA0A90[destination];
@@ -1187,7 +1188,7 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
                 gMaterialIndicesCA0458[destination] = sourceMaterial;
                 gMaterialIndicesCA0458[source] = destinationMaterial;
             }
-            WindowDrag_Reset();
+            WindowDrag_Reset(*callbackWindow.ownerSession);
         }
     }
     const std::uint8_t mode = gSelectionModeD2D650;
@@ -1261,11 +1262,11 @@ static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindo
     }
     const bool hovered = (events & MouseFlag_Hover) != 0;
     if (hovered && gSelectedSlotsCA0A90[destination] >= 0 && (events & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(WindowCraft_StartMaterialDrag(destination));
+        static_cast<void>(WindowCraft_StartMaterialDrag(*callbackWindow.ownerSession, destination));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (WindowDrag_ReadKind() == 10 && WindowDrag_ReadSourceIndex() == destination) {
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 10 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) == destination) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {
@@ -1570,6 +1571,7 @@ static void WindowCraft_ValidatePackingMaterials(const std::int32_t destination,
 
 // 原函数：0x0047DE00。
 static void WindowCraft_HandleMaterialDrag(
+    session::ClientSession& session,
     const std::int32_t message, const std::int32_t, const std::int32_t sourceIndex)
 {
     render::GraphicDescriptor16 descriptor {};
@@ -1583,18 +1585,18 @@ static void WindowCraft_HandleMaterialDrag(
         return;
     }
     if (sourceIndex >= 6 && gSelectedImageCC3ED8 < 0) {
-        WindowDrag_Cancel();
+        WindowDrag_Cancel(session);
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
-        static_cast<void>(WindowDrag_ResetMouse());
+        static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         const auto y = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
-        static_cast<void>(WindowDrag_StartAtPosition(10, sourceIndex, x, y, WindowCraft_HandleMaterialDrag));
+        static_cast<void>(WindowDrag_StartAtPosition(session, 10, sourceIndex, x, y, WindowCraft_HandleMaterialDrag));
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
-        WindowDrag_Cancel();
+        WindowDrag_Cancel(session);
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
     const std::int32_t imageNo =
@@ -1607,9 +1609,9 @@ static void WindowCraft_HandleMaterialDrag(
 }
 
 // 原函数：0x0047DF30。
-static std::int32_t WindowCraft_StartMaterialDrag(const std::int32_t sourceIndex)
+static std::int32_t WindowCraft_StartMaterialDrag(session::ClientSession& session, const std::int32_t sourceIndex)
 {
-    return WindowDrag_Start(10, sourceIndex, WindowCraft_HandleMaterialDrag);
+    return WindowDrag_Start(session, 10, sourceIndex, WindowCraft_HandleMaterialDrag);
 }
 
 // 原函数：0x00482F70。
@@ -2024,14 +2026,14 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
     auto* const hoverMarks = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t dropX = WindowDrag_ReadX();
-        const std::int32_t dropY = WindowDrag_ReadY();
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t dropX = WindowDrag_ReadX(*callbackWindow.ownerSession);
+        const std::int32_t dropY = WindowDrag_ReadY(*callbackWindow.ownerSession);
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         const WindowInstance* const window = currentWindow;
         for (std::int32_t position = 0; position < 20; ++position) {
             if (hoverMarks[position + 8] != 0) {
@@ -2051,7 +2053,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
             }
             break;
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     std::int32_t hovered = -1;
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
@@ -2075,7 +2077,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         gHoverTextD68AE8 = L"以滑鼠拖放＆点选方式，来选择物品。";
     }
-    if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex() >= 100
+    if ((events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) >= 100
         && (world::gPlayerRuntimeSlots.items[hovered + 8].flags & 0x60u) != 0) {
         hovered = -1;
     }
@@ -2085,10 +2087,10 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
     gCraftBackpackHover57DA24 = hovered;
     if (hovered >= 0 && world::gPlayerRuntimeSlots.items[hovered + 8].used != 0
         && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
-        if (WindowDrag_ReadFocusWindowId() == 11 || WindowDrag_ReadFocusWindowId() == 0) {
+        if (WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 11 || WindowDrag_ReadFocusWindowId(*callbackWindow.ownerSession) == 0) {
             const std::uint8_t mode = gSelectionModeD2D650;
             if (mode == 0 || mode == 3 || mode == 6 || mode == 15 || mode == 9 || mode == 12) {
-                static_cast<void>(WindowDrag_ResetMouse());
+                static_cast<void>(WindowDrag_ResetMouse(*callbackWindow.ownerSession));
                 const auto selectItem = [&] {
                     auto* const item = &world::gPlayerRuntimeSlots.items[hovered + 8];
                     const auto fail = [] {
@@ -2305,7 +2307,7 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
     } else if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
         if ((events & MouseFlag_LDownEvent) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-                static_cast<void>(WindowItemDrag_Start(hovered + 8, 1));
+                static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, hovered + 8, 1));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
             consumed = 1;
@@ -2322,8 +2324,8 @@ static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, 
             consumed = 1;
         }
     }
-    if (WindowDrag_ReadKind() == 2) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);
@@ -2546,12 +2548,12 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
     descriptor.mixFlags = cg::render::GraphicMixFlag_OriginalPalette;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8 && source < 100) {
             if (gSelectedItemD460C0 >= 0) {
                 static_cast<void>(WindowCraft_ReleaseMaterials(6));
@@ -2578,7 +2580,7 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
                 }
             }
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     const std::int32_t selected = gSelectedItemD460C0;
     if (selected >= 0) {
@@ -2636,11 +2638,11 @@ static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWin
     }
     const bool hovered = (events & MouseFlag_Hover) != 0;
     if (hovered && gSelectedItemD460C0 >= 0 && (events & MouseFlag_LDownEvent) != 0) {
-        static_cast<void>(WindowCraft_StartMaterialDrag(6));
+        static_cast<void>(WindowCraft_StartMaterialDrag(*callbackWindow.ownerSession, 6));
         static_cast<void>(audio::PlaySe_52C450(51, 320));
         consumed = 1;
     }
-    if (WindowDrag_ReadKind() == 10 && WindowDrag_ReadSourceIndex() == 6) {
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 10 && WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession) == 6) {
         WindowInstance* const window = currentWindow;
         auto* const elementPtr = window->FindElementById(elementId);
         if (elementPtr) {

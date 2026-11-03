@@ -334,7 +334,7 @@ static WindowElement* WindowPetSkills_Refresh()
 
 static std::int32_t WindowPetSkills_HandleMouseWheel(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    if ((state & MouseFlag_Hover) == 0 || WindowDrag_ReadMousePhase() != 0) return 0;
+    if ((state & MouseFlag_Hover) == 0 || WindowDrag_ReadMousePhase(*callbackWindow.ownerSession) != 0) return 0;
     const std::int32_t wheel = WindowPeekMouseWheelDelta();
     if (wheel == 0) return 0;
     const auto selected = std::bit_cast<std::int16_t>(
@@ -614,7 +614,7 @@ static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow
 }
 
 // 原函数：0x0048F620。
-static void WindowPetSkills_HandleDrag(const std::int32_t mode, const std::int32_t, const std::int32_t source)
+static void WindowPetSkills_HandleDrag(session::ClientSession& session, const std::int32_t mode, const std::int32_t, const std::int32_t source)
 {
     if (mode != 0) {
         if (mode > 0 && mode <= 4) {
@@ -625,22 +625,22 @@ static void WindowPetSkills_HandleDrag(const std::int32_t mode, const std::int32
         return;
     }
     if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
-        static_cast<void>(WindowDrag_ResetMouse());
+        static_cast<void>(WindowDrag_ResetMouse(session));
         const auto x = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseX));
         const auto y = static_cast<std::int16_t>(
             static_cast<std::int32_t>(platform::gLegacyMouseState.mouseY));
-        static_cast<void>(WindowDrag_StartAtPosition(11, source, x, y, WindowPetSkills_HandleDrag));
+        static_cast<void>(WindowDrag_StartAtPosition(session, 11, source, x, y, WindowPetSkills_HandleDrag));
     }
     static_cast<void>(platform::RequestCursorState_506DE0(1, 0));
 }
 
 // 原函数：0x0048F690。
-static std::int32_t WindowPetSkills_StartDrag(const std::int32_t source)
+static std::int32_t WindowPetSkills_StartDrag(session::ClientSession& session, const std::int32_t source)
 {
     gLoginWindowRuntime.petTechniqueD2D66C = source;
     gLoginWindowRuntime.petTechniqueDragD460CC = 1;
-    return WindowDrag_Start(11, source, WindowPetSkills_HandleDrag);
+    return WindowDrag_Start(session, 11, source, WindowPetSkills_HandleDrag);
 }
 
 // 原函数：0x0048F6C0。
@@ -650,7 +650,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(WindowInstance& callbackWindo
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 11) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 11) {
         events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
     }
     if (elementId == static_cast<ElementId>(WindowPetSkillsElementId::HandleSkillRow)) {
@@ -681,7 +681,7 @@ static std::int32_t WindowPetSkills_HandleSkillRow(WindowInstance& callbackWindo
         }
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
         gLoginWindowRuntime.petTechniqueValueD2F784 = gPetTechniqueScroll + index - 37;
         gLoginWindowRuntime.petTechniqueD2D66C = source;
@@ -691,12 +691,12 @@ static std::int32_t WindowPetSkills_HandleSkillRow(WindowInstance& callbackWindo
         const auto sourceTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[source].index);
         const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
         static_cast<void>(callbackWindow.ownerSession->Connection().SwapPetSkillOrderRequest(selected, sourceTechnique, targetTechnique));
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 24));
     if (indexedElement) {
         if ((events & MouseFlag_RDownEvent) != 0 && hover && indexedElement->visible != 0) {
-            static_cast<void>(WindowPetSkills_StartDrag(gPetTechniqueScroll + index - 37));
+            static_cast<void>(WindowPetSkills_StartDrag(*callbackWindow.ownerSession, gPetTechniqueScroll + index - 37));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
     }

@@ -164,12 +164,12 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
     if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
-    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 2) {
+    if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind(*callbackWindow.ownerSession) != 2) {
         events &= ~(MouseFlag_Dragging | MouseFlag_DragFinish);
         consumed = 1;
     }
     if ((events & MouseFlag_DragFinish) != 0) {
-        const std::int32_t source = WindowDrag_ReadSourceIndex();
+        const std::int32_t source = WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession);
         if (source >= 8 && (static_cast<std::uint8_t>(world::gPlayerRuntimeSlots.items[source].flags) & 1u) != 0) {
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             const std::int32_t previous = gLoginWindowRuntime.prefixD2F0B8.value0C;
@@ -184,12 +184,12 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
-        WindowDrag_Reset();
+        WindowDrag_Reset(*callbackWindow.ownerSession);
     }
     if ((events & MouseFlag_LDownEvent) != 0) {
         const std::int32_t selected = gLoginWindowRuntime.prefixD2F0B8.value0C;
         if (selected >= 0) {
-            static_cast<void>(WindowItemDrag_Start(selected, 1));
+            static_cast<void>(WindowItemDrag_Start(*callbackWindow.ownerSession, selected, 1));
             const std::int32_t current = gLoginWindowRuntime.prefixD2F0B8.value0C;
             auto* const occupancy = reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
             auto count = occupancy[current];
@@ -200,8 +200,8 @@ static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callback
         }
         consumed = 1;
     }
-    if (WindowDrag_ReadKind() == 2) {
-        static_cast<void>(WindowDrag_ReadSourceIndex());
+    if (WindowDrag_ReadKind(*callbackWindow.ownerSession) == 2) {
+        static_cast<void>(WindowDrag_ReadSourceIndex(*callbackWindow.ownerSession));
     }
     if ((events & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const WindowInstance* const window = currentWindow;

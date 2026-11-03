@@ -56,10 +56,6 @@ struct BattleAppendEffectNode {
 
 static BattleAppendEffectNode* gBattleAppendEffects5ABA8C = nullptr; // 原全局：0x005ABA8C。
 
-static std::int32_t gDrawYobiCount59E578 = 0; // 原全局：0x0059E578。
-
-static std::array<YobiAction*, 257> gDrawYobiList59E57C {}; // 原全局：0x0059E57C。 原257地址槽，非拥有T*；不清排序范围外尾部。
-
 // 原函数：0x00404D90。
 std::int32_t SelectIntValue_404D90(
     const std::int32_t* const values, const std::int32_t count, const std::int32_t index)
@@ -824,54 +820,56 @@ std::int32_t SortBattleActions_405C30(session::ClientSession& session)
 {
     YobiAction* const start = session.Yobi().start;
     YobiAction* const end = session.Yobi().end;
+    auto& drawCount = session.Yobi().drawBattleActionCount;
+    auto& drawList = session.Yobi().drawBattleActions;
     std::uint32_t count = 0;
     YobiAction* current = start->next;
-    detail::gDrawYobiCount59E578 = 0;
+    drawCount = 0;
     while (current != end) {
         if ((current->flags & YobiActionFlag_BattleDepthSort) != 0) {
-            detail::gDrawYobiList59E57C[count] = current;
+            drawList[count] = current;
             ++count;
-            detail::gDrawYobiCount59E578 = static_cast<std::int32_t>(count);
+            drawCount = static_cast<std::int32_t>(count);
         }
         current = current->next;
     }
-    std::sort(detail::gDrawYobiList59E57C.begin(), detail::gDrawYobiList59E57C.begin() + count,
+    std::sort(drawList.begin(), drawList.begin() + count,
         [](YobiAction* const left, YobiAction* const right) {
             return detail::CompareBattleDrawActions_405BD0(&left, &right) < 0;
         });
     // AT01：先将每个主称号移到本人物/骑乘/辅助挂件之后，再分配原有层号。
     // 其他对象相互次序保持，不把称号提至场景固定高层。
     for (std::uint32_t titleIndex = 0; titleIndex < count; ++titleIndex) {
-        YobiAction* const title = detail::gDrawYobiList59E57C[titleIndex];
+        YobiAction* const title = drawList[titleIndex];
         if (detail::GetBattleTitleAnchor(title) == nullptr) {
             continue;
         }
         const YobiAction* const parent = title->battleAttachmentParent10;
         std::uint32_t last = titleIndex;
         for (std::uint32_t sibling = titleIndex + 1; sibling < count; ++sibling) {
-            const YobiAction* const candidate = detail::gDrawYobiList59E57C[sibling];
+            const YobiAction* const candidate = drawList[sibling];
             if (candidate == parent || (candidate->callback == detail::UpdateBattleAttachment_421F90
                 && candidate->battleAttachmentParent10 == parent)) {
                 last = sibling;
             }
         }
         if (last != titleIndex) {
-            std::rotate(detail::gDrawYobiList59E57C.begin() + titleIndex,
-                detail::gDrawYobiList59E57C.begin() + titleIndex + 1,
-                detail::gDrawYobiList59E57C.begin() + last + 1);
+            std::rotate(drawList.begin() + titleIndex,
+                drawList.begin() + titleIndex + 1,
+                drawList.begin() + last + 1);
             --titleIndex; // 重查移到当前位置的对象，避免漏过另一人物的称号。
         }
     }
     std::int32_t index = 0;
-    if (detail::gDrawYobiCount59E578 > 0) {
+    if (drawCount > 0) {
         do {
-            YobiAction* const action = detail::gDrawYobiList59E57C[index];
+            YobiAction* const action = drawList[index];
             const auto priority = static_cast<std::uint8_t>(index + 9);
             ++index;
             action->displayPriority = priority;
-        } while (index < detail::gDrawYobiCount59E578);
-        for (std::int32_t gearIndex = 0; gearIndex < detail::gDrawYobiCount59E578; ++gearIndex) {
-            detail::ResolveBattleGearLayer406(detail::gDrawYobiList59E57C[gearIndex]);
+        } while (index < drawCount);
+        for (std::int32_t gearIndex = 0; gearIndex < drawCount; ++gearIndex) {
+            detail::ResolveBattleGearLayer406(drawList[gearIndex]);
         }
     }
     return index;

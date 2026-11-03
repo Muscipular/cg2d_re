@@ -26,6 +26,8 @@ struct YobiSessionState {
     std::int32_t mapEffectDurationSeconds = 0; // 原 0x5AC4B8。
     std::uint64_t mapEffectStartTick = 0; // 原 0x5F973C。
     std::uint8_t mapEffectSpawnCounter = 0; // 原 0x5F9755。
+    std::int32_t drawBattleActionCount = 0; // 原 0x59E578。
+    std::array<YobiAction*, 257> drawBattleActions {}; // 原 0x59E57C，非拥有，排序范围外尾部不清。
     std::array<std::uint8_t, kMapRegistryEntries> mapRegistryFlags {}; // 原 0xB65A80。
     std::array<YobiAction*, kMapRegistryEntries> mapRegistryActions {}; // 原 0xB8C864，非拥有。
 };

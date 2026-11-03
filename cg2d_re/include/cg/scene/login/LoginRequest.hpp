@@ -80,10 +80,10 @@ struct LoginRequestState {
 
 // 原 sub_508AF0@0x508AF0；前置条件是有符号选择值位于 [0, 1]。
 // 原函数不检查范围，本接口同样不为无效输入增加业务分支。
-std::uint32_t StartLoginRequest();
+std::uint32_t StartLoginRequest(network::CgConnection& connection);
 
 // 原 sub_508B50@0x508B50；轮询完成、失败或 600000 ms 超时。
-std::int32_t PollLoginRequest();
+std::int32_t PollLoginRequest(network::CgConnection& connection);
 
 // 原 sub_508BC0@[0x508BC0,0x508C39)：caller 压三参，本体只读前两项。
 void HandleLoginResponse_508BC0(cg::network::CgConnection& networkConnection, const char* result, const char* unusedText);

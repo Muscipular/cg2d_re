@@ -142,7 +142,7 @@ void Update(session::ClientSession& session)
         return;
     case 6:
         platform::gFrameBackgroundMode_73ECC0 = 0;
-        login::ProcessState_45E960();
+        login::ProcessState_45E960(session.Connection());
         goto sceneSixTail;
     case 7:
         detail::ProcessLogoutScene_45EBB0();

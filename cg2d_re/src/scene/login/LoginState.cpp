@@ -293,17 +293,17 @@ std::int32_t UpdateServerConnection(network::CgConnection& connection)
 }
 
 // 原函数：0x0045E960。
-std::int32_t ProcessState_45E960()
+std::int32_t ProcessState_45E960(network::CgConnection& connection)
 {
-    auto& request = cg::network::GetGameConnection().LoginRequests();
+    auto& request = connection.LoginRequests();
     if (world::gCurrentSceneState == 0) {
-        ResetLoginProgress();
+        ResetLoginProgress(connection);
         cg::world::ResetGuildStateAndCloseDetails_532D80();
         ++world::gCurrentSceneState;
     }
 
     if (world::gCurrentSceneState == 1) {
-        const std::int32_t result = UpdateLoginProgress();
+        const std::int32_t result = UpdateLoginProgress(connection);
         if (result == 1) {
             world::detail::ResendSavedPlayerProfile_534290();
             world::SetCurrentSceneType(9);
@@ -317,7 +317,7 @@ std::int32_t ProcessState_45E960()
     }
 
     if (world::gCurrentSceneState == 100) {
-        ResetLoginMessage();
+        ResetLoginMessage(connection);
         ++world::gCurrentSceneState;
     }
 
@@ -326,7 +326,7 @@ std::int32_t ProcessState_45E960()
         return sceneState;
     }
 
-    const std::int32_t result = UpdateLoginMessage(request.processingErrorMessage);
+    const std::int32_t result = UpdateLoginMessage(connection, request.processingErrorMessage);
     if (result == 0) {
         return 0;
     }
@@ -334,16 +334,16 @@ std::int32_t ProcessState_45E960()
 }
 
 // 原函数：0x0045EA50。
-void ResetLoginProgress()
+void ResetLoginProgress(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     sceneUi.loginProgressPhase = 0;
 }
 
 // 原函数：0x0045EA60。
-std::int32_t UpdateLoginProgress()
+std::int32_t UpdateLoginProgress(network::CgConnection& connection)
 {
-    auto& sceneUi = cg::network::GetGameConnection().LoginSceneUi();
+    auto& sceneUi = connection.LoginSceneUi();
     std::uint16_t phase = sceneUi.loginProgressPhase;
     std::int32_t result = 0;
 
@@ -373,10 +373,10 @@ std::int32_t UpdateLoginProgress()
     }
 
     if (phase == 1) {
-        StartLoginRequest();
+        StartLoginRequest(connection);
         ++sceneUi.loginProgressPhase;
     } else if (phase == 2) {
-        result = PollLoginRequest();
+        result = PollLoginRequest(connection);
         if (result != 0) {
             cg::yobi::YobiAction* const action = sceneUi.loginProgressAction;
             if (action != nullptr) {

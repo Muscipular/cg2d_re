@@ -16,12 +16,12 @@ std::int32_t ResetValues_45D980(network::CgConnection& connection);
 std::int32_t UpdateServerConnection(network::CgConnection& connection);
 
 // 原 sub_45E960@0x45E960；顺序处理当前场景子状态 0、1、100、101。
-std::int32_t ProcessState_45E960();
+std::int32_t ProcessState_45E960(network::CgConnection& connection);
 
 // 原 sub_45EA50@0x45EA50；只清进度阶段，不清进度对象。
-void ResetLoginProgress();
+void ResetLoginProgress(network::CgConnection& connection);
 
 // 原 sub_45EA60@0x45EA60；推进登录进度并按条件绘制“登入中”。
-std::int32_t UpdateLoginProgress();
+std::int32_t UpdateLoginProgress(network::CgConnection& connection);
 
 } // namespace cg::login

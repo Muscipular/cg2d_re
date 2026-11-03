@@ -48,9 +48,8 @@ std::int32_t CharacterNameExists_51B140(const std::wstring_view name)
 }
 
 // 原函数：0x00508AF0。
-std::uint32_t StartLoginRequest()
+std::uint32_t StartLoginRequest(network::CgConnection& connection)
 {
-    auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
     const std::int16_t selected = request.selectedCharacterIndex;
     request.loginReplyCode = 0;
@@ -72,9 +71,8 @@ std::uint32_t StartLoginRequest()
 }
 
 // 原函数：0x00508B50。
-std::int32_t PollLoginRequest()
+std::int32_t PollLoginRequest(network::CgConnection& connection)
 {
-    auto& connection = cg::network::GetGameConnection();
     auto& request = connection.LoginRequests();
     const std::uint8_t pollingEnabled = connection.IoEnabled();
     if (pollingEnabled == 0) {

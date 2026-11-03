@@ -4,6 +4,7 @@
 
 #include "animation.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/BattleState.hpp"
 #include "../world/PlayerState.hpp"
 
@@ -362,9 +363,9 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     YobiAction* const source = action->battleAttachmentParent10;
     const std::int32_t x = static_cast<std::int32_t>(source->origin_x_offset40);
-    action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    action->x = x + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const std::int32_t y = static_cast<std::int32_t>(source->origin_y_offset44);
-    action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = y + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     return action;
 }
 
@@ -394,9 +395,9 @@ YobiAction* NewBattleGear_422A30(YobiAction* const parent, const std::int32_t im
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     YobiAction* const source = action->battleAttachmentParent10;
     const std::int32_t x = static_cast<std::int32_t>(source->origin_x_offset40);
-    action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    action->x = x + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const std::int32_t y = static_cast<std::int32_t>(source->origin_y_offset44);
-    action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = y + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     return action;
 }
 
@@ -430,9 +431,9 @@ YobiAction* NewBattleAuxGear_422B00(
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     YobiAction* const source = action->battleAttachmentParent10;
     const std::int32_t x = static_cast<std::int32_t>(source->origin_x_offset40);
-    action->x = x + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    action->x = x + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const std::int32_t y = static_cast<std::int32_t>(source->origin_y_offset44);
-    action->y = y + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = y + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     return action;
 }
 

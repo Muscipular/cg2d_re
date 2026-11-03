@@ -17,16 +17,6 @@
 
 namespace cg::yobi {
 
-volatile std::uint32_t gYobiScreenOffsetRising = 0; // 原 0x59F9F4。
-
-volatile std::int32_t gYobiScreenOffsetX = 0; // 原 0x59F9FC。
-
-volatile std::int32_t gYobiScreenOffsetY = 0; // 原 0x59FA00。
-
-volatile std::uint32_t gYobiScreenOffsetAmplitude = 0; // 原 0x59FA04。
-
-volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude = 4; // 原 0x553C58。
-
 namespace detail {
 
 // 负环境配置的图形类型；只按已证资源图号命名，不是移动mode。

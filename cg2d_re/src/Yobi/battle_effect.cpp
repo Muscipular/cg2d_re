@@ -2092,8 +2092,8 @@ YobiAction* NewBattleBuffEffect_41F660(YobiAction* const parent, const std::int3
     PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd);
     parent->payload.battleActor->buffEffectAction_1054 = action;
     action->battleAttachmentParent10 = parent;
-    action->x = static_cast<int32_t>(action->origin_x_offset40) + gYobiScreenOffsetX;
-    action->y = static_cast<int32_t>(action->origin_y_offset44) + gYobiScreenOffsetY;
+    action->x = static_cast<int32_t>(action->origin_x_offset40) + action->ownerSession->Yobi().screenOffsetX;
+    action->y = static_cast<int32_t>(action->origin_y_offset44) + action->ownerSession->Yobi().screenOffsetY;
     action->pathCountOrDrawOrder_270 = 0;
     return action;
 }
@@ -2111,11 +2111,11 @@ void UpdateBattleDebuffEffect_41F800(YobiAction* const action)
         action->origin_y_offset44 = static_cast<float>(parent->origin_y_offset44 + 1.0);
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(y);
-    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t offsetY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     action->y = projectedY + offsetY;
 }
 
@@ -2148,11 +2148,11 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     parent->payload.battleActor->attributeReversalEffect105C = action;
     action->battleAttachmentParent10 = parent;
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float currentY = action->origin_y_offset44;
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(currentY);
-    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t offsetY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     action->pathCountOrDrawOrder_270 = 0;
     action->y = projectedY + offsetY;
     return action;
@@ -2264,10 +2264,10 @@ void UpdateBattleCenteredEffect_41F950(YobiAction* const action)
             static_cast<double>(halfHeight) + parent->graphicOffsetY + parent->origin_y_offset44);
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // BDE01：已有1064/分配空早返；两S16向零除2、播放后发布与投影读齐保持。
@@ -2301,11 +2301,11 @@ YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::
     parent->payload.battleActor->centeredEffect1064 = action;
     action->battleAttachmentParent10 = parent;
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(y);
-    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t offsetY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     action->pathCountOrDrawOrder_270 = 0;
     action->y = projectedY + offsetY;
     return action;
@@ -2344,10 +2344,10 @@ void UpdateBattleAttachedEffect_41FB20(YobiAction* const action)
         action->origin_y_offset44 = source->origin_y_offset44;
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // 原函数：0x0041FBE0。
@@ -2437,10 +2437,10 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* const action)
         action->origin_y_offset44 = static_cast<float>(source->origin_y_offset44 - 5.0 + action->deltaY);
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // 原函数：0x0041FE00。
@@ -2507,11 +2507,11 @@ void UpdateBattleFieldEffect_41FF90(YobiAction* const action)
         static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_Loop));
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(y);
-    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t offsetY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     action->y = projectedY + offsetY;
 }
 
@@ -2553,11 +2553,11 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
     static_cast<void>(PlayFrame_517DA0(action, AnimationPlayback_StopAtEnd));
     cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0 = action;
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
     const std::int32_t projectedY = static_cast<std::int32_t>(y);
-    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t offsetY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     action->pathCountOrDrawOrder_270 = 0;
     action->y = projectedY + offsetY;
     return action;

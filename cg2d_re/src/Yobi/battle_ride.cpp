@@ -8,6 +8,7 @@
 #include "battle_attachment.hpp"
 #include "battle_effect.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/BattleState.hpp"
 #include "../world/PlayerState.hpp"
 
@@ -212,9 +213,9 @@ void UpdateBattleAction224_414050(YobiAction* const action)
             MoveBattleByAngle_405EA0(payload->rider13C8);
         }
         YobiAction* const xRider = payload->rider13C8;
-        xRider->deltaX = static_cast<std::int32_t>(xRider->origin_x_offset40) + static_cast<std::int32_t>(gYobiScreenOffsetX);
+        xRider->deltaX = static_cast<std::int32_t>(xRider->origin_x_offset40) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
         YobiAction* const yRider = payload->rider13C8;
-        yRider->deltaY = static_cast<std::int32_t>(yRider->origin_y_offset44) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+        yRider->deltaY = static_cast<std::int32_t>(yRider->origin_y_offset44) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
         YobiAction* const positionXRider = payload->rider13C8;
         positionXRider->x = positionXRider->deltaX;
         YobiAction* const positionYRider = payload->rider13C8;
@@ -393,9 +394,9 @@ void UpdateBattleAction224_414050(YobiAction* const action)
         static_cast<void>(audio::PlaySe_52C450(463, payload->rider13C8->x));
     }
     YobiAction* const xRider = payload->rider13C8;
-    xRider->deltaX = static_cast<std::int32_t>(xRider->origin_x_offset40) + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    xRider->deltaX = static_cast<std::int32_t>(xRider->origin_x_offset40) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     YobiAction* const yRider = payload->rider13C8;
-    yRider->deltaY = static_cast<std::int32_t>(yRider->origin_y_offset44) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    yRider->deltaY = static_cast<std::int32_t>(yRider->origin_y_offset44) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     YobiAction* const positionXRider = payload->rider13C8;
     positionXRider->x = positionXRider->deltaX;
     YobiAction* const positionYRider = payload->rider13C8;
@@ -495,11 +496,11 @@ void UpdateBattleAction226_4154C0(YobiAction* const action)
     payload->rider13C8->characterAction = CharacterAnimation_Damage;
     payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
     const std::int32_t x = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->origin_x_offset40);
-    const std::int32_t screenX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     YobiAction* const deltaXRider = payload->rider13C8;
     deltaXRider->deltaX = x + screenX;
     const std::int32_t y = static_cast<std::int32_t>(cg::world::gBattleAllEntries59E980[second]->origin_y_offset44);
-    const std::int32_t screenY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t screenY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     YobiAction* const deltaYRider = payload->rider13C8;
     deltaYRider->deltaY = y + screenY;
     YobiAction* const positionXRider = payload->rider13C8;
@@ -637,11 +638,11 @@ void UpdateBattleAction227_415940(YobiAction* const action)
     payload->rider13C8->characterAction = flags != 0 ? CharacterAnimation_Damage : CharacterAnimation_Sit;
     payload->rider13C8->flags |= YobiActionMask_PendingValue1OrHoverDescription;
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t screenX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     YobiAction* const deltaXRider = payload->rider13C8;
     deltaXRider->deltaX = x + screenX;
     const std::int32_t y = static_cast<std::int32_t>(action->origin_y_offset44);
-    const std::int32_t screenY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    const std::int32_t screenY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     YobiAction* const deltaYRider = payload->rider13C8;
     deltaYRider->deltaY = y + screenY;
     YobiAction* const positionXRider = payload->rider13C8;
@@ -769,10 +770,10 @@ void UpdateBattleAction225_4150F0(YobiAction* const action)
     }
     YobiAction* const xRider = payload->rider13C8;
     const std::int32_t projectedX = static_cast<std::int32_t>(xRider->origin_x_offset40);
-    xRider->deltaX = projectedX + static_cast<std::int32_t>(gYobiScreenOffsetX);
+    xRider->deltaX = projectedX + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     YobiAction* const yRider = payload->rider13C8;
     const std::int32_t projectedY = static_cast<std::int32_t>(yRider->origin_y_offset44);
-    yRider->deltaY = projectedY + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    yRider->deltaY = projectedY + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
     YobiAction* const screenXRider = payload->rider13C8;
     screenXRider->x = screenXRider->deltaX;
     YobiAction* const screenYRider = payload->rider13C8;

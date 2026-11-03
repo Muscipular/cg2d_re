@@ -140,41 +140,41 @@ void ApplyScreenShake_423640(session::ClientSession& session)
     std::uint32_t offsetYBits;
     if (session.Yobi().gateMode == 1
         && session.Yobi().phaseCounter != 0) {
-        offsetYBits = cg::yobi::gYobiScreenOffsetY;
+        offsetYBits = session.Yobi().screenOffsetY;
     } else {
         const std::uint32_t amplitudeX =
-            cg::yobi::gYobiScreenOffsetAmplitude;
+            session.Yobi().screenOffsetAmplitude;
         const std::uint32_t randomXBits = RandomSymmetricW32(session.Connection(), amplitudeX);
-        cg::yobi::gYobiScreenOffsetX = randomXBits;
+        session.Yobi().screenOffsetX = randomXBits;
 
         const std::uint32_t amplitudeY =
-            cg::yobi::gYobiScreenOffsetAmplitude;
+            session.Yobi().screenOffsetAmplitude;
         offsetYBits = RandomSymmetricW32(session.Connection(), amplitudeY);
-        cg::yobi::gYobiScreenOffsetY = offsetYBits;
+        session.Yobi().screenOffsetY = offsetYBits;
     }
 
     const std::uint32_t rising =
-        cg::yobi::gYobiScreenOffsetRising;
+        session.Yobi().screenOffsetRising;
     const std::uint32_t offsetXBits =
-        cg::yobi::gYobiScreenOffsetX;
+        session.Yobi().screenOffsetX;
     const std::uint32_t amplitude =
-        cg::yobi::gYobiScreenOffsetAmplitude;
+        session.Yobi().screenOffsetAmplitude;
     if (rising == 1) {
         const std::uint32_t maximum =
-            cg::yobi::gYobiScreenOffsetMaximumAmplitude;
+            session.Yobi().screenOffsetMaximumAmplitude;
         const std::uint32_t incremented = amplitude + std::uint32_t{1};
         const bool exceedsMaximum =
             std::bit_cast<std::int32_t>(incremented)
             > std::bit_cast<std::int32_t>(maximum);
-        cg::yobi::gYobiScreenOffsetAmplitude = incremented;
+        session.Yobi().screenOffsetAmplitude = incremented;
         if (exceedsMaximum) {
-            cg::yobi::gYobiScreenOffsetAmplitude = maximum;
+            session.Yobi().screenOffsetAmplitude = maximum;
         }
     } else {
         const std::uint32_t decremented = amplitude - std::uint32_t{1};
-        cg::yobi::gYobiScreenOffsetAmplitude = decremented;
+        session.Yobi().screenOffsetAmplitude = decremented;
         if (std::bit_cast<std::int32_t>(decremented) < 0) {
-            cg::yobi::gYobiScreenOffsetAmplitude = 0;
+            session.Yobi().screenOffsetAmplitude = 0;
         }
     }
 

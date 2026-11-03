@@ -931,8 +931,8 @@ void UpdateBattleAction86_40C520(YobiAction* const action)
             AdvanceBattleCastState_439340(currentTarget);
         }
     } while (AdvanceBattleEffect_439470(action) != 1);
-    gYobiScreenOffsetMaximumAmplitude = 6;
-    gYobiScreenOffsetRising = 1;
+    action->ownerSession->Yobi().screenOffsetMaximumAmplitude = 6;
+    action->ownerSession->Yobi().screenOffsetRising = 1;
     AdvanceBattleCastState_439340(action);
 }
 
@@ -982,8 +982,8 @@ std::int32_t UpdateBattleAction87_40C780(YobiAction* const action)
 // 原函数：0x0040C8D0。
 void UpdateBattleAction88_40C8D0(YobiAction* const action)
 {
-    gYobiScreenOffsetMaximumAmplitude = 6;
-    gYobiScreenOffsetRising = 1;
+    action->ownerSession->Yobi().screenOffsetMaximumAmplitude = 6;
+    action->ownerSession->Yobi().screenOffsetRising = 1;
     AdvanceBattleCastState_439340(action);
 }
 
@@ -991,7 +991,7 @@ void UpdateBattleAction88_40C8D0(YobiAction* const action)
 // 原函数：0x0040C8F0。
 void UpdateBattleAction89_40C8F0(YobiAction* const action)
 {
-    gYobiScreenOffsetRising = 0;
+    action->ownerSession->Yobi().screenOffsetRising = 0;
     AdvanceBattleCastState_439340(action);
 }
 
@@ -1885,8 +1885,8 @@ std::int32_t UpdateBattleAction111_40E970(YobiAction* const action)
             || !(action->origin_y_offset44 >= -200.0F) || action->origin_y_offset44 > 680.0F) {
             AdvanceBattleCastState_439340(action);
             payload->valueFD0 = 0;
-            gYobiScreenOffsetMaximumAmplitude = 6;
-            gYobiScreenOffsetRising = 1;
+            action->ownerSession->Yobi().screenOffsetMaximumAmplitude = 6;
+            action->ownerSession->Yobi().screenOffsetRising = 1;
         }
     }
     MoveBattleByAngle_405EA0(action);
@@ -2238,8 +2238,8 @@ void UpdateBattleAction139_410000(YobiAction* const action)
             if (moveSpecialTarget) {
                 MoveBattleCastState_439380(cg::world::gBattleAllEntries59E980[payload->targetPosition100C]);
             } else if (skill == BattleSkill_EarthQuake) {
-                gYobiScreenOffsetMaximumAmplitude = 6;
-                gYobiScreenOffsetRising = 1;
+                action->ownerSession->Yobi().screenOffsetMaximumAmplitude = 6;
+                action->ownerSession->Yobi().screenOffsetRising = 1;
                 static_cast<void>(audio::PlaySe_52C450(5, 320));
                 static_cast<void>(audio::PlaySe_52C450(262, 320));
             } else {

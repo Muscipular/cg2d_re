@@ -294,8 +294,8 @@ void InitializeBattleScene_4383F0(session::ClientSession& session)
     cg::world::gBattleActiveEventMask5AAA74 = 0;
     detail::gBattlePendingGroupCount5ABB24 = 0;
     cg::world::gBattleExitRequested_5ABB20 = 0;
-    gYobiScreenOffsetRising = 0;
-    gYobiScreenOffsetAmplitude = 0;
+    session.Yobi().screenOffsetRising = 0;
+    session.Yobi().screenOffsetAmplitude = 0;
     session.Yobi().gateMode = YobiUpdateGatePolicy_FullRate;
     ui::detail::WindowBattleCommand_SnapshotPetVitals();
 }

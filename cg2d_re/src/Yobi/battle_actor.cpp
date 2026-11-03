@@ -12,6 +12,7 @@
 #include "battle_ride.hpp"
 #include "battle_status.hpp"
 #include "cg/Yobi/YobiRuntime.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "../world/AlbumState.hpp"
 #include "../world/BattleState.hpp"
 
@@ -769,11 +770,11 @@ void UpdateBattleActor_404DB0(YobiAction* const action)
     }
     if ((action->flags & YobiActionFlag_SortByDeltaY) == 0) {
         const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-        const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+        const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
         const float y = action->origin_y_offset44;
         action->x = x + offsetX;
         const std::int32_t yCoordinate = static_cast<std::int32_t>(y);
-        const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+        const std::int32_t offsetY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
         action->y = yCoordinate + offsetY;
     }
     YobiAction* const rider = payload->rider13C8;

@@ -190,10 +190,10 @@ void UpdateBattleImpactEffect_41A9E0(YobiAction* const action)
         }
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // 原函数：0x0041AF00。
@@ -357,10 +357,10 @@ void UpdateBattleImpactSoundEffect_41AF00(YobiAction* const action)
         }
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // 原函数：0x0041B440。
@@ -562,10 +562,10 @@ void UpdateBattleFrameEventEffect_41B440(YobiAction* const action)
         }
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // 原函数：0x0041BB00。
@@ -592,9 +592,9 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
         const std::int32_t halfHeight = render::ReadGraphicDxHeight(target->graphicIndex) / 2;
         const double threshold = static_cast<double>(halfHeight) + target->graphicOffsetY + target->origin_y_offset44 - 50.0;
         if (!(threshold >= action->origin_y_offset44) && action->frameEvent == 0) {
-            const std::int32_t halfX = static_cast<std::int32_t>(gYobiScreenOffsetX) / 2;
+            const std::int32_t halfX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX) / 2;
             action->origin_x_offset40 = static_cast<float>(static_cast<double>(halfX) + action->origin_x_offset40);
-            const std::int32_t halfY = static_cast<std::int32_t>(gYobiScreenOffsetY) / 2;
+            const std::int32_t halfY = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY) / 2;
             action->origin_y_offset44 = static_cast<float>(static_cast<double>(halfY) + action->origin_y_offset44);
             static_cast<void>(MarkDeath(action));
             static_cast<void>(NewBattleRandomEffect_419FC0(action, 110469, 0));
@@ -765,8 +765,8 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
             payload->valueFD0 = remaining - 1;
             if ((payload->effects1C[index].flags & BattleResultMask_MagicReaction) == 0) {
                 const std::int32_t level = payload->castSkillLevel1044;
-                gYobiScreenOffsetRising = 1;
-                gYobiScreenOffsetMaximumAmplitude = static_cast<std::uint32_t>(level / 2 + 1);
+                action->ownerSession->Yobi().screenOffsetRising = 1;
+                action->ownerSession->Yobi().screenOffsetMaximumAmplitude = static_cast<std::uint32_t>(level / 2 + 1);
             }
         }
         if (payload->valueFD0 == 0) {
@@ -804,7 +804,7 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
             action->nameX = previousTrail < 2 ? previousTrail + 1 : 0;
             if (action->frameEvent == 1) {
                 static_cast<void>(MarkDeath(action));
-                gYobiScreenOffsetRising = 0;
+                action->ownerSession->Yobi().screenOffsetRising = 0;
             }
         }
     }
@@ -812,10 +812,10 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
     const float projectedX = action->origin_x_offset40;
     action->displayPriority = static_cast<std::uint8_t>(targetPriority + 20);
     const std::int32_t x = static_cast<std::int32_t>(projectedX);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // 原函数：0x0041C3B0。
@@ -837,11 +837,11 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
     if ((payload->effects1C[initialIndex].flags & BattleResultFlag_Barrier) != 0 && action->frameEvent == 0
         && GetBattleDistance_406300(action, cg::world::gBattleAllEntries59E980[payload->effects1C[initialIndex].position]) <= 70) {
         const std::int32_t index = payload->effectRunningC9C;
-        const double x = static_cast<double>(static_cast<std::int32_t>(gYobiScreenOffsetX)) + action->origin_x_offset40;
+        const double x = static_cast<double>(static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX)) + action->origin_x_offset40;
         YobiAction* const target = cg::world::gBattleAllEntries59E980[payload->effects1C[index].position];
         action->origin_x_offset40 = static_cast<float>(x);
         action->origin_y_offset44 = static_cast<float>(
-            static_cast<double>(static_cast<std::int32_t>(gYobiScreenOffsetY)) + action->origin_y_offset44);
+            static_cast<double>(static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY)) + action->origin_y_offset44);
         static_cast<void>(MarkDeath(action));
         static_cast<void>(NewBattleRandomEffect_419FC0(action, 110475, 0));
         static_cast<void>(NewBattleRandomEffect_419FC0(target, 110474, 0));
@@ -1073,10 +1073,10 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
         }
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // 原函数：0x004219D0。
@@ -1177,11 +1177,11 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                     const std::int32_t distance = tick - 24;
                     arc = 64 - distance * distance / 2;
                 }
-                const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+                const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
                 const std::int32_t direction = target->direction + 1;
                 target->origin_x_offset40 = static_cast<float>(static_cast<double>(offsetX) + action->origin_x_offset40);
                 const double y = action->origin_y_offset44 - 35.0 - arc
-                    + static_cast<std::int32_t>(gYobiScreenOffsetY);
+                    + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
                 target->direction = direction;
                 target->origin_y_offset44 = static_cast<float>(y);
                 if (direction >= 8) {
@@ -1245,10 +1245,10 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
         }
     }
     const std::int32_t x = static_cast<std::int32_t>(action->origin_x_offset40);
-    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const std::int32_t offsetX = static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetX);
     const float y = action->origin_y_offset44;
     action->x = x + offsetX;
-    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(action->ownerSession->Yobi().screenOffsetY);
 }
 
 // 原函数：0x00422E50。

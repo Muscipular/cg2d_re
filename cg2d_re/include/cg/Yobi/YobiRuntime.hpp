@@ -190,14 +190,6 @@ void DrawNineGrid_49BE00(
     std::int16_t tileWidth,
     std::int16_t tileHeight);
 
-// 原 0x59F9F4/0x59F9FC/0x59FA00/0x59FA04/0x553C58；
-// volatile 保留 sub_423640 的独立 W32 读取及越界值、钳位值两次写入。
-extern volatile std::uint32_t gYobiScreenOffsetRising; // 原全局：0x0059F9F4。
-extern volatile std::int32_t gYobiScreenOffsetX; // 原全局：0x0059F9FC。
-extern volatile std::int32_t gYobiScreenOffsetY; // 原全局：0x0059FA00。
-extern volatile std::uint32_t gYobiScreenOffsetAmplitude; // 原全局：0x0059FA04。
-extern volatile std::uint32_t gYobiScreenOffsetMaximumAmplitude; // 原全局：0x00553C58。
-
 // 原 sub_404A40@[0x404A40,0x404AD1)；初始化首尾哨兵并返回尾哨兵。
 // 与原端相同，调用前提是尚未初始化，且不注册进程退出析构。
 YobiAction* InitializeYobiActionList_404A40();

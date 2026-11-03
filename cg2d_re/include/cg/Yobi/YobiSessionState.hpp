@@ -18,6 +18,11 @@ struct YobiSessionState {
     YobiAction* end = nullptr;
     std::int32_t gateMode = 0; // 原 0x59E570，初值为 FullRate。
     std::int32_t phaseCounter = 0; // 原 0x59E574，UpdateAll 在 [0, 3] 间轮转。
+    volatile std::uint32_t screenOffsetRising = 0; // 原 0x59F9F4。
+    volatile std::int32_t screenOffsetX = 0; // 原 0x59F9FC。
+    volatile std::int32_t screenOffsetY = 0; // 原 0x59FA00。
+    volatile std::uint32_t screenOffsetAmplitude = 0; // 原 0x59FA04。
+    volatile std::uint32_t screenOffsetMaximumAmplitude = 4; // 原 0x553C58。
     std::array<std::uint8_t, kMapRegistryEntries> mapRegistryFlags {}; // 原 0xB65A80。
     std::array<YobiAction*, kMapRegistryEntries> mapRegistryActions {}; // 原 0xB8C864，非拥有。
 };

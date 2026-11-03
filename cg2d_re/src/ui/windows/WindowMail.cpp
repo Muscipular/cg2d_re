@@ -284,11 +284,11 @@ void WindowMail_SortIndices(
 }
 
 // 4A5970各成功发送路径分别取时，不跨收件人复用时间或Input正文。
-void WindowMail_FormatTimestamp(std::wstring& destination)
+void WindowMail_FormatTimestamp(session::ClientSession& session, std::wstring& destination)
 {
     __time64_t time;
     time = ::_time64(nullptr);
-    const std::tm* const calendar = ::_localtime64(&time);
+    const std::tm* const calendar = session.LocalTime(&time);
     const std::int32_t minute = calendar->tm_min;
     const std::int32_t hour = calendar->tm_hour;
     const std::int32_t day = calendar->tm_mday;

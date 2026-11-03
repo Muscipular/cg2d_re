@@ -358,7 +358,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callb
                 } else {
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendContactPetMail(target, pet, item, packet, 0));
                 }
-                WindowMail_FormatTimestamp(timestamp);
+                WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                 if (category == 1) {
                     static_cast<void>(world::detail::PrependGuildMailMessage_519370(
                         target, 1, timestamp, storedText));

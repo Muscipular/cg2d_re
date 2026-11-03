@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+namespace cg::session { class ClientSession; }
+
 namespace cg::network {
 class CgConnection;
 enum class SendResult : std::int32_t;
@@ -159,7 +161,7 @@ std::int32_t FindFreeMiniMailContactSlot_5343A0(); // 返回首个used==0的槽�
 // 原函数：0x004C9490。
 void ResetMiniMailSequenceAndSelection_4C9490(); // 先清迷你序号，再将共享选择槽写-1。
 // 原函数：0x00534520。
-std::int32_t FormatMailTimestamp_534520(std::wstring& destination); // 原time32/localtime格式化并复制时间戳，返回0。
+std::int32_t FormatMailTimestamp_534520(session::ClientSession& session, std::wstring& destination); // 原time32/localtime格式化并复制时间戳，返回0。
 // 原函数：0x005343C0。
 void PrependMiniMailMessage_5343C0(
     std::int32_t index, std::int32_t kind, std::wstring_view name, std::wstring_view text); // 同源迷你邮件九次搬移/写首条。

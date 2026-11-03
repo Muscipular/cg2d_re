@@ -113,7 +113,7 @@ struct CgConnection::Impl {
     explicit Impl(CgConnection& connection) : owner(connection) {}
     std::uint16_t protocolModeDA3B22 = 0; // 原全局：0x00DA3B22。
     __time64_t time62B394 = 0; // 原全局：0x0062B394。 原 __time32_t，独立于 0xDA3B28 回复码。
-    std::tm* localTime62B380 = nullptr; // 原全局：0x0062B380。 原 W32 指针槽，借用CRT同线程共享std::tm。
+    std::tm* localTime62B380 = nullptr; // 原全局：0x0062B380。 原 W32 指针槽，借用所属会话的唯一std::tm。
     std::uint32_t workspaceCapacity = 0;
     std::uint8_t* sendMessageBuffer = nullptr; // 原全局：0x0058B5F0。 发送命令与字段的完整消息拼接缓冲区。
     std::uint8_t* reservedProtocolBuffer = nullptr; // 原全局：0x0058B5F4。 保留缓冲区，当前仅有生命周期操作。
@@ -1084,7 +1084,7 @@ std::int32_t CgConnection::Impl::ReceiveProtocolLine(
 }
 
 // 原0x00508800：登录回复更新当前连接协议状态，原业务字段保持。
-void CgConnection::Impl::HandleResponse_508800(cg::network::CgConnection&,
+void CgConnection::Impl::HandleResponse_508800(cg::network::CgConnection& connection,
     const std::int32_t value,
     const char* const text)
 {
@@ -1108,7 +1108,7 @@ void CgConnection::Impl::HandleResponse_508800(cg::network::CgConnection&,
     this->protocolModeDA3B22 = 1;
     this->time62B394 = ::_time64(nullptr);
     this->localTime62B380 =
-        ::_localtime64(&this->time62B394);
+        connection.Owner().LocalTime(&this->time62B394);
 
     const char* const separator = const_cast<char*>(std::strstr(text, "|"));
     this->characterSelectUi.loginNotice.clear();

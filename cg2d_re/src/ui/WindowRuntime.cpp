@@ -3465,7 +3465,7 @@ static void WindowRuntime_InitializeLogin(session::ClientSession& session)
     states[WindowId_PetMailCompose].marker50 = 0;
     states[WindowId_MailRead].marker50 = 0;
     static_cast<void>(WindowBlacklist_ResetState());
-    WindowAdventureLog_InitializeDate();
+    WindowAdventureLog_InitializeDate(session);
     gLoginWindowRuntime.valueD67618 = 0;
     gLoginWindowRuntime.bankCurrentPage = 0; // G07：与原银行入口同一生命周期，金额组仍独立。
 }

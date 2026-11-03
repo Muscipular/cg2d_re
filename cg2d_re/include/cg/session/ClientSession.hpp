@@ -7,6 +7,7 @@
 #include "cg/world/WorldSceneRuntimeState.hpp"
 
 #include <cstdint>
+#include <ctime>
 #include <random>
 
 namespace cg::session {
@@ -30,6 +31,14 @@ public:
     [[nodiscard]] LegacyRandomEngine& RandomEngine() noexcept { return randomEngine_; }
     [[nodiscard]] script::LuaSessionState& Lua() noexcept { return lua_; }
     [[nodiscard]] ui::UiFrameRuntimeState& UiFrame() noexcept { return uiFrame_; }
+    // 原同线程CRT日历别名收敛为会话唯一对象；后续转换仍覆盖同会话的长期借用。
+    [[nodiscard]] std::tm* LocalTime(const std::int64_t* timestamp) noexcept
+    {
+        const std::tm* const value = ::_localtime64(timestamp);
+        if (value == nullptr) { return nullptr; }
+        localTime_ = *value;
+        return &localTime_;
+    }
     [[nodiscard]] bool Disconnected() const noexcept { return disconnected_; }
     void MarkDisconnected() noexcept { disconnected_ = true; }
     void MarkConnected() noexcept { disconnected_ = false; }
@@ -41,6 +50,7 @@ private:
     LegacyRandomEngine randomEngine_ {1}; // 原 0x58F870，初始种子 1。
     script::LuaSessionState lua_;
     ui::UiFrameRuntimeState uiFrame_;
+    std::tm localTime_ {};
     bool disconnected_ = false; // 宿主菜单保留断线标识，不参与原连接阶段分支。
 };
 

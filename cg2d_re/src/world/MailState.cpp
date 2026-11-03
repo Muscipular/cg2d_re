@@ -1,4 +1,5 @@
 #include "cg/network/CgConnection.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "../scene/login/LoginSavedState.hpp"
 #include "MailState.hpp"
@@ -806,12 +807,12 @@ void ResetMiniMailSequenceAndSelection_4C9490()
 }
 
 // 原函数：0x00534520。
-std::int32_t FormatMailTimestamp_534520(std::wstring& destination)
+std::int32_t FormatMailTimestamp_534520(session::ClientSession& session, std::wstring& destination)
 {
     __time64_t timeValue;
     timeValue = ::_time64(nullptr);
     const std::tm* const localTime =
-        ::_localtime64(&timeValue);
+        session.LocalTime(&timeValue);
     const std::int32_t minutes = localTime->tm_min;
     const std::int32_t hours = localTime->tm_hour;
     const std::int32_t day = localTime->tm_mday;
@@ -948,7 +949,7 @@ void HandleMiniMailConversationReply_50F9E0(cg::network::CgConnection& connectio
     network::ExtractDelimitedField_52CED0(payload, '|', 9, 1023, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     std::wstring formattedTimestamp;
-    static_cast<void>(FormatMailTimestamp_534520(formattedTimestamp));
+    static_cast<void>(FormatMailTimestamp_534520(connection.Owner(), formattedTimestamp));
     const std::int16_t selected = connection.LoginRequests().selectedCharacterIndex;
     if (gProfiles1074938[selected].value00 == key) {
         PrependMiniMailMessage_5343C0(index, 1, formattedTimestamp, cg::text::FromGbkWide(text));

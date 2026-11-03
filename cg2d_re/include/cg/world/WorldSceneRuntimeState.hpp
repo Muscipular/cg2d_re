@@ -5,6 +5,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <string>
 #include <vector>
 
@@ -163,6 +164,23 @@ struct ChatDisplayState {
     std::int32_t range = 5; // 原 0x554640。
 };
 
+// 日志写流与日期文件名槽属于会话；查看器继续使用同一个文件名槽。
+struct ChatLogState {
+    std::wstring path; // 原 0x62699C。
+    std::FILE* volatile stream = nullptr; // 原 0x626C1C。
+    std::wstring fileName = L"chat_000000.txt"; // 原 0x554648。
+
+    ChatLogState() = default;
+    ~ChatLogState()
+    {
+        if (std::FILE* const current = stream; current != nullptr) { std::fclose(current); }
+    }
+    ChatLogState(const ChatLogState&) = delete;
+    ChatLogState& operator=(const ChatLogState&) = delete;
+    ChatLogState(ChatLogState&&) = delete;
+    ChatLogState& operator=(ChatLogState&&) = delete;
+};
+
 // 64 条聊天输入历史、磁盘尾索引与当前浏览游标，运行期由会话持有。
 struct ChatInputHistoryState {
     std::array<std::wstring, 64> records {}; // 原 0x621FF8。
@@ -251,6 +269,7 @@ struct WorldSceneRuntimeState {
     RotationState rotation {};
     ChatSendState chat {};
     ChatDisplayState chatDisplay {};
+    ChatLogState chatLog {};
     ChatInputHistoryState chatInputHistory {};
     QuadrantTransitionState quadrantTransition {};
     TileTransitionState tileTransition {};

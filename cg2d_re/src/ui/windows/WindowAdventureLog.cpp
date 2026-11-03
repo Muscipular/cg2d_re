@@ -42,10 +42,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004CC340。
-static void WindowAdventureLog_Refresh(); // 窗口66原字节分行/十四行刷新，固定651000B局部缓冲。
+static void WindowAdventureLog_Refresh(WindowInstance& callbackWindow); // 窗口66原字节分行/十四行刷新，固定651000B局部缓冲。
 
 // 原函数：0x004CC540。
-static void WindowAdventureLog_Load(); // 日志文件重开/计数，保留原双关闭槽语义，见window_66.md。
+static void WindowAdventureLog_Load(session::ClientSession& session); // 日志文件重开/计数，保留原双关闭槽语义，见window_66.md。
 
 // 原函数：0x004CBDB0。
 static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上下翻与原非标准日期前后切换。
@@ -54,8 +54,6 @@ static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callback
 static std::int32_t WindowAdventureLog_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // 控件载荷、窗口状态、组件表与原型。
-
-static std::int32_t gLogDisplayGate593F84 = 0; // 原全局：0x00593F84。 窗口66的日志显示门禁。
 
 static WindowGraphicData gWindowGraphic57ADD8 {243001, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057ADD8。
 
@@ -76,7 +74,7 @@ static WindowGraphicData gWindowGraphic57AE80 {243090, 0, 0, 0, 0, 0xFFFFFFFFu};
 static WindowGraphicData gWindowGraphic57AE98 {243093, 0, 0, 0, 0, 0xFFFFFFFFu}; // 原全局：0x0057AE98。
 
 static WindowTextPrototype gWindowText57AEB0 { // 原全局：0x0057AEB0。
-    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, world::gLogFileName554648,
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, L"chat_000000.txt",
 };
 
 static WindowTextPrototype gWindowText57AEB8 { // 原全局：0x0057AEB8。
@@ -119,89 +117,94 @@ WindowPrototype gWindowPrototypeAdventureLog {0, 4, 15, 97, 465, 321, 0x80000080
 // 窗口函数实现。
 
 // 原函数：0x004CBD30。
-void WindowAdventureLog_InitializeDate()
+void WindowAdventureLog_InitializeDate(session::ClientSession& session)
 {
-    std::tm* const previous = gLoginWindowRuntime.calendarTimeD67BAC;
-    gLoginWindowRuntime.valueD67BB0 = 0;
+    auto& chatLog = session.WorldScene().chatLog;
+    auto& logViewer = session.UiFrame().native.adventureLog;
+    std::tm* const previous = logViewer.calendar;
+    logViewer.page = 0;
     if (previous != nullptr) {
         return;
     }
-    gLoginWindowRuntime.timeCB1DF0 = ::_time64(nullptr);
+    logViewer.timestamp = ::_time64(nullptr);
     std::tm* const current =
-        ::_localtime64(&gLoginWindowRuntime.timeCB1DF0);
-    gLoginWindowRuntime.calendarTimeD67BAC = current;
+        session.LocalTime(&logViewer.timestamp);
+    logViewer.calendar = current;
     const std::int32_t day = current->tm_mday;
-    gLoginWindowRuntime.dayD67BC0 = day;
+    logViewer.day = day;
     const std::int32_t month = current->tm_mon;
     const std::int32_t year = current->tm_year;
-    world::gLogFileName554648 = std::format(L"chat_{:02}{:02}{:02}.txt", year % 100, month + 1, day);
+    chatLog.fileName = std::format(L"chat_{:02}{:02}{:02}.txt", year % 100, month + 1, day);
 }
 
 // 原函数：0x004CC540。
-static void WindowAdventureLog_Load()
+static void WindowAdventureLog_Load(session::ClientSession& session)
 {
-    std::FILE* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
+    auto& chatLog = session.WorldScene().chatLog;
+    auto& logViewer = session.UiFrame().native.adventureLog;
+    std::FILE* const previous = logViewer.file;
     if (previous != nullptr) {
         static_cast<void>(std::fclose(previous));
     }
-    const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
-    std::tm* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+    const std::int32_t day = logViewer.day;
+    std::tm* const calendar = logViewer.calendar;
     const std::int32_t month = calendar->tm_mon;
     const std::int32_t year = calendar->tm_year;
-    world::gLogFileName554648 = std::format(L"chat_{:02}{:02}{:02}.txt", year % 100, month + 1, day);
-    const auto path = std::format(L"Log\\{}", world::gLogFileName554648);
+    chatLog.fileName = std::format(L"chat_{:02}{:02}{:02}.txt", year % 100, month + 1, day);
+    const auto path = std::format(L"Log\\{}", chatLog.fileName);
     std::FILE* current = _wfopen(path.c_str(), L"rt");
-    gLoginWindowRuntime.logViewerFileD67BB8 = current;
+    logViewer.file = current;
     if (current == nullptr) {
-        gLoginWindowRuntime.logViewerErrorD67BBC = 1;
+        logViewer.error = 1;
         return;
     }
-    gLoginWindowRuntime.logViewerErrorD67BBC = 0;
+    logViewer.error = 0;
     static_cast<void>(std::fclose(current));
     current = _wfopen(path.c_str(), L"a+t" /* 原常量参考：0x0055350C。 */);
-    gLoginWindowRuntime.logViewerFileD67BB8 = current;
+    logViewer.file = current;
     if (current == nullptr) {
-        gLoginWindowRuntime.logViewerErrorD67BBC = 1;
+        logViewer.error = 1;
         return;
     }
-    gLogDisplayGate593F84 = 1;
-    gLoginWindowRuntime.logViewerMaximumD67BB4 = 0;
+    logViewer.displayGate = 1;
+    logViewer.maximum = 0;
     while (std::feof(current) == 0) {
         char buffer[3000] {};
         static_cast<void>(std::fgets(buffer, 1000, current));
         const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::GetFontMetrics(0).sWidth);
-        gLoginWindowRuntime.logViewerMaximumD67BB4 += static_cast<std::int32_t>(lines.size()) - 1;
-        const std::int32_t count = gLoginWindowRuntime.logViewerMaximumD67BB4;
-        current = gLoginWindowRuntime.logViewerFileD67BB8;
-        gLoginWindowRuntime.logViewerMaximumD67BB4 = count + 1;
+        logViewer.maximum += static_cast<std::int32_t>(lines.size()) - 1;
+        const std::int32_t count = logViewer.maximum;
+        current = logViewer.file;
+        logViewer.maximum = count + 1;
     }
 }
 
 // 原函数：0x004CC340。
-static void WindowAdventureLog_Refresh()
+static void WindowAdventureLog_Refresh(WindowInstance& callbackWindow)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    auto& logViewer = callbackWindow.ownerSession->UiFrame().native.adventureLog;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return;
     char buffer[3000] {};
     std::vector<std::wstring> rows;
-    if (gLoginWindowRuntime.logViewerFileD67BB8 == nullptr
-        && gLoginWindowRuntime.logViewerErrorD67BBC == 0) {
-        WindowAdventureLog_Load();
+    if (logViewer.file == nullptr
+        && logViewer.error == 0) {
+        WindowAdventureLog_Load(*callbackWindow.ownerSession);
     }
     WindowInstance* const window = currentWindow;
-    const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
+    const std::int32_t maximum = logViewer.maximum;
     auto* const handleVerticalScrollElement = window->FindElementById(WindowAdventureLogElementId::HandleVerticalScroll);
     if (handleVerticalScrollElement) {
-        gLoginWindowRuntime.valueD67BB0 = WindowScroll_ReadPosition(handleVerticalScrollElement, maximum);
+        logViewer.page = WindowScroll_ReadPosition(handleVerticalScrollElement, maximum);
     }
-    if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
-        static_cast<void>(::_fseeki64(gLoginWindowRuntime.logViewerFileD67BB8, 0, SEEK_SET));
-        while (std::fgets(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
+    if (logViewer.error == 0 && logViewer.displayGate == 1) {
+        static_cast<void>(::_fseeki64(logViewer.file, 0, SEEK_SET));
+        while (std::fgets(buffer, 1000, logViewer.file) != nullptr) {
             const auto lines = render::Font::split(cg::text::FromGbkWide(buffer), 0, 64 * render::GetFontMetrics(0).sWidth);
             rows.insert(rows.end(), lines.begin(), lines.end());
         }
         for (std::int32_t line = 0; line < 14; ++line) {
-            const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
+            const std::int32_t page = logViewer.page;
             const std::size_t index = static_cast<std::size_t>(page + line);
             const std::wstring_view text = index < rows.size() ? std::wstring_view(rows[index]) : std::wstring_view{};
             auto* const dataElement = currentWindow->FindElementById(NativeElementKey(11 + line));
@@ -231,16 +234,19 @@ static void WindowAdventureLog_Refresh()
 // 原函数：0x004CBD90。
 static std::int32_t WindowAdventureLog_Update(WindowInstance& callbackWindow, const std::int32_t value)
 {
+    auto& logViewer = callbackWindow.ownerSession->UiFrame().native.adventureLog;
     if (value == -1) {
-        gLoginWindowRuntime.valueD67BB0 = 0;
+        logViewer.page = 0;
     }
-    WindowAdventureLog_Refresh();
+    WindowAdventureLog_Refresh(callbackWindow);
     return 1;
 }
 
 // 原函数：0x004CBDB0。
 static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
+    auto& chatLog = callbackWindow.ownerSession->WorldScene().chatLog;
+    auto& logViewer = callbackWindow.ownerSession->UiFrame().native.adventureLog;
     WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
@@ -256,15 +262,15 @@ static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callback
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = base;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
-            const bool canMove = elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation) ? page > 0 : page < gLoginWindowRuntime.logViewerMaximumD67BB4;
+            const std::int32_t page = logViewer.page;
+            const bool canMove = elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation) ? page > 0 : page < logViewer.maximum;
             if (canMove) {
-                gLoginWindowRuntime.valueD67BB0 = page + (elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation) ? -1 : 1);
+                logViewer.page = page + (elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation) ? -1 : 1);
             }
             static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
-            const std::int32_t currentPage = gLoginWindowRuntime.valueD67BB0;
+            const std::int32_t currentPage = logViewer.page;
             WindowInstance* const window = currentWindow;
-            const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
+            const std::int32_t maximum = logViewer.maximum;
             auto* const handleVerticalScrollElement = window->FindElementById(WindowAdventureLogElementId::HandleVerticalScroll);
             if (handleVerticalScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(handleVerticalScrollElement, maximum, currentPage));
@@ -288,65 +294,65 @@ static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callback
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = base;
         }
         if ((state & MouseFlag_LRepeatDown) != 0) {
-            std::FILE* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
+            std::FILE* const stream = logViewer.file;
             if (stream != nullptr) {
                 static_cast<void>(std::fclose(stream));
                 // MC01-B：随后重载会处理该槽，已关闭FILE不得再交fclose。
-                gLoginWindowRuntime.logViewerFileD67BB8 = nullptr;
+                logViewer.file = nullptr;
             }
             if (elementId == static_cast<ElementId>(WindowAdventureLogElementId::HandleNavigation_7)) {
-                std::tm* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
-                const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
+                std::tm* const calendar = logViewer.calendar;
+                const std::int32_t day = logViewer.day;
                 const std::int32_t month = calendar->tm_mon;
                 if (month == 1 && (calendar->tm_mday == 29 || day == 29)) {
                     calendar->tm_mon = month + 1;
-                    gLoginWindowRuntime.dayD67BC0 = 1;
+                    logViewer.day = 1;
                 } else if ((month == 3 || month == 5 || month == 8 || month == 10)
                     && (calendar->tm_mday == 30 || day == 30)) {
                     calendar->tm_mon = month + 1;
-                    gLoginWindowRuntime.dayD67BC0 = 1;
+                    logViewer.day = 1;
                 } else if (calendar->tm_mday == 31 || day == 31) {
-                    gLoginWindowRuntime.dayD67BC0 = 1;
+                    logViewer.day = 1;
                     const std::int32_t currentMonth = calendar->tm_mon;
                     if (currentMonth == 11) {
                         ++calendar->tm_year;
-                        gLoginWindowRuntime.calendarTimeD67BAC->tm_mon = 0;
+                        logViewer.calendar->tm_mon = 0;
                     } else {
                         calendar->tm_mon = currentMonth + 1;
                     }
                 } else {
-                    gLoginWindowRuntime.dayD67BC0 = day + 1;
+                    logViewer.day = day + 1;
                 }
-            } else if (gLoginWindowRuntime.dayD67BC0 == 1) {
-                std::tm* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+            } else if (logViewer.day == 1) {
+                std::tm* const calendar = logViewer.calendar;
                 const std::int32_t month = calendar->tm_mon;
                 if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10) {
-                    gLoginWindowRuntime.dayD67BC0 = 31;
+                    logViewer.day = 31;
                     --calendar->tm_mon;
                 } else if (month == 2) {
-                    gLoginWindowRuntime.dayD67BC0 = 29;
+                    logViewer.day = 29;
                     --calendar->tm_mon;
                 } else if (month == 0) {
-                    gLoginWindowRuntime.dayD67BC0 = 31;
+                    logViewer.day = 31;
                     --calendar->tm_year;
-                    gLoginWindowRuntime.calendarTimeD67BAC->tm_mon = 12;
-                    --gLoginWindowRuntime.calendarTimeD67BAC->tm_mon;
+                    logViewer.calendar->tm_mon = 12;
+                    --logViewer.calendar->tm_mon;
                 } else {
-                    gLoginWindowRuntime.dayD67BC0 = 30;
+                    logViewer.day = 30;
                     --calendar->tm_mon;
                 }
             } else {
-                --gLoginWindowRuntime.dayD67BC0;
+                --logViewer.day;
             }
-            WindowAdventureLog_Load();
+            WindowAdventureLog_Load(*callbackWindow.ownerSession);
             auto* const element5 = currentWindow->FindElementById(WindowAdventureLogElementId::Element5);
             if (element5) {
                 auto* const title = element5->data.text;
-                title->text = world::gLogFileName554648;
+                title->text = chatLog.fileName;
             }
             WindowInstance* const window = currentWindow;
-            const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
-            gLoginWindowRuntime.valueD67BB0 = 0;
+            const std::int32_t maximum = logViewer.maximum;
+            logViewer.page = 0;
             auto* const handleVerticalScrollElement = window->FindElementById(WindowAdventureLogElementId::HandleVerticalScroll);
             if (handleVerticalScrollElement) {
                 static_cast<void>(WindowScroll_SetPosition(handleVerticalScrollElement, maximum, 0));

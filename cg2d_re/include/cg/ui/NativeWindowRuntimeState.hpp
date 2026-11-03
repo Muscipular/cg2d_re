@@ -7,6 +7,8 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
+#include <ctime>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -714,6 +716,28 @@ struct ChatWindowRuntimeState {
     std::int32_t heightRequest = 0; // 原0xC9A93C。
 };
 
+// 冒险日志的日期借用与读流；关闭窗口保留现场，移除会话时释放文件。
+struct AdventureLogRuntimeState {
+    std::tm* calendar = nullptr; // 原0xD67BAC，借所属会话的唯一日历对象。
+    std::int64_t timestamp = 0; // 原0xCB1DF0。
+    std::int32_t page = 0; // 原0xD67BB0。
+    std::int32_t maximum = 0; // 原0xD67BB4，保留EOF空读取计数。
+    std::FILE* file = nullptr; // 原0xD67BB8。
+    std::int32_t error = 0; // 原0xD67BBC。
+    std::int32_t day = 0; // 原0xD67BC0。
+    std::int32_t displayGate = 0; // 原0x593F84。
+
+    AdventureLogRuntimeState() = default;
+    ~AdventureLogRuntimeState()
+    {
+        if (file != nullptr) { std::fclose(file); }
+    }
+    AdventureLogRuntimeState(const AdventureLogRuntimeState&) = delete;
+    AdventureLogRuntimeState& operator=(const AdventureLogRuntimeState&) = delete;
+    AdventureLogRuntimeState(AdventureLogRuntimeState&&) = delete;
+    AdventureLogRuntimeState& operator=(AdventureLogRuntimeState&&) = delete;
+};
+
 // 同会话跨窗共用输入；原型仅借本对象内的稳定实体，不拆邮件/宠物页及快捷文字别名。
 struct NativeInputRuntimeState {
     input::InputContext chat {}; // 原0x626AA0。
@@ -869,6 +893,7 @@ struct NativeWindowRuntimeState {
     WindowPointerRuntimeState pointer {};
     NativeInputRuntimeState inputs {};
     ChatWindowRuntimeState chat {};
+    AdventureLogRuntimeState adventureLog {};
     ItemTransferRuntimeState itemTransfer {};
     ShopWindowRuntimeState shop {};
     CrystalShopWindowRuntimeState crystalShop {};

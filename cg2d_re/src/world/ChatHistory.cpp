@@ -33,17 +33,6 @@
 #include "cg/core/m_log.hpp"
 
 namespace cg::world::detail {
-std::wstring gLogPath62699C; // 原全局：0x0062699C。
-std::FILE* volatile gLogStream626C1C = nullptr; // 原全局：0x00626C1C。
-
-} // namespace cg::world::detail
-
-namespace cg::world {
-std::wstring gLogFileName554648 = L"chat_000000.txt"; // 原全局：0x00554648。
-
-} // namespace cg::world
-
-namespace cg::world::detail {
 
 // 文件边界：64项GBK记录和尾索引保持原磁盘布局。
 struct ChatHistoryDisk {
@@ -99,6 +88,7 @@ std::int32_t LoadChatInputHistory_44A090(session::ClientSession& session)
 // 原 sub_449DA0@[0x449DA0,0x449F9C)：输入记录与聊天日志初始化。
 void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
 {
+    auto& chatLog = session.WorldScene().chatLog;
     auto& chatDisplay = session.WorldScene().chatDisplay;
     auto& inputs = session.UiFrame().native.inputs;
     for (auto& record : chatDisplay.records) record = {};
@@ -114,7 +104,7 @@ void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
     chatDisplay.rangeOverlayFrames = 0;
 
     __time64_t timeValue = 0;
-    std::FILE* const existingStream = gLogStream626C1C;
+    std::FILE* const existingStream = chatLog.stream;
     if (existingStream != nullptr) {
         return;
     }
@@ -122,37 +112,37 @@ void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
     ::_wmkdir(L"Log");
     timeValue = ::_time64(nullptr);
     const std::tm* const legacyTime =
-        ::_localtime64(&timeValue);
+        session.LocalTime(&timeValue);
     const std::int32_t fileMonth = legacyTime->tm_mon;
     const std::int32_t fileDay = legacyTime->tm_mday;
     const std::int32_t fileYear = legacyTime->tm_year;
-    gLogFileName554648 = std::format(L"chat_{:02}{:02}{:02}.txt", fileYear % 100, fileMonth + 1, fileDay);
-    gLogPath62699C = std::format(L"Log\\{}", gLogFileName554648);
+    chatLog.fileName = std::format(L"chat_{:02}{:02}{:02}.txt", fileYear % 100, fileMonth + 1, fileDay);
+    chatLog.path = std::format(L"Log\\{}", chatLog.fileName);
 
     std::FILE* const readStream =
-        _wfopen(gLogPath62699C.c_str(), L"r" /* 原常量参考：0x00554908。 */);
-    gLogStream626C1C = readStream;
+        _wfopen(chatLog.path.c_str(), L"r" /* 原常量参考：0x00554908。 */);
+    chatLog.stream = readStream;
     std::FILE* gate;
     if (readStream == nullptr) {
         std::FILE* const appendStream =
-            _wfopen(gLogPath62699C.c_str(), L"a");
-        gLogStream626C1C = appendStream;
+            _wfopen(chatLog.path.c_str(), L"a");
+        chatLog.stream = appendStream;
         std::fprintf(appendStream, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
 
         const std::int32_t titleMonth = legacyTime->tm_mon;
         const std::int32_t titleDay = legacyTime->tm_mday;
         const std::int32_t titleYear = legacyTime->tm_year;
         std::fprintf(
-            gLogStream626C1C,
+            chatLog.stream,
             cg::text::ToGbk(L"        >>  魔 力 宝 贝 冒 险 者 日 志 [ %02d/%02d/%02d ]  <<\n" /* 原常量参考：0x0055488C。 */).c_str(),
             titleYear % 100, titleMonth + 1, titleDay);
-        std::fprintf(gLogStream626C1C, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
-        gate = gLogStream626C1C;
+        std::fprintf(chatLog.stream, "        >>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<\n" /* 原常量参考：0x005548CC。 */);
+        gate = chatLog.stream;
     } else {
         std::fclose(readStream);
         std::FILE* const appendStream =
-            _wfopen(gLogPath62699C.c_str(), L"a");
-        gLogStream626C1C = appendStream;
+            _wfopen(chatLog.path.c_str(), L"a");
+        chatLog.stream = appendStream;
         gate = appendStream;
     }
 
@@ -166,13 +156,13 @@ void __cdecl InitializeChatInputAndLog_449DA0(session::ClientSession& session)
         const std::int32_t sessionMonth = legacyTime->tm_mon;
         const std::int32_t sessionYear = legacyTime->tm_year;
         std::fprintf(
-            gLogStream626C1C,
+            chatLog.stream,
             cg::text::ToGbk(L" ■ %02d/%02d/%02d %02d:%02d:%02d 纪录\n" /* 原常量参考：0x00554820。 */).c_str(),
             sessionYear % 100, sessionMonth + 1, sessionDay,
             sessionHour, sessionMinute, sessionSecond);
-        std::fprintf(gLogStream626C1C, "  -------------------------------------------------------------\n" /* 原常量参考：0x005547DC。 */);
+        std::fprintf(chatLog.stream, "  -------------------------------------------------------------\n" /* 原常量参考：0x005547DC。 */);
     }
-    std::fflush(gLogStream626C1C);
+    std::fflush(chatLog.stream);
 }
 
 // 原 sub_4A76E0@[0x4A76E0,0x4A76FD)：先写未封顶值，超过 512 再写封顶值。
@@ -222,13 +212,14 @@ void AppendChatMessage_44B050(
     const std::int32_t color,
     const std::int32_t fontType)
 {
+    auto& chatLog = session.WorldScene().chatLog;
     auto& chatDisplay = session.WorldScene().chatDisplay;
     if (color >= 13) {
         return;
     }
 
     // 显示记录只持有宽文本；日志GBK字节限制在文件写入边界检查。
-    const std::FILE* const gate = detail::gLogStream626C1C;
+    const std::FILE* const gate = chatLog.stream;
     std::string logBytes;
     if (gate != nullptr) {
         try {
@@ -247,20 +238,20 @@ void AppendChatMessage_44B050(
         __time64_t timeValue = color;
         timeValue = ::_time64(nullptr);
         const std::tm* const legacyTime =
-            ::_localtime64(&timeValue);
+            session.LocalTime(&timeValue);
         index = chatDisplay.writeIndex;
         const std::int32_t second = legacyTime->tm_sec;
         const std::int32_t minute = legacyTime->tm_min;
         const std::int32_t hour = legacyTime->tm_hour;
 
         std::fprintf(
-            detail::gLogStream626C1C,
+            chatLog.stream,
             " %02d:%02d:%02d\x81\x40%s\n",
             hour, minute, second, logBytes.c_str());
-        std::fclose(detail::gLogStream626C1C);
-        std::FILE* const newStream = _wfopen(detail::gLogPath62699C.c_str(), L"a");
+        std::fclose(chatLog.stream);
+        std::FILE* const newStream = _wfopen(chatLog.path.c_str(), L"a");
         index = chatDisplay.writeIndex;
-        detail::gLogStream626C1C = newStream;
+        chatLog.stream = newStream;
     }
 
     Record5FB7F8& record = chatDisplay.records[index];

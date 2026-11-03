@@ -231,7 +231,7 @@ static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const El
     if (contact != -1) {
         __time64_t time;
         time = ::_time64(nullptr);
-        const std::tm* const calendar = ::_localtime64(&time);
+        const std::tm* const calendar = callbackWindow.ownerSession->LocalTime(&time);
         const std::int32_t minute = calendar->tm_min;
         const std::int32_t hour = calendar->tm_hour;
         const std::int32_t day = calendar->tm_mday;

@@ -394,7 +394,7 @@ static void WindowMessageBoard_RefreshRecords()
         }
         __time64_t time = static_cast<std::uint32_t>(record.value04);
         if (time > 0) {
-            const std::tm* const calendar = ::_localtime64(&time);
+            const std::tm* const calendar = currentWindow->ownerSession->LocalTime(&time);
             const std::int32_t minute = calendar->tm_min;
             const std::int32_t hour = calendar->tm_hour;
             const std::int32_t day = calendar->tm_mday;

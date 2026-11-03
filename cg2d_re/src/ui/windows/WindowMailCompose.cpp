@@ -307,14 +307,14 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                             const std::int32_t contact = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                             static_cast<void>(callbackWindow.ownerSession->Connection().SendContactMail(contact, packet, 0));
-                            WindowMail_FormatTimestamp(timestamp);
+                            WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                             world::detail::PrependContactMailMessage_5191C0(contact, 1, timestamp, storedText);
                         } else if (groupMode == 1) {
                             const std::int32_t member = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                             const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                             const std::int32_t key = cg::world::gOrderedRecords1051B14[member].value0C;
                             static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMail(key, packet, 0));
-                            WindowMail_FormatTimestamp(timestamp);
+                            WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                             static_cast<void>(world::detail::PrependGuildMailMessage_519370(
                                 key, 1, timestamp, storedText));
                         } else {
@@ -325,7 +325,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                                 const std::int32_t memberGroup = cg::world::gOrderedRecords1051B14[member].value00;
                                 const std::int32_t currentGroup = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
                                 if (memberGroup == currentGroup) {
-                                    WindowMail_FormatTimestamp(timestamp);
+                                    WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                                     const std::int32_t key = cg::world::gOrderedRecords1051B14[member].value0C;
                                     static_cast<void>(world::detail::PrependGuildMailMessage_519370(
                                         key, 1, timestamp, storedText));
@@ -360,7 +360,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 combined = std::to_wstring(key) + L"|" + escapedName + L"|" + escapedText;
                 packet = input::EscapeTextAndNotify(combined, 1024);
                 static_cast<void>(callbackWindow.ownerSession->Connection().SendMiniMail(packet, 0));
-                static_cast<void>(world::detail::FormatMailTimestamp_534520(timestamp));
+                static_cast<void>(world::detail::FormatMailTimestamp_534520(*callbackWindow.ownerSession, timestamp));
                 const std::int32_t currentContact = gLoginWindowRuntime.prefixD2F0B8.value04;
                 world::detail::PrependMiniMailMessage_5343C0(currentContact, 1, timestamp, storedText);
                 static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -392,7 +392,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackW
                 } else {
                     static_cast<void>(callbackWindow.ownerSession->Connection().SendContactMail(target, packet, 0));
                 }
-                WindowMail_FormatTimestamp(timestamp);
+                WindowMail_FormatTimestamp(*callbackWindow.ownerSession, timestamp);
                 if (category == 1) {
                     static_cast<void>(world::detail::PrependGuildMailMessage_519370(
                         target, 1, timestamp, storedText));

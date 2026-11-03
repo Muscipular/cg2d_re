@@ -1,4 +1,5 @@
 #include "cg/render/SdlPresenter.hpp"
+#include "cg/session/ClientSession.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/text/Encoding.hpp"
 #include "cg/core/m_log.hpp"
@@ -627,7 +628,7 @@ void TakeScreenshot_453760(session::ClientSession& session)
     }
     __time64_t time;
     time = ::_time64(nullptr);
-    const std::tm* const calendar = ::_localtime64(&time);
+    const std::tm* const calendar = session.LocalTime(&time);
     std::wstring path;
     std::int32_t sequence = 0;
     for (; sequence < 1000; ++sequence) {

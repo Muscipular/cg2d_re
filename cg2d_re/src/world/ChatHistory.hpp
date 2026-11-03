@@ -18,8 +18,6 @@ class InputContext;
 
 namespace cg::world {
 
-extern std::wstring gLogFileName554648; // 原全局：0x00554648。
-
 // 原0xD2F788：504A30重置的独立S32槽。
 extern std::int32_t gPlayerUnspentAttributePoints_D2F788; // 原全局：0x00D2F788。
 
@@ -42,8 +40,6 @@ void FaceWorldActorTowardPlayer_43D860(cg::yobi::YobiAction* action); // 指定�
 std::int32_t SaveChatInputHistoryEntry_449FA0(session::ClientSession& session, std::int32_t index); // 原 [0x449FA0,0x44A084)，写入一项历史和尾索引。
 
 namespace detail {
-extern std::wstring gLogPath62699C; // 原全局：0x0062699C。
-extern std::FILE* volatile gLogStream626C1C; // 原全局：0x00626C1C。
 // 原函数：0x004A76E0。
 std::int32_t IncrementChatRecordCount_4A76E0(session::ClientSession& session);
 // 原函数：0x00449DA0。

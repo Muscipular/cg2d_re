@@ -980,7 +980,7 @@ std::int32_t WindowGuildDetails_CanEditRank(std::int32_t index, std::int32_t mas
 // 原函数：0x004CC6A0。
 std::int32_t WindowBlacklist_ResetState(); // 三个UI数值依序写5/0/0。
 // 原函数：0x004CBD30。
-void WindowAdventureLog_InitializeDate(); // 首次借用原localtime对象并写同源日志文件名。
+void WindowAdventureLog_InitializeDate(session::ClientSession& session); // 首次借用会话日历并写同源日志文件名。
 // 原函数：0x004A8330。
 WindowInstance* WindowChat_SwitchMode(session::ClientSession& session); // 标旧聊天窗关闭、开另一窗后发布模式，透传新窗T*。
 // 原函数：0x004A6DB0。

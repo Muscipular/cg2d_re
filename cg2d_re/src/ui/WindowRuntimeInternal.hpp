@@ -2,6 +2,7 @@
 
 // UI 实现内部的共享依赖、类型与声明；窗口专属定义位于 windows/。
 #include "WindowPrototypeDependencies.hpp"
+#include "cg/session/ClientSession.hpp"
 
 #include "../scene/character_select/CharacterSelectSceneDependencies.hpp"
 #include "../scene/character_select/CharacterSelectState.hpp"
@@ -219,13 +220,6 @@ struct LoginWindowRuntimeSlots {
     std::int32_t bankPageCount = 1; // G07：INVCF银行页数。
     std::int32_t bagCurrentPage = 0; // G07：0基背包页，INVCF或页按钮更新。
     std::int32_t bankCurrentPage = 0; // G07：0基银行页，rh发送时加1，不索引金额缓存。
-    std::tm* calendarTimeD67BAC; // 原全局：0x00D67BAC。 借用CRT同线程共享可变std::tm对象。
-    __time64_t timeCB1DF0; // 原全局：0x00CB1DF0。
-    std::int32_t valueD67BB0; // 原全局：0x00D67BB0。
-    std::int32_t logViewerMaximumD67BB4; // 原全局：0x00D67BB4。 原计数上限，含EOF空读取，不减可见行数。
-    std::FILE* logViewerFileD67BB8; // 原全局：0x00D67BB8。 借用当前打开的MSVC FILE，关闭后不得重复消费。
-    std::int32_t logViewerErrorD67BBC; // 原全局：0x00D67BBC。
-    std::int32_t dayD67BC0; // 原全局：0x00D67BC0。
 };
 
 inline constexpr std::array<const wchar_t*, 3> kShopHints57E6C4 { // 原常量参考：0x0057E6C4。
@@ -323,7 +317,7 @@ void WindowMail_SortIndices(
     std::int32_t (*compare)(const std::int32_t*, const std::int32_t*));
 
 // 4A5970各成功发送路径分别取时，不跨收件人复用时间或Input正文。
-void WindowMail_FormatTimestamp(std::wstring& destination);
+void WindowMail_FormatTimestamp(session::ClientSession& session, std::wstring& destination);
 
 // 原函数：0x00492260。
 void WindowPetDetail_ResetDraftFlag();

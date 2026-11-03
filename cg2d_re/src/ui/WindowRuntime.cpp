@@ -414,8 +414,6 @@ std::uint8_t gSkillOperationCount_D67AFD = 0; // 原全局：0x00D67AFD。
 
 std::uint8_t gSkillStatusIconReferences_D67AFE = 0; // 原全局：0x00D67AFE。
 
-std::uint8_t gItemUseTargetReferences_D67B24 = 0; // 原全局：0x00D67B24。
-
 std::int32_t gUsingSkillIndexD2F32C = 0; // 原全局：0x00D2F32C。
 
 std::int32_t gUsingSkillLevelCA0AC4 = 0; // 原全局：0x00CA0AC4。
@@ -3430,7 +3428,7 @@ static void WindowRuntime_OpenLoginScene(session::ClientSession& session)
     WindowRuntime_RestoreMarkedWindows(session);
     WindowRuntime_ClearElementFocus();
     gSelectedItemCB1DF4 = -1;
-    gItemUseTargetReferences_D67B24 = 0;
+    session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences();
     gPreviewActionD67B84 = nullptr;
     input::gChatPanelVisible_C9A96C = 1;
@@ -3496,7 +3494,7 @@ static void WindowRuntime_OpenNormalScene(session::ClientSession& session)
     WindowRuntime_OpenConfiguredWindows(session);
     WindowRuntime_RestoreMarkedWindows(session);
     gSelectedItemCB1DF4 = -1;
-    gItemUseTargetReferences_D67B24 = 0;
+    session.UiFrame().native.itemTargets.references = 0;
     WindowRuntime_ResetOperationReferences();
     const std::int32_t inputGate = input::gChatLogSuppressed_626C14;
     gPreviewActionD67B84 = nullptr;

@@ -6,6 +6,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 
 namespace cg::ui::detail {
 
@@ -34,6 +35,26 @@ static_assert(offsetof(WindowStatusChoiceRecord, level) == 8);
 static_assert(offsetof(WindowStatusChoiceRecord, injury) == 0x1C);
 static_assert(offsetof(WindowStatusChoiceRecord, color) == 0x1D);
 static_assert(sizeof(WindowStatusChoiceRecord) == 32);
+
+// 原CB10D8的六行物品目标属性；不与技能ND属性槽混用。
+struct ItemUseStatusRecord {
+    std::wstring name;
+    std::int32_t level; // 原+14。
+    std::int32_t injury; // 原+18。
+    std::int32_t hp; // 原+1C。
+    std::int32_t maxHp;
+    std::int32_t fp;
+    std::int32_t maxFp; // 原+28。
+    std::int32_t kind; // 原+2C。
+    std::int32_t target; // 原+30。
+};
+
+// 原CB0EA8十条物品目标名单，名称由记录实际持有。
+struct ItemUseTargetRecord {
+    std::int16_t kind;
+    std::wstring name; // 原+02。
+    std::byte byte13; // 原+13。
+};
 
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。
@@ -136,6 +157,45 @@ struct AttributeTargetWindowState {
     std::uint8_t enabled = 0; // 原0xC9A970。
 };
 
+// 技能目标名称与ND属性值的实际owner；视图仅借同一会话内的稳定数组。
+struct SkillTargetRuntimeState {
+    std::int32_t count = 0; // 原0xCA0004。
+    std::int32_t page = 0; // 原0xC8A974。
+    std::int32_t pageCount = 0; // 原0xCA0178。
+    std::int32_t selected = 0; // 原0xCC4B1C。
+    std::array<std::wstring, 10> names {}; // 原0xCB0550，非物品LY名单。
+    std::array<std::int32_t, 10> kinds {}; // 原0xD2F75C。
+    std::array<const wchar_t*, 10> nameViews {}; // 原0xD45F98。
+    std::array<std::uint8_t, 10> colors {}; // 原0xCB1DE4。
+    std::uint8_t pending = 0; // 原0xC8AF5F。
+    std::int32_t attributeCount = 0; // 原0xC8AA94。
+    std::array<std::wstring, 6> attributeNames {}; // 原0xCC4670。
+    std::array<std::int32_t, 6> levels {}; // 原0xCC31C0。
+    std::array<std::int32_t, 6> injuries {}; // 原0xD67600。
+    std::array<std::int32_t, 6> hp {}; // 原0xCC318C。
+    std::array<std::int32_t, 6> maxHp {}; // 原0xD66C1C。
+    std::array<std::int32_t, 6> fp {}; // 原0xCC2348。
+    std::array<std::int32_t, 6> maxFp {}; // 原0xD2EA80。
+    std::array<std::int32_t, 6> attributeKinds {}; // 原0xCA0A78。
+    std::array<std::int32_t, 6> targetIndices {}; // 原0xCF3FD0。
+    std::array<detail::WindowStatusChoiceRecord, 6> attributeViews {}; // 原0xCC4BE8。
+};
+
+// 物品目标的LY名单与nFV属性值各自持有，不复制或借其他会话的字符串。
+struct ItemTargetRuntimeState {
+    std::array<detail::ItemUseTargetRecord, 10> records {}; // 原0xCB0EA8。
+    std::int32_t count = 0; // 原0xCC40CC。
+    std::int32_t page = 0; // 原0xCC46DC。
+    std::int32_t pageCount = 0; // 原0xCC3E70。
+    std::int32_t selected = 0; // 原0xCB0A48。
+    std::array<const wchar_t*, 10> names {}; // 原0xCB0A1C。
+    std::array<std::uint8_t, 10> colors {}; // 原0xD2E91C。
+    std::array<detail::ItemUseStatusRecord, 6> attributes {}; // 原0xCB10D8。
+    std::int32_t attributeCount = 0; // 原0xCC4D44。
+    std::array<detail::WindowStatusChoiceRecord, 6> attributeViews {}; // 原0xCB1278。
+    std::uint8_t references = 0; // 原0xD67B24，保留W8增减和S8门禁。
+};
+
 // 原生窗口实例地址稳定，状态记录与排序数组由同一账号会话持有。
 struct NativeWindowRuntimeState {
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
@@ -145,6 +205,8 @@ struct NativeWindowRuntimeState {
     SkillWindowRuntimeState skill {};
     TextTargetWindowState textTarget {};
     AttributeTargetWindowState attributeTarget {};
+    SkillTargetRuntimeState skillTargets {};
+    ItemTargetRuntimeState itemTargets {};
     detail::WindowSavedData savedData {}; // 原0xD40B30。
     std::int32_t savedLength = 0; // 原0xCC4238。
 };

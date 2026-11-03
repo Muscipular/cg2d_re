@@ -196,47 +196,6 @@ static void WindowSkill_Release(WindowInstance&);
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static std::int32_t gSkillTargetCountCA0004 = 0; // 原全局：0x00CA0004。
-
-static std::int32_t gSkillTargetPageC8A974 = 0; // 原全局：0x00C8A974。
-
-static std::int32_t gSkillTargetPageCountCA0178 = 0; // 原全局：0x00CA0178。
-
-static std::int32_t gSkillSelectedTargetCC4B1C = 0; // 原全局：0x00CC4B1C。
-
-static std::array<std::wstring, 10> gSkillTargetNamesCB0550 {}; // 原全局：0x00CB0550。 独立宽文本名单，非LY表。
-
-static std::array<std::int32_t, 10> gSkillTargetKindsD2F75C {}; // 原全局：0x00D2F75C。
-
-static std::array<const wchar_t*, 10> gSkillTargetNameViewsD45F98 {}; // 原全局：0x00D45F98。
-
-static std::array<std::uint8_t, 10> gSkillTargetColorsCB1DE4 {}; // 原全局：0x00CB1DE4。
-
-static std::uint8_t gSkillTargetPendingC8AF5F = 0; // 原全局：0x00C8AF5F。
-
-// ND六行属性使用各自原槽，不能与nFV值记录或ysVc名称表混用。
-static std::int32_t gSkillStatusCountC8AA94 = 0; // 原全局：0x00C8AA94。
-
-static std::array<std::wstring, 6> gSkillStatusNamesCC4670 {}; // 原全局：0x00CC4670。
-
-static std::array<std::int32_t, 6> gSkillStatusLevelsCC31C0 {}; // 原全局：0x00CC31C0。
-
-static std::array<std::int32_t, 6> gSkillStatusInjuriesD67600 {}; // 原全局：0x00D67600。
-
-static std::array<std::int32_t, 6> gSkillStatusHpCC318C {}; // 原全局：0x00CC318C。
-
-static std::array<std::int32_t, 6> gSkillStatusMaxHpD66C1C {}; // 原全局：0x00D66C1C。
-
-static std::array<std::int32_t, 6> gSkillStatusFpCC2348 {}; // 原全局：0x00CC2348。
-
-static std::array<std::int32_t, 6> gSkillStatusMaxFpD2EA80 {}; // 原全局：0x00D2EA80。
-
-static std::array<std::int32_t, 6> gSkillStatusKindsCA0A78 {}; // 原全局：0x00CA0A78。
-
-static std::array<std::int32_t, 6> gSkillStatusTargetsCF3FD0 {}; // 原全局：0x00CF3FD0。
-
-static std::array<WindowStatusChoiceRecord, 6> gSkillStatusViewsCC4BE8 {}; // 原全局：0x00CC4BE8。
-
 static constexpr std::array<std::array<std::int32_t, 2>, 8> kPetCrystalItemRanges {{
     {0x24B9, 0x24C2}, {0x24C3, 0x24CC}, {0x24CD, 0x24D6}, {0x24D7, 0x24E0},
     {0x24E1, 0x24E5}, {0x24E6, 0x24EA}, {0x24EB, 0x24EF}, {0x24F0, 0x24F4},
@@ -508,6 +467,7 @@ static std::int32_t WindowSkill_MatchesCrystalLevel()
 // 原函数：0x004872E0。
 static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
+    auto& targets = session.UiFrame().native.skillTargets;
     if (index == -1) {
         WindowRuntime_DecrementOperationCount(session);
         const auto count = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
@@ -537,7 +497,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
     }
     char extra[256];
     extra[0] = '\0';
-    gSkillTargetNameD2F748 = gSkillStatusNamesCC4670[index];
+    gSkillTargetNameD2F748 = targets.attributeNames[index];
     // 原509080只有ret；后续三分支均发送此空串，但不清局部其余字节。
     std::int32_t offset = 0;
     if (gSkillRebirthModeEnabled_5F9754 != 0) {
@@ -545,7 +505,7 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
     } else if (gSkillSendModeC8A970 != 0) {
         offset = 200;
     }
-    const std::int32_t target = gSkillStatusTargetsCF3FD0[index];
+    const std::int32_t target = targets.targetIndices[index];
     const std::int32_t level = gUsingSkillLevelCA0AC4;
     const std::int32_t skill = gUsingSkillIndexD2F32C;
     const auto networkSession = session.Connection().CaptureSession();
@@ -556,20 +516,21 @@ static std::int32_t WindowSkill_SelectAttributeTarget(session::ClientSession& se
 // 原函数：0x004874B0。
 static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSession& session)
 {
-    const std::int32_t count = gSkillStatusCountC8AA94;
+    auto& targets = session.UiFrame().native.skillTargets;
+    const std::int32_t count = targets.attributeCount;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     gSkillSendModeC8A970 = 0;
     for (std::int32_t index = 0; index < count; ++index) {
-        auto& view = gSkillStatusViewsCC4BE8[index];
-        const std::int32_t level = gSkillStatusLevelsCC31C0[index];
-        view.name = gSkillStatusNamesCC4670[index].data();
+        auto& view = targets.attributeViews[index];
+        const std::int32_t level = targets.levels[index];
+        view.name = targets.attributeNames[index].data();
         view.level = level;
-        view.hp = gSkillStatusHpCC318C[index];
-        view.maxHp = gSkillStatusMaxHpD66C1C[index];
-        view.fp = gSkillStatusFpCC2348[index];
-        view.maxFp = gSkillStatusMaxFpD2EA80[index];
-        view.injury = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gSkillStatusInjuriesD67600[index]));
-        view.color = static_cast<std::uint8_t>(colors[gSkillStatusKindsCA0A78[index]]);
+        view.hp = targets.hp[index];
+        view.maxHp = targets.maxHp[index];
+        view.fp = targets.fp[index];
+        view.maxFp = targets.maxFp[index];
+        view.injury = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(targets.injuries[index]));
+        view.color = static_cast<std::uint8_t>(colors[targets.attributeKinds[index]]);
     }
     WindowRuntime_IncrementOperationCount();
     const auto references = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD + 1);
@@ -583,38 +544,39 @@ static cg::yobi::YobiAction* WindowSkill_OpenAttributeTargets(session::ClientSes
             window->state |= 0x8000u;
         }
     }
-    return WindowAttributeTarget_Open(session, gSkillStatusViewsCC4BE8.data(), gSkillStatusCountC8AA94, WindowSkill_SelectAttributeTarget);
+    return WindowAttributeTarget_Open(session, targets.attributeViews.data(), targets.attributeCount, WindowSkill_SelectAttributeTarget);
 }
 
 // 原函数：0x004EF750。
 static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::ClientSession& session, const char* const text)
 {
+    auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    const std::int32_t selected = gSkillSelectedTargetCC4B1C;
-    const std::int32_t kind = gSkillTargetKindsD2F75C[selected];
-    gSkillStatusCountC8AA94 = 0;
+    const std::int32_t selected = targets.selected;
+    const std::int32_t kind = targets.kinds[selected];
+    targets.attributeCount = 0;
     if (kind == 0) {
         std::int32_t count = 0;
         if (gSkillTargetKindCF4A10 != 1) {
             const wchar_t* const name = world::GetPlayerDisplayText(1);
-            gSkillStatusLevelsCC31C0[0] = world::gPlayerRuntimeSlots.level;
-            gSkillStatusNamesCC4670[0] = name;
-            gSkillStatusInjuriesD67600[0] = world::gPlayerRuntimeSlots.valueF4;
+            targets.levels[0] = world::gPlayerRuntimeSlots.level;
+            targets.attributeNames[0] = name;
+            targets.injuries[0] = world::gPlayerRuntimeSlots.valueF4;
             const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
-            gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
+            targets.hp[targets.attributeCount] = hp;
             const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
-            gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
+            targets.maxHp[targets.attributeCount] = maxHp;
             const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
-            const std::int32_t output = gSkillStatusCountC8AA94;
-            gSkillStatusFpCC2348[output] = fp;
+            const std::int32_t output = targets.attributeCount;
+            targets.fp[output] = fp;
             const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
-            count = gSkillStatusCountC8AA94 + 1;
-            gSkillStatusMaxFpD2EA80[output] = maxFp;
-            gSkillStatusKindsCA0A78[output] = 0;
-            gSkillStatusTargetsCF3FD0[output] = 0;
-            gSkillStatusCountC8AA94 = count;
+            count = targets.attributeCount + 1;
+            targets.maxFp[output] = maxFp;
+            targets.attributeKinds[output] = 0;
+            targets.targetIndices[output] = 0;
+            targets.attributeCount = count;
         }
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
@@ -623,22 +585,22 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
                 continue;
             }
             const wchar_t* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            gSkillStatusNamesCC4670[count] = name;
-            gSkillStatusInjuriesD67600[count] = pet.values70[25];
-            gSkillStatusLevelsCC31C0[count] = pet.value08;
+            targets.attributeNames[count] = name;
+            targets.injuries[count] = pet.values70[25];
+            targets.levels[count] = pet.value08;
             const std::int32_t hp = static_cast<std::int32_t>(pet.values0C[0]);
-            gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = hp;
+            targets.hp[targets.attributeCount] = hp;
             const std::int32_t maxHp = static_cast<std::int32_t>(pet.values0C[1]);
-            gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = maxHp;
+            targets.maxHp[targets.attributeCount] = maxHp;
             const std::int32_t fp = static_cast<std::int32_t>(pet.values0C[2]);
-            const std::int32_t output = gSkillStatusCountC8AA94;
-            gSkillStatusFpCC2348[output] = fp;
+            const std::int32_t output = targets.attributeCount;
+            targets.fp[output] = fp;
             const std::int32_t maxFp = static_cast<std::int32_t>(pet.values0C[3]);
-            count = gSkillStatusCountC8AA94 + 1;
-            gSkillStatusMaxFpD2EA80[output] = maxFp;
-            gSkillStatusTargetsCF3FD0[output] = target++;
-            gSkillStatusKindsCA0A78[output] = 4;
-            gSkillStatusCountC8AA94 = count;
+            count = targets.attributeCount + 1;
+            targets.maxFp[output] = maxFp;
+            targets.targetIndices[output] = target++;
+            targets.attributeKinds[output] = 4;
+            targets.attributeCount = count;
         }
         return WindowSkill_OpenAttributeTargets(session);
     }
@@ -656,28 +618,28 @@ static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::Client
             continue;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        gSkillStatusNamesCC4670[gSkillStatusCountC8AA94] = cg::text::FromGbkWide(name);
+        targets.attributeNames[targets.attributeCount] = cg::text::FromGbkWide(name);
         std::int32_t value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gSkillStatusLevelsCC31C0[gSkillStatusCountC8AA94] = value;
+        targets.levels[targets.attributeCount] = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gSkillStatusInjuriesD67600[gSkillStatusCountC8AA94] = value;
+        targets.injuries[targets.attributeCount] = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gSkillStatusHpCC318C[gSkillStatusCountC8AA94] = value;
+        targets.hp[targets.attributeCount] = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gSkillStatusMaxHpD66C1C[gSkillStatusCountC8AA94] = value;
+        targets.maxHp[targets.attributeCount] = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        const std::int32_t output = gSkillStatusCountC8AA94;
-        gSkillStatusFpCC2348[output] = value;
+        const std::int32_t output = targets.attributeCount;
+        targets.fp[output] = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gSkillStatusMaxFpD2EA80[output] = value;
-        switch (gSkillTargetKindsD2F75C[gSkillSelectedTargetCC4B1C]) {
-        case 1: gSkillStatusKindsCA0A78[output] = row == 0 ? 1 : 5; break;
-        case 2: gSkillStatusKindsCA0A78[output] = row == 0 ? 2 : 6; break;
-        case 3: gSkillStatusKindsCA0A78[output] = 3; break;
+        targets.maxFp[output] = value;
+        switch (targets.kinds[targets.selected]) {
+        case 1: targets.attributeKinds[output] = row == 0 ? 1 : 5; break;
+        case 2: targets.attributeKinds[output] = row == 0 ? 2 : 6; break;
+        case 3: targets.attributeKinds[output] = 3; break;
         }
-        const std::int32_t count = gSkillStatusCountC8AA94 + 1;
-        gSkillStatusTargetsCF3FD0[output] = target++;
-        gSkillStatusCountC8AA94 = count;
+        const std::int32_t count = targets.attributeCount + 1;
+        targets.targetIndices[output] = target++;
+        targets.attributeCount = count;
     }
     return WindowSkill_OpenAttributeTargets(session);
 }
@@ -2563,6 +2525,7 @@ void WindowSkill_SyncStates(session::ClientSession& session)
 // 原函数：0x00487020。
 static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session, const std::int32_t index, const wchar_t* const text)
 {
+    auto& targets = session.UiFrame().native.skillTargets;
     if (index == -1) {
         WindowRuntime_DecrementOperationCount(session);
         const auto count = static_cast<std::uint8_t>(gSkillOperationCount_D67AFD - 1);
@@ -2577,11 +2540,11 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
     if (index == -2) {
         return 1;
     }
-    if (index >= 0 && gSkillTargetPendingC8AF5F == 0) {
-        if (gSkillTargetKindCF4A10 != 0 && gSkillTargetKindsD2F75C[index] != 3) {
+    if (index >= 0 && targets.pending == 0) {
+        if (gSkillTargetKindCF4A10 != 0 && targets.kinds[index] != 3) {
             static_cast<void>(session.Connection().SelectSkillTextTarget(index));
-            gSkillSelectedTargetCC4B1C = index;
-            gSkillTargetPendingC8AF5F = 1;
+            targets.selected = index;
+            targets.pending = 1;
             return 0;
         }
         gSkillSendModeC8A970 = 0;
@@ -2605,19 +2568,20 @@ static std::int32_t WindowSkill_SelectTextTarget(session::ClientSession& session
         }
         static_cast<void>(session.Connection().SendSkillUseRequest(skill, level, index, cg::text::FromGbkWide(extra)));
     }
-    gSkillTargetPendingC8AF5F = 1;
+    targets.pending = 1;
     return 0;
 }
 
 // 原函数：0x004871B0。
 static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession& session)
 {
+    auto& targets = session.UiFrame().native.skillTargets;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     gSkillSendModeC8A970 = 0;
     for (std::int32_t index = 0; index < 10; ++index) {
-        const std::int32_t kind = gSkillTargetKindsD2F75C[index];
-        gSkillTargetNameViewsD45F98[index] = gSkillTargetNamesCB0550[index].data();
-        gSkillTargetColorsCB1DE4[index] = static_cast<std::uint8_t>(colors[kind]);
+        const std::int32_t kind = targets.kinds[index];
+        targets.nameViews[index] = targets.names[index].data();
+        targets.colors[index] = static_cast<std::uint8_t>(colors[kind]);
     }
     const std::int32_t skillIndex = gUsingSkillIndexD2F32C;
     ++gSkillStatusIconReferences_D67AFE;
@@ -2638,33 +2602,34 @@ static cg::yobi::YobiAction* WindowSkill_OpenTextTargets(session::ClientSession&
             window->state |= 0x8000u;
         }
     }
-    const std::int32_t count = gSkillTargetCountCA0004;
-    gSkillTargetPendingC8AF5F = 0;
+    const std::int32_t count = targets.count;
+    targets.pending = 0;
     return WindowTextTarget_Open(
-        session, gSkillTargetNameViewsD45F98.data(), gSkillTargetColorsCB1DE4.data(), count, WindowSkill_SelectTextTarget);
+        session, targets.nameViews.data(), targets.colors.data(), count, WindowSkill_SelectTextTarget);
 }
 
 // 原函数：0x004F0200。
 static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, const char* const text)
 {
+    auto& targets = session.UiFrame().native.skillTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
     const std::int32_t kind = WindowSkill_ClassifyAttributeSkill(world::gSkillsF1BAFC[gUsingSkillIndexD2F32C].skillId);
     gSkillTargetKindCF4A10 = kind;
-    gSkillTargetCountCA0004 = 0;
-    gSkillTargetPageC8A974 = 0;
-    gSkillTargetPageCountCA0178 = 1;
-    for (auto& name : gSkillTargetNamesCB0550) {
+    targets.count = 0;
+    targets.page = 0;
+    targets.pageCount = 1;
+    for (auto& name : targets.names) {
         name.clear();
     }
     std::int32_t count = 0;
     if (kind != 0) {
         const wchar_t* const name = world::GetPlayerDisplayText(1);
         count = 1;
-        gSkillTargetKindsD2F75C[0] = 0;
-        gSkillTargetCountCA0004 = count;
-        gSkillTargetNamesCB0550[0] = name;
+        targets.kinds[0] = 0;
+        targets.count = count;
+        targets.names[0] = name;
     }
     for (std::int16_t slot = 0; slot < 5; ++slot) {
         if (world::ReadPetMapFlags(slot) == 0) {
@@ -2676,35 +2641,35 @@ static void WindowSkill_ReceiveTextTargets(session::ClientSession& session, cons
         }
         cg::yobi::YobiAction* const action = world::ReadPetMapAction(slot);
         if (action != nullptr) {
-            gSkillTargetNamesCB0550[count] = cg::yobi::GetYobiName(action);
+            targets.names[count] = cg::yobi::GetYobiName(action);
         }
-        gSkillTargetKindsD2F75C[count] = 1;
-        gSkillTargetCountCA0004 = ++count;
+        targets.kinds[count] = 1;
+        targets.count = ++count;
     }
     char name[256];
     std::int32_t field = 1;
     std::int32_t appended = 0;
     while (count < 10) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 255, name) == 1) {
-            count = gSkillTargetCountCA0004;
+            count = targets.count;
             break;
         }
         const std::int32_t flag = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         if (gSkillTargetKindCF4A10 == 0 && flag == 1) {
-            count = gSkillTargetCountCA0004;
+            count = targets.count;
             break;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        const std::int32_t index = gSkillTargetCountCA0004;
-        gSkillTargetNamesCB0550[index] = cg::text::FromGbkWide(name);
-        gSkillTargetKindsD2F75C[index] = flag != 0 ? 3 : 2;
+        const std::int32_t index = targets.count;
+        targets.names[index] = cg::text::FromGbkWide(name);
+        targets.kinds[index] = flag != 0 ? 3 : 2;
         count = index + 1;
-        gSkillTargetCountCA0004 = count;
+        targets.count = count;
         if (++appended >= 10) {
             break;
         }
     }
-    gSkillTargetPageCountCA0178 = (count + 4) / 5;
+    targets.pageCount = (count + 4) / 5;
     if (count > 0) {
         static_cast<void>(WindowSkill_OpenTextTargets(session));
     } else if (gSkillTargetKindCF4A10 == 0) {

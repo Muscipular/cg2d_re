@@ -8,25 +8,6 @@
 namespace cg::ui {
 namespace detail {
 
-// 原CB10D8的52B值记录；实际六行存储由本文件私有持有。
-struct ItemUseStatusRecord {
-    std::wstring name;
-    std::int32_t level; // 原成员偏移：+0x14。
-    std::int32_t injury; // 原成员偏移：+0x18。
-    std::int32_t hp; // 原成员偏移：+0x1C。
-    std::int32_t maxHp;
-    std::int32_t fp;
-    std::int32_t maxFp; // 原成员偏移：+0x28。
-    std::int32_t kind; // 原成员偏移：+0x2C。
-    std::int32_t target; // 原成员偏移：+0x30。
-};
-// 原CB0EA8十条20B名单；与45的借用表及后续物品详情共用，不与交易名单混用。
-struct ItemUseTargetRecord {
-    std::int16_t kind;
-    std::wstring name; // 原成员偏移：+0x02。
-    std::byte byte13; // 原成员偏移：+0x13。
-};
-
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048AEA0。
@@ -49,35 +30,15 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
 
 // 控件载荷、窗口状态、组件表与原型。
 
-static std::array<ItemUseTargetRecord, 10> gItemUseTargetsCB0EA8 {}; // 原全局：0x00CB0EA8。
-
-static std::int32_t gItemUseTargetCountCC40CC = 0; // 原全局：0x00CC40CC。
-
-static std::int32_t gItemUsePageCC46DC = 0; // 原全局：0x00CC46DC。
-
-static std::int32_t gItemUsePageCountCC3E70 = 0; // 原全局：0x00CC3E70。
-
-static std::int32_t gItemUseTargetCB0A48 = 0; // 原全局：0x00CB0A48。
-
-static std::array<const wchar_t*, 10> gItemUseNamesCB0A1C {}; // 原全局：0x00CB0A1C。
-
-static std::array<std::uint8_t, 10> gItemUseColorsD2E91C {}; // 原全局：0x00D2E91C。
-
-// 仅映射已证最多六行，不冻结相邻未消费容量；旧78借用同源记录。
-static std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {}; // 原全局：0x00CB10D8。
-
-static std::int32_t gItemUseStatusCountCC4D44 = 0; // 原全局：0x00CC4D44。
-
-static std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {}; // 原全局：0x00CB1278。
-
 // 窗口函数实现。
 
 // 原函数：0x0048AEA0。
 static std::int32_t WindowItemUse_SelectTextTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
+    auto& targets = session.UiFrame().native.itemTargets;
     if (index >= 0) {
         static_cast<void>(session.Connection().SelectItemTextTarget(index));
-        gItemUseTargetCB0A48 = index;
+        targets.selected = index;
         return 0;
     }
     if (index == -1) {
@@ -85,8 +46,8 @@ static std::int32_t WindowItemUse_SelectTextTarget(session::ClientSession& sessi
         if (selected >= 0) {
             --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
         }
-        --gItemUseTargetReferences_D67B24;
-        if (std::bit_cast<std::int8_t>(gItemUseTargetReferences_D67B24) <= 0) {
+        --targets.references;
+        if (std::bit_cast<std::int8_t>(targets.references) <= 0) {
             gSelectedItemCB1DF4 = -1;
         }
     }
@@ -96,11 +57,12 @@ static std::int32_t WindowItemUse_SelectTextTarget(session::ClientSession& sessi
 // 原函数：0x0048AF00。
 static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSession& session)
 {
+    auto& targets = session.UiFrame().native.itemTargets;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     for (std::int32_t index = 0; index < 10; ++index) {
-        gItemUseNamesCB0A1C[index] = gItemUseTargetsCB0EA8[index].name.data();
-        gItemUseColorsD2E91C[index] =
-            static_cast<std::uint8_t>(colors[gItemUseTargetsCB0EA8[index].kind]);
+        targets.names[index] = targets.records[index].name.data();
+        targets.colors[index] =
+            static_cast<std::uint8_t>(colors[targets.records[index].kind]);
     }
     constexpr std::array<std::int32_t, 3> windowIds {13, 45, 46};
     for (const std::int32_t id : windowIds) {
@@ -112,17 +74,17 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSessio
     const std::int32_t selected = gSelectedItemCB0A44;
     gSelectedItemCB1DF4 = selected;
     ++reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
-    ++gItemUseTargetReferences_D67B24;
+    ++targets.references;
     cg::yobi::YobiAction* const result = WindowTextTarget_Open(
-        session, gItemUseNamesCB0A1C.data(), gItemUseColorsD2E91C.data(),
-        gItemUseTargetCountCC40CC, WindowItemUse_SelectTextTarget);
+        session, targets.names.data(), targets.colors.data(),
+        targets.count, WindowItemUse_SelectTextTarget);
     if (result == nullptr) {
         WindowInstance* const window = WindowRuntime_States(session)[WindowId_TextTarget].window;
         if (window == nullptr || (window->state & 0x8000u) != 0) {
             const std::int32_t previous = gSelectedItemCB1DF4;
             gSelectedItemCB1DF4 = -1;
             --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[previous];
-            --gItemUseTargetReferences_D67B24;
+            --targets.references;
         }
     }
     return result;
@@ -131,26 +93,27 @@ static cg::yobi::YobiAction* WindowItemUse_OpenTextTargets(session::ClientSessio
 // 原函数：0x004E4860。
 static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSession& session, const char* const text)
 {
+    auto& targets = session.UiFrame().native.itemTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    gItemUseTargetsCB0EA8.fill({});
+    targets.records.fill({});
     const wchar_t* const ownName = world::GetPlayerDisplayText(1);
     const std::uint32_t ownIndex = world::gPlayerRuntimeSlots.objectIndex;
-    gItemUseTargetsCB0EA8[0].name = ownName;
+    targets.records[0].name = ownName;
     std::int32_t count = 1;
-    gItemUseTargetCountCC40CC = count;
-    gItemUseTargetsCB0EA8[0].kind = 0;
+    targets.count = count;
+    targets.records[0].kind = 0;
     for (std::int16_t slot = 0; slot < 5; ++slot) {
         if (world::ReadPetMapFlags(slot) != 0
             && world::ReadPetMapObjectIndex(slot) != ownIndex) {
             cg::yobi::YobiAction* const action = world::ReadPetMapAction(slot);
             if (action != nullptr) {
-                gItemUseTargetsCB0EA8[count].name = cg::yobi::GetYobiName(action);
+                targets.records[count].name = cg::yobi::GetYobiName(action);
             }
             const std::int32_t index = count++;
-            gItemUseTargetCountCC40CC = count;
-            gItemUseTargetsCB0EA8[index].kind = 1;
+            targets.count = count;
+            targets.records[index].kind = 1;
         }
     }
     char name[256];
@@ -158,35 +121,36 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveTextTargets(session::ClientSes
     std::int32_t appended = 0;
     while (count < 10) {
         if (network::ExtractDelimitedField_52CED0(text, '|', field++, 255, name) == 1) {
-            count = gItemUseTargetCountCC40CC;
+            count = targets.count;
             break;
         }
         const std::int32_t flag = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        const std::int32_t index = gItemUseTargetCountCC40CC;
-        gItemUseTargetsCB0EA8[index].name = cg::text::FromGbkWide(name);
-        gItemUseTargetsCB0EA8[index].kind = flag != 0 ? 3 : 2;
+        const std::int32_t index = targets.count;
+        targets.records[index].name = cg::text::FromGbkWide(name);
+        targets.records[index].kind = flag != 0 ? 3 : 2;
         count = index + 1;
-        gItemUseTargetCountCC40CC = count;
+        targets.count = count;
         if (++appended >= 10) {
             break;
         }
     }
-    gItemUsePageCC46DC = 0;
-    gItemUsePageCountCC3E70 = (count + 4) / 5;
+    targets.page = 0;
+    targets.pageCount = (count + 4) / 5;
     return WindowItemUse_OpenTextTargets(session);
 }
 
 // 原函数：0x0048B010。
 static std::int32_t WindowItemUse_SelectAttributeTarget(session::ClientSession& session, const std::int32_t index, const wchar_t*)
 {
+    auto& targets = session.UiFrame().native.itemTargets;
     if (index == -3) {
         static_cast<void>(session.Connection().RequestItemTargetAttributes());
         return 0;
     }
     if (index >= 0) {
         const std::int32_t item = gSelectedItemCB0A44;
-        const std::int32_t target = gItemUseStatusRecordsCB10D8[index].target;
+        const std::int32_t target = targets.attributes[index].target;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
         static_cast<void>(session.Connection().SendItemUseRequest(x, y, item, target));
@@ -196,8 +160,8 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(session::ClientSession& 
         if (selected >= 0) {
             --reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[selected];
         }
-        --gItemUseTargetReferences_D67B24;
-        if (std::bit_cast<std::int8_t>(gItemUseTargetReferences_D67B24) <= 0) {
+        --targets.references;
+        if (std::bit_cast<std::int8_t>(targets.references) <= 0) {
             gSelectedItemCB1DF4 = -1;
         }
     }
@@ -207,11 +171,12 @@ static std::int32_t WindowItemUse_SelectAttributeTarget(session::ClientSession& 
 // 原函数：0x0048B0A0。
 static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(session::ClientSession& session)
 {
-    const std::int32_t count = gItemUseStatusCountCC4D44;
+    auto& targets = session.UiFrame().native.itemTargets;
+    const std::int32_t count = targets.attributeCount;
     constexpr std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
     for (std::int32_t index = 0; index < count; ++index) {
-        const auto& source = gItemUseStatusRecordsCB10D8[index];
-        auto& target = gItemUseStatusViewsCB1278[index];
+        const auto& source = targets.attributes[index];
+        auto& target = targets.attributeViews[index];
         target.name = source.name.data();
         target.level = source.level;
         target.hp = source.hp;
@@ -229,7 +194,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(session::ClientS
         }
     }
     cg::yobi::YobiAction* const result =
-        WindowAttributeTarget_Open(session, gItemUseStatusViewsCB1278.data(), gItemUseStatusCountCC4D44, WindowItemUse_SelectAttributeTarget);
+        WindowAttributeTarget_Open(session, targets.attributeViews.data(), targets.attributeCount, WindowItemUse_SelectAttributeTarget);
     bool retainReference = result != nullptr;
     if (!retainReference) {
         WindowInstance* const window = WindowRuntime_States(session)[WindowId_AttributeTarget].window;
@@ -237,7 +202,7 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(session::ClientS
     }
     if (retainReference) {
         ++reinterpret_cast<unsigned char*>(world::gInventorySlotUseCounts_D67B08.data())[gSelectedItemCB1DF4];
-        ++gItemUseTargetReferences_D67B24;
+        ++targets.references;
     }
     return result;
 }
@@ -245,31 +210,32 @@ static cg::yobi::YobiAction* WindowItemUse_OpenAttributeTargets(session::ClientS
 // 原函数：0x004E4020。
 static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::ClientSession& session, const char* const text)
 {
+    auto& targets = session.UiFrame().native.itemTargets;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
     static_cast<void>(WindowProfile_SaveOrigin(x, y));
-    const std::int32_t selected = gItemUseTargetCB0A48;
-    gItemUseStatusCountCC4D44 = 0;
-    if (gItemUseTargetsCB0EA8[selected].kind == 0) {
+    const std::int32_t selected = targets.selected;
+    targets.attributeCount = 0;
+    if (targets.records[selected].kind == 0) {
         const wchar_t* const name = world::GetPlayerDisplayText(1);
         const std::int32_t level = world::gPlayerRuntimeSlots.level;
-        gItemUseStatusRecordsCB10D8[0].name = name;
+        targets.attributes[0].name = name;
         const std::int32_t injury = world::gPlayerRuntimeSlots.valueF4;
-        gItemUseStatusRecordsCB10D8[0].level = level;
-        gItemUseStatusRecordsCB10D8[0].injury = injury;
+        targets.attributes[0].level = level;
+        targets.attributes[0].injury = injury;
         const std::int32_t hp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.hp);
-        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = hp;
+        targets.attributes[targets.attributeCount].hp = hp;
         const std::int32_t maxHp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxHp);
-        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = maxHp;
+        targets.attributes[targets.attributeCount].maxHp = maxHp;
         const std::int32_t fp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.fp);
-        const std::int32_t own = gItemUseStatusCountCC4D44;
-        gItemUseStatusRecordsCB10D8[own].fp = fp;
+        const std::int32_t own = targets.attributeCount;
+        targets.attributes[own].fp = fp;
         const std::int32_t maxFp = static_cast<std::int32_t>(world::gPlayerRuntimeSlots.maxFp);
-        gItemUseStatusRecordsCB10D8[own].maxFp = maxFp;
-        std::int32_t count = gItemUseStatusCountCC4D44 + 1;
-        gItemUseStatusRecordsCB10D8[own].kind = 0;
-        gItemUseStatusRecordsCB10D8[own].target = 0;
-        gItemUseStatusCountCC4D44 = count;
+        targets.attributes[own].maxFp = maxFp;
+        std::int32_t count = targets.attributeCount + 1;
+        targets.attributes[own].kind = 0;
+        targets.attributes[own].target = 0;
+        targets.attributeCount = count;
         std::int32_t target = 1;
         for (std::int32_t slot = 0; slot < 5; ++slot) {
             auto& pet = world::gPetRuntimeRecords[slot];
@@ -277,23 +243,23 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
                 continue;
             }
             const wchar_t* const petName = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
-            gItemUseStatusRecordsCB10D8[count].name = petName;
+            targets.attributes[count].name = petName;
             const std::int32_t petInjury = pet.values70[25];
-            gItemUseStatusRecordsCB10D8[count].level = pet.value08;
-            gItemUseStatusRecordsCB10D8[count].injury = petInjury;
+            targets.attributes[count].level = pet.value08;
+            targets.attributes[count].injury = petInjury;
             const std::int32_t petHp = static_cast<std::int32_t>(pet.values0C[0]);
-            gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = petHp;
+            targets.attributes[targets.attributeCount].hp = petHp;
             const std::int32_t petMaxHp = static_cast<std::int32_t>(pet.values0C[1]);
-            gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = petMaxHp;
+            targets.attributes[targets.attributeCount].maxHp = petMaxHp;
             const std::int32_t petFp = static_cast<std::int32_t>(pet.values0C[2]);
-            const std::int32_t output = gItemUseStatusCountCC4D44;
-            gItemUseStatusRecordsCB10D8[output].fp = petFp;
+            const std::int32_t output = targets.attributeCount;
+            targets.attributes[output].fp = petFp;
             const std::int32_t petMaxFp = static_cast<std::int32_t>(pet.values0C[3]);
-            gItemUseStatusRecordsCB10D8[output].maxFp = petMaxFp;
-            count = gItemUseStatusCountCC4D44 + 1;
-            gItemUseStatusRecordsCB10D8[output].kind = 4;
-            gItemUseStatusRecordsCB10D8[output].target = target;
-            gItemUseStatusCountCC4D44 = count;
+            targets.attributes[output].maxFp = petMaxFp;
+            count = targets.attributeCount + 1;
+            targets.attributes[output].kind = 4;
+            targets.attributes[output].target = target;
+            targets.attributeCount = count;
             ++target;
         }
         return WindowItemUse_OpenAttributeTargets(session);
@@ -306,28 +272,28 @@ static cg::yobi::YobiAction* WindowItemUse_ReceiveAttributeTargets(session::Clie
             break;
         }
         input::UnescapeLegacyTextAndNotify_52D2F0(name);
-        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].name = cg::text::FromGbkWide(name);
+        targets.attributes[targets.attributeCount].name = cg::text::FromGbkWide(name);
         std::int32_t value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].level = value;
+        targets.attributes[targets.attributeCount].level = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].injury = value;
+        targets.attributes[targets.attributeCount].injury = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].hp = value;
+        targets.attributes[targets.attributeCount].hp = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gItemUseStatusRecordsCB10D8[gItemUseStatusCountCC4D44].maxHp = value;
+        targets.attributes[targets.attributeCount].maxHp = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        const std::int32_t output = gItemUseStatusCountCC4D44;
-        gItemUseStatusRecordsCB10D8[output].fp = value;
+        const std::int32_t output = targets.attributeCount;
+        targets.attributes[output].fp = value;
         value = network::ParseDelimitedInteger_52CFA0(text, '|', field++);
-        gItemUseStatusRecordsCB10D8[output].maxFp = value;
-        switch (gItemUseTargetsCB0EA8[gItemUseTargetCB0A48].kind) {
-        case 1: gItemUseStatusRecordsCB10D8[output].kind = row == 0 ? 1 : 5; break;
-        case 2: gItemUseStatusRecordsCB10D8[output].kind = row == 0 ? 2 : 6; break;
-        case 3: gItemUseStatusRecordsCB10D8[output].kind = 3; break;
+        targets.attributes[output].maxFp = value;
+        switch (targets.records[targets.selected].kind) {
+        case 1: targets.attributes[output].kind = row == 0 ? 1 : 5; break;
+        case 2: targets.attributes[output].kind = row == 0 ? 2 : 6; break;
+        case 3: targets.attributes[output].kind = 3; break;
         }
-        const std::int32_t count = gItemUseStatusCountCC4D44 + 1;
-        gItemUseStatusRecordsCB10D8[output].target = row;
-        gItemUseStatusCountCC4D44 = count;
+        const std::int32_t count = targets.attributeCount + 1;
+        targets.attributes[output].target = row;
+        targets.attributeCount = count;
     }
     return WindowItemUse_OpenAttributeTargets(session);
 }

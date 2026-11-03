@@ -814,7 +814,6 @@ extern cg::yobi::YobiAction* gPreviewActionD67B84; // 原全局：0x00D67B84。 
 extern std::uint8_t gGatherOperationCount_D67AFC; // 原全局：0x00D67AFC。
 extern std::uint8_t gSkillOperationCount_D67AFD; // 原全局：0x00D67AFD。
 extern std::uint8_t gSkillStatusIconReferences_D67AFE; // 原全局：0x00D67AFE。
-extern std::uint8_t gItemUseTargetReferences_D67B24; // 原全局：0x00D67B24。
 extern std::uint8_t gSkillRebirthModeEnabled_5F9754; // 原全局：0x005F9754。 原多窗口/物品UI共享字节，观察进入可能清零。
 extern std::int32_t gUsingSkillIndexD2F32C; // 原全局：0x00D2F32C。 技能请求索引，不与窗口当前选中槽合并。
 extern std::int32_t gUsingSkillLevelCA0AC4; // 原全局：0x00CA0AC4。

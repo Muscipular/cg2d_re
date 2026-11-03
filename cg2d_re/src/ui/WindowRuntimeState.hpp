@@ -551,7 +551,7 @@ std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, E
 std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // BEI01：战斗装备/宠物禁用页完整原根，三BYTE及区域描边取序明确，全callback/命令与运行待。
 
 // 原函数：0x004A0140。
-cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(const char* text); // 商店图号/标题/五行正文及买卖选择。
+cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(session::ClientSession& session, const char* text); // 商店图号/标题/五行正文及买卖选择。
 // 原函数：0x004B6E00。
 cg::yobi::YobiAction* WindowShop_OpenBuy(session::ClientSession& session, const char* text); // 窗口53买入商品及三组四行正文。
 // 原函数：0x004B70D0。
@@ -565,19 +565,19 @@ cg::yobi::YobiAction* WindowShop_OpenIdentify(session::ClientSession& session, c
 // 原函数：0x004B7EE0。
 cg::yobi::YobiAction* WindowShop_OpenRepair(session::ClientSession& session, const char* text); // 窗口53修理，与鉴定仅模式和提示不同。
 // 原函数：0x004BD540。
-cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(const char* text); // 窗口54模式0，五行正文及八行说明。
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenLearn(session::ClientSession& session, const char* text); // 窗口54模式0，五行正文及八行说明。
 // 原函数：0x004BD680。
-cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(const char* text); // 窗口54模式1，固定十五项名称/双数值。
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenForget(session::ClientSession& session, const char* text); // 窗口54模式1，固定十五项名称/双数值。
 // 原函数：0x004BD810。
-cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkills(const char* text); // 窗口54模式2，技能报价及旧窗刷新。
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkills(session::ClientSession& session, const char* text); // 窗口54模式2，技能报价及旧窗刷新。
 // 原函数：0x004BDAD0。
-cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(const char* text); // 同创建流程，模式12显示种族。
+cg::yobi::YobiAction* WindowPetSkillChoice_OpenPetSkillsByTribe(session::ClientSession& session, const char* text); // 同创建流程，模式12显示种族。
 // 原函数：0x004BDD90。
-void WindowPetSkillChoice_ReceivePetCandidates(const char* text); // 模式3候选回复，仅更新存在的窗口54。
+void WindowPetSkillChoice_ReceivePetCandidates(session::ClientSession& session, const char* text); // 模式3候选回复，仅更新存在的窗口54。
 // 原函数：0x004BDF70。
-void WindowPetSkillChoice_ReceiveTribeCandidates(const char* text); // 模式13候选回复，带种族条件及提示标记。
+void WindowPetSkillChoice_ReceiveTribeCandidates(session::ClientSession& session, const char* text); // 模式13候选回复，带种族条件及提示标记。
 // 原函数：0x004BE200。
-void WindowPetSkillChoice_ReceiveSelectedPetSkills(const char* text); // 模式4固定十槽回复，空名不终止后续槽。
+void WindowPetSkillChoice_ReceiveSelectedPetSkills(session::ClientSession& session, const char* text); // 模式4固定十槽回复，空名不终止后续槽。
 // 原函数：0x004C5790。
 cg::yobi::YobiAction* WindowAppearance_Open(
     session::ClientSession& session, std::int32_t request, std::int32_t target, const char* text); // 两行正文后打开外观选择56。
@@ -594,15 +594,15 @@ std::int32_t WindowCrystalTrade_ButtonCancel(WindowInstance& callbackWindow, Ele
 // 原函数：0x004C4680。
 std::int32_t WindowCrystalTrade_DrawButton(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两窗口共用按钮图，恒0。
 // 原函数：0x004A0300。
-cg::yobi::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* text);
+cg::yobi::YobiAction* WindowShopChoice_OpenFirstCommandList(session::ClientSession& session, const char* text);
 // 原函数：0x004A04A0。
-cg::yobi::YobiAction* WindowShopChoice_OpenSecondCommandList(const char* text);
+cg::yobi::YobiAction* WindowShopChoice_OpenSecondCommandList(session::ClientSession& session, const char* text);
 // 原函数：0x004A0640。
-cg::yobi::YobiAction* WindowShopChoice_OpenSkillChoice(const char* text); // 技能三选项。
+cg::yobi::YobiAction* WindowShopChoice_OpenSkillChoice(session::ClientSession& session, const char* text); // 技能三选项。
 // 原函数：0x004A0790。
-cg::yobi::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* text); // 交易两选项。
+cg::yobi::YobiAction* WindowShopChoice_OpenExchangeChoice(session::ClientSession& session, const char* text); // 交易两选项。
 // 原函数：0x004A0850。
-cg::yobi::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* text); // 给出/接收标签，正文取第四字段。
+cg::yobi::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(session::ClientSession& session, const char* text); // 给出/接收标签，正文取第四字段。
 // 原函数：0x0049C4D0。
 void WindowDialog_Reset(session::ClientSession& session); // 只清内嵌图号/计数及窗口36十元素可见性。
 // 原函数：0x0049C510。
@@ -833,9 +833,10 @@ void WindowCraft_ResetSelection(session::ClientSession& session, std::int32_t fi
 void WindowTrade_RemapTextListSelection(std::int32_t first, std::int32_t second); // 窗口51仅first命中时迁移。
 // 原函数：0x004AD180。
 cg::yobi::YobiAction* WindowTextList_Open(
+    session::ClientSession& session,
     std::int32_t request, std::int32_t target, const char* text); // 解析标题/正文并展开51。
 // 原函数：0x004AD470。
-void WindowTextList_ContinueDialog(const char* text); // 同类对话续接，唯一caller不消费原混合返回。
+void WindowTextList_ContinueDialog(session::ClientSession& session, const char* text); // 同类对话续接，唯一caller不消费原混合返回。
 // 原函数：0x004797C0。
 void WindowSkill_AdjustSpecialHoverCount(session::ClientSession& session, std::int32_t first, std::int32_t second); // 槽7特殊悬停计数，两条件独立。
 // 原函数：0x004F4630。

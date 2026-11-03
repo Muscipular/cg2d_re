@@ -884,7 +884,7 @@ static void WindowDialog_Route(
             if (WindowRuntime_States(session)[WindowId_TextList].window == nullptr) {
                 enterNewType = true;
             } else {
-                WindowTextList_ContinueDialog(text);
+                WindowTextList_ContinueDialog(session, text);
             }
             break;
         default:
@@ -915,7 +915,7 @@ static void WindowDialog_Route(
         static_cast<void>(WindowDialog_OpenText(session, 32, 12, 576, 432, 245300, value, request, target, text));
         return;
     case 5:
-        static_cast<void>(WindowShopChoice_OpenBuySell(text));
+        static_cast<void>(WindowShopChoice_OpenBuySell(session, text));
         return;
     case 6:
         static_cast<void>(WindowShop_OpenBuy(session, text));
@@ -924,13 +924,13 @@ static void WindowDialog_Route(
         static_cast<void>(WindowShop_OpenSell(session, text));
         return;
     case 16:
-        static_cast<void>(WindowShopChoice_OpenSkillChoice(text));
+        static_cast<void>(WindowShopChoice_OpenSkillChoice(session, text));
         return;
     case 17:
-        static_cast<void>(WindowPetSkillChoice_OpenLearn(text));
+        static_cast<void>(WindowPetSkillChoice_OpenLearn(session, text));
         return;
     case 18:
-        static_cast<void>(WindowPetSkillChoice_OpenForget(text));
+        static_cast<void>(WindowPetSkillChoice_OpenForget(session, text));
         return;
     case 19:
         static_cast<void>(WindowDialog_OpenHealing(session, 96, 108, 448, 240, 245300, value, request, target, text));
@@ -955,17 +955,17 @@ static void WindowDialog_Route(
         }
         return;
     case 24:
-        static_cast<void>(WindowPetSkillChoice_OpenPetSkills(text));
+        static_cast<void>(WindowPetSkillChoice_OpenPetSkills(session, text));
         return;
     case 25:
-        WindowPetSkillChoice_ReceivePetCandidates(text);
+        WindowPetSkillChoice_ReceivePetCandidates(session, text);
         return;
     case 26:
     case 44:
-        WindowPetSkillChoice_ReceiveSelectedPetSkills(text);
+        WindowPetSkillChoice_ReceiveSelectedPetSkills(session, text);
         return;
     case 27:
-        static_cast<void>(WindowShopChoice_OpenExchangeChoice(text));
+        static_cast<void>(WindowShopChoice_OpenExchangeChoice(session, text));
         return;
     case 28:
         static_cast<void>(WindowShop_OpenExchange(session, text));
@@ -974,13 +974,13 @@ static void WindowDialog_Route(
         static_cast<void>(WindowInventory_OpenSpecialSelection(session, text));
         return;
     case 30:
-        static_cast<void>(WindowShopChoice_OpenGiveReceiveChoice(text));
+        static_cast<void>(WindowShopChoice_OpenGiveReceiveChoice(session, text));
         return;
     case 31:
         static_cast<void>(WindowShop_OpenItemDetails(session, text));
         return;
     case 32:
-        static_cast<void>(WindowTextList_Open(request, target, text));
+        static_cast<void>(WindowTextList_Open(session, request, target, text));
         return;
     case 34:
         if (WindowBank_ReceiveStorageData(session, text) != 0 && WindowRuntime_States(session)[WindowId_ItemStorage].window == nullptr) {
@@ -997,19 +997,19 @@ static void WindowDialog_Route(
         static_cast<void>(WindowAppearance_OpenDialogPreview(session, value, request, target, text));
         return;
     case 42:
-        static_cast<void>(WindowPetSkillChoice_OpenPetSkillsByTribe(text));
+        static_cast<void>(WindowPetSkillChoice_OpenPetSkillsByTribe(session, text));
         return;
     case 43:
-        WindowPetSkillChoice_ReceiveTribeCandidates(text);
+        WindowPetSkillChoice_ReceiveTribeCandidates(session, text);
         return;
     case 45:
-        static_cast<void>(WindowShopChoice_OpenFirstCommandList(text));
+        static_cast<void>(WindowShopChoice_OpenFirstCommandList(session, text));
         return;
     case 46:
         static_cast<void>(WindowCrystalShop_Open(session, text));
         return;
     case 47:
-        static_cast<void>(WindowShopChoice_OpenSecondCommandList(text));
+        static_cast<void>(WindowShopChoice_OpenSecondCommandList(session, text));
         return;
     case 48:
         static_cast<void>(WindowCrystalExchangeShop_Open(session, text));

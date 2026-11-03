@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -17,7 +18,7 @@ enum class WindowShopChoiceElementId : ElementId {
 
 namespace detail {
 
-using WindowChoiceCallback = std::int32_t (*)(std::int32_t index);
+using WindowChoiceCallback = std::int32_t (*)(session::ClientSession& session, std::int32_t index);
 
 // 原C9A978..C9A998，所有文本/表及回调均借用；计数保存低U8、循环按S8解释。
 struct ChoiceDialogRuntimeSlots {
@@ -37,6 +38,7 @@ struct ChoiceDialogRuntimeSlots {
 
 // 原函数：0x0049FCA0。
 static cg::yobi::YobiAction* WindowShopChoice_Open(
+    session::ClientSession& session,
     std::wstring_view title, std::int32_t imageNo, const std::wstring* const* lines, std::uint8_t lineCount,
     const wchar_t* const* choices, std::uint8_t choiceCount,
     const wchar_t* const* hints, WindowChoiceCallback callback); // 窗口52只借用文本及回调。
@@ -45,19 +47,19 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
 static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004A00C0。
-static std::int32_t WindowShopChoice_SendBuySellChoice(std::int32_t index); // 商店回复仅索引0..1发送，其他返回原索引。
+static std::int32_t WindowShopChoice_SendBuySellChoice(session::ClientSession& session, std::int32_t index); // 商店回复仅索引0..1发送，其他返回原索引。
 
 // 原函数：0x004A0280。
-static std::int32_t WindowShopChoice_SendFirstCommandChoice(std::int32_t index); // CB03D4命令表的选择回复。
+static std::int32_t WindowShopChoice_SendFirstCommandChoice(session::ClientSession& session, std::int32_t index); // CB03D4命令表的选择回复。
 
 // 原函数：0x004A0420。
-static std::int32_t WindowShopChoice_SendSecondCommandChoice(std::int32_t index); // CF47D8命令表的选择回复。
+static std::int32_t WindowShopChoice_SendSecondCommandChoice(session::ClientSession& session, std::int32_t index); // CF47D8命令表的选择回复。
 
 // 原函数：0x004A05C0。
-static std::int32_t WindowShopChoice_SendExchangeChoice(std::int32_t index); // 索引0..1分别发送1/2。
+static std::int32_t WindowShopChoice_SendExchangeChoice(session::ClientSession& session, std::int32_t index); // 索引0..1分别发送1/2。
 
 // 原函数：0x004A0700。
-static std::int32_t WindowShopChoice_SendGiveReceiveChoice(std::int32_t index); // 仅索引0发送原字节1。
+static std::int32_t WindowShopChoice_SendGiveReceiveChoice(session::ClientSession& session, std::int32_t index); // 仅索引0发送原字节1。
 
 // 原函数：0x0049FD20。
 static std::int32_t WindowShopChoice_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -181,7 +183,7 @@ static void WindowShopChoice_FillBody(
 }
 
 // 调用者传原连续32B临时区；不缓存跨回复的目标/请求/坐标。
-static network::SendResult WindowShopChoice_SendReply(const std::wstring_view buffer)
+static network::SendResult WindowShopChoice_SendReply(session::ClientSession& session, const std::wstring_view buffer)
 {
     const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 15);
     const std::int32_t target = world::gDialogTargetD2DE6C;
@@ -190,11 +192,12 @@ static network::SendResult WindowShopChoice_SendReply(const std::wstring_view bu
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    return cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escapedReply);
+    return session.Connection().SendDialogResponse(x, y, request, target, 0, escapedReply);
 }
 
 // 原函数：0x0049FCA0。
 static cg::yobi::YobiAction* WindowShopChoice_Open(
+    session::ClientSession& session,
     const std::wstring_view title, const std::int32_t imageNo,
     const std::wstring* const* const lines, const std::uint8_t lineCount,
     const wchar_t* const* const choices, const std::uint8_t choiceCount,
@@ -206,7 +209,7 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
     for (std::uint8_t row = 0; row < lineCount; ++row) { gChoiceDialog.lines.push_back(*lines[row]); }
     gChoiceDialog.imageNo = imageNo;
     gChoiceDialog.choiceCount = choiceCount;
-    WindowInstance* const previous = WindowRuntime_States()[WindowId_ShopChoice].window;
+    WindowInstance* const previous = WindowRuntime_States(session)[WindowId_ShopChoice].window;
     gChoiceDialog.lineCount = lineCount;
     gChoiceDialog.choices.clear();
     for (std::uint8_t row = 0; row < choiceCount; ++row) { gChoiceDialog.choices.push_back(choices[row]); }
@@ -217,7 +220,7 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
         previous->state |= 0x8000u;
         gChoiceDialog.closeEnabled = 0;
     }
-    return WindowRuntime_CreateAnimation(WindowId_ShopChoice, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_ShopChoice, 1, 0, nullptr);
 }
 
 // 原函数：0x0049FD20。
@@ -251,7 +254,7 @@ static std::int32_t WindowShopChoice_Update(WindowInstance& callbackWindow, cons
     if (WindowProfile_CheckDistance(2, 2) != 0) {
         currentWindow->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
-        static_cast<void>(gChoiceDialog.callback(-1));
+        static_cast<void>(gChoiceDialog.callback(*callbackWindow.ownerSession, -1));
     }
     return 1;
 }
@@ -335,7 +338,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDown) != 0) {
             const WindowChoiceCallback callback = gChoiceDialog.callback;
             if (callback != nullptr) {
-                static_cast<void>(callback(index));
+                static_cast<void>(callback(*callbackWindow.ownerSession, index));
             }
             static_cast<void>(audio::PlaySe_52C450(79, 320));
             currentWindow->state |= 0x8000u;
@@ -346,7 +349,7 @@ static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, c
 }
 
 // 原函数：0x004A00C0。
-static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendBuySellChoice(session::ClientSession& session, const std::int32_t index)
 {
     if (index < 0 || index > 1) {
         return index;
@@ -360,12 +363,12 @@ static std::int32_t WindowShopChoice_SendBuySellChoice(const std::int32_t index)
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    return static_cast<std::int32_t>(cg::network::GetGameConnection().SendDialogResponse(
+    return static_cast<std::int32_t>(session.Connection().SendDialogResponse(
         x, y, request, target, 0, escapedReply));
 }
 
 // 原函数：0x004A0140。
-cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(session::ClientSession& session, const char* const text)
 {
     gShopImageC9A9A0 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -399,57 +402,57 @@ cg::yobi::YobiAction* WindowShopChoice_OpenBuySell(const char* const text)
     const std::int32_t imageNo = gShopImageC9A9A0;
     gShopHintsD2F738[count] = kShopHints57E6C4[2];
     gShopCommandsD64E10[count] = 3;
-    return WindowShopChoice_Open(cg::text::FromGbkWide(title), imageNo, gChoiceDialogLinesD672D8.data(), 5,
+    return WindowShopChoice_Open(session, cg::text::FromGbkWide(title), imageNo, gChoiceDialogLinesD672D8.data(), 5,
         gShopChoicesCB1DC8.data(), static_cast<std::uint8_t>(count + 1),
         gShopHintsD2F738.data(), &WindowShopChoice_SendBuySellChoice);
 }
 
 // 原函数：0x004A0280。
-static std::int32_t WindowShopChoice_SendFirstCommandChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendFirstCommandChoice(session::ClientSession& session, const std::int32_t index)
 {
     if (index < 0 || index > 1) {
         return index;
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
-    return static_cast<std::int32_t>(WindowShopChoice_SendReply(buffer));
+    return static_cast<std::int32_t>(WindowShopChoice_SendReply(session, buffer));
 }
 
 // 原函数：0x004A0420。
-static std::int32_t WindowShopChoice_SendSecondCommandChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendSecondCommandChoice(session::ClientSession& session, const std::int32_t index)
 {
     if (index < 0 || index > 1) {
         return index;
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
-    return static_cast<std::int32_t>(WindowShopChoice_SendReply(buffer));
+    return static_cast<std::int32_t>(WindowShopChoice_SendReply(session, buffer));
 }
 
 // 原函数：0x004A05C0。
-static std::int32_t WindowShopChoice_SendExchangeChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendExchangeChoice(session::ClientSession& session, const std::int32_t index)
 {
     if (index < 0 || index > 1) {
         return index;
     }
     std::wstring buffer;
     cg::text::FormatTo(buffer, L"{}", index + 1);
-    return static_cast<std::int32_t>(WindowShopChoice_SendReply(buffer));
+    return static_cast<std::int32_t>(WindowShopChoice_SendReply(session, buffer));
 }
 
 // 原函数：0x004A0700。
-static std::int32_t WindowShopChoice_SendGiveReceiveChoice(const std::int32_t index)
+static std::int32_t WindowShopChoice_SendGiveReceiveChoice(session::ClientSession& session, const std::int32_t index)
 {
     if (index != 0) {
         return index;
     }
     std::wstring buffer;
     buffer = L"1";
-    return static_cast<std::int32_t>(WindowShopChoice_SendReply(buffer));
+    return static_cast<std::int32_t>(WindowShopChoice_SendReply(session, buffer));
 }
 
 // 原函数：0x004A0300。
-cg::yobi::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenFirstCommandList(session::ClientSession& session, const char* const text)
 {
     gChoiceImageCB0AE4 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -469,13 +472,13 @@ cg::yobi::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* const te
     gChoicesD67438[count] = kShopChoices57E6B8[2];
     gChoiceHintsCC31FC[count] = kShopHints57E6C4[2];
     gChoiceCommandsCB03D4[count] = 3;
-    return WindowShopChoice_Open(cg::text::FromGbkWide(title), imageNo, gChoiceDialogLinesD672D8.data(), 5,
+    return WindowShopChoice_Open(session, cg::text::FromGbkWide(title), imageNo, gChoiceDialogLinesD672D8.data(), 5,
         gChoicesD67438.data(), static_cast<std::uint8_t>(count + 1),
         gChoiceHintsCC31FC.data(), &WindowShopChoice_SendFirstCommandChoice);
 }
 
 // 原函数：0x004A04A0。
-cg::yobi::YobiAction* WindowShopChoice_OpenSecondCommandList(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenSecondCommandList(session::ClientSession& session, const char* const text)
 {
     gChoiceImageCF4A18 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -495,13 +498,13 @@ cg::yobi::YobiAction* WindowShopChoice_OpenSecondCommandList(const char* const t
     gChoicesD2D818[count] = kShopChoices57E6B8[2];
     gChoiceHintsCA0AAC[count] = kShopHints57E6C4[2];
     gChoiceCommandsCF47D8[count] = 3;
-    return WindowShopChoice_Open(cg::text::FromGbkWide(title), imageNo, gChoiceDialogLinesD672D8.data(), 5,
+    return WindowShopChoice_Open(session, cg::text::FromGbkWide(title), imageNo, gChoiceDialogLinesD672D8.data(), 5,
         gChoicesD2D818.data(), static_cast<std::uint8_t>(count + 1),
         gChoiceHintsCA0AAC.data(), &WindowShopChoice_SendSecondCommandChoice);
 }
 
 // 原函数：0x004A0640。
-cg::yobi::YobiAction* WindowShopChoice_OpenSkillChoice(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenSkillChoice(session::ClientSession& session, const char* const text)
 {
     gChoiceImageCC4890 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -510,12 +513,12 @@ cg::yobi::YobiAction* WindowShopChoice_OpenSkillChoice(const char* const text)
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
     gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
     WindowShopChoice_FillBody(text, 3, 255);
-    return WindowShopChoice_Open(cg::text::FromGbkWide(title), gChoiceImageCC4890, gChoiceDialogLinesD672D8.data(), 5,
+    return WindowShopChoice_Open(session, cg::text::FromGbkWide(title), gChoiceImageCC4890, gChoiceDialogLinesD672D8.data(), 5,
         kSkillChoices57E6F0.data(), 3, kSkillHints57E6FC.data(), &WindowShopChoice_SendExchangeChoice);
 }
 
 // 原函数：0x004A0790。
-cg::yobi::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenExchangeChoice(session::ClientSession& session, const char* const text)
 {
     gChoiceImageC9A99C = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -524,12 +527,12 @@ cg::yobi::YobiAction* WindowShopChoice_OpenExchangeChoice(const char* const text
     input::UnescapeLegacyTextAndNotify_52D2F0(title);
     gNpcDialogLinesCC24D4[0].text = cg::text::FromGbkWide(title);
     WindowShopChoice_FillBody(text, 3, 255);
-    return WindowShopChoice_Open(cg::text::FromGbkWide(title), gChoiceImageC9A99C, gChoiceDialogLinesD672D8.data(), 5,
+    return WindowShopChoice_Open(session, cg::text::FromGbkWide(title), gChoiceImageC9A99C, gChoiceDialogLinesD672D8.data(), 5,
         kExchangeChoices57E708.data(), 2, kExchangeHints57E714.data(), &WindowShopChoice_SendGiveReceiveChoice);
 }
 
 // 原函数：0x004A0850。
-cg::yobi::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* const text)
+cg::yobi::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(session::ClientSession& session, const char* const text)
 {
     gChoiceImageD2EA74 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);
     char titleGbkBuffer[3072]{};
@@ -543,7 +546,7 @@ cg::yobi::YobiAction* WindowShopChoice_OpenGiveReceiveChoice(const char* const t
         gGiveReceiveChoices57E728[0] = kGiveReceiveLabels57E720[1];
     }
     WindowShopChoice_FillBody(text, 4, 256);
-    return WindowShopChoice_Open(cg::text::FromGbkWide(title), gChoiceImageD2EA74, gChoiceDialogLinesD672D8.data(), 5,
+    return WindowShopChoice_Open(session, cg::text::FromGbkWide(title), gChoiceImageD2EA74, gChoiceDialogLinesD672D8.data(), 5,
         gGiveReceiveChoices57E728.data(), 2, kGiveReceiveHints57E730.data(), &WindowShopChoice_SendExchangeChoice);
 }
 

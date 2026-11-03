@@ -231,6 +231,7 @@ static void WindowTextList_RebuildLines(char* const text)
 
 // 原函数：0x004AD180。
 cg::yobi::YobiAction* WindowTextList_Open(
+    session::ClientSession& session,
     const std::int32_t request, const std::int32_t target, const char* const text)
 {
     gWindowRequestD672B0 = request;
@@ -245,18 +246,18 @@ cg::yobi::YobiAction* WindowTextList_Open(
     network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     WindowTextList_RebuildLines(buffer.data());
-    return WindowRuntime_CreateAnimation(WindowId_TextList, 1, 0, nullptr);
+    return WindowRuntime_CreateAnimation(session, WindowId_TextList, 1, 0, nullptr);
 }
 
 // 原函数：0x004AD470。
-void WindowTextList_ContinueDialog(const char* const text)
+void WindowTextList_ContinueDialog(session::ClientSession& session, const char* const text)
 {
     std::array<char, 3072> buffer;
     if (network::ExtractDelimitedField_52CED0(text, '|', 1, 1023, buffer.data()) != 0) {
         return;
     }
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    WindowInstance* const window = WindowRuntime_States()[WindowId_TextList].window;
+    WindowInstance* const window = WindowRuntime_States(session)[WindowId_TextList].window;
     gWindowTitleCC4118 = cg::text::FromGbkWide(buffer.data());
     auto* const element4 = window ? window->FindElementById(WindowTextListElementId::Element4) : nullptr;
     if (element4) {
@@ -267,7 +268,7 @@ void WindowTextList_ContinueDialog(const char* const text)
     network::ExtractDelimitedField_52CED0(text, '|', 2, 1023, buffer.data());
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     WindowTextList_RebuildLines(buffer.data());
-    WindowInstance* const updatedWindow = WindowRuntime_States()[WindowId_TextList].window;
+    WindowInstance* const updatedWindow = WindowRuntime_States(session)[WindowId_TextList].window;
     if (updatedWindow != nullptr) {
         static_cast<void>(WindowTextList_RefreshLines(updatedWindow));
     }

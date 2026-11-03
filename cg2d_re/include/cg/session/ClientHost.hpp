@@ -6,12 +6,21 @@
 #include <cstdint>
 #include <iterator>
 #include <list>
+#include <string>
+#include <vector>
 
 namespace cg::session {
 
 // 进程级宿主；当前仅调度首会话，其他 owner 闭合后才接入新增/关闭业务。
 class ClientHost final {
 public:
+    struct MenuEntry {
+        std::uint64_t id;
+        std::wstring label;
+        bool selected;
+        bool disconnected;
+    };
+
     struct SessionEntry {
         explicit SessionEntry(std::uint64_t value) : id(value) {}
         const std::uint64_t id; // 菜单项与关闭请求的稳定身份，不是账号或角色编号。
@@ -40,6 +49,7 @@ public:
     }
     [[nodiscard]] std::size_t SessionCount() const noexcept { return sessions_.size(); }
     [[nodiscard]] const std::list<SessionEntry>& Sessions() const noexcept { return sessions_; }
+    [[nodiscard]] std::vector<MenuEntry> MenuEntries();
 
     // 只创建稳定对象；初始化成功后调用方再选中，失败不改变原当前会话。
     [[nodiscard]] SessionEntry& AddSession()

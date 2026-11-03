@@ -28,6 +28,9 @@ public:
     [[nodiscard]] LegacyRandomEngine& RandomEngine() noexcept { return randomEngine_; }
     [[nodiscard]] script::LuaSessionState& Lua() noexcept { return lua_; }
     [[nodiscard]] ui::UiFrameRuntimeState& UiFrame() noexcept { return uiFrame_; }
+    [[nodiscard]] bool Disconnected() const noexcept { return disconnected_; }
+    void MarkDisconnected() noexcept { disconnected_ = true; }
+    void MarkConnected() noexcept { disconnected_ = false; }
 
 private:
     network::CgConnection connection_;
@@ -35,6 +38,7 @@ private:
     LegacyRandomEngine randomEngine_ {1}; // 原 0x58F870，初始种子 1。
     script::LuaSessionState lua_;
     ui::UiFrameRuntimeState uiFrame_;
+    bool disconnected_ = false; // 宿主菜单保留断线标识，不参与原连接阶段分支。
 };
 
 } // namespace cg::session

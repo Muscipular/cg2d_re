@@ -155,6 +155,7 @@ int MainLoop(session::ClientSession& session)
             } else if (disconnect == 0) {
                 const auto result = connection.Pump();
                 if (result.terminated) {
+                    session.MarkDisconnected();
                     connection.DisconnectState() = 1;
                     const auto diagnostic = std::format(L"NETWORK CLOSED PHASE={} ERROR={} ENDPOINT={}",
                         static_cast<int>(result.terminal.phase), result.terminal.error, result.terminal.endpoint);

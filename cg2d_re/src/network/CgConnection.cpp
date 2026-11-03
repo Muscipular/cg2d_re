@@ -1381,6 +1381,21 @@ namespace cg::session {
 static ClientHost gClientHost;
 ClientHost& GetClientHost() noexcept { return gClientHost; }
 
+std::vector<ClientHost::MenuEntry> ClientHost::MenuEntries()
+{
+    std::vector<MenuEntry> entries;
+    entries.reserve(sessions_.size());
+    for (auto& entry : sessions_) {
+        auto& connection = entry.session.Connection();
+        const auto& characterName = connection.CharacterSelectUi().selectedCharacterName;
+        const auto& account = connection.LoginRequests().account;
+        const std::wstring label = !characterName.empty() ? characterName
+            : !account.empty() ? account : std::format(L"登录中 {}", entry.id);
+        entries.push_back({entry.id, label, entry.id == CurrentId(), entry.session.Disconnected()});
+    }
+    return entries;
+}
+
 } // namespace cg::session
 
 namespace cg::network {

@@ -9,6 +9,7 @@
 
 #include "LoginSceneDependencies.hpp"
 #include "LoginSceneState.hpp"
+#include "../character_select/CharacterSelectSceneState.hpp"
 
 #include "cg/scene/login/LoginInput.hpp"
 #include "cg/scene/login/LoginMessage.hpp"
@@ -332,6 +333,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
 
     if (world::gCurrentSceneState == 0) {
         world::gCurrentSceneState = 1;
+        connection.CharacterSelectUi().selectedCharacterName.clear();
         SetBaseWindowTitle(title);
         connection.DisconnectState() = 0;
         world::gSceneTransitionResetPending_58B6D0 = 1;
@@ -420,6 +422,7 @@ std::int32_t ProcessScene_45FEA0(session::ClientSession& session)
         const std::int32_t result = UpdateServerConnection(connection);
         switch (result) {
         case 1:
+            session.MarkConnected();
             world::SetCurrentSceneType(3);
             break;
         case -1:

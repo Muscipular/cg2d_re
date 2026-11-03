@@ -28,11 +28,11 @@ namespace cg::yobi {
 
 namespace detail {
 
-std::int32_t gBattlePendingGroupCount5ABB24 = 0; // 原全局：0x005ABB24。 4383F0/43B360生产组计数，427470延迟减到零时递减。
 
 // 原函数：0x0043B360。
 void DispatchBattleEvents_43B360(YobiAction* const scene)
 {
+    auto& battle = scene->ownerSession->WorldScene().battle;
     std::int32_t source = -1;
     std::int32_t previousSource = -1;
     const std::int32_t sceneType = world::gCurrentSceneType;
@@ -42,24 +42,24 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
         && exitRequested != 1) {
         return;
     }
-    const std::uint32_t activeEvents = cg::world::gBattleActiveEventMask5AAA74;
+    const std::uint32_t activeEvents = battle.activeEventMask;
     if (activeEvents == 0) {
-        gBattlePendingGroupCount5ABB24 = 0;
-    } else if (cg::world::gBattleEventDispatchBusy_5ABB1C != 0) {
+        battle.pendingGroupCount = 0;
+    } else if (battle.eventDispatchBusy != 0) {
         return;
     }
     const bool exiting = exitRequested == 1;
-    cg::world::gBattleEventDispatchBusy_5ABB1C = 1;
+    battle.eventDispatchBusy = 1;
     if (exiting) {
         world::gCurrentSceneState = 7;
         return;
     }
-    if (cg::world::gBattleTurnMessagesExhausted_5ABB28 == 1) {
+    if (battle.turnMessagesExhausted == 1) {
         if (activeEvents == 0 && CheckBattleTurnReady_4394A0(scene, BattleTurnReadyPolicy_CheckAllSelectedEntries) != 0) {
             const std::uint32_t turn = cg::world::gBattleTurnSnapshot5ABC08;
-            cg::world::gBattleTurnMessagesExhausted_5ABB28 = 0;
-            cg::world::gBattleEventDispatchBusy_5ABB1C = 0;
-            gBattlePendingGroupCount5ABB24 = 0;
+            battle.turnMessagesExhausted = 0;
+            battle.eventDispatchBusy = 0;
+            battle.pendingGroupCount = 0;
             cg::world::gBattleTurnSnapshot5ABC08 = turn + 1U;
             world::gCurrentSceneState = 2;
         }
@@ -67,19 +67,19 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     }
 
     std::int32_t slot = 0;
-    while (slot < static_cast<std::int32_t>(cg::world::gBattleEventActions5ABA9C.size())
-        && cg::world::gBattleEventActions5ABA9C[slot] != nullptr) {
+    while (slot < static_cast<std::int32_t>(battle.eventActions.size())
+        && battle.eventActions[slot] != nullptr) {
         ++slot;
     }
     // 原43B446..43B464：清零22槽共享参与计数。
-    cg::world::gBattlePreviewParticipants5AAA48.fill(0);
-    for (YobiAction* const event : cg::world::gBattleEventActions5ABA9C) {
+    battle.previewParticipants.fill(0);
+    for (YobiAction* const event : battle.eventActions) {
         if (event != nullptr) {
             const auto* const payload = static_cast<const BattleScenePayload*>(event->payload.battleScene);
             for (std::int32_t position = 0;
-                 position < static_cast<std::int32_t>(cg::world::gBattlePreviewParticipants5AAA48.size()); ++position) {
+                 position < static_cast<std::int32_t>(battle.previewParticipants.size()); ++position) {
                 if ((payload->entryMaskA8 & (1U << position)) != 0) {
-                    ++cg::world::gBattlePreviewParticipants5AAA48[position];
+                    ++battle.previewParticipants[position];
                 }
             }
         }
@@ -89,16 +89,16 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     // 原var_8仅由工厂写入；previousEvent首次非空前必经一次成功创建。
     YobiAction* lastCreated = nullptr;
     std::int32_t groupBoundary;
-    while (slot < static_cast<std::int32_t>(cg::world::gBattleEventActions5ABA9C.size())) {
+    while (slot < static_cast<std::int32_t>(battle.eventActions.size())) {
         const std::int32_t priorSource = previousSource;
         std::uint32_t participants = 0;
         if (CheckBattleMParticipants_43B290(
-                &source, priorSource, &participants, &groupBoundary) != 1) {
+                scene, &source, priorSource, &participants, &groupBoundary) != 1) {
             return;
         }
         std::array<char, 4> header;
         if (GetBattleMHeader_439070(header.data()) == 1) {
-            cg::world::gBattleTurnMessagesExhausted_5ABB28 = 1;
+            battle.turnMessagesExhausted = 1;
             return;
         }
         if (previousEvent != nullptr && priorSource == source) {
@@ -131,11 +131,11 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
                 } else {
                     lastCreated = NewBattleEvent_43B610(scene,
                         static_cast<std::int32_t>(kind), static_cast<std::int32_t>(slot),
-                        participants, gBattlePendingGroupCount5ABB24);
+                        participants, battle.pendingGroupCount);
                     if (lastCreated != nullptr) {
-                        cg::world::gBattleActiveEventMask5AAA74 |= 1U << slot;
-                        while (slot < static_cast<std::int32_t>(cg::world::gBattleEventActions5ABA9C.size())
-                            && cg::world::gBattleEventActions5ABA9C[slot] != nullptr) {
+                        battle.activeEventMask |= 1U << slot;
+                        while (slot < static_cast<std::int32_t>(battle.eventActions.size())
+                            && battle.eventActions[slot] != nullptr) {
                             ++slot;
                         }
                         lastCreated->payload.battleScene->remainingMessages5C = 1;
@@ -147,7 +147,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
             }
         }
         if (groupBoundary != 0) {
-            ++gBattlePendingGroupCount5ABB24;
+            ++battle.pendingGroupCount;
         }
     }
 }
@@ -158,6 +158,7 @@ YobiAction* NewBattleEvent_43B610(
     const std::int32_t kind, const std::int32_t slot,
     const std::uint32_t participants, const std::int32_t group)
 {
+    auto& battle = source->ownerSession->WorldScene().battle;
     YobiAction* const scene = NewYobiAction_404AE0(*source->ownerSession, 1, sizeof(BattleScenePayload), YobiPayloadKind::BattleScene);
     if (scene == nullptr) {
         return nullptr;
@@ -178,7 +179,7 @@ YobiAction* NewBattleEvent_43B610(
             InitBattleCastList_4390E0(position);
         }
     }
-    cg::world::gBattleEventActions5ABA9C[payload->eventSlot60] = scene;
+    battle.eventActions[payload->eventSlot60] = scene;
     payload->waitCountAC = 0;
     payload->groupBase68 = 22 * group;
     return scene;
@@ -203,6 +204,7 @@ YobiAction* NewBattleScene_4383B0(session::ClientSession& session)
 // 原函数：0x0043B6C0。
 void FinishBattleEvent_43B6C0(YobiAction* const action)
 {
+    auto& battle = action->ownerSession->WorldScene().battle;
     auto* const payload = action->payload.battleScene;
     const std::int32_t remaining = payload->remainingMessages5C - 1;
     payload->remainingMessages5C = remaining;
@@ -239,13 +241,13 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
                 InitBattleCastList_4390E0(index);
             }
         }
-        cg::world::gBattleEventDispatchBusy_5ABB1C = 0;
+        battle.eventDispatchBusy = 0;
         payload->waitCountAC = 0;
     } else {
         const std::uint32_t eventBit = 1u << payload->eventSlot60;
-        const std::uint32_t activeEvents = cg::world::gBattleActiveEventMask5AAA74;
-        cg::world::gBattleActiveEventMask5AAA74 = activeEvents & ~eventBit;
-        cg::world::gBattleEventActions5ABA9C[payload->eventSlot60] = nullptr;
+        const std::uint32_t activeEvents = battle.activeEventMask;
+        battle.activeEventMask = activeEvents & ~eventBit;
+        battle.eventActions[payload->eventSlot60] = nullptr;
         for (std::int32_t index = 0; index < 22; ++index) {
             const std::uint32_t eventMask = payload->entryMaskA8;
             const std::uint32_t bit = 1u << index;
@@ -253,7 +255,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
                 InitBattleCastList_4390E0(index);
             }
         }
-        cg::world::gBattleEventDispatchBusy_5ABB1C = 0;
+        battle.eventDispatchBusy = 0;
         static_cast<void>(MarkDeath(action));
     }
 }
@@ -290,10 +292,11 @@ void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 void InitializeBattleScene_4383F0(session::ClientSession& session)
 {
     cg::world::gBattleSceneAction5ABA94 = detail::NewBattleScene_4383B0(session);
-    cg::world::gBattleEventActions5ABA9C.fill(nullptr);
+    auto& battle = session.WorldScene().battle;
+    battle.eventActions.fill(nullptr);
     cg::world::gBattleAllEntries59E980.fill(nullptr);
-    cg::world::gBattleActiveEventMask5AAA74 = 0;
-    detail::gBattlePendingGroupCount5ABB24 = 0;
+    battle.activeEventMask = 0;
+    battle.pendingGroupCount = 0;
     cg::world::gBattleExitRequested_5ABB20 = 0;
     session.Yobi().screenOffsetRising = 0;
     session.Yobi().screenOffsetAmplitude = 0;

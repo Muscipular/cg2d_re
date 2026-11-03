@@ -2192,9 +2192,7 @@ std::uint32_t gMapAttachmentDrawCount_9A7F78 = 0; // 原全局：0x009A7F78。
 std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0; // 原全局：0x0059F9E0。
 std::int32_t gBattleType5ABFC8 = 0; // 原全局：0x005ABFC8。
 std::uint32_t gBattleModeFlag5ABFCC = 0; // 原全局：0x005ABFCC。
-std::uint32_t gBattleEventDispatchBusy_5ABB1C = 0; // 原全局：0x005ABB1C。
 std::uint32_t gBattleExitRequested_5ABB20 = 0xFFFFFFFFu; // 原全局：0x005ABB20。
-std::uint32_t gBattleTurnMessagesExhausted_5ABB28 = 0; // 原全局：0x005ABB28。
 
 namespace detail {
 
@@ -2202,15 +2200,8 @@ namespace detail {
 std::array<char, 0x1000> gBattleMText5AAA7C {}; // 原全局：0x005AAA7C。
 std::int32_t gBattleMScanOffset5A8A3C = 0; // 原全局：0x005A8A3C。
 std::int32_t gBattleMPreviewOffset5AAA60 = 0; // 原全局：0x005AAA60。
-std::uint32_t gBattleActiveEventMask5AAA74 = 0; // 原全局：0x005AAA74。
-std::array<cg::yobi::YobiAction*, 32> gBattleEventActions5ABA9C {}; // 原全局：0x005ABA9C。
 const std::array<std::int32_t, 5> gBattleValueThresholds54D93C {1, 4, 7, 10, 13}; // 原全局：0x0054D93C。
 
-namespace detail {
-static_assert(sizeof(gBattleEventActions5ABA9C) == 32 * sizeof(cg::yobi::YobiAction*));
-
-} // namespace detail
-std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48 {}; // 原全局：0x005AAA48。
 std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40 {}; // 原全局：0x005A8A40。
 std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0 {}; // 原全局：0x005ABCE0。
 
@@ -4321,7 +4312,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
         UpdatePlayerCountdown_458F40();
         break;
     case 7: {
-        gBattleActiveEventMask5AAA74 = 0;
+        battleScene.activeEventMask = 0;
         gBattleExitRequested_5ABB20 = 1;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
@@ -4367,7 +4358,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
     }
     case 9: {
         gBattleExitRequested_5ABB20 = 1;
-        gBattleActiveEventMask5AAA74 = 0;
+        battleScene.activeEventMask = 0;
         static_cast<void>(cg::yobi::YobiUpdateAll_404C50(session));
         static_cast<void>(cg::yobi::ConsumeBattleExitMessages_43BAA0());
         battleScene.sceneIndex = 22;
@@ -10068,9 +10059,9 @@ void HandleBattleEntryReply_50D120(cg::network::CgConnection& networkConnection,
         } else {
             gBattleModeFlag5ABFCC = 0;
         }
-        gBattleEventDispatchBusy_5ABB1C = 0;
+        networkConnection.Owner().WorldScene().battle.eventDispatchBusy = 0;
         networkConnection.Owner().WorldScene().battle.backgroundImage = imageNo;
-        gBattleTurnMessagesExhausted_5ABB28 = 0;
+        networkConnection.Owner().WorldScene().battle.turnMessagesExhausted = 0;
         auto& battleScene = networkConnection.Owner().WorldScene().battle;
         battleScene.cWriteIndex = 0;
         battleScene.cReadIndex = 0;

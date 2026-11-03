@@ -125,7 +125,7 @@ void ScanBattleMParticipants_439B30(
     std::int32_t kind, std::uint8_t* participants, std::int32_t* source, std::int32_t* flag);
 // 原43B290：冲突返回0，保留此前槽写入和预扫描副作用；成功OR参与位，不清调用方mask。
 std::int32_t CheckBattleMParticipants_43B290(
-    std::int32_t* source, std::int32_t previousSource, std::uint32_t* mask, std::int32_t* flag);
+    YobiAction* scene, std::int32_t* source, std::int32_t previousSource, std::uint32_t* mask, std::int32_t* flag);
 // 原函数：0x00427470。
 void UpdateBattleEvent_427470(YobiAction* scene); // 完整分派与恢复/回存；424620本体已接，完整战斗另验。
 // 原函数：0x0043B860。

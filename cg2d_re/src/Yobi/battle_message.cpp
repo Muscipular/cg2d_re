@@ -1142,9 +1142,10 @@ void ScanBattleMParticipants_439B30(
 
 // 原函数：0x0043B290。
 std::int32_t CheckBattleMParticipants_43B290(
-    std::int32_t* const source, const std::int32_t previousSource,
+    YobiAction* const scene, std::int32_t* const source, const std::int32_t previousSource,
     std::uint32_t* const mask, std::int32_t* const flag)
 {
+    auto& battle = scene->ownerSession->WorldScene().battle;
     cg::world::gBattleMPreviewOffset5AAA60 = cg::world::gBattleMScanOffset5A8A3C;
     std::array<char, 4> header;
     std::array<std::uint8_t, 22> participants;
@@ -1164,10 +1165,10 @@ std::int32_t CheckBattleMParticipants_43B290(
                 continue;
             }
             if (!(previousSource == *source && index == previousSource)
-                && cg::world::gBattlePreviewParticipants5AAA48[index] != 0) {
+                && battle.previewParticipants[index] != 0) {
                 return 0;
             }
-            cg::world::gBattlePreviewParticipants5AAA48[index] = count;
+            battle.previewParticipants[index] = count;
         }
     }
     // 原未知头路径不初始化局部计数；不补零或新增拒绝分支。
@@ -1338,8 +1339,9 @@ static bool PrepareBattleMExecution(
     YobiAction* const scene, BattleScenePayload* const payload,
     std::uint32_t& flags9C, std::int32_t& feedbackAlternateImageA0)
 {
+    auto& battle = scene->ownerSession->WorldScene().battle;
     const std::uint32_t eventBit = 1u << payload->eventSlot60;
-    if ((world::gBattleActiveEventMask5AAA74 & eventBit) == 0) {
+    if ((battle.activeEventMask & eventBit) == 0) {
         DrainInactiveBattleMEvent(scene, payload);
         return false;
     }
@@ -1349,7 +1351,7 @@ static bool PrepareBattleMExecution(
         const bool groupDelayFinished = nextDelay == 0;
         payload->groupBase68 = nextDelay;
         if (groupDelayFinished) {
-            --gBattlePendingGroupCount5ABB24;
+            --battle.pendingGroupCount;
         }
         return false;
     }

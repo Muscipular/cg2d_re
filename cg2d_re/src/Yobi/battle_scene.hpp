@@ -8,9 +8,6 @@ namespace cg::yobi {
 
 namespace detail {
 
-// 共享原状态，只在本组实现中定义；原全局：0x005ABB24。
-extern std::int32_t gBattlePendingGroupCount5ABB24;
-
 // 原43B360完整事件调度，4383B0已绑定；424620攻击生产已落位，完整事件/数据与运行另验。
 void DispatchBattleEvents_43B360(YobiAction* scene);
 // 原43B610：绑定完整427470、原序初始化22位置并发布32槽事件T*。

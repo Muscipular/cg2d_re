@@ -3255,9 +3255,9 @@ void UpdateBattleAction255_4186B0(YobiAction* const action)
 }
 
 // 原函数：0x00418B50。
-void UpdateBattleAction256_418B50(YobiAction* const)
+void UpdateBattleAction256_418B50(YobiAction* const action)
 {
-    world::gBattleEventDispatchBusy_5ABB1C = 0;
+    action->ownerSession->WorldScene().battle.eventDispatchBusy = 0;
     world::gBattleExitRequested_5ABB20 = 1;
 }
 

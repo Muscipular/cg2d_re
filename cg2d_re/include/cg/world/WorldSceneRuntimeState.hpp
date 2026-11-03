@@ -50,10 +50,17 @@ struct BattleSceneState {
     std::array<char, 0x1000> cText {}; // 原 0x5A3A20，活动 C 消息。
     std::int32_t cOffset = 0; // 原 0x5ABA80，C 字段解析游标。
     std::uint32_t fieldFlags = 0; // 原 0x5ABB58，C 消息字段标志。
+    std::uint32_t activeEventMask = 0; // 原 0x5AAA74，32 个事件槽位图。
+    std::array<yobi::YobiAction*, 32> eventActions {}; // 原 0x5ABA9C，非拥有事件引用。
+    std::array<std::uint8_t, 22> previewParticipants {}; // 原 0x5AAA48，预扫描冲突计数。
+    std::uint32_t eventDispatchBusy = 0; // 原 0x5ABB1C，事件分发门禁。
+    std::uint32_t turnMessagesExhausted = 0; // 原 0x5ABB28，当前回合 M 文本耗尽。
+    std::int32_t pendingGroupCount = 0; // 原 0x5ABB24，延迟事件组数。
 };
 static_assert(sizeof(BattleSceneState::cQueue) == 4 * 0x1000);
 static_assert(sizeof(BattleSceneState::mQueue) == 4 * 0x1000);
 static_assert(sizeof(BattleSceneState::cText) == 0x1000);
+static_assert(sizeof(BattleSceneState::eventActions) == 32 * sizeof(yobi::YobiAction*));
 
 // 100 项随机旋转表及跨场景消费游标，表初始化不重置游标。
 struct RotationState {

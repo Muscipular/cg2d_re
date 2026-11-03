@@ -59,16 +59,11 @@ void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先�
 extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 原全局：0x0059F9E0。 4209C0门禁；43CBB0按称号value生产0/5。
 extern std::int32_t gBattleType5ABFC8; // 原全局：0x005ABFC8。 50D120写完整S32类型。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 原全局：0x005ABFCC。 仅类型2写1。
-extern std::uint32_t gBattleEventDispatchBusy_5ABB1C; // 原全局：0x005ABB1C。
 extern std::uint32_t gBattleExitRequested_5ABB20; // 原全局：0x005ABB20。 原W32初值FFFFFFFF，4383F0清零，418B50/43CBB0置1。
-extern std::uint32_t gBattleTurnMessagesExhausted_5ABB28; // 原全局：0x005ABB28。
 extern std::array<char, 0x1000> gBattleMText5AAA7C; // 原全局：0x005AAA7C。
 extern std::int32_t gBattleMScanOffset5A8A3C; // 原全局：0x005A8A3C。 M头扫描S32游标，非队列索引或对象载荷64游标。
 extern std::int32_t gBattleMPreviewOffset5AAA60; // 原全局：0x005AAA60。 439600/439700预扫描游标，由43B290复制头游标。
-extern std::uint32_t gBattleActiveEventMask5AAA74; // 原全局：0x005AAA74。 32事件槽位图，43B6C0清当前位。
-extern std::array<cg::yobi::YobiAction*, 32> gBattleEventActions5ABA9C; // 原全局：0x005ABA9C。 非拥有事件引用；4383F0清表，43B610按当前eventSlot发布。
 extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C; // 原全局：0x0054D93C。
-extern std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48; // 原全局：0x005AAA48。 调度累计、43B290逐槽冲突判定。
 extern std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40; // 原全局：0x005A8A40。 仅映射439B30已消费位置，40F2B1同源读取。
 struct BattleNamedEffectRecord {
     std::wstring name; // 内部名称；空字符串表示空槽。

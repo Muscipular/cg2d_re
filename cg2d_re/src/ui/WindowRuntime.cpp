@@ -2636,7 +2636,7 @@ static std::int32_t WindowRuntime_ResetSettings(session::ClientSession& session)
     auto& states = WindowRuntime_States(session);
     auto& settings = WindowRuntime_Settings(session);
     for (std::size_t index = 0; index < kWindowCount; ++index) {
-        const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+        const WindowPrototype* const prototype = &WindowRuntime_Prototype(session, index);
         states[index].x = prototype->defaultX;
         states[index].y = prototype->defaultY;
     }
@@ -2687,7 +2687,7 @@ static std::int32_t WindowRuntime_RepairSettingsTail(session::ClientSession& ses
     if (std::bit_cast<std::int32_t>(first) < std::bit_cast<std::int32_t>(end)) {
         for (std::uint32_t offset = 0; offset < count; ++offset) {
             const std::uint32_t index = first + offset + 1u;
-            const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+            const WindowPrototype* const prototype = &WindowRuntime_Prototype(session, index);
             states[index].x = prototype->defaultX;
             states[index].y = prototype->defaultY;
         }
@@ -2704,7 +2704,7 @@ static std::int32_t WindowRuntime_ApplySettings(session::ClientSession& session)
     auto& settings = WindowRuntime_Settings(session);
     for (std::size_t index = 0; index < kWindowCount; ++index) {
         // R02：旧分辨率的保存坐标不覆盖当前布局；下方非坐标设置仍按原流程恢复。
-        const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+        const WindowPrototype* const prototype = &WindowRuntime_Prototype(session, index);
         states[index].x = prototype->defaultX;
         states[index].y = prototype->defaultY;
     }
@@ -2967,7 +2967,7 @@ static void WindowRuntime_RestorePositions(session::ClientSession& session)
         if (window == nullptr) {
             continue;
         }
-        const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+        const WindowPrototype* const prototype = &WindowRuntime_Prototype(session, index);
         const bool isPrimaryOffsetWindow = index == 10;
         window->x = prototype->defaultX;
         window = state.window;
@@ -4607,7 +4607,7 @@ WindowInstance* WindowRuntime_Open(session::ClientSession& session, const std::i
     if (window == nullptr) {
         return nullptr;
     }
-    WindowPrototype* const prototype = gWindowPrototypes57C130[id];
+    const WindowPrototype* const prototype = &WindowRuntime_Prototype(session, id);
     window->ownerSession = &session;
     window->id = id;
     window->category = category;
@@ -4811,7 +4811,7 @@ cg::yobi::YobiAction* WindowRuntime_CreateAnimation(
 {
     using namespace detail;
     auto& states = WindowRuntime_States(session);
-    const WindowPrototype* const prototype = gWindowPrototypes57C130[id];
+    const WindowPrototype* const prototype = &WindowRuntime_Prototype(session, id);
     const std::int32_t width = prototype->width;
     const std::int32_t height = prototype->height;
     if (id == 10 || id == 11 || id == 12 || id == 14 || id == 27) {

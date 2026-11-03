@@ -19,6 +19,7 @@ using WindowValueCallback = void (*)(WindowInstance& window, std::int32_t value)
 using WindowQuantityCallback = void (*)(session::ClientSession& session, std::int32_t value);
 using ElementId = std::uint32_t;
 using WindowCallback = std::int32_t (*)(WindowInstance& window, std::int32_t value); // 更新/绘制显式携所属实例。
+using WindowReleaseCallback = void (*)(WindowInstance& window); // 释放对象显式携owner，不借当前窗口现场。
 using WindowElementCallback = std::int32_t (*)(WindowInstance& window, ElementId elementId, std::int32_t state); // 所属窗口及窗口内稳定元素ID，非排序位置。
 using WindowDialogReplyCallback = std::int32_t (*)(
     session::ClientSession& session, std::int32_t button, std::int32_t row,

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "WindowPrototypeDependencies.hpp"
 #include "cg/text/Encoding.hpp"
 #include <string>
@@ -114,6 +115,25 @@ void InitializeWindowLayout()
 }
 
 namespace detail {
+
+WindowPrototype& WindowRuntime_DialogPrototype(session::ClientSession& session)
+{
+    auto& native = session.UiFrame().native;
+    if (!native.dialogPrototypeInitialized) {
+        native.dialogPrototype = gWindowPrototypeDialog;
+        native.dialogPrototypeInitialized = true;
+    }
+    return native.dialogPrototype;
+}
+
+const WindowPrototype& WindowRuntime_Prototype(session::ClientSession& session, const std::size_t id)
+{
+    const WindowPrototype* const prototype = gWindowPrototypes57C130[id];
+    if (prototype == &gWindowPrototypeDialog) {
+        return WindowRuntime_DialogPrototype(session);
+    }
+    return *prototype;
+}
 
 // 控件载荷、窗口状态、组件表与原型。
 

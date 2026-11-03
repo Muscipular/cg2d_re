@@ -12,6 +12,31 @@
 
 namespace cg::ui::detail {
 
+struct WindowElementPrototype;
+
+// 原48B可变原型的原生x64表示，36/37等同源原型须共用对象。
+struct WindowPrototype {
+    std::uint32_t state; // 原成员偏移：+0x00。
+    std::int32_t layer; // 原成员偏移：+0x04。
+    std::int32_t defaultX; // 原成员偏移：+0x08。
+    std::int32_t defaultY; // 原成员偏移：+0x0C。
+    std::int32_t width; // 原成员偏移：+0x10。
+    std::int32_t height; // 原成员偏移：+0x14。
+    std::uint32_t flags; // 原成员偏移：+0x18。
+    std::int32_t elementCount; // 原成员偏移：+0x1C。
+    WindowElementPrototype* elements; // 原成员偏移：+0x20。
+    WindowCallback update; // 原成员偏移：+0x24。
+    WindowCallback draw; // 原成员偏移：+0x28。
+    WindowReleaseCallback release; // 原成员偏移：+0x2C。
+};
+static_assert(offsetof(WindowPrototype, width) == 0x10);
+static_assert(offsetof(WindowPrototype, height) == 0x14);
+static_assert(offsetof(WindowPrototype, elements) == 0x20);
+static_assert(offsetof(WindowPrototype, update) == 0x28);
+static_assert(offsetof(WindowPrototype, draw) == 0x30);
+static_assert(offsetof(WindowPrototype, release) == 0x38);
+static_assert(sizeof(WindowPrototype) == 0x40);
+
 // 原CC4230接收技能、等级两个S32；宿主回调另携发起会话，不改变命令字段。
 using SkillWindowSelectionCallback = void (*)(
     session::ClientSession& session, std::int32_t skillIndex, std::int32_t technique);
@@ -649,6 +674,8 @@ struct ItemTargetRuntimeState {
 struct NativeWindowRuntimeState {
     std::array<WindowInstance*, detail::kWindowCount> windows {}; // 原0xC8B094，非拥有排序引用。
     std::array<detail::WindowState, detail::kWindowCount> states {}; // 原0xC9A9B0，按ID寻址。
+    detail::WindowPrototype dialogPrototype {}; // 原36/37共用的可变原型，只在首次借用时从宿主布局基线初始化。
+    bool dialogPrototypeInitialized = false;
     WindowLayoutSettings settings {};
     SettingsPanelRuntimeState settingsPanel {};
     BattleCommandWindowState battleCommand {};

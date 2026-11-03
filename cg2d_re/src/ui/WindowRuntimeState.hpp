@@ -71,7 +71,6 @@ static_assert(sizeof(WindowElementType) == sizeof(std::int32_t));
 
 enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_Hover, WindowMouseState_Press };
 
-using WindowReleaseCallback = void (*)(WindowInstance& window); // 释放对象显式携owner，不借当前窗口现场。
 using WindowListSelectionCallback = void (*)(std::int32_t index, const wchar_t* text);
 
 // 原type1的24B前缀保留；NEU01在宿主载荷末尾扩充图态配置。
@@ -679,22 +678,6 @@ struct WindowElementPrototype {
     ElementId elementId = 0; // C++原型由对应窗口的enum显式指定固定ID。
 };
 
-// 原48B可变原型的原生x64表示，36/37等同源原型须共用对象。
-struct WindowPrototype {
-    std::uint32_t state; // 原成员偏移：+0x00。
-    std::int32_t layer; // 原成员偏移：+0x04。
-    std::int32_t defaultX; // 原成员偏移：+0x08。
-    std::int32_t defaultY; // 原成员偏移：+0x0C。
-    std::int32_t width; // 原成员偏移：+0x10。
-    std::int32_t height; // 原成员偏移：+0x14。
-    std::uint32_t flags; // 原成员偏移：+0x18。
-    std::int32_t elementCount; // 原成员偏移：+0x1C。
-    WindowElementPrototype* elements; // 原成员偏移：+0x20。
-    WindowCallback update; // 原成员偏移：+0x24。
-    WindowCallback draw; // 原成员偏移：+0x28。
-    WindowReleaseCallback release; // 原成员偏移：+0x2C。
-};
-
 // 原输入原型首W32的两种解释；不对原生T*进行原x86高字节测试。
 enum class WindowInputReferenceKind : std::uint8_t {
     Context,
@@ -734,6 +717,8 @@ extern std::int32_t& gTitlePageCF4E54; // 原全局：0x00CF4E54。 借既有登
 
 // 两表已按原地址共享绑定；主表的其余元素与回调依赖见WindowPrototypeDependencies。
 extern std::array<WindowPrototype*, kWindowCount> gWindowPrototypes57C130; // 原全局：0x0057C130。
+const WindowPrototype& WindowRuntime_Prototype(session::ClientSession& session, std::size_t id); // 原型读者显式取会话；只有同源36/37是运行期可变对象。
+WindowPrototype& WindowRuntime_DialogPrototype(session::ClientSession& session); // 业务只写所属会话的对话原型。
 extern WindowPrototype& gWindowPrototype54E2A0; // 原全局：0x0054E2A0。 4C93A0直接比较的原对象，不追随表槽改指向。
 extern WindowPrototype& gWindowPrototype54E240; // 原全局：0x0054E240。
 extern WindowPrototype& gWindowPrototype54E330; // 原全局：0x0054E330。
@@ -1082,13 +1067,6 @@ static_assert(offsetof(WindowElementPrototype, source) == 0x18);
 static_assert(offsetof(WindowElementPrototype, mouseCallback) == 0x20);
 static_assert(offsetof(WindowElementPrototype, seqNo) == 0x28);
 static_assert(sizeof(WindowElementPrototype) == 0x30);
-static_assert(offsetof(WindowPrototype, width) == 0x10);
-static_assert(offsetof(WindowPrototype, height) == 0x14);
-static_assert(offsetof(WindowPrototype, elements) == 0x20);
-static_assert(offsetof(WindowPrototype, update) == 0x28);
-static_assert(offsetof(WindowPrototype, draw) == 0x30);
-static_assert(offsetof(WindowPrototype, release) == 0x38);
-static_assert(sizeof(WindowPrototype) == 0x40);
 static_assert(offsetof(WindowGraphicData, offsetX) == 4);
 static_assert(offsetof(WindowGraphicData, offsetY) == 8);
 static_assert(offsetof(WindowGraphicData, width) == 0x0C);

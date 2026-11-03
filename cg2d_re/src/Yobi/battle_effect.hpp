@@ -177,10 +177,10 @@ void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严�
 // 原函数：0x0041E680。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* parent, std::int32_t imageNo);
 // 原函数：0x0041E720。
-YobiAction* NewBattleCoordinateEffect_41E720(float x, float y, std::int32_t imageNo); // 无父引用，不提前播放。
+YobiAction* NewBattleCoordinateEffect_41E720(YobiAction* source, float x, float y, std::int32_t imageNo); // 无父引用，不提前播放。
 // 原函数：0x0041E7C0。
 YobiAction* NewBattleTrailEffect_41E7C0(
-    float x, float y, std::int32_t imageNo, std::int32_t mode,
+    YobiAction* source, float x, float y, std::int32_t imageNo, std::int32_t mode,
     std::uint8_t priority); // 失败不消耗随机；成功绑定41E640，设备分支决定混合标志。
 // 原函数：0x0041A160。
 void UpdateBattleCompletingEffect_41A160(YobiAction* action); // 播放完成后通知父1024，标死仍投影。
@@ -209,13 +209,13 @@ std::int32_t DrawBattleTiledEffect_41E890(std::int32_t type); // BSTL01：共享
 // 原函数：0x0041E920。
 void UpdateBattleTiledEffect_41E920(YobiAction* action); // 独立58相位/1D4反向，绘制后判寿命且仍自增。
 // 原函数：0x0041E9D0。
-YobiAction* NewBattleTiledEffect_41E9D0(std::int32_t type, std::int32_t lifetime); // maxHp/readiness依次临时构造赋值。
+YobiAction* NewBattleTiledEffect_41E9D0(YobiAction* source, std::int32_t type, std::int32_t lifetime); // maxHp/readiness依次临时构造赋值。
 // 原函数：0x00419FC0。
 YobiAction* NewBattleRandomEffect_419FC0(
     YobiAction* parent, std::int32_t imageNo, std::int32_t direction); // X/Y分别取随机并重读尺寸。
 // 原函数：0x0041A0D0。
 YobiAction* NewBattleScreenEffect_41A0D0(
-    std::int32_t x, std::int32_t y, std::int32_t imageNo, std::int32_t direction); // 屏幕坐标直接创建，绑定完整419FA0，不提前播放。
+    YobiAction* source, std::int32_t x, std::int32_t y, std::int32_t imageNo, std::int32_t direction); // 屏幕坐标直接创建，绑定完整419FA0，不提前播放。
 // 原函数：0x004208F0。
 void NewBattleRebirthEffects_4208F0(YobiAction* source, YobiAction* target); // BRAE01：1080低S8，首段后重取目标类型。
 // 原函数：0x004209C0。
@@ -251,7 +251,7 @@ YobiAction* NewBattleStatusEffect_41FE00(YobiAction* parent, std::int32_t imageN
 // 原函数：0x0041FF90。
 void UpdateBattleFieldEffect_41FF90(YobiAction* action); // BFL01：当前场景death严格1标死自身，仍投影；Y转换后再取屏幕Y偏移。
 // 原函数：0x0041FFE0。
-YobiAction* NewBattleFieldEffect_41FFE0(std::int32_t imageNo); // BFL01：B0已有只换图返空；两组索引先齐读坐标，播放后fresh场景发布，原投影尾。
+YobiAction* NewBattleFieldEffect_41FFE0(YobiAction* source, std::int32_t imageNo); // BFL01：B0已有只换图返空；两组索引先齐读坐标，播放后fresh场景发布，原投影尾。
 // 原函数：0x00421480。
 void UpdateBattleBackgroundFade_421480(YobiAction* action); // 完整五态淡变，同源背景发布与延后标死。
 // 原函数：0x00421570。
@@ -260,11 +260,11 @@ YobiAction* NewBattleBackgroundFade_421570(
 // 原函数：0x00422370。
 void RestoreBattleStateEffects_422370(YobiAction* parent); // 固定入口FDC快照，保留成对共用清位掩码。
 // 原函数：0x00421610。
-YobiAction* NewBattleScreenEffect_421610(std::int32_t x, std::int32_t y);
+YobiAction* NewBattleScreenEffect_421610(YobiAction* source, std::int32_t x, std::int32_t y);
 // 原函数：0x004216B0。
 void UpdateBattleScreenEmitter_4216B0(YobiAction* action); // 原rand先Y后X，生成后重取阶段并递减。
 // 原函数：0x00421700。
-YobiAction* NewBattleScreenEmitter_421700(std::int32_t phase);
+YobiAction* NewBattleScreenEmitter_421700(YobiAction* source, std::int32_t phase);
 // 原函数：0x00418B70。
 YobiAction* NewBattleSpiracleShot_418B70(YobiAction* parent, const BattleEntryEffectRecord* effect, std::int32_t imageNo);
 // 原函数：0x00419180。

@@ -2603,7 +2603,7 @@ static void ProcessBattleMGmnHeader(
         entrance = 2;
     } else if (mode == BattleMGmnMode_EnterWithRandomEntranceAndEmitter) {
         entrance = static_cast<std::int8_t>((platform::Rand16() & 1) + 1);
-        static_cast<void>(NewBattleScreenEmitter_421700(150));
+        static_cast<void>(NewBattleScreenEmitter_421700(scene, 150));
     }
     gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
     const std::int32_t soundId1018 = TakeBattleMInteger_438F70(scene);
@@ -3400,15 +3400,15 @@ void ParseBattleC_438550()
         return;
     }
     if ((fieldFlags & detail::BattleFieldFlag_Earth) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110092));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110092));
     } else if ((fieldFlags & detail::BattleFieldFlag_Water) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110089));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110089));
     } else if ((fieldFlags & detail::BattleFieldFlag_Fire) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110090));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110090));
     } else if ((fieldFlags & detail::BattleFieldFlag_Wind) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110091));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110091));
     } else if ((fieldFlags & detail::BattleFieldFlag_Silence) != 0) {
-        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(110155));
+        static_cast<void>(detail::NewBattleFieldEffect_41FFE0(cg::world::gBattleSceneAction5ABA94, 110155));
     } else {
         static_cast<void>(MarkDeath(cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0));
         cg::world::gBattleSceneAction5ABA94->payload.battleScene->fieldEffectB0 = nullptr;

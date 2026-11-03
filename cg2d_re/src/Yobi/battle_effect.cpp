@@ -1049,12 +1049,12 @@ void UpdateBattleTiledEffect_41E920(YobiAction* const action)
 }
 
 // 原函数：0x0041E9D0。
-YobiAction* NewBattleTiledEffect_41E9D0(const std::int32_t type, const std::int32_t lifetime)
+YobiAction* NewBattleTiledEffect_41E9D0(YobiAction* const source, const std::int32_t type, const std::int32_t lifetime)
 {
     if (lifetime <= 0) {
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1818,9 +1818,9 @@ YobiAction* NewBattlePositionEffect_41E680(YobiAction* const parent, const std::
 }
 
 // 原函数：0x0041E720。
-YobiAction* NewBattleCoordinateEffect_41E720(const float x, const float y, const std::int32_t imageNo)
+YobiAction* NewBattleCoordinateEffect_41E720(YobiAction* const source, const float x, const float y, const std::int32_t imageNo)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1845,10 +1845,10 @@ YobiAction* NewBattleCoordinateEffect_41E720(const float x, const float y, const
 
 // 原函数：0x0041E7C0。
 YobiAction* NewBattleTrailEffect_41E7C0(
-    const float x, const float y, const std::int32_t imageNo,
+    YobiAction* const source, const float x, const float y, const std::int32_t imageNo,
     const std::int32_t mode, const std::uint8_t priority)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -1918,9 +1918,10 @@ YobiAction* NewBattleRandomEffect_419FC0(
 
 // 原函数：0x0041A0D0。
 YobiAction* NewBattleScreenEffect_41A0D0(
-    const std::int32_t x, const std::int32_t y, const std::int32_t imageNo, const std::int32_t direction)
+    YobiAction* const source, const std::int32_t x, const std::int32_t y,
+    const std::int32_t imageNo, const std::int32_t direction)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2517,7 +2518,7 @@ void UpdateBattleFieldEffect_41FF90(YobiAction* const action)
 
 // BFL01：B0已有只换图返空；两组索引先齐读坐标，播放后fresh场景发布，原投影尾。
 // 原函数：0x0041FFE0。
-YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
+YobiAction* NewBattleFieldEffect_41FFE0(YobiAction* const source, const std::int32_t imageNo)
 {
     using world::gBattleSceneAction5ABA94;
     using world::gBattleGraphicPoints553758;
@@ -2527,7 +2528,7 @@ YobiAction* NewBattleFieldEffect_41FFE0(const std::int32_t imageNo)
         existing->imageNo = imageNo;
         return nullptr;
     }
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2746,9 +2747,9 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
 }
 
 // 原函数：0x00421610。
-YobiAction* NewBattleScreenEffect_421610(const std::int32_t x, const std::int32_t y)
+YobiAction* NewBattleScreenEffect_421610(YobiAction* const source, const std::int32_t x, const std::int32_t y)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }
@@ -2779,7 +2780,7 @@ void UpdateBattleScreenEmitter_4216B0(YobiAction* const action)
     if ((static_cast<std::uint8_t>(action->phase) & 7u) == 0) {
         const std::int32_t y = platform::Rand16() % 480;
         const std::int32_t x = platform::Rand16() % 640;
-        static_cast<void>(NewBattleScreenEffect_421610(x, y));
+        static_cast<void>(NewBattleScreenEffect_421610(action, x, y));
     }
     const std::int32_t phase = action->phase - 1;
     action->phase = phase;
@@ -2789,9 +2790,9 @@ void UpdateBattleScreenEmitter_4216B0(YobiAction* const action)
 }
 
 // 原函数：0x00421700。
-YobiAction* NewBattleScreenEmitter_421700(const std::int32_t phase)
+YobiAction* NewBattleScreenEmitter_421700(YobiAction* const source, const std::int32_t phase)
 {
-    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    YobiAction* const action = NewYobiAction_404AE0(*source->ownerSession, 2, 0);
     if (action == nullptr) {
         return nullptr;
     }

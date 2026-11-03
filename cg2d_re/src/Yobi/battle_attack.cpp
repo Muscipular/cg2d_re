@@ -160,7 +160,7 @@ void UpdateBattleAction14_409680(YobiAction* const action)
             {
                 ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
                 if (payload->castSkillLevel1044 >= 9 && payload->castSkill103C == BattleSkill_StatusAttackPoisonStrike) {
-                    static_cast<void>(NewBattleTiledEffect_41E9D0(BattleTiledEffect_Earth, 15));
+                    static_cast<void>(NewBattleTiledEffect_41E9D0(action, BattleTiledEffect_Earth, 15));
                 }
                 const std::int32_t index = payload->effectRunningC9C;
                 const std::uint32_t flags = payload->effects1C[index].flags;
@@ -966,7 +966,7 @@ void UpdateBattleAction16_4072E0(YobiAction* const action)
             payload->effects1C[payload->effectRunningC9C].flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
         if (payload->castSkillLevel1044 >= 9 && payload->castSkill103C == BattleSkill_StatusAttackPoisonStrike) {
-            static_cast<void>(NewBattleTiledEffect_41E9D0(BattleTiledEffect_Earth, 15));
+            static_cast<void>(NewBattleTiledEffect_41E9D0(action, BattleTiledEffect_Earth, 15));
         }
         const std::int32_t appliedIndex = payload->effectRunningC9C;
         const std::uint32_t flags = payload->effects1C[appliedIndex].flags;
@@ -1485,7 +1485,7 @@ std::int32_t UpdateBattleAction22_4087C0(YobiAction* const action)
                 payload->effects1C[payload->effectRunningC9C].flags);
             ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
             if (payload->castSkillLevel1044 >= 9 && payload->castSkill103C == BattleSkill_StatusAttackPoisonStrike) {
-                static_cast<void>(NewBattleTiledEffect_41E9D0(BattleTiledEffect_Earth, 15));
+                static_cast<void>(NewBattleTiledEffect_41E9D0(action, BattleTiledEffect_Earth, 15));
             }
             const std::int32_t appliedIndex = payload->effectRunningC9C;
             const std::uint32_t flags = payload->effects1C[appliedIndex].flags;
@@ -2919,7 +2919,7 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
             payload->effects1C[payload->effectRunningC9C].flags);
         ApplyBattleEffectFlags_406390(payload->battlePosition18, action);
         if (payload->castSkillLevel1044 >= 9 && payload->castSkill103C == BattleSkill_StatusAttackPoisonStrike) {
-            static_cast<void>(NewBattleTiledEffect_41E9D0(BattleTiledEffect_Earth, 15));
+            static_cast<void>(NewBattleTiledEffect_41E9D0(action, BattleTiledEffect_Earth, 15));
         }
         const std::int32_t hitIndex = payload->effectRunningC9C;
         const std::uint32_t hitFlags = payload->effects1C[hitIndex].flags;
@@ -3050,7 +3050,7 @@ void UpdateBattleAction245_418580(YobiAction* const action)
     const BattleEntryEffectRecord& effect = payload->effects1C[payload->effectRunningC9C];
     const std::int32_t lifetime = effect.position3;
     const std::int32_t type = effect.position;
-    static_cast<void>(NewBattleTiledEffect_41E9D0(type, lifetime));
+    static_cast<void>(NewBattleTiledEffect_41E9D0(action, type, lifetime));
     static_cast<void>(AdvanceBattleEffect_439470(action));
     AdvanceBattleCastState_439340(action);
 }

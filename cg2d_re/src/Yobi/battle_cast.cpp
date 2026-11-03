@@ -952,7 +952,7 @@ std::int32_t UpdateBattleAction87_40C780(YobiAction* const action)
                 const std::int32_t y = randomY + cg::world::gBattleGraphicPoints553758[index + 10][3];
                 const std::int32_t randomX = platform::RandomRange_46FAF0(-30, 30);
                 const std::int32_t x = randomX + cg::world::gBattleGraphicPoints553758[index + 10][2];
-                static_cast<void>(NewBattleScreenEffect_41A0D0(x, y, imageNo, 0));
+                static_cast<void>(NewBattleScreenEffect_41A0D0(action, x, y, imageNo, 0));
                 playSound = platform::RandomRange_46FAF0(0, 30) == 0;
             }
         } else if (platform::RandomRange_46FAF0(0, 2) == 0) {
@@ -961,7 +961,7 @@ std::int32_t UpdateBattleAction87_40C780(YobiAction* const action)
             const std::int32_t y = randomY + cg::world::gBattleGraphicPoints553758[index][3];
             const std::int32_t randomX = platform::RandomRange_46FAF0(-40, 40);
             const std::int32_t x = randomX + cg::world::gBattleGraphicPoints553758[index][2];
-            static_cast<void>(NewBattleScreenEffect_41A0D0(x, y, imageNo, 0));
+            static_cast<void>(NewBattleScreenEffect_41A0D0(action, x, y, imageNo, 0));
             playSound = platform::RandomRange_46FAF0(0, 30) == 0;
         }
         if (playSound) {
@@ -2256,7 +2256,7 @@ void UpdateBattleAction139_410000(YobiAction* const action)
                         default: break;
                         }
                         if (imageNo != 0) {
-                            static_cast<void>(NewBattleFieldEffect_41FFE0(imageNo));
+                            static_cast<void>(NewBattleFieldEffect_41FFE0(action, imageNo));
                         }
                         static_cast<void>(AdvanceBattleEffect_439470(action));
                     }
@@ -2596,7 +2596,7 @@ void UpdateBattleAction145_411290(YobiAction* const action)
     default: break;
     }
     if (imageNo >= 0) {
-        static_cast<void>(NewBattleFieldEffect_41FFE0(imageNo));
+        static_cast<void>(NewBattleFieldEffect_41FFE0(action, imageNo));
     }
     AdvanceBattleCastState_439340(action);
 }

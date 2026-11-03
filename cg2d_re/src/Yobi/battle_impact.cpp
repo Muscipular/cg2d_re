@@ -785,17 +785,17 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 if (image >= 110032 && image <= 110034) {
                     if (action->nameX == 0) {
                         const float y = action->origin_y_offset44;
-                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->origin_x_offset40, y, 110007, BattleTrailRenderMode_LeaveFlag20000, 200));
+                        static_cast<void>(NewBattleTrailEffect_41E7C0(action, action->origin_x_offset40, y, 110007, BattleTrailRenderMode_LeaveFlag20000, 200));
                     }
                 } else if (image >= 110035 && image <= 110037) {
                     if (action->nameX == 0) {
                         const float y = action->origin_y_offset44;
-                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->origin_x_offset40, y, 110007, BattleTrailRenderMode_LeaveFlag20000, 200));
+                        static_cast<void>(NewBattleTrailEffect_41E7C0(action, action->origin_x_offset40, y, 110007, BattleTrailRenderMode_LeaveFlag20000, 200));
                     }
                 } else if (image >= 110038 && image <= 110040) {
                     if (action->nameX == 0) {
                         const float y = action->origin_y_offset44;
-                        static_cast<void>(NewBattleTrailEffect_41E7C0(action->origin_x_offset40, y, 110006, BattleTrailRenderMode_LeaveFlag20000, 200));
+                        static_cast<void>(NewBattleTrailEffect_41E7C0(action, action->origin_x_offset40, y, 110006, BattleTrailRenderMode_LeaveFlag20000, 200));
                     }
                     ++action->nameX;
                 }
@@ -1052,7 +1052,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
                     const float y = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     const std::int32_t xOffset = platform::RandomRange_46FAF0(-4, 4);
                     const float x = static_cast<float>(static_cast<double>(xOffset) + action->origin_x_offset40);
-                    static_cast<void>(NewBattleTrailEffect_41E7C0(x, y, 110006, BattleTrailRenderMode_AddFlag20000, 202));
+                    static_cast<void>(NewBattleTrailEffect_41E7C0(action, x, y, 110006, BattleTrailRenderMode_AddFlag20000, 202));
                 }
                 ++action->nameX;
             } else if (image == 110047) {
@@ -1066,7 +1066,7 @@ void UpdateBattleHomingImpactEffect_41C3B0(YobiAction* const action)
             }
             if (emitTrail) {
                 const float x = static_cast<float>(static_cast<double>(randomX) + action->origin_x_offset40);
-                static_cast<void>(NewBattleTrailEffect_41E7C0(x, trailY, trailImage, BattleTrailRenderMode_AddFlag20000, 202));
+                static_cast<void>(NewBattleTrailEffect_41E7C0(action, x, trailY, trailImage, BattleTrailRenderMode_AddFlag20000, 202));
             }
             const std::int32_t previousTrail = action->nameX;
             action->nameX = previousTrail < 2 ? previousTrail + 1 : 0;
@@ -1224,7 +1224,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
                     const float y = static_cast<float>(static_cast<double>(randomY) + action->origin_y_offset44);
                     const std::int32_t xOffset = platform::RandomRange_46FAF0(-4, 4);
                     const float x = static_cast<float>(static_cast<double>(xOffset) + action->origin_x_offset40);
-                    static_cast<void>(NewBattleTrailEffect_41E7C0(x, y, 110006, BattleTrailRenderMode_AddFlag20000, 202));
+                    static_cast<void>(NewBattleTrailEffect_41E7C0(action, x, y, 110006, BattleTrailRenderMode_AddFlag20000, 202));
                 }
                 ++action->nameX;
             } else if (image == 110047) {
@@ -1238,7 +1238,7 @@ void UpdateBattleCarryingEffect_4219D0(YobiAction* const action)
             }
             if (emitTrail) {
                 const float x = static_cast<float>(static_cast<double>(randomX) + action->origin_x_offset40);
-                static_cast<void>(NewBattleTrailEffect_41E7C0(x, trailY, trailImage, BattleTrailRenderMode_AddFlag20000, 202));
+                static_cast<void>(NewBattleTrailEffect_41E7C0(action, x, trailY, trailImage, BattleTrailRenderMode_AddFlag20000, 202));
             }
             const std::int32_t previousTrail = action->nameX;
             action->nameX = previousTrail < 2 ? previousTrail + 1 : 0;

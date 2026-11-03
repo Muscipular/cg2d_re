@@ -237,10 +237,12 @@ YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
 // 原窗口41/38的完整展开创建；失败仍发布，kind成功路径按低S16传递。
 // 原函数：0x004ABEF0。
 YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
+    session::ClientSession& session,
     std::int32_t kind, std::int32_t value14, std::int32_t userState, // value14透传银行窗口，未确认业务含义，保留原名。
     std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开41并返空，低BYTE和临时CryptInt原序保持。
 // 原函数：0x004ACE80。
 YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
+    session::ClientSession& session,
     std::int32_t kind, std::int32_t value14, std::int32_t userState, // value14透传物品保管窗口，未确认业务含义，保留原名。
     std::int32_t phase, std::uint32_t flags, std::uint32_t mode); // SOA01：真实action指针，原失败同步开38并返空，低BYTE和临时CryptInt原序保持。
 

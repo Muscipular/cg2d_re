@@ -70,14 +70,15 @@ WindowPrototype gWindowPrototypeItemStorage {0, 4, 300, 82, 567, 339, 0x80010101
 
 // 原函数：0x004AC0C0。
 WindowInstance* WindowItemStorage_Open(
+    session::ClientSession& session,
     const std::int32_t kind, const std::int32_t value14,
     const std::int32_t userState, const std::int32_t)
 {
-    WindowRuntime_States()[WindowId_ItemStorage].value10 = static_cast<std::uint32_t>(kind);
-    WindowInstance* const window = WindowRuntime_Open(WindowId_ItemStorage);
-    WindowRuntime_States()[WindowId_ItemStorage].window = window;
-    WindowRuntime_States()[WindowId_ItemStorage].value14 = static_cast<std::uint32_t>(value14);
-    WindowRuntime_States()[WindowId_ItemStorage].userState.value = static_cast<std::uint32_t>(userState);
+    WindowRuntime_States(session)[WindowId_ItemStorage].value10 = static_cast<std::uint32_t>(kind);
+    WindowInstance* const window = WindowRuntime_Open(session, WindowId_ItemStorage);
+    WindowRuntime_States(session)[WindowId_ItemStorage].window = window;
+    WindowRuntime_States(session)[WindowId_ItemStorage].value14 = static_cast<std::uint32_t>(value14);
+    WindowRuntime_States(session)[WindowId_ItemStorage].userState.value = static_cast<std::uint32_t>(userState);
     return window;
 }
 

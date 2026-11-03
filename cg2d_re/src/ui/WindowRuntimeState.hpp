@@ -802,9 +802,12 @@ void WindowTrade_CopyDisplayItems(std::int32_t side, std::int32_t index); // 另
 // 原函数：0x004A84A0。
 std::int32_t WindowBank_ReceiveStorageData(session::ClientSession& session, const char* text); // SGM01：完整A/G/I/P数据生产，固定A/增量I-P字段续行与fresh金额组保持，只有A返回1。
 // 原函数：0x004A83A0。
-WindowInstance* WindowBank_Open(std::int32_t kind, std::int32_t value14, std::int32_t userState);
+WindowInstance* WindowBank_Open(
+    session::ClientSession& session,
+    std::int32_t kind, std::int32_t value14, std::int32_t userState);
 // 原函数：0x004AC0C0。
 WindowInstance* WindowItemStorage_Open(
+    session::ClientSession& session,
     std::int32_t kind, std::int32_t value14, std::int32_t userState,
     std::int32_t unusedPhase); // 原38窗口发布，两个caller均保留第四实参。
 // 原函数：0x004FB8F0。

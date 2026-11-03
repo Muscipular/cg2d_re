@@ -371,13 +371,14 @@ void WindowBank_DrawStoredPetTooltip(
 
 // 原函数：0x004A83A0。
 WindowInstance* WindowBank_Open(
+    session::ClientSession& session,
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState)
 {
-    WindowRuntime_States()[WindowId_Bank].value10 = static_cast<std::uint32_t>(kind);
-    WindowInstance* const window = WindowRuntime_Open(WindowId_Bank);
-    WindowRuntime_States()[WindowId_Bank].window = window;
-    WindowRuntime_States()[WindowId_Bank].value14 = static_cast<std::uint32_t>(value14);
-    WindowRuntime_States()[WindowId_Bank].userState.value = static_cast<std::uint32_t>(userState);
+    WindowRuntime_States(session)[WindowId_Bank].value10 = static_cast<std::uint32_t>(kind);
+    WindowInstance* const window = WindowRuntime_Open(session, WindowId_Bank);
+    WindowRuntime_States(session)[WindowId_Bank].window = window;
+    WindowRuntime_States(session)[WindowId_Bank].value14 = static_cast<std::uint32_t>(value14);
+    WindowRuntime_States(session)[WindowId_Bank].userState.value = static_cast<std::uint32_t>(userState);
     return window;
 }
 

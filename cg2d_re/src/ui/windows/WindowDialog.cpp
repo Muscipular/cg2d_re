@@ -857,7 +857,7 @@ static void WindowDialog_Route(
                 if (WindowRuntime_States(session)[WindowId_Bank].window != nullptr) {
                     break;
                 }
-                created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
+                created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(session, type == 33 ? 1 : 0, request, target, 1, 0);
                 if (created != nullptr) {
                     break;
                 }
@@ -871,7 +871,7 @@ static void WindowDialog_Route(
                 if (WindowRuntime_States(session)[WindowId_ItemStorage].window != nullptr) {
                     break;
                 }
-                created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(0, request, target, 0, 1, 0);
+                created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(session, 0, request, target, 0, 1, 0);
                 if (created != nullptr) {
                     break;
                 }
@@ -948,7 +948,7 @@ static void WindowDialog_Route(
     case 23:
     case 33:
         if (WindowBank_ReceiveStorageData(session, text) != 0 && WindowRuntime_States(session)[WindowId_Bank].window == nullptr) {
-            created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(type == 33 ? 1 : 0, request, target, 1, 0);
+            created = cg::yobi::CreateBankWindowOpeningAnimation_4ABEF0(session, type == 33 ? 1 : 0, request, target, 1, 0);
         }
         if (created == nullptr && WindowRuntime_States(session)[WindowId_Bank].window == nullptr) {
             world::gCurrentDialogType_581800 = -1;
@@ -984,7 +984,7 @@ static void WindowDialog_Route(
         return;
     case 34:
         if (WindowBank_ReceiveStorageData(session, text) != 0 && WindowRuntime_States(session)[WindowId_ItemStorage].window == nullptr) {
-            created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(0, request, target, 0, 1, 0);
+            created = cg::yobi::CreateItemStorageWindowOpeningAnimation_4ACE80(session, 0, request, target, 0, 1, 0);
         }
         if (created == nullptr && WindowRuntime_States(session)[WindowId_ItemStorage].window == nullptr) {
             world::gCurrentDialogType_581800 = -1;

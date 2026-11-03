@@ -638,7 +638,7 @@ static void UpdateBankWindowOpeningAnimation_4ABE60(YobiAction* const action)
         const std::int32_t value14 =
             static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
-        static_cast<void>(ui::detail::WindowBank_Open(kind, value14, userState));
+        static_cast<void>(ui::detail::WindowBank_Open(*action->ownerSession, kind, value14, userState));
         static_cast<void>(MarkDeath(action));
     }
     ++payload->counter;
@@ -671,7 +671,7 @@ static void UpdateItemStorageWindowOpeningAnimation_4ACDF0(YobiAction* const act
         const std::int32_t value14 =
             static_cast<std::int32_t>(action->mapX1E0);
         const std::int32_t kind = std::bit_cast<std::int16_t>(payload->id);
-        static_cast<void>(ui::detail::WindowItemStorage_Open(kind, value14, userState, phase));
+        static_cast<void>(ui::detail::WindowItemStorage_Open(*action->ownerSession, kind, value14, userState, phase));
         static_cast<void>(MarkDeath(action));
     }
     ++payload->counter;
@@ -832,25 +832,26 @@ YobiAction* CreateQuantityWindowOpeningAnimation_48AC60(
 
 // SOA01：原4ABEF0完整154条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，失败同步开41保持。
 YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
+    session::ClientSession& session,
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::uint32_t flags, const std::uint32_t mode)
 {
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
+    YobiAction* const action = NewYobiAction_404AE0(session, 3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
-        static_cast<void>(ui::detail::WindowBank_Open(kind, value14, userState));
+        static_cast<void>(ui::detail::WindowBank_Open(session, kind, value14, userState));
         return nullptr;
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_Bank];
     const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
-        &ui::detail::WindowRuntime_States()[cg::ui::WindowId_Bank].flags) & detail::WindowSavedPositionFlag_UseStoredCoordinates) != 0;
+        &ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Bank].flags) & detail::WindowSavedPositionFlag_UseStoredCoordinates) != 0;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     std::int32_t x = prototype->defaultX;
     const std::int32_t height = prototype->height;
     if (savedPosition) {
-        x = ui::detail::WindowRuntime_States()[cg::ui::WindowId_Bank].x;
-        y = ui::detail::WindowRuntime_States()[cg::ui::WindowId_Bank].y;
+        x = ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Bank].x;
+        y = ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_Bank].y;
     }
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_Bank, width, height, x, y));
     auto* const payload = action->payload.windowOpening;
@@ -889,25 +890,26 @@ YobiAction* CreateBankWindowOpeningAnimation_4ABEF0(
 
 // SOA01：原4ACE80完整158条；保存位只读BYTE，两CryptInt先取后发布/原mode1持中心X，phase及失败同步开38保持。
 YobiAction* CreateItemStorageWindowOpeningAnimation_4ACE80(
+    session::ClientSession& session,
     const std::int32_t kind, const std::int32_t value14, const std::int32_t userState,
     const std::int32_t phase, const std::uint32_t flags, const std::uint32_t mode)
 {
     static_cast<void>(audio::PlaySe_52C450(56, 320));
-    YobiAction* const action = NewYobiAction_404AE0(3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
+    YobiAction* const action = NewYobiAction_404AE0(session, 3, sizeof(detail::WindowOpeningPayload), YobiPayloadKind::WindowOpening);
     if (action == nullptr) {
-        static_cast<void>(ui::detail::WindowItemStorage_Open(kind, value14, userState, phase));
+        static_cast<void>(ui::detail::WindowItemStorage_Open(session, kind, value14, userState, phase));
         return nullptr;
     }
     const ui::detail::WindowPrototype* const prototype = ui::detail::gWindowPrototypes57C130[cg::ui::WindowId_ItemStorage];
     const bool savedPosition = (*reinterpret_cast<const unsigned char*>(
-        &ui::detail::WindowRuntime_States()[cg::ui::WindowId_ItemStorage].flags) & detail::WindowSavedPositionFlag_UseStoredCoordinates) != 0;
+        &ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_ItemStorage].flags) & detail::WindowSavedPositionFlag_UseStoredCoordinates) != 0;
     std::int32_t y = prototype->defaultY;
     const std::int32_t width = prototype->width;
     std::int32_t x = prototype->defaultX;
     const std::int32_t height = prototype->height;
     if (savedPosition) {
-        x = ui::detail::WindowRuntime_States()[cg::ui::WindowId_ItemStorage].x;
-        y = ui::detail::WindowRuntime_States()[cg::ui::WindowId_ItemStorage].y;
+        x = ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_ItemStorage].x;
+        y = ui::detail::WindowRuntime_States(session)[cg::ui::WindowId_ItemStorage].y;
     }
     static_cast<void>(ui::CenterPopupWindowPosition(ui::WindowId_ItemStorage, width, height, x, y));
     auto* const payload = action->payload.windowOpening;

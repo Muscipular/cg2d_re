@@ -2094,11 +2094,11 @@ void SetPetItemDescription_519770(
 }
 
 // 原函数：0x0043C4E0。
-void BeginBattleCommandSelection_43C4E0()
+void BeginBattleCommandSelection_43C4E0(session::ClientSession& session)
 {
     gBattleCountdownActive5ABCB8 = 1;
     const std::uint64_t tick = platform::ReadTickCount64();
-    gBattleCommandDeadline5ABBF8 = tick + cg::network::GetGameConnection().GameplaySettings().battleCommandWaitMs;
+    gBattleCommandDeadline5ABBF8 = tick + session.Connection().GameplaySettings().battleCommandWaitMs;
     gBattleCountdownSecond5ABB80 = 0;
     gBattleCommandState5ABC3C = 0;
     gBattleSkillActionCount5ABBF4 = 0;
@@ -4331,7 +4331,7 @@ void DrawBattleScene_43CBB0(session::ClientSession& session)
                 gBattleEntryNoticeAction5ABFB8 = nullptr;
                 gBattlePlayerFlags5ABCAC = flags;
             }
-            BeginBattleCommandSelection_43C4E0();
+            BeginBattleCommandSelection_43C4E0(session);
             gCurrentSceneState = 4;
         }
         break;

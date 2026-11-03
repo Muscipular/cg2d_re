@@ -74,7 +74,7 @@ enum WindowMouseState : std::uint8_t { WindowMouseState_None, WindowMouseState_H
 
 using WindowCallback = std::int32_t (*)(WindowInstance& window, std::int32_t value); // 更新/绘制显式携所属实例。
 using WindowReleaseCallback = void (*)(WindowInstance& window); // 释放对象显式携owner，不借当前窗口现场。
-using WindowElementCallback = std::int32_t (*)(ElementId elementId, std::int32_t state); // 窗口内稳定元素ID，非排序位置。
+using WindowElementCallback = std::int32_t (*)(WindowInstance& window, ElementId elementId, std::int32_t state); // 所属窗口及窗口内稳定元素ID，非排序位置。
 using WindowDragCallback = void (*)(
     std::int32_t message, std::int32_t flags, std::int32_t sourceIndex);
 using WindowListSelectionCallback = void (*)(std::int32_t index, const wchar_t* text);
@@ -412,9 +412,9 @@ std::int32_t WindowBattleCommand_CanSelectPet(session::ClientSession& session); 
 // 原函数：0x00497210。
 void WindowBattleCommand_OpenPets(session::ClientSession& session); // 宠物快捷入口，打开28，不清物品待选状态。
 // 原函数：0x004708A0。
-std::int32_t WindowStatusBar_ButtonEmote(ElementId elementId, std::int32_t state); // 窗口34存在时更新图形，点击开关。
+std::int32_t WindowStatusBar_ButtonEmote(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口34存在时更新图形，点击开关。
 // 原函数：0x00470910。
-std::int32_t WindowStatusBar_ButtonMiniMap(ElementId elementId, std::int32_t state); // 窗口33开关，创建使用专有尺寸入口。
+std::int32_t WindowStatusBar_ButtonMiniMap(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口33开关，创建使用专有尺寸入口。
 // 原函数：0x00495F00。
 cg::yobi::YobiAction* WindowMiniMap_Open(
     std::uint32_t flags, std::uint32_t mode, cg::yobi::YobiAction** completionSlot); // 小地图184x159展开，完成槽原生T**。
@@ -564,23 +564,23 @@ bool WindowItemSelector_GetItemList_4C72C0(
     std::int32_t* count); // 借用同源物品表；失败不写输出。
 // ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。
 // 原函数：0x0048A6C0。
-std::int32_t WindowInventory_DrawBlockedEquipment(ElementId elementId, std::int32_t state); // 装备屏蔽页完整绘制。
+std::int32_t WindowInventory_DrawBlockedEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 装备屏蔽页完整绘制。
 // ISP01：原两mode选物/发送/独立取消及绘制保持，按钮和mode2 flags只读原BYTE。
 // 原函数：0x00489F00。
-std::int32_t WindowInventory_HandleItemSelection(ElementId elementId, std::int32_t state); // 两模式物品选择/退出与完整绘制。
+std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两模式物品选择/退出与完整绘制。
 // ISP01：对话29选物先占用/发布两个回调与mode2，启动返回丢弃，再透传焦点绑定S32结果。
 // 原函数：0x004888C0。
 std::int32_t WindowInventory_OpenSpecialSelection(const char* text); // 对话29选择入口，发布特殊回调后绑定焦点。
 // 原函数：0x00488FB0。
-std::int32_t WindowInventory_HandleItems(ElementId elementId, std::int32_t state); // 普通背包完整交互/绘制。
+std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 普通背包完整交互/绘制。
 // 原函数：0x00489760。
-std::int32_t WindowInventory_HandleEquipment(ElementId elementId, std::int32_t state); // IER01：库存装备完整原根，四读取合同对齐；原S32返回/全部callee与运行待。
+std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // IER01：库存装备完整原根，四读取合同对齐；原S32返回/全部callee与运行待。
 // 原函数：0x004C75A0。
 bool WindowItemSelector_HandlePlayerAttributes(WindowItemSelectorState* selector, std::int32_t state); // SAP01：附加属性页/回调恢复，bool仅原AL，两父低AL归一；完整业务生产/运行待。
 // 原函数：0x00499C30。
-std::int32_t WindowBattleItems_HandleInventory(ElementId elementId, std::int32_t state); // BIP01：完整战斗背包/目标生产，六BYTE及六坐标取序明确；旧格式/CAB30保持，全生命周期与运行待。
+std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // BIP01：完整战斗背包/目标生产，六BYTE及六坐标取序明确；旧格式/CAB30保持，全生命周期与运行待。
 // 原函数：0x0049AC40。
-std::int32_t WindowBattleItems_HandleEquipment(ElementId elementId, std::int32_t state); // BEI01：战斗装备/宠物禁用页完整原根，三BYTE及区域描边取序明确，全callback/命令与运行待。
+std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // BEI01：战斗装备/宠物禁用页完整原根，三BYTE及区域描边取序明确，全callback/命令与运行待。
 
 // 原CB1398等固定81B对话行；创建入口只借用，不负责释放。
 struct WindowDialogTextLine {
@@ -669,9 +669,9 @@ cg::yobi::YobiAction* WindowCrystalShop_Open(const char* text); // 窗口69商�
 // 原函数：0x004C3550。
 cg::yobi::YobiAction* WindowCrystalExchangeShop_Open(const char* text); // 窗口70七组正文/附加值，不下调limit。
 // 原函数：0x004C2460。
-std::int32_t WindowCrystalTrade_ButtonCancel(ElementId elementId, std::int32_t state); // 两窗口共用取消，发送command2。
+std::int32_t WindowCrystalTrade_ButtonCancel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两窗口共用取消，发送command2。
 // 原函数：0x004C4680。
-std::int32_t WindowCrystalTrade_DrawButton(ElementId elementId, std::int32_t state); // 两窗口共用按钮图，恒0。
+std::int32_t WindowCrystalTrade_DrawButton(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两窗口共用按钮图，恒0。
 // 原函数：0x004A0300。
 cg::yobi::YobiAction* WindowShopChoice_OpenFirstCommandList(const char* text);
 // 原函数：0x004A04A0。
@@ -778,9 +778,9 @@ struct WindowInputPrototype {
 extern WindowInputPrototype gPetNameInputPrototype57DCF8; // 原全局：0x0057DCF8。 窗口15与16/17/18共用名称输入原型。
 extern WindowInputPrototype gMailInputPrototype57E740; // 原全局：0x0057E740。 窗口22/23共用，借Input唯一D66CA8。
 // 原函数：0x0048F380。
-std::int32_t WindowPetDetail_EditName(ElementId elementId, std::int32_t state); // 共享名称输入焦点。
+std::int32_t WindowPetDetail_EditName(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 共享名称输入焦点。
 // 原函数：0x0048F410。
-std::int32_t WindowPetDetail_SwitchPage(ElementId elementId, std::int32_t state); // 三详情页切换。
+std::int32_t WindowPetDetail_SwitchPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 三详情页切换。
 extern std::int32_t& gTitleModeCF4E50; // 原全局：0x00CF4E50。 借既有登录窗口状态槽0，0选择/1删除。
 extern std::int32_t& gTitlePageCF4E54; // 原全局：0x00CF4E54。 借既有登录窗口状态槽1，重置/刷新/滚动同源。
 
@@ -855,7 +855,7 @@ std::int32_t WindowProfile_CheckDistance(std::int32_t rangeX, std::int32_t range
 // 原函数：0x004CB9B0。
 WindowInstance* WindowProfileView_RequestCategoryClose(session::ClientSession& session, std::int32_t index); // 借用窗口59+index，只标记关闭并返回原T*。
 // 原函数：0x00478330。
-std::int32_t WindowProfile_HandleButtons(ElementId elementId, std::int32_t state); // 资料公开/切窗/三目录/确认的完整八分支。
+std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 资料公开/切窗/三目录/确认的完整八分支。
 extern std::int32_t gProfileCategory1085DA0; // 原全局：0x01085DA0。 478330生产，窗口59按0/1/2选择类别，非地址。
 // 原函数：0x004CB430。
 std::int32_t WindowProfileView_ReadSelection(std::int32_t index); // 只读selected10C门禁，不检查used。
@@ -877,7 +877,7 @@ WindowInstance* WindowQuantity_Open(
     std::int32_t maximum, std::int32_t value14, std::int32_t initialValue,
     WindowValueCallback callback); // QIP01：窗口42按原两次持址发布；callback原生非拥有，返回先取样。
 // 原函数：0x00474170。
-std::int32_t WindowElement_HandleSideArea(ElementId elementId, std::int32_t state); // WCL01：bit2置bit13，hover优先，否则低BYTE bit5。
+std::int32_t WindowElement_HandleSideArea(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WCL01：bit2置bit13，hover优先，否则低BYTE bit5。
 // 原函数：0x0048BB90。
 void WindowItem_RequestPetTransfer(
     std::int32_t unusedWindow, std::int32_t unusedElement,
@@ -900,7 +900,7 @@ std::uint8_t WindowInput_HandleNumber(
     std::int32_t maximum, std::uint8_t layer, const wchar_t* const* hints,
     std::uint8_t flags, std::uint32_t color); // NPI01：数值键/Backspace/四鼠标操作原序，AL返回0/1/3；非Enter/Esc处理器。
 // 原函数：0x004C1FB0。
-std::int32_t WindowRuntime_ButtonClose(ElementId elementId, std::int32_t state); // WCL01：持同窗口/graphic置关闭位，返回0/1，未在本回调释放。
+std::int32_t WindowRuntime_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WCL01：持同窗口/graphic置关闭位，返回0/1，未在本回调释放。
 // 原函数：0x004FBA30。
 std::int32_t WindowItem_SplitTooltipLines(
     std::int32_t x, std::int32_t y, std::uint8_t renderMode,
@@ -918,9 +918,9 @@ std::int32_t WindowItem_DrawDescriptionTooltip(std::int32_t index, std::int32_t 
 // 原函数：0x0048B750。
 std::int32_t WindowItem_DrawWorkTooltip(std::int32_t page); // CC3210独立详情提示，缓存数值键400。
 // 原函数：0x004AC200。
-std::int32_t WindowBank_ButtonCloseIcon(ElementId elementId, std::int32_t state); // 窗口38右上关闭。
+std::int32_t WindowBank_ButtonCloseIcon(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口38右上关闭。
 // 原函数：0x004A9350。
-std::int32_t WindowBank_ButtonClose(ElementId elementId, std::int32_t state); // 窗口38/41共用关闭按钮。
+std::int32_t WindowBank_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口38/41共用关闭按钮。
 // 原函数：0x004B4140。
 std::int32_t WindowTrade_DrawRemotePetTooltip(
     std::int32_t x, std::int32_t y, std::int32_t index); // 外部宠物提示，重量行固定Y=31。
@@ -963,7 +963,7 @@ void WindowTrade_SwapDisplayItems(std::int32_t side, std::int32_t first, std::in
 // 原函数：0x0048BA60。
 void WindowItemDrag_RemapHover(std::int32_t first, std::int32_t second); // UI迁移后再交换同源悬停字节。
 // 原函数：0x004B0F10。
-std::int32_t WindowElement_NoOp(ElementId elementId, std::int32_t events); // WSB01：原完整零返回事件回调。
+std::int32_t WindowElement_NoOp(WindowInstance& callbackWindow, ElementId elementId, std::int32_t events); // WSB01：原完整零返回事件回调。
 // 原函数：0x004A4210。
 std::int32_t WindowRuntime_ReturnOne(std::int32_t unused) noexcept; // WCL01：原mov eax,1/ret；release适配不执行资源回收，存档共用。
 std::int32_t WindowRuntime_UpdateDefault(WindowInstance& window, std::int32_t unused) noexcept; // 原恒1更新的实例回调适配。
@@ -1007,7 +1007,7 @@ std::int32_t WindowRuntime_DrawDefault(WindowInstance& callbackWindow, std::int3
 // 原函数：0x0049BDB0。
 std::int32_t WindowRuntime_DrawCompactFrame(WindowInstance& callbackWindow, std::int32_t unused); // 完整元素绘制后叠加九宫格背景。
 // 原函数：0x004741A0。
-std::int32_t WindowElement_HandleVerticalScroll(ElementId elementId, std::int32_t state); // WSB01：低BYTE/W32标志与前项垂直滚动，保原边界取样序。
+std::int32_t WindowElement_HandleVerticalScroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WSB01：低BYTE/W32标志与前项垂直滚动，保原边界取样序。
 // DLP01：只清焦点元素ID/kind/焦点窗口/回调/phase五槽，来源及两坐标保持，返S32 0。
 // 原函数：0x004763E0。
 std::int32_t WindowDrag_ResetMouse(); // 通用鼠标重置，不清来源索引/坐标。
@@ -1059,15 +1059,15 @@ std::int32_t WindowPetList_ResetSelection(); // 所选宠物与两组五槽按�
 // 原函数：0x004A0940。
 std::int32_t WindowMail_ResetSelectionState(); // D67B40七槽交错清零。
 // 原函数：0x004A3600。
-std::int32_t WindowMail_DeleteContact(ElementId elementId, std::int32_t unusedState); // FPkR发送、重读清理及保存。
+std::int32_t WindowMail_DeleteContact(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // FPkR发送、重读清理及保存。
 // 原函数：0x004A3660。
-std::int32_t WindowMail_DeleteGuildMember(ElementId elementId, std::int32_t unusedState); // 公会编号请求与两保存。
+std::int32_t WindowMail_DeleteGuildMember(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 公会编号请求与两保存。
 // 原函数：0x004A36B0。
-std::int32_t WindowMail_DeleteMiniMailContact(ElementId elementId, std::int32_t unusedState); // 迷你姓名转义、发送及重读清理。
+std::int32_t WindowMail_DeleteMiniMailContact(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 迷你姓名转义、发送及重读清理。
 // 原函数：0x004A5650。
 void WindowMailCompose_Release(WindowInstance&); // 22/23共享释放：保存草稿、释放占用、关闭49。
 // 原函数：0x004A58E0。
-std::int32_t WindowMailCompose_HandleInput(ElementId elementId, std::int32_t state); // 输入聚焦及非当前输入补绘。
+std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 输入聚焦及非当前输入补绘。
 // 原函数：0x0047D4A0。
 std::int32_t WindowCraft_ReadItemSelection(); // 原S32 D67B00窄读，不返回其他状态。
 // 原函数：0x004A32B0。

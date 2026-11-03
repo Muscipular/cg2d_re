@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -55,19 +56,19 @@ input::InputContext gInputContextD2DC10 {}; // 原全局：0x00D2DC10。
 // 回调与内部函数前置声明。
 
 // 原函数：0x00477540。
-static std::int32_t WindowPlayerTitles_EditDraft(ElementId elementId, std::int32_t state); // 草稿编辑焦点。
+static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 草稿编辑焦点。
 
 // 原函数：0x00477600。
-static std::int32_t WindowPlayerTitles_SelectTitle(ElementId elementId, std::int32_t state); // 六行称号选择/删除。
+static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六行称号选择/删除。
 
 // 原函数：0x00477710。
-static std::int32_t WindowPlayerTitles_HandleButtons(ElementId elementId, std::int32_t state); // 完整按钮分派与背景清模式。
+static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 完整按钮分派与背景清模式。
 
 // 原函数：0x004782A0。
-static std::int32_t WindowPlayerTitles_Scroll(ElementId elementId, std::int32_t state); // 称号滚轮，恒返0。
+static std::int32_t WindowPlayerTitles_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 称号滚轮，恒返0。
 
 // 原函数：0x004782E0。
-static std::int32_t WindowPlayerTitles_DragScroll(ElementId elementId, std::int32_t state); // WSP01：原称号拖动页码；旧X代码1959。
+static std::int32_t WindowPlayerTitles_DragScroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WSP01：原称号拖动页码；旧X代码1959。
 
 // 原函数：0x004744A0。
 static void WindowPlayerTitles_Release(WindowInstance&);
@@ -183,9 +184,9 @@ WindowPrototype gWindowPrototypePlayerTitles {0, 4, 15, 97, 315, 261, 0x80000080
 // 窗口函数实现。
 
 // 原函数：0x00477540。
-static std::int32_t WindowPlayerTitles_EditDraft(const ElementId, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_EditDraft(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) != 0) {
         gHoverTextD68AE8 = L"设定自己的称号。" /* 原常量参考：0x005863C4。 */;
@@ -218,10 +219,10 @@ static std::int32_t WindowPlayerTitles_EditDraft(const ElementId, const std::int
 }
 
 // 原函数：0x00477600。
-static std::int32_t WindowPlayerTitles_SelectTitle(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_SelectTitle(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -246,9 +247,9 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const ElementId elementId, co
             const std::int32_t originalIndex = world::FindTitleIndexById(id);
             if (originalIndex >= 0) {
                 if (mode == 1) {
-                    static_cast<void>(cg::network::GetGameConnection().DeletePlayerTitleRequest(originalIndex));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().DeletePlayerTitleRequest(originalIndex));
                 } else {
-                    static_cast<void>(cg::network::GetGameConnection().SelectPlayerTitleRequest(originalIndex));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().SelectPlayerTitleRequest(originalIndex));
                 }
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
             }
@@ -258,9 +259,9 @@ static std::int32_t WindowPlayerTitles_SelectTitle(const ElementId elementId, co
 }
 
 // 原函数：0x00477710。
-static std::int32_t WindowPlayerTitles_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [elementId, currentWindow](const std::int32_t image) {
@@ -270,7 +271,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const ElementId elementId, 
     case WindowPlayerTitlesElementId::HandleButtons_18:
     case WindowPlayerTitlesElementId::HandleButtons_19:
     case WindowPlayerTitlesElementId::HandleButtons_21: {
-        if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_21) && network::GetGameConnection().PukVersion() < 8u) {
+        if (elementId == static_cast<ElementId>(WindowPlayerTitlesElementId::HandleButtons_21) && callbackWindow.ownerSession->Connection().PukVersion() < 8u) {
             setImage(0x3C111);
             return 0;
         }
@@ -285,14 +286,14 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const ElementId elementId, 
         } else {
             setImage(idle);
         }
-        if ((state & MouseFlag_LDownEvent) != 0 && WindowRuntime_States()[target].window == nullptr) {
+        if ((state & MouseFlag_LDownEvent) != 0 && WindowRuntime_States(*callbackWindow.ownerSession)[target].window == nullptr) {
             currentWindow->state |= 0x8000u;
-            static_cast<void>(WindowRuntime_Open(target));
+            static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, target));
             WindowInstance* const xSource = currentWindow;
-            WindowInstance* const xTarget = WindowRuntime_States()[target].window;
+            WindowInstance* const xTarget = WindowRuntime_States(*callbackWindow.ownerSession)[target].window;
             xTarget->x = xSource->x;
             WindowInstance* const ySource = currentWindow;
-            WindowInstance* const yTarget = WindowRuntime_States()[target].window;
+            WindowInstance* const yTarget = WindowRuntime_States(*callbackWindow.ownerSession)[target].window;
             yTarget->y = ySource->y;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
             WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
@@ -310,7 +311,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const ElementId elementId, 
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::wstring escapedText = input::EscapeTextAndNotify(gTitleDraftD45FC0, 128);
-            static_cast<void>(cg::network::GetGameConnection().SetCustomPlayerTitleRequest(escapedText));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SetCustomPlayerTitleRequest(escapedText));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             static_cast<void>(WindowChat_RestoreInput());
             consumed = 1;
@@ -329,7 +330,7 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const ElementId elementId, 
             setImage(0x3B574);
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(cg::network::GetGameConnection().SelectPlayerTitleRequest(-1));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SelectPlayerTitleRequest(-1));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -454,9 +455,9 @@ static std::int32_t WindowPlayerTitles_HandleButtons(const ElementId elementId, 
 }
 
 // 原函数：0x004782A0。
-static std::int32_t WindowPlayerTitles_Scroll(const ElementId, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
@@ -472,11 +473,11 @@ static std::int32_t WindowPlayerTitles_Scroll(const ElementId, const std::int32_
 
 // WSP01：旧X片段1959；滚动非零才反求称号页码，原型/代码身份沿CAC08。
 // 原函数：0x004782E0。
-static std::int32_t WindowPlayerTitles_DragScroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPlayerTitles_DragScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t result = WindowElement_HandleVerticalScroll(elementId, state);
+    const std::int32_t result = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     if (result != 0) {
         WindowInstance* const window = currentWindow;
         auto* const dragScrollElement = window->FindElementById(WindowPlayerTitlesElementId::DragScroll);

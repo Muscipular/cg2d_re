@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
@@ -183,7 +184,7 @@ static std::int32_t WindowProfileCategory_Update(WindowInstance& callbackWindow,
 static void WindowProfileCategory_Refresh(); // 固定32/32/15项分类的显隐、文本和选择颜色。
 
 // 原函数：0x004CA1A0。
-static std::int32_t WindowProfileCategory_SelectCategory(ElementId elementId, std::int32_t state); // 分类点击发送后复制共享默认关键词。
+static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 分类点击发送后复制共享默认关键词。
 
 // 原函数：0x004CA300。
 static void WindowProfileCategory_Release(WindowInstance&); // 先清对话类型，再标记61/62/63。
@@ -445,10 +446,10 @@ static std::int32_t WindowProfileCategory_ResolveCategory(
 }
 
 // 原函数：0x004CA1A0。
-static std::int32_t WindowProfileCategory_SelectCategory(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowProfileCategory_SelectCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -471,7 +472,7 @@ static std::int32_t WindowProfileCategory_SelectCategory(const ElementId element
         const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, buffers[1]));
+        static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, buffers[1]));
         gProfileSearchKeyword1075988.clear();
     }
     return 1;

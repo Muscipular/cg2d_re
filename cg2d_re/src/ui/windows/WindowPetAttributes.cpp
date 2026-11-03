@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/PlayerState.hpp"
@@ -62,7 +63,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048E430。
-static std::int32_t WindowPetAttributes_HandleButtons(ElementId elementId, std::int32_t state); // 宠物详细属性九按钮，9..13发送加点。
+static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物详细属性九按钮，9..13发送加点。
 
 // 原函数：0x0048DAB0。
 static std::int32_t WindowPetAttributes_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -313,10 +314,10 @@ static void WindowPetAttributes_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x0048E430。
-static std::int32_t WindowPetAttributes_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetAttributes_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [elementId, currentWindow](const std::int32_t image) {
@@ -338,9 +339,9 @@ static std::int32_t WindowPetAttributes_HandleButtons(const ElementId elementId,
             const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+            const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(cg::network::GetGameConnection().RenamePetRequest(pet, escapedText));
+            static_cast<void>(callbackWindow.ownerSession->Connection().RenamePetRequest(pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             WindowChat_RestoreInput();
             if (text.empty()) {
@@ -374,8 +375,8 @@ static std::int32_t WindowPetAttributes_HandleButtons(const ElementId elementId,
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-                const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-                static_cast<void>(cg::network::GetGameConnection().DropPetRequest(x, y, pet));
+                const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
+                static_cast<void>(callbackWindow.ownerSession->Connection().DropPetRequest(x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 if (world::gPetRuntimeRecords[selected].flags6AA == 2) {
@@ -447,9 +448,9 @@ static std::int32_t WindowPetAttributes_HandleButtons(const ElementId elementId,
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t attribute = index - 9;
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+            const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(cg::network::GetGameConnection().IncreasePetAttributeRequest(pet, attribute));
+            static_cast<void>(callbackWindow.ownerSession->Connection().IncreasePetAttributeRequest(pet, attribute));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             consumed = 1;
         }

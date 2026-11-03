@@ -220,7 +220,7 @@ static_assert(NativeElementKey(CustomSource) == static_cast<ElementId>(WindowBig
 static_assert(NativeElementKey(CustomTextCancel) == static_cast<ElementId>(WindowBigMapElementId::CustomTextCancel));
 static int WindowBigMap_Update(WindowInstance& callbackWindow, int stage);
 static int WindowBigMap_Draw(WindowInstance& callbackWindow, int stage);
-static int WindowBigMap_Element(ElementId elementId, int events);
+static int WindowBigMap_Element(WindowInstance& callbackWindow, ElementId elementId, int events);
 static void WindowBigMap_Release(WindowInstance&);
 // 与其它原生窗口一致：具名载荷、固定坐标/尺寸/初始显隐及回调直接预定义。
 static WindowGraphicData gBigMapToggleGraphic{243033, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -928,7 +928,7 @@ struct BigMapWindowState final {
         if (!acceptsMouse || (gMouseClickState & platform::LegacyMouseEdge_RDown)) mapClickPending = false;
         if (scrollingList) {
             const bool heldScroll = available && held && listOpen && MaxListFirstRow() > 0;
-            WindowElement_HandleVerticalScroll(static_cast<ElementId>(WindowBigMapElementId::Element15), heldScroll ? MouseFlag_LHoldPhysical : MouseFlag_None);
+            WindowElement_HandleVerticalScroll(window, static_cast<ElementId>(WindowBigMapElementId::Element15), heldScroll ? MouseFlag_LHoldPhysical : MouseFlag_None);
             auto* const indexedElement = window.FindElementById(NativeElementKey(ListScrollTrack));
             if (indexedElement) {
                 SetListFirstRow(WindowScroll_ReadPosition(indexedElement, MaxListFirstRow()));
@@ -1044,7 +1044,7 @@ struct BigMapWindowState final {
             if ((events & MouseFlag_LHoldPhysical) && MaxListFirstRow() > 0) {
                 scrollingList = true;
                 mapClickPending = false;
-                WindowElement_HandleVerticalScroll(elementId, events);
+                WindowElement_HandleVerticalScroll(window, elementId, events);
                 SetListFirstRow(WindowScroll_ReadPosition(&element, MaxListFirstRow()));
             }
             return 1;
@@ -1413,7 +1413,7 @@ static int WindowBigMap_Update(WindowInstance& callbackWindow, int stage) {
     }
     return gBigMapState->Update(stage);
 }
-static int WindowBigMap_Element(ElementId elementId, int events) { return gBigMapState->OnElement(elementId, events); }
+static int WindowBigMap_Element(WindowInstance& callbackWindow, ElementId elementId, int events) { return gBigMapState->OnElement(elementId, events); }
 static int WindowBigMap_Draw(WindowInstance& callbackWindow, int stage) { return gBigMapState->Draw(stage); }
 static void WindowBigMap_Release(WindowInstance&) { gBigMapState.reset(); }
 

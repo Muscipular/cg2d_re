@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
@@ -23,10 +24,10 @@ static std::int32_t gWindowInteractionOriginY_CC4D3C = 0; // 原全局：0x00CC4
 // 窗口函数实现。
 
 // 原函数：0x00478330。
-std::int32_t WindowProfile_HandleButtons(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowProfile_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (elementId) {
@@ -39,7 +40,7 @@ std::int32_t WindowProfile_HandleButtons(const ElementId elementId, const std::i
             consumed = 1;
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(cg::network::GetGameConnection().SetProfileVisibilityRequest(visible ? 0 : 1));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SetProfileVisibilityRequest(visible ? 0 : 1));
             if (!visible) {
                 static_cast<void>(world::detail::PublishPlayerProfile_533C80(1));
             }
@@ -69,16 +70,16 @@ std::int32_t WindowProfile_HandleButtons(const ElementId elementId, const std::i
             }
         }
         const std::int32_t target = index - 12;
-        if ((state & MouseFlag_LDownEvent) != 0 && WindowRuntime_States()[target].window == nullptr) {
+        if ((state & MouseFlag_LDownEvent) != 0 && WindowRuntime_States(*callbackWindow.ownerSession)[target].window == nullptr) {
             currentWindow->state |= 0x8000u;
-            static_cast<void>(WindowRuntime_Open(target));
+            static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, target));
             // 原三切页每轴先取当前/目标指针，再读坐标；见CAC10。
             WindowInstance* const sourceForX = currentWindow;
-            WindowInstance* const targetForX = WindowRuntime_States()[target].window;
+            WindowInstance* const targetForX = WindowRuntime_States(*callbackWindow.ownerSession)[target].window;
             const std::int32_t x = sourceForX->x;
             targetForX->x = x;
             WindowInstance* const sourceForY = currentWindow;
-            WindowInstance* const targetForY = WindowRuntime_States()[target].window;
+            WindowInstance* const targetForY = WindowRuntime_States(*callbackWindow.ownerSession)[target].window;
             const std::int32_t y = sourceForY->y;
             targetForY->y = y;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
@@ -104,15 +105,15 @@ std::int32_t WindowProfile_HandleButtons(const ElementId elementId, const std::i
         const std::int32_t category = index - 23;
         if ((state & MouseFlag_LDownEvent) != 0) {
             // 原检查窗口9，却写窗口59记录flags；第二检查仅是固定全局地址非零。
-            if (WindowRuntime_States()[WindowId_PlayerTitles].window != nullptr) {
-                WindowRuntime_States()[WindowId_OwnProfileCategory].flags |= 0x8000u;
+            if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PlayerTitles].window != nullptr) {
+                WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfileCategory].flags |= 0x8000u;
             }
             gProfileCategory1085DA0 = category;
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_OwnProfileCategory, 1, 0, nullptr));
+            static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_OwnProfileCategory, 1, 0, nullptr));
             static_cast<void>(audio::PlaySe_52C450(56, 320));
             consumed = 1;
         }
-        if (WindowRuntime_States()[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
+        if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnProfileCategory].window != nullptr && gProfileCategory1085DA0 == category) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 243034;
         }
         return consumed;

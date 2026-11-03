@@ -31,10 +31,10 @@ namespace detail {
 static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, std::int32_t value); // 宠物邮件两遍候选与刷新，标关闭后仍继续。
 
 // 原函数：0x004A6300。
-static std::int32_t WindowPetMailCompose_HandleGiftItem(ElementId elementId, std::int32_t state); // 物品占用迁移、取出拖动及悬停框。
+static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 物品占用迁移、取出拖动及悬停框。
 
 // 原函数：0x004A6450。
-static std::int32_t WindowPetMailCompose_HandleSendButtons(ElementId elementId, std::int32_t state); // 四按钮，两类发送保留不同失败声音。
+static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 四按钮，两类发送保留不同失败声音。
 
 // 原函数：0x004A6AC0。
 static std::uint8_t WindowPetMailCompose_RefreshPet(); // 宠物名称/颜色和携带物品图、数量刷新。
@@ -158,9 +158,9 @@ static std::int32_t WindowPetMailCompose_Update(WindowInstance& callbackWindow, 
 }
 
 // 原函数：0x004A6300。
-static std::int32_t WindowPetMailCompose_HandleGiftItem(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetMailCompose_HandleGiftItem(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     std::int32_t consumed = 0;
@@ -250,9 +250,9 @@ static std::int32_t WindowPetMailCompose_HasGiftItem(const std::int32_t index)
 }
 
 // 原函数：0x004A6450。
-static std::int32_t WindowPetMailCompose_HandleSendButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetMailCompose_HandleSendButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (static_cast<WindowPetMailComposeElementId>(elementId)) {
@@ -274,7 +274,7 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const ElementId eleme
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons)) {
                 currentWindow->state |= 0x8000u;
-                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
+                static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
             } else if (elementId == static_cast<ElementId>(WindowPetMailComposeElementId::HandleSendButtons_9)) {
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08 - 1;
                 gLoginWindowRuntime.prefixD2F0B8.value08 = position;
@@ -350,11 +350,11 @@ static std::int32_t WindowPetMailCompose_HandleSendButtons(const ElementId eleme
                 const std::int32_t position = gLoginWindowRuntime.prefixD2F0B8.value08;
                 const std::int32_t item = gLoginWindowRuntime.prefixD2F0B8.value0C;
                 const std::int32_t pet = gLoginWindowRuntime.choicesCC4CA0.values04[position];
-                const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+                const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                 if (category == 1) {
-                    static_cast<void>(cg::network::GetGameConnection().SendGuildPetMail(target, pet, item, packet, 0));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildPetMail(target, pet, item, packet, 0));
                 } else {
-                    static_cast<void>(cg::network::GetGameConnection().SendContactPetMail(target, pet, item, packet, 0));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().SendContactPetMail(target, pet, item, packet, 0));
                 }
                 WindowMail_FormatTimestamp(timestamp);
                 if (category == 1) {

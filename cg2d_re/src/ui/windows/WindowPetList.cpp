@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/ChatHistory.hpp"
@@ -274,7 +275,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048C1E0。
-static std::int32_t WindowPetList_HandleButtons(ElementId elementId, std::int32_t state); // 窗口15完整五组交互。
+static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口15完整五组交互。
 
 // 原函数：0x0048D4E0。
 static network::SendResult WindowPetList_SubmitStates(); // 五状态局部快照叠加真实跟随位，透传发送结果。
@@ -639,10 +640,10 @@ static network::SendResult WindowPetList_SubmitStates()
 }
 
 // 原函数：0x0048C1E0。
-static std::int32_t WindowPetList_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetList_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     auto& states = gLoginWindowRuntime.valuesCC1A18;
@@ -674,13 +675,13 @@ static std::int32_t WindowPetList_HandleButtons(const ElementId elementId, const
             const std::int16_t selected = petIndex(row);
             const auto& pet = world::gPetRuntimeRecords[selected];
             if (pet.used != 0) {
-                WindowInstance* const detailsWindow = WindowRuntime_States()[WindowId_PetDetail].window;
+                WindowInstance* const detailsWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = row;
                 gLoginWindowRuntime.valueD673D0 = 5;
-                if (WindowInstance* const equipment = WindowRuntime_States()[WindowId_PetEquipment].window) {
+                if (WindowInstance* const equipment = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment].window) {
                     equipment->state |= 0x2000u;
-                } else if (detailsWindow != nullptr || WindowRuntime_States()[WindowId_PetAttributes].window != nullptr
-                    || WindowRuntime_States()[WindowId_PetSkills].window != nullptr) {
+                } else if (detailsWindow != nullptr || WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetAttributes].window != nullptr
+                    || WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetSkills].window != nullptr) {
                     const wchar_t* const name =
                         pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     gPetNameInputPrototype57DCF8.text = name;
@@ -689,7 +690,7 @@ static std::int32_t WindowPetList_HandleButtons(const ElementId elementId, const
                     const std::int32_t x = window->x;
                     static_cast<void>(WindowInput_ActivateElement(&gPetNameInputPrototype57DCF8, x, y, 0));
                 } else {
-                    static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PetDetail, 1, 0, nullptr));
+                    static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetDetail, 1, 0, nullptr));
                 }
             }
             static_cast<void>(WindowDrag_ResetMouse());
@@ -713,7 +714,7 @@ static std::int32_t WindowPetList_HandleButtons(const ElementId elementId, const
 
     if (elementId >= static_cast<ElementId>(WindowPetListElementId::HandleButtons) && elementId <= static_cast<ElementId>(WindowPetListElementId::HandleButtons_231)) {
         const std::int32_t row = index - 226;
-        if (network::GetGameConnection().PukVersion() < 7u) {
+        if (callbackWindow.ownerSession->Connection().PukVersion() < 7u) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->visible = 0;
             return 0;
         }

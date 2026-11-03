@@ -169,7 +169,7 @@ static void WindowStall_BuildItemDescription(world::PlayerItemRecord* item, cons
 static std::int32_t WindowStall_RequestPurchase(); // 选择索引直接查询后发购买请求，返回宽提示长度（含NUL）或原负值。
 
 // 原函数：0x004CD420。
-static std::int32_t WindowStall_ButtonClose(ElementId elementId, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
+static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两等待门禁、关闭标记和原图形快照。
 
 // 原函数：0x004CDE00。
 static void WindowStall_Release(WindowInstance&); // 67/68共用释放，条件发送后无条件SE57。
@@ -184,40 +184,40 @@ static std::int32_t WindowStall_AddListing(std::int32_t value); // 当前选择�
 static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, std::int32_t value); // 共用初始化、双滚动/输入同步、文本绘制及金额尾。
 
 // 原函数：0x004D2080。
-static std::int32_t WindowStall_EditDescription(ElementId elementId, std::int32_t state); // 固定元素8说明编辑，hover不消费。
+static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 固定元素8说明编辑，hover不消费。
 
 // 原函数：0x004D2170。
-static std::int32_t WindowStall_EditName(ElementId elementId, std::int32_t state); // 固定元素6名称编辑，同源Input对象。
+static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 固定元素6名称编辑，同源Input对象。
 
 // 原函数：0x004CDE40。
-static std::int32_t WindowStall_ButtonPreviousListing(ElementId elementId, std::int32_t state); // 上架列表向前，bit400动作。
+static std::int32_t WindowStall_ButtonPreviousListing(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上架列表向前，bit400动作。
 
 // 原函数：0x004CDFA0。
-static std::int32_t WindowStall_ButtonNextListing(ElementId elementId, std::int32_t state); // 上架列表向后，音效后重读滚动参数。
+static std::int32_t WindowStall_ButtonNextListing(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上架列表向后，音效后重读滚动参数。
 
 // 原函数：0x004CE0F0。
-static std::int32_t WindowStall_ScrollListings(ElementId elementId, std::int32_t state); // 上架列表滚轮，始终返回0。
+static std::int32_t WindowStall_ScrollListings(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上架列表滚轮，始终返回0。
 
 // 原函数：0x004CE1F0。
-static std::int32_t WindowStall_ButtonPreviousPet(ElementId elementId, std::int32_t state); // 宠物候选向前，非宠物模式仍可消费bit400。
+static std::int32_t WindowStall_ButtonPreviousPet(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物候选向前，非宠物模式仍可消费bit400。
 
 // 原函数：0x004CE2B0。
-static std::int32_t WindowStall_ButtonNextPet(ElementId elementId, std::int32_t state); // 宠物候选向后，最大页1。
+static std::int32_t WindowStall_ButtonNextPet(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物候选向后，最大页1。
 
 // 原函数：0x004CE370。
-static std::int32_t WindowStall_ScrollPetCandidates(ElementId elementId, std::int32_t state); // 宠物候选滚轮，始终返回0。
+static std::int32_t WindowStall_ScrollPetCandidates(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物候选滚轮，始终返回0。
 
 // 原函数：0x004CE3F0。
-static std::int32_t WindowStall_TabCategory(ElementId elementId, std::int32_t state); // 类别页签及七项候选控件原序显隐。
+static std::int32_t WindowStall_TabCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 类别页签及七项候选控件原序显隐。
 
 // 原函数：0x004CFE70。
 static std::int32_t WindowStall_SubmitListings(); // 槽序上架组包、转义发送及同源保存记录回写，返回0。
 
 // 原函数：0x004D0230。
-static std::int32_t WindowStall_DrawTooltipOverlay(ElementId elementId, std::int32_t state); // 共用提示覆盖层，只返回hover位。
+static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 共用提示覆盖层，只返回hover位。
 
 // 原函数：0x004CF940。
-static std::int32_t WindowStall_HandleButtons(ElementId elementId, std::int32_t state); // 自身/浏览主要按钮，禁用与普通收尾分离。
+static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 自身/浏览主要按钮，禁用与普通收尾分离。
 
 // 原函数：0x004CE8A0。
 static network::SendResult WindowStall_RequestClose(); // 收摊请求，透传发送结果。
@@ -240,19 +240,19 @@ static void WindowStall_EditPetPrice(std::int32_t petIndex); // 固定六装备�
 static std::int32_t WindowStall_RemoveListing(); // 删除上架项，保持标记/数量/搬移/选择与页回退顺序。
 
 // 原函数：0x004D2260。
-static std::int32_t WindowStall_HandlePriceInput(ElementId elementId, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
+static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 完整定价键盘和鼠标交互，返回hover位。
 
 // 原函数：0x004D2840。
-static std::int32_t WindowStall_HandlePurchaseConfirmation(ElementId elementId, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
+static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 购买确认及物品/宠物详情，二次读模式。
 
 // 原函数：0x004D1D50。
-static std::int32_t WindowStall_HandleInventory(ElementId elementId, std::int32_t state); // 玩家背包20格，首命中交互但完整绘制。
+static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 玩家背包20格，首命中交互但完整绘制。
 
 // 原函数：0x004D04A0。
-static std::int32_t WindowStall_HandleItemRow(ElementId elementId, std::int32_t state); // 上架/浏览物品行，固定记录与价格重读分离。
+static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上架/浏览物品行，固定记录与价格重读分离。
 
 // 原函数：0x004D16F0。
-static std::int32_t WindowStall_HandlePetCandidate(ElementId elementId, std::int32_t state); // 宠物候选，逐项重读候选页并保持CryptInt顺序。
+static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物候选，逐项重读候选页并保持CryptInt顺序。
 
 // 原函数：0x004D1C00。
 static std::int32_t WindowStall_DrawCandidateAttributes(
@@ -267,7 +267,7 @@ static std::int32_t WindowStall_DrawPetDetails(
     std::int32_t x, std::int32_t y, std::int32_t index); // 完整浏览宠物详情，复用D67B84预览。
 
 // 原函数：0x004D0EB0。
-static std::int32_t WindowStall_HandlePetRow(ElementId elementId, std::int32_t state); // 上架/浏览宠物行，末尾金额两次读取及详情分派。
+static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上架/浏览宠物行，末尾金额两次读取及详情分派。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -524,9 +524,9 @@ WindowPrototype gWindowPrototypeStallBrowse {0, 4, 10, 30, 549, 366, 0x80000080u
  // 原全局：0x00D046D8。
 
 // 原函数：0x004CDE40。
-static std::int32_t WindowStall_ButtonPreviousListing(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_ButtonPreviousListing(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -576,9 +576,9 @@ static std::int32_t WindowStall_ButtonPreviousListing(const ElementId elementId,
 }
 
 // 原函数：0x004CDFA0。
-static std::int32_t WindowStall_ButtonNextListing(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_ButtonNextListing(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -632,9 +632,9 @@ static std::int32_t WindowStall_ButtonNextListing(const ElementId elementId, con
 }
 
 // 原函数：0x004CE0F0。
-static std::int32_t WindowStall_ScrollListings(const ElementId, const std::int32_t state)
+static std::int32_t WindowStall_ScrollListings(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const bool own = gStallOwn58111C != 0;
@@ -663,9 +663,9 @@ static std::int32_t WindowStall_ScrollListings(const ElementId, const std::int32
 }
 
 // 原函数：0x004CE1F0。
-static std::int32_t WindowStall_ButtonPreviousPet(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_ButtonPreviousPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -699,9 +699,9 @@ static std::int32_t WindowStall_ButtonPreviousPet(const ElementId elementId, con
 }
 
 // 原函数：0x004CE2B0。
-static std::int32_t WindowStall_ButtonNextPet(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_ButtonNextPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -735,9 +735,9 @@ static std::int32_t WindowStall_ButtonNextPet(const ElementId elementId, const s
 }
 
 // 原函数：0x004CE370。
-static std::int32_t WindowStall_ScrollPetCandidates(const ElementId, const std::int32_t state)
+static std::int32_t WindowStall_ScrollPetCandidates(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const bool own = gStallOwn58111C != 0;
@@ -757,10 +757,10 @@ static std::int32_t WindowStall_ScrollPetCandidates(const ElementId, const std::
 }
 
 // 原函数：0x004CE3F0。
-static std::int32_t WindowStall_TabCategory(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_TabCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     const bool ownAtEntry = gStallOwn58111C != 0;
@@ -959,9 +959,9 @@ static std::int32_t WindowStall_RemoveListing()
 }
 
 // 原函数：0x004CF940。
-static std::int32_t WindowStall_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -1182,9 +1182,9 @@ static std::int32_t WindowStall_SubmitListings()
 }
 
 // 原函数：0x004D0230。
-static std::int32_t WindowStall_DrawTooltipOverlay(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_DrawTooltipOverlay(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t mode = gStallMessageModeD67C34;
     if (mode != 0 && mode != 1) {
@@ -1326,10 +1326,10 @@ static std::int32_t WindowStall_DrawPetDetails(
 }
 
 // 原函数：0x004D0EB0。
-static std::int32_t WindowStall_HandlePetRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_HandlePetRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gStallModeD67BDC != 1) {
         return 0;
@@ -1521,10 +1521,10 @@ static std::int32_t WindowStall_DrawCandidateAttributes(
 }
 
 // 原函数：0x004D16F0。
-static std::int32_t WindowStall_HandlePetCandidate(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_HandlePetCandidate(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gStallModeD67BDC != 1) {
         return 0;
@@ -1647,10 +1647,10 @@ static std::int32_t WindowStall_HandlePetCandidate(const ElementId elementId, co
 }
 
 // 原函数：0x004D04A0。
-static std::int32_t WindowStall_HandleItemRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_HandleItemRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0) {
         const std::int32_t petCount = gStallPetCountD67BD4;
@@ -1821,9 +1821,9 @@ static std::int32_t WindowStall_HandleItemRow(const ElementId elementId, const s
 }
 
 // 原函数：0x004D1D50。
-static std::int32_t WindowStall_HandleInventory(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gStallModeD67BDC != 0) {
         return 0;
@@ -1914,9 +1914,9 @@ static std::int32_t WindowStall_HandleInventory(const ElementId elementId, const
 }
 
 // 原函数：0x004D2260。
-static std::int32_t WindowStall_HandlePriceInput(const ElementId, const std::int32_t state)
+static std::int32_t WindowStall_HandlePriceInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const bool clicked = (state & MouseFlag_LDownEvent) != 0;
     if (clicked) {
@@ -2035,9 +2035,9 @@ static std::int32_t WindowStall_HandlePriceInput(const ElementId, const std::int
 }
 
 // 原函数：0x004D2840。
-static std::int32_t WindowStall_HandlePurchaseConfirmation(const ElementId, const std::int32_t state)
+static std::int32_t WindowStall_HandlePurchaseConfirmation(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     std::int32_t y = window->y + 183;
@@ -2395,9 +2395,9 @@ static std::int32_t WindowStall_Update(WindowInstance& callbackWindow, const std
 }
 
 // 原函数：0x004D2080。
-static std::int32_t WindowStall_EditDescription(const ElementId, const std::int32_t state)
+static std::int32_t WindowStall_EditDescription(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
@@ -2433,9 +2433,9 @@ static std::int32_t WindowStall_EditDescription(const ElementId, const std::int3
 }
 
 // 原函数：0x004D2170。
-static std::int32_t WindowStall_EditName(const ElementId, const std::int32_t state)
+static std::int32_t WindowStall_EditName(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gOwnStallOpenForBusiness_D67BE0 != 0 || gStallOwn58111C == 0) {
         return 0;
@@ -2853,9 +2853,9 @@ static std::int32_t WindowStall_RequestPurchase()
 }
 
 // 原函数：0x004CD420。
-static std::int32_t WindowStall_ButtonClose(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStall_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);

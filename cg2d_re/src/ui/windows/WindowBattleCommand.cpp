@@ -47,31 +47,31 @@ static void WindowBattleCommand_Close(session::ClientSession& session); // 窗�
 static void WindowBattleCommand_ResetSelection(session::ClientSession& session); // 先清九个选择槽，再关闭三子窗及清同源展开引用。
 
 // 原函数：0x004972B0。
-static std::int32_t WindowBattleCommand_ButtonAttack(ElementId elementId, std::int32_t state); // 攻击选择，原目标标志475H。
+static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 攻击选择，原目标标志475H。
 
 // 原函数：0x004973C0。
-static std::int32_t WindowBattleCommand_ButtonDefend(ElementId elementId, std::int32_t state); // 防御G命令及玩家动作完成。
+static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 防御G命令及玩家动作完成。
 
 // 原函数：0x004974C0。
 static void WindowBattleCommand_SelectSkill(session::ClientSession& session, std::int32_t skillIndex, std::int32_t technique); // CC4230选择回送所属会话。
 
 // 原函数：0x004975A0。
-static std::int32_t WindowBattleCommand_ButtonSkill(ElementId elementId, std::int32_t state); // 技能按钮及选目标返回技术窗。
+static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 技能按钮及选目标返回技术窗。
 
 // 原函数：0x00497770。
-static std::int32_t WindowBattleCommand_ButtonItem(ElementId elementId, std::int32_t state); // 物品选择/返回27，保留CC4D40独立门禁。
+static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 物品选择/返回27，保留CC4D40独立门禁。
 
 // 原函数：0x00497900。
-static std::int32_t WindowBattleCommand_ButtonPet(ElementId elementId, std::int32_t state); // 宠物选择及28窗口关闭。
+static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物选择及28窗口关闭。
 
 // 原函数：0x00497A60。
-static std::int32_t WindowBattleCommand_ButtonFormation(ElementId elementId, std::int32_t state); // P命令，使用九槽中的槽6。
+static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // P命令，使用九槽中的槽6。
 
 // 原函数：0x00497B80。
-static std::int32_t WindowBattleCommand_ButtonEscape(ElementId elementId, std::int32_t state); // E命令，使用槽7，无已用技能门禁。
+static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // E命令，使用槽7，无已用技能门禁。
 
 // 原函数：0x00497C80。
-static std::int32_t WindowBattleCommand_ButtonRebirth(ElementId elementId, std::int32_t state); // TUC01：原载荷判空/hover持有，刷新后重取R命令状态。
+static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // TUC01：原载荷判空/hover持有，刷新后重取R命令状态。
 
 // 原函数：0x00497E30。
 static void WindowBattleCommand_SelectPetSkill(session::ClientSession& session, std::int32_t technique); // 宠物命令，保留重复查询与负参数略过。
@@ -80,7 +80,7 @@ static void WindowBattleCommand_SelectPetSkill(session::ClientSession& session, 
 static void WindowBattleCommand_SelectRidingSkill(session::ClientSession& session, std::int32_t technique); // 骑乘命令，清选择模式并保留骑乘快照写序。
 
 // 原函数：0x00498160。
-static std::int32_t WindowBattleCommand_ButtonPetSkills(ElementId elementId, std::int32_t state); // 宠物/骑乘技能窗开关。
+static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物/骑乘技能窗开关。
 
 // 原函数：0x004982C0。
 static void WindowBattleCommand_DrawTimer(session::ClientSession& session); // 完整倒计时/超时发送，本帧超时后仍绘制。
@@ -494,9 +494,9 @@ void WindowBattleCommand_FinishAutoAction(session::ClientSession& session)
 }
 
 // 原函数：0x004972B0。
-static std::int32_t WindowBattleCommand_ButtonAttack(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonAttack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -539,9 +539,9 @@ static std::int32_t WindowBattleCommand_ButtonAttack(const ElementId elementId, 
 }
 
 // 原函数：0x004973C0。
-static std::int32_t WindowBattleCommand_ButtonDefend(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonDefend(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -583,9 +583,9 @@ static std::int32_t WindowBattleCommand_ButtonDefend(const ElementId elementId, 
 }
 
 // 原函数：0x00497770。
-static std::int32_t WindowBattleCommand_ButtonItem(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonItem(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -644,9 +644,9 @@ static std::int32_t WindowBattleCommand_ButtonItem(const ElementId elementId, co
 }
 
 // 原函数：0x00497900。
-static std::int32_t WindowBattleCommand_ButtonPet(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -704,9 +704,9 @@ static std::int32_t WindowBattleCommand_ButtonPet(const ElementId elementId, con
 }
 
 // 原函数：0x00497A60。
-static std::int32_t WindowBattleCommand_ButtonFormation(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonFormation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -752,9 +752,9 @@ static std::int32_t WindowBattleCommand_ButtonFormation(const ElementId elementI
 }
 
 // 原函数：0x00497B80。
-static std::int32_t WindowBattleCommand_ButtonEscape(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonEscape(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -797,9 +797,9 @@ static std::int32_t WindowBattleCommand_ButtonEscape(const ElementId elementId, 
 
 // TUC01：原战斗转生门槛/载荷判空保持；持有 hover，刷新后重取命令状态，发送弃返。
 // 原函数：0x00497C80。
-static std::int32_t WindowBattleCommand_ButtonRebirth(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonRebirth(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const elementPtr = currentWindow->FindElementById(elementId);
@@ -1026,9 +1026,9 @@ static void WindowBattleCommand_SelectSkill(
 }
 
 // 原函数：0x004975A0。
-static std::int32_t WindowBattleCommand_ButtonSkill(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -1194,9 +1194,9 @@ static void WindowBattleCommand_SelectRidingSkill(session::ClientSession& sessio
 }
 
 // 原函数：0x00498160。
-static std::int32_t WindowBattleCommand_ButtonPetSkills(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleCommand_ButtonPetSkills(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto* const graphicElement = currentWindow->FindElementById(elementId);

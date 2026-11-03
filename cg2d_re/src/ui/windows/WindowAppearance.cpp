@@ -39,16 +39,16 @@ struct Window56TextStorage {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004C5C30。
-static std::int32_t WindowAppearance_ButtonOk(ElementId elementId, std::int32_t state); // 图号原文本直接发送，不转义。
+static std::int32_t WindowAppearance_ButtonOk(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 图号原文本直接发送，不转义。
 
 // 原函数：0x004C5D00。
-static std::int32_t WindowAppearance_CycleClass(ElementId elementId, std::int32_t state); // class按版本上下界循环。
+static std::int32_t WindowAppearance_CycleClass(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // class按版本上下界循环。
 
 // 原函数：0x004C5DE0。
-static std::int32_t WindowAppearance_CycleFifthDigit(ElementId elementId, std::int32_t state); // fifth分量0..4循环。
+static std::int32_t WindowAppearance_CycleFifthDigit(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // fifth分量0..4循环。
 
 // 原函数：0x004C5EB0。
-static std::int32_t WindowAppearance_CycleOnesDigit(ElementId elementId, std::int32_t state); // ones分量0..4循环。
+static std::int32_t WindowAppearance_CycleOnesDigit(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // ones分量0..4循环。
 
 // 原函数：0x004C5F80。
 static std::int32_t WindowAppearance_SendDialogReply(
@@ -273,9 +273,9 @@ static void WindowAppearance_Release(WindowInstance&)
 }
 
 // 原函数：0x004C5C30。
-static std::int32_t WindowAppearance_ButtonOk(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAppearance_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -296,7 +296,7 @@ static std::int32_t WindowAppearance_ButtonOk(const ElementId elementId, const s
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 1, buffer));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 1, buffer));
             currentWindow->state |= 0x8000u;
             consumed = 1;
         }
@@ -313,9 +313,9 @@ static std::int32_t WindowAppearance_ButtonOk(const ElementId elementId, const s
 }
 
 // 原函数：0x004C5D00。
-static std::int32_t WindowAppearance_CycleClass(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleClass(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -351,9 +351,9 @@ static std::int32_t WindowAppearance_CycleClass(const ElementId elementId, const
 }
 
 // 原函数：0x004C5DE0。
-static std::int32_t WindowAppearance_CycleFifthDigit(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleFifthDigit(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -388,9 +388,9 @@ static std::int32_t WindowAppearance_CycleFifthDigit(const ElementId elementId, 
 }
 
 // 原函数：0x004C5EB0。
-static std::int32_t WindowAppearance_CycleOnesDigit(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAppearance_CycleOnesDigit(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;

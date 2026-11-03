@@ -45,9 +45,9 @@ static std::int32_t WindowPetEquipment_Draw(WindowInstance& callbackWindow, std:
 // 将装备页位置同步给另外三个宠物详情页。
 static void WindowPetEquipment_Release(WindowInstance&);
 // 前后跳过空宠物槽，沿用详情页的当前排序位置。
-static std::int32_t WindowPetEquipment_SelectPet(ElementId elementId, std::int32_t state);
+static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 // 背包装入、双击卸下及右键说明翻页；装备变动交给既有Cpa回包。
-static std::int32_t WindowPetEquipment_HandleItems(ElementId elementId, std::int32_t state);
+static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 将原装备栏的两列三层中心坐标平移到宠物框，图标、槽底及鼠标命中保持同源。
 static constexpr std::int32_t kPetEquipmentOriginX = 22;
@@ -153,9 +153,9 @@ static std::int32_t WindowPetEquipment_Update(WindowInstance& callbackWindow, co
     return 1;
 }
 
-static std::int32_t WindowPetEquipment_SelectPet(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetEquipment_SelectPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     const bool previous = elementId == static_cast<ElementId>(WindowPetEquipmentElementId::PreviousPet);
     const std::int32_t idle = previous ? 0x3B556 : 0x3B559;
@@ -178,11 +178,11 @@ static std::int32_t WindowPetEquipment_SelectPet(const ElementId elementId, cons
     return (state & MouseFlag_Hover) != 0 ? 1 : 0;
 }
 
-static std::int32_t WindowPetEquipment_HandleItems(const ElementId, const std::int32_t events)
+static std::int32_t WindowPetEquipment_HandleItems(WindowInstance& callbackWindow, const ElementId, const std::int32_t events)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
-    auto& state = WindowRuntime_States()[WindowId_PetEquipment];
+    auto& state = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment];
     const auto petIndex = std::bit_cast<std::int16_t>(world::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
     const auto& pet = world::gPetRuntimeRecords[petIndex];
     std::int32_t hovered = -1;
@@ -212,7 +212,7 @@ static std::int32_t WindowPetEquipment_HandleItems(const ElementId, const std::i
                 const std::int32_t left = window->x + kPetEquipmentOriginX + gSelectorPetX54F5C4[slot] - 24;
                 const std::int32_t top = window->y + kPetEquipmentOriginY + gSelectorPetY54F5DC[slot] - 24;
                 if (x >= left && x < left + 48 && y >= top && y < top + 48) {
-                    static_cast<void>(network::GetGameConnection().MoveItemBetweenOwnersRequest(0, source, petIndex + 1, slot, -1));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemBetweenOwnersRequest(0, source, petIndex + 1, slot, -1));
                     static_cast<void>(audio::PlaySe_52C450(51, 320));
                     break;
                 }
@@ -227,7 +227,7 @@ static std::int32_t WindowPetEquipment_HandleItems(const ElementId, const std::i
     if (item.used != 0 && (events & MouseFlag_LDblClickEvent) != 0) {
         if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
             && world::IsObservationSceneTransitionActive_440B50() == 0) {
-            static_cast<void>(network::GetGameConnection().MoveItemBetweenOwnersRequest(petIndex + 1, hovered, 0, -1, -1));
+            static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemBetweenOwnersRequest(petIndex + 1, hovered, 0, -1, -1));
             static_cast<void>(audio::PlaySe_52C450(77, 320));
         }
     } else if (item.used != 0 && (events & MouseFlag_RDownEvent) != 0) {

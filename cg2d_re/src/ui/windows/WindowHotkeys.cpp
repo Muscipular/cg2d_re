@@ -50,37 +50,37 @@ static std::int32_t WindowHotkeys_Update(WindowInstance& callbackWindow, std::in
 static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, std::int32_t value); // 窗口25说明/预设文本绘制及编辑焦点收尾。
 
 // 原函数：0x004953B0。
-static std::int32_t WindowHotkeys_ButtonClose(ElementId elementId, std::int32_t state); // 关闭并写回预设文本，不直接持久化。
+static std::int32_t WindowHotkeys_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 关闭并写回预设文本，不直接持久化。
 
 // 原函数：0x00495450。
-static std::int32_t WindowHotkeys_ButtonPreviousRow(ElementId elementId, std::int32_t state); // 上一行，bit400。
+static std::int32_t WindowHotkeys_ButtonPreviousRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上一行，bit400。
 
 // 原函数：0x00495500。
-static std::int32_t WindowHotkeys_ButtonNextRow(ElementId elementId, std::int32_t state); // 下一行，音效后重新取计数。
+static std::int32_t WindowHotkeys_ButtonNextRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下一行，音效后重新取计数。
 
 // 原函数：0x004955C0。
-static std::int32_t WindowHotkeys_ButtonPreviousPage(ElementId elementId, std::int32_t state); // 上十行，音效先于位置修改。
+static std::int32_t WindowHotkeys_ButtonPreviousPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上十行，音效先于位置修改。
 
 // 原函数：0x00495670。
-static std::int32_t WindowHotkeys_ButtonNextPage(ElementId elementId, std::int32_t state); // 下十行，保留三阶段计数读取。
+static std::int32_t WindowHotkeys_ButtonNextPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下十行，保留三阶段计数读取。
 
 // 原函数：0x00495750。
-static std::int32_t WindowHotkeys_Scroll(ElementId elementId, std::int32_t state); // 窗口25滚轮，恒返0。
+static std::int32_t WindowHotkeys_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口25滚轮，恒返0。
 
 // 原函数：0x004957B0。
-static std::int32_t WindowHotkeys_TabFirstCategory(ElementId elementId, std::int32_t state); // 分类0与十行复位。
+static std::int32_t WindowHotkeys_TabFirstCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 分类0与十行复位。
 
 // 原函数：0x004958D0。
-static std::int32_t WindowHotkeys_TabSecondCategory(ElementId elementId, std::int32_t state); // 分类1与十行复位。
+static std::int32_t WindowHotkeys_TabSecondCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 分类1与十行复位。
 
 // 原函数：0x004959F0。
-static std::int32_t WindowHotkeys_TabThirdCategory(ElementId elementId, std::int32_t state); // 分类2与十行复位。
+static std::int32_t WindowHotkeys_TabThirdCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 分类2与十行复位。
 
 // 原函数：0x00495B10。
-static std::int32_t WindowHotkeys_TabPresetText(ElementId elementId, std::int32_t state); // 分类3只换回调，不复位行图号。
+static std::int32_t WindowHotkeys_TabPresetText(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 分类3只换回调，不复位行图号。
 
 // 原函数：0x00495C20。
-static std::int32_t WindowHotkeys_EditPresetText(ElementId elementId, std::int32_t state); // 预设文本备份、初始化及同源焦点。
+static std::int32_t WindowHotkeys_EditPresetText(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 预设文本备份、初始化及同源焦点。
 
 // 原函数：0x00495130。
 static std::int32_t WindowHotkeys_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -441,9 +441,9 @@ static std::int32_t WindowHotkeys_Draw(WindowInstance& callbackWindow, const std
 }
 
 // 原函数：0x004953B0。
-static std::int32_t WindowHotkeys_ButtonClose(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -465,12 +465,12 @@ static std::int32_t WindowHotkeys_ButtonClose(const ElementId elementId, const s
 }
 
 // 原函数：0x00495450。
-static std::int32_t WindowHotkeys_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -484,7 +484,7 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(const ElementId elementId, c
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = WindowRuntime_Settings().hotkeyLayoutMode;
+        const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowHotkeysElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement) {
@@ -503,18 +503,18 @@ static std::int32_t WindowHotkeys_ButtonPreviousRow(const ElementId elementId, c
 }
 
 // 原函数：0x00495500。
-static std::int32_t WindowHotkeys_ButtonNextRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = WindowRuntime_Settings().hotkeyLayoutMode;
+        const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         if (position < maximum) {
@@ -525,7 +525,7 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const ElementId elementId, const
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t currentCategory = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t currentMode = WindowRuntime_Settings().hotkeyLayoutMode;
+        const std::int32_t currentMode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t currentMaximum = kHotkeyCounts56AEC4[currentCategory + currentMode * 4] - 10;
         auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowHotkeysElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement) {
@@ -544,12 +544,12 @@ static std::int32_t WindowHotkeys_ButtonNextRow(const ElementId elementId, const
 }
 
 // 原函数：0x004955C0。
-static std::int32_t WindowHotkeys_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -566,7 +566,7 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(const ElementId elementId, 
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = WindowRuntime_Settings().hotkeyLayoutMode;
+        const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowHotkeysElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement) {
@@ -585,18 +585,18 @@ static std::int32_t WindowHotkeys_ButtonPreviousPage(const ElementId elementId, 
 }
 
 // 原函数：0x00495670。
-static std::int32_t WindowHotkeys_ButtonNextPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = WindowRuntime_Settings().hotkeyLayoutMode;
+        const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         if (maximum > 0 && std::bit_cast<std::int32_t>(windowState->value14) < maximum) {
             static_cast<void>(audio::PlaySe_52C450(51, 320));
@@ -605,14 +605,14 @@ static std::int32_t WindowHotkeys_ButtonNextPage(const ElementId elementId, cons
         }
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14) + 10;
         windowState->value14 = static_cast<std::uint32_t>(position);
-        const std::int32_t limitMode = WindowRuntime_Settings().hotkeyLayoutMode;
+        const std::int32_t limitMode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t limitCategory = std::bit_cast<std::int32_t>(windowState->value10);
         const std::int32_t limit = kHotkeyCounts56AEC4[limitCategory + limitMode * 4] - 10;
         if (position > limit) {
             windowState->value14 = static_cast<std::uint32_t>(limit);
         }
         const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
-        const std::int32_t currentMode = WindowRuntime_Settings().hotkeyLayoutMode;
+        const std::int32_t currentMode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t currentMaximum = kHotkeyCounts56AEC4[limitCategory + currentMode * 4] - 10;
         auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowHotkeysElementId::HandleVerticalScroll);
         if (handleVerticalScrollElement) {
@@ -631,16 +631,16 @@ static std::int32_t WindowHotkeys_ButtonNextPage(const ElementId elementId, cons
 }
 
 // 原函数：0x00495750。
-static std::int32_t WindowHotkeys_Scroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_Scroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
         const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
-        const std::int32_t mode = WindowRuntime_Settings().hotkeyLayoutMode;
+        const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).hotkeyLayoutMode;
         const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
         const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
         auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 5));
@@ -653,12 +653,12 @@ static std::int32_t WindowHotkeys_Scroll(const ElementId elementId, const std::i
 }
 
 // 原函数：0x004957B0。
-static std::int32_t WindowHotkeys_TabFirstCategory(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_TabFirstCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const activeWindow = gCurrentWindow;
+    WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -705,12 +705,12 @@ static std::int32_t WindowHotkeys_TabFirstCategory(const ElementId elementId, co
 }
 
 // 原函数：0x004958D0。
-static std::int32_t WindowHotkeys_TabSecondCategory(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_TabSecondCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const activeWindow = gCurrentWindow;
+    WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -757,12 +757,12 @@ static std::int32_t WindowHotkeys_TabSecondCategory(const ElementId elementId, c
 }
 
 // 原函数：0x004959F0。
-static std::int32_t WindowHotkeys_TabThirdCategory(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_TabThirdCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const activeWindow = gCurrentWindow;
+    WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -809,12 +809,12 @@ static std::int32_t WindowHotkeys_TabThirdCategory(const ElementId elementId, co
 }
 
 // 原函数：0x00495B10。
-static std::int32_t WindowHotkeys_TabPresetText(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_TabPresetText(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const activeWindow = gCurrentWindow;
+    WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     auto* elementsWindow = activeWindow;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
     std::int32_t consumed = 0;
@@ -857,14 +857,14 @@ static std::int32_t WindowHotkeys_TabPresetText(const ElementId elementId, const
 }
 
 // 原函数：0x00495C20。
-static std::int32_t WindowHotkeys_EditPresetText(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowHotkeys_EditPresetText(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    const std::int32_t row = std::bit_cast<std::int32_t>(gCurrentWindowState->value14) + index - 9;
+    const std::int32_t row = std::bit_cast<std::int32_t>((&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id])->value14) + index - 9;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         const auto selected = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(row));

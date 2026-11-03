@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
@@ -9,9 +10,9 @@ namespace detail {
 // 窗口函数实现。
 
 // 原函数：0x004C2460。
-std::int32_t WindowCrystalTrade_ButtonCancel(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowCrystalTrade_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -28,7 +29,7 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const ElementId elementId, const st
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 2, L""));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 2, L""));
             currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
@@ -46,9 +47,9 @@ std::int32_t WindowCrystalTrade_ButtonCancel(const ElementId elementId, const st
 }
 
 // 原函数：0x004C4680。
-std::int32_t WindowCrystalTrade_DrawButton(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowCrystalTrade_DrawButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {

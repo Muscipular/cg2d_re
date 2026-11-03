@@ -42,13 +42,13 @@ static WindowAnimationData* WindowGather_Cancel(WindowInstance* window); // 取�
 static WindowAnimationData* WindowGather_InitializeAction(WindowInstance* window); // 窗口12计时/操作初始化。
 
 // 原函数：0x00486CF0。
-static std::int32_t WindowGather_ButtonContinue(ElementId elementId, std::int32_t state); // FP/背包检查与重启。
+static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // FP/背包检查与重启。
 
 // 原函数：0x00486E50。
-static std::int32_t WindowGather_ButtonClose(ElementId elementId, std::int32_t state); // 关闭或取消，hover后重取窗口。
+static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 关闭或取消，hover后重取窗口。
 
 // 原函数：0x00486F20。
-static std::int32_t WindowGather_DrawResultImage(ElementId elementId, std::int32_t unusedState); // 结果图及固定框，恒返0。
+static std::int32_t WindowGather_DrawResultImage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 结果图及固定框，恒返0。
 
 // 原函数：0x00485AF0。
 static WindowAnimationData* WindowGather_ShowResult(WindowInstance* window); // 窗口12完整结果展示及双计时槽发布。
@@ -786,9 +786,9 @@ static std::int32_t WindowGather_Update(WindowInstance& callbackWindow, const st
 }
 
 // 原函数：0x00486CF0。
-static std::int32_t WindowGather_ButtonContinue(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGather_ButtonContinue(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     const std::int32_t level = std::bit_cast<std::int8_t>(gWindow12SkillLevelCB0608);
@@ -831,9 +831,9 @@ static std::int32_t WindowGather_ButtonContinue(const ElementId elementId, const
 }
 
 // 原函数：0x00486E50。
-static std::int32_t WindowGather_ButtonClose(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGather_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -867,9 +867,9 @@ static std::int32_t WindowGather_ButtonClose(const ElementId elementId, const st
 }
 
 // 原函数：0x00486F20。
-static std::int32_t WindowGather_DrawResultImage(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowGather_DrawResultImage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t resultImage = gWindow12ValueCF3FF0;
     render::GraphicDescriptor16 descriptor {};

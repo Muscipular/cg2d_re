@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldUpdateDependencies.hpp"
@@ -31,13 +32,13 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0046FBD0。
-static std::int32_t WindowShortcutBar_ButtonCollapse(ElementId elementId, std::int32_t state); // 快捷栏4点击收起到5，打开后发布CA0440。
+static std::int32_t WindowShortcutBar_ButtonCollapse(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 快捷栏4点击收起到5，打开后发布CA0440。
 
 // 原函数：0x0046FC10。
-static std::int32_t WindowShortcutBar_ButtonExpand(ElementId elementId, std::int32_t state); // 快捷栏5点击展开到4。
+static std::int32_t WindowShortcutBar_ButtonExpand(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 快捷栏5点击展开到4。
 
 // 原函数：0x0046FC60。
-static std::int32_t WindowShortcutBar_HandleButtons(ElementId elementId, std::int32_t state); // 完整九按钮，保留6/7子入口消费覆盖。
+static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 完整九按钮，保留6/7子入口消费覆盖。
 
 // 主原型中的真实回调依赖；本声明只约束窗口调用侧，不替代各本体取证。
 // 原函数：0x0046FBA0。
@@ -111,40 +112,40 @@ static std::int32_t WindowShortcutBar_Update(WindowInstance& callbackWindow, con
 }
 
 // 原函数：0x0046FBD0。
-static std::int32_t WindowShortcutBar_ButtonCollapse(const ElementId, const std::int32_t state)
+static std::int32_t WindowShortcutBar_ButtonCollapse(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     currentWindow->state |= 0x8000u;
-    static_cast<void>(WindowRuntime_Open(WindowId_CollapsedShortcutBar));
-    WindowRuntime_Settings().shortcutBarCollapsed = 1;
+    static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CollapsedShortcutBar));
+    WindowRuntime_Settings(*callbackWindow.ownerSession).shortcutBarCollapsed = 1;
     return 1;
 }
 
 // 原函数：0x0046FC10。
-static std::int32_t WindowShortcutBar_ButtonExpand(const ElementId, const std::int32_t state)
+static std::int32_t WindowShortcutBar_ButtonExpand(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     currentWindow->state |= 0x8000u;
-    static_cast<void>(WindowRuntime_Open(WindowId_ShortcutBar));
-    WindowRuntime_Settings().shortcutBarCollapsed = 0;
+    static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_ShortcutBar));
+    WindowRuntime_Settings(*callbackWindow.ownerSession).shortcutBarCollapsed = 0;
     return 1;
 }
 
 // 原函数：0x0046FC60。
-static std::int32_t WindowShortcutBar_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowShortcutBar_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -168,11 +169,11 @@ static std::int32_t WindowShortcutBar_HandleButtons(const ElementId elementId, c
             if (world::gCurrentSceneType != 10) {
                 const std::uint64_t now = platform::ReadTickCount64();
                 if (gWindowActionTick62B5AC + 500u < now) {
-                    WindowInstance* const window = WindowRuntime_States()[WindowId_OwnStall].window;
+                    WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_OwnStall].window;
                     if (window == nullptr) {
                         static_cast<void>(WindowStallBrowse_RequestClose());
                         static_cast<void>(audio::PlaySe_52C450(56, 320));
-                        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_OwnStall, 1, 0, nullptr));
+                        static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_OwnStall, 1, 0, nullptr));
                     } else {
                         window->state |= 0x8000u;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -212,7 +213,7 @@ static std::int32_t WindowShortcutBar_HandleButtons(const ElementId elementId, c
             return consumed;
         }
         if (elementId == static_cast<ElementId>(WindowShortcutBarElementId::HandleButtons_6)) {
-            if (network::GetGameConnection().PukVersion() < 7u) {
+            if (callbackWindow.ownerSession->Connection().PukVersion() < 7u) {
                 if (hover) {
                     graphic->imageNo = 0x3B91D;
                     gHoverTextD68AE8 = kStatusGuildUnavailable586270;
@@ -232,13 +233,13 @@ static std::int32_t WindowShortcutBar_HandleButtons(const ElementId elementId, c
             if (hover) {
                 gHoverTextD68AE8 = L"打开情绪动作视窗。" /* 原常量参考：0x00556CE8。 */;
             }
-            return WindowStatusBar_ButtonEmote(NativeElementKey(6), state);
+            return WindowStatusBar_ButtonEmote(callbackWindow, NativeElementKey(6), state);
         }
         if (hover) {
             gHoverTextD68AE8 = L"打开小地图视窗。" /* 原常量参考：0x0058625C。 */;
         }
     }
-    return WindowStatusBar_ButtonMiniMap(NativeElementKey(7), state);
+    return WindowStatusBar_ButtonMiniMap(callbackWindow, NativeElementKey(7), state);
 }
 
 } // namespace detail

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 
@@ -47,22 +48,22 @@ static std::int32_t WindowGuildRank_Update(WindowInstance& callbackWindow, std::
 static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 刷新/公共绘制后反求滚动，再画九宫格。
 
 // 原函数：0x004A4220。
-static std::int32_t WindowGuildRank_SelectRow(ElementId elementId, std::int32_t state); // 职级行选择及当前选择图号。
+static std::int32_t WindowGuildRank_SelectRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 职级行选择及当前选择图号。
 
 // 原函数：0x004A42C0。
-static std::int32_t WindowGuildRank_ButtonClose(ElementId elementId, std::int32_t state); // 固定入口窗口关闭、声音后的图形更新。
+static std::int32_t WindowGuildRank_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 固定入口窗口关闭、声音后的图形更新。
 
 // 原函数：0x004A4370。
-static std::int32_t WindowGuildRank_ButtonOk(ElementId elementId, std::int32_t state); // uHb设置后重取窗口关闭，返回仅由hover决定。
+static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // uHb设置后重取窗口关闭，返回仅由hover决定。
 
 // 原函数：0x004A4420。
-static std::int32_t WindowGuildRank_HandleScrollButtons(ElementId elementId, std::int32_t state); // 上下滚动先发声，只修各自一侧边界。
+static std::int32_t WindowGuildRank_HandleScrollButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上下滚动先发声，只修各自一侧边界。
 
 // 原函数：0x004A4540。
 static std::uint32_t WindowGuildRank_Refresh(); // 十行职级/成员姓名刷新，返回含NUL姓名长度。
 
 // 原函数：0x004A45E0。
-static std::int32_t WindowGuildRank_Scroll(ElementId elementId, std::int32_t state); // 非零滚轮推进，恒返回0。
+static std::int32_t WindowGuildRank_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 非零滚轮推进，恒返回0。
 
 // 原函数：0x004A4180。
 static std::int32_t WindowGuildRank_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -161,10 +162,10 @@ static std::int32_t WindowGuildRank_Draw(WindowInstance& callbackWindow, const s
 }
 
 // 原函数：0x004A4220。
-static std::int32_t WindowGuildRank_SelectRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildRank_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -186,9 +187,9 @@ static std::int32_t WindowGuildRank_SelectRow(const ElementId elementId, const s
 }
 
 // 原函数：0x004A42C0。
-static std::int32_t WindowGuildRank_ButtonClose(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildRank_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -216,9 +217,9 @@ static std::int32_t WindowGuildRank_ButtonClose(const ElementId elementId, const
 }
 
 // 原函数：0x004A4370。
-static std::int32_t WindowGuildRank_ButtonOk(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildRank_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -234,8 +235,8 @@ static std::int32_t WindowGuildRank_ButtonOk(const ElementId elementId, const st
         if ((state & MouseFlag_LDownEvent) != 0) {
             const std::int32_t rank = gLoginWindowRuntime.mailRankCF4A14;
             const std::int32_t key = gLoginWindowRuntime.mailMemberKeyD45F88;
-            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-            static_cast<void>(cg::network::GetGameConnection().SendGuildMemberRankChange(key, rank + 1));
+            const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMemberRankChange(key, rank + 1));
             WindowInstance* const window = currentWindow;
             window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -246,9 +247,9 @@ static std::int32_t WindowGuildRank_ButtonOk(const ElementId elementId, const st
 }
 
 // 原函数：0x004A4420。
-static std::int32_t WindowGuildRank_HandleScrollButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildRank_HandleScrollButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons) && elementId != static_cast<ElementId>(WindowGuildRankElementId::HandleScrollButtons_17)) {
         return 0;
@@ -311,9 +312,9 @@ static std::uint32_t WindowGuildRank_Refresh()
 }
 
 // 原函数：0x004A45E0。
-static std::int32_t WindowGuildRank_Scroll(const ElementId, const std::int32_t state)
+static std::int32_t WindowGuildRank_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);

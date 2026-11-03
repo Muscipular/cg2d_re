@@ -59,7 +59,7 @@ input::InputContext gInputContextCAFEC8 {}; // 原全局：0x00CAFEC8。
 // 回调与内部函数前置声明。
 
 // 原函数：0x004792D0。
-static std::int32_t WindowOwnProfile_EditField(ElementId elementId, std::int32_t state); // 窗口58元素5..8编辑焦点。
+static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口58元素5..8编辑焦点。
 
 // 原函数：0x004744F0。
 static void WindowOwnProfile_Release(WindowInstance&);
@@ -366,10 +366,10 @@ static void WindowOwnProfile_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004792D0。
-static std::int32_t WindowOwnProfile_EditField(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowOwnProfile_EditField(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInputPrototype* prototype;
     input::InputContext* context;

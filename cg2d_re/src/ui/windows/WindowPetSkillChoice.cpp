@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
@@ -189,43 +190,43 @@ static void WindowPetSkillChoice_RefreshPetRows(WindowInstance* window, std::int
 static void WindowPetSkillChoice_RefreshSelectedSkillRows(WindowInstance* window, std::int32_t scroll); // 按候选槽数逐轮重读，不加十行钳制。
 
 // 原函数：0x004BFBC0。
-static std::int32_t WindowPetSkillChoice_ButtonLearn(ElementId elementId, std::int32_t state); // 模式0学习请求，bit2恒消费。
+static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 模式0学习请求，bit2恒消费。
 
 // 原函数：0x004BFCB0。
-static std::int32_t WindowPetSkillChoice_ButtonBack(ElementId elementId, std::int32_t state); // 分模式关闭/返回，音效后重读模式。
+static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 分模式关闭/返回，音效后重读模式。
 
 // 原函数：0x004BFF60。
-static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(ElementId elementId, std::int32_t state); // bit400上一行，触边仍刷新。
+static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // bit400上一行，触边仍刷新。
 
 // 原函数：0x004C0160。
-static std::int32_t WindowPetSkillChoice_ButtonNextRow(ElementId elementId, std::int32_t state); // 下一行，12/13固定左侧且目标index-1。
+static std::int32_t WindowPetSkillChoice_ButtonNextRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下一行，12/13固定左侧且目标index-1。
 
 // 原函数：0x004C0380。
-static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(ElementId elementId, std::int32_t state); // 上一页，音效后重读位置。
+static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上一页，音效后重读位置。
 
 // 原函数：0x004C0590。
-static std::int32_t WindowPetSkillChoice_ButtonNextPage(ElementId elementId, std::int32_t state); // 下一页，先上限后负值修正。
+static std::int32_t WindowPetSkillChoice_ButtonNextPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下一页，先上限后负值修正。
 
 // 原函数：0x004C0800。
-static std::int32_t WindowPetSkillChoice_Scroll(ElementId elementId, std::int32_t state); // 两侧滚轮；模式0/1只更新位置。
+static std::int32_t WindowPetSkillChoice_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两侧滚轮；模式0/1只更新位置。
 
 // 原函数：0x004C0A50。
-static std::int32_t WindowPetSkillChoice_SelectPetCandidate(ElementId elementId, std::int32_t state); // 候选门禁/提示/发送，hintFlag不阻止发送。
+static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 候选门禁/提示/发送，hintFlag不阻止发送。
 
 // 原函数：0x004C0910。
-static std::int32_t WindowPetSkillChoice_SubmitForget(ElementId elementId, std::int32_t state); // 遗忘映射+1发送，发送后关闭窗口。
+static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 遗忘映射+1发送，发送后关闭窗口。
 
 // 原函数：0x004C0BF0。
-static std::int32_t WindowPetSkillChoice_SelectSkillSlot(ElementId elementId, std::int32_t state); // 选技能槽并显示元素0，不提前发送。
+static std::int32_t WindowPetSkillChoice_SelectSkillSlot(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 选技能槽并显示元素0，不提前发送。
 
 // 原函数：0x004C0CB0。
-static std::int32_t WindowPetSkillChoice_SubmitPetSkill(ElementId elementId, std::int32_t state); // 技能选择/请求，发送后对话类型=-2。
+static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 技能选择/请求，发送后对话类型=-2。
 
 // 原函数：0x004C0EA0。
-static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(ElementId elementId, std::int32_t unusedState); // 已选技能内框，恒0。
+static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 已选技能内框，恒0。
 
 // 原函数：0x004C0F20。
-static std::int32_t WindowPetSkillChoice_HandleConfirmation(ElementId elementId, std::int32_t unusedState); // 确认覆盖层，发原选槽文本后请求关闭。
+static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 确认覆盖层，发原选槽文本后请求关闭。
 
 // 原函数：0x004BD500。
 static void WindowPetSkillChoice_Release(WindowInstance&);
@@ -1473,9 +1474,9 @@ static std::int32_t WindowPetSkillChoice_Draw(WindowInstance& callbackWindow, co
 }
 
 // 原函数：0x004BFBC0。
-static std::int32_t WindowPetSkillChoice_ButtonLearn(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_ButtonLearn(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -1495,7 +1496,7 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const ElementId elementId, 
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
                 currentWindow->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
             }
@@ -1514,9 +1515,9 @@ static std::int32_t WindowPetSkillChoice_ButtonLearn(const ElementId elementId, 
 }
 
 // 原函数：0x004BFCB0。
-static std::int32_t WindowPetSkillChoice_ButtonBack(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_ButtonBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -1552,7 +1553,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const ElementId elementId, c
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             break;
         }
@@ -1567,7 +1568,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const ElementId elementId, c
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             break;
         }
@@ -1585,7 +1586,7 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const ElementId elementId, c
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 2, text));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 2, text));
             world::gCurrentDialogType_581800 = -2;
             break;
         }
@@ -1628,10 +1629,10 @@ static std::int32_t WindowPetSkillChoice_ButtonBack(const ElementId elementId, c
 }
 
 // 原函数：0x004BFF60。
-static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -1719,10 +1720,10 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousRow(const ElementId eleme
 }
 
 // 原函数：0x004C0160。
-static std::int32_t WindowPetSkillChoice_ButtonNextRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -1814,10 +1815,10 @@ static std::int32_t WindowPetSkillChoice_ButtonNextRow(const ElementId elementId
 }
 
 // 原函数：0x004C0380。
-static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -1899,10 +1900,10 @@ static std::int32_t WindowPetSkillChoice_ButtonPreviousPage(const ElementId elem
 }
 
 // 原函数：0x004C0590。
-static std::int32_t WindowPetSkillChoice_ButtonNextPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -2008,10 +2009,10 @@ static std::int32_t WindowPetSkillChoice_ButtonNextPage(const ElementId elementI
 }
 
 // 原函数：0x004C0800。
-static std::int32_t WindowPetSkillChoice_Scroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_Scroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         switch (std::bit_cast<std::int8_t>(gWindow54ModeC8AF64)) {
@@ -2064,10 +2065,10 @@ static std::int32_t WindowPetSkillChoice_Scroll(const ElementId elementId, const
 }
 
 // 原函数：0x004C0910。
-static std::int32_t WindowPetSkillChoice_SubmitForget(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_SubmitForget(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -2093,7 +2094,7 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const ElementId elementId,
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             currentWindow->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -2111,10 +2112,10 @@ static std::int32_t WindowPetSkillChoice_SubmitForget(const ElementId elementId,
 }
 
 // 原函数：0x004C0A50。
-static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_SelectPetCandidate(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -2168,7 +2169,7 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const ElementId elem
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
             world::gCurrentDialogType_581800 = -2;
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -2186,10 +2187,10 @@ static std::int32_t WindowPetSkillChoice_SelectPetCandidate(const ElementId elem
 }
 
 // 原函数：0x004C0BF0。
-static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_SelectSkillSlot(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     const bool hover = (state & MouseFlag_Hover) != 0;
@@ -2218,10 +2219,10 @@ static std::int32_t WindowPetSkillChoice_SelectSkillSlot(const ElementId element
 }
 
 // 原函数：0x004C0CB0。
-static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkillChoice_SubmitPetSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t selected = gWindow54SkillScrollCC31F4 + index - 99;
     const Window54SkillRecord& record = gWindow54SkillsD2EAB8[selected];
@@ -2278,17 +2279,17 @@ static std::int32_t WindowPetSkillChoice_SubmitPetSkill(const ElementId elementI
         static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x =
         static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+    static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
     world::gCurrentDialogType_581800 = -2;
     static_cast<void>(audio::PlaySe_52C450(57, 320));
     return 1;
 }
 
 // 原函数：0x004C0EA0。
-static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(const ElementId elementId, const std::int32_t unusedState)
+static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t unusedState)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unusedState);
     const std::int32_t selected = gWindow54SkillScrollCC31F4 + index - 99;
@@ -2309,9 +2310,9 @@ static std::int32_t WindowPetSkillChoice_DrawSelectedSkillFrame(const ElementId 
 }
 
 // 原函数：0x004C0F20。
-static std::int32_t WindowPetSkillChoice_HandleConfirmation(const ElementId elementId, const std::int32_t unusedState)
+static std::int32_t WindowPetSkillChoice_HandleConfirmation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t unusedState)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static_cast<void>(unusedState);
     render::GraphicDescriptor16 descriptor {};
@@ -2335,7 +2336,7 @@ static std::int32_t WindowPetSkillChoice_HandleConfirmation(const ElementId elem
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, requestText));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, requestText));
             currentWindow->state &= ~2u;
             acceptImage = 245324;
             currentWindow->state |= 0x8000u;

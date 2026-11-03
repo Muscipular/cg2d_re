@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -15,7 +16,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004990F0。
-static std::int32_t WindowSpectator_ButtonEnd(ElementId elementId, std::int32_t state); // 窗口29观战结束，hover不消费。
+static std::int32_t WindowSpectator_ButtonEnd(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口29观战结束，hover不消费。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -32,9 +33,9 @@ WindowPrototype gWindowPrototypeSpectator {2, 3, 492, 0, 148, 108, 0x80010101u, 
 // 窗口函数实现。
 
 // 原函数：0x004990F0。
-static std::int32_t WindowSpectator_ButtonEnd(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSpectator_ButtonEnd(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) != 0) {
         WindowInstance* const window = currentWindow;
@@ -69,7 +70,7 @@ static std::int32_t WindowSpectator_ButtonEnd(const ElementId elementId, const s
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
-    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(L"U"));
+    static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(L"U"));
     world::gCurrentSceneState = 7;
     return 1;
 }

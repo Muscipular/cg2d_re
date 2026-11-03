@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/AlbumState.hpp"
@@ -85,16 +86,16 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00492430。
-static std::int32_t WindowAlbumList_SelectEntry(ElementId elementId, std::int32_t state); // 图鉴列表打开选中详情。
+static std::int32_t WindowAlbumList_SelectEntry(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 图鉴列表打开选中详情。
 
 // 原函数：0x00492520。
-static std::int32_t WindowAlbumList_HandleScrollButtons(ElementId elementId, std::int32_t state); // 单行/十行滚动按钮。
+static std::int32_t WindowAlbumList_HandleScrollButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 单行/十行滚动按钮。
 
 // 原函数：0x00492800。
-static std::int32_t WindowAlbumList_DragScroll(ElementId elementId, std::int32_t state); // WSP01：原950参数拖动换算；旧X代码1961。
+static std::int32_t WindowAlbumList_DragScroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WSP01：原950参数拖动换算；旧X代码1961。
 
 // 原函数：0x00492840。
-static std::int32_t WindowAlbumList_Scroll(ElementId elementId, std::int32_t state); // 图鉴滚轮，恒返0。
+static std::int32_t WindowAlbumList_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 图鉴滚轮，恒返0。
 
 // 原函数：0x004923F0。
 static std::int32_t WindowAlbumList_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -303,10 +304,10 @@ static std::int32_t WindowAlbumList_Update(WindowInstance& callbackWindow, const
 }
 
 // 原函数：0x00492430。
-static std::int32_t WindowAlbumList_SelectEntry(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAlbumList_SelectEntry(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -320,9 +321,9 @@ static std::int32_t WindowAlbumList_SelectEntry(const ElementId elementId, const
         const world::AlbumRecord* const records = world::GetSelectedAlbumRecords();
         const std::int32_t scroll = gLoginWindowRuntime.valueC8A95C;
         if (records[scroll + index - 58].used != 0) {
-            if (WindowRuntime_States()[WindowId_AlbumDetail].window == nullptr) {
+            if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_AlbumDetail].window == nullptr) {
                 gLoginWindowRuntime.valueCB2200 = scroll + index - 58;
-                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_AlbumDetail, 1, 0, nullptr));
+                static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_AlbumDetail, 1, 0, nullptr));
                 return 1;
             }
             gLoginWindowRuntime.valueCB2200 = scroll + index - 58;
@@ -334,9 +335,9 @@ static std::int32_t WindowAlbumList_SelectEntry(const ElementId elementId, const
 }
 
 // 原函数：0x00492520。
-static std::int32_t WindowAlbumList_HandleScrollButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAlbumList_HandleScrollButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const auto setImage = [elementId, currentWindow](const std::int32_t image) {
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = image;
@@ -417,11 +418,11 @@ static std::int32_t WindowAlbumList_HandleScrollButtons(const ElementId elementI
 
 // WSP01：旧X片段1961；结果恰1才按原950参数换算，不由此推容量。
 // 原函数：0x00492800。
-static std::int32_t WindowAlbumList_DragScroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAlbumList_DragScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t result = WindowElement_HandleVerticalScroll(elementId, state);
+    const std::int32_t result = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     if (result == 1) {
         WindowInstance* const window = currentWindow;
         auto* const dragScrollElement = window->FindElementById(WindowAlbumListElementId::DragScroll);
@@ -433,9 +434,9 @@ static std::int32_t WindowAlbumList_DragScroll(const ElementId elementId, const 
 }
 
 // 原函数：0x00492840。
-static std::int32_t WindowAlbumList_Scroll(const ElementId, const std::int32_t state)
+static std::int32_t WindowAlbumList_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);

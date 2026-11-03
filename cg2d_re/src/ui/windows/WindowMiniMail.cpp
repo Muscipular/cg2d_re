@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
@@ -44,10 +45,10 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, std::i
 static void WindowMiniMail_Refresh(); // 同源收件人与八位费用刷新，原混合返回无人消费。
 
 // 原函数：0x004CB6A0。
-static std::int32_t WindowMiniMail_Send(ElementId elementId, std::int32_t state); // 双层转义发送、插入本地迷你邮件及完整关闭尾。
+static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 双层转义发送、插入本地迷你邮件及完整关闭尾。
 
 // 原函数：0x004CB920。
-static std::int32_t WindowMiniMail_HandleInput(ElementId elementId, std::int32_t state); // 固定元素1输入焦点与非活动绘制。
+static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 固定元素1输入焦点与非活动绘制。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -148,9 +149,9 @@ static std::int32_t WindowMiniMail_Update(WindowInstance& callbackWindow, const 
 }
 
 // 原函数：0x004CB920。
-static std::int32_t WindowMiniMail_HandleInput(const ElementId, const std::int32_t state)
+static std::int32_t WindowMiniMail_HandleInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -182,9 +183,9 @@ static std::int32_t WindowMiniMail_HandleInput(const ElementId, const std::int32
 }
 
 // 原函数：0x004CB6A0。
-static std::int32_t WindowMiniMail_Send(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowMiniMail_Send(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowMiniMailElementId::Send)) {
         return 0;
@@ -225,7 +226,7 @@ static std::int32_t WindowMiniMail_Send(const ElementId elementId, const std::in
     const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 8, packet));
+    static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 8, packet));
     const std::int32_t contact = world::detail::FindMiniMailContactByKey_534370(gMiniMailCompose105F508.target);
     if (contact != -1) {
         __time64_t time;

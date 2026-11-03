@@ -833,7 +833,7 @@ void WindowRuntime_FillTwoTextLines(WindowTextData* const first, WindowTextData*
 
 // WSB01：原33C0/C3只返0，保留当前窗口事件签名，不补业务。
 // 原函数：0x004B0F10。
-std::int32_t WindowElement_NoOp(const ElementId, const std::int32_t)
+std::int32_t WindowElement_NoOp(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     return 0;
 }
@@ -931,10 +931,10 @@ std::int32_t WindowItem_FindSortedPetIndex(const std::int32_t slot)
 
 // WCL01：原474170完整15条；bit2置当前窗口bit13，hover优先返回1，否则低BYTE bit5，正确正文保持。
 // 原函数：0x00474170。
-std::int32_t WindowElement_HandleSideArea(const ElementId, const std::int32_t state)
+std::int32_t WindowElement_HandleSideArea(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     if ((state & MouseFlag_LDownEvent) != 0) {
-        gCurrentWindow->state |= 0x2000u;
+        callbackWindow.state |= 0x2000u;
     }
     return (state & MouseFlag_Hover) != 0 ? 1 : (static_cast<std::uint8_t>(state) & MouseFlag_Dragging) != 0;
 }
@@ -1496,9 +1496,9 @@ std::uint8_t WindowInput_HandleNumber(
 
 // WCL01：原4C1FB0完整53条；持同窗口/graphic，bit2仅置关闭位与SE57，图号优先序保，返回0/1。
 // 原函数：0x004C1FB0。
-std::int32_t WindowRuntime_ButtonClose(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowRuntime_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = &callbackWindow;
     auto* const graphicElement = window ? window->FindElementById(elementId) : nullptr;
     if (graphicElement) {
         auto* const graphic = graphicElement->data.graphic;
@@ -4241,7 +4241,7 @@ static int WindowRuntime_DispatchElementMouseAt(WindowInstance& target, const El
     const int ownerId = window->id;
     const auto ownerGeneration = window->generation;
     if (element->visible == 1 && !handled) {
-        if (element->mouseCallback) handled = element->mouseCallback(elementId, events);
+        if (element->mouseCallback) handled = element->mouseCallback(*window, elementId, events);
         const auto* live = window->ownerSession ? WindowRuntime_FindInstance(*window->ownerSession, ownerId)
             : WindowRuntime_FindInstance(ownerId);
         if (live == window && live->generation == ownerGeneration && window->binding
@@ -4288,9 +4288,9 @@ void WindowRuntime_UpdateExtendedElements()
 
 // WSB01：原载荷字节借用及上下界/差值三个现场取样阶段见滚动回调SPEC。
 // 原函数：0x004741A0。
-std::int32_t WindowElement_HandleVerticalScroll(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowElement_HandleVerticalScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const window = gCurrentWindow;
+    WindowInstance* const window = &callbackWindow;
     if (!window) return 0;
     // 窗口49的Graphic与普通MouseArea共享滚动语义，按活动类型读写对应字段。
     auto* const scrollElement = window->FindElementById(elementId);

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -73,16 +74,16 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048ECA0。
-static std::int32_t WindowPetSkills_HandleButtons(ElementId elementId, std::int32_t state); // 宠物技能页六按钮。
+static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物技能页六按钮。
 
 // 原函数：0x0048F6C0。
-static std::int32_t WindowPetSkills_HandleSkillRow(ElementId elementId, std::int32_t state); // 描述、技能换位与拖动。
+static std::int32_t WindowPetSkills_HandleSkillRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 描述、技能换位与拖动。
 
 // 新增宠物技能滑块：复用垂直滚动处理，将位置同步到十行技能列表。
-static std::int32_t WindowPetSkills_HandleScroll(ElementId elementId, std::int32_t state);
+static std::int32_t WindowPetSkills_HandleScroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 列表悬停时消费共享滚轮，每格滚动一行并同步现有滑块。
-static std::int32_t WindowPetSkills_HandleMouseWheel(ElementId elementId, std::int32_t state);
+static std::int32_t WindowPetSkills_HandleMouseWheel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0048DBB0。
 static std::int32_t WindowPetSkills_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -331,7 +332,7 @@ static WindowElement* WindowPetSkills_Refresh()
     return resultWindow->FindElementById(WindowPetSkillsElementId::EditName);
 }
 
-static std::int32_t WindowPetSkills_HandleMouseWheel(const ElementId, const std::int32_t state)
+static std::int32_t WindowPetSkills_HandleMouseWheel(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     if ((state & MouseFlag_Hover) == 0 || WindowDrag_ReadMousePhase() != 0) return 0;
     const std::int32_t wheel = WindowPeekMouseWheelDelta();
@@ -346,11 +347,11 @@ static std::int32_t WindowPetSkills_HandleMouseWheel(const ElementId, const std:
     return 1;
 }
 
-static std::int32_t WindowPetSkills_HandleScroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkills_HandleScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t consumed = WindowElement_HandleVerticalScroll(elementId, state);
+    const std::int32_t consumed = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     auto* const trackElement = currentWindow->FindElementById(elementId);
     if (trackElement) {
         WindowElement& track = (*trackElement);
@@ -462,9 +463,9 @@ static void WindowPetSkills_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x0048ECA0。
-static std::int32_t WindowPetSkills_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkills_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [elementId, currentWindow](const std::int32_t image) {
@@ -486,9 +487,9 @@ static std::int32_t WindowPetSkills_HandleButtons(const ElementId elementId, con
             const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+            const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(cg::network::GetGameConnection().RenamePetRequest(pet, escapedText));
+            static_cast<void>(callbackWindow.ownerSession->Connection().RenamePetRequest(pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             WindowChat_RestoreInput();
             if (text.empty()) {
@@ -522,8 +523,8 @@ static std::int32_t WindowPetSkills_HandleButtons(const ElementId elementId, con
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-                const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-                static_cast<void>(cg::network::GetGameConnection().DropPetRequest(x, y, pet));
+                const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
+                static_cast<void>(callbackWindow.ownerSession->Connection().DropPetRequest(x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 if (world::gPetRuntimeRecords[selected].flags6AA == 2) {
@@ -643,10 +644,10 @@ static std::int32_t WindowPetSkills_StartDrag(const std::int32_t source)
 }
 
 // 原函数：0x0048F6C0。
-static std::int32_t WindowPetSkills_HandleSkillRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetSkills_HandleSkillRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::uint32_t events = static_cast<std::uint32_t>(state);
     if ((events & (MouseFlag_Dragging | MouseFlag_DragFinish)) != 0 && WindowDrag_ReadKind() != 11) {
@@ -688,8 +689,8 @@ static std::int32_t WindowPetSkills_HandleSkillRow(const ElementId elementId, co
         const auto& pet = world::gPetRuntimeRecords[selected];
         const auto targetTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[gPetTechniqueScroll + index - 37].index);
         const auto sourceTechnique = std::bit_cast<std::int16_t>(pet.techniquePairs650[source].index);
-        const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-        static_cast<void>(cg::network::GetGameConnection().SwapPetSkillOrderRequest(selected, sourceTechnique, targetTechnique));
+        const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
+        static_cast<void>(callbackWindow.ownerSession->Connection().SwapPetSkillOrderRequest(selected, sourceTechnique, targetTechnique));
         WindowDrag_Reset();
     }
     auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(index - 24));

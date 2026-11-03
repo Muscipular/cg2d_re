@@ -75,9 +75,9 @@ static void RefreshInventoryPageSelection(
 }
 
 // 背包、战斗背包、合成与银行右侧共用页号；银行内只切页，其余入口支持拖物跨页。
-static std::int32_t WindowInventory_SwitchBagPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowInventory_SwitchBagPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(elementId);
@@ -102,7 +102,7 @@ static std::int32_t WindowInventory_SwitchBagPage(const ElementId elementId, con
             }
             if ((state & MouseFlag_DragFinish) != 0) {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
-                static_cast<void>(cg::network::GetGameConnection().MoveItemToBagPage(WindowDrag_ReadSourceIndex(), page));
+                static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemToBagPage(WindowDrag_ReadSourceIndex(), page));
                 WindowDrag_Reset();
             }
         }
@@ -110,7 +110,7 @@ static std::int32_t WindowInventory_SwitchBagPage(const ElementId elementId, con
             currentPage = page;
             RefreshInventoryPageSelection(window, &WindowInventory_SwitchBagPage, page);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(cg::network::GetGameConnection().SelectBagPage(page));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SelectBagPage(page));
         }
         graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & MouseFlag_Hover) != 0 ? 2 : 0];
     }
@@ -118,9 +118,9 @@ static std::int32_t WindowInventory_SwitchBagPage(const ElementId elementId, con
 }
 
 // 银行左侧页按钮；点击当前页也沿参考重新请求银行数据。
-static std::int32_t WindowInventory_SwitchBankPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowInventory_SwitchBankPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -135,7 +135,7 @@ static std::int32_t WindowInventory_SwitchBankPage(const ElementId elementId, co
             currentPage = page;
             RefreshInventoryPageSelection(window, &WindowInventory_SwitchBankPage, page);
             static_cast<void>(audio::PlaySe_52C450(51, 320));
-            static_cast<void>(cg::network::GetGameConnection().SelectInventoryBankPage(page + 1));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SelectInventoryBankPage(page + 1));
         }
         graphic->imageNo = kInventoryPageImages[page][page == currentPage ? 1 : (state & MouseFlag_Hover) != 0 ? 2 : 0];
     }
@@ -222,37 +222,37 @@ static std::int32_t WindowItem_DrawDescriptionLines(
     const wchar_t* footer, std::int8_t footerColor); // 原连续NUL分段改为宽行表，空行仍推进，不使用stride。
 
 // 原函数：0x00488930。
-static std::int32_t WindowInventory_TogglePreview(ElementId elementId, std::int32_t state);
+static std::int32_t WindowInventory_TogglePreview(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x00488950。
-static std::int32_t WindowInventory_CycleEquipment(ElementId elementId, std::int32_t state);
+static std::int32_t WindowInventory_CycleEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x00488970。
-static std::int32_t WindowInventory_RotatePreview(ElementId elementId, std::int32_t state);
+static std::int32_t WindowInventory_RotatePreview(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x00488EA0。
-static std::int32_t WindowInventory_TabEquipment(ElementId elementId, std::int32_t state);
+static std::int32_t WindowInventory_TabEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x00488EC0。
-static std::int32_t WindowInventory_TabPet(ElementId elementId, std::int32_t state); // SAP01：库存宠物页签，原低AL归一为S32，五对/无效图处理保持。
+static std::int32_t WindowInventory_TabPet(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // SAP01：库存宠物页签，原低AL归一为S32，五对/无效图处理保持。
 
 // 原函数：0x00488C50。
-static std::int32_t WindowInventory_ButtonClose(ElementId elementId, std::int32_t state); // 库存关闭按钮。
+static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 库存关闭按钮。
 
 // 原函数：0x00488CF0。
 static void WindowInventory_DropMoney(std::int32_t amount); // MDR01：原动作BYTE/场景门槛短路，Y-X发送金额，void副作用/完整ABI待。
 
 // 原函数：0x00488D30。
-static std::int32_t WindowInventory_HandleMoney(ElementId elementId, std::int32_t state); // MDR01：三次fresh窗口匹配/实时金额同步，held graphic及0/1返回保。
+static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // MDR01：三次fresh窗口匹配/实时金额同步，held graphic及0/1返回保。
 
 // 原函数：0x00488E60。
-static std::int32_t WindowInventory_RefreshMoney(ElementId elementId, std::int32_t unusedState);
+static std::int32_t WindowInventory_RefreshMoney(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x00488E80。
-static std::int32_t WindowInventory_RefreshExtraValue(ElementId elementId, std::int32_t unusedState);
+static std::int32_t WindowInventory_RefreshExtraValue(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x00489EE0。
-static std::int32_t WindowInventory_TabPlayerAttributes(ElementId elementId, std::int32_t state);
+static std::int32_t WindowInventory_TabPlayerAttributes(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x00488510。
 static void WindowInventory_Release(WindowInstance&);
@@ -404,10 +404,10 @@ static std::int32_t WindowItem_DrawDescriptionLines(
 
 // ISP01：借同一列表/原动态count，state低BYTE消费；循环尾先重取count再推进槽。
 // 原函数：0x0048A6C0。
-std::int32_t WindowInventory_DrawBlockedEquipment(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowInventory_DrawBlockedEquipment(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -467,36 +467,36 @@ std::int32_t WindowInventory_OpenSpecialSelection(const char* const text)
 }
 
 // 原函数：0x00488930。
-static std::int32_t WindowInventory_TogglePreview(const ElementId, const std::int32_t state)
+static std::int32_t WindowInventory_TogglePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_TogglePreview(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
 // 原函数：0x00488950。
-static std::int32_t WindowInventory_CycleEquipment(const ElementId, const std::int32_t state)
+static std::int32_t WindowInventory_CycleEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_CycleEquipment(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
 // 原函数：0x00488970。
-static std::int32_t WindowInventory_RotatePreview(const ElementId, const std::int32_t state)
+static std::int32_t WindowInventory_RotatePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     static_cast<void>(WindowItemSelector_RotatePreview(&gItemSelectorCF3B10, state));
     return 0;
 }
 
 // 原函数：0x00488EA0。
-static std::int32_t WindowInventory_TabEquipment(const ElementId, const std::int32_t state)
+static std::int32_t WindowInventory_TabEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_HandleTab(&gItemSelectorCF3B10, 0, state) ? 1 : 0;
 }
 
 // SAP01：原81条；五对used/索引/flags与S8模式保持，成功低AL归一、无效图/声效按原，运行待。
 // 原函数：0x00488EC0。
-static std::int32_t WindowInventory_TabPet(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowInventory_TabPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t ordinal = index - 19;
     std::int32_t remaining = ordinal;
@@ -520,8 +520,8 @@ static std::int32_t WindowInventory_TabPet(const ElementId elementId, const std:
         if (ordinal >= 0) {
             return WindowItemSelector_HandleTab(&gItemSelectorCF3B10, ordinal + 1, state) ? 1 : 0;
         }
-    } else if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection) == ordinal + 1) {
-        --WindowRuntime_Settings().inventoryActorSelection;
+    } else if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection) == ordinal + 1) {
+        --WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection;
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -667,9 +667,9 @@ static std::int32_t WindowInventory_Draw(WindowInstance& callbackWindow, const s
 }
 
 // 原函数：0x00488C50。
-static std::int32_t WindowInventory_ButtonClose(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowInventory_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -704,10 +704,10 @@ static void WindowInventory_DropMoney(const std::int32_t amount)
 
 // MDR01：原488D30完整91条；held graphic/三fresh窗口匹配，开框后重读金额、图号优先序及S32 0/1保持。
 // 原函数：0x00488D30。
-static std::int32_t WindowInventory_HandleMoney(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowInventory_HandleMoney(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -717,8 +717,8 @@ static std::int32_t WindowInventory_HandleMoney(const ElementId elementId, const
             gHoverTextD68AE8 = L"想放钱在地面时使用此按键。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            if (WindowRuntime_States()[WindowId_Quantity].window != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 14
-                && WindowRuntime_States()[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
+            if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].window != nullptr && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value20 == 14
+                && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
                 static_cast<void>(audio::PlaySe_52C450(55, 320));
             } else {
                 const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
@@ -727,18 +727,18 @@ static std::int32_t WindowInventory_HandleMoney(const ElementId elementId, const
             }
             consumed = 1;
         }
-        if (WindowRuntime_States()[WindowId_Quantity].window != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 14
-            && WindowRuntime_States()[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
+        if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].window != nullptr && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value20 == 14
+            && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
             const std::int32_t amount = world::gPlayerRuntimeSlots.valueFC;
-            WindowRuntime_States()[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
-            WindowRuntime_States()[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10 = static_cast<std::uint32_t>(amount);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14 = static_cast<std::uint32_t>(amount);
         }
         graphic->imageNo = 244291;
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 244293;
         }
-        if (WindowRuntime_States()[WindowId_Quantity].window != nullptr && WindowRuntime_States()[WindowId_Quantity].value20 == 14
-            && WindowRuntime_States()[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
+        if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].window != nullptr && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value20 == 14
+            && WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value24 == static_cast<std::uint32_t>(index)) {
             graphic->imageNo = 244292;
         }
         return consumed;
@@ -747,24 +747,24 @@ static std::int32_t WindowInventory_HandleMoney(const ElementId elementId, const
 }
 
 // 原函数：0x00488E60。
-static std::int32_t WindowInventory_RefreshMoney(const ElementId, const std::int32_t)
+static std::int32_t WindowInventory_RefreshMoney(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     cg::text::FormatTo(gInventoryMoneyTextCB086C, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00488E80。
-static std::int32_t WindowInventory_RefreshExtraValue(const ElementId, const std::int32_t)
+static std::int32_t WindowInventory_RefreshExtraValue(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     cg::text::FormatTo(gInventoryValueTextCC3ECC, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 
 // 原函数：0x00488FB0。
-std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowInventory_HandleItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static std::int32_t previousHoveredSlot = -2; // 原全局：0x0057DA2C。
     render::GraphicDescriptor16 descriptor {};
@@ -803,7 +803,7 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
                     continue;
                 }
             }
-            if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection) > 0 && source < 6) {
+            if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection) > 0 && source < 6) {
                 WindowItem_TransferQuantity(1, source, 0, position + 8);
             } else if (source != position + 8) {
                 WindowItem_RequestTransfer(14, index, source, position + 8);
@@ -839,7 +839,7 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
         currentWindow->state |= 0x2000u;
     }
     if (previousHoveredSlot != hovered) {
-        WindowRuntime_States()[WindowId_Inventory].value14 = 0;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = 0;
     }
     previousHoveredSlot = hovered;
     if (gSelectedItemCB1DF4 < 0 && hovered >= 0
@@ -860,7 +860,7 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
                 } else {
                     if ((world::ReadPlayerActionFlags() & 0x80u) == 0
                         && world::IsObservationSceneTransitionActive_440B50() == 0) {
-                        const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection);
+                        const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection);
                         gSelectedItemCB0A44 = hovered + 8;
                         const std::int32_t group = mode > 0
                             ? WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1 : 0;
@@ -868,7 +868,7 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
                             static_cast<std::int32_t>(world::gPlayerY);
                         const std::int32_t x =
                             static_cast<std::int32_t>(world::gPlayerX);
-                        static_cast<void>(cg::network::GetGameConnection().BeginItemUseRequest(x, y, hovered + 8, group));
+                        static_cast<void>(callbackWindow.ownerSession->Connection().BeginItemUseRequest(x, y, hovered + 8, group));
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
                     static_cast<void>(WindowDrag_ResetMouse());
@@ -889,12 +889,12 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Inventory].value14);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14);
                 const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
-                WindowRuntime_States()[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    WindowRuntime_States()[WindowId_Inventory].value14 = 0;
+                    WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = 0;
                 }
             }
             consumed = 1;
@@ -931,7 +931,7 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
         }
         const auto& item = world::gPlayerRuntimeSlots.items[hovered + 8];
         if (item.used != 0) {
-            WindowRuntime_States()[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered + 8);
             if (!item.memo.empty() && (item.flags & 0x100u) != 0) {
                 gHoverTextD68AE8 = item.name + L"[kok]";
             } else if ((item.flags & 0x200u) != 0) {
@@ -976,10 +976,10 @@ std::int32_t WindowInventory_HandleItems(const ElementId elementId, const std::i
 
 // IER01：原584条；装备拖放/使用/显示保持，两物品BYTE及动作BYTE明确，selected先于hover写回；全生产消费/运行待。
 // 原函数：0x00489760。
-std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowInventory_HandleEquipment(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static std::int32_t previousHoveredSlot = -2; // 原全局：0x0057DA68。
     static constexpr const wchar_t* playerHints[] {
@@ -1033,7 +1033,7 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
             if (dropX >= left + 48 || left > dropX || dropY >= top + 48 || top > dropY) {
                 continue;
             }
-            if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection) <= 0) {
+            if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection) <= 0) {
                 if (source != position) {
                     WindowItem_RequestTransfer(14, index, source, position);
                 }
@@ -1069,7 +1069,7 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
     auto* const item = items + hovered;
     const std::int32_t hitIndex = hovered;
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
-        gHoverTextD68AE8 = WindowRuntime_Settings().inventoryActorSelection != 0 ? petHints[hovered] : playerHints[hovered];
+        gHoverTextD68AE8 = WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection != 0 ? petHints[hovered] : playerHints[hovered];
     }
     if (WindowDrag_ReadKind() != 0 && (events & MouseFlag_Dragging) != 0 && WindowDrag_ReadSourceIndex() >= 100) {
         hovered = -1;
@@ -1085,7 +1085,7 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
         }
     }
     if (previousHoveredSlot != hovered) {
-        WindowRuntime_States()[WindowId_Inventory].value14 = 0;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = 0;
     }
     const std::int32_t selectedItem = gSelectedItemCB1DF4;
     previousHoveredSlot = hovered;
@@ -1107,17 +1107,17 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
                 } else {
                     if ((world::ReadPlayerActionFlagsByte() & 0x80u) == 0
                         && world::IsObservationSceneTransitionActive_440B50() == 0) {
-                        const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings().inventoryActorSelection);
+                        const std::int8_t mode = std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).inventoryActorSelection);
                         gSelectedItemCB0A44 = hovered;
                         if (mode > 0) {
                             const std::int32_t group = WindowItemSelector_ReadSelectedPet(&gItemSelectorCF3B10) + 1;
-                            static_cast<void>(cg::network::GetGameConnection().MoveItemBetweenOwnersRequest(group, hovered, 0, -1, -1));
+                            static_cast<void>(callbackWindow.ownerSession->Connection().MoveItemBetweenOwnersRequest(group, hovered, 0, -1, -1));
                         } else {
                             const std::int32_t y =
                                 static_cast<std::int32_t>(world::gPlayerY);
                             const std::int32_t x =
                                 static_cast<std::int32_t>(world::gPlayerX);
-                            static_cast<void>(cg::network::GetGameConnection().BeginItemUseRequest(x, y, hovered, 0));
+                            static_cast<void>(callbackWindow.ownerSession->Connection().BeginItemUseRequest(x, y, hovered, 0));
                         }
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
@@ -1139,11 +1139,11 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (item->used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Inventory].value14);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14);
                 ++page;
-                WindowRuntime_States()[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = static_cast<std::uint32_t>(page);
                 if (page >= item->pages) {
-                    WindowRuntime_States()[WindowId_Inventory].value14 = 0;
+                    WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value14 = 0;
                 }
             }
             consumed = 1;
@@ -1168,7 +1168,7 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
             static_cast<std::uint16_t>(left + 48), static_cast<std::uint16_t>(top + 48),
             223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         if (item->used != 0) {
-            WindowRuntime_States()[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Inventory].value10 = static_cast<std::uint32_t>(hovered);
             if (!item->memo.empty() && (item->flags & 0x100u) != 0) {
                 gHoverTextD68AE8 = item->name + L"[kok]";
             } else if ((item->flags & 0x200u) != 0) {
@@ -1201,16 +1201,16 @@ std::int32_t WindowInventory_HandleEquipment(const ElementId elementId, const st
 }
 
 // 原函数：0x00489EE0。
-static std::int32_t WindowInventory_TabPlayerAttributes(const ElementId, const std::int32_t state)
+static std::int32_t WindowInventory_TabPlayerAttributes(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_HandlePlayerAttributes(&gItemSelectorCF3B10, state) ? 1 : 0;
 }
 
 // ISP01：原两mode选物/发送/独立取消及绘制保持，按钮和mode2 flags只读原BYTE。
 // 原函数：0x00489F00。
-std::int32_t WindowInventory_HandleItemSelection(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowInventory_HandleItemSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -1289,7 +1289,7 @@ std::int32_t WindowInventory_HandleItemSelection(const ElementId elementId, cons
             const std::uint8_t mode = gItemSelectionModeCC40D4;
             if (mode == 1) {
                 const std::int32_t selected = gSelectedItemCB0A44;
-                static_cast<void>(cg::network::GetGameConnection().SendItemTargetPair(hovered + 8, selected));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendItemTargetPair(hovered + 8, selected));
             } else if (mode == 2) {
                 cg::text::FormatTo(buffer, L"{}", hovered + 8);
                 escaped = input::EscapeTextAndNotify(buffer, 15);
@@ -1299,7 +1299,7 @@ std::int32_t WindowInventory_HandleItemSelection(const ElementId elementId, cons
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, escaped));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, escaped));
                 leaveSelection();
             }
         }

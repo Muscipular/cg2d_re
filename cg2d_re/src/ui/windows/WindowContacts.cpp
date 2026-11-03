@@ -144,46 +144,46 @@ static void WindowContacts_ApplyDisplayLayout(std::int32_t mode); // 联系人�
 static void WindowContacts_ApplyCategoryLayout(std::int32_t category); // 普通/公会/迷你名单布局，借原型坐标。
 
 // 原函数：0x004A1C30。
-static std::int32_t WindowContacts_ScrollRow(ElementId elementId, std::int32_t state); // 单行滚动、边界音效及保存。
+static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 单行滚动、边界音效及保存。
 
 // 原函数：0x004A1EF0。
-static std::int32_t WindowContacts_HandleNavigation(ElementId elementId, std::int32_t state); // 显示/排序/翻页及三行记录TLKH发送。
+static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 显示/排序/翻页及三行记录TLKH发送。
 
 // 原函数：0x004A2610。
-static std::int32_t WindowContacts_ButtonGroupMail(ElementId elementId, std::int32_t state); // 群发入口：检查49，动画打开22。
+static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 群发入口：检查49，动画打开22。
 
 // 原函数：0x004A2870。
-static std::int32_t WindowContacts_TabCategory(ElementId elementId, std::int32_t state); // 普通/公会/迷你类别切换。
+static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 普通/公会/迷你类别切换。
 
 // 原函数：0x004A2BD0。
-static std::int32_t WindowContacts_ButtonGuildDetails(ElementId elementId, std::int32_t state); // 动画打开窗口48公会详情。
+static std::int32_t WindowContacts_ButtonGuildDetails(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 动画打开窗口48公会详情。
 
 // 原函数：0x004A37E0。
 static std::int32_t WindowContacts_ResolveRecordIndex(std::int32_t index); // 三行/九行元素编号到同源排序后记录索引。
 
 // 原函数：0x004A40C0。
-static std::int32_t WindowContacts_Scroll(ElementId elementId, std::int32_t state); // 滚轮推进，重读类别写回，恒返回0。
+static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 滚轮推进，重读类别写回，恒返回0。
 
 // 原函数：0x004A2530。
-static std::int32_t WindowContacts_HandleRankButton(ElementId elementId, std::int32_t state); // 六职级按钮，bit400转交完整4A38C0。
+static std::int32_t WindowContacts_HandleRankButton(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六职级按钮，bit400转交完整4A38C0。
 
 // 原函数：0x004A38C0。
 static void WindowContacts_OpenRankSelection(std::int32_t index); // 两次联系人索引读取，生产职级状态后直接打开55。
 
 // 原函数：0x004A2B00。
-static std::int32_t WindowContacts_OpenMail(ElementId elementId, std::int32_t state); // 发布同源记录/两类别槽，动画打开40。
+static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 发布同源记录/两类别槽，动画打开40。
 
 // 原函数：0x004A3780。
 static std::int32_t WindowContacts_ResolveButtonRecord(std::int32_t index); // 三行/九行分组按钮到实际记录索引。
 
 // 原函数：0x004A39C0。
-static std::int32_t WindowContacts_HandleAvatar(ElementId elementId, std::int32_t state); // 九行头像悬停及独立TLKH双击发送。
+static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 九行头像悬停及独立TLKH双击发送。
 
 // 原函数：0x004A3C70。
-static std::int32_t WindowContacts_ButtonCompose(ElementId elementId, std::int32_t state); // 十二写信按钮，发布类别/索引后动画打开22。
+static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 十二写信按钮，发布类别/索引后动画打开22。
 
 // 原函数：0x004A32E0。
-static std::int32_t WindowContacts_ButtonDelete(ElementId elementId, std::int32_t state); // 三类联系人删除确认分派。
+static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 三类联系人删除确认分派。
 
 // 原函数：0x004A33C0。
 static cg::yobi::YobiAction* WindowContacts_ConfirmDeleteContact(std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
@@ -827,9 +827,9 @@ static void WindowContacts_ApplyCategoryLayout(const std::int32_t category)
 }
 
 // 原函数：0x004A1C30。
-static std::int32_t WindowContacts_ScrollRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_ScrollRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -847,7 +847,7 @@ static std::int32_t WindowContacts_ScrollRow(const ElementId elementId, const st
         return 0;
     }
 
-    const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
+    const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     std::int32_t& position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     position += elementId == static_cast<ElementId>(WindowContactsElementId::ScrollRow) ? -1 : 1;
@@ -877,10 +877,10 @@ static std::int32_t WindowContacts_ScrollRow(const ElementId elementId, const st
 }
 
 // 原函数：0x004A1EF0。
-static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId >= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_52) && elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_54)) {
         if ((state & MouseFlag_RDownEvent) == 0) {
@@ -892,7 +892,7 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
             if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
                 return 1;
             }
-            static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(0, recordIndex));
+            static_cast<void>(callbackWindow.ownerSession->Connection().RequestPlayerProfile(0, recordIndex));
             break;
         }
         case 1: {
@@ -902,7 +902,7 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
                 return 1;
             }
             const std::int32_t target = record.value0C;
-            static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(1, target));
+            static_cast<void>(callbackWindow.ownerSession->Connection().RequestPlayerProfile(1, target));
             break;
         }
         case 2: {
@@ -912,7 +912,7 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
                 return 1;
             }
             const std::int32_t target = record.key04;
-            static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(2, target));
+            static_cast<void>(callbackWindow.ownerSession->Connection().RequestPlayerProfile(2, target));
             break;
         }
         }
@@ -929,7 +929,7 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
         if ((state & MouseFlag_Hover) != 0) {
             graphic->imageNo = 0x3B558 + imageOffset;
             if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)) {
-                gHoverTextD68AE8 = WindowRuntime_Settings().contactsPreviewMode != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
+                gHoverTextD68AE8 = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode != 0 ? L"切换为详细显示。" /* 原常量参考：0x00587444。 */ : L"切换为预览显示。" /* 原常量参考：0x00587458。 */;
             } else if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_5)) {
                 gHoverTextD68AE8 = L"切换名片的排序方式。" /* 原常量参考：0x0058746C。 */;
             }
@@ -941,10 +941,10 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (elementId <= static_cast<ElementId>(WindowContactsElementId::HandleNavigation_3)) {
-            const std::int32_t oldMode = WindowRuntime_Settings().contactsPreviewMode;
+            const std::int32_t oldMode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t mode = oldMode == 0 ? 1 : 0;
-            WindowRuntime_Settings().contactsPreviewMode = mode;
+            WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode = mode;
             WindowContacts_SetDisplayMode(mode, category);
             const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
             gLoginWindowRuntime.valuesD67B40[3 + currentCategory] = 0;
@@ -956,7 +956,7 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
             gLoginWindowRuntime.mailSortModeD67B3C = std::bit_cast<std::uint32_t>(sort);
             platform::gContactSortMode_D67CD0 = std::bit_cast<std::uint32_t>(sort);
         } else {
-            const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
+            const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
             const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
             const std::int32_t step = mode == 0 ? 3 : 9;
             gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category] += elementId == static_cast<ElementId>(WindowContactsElementId::HandleNavigation_6) ? -step : step;
@@ -978,9 +978,9 @@ static std::int32_t WindowContacts_HandleNavigation(const ElementId elementId, c
 }
 
 // 原函数：0x004A2610。
-static std::int32_t WindowContacts_ButtonGroupMail(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonGroupMail(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -993,14 +993,14 @@ static std::int32_t WindowContacts_ButtonGroupMail(const ElementId elementId, co
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B542;
-            WindowInstance* const window = WindowRuntime_States()[WindowId_GroupSelect].window;
+            WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GroupSelect].window;
             if (window != nullptr) {
                 window->state |= 0x8000u;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             } else {
                 gLoginWindowRuntime.prefixD2F0B8.value10 = 1;
                 gLoginWindowRuntime.prefixD2F0B8.value00 = 0;
-                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
+                static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
             }
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
@@ -1014,10 +1014,10 @@ static std::int32_t WindowContacts_ButtonGroupMail(const ElementId elementId, co
 }
 
 // 原函数：0x004A2870。
-static std::int32_t WindowContacts_TabCategory(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_TabCategory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId < static_cast<ElementId>(WindowContactsElementId::TabCategory) || elementId > static_cast<ElementId>(WindowContactsElementId::TabCategory_13)) {
         return 0;
@@ -1058,7 +1058,7 @@ static std::int32_t WindowContacts_TabCategory(const ElementId elementId, const 
         WindowContacts_ClampScroll();
         static_cast<void>(audio::PlaySe_52C450(56, 320));
         const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
-        const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
+        const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
         WindowContacts_SetDisplayMode(mode, currentCategory);
         consumed = 1;
     }
@@ -1066,9 +1066,9 @@ static std::int32_t WindowContacts_TabCategory(const ElementId elementId, const 
 }
 
 // 原函数：0x004A2BD0。
-static std::int32_t WindowContacts_ButtonGuildDetails(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonGuildDetails(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -1081,7 +1081,7 @@ static std::int32_t WindowContacts_ButtonGuildDetails(const ElementId elementId,
         std::int32_t consumed = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B9E6;
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_GuildDetails, 1, 0, nullptr));
+            static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_GuildDetails, 1, 0, nullptr));
             consumed = 1;
         }
         if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -1106,9 +1106,9 @@ static std::int32_t WindowContacts_ResolveRecordIndex(const std::int32_t index)
 }
 
 // 原函数：0x004A40C0。
-static std::int32_t WindowContacts_Scroll(const ElementId, const std::int32_t state)
+static std::int32_t WindowContacts_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) == 0) {
         return 0;
@@ -1132,7 +1132,7 @@ static std::int32_t WindowContacts_Scroll(const ElementId, const std::int32_t st
         count = state;
         break;
     }
-    const std::int32_t mode = WindowRuntime_Settings().contactsPreviewMode;
+    const std::int32_t mode = WindowRuntime_Settings(*callbackWindow.ownerSession).contactsPreviewMode;
     const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
     auto* const handleVerticalScrollElement = currentWindow->FindElementById(WindowContactsElementId::HandleVerticalScroll);
@@ -1146,10 +1146,10 @@ static std::int32_t WindowContacts_Scroll(const ElementId, const std::int32_t st
 }
 
 // 原函数：0x004A2530。
-static std::int32_t WindowContacts_HandleRankButton(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_HandleRankButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t parity = (index - 21) % 2;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
@@ -1195,10 +1195,10 @@ static void WindowContacts_OpenRankSelection(const std::int32_t index)
 }
 
 // 原函数：0x004A2B00。
-static std::int32_t WindowContacts_OpenMail(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_OpenMail(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -1224,7 +1224,7 @@ static std::int32_t WindowContacts_OpenMail(const ElementId elementId, const std
         const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
         gLoginWindowRuntime.mailCategoryD67B64 = category;
         gLoginWindowRuntime.mailCategoryCC4D50 = category;
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailRead, 1, 0, nullptr));
+        static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailRead, 1, 0, nullptr));
         consumed = 1;
     }
     if ((state & MouseFlag_LHoldPhysical) != 0) {
@@ -1249,10 +1249,10 @@ static std::int32_t WindowContacts_ResolveButtonRecord(const std::int32_t index)
 }
 
 // 原函数：0x004A39C0。
-static std::int32_t WindowContacts_HandleAvatar(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_HandleAvatar(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const activeWindow = gCurrentWindow;
+    WindowInstance* const activeWindow = &callbackWindow;
     if (!activeWindow) return 0;
     const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category] + index - 99;
@@ -1342,7 +1342,7 @@ static std::int32_t WindowContacts_HandleAvatar(const ElementId elementId, const
         if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
             return 1;
         }
-        static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(0, recordIndex));
+        static_cast<void>(callbackWindow.ownerSession->Connection().RequestPlayerProfile(0, recordIndex));
         break;
     }
     case 1: {
@@ -1352,7 +1352,7 @@ static std::int32_t WindowContacts_HandleAvatar(const ElementId elementId, const
             return 1;
         }
         const std::int32_t target = record.value0C;
-        static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(1, target));
+        static_cast<void>(callbackWindow.ownerSession->Connection().RequestPlayerProfile(1, target));
         break;
     }
     case 2: {
@@ -1362,7 +1362,7 @@ static std::int32_t WindowContacts_HandleAvatar(const ElementId elementId, const
             return 1;
         }
         const std::int32_t target = record.key04;
-        static_cast<void>(cg::network::GetGameConnection().RequestPlayerProfile(2, target));
+        static_cast<void>(callbackWindow.ownerSession->Connection().RequestPlayerProfile(2, target));
         break;
     }
     }
@@ -1370,9 +1370,9 @@ static std::int32_t WindowContacts_HandleAvatar(const ElementId elementId, const
 }
 
 // 原函数：0x004A3C70。
-static std::int32_t WindowContacts_ButtonCompose(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonCompose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -1420,15 +1420,15 @@ static std::int32_t WindowContacts_ButtonCompose(const ElementId elementId, cons
     gLoginWindowRuntime.prefixD2F0B8.value00 = category;
     const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(nineRows ? 3 : 0) + category];
     gLoginWindowRuntime.prefixD2F0B8.value04 = gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
-    static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
+    static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
     return 1;
 }
 
 // 原函数：0x004A32E0。
-static std::int32_t WindowContacts_ButtonDelete(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowContacts_ButtonDelete(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;

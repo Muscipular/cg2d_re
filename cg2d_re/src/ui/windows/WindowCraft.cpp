@@ -57,7 +57,7 @@ input::InputContext gInputContextD2DE70 {}; // 原全局：0x00D2DE70。
 // 回调与内部函数前置声明。
 
 // 原函数：0x00484D60。
-static std::int32_t WindowCraft_HandleMaterialTooltip(ElementId elementId, std::int32_t state); // 六材料槽悬停、翻页与图形绘制。
+static std::int32_t WindowCraft_HandleMaterialTooltip(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六材料槽悬停、翻页与图形绘制。
 
 // 原函数：0x0047D4B0。
 static std::int32_t WindowCraft_HasRecipeCrystalLevel(); // 晶石等级读取后比较当前配方等级。
@@ -87,7 +87,7 @@ static void WindowCraft_WaitDecoration(WindowInstance* window); // 装饰等待�
 static WindowAnimationData* WindowCraft_WaitRefining(WindowInstance* window); // 精炼等待模式10，一次RAND且不读物品等级。
 
 // 原函数：0x00483EB0。
-static std::int32_t WindowCraft_HandleMaterialSlot(ElementId elementId, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
+static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六材料完整投放/换位/逐帧校验与绘制。
 
 // 原函数：0x0047DF50。
 static WindowAnimationData* WindowCraft_InitializeRecipe(WindowInstance* window); // 制造模式0完整初始化，逆序发布五材料需求。
@@ -128,34 +128,34 @@ static void WindowCraft_HandleMaterialDrag(
 static std::int32_t WindowCraft_StartMaterialDrag(std::int32_t sourceIndex); // 安装类型10的47DE00拖动回调。
 
 // 原函数：0x00482270。
-static std::int32_t WindowCraft_ButtonExecute(ElementId elementId, std::int32_t state); // 执行资格、五等待及刻印直接发送。
+static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 执行资格、五等待及刻印直接发送。
 
 // 原函数：0x00482FA0。
-static std::int32_t WindowCraft_ButtonContinue(ElementId elementId, std::int32_t state); // 续作，初始化后独立重读模式5。
+static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 续作，初始化后独立重读模式5。
 
 // 原函数：0x004830B0。
-static std::int32_t WindowCraft_ButtonClose(ElementId elementId, std::int32_t state); // 底部关闭，点击仍返回0。
+static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 底部关闭，点击仍返回0。
 
 // 原函数：0x00483150。
-static std::int32_t WindowCraft_HandleInventory(ElementId elementId, std::int32_t state); // 20格背包投放/快速选择/拖动及绘制。
+static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 20格背包投放/快速选择/拖动及绘制。
 
 // 原函数：0x00484FB0。
-static std::int32_t WindowCraft_DrawResultImage(ElementId elementId, std::int32_t unusedState); // 结果图，负图号不绘制。
+static std::int32_t WindowCraft_DrawResultImage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 结果图，负图号不绘制。
 
 // 原函数：0x00485030。
-static std::int32_t WindowCraft_HandleEngravingInput(ElementId elementId, std::int32_t state); // 刻印输入焦点，借用唯一D2DE70。
+static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 刻印输入焦点，借用唯一D2DE70。
 
 // 原函数：0x00485160。
-static std::int32_t WindowCraft_ButtonCloseIcon(ElementId elementId, std::int32_t state); // 右上关闭，点击返回1。
+static std::int32_t WindowCraft_ButtonCloseIcon(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 右上关闭，点击返回1。
 
 // 原函数：0x00485200。
-static std::int32_t WindowCraft_DrawInvalidEngravingNotice(ElementId elementId, std::int32_t unusedState); // 非法刻印字符覆盖提示。
+static std::int32_t WindowCraft_DrawInvalidEngravingNotice(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 非法刻印字符覆盖提示。
 
 // 原函数：0x00485350。
-static std::int32_t WindowCraft_DrawEmptyEngravingNotice(ElementId elementId, std::int32_t unusedState); // 空白刻印覆盖提示。
+static std::int32_t WindowCraft_DrawEmptyEngravingNotice(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 空白刻印覆盖提示。
 
 // 原函数：0x004847C0。
-static std::int32_t WindowCraft_HandleSingleMaterial(ElementId elementId, std::int32_t state); // 单选投放/校验/拖动与绘制。
+static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 单选投放/校验/拖动与绘制。
 
 // 原函数：0x0047EC00。
 static WindowAnimationData* WindowCraft_InitializeItemWork(WindowInstance* window); // 单选模式3完整初始化，返回借用载荷。
@@ -167,7 +167,7 @@ static WindowAnimationData* WindowCraft_ShowRecipeResult(WindowInstance* window)
 static WindowAnimationData* WindowCraft_RefreshRecipeResult(); // 仅已有窗口11才更新，不自动创建。
 
 // 原函数：0x00484E90。
-static std::int32_t WindowCraft_HandleItemTooltip(ElementId elementId, std::int32_t state); // 单物品悬停/翻页，物品编号不加8。
+static std::int32_t WindowCraft_HandleItemTooltip(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 单物品悬停/翻页，物品编号不加8。
 
 // 原函数：0x0047F3D0。
 static WindowAnimationData* WindowCraft_ShowItemWorkResult(WindowInstance* window); // 物品加工结果展示，保留入口选择快照及交叉门禁。
@@ -1009,10 +1009,10 @@ static WindowAnimationData* WindowCraft_InitializeRefining(WindowInstance* const
 }
 
 // 原函数：0x00483EB0。
-static std::int32_t WindowCraft_HandleMaterialSlot(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_HandleMaterialSlot(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1620,9 +1620,9 @@ std::int32_t WindowCraft_ClassifyWork(const std::int32_t itemType)
 }
 
 // 原函数：0x00482270。
-static std::int32_t WindowCraft_ButtonExecute(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonExecute(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const elementPtr = currentWindow->FindElementById(elementId);
     if (!elementPtr) { return 0; }
@@ -1854,7 +1854,7 @@ static std::int32_t WindowCraft_ButtonExecute(const ElementId elementId, const s
                 const std::int32_t request = std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
                 const std::int32_t selected = gSelectedItemD460C0;
                 const std::int32_t skill = gCraftSkillIndexCC2368;
-                static_cast<void>(cg::network::GetGameConnection().SendSkillUseRequest(skill + offset, request, selected, buffer));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendSkillUseRequest(skill + offset, request, selected, buffer));
                 input::InputContext* const current = input::gCurrentInputData;
                 gSelectionModeD2D650 = 5;
                 if (current == &cg::ui::detail::gInputContextD2DE70) {
@@ -1926,9 +1926,9 @@ static std::int32_t WindowCraft_ButtonExecute(const ElementId elementId, const s
 }
 
 // 原函数：0x00482FA0。
-static std::int32_t WindowCraft_ButtonContinue(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonContinue(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -1976,9 +1976,9 @@ static std::int32_t WindowCraft_ButtonContinue(const ElementId elementId, const 
 }
 
 // 原函数：0x004830B0。
-static std::int32_t WindowCraft_ButtonClose(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -1988,7 +1988,7 @@ static std::int32_t WindowCraft_ButtonClose(const ElementId elementId, const std
             gHoverTextD68AE8 = L"关闭此视窗";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            WindowRuntime_States()[WindowId_Craft].window->state |= 0x8000u;
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         graphic->imageNo = 0x3B565;
@@ -2003,10 +2003,10 @@ static std::int32_t WindowCraft_ButtonClose(const ElementId elementId, const std
 }
 
 // 原函数：0x00483150。
-static std::int32_t WindowCraft_HandleInventory(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -2384,9 +2384,9 @@ static std::int32_t WindowCraft_HandleInventory(const ElementId elementId, const
 }
 
 // 原函数：0x00484FB0。
-static std::int32_t WindowCraft_DrawResultImage(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowCraft_DrawResultImage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t imageNo = gCraftDisplayImageCB2204;
     if (imageNo < 0) {
@@ -2408,9 +2408,9 @@ static std::int32_t WindowCraft_DrawResultImage(const ElementId elementId, const
 }
 
 // 原函数：0x00485030。
-static std::int32_t WindowCraft_HandleEngravingInput(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_HandleEngravingInput(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (gSelectedItemD460C0 < 0) {
         return 0;
@@ -2450,9 +2450,9 @@ static std::int32_t WindowCraft_HandleEngravingInput(const ElementId elementId, 
 }
 
 // 原函数：0x00485160。
-static std::int32_t WindowCraft_ButtonCloseIcon(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_ButtonCloseIcon(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -2463,7 +2463,7 @@ static std::int32_t WindowCraft_ButtonCloseIcon(const ElementId elementId, const
             gHoverTextD68AE8 = L"关闭这个视窗。";
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
-            WindowRuntime_States()[WindowId_Craft].window->state |= 0x8000u;
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Craft].window->state |= 0x8000u;
             static_cast<void>(audio::PlaySe_52C450(57, 320));
             consumed = 1;
         }
@@ -2513,7 +2513,7 @@ static std::int32_t WindowCraft_DrawInputNotice(
 }
 
 // 原函数：0x00485200。
-static std::int32_t WindowCraft_DrawInvalidEngravingNotice(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowCraft_DrawInvalidEngravingNotice(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     return WindowCraft_DrawInputNotice(index,
@@ -2522,7 +2522,7 @@ static std::int32_t WindowCraft_DrawInvalidEngravingNotice(const ElementId eleme
 }
 
 // 原函数：0x00485350。
-static std::int32_t WindowCraft_DrawEmptyEngravingNotice(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowCraft_DrawEmptyEngravingNotice(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     return WindowCraft_DrawInputNotice(index,
@@ -2531,9 +2531,9 @@ static std::int32_t WindowCraft_DrawEmptyEngravingNotice(const ElementId element
 }
 
 // 原函数：0x004847C0。
-static std::int32_t WindowCraft_HandleSingleMaterial(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_HandleSingleMaterial(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -3294,10 +3294,10 @@ WindowAnimationData* WindowCraft_ConfigurePreviews_47D220(
 }
 
 // 原函数：0x00484D60。
-static std::int32_t WindowCraft_HandleMaterialTooltip(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_HandleMaterialTooltip(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -3531,9 +3531,9 @@ WindowAnimationData* WindowCraft_ReceiveRecipeResult(const std::int32_t result, 
 }
 
 // 原函数：0x00484E90。
-static std::int32_t WindowCraft_HandleItemTooltip(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowCraft_HandleItemTooltip(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;

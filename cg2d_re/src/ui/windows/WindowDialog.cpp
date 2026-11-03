@@ -98,10 +98,10 @@ struct HealingDialogRecord {
 // 回调与内部函数前置声明。
 
 // 原函数：0x0049CE70。
-static std::int32_t WindowDialog_HandleButtons(ElementId elementId, std::int32_t state); // 六按钮与原位图号恢复。
+static std::int32_t WindowDialog_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六按钮与原位图号恢复。
 
 // 原函数：0x0049CF70。
-static std::int32_t WindowDialog_HandleTextSelection(ElementId elementId, std::int32_t state); // 输入行切换/文本行选择。
+static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 输入行切换/文本行选择。
 
 // 原函数：0x0049DA30。
 static std::int32_t WindowDialog_Reply(
@@ -589,10 +589,10 @@ static void WindowDialog_Release(WindowInstance&)
 }
 
 // 原函数：0x0049CE70。
-static std::int32_t WindowDialog_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowDialog_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static constexpr std::int32_t images[6][3] {
         {243048, 243049, 243050},
@@ -641,9 +641,9 @@ static std::int32_t WindowDialog_HandleButtons(const ElementId elementId, const 
 }
 
 // 原函数：0x0049CF70。
-static std::int32_t WindowDialog_HandleTextSelection(const ElementId, const std::int32_t state)
+static std::int32_t WindowDialog_HandleTextSelection(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t inputCount = std::bit_cast<std::int8_t>(gMessageDialog.inputCount);
     gMessageDialog.events = state;

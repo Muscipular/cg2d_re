@@ -23,10 +23,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004AC290。
-static std::int32_t WindowItemStorage_HandleOwnItems(ElementId elementId, std::int32_t state); // 窗口38自有物品面板。
+static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口38自有物品面板。
 
 // 原函数：0x004AC890。
-static std::int32_t WindowItemStorage_HandleStoredItems(ElementId elementId, std::int32_t state); // SEP01：完整窗口38外部物品消费，低BYTE/坐标原序与S32 consumed保持。
+static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // SEP01：完整窗口38外部物品消费，低BYTE/坐标原序与S32 consumed保持。
 
 // 原函数：0x004AC0F0。
 static void WindowItemStorage_Release(WindowInstance&);
@@ -131,10 +131,10 @@ static std::int32_t WindowItemStorage_Draw(WindowInstance& callbackWindow, const
 }
 
 // 原函数：0x004AC290。
-static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowItemStorage_HandleOwnItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -204,7 +204,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, 
         hovered = -1;
     }
     if (gStorageOwnHover57EE04 != hovered) {
-        WindowRuntime_States()[WindowId_ItemStorage].value20 = 0;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20 = 0;
     }
     gStorageOwnHover57EE04 = hovered;
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
@@ -217,12 +217,12 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, 
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_ItemStorage].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20);
                 const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
-                WindowRuntime_States()[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    WindowRuntime_States()[WindowId_ItemStorage].value20 = 0;
+                    WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20 = 0;
                 }
             }
             consumed = 1;
@@ -257,7 +257,7 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, 
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-            WindowRuntime_States()[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -307,10 +307,10 @@ static std::int32_t WindowItemStorage_HandleOwnItems(const ElementId elementId, 
 
 // SEP01：原4AC890完整426条；flags只读低BYTE，坐标按原S32取样序，窗口38类型门槛/翻页/数量显示保持。
 // 原函数：0x004AC890。
-static std::int32_t WindowItemStorage_HandleStoredItems(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowItemStorage_HandleStoredItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -383,7 +383,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const ElementId elementI
         }
     }
     if (gStorageExternalHover57EE08 != hovered) {
-        WindowRuntime_States()[WindowId_ItemStorage].value20 = 0;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20 = 0;
     }
     gStorageExternalHover57EE08 = hovered;
     if ((events & MouseFlag_Hover) != 0 && hovered >= 0) {
@@ -401,13 +401,13 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const ElementId elementI
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_ItemStorage].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20);
                 std::int32_t pages;
                 std::memcpy(&pages, &record->pages, sizeof(pages));
                 ++page;
-                WindowRuntime_States()[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    WindowRuntime_States()[WindowId_ItemStorage].value20 = 0;
+                    WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].value20 = 0;
                 }
             }
             consumed = 1;
@@ -452,7 +452,7 @@ static std::int32_t WindowItemStorage_HandleStoredItems(const ElementId elementI
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
-            WindowRuntime_States()[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ItemStorage].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));

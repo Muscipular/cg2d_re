@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/scene/login/LoginRequest.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -28,7 +29,7 @@ struct MailStatusTextTable {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004A3760。
-static std::int32_t WindowMail_CancelDelete(ElementId elementId, std::int32_t unusedState); // 取消时必要重开窗口21。
+static std::int32_t WindowMail_CancelDelete(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 取消时必要重开窗口21。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -222,28 +223,28 @@ void WindowMail_SetUnreadGraphic(const std::int32_t index)
 }
 
 // 原函数：0x004A3600。
-std::int32_t WindowMail_DeleteContact(const ElementId, const std::int32_t)
+std::int32_t WindowMail_DeleteContact(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
-    static_cast<void>(cg::network::GetGameConnection().RequestContactDeletion(index));
+    static_cast<void>(callbackWindow.ownerSession->Connection().RequestContactDeletion(index));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     static_cast<void>(world::detail::ClearContactMailMessages_5192C0(currentIndex));
     static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
-    if (WindowRuntime_States()[WindowId_Contacts].window == nullptr) {
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Contacts, 1, 0, nullptr));
+    if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Contacts].window == nullptr) {
+        static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Contacts, 1, 0, nullptr));
     }
     static_cast<void>(audio::PlaySe_52C450(78, 320));
     return 1;
 }
 
 // 原函数：0x004A3660。
-std::int32_t WindowMail_DeleteGuildMember(const ElementId, const std::int32_t)
+std::int32_t WindowMail_DeleteGuildMember(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+    const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
     const std::int32_t key = cg::world::gOrderedRecords1051B14[index].value0C;
-    static_cast<void>(cg::network::GetGameConnection().RequestGuildMemberDeletion(key));
+    static_cast<void>(callbackWindow.ownerSession->Connection().RequestGuildMemberDeletion(key));
     static_cast<void>(cg::world::detail::SaveContactMailFile_519300());
     static_cast<void>(cg::world::detail::SaveGuildMailFile_519550());
     static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -251,14 +252,14 @@ std::int32_t WindowMail_DeleteGuildMember(const ElementId, const std::int32_t)
 }
 
 // 原函数：0x004A36B0。
-std::int32_t WindowMail_DeleteMiniMailContact(const ElementId, const std::int32_t)
+std::int32_t WindowMail_DeleteMiniMailContact(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     const auto& record = world::detail::ReadMiniMailContact1075A90(index);
     const std::int32_t key = record.key04;
     const std::wstring escapedText = input::EscapeTextAndNotify(record.name10, 255);
-    const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-    static_cast<void>(cg::network::GetGameConnection().RequestMiniMailContactDeletion(key, escapedText));
+    const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
+    static_cast<void>(callbackWindow.ownerSession->Connection().RequestMiniMailContactDeletion(key, escapedText));
     const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
     world::detail::RemoveMiniMailContact_534480(currentIndex);
     static_cast<void>(audio::PlaySe_52C450(78, 320));
@@ -266,10 +267,10 @@ std::int32_t WindowMail_DeleteMiniMailContact(const ElementId, const std::int32_
 }
 
 // 原函数：0x004A3760。
-static std::int32_t WindowMail_CancelDelete(const ElementId, const std::int32_t)
+static std::int32_t WindowMail_CancelDelete(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
-    if (WindowRuntime_States()[WindowId_Contacts].window == nullptr) {
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Contacts, 1, 0, nullptr));
+    if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Contacts].window == nullptr) {
+        static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Contacts, 1, 0, nullptr));
     }
     return 1;
 }

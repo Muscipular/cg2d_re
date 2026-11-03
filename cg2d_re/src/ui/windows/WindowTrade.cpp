@@ -150,7 +150,7 @@ static void WindowTrade_HandleOwnInventory(
     const render::GraphicDescriptor16* descriptor); // 自有物品交易页，20格玩家背包。
 
 // 原函数：0x004B2480。
-static std::int32_t WindowTrade_HandleOwnPanel(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTrade_HandleOwnPanel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004B2500。
 static void WindowTrade_RefreshOwnPanel(
@@ -191,7 +191,7 @@ static void WindowTrade_HandleSelectedPet(
     const render::GraphicDescriptor16* descriptor); // 己方已选宠物完整交互/绘制。
 
 // 原函数：0x004B3430。
-static std::int32_t WindowTrade_HandleSelectedPanel(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTrade_HandleSelectedPanel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004B34C0。
 static void WindowTrade_RefreshSelectedPanel(
@@ -217,7 +217,7 @@ static std::int32_t WindowTrade_HandlePanel(
     render::GraphicDescriptor16* descriptor, WindowTradePanelCallback callback); // TQN01：低W16坐标/scroll BYTE及声效后fresh滚动目标，callback与真实S32 0/2返回保。
 
 // 原函数：0x004B3580。
-static std::int32_t WindowTrade_HandleRemoteSelection(ElementId elementId, std::int32_t state); // 对方交易面板入口。
+static std::int32_t WindowTrade_HandleRemoteSelection(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 对方交易面板入口。
 
 // 原函数：0x004B3610。
 static void WindowTrade_HandleRemoteItem(
@@ -238,16 +238,16 @@ static std::int32_t WindowTrade_ReadSelectedItem(std::int32_t index); // S8物�
 static std::int32_t WindowTrade_ReadSelectedPet(std::int32_t index); // S8宠物槽，负值归-1。
 
 // 原函数：0x004B0A50。
-static std::int32_t WindowTrade_ButtonPublish(ElementId elementId, std::int32_t state); // 公开两组交易槽及数值。
+static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 公开两组交易槽及数值。
 
 // 原函数：0x004B0CF0。
-static std::int32_t WindowTrade_ButtonWithdraw(ElementId elementId, std::int32_t state); // 撤回公开，无计时门禁。
+static std::int32_t WindowTrade_ButtonWithdraw(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 撤回公开，无计时门禁。
 
 // 原函数：0x004B0DB0。
-static std::int32_t WindowTrade_ButtonConfirm(ElementId elementId, std::int32_t state); // 确认/撤销确认，共享500ms门槛。
+static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 确认/撤销确认，共享500ms门槛。
 
 // 原函数：0x004B09E0。
-static std::int32_t WindowTrade_HandleAmountInput(ElementId elementId, std::int32_t state); // 交易输入激活/聊天恢复。
+static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 交易输入激活/聊天恢复。
 
 // 原函数：0x004B4070。
 static std::int32_t WindowTrade_DrawRemotePetSkillRow(
@@ -1067,7 +1067,7 @@ static std::int32_t WindowTrade_HandlePanel(
         static_cast<void>(audio::PlaySe_52C450(
             std::bit_cast<std::int8_t>(*tab) == selected ? 55 : 51, 320));
         *tab = static_cast<std::uint8_t>(selected);
-        static_cast<void>(WindowTrade_HandleAmountInput(NativeElementKey(0), 2));
+        static_cast<void>(WindowTrade_HandleAmountInput(*window, NativeElementKey(0), 2));
     }
     if ((state & MouseFlag_LRepeatDown) != 0 && *tab == 1) {
         if (selected == 3) {
@@ -1484,10 +1484,10 @@ static void WindowTrade_HandleOwnPets(
 }
 
 // 原函数：0x004B2480。
-static std::int32_t WindowTrade_HandleOwnPanel(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTrade_HandleOwnPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = currentWindow;
@@ -1951,10 +1951,10 @@ static void WindowTrade_HandleSelectedPet(
 }
 
 // 原函数：0x004B3430。
-static std::int32_t WindowTrade_HandleSelectedPanel(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTrade_HandleSelectedPanel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = currentWindow;
@@ -2008,10 +2008,10 @@ static void WindowTrade_RefreshSelectedPanel(
 }
 
 // 原函数：0x004B3580。
-static std::int32_t WindowTrade_HandleRemoteSelection(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTrade_HandleRemoteSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     WindowInstance* const window = currentWindow;
@@ -2208,11 +2208,11 @@ static bool WindowTrade_HitTestOwnPetRow(
 }
 
 // 原函数：0x004B09E0。
-static std::int32_t WindowTrade_HandleAmountInput(const ElementId, const std::int32_t state)
+static std::int32_t WindowTrade_HandleAmountInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     if (gTradeValueD6742C == 2) {
         if ((state & MouseFlag_LDownEvent) != 0) {
-            WindowInstance* const window = WindowRuntime_States()[WindowId_Trade].window;
+            WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Trade].window;
             static_cast<void>(WindowInput_ActivateElement(&gTradeInputPrototype5803D0, 0, -100, 0));
             input::SetContext_44B330(&cg::ui::detail::gInputContextCC21E8);
             auto* const handleAmountInputElement = window ? window->FindElementById(WindowTradeElementId::HandleAmountInput) : nullptr;
@@ -2660,9 +2660,9 @@ static std::int32_t WindowTrade_ReadSelectedPet(const std::int32_t index)
 }
 
 // 原函数：0x004B0A50。
-static std::int32_t WindowTrade_ButtonPublish(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTrade_ButtonPublish(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -2699,7 +2699,7 @@ static std::int32_t WindowTrade_ButtonPublish(const ElementId elementId, const s
         }
         const auto petCopy = petSource;
         const std::int32_t amount = gTradeValueD046D0;
-        static_cast<void>(cg::network::GetGameConnection().SendTradeOffer(itemCopy, petCopy, amount));
+        static_cast<void>(callbackWindow.ownerSession->Connection().SendTradeOffer(itemCopy, petCopy, amount));
         WindowInstance* const window = currentWindow;
         gTradeValueD2E2B0 = 1;
         gTradeScrollD67430 = 0;
@@ -2721,9 +2721,9 @@ static std::int32_t WindowTrade_ButtonPublish(const ElementId elementId, const s
 }
 
 // 原函数：0x004B0CF0。
-static std::int32_t WindowTrade_ButtonWithdraw(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTrade_ButtonWithdraw(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -2734,7 +2734,7 @@ static std::int32_t WindowTrade_ButtonWithdraw(const ElementId elementId, const 
         }
         std::int32_t result = 0;
         if ((state & MouseFlag_LDownEvent) != 0) {
-            static_cast<void>(cg::network::GetGameConnection().WithdrawTradeConfirmation());
+            static_cast<void>(callbackWindow.ownerSession->Connection().WithdrawTradeConfirmation());
             const std::int32_t previous = gTradeValueCC4224;
             gTradeValueD2E2B0 = 0;
             if (previous == 2) {
@@ -2757,9 +2757,9 @@ static std::int32_t WindowTrade_ButtonWithdraw(const ElementId elementId, const 
 }
 
 // 原函数：0x004B0DB0。
-static std::int32_t WindowTrade_ButtonConfirm(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTrade_ButtonConfirm(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -2775,12 +2775,12 @@ static std::int32_t WindowTrade_ButtonConfirm(const ElementId elementId, const s
                 const std::uint64_t tick = platform::ReadTickCount64();
                 if (gWindowActionTick62B5AC + 500u < tick) {
                     if (phase == 1) {
-                        static_cast<void>(cg::network::GetGameConnection().SendTradeDecision(1));
+                        static_cast<void>(callbackWindow.ownerSession->Connection().SendTradeDecision(1));
                         gTradeValueD2E2B0 = 2;
                         gTradeValueD67CB8 = 1;
                         gTradeValueD67CBC = 1;
                     } else {
-                        static_cast<void>(cg::network::GetGameConnection().WithdrawTradeConfirmation());
+                        static_cast<void>(callbackWindow.ownerSession->Connection().WithdrawTradeConfirmation());
                         const std::int32_t previous = gTradeValueCC4224;
                         gTradeValueD2E2B0 = 0;
                         if (previous == 2) {

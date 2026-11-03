@@ -28,7 +28,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00473840。
-static std::int32_t WindowBottomBar_HandleButtons(ElementId elementId, std::int32_t state); // 窗口6完整九分支按钮。
+static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口6完整九分支按钮。
 
 // HWT01：窗口6按原显示/复制阶段消费共享悬停文本，颜色只读低BYTE，尾部清槽并返S32 1。
 // 原函数：0x004731E0。
@@ -101,10 +101,10 @@ WindowPrototype gWindowPrototypeBottomBar {2, 5, 0, 452, 640, 30, 0x80010101u, 1
 // 窗口函数实现。
 
 // 原函数：0x00473840。
-static std::int32_t WindowBottomBar_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBottomBar_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     std::int32_t consumed = 0;

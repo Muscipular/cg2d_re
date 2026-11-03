@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/ChatHistory.hpp"
@@ -93,22 +94,22 @@ input::InputContext gInputContextC8B1B8 {}; // 原全局：0x00C8B1B8。
 static void WindowBlacklist_Refresh(); // 窗口65十行序号/名称与活动输入刷新。
 
 // 原函数：0x004CC6E0。
-static std::int32_t WindowBlacklist_EditRow(ElementId elementId, std::int32_t state); // 删除后重读行，再决定提示或编辑。
+static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 删除后重读行，再决定提示或编辑。
 
 // 原函数：0x004CC9B0。
-static std::int32_t WindowBlacklist_HandleButtons(ElementId elementId, std::int32_t state); // 六个黑名单按钮及原消费差异。
+static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六个黑名单按钮及原消费差异。
 
 // 原函数：0x004CCE90。
-static std::int32_t WindowBlacklist_DragScroll(ElementId elementId, std::int32_t state); // WSP01：原90参数拖动换算；旧X代码1999。
+static std::int32_t WindowBlacklist_DragScroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WSP01：原90参数拖动换算；旧X代码1999。
 
 // 原函数：0x004CD150。
 static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear(); // 生产窗口47的清空确认及两个真实回调。
 
 // 原函数：0x004CD1E0。
-static std::int32_t WindowBlacklist_Clear(ElementId elementId, std::int32_t unusedState);
+static std::int32_t WindowBlacklist_Clear(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x004CD220。
-static std::int32_t WindowBlacklist_CancelClear(ElementId elementId, std::int32_t unusedState);
+static std::int32_t WindowBlacklist_CancelClear(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x004CC6C0。
 static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -308,10 +309,10 @@ static std::int32_t WindowBlacklist_Update(WindowInstance& callbackWindow, const
 }
 
 // 原函数：0x004CC6E0。
-static std::int32_t WindowBlacklist_EditRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBlacklist_EditRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -375,9 +376,9 @@ static std::int32_t WindowBlacklist_EditRow(const ElementId elementId, const std
 }
 
 // 原函数：0x004CC9B0。
-static std::int32_t WindowBlacklist_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBlacklist_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (static_cast<WindowBlacklistElementId>(elementId)) {
@@ -491,11 +492,11 @@ static std::int32_t WindowBlacklist_HandleButtons(const ElementId elementId, con
 
 // WSP01：旧X片段1999；恰1才按原90参数更新，保原X身份与返回。
 // 原函数：0x004CCE90。
-static std::int32_t WindowBlacklist_DragScroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBlacklist_DragScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t consumed = WindowElement_HandleVerticalScroll(elementId, state);
+    const std::int32_t consumed = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     if (consumed == 1) {
         auto* const dragScrollElement = currentWindow->FindElementById(WindowBlacklistElementId::DragScroll);
         if (dragScrollElement) {
@@ -530,7 +531,7 @@ static cg::yobi::YobiAction* WindowBlacklist_ConfirmClear()
 }
 
 // 原函数：0x004CD1E0。
-static std::int32_t WindowBlacklist_Clear(const ElementId, const std::int32_t)
+static std::int32_t WindowBlacklist_Clear(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     const wchar_t* const message = cg::world::blacklist::ClearBlacklistRecords_401470() != 0
         ? L"已删除所有的黑名单。" /* 原常量参考：0x00588754。 */ : L"黑名单并没有内容可删除。" /* 原常量参考：0x00588738。 */;
@@ -540,10 +541,10 @@ static std::int32_t WindowBlacklist_Clear(const ElementId, const std::int32_t)
 }
 
 // 原函数：0x004CD220。
-static std::int32_t WindowBlacklist_CancelClear(const ElementId, const std::int32_t)
+static std::int32_t WindowBlacklist_CancelClear(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
-    if (WindowRuntime_States()[WindowId_Blacklist].window == nullptr) {
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Blacklist, 1, 0, nullptr));
+    if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Blacklist].window == nullptr) {
+        static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Blacklist, 1, 0, nullptr));
     }
     return 1;
 }

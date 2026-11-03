@@ -49,22 +49,22 @@ namespace detail {
 static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, std::int32_t value); // 窗口47初始化：显隐、文本、初始化回调。
 
 // 原函数：0x004AE620。
-static std::int32_t WindowConfirmation_ButtonOk(ElementId elementId, std::int32_t state); // CTRL确认，动作槽0。
+static std::int32_t WindowConfirmation_ButtonOk(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // CTRL确认，动作槽0。
 
 // 原函数：0x004AE690。
-static std::int32_t WindowConfirmation_ButtonCancel(ElementId elementId, std::int32_t state); // 动作槽1，取消音效55。
+static std::int32_t WindowConfirmation_ButtonCancel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 动作槽1，取消音效55。
 
 // 原函数：0x004AE700。
-static std::int32_t WindowConfirmation_ButtonActionTwo(ElementId elementId, std::int32_t state); // 动作槽2，音效51。
+static std::int32_t WindowConfirmation_ButtonActionTwo(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 动作槽2，音效51。
 
 // 原函数：0x004AE770。
-static std::int32_t WindowConfirmation_ButtonActionThree(ElementId elementId, std::int32_t state); // 动作槽3，音效55。
+static std::int32_t WindowConfirmation_ButtonActionThree(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 动作槽3，音效55。
 
 // 原函数：0x004AE7E0。
-static std::int32_t WindowConfirmation_ButtonActionFour(ElementId elementId, std::int32_t state); // 动作槽4，音效51。
+static std::int32_t WindowConfirmation_ButtonActionFour(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 动作槽4，音效51。
 
 // 原函数：0x004AE850。
-static std::int32_t WindowConfirmation_ButtonActionFive(ElementId elementId, std::int32_t state); // 动作槽5，音效51。
+static std::int32_t WindowConfirmation_ButtonActionFive(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 动作槽5，音效51。
 
 // 原函数：0x004AE8C0。
 static WindowInstance* WindowConfirmation_RequestClose(); // 固定窗口47标关闭，返回同一实例。
@@ -158,10 +158,10 @@ WindowPrototype gWindowPrototypeConfirmation {0, 4, 209, 159, 222, 162, 0x800101
 // 窗口函数实现。
 
 static std::int32_t WindowConfirmation_HandleButton(
-    const ElementId elementId, const std::int32_t state, const std::int32_t idleImage,
+    WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state, const std::int32_t idleImage,
     WindowElementCallback* const callbackSlot, const std::int32_t sound, const bool requiresControl)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -177,7 +177,7 @@ static std::int32_t WindowConfirmation_HandleButton(
     static_cast<void>(WindowConfirmation_RequestClose());
     const WindowElementCallback callback = *callbackSlot;
     if (callback != nullptr) {
-        static_cast<void>(callback(elementId, state));
+        static_cast<void>(callback(callbackWindow, elementId, state));
     }
     static_cast<void>(audio::PlaySe_52C450(sound, 320));
     return 1;
@@ -198,39 +198,39 @@ static std::int32_t WindowConfirmation_Update(WindowInstance& callbackWindow, co
 }
 
 // 原函数：0x004AE620。
-static std::int32_t WindowConfirmation_ButtonOk(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowConfirmation_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(elementId, state, 0x3BE4B, &gWindow47Runtime.actionsCC4254[0], 51, true);
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE4B, &gWindow47Runtime.actionsCC4254[0], 51, true);
 }
 
 // 原函数：0x004AE690。
-static std::int32_t WindowConfirmation_ButtonCancel(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowConfirmation_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(elementId, state, 0x3BE4E, &gWindow47Runtime.actionsCC4254[1], 55, false);
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE4E, &gWindow47Runtime.actionsCC4254[1], 55, false);
 }
 
 // 原函数：0x004AE700。
-static std::int32_t WindowConfirmation_ButtonActionTwo(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowConfirmation_ButtonActionTwo(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(elementId, state, 0x3B568, &gWindow47Runtime.actionsCC4254[2], 51, false);
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3B568, &gWindow47Runtime.actionsCC4254[2], 51, false);
 }
 
 // 原函数：0x004AE770。
-static std::int32_t WindowConfirmation_ButtonActionThree(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowConfirmation_ButtonActionThree(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(elementId, state, 0x3BE48, &gWindow47Runtime.actionsCC4254[3], 55, false);
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE48, &gWindow47Runtime.actionsCC4254[3], 55, false);
 }
 
 // 原函数：0x004AE7E0。
-static std::int32_t WindowConfirmation_ButtonActionFour(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowConfirmation_ButtonActionFour(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(elementId, state, 0x3BE54, &gWindow47Runtime.actionsCC4254[4], 51, false);
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE54, &gWindow47Runtime.actionsCC4254[4], 51, false);
 }
 
 // 原函数：0x004AE850。
-static std::int32_t WindowConfirmation_ButtonActionFive(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowConfirmation_ButtonActionFive(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    return WindowConfirmation_HandleButton(elementId, state, 0x3BE51, &gWindow47Runtime.actionsCC4254[5], 51, false);
+    return WindowConfirmation_HandleButton(callbackWindow, elementId, state, 0x3BE51, &gWindow47Runtime.actionsCC4254[5], 51, false);
 }
 
 // 原函数：0x004AE8C0。

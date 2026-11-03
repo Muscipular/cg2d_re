@@ -27,7 +27,7 @@ namespace detail {
 static std::int32_t WindowMailCompose_Update(WindowInstance& callbackWindow, std::int32_t value); // 发信初始化、宠物候选和收件人刷新。
 
 // 原函数：0x004A5970。
-static std::int32_t WindowMailCompose_HandleRecipients(ElementId elementId, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
+static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
 
 // 原函数：0x004A6160。
 static std::uint8_t WindowMailCompose_RefreshRecipients(); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
@@ -198,9 +198,9 @@ void WindowMailCompose_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004A58E0。
-std::int32_t WindowMailCompose_HandleInput(const ElementId, const std::int32_t state)
+std::int32_t WindowMailCompose_HandleInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -230,9 +230,9 @@ std::int32_t WindowMailCompose_HandleInput(const ElementId, const std::int32_t s
 }
 
 // 原函数：0x004A5970。
-static std::int32_t WindowMailCompose_HandleRecipients(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowMailCompose_HandleRecipients(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowMailComposeElementId::HandleRecipients) && elementId != static_cast<ElementId>(WindowMailComposeElementId::HandleRecipients_4)) {
         return 0;
@@ -253,8 +253,8 @@ static std::int32_t WindowMailCompose_HandleRecipients(const ElementId elementId
         if ((state & MouseFlag_LDownEvent) != 0) {
             cg::text::StoreGbk(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()),
                 gLoginWindowRuntime.mailDraftCF4BC8.bytes14.size(), input::ContextText(cg::ui::detail::gInputContextD66CA8));
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PetMailCompose, 1, 0, nullptr));
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Inventory, 1, 0, nullptr));
+            static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetMailCompose, 1, 0, nullptr));
+            static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Inventory, 1, 0, nullptr));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -301,22 +301,22 @@ static std::int32_t WindowMailCompose_HandleRecipients(const ElementId elementId
                         }
                         if (groupMode == 0) {
                             const std::int32_t contact = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
-                            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-                            static_cast<void>(cg::network::GetGameConnection().SendContactMail(contact, packet, 0));
+                            const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
+                            static_cast<void>(callbackWindow.ownerSession->Connection().SendContactMail(contact, packet, 0));
                             WindowMail_FormatTimestamp(timestamp);
                             world::detail::PrependContactMailMessage_5191C0(contact, 1, timestamp, storedText);
                         } else if (groupMode == 1) {
                             const std::int32_t member = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
-                            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+                            const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                             const std::int32_t key = cg::world::gOrderedRecords1051B14[member].value0C;
-                            static_cast<void>(cg::network::GetGameConnection().SendGuildMail(key, packet, 0));
+                            static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMail(key, packet, 0));
                             WindowMail_FormatTimestamp(timestamp);
                             static_cast<void>(world::detail::PrependGuildMailMessage_519370(
                                 key, 1, timestamp, storedText));
                         } else {
                             const std::int32_t group = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
-                            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-                            static_cast<void>(cg::network::GetGameConnection().SendGuildMail(group + 0x400, packet, 0));
+                            const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
+                            static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMail(group + 0x400, packet, 0));
                             for (std::int32_t member = 0; member < 200; ++member) {
                                 const std::int32_t memberGroup = cg::world::gOrderedRecords1051B14[member].value00;
                                 const std::int32_t currentGroup = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
@@ -355,7 +355,7 @@ static std::int32_t WindowMailCompose_HandleRecipients(const ElementId elementId
                 const std::wstring escapedText = input::EscapeText(input::ContextText(cg::ui::detail::gInputContextD66CA8), 1024);
                 combined = std::to_wstring(key) + L"|" + escapedName + L"|" + escapedText;
                 packet = input::EscapeTextAndNotify(combined, 1024);
-                static_cast<void>(cg::network::GetGameConnection().SendMiniMail(packet, 0));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendMiniMail(packet, 0));
                 static_cast<void>(world::detail::FormatMailTimestamp_534520(timestamp));
                 const std::int32_t currentContact = gLoginWindowRuntime.prefixD2F0B8.value04;
                 world::detail::PrependMiniMailMessage_5343C0(currentContact, 1, timestamp, storedText);
@@ -382,11 +382,11 @@ static std::int32_t WindowMailCompose_HandleRecipients(const ElementId elementId
                     }
                 }
                 packet = input::EscapeTextAndNotify(combined, 1024);
-                const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+                const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
                 if (category == 1) {
-                    static_cast<void>(cg::network::GetGameConnection().SendGuildMail(target, packet, 0));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().SendGuildMail(target, packet, 0));
                 } else {
-                    static_cast<void>(cg::network::GetGameConnection().SendContactMail(target, packet, 0));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().SendContactMail(target, packet, 0));
                 }
                 WindowMail_FormatTimestamp(timestamp);
                 if (category == 1) {

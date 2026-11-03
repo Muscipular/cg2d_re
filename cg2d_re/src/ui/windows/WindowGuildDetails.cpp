@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/ChatHistory.hpp"
@@ -147,25 +148,25 @@ static void WindowGuildDetails_DragScroll(std::int32_t unused); // 拖动反求�
 static std::int32_t WindowGuildDetails_CommitFocusedInput(); // 固定窗口/焦点，扫描九个输入载荷。
 
 // 原函数：0x004AEC30。
-static std::int32_t WindowGuildDetails_ToggleRankPermission(ElementId elementId, std::int32_t state);
+static std::int32_t WindowGuildDetails_ToggleRankPermission(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AED40。
-static std::int32_t WindowGuildDetails_HandleActionButton(ElementId elementId, std::int32_t state);
+static std::int32_t WindowGuildDetails_HandleActionButton(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AEE00。
-static std::int32_t WindowGuildDetails_HandleInput(ElementId elementId, std::int32_t state);
+static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AF000。
-static std::int32_t WindowGuildDetails_HandleScrollButtons(ElementId elementId, std::int32_t state);
+static std::int32_t WindowGuildDetails_HandleScrollButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AF090。
-static std::int32_t WindowGuildDetails_HandleScrollFocus(ElementId elementId, std::int32_t state); // WSP01：滚动恰1时调用既有焦点页依赖。
+static std::int32_t WindowGuildDetails_HandleScrollFocus(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WSP01：滚动恰1时调用既有焦点页依赖。
 
 // 原函数：0x004AF0C0。
-static std::int32_t WindowGuildDetails_Scroll(ElementId elementId, std::int32_t state);
+static std::int32_t WindowGuildDetails_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AF100。
-static std::int32_t WindowGuildDetails_ButtonClose(ElementId elementId, std::int32_t state);
+static std::int32_t WindowGuildDetails_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004AEAE0。
 static std::int32_t WindowGuildDetails_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -628,7 +629,7 @@ static void WindowGuildDetails_ScrollRow()
 }
 
 // 原函数：0x004AEC30。
-static std::int32_t WindowGuildDetails_ToggleRankPermission(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildDetails_ToggleRankPermission(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
     const std::int32_t row = (index - 18) / 5;
@@ -652,9 +653,9 @@ static std::int32_t WindowGuildDetails_ToggleRankPermission(const ElementId elem
 }
 
 // 原函数：0x004AED40。
-static std::int32_t WindowGuildDetails_HandleActionButton(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildDetails_HandleActionButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -681,10 +682,10 @@ static std::int32_t WindowGuildDetails_HandleActionButton(const ElementId elemen
 }
 
 // 原函数：0x004AEE00。
-static std::int32_t WindowGuildDetails_HandleInput(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildDetails_HandleInput(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t editable = WindowGuildDetails_ReadRankPermissions();
     if (editable == 0) {
@@ -758,9 +759,9 @@ static std::int32_t WindowGuildDetails_HandleInput(const ElementId elementId, co
 }
 
 // 原函数：0x004AF000。
-static std::int32_t WindowGuildDetails_HandleScrollButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildDetails_HandleScrollButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -785,9 +786,9 @@ static std::int32_t WindowGuildDetails_HandleScrollButtons(const ElementId eleme
 
 // WSP01：滚动结果恰1才调用既有焦点页依赖，保留原S32结果。
 // 原函数：0x004AF090。
-static std::int32_t WindowGuildDetails_HandleScrollFocus(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildDetails_HandleScrollFocus(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    const std::int32_t result = WindowElement_HandleVerticalScroll(elementId, state);
+    const std::int32_t result = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     if (result == 1) {
         static_cast<void>(WindowChat_RestoreInput());
     }
@@ -795,9 +796,9 @@ static std::int32_t WindowGuildDetails_HandleScrollFocus(const ElementId element
 }
 
 // 原函数：0x004AF0C0。
-static std::int32_t WindowGuildDetails_Scroll(const ElementId, const std::int32_t state)
+static std::int32_t WindowGuildDetails_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
@@ -815,9 +816,9 @@ static std::int32_t WindowGuildDetails_Scroll(const ElementId, const std::int32_
 }
 
 // 原函数：0x004AF100。
-static std::int32_t WindowGuildDetails_ButtonClose(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowGuildDetails_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -829,7 +830,7 @@ static std::int32_t WindowGuildDetails_ButtonClose(const ElementId elementId, co
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             graphic->imageNo = 0x3B539;
-            WindowRuntime_States()[WindowId_GuildDetails].window->state = 0x8000;
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_GuildDetails].window->state = 0x8000;
             return 1;
         }
     }

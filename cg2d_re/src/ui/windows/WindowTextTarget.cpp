@@ -45,25 +45,25 @@ static void WindowTextTarget_Refresh(std::int32_t offset); // 刷新五行，未
 static std::int32_t WindowTextTarget_Draw(WindowInstance& callbackWindow, std::int32_t value);
 
 // 原函数：0x0049F260。
-static std::int32_t WindowTextTarget_ButtonPreviousRow(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonPreviousRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F310。
-static std::int32_t WindowTextTarget_ButtonNextRow(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonNextRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F3D0。
-static std::int32_t WindowTextTarget_ButtonPreviousPage(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonPreviousPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F490。
-static std::int32_t WindowTextTarget_ButtonNextPage(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonNextPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F570。
-static std::int32_t WindowTextTarget_Scroll(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTextTarget_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F5C0。
-static std::int32_t WindowTextTarget_ButtonCancel(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTextTarget_ButtonCancel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049F680。
-static std::int32_t WindowTextTarget_SelectRow(ElementId elementId, std::int32_t state);
+static std::int32_t WindowTextTarget_SelectRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -220,10 +220,10 @@ static std::int32_t WindowTextTarget_Draw(WindowInstance& callbackWindow, const 
 }
 
 // 原函数：0x0049F260。
-static std::int32_t WindowTextTarget_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;
@@ -261,10 +261,10 @@ static std::int32_t WindowTextTarget_ButtonPreviousRow(const ElementId elementId
 }
 
 // 原函数：0x0049F310。
-static std::int32_t WindowTextTarget_ButtonNextRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;
@@ -301,10 +301,10 @@ static std::int32_t WindowTextTarget_ButtonNextRow(const ElementId elementId, co
 }
 
 // 原函数：0x0049F3D0。
-static std::int32_t WindowTextTarget_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;
@@ -340,10 +340,10 @@ static std::int32_t WindowTextTarget_ButtonPreviousPage(const ElementId elementI
 }
 
 // 原函数：0x0049F490。
-static std::int32_t WindowTextTarget_ButtonNextPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;
@@ -386,10 +386,10 @@ static std::int32_t WindowTextTarget_ButtonNextPage(const ElementId elementId, c
 }
 
 // 原函数：0x0049F570。
-static std::int32_t WindowTextTarget_Scroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextTarget_Scroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;
@@ -407,9 +407,9 @@ static std::int32_t WindowTextTarget_Scroll(const ElementId elementId, const std
 }
 
 // 原函数：0x0049F5C0。
-static std::int32_t WindowTextTarget_ButtonCancel(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextTarget_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;
@@ -446,10 +446,10 @@ static std::int32_t WindowTextTarget_ButtonCancel(const ElementId elementId, con
 }
 
 // 原函数：0x0049F680。
-static std::int32_t WindowTextTarget_SelectRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextTarget_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.textTarget;

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
@@ -99,16 +100,16 @@ static std::uint32_t WindowProfileSearch_DrawKeyword(); // 活动输入与关键
 static void WindowProfileSearch_RefreshResults(); // 固定20条结果、三组标题刷新；不重新显示已隐藏的非空行。
 
 // 原函数：0x004CA6F0。
-static std::int32_t WindowProfileSearch_HandleSearchButtons(ElementId elementId, std::int32_t state); // 搜索/上页/下页双层转义请求。
+static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 搜索/上页/下页双层转义请求。
 
 // 原函数：0x004CA9C0。
-static std::int32_t WindowProfileSearch_SelectResult(ElementId elementId, std::int32_t state); // 按行发查看请求，随后重读窗口62高亮。
+static std::int32_t WindowProfileSearch_SelectResult(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 按行发查看请求，随后重读窗口62高亮。
 
 // 原函数：0x004CAB60。
 static void WindowProfileSearch_Release(WindowInstance&); // 先清对话类型，再标记62/63。
 
 // 原函数：0x004CAB90。
-static std::int32_t WindowProfileSearch_EditKeyword(ElementId elementId, std::int32_t state); // 固定元素7关键词编辑入口。
+static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 固定元素7关键词编辑入口。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -316,9 +317,9 @@ static void WindowProfileSearch_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004CAB90。
-static std::int32_t WindowProfileSearch_EditKeyword(const ElementId, const std::int32_t state)
+static std::int32_t WindowProfileSearch_EditKeyword(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     if ((state & MouseFlag_Hover) != 0) {
@@ -351,10 +352,10 @@ static std::int32_t WindowProfileSearch_EditKeyword(const ElementId, const std::
 }
 
 // 原函数：0x004CA6F0。
-static std::int32_t WindowProfileSearch_HandleSearchButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowProfileSearch_HandleSearchButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId < static_cast<ElementId>(WindowProfileSearchElementId::HandleSearchButtons) || elementId > static_cast<ElementId>(WindowProfileSearchElementId::HandleSearchButtons_6)) {
         return 0;
@@ -393,15 +394,15 @@ static std::int32_t WindowProfileSearch_HandleSearchButtons(const ElementId elem
     const std::int32_t request = world::gDialogRequestCC21E0;
     const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
     const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-    static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, commands[position], packet));
+    static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, commands[position], packet));
     return 1;
 }
 
 // 原函数：0x004CA9C0。
-static std::int32_t WindowProfileSearch_SelectResult(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowProfileSearch_SelectResult(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t position = index - 48;
     std::int32_t consumed = 0;
@@ -421,10 +422,10 @@ static std::int32_t WindowProfileSearch_SelectResult(const ElementId elementId, 
         const std::int32_t request = world::gDialogRequestCC21E0;
         const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 4, packet));
+        static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 4, packet));
         consumed = 1;
     }
-    if (WindowRuntime_States()[WindowId_ProfileView].window != nullptr) {
+    if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_ProfileView].window != nullptr) {
         const std::int32_t key = world::detail::gViewedProfile105ECE0.value00;
         if (key == world::detail::gProfileSearch105C398.records[position].value104) {
             if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 246058;

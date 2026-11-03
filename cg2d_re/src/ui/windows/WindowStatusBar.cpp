@@ -62,7 +62,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x004723D0。
-static std::int32_t WindowStatusBar_HandleHintButton(ElementId elementId, std::int32_t state); // SHP01：三项提示完整点击/取样序，原门槛和关闭开窗保持。
+static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // SHP01：三项提示完整点击/取样序，原门槛和关闭开窗保持。
 
 // 原函数：0x00470AC0。
 static void WindowStatusBar_Refresh(); // TUC01：窗口1HP/FP、时钟/四位倒计时/提示原生产序；机器ABI与运行待。
@@ -71,19 +71,19 @@ static void WindowStatusBar_Refresh(); // TUC01：窗口1HP/FP、时钟/四位�
 static void WindowCompactStatusBar_Refresh(); // TUC01：窗口2直接FP复制/四位倒计时，首窗口取样晚于描述符发布。
 
 // 原函数：0x00471CD0。
-static std::int32_t WindowStatusBar_ButtonCompact(ElementId elementId, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
+static std::int32_t WindowStatusBar_ButtonCompact(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
 
 // 原函数：0x00471D10。
-static std::int32_t WindowCompactStatusBar_ButtonCollapse(ElementId elementId, std::int32_t state); // 状态栏2点击切3。
+static std::int32_t WindowCompactStatusBar_ButtonCollapse(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 状态栏2点击切3。
 
 // 原函数：0x00471D60。
-static std::int32_t WindowCollapsedStatusBar_ButtonExpand(ElementId elementId, std::int32_t state); // 状态栏3按场景返回2或1。
+static std::int32_t WindowCollapsedStatusBar_ButtonExpand(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 状态栏3按场景返回2或1。
 
 // 原函数：0x00471DD0。
-static std::int32_t WindowStatusBar_HandleHover(ElementId elementId, std::int32_t state); // 仅hover命中消费。
+static std::int32_t WindowStatusBar_HandleHover(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 仅hover命中消费。
 
 // 原函数：0x00471DF0。
-static std::int32_t WindowStatusBar_HandleOptionButtons(ElementId elementId, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
+static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
 
 // 原函数：0x00473080。
 static std::int32_t WindowStatusBar_ReadInjuredPetIndex(); // SHP01：玩家伤势优先返0，否则宠物原编号+10/未命中-1。
@@ -289,20 +289,20 @@ static void WindowStatusBar_DrawTimer(const std::int32_t firstElement, render::G
 }
 
 // 原函数：0x004708A0。
-std::int32_t WindowStatusBar_ButtonEmote(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowStatusBar_ButtonEmote(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    WindowInstance* window = WindowRuntime_States()[WindowId_Emote].window;
+    WindowInstance* window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Emote].window;
     if (window != nullptr) {
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3B921;
-        window = WindowRuntime_States()[WindowId_Emote].window;
+        window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Emote].window;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     if (window == nullptr) {
-        static_cast<void>(WindowRuntime_CreateAnimation(WindowId_Emote, 1, 0, nullptr));
+        static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_Emote, 1, 0, nullptr));
     } else {
         window->state |= 0x8000u;
         static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -311,14 +311,14 @@ std::int32_t WindowStatusBar_ButtonEmote(const ElementId elementId, const std::i
 }
 
 // 原函数：0x00470910。
-std::int32_t WindowStatusBar_ButtonMiniMap(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowStatusBar_ButtonMiniMap(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    WindowInstance* window = WindowRuntime_States()[WindowId_MiniMap].window;
+    WindowInstance* window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_MiniMap].window;
     if (window != nullptr) {
         if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 0x3B924;
-        window = WindowRuntime_States()[WindowId_MiniMap].window;
+        window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_MiniMap].window;
     }
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
@@ -441,39 +441,39 @@ static void WindowCompactStatusBar_Refresh()
 }
 
 // 原函数：0x00471CD0。
-static std::int32_t WindowStatusBar_ButtonCompact(const ElementId, const std::int32_t state)
+static std::int32_t WindowStatusBar_ButtonCompact(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     currentWindow->state |= 0x8000u;
-    static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
-    WindowRuntime_Settings().statusBarMode = 1;
+    static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CompactStatusBar));
+    WindowRuntime_Settings(*callbackWindow.ownerSession).statusBarMode = 1;
     return 1;
 }
 
 // 原函数：0x00471D10。
-static std::int32_t WindowCompactStatusBar_ButtonCollapse(const ElementId, const std::int32_t state)
+static std::int32_t WindowCompactStatusBar_ButtonCollapse(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
     currentWindow->state |= 0x8000u;
-    static_cast<void>(WindowRuntime_Open(WindowId_CollapsedStatusBar));
-    WindowRuntime_Settings().statusBarMode = 2;
+    static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CollapsedStatusBar));
+    WindowRuntime_Settings(*callbackWindow.ownerSession).statusBarMode = 2;
     return 1;
 }
 
 // 原函数：0x00471D60。
-static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const ElementId, const std::int32_t state)
+static std::int32_t WindowCollapsedStatusBar_ButtonExpand(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
@@ -482,26 +482,26 @@ static std::int32_t WindowCollapsedStatusBar_ButtonExpand(const ElementId, const
     const std::int32_t scene = world::gCurrentSceneType;
     currentWindow->state |= 0x8000u;
     if (scene == 10) {
-        static_cast<void>(WindowRuntime_Open(WindowId_CompactStatusBar));
-        WindowRuntime_Settings().statusBarMode = 1;
+        static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_CompactStatusBar));
+        WindowRuntime_Settings(*callbackWindow.ownerSession).statusBarMode = 1;
     } else {
-        static_cast<void>(WindowRuntime_Open(WindowId_StatusBar));
-        WindowRuntime_Settings().statusBarMode = 0;
+        static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_StatusBar));
+        WindowRuntime_Settings(*callbackWindow.ownerSession).statusBarMode = 0;
     }
     return 1;
 }
 
 // 原函数：0x00471DD0。
-static std::int32_t WindowStatusBar_HandleHover(const ElementId, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleHover(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     return (state & MouseFlag_Hover) != 0 ? 1 : 0;
 }
 
 // 原函数：0x00471DF0。
-static std::int32_t WindowStatusBar_HandleOptionButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleOptionButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
     auto* const graphicElement = currentWindow->FindElementById(NativeElementKey(index - 15));
@@ -513,7 +513,7 @@ static std::int32_t WindowStatusBar_HandleOptionButtons(const ElementId elementI
         if (elementId < static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons) || elementId > static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23)) {
             return consumed;
         }
-        if (elementId == static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23) && network::GetGameConnection().PukVersion() < 7u) {
+        if (elementId == static_cast<ElementId>(WindowStatusBarElementId::HandleOptionButtons_23) && callbackWindow.ownerSession->Connection().PukVersion() < 7u) {
             if (hover) {
                 graphic->imageNo = 0x3B93E;
                 gHoverTextD68AE8 = kStatusGuildUnavailable586270;
@@ -579,9 +579,9 @@ static std::int32_t WindowStatusBar_FindSortedPetIndex(const std::int32_t index)
 
 // SHP01：原三项提示/关闭开窗；hover持有及姓名/分档/窗口读取序，原业务门槛保持。
 // 原函数：0x004723D0。
-static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowStatusBar_HandleHintButton(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     std::wstring buffer;
@@ -617,29 +617,29 @@ static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, 
         }
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (candidate <= 4) {
-                WindowInstance* const details = WindowRuntime_States()[WindowId_PetDetail].window;
+                WindowInstance* const details = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetDetail].window;
                 gLoginWindowRuntime.selectedPetCC3E5C = candidate;
                 if (details != nullptr) {
                     details->state |= 0x8000u;
                 }
-                WindowInstance* const skills = WindowRuntime_States()[WindowId_PetSkills].window;
+                WindowInstance* const skills = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetSkills].window;
                 if (skills != nullptr) {
                     skills->state |= 0x8000u;
                 }
-                if (WindowInstance* const equipment = WindowRuntime_States()[WindowId_PetEquipment].window) {
+                if (WindowInstance* const equipment = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment].window) {
                     equipment->state |= 0x8000u;
                 }
-                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PetAttributes, 1, 0, nullptr));
+                static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetAttributes, 1, 0, nullptr));
             } else {
-                WindowInstance* const profile = WindowRuntime_States()[WindowId_PlayerProfile].window;
+                WindowInstance* const profile = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PlayerProfile].window;
                 if (profile != nullptr) {
                     profile->state |= 0x8000u;
                 }
-                WindowInstance* const titles = WindowRuntime_States()[WindowId_PlayerTitles].window;
+                WindowInstance* const titles = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PlayerTitles].window;
                 if (titles != nullptr) {
                     titles->state |= 0x8000u;
                 }
-                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PlayerAttributes, 1, 0, nullptr));
+                static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PlayerAttributes, 1, 0, nullptr));
             }
             consumed = 1;
         }
@@ -671,7 +671,7 @@ static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, 
                 gLoginWindowRuntime.mailCategoryD67B64 = category;
                 world::detail::gViewedMailContactId_CF4FC0 = mailIndex;
                 gLoginWindowRuntime.mailCategoryCC4D50 = category;
-                static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailRead, 1, 0, nullptr));
+                static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailRead, 1, 0, nullptr));
             }
             consumed = 1;
         }
@@ -738,30 +738,30 @@ static std::int32_t WindowStatusBar_HandleHintButton(const ElementId elementId, 
         if ((state & MouseFlag_LDownEvent) != 0) {
             if (target != -1) {
                 if (target == 0) {
-                    WindowInstance* const attributes = WindowRuntime_States()[WindowId_PlayerAttributes].window;
+                    WindowInstance* const attributes = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PlayerAttributes].window;
                     if (attributes != nullptr) {
                         attributes->state |= 0x8000u;
                     }
-                    WindowInstance* const titles = WindowRuntime_States()[WindowId_PlayerTitles].window;
+                    WindowInstance* const titles = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PlayerTitles].window;
                     if (titles != nullptr) {
                         titles->state |= 0x8000u;
                     }
-                    static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PlayerProfile, 1, 0, nullptr));
+                    static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PlayerProfile, 1, 0, nullptr));
                 } else {
-                    WindowInstance* const attributes = WindowRuntime_States()[WindowId_PetAttributes].window;
+                    WindowInstance* const attributes = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetAttributes].window;
                     if (attributes != nullptr) {
                         attributes->state |= 0x8000u;
                     }
-                    WindowInstance* const skills = WindowRuntime_States()[WindowId_PetSkills].window;
+                    WindowInstance* const skills = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetSkills].window;
                     if (skills != nullptr) {
                         skills->state |= 0x8000u;
                     }
-                    if (WindowInstance* const equipment = WindowRuntime_States()[WindowId_PetEquipment].window) {
+                    if (WindowInstance* const equipment = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_PetEquipment].window) {
                         equipment->state |= 0x8000u;
                     }
                     gLoginWindowRuntime.selectedPetCC3E5C = WindowStatusBar_FindSortedPetIndex(petIndex);
                     gLoginWindowRuntime.valueD673D0 = 5;
-                    static_cast<void>(WindowRuntime_CreateAnimation(WindowId_PetDetail, 1, 0, nullptr));
+                    static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_PetDetail, 1, 0, nullptr));
                 }
             }
             consumed = 1;

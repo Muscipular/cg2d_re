@@ -63,37 +63,37 @@ static std::int32_t WindowTextList_Update(WindowInstance& callbackWindow, std::i
 static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 51滚动消费、标题输入及完整绘制。
 
 // 原函数：0x004ADAA0。
-static std::int32_t WindowTextList_DrawConfirmation(ElementId elementId, std::int32_t unused); // 51模态提示及固定确认按钮。
+static std::int32_t WindowTextList_DrawConfirmation(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unused); // 51模态提示及固定确认按钮。
 
 // 原函数：0x004ADBD0。
-static std::int32_t WindowTextList_ButtonPreviousRow(ElementId elementId, std::int32_t state); // 上一行，bit400。
+static std::int32_t WindowTextList_ButtonPreviousRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上一行，bit400。
 
 // 原函数：0x004ADC80。
-static std::int32_t WindowTextList_ButtonNextRow(ElementId elementId, std::int32_t state); // 下一行，bit400。
+static std::int32_t WindowTextList_ButtonNextRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下一行，bit400。
 
 // 原函数：0x004ADD50。
-static std::int32_t WindowTextList_ButtonPreviousPage(ElementId elementId, std::int32_t state); // 上九行，bit2。
+static std::int32_t WindowTextList_ButtonPreviousPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上九行，bit2。
 
 // 原函数：0x004ADE10。
-static std::int32_t WindowTextList_ButtonNextPage(ElementId elementId, std::int32_t state); // 下九行，bit2。
+static std::int32_t WindowTextList_ButtonNextPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下九行，bit2。
 
 // 原函数：0x004ADEF0。
-static std::int32_t WindowTextList_Scroll(ElementId elementId, std::int32_t state); // 51滚轮，draw阶段再刷新文本。
+static std::int32_t WindowTextList_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 51滚轮，draw阶段再刷新文本。
 
 // 原函数：0x004ADF40。
-static std::int32_t WindowTextList_SubmitTitle(ElementId elementId, std::int32_t state); // 标题双次转义与N请求。
+static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 标题双次转义与N请求。
 
 // 原函数：0x004AE170。
-static std::int32_t WindowTextList_SubmitSelection(ElementId elementId, std::int32_t state); // 当前选择I请求，不预拒绝负值。
+static std::int32_t WindowTextList_SubmitSelection(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 当前选择I请求，不预拒绝负值。
 
 // 原函数：0x004AE260。
-static std::int32_t WindowTextList_EditTitle(ElementId elementId, std::int32_t state); // 标题编辑焦点与InputContext借用。
+static std::int32_t WindowTextList_EditTitle(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 标题编辑焦点与InputContext借用。
 
 // 原函数：0x004AE350。
-static std::int32_t WindowTextList_HandleItemSelection(ElementId elementId, std::int32_t state); // 51物品选择落点/拖出与失效清理。
+static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 51物品选择落点/拖出与失效清理。
 
 // 原函数：0x004AE5B0。
-static std::int32_t WindowTextList_DrawBackgroundTooltip(ElementId elementId, std::int32_t state); // 仅在提示为空时填背景提示。
+static std::int32_t WindowTextList_DrawBackgroundTooltip(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 仅在提示为空时填背景提示。
 
 // 原函数：0x004AD780。
 static void WindowTextList_Release(WindowInstance&);
@@ -400,9 +400,9 @@ static std::int32_t WindowTextList_Draw(WindowInstance& callbackWindow, const st
 }
 
 // 原函数：0x004ADAA0。
-static std::int32_t WindowTextList_DrawConfirmation(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowTextList_DrawConfirmation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -428,10 +428,10 @@ static std::int32_t WindowTextList_DrawConfirmation(const ElementId elementId, c
 }
 
 // 原函数：0x004ADBD0。
-static std::int32_t WindowTextList_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -464,10 +464,10 @@ static std::int32_t WindowTextList_ButtonPreviousRow(const ElementId elementId, 
 }
 
 // 原函数：0x004ADC80。
-static std::int32_t WindowTextList_ButtonNextRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -500,10 +500,10 @@ static std::int32_t WindowTextList_ButtonNextRow(const ElementId elementId, cons
 }
 
 // 原函数：0x004ADD50。
-static std::int32_t WindowTextList_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -534,10 +534,10 @@ static std::int32_t WindowTextList_ButtonPreviousPage(const ElementId elementId,
 }
 
 // 原函数：0x004ADE10。
-static std::int32_t WindowTextList_ButtonNextPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
@@ -571,10 +571,10 @@ static std::int32_t WindowTextList_ButtonNextPage(const ElementId elementId, con
 }
 
 // 原函数：0x004ADEF0。
-static std::int32_t WindowTextList_Scroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_Scroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = gWindowLineCountD67B74;
@@ -590,9 +590,9 @@ static std::int32_t WindowTextList_Scroll(const ElementId elementId, const std::
 }
 
 // 原函数：0x004ADF40。
-static std::int32_t WindowTextList_SubmitTitle(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_SubmitTitle(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
@@ -624,7 +624,7 @@ static std::int32_t WindowTextList_SubmitTitle(const ElementId elementId, const 
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, packet));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, packet));
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 consumed = 1;
             }
@@ -643,9 +643,9 @@ static std::int32_t WindowTextList_SubmitTitle(const ElementId elementId, const 
 }
 
 // 原函数：0x004AE170。
-static std::int32_t WindowTextList_SubmitSelection(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_SubmitSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -662,7 +662,7 @@ static std::int32_t WindowTextList_SubmitSelection(const ElementId elementId, co
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 0, buffer));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 0, buffer));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -682,9 +682,9 @@ static std::int32_t WindowTextList_SubmitSelection(const ElementId elementId, co
 }
 
 // 原函数：0x004AE260。
-static std::int32_t WindowTextList_EditTitle(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_EditTitle(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::uint32_t imageNo = cg::render::gHoverFramePaletteIndex_D69768;
     auto* const indexedElement = currentWindow->FindElementById(elementId);
@@ -720,9 +720,9 @@ static std::int32_t WindowTextList_EditTitle(const ElementId elementId, const st
 }
 
 // 原函数：0x004AE350。
-static std::int32_t WindowTextList_HandleItemSelection(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTextList_HandleItemSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const xElement = window->FindElementById(elementId);
@@ -807,7 +807,7 @@ static std::int32_t WindowTextList_HandleItemSelection(const ElementId elementId
 }
 
 // 原函数：0x004AE5B0。
-static std::int32_t WindowTextList_DrawBackgroundTooltip(const ElementId, const std::int32_t state)
+static std::int32_t WindowTextList_DrawBackgroundTooltip(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     if ((state & MouseFlag_Hover) != 0 && gHoverTextD68AE8.empty()) {
         gHoverTextD68AE8 = L"从物品视窗以滑鼠拖放方式选择要喂的饲料。";

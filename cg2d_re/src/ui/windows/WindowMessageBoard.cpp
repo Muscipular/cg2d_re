@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/WorldMapState.hpp"
@@ -57,10 +58,10 @@ input::InputContext gInputContextCC2080 {}; // 原全局：0x00CC2080。
 // 回调与内部函数前置声明。
 
 // 原函数：0x004B5B70。
-static std::int32_t WindowMessageBoard_HandleInput(ElementId elementId, std::int32_t state); // 输入焦点及非空文本提示。
+static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 输入焦点及非空文本提示。
 
 // 原函数：0x004B5C30。
-static std::int32_t WindowMessageBoard_HandleButtons(ElementId elementId, std::int32_t state); // 删除/写入/取消/翻页完整交互。
+static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 删除/写入/取消/翻页完整交互。
 
 // 原函数：0x004B62A0。
 static void WindowMessageBoard_RefreshRecords(); // 四条记录刷新元素及输入位置；唯一caller弃用原地址低字节返回。
@@ -211,9 +212,9 @@ static void WindowMessageBoard_Release(WindowInstance&)
 }
 
 // 原函数：0x004B5B70。
-static std::int32_t WindowMessageBoard_HandleInput(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowMessageBoard_HandleInput(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) != 0 && !gWindow50InputPrototype580618.input.context->empty()) {
         gHoverTextD68AE8 = L"写下讯息。" /* 原常量参考：0x00587C84。 */;
@@ -242,10 +243,10 @@ static std::int32_t WindowMessageBoard_HandleInput(const ElementId elementId, co
 }
 
 // 原函数：0x004B5C30。
-static std::int32_t WindowMessageBoard_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowMessageBoard_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::wstring escaped;
     std::wstring text;
@@ -298,7 +299,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const ElementId elementId, 
             static_cast<std::int32_t>(world::gPlayerY);
         const std::int32_t x =
             static_cast<std::int32_t>(world::gPlayerX);
-        static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 64, escaped));
+        static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 64, escaped));
         static_cast<void>(WindowMessageBoard_Close());
         return 1;
     }
@@ -326,7 +327,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const ElementId elementId, 
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, 1, escapedText));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, 1, escapedText));
             gWindow50InputPrototype580618.input.context->clearText();
             static_cast<void>(WindowMessageBoard_Close());
         } else {
@@ -358,7 +359,7 @@ static std::int32_t WindowMessageBoard_HandleButtons(const ElementId elementId, 
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, request, target, elementId == static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_33) ? 32 : 16, escaped));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, request, target, elementId == static_cast<ElementId>(WindowMessageBoardElementId::HandleButtons_33) ? 32 : 16, escaped));
                 static_cast<void>(WindowMessageBoard_Close());
                 consumed = 1;
             }

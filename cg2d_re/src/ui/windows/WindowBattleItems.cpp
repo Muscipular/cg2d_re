@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "cg/ui/HitTest.hpp"
@@ -42,28 +43,28 @@ namespace detail {
 
 // 4C6EC0发布的战斗背包/装备交互。
 // 原函数：0x00499930。
-static std::int32_t WindowBattleItems_TogglePreview(ElementId elementId, std::int32_t state);
+static std::int32_t WindowBattleItems_TogglePreview(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x00499950。
-static std::int32_t WindowBattleItems_CycleEquipment(ElementId elementId, std::int32_t state);
+static std::int32_t WindowBattleItems_CycleEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x00499970。
-static std::int32_t WindowBattleItems_RotatePreview(ElementId elementId, std::int32_t state);
+static std::int32_t WindowBattleItems_RotatePreview(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x00499B00。
-static std::int32_t WindowBattleItems_RefreshMoney(ElementId elementId, std::int32_t unusedState);
+static std::int32_t WindowBattleItems_RefreshMoney(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x00499B20。
-static std::int32_t WindowBattleItems_RefreshExtraValue(ElementId elementId, std::int32_t unusedState);
+static std::int32_t WindowBattleItems_RefreshExtraValue(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState);
 
 // 原函数：0x00499B40。
-static std::int32_t WindowBattleItems_TabEquipment(ElementId elementId, std::int32_t state); // 战斗页签忽略内部返回。
+static std::int32_t WindowBattleItems_TabEquipment(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 战斗页签忽略内部返回。
 
 // 原函数：0x00499B60。
-static std::int32_t WindowBattleItems_TabPet(ElementId elementId, std::int32_t state); // SAP01：战斗宠物页签，成功忽略4C7380结果返回S32零，无效图处理保持。
+static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // SAP01：战斗宠物页签，成功忽略4C7380结果返回S32零，无效图处理保持。
 
 // 原函数：0x0049B610。
-static std::int32_t WindowBattleItems_ShowExtraAttributes(ElementId elementId, std::int32_t state); // D2F338附加属性页包装。
+static std::int32_t WindowBattleItems_ShowExtraAttributes(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // D2F338附加属性页包装。
 
 // 原函数：0x00499990。
 static std::int32_t WindowBattleItems_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -141,40 +142,40 @@ WindowPrototype gWindowPrototypeBattleItems {0, 4, 100, 100, 276, 253, 0x8001010
 // 窗口函数实现。
 
 // 原函数：0x00499930。
-static std::int32_t WindowBattleItems_TogglePreview(const ElementId, const std::int32_t state)
+static std::int32_t WindowBattleItems_TogglePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_TogglePreview(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // 原函数：0x00499950。
-static std::int32_t WindowBattleItems_CycleEquipment(const ElementId, const std::int32_t state)
+static std::int32_t WindowBattleItems_CycleEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_CycleEquipment(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // 原函数：0x00499970。
-static std::int32_t WindowBattleItems_RotatePreview(const ElementId, const std::int32_t state)
+static std::int32_t WindowBattleItems_RotatePreview(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     static_cast<void>(WindowItemSelector_RotatePreview(&gItemSelectorD2F338, state));
     return 0;
 }
 
 // 原函数：0x00499B00。
-static std::int32_t WindowBattleItems_RefreshMoney(const ElementId, const std::int32_t)
+static std::int32_t WindowBattleItems_RefreshMoney(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     cg::text::FormatTo(gBattleMoneyTextCF469C, L"{:10}", world::gPlayerRuntimeSlots.valueFC);
     return 0;
 }
 
 // 原函数：0x00499B20。
-static std::int32_t WindowBattleItems_RefreshExtraValue(const ElementId, const std::int32_t)
+static std::int32_t WindowBattleItems_RefreshExtraValue(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
     cg::text::FormatTo(gBattleValueTextC8A960, L"{:10}", world::gPlayerRuntimeSlots.value15BCC);
     return 0;
 }
 
 // 原函数：0x00499B40。
-static std::int32_t WindowBattleItems_TabEquipment(const ElementId, const std::int32_t state)
+static std::int32_t WindowBattleItems_TabEquipment(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     static_cast<void>(WindowItemSelector_HandleTab(&gItemSelectorD2F338, 0, state));
     return 0;
@@ -182,10 +183,10 @@ static std::int32_t WindowBattleItems_TabEquipment(const ElementId, const std::i
 
 // SAP01：原71条；五对与S8模式保持，成功忽略按钮结果恒0，无效图/声效按原，运行待。
 // 原函数：0x00499B60。
-static std::int32_t WindowBattleItems_TabPet(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattleItems_TabPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const std::int32_t ordinal = index - 17;
     std::int32_t remaining = ordinal;
@@ -210,8 +211,8 @@ static std::int32_t WindowBattleItems_TabPet(const ElementId elementId, const st
             static_cast<void>(WindowItemSelector_HandleTab(&gItemSelectorD2F338, ordinal + 1, state));
             return 0;
         }
-    } else if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().battleItemActorSelection) == ordinal + 1) {
-        --WindowRuntime_Settings().battleItemActorSelection;
+    } else if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection) == ordinal + 1) {
+        --WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection;
     }
     std::int32_t consumed = 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
@@ -298,9 +299,9 @@ static std::int32_t WindowBattleItems_Draw(WindowInstance& callbackWindow, const
 
 // BIP01：原1175条；六BYTE/五grid/区域取序明确，原未加8容量索引/技能经验成本和目标发布保持，全生产消费及运行待。
 // 原函数：0x00499C30。
-std::int32_t WindowBattleItems_HandleInventory(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowBattleItems_HandleInventory(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     constexpr std::int32_t kBombType = 51;
     constexpr std::int32_t kMedicineType = 43;
@@ -358,7 +359,7 @@ std::int32_t WindowBattleItems_HandleInventory(const ElementId elementId, const 
     std::uint8_t events = static_cast<std::uint8_t>(state);
     std::int32_t consumed = 0;
     std::wstring countText;
-    if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().battleItemActorSelection) > 0) {
+    if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection) > 0) {
         for (std::int32_t position = 0; position < 20; ++position) {
             const WindowInstance* const window = currentWindow;
             auto* const elementPtr = window->FindElementById(elementId);
@@ -439,7 +440,7 @@ std::int32_t WindowBattleItems_HandleInventory(const ElementId elementId, const 
                 currentWindow->state |= 0x8000u;
                 world::gBattleSelectionModes5ABC7C[5] = 0;
                 std::sprintf(buffer.data(), "Q|%X|", 255u);
-                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                 world::gBattlePlayerActionState5ABC74 = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
             }
@@ -538,7 +539,7 @@ std::int32_t WindowBattleItems_HandleInventory(const ElementId elementId, const 
                         currentWindow->state |= 0x8000u;
                         world::gBattleSelectionModes5ABC7C[5] = 0;
                         std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
-                        static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
+                        static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                         world::gBattlePlayerActionState5ABC74 = 1;
                         static_cast<void>(audio::PlaySe_52C450(77, 320));
                     }
@@ -570,7 +571,7 @@ std::int32_t WindowBattleItems_HandleInventory(const ElementId elementId, const 
                     std::sprintf(buffer.data(), "I|%X|%X",
                         static_cast<std::uint32_t>(hovered + 8),
                         static_cast<std::uint32_t>(currentPosition));
-                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     cg::yobi::FlushBattleEntries_43C060();
                     world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -741,17 +742,17 @@ std::int32_t WindowBattleItems_HandleInventory(const ElementId elementId, const 
 }
 
 // 原函数：0x0049B610。
-static std::int32_t WindowBattleItems_ShowExtraAttributes(const ElementId, const std::int32_t state)
+static std::int32_t WindowBattleItems_ShowExtraAttributes(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
     return WindowItemSelector_HandlePlayerAttributes(&gItemSelectorD2F338, state) ? 1 : 0;
 }
 
 // BEI01：原755条，三BYTE及区域描边取序明确；宠物禁用/玩家装备/原两Q命令保持，全生产消费及运行待。
 // 原函数：0x0049AC40。
-std::int32_t WindowBattleItems_HandleEquipment(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowBattleItems_HandleEquipment(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     static constexpr wchar_t noSpace[] = L"物品栏位不足！";
     render::GraphicDescriptor16 descriptor {};
@@ -770,7 +771,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const ElementId elementId, const 
     const auto* const occupancy = reinterpret_cast<const unsigned char*>(world::gInventorySlotUseCounts_D67B08.data());
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
-    if (std::bit_cast<std::int8_t>(WindowRuntime_Settings().battleItemActorSelection) > 0) {
+    if (std::bit_cast<std::int8_t>(WindowRuntime_Settings(*callbackWindow.ownerSession).battleItemActorSelection) > 0) {
         const std::int32_t pet = WindowItemSelector_ReadSelectedPet(&gItemSelectorD2F338);
         const std::int32_t slots = world::gPetRuntimeRecords[pet].values6D8[0];
         for (std::int32_t position = 0; position < slots; ++position) {
@@ -836,7 +837,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const ElementId elementId, const 
                     currentWindow->state |= 0x8000u;
                     world::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
-                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(77, 320));
                 }
@@ -906,7 +907,7 @@ std::int32_t WindowBattleItems_HandleEquipment(const ElementId elementId, const 
                     currentWindow->state |= 0x8000u;
                     world::gBattleSelectionModes5ABC7C[5] = 0;
                     std::sprintf(buffer.data(), "Q|%X|", 255u);
-                    static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                     world::gBattlePlayerActionState5ABC74 = 1;
                     static_cast<void>(audio::PlaySe_52C450(57, 320));
                 }

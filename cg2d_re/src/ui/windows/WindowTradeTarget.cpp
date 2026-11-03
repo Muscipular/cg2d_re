@@ -42,25 +42,25 @@ static std::int32_t WindowTradeTarget_Update(WindowInstance& callbackWindow, std
 static std::int32_t WindowTradeTarget_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 窗口44滚动消费、完整绘制和九宫格。
 
 // 原函数：0x0049EB50。
-static std::int32_t WindowTradeTarget_ButtonPreviousRow(ElementId elementId, std::int32_t state); // 上一行。
+static std::int32_t WindowTradeTarget_ButtonPreviousRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上一行。
 
 // 原函数：0x0049EC00。
-static std::int32_t WindowTradeTarget_ButtonNextRow(ElementId elementId, std::int32_t state); // 下一行。
+static std::int32_t WindowTradeTarget_ButtonNextRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下一行。
 
 // 原函数：0x0049ECC0。
-static std::int32_t WindowTradeTarget_ButtonPreviousPage(ElementId elementId, std::int32_t state); // 上五行。
+static std::int32_t WindowTradeTarget_ButtonPreviousPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上五行。
 
 // 原函数：0x0049ED80。
-static std::int32_t WindowTradeTarget_ButtonNextPage(ElementId elementId, std::int32_t state); // 下五行。
+static std::int32_t WindowTradeTarget_ButtonNextPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下五行。
 
 // 原函数：0x0049EE60。
-static std::int32_t WindowTradeTarget_Scroll(ElementId elementId, std::int32_t state); // 滚轮像素余量与偏移。
+static std::int32_t WindowTradeTarget_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 滚轮像素余量与偏移。
 
 // 原函数：0x0049EEB0。
-static std::int32_t WindowTradeTarget_ButtonCancel(ElementId elementId, std::int32_t state); // 取消提示/关闭及按钮三态。
+static std::int32_t WindowTradeTarget_ButtonCancel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 取消提示/关闭及按钮三态。
 
 // 原函数：0x0049EF60。
-static std::int32_t WindowTradeTarget_SelectRow(ElementId elementId, std::int32_t state); // 实际选择回调，随后重读窗口关闭。
+static std::int32_t WindowTradeTarget_SelectRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 实际选择回调，随后重读窗口关闭。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -224,10 +224,10 @@ static std::int32_t WindowTradeTarget_Draw(WindowInstance& callbackWindow, const
 }
 
 // 原函数：0x0049EB50。
-static std::int32_t WindowTradeTarget_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -263,10 +263,10 @@ static std::int32_t WindowTradeTarget_ButtonPreviousRow(const ElementId elementI
 }
 
 // 原函数：0x0049EC00。
-static std::int32_t WindowTradeTarget_ButtonNextRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -301,10 +301,10 @@ static std::int32_t WindowTradeTarget_ButtonNextRow(const ElementId elementId, c
 }
 
 // 原函数：0x0049ECC0。
-static std::int32_t WindowTradeTarget_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -338,10 +338,10 @@ static std::int32_t WindowTradeTarget_ButtonPreviousPage(const ElementId element
 }
 
 // 原函数：0x0049ED80。
-static std::int32_t WindowTradeTarget_ButtonNextPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -382,10 +382,10 @@ static std::int32_t WindowTradeTarget_ButtonNextPage(const ElementId elementId, 
 }
 
 // 原函数：0x0049EE60。
-static std::int32_t WindowTradeTarget_Scroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTradeTarget_Scroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t count = gWindowListCountCF46A8;
@@ -401,9 +401,9 @@ static std::int32_t WindowTradeTarget_Scroll(const ElementId elementId, const st
 }
 
 // 原函数：0x0049EEB0。
-static std::int32_t WindowTradeTarget_ButtonCancel(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTradeTarget_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -431,10 +431,10 @@ static std::int32_t WindowTradeTarget_ButtonCancel(const ElementId elementId, co
 }
 
 // 原函数：0x0049EF60。
-static std::int32_t WindowTradeTarget_SelectRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowTradeTarget_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (index - 14 >= gWindowListCountCF46A8) {
         return 0;

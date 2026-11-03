@@ -525,10 +525,8 @@ struct AutoBattleWindow final : UIWindowInstanceEx {
     int render(int) override { ui::WindowRuntime_DrawCurrent(window); return 1; }
 };
 
-static ui::WindowGraphicData* CurrentGraphic(ui::ElementId elementId) {
-    auto* const window = gCurrentWindow;
-    if (!window) return nullptr;
-    auto* const element = window->FindElementById(elementId);
+static ui::WindowGraphicData* CurrentGraphic(ui::WindowInstance& window, ui::ElementId elementId) {
+    auto* const element = window.FindElementById(elementId);
     return element ? element->data.graphic : nullptr;
 }
 
@@ -541,20 +539,20 @@ static void MakeAutoBattleSimple(session::ClientSession& session) {
     auto* toggle = panel->window.FindElementById(ui::NativeElementKey(0));
     toggle->type = ui::WindowElementType_EventArea; toggle->x = 65; toggle->width = 10;
     toggle->height = 20; toggle->visible = 1;
-    toggle->mouseCallback = +[](ui::ElementId, int mouse) {
+    toggle->mouseCallback = +[](ui::WindowInstance& window, ui::ElementId, int mouse) {
             if (mouse & 2) {
-                auto& state = gCurrentWindow->ownerSession->Lua().autoBattlePanel;
+                auto& state = window.ownerSession->Lua().autoBattlePanel;
                 state.simpleMode = state.simpleMode == SIMPLE_MODE_HIDE ? SIMPLE_MODE_FULL : SIMPLE_MODE_HIDE;
-                gCurrentWindow->x = state.simpleMode == SIMPLE_MODE_FULL ? -2 : -70;
+                window.x = state.simpleMode == SIMPLE_MODE_FULL ? -2 : -70;
             }
             return (mouse & 2) ? 1 : 0;
         };
-    panel->AddGraphic(1, 0, 0, 77, 20, 641503, +[](ui::ElementId, int mouse) {
+    panel->AddGraphic(1, 0, 0, 77, 20, 641503, +[](ui::WindowInstance& window, ui::ElementId, int mouse) {
         if (mouse & 2) {
-            auto& state = gCurrentWindow->ownerSession->Lua().autoBattlePanel;
+            auto& state = window.ownerSession->Lua().autoBattlePanel;
             state.simpleMode = SIMPLE_MODE_OFF;
-            gCurrentWindow->state |= WIN_STATE_CLOSE;
-            MakeAutoBattle(*gCurrentWindow->ownerSession);
+            window.state |= WIN_STATE_CLOSE;
+            MakeAutoBattle(*window.ownerSession);
         }
         return (mouse & 2) ? 1 : 0;
     });
@@ -567,46 +565,46 @@ static void MakeAutoBattle(session::ClientSession& session) {
     panel->window.category = 1;
     for (int ix = 0; ix < CHK_MAX; ++ix) {
         const auto& check = checkboxList[ix];
-        panel->AddGraphic(ix, check.x, check.y, check.w, check.h, 641502, +[](ui::ElementId elementId, int mouse) {
+        panel->AddGraphic(ix, check.x, check.y, check.w, check.h, 641502, +[](ui::WindowInstance& window, ui::ElementId elementId, int mouse) {
             const int index = static_cast<int>(elementId) - 1; // 复选项数组从0开始。
             const auto& check = checkboxList[index];
-            auto& values = gCurrentWindow->ownerSession->Lua().autoBattlePanel.checkboxValues;
+            auto& values = window.ownerSession->Lua().autoBattlePanel.checkboxValues;
             if (mouse & 1) ui::detail::gHoverTextD68AE8 = check.msg;
             if (mouse & 2) {
                 if (check.group) for (int other = 0; other < CHK_MAX; ++other)
                     if (checkboxList[other].group == check.group) values[other] = 0;
                 values[index] = values[index] ? 0 : 1;
             }
-            if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = values[index] ? 641501 : 641502;
+            if (auto* graphic = CurrentGraphic(window, elementId)) graphic->imageNo = values[index] ? 641501 : 641502;
             return (mouse & 2) ? 1 : 0;
         });
     }
-    panel->AddGraphic(CHK_MAX, 200, 6, 14, 14, 243000, +[](ui::ElementId elementId, int mouse) {
+    panel->AddGraphic(CHK_MAX, 200, 6, 14, 14, 243000, +[](ui::WindowInstance& window, ui::ElementId elementId, int mouse) {
         if (mouse & 1) ui::detail::gHoverTextD68AE8 = L"关闭窗口";
         if (mouse & 2) {
-            MakeAutoBattleSimple(*gCurrentWindow->ownerSession);
-            gCurrentWindow->state |= WIN_STATE_CLOSE;
+            MakeAutoBattleSimple(*window.ownerSession);
+            window.state |= WIN_STATE_CLOSE;
             return 1;
         }
-        if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = (mouse & 1) ? 243001 : 243000;
+        if (auto* graphic = CurrentGraphic(window, elementId)) graphic->imageNo = (mouse & 1) ? 243001 : 243000;
         return 0;
     });
     panel->graphics[CHK_MAX].offsetX = -2;
     panel->graphics[CHK_MAX].offsetY = -1;
     panel->graphics[CHK_MAX].width = panel->graphics[CHK_MAX].height = 12;
-    panel->AddGraphic(CHK_MAX + 1, 80, 150, 58, 17, 640186, +[](ui::ElementId elementId, int mouse) {
-        auto& enabled = gCurrentWindow->ownerSession->Lua().autoBattlePanel.enabled;
+    panel->AddGraphic(CHK_MAX + 1, 80, 150, 58, 17, 640186, +[](ui::WindowInstance& window, ui::ElementId elementId, int mouse) {
+        auto& enabled = window.ownerSession->Lua().autoBattlePanel.enabled;
         if (mouse & 1) ui::detail::gHoverTextD68AE8 = enabled ? L"停止自动战斗" : L"开始自动战斗";
         if (mouse & 2) {
             const int count = cg::world::gBattleSkillActionCount5ABBF4 + cg::world::gBattlePetActionCount5ABBBC;
             if ((world::gCurrentSceneState == 4 && count == 0) || enabled || world::gCurrentSceneState != 4)
                 enabled = !enabled;
         }
-        if (auto* graphic = CurrentGraphic(elementId)) graphic->imageNo = enabled ? 640188 : ((mouse & 1) ? 640187 : 640186);
+        if (auto* graphic = CurrentGraphic(window, elementId)) graphic->imageNo = enabled ? 640188 : ((mouse & 1) ? 640187 : 640186);
         return (mouse & 2) ? 1 : 0;
     });
-    panel->AddGraphic(CHK_MAX + 2, 0, 0, 240, 185, 641500, +[](ui::ElementId, int mouse) {
-        auto& state = gCurrentWindow->ownerSession->Lua().autoBattlePanel;
+    panel->AddGraphic(CHK_MAX + 2, 0, 0, 240, 185, 641500, +[](ui::WindowInstance& window, ui::ElementId, int mouse) {
+        auto& state = window.ownerSession->Lua().autoBattlePanel;
         if (mouse & 2) { state.clicked = true; state.lastX = static_cast<short>(static_cast<std::int32_t>(gMouseX)); state.lastY = static_cast<short>(static_cast<std::int32_t>(gMouseY)); }
         else if (state.clicked && !(mouse & 8)) state.clicked = false;
         return (mouse & 2) ? 1 : 0;

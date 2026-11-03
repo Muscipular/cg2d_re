@@ -66,58 +66,58 @@ input::InputContext gInputContextCA0018 {}; // 原全局：0x00CA0018。
 static void WindowItem_BuildStorageDescription(std::int32_t index, std::int32_t side, const char* text); // IDR01：外部物品32行描述/S32页数生产；正常正文及原回扫顺序保持。
 
 // 原函数：0x004A92D0。
-static std::int32_t WindowBank_FocusAmountInput(ElementId elementId, std::int32_t state); // 存取数值输入焦点。
+static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 存取数值输入焦点。
 
 // 原函数：0x004A93E0。
-static std::int32_t WindowBank_ButtonFirstPage(ElementId elementId, std::int32_t state); // 存放第一页请求。
+static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 存放第一页请求。
 
 // 原函数：0x004A94A0。
-static std::int32_t WindowBank_ButtonSecondPage(ElementId elementId, std::int32_t state); // 存放第二页请求。
+static std::int32_t WindowBank_ButtonSecondPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 存放第二页请求。
 
 // 原函数：0x004A9560。
-static std::int32_t WindowBank_DrawFirstPageSelection(ElementId elementId, std::int32_t unused); // 第一页选中图。
+static std::int32_t WindowBank_DrawFirstPageSelection(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unused); // 第一页选中图。
 
 // 原函数：0x004A9580。
-static std::int32_t WindowBank_DrawSecondPageSelection(ElementId elementId, std::int32_t unused); // 第二页选中图。
+static std::int32_t WindowBank_DrawSecondPageSelection(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unused); // 第二页选中图。
 
 // 原函数：0x004A9B00。
-static std::int32_t WindowBank_DrawCounts(ElementId elementId, std::int32_t unusedState); // 双侧数量和金额。
+static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unusedState); // 双侧数量和金额。
 
 // 原函数：0x004A95A0。
-static std::int32_t WindowBank_TabItems(ElementId elementId, std::int32_t state); // 物品页签。
+static std::int32_t WindowBank_TabItems(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 物品页签。
 
 // 原函数：0x004A96D0。
-static std::int32_t WindowBank_TabPets(ElementId elementId, std::int32_t state); // 宠物页签。
+static std::int32_t WindowBank_TabPets(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物页签。
 
 // 原函数：0x004A9820。
-static std::int32_t WindowBank_TabDeposit(ElementId elementId, std::int32_t state); // 存款页签。
+static std::int32_t WindowBank_TabDeposit(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 存款页签。
 
 // 原函数：0x004A9990。
-static std::int32_t WindowBank_TabWithdraw(ElementId elementId, std::int32_t state); // 取款页签。
+static std::int32_t WindowBank_TabWithdraw(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 取款页签。
 
 // 原函数：0x004A9D10。
-static std::int32_t WindowBank_HandleOwnItems(ElementId elementId, std::int32_t state); // 自有存放物品面板。
+static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 自有存放物品面板。
 
 // 原函数：0x004AA3D0。
-static std::int32_t WindowBank_HandleStoredItems(ElementId elementId, std::int32_t state); // SEP01：完整窗口41外部物品消费，低BYTE/坐标原序与S32 consumed保持。
+static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // SEP01：完整窗口41外部物品消费，低BYTE/坐标原序与S32 consumed保持。
 
 // 原函数：0x004AA9C0。
-static std::int32_t WindowBank_ButtonPreviousPet(ElementId elementId, std::int32_t state); // 宠物上一行。
+static std::int32_t WindowBank_ButtonPreviousPet(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物上一行。
 
 // 原函数：0x004AAA70。
-static std::int32_t WindowBank_ButtonNextPet(ElementId elementId, std::int32_t state); // 宠物下一行。
+static std::int32_t WindowBank_ButtonNextPet(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物下一行。
 
 // 原函数：0x004AAB20。
-static std::int32_t WindowBank_ScrollPets(ElementId elementId, std::int32_t state); // 两侧宠物滚轮。
+static std::int32_t WindowBank_ScrollPets(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 两侧宠物滚轮。
 
 // 原函数：0x004ABB20。
-static std::int32_t WindowBank_HandleAmount(ElementId elementId, std::int32_t state); // SDM01：存取原上限/AL确认、发送后fresh金额再清槽/双文本，返回0。
+static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // SDM01：存取原上限/AL确认、发送后fresh金额再清槽/双文本，返回0。
 
 // 原函数：0x004AAEC0。
-static std::int32_t WindowBank_HandleOwnPetRow(ElementId elementId, std::int32_t state); // 自有宠物存放行。
+static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 自有宠物存放行。
 
 // 原函数：0x004AB710。
-static std::int32_t WindowBank_HandleStoredPetRow(ElementId elementId, std::int32_t state); // 外部宠物提领行。
+static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 外部宠物提领行。
 
 // 原函数：0x004A83D0。
 static void WindowBank_Release(WindowInstance&);
@@ -522,9 +522,9 @@ static std::int32_t WindowBank_Draw(WindowInstance& callbackWindow, const std::i
 }
 
 // 原函数：0x004A92D0。
-static std::int32_t WindowBank_FocusAmountInput(const ElementId, const std::int32_t state)
+static std::int32_t WindowBank_FocusAmountInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const handleAmountElement = elementsWindow->FindElementById(WindowBankElementId::HandleAmount);
@@ -538,7 +538,7 @@ static std::int32_t WindowBank_FocusAmountInput(const ElementId, const std::int3
         }
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        WindowInstance* const window = WindowRuntime_States()[WindowId_Bank].window;
+        WindowInstance* const window = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].window;
         static_cast<void>(WindowInput_ActivateElement(&gStorageInputPrototype57EBA0, 0, -100, 0));
         input::SetContext_44B330(&cg::ui::detail::gInputContextCA0018);
         auto* const focusAmountInputElement = window ? window->FindElementById(WindowBankElementId::FocusAmountInput) : nullptr;
@@ -551,9 +551,9 @@ static std::int32_t WindowBank_FocusAmountInput(const ElementId, const std::int3
 }
 
 // 原函数：0x004A93E0。
-static std::int32_t WindowBank_ButtonFirstPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_ButtonFirstPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
@@ -568,7 +568,7 @@ static std::int32_t WindowBank_ButtonFirstPage(const ElementId elementId, const 
     if ((state & MouseFlag_LDownEvent) != 0) {
         gLoginWindowRuntime.valueD67618 = 0;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(cg::network::GetGameConnection().SelectBankPageRequest(1));
+        static_cast<void>(callbackWindow.ownerSession->Connection().SelectBankPageRequest(1));
     }
     if (graphic) graphic->imageNo = 243173;
     if ((state & MouseFlag_Hover) != 0) {
@@ -578,9 +578,9 @@ static std::int32_t WindowBank_ButtonFirstPage(const ElementId elementId, const 
 }
 
 // 原函数：0x004A94A0。
-static std::int32_t WindowBank_ButtonSecondPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_ButtonSecondPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* elementsWindow = currentWindow;
     auto* const graphicElement = elementsWindow->FindElementById(elementId);
@@ -595,7 +595,7 @@ static std::int32_t WindowBank_ButtonSecondPage(const ElementId elementId, const
     if ((state & MouseFlag_LDownEvent) != 0) {
         gLoginWindowRuntime.valueD67618 = 1;
         static_cast<void>(audio::PlaySe_52C450(51, 320));
-        static_cast<void>(cg::network::GetGameConnection().SelectBankPageRequest(2));
+        static_cast<void>(callbackWindow.ownerSession->Connection().SelectBankPageRequest(2));
     }
     if (graphic) graphic->imageNo = 243176;
     if ((state & MouseFlag_Hover) != 0) {
@@ -605,27 +605,27 @@ static std::int32_t WindowBank_ButtonSecondPage(const ElementId elementId, const
 }
 
 // 原函数：0x004A9560。
-static std::int32_t WindowBank_DrawFirstPageSelection(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowBank_DrawFirstPageSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 243174;
     return 0;
 }
 
 // 原函数：0x004A9580。
-static std::int32_t WindowBank_DrawSecondPageSelection(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowBank_DrawSecondPageSelection(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (auto* const indexedElement = currentWindow->FindElementById(elementId); indexedElement) indexedElement->data.graphic->imageNo = 243177;
     return 0;
 }
 
 // 原函数：0x004A95A0。
-static std::int32_t WindowBank_TabItems(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_TabItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -643,7 +643,7 @@ static std::int32_t WindowBank_TabItems(const ElementId elementId, const std::in
         auto* const handleStoredItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems);
         if (handleStoredItemsElement) {
             auto* const external = handleStoredItemsElement->data.graphic;
-            external->imageNo = gStoragePanelImages54F4F0[WindowRuntime_States()[WindowId_Bank].value10];
+            external->imageNo = gStoragePanelImages54F4F0[WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10];
         }
         for (std::int32_t element = 14; element < 34; ++element) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
@@ -665,9 +665,9 @@ static std::int32_t WindowBank_TabItems(const ElementId elementId, const std::in
 }
 
 // 原函数：0x004A96D0。
-static std::int32_t WindowBank_TabPets(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_TabPets(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -685,7 +685,7 @@ static std::int32_t WindowBank_TabPets(const ElementId elementId, const std::int
         auto* const handleStoredItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems);
         if (handleStoredItemsElement) {
             auto* const external = handleStoredItemsElement->data.graphic;
-            external->imageNo = gStoragePetImages54F4F8[WindowRuntime_States()[WindowId_Bank].value10];
+            external->imageNo = gStoragePetImages54F4F8[WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10];
         }
         for (std::int32_t element = 14; element < 34; ++element) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
@@ -710,9 +710,9 @@ static std::int32_t WindowBank_TabPets(const ElementId elementId, const std::int
 }
 
 // 原函数：0x004A9820。
-static std::int32_t WindowBank_TabDeposit(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_TabDeposit(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -729,7 +729,7 @@ static std::int32_t WindowBank_TabDeposit(const ElementId elementId, const std::
         auto* const handleStoredItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems);
         if (handleStoredItemsElement) {
             auto* const external = handleStoredItemsElement->data.graphic;
-            external->imageNo = gStorageMoneyImages54F500[WindowRuntime_States()[WindowId_Bank].value10];
+            external->imageNo = gStorageMoneyImages54F500[WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10];
         }
         for (std::int32_t element = 14; element < 34; ++element) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
@@ -740,7 +740,7 @@ static std::int32_t WindowBank_TabDeposit(const ElementId elementId, const std::
         if (auto* const handleOwnItemsElement2 = currentWindow->FindElementById(WindowBankElementId::HandleOwnItems); handleOwnItemsElement2) handleOwnItemsElement2->mouseCallback = WindowElement_NoOp;
         if (auto* const handleStoredItemsElement2 = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems); handleStoredItemsElement2) handleStoredItemsElement2->mouseCallback = WindowElement_NoOp;
         if (auto* const handleAmountElement3 = currentWindow->FindElementById(WindowBankElementId::HandleAmount); handleAmountElement3) handleAmountElement3->state = 0;
-        static_cast<void>(WindowBank_FocusAmountInput(NativeElementKey(0), 2));
+        static_cast<void>(WindowBank_FocusAmountInput(callbackWindow, NativeElementKey(0), 2));
     }
     if (graphic) graphic->imageNo = 243024;
     if ((state & MouseFlag_Hover) != 0) {
@@ -756,9 +756,9 @@ static std::int32_t WindowBank_TabDeposit(const ElementId elementId, const std::
 }
 
 // 原函数：0x004A9990。
-static std::int32_t WindowBank_TabWithdraw(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_TabWithdraw(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -775,7 +775,7 @@ static std::int32_t WindowBank_TabWithdraw(const ElementId elementId, const std:
         auto* const handleStoredItemsElement = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems);
         if (handleStoredItemsElement) {
             auto* const external = handleStoredItemsElement->data.graphic;
-            external->imageNo = gStorageMoneyImages54F500[WindowRuntime_States()[WindowId_Bank].value10];
+            external->imageNo = gStorageMoneyImages54F500[WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10];
         }
         for (std::int32_t element = 14; element < 34; ++element) {
             if (auto* const indexedElement = currentWindow->FindElementById(NativeElementKey(element)); indexedElement) indexedElement->visible = 0;
@@ -786,7 +786,7 @@ static std::int32_t WindowBank_TabWithdraw(const ElementId elementId, const std:
         if (auto* const handleOwnItemsElement2 = currentWindow->FindElementById(WindowBankElementId::HandleOwnItems); handleOwnItemsElement2) handleOwnItemsElement2->mouseCallback = WindowElement_NoOp;
         if (auto* const handleStoredItemsElement2 = currentWindow->FindElementById(WindowBankElementId::HandleStoredItems); handleStoredItemsElement2) handleStoredItemsElement2->mouseCallback = WindowElement_NoOp;
         if (auto* const handleAmount_32Element3 = currentWindow->FindElementById(WindowBankElementId::HandleAmount_32); handleAmount_32Element3) handleAmount_32Element3->state = 0;
-        static_cast<void>(WindowBank_FocusAmountInput(NativeElementKey(0), 2));
+        static_cast<void>(WindowBank_FocusAmountInput(callbackWindow, NativeElementKey(0), 2));
     }
     if (graphic) graphic->imageNo = 243024;
     if ((state & MouseFlag_Hover) != 0) {
@@ -802,10 +802,10 @@ static std::int32_t WindowBank_TabWithdraw(const ElementId elementId, const std:
 }
 
 // 原函数：0x004A9D10。
-static std::int32_t WindowBank_HandleOwnItems(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_HandleOwnItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     render::GraphicDescriptor16 dimmed {};
@@ -880,7 +880,7 @@ static std::int32_t WindowBank_HandleOwnItems(const ElementId elementId, const s
         hovered = -1;
     }
     if (gBankOwnHover57EDCC != hovered) {
-        WindowRuntime_States()[WindowId_Bank].value20 = 0;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = 0;
     }
     gBankOwnHover57EDCC = hovered;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
@@ -911,12 +911,12 @@ static std::int32_t WindowBank_HandleOwnItems(const ElementId elementId, const s
         }
         if ((platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_RDown) != 0) {
             if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20);
                 const std::int32_t pages = world::gPlayerRuntimeSlots.items[hovered + 8].pages;
                 ++page;
-                WindowRuntime_States()[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    WindowRuntime_States()[WindowId_Bank].value20 = 0;
+                    WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = 0;
                 }
             }
             consumed = 1;
@@ -951,7 +951,7 @@ static std::int32_t WindowBank_HandleOwnItems(const ElementId elementId, const s
                 223, cg::render::gHoverFramePaletteIndex_D69768, 0);
         }
         if (world::gPlayerRuntimeSlots.items[hovered + 8].used != 0) {
-            WindowRuntime_States()[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 8);
             if (WindowDrag_ReadKind() == 2 && WindowDrag_ReadSourceIndex() >= 100) {
                 ++gStorageValueCC4218;
             }
@@ -1000,10 +1000,10 @@ static std::int32_t WindowBank_HandleOwnItems(const ElementId elementId, const s
 
 // SEP01：原4AA3D0完整478条；flags只读低BYTE，坐标按原S32取样序，窗口41转移/翻页/数量显示保持。
 // 原函数：0x004AA3D0。
-static std::int32_t WindowBank_HandleStoredItems(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_HandleStoredItems(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     const std::uint32_t color = 0xFFFFFFFFu;
@@ -1077,7 +1077,7 @@ static std::int32_t WindowBank_HandleStoredItems(const ElementId elementId, cons
         }
     }
     if (gBankExternalHover57EDD0 != hovered) {
-        WindowRuntime_States()[WindowId_Bank].value20 = 0;
+        WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = 0;
     }
     gBankExternalHover57EDD0 = hovered;
     if (hovered >= 0 && (platform::gLegacyMouseState.edgeButtons & platform::LegacyMouseEdge_LDblClick) != 0) {
@@ -1115,13 +1115,13 @@ static std::int32_t WindowBank_HandleStoredItems(const ElementId elementId, cons
             std::uint16_t used;
             std::memcpy(&used, record, sizeof(used));
             if (used != 0) {
-                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value20);
+                std::int32_t page = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20);
                 std::int32_t pages;
                 std::memcpy(&pages, &record->pages, sizeof(pages));
                 ++page;
-                WindowRuntime_States()[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
+                WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = static_cast<std::uint32_t>(page);
                 if (page >= pages) {
-                    WindowRuntime_States()[WindowId_Bank].value20 = 0;
+                    WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value20 = 0;
                 }
             }
             consumed = 1;
@@ -1166,7 +1166,7 @@ static std::int32_t WindowBank_HandleStoredItems(const ElementId elementId, cons
         std::uint16_t used;
         std::memcpy(&used, &gItemDetailStorageCC4D58[0].items[hovered], sizeof(used));
         if (used != 0) {
-            WindowRuntime_States()[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(hovered + 100);
         }
     }
     static_cast<void>(render::ClearTextQueueTail_456D50(3));
@@ -1209,14 +1209,14 @@ static std::int32_t WindowBank_HandleStoredItems(const ElementId elementId, cons
 }
 
 // 原函数：0x004AA9C0。
-static std::int32_t WindowBank_ButtonPreviousPet(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_ButtonPreviousPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     std::uint32_t* const scroll = elementId >= static_cast<ElementId>(WindowBankElementId::Element26) ? &windowState->value28 : &windowState->value24;
     std::int32_t result = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -1246,14 +1246,14 @@ static std::int32_t WindowBank_ButtonPreviousPet(const ElementId elementId, cons
 }
 
 // 原函数：0x004AAA70。
-static std::int32_t WindowBank_ButtonNextPet(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_ButtonNextPet(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     auto* const graphic = graphicElement ? graphicElement->data.graphic : nullptr;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     std::uint32_t* const scroll = elementId >= static_cast<ElementId>(WindowBankElementId::Element26) ? &windowState->value28 : &windowState->value24;
     std::int32_t result = 0;
     if ((state & MouseFlag_LRepeatDown) != 0) {
@@ -1283,12 +1283,12 @@ static std::int32_t WindowBank_ButtonNextPet(const ElementId elementId, const st
 }
 
 // 原函数：0x004AAB20。
-static std::int32_t WindowBank_ScrollPets(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_ScrollPets(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    WindowState* const windowState = gCurrentWindowState;
+    WindowState* const windowState = (&WindowRuntime_States(*callbackWindow.ownerSession)[callbackWindow.id]);
     std::uint32_t* const scroll = elementId >= static_cast<ElementId>(WindowBankElementId::Element26) ? &windowState->value28 : &windowState->value24;
     if ((state & (MouseFlag_Hover | MouseFlag_Dragging)) != 0) {
         const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
@@ -1303,12 +1303,12 @@ static std::int32_t WindowBank_ScrollPets(const ElementId elementId, const std::
 }
 
 // 原函数：0x004AAEC0。
-static std::int32_t WindowBank_HandleOwnPetRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_HandleOwnPetRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value24);
+    const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
     const std::int32_t petIndex = std::bit_cast<std::int16_t>(
         world::gPetPairsDE0B08[index + scroll - 14].index);
     std::int32_t consumed = 0;
@@ -1319,15 +1319,15 @@ static std::int32_t WindowBank_HandleOwnPetRow(const ElementId elementId, const 
             const std::int32_t source = WindowDrag_ReadSourceIndex();
             if (source < 100 && WindowDrag_ReadFocusWindowId() == 41 && WindowDrag_ReadFocusElement() == elementId) {
                 const std::int32_t firstPosition = WindowItem_FindSortedPetIndex(source);
-                const std::int32_t firstScroll = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value24);
+                const std::int32_t firstScroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
                 if (firstPosition - firstScroll >= 0) {
                     const std::int32_t secondPosition = WindowItem_FindSortedPetIndex(source);
                     const std::int32_t secondScroll =
-                        std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value24);
+                        std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
                     if (secondPosition - secondScroll < 3) {
                         const std::int32_t position = WindowItem_FindSortedPetIndex(source);
                         const std::int32_t currentScroll =
-                            std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value24);
+                            std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value24);
                         const std::int32_t elementIndex = 14 - currentScroll + position;
                         const WindowInstance* const window = currentWindow;
                         const std::int32_t y = window->y;
@@ -1358,7 +1358,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const ElementId elementId, const 
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source != petIndex) {
             bool allowed = true;
-            if (WindowRuntime_States()[WindowId_Bank].value10 == 1 && petIndex < 5 && source >= 100) {
+            if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10 == 1 && petIndex < 5 && source >= 100) {
                 const auto& pet = world::gPetRuntimeRecords[petIndex];
                 const std::int32_t itemSlots = pet.values6D8[0];
                 bool empty = true;
@@ -1402,7 +1402,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const ElementId elementId, const 
             }
             if (target < 5) {
                 bool allowed = true;
-                if (WindowRuntime_States()[WindowId_Bank].value10 == 1 && petIndex < 5) {
+                if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10 == 1 && petIndex < 5) {
                     const std::int32_t itemSlots = pet.values6D8[0];
                     bool empty = true;
                     for (std::int32_t slot = 0; slot < itemSlots; ++slot) {
@@ -1436,7 +1436,7 @@ static std::int32_t WindowBank_HandleOwnPetRow(const ElementId elementId, const 
             WindowElement_DrawHoverFrame(indexedElement, 1, imageNo);
         }
         if (pet.used != 0) {
-            WindowRuntime_States()[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 200);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 200);
         }
     }
     if ((events & MouseFlag_Dragging) != 0) {
@@ -1464,12 +1464,12 @@ static std::int32_t WindowBank_HandleOwnPetRow(const ElementId elementId, const 
 }
 
 // 原函数：0x004AB710。
-static std::int32_t WindowBank_HandleStoredPetRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_HandleStoredPetRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value28);
+    const std::int32_t scroll = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value28);
     const std::int32_t petIndex = scroll + index - 17;
     std::int32_t consumed = 0;
     std::uint8_t events = static_cast<std::uint8_t>(state);
@@ -1482,7 +1482,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const ElementId elementId, con
         const std::int32_t source = WindowDrag_ReadSourceIndex();
         if (source != petIndex + 100) {
             bool allowed = true;
-            if (WindowRuntime_States()[WindowId_Bank].value10 == 1 && source < 5) {
+            if (WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10 == 1 && source < 5) {
                 const auto& sourcePet = world::gPetRuntimeRecords[source];
                 const std::int32_t weight = sourcePet.values6D8[1];
                 const std::int32_t itemSlots = sourcePet.values6D8[0];
@@ -1532,13 +1532,13 @@ static std::int32_t WindowBank_HandleStoredPetRow(const ElementId elementId, con
                 cg::text::FormatTo(buffer, L"P|{}|{}", petIndex + 100, target);
                 const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
                 const std::int32_t userState =
-                    std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].userState.value);
-                const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value14);
+                    std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].userState.value);
+                const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value14);
                 const std::int32_t y =
                     static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x =
                     static_cast<std::int32_t>(world::gPlayerX);
-                static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
             }
         }
         consumed = 1;
@@ -1563,7 +1563,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const ElementId elementId, con
             const std::int32_t slot = source - 100;
             if (WindowDrag_ReadFocusWindowId() == 41 && WindowDrag_ReadFocusElement() == elementId) {
                 const std::int32_t currentScroll =
-                    std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value28);
+                    std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value28);
                 const std::int32_t row = slot - currentScroll;
                 if (row >= 0 && row < 3) {
                     const WindowInstance* const window = currentWindow;
@@ -1591,7 +1591,7 @@ static std::int32_t WindowBank_HandleStoredPetRow(const ElementId elementId, con
             if (indexedElement) {
                 WindowElement_DrawHoverFrame(indexedElement, 1, imageNo);
             }
-            WindowRuntime_States()[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 300);
+            WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].actionFlags1C = static_cast<std::uint32_t>(petIndex + 300);
         }
     }
     if ((events & MouseFlag_Dragging) != 0) {
@@ -1616,15 +1616,15 @@ static std::int32_t WindowBank_HandleStoredPetRow(const ElementId elementId, con
 
 // SDM01：原4ABB20完整233条；存/取原上限、AL钳回、转义后字段/Y-X与发送后fresh金额发布保，真实返回0。
 // 原函数：0x004ABB20。
-static std::int32_t WindowBank_HandleAmount(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBank_HandleAmount(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     // 原未识别kind/side或非30/31元素走未初始化局部路径，不补默认值。
     std::int32_t maximum;
     std::uint8_t result;
     if (elementId == static_cast<ElementId>(WindowBankElementId::HandleAmount)) {
-        const std::uint32_t kind = WindowRuntime_States()[WindowId_Bank].value10;
+        const std::uint32_t kind = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value10;
         if (kind == 0 || kind == 1) {
             const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
             if (side == 0 || side == 1) {
@@ -1689,13 +1689,13 @@ static std::int32_t WindowBank_HandleAmount(const ElementId elementId, const std
             }
             const std::wstring escapedReply = input::EscapeTextAndNotify(buffer, 255);
             const std::int32_t userState =
-                std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].userState.value);
-            const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Bank].value14);
+                std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].userState.value);
+            const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Bank].value14);
             const std::int32_t y =
                 static_cast<std::int32_t>(world::gPlayerY);
             const std::int32_t x =
                 static_cast<std::int32_t>(world::gPlayerX);
-            static_cast<void>(cg::network::GetGameConnection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
+            static_cast<void>(callbackWindow.ownerSession->Connection().SendDialogResponse(x, y, value14, userState, 0, escapedReply));
             window = currentWindow;
             auto* const confirmedElement = window->FindElementById(elementId);
             if (confirmedElement) {
@@ -1726,9 +1726,9 @@ static std::int32_t WindowBank_HandleAmount(const ElementId elementId, const std
 }
 
 // 原函数：0x004A9B00。
-static std::int32_t WindowBank_DrawCounts(const ElementId, const std::int32_t)
+static std::int32_t WindowBank_DrawCounts(WindowInstance& callbackWindow, const ElementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::wstring buffer;
     std::int32_t count = 0;
@@ -1797,9 +1797,9 @@ static std::int32_t WindowBank_DrawCounts(const ElementId, const std::int32_t)
 }
 
 // 原函数：0x004AC200。
-std::int32_t WindowBank_ButtonCloseIcon(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowBank_ButtonCloseIcon(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -1824,9 +1824,9 @@ std::int32_t WindowBank_ButtonCloseIcon(const ElementId elementId, const std::in
 }
 
 // 原函数：0x004A9350。
-std::int32_t WindowBank_ButtonClose(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowBank_ButtonClose(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);

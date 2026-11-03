@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "../../world/PlayerState.hpp"
@@ -86,7 +87,7 @@ input::InputContext gInputContextD2D4A0 {}; // 原全局：0x00D2D4A0。
 // 回调与内部函数前置声明。
 
 // 原函数：0x0048DD80。
-static std::int32_t WindowPetDetail_HandleButtons(ElementId elementId, std::int32_t state); // 宠物详情名称/放地/选择/旋转。
+static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物详情名称/放地/选择/旋转。
 
 // 原函数：0x0048D9A0。
 static std::int32_t WindowPetDetail_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -499,9 +500,9 @@ static void WindowPetDetail_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x0048DD80。
-static std::int32_t WindowPetDetail_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPetDetail_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     const auto setImage = [elementId, currentWindow](const std::int32_t image) {
@@ -523,9 +524,9 @@ static std::int32_t WindowPetDetail_HandleButtons(const ElementId elementId, con
             const std::wstring text = input::ContextText(cg::ui::detail::gInputContextD2D4A0);
             const std::wstring escapedText = input::EscapeTextAndNotify(text, 256);
             const std::int32_t position = gLoginWindowRuntime.selectedPetCC3E5C;
-            const auto networkSession = cg::network::GetGameConnection().CaptureSession();
+            const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
             const std::int16_t pet = petIndex(position);
-            static_cast<void>(cg::network::GetGameConnection().RenamePetRequest(pet, escapedText));
+            static_cast<void>(callbackWindow.ownerSession->Connection().RenamePetRequest(pet, escapedText));
             static_cast<void>(audio::PlaySe_52C450(78, 320));
             WindowChat_RestoreInput();
             if (text.empty()) {
@@ -559,8 +560,8 @@ static std::int32_t WindowPetDetail_HandleButtons(const ElementId elementId, con
                 const std::int16_t pet = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 const std::int32_t y = static_cast<std::int32_t>(world::gPlayerY);
                 const std::int32_t x = static_cast<std::int32_t>(world::gPlayerX);
-                const auto networkSession = cg::network::GetGameConnection().CaptureSession();
-                static_cast<void>(cg::network::GetGameConnection().DropPetRequest(x, y, pet));
+                const auto networkSession = callbackWindow.ownerSession->Connection().CaptureSession();
+                static_cast<void>(callbackWindow.ownerSession->Connection().DropPetRequest(x, y, pet));
                 static_cast<void>(audio::PlaySe_52C450(79, 320));
                 const std::int16_t selected = petIndex(gLoginWindowRuntime.selectedPetCC3E5C);
                 if (world::gPetRuntimeRecords[selected].flags6AA == 2) {
@@ -643,9 +644,9 @@ static std::int32_t WindowPetDetail_HandleButtons(const ElementId elementId, con
 }
 
 // 原函数：0x0048F380。
-std::int32_t WindowPetDetail_EditName(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowPetDetail_EditName(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) == 0) {
         return 0;
@@ -666,9 +667,9 @@ std::int32_t WindowPetDetail_EditName(const ElementId elementId, const std::int3
 }
 
 // 原函数：0x0048F410。
-std::int32_t WindowPetDetail_SwitchPage(const ElementId elementId, const std::int32_t state)
+std::int32_t WindowPetDetail_SwitchPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t target;
     std::int32_t idle;
@@ -704,7 +705,7 @@ std::int32_t WindowPetDetail_SwitchPage(const ElementId elementId, const std::in
         }
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        WindowInstance* const targetWindow = WindowRuntime_Open(target);
+        WindowInstance* const targetWindow = WindowRuntime_Open(*callbackWindow.ownerSession, target);
         if (!targetWindow) return 1;
         currentWindow->state |= 0x8000u;
         targetWindow->x = currentWindow->x;

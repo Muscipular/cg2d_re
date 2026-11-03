@@ -37,7 +37,7 @@ namespace detail {
 static std::int32_t WindowEmote_ResetSelection(); // 清零唯一18B选择区，返回0。
 
 // 原函数：0x00495FE0。
-static std::int32_t WindowEmote_ButtonEmote(ElementId elementId, std::int32_t state); // 情绪窗18按钮，请求被拒仍更新选择并发声。
+static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 情绪窗18按钮，请求被拒仍更新选择并发声。
 
 // 原函数：0x00495F50。
 static std::int32_t WindowEmote_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -171,10 +171,10 @@ static std::int32_t WindowEmote_ResetSelection()
 }
 
 // 原函数：0x00495FE0。
-static std::int32_t WindowEmote_ButtonEmote(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowEmote_ButtonEmote(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {

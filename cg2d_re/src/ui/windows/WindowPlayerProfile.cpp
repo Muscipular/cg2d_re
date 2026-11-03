@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -87,7 +88,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00474BE0。
-static std::int32_t WindowPlayerProfile_HandleButtons(ElementId elementId, std::int32_t state); // 窗口7资料切页及前后排请求。
+static std::int32_t WindowPlayerProfile_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口7资料切页及前后排请求。
 
 // 原函数：0x00474310。
 static void WindowPlayerProfile_Release(WindowInstance&);
@@ -328,9 +329,9 @@ static void WindowPlayerProfile_RefreshAttributeBar(
 
 // 原474BE0：五按钮及默认分支；位置请求不写玩家状态，返回仍为悬停值。
 // 原函数：0x00474BE0。
-static std::int32_t WindowPlayerProfile_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPlayerProfile_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t idleImage;
     std::int32_t hoverImage;
@@ -350,7 +351,7 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const ElementId elementId,
         hint = L"切换成玩家称号视窗。";
         break;
     case WindowPlayerProfileElementId::HandleButtons_22:
-        if (network::GetGameConnection().PukVersion() < 8u) {
+        if (callbackWindow.ownerSession->Connection().PukVersion() < 8u) {
             auto* const indexedElement = currentWindow->FindElementById(elementId);
             if (indexedElement) {
                 indexedElement->data.graphic->imageNo =
@@ -391,21 +392,21 @@ static std::int32_t WindowPlayerProfile_HandleButtons(const ElementId elementId,
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
         if (targetWindow != 0) {
-            if (WindowRuntime_States()[targetWindow].window == nullptr) {
+            if (WindowRuntime_States(*callbackWindow.ownerSession)[targetWindow].window == nullptr) {
                 currentWindow->state |= 0x8000u;
-                static_cast<void>(WindowRuntime_Open(targetWindow));
+                static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, targetWindow));
                 WindowInstance* const xSource = currentWindow;
-                WindowInstance* const xTarget = WindowRuntime_States()[targetWindow].window;
+                WindowInstance* const xTarget = WindowRuntime_States(*callbackWindow.ownerSession)[targetWindow].window;
                 xTarget->x = xSource->x;
                 WindowInstance* const ySource = currentWindow;
-                WindowInstance* const yTarget = WindowRuntime_States()[targetWindow].window;
+                WindowInstance* const yTarget = WindowRuntime_States(*callbackWindow.ownerSession)[targetWindow].window;
                 yTarget->y = ySource->y;
                 static_cast<void>(audio::PlaySe_52C450(56, 320));
                 WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);
                 consumed = 1;
             }
         } else if (world::gPlayerRuntimeSlots.value1A0 == (elementId == static_cast<ElementId>(WindowPlayerProfileElementId::HandleButtons_24) ? 0 : 1)) {
-            static_cast<void>(cg::network::GetGameConnection().ToggleBattleRowRequest());
+            static_cast<void>(callbackWindow.ownerSession->Connection().ToggleBattleRowRequest());
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         }
     }

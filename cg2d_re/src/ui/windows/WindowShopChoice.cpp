@@ -42,7 +42,7 @@ static cg::yobi::YobiAction* WindowShopChoice_Open(
     const wchar_t* const* hints, WindowChoiceCallback callback); // 窗口52只借用文本及回调。
 
 // 原函数：0x0049FFA0。
-static std::int32_t WindowShopChoice_SelectRow(ElementId elementId, std::int32_t state);
+static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x004A00C0。
 static std::int32_t WindowShopChoice_SendBuySellChoice(std::int32_t index); // 商店回复仅索引0..1发送，其他返回原索引。
@@ -304,9 +304,9 @@ static void WindowShopChoice_Release(WindowInstance&)
 }
 
 // 原函数：0x0049FFA0。
-static std::int32_t WindowShopChoice_SelectRow(const ElementId, const std::int32_t state)
+static std::int32_t WindowShopChoice_SelectRow(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_Hover) == 0) {
         return 0;

@@ -98,7 +98,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00492880。
-static std::int32_t WindowAlbumDetail_HandleNavigation(ElementId elementId, std::int32_t state); // 图鉴详情四种翻页与旋转。
+static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 图鉴详情四种翻页与旋转。
 
 // 原函数：0x00492410。
 static std::int32_t WindowAlbumDetail_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -435,9 +435,9 @@ static std::int32_t WindowAlbumDetail_Update(WindowInstance& callbackWindow, con
 }
 
 // 原函数：0x00492880。
-static std::int32_t WindowAlbumDetail_HandleNavigation(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAlbumDetail_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t delta;
     std::int32_t idle;

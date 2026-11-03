@@ -72,7 +72,7 @@ static void WindowSkill_DrawSkillRow(
     std::uint32_t color); // 固定配对对应技能，需求槽数按S8。
 
 // 原函数：0x0047B820。
-static std::int32_t WindowSkill_HandleSkillRow(ElementId elementId, std::int32_t state); // 列表排序请求、打开技术与右键拖动。
+static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 列表排序请求、打开技术与右键拖动。
 
 // 原函数：0x00479700。
 static void WindowSkill_HandleDrag(
@@ -94,10 +94,10 @@ static void WindowSkill_ShowBattleSkills(session::ClientSession& session, Window
 static void WindowSkill_ShowBattleTechniques(session::ClientSession& session, WindowInstance* window, std::int32_t index, std::uint8_t directSkill); // 战斗技术初始化。
 
 // 原函数：0x0047C570。
-static std::int32_t WindowSkill_HandleBattleSkillRow(ElementId elementId, std::int32_t state); // 战斗列表行，技能标志决定可用。
+static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 战斗列表行，技能标志决定可用。
 
 // 原函数：0x0047C700。
-static std::int32_t WindowSkill_SelectBattleTechnique(ElementId elementId, std::int32_t state); // 战斗技术选择，独立FP读取与回调后重取窗口。
+static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 战斗技术选择，独立FP读取与回调后重取窗口。
 
 // 原函数：0x0047A1A0。
 static void WindowSkill_ShowPetSkills(session::ClientSession& session, WindowInstance* window); // 宠物模式初始化，保留弃用结果的FP读取。
@@ -116,34 +116,34 @@ static void WindowSkill_DrawRidingSkillRow(
     std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 骑乘行绘制，固定技术记录。
 
 // 原函数：0x0047CC80。
-static std::int32_t WindowSkill_SelectPetSkill(ElementId elementId, std::int32_t state); // 宠物选择，不加滚动偏移。
+static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 宠物选择，不加滚动偏移。
 
 // 原函数：0x0047CFE0。
-static std::int32_t WindowSkill_SelectRidingSkill(ElementId elementId, std::int32_t state); // 骑乘选择，FP不足不补失败音效。
+static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 骑乘选择，FP不足不补失败音效。
 
 // 原函数：0x0047B110。
-static std::int32_t WindowSkill_ButtonBack(ElementId elementId, std::int32_t state); // 固定入口窗口的返回按钮。
+static std::int32_t WindowSkill_ButtonBack(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 固定入口窗口的返回按钮。
 
 // 原函数：0x0047B210。
-static std::int32_t WindowSkill_ButtonUse(ElementId elementId, std::int32_t state); // TUC01：先借元素再读U8动作标志；Y/X发送后更新同源占用。
+static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // TUC01：先借元素再读U8动作标志；Y/X发送后更新同源占用。
 
 // 原函数：0x0047C950。
-static std::int32_t WindowSkill_ButtonPetSkillBack(ElementId elementId, std::int32_t state); // 无可用宠物技能时略过，通知-1。
+static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 无可用宠物技能时略过，通知-1。
 
 // 原函数：0x0047B3D0。
-static std::int32_t WindowSkill_ButtonPreviousRow(ElementId elementId, std::int32_t state); // 前一行，bit400。
+static std::int32_t WindowSkill_ButtonPreviousRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 前一行，bit400。
 
 // 原函数：0x0047B470。
-static std::int32_t WindowSkill_ButtonNextRow(ElementId elementId, std::int32_t state); // 后一行，bit400。
+static std::int32_t WindowSkill_ButtonNextRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 后一行，bit400。
 
 // 原函数：0x0047B520。
-static std::int32_t WindowSkill_ButtonPreviousPage(ElementId elementId, std::int32_t state); // 前十行，音效后重读页码。
+static std::int32_t WindowSkill_ButtonPreviousPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 前十行，音效后重读页码。
 
 // 原函数：0x0047B5D0。
-static std::int32_t WindowSkill_ButtonNextPage(ElementId elementId, std::int32_t state); // 后十行，不额外钳制负上限。
+static std::int32_t WindowSkill_ButtonNextPage(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 后十行，不额外钳制负上限。
 
 // 原函数：0x0047B680。
-static std::int32_t WindowSkill_Scroll(ElementId elementId, std::int32_t state); // 同源滚轮，恒返0。
+static std::int32_t WindowSkill_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 同源滚轮，恒返0。
 
 // 原函数：0x0047B9B0。
 static void WindowSkill_HandleTechniqueRow(
@@ -156,10 +156,10 @@ static void WindowSkill_HandleRecipeRow(
     std::int32_t textLayer, std::int32_t graphicLayer, std::uint32_t color); // 配方行与独立图号表。
 
 // 原函数：0x0047BC00。
-static std::int32_t WindowSkill_SelectSkillType(ElementId elementId, std::int32_t state); // 五类技能选择与完整失败音效。
+static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 五类技能选择与完整失败音效。
 
 // 原函数：0x0047C3A0。
-static std::int32_t WindowSkill_SelectRecipe(ElementId elementId, std::int32_t state); // 转生一致才处理配方，恒返0。
+static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 转生一致才处理配方，恒返0。
 
 // 原函数：0x004EF750。
 static cg::yobi::YobiAction* WindowSkill_ReceiveAttributeTargets(session::ClientSession& session, const char* text); // ND自身/远端属性生产，分类1跳过人物行。
@@ -726,10 +726,10 @@ static std::int32_t WindowSkill_StartDrag(const std::int32_t sourceIndex)
 }
 
 // 原函数：0x0047B820。
-static std::int32_t WindowSkill_HandleSkillRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_HandleSkillRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -1101,10 +1101,10 @@ static void WindowSkill_ShowBattleTechniques(
 }
 
 // 原函数：0x0047C570。
-static std::int32_t WindowSkill_HandleBattleSkillRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_HandleBattleSkillRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -1171,10 +1171,10 @@ static std::int32_t WindowSkill_HandleBattleSkillRow(const ElementId elementId, 
 }
 
 // 原函数：0x0047C700。
-static std::int32_t WindowSkill_SelectBattleTechnique(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_SelectBattleTechnique(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -1367,10 +1367,10 @@ static void WindowSkill_DrawRidingSkillRow(
 }
 
 // 原函数：0x0047CC80。
-static std::int32_t WindowSkill_SelectPetSkill(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_SelectPetSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -1440,10 +1440,10 @@ static std::int32_t WindowSkill_SelectPetSkill(const ElementId elementId, const 
 }
 
 // 原函数：0x0047CFE0。
-static std::int32_t WindowSkill_SelectRidingSkill(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_SelectRidingSkill(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -1635,9 +1635,9 @@ cg::yobi::YobiAction* WindowSkill_OpenRidingSkills(
 }
 
 // 原函数：0x0047B110。
-static std::int32_t WindowSkill_ButtonBack(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -1711,9 +1711,9 @@ std::int32_t WindowSkill_Back(session::ClientSession& session)
 
 // TUC01：初始元素→单字节动作标志→图形；持有 hover，Y/X发送后按原序发布转生/占用。
 // 原函数：0x0047B210。
-static std::int32_t WindowSkill_ButtonUse(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonUse(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -1769,9 +1769,9 @@ static std::int32_t WindowSkill_ButtonUse(const ElementId elementId, const std::
 }
 
 // 原函数：0x0047C950。
-static std::int32_t WindowSkill_ButtonPetSkillBack(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonPetSkillBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -2077,9 +2077,9 @@ static std::int32_t WindowSkill_Draw(WindowInstance& callbackWindow, const std::
 }
 
 // 原函数：0x0047B3D0。
-static std::int32_t WindowSkill_ButtonPreviousRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonPreviousRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -2113,9 +2113,9 @@ static std::int32_t WindowSkill_ButtonPreviousRow(const ElementId elementId, con
 }
 
 // 原函数：0x0047B470。
-static std::int32_t WindowSkill_ButtonNextRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonNextRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -2151,9 +2151,9 @@ static std::int32_t WindowSkill_ButtonNextRow(const ElementId elementId, const s
 }
 
 // 原函数：0x0047B520。
-static std::int32_t WindowSkill_ButtonPreviousPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonPreviousPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -2186,9 +2186,9 @@ static std::int32_t WindowSkill_ButtonPreviousPage(const ElementId elementId, co
 }
 
 // 原函数：0x0047B5D0。
-static std::int32_t WindowSkill_ButtonNextPage(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_ButtonNextPage(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -2224,9 +2224,9 @@ static std::int32_t WindowSkill_ButtonNextPage(const ElementId elementId, const 
 }
 
 // 原函数：0x0047B680。
-static std::int32_t WindowSkill_Scroll(const ElementId, const std::int32_t state)
+static std::int32_t WindowSkill_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -2279,10 +2279,10 @@ static void WindowSkill_ShowRecipes(session::ClientSession& session, WindowInsta
 }
 
 // 原函数：0x0047C3A0。
-static std::int32_t WindowSkill_SelectRecipe(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_SelectRecipe(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& skillState = session.UiFrame().native.skill;
@@ -2343,10 +2343,10 @@ static std::int32_t WindowSkill_SelectRecipe(const ElementId elementId, const st
 }
 
 // 原函数：0x0047BC00。
-static std::int32_t WindowSkill_SelectSkillType(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowSkill_SelectSkillType(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& request = session.UiFrame().native.skillRequest;

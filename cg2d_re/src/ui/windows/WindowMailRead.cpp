@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/core/LegacyNoOp.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -47,13 +48,13 @@ static std::int32_t WindowMailRead_Update(WindowInstance& callbackWindow, std::i
 static std::int32_t WindowMailRead_Draw(WindowInstance& callbackWindow, std::int32_t unused); // 刷新清当前未读，再公共绘制。
 
 // 原函数：0x004A4660。
-static std::int32_t WindowMailRead_ButtonPrevious(ElementId elementId, std::int32_t state); // 上一封，负页跳9。
+static std::int32_t WindowMailRead_ButtonPrevious(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上一封，负页跳9。
 
 // 原函数：0x004A4710。
-static std::int32_t WindowMailRead_ButtonNext(ElementId elementId, std::int32_t state); // 下一封，页>=10跳0。
+static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 下一封，页>=10跳0。
 
 // 原函数：0x004A47C0。
-static std::int32_t WindowMailRead_ButtonReply(ElementId elementId, std::int32_t state); // 回复上下文与旧物品占用释放。
+static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 回复上下文与旧物品占用释放。
 
 // 原函数：0x004A48A0。
 static void WindowMailRead_FindUnread(); // 最后未读位置；原唯一caller不消费混合地址/整数返回。
@@ -62,7 +63,7 @@ static void WindowMailRead_FindUnread(); // 最后未读位置；原唯一caller
 static std::uint32_t WindowMailRead_Refresh(); // 三类邮件十行、姓名、时间和页码，返回末复制长度。
 
 // 原函数：0x004A4FC0。
-static std::int32_t WindowMailRead_HandleAvatar(ElementId elementId, std::int32_t state); // 悬停双图，区分三类头像采样序。
+static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 悬停双图，区分三类头像采样序。
 
 // 原函数：0x004A4620。
 static std::int32_t WindowMailRead_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -145,9 +146,9 @@ static std::int32_t WindowMailRead_Draw(WindowInstance& callbackWindow, const st
 }
 
 // 原函数：0x004A4660。
-static std::int32_t WindowMailRead_ButtonPrevious(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonPrevious(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -178,9 +179,9 @@ static std::int32_t WindowMailRead_ButtonPrevious(const ElementId elementId, con
 }
 
 // 原函数：0x004A4710。
-static std::int32_t WindowMailRead_ButtonNext(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonNext(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -211,9 +212,9 @@ static std::int32_t WindowMailRead_ButtonNext(const ElementId elementId, const s
 }
 
 // 原函数：0x004A47C0。
-static std::int32_t WindowMailRead_ButtonReply(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowMailRead_ButtonReply(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -240,7 +241,7 @@ static std::int32_t WindowMailRead_ButtonReply(const ElementId elementId, const 
                 gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
                 occupancy[oldSlot] = value;
             }
-            static_cast<void>(WindowRuntime_CreateAnimation(WindowId_MailCompose, 1, 0, nullptr));
+            static_cast<void>(WindowRuntime_CreateAnimation(*callbackWindow.ownerSession, WindowId_MailCompose, 1, 0, nullptr));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
@@ -405,9 +406,9 @@ static std::uint32_t WindowMailRead_Refresh()
 }
 
 // 原函数：0x004A4FC0。
-static std::int32_t WindowMailRead_HandleAvatar(const ElementId, const std::int32_t state)
+static std::int32_t WindowMailRead_HandleAvatar(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     render::GraphicDescriptor16 descriptor {};
     if ((state & MouseFlag_Hover) == 0) {
@@ -418,7 +419,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const ElementId, const std::int3
     std::int32_t identity;
     switch (category) {
     case 0: {
-        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+        const std::int16_t selected = callbackWindow.ownerSession->Connection().LoginRequests().selectedCharacterIndex;
         identity = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
         message = cg::world::GetMailMessageF7CA08(selected, identity, page);
@@ -431,7 +432,7 @@ static std::int32_t WindowMailRead_HandleAvatar(const ElementId, const std::int3
         const std::int32_t mailMember = cg::world::detail::gViewedMailContactId_CF4FC0;
         const std::int32_t mailKey = cg::world::gOrderedRecords1051B14[mailMember].value0C;
         const std::int32_t slot = cg::world::detail::FindLastActiveGuildMailEntry_5195F0(mailKey);
-        const std::int16_t selected = cg::network::GetGameConnection().LoginRequests().selectedCharacterIndex;
+        const std::int16_t selected = callbackWindow.ownerSession->Connection().LoginRequests().selectedCharacterIndex;
         const std::int32_t page = cg::world::detail::gViewedMailMessageIndex_D046D4;
         message = cg::world::GetGuildMailMessageDE0B30(selected, slot, page);
         break;

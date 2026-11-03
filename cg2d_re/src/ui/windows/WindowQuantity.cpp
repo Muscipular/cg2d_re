@@ -29,16 +29,16 @@ input::InputContext gInputContextCB0878 {}; // 原全局：0x00CB0878。
 static std::int32_t WindowQuantity_Update(WindowInstance& callbackWindow, std::int32_t value); // QVC01：-1初始化后总返回1。
 
 // 原函数：0x0048A900。
-static std::int32_t WindowQuantity_HandleInput(ElementId elementId, std::int32_t state); // QVC01：输入bit2切换/焦点发布，返回0。
+static std::int32_t WindowQuantity_HandleInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // QVC01：输入bit2切换/焦点发布，返回0。
 
 // 原函数：0x0048A950。
-static std::int32_t WindowQuantity_ButtonOk(ElementId elementId, std::int32_t state); // QVC01：确认回调后复读取窗/关闭/格式，返回0或1。
+static std::int32_t WindowQuantity_ButtonOk(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // QVC01：确认回调后复读取窗/关闭/格式，返回0或1。
 
 // 原函数：0x0048AA60。
-static std::int32_t WindowQuantity_ButtonIncrease(ElementId elementId, std::int32_t state); // QVC01：增加数量先上限后数值，原图号/声效。
+static std::int32_t WindowQuantity_ButtonIncrease(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // QVC01：增加数量先上限后数值，原图号/声效。
 
 // 原函数：0x0048AB10。
-static std::int32_t WindowQuantity_ButtonDecrease(ElementId elementId, std::int32_t state); // QVC01：减少数量S32正值门槛，原图号/声效。
+static std::int32_t WindowQuantity_ButtonDecrease(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // QVC01：减少数量S32正值门槛，原图号/声效。
 
 // 原函数：0x0048A8C0。
 static std::int32_t WindowQuantity_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -128,16 +128,16 @@ static std::int32_t WindowQuantity_Update(WindowInstance& callbackWindow, const 
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14 = 0;
         WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].userState.callback = nullptr;
         if (auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk); buttonOkElement) buttonOkElement->state = 0;
-        static_cast<void>(WindowQuantity_HandleInput(NativeElementKey(0), 2));
+        static_cast<void>(WindowQuantity_HandleInput(callbackWindow, NativeElementKey(0), 2));
     }
     return 1;
 }
 
 // QVC01：原48A900完整19条；bit2才创建/切换CB0878，窗口持址后发布焦点并重取元素data，返回0。
 // 原函数：0x0048A900。
-static std::int32_t WindowQuantity_HandleInput(const ElementId, const std::int32_t state)
+static std::int32_t WindowQuantity_HandleInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if ((state & MouseFlag_LDownEvent) != 0) {
         static_cast<void>(WindowInput_ActivateElement(&gNumberInputPrototype57DA70, 0, -100, 0));
@@ -154,27 +154,27 @@ static std::int32_t WindowQuantity_HandleInput(const ElementId, const std::int32
 
 // QVC01：原48A950完整83条；低BYTE/参数先窗口取样，两次S32钳回、callback与SE后复读取窗/格式保，返回0/1。
 // 原函数：0x0048A950。
-static std::int32_t WindowQuantity_ButtonOk(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowQuantity_ButtonOk(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     const input::InputContext* const currentInput = input::gCurrentInputData;
     const std::uint8_t flags = reinterpret_cast<const unsigned char*>(
-        &WindowRuntime_States()[WindowId_Quantity].actionFlags1C)[0]
+        &WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].actionFlags1C)[0]
         | (currentInput == &cg::ui::detail::gInputContextCB0878 ? 2u : 0u);
-    const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Quantity].value14);
+    const std::int32_t value14 = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value14);
     WindowInstance* const numericWindow = currentWindow;
     const std::uint8_t numeric = WindowInput_HandleNumber(
         numericWindow, index, state, value14,
         223, gNumberWindowHints57DC9C.data(), flags, 0xFFFFFFFFu);
     WindowInstance* window = currentWindow;
-    std::int32_t maximum = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Quantity].value10);
+    std::int32_t maximum = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10);
     auto* const indexedElement = window->FindElementById(elementId);
     if (indexedElement) {
         if (std::bit_cast<std::int32_t>(indexedElement->state) > maximum) {
             if (auto* const indexedElement2 = window->FindElementById(elementId); indexedElement2) indexedElement2->state = static_cast<std::uint32_t>(maximum);
-            maximum = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Quantity].value10);
+            maximum = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10);
             window = currentWindow;
         }
     }
@@ -190,7 +190,7 @@ static std::int32_t WindowQuantity_ButtonOk(const ElementId elementId, const std
         result = 1;
     }
     if ((numeric & 2u) != 0) {
-        const WindowValueCallback callback = WindowRuntime_States()[WindowId_Quantity].userState.callback;
+        const WindowValueCallback callback = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].userState.callback;
         if (callback != nullptr) {
             auto* const indexedElement2 = window->FindElementById(elementId);
             if (indexedElement2) {
@@ -212,9 +212,9 @@ static std::int32_t WindowQuantity_ButtonOk(const ElementId elementId, const std
 
 // QVC01：原48AA60完整57条；悬停持有graphic，增加先读上限再元素2，原声/三图号优先序保，返回0。
 // 原函数：0x0048AA60。
-static std::int32_t WindowQuantity_ButtonIncrease(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowQuantity_ButtonIncrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -223,7 +223,7 @@ static std::int32_t WindowQuantity_ButtonIncrease(const ElementId elementId, con
         gHoverTextD68AE8 = L"增加显示数量。";
     }
     if ((state & MouseFlag_LDownEvent) != 0) {
-        const std::int32_t maximum = std::bit_cast<std::int32_t>(WindowRuntime_States()[WindowId_Quantity].value10);
+        const std::int32_t maximum = std::bit_cast<std::int32_t>(WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Quantity].value10);
         auto* const buttonOkElement = window->FindElementById(WindowQuantityElementId::ButtonOk);
         if (buttonOkElement) {
             const std::int32_t value = std::bit_cast<std::int32_t>(buttonOkElement->state);
@@ -247,9 +247,9 @@ static std::int32_t WindowQuantity_ButtonIncrease(const ElementId elementId, con
 
 // QVC01：原48AB10完整56条；悬停持有graphic，元素2的S32正值门槛减少，原声/三图号优先序保，返回0。
 // 原函数：0x0048AB10。
-static std::int32_t WindowQuantity_ButtonDecrease(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowQuantity_ButtonDecrease(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);

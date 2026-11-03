@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 #include "../WindowRuntimeInternal.hpp"
@@ -26,10 +27,10 @@ namespace detail {
 static std::int32_t WindowBattlePets_Update(WindowInstance& callbackWindow, std::int32_t unused); // 窗口28归还按钮显隐。
 
 // 原函数：0x0049BA10。
-static std::int32_t WindowBattlePets_ButtonReturn(ElementId elementId, std::int32_t state); // 窗口28宠物归还M|FF。
+static std::int32_t WindowBattlePets_ButtonReturn(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口28宠物归还M|FF。
 
 // 原函数：0x0049BB00。
-static std::int32_t WindowBattlePets_SelectRow(ElementId elementId, std::int32_t state); // 窗口28三条宠物选择行。
+static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口28三条宠物选择行。
 
 // 原函数：0x0049B670。
 static void WindowBattlePets_Refresh(
@@ -76,9 +77,9 @@ static std::int32_t WindowBattlePets_Update(WindowInstance& callbackWindow, cons
 }
 
 // 原函数：0x0049BA10。
-static std::int32_t WindowBattlePets_ButtonReturn(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattlePets_ButtonReturn(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const graphicElement = currentWindow->FindElementById(elementId);
     if (graphicElement) {
@@ -91,7 +92,7 @@ static std::int32_t WindowBattlePets_ButtonReturn(const ElementId elementId, con
             if (world::FindBattlePetIndex_43C4B0() != -1) {
                 std::array<char, 768> buffer;
                 std::sprintf(buffer.data(), "M|%X", 255u);
-                static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
+                static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                 currentWindow->state |= 0x8000u;
                 world::gBattlePlayerActionState5ABC74 = 1;
                 static_cast<void>(audio::PlaySe_52C450(57, 320));
@@ -182,10 +183,10 @@ static void WindowBattlePets_Refresh(
 }
 
 // 原函数：0x0049BB00。
-static std::int32_t WindowBattlePets_SelectRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowBattlePets_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const elementPtr = window->FindElementById(elementId);
@@ -241,7 +242,7 @@ static std::int32_t WindowBattlePets_SelectRow(const ElementId elementId, const 
                     } else {
                         std::array<char, 768> buffer;
                         std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
-                        static_cast<void>(cg::network::GetGameConnection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
+                        static_cast<void>(callbackWindow.ownerSession->Connection().SendBattlePacket(cg::text::FromGbkWide(buffer.data())));
                         currentWindow->state |= 0x8000u;
                         world::gBattlePlayerActionState5ABC74 = 1;
                         static_cast<void>(audio::PlaySe_52C450(57, 320));

@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "cg/network/CgConnection.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/audio/LegacyAudio.hpp"
@@ -58,7 +59,7 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00475E00。
-static std::int32_t WindowPlayerAttributes_HandleButtons(ElementId elementId, std::int32_t state); // 窗口8入口六值快照、加点及切页。
+static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口8入口六值快照、加点及切页。
 
 // 原函数：0x00474360。
 static void WindowPlayerAttributes_Release(WindowInstance&);
@@ -255,10 +256,10 @@ WindowPrototype gWindowPrototypePlayerAttributes {0, 4, 15, 97, 315, 261, 0x8000
 
 // 原475E00：先按原顺序采样六值，连默认分支也计算门槛；区别于4767E0重读。
 // 原函数：0x00475E00。
-static std::int32_t WindowPlayerAttributes_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowPlayerAttributes_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::array<std::int32_t, 6> values;
     values[1] = world::gPlayerRuntimeSlots.values78[static_cast<std::int32_t>(1)];
@@ -287,7 +288,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const ElementId element
             }
             if ((state & MouseFlag_LDownEvent) != 0) {
                 if (values[index - 29] < limit) {
-                    static_cast<void>(cg::network::GetGameConnection().IncreasePlayerAttributeRequest(index - 29));
+                    static_cast<void>(callbackWindow.ownerSession->Connection().IncreasePlayerAttributeRequest(index - 29));
                     static_cast<void>(audio::PlaySe_52C450(78, 320));
                 }
                 return 1;
@@ -314,7 +315,7 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const ElementId element
         hint = L"切换成玩家称号视窗。";
         break;
     case WindowPlayerAttributesElementId::HandleButtons_39:
-        if (network::GetGameConnection().PukVersion() < 8u) {
+        if (callbackWindow.ownerSession->Connection().PukVersion() < 8u) {
             auto* const indexedElement = currentWindow->FindElementById(elementId);
             if (indexedElement) {
                 indexedElement->data.graphic->imageNo =
@@ -341,14 +342,14 @@ static std::int32_t WindowPlayerAttributes_HandleButtons(const ElementId element
         } else {
             graphic->imageNo = idleImage;
         }
-        if ((state & MouseFlag_LDownEvent) != 0 && WindowRuntime_States()[targetWindow].window == nullptr) {
+        if ((state & MouseFlag_LDownEvent) != 0 && WindowRuntime_States(*callbackWindow.ownerSession)[targetWindow].window == nullptr) {
             currentWindow->state |= 0x8000u;
-            static_cast<void>(WindowRuntime_Open(targetWindow));
+            static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, targetWindow));
             WindowInstance* const xSource = currentWindow;
-            WindowInstance* const xTarget = WindowRuntime_States()[targetWindow].window;
+            WindowInstance* const xTarget = WindowRuntime_States(*callbackWindow.ownerSession)[targetWindow].window;
             xTarget->x = xSource->x;
             WindowInstance* const ySource = currentWindow;
-            WindowInstance* const yTarget = WindowRuntime_States()[targetWindow].window;
+            WindowInstance* const yTarget = WindowRuntime_States(*callbackWindow.ownerSession)[targetWindow].window;
             yTarget->y = ySource->y;
             static_cast<void>(audio::PlaySe_52C450(56, 320));
             WindowRuntime_QueuePagePresentation(*currentWindow, *yTarget);

@@ -92,10 +92,10 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00499880。
-static std::int32_t WindowRuntime_ButtonCloseResult(ElementId elementId, std::int32_t state); // 结果窗关闭按钮，固定入口图形载荷。
+static std::int32_t WindowRuntime_ButtonCloseResult(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 结果窗关闭按钮，固定入口图形载荷。
 
 // 原函数：0x00499750。
-static std::int32_t WindowBattleResult_ButtonClose(ElementId elementId, std::int32_t state); // 窗口30点击关闭，索引未使用。
+static std::int32_t WindowBattleResult_ButtonClose(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 窗口30点击关闭，索引未使用。
 
 // 原函数：0x004991C0。
 static std::int32_t WindowBattleResult_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -229,9 +229,9 @@ WindowPrototype gWindowPrototypeDpResult {3, 3, 245, 170, 150, 140, 0x80010101u,
 // 窗口函数实现。
 
 // 原函数：0x00499880。
-static std::int32_t WindowRuntime_ButtonCloseResult(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowRuntime_ButtonCloseResult(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
     auto* const graphicElement = window->FindElementById(elementId);
@@ -408,9 +408,9 @@ static std::int32_t WindowBattleResult_Draw(WindowInstance& callbackWindow, cons
 }
 
 // 原函数：0x00499750。
-static std::int32_t WindowBattleResult_ButtonClose(const ElementId, const std::int32_t state)
+static std::int32_t WindowBattleResult_ButtonClose(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = (state & MouseFlag_Hover) != 0 ? 1 : 0;
     if ((state & MouseFlag_LDownEvent) != 0) {

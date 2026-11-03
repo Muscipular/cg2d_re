@@ -1,3 +1,4 @@
+#include "cg/session/ClientSession.hpp"
 #include "../WindowRuntimeInternal.hpp"
 #include "cg/audio/LegacyAudio.hpp"
 #include "../../world/MailState.hpp"
@@ -48,7 +49,7 @@ static std::uint32_t WindowProfileView_Refresh(); // 四图号、八资料文本
 static void WindowProfileView_Release(WindowInstance&); // 先清对话类型，再标记关联窗口63。
 
 // 原函数：0x004CB2F0。
-static std::int32_t WindowProfileView_ButtonMail(ElementId elementId, std::int32_t state); // 查看资料发信，先金额门禁再打开63。
+static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 查看资料发信，先金额门禁再打开63。
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -214,9 +215,9 @@ static void WindowProfileView_Release(WindowInstance& releasedWindow)
 }
 
 // 原函数：0x004CB2F0。
-static std::int32_t WindowProfileView_ButtonMail(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowProfileView_ButtonMail(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (elementId != static_cast<ElementId>(WindowProfileViewElementId::ButtonMail)) {
         return 0;
@@ -238,7 +239,7 @@ static std::int32_t WindowProfileView_ButtonMail(const ElementId elementId, cons
             gMiniMailCompose105F508.target = profile.value00;
             gMiniMailCompose105F508.name = profile.text08;
             gMiniMailCompose105F508.text104.clear();
-            static_cast<void>(WindowRuntime_Open(WindowId_MiniMail));
+            static_cast<void>(WindowRuntime_Open(*callbackWindow.ownerSession, WindowId_MiniMail));
             static_cast<void>(audio::PlaySe_52C450(51, 320));
         } else {
             static_cast<void>(audio::PlaySe_52C450(55, 320));

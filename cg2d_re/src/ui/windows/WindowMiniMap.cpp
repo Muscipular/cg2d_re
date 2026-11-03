@@ -23,21 +23,21 @@ namespace detail {
 // 回调与内部函数前置声明。
 
 // 原函数：0x00495E10。
-static std::int32_t WindowMiniMap_DrawMap(ElementId elementId, std::int32_t unused); // 小地图按窗口/元素坐标入既有绘制队列。
+static std::int32_t WindowMiniMap_DrawMap(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unused); // 小地图按窗口/元素坐标入既有绘制队列。
 
 // 原函数：0x00495E60。
-static std::int32_t WindowMiniMap_RefreshPlayerX(ElementId elementId, std::int32_t unused); // 固定文本实例，门禁后刷新玩家X。
+static std::int32_t WindowMiniMap_RefreshPlayerX(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unused); // 固定文本实例，门禁后刷新玩家X。
 
 // 原函数：0x00495EB0。
-static std::int32_t WindowMiniMap_RefreshPlayerY(ElementId elementId, std::int32_t unused); // 固定文本实例，门禁后刷新玩家Y。
+static std::int32_t WindowMiniMap_RefreshPlayerY(WindowInstance& callbackWindow, ElementId elementId, std::int32_t unused); // 固定文本实例，门禁后刷新玩家Y。
 
 // 原函数：0x00495D70。
 static std::int32_t WindowMiniMap_Update(WindowInstance& callbackWindow, std::int32_t value);
 
 // BMUI01：唯一大地图入口，复用属性加点按钮的普通/悬停图态。
-static std::int32_t WindowMiniMap_OpenBigMap(ElementId elementId, std::int32_t events)
+static std::int32_t WindowMiniMap_OpenBigMap(WindowInstance& callbackWindow, ElementId elementId, std::int32_t events)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const element = currentWindow->FindElementById(elementId);
     if (!element) return 0;
@@ -116,9 +116,9 @@ static std::int32_t WindowMiniMap_Update(WindowInstance& callbackWindow, const s
 }
 
 // 原函数：0x00495E10。
-static std::int32_t WindowMiniMap_DrawMap(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowMiniMap_DrawMap(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (world::IsObservationSceneTransitionActive_440B50() != 0) {
         return 0;
@@ -136,9 +136,9 @@ static std::int32_t WindowMiniMap_DrawMap(const ElementId elementId, const std::
 }
 
 // 原函数：0x00495E60。
-static std::int32_t WindowMiniMap_RefreshPlayerX(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowMiniMap_RefreshPlayerX(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const element = currentWindow->FindElementById(elementId);
     if (!element) return 0;
@@ -154,9 +154,9 @@ static std::int32_t WindowMiniMap_RefreshPlayerX(const ElementId elementId, cons
 }
 
 // 原函数：0x00495EB0。
-static std::int32_t WindowMiniMap_RefreshPlayerY(const ElementId elementId, const std::int32_t)
+static std::int32_t WindowMiniMap_RefreshPlayerY(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto* const element = currentWindow->FindElementById(elementId);
     if (!element) return 0;

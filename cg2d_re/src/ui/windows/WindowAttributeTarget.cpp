@@ -57,13 +57,13 @@ static std::int32_t WindowAttributeTarget_Update(WindowInstance& callbackWindow,
 static void WindowAttributeTarget_Refresh(std::int32_t offset); // 六行名称/等级/HP/FP及伤势图标。
 
 // 原函数：0x0049FA40。
-static std::int32_t WindowAttributeTarget_ButtonCancel(ElementId elementId, std::int32_t state);
+static std::int32_t WindowAttributeTarget_ButtonCancel(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049FB00。
-static std::int32_t WindowAttributeTarget_ButtonBack(ElementId elementId, std::int32_t state);
+static std::int32_t WindowAttributeTarget_ButtonBack(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 原函数：0x0049FBC0。
-static std::int32_t WindowAttributeTarget_SelectRow(ElementId elementId, std::int32_t state);
+static std::int32_t WindowAttributeTarget_SelectRow(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state);
 
 // 控件载荷、窗口状态、组件表与原型。
 
@@ -238,9 +238,9 @@ static void WindowAttributeTarget_Refresh(const std::int32_t offset)
 }
 
 // 原函数：0x0049FA40。
-static std::int32_t WindowAttributeTarget_ButtonCancel(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAttributeTarget_ButtonCancel(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.attributeTarget;
@@ -277,9 +277,9 @@ static std::int32_t WindowAttributeTarget_ButtonCancel(const ElementId elementId
 }
 
 // 原函数：0x0049FB00。
-static std::int32_t WindowAttributeTarget_ButtonBack(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAttributeTarget_ButtonBack(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.attributeTarget;
@@ -316,10 +316,10 @@ static std::int32_t WindowAttributeTarget_ButtonBack(const ElementId elementId, 
 }
 
 // 原函数：0x0049FBC0。
-static std::int32_t WindowAttributeTarget_SelectRow(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAttributeTarget_SelectRow(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
     const std::int32_t index = static_cast<std::int32_t>(elementId) - 1; // 原生业务索引，独立于元素排序。
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     auto& session = *currentWindow->ownerSession;
     auto& choice = session.UiFrame().native.attributeTarget;

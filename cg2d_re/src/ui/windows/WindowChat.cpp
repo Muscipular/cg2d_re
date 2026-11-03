@@ -51,14 +51,14 @@ static void WindowInput_ScrollAndDraw(input::InputContext* const context, const 
 
 // CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A6EA0。
-static std::int32_t WindowChat_HandleInput(ElementId elementId, std::int32_t state); // 共用聊天点击，焦点取35槽、上下文写当前窗。
+static std::int32_t WindowChat_HandleInput(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 共用聊天点击，焦点取35槽、上下文写当前窗。
 
 // 原函数：0x004A80F0。
-static std::int32_t WindowChat_DragScroll(ElementId elementId, std::int32_t state); // WSP01：日志数量前后分别取样，返回滚动结果。
+static std::int32_t WindowChat_DragScroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // WSP01：日志数量前后分别取样，返回滚动结果。
 
 // CFD01：首窗口滚轮按原门槛和调用后新count发布scroll，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A81D0。
-static std::int32_t WindowChat_Scroll(ElementId elementId, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
+static std::int32_t WindowChat_Scroll(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
 
 // 原函数：0x004A7C40。
 static void WindowChat_RefreshGeometry(); // 窗口35宽高循环与完整几何，见window_35.md。 // CWP01：见聊天几何生产完整合同。
@@ -67,7 +67,7 @@ static void WindowChat_RefreshGeometry(); // 窗口35宽高循环与完整几何
 static void WindowChat_SyncScrollThumb(); // 查显示中的35，按回看比例更新滑块。 // CWC01：见聊天窗口控制完整合同。
 
 // 原函数：0x004A6FC0。
-static std::int32_t WindowChat_HandleButtons(ElementId elementId, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。 // CWC01：见聊天窗口控制完整合同。
+static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 聊天宽高、范围、字体、颜色与翻页。 // CWC01：见聊天窗口控制完整合同。
 
 // 原函数：0x004A7700。
 static std::int32_t WindowChat_ResetScroll(); // 不清日志正文或写指针。
@@ -479,9 +479,9 @@ static std::int32_t WindowChat_Update(WindowInstance& callbackWindow, const std:
 
 // CWC01：原三个hover窗口/元素及scroll→count取样，按钮/SE/发布和返回序保持。
 // 原函数：0x004A6FC0。
-static std::int32_t WindowChat_HandleButtons(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowChat_HandleButtons(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (input::gChatPanelVisible_C9A96C == 0) {
         return 0;
@@ -697,9 +697,9 @@ static std::int32_t WindowChat_HandleButtons(const ElementId elementId, const st
 
 // CFD01：聊天点击创建与35槽焦点/当前窗context分离，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A6EA0。
-static std::int32_t WindowChat_HandleInput(const ElementId, const std::int32_t state)
+static std::int32_t WindowChat_HandleInput(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     if (input::gChatPanelVisible_C9A96C == 0) {
         return 0;
@@ -731,7 +731,7 @@ static std::int32_t WindowChat_HandleInput(const ElementId, const std::int32_t s
                 }
             }
         }
-        auto* focusedElementsWindow = WindowRuntime_States()[WindowId_Chat].window;
+        auto* focusedElementsWindow = WindowRuntime_States(*callbackWindow.ownerSession)[WindowId_Chat].window;
         WindowInstance* const current = currentWindow;
         auto* const handleInputElement = focusedElementsWindow ? focusedElementsWindow->FindElementById(WindowChatElementId::HandleInput) : nullptr;
         if (handleInputElement) {
@@ -791,11 +791,11 @@ static std::int32_t WindowChat_Draw(WindowInstance& callbackWindow, const std::i
 
 // WSP01：原state bit3控制日志位置换算，换算后重读count；仍返回滚动原结果。
 // 原函数：0x004A80F0。
-static std::int32_t WindowChat_DragScroll(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowChat_DragScroll(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
-    const std::int32_t consumed = WindowElement_HandleVerticalScroll(elementId, state);
+    const std::int32_t consumed = WindowElement_HandleVerticalScroll(callbackWindow, elementId, state);
     if ((state & MouseFlag_LHoldPhysical) != 0) {
         WindowInstance* const window = currentWindow;
         const std::int32_t count = world::gChatRecordCount_C9A944;
@@ -810,12 +810,12 @@ static std::int32_t WindowChat_DragScroll(const ElementId elementId, const std::
 
 // CFD01：首窗口滚轮按原门槛和调用后新count发布scroll，正文保持；见doc/cg2d_chat_focus_wheel_draw_spec.md。
 // 原函数：0x004A81D0。
-static std::int32_t WindowChat_Scroll(const ElementId, const std::int32_t state)
+static std::int32_t WindowChat_Scroll(WindowInstance& callbackWindow, const ElementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     WindowInstance* const window = currentWindow;
-    if (window != WindowRuntime_Windows()[WindowId_None] || (state & (MouseFlag_Hover | MouseFlag_Dragging)) == 0) {
+    if (window != WindowRuntime_Windows(*callbackWindow.ownerSession)[WindowId_None] || (state & (MouseFlag_Hover | MouseFlag_Dragging)) == 0) {
         return 0;
     }
     const std::int32_t count = world::gChatRecordCount_C9A944;

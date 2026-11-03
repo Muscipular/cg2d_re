@@ -48,7 +48,7 @@ static void WindowAdventureLog_Refresh(); // 窗口66原字节分行/十四行�
 static void WindowAdventureLog_Load(); // 日志文件重开/计数，保留原双关闭槽语义，见window_66.md。
 
 // 原函数：0x004CBDB0。
-static std::int32_t WindowAdventureLog_HandleNavigation(ElementId elementId, std::int32_t state); // 上下翻与原非标准日期前后切换。
+static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callbackWindow, ElementId elementId, std::int32_t state); // 上下翻与原非标准日期前后切换。
 
 // 原函数：0x004CBD90。
 static std::int32_t WindowAdventureLog_Update(WindowInstance& callbackWindow, std::int32_t value);
@@ -239,9 +239,9 @@ static std::int32_t WindowAdventureLog_Update(WindowInstance& callbackWindow, co
 }
 
 // 原函数：0x004CBDB0。
-static std::int32_t WindowAdventureLog_HandleNavigation(const ElementId elementId, const std::int32_t state)
+static std::int32_t WindowAdventureLog_HandleNavigation(WindowInstance& callbackWindow, const ElementId elementId, const std::int32_t state)
 {
-    WindowInstance* const currentWindow = gCurrentWindow;
+    WindowInstance* const currentWindow = &callbackWindow;
     if (!currentWindow) return 0;
     std::int32_t consumed = 0;
     switch (static_cast<WindowAdventureLogElementId>(elementId)) {

@@ -76,8 +76,6 @@ namespace cg::world {
 // 原 [C8A7B0,C8A940) 的 100 项 W32 表；C8A940 是独立消费游标。
 static std::array<std::int32_t, 100> gRotationTableC8A7B0 {}; // 原全局：0x00C8A7B0。
 static std::int32_t gRotationCursorC8A940 = 0; // 原全局：0x00C8A940。
-static std::int32_t gWorldSceneInitialized_FF0D50 = 0; // 原全局：0x00FF0D50。 原普通场景初始化标志，11分支只认恰1。
-static std::int32_t gWorldSceneWaitFrames_FF0D54 = 0; // 原全局：0x00FF0D54。 原普通场景等待帧数，门槛按S32比较。
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
     std::vector<float> speedFF0FA8 = std::vector<float>(481, 0.0f); // 原全局：0x00FF0FA8。
@@ -3599,7 +3597,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     switch (gCurrentSceneState) {
     case 0:
         gCurrentSceneState = 100;
-        gWorldSceneInitialized_FF0D50 = 0;
+        worldScene.normalSceneInitialized = 0;
         gBattleEntryPending_5ABFC4 = 0;
         [[fallthrough]];
     case 100:
@@ -3620,13 +3618,13 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         }
         [[fallthrough]];
     case 102:
-        gWorldSceneWaitFrames_FF0D54 = 0;
+        worldScene.normalSceneWaitFrames = 0;
         gCurrentSceneState = 104;
         return;
     case 104: {
         ApplyPendingMapPaletteReply_51D6F0();
         UpdateDayPeriodPaletteAndTimers_458F00();
-        if (gWorldSceneWaitFrames_FF0D54 < 5) {
+        if (worldScene.normalSceneWaitFrames < 5) {
             goto waitFrame;
         }
         platform::gPendingGraphicCount = 0;
@@ -3674,7 +3672,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
     case 103:
         platform::gFrameBackgroundMode_73ECC0 = 2;
         if (ProcessSceneTransitionEffect_51FDE0(15, 8, 0x40000000u) == 1) {
-            gWorldSceneInitialized_FF0D50 = 1;
+            worldScene.normalSceneInitialized = 1;
             gMapNoticeStartTick_62B5B0 = platform::ReadTickCount64();
             gCurrentSceneState = 20;
         }
@@ -3706,13 +3704,13 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         gMapTransitionReplyPending_C82210 = 0;
         [[fallthrough]];
     case 203:
-        gWorldSceneWaitFrames_FF0D54 = 0;
+        worldScene.normalSceneWaitFrames = 0;
         gCurrentSceneState = 205;
         return;
     case 205: {
         ApplyPendingMapPaletteReply_51D6F0();
         UpdateDayPeriodPaletteAndTimers_458F00();
-        if (gWorldSceneWaitFrames_FF0D54 < 5) {
+        if (worldScene.normalSceneWaitFrames < 5) {
             goto waitFrame;
         }
         render::ClearSurfaceTransformCache_44D490();
@@ -3871,13 +3869,13 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         return;
     }
     case 1:
-        gWorldSceneWaitFrames_FF0D54 = 0;
+        worldScene.normalSceneWaitFrames = 0;
         gCurrentSceneState = 11;
         return;
     case 11: {
         ApplyPendingMapPaletteReply_51D6F0();
         UpdateDayPeriodPaletteAndTimers_458F00();
-        if (gWorldSceneWaitFrames_FF0D54 < 30) {
+        if (worldScene.normalSceneWaitFrames < 30) {
             goto waitFrame;
         }
         gCurrentSceneState = 1;
@@ -3888,7 +3886,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
         ui::WindowRuntime_ProcessScene();
         cg::yobi::ResetObservationGroupList_43F220();
         static_cast<void>(UpdateUnreadMailPageHint_518DA0());
-        if (gWorldSceneInitialized_FF0D50 == 1) {
+        if (worldScene.normalSceneInitialized == 1) {
             platform::gPendingGraphicCount = 0;
             platform::gPendingGraphicCount2 = 0;
             static_cast<void>(render::ResetGraphicCache_456D30());
@@ -3952,7 +3950,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
             static_cast<void>(ProcessSceneTransitionEffect_51FDE0(selector, 8, 0x40000000u));
         } else {
             const std::int32_t state = gCurrentSceneState;
-            gWorldSceneInitialized_FF0D50 = 1;
+            worldScene.normalSceneInitialized = 1;
             gCurrentSceneState = state + 1;
         }
         input::ProcessKeyInput_4596D0();
@@ -4053,7 +4051,7 @@ void DrawNormalScene_51C7D0(session::ClientSession& session)
 
 waitFrame:
     static_cast<void>(render::ClearSurface_4512C0());
-    ++gWorldSceneWaitFrames_FF0D54;
+    ++worldScene.normalSceneWaitFrames;
     return;
 
 // 原函数：0x004596D0。

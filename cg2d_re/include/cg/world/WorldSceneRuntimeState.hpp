@@ -43,6 +43,8 @@ struct WorldSceneRuntimeState {
     std::uint32_t pendingMapBgmIndex = 0; // 原 0xFF0D5C，地图回复生产、普通场景消费。
     std::uint32_t mapBgmChangePending = 0; // 原 0xFF0D58。
     std::int32_t worldBgmResumeIndex = 0; // 原 0xFF0D68，普通场景恢复号。
+    std::int32_t normalSceneInitialized = 0; // 原 0xFF0D50，普通场景初始化门禁。
+    std::int32_t normalSceneWaitFrames = 0; // 原 0xFF0D54，普通场景等待帧数。
 };
 
 } // namespace cg::world
